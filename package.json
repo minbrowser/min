@@ -1,0 +1,9 @@
+{
+  "name": "your-app",
+  "version": "0.1.0",
+  "main": "main.js",
+  "dependencies": {
+    "jquery": "^2.1.4",
+    "mousetrap": "^1.5.3"
+  }
+}

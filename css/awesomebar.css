@@ -1,0 +1,114 @@
+#awesomebar {
+	z-index: 99;
+	position: fixed;
+	top: 2.3333em;
+	left: 0;
+	width: 100%;
+	background: #fff;
+	color: #000;
+	padding-left: 75px;
+	padding-right: 40px;
+	/* align with window controls */
+	-webkit-user-select: none;
+}
+#awesomebar .result-item {
+	width: 100%;
+	display: block;
+	padding: 0.5em;
+}
+#awesomebar .result-item .title {
+	display: inline-block;
+	vertical-align: middle;
+	max-height: 1.1em;
+	max-width: 40%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+#awesomebar .result-item i {
+	opacity: 0.75;
+	margin-right: 0.75em;
+	font-size: 0.8em;
+	vertical-align: text-bottom;
+}
+
+/* clear floats */
+
+#awesomebar .result-item:after {
+	content: "";
+	clear: both;
+	display: block;
+}
+#awesomebar .result-item:focus {
+	background-color: rgba(0, 0, 0, 0.12);
+	outline: none;
+}
+.dark-theme #awesomebar .result-item:focus {
+	background-color: rgba(255, 255, 255, 0.12);
+}
+#awesomebar .result-icon {
+	height: 2.75em;
+	margin: 0.25em 0.5em 0.5em 0;
+	float: left;
+}
+#awesomebar img.result-icon {
+	background: rgba(255, 255, 255, 0.5);
+}
+#awesomebar .result-icon.inline {
+	height: 1em;
+	vertical-align: middle;
+	float: initial;
+	vertical-align: middle;
+}
+#awesomebar .result-item .secondary-text .md-info {
+	opacity: 0.70;
+	font-size: inherit;
+	padding: 0.1em;
+}
+#awesomebar .result-item .secondary-text .md-info:first-child {
+	padding-left: 0;
+}
+#awesomebar .result-item .secondary-text .md-info:last-of-type {
+	padding-right: 0.5em;
+}
+#awesomebar .result-item .secondary-text .md-info + .md-info:before {
+	content: " - ";
+}
+#awesomebar .result-item .secondary-text {
+	display: inline-block;
+	opacity: 0.75;
+	font-size: 0.9em;
+	overflow: hidden;
+	vertical-align: middle;
+	/* TODO find a better way to center this */
+	padding-bottom: 1.154em;
+	padding-left: 1em;
+	max-width: 55%;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	height: 1em;
+}
+
+/* switch to a two-line layout */
+
+@media all and (max-width: 650px) {
+	#awesomebar .result-item .title {
+		max-width: calc(100% - 50px);
+	}
+	#awesomebar .result-item .secondary-text {
+		display: block;
+		max-width: 100%;
+		padding-top: 0.1em;
+		padding-left: 1.5em;
+	}
+}
+#awesomebar .result-item .description-block {
+	display: block;
+	max-height: 2.2em;
+	overflow: hidden;
+	opacity: 0.75;
+	font-size: 0.8em;
+}
+body.awesomebar-shown webview {
+	opacity: 0.6;
+}

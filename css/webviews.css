@@ -1,0 +1,14 @@
+#webviews {
+	height: calc(100vh - 2.25em);
+}
+#webviews webview {
+	height: 100%;
+	width: 100%;
+	display: block;
+}
+
+/* hack to work around display: none issues with webviews */
+
+#webviews webview.hidden {
+	visibility: hidden;
+}

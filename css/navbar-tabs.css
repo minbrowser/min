@@ -1,0 +1,110 @@
+.tab-group {
+	/* make room for the window controls */
+	padding-left: 75px;
+	background: #eee;
+	display: flex;
+	height: 2.3333em;
+	align-items: center;
+	transition: 0.2s background-color;
+	max-width: 100vw;
+	-webkit-user-select: none;
+}
+.tab-group #tabs {
+	display: flex;
+	overflow: auto;
+}
+.tab-group .tab-item {
+	flex: 1;
+	min-width: 125px;
+	transition: .15s min-width;
+	padding: 0 0.5em;
+	font-size: 0.8em;
+	line-height: 36px;
+	height: 36px;
+	word-wrap: break-word;
+	overflow: hidden;
+}
+
+/* icons */
+
+.tab-group .tab-item i {
+	font-size: 0.8em;
+	padding: 0.9em;
+	vertical-align: middle;
+}
+.tab-group .tab-item i + i {
+	padding-left: 0
+}
+.tab-group .tab-item.active {
+	background: rgba(255, 255, 255, 0.2);
+}
+.tab-group .tab-item.selected {
+	min-width: 100%;
+	/*background: rgba(255, 255, 255, 0.9); */
+}
+.tab-group .tab-item.fade {
+	opacity: 0.5;
+}
+
+/* when an input is selected, hide other tabs */
+
+.tab-group #tabs.has-selected-tab .tab-item:not(.selected) {
+	min-width: 0;
+	max-width: 0;
+	width: 0;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+/* show either the view or edit contents */
+
+.tab-group .tab-item .tab-edit-contents {
+	display: none;
+}
+.tab-group .tab-item.selected .tab-edit-contents {
+	display: flex;
+	height: 100%;
+	align-items: center;
+}
+.tab-group .tab-item.selected .tab-view-contents {
+	display: none;
+}
+
+/* tab inputs */
+
+.tab-group .tab-item .tab-input {
+	line-height: 1.2em;
+	font-size: 1.2em;
+	-webkit-appearance: none;
+	background: none;
+	border: none;
+	flex: 1;
+	height: 1.5em;
+	outline: none;
+	transition: 0.2s color, 0.2s background-color;
+	-webkit-user-select: auto;
+}
+
+/* buttons */
+
+.tab-group .tab-item i {
+	cursor: pointer;
+}
+.add-tab {
+	padding: 0.5em;
+	font-size: 1.1em;
+}
+
+/* reader button */
+
+.reader-button {
+	float: right;
+	display: none !important;
+}
+.tab-item.active .reader-button.can-reader {
+	display: block !important;
+}
+.tab-item.active .reader-button.is-reader {
+	display: block !important;
+}

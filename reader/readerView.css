@@ -1,0 +1,174 @@
+#backtoarticle {
+	padding: 0 2.5em;
+	color: dodgerblue;
+	max-width: 1000px;
+	margin: auto;
+	display: block;
+	box-sizing: border-box;
+	margin-top: 2em;
+	font-size: 1.1em;
+	cursor: pointer;
+}
+#backtoarticle i {
+	vertical-align: baseline;
+	margin-right: 0.25em;
+	font-size: 1.1em;
+}
+body,
+html {
+	padding: 0;
+	margin: 0;
+}
+iframe {
+	display: none;
+}
+iframe.reader-frame {
+	display: block;
+	width: 100%;
+	/* height is set in js */
+	border: 0;
+}
+.reader-main {
+	padding-top: 1em;
+	max-width: 1000px;
+	display: block;
+	margin: auto;
+}
+.reader-main > * {
+	font-size: 16px;
+}
+* {
+	font-family: ".SFNSText-Regular";
+}
+
+/* actual reader content */
+
+.visually-hidden {
+	display: none;
+}
+h1.article-title {
+	padding: 0.5em 1em;
+	margin-top: 0.5em;
+	margin: 0;
+	font-size: 2.5em;
+	font-weight: 500;
+}
+h2.article-authors {
+	padding: 0 2.5rem;
+	font-size: 1.25em;
+	font-weight: 400;
+	margin: 0;
+	font-style: italic;
+}
+
+/* small windows */
+
+@media all and (max-width: 600px) {
+	h1.article-title {
+		font-size: 2em;
+	}
+	h2.article-authors {
+		font-size: 1.1em;
+	}
+}
+h1,
+h2 {
+	font-weight: inherit;
+}
+h3,
+h4 {
+	padding: 0.5em 0;
+	margin-top: 0.5em;
+	margin: 0;
+	font-size: 1.4em;
+	font-weight: 500;
+}
+h4 {
+	font-size: 1.25em;
+	font-weight: 600;
+}
+.page {
+	padding: 2.25rem;
+}
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	margin: auto;
+}
+p {
+	line-height: 1.5em;
+}
+p,
+ul li,
+ol li {
+	font-size: 1.2rem;
+}
+ul li,
+ol li {
+	padding: 0.25rem 0;
+}
+a {
+	text-decoration: none;
+	color: inherit;
+	font-size: 1em;
+	pointer-events: none;
+}
+figure {
+	max-width: 50%;
+	float: right;
+}
+@media all and (max-width: 600px) {
+	figure {
+		max-width: 100%;
+		float: initial;
+		margin: 0;
+	}
+}
+figure figcaption {
+	padding-top: 1em;
+}
+pre,
+pre *,
+code,
+code * {
+	font-family: monospace;
+}
+blockquote {
+	border-left: 1px currentColor solid;
+	padding-left: 0.5em;
+	font-size: 1.25em;
+	margin: 1em 0;
+}
+
+/* site-specific styles */
+
+
+/* nytimes.com */
+
+.lede-container {
+	display: none;
+}
+figure figcaption .credit {
+	display: block;
+	font-style: italic;
+}
+
+/* wikipedia (and others?) */
+
+.mw-editsection {
+	display: none;
+}
+
+/* wsj */
+
+dd {
+	display: block;
+	padding: 1em 0;
+}
+
+/* arstechnica.com */
+
+#masthead > #primary {
+	display: none;
+}

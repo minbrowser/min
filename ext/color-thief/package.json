@@ -1,0 +1,44 @@
+{
+  "name": "color-thief",
+  "version": "2.0.1",
+  "private": true,
+  "author": {
+    "name": "Lokesh Dhakar",
+    "email": "lokesh.dhakar@gmail.com",
+    "url": "http://lokeshdhakar.com/"
+  },
+  "description": "Get the dominant color or color palette from an image.",
+  "keywords": [
+    "color",
+    "palette",
+    "sampling",
+    "image",
+    "picture",
+    "photo",
+    "canvas"
+  ],
+  "homepage": "http://lokeshdhakar.com/projects/color-thief/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lokesh/color-thief.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lokesh/color-thief/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://raw.githubusercontent.com/lokesh/color-thief/master/LICENSE/"
+    }
+  ],
+  "main": "dist/color-thief.min.js",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-compass": "^0.7.2",
+    "grunt-contrib-watch": "^0.5.3",
+    "grunt-contrib-connect": "^0.7.1",
+    "grunt-ftp-deploy": "^0.1.1",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-jshint": "~0.9.2"
+  }
+}

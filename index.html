@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Browser</title>
+
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/navbar-tabs.css" />
+	<link rel="stylesheet" href="css/webviews.css" />
+	<link rel="stylesheet" href="css/awesomebar.css" />
+	<link rel="stylesheet" href="ext/font-awesome-4.4.0/css/font-awesome.min.css" />
+	<script>
+		window.$ = window.jQuery = require("jquery");
+		window.ipc = require("ipc");
+
+	</script>
+</head>
+
+<body>
+
+	<div class="tab-group theme-background-color">
+		<div id="tabs" style="width: calc(100% - 40px)">
+		</div>
+		<i class="add-tab theme-text-color fa fa-plus" onclick="addTab()" title="New Tab"></i>
+	</div>
+
+	<div class="theme-background-color theme-text-color" id="awesomebar">
+		<div class="bookmark-results"></div>
+		<div class="history-results"></div>
+		<div class="instant-answer-results"></div>
+		<div class="search-engine-results"></div>
+	</div>
+
+	<div id="webviews"></div>
+
+	<!-- findinpage ui -->
+
+	<div id="findinpage-bar" hidden class="theme-background-color theme-text-color">
+		<i class="fa fa-search icon"></i>
+		<input class="findinpage-input moustrap" placeholder="Search in Page" />
+	</div>
+
+	<!-- scripts -->
+
+	<script src="ext/color-thief/dist/color-thief.min.js"></script>
+	<script src="js/urlParser.js"></script>
+	<script src="js/tabcolor.js"></script>
+
+	<script src="js/webview-menu.js"></script>
+
+	<script src="js/api_wrapper.js"></script>
+	<script src="js/awesomebar.js"></script>
+	<script src="js/webviews.js"></script>
+	<script src="js/readerview.js"></script>
+	<script src="js/tabState.js"></script>
+	<script src="js/bookmarkshistory.js"></script>
+	<script src="js/tabActivity.js"></script>
+	<script src="js/navbar-tabs.js"></script>
+
+	<script src="js/keybindings.js"></script>
+	<script src="js/fileDownloadManager.js"></script>
+
+	<script src="js/findinpage.js"></script>
+	<link rel="stylesheet" href="css/findinpage.css" />
+
+</body>
+
+</html>

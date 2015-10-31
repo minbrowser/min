@@ -1,0 +1,30 @@
+#findinpage-bar {
+	width: 100%;
+	display: flex;
+	position: absolute;
+	top: 36px;
+	left: 0;
+	box-shadow: 0px 3px 3px 0px rgba(20, 20, 20, 0.25);
+	align-items: center;
+}
+#findinpage-bar .findinpage-input {
+	padding: 0.5em;
+	flex: 1;
+	-webkit-appearance: none;
+	appearance: none;
+	outline: none;
+	border: 0;
+	font-size: 1.25em;
+	background: inherit;
+	color: inherit;
+}
+#findinpage-bar .findinpage-input::-webkit-input-placeholder {
+	opacity: 0.75;
+	color: inherit;
+}
+#findinpage-bar .icon {
+	opacity: 0.5;
+	font-size: 1em;
+	padding-left: 0.5em;
+	margin-top: -2px;
+}
