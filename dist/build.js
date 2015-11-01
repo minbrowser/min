@@ -746,6 +746,28 @@ var webviewMenu = {
 					});
 				}
 			}));
+
+			//if the current tab isn't private, we want to provide an option to open the link in a private tab
+
+			if (!tab.private) {
+				menu.append(new MenuItem({
+					label: 'Open in New Private Tab',
+					click: function () {
+						var newTab = tabs.add({
+							url: IPCdata.src,
+							private: true,
+						})
+						addTab(newTab, {
+							focus: false,
+						});
+					}
+				}));
+			}
+
+			menu.append(new MenuItem({
+				type: "separator"
+			}));
+
 			menu.append(new MenuItem({
 				label: 'Copy link',
 				click: function () {
@@ -761,6 +783,11 @@ var webviewMenu = {
 					clipboard.writeText(IPCdata.selection);
 				}
 			}));
+
+			menu.append(new MenuItem({
+				type: "separator"
+			}));
+
 			menu.append(new MenuItem({
 				label: 'Search with DuckDuckGo',
 				click: function () {
