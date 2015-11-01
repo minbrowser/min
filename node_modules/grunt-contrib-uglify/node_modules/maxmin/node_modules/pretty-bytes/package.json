@@ -1,0 +1,79 @@
+{
+  "name": "pretty-bytes",
+  "version": "1.0.4",
+  "description": "Convert bytes to a human readable string: 1337 → 1.34 kB",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sindresorhus/pretty-bytes.git"
+  },
+  "main": "pretty-bytes.js",
+  "bin": {
+    "pretty-bytes": "cli.js"
+  },
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "http://sindresorhus.com"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "pretty-bytes.js",
+    "cli.js"
+  ],
+  "keywords": [
+    "cli",
+    "bin",
+    "browser",
+    "pretty",
+    "bytes",
+    "byte",
+    "filesize",
+    "size",
+    "file",
+    "human",
+    "humanized",
+    "readable",
+    "si",
+    "data"
+  ],
+  "dependencies": {
+    "get-stdin": "^4.0.1",
+    "meow": "^3.1.0"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "gitHead": "a1028d746f5aa51cdd6a22f1cae2b2e9ecc5b6df",
+  "bugs": {
+    "url": "https://github.com/sindresorhus/pretty-bytes/issues"
+  },
+  "homepage": "https://github.com/sindresorhus/pretty-bytes",
+  "_id": "pretty-bytes@1.0.4",
+  "_shasum": "0a22e8210609ad35542f8c8d5d2159aff0751c84",
+  "_from": "pretty-bytes@>=1.0.0 <2.0.0",
+  "_npmVersion": "2.5.1",
+  "_nodeVersion": "0.12.0",
+  "_npmUser": {
+    "name": "sindresorhus",
+    "email": "sindresorhus@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "sindresorhus",
+      "email": "sindresorhus@gmail.com"
+    }
+  ],
+  "dist": {
+    "shasum": "0a22e8210609ad35542f8c8d5d2159aff0751c84",
+    "tarball": "http://registry.npmjs.org/pretty-bytes/-/pretty-bytes-1.0.4.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-1.0.4.tgz",
+  "readme": "ERROR: No README data found!"
+}

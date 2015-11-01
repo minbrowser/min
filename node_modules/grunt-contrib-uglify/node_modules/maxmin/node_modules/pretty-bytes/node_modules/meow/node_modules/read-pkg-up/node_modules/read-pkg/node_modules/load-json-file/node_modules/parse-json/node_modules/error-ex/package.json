@@ -1,0 +1,66 @@
+{
+  "name": "error-ex",
+  "description": "Easy error subclassing and stack customization",
+  "version": "1.2.0",
+  "maintainers": [
+    {
+      "name": "qix",
+      "email": "i.am.qix@gmail.com"
+    },
+    {
+      "name": "sindresorhus",
+      "email": "sindresorhus@gmail.com"
+    }
+  ],
+  "keywords": [
+    "error",
+    "errors",
+    "extend",
+    "extending",
+    "extension",
+    "subclass",
+    "stack",
+    "custom"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "pretest": "xo",
+    "test": "mocha --compilers coffee:coffee-script/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qix-/node-error-ex.git"
+  },
+  "files": [
+    "index.js"
+  ],
+  "devDependencies": {
+    "coffee-script": "^1.9.3",
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.17",
+    "mocha": "^2.2.5",
+    "should": "^7.0.1",
+    "xo": "^0.7.1"
+  },
+  "gitHead": "4655f35e2e85a9f3d4c521e7fb40e3fdb6b206dc",
+  "bugs": {
+    "url": "https://github.com/qix-/node-error-ex/issues"
+  },
+  "homepage": "https://github.com/qix-/node-error-ex#readme",
+  "_id": "error-ex@1.2.0",
+  "_shasum": "95d5183be6047a32a9755639662d2b737b22a76a",
+  "_from": "error-ex@>=1.2.0 <2.0.0",
+  "_npmVersion": "3.2.0",
+  "_nodeVersion": "0.12.0",
+  "_npmUser": {
+    "name": "qix",
+    "email": "i.am.qix@gmail.com"
+  },
+  "dist": {
+    "shasum": "95d5183be6047a32a9755639662d2b737b22a76a",
+    "tarball": "http://registry.npmjs.org/error-ex/-/error-ex-1.2.0.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/error-ex/-/error-ex-1.2.0.tgz",
+  "readme": "ERROR: No README data found!"
+}

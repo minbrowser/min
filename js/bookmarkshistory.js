@@ -36,7 +36,7 @@ var bookmarks = {
 		})
 		bookmarks.authBookmarkTab = null;
 	},
-	delete(url) {
+	delete: function (url) {
 		bookmarks.worker.postMessage({
 			action: "deleteBookmark",
 			data: {
