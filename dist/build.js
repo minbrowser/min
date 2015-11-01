@@ -613,6 +613,9 @@ var MMCQ = (function() {
 	isUrl: function (url) {
 		return url.indexOf("http://") == 0 || url.indexOf("https://") == 0 || url.indexOf("file://") == 0 || url.indexOf("about:") == 0 || url.indexOf("chrome:") == 0 || url.indexOf("data:") == 0;
 	},
+	isSystemURL: function (url) {
+		return url.indexOf("chrome") == 0 || url.indexOf("about:") == 0;
+	},
 	removeProtocol: function (url) {
 		if (!urlParser.isUrl(url)) {
 			return url;
@@ -1035,6 +1038,8 @@ window.showDuckduckgoABData = throttle(function (text, input) {
 
 	//instant answers
 
+	iaarea.find(".result-item").addClass("old");
+
 	if (text.length > 3) {
 
 		$.getJSON("https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q=" + encodeURIComponent(text), function (res) {
@@ -1058,8 +1063,12 @@ window.showDuckduckgoABData = throttle(function (text, input) {
 			}
 
 			iaarea.find(".old").remove();
+
 		});
+	} else {
+		iaarea.find(".old").remove(); //we still want to remove old items, even if we didn't make a new request
 	}
+
 }, 800);
 
 var METADATA_SEPARATOR = "·";
@@ -1168,7 +1177,7 @@ var showAwesomebarResults = throttle(function (text, input, keyCode) {
 				console.log("autocompleting");
 				var withWWWset = ((hasWWW) ? result.url : result.url.replace("www.", ""))
 				var ac = ((hasProtocol) ? withWWWset : UrlWithoutProtocol);
-				if (!hasPath) {
+				if (!hasPath && !urlParser.isSystemURL(withWWWset)) {
 					//if there isn't a / character typed yet, we only want to autocomplete to the domain
 					var a = document.createElement("a");
 					a.href = withWWWset;
@@ -1781,14 +1790,14 @@ function rerenderTabElement(tabId) {
 
 
 	tabEl.find(".tab-view-contents .title").text(tabData.title || "New Tab");
-	tabEl.find(".tab-view-contents i").remove(); //remove previous icons
+	tabEl.find(".tab-view-contents .icon-tab-is-secure, .icon-tab-is-private").remove(); //remove previous secure and private icons. Reader view icon is updated seperately, so it is not removed.
 
 	if (tabData.secure) {
-		tabEl.find(".tab-view-contents").prepend("<i class='fa fa-lock'></i>");
+		tabEl.find(".tab-view-contents").prepend("<i class='fa fa-lock icon-tab-is-secure'></i>");
 	}
 
 	if (tabData.private) {
-		tabEl.find(".tab-view-contents").prepend("<i class='fa fa-ban'></i>").attr("title", "Private tab");
+		tabEl.find(".tab-view-contents").prepend("<i class='fa fa-ban icon-tab-is-private'></i>").attr("title", "Private tab");
 	}
 
 	//update the star to reflect whether the page is bookmarked or not
@@ -2008,19 +2017,24 @@ Mousetrap.bind("command+9", function (e) {
 var PDFViewerUrl = "file://" + __dirname + "/pdfjs/web/viewer.html?url=";
 
 ipc.on("openPDF", function (data) {
-	var webview = getWebview(tabs.getSelected());
+	var cTab = tabs.get(tabs.getSelected());
+	var webview = getWebview(cTab.id);
 
 	//If the current tab is blank or has the url of the pdf we are opening, we open the pdf in the current tab. Otherwise, to avoid losing pages, we open a new tab with the pdf.
 
 	var PDFurl = PDFViewerUrl + data.item.url;
 
+	if (cTab.url == PDFurl) { //if we are already on the pdf we are navigating to, ignore it
+		return;
+	}
 
-	if (tabs.get(tabs.getSelected()).url == "about:blank" || tabs.get(tabs.getSelected()).url == data.item.url) {
+
+	if (cTab.url == "about:blank" || cTab.url == data.item.url) {
 		navigate(tabs.getSelected(), PDFurl)
 	} else {
 
 		var newTab = tabs.add({
-			url: PDFViewerUrl + data.item.url
+			url: PDFurl
 		})
 
 		addTab(newTab, {

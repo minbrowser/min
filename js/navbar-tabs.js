@@ -52,14 +52,14 @@ function rerenderTabElement(tabId) {
 
 
 	tabEl.find(".tab-view-contents .title").text(tabData.title || "New Tab");
-	tabEl.find(".tab-view-contents i").remove(); //remove previous icons
+	tabEl.find(".tab-view-contents .icon-tab-is-secure, .icon-tab-is-private").remove(); //remove previous secure and private icons. Reader view icon is updated seperately, so it is not removed.
 
 	if (tabData.secure) {
-		tabEl.find(".tab-view-contents").prepend("<i class='fa fa-lock'></i>");
+		tabEl.find(".tab-view-contents").prepend("<i class='fa fa-lock icon-tab-is-secure'></i>");
 	}
 
 	if (tabData.private) {
-		tabEl.find(".tab-view-contents").prepend("<i class='fa fa-ban'></i>").attr("title", "Private tab");
+		tabEl.find(".tab-view-contents").prepend("<i class='fa fa-ban icon-tab-is-private'></i>").attr("title", "Private tab");
 	}
 
 	//update the star to reflect whether the page is bookmarked or not

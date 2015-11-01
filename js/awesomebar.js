@@ -137,6 +137,8 @@ window.showDuckduckgoABData = throttle(function (text, input) {
 
 	//instant answers
 
+	iaarea.find(".result-item").addClass("old");
+
 	if (text.length > 3) {
 
 		$.getJSON("https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q=" + encodeURIComponent(text), function (res) {
@@ -160,8 +162,12 @@ window.showDuckduckgoABData = throttle(function (text, input) {
 			}
 
 			iaarea.find(".old").remove();
+
 		});
+	} else {
+		iaarea.find(".old").remove(); //we still want to remove old items, even if we didn't make a new request
 	}
+
 }, 800);
 
 var METADATA_SEPARATOR = "·";
@@ -270,7 +276,7 @@ var showAwesomebarResults = throttle(function (text, input, keyCode) {
 				console.log("autocompleting");
 				var withWWWset = ((hasWWW) ? result.url : result.url.replace("www.", ""))
 				var ac = ((hasProtocol) ? withWWWset : UrlWithoutProtocol);
-				if (!hasPath) {
+				if (!hasPath && !urlParser.isSystemURL(withWWWset)) {
 					//if there isn't a / character typed yet, we only want to autocomplete to the domain
 					var a = document.createElement("a");
 					a.href = withWWWset;
