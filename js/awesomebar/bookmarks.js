@@ -6,7 +6,7 @@ var showBookmarkResults = throttle(function (text) {
 	bookmarks.search(text, function (results) {
 		bookmarkarea.html("");
 		results.splice(0, 2).forEach(function (result) {
-			if (result.score > 0.0004) {
+			if (result.score > 0.00047) {
 
 				//create the basic item
 				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(result.title)).on("click", function (e) {

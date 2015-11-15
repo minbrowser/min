@@ -17,9 +17,26 @@ var showHistoryResults = function (text, input, maxItems) {
 
 		results.forEach(function (result, index) {
 
+			var shouldAutocompleteTitle = false;
+
+			var title = result.title;
+			var icon = $("<i class='fa fa-globe'>");
+
+			//special formatting for ddg search history results
+
+			DDGSearchUrlRegex.lastIndex = 0;
+
+			if (DDGSearchUrlRegex.test(result.url)) {
+				//the history item is a search, display it like a search suggestion
+				title = decodeURIComponent(result.url.replace(DDGSearchUrlRegex, "$1").replace(plusRegex, " "));
+				icon = $("<i class='fa fa-search'>");
+				shouldAutocompleteTitle = true; //previous searches can be autocompleted
+			}
+
 			//if we've started typing the result and didn't press the delete key (which should make the highlight go away), autocomplete in the input
 
 			var text = input.val(); //make sure the input hasn't changed between start and end of query
+
 
 			var textWithoutProtocol = urlParser.removeProtocol(text),
 				UrlWithoutProtocol = urlParser.removeProtocol(result.url);
@@ -42,15 +59,23 @@ var showHistoryResults = function (text, input, maxItems) {
 				awesomebarCachedText = input.val();
 				shouldContinueAC = false;
 			}
-			if (autocompleteEnabled && shouldContinueAC && textWithoutProtocol && UrlWithoutProtocol.indexOf(textWithoutProtocol) == 0) { //the user has started to type the url
-				var withWWWset = ((hasWWW) ? result.url : result.url.replace("www.", ""))
-				var ac = ((hasProtocol) ? withWWWset : UrlWithoutProtocol);
-				if (!hasPath && !urlParser.isSystemURL(withWWWset)) {
-					//if there isn't a / character typed yet, we only want to autocomplete to the domain
-					var a = document.createElement("a");
-					a.href = withWWWset;
-					ac = ((hasProtocol) ? a.protocol + "//" : "") + a.hostname;
+
+			if (autocompleteEnabled && shouldContinueAC && textWithoutProtocol && (UrlWithoutProtocol.indexOf(textWithoutProtocol) == 0 || (shouldAutocompleteTitle && title.indexOf(textWithoutProtocol) == 0))) { //the user has started to type the url
+				if (shouldAutocompleteTitle) {
+					var ac = title;
+				} else {
+					//figure out the right address component to autocomplete
+
+					var withWWWset = ((hasWWW) ? result.url : result.url.replace("www.", ""))
+					var ac = ((hasProtocol) ? withWWWset : UrlWithoutProtocol);
+					if (!hasPath && !urlParser.isSystemURL(withWWWset)) {
+						//if there isn't a / character typed yet, we only want to autocomplete to the domain
+						var a = document.createElement("a");
+						a.href = withWWWset;
+						ac = ((hasProtocol) ? a.protocol + "//" : "") + a.hostname;
+					}
 				}
+
 				if (!ac) { //make sure we have something to autocomplete - this could not exist if we are using domain autocomplete and the ac string didn't have a hostname when processed
 					return;
 				}
@@ -64,18 +89,6 @@ var showHistoryResults = function (text, input, maxItems) {
 			}
 
 			if (index < maxItems) { //only show up to n history items
-
-				var title = result.title;
-				var icon = $("<i class='fa fa-globe'>");
-
-				DDGSearchUrlRegex.lastIndex = 0;
-
-				if (DDGSearchUrlRegex.test(result.url)) {
-					//the history item is a search, display it like a search suggestion
-					title = decodeURIComponent(result.url.replace(DDGSearchUrlRegex, "$1").replace(plusRegex, " "));
-					console.log(result.url);
-					icon = $("<i class='fa fa-search'>");
-				}
 
 				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(title)).on("click", function (e) {
 					//if the command key was pressed, open in background while still showing awesomebar

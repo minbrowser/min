@@ -2,6 +2,7 @@ console.log("worker started ", performance.now());
 
 importScripts("../ext/Dexie.min.js");
 importScripts("../ext/lunr.min.js");
+importScripts("../node_modules/string_score/string_score.min.js")
 
 console.log("scripts loaded ", performance.now());
 
@@ -41,6 +42,7 @@ function calculateHistoryScore(item, boost) { //boost - how much the score shoul
 	if (item.boost) {
 		fs += fs * item.boost;
 	}
+
 	return fs;
 }
 
@@ -243,7 +245,7 @@ onmessage = function (e) {
 
 				//prioritize matches near the beginning of the url
 				if (tindex != -1 && stl > 1) {
-					item.boost += (0.02 - (0.001 * tindex)) * stl;
+					item.boost += (0.15 - (0.001 * tindex)) * stl;
 
 					matches.push(item);
 				} else {
@@ -257,9 +259,6 @@ onmessage = function (e) {
 							break;
 						} else {
 							wordsMatched++;
-							if (iwarray.indexOf(searchWords[i]) != -1) {
-								item.boost += 0.05;
-							}
 						}
 						// if a long word is an exact match, boost
 						if (searchWords[i].length > 5) {
@@ -269,6 +268,8 @@ onmessage = function (e) {
 
 					if (doesMatch) {
 						item.boost += wordsMatched * 0.033;
+						item.boost += item.title.score(searchText, 0.0001);
+
 						matches.push(item);
 					}
 				}
