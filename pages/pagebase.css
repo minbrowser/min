@@ -1,0 +1,18 @@
+body,
+html {
+	min-height: 100%;
+	padding: 0;
+	border: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: ".SFNSText-Regular";
+}
+button {
+	-webkit-appearance: none;
+	color: inherit;
+	font-family: inherit;
+	font-size: 1em;
+	border: 0;
+	background: rgba(0, 0, 0, 0.15);
+	padding: 0.5em 1em;
+}

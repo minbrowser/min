@@ -34,7 +34,7 @@ ipc.on("addPrivateTab", function (e) {
 
 var Mousetrap = require("mousetrap");
 
-Mousetrap.bind("command+l", function (e) {
+Mousetrap.bind(["command+l", "command+k"], function (e) {
 	enterEditMode(tabs.getSelected());
 	return false;
 })
@@ -73,4 +73,8 @@ for (var i = 0; i < 9; i++) {
 
 Mousetrap.bind("command+9", function (e) {
 	switchToTab(tabs.getAtIndex(tabs.count() - 1).id);
+})
+
+Mousetrap.bind("esc", function (e) {
+	leaveTabEditMode();
 })

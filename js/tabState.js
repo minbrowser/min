@@ -22,7 +22,7 @@ var tabs = {
 
 		tab.url = tab.url || "";
 
-		var tabId = Math.round(Math.random() * 100000000000000000);
+		var tabId = tab.id || Math.round(Math.random() * 100000000000000000); //you can pass an id that will be used, or a random one will be generated.
 
 
 		tabs._state.tabs.push({
@@ -33,6 +33,8 @@ var tabs = {
 			secure: false,
 			private: tab.private || false,
 			readerable: false,
+			backgroundColor: tab.backgroundColor,
+			foregroundColor: tab.foregroundColor,
 		});
 
 		return tabId;

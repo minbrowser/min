@@ -8,6 +8,19 @@
 	transition: 0.2s background-color;
 	max-width: 100vw;
 	-webkit-user-select: none;
+	position: relative;
+}
+
+/* when the tab-group is white, we need a line to separate it from the webviews */
+
+.tab-group[style="background-color: rgb(255, 255, 255);"]:before {
+	content: "";
+	width: 100vw;
+	height: 1px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.1);
 }
 .tab-group #tabs {
 	display: flex;
@@ -23,6 +36,10 @@
 	height: 36px;
 	word-wrap: break-word;
 	overflow: hidden;
+	padding-left: 0.66%;
+}
+.tab-group .tab-item:not(.active):hover {
+	background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* icons */
@@ -35,12 +52,13 @@
 .tab-group .tab-item i + i {
 	padding-left: 0
 }
-.tab-group .tab-item.active {
+.tab-group .tab-item.active.has-highlight {
 	background: rgba(255, 255, 255, 0.2);
 }
 .tab-group .tab-item.selected {
 	min-width: 100%;
-	/*background: rgba(255, 255, 255, 0.9); */
+	/* remove the white transparent-ness */
+	background: none;
 }
 .tab-group .tab-item.fade {
 	opacity: 0.5;
@@ -85,15 +103,25 @@
 	transition: 0.2s color, 0.2s background-color;
 	-webkit-user-select: auto;
 }
+.tab-group .tab-item .tab-input::-webkit-input-placeholder {
+	color: inherit;
+	opacity: 0.5;
+}
+
+/* hide the lock icon unless its the current tab */
+
+.tab-group .tab-item:not(.active) .icon-tab-is-secure {
+	display: none;
+}
 
 /* buttons */
 
-.tab-group .tab-item i {
-	cursor: pointer;
-}
 .add-tab {
 	padding: 0.5em;
 	font-size: 1.1em;
+	position: relative;
+	top: 0;
+	right: -0.25em;
 }
 
 /* reader button */

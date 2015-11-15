@@ -3,6 +3,7 @@
 function navigate(tabId, newURL) {
 	console.trace();
 	console.log("navigated");
+
 	tabs.update(tabId, {
 		url: newURL
 	});
@@ -31,6 +32,7 @@ function destroyTab(id) {
 	if (!nextTab) {
 		return addTab();
 	}
+
 	switchToTab(nextTab.id);
 
 }
@@ -41,12 +43,11 @@ function switchToTab(id) {
 	leaveTabEditMode();
 
 	tabs.setSelected(id);
-
 	switchToWebview(id);
+
 	setActiveTabElement(id);
 
 	var tabData = tabs.get(id);
-
 	setColor(tabData.backgroundColor, tabData.foregroundColor);
 
 	tabs.update(id, {

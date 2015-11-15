@@ -1,5 +1,12 @@
+console.log("worker started ", performance.now());
+
 importScripts("../ext/Dexie.min.js");
 importScripts("../ext/lunr.min.js");
+
+console.log("scripts loaded ", performance.now());
+
+var topics = []; //a list of common groups of history items. Each one is an object with: score (number), name (string), and urls (array).
+
 
 var db = new Dexie('browsingData');
 
@@ -8,17 +15,33 @@ var db = new Dexie('browsingData');
 db.version(1)
 	.stores({
 		bookmarks: 'url, title, text, extraData', //url must come first so it is the primary key
-		history: 'url, title, color, visitCount, lastVisit, extraData' //same thing
+		history: 'url, title, color, visitCount, lastVisit, extraData', //same thing
 	});
 
 db.open();
 
-console.log("database opened");
+console.log("database opened ", performance.now());
 
 var spacesRegex = /[\s._/-]/g; //things that could be considered spaces
+var wordRegex = /^[a-z]+$/g;
 
 function getTime() {
 	return new Date().getTime();
+}
+
+function calculateHistoryScore(item, boost) { //boost - how much the score should be multiplied by. Example - 0.05
+	var fs = item.lastVisit * (1 + 0.0525 * item.visitCount);
+
+	//bonus for short url's 
+
+	if (item.url.length < 20) {
+		fs += (30 - item.url.length) * 2500;
+	}
+
+	if (item.boost) {
+		fs += fs * item.boost;
+	}
+	return fs;
 }
 
 var oneMonthInMS = 30 * 24 * 60 * 60 * 1000; //one month in milliseconds
@@ -34,15 +57,96 @@ function cleanupHistoryDatabase() { //removes old history entries
 
 setTimeout(cleanupHistoryDatabase, 20000); //don't run immediately on startup, since is might slow down awesomebar search.
 
+/* generate topics */
+
+function generateTopics() {
+	var bundles = {};
+
+	//split history items into a list of words and the pages that contain them
+	db.history.each(function (item) {
+			var itemWords = (item.title + " " + item.url).split(spacesRegex);
+
+			for (var x = 0; x < itemWords.length; x++) {
+				itemWords[x] = itemWords[x].toLowerCase().trim();
+
+				if (bundles[itemWords[x]]) {
+					bundles[itemWords[x]].push(item);
+				} else {
+					bundles[itemWords[x]] = [item]
+				}
+			}
+
+		})
+		.then(function () {
+			//cleanup the words list to only select bundles that actually have a good chance of being relevant
+
+			for (var item in bundles) {
+				wordRegex.lastIndex = 0; //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/lastIndex
+				var key = item + "";
+				if (bundles[item].length < 4 || !wordRegex.test(key) || item.length < 4) { //not a word, or not enough url's, or name is too short
+					delete bundles[item];
+					continue;
+				}
+
+				//calculate the total score of the bundle
+
+				var totalScore = 0;
+
+				bundles[item].forEach(function (historyObject) {
+					totalScore += calculateHistoryScore(historyObject);
+				});
+
+				//convert history items from object to a url string - we can always query the history database later if we need the extra data
+
+				var urlSet = bundles[item].map(function (item) {
+					return item.url;
+				});
+
+
+				var newObj = {
+					urls: urlSet.splice(0, 45), //put a bound on the items returned
+					score: totalScore,
+				}
+
+				bundles[item] = newObj;
+			}
+
+			//convert bundles from an array into an object
+
+			var bundlesArray = [];
+
+			for (var key in bundles) {
+				bundles[key].name = key;
+				bundlesArray.push(bundles[key]);
+			}
+
+			bundlesArray.sort(function (a, b) {
+				return b.score - a.score;
+			});
+
+			//save to global variable
+
+			topics = bundlesArray;
+
+			console.info("bundles generated");
+		})
+		.catch(function (e) {
+			console.warn("error generating bundles");
+			console.error(e);
+		})
+}
+
+setTimeout(generateTopics, 5000);
+
 //index previously created items
 
 var bookmarksIndex = lunr(function () {
 	this.field('title', {
-		boost: 10
+		boost: 5
 	})
 	this.field("body");
 	this.field("url", {
-		boost: 8
+		boost: 1
 	})
 	this.ref("id"); //url's are used as references
 });
@@ -66,7 +170,6 @@ db.bookmarks
 		bookmarksInMemory[bookmark.url] = bookmark;
 
 	});
-
 
 onmessage = function (e) {
 	var action = e.data.action;
@@ -123,28 +226,56 @@ onmessage = function (e) {
 	if (action == "searchHistory") { //do a history search
 		var matches = [];
 		var searchWords = searchText.toLowerCase().split(spacesRegex);
+		var stl = searchText.length;
 
 		db.history.each(function (item) {
-				if (item.url.indexOf(searchText) != -1) {
+				item.boost = 0;
+
+
+				//internal app url's are less likely to be relevant
+
+				if (item.url.indexOf("Contents/Resources/app/") != -1) {
+					item.boost -= 0.1;
+				}
+
+				var doesMatch = true;
+				var tindex = item.url.indexOf(searchText);
+
+				//prioritize matches near the beginning of the url
+				if (tindex != -1 && stl > 1) {
+					item.boost += (0.02 - (0.001 * tindex)) * stl;
+
 					matches.push(item);
 				} else {
-					var doesMatch = true;
 					var itemWords = (item.url + item.title).toLowerCase().replace(spacesRegex, "").toString();
+					var iwarray = (item.url + item.title).toLowerCase().split(spacesRegex);
+					var wordsMatched = 0;
 
 					for (var i = 0; i < searchWords.length; i++) {
 						if (itemWords.indexOf(searchWords[i]) == -1) {
 							doesMatch = false;
 							break;
+						} else {
+							wordsMatched++;
+							if (iwarray.indexOf(searchWords[i]) != -1) {
+								item.boost += 0.05;
+							}
+						}
+						// if a long word is an exact match, boost
+						if (searchWords[i].length > 5) {
+							item.boost += 0.025;
 						}
 					}
+
 					if (doesMatch) {
+						item.boost += wordsMatched * 0.033;
 						matches.push(item);
 					}
 				}
 			})
 			.then(function () {
 				matches.sort(function (a, b) {
-					return b.lastVisit * (1 + 0.0525 * b.visitCount) - a.lastVisit * (1 + 0.0525 * a.visitCount);
+					return calculateHistoryScore(b) - calculateHistoryScore(a);
 				});
 				postMessage({
 					result: matches,
@@ -197,6 +328,12 @@ onmessage = function (e) {
 		for (var item in result) {
 			var url = result[item].ref;
 			bookmarksInMemory[url].score = result[item].score;
+
+			//increase score for exact matches, since lunr doesn't do this correctly
+			if (bookmarksInMemory[url].text.indexOf(searchText) != -1) {
+				bookmarksInMemory[url].score *= 1 + (0.005 * searchText.length);
+			}
+
 			result[item] = bookmarksInMemory[url];
 			if (result[item].deleted) {
 				delete result[item]
@@ -208,4 +345,25 @@ onmessage = function (e) {
 			callback: e.data.callbackId,
 		}); //send back to bookmarks.js
 	}
+
+	if (action == "searchTopics") {
+
+		var matches = [];
+
+		//topics are already sorted
+
+		for (var i = 0; i < topics.length; i++) {
+			if (topics[i].name.indexOf(searchText) == 0) {
+				matches.push(topics[i]);
+			}
+		}
+
+		postMessage({
+			result: matches.splice(0, 25),
+			scope: "topics",
+			callback: e.data.callbackId,
+		});
+	}
 }
+
+console.log("onmessage loaded ", performance.now());

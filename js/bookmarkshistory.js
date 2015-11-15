@@ -58,18 +58,27 @@ var bookmarks = {
 			text: text,
 		});
 	},
+	searchTopics: function (text, callback) {
+		bookmarks.currentTopicsCallback = callback;
+		bookmarks.worker.postMessage({
+			action: "searchTopics",
+			text: text,
+		});
+	},
 	onMessage: function (e) { //assumes this is from a search operation
 		if (e.data.scope == "bookmarks") {
 			//TODO this (and the rest) should use unique callback id's
 			bookmarks.currentCallback(e.data.result);
-		} else { //history search
+		} else if (e.data.scope == "history") { //history search
 			bookmarks.currentHistoryCallback(e.data.result);
+		} else if (e.data.scope == "topics") {
+			bookmarks.currentTopicsCallback(e.data.result);
 		}
 	},
 	bookmark: function (tabId) {
 
 		bookmarks.authBookmarkTab = tabId;
-		getWebview(tabId)[0].executeJavaScript("window._browser_sendData()");
+		getWebview(tabId)[0].send("sendData");
 		//rest happens in onDataRecieved and worker
 	},
 	toggleBookmarked: function (tabId) { //toggles a bookmark. If it is bookmarked, delete the bookmark. Otherwise, add it.

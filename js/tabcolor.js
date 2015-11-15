@@ -26,12 +26,12 @@ function updateTabColor(favicons, tabId) {
 		var cr = "rgb(" + c[0] + "," + c[1] + "," + c[2] + ")";
 
 		var obj = {
-			r: c[0],
-			g: c[1],
-			b: c[2],
+			r: c[0] / 255,
+			g: c[1] / 255,
+			b: c[2] / 255,
 		}
 
-		var textclr = yiq(obj);
+		var textclr = getTextColor(obj);
 
 		console.log(obj, textclr);
 
@@ -47,13 +47,78 @@ function updateTabColor(favicons, tabId) {
 	});
 }
 
-//https://github.com/harthur/brain
-function yiq(clr) {
-	var r = clr.r,
-		g = clr.g,
-		b = clr.b;
-	var yiq = (r * 299 + g * 587 + b * 114) / 1000;
-	return (yiq >= 128) ? 'black' : 'white';
+//generated using http://harthur.github.io/brain/
+var getTextColor = function (bgColor) {
+	var output = runNetwork(bgColor);
+	if (output.black > .5) {
+		return 'black';
+	}
+	return 'white';
+}
+
+var runNetwork = function anonymous(input
+	/**/
+) {
+	var net = {
+		"layers": [{
+			"r": {},
+			"g": {},
+			"b": {}
+		}, {
+			"0": {
+				"bias": 23.754294528362333,
+				"weights": {
+					"r": -9.164071534408635,
+					"g": -23.39042212583149,
+					"b": -6.141882230115919
+				}
+			},
+			"1": {
+				"bias": 1.0246367545353685,
+				"weights": {
+					"r": 0.1979499996014915,
+					"g": -12.323452468849514,
+					"b": 18.23294673275185
+				}
+			},
+			"2": {
+				"bias": 12.375896556781662,
+				"weights": {
+					"r": -7.113624260920017,
+					"g": -2.010919862284879,
+					"b": -11.041419679013966
+				}
+			}
+		}, {
+			"black": {
+				"bias": 20.134564019110876,
+				"weights": {
+					"0": -19.035591267853714,
+					"1": -11.208318873932066,
+					"2": -10.439005826172572
+				}
+			}
+		}],
+		"outputLookup": true,
+		"inputLookup": true
+	};
+
+	for (var i = 1; i < net.layers.length; i++) {
+		var layer = net.layers[i];
+		var output = {};
+
+		for (var id in layer) {
+			var node = layer[id];
+			var sum = node.bias;
+
+			for (var iid in node.weights) {
+				sum += node.weights[iid] * input[iid];
+			}
+			output[id] = (1 / (1 + Math.exp(-sum)));
+		}
+		input = output;
+	}
+	return output;
 }
 
 function setColor(bg, fg) {

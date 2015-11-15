@@ -1,7 +1,7 @@
 #awesomebar {
 	z-index: 99;
 	position: fixed;
-	top: 2.3333em;
+	top: 2.2em;
 	left: 0;
 	width: 100%;
 	background: #fff;
@@ -10,17 +10,20 @@
 	padding-right: 40px;
 	/* align with window controls */
 	-webkit-user-select: none;
+	max-height: calc(100% - 75px);
+	overflow-y: auto;
 }
 #awesomebar .result-item {
 	width: 100%;
 	display: block;
 	padding: 0.5em;
+	cursor: pointer;
 }
 #awesomebar .result-item .title {
 	display: inline-block;
 	vertical-align: middle;
 	max-height: 1.1em;
-	max-width: 40%;
+	max-width: 45%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -50,6 +53,17 @@
 	height: 2.75em;
 	margin: 0.25em 0.5em 0.5em 0;
 	float: left;
+}
+#awesomebar .result-icon.color-circle {
+	width: 1.8em;
+	height: 1.8em;
+	border-radius: 50%;
+	float: left;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	padding-right: 0.5em;
+}
+.dark-theme #awesomebar .result-icon.color-circle {
+	border-color: rgba(255, 255, 255, 0.2);
 }
 #awesomebar img.result-icon {
 	background: rgba(255, 255, 255, 0.5);
@@ -83,10 +97,47 @@
 	/* TODO find a better way to center this */
 	padding-bottom: 1.154em;
 	padding-left: 1em;
-	max-width: 55%;
+	max-width: 50%;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	height: 1em;
+}
+#awesomebar .result-item.tag {
+	display: inline-block;
+	margin: 0.5em;
+	padding: 0.5em;
+	background: rgba(0, 0, 0, 0.075);
+	border: 1px solid rgba(0, 0, 0, 0.12);
+	width: auto;
+	font-size: 0.875em;
+	line-height: 0.9em;
+	opacity: 0.8;
+	border-radius: 2px;
+}
+#awesomebar .topic-results:not(:empty):before {
+	content: "Results for: ";
+	font-size: 0.9em;
+	opacity: 0.8;
+	padding: 0.5em;
+}
+#awesomebar .result-item.tag:focus {
+	background: rgba(0, 0, 0, 0.15);
+	border: 1px solid (rgba, 0, 0, 0, 0.15);
+}
+#awesomebar .result-item.tag:after {
+	content: "";
+	display: inline-block;
+}
+
+/* tags dark theme */
+
+.dark-theme #awesomebar .result-item.tag {
+	background: rgba(255, 2 55, 255, 0.075);
+	border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.dark-theme #awesomebar .result-item.tag:focus {
+	background: rgba(255, 255, 255, 0.15);
+	border: 1px solid (rgba, 255, 255, 255, 0.15);
 }
 
 /* switch to a two-line layout */
@@ -101,6 +152,9 @@
 		padding-top: 0.1em;
 		padding-left: 1.5em;
 	}
+	#awesomebar .topic-results:not(:empty):before {
+		content: "";
+	}
 }
 #awesomebar .result-item .description-block {
 	display: block;
@@ -108,6 +162,12 @@
 	overflow: hidden;
 	opacity: 0.75;
 	font-size: 0.8em;
+}
+
+/* when a result is selected, we can show more of the description */
+
+#awesomebar .result-item:focus .description-block {
+	max-height: 4.4em;
 }
 body.awesomebar-shown webview {
 	opacity: 0.6;

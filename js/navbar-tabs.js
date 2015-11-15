@@ -14,7 +14,20 @@ $.fn.getInput = function () {
 
 function setActiveTabElement(tabId) {
 	$(".tab-item").removeClass("active");
-	getTabElement(tabId).addClass("active");
+
+	var el = getTabElement(tabId);
+	el.addClass("active");
+
+	if (tabs.count() > 1) { //if there is only one tab, we don't need to indicate which one is selected
+		el.addClass("has-highlight");
+	} else {
+		el.removeClass("has-highlight");
+	}
+
+	el[0].scrollIntoView({
+		behavior: "smooth"
+	});
+
 }
 
 function leaveTabEditMode(options) {
@@ -69,7 +82,7 @@ function rerenderTabElement(tabId) {
 function createTabElement(tabId) {
 	console.log(tabId);
 	var data = tabs.get(tabId),
-		title = data.title || "Search or enter address",
+		title = "Search or enter address",
 		url = urlParser.parse(data.url);
 
 	var tab = $("<div class='tab-item'>");
@@ -94,7 +107,7 @@ function createTabElement(tabId) {
 	var vc = $("<div class='tab-view-contents theme-text-color'>")
 	readerView.getButton(tabId).appendTo(vc);
 
-	vc.append("<span class='title'>");
+	vc.append($("<span class='title'>").text(data.title || ""));
 	vc.appendTo(tab);
 
 
@@ -124,7 +137,7 @@ function createTabElement(tabId) {
 	input.on("keyup", function (e) {
 		if (e.keyCode == 13) { //return key pressed; update the url
 			var tabId = $(this).parents(".tab-item").attr("data-tab");
-			var newURL = $(this).val();
+			var newURL = parseAwesomebarUrl($(this).val());
 
 			navigate(tabId, newURL);
 
@@ -155,15 +168,19 @@ function addTab(tabId, options) {
 	
 	options.focus - whether to enter editing mode when the tab is created. Defaults to true.
 	options.openInBackground - whether to open the tab without switching to it. Defaults to false.
+	options.leaveEditMode - whether to hide the awesomebar when creating the tab
 	
 	*/
 
 	options = options || {}
-	leaveTabEditMode(); //if a tab is in edit-mode, we want to exit it
+
+	if (options.leaveEditMode != false) {
+		leaveTabEditMode(); //if a tab is in edit-mode, we want to exit it
+	}
 
 	tabId = tabId || tabs.add({
-		backgroundColor: "",
-		foregroundColor: ""
+		backgroundColor: "rgb(255, 255, 255)",
+		foregroundColor: "black"
 	});
 
 
@@ -180,8 +197,6 @@ function addTab(tabId, options) {
 	if (options.openInBackground) {
 		return;
 	}
-
-	setColor("", "");
 
 	switchToTab(tabId);
 	if (options.focus != false) {

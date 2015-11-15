@@ -44,6 +44,7 @@ function createWindow() {
 				webContents: webContents
 			});
 		}
+		return true;
 	});
 
 
@@ -165,9 +166,6 @@ function createAppMenu() {
       },
 				{
 					label: 'Inspect browser',
-					accelerator: (function () {
-						return 'Ctrl+Shift+I';
-					})(),
 					click: function (item, focusedWindow) {
 						if (focusedWindow)
 							focusedWindow.toggleDevTools();
@@ -178,9 +176,7 @@ function createAppMenu() {
 			},
 				{
 					label: 'Inspect page',
-					accelerator: (function () {
-						return 'Option+CmdOrCtrl+I';
-					})(),
+					accelerator: 'Cmd+Alt+I',
 					click: function (item, window) {
 						sendIPCToWindow(window, "inspectPage");
 					}

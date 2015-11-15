@@ -1,4 +1,155 @@
-/*!
+/*
+steps to creating a bookmark:
+
+ - bookmarks.bookmark(tabId) is called
+ - webview_preload.js sends an ipc to webviews.js
+ - webviews.js detects the channel is "bookmarksData", and calls bookmarks.onDataRecieved(data)
+ - The worker creates a bookmark, and adds it to the search index
+
+*/
+
+var bookmarks = {
+	authBookmarkTab: null,
+	updateHistory: function (tabId) {
+		var w = getWebview(tabId)[0]
+		var data = {
+			url: w.getUrl(),
+			title: w.getTitle(),
+			color: tabs.get(tabId).backgroundColor
+		}
+		bookmarks.worker.postMessage({
+			action: "updateHistory",
+			data: data
+		})
+	},
+	currentCallback: function () {},
+	onDataRecieved: function (data) {
+		//we can't trust that the data we get from webview_preload.js isn't malicious. Because of this, when we call bookmarks.bookmark(), we set authBookmarkTab to the bookmarked tab id. Then, we check if the url we get back actually matches the url of the tabtab we want to bookmark. This way, we know that the user actually wants to bookmark this url.
+		if (!bookmarks.authBookmarkTab || getWebview(bookmarks.authBookmarkTab)[0].getUrl() != data.url) {
+			throw new Error("Bookmark operation is unauthoritized.");
+		}
+
+		data.title = getWebview(bookmarks.authBookmarkTab)[0].getTitle();
+		bookmarks.worker.postMessage({
+			action: "addBookmark",
+			data: data
+		})
+		bookmarks.authBookmarkTab = null;
+	},
+	delete: function (url) {
+		bookmarks.worker.postMessage({
+			action: "deleteBookmark",
+			data: {
+				url: url
+			}
+		});
+	},
+	search: function (text, callback) {
+		bookmarks.currentCallback = callback; //save for later, we run in onMessage
+		bookmarks.worker.postMessage({
+			action: "searchBookmarks",
+			text: text,
+		});
+	},
+	searchHistory: function (text, callback) {
+		bookmarks.currentHistoryCallback = callback; //save for later, we run in onMessage
+		bookmarks.worker.postMessage({
+			action: "searchHistory",
+			text: text,
+		});
+	},
+	searchTopics: function (text, callback) {
+		bookmarks.currentTopicsCallback = callback;
+		bookmarks.worker.postMessage({
+			action: "searchTopics",
+			text: text,
+		});
+	},
+	onMessage: function (e) { //assumes this is from a search operation
+		if (e.data.scope == "bookmarks") {
+			//TODO this (and the rest) should use unique callback id's
+			bookmarks.currentCallback(e.data.result);
+		} else if (e.data.scope == "history") { //history search
+			bookmarks.currentHistoryCallback(e.data.result);
+		} else if (e.data.scope == "topics") {
+			bookmarks.currentTopicsCallback(e.data.result);
+		}
+	},
+	bookmark: function (tabId) {
+
+		bookmarks.authBookmarkTab = tabId;
+		getWebview(tabId)[0].send("sendData");
+		//rest happens in onDataRecieved and worker
+	},
+	toggleBookmarked: function (tabId) { //toggles a bookmark. If it is bookmarked, delete the bookmark. Otherwise, add it.
+		var url = tabs.get(tabId).url,
+			exists = false;
+
+		bookmarks.search(url, function (d) {
+
+			d.forEach(function (item) {
+				if (item.url == url) {
+					exists = true;
+				}
+			});
+
+
+			if (exists) {
+				console.log("deleting bookmark " + tabs.get(tabId).url);
+				bookmarks.delete(tabs.get(tabId).url);
+			} else {
+				bookmarks.bookmark(tabId);
+			}
+		});
+	},
+	getStar: function (tabId) {
+		//alternative icon is fa-bookmark
+
+		var star = $("<i class='fa fa-star-o bookmarks-button theme-text-color'>").attr("data-tab", tabId);
+
+		star.on("click", function (e) {
+			$(this).toggleClass("fa-star").toggleClass("fa-star-o");
+
+			bookmarks.toggleBookmarked($(this).attr("data-tab"));
+		});
+
+		return bookmarks.renderStar(tabId, star);
+	},
+	renderStar: function (tabId, star) { //star is optional
+		star = star || $(".bookmarks-button[data-tab={id}]".replace("{id}", tabId));
+
+		try {
+			var currentUrl = getWebview(tabId)[0].getUrl();
+		} catch (e) {
+			var currentUrl = tabs.get(tabId).url;
+		}
+
+		if (!currentUrl || currentUrl == "about:blank") { //no url, can't be bookmarked
+			star.prop("hidden", true);
+		} else {
+			star.prop("hidden", false);
+		}
+
+		//check if the page is bookmarked or not, and update the star to match
+
+		bookmarks.search(currentUrl, function (results) {
+			if (results && results[0] && results[0].url == currentUrl) {
+				star.removeClass("fa-star-o").addClass("fa-star");
+			} else {
+				star.removeClass("fa-star").addClass("fa-star-o");
+			}
+		});
+		return star;
+	},
+	init: function () {
+		bookmarks.worker = new Worker("js/historyworker.js");
+		bookmarks.worker.onmessage = bookmarks.onMessage;
+	},
+
+}
+
+bookmarks.init();
+;/*!
  * Color Thief v2.0
  * by Lokesh Dhakar - http://www.lokeshdhakar.com
  *
@@ -635,6 +786,8 @@ var MMCQ = (function() {
 		return url.indexOf(" ") == -1 && url.indexOf(".") > 0;
 	},
 	parse: function (url) {
+		url = url.trim(); //remove whitespace common on copy-pasted url's
+
 		if (!url) {
 			return "";
 		}
@@ -647,7 +800,7 @@ var MMCQ = (function() {
 			return "http://" + url;
 		}
 		//else, do a search
-		return urlParser.searchBaseURL.replace("%s", url);
+		return urlParser.searchBaseURL.replace("%s", encodeURIComponent(url));
 	}
 }
 ;var cf = new ColorThief();
@@ -678,12 +831,12 @@ function updateTabColor(favicons, tabId) {
 		var cr = "rgb(" + c[0] + "," + c[1] + "," + c[2] + ")";
 
 		var obj = {
-			r: c[0],
-			g: c[1],
-			b: c[2],
+			r: c[0] / 255,
+			g: c[1] / 255,
+			b: c[2] / 255,
 		}
 
-		var textclr = yiq(obj);
+		var textclr = getTextColor(obj);
 
 		console.log(obj, textclr);
 
@@ -699,13 +852,78 @@ function updateTabColor(favicons, tabId) {
 	});
 }
 
-//https://github.com/harthur/brain
-function yiq(clr) {
-	var r = clr.r,
-		g = clr.g,
-		b = clr.b;
-	var yiq = (r * 299 + g * 587 + b * 114) / 1000;
-	return (yiq >= 128) ? 'black' : 'white';
+//generated using http://harthur.github.io/brain/
+var getTextColor = function (bgColor) {
+	var output = runNetwork(bgColor);
+	if (output.black > .5) {
+		return 'black';
+	}
+	return 'white';
+}
+
+var runNetwork = function anonymous(input
+	/**/
+) {
+	var net = {
+		"layers": [{
+			"r": {},
+			"g": {},
+			"b": {}
+		}, {
+			"0": {
+				"bias": 23.754294528362333,
+				"weights": {
+					"r": -9.164071534408635,
+					"g": -23.39042212583149,
+					"b": -6.141882230115919
+				}
+			},
+			"1": {
+				"bias": 1.0246367545353685,
+				"weights": {
+					"r": 0.1979499996014915,
+					"g": -12.323452468849514,
+					"b": 18.23294673275185
+				}
+			},
+			"2": {
+				"bias": 12.375896556781662,
+				"weights": {
+					"r": -7.113624260920017,
+					"g": -2.010919862284879,
+					"b": -11.041419679013966
+				}
+			}
+		}, {
+			"black": {
+				"bias": 20.134564019110876,
+				"weights": {
+					"0": -19.035591267853714,
+					"1": -11.208318873932066,
+					"2": -10.439005826172572
+				}
+			}
+		}],
+		"outputLookup": true,
+		"inputLookup": true
+	};
+
+	for (var i = 1; i < net.layers.length; i++) {
+		var layer = net.layers[i];
+		var output = {};
+
+		for (var id in layer) {
+			var node = layer[id];
+			var sum = node.bias;
+
+			for (var iid in node.weights) {
+				sum += node.weights[iid] * input[iid];
+			}
+			output[id] = (1 / (1 + Math.exp(-sum)));
+		}
+		input = output;
+	}
+	return output;
 }
 
 function setColor(bg, fg) {
@@ -848,6 +1066,7 @@ var webviewMenu = {
 function navigate(tabId, newURL) {
 	console.trace();
 	console.log("navigated");
+
 	tabs.update(tabId, {
 		url: newURL
 	});
@@ -876,6 +1095,7 @@ function destroyTab(id) {
 	if (!nextTab) {
 		return addTab();
 	}
+
 	switchToTab(nextTab.id);
 
 }
@@ -886,12 +1106,11 @@ function switchToTab(id) {
 	leaveTabEditMode();
 
 	tabs.setSelected(id);
-
 	switchToWebview(id);
+
 	setActiveTabElement(id);
 
 	var tabData = tabs.get(id);
-
 	setColor(tabData.backgroundColor, tabData.foregroundColor);
 
 	tabs.update(id, {
@@ -899,10 +1118,448 @@ function switchToTab(id) {
 	});
 	tabActivity.refresh();
 }
+;var DDGSearchUrlRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
+	plusRegex = /\+/g,
+	trailingSlashRegex = /\/$/g;
+
+var showHistoryResults = function (text, input, maxItems) {
+
+	if (!text) {
+		return;
+	}
+
+	var input0 = input[0];
+
+	bookmarks.searchHistory(text, function (results) {
+		historyarea.html("");
+
+		limitSearchSuggestions(results.length);
+
+		results.forEach(function (result, index) {
+
+			//if we've started typing the result and didn't press the delete key (which should make the highlight go away), autocomplete in the input
+
+			var text = input.val(); //make sure the input hasn't changed between start and end of query
+
+			var textWithoutProtocol = urlParser.removeProtocol(text),
+				UrlWithoutProtocol = urlParser.removeProtocol(result.url);
+
+			if (textWithoutProtocol != text) {
+				var hasProtocol = true;
+			}
+			var hasWWW = text.indexOf("www.") != -1
+
+			if (textWithoutProtocol.indexOf("/") == -1) {
+				var hasPath = false;
+			} else {
+				var hasPath = true;
+			}
+			if (shouldContinueAC && cachedACItem.indexOf(text) == 0) {
+				input.blur();
+				input0.value = cachedACItem;
+				input0.setSelectionRange(text.length, cachedACItem.length);
+				input.focus();
+				awesomebarCachedText = input.val();
+				shouldContinueAC = false;
+			}
+			if (autocompleteEnabled && shouldContinueAC && textWithoutProtocol && UrlWithoutProtocol.indexOf(textWithoutProtocol) == 0) { //the user has started to type the url
+				var withWWWset = ((hasWWW) ? result.url : result.url.replace("www.", ""))
+				var ac = ((hasProtocol) ? withWWWset : UrlWithoutProtocol);
+				if (!hasPath && !urlParser.isSystemURL(withWWWset)) {
+					//if there isn't a / character typed yet, we only want to autocomplete to the domain
+					var a = document.createElement("a");
+					a.href = withWWWset;
+					ac = ((hasProtocol) ? a.protocol + "//" : "") + a.hostname;
+				}
+				if (!ac) { //make sure we have something to autocomplete - this could not exist if we are using domain autocomplete and the ac string didn't have a hostname when processed
+					return;
+				}
+				input.blur();
+				input0.value = ac;
+				input0.setSelectionRange(text.length, ac.length);
+				input.focus(); //update cache
+				awesomebarCachedText = input0.value,
+					shouldContinueAC = false,
+					cachedACItem = ac;
+			}
+
+			if (index < maxItems) { //only show up to n history items
+
+				var title = result.title;
+				var icon = $("<i class='fa fa-globe'>");
+
+				DDGSearchUrlRegex.lastIndex = 0;
+
+				if (DDGSearchUrlRegex.test(result.url)) {
+					//the history item is a search, display it like a search suggestion
+					title = decodeURIComponent(result.url.replace(DDGSearchUrlRegex, "$1").replace(plusRegex, " "));
+					console.log(result.url);
+					icon = $("<i class='fa fa-search'>");
+				}
+
+				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(title)).on("click", function (e) {
+					//if the command key was pressed, open in background while still showing awesomebar
+
+					if (e.metaKey) {
+						openURLInBackground(result.url);
+
+					} else {
+						navigate(tabs.getSelected(), result.url);
+					}
+				});
+
+				icon.prependTo(item);
+
+				$("<span class='secondary-text'>").text(urlParser.removeProtocol(result.url).replace(trailingSlashRegex, "")).appendTo(item);
+
+				item.appendTo(historyarea);
+			}
+
+		});
+	});
+}
+;var showBookmarkResults = throttle(function (text) {
+	if (!text) {
+		return;
+	}
+
+	bookmarks.search(text, function (results) {
+		bookmarkarea.html("");
+		results.splice(0, 2).forEach(function (result) {
+			if (result.score > 0.0004) {
+
+				//create the basic item
+				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(result.title)).on("click", function (e) {
+					if (e.metaKey) {
+						openURLInBackground(result.url);
+					} else {
+						navigate(tabs.getSelected(), result.url);
+					}
+				});
+
+				$("<i class='fa fa-star'>").prependTo(item);
+
+				var span = $("<span class='secondary-text'>").text(urlParser.removeProtocol(result.url).replace(trailingSlashRegex, ""));
+
+
+				if (result.extraData && result.extraData.metadata) {
+					var captionSpans = [];
+
+					if (result.extraData.metadata.rating) {
+						captionSpans.push($("<span class='md-info'>").text(result.extraData.metadata.rating));
+					}
+					if (result.extraData.metadata.price) {
+						captionSpans.push($("<span class='md-info'>").text(result.extraData.metadata.price));
+					}
+					if (result.extraData.metadata.location) {
+						captionSpans.push($("<span class='md-info'>").text(result.extraData.metadata.location));
+					}
+
+
+					captionSpans.reverse().forEach(function (s) {
+						span.prepend(s);
+					})
+				}
+
+
+				span.appendTo(item);
+
+				item.appendTo(bookmarkarea);
+			}
+
+		});
+	});
+}, 400);
+;var BANG_REGEX = /!\w+/g;
+var serarea = $("#awesomebar .search-engine-results");
+var iaarea = $("#awesomebar .instant-answer-results");
+var suggestedsitearea = $("#awesomebar .ddg-site-results");
+
+var maxSearchSuggestions = 5;
+
+/* duckduckgo returns raw html for the color info ui. We need to format that */
+
+function unsafe_showColorUI(searchText, colorHTML) {
+	var el = $("<div>").html(colorHTML);
+	var color = el.find(".colorcodesbox.circle").css("background");
+	var alternateFormats = [];
+
+	el.find(".no_vspace").each(function () {
+		alternateFormats.push($(this).text());
+	});
+
+	var item = $("<div class='result-item' tabindex='-1'>");
+
+	item.text(searchText);
+
+	$("<div class='result-icon color-circle'>").css("background", color).prependTo(item);
+
+	$("<span class='description-block'>").text(alternateFormats.join(" " + METADATA_SEPARATOR + " ")).appendTo(item);
+
+	return item;
+};
+
+window.showSearchSuggestions = throttle(function (text, input) {
+
+	if (!text) {
+		return;
+	}
+
+	if (BANG_REGEX.test(text)) { //we're typing a bang
+		var bang = text.match(BANG_REGEX)[0];
+
+		var bangACSnippet = cachedBangSnippets[bang];
+
+	}
+	$.ajax("https://ac.duckduckgo.com/ac/?q=" + encodeURIComponent(text))
+		.done(function (results) {
+
+			serarea.find(".result-item").addClass("old");
+
+			if (results && results[0] && results[0].snippet) { //!bang search - ddg api doesn't have a good way to detect this
+
+				results.splice(0, 5).forEach(function (result) {
+					cachedBangSnippets[result.phrase] = result.snippet;
+
+					//autocomplete the bang, but allow the user to keep typing
+
+					var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(result.snippet)).on("click", function () {
+						setTimeout(function () { //if the click was triggered by the keydown, focusing the input and then keyup will cause a navigation. Wait a bit for keyup before focusing the input again.
+							input.val(result.phrase + " ").focus();
+						}, 100);
+					});
+
+					$("<span class='secondary-text'>").text(result.phrase).appendTo(item);
+
+					$("<img class='result-icon inline'>").attr("src", result.image).prependTo(item);
+
+					item.appendTo(serarea);
+				});
+
+			} else if (results) {
+				results = results.splice(0, maxSearchSuggestions);
+
+				results.forEach(function (result) {
+					var title = result.phrase;
+					if (BANG_REGEX.test(result.phrase) && bangACSnippet) {
+						title = result.phrase.replace(BANG_REGEX, "");
+						var secondaryText = "Search on " + bangACSnippet;
+					}
+					var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(title)).on("click", function (e) {
+						if (e.metaKey) {
+							openURLInBackground(result.phrase);
+						} else {
+							navigate(tabs.getSelected(), result.phrase);
+						}
+					});
+
+					item.appendTo(serarea);
+
+					if (urlParser.isUrl(result.phrase) || urlParser.isUrlMissingProtocol(result.phrase)) { //website suggestions
+						$("<i class='fa fa-globe'>").prependTo(item);
+					} else { //regular search results
+						$("<i class='fa fa-search'>").prependTo(item);
+					}
+
+					if (secondaryText) {
+						$("<span class='secondary-text'>").text(secondaryText).appendTo(item);
+					}
+				});
+			}
+
+			serarea.find(".old").remove();
+		});
+
+}, 500);
+
+/* this is called from historySuggestions. When we find history results, we want to limit search suggestions to 2 so the awesomebar doesn't get too large. */
+
+var limitSearchSuggestions = function (itemsToRemove) {
+	var itemsLeft = Math.max(3, 5 - itemsToRemove);
+	maxSearchSuggestions = itemsLeft;
+	serarea.find(".result-item:nth-child(n+{items})".replace("{items}", itemsLeft + 1)).remove();
+}
+
+window.showInstantAnswers = throttle(function (text, input) {
+
+	//don't make useless queries
+	if (urlParser.isUrlMissingProtocol(text)) {
+		return;
+	}
+
+	//instant answers
+
+	iaarea.find(".result-item").addClass("old");
+	suggestedsitearea.find(".result-item").addClass("old");
+
+	if (text.length > 3) {
+
+		$.getJSON("https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q=" + encodeURIComponent(text), function (res) {
+
+			iaarea.find(".result-item").addClass("old");
+			suggestedsitearea.find(".result-item").addClass("old");
+
+			if (res.Abstract || res.Answer) {
+				var item = $("<div class='result-item' tabindex='-1'>");
+
+				if (res.Answer) {
+					item.text(unsafeUnwrapTags(res.Answer));
+				} else {
+					item.text(res.Heading);
+				}
+
+				if (res.Image && res.Entity != "company" && res.Entity != "country" && res.Entity != "website") { //ignore images for entities that generally have useless or ugly images
+					$("<img class='result-icon image'>").attr("src", res.Image).prependTo(item);
+				}
+
+				$("<span class='description-block'>").text(removeTags(res.Abstract) || "Answer").appendTo(item);
+
+				//the parsing for this is different
+
+				if (res.AnswerType == "color_code") {
+					item = unsafe_showColorUI(text, res.Answer);
+				}
+
+				item.on("click", function (e) {
+					if (e.metaKey) {
+						openURLInBackground(res.AbstractURL || text);
+					} else {
+						navigate(tabs.getSelected(), res.AbstractURL || text)
+					}
+				});
+				item.appendTo(iaarea);
+			}
+
+			//suggested site links
+
+			if (res.Results && res.Results[0] && res.Results[0].FirstURL) {
+				var url = urlParser.removeProtocol(res.Results[0].FirstURL).replace(trailingSlashRegex, "");
+
+				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(url)).on("click", function (e) {
+
+					if (e.metaKey) {
+						openURLInBackground(res.Results[0].FirstURL);
+
+					} else {
+						navigate(tabs.getSelected(), res.Results[0].FirstURL);
+					}
+				});
+
+				$("<i class='fa fa-globe'>").prependTo(item);
+
+				$("<span class='secondary-text'>").text("Suggested site").appendTo(item);
+
+				console.log(item);
+				item.appendTo(suggestedsitearea);
+			}
+
+			iaarea.find(".old").remove();
+			suggestedsitearea.find(".old").remove();
+
+
+		});
+	} else {
+		iaarea.find(".old").remove(); //we still want to remove old items, even if we didn't make a new request
+		suggestedsitearea.find(".old").remove();
+	}
+
+}, 700);
+;var showTopicResults = function (text, input) {
+
+	bookmarks.searchTopics(text, function (topics) {
+
+		topicsarea.html("");
+
+		if (!topics || !topics[0]) {
+			return;
+		}
+
+		topics.splice(0, 4).forEach(function (topic) {
+			if (topic.name == input.val()) {
+				return;
+			}
+			$("<div class='result-item tag' tabindex='-1'>").text(topic.name).appendTo(topicsarea).on("click", function (e) {
+
+				//enter a special history-only mode
+
+				clearAwesomebar();
+
+				input.val(topic.name);
+
+				showHistoryResults(topic.name, input, 50); //show up to 50 results.
+
+				setTimeout(function () {
+					input.focus();
+				}, 800);
+			});
+		});
+
+
+	});
+
+}
+;var spacesRegex = /[\s._/-]/g; //copied from historyworker.js
+
+
+/* most of this is copied from searchHistory in historyworker.js */
+
+var searchOpenTabs = function (searchText) {
+	var searchWords = searchText.toLowerCase().split(spacesRegex);
+	var matches = [];
+
+	var selTab = tabs.getSelected();
+
+	opentabarea.html("");
+
+	if (!searchText || searchText.length < 2) {
+		return;
+	}
+
+	var stl = searchText.length;
+
+	tabs.get().forEach(function (item) {
+		if (item.id == selTab || !item.title || item.url == "about:blank") {
+			return;
+		}
+		var doesMatch = true;
+		var itemWords = urlParser.removeProtocol(item.url);
+
+		if (stl > 3) {
+			itemWords += item.title
+		}
+
+		itemWords = itemWords.toLowerCase().replace(spacesRegex, "").toString();
+
+		for (var i = 0; i < searchWords.length; i++) {
+			if (itemWords.indexOf(searchWords[i]) == -1) {
+				doesMatch = false;
+				break;
+			}
+		}
+		if (doesMatch) {
+			matches.push(item);
+		}
+	});
+
+	matches.splice(0, 2).sort(function (a, b) {
+		return a.lastActivity - b.lastActivity;
+	}).forEach(function (tab) {
+		var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(tab.title)).on("click", function () {
+			switchToTab(tab.id);
+		});
+
+		$("<i class='fa fa-external-link'>").attr("title", "Switch to Tab").prependTo(item); //TODO better icon
+		item.appendTo(opentabarea);
+	})
+}
 ;var awesomebarShown = false;
 var awesomebarCachedText = "";
 var cachedACItem = "";
 var autocompleteEnabled = true;
+var shouldContinueAC = true;
+var METADATA_SEPARATOR = "·";
+
+var defaultMaxHistoryResults = 3;
 
 //cache duckduckgo bangs so we make fewer network requests
 var cachedBangSnippets = {};
@@ -940,22 +1597,60 @@ function unsafeUnwrapTags(text) {
 	return $("<div>").html(text).text();
 }
 
+/* this is used by navbar-tabs.js. When a url is entered, endings such as ? need to be parsed and removed. */
+function parseAwesomebarUrl(url) {
+	//always use a search engine if the query starts with "?"
+
+	if (url.indexOf("?") == 0) {
+		url = urlParser.searchBaseURL.replace("%s", encodeURIComponent(url.replace("?", "")));
+	}
+
+	if (url.indexOf("^") == 0) {
+		url = url.replace("^", "");
+	}
+
+	if (url.indexOf("*") == 0) {
+		url = url.replace("*", "");
+	}
+
+	return url;
+}
+
+function openURLInBackground(url) { //used to open a url in the background, without leaving the awesomebar
+	var newTab = tabs.add({
+		url: url,
+		private: tabs.get(tabs.getSelected()).private
+	})
+	addTab(newTab, {
+		focus: false,
+		openInBackground: true,
+		leaveEditMode: false,
+	});
+	$(".result-item:focus").blur(); //remove the highlight from an awesoembar result item, if there is one
+}
 
 var awesomebar = $("#awesomebar");
-var historyarea = $(".history-results");
-var bookmarkarea = $(".bookmark-results");
-var serarea = $(".search-engine-results");
-var iaarea = $(".instant-answer-results");
+var historyarea = awesomebar.find(".history-results");
+var bookmarkarea = awesomebar.find(".bookmark-results");
+var topicsarea = awesomebar.find(".topic-results");
+var opentabarea = awesomebar.find(".opentab-results");
+
+function clearAwesomebar() {
+	historyarea.html("");
+	bookmarkarea.html("");
+	serarea.html("");
+	iaarea.html("");
+	topicsarea.html("");
+	opentabarea.html("");
+	suggestedsitearea.html("");
+}
 
 function showAwesomebar(triggerInput) {
 	awesomebarCachedText = triggerInput.val();
 	awesomebarShown = true;
 	$(document.body).addClass("awesomebar-shown");
-	//clear any previous results
-	historyarea.html("");
-	bookmarkarea.html("");
-	serarea.html("");
-	iaarea.html("");
+
+	clearAwesomebar();
 
 
 	awesomebar.show();
@@ -970,157 +1665,9 @@ function hideAwesomebar() {
 	awesomebar.hide();
 	cachedBangSnippets = {};
 }
-
-var BANG_REGEX = /!\w+/g;
-
-window.showDuckduckgoABData = throttle(function (text, input) {
-
-	if (BANG_REGEX.test(text)) { //we're typing a bang
-		var bang = text.match(BANG_REGEX)[0];
-
-		var bangACSnippet = cachedBangSnippets[bang];
-
-	}
-	$.ajax("https://ac.duckduckgo.com/ac/?q=" + encodeURIComponent(text))
-		.done(function (results) {
-
-			serarea.find(".result-item").addClass("old");
-
-			if (results && results[0] && results[0].snippet) { //!bang search - ddg api doesn't have a good way to detect this
-
-				results.splice(0, 5).forEach(function (result) {
-					cachedBangSnippets[result.phrase] = result.snippet;
-
-					//autocomplete the bang, but allow the user to keep typing
-
-					var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(result.snippet)).on("click", function () {
-						setTimeout(function () { //if the click was triggered by the keydown, focusing the input and then keyup will cause a navigation. Wait a bit for keyup before focusing the input again.
-							input.val(result.phrase + " ").focus();
-						}, 100);
-					});
-
-					$("<span class='secondary-text'>").text(result.phrase).appendTo(item);
-
-					$("<img class='result-icon inline'>").attr("src", result.image).prependTo(item);
-
-					item.appendTo(serarea);
-				});
-
-			} else if (results) {
-				results = results.splice(0, 5);
-
-				results.forEach(function (result) {
-					var title = result.phrase;
-					if (BANG_REGEX.test(result.phrase) && bangACSnippet) {
-						title = result.phrase.replace(BANG_REGEX, "");
-						var secondaryText = "Search on " + bangACSnippet;
-					}
-					var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(title)).on("click", function () {
-						navigate(tabs.getSelected(), result.phrase);
-					});
-
-					item.appendTo(serarea);
-
-					if (urlParser.isUrl(result.phrase) || urlParser.isUrlMissingProtocol(result.phrase)) { //website suggestions
-						$("<i class='fa fa-globe'>").prependTo(item);
-					} else { //regular search results
-						$("<i class='fa fa-search'>").prependTo(item);
-					}
-
-					if (secondaryText) {
-						$("<span class='secondary-text'>").text(secondaryText).appendTo(item);
-					}
-				});
-			}
-
-			serarea.find(".old").remove();
-		});
-
-	//instant answers
-
-	iaarea.find(".result-item").addClass("old");
-
-	if (text.length > 3) {
-
-		$.getJSON("https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q=" + encodeURIComponent(text), function (res) {
-
-			iaarea.find(".result-item").addClass("old");
-
-			if (res.Abstract || res.Answer) {
-				var item = $("<div class='result-item' tabindex='-1'>");
-				item.text(res.Heading || unsafeUnwrapTags(res.Answer));
-
-				if (res.Image) {
-					$("<img class='result-icon image'>").attr("src", res.Image).prependTo(item);
-				}
-
-				$("<span class='description-block'>").text(removeTags(res.Abstract) || "Answer").appendTo(item);
-
-				item.on("click", function () {
-					navigate(tabs.getSelected(), res.AbstractURL || text)
-				});
-				item.appendTo(iaarea);
-			}
-
-			iaarea.find(".old").remove();
-
-		});
-	} else {
-		iaarea.find(".old").remove(); //we still want to remove old items, even if we didn't make a new request
-	}
-
-}, 800);
-
-var METADATA_SEPARATOR = "·";
-
-var showBookmarkResults = throttle(function (text) {
-	bookmarks.search(text, function (results) {
-		bookmarkarea.html("");
-		results.splice(0, 2).forEach(function (result) {
-			if (result.score > 0.001) {
-
-				//create the basic item
-				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(result.title)).on("click", function () {
-					navigate(tabs.getSelected(), result.url);
-				});
-
-				$("<i class='fa fa-star'>").prependTo(item);
-
-				var span = $("<span class='secondary-text'>").text(urlParser.removeProtocol(result.url));
-
-
-				if (result.extraData && result.extraData.metadata) {
-					var captionSpans = [];
-
-					if (result.extraData.metadata.rating) {
-						captionSpans.push($("<span class='md-info'>").text(result.extraData.metadata.rating));
-					}
-					if (result.extraData.metadata.price) {
-						captionSpans.push($("<span class='md-info'>").text(result.extraData.metadata.price));
-					}
-					if (result.extraData.metadata.location) {
-						captionSpans.push($("<span class='md-info'>").text(result.extraData.metadata.location));
-					}
-
-
-					captionSpans.reverse().forEach(function (s) {
-						span.prepend(s);
-					})
-				}
-
-
-				span.appendTo(item);
-
-				item.appendTo(bookmarkarea);
-			}
-
-		});
-	});
-}, 400);
-
 var showAwesomebarResults = throttle(function (text, input, keyCode) {
 
-	var shouldContinueAC = !(keyCode == 8); //this needs to be outside searchHistory so that it doesn't get reset if the history callback is run multiple times (such as when multiple messages get sent before the worker has finished startup).
+	shouldContinueAC = !(keyCode == 8); //this needs to be outside searchHistory so that it doesn't get reset if the history callback is run multiple times (such as when multiple messages get sent before the worker has finished startup).
 
 	console.log("awesomebar: ", text);
 
@@ -1131,89 +1678,48 @@ var showAwesomebarResults = throttle(function (text, input, keyCode) {
 
 	//there is no text, show a blank awesomebar
 	if (text.length < 1) {
-		serarea.html("");
-		iaarea.html("");
+		clearAwesomebar();
 		return;
 	}
+
+	//when you start with ?, always search with duckduckgo
+
+	if (text.indexOf("?") == 0) {
+		clearAwesomebar();
+
+		maxSearchSuggestions = 5;
+		showSearchSuggestions(text.replace("?", ""), input);
+		return;
+	}
+
+	//when you start with ^, always search history (only)
+
+	if (text.indexOf("^") == 0) {
+		clearAwesomebar();
+		showHistoryResults(text.replace("^", ""), input, 5);
+		return;
+	}
+
+	//when you start with *, always search bookmarks (only)
+
+	if (text.indexOf("*") == 0) {
+		clearAwesomebar();
+		showBookmarkResults(text.replace("*", ""), input);
+		return;
+	}
+
+	//show awesomebar results
+
+	showSearchSuggestions(text, input);
 
 	if (text.length > 3) {
 		showBookmarkResults(text);
 	}
 
-	var input0 = input[0];
-
-	bookmarks.searchHistory(text, function (results) {
-		console.log("recieved history data: ", text, results);
-		historyarea.html("");
-
-		results.forEach(function (result, index) {
-
-			//if we've started typing the result and didn't press the delete key (which should make the highlight go away), autocomplete in the input
-
-			var text = input.val(); //make sure the input hasn't changed between start and end of query
-
-			var textWithoutProtocol = urlParser.removeProtocol(text),
-				UrlWithoutProtocol = urlParser.removeProtocol(result.url);
-
-			if (textWithoutProtocol != text) {
-				var hasProtocol = true;
-			}
-			var hasWWW = text.indexOf("www.") != -1
-
-			if (textWithoutProtocol.indexOf("/") == -1) {
-				var hasPath = false;
-			} else {
-				var hasPath = true;
-			}
-			if (shouldContinueAC && cachedACItem.indexOf(text) == 0) {
-				input.blur();
-				input0.value = cachedACItem;
-				input0.setSelectionRange(text.length, cachedACItem.length);
-				input.focus();
-				awesomebarCachedText = input.val();
-				shouldContinueAC = false;
-			}
-			if (autocompleteEnabled && shouldContinueAC && textWithoutProtocol && UrlWithoutProtocol.indexOf(textWithoutProtocol) == 0) { //the user has started to type the url
-				console.log("autocompleting");
-				var withWWWset = ((hasWWW) ? result.url : result.url.replace("www.", ""))
-				var ac = ((hasProtocol) ? withWWWset : UrlWithoutProtocol);
-				if (!hasPath && !urlParser.isSystemURL(withWWWset)) {
-					//if there isn't a / character typed yet, we only want to autocomplete to the domain
-					var a = document.createElement("a");
-					a.href = withWWWset;
-					ac = ((hasProtocol) ? a.protocol + "//" : "") + a.hostname;
-				}
-				if (!ac) { //make sure we have something to autocomplete - this could not exist if we are using domain autocomplete and the ac string didn't have a hostname when processed
-					return;
-				}
-				input.blur();
-				input0.value = ac;
-				input0.setSelectionRange(text.length, ac.length);
-				input.focus();
-				//update cache
-				awesomebarCachedText = input0.value,
-					shouldContinueAC = false,
-					cachedACItem = ac;
-			}
-
-			if (index < 3) { //only show up to three history items
-
-				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(result.title)).on("click", function () {
-					navigate(tabs.getSelected(), result.url);
-				});
-
-				$("<i class='fa fa-globe'>").prependTo(item);
-
-				$("<span class='secondary-text'>").text(urlParser.removeProtocol(result.url)).appendTo(item);
-
-				item.appendTo(historyarea);
-			}
-
-		});
-	});
-
-
-	showDuckduckgoABData(text, input);
+	showHistoryResults(text, input, defaultMaxHistoryResults);
+	showInstantAnswers(text, input);
+	showTopicResults(text, input);
+	searchOpenTabs(text, input);
 
 	//update cache
 	awesomebarCachedText = text;
@@ -1222,7 +1728,7 @@ var showAwesomebarResults = throttle(function (text, input, keyCode) {
 function focusAwesomebarItem(options) {
 	options = options || {}; //fallback if options is null
 	var previous = options.focusPrevious;
-	var allItems = $("#awesomebar .result-item");
+	var allItems = $("#awesomebar .result-item:not(.unfocusable)");
 	var currentItem = $("#awesomebar .result-item:focus");
 	var index = allItems.index(currentItem);
 	var logicalNextItem = allItems.eq((previous) ? index - 1 : index + 1);
@@ -1254,6 +1760,8 @@ awesomebar.on("keydown", ".result-item", function (e) {
 });
 ;/* implements selecting webviews, switching between them, and creating new ones. */
 
+var phishingWarningPage = "file://" + __dirname + "/pages/phishing/index.html"; //TODO move this somewhere that actually makes sense
+
 var webviewBase = $("#webviews");
 
 function updateURLInternal(webview, url) {
@@ -1262,11 +1770,13 @@ function updateURLInternal(webview, url) {
 }
 
 function getWebviewDom(options) {
+
 	var url = (options || {}).url || "about:blank";
 
 	var w = $("<webview>");
-	w.attr("preload", "js/view_unsafe/webview_preload.js")
+	w.attr("preload", "dist/webview.min.js");
 	w.attr("src", urlParser.parse(url));
+
 	w.attr("data-tab", options.tabId);
 
 	//if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
@@ -1365,13 +1875,18 @@ function getWebviewDom(options) {
 
 		if (e.originalEvent.channel == "bookmarksData") {
 			bookmarks.onDataRecieved(e.originalEvent.args[0]);
+
 		} else if (e.originalEvent.channel == "canReader") {
 			tabs.update(tab, {
 				readerable: true
 			});
 			readerView.updateButton(tab);
+
 		} else if (e.originalEvent.channel == "contextData") {
 			webviewMenu.loadFromContextData(e.originalEvent.args[0]);
+
+		} else if (e.originalEvent.channel == "phishingDetected") {
+			navigate($(this).attr("data-tab"), phishingWarningPage);
 		}
 	});
 
@@ -1408,7 +1923,7 @@ function addWebview(tabId, options) {
 
 function switchToWebview(id) {
 	$("webview").hide();
-	$("webview[data-tab={id}]".replace("{id}", id)).removeClass("hidden").show(); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
+	$("webview[data-tab={id}]".replace("{id}", id)).removeClass("hidden").show().get(0).focus(); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
 }
 
 function updateWebview(id, url) {
@@ -1493,7 +2008,7 @@ var tabs = {
 
 		tab.url = tab.url || "";
 
-		var tabId = Math.round(Math.random() * 100000000000000000);
+		var tabId = tab.id || Math.round(Math.random() * 100000000000000000); //you can pass an id that will be used, or a random one will be generated.
 
 
 		tabs._state.tabs.push({
@@ -1504,6 +2019,8 @@ var tabs = {
 			secure: false,
 			private: tab.private || false,
 			readerable: false,
+			backgroundColor: tab.backgroundColor,
+			foregroundColor: tab.foregroundColor,
 		});
 
 		return tabId;
@@ -1571,152 +2088,10 @@ var tabs = {
 	},
 
 }
-;/*
-steps to creating a bookmark:
-
- - bookmarks.bookmark(tabId) is called
- - webview_preload.js sends an ipc to webviews.js
- - webviews.js detects the channel is "bookmarksData", and calls bookmarks.onDataRecieved(data)
- - The worker creates a bookmark, and adds it to the search index
-
-*/
-
-var bookmarks = {
-	authBookmarkTab: null,
-	updateHistory: function (tabId) {
-		var w = getWebview(tabId)[0]
-		var data = {
-			url: w.getUrl(),
-			title: w.getTitle(),
-			color: tabs.get(tabId).backgroundColor
-		}
-		bookmarks.worker.postMessage({
-			action: "updateHistory",
-			data: data
-		})
-	},
-	currentCallback: function () {},
-	onDataRecieved: function (data) {
-		//we can't trust that the data we get from webview_preload.js isn't malicious. Because of this, when we call bookmarks.bookmark(), we set authBookmarkTab to the bookmarked tab id. Then, we check if the url we get back actually matches the url of the tabtab we want to bookmark. This way, we know that the user actually wants to bookmark this url.
-		if (!bookmarks.authBookmarkTab || getWebview(bookmarks.authBookmarkTab)[0].getUrl() != data.url) {
-			throw new Error("Bookmark operation is unauthoritized.");
-		}
-
-		data.title = getWebview(bookmarks.authBookmarkTab)[0].getTitle();
-		bookmarks.worker.postMessage({
-			action: "addBookmark",
-			data: data
-		})
-		bookmarks.authBookmarkTab = null;
-	},
-	delete: function (url) {
-		bookmarks.worker.postMessage({
-			action: "deleteBookmark",
-			data: {
-				url: url
-			}
-		});
-	},
-	search: function (text, callback) {
-		bookmarks.currentCallback = callback; //save for later, we run in onMessage
-		bookmarks.worker.postMessage({
-			action: "searchBookmarks",
-			text: text,
-		});
-	},
-	searchHistory: function (text, callback) {
-		bookmarks.currentHistoryCallback = callback; //save for later, we run in onMessage
-		bookmarks.worker.postMessage({
-			action: "searchHistory",
-			text: text,
-		});
-	},
-	onMessage: function (e) { //assumes this is from a search operation
-		if (e.data.scope == "bookmarks") {
-			//TODO this (and the rest) should use unique callback id's
-			bookmarks.currentCallback(e.data.result);
-		} else { //history search
-			bookmarks.currentHistoryCallback(e.data.result);
-		}
-	},
-	bookmark: function (tabId) {
-
-		bookmarks.authBookmarkTab = tabId;
-		getWebview(tabId)[0].executeJavaScript("window._browser_sendData()");
-		//rest happens in onDataRecieved and worker
-	},
-	toggleBookmarked: function (tabId) { //toggles a bookmark. If it is bookmarked, delete the bookmark. Otherwise, add it.
-		var url = tabs.get(tabId).url,
-			exists = false;
-
-		bookmarks.search(url, function (d) {
-
-			d.forEach(function (item) {
-				if (item.url == url) {
-					exists = true;
-				}
-			});
-
-
-			if (exists) {
-				console.log("deleting bookmark " + tabs.get(tabId).url);
-				bookmarks.delete(tabs.get(tabId).url);
-			} else {
-				bookmarks.bookmark(tabId);
-			}
-		});
-	},
-	getStar: function (tabId) {
-		//alternative icon is fa-bookmark
-
-		var star = $("<i class='fa fa-star-o bookmarks-button theme-text-color'>").attr("data-tab", tabId);
-
-		star.on("click", function (e) {
-			$(this).toggleClass("fa-star").toggleClass("fa-star-o");
-
-			bookmarks.toggleBookmarked($(this).attr("data-tab"));
-		});
-
-		return bookmarks.renderStar(tabId, star);
-	},
-	renderStar: function (tabId, star) { //star is optional
-		star = star || $(".bookmarks-button[data-tab={id}]".replace("{id}", tabId));
-
-		try {
-			var currentUrl = getWebview(tabId)[0].getUrl();
-		} catch (e) {
-			var currentUrl = tabs.get(tabId).url;
-		}
-
-		if (!currentUrl || currentUrl == "about:blank") { //no url, can't be bookmarked
-			star.prop("hidden", true);
-		} else {
-			star.prop("hidden", false);
-		}
-
-		//check if the page is bookmarked or not, and update the star to match
-
-		bookmarks.search(currentUrl, function (results) {
-			if (results && results[0] && results[0].url == currentUrl) {
-				star.removeClass("fa-star-o").addClass("fa-star");
-			} else {
-				star.removeClass("fa-star").addClass("fa-star-o");
-			}
-		});
-		return star;
-	},
-	init: function () {
-		bookmarks.worker = new Worker("js/historyworker.js");
-		bookmarks.worker.onmessage = bookmarks.onMessage;
-	},
-
-}
-
-bookmarks.init();
 ;/* fades out tabs that are inactive */
 
 var tabActivity = {
-	minAge: 500000,
+	minFadeAge: 500000,
 	refresh: function () {
 		var tabSet = tabs.get(),
 			selected = tabs.getSelected(),
@@ -1724,7 +2099,11 @@ var tabActivity = {
 
 
 		tabSet.forEach(function (tab) {
-			if (time - tab.lastActivity > tabActivity.minAge && selected != tab.id) { //the tab has been inactive for greater than minActivity, and it is not currently selected
+			if (selected == tab.id) { //never fade the current tab
+				getTabElement(tab.id).removeClass("fade");
+				return;
+			}
+			if (time - tab.lastActivity > tabActivity.minFadeAge) { //the tab has been inactive for greater than minActivity, and it is not currently selected
 				getTabElement(tab.id).addClass("fade");
 			} else {
 				getTabElement(tab.id).removeClass("fade");
@@ -1752,7 +2131,20 @@ $.fn.getInput = function () {
 
 function setActiveTabElement(tabId) {
 	$(".tab-item").removeClass("active");
-	getTabElement(tabId).addClass("active");
+
+	var el = getTabElement(tabId);
+	el.addClass("active");
+
+	if (tabs.count() > 1) { //if there is only one tab, we don't need to indicate which one is selected
+		el.addClass("has-highlight");
+	} else {
+		el.removeClass("has-highlight");
+	}
+
+	el[0].scrollIntoView({
+		behavior: "smooth"
+	});
+
 }
 
 function leaveTabEditMode(options) {
@@ -1807,7 +2199,7 @@ function rerenderTabElement(tabId) {
 function createTabElement(tabId) {
 	console.log(tabId);
 	var data = tabs.get(tabId),
-		title = data.title || "Search or enter address",
+		title = "Search or enter address",
 		url = urlParser.parse(data.url);
 
 	var tab = $("<div class='tab-item'>");
@@ -1832,7 +2224,7 @@ function createTabElement(tabId) {
 	var vc = $("<div class='tab-view-contents theme-text-color'>")
 	readerView.getButton(tabId).appendTo(vc);
 
-	vc.append("<span class='title'>");
+	vc.append($("<span class='title'>").text(data.title || ""));
 	vc.appendTo(tab);
 
 
@@ -1862,7 +2254,7 @@ function createTabElement(tabId) {
 	input.on("keyup", function (e) {
 		if (e.keyCode == 13) { //return key pressed; update the url
 			var tabId = $(this).parents(".tab-item").attr("data-tab");
-			var newURL = $(this).val();
+			var newURL = parseAwesomebarUrl($(this).val());
 
 			navigate(tabId, newURL);
 
@@ -1893,15 +2285,19 @@ function addTab(tabId, options) {
 	
 	options.focus - whether to enter editing mode when the tab is created. Defaults to true.
 	options.openInBackground - whether to open the tab without switching to it. Defaults to false.
+	options.leaveEditMode - whether to hide the awesomebar when creating the tab
 	
 	*/
 
 	options = options || {}
-	leaveTabEditMode(); //if a tab is in edit-mode, we want to exit it
+
+	if (options.leaveEditMode != false) {
+		leaveTabEditMode(); //if a tab is in edit-mode, we want to exit it
+	}
 
 	tabId = tabId || tabs.add({
-		backgroundColor: "",
-		foregroundColor: ""
+		backgroundColor: "rgb(255, 255, 255)",
+		foregroundColor: "black"
 	});
 
 
@@ -1918,8 +2314,6 @@ function addTab(tabId, options) {
 	if (options.openInBackground) {
 		return;
 	}
-
-	setColor("", "");
 
 	switchToTab(tabId);
 	if (options.focus != false) {
@@ -1972,7 +2366,7 @@ ipc.on("addPrivateTab", function (e) {
 
 var Mousetrap = require("mousetrap");
 
-Mousetrap.bind("command+l", function (e) {
+Mousetrap.bind(["command+l", "command+k"], function (e) {
 	enterEditMode(tabs.getSelected());
 	return false;
 })
@@ -2011,6 +2405,10 @@ for (var i = 0; i < 9; i++) {
 
 Mousetrap.bind("command+9", function (e) {
 	switchToTab(tabs.getAtIndex(tabs.count() - 1).id);
+})
+
+Mousetrap.bind("esc", function (e) {
+	leaveTabEditMode();
 })
 ;/* handles viewing pdf files using pdf.js. Recieves events from main.js will-download */
 
@@ -2087,3 +2485,50 @@ findinpage.input.on("blur", function (e) {
 			blurInput: false
 		}) //if end tries to blur it again, we'll get stuck in an infinite loop with the event handler
 });
+;var sessionRestore = {
+	save: function () {
+		var data = {
+			version: 1,
+			tabs: tabs._state.tabs,
+			selected: tabs._state.selected,
+		}
+		localStorage.setItem("sessionrestoredata", JSON.stringify(data));
+	},
+	isRestorable: function () {
+		return localStorage.getItem("sessionrestoredata") != "{}";
+	},
+	restore: function () {
+		//get the data
+		var data = JSON.parse(localStorage.getItem("sessionrestoredata"));
+
+		//TODO there should be api's to reset the state like this
+		tabs._state.tabs = [];
+		$(".tab-item, webview").remove(); //this needs to be better, and will break easily
+
+		if (data.tabs.length == 1 && data.tabs[0].url == "about:blank") { //if we only have one tab, and its about:blank, don't restore
+			addTab();
+			return;
+		}
+
+		data.tabs.forEach(function (tab, index) {
+			var newTab = tabs.add(tab);
+			addTab(newTab);
+		});
+
+		//set the selected tab
+
+		switchToTab(data.selected);
+
+		setTimeout(function () {
+			localStorage.setItem("sessionrestoredata", "{}");
+		}, 8000);
+	}
+}
+
+//TODO make this a preference
+
+if (sessionRestore.isRestorable()) {
+	sessionRestore.restore();
+}
+
+setInterval(sessionRestore.save, 20000);

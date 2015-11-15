@@ -1,5 +1,7 @@
 /* implements selecting webviews, switching between them, and creating new ones. */
 
+var phishingWarningPage = "file://" + __dirname + "/pages/phishing/index.html"; //TODO move this somewhere that actually makes sense
+
 var webviewBase = $("#webviews");
 
 function updateURLInternal(webview, url) {
@@ -8,11 +10,13 @@ function updateURLInternal(webview, url) {
 }
 
 function getWebviewDom(options) {
+
 	var url = (options || {}).url || "about:blank";
 
 	var w = $("<webview>");
-	w.attr("preload", "js/view_unsafe/webview_preload.js")
+	w.attr("preload", "dist/webview.min.js");
 	w.attr("src", urlParser.parse(url));
+
 	w.attr("data-tab", options.tabId);
 
 	//if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
@@ -111,13 +115,18 @@ function getWebviewDom(options) {
 
 		if (e.originalEvent.channel == "bookmarksData") {
 			bookmarks.onDataRecieved(e.originalEvent.args[0]);
+
 		} else if (e.originalEvent.channel == "canReader") {
 			tabs.update(tab, {
 				readerable: true
 			});
 			readerView.updateButton(tab);
+
 		} else if (e.originalEvent.channel == "contextData") {
 			webviewMenu.loadFromContextData(e.originalEvent.args[0]);
+
+		} else if (e.originalEvent.channel == "phishingDetected") {
+			navigate($(this).attr("data-tab"), phishingWarningPage);
 		}
 	});
 
@@ -154,7 +163,7 @@ function addWebview(tabId, options) {
 
 function switchToWebview(id) {
 	$("webview").hide();
-	$("webview[data-tab={id}]".replace("{id}", id)).removeClass("hidden").show(); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
+	$("webview[data-tab={id}]".replace("{id}", id)).removeClass("hidden").show().get(0).focus(); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
 }
 
 function updateWebview(id, url) {

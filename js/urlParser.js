@@ -25,6 +25,8 @@ var urlParser = {
 		return url.indexOf(" ") == -1 && url.indexOf(".") > 0;
 	},
 	parse: function (url) {
+		url = url.trim(); //remove whitespace common on copy-pasted url's
+
 		if (!url) {
 			return "";
 		}
@@ -37,6 +39,6 @@ var urlParser = {
 			return "http://" + url;
 		}
 		//else, do a search
-		return urlParser.searchBaseURL.replace("%s", url);
+		return urlParser.searchBaseURL.replace("%s", encodeURIComponent(url));
 	}
 }
