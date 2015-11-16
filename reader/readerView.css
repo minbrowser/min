@@ -1,13 +1,14 @@
 #backtoarticle {
 	padding: 0 2.5em;
 	color: dodgerblue;
-	max-width: 1000px;
+	max-width: 800px;
 	margin: auto;
 	display: block;
 	box-sizing: border-box;
 	margin-top: 2em;
 	font-size: 1.1em;
 	cursor: pointer;
+	font-family: ".SFNSText-Regular", sans-serif;
 }
 #backtoarticle i {
 	vertical-align: baseline;
@@ -18,6 +19,7 @@ body,
 html {
 	padding: 0;
 	margin: 0;
+	font-size: 16px;
 }
 iframe {
 	display: none;
@@ -30,15 +32,12 @@ iframe.reader-frame {
 }
 .reader-main {
 	padding-top: 1em;
-	max-width: 1000px;
+	max-width: 800px;
 	display: block;
 	margin: auto;
 }
-.reader-main > * {
-	font-size: 16px;
-}
 * {
-	font-family: ".SFNSText-Regular";
+	font-family: "Georgia";
 }
 
 /* actual reader content */
@@ -152,6 +151,7 @@ blockquote {
 figure figcaption .credit {
 	display: block;
 	font-style: italic;
+	margin-top: 0.25em;
 }
 
 /* wikipedia (and others?) */
