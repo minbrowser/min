@@ -167,7 +167,7 @@
 /* when a result is selected, we can show more of the description */
 
 #awesomebar .result-item:focus .description-block {
-	max-height: 4.4em;
+	max-height: 6.6em;
 }
 body.awesomebar-shown webview {
 	opacity: 0.6;
