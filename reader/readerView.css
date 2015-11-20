@@ -6,7 +6,6 @@
 	display: block;
 	box-sizing: border-box;
 	margin-top: 2em;
-	font-size: 1.1em;
 	cursor: pointer;
 	font-family: ".SFNSText-Regular", sans-serif;
 }
@@ -19,7 +18,7 @@ body,
 html {
 	padding: 0;
 	margin: 0;
-	font-size: 16px;
+	font-size: 22px;
 }
 iframe {
 	display: none;
@@ -49,12 +48,12 @@ h1.article-title {
 	padding: 0.5em 1em;
 	margin-top: 0.5em;
 	margin: 0;
-	font-size: 2.5em;
+	font-size: 2em;
 	font-weight: 500;
 }
 h2.article-authors {
 	padding: 0 2.5rem;
-	font-size: 1.25em;
+	font-size: 1.2em;
 	font-weight: 400;
 	margin: 0;
 	font-style: italic;
@@ -87,6 +86,7 @@ h4 {
 	font-weight: 600;
 }
 .page {
+	padding-top: 1rem;
 	padding: 2.25rem;
 }
 img {
@@ -97,11 +97,6 @@ img {
 }
 p {
 	line-height: 1.5em;
-}
-p,
-ul li,
-ol li {
-	font-size: 1.2rem;
 }
 ul li,
 ol li {
@@ -136,8 +131,9 @@ code * {
 blockquote {
 	border-left: 1px currentColor solid;
 	padding-left: 0.5em;
-	font-size: 1.25em;
-	margin: 1em 0;
+	font-size: 1.2em;
+	line-height: 1.5em;
+	margin: 1.5em 0;
 }
 
 /* site-specific styles */
