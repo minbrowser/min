@@ -4,7 +4,6 @@
 	"main": "main.js",
 	"dependencies": {
 		"jquery": "^2.1.4",
-		"material-design-icons": "^2.1.0",
 		"mousetrap": "^1.5.3",
 		"string_score": "^0.1.22"
 	},
