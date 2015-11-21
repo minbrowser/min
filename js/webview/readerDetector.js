@@ -9,7 +9,9 @@ window.addEventListener("load", function (e) {
 	for (var i = 0; i < paragraphs.length; i++) {
 		tl += Math.max(paragraphs[i].textContent.length - 100, -30);
 	}
-	window._browser_readerScore = tl;
+
+	//for debugging
+	//window._browser_readerScore = tl;
 
 	if (tl > 650 || (document.querySelector("article") && tl > 200)) {
 		//the page is probably an article

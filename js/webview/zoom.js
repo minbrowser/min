@@ -1,8 +1,8 @@
 /* zooms the page in an out, and resets */
 
-window._browser_zoomLevel = 0;
-window._browser_maxZoom = 9;
-window._browser_minZoom = -8;
+var _browser_zoomLevel = 0;
+var _browser_maxZoom = 9;
+var _browser_minZoom = -8;
 
 ipc.on("zoomIn", function () {
 	if (_browser_maxZoom > _browser_zoomLevel) {
