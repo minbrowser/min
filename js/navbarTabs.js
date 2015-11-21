@@ -58,13 +58,12 @@ function enterEditMode(tabId) {
 }
 
 function rerenderTabElement(tabId) {
-	console.log(tabId);
 	var tabEl = getTabElement(tabId);
 
 	var tabData = tabs.get(tabId);
 
-
-	tabEl.find(".tab-view-contents .title").text(tabData.title || "New Tab");
+	var tabTitle = tabData.title || "New Tab";
+	tabEl.find(".tab-view-contents .title").text(tabTitle).attr("title", tabTitle);
 	tabEl.find(".tab-view-contents .icon-tab-is-secure, .icon-tab-is-private").remove(); //remove previous secure and private icons. Reader view icon is updated seperately, so it is not removed.
 
 	if (tabData.secure) {
@@ -80,7 +79,6 @@ function rerenderTabElement(tabId) {
 }
 
 function createTabElement(tabId) {
-	console.log(tabId);
 	var data = tabs.get(tabId),
 		title = "Search or enter address",
 		url = urlParser.parse(data.url);
@@ -146,9 +144,24 @@ function createTabElement(tabId) {
 
 		} else if (e.keyCode == 9) {
 			//tab key, do nothing - in keydown listener
-
+		} else if (e.keyCode == 16) {
+			//shift key, do nothing
 		} else { //show the awesomebar
 			showAwesomebarResults(input.val(), input, e.keyCode);
+		}
+	});
+
+	//on keydown, if the autocomplete result doesn't change, we move the selection instead of regenerating it to avoid race conditions with typing. Adapted from https://github.com/patrickburke/jquery.inlineComplete
+	input.on("keypress", function (e) {
+		var v = String.fromCharCode(e.keyCode).toLowerCase();
+		var sel = this.value.substring(this.selectionStart, this.selectionEnd).indexOf(v);
+
+		if (v && this.value.substring(this.selectionStart, this.selectionEnd).indexOf(v) == 0) {
+			this.selectionStart += 1;
+			didFireKeydownSelChange = true;
+			return false;
+		} else {
+			didFireKeydownSelChange = false;
 		}
 	});
 

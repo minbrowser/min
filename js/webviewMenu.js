@@ -124,3 +124,7 @@ var webviewMenu = {
 		}); //some menu items require recieving data from the page
 	}
 }
+
+bindWebviewIPC("contextData", function (webview, tabId, arguements) {
+	webviewMenu.loadFromContextData(arguements[0]);
+})
