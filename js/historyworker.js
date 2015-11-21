@@ -2,7 +2,7 @@ console.log("worker started ", performance.now());
 
 importScripts("../ext/Dexie.min.js");
 importScripts("../ext/lunr.min.js");
-importScripts("../node_modules/string_score/string_score.min.js")
+importScripts("../node_modules/string_score/string_score.min.js");
 
 console.log("scripts loaded ", performance.now());
 
@@ -19,9 +19,10 @@ db.version(1)
 		history: 'url, title, color, visitCount, lastVisit, extraData', //same thing
 	});
 
-db.open();
+db.open().then(function () {
+	console.log("database opened ", performance.now());
+});
 
-console.log("database opened ", performance.now());
 
 var spacesRegex = /[\s._/-]/g; //things that could be considered spaces
 var wordRegex = /^[a-z]+$/g;
@@ -138,7 +139,7 @@ function generateTopics() {
 		})
 }
 
-setTimeout(generateTopics, 5000);
+setTimeout(generateTopics, 15000);
 
 //index previously created items
 
@@ -231,45 +232,50 @@ onmessage = function (e) {
 		var stl = searchText.length;
 
 		db.history.each(function (item) {
-				item.boost = 0;
 
+				//if the text does not contain the first search word, it can't possibly be a match, so don't do any processing
+				var itext = (item.url + item.title).toLowerCase();
 
-				//internal app url's are less likely to be relevant
-
-				if (item.url.indexOf("Contents/Resources/app/") != -1) {
-					item.boost -= 0.1;
+				if (itext.indexOf(searchWords[0]) == -1) {
+					return;
 				}
+
+				item.boost = 0;
 
 				var doesMatch = true;
 				var tindex = item.url.indexOf(searchText);
 
+				//if the url contains the search string, count as a match
 				//prioritize matches near the beginning of the url
 				if (tindex != -1 && stl > 1) {
 					item.boost += (0.15 - (0.001 * tindex)) * stl;
 
+					//internal app url's are less likely to be relevant
+
+					if (item.url.indexOf("Contents/Resources/app/") != -1) {
+						item.boost -= 0.1;
+					}
 					matches.push(item);
+
 				} else {
-					var itemWords = (item.url + item.title).toLowerCase().replace(spacesRegex, "").toString();
-					var iwarray = (item.url + item.title).toLowerCase().split(spacesRegex);
-					var wordsMatched = 0;
+					//if all of the search words (split by spaces, etc) exist in the url, count it as a match, even if they are out of order
 
 					for (var i = 0; i < searchWords.length; i++) {
-						if (itemWords.indexOf(searchWords[i]) == -1) {
+						if (itext.indexOf(searchWords[i]) == -1) {
 							doesMatch = false;
 							break;
-						} else {
-							wordsMatched++;
-						}
-						// if a long word is an exact match, boost
-						if (searchWords[i].length > 5) {
-							item.boost += 0.025;
 						}
 					}
 
 					if (doesMatch) {
-						item.boost += wordsMatched * 0.033;
+						item.boost += searchWords.length * 0.033;
 						item.boost += item.title.score(searchText, 0.0001);
 
+						//internal app url's are less likely to be relevant
+
+						if (item.url.indexOf("Contents/Resources/app/") != -1) {
+							item.boost -= 0.1;
+						}
 						matches.push(item);
 					}
 				}
@@ -279,7 +285,7 @@ onmessage = function (e) {
 					return calculateHistoryScore(b) - calculateHistoryScore(a);
 				});
 				postMessage({
-					result: matches,
+					result: matches.splice(0, 200),
 					scope: "history"
 				})
 			});
