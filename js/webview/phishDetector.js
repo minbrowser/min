@@ -45,6 +45,14 @@ function checkPhishingStatus() {
 			return true;
 		}
 
+		//empty forms can be misleading
+
+		if (!form.querySelector("input")) {
+			debug_phishing("empty form found, checking but increasing minScore");
+			minPhishingScore += 0.15;
+			return true;
+		}
+
 		return false;
 	}
 
@@ -126,7 +134,7 @@ function checkPhishingStatus() {
 
 	if (window.location.pathname.length > 25) {
 		debug_phishing("paths detected");
-		phishingScore += 0.1;
+		phishingScore += Math.min(0.05 + (0.002 * window.location.pathname.length), 0.3);
 	}
 
 	sensitiveWords.forEach(function (word) {
