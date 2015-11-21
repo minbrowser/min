@@ -48,7 +48,7 @@ var readerView = {
 
 bindWebviewEvent("did-finish-load", function (e) {
 	var tab = $(this).attr("data-tab"),
-		url = this.getUrl();
+		url = this.getURL();
 
 	if (url.indexOf("file://" + __dirname + "/reader/index.html") == 0) {
 		tabs.update(tab, {

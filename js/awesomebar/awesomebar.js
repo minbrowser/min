@@ -43,7 +43,7 @@ function unsafeUnwrapTags(text) {
 }
 
 /* this is used by navbar-tabs.js. When a url is entered, endings such as ? need to be parsed and removed. */
-function parseAwesomebarUrl(url) {
+function parseAwesomebarURL(url) {
 	//always use a search engine if the query starts with "?"
 
 	if (url.indexOf("?") == 0) {

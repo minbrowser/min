@@ -11,8 +11,9 @@
 	<link rel="stylesheet" href="css/awesomebar.css" />
 	<link rel="stylesheet" href="ext/font-awesome-4.4.0/css/font-awesome.min.css" />
 	<script>
+		window.electron = require("electron");
 		window.$ = window.jQuery = require("jquery");
-		window.ipc = require("ipc");
+		window.ipc = electron.ipcRenderer;
 
 	</script>
 </head>

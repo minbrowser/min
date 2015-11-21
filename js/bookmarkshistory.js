@@ -13,7 +13,7 @@ var bookmarks = {
 	updateHistory: function (tabId) {
 		var w = getWebview(tabId)[0]
 		var data = {
-			url: w.getUrl(),
+			url: w.getURL(),
 			title: w.getTitle(),
 			color: tabs.get(tabId).backgroundColor
 		}
@@ -25,7 +25,7 @@ var bookmarks = {
 	currentCallback: function () {},
 	onDataRecieved: function (data) {
 		//we can't trust that the data we get from webview_preload.js isn't malicious. Because of this, when we call bookmarks.bookmark(), we set authBookmarkTab to the bookmarked tab id. Then, we check if the url we get back actually matches the url of the tabtab we want to bookmark. This way, we know that the user actually wants to bookmark this url.
-		if (!bookmarks.authBookmarkTab || getWebview(bookmarks.authBookmarkTab)[0].getUrl() != data.url) {
+		if (!bookmarks.authBookmarkTab || getWebview(bookmarks.authBookmarkTab)[0].getURL() != data.url) {
 			throw new Error("Bookmark operation is unauthoritized.");
 		}
 
@@ -119,12 +119,12 @@ var bookmarks = {
 		star = star || $(".bookmarks-button[data-tab={id}]".replace("{id}", tabId));
 
 		try {
-			var currentUrl = getWebview(tabId)[0].getUrl();
+			var currentURL = getWebview(tabId)[0].getURL();
 		} catch (e) {
-			var currentUrl = tabs.get(tabId).url;
+			var currentURL = tabs.get(tabId).url;
 		}
 
-		if (!currentUrl || currentUrl == "about:blank") { //no url, can't be bookmarked
+		if (!currentURL || currentURL == "about:blank") { //no url, can't be bookmarked
 			star.prop("hidden", true);
 		} else {
 			star.prop("hidden", false);
@@ -132,8 +132,8 @@ var bookmarks = {
 
 		//check if the page is bookmarked or not, and update the star to match
 
-		bookmarks.search(currentUrl, function (results) {
-			if (results && results[0] && results[0].url == currentUrl) {
+		bookmarks.search(currentURL, function (results) {
+			if (results && results[0] && results[0].url == currentURL) {
 				star.removeClass("fa-star-o").addClass("fa-star");
 			} else {
 				star.removeClass("fa-star").addClass("fa-star-o");

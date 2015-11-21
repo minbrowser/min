@@ -1,5 +1,6 @@
-var app = require('app'); // Module to control application life.
-var BrowserWindow = require('browser-window'); // Module to create native browser window.
+const electron = require("electron");
+const app = electron.app; // Module to control application life.
+const BrowserWindow = electron.BrowserWindow; // Module to create native browser window.
 var electronScreen = null; //setup in app.ready
 
 var mainWindow = null;
@@ -22,7 +23,7 @@ function createWindow() {
 	});
 
 	// and load the index.html of the app.
-	mainWindow.loadUrl('file://' + __dirname + '/index.html');
+	mainWindow.loadURL('file://' + __dirname + '/index.html');
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function () {
@@ -38,9 +39,9 @@ function createWindow() {
 		if (item.getMimeType() == "application/pdf") {
 			event.preventDefault();
 			sendIPCToWindow(mainWindow, "openPDF", {
-				url: item.getUrl(),
+				url: item.getURL(),
 				event: event,
-				item: item,
+				item: item, //as of electron 0.35.1, this is an empty object
 				webContents: webContents
 			});
 		}
@@ -288,7 +289,7 @@ app.on('window-all-closed', function () {
 // initialization and is ready to create browser windows.
 app.on('ready', function () {
 	// Create the browser window.
-	electronScreen = require('screen'); //this module must be loaded after the app is ready
+	electronScreen = electron.screen; //this module must be loaded after the app is ready
 
 	createWindow();
 

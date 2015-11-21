@@ -1,4 +1,4 @@
-var DDGSearchUrlRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
+var DDGSearchURLRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
 	plusRegex = /\+/g,
 	trailingSlashRegex = /\/$/g;
 
@@ -25,19 +25,19 @@ function awesomebarAutocomplete(input) {
 
 function autocompleteResultIfNeeded(input, result) {
 
-	DDGSearchUrlRegex.lastIndex = 0;
+	DDGSearchURLRegex.lastIndex = 0;
 
-	shouldAutocompleteTitle = DDGSearchUrlRegex.test(result.url);
+	shouldAutocompleteTitle = DDGSearchURLRegex.test(result.url);
 
 	if (shouldAutocompleteTitle) {
-		result.title = decodeURIComponent(result.url.replace(DDGSearchUrlRegex, "$1").replace(plusRegex, " "));
+		result.title = decodeURIComponent(result.url.replace(DDGSearchURLRegex, "$1").replace(plusRegex, " "));
 	}
 
 	var text = input.val(); //make sure the input hasn't changed between start and end of query
 
 
 	var textWithoutProtocol = urlParser.removeProtocol(text),
-		UrlWithoutProtocol = urlParser.removeProtocol(result.url);
+		URLWithoutProtocol = urlParser.removeProtocol(result.url);
 
 	if (textWithoutProtocol != text) {
 		var hasProtocol = true;
@@ -50,7 +50,7 @@ function autocompleteResultIfNeeded(input, result) {
 		var hasPath = true;
 	}
 
-	var canAutocompleteURL = UrlWithoutProtocol.indexOf(textWithoutProtocol) == 0 && !shouldAutocompleteTitle;
+	var canAutocompleteURL = URLWithoutProtocol.indexOf(textWithoutProtocol) == 0 && !shouldAutocompleteTitle;
 
 
 	if (autocompleteEnabled && shouldContinueAC && textWithoutProtocol && (canAutocompleteURL || (shouldAutocompleteTitle && result.title.indexOf(textWithoutProtocol) == 0))) { //the user has started to type the url
@@ -60,7 +60,7 @@ function autocompleteResultIfNeeded(input, result) {
 			//figure out the right address component to autocomplete
 
 			var withWWWset = ((hasWWW) ? result.url : result.url.replace("www.", ""))
-			var ac = ((hasProtocol) ? withWWWset : UrlWithoutProtocol);
+			var ac = ((hasProtocol) ? withWWWset : URLWithoutProtocol);
 			if (!hasPath && !urlParser.isSystemURL(withWWWset)) {
 				//if there isn't a / character typed yet, we only want to autocomplete to the domain
 				var a = document.createElement("a");
@@ -111,11 +111,11 @@ var showHistoryResults = function (text, input, maxItems) {
 
 			//special formatting for ddg search history results
 
-			DDGSearchUrlRegex.lastIndex = 0;
+			DDGSearchURLRegex.lastIndex = 0;
 
-			if (DDGSearchUrlRegex.test(result.url)) {
+			if (DDGSearchURLRegex.test(result.url)) {
 				//the history item is a search, display it like a search suggestion
-				title = decodeURIComponent(result.url.replace(DDGSearchUrlRegex, "$1").replace(plusRegex, " "));
+				title = decodeURIComponent(result.url.replace(DDGSearchURLRegex, "$1").replace(plusRegex, " "));
 				icon = $("<i class='fa fa-search'>");
 				shouldAutocompleteTitle = true; //previous searches can be autocompleted
 			}

@@ -65,7 +65,7 @@ function getWebviewDom(options) {
 
 	w.on("did-finish-load", function (e) {
 		var tab = $(this).attr("data-tab");
-		var url = e.target.getUrl();
+		var url = e.target.getURL();
 
 		if (url.indexOf("https://") === 0) {
 			tabs.update(tab, {
@@ -95,8 +95,8 @@ function getWebviewDom(options) {
 	/* too buggy, disabled for now
 
 	w.on("did-fail-load", function (e) {
-		if (e.originalEvent.validatedUrl == this.getUrl()) {
-			updateURLInternal($(this), "file:///" + __dirname + "/pages/error/index.html?e=" + JSON.stringify(e.originalEvent) + "&url=" + $(this)[0].getUrl());
+		if (e.originalEvent.validatedURL == this.getURL()) {
+			updateURLInternal($(this), "file:///" + __dirname + "/pages/error/index.html?e=" + JSON.stringify(e.originalEvent) + "&url=" + $(this)[0].getURL());
 		}
 	});
 		

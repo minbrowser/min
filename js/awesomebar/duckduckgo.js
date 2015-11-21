@@ -90,7 +90,7 @@ window.showSearchSuggestions = throttle(function (text, input) {
 
 					item.appendTo(serarea);
 
-					if (urlParser.isUrl(result.phrase) || urlParser.isUrlMissingProtocol(result.phrase)) { //website suggestions
+					if (urlParser.isURL(result.phrase) || urlParser.isURLMissingProtocol(result.phrase)) { //website suggestions
 						$("<i class='fa fa-globe'>").prependTo(item);
 					} else { //regular search results
 						$("<i class='fa fa-search'>").prependTo(item);
@@ -118,7 +118,7 @@ var limitSearchSuggestions = function (itemsToRemove) {
 window.showInstantAnswers = throttle(function (text, input) {
 
 	//don't make useless queries
-	if (urlParser.isUrlMissingProtocol(text)) {
+	if (urlParser.isURLMissingProtocol(text)) {
 		return;
 	}
 

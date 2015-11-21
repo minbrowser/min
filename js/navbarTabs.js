@@ -43,16 +43,16 @@ function enterEditMode(tabId) {
 
 	//when editing a tab, show the current page url. Sometimes, if the webview was just created, getting the URL can throw an error. If this happens, we fallback to whatever was there already.
 	try {
-		var currentUrl = webview.getUrl();
+		var currentURL = webview.getURL();
 	} catch (e) {
 		console.warn("failed to get webview URL");
-		var currentUrl = null;
+		var currentURL = null;
 	}
 
 	var input = tabEl.getInput();
 
 	tabEl.addClass("selected");
-	input.focus().val(currentUrl).select();
+	input.focus().val(currentURL).select();
 	showAwesomebar(input);
 	tabGroup.addClass("has-selected-tab");
 }
@@ -135,7 +135,7 @@ function createTabElement(tabId) {
 	input.on("keyup", function (e) {
 		if (e.keyCode == 13) { //return key pressed; update the url
 			var tabId = $(this).parents(".tab-item").attr("data-tab");
-			var newURL = parseAwesomebarUrl($(this).val());
+			var newURL = parseAwesomebarURL($(this).val());
 
 			navigate(tabId, newURL);
 

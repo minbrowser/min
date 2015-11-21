@@ -1,4 +1,5 @@
 /* imports common modules */
 
-var ipc = require('ipc');
-var webFrame = require('web-frame')
+var electron = require("electron");
+var ipc = electron.ipcRenderer;
+var webFrame = electron.webFrame;
