@@ -2,16 +2,103 @@ var DDGSearchUrlRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
 	plusRegex = /\+/g,
 	trailingSlashRegex = /\/$/g;
 
+var shouldAutocompleteTitle;
+var hasAutocompleted = false;
+
+var cachedHistoryResults = [];
+var maxHistoryResults = 3;
+
+function awesomebarAutocomplete(input) {
+	if (input.val() == awesomebarCachedText && input[0].selectionStart != input[0].selectionEnd) { //if nothing has actually changed, don't try to autocomplete
+		return;
+	}
+	//if we moved the selection, we don't want to autocomplete again
+	if (didFireKeydownSelChange) {
+		return;
+	}
+	for (var i = 0; i < cachedHistoryResults.length; i++) {
+		if (autocompleteResultIfNeeded(input, cachedHistoryResults[i])) {
+			hasAutocompleted = true;
+		}
+	}
+}
+
+function autocompleteResultIfNeeded(input, result) {
+
+	DDGSearchUrlRegex.lastIndex = 0;
+
+	shouldAutocompleteTitle = DDGSearchUrlRegex.test(result.url);
+
+	if (shouldAutocompleteTitle) {
+		result.title = decodeURIComponent(result.url.replace(DDGSearchUrlRegex, "$1").replace(plusRegex, " "));
+	}
+
+	var text = input.val(); //make sure the input hasn't changed between start and end of query
+
+
+	var textWithoutProtocol = urlParser.removeProtocol(text),
+		UrlWithoutProtocol = urlParser.removeProtocol(result.url);
+
+	if (textWithoutProtocol != text) {
+		var hasProtocol = true;
+	}
+	var hasWWW = text.indexOf("www.") != -1
+
+	if (textWithoutProtocol.indexOf("/") == -1) {
+		var hasPath = false;
+	} else {
+		var hasPath = true;
+	}
+
+	var canAutocompleteURL = UrlWithoutProtocol.indexOf(textWithoutProtocol) == 0 && !shouldAutocompleteTitle;
+
+
+	if (autocompleteEnabled && shouldContinueAC && textWithoutProtocol && (canAutocompleteURL || (shouldAutocompleteTitle && result.title.indexOf(textWithoutProtocol) == 0))) { //the user has started to type the url
+		if (shouldAutocompleteTitle) {
+			var ac = result.title;
+		} else {
+			//figure out the right address component to autocomplete
+
+			var withWWWset = ((hasWWW) ? result.url : result.url.replace("www.", ""))
+			var ac = ((hasProtocol) ? withWWWset : UrlWithoutProtocol);
+			if (!hasPath && !urlParser.isSystemURL(withWWWset)) {
+				//if there isn't a / character typed yet, we only want to autocomplete to the domain
+				var a = document.createElement("a");
+				a.href = withWWWset;
+				ac = ((hasProtocol) ? a.protocol + "//" : "") + a.hostname;
+			}
+		}
+
+		if (!ac) { //make sure we have something to autocomplete - this could not exist if we are using domain autocomplete and the ac string didn't have a hostname when processed
+			return;
+		}
+		input.blur();
+		input[0].value = ac;
+		input[0].setSelectionRange(text.length, ac.length);
+		input.focus(); //update cache
+		awesomebarCachedText = input[0].value,
+			shouldContinueAC = false;
+
+		return true;
+	}
+	return false;
+}
+
 var showHistoryResults = function (text, input, maxItems) {
+
+	maxItems = maxItems || maxHistoryResults;
 
 	if (!text) {
 		return;
 	}
 
-	var input0 = input[0];
-
 	bookmarks.searchHistory(text, function (results) {
 		historyarea.html("");
+
+
+		cachedHistoryResults = results;
+
+		awesomebarAutocomplete(input);
 
 		limitSearchSuggestions(results.length);
 
@@ -35,59 +122,6 @@ var showHistoryResults = function (text, input, maxItems) {
 
 			//if we've started typing the result and didn't press the delete key (which should make the highlight go away), autocomplete in the input
 
-			var text = input.val(); //make sure the input hasn't changed between start and end of query
-
-
-			var textWithoutProtocol = urlParser.removeProtocol(text),
-				UrlWithoutProtocol = urlParser.removeProtocol(result.url);
-
-			if (textWithoutProtocol != text) {
-				var hasProtocol = true;
-			}
-			var hasWWW = text.indexOf("www.") != -1
-
-			if (textWithoutProtocol.indexOf("/") == -1) {
-				var hasPath = false;
-			} else {
-				var hasPath = true;
-			}
-			if (shouldContinueAC && cachedACItem.indexOf(text) == 0) {
-				input.blur();
-				input0.value = cachedACItem;
-				input0.setSelectionRange(text.length, cachedACItem.length);
-				input.focus();
-				awesomebarCachedText = input.val();
-				shouldContinueAC = false;
-			}
-
-			if (autocompleteEnabled && shouldContinueAC && textWithoutProtocol && (UrlWithoutProtocol.indexOf(textWithoutProtocol) == 0 || (shouldAutocompleteTitle && title.indexOf(textWithoutProtocol) == 0))) { //the user has started to type the url
-				if (shouldAutocompleteTitle) {
-					var ac = title;
-				} else {
-					//figure out the right address component to autocomplete
-
-					var withWWWset = ((hasWWW) ? result.url : result.url.replace("www.", ""))
-					var ac = ((hasProtocol) ? withWWWset : UrlWithoutProtocol);
-					if (!hasPath && !urlParser.isSystemURL(withWWWset)) {
-						//if there isn't a / character typed yet, we only want to autocomplete to the domain
-						var a = document.createElement("a");
-						a.href = withWWWset;
-						ac = ((hasProtocol) ? a.protocol + "//" : "") + a.hostname;
-					}
-				}
-
-				if (!ac) { //make sure we have something to autocomplete - this could not exist if we are using domain autocomplete and the ac string didn't have a hostname when processed
-					return;
-				}
-				input.blur();
-				input0.value = ac;
-				input0.setSelectionRange(text.length, ac.length);
-				input.focus(); //update cache
-				awesomebarCachedText = input0.value,
-					shouldContinueAC = false,
-					cachedACItem = ac;
-			}
-
 			if (index < maxItems) { //only show up to n history items
 
 				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(title)).on("click", function (e) {
@@ -110,4 +144,9 @@ var showHistoryResults = function (text, input, maxItems) {
 
 		});
 	});
+}
+
+function limitHistoryResults(maxItems) {
+	maxHistoryResults = Math.min(3, Math.max(maxItems, 2));
+	historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1)).remove();
 }

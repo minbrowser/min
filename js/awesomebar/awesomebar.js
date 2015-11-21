@@ -4,8 +4,7 @@ var cachedACItem = "";
 var autocompleteEnabled = true;
 var shouldContinueAC = true;
 var METADATA_SEPARATOR = "·";
-
-var defaultMaxHistoryResults = 3;
+var didFireKeydownSelChange = false;
 
 //cache duckduckgo bangs so we make fewer network requests
 var cachedBangSnippets = {};
@@ -82,13 +81,14 @@ var topicsarea = awesomebar.find(".topic-results");
 var opentabarea = awesomebar.find(".opentab-results");
 
 function clearAwesomebar() {
-	historyarea.html("");
-	bookmarkarea.html("");
-	serarea.html("");
-	iaarea.html("");
-	topicsarea.html("");
 	opentabarea.html("");
+	topAnswerarea.html("");
+	bookmarkarea.html("");
+	historyarea.html("");
+	topicsarea.html("");
+	iaarea.html("");
 	suggestedsitearea.html("");
+	serarea.html("");
 }
 
 function showAwesomebar(triggerInput) {
@@ -105,6 +105,13 @@ function showAwesomebar(triggerInput) {
 
 }
 
+//gets the typed text in an input, ignoring highlighted suggestions
+
+function getValue(input) {
+	var text = input.val();
+	return text.replace(text.substring(input[0].selectionStart, input[0].selectionEnd), "");
+}
+
 function hideAwesomebar() {
 	awesomebarShown = false;
 	$(document.body).removeClass("awesomebar-shown");
@@ -113,14 +120,15 @@ function hideAwesomebar() {
 }
 var showAwesomebarResults = throttle(function (text, input, keyCode) {
 
+	//ignore highlighted suggestions in the text
+
+	text = getValue(input);
+
+	hasAutocompleted = false;
+
 	shouldContinueAC = !(keyCode == 8); //this needs to be outside searchHistory so that it doesn't get reset if the history callback is run multiple times (such as when multiple messages get sent before the worker has finished startup).
 
 	console.log("awesomebar: ", text);
-
-	if (text == awesomebarCachedText) { //if nothing has actually changed, don't re-render
-		return;
-	}
-
 
 	//there is no text, show a blank awesomebar
 	if (text.length < 1) {
@@ -142,7 +150,7 @@ var showAwesomebarResults = throttle(function (text, input, keyCode) {
 
 	if (text.indexOf("^") == 0) {
 		clearAwesomebar();
-		showHistoryResults(text.replace("^", ""), input, 5);
+		showHistoryResults(text.replace("^", ""), input);
 		return;
 	}
 
@@ -158,14 +166,14 @@ var showAwesomebarResults = throttle(function (text, input, keyCode) {
 
 	showSearchSuggestions(text, input);
 
-	if (text.length > 3) {
-		showBookmarkResults(text);
-	}
+	showBookmarkResults(text);
 
-	showHistoryResults(text, input, defaultMaxHistoryResults);
+	showHistoryResults(text, input);
 	showInstantAnswers(text, input);
 	showTopicResults(text, input);
 	searchOpenTabs(text, input);
+
+	awesomebarAutocomplete(input);
 
 	//update cache
 	awesomebarCachedText = text;

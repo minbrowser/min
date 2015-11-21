@@ -1,6 +1,7 @@
 var BANG_REGEX = /!\w+/g;
 var serarea = $("#awesomebar .search-engine-results");
 var iaarea = $("#awesomebar .instant-answer-results");
+var topAnswerarea = $("#awesomebar .top-answer-results");
 var suggestedsitearea = $("#awesomebar .ddg-site-results");
 
 var maxSearchSuggestions = 5;
@@ -30,6 +31,12 @@ function unsafe_showColorUI(searchText, colorHTML) {
 window.showSearchSuggestions = throttle(function (text, input) {
 
 	if (!text) {
+		return;
+	}
+
+	//we don't show search suggestions in private tabs, since this would send typed text to DDG
+
+	if (tabs.get(tabs.getSelected()).private) {
 		return;
 	}
 
@@ -115,14 +122,25 @@ window.showInstantAnswers = throttle(function (text, input) {
 		return;
 	}
 
+	//don't send typed text in private mode
+	if (tabs.get(tabs.getSelected()).private) {
+		return;
+	}
+
 	//instant answers
 
 	iaarea.find(".result-item").addClass("old");
 	suggestedsitearea.find(".result-item").addClass("old");
+	topAnswerarea.find(".result-item").addClass("old");
 
 	if (text.length > 3) {
 
 		$.getJSON("https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q=" + encodeURIComponent(text), function (res) {
+
+			//if value has changed, don't show results
+			if (text != getValue(input)) {
+				return;
+			}
 
 			iaarea.find(".result-item").addClass("old");
 			suggestedsitearea.find(".result-item").addClass("old");
@@ -155,7 +173,13 @@ window.showInstantAnswers = throttle(function (text, input) {
 						navigate(tabs.getSelected(), res.AbstractURL || text)
 					}
 				});
-				item.appendTo(iaarea);
+
+				//answers are more relevant, they should be displayed at the top
+				if (res.Answer) {
+					item.appendTo(topAnswerarea);
+				} else {
+					item.appendTo(iaarea);
+				}
 			}
 
 			//suggested site links
@@ -178,11 +202,16 @@ window.showInstantAnswers = throttle(function (text, input) {
 				$("<span class='secondary-text'>").text("Suggested site").appendTo(item);
 
 				console.log(item);
-				item.appendTo(suggestedsitearea);
+
+				//if we have bookmarks for that item, we probably don't need to suggest a site
+				if (bookmarkarea.find(".result-item").length < 2) {
+					item.appendTo(suggestedsitearea);
+				}
 			}
 
 			iaarea.find(".old").remove();
 			suggestedsitearea.find(".old").remove();
+			topAnswerarea.find(".old").remove();
 
 
 		});

@@ -1,12 +1,16 @@
 var showBookmarkResults = throttle(function (text) {
-	if (!text) {
+	if (text.length < 3) {
 		return;
 	}
 
 	bookmarks.search(text, function (results) {
 		bookmarkarea.html("");
-		results.splice(0, 2).forEach(function (result) {
-			if (result.score > 0.00047) {
+		var resultsShown = 2;
+		results.splice(0, 3).forEach(function (result) {
+			//as more results are added, the threshold for adding another one gets higher
+			if (result.score > 0.0005 * resultsShown) {
+
+				resultsShown++;
 
 				//create the basic item
 				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(result.title)).on("click", function (e) {
@@ -48,5 +52,7 @@ var showBookmarkResults = throttle(function (text) {
 			}
 
 		});
+		limitHistoryResults(5 - resultsShown); //if we have lots of bookmarks, don't show as many regular history items
+
 	});
 }, 400);
