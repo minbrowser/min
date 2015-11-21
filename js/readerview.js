@@ -43,3 +43,35 @@ var readerView = {
 		})
 	}
 }
+
+//update the reader button on page load
+
+bindWebviewEvent("did-finish-load", function (e) {
+	var tab = $(this).attr("data-tab"),
+		url = this.getUrl();
+
+	if (url.indexOf("file://" + __dirname + "/reader/index.html") == 0) {
+		tabs.update(tab, {
+			isReaderView: true
+		})
+	} else {
+		tabs.update(tab, {
+			isReaderView: false
+		})
+	}
+
+	//assume the new page can't be readered, we'll get another message if it can
+
+	tabs.update(tab, {
+		readerable: false,
+	});
+	readerView.updateButton(tab);
+
+});
+
+bindWebviewIPC("canReader", function (webview, tab) {
+	tabs.update(tab, {
+		readerable: true
+	});
+	readerView.updateButton(tab);
+});

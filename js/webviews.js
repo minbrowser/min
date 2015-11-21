@@ -3,10 +3,29 @@
 var phishingWarningPage = "file://" + __dirname + "/pages/phishing/index.html"; //TODO move this somewhere that actually makes sense
 
 var webviewBase = $("#webviews");
+var webviewEvents = [];
+var webviewIPC = [];
 
 function updateURLInternal(webview, url) {
-	console.log("setting url to " + url)
 	webview.attr("src", url);
+}
+
+//this only affects newly created webviews, so all bindings should be done on startup
+
+function bindWebviewEvent(event, fn) {
+	webviewEvents.push({
+		event: event,
+		fn: fn,
+	})
+}
+
+//function is called with (webview, tabId, IPCArguements)
+
+function bindWebviewIPC(name, fn) {
+	webviewIPC.push({
+		name: name,
+		fn: fn,
+	})
 }
 
 function getWebviewDom(options) {
@@ -26,6 +45,10 @@ function getWebviewDom(options) {
 	}
 
 	//webview events
+
+	webviewEvents.forEach(function (i) {
+		w.on(i.event, i.fn);
+	})
 
 	w.on("page-favicon-updated", function (e) {
 		var id = $(this).attr("data-tab");
@@ -55,22 +78,6 @@ function getWebviewDom(options) {
 				url: url,
 			});
 		}
-		if (url.indexOf(__dirname + "/reader/index.html") == 7) { //"file://" is 7 characters
-			tabs.update(tab, {
-				isReaderView: true
-			})
-		} else {
-			tabs.update(tab, {
-				isReaderView: false
-			})
-		}
-
-		//assume the new page can't be readered, we'll get another message if it can
-
-		tabs.update(tab, {
-			readerable: false,
-		});
-		readerView.updateButton(tab);
 
 		if (tabs.get(tab).private == false) { //don't save to history if in private mode
 			bookmarks.updateHistory(tab);
@@ -80,9 +87,9 @@ function getWebviewDom(options) {
 
 	});
 
-	w.on("did-get-redirect-request", function (e) {
-		//console.log(e.originalEvent);
-	});
+	/*w.on("did-get-redirect-request", function (e) {
+		console.log(e.originalEvent);
+	});*/
 
 
 	/* too buggy, disabled for now
@@ -94,6 +101,9 @@ function getWebviewDom(options) {
 	});
 		
 	*/
+
+
+	//open links in new tabs
 
 	w.on("new-window", function (e) {
 		var tab = $(this).attr("data-tab");
@@ -113,17 +123,14 @@ function getWebviewDom(options) {
 		var w = this;
 		var tab = $(this).attr("data-tab");
 
+		webviewIPC.forEach(function (item) {
+			if (item.name == e.originalEvent.channel) {
+				item.fn(w, tab, e.originalEvent.args);
+			}
+		});
+
 		if (e.originalEvent.channel == "bookmarksData") {
 			bookmarks.onDataRecieved(e.originalEvent.args[0]);
-
-		} else if (e.originalEvent.channel == "canReader") {
-			tabs.update(tab, {
-				readerable: true
-			});
-			readerView.updateButton(tab);
-
-		} else if (e.originalEvent.channel == "contextData") {
-			webviewMenu.loadFromContextData(e.originalEvent.args[0]);
 
 		} else if (e.originalEvent.channel == "phishingDetected") {
 			navigate($(this).attr("data-tab"), phishingWarningPage);
