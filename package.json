@@ -3,6 +3,7 @@
 	"version": "0.2.0",
 	"main": "main.js",
 	"dependencies": {
+		"grunt-remove-logging": "^0.2.0",
 		"jquery": "^2.1.4",
 		"mousetrap": "^1.5.3",
 		"string_score": "^0.1.22"
