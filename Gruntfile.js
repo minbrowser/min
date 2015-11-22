@@ -58,23 +58,14 @@ module.exports = function (grunt) {
 				src: 'dist/webview.js',
 				dest: 'dist/webview.min.js'
 			}
-		},
-		removelogging: {
-			browser: {
-				src: "dist/build.min.js"
-			},
-			webview: {
-				src: "dist/webview.min.js",
-			}
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks("grunt-remove-logging");
 
-	grunt.registerTask('default', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'removelogging:browser', 'removelogging:webview']);
-	grunt.registerTask('browser', ['concat:browser', 'uglify:browser', 'removelogging:browser']);
-	grunt.registerTask('webview', ['concat:webview', 'uglify:webview', 'removelogging:webview']);
+	grunt.registerTask('default', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview']);
+	grunt.registerTask('browser', ['concat:browser', 'uglify:browser']);
+	grunt.registerTask('webview', ['concat:webview', 'uglify:webview']);
 
 };
