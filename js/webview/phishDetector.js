@@ -307,7 +307,7 @@ function checkPhishingStatus() {
 	//if we have a password input, set a lower threshold
 
 	if (document.querySelector("input[type=password]")) {
-		minPhishingScore = 0.85;
+		minPhishingScore = 1.0;
 	}
 
 	//if most of the page isn't forms, set a higher threshold
