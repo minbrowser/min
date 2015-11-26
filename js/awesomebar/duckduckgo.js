@@ -115,7 +115,9 @@ var limitSearchSuggestions = function (itemsToRemove) {
 	serarea.find(".result-item:nth-child(n+{items})".replace("{items}", itemsLeft + 1)).remove();
 }
 
-window.showInstantAnswers = throttle(function (text, input) {
+window.showInstantAnswers = throttle(function (text, input, options) {
+
+	options = options || {};
 
 	//don't make useless queries
 	if (urlParser.isURLMissingProtocol(text)) {
@@ -133,12 +135,16 @@ window.showInstantAnswers = throttle(function (text, input) {
 	suggestedsitearea.find(".result-item").addClass("old");
 	topAnswerarea.find(".result-item").addClass("old");
 
+	//run bang plugins. Putting this insides the answers call makes throttling and deletion of old answers simpler
+
+	showBangPlugins(text, input);
+
 	if (text.length > 3) {
 
 		$.getJSON("https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q=" + encodeURIComponent(text), function (res) {
 
 			//if value has changed, don't show results
-			if (text != getValue(input)) {
+			if (text != getValue(input) && !options.alwaysShow) {
 				return;
 			}
 

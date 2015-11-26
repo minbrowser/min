@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<title>Wiktionary-parser</title>
+	<script src="wiktionary-parser.js"></script>
+</head>
+
+<body>
+	<h1>Wiktionary-parser demo</h1>
+	<input style="width: 320px; max-width: 85%;" placeholder="enter a word to view definitions" id="wk-demo-input" />
+	<div id="wk-output"></div>
+	<script>
+		var output = $("#wk-output");
+		$("#wk-demo-input").on("change", function() {
+			getDictionaryInfo($(this).val(), "English", function(data) {
+				output.html("");
+				
+				if(!data.definitions) {
+					output.html("<p>Word not found.</p>");
+				}
+				
+				$("<h1>").appendTo(output).text(data.title);
+
+				for (var i = 0; i < data.definitions.length; i++) {
+					$("<p>").text(data.definitions[i].type + ": " + data.definitions[i].meaning).appendTo(output);
+				}
+			});
+		});
+
+	</script>
+</body>
+
+</html

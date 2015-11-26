@@ -16,6 +16,7 @@ module.exports = function (grunt) {
 						 "js/tabcolor.js",
 						 "js/webviewMenu.js",
 						 "js/api-wrapper.js",
+							"js/awesomebar/bangPlugins.js",
 							"js/awesomebar/history.js",
 							"js/awesomebar/bookmarks.js",
 							"js/awesomebar/duckduckgo.js",
@@ -42,6 +43,7 @@ module.exports = function (grunt) {
 						"js/webview/readerDetector.js",
 						"js/webview/swipeNavigation.js",
 						"js/webview/zoom.js",
+						"js/webview/keywordExtractor.js"
 						 ],
 				dest: 'dist/webview.js'
 			}
