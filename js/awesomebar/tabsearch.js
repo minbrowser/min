@@ -1,7 +1,6 @@
 var spacesRegex = /[\s._/-]/g; //copied from historyworker.js
 
-
-/* most of this is copied from searchHistory in historyworker.js */
+var stringScore = require("string_score");
 
 var searchOpenTabs = function (searchText) {
 	var searchWords = searchText.toLowerCase().split(spacesRegex);
@@ -21,22 +20,7 @@ var searchOpenTabs = function (searchText) {
 		if (item.id == selTab || !item.title || item.url == "about:blank") {
 			return;
 		}
-		var doesMatch = true;
-		var itemWords = urlParser.removeProtocol(item.url);
-
-		if (stl > 3) {
-			itemWords += item.title
-		}
-
-		itemWords = itemWords.toLowerCase().replace(spacesRegex, "").toString();
-
-		for (var i = 0; i < searchWords.length; i++) {
-			if (itemWords.indexOf(searchWords[i]) == -1) {
-				doesMatch = false;
-				break;
-			}
-		}
-		if (doesMatch) {
+		if (item.title.indexOf(searchText) != -1 || item.title.score(searchText, 0.5) > 0.25 || item.url.indexOf(searchText) != -1 || item.url.score(searchText, 0.5) > 0.25) {
 			matches.push(item);
 		}
 	});
@@ -45,6 +29,14 @@ var searchOpenTabs = function (searchText) {
 		return a.lastActivity - b.lastActivity;
 	}).forEach(function (tab) {
 		var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(tab.title)).on("click", function () {
+
+			//if we created a new tab but are switching away from it, destroy the current (empty) tab
+			if (tabs.get(tabs.getSelected()).url == "about:blank") {
+				destroyTab(tabs.getSelected(), {
+					switchToTab: false
+				});
+			}
+
 			switchToTab(tab.id);
 		});
 
