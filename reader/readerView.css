@@ -36,7 +36,7 @@ iframe.reader-frame {
 	margin: auto;
 }
 * {
-	font-family: "Georgia";
+	font-family: "Charter", "Georgia", serif;
 }
 
 /* actual reader content */
