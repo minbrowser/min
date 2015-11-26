@@ -13,6 +13,10 @@ var findinpage = {
 			findinpage.input.blur();
 		}
 		findinpage.isEnabled = false;
+
+		//focus the webview
+
+		getWebview(tabs.getSelected()).focus();
 	},
 	toggle: function () {
 		if (findinpage.isEnabled) {
