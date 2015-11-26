@@ -8,11 +8,11 @@ var showTopicResults = function (text, input) {
 			return;
 		}
 
-		topics.splice(0, 4).forEach(function (topic) {
-			if (topic.name == input.val()) {
+		topics.splice(0, 2).forEach(function (topic) {
+			if (topic.name == text) {
 				return;
 			}
-			$("<div class='result-item tag' tabindex='-1'>").text(topic.name).appendTo(topicsarea).on("click", function (e) {
+			$("<div class='result-item' tabindex='-1'>").text(topic.name).attr("title", "More results for this topic").prepend("<i class='fa fa-tag'></i>").appendTo(topicsarea).on("click", function (e) {
 
 				//enter a special history-only mode
 
@@ -21,6 +21,7 @@ var showTopicResults = function (text, input) {
 				input.val(topic.name);
 
 				showHistoryResults(topic.name, input, 50); //show up to 50 results.
+				showBookmarkResults(topic.name);
 
 				setTimeout(function () {
 					input.focus();

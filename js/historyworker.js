@@ -3,29 +3,19 @@ console.log("worker started ", performance.now());
 importScripts("../ext/Dexie.min.js");
 importScripts("../ext/lunr.min.js");
 importScripts("../node_modules/string_score/string_score.min.js");
+importScripts("../node_modules/nlp_compromise/client_side/nlp.js");
+importScripts("database.js");
 
 console.log("scripts loaded ", performance.now());
 
+console.log(nlp, nlp.ngram("Github is a git repository service."));
+
 var topics = []; //a list of common groups of history items. Each one is an object with: score (number), name (string), and urls (array).
-
-
-var db = new Dexie('browsingData');
 
 //extraData key is an object - its so we don't have to upgrade the db if we want to add stuff in the future
 
-db.version(1)
-	.stores({
-		bookmarks: 'url, title, text, extraData', //url must come first so it is the primary key
-		history: 'url, title, color, visitCount, lastVisit, extraData', //same thing
-	});
-
-db.open().then(function () {
-	console.log("database opened ", performance.now());
-});
-
-
 var spacesRegex = /[\s._/-]/g; //things that could be considered spaces
-var wordRegex = /^[a-z]+$/g;
+var wordRegex = /^[a-z\s]+$/g;
 
 function getTime() {
 	return new Date().getTime();
@@ -49,18 +39,17 @@ function calculateHistoryScore(item, boost) { //boost - how much the score shoul
 
 var oneMonthInMS = 30 * 24 * 60 * 60 * 1000; //one month in milliseconds
 
+//the oldest an item can be to remain in the database
+var minItemAge = Date.now() - oneMonthInMS;
+
 function cleanupHistoryDatabase() { //removes old history entries
-	var time = getTime();
-	db.history.each(function (item) {
-		if (time - item.lastVisit > oneMonthInMS) { //item is more than one month old, delete the item to prevent the db from getting too big
-			db.history.where("url").equals(item.url).delete();
-		}
-	});
+	db.history.where("lastVisit").below(minItemAge).delete();
 }
 
 setTimeout(cleanupHistoryDatabase, 20000); //don't run immediately on startup, since is might slow down awesomebar search.
 
 /* generate topics */
+
 
 function generateTopics() {
 	var bundles = {};
@@ -139,7 +128,7 @@ function generateTopics() {
 		})
 }
 
-setTimeout(generateTopics, 15000);
+generateTopics();
 
 //index previously created items
 
@@ -248,7 +237,7 @@ onmessage = function (e) {
 				//if the url contains the search string, count as a match
 				//prioritize matches near the beginning of the url
 				if (tindex != -1 && stl > 1) {
-					item.boost += (0.15 - (0.001 * tindex)) * stl;
+					item.boost += (0.3 - (0.002 * tindex)) * stl;
 
 					//internal app url's are less likely to be relevant
 
@@ -360,7 +349,7 @@ onmessage = function (e) {
 		//topics are already sorted
 
 		for (var i = 0; i < topics.length; i++) {
-			if (topics[i].name.indexOf(searchText) == 0) {
+			if (topics[i] && topics[i].name.indexOf(searchText) == 0) {
 				matches.push(topics[i]);
 			}
 		}
