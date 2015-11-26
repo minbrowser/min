@@ -33,8 +33,14 @@ findinpage.input.on("keyup", function (e) {
 		return;
 	}
 	var text = findinpage.escape($(this).val());
-	console.log(text);
-	getWebview(tabs.getSelected())[0].executeJavaScript("window.getSelection().empty(); find('{t}', false, false, true, false, false, false)".replace("{t}", text)); //see https://developer.mozilla.org/en-US/docs/Web/API/Window/find for a description of the parameters
+	var webview = getWebview(tabs.getSelected())[0];
+
+	//this stays on the current text if it still matches, preventing flickering. However, if the return key was pressed, we should move on to the next match instead, so this shouldn't run.
+	if (e.keyCode != 13) {
+		webview.executeJavaScript("window.getSelection().empty()");
+	}
+
+	webview.executeJavaScript("find('{t}', false, false, true, false, false, false)".replace("{t}", text)); //see https://developer.mozilla.org/en-US/docs/Web/API/Window/find for a description of the parameters
 });
 
 findinpage.input.on("blur", function (e) {
