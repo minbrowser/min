@@ -34,7 +34,7 @@ findinpage.input.on("keyup", function (e) {
 	}
 	var text = findinpage.escape($(this).val());
 	console.log(text);
-	getWebview(tabs.getSelected())[0].executeJavaScript("find('{t}', false, false, true, false, false, false)".replace("{t}", text)); //see https://developer.mozilla.org/en-US/docs/Web/API/Window/find for a description of the parameters
+	getWebview(tabs.getSelected())[0].executeJavaScript("window.getSelection().empty(); find('{t}', false, false, true, false, false, false)".replace("{t}", text)); //see https://developer.mozilla.org/en-US/docs/Web/API/Window/find for a description of the parameters
 });
 
 findinpage.input.on("blur", function (e) {
