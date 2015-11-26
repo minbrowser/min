@@ -5,6 +5,7 @@ var autocompleteEnabled = true;
 var shouldContinueAC = true;
 var METADATA_SEPARATOR = "·";
 var didFireKeydownSelChange = false;
+var currentAwesomebarInput;
 
 //cache duckduckgo bangs so we make fewer network requests
 var cachedBangSnippets = {};
@@ -101,7 +102,7 @@ function showAwesomebar(triggerInput) {
 
 	awesomebar.show();
 
-	var currentTab = tabs.get(tabs.getSelected());
+	currentAwesomebarInput = triggerInput;
 
 }
 
@@ -118,7 +119,7 @@ function hideAwesomebar() {
 	awesomebar.hide();
 	cachedBangSnippets = {};
 }
-var showAwesomebarResults = throttle(function (text, input, keyCode) {
+var showAwesomebarResults = throttle(function (text, input, event) {
 
 	//ignore highlighted suggestions in the text
 
@@ -126,7 +127,7 @@ var showAwesomebarResults = throttle(function (text, input, keyCode) {
 
 	hasAutocompleted = false;
 
-	shouldContinueAC = !(keyCode == 8); //this needs to be outside searchHistory so that it doesn't get reset if the history callback is run multiple times (such as when multiple messages get sent before the worker has finished startup).
+	shouldContinueAC = !(event.keyCode == 8); //this needs to be outside searchHistory so that it doesn't get reset if the history callback is run multiple times (such as when multiple messages get sent before the worker has finished startup).
 
 	console.log("awesomebar: ", text);
 
@@ -211,4 +212,52 @@ awesomebar.on("keydown", ".result-item", function (e) {
 			focusPrevious: true
 		});
 	}
+});
+
+//when we get keywords data from the page, we show those results in the awesomebar
+
+bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
+
+	var data = arguements[0];
+
+	var hasShownDDGpopup = false;
+	var itemsCt = 0;
+
+	var itemsShown = [];
+
+
+	data.entities.forEach(function (item, index) {
+
+		//ignore one-word items, they're usually useless
+		if (!/\s/g.test(item.trim())) {
+			return;
+		}
+
+		if (itemsCt >= 5 || itemsShown.indexOf(item.trim()) != -1) {
+			return;
+		}
+
+		if (!hasShownDDGpopup) {
+			showInstantAnswers(data.entities[0], currentAwesomebarInput, {
+				alwaysShow: true
+			});
+
+			hasShownDDGpopup = true;
+		}
+
+		var div = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(item)).on("click", function (e) {
+			if (e.metaKey) {
+				openURLInBackground(item);
+			} else {
+				navigate(tabs.getSelected(), item);
+			}
+		});
+
+		$("<i class='fa fa-search'>").prependTo(div);
+
+		div.appendTo(serarea);
+
+		itemsCt++;
+		itemsShown.push(item.trim());
+	});
 });

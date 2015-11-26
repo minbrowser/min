@@ -55,6 +55,14 @@ function enterEditMode(tabId) {
 	input.focus().val(currentURL).select();
 	showAwesomebar(input);
 	tabGroup.addClass("has-selected-tab");
+
+	//show keyword suggestions in the awesomebar
+
+	try { //before first webview navigation, this will be undefined
+		getWebview(tabs.getSelected())[0].send("getKeywordsData");
+	} catch (e) {
+
+	}
 }
 
 function rerenderTabElement(tabId) {
@@ -166,7 +174,7 @@ function createTabElement(tabId) {
 		} else if (e.keyCode == 16) {
 			//shift key, do nothing
 		} else { //show the awesomebar
-			showAwesomebarResults(input.val(), input, e.keyCode);
+			showAwesomebarResults(input.val(), input, e);
 		}
 	});
 
@@ -175,7 +183,7 @@ function createTabElement(tabId) {
 		var v = String.fromCharCode(e.keyCode).toLowerCase();
 		var sel = this.value.substring(this.selectionStart, this.selectionEnd).indexOf(v);
 
-		if (v && this.value.substring(this.selectionStart, this.selectionEnd).indexOf(v) == 0) {
+		if (v && sel == 0) {
 			this.selectionStart += 1;
 			didFireKeydownSelChange = true;
 			return false;
