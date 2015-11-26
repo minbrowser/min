@@ -15,7 +15,14 @@
 		window.$ = window.jQuery = require("jquery");
 		window.ipc = electron.ipcRenderer;
 
+
+		//disable dragdrop, since it currently doesn't work
+		$(window).on("drop", function(e) {
+			e.preventDefault();
+		});
+
 	</script>
+	<script src="ext/wiktionary-parser/wiktionary-parser.js"></script>
 </head>
 
 <body>
@@ -28,8 +35,8 @@
 
 	<div class="theme-background-color theme-text-color" id="awesomebar">
 		<div class="top-answer-results"></div>
-		<div class="bookmark-results"></div>
 		<div class="opentab-results"></div>
+		<div class="bookmark-results"></div>
 		<div class="history-results"></div>
 		<div class="topic-results"></div>
 		<div class="instant-answer-results"></div>
