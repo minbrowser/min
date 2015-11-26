@@ -34,6 +34,14 @@ ipc.on("addPrivateTab", function (e) {
 
 var Mousetrap = require("mousetrap");
 
+Mousetrap.bind("shift+command+p", function (e) {
+	var privateTab = tabs.add({
+		url: "about:blank",
+		private: true,
+	})
+	addTab(privateTab);
+});
+
 Mousetrap.bind(["command+l", "command+k"], function (e) {
 	enterEditMode(tabs.getSelected());
 	return false;
@@ -43,7 +51,7 @@ Mousetrap.bind("command+w", function (e) {
 	e.preventDefault();
 	e.stopImmediatePropagation();
 	e.stopPropagation();
-	destroyTab(tabs.getSelected());
+	destroyTab(tabs.getSelected(), {switchToTab: true});
 	return false;
 });
 
@@ -77,4 +85,8 @@ Mousetrap.bind("command+9", function (e) {
 
 Mousetrap.bind("esc", function (e) {
 	leaveTabEditMode();
+});
+
+Mousetrap.bind("shift+command+r", function() {
+	getTabElement(tabs.getSelected()).find(".reader-button").trigger("click");
 })
