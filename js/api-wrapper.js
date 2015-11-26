@@ -16,7 +16,11 @@ function navigate(tabId, newURL) {
 }
 
 
-function destroyTab(id) {
+//options:
+//switchToTab: whether to switch to another tab, or create a new one if there are no tabs left. Defaults to true
+
+function destroyTab(id, options) {
+	options = options || {};
 	//focus the next tab, or the previous tab if this was the last tab
 	var t = tabs.getIndex(id);
 	var nextTab = tabs.getAtIndex(t + 1) || tabs.getAtIndex(t - 1);
@@ -29,12 +33,11 @@ function destroyTab(id) {
 	console.log(nextTab);
 
 	//if there are no other tabs, create a new one
-	if (!nextTab) {
+	if (options.switchToTab && !nextTab) {
 		return addTab();
+	} else if(options.switchToTab) {
+		switchToTab(nextTab.id);
 	}
-
-	switchToTab(nextTab.id);
-
 }
 
 /* switches to a tab - update the webview, state, tabstrip, etc. */
