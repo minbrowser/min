@@ -18,6 +18,19 @@ var webviewMenu = {
 
 		//if we have a link (an image source or an href)
 		if (IPCdata.src) {
+
+			//show what the item is
+
+			if (IPCdata.src.length > 60) {
+				var caption = IPCdata.src.substring(0, 60) + "..."
+			} else {
+				var caption = IPCdata.src;
+			}
+
+			menu.append(new MenuItem({
+				label: caption,
+				enabled: false,
+			}));
 			menu.append(new MenuItem({
 				label: 'Open in New Tab',
 				click: function () {
@@ -109,8 +122,6 @@ var webviewMenu = {
 	show: function (cxevent) {
 		var event = cxevent.originalEvent || cxevent;
 		webviewMenu.cache.event = event;
-
-		console.log(event);
 
 		var currentTab = tabs.getSelected();
 		var webview = getWebview(currentTab)[0]

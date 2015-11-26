@@ -6,14 +6,14 @@ window.addEventListener("contextmenu", function (e) {
 
 /* gets page data used for the context menu */
 
-ipc.on("getContextData", function (event) {
+ipc.on("getContextData", function (event, cxData) {
 
 	//the page is overriding the contextmenu event
 	if (contextMenuDefaultPrevented) {
 		return;
 	}
 
-	var element = document.elementFromPoint(event.x, event.y);
+	var element = document.elementFromPoint(cxData.x, cxData.y);
 
 	if (element) {
 		var src = element.href || element.src;
