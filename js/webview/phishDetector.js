@@ -49,7 +49,7 @@ function checkPhishingStatus() {
 
 		if (!form.querySelector("input")) {
 			debug_phishing("empty form found, checking but increasing minScore");
-			minPhishingScore += 0.15;
+			minPhishingScore += 0.35;
 			return true;
 		}
 
