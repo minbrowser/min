@@ -90,6 +90,25 @@ function createTabElement(tabId) {
 		tab.addClass("private-tab");
 	}
 
+	//swipe to delete tab
+
+	tab.on("mousewheel", function (e) {
+		if (e.originalEvent.deltaY > 35 && e.originalEvent.deltaX < 10) {
+			var tab = $(this).attr("data-tab");
+
+			//TODO this should be a css animation
+			getTabElement(tab).animate({
+				"margin-top": "-40px",
+			}, 150, function () {
+				destroyTab(tab);
+
+				if (tabs.count() == 0) {
+					addTab();
+				}
+			});
+		}
+	});
+
 	var input = $("<input class='tab-input theme-text-color mousetrap'>");
 	input.attr("placeholder", title);
 	input.attr("value", url);
