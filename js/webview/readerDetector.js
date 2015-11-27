@@ -1,6 +1,6 @@
 /* detects if a page is readerable, and tells the main process if it is */
 
-window.addEventListener("load", function (e) {
+function getReaderScore() {
 	var paragraphs = document.querySelectorAll("p");
 	var tl = 0;
 	if (!paragraphs) {
@@ -9,6 +9,11 @@ window.addEventListener("load", function (e) {
 	for (var i = 0; i < paragraphs.length; i++) {
 		tl += Math.max(paragraphs[i].textContent.length - 100, -30);
 	}
+	return tl;
+}
+
+window.addEventListener("load", function (e) {
+	var tl = getReaderScore();
 
 	//for debugging
 	//window._browser_readerScore = tl;
