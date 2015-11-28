@@ -102,43 +102,6 @@
 	text-overflow: ellipsis;
 	height: 1em;
 }
-#awesomebar .result-item.tag {
-	display: inline-block;
-	margin: 0.5em;
-	padding: 0.5em;
-	background: rgba(0, 0, 0, 0.075);
-	border: 1px solid rgba(0, 0, 0, 0.12);
-	width: auto;
-	font-size: 0.875em;
-	line-height: 0.9em;
-	opacity: 0.8;
-	border-radius: 2px;
-}
-#awesomebar .topic-results:not(:empty):before {
-	content: "Results for: ";
-	font-size: 0.9em;
-	opacity: 0.8;
-	padding: 0.5em;
-}
-#awesomebar .result-item.tag:focus {
-	background: rgba(0, 0, 0, 0.15);
-	border: 1px solid (rgba, 0, 0, 0, 0.15);
-}
-#awesomebar .result-item.tag:after {
-	content: "";
-	display: inline-block;
-}
-
-/* tags dark theme */
-
-.dark-theme #awesomebar .result-item.tag {
-	background: rgba(255, 2 55, 255, 0.075);
-	border: 1px solid rgba(255, 255, 255, 0.12);
-}
-.dark-theme #awesomebar .result-item.tag:focus {
-	background: rgba(255, 255, 255, 0.15);
-	border: 1px solid (rgba, 255, 255, 255, 0.15);
-}
 
 /* switch to a two-line layout */
 
