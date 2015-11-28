@@ -1,7 +1,7 @@
 /* detects back/forward swipes */
 
 window.addEventListener("mousewheel", function (e) {
-	if (e.deltaY > 7 || e.deltaY < -7) {
+	if (e.deltaY > 10 || e.deltaY < -10) {
 		return;
 	}
 
