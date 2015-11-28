@@ -37,6 +37,7 @@
 	word-wrap: break-word;
 	overflow: hidden;
 	padding-left: 0.66%;
+	word-break: break-all;
 }
 .tab-group .tab-item:not(.active):hover {
 	background-color: rgba(255, 255, 255, 0.1);
@@ -129,6 +130,7 @@
 .reader-button {
 	float: right;
 	display: none !important;
+	margin-left: 0.5em;
 }
 .tab-item.active .reader-button.can-reader {
 	display: block !important;
