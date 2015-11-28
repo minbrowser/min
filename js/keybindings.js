@@ -51,7 +51,9 @@ Mousetrap.bind("command+w", function (e) {
 	e.preventDefault();
 	e.stopImmediatePropagation();
 	e.stopPropagation();
-	destroyTab(tabs.getSelected(), {switchToTab: true});
+	destroyTab(tabs.getSelected(), {
+		switchToTab: true
+	});
 	return false;
 });
 
@@ -87,6 +89,30 @@ Mousetrap.bind("esc", function (e) {
 	leaveTabEditMode();
 });
 
-Mousetrap.bind("shift+command+r", function() {
+Mousetrap.bind("shift+command+r", function () {
 	getTabElement(tabs.getSelected()).find(".reader-button").trigger("click");
-})
+});
+
+//TODO add help docs for this
+
+Mousetrap.bind("command+right", function (d) {
+	var currentIndex = tabs.getIndex(tabs.getSelected());
+	var nextTab = tabs.getAtIndex(currentIndex + 1);
+
+	if (nextTab) {
+		switchToTab(nextTab.id);
+	} else {
+		switchToTab(tabs.getAtIndex(0).id);
+	}
+});
+
+Mousetrap.bind("command+left", function (d) {
+	var currentIndex = tabs.getIndex(tabs.getSelected());
+	var previousTab = tabs.getAtIndex(currentIndex - 1);
+
+	if (previousTab) {
+		switchToTab(previousTab.id);
+	} else {
+		switchToTab(tabs.getAtIndex(tabs.count() - 1).id);
+	}
+});
