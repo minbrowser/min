@@ -38,7 +38,7 @@ ipc.on("getKeywordsData", function (e) {
 		return text;
 	}
 
-	if (getReaderScore() < 500) {
+	if (getReaderScore() < 400) {
 		return;
 	}
 
