@@ -8,8 +8,8 @@ var hasAutocompleted = false;
 var cachedHistoryResults = [];
 var maxHistoryResults = 3;
 
-function awesomebarAutocomplete(input) {
-	if (input.val() == awesomebarCachedText && input[0].selectionStart != input[0].selectionEnd) { //if nothing has actually changed, don't try to autocomplete
+function awesomebarAutocomplete(text, input) {
+	if (text == awesomebarCachedText && input[0].selectionStart != input[0].selectionEnd) { //if nothing has actually changed, don't try to autocomplete
 		return;
 	}
 	//if we moved the selection, we don't want to autocomplete again
@@ -33,8 +33,7 @@ function autocompleteResultIfNeeded(input, result) {
 		result.title = decodeURIComponent(result.url.replace(DDGSearchURLRegex, "$1").replace(plusRegex, " "));
 	}
 
-	var text = input.val(); //make sure the input hasn't changed between start and end of query
-
+	var text = getValue(input); //make sure the input hasn't changed between start and end of query
 
 	var textWithoutProtocol = urlParser.removeProtocol(text),
 		URLWithoutProtocol = urlParser.removeProtocol(result.url);
@@ -72,6 +71,7 @@ function autocompleteResultIfNeeded(input, result) {
 		if (!ac) { //make sure we have something to autocomplete - this could not exist if we are using domain autocomplete and the ac string didn't have a hostname when processed
 			return;
 		}
+
 		input.blur();
 		input[0].value = ac;
 		input[0].setSelectionRange(text.length, ac.length);
@@ -93,12 +93,13 @@ var showHistoryResults = function (text, input, maxItems) {
 	}
 
 	bookmarks.searchHistory(text, function (results) {
+
 		historyarea.html("");
 
 
 		cachedHistoryResults = results;
 
-		awesomebarAutocomplete(input);
+		awesomebarAutocomplete(text, input);
 
 		limitSearchSuggestions(results.length);
 

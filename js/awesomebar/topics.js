@@ -23,9 +23,9 @@ var showTopicResults = function (text, input) {
 				showHistoryResults(topic.name, input, 50); //show up to 50 results.
 				showBookmarkResults(topic.name);
 
-				setTimeout(function () {
+				setTimeout(function () { //the item was focused on the keydown event. If we immediately focus the input, a keypress event will occur, causing an exit from edit mode
 					input.focus();
-				}, 800);
+				}, 100);
 			});
 		});
 

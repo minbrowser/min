@@ -157,24 +157,32 @@ function createTabElement(tabId) {
 			focusAwesomebarItem();
 			e.preventDefault();
 		}
-	})
+	});
 
+	//keypress doesn't fire on delete key - use keyup instead
 	input.on("keyup", function (e) {
+		if (e.keyCode == 8) {
+			showAwesomebarResults($(this).val(), $(this), e);
+		}
+	});
+
+	input.on("keypress", function (e) {
+
 		if (e.keyCode == 13) { //return key pressed; update the url
 			var tabId = $(this).parents(".tab-item").attr("data-tab");
 			var newURL = parseAwesomebarURL($(this).val());
 
 			navigate(tabId, newURL);
-
-			switchToTab(tabId);
-
+			leaveTabEditMode(tabId);
 
 		} else if (e.keyCode == 9) {
 			//tab key, do nothing - in keydown listener
 		} else if (e.keyCode == 16) {
 			//shift key, do nothing
+		} else if (e.keyCode == 8) {
+			//delete key is handled in keyUp
 		} else { //show the awesomebar
-			showAwesomebarResults(input.val(), input, e);
+			showAwesomebarResults($(this).val(), $(this), e);
 		}
 	});
 
@@ -198,19 +206,17 @@ function createTabElement(tabId) {
 		e.stopPropagation();
 	});
 
-
-
 	return tab;
 }
 
 function addTab(tabId, options) {
 	/* options 
 	
-	options.focus - whether to enter editing mode when the tab is created. Defaults to true.
-	options.openInBackground - whether to open the tab without switching to it. Defaults to false.
-	options.leaveEditMode - whether to hide the awesomebar when creating the tab
+		options.focus - whether to enter editing mode when the tab is created. Defaults to true.
+		options.openInBackground - whether to open the tab without switching to it. Defaults to false.
+		options.leaveEditMode - whether to hide the awesomebar when creating the tab
 	
-	*/
+		*/
 
 	options = options || {}
 

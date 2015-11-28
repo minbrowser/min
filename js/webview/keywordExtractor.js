@@ -69,10 +69,8 @@ ipc.on("getKeywordsData", function (e) {
 		entities.push(item.text.replace(/[^a-zA-Z\s]/g, ""));
 	});
 
-	setTimeout(function () {
-		ipc.sendToHost("keywordsData", {
-			entities: entities,
-		});
-	}, 200);
+	ipc.sendToHost("keywordsData", {
+		entities: entities,
+	});
 
 });

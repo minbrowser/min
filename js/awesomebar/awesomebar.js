@@ -121,15 +121,26 @@ function hideAwesomebar() {
 }
 var showAwesomebarResults = throttle(function (text, input, event) {
 
-	//ignore highlighted suggestions in the text
+	//find the real input value, accounting for highlighted suggestions and the key that was just pressed
 
-	text = getValue(input);
+	var v = input[0].value;
+
+	//delete key doesn't behave like the others, String.fromCharCode returns an unprintable character (which has a length of one)
+
+	if (event.keyCode != 8) {
+
+		text = v.substring(0, input[0].selectionStart) + String.fromCharCode(event.keyCode) + v.substring(input[0].selectionEnd + 1, v.length).trim();
+
+	} else {
+		txt = v;
+	}
+
 
 	hasAutocompleted = false;
 
 	shouldContinueAC = !(event.keyCode == 8); //this needs to be outside searchHistory so that it doesn't get reset if the history callback is run multiple times (such as when multiple messages get sent before the worker has finished startup).
 
-	console.log("awesomebar: ", text);
+	console.log("awesomebar: ", "'" + text + "'", text.length);
 
 	//there is no text, show a blank awesomebar
 	if (text.length < 1) {
@@ -173,8 +184,6 @@ var showAwesomebarResults = throttle(function (text, input, event) {
 	showInstantAnswers(text, input);
 	showTopicResults(text, input);
 	searchOpenTabs(text, input);
-
-	awesomebarAutocomplete(input);
 
 	//update cache
 	awesomebarCachedText = text;

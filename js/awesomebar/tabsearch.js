@@ -10,7 +10,7 @@ var searchOpenTabs = function (searchText) {
 
 	opentabarea.html("");
 
-	if (!searchText || searchText.length < 2) {
+	if (!searchText || searchText.length < 3) {
 		return;
 	}
 
