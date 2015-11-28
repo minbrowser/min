@@ -98,7 +98,7 @@ function checkPhishingStatus() {
 
 	if (doubleDomainRegex.test(loc)) {
 		debug_phishing("found misleading domain");
-		phishingScore += 0.2;
+		phishingScore += 0.33;
 	}
 
 	//no https - either insecure, phishing, or both
@@ -307,7 +307,7 @@ function checkPhishingStatus() {
 	//if we have a password input, set a lower threshold
 
 	if (document.querySelector("input[type=password]")) {
-		minPhishingScore = 1.0;
+		minPhishingScore = 0.9;
 	}
 
 	//if most of the page isn't forms, set a higher threshold
