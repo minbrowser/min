@@ -20,7 +20,6 @@ function checkPhishingStatus() {
 
 	var scanStart = performance.now();
 
-
 	function isSensitive(form) { //checks if a form is asking for sensitive information
 		var tx = form.textContent.toLowerCase();
 
@@ -112,8 +111,7 @@ function checkPhishingStatus() {
 
 	if (window.location.host.length > 25) {
 		debug_phishing("long hostname detected");
-		phishingScore += window.location.host.length * 0.005;
-		console.log("score", phishingScore);
+		phishingScore += window.location.host.length * 0.0075;
 	}
 
 	//penalize extremely long locations, since these could also be used for phishing
@@ -182,7 +180,7 @@ function checkPhishingStatus() {
 
 			//if the form action is in the same directory as the current page, it is likely to be phishing
 
-			var slashCt = fa.split("/").length - 1;
+			var slashCt = fa.replace(window.location.toString(), "").replace(window.location.pathname, "").split("/").length - 1;
 
 			if (slashCt < 2) {
 				debug_phishing("form with simple path for action detected");
@@ -226,7 +224,8 @@ function checkPhishingStatus() {
 		}
 
 		if (formWithoutActionFound == true) {
-			phishingScore += 0.6;
+			phishingScore += 0.4;
+			phishingScore += Math.min(0.2, totalFormLength * 0.0001)
 		}
 
 		if (formWithSimplePathFound == true) {
@@ -289,7 +288,7 @@ function checkPhishingStatus() {
 
 	if (totalLinks > 2 && sameDomainLinks == 0 || (totalLinks > 5 && sameDomainLinks / totalLinks < 0.15)) {
 		debug_phishing("links go to external domain");
-		phishingScore += Math.min((totalLinks - sameDomainLinks) * 0.05, 0.2);
+		phishingScore += Math.min((totalLinks - sameDomainLinks) * 0.05, 0.25);
 	}
 
 	//if there are a bunch of empty links, increase score
