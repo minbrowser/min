@@ -1,7 +1,6 @@
 .tab-group {
 	/* make room for the window controls */
 	padding-left: 75px;
-	background: #eee;
 	display: flex;
 	height: 2.3333em;
 	align-items: center;
