@@ -7,27 +7,18 @@ var sessionRestore = {
 		}
 		localStorage.setItem("sessionrestoredata", JSON.stringify(data));
 	},
-	isRestorable: function () {
-		return localStorage.getItem("sessionrestoredata") && localStorage.getItem("sessionrestoredata") != "{}";
-	},
 	restore: function () {
 		try {
 			//get the data
 			var data = JSON.parse(localStorage.getItem("sessionrestoredata") || "{}");
 
-			if (!data || data.version != 1) {
+			if (data.version != 1) {
 				return;
 			}
 
 			console.info("restoring tabs", tabs.get());
 
-			tabs.get().forEach(function (tab) {
-				destroyTab(tab.id, {
-					switchToTab: false
-				});
-			});
-
-			if (!data.tabs || !data.tabs.length || data.tabs.length == 1 && data.tabs[0].url == "about:blank") { //if we only have one tab, and its about:blank, don't restore
+			if (!data.tabs || !data.tabs.length || data.tabs.length == 1 && data.tabs[0].url == "about:blank") { //If there are no tabs, or if we only have one tab, and its about:blank, don't restore
 				addTab();
 				return;
 			}
@@ -47,16 +38,17 @@ var sessionRestore = {
 			setTimeout(function () {
 				localStorage.setItem("sessionrestoredata", "{}");
 			}, 8000);
+
 		} catch (e) {
 			console.warn("failed to restore session, rolling back");
 
 			tabs._state.tabs = [];
 
-			tabs.get().forEach(function (tab) {
-				destroyTab(tab.id, {
-					switchToTab: true
-				});
-			});
+			$("webview, .tab-item").remove();
+
+			addTab();
+
+			localStorage.setItem("sessionrestoredata", "{}");
 
 		}
 	}
@@ -64,8 +56,6 @@ var sessionRestore = {
 
 //TODO make this a preference
 
-if (sessionRestore.isRestorable()) {
-	sessionRestore.restore();
-}
+sessionRestore.restore();
 
 setInterval(sessionRestore.save, 15000);

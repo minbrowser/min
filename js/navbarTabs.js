@@ -250,9 +250,7 @@ function addTab(tabId, options) {
 	}
 }
 
-//startup - add a tab. remove when session restore is complete
-
-addTab();
+//startup state is created in sessionRestore.js
 
 //when we click outside the navbar, we leave editing mode
 

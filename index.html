@@ -3,7 +3,6 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Browser</title>
 
 	<link rel="stylesheet" href="css/base.css" />
 	<link rel="stylesheet" href="css/navbarTabs.css" />
@@ -15,14 +14,12 @@
 		window.$ = window.jQuery = require("jquery");
 		window.ipc = electron.ipcRenderer;
 
-
 		//disable dragdrop, since it currently doesn't work
 		$(window).on("drop", function(e) {
 			e.preventDefault();
 		});
 
 	</script>
-	<script src="ext/wiktionary-parser/wiktionary-parser.js"></script>
 </head>
 
 <body>
@@ -56,7 +53,9 @@
 	<!-- add scripts in Gruntfile.js -->
 
 	<script src="dist/build.min.js"></script>
+
 	<link rel="stylesheet" href="css/findinpage.css" />
+	<script src="ext/wiktionary-parser/wiktionary-parser.js"></script>
 
 </body>
 
