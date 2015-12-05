@@ -54,7 +54,7 @@ function switchToTab(id) {
 	setColor(tabData.backgroundColor, tabData.foregroundColor);
 
 	tabs.update(id, {
-		lastActivity: new Date().getTime(),
+		lastActivity: Date.now(),
 	});
 	tabActivity.refresh();
 }
