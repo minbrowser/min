@@ -68,7 +68,7 @@ var tabs = {
 	},
 	get: function (id) {
 		if (!id) { //no id provided, return an array of all tabs
-			return tabs._state.tabs;
+			return tabs._state.tabs.slice(0); //make sure to clone the array. Otherwise, if we loop through the array and make a modification to each tab, weird things will happen, since elements could be removed during the loop.
 		}
 		for (var i = 0; i < tabs._state.tabs.length; i++) {
 			if (tabs._state.tabs[i].id == id) {
