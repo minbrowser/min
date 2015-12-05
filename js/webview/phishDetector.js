@@ -323,6 +323,30 @@ function checkPhishingStatus() {
 		minPhishingScore += 0.2;
 	}
 
+	//checks if most, but not all of the scripts on a page come from an external domain, possibly indicating an injected phishing script
+	var scripts = document.querySelectorAll("script");
+
+	var scriptSources = {};
+	if (scripts) {
+		for (var i = 0; i < scripts.length; i++) {
+			if (scripts[i].src) {
+				aTest.href = scripts[i].src;
+				var rd = aTest.hostname;
+				scriptSources[rd] = scriptSources[rd] + 1 || 1;
+			}
+		}
+	}
+
+	var previous = 0;
+
+	for (var source in scriptSources) {
+		if (scriptSources[source] > 5 && previous > 0) {
+			phishingScore += 0.1;
+			debug_phishing("external scripts found, increasing score");
+		}
+		previous = scriptSources[source];
+	}
+
 	//if we have lots of forms, we need a higher threshold, since phishingScore tends to increase with more forms
 
 	if (forms.length > 3) {
