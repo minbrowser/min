@@ -3,12 +3,9 @@ console.log("worker started ", performance.now());
 importScripts("../ext/Dexie.min.js");
 importScripts("../ext/lunr.min.js");
 importScripts("../node_modules/string_score/string_score.min.js");
-importScripts("../node_modules/nlp_compromise/client_side/nlp.js");
 importScripts("database.js");
 
 console.log("scripts loaded ", performance.now());
-
-console.log(nlp, nlp.ngram("Github is a git repository service."));
 
 var topics = []; //a list of common groups of history items. Each one is an object with: score (number), name (string), and urls (array).
 
