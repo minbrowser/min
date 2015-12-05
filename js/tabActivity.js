@@ -5,7 +5,7 @@ var tabActivity = {
 	refresh: function () {
 		var tabSet = tabs.get(),
 			selected = tabs.getSelected(),
-			time = new Date().getTime();
+			time = Date.now();
 
 
 		tabSet.forEach(function (tab) {

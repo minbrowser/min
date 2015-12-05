@@ -14,10 +14,6 @@ var topics = []; //a list of common groups of history items. Each one is an obje
 var spacesRegex = /[\+\s._/-]/g; //things that could be considered spaces
 var wordRegex = /^[a-z\s]+$/g;
 
-function getTime() {
-	return new Date().getTime();
-}
-
 function calculateHistoryScore(item, boost) { //boost - how much the score should be multiplied by. Example - 0.05
 	var fs = item.lastVisit * (1 + 0.022 * Math.sqrt(item.visitCount));
 
@@ -212,13 +208,13 @@ onmessage = function (e) {
 								url: pageData.url,
 								color: pageData.color,
 								visitCount: 1,
-								lastVisit: getTime(),
+								lastVisit: Date.now(),
 							});
 
 					} else { //item exists, query previous values and update
 						db.history.where("url").equals(pageData.url).each(function (item) {
 							var visitCount = item.visitCount + 1;
-							var lastVisit = getTime();
+							var lastVisit = Date.now();
 
 							db.history.where("url").equals(pageData.url).modify({
 								visitCount: visitCount,

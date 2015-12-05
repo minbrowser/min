@@ -21,7 +21,7 @@ var tabs = {
 			url: tab.url,
 			title: tab.title,
 			id: tabId,
-			lastActivity: new Date().getTime(),
+			lastActivity: Date.now(),
 			secure: false,
 			private: tab.private || false,
 			readerable: tab.readerable || false,
