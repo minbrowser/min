@@ -136,10 +136,6 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 	suggestedsitearea.find(".result-item").addClass("old");
 	topAnswerarea.find(".result-item").addClass("old");
 
-	//run bang plugins. Putting this insides the answers call makes throttling and deletion of old answers simpler
-
-	showBangPlugins(text, input);
-
 	if (text.length > 3) {
 
 		$.getJSON("https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q=" + encodeURIComponent(text), function (res) {
