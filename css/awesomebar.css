@@ -19,6 +19,24 @@
 	padding: 0.5em;
 	cursor: pointer;
 }
+#awesomebar .result-item:after {
+	content: "";
+	clear: both;
+	display: block;
+}
+#awesomebar .result-item:hover {
+	background-color: rgba(0, 0, 0, 0.075);
+}
+.dark-theme #awesomebar .result-item:hover {
+	background-color: rgba(255, 255, 255, 0.12);
+}
+#awesomebar .result-item:focus {
+	background-color: rgba(0, 0, 0, 0.12);
+	outline: none;
+}
+.dark-theme #awesomebar .result-item:focus {
+	background-color: rgba(255, 255, 255, 0.15);
+}
 #awesomebar .result-item .title {
 	display: inline-block;
 	vertical-align: middle;
@@ -33,21 +51,6 @@
 	margin-right: 0.75em;
 	font-size: 0.8em;
 	vertical-align: text-bottom;
-}
-
-/* clear floats */
-
-#awesomebar .result-item:after {
-	content: "";
-	clear: both;
-	display: block;
-}
-#awesomebar .result-item:focus {
-	background-color: rgba(0, 0, 0, 0.12);
-	outline: none;
-}
-.dark-theme #awesomebar .result-item:focus {
-	background-color: rgba(255, 255, 255, 0.12);
 }
 #awesomebar .result-icon {
 	height: 2.75em;
@@ -75,7 +78,7 @@
 	vertical-align: middle;
 }
 #awesomebar .result-item .secondary-text .md-info {
-	opacity: 0.70;
+	opacity: 0.8;
 	font-size: inherit;
 	padding: 0.1em;
 }
@@ -90,13 +93,13 @@
 }
 #awesomebar .result-item .secondary-text {
 	display: inline-block;
-	opacity: 0.75;
-	font-size: 0.9em;
+	opacity: 0.66;
+	font-size: 0.95em;
 	overflow: hidden;
 	vertical-align: middle;
 	/* TODO find a better way to center this */
 	padding-bottom: 1.154em;
-	padding-left: 1em;
+	padding-left: 1.5em;
 	max-width: 50%;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -123,7 +126,7 @@
 	display: block;
 	max-height: 2.2em;
 	overflow: hidden;
-	opacity: 0.75;
+	opacity: 0.666;
 	font-size: 0.8em;
 }
 
@@ -133,5 +136,12 @@
 	max-height: 6.6em;
 }
 body.awesomebar-shown webview {
-	opacity: 0.6;
+	opacity: 0.5;
+}
+
+/* account for a missing icon */
+
+#awesomebar .instant-answer-results,
+.top-answer-results {
+	padding-left: 20px;
 }
