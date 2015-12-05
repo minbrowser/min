@@ -1,10 +1,10 @@
 /* send bookmarks data.  */
 
-ipc.on("sendData", function () {
+function getBookmarksText(doc) {
 	var candidates = ["P", "B", "I", "U", "H1", "H2", "H3", "A", "PRE", "CODE", "SPAN"];
 	var ignore = ["LINK", "STYLE", "SCRIPT", "NOSCRIPT"];
 	var text = "";
-	var pageElements = document.querySelectorAll("*");
+	var pageElements = doc.querySelectorAll("*");
 	for (var i = 0; i < pageElements.length; i++) {
 
 		var el = pageElements[i]
@@ -22,6 +22,23 @@ ipc.on("sendData", function () {
 	}
 
 	text = text.replace(/[\n\t]/g, ""); //remove useless newlines/tabs that increase filesize
+
+	return text;
+}
+
+ipc.on("sendData", function () {
+	var text = getBookmarksText(document);
+
+	//try to also extract text for same-origin iframes (such as the reader mode frame)
+
+	var frames = document.querySelectorAll("iframe");
+
+	for (var x = 0; x < frames.length; frames++) {
+		if (!frames[x].contentDocument) {
+			continue;
+		}
+		text += ". " + getBookmarksText(frames[x].contentDocument);
+	}
 
 	/* also parse special metadata: price, rating, location */
 
