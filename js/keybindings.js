@@ -125,3 +125,15 @@ Mousetrap.bind(["option+command+right", "ctrl+tab"], function (d) {
 		switchToTab(tabs.getAtIndex(0).id);
 	}
 });
+
+Mousetrap.bind("command+n", function (d) { //destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
+
+	var tset = tabs.get();
+	for (var i = 0; i < tset.length; i++) {
+		destroyTab(tset[i].id, {
+			switchToTab: false
+		});
+	}
+
+	addTab();
+})
