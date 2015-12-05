@@ -8,13 +8,13 @@ function isScrolledIntoView(el) { //http://stackoverflow.com/a/22480938/4603285
 
 ipc.on("getKeywordsData", function (e) {
 
-	function extractPageText() {
+	function extractPageText(doc) {
 		var ignore = ["LINK", "STYLE", "SCRIPT", "NOSCRIPT", "svg", "symbol", "title", "path", "style"];
 		var text = "";
-		var pageElements = document.querySelectorAll("p, h2, h3, h4, [name=author], [itemprop=name], .article-author");
+		var pageElements = doc.querySelectorAll("p, h2, h3, h4, li, [name=author], [itemprop=name], .article-author");
 		for (var i = 0; i < pageElements.length; i++) {
 
-			if (!isScrolledIntoView(pageElements[i]) || pageElements[i].style.display == "none" || (pageElements[i].tagName == "META" && window.scrollY > 500)) {
+			if ((!isScrolledIntoView(pageElements[i]) && doc == document) || pageElements[i].style.display == "none" || (pageElements[i].tagName == "META" && window.scrollY > 500)) {
 				continue;
 			}
 
@@ -38,22 +38,21 @@ ipc.on("getKeywordsData", function (e) {
 		return text;
 	}
 
-	if (getReaderScore() < 400) {
+	if (getReaderScore() < 400 && window.location.toString().indexOf("reader/index.html") == -1) {
 		return;
 	}
 
-	//var Knwl = require("knwl.js");
+	var text = extractPageText(document);
 
-	var text = extractPageText();
+	var frames = document.querySelectorAll("iframe");
 
-	/*var knwlInst = new Knwl("english");
-
-	knwlInst.init(text);
-
-	var places = knwlInst.get("places");
-	var links = knwlInst.get("links");
-	
-	*/
+	if (frames) {
+		for (var i = 0; i < frames.length; i++) {
+			if (frames[i].contentDocument) {
+				text += " " + extractPageText(frames[i].contentDocument);
+			}
+		}
+	}
 
 	var nlp = require("nlp_compromise");
 
