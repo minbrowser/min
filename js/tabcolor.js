@@ -1,10 +1,10 @@
 var cf = new ColorThief();
-var hours = new Date().getHours();
+var hours = new Date().getHours() + (new Date().getMinutes() / 60);
 
 //we cache the hours so we don't have to query every time we change the color
 
 setInterval(function () {
-	hours = new Date().getHours();
+	hours = new Date().getHours() + (new Date().getMinutes() / 60);
 }, 10 * 60 * 1000);
 
 function extractColor(favicon, callback) {
@@ -34,9 +34,9 @@ function updateTabColor(favicons, tabId) {
 		//dim the colors late at night or early in the morning
 		var colorChange = 1;
 		if (hours > 20) {
-			colorChange -= 0.02 * hours;
+			colorChange -= 0.012 * hours;
 		} else if (hours < 7) {
-			colorChange -= 0.02 * (24 - hours);
+			colorChange -= 0.012 * (24 - hours);
 		}
 
 		c[0] = Math.round(c[0] * colorChange)
