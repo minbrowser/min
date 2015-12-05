@@ -1008,6 +1008,7 @@ var MMCQ = (function() {
 }
 ;var cf = new ColorThief();
 var hours = new Date().getHours() + (new Date().getMinutes() / 60);
+var colorExtractorImg = document.createElement("img");
 
 //we cache the hours so we don't have to query every time we change the color
 
@@ -1016,10 +1017,9 @@ setInterval(function () {
 }, 10 * 60 * 1000);
 
 function extractColor(favicon, callback) {
-	var img = document.createElement("img");
-	img.src = favicon;
-	img.onload = function () {
-		callback(cf.getColor(img));
+	colorExtractorImg.src = favicon;
+	colorExtractorImg.onload = function () {
+		callback(cf.getColor(colorExtractorImg));
 	}
 }
 
@@ -1308,8 +1308,6 @@ bindWebviewIPC("contextData", function (webview, tabId, arguements) {
 function navigate(tabId, newURL) {
 	newURL = urlParser.parse(newURL);
 
-	console.log("navigated to " + newURL);
-
 	tabs.update(tabId, {
 		url: newURL
 	});
@@ -1349,62 +1347,21 @@ function destroyTab(id, options) {
 /* switches to a tab - update the webview, state, tabstrip, etc. */
 
 function switchToTab(id) {
-	leaveTabEditMode();
 
-	tabs.setSelected(id);
+	leaveTabEditMode();
+	setActiveTabElement(id);
+
 	switchToWebview(id);
 
-	setActiveTabElement(id);
+	tabs.setSelected(id);
 
 	var tabData = tabs.get(id);
 	setColor(tabData.backgroundColor, tabData.foregroundColor);
 
 	tabs.update(id, {
-		lastActivity: new Date().getTime(),
+		lastActivity: Date.now(),
 	});
 	tabActivity.refresh();
-}
-;var bangPlugins = {};
-
-function showBangPlugins(text, input) {
-	for (var key in bangPlugins) {
-		bangPlugins[key](text, input);
-	}
-}
-
-bangPlugins.wiktionary = function (text, input) {
-
-	if (text.indexOf("!wiktionary") == 0 && !tabs.get(tabs.getSelected()).private) {
-		var search = text.replace("!wiktionary", "");
-
-		if (!text) {
-			return;
-		}
-
-		getDictionaryInfo(search, "English", function (data) {
-
-			topAnswerarea.html(""); //clear previous answers
-
-			if (!data || !data.definitions || !data.definitions[0] || !data.definitions[0].meaning || text != input.val()) {
-				return;
-			}
-
-			var item = $("<div class='result-item' tabindex='-1'>").text(data.title);
-			$("<span class='description-block'>").text(data.definitions[0].meaning).appendTo(item);
-
-			item.on("click", function (e) {
-				var URL = "https://en.wiktionary.org/wiki/" + data.title;
-				if (e.metaKey) {
-					openURLInBackground(URL);
-
-				} else {
-					navigate(tabs.getSelected(), URL);
-				}
-			});
-
-			item.appendTo(topAnswerarea);
-		});
-	}
 }
 ;var DDGSearchURLRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
 	trailingSlashRegex = /\/$/g,
@@ -1781,10 +1738,6 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 	iaarea.find(".result-item").addClass("old");
 	suggestedsitearea.find(".result-item").addClass("old");
 	topAnswerarea.find(".result-item").addClass("old");
-
-	//run bang plugins. Putting this insides the answers call makes throttling and deletion of old answers simpler
-
-	showBangPlugins(text, input);
 
 	if (text.length > 3) {
 
@@ -2382,7 +2335,7 @@ var tabs = {
 			url: tab.url,
 			title: tab.title,
 			id: tabId,
-			lastActivity: new Date().getTime(),
+			lastActivity: Date.now(),
 			secure: false,
 			private: tab.private || false,
 			readerable: tab.readerable || false,
@@ -2462,7 +2415,7 @@ var tabActivity = {
 	refresh: function () {
 		var tabSet = tabs.get(),
 			selected = tabs.getSelected(),
-			time = new Date().getTime();
+			time = Date.now();
 
 
 		tabSet.forEach(function (tab) {
