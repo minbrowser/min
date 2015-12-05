@@ -132,7 +132,7 @@ function createTabElement(tabId) {
 	var vc = $("<div class='tab-view-contents theme-text-color'>")
 	readerView.getButton(tabId).appendTo(vc);
 
-	vc.append($("<span class='title'>").text(data.title || ""));
+	vc.append($("<span class='title'>").text(data.title || "New Tab"));
 	vc.appendTo(tab);
 
 
