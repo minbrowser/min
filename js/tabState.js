@@ -1,13 +1,5 @@
 /* tracks the state of tabs */
 
-// Array Remove - By John Resig (MIT Licensed)
-//http://stackoverflow.com/a/9815010/4603285
-Array.prototype.remove = function (from, to) {
-	var rest = this.slice((to || from) + 1 || this.length);
-	this.length = from < 0 ? this.length + from : from;
-	return this.push.apply(this, rest);
-};
-
 var tabs = {
 	_state: {
 		tabs: [],
@@ -60,7 +52,7 @@ var tabs = {
 	destroy: function (id) {
 		for (var i = 0; i < tabs._state.tabs.length; i++) {
 			if (tabs._state.tabs[i].id == id) {
-				tabs._state.tabs.remove(i);
+				tabs._state.tabs.splice(i, 1);
 				return i;
 			}
 		}
