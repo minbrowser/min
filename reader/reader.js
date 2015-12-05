@@ -42,7 +42,8 @@ function startReaderView(article) {
 
 		setTimeout(function () { //wait for stylesheet to load
 			rframe.height = rframe.contentDocument.body.querySelector(".reader-main").scrollHeight + "px";
-		}, 250);
+			rframe.focus(); //allows spacebar page down and arrow keys to work correctly
+		}, 300);
 
 		/* site-specific workarounds */
 
