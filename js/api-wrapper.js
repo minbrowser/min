@@ -3,8 +3,6 @@
 function navigate(tabId, newURL) {
 	newURL = urlParser.parse(newURL);
 
-	console.log("navigated to " + newURL);
-
 	tabs.update(tabId, {
 		url: newURL
 	});
@@ -44,12 +42,13 @@ function destroyTab(id, options) {
 /* switches to a tab - update the webview, state, tabstrip, etc. */
 
 function switchToTab(id) {
-	leaveTabEditMode();
 
-	tabs.setSelected(id);
+	leaveTabEditMode();
+	setActiveTabElement(id);
+
 	switchToWebview(id);
 
-	setActiveTabElement(id);
+	tabs.setSelected(id);
 
 	var tabData = tabs.get(id);
 	setColor(tabData.backgroundColor, tabData.foregroundColor);

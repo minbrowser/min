@@ -1,5 +1,6 @@
 var cf = new ColorThief();
 var hours = new Date().getHours() + (new Date().getMinutes() / 60);
+var colorExtractorImg = document.createElement("img");
 
 //we cache the hours so we don't have to query every time we change the color
 
@@ -8,10 +9,9 @@ setInterval(function () {
 }, 10 * 60 * 1000);
 
 function extractColor(favicon, callback) {
-	var img = document.createElement("img");
-	img.src = favicon;
-	img.onload = function () {
-		callback(cf.getColor(img));
+	colorExtractorImg.src = favicon;
+	colorExtractorImg.onload = function () {
+		callback(cf.getColor(colorExtractorImg));
 	}
 }
 
