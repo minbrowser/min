@@ -1,9 +1,12 @@
 {
 	"name": "Min",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"main": "main.js",
 	"dependencies": {
+		"fuzzysearch": "^1.0.3",
 		"jquery": "^2.1.4",
+		"js-beautify": "^1.5.10",
+		"marked": "^0.3.5",
 		"mousetrap": "^1.5.3",
 		"nlp_compromise": "^1.1.5",
 		"string_score": "^0.1.22"
