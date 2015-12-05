@@ -32,7 +32,7 @@ var tabs = {
 			lastActivity: new Date().getTime(),
 			secure: false,
 			private: tab.private || false,
-			readerable: false,
+			readerable: tab.readerable || false,
 			backgroundColor: tab.backgroundColor,
 			foregroundColor: tab.foregroundColor,
 		});
