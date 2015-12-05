@@ -26,7 +26,7 @@ var showBookmarkResults = throttle(function (text) {
 
 				$("<i class='fa fa-star'>").prependTo(item);
 
-				var span = $("<span class='secondary-text'>").text(urlParser.getDomainName(result.url));
+				var span = $("<span class='secondary-text'>").text(urlParser.prettyURL(result.url));
 
 
 				if (result.extraData && result.extraData.metadata) {
