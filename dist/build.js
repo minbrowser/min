@@ -1328,15 +1328,15 @@ function navigate(tabId, newURL) {
 function destroyTab(id, options) {
 	options = options || {};
 	//focus the next tab, or the previous tab if this was the last tab
-	var t = tabs.getIndex(id);
-	var nextTab = tabs.getAtIndex(t + 1) || tabs.getAtIndex(t - 1);
+
+	if (options.switchToTab) {
+		var t = tabs.getIndex(id);
+		var nextTab = tabs.getAtIndex(t + 1) || tabs.getAtIndex(t - 1);
+	}
 
 	$(".tab-item[data-tab={id}]".replace("{id}", id)).remove(); //remove the actual tab element
 	var t = tabs.destroy(id); //remove from state - returns the index of the destroyed tab
 	destroyWebview(id); //remove the webview
-
-	console.log(t);
-	console.log(nextTab);
 
 	//if there are no other tabs, create a new one
 	if (options.switchToTab && !nextTab) {
@@ -2361,14 +2361,6 @@ bindWebviewIPC("canReader", function (webview, tab) {
 });
 ;/* tracks the state of tabs */
 
-// Array Remove - By John Resig (MIT Licensed)
-//http://stackoverflow.com/a/9815010/4603285
-Array.prototype.remove = function (from, to) {
-	var rest = this.slice((to || from) + 1 || this.length);
-	this.length = from < 0 ? this.length + from : from;
-	return this.push.apply(this, rest);
-};
-
 var tabs = {
 	_state: {
 		tabs: [],
@@ -2421,7 +2413,7 @@ var tabs = {
 	destroy: function (id) {
 		for (var i = 0; i < tabs._state.tabs.length; i++) {
 			if (tabs._state.tabs[i].id == id) {
-				tabs._state.tabs.remove(i);
+				tabs._state.tabs.splice(i, 1);
 				return i;
 			}
 		}
@@ -2429,7 +2421,7 @@ var tabs = {
 	},
 	get: function (id) {
 		if (!id) { //no id provided, return an array of all tabs
-			return tabs._state.tabs;
+			return tabs._state.tabs.slice(0); //make sure to clone the array. Otherwise, if we loop through the array and make a modification to each tab, weird things will happen, since elements could be removed during the loop.
 		}
 		for (var i = 0; i < tabs._state.tabs.length; i++) {
 			if (tabs._state.tabs[i].id == id) {
@@ -2876,6 +2868,18 @@ Mousetrap.bind(["option+command+right", "ctrl+tab"], function (d) {
 		switchToTab(tabs.getAtIndex(0).id);
 	}
 });
+
+Mousetrap.bind("command+n", function (d) { //destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
+
+	var tset = tabs.get();
+	for (var i = 0; i < tset.length; i++) {
+		destroyTab(tset[i].id, {
+			switchToTab: false
+		});
+	}
+
+	addTab();
+})
 ;/* handles viewing pdf files using pdf.js. Recieves events from main.js will-download */
 
 var PDFViewerURL = "file://" + __dirname + "/pdfjs/web/viewer.html?url=";
