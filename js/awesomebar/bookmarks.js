@@ -10,7 +10,7 @@ var showBookmarkResults = throttle(function (text) {
 		var resultsShown = 1;
 		results.splice(0, 2).forEach(function (result) {
 			//as more results are added, the threshold for adding another one gets higher
-			if (result.score > Math.max(0.0005, 0.00095 - (0.00005 * text.length) * resultsShown)) {
+			if (result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.3, text.length) * resultsShown))) {
 
 				resultsShown++;
 
