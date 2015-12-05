@@ -171,5 +171,5 @@ function limitHistoryResults(maxItems) {
 	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));
 	console.log("limiting maxHistoryResults to " + maxHistoryResults);
 	historyarea.find(".result-item").show().removeClass("unfocusable");
-	historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults)).hide().addClass("unfocusable");
+	historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1)).hide().addClass("unfocusable");
 }
