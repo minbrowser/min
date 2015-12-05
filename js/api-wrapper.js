@@ -23,15 +23,15 @@ function navigate(tabId, newURL) {
 function destroyTab(id, options) {
 	options = options || {};
 	//focus the next tab, or the previous tab if this was the last tab
-	var t = tabs.getIndex(id);
-	var nextTab = tabs.getAtIndex(t + 1) || tabs.getAtIndex(t - 1);
+
+	if (options.switchToTab) {
+		var t = tabs.getIndex(id);
+		var nextTab = tabs.getAtIndex(t + 1) || tabs.getAtIndex(t - 1);
+	}
 
 	$(".tab-item[data-tab={id}]".replace("{id}", id)).remove(); //remove the actual tab element
 	var t = tabs.destroy(id); //remove from state - returns the index of the destroyed tab
 	destroyWebview(id); //remove the webview
-
-	console.log(t);
-	console.log(nextTab);
 
 	//if there are no other tabs, create a new one
 	if (options.switchToTab && !nextTab) {
