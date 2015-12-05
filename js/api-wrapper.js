@@ -1,8 +1,9 @@
 /* common to webview, tabrenderer, etc */
 
 function navigate(tabId, newURL) {
-	console.trace();
-	console.log("navigated");
+	newURL = urlParser.parse(newURL);
+
+	console.log("navigated to " + newURL);
 
 	tabs.update(tabId, {
 		url: newURL
@@ -35,7 +36,7 @@ function destroyTab(id, options) {
 	//if there are no other tabs, create a new one
 	if (options.switchToTab && !nextTab) {
 		return addTab();
-	} else if(options.switchToTab) {
+	} else if (options.switchToTab) {
 		switchToTab(nextTab.id);
 	}
 }
