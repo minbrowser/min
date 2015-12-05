@@ -36,6 +36,13 @@ var urlParser = {
 		if (urlParser.isURL(url)) {
 			return url;
 		}
+
+		if (url.indexOf("view-source:") == 0) {
+			var realURL = url.replace("view-source:", "");
+
+			return "view-source:" + urlParser.parse(realURL);
+		}
+
 		//if the url doesn't have a space and has a ., assume it is a url without a protocol
 		if (urlParser.isURLMissingProtocol(url)) {
 			return "http://" + url;
