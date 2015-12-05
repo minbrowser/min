@@ -87,6 +87,7 @@ Mousetrap.bind("command+9", function (e) {
 
 Mousetrap.bind("esc", function (e) {
 	leaveTabEditMode();
+	getWebview(tabs.getSelected()).focus();
 });
 
 Mousetrap.bind("shift+command+r", function () {
@@ -95,18 +96,15 @@ Mousetrap.bind("shift+command+r", function () {
 
 //TODO add help docs for this
 
-Mousetrap.bind("command+right", function (d) {
-	var currentIndex = tabs.getIndex(tabs.getSelected());
-	var nextTab = tabs.getAtIndex(currentIndex + 1);
-
-	if (nextTab) {
-		switchToTab(nextTab.id);
-	} else {
-		switchToTab(tabs.getAtIndex(0).id);
-	}
+Mousetrap.bind("command+left", function (d) {
+	getWebview(tabs.getSelected())[0].goBack();
 });
 
-Mousetrap.bind("command+left", function (d) {
+Mousetrap.bind("command+right", function (d) {
+	getWebview(tabs.getSelected())[0].goForward();
+});
+
+Mousetrap.bind(["option+command+left", "shift+ctrl+tab"], function (d) {
 	var currentIndex = tabs.getIndex(tabs.getSelected());
 	var previousTab = tabs.getAtIndex(currentIndex - 1);
 
@@ -114,5 +112,16 @@ Mousetrap.bind("command+left", function (d) {
 		switchToTab(previousTab.id);
 	} else {
 		switchToTab(tabs.getAtIndex(tabs.count() - 1).id);
+	}
+});
+
+Mousetrap.bind(["option+command+right", "ctrl+tab"], function (d) {
+	var currentIndex = tabs.getIndex(tabs.getSelected());
+	var nextTab = tabs.getAtIndex(currentIndex + 1);
+
+	if (nextTab) {
+		switchToTab(nextTab.id);
+	} else {
+		switchToTab(tabs.getAtIndex(0).id);
 	}
 });
