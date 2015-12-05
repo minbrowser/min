@@ -85,6 +85,8 @@ function getWebviewDom(options) {
 
 		rerenderTabElement(tab);
 
+		this.send("loadfinish"); //works around an electron bug (https://github.com/atom/electron/issues/1117), forcing Chromium to always  create the script context
+
 	});
 
 	/*w.on("did-get-redirect-request", function (e) {
