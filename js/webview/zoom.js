@@ -24,8 +24,3 @@ ipc.on("zoomReset", function () {
 	_browser_zoomLevel = 0;
 	webFrame.setZoomLevel(_browser_zoomLevel);
 });
-
-/* back/forward swipe - needs to be fast (no ipc), so in here */
-
-var totalMouseMove = 0;
-window.documentUnloaded = false

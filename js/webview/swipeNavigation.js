@@ -1,5 +1,8 @@
 /* detects back/forward swipes */
 
+var totalMouseMove = 0;
+var documentUnloaded = false
+
 window.addEventListener("mousewheel", function (e) {
 	if (e.deltaY > 10 || e.deltaY < -10) {
 		return;
