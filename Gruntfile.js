@@ -43,7 +43,8 @@ module.exports = function (grunt) {
 						"js/webview/readerDetector.js",
 						"js/webview/swipeNavigation.js",
 						"js/webview/zoom.js",
-						"js/webview/keywordExtractor.js"
+						"js/webview/keywordExtractor.js",
+						"js/webview/fileViewer.js"
 						 ],
 				dest: 'dist/webview.js'
 			}
