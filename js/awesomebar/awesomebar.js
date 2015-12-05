@@ -75,6 +75,45 @@ function openURLInBackground(url) { //used to open a url in the background, with
 	$(".result-item:focus").blur(); //remove the highlight from an awesoembar result item, if there is one
 }
 
+
+//attempts to shorten a page title, removing useless text like the site name
+
+function getRealTitle(text) {
+
+	//don't try to parse URL's
+	if (urlParser.isURL(text)) {
+		return text;
+	}
+
+	var possibleCharacters = ["|", ":", " - ", " — "];
+
+	for (var i = 0; i < possibleCharacters.length; i++) {
+
+		var char = possibleCharacters[i];
+		//match url's of pattern: title | website name
+		var titleChunks = text.split(char);
+
+		if (titleChunks.length >= 2) {
+			titleChunks[0] = titleChunks[0].trim();
+			titleChunks[1] = titleChunks[1].trim();
+
+			if (titleChunks[1].length < 5 || titleChunks[1].length / titleChunks[0].length <= 0.5) {
+				return titleChunks[0]
+			}
+
+			//match website name | title. This is less common, so it has a higher threshold
+
+			if (titleChunks[0].length / titleChunks[1].length < 0.35) {
+				return titleChunks[1]
+			}
+		}
+	}
+
+	//fallback to the regular title
+
+	return text;
+}
+
 var awesomebar = $("#awesomebar");
 var historyarea = awesomebar.find(".history-results");
 var bookmarkarea = awesomebar.find(".bookmark-results");
@@ -176,7 +215,12 @@ var showAwesomebarResults = throttle(function (text, input, event) {
 
 	//show awesomebar results
 
-	showSearchSuggestions(text, input);
+
+	//normally, we will search history first, and only show search suggestions if there aren't any history results. However, if the history db isn't opened yet (which it won't be if the page loaded less than a few seconds ago), we should show results without waiting for history. Also, show results if a !bang search is occuring
+	if (performance.now() < 12500 || text.indexOf("!") == 0) {
+
+		showSearchSuggestions(text, input);
+	}
 
 	showBookmarkResults(text);
 

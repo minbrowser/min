@@ -28,6 +28,7 @@ function unsafe_showColorUI(searchText, colorHTML) {
 	return item;
 };
 
+//this is triggered from history.js - we only show search suggestions if we don't have history results
 window.showSearchSuggestions = throttle(function (text, input) {
 
 	if (!text) {
@@ -110,7 +111,7 @@ window.showSearchSuggestions = throttle(function (text, input) {
 /* this is called from historySuggestions. When we find history results, we want to limit search suggestions to 2 so the awesomebar doesn't get too large. */
 
 var limitSearchSuggestions = function (itemsToRemove) {
-	var itemsLeft = Math.max(3, 5 - itemsToRemove);
+	var itemsLeft = Math.max(2, 5 - itemsToRemove);
 	maxSearchSuggestions = itemsLeft;
 	serarea.find(".result-item:nth-child(n+{items})".replace("{items}", itemsLeft + 1)).remove();
 }
@@ -160,9 +161,9 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 					item.text(res.Heading);
 				}
 
-				if (res.Image && res.Entity != "company" && res.Entity != "country" && res.Entity != "website") { //ignore images for entities that generally have useless or ugly images
+				/*if (res.Image && res.Entity != "company" && res.Entity != "country" && res.Entity != "website") { //ignore images for entities that generally have useless or ugly images
 					$("<img class='result-icon image'>").attr("src", res.Image).prependTo(item);
-				}
+				}*/
 
 				$("<span class='description-block'>").text(removeTags(res.Abstract) || "Answer").appendTo(item);
 

@@ -1,19 +1,22 @@
 var showBookmarkResults = throttle(function (text) {
 	if (text.length < 3) {
+		limitHistoryResults(5);
+		bookmarkarea.html("");
 		return;
 	}
 
 	bookmarks.search(text, function (results) {
 		bookmarkarea.html("");
-		var resultsShown = 2;
-		results.splice(0, 3).forEach(function (result) {
+		var resultsShown = 1;
+		results.splice(0, 2).forEach(function (result) {
 			//as more results are added, the threshold for adding another one gets higher
-			if (result.score > 0.0005 * resultsShown) {
+			if (result.score > Math.max(0.0005, 0.00095 - (0.00005 * text.length) * resultsShown)) {
 
 				resultsShown++;
 
 				//create the basic item
-				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(result.title)).on("click", function (e) {
+				//getRealTitle is defined in awesomebar.js
+				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(result.title))).on("click", function (e) {
 					if (e.metaKey) {
 						openURLInBackground(result.url);
 					} else {
@@ -23,7 +26,7 @@ var showBookmarkResults = throttle(function (text) {
 
 				$("<i class='fa fa-star'>").prependTo(item);
 
-				var span = $("<span class='secondary-text'>").text(urlParser.removeProtocol(result.url).replace(trailingSlashRegex, ""));
+				var span = $("<span class='secondary-text'>").text(urlParser.getDomainName(result.url));
 
 
 				if (result.extraData && result.extraData.metadata) {
@@ -49,6 +52,8 @@ var showBookmarkResults = throttle(function (text) {
 				span.appendTo(item);
 
 				item.appendTo(bookmarkarea);
+
+				item.attr("data-url", result.url);
 			}
 
 		});

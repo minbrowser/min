@@ -1,5 +1,7 @@
 var urlParser = {
 	searchBaseURL: "https://duckduckgo.com/?q=%s",
+	startingWWWRegex: /www\.(.+\..+)\//g,
+	trailingSlashRegex: /\/$/g,
 	isURL: function (url) {
 		return url.indexOf("http://") == 0 || url.indexOf("https://") == 0 || url.indexOf("file://") == 0 || url.indexOf("about:") == 0 || url.indexOf("chrome:") == 0 || url.indexOf("data:") == 0;
 	},
@@ -40,5 +42,9 @@ var urlParser = {
 		}
 		//else, do a search
 		return urlParser.searchBaseURL.replace("%s", encodeURIComponent(url));
+	},
+	prettyURL: function (url) {
+		var urlOBJ = new URL(url);
+		return (urlOBJ.hostname + urlOBJ.pathname.replace(urlParser.trailingSlashRegex, "")).replace(urlParser.startingWWWRegex, "$1");
 	}
 }

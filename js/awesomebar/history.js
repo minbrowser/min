@@ -1,12 +1,12 @@
 var DDGSearchURLRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
-	plusRegex = /\+/g,
-	trailingSlashRegex = /\/$/g;
+	trailingSlashRegex = /\/$/g,
+	plusRegex = /\+/g;
 
 var shouldAutocompleteTitle;
 var hasAutocompleted = false;
 
 var cachedHistoryResults = [];
-var maxHistoryResults = 3;
+var maxHistoryResults = 4;
 
 function awesomebarAutocomplete(text, input) {
 	if (text == awesomebarCachedText && input[0].selectionStart != input[0].selectionEnd) { //if nothing has actually changed, don't try to autocomplete
@@ -84,9 +84,7 @@ function autocompleteResultIfNeeded(input, result) {
 	return false;
 }
 
-var showHistoryResults = function (text, input, maxItems) {
-
-	maxItems = maxItems || maxHistoryResults;
+var showHistoryResults = throttle(function (text, input, maxItems) {
 
 	if (!text) {
 		return;
@@ -94,16 +92,30 @@ var showHistoryResults = function (text, input, maxItems) {
 
 	bookmarks.searchHistory(text, function (results) {
 
-		historyarea.html("");
+		maxItems = maxItems || maxHistoryResults;
 
+		historyarea.html("");
 
 		cachedHistoryResults = results;
 
 		awesomebarAutocomplete(text, input);
 
-		limitSearchSuggestions(results.length);
+		if (results.length < 20) { //if we have a lot of history results, don't show search suggestions
+			limitSearchSuggestions(results.length);
+			showSearchSuggestions(text, input);
+		} else if (text.indexOf("!") == -1) { //if we have a !bang, always show results
+			serarea.html("");
+		}
 
-		results.forEach(function (result, index) {
+		var resultsShown = 0;
+
+		results.forEach(function (result) {
+
+			//if there is a bookmark result found, don't show a history item
+
+			if (bookmarkarea.find(".result-item[data-url='{url}']".replace("{url}", result.url.replace(/'/g, "")))[0]) {
+				return;
+			}
 
 			var shouldAutocompleteTitle = false;
 
@@ -123,31 +135,41 @@ var showHistoryResults = function (text, input, maxItems) {
 
 			//if we've started typing the result and didn't press the delete key (which should make the highlight go away), autocomplete in the input
 
-			if (index < maxItems) { //only show up to n history items
 
-				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(title)).on("click", function (e) {
-					//if the command key was pressed, open in background while still showing awesomebar
+			var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(title))).on("click", function (e) {
+				//if the command key was pressed, open in background while still showing awesomebar
 
-					if (e.metaKey) {
-						openURLInBackground(result.url);
+				if (e.metaKey) {
+					openURLInBackground(result.url);
 
-					} else {
-						navigate(tabs.getSelected(), result.url);
-					}
-				});
+				} else {
+					navigate(tabs.getSelected(), result.url);
+				}
+			});
 
-				icon.prependTo(item);
+			icon.prependTo(item);
 
-				$("<span class='secondary-text'>").text(urlParser.removeProtocol(result.url).replace(trailingSlashRegex, "")).appendTo(item);
+			if (!shouldAutocompleteTitle && result.title != result.url) { //if we're autocompleting titles, this is a search, and we don't want to show the URL. If the item title and URL are the same (meaning the item has no title), there is no point in showing a URL since we are showing it in the title field.
 
-				item.appendTo(historyarea);
+				$("<span class='secondary-text'>").text(urlParser.prettyURL(result.url)).appendTo(item);
 			}
+
+			if (resultsShown >= maxItems) { //only show up to n history items
+				item.hide().addClass("unfocusable");
+			}
+
+			item.appendTo(historyarea);
+
+
+			resultsShown++;
 
 		});
 	});
-}
+}, 100);
 
 function limitHistoryResults(maxItems) {
-	maxHistoryResults = Math.min(3, Math.max(maxItems, 2));
-	historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1)).remove();
+	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));
+	console.log("limiting maxHistoryResults to " + maxHistoryResults);
+	historyarea.find(".result-item").show().removeClass("unfocusable");
+	historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults)).hide().addClass("unfocusable");
 }
