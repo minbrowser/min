@@ -50,18 +50,44 @@ setTimeout(cleanupHistoryDatabase, 20000); //don't run immediately on startup, s
 
 function generateTopics() {
 	var bundles = {};
-
+	var inc, totalString;
 	//split history items into a list of words and the pages that contain them
 	db.history.each(function (item) {
-			var itemWords = (item.title + " " + item.url).split(spacesRegex);
+
+			var itemWords = item.title.split(spacesRegex);
 
 			for (var x = 0; x < itemWords.length; x++) {
+
+				if (itemWords[x].length < 3 || itemWords[x] == "com") {
+					continue;
+				}
+
 				itemWords[x] = itemWords[x].toLowerCase().trim();
 
 				if (bundles[itemWords[x]]) {
 					bundles[itemWords[x]].push(item);
 				} else {
 					bundles[itemWords[x]] = [item]
+				}
+
+				//try to generate longer strings if possible
+
+				inc = x + 1;
+				totalString = itemWords[x];
+
+				while (itemWords[inc]) {
+					if (itemWords[inc].length < 3 || itemWords[inc] == "com") {
+						break;
+					}
+					totalString += " " + itemWords[inc].toLowerCase().trim();
+
+					if (bundles[totalString]) {
+						bundles[totalString].push(item);
+					} else {
+						bundles[totalString] = [item]
+					}
+
+					inc++;
 				}
 			}
 
@@ -94,7 +120,7 @@ function generateTopics() {
 
 				var newObj = {
 					urls: urlSet.splice(0, 45), //put a bound on the items returned
-					score: totalScore,
+					score: totalScore - (totalScore * 0.02 * Math.abs(12 - item.length)),
 				}
 
 				bundles[item] = newObj;
@@ -118,6 +144,7 @@ function generateTopics() {
 			topics = bundlesArray;
 
 			console.info("bundles generated");
+
 		})
 		.catch(function (e) {
 			console.warn("error generating bundles");
