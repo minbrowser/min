@@ -1,14 +1,21 @@
 /* imports common modules */
 
-var ipc = require('ipc');
-var webFrame = require('web-frame')
+var electron = require("electron");
+var ipc = electron.ipcRenderer;
+var webFrame = electron.webFrame;
+
+/* disable getUserMedia/Geolocation until we have permissions prompts for this https://github.com/atom/electron/issues/3268 */
+
+delete navigator.__proto__.geolocation;
+delete navigator.__proto__.webkitGetUserMedia;
+delete navigator.__proto__.getUserMedia;
 ;/* send bookmarks data.  */
 
-ipc.on("sendData", function () {
+function getBookmarksText(doc) {
 	var candidates = ["P", "B", "I", "U", "H1", "H2", "H3", "A", "PRE", "CODE", "SPAN"];
 	var ignore = ["LINK", "STYLE", "SCRIPT", "NOSCRIPT"];
 	var text = "";
-	var pageElements = document.querySelectorAll("*");
+	var pageElements = doc.querySelectorAll("*");
 	for (var i = 0; i < pageElements.length; i++) {
 
 		var el = pageElements[i]
@@ -26,6 +33,23 @@ ipc.on("sendData", function () {
 	}
 
 	text = text.replace(/[\n\t]/g, ""); //remove useless newlines/tabs that increase filesize
+
+	return text;
+}
+
+ipc.on("sendData", function () {
+	var text = getBookmarksText(document);
+
+	//try to also extract text for same-origin iframes (such as the reader mode frame)
+
+	var frames = document.querySelectorAll("iframe");
+
+	for (var x = 0; x < frames.length; frames++) {
+		if (!frames[x].contentDocument) {
+			continue;
+		}
+		text += ". " + getBookmarksText(frames[x].contentDocument);
+	}
 
 	/* also parse special metadata: price, rating, location */
 
@@ -110,14 +134,14 @@ window.addEventListener("contextmenu", function (e) {
 
 /* gets page data used for the context menu */
 
-ipc.on("getContextData", function (event) {
+ipc.on("getContextData", function (event, cxData) {
 
 	//the page is overriding the contextmenu event
 	if (contextMenuDefaultPrevented) {
 		return;
 	}
 
-	var element = document.elementFromPoint(event.x, event.y);
+	var element = document.elementFromPoint(cxData.x, cxData.y);
 
 	if (element) {
 		var src = element.href || element.src;
@@ -155,7 +179,6 @@ function checkPhishingStatus() {
 
 	var scanStart = performance.now();
 
-
 	function isSensitive(form) { //checks if a form is asking for sensitive information
 		var tx = form.textContent.toLowerCase();
 
@@ -177,6 +200,14 @@ function checkPhishingStatus() {
 			debug_phishing("possibly sensitive form, checking but increasing minScore");
 
 			minPhishingScore *= 1.15;
+			return true;
+		}
+
+		//empty forms can be misleading
+
+		if (!form.querySelector("input")) {
+			debug_phishing("empty form found, checking but increasing minScore");
+			minPhishingScore += 0.35;
 			return true;
 		}
 
@@ -225,7 +256,7 @@ function checkPhishingStatus() {
 
 	if (doubleDomainRegex.test(loc)) {
 		debug_phishing("found misleading domain");
-		phishingScore += 0.2;
+		phishingScore += 0.33;
 	}
 
 	//no https - either insecure, phishing, or both
@@ -239,8 +270,7 @@ function checkPhishingStatus() {
 
 	if (window.location.host.length > 25) {
 		debug_phishing("long hostname detected");
-		phishingScore += window.location.host.length * 0.005;
-		console.log("score", phishingScore);
+		phishingScore += window.location.host.length * 0.0075;
 	}
 
 	//penalize extremely long locations, since these could also be used for phishing
@@ -261,7 +291,7 @@ function checkPhishingStatus() {
 
 	if (window.location.pathname.length > 25) {
 		debug_phishing("paths detected");
-		phishingScore += 0.1;
+		phishingScore += Math.min(0.05 + (0.002 * window.location.pathname.length), 0.3);
 	}
 
 	sensitiveWords.forEach(function (word) {
@@ -309,7 +339,7 @@ function checkPhishingStatus() {
 
 			//if the form action is in the same directory as the current page, it is likely to be phishing
 
-			var slashCt = fa.split("/").length - 1;
+			var slashCt = fa.replace(window.location.toString(), "").replace(window.location.pathname, "").split("/").length - 1;
 
 			if (slashCt < 2) {
 				debug_phishing("form with simple path for action detected");
@@ -353,7 +383,8 @@ function checkPhishingStatus() {
 		}
 
 		if (formWithoutActionFound == true) {
-			phishingScore += 0.6;
+			phishingScore += 0.4;
+			phishingScore += Math.min(0.2, totalFormLength * 0.0001)
 		}
 
 		if (formWithSimplePathFound == true) {
@@ -416,7 +447,7 @@ function checkPhishingStatus() {
 
 	if (totalLinks > 2 && sameDomainLinks == 0 || (totalLinks > 5 && sameDomainLinks / totalLinks < 0.15)) {
 		debug_phishing("links go to external domain");
-		phishingScore += Math.min((totalLinks - sameDomainLinks) * 0.05, 0.2);
+		phishingScore += Math.min((totalLinks - sameDomainLinks) * 0.05, 0.25);
 	}
 
 	//if there are a bunch of empty links, increase score
@@ -434,7 +465,7 @@ function checkPhishingStatus() {
 	//if we have a password input, set a lower threshold
 
 	if (document.querySelector("input[type=password]")) {
-		minPhishingScore = 0.85;
+		minPhishingScore = 0.9;
 	}
 
 	//if most of the page isn't forms, set a higher threshold
@@ -449,6 +480,30 @@ function checkPhishingStatus() {
 		debug_phishing(totalFormLength);
 		debug_phishing(totalDocLength);
 		minPhishingScore += 0.2;
+	}
+
+	//checks if most, but not all of the scripts on a page come from an external domain, possibly indicating an injected phishing script
+	var scripts = document.querySelectorAll("script");
+
+	var scriptSources = {};
+	if (scripts) {
+		for (var i = 0; i < scripts.length; i++) {
+			if (scripts[i].src) {
+				aTest.href = scripts[i].src;
+				var rd = aTest.hostname;
+				scriptSources[rd] = scriptSources[rd] + 1 || 1;
+			}
+		}
+	}
+
+	var previous = 0;
+
+	for (var source in scriptSources) {
+		if (scriptSources[source] > 5 && previous > 0) {
+			phishingScore += 0.1;
+			debug_phishing("external scripts found, increasing score");
+		}
+		previous = scriptSources[source];
 	}
 
 	//if we have lots of forms, we need a higher threshold, since phishingScore tends to increase with more forms
@@ -487,7 +542,7 @@ window.addEventListener("load", function () {
 document.addEventListener("DOMContentLoaded", checkPhishingStatus)
 ;/* detects if a page is readerable, and tells the main process if it is */
 
-window.addEventListener("load", function (e) {
+function getReaderScore() {
 	var paragraphs = document.querySelectorAll("p");
 	var tl = 0;
 	if (!paragraphs) {
@@ -496,7 +551,14 @@ window.addEventListener("load", function (e) {
 	for (var i = 0; i < paragraphs.length; i++) {
 		tl += Math.max(paragraphs[i].textContent.length - 100, -30);
 	}
-	window._browser_readerScore = tl;
+	return tl;
+}
+
+window.addEventListener("load", function (e) {
+	var tl = getReaderScore();
+
+	//for debugging
+	//window._browser_readerScore = tl;
 
 	if (tl > 650 || (document.querySelector("article") && tl > 200)) {
 		//the page is probably an article
@@ -515,8 +577,11 @@ window.addEventListener("load", function (e) {
 })
 ;/* detects back/forward swipes */
 
+var totalMouseMove = 0;
+var documentUnloaded = false
+
 window.addEventListener("mousewheel", function (e) {
-	if (e.deltaY > 7 || e.deltaY < -7) {
+	if (e.deltaY > 10 || e.deltaY < -10) {
 		return;
 	}
 
@@ -551,9 +616,9 @@ setInterval(function () {
 }, 4000)
 ;/* zooms the page in an out, and resets */
 
-window._browser_zoomLevel = 0;
-window._browser_maxZoom = 9;
-window._browser_minZoom = -8;
+var _browser_zoomLevel = 0;
+var _browser_maxZoom = 9;
+var _browser_minZoom = -8;
 
 ipc.on("zoomIn", function () {
 	if (_browser_maxZoom > _browser_zoomLevel) {
@@ -575,8 +640,171 @@ ipc.on("zoomReset", function () {
 	_browser_zoomLevel = 0;
 	webFrame.setZoomLevel(_browser_zoomLevel);
 });
+;function isScrolledIntoView(el) { //http://stackoverflow.com/a/22480938/4603285
+	var elemTop = el.getBoundingClientRect().top;
+	var elemBottom = el.getBoundingClientRect().bottom;
 
-/* back/forward swipe - needs to be fast (no ipc), so in here */
+	var isVisible = elemTop < window.innerHeight && elemBottom >= 0
+	return isVisible;
+}
 
-var totalMouseMove = 0;
-window.documentUnloaded = false
+ipc.on("getKeywordsData", function (e) {
+
+	function extractPageText(doc) {
+		var ignore = ["LINK", "STYLE", "SCRIPT", "NOSCRIPT", "svg", "symbol", "title", "path", "style"];
+		var text = "";
+		var pageElements = doc.querySelectorAll("p, h2, h3, h4, li, [name=author], [itemprop=name], .article-author");
+		for (var i = 0; i < pageElements.length; i++) {
+
+			if ((!isScrolledIntoView(pageElements[i]) && doc == document) || pageElements[i].style.display == "none" || (pageElements[i].tagName == "META" && window.scrollY > 500)) {
+				continue;
+			}
+
+			var el = pageElements[i];
+
+			if (ignore.indexOf(el.tagName) == -1) {
+
+				var elText = el.textContent || el.content
+
+				if (/\.\s*$/g.test(elText)) {
+					text += " " + elText
+				} else {
+					text += ". " + elText
+				}
+
+			}
+		}
+
+		text = text.replace(/[\n\t]/g, ""); //remove useless newlines/tabs that increase filesize
+
+		return text;
+	}
+
+	if (getReaderScore() < 400 && window.location.toString().indexOf("reader/index.html") == -1) {
+		return;
+	}
+
+	var text = extractPageText(document);
+
+	var frames = document.querySelectorAll("iframe");
+
+	if (frames) {
+		for (var i = 0; i < frames.length; i++) {
+			if (frames[i].contentDocument) {
+				text += " " + extractPageText(frames[i].contentDocument);
+			}
+		}
+	}
+
+	var nlp = require("nlp_compromise");
+
+	var items = nlp.spot(text, {});
+
+	var entities = [];
+
+	items.forEach(function (item) {
+		if (item.pos_reason.indexOf("noun_capitalised") == -1) {
+			return;
+		}
+
+		entities.push(item.text.replace(/[^a-zA-Z\s]/g, ""));
+	});
+
+	ipc.sendToHost("keywordsData", {
+		entities: entities,
+	});
+
+});
+;//displayes files like markdown, json, etc in a nice way
+
+function showSourceFile(lang) {
+
+	if (document.body.childNodes.length != 1) {
+		return;
+	}
+
+	var beautify = require("js-beautify");
+
+	if (lang == "css") {
+		beautify = beautify.css;
+	}
+
+	var text = document.body.textContent;
+	window.highlighter = require("highlight.js");
+
+	var formattedText = beautify(text, {
+		indent_size: 4
+	});
+
+	//TODO figure out a way to include external files here
+	//includes "androidstudio" theme - from highlight.js
+
+	document.body.innerHTML = '<style>html,body{margin:0;padding:0;font-size:18px;box-sizing:border-box;font-family:"Courier", monospace}pre{margin:0}.hljs{color:#a9b7c6;background:#282b2e;display:block;overflow-x:auto;padding:.5em;-webkit-text-size-adjust:none;min-height:100vh}.hljs-number{color:#6897BB}.hljs-deletion,.hljs-keyword{color:#cc7832}.hljs-comment{color:grey}.hljs-annotation{color:#bbb529}.hljs-addition,.hljs-string{color:#6A8759}.hljs-change,.hljs-function .hljs-title{color:#ffc66d}.hljs-doctype,.hljs-tag .hljs-title{color:#e8bf6a}.hljs-tag .hljs-attribute{color:#bababa}.hljs-tag .hljs-value{color:#a5c261}</style>'
+	document.body.innerHTML += "<pre><code></code></pre>";
+
+	document.querySelector("pre > code").textContent = formattedText;
+	highlighter.initHighlighting();
+
+	document.head.innerHTML = "<link rel='icon' href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAEElEQVR42gEFAPr/ACgrLv8CgQGB0u9ZtgAAAABJRU5ErkJggg=='/>"; //favicon to change navbar color
+
+	document.title = window.location;
+}
+
+function showMarkdownFile() {
+
+	if (document.body.childNodes.length != 1) {
+		return;
+	}
+
+	var marked = require("marked");
+	var highlighter = require("highlight.js");
+
+	var text = document.body.textContent;
+	var fmt = marked(text);
+
+	document.head.innerHTML = "<style>body,html{padding:0;margin:0;display:flex;width:100vw;font-family:Helvetica,'.SFNSText-Regular'}.pane{flex:1;overflow:auto;padding:1em}#textPane{margin:0;font-size:15.5px;font-weight:500;border-right:1px #e5e5e5 solid;white-space:pre-wrap;flex:0.8;padding:1.25em;font-family:'Courier', monospace}#previewPane pre{font-size:18px}</style>";
+
+	//this is copied from reader/readerView.css
+	document.querySelector("style").innerHTML += "img,pre{display:block}blockquote,p{line-height:1.5em}h1,h2{font-weight:inherit}h3,h4{padding:.5em 0;margin:0;font-size:1.4em;font-weight:500}h4{font-size:1.25em;font-weight:600}.page{padding:2.25rem}img{max-width:100%;height:auto;margin:auto}ol li,ul li{padding:.25rem 0}a{text-decoration:none;color:inherit;font-size:1em;pointer-events:none}figure{max-width:50%;float:right}@media all and (max-width:600px){figure{max-width:100%;float:initial;margin:0}}figure figcaption{padding-top:1em}code,code *,pre,pre *{font-family:monospace}pre{overflow:auto}blockquote{border-left:1px currentColor solid;padding-left:.5em;font-size:1.2em;margin:1.5em 0}";
+
+
+	//github-gist style from highlight.js
+	document.querySelector("style").innerHTML += ".hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto;-webkit-text-size-adjust:none}.bash .hljs-shebang,.hljs-comment,.java .hljs-javadoc,.javascript .hljs-javadoc,.rust .hljs-preprocessor{color:#969896}.apache .hljs-sqbracket,.c .hljs-preprocessor,.coffeescript .hljs-regexp,.coffeescript .hljs-subst,.cpp .hljs-preprocessor,.hljs-string,.javascript .hljs-regexp,.json .hljs-attribute,.less .hljs-built_in,.makefile .hljs-variable,.markdown .hljs-blockquote,.markdown .hljs-emphasis,.markdown .hljs-link_label,.markdown .hljs-strong,.markdown .hljs-value,.nginx .hljs-number,.nginx .hljs-regexp,.objectivec .hljs-preprocessor .hljs-title,.perl .hljs-regexp,.php .hljs-regexp,.scss .hljs-built_in,.xml .hljs-value{color:#df5000}.css .hljs-at_rule,.css .hljs-important,.go .hljs-typename,.haskell .hljs-type,.hljs-keyword,.http .hljs-request,.ini .hljs-setting,.java .hljs-javadoctag,.javascript .hljs-javadoctag,.javascript .hljs-tag,.less .hljs-at_rule,.less .hljs-tag,.nginx .hljs-title,.objectivec .hljs-preprocessor,.php .hljs-phpdoc,.scss .hljs-at_rule,.scss .hljs-important,.scss .hljs-tag,.sql .hljs-built_in,.stylus .hljs-at_rule,.swift .hljs-preprocessor{color:#a71d5d}.apache .hljs-cbracket,.apache .hljs-common,.apache .hljs-keyword,.bash .hljs-built_in,.bash .hljs-literal,.c .hljs-built_in,.c .hljs-number,.coffeescript .hljs-built_in,.coffeescript .hljs-literal,.coffeescript .hljs-number,.cpp .hljs-built_in,.cpp .hljs-number,.cs .hljs-built_in,.cs .hljs-number,.css .hljs-attribute,.css .hljs-function,.css .hljs-hexcolor,.css .hljs-number,.go .hljs-built_in,.go .hljs-constant,.haskell .hljs-number,.http .hljs-attribute,.http .hljs-literal,.java .hljs-number,.javascript .hljs-built_in,.javascript .hljs-literal,.javascript .hljs-number,.json .hljs-number,.less .hljs-attribute,.less .hljs-function,.less .hljs-hexcolor,.less .hljs-number,.makefile .hljs-keyword,.markdown .hljs-link_reference,.nginx .hljs-built_in,.objectivec .hljs-built_in,.objectivec .hljs-literal,.objectivec .hljs-number,.php .hljs-literal,.php .hljs-number,.puppet .hljs-function,.python .hljs-number,.ruby .hljs-constant,.ruby .hljs-number,.ruby .hljs-prompt,.ruby .hljs-subst .hljs-keyword,.ruby .hljs-symbol,.rust .hljs-number,.scss .hljs-attribute,.scss .hljs-function,.scss .hljs-hexcolor,.scss .hljs-number,.scss .hljs-preprocessor,.sql .hljs-number,.stylus .hljs-attribute,.stylus .hljs-hexcolor,.stylus .hljs-number,.stylus .hljs-params,.swift .hljs-built_in,.swift .hljs-number{color:#0086b3}.apache .hljs-tag,.cs .hljs-xmlDocTag,.css .hljs-tag,.stylus .hljs-tag,.xml .hljs-title{color:#63a35c}.bash .hljs-variable,.cs .hljs-preprocessor,.cs .hljs-preprocessor .hljs-keyword,.css .hljs-attr_selector,.css .hljs-value,.ini .hljs-keyword,.ini .hljs-value,.javascript .hljs-tag .hljs-title,.makefile .hljs-constant,.nginx .hljs-variable,.scss .hljs-variable,.xml .hljs-tag{color:#333}.bash .hljs-title,.c .hljs-title,.coffeescript .hljs-title,.cpp .hljs-title,.cs .hljs-title,.css .hljs-class,.css .hljs-id,.css .hljs-pseudo,.diff .hljs-chunk,.haskell .hljs-pragma,.haskell .hljs-title,.ini .hljs-title,.java .hljs-title,.javascript .hljs-title,.less .hljs-class,.less .hljs-id,.less .hljs-pseudo,.makefile .hljs-title,.objectivec .hljs-title,.perl .hljs-sub,.php .hljs-title,.puppet .hljs-title,.python .hljs-decorator,.python .hljs-title,.ruby .hljs-parent,.ruby .hljs-title,.rust .hljs-title,.scss .hljs-class,.scss .hljs-id,.scss .hljs-pseudo,.stylus .hljs-class,.stylus .hljs-id,.stylus .hljs-pseudo,.stylus .hljs-title,.swift .hljs-title,.xml .hljs-attribute{color:#795da3}.coffeescript .hljs-attribute,.coffeescript .hljs-reserved{color:#1d3e81}.diff .hljs-chunk{font-weight:700}.diff .hljs-addition{color:#55a532;background-color:#eaffea}.diff .hljs-deletion{color:#bd2c00;background-color:#ffecec}.markdown .hljs-link_url{text-decoration:underline}";
+
+	document.body.innerHTML = "<pre class='pane' id='textPane'></pre><div class='pane' id='previewPane'></div>";
+
+	var panes = {
+		text: document.getElementById("textPane"),
+		preview: document.getElementById("previewPane"),
+	}
+
+	panes.text.textContent = text;
+	panes.preview.innerHTML = fmt;
+
+	//enable highlighting of code blocks
+
+	highlighter.initHighlighting();
+}
+
+
+var filename = window.location.pathname;
+
+var supportedFileExtensions = ["json", "js", "css"];
+
+for (var i = 0; i < supportedFileExtensions.length; i++) {
+	var index = filename.indexOf("." + supportedFileExtensions[i]);
+	if (index != -1 && index == filename.length - (supportedFileExtensions[i].length + 1)) {
+		showSourceFile(supportedFileExtensions[i]);
+	}
+}
+
+
+var markdownFiles = ["md", "mdown", "markdown", "markdn", "mtext", "mdtext", "mdwn", "mkd", "mkdn", "text"];
+
+
+for (var i = 0; i < markdownFiles.length; i++) {
+	var index = filename.indexOf("." + markdownFiles[i]);
+	if (index != -1 && index == filename.length - (markdownFiles[i].length + 1)) {
+		showMarkdownFile(markdownFiles[i]);
+	}
+}

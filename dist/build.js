@@ -1,4 +1,194 @@
-/*
+/* implements selecting webviews, switching between them, and creating new ones. */
+
+var phishingWarningPage = "file://" + __dirname + "/pages/phishing/index.html"; //TODO move this somewhere that actually makes sense
+
+var webviewBase = $("#webviews");
+var webviewEvents = [];
+var webviewIPC = [];
+
+function updateURLInternal(webview, url) {
+	webview.attr("src", url);
+}
+
+//this only affects newly created webviews, so all bindings should be done on startup
+
+function bindWebviewEvent(event, fn) {
+	webviewEvents.push({
+		event: event,
+		fn: fn,
+	})
+}
+
+//function is called with (webview, tabId, IPCArguements)
+
+function bindWebviewIPC(name, fn) {
+	webviewIPC.push({
+		name: name,
+		fn: fn,
+	})
+}
+
+function getWebviewDom(options) {
+
+	var url = (options || {}).url || "about:blank";
+
+	var w = $("<webview>");
+	w.attr("preload", "dist/webview.min.js");
+	w.attr("src", urlParser.parse(url));
+
+	w.attr("data-tab", options.tabId);
+
+	//if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
+	//since tab IDs are unique, we can use them as partition names
+	if (tabs.get(options.tabId).private == true) {
+		w.attr("partition", options.tabId);
+	}
+
+	//webview events
+
+	webviewEvents.forEach(function (i) {
+		w.on(i.event, i.fn);
+	})
+
+	w.on("page-favicon-updated", function (e) {
+		var id = $(this).attr("data-tab");
+		updateTabColor(e.originalEvent.favicons, id);
+	});
+
+	w.on("page-title-set", function (e) {
+		var tab = $(this).attr("data-tab");
+		tabs.update(tab, {
+			title: e.originalEvent.title
+		});
+		rerenderTabElement(tab);
+	});
+
+	w.on("did-finish-load", function (e) {
+		var tab = $(this).attr("data-tab");
+		var url = e.target.getURL();
+
+		if (url.indexOf("https://") === 0) {
+			tabs.update(tab, {
+				secure: true,
+				url: url,
+			});
+		} else {
+			tabs.update(tab, {
+				secure: false,
+				url: url,
+			});
+		}
+
+		if (tabs.get(tab).private == false) { //don't save to history if in private mode
+			bookmarks.updateHistory(tab);
+		}
+
+		rerenderTabElement(tab);
+
+		this.send("loadfinish"); //works around an electron bug (https://github.com/atom/electron/issues/1117), forcing Chromium to always  create the script context
+
+	});
+
+	/*w.on("did-get-redirect-request", function (e) {
+		console.log(e.originalEvent);
+	});*/
+
+
+	/* too buggy, disabled for now
+
+	w.on("did-fail-load", function (e) {
+		if (e.originalEvent.validatedURL == this.getURL()) {
+			updateURLInternal($(this), "file:///" + __dirname + "/pages/error/index.html?e=" + JSON.stringify(e.originalEvent) + "&url=" + $(this)[0].getURL());
+		}
+	});
+		
+	*/
+
+
+	//open links in new tabs
+
+	w.on("new-window", function (e) {
+		var tab = $(this).attr("data-tab");
+		var newTab = tabs.add({
+			url: e.originalEvent.url,
+			private: tabs.get(tab).private //inherit private status from the current tab
+		})
+		addTab(newTab, {
+			focus: false,
+			openInBackground: e.originalEvent.disposition == "background-tab", //possibly open in background based on disposition
+		});
+	});
+
+
+	// In embedder page. Send the text content to bookmarks when recieved.
+	w.on('ipc-message', function (e) {
+		var w = this;
+		var tab = $(this).attr("data-tab");
+
+		webviewIPC.forEach(function (item) {
+			if (item.name == e.originalEvent.channel) {
+				item.fn(w, tab, e.originalEvent.args);
+			}
+		});
+
+		if (e.originalEvent.channel == "bookmarksData") {
+			bookmarks.onDataRecieved(e.originalEvent.args[0]);
+
+		} else if (e.originalEvent.channel == "phishingDetected") {
+			navigate($(this).attr("data-tab"), phishingWarningPage);
+		}
+	});
+
+	w.on("contextmenu", webviewMenu.show);
+
+	return w;
+
+}
+
+/* options: openInBackground: should the webview be opened without switching to it? default is false. 
+ */
+
+var WebviewsWithHiddenClass = false;
+
+function addWebview(tabId, options) {
+	options = options || {}; //fallback if options is undefined
+
+	var tabData = tabs.get(tabId);
+
+	var webview = getWebviewDom({
+		tabId: tabId,
+		url: tabData.url
+	});
+
+	webviewBase.append(webview);
+
+	if (!options.openInBackground) {
+		switchToWebview(tabId);
+	} else {
+		//this is used to hide the webview while still letting it load in the background
+		webview.addClass("hidden");
+	}
+}
+
+function switchToWebview(id) {
+	$("webview").hide();
+	$("webview[data-tab={id}]".replace("{id}", id)).removeClass("hidden").show().get(0).focus(); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
+}
+
+function updateWebview(id, url) {
+	var w = $("webview[data-tab={id}]".replace("{id}", id));
+
+	w.attr("src", urlParser.parse(url));
+}
+
+function destroyWebview(id) {
+	$("webview[data-tab={id}]".replace("{id}", id)).remove();
+}
+
+function getWebview(id) {
+	return $("webview[data-tab={id}]".replace("{id}", id));
+}
+;/*
 steps to creating a bookmark:
 
  - bookmarks.bookmark(tabId) is called
@@ -13,7 +203,7 @@ var bookmarks = {
 	updateHistory: function (tabId) {
 		var w = getWebview(tabId)[0]
 		var data = {
-			url: w.getUrl(),
+			url: w.getURL(),
 			title: w.getTitle(),
 			color: tabs.get(tabId).backgroundColor
 		}
@@ -25,7 +215,7 @@ var bookmarks = {
 	currentCallback: function () {},
 	onDataRecieved: function (data) {
 		//we can't trust that the data we get from webview_preload.js isn't malicious. Because of this, when we call bookmarks.bookmark(), we set authBookmarkTab to the bookmarked tab id. Then, we check if the url we get back actually matches the url of the tabtab we want to bookmark. This way, we know that the user actually wants to bookmark this url.
-		if (!bookmarks.authBookmarkTab || getWebview(bookmarks.authBookmarkTab)[0].getUrl() != data.url) {
+		if (!bookmarks.authBookmarkTab || getWebview(bookmarks.authBookmarkTab)[0].getURL() != data.url) {
 			throw new Error("Bookmark operation is unauthoritized.");
 		}
 
@@ -119,12 +309,12 @@ var bookmarks = {
 		star = star || $(".bookmarks-button[data-tab={id}]".replace("{id}", tabId));
 
 		try {
-			var currentUrl = getWebview(tabId)[0].getUrl();
+			var currentURL = getWebview(tabId)[0].getURL();
 		} catch (e) {
-			var currentUrl = tabs.get(tabId).url;
+			var currentURL = tabs.get(tabId).url;
 		}
 
-		if (!currentUrl || currentUrl == "about:blank") { //no url, can't be bookmarked
+		if (!currentURL || currentURL == "about:blank") { //no url, can't be bookmarked
 			star.prop("hidden", true);
 		} else {
 			star.prop("hidden", false);
@@ -132,8 +322,8 @@ var bookmarks = {
 
 		//check if the page is bookmarked or not, and update the star to match
 
-		bookmarks.search(currentUrl, function (results) {
-			if (results && results[0] && results[0].url == currentUrl) {
+		bookmarks.search(currentURL, function (results) {
+			if (results && results[0] && results[0].url == currentURL) {
 				star.removeClass("fa-star-o").addClass("fa-star");
 			} else {
 				star.removeClass("fa-star").addClass("fa-star-o");
@@ -761,14 +951,16 @@ var MMCQ = (function() {
 })();
 ;var urlParser = {
 	searchBaseURL: "https://duckduckgo.com/?q=%s",
-	isUrl: function (url) {
+	startingWWWRegex: /www\.(.+\..+\/)/g,
+	trailingSlashRegex: /\/$/g,
+	isURL: function (url) {
 		return url.indexOf("http://") == 0 || url.indexOf("https://") == 0 || url.indexOf("file://") == 0 || url.indexOf("about:") == 0 || url.indexOf("chrome:") == 0 || url.indexOf("data:") == 0;
 	},
 	isSystemURL: function (url) {
 		return url.indexOf("chrome") == 0 || url.indexOf("about:") == 0;
 	},
 	removeProtocol: function (url) {
-		if (!urlParser.isUrl(url)) {
+		if (!urlParser.isURL(url)) {
 			return url;
 		}
 
@@ -782,7 +974,7 @@ var MMCQ = (function() {
 
 		return final;
 	},
-	isUrlMissingProtocol: function (url) {
+	isURLMissingProtocol: function (url) {
 		return url.indexOf(" ") == -1 && url.indexOf(".") > 0;
 	},
 	parse: function (url) {
@@ -792,18 +984,36 @@ var MMCQ = (function() {
 			return "";
 		}
 		//if the url starts with a (supported) protocol, do nothing
-		if (urlParser.isUrl(url)) {
+		if (urlParser.isURL(url)) {
 			return url;
 		}
+
+		if (url.indexOf("view-source:") == 0) {
+			var realURL = url.replace("view-source:", "");
+
+			return "view-source:" + urlParser.parse(realURL);
+		}
+
 		//if the url doesn't have a space and has a ., assume it is a url without a protocol
-		if (urlParser.isUrlMissingProtocol(url)) {
+		if (urlParser.isURLMissingProtocol(url)) {
 			return "http://" + url;
 		}
 		//else, do a search
 		return urlParser.searchBaseURL.replace("%s", encodeURIComponent(url));
+	},
+	prettyURL: function (url) {
+		var urlOBJ = new URL(url);
+		return (urlOBJ.hostname + urlOBJ.pathname.replace(urlParser.trailingSlashRegex, "")).replace(urlParser.startingWWWRegex, "$1");
 	}
 }
 ;var cf = new ColorThief();
+var hours = new Date().getHours() + (new Date().getMinutes() / 60);
+
+//we cache the hours so we don't have to query every time we change the color
+
+setInterval(function () {
+	hours = new Date().getHours() + (new Date().getMinutes() / 60);
+}, 10 * 60 * 1000);
 
 function extractColor(favicon, callback) {
 	var img = document.createElement("img");
@@ -828,6 +1038,20 @@ function updateTabColor(favicons, tabId) {
 		return;
 	}
 	extractColor(favicons[0], function (c) {
+
+		//dim the colors late at night or early in the morning
+		var colorChange = 1;
+		if (hours > 20) {
+			colorChange -= 0.012 * hours;
+		} else if (hours < 7) {
+			colorChange -= 0.012 * (24 - hours);
+		}
+
+		c[0] = Math.round(c[0] * colorChange)
+		c[1] = Math.round(c[1] * colorChange)
+		c[2] = Math.round(c[2] * colorChange)
+
+
 		var cr = "rgb(" + c[0] + "," + c[1] + "," + c[2] + ")";
 
 		var obj = {
@@ -837,8 +1061,6 @@ function updateTabColor(favicons, tabId) {
 		}
 
 		var textclr = getTextColor(obj);
-
-		console.log(obj, textclr);
 
 		tabs.update(tabId, {
 			backgroundColor: cr,
@@ -935,10 +1157,7 @@ function setColor(bg, fg) {
 		$(document.body).removeClass("dark-theme");
 	}
 }
-;var remote = require('remote');
-var Menu = remote.require('menu');
-var MenuItem = remote.require('menu-item');
-var clipboard = require("clipboard")
+;var remote, Menu, MenuItem, clipboard;
 
 var webviewMenu = {
 	cache: {
@@ -955,6 +1174,19 @@ var webviewMenu = {
 
 		//if we have a link (an image source or an href)
 		if (IPCdata.src) {
+
+			//show what the item is
+
+			if (IPCdata.src.length > 60) {
+				var caption = IPCdata.src.substring(0, 60) + "..."
+			} else {
+				var caption = IPCdata.src;
+			}
+
+			menu.append(new MenuItem({
+				label: caption,
+				enabled: false,
+			}));
 			menu.append(new MenuItem({
 				label: 'Open in New Tab',
 				click: function () {
@@ -1044,10 +1276,16 @@ var webviewMenu = {
 	},
 	/* cxevent: a contextmenu event. Can be a jquery event or a regular event. */
 	show: function (cxevent) {
+
+		if (!remote) { //we lazyload remote, so if it isn't loaded yet, call require()
+			remote = require('remote');
+			Menu = remote.require('menu');
+			MenuItem = remote.require('menu-item');
+			clipboard = require("clipboard")
+		}
+
 		var event = cxevent.originalEvent || cxevent;
 		webviewMenu.cache.event = event;
-
-		console.log(event);
 
 		var currentTab = tabs.getSelected();
 		var webview = getWebview(currentTab)[0]
@@ -1061,11 +1299,16 @@ var webviewMenu = {
 		}); //some menu items require recieving data from the page
 	}
 }
+
+bindWebviewIPC("contextData", function (webview, tabId, arguements) {
+	webviewMenu.loadFromContextData(arguements[0]);
+})
 ;/* common to webview, tabrenderer, etc */
 
 function navigate(tabId, newURL) {
-	console.trace();
-	console.log("navigated");
+	newURL = urlParser.parse(newURL);
+
+	console.log("navigated to " + newURL);
 
 	tabs.update(tabId, {
 		url: newURL
@@ -1079,7 +1322,11 @@ function navigate(tabId, newURL) {
 }
 
 
-function destroyTab(id) {
+//options:
+//switchToTab: whether to switch to another tab, or create a new one if there are no tabs left. Defaults to true
+
+function destroyTab(id, options) {
+	options = options || {};
 	//focus the next tab, or the previous tab if this was the last tab
 	var t = tabs.getIndex(id);
 	var nextTab = tabs.getAtIndex(t + 1) || tabs.getAtIndex(t - 1);
@@ -1092,12 +1339,11 @@ function destroyTab(id) {
 	console.log(nextTab);
 
 	//if there are no other tabs, create a new one
-	if (!nextTab) {
+	if (options.switchToTab && !nextTab) {
 		return addTab();
+	} else if (options.switchToTab) {
+		switchToTab(nextTab.id);
 	}
-
-	switchToTab(nextTab.id);
-
 }
 
 /* switches to a tab - update the webview, state, tabstrip, etc. */
@@ -1118,24 +1364,166 @@ function switchToTab(id) {
 	});
 	tabActivity.refresh();
 }
-;var DDGSearchUrlRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
-	plusRegex = /\+/g,
-	trailingSlashRegex = /\/$/g;
+;var bangPlugins = {};
 
-var showHistoryResults = function (text, input, maxItems) {
+function showBangPlugins(text, input) {
+	for (var key in bangPlugins) {
+		bangPlugins[key](text, input);
+	}
+}
+
+bangPlugins.wiktionary = function (text, input) {
+
+	if (text.indexOf("!wiktionary") == 0 && !tabs.get(tabs.getSelected()).private) {
+		var search = text.replace("!wiktionary", "");
+
+		if (!text) {
+			return;
+		}
+
+		getDictionaryInfo(search, "English", function (data) {
+
+			topAnswerarea.html(""); //clear previous answers
+
+			if (!data || !data.definitions || !data.definitions[0] || !data.definitions[0].meaning || text != input.val()) {
+				return;
+			}
+
+			var item = $("<div class='result-item' tabindex='-1'>").text(data.title);
+			$("<span class='description-block'>").text(data.definitions[0].meaning).appendTo(item);
+
+			item.on("click", function (e) {
+				var URL = "https://en.wiktionary.org/wiki/" + data.title;
+				if (e.metaKey) {
+					openURLInBackground(URL);
+
+				} else {
+					navigate(tabs.getSelected(), URL);
+				}
+			});
+
+			item.appendTo(topAnswerarea);
+		});
+	}
+}
+;var DDGSearchURLRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
+	trailingSlashRegex = /\/$/g,
+	plusRegex = /\+/g;
+
+var shouldAutocompleteTitle;
+var hasAutocompleted = false;
+
+var cachedHistoryResults = [];
+var maxHistoryResults = 4;
+
+function awesomebarAutocomplete(text, input) {
+	if (text == awesomebarCachedText && input[0].selectionStart != input[0].selectionEnd) { //if nothing has actually changed, don't try to autocomplete
+		return;
+	}
+	//if we moved the selection, we don't want to autocomplete again
+	if (didFireKeydownSelChange) {
+		return;
+	}
+	for (var i = 0; i < cachedHistoryResults.length; i++) {
+		if (autocompleteResultIfNeeded(input, cachedHistoryResults[i])) {
+			hasAutocompleted = true;
+		}
+	}
+}
+
+function autocompleteResultIfNeeded(input, result) {
+
+	DDGSearchURLRegex.lastIndex = 0;
+
+	shouldAutocompleteTitle = DDGSearchURLRegex.test(result.url);
+
+	if (shouldAutocompleteTitle) {
+		result.title = decodeURIComponent(result.url.replace(DDGSearchURLRegex, "$1").replace(plusRegex, " "));
+	}
+
+	var text = getValue(input); //make sure the input hasn't changed between start and end of query
+
+	var textWithoutProtocol = urlParser.removeProtocol(text),
+		URLWithoutProtocol = urlParser.removeProtocol(result.url);
+
+	if (textWithoutProtocol != text) {
+		var hasProtocol = true;
+	}
+	var hasWWW = text.indexOf("www.") != -1
+
+	if (textWithoutProtocol.indexOf("/") == -1) {
+		var hasPath = false;
+	} else {
+		var hasPath = true;
+	}
+
+	var canAutocompleteURL = URLWithoutProtocol.indexOf(textWithoutProtocol) == 0 && !shouldAutocompleteTitle;
+
+
+	if (autocompleteEnabled && shouldContinueAC && textWithoutProtocol && (canAutocompleteURL || (shouldAutocompleteTitle && result.title.indexOf(textWithoutProtocol) == 0))) { //the user has started to type the url
+		if (shouldAutocompleteTitle) {
+			var ac = result.title;
+		} else {
+			//figure out the right address component to autocomplete
+
+			var withWWWset = ((hasWWW) ? result.url : result.url.replace("www.", ""))
+			var ac = ((hasProtocol) ? withWWWset : URLWithoutProtocol);
+			if (!hasPath && !urlParser.isSystemURL(withWWWset)) {
+				//if there isn't a / character typed yet, we only want to autocomplete to the domain
+				var a = document.createElement("a");
+				a.href = withWWWset;
+				ac = ((hasProtocol) ? a.protocol + "//" : "") + a.hostname;
+			}
+		}
+
+		if (!ac) { //make sure we have something to autocomplete - this could not exist if we are using domain autocomplete and the ac string didn't have a hostname when processed
+			return;
+		}
+
+		input.blur();
+		input[0].value = ac;
+		input[0].setSelectionRange(text.length, ac.length);
+		input.focus(); //update cache
+		awesomebarCachedText = input[0].value,
+			shouldContinueAC = false;
+
+		return true;
+	}
+	return false;
+}
+
+var showHistoryResults = throttle(function (text, input, maxItems) {
 
 	if (!text) {
 		return;
 	}
 
-	var input0 = input[0];
-
 	bookmarks.searchHistory(text, function (results) {
+
+		maxItems = maxItems || maxHistoryResults;
+
 		historyarea.html("");
 
-		limitSearchSuggestions(results.length);
+		cachedHistoryResults = results;
 
-		results.forEach(function (result, index) {
+		awesomebarAutocomplete(text, input);
+
+		if (results.length < 20) { //if we have a lot of history results, don't show search suggestions
+			limitSearchSuggestions(results.length);
+			showSearchSuggestions(text, input);
+		} else if (text.indexOf("!") == -1) { //if we have a !bang, always show results
+			serarea.html("");
+		}
+
+		var resultsShown = 0;
+
+		results.forEach(function (result) {
+
+			//if there is a bookmark result found, don't show a history item
+
+			if (bookmarkarea.find(".result-item[data-url='{url}']".replace("{url}", result.url.replace(/'/g, "")))[0]) {
+				return;
+			}
 
 			var shouldAutocompleteTitle = false;
 
@@ -1144,105 +1532,74 @@ var showHistoryResults = function (text, input, maxItems) {
 
 			//special formatting for ddg search history results
 
-			DDGSearchUrlRegex.lastIndex = 0;
+			DDGSearchURLRegex.lastIndex = 0;
 
-			if (DDGSearchUrlRegex.test(result.url)) {
+			if (DDGSearchURLRegex.test(result.url)) {
 				//the history item is a search, display it like a search suggestion
-				title = decodeURIComponent(result.url.replace(DDGSearchUrlRegex, "$1").replace(plusRegex, " "));
+				title = decodeURIComponent(result.url.replace(DDGSearchURLRegex, "$1").replace(plusRegex, " "));
 				icon = $("<i class='fa fa-search'>");
 				shouldAutocompleteTitle = true; //previous searches can be autocompleted
 			}
 
 			//if we've started typing the result and didn't press the delete key (which should make the highlight go away), autocomplete in the input
 
-			var text = input.val(); //make sure the input hasn't changed between start and end of query
 
+			var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(title))).on("click", function (e) {
+				//if the command key was pressed, open in background while still showing awesomebar
 
-			var textWithoutProtocol = urlParser.removeProtocol(text),
-				UrlWithoutProtocol = urlParser.removeProtocol(result.url);
+				if (e.metaKey) {
+					openURLInBackground(result.url);
 
-			if (textWithoutProtocol != text) {
-				var hasProtocol = true;
-			}
-			var hasWWW = text.indexOf("www.") != -1
-
-			if (textWithoutProtocol.indexOf("/") == -1) {
-				var hasPath = false;
-			} else {
-				var hasPath = true;
-			}
-			if (shouldContinueAC && cachedACItem.indexOf(text) == 0) {
-				input.blur();
-				input0.value = cachedACItem;
-				input0.setSelectionRange(text.length, cachedACItem.length);
-				input.focus();
-				awesomebarCachedText = input.val();
-				shouldContinueAC = false;
-			}
-
-			if (autocompleteEnabled && shouldContinueAC && textWithoutProtocol && (UrlWithoutProtocol.indexOf(textWithoutProtocol) == 0 || (shouldAutocompleteTitle && title.indexOf(textWithoutProtocol) == 0))) { //the user has started to type the url
-				if (shouldAutocompleteTitle) {
-					var ac = title;
 				} else {
-					//figure out the right address component to autocomplete
-
-					var withWWWset = ((hasWWW) ? result.url : result.url.replace("www.", ""))
-					var ac = ((hasProtocol) ? withWWWset : UrlWithoutProtocol);
-					if (!hasPath && !urlParser.isSystemURL(withWWWset)) {
-						//if there isn't a / character typed yet, we only want to autocomplete to the domain
-						var a = document.createElement("a");
-						a.href = withWWWset;
-						ac = ((hasProtocol) ? a.protocol + "//" : "") + a.hostname;
-					}
+					navigate(tabs.getSelected(), result.url);
 				}
+			});
 
-				if (!ac) { //make sure we have something to autocomplete - this could not exist if we are using domain autocomplete and the ac string didn't have a hostname when processed
-					return;
-				}
-				input.blur();
-				input0.value = ac;
-				input0.setSelectionRange(text.length, ac.length);
-				input.focus(); //update cache
-				awesomebarCachedText = input0.value,
-					shouldContinueAC = false,
-					cachedACItem = ac;
+			icon.prependTo(item);
+
+			if (!shouldAutocompleteTitle && result.title != result.url) { //if we're autocompleting titles, this is a search, and we don't want to show the URL. If the item title and URL are the same (meaning the item has no title), there is no point in showing a URL since we are showing it in the title field.
+
+				$("<span class='secondary-text'>").text(urlParser.prettyURL(result.url)).appendTo(item);
 			}
 
-			if (index < maxItems) { //only show up to n history items
-
-				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(title)).on("click", function (e) {
-					//if the command key was pressed, open in background while still showing awesomebar
-
-					if (e.metaKey) {
-						openURLInBackground(result.url);
-
-					} else {
-						navigate(tabs.getSelected(), result.url);
-					}
-				});
-
-				icon.prependTo(item);
-
-				$("<span class='secondary-text'>").text(urlParser.removeProtocol(result.url).replace(trailingSlashRegex, "")).appendTo(item);
-
-				item.appendTo(historyarea);
+			if (resultsShown >= maxItems) { //only show up to n history items
+				item.hide().addClass("unfocusable");
 			}
+
+			item.appendTo(historyarea);
+
+
+			resultsShown++;
 
 		});
 	});
+}, 100);
+
+function limitHistoryResults(maxItems) {
+	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));
+	console.log("limiting maxHistoryResults to " + maxHistoryResults);
+	historyarea.find(".result-item").show().removeClass("unfocusable");
+	historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1)).hide().addClass("unfocusable");
 }
 ;var showBookmarkResults = throttle(function (text) {
-	if (!text) {
+	if (text.length < 3) {
+		limitHistoryResults(5);
+		bookmarkarea.html("");
 		return;
 	}
 
 	bookmarks.search(text, function (results) {
 		bookmarkarea.html("");
+		var resultsShown = 1;
 		results.splice(0, 2).forEach(function (result) {
-			if (result.score > 0.00047) {
+			//as more results are added, the threshold for adding another one gets higher
+			if (result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.3, text.length) * resultsShown))) {
+
+				resultsShown++;
 
 				//create the basic item
-				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(result.title)).on("click", function (e) {
+				//getRealTitle is defined in awesomebar.js
+				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(result.title))).on("click", function (e) {
 					if (e.metaKey) {
 						openURLInBackground(result.url);
 					} else {
@@ -1252,7 +1609,7 @@ var showHistoryResults = function (text, input, maxItems) {
 
 				$("<i class='fa fa-star'>").prependTo(item);
 
-				var span = $("<span class='secondary-text'>").text(urlParser.removeProtocol(result.url).replace(trailingSlashRegex, ""));
+				var span = $("<span class='secondary-text'>").text(urlParser.prettyURL(result.url));
 
 
 				if (result.extraData && result.extraData.metadata) {
@@ -1278,14 +1635,19 @@ var showHistoryResults = function (text, input, maxItems) {
 				span.appendTo(item);
 
 				item.appendTo(bookmarkarea);
+
+				item.attr("data-url", result.url);
 			}
 
 		});
+		limitHistoryResults(5 - resultsShown); //if we have lots of bookmarks, don't show as many regular history items
+
 	});
 }, 400);
 ;var BANG_REGEX = /!\w+/g;
 var serarea = $("#awesomebar .search-engine-results");
 var iaarea = $("#awesomebar .instant-answer-results");
+var topAnswerarea = $("#awesomebar .top-answer-results");
 var suggestedsitearea = $("#awesomebar .ddg-site-results");
 
 var maxSearchSuggestions = 5;
@@ -1312,9 +1674,16 @@ function unsafe_showColorUI(searchText, colorHTML) {
 	return item;
 };
 
+//this is triggered from history.js - we only show search suggestions if we don't have history results
 window.showSearchSuggestions = throttle(function (text, input) {
 
 	if (!text) {
+		return;
+	}
+
+	//we don't show search suggestions in private tabs, since this would send typed text to DDG
+
+	if (tabs.get(tabs.getSelected()).private) {
 		return;
 	}
 
@@ -1368,7 +1737,7 @@ window.showSearchSuggestions = throttle(function (text, input) {
 
 					item.appendTo(serarea);
 
-					if (urlParser.isUrl(result.phrase) || urlParser.isUrlMissingProtocol(result.phrase)) { //website suggestions
+					if (urlParser.isURL(result.phrase) || urlParser.isURLMissingProtocol(result.phrase)) { //website suggestions
 						$("<i class='fa fa-globe'>").prependTo(item);
 					} else { //regular search results
 						$("<i class='fa fa-search'>").prependTo(item);
@@ -1388,15 +1757,22 @@ window.showSearchSuggestions = throttle(function (text, input) {
 /* this is called from historySuggestions. When we find history results, we want to limit search suggestions to 2 so the awesomebar doesn't get too large. */
 
 var limitSearchSuggestions = function (itemsToRemove) {
-	var itemsLeft = Math.max(3, 5 - itemsToRemove);
+	var itemsLeft = Math.max(2, 5 - itemsToRemove);
 	maxSearchSuggestions = itemsLeft;
 	serarea.find(".result-item:nth-child(n+{items})".replace("{items}", itemsLeft + 1)).remove();
 }
 
-window.showInstantAnswers = throttle(function (text, input) {
+window.showInstantAnswers = throttle(function (text, input, options) {
+
+	options = options || {};
 
 	//don't make useless queries
-	if (urlParser.isUrlMissingProtocol(text)) {
+	if (urlParser.isURLMissingProtocol(text)) {
+		return;
+	}
+
+	//don't send typed text in private mode
+	if (tabs.get(tabs.getSelected()).private) {
 		return;
 	}
 
@@ -1404,10 +1780,20 @@ window.showInstantAnswers = throttle(function (text, input) {
 
 	iaarea.find(".result-item").addClass("old");
 	suggestedsitearea.find(".result-item").addClass("old");
+	topAnswerarea.find(".result-item").addClass("old");
+
+	//run bang plugins. Putting this insides the answers call makes throttling and deletion of old answers simpler
+
+	showBangPlugins(text, input);
 
 	if (text.length > 3) {
 
 		$.getJSON("https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q=" + encodeURIComponent(text), function (res) {
+
+			//if value has changed, don't show results
+			if (text != getValue(input) && !options.alwaysShow) {
+				return;
+			}
 
 			iaarea.find(".result-item").addClass("old");
 			suggestedsitearea.find(".result-item").addClass("old");
@@ -1421,9 +1807,9 @@ window.showInstantAnswers = throttle(function (text, input) {
 					item.text(res.Heading);
 				}
 
-				if (res.Image && res.Entity != "company" && res.Entity != "country" && res.Entity != "website") { //ignore images for entities that generally have useless or ugly images
+				/*if (res.Image && res.Entity != "company" && res.Entity != "country" && res.Entity != "website") { //ignore images for entities that generally have useless or ugly images
 					$("<img class='result-icon image'>").attr("src", res.Image).prependTo(item);
-				}
+				}*/
 
 				$("<span class='description-block'>").text(removeTags(res.Abstract) || "Answer").appendTo(item);
 
@@ -1440,7 +1826,13 @@ window.showInstantAnswers = throttle(function (text, input) {
 						navigate(tabs.getSelected(), res.AbstractURL || text)
 					}
 				});
-				item.appendTo(iaarea);
+
+				//answers are more relevant, they should be displayed at the top
+				if (res.Answer) {
+					item.appendTo(topAnswerarea);
+				} else {
+					item.appendTo(iaarea);
+				}
 			}
 
 			//suggested site links
@@ -1463,11 +1855,16 @@ window.showInstantAnswers = throttle(function (text, input) {
 				$("<span class='secondary-text'>").text("Suggested site").appendTo(item);
 
 				console.log(item);
-				item.appendTo(suggestedsitearea);
+
+				//if we have bookmarks for that item, we probably don't need to suggest a site
+				if (bookmarkarea.find(".result-item").length < 2) {
+					item.appendTo(suggestedsitearea);
+				}
 			}
 
 			iaarea.find(".old").remove();
 			suggestedsitearea.find(".old").remove();
+			topAnswerarea.find(".old").remove();
 
 
 		});
@@ -1477,7 +1874,8 @@ window.showInstantAnswers = throttle(function (text, input) {
 	}
 
 }, 700);
-;var showTopicResults = function (text, input) {
+;const maxTopicResults = 2;
+const showTopicResults = function (text, input) {
 
 	bookmarks.searchTopics(text, function (topics) {
 
@@ -1487,24 +1885,30 @@ window.showInstantAnswers = throttle(function (text, input) {
 			return;
 		}
 
-		topics.splice(0, 4).forEach(function (topic) {
-			if (topic.name == input.val()) {
-				return;
+		var topicsShown = 0;
+
+		topics.forEach(function (topic) {
+			if (topicsShown < maxTopicResults) {
+				if (topic.name == text) {
+					return;
+				}
+				$("<div class='result-item' tabindex='-1'>").text(topic.name).attr("title", "More results for this topic").prepend("<i class='fa fa-tag'></i>").appendTo(topicsarea).on("click", function (e) {
+
+					//enter a special history-only mode
+
+					clearAwesomebar();
+
+					input.val(topic.name);
+
+					showHistoryResults(topic.name, input, 50); //show up to 50 results.
+					showBookmarkResults(topic.name);
+
+					setTimeout(function () { //the item was focused on the keydown event. If we immediately focus the input, a keypress event will occur, causing an exit from edit mode
+						input.focus();
+					}, 100);
+				});
+				topicsShown++;
 			}
-			$("<div class='result-item tag' tabindex='-1'>").text(topic.name).appendTo(topicsarea).on("click", function (e) {
-
-				//enter a special history-only mode
-
-				clearAwesomebar();
-
-				input.val(topic.name);
-
-				showHistoryResults(topic.name, input, 50); //show up to 50 results.
-
-				setTimeout(function () {
-					input.focus();
-				}, 800);
-			});
 		});
 
 
@@ -1513,57 +1917,54 @@ window.showInstantAnswers = throttle(function (text, input) {
 }
 ;var spacesRegex = /[\s._/-]/g; //copied from historyworker.js
 
-
-/* most of this is copied from searchHistory in historyworker.js */
+var stringScore = require("string_score");
 
 var searchOpenTabs = function (searchText) {
-	var searchWords = searchText.toLowerCase().split(spacesRegex);
-	var matches = [];
-
-	var selTab = tabs.getSelected();
 
 	opentabarea.html("");
 
-	if (!searchText || searchText.length < 2) {
+	if (searchText.length < 2) {
 		return;
 	}
 
-	var stl = searchText.length;
+	var matches = [],
+		selTab = tabs.getSelected();
 
 	tabs.get().forEach(function (item) {
 		if (item.id == selTab || !item.title || item.url == "about:blank") {
 			return;
 		}
-		var doesMatch = true;
-		var itemWords = urlParser.removeProtocol(item.url);
 
-		if (stl > 3) {
-			itemWords += item.title
-		}
+		item.url = urlParser.removeProtocol(item.url); //don't search protocols
 
-		itemWords = itemWords.toLowerCase().replace(spacesRegex, "").toString();
+		var exactMatch = item.title.indexOf(searchText) != -1 || item.url.indexOf(searchText) != -1
+		var fuzzyMatch = item.title.substring(0, 50).score(searchText, 0.5) > 0.45 || item.url.score(searchText, 0.5) > 0.4;
 
-		for (var i = 0; i < searchWords.length; i++) {
-			if (itemWords.indexOf(searchWords[i]) == -1) {
-				doesMatch = false;
-				break;
-			}
-		}
-		if (doesMatch) {
+		if (exactMatch || fuzzyMatch) {
 			matches.push(item);
 		}
 	});
 
 	matches.splice(0, 2).sort(function (a, b) {
-		return a.lastActivity - b.lastActivity;
+		return b.title.score(searchText, 0.5) - a.title.score(searchText, 0.5);
 	}).forEach(function (tab) {
-		var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(tab.title)).on("click", function () {
+		var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(tab.title))
+		$("<span class='secondary-text'>").text(urlParser.removeProtocol(tab.url).replace(trailingSlashRegex, "")).appendTo(item);
+
+		$("<i class='fa fa-external-link'>").attr("title", "Switch to Tab").prependTo(item); //TODO better icon
+
+		item.on("click", function () {
+			//if we created a new tab but are switching away from it, destroy the current (empty) tab
+			if (tabs.get(tabs.getSelected()).url == "about:blank") {
+				destroyTab(tabs.getSelected(), {
+					switchToTab: false
+				});
+			}
 			switchToTab(tab.id);
 		});
 
-		$("<i class='fa fa-external-link'>").attr("title", "Switch to Tab").prependTo(item); //TODO better icon
 		item.appendTo(opentabarea);
-	})
+	});
 }
 ;var awesomebarShown = false;
 var awesomebarCachedText = "";
@@ -1571,8 +1972,8 @@ var cachedACItem = "";
 var autocompleteEnabled = true;
 var shouldContinueAC = true;
 var METADATA_SEPARATOR = "·";
-
-var defaultMaxHistoryResults = 3;
+var didFireKeydownSelChange = false;
+var currentAwesomebarInput;
 
 //cache duckduckgo bangs so we make fewer network requests
 var cachedBangSnippets = {};
@@ -1611,7 +2012,7 @@ function unsafeUnwrapTags(text) {
 }
 
 /* this is used by navbar-tabs.js. When a url is entered, endings such as ? need to be parsed and removed. */
-function parseAwesomebarUrl(url) {
+function parseAwesomebarURL(url) {
 	//always use a search engine if the query starts with "?"
 
 	if (url.indexOf("?") == 0) {
@@ -1642,6 +2043,45 @@ function openURLInBackground(url) { //used to open a url in the background, with
 	$(".result-item:focus").blur(); //remove the highlight from an awesoembar result item, if there is one
 }
 
+
+//attempts to shorten a page title, removing useless text like the site name
+
+function getRealTitle(text) {
+
+	//don't try to parse URL's
+	if (urlParser.isURL(text)) {
+		return text;
+	}
+
+	var possibleCharacters = ["|", ":", " - ", " — "];
+
+	for (var i = 0; i < possibleCharacters.length; i++) {
+
+		var char = possibleCharacters[i];
+		//match url's of pattern: title | website name
+		var titleChunks = text.split(char);
+
+		if (titleChunks.length >= 2) {
+			titleChunks[0] = titleChunks[0].trim();
+			titleChunks[1] = titleChunks[1].trim();
+
+			if (titleChunks[1].length < 5 || titleChunks[1].length / titleChunks[0].length <= 0.5) {
+				return titleChunks[0]
+			}
+
+			//match website name | title. This is less common, so it has a higher threshold
+
+			if (titleChunks[0].length / titleChunks[1].length < 0.35) {
+				return titleChunks[1]
+			}
+		}
+	}
+
+	//fallback to the regular title
+
+	return text;
+}
+
 var awesomebar = $("#awesomebar");
 var historyarea = awesomebar.find(".history-results");
 var bookmarkarea = awesomebar.find(".bookmark-results");
@@ -1649,13 +2089,14 @@ var topicsarea = awesomebar.find(".topic-results");
 var opentabarea = awesomebar.find(".opentab-results");
 
 function clearAwesomebar() {
-	historyarea.html("");
-	bookmarkarea.html("");
-	serarea.html("");
-	iaarea.html("");
-	topicsarea.html("");
 	opentabarea.html("");
+	topAnswerarea.html("");
+	bookmarkarea.html("");
+	historyarea.html("");
+	topicsarea.html("");
+	iaarea.html("");
 	suggestedsitearea.html("");
+	serarea.html("");
 }
 
 function showAwesomebar(triggerInput) {
@@ -1668,8 +2109,15 @@ function showAwesomebar(triggerInput) {
 
 	awesomebar.show();
 
-	var currentTab = tabs.get(tabs.getSelected());
+	currentAwesomebarInput = triggerInput;
 
+}
+
+//gets the typed text in an input, ignoring highlighted suggestions
+
+function getValue(input) {
+	var text = input.val();
+	return text.replace(text.substring(input[0].selectionStart, input[0].selectionEnd), "");
 }
 
 function hideAwesomebar() {
@@ -1678,16 +2126,28 @@ function hideAwesomebar() {
 	awesomebar.hide();
 	cachedBangSnippets = {};
 }
-var showAwesomebarResults = throttle(function (text, input, keyCode) {
+var showAwesomebarResults = throttle(function (text, input, event) {
 
-	shouldContinueAC = !(keyCode == 8); //this needs to be outside searchHistory so that it doesn't get reset if the history callback is run multiple times (such as when multiple messages get sent before the worker has finished startup).
+	//find the real input value, accounting for highlighted suggestions and the key that was just pressed
 
-	console.log("awesomebar: ", text);
+	var v = input[0].value;
 
-	if (text == awesomebarCachedText) { //if nothing has actually changed, don't re-render
-		return;
+	//delete key doesn't behave like the others, String.fromCharCode returns an unprintable character (which has a length of one)
+
+	if (event.keyCode != 8) {
+
+		text = v.substring(0, input[0].selectionStart) + String.fromCharCode(event.keyCode) + v.substring(input[0].selectionEnd + 1, v.length).trim();
+
+	} else {
+		txt = v;
 	}
 
+
+	hasAutocompleted = false;
+
+	shouldContinueAC = !(event.keyCode == 8); //this needs to be outside searchHistory so that it doesn't get reset if the history callback is run multiple times (such as when multiple messages get sent before the worker has finished startup).
+
+	console.log("awesomebar: ", "'" + text + "'", text.length);
 
 	//there is no text, show a blank awesomebar
 	if (text.length < 1) {
@@ -1709,7 +2169,7 @@ var showAwesomebarResults = throttle(function (text, input, keyCode) {
 
 	if (text.indexOf("^") == 0) {
 		clearAwesomebar();
-		showHistoryResults(text.replace("^", ""), input, 5);
+		showHistoryResults(text.replace("^", ""), input);
 		return;
 	}
 
@@ -1723,13 +2183,16 @@ var showAwesomebarResults = throttle(function (text, input, keyCode) {
 
 	//show awesomebar results
 
-	showSearchSuggestions(text, input);
 
-	if (text.length > 3) {
-		showBookmarkResults(text);
+	//normally, we will search history first, and only show search suggestions if there aren't any history results. However, if the history db isn't opened yet (which it won't be if the page loaded less than a few seconds ago), we should show results without waiting for history. Also, show results if a !bang search is occuring
+	if (performance.now() < 12500 || text.indexOf("!") == 0) {
+
+		showSearchSuggestions(text, input);
 	}
 
-	showHistoryResults(text, input, defaultMaxHistoryResults);
+	showBookmarkResults(text);
+
+	showHistoryResults(text, input);
 	showInstantAnswers(text, input);
 	showTopicResults(text, input);
 	searchOpenTabs(text, input);
@@ -1771,187 +2234,54 @@ awesomebar.on("keydown", ".result-item", function (e) {
 		});
 	}
 });
-;/* implements selecting webviews, switching between them, and creating new ones. */
 
-var phishingWarningPage = "file://" + __dirname + "/pages/phishing/index.html"; //TODO move this somewhere that actually makes sense
+//when we get keywords data from the page, we show those results in the awesomebar
 
-var webviewBase = $("#webviews");
+bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 
-function updateURLInternal(webview, url) {
-	console.log("setting url to " + url)
-	webview.attr("src", url);
-}
+	var data = arguements[0];
 
-function getWebviewDom(options) {
+	var hasShownDDGpopup = false;
+	var itemsCt = 0;
 
-	var url = (options || {}).url || "about:blank";
+	var itemsShown = [];
 
-	var w = $("<webview>");
-	w.attr("preload", "dist/webview.min.js");
-	w.attr("src", urlParser.parse(url));
 
-	w.attr("data-tab", options.tabId);
+	data.entities.forEach(function (item, index) {
 
-	//if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
-	//since tab IDs are unique, we can use them as partition names
-	if (tabs.get(options.tabId).private == true) {
-		w.attr("partition", options.tabId);
-	}
+		//ignore one-word items, they're usually useless
+		if (!/\s/g.test(item.trim())) {
+			return;
+		}
 
-	//webview events
+		if (itemsCt >= 5 || itemsShown.indexOf(item.trim()) != -1) {
+			return;
+		}
 
-	w.on("page-favicon-updated", function (e) {
-		var id = $(this).attr("data-tab");
-		updateTabColor(e.originalEvent.favicons, id);
-	});
-
-	w.on("page-title-set", function (e) {
-		var tab = $(this).attr("data-tab");
-		tabs.update(tab, {
-			title: e.originalEvent.title
-		});
-		rerenderTabElement(tab);
-	});
-
-	w.on("did-finish-load", function (e) {
-		var tab = $(this).attr("data-tab");
-		var url = e.target.getUrl();
-
-		if (url.indexOf("https://") === 0) {
-			tabs.update(tab, {
-				secure: true,
-				url: url,
+		if (!hasShownDDGpopup) {
+			showInstantAnswers(data.entities[0], currentAwesomebarInput, {
+				alwaysShow: true
 			});
-		} else {
-			tabs.update(tab, {
-				secure: false,
-				url: url,
-			});
-		}
-		if (url.indexOf(__dirname + "/reader/index.html") == 7) { //"file://" is 7 characters
-			tabs.update(tab, {
-				isReaderView: true
-			})
-		} else {
-			tabs.update(tab, {
-				isReaderView: false
-			})
+
+			hasShownDDGpopup = true;
 		}
 
-		//assume the new page can't be readered, we'll get another message if it can
-
-		tabs.update(tab, {
-			readerable: false,
+		var div = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(item)).on("click", function (e) {
+			if (e.metaKey) {
+				openURLInBackground(item);
+			} else {
+				navigate(tabs.getSelected(), item);
+			}
 		});
-		readerView.updateButton(tab);
 
-		if (tabs.get(tab).private == false) { //don't save to history if in private mode
-			bookmarks.updateHistory(tab);
-		}
+		$("<i class='fa fa-search'>").prependTo(div);
 
-		rerenderTabElement(tab);
+		div.appendTo(serarea);
 
+		itemsCt++;
+		itemsShown.push(item.trim());
 	});
-
-	w.on("did-get-redirect-request", function (e) {
-		//console.log(e.originalEvent);
-	});
-
-
-	/* too buggy, disabled for now
-
-	w.on("did-fail-load", function (e) {
-		if (e.originalEvent.validatedUrl == this.getUrl()) {
-			updateURLInternal($(this), "file:///" + __dirname + "/pages/error/index.html?e=" + JSON.stringify(e.originalEvent) + "&url=" + $(this)[0].getUrl());
-		}
-	});
-		
-	*/
-
-	w.on("new-window", function (e) {
-		var tab = $(this).attr("data-tab");
-		var newTab = tabs.add({
-			url: e.originalEvent.url,
-			private: tabs.get(tab).private //inherit private status from the current tab
-		})
-		addTab(newTab, {
-			focus: false,
-			openInBackground: e.originalEvent.disposition == "background-tab", //possibly open in background based on disposition
-		});
-	});
-
-
-	// In embedder page. Send the text content to bookmarks when recieved.
-	w.on('ipc-message', function (e) {
-		var w = this;
-		var tab = $(this).attr("data-tab");
-
-		if (e.originalEvent.channel == "bookmarksData") {
-			bookmarks.onDataRecieved(e.originalEvent.args[0]);
-
-		} else if (e.originalEvent.channel == "canReader") {
-			tabs.update(tab, {
-				readerable: true
-			});
-			readerView.updateButton(tab);
-
-		} else if (e.originalEvent.channel == "contextData") {
-			webviewMenu.loadFromContextData(e.originalEvent.args[0]);
-
-		} else if (e.originalEvent.channel == "phishingDetected") {
-			navigate($(this).attr("data-tab"), phishingWarningPage);
-		}
-	});
-
-	w.on("contextmenu", webviewMenu.show);
-
-	return w;
-
-}
-
-/* options: openInBackground: should the webview be opened without switching to it? default is false. 
- */
-
-var WebviewsWithHiddenClass = false;
-
-function addWebview(tabId, options) {
-	options = options || {}; //fallback if options is undefined
-
-	var tabData = tabs.get(tabId);
-
-	var webview = getWebviewDom({
-		tabId: tabId,
-		url: tabData.url
-	});
-
-	webviewBase.append(webview);
-
-	if (!options.openInBackground) {
-		switchToWebview(tabId);
-	} else {
-		//this is used to hide the webview while still letting it load in the background
-		webview.addClass("hidden");
-	}
-}
-
-function switchToWebview(id) {
-	$("webview").hide();
-	$("webview[data-tab={id}]".replace("{id}", id)).removeClass("hidden").show().get(0).focus(); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
-}
-
-function updateWebview(id, url) {
-	var w = $("webview[data-tab={id}]".replace("{id}", id));
-
-	w.attr("src", urlParser.parse(url));
-}
-
-function destroyWebview(id) {
-	$("webview[data-tab={id}]".replace("{id}", id)).remove();
-}
-
-function getWebview(id) {
-	return $("webview[data-tab={id}]".replace("{id}", id));
-}
+});
 ;var readerView = {
 	getButton: function (tabId) {
 		//TODO better icon
@@ -1997,6 +2327,38 @@ function getWebview(id) {
 		})
 	}
 }
+
+//update the reader button on page load
+
+bindWebviewEvent("did-finish-load", function (e) {
+	var tab = $(this).attr("data-tab"),
+		url = this.getURL();
+
+	if (url.indexOf("file://" + __dirname + "/reader/index.html") == 0) {
+		tabs.update(tab, {
+			isReaderView: true
+		})
+	} else {
+		tabs.update(tab, {
+			isReaderView: false
+		})
+	}
+
+	//assume the new page can't be readered, we'll get another message if it can
+
+	tabs.update(tab, {
+		readerable: false,
+	});
+	readerView.updateButton(tab);
+
+});
+
+bindWebviewIPC("canReader", function (webview, tab) {
+	tabs.update(tab, {
+		readerable: true
+	});
+	readerView.updateButton(tab);
+});
 ;/* tracks the state of tabs */
 
 // Array Remove - By John Resig (MIT Licensed)
@@ -2031,7 +2393,7 @@ var tabs = {
 			lastActivity: new Date().getTime(),
 			secure: false,
 			private: tab.private || false,
-			readerable: false,
+			readerable: tab.readerable || false,
 			backgroundColor: tab.backgroundColor,
 			foregroundColor: tab.foregroundColor,
 		});
@@ -2104,7 +2466,7 @@ var tabs = {
 ;/* fades out tabs that are inactive */
 
 var tabActivity = {
-	minFadeAge: 500000,
+	minFadeAge: 450000,
 	refresh: function () {
 		var tabSet = tabs.get(),
 			selected = tabs.getSelected(),
@@ -2173,28 +2535,35 @@ function enterEditMode(tabId) {
 
 	//when editing a tab, show the current page url. Sometimes, if the webview was just created, getting the URL can throw an error. If this happens, we fallback to whatever was there already.
 	try {
-		var currentUrl = webview.getUrl();
+		var currentURL = webview.getURL();
 	} catch (e) {
 		console.warn("failed to get webview URL");
-		var currentUrl = null;
+		var currentURL = null;
 	}
 
 	var input = tabEl.getInput();
 
 	tabEl.addClass("selected");
-	input.focus().val(currentUrl).select();
+	input.focus().val(currentURL).select();
 	showAwesomebar(input);
 	tabGroup.addClass("has-selected-tab");
+
+	//show keyword suggestions in the awesomebar
+
+	try { //before first webview navigation, this will be undefined
+		getWebview(tabs.getSelected())[0].send("getKeywordsData");
+	} catch (e) {
+
+	}
 }
 
 function rerenderTabElement(tabId) {
-	console.log(tabId);
 	var tabEl = getTabElement(tabId);
 
 	var tabData = tabs.get(tabId);
 
-
-	tabEl.find(".tab-view-contents .title").text(tabData.title || "New Tab");
+	var tabTitle = tabData.title || "New Tab";
+	tabEl.find(".tab-view-contents .title").text(tabTitle).attr("title", tabTitle);
 	tabEl.find(".tab-view-contents .icon-tab-is-secure, .icon-tab-is-private").remove(); //remove previous secure and private icons. Reader view icon is updated seperately, so it is not removed.
 
 	if (tabData.secure) {
@@ -2210,7 +2579,6 @@ function rerenderTabElement(tabId) {
 }
 
 function createTabElement(tabId) {
-	console.log(tabId);
 	var data = tabs.get(tabId),
 		title = "Search or enter address",
 		url = urlParser.parse(data.url);
@@ -2221,6 +2589,25 @@ function createTabElement(tabId) {
 	if (data.private) {
 		tab.addClass("private-tab");
 	}
+
+	//swipe to delete tab
+
+	tab.on("mousewheel", function (e) {
+		if (e.originalEvent.deltaY > 35 && e.originalEvent.deltaX < 10) {
+			var tab = $(this).attr("data-tab");
+
+			//TODO this should be a css animation
+			getTabElement(tab).animate({
+				"margin-top": "-40px",
+			}, 150, function () {
+				destroyTab(tab);
+
+				if (tabs.count() == 0) {
+					addTab();
+				}
+			});
+		}
+	});
 
 	var input = $("<input class='tab-input theme-text-color mousetrap'>");
 	input.attr("placeholder", title);
@@ -2237,7 +2624,7 @@ function createTabElement(tabId) {
 	var vc = $("<div class='tab-view-contents theme-text-color'>")
 	readerView.getButton(tabId).appendTo(vc);
 
-	vc.append($("<span class='title'>").text(data.title || ""));
+	vc.append($("<span class='title'>").text(data.title || "New Tab"));
 	vc.appendTo(tab);
 
 
@@ -2262,23 +2649,46 @@ function createTabElement(tabId) {
 			focusAwesomebarItem();
 			e.preventDefault();
 		}
-	})
+	});
 
+	//keypress doesn't fire on delete key - use keyup instead
 	input.on("keyup", function (e) {
+		if (e.keyCode == 8) {
+			showAwesomebarResults($(this).val(), $(this), e);
+		}
+	});
+
+	input.on("keypress", function (e) {
+
 		if (e.keyCode == 13) { //return key pressed; update the url
 			var tabId = $(this).parents(".tab-item").attr("data-tab");
-			var newURL = parseAwesomebarUrl($(this).val());
+			var newURL = parseAwesomebarURL($(this).val());
 
 			navigate(tabId, newURL);
-
-			switchToTab(tabId);
-
+			leaveTabEditMode(tabId);
 
 		} else if (e.keyCode == 9) {
 			//tab key, do nothing - in keydown listener
-
+		} else if (e.keyCode == 16) {
+			//shift key, do nothing
+		} else if (e.keyCode == 8) {
+			//delete key is handled in keyUp
 		} else { //show the awesomebar
-			showAwesomebarResults(input.val(), input, e.keyCode);
+			showAwesomebarResults($(this).val(), $(this), e);
+		}
+	});
+
+	//on keydown, if the autocomplete result doesn't change, we move the selection instead of regenerating it to avoid race conditions with typing. Adapted from https://github.com/patrickburke/jquery.inlineComplete
+	input.on("keypress", function (e) {
+		var v = String.fromCharCode(e.keyCode).toLowerCase();
+		var sel = this.value.substring(this.selectionStart, this.selectionEnd).indexOf(v);
+
+		if (v && sel == 0) {
+			this.selectionStart += 1;
+			didFireKeydownSelChange = true;
+			return false;
+		} else {
+			didFireKeydownSelChange = false;
 		}
 	});
 
@@ -2288,19 +2698,17 @@ function createTabElement(tabId) {
 		e.stopPropagation();
 	});
 
-
-
 	return tab;
 }
 
 function addTab(tabId, options) {
 	/* options 
 	
-	options.focus - whether to enter editing mode when the tab is created. Defaults to true.
-	options.openInBackground - whether to open the tab without switching to it. Defaults to false.
-	options.leaveEditMode - whether to hide the awesomebar when creating the tab
+		options.focus - whether to enter editing mode when the tab is created. Defaults to true.
+		options.openInBackground - whether to open the tab without switching to it. Defaults to false.
+		options.leaveEditMode - whether to hide the awesomebar when creating the tab
 	
-	*/
+		*/
 
 	options = options || {}
 
@@ -2334,9 +2742,7 @@ function addTab(tabId, options) {
 	}
 }
 
-//startup - add a tab. remove when session restore is complete
-
-addTab();
+//startup state is created in sessionRestore.js
 
 //when we click outside the navbar, we leave editing mode
 
@@ -2379,6 +2785,14 @@ ipc.on("addPrivateTab", function (e) {
 
 var Mousetrap = require("mousetrap");
 
+Mousetrap.bind("shift+command+p", function (e) {
+	var privateTab = tabs.add({
+		url: "about:blank",
+		private: true,
+	})
+	addTab(privateTab);
+});
+
 Mousetrap.bind(["command+l", "command+k"], function (e) {
 	enterEditMode(tabs.getSelected());
 	return false;
@@ -2388,7 +2802,9 @@ Mousetrap.bind("command+w", function (e) {
 	e.preventDefault();
 	e.stopImmediatePropagation();
 	e.stopPropagation();
-	destroyTab(tabs.getSelected());
+	destroyTab(tabs.getSelected(), {
+		switchToTab: true
+	});
 	return false;
 });
 
@@ -2422,25 +2838,64 @@ Mousetrap.bind("command+9", function (e) {
 
 Mousetrap.bind("esc", function (e) {
 	leaveTabEditMode();
-})
+	getWebview(tabs.getSelected()).focus();
+});
+
+Mousetrap.bind("shift+command+r", function () {
+	getTabElement(tabs.getSelected()).find(".reader-button").trigger("click");
+});
+
+//TODO add help docs for this
+
+Mousetrap.bind("command+left", function (d) {
+	getWebview(tabs.getSelected())[0].goBack();
+});
+
+Mousetrap.bind("command+right", function (d) {
+	getWebview(tabs.getSelected())[0].goForward();
+});
+
+Mousetrap.bind(["option+command+left", "shift+ctrl+tab"], function (d) {
+	var currentIndex = tabs.getIndex(tabs.getSelected());
+	var previousTab = tabs.getAtIndex(currentIndex - 1);
+
+	if (previousTab) {
+		switchToTab(previousTab.id);
+	} else {
+		switchToTab(tabs.getAtIndex(tabs.count() - 1).id);
+	}
+});
+
+Mousetrap.bind(["option+command+right", "ctrl+tab"], function (d) {
+	var currentIndex = tabs.getIndex(tabs.getSelected());
+	var nextTab = tabs.getAtIndex(currentIndex + 1);
+
+	if (nextTab) {
+		switchToTab(nextTab.id);
+	} else {
+		switchToTab(tabs.getAtIndex(0).id);
+	}
+});
 ;/* handles viewing pdf files using pdf.js. Recieves events from main.js will-download */
 
-var PDFViewerUrl = "file://" + __dirname + "/pdfjs/web/viewer.html?url=";
+var PDFViewerURL = "file://" + __dirname + "/pdfjs/web/viewer.html?url=";
 
-ipc.on("openPDF", function (data) {
+ipc.on("openPDF", function (event, filedata) {
+	console.log(filedata);
 	var cTab = tabs.get(tabs.getSelected());
+
 	var webview = getWebview(cTab.id);
 
 	//If the current tab is blank or has the url of the pdf we are opening, we open the pdf in the current tab. Otherwise, to avoid losing pages, we open a new tab with the pdf.
 
-	var PDFurl = PDFViewerUrl + data.item.url;
+	var PDFurl = PDFViewerURL + filedata.url;
 
 	if (cTab.url == PDFurl) { //if we are already on the pdf we are navigating to, ignore it
 		return;
 	}
 
 
-	if (cTab.url == "about:blank" || cTab.url == data.item.url) {
+	if (cTab.url == "about:blank" || cTab.url == filedata.item.url) {
 		navigate(tabs.getSelected(), PDFurl)
 	} else {
 
@@ -2469,6 +2924,10 @@ ipc.on("openPDF", function (data) {
 			findinpage.input.blur();
 		}
 		findinpage.isEnabled = false;
+
+		//focus the webview
+
+		getWebview(tabs.getSelected()).focus();
 	},
 	toggle: function () {
 		if (findinpage.isEnabled) {
@@ -2489,8 +2948,14 @@ findinpage.input.on("keyup", function (e) {
 		return;
 	}
 	var text = findinpage.escape($(this).val());
-	console.log(text);
-	getWebview(tabs.getSelected())[0].executeJavaScript("find('{t}', false, false, true, false, false, false)".replace("{t}", text)); //see https://developer.mozilla.org/en-US/docs/Web/API/Window/find for a description of the parameters
+	var webview = getWebview(tabs.getSelected())[0];
+
+	//this stays on the current text if it still matches, preventing flickering. However, if the return key was pressed, we should move on to the next match instead, so this shouldn't run.
+	if (e.keyCode != 13) {
+		webview.executeJavaScript("window.getSelection().empty()");
+	}
+
+	webview.executeJavaScript("find('{t}', false, false, true, false, false, false)".replace("{t}", text)); //see https://developer.mozilla.org/en-US/docs/Web/API/Window/find for a description of the parameters
 });
 
 findinpage.input.on("blur", function (e) {
@@ -2507,41 +2972,57 @@ findinpage.input.on("blur", function (e) {
 		}
 		localStorage.setItem("sessionrestoredata", JSON.stringify(data));
 	},
-	isRestorable: function () {
-		return localStorage.getItem("sessionrestoredata") != "{}";
-	},
 	restore: function () {
-		//get the data
-		var data = JSON.parse(localStorage.getItem("sessionrestoredata"));
+		try {
+			//get the data
+			var data = JSON.parse(localStorage.getItem("sessionrestoredata") || "{}");
 
-		//TODO there should be api's to reset the state like this
-		tabs._state.tabs = [];
-		$(".tab-item, webview").remove(); //this needs to be better, and will break easily
-
-		if (data.tabs.length == 1 && data.tabs[0].url == "about:blank") { //if we only have one tab, and its about:blank, don't restore
-			addTab();
-			return;
-		}
-
-		data.tabs.forEach(function (tab, index) {
-			var newTab = tabs.add(tab);
-			addTab(newTab);
-		});
-
-		//set the selected tab
-
-		switchToTab(data.selected);
-
-		setTimeout(function () {
 			localStorage.setItem("sessionrestoredata", "{}");
-		}, 8000);
+
+			if (data.version && data.version != 1) {
+				addTab();
+				return;
+			}
+
+			console.info("restoring tabs", tabs.get());
+
+			if (!data || !data.tabs || !data.tabs.length || (data.tabs.length == 1 && data.tabs[0].url == "about:blank")) { //If there are no tabs, or bif we only have one tab, and its about:blank, don't restore
+				addTab();
+				return;
+			}
+
+			data.tabs.forEach(function (tab, index) {
+				if (!tab.private) { //don't restore private tabs
+					var newTab = tabs.add(tab);
+					addTab(newTab);
+				}
+
+			});
+
+			//set the selected tab
+
+			switchToTab(data.selected);
+
+			//we delete the data, restore the session, and then re-save it. This means that if for whatever reason the session data is making the browser hang, you can restart it and get a new session.
+
+			sessionRestore.save();
+
+		} catch (e) {
+			console.warn("failed to restore session, rolling back");
+
+			tabs._state.tabs = [];
+
+			$("webview, .tab-item").remove();
+
+			addTab();
+			localStorage.setItem("sessionrestoredata", "{}");
+
+		}
 	}
 }
 
 //TODO make this a preference
 
-if (sessionRestore.isRestorable()) {
-	sessionRestore.restore();
-}
+sessionRestore.restore();
 
-setInterval(sessionRestore.save, 20000);
+setInterval(sessionRestore.save, 15000);
