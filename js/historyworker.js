@@ -11,7 +11,7 @@ var topics = []; //a list of common groups of history items. Each one is an obje
 
 //extraData key is an object - its so we don't have to upgrade the db if we want to add stuff in the future
 
-var spacesRegex = /[\s._/-]/g; //things that could be considered spaces
+var spacesRegex = /[\+\s._/-]/g; //things that could be considered spaces
 var wordRegex = /^[a-z\s]+$/g;
 
 function getTime() {
@@ -19,7 +19,7 @@ function getTime() {
 }
 
 function calculateHistoryScore(item, boost) { //boost - how much the score should be multiplied by. Example - 0.05
-	var fs = item.lastVisit * (1 + 0.0525 * item.visitCount);
+	var fs = item.lastVisit * (1 + 0.022 * Math.sqrt(item.visitCount));
 
 	//bonus for short url's 
 
@@ -190,9 +190,13 @@ db.bookmarks
 onmessage = function (e) {
 	var action = e.data.action;
 	var pageData = e.data.data;
-	var searchText = e.data.text;
+	var searchText = e.data.text && e.data.text.toLowerCase();
 
 	if (action == "updateHistory") {
+
+		if (pageData.url == "about:blank" || pageData.url.indexOf("pages/phishing/index.html") != -1) { //these are useless
+			return;
+		}
 
 		//if this entry existed previously, update it
 
@@ -200,7 +204,6 @@ onmessage = function (e) {
 				console.log("recieved page for history: " + pageData.url);
 
 				var ct = db.history.where("url").equals(pageData.url).count(function (ct) {
-					console.log("count for url " + pageData.url + " was " + ct);
 					if (ct == 0) { //item doesn't exist, add it
 
 						db.history
@@ -211,8 +214,6 @@ onmessage = function (e) {
 								visitCount: 1,
 								lastVisit: getTime(),
 							});
-
-						console.log("finished adding url: " + pageData.url);
 
 					} else { //item exists, query previous values and update
 						db.history.where("url").equals(pageData.url).each(function (item) {
@@ -240,68 +241,73 @@ onmessage = function (e) {
 	}
 
 	if (action == "searchHistory") { //do a history search
+
+		function processItem(item) {
+
+			//if the text does not contain the first search word, it can't possibly be a match, so don't do any processing
+			var itext = (item.url.replace("http://", "").replace("https://", "").replace("www.", "") + " " + item.title.substring(0, 50)).toLowerCase(); //TODO this is kind of messy
+
+			var tindex = itext.indexOf(searchText);
+
+			//if the url contains the search string, count as a match
+			//prioritize matches near the beginning of the url
+			if (tindex != -1 && tindex < 3) {
+				item.boost = (3 - (0.02 * (tindex))) * stl; //large amount of boost for this
+
+				matches.push(item);
+
+			} else {
+
+				//if all of the search words (split by spaces, etc) exist in the url, count it as a match, even if they are out of order
+
+				var score = itext.replace(".com", "").replace(".net", "").replace(".org", "").score(searchText, 0.0001);
+
+				if (tindex != -1 || score > 0.42) {
+
+					//if we didn't return from the loop, the item matches
+
+					item.boost = score * 1.1;
+
+					if (tindex != -1) {
+						item.boost += 0.3 + (0.03 * stl);
+					}
+
+					matches.push(item);
+				}
+
+			}
+		}
+
+		function done() {
+			matches.sort(function (a, b) {
+				return calculateHistoryScore(b) - calculateHistoryScore(a);
+			});
+			var tend = performance.now();
+			console.info("history search took", tend - tstart);
+			postMessage({
+				result: matches.splice(0, 100),
+				scope: "history"
+			});
+		}
+		var tstart = performance.now();
 		var matches = [];
-		var searchWords = searchText.toLowerCase().split(spacesRegex);
 		var stl = searchText.length;
 
-		db.history.each(function (item) {
+		//initially, we only search frequently visited sites, but we do a second search of all sites if we don't find any results
 
-				//if the text does not contain the first search word, it can't possibly be a match, so don't do any processing
-				var itext = (item.url + item.title).toLowerCase();
-
-				if (itext.indexOf(searchWords[0]) == -1) {
-					return;
-				}
-
-				item.boost = 0;
-
-				var doesMatch = true;
-				var tindex = item.url.indexOf(searchText);
-
-				//if the url contains the search string, count as a match
-				//prioritize matches near the beginning of the url
-				if (tindex != -1 && stl > 1) {
-					item.boost += (0.3 - (0.002 * tindex)) * stl;
-
-					//internal app url's are less likely to be relevant
-
-					if (item.url.indexOf("Contents/Resources/app/") != -1) {
-						item.boost -= 0.1;
+		if (stl < 12) {
+			db.history.where("visitCount").above(5).each(processItem)
+				.then(function () {
+					if (matches.length > 15) {
+						done();
+					} else {
+						//we didn't find enough matches, search all the items
+						db.history.where("visitCount").below(5).each(processItem).then(done);
 					}
-					matches.push(item);
-
-				} else {
-					//if all of the search words (split by spaces, etc) exist in the url, count it as a match, even if they are out of order
-
-					for (var i = 0; i < searchWords.length; i++) {
-						if (itext.indexOf(searchWords[i]) == -1) {
-							doesMatch = false;
-							break;
-						}
-					}
-
-					if (doesMatch) {
-						item.boost += searchWords.length * 0.033;
-						item.boost += item.title.score(searchText, 0.0001);
-
-						//internal app url's are less likely to be relevant
-
-						if (item.url.indexOf("Contents/Resources/app/") != -1) {
-							item.boost -= 0.1;
-						}
-						matches.push(item);
-					}
-				}
-			})
-			.then(function () {
-				matches.sort(function (a, b) {
-					return calculateHistoryScore(b) - calculateHistoryScore(a);
 				});
-				postMessage({
-					result: matches.splice(0, 200),
-					scope: "history"
-				})
-			});
+		} else { //if the search text is long, we're unlikely to find enough with the top sites query, skip right to the main query
+			db.history.each(processItem).then(done);
+		}
 	}
 
 	if (action == "addBookmark") {
@@ -385,5 +391,3 @@ onmessage = function (e) {
 		});
 	}
 }
-
-console.log("onmessage loaded ", performance.now());
