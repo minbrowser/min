@@ -86,6 +86,7 @@ window.showSearchSuggestions = throttle(function (text, input) {
 							openURLInBackground(result.phrase);
 						} else {
 							navigate(tabs.getSelected(), result.phrase);
+							cachedBangSnippets = [];
 						}
 					});
 
