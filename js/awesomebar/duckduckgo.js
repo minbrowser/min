@@ -139,7 +139,7 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 
 	if (text.length > 3) {
 
-		$.getJSON("https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q=" + encodeURIComponent(text), function (res) {
+		$.getJSON("https://api.duckduckgo.com/?skip_disambig=1&format=json&q=" + encodeURIComponent(text), function (res) {
 
 			//if value has changed, don't show results
 			if (text != getValue(input) && !options.alwaysShow) {
