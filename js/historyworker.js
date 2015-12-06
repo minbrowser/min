@@ -148,7 +148,7 @@ function generateTopics() {
 		})
 }
 
-generateTopics();
+setTimeout(generateTopics, 30000);
 
 //index previously created items
 
@@ -182,6 +182,14 @@ db.bookmarks
 		bookmarksInMemory[bookmark.url] = bookmark;
 
 	});
+
+//cache frequently visited sites in memory for faster searching
+
+var historyInMemoryCache = [];
+
+db.history.where("visitCount").above(5).each(function (item) {
+	historyInMemoryCache.push(item);
+});
 
 onmessage = function (e) {
 	var action = e.data.action;
@@ -292,15 +300,15 @@ onmessage = function (e) {
 		//initially, we only search frequently visited sites, but we do a second search of all sites if we don't find any results
 
 		if (stl < 12) {
-			db.history.where("visitCount").above(5).each(processItem)
-				.then(function () {
-					if (matches.length > 15) {
-						done();
-					} else {
-						//we didn't find enough matches, search all the items
-						db.history.where("visitCount").below(5).each(processItem).then(done);
-					}
-				});
+			historyInMemoryCache.forEach(processItem);
+
+			if (matches.length > 15) {
+				done();
+			} else {
+				//we didn't find enough matches, search all the items
+				db.history.where("visitCount").below(5).each(processItem).then(done);
+			}
+
 		} else { //if the search text is long, we're unlikely to find enough with the top sites query, skip right to the main query
 			db.history.each(processItem).then(done);
 		}
