@@ -1,12 +1,31 @@
 /* detects back/forward swipes */
 
 var totalMouseMove = 0;
+var verticalMouseMove = 0;
 var documentUnloaded = false
 
 window.addEventListener("mousewheel", function (e) {
-	if (e.deltaY > 10 || e.deltaY < -10) {
+
+	console.log(e);
+
+	verticalMouseMove += e.deltaY;
+
+	/* cmd-key while scrolling should zoom in and out */
+
+	if (verticalMouseMove > 40 && e.metaKey) {
+		verticalMouseMove = 0;
+		return zoomOut();
+	}
+
+	if (verticalMouseMove < -40 && e.metaKey) {
+		verticalMouseMove = 0;
+		return zoomIn();
+	}
+	if (e.deltaY > 5 || e.deltaY < -10) {
 		return;
 	}
+
+	console.log(e);
 
 	if (!documentUnloaded) {
 
@@ -36,4 +55,8 @@ window.addEventListener("mousewheel", function (e) {
 
 setInterval(function () {
 	totalMouseMove = 0;
-}, 4000)
+}, 4000);
+
+setInterval(function () {
+	verticalMouseMove = 0;
+}, 1000);

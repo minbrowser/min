@@ -40,7 +40,7 @@ module.exports = function (grunt) {
 						"js/webview/contextMenu.js",
 						"js/webview/phishDetector.js",
 						"js/webview/readerDetector.js",
-						"js/webview/swipeNavigation.js",
+						"js/webview/swipeEvents.js",
 						"js/webview/zoom.js",
 						"js/webview/keywordExtractor.js",
 						"js/webview/fileViewer.js"

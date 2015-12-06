@@ -4,23 +4,25 @@ var _browser_zoomLevel = 0;
 var _browser_maxZoom = 9;
 var _browser_minZoom = -8;
 
-ipc.on("zoomIn", function () {
+function zoomIn() {
 	if (_browser_maxZoom > _browser_zoomLevel) {
 		_browser_zoomLevel += 1;
 	}
 	webFrame.setZoomLevel(_browser_zoomLevel);
-});
+}
 
-
-ipc.on("zoomOut", function () {
+function zoomOut() {
 	if (_browser_minZoom < _browser_zoomLevel) {
 		_browser_zoomLevel -= 1;
 	}
 	webFrame.setZoomLevel(_browser_zoomLevel);
-});
+}
 
-
-ipc.on("zoomReset", function () {
+function zoomReset() {
 	_browser_zoomLevel = 0;
 	webFrame.setZoomLevel(_browser_zoomLevel);
-});
+}
+
+ipc.on("zoomIn", zoomIn);
+ipc.on("zoomOut", zoomOut);
+ipc.on("zoomReset", zoomReset);

@@ -578,12 +578,31 @@ window.addEventListener("load", function (e) {
 ;/* detects back/forward swipes */
 
 var totalMouseMove = 0;
+var verticalMouseMove = 0;
 var documentUnloaded = false
 
 window.addEventListener("mousewheel", function (e) {
-	if (e.deltaY > 10 || e.deltaY < -10) {
+
+	console.log(e);
+
+	verticalMouseMove += e.deltaY;
+
+	/* cmd-key while scrolling should zoom in and out */
+
+	if (verticalMouseMove > 40 && e.metaKey) {
+		verticalMouseMove = 0;
+		return zoomOut();
+	}
+
+	if (verticalMouseMove < -40 && e.metaKey) {
+		verticalMouseMove = 0;
+		return zoomIn();
+	}
+	if (e.deltaY > 5 || e.deltaY < -10) {
 		return;
 	}
+
+	console.log(e);
 
 	if (!documentUnloaded) {
 
@@ -613,33 +632,39 @@ window.addEventListener("mousewheel", function (e) {
 
 setInterval(function () {
 	totalMouseMove = 0;
-}, 4000)
+}, 4000);
+
+setInterval(function () {
+	verticalMouseMove = 0;
+}, 1000);
 ;/* zooms the page in an out, and resets */
 
 var _browser_zoomLevel = 0;
 var _browser_maxZoom = 9;
 var _browser_minZoom = -8;
 
-ipc.on("zoomIn", function () {
+function zoomIn() {
 	if (_browser_maxZoom > _browser_zoomLevel) {
 		_browser_zoomLevel += 1;
 	}
 	webFrame.setZoomLevel(_browser_zoomLevel);
-});
+}
 
-
-ipc.on("zoomOut", function () {
+function zoomOut() {
 	if (_browser_minZoom < _browser_zoomLevel) {
 		_browser_zoomLevel -= 1;
 	}
 	webFrame.setZoomLevel(_browser_zoomLevel);
-});
+}
 
-
-ipc.on("zoomReset", function () {
+function zoomReset() {
 	_browser_zoomLevel = 0;
 	webFrame.setZoomLevel(_browser_zoomLevel);
-});
+}
+
+ipc.on("zoomIn", zoomIn);
+ipc.on("zoomOut", zoomOut);
+ipc.on("zoomReset", zoomReset);
 ;function isScrolledIntoView(el) { //http://stackoverflow.com/a/22480938/4603285
 	var elemTop = el.getBoundingClientRect().top;
 	var elemBottom = el.getBoundingClientRect().bottom;
