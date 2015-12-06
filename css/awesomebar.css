@@ -51,6 +51,7 @@
 	margin-right: 0.75em;
 	font-size: 0.8em;
 	vertical-align: text-bottom;
+	width: 1em;
 }
 #awesomebar .result-icon {
 	height: 2.75em;
@@ -71,11 +72,17 @@
 #awesomebar img.result-icon {
 	background: rgba(255, 255, 255, 0.5);
 }
+
+/* bang icons */
+
 #awesomebar .result-icon.inline {
 	height: 1em;
-	vertical-align: middle;
 	float: initial;
-	vertical-align: middle;
+	vertical-align: text-bottom;
+	margin: 0 0.5em 0 0;
+	background: none;
+	/* prevents images from being blurry */
+	image-rendering: pixelated;
 }
 #awesomebar .result-item .secondary-text .md-info {
 	opacity: 0.8;
