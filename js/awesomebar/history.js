@@ -133,7 +133,10 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 				shouldAutocompleteTitle = true; //previous searches can be autocompleted
 			}
 
-			//if we've started typing the result and didn't press the delete key (which should make the highlight go away), autocomplete in the input
+			//if we're doing a bang search, but the item isn't a web search, it probably isn't useful, so we shouldn't show it
+			if (!shouldAutocompleteTitle && text.indexOf("!") == 0) {
+				return;
+			}
 
 
 			var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(title))).on("click", function (e) {
