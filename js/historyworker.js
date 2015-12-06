@@ -122,22 +122,14 @@ function generateTopics() {
 				bundles[item] = newObj;
 			}
 
-			//convert bundles from an array into an object
-
-			var bundlesArray = [];
-
 			for (var key in bundles) {
 				bundles[key].name = key;
-				bundlesArray.push(bundles[key]);
+				topics.push(bundles[key]);
 			}
 
-			bundlesArray.sort(function (a, b) {
+			topics.sort(function (a, b) {
 				return b.score - a.score;
 			});
-
-			//save to global variable
-
-			topics = bundlesArray;
 
 			console.info("bundles generated");
 
@@ -366,11 +358,6 @@ onmessage = function (e) {
 		for (var item in result) {
 			var url = result[item].ref;
 			bookmarksInMemory[url].score = result[item].score;
-
-			//increase score for exact matches, since lunr doesn't do this correctly
-			if (bookmarksInMemory[url].text.indexOf(searchText) != -1) {
-				bookmarksInMemory[url].score *= 1 + (0.005 * searchText.length);
-			}
 
 			result[item] = bookmarksInMemory[url];
 			if (result[item].deleted) {
