@@ -20,6 +20,8 @@ const showTopicResults = function (text, input) {
 
 					//enter a special history-only mode
 
+					isExpandedHistoryMode = true;
+
 					clearAwesomebar();
 
 					input.val(topic.name);

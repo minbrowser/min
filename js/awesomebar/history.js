@@ -5,6 +5,8 @@ var DDGSearchURLRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
 var shouldAutocompleteTitle;
 var hasAutocompleted = false;
 
+var isExpandedHistoryMode = false;
+
 var cachedHistoryResults = [];
 var maxHistoryResults = 4;
 
@@ -109,7 +111,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 		var resultsShown = 0;
 
-		results.forEach(function (result) {
+		results.splice(0, 50).forEach(function (result) {
 
 			//if there is a bookmark result found, don't show a history item
 
@@ -172,6 +174,9 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 function limitHistoryResults(maxItems) {
 	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));
+	if (isExpandedHistoryMode) {
+		maxHistoryResults = 99999;
+	}
 	console.log("limiting maxHistoryResults to " + maxHistoryResults);
 	historyarea.find(".result-item").show().removeClass("unfocusable");
 	historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1)).hide().addClass("unfocusable");

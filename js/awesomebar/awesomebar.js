@@ -160,6 +160,8 @@ function hideAwesomebar() {
 }
 var showAwesomebarResults = throttle(function (text, input, event) {
 
+	isExpandedHistoryMode = false;
+
 	//find the real input value, accounting for highlighted suggestions and the key that was just pressed
 
 	var v = input[0].value;
