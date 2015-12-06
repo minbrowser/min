@@ -166,7 +166,7 @@ var bookmarksIndex = lunr(function () {
 /* used to turn refs into bookmarks */
 
 var bookmarksInMemory = {
-	/* format is url: bookmark */
+	/* format is url: bookmarkObject */
 }
 
 db.bookmarks
@@ -179,7 +179,12 @@ db.bookmarks
 			url: bookmark.url,
 		});
 
-		bookmarksInMemory[bookmark.url] = bookmark;
+		bookmarksInMemory[bookmark.url] = {
+			url: bookmark.url,
+			title: bookmark.title,
+			//we skip the text property, since it takes up a lot of memory and isn't used anywhere
+			extraData: bookmark.extraData
+		};
 
 	});
 
