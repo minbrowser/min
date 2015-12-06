@@ -1,5 +1,5 @@
 var showBookmarkResults = throttle(function (text) {
-	if (text.length < 3 || text.indexOf("!") == 0) { //if there is not enough text, or we're doing a bang search, don't show results
+	if (text.length < 4 || text.indexOf("!") == 0) { //if there is not enough text, or we're doing a bang search, don't show results
 		limitHistoryResults(5);
 		bookmarkarea.html("");
 		return;
@@ -10,7 +10,7 @@ var showBookmarkResults = throttle(function (text) {
 		var resultsShown = 1;
 		results.splice(0, 2).forEach(function (result) {
 			//as more results are added, the threshold for adding another one gets higher
-			if (result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.3, text.length) * resultsShown))) {
+			if (result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.3, text.length) * (resultsShown ^ 3)))) {
 
 				resultsShown++;
 
