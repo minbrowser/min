@@ -188,7 +188,7 @@ db.bookmarks
 var historyInMemoryCache = [];
 var doneLoadingCache = false;
 
-db.history.where("visitCount").above(5).each(function (item) {
+db.history.where("visitCount").above(4).each(function (item) {
 	historyInMemoryCache.push(item);
 }).then(function () {
 	doneLoadingCache = true;
@@ -259,7 +259,7 @@ onmessage = function (e) {
 			//if the url contains the search string, count as a match
 			//prioritize matches near the beginning of the url
 			if (tindex != -1 && tindex < 3) {
-				item.boost = (3 - (0.02 * (tindex))) * stl; //large amount of boost for this
+				item.boost = (3 - (0.12 * tindex)) * stl; //large amount of boost for this
 
 				matches.push(item);
 
