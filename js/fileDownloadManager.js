@@ -3,31 +3,27 @@
 var PDFViewerURL = "file://" + __dirname + "/pdfjs/web/viewer.html?url=";
 
 ipc.on("openPDF", function (event, filedata) {
-	console.log(filedata);
-	var cTab = tabs.get(tabs.getSelected());
+	console.log("opening PDF", filedata);
 
-	var webview = getWebview(cTab.id);
+	var PDFurl = PDFViewerURL + filedata.url,
+		hasOpenedPDF = false;
 
-	//If the current tab is blank or has the url of the pdf we are opening, we open the pdf in the current tab. Otherwise, to avoid losing pages, we open a new tab with the pdf.
+	// we don't know which tab the event came from, so we loop through each tab to find out.
 
-	var PDFurl = PDFViewerURL + filedata.url;
+	tabs.get().forEach(function (tab) {
+		if (tab.url == filedata.url) {
+			navigate(tab.id, PDFurl);
+			hasOpenedPDF = true;
+		}
+	});
 
-	if (cTab.url == PDFurl) { //if we are already on the pdf we are navigating to, ignore it
-		return;
-	}
-
-
-	if (cTab.url == "about:blank" || cTab.url == filedata.item.url) {
-		navigate(tabs.getSelected(), PDFurl)
-	} else {
-
+	if (!hasOpenedPDF) {
 		var newTab = tabs.add({
 			url: PDFurl
-		})
+		});
 
 		addTab(newTab, {
 			focus: false
 		});
-
 	}
 });
