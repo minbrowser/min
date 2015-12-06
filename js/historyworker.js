@@ -186,9 +186,12 @@ db.bookmarks
 //cache frequently visited sites in memory for faster searching
 
 var historyInMemoryCache = [];
+var doneLoadingCache = false;
 
 db.history.where("visitCount").above(5).each(function (item) {
 	historyInMemoryCache.push(item);
+}).then(function () {
+	doneLoadingCache = true;
 });
 
 onmessage = function (e) {
@@ -299,7 +302,7 @@ onmessage = function (e) {
 
 		//initially, we only search frequently visited sites, but we do a second search of all sites if we don't find any results
 
-		if (stl < 12) {
+		if (stl < 12 && doneLoadingCache) {
 			historyInMemoryCache.forEach(processItem);
 
 			if (matches.length > 15) {
