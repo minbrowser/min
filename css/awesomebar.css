@@ -131,6 +131,7 @@
 }
 #awesomebar .result-item .description-block {
 	display: block;
+	line-height: 1.1em;
 	max-height: 2.2em;
 	overflow: hidden;
 	opacity: 0.666;
