@@ -108,7 +108,14 @@ function createTabElement(tabId) {
 			getTabElement(tab).animate({
 				"margin-top": "-40px",
 			}, 150, function () {
-				destroyTab(tab);
+
+				if (tab == tabs.getSelected()) {
+					destroyTab(tab, {
+						switchToTab: true
+					});
+				} else {
+					destroyTab(tab);
+				}
 
 				if (tabs.count() == 0) {
 					addTab();
