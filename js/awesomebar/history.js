@@ -104,6 +104,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 		if (results.length < 20) { //if we have a lot of history results, don't show search suggestions
 			limitSearchSuggestions(results.length);
+			maxItems = 2;
 			showSearchSuggestions(text, input);
 		} else if (text.indexOf("!") == -1) { //if we have a !bang, always show results
 			serarea.html("");
