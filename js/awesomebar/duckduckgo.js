@@ -17,7 +17,7 @@ function unsafe_showColorUI(searchText, colorHTML) {
 		alternateFormats.push($(this).text());
 	});
 
-	var item = $("<div class='result-item' tabindex='-1'>");
+	var item = $("<div class='result-item indent' tabindex='-1'>");
 
 	item.text(searchText);
 
@@ -150,7 +150,7 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 			suggestedsitearea.find(".result-item").addClass("old");
 
 			if (res.Abstract || res.Answer) {
-				var item = $("<div class='result-item' tabindex='-1'>");
+				var item = $("<div class='result-item indent' tabindex='-1'>");
 
 				if (res.Answer) {
 					item.text(unsafeUnwrapTags(res.Answer));
@@ -158,9 +158,9 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 					item.text(res.Heading);
 				}
 
-				/*if (res.Image && res.Entity != "company" && res.Entity != "country" && res.Entity != "website") { //ignore images for entities that generally have useless or ugly images
+				if (res.Image && res.Entity != "company" && res.Entity != "country" && res.Entity != "website") { //ignore images for entities that generally have useless or ugly images
 					$("<img class='result-icon image'>").attr("src", res.Image).prependTo(item);
-				}*/
+				}
 
 				$("<span class='description-block'>").text(removeTags(res.Abstract) || "Answer").appendTo(item);
 
@@ -211,6 +211,27 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 				if (bookmarkarea.find(".result-item").length < 2) {
 					item.appendTo(suggestedsitearea);
 				}
+			}
+
+			//if we're showing a location, show a "view on openstreetmap" link
+
+			if (res.Entity == "country" || res.Entity == "location") {
+				var item = $("<div class='result-item' tabindex='-1'>");
+
+				$("<i class='fa fa-search'>").appendTo(item);
+				$("<span class='title'>").text(res.Heading).appendTo(item);
+				$("<span class='secondary-text'>Search on OpenStreetMap</span>").appendTo(item);
+
+				item.on("click", function (e) {
+					if (e.metaKey) {
+						openURLInBackground("https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading));
+
+					} else {
+						navigate(tabs.getSelected(), "https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading));
+					}
+				});
+
+				item.appendTo(iaarea);
 			}
 
 			iaarea.find(".old").remove();

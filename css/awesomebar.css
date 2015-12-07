@@ -148,7 +148,6 @@ body.awesomebar-shown webview {
 
 /* account for a missing icon */
 
-#awesomebar .instant-answer-results,
-.top-answer-results {
-	padding-left: 20px;
+#awesomebar .result-item.indent {
+	padding-left: 1.75em;
 }
