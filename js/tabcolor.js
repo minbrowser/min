@@ -11,7 +11,14 @@ setInterval(function () {
 function extractColor(favicon, callback) {
 	colorExtractorImg.src = favicon;
 	colorExtractorImg.onload = function () {
-		callback(cf.getColor(colorExtractorImg));
+
+		//workaround for colorThief throwing an error on entirely white favicons
+		try {
+			var color = cf.getColor(colorExtractorImg);
+		} catch (e) {
+			var color = [255, 255, 255];
+		}
+		callback(color);
 	}
 }
 
