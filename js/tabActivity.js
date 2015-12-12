@@ -1,7 +1,7 @@
 /* fades out tabs that are inactive */
 
 var tabActivity = {
-	minFadeAge: 450000,
+	minFadeAge: 330000,
 	refresh: function () {
 		var tabSet = tabs.get(),
 			selected = tabs.getSelected(),
