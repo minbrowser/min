@@ -34,7 +34,7 @@ var readerView = {
 		navigate(tabId, "file:///" + __dirname + "/reader/index.html?url=" + tabs.get(tabId).url);
 		tabs.update(tabId, {
 			isReaderView: true
-		})
+		});
 	},
 	exit: function (tabId) {
 		navigate(tabId, tabs.get(tabId).url.split("?url=")[1]);
