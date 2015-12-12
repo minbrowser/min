@@ -91,8 +91,8 @@
 /* tab inputs */
 
 .tab-group .tab-item .tab-input {
-	line-height: 1.2em;
-	font-size: 1.2em;
+	line-height: 1.15em;
+	font-size: 1.15em;
 	-webkit-appearance: none;
 	background: none;
 	border: none;
@@ -105,12 +105,16 @@
 .tab-group .tab-item .tab-input::-webkit-input-placeholder {
 	color: inherit;
 	opacity: 0.5;
+	line-height: 1.25em;
 }
 
 /* hide the lock icon unless its the current tab */
 
 .tab-group .tab-item:not(.active) .icon-tab-is-secure {
 	display: none;
+}
+.tab-group .tab-item .tab-view-contents .title {
+	font-size: 15px;
 }
 
 /* buttons */
