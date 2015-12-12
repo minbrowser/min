@@ -12,3 +12,7 @@ db.version(1)
 db.open().then(function () {
 	console.log("database opened ", performance.now());
 });
+
+Dexie.Promise.on("error", function (error) {
+	console.warn("database error occured", error);
+});
