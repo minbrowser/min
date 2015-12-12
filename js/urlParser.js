@@ -52,6 +52,6 @@ var urlParser = {
 	},
 	prettyURL: function (url) {
 		var urlOBJ = new URL(url);
-		return (urlOBJ.hostname + urlOBJ.pathname.replace(urlParser.trailingSlashRegex, "")).replace(urlParser.startingWWWRegex, "$1");
+		return (urlOBJ.hostname + urlOBJ.pathname).replace(urlParser.startingWWWRegex, "$1").replace(urlParser.trailingSlashRegex, "");
 	}
 }
