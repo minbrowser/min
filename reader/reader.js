@@ -30,12 +30,19 @@ function startReaderView(article) {
 	rframe.onload = function () {
 
 		if (!article) { //we couln't parse an article
-			rframe.contentDocument.body.innerHTML = "<div class='reader-main'><em>No article found.</em></div>";
-			rframe.contentDocument.body.insertAdjacentHTML("afterbegin", "<link rel='stylesheet' href='readerView.css'>");
+			rframe.contentDocument.body.innerHTML = "<div class='reader-main'><em>No article found.</em></div><link rel='stylesheet' href='readerView.css'>";
 			return;
 		}
 
-		rframe.contentDocument.body.innerHTML = "<div class='reader-main'>" + "<h1 class='article-title'>" + (article.title || "Untitled") + "</h1>" + "<h2 class='article-authors'>" + (article.byline || "") + "</h2>" + article.content + "</div>";
+		var readerContent = "<div class='reader-main'>" + "<h1 class='article-title'>" + (article.title || "Untitled") + "</h1>"
+
+		if (article.byline) {
+			readerContent += "<h2 class='article-authors'>" + article.byline + "</h2>"
+		}
+
+		readerContent += article.content + "</div>";
+
+		rframe.contentDocument.body.innerHTML = readerContent;
 		document.title = article.title;
 		rframe.contentDocument.body.insertAdjacentHTML("afterbegin", "<link rel='stylesheet' href='readerView.css'>");
 
