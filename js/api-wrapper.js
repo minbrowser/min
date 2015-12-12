@@ -53,8 +53,15 @@ function switchToTab(id) {
 	var tabData = tabs.get(id);
 	setColor(tabData.backgroundColor, tabData.foregroundColor);
 
-	tabs.update(id, {
-		lastActivity: Date.now(),
-	});
-	tabActivity.refresh();
+	//we only want to mark the tab as active if someone actually interacts with it. If it is clicked on and then quickly clicked away from, it should still be marked as inactive
+
+	setTimeout(function () {
+		if (tabs.getSelected() == id) {
+			tabs.update(id, {
+				lastActivity: Date.now(),
+			});
+			tabActivity.refresh();
+		}
+	}, 2500);
+
 }
