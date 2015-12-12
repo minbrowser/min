@@ -3,7 +3,7 @@ const showTopicResults = function (text, input) {
 
 	bookmarks.searchTopics(text, function (topics) {
 
-		topicsarea.html("");
+		topicsarea.empty();
 
 		if (!topics || !topics[0]) {
 			return;
@@ -30,7 +30,7 @@ const showTopicResults = function (text, input) {
 					showBookmarkResults(topic.name);
 
 					setTimeout(function () { //the item was focused on the keydown event. If we immediately focus the input, a keypress event will occur, causing an exit from edit mode
-						input.focus();
+						input.get(0).focus();
 					}, 100);
 				});
 				topicsShown++;

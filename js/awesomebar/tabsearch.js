@@ -4,7 +4,7 @@ var stringScore = require("string_score");
 
 var searchOpenTabs = function (searchText) {
 
-	opentabarea.html("");
+	opentabarea.empty();
 
 	if (searchText.length < 2) {
 		return;

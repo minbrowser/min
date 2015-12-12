@@ -1,12 +1,12 @@
 var showBookmarkResults = throttle(function (text) {
 	if (text.length < 4 || text.indexOf("!") == 0) { //if there is not enough text, or we're doing a bang search, don't show results
 		limitHistoryResults(5);
-		bookmarkarea.html("");
+		bookmarkarea.empty();
 		return;
 	}
 
 	bookmarks.search(text, function (results) {
-		bookmarkarea.html("");
+		bookmarkarea.empty();
 		var resultsShown = 1;
 		results.splice(0, 2).forEach(function (result) {
 			//as more results are added, the threshold for adding another one gets higher
@@ -17,11 +17,7 @@ var showBookmarkResults = throttle(function (text) {
 				//create the basic item
 				//getRealTitle is defined in awesomebar.js
 				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(result.title))).on("click", function (e) {
-					if (e.metaKey) {
-						openURLInBackground(result.url);
-					} else {
-						navigate(tabs.getSelected(), result.url);
-					}
+					openURLFromAwesomebar(e, result.url);
 				});
 
 				$("<i class='fa fa-star'>").prependTo(item);

@@ -61,7 +61,7 @@ window.showSearchSuggestions = throttle(function (text, input) {
 
 					var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(result.snippet)).on("click", function () {
 						setTimeout(function () { //if the click was triggered by the keydown, focusing the input and then keyup will cause a navigation. Wait a bit for keyup before focusing the input again.
-							input.val(result.phrase + " ").focus();
+							input.val(result.phrase + " ").get(0).focus();
 						}, 100);
 					});
 
@@ -82,12 +82,7 @@ window.showSearchSuggestions = throttle(function (text, input) {
 						var secondaryText = "Search on " + bangACSnippet;
 					}
 					var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(title)).on("click", function (e) {
-						if (e.metaKey) {
-							openURLInBackground(result.phrase);
-						} else {
-							navigate(tabs.getSelected(), result.phrase);
-							cachedBangSnippets = [];
-						}
+						openURLFromAwesomebar(e, result.phrase);
 					});
 
 					item.appendTo(serarea);
@@ -158,8 +153,10 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 					item.text(res.Heading);
 				}
 
-				if (res.Image && res.Entity != "company" && res.Entity != "country" && res.Entity != "website") { //ignore images for entities that generally have useless or ugly images
-					$("<img class='result-icon image'>").attr("src", res.Image).prependTo(item);
+				var entitiesWithUselessImages = ["company", "country", "website", "software"] //thse are typically low-quality and unhelpful
+
+				if (res.Image && entitiesWithUselessImages.indexOf(res.Entity) == -1) {
+					$("<img class='result-icon image low-priority-image'>").attr("src", res.Image).prependTo(item);
 				}
 
 				$("<span class='description-block'>").text(removeTags(res.Abstract) || "Answer").appendTo(item);
@@ -171,11 +168,7 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 				}
 
 				item.on("click", function (e) {
-					if (e.metaKey) {
-						openURLInBackground(res.AbstractURL || text);
-					} else {
-						navigate(tabs.getSelected(), res.AbstractURL || text)
-					}
+					openURLFromAwesomebar(e, res.AbstractURL || text);
 				});
 
 				//answers are more relevant, they should be displayed at the top
@@ -193,12 +186,7 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 
 				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(url)).on("click", function (e) {
 
-					if (e.metaKey) {
-						openURLInBackground(res.Results[0].FirstURL);
-
-					} else {
-						navigate(tabs.getSelected(), res.Results[0].FirstURL);
-					}
+					openURLFromAwesomebar(e, res.Results[0].FirstURL);
 				});
 
 				$("<i class='fa fa-globe'>").prependTo(item);
@@ -215,7 +203,9 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 
 			//if we're showing a location, show a "view on openstreetmap" link
 
-			if (res.Entity == "country" || res.Entity == "location") {
+			var entitiesWithLocations = ["location", "country", "u.s. state", "protected area"]
+
+			if (entitiesWithLocations.indexOf(res.Entity) != -1) {
 				var item = $("<div class='result-item' tabindex='-1'>");
 
 				$("<i class='fa fa-search'>").appendTo(item);
@@ -223,12 +213,7 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 				$("<span class='secondary-text'>Search on OpenStreetMap</span>").appendTo(item);
 
 				item.on("click", function (e) {
-					if (e.metaKey) {
-						openURLInBackground("https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading));
-
-					} else {
-						navigate(tabs.getSelected(), "https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading));
-					}
+					openURLFromAwesomebar(e, "https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading));
 				});
 
 				item.appendTo(iaarea);

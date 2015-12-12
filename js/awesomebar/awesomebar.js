@@ -75,6 +75,18 @@ function openURLInBackground(url) { //used to open a url in the background, with
 	$(".result-item:focus").blur(); //remove the highlight from an awesoembar result item, if there is one
 }
 
+//when clicking on a result item, this function should be called to open the URL
+
+function openURLFromAwesomebar(event, url) {
+	if (event.metaKey) {
+		openURLInBackground(url);
+		return true;
+	} else {
+		navigate(tabs.getSelected(), url);
+		return false;
+	}
+}
+
 
 //attempts to shorten a page title, removing useless text like the site name
 
@@ -121,14 +133,17 @@ var topicsarea = awesomebar.find(".topic-results");
 var opentabarea = awesomebar.find(".opentab-results");
 
 function clearAwesomebar() {
-	opentabarea.html("");
-	topAnswerarea.html("");
-	bookmarkarea.html("");
-	historyarea.html("");
-	topicsarea.html("");
-	iaarea.html("");
-	suggestedsitearea.html("");
-	serarea.html("");
+	opentabarea.empty();
+	topAnswerarea.empty();
+	bookmarkarea.empty();
+	historyarea.empty();
+	topicsarea.empty();
+	iaarea.empty();
+	suggestedsitearea.empty();
+	serarea.empty();
+
+	//prevent memory leak
+	cachedBangSnippets = [];
 }
 
 function showAwesomebar(triggerInput) {
@@ -158,7 +173,7 @@ function hideAwesomebar() {
 	awesomebar.hide();
 	cachedBangSnippets = {};
 }
-var showAwesomebarResults = throttle(function (text, input, event) {
+var showAwesomebarResults = function (text, input, event) {
 
 	isExpandedHistoryMode = false;
 
@@ -233,7 +248,7 @@ var showAwesomebarResults = throttle(function (text, input, event) {
 
 	//update cache
 	awesomebarCachedText = text;
-}, 25);
+};
 
 function focusAwesomebarItem(options) {
 	options = options || {}; //fallback if options is null
@@ -292,13 +307,13 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 			return;
 		}
 
-		if (!hasShownDDGpopup) {
+		/*if (!hasShownDDGpopup) {
 			showInstantAnswers(data.entities[0], currentAwesomebarInput, {
 				alwaysShow: true
 			});
 
 			hasShownDDGpopup = true;
-		}
+		}*/
 
 		var div = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(item)).on("click", function (e) {
 			if (e.metaKey) {

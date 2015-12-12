@@ -74,12 +74,12 @@ function autocompleteResultIfNeeded(input, result) {
 			return;
 		}
 
-		input.blur();
 		input[0].value = ac;
 		input[0].setSelectionRange(text.length, ac.length);
-		input.focus(); //update cache
-		awesomebarCachedText = input[0].value,
-			shouldContinueAC = false;
+
+		//update cache
+		awesomebarCachedText = input[0].value
+		shouldContinueAC = false
 
 		return true;
 	}
@@ -96,7 +96,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 		maxItems = maxItems || maxHistoryResults;
 
-		historyarea.html("");
+		historyarea.empty();
 
 		cachedHistoryResults = results;
 
@@ -104,15 +104,21 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 		if (results.length < 20) { //if we have a lot of history results, don't show search suggestions
 			limitSearchSuggestions(results.length);
-			maxItems = 2;
+			maxItems = 3;
 			showSearchSuggestions(text, input);
 		} else if (text.indexOf("!") == -1) { //if we have a !bang, always show results
-			serarea.html("");
+			serarea.empty();
 		}
 
 		var resultsShown = 0;
 
-		results.splice(0, 50).forEach(function (result) {
+		//if we aren't in expanded mode, we will never have more than 5 results, so we don't need to create more DOM elements than that
+
+		if (!isExpandedHistoryMode) {
+			results = results.splice(0, 5);
+		}
+
+		results.forEach(function (result) {
 
 			//if there is a bookmark result found, don't show a history item
 
@@ -143,14 +149,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 
 			var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(title))).on("click", function (e) {
-				//if the command key was pressed, open in background while still showing awesomebar
-
-				if (e.metaKey) {
-					openURLInBackground(result.url);
-
-				} else {
-					navigate(tabs.getSelected(), result.url);
-				}
+				openURLFromAwesomebar(e, result.url);
 			});
 
 			icon.prependTo(item);
@@ -171,7 +170,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 		});
 	});
-}, 100);
+}, 250);
 
 function limitHistoryResults(maxItems) {
 	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));
