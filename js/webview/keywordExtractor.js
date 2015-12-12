@@ -12,19 +12,21 @@ ipc.on("getKeywordsData", function (e) {
 		var ignore = ["LINK", "STYLE", "SCRIPT", "NOSCRIPT", "svg", "symbol", "title", "path", "style"];
 		var text = "";
 		var pageElements = doc.querySelectorAll("p, h2, h3, h4, li, [name=author], [itemprop=name], .article-author");
+
+		var scrollY = window.scrollY;
 		for (var i = 0; i < pageElements.length; i++) {
 
-			if ((!isScrolledIntoView(pageElements[i]) && doc == document) || pageElements[i].style.display == "none" || (pageElements[i].tagName == "META" && window.scrollY > 500)) {
+			var el = pageElements[i];
+
+			if ((!isScrolledIntoView(pageElements[i]) && doc == document) || (pageElements[i].tagName == "META" && scrollY > 500) || pageElements[i].textContent.length < 50 || pageElements[i].querySelector("time, span, div, menu")) {
 				continue;
 			}
-
-			var el = pageElements[i];
 
 			if (ignore.indexOf(el.tagName) == -1) {
 
 				var elText = el.textContent || el.content
 
-				if (/\.\s*$/g.test(elText)) {
+				if (pageElements[i - 1] && /\.\s*$/g.test(pageElements[i - 1].textContent)) {
 					text += " " + elText
 				} else {
 					text += ". " + elText
@@ -48,8 +50,10 @@ ipc.on("getKeywordsData", function (e) {
 
 	if (frames) {
 		for (var i = 0; i < frames.length; i++) {
-			if (frames[i].contentDocument) {
+			try { //reading contentDocument will throw an error if the frame is not same-origin
 				text += " " + extractPageText(frames[i].contentDocument);
+			} catch (e) {
+
 			}
 		}
 	}
