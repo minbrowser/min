@@ -4,7 +4,6 @@ importScripts("../ext/Dexie.min.js");
 importScripts("../ext/lunr.min.js");
 importScripts("../node_modules/string_score/string_score.min.js");
 importScripts("database.js");
-
 console.log("scripts loaded ", performance.now());
 
 var topics = []; //a list of common groups of history items. Each one is an object with: score (number), name (string), and urls (array).
@@ -15,10 +14,9 @@ var spacesRegex = /[\+\s._/-]/g; //things that could be considered spaces
 var wordRegex = /^[a-z\s]+$/g;
 
 function calculateHistoryScore(item, boost) { //boost - how much the score should be multiplied by. Example - 0.05
-	var fs = item.lastVisit * (1 + 0.022 * Math.sqrt(item.visitCount));
+	var fs = item.lastVisit * (1 + 0.036 * Math.sqrt(item.visitCount));
 
 	//bonus for short url's 
-
 	if (item.url.length < 20) {
 		fs += (30 - item.url.length) * 2500;
 	}
@@ -40,6 +38,7 @@ function cleanupHistoryDatabase() { //removes old history entries
 }
 
 setTimeout(cleanupHistoryDatabase, 20000); //don't run immediately on startup, since is might slow down awesomebar search.
+setInterval(cleanupHistoryDatabase, 60 * 60 * 1000);
 
 /* generate topics */
 
@@ -185,11 +184,15 @@ db.bookmarks
 var historyInMemoryCache = [];
 var doneLoadingCache = false;
 
-db.history.where("visitCount").above(4).each(function (item) {
+db.history.where("visitCount").above(40).each(function (item) {
 	historyInMemoryCache.push(item);
 }).then(function () {
-	doneLoadingCache = true;
-});
+	db.history.where("visitCount").between(3, 40).each(function (item) {
+		historyInMemoryCache.push(item);
+	}).then(function () {
+		doneLoadingCache = true
+	});
+})
 
 onmessage = function (e) {
 	var action = e.data.action;
@@ -221,12 +224,10 @@ onmessage = function (e) {
 
 					} else { //item exists, query previous values and update
 						db.history.where("url").equals(pageData.url).each(function (item) {
-							var visitCount = item.visitCount + 1;
-							var lastVisit = Date.now();
 
 							db.history.where("url").equals(pageData.url).modify({
-								visitCount: visitCount,
-								lastVisit: lastVisit,
+								visitCount: item.visitCount + 1,
+								lastVisit: Date.now(),
 								title: pageData.title, //the title and color might have changed - ex. if the site content was updated
 								color: pageData.color,
 							})
@@ -248,34 +249,54 @@ onmessage = function (e) {
 
 		function processItem(item) {
 
+			if (matches.length > 500 && isSearchingMemory) {
+				return;
+			}
+
 			//if the text does not contain the first search word, it can't possibly be a match, so don't do any processing
-			var itext = (item.url.replace("http://", "").replace("https://", "").replace("www.", "") + " " + item.title.substring(0, 50)).toLowerCase(); //TODO this is kind of messy
+			var itext = (item.url.replace("http://", "").replace("https://", "").replace("www.", "") + " " + item.title).toLowerCase(); //TODO this is kind of messy
 
 			var tindex = itext.indexOf(searchText);
 
 			//if the url contains the search string, count as a match
 			//prioritize matches near the beginning of the url
-			if (tindex != -1 && tindex < 3) {
-				item.boost = (3 - (0.12 * tindex)) * stl; //large amount of boost for this
-
+			if (tindex == 0) {
+				item.boost = itemStartBoost; //large amount of boost for this
 				matches.push(item);
 
 			} else {
+
+				if (substringSearchEnabled) {
+
+					var substringMatch = true;
+
+					//check if the search text matches but is out of order
+					for (var i = 0; i < searchWords.length; i++) {
+						if (itext.indexOf(searchWords[i]) == -1) {
+							substringMatch = false;
+							break;
+						}
+					}
+
+					if (substringMatch) {
+						item.boost = 0.1;
+						matches.push(item);
+						return;
+					}
+				}
 
 				//if all of the search words (split by spaces, etc) exist in the url, count it as a match, even if they are out of order
 
 				var score = itext.replace(".com", "").replace(".net", "").replace(".org", "").score(searchText, 0.0001);
 
-				if (tindex != -1 || score > 0.42) {
+				if (tindex != -1) {
+					item.boost = score + exactMatchBoost;
+					matches.push(item);
+					return;
+				}
 
-					//if we didn't return from the loop, the item matches
-
-					item.boost = score * 1.1;
-
-					if (tindex != -1) {
-						item.boost += 0.3 + (0.03 * stl);
-					}
-
+				if (score > 0.43) {
+					item.boost = score;
 					matches.push(item);
 				}
 
@@ -296,20 +317,30 @@ onmessage = function (e) {
 		var tstart = performance.now();
 		var matches = [];
 		var stl = searchText.length;
+		var searchWords = searchText.split(spacesRegex);
+		var isSearchingMemory = true;
+		var substringSearchEnabled = false;
+		var itemStartBoost = 2.5 * stl;
+		var exactMatchBoost = 0.2 + (0.05 * stl);
+
+		if (searchText.indexOf(" ") != -1) {
+			substringSearchEnabled = true;
+		}
 
 		//initially, we only search frequently visited sites, but we do a second search of all sites if we don't find any results
 
-		if (stl < 12 && doneLoadingCache) {
+		if (stl < 20) {
 			historyInMemoryCache.forEach(processItem);
 
-			if (matches.length > 15) {
+			if (matches.length > 10 || !doneLoadingCache) {
 				done();
 			} else {
+				isSearchingMemory = false;
 				//we didn't find enough matches, search all the items
-				db.history.where("visitCount").below(5).each(processItem).then(done);
+				db.history.where("visitCount").below(4).each(processItem).then(done);
 			}
 
-		} else { //if the search text is long, we're unlikely to find enough with the top sites query, skip right to the main query
+		} else {
 			db.history.each(processItem).then(done);
 		}
 	}
