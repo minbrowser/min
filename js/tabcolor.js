@@ -1,12 +1,18 @@
-var cf = new ColorThief();
-var hours = new Date().getHours() + (new Date().getMinutes() / 60);
+const cf = new ColorThief();
+const defaultColors = {
+	private: ["rgb(58, 44, 99)", "white"],
+	regular: ["rgb(255, 255, 255)", "black"]
+}
+
 var colorExtractorImg = document.createElement("img");
+var hours = new Date().getHours() + (new Date().getMinutes() / 60);
 
 //we cache the hours so we don't have to query every time we change the color
 
 setInterval(function () {
-	hours = new Date().getHours() + (new Date().getMinutes() / 60);
-}, 10 * 60 * 1000);
+	var d = new Date();
+	hours = d.getHours() + (d.getMinutes() / 60);
+}, 4 * 60 * 1000);
 
 function extractColor(favicon, callback) {
 	colorExtractorImg.src = favicon;
@@ -41,9 +47,9 @@ function updateTabColor(favicons, tabId) {
 		//dim the colors late at night or early in the morning
 		var colorChange = 1;
 		if (hours > 20) {
-			colorChange -= 0.012 * hours;
-		} else if (hours < 7) {
-			colorChange -= 0.012 * (24 - hours);
+			colorChange -= 0.015 * Math.pow(2.75, hours - 20);
+		} else if (hours < 6.5) {
+			colorChange -= -0.15 * Math.pow(1.36, hours) + 1.15
 		}
 
 		c[0] = Math.round(c[0] * colorChange)

@@ -5,19 +5,18 @@ var tabs = {
 		tabs: [],
 		selected: null,
 	},
-	add: function (tab) {
+	add: function (tab, index) {
 
 		//make sure the tab exists before we create it
 		if (!tab) {
-			throw new TypeError("tab is not defined.")
+			var tab = {};
 		}
 
 		tab.url = tab.url || "";
 
 		var tabId = tab.id || Math.round(Math.random() * 100000000000000000); //you can pass an id that will be used, or a random one will be generated.
 
-
-		tabs._state.tabs.push({
+		var newTab = {
 			url: tab.url,
 			title: tab.title,
 			id: tabId,
@@ -27,7 +26,14 @@ var tabs = {
 			readerable: tab.readerable || false,
 			backgroundColor: tab.backgroundColor,
 			foregroundColor: tab.foregroundColor,
-		});
+		}
+
+		if (index) {
+			tabs._state.tabs.splice(index, 0, newTab);
+		} else {
+			tabs._state.tabs.push(newTab);
+		}
+
 
 		return tabId;
 

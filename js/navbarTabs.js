@@ -1,6 +1,62 @@
-/* draws tabs and manages tab events */
+//http://stackoverflow.com/a/5086688/4603285
+
+jQuery.fn.insertAt = function (index, element) {
+	var lastIndex = this.children().size()
+	if (index < 0) {
+		index = Math.max(0, lastIndex + 1 + index)
+	}
+	this.append(element)
+	if (index < lastIndex) {
+		this.children().eq(index).before(this.children().last())
+	}
+	return this;
+}
 
 var tabGroup = $(".tab-group #tabs");
+
+/* tab events */
+
+//swipe to delete tabs
+
+tabGroup.on("mousewheel", ".tab-item", function (e) {
+	if (e.originalEvent.deltaY > 35 && e.originalEvent.deltaX < 10) {
+		var tab = $(this).attr("data-tab");
+
+		//TODO this should be a css animation
+		getTabElement(tab).animate({
+			"margin-top": "-40px",
+		}, 125, function () {
+
+			if (tab == tabs.getSelected()) {
+				destroyTab(tab, {
+					switchToTab: true
+				});
+			} else {
+				destroyTab(tab);
+			}
+
+			if (tabs.count() == 0) {
+				addTab();
+			}
+		});
+	}
+});
+
+//click to enter edit mode or switch to tab
+
+tabGroup.on("click", ".tab-item", function (e) {
+	var tabId = $(this).attr("data-tab");
+
+	//if the tab isn't focused
+	if (tabs.getSelected() != tabId) {
+		switchToTab(tabId);
+	} else { //the tab is focused, edit tab instead
+		enterEditMode(tabId);
+	}
+
+});
+
+/* draws tabs and manages tab events */
 
 function getTabElement(id) { //gets the DOM element for a tab
 	return $(".tab-item[data-tab={id}]".replace("{id}", id))
@@ -52,7 +108,9 @@ function enterEditMode(tabId) {
 	var input = tabEl.getInput();
 
 	tabEl.addClass("selected");
-	input.focus().val(currentURL).select();
+	input.val(currentURL);
+	input.get(0).focus();
+	input.select();
 	showAwesomebar(input);
 	tabGroup.addClass("has-selected-tab");
 
@@ -66,20 +124,20 @@ function enterEditMode(tabId) {
 }
 
 function rerenderTabElement(tabId) {
-	var tabEl = getTabElement(tabId);
-
-	var tabData = tabs.get(tabId);
+	var tabEl = getTabElement(tabId),
+		tabData = tabs.get(tabId);
 
 	var tabTitle = tabData.title || "New Tab";
 	tabEl.find(".tab-view-contents .title").text(tabTitle).attr("title", tabTitle);
-	tabEl.find(".tab-view-contents .icon-tab-is-secure, .icon-tab-is-private").remove(); //remove previous secure and private icons. Reader view icon is updated seperately, so it is not removed.
+
+	var secIcon = tabEl[0].querySelector(".icon-tab-is-secure");
 
 	if (tabData.secure) {
-		tabEl.find(".tab-view-contents").prepend("<i class='fa fa-lock icon-tab-is-secure'></i>");
-	}
-
-	if (tabData.private) {
-		tabEl.find(".tab-view-contents").prepend("<i class='fa fa-ban icon-tab-is-private'></i>").attr("title", "Private tab");
+		if (!secIcon) {
+			tabEl.find(".tab-view-contents").prepend("<i class='fa fa-lock icon-tab-is-secure'></i>");
+		}
+	} else if (secIcon) {
+		secIcon.parentNode.removeChild(secIcon);
 	}
 
 	//update the star to reflect whether the page is bookmarked or not
@@ -88,7 +146,6 @@ function rerenderTabElement(tabId) {
 
 function createTabElement(tabId) {
 	var data = tabs.get(tabId),
-		title = "Search or enter address",
 		url = urlParser.parse(data.url);
 
 	var tab = $("<div class='tab-item'>");
@@ -98,40 +155,13 @@ function createTabElement(tabId) {
 		tab.addClass("private-tab");
 	}
 
-	//swipe to delete tab
-
-	tab.on("mousewheel", function (e) {
-		if (e.originalEvent.deltaY > 35 && e.originalEvent.deltaX < 10) {
-			var tab = $(this).attr("data-tab");
-
-			//TODO this should be a css animation
-			getTabElement(tab).animate({
-				"margin-top": "-40px",
-			}, 150, function () {
-
-				if (tab == tabs.getSelected()) {
-					destroyTab(tab, {
-						switchToTab: true
-					});
-				} else {
-					destroyTab(tab);
-				}
-
-				if (tabs.count() == 0) {
-					addTab();
-				}
-			});
-		}
-	});
-
-	var input = $("<input class='tab-input theme-text-color mousetrap'>");
-	input.attr("placeholder", title);
-	input.attr("value", url);
-
 	var ec = $("<div class='tab-edit-contents'>");
 
-	input.appendTo(ec);
+	var input = $("<input class='tab-input theme-text-color mousetrap'>");
+	input.attr("placeholder", "Search or enter address");
+	input.attr("value", url);
 
+	input.appendTo(ec);
 	bookmarks.getStar(tabId).appendTo(ec);
 
 	ec.appendTo(tab);
@@ -139,23 +169,14 @@ function createTabElement(tabId) {
 	var vc = $("<div class='tab-view-contents theme-text-color'>")
 	readerView.getButton(tabId).appendTo(vc);
 
+	if (data.private) {
+		vc.prepend("<i class='fa fa-ban icon-tab-is-private'></i>").attr("title", "Private tab");
+	}
+
 	vc.append($("<span class='title'>").text(data.title || "New Tab"));
 	vc.appendTo(tab);
 
 
-	//events
-	tab.on("click", function (e) {
-		var tabId = $(this).attr("data-tab");
-
-		//if the tab isn't focused
-		if (tabs.getSelected() != tabId) {
-			$(".tab-input").blur();
-			switchToTab(tabId);
-		} else { //the tab is focused, edit tab instead
-			enterEditMode(tabId);
-		}
-
-	});
 
 	/* events */
 
@@ -183,18 +204,20 @@ function createTabElement(tabId) {
 			leaveTabEditMode(tabId);
 
 		} else if (e.keyCode == 9) {
+			return;
 			//tab key, do nothing - in keydown listener
 		} else if (e.keyCode == 16) {
+			return;
 			//shift key, do nothing
 		} else if (e.keyCode == 8) {
+			return;
 			//delete key is handled in keyUp
 		} else { //show the awesomebar
 			showAwesomebarResults($(this).val(), $(this), e);
 		}
-	});
 
-	//on keydown, if the autocomplete result doesn't change, we move the selection instead of regenerating it to avoid race conditions with typing. Adapted from https://github.com/patrickburke/jquery.inlineComplete
-	input.on("keypress", function (e) {
+		//on keydown, if the autocomplete result doesn't change, we move the selection instead of regenerating it to avoid race conditions with typing. Adapted from https://github.com/patrickburke/jquery.inlineComplete
+
 		var v = String.fromCharCode(e.keyCode).toLowerCase();
 		var sel = this.value.substring(this.selectionStart, this.selectionEnd).indexOf(v);
 
@@ -219,11 +242,11 @@ function createTabElement(tabId) {
 function addTab(tabId, options) {
 	/* options 
 	
-		options.focus - whether to enter editing mode when the tab is created. Defaults to true.
-		options.openInBackground - whether to open the tab without switching to it. Defaults to false.
-		options.leaveEditMode - whether to hide the awesomebar when creating the tab
+				options.focus - whether to enter editing mode when the tab is created. Defaults to true.
+				options.openInBackground - whether to open the tab without switching to it. Defaults to false.
+				options.leaveEditMode - whether to hide the awesomebar when creating the tab
 	
-		*/
+				*/
 
 	options = options || {}
 
@@ -231,19 +254,30 @@ function addTab(tabId, options) {
 		leaveTabEditMode(); //if a tab is in edit-mode, we want to exit it
 	}
 
-	tabId = tabId || tabs.add({
-		backgroundColor: "rgb(255, 255, 255)",
-		foregroundColor: "black"
-	});
+	tabId = tabId || tabs.add();
 
+	//use the correct new tab colors
 
-	tabGroup.append(createTabElement(tabId));
+	var tab = tabs.get(tabId);
+
+	if (tab.private && !tab.backgroundColor) {
+		tabs.update(tabId, {
+			backgroundColor: defaultColors.private[0],
+			foregroundColor: defaultColors.private[1]
+		});
+	} else if (!tab.backgroundColor) {
+		tabs.update(tabId, {
+			backgroundColor: defaultColors.regular[0],
+			foregroundColor: defaultColors.regular[1]
+		});
+	}
+
+	var index = tabs.getIndex(tabId);
+	tabGroup.insertAt(index, createTabElement(tabId));
+
 	addWebview(tabId, {
 		openInBackground: options.openInBackground, //if the tab is being opened in the background, the webview should be as well
 	});
-
-	//use the default colors while creating a tab
-
 
 	//open in background - we don't want to enter edit mode or switch to tab
 
