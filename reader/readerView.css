@@ -86,8 +86,10 @@ h4 {
 	font-weight: 600;
 }
 .page {
+	padding: 0 2.25rem 2.25rem 2.25rem;
+}
+.article-authors + .page {
 	padding-top: 1rem;
-	padding: 2.25rem;
 }
 img {
 	display: block;
