@@ -12,12 +12,10 @@ var tabs = {
 			var tab = {};
 		}
 
-		tab.url = tab.url || "";
-
 		var tabId = tab.id || Math.round(Math.random() * 100000000000000000); //you can pass an id that will be used, or a random one will be generated.
 
 		var newTab = {
-			url: tab.url,
+			url: tab.url || "about:blank",
 			title: tab.title,
 			id: tabId,
 			lastActivity: Date.now(),
