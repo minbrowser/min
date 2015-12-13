@@ -21,26 +21,32 @@ ipc.on("inspectPage", function () {
 });
 
 ipc.on("addTab", function (e) {
-	addTab();
+	var newIndex = tabs.getIndex(tabs.getSelected()) + 1;
+	var newTab = tabs.add({}, newIndex);
+	addTab(newTab);
 });
 
-ipc.on("addPrivateTab", function (e) {
+function addPrivateTab() {
+
+	console.log(tabs.count(), tabs.getAtIndex(0).url);
+
+	if (tabs.count() == 1 && tabs.getAtIndex(0).url == "about:blank") {
+		destroyTab(tabs.getAtIndex(0).id);
+	}
+	var newIndex = tabs.getIndex(tabs.getSelected()) + 1;
+
 	var privateTab = tabs.add({
 		url: "about:blank",
 		private: true,
-	})
+	}, newIndex)
 	addTab(privateTab);
-});
+}
+
+ipc.on("addPrivateTab", addPrivateTab);
 
 var Mousetrap = require("mousetrap");
 
-Mousetrap.bind("shift+command+p", function (e) {
-	var privateTab = tabs.add({
-		url: "about:blank",
-		private: true,
-	})
-	addTab(privateTab);
-});
+Mousetrap.bind("shift+command+p", addPrivateTab);
 
 Mousetrap.bind(["command+l", "command+k"], function (e) {
 	enterEditMode(tabs.getSelected());
@@ -72,12 +78,21 @@ Mousetrap.bind("command+f", function (e) {
 for (var i = 0; i < 9; i++) {
 	(function (i) {
 		Mousetrap.bind("command+" + i, function (e) {
-			var newTab = tabs.getAtIndex(i - 1);
-			if (!newTab) { //we're trying to switch to a tab that doesn't exist
-				return;
+			var currentIndex = tabs.getIndex(tabs.getSelected());
+			var newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i);
+			if (newTab) {
+				switchToTab(newTab.id);
 			}
-			switchToTab(newTab.id);
 		})
+
+		Mousetrap.bind("shift+command+" + i, function (e) {
+			var currentIndex = tabs.getIndex(tabs.getSelected());
+			var newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i);
+			if (newTab) {
+				switchToTab(newTab.id);
+			}
+		})
+
 	})(i);
 }
 
@@ -87,7 +102,7 @@ Mousetrap.bind("command+9", function (e) {
 
 Mousetrap.bind("esc", function (e) {
 	leaveTabEditMode();
-	getWebview(tabs.getSelected()).focus();
+	getWebview(tabs.getSelected()).get(0).focus();
 });
 
 Mousetrap.bind("shift+command+r", function () {
@@ -136,4 +151,6 @@ Mousetrap.bind("command+n", function (d) { //destroys all current tabs, and crea
 	}
 
 	addTab();
+
+	sessionRestore.save(); //we want to delete the old session
 })
