@@ -5,6 +5,10 @@ var _browser_maxZoom = 9;
 var _browser_minZoom = -8;
 
 function zoomIn() {
+	if (!webFrame) {
+		webFrame = electron.webFrame;
+	}
+
 	if (_browser_maxZoom > _browser_zoomLevel) {
 		_browser_zoomLevel += 1;
 	}
@@ -12,6 +16,10 @@ function zoomIn() {
 }
 
 function zoomOut() {
+	if (!webFrame) {
+		webFrame = electron.webFrame;
+	}
+
 	if (_browser_minZoom < _browser_zoomLevel) {
 		_browser_zoomLevel -= 1;
 	}
@@ -19,6 +27,10 @@ function zoomOut() {
 }
 
 function zoomReset() {
+	if (!webFrame) {
+		webFrame = electron.webFrame;
+	}
+
 	_browser_zoomLevel = 0;
 	webFrame.setZoomLevel(_browser_zoomLevel);
 }

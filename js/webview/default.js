@@ -2,7 +2,7 @@
 
 var electron = require("electron");
 var ipc = electron.ipcRenderer;
-var webFrame = electron.webFrame;
+var webFrame;
 
 /* disable getUserMedia/Geolocation until we have permissions prompts for this https://github.com/atom/electron/issues/3268 */
 

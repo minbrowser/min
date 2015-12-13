@@ -2,30 +2,28 @@
 
 var totalMouseMove = 0;
 var verticalMouseMove = 0;
+var eventsCaptured = 0;
 var documentUnloaded = false
 
 window.addEventListener("mousewheel", function (e) {
 
-	console.log(e);
-
 	verticalMouseMove += e.deltaY;
+	eventsCaptured++;
 
 	/* cmd-key while scrolling should zoom in and out */
 
-	if (verticalMouseMove > 40 && e.metaKey) {
-		verticalMouseMove = 0;
+	if (verticalMouseMove > 55 && e.metaKey && eventsCaptured > 1) {
+		verticalMouseMove = -10;
 		return zoomOut();
 	}
 
-	if (verticalMouseMove < -40 && e.metaKey) {
-		verticalMouseMove = 0;
+	if (verticalMouseMove < -55 && e.metaKey && eventsCaptured > 1) {
+		verticalMouseMove = -10;
 		return zoomIn();
 	}
 	if (e.deltaY > 5 || e.deltaY < -10) {
 		return;
 	}
-
-	console.log(e);
 
 	if (!documentUnloaded) {
 
@@ -36,15 +34,12 @@ window.addEventListener("mousewheel", function (e) {
 			doneNavigating = true;
 			window.history.back();
 			documentUnloaded = true;
-			console.log("going back");
 			setTimeout(function () {
 				documentUnloaded = false;
 			}, 3000);
 		} else if (totalMouseMove > 100) {
-			console.log("going forward");
 			documentUnloaded = true;
 			window.history.go(1);
-			console.log(e);
 			setTimeout(function () {
 				documentUnloaded = false;
 			}, 3000);
@@ -59,4 +54,5 @@ setInterval(function () {
 
 setInterval(function () {
 	verticalMouseMove = 0;
+	eventsCaptured = 0;
 }, 1000);
