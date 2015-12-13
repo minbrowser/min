@@ -34,7 +34,8 @@ var webviewMenu = {
 					var newTab = tabs.add({
 						url: IPCdata.src,
 						private: tab.private,
-					})
+					}, tabs.getIndex(tabs.getSelected()) + 1);
+
 					addTab(newTab, {
 						focus: false,
 					});
@@ -50,7 +51,7 @@ var webviewMenu = {
 						var newTab = tabs.add({
 							url: IPCdata.src,
 							private: true,
-						})
+						}, tabs.getIndex(tabs.getSelected()) + 1)
 						addTab(newTab, {
 							focus: false,
 						});
