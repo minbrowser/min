@@ -6,10 +6,6 @@ var webviewBase = $("#webviews");
 var webviewEvents = [];
 var webviewIPC = [];
 
-function updateURLInternal(webview, url) {
-	webview.attr("src", url);
-}
-
 //this only affects newly created webviews, so all bindings should be done on startup
 
 function bindWebviewEvent(event, fn) {
@@ -109,10 +105,12 @@ function getWebviewDom(options) {
 
 	w.on("new-window", function (e) {
 		var tab = $(this).attr("data-tab");
+		var currentIndex = tabs.getIndex(tabs.getSelected());
+
 		var newTab = tabs.add({
 			url: e.originalEvent.url,
 			private: tabs.get(tab).private //inherit private status from the current tab
-		})
+		}, currentIndex + 1);
 		addTab(newTab, {
 			focus: false,
 			openInBackground: e.originalEvent.disposition == "background-tab", //possibly open in background based on disposition
