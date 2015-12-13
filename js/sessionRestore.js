@@ -1,6 +1,5 @@
 var sessionRestore = {
 	save: function () {
-		console.log("saving");
 		var data = {
 			version: 1,
 			tabs: [],
@@ -19,46 +18,63 @@ var sessionRestore = {
 	},
 	restore: function () {
 		//get the data
-		var data = JSON.parse(localStorage.getItem("sessionrestoredata") || "{}");
 
-		localStorage.setItem("sessionrestoredata", "{}");
+		try {
+			var data = JSON.parse(localStorage.getItem("sessionrestoredata") || "{}");
 
-		if (data.version && data.version != 1) {
-			addTab({
-				leaveEditMode: false //we know we aren't in edit mode yet, so we don't have to leave it
-			});
-			return;
-		}
+			localStorage.setItem("sessionrestoredata", "{}");
 
-		console.info("restoring tabs", data.tabs);
-
-		if (!data || !data.tabs || !data.tabs.length || (data.tabs.length == 1 && data.tabs[0].url == "about:blank")) { //If there are no tabs, or bif we only have one tab, and its about:blank, don't restore
-			addTab(tabs.add(), {
-				leaveEditMode: false
-			});
-			return;
-		}
-
-		data.tabs.forEach(function (tab, index) {
-			if (!tab.private) { //don't restore private tabs
-				var newTab = tabs.add(tab);
-				addTab(newTab, {
-					openInBackground: true,
-					leaveEditMode: false,
+			if (data.version && data.version != 1) { //if the version isn't compatible, we don't want to restore.
+				addTab({
+					leaveEditMode: false //we know we aren't in edit mode yet, so we don't have to leave it
 				});
+				return;
 			}
 
-		});
+			console.info("restoring tabs", data.tabs);
 
-		//set the selected tab
+			if (!data || !data.tabs || !data.tabs.length || (data.tabs.length == 1 && data.tabs[0].url == "about:blank")) { //If there are no tabs, or if we only have one tab, and it's about:blank, don't restore
+				addTab(tabs.add(), {
+					leaveEditMode: false
+				});
+				return;
+			}
 
-		switchToTab(data.selected);
+			//actually restore the tabs
+			data.tabs.forEach(function (tab, index) {
+				if (!tab.private) { //don't restore private tabs
+					var newTab = tabs.add(tab);
+					addTab(newTab, {
+						openInBackground: true,
+						leaveEditMode: false,
+					});
+				}
 
-		//we delete the data, restore the session, and then re-save it. This means that if for whatever reason the session data is making the browser hang, you can restart it and get a new session.
+			});
 
-		sessionRestore.save();
+			//set the selected tab
 
+			if (tabs.get(data.selected)) { //if the selected tab was a private tab that we didn't restore, it's possible that the selected tab doesn't actually exist. This will throw an error, so we want to make sure the tab exists before we try to switch to it
+				switchToTab(data.selected);
+			} else { //switch to the first tab
+				switchToTab(data.tabs[0].id);
+			}
 
+			//we delete the data, restore the session, and then re-save it. This means that if for whatever reason the session data is making the browser hang, you can restart and get a new session.
+
+			sessionRestore.save();
+
+		} catch (e) {
+			//if we can't restore the session, try to start over with a blank tab
+			console.warn("failed to restore session, rolling back");
+			console.error(e);
+
+			localStorage.setItem("sessionrestoredata", "{}");
+
+			$("webview, .tab-item").remove();
+			addTab();
+
+		}
 	}
 }
 
