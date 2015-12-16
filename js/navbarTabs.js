@@ -12,14 +12,16 @@ jQuery.fn.insertAt = function (index, element) {
 	return this;
 }
 
-var tabGroup = $(".tab-group #tabs");
+var tabContainer = $(".tab-group");
+var tabGroup = $(".tab-group #tabs"); //TODO these names are confusing
 
 /* tab events */
 
-//swipe to delete tabs
+var lastTabDeletion = 0;
 
 tabGroup.on("mousewheel", ".tab-item", function (e) {
-	if (e.originalEvent.deltaY > 35 && e.originalEvent.deltaX < 10) {
+	if (e.originalEvent.deltaY > 65 && e.originalEvent.deltaX < 10 && Date.now() - lastTabDeletion > 650) { //swipe up to delete tabs
+
 		var tab = $(this).attr("data-tab");
 
 		//TODO this should be a css animation
@@ -28,18 +30,30 @@ tabGroup.on("mousewheel", ".tab-item", function (e) {
 		}, 125, function () {
 
 			if (tab == tabs.getSelected()) {
-				destroyTab(tab, {
-					switchToTab: true
-				});
+				var currentIndex = tabs.getIndex(tabs.getSelected());
+				var nextTab = tabs.getAtIndex(currentIndex + 1) || tabs.getAtIndex(currentIndex - 1);
+
+				destroyTab(tab);
+
+				if (nextTab) {
+					switchToTab(nextTab.id);
+				} else {
+					addTab();
+				}
+
 			} else {
 				destroyTab(tab);
 			}
 
-			if (tabs.count() == 0) {
-				addTab();
-			}
 		});
+
+		lastTabDeletion = Date.now();
 	}
+
+	if (e.originalEvent.deltaY > 0) { //downward swipes should still be handled by expandedTabMode.js
+		e.stopPropagation(); //prevent the event from bubbling up to expandedTabMode.js, where exitExpandedMode would be triggered
+	}
+
 });
 
 //click to enter edit mode or switch to tab
@@ -80,9 +94,17 @@ function setActiveTabElement(tabId) {
 		el.removeClass("has-highlight");
 	}
 
-	el[0].scrollIntoView({
-		behavior: "smooth"
-	});
+	if (!isExpandedMode) {
+
+		requestIdleCallback(function () {
+			el[0].scrollIntoView({
+				behavior: "smooth"
+			});
+		}, {
+			timeout: 1000
+		});
+
+	}
 
 }
 
@@ -94,6 +116,9 @@ function leaveTabEditMode(options) {
 }
 
 function enterEditMode(tabId) {
+
+	leaveExpandedMode();
+
 	var tabEl = getTabElement(tabId);
 	var webview = getWebview(tabId)[0];
 
@@ -112,6 +137,7 @@ function enterEditMode(tabId) {
 	input.get(0).focus();
 	input.select();
 	showAwesomebar(input);
+	showAwesomebarResults("", input, null);
 	tabGroup.addClass("has-selected-tab");
 
 	//show keyword suggestions in the awesomebar
@@ -130,14 +156,14 @@ function rerenderTabElement(tabId) {
 	var tabTitle = tabData.title || "New Tab";
 	tabEl.find(".tab-view-contents .title").text(tabTitle).attr("title", tabTitle);
 
-	var secIcon = tabEl[0].querySelector(".icon-tab-is-secure");
+	var secIcon = tabEl[0].getElementsByClassName("icon-tab-is-secure");
 
 	if (tabData.secure) {
-		if (!secIcon) {
+		if (!secIcon[0]) {
 			tabEl.find(".tab-view-contents").prepend("<i class='fa fa-lock icon-tab-is-secure'></i>");
 		}
-	} else if (secIcon) {
-		secIcon.parentNode.removeChild(secIcon);
+	} else if (secIcon[0]) {
+		secIcon[0].parentNode.removeChild(secIcon[0]);
 	}
 
 	//update the star to reflect whether the page is bookmarked or not
@@ -174,6 +200,8 @@ function createTabElement(tabId) {
 	}
 
 	vc.append($("<span class='title'>").text(data.title || "New Tab"));
+
+	vc.append("<span class='secondary-text'></span>");
 	vc.appendTo(tab);
 
 
@@ -242,11 +270,11 @@ function createTabElement(tabId) {
 function addTab(tabId, options) {
 	/* options 
 	
-				options.focus - whether to enter editing mode when the tab is created. Defaults to true.
-				options.openInBackground - whether to open the tab without switching to it. Defaults to false.
-				options.leaveEditMode - whether to hide the awesomebar when creating the tab
+						options.focus - whether to enter editing mode when the tab is created. Defaults to true.
+						options.openInBackground - whether to open the tab without switching to it. Defaults to false.
+						options.leaveEditMode - whether to hide the awesomebar when creating the tab
 	
-				*/
+						*/
 
 	options = options || {}
 
@@ -295,6 +323,7 @@ function addTab(tabId, options) {
 
 //when we click outside the navbar, we leave editing mode
 
-$(document.body).on("focus", "webview", function () {
+bindWebviewEvent("focus", function () {
+	leaveExpandedMode();
 	leaveTabEditMode();
 });

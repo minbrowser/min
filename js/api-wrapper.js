@@ -14,29 +14,19 @@ function navigate(tabId, newURL) {
 	});
 }
 
-
-//options:
-//switchToTab: whether to switch to another tab, or create a new one if there are no tabs left. Defaults to true
-
-function destroyTab(id, options) {
-	options = options || {};
-	//focus the next tab, or the previous tab if this was the last tab
-
-	if (options.switchToTab) {
-		var t = tabs.getIndex(id);
-		var nextTab = tabs.getAtIndex(t + 1) || tabs.getAtIndex(t - 1);
+function switchToNextTab(oldIndex) {
+	var nextTab = tabs.getAtIndex(oldIndex + 1) || tabs.getAtIndex(oldIndex - 1);
+	if (nextTab) {
+		switchToTab(nextTab.id);
 	}
+}
+
+function destroyTab(id) {
 
 	$(".tab-item[data-tab={id}]".replace("{id}", id)).remove(); //remove the actual tab element
 	var t = tabs.destroy(id); //remove from state - returns the index of the destroyed tab
 	destroyWebview(id); //remove the webview
 
-	//if there are no other tabs, create a new one
-	if (options.switchToTab && !nextTab) {
-		return addTab();
-	} else if (options.switchToTab) {
-		switchToTab(nextTab.id);
-	}
 }
 
 /* switches to a tab - update the webview, state, tabstrip, etc. */
@@ -44,9 +34,11 @@ function destroyTab(id, options) {
 function switchToTab(id) {
 
 	leaveTabEditMode();
-	setActiveTabElement(id);
 
-	switchToWebview(id);
+	setActiveTabElement(id);
+	switchToWebview(id, {
+		focus: !isExpandedMode //trying to focus a webview while in expanded mode breaks the page
+	});
 
 	tabs.setSelected(id);
 

@@ -28,11 +28,10 @@ ipc.on("addTab", function (e) {
 
 function addPrivateTab() {
 
-	console.log(tabs.count(), tabs.getAtIndex(0).url);
-
 	if (tabs.count() == 1 && tabs.getAtIndex(0).url == "about:blank") {
 		destroyTab(tabs.getAtIndex(0).id);
 	}
+
 	var newIndex = tabs.getIndex(tabs.getSelected()) + 1;
 
 	var privateTab = tabs.add({
@@ -54,12 +53,25 @@ Mousetrap.bind(["command+l", "command+k"], function (e) {
 })
 
 Mousetrap.bind("command+w", function (e) {
+	//prevent command+w from closing the window
 	e.preventDefault();
 	e.stopImmediatePropagation();
-	e.stopPropagation();
-	destroyTab(tabs.getSelected(), {
-		switchToTab: true
-	});
+
+	var currentTab = tabs.getSelected();
+	var currentIndex = tabs.getIndex(currentTab);
+	var nextTab = tabs.getAtIndex(currentIndex + 1) || tabs.getAtIndex(currentIndex - 1);
+
+	destroyTab(currentTab);
+	if (nextTab) {
+		switchToTab(nextTab.id);
+	} else {
+		addTab();
+	}
+
+	if (tabs.count() == 1) { //there isn't any point in being in expanded mode any longer
+		leaveExpandedMode();
+	}
+
 	return false;
 });
 
@@ -100,8 +112,13 @@ Mousetrap.bind("command+9", function (e) {
 	switchToTab(tabs.getAtIndex(tabs.count() - 1).id);
 })
 
+Mousetrap.bind("shift+command+9", function (e) {
+	switchToTab(tabs.getAtIndex(0).id);
+})
+
 Mousetrap.bind("esc", function (e) {
 	leaveTabEditMode();
+	leaveExpandedMode();
 	getWebview(tabs.getSelected()).get(0).focus();
 });
 
@@ -120,6 +137,9 @@ Mousetrap.bind("command+right", function (d) {
 });
 
 Mousetrap.bind(["option+command+left", "shift+ctrl+tab"], function (d) {
+
+	enterExpandedMode(); //show the detailed tab switcher
+
 	var currentIndex = tabs.getIndex(tabs.getSelected());
 	var previousTab = tabs.getAtIndex(currentIndex - 1);
 
@@ -131,6 +151,9 @@ Mousetrap.bind(["option+command+left", "shift+ctrl+tab"], function (d) {
 });
 
 Mousetrap.bind(["option+command+right", "ctrl+tab"], function (d) {
+
+	enterExpandedMode();
+
 	var currentIndex = tabs.getIndex(tabs.getSelected());
 	var nextTab = tabs.getAtIndex(currentIndex + 1);
 
@@ -145,12 +168,33 @@ Mousetrap.bind("command+n", function (d) { //destroys all current tabs, and crea
 
 	var tset = tabs.get();
 	for (var i = 0; i < tset.length; i++) {
-		destroyTab(tset[i].id, {
-			switchToTab: false
-		});
+		destroyTab(tset[i].id);
 	}
 
-	addTab();
+	addTab(); //create a new, blank tab
 
 	sessionRestore.save(); //we want to delete the old session
-})
+});
+
+//return exits expanded mode
+
+Mousetrap.bind("return", function () {
+	if (isExpandedMode) {
+		leaveExpandedMode();
+		getWebview(tabs.getSelected())[0].focus();
+	}
+});
+
+Mousetrap.bind("shift+command+e", function () {
+	if (!isExpandedMode) {
+		enterExpandedMode();
+	} else {
+		leaveExpandedMode();
+	}
+});
+
+$(document.body).on("keyup", function (e) {
+	if (e.keyCode == 17) { //ctrl key
+		leaveExpandedMode();
+	}
+});
