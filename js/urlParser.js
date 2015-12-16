@@ -53,5 +53,15 @@ var urlParser = {
 	prettyURL: function (url) {
 		var urlOBJ = new URL(url);
 		return (urlOBJ.hostname + urlOBJ.pathname).replace(urlParser.startingWWWRegex, "$1").replace(urlParser.trailingSlashRegex, "");
+	},
+	areEqual: function (url1, url2) {
+		try {
+			var obj1 = new URL(url1);
+			var obj2 = new URL(url2);
+
+			return obj1.hostname == obj2.hostname && obj1.pathname == obj2.pathname
+		} catch (e) { //if either of the url's are invalid, the URL constructor will throw an error
+			return url1 == url2;
+		}
 	}
 }
