@@ -11,16 +11,21 @@ steps to creating a bookmark:
 var bookmarks = {
 	authBookmarkTab: null,
 	updateHistory: function (tabId) {
-		var w = getWebview(tabId)[0]
-		var data = {
-			url: w.getURL(),
-			title: w.getTitle(),
-			color: tabs.get(tabId).backgroundColor
-		}
-		bookmarks.worker.postMessage({
-			action: "updateHistory",
-			data: data
-		})
+		requestIdleCallback(function (deadine) {
+			var w = getWebview(tabId)[0]
+			var data = {
+				url: w.getURL(),
+				title: w.getTitle(),
+				color: tabs.get(tabId).backgroundColor
+			}
+			bookmarks.worker.postMessage({
+				action: "updateHistory",
+				data: data
+			});
+		}, {
+			timeout: 1000
+		});
+
 	},
 	currentCallback: function () {},
 	onDataRecieved: function (data) {
