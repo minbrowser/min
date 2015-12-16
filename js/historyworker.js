@@ -245,6 +245,17 @@ onmessage = function (e) {
 
 	}
 
+	if (action == "deleteHistory") {
+		db.history.where("url").equals(pageData.url).delete();
+
+		//delete from the in-memory cache
+		for (var i = 0; i < historyInMemoryCache.length; i++) {
+			if (historyInMemoryCache[i].url == pageData.url) {
+				historyInMemoryCache.splice(i, 1);
+			}
+		}
+	}
+
 	if (action == "searchHistory") { //do a history search
 
 		function processItem(item) {
