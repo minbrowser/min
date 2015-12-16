@@ -1,8 +1,5 @@
 var awesomebarShown = false;
 var awesomebarCachedText = "";
-var cachedACItem = "";
-var autocompleteEnabled = true;
-var shouldContinueAC = true;
 var METADATA_SEPARATOR = "·";
 var didFireKeydownSelChange = false;
 var currentAwesomebarInput;
@@ -32,6 +29,18 @@ function throttle(fn, threshhold, scope) {
 			last = now;
 			fn.apply(context, args);
 		}
+	};
+}
+
+function debounce(fn, delay) {
+	var timer = null;
+	return function () {
+		var context = this,
+			args = arguments;
+		clearTimeout(timer);
+		timer = setTimeout(function () {
+			fn.apply(context, args);
+		}, delay);
 	};
 }
 
@@ -176,6 +185,7 @@ function hideAwesomebar() {
 var showAwesomebarResults = function (text, input, event) {
 
 	isExpandedHistoryMode = false;
+	deleteKeyPressed = event && event.keyCode == 8;
 
 	//find the real input value, accounting for highlighted suggestions and the key that was just pressed
 
@@ -183,7 +193,7 @@ var showAwesomebarResults = function (text, input, event) {
 
 	//delete key doesn't behave like the others, String.fromCharCode returns an unprintable character (which has a length of one)
 
-	if (event.keyCode != 8) {
+	if (event && event.keyCode != 8) {
 
 		text = v.substring(0, input[0].selectionStart) + String.fromCharCode(event.keyCode) + v.substring(input[0].selectionEnd + 1, v.length).trim();
 
@@ -191,15 +201,11 @@ var showAwesomebarResults = function (text, input, event) {
 		txt = v;
 	}
 
-
-	hasAutocompleted = false;
-
-	shouldContinueAC = !(event.keyCode == 8); //this needs to be outside searchHistory so that it doesn't get reset if the history callback is run multiple times (such as when multiple messages get sent before the worker has finished startup).
-
 	console.log("awesomebar: ", "'" + text + "'", text.length);
 
-	//there is no text, show a blank awesomebar
+	//there is no text, show only topsites
 	if (text.length < 1) {
+		showHistoryResults("", input);
 		clearAwesomebar();
 		return;
 	}
@@ -254,14 +260,17 @@ function focusAwesomebarItem(options) {
 	options = options || {}; //fallback if options is null
 	var previous = options.focusPrevious;
 	var allItems = $("#awesomebar .result-item:not(.unfocusable)");
-	var currentItem = $("#awesomebar .result-item:focus");
+	var currentItem = $("#awesomebar .result-item:focus, .result-item.fakefocus");
 	var index = allItems.index(currentItem);
 	var logicalNextItem = allItems.eq((previous) ? index - 1 : index + 1);
 
+	awesomebar.find(".fakefocus").removeClass("fakefocus"); //clear previously focused items
 
 	if (currentItem[0] && logicalNextItem[0]) { //an item is focused and there is another item after it, move onto the next one
 		logicalNextItem.get(0).focus();
-	} else { // the last item is focused, or no item is focused. Focus the first one again.
+	} else if (currentItem[0]) { //the last item is focused, focus the awesomebar again
+		getTabElement(tabs.getSelected()).getInput().get(0).focus();
+	} else { // no item is focused.
 		$("#awesomebar .result-item").first().get(0).focus();
 	}
 }
@@ -280,6 +289,25 @@ awesomebar.on("keydown", ".result-item", function (e) {
 		e.preventDefault();
 		focusAwesomebarItem({
 			focusPrevious: true
+		});
+	}
+});
+
+//swipe left on history items to delete them
+
+var lastItemDeletion = Date.now();
+
+awesomebar.on("mousewheel", ".history-results .result-item, .top-answer-results .result-item", function (e) {
+	var self = $(this)
+	if (e.originalEvent.deltaX > 50 && e.originalEvent.deltaY < 3 && self.attr("data-url") && Date.now() - lastItemDeletion > 700) {
+		lastItemDeletion = Date.now();
+		self.animate({
+			opacity: "0",
+			"margin-left": "-100%"
+		}, 200, function () {
+			self.remove();
+			bookmarks.deleteHistory(self.attr("data-url"));
+			lastItemDeletion = Date.now();
 		});
 	}
 });

@@ -16,7 +16,7 @@
 #awesomebar .result-item {
 	width: 100%;
 	display: block;
-	padding: 0.5em;
+	padding: 0.55em;
 	cursor: pointer;
 }
 #awesomebar .result-item:after {
@@ -25,22 +25,23 @@
 	display: block;
 }
 #awesomebar .result-item:hover {
-	background-color: rgba(0, 0, 0, 0.075);
+	background-color: rgba(0, 0, 0, 0.05);
 }
-.dark-theme #awesomebar .result-item:hover {
-	background-color: rgba(255, 255, 255, 0.12);
-}
-#awesomebar .result-item:focus {
-	background-color: rgba(0, 0, 0, 0.12);
+#awesomebar .result-item:focus,
+#awesomebar .result-item.fakefocus {
+	background-color: rgba(0, 0, 0, 0.08);
 	outline: none;
 }
-.dark-theme #awesomebar .result-item:focus {
-	background-color: rgba(255, 255, 255, 0.15);
+.dark-theme #awesomebar .result-item:hover {
+	background-color: rgba(255, 255, 255, 0.10);
+}
+.dark-theme #awesomebar .result-item:focus,
+.dark-theme #awesomebar .result-item.fakefocus {
+	background-color: rgba(255, 255, 255, 0.16);
 }
 #awesomebar .result-item .title {
 	display: inline-block;
 	vertical-align: middle;
-	max-height: 1.1em;
 	max-width: 45%;
 	overflow: hidden;
 	white-space: nowrap;
@@ -52,6 +53,7 @@
 	font-size: 0.8em;
 	vertical-align: text-bottom;
 	width: 1em;
+	height: 1em;
 }
 #awesomebar .result-icon {
 	height: 2.75em;
@@ -104,13 +106,11 @@
 	font-size: 0.95em;
 	overflow: hidden;
 	vertical-align: middle;
-	/* TODO find a better way to center this */
-	padding-bottom: 1.154em;
 	padding-left: 1.5em;
 	max-width: 50%;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	height: 1em;
+	max-height: 2em;
 }
 
 /* switch to a two-line layout */

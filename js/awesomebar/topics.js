@@ -1,4 +1,4 @@
-const maxTopicResults = 2;
+const maxTopicResults = 1;
 const showTopicResults = function (text, input) {
 
 	bookmarks.searchTopics(text, function (topics) {

@@ -36,7 +36,7 @@ var bookmarks = {
 		})
 		bookmarks.authBookmarkTab = null;
 	},
-	delete: function (url) {
+	deleteBookmark: function (url) {
 		bookmarks.worker.postMessage({
 			action: "deleteBookmark",
 			data: {
@@ -44,7 +44,15 @@ var bookmarks = {
 			}
 		});
 	},
-	search: function (text, callback) {
+	deleteHistory: function (url) {
+		bookmarks.worker.postMessage({
+			action: "deleteHistory",
+			data: {
+				url: url
+			}
+		});
+	},
+	searchBookmarks: function (text, callback) {
 		bookmarks.currentCallback = callback; //save for later, we run in onMessage
 		bookmarks.worker.postMessage({
 			action: "searchBookmarks",
@@ -85,7 +93,7 @@ var bookmarks = {
 		var url = tabs.get(tabId).url,
 			exists = false;
 
-		bookmarks.search(url, function (d) {
+		bookmarks.searchBookmarks(url, function (d) {
 
 			d.forEach(function (item) {
 				if (item.url == url) {
@@ -96,7 +104,7 @@ var bookmarks = {
 
 			if (exists) {
 				console.log("deleting bookmark " + tabs.get(tabId).url);
-				bookmarks.delete(tabs.get(tabId).url);
+				bookmarks.deleteBookmark(tabs.get(tabId).url);
 			} else {
 				bookmarks.bookmark(tabId);
 			}
@@ -132,7 +140,7 @@ var bookmarks = {
 
 		//check if the page is bookmarked or not, and update the star to match
 
-		bookmarks.search(currentURL, function (results) {
+		bookmarks.searchBookmarks(currentURL, function (results) {
 			if (results && results[0] && results[0].url == currentURL) {
 				star.removeClass("fa-star-o").addClass("fa-star");
 			} else {

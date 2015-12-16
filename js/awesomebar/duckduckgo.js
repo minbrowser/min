@@ -112,7 +112,7 @@ var limitSearchSuggestions = function (itemsToRemove) {
 	serarea.find(".result-item:nth-child(n+{items})".replace("{items}", itemsLeft + 1)).remove();
 }
 
-window.showInstantAnswers = throttle(function (text, input, options) {
+window.showInstantAnswers = debounce(function (text, input, options) {
 
 	options = options || {};
 
@@ -130,7 +130,6 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 
 	iaarea.find(".result-item").addClass("old");
 	suggestedsitearea.find(".result-item").addClass("old");
-	topAnswerarea.find(".result-item").addClass("old");
 
 	if (text.length > 3) {
 
@@ -173,6 +172,7 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 
 				//answers are more relevant, they should be displayed at the top
 				if (res.Answer) {
+					topAnswerarea.empty();
 					item.appendTo(topAnswerarea);
 				} else {
 					item.appendTo(iaarea);
@@ -221,7 +221,6 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 
 			iaarea.find(".old").remove();
 			suggestedsitearea.find(".old").remove();
-			topAnswerarea.find(".old").remove();
 
 
 		});
@@ -230,4 +229,4 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 		suggestedsitearea.find(".old").remove();
 	}
 
-}, 700);
+}, 450);

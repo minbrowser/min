@@ -3,14 +3,13 @@ var DDGSearchURLRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
 	plusRegex = /\+/g;
 
 var shouldAutocompleteTitle;
-var hasAutocompleted = false;
+var currentACItem = null;
+var deleteKeyPressed = false;
 
 var isExpandedHistoryMode = false;
-
-var cachedHistoryResults = [];
 var maxHistoryResults = 4;
 
-function awesomebarAutocomplete(text, input) {
+function awesomebarAutocomplete(text, input, historyResults) {
 	if (text == awesomebarCachedText && input[0].selectionStart != input[0].selectionEnd) { //if nothing has actually changed, don't try to autocomplete
 		return;
 	}
@@ -18,17 +17,25 @@ function awesomebarAutocomplete(text, input) {
 	if (didFireKeydownSelChange) {
 		return;
 	}
-	for (var i = 0; i < cachedHistoryResults.length; i++) {
-		if (autocompleteResultIfNeeded(input, cachedHistoryResults[i])) {
-			hasAutocompleted = true;
-		}
+
+	if (!text) {
+		currentACItem = null;
+		return;
+	}
+
+	var didAutocomplete = false;
+
+
+	for (var i = 0; !didAutocomplete && i < historyResults.length; i++) { //we only want to autocomplete the first item that matches
+		didAutocomplete = autocompleteResultIfNeeded(input, historyResults[i]); //this returns true or false depending on whether the item was autocompleted or not
 	}
 }
 
 function autocompleteResultIfNeeded(input, result) {
 
-	DDGSearchURLRegex.lastIndex = 0;
+	//figure out if we should autocomplete based on the title
 
+	DDGSearchURLRegex.lastIndex = 0;
 	shouldAutocompleteTitle = DDGSearchURLRegex.test(result.url);
 
 	if (shouldAutocompleteTitle) {
@@ -36,73 +43,64 @@ function autocompleteResultIfNeeded(input, result) {
 	}
 
 	var text = getValue(input); //make sure the input hasn't changed between start and end of query
+	var hostname = new URL(result.url).hostname;
 
-	var textWithoutProtocol = urlParser.removeProtocol(text),
-		URLWithoutProtocol = urlParser.removeProtocol(result.url);
+	var possibleAutocompletions = [ //the different variations of the URL we can autocomplete
+		hostname, //we start with the domain
+		(hostname + "/").replace(urlParser.startingWWWRegex, "$1").replace("/", ""), //if that doesn't match, try the hostname without the www instead. The regex requires a slash at the end, so we add one, run the regex, and then remove it
+		urlParser.prettyURL(result.url), //then try the whole url
+		urlParser.removeProtocol(result.url), //then try the url with querystring
+		result.url, //then just try the url with protocol
+	]
 
-	if (textWithoutProtocol != text) {
-		var hasProtocol = true;
+	if (shouldAutocompleteTitle) {
+		possibleAutocompletions.push(result.title);
 	}
-	var hasWWW = text.indexOf("www.") != -1
-
-	if (textWithoutProtocol.indexOf("/") == -1) {
-		var hasPath = false;
-	} else {
-		var hasPath = true;
-	}
-
-	var canAutocompleteURL = URLWithoutProtocol.indexOf(textWithoutProtocol) == 0 && !shouldAutocompleteTitle;
 
 
-	if (autocompleteEnabled && shouldContinueAC && textWithoutProtocol && (canAutocompleteURL || (shouldAutocompleteTitle && result.title.indexOf(textWithoutProtocol) == 0))) { //the user has started to type the url
-		if (shouldAutocompleteTitle) {
-			var ac = result.title;
-		} else {
-			//figure out the right address component to autocomplete
+	for (var i = 0; i < possibleAutocompletions.length; i++) {
+		if (!deleteKeyPressed && possibleAutocompletions[i].toLowerCase().indexOf(text.toLowerCase()) == 0) { //we can autocomplete the item
 
-			var withWWWset = ((hasWWW) ? result.url : result.url.replace("www.", ""))
-			var ac = ((hasProtocol) ? withWWWset : URLWithoutProtocol);
-			if (!hasPath && !urlParser.isSystemURL(withWWWset)) {
-				//if there isn't a / character typed yet, we only want to autocomplete to the domain
-				var a = document.createElement("a");
-				a.href = withWWWset;
-				ac = ((hasProtocol) ? a.protocol + "//" : "") + a.hostname;
+			input.val(possibleAutocompletions[i]);
+			input.get(0).setSelectionRange(text.length, possibleAutocompletions[i].length);
+
+			if (i < 2) { //if we autocompleted a domain, the cached item should be the domain, not the full url
+				var url = new URL(result.url);
+				currentACItem = url.protocol + "//" + url.hostname + "/";
+			} else {
+				currentACItem = result.url;
 			}
+			return true;
 		}
-
-		if (!ac) { //make sure we have something to autocomplete - this could not exist if we are using domain autocomplete and the ac string didn't have a hostname when processed
-			return;
-		}
-
-		input[0].value = ac;
-		input[0].setSelectionRange(text.length, ac.length);
-
-		//update cache
-		awesomebarCachedText = input[0].value
-		shouldContinueAC = false
-
-		return true;
 	}
+
+	//nothing was autocompleted
+
+	currentACItem = null;
 	return false;
 }
 
 var showHistoryResults = throttle(function (text, input, maxItems) {
 
-	if (!text) {
+	if (input.get(0).value && !text) { //if there is actually no text in the input, we want to show top sites. However, it there is text but the entire thing is highlighted, we don't want to show anything.
 		return;
 	}
 
 	bookmarks.searchHistory(text, function (results) {
 
+		var showedTopAnswer = false;
+
 		maxItems = maxItems || maxHistoryResults;
 
 		historyarea.empty();
 
-		cachedHistoryResults = results;
+		if (topAnswerarea.get(0).getElementsByClassName("history-item")[0]) {
+			topAnswerarea.empty();
+		}
 
-		awesomebarAutocomplete(text, input);
+		awesomebarAutocomplete(text, input, results);
 
-		if (results.length < 20) { //if we have a lot of history results, don't show search suggestions
+		if (results.length < 20 && !isExpandedHistoryMode) { //if we don't have a lot of history results, show search suggestions
 			limitSearchSuggestions(results.length);
 			maxItems = 3;
 			showSearchSuggestions(text, input);
@@ -148,9 +146,11 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			}
 
 
-			var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(title))).on("click", function (e) {
+			var item = $("<div class='result-item history-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(title))).on("click", function (e) {
 				openURLFromAwesomebar(e, result.url);
 			});
+
+			item.attr("data-url", result.url);
 
 			icon.prependTo(item);
 
@@ -163,12 +163,30 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 				item.hide().addClass("unfocusable");
 			}
 
-			item.appendTo(historyarea);
+			if (urlParser.areEqual(currentACItem, result.url) && resultsShown < maxItems && !showedTopAnswer) { //the item is being autocompleted, highlight it
+				item.addClass("fakefocus");
+				item.appendTo(topAnswerarea);
+				showedTopAnswer = true;
+			} else {
+				item.appendTo(historyarea);
+			}
 
 
 			resultsShown++;
 
 		});
+
+		//show a top answer item if we did domain autocompletion
+
+		if (currentACItem && !showedTopAnswer) {
+			var item = $("<div class='result-item history-item fakefocus' tabindex='-1'>").append($("<span class='title'>").text(urlParser.prettyURL(currentACItem))).on("click", function (e) {
+				openURLFromAwesomebar(e, currentACItem);
+			});
+
+			$("<i class='fa fa-globe'>").prependTo(item);
+
+			item.appendTo(topAnswerarea);
+		}
 	});
 }, 250);
 
@@ -177,7 +195,6 @@ function limitHistoryResults(maxItems) {
 	if (isExpandedHistoryMode) {
 		maxHistoryResults = 99999;
 	}
-	console.log("limiting maxHistoryResults to " + maxHistoryResults);
-	historyarea.find(".result-item").show().removeClass("unfocusable");
+
 	historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1)).hide().addClass("unfocusable");
 }

@@ -5,12 +5,12 @@ var showBookmarkResults = throttle(function (text) {
 		return;
 	}
 
-	bookmarks.search(text, function (results) {
+	bookmarks.searchBookmarks(text, function (results) {
 		bookmarkarea.empty();
 		var resultsShown = 1;
 		results.splice(0, 2).forEach(function (result) {
 			//as more results are added, the threshold for adding another one gets higher
-			if (result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.3, text.length))) && (resultsShown == 1 || text.length > 6)) {
+			if (result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.25, text.length))) && (resultsShown == 1 || text.length > 6)) {
 
 				resultsShown++;
 
