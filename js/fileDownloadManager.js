@@ -20,7 +20,7 @@ ipc.on("openPDF", function (event, filedata) {
 	if (!hasOpenedPDF) {
 		var newTab = tabs.add({
 			url: PDFurl
-		});
+		}, tabs.getIndex(tabs.getSelected()) + 1);
 
 		addTab(newTab, {
 			focus: false
