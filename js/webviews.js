@@ -168,9 +168,15 @@ function addWebview(tabId, options) {
 	}
 }
 
-function switchToWebview(id) {
+function switchToWebview(id, options) {
 	$("webview").hide();
-	$("webview[data-tab={id}]".replace("{id}", id)).removeClass("hidden").show().get(0).focus(); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
+
+	var webview = getWebview(id);
+	webview.removeClass("hidden").show(); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
+
+	if (options && options.focus) {
+		webview[0].focus();
+	}
 }
 
 function updateWebview(id, url) {
