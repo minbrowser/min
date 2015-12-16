@@ -16,7 +16,9 @@ var findinpage = {
 
 		//focus the webview
 
-		getWebview(tabs.getSelected()).focus();
+		if (findinpage.input.is(":focus")) {
+			getWebview(tabs.getSelected()).get(0).focus();
+		}
 	},
 	toggle: function () {
 		if (findinpage.isEnabled) {
