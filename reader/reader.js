@@ -34,7 +34,7 @@ function startReaderView(article) {
 			return;
 		}
 
-		var readerContent = "<div class='reader-main'>" + "<h1 class='article-title'>" + (article.title || "Untitled") + "</h1>"
+		var readerContent = "<div class='reader-main'>" + "<h1 class='article-title'>" + (article.title || "") + "</h1>"
 
 		if (article.byline) {
 			readerContent += "<h2 class='article-authors'>" + article.byline + "</h2>"
@@ -42,15 +42,17 @@ function startReaderView(article) {
 
 		readerContent += article.content + "</div>";
 
-		rframe.contentDocument.body.innerHTML = readerContent;
-		document.title = article.title;
-		rframe.contentDocument.body.insertAdjacentHTML("afterbegin", "<link rel='stylesheet' href='readerView.css'>");
-
+		rframe.contentDocument.body.innerHTML = "<link rel='stylesheet' href='readerView.css'>" + readerContent;
 
 		setTimeout(function () { //wait for stylesheet to load
 			rframe.height = rframe.contentDocument.body.querySelector(".reader-main").scrollHeight + "px";
 			rframe.focus(); //allows spacebar page down and arrow keys to work correctly
 		}, 300);
+
+		if (article.title) {
+			document.title = article.title;
+		}
+
 
 		/* site-specific workarounds */
 
@@ -71,8 +73,6 @@ function startReaderView(article) {
 		window.location = url;
 	});
 
-
-
 }
 
 //iframe hack to securely parse the document
@@ -84,7 +84,7 @@ document.title = "Reader View | " + url
 var iframe = document.createElement("iframe");
 iframe.classList.add("temporary-iframe");
 iframe.sandbox = "allow-same-origin";
-iframe.srcdoc = emptyHTMLdocument;
+document.body.appendChild(iframe);
 
 $.ajax(url)
 	.done(function (data) {
@@ -112,8 +112,11 @@ $.ajax(url)
 			startReaderView(article);
 		}
 
-		document.body.appendChild(iframe);
-
-
-
 	})
+	.fail(function (data) {
+		console.info("request failed with error", data);
+
+		startReaderView({
+			content: "<em>Failed to load article.</em>"
+		});
+	});
