@@ -26,6 +26,7 @@ module.exports = function (grunt) {
 						 "js/tabState.js",
 						 "js/tabActivity.js",
 						 "js/navbarTabs.js",
+							"js/expandedTabMode.js",
 						 "js/keybindings.js",
 							"js/sessionRestore.js",
 						 "js/fileDownloadManager.js",
