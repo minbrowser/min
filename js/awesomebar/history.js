@@ -92,6 +92,11 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 		maxItems = maxItems || maxHistoryResults;
 
+		//if there is no text, only history results will be shown, so we can assume that 4 results should be shown.
+		if (!text) {
+			maxItems = 4;
+		}
+
 		historyarea.empty();
 
 		if (topAnswerarea.get(0).getElementsByClassName("history-item")[0]) {
