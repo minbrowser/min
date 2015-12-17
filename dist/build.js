@@ -1497,6 +1497,11 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 		maxItems = maxItems || maxHistoryResults;
 
+		//if there is no text, only history results will be shown, so we can assume that 4 results should be shown.
+		if (!text) {
+			maxItems = 4;
+		}
+
 		historyarea.empty();
 
 		if (topAnswerarea.get(0).getElementsByClassName("history-item")[0]) {
@@ -2619,7 +2624,7 @@ tabGroup.on("click", ".tab-item", function (e) {
 	//if the tab isn't focused
 	if (tabs.getSelected() != tabId) {
 		switchToTab(tabId);
-	} else { //the tab is focused, edit tab instead
+	} else if (!isExpandedMode) { //the tab is focused, edit tab instead
 		enterEditMode(tabId);
 	}
 
@@ -2893,34 +2898,53 @@ tabContainer.on("mousewheel", function (e) {
 	}
 });
 
+tabContainer.on("mouseenter", ".tab-item", function (e) {
+	if (isExpandedMode) {
+		var item = $(this);
+		setTimeout(function () {
+			if (item.is(":hover")) {
+				var tab = tabs.get(item.attr("data-tab"));
+
+				switchToTab(item.attr("data-tab"));
+			}
+		}, 125);
+	}
+});
+
 var isExpandedMode = false;
 
 function enterExpandedMode() {
-	leaveTabEditMode();
+	if (!isExpandedMode) {
+		leaveTabEditMode();
 
-	//get the subtitles
+		//get the subtitles
 
-	tabs.get().forEach(function (tab) {
-		try {
-			var prettyURL = urlParser.prettyURL(tab.url);
-		} catch (e) {
-			var prettyURL = "";
-		}
+		tabs.get().forEach(function (tab) {
+			try {
+				var prettyURL = urlParser.prettyURL(tab.url);
+			} catch (e) {
+				var prettyURL = "";
+			}
 
-		getTabElement(tab.id).find(".secondary-text").text(prettyURL);
-	});
+			var tabEl = getTabElement(tab.id);
 
-	tabContainer.addClass("expanded");
-	getWebview(tabs.getSelected()).blur();
-	tabContainer.get(0).focus();
+			tabEl.find(".secondary-text").text(prettyURL);
+		});
 
-	isExpandedMode = true;
+		tabContainer.addClass("expanded");
+		getWebview(tabs.getSelected()).blur();
+		tabContainer.get(0).focus();
+
+		isExpandedMode = true;
+	}
 }
 
 function leaveExpandedMode() {
-	tabContainer.removeClass("expanded");
+	if (isExpandedMode) {
+		tabContainer.removeClass("expanded");
 
-	isExpandedMode = false;
+		isExpandedMode = false;
+	}
 }
 
 //when a tab is clicked, we want to minimize the tabstrip
