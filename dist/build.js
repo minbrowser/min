@@ -6,10 +6,6 @@ var webviewBase = $("#webviews");
 var webviewEvents = [];
 var webviewIPC = [];
 
-function updateURLInternal(webview, url) {
-	webview.attr("src", url);
-}
-
 //this only affects newly created webviews, so all bindings should be done on startup
 
 function bindWebviewEvent(event, fn) {
@@ -109,10 +105,12 @@ function getWebviewDom(options) {
 
 	w.on("new-window", function (e) {
 		var tab = $(this).attr("data-tab");
+		var currentIndex = tabs.getIndex(tabs.getSelected());
+
 		var newTab = tabs.add({
 			url: e.originalEvent.url,
 			private: tabs.get(tab).private //inherit private status from the current tab
-		})
+		}, currentIndex + 1);
 		addTab(newTab, {
 			focus: false,
 			openInBackground: e.originalEvent.disposition == "background-tab", //possibly open in background based on disposition
@@ -170,9 +168,15 @@ function addWebview(tabId, options) {
 	}
 }
 
-function switchToWebview(id) {
+function switchToWebview(id, options) {
 	$("webview").hide();
-	$("webview[data-tab={id}]".replace("{id}", id)).removeClass("hidden").show().get(0).focus(); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
+
+	var webview = getWebview(id);
+	webview.removeClass("hidden").show(); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
+
+	if (options && options.focus) {
+		webview[0].focus();
+	}
 }
 
 function updateWebview(id, url) {
@@ -201,16 +205,21 @@ steps to creating a bookmark:
 var bookmarks = {
 	authBookmarkTab: null,
 	updateHistory: function (tabId) {
-		var w = getWebview(tabId)[0]
-		var data = {
-			url: w.getURL(),
-			title: w.getTitle(),
-			color: tabs.get(tabId).backgroundColor
-		}
-		bookmarks.worker.postMessage({
-			action: "updateHistory",
-			data: data
-		})
+		requestIdleCallback(function (deadine) {
+			var w = getWebview(tabId)[0]
+			var data = {
+				url: w.getURL(),
+				title: w.getTitle(),
+				color: tabs.get(tabId).backgroundColor
+			}
+			bookmarks.worker.postMessage({
+				action: "updateHistory",
+				data: data
+			});
+		}, {
+			timeout: 1000
+		});
+
 	},
 	currentCallback: function () {},
 	onDataRecieved: function (data) {
@@ -226,7 +235,7 @@ var bookmarks = {
 		})
 		bookmarks.authBookmarkTab = null;
 	},
-	delete: function (url) {
+	deleteBookmark: function (url) {
 		bookmarks.worker.postMessage({
 			action: "deleteBookmark",
 			data: {
@@ -234,7 +243,15 @@ var bookmarks = {
 			}
 		});
 	},
-	search: function (text, callback) {
+	deleteHistory: function (url) {
+		bookmarks.worker.postMessage({
+			action: "deleteHistory",
+			data: {
+				url: url
+			}
+		});
+	},
+	searchBookmarks: function (text, callback) {
 		bookmarks.currentCallback = callback; //save for later, we run in onMessage
 		bookmarks.worker.postMessage({
 			action: "searchBookmarks",
@@ -275,7 +292,7 @@ var bookmarks = {
 		var url = tabs.get(tabId).url,
 			exists = false;
 
-		bookmarks.search(url, function (d) {
+		bookmarks.searchBookmarks(url, function (d) {
 
 			d.forEach(function (item) {
 				if (item.url == url) {
@@ -286,7 +303,7 @@ var bookmarks = {
 
 			if (exists) {
 				console.log("deleting bookmark " + tabs.get(tabId).url);
-				bookmarks.delete(tabs.get(tabId).url);
+				bookmarks.deleteBookmark(tabs.get(tabId).url);
 			} else {
 				bookmarks.bookmark(tabId);
 			}
@@ -322,7 +339,7 @@ var bookmarks = {
 
 		//check if the page is bookmarked or not, and update the star to match
 
-		bookmarks.search(currentURL, function (results) {
+		bookmarks.searchBookmarks(currentURL, function (results) {
 			if (results && results[0] && results[0].url == currentURL) {
 				star.removeClass("fa-star-o").addClass("fa-star");
 			} else {
@@ -1003,23 +1020,46 @@ var MMCQ = (function() {
 	},
 	prettyURL: function (url) {
 		var urlOBJ = new URL(url);
-		return (urlOBJ.hostname + urlOBJ.pathname.replace(urlParser.trailingSlashRegex, "")).replace(urlParser.startingWWWRegex, "$1");
+		return (urlOBJ.hostname + urlOBJ.pathname).replace(urlParser.startingWWWRegex, "$1").replace(urlParser.trailingSlashRegex, "");
+	},
+	areEqual: function (url1, url2) {
+		try {
+			var obj1 = new URL(url1);
+			var obj2 = new URL(url2);
+
+			return obj1.hostname == obj2.hostname && obj1.pathname == obj2.pathname
+		} catch (e) { //if either of the url's are invalid, the URL constructor will throw an error
+			return url1 == url2;
+		}
 	}
 }
-;var cf = new ColorThief();
-var hours = new Date().getHours() + (new Date().getMinutes() / 60);
+;const cf = new ColorThief();
+const defaultColors = {
+	private: ["rgb(58, 44, 99)", "white"],
+	regular: ["rgb(255, 255, 255)", "black"]
+}
+
 var colorExtractorImg = document.createElement("img");
+var hours = new Date().getHours() + (new Date().getMinutes() / 60);
 
 //we cache the hours so we don't have to query every time we change the color
 
 setInterval(function () {
-	hours = new Date().getHours() + (new Date().getMinutes() / 60);
-}, 10 * 60 * 1000);
+	var d = new Date();
+	hours = d.getHours() + (d.getMinutes() / 60);
+}, 4 * 60 * 1000);
 
 function extractColor(favicon, callback) {
 	colorExtractorImg.src = favicon;
 	colorExtractorImg.onload = function () {
-		callback(cf.getColor(colorExtractorImg));
+
+		//workaround for colorThief throwing an error on entirely white favicons
+		try {
+			var color = cf.getColor(colorExtractorImg);
+		} catch (e) {
+			var color = [255, 255, 255];
+		}
+		callback(color);
 	}
 }
 
@@ -1042,9 +1082,9 @@ function updateTabColor(favicons, tabId) {
 		//dim the colors late at night or early in the morning
 		var colorChange = 1;
 		if (hours > 20) {
-			colorChange -= 0.012 * hours;
-		} else if (hours < 7) {
-			colorChange -= 0.012 * (24 - hours);
+			colorChange -= 0.015 * Math.pow(2.75, hours - 20);
+		} else if (hours < 6.5) {
+			colorChange -= -0.15 * Math.pow(1.36, hours) + 1.15
 		}
 
 		c[0] = Math.round(c[0] * colorChange)
@@ -1193,7 +1233,8 @@ var webviewMenu = {
 					var newTab = tabs.add({
 						url: IPCdata.src,
 						private: tab.private,
-					})
+					}, tabs.getIndex(tabs.getSelected()) + 1);
+
 					addTab(newTab, {
 						focus: false,
 					});
@@ -1209,7 +1250,7 @@ var webviewMenu = {
 						var newTab = tabs.add({
 							url: IPCdata.src,
 							private: true,
-						})
+						}, tabs.getIndex(tabs.getSelected()) + 1)
 						addTab(newTab, {
 							focus: false,
 						});
@@ -1319,29 +1360,19 @@ function navigate(tabId, newURL) {
 	});
 }
 
-
-//options:
-//switchToTab: whether to switch to another tab, or create a new one if there are no tabs left. Defaults to true
-
-function destroyTab(id, options) {
-	options = options || {};
-	//focus the next tab, or the previous tab if this was the last tab
-
-	if (options.switchToTab) {
-		var t = tabs.getIndex(id);
-		var nextTab = tabs.getAtIndex(t + 1) || tabs.getAtIndex(t - 1);
+function switchToNextTab(oldIndex) {
+	var nextTab = tabs.getAtIndex(oldIndex + 1) || tabs.getAtIndex(oldIndex - 1);
+	if (nextTab) {
+		switchToTab(nextTab.id);
 	}
+}
+
+function destroyTab(id) {
 
 	$(".tab-item[data-tab={id}]".replace("{id}", id)).remove(); //remove the actual tab element
 	var t = tabs.destroy(id); //remove from state - returns the index of the destroyed tab
 	destroyWebview(id); //remove the webview
 
-	//if there are no other tabs, create a new one
-	if (options.switchToTab && !nextTab) {
-		return addTab();
-	} else if (options.switchToTab) {
-		switchToTab(nextTab.id);
-	}
 }
 
 /* switches to a tab - update the webview, state, tabstrip, etc. */
@@ -1349,31 +1380,41 @@ function destroyTab(id, options) {
 function switchToTab(id) {
 
 	leaveTabEditMode();
-	setActiveTabElement(id);
 
-	switchToWebview(id);
+	setActiveTabElement(id);
+	switchToWebview(id, {
+		focus: !isExpandedMode //trying to focus a webview while in expanded mode breaks the page
+	});
 
 	tabs.setSelected(id);
 
 	var tabData = tabs.get(id);
 	setColor(tabData.backgroundColor, tabData.foregroundColor);
 
-	tabs.update(id, {
-		lastActivity: Date.now(),
-	});
-	tabActivity.refresh();
+	//we only want to mark the tab as active if someone actually interacts with it. If it is clicked on and then quickly clicked away from, it should still be marked as inactive
+
+	setTimeout(function () {
+		if (tabs.get(id) && tabs.getSelected() == id) {
+			tabs.update(id, {
+				lastActivity: Date.now(),
+			});
+			tabActivity.refresh();
+		}
+	}, 2500);
+
 }
 ;var DDGSearchURLRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
 	trailingSlashRegex = /\/$/g,
 	plusRegex = /\+/g;
 
 var shouldAutocompleteTitle;
-var hasAutocompleted = false;
+var currentACItem = null;
+var deleteKeyPressed = false;
 
-var cachedHistoryResults = [];
+var isExpandedHistoryMode = false;
 var maxHistoryResults = 4;
 
-function awesomebarAutocomplete(text, input) {
+function awesomebarAutocomplete(text, input, historyResults) {
 	if (text == awesomebarCachedText && input[0].selectionStart != input[0].selectionEnd) { //if nothing has actually changed, don't try to autocomplete
 		return;
 	}
@@ -1381,17 +1422,25 @@ function awesomebarAutocomplete(text, input) {
 	if (didFireKeydownSelChange) {
 		return;
 	}
-	for (var i = 0; i < cachedHistoryResults.length; i++) {
-		if (autocompleteResultIfNeeded(input, cachedHistoryResults[i])) {
-			hasAutocompleted = true;
-		}
+
+	if (!text) {
+		currentACItem = null;
+		return;
+	}
+
+	var didAutocomplete = false;
+
+
+	for (var i = 0; !didAutocomplete && i < historyResults.length; i++) { //we only want to autocomplete the first item that matches
+		didAutocomplete = autocompleteResultIfNeeded(input, historyResults[i]); //this returns true or false depending on whether the item was autocompleted or not
 	}
 }
 
 function autocompleteResultIfNeeded(input, result) {
 
-	DDGSearchURLRegex.lastIndex = 0;
+	//figure out if we should autocomplete based on the title
 
+	DDGSearchURLRegex.lastIndex = 0;
 	shouldAutocompleteTitle = DDGSearchURLRegex.test(result.url);
 
 	if (shouldAutocompleteTitle) {
@@ -1399,80 +1448,78 @@ function autocompleteResultIfNeeded(input, result) {
 	}
 
 	var text = getValue(input); //make sure the input hasn't changed between start and end of query
+	var hostname = new URL(result.url).hostname;
 
-	var textWithoutProtocol = urlParser.removeProtocol(text),
-		URLWithoutProtocol = urlParser.removeProtocol(result.url);
+	var possibleAutocompletions = [ //the different variations of the URL we can autocomplete
+		hostname, //we start with the domain
+		(hostname + "/").replace(urlParser.startingWWWRegex, "$1").replace("/", ""), //if that doesn't match, try the hostname without the www instead. The regex requires a slash at the end, so we add one, run the regex, and then remove it
+		urlParser.prettyURL(result.url), //then try the whole url
+		urlParser.removeProtocol(result.url), //then try the url with querystring
+		result.url, //then just try the url with protocol
+	]
 
-	if (textWithoutProtocol != text) {
-		var hasProtocol = true;
+	if (shouldAutocompleteTitle) {
+		possibleAutocompletions.push(result.title);
 	}
-	var hasWWW = text.indexOf("www.") != -1
-
-	if (textWithoutProtocol.indexOf("/") == -1) {
-		var hasPath = false;
-	} else {
-		var hasPath = true;
-	}
-
-	var canAutocompleteURL = URLWithoutProtocol.indexOf(textWithoutProtocol) == 0 && !shouldAutocompleteTitle;
 
 
-	if (autocompleteEnabled && shouldContinueAC && textWithoutProtocol && (canAutocompleteURL || (shouldAutocompleteTitle && result.title.indexOf(textWithoutProtocol) == 0))) { //the user has started to type the url
-		if (shouldAutocompleteTitle) {
-			var ac = result.title;
-		} else {
-			//figure out the right address component to autocomplete
+	for (var i = 0; i < possibleAutocompletions.length; i++) {
+		if (!deleteKeyPressed && possibleAutocompletions[i].toLowerCase().indexOf(text.toLowerCase()) == 0) { //we can autocomplete the item
 
-			var withWWWset = ((hasWWW) ? result.url : result.url.replace("www.", ""))
-			var ac = ((hasProtocol) ? withWWWset : URLWithoutProtocol);
-			if (!hasPath && !urlParser.isSystemURL(withWWWset)) {
-				//if there isn't a / character typed yet, we only want to autocomplete to the domain
-				var a = document.createElement("a");
-				a.href = withWWWset;
-				ac = ((hasProtocol) ? a.protocol + "//" : "") + a.hostname;
+			input.val(possibleAutocompletions[i]);
+			input.get(0).setSelectionRange(text.length, possibleAutocompletions[i].length);
+
+			if (i < 2) { //if we autocompleted a domain, the cached item should be the domain, not the full url
+				var url = new URL(result.url);
+				currentACItem = url.protocol + "//" + url.hostname + "/";
+			} else {
+				currentACItem = result.url;
 			}
+			return true;
 		}
-
-		if (!ac) { //make sure we have something to autocomplete - this could not exist if we are using domain autocomplete and the ac string didn't have a hostname when processed
-			return;
-		}
-
-		input.blur();
-		input[0].value = ac;
-		input[0].setSelectionRange(text.length, ac.length);
-		input.focus(); //update cache
-		awesomebarCachedText = input[0].value,
-			shouldContinueAC = false;
-
-		return true;
 	}
+
+	//nothing was autocompleted
+
+	currentACItem = null;
 	return false;
 }
 
 var showHistoryResults = throttle(function (text, input, maxItems) {
 
-	if (!text) {
+	if (input.get(0).value && !text) { //if there is actually no text in the input, we want to show top sites. However, it there is text but the entire thing is highlighted, we don't want to show anything.
 		return;
 	}
 
 	bookmarks.searchHistory(text, function (results) {
 
+		var showedTopAnswer = false;
+
 		maxItems = maxItems || maxHistoryResults;
 
-		historyarea.html("");
+		historyarea.empty();
 
-		cachedHistoryResults = results;
+		if (topAnswerarea.get(0).getElementsByClassName("history-item")[0]) {
+			topAnswerarea.empty();
+		}
 
-		awesomebarAutocomplete(text, input);
+		awesomebarAutocomplete(text, input, results);
 
-		if (results.length < 20) { //if we have a lot of history results, don't show search suggestions
+		if (results.length < 20 && !isExpandedHistoryMode) { //if we don't have a lot of history results, show search suggestions
 			limitSearchSuggestions(results.length);
+			maxItems = 3;
 			showSearchSuggestions(text, input);
 		} else if (text.indexOf("!") == -1) { //if we have a !bang, always show results
-			serarea.html("");
+			serarea.empty();
 		}
 
 		var resultsShown = 0;
+
+		//if we aren't in expanded mode, we will never have more than 5 results, so we don't need to create more DOM elements than that
+
+		if (!isExpandedHistoryMode) {
+			results = results.splice(0, 5);
+		}
 
 		results.forEach(function (result) {
 
@@ -1498,19 +1545,17 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 				shouldAutocompleteTitle = true; //previous searches can be autocompleted
 			}
 
-			//if we've started typing the result and didn't press the delete key (which should make the highlight go away), autocomplete in the input
+			//if we're doing a bang search, but the item isn't a web search, it probably isn't useful, so we shouldn't show it
+			if (!shouldAutocompleteTitle && text.indexOf("!") == 0) {
+				return;
+			}
 
 
-			var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(title))).on("click", function (e) {
-				//if the command key was pressed, open in background while still showing awesomebar
-
-				if (e.metaKey) {
-					openURLInBackground(result.url);
-
-				} else {
-					navigate(tabs.getSelected(), result.url);
-				}
+			var item = $("<div class='result-item history-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(title))).on("click", function (e) {
+				openURLFromAwesomebar(e, result.url);
 			});
+
+			item.attr("data-url", result.url);
 
 			icon.prependTo(item);
 
@@ -1523,45 +1568,61 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 				item.hide().addClass("unfocusable");
 			}
 
-			item.appendTo(historyarea);
+			if (urlParser.areEqual(currentACItem, result.url) && resultsShown < maxItems && !showedTopAnswer) { //the item is being autocompleted, highlight it
+				item.addClass("fakefocus");
+				item.appendTo(topAnswerarea);
+				showedTopAnswer = true;
+			} else {
+				item.appendTo(historyarea);
+			}
 
 
 			resultsShown++;
 
 		});
+
+		//show a top answer item if we did domain autocompletion
+
+		if (currentACItem && !showedTopAnswer) {
+			var item = $("<div class='result-item history-item fakefocus' tabindex='-1'>").append($("<span class='title'>").text(urlParser.prettyURL(currentACItem))).on("click", function (e) {
+				openURLFromAwesomebar(e, currentACItem);
+			});
+
+			$("<i class='fa fa-globe'>").prependTo(item);
+
+			item.appendTo(topAnswerarea);
+		}
 	});
-}, 100);
+}, 250);
 
 function limitHistoryResults(maxItems) {
 	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));
-	console.log("limiting maxHistoryResults to " + maxHistoryResults);
-	historyarea.find(".result-item").show().removeClass("unfocusable");
+	if (isExpandedHistoryMode) {
+		maxHistoryResults = 99999;
+	}
+
 	historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1)).hide().addClass("unfocusable");
 }
 ;var showBookmarkResults = throttle(function (text) {
-	if (text.length < 3) {
+	if (text.length < 4 || text.indexOf("!") == 0) { //if there is not enough text, or we're doing a bang search, don't show results
 		limitHistoryResults(5);
-		bookmarkarea.html("");
+		bookmarkarea.empty();
 		return;
 	}
 
-	bookmarks.search(text, function (results) {
-		bookmarkarea.html("");
+	bookmarks.searchBookmarks(text, function (results) {
+		bookmarkarea.empty();
 		var resultsShown = 1;
 		results.splice(0, 2).forEach(function (result) {
 			//as more results are added, the threshold for adding another one gets higher
-			if (result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.3, text.length) * resultsShown))) {
+			if (result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.25, text.length))) && (resultsShown == 1 || text.length > 6)) {
 
 				resultsShown++;
 
 				//create the basic item
 				//getRealTitle is defined in awesomebar.js
 				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(result.title))).on("click", function (e) {
-					if (e.metaKey) {
-						openURLInBackground(result.url);
-					} else {
-						navigate(tabs.getSelected(), result.url);
-					}
+					openURLFromAwesomebar(e, result.url);
 				});
 
 				$("<i class='fa fa-star'>").prependTo(item);
@@ -1620,7 +1681,7 @@ function unsafe_showColorUI(searchText, colorHTML) {
 		alternateFormats.push($(this).text());
 	});
 
-	var item = $("<div class='result-item' tabindex='-1'>");
+	var item = $("<div class='result-item indent' tabindex='-1'>");
 
 	item.text(searchText);
 
@@ -1664,7 +1725,7 @@ window.showSearchSuggestions = throttle(function (text, input) {
 
 					var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(result.snippet)).on("click", function () {
 						setTimeout(function () { //if the click was triggered by the keydown, focusing the input and then keyup will cause a navigation. Wait a bit for keyup before focusing the input again.
-							input.val(result.phrase + " ").focus();
+							input.val(result.phrase + " ").get(0).focus();
 						}, 100);
 					});
 
@@ -1685,11 +1746,7 @@ window.showSearchSuggestions = throttle(function (text, input) {
 						var secondaryText = "Search on " + bangACSnippet;
 					}
 					var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(title)).on("click", function (e) {
-						if (e.metaKey) {
-							openURLInBackground(result.phrase);
-						} else {
-							navigate(tabs.getSelected(), result.phrase);
-						}
+						openURLFromAwesomebar(e, result.phrase);
 					});
 
 					item.appendTo(serarea);
@@ -1719,7 +1776,7 @@ var limitSearchSuggestions = function (itemsToRemove) {
 	serarea.find(".result-item:nth-child(n+{items})".replace("{items}", itemsLeft + 1)).remove();
 }
 
-window.showInstantAnswers = throttle(function (text, input, options) {
+window.showInstantAnswers = debounce(function (text, input, options) {
 
 	options = options || {};
 
@@ -1737,11 +1794,10 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 
 	iaarea.find(".result-item").addClass("old");
 	suggestedsitearea.find(".result-item").addClass("old");
-	topAnswerarea.find(".result-item").addClass("old");
 
 	if (text.length > 3) {
 
-		$.getJSON("https://api.duckduckgo.com/?skip_disambig=1&format=json&pretty=1&q=" + encodeURIComponent(text), function (res) {
+		$.getJSON("https://api.duckduckgo.com/?skip_disambig=1&format=json&q=" + encodeURIComponent(text), function (res) {
 
 			//if value has changed, don't show results
 			if (text != getValue(input) && !options.alwaysShow) {
@@ -1752,7 +1808,7 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 			suggestedsitearea.find(".result-item").addClass("old");
 
 			if (res.Abstract || res.Answer) {
-				var item = $("<div class='result-item' tabindex='-1'>");
+				var item = $("<div class='result-item indent' tabindex='-1'>");
 
 				if (res.Answer) {
 					item.text(unsafeUnwrapTags(res.Answer));
@@ -1760,9 +1816,11 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 					item.text(res.Heading);
 				}
 
-				/*if (res.Image && res.Entity != "company" && res.Entity != "country" && res.Entity != "website") { //ignore images for entities that generally have useless or ugly images
-					$("<img class='result-icon image'>").attr("src", res.Image).prependTo(item);
-				}*/
+				var entitiesWithUselessImages = ["company", "country", "website", "software"] //thse are typically low-quality and unhelpful
+
+				if (res.Image && entitiesWithUselessImages.indexOf(res.Entity) == -1) {
+					$("<img class='result-icon image low-priority-image'>").attr("src", res.Image).prependTo(item);
+				}
 
 				$("<span class='description-block'>").text(removeTags(res.Abstract) || "Answer").appendTo(item);
 
@@ -1773,15 +1831,12 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 				}
 
 				item.on("click", function (e) {
-					if (e.metaKey) {
-						openURLInBackground(res.AbstractURL || text);
-					} else {
-						navigate(tabs.getSelected(), res.AbstractURL || text)
-					}
+					openURLFromAwesomebar(e, res.AbstractURL || text);
 				});
 
 				//answers are more relevant, they should be displayed at the top
 				if (res.Answer) {
+					topAnswerarea.empty();
 					item.appendTo(topAnswerarea);
 				} else {
 					item.appendTo(iaarea);
@@ -1795,12 +1850,7 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 
 				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(url)).on("click", function (e) {
 
-					if (e.metaKey) {
-						openURLInBackground(res.Results[0].FirstURL);
-
-					} else {
-						navigate(tabs.getSelected(), res.Results[0].FirstURL);
-					}
+					openURLFromAwesomebar(e, res.Results[0].FirstURL);
 				});
 
 				$("<i class='fa fa-globe'>").prependTo(item);
@@ -1815,9 +1865,26 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 				}
 			}
 
+			//if we're showing a location, show a "view on openstreetmap" link
+
+			var entitiesWithLocations = ["location", "country", "u.s. state", "protected area"]
+
+			if (entitiesWithLocations.indexOf(res.Entity) != -1) {
+				var item = $("<div class='result-item' tabindex='-1'>");
+
+				$("<i class='fa fa-search'>").appendTo(item);
+				$("<span class='title'>").text(res.Heading).appendTo(item);
+				$("<span class='secondary-text'>Search on OpenStreetMap</span>").appendTo(item);
+
+				item.on("click", function (e) {
+					openURLFromAwesomebar(e, "https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading));
+				});
+
+				item.appendTo(iaarea);
+			}
+
 			iaarea.find(".old").remove();
 			suggestedsitearea.find(".old").remove();
-			topAnswerarea.find(".old").remove();
 
 
 		});
@@ -1826,13 +1893,13 @@ window.showInstantAnswers = throttle(function (text, input, options) {
 		suggestedsitearea.find(".old").remove();
 	}
 
-}, 700);
-;const maxTopicResults = 2;
+}, 450);
+;const maxTopicResults = 1;
 const showTopicResults = function (text, input) {
 
 	bookmarks.searchTopics(text, function (topics) {
 
-		topicsarea.html("");
+		topicsarea.empty();
 
 		if (!topics || !topics[0]) {
 			return;
@@ -1849,6 +1916,8 @@ const showTopicResults = function (text, input) {
 
 					//enter a special history-only mode
 
+					isExpandedHistoryMode = true;
+
 					clearAwesomebar();
 
 					input.val(topic.name);
@@ -1857,7 +1926,7 @@ const showTopicResults = function (text, input) {
 					showBookmarkResults(topic.name);
 
 					setTimeout(function () { //the item was focused on the keydown event. If we immediately focus the input, a keypress event will occur, causing an exit from edit mode
-						input.focus();
+						input.get(0).focus();
 					}, 100);
 				});
 				topicsShown++;
@@ -1874,9 +1943,9 @@ var stringScore = require("string_score");
 
 var searchOpenTabs = function (searchText) {
 
-	opentabarea.html("");
+	opentabarea.empty();
 
-	if (searchText.length < 2) {
+	if (searchText.length < 3) {
 		return;
 	}
 
@@ -1891,7 +1960,7 @@ var searchOpenTabs = function (searchText) {
 		item.url = urlParser.removeProtocol(item.url); //don't search protocols
 
 		var exactMatch = item.title.indexOf(searchText) != -1 || item.url.indexOf(searchText) != -1
-		var fuzzyMatch = item.title.substring(0, 50).score(searchText, 0.5) > 0.45 || item.url.score(searchText, 0.5) > 0.4;
+		var fuzzyMatch = item.title.substring(0, 50).score(searchText, 0.5) > 0.4 || item.url.score(searchText, 0.5) > 0.4;
 
 		if (exactMatch || fuzzyMatch) {
 			matches.push(item);
@@ -1904,7 +1973,7 @@ var searchOpenTabs = function (searchText) {
 		var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(tab.title))
 		$("<span class='secondary-text'>").text(urlParser.removeProtocol(tab.url).replace(trailingSlashRegex, "")).appendTo(item);
 
-		$("<i class='fa fa-external-link'>").attr("title", "Switch to Tab").prependTo(item); //TODO better icon
+		$("<i class='fa fa-external-link-square'>").attr("title", "Switch to Tab").prependTo(item); //TODO better icon
 
 		item.on("click", function () {
 			//if we created a new tab but are switching away from it, destroy the current (empty) tab
@@ -1921,9 +1990,6 @@ var searchOpenTabs = function (searchText) {
 }
 ;var awesomebarShown = false;
 var awesomebarCachedText = "";
-var cachedACItem = "";
-var autocompleteEnabled = true;
-var shouldContinueAC = true;
 var METADATA_SEPARATOR = "·";
 var didFireKeydownSelChange = false;
 var currentAwesomebarInput;
@@ -1953,6 +2019,18 @@ function throttle(fn, threshhold, scope) {
 			last = now;
 			fn.apply(context, args);
 		}
+	};
+}
+
+function debounce(fn, delay) {
+	var timer = null;
+	return function () {
+		var context = this,
+			args = arguments;
+		clearTimeout(timer);
+		timer = setTimeout(function () {
+			fn.apply(context, args);
+		}, delay);
 	};
 }
 
@@ -1994,6 +2072,18 @@ function openURLInBackground(url) { //used to open a url in the background, with
 		leaveEditMode: false,
 	});
 	$(".result-item:focus").blur(); //remove the highlight from an awesoembar result item, if there is one
+}
+
+//when clicking on a result item, this function should be called to open the URL
+
+function openURLFromAwesomebar(event, url) {
+	if (event.metaKey) {
+		openURLInBackground(url);
+		return true;
+	} else {
+		navigate(tabs.getSelected(), url);
+		return false;
+	}
 }
 
 
@@ -2042,14 +2132,17 @@ var topicsarea = awesomebar.find(".topic-results");
 var opentabarea = awesomebar.find(".opentab-results");
 
 function clearAwesomebar() {
-	opentabarea.html("");
-	topAnswerarea.html("");
-	bookmarkarea.html("");
-	historyarea.html("");
-	topicsarea.html("");
-	iaarea.html("");
-	suggestedsitearea.html("");
-	serarea.html("");
+	opentabarea.empty();
+	topAnswerarea.empty();
+	bookmarkarea.empty();
+	historyarea.empty();
+	topicsarea.empty();
+	iaarea.empty();
+	suggestedsitearea.empty();
+	serarea.empty();
+
+	//prevent memory leak
+	cachedBangSnippets = [];
 }
 
 function showAwesomebar(triggerInput) {
@@ -2079,7 +2172,10 @@ function hideAwesomebar() {
 	awesomebar.hide();
 	cachedBangSnippets = {};
 }
-var showAwesomebarResults = throttle(function (text, input, event) {
+var showAwesomebarResults = function (text, input, event) {
+
+	isExpandedHistoryMode = false;
+	deleteKeyPressed = event && event.keyCode == 8;
 
 	//find the real input value, accounting for highlighted suggestions and the key that was just pressed
 
@@ -2087,7 +2183,7 @@ var showAwesomebarResults = throttle(function (text, input, event) {
 
 	//delete key doesn't behave like the others, String.fromCharCode returns an unprintable character (which has a length of one)
 
-	if (event.keyCode != 8) {
+	if (event && event.keyCode != 8) {
 
 		text = v.substring(0, input[0].selectionStart) + String.fromCharCode(event.keyCode) + v.substring(input[0].selectionEnd + 1, v.length).trim();
 
@@ -2095,15 +2191,11 @@ var showAwesomebarResults = throttle(function (text, input, event) {
 		txt = v;
 	}
 
-
-	hasAutocompleted = false;
-
-	shouldContinueAC = !(event.keyCode == 8); //this needs to be outside searchHistory so that it doesn't get reset if the history callback is run multiple times (such as when multiple messages get sent before the worker has finished startup).
-
 	console.log("awesomebar: ", "'" + text + "'", text.length);
 
-	//there is no text, show a blank awesomebar
+	//there is no text, show only topsites
 	if (text.length < 1) {
+		showHistoryResults("", input);
 		clearAwesomebar();
 		return;
 	}
@@ -2152,20 +2244,23 @@ var showAwesomebarResults = throttle(function (text, input, event) {
 
 	//update cache
 	awesomebarCachedText = text;
-}, 25);
+};
 
 function focusAwesomebarItem(options) {
 	options = options || {}; //fallback if options is null
 	var previous = options.focusPrevious;
 	var allItems = $("#awesomebar .result-item:not(.unfocusable)");
-	var currentItem = $("#awesomebar .result-item:focus");
+	var currentItem = $("#awesomebar .result-item:focus, .result-item.fakefocus");
 	var index = allItems.index(currentItem);
 	var logicalNextItem = allItems.eq((previous) ? index - 1 : index + 1);
 
+	awesomebar.find(".fakefocus").removeClass("fakefocus"); //clear previously focused items
 
 	if (currentItem[0] && logicalNextItem[0]) { //an item is focused and there is another item after it, move onto the next one
 		logicalNextItem.get(0).focus();
-	} else { // the last item is focused, or no item is focused. Focus the first one again.
+	} else if (currentItem[0]) { //the last item is focused, focus the awesomebar again
+		getTabElement(tabs.getSelected()).getInput().get(0).focus();
+	} else { // no item is focused.
 		$("#awesomebar .result-item").first().get(0).focus();
 	}
 }
@@ -2184,6 +2279,25 @@ awesomebar.on("keydown", ".result-item", function (e) {
 		e.preventDefault();
 		focusAwesomebarItem({
 			focusPrevious: true
+		});
+	}
+});
+
+//swipe left on history items to delete them
+
+var lastItemDeletion = Date.now();
+
+awesomebar.on("mousewheel", ".history-results .result-item, .top-answer-results .result-item", function (e) {
+	var self = $(this)
+	if (e.originalEvent.deltaX > 50 && e.originalEvent.deltaY < 3 && self.attr("data-url") && Date.now() - lastItemDeletion > 700) {
+		lastItemDeletion = Date.now();
+		self.animate({
+			opacity: "0",
+			"margin-left": "-100%"
+		}, 200, function () {
+			self.remove();
+			bookmarks.deleteHistory(self.attr("data-url"));
+			lastItemDeletion = Date.now();
 		});
 	}
 });
@@ -2211,13 +2325,13 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 			return;
 		}
 
-		if (!hasShownDDGpopup) {
+		/*if (!hasShownDDGpopup) {
 			showInstantAnswers(data.entities[0], currentAwesomebarInput, {
 				alwaysShow: true
 			});
 
 			hasShownDDGpopup = true;
-		}
+		}*/
 
 		var div = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(item)).on("click", function (e) {
 			if (e.metaKey) {
@@ -2271,7 +2385,7 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 		navigate(tabId, "file:///" + __dirname + "/reader/index.html?url=" + tabs.get(tabId).url);
 		tabs.update(tabId, {
 			isReaderView: true
-		})
+		});
 	},
 	exit: function (tabId) {
 		navigate(tabId, tabs.get(tabId).url.split("?url=")[1]);
@@ -2319,20 +2433,17 @@ var tabs = {
 		tabs: [],
 		selected: null,
 	},
-	add: function (tab) {
+	add: function (tab, index) {
 
 		//make sure the tab exists before we create it
 		if (!tab) {
-			throw new TypeError("tab is not defined.")
+			var tab = {};
 		}
-
-		tab.url = tab.url || "";
 
 		var tabId = tab.id || Math.round(Math.random() * 100000000000000000); //you can pass an id that will be used, or a random one will be generated.
 
-
-		tabs._state.tabs.push({
-			url: tab.url,
+		var newTab = {
+			url: tab.url || "about:blank",
 			title: tab.title,
 			id: tabId,
 			lastActivity: Date.now(),
@@ -2341,7 +2452,14 @@ var tabs = {
 			readerable: tab.readerable || false,
 			backgroundColor: tab.backgroundColor,
 			foregroundColor: tab.foregroundColor,
-		});
+		}
+
+		if (index) {
+			tabs._state.tabs.splice(index, 0, newTab);
+		} else {
+			tabs._state.tabs.push(newTab);
+		}
+
 
 		return tabId;
 
@@ -2411,7 +2529,7 @@ var tabs = {
 ;/* fades out tabs that are inactive */
 
 var tabActivity = {
-	minFadeAge: 450000,
+	minFadeAge: 330000,
 	refresh: function () {
 		var tabSet = tabs.get(),
 			selected = tabs.getSelected(),
@@ -2435,9 +2553,79 @@ var tabActivity = {
 	}
 }
 tabActivity.init();
-;/* draws tabs and manages tab events */
+;//http://stackoverflow.com/a/5086688/4603285
 
-var tabGroup = $(".tab-group #tabs");
+jQuery.fn.insertAt = function (index, element) {
+	var lastIndex = this.children().size()
+	if (index < 0) {
+		index = Math.max(0, lastIndex + 1 + index)
+	}
+	this.append(element)
+	if (index < lastIndex) {
+		this.children().eq(index).before(this.children().last())
+	}
+	return this;
+}
+
+var tabContainer = $(".tab-group");
+var tabGroup = $(".tab-group #tabs"); //TODO these names are confusing
+
+/* tab events */
+
+var lastTabDeletion = 0;
+
+tabGroup.on("mousewheel", ".tab-item", function (e) {
+	if (e.originalEvent.deltaY > 65 && e.originalEvent.deltaX < 10 && Date.now() - lastTabDeletion > 650) { //swipe up to delete tabs
+
+		var tab = $(this).attr("data-tab");
+
+		//TODO this should be a css animation
+		getTabElement(tab).animate({
+			"margin-top": "-40px",
+		}, 125, function () {
+
+			if (tab == tabs.getSelected()) {
+				var currentIndex = tabs.getIndex(tabs.getSelected());
+				var nextTab = tabs.getAtIndex(currentIndex + 1) || tabs.getAtIndex(currentIndex - 1);
+
+				destroyTab(tab);
+
+				if (nextTab) {
+					switchToTab(nextTab.id);
+				} else {
+					addTab();
+				}
+
+			} else {
+				destroyTab(tab);
+			}
+
+		});
+
+		lastTabDeletion = Date.now();
+	}
+
+	if (e.originalEvent.deltaY > 0) { //downward swipes should still be handled by expandedTabMode.js
+		e.stopPropagation(); //prevent the event from bubbling up to expandedTabMode.js, where exitExpandedMode would be triggered
+	}
+
+});
+
+//click to enter edit mode or switch to tab
+
+tabGroup.on("click", ".tab-item", function (e) {
+	var tabId = $(this).attr("data-tab");
+
+	//if the tab isn't focused
+	if (tabs.getSelected() != tabId) {
+		switchToTab(tabId);
+	} else { //the tab is focused, edit tab instead
+		enterEditMode(tabId);
+	}
+
+});
+
+/* draws tabs and manages tab events */
 
 function getTabElement(id) { //gets the DOM element for a tab
 	return $(".tab-item[data-tab={id}]".replace("{id}", id))
@@ -2461,9 +2649,17 @@ function setActiveTabElement(tabId) {
 		el.removeClass("has-highlight");
 	}
 
-	el[0].scrollIntoView({
-		behavior: "smooth"
-	});
+	if (!isExpandedMode) {
+
+		requestIdleCallback(function () {
+			el[0].scrollIntoView({
+				behavior: "smooth"
+			});
+		}, {
+			timeout: 1000
+		});
+
+	}
 
 }
 
@@ -2475,6 +2671,9 @@ function leaveTabEditMode(options) {
 }
 
 function enterEditMode(tabId) {
+
+	leaveExpandedMode();
+
 	var tabEl = getTabElement(tabId);
 	var webview = getWebview(tabId)[0];
 
@@ -2489,8 +2688,11 @@ function enterEditMode(tabId) {
 	var input = tabEl.getInput();
 
 	tabEl.addClass("selected");
-	input.focus().val(currentURL).select();
+	input.val(currentURL);
+	input.get(0).focus();
+	input.select();
 	showAwesomebar(input);
+	showAwesomebarResults("", input, null);
 	tabGroup.addClass("has-selected-tab");
 
 	//show keyword suggestions in the awesomebar
@@ -2503,20 +2705,20 @@ function enterEditMode(tabId) {
 }
 
 function rerenderTabElement(tabId) {
-	var tabEl = getTabElement(tabId);
-
-	var tabData = tabs.get(tabId);
+	var tabEl = getTabElement(tabId),
+		tabData = tabs.get(tabId);
 
 	var tabTitle = tabData.title || "New Tab";
 	tabEl.find(".tab-view-contents .title").text(tabTitle).attr("title", tabTitle);
-	tabEl.find(".tab-view-contents .icon-tab-is-secure, .icon-tab-is-private").remove(); //remove previous secure and private icons. Reader view icon is updated seperately, so it is not removed.
+
+	var secIcon = tabEl[0].getElementsByClassName("icon-tab-is-secure");
 
 	if (tabData.secure) {
-		tabEl.find(".tab-view-contents").prepend("<i class='fa fa-lock icon-tab-is-secure'></i>");
-	}
-
-	if (tabData.private) {
-		tabEl.find(".tab-view-contents").prepend("<i class='fa fa-ban icon-tab-is-private'></i>").attr("title", "Private tab");
+		if (!secIcon[0]) {
+			tabEl.find(".tab-view-contents").prepend("<i class='fa fa-lock icon-tab-is-secure'></i>");
+		}
+	} else if (secIcon[0]) {
+		secIcon[0].parentNode.removeChild(secIcon[0]);
 	}
 
 	//update the star to reflect whether the page is bookmarked or not
@@ -2525,7 +2727,6 @@ function rerenderTabElement(tabId) {
 
 function createTabElement(tabId) {
 	var data = tabs.get(tabId),
-		title = "Search or enter address",
 		url = urlParser.parse(data.url);
 
 	var tab = $("<div class='tab-item'>");
@@ -2535,33 +2736,13 @@ function createTabElement(tabId) {
 		tab.addClass("private-tab");
 	}
 
-	//swipe to delete tab
-
-	tab.on("mousewheel", function (e) {
-		if (e.originalEvent.deltaY > 35 && e.originalEvent.deltaX < 10) {
-			var tab = $(this).attr("data-tab");
-
-			//TODO this should be a css animation
-			getTabElement(tab).animate({
-				"margin-top": "-40px",
-			}, 150, function () {
-				destroyTab(tab);
-
-				if (tabs.count() == 0) {
-					addTab();
-				}
-			});
-		}
-	});
-
-	var input = $("<input class='tab-input theme-text-color mousetrap'>");
-	input.attr("placeholder", title);
-	input.attr("value", url);
-
 	var ec = $("<div class='tab-edit-contents'>");
 
-	input.appendTo(ec);
+	var input = $("<input class='tab-input theme-text-color mousetrap'>");
+	input.attr("placeholder", "Search or enter address");
+	input.attr("value", url);
 
+	input.appendTo(ec);
 	bookmarks.getStar(tabId).appendTo(ec);
 
 	ec.appendTo(tab);
@@ -2569,23 +2750,16 @@ function createTabElement(tabId) {
 	var vc = $("<div class='tab-view-contents theme-text-color'>")
 	readerView.getButton(tabId).appendTo(vc);
 
+	if (data.private) {
+		vc.prepend("<i class='fa fa-ban icon-tab-is-private'></i>").attr("title", "Private tab");
+	}
+
 	vc.append($("<span class='title'>").text(data.title || "New Tab"));
+
+	vc.append("<span class='secondary-text'></span>");
 	vc.appendTo(tab);
 
 
-	//events
-	tab.on("click", function (e) {
-		var tabId = $(this).attr("data-tab");
-
-		//if the tab isn't focused
-		if (tabs.getSelected() != tabId) {
-			$(".tab-input").blur();
-			switchToTab(tabId);
-		} else { //the tab is focused, edit tab instead
-			enterEditMode(tabId);
-		}
-
-	});
 
 	/* events */
 
@@ -2613,18 +2787,20 @@ function createTabElement(tabId) {
 			leaveTabEditMode(tabId);
 
 		} else if (e.keyCode == 9) {
+			return;
 			//tab key, do nothing - in keydown listener
 		} else if (e.keyCode == 16) {
+			return;
 			//shift key, do nothing
 		} else if (e.keyCode == 8) {
+			return;
 			//delete key is handled in keyUp
 		} else { //show the awesomebar
 			showAwesomebarResults($(this).val(), $(this), e);
 		}
-	});
 
-	//on keydown, if the autocomplete result doesn't change, we move the selection instead of regenerating it to avoid race conditions with typing. Adapted from https://github.com/patrickburke/jquery.inlineComplete
-	input.on("keypress", function (e) {
+		//on keydown, if the autocomplete result doesn't change, we move the selection instead of regenerating it to avoid race conditions with typing. Adapted from https://github.com/patrickburke/jquery.inlineComplete
+
 		var v = String.fromCharCode(e.keyCode).toLowerCase();
 		var sel = this.value.substring(this.selectionStart, this.selectionEnd).indexOf(v);
 
@@ -2649,11 +2825,11 @@ function createTabElement(tabId) {
 function addTab(tabId, options) {
 	/* options 
 	
-		options.focus - whether to enter editing mode when the tab is created. Defaults to true.
-		options.openInBackground - whether to open the tab without switching to it. Defaults to false.
-		options.leaveEditMode - whether to hide the awesomebar when creating the tab
+						options.focus - whether to enter editing mode when the tab is created. Defaults to true.
+						options.openInBackground - whether to open the tab without switching to it. Defaults to false.
+						options.leaveEditMode - whether to hide the awesomebar when creating the tab
 	
-		*/
+						*/
 
 	options = options || {}
 
@@ -2661,19 +2837,30 @@ function addTab(tabId, options) {
 		leaveTabEditMode(); //if a tab is in edit-mode, we want to exit it
 	}
 
-	tabId = tabId || tabs.add({
-		backgroundColor: "rgb(255, 255, 255)",
-		foregroundColor: "black"
-	});
+	tabId = tabId || tabs.add();
 
+	//use the correct new tab colors
 
-	tabGroup.append(createTabElement(tabId));
+	var tab = tabs.get(tabId);
+
+	if (tab.private && !tab.backgroundColor) {
+		tabs.update(tabId, {
+			backgroundColor: defaultColors.private[0],
+			foregroundColor: defaultColors.private[1]
+		});
+	} else if (!tab.backgroundColor) {
+		tabs.update(tabId, {
+			backgroundColor: defaultColors.regular[0],
+			foregroundColor: defaultColors.regular[1]
+		});
+	}
+
+	var index = tabs.getIndex(tabId);
+	tabGroup.insertAt(index, createTabElement(tabId));
+
 	addWebview(tabId, {
 		openInBackground: options.openInBackground, //if the tab is being opened in the background, the webview should be as well
 	});
-
-	//use the default colors while creating a tab
-
 
 	//open in background - we don't want to enter edit mode or switch to tab
 
@@ -2691,8 +2878,58 @@ function addTab(tabId, options) {
 
 //when we click outside the navbar, we leave editing mode
 
-$(document.body).on("focus", "webview", function () {
+bindWebviewEvent("focus", function () {
+	leaveExpandedMode();
 	leaveTabEditMode();
+});
+;/* provides simple utilities for entering/exiting expanded tab mode */
+
+tabContainer.on("mousewheel", function (e) {
+	if (e.originalEvent.deltaY < -30 && e.originalEvent.deltaX < 10) { //swipe down to expand tabs
+		enterExpandedMode();
+		e.stopImmediatePropagation();
+	} else if (e.originalEvent.deltaY > 70 && e.originalEvent.deltaX < 10) {
+		leaveExpandedMode();
+	}
+});
+
+var isExpandedMode = false;
+
+function enterExpandedMode() {
+	leaveTabEditMode();
+
+	//get the subtitles
+
+	tabs.get().forEach(function (tab) {
+		try {
+			var prettyURL = urlParser.prettyURL(tab.url);
+		} catch (e) {
+			var prettyURL = "";
+		}
+
+		getTabElement(tab.id).find(".secondary-text").text(prettyURL);
+	});
+
+	tabContainer.addClass("expanded");
+	getWebview(tabs.getSelected()).blur();
+	tabContainer.get(0).focus();
+
+	isExpandedMode = true;
+}
+
+function leaveExpandedMode() {
+	tabContainer.removeClass("expanded");
+
+	isExpandedMode = false;
+}
+
+//when a tab is clicked, we want to minimize the tabstrip
+
+tabContainer.on("click", ".tab-item", function () {
+	if (isExpandedMode) {
+		leaveExpandedMode();
+		getWebview(tabs.getSelected())[0].focus();
+	}
 });
 ;/* defines keybindings that aren't in the menu (so they aren't defined by menu.js). For items in the menu, also handles ipc messages */
 
@@ -2717,26 +2954,31 @@ ipc.on("inspectPage", function () {
 });
 
 ipc.on("addTab", function (e) {
-	addTab();
+	var newIndex = tabs.getIndex(tabs.getSelected()) + 1;
+	var newTab = tabs.add({}, newIndex);
+	addTab(newTab);
 });
 
-ipc.on("addPrivateTab", function (e) {
+function addPrivateTab() {
+
+	if (tabs.count() == 1 && tabs.getAtIndex(0).url == "about:blank") {
+		destroyTab(tabs.getAtIndex(0).id);
+	}
+
+	var newIndex = tabs.getIndex(tabs.getSelected()) + 1;
+
 	var privateTab = tabs.add({
 		url: "about:blank",
 		private: true,
-	})
+	}, newIndex)
 	addTab(privateTab);
-});
+}
+
+ipc.on("addPrivateTab", addPrivateTab);
 
 var Mousetrap = require("mousetrap");
 
-Mousetrap.bind("shift+command+p", function (e) {
-	var privateTab = tabs.add({
-		url: "about:blank",
-		private: true,
-	})
-	addTab(privateTab);
-});
+Mousetrap.bind("shift+command+p", addPrivateTab);
 
 Mousetrap.bind(["command+l", "command+k"], function (e) {
 	enterEditMode(tabs.getSelected());
@@ -2744,12 +2986,25 @@ Mousetrap.bind(["command+l", "command+k"], function (e) {
 })
 
 Mousetrap.bind("command+w", function (e) {
+	//prevent command+w from closing the window
 	e.preventDefault();
 	e.stopImmediatePropagation();
-	e.stopPropagation();
-	destroyTab(tabs.getSelected(), {
-		switchToTab: true
-	});
+
+	var currentTab = tabs.getSelected();
+	var currentIndex = tabs.getIndex(currentTab);
+	var nextTab = tabs.getAtIndex(currentIndex + 1) || tabs.getAtIndex(currentIndex - 1);
+
+	destroyTab(currentTab);
+	if (nextTab) {
+		switchToTab(nextTab.id);
+	} else {
+		addTab();
+	}
+
+	if (tabs.count() == 1) { //there isn't any point in being in expanded mode any longer
+		leaveExpandedMode();
+	}
+
 	return false;
 });
 
@@ -2768,12 +3023,21 @@ Mousetrap.bind("command+f", function (e) {
 for (var i = 0; i < 9; i++) {
 	(function (i) {
 		Mousetrap.bind("command+" + i, function (e) {
-			var newTab = tabs.getAtIndex(i - 1);
-			if (!newTab) { //we're trying to switch to a tab that doesn't exist
-				return;
+			var currentIndex = tabs.getIndex(tabs.getSelected());
+			var newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i);
+			if (newTab) {
+				switchToTab(newTab.id);
 			}
-			switchToTab(newTab.id);
 		})
+
+		Mousetrap.bind("shift+command+" + i, function (e) {
+			var currentIndex = tabs.getIndex(tabs.getSelected());
+			var newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i);
+			if (newTab) {
+				switchToTab(newTab.id);
+			}
+		})
+
 	})(i);
 }
 
@@ -2781,9 +3045,14 @@ Mousetrap.bind("command+9", function (e) {
 	switchToTab(tabs.getAtIndex(tabs.count() - 1).id);
 })
 
+Mousetrap.bind("shift+command+9", function (e) {
+	switchToTab(tabs.getAtIndex(0).id);
+})
+
 Mousetrap.bind("esc", function (e) {
 	leaveTabEditMode();
-	getWebview(tabs.getSelected()).focus();
+	leaveExpandedMode();
+	getWebview(tabs.getSelected()).get(0).focus();
 });
 
 Mousetrap.bind("shift+command+r", function () {
@@ -2801,6 +3070,9 @@ Mousetrap.bind("command+right", function (d) {
 });
 
 Mousetrap.bind(["option+command+left", "shift+ctrl+tab"], function (d) {
+
+	enterExpandedMode(); //show the detailed tab switcher
+
 	var currentIndex = tabs.getIndex(tabs.getSelected());
 	var previousTab = tabs.getAtIndex(currentIndex - 1);
 
@@ -2812,6 +3084,9 @@ Mousetrap.bind(["option+command+left", "shift+ctrl+tab"], function (d) {
 });
 
 Mousetrap.bind(["option+command+right", "ctrl+tab"], function (d) {
+
+	enterExpandedMode();
+
 	var currentIndex = tabs.getIndex(tabs.getSelected());
 	var nextTab = tabs.getAtIndex(currentIndex + 1);
 
@@ -2826,44 +3101,148 @@ Mousetrap.bind("command+n", function (d) { //destroys all current tabs, and crea
 
 	var tset = tabs.get();
 	for (var i = 0; i < tset.length; i++) {
-		destroyTab(tset[i].id, {
-			switchToTab: false
-		});
+		destroyTab(tset[i].id);
 	}
 
-	addTab();
-})
+	addTab(); //create a new, blank tab
+
+	sessionRestore.save(); //we want to delete the old session
+});
+
+//return exits expanded mode
+
+Mousetrap.bind("return", function () {
+	if (isExpandedMode) {
+		leaveExpandedMode();
+		getWebview(tabs.getSelected())[0].focus();
+	}
+});
+
+Mousetrap.bind("shift+command+e", function () {
+	if (!isExpandedMode) {
+		enterExpandedMode();
+	} else {
+		leaveExpandedMode();
+	}
+});
+
+$(document.body).on("keyup", function (e) {
+	if (e.keyCode == 17) { //ctrl key
+		leaveExpandedMode();
+	}
+});
+;var sessionRestore = {
+	save: function () {
+		var data = {
+			version: 1,
+			tabs: [],
+			selected: tabs._state.selected,
+		}
+
+		//save all tabs that aren't private
+
+		tabs.get().forEach(function (tab) {
+			if (!tab.private) {
+				data.tabs.push(tab);
+			}
+		});
+
+		localStorage.setItem("sessionrestoredata", JSON.stringify(data));
+	},
+	restore: function () {
+		//get the data
+
+		try {
+			var data = JSON.parse(localStorage.getItem("sessionrestoredata") || "{}");
+
+			localStorage.setItem("sessionrestoredata", "{}");
+
+			if (data.version && data.version != 1) { //if the version isn't compatible, we don't want to restore.
+				addTab({
+					leaveEditMode: false //we know we aren't in edit mode yet, so we don't have to leave it
+				});
+				return;
+			}
+
+			console.info("restoring tabs", data.tabs);
+
+			if (!data || !data.tabs || !data.tabs.length || (data.tabs.length == 1 && data.tabs[0].url == "about:blank")) { //If there are no tabs, or if we only have one tab, and it's about:blank, don't restore
+				addTab(tabs.add(), {
+					leaveEditMode: false
+				});
+				return;
+			}
+
+			//actually restore the tabs
+			data.tabs.forEach(function (tab, index) {
+				if (!tab.private) { //don't restore private tabs
+					var newTab = tabs.add(tab);
+					addTab(newTab, {
+						openInBackground: true,
+						leaveEditMode: false,
+					});
+				}
+
+			});
+
+			//set the selected tab
+
+			if (tabs.get(data.selected)) { //if the selected tab was a private tab that we didn't restore, it's possible that the selected tab doesn't actually exist. This will throw an error, so we want to make sure the tab exists before we try to switch to it
+				switchToTab(data.selected);
+			} else { //switch to the first tab
+				switchToTab(data.tabs[0].id);
+			}
+
+			//we delete the data, restore the session, and then re-save it. This means that if for whatever reason the session data is making the browser hang, you can restart and get a new session.
+
+			sessionRestore.save();
+
+		} catch (e) {
+			//if we can't restore the session, try to start over with a blank tab
+			console.warn("failed to restore session, rolling back");
+			console.error(e);
+
+			localStorage.setItem("sessionrestoredata", "{}");
+
+			$("webview, .tab-item").remove();
+			addTab();
+
+		}
+	}
+}
+
+//TODO make this a preference
+
+sessionRestore.restore();
+
+setInterval(sessionRestore.save, 15000);
 ;/* handles viewing pdf files using pdf.js. Recieves events from main.js will-download */
 
 var PDFViewerURL = "file://" + __dirname + "/pdfjs/web/viewer.html?url=";
 
 ipc.on("openPDF", function (event, filedata) {
-	console.log(filedata);
-	var cTab = tabs.get(tabs.getSelected());
+	console.log("opening PDF", filedata);
 
-	var webview = getWebview(cTab.id);
+	var PDFurl = PDFViewerURL + filedata.url,
+		hasOpenedPDF = false;
 
-	//If the current tab is blank or has the url of the pdf we are opening, we open the pdf in the current tab. Otherwise, to avoid losing pages, we open a new tab with the pdf.
+	// we don't know which tab the event came from, so we loop through each tab to find out.
 
-	var PDFurl = PDFViewerURL + filedata.url;
+	tabs.get().forEach(function (tab) {
+		if (tab.url == filedata.url) {
+			navigate(tab.id, PDFurl);
+			hasOpenedPDF = true;
+		}
+	});
 
-	if (cTab.url == PDFurl) { //if we are already on the pdf we are navigating to, ignore it
-		return;
-	}
-
-
-	if (cTab.url == "about:blank" || cTab.url == filedata.item.url) {
-		navigate(tabs.getSelected(), PDFurl)
-	} else {
-
+	if (!hasOpenedPDF) {
 		var newTab = tabs.add({
 			url: PDFurl
-		})
+		}, tabs.getIndex(tabs.getSelected()) + 1);
 
 		addTab(newTab, {
 			focus: false
 		});
-
 	}
 });
 ;var findinpage = {
@@ -2884,7 +3263,9 @@ ipc.on("openPDF", function (event, filedata) {
 
 		//focus the webview
 
-		getWebview(tabs.getSelected()).focus();
+		if (findinpage.input.is(":focus")) {
+			getWebview(tabs.getSelected()).get(0).focus();
+		}
 	},
 	toggle: function () {
 		if (findinpage.isEnabled) {
@@ -2920,66 +3301,3 @@ findinpage.input.on("blur", function (e) {
 			blurInput: false
 		}) //if end tries to blur it again, we'll get stuck in an infinite loop with the event handler
 });
-;var sessionRestore = {
-	save: function () {
-		var data = {
-			version: 1,
-			tabs: tabs._state.tabs,
-			selected: tabs._state.selected,
-		}
-		localStorage.setItem("sessionrestoredata", JSON.stringify(data));
-	},
-	restore: function () {
-		try {
-			//get the data
-			var data = JSON.parse(localStorage.getItem("sessionrestoredata") || "{}");
-
-			localStorage.setItem("sessionrestoredata", "{}");
-
-			if (data.version && data.version != 1) {
-				addTab();
-				return;
-			}
-
-			console.info("restoring tabs", tabs.get());
-
-			if (!data || !data.tabs || !data.tabs.length || (data.tabs.length == 1 && data.tabs[0].url == "about:blank")) { //If there are no tabs, or bif we only have one tab, and its about:blank, don't restore
-				addTab();
-				return;
-			}
-
-			data.tabs.forEach(function (tab, index) {
-				if (!tab.private) { //don't restore private tabs
-					var newTab = tabs.add(tab);
-					addTab(newTab);
-				}
-
-			});
-
-			//set the selected tab
-
-			switchToTab(data.selected);
-
-			//we delete the data, restore the session, and then re-save it. This means that if for whatever reason the session data is making the browser hang, you can restart it and get a new session.
-
-			sessionRestore.save();
-
-		} catch (e) {
-			console.warn("failed to restore session, rolling back");
-
-			tabs._state.tabs = [];
-
-			$("webview, .tab-item").remove();
-
-			addTab();
-			localStorage.setItem("sessionrestoredata", "{}");
-
-		}
-	}
-}
-
-//TODO make this a preference
-
-sessionRestore.restore();
-
-setInterval(sessionRestore.save, 15000);
