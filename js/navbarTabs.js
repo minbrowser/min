@@ -64,7 +64,7 @@ tabGroup.on("click", ".tab-item", function (e) {
 	//if the tab isn't focused
 	if (tabs.getSelected() != tabId) {
 		switchToTab(tabId);
-	} else { //the tab is focused, edit tab instead
+	} else if (!isExpandedMode) { //the tab is focused, edit tab instead
 		enterEditMode(tabId);
 	}
 
