@@ -193,3 +193,8 @@
 		max-width: 100%;
 	}
 }
+.tab-group.expanded .tab-item .tab-view-contents .title {
+	max-height: 2.9em;
+	overflow: hidden;
+	display: inline-block;
+}

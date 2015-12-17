@@ -9,34 +9,53 @@ tabContainer.on("mousewheel", function (e) {
 	}
 });
 
+tabContainer.on("mouseenter", ".tab-item", function (e) {
+	if (isExpandedMode) {
+		var item = $(this);
+		setTimeout(function () {
+			if (item.is(":hover")) {
+				var tab = tabs.get(item.attr("data-tab"));
+
+				switchToTab(item.attr("data-tab"));
+			}
+		}, 125);
+	}
+});
+
 var isExpandedMode = false;
 
 function enterExpandedMode() {
-	leaveTabEditMode();
+	if (!isExpandedMode) {
+		leaveTabEditMode();
 
-	//get the subtitles
+		//get the subtitles
 
-	tabs.get().forEach(function (tab) {
-		try {
-			var prettyURL = urlParser.prettyURL(tab.url);
-		} catch (e) {
-			var prettyURL = "";
-		}
+		tabs.get().forEach(function (tab) {
+			try {
+				var prettyURL = urlParser.prettyURL(tab.url);
+			} catch (e) {
+				var prettyURL = "";
+			}
 
-		getTabElement(tab.id).find(".secondary-text").text(prettyURL);
-	});
+			var tabEl = getTabElement(tab.id);
 
-	tabContainer.addClass("expanded");
-	getWebview(tabs.getSelected()).blur();
-	tabContainer.get(0).focus();
+			tabEl.find(".secondary-text").text(prettyURL);
+		});
 
-	isExpandedMode = true;
+		tabContainer.addClass("expanded");
+		getWebview(tabs.getSelected()).blur();
+		tabContainer.get(0).focus();
+
+		isExpandedMode = true;
+	}
 }
 
 function leaveExpandedMode() {
-	tabContainer.removeClass("expanded");
+	if (isExpandedMode) {
+		tabContainer.removeClass("expanded");
 
-	isExpandedMode = false;
+		isExpandedMode = false;
+	}
 }
 
 //when a tab is clicked, we want to minimize the tabstrip
