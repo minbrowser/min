@@ -184,15 +184,24 @@ db.bookmarks
 var historyInMemoryCache = [];
 var doneLoadingCache = false;
 
-db.history.where("visitCount").above(40).each(function (item) {
-	historyInMemoryCache.push(item);
-}).then(function () {
-	db.history.where("visitCount").between(3, 40).each(function (item) {
+function loadHistoryInMemory() {
+	historyInMemoryCache = [];
+	doneLoadingCache = false;
+
+	db.history.where("visitCount").above(40).each(function (item) {
 		historyInMemoryCache.push(item);
 	}).then(function () {
-		doneLoadingCache = true
+		db.history.where("visitCount").between(3, 40).each(function (item) {
+			historyInMemoryCache.push(item);
+		}).then(function () {
+			doneLoadingCache = true
+		});
 	});
-})
+};
+
+loadHistoryInMemory();
+
+setInterval(loadHistoryInMemory, 30 * 60 * 1000);
 
 onmessage = function (e) {
 	var action = e.data.action;
