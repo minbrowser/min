@@ -1,35 +1,4 @@
 body {
 	background: #D42020;
-	max-width: 800px;
-	margin: auto;
-	padding: 50px;
 	color: #fff;
-	padding-top: 10%;
-}
-body h1 {
-	font-family: ".SFNSText-Light";
-	font-weight: 500;
-	font-size: 3.25em;
-	margin-bottom: 2rem;
-}
-body h2 {
-	margin-top: 0.5em;
-	font-weight: 500;
-	font-size: 1.25em;
-}
-button {
-	float: right;
-	margin-right: 1.75rem;
-	font-size: 1.2rem;
-	margin-top: 0.25em;
-}
-@media all and (max-width: 600px) {
-	body h1 {
-		font-size: 2em;
-	}
-	button {
-		width: 100%;
-		display: block;
-		margin: 0;
-	}
 }

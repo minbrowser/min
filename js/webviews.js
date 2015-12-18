@@ -1,6 +1,7 @@
 /* implements selecting webviews, switching between them, and creating new ones. */
 
 var phishingWarningPage = "file://" + __dirname + "/pages/phishing/index.html"; //TODO move this somewhere that actually makes sense
+var crashedWebviewPage = "file:///" + __dirname + "/pages/crash/index.html";
 
 var webviewBase = $("#webviews");
 var webviewEvents = [];
@@ -138,6 +139,17 @@ function getWebviewDom(options) {
 	});
 
 	w.on("contextmenu", webviewMenu.show);
+
+	w.on("crashed", function (e) {
+		var tabId = $(this).attr("data-tab");
+
+		destroyWebview(tabId);
+		tabs.update(tabId, {
+			url: crashedWebviewPage
+		});
+
+		addWebview(tabId);
+	});
 
 	return w;
 

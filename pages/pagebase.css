@@ -1,11 +1,14 @@
-body,
-html {
+body {
 	min-height: 100%;
 	padding: 0;
 	border: 0;
 	margin: 0;
 	box-sizing: border-box;
 	font-family: ".SFNSText-Regular";
+	max-width: 800px;
+	margin: auto;
+	padding: 50px;
+	padding-top: 10%;
 }
 button {
 	-webkit-appearance: none;
@@ -15,4 +18,34 @@ button {
 	border: 0;
 	background: rgba(0, 0, 0, 0.15);
 	padding: 0.5em 1em;
+}
+body h1 {
+	font-family: ".SFNSText-Light";
+	font-weight: 500;
+	font-size: 3.25em;
+	margin-bottom: 2rem;
+}
+body h2 {
+	margin: auto;
+	margin-top: 0.5em;
+	font-weight: 500;
+	font-size: 1.25em;
+	/* align with the icon */
+	margin-left: 65px;
+}
+@media all and (max-width: 600px) {
+	body h1 {
+		font-size: 2em;
+	}
+	button {
+		width: 100%;
+		display: block;
+		margin: 0;
+	}
+}
+button {
+	float: right;
+	margin-right: 1.75rem;
+	font-size: 1.2rem;
+	margin-top: 0.5em;
 }
