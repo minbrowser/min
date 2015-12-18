@@ -178,6 +178,7 @@ function getValue(input) {
 
 function hideAwesomebar() {
 	awesomebarShown = false;
+	currentAwesomebarInput = null;
 	$(document.body).removeClass("awesomebar-shown");
 	awesomebar.hide();
 	cachedBangSnippets = {};
