@@ -268,6 +268,7 @@ function createTabElement(tabId) {
 }
 
 function addTab(tabId, options) {
+
 	/* options 
 	
 						options.focus - whether to enter editing mode when the tab is created. Defaults to true.
@@ -306,6 +307,8 @@ function addTab(tabId, options) {
 	addWebview(tabId, {
 		openInBackground: options.openInBackground, //if the tab is being opened in the background, the webview should be as well
 	});
+
+	browserEvents.emit("addTab");
 
 	//open in background - we don't want to enter edit mode or switch to tab
 

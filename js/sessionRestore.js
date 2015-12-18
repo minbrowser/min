@@ -1,20 +1,24 @@
 var sessionRestore = {
 	save: function () {
-		var data = {
-			version: 1,
-			tabs: [],
-			selected: tabs._state.selected,
-		}
-
-		//save all tabs that aren't private
-
-		tabs.get().forEach(function (tab) {
-			if (!tab.private) {
-				data.tabs.push(tab);
+		requestIdleCallback(function () {
+			var data = {
+				version: 1,
+				tabs: [],
+				selected: tabs._state.selected,
 			}
-		});
 
-		localStorage.setItem("sessionrestoredata", JSON.stringify(data));
+			//save all tabs that aren't private
+
+			tabs.get().forEach(function (tab) {
+				if (!tab.private) {
+					data.tabs.push(tab);
+				}
+			});
+
+			localStorage.setItem("sessionrestoredata", JSON.stringify(data));
+		}, {
+			timeout: 2250
+		});
 	},
 	restore: function () {
 		//get the data
@@ -42,13 +46,11 @@ var sessionRestore = {
 
 			//actually restore the tabs
 			data.tabs.forEach(function (tab, index) {
-				if (!tab.private) { //don't restore private tabs
-					var newTab = tabs.add(tab);
-					addTab(newTab, {
-						openInBackground: true,
-						leaveEditMode: false,
-					});
-				}
+				var newTab = tabs.add(tab);
+				addTab(newTab, {
+					openInBackground: true,
+					leaveEditMode: false,
+				});
 
 			});
 
@@ -75,11 +77,16 @@ var sessionRestore = {
 			addTab();
 
 		}
+	},
+	initializeSaveEvents: function () {
+		browserEvents.on("addTab", sessionRestore.save);
+		browserEvents.on("switchToTab", sessionRestore.save);
 	}
 }
 
 //TODO make this a preference
 
 sessionRestore.restore();
+sessionRestore.initializeSaveEvents();
 
-setInterval(sessionRestore.save, 15000);
+setInterval(sessionRestore.save, 12500);
