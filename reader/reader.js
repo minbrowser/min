@@ -24,7 +24,7 @@ function startReaderView(article) {
 
 	window.rframe = document.createElement("iframe");
 	rframe.classList.add("reader-frame");
-	rframe.sandbox = "allow-same-origin";
+	rframe.sandbox = "allow-same-origin allow-popups";
 	rframe.srcdoc = emptyHTMLdocument;
 
 	rframe.onload = function () {
@@ -95,10 +95,17 @@ $.ajax(url)
 
 			var doc = iframe.contentDocument;
 
-			//hack to generate a location object from a url - an a element has all the properties (pathname, host, protocol, etc)
-			var location = document.createElement("a");
-			location.href = url;
+			var location = new URL(url);
 
+			//in order for links to work correctly, they all need to open in a new tab
+
+			var links = doc.querySelectorAll("a");
+
+			if (links) {
+				for (var i = 0; i < links.length; i++) {
+					links[i].target = "_blank";
+				}
+			}
 
 			var uri = {
 				spec: location.href,

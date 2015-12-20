@@ -105,10 +105,13 @@ ol li {
 	padding: 0.25rem 0;
 }
 a {
-	text-decoration: none;
 	color: inherit;
 	font-size: 1em;
-	pointer-events: none;
+	text-decoration: none;
+	color: #777;
+}
+a:hover {
+	color: #2196F3;
 }
 figure {
 	max-width: 50%;
