@@ -79,8 +79,7 @@ var sessionRestore = {
 		}
 	},
 	initializeSaveEvents: function () {
-		browserEvents.on("addTab", sessionRestore.save);
-		browserEvents.on("switchToTab", sessionRestore.save);
+		browserEvents.on("switchToTab", sessionRestore.save); //this will also be triggered every time we add a tab
 	}
 }
 

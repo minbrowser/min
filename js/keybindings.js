@@ -172,8 +172,6 @@ Mousetrap.bind("command+n", function (d) { //destroys all current tabs, and crea
 	}
 
 	addTab(); //create a new, blank tab
-
-	sessionRestore.save(); //we want to delete the old session
 });
 
 //return exits expanded mode
