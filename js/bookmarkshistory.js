@@ -18,7 +18,7 @@ var bookmarks = {
 				title: w.getTitle(),
 				color: tabs.get(tabId).backgroundColor
 			}
-			bookmarks.worker.postMessage({
+			bookmarks.historyWorker.postMessage({
 				action: "updateHistory",
 				data: data
 			});
@@ -35,14 +35,14 @@ var bookmarks = {
 		}
 
 		data.title = getWebview(bookmarks.authBookmarkTab)[0].getTitle();
-		bookmarks.worker.postMessage({
+		bookmarks.bookmarksWorker.postMessage({
 			action: "addBookmark",
 			data: data
 		})
 		bookmarks.authBookmarkTab = null;
 	},
 	deleteBookmark: function (url) {
-		bookmarks.worker.postMessage({
+		bookmarks.bookmarksWorker.postMessage({
 			action: "deleteBookmark",
 			data: {
 				url: url
@@ -50,7 +50,7 @@ var bookmarks = {
 		});
 	},
 	deleteHistory: function (url) {
-		bookmarks.worker.postMessage({
+		bookmarks.historyWorker.postMessage({
 			action: "deleteHistory",
 			data: {
 				url: url
@@ -59,21 +59,21 @@ var bookmarks = {
 	},
 	searchBookmarks: function (text, callback) {
 		bookmarks.currentCallback = callback; //save for later, we run in onMessage
-		bookmarks.worker.postMessage({
+		bookmarks.bookmarksWorker.postMessage({
 			action: "searchBookmarks",
 			text: text,
 		});
 	},
 	searchHistory: function (text, callback) {
 		bookmarks.currentHistoryCallback = callback; //save for later, we run in onMessage
-		bookmarks.worker.postMessage({
+		bookmarks.historyWorker.postMessage({
 			action: "searchHistory",
 			text: text,
 		});
 	},
 	searchTopics: function (text, callback) {
 		bookmarks.currentTopicsCallback = callback;
-		bookmarks.worker.postMessage({
+		bookmarks.historyWorker.postMessage({
 			action: "searchTopics",
 			text: text,
 		});
@@ -155,8 +155,11 @@ var bookmarks = {
 		return star;
 	},
 	init: function () {
-		bookmarks.worker = new Worker("js/historyworker.js");
-		bookmarks.worker.onmessage = bookmarks.onMessage;
+		bookmarks.historyWorker = new Worker("js/historyworker.js");
+		bookmarks.historyWorker.onmessage = bookmarks.onMessage;
+
+		bookmarks.bookmarksWorker = new Worker("js/bookmarksworker.js");
+		bookmarks.bookmarksWorker.onmessage = bookmarks.onMessage;
 	},
 
 }
