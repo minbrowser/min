@@ -1,5 +1,5 @@
 importScripts("../ext/Dexie.min.js");
-importScripts("../ext/lunr.min.js");
+importScripts("../node_modules/lunr/lunr.min.js");
 importScripts("database.js");
 
 //add bookmarks to the lunr index

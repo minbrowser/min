@@ -1,19 +1,20 @@
 {
-	"name": "Min",
-	"version": "0.3.0",
-	"main": "main.js",
-	"dependencies": {
-		"jquery": "^2.1.4",
-		"js-beautify": "^1.5.10",
-		"marked": "^0.3.5",
-		"mousetrap": "^1.5.3",
-		"nlp_compromise": "^1.1.5",
-		"string_score": "^0.1.22"
-	},
-	"devDependencies": {
-		"grunt": "^0.4.5",
-		"grunt-contrib-concat": "^0.5.1",
-		"grunt-contrib-uglify": "^0.10.0"
-	},
-	"license": "Apache-2.0"
+  "name": "Min",
+  "version": "0.3.0",
+  "main": "main.js",
+  "dependencies": {
+    "jquery": "^2.1.4",
+    "js-beautify": "^1.5.10",
+    "lunr": "^0.6.0",
+    "marked": "^0.3.5",
+    "mousetrap": "^1.5.3",
+    "nlp_compromise": "^1.1.5",
+    "string_score": "^0.1.22"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-uglify": "^0.10.0"
+  },
+  "license": "Apache-2.0"
 }
