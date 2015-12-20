@@ -240,8 +240,8 @@ var showAwesomebarResults = function (text, input, event) {
 	//show awesomebar results
 
 
-	//normally, we will search history first, and only show search suggestions if there aren't any history results. However, if the history db isn't opened yet (which it won't be if the page loaded less than a few seconds ago), we should show results without waiting for history. Also, show results if a !bang search is occuring
-	if (performance.now() < 12500 || text.indexOf("!") == 0) {
+	//show results if a !bang search is occuring
+	if (text.indexOf("!") == 0) {
 
 		showSearchSuggestions(text, input);
 	}
