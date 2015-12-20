@@ -40,7 +40,8 @@ db.bookmarks
 
 	});
 
-onmesage = function (e) {
+
+onmessage = function (e) {
 	var action = e.data.action;
 	var pageData = e.data.data;
 	var searchText = e.data.text && e.data.text.toLowerCase();
