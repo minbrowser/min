@@ -10,7 +10,7 @@ var sslError = {
 
 var dnsError = {
 	name: "Website not found",
-	messge: "A DNS error occured"
+	messge: "A DNS error occured."
 }
 
 //list: https://code.google.com/p/chromium/codesearch#chromium/src/net/base/net_error_list.h&sq=package:chromium&type=cs
@@ -21,7 +21,7 @@ const errorCodes = {
 	"-105": websiteNotFound,
 	"-106": {
 		name: "You are offline",
-		message: "Reconnect to the internet and try again"
+		message: "Reconnect to the internet and try again."
 	},
 	"-109": websiteNotFound,
 	"-110": sslError, //this is actually the error code for "server requested a client certificate", but we don't support that yet,
@@ -32,7 +32,7 @@ const errorCodes = {
 	"-200": sslError,
 	"-201": {
 		name: "This website is not available",
-		message: "Min couldn't connect securely to this website. This could be caused by an incorrectly set clock on your computer."
+		message: "Min couldn't connect securely to this website. Please make sure your computer's clock is set correctly."
 	},
 	"-202": sslError,
 	"-203": sslError,
