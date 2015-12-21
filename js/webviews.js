@@ -2,6 +2,7 @@
 
 var phishingWarningPage = "file://" + __dirname + "/pages/phishing/index.html"; //TODO move this somewhere that actually makes sense
 var crashedWebviewPage = "file:///" + __dirname + "/pages/crash/index.html";
+var errorPage = "file:///" + __dirname + "/pages/error/index.html"
 
 var webviewBase = $("#webviews");
 var webviewEvents = [];
@@ -150,6 +151,12 @@ function getWebviewDom(options) {
 
 		addWebview(tabId);
 	});
+
+	w.on("did-fail-load", function (e) {
+		if (e.originalEvent.errorCode != -3) {
+			navigate($(this).attr("data-tab"), errorPage + "?ec=" + encodeURIComponent(e.originalEvent.errorCode) + "&url=" + e.target.getUrl());
+		}
+	})
 
 	return w;
 

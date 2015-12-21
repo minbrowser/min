@@ -1,51 +1,49 @@
-body {
-	min-height: 100%;
-	padding: 0;
-	border: 0;
-	margin: 0;
-	box-sizing: border-box;
-	font-family: ".SFNSText-Regular";
-	max-width: 800px;
-	margin: auto;
-	padding: 50px;
-	padding-top: 10%;
-}
-button {
-	-webkit-appearance: none;
-	color: inherit;
-	font-family: inherit;
-	font-size: 1em;
-	border: 0;
-	background: rgba(0, 0, 0, 0.15);
-	padding: 0.5em 1em;
-}
-body h1 {
-	font-family: ".SFNSText-Light";
-	font-weight: 500;
-	font-size: 3.25em;
-	margin-bottom: 2rem;
-}
-body h2 {
-	margin: auto;
-	margin-top: 0.5em;
-	font-weight: 500;
-	font-size: 1.25em;
-	/* align with the icon */
-	margin-left: 65px;
-}
-@media all and (max-width: 600px) {
-	body h1 {
-		font-size: 2em;
+	body,
+	html {
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+		font-family: ".SFNSDisplay-Thin";
+	}
+	#page-wrapper {
+		width: auto;
+		height: auto;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		max-width: 600px;
+	}
+	h1 {
+		font-size: 2.75em;
+		font-weight: normal;
+		margin-bottom: 0.25em;
+		margin-top: 0;
+	}
+	h2 {
+		font-size: 1.25em;
+		font-family: ".SFNSText-Regular";
+		font-weight: normal;
+		text-align: justify;
+		margin-top: 0;
+	}
+	a {
+		color: cornflowerblue;
+		text-decoration: none;
+		background-image: linear-gradient(to bottom, transparent 80%, currentColor 0%);
+		background-size: 1px 3px;
+		background-position: 0px 0.975em;
+		background-repeat: repeat-x;
 	}
 	button {
-		width: 100%;
-		display: block;
-		margin: 0;
+		float: right;
+		-webkit-appearance: none;
+		color: inherit;
+		font-size: 1.1em;
+		padding: 0.5em 1em;
+		border: 0;
+		background-color: rgba(0, 0, 0, 0.1);
+		margin-top: 0.5em;
 	}
-}
-button {
-	float: right;
-	margin-right: 1.75rem;
-	font-size: 1.2rem;
-	margin-top: 0.5em;
-}
