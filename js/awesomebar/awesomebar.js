@@ -271,6 +271,17 @@ function focusAwesomebarItem(options) {
 	} else { // no item is focused.
 		$("#awesomebar .result-item").first().get(0).focus();
 	}
+
+	var focusedItem = $("#awesomebar .result-item:focus");
+
+	if (focusedItem.hasClass("iadata-onfocus")) {
+		var itext = focusedItem.find(".title").text();
+
+		showInstantAnswers(itext, currentAwesomebarInput, {
+			alwaysShow: true,
+			destroyPrevious: false,
+		});
+	}
 }
 
 //return key on result items should trigger click 
@@ -341,7 +352,7 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 			hasShownDDGpopup = true;
 		}*/
 
-		var div = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(item)).on("click", function (e) {
+		var div = $("<div class='result-item iadata-onfocus' tabindex='-1'>").append($("<span class='title'>").text(item)).on("click", function (e) {
 			if (e.metaKey) {
 				openURLInBackground(item);
 			} else {

@@ -81,7 +81,7 @@ window.showSearchSuggestions = throttle(function (text, input) {
 						title = result.phrase.replace(BANG_REGEX, "");
 						var secondaryText = "Search on " + bangACSnippet;
 					}
-					var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(title)).on("click", function (e) {
+					var item = $("<div class='result-item iadata-onfocus' tabindex='-1'>").append($("<span class='title'>").text(title)).on("click", function (e) {
 						openURLFromAwesomebar(e, result.phrase);
 					});
 
@@ -113,6 +113,12 @@ var limitSearchSuggestions = function (itemsToRemove) {
 }
 
 window.showInstantAnswers = debounce(function (text, input, options) {
+
+	if (!text) {
+		iaarea.empty();
+		suggestedsitearea.empty();
+		return;
+	}
 
 	options = options || {};
 
@@ -181,22 +187,26 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 
 			//suggested site links
 
+
 			if (res.Results && res.Results[0] && res.Results[0].FirstURL) {
-				var url = urlParser.removeProtocol(res.Results[0].FirstURL).replace(trailingSlashRegex, "");
 
-				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(url)).on("click", function (e) {
+				var itemsWithSameURL = historyarea.find('.result-item[data-url="{url}"]'.replace("{url}", res.Results[0].FirstURL));
 
-					openURLFromAwesomebar(e, res.Results[0].FirstURL);
-				});
+				if (itemsWithSameURL.length == 0) {
+					var url = urlParser.removeProtocol(res.Results[0].FirstURL).replace(trailingSlashRegex, "");
 
 				$("<i class='fa fa-globe'>").prependTo(item);
+					var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(url)).on("click", function (e) {
 
 				$("<span class='secondary-text'>").text("Suggested site").appendTo(item);
+						openURLFromAwesomebar(e, res.Results[0].FirstURL);
+					});
 
 				console.log(item);
+					$("<i class='fa fa-globe'>").prependTo(item);
 
-				//if we have bookmarks for that item, we probably don't need to suggest a site
-				if (bookmarkarea.find(".result-item").length < 2) {
+					$("<span class='secondary-text'>").text("Suggested site").appendTo(item);
+
 					item.appendTo(suggestedsitearea);
 				}
 			}
@@ -219,8 +229,10 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				item.appendTo(iaarea);
 			}
 
-			iaarea.find(".old").remove();
-			suggestedsitearea.find(".old").remove();
+			if (options.destroyPrevious != false || item) {
+				iaarea.find(".old").remove();
+				suggestedsitearea.find(".old").remove();
+			}
 
 
 		});

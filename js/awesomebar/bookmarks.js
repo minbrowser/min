@@ -1,5 +1,5 @@
 var showBookmarkResults = throttle(function (text) {
-	if (text.length < 4 || text.indexOf("!") == 0) { //if there is not enough text, or we're doing a bang search, don't show results
+	if (text.length < 5 || text.indexOf("!") == 0) { //if there is not enough text, or we're doing a bang search, don't show results
 		limitHistoryResults(5);
 		bookmarkarea.empty();
 		return;
