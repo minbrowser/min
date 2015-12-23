@@ -1,4 +1,5 @@
 var readerView = {
+	readerURL: "file:///" + __dirname + "/reader/index.html",
 	getButton: function (tabId) {
 		//TODO better icon
 		return $("<i class='fa fa-align-left reader-button'>").attr("data-tab", tabId).attr("title", "Enter reader view");
@@ -31,7 +32,7 @@ var readerView = {
 		}
 	},
 	enter: function (tabId) {
-		navigate(tabId, "file:///" + __dirname + "/reader/index.html?url=" + tabs.get(tabId).url);
+		navigate(tabId, readerView.readerURL + "?url=" + tabs.get(tabId).url);
 		tabs.update(tabId, {
 			isReaderView: true
 		});
@@ -50,7 +51,7 @@ bindWebviewEvent("did-finish-load", function (e) {
 	var tab = $(this).attr("data-tab"),
 		url = this.getURL();
 
-	if (url.indexOf("file://" + __dirname + "/reader/index.html") == 0) {
+	if (url.indexOf(readerView.readerURL) == 0) {
 		tabs.update(tab, {
 			isReaderView: true
 		})
