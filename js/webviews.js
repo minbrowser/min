@@ -93,18 +93,6 @@ function getWebviewDom(options) {
 		console.log(e.originalEvent);
 	});*/
 
-
-	/* too buggy, disabled for now
-
-	w.on("did-fail-load", function (e) {
-		if (e.originalEvent.validatedURL == this.getURL()) {
-			updateURLInternal($(this), "file:///" + __dirname + "/pages/error/index.html?e=" + JSON.stringify(e.originalEvent) + "&url=" + $(this)[0].getURL());
-		}
-	});
-		
-	*/
-
-
 	//open links in new tabs
 
 	w.on("new-window", function (e) {
