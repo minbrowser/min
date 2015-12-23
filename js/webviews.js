@@ -77,7 +77,9 @@ function getWebviewDom(options) {
 			});
 		}
 
-		if (tabs.get(tab).private == false) { //don't save to history if in private mode
+		var isInternalPage = url.indexOf(__dirname) != -1 && url.indexOf(readerView.readerURL) == -1
+
+		if (tabs.get(tab).private == false && !isInternalPage) { //don't save to history if in private mode, or the page is a browser page
 			bookmarks.updateHistory(tab);
 		}
 
