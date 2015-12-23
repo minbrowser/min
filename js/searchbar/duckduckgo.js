@@ -1,8 +1,8 @@
 var BANG_REGEX = /!\w+/g;
-var serarea = $("#awesomebar .search-engine-results");
-var iaarea = $("#awesomebar .instant-answer-results");
-var topAnswerarea = $("#awesomebar .top-answer-results");
-var suggestedsitearea = $("#awesomebar .ddg-site-results");
+var serarea = $("#searchbar .search-engine-results");
+var iaarea = $("#searchbar .instant-answer-results");
+var topAnswerarea = $("#searchbar .top-answer-results");
+var suggestedsitearea = $("#searchbar .ddg-site-results");
 
 var maxSearchSuggestions = 5;
 
@@ -82,7 +82,7 @@ window.showSearchSuggestions = throttle(function (text, input) {
 						var secondaryText = "Search on " + bangACSnippet;
 					}
 					var item = $("<div class='result-item iadata-onfocus' tabindex='-1'>").append($("<span class='title'>").text(title)).on("click", function (e) {
-						openURLFromAwesomebar(e, result.phrase);
+						openURLFromsearchbar(e, result.phrase);
 					});
 
 					item.appendTo(serarea);
@@ -104,7 +104,7 @@ window.showSearchSuggestions = throttle(function (text, input) {
 
 }, 500);
 
-/* this is called from historySuggestions. When we find history results, we want to limit search suggestions to 2 so the awesomebar doesn't get too large. */
+/* this is called from historySuggestions. When we find history results, we want to limit search suggestions to 2 so the searchbar doesn't get too large. */
 
 var limitSearchSuggestions = function (itemsToRemove) {
 	var itemsLeft = Math.max(2, 5 - itemsToRemove);
@@ -173,7 +173,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				}
 
 				item.on("click", function (e) {
-					openURLFromAwesomebar(e, res.AbstractURL || text);
+					openURLFromsearchbar(e, res.AbstractURL || text);
 				});
 
 				//answers are more relevant, they should be displayed at the top
@@ -193,16 +193,14 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				var itemsWithSameURL = historyarea.find('.result-item[data-url="{url}"]'.replace("{url}", res.Results[0].FirstURL));
 
 				if (itemsWithSameURL.length == 0) {
+
 					var url = urlParser.removeProtocol(res.Results[0].FirstURL).replace(trailingSlashRegex, "");
 
-				$("<i class='fa fa-globe'>").prependTo(item);
 					var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(url)).on("click", function (e) {
 
-				$("<span class='secondary-text'>").text("Suggested site").appendTo(item);
-						openURLFromAwesomebar(e, res.Results[0].FirstURL);
+						openURLFromsearchbar(e, res.Results[0].FirstURL);
 					});
 
-				console.log(item);
 					$("<i class='fa fa-globe'>").prependTo(item);
 
 					$("<span class='secondary-text'>").text("Suggested site").appendTo(item);
@@ -223,10 +221,10 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				$("<span class='secondary-text'>Search on OpenStreetMap</span>").appendTo(item);
 
 				item.on("click", function (e) {
-					openURLFromAwesomebar(e, "https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading));
+					openURLFromsearchbar(e, "https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading));
 				});
 
-				item.appendTo(iaarea);
+				item.prependTo(iaarea);
 			}
 
 			if (options.destroyPrevious != false || item) {

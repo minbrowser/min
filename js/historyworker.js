@@ -34,7 +34,7 @@ function cleanupHistoryDatabase() { //removes old history entries
 	db.history.where("lastVisit").below(minItemAge).delete();
 }
 
-setTimeout(cleanupHistoryDatabase, 20000); //don't run immediately on startup, since is might slow down awesomebar search.
+setTimeout(cleanupHistoryDatabase, 20000); //don't run immediately on startup, since is might slow down searchbar search.
 setInterval(cleanupHistoryDatabase, 60 * 60 * 1000);
 
 //cache frequently visited sites in memory for faster searching

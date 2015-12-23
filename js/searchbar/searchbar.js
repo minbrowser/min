@@ -1,8 +1,8 @@
-var awesomebarShown = false;
-var awesomebarCachedText = "";
+var searchbarShown = false;
+var searchbarCachedText = "";
 var METADATA_SEPARATOR = "·";
 var didFireKeydownSelChange = false;
-var currentAwesomebarInput;
+var currentsearchbarInput;
 
 //cache duckduckgo bangs so we make fewer network requests
 var cachedBangSnippets = {};
@@ -53,7 +53,7 @@ function unsafeUnwrapTags(text) {
 }
 
 /* this is used by navbar-tabs.js. When a url is entered, endings such as ? need to be parsed and removed. */
-function parseAwesomebarURL(url) {
+function parsesearchbarURL(url) {
 	//always use a search engine if the query starts with "?"
 
 	if (url.indexOf("?") == 0) {
@@ -71,7 +71,7 @@ function parseAwesomebarURL(url) {
 	return url;
 }
 
-function openURLInBackground(url) { //used to open a url in the background, without leaving the awesomebar
+function openURLInBackground(url) { //used to open a url in the background, without leaving the searchbar
 	var newTab = tabs.add({
 		url: url,
 		private: tabs.get(tabs.getSelected()).private
@@ -86,7 +86,7 @@ function openURLInBackground(url) { //used to open a url in the background, with
 
 //when clicking on a result item, this function should be called to open the URL
 
-function openURLFromAwesomebar(event, url) {
+function openURLFromsearchbar(event, url) {
 	if (event.metaKey) {
 		openURLInBackground(url);
 		return true;
@@ -135,12 +135,12 @@ function getRealTitle(text) {
 	return text;
 }
 
-var awesomebar = $("#awesomebar");
-var historyarea = awesomebar.find(".history-results");
-var bookmarkarea = awesomebar.find(".bookmark-results");
-var opentabarea = awesomebar.find(".opentab-results");
+var searchbar = $("#searchbar");
+var historyarea = searchbar.find(".history-results");
+var bookmarkarea = searchbar.find(".bookmark-results");
+var opentabarea = searchbar.find(".opentab-results");
 
-function clearAwesomebar() {
+function clearsearchbar() {
 	opentabarea.empty();
 	topAnswerarea.empty();
 	bookmarkarea.empty();
@@ -153,17 +153,17 @@ function clearAwesomebar() {
 	cachedBangSnippets = [];
 }
 
-function showAwesomebar(triggerInput) {
-	awesomebarCachedText = triggerInput.val();
-	awesomebarShown = true;
-	$(document.body).addClass("awesomebar-shown");
+function showSearchbar(triggerInput) {
+	searchbarCachedText = triggerInput.val();
+	searchbarShown = true;
+	$(document.body).addClass("searchbar-shown");
 
-	clearAwesomebar();
+	clearsearchbar();
 
 
-	awesomebar.show();
+	searchbar.show();
 
-	currentAwesomebarInput = triggerInput;
+	currentsearchbarInput = triggerInput;
 
 }
 
@@ -174,14 +174,14 @@ function getValue(input) {
 	return text.replace(text.substring(input[0].selectionStart, input[0].selectionEnd), "");
 }
 
-function hideAwesomebar() {
-	awesomebarShown = false;
-	currentAwesomebarInput = null;
-	$(document.body).removeClass("awesomebar-shown");
-	awesomebar.hide();
+function hidesearchbar() {
+	searchbarShown = false;
+	currentsearchbarInput = null;
+	$(document.body).removeClass("searchbar-shown");
+	searchbar.hide();
 	cachedBangSnippets = {};
 }
-var showAwesomebarResults = function (text, input, event) {
+var showSearchbarResults = function (text, input, event) {
 
 	isExpandedHistoryMode = false;
 	deleteKeyPressed = event && event.keyCode == 8;
@@ -200,19 +200,19 @@ var showAwesomebarResults = function (text, input, event) {
 		txt = v;
 	}
 
-	console.log("awesomebar: ", "'" + text + "'", text.length);
+	console.log("searchbar: ", "'" + text + "'", text.length);
 
 	//there is no text, show only topsites
 	if (text.length < 1) {
 		showHistoryResults("", input);
-		clearAwesomebar();
+		clearsearchbar();
 		return;
 	}
 
 	//when you start with ?, always search with duckduckgo
 
 	if (text.indexOf("?") == 0) {
-		clearAwesomebar();
+		clearsearchbar();
 
 		maxSearchSuggestions = 5;
 		showSearchSuggestions(text.replace("?", ""), input);
@@ -222,7 +222,7 @@ var showAwesomebarResults = function (text, input, event) {
 	//when you start with ^, always search history (only)
 
 	if (text.indexOf("^") == 0) {
-		clearAwesomebar();
+		clearsearchbar();
 		showHistoryResults(text.replace("^", ""), input);
 		return;
 	}
@@ -230,12 +230,12 @@ var showAwesomebarResults = function (text, input, event) {
 	//when you start with *, always search bookmarks (only)
 
 	if (text.indexOf("*") == 0) {
-		clearAwesomebar();
+		clearsearchbar();
 		showBookmarkResults(text.replace("*", ""), input);
 		return;
 	}
 
-	//show awesomebar results
+	//show searchbar results
 
 
 	//show results if a !bang search is occuring
@@ -251,33 +251,33 @@ var showAwesomebarResults = function (text, input, event) {
 	searchOpenTabs(text, input);
 
 	//update cache
-	awesomebarCachedText = text;
+	searchbarCachedText = text;
 };
 
-function focusAwesomebarItem(options) {
+function focussearchbarItem(options) {
 	options = options || {}; //fallback if options is null
 	var previous = options.focusPrevious;
-	var allItems = $("#awesomebar .result-item:not(.unfocusable)");
-	var currentItem = $("#awesomebar .result-item:focus, .result-item.fakefocus");
+	var allItems = $("#searchbar .result-item:not(.unfocusable)");
+	var currentItem = $("#searchbar .result-item:focus, .result-item.fakefocus");
 	var index = allItems.index(currentItem);
 	var logicalNextItem = allItems.eq((previous) ? index - 1 : index + 1);
 
-	awesomebar.find(".fakefocus").removeClass("fakefocus"); //clear previously focused items
+	searchbar.find(".fakefocus").removeClass("fakefocus"); //clear previously focused items
 
 	if (currentItem[0] && logicalNextItem[0]) { //an item is focused and there is another item after it, move onto the next one
 		logicalNextItem.get(0).focus();
-	} else if (currentItem[0]) { //the last item is focused, focus the awesomebar again
+	} else if (currentItem[0]) { //the last item is focused, focus the searchbar again
 		getTabElement(tabs.getSelected()).getInput().get(0).focus();
 	} else { // no item is focused.
-		$("#awesomebar .result-item").first().get(0).focus();
+		$("#searchbar .result-item").first().get(0).focus();
 	}
 
-	var focusedItem = $("#awesomebar .result-item:focus");
+	var focusedItem = $("#searchbar .result-item:focus");
 
 	if (focusedItem.hasClass("iadata-onfocus")) {
 		var itext = focusedItem.find(".title").text();
 
-		showInstantAnswers(itext, currentAwesomebarInput, {
+		showInstantAnswers(itext, currentsearchbarInput, {
 			alwaysShow: true,
 			destroyPrevious: false,
 		});
@@ -288,15 +288,15 @@ function focusAwesomebarItem(options) {
 //tab key or arrowdown key should focus next item
 //arrowup key should focus previous item
 
-awesomebar.on("keydown", ".result-item", function (e) {
+searchbar.on("keydown", ".result-item", function (e) {
 	if (e.keyCode == 13) {
 		$(this).trigger("click");
 	} else if (e.keyCode == 9 || e.keyCode == 40) { //tab or arrowdown key
 		e.preventDefault();
-		focusAwesomebarItem();
+		focussearchbarItem();
 	} else if (e.keyCode == 38) {
 		e.preventDefault();
-		focusAwesomebarItem({
+		focussearchbarItem({
 			focusPrevious: true
 		});
 	}
@@ -306,7 +306,7 @@ awesomebar.on("keydown", ".result-item", function (e) {
 
 var lastItemDeletion = Date.now();
 
-awesomebar.on("mousewheel", ".history-results .result-item, .top-answer-results .result-item", function (e) {
+searchbar.on("mousewheel", ".history-results .result-item, .top-answer-results .result-item", function (e) {
 	var self = $(this)
 	if (e.originalEvent.deltaX > 50 && e.originalEvent.deltaY < 3 && self.attr("data-url") && Date.now() - lastItemDeletion > 700) {
 		lastItemDeletion = Date.now();
@@ -321,7 +321,7 @@ awesomebar.on("mousewheel", ".history-results .result-item, .top-answer-results 
 	}
 });
 
-//when we get keywords data from the page, we show those results in the awesomebar
+//when we get keywords data from the page, we show those results in the searchbar
 
 bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 
@@ -345,7 +345,7 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 		}
 
 		/*if (!hasShownDDGpopup) {
-			showInstantAnswers(data.entities[0], currentAwesomebarInput, {
+			showInstantAnswers(data.entities[0], currentsearchbarInput, {
 				alwaysShow: true
 			});
 

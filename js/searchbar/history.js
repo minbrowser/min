@@ -9,8 +9,8 @@ var deleteKeyPressed = false;
 var isExpandedHistoryMode = false;
 var maxHistoryResults = 4;
 
-function awesomebarAutocomplete(text, input, historyResults) {
-	if (text == awesomebarCachedText && input[0].selectionStart != input[0].selectionEnd) { //if nothing has actually changed, don't try to autocomplete
+function searchbarAutocomplete(text, input, historyResults) {
+	if (text == searchbarCachedText && input[0].selectionStart != input[0].selectionEnd) { //if nothing has actually changed, don't try to autocomplete
 		return;
 	}
 	//if we moved the selection, we don't want to autocomplete again
@@ -86,8 +86,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 		text = text.trim();
 	}
 
-	if (input.get(0).value && !text) { //if there is actually no text in the input, we want to show top sites. However, it there is text but the entire thing is highlighted, we don't want to show anything.
-		return;
+	if (input.get(0).value && !text) { //if there is actually no text in the input, we want to show top sites. However, it there is text but the entire thing is highlighted, we don't want to show anything.		return;
 	}
 
 	bookmarks.searchHistory(text, function (results) {
@@ -107,7 +106,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			topAnswerarea.empty();
 		}
 
-		awesomebarAutocomplete(text, input, results);
+		searchbarAutocomplete(text, input, results);
 
 		if (results.length < 20 && !isExpandedHistoryMode) { //if we don't have a lot of history results, show search suggestions
 			limitSearchSuggestions(results.length);
@@ -156,7 +155,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 
 			var item = $("<div class='result-item history-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(title))).on("click", function (e) {
-				openURLFromAwesomebar(e, result.url);
+				openURLFromsearchbar(e, result.url);
 			});
 
 			item.attr("data-url", result.url);
@@ -189,7 +188,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 		if (currentACItem && !showedTopAnswer) {
 			var item = $("<div class='result-item history-item fakefocus' tabindex='-1'>").append($("<span class='title'>").text(urlParser.prettyURL(currentACItem))).on("click", function (e) {
-				openURLFromAwesomebar(e, currentACItem);
+				openURLFromsearchbar(e, currentACItem);
 			});
 
 			$("<i class='fa fa-globe'>").prependTo(item);

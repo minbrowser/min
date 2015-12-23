@@ -15,9 +15,9 @@ var showBookmarkResults = throttle(function (text) {
 				resultsShown++;
 
 				//create the basic item
-				//getRealTitle is defined in awesomebar.js
+				//getRealTitle is defined in searchbar.js
 				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(result.title))).on("click", function (e) {
-					openURLFromAwesomebar(e, result.url);
+					openURLFromsearchbar(e, result.url);
 				});
 
 				$("<i class='fa fa-star'>").prependTo(item);

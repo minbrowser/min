@@ -1,4 +1,4 @@
-#awesomebar {
+#searchbar {
 	z-index: 99;
 	position: fixed;
 	top: 2.25em;
@@ -13,33 +13,33 @@
 	max-height: calc(100% - 75px);
 	overflow-y: auto;
 }
-#awesomebar .result-item {
+#searchbar .result-item {
 	width: 100%;
 	display: block;
 	padding: 0.55em;
 	cursor: pointer;
 }
-#awesomebar .result-item:after {
+#searchbar .result-item:after {
 	content: "";
 	clear: both;
 	display: block;
 }
-#awesomebar .result-item:hover {
+#searchbar .result-item:hover {
 	background-color: rgba(0, 0, 0, 0.05);
 }
-#awesomebar .result-item:focus,
-#awesomebar .result-item.fakefocus {
+#searchbar .result-item:focus,
+#searchbar .result-item.fakefocus {
 	background-color: rgba(0, 0, 0, 0.08);
 	outline: none;
 }
-.dark-theme #awesomebar .result-item:hover {
+.dark-theme #searchbar .result-item:hover {
 	background-color: rgba(255, 255, 255, 0.10);
 }
-.dark-theme #awesomebar .result-item:focus,
-.dark-theme #awesomebar .result-item.fakefocus {
+.dark-theme #searchbar .result-item:focus,
+.dark-theme #searchbar .result-item.fakefocus {
 	background-color: rgba(255, 255, 255, 0.16);
 }
-#awesomebar .result-item .title {
+#searchbar .result-item .title {
 	display: inline-block;
 	vertical-align: middle;
 	max-width: 45%;
@@ -47,7 +47,7 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-#awesomebar .result-item i {
+#searchbar .result-item i {
 	opacity: 0.75;
 	margin-right: 0.75em;
 	font-size: 0.8em;
@@ -55,12 +55,12 @@
 	width: 1em;
 	height: 1em;
 }
-#awesomebar .result-icon {
+#searchbar .result-icon {
 	height: 2.75em;
 	margin: 0.25em 0.5em 0.5em 0;
 	float: left;
 }
-#awesomebar .result-icon.color-circle {
+#searchbar .result-icon.color-circle {
 	width: 1.8em;
 	height: 1.8em;
 	border-radius: 50%;
@@ -68,16 +68,16 @@
 	border: 1px solid rgba(0, 0, 0, 0.2);
 	padding-right: 0.5em;
 }
-.dark-theme #awesomebar .result-icon.color-circle {
+.dark-theme #searchbar .result-icon.color-circle {
 	border-color: rgba(255, 255, 255, 0.2);
 }
-#awesomebar img.result-icon {
+#searchbar img.result-icon {
 	background: rgba(255, 255, 255, 0.5);
 }
 
 /* bang icons */
 
-#awesomebar .result-icon.inline {
+#searchbar .result-icon.inline {
 	height: 1em;
 	float: initial;
 	vertical-align: text-bottom;
@@ -86,21 +86,21 @@
 	/* prevents images from being blurry */
 	image-rendering: pixelated;
 }
-#awesomebar .result-item .secondary-text .md-info {
+#searchbar .result-item .secondary-text .md-info {
 	opacity: 0.8;
 	font-size: inherit;
 	padding: 0.1em;
 }
-#awesomebar .result-item .secondary-text .md-info:first-child {
+#searchbar .result-item .secondary-text .md-info:first-child {
 	padding-left: 0;
 }
-#awesomebar .result-item .secondary-text .md-info:last-of-type {
+#searchbar .result-item .secondary-text .md-info:last-of-type {
 	padding-right: 0.5em;
 }
-#awesomebar .result-item .secondary-text .md-info + .md-info:before {
+#searchbar .result-item .secondary-text .md-info + .md-info:before {
 	content: " - ";
 }
-#awesomebar .result-item .secondary-text {
+#searchbar .result-item .secondary-text {
 	display: inline-block;
 	opacity: 0.66;
 	font-size: 0.95em;
@@ -116,10 +116,10 @@
 /* switch to a two-line layout */
 
 @media all and (max-width: 650px) {
-	#awesomebar .result-item .title {
+	#searchbar .result-item .title {
 		max-width: calc(100% - 50px);
 	}
-	#awesomebar .result-item .secondary-text {
+	#searchbar .result-item .secondary-text {
 		display: block;
 		max-width: 100%;
 		padding-top: 0.1em;
@@ -127,11 +127,11 @@
 		/* prevents letters like "g" from being cut off */
 		line-height: 1em;
 	}
-	#awesomebar .result-item .low-priority-image {
+	#searchbar .result-item .low-priority-image {
 		display: none;
 	}
 }
-#awesomebar .result-item .description-block {
+#searchbar .result-item .description-block {
 	display: block;
 	line-height: 1.1em;
 	max-height: 2.2em;
@@ -142,15 +142,15 @@
 
 /* when a result is selected, we can show more of the description */
 
-#awesomebar .result-item:focus .description-block {
+#searchbar .result-item:focus .description-block {
 	max-height: 6.6em;
 }
-body.awesomebar-shown webview {
+body.searchbar-shown webview {
 	opacity: 0.5;
 }
 
 /* account for a missing icon */
 
-#awesomebar .result-item.indent {
+#searchbar .result-item.indent {
 	padding-left: 1.75em;
 }

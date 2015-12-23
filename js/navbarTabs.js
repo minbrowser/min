@@ -112,7 +112,7 @@ function leaveTabEditMode(options) {
 	$(".tab-item").removeClass("selected");
 	options && options.blur && $(".tab-item .tab-input").blur();
 	tabGroup.removeClass("has-selected-tab");
-	hideAwesomebar();
+	hidesearchbar();
 }
 
 function enterEditMode(tabId) {
@@ -136,11 +136,11 @@ function enterEditMode(tabId) {
 	input.val(currentURL);
 	input.get(0).focus();
 	input.select();
-	showAwesomebar(input);
-	showAwesomebarResults("", input, null);
+	showSearchbar(input);
+	showSearchbarResults("", input, null);
 	tabGroup.addClass("has-selected-tab");
 
-	//show keyword suggestions in the awesomebar
+	//show keyword suggestions in the searchbar
 
 	try { //before first webview navigation, this will be undefined
 		getWebview(tabs.getSelected())[0].send("getKeywordsData");
@@ -210,7 +210,7 @@ function createTabElement(tabId) {
 
 	input.on("keydown", function (e) {
 		if (e.keyCode == 9 || e.keyCode == 40) { //if the tab or arrow down key was pressed
-			focusAwesomebarItem();
+			focussearchbarItem();
 			e.preventDefault();
 		}
 	});
@@ -218,7 +218,7 @@ function createTabElement(tabId) {
 	//keypress doesn't fire on delete key - use keyup instead
 	input.on("keyup", function (e) {
 		if (e.keyCode == 8) {
-			showAwesomebarResults($(this).val(), $(this), e);
+			showSearchbarResults($(this).val(), $(this), e);
 		}
 	});
 
@@ -226,7 +226,7 @@ function createTabElement(tabId) {
 
 		if (e.keyCode == 13) { //return key pressed; update the url
 			var tabId = $(this).parents(".tab-item").attr("data-tab");
-			var newURL = parseAwesomebarURL($(this).val());
+			var newURL = parsesearchbarURL($(this).val());
 
 			navigate(tabId, newURL);
 			leaveTabEditMode(tabId);
@@ -240,8 +240,8 @@ function createTabElement(tabId) {
 		} else if (e.keyCode == 8) {
 			return;
 			//delete key is handled in keyUp
-		} else { //show the awesomebar
-			showAwesomebarResults($(this).val(), $(this), e);
+		} else { //show the searchbar
+			showSearchbarResults($(this).val(), $(this), e);
 		}
 
 		//on keydown, if the autocomplete result doesn't change, we move the selection instead of regenerating it to avoid race conditions with typing. Adapted from https://github.com/patrickburke/jquery.inlineComplete
@@ -273,7 +273,7 @@ function addTab(tabId, options) {
 	
 						options.focus - whether to enter editing mode when the tab is created. Defaults to true.
 						options.openInBackground - whether to open the tab without switching to it. Defaults to false.
-						options.leaveEditMode - whether to hide the awesomebar when creating the tab
+						options.leaveEditMode - whether to hide the searchbar when creating the tab
 	
 						*/
 
