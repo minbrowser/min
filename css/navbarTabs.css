@@ -14,7 +14,7 @@
 
 /* when the tab-group is white, we need a line to separate it from the webviews */
 
-.tab-group[style="background-color: rgb(255, 255, 255);"]:before {
+.tab-group[style="color: black; background-color: rgb(255, 255, 255);"]:before {
 	content: "";
 	width: 100vw;
 	height: 1px;
@@ -101,6 +101,7 @@
 	-webkit-appearance: none;
 	background: none;
 	border: none;
+	color: inherit;
 	flex: 1;
 	height: 1.5em;
 	outline: none;

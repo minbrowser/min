@@ -183,7 +183,7 @@ function createTabElement(tabId) {
 
 	var ec = $("<div class='tab-edit-contents'>");
 
-	var input = $("<input class='tab-input theme-text-color mousetrap'>");
+	var input = $("<input class='tab-input mousetrap'>");
 	input.attr("placeholder", "Search or enter address");
 	input.attr("value", url);
 
@@ -192,7 +192,7 @@ function createTabElement(tabId) {
 
 	ec.appendTo(tab);
 
-	var vc = $("<div class='tab-view-contents theme-text-color'>")
+	var vc = $("<div class='tab-view-contents'>")
 	readerView.getButton(tabId).appendTo(vc);
 
 	if (data.private) {
