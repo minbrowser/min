@@ -236,9 +236,15 @@ onmessage = function (e) {
 			}
 
 			//if the text does not contain the first search word, it can't possibly be a match, so don't do any processing
-			var itext = (item.url.replace("http://", "").replace("https://", "").replace("www.", "") + " " + item.title).toLowerCase(); //TODO this is kind of messy
+			var itext = (item.url.split("?")[0].replace("http://", "").replace("https://", "").replace("www.", ""))
 
-			var tindex = itext.indexOf(searchText);
+			if (item.url != item.title) {
+				itext += " " + item.title;
+			}
+
+			itext = itext.toLowerCase().replace(spacesRegex, " ");
+
+			var tindex = itext.indexOf(st);
 
 			//if the url contains the search string, count as a match
 			//prioritize matches near the beginning of the url
@@ -247,6 +253,12 @@ onmessage = function (e) {
 				matches.push(item);
 
 			} else {
+
+				if (tindex != -1) {
+					item.boost = exactMatchBoost;
+					matches.push(item);
+					return;
+				}
 
 				if (substringSearchEnabled) {
 
@@ -261,7 +273,7 @@ onmessage = function (e) {
 					}
 
 					if (substringMatch) {
-						item.boost = 0.1;
+						item.boost = 0.125 * searchWords.length + (0.02 * stl);
 						matches.push(item);
 						return;
 					}
@@ -269,16 +281,15 @@ onmessage = function (e) {
 
 				//if all of the search words (split by spaces, etc) exist in the url, count it as a match, even if they are out of order
 
-				var score = itext.replace(".com", "").replace(".net", "").replace(".org", "").score(searchText, 0.0001);
+				var score = itext.replace(".com", "").replace(".net", "").replace(".org", "").score(st, 0);
 
-				if (tindex != -1) {
-					item.boost = score + exactMatchBoost;
-					matches.push(item);
-					return;
-				}
-
-				if (score > 0.43) {
+				if (score > 0.4 + (0.001 * itext.length)) {
 					item.boost = score;
+
+					if (score > 0.62) {
+						item.boost += 0.33;
+					}
+
 					matches.push(item);
 				}
 
@@ -298,12 +309,13 @@ onmessage = function (e) {
 		}
 		var tstart = performance.now();
 		var matches = [];
+		var st = searchText.replace(spacesRegex, " ");
 		var stl = searchText.length;
 		var searchWords = searchText.split(spacesRegex);
 		var isSearchingMemory = true;
 		var substringSearchEnabled = false;
 		var itemStartBoost = 2.5 * stl;
-		var exactMatchBoost = 0.2 + (0.05 * stl);
+		var exactMatchBoost = 0.3 + (0.075 * stl);
 
 		if (searchText.indexOf(" ") != -1) {
 			substringSearchEnabled = true;
