@@ -155,7 +155,7 @@ function getWebviewDom(options) {
 	});
 
 	w.on("did-fail-load", function (e) {
-		if (e.originalEvent.errorCode != -3) {
+		if (e.originalEvent.errorCode != -3 && e.originalEvent.validatedURL == e.target.getURL()) {
 			navigate($(this).attr("data-tab"), errorPage + "?ec=" + encodeURIComponent(e.originalEvent.errorCode) + "&url=" + e.target.getUrl());
 		}
 	})
