@@ -82,6 +82,10 @@ function autocompleteResultIfNeeded(input, result) {
 
 var showHistoryResults = throttle(function (text, input, maxItems) {
 
+	if (text) {
+		text = text.trim();
+	}
+
 	if (input.get(0).value && !text) { //if there is actually no text in the input, we want to show top sites. However, it there is text but the entire thing is highlighted, we don't want to show anything.
 		return;
 	}
