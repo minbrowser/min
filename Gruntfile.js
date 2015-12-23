@@ -19,7 +19,6 @@ module.exports = function (grunt) {
 							"js/awesomebar/history.js",
 							"js/awesomebar/bookmarks.js",
 							"js/awesomebar/duckduckgo.js",
-							"js/awesomebar/topics.js",
 							"js/awesomebar/tabsearch.js",
 						 "js/awesomebar/awesomebar.js",
 							"js/readerView.js",

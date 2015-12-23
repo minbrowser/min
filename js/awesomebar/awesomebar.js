@@ -138,7 +138,6 @@ function getRealTitle(text) {
 var awesomebar = $("#awesomebar");
 var historyarea = awesomebar.find(".history-results");
 var bookmarkarea = awesomebar.find(".bookmark-results");
-var topicsarea = awesomebar.find(".topic-results");
 var opentabarea = awesomebar.find(".opentab-results");
 
 function clearAwesomebar() {
@@ -146,7 +145,6 @@ function clearAwesomebar() {
 	topAnswerarea.empty();
 	bookmarkarea.empty();
 	historyarea.empty();
-	topicsarea.empty();
 	iaarea.empty();
 	suggestedsitearea.empty();
 	serarea.empty();
@@ -250,7 +248,6 @@ var showAwesomebarResults = function (text, input, event) {
 
 	showHistoryResults(text, input);
 	showInstantAnswers(text, input);
-	showTopicResults(text, input);
 	searchOpenTabs(text, input);
 
 	//update cache

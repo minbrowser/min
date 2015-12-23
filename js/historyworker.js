@@ -5,8 +5,6 @@ importScripts("../node_modules/string_score/string_score.min.js");
 importScripts("database.js");
 console.log("scripts loaded ", performance.now());
 
-var topics = []; //a list of common groups of history items. Each one is an object with: score (number), name (string), and urls (array).
-
 //extraData key is an object - its so we don't have to upgrade the db if we want to add stuff in the future
 
 var spacesRegex = /[\+\s._/-]/g; //things that could be considered spaces
@@ -38,108 +36,6 @@ function cleanupHistoryDatabase() { //removes old history entries
 
 setTimeout(cleanupHistoryDatabase, 20000); //don't run immediately on startup, since is might slow down awesomebar search.
 setInterval(cleanupHistoryDatabase, 60 * 60 * 1000);
-
-/* generate topics */
-
-
-function generateTopics() {
-	var bundles = {};
-	var inc, totalString;
-	//split history items into a list of words and the pages that contain them
-	db.history.each(function (item) {
-
-			var itemWords = item.title.split(spacesRegex);
-
-			for (var x = 0; x < itemWords.length; x++) {
-
-				if (itemWords[x].length < 3 || itemWords[x] == "com") {
-					continue;
-				}
-
-				itemWords[x] = itemWords[x].toLowerCase().trim();
-
-				if (bundles[itemWords[x]]) {
-					bundles[itemWords[x]].push(item);
-				} else {
-					bundles[itemWords[x]] = [item]
-				}
-
-				//try to generate longer strings if possible
-
-				inc = x + 1;
-				totalString = itemWords[x];
-
-				while (itemWords[inc]) {
-					if (itemWords[inc].length < 3 || itemWords[inc] == "com") {
-						break;
-					}
-					totalString += " " + itemWords[inc].toLowerCase().trim();
-
-					if (bundles[totalString]) {
-						bundles[totalString].push(item);
-					} else {
-						bundles[totalString] = [item]
-					}
-
-					inc++;
-				}
-			}
-
-		})
-		.then(function () {
-			//cleanup the words list to only select bundles that actually have a good chance of being relevant
-
-			for (var item in bundles) {
-				wordRegex.lastIndex = 0; //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/lastIndex
-				var key = item + "";
-				if (bundles[item].length < 4 || !wordRegex.test(key) || item.length < 4) { //not a word, or not enough url's, or name is too short
-					delete bundles[item];
-					continue;
-				}
-
-				//calculate the total score of the bundle
-
-				var totalScore = 0;
-
-				bundles[item].forEach(function (historyObject) {
-					totalScore += calculateHistoryScore(historyObject);
-				});
-
-				//convert history items from object to a url string - we can always query the history database later if we need the extra data
-
-				var urlSet = bundles[item].map(function (item) {
-					return item.url;
-				});
-
-
-				var newObj = {
-					urls: urlSet.splice(0, 45), //put a bound on the items returned
-					score: totalScore - (totalScore * 0.02 * Math.abs(12 - item.length)),
-				}
-
-				bundles[item] = newObj;
-			}
-
-			for (var key in bundles) {
-				bundles[key].name = key;
-				topics.push(bundles[key]);
-			}
-
-			topics.sort(function (a, b) {
-				return b.score - a.score;
-			});
-
-			console.info("bundles generated");
-
-		})
-		.catch(function (e) {
-			console.warn("error generating bundles");
-			console.error(e);
-		})
-}
-
-setTimeout(generateTopics, 30000);
-
 
 //cache frequently visited sites in memory for faster searching
 
@@ -339,24 +235,4 @@ onmessage = function (e) {
 		}
 	}
 
-
-
-	if (action == "searchTopics") {
-
-		var matches = [];
-
-		//topics are already sorted
-
-		for (var i = 0; i < topics.length; i++) {
-			if (topics[i] && topics[i].name.indexOf(searchText) == 0) {
-				matches.push(topics[i]);
-			}
-		}
-
-		postMessage({
-			result: matches.splice(0, 25),
-			scope: "topics",
-			callback: e.data.callbackId,
-		});
-	}
 }
