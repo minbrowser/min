@@ -122,11 +122,7 @@ var bookmarks = {
 	renderStar: function (tabId, star) { //star is optional
 		star = star || $(".bookmarks-button[data-tab={id}]".replace("{id}", tabId));
 
-		try {
-			var currentURL = getWebview(tabId)[0].getURL();
-		} catch (e) {
-			var currentURL = tabs.get(tabId).url;
-		}
+		var currentURL = tabs.get(tabId).url;
 
 		if (!currentURL || currentURL == "about:blank") { //no url, can't be bookmarked
 			star.prop("hidden", true);
