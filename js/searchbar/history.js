@@ -2,7 +2,6 @@ var DDGSearchURLRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
 	trailingSlashRegex = /\/$/g,
 	plusRegex = /\+/g;
 
-var shouldAutocompleteTitle;
 var currentACItem = null;
 var deleteKeyPressed = false;
 
@@ -10,6 +9,11 @@ var isExpandedHistoryMode = false;
 var maxHistoryResults = 4;
 
 function searchbarAutocomplete(text, input, historyResults) {
+	if (!text) {
+		currentACItem = null;
+		return;
+	}
+
 	if (text == searchbarCachedText && input[0].selectionStart != input[0].selectionEnd) { //if nothing has actually changed, don't try to autocomplete
 		return;
 	}
@@ -18,13 +22,7 @@ function searchbarAutocomplete(text, input, historyResults) {
 		return;
 	}
 
-	if (!text) {
-		currentACItem = null;
-		return;
-	}
-
 	var didAutocomplete = false;
-
 
 	for (var i = 0; !didAutocomplete && i < historyResults.length; i++) { //we only want to autocomplete the first item that matches
 		didAutocomplete = autocompleteResultIfNeeded(input, historyResults[i]); //this returns true or false depending on whether the item was autocompleted or not
@@ -86,9 +84,6 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 		text = text.trim();
 	}
 
-	if (input.get(0).value && !text) { //if there is actually no text in the input, we want to show top sites. However, it there is text but the entire thing is highlighted, we don't want to show anything.		return;
-	}
-
 	bookmarks.searchHistory(text, function (results) {
 
 		var showedTopAnswer = false;
@@ -102,13 +97,13 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 		historyarea.empty();
 
-		if (topAnswerarea.get(0).getElementsByClassName("history-item")[0]) {
+		if (topAnswerarea.get(0).getElementsByClassName("history-item").length > 0) {
 			topAnswerarea.empty();
 		}
 
 		searchbarAutocomplete(text, input, results);
 
-		if (results.length < 20 && !isExpandedHistoryMode) { //if we don't have a lot of history results, show search suggestions
+		if (results.length < 10 && !isExpandedHistoryMode) { //if we don't have a lot of history results, show search suggestions
 			limitSearchSuggestions(results.length);
 			maxItems = 3;
 			showSearchSuggestions(text, input);
@@ -126,12 +121,6 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 		results.forEach(function (result) {
 
-			//if there is a bookmark result found, don't show a history item
-
-			if (bookmarkarea.find(".result-item[data-url='{url}']".replace("{url}", result.url.replace(/'/g, "")))[0]) {
-				return;
-			}
-
 			var shouldAutocompleteTitle = false;
 
 			var title = result.title;
@@ -142,6 +131,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			DDGSearchURLRegex.lastIndex = 0;
 
 			if (DDGSearchURLRegex.test(result.url)) {
+
 				//the history item is a search, display it like a search suggestion
 				title = decodeURIComponent(result.url.replace(DDGSearchURLRegex, "$1").replace(plusRegex, " "));
 				icon = $("<i class='fa fa-search'>");
