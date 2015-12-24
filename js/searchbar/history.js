@@ -186,7 +186,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			item.appendTo(topAnswerarea);
 		}
 	});
-}, 250);
+}, 50);
 
 function limitHistoryResults(maxItems) {
 	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));

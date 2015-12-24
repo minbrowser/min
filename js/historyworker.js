@@ -37,22 +37,19 @@ function cleanupHistoryDatabase() { //removes old history entries
 setTimeout(cleanupHistoryDatabase, 20000); //don't run immediately on startup, since is might slow down searchbar search.
 setInterval(cleanupHistoryDatabase, 60 * 60 * 1000);
 
-//cache frequently visited sites in memory for faster searching
+//cache history in memory for faster searching. This actually takes up very little space, so we can cache everything.
 
 var historyInMemoryCache = [];
-var doneLoadingCache = false;
 
 function loadHistoryInMemory() {
 	historyInMemoryCache = [];
-	doneLoadingCache = false;
 
-	db.history.where("visitCount").above(40).each(function (item) {
+	db.history.each(function (item) {
 		historyInMemoryCache.push(item);
 	}).then(function () {
-		db.history.where("visitCount").between(3, 40).each(function (item) {
-			historyInMemoryCache.push(item);
-		}).then(function () {
-			doneLoadingCache = true
+		//if we have enough matches during the search, we exit. In order for this to work, frequently visited sites have to come first in the cache.
+		historyInMemoryCache.sort(function (a, b) {
+			return calculateHistoryScore(b) - calculateHistoryScore(a);
 		});
 	});
 };
@@ -127,7 +124,7 @@ onmessage = function (e) {
 
 		function processItem(item) {
 
-			if (matches.length > 500 && isSearchingMemory) {
+			if (matches.length > 200) {
 				return;
 			}
 
@@ -192,23 +189,20 @@ onmessage = function (e) {
 			}
 		}
 
-		function done() {
-			matches.sort(function (a, b) {
-				return calculateHistoryScore(b) - calculateHistoryScore(a);
-			});
-			var tend = performance.now();
-			console.info("history search took", tend - tstart);
+		if (!searchText) { //if there is no search text, we should just return top sites
 			postMessage({
-				result: matches.splice(0, 100),
+				result: historyInMemoryCache.slice(0, 100),
 				scope: "history"
 			});
+			return;
 		}
+
+
 		var tstart = performance.now();
 		var matches = [];
 		var st = searchText.replace(spacesRegex, " ");
 		var stl = searchText.length;
 		var searchWords = searchText.split(spacesRegex);
-		var isSearchingMemory = true;
 		var substringSearchEnabled = false;
 		var itemStartBoost = 2.5 * stl;
 		var exactMatchBoost = 0.3 + (0.075 * stl);
@@ -217,22 +211,19 @@ onmessage = function (e) {
 			substringSearchEnabled = true;
 		}
 
-		//initially, we only search frequently visited sites, but we do a second search of all sites if we don't find any results
+		historyInMemoryCache.forEach(processItem);
 
-		if (stl < 20) {
-			historyInMemoryCache.forEach(processItem);
+		matches.sort(function (a, b) { //we have to re-sort to account for the boosts applied to the items
+			return calculateHistoryScore(b) - calculateHistoryScore(a);
+		});
 
-			if (matches.length > 10 || !doneLoadingCache) {
-				done();
-			} else {
-				isSearchingMemory = false;
-				//we didn't find enough matches, search all the items
-				db.history.where("visitCount").below(4).each(processItem).then(done);
-			}
+		var tend = performance.now();
 
-		} else {
-			db.history.each(processItem).then(done);
-		}
+		console.info("history search took", tend - tstart);
+		postMessage({
+			result: matches.splice(0, 100),
+			scope: "history"
+		});
 	}
 
 }
