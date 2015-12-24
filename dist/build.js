@@ -1,6 +1,8 @@
 /* implements selecting webviews, switching between them, and creating new ones. */
 
 var phishingWarningPage = "file://" + __dirname + "/pages/phishing/index.html"; //TODO move this somewhere that actually makes sense
+var crashedWebviewPage = "file:///" + __dirname + "/pages/crash/index.html";
+var errorPage = "file:///" + __dirname + "/pages/error/index.html"
 
 var webviewBase = $("#webviews");
 var webviewEvents = [];
@@ -75,7 +77,9 @@ function getWebviewDom(options) {
 			});
 		}
 
-		if (tabs.get(tab).private == false) { //don't save to history if in private mode
+		var isInternalPage = url.indexOf(__dirname) != -1 && url.indexOf(readerView.readerURL) == -1
+
+		if (tabs.get(tab).private == false && !isInternalPage) { //don't save to history if in private mode, or the page is a browser page
 			bookmarks.updateHistory(tab);
 		}
 
@@ -88,18 +92,6 @@ function getWebviewDom(options) {
 	/*w.on("did-get-redirect-request", function (e) {
 		console.log(e.originalEvent);
 	});*/
-
-
-	/* too buggy, disabled for now
-
-	w.on("did-fail-load", function (e) {
-		if (e.originalEvent.validatedURL == this.getURL()) {
-			updateURLInternal($(this), "file:///" + __dirname + "/pages/error/index.html?e=" + JSON.stringify(e.originalEvent) + "&url=" + $(this)[0].getURL());
-		}
-	});
-		
-	*/
-
 
 	//open links in new tabs
 
@@ -139,6 +131,24 @@ function getWebviewDom(options) {
 
 	w.on("contextmenu", webviewMenu.show);
 
+	w.on("crashed", function (e) {
+		var tabId = $(this).attr("data-tab");
+
+		destroyWebview(tabId);
+		tabs.update(tabId, {
+			url: crashedWebviewPage
+		});
+
+		addWebview(tabId);
+		switchToWebview(tabId);
+	});
+
+	w.on("did-fail-load", function (e) {
+		if (e.originalEvent.errorCode != -3 && e.originalEvent.validatedURL == e.target.getURL()) {
+			navigate($(this).attr("data-tab"), errorPage + "?ec=" + encodeURIComponent(e.originalEvent.errorCode) + "&url=" + e.target.getUrl());
+		}
+	})
+
 	return w;
 
 }
@@ -148,8 +158,7 @@ function getWebviewDom(options) {
 
 var WebviewsWithHiddenClass = false;
 
-function addWebview(tabId, options) {
-	options = options || {}; //fallback if options is undefined
+function addWebview(tabId) {
 
 	var tabData = tabs.get(tabId);
 
@@ -158,14 +167,11 @@ function addWebview(tabId, options) {
 		url: tabData.url
 	});
 
-	webviewBase.append(webview);
+	//this is used to hide the webview while still letting it load in the background
+	//webviews are hidden when added - call switchToWebview to show it
+	webview.addClass("hidden");
 
-	if (!options.openInBackground) {
-		switchToWebview(tabId);
-	} else {
-		//this is used to hide the webview while still letting it load in the background
-		webview.addClass("hidden");
-	}
+	webviewBase.append(webview);
 }
 
 function switchToWebview(id, options) {
@@ -212,7 +218,7 @@ var bookmarks = {
 				title: w.getTitle(),
 				color: tabs.get(tabId).backgroundColor
 			}
-			bookmarks.worker.postMessage({
+			bookmarks.historyWorker.postMessage({
 				action: "updateHistory",
 				data: data
 			});
@@ -229,14 +235,14 @@ var bookmarks = {
 		}
 
 		data.title = getWebview(bookmarks.authBookmarkTab)[0].getTitle();
-		bookmarks.worker.postMessage({
+		bookmarks.bookmarksWorker.postMessage({
 			action: "addBookmark",
 			data: data
 		})
 		bookmarks.authBookmarkTab = null;
 	},
 	deleteBookmark: function (url) {
-		bookmarks.worker.postMessage({
+		bookmarks.bookmarksWorker.postMessage({
 			action: "deleteBookmark",
 			data: {
 				url: url
@@ -244,7 +250,7 @@ var bookmarks = {
 		});
 	},
 	deleteHistory: function (url) {
-		bookmarks.worker.postMessage({
+		bookmarks.historyWorker.postMessage({
 			action: "deleteHistory",
 			data: {
 				url: url
@@ -253,22 +259,15 @@ var bookmarks = {
 	},
 	searchBookmarks: function (text, callback) {
 		bookmarks.currentCallback = callback; //save for later, we run in onMessage
-		bookmarks.worker.postMessage({
+		bookmarks.bookmarksWorker.postMessage({
 			action: "searchBookmarks",
 			text: text,
 		});
 	},
 	searchHistory: function (text, callback) {
 		bookmarks.currentHistoryCallback = callback; //save for later, we run in onMessage
-		bookmarks.worker.postMessage({
+		bookmarks.historyWorker.postMessage({
 			action: "searchHistory",
-			text: text,
-		});
-	},
-	searchTopics: function (text, callback) {
-		bookmarks.currentTopicsCallback = callback;
-		bookmarks.worker.postMessage({
-			action: "searchTopics",
 			text: text,
 		});
 	},
@@ -278,8 +277,6 @@ var bookmarks = {
 			bookmarks.currentCallback(e.data.result);
 		} else if (e.data.scope == "history") { //history search
 			bookmarks.currentHistoryCallback(e.data.result);
-		} else if (e.data.scope == "topics") {
-			bookmarks.currentTopicsCallback(e.data.result);
 		}
 	},
 	bookmark: function (tabId) {
@@ -325,11 +322,7 @@ var bookmarks = {
 	renderStar: function (tabId, star) { //star is optional
 		star = star || $(".bookmarks-button[data-tab={id}]".replace("{id}", tabId));
 
-		try {
-			var currentURL = getWebview(tabId)[0].getURL();
-		} catch (e) {
-			var currentURL = tabs.get(tabId).url;
-		}
+		var currentURL = tabs.get(tabId).url;
 
 		if (!currentURL || currentURL == "about:blank") { //no url, can't be bookmarked
 			star.prop("hidden", true);
@@ -349,8 +342,11 @@ var bookmarks = {
 		return star;
 	},
 	init: function () {
-		bookmarks.worker = new Worker("js/historyworker.js");
-		bookmarks.worker.onmessage = bookmarks.onMessage;
+		bookmarks.historyWorker = new Worker("js/historyworker.js");
+		bookmarks.historyWorker.onmessage = bookmarks.onMessage;
+
+		bookmarks.bookmarksWorker = new Worker("js/bookmarksworker.js");
+		bookmarks.bookmarksWorker.onmessage = bookmarks.onMessage;
 	},
 
 }
@@ -1402,6 +1398,8 @@ function switchToTab(id) {
 		}
 	}, 2500);
 
+	browserEvents.emit("switchToTab");
+
 }
 ;var DDGSearchURLRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
 	trailingSlashRegex = /\/$/g,
@@ -1414,8 +1412,8 @@ var deleteKeyPressed = false;
 var isExpandedHistoryMode = false;
 var maxHistoryResults = 4;
 
-function awesomebarAutocomplete(text, input, historyResults) {
-	if (text == awesomebarCachedText && input[0].selectionStart != input[0].selectionEnd) { //if nothing has actually changed, don't try to autocomplete
+function searchbarAutocomplete(text, input, historyResults) {
+	if (text == searchbarCachedText && input[0].selectionStart != input[0].selectionEnd) { //if nothing has actually changed, don't try to autocomplete
 		return;
 	}
 	//if we moved the selection, we don't want to autocomplete again
@@ -1487,8 +1485,11 @@ function autocompleteResultIfNeeded(input, result) {
 
 var showHistoryResults = throttle(function (text, input, maxItems) {
 
-	if (input.get(0).value && !text) { //if there is actually no text in the input, we want to show top sites. However, it there is text but the entire thing is highlighted, we don't want to show anything.
-		return;
+	if (text) {
+		text = text.trim();
+	}
+
+	if (input.get(0).value && !text) { //if there is actually no text in the input, we want to show top sites. However, it there is text but the entire thing is highlighted, we don't want to show anything.		return;
 	}
 
 	bookmarks.searchHistory(text, function (results) {
@@ -1508,7 +1509,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			topAnswerarea.empty();
 		}
 
-		awesomebarAutocomplete(text, input, results);
+		searchbarAutocomplete(text, input, results);
 
 		if (results.length < 20 && !isExpandedHistoryMode) { //if we don't have a lot of history results, show search suggestions
 			limitSearchSuggestions(results.length);
@@ -1557,7 +1558,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 
 			var item = $("<div class='result-item history-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(title))).on("click", function (e) {
-				openURLFromAwesomebar(e, result.url);
+				openURLFromsearchbar(e, result.url);
 			});
 
 			item.attr("data-url", result.url);
@@ -1590,7 +1591,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 		if (currentACItem && !showedTopAnswer) {
 			var item = $("<div class='result-item history-item fakefocus' tabindex='-1'>").append($("<span class='title'>").text(urlParser.prettyURL(currentACItem))).on("click", function (e) {
-				openURLFromAwesomebar(e, currentACItem);
+				openURLFromsearchbar(e, currentACItem);
 			});
 
 			$("<i class='fa fa-globe'>").prependTo(item);
@@ -1609,7 +1610,7 @@ function limitHistoryResults(maxItems) {
 	historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1)).hide().addClass("unfocusable");
 }
 ;var showBookmarkResults = throttle(function (text) {
-	if (text.length < 4 || text.indexOf("!") == 0) { //if there is not enough text, or we're doing a bang search, don't show results
+	if (text.length < 5 || text.indexOf("!") == 0) { //if there is not enough text, or we're doing a bang search, don't show results
 		limitHistoryResults(5);
 		bookmarkarea.empty();
 		return;
@@ -1625,9 +1626,9 @@ function limitHistoryResults(maxItems) {
 				resultsShown++;
 
 				//create the basic item
-				//getRealTitle is defined in awesomebar.js
+				//getRealTitle is defined in searchbar.js
 				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(result.title))).on("click", function (e) {
-					openURLFromAwesomebar(e, result.url);
+					openURLFromsearchbar(e, result.url);
 				});
 
 				$("<i class='fa fa-star'>").prependTo(item);
@@ -1668,12 +1669,14 @@ function limitHistoryResults(maxItems) {
 	});
 }, 400);
 ;var BANG_REGEX = /!\w+/g;
-var serarea = $("#awesomebar .search-engine-results");
-var iaarea = $("#awesomebar .instant-answer-results");
-var topAnswerarea = $("#awesomebar .top-answer-results");
-var suggestedsitearea = $("#awesomebar .ddg-site-results");
+var serarea = $("#searchbar .search-engine-results");
+var iaarea = $("#searchbar .instant-answer-results");
+var topAnswerarea = $("#searchbar .top-answer-results");
+var suggestedsitearea = $("#searchbar .ddg-site-results");
 
-var maxSearchSuggestions = 5;
+const minSearchSuggestions = 2;
+const maxSearchSuggestions = 4;
+var currentSuggestionLimit = maxSearchSuggestions;
 
 /* duckduckgo returns raw html for the color info ui. We need to format that */
 
@@ -1742,7 +1745,7 @@ window.showSearchSuggestions = throttle(function (text, input) {
 				});
 
 			} else if (results) {
-				results = results.splice(0, maxSearchSuggestions);
+				results = results.splice(0, currentSuggestionLimit);
 
 				results.forEach(function (result) {
 					var title = result.phrase;
@@ -1750,8 +1753,8 @@ window.showSearchSuggestions = throttle(function (text, input) {
 						title = result.phrase.replace(BANG_REGEX, "");
 						var secondaryText = "Search on " + bangACSnippet;
 					}
-					var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(title)).on("click", function (e) {
-						openURLFromAwesomebar(e, result.phrase);
+					var item = $("<div class='result-item iadata-onfocus' tabindex='-1'>").append($("<span class='title'>").text(title)).on("click", function (e) {
+						openURLFromsearchbar(e, result.phrase);
 					});
 
 					item.appendTo(serarea);
@@ -1773,15 +1776,21 @@ window.showSearchSuggestions = throttle(function (text, input) {
 
 }, 500);
 
-/* this is called from historySuggestions. When we find history results, we want to limit search suggestions to 2 so the awesomebar doesn't get too large. */
+/* this is called from historySuggestions. When we find history results, we want to limit search suggestions to 2 so the searchbar doesn't get too large. */
 
 var limitSearchSuggestions = function (itemsToRemove) {
-	var itemsLeft = Math.max(2, 5 - itemsToRemove);
-	maxSearchSuggestions = itemsLeft;
+	var itemsLeft = Math.max(minSearchSuggestions, maxSearchSuggestions - itemsToRemove);
+	currentSuggestionLimit = itemsLeft;
 	serarea.find(".result-item:nth-child(n+{items})".replace("{items}", itemsLeft + 1)).remove();
 }
 
 window.showInstantAnswers = debounce(function (text, input, options) {
+
+	if (!text) {
+		iaarea.empty();
+		suggestedsitearea.empty();
+		return;
+	}
 
 	options = options || {};
 
@@ -1836,7 +1845,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				}
 
 				item.on("click", function (e) {
-					openURLFromAwesomebar(e, res.AbstractURL || text);
+					openURLFromsearchbar(e, res.AbstractURL || text);
 				});
 
 				//answers are more relevant, they should be displayed at the top
@@ -1850,22 +1859,24 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 
 			//suggested site links
 
+
 			if (res.Results && res.Results[0] && res.Results[0].FirstURL) {
-				var url = urlParser.removeProtocol(res.Results[0].FirstURL).replace(trailingSlashRegex, "");
 
-				var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(url)).on("click", function (e) {
+				var itemsWithSameURL = historyarea.find('.result-item[data-url="{url}"]'.replace("{url}", res.Results[0].FirstURL));
 
-					openURLFromAwesomebar(e, res.Results[0].FirstURL);
-				});
+				if (itemsWithSameURL.length == 0) {
 
-				$("<i class='fa fa-globe'>").prependTo(item);
+					var url = urlParser.removeProtocol(res.Results[0].FirstURL).replace(trailingSlashRegex, "");
 
-				$("<span class='secondary-text'>").text("Suggested site").appendTo(item);
+					var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(url)).on("click", function (e) {
 
-				console.log(item);
+						openURLFromsearchbar(e, res.Results[0].FirstURL);
+					});
 
-				//if we have bookmarks for that item, we probably don't need to suggest a site
-				if (bookmarkarea.find(".result-item").length < 2) {
+					$("<i class='fa fa-globe'>").prependTo(item);
+
+					$("<span class='secondary-text'>").text("Suggested site").appendTo(item);
+
 					item.appendTo(suggestedsitearea);
 				}
 			}
@@ -1882,14 +1893,16 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				$("<span class='secondary-text'>Search on OpenStreetMap</span>").appendTo(item);
 
 				item.on("click", function (e) {
-					openURLFromAwesomebar(e, "https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading));
+					openURLFromsearchbar(e, "https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading));
 				});
 
-				item.appendTo(iaarea);
+				item.prependTo(iaarea);
 			}
 
-			iaarea.find(".old").remove();
-			suggestedsitearea.find(".old").remove();
+			if (options.destroyPrevious != false || item) {
+				iaarea.find(".old").remove();
+				suggestedsitearea.find(".old").remove();
+			}
 
 
 		});
@@ -1899,49 +1912,6 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 	}
 
 }, 450);
-;const maxTopicResults = 1;
-const showTopicResults = function (text, input) {
-
-	bookmarks.searchTopics(text, function (topics) {
-
-		topicsarea.empty();
-
-		if (!topics || !topics[0]) {
-			return;
-		}
-
-		var topicsShown = 0;
-
-		topics.forEach(function (topic) {
-			if (topicsShown < maxTopicResults) {
-				if (topic.name == text) {
-					return;
-				}
-				$("<div class='result-item' tabindex='-1'>").text(topic.name).attr("title", "More results for this topic").prepend("<i class='fa fa-tag'></i>").appendTo(topicsarea).on("click", function (e) {
-
-					//enter a special history-only mode
-
-					isExpandedHistoryMode = true;
-
-					clearAwesomebar();
-
-					input.val(topic.name);
-
-					showHistoryResults(topic.name, input, 50); //show up to 50 results.
-					showBookmarkResults(topic.name);
-
-					setTimeout(function () { //the item was focused on the keydown event. If we immediately focus the input, a keypress event will occur, causing an exit from edit mode
-						input.get(0).focus();
-					}, 100);
-				});
-				topicsShown++;
-			}
-		});
-
-
-	});
-
-}
 ;var spacesRegex = /[\s._/-]/g; //copied from historyworker.js
 
 var stringScore = require("string_score");
@@ -1993,11 +1963,11 @@ var searchOpenTabs = function (searchText) {
 		item.appendTo(opentabarea);
 	});
 }
-;var awesomebarShown = false;
-var awesomebarCachedText = "";
+;var searchbarShown = false;
+var searchbarCachedText = "";
 var METADATA_SEPARATOR = "·";
 var didFireKeydownSelChange = false;
-var currentAwesomebarInput;
+var currentsearchbarInput;
 
 //cache duckduckgo bangs so we make fewer network requests
 var cachedBangSnippets = {};
@@ -2048,7 +2018,7 @@ function unsafeUnwrapTags(text) {
 }
 
 /* this is used by navbar-tabs.js. When a url is entered, endings such as ? need to be parsed and removed. */
-function parseAwesomebarURL(url) {
+function parsesearchbarURL(url) {
 	//always use a search engine if the query starts with "?"
 
 	if (url.indexOf("?") == 0) {
@@ -2066,7 +2036,7 @@ function parseAwesomebarURL(url) {
 	return url;
 }
 
-function openURLInBackground(url) { //used to open a url in the background, without leaving the awesomebar
+function openURLInBackground(url) { //used to open a url in the background, without leaving the searchbar
 	var newTab = tabs.add({
 		url: url,
 		private: tabs.get(tabs.getSelected()).private
@@ -2081,7 +2051,7 @@ function openURLInBackground(url) { //used to open a url in the background, with
 
 //when clicking on a result item, this function should be called to open the URL
 
-function openURLFromAwesomebar(event, url) {
+function openURLFromsearchbar(event, url) {
 	if (event.metaKey) {
 		openURLInBackground(url);
 		return true;
@@ -2130,18 +2100,16 @@ function getRealTitle(text) {
 	return text;
 }
 
-var awesomebar = $("#awesomebar");
-var historyarea = awesomebar.find(".history-results");
-var bookmarkarea = awesomebar.find(".bookmark-results");
-var topicsarea = awesomebar.find(".topic-results");
-var opentabarea = awesomebar.find(".opentab-results");
+var searchbar = $("#searchbar");
+var historyarea = searchbar.find(".history-results");
+var bookmarkarea = searchbar.find(".bookmark-results");
+var opentabarea = searchbar.find(".opentab-results");
 
-function clearAwesomebar() {
+function clearsearchbar() {
 	opentabarea.empty();
 	topAnswerarea.empty();
 	bookmarkarea.empty();
 	historyarea.empty();
-	topicsarea.empty();
 	iaarea.empty();
 	suggestedsitearea.empty();
 	serarea.empty();
@@ -2150,17 +2118,17 @@ function clearAwesomebar() {
 	cachedBangSnippets = [];
 }
 
-function showAwesomebar(triggerInput) {
-	awesomebarCachedText = triggerInput.val();
-	awesomebarShown = true;
-	$(document.body).addClass("awesomebar-shown");
+function showSearchbar(triggerInput) {
+	searchbarCachedText = triggerInput.val();
+	searchbarShown = true;
+	$(document.body).addClass("searchbar-shown");
 
-	clearAwesomebar();
+	clearsearchbar();
 
 
-	awesomebar.show();
+	searchbar.show();
 
-	currentAwesomebarInput = triggerInput;
+	currentsearchbarInput = triggerInput;
 
 }
 
@@ -2171,13 +2139,14 @@ function getValue(input) {
 	return text.replace(text.substring(input[0].selectionStart, input[0].selectionEnd), "");
 }
 
-function hideAwesomebar() {
-	awesomebarShown = false;
-	$(document.body).removeClass("awesomebar-shown");
-	awesomebar.hide();
+function hidesearchbar() {
+	searchbarShown = false;
+	currentsearchbarInput = null;
+	$(document.body).removeClass("searchbar-shown");
+	searchbar.hide();
 	cachedBangSnippets = {};
 }
-var showAwesomebarResults = function (text, input, event) {
+var showSearchbarResults = function (text, input, event) {
 
 	isExpandedHistoryMode = false;
 	deleteKeyPressed = event && event.keyCode == 8;
@@ -2196,19 +2165,19 @@ var showAwesomebarResults = function (text, input, event) {
 		txt = v;
 	}
 
-	console.log("awesomebar: ", "'" + text + "'", text.length);
+	console.log("searchbar: ", "'" + text + "'", text.length);
 
 	//there is no text, show only topsites
 	if (text.length < 1) {
 		showHistoryResults("", input);
-		clearAwesomebar();
+		clearsearchbar();
 		return;
 	}
 
 	//when you start with ?, always search with duckduckgo
 
 	if (text.indexOf("?") == 0) {
-		clearAwesomebar();
+		clearsearchbar();
 
 		maxSearchSuggestions = 5;
 		showSearchSuggestions(text.replace("?", ""), input);
@@ -2218,7 +2187,7 @@ var showAwesomebarResults = function (text, input, event) {
 	//when you start with ^, always search history (only)
 
 	if (text.indexOf("^") == 0) {
-		clearAwesomebar();
+		clearsearchbar();
 		showHistoryResults(text.replace("^", ""), input);
 		return;
 	}
@@ -2226,16 +2195,16 @@ var showAwesomebarResults = function (text, input, event) {
 	//when you start with *, always search bookmarks (only)
 
 	if (text.indexOf("*") == 0) {
-		clearAwesomebar();
+		clearsearchbar();
 		showBookmarkResults(text.replace("*", ""), input);
 		return;
 	}
 
-	//show awesomebar results
+	//show searchbar results
 
 
-	//normally, we will search history first, and only show search suggestions if there aren't any history results. However, if the history db isn't opened yet (which it won't be if the page loaded less than a few seconds ago), we should show results without waiting for history. Also, show results if a !bang search is occuring
-	if (performance.now() < 12500 || text.indexOf("!") == 0) {
+	//show results if a !bang search is occuring
+	if (text.indexOf("!") == 0) {
 
 		showSearchSuggestions(text, input);
 	}
@@ -2244,29 +2213,39 @@ var showAwesomebarResults = function (text, input, event) {
 
 	showHistoryResults(text, input);
 	showInstantAnswers(text, input);
-	showTopicResults(text, input);
 	searchOpenTabs(text, input);
 
 	//update cache
-	awesomebarCachedText = text;
+	searchbarCachedText = text;
 };
 
-function focusAwesomebarItem(options) {
+function focussearchbarItem(options) {
 	options = options || {}; //fallback if options is null
 	var previous = options.focusPrevious;
-	var allItems = $("#awesomebar .result-item:not(.unfocusable)");
-	var currentItem = $("#awesomebar .result-item:focus, .result-item.fakefocus");
+	var allItems = $("#searchbar .result-item:not(.unfocusable)");
+	var currentItem = $("#searchbar .result-item:focus, .result-item.fakefocus");
 	var index = allItems.index(currentItem);
 	var logicalNextItem = allItems.eq((previous) ? index - 1 : index + 1);
 
-	awesomebar.find(".fakefocus").removeClass("fakefocus"); //clear previously focused items
+	searchbar.find(".fakefocus").removeClass("fakefocus"); //clear previously focused items
 
 	if (currentItem[0] && logicalNextItem[0]) { //an item is focused and there is another item after it, move onto the next one
 		logicalNextItem.get(0).focus();
-	} else if (currentItem[0]) { //the last item is focused, focus the awesomebar again
+	} else if (currentItem[0]) { //the last item is focused, focus the searchbar again
 		getTabElement(tabs.getSelected()).getInput().get(0).focus();
 	} else { // no item is focused.
-		$("#awesomebar .result-item").first().get(0).focus();
+		$("#searchbar .result-item").first().get(0).focus();
+	}
+
+	var focusedItem = $("#searchbar .result-item:focus");
+
+	if (focusedItem.hasClass("iadata-onfocus")) {
+		var itext = focusedItem.find(".title").text();
+
+		showInstantAnswers(itext, currentsearchbarInput, {
+			alwaysShow: true,
+			destroyPrevious: false,
+		});
 	}
 }
 
@@ -2274,15 +2253,15 @@ function focusAwesomebarItem(options) {
 //tab key or arrowdown key should focus next item
 //arrowup key should focus previous item
 
-awesomebar.on("keydown", ".result-item", function (e) {
+searchbar.on("keydown", ".result-item", function (e) {
 	if (e.keyCode == 13) {
 		$(this).trigger("click");
 	} else if (e.keyCode == 9 || e.keyCode == 40) { //tab or arrowdown key
 		e.preventDefault();
-		focusAwesomebarItem();
+		focussearchbarItem();
 	} else if (e.keyCode == 38) {
 		e.preventDefault();
-		focusAwesomebarItem({
+		focussearchbarItem({
 			focusPrevious: true
 		});
 	}
@@ -2292,7 +2271,7 @@ awesomebar.on("keydown", ".result-item", function (e) {
 
 var lastItemDeletion = Date.now();
 
-awesomebar.on("mousewheel", ".history-results .result-item, .top-answer-results .result-item", function (e) {
+searchbar.on("mousewheel", ".history-results .result-item, .top-answer-results .result-item", function (e) {
 	var self = $(this)
 	if (e.originalEvent.deltaX > 50 && e.originalEvent.deltaY < 3 && self.attr("data-url") && Date.now() - lastItemDeletion > 700) {
 		lastItemDeletion = Date.now();
@@ -2307,7 +2286,7 @@ awesomebar.on("mousewheel", ".history-results .result-item, .top-answer-results 
 	}
 });
 
-//when we get keywords data from the page, we show those results in the awesomebar
+//when we get keywords data from the page, we show those results in the searchbar
 
 bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 
@@ -2331,14 +2310,14 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 		}
 
 		/*if (!hasShownDDGpopup) {
-			showInstantAnswers(data.entities[0], currentAwesomebarInput, {
+			showInstantAnswers(data.entities[0], currentsearchbarInput, {
 				alwaysShow: true
 			});
 
 			hasShownDDGpopup = true;
 		}*/
 
-		var div = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(item)).on("click", function (e) {
+		var div = $("<div class='result-item iadata-onfocus' tabindex='-1'>").append($("<span class='title'>").text(item)).on("click", function (e) {
 			if (e.metaKey) {
 				openURLInBackground(item);
 			} else {
@@ -2355,6 +2334,7 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 	});
 });
 ;var readerView = {
+	readerURL: "file:///" + __dirname + "/reader/index.html",
 	getButton: function (tabId) {
 		//TODO better icon
 		return $("<i class='fa fa-align-left reader-button'>").attr("data-tab", tabId).attr("title", "Enter reader view");
@@ -2387,7 +2367,7 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 		}
 	},
 	enter: function (tabId) {
-		navigate(tabId, "file:///" + __dirname + "/reader/index.html?url=" + tabs.get(tabId).url);
+		navigate(tabId, readerView.readerURL + "?url=" + tabs.get(tabId).url);
 		tabs.update(tabId, {
 			isReaderView: true
 		});
@@ -2406,7 +2386,7 @@ bindWebviewEvent("did-finish-load", function (e) {
 	var tab = $(this).attr("data-tab"),
 		url = this.getURL();
 
-	if (url.indexOf("file://" + __dirname + "/reader/index.html") == 0) {
+	if (url.indexOf(readerView.readerURL) == 0) {
 		tabs.update(tab, {
 			isReaderView: true
 		})
@@ -2672,7 +2652,7 @@ function leaveTabEditMode(options) {
 	$(".tab-item").removeClass("selected");
 	options && options.blur && $(".tab-item .tab-input").blur();
 	tabGroup.removeClass("has-selected-tab");
-	hideAwesomebar();
+	hidesearchbar();
 }
 
 function enterEditMode(tabId) {
@@ -2696,11 +2676,11 @@ function enterEditMode(tabId) {
 	input.val(currentURL);
 	input.get(0).focus();
 	input.select();
-	showAwesomebar(input);
-	showAwesomebarResults("", input, null);
+	showSearchbar(input);
+	showSearchbarResults("", input, null);
 	tabGroup.addClass("has-selected-tab");
 
-	//show keyword suggestions in the awesomebar
+	//show keyword suggestions in the searchbar
 
 	try { //before first webview navigation, this will be undefined
 		getWebview(tabs.getSelected())[0].send("getKeywordsData");
@@ -2743,7 +2723,7 @@ function createTabElement(tabId) {
 
 	var ec = $("<div class='tab-edit-contents'>");
 
-	var input = $("<input class='tab-input theme-text-color mousetrap'>");
+	var input = $("<input class='tab-input mousetrap'>");
 	input.attr("placeholder", "Search or enter address");
 	input.attr("value", url);
 
@@ -2752,7 +2732,7 @@ function createTabElement(tabId) {
 
 	ec.appendTo(tab);
 
-	var vc = $("<div class='tab-view-contents theme-text-color'>")
+	var vc = $("<div class='tab-view-contents'>")
 	readerView.getButton(tabId).appendTo(vc);
 
 	if (data.private) {
@@ -2770,7 +2750,7 @@ function createTabElement(tabId) {
 
 	input.on("keydown", function (e) {
 		if (e.keyCode == 9 || e.keyCode == 40) { //if the tab or arrow down key was pressed
-			focusAwesomebarItem();
+			focussearchbarItem();
 			e.preventDefault();
 		}
 	});
@@ -2778,7 +2758,7 @@ function createTabElement(tabId) {
 	//keypress doesn't fire on delete key - use keyup instead
 	input.on("keyup", function (e) {
 		if (e.keyCode == 8) {
-			showAwesomebarResults($(this).val(), $(this), e);
+			showSearchbarResults($(this).val(), $(this), e);
 		}
 	});
 
@@ -2786,7 +2766,7 @@ function createTabElement(tabId) {
 
 		if (e.keyCode == 13) { //return key pressed; update the url
 			var tabId = $(this).parents(".tab-item").attr("data-tab");
-			var newURL = parseAwesomebarURL($(this).val());
+			var newURL = parsesearchbarURL($(this).val());
 
 			navigate(tabId, newURL);
 			leaveTabEditMode(tabId);
@@ -2800,8 +2780,8 @@ function createTabElement(tabId) {
 		} else if (e.keyCode == 8) {
 			return;
 			//delete key is handled in keyUp
-		} else { //show the awesomebar
-			showAwesomebarResults($(this).val(), $(this), e);
+		} else { //show the searchbar
+			showSearchbarResults($(this).val(), $(this), e);
 		}
 
 		//on keydown, if the autocomplete result doesn't change, we move the selection instead of regenerating it to avoid race conditions with typing. Adapted from https://github.com/patrickburke/jquery.inlineComplete
@@ -2828,11 +2808,12 @@ function createTabElement(tabId) {
 }
 
 function addTab(tabId, options) {
+
 	/* options 
 	
 						options.focus - whether to enter editing mode when the tab is created. Defaults to true.
 						options.openInBackground - whether to open the tab without switching to it. Defaults to false.
-						options.leaveEditMode - whether to hide the awesomebar when creating the tab
+						options.leaveEditMode - whether to hide the searchbar when creating the tab
 	
 						*/
 
@@ -2844,9 +2825,9 @@ function addTab(tabId, options) {
 
 	tabId = tabId || tabs.add();
 
-	//use the correct new tab colors
-
 	var tab = tabs.get(tabId);
+
+	//use the correct new tab colors
 
 	if (tab.private && !tab.backgroundColor) {
 		tabs.update(tabId, {
@@ -2863,9 +2844,9 @@ function addTab(tabId, options) {
 	var index = tabs.getIndex(tabId);
 	tabGroup.insertAt(index, createTabElement(tabId));
 
-	addWebview(tabId, {
-		openInBackground: options.openInBackground, //if the tab is being opened in the background, the webview should be as well
-	});
+	addWebview(tabId);
+
+	browserEvents.emit("addTab");
 
 	//open in background - we don't want to enter edit mode or switch to tab
 
@@ -2874,6 +2855,7 @@ function addTab(tabId, options) {
 	}
 
 	switchToTab(tabId);
+
 	if (options.focus != false) {
 		enterEditMode(tabId)
 	}
@@ -3129,8 +3111,6 @@ Mousetrap.bind("command+n", function (d) { //destroys all current tabs, and crea
 	}
 
 	addTab(); //create a new, blank tab
-
-	sessionRestore.save(); //we want to delete the old session
 });
 
 //return exits expanded mode
@@ -3157,21 +3137,25 @@ $(document.body).on("keyup", function (e) {
 });
 ;var sessionRestore = {
 	save: function () {
-		var data = {
-			version: 1,
-			tabs: [],
-			selected: tabs._state.selected,
-		}
-
-		//save all tabs that aren't private
-
-		tabs.get().forEach(function (tab) {
-			if (!tab.private) {
-				data.tabs.push(tab);
+		requestIdleCallback(function () {
+			var data = {
+				version: 1,
+				tabs: [],
+				selected: tabs._state.selected,
 			}
-		});
 
-		localStorage.setItem("sessionrestoredata", JSON.stringify(data));
+			//save all tabs that aren't private
+
+			tabs.get().forEach(function (tab) {
+				if (!tab.private) {
+					data.tabs.push(tab);
+				}
+			});
+
+			localStorage.setItem("sessionrestoredata", JSON.stringify(data));
+		}, {
+			timeout: 2250
+		});
 	},
 	restore: function () {
 		//get the data
@@ -3199,13 +3183,11 @@ $(document.body).on("keyup", function (e) {
 
 			//actually restore the tabs
 			data.tabs.forEach(function (tab, index) {
-				if (!tab.private) { //don't restore private tabs
-					var newTab = tabs.add(tab);
-					addTab(newTab, {
-						openInBackground: true,
-						leaveEditMode: false,
-					});
-				}
+				var newTab = tabs.add(tab);
+				addTab(newTab, {
+					openInBackground: true,
+					leaveEditMode: false,
+				});
 
 			});
 
@@ -3232,14 +3214,18 @@ $(document.body).on("keyup", function (e) {
 			addTab();
 
 		}
+	},
+	initializeSaveEvents: function () {
+		browserEvents.on("switchToTab", sessionRestore.save); //this will also be triggered every time we add a tab
 	}
 }
 
 //TODO make this a preference
 
 sessionRestore.restore();
+sessionRestore.initializeSaveEvents();
 
-setInterval(sessionRestore.save, 15000);
+setInterval(sessionRestore.save, 12500);
 ;/* handles viewing pdf files using pdf.js. Recieves events from main.js will-download */
 
 var PDFViewerURL = "file://" + __dirname + "/pdfjs/web/viewer.html?url=";
