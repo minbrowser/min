@@ -327,7 +327,6 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 
 	var data = arguements[0];
 
-	var hasShownDDGpopup = false;
 	var itemsCt = 0;
 
 	var itemsShown = [];
@@ -343,14 +342,6 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 		if (itemsCt >= 5 || itemsShown.indexOf(item.trim()) != -1) {
 			return;
 		}
-
-		/*if (!hasShownDDGpopup) {
-			showInstantAnswers(data.entities[0], currentsearchbarInput, {
-				alwaysShow: true
-			});
-
-			hasShownDDGpopup = true;
-		}*/
 
 		var div = $("<div class='result-item iadata-onfocus' tabindex='-1'>").append($("<span class='title'>").text(item)).on("click", function (e) {
 			if (e.metaKey) {
