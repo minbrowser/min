@@ -157,9 +157,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 					item.text(res.Heading);
 				}
 
-				var entitiesWithUselessImages = ["company", "country", "website", "software"] //thse are typically low-quality and unhelpful
-
-				if (res.Image && entitiesWithUselessImages.indexOf(res.Entity) == -1) {
+				if (res.Image && !res.ImageIsLogo) {
 					$("<img class='result-icon image low-priority-image'>").attr("src", res.Image).prependTo(item);
 				}
 
