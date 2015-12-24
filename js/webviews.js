@@ -140,6 +140,7 @@ function getWebviewDom(options) {
 		});
 
 		addWebview(tabId);
+		switchToWebview(tabId);
 	});
 
 	w.on("did-fail-load", function (e) {
@@ -157,8 +158,7 @@ function getWebviewDom(options) {
 
 var WebviewsWithHiddenClass = false;
 
-function addWebview(tabId, options) {
-	options = options || {}; //fallback if options is undefined
+function addWebview(tabId) {
 
 	var tabData = tabs.get(tabId);
 
@@ -167,14 +167,11 @@ function addWebview(tabId, options) {
 		url: tabData.url
 	});
 
-	webviewBase.append(webview);
+	//this is used to hide the webview while still letting it load in the background
+	//webviews are hidden when added - call switchToWebview to show it
+	webview.addClass("hidden");
 
-	if (!options.openInBackground) {
-		switchToWebview(tabId);
-	} else {
-		//this is used to hide the webview while still letting it load in the background
-		webview.addClass("hidden");
-	}
+	webviewBase.append(webview);
 }
 
 function switchToWebview(id, options) {

@@ -285,9 +285,9 @@ function addTab(tabId, options) {
 
 	tabId = tabId || tabs.add();
 
-	//use the correct new tab colors
-
 	var tab = tabs.get(tabId);
+
+	//use the correct new tab colors
 
 	if (tab.private && !tab.backgroundColor) {
 		tabs.update(tabId, {
@@ -304,9 +304,7 @@ function addTab(tabId, options) {
 	var index = tabs.getIndex(tabId);
 	tabGroup.insertAt(index, createTabElement(tabId));
 
-	addWebview(tabId, {
-		openInBackground: options.openInBackground, //if the tab is being opened in the background, the webview should be as well
-	});
+	addWebview(tabId);
 
 	browserEvents.emit("addTab");
 
@@ -317,6 +315,7 @@ function addTab(tabId, options) {
 	}
 
 	switchToTab(tabId);
+
 	if (options.focus != false) {
 		enterEditMode(tabId)
 	}
