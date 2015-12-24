@@ -80,6 +80,10 @@ function autocompleteResultIfNeeded(input, result) {
 
 var showHistoryResults = throttle(function (text, input, maxItems) {
 
+	if (!text && input[0].value) { //if the entire input is highlighted (such as when we first focus the input), don't show anything
+		return;
+	}
+
 	if (text) {
 		text = text.trim();
 	}
