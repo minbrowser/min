@@ -10,20 +10,17 @@ var currentSuggestionLimit = maxSearchSuggestions;
 
 /* duckduckgo returns raw html for the color info ui. We need to format that */
 
-function unsafe_showColorUI(searchText, colorHTML) {
-	var el = $("<div>").html(colorHTML);
-	var color = el.find(".colorcodesbox.circle").css("background");
-	var alternateFormats = [];
+function getColorUI(searchText, answer) {
+	var alternateFormats = [answer.data.rgb, answer.data.hslc, answer.data.cmyb];
 
-	el.find(".no_vspace").each(function () {
-		alternateFormats.push($(this).text());
-	});
+	if (searchText.indexOf("#") == -1) { //if the search is not a hex code, show the hex code as an alternate format
+		alternateFormats.unshift(answer.hexc);
+	}
 
 	var item = $("<div class='result-item indent' tabindex='-1'>");
+	$("<span class='title'>").text(searchText).appendTo(item);
 
-	item.text(searchText);
-
-	$("<div class='result-icon color-circle'>").css("background", color).prependTo(item);
+	$("<div class='result-icon color-circle'>").css("background-color", "#" + answer.data.hex_code).prependTo(item);
 
 	$("<span class='description-block'>").text(alternateFormats.join(" " + METADATA_SEPARATOR + " ")).appendTo(item);
 
@@ -171,7 +168,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				//the parsing for this is different
 
 				if (res.AnswerType == "color_code") {
-					item = unsafe_showColorUI(text, res.Answer);
+					item = getColorUI(text, res.Answer);
 				}
 
 				item.on("click", function (e) {
