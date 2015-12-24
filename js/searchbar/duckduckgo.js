@@ -4,7 +4,9 @@ var iaarea = $("#searchbar .instant-answer-results");
 var topAnswerarea = $("#searchbar .top-answer-results");
 var suggestedsitearea = $("#searchbar .ddg-site-results");
 
-var maxSearchSuggestions = 5;
+const minSearchSuggestions = 2;
+const maxSearchSuggestions = 4;
+var currentSuggestionLimit = maxSearchSuggestions;
 
 /* duckduckgo returns raw html for the color info ui. We need to format that */
 
@@ -73,7 +75,7 @@ window.showSearchSuggestions = throttle(function (text, input) {
 				});
 
 			} else if (results) {
-				results = results.splice(0, maxSearchSuggestions);
+				results = results.splice(0, currentSuggestionLimit);
 
 				results.forEach(function (result) {
 					var title = result.phrase;
@@ -107,8 +109,8 @@ window.showSearchSuggestions = throttle(function (text, input) {
 /* this is called from historySuggestions. When we find history results, we want to limit search suggestions to 2 so the searchbar doesn't get too large. */
 
 var limitSearchSuggestions = function (itemsToRemove) {
-	var itemsLeft = Math.max(2, 5 - itemsToRemove);
-	maxSearchSuggestions = itemsLeft;
+	var itemsLeft = Math.max(minSearchSuggestions, maxSearchSuggestions - itemsToRemove);
+	currentSuggestionLimit = itemsLeft;
 	serarea.find(".result-item:nth-child(n+{items})".replace("{items}", itemsLeft + 1)).remove();
 }
 
