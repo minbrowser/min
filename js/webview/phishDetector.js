@@ -17,15 +17,17 @@ function checkPhishingStatus() {
 		return false;
 	}
 
-
 	var scanStart = performance.now();
+	var passwordInputFound = false;
 
 	function isSensitive(form) { //checks if a form is asking for sensitive information
 
-		if (form.querySelector("input[type=password]")) {
+		if (form.querySelector("input[type=password]") && !passwordInputFound) {
 
 			debug_phishing("form with password input found, decreasing threshold");
 			minPhishingScore *= 0.7;
+			sensitiveFormFound = true;
+			passwordInputFound = true;
 
 			return true;
 		}
@@ -34,13 +36,14 @@ function checkPhishingStatus() {
 			debug_phishing("possibly sensitive form, checking but increasing minScore");
 
 			minPhishingScore *= 1.25;
+			sensitiveFormFound = true;
 			return true;
 		}
 
 		//empty forms can be misleading
 
 		if (!form.querySelector("input")) {
-			debug_phishing("empty form found, checking but increasing minScore");
+			debug_phishing("empty form found, checking but not counting as sensitive");
 			minPhishingScore += 0.35;
 			return true;
 		}
@@ -51,6 +54,7 @@ function checkPhishingStatus() {
 		for (var i = 0; i < sensitiveFormWords.length; i++) {
 			if (tx.indexOf(sensitiveFormWords[i]) != -1) {
 				debug_phishing("sensitive word found in form, checking");
+				sensitiveFormFound = true;
 				minPhishingScore += 0.15;
 				return true;
 			}
@@ -127,14 +131,19 @@ function checkPhishingStatus() {
 
 	//penalize extremely long locations, since these could also be used for phishing
 
-	if (loc.split("?")[0].length > 100) {
+	if (loc.split("?")[0].length > 75) {
 		debug_phishing("long window location detected");
-		phishingScore += Math.min(window.location.toString().length * 0.0005, 0.2);
+		phishingScore += Math.min(window.location.toString().length * 0.0001, 0.2);
+	}
+
+	if (loc.split("/").length > 5) {
+		debug_phishing("long path found");
+		phishingScore += Math.max(loc.split("/").length * 0.05, 0.25);
 	}
 
 	//CANTINA - penalize locations with lots of dots
 
-	if (window.location.hostname.split(".").length > 3) {
+	if (window.location.hostname.split(".").length > 3 && window.location.hostname.length > 20) {
 		debug_phishing("high number of . characters detected");
 		phishingScore += Math.min(loc.split("?")[0].split(".").length * 0.03, 0.2);
 	}
@@ -146,9 +155,10 @@ function checkPhishingStatus() {
 		phishingScore += Math.min(0.05 + (0.002 * window.location.pathname.length), 0.3);
 	}
 
-	if (window.location.pathname == "/" && window.location.hostname.replace("www.", "").length < 18) {
+
+	if (window.location.pathname.length < 10 && window.location.hostname.replace("www.", "").length < 18) {
 		debug_phishing("short root domain found, increasing minScore");
-		minPhishingScore += 0.3 + 0.05 * (18 - window.location.hostname.length);
+		minPhishingScore += 0.3 + 0.05 * (18 - window.location.hostname.length) - (0.01 * window.location.pathname.length);
 	}
 
 	sensitiveWords.forEach(function (word) {
@@ -177,8 +187,6 @@ function checkPhishingStatus() {
 			if (!isSensitive(form)) {
 				continue;
 			}
-
-			sensitiveFormFound = true;
 
 			var fa = form.getAttribute("action");
 
@@ -254,7 +262,7 @@ function checkPhishingStatus() {
 	if (!sensitiveFormFound) {
 		debug_phishing("no sensitive forms found, increasing minScore");
 
-		minPhishingScore += 0.1;
+		minPhishingScore += 0.33;
 	}
 
 	var links = document.querySelectorAll("a, area[href]"); //area tag is for image maps
