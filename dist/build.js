@@ -211,19 +211,15 @@ steps to creating a bookmark:
 var bookmarks = {
 	authBookmarkTab: null,
 	updateHistory: function (tabId) {
-		requestIdleCallback(function (deadine) {
-			var w = getWebview(tabId)[0]
-			var data = {
-				url: w.getURL(),
-				title: w.getTitle(),
-				color: tabs.get(tabId).backgroundColor
-			}
-			bookmarks.historyWorker.postMessage({
-				action: "updateHistory",
-				data: data
-			});
-		}, {
-			timeout: 1000
+		var tab = tabs.get(tabId);
+		var data = {
+			url: tab.url,
+			title: tab.title,
+			color: tab.backgroundColor,
+		}
+		bookmarks.historyWorker.postMessage({
+			action: "updateHistory",
+			data: data
 		});
 
 	},
@@ -1405,7 +1401,6 @@ function switchToTab(id) {
 	trailingSlashRegex = /\/$/g,
 	plusRegex = /\+/g;
 
-var shouldAutocompleteTitle;
 var currentACItem = null;
 var deleteKeyPressed = false;
 
@@ -1413,6 +1408,11 @@ var isExpandedHistoryMode = false;
 var maxHistoryResults = 4;
 
 function searchbarAutocomplete(text, input, historyResults) {
+	if (!text) {
+		currentACItem = null;
+		return;
+	}
+
 	if (text == searchbarCachedText && input[0].selectionStart != input[0].selectionEnd) { //if nothing has actually changed, don't try to autocomplete
 		return;
 	}
@@ -1421,13 +1421,7 @@ function searchbarAutocomplete(text, input, historyResults) {
 		return;
 	}
 
-	if (!text) {
-		currentACItem = null;
-		return;
-	}
-
 	var didAutocomplete = false;
-
 
 	for (var i = 0; !didAutocomplete && i < historyResults.length; i++) { //we only want to autocomplete the first item that matches
 		didAutocomplete = autocompleteResultIfNeeded(input, historyResults[i]); //this returns true or false depending on whether the item was autocompleted or not
@@ -1485,11 +1479,12 @@ function autocompleteResultIfNeeded(input, result) {
 
 var showHistoryResults = throttle(function (text, input, maxItems) {
 
-	if (text) {
-		text = text.trim();
+	if (!text && input[0].value) { //if the entire input is highlighted (such as when we first focus the input), don't show anything
+		return;
 	}
 
-	if (input.get(0).value && !text) { //if there is actually no text in the input, we want to show top sites. However, it there is text but the entire thing is highlighted, we don't want to show anything.		return;
+	if (text) {
+		text = text.trim();
 	}
 
 	bookmarks.searchHistory(text, function (results) {
@@ -1505,13 +1500,13 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 		historyarea.empty();
 
-		if (topAnswerarea.get(0).getElementsByClassName("history-item")[0]) {
+		if (topAnswerarea.get(0).getElementsByClassName("history-item").length > 0) {
 			topAnswerarea.empty();
 		}
 
 		searchbarAutocomplete(text, input, results);
 
-		if (results.length < 20 && !isExpandedHistoryMode) { //if we don't have a lot of history results, show search suggestions
+		if (results.length < 10 && !isExpandedHistoryMode) { //if we don't have a lot of history results, show search suggestions
 			limitSearchSuggestions(results.length);
 			maxItems = 3;
 			showSearchSuggestions(text, input);
@@ -1529,12 +1524,6 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 		results.forEach(function (result) {
 
-			//if there is a bookmark result found, don't show a history item
-
-			if (bookmarkarea.find(".result-item[data-url='{url}']".replace("{url}", result.url.replace(/'/g, "")))[0]) {
-				return;
-			}
-
 			var shouldAutocompleteTitle = false;
 
 			var title = result.title;
@@ -1545,6 +1534,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			DDGSearchURLRegex.lastIndex = 0;
 
 			if (DDGSearchURLRegex.test(result.url)) {
+
 				//the history item is a search, display it like a search suggestion
 				title = decodeURIComponent(result.url.replace(DDGSearchURLRegex, "$1").replace(plusRegex, " "));
 				icon = $("<i class='fa fa-search'>");
@@ -1599,7 +1589,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			item.appendTo(topAnswerarea);
 		}
 	});
-}, 250);
+}, 50);
 
 function limitHistoryResults(maxItems) {
 	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));
@@ -1680,20 +1670,17 @@ var currentSuggestionLimit = maxSearchSuggestions;
 
 /* duckduckgo returns raw html for the color info ui. We need to format that */
 
-function unsafe_showColorUI(searchText, colorHTML) {
-	var el = $("<div>").html(colorHTML);
-	var color = el.find(".colorcodesbox.circle").css("background");
-	var alternateFormats = [];
+function getColorUI(searchText, answer) {
+	var alternateFormats = [answer.data.rgb, answer.data.hslc, answer.data.cmyb];
 
-	el.find(".no_vspace").each(function () {
-		alternateFormats.push($(this).text());
-	});
+	if (searchText.indexOf("#") == -1) { //if the search is not a hex code, show the hex code as an alternate format
+		alternateFormats.unshift(answer.hexc);
+	}
 
 	var item = $("<div class='result-item indent' tabindex='-1'>");
+	$("<span class='title'>").text(searchText).appendTo(item);
 
-	item.text(searchText);
-
-	$("<div class='result-icon color-circle'>").css("background", color).prependTo(item);
+	$("<div class='result-icon color-circle'>").css("background-color", "#" + answer.data.hex_code).prependTo(item);
 
 	$("<span class='description-block'>").text(alternateFormats.join(" " + METADATA_SEPARATOR + " ")).appendTo(item);
 
@@ -1830,9 +1817,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 					item.text(res.Heading);
 				}
 
-				var entitiesWithUselessImages = ["company", "country", "website", "software"] //thse are typically low-quality and unhelpful
-
-				if (res.Image && entitiesWithUselessImages.indexOf(res.Entity) == -1) {
+				if (res.Image && !res.ImageIsLogo) {
 					$("<img class='result-icon image low-priority-image'>").attr("src", res.Image).prependTo(item);
 				}
 
@@ -1841,7 +1826,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				//the parsing for this is different
 
 				if (res.AnswerType == "color_code") {
-					item = unsafe_showColorUI(text, res.Answer);
+					item = getColorUI(text, res.Answer);
 				}
 
 				item.on("click", function (e) {
@@ -2292,7 +2277,6 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 
 	var data = arguements[0];
 
-	var hasShownDDGpopup = false;
 	var itemsCt = 0;
 
 	var itemsShown = [];
@@ -2308,14 +2292,6 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 		if (itemsCt >= 5 || itemsShown.indexOf(item.trim()) != -1) {
 			return;
 		}
-
-		/*if (!hasShownDDGpopup) {
-			showInstantAnswers(data.entities[0], currentsearchbarInput, {
-				alwaysShow: true
-			});
-
-			hasShownDDGpopup = true;
-		}*/
 
 		var div = $("<div class='result-item iadata-onfocus' tabindex='-1'>").append($("<span class='title'>").text(item)).on("click", function (e) {
 			if (e.metaKey) {
