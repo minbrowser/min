@@ -75,7 +75,7 @@ function openURLInBackground(url) { //used to open a url in the background, with
 	var newTab = tabs.add({
 		url: url,
 		private: tabs.get(tabs.getSelected()).private
-	})
+	}, tabs.getIndex(tabs.getSelected()) + 1);
 	addTab(newTab, {
 		focus: false,
 		openInBackground: true,
