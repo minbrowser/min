@@ -13,6 +13,12 @@
 	max-height: calc(100% - 75px);
 	overflow-y: auto;
 }
+
+/* the navbar gets moved over in fullscreen, but the searchbar still needs to be aligned with it */
+
+body.fullscreen #searchbar {
+	padding-left: 0;
+}
 #searchbar .result-item {
 	width: 100%;
 	display: block;

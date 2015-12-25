@@ -12,6 +12,11 @@
 	position: relative;
 }
 
+/* there are no window controls in fullscreen, so we don't need any padding */
+
+body.fullscreen .tab-group {
+	padding-left: 0;
+}
 /* when the tab-group is white, we need a line to separate it from the webviews */
 
 .tab-group[style="color: black; background-color: rgb(255, 255, 255);"]:before {
