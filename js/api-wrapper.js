@@ -56,6 +56,6 @@ function switchToTab(id) {
 		}
 	}, 2500);
 
-	browserEvents.emit("switchToTab");
+	sessionRestore.save();
 
 }

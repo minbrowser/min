@@ -77,15 +77,11 @@ var sessionRestore = {
 			addTab();
 
 		}
-	},
-	initializeSaveEvents: function () {
-		browserEvents.on("switchToTab", sessionRestore.save); //this will also be triggered every time we add a tab
 	}
 }
 
 //TODO make this a preference
 
 sessionRestore.restore();
-sessionRestore.initializeSaveEvents();
 
 setInterval(sessionRestore.save, 12500);

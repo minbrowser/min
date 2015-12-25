@@ -306,8 +306,6 @@ function addTab(tabId, options) {
 
 	addWebview(tabId);
 
-	browserEvents.emit("addTab");
-
 	//open in background - we don't want to enter edit mode or switch to tab
 
 	if (options.openInBackground) {

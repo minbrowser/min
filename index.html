@@ -13,8 +13,6 @@
 		window.electron = require("electron");
 		window.$ = window.jQuery = require("jquery");
 		window.ipc = electron.ipcRenderer;
-		window.eventEmitter = require("events").EventEmitter;
-		window.browserEvents = new eventEmitter();
 
 		//disable dragdrop, since it currently doesn't work
 		$(window).on("drop", function(e) {
