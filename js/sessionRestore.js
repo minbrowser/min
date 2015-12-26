@@ -62,10 +62,6 @@ var sessionRestore = {
 				switchToTab(data.tabs[0].id);
 			}
 
-			//we delete the data, restore the session, and then re-save it. This means that if for whatever reason the session data is making the browser hang, you can restart and get a new session.
-
-			sessionRestore.save();
-
 		} catch (e) {
 			//if we can't restore the session, try to start over with a blank tab
 			console.warn("failed to restore session, rolling back");
