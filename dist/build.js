@@ -180,7 +180,7 @@ function switchToWebview(id, options) {
 	var webview = getWebview(id);
 	webview.removeClass("hidden").show(); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
 
-	if (options && options.focus) {
+	if (options && options.focus && document.activeElement.tagName == "WEBVIEW") { //only focus the new webview if the old one is focused
 		webview[0].focus();
 	}
 }
@@ -1394,7 +1394,7 @@ function switchToTab(id) {
 		}
 	}, 2500);
 
-	browserEvents.emit("switchToTab");
+	sessionRestore.save();
 
 }
 ;var DDGSearchURLRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
@@ -2025,7 +2025,7 @@ function openURLInBackground(url) { //used to open a url in the background, with
 	var newTab = tabs.add({
 		url: url,
 		private: tabs.get(tabs.getSelected()).private
-	})
+	}, tabs.getIndex(tabs.getSelected()) + 1);
 	addTab(newTab, {
 		focus: false,
 		openInBackground: true,
@@ -2485,6 +2485,11 @@ var tabs = {
 	count: function () {
 		return tabs._state.tabs.length;
 	},
+	reorder: function(newOrder) { //newOrder is an array of [tabId, tabId] that indicates the order that tabs should be in
+		tabs._state.tabs.sort(function(a, b) {
+			return newOrder.indexOf(a.id) - newOrder.indexOf(b.id);
+		});
+	},
 
 }
 ;/* fades out tabs that are inactive */
@@ -2822,8 +2827,6 @@ function addTab(tabId, options) {
 
 	addWebview(tabId);
 
-	browserEvents.emit("addTab");
-
 	//open in background - we don't want to enter edit mode or switch to tab
 
 	if (options.openInBackground) {
@@ -2846,6 +2849,25 @@ bindWebviewEvent("focus", function () {
 	leaveTabEditMode();
 });
 ;/* provides simple utilities for entering/exiting expanded tab mode */
+
+require.async("dragula", function (dragula) {
+
+	var dragRegion = dragula([tabGroup[0]]); //tabs can only be dragged in expanded mode, since the window titlebar will capture drag events otherwise
+
+	//reorder the tab state when a tab is dropped
+	dragRegion.on("drop", function () {
+
+		var tabOrder = [];
+
+		tabContainer.find(".tab-item").each(function () {
+			var tabId = parseInt($(this).attr("data-tab"));
+			tabOrder.push(tabId);
+		});
+
+		tabs.reorder(tabOrder);
+	});
+
+});
 
 tabContainer.on("mousewheel", function (e) {
 	if (e.originalEvent.deltaY < -30 && e.originalEvent.deltaX < 10) { //swipe down to expand tabs
@@ -2889,7 +2911,7 @@ function enterExpandedMode() {
 			tabEl.find(".secondary-text").text(prettyURL);
 		});
 
-		tabContainer.addClass("expanded");
+		$(document.body).addClass("is-expanded-mode");
 		getWebview(tabs.getSelected()).blur();
 		tabContainer.get(0).focus();
 
@@ -2899,7 +2921,7 @@ function enterExpandedMode() {
 
 function leaveExpandedMode() {
 	if (isExpandedMode) {
-		tabContainer.removeClass("expanded");
+		$(document.body).removeClass("is-expanded-mode");
 
 		isExpandedMode = false;
 	}
@@ -2958,250 +2980,162 @@ function addPrivateTab() {
 
 ipc.on("addPrivateTab", addPrivateTab);
 
-var Mousetrap = require("mousetrap");
+require.async("mousetrap", function (Mousetrap) {
+	window.Mousetrap = Mousetrap;
 
-Mousetrap.bind("shift+command+p", addPrivateTab);
+	Mousetrap.bind("shift+command+p", addPrivateTab);
 
-Mousetrap.bind(["command+l", "command+k"], function (e) {
-	enterEditMode(tabs.getSelected());
-	return false;
-})
+	Mousetrap.bind(["command+l", "command+k"], function (e) {
+		enterEditMode(tabs.getSelected());
+		return false;
+	})
 
-Mousetrap.bind("command+w", function (e) {
-	//prevent command+w from closing the window
-	e.preventDefault();
-	e.stopImmediatePropagation();
+	Mousetrap.bind("command+w", function (e) {
+		//prevent command+w from closing the window
+		e.preventDefault();
+		e.stopImmediatePropagation();
 
-	var currentTab = tabs.getSelected();
-	var currentIndex = tabs.getIndex(currentTab);
-	var nextTab = tabs.getAtIndex(currentIndex + 1) || tabs.getAtIndex(currentIndex - 1);
+		var currentTab = tabs.getSelected();
+		var currentIndex = tabs.getIndex(currentTab);
+		var nextTab = tabs.getAtIndex(currentIndex + 1) || tabs.getAtIndex(currentIndex - 1);
 
-	destroyTab(currentTab);
-	if (nextTab) {
-		switchToTab(nextTab.id);
-	} else {
-		addTab();
+		destroyTab(currentTab);
+		if (nextTab) {
+			switchToTab(nextTab.id);
+		} else {
+			addTab();
+		}
+
+		if (tabs.count() == 1) { //there isn't any point in being in expanded mode any longer
+			leaveExpandedMode();
+		}
+
+		return false;
+	});
+
+	Mousetrap.bind("command+d", function (e) {
+		//TODO need an actual api for this that updates the star and bookmarks
+
+		getTabElement(tabs.getSelected()).find(".bookmarks-button").click();
+	})
+
+	Mousetrap.bind("command+f", function (e) {
+		findinpage.toggle();
+	});
+
+	// cmd+x should switch to tab x. Cmd+9 should switch to the last tab
+
+	for (var i = 0; i < 9; i++) {
+		(function (i) {
+			Mousetrap.bind("command+" + i, function (e) {
+				var currentIndex = tabs.getIndex(tabs.getSelected());
+				var newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i);
+				if (newTab) {
+					switchToTab(newTab.id);
+				}
+			})
+
+			Mousetrap.bind("shift+command+" + i, function (e) {
+				var currentIndex = tabs.getIndex(tabs.getSelected());
+				var newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i);
+				if (newTab) {
+					switchToTab(newTab.id);
+				}
+			})
+
+		})(i);
 	}
 
-	if (tabs.count() == 1) { //there isn't any point in being in expanded mode any longer
-		leaveExpandedMode();
-	}
-
-	return false;
-});
-
-Mousetrap.bind("command+d", function (e) {
-	//TODO need an actual api for this that updates the star and bookmarks
-
-	getTabElement(tabs.getSelected()).find(".bookmarks-button").click();
-})
-
-Mousetrap.bind("command+f", function (e) {
-	findinpage.toggle();
-});
-
-// cmd+x should switch to tab x. Cmd+9 should switch to the last tab
-
-for (var i = 0; i < 9; i++) {
-	(function (i) {
-		Mousetrap.bind("command+" + i, function (e) {
-			var currentIndex = tabs.getIndex(tabs.getSelected());
-			var newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i);
-			if (newTab) {
-				switchToTab(newTab.id);
-			}
-		})
-
-		Mousetrap.bind("shift+command+" + i, function (e) {
-			var currentIndex = tabs.getIndex(tabs.getSelected());
-			var newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i);
-			if (newTab) {
-				switchToTab(newTab.id);
-			}
-		})
-
-	})(i);
-}
-
-Mousetrap.bind("command+9", function (e) {
-	switchToTab(tabs.getAtIndex(tabs.count() - 1).id);
-})
-
-Mousetrap.bind("shift+command+9", function (e) {
-	switchToTab(tabs.getAtIndex(0).id);
-})
-
-Mousetrap.bind("esc", function (e) {
-	leaveTabEditMode();
-	leaveExpandedMode();
-	getWebview(tabs.getSelected()).get(0).focus();
-});
-
-Mousetrap.bind("shift+command+r", function () {
-	getTabElement(tabs.getSelected()).find(".reader-button").trigger("click");
-});
-
-//TODO add help docs for this
-
-Mousetrap.bind("command+left", function (d) {
-	getWebview(tabs.getSelected())[0].goBack();
-});
-
-Mousetrap.bind("command+right", function (d) {
-	getWebview(tabs.getSelected())[0].goForward();
-});
-
-Mousetrap.bind(["option+command+left", "shift+ctrl+tab"], function (d) {
-
-	enterExpandedMode(); //show the detailed tab switcher
-
-	var currentIndex = tabs.getIndex(tabs.getSelected());
-	var previousTab = tabs.getAtIndex(currentIndex - 1);
-
-	if (previousTab) {
-		switchToTab(previousTab.id);
-	} else {
+	Mousetrap.bind("command+9", function (e) {
 		switchToTab(tabs.getAtIndex(tabs.count() - 1).id);
-	}
-});
+	})
 
-Mousetrap.bind(["option+command+right", "ctrl+tab"], function (d) {
-
-	enterExpandedMode();
-
-	var currentIndex = tabs.getIndex(tabs.getSelected());
-	var nextTab = tabs.getAtIndex(currentIndex + 1);
-
-	if (nextTab) {
-		switchToTab(nextTab.id);
-	} else {
+	Mousetrap.bind("shift+command+9", function (e) {
 		switchToTab(tabs.getAtIndex(0).id);
-	}
-});
+	})
 
-Mousetrap.bind("command+n", function (d) { //destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
-
-	var tset = tabs.get();
-	for (var i = 0; i < tset.length; i++) {
-		destroyTab(tset[i].id);
-	}
-
-	addTab(); //create a new, blank tab
-});
-
-//return exits expanded mode
-
-Mousetrap.bind("return", function () {
-	if (isExpandedMode) {
+	Mousetrap.bind("esc", function (e) {
+		leaveTabEditMode();
 		leaveExpandedMode();
-		getWebview(tabs.getSelected())[0].focus();
-	}
-});
+		getWebview(tabs.getSelected()).get(0).focus();
+	});
 
-Mousetrap.bind("shift+command+e", function () {
-	if (!isExpandedMode) {
+	Mousetrap.bind("shift+command+r", function () {
+		getTabElement(tabs.getSelected()).find(".reader-button").trigger("click");
+	});
+
+	//TODO add help docs for this
+
+	Mousetrap.bind("command+left", function (d) {
+		getWebview(tabs.getSelected())[0].goBack();
+	});
+
+	Mousetrap.bind("command+right", function (d) {
+		getWebview(tabs.getSelected())[0].goForward();
+	});
+
+	Mousetrap.bind(["option+command+left", "shift+ctrl+tab"], function (d) {
+
+		enterExpandedMode(); //show the detailed tab switcher
+
+		var currentIndex = tabs.getIndex(tabs.getSelected());
+		var previousTab = tabs.getAtIndex(currentIndex - 1);
+
+		if (previousTab) {
+			switchToTab(previousTab.id);
+		} else {
+			switchToTab(tabs.getAtIndex(tabs.count() - 1).id);
+		}
+	});
+
+	Mousetrap.bind(["option+command+right", "ctrl+tab"], function (d) {
+
 		enterExpandedMode();
-	} else {
-		leaveExpandedMode();
-	}
-});
+
+		var currentIndex = tabs.getIndex(tabs.getSelected());
+		var nextTab = tabs.getAtIndex(currentIndex + 1);
+
+		if (nextTab) {
+			switchToTab(nextTab.id);
+		} else {
+			switchToTab(tabs.getAtIndex(0).id);
+		}
+	});
+
+	Mousetrap.bind("command+n", function (d) { //destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
+
+		var tset = tabs.get();
+		for (var i = 0; i < tset.length; i++) {
+			destroyTab(tset[i].id);
+		}
+
+		addTab(); //create a new, blank tab
+	});
+
+	//return exits expanded mode
+
+	Mousetrap.bind("return", function () {
+		if (isExpandedMode) {
+			leaveExpandedMode();
+			getWebview(tabs.getSelected())[0].focus();
+		}
+	});
+
+	Mousetrap.bind("shift+command+e", function () {
+		if (!isExpandedMode) {
+			enterExpandedMode();
+		} else {
+			leaveExpandedMode();
+		}
+	});
+
+}); //end require mousetrap
 
 $(document.body).on("keyup", function (e) {
 	if (e.keyCode == 17) { //ctrl key
 		leaveExpandedMode();
 	}
 });
-;var sessionRestore = {
-	save: function () {
-		requestIdleCallback(function () {
-			var data = {
-				version: 1,
-				tabs: [],
-				selected: tabs._state.selected,
-			}
-
-			//save all tabs that aren't private
-
-			tabs.get().forEach(function (tab) {
-				if (!tab.private) {
-					data.tabs.push(tab);
-				}
-			});
-
-			localStorage.setItem("sessionrestoredata", JSON.stringify(data));
-		}, {
-			timeout: 2250
-		});
-	},
-	restore: function () {
-		//get the data
-
-		try {
-			var data = JSON.parse(localStorage.getItem("sessionrestoredata") || "{}");
-
-			localStorage.setItem("sessionrestoredata", "{}");
-
-			if (data.version && data.version != 1) { //if the version isn't compatible, we don't want to restore.
-				addTab({
-					leaveEditMode: false //we know we aren't in edit mode yet, so we don't have to leave it
-				});
-				return;
-			}
-
-			console.info("restoring tabs", data.tabs);
-
-			if (!data || !data.tabs || !data.tabs.length || (data.tabs.length == 1 && data.tabs[0].url == "about:blank")) { //If there are no tabs, or if we only have one tab, and it's about:blank, don't restore
-				addTab(tabs.add(), {
-					leaveEditMode: false
-				});
-				return;
-			}
-
-			//actually restore the tabs
-			data.tabs.forEach(function (tab, index) {
-				var newTab = tabs.add(tab);
-				addTab(newTab, {
-					openInBackground: true,
-					leaveEditMode: false,
-				});
-
-			});
-
-			//set the selected tab
-
-			if (tabs.get(data.selected)) { //if the selected tab was a private tab that we didn't restore, it's possible that the selected tab doesn't actually exist. This will throw an error, so we want to make sure the tab exists before we try to switch to it
-				switchToTab(data.selected);
-			} else { //switch to the first tab
-				switchToTab(data.tabs[0].id);
-			}
-
-			//we delete the data, restore the session, and then re-save it. This means that if for whatever reason the session data is making the browser hang, you can restart and get a new session.
-
-			sessionRestore.save();
-
-		} catch (e) {
-			//if we can't restore the session, try to start over with a blank tab
-			console.warn("failed to restore session, rolling back");
-			console.error(e);
-
-			localStorage.setItem("sessionrestoredata", "{}");
-
-			$("webview, .tab-item").remove();
-			addTab();
-
-		}
-	},
-	initializeSaveEvents: function () {
-		browserEvents.on("switchToTab", sessionRestore.save); //this will also be triggered every time we add a tab
-	}
-}
-
-//TODO make this a preference
-
-sessionRestore.restore();
-sessionRestore.initializeSaveEvents();
-
-setInterval(sessionRestore.save, 12500);
 ;/* handles viewing pdf files using pdf.js. Recieves events from main.js will-download */
 
 var PDFViewerURL = "file://" + __dirname + "/pdfjs/web/viewer.html?url=";
@@ -3287,3 +3221,86 @@ findinpage.input.on("blur", function (e) {
 			blurInput: false
 		}) //if end tries to blur it again, we'll get stuck in an infinite loop with the event handler
 });
+;var sessionRestore = {
+	save: function () {
+		requestIdleCallback(function () {
+			var data = {
+				version: 1,
+				tabs: [],
+				selected: tabs._state.selected,
+			}
+
+			//save all tabs that aren't private
+
+			tabs.get().forEach(function (tab) {
+				if (!tab.private) {
+					data.tabs.push(tab);
+				}
+			});
+
+			localStorage.setItem("sessionrestoredata", JSON.stringify(data));
+		}, {
+			timeout: 2250
+		});
+	},
+	restore: function () {
+		//get the data
+
+		try {
+			var data = JSON.parse(localStorage.getItem("sessionrestoredata") || "{}");
+
+			localStorage.setItem("sessionrestoredata", "{}");
+
+			if (data.version && data.version != 1) { //if the version isn't compatible, we don't want to restore.
+				addTab({
+					leaveEditMode: false //we know we aren't in edit mode yet, so we don't have to leave it
+				});
+				return;
+			}
+
+			console.info("restoring tabs", data.tabs);
+
+			if (!data || !data.tabs || !data.tabs.length || (data.tabs.length == 1 && data.tabs[0].url == "about:blank")) { //If there are no tabs, or if we only have one tab, and it's about:blank, don't restore
+				addTab(tabs.add(), {
+					leaveEditMode: false
+				});
+				return;
+			}
+
+			//actually restore the tabs
+			data.tabs.forEach(function (tab, index) {
+				var newTab = tabs.add(tab);
+				addTab(newTab, {
+					openInBackground: true,
+					leaveEditMode: false,
+				});
+
+			});
+
+			//set the selected tab
+
+			if (tabs.get(data.selected)) { //if the selected tab was a private tab that we didn't restore, it's possible that the selected tab doesn't actually exist. This will throw an error, so we want to make sure the tab exists before we try to switch to it
+				switchToTab(data.selected);
+			} else { //switch to the first tab
+				switchToTab(data.tabs[0].id);
+			}
+
+		} catch (e) {
+			//if we can't restore the session, try to start over with a blank tab
+			console.warn("failed to restore session, rolling back");
+			console.error(e);
+
+			localStorage.setItem("sessionrestoredata", "{}");
+
+			$("webview, .tab-item").remove();
+			addTab();
+
+		}
+	}
+}
+
+//TODO make this a preference
+
+sessionRestore.restore();
+
+setInterval(sessionRestore.save, 12500);
