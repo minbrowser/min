@@ -96,5 +96,10 @@ var tabs = {
 	count: function () {
 		return tabs._state.tabs.length;
 	},
+	reorder: function(newOrder) { //newOrder is an array of [tabId, tabId] that indicates the order that tabs should be in
+		tabs._state.tabs.sort(function(a, b) {
+			return newOrder.indexOf(a.id) - newOrder.indexOf(b.id);
+		});
+	},
 
 }

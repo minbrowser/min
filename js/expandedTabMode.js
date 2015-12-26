@@ -1,5 +1,22 @@
 /* provides simple utilities for entering/exiting expanded tab mode */
 
+var dragula = require("dragula");
+
+var dragRegion = dragula([tabGroup[0]]); //tabs can only be dragged in expanded mode, since the window titlebar will capture drag events otherwise
+
+//reorder the tab state when a tab is dropped
+dragRegion.on("drop", function() {
+		
+	var tabOrder = [];
+	
+	tabContainer.find(".tab-item").each(function() {
+		var tabId = parseInt($(this).attr("data-tab"));
+		tabOrder.push(tabId);
+	});
+		
+	tabs.reorder(tabOrder);
+});
+
 tabContainer.on("mousewheel", function (e) {
 	if (e.originalEvent.deltaY < -30 && e.originalEvent.deltaX < 10) { //swipe down to expand tabs
 		enterExpandedMode();
@@ -42,7 +59,7 @@ function enterExpandedMode() {
 			tabEl.find(".secondary-text").text(prettyURL);
 		});
 
-		tabContainer.addClass("expanded");
+		$(document.body).addClass("is-expanded-mode");
 		getWebview(tabs.getSelected()).blur();
 		tabContainer.get(0).focus();
 
@@ -52,7 +69,7 @@ function enterExpandedMode() {
 
 function leaveExpandedMode() {
 	if (isExpandedMode) {
-		tabContainer.removeClass("expanded");
+		$(document.body).removeClass("is-expanded-mode");
 
 		isExpandedMode = false;
 	}
