@@ -32,7 +32,7 @@ body.fullscreen .tab-group {
 	display: flex;
 	overflow: auto;
 }
-.tab-group .tab-item {
+.tab-item {
 	flex: 1;
 	min-width: 125px;
 	transition: .15s min-width;
@@ -44,32 +44,32 @@ body.fullscreen .tab-group {
 	padding-left: 0.66%;
 	word-break: break-all;
 }
-.tab-group .tab-item .secondary-text {
+.tab-item .secondary-text {
 	display: none;
 }
-.tab-group .tab-item:not(.active):hover {
+.tab-item:not(.active):hover {
 	background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* icons */
 
-.tab-group .tab-item i {
+.tab-item i {
 	font-size: 0.8em;
 	padding: 0.9em;
 	vertical-align: middle;
 }
-.tab-group .tab-item i + i {
+.tab-item i + i {
 	padding-left: 0
 }
-.tab-group .tab-item.active.has-highlight {
+.tab-item.active.has-highlight {
 	background: rgba(255, 255, 255, 0.2);
 }
-.tab-group .tab-item.selected {
+.tab-item.selected {
 	min-width: 100%;
 	/* remove the white transparent-ness */
 	background: none;
 }
-.tab-group .tab-item.fade {
+.tab-item.fade {
 	opacity: 0.5;
 }
 
@@ -86,21 +86,21 @@ body.fullscreen .tab-group {
 
 /* show either the view or edit contents */
 
-.tab-group .tab-item .tab-edit-contents {
+.tab-item .tab-edit-contents {
 	display: none;
 }
-.tab-group .tab-item.selected .tab-edit-contents {
+.tab-item.selected .tab-edit-contents {
 	display: flex;
 	height: 100%;
 	align-items: center;
 }
-.tab-group .tab-item.selected .tab-view-contents {
+.tab-item.selected .tab-view-contents {
 	display: none;
 }
 
 /* tab inputs */
 
-.tab-group .tab-item .tab-input {
+.tab-item .tab-input {
 	line-height: 1.15em;
 	font-size: 1.15em;
 	-webkit-appearance: none;
@@ -113,7 +113,7 @@ body.fullscreen .tab-group {
 	transition: 0.2s color, 0.2s background-color;
 	-webkit-user-select: auto;
 }
-.tab-group .tab-item .tab-input::-webkit-input-placeholder {
+.tab-item .tab-input::-webkit-input-placeholder {
 	color: inherit;
 	opacity: 0.5;
 	line-height: 1.25em;
@@ -121,10 +121,10 @@ body.fullscreen .tab-group {
 
 /* hide the lock icon unless its the current tab */
 
-.tab-group .tab-item:not(.active) .icon-tab-is-secure {
+.tab-item:not(.active) .icon-tab-is-secure {
 	display: none;
 }
-.tab-group .tab-item .tab-view-contents .title {
+.tab-item .tab-view-contents .title {
 	font-size: 15px;
 }
 
@@ -154,19 +154,19 @@ body.fullscreen .tab-group {
 
 /* expanded mode */
 
-.tab-group.expanded {
+body.is-expanded-mode .tab-group {
 	min-height: 125px;
 	max-height: 600px;
 	padding-top: 40px;
 	padding-left: 1em;
 	overflow: hidden;
 }
-.tab-group.expanded #tabs {
+body.is-expanded-mode #tabs {
 	flex-wrap: wrap;
 	max-height: 100vh;
 	width: calc(100% - 20px) !important;
 }
-.tab-group.expanded .tab-item {
+body.is-expanded-mode .tab-item {
 	min-width: 300px;
 	max-width: 350px;
 	height: 90px;
@@ -174,11 +174,11 @@ body.fullscreen .tab-group {
 	padding: 0.5em;
 	transition: none;
 }
-.tab-group.expanded .tab-item .tab-view-contents {
+body.is-expanded-mode .tab-item .tab-view-contents {
 	line-height: 1.25em;
 	word-break: normal;
 }
-.tab-group.expanded .tab-item .secondary-text {
+body.is-expanded-mode .tab-item .secondary-text {
 	display: block;
 	font-size: 0.8em;
 	line-height: 1em;
@@ -187,19 +187,19 @@ body.fullscreen .tab-group {
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
-.tab-group.expanded .tab-item i {
+body.is-expanded-mode .tab-item i {
 	display: none !important;
 }
-.tab-group.expanded .add-tab {
+body.is-expanded-mode .add-tab {
 	display: none;
 }
 @media all and (max-width: 650px) {
-	.tab-group.expanded .tab-item {
+	body.is-expanded-mode .tab-item {
 		min-width: 100%;
 		max-width: 100%;
 	}
 }
-.tab-group.expanded .tab-item .tab-view-contents .title {
+body.is-expanded-mode .tab-item .tab-view-contents .title {
 	max-height: 2.9em;
 	overflow: hidden;
 	display: inline-block;
