@@ -1,20 +1,22 @@
 /* provides simple utilities for entering/exiting expanded tab mode */
 
-var dragula = require("dragula");
+require.async("dragula", function (dragula) {
 
-var dragRegion = dragula([tabGroup[0]]); //tabs can only be dragged in expanded mode, since the window titlebar will capture drag events otherwise
+	var dragRegion = dragula([tabGroup[0]]); //tabs can only be dragged in expanded mode, since the window titlebar will capture drag events otherwise
 
-//reorder the tab state when a tab is dropped
-dragRegion.on("drop", function() {
-		
-	var tabOrder = [];
-	
-	tabContainer.find(".tab-item").each(function() {
-		var tabId = parseInt($(this).attr("data-tab"));
-		tabOrder.push(tabId);
+	//reorder the tab state when a tab is dropped
+	dragRegion.on("drop", function () {
+
+		var tabOrder = [];
+
+		tabContainer.find(".tab-item").each(function () {
+			var tabId = parseInt($(this).attr("data-tab"));
+			tabOrder.push(tabId);
+		});
+
+		tabs.reorder(tabOrder);
 	});
-		
-	tabs.reorder(tabOrder);
+
 });
 
 tabContainer.on("mousewheel", function (e) {

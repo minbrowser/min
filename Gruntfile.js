@@ -27,9 +27,10 @@ module.exports = function (grunt) {
 						 "js/navbarTabs.js",
 							"js/expandedTabMode.js",
 						 "js/keybindings.js",
-							"js/sessionRestore.js",
 						 "js/fileDownloadManager.js",
 						 "js/findinpage.js",
+							"js/sessionRestore.js",
+
 						 ],
 				dest: 'dist/build.js'
 			},
