@@ -19,7 +19,7 @@ var tabs = {
 			title: tab.title || "",
 			id: tabId,
 			lastActivity: tab.lastActivity || Date.now(),
-			secure: tab.secure || true,
+			secure: tab.secure || false,
 			private: tab.private || false,
 			readerable: tab.readerable || false,
 			backgroundColor: tab.backgroundColor,

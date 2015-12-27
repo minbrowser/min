@@ -65,6 +65,7 @@ body.fullscreen .tab-group {
 	min-width: 100%;
 	/* remove the white transparent-ness */
 	background: none;
+	padding-left: 0.5em;
 }
 .tab-item.fade {
 	opacity: 0.5;
