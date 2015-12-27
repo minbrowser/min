@@ -14,7 +14,7 @@ function getColorUI(searchText, answer) {
 	var alternateFormats = [answer.data.rgb, answer.data.hslc, answer.data.cmyb];
 
 	if (searchText.indexOf("#") == -1) { //if the search is not a hex code, show the hex code as an alternate format
-		alternateFormats.unshift(answer.hexc);
+		alternateFormats.unshift(answer.data.hexc);
 	}
 
 	var item = $("<div class='result-item indent' tabindex='-1'>");
