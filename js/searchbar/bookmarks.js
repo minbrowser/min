@@ -47,7 +47,9 @@ var showBookmarkResults = throttle(function (text) {
 
 				span.appendTo(item);
 
-				item.appendTo(bookmarkarea);
+				requestAnimationFrame(function () {
+					item.appendTo(bookmarkarea);
+				});
 
 				item.attr("data-url", result.url);
 			}

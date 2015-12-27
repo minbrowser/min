@@ -167,10 +167,14 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 			if (urlParser.areEqual(currentACItem, result.url) && resultsShown < maxItems && !showedTopAnswer) { //the item is being autocompleted, highlight it
 				item.addClass("fakefocus");
-				item.appendTo(topAnswerarea);
+				requestAnimationFrame(function () {
+					item.appendTo(topAnswerarea);
+				});
 				showedTopAnswer = true;
 			} else {
-				item.appendTo(historyarea);
+				requestAnimationFrame(function () {
+					item.appendTo(historyarea);
+				});
 			}
 
 
@@ -187,7 +191,9 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 			$("<i class='fa fa-globe'>").prependTo(item);
 
-			item.appendTo(topAnswerarea);
+			requestAnimationFrame(function () {
+				item.appendTo(topAnswerarea);
+			});
 		}
 	});
 }, 50);
