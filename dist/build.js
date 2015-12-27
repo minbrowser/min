@@ -63,7 +63,7 @@ function getWebviewDom(options) {
 
 	w.on("did-finish-load", function (e) {
 		var tab = $(this).attr("data-tab");
-		var url = e.target.getURL();
+		var url = $(this).attr("src"); //src attribute changes whenever a page is loaded
 
 		if (url.indexOf("https://") === 0) {
 			tabs.update(tab, {
@@ -180,7 +180,7 @@ function switchToWebview(id, options) {
 	var webview = getWebview(id);
 	webview.removeClass("hidden").show(); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
 
-	if (options && options.focus && document.activeElement.tagName == "WEBVIEW") { //only focus the new webview if the old one is focused
+	if (options && options.focus) {
 		webview[0].focus();
 	}
 }
@@ -976,12 +976,10 @@ var MMCQ = (function() {
 		var withoutProtocol = url.replace("http://", "").replace("https://", "").replace("file://", ""); //chrome:, about:, data: protocols intentionally not removed
 
 		if (withoutProtocol.indexOf("www.") == 0) {
-			var final = withoutProtocol.replace("www.", "");
+			return withoutProtocol.replace("www.", "");
 		} else {
-			var final = withoutProtocol;
+			return withoutProtocol;
 		}
-
-		return final;
 	},
 	isURLMissingProtocol: function (url) {
 		return url.indexOf(" ") == -1 && url.indexOf(".") > 0;
@@ -1047,7 +1045,7 @@ function extractColor(favicon, callback) {
 
 		//workaround for colorThief throwing an error on entirely white favicons
 		try {
-			var color = cf.getColor(colorExtractorImg);
+			var color = cf.getColor(colorExtractorImg, 16);
 		} catch (e) {
 			var color = [255, 255, 255];
 		}
@@ -1566,10 +1564,14 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 			if (urlParser.areEqual(currentACItem, result.url) && resultsShown < maxItems && !showedTopAnswer) { //the item is being autocompleted, highlight it
 				item.addClass("fakefocus");
-				item.appendTo(topAnswerarea);
+				requestAnimationFrame(function () {
+					item.appendTo(topAnswerarea);
+				});
 				showedTopAnswer = true;
 			} else {
-				item.appendTo(historyarea);
+				requestAnimationFrame(function () {
+					item.appendTo(historyarea);
+				});
 			}
 
 
@@ -1586,7 +1588,9 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 			$("<i class='fa fa-globe'>").prependTo(item);
 
-			item.appendTo(topAnswerarea);
+			requestAnimationFrame(function () {
+				item.appendTo(topAnswerarea);
+			});
 		}
 	});
 }, 50);
@@ -1648,7 +1652,9 @@ function limitHistoryResults(maxItems) {
 
 				span.appendTo(item);
 
-				item.appendTo(bookmarkarea);
+				requestAnimationFrame(function () {
+					item.appendTo(bookmarkarea);
+				});
 
 				item.attr("data-url", result.url);
 			}
@@ -1674,7 +1680,7 @@ function getColorUI(searchText, answer) {
 	var alternateFormats = [answer.data.rgb, answer.data.hslc, answer.data.cmyb];
 
 	if (searchText.indexOf("#") == -1) { //if the search is not a hex code, show the hex code as an alternate format
-		alternateFormats.unshift(answer.hexc);
+		alternateFormats.unshift(answer.data.hexc);
 	}
 
 	var item = $("<div class='result-item indent' tabindex='-1'>");
@@ -1812,7 +1818,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				var item = $("<div class='result-item indent' tabindex='-1'>");
 
 				if (res.Answer) {
-					item.text(unsafeUnwrapTags(res.Answer));
+					item.text(removeTags(res.Answer));
 				} else {
 					item.text(res.Heading);
 				}
@@ -1996,10 +2002,6 @@ function debounce(fn, delay) {
 
 function removeTags(text) {
 	return text.replace(/<[\w\W]*>/g, "");
-}
-
-function unsafeUnwrapTags(text) {
-	return $("<div>").html(text).text();
 }
 
 /* this is used by navbar-tabs.js. When a url is entered, endings such as ? need to be parsed and removed. */
@@ -2360,7 +2362,7 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 
 bindWebviewEvent("did-finish-load", function (e) {
 	var tab = $(this).attr("data-tab"),
-		url = this.getURL();
+		url = $(this).attr("src");
 
 	if (url.indexOf(readerView.readerURL) == 0) {
 		tabs.update(tab, {
@@ -2405,10 +2407,10 @@ var tabs = {
 
 		var newTab = {
 			url: tab.url || "about:blank",
-			title: tab.title,
+			title: tab.title || "",
 			id: tabId,
-			lastActivity: Date.now(),
-			secure: false,
+			lastActivity: tab.lastActivity || Date.now(),
+			secure: tab.secure || false,
 			private: tab.private || false,
 			readerable: tab.readerable || false,
 			backgroundColor: tab.backgroundColor,
@@ -2485,8 +2487,8 @@ var tabs = {
 	count: function () {
 		return tabs._state.tabs.length;
 	},
-	reorder: function(newOrder) { //newOrder is an array of [tabId, tabId] that indicates the order that tabs should be in
-		tabs._state.tabs.sort(function(a, b) {
+	reorder: function (newOrder) { //newOrder is an array of [tabId, tabId] that indicates the order that tabs should be in
+		tabs._state.tabs.sort(function (a, b) {
 			return newOrder.indexOf(a.id) - newOrder.indexOf(b.id);
 		});
 	},
@@ -2643,12 +2645,10 @@ function enterEditMode(tabId) {
 	var tabEl = getTabElement(tabId);
 	var webview = getWebview(tabId)[0];
 
-	//when editing a tab, show the current page url. Sometimes, if the webview was just created, getting the URL can throw an error. If this happens, we fallback to whatever was there already.
-	try {
-		var currentURL = webview.getURL();
-	} catch (e) {
-		console.warn("failed to get webview URL");
-		var currentURL = null;
+	var currentURL = webview.getAttribute("src");
+
+	if (currentURL == "about:blank") {
+		currentURL = "";
 	}
 
 	var input = tabEl.getInput();
@@ -2751,6 +2751,9 @@ function createTabElement(tabId) {
 
 			navigate(tabId, newURL);
 			leaveTabEditMode(tabId);
+
+			//focus the webview, so that autofocus inputs on the page work
+			getWebview(tabs.getSelected())[0].focus();
 
 		} else if (e.keyCode == 9) {
 			return;
