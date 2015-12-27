@@ -16,12 +16,10 @@ var urlParser = {
 		var withoutProtocol = url.replace("http://", "").replace("https://", "").replace("file://", ""); //chrome:, about:, data: protocols intentionally not removed
 
 		if (withoutProtocol.indexOf("www.") == 0) {
-			var final = withoutProtocol.replace("www.", "");
+			return withoutProtocol.replace("www.", "");
 		} else {
-			var final = withoutProtocol;
+			return withoutProtocol;
 		}
-
-		return final;
 	},
 	isURLMissingProtocol: function (url) {
 		return url.indexOf(" ") == -1 && url.indexOf(".") > 0;
