@@ -231,6 +231,9 @@ function createTabElement(tabId) {
 			navigate(tabId, newURL);
 			leaveTabEditMode(tabId);
 
+			//focus the webview, so that autofocus inputs on the page work
+			getWebview(tabs.getSelected())[0].focus();
+
 		} else if (e.keyCode == 9) {
 			return;
 			//tab key, do nothing - in keydown listener
