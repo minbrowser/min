@@ -180,7 +180,7 @@ function switchToWebview(id, options) {
 	var webview = getWebview(id);
 	webview.removeClass("hidden").show(); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
 
-	if (options && options.focus && document.activeElement.tagName == "WEBVIEW") { //only focus the new webview if the old one is focused
+	if (options && options.focus) {
 		webview[0].focus();
 	}
 }
