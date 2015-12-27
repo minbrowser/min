@@ -20,7 +20,7 @@ function extractColor(favicon, callback) {
 
 		//workaround for colorThief throwing an error on entirely white favicons
 		try {
-			var color = cf.getColor(colorExtractorImg);
+			var color = cf.getColor(colorExtractorImg, 16);
 		} catch (e) {
 			var color = [255, 255, 255];
 		}
