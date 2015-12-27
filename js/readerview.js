@@ -49,7 +49,7 @@ var readerView = {
 
 bindWebviewEvent("did-finish-load", function (e) {
 	var tab = $(this).attr("data-tab"),
-		url = this.getURL();
+		url = $(this).attr("src");
 
 	if (url.indexOf(readerView.readerURL) == 0) {
 		tabs.update(tab, {

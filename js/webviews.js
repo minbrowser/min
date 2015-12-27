@@ -63,7 +63,7 @@ function getWebviewDom(options) {
 
 	w.on("did-finish-load", function (e) {
 		var tab = $(this).attr("data-tab");
-		var url = e.target.getURL();
+		var url = $(this).attr("src"); //src attribute changes whenever a page is loaded
 
 		if (url.indexOf("https://") === 0) {
 			tabs.update(tab, {

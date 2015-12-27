@@ -122,12 +122,10 @@ function enterEditMode(tabId) {
 	var tabEl = getTabElement(tabId);
 	var webview = getWebview(tabId)[0];
 
-	//when editing a tab, show the current page url. Sometimes, if the webview was just created, getting the URL can throw an error. If this happens, we fallback to whatever was there already.
-	try {
-		var currentURL = webview.getURL();
-	} catch (e) {
-		console.warn("failed to get webview URL");
-		var currentURL = null;
+	var currentURL = webview.getAttribute("src");
+
+	if (currentURL == "about:blank") {
+		currentURL = "";
 	}
 
 	var input = tabEl.getInput();
