@@ -17,6 +17,7 @@
 body.fullscreen .tab-group {
 	padding-left: 0;
 }
+
 /* when the tab-group is white, we need a line to separate it from the webviews */
 
 .tab-group[style="color: black; background-color: rgb(255, 255, 255);"]:before {
@@ -36,12 +37,11 @@ body.fullscreen .tab-group {
 	flex: 1;
 	min-width: 125px;
 	transition: .15s min-width;
-	padding: 0 0.5em;
+	padding: 0 1em;
 	font-size: 0.8em;
 	line-height: 36px;
 	height: 36px;
 	overflow: hidden;
-	padding-left: 0.66%;
 	word-break: break-all;
 }
 .tab-item .secondary-text {
@@ -55,11 +55,8 @@ body.fullscreen .tab-group {
 
 .tab-item i {
 	font-size: 0.8em;
-	padding: 0.9em;
+	padding: 0.9em 0.9em 0.9em 0;
 	vertical-align: middle;
-}
-.tab-item i + i {
-	padding-left: 0
 }
 .tab-item.active.has-highlight {
 	background: rgba(255, 255, 255, 0.2);
