@@ -16,10 +16,10 @@ var tabs = {
 
 		var newTab = {
 			url: tab.url || "about:blank",
-			title: tab.title,
+			title: tab.title || "",
 			id: tabId,
-			lastActivity: Date.now(),
-			secure: false,
+			lastActivity: tab.lastActivity || Date.now(),
+			secure: tab.secure || true,
 			private: tab.private || false,
 			readerable: tab.readerable || false,
 			backgroundColor: tab.backgroundColor,
