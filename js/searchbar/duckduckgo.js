@@ -152,7 +152,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				var item = $("<div class='result-item indent' tabindex='-1'>");
 
 				if (res.Answer) {
-					item.text(unsafeUnwrapTags(res.Answer));
+					item.text(removeTags(res.Answer));
 				} else {
 					item.text(res.Heading);
 				}

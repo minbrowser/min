@@ -48,10 +48,6 @@ function removeTags(text) {
 	return text.replace(/<[\w\W]*>/g, "");
 }
 
-function unsafeUnwrapTags(text) {
-	return $("<div>").html(text).text();
-}
-
 /* this is used by navbar-tabs.js. When a url is entered, endings such as ? need to be parsed and removed. */
 function parsesearchbarURL(url) {
 	//always use a search engine if the query starts with "?"
