@@ -68,35 +68,36 @@ onmessage = function (e) {
 	if (action == "deleteBookmark") {
 		db.bookmarks.where("url").equals(pageData.url).delete();
 
-		//mark the item as deleted, since lunr doesn't let us actually remove it from the index
-
-		bookmarksInMemory[pageData.url].deleted = true;
+		delete bookmarksInMemory[pageData.url];
 	}
 
 
 	if (action == "searchBookmarks") { //do a bookmarks search
-		var result = bookmarksIndex.search(searchText);
+		var results = bookmarksIndex.search(searchText);
 
 		//return 5, sorted by relevancy
 
 
-		result = result.sort(function (a, b) {
+		results = results.sort(function (a, b) {
 			return b.score - a.score
 		}).splice(0, 5);
 
 		//change data format
 
-		for (var item in result) {
-			var url = result[item].ref;
-			bookmarksInMemory[url].score = result[item].score;
+		for (var i = 0; i < results.length; i++) {
+			var url = results[i].ref;
 
-			result[item] = bookmarksInMemory[url];
-			if (result[item].deleted) {
-				delete result[item]
+			//the item has been deleted
+			if (!bookmarksInMemory[url]) {
+				delete results[i];
+				continue;
 			}
+
+			bookmarksInMemory[url].score = results[i].score;
+			results[i] = bookmarksInMemory[url];
 		}
 		postMessage({
-			result: result,
+			result: results,
 			scope: "bookmarks",
 			callback: e.data.callbackId,
 		}); //send back to bookmarks.js
