@@ -1,8 +1,10 @@
 /* provides simple utilities for entering/exiting expanded tab mode */
 
+var tabDragArea = tabGroup[0]
+
 require.async("dragula", function (dragula) {
 
-	var dragRegion = dragula([tabGroup[0]]); //tabs can only be dragged in expanded mode, since the window titlebar will capture drag events otherwise
+	window.dragRegion = dragula();
 
 	//reorder the tab state when a tab is dropped
 	dragRegion.on("drop", function () {
@@ -45,6 +47,9 @@ var isExpandedMode = false;
 
 function enterExpandedMode() {
 	if (!isExpandedMode) {
+
+		dragRegion.containers = [tabDragArea]; //only allow dragging tabs in expanded mode
+
 		leaveTabEditMode();
 
 		//get the subtitles
@@ -71,6 +76,7 @@ function enterExpandedMode() {
 
 function leaveExpandedMode() {
 	if (isExpandedMode) {
+		dragRegion.containers = [];
 		$(document.body).removeClass("is-expanded-mode");
 
 		isExpandedMode = false;
