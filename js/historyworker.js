@@ -79,7 +79,7 @@ onmessage = function (e) {
 
 						db.history
 							.add({
-								title: pageData.title,
+								title: pageData.title || pageData.url,
 								url: pageData.url,
 								color: pageData.color,
 								visitCount: 1,
@@ -92,7 +92,7 @@ onmessage = function (e) {
 							db.history.where("url").equals(pageData.url).modify({
 								visitCount: item.visitCount + 1,
 								lastVisit: Date.now(),
-								title: pageData.title, //the title and color might have changed - ex. if the site content was updated
+								title: pageData.title || pageData.url, //the title and color might have changed - ex. if the site content was updated
 								color: pageData.color,
 							})
 						});
