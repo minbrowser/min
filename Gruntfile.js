@@ -11,7 +11,6 @@ module.exports = function (grunt) {
 				src: [
 						"js/webviews.js",
 						"js/bookmarkshistory.js",
-						"ext/color-thief/src/color-thief.js",
 						"js/urlParser.js",
 						 "js/tabcolor.js",
 						 "js/webviewMenu.js",
