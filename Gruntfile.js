@@ -15,6 +15,7 @@ module.exports = function (grunt) {
 						 "js/tabcolor.js",
 						 "js/webviewMenu.js",
 						 "js/api-wrapper.js",
+							"js/addTabButton.js",
 							"js/searchbar/history.js",
 							"js/searchbar/bookmarks.js",
 							"js/searchbar/duckduckgo.js",
