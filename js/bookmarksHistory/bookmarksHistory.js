@@ -138,10 +138,10 @@ var bookmarks = {
 		return star;
 	},
 	init: function () {
-		bookmarks.historyWorker = new Worker("js/historyworker.js");
+		bookmarks.historyWorker = new Worker("js/bookmarkshistory/historyworker.js");
 		bookmarks.historyWorker.onmessage = bookmarks.onMessage;
 
-		bookmarks.bookmarksWorker = new Worker("js/bookmarksworker.js");
+		bookmarks.bookmarksWorker = new Worker("js/bookmarkshistory/bookmarksworker.js");
 		bookmarks.bookmarksWorker.onmessage = bookmarks.onMessage;
 	},
 

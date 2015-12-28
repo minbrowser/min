@@ -1,9 +1,8 @@
-importScripts("../ext/Dexie.min.js");
-importScripts("../node_modules/lunr/lunr.min.js");
-importScripts("database.js");
+importScripts("../../ext/Dexie.min.js");
+importScripts("../../node_modules/lunr/lunr.min.js");
+importScripts("../util/database.js");
 
 //add bookmarks to the lunr index
-
 var bookmarksIndex = lunr(function () {
 	this.field('title', {
 		boost: 5
