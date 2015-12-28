@@ -1,5 +1,5 @@
 var readerView = {
-	readerURL: "file:///" + __dirname + "/reader/index.html",
+	readerURL: "file://" + __dirname + "/reader/index.html",
 	getButton: function (tabId) {
 		//TODO better icon
 		return $("<i class='fa fa-align-left reader-button'>").attr("data-tab", tabId).attr("title", "Enter reader view");
