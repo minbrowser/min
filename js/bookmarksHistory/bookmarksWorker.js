@@ -73,6 +73,23 @@ onmessage = function (e) {
 
 
 	if (action == "searchBookmarks") { //do a bookmarks search
+
+		if (!searchText) {
+
+			//convert object to array
+			var results = [];
+
+			for (var url in bookmarksInMemory) {
+				results.push(bookmarksInMemory[url]);
+			}
+			postMessage({
+				result: results,
+				scope: "bookmarks",
+				callback: e.data.callbackId,
+			});
+			return;
+		}
+
 		var results = bookmarksIndex.search(searchText);
 
 		//return 5, sorted by relevancy
