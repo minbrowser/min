@@ -111,7 +111,7 @@ require.async("mousetrap", function (Mousetrap) {
 
 	// cmd+x should switch to tab x. Cmd+9 should switch to the last tab
 
-	for (var i = 0; i < 9; i++) {
+	for (var i = 1; i < 9; i++) {
 		(function (i) {
 			Mousetrap.bind("command+" + i, function (e) {
 				var currentIndex = tabs.getIndex(tabs.getSelected());
