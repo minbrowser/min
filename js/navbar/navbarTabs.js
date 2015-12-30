@@ -22,6 +22,14 @@ var lastTabDeletion = 0;
 tabGroup.on("mousewheel", ".tab-item", function (e) {
 	if (e.originalEvent.deltaY > 65 && e.originalEvent.deltaX < 10 && Date.now() - lastTabDeletion > 650) { //swipe up to delete tabs
 
+		lastTabDeletion = Date.now();
+
+		/* tab deletion is disabled in focus mode */
+		if (isFocusMode) {
+			showFocusModeError();
+			return;
+		}
+
 		var tab = $(this).attr("data-tab");
 
 		//TODO this should be a css animation
@@ -46,8 +54,6 @@ tabGroup.on("mousewheel", ".tab-item", function (e) {
 			}
 
 		});
-
-		lastTabDeletion = Date.now();
 	}
 
 	if (e.originalEvent.deltaY > 0) { //downward swipes should still be handled by expandedTabMode.js

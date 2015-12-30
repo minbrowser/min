@@ -202,3 +202,18 @@ body.is-expanded-mode .tab-item .tab-view-contents .title {
 	overflow: hidden;
 	display: inline-block;
 }
+
+/* hide other tabs in focus mode */
+
+body.is-focus-mode .tab-item:not(.active) {
+	display: none;
+}
+body.is-focus-mode .add-tab {
+	display: none;
+}
+
+/* since only one tab is shown in focus mode, the highlight isn't needed */
+
+body.is-focus-mode .tab-item.has-highlight {
+	background: none;
+}

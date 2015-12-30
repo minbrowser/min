@@ -14,7 +14,7 @@ var webviewMenu = {
 		var menu = new Menu();
 
 		//if we have a link (an image source or an href)
-		if (IPCdata.src) {
+		if (IPCdata.src && !isFocusMode) { //new tabs can't be created in focus mode
 
 			//show what the item is
 

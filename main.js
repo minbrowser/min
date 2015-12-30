@@ -4,6 +4,7 @@ const BrowserWindow = electron.BrowserWindow; // Module to create native browser
 var electronScreen = null; //setup in app.ready
 
 var mainWindow = null;
+var isFocusMode = false;
 
 function sendIPCToWindow(window, action, data) {
 	if (!window) {
@@ -159,6 +160,26 @@ function createAppMenu() {
 						sendIPCToWindow(window, "zoomReset");
 					}
       },
+				{
+					type: "separator"
+				},
+				{
+					label: "Focus mode",
+					accelerator: undefined,
+					type: "checkbox",
+					checked: false,
+					click: function (item, window) {
+						if (isFocusMode) {
+							item.checked = false;
+							isFocusMode = false;
+							sendIPCToWindow(window, "exitFocusMode");
+						} else {
+							item.checked = true;
+							isFocusMode = true;
+							sendIPCToWindow(window, "enterFocusMode");
+						}
+					}
+				},
 		]
   },
 		{

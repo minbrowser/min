@@ -30,6 +30,7 @@ module.exports = function (grunt) {
 						 "js/fileDownloadManager.js",
 						 "js/findinpage.js",
 							"js/sessionRestore.js",
+							"js/focusMode.js",
 
 						 ],
 				dest: 'dist/build.js'

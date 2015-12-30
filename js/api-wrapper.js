@@ -33,6 +33,12 @@ function destroyTab(id) {
 
 function switchToTab(id) {
 
+	/* tab switching disabled in focus mode */
+	if (isFocusMode) {
+		showFocusModeError();
+		return;
+	}
+
 	leaveTabEditMode();
 
 	setActiveTabElement(id);

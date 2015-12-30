@@ -21,12 +21,27 @@ ipc.on("inspectPage", function () {
 });
 
 ipc.on("addTab", function (e) {
+
+	/* new tabs can't be created in focus mode */
+	if (isFocusMode) {
+		showFocusModeError();
+		return;
+	}
+
 	var newIndex = tabs.getIndex(tabs.getSelected()) + 1;
 	var newTab = tabs.add({}, newIndex);
 	addTab(newTab);
 });
 
 function addPrivateTab() {
+
+
+	/* new tabs can't be created in focus mode */
+	if (isFocusMode) {
+		showFocusModeError();
+		return;
+	}
+
 
 	if (tabs.count() == 1 && tabs.getAtIndex(0).url == "about:blank") {
 		destroyTab(tabs.getAtIndex(0).id);
@@ -54,9 +69,17 @@ require.async("mousetrap", function (Mousetrap) {
 	})
 
 	Mousetrap.bind("command+w", function (e) {
+
 		//prevent command+w from closing the window
 		e.preventDefault();
 		e.stopImmediatePropagation();
+
+
+		/* disabled in focus mode */
+		if (isFocusMode) {
+			showFocusModeError();
+			return;
+		}
 
 		var currentTab = tabs.getSelected();
 		var currentIndex = tabs.getIndex(currentTab);
