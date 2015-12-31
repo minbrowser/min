@@ -48,12 +48,12 @@ function createWindow() {
 		}
 		return true;
 	});
-	
-	mainWindow.on("enter-full-screen", function() {
+
+	mainWindow.on("enter-full-screen", function () {
 		sendIPCToWindow(mainWindow, "enter-full-screen");
 	});
-	
-	mainWindow.on("leave-full-screen", function() {
+
+	mainWindow.on("leave-full-screen", function () {
 		sendIPCToWindow(mainWindow, "leave-full-screen");
 	});
 

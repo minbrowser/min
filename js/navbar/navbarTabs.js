@@ -20,6 +20,7 @@ var tabGroup = $(".tab-group #tabs"); //TODO these names are confusing
 var lastTabDeletion = 0;
 
 tabGroup.on("mousewheel", ".tab-item", function (e) {
+
 	if (e.originalEvent.deltaY > 65 && e.originalEvent.deltaX < 10 && Date.now() - lastTabDeletion > 650) { //swipe up to delete tabs
 
 		lastTabDeletion = Date.now();
@@ -284,7 +285,7 @@ function addTab(tabId, options) {
 	
 						*/
 
-	options = options || {}
+	options = options || {};
 
 	if (options.leaveEditMode != false) {
 		leaveTabEditMode(); //if a tab is in edit-mode, we want to exit it

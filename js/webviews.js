@@ -46,7 +46,7 @@ function getWebviewDom(options) {
 
 	webviewEvents.forEach(function (i) {
 		w.on(i.event, i.fn);
-	})
+	});
 
 	w.on("page-favicon-updated", function (e) {
 		var id = $(this).attr("data-tab");

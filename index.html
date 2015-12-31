@@ -20,9 +20,9 @@
 		$(window).on("drop", function(e) {
 			e.preventDefault();
 		});
-		
+
 		//add a class to the body for fullscreen status
-		
+
 		ipc.on("enter-full-screen", function() {
 			$(document.body).addClass("fullscreen");
 		});

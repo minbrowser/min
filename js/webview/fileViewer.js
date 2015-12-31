@@ -71,7 +71,6 @@ function showMarkdownFile() {
 
 
 var filename = window.location.pathname;
-
 var supportedFileExtensions = ["json", "js", "css"];
 
 for (var i = 0; i < supportedFileExtensions.length; i++) {
