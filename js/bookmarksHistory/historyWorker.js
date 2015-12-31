@@ -145,13 +145,10 @@ onmessage = function (e) {
 				item.boost = itemStartBoost; //large amount of boost for this
 				matches.push(item);
 
+			} else if (tindex != -1) {
+				item.boost = exactMatchBoost;
+				matches.push(item);
 			} else {
-
-				if (tindex != -1) {
-					item.boost = exactMatchBoost;
-					matches.push(item);
-					return;
-				}
 
 				if (substringSearchEnabled) {
 
