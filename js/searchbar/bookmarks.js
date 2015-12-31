@@ -50,7 +50,9 @@ var showBookmarkResults = throttle(function (text) {
 		results.splice(0, 2).forEach(function (result) {
 			//as more results are added, the threshold for adding another one gets higher
 			if (result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.25, text.length))) && (resultsShown == 1 || text.length > 6)) {
-				addBookmarkItem(result);
+				requestAnimationFrame(function () {
+					addBookmarkItem(result);
+				});
 				resultsShown++;
 			}
 
