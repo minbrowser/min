@@ -12,6 +12,7 @@
 	-webkit-user-select: none;
 	max-height: calc(100% - 75px);
 	overflow-y: auto;
+	will-change: display;
 }
 
 /* the navbar gets moved over in fullscreen, but the searchbar still needs to be aligned with it */
