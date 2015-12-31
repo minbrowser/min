@@ -161,11 +161,11 @@ function rerenderTabElement(tabId) {
 	var tabTitle = tabData.title || "New Tab";
 	tabEl.find(".tab-view-contents .title").text(tabTitle).attr("title", tabTitle);
 
-	var secIcon = tabEl[0].getElementsByClassName("icon-tab-is-secure");
+	var secIcon = tabEl[0].getElementsByClassName("icon-tab-not-secure");
 
-	if (tabData.secure) {
+	if (tabData.secure === false) {
 		if (!secIcon[0]) {
-			tabEl.find(".tab-view-contents").prepend("<i class='fa fa-lock icon-tab-is-secure'></i>");
+			tabEl.find(".tab-view-contents").prepend("<i class='fa fa-exclamation-triangle icon-tab-not-secure' title='Your connection to this website is not secure.'></i>");
 		}
 	} else if (secIcon[0]) {
 		secIcon[0].parentNode.removeChild(secIcon[0]);

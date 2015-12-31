@@ -119,7 +119,7 @@ body.fullscreen .tab-group {
 
 /* hide the lock icon unless its the current tab */
 
-.tab-item:not(.active) .icon-tab-is-secure {
+.tab-item:not(.active) .icon-tab-not-secure {
 	display: none;
 }
 .tab-item .tab-view-contents .title {
