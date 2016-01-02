@@ -8,24 +8,53 @@ const minSearchSuggestions = 2;
 const maxSearchSuggestions = 4;
 var currentSuggestionLimit = maxSearchSuggestions;
 
-/* duckduckgo returns raw html for the color info ui. We need to format that */
+/* custom answer layouts */
 
-function getColorUI(searchText, answer) {
-	var alternateFormats = [answer.data.rgb, answer.data.hslc, answer.data.cmyb];
+var IAFormats = {
+	color_code: function (searchText, answer) {
+		var alternateFormats = [answer.data.rgb, answer.data.hslc, answer.data.cmyb];
 
-	if (searchText.indexOf("#") == -1) { //if the search is not a hex code, show the hex code as an alternate format
-		alternateFormats.unshift(answer.data.hexc);
-	}
+		if (searchText.indexOf("#") == -1) { //if the search is not a hex code, show the hex code as an alternate format
+			alternateFormats.unshift(answer.data.hexc);
+		}
 
-	var item = $("<div class='result-item indent' tabindex='-1'>");
-	$("<span class='title'>").text(searchText).appendTo(item);
+		var item = $("<div class='result-item indent' tabindex='-1'>");
+		$("<span class='title'>").text(searchText).appendTo(item);
 
-	$("<div class='result-icon color-circle'>").css("background-color", "#" + answer.data.hex_code).prependTo(item);
+		$("<div class='result-icon color-circle'>").css("background-color", "#" + answer.data.hex_code).prependTo(item);
 
-	$("<span class='description-block'>").text(alternateFormats.join(" " + METADATA_SEPARATOR + " ")).appendTo(item);
+		$("<span class='description-block'>").text(alternateFormats.join(" " + METADATA_SEPARATOR + " ")).appendTo(item);
 
-	return item;
-};
+		return item;
+	},
+	minecraft: function (searchText, answer) {
+
+		var item = $("<div class='result-item indent' tabindex='-1'>");
+
+		$("<span class='title'>").text(answer.data.title).appendTo(item);
+		$("<img class='result-icon image'>").attr("src", answer.data.image).prependTo(item);
+		$("<span class='description-block'>").text(answer.data.description + " " + answer.data.subtitle).appendTo(item);
+
+		return item;
+	},
+	figlet: function (searchText, answer) {
+		var formattedAnswer = removeTags(answer).replace("Font: standard", "");
+
+		var item = $("<div class='result-item indent' tabindex='-1'>");
+		var desc = $("<span class='description-block'>").text(formattedAnswer).appendTo(item);
+
+		//display the data correctly
+		desc.css({
+			"white-space": "pre-wrap",
+			"font-family": "monospace",
+			"max-height": "10em",
+			"-webkit-user-select": "auto",
+		});
+
+		return item;
+
+	},
+}
 
 //this is triggered from history.js - we only show search suggestions if we don't have history results
 window.showSearchSuggestions = throttle(function (text, input) {
@@ -148,39 +177,42 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 			iaarea.find(".result-item").addClass("old");
 			suggestedsitearea.find(".result-item").addClass("old");
 
-			if (res.Abstract || res.Answer) {
-				var item = $("<div class='result-item indent' tabindex='-1'>");
+			//if there is a custom format for the answer, use that
+			if (IAFormats[res.AnswerType]) {
+				item = IAFormats[res.AnswerType](text, res.Answer);
+			} else {
 
-				if (res.Answer) {
-					item.text(removeTags(res.Answer));
-				} else {
-					item.text(res.Heading);
-				}
+				if (res.Abstract || res.Answer) {
+					var item = $("<div class='result-item indent' tabindex='-1'>");
 
-				if (res.Image && !res.ImageIsLogo) {
-					$("<img class='result-icon image low-priority-image'>").attr("src", res.Image).prependTo(item);
-				}
+					if (res.Answer) {
+						item.text(removeTags(res.Answer));
+					} else {
+						item.text(res.Heading);
+					}
 
-				$("<span class='description-block'>").text(removeTags(res.Abstract) || "Answer").appendTo(item);
+					if (res.Image && !res.ImageIsLogo) {
+						$("<img class='result-icon image low-priority-image'>").attr("src", res.Image).prependTo(item);
+					}
 
-				//the parsing for this is different
+					$("<span class='description-block'>").text(removeTags(res.Abstract) || "Answer").appendTo(item);
 
-				if (res.AnswerType == "color_code") {
-					item = getColorUI(text, res.Answer);
-				}
-
-				item.on("click", function (e) {
-					openURLFromsearchbar(e, res.AbstractURL || text);
-				});
-
-				//answers are more relevant, they should be displayed at the top
-				if (res.Answer) {
-					topAnswerarea.empty();
-					item.appendTo(topAnswerarea);
-				} else {
-					item.appendTo(iaarea);
 				}
 			}
+
+
+			item.on("click", function (e) {
+				openURLFromsearchbar(e, res.AbstractURL || text);
+			});
+
+			//answers are more relevant, they should be displayed at the top
+			if (res.Answer) {
+				topAnswerarea.empty();
+				item.appendTo(topAnswerarea);
+			} else {
+				item.appendTo(iaarea);
+			}
+
 
 			//suggested site links
 
