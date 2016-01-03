@@ -45,7 +45,7 @@ function debounce(fn, delay) {
 }
 
 function removeTags(text) {
-	return text.replace(/<[\w\W]*>/g, "");
+	return text.replace(/<.*?>/g, "");
 }
 
 /* this is used by navbar-tabs.js. When a url is entered, endings such as ? need to be parsed and removed. */
