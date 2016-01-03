@@ -11,17 +11,21 @@ steps to creating a bookmark:
 var bookmarks = {
 	authBookmarkTab: null,
 	updateHistory: function (tabId) {
-		var tab = tabs.get(tabId);
-		var data = {
-			url: tab.url,
-			title: tab.title,
-			color: tab.backgroundColor,
-		}
-		bookmarks.historyWorker.postMessage({
-			action: "updateHistory",
-			data: data
-		});
+		setTimeout(function () { //this prevents pages that are immediately left from being saved to history, and also gives the page-favicon-updated event time to fire (so the colors saved to history are correct).
+			var tab = tabs.get(tabId);
+			if (tab) {
+				var data = {
+					url: tab.url,
+					title: tab.title,
+					color: tab.backgroundColor,
+				}
+				bookmarks.historyWorker.postMessage({
+					action: "updateHistory",
+					data: data
+				});
+			}
 
+		}, 2000);
 	},
 	currentCallback: function () {},
 	onDataRecieved: function (data) {
