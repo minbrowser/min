@@ -77,14 +77,16 @@ onmessage = function (e) {
 				var ct = db.history.where("url").equals(pageData.url).count(function (ct) {
 					if (ct == 0) { //item doesn't exist, add it
 
-						db.history
-							.add({
-								title: pageData.title || pageData.url,
-								url: pageData.url,
-								color: pageData.color,
-								visitCount: 1,
-								lastVisit: Date.now(),
-							});
+						var newItem = {
+							title: pageData.title || pageData.url,
+							url: pageData.url,
+							color: pageData.color,
+							visitCount: 1,
+							lastVisit: Date.now(),
+						}
+
+						db.history.add(newItem);
+						historyInMemoryCache.push(newItem);
 
 					} else { //item exists, query previous values and update
 						db.history.where("url").equals(pageData.url).each(function (item) {
