@@ -201,18 +201,20 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 			}
 
 
-			item.on("click", function (e) {
-				openURLFromsearchbar(e, res.AbstractURL || text);
-			});
+			if (item) {
+				item.on("click", function (e) {
+					openURLFromsearchbar(e, res.AbstractURL || text);
+				});
 
-			//answers are more relevant, they should be displayed at the top
-			if (res.Answer) {
-				topAnswerarea.empty();
-				item.appendTo(topAnswerarea);
-			} else {
-				item.appendTo(iaarea);
+				//answers are more relevant, they should be displayed at the top
+				if (res.Answer) {
+					topAnswerarea.empty();
+					item.appendTo(topAnswerarea);
+				} else {
+					item.appendTo(iaarea);
+				}
+
 			}
-
 
 			//suggested site links
 
