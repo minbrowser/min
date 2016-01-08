@@ -8,7 +8,7 @@ function debug_phishing(msg) {
 
 var tldRegex = /\.(com|net|org|edu|gov|mil)$/g;
 
-var doubleDomainRegex = /\.(com|net|org|edu|gov|mil|uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)(\.|-).*(com|net|org|edu|gov|mil|uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)/g;
+var doubleDomainRegex = /\.(com|net|org|edu|gov|mil|uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)((\..*(com|net|org|edu|gov|mil))|(\..+(uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)))/g;
 
 function checkPhishingStatus() {
 
@@ -35,7 +35,7 @@ function checkPhishingStatus() {
 		if (form.querySelectorAll("input[type=text], input[type=password]").length == 2) {
 			debug_phishing("possibly sensitive form, checking but increasing minScore");
 
-			minPhishingScore *= 1.25;
+			minPhishingScore *= 1.5;
 			sensitiveFormFound = true;
 			return true;
 		}
@@ -324,7 +324,7 @@ function checkPhishingStatus() {
 	}
 
 	//if there are a bunch of empty links, increase score
-	if (emptyLinksFound > 5 || (totalLinks > 2 && emptyLinksFound / totalLinks > 0.5)) {
+	if (emptyLinksFound > 9 || (totalLinks > 2 && emptyLinksFound / totalLinks > 0.5)) {
 		debug_phishing("counted " + emptyLinksFound + " empty links");
 		phishingScore += Math.min(emptyLinksFound * 0.02, 0.2);
 	}
@@ -399,6 +399,12 @@ function checkPhishingStatus() {
 			debug_phishing("icon from external domain found");
 			phishingScore += 0.15;
 		}
+	}
+
+	var paragraphs = document.querySelectorAll("p");
+	if (paragraphs.length > 50) {
+		debug_phishing("many paragraphs found, increasing minScore");
+		minPhishingScore += 0.1 + Math.min(0.025 * paragraphs.length, 0.2);
 	}
 
 	// finally, if the phishing score is above a threshold, alert the parent process so we can redirect to a warning page
