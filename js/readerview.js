@@ -5,7 +5,7 @@ var readerView = {
 		return $("<i class='fa fa-align-left reader-button'>").attr("data-tab", tabId).attr("title", "Enter reader view");
 	},
 	updateButton: function (tabId) {
-		var button = $(".reader-button[data-tab={id}]".replace("{id}", tabId));
+		var button = $('.reader-button[data-tab="{id}"]'.replace("{id}", tabId));
 		var tab = tabs.get(tabId);
 
 		button.off();

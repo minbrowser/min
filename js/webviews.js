@@ -145,7 +145,7 @@ function getWebviewDom(options) {
 
 	w.on("did-fail-load", function (e) {
 		if (e.originalEvent.errorCode != -3 && e.originalEvent.validatedURL == e.target.getURL()) {
-			navigate($(this).attr("data-tab"), errorPage + "?ec=" + encodeURIComponent(e.originalEvent.errorCode) + "&url=" + e.target.getUrl());
+			navigate($(this).attr("data-tab"), errorPage + "?ec=" + encodeURIComponent(e.originalEvent.errorCode) + "&url=" + e.target.getURL());
 		}
 	})
 
@@ -175,10 +175,10 @@ function addWebview(tabId) {
 }
 
 function switchToWebview(id, options) {
-	$("webview").hide();
+	$("webview").prop("hidden", true);
 
 	var webview = getWebview(id);
-	webview.removeClass("hidden").show(); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
+	webview.removeClass("hidden").prop("hidden", false); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
 
 	if (options && options.focus) {
 		webview[0].focus();
@@ -186,15 +186,13 @@ function switchToWebview(id, options) {
 }
 
 function updateWebview(id, url) {
-	var w = $("webview[data-tab={id}]".replace("{id}", id));
-
-	w.attr("src", urlParser.parse(url));
+	getWebview(id).attr("src", urlParser.parse(url));
 }
 
 function destroyWebview(id) {
-	$("webview[data-tab={id}]".replace("{id}", id)).remove();
+	$('webview[data-tab="{id}"]'.replace("{id}", id)).remove();
 }
 
 function getWebview(id) {
-	return $("webview[data-tab={id}]".replace("{id}", id));
+	return $('webview[data-tab="{id}"]'.replace("{id}", id));
 }

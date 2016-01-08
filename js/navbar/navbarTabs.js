@@ -80,7 +80,7 @@ tabGroup.on("click", ".tab-item", function (e) {
 /* draws tabs and manages tab events */
 
 function getTabElement(id) { //gets the DOM element for a tab
-	return $(".tab-item[data-tab={id}]".replace("{id}", id))
+	return $('.tab-item[data-tab="{id}"]'.replace("{id}", id))
 }
 
 //gets the input for a tab element
@@ -90,7 +90,7 @@ $.fn.getInput = function () {
 }
 
 function setActiveTabElement(tabId) {
-	$(".tab-item").removeClass("active");
+	$(".tab-item.active").removeClass("active");
 
 	var el = getTabElement(tabId);
 	el.addClass("active");
@@ -116,8 +116,10 @@ function setActiveTabElement(tabId) {
 }
 
 function leaveTabEditMode(options) {
-	$(".tab-item").removeClass("selected");
-	options && options.blur && $(".tab-item .tab-input").blur();
+	$(".tab-item.selected").removeClass("selected");
+	if (options && options.blur) {
+		$(".tab-item .tab-input").blur();
+	}
 	tabGroup.removeClass("has-selected-tab");
 	hidesearchbar();
 }
