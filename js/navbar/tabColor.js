@@ -30,6 +30,10 @@ function getColor(url, callback) {
 				add = 0.35;
 			}
 
+			if (sum < 50) {
+				add = 0.01;
+			}
+
 			if (data[i] > 210 || data[i + 1] > 210 || data[i + 2] > 210) {
 				add = 0.5 - (0.0001 * sum)
 			}
