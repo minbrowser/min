@@ -23,7 +23,7 @@ function switchToNextTab(oldIndex) {
 
 function destroyTab(id) {
 
-	$(".tab-item[data-tab={id}]".replace("{id}", id)).remove(); //remove the actual tab element
+	getTabElement(id).remove(); //remove the actual tab element
 	var t = tabs.destroy(id); //remove from state - returns the index of the destroyed tab
 	destroyWebview(id); //remove the webview
 

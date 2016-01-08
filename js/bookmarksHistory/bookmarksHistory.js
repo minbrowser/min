@@ -120,7 +120,7 @@ var bookmarks = {
 		return bookmarks.renderStar(tabId, star);
 	},
 	renderStar: function (tabId, star) { //star is optional
-		star = star || $(".bookmarks-button[data-tab={id}]".replace("{id}", tabId));
+		star = star || $('.bookmarks-button[data-tab="{id}"]'.replace("{id}", tabId));
 
 		var currentURL = tabs.get(tabId).url;
 
