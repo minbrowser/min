@@ -31,6 +31,7 @@ body.fullscreen .tab-group {
 }
 .tab-group #tabs {
 	display: flex;
+	flex: 1;
 	overflow: auto;
 }
 .tab-item {
@@ -129,11 +130,7 @@ body.fullscreen .tab-group {
 /* buttons */
 
 .add-tab {
-	padding: 0.5em;
-	font-size: 1.1em;
-	position: relative;
-	top: 0;
-	right: -0.25em;
+	padding: 1em;
 }
 
 /* reader button */
