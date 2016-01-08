@@ -1,4 +1,3 @@
-var searchbarShown = false;
 var searchbarCachedText = "";
 var METADATA_SEPARATOR = "·";
 var didFireKeydownSelChange = false;
@@ -151,13 +150,12 @@ function clearsearchbar() {
 
 function showSearchbar(triggerInput) {
 	searchbarCachedText = triggerInput.val();
-	searchbarShown = true;
 	$(document.body).addClass("searchbar-shown");
 
 	clearsearchbar();
 
 
-	searchbar.show();
+	searchbar.prop("hidden", false);
 
 	currentsearchbarInput = triggerInput;
 
@@ -171,15 +169,17 @@ function getValue(input) {
 }
 
 function hidesearchbar() {
-	searchbarShown = false;
 	currentsearchbarInput = null;
 	$(document.body).removeClass("searchbar-shown");
-	searchbar.hide();
+	searchbar.prop("hidden", true);
 	cachedBangSnippets = {};
 }
 var showSearchbarResults = function (text, input, event) {
 
-	isExpandedHistoryMode = false;
+	if (event && event.metaKey) {
+		return;
+	}
+
 	deleteKeyPressed = event && event.keyCode == 8;
 
 	//find the real input value, accounting for highlighted suggestions and the key that was just pressed
@@ -271,12 +271,17 @@ function focussearchbarItem(options) {
 	var focusedItem = $("#searchbar .result-item:focus");
 
 	if (focusedItem.hasClass("iadata-onfocus")) {
-		var itext = focusedItem.find(".title").text();
 
-		showInstantAnswers(itext, currentsearchbarInput, {
-			alwaysShow: true,
-			destroyPrevious: false,
-		});
+		setTimeout(function () {
+			if (focusedItem.is(":focus")) {
+				var itext = focusedItem.find(".title").text();
+
+				showInstantAnswers(itext, currentsearchbarInput, {
+					alwaysShow: true,
+					destroyPrevious: false,
+				});
+			}
+		}, 200);
 	}
 }
 

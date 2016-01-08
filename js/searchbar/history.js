@@ -5,7 +5,6 @@ var DDGSearchURLRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
 var currentACItem = null;
 var deleteKeyPressed = false;
 
-var isExpandedHistoryMode = false;
 var maxHistoryResults = 4;
 
 function searchbarAutocomplete(text, input, historyResults) {
@@ -107,7 +106,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 		searchbarAutocomplete(text, input, results);
 
-		if (results.length < 10 && !isExpandedHistoryMode) { //if we don't have a lot of history results, show search suggestions
+		if (results.length < 10) { //if we don't have a lot of history results, show search suggestions
 			limitSearchSuggestions(results.length);
 			maxItems = 3;
 			showSearchSuggestions(text, input);
@@ -117,11 +116,9 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 		var resultsShown = 0;
 
-		//if we aren't in expanded mode, we will never have more than 5 results, so we don't need to create more DOM elements than that
+		//we will never have more than 5 results, so we don't need to create more DOM elements than that
 
-		if (!isExpandedHistoryMode) {
-			results = results.splice(0, 5);
-		}
+		results = results.splice(0, 5);
 
 		results.forEach(function (result) {
 
@@ -162,7 +159,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			}
 
 			if (resultsShown >= maxItems) { //only show up to n history items
-				item.hide().addClass("unfocusable");
+				item.prop("hidden", true).addClass("unfocusable");
 			}
 
 			if (urlParser.areEqual(currentACItem, result.url) && resultsShown < maxItems && !showedTopAnswer) { //the item is being autocompleted, highlight it
@@ -200,9 +197,6 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 function limitHistoryResults(maxItems) {
 	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));
-	if (isExpandedHistoryMode) {
-		maxHistoryResults = 99999;
-	}
 
-	historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1)).hide().addClass("unfocusable");
+	historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1)).prop("hidden", true).addClass("unfocusable");
 }
