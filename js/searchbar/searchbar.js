@@ -116,12 +116,6 @@ function getRealTitle(text) {
 			if (titleChunks[1].length < 5 || titleChunks[1].length / titleChunks[0].length <= 0.5) {
 				return titleChunks[0]
 			}
-
-			//match website name | title. This is less common, so it has a higher threshold
-
-			if (titleChunks[0].length / titleChunks[1].length < 0.35) {
-				return titleChunks[1]
-			}
 		}
 	}
 
