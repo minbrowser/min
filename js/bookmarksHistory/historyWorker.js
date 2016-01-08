@@ -25,10 +25,10 @@ function calculateHistoryScore(item, boost) { //boost - how much the score shoul
 	return fs;
 }
 
-var oneMonthInMS = 30 * 24 * 60 * 60 * 1000; //one month in milliseconds
+var oneDayInMS = 24 * 60 * 60 * 1000; //one day in milliseconds
 
 //the oldest an item can be to remain in the database
-var minItemAge = Date.now() - oneMonthInMS;
+var minItemAge = Date.now() - (oneDayInMS * 42);
 
 function cleanupHistoryDatabase() { //removes old history entries
 	db.history.where("lastVisit").below(minItemAge).delete();
