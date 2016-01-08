@@ -215,7 +215,7 @@ require.async("mousetrap", function (Mousetrap) {
 		}
 	});
 
-	Mousetrap.bind(["command+b", "shift+command+b"], function () {
+	Mousetrap.bind("shift+command+b", function () {
 		clearsearchbar();
 		showSearchbar(getTabElement(tabs.getSelected()).getInput());
 		enterEditMode(tabs.getSelected());
