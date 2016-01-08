@@ -126,12 +126,8 @@ onmessage = function (e) {
 
 		function processItem(item) {
 
-			if (matches.length > 200) {
-				return;
-			}
-
 			//if the text does not contain the first search word, it can't possibly be a match, so don't do any processing
-			var itext = (item.url.split("?")[0].replace("http://", "").replace("https://", "").replace("www.", ""))
+			var itext = item.url.split("?")[0].replace("http://", "").replace("https://", "").replace("www.", "")
 
 			if (item.url != item.title) {
 				itext += " " + item.title;
@@ -152,6 +148,8 @@ onmessage = function (e) {
 				matches.push(item);
 			} else {
 
+				//if all of the search words (split by spaces, etc) exist in the url, count it as a match, even if they are out of order
+
 				if (substringSearchEnabled) {
 
 					var substringMatch = true;
@@ -171,7 +169,6 @@ onmessage = function (e) {
 					}
 				}
 
-				//if all of the search words (split by spaces, etc) exist in the url, count it as a match, even if they are out of order
 
 				var score = itext.replace(".com", "").replace(".net", "").replace(".org", "").score(st, 0);
 
@@ -201,7 +198,7 @@ onmessage = function (e) {
 		var matches = [];
 		var st = searchText.replace(spacesRegex, " ");
 		var stl = searchText.length;
-		var searchWords = searchText.split(spacesRegex);
+		var searchWords = st.split(" ");
 		var substringSearchEnabled = false;
 		var itemStartBoost = 2.5 * stl;
 		var exactMatchBoost = 0.3 + (0.075 * stl);
@@ -210,7 +207,12 @@ onmessage = function (e) {
 			substringSearchEnabled = true;
 		}
 
-		historyInMemoryCache.forEach(processItem);
+		for (var i = 0; i < historyInMemoryCache.length; i++) {
+			if (matches.length > 200) {
+				break;
+			}
+			processItem(historyInMemoryCache[i]);
+		}
 
 		matches.sort(function (a, b) { //we have to re-sort to account for the boosts applied to the items
 			return calculateHistoryScore(b) - calculateHistoryScore(a);
