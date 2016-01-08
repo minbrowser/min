@@ -185,9 +185,48 @@ onmessage = function (e) {
 			}
 		}
 
-		if (!searchText) { //if there is no search text, we should just return top sites
+		if (!searchText) {
+
+			//boost sites that have been visited at roughly the same time of day as the current time
+
+			var cTime = new Date();
+			var cTimeMS = cTime.getTime();
+
+			var hours = cTime.getHours() + (cTime.getMinutes() / 60);
+
+			function topSiteScore(item) {
+				var dateObj = new Date(item.lastVisit);
+				var time = dateObj.getHours() + (dateObj.getMinutes() / 60);
+				var lastVisitTimeAgo = cTimeMS - dateObj.getTime();
+
+				var diff = Math.abs(hours - time);
+
+				item.boost = 0; //don't change the results based on previous history searches
+				var score = calculateHistoryScore(item);
+
+				if (diff < 0.5) {
+					diff = 0.5;
+				}
+
+				if (diff < 2 && lastVisitTimeAgo > 300000 && lastVisitTimeAgo < 604800000 && item.visitCount > 2) { //604800000 is one week in ms
+					score += score * (Math.pow(2 - diff, 2)) * 0.1;
+				}
+
+				if (diff < 1 && item.visitCount > 5 && lastVisitTimeAgo > 7200000) {
+					score += score * 0.2;
+				}
+
+
+				return score;
+			}
+
+			var matches = historyInMemoryCache.slice(0, 100).sort(function (a, b) {
+				return topSiteScore(b) - topSiteScore(a);
+			});
+
+
 			postMessage({
-				result: historyInMemoryCache.slice(0, 100),
+				result: matches.slice(0, 100),
 				scope: "history"
 			});
 			return;
