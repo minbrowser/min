@@ -23,6 +23,7 @@ const errorCodes = {
 		name: "You are offline",
 		message: "Reconnect to the internet and try again."
 	},
+	"-107": sslError,
 	"-109": websiteNotFound,
 	"-110": sslError, //this is actually the error code for "server requested a client certificate", but we don't support that yet,
 	"-112": sslError,
