@@ -211,8 +211,6 @@ function createTabElement(tabId) {
 	vc.append("<span class='secondary-text'></span>");
 	vc.appendTo(tab);
 
-
-
 	/* events */
 
 	input.on("keydown", function (e) {
