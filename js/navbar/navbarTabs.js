@@ -40,7 +40,7 @@ tabGroup.on("mousewheel", ".tab-item", function (e) {
 
 			if (tab == tabs.getSelected()) {
 				var currentIndex = tabs.getIndex(tabs.getSelected());
-				var nextTab = tabs.getAtIndex(currentIndex + 1) || tabs.getAtIndex(currentIndex - 1);
+				var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1);
 
 				destroyTab(tab);
 

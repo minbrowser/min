@@ -87,7 +87,7 @@ require.async("mousetrap", function (Mousetrap) {
 
 		var currentTab = tabs.getSelected();
 		var currentIndex = tabs.getIndex(currentTab);
-		var nextTab = tabs.getAtIndex(currentIndex + 1) || tabs.getAtIndex(currentIndex - 1);
+		var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1);
 
 		destroyTab(currentTab);
 		if (nextTab) {
