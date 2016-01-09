@@ -18,7 +18,7 @@ var IAFormats = {
 			alternateFormats.unshift(answer.data.hexc);
 		}
 
-		var item = $("<div class='result-item indent' tabindex='-1'>");
+		var item = $("<div class='result-item indent ddg-answer' tabindex='-1'>");
 		$("<span class='title'>").text(searchText).appendTo(item);
 
 		$("<div class='result-icon color-circle'>").css("background-color", "#" + answer.data.hex_code).prependTo(item);
@@ -29,7 +29,7 @@ var IAFormats = {
 	},
 	minecraft: function (searchText, answer) {
 
-		var item = $("<div class='result-item indent' tabindex='-1'>");
+		var item = $("<div class='result-item indent ddg-answer' tabindex='-1'>");
 
 		$("<span class='title'>").text(answer.data.title).appendTo(item);
 		$("<img class='result-icon image'>").attr("src", answer.data.image).prependTo(item);
@@ -40,7 +40,7 @@ var IAFormats = {
 	figlet: function (searchText, answer) {
 		var formattedAnswer = removeTags(answer).replace("Font: standard", "");
 
-		var item = $("<div class='result-item indent' tabindex='-1'>");
+		var item = $("<div class='result-item indent ddg-answer' tabindex='-1'>");
 		var desc = $("<span class='description-block'>").text(formattedAnswer).appendTo(item);
 
 		//display the data correctly
@@ -55,7 +55,7 @@ var IAFormats = {
 
 	},
 	currency_in: function (searchText, answer) {
-		var item = $("<div class='result-item indent' tabindex='-1'>");
+		var item = $("<div class='result-item indent ddg-answer' tabindex='-1'>");
 		var title = "";
 		if (typeof answer == "string") { //there is only one currency
 			title = answer;
@@ -187,7 +187,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 
 	iaarea.find(".result-item").addClass("old");
 	suggestedsitearea.find(".result-item").addClass("old");
-	topAnswerarea.find(".result-item").addClass("old");
+	topAnswerarea.find(".result-item.ddg-answer").addClass("old");
 
 	if (text.length > 3) {
 
@@ -207,7 +207,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 			} else {
 
 				if (res.Abstract || res.Answer) {
-					var item = $("<div class='result-item indent' tabindex='-1'>");
+					var item = $("<div class='result-item indent ddg-answer' tabindex='-1'>");
 
 					if (res.Answer) {
 						item.text(removeTags(res.Answer));
