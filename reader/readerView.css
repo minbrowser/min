@@ -177,3 +177,9 @@ dd {
 #masthead > #primary {
 	display: none;
 }
+
+/* bbc.com */
+
+.off-screen {
+	display: none;
+}
