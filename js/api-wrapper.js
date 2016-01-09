@@ -14,13 +14,6 @@ function navigate(tabId, newURL) {
 	});
 }
 
-function switchToNextTab(oldIndex) {
-	var nextTab = tabs.getAtIndex(oldIndex + 1) || tabs.getAtIndex(oldIndex - 1);
-	if (nextTab) {
-		switchToTab(nextTab.id);
-	}
-}
-
 function destroyTab(id) {
 
 	getTabElement(id).remove(); //remove the actual tab element
