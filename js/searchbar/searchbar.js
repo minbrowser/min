@@ -184,7 +184,7 @@ var showSearchbarResults = function (text, input, event) {
 
 	if (event && event.keyCode != 8) {
 
-		text = v.substring(0, input[0].selectionStart) + String.fromCharCode(event.keyCode) + v.substring(input[0].selectionEnd + 1, v.length).trim();
+		text = v.substring(0, input[0].selectionStart) + String.fromCharCode(event.keyCode) + v.substring(input[0].selectionEnd, v.length);
 
 	} else {
 		txt = v;
