@@ -134,6 +134,16 @@ function createAppMenu() {
 					accelerator: 'CmdOrCtrl+A',
 					role: 'selectall'
       },
+				{
+					type: "separator"
+				},
+				{
+					label: "Find",
+					accelerator: "CmdOrCtrl+F",
+					click: function (item, window) {
+						sendIPCToWindow(window, "findInPage");
+					}
+				},
     ]
   },
 	/* these items are added by os x */

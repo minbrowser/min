@@ -16,6 +16,10 @@ ipc.on("print", function () {
 	getWebview(tabs.getSelected())[0].print();
 })
 
+ipc.on("findInPage", function () {
+	findinpage.start();
+})
+
 ipc.on("inspectPage", function () {
 	getWebview(tabs.getSelected())[0].openDevTools();
 });
@@ -104,10 +108,6 @@ require.async("mousetrap", function (Mousetrap) {
 
 		getTabElement(tabs.getSelected()).find(".bookmarks-button").click();
 	})
-
-	Mousetrap.bind("command+f", function (e) {
-		findinpage.toggle();
-	});
 
 	// cmd+x should switch to tab x. Cmd+9 should switch to the last tab
 
