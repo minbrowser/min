@@ -187,6 +187,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 
 	iaarea.find(".result-item").addClass("old");
 	suggestedsitearea.find(".result-item").addClass("old");
+	topAnswerarea.find(".result-item").addClass("old");
 
 	if (text.length > 3) {
 
@@ -284,6 +285,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 			if (options.destroyPrevious != false || item) {
 				iaarea.find(".old").remove();
 				suggestedsitearea.find(".old").remove();
+				topAnswerarea.find(".old").remove();
 			}
 
 
@@ -291,6 +293,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 	} else {
 		iaarea.find(".old").remove(); //we still want to remove old items, even if we didn't make a new request
 		suggestedsitearea.find(".old").remove();
+		topAnswerarea.find(".old").remove();
 	}
 
 }, 450);
