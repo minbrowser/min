@@ -54,6 +54,29 @@ var IAFormats = {
 		return item;
 
 	},
+	currency_in: function (searchText, answer) {
+		var item = $("<div class='result-item indent' tabindex='-1'>");
+		var title = "";
+		if (typeof answer == "string") { //there is only one currency
+			title = answer;
+		} else { //multiple currencies
+			var currencyArr = []
+			for (var countryCode in answer.data.record_data) {
+				currencyArr.push(answer.data.record_data[countryCode] + " (" + countryCode + ")");
+			}
+
+			title = currencyArr.join(", ");
+		}
+
+		var desc = $("<span class='title title-block'>").text(title).appendTo(item);
+		if (answer.data) {
+			var subtitle = $("<span class='description-block'>").text(answer.data.title).appendTo(item);
+		} else {
+			var subtitle = $("<span class='description-block'>").text("Answer").appendTo(item);
+		}
+
+		return item;
+	},
 }
 
 //this is triggered from history.js - we only show search suggestions if we don't have history results

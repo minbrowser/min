@@ -54,6 +54,10 @@ body.fullscreen #searchbar {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+#searchbar .result-item .title.title-block {
+	display: block;
+	max-width: 100%;
+}
 #searchbar .result-item i {
 	opacity: 0.75;
 	margin-right: 0.75em;
