@@ -147,7 +147,7 @@ function enterEditMode(tabId) {
 	input.get(0).focus();
 	input.select();
 	showSearchbar(input);
-	showSearchbarResults("", input, null);
+	showSearchbarResults("", input.get(0), null);
 	tabGroup.addClass("has-selected-tab");
 
 	//show keyword suggestions in the searchbar
