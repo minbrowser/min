@@ -204,16 +204,16 @@ onmessage = function (e) {
 				item.boost = 0; //don't change the results based on previous history searches
 				var score = calculateHistoryScore(item);
 
-				if (diff < 0.5) {
-					diff = 0.5;
+				if (diff < 0.33) {
+					diff = 0.33;
 				}
 
 				if (diff < 2 && lastVisitTimeAgo > 300000 && lastVisitTimeAgo < 604800000 && item.visitCount > 2) { //604800000 is one week in ms
-					score += score * (Math.pow(2 - diff, 2)) * 0.1;
+					score += score * (Math.pow(2 - diff, 2)) * 0.05;
 				}
 
 				if (diff < 1 && item.visitCount > 5 && lastVisitTimeAgo > 7200000) {
-					score += score * 0.2;
+					score += score * 0.1;
 				}
 
 
