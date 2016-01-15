@@ -13,6 +13,44 @@ function getQueryVariable(variable) {
 	console.log('Query variable %s not found', variable);
 }
 
+function cacheArticleForOffline(url, html) {
+	var data = {
+		version: 1,
+		createdAt: Date.now(),
+		html: html,
+	}
+	localStorage.setItem("readerview-cachedPage-" + url, JSON.stringify(data));
+}
+
+//remove old articles
+
+function cleanupOfflineArticles() {
+	var currentDate = Date.now();
+	var oneMonthInMS = 30 * 24 * 60 * 60 * 1000;
+	for (var item in localStorage) {
+		if (item.indexOf("readerview-cachedPage-") == 0) {
+			try {
+				var itemDate = JSON.parse(localStorage[item]).createdAt;
+			} catch (e) {
+				var itemDate = 0;
+			}
+			if (currentDate - itemDate > oneMonthInMS) {
+				localStorage.removeItem(item);
+			}
+		}
+	}
+}
+
+requestIdleCallback(function () {
+	cleanupOfflineArticles();
+}, {
+	timeout: 1000
+});
+
+function getOfflineArticle(url) {
+	return localStorage.getItem("readerview-cachedPage-" + url);
+}
+
 var rv = $("#reader-view");
 var backbutton = $("#backtoarticle");
 
@@ -92,44 +130,56 @@ iframe.classList.add("temporary-iframe");
 iframe.sandbox = "allow-same-origin";
 document.body.appendChild(iframe);
 
-$.ajax(url)
-	.done(function (data) {
-		window.d = data;
-		iframe.srcdoc = d;
+function processArticle(data) {
 
-		iframe.onload = function () {
+	cacheArticleForOffline(url, data);
 
-			var doc = iframe.contentDocument;
+	window.d = data;
+	iframe.srcdoc = d;
 
-			var location = new URL(url);
+	iframe.onload = function () {
 
-			//in order for links to work correctly, they all need to open in a new tab
+		var doc = iframe.contentDocument;
 
-			var links = doc.querySelectorAll("a");
+		var location = new URL(url);
 
-			if (links) {
-				for (var i = 0; i < links.length; i++) {
-					links[i].target = "_blank";
-				}
+		//in order for links to work correctly, they all need to open in a new tab
+
+		var links = doc.querySelectorAll("a");
+
+		if (links) {
+			for (var i = 0; i < links.length; i++) {
+				links[i].target = "_blank";
 			}
-
-			var uri = {
-				spec: location.href,
-				host: location.host,
-				prePath: location.protocol + "//" + location.host,
-				scheme: location.protocol.substr(0, location.protocol.indexOf(":")),
-				pathBase: location.protocol + "//" + location.host + location.pathname.substr(0, location.pathname.lastIndexOf("/") + 1)
-			};
-			var article = new Readability(uri, doc).parse();
-			console.log(article);
-			startReaderView(article);
 		}
 
-	})
+		var uri = {
+			spec: location.href,
+			host: location.host,
+			prePath: location.protocol + "//" + location.host,
+			scheme: location.protocol.substr(0, location.protocol.indexOf(":")),
+			pathBase: location.protocol + "//" + location.host + location.pathname.substr(0, location.pathname.lastIndexOf("/") + 1)
+		};
+		var article = new Readability(uri, doc).parse();
+		console.log(article);
+		startReaderView(article);
+	}
+
+}
+
+$.ajax(url)
+	.done(processArticle)
 	.fail(function (data) {
 		console.info("request failed with error", data);
 
-		startReaderView({
-			content: "<em>Failed to load article.</em>"
-		});
+		var cachedData = getOfflineArticle(url);
+
+		if (cachedData) {
+			console.log("offline article found, displaying");
+			processArticle(JSON.parse(cachedData).html);
+		} else {
+			startReaderView({
+				content: "<em>Failed to load article.</em>"
+			});
+		}
 	});
