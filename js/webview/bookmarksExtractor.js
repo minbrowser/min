@@ -23,6 +23,9 @@ function getBookmarksText(doc) {
 
 	text = text.replace(/[\n\t]/g, ""); //remove useless newlines/tabs that increase filesize
 
+	text = text.replace(/\s{2,}/g, " "); //collapse multiple spaces into one
+	text = text.replace(/<.*?>/g, "");
+
 	return text;
 }
 
@@ -34,10 +37,9 @@ ipc.on("sendData", function () {
 	var frames = document.querySelectorAll("iframe");
 
 	for (var x = 0; x < frames.length; frames++) {
-		if (!frames[x].contentDocument) {
-			continue;
-		}
-		text += ". " + getBookmarksText(frames[x].contentDocument);
+		try {
+			text += ". " + getBookmarksText(frames[x].contentDocument);
+		} catch (e) {}
 	}
 
 	/* also parse special metadata: price, rating, location */
