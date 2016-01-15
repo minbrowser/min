@@ -1,8 +1,12 @@
 var BANG_REGEX = /!\w+/g;
-var serarea = $("#searchbar .search-engine-results");
-var iaarea = $("#searchbar .instant-answer-results");
-var topAnswerarea = $("#searchbar .top-answer-results");
-var suggestedsitearea = $("#searchbar .ddg-site-results");
+var serarea = searchbar.querySelector(".search-engine-results");
+var $serarea = $(serarea);
+var iaarea = searchbar.querySelector(".instant-answer-results");
+var topAnswerarea = searchbar.querySelector(".top-answer-results");
+var suggestedsitearea = searchbar.querySelector("#searchbar .ddg-site-results");
+
+//cache duckduckgo bangs so we make fewer network requests
+var cachedBangSnippets = {};
 
 const minSearchSuggestions = 2;
 const maxSearchSuggestions = 4;
@@ -82,13 +86,7 @@ var IAFormats = {
 //this is triggered from history.js - we only show search suggestions if we don't have history results
 window.showSearchSuggestions = throttle(function (text, input) {
 
-	if (!text) {
-		return;
-	}
-
-	//we don't show search suggestions in private tabs, since this would send typed text to DDG
-
-	if (tabs.get(tabs.getSelected()).private) {
+	if (!text || tabs.get(tabs.getSelected()).private) { //we don't show search suggestions in private tabs, since this would send typed text to DDG
 		return;
 	}
 
@@ -101,56 +99,72 @@ window.showSearchSuggestions = throttle(function (text, input) {
 	$.ajax("https://ac.duckduckgo.com/ac/?q=" + encodeURIComponent(text))
 		.done(function (results) {
 
-			serarea.find(".result-item").addClass("old");
+			requestAnimationFrame(function () {
 
-			if (results && results[0] && results[0].snippet) { //!bang search - ddg api doesn't have a good way to detect this
+				empty(serarea);
 
-				results.splice(0, 5).forEach(function (result) {
-					cachedBangSnippets[result.phrase] = result.snippet;
+				if (results && results[0] && results[0].snippet) { //!bang search - ddg api doesn't have a good way to detect this
 
-					//autocomplete the bang, but allow the user to keep typing
+					results.splice(0, 5).forEach(function (result) {
+						cachedBangSnippets[result.phrase] = result.snippet;
 
-					var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(result.snippet)).on("click", function () {
-						setTimeout(function () { //if the click was triggered by the keydown, focusing the input and then keyup will cause a navigation. Wait a bit for keyup before focusing the input again.
-							input.val(result.phrase + " ").get(0).focus();
-						}, 100);
+						//autocomplete the bang, but allow the user to keep typing
+
+						var data = {
+							image: result.image,
+							imageIsInline: true,
+							title: result.snippet,
+							seconaryText: result.phrase
+						}
+
+						var item = createSearchbarItem(data);
+
+						item.addEventListener("click", function () {
+							setTimeout(function () { //if the click was triggered by the keydown, focusing the input and then keyup will cause a navigation. Wait a bit for keyup before focusing the input again.
+								input.value = result.phrase + " ";
+								input.focus();
+							}, 100);
+						});
+
+						serarea.appendChild(item);
 					});
 
-					$("<span class='secondary-text'>").text(result.phrase).appendTo(item);
+				} else if (results) {
+					results = results.splice(0, currentSuggestionLimit);
 
-					$("<img class='result-icon inline'>").attr("src", result.image).prependTo(item);
+					results.forEach(function (result) {
 
-					item.appendTo(serarea);
-				});
+						var title = result.phrase,
+							secondaryText = "";
 
-			} else if (results) {
-				results = results.splice(0, currentSuggestionLimit);
+						if (BANG_REGEX.test(result.phrase) && bangACSnippet) {
+							title = result.phrase.replace(BANG_REGEX, "");
+							secondaryText = "Search on " + bangACSnippet;
+						}
 
-				results.forEach(function (result) {
-					var title = result.phrase;
-					if (BANG_REGEX.test(result.phrase) && bangACSnippet) {
-						title = result.phrase.replace(BANG_REGEX, "");
-						var secondaryText = "Search on " + bangACSnippet;
-					}
-					var item = $("<div class='result-item iadata-onfocus' tabindex='-1'>").append($("<span class='title'>").text(title)).on("click", function (e) {
-						openURLFromsearchbar(e, result.phrase);
+						if (urlParser.isURL(result.phrase) || urlParser.isURLMissingProtocol(result.phrase)) { //website suggestions
+							var icon = "fa-globe";
+						} else { //regular search results
+							var icon = "fa-search";
+						}
+
+						var data = {
+							icon: icon,
+							title: result.phrase,
+							secondaryText: secondaryText,
+							classList: ["iadata-onfocus"],
+						}
+
+						var item = createSearchbarItem(data);
+
+						item.addEventListener("click", function (e) {
+							openURLFromsearchbar(e, result.phrase);
+						});
+
+						serarea.appendChild(item);
 					});
-
-					item.appendTo(serarea);
-
-					if (urlParser.isURL(result.phrase) || urlParser.isURLMissingProtocol(result.phrase)) { //website suggestions
-						$("<i class='fa fa-globe'>").prependTo(item);
-					} else { //regular search results
-						$("<i class='fa fa-search'>").prependTo(item);
-					}
-
-					if (secondaryText) {
-						$("<span class='secondary-text'>").text(secondaryText).appendTo(item);
-					}
-				});
-			}
-
-			serarea.find(".old").remove();
+				}
+			});
 		});
 
 }, 500);
@@ -160,18 +174,18 @@ window.showSearchSuggestions = throttle(function (text, input) {
 var limitSearchSuggestions = function (itemsToRemove) {
 	var itemsLeft = Math.max(minSearchSuggestions, maxSearchSuggestions - itemsToRemove);
 	currentSuggestionLimit = itemsLeft;
-	serarea.find(".result-item:nth-child(n+{items})".replace("{items}", itemsLeft + 1)).remove();
+	$serarea.find(".result-item:nth-child(n+{items})".replace("{items}", itemsLeft + 1)).remove();
 }
 
 window.showInstantAnswers = debounce(function (text, input, options) {
 
+	options = options || {};
+
 	if (!text) {
-		iaarea.empty();
-		suggestedsitearea.empty();
+		empty(iaarea);
+		empty(suggestedsitearea);
 		return;
 	}
-
-	options = options || {};
 
 	//don't make useless queries
 	if (urlParser.isURLMissingProtocol(text)) {
@@ -183,117 +197,106 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 		return;
 	}
 
-	//instant answers
-
-	iaarea.find(".result-item").addClass("old");
-	suggestedsitearea.find(".result-item").addClass("old");
-	topAnswerarea.find(".result-item.ddg-answer").addClass("old");
-
 	if (text.length > 3) {
 
-		$.getJSON("https://api.duckduckgo.com/?skip_disambig=1&format=json&q=" + encodeURIComponent(text), function (res) {
+		fetch("https://api.duckduckgo.com/?skip_disambig=1&format=json&q=" + encodeURIComponent(text))
+			.then(function (data) {
+				return data.json();
+			})
+			.then(function (res) {
 
-			//if value has changed, don't show results
-			if (text != getValue(input) && !options.alwaysShow) {
-				return;
-			}
+				$searchbar.find(".ddg-answer").remove();
 
-			iaarea.find(".result-item").addClass("old");
-			suggestedsitearea.find(".result-item").addClass("old");
+				//if value has changed, don't show results
+				if (text != getValue(input) && !options.alwaysShow) {
+					return;
+				}
 
-			//if there is a custom format for the answer, use that
-			if (IAFormats[res.AnswerType]) {
-				item = IAFormats[res.AnswerType](text, res.Answer);
-			} else {
+				//if there is a custom format for the answer, use that
+				if (IAFormats[res.AnswerType]) {
+					var item = IAFormats[res.AnswerType](text, res.Answer).get(0);
 
-				if (res.Abstract || res.Answer) {
-					var item = $("<div class='result-item indent ddg-answer' tabindex='-1'>");
+				} else if (res.Abstract || res.Answer) {
 
-					if (res.Answer) {
-						item.text(removeTags(res.Answer));
-					} else {
-						item.text(res.Heading);
+					var data = {
+						title: removeTags(res.Answer || res.Heading),
+						descriptionBlock: res.Abstract || "Answer",
+						classList: ["ddg-answer", "indent"]
 					}
 
 					if (res.Image && !res.ImageIsLogo) {
-						$("<img class='result-icon image low-priority-image'>").attr("src", res.Image).prependTo(item);
+						data.image = res.Image;
 					}
 
-					$("<span class='description-block'>").text(removeTags(res.Abstract) || "Answer").appendTo(item);
-
-				}
-			}
-
-
-			if (item) {
-				item.on("click", function (e) {
-					openURLFromsearchbar(e, res.AbstractURL || text);
-				});
-
-				//answers are more relevant, they should be displayed at the top
-				if (res.Answer) {
-					topAnswerarea.empty();
-					item.appendTo(topAnswerarea);
-				} else {
-					item.appendTo(iaarea);
+					var item = createSearchbarItem(data);
 				}
 
-			}
+				if (item) {
+					item.addEventListener("click", function (e) {
+						openURLFromsearchbar(e, res.AbstractURL || text);
+					});
 
-			//suggested site links
+					//answers are more relevant, they should be displayed at the top
+					if (res.Answer) {
+						empty(topAnswerarea);
+						topAnswerarea.appendChild(item);
+					} else {
+						iaarea.appendChild(item);
+					}
+
+				}
+
+				//suggested site links
 
 
-			if (res.Results && res.Results[0] && res.Results[0].FirstURL) {
+				if (res.Results && res.Results[0] && res.Results[0].FirstURL) {
 
-				var itemsWithSameURL = historyarea.find('.result-item[data-url="{url}"]'.replace("{url}", res.Results[0].FirstURL));
+					var url = res.Results[0].FirstURL;
 
-				if (itemsWithSameURL.length == 0) {
+					var data = {
+						icon: "fa-globe",
+						title: urlParser.removeProtocol(url).replace(trailingSlashRegex, ""),
+						secondaryText: "Suggested site",
+						url: url,
+						classList: ["ddg-answer"],
+					}
 
-					var url = urlParser.removeProtocol(res.Results[0].FirstURL).replace(trailingSlashRegex, "");
+					var item = createSearchbarItem(data);
 
-					var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(url)).on("click", function (e) {
-
+					item.addEventListener("click", function (e) {
 						openURLFromsearchbar(e, res.Results[0].FirstURL);
 					});
 
-					$("<i class='fa fa-globe'>").prependTo(item);
-
-					$("<span class='secondary-text'>").text("Suggested site").appendTo(item);
-
-					item.appendTo(suggestedsitearea);
+					suggestedsitearea.appendChild(item);
 				}
-			}
 
-			//if we're showing a location, show a "view on openstreetmap" link
+				//if we're showing a location, show a "Search on OpenStreetMap" link
 
-			var entitiesWithLocations = ["location", "country", "u.s. state", "protected area"]
+				var entitiesWithLocations = ["location", "country", "u.s. state", "protected area"];
 
-			if (entitiesWithLocations.indexOf(res.Entity) != -1) {
-				var item = $("<div class='result-item' tabindex='-1'>");
+				if (entitiesWithLocations.indexOf(res.Entity) != -1) {
 
-				$("<i class='fa fa-search'>").appendTo(item);
-				$("<span class='title'>").text(res.Heading).appendTo(item);
-				$("<span class='secondary-text'>Search on OpenStreetMap</span>").appendTo(item);
+					var item = createSearchbarItem({
+						icon: "fa-search",
+						title: res.Heading,
+						secondaryText: "Search on OpenStreetMap",
+						classList: ["ddg-answer"]
+					});
 
-				item.on("click", function (e) {
-					openURLFromsearchbar(e, "https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading));
-				});
+					item.addEventListener("click", function (e) {
+						openURLFromsearchbar(e, "https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading));
+					});
 
-				item.prependTo(iaarea);
-			}
-
-			if (options.destroyPrevious != false || item) {
-				iaarea.find(".old").remove();
-				suggestedsitearea.find(".old").remove();
-				topAnswerarea.find(".old").remove();
-			}
+					iaarea.insertBefore(item, iaarea.firstChild);
+				}
 
 
-		});
+			})
+			.catch(function (e) {
+				console.error(e);
+			});
 	} else {
-		iaarea.find(".old").remove(); //we still want to remove old items, even if we didn't make a new request
-		suggestedsitearea.find(".old").remove();
-		topAnswerarea.find(".old").remove();
+		$searchbar.find(".ddg-answer").remove(); //we still want to remove old items, even if we didn't make a new request
 	}
 
 }, 450);

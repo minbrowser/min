@@ -5,6 +5,9 @@ var DDGSearchURLRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
 var currentACItem = null;
 var deleteKeyPressed = false;
 
+var historyarea = searchbar.querySelector(".history-results");
+var $historyarea = $(historyarea);
+
 var maxHistoryResults = 4;
 
 function searchbarAutocomplete(text, input, historyResults) {
@@ -13,7 +16,7 @@ function searchbarAutocomplete(text, input, historyResults) {
 		return;
 	}
 
-	if (text == searchbarCachedText && input[0].selectionStart != input[0].selectionEnd) { //if nothing has actually changed, don't try to autocomplete
+	if (text == searchbarCachedText && input.selectionStart != input.selectionEnd) { //if nothing has actually changed, don't try to autocomplete
 		return;
 	}
 	//if we moved the selection, we don't want to autocomplete again
@@ -40,7 +43,11 @@ function autocompleteResultIfNeeded(input, result) {
 	}
 
 	var text = getValue(input); //make sure the input hasn't changed between start and end of query
-	var hostname = new URL(result.url).hostname;
+	try {
+		var hostname = new URL(result.url).hostname;
+	} catch (e) {
+		console.warn(result.url);
+	}
 
 	var possibleAutocompletions = [ //the different variations of the URL we can autocomplete
 		hostname, //we start with the domain
@@ -58,8 +65,8 @@ function autocompleteResultIfNeeded(input, result) {
 	for (var i = 0; i < possibleAutocompletions.length; i++) {
 		if (!deleteKeyPressed && possibleAutocompletions[i].toLowerCase().indexOf(text.toLowerCase()) == 0) { //we can autocomplete the item
 
-			input.val(possibleAutocompletions[i]);
-			input.get(0).setSelectionRange(text.length, possibleAutocompletions[i].length);
+			input.value = possibleAutocompletions[i];
+			input.setSelectionRange(text.length, possibleAutocompletions[i].length);
 
 			if (i < 2) { //if we autocompleted a domain, the cached item should be the domain, not the full url
 				var url = new URL(result.url);
@@ -79,7 +86,7 @@ function autocompleteResultIfNeeded(input, result) {
 
 var showHistoryResults = throttle(function (text, input, maxItems) {
 
-	if (!text && input[0].value) { //if the entire input is highlighted (such as when we first focus the input), don't show anything
+	if (!text && input.value) { //if the entire input is highlighted (such as when we first focus the input), don't show anything
 		return;
 	}
 
@@ -98,10 +105,10 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			maxItems = 4;
 		}
 
-		historyarea.empty();
+		empty(historyarea);
 
-		if (topAnswerarea.get(0).getElementsByClassName("history-item").length > 0) {
-			topAnswerarea.empty();
+		if (topAnswerarea.getElementsByClassName("history-item").length > 0) {
+			empty(topAnswerarea);
 		}
 
 		searchbarAutocomplete(text, input, results);
@@ -111,92 +118,98 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			maxItems = 3;
 			showSearchSuggestions(text, input);
 		} else if (text.indexOf("!") == -1) { //if we have a !bang, always show results
-			serarea.empty();
+			empty(serarea);
 		}
 
 		var resultsShown = 0;
 
 		//we will never have more than 5 results, so we don't need to create more DOM elements than that
 
-		results = results.splice(0, 5);
+		requestAnimationFrame(function () {
 
-		results.forEach(function (result) {
+			var isBangSearch = text.indexOf("!") == 0;
 
-			var shouldAutocompleteTitle = false;
+			results.slice(0, 5).forEach(function (result) {
 
-			var title = result.title;
-			var icon = $("<i class='fa fa-globe'>");
+				DDGSearchURLRegex.lastIndex = 0;
+				var isDDGSearch = DDGSearchURLRegex.test(result.url);
 
-			//special formatting for ddg search history results
-
-			DDGSearchURLRegex.lastIndex = 0;
-
-			if (DDGSearchURLRegex.test(result.url)) {
-
-				//the history item is a search, display it like a search suggestion
-				title = decodeURIComponent(result.url.replace(DDGSearchURLRegex, "$1").replace(plusRegex, " "));
-				icon = $("<i class='fa fa-search'>");
-				shouldAutocompleteTitle = true; //previous searches can be autocompleted
-			}
-
-			//if we're doing a bang search, but the item isn't a web search, it probably isn't useful, so we shouldn't show it
-			if (!shouldAutocompleteTitle && text.indexOf("!") == 0) {
-				return;
-			}
+				//if we're doing a bang search, but the item isn't a web search, it probably isn't useful, so we shouldn't show it
+				if (!isDDGSearch && isBangSearch) {
+					return;
+				}
 
 
-			var item = $("<div class='result-item history-item' tabindex='-1'>").append($("<span class='title'>").text(getRealTitle(title))).on("click", function (e) {
-				openURLFromsearchbar(e, result.url);
+				if (isDDGSearch) { //show the result like a search suggestion
+
+					var processedTitle = decodeURIComponent(result.url.replace(DDGSearchURLRegex, "$1").replace(plusRegex, " "));
+
+					var data = {
+						icon: "fa-search",
+						title: processedTitle,
+						url: result.url,
+						classList: ["history-item"],
+					}
+				} else {
+					var data = {
+						icon: "fa-globe",
+						title: getRealTitle(result.title) || result.url,
+						url: result.url,
+						classList: ["history-item"],
+					}
+
+					if (result.title !== result.url) {
+						data.secondaryText = urlParser.prettyURL(result.url);
+					}
+				}
+
+
+				var item = createSearchbarItem(data);
+
+				item.addEventListener("click", function (e) {
+					openURLFromsearchbar(e, result.url);
+				});
+
+				if (resultsShown >= maxItems) { //only show up to n history items
+					item.hidden = true;
+					item.classList.add("unfocusable");
+				}
+
+				if (urlParser.areEqual(currentACItem, result.url) && resultsShown < maxItems && !showedTopAnswer) { //the item is being autocompleted, highlight it
+					item.classList.add("fakefocus");
+					topAnswerarea.appendChild(item);
+					showedTopAnswer = true;
+				} else {
+					historyarea.appendChild(item)
+				}
+
+
+				resultsShown++;
+
 			});
 
-			item.attr("data-url", result.url);
+			//show a top answer item if we did domain autocompletion
 
-			icon.prependTo(item);
-
-			if (!shouldAutocompleteTitle && result.title != result.url) { //if we're autocompleting titles, this is a search, and we don't want to show the URL. If the item title and URL are the same (meaning the item has no title), there is no point in showing a URL since we are showing it in the title field.
-
-				$("<span class='secondary-text'>").text(urlParser.prettyURL(result.url)).appendTo(item);
-			}
-
-			if (resultsShown >= maxItems) { //only show up to n history items
-				item.prop("hidden", true).addClass("unfocusable");
-			}
-
-			if (urlParser.areEqual(currentACItem, result.url) && resultsShown < maxItems && !showedTopAnswer) { //the item is being autocompleted, highlight it
-				item.addClass("fakefocus");
-				requestAnimationFrame(function () {
-					item.appendTo(topAnswerarea);
+			if (currentACItem && !showedTopAnswer) {
+				var item = createSearchbarItem({
+					classList: ["history-item", "fakefocus"],
+					icon: "fa-globe",
+					title: urlParser.prettyURL(currentACItem),
 				});
-				showedTopAnswer = true;
-			} else {
-				requestAnimationFrame(function () {
-					item.appendTo(historyarea);
+
+				item.addEventListener("click", function (e) {
+					openURLFromsearchbar(e, currentACItem);
 				});
+
+				topAnswerarea.appendChild(item);
 			}
-
-
-			resultsShown++;
-
 		});
 
-		//show a top answer item if we did domain autocompletion
-
-		if (currentACItem && !showedTopAnswer) {
-			var item = $("<div class='result-item history-item fakefocus' tabindex='-1'>").append($("<span class='title'>").text(urlParser.prettyURL(currentACItem))).on("click", function (e) {
-				openURLFromsearchbar(e, currentACItem);
-			});
-
-			$("<i class='fa fa-globe'>").prependTo(item);
-
-			requestAnimationFrame(function () {
-				item.appendTo(topAnswerarea);
-			});
-		}
 	});
 }, 50);
 
 function limitHistoryResults(maxItems) {
 	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));
 
-	historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1)).prop("hidden", true).addClass("unfocusable");
+	$historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1)).prop("hidden", true).addClass("unfocusable");
 }

@@ -31,7 +31,7 @@ tabGroup.on("mousewheel", ".tab-item", function (e) {
 			return;
 		}
 
-		var tab = $(this).attr("data-tab");
+		var tab = this.getAttribute("data-tab");
 
 		//TODO this should be a css animation
 		getTabElement(tab).animate({
@@ -66,7 +66,7 @@ tabGroup.on("mousewheel", ".tab-item", function (e) {
 //click to enter edit mode or switch to tab
 
 tabGroup.on("click", ".tab-item", function (e) {
-	var tabId = $(this).attr("data-tab");
+	var tabId = this.getAttribute("data-tab");
 
 	//if the tab isn't focused
 	if (tabs.getSelected() != tabId) {
@@ -108,7 +108,7 @@ function setActiveTabElement(tabId) {
 				behavior: "smooth"
 			});
 		}, {
-			timeout: 1000
+			timeout: 1500
 		});
 
 	}
@@ -118,7 +118,10 @@ function setActiveTabElement(tabId) {
 function leaveTabEditMode(options) {
 	$(".tab-item.selected").removeClass("selected");
 	if (options && options.blur) {
-		$(".tab-item .tab-input").blur();
+		var input = document.querySelector(".tab-item .tab-input:focus")
+		if (input) {
+			input.blur();
+		}
 	}
 	tabGroup.removeClass("has-selected-tab");
 	hidesearchbar();
@@ -161,7 +164,10 @@ function rerenderTabElement(tabId) {
 		tabData = tabs.get(tabId);
 
 	var tabTitle = tabData.title || "New Tab";
-	tabEl.find(".tab-view-contents .title").text(tabTitle).attr("title", tabTitle);
+	var title = tabEl.get(0).querySelector(".tab-view-contents .title");
+
+	title.textContent = tabTitle;
+	title.title = tabTitle;
 
 	var secIcon = tabEl[0].getElementsByClassName("icon-tab-not-secure");
 
@@ -174,7 +180,7 @@ function rerenderTabElement(tabId) {
 	}
 
 	//update the star to reflect whether the page is bookmarked or not
-	bookmarks.renderStar(tabId, tabEl.find(".bookmarks-button"));
+	bookmarks.renderStar(tabId);
 }
 
 function createTabElement(tabId) {
@@ -223,7 +229,7 @@ function createTabElement(tabId) {
 	//keypress doesn't fire on delete key - use keyup instead
 	input.on("keyup", function (e) {
 		if (e.keyCode == 8) {
-			showSearchbarResults($(this).val(), $(this), e);
+			showSearchbarResults(this.value, this, e);
 		}
 	});
 
@@ -231,7 +237,7 @@ function createTabElement(tabId) {
 
 		if (e.keyCode == 13) { //return key pressed; update the url
 			var tabId = $(this).parents(".tab-item").attr("data-tab");
-			var newURL = parsesearchbarURL($(this).val());
+			var newURL = parsesearchbarURL(this.value);
 
 			navigate(tabId, newURL);
 			leaveTabEditMode(tabId);
@@ -249,7 +255,7 @@ function createTabElement(tabId) {
 			return;
 			//delete key is handled in keyUp
 		} else { //show the searchbar
-			showSearchbarResults($(this).val(), $(this), e);
+			showSearchbarResults(this.value, this, e);
 		}
 
 		//on keydown, if the autocomplete result doesn't change, we move the selection instead of regenerating it to avoid race conditions with typing. Adapted from https://github.com/patrickburke/jquery.inlineComplete

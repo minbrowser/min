@@ -98,9 +98,9 @@ body.fullscreen #searchbar {
 	image-rendering: pixelated;
 }
 #searchbar .result-item .secondary-text .md-info {
+	float: left;
 	opacity: 0.8;
 	font-size: inherit;
-	padding: 0.1em;
 }
 #searchbar .result-item .secondary-text .md-info:first-child {
 	padding-left: 0;

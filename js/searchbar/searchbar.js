@@ -3,9 +3,6 @@ var METADATA_SEPARATOR = "·";
 var didFireKeydownSelChange = false;
 var currentsearchbarInput;
 
-//cache duckduckgo bangs so we make fewer network requests
-var cachedBangSnippets = {};
-
 //https://remysharp.com/2010/07/21/throttling-function-calls#
 
 function throttle(fn, threshhold, scope) {
@@ -41,6 +38,13 @@ function debounce(fn, delay) {
 			fn.apply(context, args);
 		}, delay);
 	};
+}
+
+function empty(node) {
+	var n;
+	while (n = node.firstElementChild) {
+		node.removeChild(n);
+	}
 }
 
 function removeTags(text) {
@@ -122,21 +126,102 @@ function getRealTitle(text) {
 	//fallback to the regular title
 
 	return text;
+
 }
 
-var searchbar = $("#searchbar");
-var historyarea = searchbar.find(".history-results");
-var bookmarkarea = searchbar.find(".bookmark-results");
-var opentabarea = searchbar.find(".opentab-results");
+
+//creates a result item
+
+/*
+	
+data:
+	
+title: string - the title of the item
+secondaryText: string - the item's secondary text
+url: string - the item's url (if there is one).
+icon: string - the name of a font awesome icon.
+image: string - the URL of an image to show
+descriptionBlock: string - the text in the description block
+	
+classList: array - a list of classes to add to the item
+*/
+
+function createSearchbarItem(data) {
+	var item = document.createElement("div");
+	item.classList.add("result-item");
+
+	item.setAttribute("tabindex", "-1");
+
+	if (data.classList) {
+		for (var i = 0; i < data.classList.length; i++) {
+			item.classList.add(data.classList[i]);
+		}
+	}
+
+	if (data.icon) {
+		var i = document.createElement("i");
+		i.className = "fa" + " " + data.icon;
+
+		item.appendChild(i);
+	}
+
+	if (data.title) {
+		var title = document.createElement("span");
+		title.classList.add("title");
+
+		title.textContent = data.title;
+
+		item.appendChild(title);
+	}
+
+
+	if (data.url) {
+		item.setAttribute("data-url", data.url);
+	}
+
+	if (data.secondaryText) {
+		var secondaryText = document.createElement("span");
+		secondaryText.classList.add("secondary-text");
+
+		secondaryText.textContent = data.secondaryText;
+
+		item.appendChild(secondaryText);
+	}
+
+	if (data.image) {
+		var image = document.createElement("img");
+		image.className = "result-icon image low-priority-image";
+		image.src = data.image;
+
+		if (data.imageIsInline) {
+			image.classList.add("inline");
+		}
+
+		item.insertBefore(image, item.childNodes[0]);
+	}
+
+	if (data.descriptionBlock) {
+		var dBlock = document.createElement("span");
+		dBlock.classList.add("description-block");
+
+		dBlock.textContent = data.descriptionBlock;
+		item.appendChild(dBlock);
+	}
+
+	return item;
+}
+
+var searchbar = document.getElementById("searchbar");
+var $searchbar = $(searchbar);
 
 function clearsearchbar() {
-	opentabarea.empty();
-	topAnswerarea.empty();
-	bookmarkarea.empty();
-	historyarea.empty();
-	iaarea.empty();
-	suggestedsitearea.empty();
-	serarea.empty();
+	empty(opentabarea);
+	empty(topAnswerarea);
+	empty(bookmarkarea);
+	empty(historyarea);
+	empty(iaarea);
+	empty(suggestedsitearea);
+	empty(serarea);
 
 	//prevent memory leak
 	cachedBangSnippets = [];
@@ -148,8 +233,7 @@ function showSearchbar(triggerInput) {
 
 	clearsearchbar();
 
-
-	searchbar.prop("hidden", false);
+	searchbar.hidden = false;
 
 	currentsearchbarInput = triggerInput;
 
@@ -158,14 +242,14 @@ function showSearchbar(triggerInput) {
 //gets the typed text in an input, ignoring highlighted suggestions
 
 function getValue(input) {
-	var text = input.val();
-	return text.replace(text.substring(input[0].selectionStart, input[0].selectionEnd), "");
+	var text = input.value;
+	return text.replace(text.substring(input.selectionStart, input.selectionEnd), "");
 }
 
 function hidesearchbar() {
 	currentsearchbarInput = null;
 	$(document.body).removeClass("searchbar-shown");
-	searchbar.prop("hidden", true);
+	searchbar.hidden = true;
 	cachedBangSnippets = {};
 }
 var showSearchbarResults = function (text, input, event) {
@@ -178,16 +262,12 @@ var showSearchbarResults = function (text, input, event) {
 
 	//find the real input value, accounting for highlighted suggestions and the key that was just pressed
 
-	var v = input[0].value;
-
 	//delete key doesn't behave like the others, String.fromCharCode returns an unprintable character (which has a length of one)
 
 	if (event && event.keyCode != 8) {
 
-		text = v.substring(0, input[0].selectionStart) + String.fromCharCode(event.keyCode) + v.substring(input[0].selectionEnd, v.length);
+		text = text.substring(0, input.selectionStart) + String.fromCharCode(event.keyCode) + text.substring(input.selectionEnd, text.length);
 
-	} else {
-		txt = v;
 	}
 
 	console.log("searchbar: ", "'" + text + "'", text.length);
@@ -204,7 +284,7 @@ var showSearchbarResults = function (text, input, event) {
 	if (text.indexOf("?") == 0) {
 		clearsearchbar();
 
-		maxSearchSuggestions = 5;
+		currentSuggestionLimit = 5;
 		showSearchSuggestions(text.replace("?", ""), input);
 		return;
 	}
@@ -252,7 +332,7 @@ function focussearchbarItem(options) {
 	var index = allItems.index(currentItem);
 	var logicalNextItem = allItems.eq((previous) ? index - 1 : index + 1);
 
-	searchbar.find(".fakefocus").removeClass("fakefocus"); //clear previously focused items
+	$searchbar.find(".fakefocus").removeClass("fakefocus"); //clear previously focused items
 
 	if (currentItem[0] && logicalNextItem[0]) { //an item is focused and there is another item after it, move onto the next one
 		logicalNextItem.get(0).focus();
@@ -283,7 +363,7 @@ function focussearchbarItem(options) {
 //tab key or arrowdown key should focus next item
 //arrowup key should focus previous item
 
-searchbar.on("keydown", ".result-item", function (e) {
+$searchbar.on("keydown", ".result-item", function (e) {
 	if (e.keyCode == 13) {
 		$(this).trigger("click");
 	} else if (e.keyCode == 9 || e.keyCode == 40) { //tab or arrowdown key
@@ -301,7 +381,7 @@ searchbar.on("keydown", ".result-item", function (e) {
 
 var lastItemDeletion = Date.now();
 
-searchbar.on("mousewheel", ".history-results .result-item, .top-answer-results .result-item", function (e) {
+$searchbar.on("mousewheel", ".history-results .result-item, .top-answer-results .result-item", function (e) {
 	var self = $(this)
 	if (e.originalEvent.deltaX > 50 && e.originalEvent.deltaY < 3 && self.attr("data-url") && Date.now() - lastItemDeletion > 700) {
 		lastItemDeletion = Date.now();
@@ -338,7 +418,12 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 			return;
 		}
 
-		var div = $("<div class='result-item iadata-onfocus' tabindex='-1'>").append($("<span class='title'>").text(item)).on("click", function (e) {
+		var div = createSearchbarItem({
+			icon: "fa-search",
+			title: item,
+		});
+
+		div.addEventListener("click", function (e) {
 			if (e.metaKey) {
 				openURLInBackground(item);
 			} else {
@@ -346,9 +431,7 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 			}
 		});
 
-		$("<i class='fa fa-search'>").prependTo(div);
-
-		div.appendTo(serarea);
+		serarea.appendChild(div);
 
 		itemsCt++;
 		itemsShown.push(item.trim());

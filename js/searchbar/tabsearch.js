@@ -1,51 +1,58 @@
 var spacesRegex = /[\s._/-]/g; //copied from historyworker.js
+var opentabarea = searchbar.querySelector(".opentab-results");
 
 var stringScore = require("string_score");
 
 var searchOpenTabs = function (searchText) {
 
-	opentabarea.empty();
+	requestAnimationFrame(function () {
 
-	if (searchText.length < 3) {
-		return;
-	}
+		empty(opentabarea);
 
-	var matches = [],
-		selTab = tabs.getSelected();
-
-	tabs.get().forEach(function (item) {
-		if (item.id == selTab || !item.title || item.url == "about:blank") {
+		if (searchText.length < 3) {
 			return;
 		}
 
-		item.url = urlParser.removeProtocol(item.url); //don't search protocols
+		var matches = [],
+			selTab = tabs.getSelected();
 
-		var exactMatch = item.title.indexOf(searchText) != -1 || item.url.indexOf(searchText) != -1
-		var fuzzyMatch = item.title.substring(0, 50).score(searchText, 0.5) > 0.4 || item.url.score(searchText, 0.5) > 0.4;
-
-		if (exactMatch || fuzzyMatch) {
-			matches.push(item);
-		}
-	});
-
-	matches.splice(0, 2).sort(function (a, b) {
-		return b.title.score(searchText, 0.5) - a.title.score(searchText, 0.5);
-	}).forEach(function (tab) {
-		var item = $("<div class='result-item' tabindex='-1'>").append($("<span class='title'>").text(tab.title))
-		$("<span class='secondary-text'>").text(urlParser.removeProtocol(tab.url).replace(trailingSlashRegex, "")).appendTo(item);
-
-		$("<i class='fa fa-external-link-square'>").attr("title", "Switch to Tab").prependTo(item); //TODO better icon
-
-		item.on("click", function () {
-			//if we created a new tab but are switching away from it, destroy the current (empty) tab
-			if (tabs.get(tabs.getSelected()).url == "about:blank") {
-				destroyTab(tabs.getSelected(), {
-					switchToTab: false
-				});
+		tabs.get().forEach(function (item) {
+			if (item.id == selTab || !item.title || item.url == "about:blank") {
+				return;
 			}
-			switchToTab(tab.id);
+
+			var itemUrl = urlParser.removeProtocol(item.url); //don't search protocols
+
+			var exactMatch = item.title.indexOf(searchText) != -1 || itemUrl.indexOf(searchText) != -1
+			var fuzzyMatch = item.title.substring(0, 50).score(searchText, 0.5) > 0.4 || itemUrl.score(searchText, 0.5) > 0.4;
+
+			if (exactMatch || fuzzyMatch) {
+				matches.push(item);
+			}
 		});
 
-		item.appendTo(opentabarea);
+		matches.splice(0, 2).sort(function (a, b) {
+			return b.title.score(searchText, 0.5) - a.title.score(searchText, 0.5);
+		}).forEach(function (tab) {
+			var data = {
+				icon: "fa-external-link-square",
+				title: tab.title,
+				secondaryText: urlParser.removeProtocol(tab.url).replace(trailingSlashRegex, "")
+			}
+
+			var item = createSearchbarItem(data);
+
+			item.addEventListener("click", function () {
+				//if we created a new tab but are switching away from it, destroy the current (empty) tab
+				if (tabs.get(tabs.getSelected()).url == "about:blank") {
+					destroyTab(tabs.getSelected(), {
+						switchToTab: false
+					});
+				}
+				switchToTab(tab.id);
+			});
+
+			opentabarea.appendChild(item);
+		});
 	});
 }
