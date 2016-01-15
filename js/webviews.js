@@ -31,6 +31,7 @@ function getWebviewDom(options) {
 	var url = (options || {}).url || "about:blank";
 
 	var w = $("<webview>");
+	var w0 = w[0];
 	w.attr("preload", "dist/webview.min.js");
 	w.attr("src", urlParser.parse(url));
 
@@ -45,24 +46,24 @@ function getWebviewDom(options) {
 	//webview events
 
 	webviewEvents.forEach(function (i) {
-		w.on(i.event, i.fn);
+		w0.addEventListener(i.event, i.fn);
 	});
 
-	w.on("page-favicon-updated", function (e) {
-		var id = $(this).attr("data-tab");
-		updateTabColor(e.originalEvent.favicons, id);
+	w0.addEventListener("page-favicon-updated", function (e) {
+		var id = this.getAttribute("data-tab");
+		updateTabColor(e.favicons, id);
 	});
 
-	w.on("page-title-set", function (e) {
-		var tab = $(this).attr("data-tab");
+	w0.addEventListener("page-title-set", function (e) {
+		var tab = this.getAttribute("data-tab");
 		tabs.update(tab, {
-			title: e.originalEvent.title
+			title: e.title
 		});
 		rerenderTabElement(tab);
 	});
 
-	w.on("did-finish-load", function (e) {
-		var tab = $(this).attr("data-tab");
+	w0.addEventListener("did-finish-load", function (e) {
+		var tab = this.getAttribute("data-tab");
 		var url = $(this).attr("src"); //src attribute changes whenever a page is loaded
 
 		if (url.indexOf("https://") === 0 || url.indexOf("about:") == 0 || url.indexOf("chrome:") == 0 || url.indexOf("file://") == 0) {
@@ -95,17 +96,17 @@ function getWebviewDom(options) {
 
 	//open links in new tabs
 
-	w.on("new-window", function (e) {
-		var tab = $(this).attr("data-tab");
+	w0.addEventListener("new-window", function (e) {
+		var tab = this.getAttribute("data-tab");
 		var currentIndex = tabs.getIndex(tabs.getSelected());
 
 		var newTab = tabs.add({
-			url: e.originalEvent.url,
+			url: e.url,
 			private: tabs.get(tab).private //inherit private status from the current tab
 		}, currentIndex + 1);
 		addTab(newTab, {
 			focus: false,
-			openInBackground: e.originalEvent.disposition == "background-tab", //possibly open in background based on disposition
+			openInBackground: e.disposition == "background-tab", //possibly open in background based on disposition
 		});
 	});
 
@@ -113,7 +114,7 @@ function getWebviewDom(options) {
 	// In embedder page. Send the text content to bookmarks when recieved.
 	w.on('ipc-message', function (e) {
 		var w = this;
-		var tab = $(this).attr("data-tab");
+		var tab = this.getAttribute("data-tab");
 
 		webviewIPC.forEach(function (item) {
 			if (item.name == e.originalEvent.channel) {
@@ -132,7 +133,7 @@ function getWebviewDom(options) {
 	w.on("contextmenu", webviewMenu.show);
 
 	w.on("crashed", function (e) {
-		var tabId = $(this).attr("data-tab");
+		var tabId = this.getAttribute("data-tab");
 
 		destroyWebview(tabId);
 		tabs.update(tabId, {
