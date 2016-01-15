@@ -13,16 +13,19 @@ var dnsError = {
 	messge: "A DNS error occured."
 }
 
+var offlineError = {
+	name: "You are offline",
+	message: "Reconnect to the internet and try again."
+}
+
 //list: https://code.google.com/p/chromium/codesearch#chromium/src/net/base/net_error_list.h&sq=package:chromium&type=cs
 const errorCodes = {
+	"-21": offlineError, //network changed
 	"-104": {
 		message: "Min couldn't connect to the website."
 	},
 	"-105": websiteNotFound,
-	"-106": {
-		name: "You are offline",
-		message: "Reconnect to the internet and try again."
-	},
+	"-106": offlineError,
 	"-107": sslError,
 	"-109": websiteNotFound,
 	"-110": sslError, //this is actually the error code for "server requested a client certificate", but we don't support that yet,
