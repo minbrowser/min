@@ -11,9 +11,9 @@ var $historyarea = $(historyarea);
 var maxHistoryResults = 4;
 
 function searchbarAutocomplete(text, input, historyResults) {
-	currentACItem = null;
 
 	if (!text) {
+		currentACItem = null;
 		return;
 	}
 
@@ -24,6 +24,8 @@ function searchbarAutocomplete(text, input, historyResults) {
 	if (didFireKeydownSelChange) {
 		return;
 	}
+
+	currentACItem = null;
 
 	var didAutocomplete = false;
 

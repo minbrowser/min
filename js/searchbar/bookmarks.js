@@ -1,6 +1,7 @@
 var bookmarkarea = searchbar.querySelector(".bookmark-results");
 
 function addBookmarkItem(result) {
+
 	//create the basic item
 	//getRealTitle is defined in searchbar.js
 
@@ -8,7 +9,7 @@ function addBookmarkItem(result) {
 		icon: "fa-star",
 		title: getRealTitle(result.title),
 		secondaryText: urlParser.prettyURL(result.url),
-		url: result.url
+		url: result.url,
 	});
 
 	item.addEventListener("click", function (e) {
@@ -44,6 +45,12 @@ var showBookmarkResults = debounce(function (text) {
 		empty(bookmarkarea);
 		var resultsShown = 1;
 		results.splice(0, 2).forEach(function (result) {
+
+			//if a history item for the same page already exists, don't show a bookmark
+			if ($('.result-item[data-url="{url}"]:not([hidden])'.replace("{url}", result.url))[0]) {
+				return;
+			}
+
 			//as more results are added, the threshold for adding another one gets higher
 			if (result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.25, text.length))) && (resultsShown == 1 || text.length > 6)) {
 				requestAnimationFrame(function () {
