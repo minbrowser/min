@@ -11,8 +11,9 @@ var $historyarea = $(historyarea);
 var maxHistoryResults = 4;
 
 function searchbarAutocomplete(text, input, historyResults) {
+	currentACItem = null;
+
 	if (!text) {
-		currentACItem = null;
 		return;
 	}
 
@@ -80,7 +81,6 @@ function autocompleteResultIfNeeded(input, result) {
 
 	//nothing was autocompleted
 
-	currentACItem = null;
 	return false;
 }
 
@@ -207,7 +207,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 			//show a top answer item if we did domain autocompletion
 
-			if (currentACItem && !showedTopAnswer) {
+			if (currentACItem && !showedTopAnswer && !DDGSearchURLRegex.test(currentACItem)) {
 				var item = createSearchbarItem({
 					classList: ["history-item", "fakefocus"],
 					icon: "fa-globe",

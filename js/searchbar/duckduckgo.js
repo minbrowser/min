@@ -90,12 +90,6 @@ window.showSearchSuggestions = throttle(function (text, input) {
 		return;
 	}
 
-	if (BANG_REGEX.test(text)) { //we're typing a bang
-		var bang = text.match(BANG_REGEX)[0];
-
-		var bangACSnippet = cachedBangSnippets[bang];
-
-	}
 	$.ajax("https://ac.duckduckgo.com/ac/?q=" + encodeURIComponent(text))
 		.done(function (results) {
 
@@ -114,7 +108,7 @@ window.showSearchSuggestions = throttle(function (text, input) {
 							image: result.image,
 							imageIsInline: true,
 							title: result.snippet,
-							seconaryText: result.phrase
+							secondaryText: result.phrase
 						}
 
 						var item = createSearchbarItem(data);
@@ -137,9 +131,13 @@ window.showSearchSuggestions = throttle(function (text, input) {
 						var title = result.phrase,
 							secondaryText = "";
 
-						if (BANG_REGEX.test(result.phrase) && bangACSnippet) {
+						if (BANG_REGEX.test(result.phrase)) {
+
+							var bang = result.phrase.match(BANG_REGEX)[0];
+
 							title = result.phrase.replace(BANG_REGEX, "");
-							secondaryText = "Search on " + bangACSnippet;
+
+							secondaryText = "Search on " + cachedBangSnippets[bang];
 						}
 
 						if (urlParser.isURL(result.phrase) || urlParser.isURLMissingProtocol(result.phrase)) { //website suggestions
@@ -199,7 +197,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 
 	if (text.length > 3) {
 
-		fetch("https://api.duckduckgo.com/?skip_disambig=1&format=json&q=" + encodeURIComponent(text))
+		fetch("https://api.duckduckgo.com/?skip_disambig=1&no_redirect=1&format=json&q=" + encodeURIComponent(text))
 			.then(function (data) {
 				return data.json();
 			})

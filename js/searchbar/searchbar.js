@@ -224,7 +224,7 @@ function clearsearchbar() {
 	empty(serarea);
 
 	//prevent memory leak
-	cachedBangSnippets = [];
+	cachedBangSnippets = {};
 }
 
 function showSearchbar(triggerInput) {
@@ -235,7 +235,7 @@ function showSearchbar(triggerInput) {
 
 	searchbar.hidden = false;
 
-	currentsearchbarInput = triggerInput;
+	currentsearchbarInput = triggerInput.get(0);
 
 }
 
