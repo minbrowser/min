@@ -25,8 +25,6 @@ tabContainer.on("mousewheel", function (e) {
 	if (e.originalEvent.deltaY < -30 && e.originalEvent.deltaX < 10) { //swipe down to expand tabs
 		enterExpandedMode();
 		e.stopImmediatePropagation();
-	} else if (e.originalEvent.deltaY > 70 && e.originalEvent.deltaX < 10) {
-		leaveExpandedMode();
 	}
 });
 
