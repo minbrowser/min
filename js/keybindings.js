@@ -24,6 +24,14 @@ ipc.on("inspectPage", function () {
 	getWebview(tabs.getSelected())[0].openDevTools();
 });
 
+ipc.on("showReadingList", function () {
+	showSearchbar(getTabElement(tabs.getSelected()).getInput());
+	enterEditMode(tabs.getSelected());
+	clearsearchbar();
+
+	readerView.showReadingList();
+})
+
 ipc.on("addTab", function (e) {
 
 	/* new tabs can't be created in focus mode */

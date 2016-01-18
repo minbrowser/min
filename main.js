@@ -191,6 +191,13 @@ function createAppMenu() {
 						}
 					}
 				},
+				{
+					label: "Reading List",
+					accelerator: undefined,
+					click: function (item, window) {
+						sendIPCToWindow(window, "showReadingList");
+					}
+				}
 		]
   },
 		{

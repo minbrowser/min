@@ -46,8 +46,64 @@ var readerView = {
 		navigate(tabId, tabs.get(tabId).url.split("?url=")[1]);
 		tabs.update(tabId, {
 			isReaderView: false
-		})
-	}
+		});
+	},
+	showReadingList: function (options) {
+		if (performance.now() < 1000) { //history hasn't loaded yet
+			return;
+		}
+
+		bookmarks.searchHistory(readerView.readerURL, function (data) {
+			var cTime = Date.now();
+			var oneWeekInMS = 7 * 24 * 60 * 60 * 1000;
+
+			function calculateReadingListScore(article) {
+				return article.lastVisit + (5000 * article.visitCount);
+			}
+
+			var articles = data.filter(function (item) {
+				return item.url.indexOf(readerView.readerURL) == 0 && (cTime - item.lastVisit < oneWeekInMS || (cTime - item.lastVisit < oneWeekInMS * 3 && item.visitCount == 1))
+			}).sort(function (a, b) {
+				return calculateReadingListScore(b) - calculateReadingListScore(a);
+			});
+
+			if (options && options.limitResults) {
+				articles = articles.slice(0, 4);
+			}
+
+			articles.forEach(function (article) {
+				var item = createSearchbarItem({
+					title: article.title,
+					secondaryText: urlParser.prettyURL(article.url.replace(readerView.readerURL + "?url=", "")),
+					url: article.url
+				});
+
+				item.addEventListener("click", function (e) {
+					openURLFromsearchbar(e, article.url);
+				});
+
+				historyarea.appendChild(item);
+			});
+
+			if (options && options.limitResults) {
+
+				var seeMoreLink = createSearchbarItem({
+					title: "More articles",
+				});
+
+				seeMoreLink.style.opacity = 0.5;
+
+				seeMoreLink.addEventListener("click", function (e) {
+					clearsearchbar();
+					readerView.showReadingList({
+						limitResults: false
+					});
+				});
+
+				historyarea.appendChild(seeMoreLink);
+			}
+		});
+	},
 }
 
 //update the reader button on page load

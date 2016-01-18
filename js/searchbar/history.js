@@ -92,28 +92,20 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			return;
 		}
 
-		var textToSearch = text;
-
 		if (text) {
-			textToSearch = text.trim();
+			text = text.trim();
 		}
 
 		//if we're offline, the only sites that will work are reader articles, so we should show those as top sites
 
-		if (!textToSearch && !navigator.onLine) {
-			var showingReaderArticles = true;
-			textToSearch = readerView.readerURL;
+		if (!text && !navigator.onLine) {
+			readerView.showReadingList({
+				limitResults: true
+			});
+			return;
 		}
 
-		bookmarks.searchHistory(textToSearch, function (results) {
-
-			//show the most recent articles
-
-			if (showingReaderArticles) {
-				results.sort(function (a, b) {
-					return b.lastVisit - a.lastVisit;
-				});
-			}
+		bookmarks.searchHistory(text, function (results) {
 
 			var showedTopAnswer = false;
 
