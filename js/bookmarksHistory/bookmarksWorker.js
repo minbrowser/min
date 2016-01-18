@@ -62,7 +62,12 @@ onmessage = function (e) {
 			url: pageData.url,
 		});
 
-		bookmarksInMemory[pageData.url] = pageData;
+		bookmarksInMemory[bookmark.url] = {
+			url: bookmark.url,
+			title: bookmark.title,
+			//we skip the text property, since it takes up a lot of memory and isn't used anywhere
+			extraData: bookmark.extraData
+		};
 	}
 
 	if (action == "deleteBookmark") {
@@ -90,29 +95,41 @@ onmessage = function (e) {
 			return;
 		}
 
-		var results = bookmarksIndex.search(searchText);
-
-		//return 5, sorted by relevancy
-
-
-		results = results.sort(function (a, b) {
-			return b.score - a.score
-		}).splice(0, 5);
-
-		//change data format
-
-		for (var i = 0; i < results.length; i++) {
-			var url = results[i].ref;
-
-			//the item has been deleted
-			if (!bookmarksInMemory[url]) {
-				delete results[i];
-				continue;
+		if (searchText.indexOf(" ") == -1) { //if there is only one word, don't do a full-text search
+			var results = [];
+			for (var url in bookmarksInMemory) {
+				if ((bookmarksInMemory[url].title + bookmarksInMemory[url].url).toLowerCase().indexOf(searchText.toLowerCase()) != -1) {
+					bookmarksInMemory[url].score = 1;
+					results.push(bookmarksInMemory[url]);
+				}
 			}
+		} else {
 
-			bookmarksInMemory[url].score = results[i].score;
-			results[i] = bookmarksInMemory[url];
+			var results = bookmarksIndex.search(searchText);
+
+			//return 5, sorted by relevancy
+
+
+			results = results.sort(function (a, b) {
+				return b.score - a.score
+			}).splice(0, 5);
+
+			//change data format
+
+			for (var i = 0; i < results.length; i++) {
+				var url = results[i].ref;
+
+				//the item has been deleted
+				if (!bookmarksInMemory[url]) {
+					delete results[i];
+					continue;
+				}
+
+				bookmarksInMemory[url].score = results[i].score;
+				results[i] = bookmarksInMemory[url];
+			}
 		}
+
 		postMessage({
 			result: results,
 			scope: "bookmarks",
