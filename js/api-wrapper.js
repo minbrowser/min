@@ -24,7 +24,9 @@ function destroyTab(id) {
 
 /* switches to a tab - update the webview, state, tabstrip, etc. */
 
-function switchToTab(id) {
+function switchToTab(id, options) {
+
+	options = options || {};
 
 	/* tab switching disabled in focus mode */
 	if (isFocusMode) {
@@ -34,12 +36,13 @@ function switchToTab(id) {
 
 	leaveTabEditMode();
 
-	setActiveTabElement(id);
-	switchToWebview(id, {
-		focus: !isExpandedMode //trying to focus a webview while in expanded mode breaks the page
-	});
-
 	tabs.setSelected(id);
+	setActiveTabElement(id);
+	switchToWebview(id);
+
+	if (options.focusWebview != false && !isExpandedMode) { //trying to focus a webview while in expanded mode breaks the page
+		getWebview(id).get(0).focus();
+	}
 
 	var tabData = tabs.get(id);
 	setColor(tabData.backgroundColor, tabData.foregroundColor);

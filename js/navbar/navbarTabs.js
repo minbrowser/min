@@ -326,9 +326,11 @@ function addTab(tabId, options) {
 		return;
 	}
 
-	switchToTab(tabId);
+	switchToTab(tabId, {
+		focusWebview: false
+	});
 
-	if (options.focus != false) {
+	if (options.enterEditMode != false) {
 		enterEditMode(tabId)
 	}
 }

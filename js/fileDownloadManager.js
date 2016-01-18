@@ -23,7 +23,9 @@ ipc.on("openPDF", function (event, filedata) {
 		}, tabs.getIndex(tabs.getSelected()) + 1);
 
 		addTab(newTab, {
-			focus: false
+			enterEditMode: false
 		});
+
+		getWebview(newTab).get(0).focus();
 	}
 });

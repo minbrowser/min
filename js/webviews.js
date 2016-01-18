@@ -105,7 +105,7 @@ function getWebviewDom(options) {
 			private: tabs.get(tab).private //inherit private status from the current tab
 		}, currentIndex + 1);
 		addTab(newTab, {
-			focus: false,
+			enterEditMode: false,
 			openInBackground: e.disposition == "background-tab", //possibly open in background based on disposition
 		});
 	});
@@ -175,15 +175,10 @@ function addWebview(tabId) {
 	webviewBase.append(webview);
 }
 
-function switchToWebview(id, options) {
+function switchToWebview(id) {
 	$("webview").prop("hidden", true);
 
-	var webview = getWebview(id);
-	webview.removeClass("hidden").prop("hidden", false); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
-
-	if (options && options.focus) {
-		webview[0].focus();
-	}
+	getWebview(id).removeClass("hidden").prop("hidden", false); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
 }
 
 function updateWebview(id, url) {
