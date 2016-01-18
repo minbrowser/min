@@ -25,7 +25,7 @@ var bookmarks = {
 				});
 			}
 
-		}, 2000);
+		}, 500);
 	},
 	currentCallback: function () {},
 	onDataRecieved: function (data) {
