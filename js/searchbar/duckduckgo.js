@@ -184,8 +184,6 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 			})
 			.then(function (res) {
 
-				$searchbar.find(".ddg-answer").remove();
-
 				//if value has changed, don't show results
 				if (text != getValue(input) && !options.alwaysShow) {
 					return;
@@ -208,6 +206,10 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 					}
 
 					var item = createSearchbarItem(data);
+				}
+
+				if (options.destroyPrevious != false || item) {
+					$searchbar.find(".ddg-answer").remove();
 				}
 
 				if (item) {

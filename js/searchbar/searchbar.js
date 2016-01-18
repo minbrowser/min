@@ -340,7 +340,7 @@ function focussearchbarItem(options) {
 	if (focusedItem.hasClass("iadata-onfocus")) {
 
 		setTimeout(function () {
-			if (focusedItem.is(":focus")) {
+			if (document.activeElement == focusedItem[0]) {
 				var itext = focusedItem.find(".title").text();
 
 				showInstantAnswers(itext, currentsearchbarInput, {
@@ -414,6 +414,7 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 		var div = createSearchbarItem({
 			icon: "fa-search",
 			title: item,
+			classList: ["iadata-onfocus"]
 		});
 
 		div.addEventListener("click", function (e) {
