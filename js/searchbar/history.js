@@ -88,144 +88,146 @@ function autocompleteResultIfNeeded(input, result) {
 
 var showHistoryResults = throttle(function (text, input, maxItems) {
 
-	if (!text && input.value) { //if the entire input is highlighted (such as when we first focus the input), don't show anything
-		return;
-	}
-
-	var textToSearch = text;
-
-	if (text) {
-		textToSearch = text.trim();
-	}
-
-	//if we're offline, the only sites that will work are reader articles, so we should show those as top sites
-
-	if (!textToSearch && !navigator.onLine) {
-		var showingReaderArticles = true;
-		textToSearch = readerView.readerURL;
-	}
-
-	bookmarks.searchHistory(textToSearch, function (results) {
-
-		//show the most recent articles
-
-		if (showingReaderArticles) {
-			results.sort(function (a, b) {
-				return b.lastVisit - a.lastVisit;
-			});
+		if (!text && input.value) { //if the entire input is highlighted (such as when we first focus the input), don't show anything
+			return;
 		}
 
-		var showedTopAnswer = false;
+		var textToSearch = text;
 
-		maxItems = maxItems || maxHistoryResults;
-
-		//if there is no text, only history results will be shown, so we can assume that 4 results should be shown.
-		if (!text) {
-			maxItems = 4;
+		if (text) {
+			textToSearch = text.trim();
 		}
 
-		empty(historyarea);
+		//if we're offline, the only sites that will work are reader articles, so we should show those as top sites
 
-		if (topAnswerarea.getElementsByClassName("history-item").length > 0) {
-			empty(topAnswerarea);
+		if (!textToSearch && !navigator.onLine) {
+			var showingReaderArticles = true;
+			textToSearch = readerView.readerURL;
 		}
 
-		searchbarAutocomplete(text, input, results);
+		bookmarks.searchHistory(textToSearch, function (results) {
 
-		if (results.length < 10) { //if we don't have a lot of history results, show search suggestions
-			limitSearchSuggestions(results.length);
-			maxItems = 3;
-			showSearchSuggestions(text, input);
-		} else if (text.indexOf("!") == -1) { //if we have a !bang, always show results
-			empty(serarea);
-		}
+			//show the most recent articles
 
-		var resultsShown = 0;
-
-		//we will never have more than 5 results, so we don't need to create more DOM elements than that
-
-		requestAnimationFrame(function () {
-
-			var isBangSearch = text.indexOf("!") == 0;
-
-			results.slice(0, 5).forEach(function (result) {
-
-				DDGSearchURLRegex.lastIndex = 0;
-				var isDDGSearch = DDGSearchURLRegex.test(result.url);
-
-				//if we're doing a bang search, but the item isn't a web search, it probably isn't useful, so we shouldn't show it
-				if (!isDDGSearch && isBangSearch) {
-					return;
-				}
-
-
-				if (isDDGSearch) { //show the result like a search suggestion
-
-					var processedTitle = decodeURIComponent(result.url.replace(DDGSearchURLRegex, "$1").replace(plusRegex, " "));
-
-					var data = {
-						icon: "fa-search",
-						title: processedTitle,
-						url: result.url,
-						classList: ["history-item"],
-					}
-				} else {
-					var data = {
-						icon: "fa-globe",
-						title: getRealTitle(result.title) || result.url,
-						url: result.url,
-						classList: ["history-item"],
-					}
-
-					if (result.title !== result.url) {
-						data.secondaryText = urlParser.prettyURL(result.url);
-					}
-				}
-
-
-				var item = createSearchbarItem(data);
-
-				item.addEventListener("click", function (e) {
-					openURLFromsearchbar(e, result.url);
+			if (showingReaderArticles) {
+				results.sort(function (a, b) {
+					return b.lastVisit - a.lastVisit;
 				});
-
-				if (resultsShown >= maxItems) { //only show up to n history items
-					item.hidden = true;
-					item.classList.add("unfocusable");
-				}
-
-				if (urlParser.areEqual(currentACItem, result.url) && resultsShown < maxItems && !showedTopAnswer) { //the item is being autocompleted, highlight it
-					item.classList.add("fakefocus");
-					topAnswerarea.appendChild(item);
-					showedTopAnswer = true;
-				} else {
-					historyarea.appendChild(item)
-				}
-
-
-				resultsShown++;
-
-			});
-
-			//show a top answer item if we did domain autocompletion
-
-			if (currentACItem && !showedTopAnswer && !DDGSearchURLRegex.test(currentACItem)) {
-				var item = createSearchbarItem({
-					classList: ["history-item", "fakefocus"],
-					icon: "fa-globe",
-					title: urlParser.prettyURL(currentACItem),
-				});
-
-				item.addEventListener("click", function (e) {
-					openURLFromsearchbar(e, currentACItem);
-				});
-
-				topAnswerarea.appendChild(item);
 			}
-		});
 
-	});
-}, 50);
+			var showedTopAnswer = false;
+
+			maxItems = maxItems || maxHistoryResults;
+
+			//if there is no text, only history results will be shown, so we can assume that 4 results should be shown.
+			if (!text) {
+				maxItems = 4;
+			}
+
+			empty(historyarea);
+
+			if (topAnswerarea.getElementsByClassName("history-item").length > 0) {
+				empty(topAnswerarea);
+			}
+
+			searchbarAutocomplete(text, input, results);
+
+			if (text.indexOf("!") == 0) {
+				showSearchSuggestions(text, input, 5);
+			} else if (results.length < 10) {
+				maxItems = 3;
+				showSearchSuggestions(text, input, 5 - results.length);
+			} else {
+				empty(serarea);
+			}
+
+			var resultsShown = 0;
+
+			//we will never have more than 5 results, so we don't need to create more DOM elements than that
+
+			requestAnimationFrame(function () {
+
+				var isBangSearch = text.indexOf("!") == 0;
+
+				results.slice(0, 5).forEach(function (result) {
+
+					DDGSearchURLRegex.lastIndex = 0;
+					var isDDGSearch = DDGSearchURLRegex.test(result.url);
+
+					//if we're doing a bang search, but the item isn't a web search, it probably isn't useful, so we shouldn't show it
+					if (!isDDGSearch && isBangSearch) {
+						return;
+					}
+
+
+					if (isDDGSearch) { //show the result like a search suggestion
+
+						var processedTitle = decodeURIComponent(result.url.replace(DDGSearchURLRegex, "$1").replace(plusRegex, " "));
+
+						var data = {
+							icon: "fa-search",
+							title: processedTitle,
+							url: result.url,
+							classList: ["history-item"],
+						}
+					} else {
+						var data = {
+							icon: "fa-globe",
+							title: getRealTitle(result.title) || result.url,
+							url: result.url,
+							classList: ["history-item"],
+						}
+
+						if (result.title !== result.url) {
+							data.secondaryText = urlParser.prettyURL(result.url);
+						}
+					}
+
+
+					var item = createSearchbarItem(data);
+
+					item.addEventListener("click", function (e) {
+						openURLFromsearchbar(e, result.url);
+					});
+
+					if (resultsShown >= maxItems) { //only show up to n history items
+						item.hidden = true;
+						item.classList.add("unfocusable");
+					}
+
+					if (urlParser.areEqual(currentACItem, result.url) && resultsShown < maxItems && !showedTopAnswer) { //the item is being autocompleted, highlight it
+						item.classList.add("fakefocus");
+						topAnswerarea.appendChild(item);
+						showedTopAnswer = true;
+					} else {
+						historyarea.appendChild(item)
+					}
+
+
+					resultsShown++;
+
+				});
+
+				//show a top answer item if we did domain autocompletion
+
+				if (currentACItem && !showedTopAnswer && !DDGSearchURLRegex.test(currentACItem)) {
+					var item = createSearchbarItem({
+						classList: ["history-item", "fakefocus"],
+						icon: "fa-globe",
+						title: urlParser.prettyURL(currentACItem),
+					});
+
+					item.addEventListener("click", function (e) {
+						openURLFromsearchbar(e, currentACItem);
+					});
+
+					topAnswerarea.appendChild(item);
+				}
+			});
+
+		});
+	},
+	50);
 
 function limitHistoryResults(maxItems) {
 	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));

@@ -1,16 +1,11 @@
-var BANG_REGEX = /!\w+/g;
+var bangRegex = /!\w+/g;
 var serarea = searchbar.querySelector(".search-engine-results");
-var $serarea = $(serarea);
 var iaarea = searchbar.querySelector(".instant-answer-results");
 var topAnswerarea = searchbar.querySelector(".top-answer-results");
 var suggestedsitearea = searchbar.querySelector("#searchbar .ddg-site-results");
 
 //cache duckduckgo bangs so we make fewer network requests
 var cachedBangSnippets = {};
-
-const minSearchSuggestions = 2;
-const maxSearchSuggestions = 4;
-var currentSuggestionLimit = maxSearchSuggestions;
 
 /* custom answer layouts */
 
@@ -84,96 +79,82 @@ var IAFormats = {
 }
 
 //this is triggered from history.js - we only show search suggestions if we don't have history results
-window.showSearchSuggestions = throttle(function (text, input) {
+window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 
 	if (!text || tabs.get(tabs.getSelected()).private) { //we don't show search suggestions in private tabs, since this would send typed text to DDG
 		return;
 	}
 
-	$.ajax("https://ac.duckduckgo.com/ac/?q=" + encodeURIComponent(text))
-		.done(function (results) {
+	itemsToShow = Math.max(2, itemsToShow);
 
-			requestAnimationFrame(function () {
+	fetch("https://ac.duckduckgo.com/ac/?q=" + encodeURIComponent(text))
+		.then(function (response) {
+			return response.json();
+		})
+		.then(function (results) {
 
-				empty(serarea);
+			empty(serarea);
 
-				if (results && results[0] && results[0].snippet) { //!bang search - ddg api doesn't have a good way to detect this
+			if (results && results[0] && results[0].snippet) { //!bang search - ddg api doesn't have a good way to detect this
 
-					results.splice(0, 5).forEach(function (result) {
-						cachedBangSnippets[result.phrase] = result.snippet;
+				results.splice(0, 5).forEach(function (result) {
+					cachedBangSnippets[result.phrase] = result.snippet;
 
-						//autocomplete the bang, but allow the user to keep typing
+					//autocomplete the bang, but allow the user to keep typing
 
-						var data = {
-							image: result.image,
-							imageIsInline: true,
-							title: result.snippet,
-							secondaryText: result.phrase
-						}
+					var data = {
+						image: result.image,
+						imageIsInline: true,
+						title: result.snippet,
+						secondaryText: result.phrase
+					}
 
-						var item = createSearchbarItem(data);
+					var item = createSearchbarItem(data);
 
-						item.addEventListener("click", function () {
-							setTimeout(function () { //if the click was triggered by the keydown, focusing the input and then keyup will cause a navigation. Wait a bit for keyup before focusing the input again.
-								input.value = result.phrase + " ";
-								input.focus();
-							}, 100);
-						});
-
-						serarea.appendChild(item);
+					item.addEventListener("click", function () {
+						setTimeout(function () {
+							input.value = result.phrase + " ";
+							input.focus();
+						}, 66);
 					});
 
-				} else if (results) {
-					results = results.splice(0, currentSuggestionLimit);
+					serarea.appendChild(item);
+				});
 
-					results.forEach(function (result) {
+			} else if (results) {
+				results.splice(0, itemsToShow).forEach(function (result) {
 
-						var title = result.phrase,
-							secondaryText = "";
+					var data = {
+						title: result.phrase,
+						classList: ["iadata-onfocus"],
+					}
 
-						if (BANG_REGEX.test(result.phrase)) {
+					if (bangRegex.test(result.phrase)) {
 
-							var bang = result.phrase.match(BANG_REGEX)[0];
+						data.title = result.phrase.replace(bangRegex, "");
 
-							title = result.phrase.replace(BANG_REGEX, "");
+						var bang = result.phrase.match(bangRegex)[0];
+						data.secondaryText = "Search on " + cachedBangSnippets[bang];
+					}
 
-							secondaryText = "Search on " + cachedBangSnippets[bang];
-						}
+					if (urlParser.isURL(result.phrase) || urlParser.isURLMissingProtocol(result.phrase)) { //website suggestions
+						data.icon = "fa-globe";
+					} else { //regular search results
+						data.icon = "fa-search";
+					}
 
-						if (urlParser.isURL(result.phrase) || urlParser.isURLMissingProtocol(result.phrase)) { //website suggestions
-							var icon = "fa-globe";
-						} else { //regular search results
-							var icon = "fa-search";
-						}
+					var item = createSearchbarItem(data);
 
-						var data = {
-							icon: icon,
-							title: result.phrase,
-							secondaryText: secondaryText,
-							classList: ["iadata-onfocus"],
-						}
-
-						var item = createSearchbarItem(data);
-
-						item.addEventListener("click", function (e) {
-							openURLFromsearchbar(e, result.phrase);
-						});
-
-						serarea.appendChild(item);
+					item.addEventListener("click", function (e) {
+						openURLFromsearchbar(e, result.phrase);
 					});
-				}
-			});
+
+					serarea.appendChild(item);
+				});
+			}
 		});
 
 }, 500);
-
-/* this is called from historySuggestions. When we find history results, we want to limit search suggestions to 2 so the searchbar doesn't get too large. */
-
-var limitSearchSuggestions = function (itemsToRemove) {
-	var itemsLeft = Math.max(minSearchSuggestions, maxSearchSuggestions - itemsToRemove);
-	currentSuggestionLimit = itemsLeft;
-	$serarea.find(".result-item:nth-child(n+{items})".replace("{items}", itemsLeft + 1)).remove();
-}
 
 window.showInstantAnswers = debounce(function (text, input, options) {
 

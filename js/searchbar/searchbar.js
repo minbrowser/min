@@ -307,13 +307,6 @@ var showSearchbarResults = function (text, input, event) {
 
 	//show searchbar results
 
-
-	//show results if a !bang search is occuring
-	if (text.indexOf("!") == 0) {
-
-		showSearchSuggestions(text, input);
-	}
-
 	showBookmarkResults(text);
 
 	showHistoryResults(text, input);
