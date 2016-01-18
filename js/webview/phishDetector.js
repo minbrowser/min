@@ -237,7 +237,7 @@ function checkPhishingStatus() {
 
 			// if the form is submitted to a different domain, it is suspicious
 
-			if (getRootDomain(aTest.hostname) != getRootDomain(window.location.hostname)) {
+			if (fa.indexOf("javascript:") != 0 && getRootDomain(aTest.hostname) != getRootDomain(window.location.hostname)) {
 				debug_phishing("submitting form to xdomain");
 				phishingScore += 0.66;
 			}
