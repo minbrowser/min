@@ -42,9 +42,9 @@ ipc.on("sendData", function () {
 		} catch (e) {}
 	}
 
-	/* also parse special metadata: price, rating, location */
+	/* also parse special metadata: price, rating, location, cooking time */
 
-	var price, rating, location;
+	var price, rating, location, cookTime;
 
 	//pricing
 
@@ -99,6 +99,16 @@ ipc.on("sendData", function () {
 		location = location.replace(/,?\d{5}$/g, "");
 	}
 
+	//cooking time
+
+	var cookingTimeEl = document.querySelector('[itemprop="totalTime"], [itemprop="cookTime"]');
+
+	if (cookingTimeEl) {
+		cookTime = cookingTimeEl.textContent;
+		cookTime = cookTime.replace(/\sm$/g, " minutes").replace(/\sh$/g, " hours");
+		cookTime = cookTime.replace("1 hours", "1 hour");
+	}
+
 
 	console.log("rating: " + rating);
 	console.log("price: " + price);
@@ -113,6 +123,7 @@ ipc.on("sendData", function () {
 				price: price,
 				rating: rating,
 				location: location,
+				cookTime: cookTime,
 			}
 		}
 	});
