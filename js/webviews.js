@@ -148,6 +148,14 @@ function getWebviewDom(options) {
 		if (e.originalEvent.errorCode != -3 && e.originalEvent.validatedURL == e.target.getURL()) {
 			navigate($(this).attr("data-tab"), errorPage + "?ec=" + encodeURIComponent(e.originalEvent.errorCode) + "&url=" + e.target.getURL());
 		}
+	});
+
+	w0.addEventListener("enter-html-full-screen", function (e) {
+		this.classList.add("fullscreen");
+	});
+
+	w0.addEventListener("leave-html-full-screen", function (e) {
+		this.classList.remove("fullscreen");
 	})
 
 	return w;

@@ -7,6 +7,13 @@
 	outline: none;
 	display: block;
 }
+#webviews webview.fullscreen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+}
 
 /* hack to work around display: none issues with webviews */
 
