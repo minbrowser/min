@@ -1,21 +1,56 @@
 /* send bookmarks data.  */
 
-function getBookmarksText(doc) {
-	var candidates = ["P", "B", "I", "U", "H1", "H2", "H3", "A", "PRE", "CODE", "SPAN"];
-	var ignore = ["LINK", "STYLE", "SCRIPT", "NOSCRIPT"];
-	var text = "";
-	var pageElements = doc.querySelectorAll("*");
-	for (var i = 0; i < pageElements.length; i++) {
+function getBookmarksText(doc, win) {
 
-		var el = pageElements[i]
-		if (candidates.indexOf(el.tagName) != -1 || (!el.childElementCount && ignore.indexOf(el.tagName) == -1)) {
-			text += " " + el.textContent;
+	var docClone = doc.cloneNode(doc, true);
+
+	var ignoredElements = docClone.body.querySelectorAll('link, style, script, noscript, .visually-hidden, .visuallyhidden, [role=presentation], [hidden], [style*="display:none"], .ad, .dialog, .modal');
+
+	if (ignoredElements) {
+		for (var i = 0; i < ignoredElements.length; i++) {
+			ignoredElements[i].parentNode.removeChild(ignoredElements[i]);
+		}
+	}
+
+	var ignoreIfMinor = docClone.body.querySelectorAll("aside, .sidebar, #sidebar");
+
+	if (ignoreIfMinor) {
+		for (var i = 0; i < ignoreIfMinor.length; i++) {
+			if (ignoreIfMinor[i].textContent.length / docClone.body.textContent.length < 0.075) {
+				ignoreIfMinor[i].parentNode.removeChild(ignoreIfMinor[i]);
+			}
+		}
+	}
+
+
+	var candidates = ["P", "B", "I", "U", "H1", "H2", "H3", "A", "PRE", "CODE", "SPAN"];
+	var text = "";
+	var pageElements = docClone.body.querySelectorAll("*");
+	if (pageElements) {
+		for (var i = 0; i < pageElements.length; i++) {
+
+			var el = pageElements[i];
+
+			//spans with little text are unlikely to be useful
+			if (el.tagName == "span" && el.parentNode && el.parentNode.textContent.length < 30) {
+				continue;
+			}
+
+			if (candidates.indexOf(el.tagName) != -1 || !el.childElementCount) {
+
+				//ignore hidden elements
+				if (win.getComputedStyle(el).display == "none") {
+					continue;
+				}
+
+				text += " " + el.textContent;
+			}
 		}
 	}
 
 	//special meta tags
 
-	var mt = document.querySelector("meta[name=description]");
+	var mt = docClone.querySelector("meta[name=description]");
 
 	if (mt) {
 		text += " " + mt.content;
@@ -30,17 +65,6 @@ function getBookmarksText(doc) {
 }
 
 ipc.on("sendData", function () {
-	var text = getBookmarksText(document);
-
-	//try to also extract text for same-origin iframes (such as the reader mode frame)
-
-	var frames = document.querySelectorAll("iframe");
-
-	for (var x = 0; x < frames.length; frames++) {
-		try {
-			text += ". " + getBookmarksText(frames[x].contentDocument);
-		} catch (e) {}
-	}
 
 	/* also parse special metadata: price, rating, location, cooking time */
 
@@ -59,7 +83,7 @@ ipc.on("sendData", function () {
 		price = undefined;
 	}
 
-	if (price && price.indexOf("$") == -1 && currencyEl) { //try to add a currency if we don't have one. We should probably check for other currencies, too.
+	if (price && price.indexOf("$") == -1 && currencyEl && navigator.language == "en-US") { //try to add a currency if we don't have one. We should probably check for other currencies, too.
 		price = (currencyEl.content || currencyEl.textContent).replace("USD", "$") + price;
 	}
 
@@ -113,6 +137,18 @@ ipc.on("sendData", function () {
 	console.log("rating: " + rating);
 	console.log("price: " + price);
 	console.log("location: " + location);
+
+	var text = getBookmarksText(document, window);
+
+	//try to also extract text for same-origin iframes (such as the reader mode frame)
+
+	var frames = document.querySelectorAll("iframe");
+
+	for (var x = 0; x < frames.length; frames++) {
+		try {
+			text += ". " + getBookmarksText(frames[x].contentDocument, frames[x].contentWindow);
+		} catch (e) {}
+	}
 
 	ipc.sendToHost("bookmarksData", {
 		url: window.location.toString(),
