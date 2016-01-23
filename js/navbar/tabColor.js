@@ -227,3 +227,19 @@ function setColor(bg, fg) {
 		$(document.body).removeClass("dark-theme");
 	}
 }
+
+/* converts a color string into an object that can be used with getTextColor */
+
+function getRGBObject(cssColor) {
+	var c = cssColor.split("(")[1].split(")")[0]
+	var c2 = c.split(",");
+
+	var obj = {
+		r: parseInt(c2[0]) / 255,
+		g: parseInt(c2[1]) / 255,
+		b: parseInt(c2[2]) / 255,
+	}
+
+	return obj;
+
+}
