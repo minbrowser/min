@@ -23,12 +23,20 @@ var bookmarksInMemory = {
 db.bookmarks
 	.each(function (bookmark) {
 
+		var t1 = performance.now();
+
 		bookmarksIndex.add({
 			id: bookmark.url,
 			title: bookmark.title || "",
 			body: bookmark.text || "",
 			url: bookmark.url,
 		});
+
+		var t2 = performance.now();
+
+		/*if (t2 - t1 > 400) {
+			console.info("bookmark is slow", bookmark, bookmark.text.length);
+		}*/
 
 		bookmarksInMemory[bookmark.url] = {
 			url: bookmark.url,
