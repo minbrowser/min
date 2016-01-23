@@ -9,6 +9,7 @@ var historyarea = searchbar.querySelector(".history-results");
 var $historyarea = $(historyarea);
 
 var maxHistoryResults = 4;
+var currentHistoryResults = null;
 
 function searchbarAutocomplete(text, input, historyResults) {
 
@@ -106,6 +107,8 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 		}
 
 		bookmarks.searchHistory(text, function (results) {
+
+			currentHistoryResults = results;
 
 			var showedTopAnswer = false;
 
