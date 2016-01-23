@@ -104,8 +104,10 @@ function setActiveTabElement(tabId) {
 	if (!isExpandedMode) {
 
 		requestIdleCallback(function () {
-			el[0].scrollIntoView({
-				behavior: "smooth"
+			requestAnimationFrame(function () {
+				el[0].scrollIntoView({
+					behavior: "smooth"
+				});
 			});
 		}, {
 			timeout: 1500
@@ -237,13 +239,12 @@ function createTabElement(tabId) {
 
 		if (e.keyCode == 13) { //return key pressed; update the url
 			var tabId = $(this).parents(".tab-item").attr("data-tab");
-			var newURL = parsesearchbarURL(this.value);
+			var newURL = currentACItem || parsesearchbarURL(this.value);
 
-			navigate(tabId, newURL);
-			leaveTabEditMode(tabId);
+			openURLFromsearchbar(e, newURL);
 
 			//focus the webview, so that autofocus inputs on the page work
-			getWebview(tabs.getSelected())[0].focus();
+			getWebview(tabs.getSelected()).get(0).focus();
 
 		} else if (e.keyCode == 9) {
 			return;

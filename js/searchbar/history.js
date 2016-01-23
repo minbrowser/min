@@ -144,7 +144,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 				var isBangSearch = text.indexOf("!") == 0;
 
-				results.slice(0, 5).forEach(function (result) {
+				results.slice(0, 4).forEach(function (result) {
 
 					DDGSearchURLRegex.lastIndex = 0;
 					var isDDGSearch = DDGSearchURLRegex.test(result.url);

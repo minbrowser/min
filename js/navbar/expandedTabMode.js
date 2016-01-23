@@ -53,20 +53,17 @@ function enterExpandedMode() {
 		//get the subtitles
 
 		tabs.get().forEach(function (tab) {
-			try {
-				var prettyURL = urlParser.prettyURL(tab.url);
-			} catch (e) {
-				var prettyURL = "";
-			}
+			var prettyURL = urlParser.prettyURL(tab.url);
 
-			var tabEl = getTabElement(tab.id);
-
-			tabEl.find(".secondary-text").text(prettyURL);
+			getTabElement(tab.id).find(".secondary-text").text(prettyURL);
 		});
 
-		$(document.body).addClass("is-expanded-mode");
-		getWebview(tabs.getSelected()).blur();
-		tabContainer.get(0).focus();
+		requestAnimationFrame(function () {
+
+			$(document.body).addClass("is-expanded-mode");
+			tabContainer.get(0).focus();
+
+		});
 
 		isExpandedMode = true;
 	}
