@@ -190,6 +190,12 @@ body.is-expanded-mode .add-tab {
 }
 @media all and (max-width: 650px) {
 	body.is-expanded-mode .tab-item {
+		min-width: 50%;
+		max-width: 50%;
+	}
+}
+@media all and (max-width: 450px) {
+	body.is-expanded-mode .tab-item {
 		min-width: 100%;
 		max-width: 100%;
 	}
