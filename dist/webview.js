@@ -11,22 +11,57 @@ delete navigator.__proto__.webkitGetUserMedia;
 delete navigator.__proto__.getUserMedia;
 ;/* send bookmarks data.  */
 
-function getBookmarksText(doc) {
-	var candidates = ["P", "B", "I", "U", "H1", "H2", "H3", "A", "PRE", "CODE", "SPAN"];
-	var ignore = ["LINK", "STYLE", "SCRIPT", "NOSCRIPT"];
-	var text = "";
-	var pageElements = doc.querySelectorAll("*");
-	for (var i = 0; i < pageElements.length; i++) {
+function getBookmarksText(doc, win) {
 
-		var el = pageElements[i]
-		if (candidates.indexOf(el.tagName) != -1 || (!el.childElementCount && ignore.indexOf(el.tagName) == -1)) {
-			text += " " + el.textContent;
+	var docClone = doc.cloneNode(doc, true);
+
+	var ignoredElements = docClone.body.querySelectorAll('link, style, script, noscript, .visually-hidden, .visuallyhidden, [role=presentation], [hidden], [style*="display:none"], .ad, .dialog, .modal');
+
+	if (ignoredElements) {
+		for (var i = 0; i < ignoredElements.length; i++) {
+			ignoredElements[i].parentNode.removeChild(ignoredElements[i]);
+		}
+	}
+
+	var ignoreIfMinor = docClone.body.querySelectorAll("aside, .sidebar, #sidebar");
+
+	if (ignoreIfMinor) {
+		for (var i = 0; i < ignoreIfMinor.length; i++) {
+			if (ignoreIfMinor[i].textContent.length / docClone.body.textContent.length < 0.075) {
+				ignoreIfMinor[i].parentNode.removeChild(ignoreIfMinor[i]);
+			}
+		}
+	}
+
+
+	var candidates = ["P", "B", "I", "U", "H1", "H2", "H3", "A", "PRE", "CODE", "SPAN"];
+	var text = "";
+	var pageElements = docClone.body.querySelectorAll("*");
+	if (pageElements) {
+		for (var i = 0; i < pageElements.length; i++) {
+
+			var el = pageElements[i];
+
+			//spans with little text are unlikely to be useful
+			if (el.tagName == "span" && el.parentNode && el.parentNode.textContent.length < 30) {
+				continue;
+			}
+
+			if (candidates.indexOf(el.tagName) != -1 || !el.childElementCount) {
+
+				//ignore hidden elements
+				if (win.getComputedStyle(el).display == "none") {
+					continue;
+				}
+
+				text += " " + el.textContent;
+			}
 		}
 	}
 
 	//special meta tags
 
-	var mt = document.querySelector("meta[name=description]");
+	var mt = docClone.querySelector("meta[name=description]");
 
 	if (mt) {
 		text += " " + mt.content;
@@ -34,26 +69,17 @@ function getBookmarksText(doc) {
 
 	text = text.replace(/[\n\t]/g, ""); //remove useless newlines/tabs that increase filesize
 
+	text = text.replace(/\s{2,}/g, " "); //collapse multiple spaces into one
+	text = text.replace(/<.*?>/g, "");
+
 	return text;
 }
 
 ipc.on("sendData", function () {
-	var text = getBookmarksText(document);
 
-	//try to also extract text for same-origin iframes (such as the reader mode frame)
+	/* also parse special metadata: price, rating, location, cooking time */
 
-	var frames = document.querySelectorAll("iframe");
-
-	for (var x = 0; x < frames.length; frames++) {
-		if (!frames[x].contentDocument) {
-			continue;
-		}
-		text += ". " + getBookmarksText(frames[x].contentDocument);
-	}
-
-	/* also parse special metadata: price, rating, location */
-
-	var price, rating, location;
+	var price, rating, location, cookTime;
 
 	//pricing
 
@@ -68,7 +94,7 @@ ipc.on("sendData", function () {
 		price = undefined;
 	}
 
-	if (price && price.indexOf("$") == -1 && currencyEl) { //try to add a currency if we don't have one. We should probably check for other currencies, too.
+	if (price && price.indexOf("$") == -1 && currencyEl && navigator.language == "en-US") { //try to add a currency if we don't have one. We should probably check for other currencies, too.
 		price = (currencyEl.content || currencyEl.textContent).replace("USD", "$") + price;
 	}
 
@@ -108,10 +134,32 @@ ipc.on("sendData", function () {
 		location = location.replace(/,?\d{5}$/g, "");
 	}
 
+	//cooking time
+
+	var cookingTimeEl = document.querySelector('[itemprop="totalTime"], [itemprop="cookTime"]');
+
+	if (cookingTimeEl) {
+		cookTime = cookingTimeEl.textContent;
+		cookTime = cookTime.replace(/\sm$/g, " minutes").replace(/\sh$/g, " hours");
+		cookTime = cookTime.replace("1 hours", "1 hour");
+	}
+
 
 	console.log("rating: " + rating);
 	console.log("price: " + price);
 	console.log("location: " + location);
+
+	var text = getBookmarksText(document, window);
+
+	//try to also extract text for same-origin iframes (such as the reader mode frame)
+
+	var frames = document.querySelectorAll("iframe");
+
+	for (var x = 0; x < frames.length; frames++) {
+		try {
+			text += ". " + getBookmarksText(frames[x].contentDocument, frames[x].contentWindow);
+		} catch (e) {}
+	}
 
 	ipc.sendToHost("bookmarksData", {
 		url: window.location.toString(),
@@ -122,6 +170,7 @@ ipc.on("sendData", function () {
 				price: price,
 				rating: rating,
 				location: location,
+				cookTime: cookTime,
 			}
 		}
 	});
@@ -177,16 +226,13 @@ function checkPhishingStatus() {
 	}
 
 	var scanStart = performance.now();
-	var passwordInputFound = false;
 
 	function isSensitive(form) { //checks if a form is asking for sensitive information
 
-		if (form.querySelector("input[type=password]") && !passwordInputFound) {
+		if (form.querySelector("input[type=password]")) {
 
-			debug_phishing("form with password input found, decreasing threshold");
-			minPhishingScore *= 0.7;
+			debug_phishing("form with password input found");
 			sensitiveFormFound = true;
-			passwordInputFound = true;
 
 			return true;
 		}
@@ -241,17 +287,18 @@ function checkPhishingStatus() {
 	//if we have a password input, set a lower threshold
 
 	if (document.querySelector("input[type=password]")) {
-		minPhishingScore = 0.9;
+		minPhishingScore = 0.65;
 	}
 
 	var sensitiveWords = ["secure", "account", "webscr", "login", "ebayisapi", "signing", "banking", "confirm"];
-	var sensitiveFormWords = ["password", "creditcard", "credit card", "security code", "expiration date", "card type"]; //word commonly found in forms that ask for personal information
+	var sensitiveFormWords = ["password", "creditcard", "credit card", "security code", "expiration date", "card type", "social security", "income tax", "date of birth", "joint return"]; //word commonly found in forms that ask for personal information
 	var whitelistedDomains = ["adobeid-na1.services.adobe.com", "login.live.com", "www.phishtank.com", "www.wellsfargo.com", "online.citi.com", , "www.bankofamerica.com", "my.hrw.com", "www.fastcompany.com"]; //a whitelist of things we mistakenly think are bad. These should be fixed eventually, but for now a whitelist will work.
 
 	//on the whitelist
 
 	for (var i = 0; i < whitelistedDomains.length; i++) {
 		if (whitelistedDomains[i] === window.location.hostname) {
+			console.log("domain is whitelisted, not checking");
 			return;
 		}
 	}
@@ -276,7 +323,7 @@ function checkPhishingStatus() {
 
 	//no https - either insecure, phishing, or both
 
-	if (window.location.protocol != "https:") {
+	if (window.location.protocol != "https:" && window.location.protocol != "file:") {
 		debug_phishing("no https");
 		phishingScore += 0.15;
 	}
@@ -315,9 +362,20 @@ function checkPhishingStatus() {
 	}
 
 
-	if (window.location.pathname.length < 10 && window.location.hostname.replace("www.", "").length < 18) {
+	if (isTrustedDomainEnding && window.location.pathname.length < 20 && window.location.hostname.replace("www.", "").length < 18) {
 		debug_phishing("short root domain found, increasing minScore");
 		minPhishingScore += 0.3 + 0.05 * (18 - window.location.hostname.length) - (0.01 * window.location.pathname.length);
+	}
+
+	var trustedTLDs = ["com", "org", "edu", "mil", "gov"];
+
+	var pageTLD = window.location.hostname.split(".").reverse()[0];
+
+	var isTrustedDomainEnding = trustedTLDs.indexOf(pageTLD) != -1
+
+	if (window.location.hostname && !isTrustedDomainEnding) {
+		phishingScore += 0.15;
+		debug_phishing("unusual domain ending found, increasing score");
 	}
 
 	sensitiveWords.forEach(function (word) {
@@ -339,7 +397,7 @@ function checkPhishingStatus() {
 	if (forms) {
 		for (var i = 0; i < forms.length; i++) {
 			var form = forms[i];
-			var formText = form.textContent;
+			var formText = form.innerHTML.toLowerCase();
 
 			//if the form isn't sensitive, don't scan it
 
@@ -359,8 +417,8 @@ function checkPhishingStatus() {
 
 			totalFormLength += form.innerHTML.length;
 
-			if (form.getAttribute("onsubmit")) {
-				debug_phishing("js html attribute onsubmit detected");
+			if ((form.getAttribute("onsubmit") && form.getAttribute("onsubmit") != "return false") || form.getAttribute("onkeydown") || form.getAttribute("onkeypress") || form.getAttribute("onkeyup")) {
+				debug_phishing("js html inline attributes detected");
 				phishingScore += 0.05;
 			}
 
@@ -387,9 +445,9 @@ function checkPhishingStatus() {
 
 			// if the form is submitted to a different domain, it is suspicious
 
-			if (getRootDomain(aTest.hostname) != getRootDomain(window.location.hostname)) {
+			if (fa.indexOf("javascript:") != 0 && getRootDomain(aTest.hostname) != getRootDomain(window.location.hostname)) {
 				debug_phishing("submitting form to xdomain");
-				phishingScore += 0.35;
+				phishingScore += 0.66;
 			}
 
 
@@ -418,7 +476,7 @@ function checkPhishingStatus() {
 			phishingScore += 0.75;
 		}
 	}
-	if (!sensitiveFormFound) {
+	if (!sensitiveFormFound && !document.querySelector("input[type=password]")) {
 		debug_phishing("no sensitive forms found, increasing minScore");
 
 		minPhishingScore += 0.33;
@@ -468,9 +526,9 @@ function checkPhishingStatus() {
 			sameDomainLinks += linkDomains[key];
 			continue;
 		}
-		if (linkDomains[key] > 4 && key) {
+		if (linkDomains[key] > 4 && key && linkDomains[key] / totalLinks > 0.25) {
 			debug_phishing("found " + linkDomains[key] + " links that point to domain " + key)
-			phishingScore += Math.min(0.05 + (0.025 * linkDomains[key]), 0.25);
+			phishingScore += Math.min(0.1 * linkDomains[key], 0.25);
 			break; //we don't want to increase the phishing score more than once
 		}
 	}
@@ -479,7 +537,7 @@ function checkPhishingStatus() {
 
 	if (totalLinks > 2 && sameDomainLinks == 0 || (totalLinks > 5 && sameDomainLinks / totalLinks < 0.15)) {
 		debug_phishing("links go to external domain");
-		phishingScore += Math.min((totalLinks - sameDomainLinks) * 0.075, 0.5);
+		phishingScore += Math.min(0.1 + (totalLinks - sameDomainLinks) * 0.1, 0.5);
 	}
 
 	//if there are a bunch of empty links, increase score
@@ -537,12 +595,13 @@ function checkPhishingStatus() {
 	//if we have lots of forms, we need a higher threshold, since phishingScore tends to increase with more forms
 
 	if (forms.length > 3) {
+		debug_phishing("many forms found, increasing minScore");
 		minPhishingScore += Math.min(0.05 * forms.length, 0.2);
 	}
 
 	//tries to detect pages that use images to copy a ui
 
-	if (bodyText.length < 500) {
+	if (document.body.innerHTML.length < 4500) {
 		debug_phishing("small amount of body text, multiplying score");
 		phishingScore *= 1.4;
 	}
