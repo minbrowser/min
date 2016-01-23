@@ -62,11 +62,11 @@ onmessage = function (e) {
 			url: pageData.url,
 		});
 
-		bookmarksInMemory[bookmark.url] = {
-			url: bookmark.url,
-			title: bookmark.title,
+		bookmarksInMemory[pageData.url] = {
+			url: pageData.url,
+			title: pageData.title,
 			//we skip the text property, since it takes up a lot of memory and isn't used anywhere
-			extraData: bookmark.extraData
+			extraData: pageData.extraData
 		};
 	}
 
