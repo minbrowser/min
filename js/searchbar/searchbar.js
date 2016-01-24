@@ -244,6 +244,9 @@ function clearsearchbar() {
 }
 
 function showSearchbar(triggerInput) {
+
+	currentACItem = null
+
 	searchbarCachedText = triggerInput.val();
 	$(document.body).addClass("searchbar-shown");
 
