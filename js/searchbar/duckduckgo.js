@@ -7,6 +7,35 @@ var suggestedsitearea = searchbar.querySelector("#searchbar .ddg-site-results");
 //cache duckduckgo bangs so we make fewer network requests
 var cachedBangSnippets = {};
 
+//format is {bang: count}
+var bangUseCounts = JSON.parse(localStorage.getItem("bangUseCounts") || "{}");
+
+function incrementBangCount(bang) {
+	//increment bangUseCounts
+
+	if (bangUseCounts[bang]) {
+		bangUseCounts[bang]++;
+	} else {
+		bangUseCounts[bang] = 1;
+	}
+
+	//prevent the data from getting too big
+
+	if (bangUseCounts[bang] > 500) {
+		for (var bang in bangUseCounts) {
+			bangUseCounts[bang] = Math.floor(bangUseCounts[bang] * 0.9);
+
+			if (bangUseCounts[bang] < 10) {
+				delete bangUseCounts[bang];
+			}
+		}
+	}
+}
+
+var saveBangUseCounts = debounce(function () {
+	localStorage.setItem("bangUseCounts", JSON.stringify(bangUseCounts));
+}, 10000);
+
 /* custom answer layouts */
 
 var IAFormats = {
@@ -97,7 +126,20 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 
 			if (results && results[0] && results[0].snippet) { //!bang search - ddg api doesn't have a good way to detect this
 
-				results.splice(0, 5).forEach(function (result) {
+				results.sort(function (a, b) {
+					var aScore = a.score;
+					var bScore = b.score;
+					if (bangUseCounts[a.phrase]) {
+						aScore *= bangUseCounts[a.phrase];
+					}
+					if (bangUseCounts[b.phrase]) {
+						bScore *= bangUseCounts[b.phrase];
+					}
+
+					return bScore - aScore;
+				});
+
+				results.slice(0, 5).forEach(function (result) {
 					cachedBangSnippets[result.phrase] = result.snippet;
 
 					//autocomplete the bang, but allow the user to keep typing
@@ -113,6 +155,9 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 
 					item.addEventListener("click", function () {
 						setTimeout(function () {
+							incrementBangCount(result.phrase);
+							saveBangUseCounts();
+
 							input.value = result.phrase + " ";
 							input.focus();
 						}, 66);
@@ -134,6 +179,10 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 						data.title = result.phrase.replace(bangRegex, "");
 
 						var bang = result.phrase.match(bangRegex)[0];
+
+						incrementBangCount(bang);
+						saveBangUseCounts();
+
 						data.secondaryText = "Search on " + cachedBangSnippets[bang];
 					}
 
