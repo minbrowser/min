@@ -129,6 +129,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 			if (text.indexOf("!") == 0) {
 				showSearchSuggestions(text, input, 5);
+				return; //never show history results for bang search
 			} else if (results.length < 10) {
 				maxItems = 3;
 				showSearchSuggestions(text, input, 5 - results.length);
@@ -142,17 +143,10 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 			requestAnimationFrame(function () {
 
-				var isBangSearch = text.indexOf("!") == 0;
-
 				results.slice(0, 4).forEach(function (result) {
 
 					DDGSearchURLRegex.lastIndex = 0;
 					var isDDGSearch = DDGSearchURLRegex.test(result.url);
-
-					//if we're doing a bang search, but the item isn't a web search, it probably isn't useful, so we shouldn't show it
-					if (!isDDGSearch && isBangSearch) {
-						return;
-					}
 
 
 					if (isDDGSearch) { //show the result like a search suggestion
