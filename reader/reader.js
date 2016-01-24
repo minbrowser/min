@@ -41,38 +41,28 @@ function cleanupOfflineArticles() {
 	}
 }
 
-requestIdleCallback(function () {
-	cleanupOfflineArticles();
-}, {
-	timeout: 1000
-});
+setTimeout(cleanupOfflineArticles, 5000);
 
 function getOfflineArticle(url) {
 	return localStorage.getItem("readerview-cachedPage-" + url);
 }
 
-var rv = $("#reader-view");
-var backbutton = $("#backtoarticle");
+var backbutton = document.getElementById("backtoarticle");
 
 var emptyHTMLdocument = "<!DOCTYPE html><html><head></head><body></body></html>"
 
 function startReaderView(article) {
 
-	document.body.removeChild(iframe);
+	document.body.removeChild(parserframe);
 
-	window.rframe = document.createElement("iframe");
-	rframe.classList.add("reader-frame");
-	rframe.sandbox = "allow-same-origin allow-popups";
-	rframe.srcdoc = emptyHTMLdocument;
+	var readerContent = "<link rel='stylesheet' href='readerView.css'>";
 
-	rframe.onload = function () {
+	if (!article) { //we couln't parse an article
+		readerContent += "<div class='reader-main'><em>No article found.</em></div>";
+	} else {
+		document.title = article.title;
 
-		if (!article) { //we couln't parse an article
-			rframe.contentDocument.body.innerHTML = "<div class='reader-main'><em>No article found.</em></div><link rel='stylesheet' href='readerView.css'>";
-			return;
-		}
-
-		var readerContent = "<div class='reader-main'>" + "<h1 class='article-title'>" + (article.title || "") + "</h1>"
+		readerContent += "<div class='reader-main'>" + "<h1 class='article-title'>" + (article.title || "") + "</h1>"
 
 		if (article.byline) {
 			readerContent += "<h2 class='article-authors'>" + article.byline + "</h2>"
@@ -80,17 +70,22 @@ function startReaderView(article) {
 
 		readerContent += article.content + "</div>";
 
-		rframe.contentDocument.body.innerHTML = "<link rel='stylesheet' href='readerView.css'>" + readerContent;
+	}
 
-		setTimeout(function () { //wait for stylesheet to load
+
+	window.rframe = document.createElement("iframe");
+	rframe.classList.add("reader-frame");
+	rframe.sandbox = "allow-same-origin allow-popups";
+	rframe.srcdoc = readerContent;
+
+	rframe.onload = function () {
+
+		requestAnimationFrame(function () {
 			rframe.height = rframe.contentDocument.body.querySelector(".reader-main").scrollHeight + "px";
-			rframe.focus(); //allows spacebar page down and arrow keys to work correctly
-		}, 300);
-
-		if (article.title) {
-			document.title = article.title;
-		}
-
+			requestAnimationFrame(function () {
+				rframe.focus(); //allows spacebar page down and arrow keys to work correctly
+			});
+		});
 
 		/* site-specific workarounds */
 
@@ -107,7 +102,7 @@ function startReaderView(article) {
 
 	document.body.appendChild(rframe);
 
-	backbutton.on("click", function (e) {
+	backbutton.addEventListener("click", function (e) {
 		window.location = url;
 	});
 
@@ -125,21 +120,21 @@ var url = getQueryVariable("url");
 
 document.title = "Reader View | " + url
 
-var iframe = document.createElement("iframe");
-iframe.classList.add("temporary-iframe");
-iframe.sandbox = "allow-same-origin";
-document.body.appendChild(iframe);
+var parserframe = document.createElement("iframe");
+parserframe.className = "temporary-iframe";
+parserframe.sandbox = "allow-same-origin";
+document.body.appendChild(parserframe);
 
 function processArticle(data) {
 
 	cacheArticleForOffline(url, data);
 
 	window.d = data;
-	iframe.srcdoc = d;
+	parserframe.srcdoc = d;
 
-	iframe.onload = function () {
+	parserframe.onload = function () {
 
-		var doc = iframe.contentDocument;
+		var doc = parserframe.contentDocument;
 
 		var location = new URL(url);
 
@@ -167,10 +162,13 @@ function processArticle(data) {
 
 }
 
-$.ajax(url)
-	.done(processArticle)
-	.fail(function (data) {
-		console.info("request failed with error", data);
+fetch(url)
+	.then(function (response) {
+		return response.text();
+	})
+	.then(processArticle)
+	.catch(function (data) {
+		console.warn("request failed with error", data);
 
 		var cachedData = getOfflineArticle(url);
 
