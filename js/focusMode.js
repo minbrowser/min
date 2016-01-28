@@ -2,7 +2,7 @@ var isFocusMode = false;
 
 ipc.on("enterFocusMode", function () {
 	isFocusMode = true;
-	$(document.body).addClass("is-focus-mode");
+	document.body.classList.add("is-focus-mode");
 
 	setTimeout(function () { //wait to show the message until the tabs have been hidden, to make the message less confusing
 		electron.remote.require("dialog").showMessageBox({
@@ -17,7 +17,7 @@ ipc.on("enterFocusMode", function () {
 
 ipc.on("exitFocusMode", function () {
 	isFocusMode = false;
-	$(document.body).removeClass("is-focus-mode");
+	document.body.classList.remove("is-focus-mode");
 });
 
 function showFocusModeError() {

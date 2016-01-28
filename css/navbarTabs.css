@@ -37,7 +37,7 @@ body.fullscreen .tab-group {
 .tab-item {
 	flex: 1;
 	min-width: 125px;
-	transition: .15s min-width;
+	transition: .15s min-width, 0.2s transform;
 	padding: 0 1em;
 	font-size: 0.8em;
 	line-height: 36px;
@@ -129,7 +129,7 @@ body.fullscreen .tab-group {
 
 /* buttons */
 
-.add-tab {
+#add-tab-button {
 	padding: 1em;
 }
 
@@ -185,7 +185,7 @@ body.is-expanded-mode .tab-item .secondary-text {
 body.is-expanded-mode .tab-item i {
 	display: none !important;
 }
-body.is-expanded-mode .add-tab {
+body.is-expanded-mode #add-tab-button {
 	display: none;
 }
 @media all and (max-width: 650px) {
@@ -211,7 +211,7 @@ body.is-expanded-mode .tab-item .tab-view-contents .title {
 body.is-focus-mode .tab-item:not(.active) {
 	display: none;
 }
-body.is-focus-mode .add-tab {
+body.is-focus-mode #add-tab-button {
 	display: none;
 }
 

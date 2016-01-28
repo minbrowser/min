@@ -10,6 +10,13 @@ var cachedBangSnippets = {};
 //format is {bang: count}
 var bangUseCounts = JSON.parse(localStorage.getItem("bangUseCounts") || "{}");
 
+function removeAllDDGAnswers() {
+	var a = searchbar.querySelectorAll(".ddg-answer");
+	for (var i = 0; i < a.length; i++) {
+		a[i].parentNode.removeChild(a[i]);
+	}
+}
+
 function incrementBangCount(bang) {
 	//increment bangUseCounts
 
@@ -46,44 +53,51 @@ var IAFormats = {
 			alternateFormats.unshift(answer.data.hexc);
 		}
 
-		var item = $("<div class='result-item indent ddg-answer' tabindex='-1'>");
-		$("<span class='title'>").text(searchText).appendTo(item);
+		var item = createSearchbarItem({
+			title: searchText,
+			descriptionBlock: alternateFormats.join(" " + METADATA_SEPARATOR + " "),
+			classList: ["indent", "ddg-answer"]
+		});
 
-		$("<div class='result-icon color-circle'>").css("background-color", "#" + answer.data.hex_code).prependTo(item);
+		var colorCircle = document.createElement("div");
+		colorCircle.className = "result-icon color-circle";
+		colorCircle.style.backgroundColor = "#" + answer.data.hex_code;
 
-		$("<span class='description-block'>").text(alternateFormats.join(" " + METADATA_SEPARATOR + " ")).appendTo(item);
+		item.insertBefore(colorCircle, item.firstChild);
 
 		return item;
 	},
 	minecraft: function (searchText, answer) {
 
-		var item = $("<div class='result-item indent ddg-answer' tabindex='-1'>");
-
-		$("<span class='title'>").text(answer.data.title).appendTo(item);
-		$("<img class='result-icon image'>").attr("src", answer.data.image).prependTo(item);
-		$("<span class='description-block'>").text(answer.data.description + " " + answer.data.subtitle).appendTo(item);
+		var item = createSearchbarItem({
+			title: answer.data.title,
+			image: answer.data.image,
+			descriptionBlock: answer.data.description + " " + answer.data.subtitle,
+			classList: ["indent", "ddg-answer"],
+		});
 
 		return item;
 	},
 	figlet: function (searchText, answer) {
 		var formattedAnswer = removeTags(answer).replace("Font: standard", "");
 
-		var item = $("<div class='result-item indent ddg-answer' tabindex='-1'>");
-		var desc = $("<span class='description-block'>").text(formattedAnswer).appendTo(item);
+		var item = createSearchbarItem({
+			descriptionBlock: formattedAnswer,
+			classList: ["indent", "ddg-answer"],
+		});
+
+		var block = item.querySelector(".description-block");
 
 		//display the data correctly
-		desc.css({
-			"white-space": "pre-wrap",
-			"font-family": "monospace",
-			"max-height": "10em",
-			"-webkit-user-select": "auto",
-		});
+		block.style.whiteSpace = "pre-wrap";
+		block.style.fontFamily = "monospace";
+		block.style.maxHeight = "10em";
+		block.style.webkitUserSelect = "auto";
 
 		return item;
 
 	},
 	currency_in: function (searchText, answer) {
-		var item = $("<div class='result-item indent ddg-answer' tabindex='-1'>");
 		var title = "";
 		if (typeof answer == "string") { //there is only one currency
 			title = answer;
@@ -96,12 +110,17 @@ var IAFormats = {
 			title = currencyArr.join(", ");
 		}
 
-		var desc = $("<span class='title title-block'>").text(title).appendTo(item);
 		if (answer.data) {
-			var subtitle = $("<span class='description-block'>").text(answer.data.title).appendTo(item);
+			var descriptionBlock = answer.data.title;
 		} else {
-			var subtitle = $("<span class='description-block'>").text("Answer").appendTo(item);
+			var descriptionBlock = "Answer";
 		}
+
+		var item = createSearchbarItem({
+			title: title,
+			descriptionBlock: descriptionBlock,
+			classList: ["indent", "ddg-answer"]
+		});
 
 		return item;
 	},
@@ -116,7 +135,9 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 
 	itemsToShow = Math.max(2, itemsToShow);
 
-	fetch("https://ac.duckduckgo.com/ac/?q=" + encodeURIComponent(text))
+	fetch("https://ac.duckduckgo.com/ac/?q=" + encodeURIComponent(text), {
+			cache: "force-cache"
+		})
 		.then(function (response) {
 			return response.json();
 		})
@@ -127,8 +148,8 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 			if (results && results[0] && results[0].snippet) { //!bang search - ddg api doesn't have a good way to detect this
 
 				results.sort(function (a, b) {
-					var aScore = a.score;
-					var bScore = b.score;
+					var aScore = a.score || 1;
+					var bScore = b.score || 1;
 					if (bangUseCounts[a.phrase]) {
 						aScore *= bangUseCounts[a.phrase];
 					}
@@ -203,7 +224,7 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 			}
 		});
 
-}, 500);
+}, 350);
 
 window.showInstantAnswers = debounce(function (text, input, options) {
 
@@ -240,7 +261,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 
 				//if there is a custom format for the answer, use that
 				if (IAFormats[res.AnswerType]) {
-					var item = IAFormats[res.AnswerType](text, res.Answer).get(0);
+					var item = IAFormats[res.AnswerType](text, res.Answer);
 
 				} else if (res.Abstract || res.Answer) {
 
@@ -258,7 +279,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				}
 
 				if (options.destroyPrevious != false || item) {
-					$searchbar.find(".ddg-answer").remove();
+					removeAllDDGAnswers();
 				}
 
 				if (item) {
@@ -326,7 +347,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				console.error(e);
 			});
 	} else {
-		$searchbar.find(".ddg-answer").remove(); //we still want to remove old items, even if we didn't make a new request
+		removeAllDDGAnswers(); //we still want to remove old items, even if we didn't make a new request
 	}
 
 }, 450);

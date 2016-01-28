@@ -1,6 +1,6 @@
 /* provides simple utilities for entering/exiting expanded tab mode */
 
-var tabDragArea = tabGroup[0]
+var tabDragArea = tabGroup;
 
 require.async("dragula", function (dragula) {
 
@@ -11,35 +11,36 @@ require.async("dragula", function (dragula) {
 
 		var tabOrder = [];
 
-		tabContainer.find(".tab-item").each(function () {
-			var tabId = parseInt($(this).attr("data-tab"));
+		var tabElements = tabContainer.querySelectorAll(".tab-item");
+
+		for (var i = 0; i < tabElements.length; i++) {
+			var tabId = parseInt(tabElements[i].getAttribute("data-tab"));
 			tabOrder.push(tabId);
-		});
+		}
 
 		tabs.reorder(tabOrder);
 	});
 
 });
 
-tabContainer.on("mousewheel", function (e) {
-	if (e.originalEvent.deltaY < -30 && e.originalEvent.deltaX < 10) { //swipe down to expand tabs
+tabContainer.addEventListener("mousewheel", function (e) {
+	if (e.deltaY < -30 && e.deltaX < 10) { //swipe down to expand tabs
 		enterExpandedMode();
 		e.stopImmediatePropagation();
 	}
 });
 
-tabContainer.on("mouseenter", ".tab-item", function (e) {
+//event listener added in navbarTabs.js
+function handleExpandedModeTabItemHover(e) {
 	if (isExpandedMode) {
-		var item = $(this);
+		var item = this;
 		setTimeout(function () {
-			if (item.is(":hover")) {
-				var tab = tabs.get(item.attr("data-tab"));
-
-				switchToTab(item.attr("data-tab"));
+			if (item.matches(":hover")) {
+				switchToTab(item.getAttribute("data-tab"));
 			}
 		}, 125);
 	}
-});
+}
 
 var isExpandedMode = false;
 
@@ -55,13 +56,15 @@ function enterExpandedMode() {
 		tabs.get().forEach(function (tab) {
 			var prettyURL = urlParser.prettyURL(tab.url);
 
-			getTabElement(tab.id).find(".secondary-text").text(prettyURL);
+			console.log(tab);
+
+			getTabElement(tab.id).querySelector(".secondary-text").textContent = prettyURL;
 		});
 
 		requestAnimationFrame(function () {
 
-			$(document.body).addClass("is-expanded-mode");
-			tabContainer.get(0).focus();
+			document.body.classList.add("is-expanded-mode");
+			tabContainer.focus();
 
 		});
 
@@ -72,7 +75,7 @@ function enterExpandedMode() {
 function leaveExpandedMode() {
 	if (isExpandedMode) {
 		dragRegion.containers = [];
-		$(document.body).removeClass("is-expanded-mode");
+		document.body.classList.remove("is-expanded-mode");
 
 		isExpandedMode = false;
 	}
@@ -80,9 +83,9 @@ function leaveExpandedMode() {
 
 //when a tab is clicked, we want to minimize the tabstrip
 
-tabContainer.on("click", ".tab-item", function () {
+tabContainer.addEventListener("click", function () {
 	if (isExpandedMode) {
 		leaveExpandedMode();
-		getWebview(tabs.getSelected())[0].focus();
+		getWebview(tabs.getSelected()).focus();
 	}
 });

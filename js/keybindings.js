@@ -1,19 +1,19 @@
 /* defines keybindings that aren't in the menu (so they aren't defined by menu.js). For items in the menu, also handles ipc messages */
 
 ipc.on("zoomIn", function () {
-	getWebview(tabs.getSelected())[0].send("zoomIn");
+	getWebview(tabs.getSelected()).send("zoomIn");
 });
 
 ipc.on("zoomOut", function () {
-	getWebview(tabs.getSelected())[0].send("zoomOut");
+	getWebview(tabs.getSelected()).send("zoomOut");
 });
 
 ipc.on("zoomReset", function () {
-	getWebview(tabs.getSelected())[0].send("zoomReset");
+	getWebview(tabs.getSelected()).send("zoomReset");
 });
 
 ipc.on("print", function () {
-	getWebview(tabs.getSelected())[0].print();
+	getWebview(tabs.getSelected()).print();
 })
 
 ipc.on("findInPage", function () {
@@ -21,7 +21,7 @@ ipc.on("findInPage", function () {
 })
 
 ipc.on("inspectPage", function () {
-	getWebview(tabs.getSelected())[0].openDevTools();
+	getWebview(tabs.getSelected()).openDevTools();
 });
 
 ipc.on("showReadingList", function () {
@@ -112,10 +112,9 @@ require.async("mousetrap", function (Mousetrap) {
 	});
 
 	Mousetrap.bind("command+d", function (e) {
-		//TODO need an actual api for this that updates the star and bookmarks
-
-		getTabElement(tabs.getSelected()).find(".bookmarks-button").click();
-	})
+		bookmarks.handleStarClick(getTabElement(tabs.getSelected()).querySelector(".bookmarks-button"));
+		enterEditMode(tabs.getSelected()); //we need to show the bookmarks button, which is only visible in edit mode
+	});
 
 	// cmd+x should switch to tab x. Cmd+9 should switch to the last tab
 
@@ -151,21 +150,27 @@ require.async("mousetrap", function (Mousetrap) {
 	Mousetrap.bind("esc", function (e) {
 		leaveTabEditMode();
 		leaveExpandedMode();
-		getWebview(tabs.getSelected()).get(0).focus();
+		getWebview(tabs.getSelected()).focus();
 	});
 
 	Mousetrap.bind("shift+command+r", function () {
-		getTabElement(tabs.getSelected()).find(".reader-button").trigger("click");
+		var tab = tabs.get(tabs.getSelected());
+
+		if (tab.isReaderView) {
+			readerView.exit(tab.id);
+		} else {
+			readerView.enter(tab.id);
+		}
 	});
 
 	//TODO add help docs for this
 
 	Mousetrap.bind("command+left", function (d) {
-		getWebview(tabs.getSelected())[0].goBack();
+		getWebview(tabs.getSelected()).goBack();
 	});
 
 	Mousetrap.bind("command+right", function (d) {
-		getWebview(tabs.getSelected())[0].goForward();
+		getWebview(tabs.getSelected()).goForward();
 	});
 
 	Mousetrap.bind(["option+command+left", "shift+ctrl+tab"], function (d) {
@@ -211,7 +216,7 @@ require.async("mousetrap", function (Mousetrap) {
 	Mousetrap.bind("return", function () {
 		if (isExpandedMode) {
 			leaveExpandedMode();
-			getWebview(tabs.getSelected())[0].focus();
+			getWebview(tabs.getSelected()).focus();
 		}
 	});
 
@@ -225,14 +230,14 @@ require.async("mousetrap", function (Mousetrap) {
 
 	Mousetrap.bind("shift+command+b", function () {
 		clearsearchbar();
-		showSearchbar(getTabElement(tabs.getSelected()).getInput());
+		showSearchbar(getTabInput(tabs.getSelected()));
 		enterEditMode(tabs.getSelected());
 		showAllBookmarks();
 	});
 
 }); //end require mousetrap
 
-$(document.body).on("keyup", function (e) {
+document.body.addEventListener("keyup", function (e) {
 	if (e.keyCode == 17) { //ctrl key
 		leaveExpandedMode();
 	}

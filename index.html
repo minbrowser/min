@@ -13,22 +13,21 @@
 	<script>
 		require("require.async")(require);
 		window.electron = require("electron");
-		window.$ = window.jQuery = require("jquery");
 		window.ipc = electron.ipcRenderer;
 
 		//disable dragdrop, since it currently doesn't work
-		$(window).on("drop", function(e) {
+		window.addEventListener("drop", function(e) {
 			e.preventDefault();
 		});
 
 		//add a class to the body for fullscreen status
 
 		ipc.on("enter-full-screen", function() {
-			$(document.body).addClass("fullscreen");
+			document.body.classList.add("fullscreen");
 		});
 
 		ipc.on("leave-full-screen", function() {
-			$(document.body).removeClass("fullscreen");
+			document.body.classList.remove("fullscreen");
 		});
 
 	</script>
@@ -38,7 +37,7 @@
 
 	<div class="tab-group theme-background-color theme-text-color">
 		<div id="tabs"></div>
-		<i class="add-tab fa fa-plus" title="New Tab"></i>
+		<i id="add-tab-button" class="fa fa-plus" title="New Tab"></i>
 	</div>
 
 	<div class="theme-background-color theme-text-color" id="searchbar">

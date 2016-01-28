@@ -6,7 +6,6 @@ var currentACItem = null;
 var deleteKeyPressed = false;
 
 var historyarea = searchbar.querySelector(".history-results");
-var $historyarea = $(historyarea);
 
 var maxHistoryResults = 4;
 var currentHistoryResults = null;
@@ -106,6 +105,12 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			return;
 		}
 
+		if (text.indexOf("!") == 0) {
+			empty(historyarea);
+			showSearchSuggestions(text, input, 5);
+			return; //never show history results for bang search
+		}
+
 		bookmarks.searchHistory(text, function (results) {
 
 			currentHistoryResults = results;
@@ -127,10 +132,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 			searchbarAutocomplete(text, input, results);
 
-			if (text.indexOf("!") == 0) {
-				showSearchSuggestions(text, input, 5);
-				return; //never show history results for bang search
-			} else if (results.length < 10) {
+			if (results.length < 10) {
 				maxItems = 3;
 				showSearchSuggestions(text, input, 5 - results.length);
 			} else {
@@ -148,6 +150,10 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 					DDGSearchURLRegex.lastIndex = 0;
 					var isDDGSearch = DDGSearchURLRegex.test(result.url);
 
+					var itemDeleteFunction = function (el) {
+						bookmarks.deleteHistory(el.getAttribute("data-url"));
+					}
+
 
 					if (isDDGSearch) { //show the result like a search suggestion
 
@@ -158,6 +164,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 							title: processedTitle,
 							url: result.url,
 							classList: ["history-item"],
+							delete: itemDeleteFunction,
 						}
 					} else {
 						var data = {
@@ -165,6 +172,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 							title: getRealTitle(result.title) || result.url,
 							url: result.url,
 							classList: ["history-item"],
+							delete: itemDeleteFunction,
 						}
 
 						if (result.title !== result.url) {
@@ -204,6 +212,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 						classList: ["history-item", "fakefocus"],
 						icon: "fa-globe",
 						title: urlParser.prettyURL(currentACItem),
+						url: currentACItem,
 					});
 
 					item.addEventListener("click", function (e) {
@@ -221,5 +230,10 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 function limitHistoryResults(maxItems) {
 	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));
 
-	$historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1)).prop("hidden", true).addClass("unfocusable");
+	var itemsToHide = historyarea.querySelectorAll(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1));
+
+	for (var i = 0; i < itemsToHide.length; i++) {
+		itemsToHide[i].hidden = true;
+		itemsToHide[i].classList.add("unfocusable");
+	}
 }

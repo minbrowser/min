@@ -1,6 +1,6 @@
-var addTabButton = $(".add-tab");
+var addTabButton = document.getElementById("add-tab-button");
 
-addTabButton.on("click", function (e) {
+addTabButton.addEventListener("click", function (e) {
 	var newTab = tabs.add({}, tabs.getIndex(tabs.getSelected()) + 1);
 	addTab(newTab);
 });

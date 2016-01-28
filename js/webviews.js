@@ -4,7 +4,7 @@ var phishingWarningPage = "file://" + __dirname + "/pages/phishing/index.html"; 
 var crashedWebviewPage = "file:///" + __dirname + "/pages/crash/index.html";
 var errorPage = "file:///" + __dirname + "/pages/error/index.html"
 
-var webviewBase = $("#webviews");
+var webviewBase = document.getElementById("webviews");
 var webviewEvents = [];
 var webviewIPC = [];
 
@@ -28,33 +28,33 @@ function bindWebviewIPC(name, fn) {
 
 function getWebviewDom(options) {
 
-	var url = (options || {}).url || "about:blank";
+	var w = document.createElement("webview");
+	w.setAttribute("preload", "dist/webview.min.js");
 
-	var w = $("<webview>");
-	var w0 = w[0];
-	w.attr("preload", "dist/webview.min.js");
-	w.attr("src", urlParser.parse(url));
+	if (options.url) {
+		w.setAttribute("src", urlParser.parse(options.url));
+	}
 
-	w.attr("data-tab", options.tabId);
+	w.setAttribute("data-tab", options.tabId);
 
 	//if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
 	//since tab IDs are unique, we can use them as partition names
 	if (tabs.get(options.tabId).private == true) {
-		w.attr("partition", options.tabId);
+		w.setAttribute("partition", options.tabId);
 	}
 
 	//webview events
 
 	webviewEvents.forEach(function (i) {
-		w0.addEventListener(i.event, i.fn);
+		w.addEventListener(i.event, i.fn);
 	});
 
-	w0.addEventListener("page-favicon-updated", function (e) {
+	w.addEventListener("page-favicon-updated", function (e) {
 		var id = this.getAttribute("data-tab");
 		updateTabColor(e.favicons, id);
 	});
 
-	w0.addEventListener("page-title-set", function (e) {
+	w.addEventListener("page-title-set", function (e) {
 		var tab = this.getAttribute("data-tab");
 		tabs.update(tab, {
 			title: e.title
@@ -62,9 +62,9 @@ function getWebviewDom(options) {
 		rerenderTabElement(tab);
 	});
 
-	w0.addEventListener("did-finish-load", function (e) {
+	w.addEventListener("did-finish-load", function (e) {
 		var tab = this.getAttribute("data-tab");
-		var url = $(this).attr("src"); //src attribute changes whenever a page is loaded
+		var url = this.getAttribute("src"); //src attribute changes whenever a page is loaded
 
 		if (url.indexOf("https://") === 0 || url.indexOf("about:") == 0 || url.indexOf("chrome:") == 0 || url.indexOf("file://") == 0) {
 			tabs.update(tab, {
@@ -96,7 +96,7 @@ function getWebviewDom(options) {
 
 	//open links in new tabs
 
-	w0.addEventListener("new-window", function (e) {
+	w.addEventListener("new-window", function (e) {
 		var tab = this.getAttribute("data-tab");
 		var currentIndex = tabs.getIndex(tabs.getSelected());
 
@@ -112,27 +112,27 @@ function getWebviewDom(options) {
 
 
 	// In embedder page. Send the text content to bookmarks when recieved.
-	w.on('ipc-message', function (e) {
+	w.addEventListener('ipc-message', function (e) {
 		var w = this;
 		var tab = this.getAttribute("data-tab");
 
 		webviewIPC.forEach(function (item) {
-			if (item.name == e.originalEvent.channel) {
-				item.fn(w, tab, e.originalEvent.args);
+			if (item.name == e.channel) {
+				item.fn(w, tab, e.args);
 			}
 		});
 
-		if (e.originalEvent.channel == "bookmarksData") {
-			bookmarks.onDataRecieved(e.originalEvent.args[0]);
+		if (e.channel == "bookmarksData") {
+			bookmarks.onDataRecieved(e.args[0]);
 
-		} else if (e.originalEvent.channel == "phishingDetected") {
-			navigate($(this).attr("data-tab"), phishingWarningPage);
+		} else if (e.channel == "phishingDetected") {
+			navigate(this.getAttribute("data-tab"), phishingWarningPage);
 		}
 	});
 
-	w.on("contextmenu", webviewMenu.show);
+	w.addEventListener("contextmenu", webviewMenu.show);
 
-	w.on("crashed", function (e) {
+	w.addEventListener("crashed", function (e) {
 		var tabId = this.getAttribute("data-tab");
 
 		destroyWebview(tabId);
@@ -144,17 +144,17 @@ function getWebviewDom(options) {
 		switchToWebview(tabId);
 	});
 
-	w.on("did-fail-load", function (e) {
-		if (e.originalEvent.errorCode != -3 && e.originalEvent.validatedURL == e.target.getURL()) {
-			navigate($(this).attr("data-tab"), errorPage + "?ec=" + encodeURIComponent(e.originalEvent.errorCode) + "&url=" + e.target.getURL());
+	w.addEventListener("did-fail-load", function (e) {
+		if (e.errorCode != -3 && e.validatedURL == e.target.getURL()) {
+			navigate(this.getAttribute("data-tab"), errorPage + "?ec=" + encodeURIComponent(e.errorCode) + "&url=" + e.target.getURL());
 		}
 	});
 
-	w0.addEventListener("enter-html-full-screen", function (e) {
+	w.addEventListener("enter-html-full-screen", function (e) {
 		this.classList.add("fullscreen");
 	});
 
-	w0.addEventListener("leave-html-full-screen", function (e) {
+	w.addEventListener("leave-html-full-screen", function (e) {
 		this.classList.remove("fullscreen");
 	})
 
@@ -178,25 +178,31 @@ function addWebview(tabId) {
 
 	//this is used to hide the webview while still letting it load in the background
 	//webviews are hidden when added - call switchToWebview to show it
-	webview.addClass("hidden");
+	webview.classList.add("hidden");
 
-	webviewBase.append(webview);
+	webviewBase.appendChild(webview);
 }
 
 function switchToWebview(id) {
-	$("webview").prop("hidden", true);
+	var webviews = document.getElementsByTagName("webview");
+	for (var i = 0; i < webviews.length; i++) {
+		webviews[i].hidden = true;
+	}
 
-	getWebview(id).removeClass("hidden").prop("hidden", false); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
+	var wv = getWebview(id);
+	wv.classList.remove("hidden");
+	wv.hidden = false;
 }
 
 function updateWebview(id, url) {
-	getWebview(id).attr("src", urlParser.parse(url));
+	getWebview(id).setAttribute("src", urlParser.parse(url));
 }
 
 function destroyWebview(id) {
-	$('webview[data-tab="{id}"]'.replace("{id}", id)).remove();
+	var w = document.querySelector('webview[data-tab="{id}"]'.replace("{id}", id));
+	w.parentNode.removeChild(w);
 }
 
 function getWebview(id) {
-	return $('webview[data-tab="{id}"]'.replace("{id}", id));
+	return document.querySelector('webview[data-tab="{id}"]'.replace("{id}", id));
 }

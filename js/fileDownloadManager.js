@@ -26,6 +26,6 @@ ipc.on("openPDF", function (event, filedata) {
 			enterEditMode: false
 		});
 
-		getWebview(newTab).get(0).focus();
+		getWebview(newTab).focus();
 	}
 });

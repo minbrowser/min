@@ -2,10 +2,14 @@ var readerView = {
 	readerURL: "file://" + __dirname + "/reader/index.html",
 	getButton: function (tabId) {
 		//TODO better icon
-		var item = $("<i class='fa fa-align-left reader-button'>").attr("data-tab", tabId).attr("title", "Enter reader view");
+		var item = document.createElement("i");
+		item.className = "fa fa-align-left reader-button";
 
-		item.on("click", function (e) {
-			var tabId = $(this).parents(".tab-item").attr("data-tab");
+		item.setAttribute("data-tab", tabId);
+		item.setAttribute("title", "Enter reader view");
+
+		item.addEventListener("click", function (e) {
+			var tabId = this.getAttribute("data-tab");
 			var tab = tabs.get(tabId);
 
 			e.stopPropagation();
@@ -20,20 +24,22 @@ var readerView = {
 		return item;
 	},
 	updateButton: function (tabId) {
-		var button = $('.reader-button[data-tab="{id}"]'.replace("{id}", tabId));
+		var button = document.querySelector('.reader-button[data-tab="{id}"]'.replace("{id}", tabId));
 		var tab = tabs.get(tabId);
 
 		if (tab.isReaderView) {
-			button.addClass("is-reader").attr("title", "Exit reader view");
+			button.classList.add("is-reader");
+			button.setAttribute("title", "Exit reader view");
 			return;
 		} else {
-			button.removeClass("is-reader").attr("title", "Enter reader view");
+			button.classList.remove("is-reader");
+			button.setAttribute("title", "Enter reader view");
 		}
 
 		if (tab.readerable) {
-			button.addClass("can-reader");
+			button.classList.add("can-reader");
 		} else {
-			button.removeClass("can-reader");
+			button.classList.remove("can-reader");
 		}
 	},
 	enter: function (tabId) {
@@ -109,8 +115,8 @@ var readerView = {
 //update the reader button on page load
 
 bindWebviewEvent("did-finish-load", function (e) {
-	var tab = $(this).attr("data-tab"),
-		url = $(this).attr("src");
+	var tab = this.getAttribute("data-tab"),
+		url = this.getAttribute("src");
 
 	if (url.indexOf(readerView.readerURL) == 0) {
 		tabs.update(tab, {

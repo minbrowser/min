@@ -1,111 +1,41 @@
-//http://stackoverflow.com/a/5086688/4603285
-
-jQuery.fn.insertAt = function (index, element) {
-	var lastIndex = this.children().size()
-	if (index < 0) {
-		index = Math.max(0, lastIndex + 1 + index)
-	}
-	this.append(element)
-	if (index < lastIndex) {
-		this.children().eq(index).before(this.children().last())
-	}
-	return this;
-}
-
-var tabContainer = $(".tab-group");
-var tabGroup = $(".tab-group #tabs"); //TODO these names are confusing
+var tabContainer = document.getElementsByClassName("tab-group")[0];
+var tabGroup = tabContainer.querySelector("#tabs"); //TODO these names are confusing
 
 /* tab events */
 
 var lastTabDeletion = 0;
 
-tabGroup.on("mousewheel", ".tab-item", function (e) {
-
-	if (e.originalEvent.deltaY > 65 && e.originalEvent.deltaX < 10 && Date.now() - lastTabDeletion > 650) { //swipe up to delete tabs
-
-		lastTabDeletion = Date.now();
-
-		/* tab deletion is disabled in focus mode */
-		if (isFocusMode) {
-			showFocusModeError();
-			return;
-		}
-
-		var tab = this.getAttribute("data-tab");
-
-		//TODO this should be a css animation
-		getTabElement(tab).animate({
-			"margin-top": "-40px",
-		}, 125, function () {
-
-			if (tab == tabs.getSelected()) {
-				var currentIndex = tabs.getIndex(tabs.getSelected());
-				var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1);
-
-				destroyTab(tab);
-
-				if (nextTab) {
-					switchToTab(nextTab.id);
-				} else {
-					addTab();
-				}
-
-			} else {
-				destroyTab(tab);
-			}
-
-		});
-	}
-
-	if (e.originalEvent.deltaY > 0) { //downward swipes should still be handled by expandedTabMode.js
-		e.stopPropagation(); //prevent the event from bubbling up to expandedTabMode.js, where exitExpandedMode would be triggered
-	}
-
-});
-
-//click to enter edit mode or switch to tab
-
-tabGroup.on("click", ".tab-item", function (e) {
-	var tabId = this.getAttribute("data-tab");
-
-	//if the tab isn't focused
-	if (tabs.getSelected() != tabId) {
-		switchToTab(tabId);
-	} else if (!isExpandedMode) { //the tab is focused, edit tab instead
-		enterEditMode(tabId);
-	}
-
-});
-
 /* draws tabs and manages tab events */
 
-function getTabElement(id) { //gets the DOM element for a tab
-	return $('.tab-item[data-tab="{id}"]'.replace("{id}", id))
+function getTabInput(tabId) {
+	return document.querySelector('.tab-item[data-tab="{id}"] .tab-input'.replace("{id}", tabId));
 }
 
-//gets the input for a tab element
-
-$.fn.getInput = function () {
-	return this.find(".tab-input");
+function getTabElement(id) { //gets the DOM element for a tab
+	return document.querySelector('.tab-item[data-tab="{id}"]'.replace("{id}", id));
 }
 
 function setActiveTabElement(tabId) {
-	$(".tab-item.active").removeClass("active");
+	var activeTab = document.querySelector(".tab-item.active");
+
+	if (activeTab) {
+		activeTab.classList.remove("active");
+	}
 
 	var el = getTabElement(tabId);
-	el.addClass("active");
+	el.classList.add("active");
 
 	if (tabs.count() > 1) { //if there is only one tab, we don't need to indicate which one is selected
-		el.addClass("has-highlight");
+		el.classList.add("has-highlight");
 	} else {
-		el.removeClass("has-highlight");
+		el.classList.remove("has-highlight");
 	}
 
 	if (!isExpandedMode) {
 
 		requestIdleCallback(function () {
 			requestAnimationFrame(function () {
-				el[0].scrollIntoView({
+				el.scrollIntoView({
 					behavior: "smooth"
 				});
 			});
@@ -118,14 +48,17 @@ function setActiveTabElement(tabId) {
 }
 
 function leaveTabEditMode(options) {
-	$(".tab-item.selected").removeClass("selected");
+	var selTab = document.querySelector(".tab-item.selected");
+	if (selTab) {
+		selTab.classList.remove("selected");
+	}
 	if (options && options.blur) {
 		var input = document.querySelector(".tab-item .tab-input:focus")
 		if (input) {
 			input.blur();
 		}
 	}
-	tabGroup.removeClass("has-selected-tab");
+	tabGroup.classList.remove("has-selected-tab");
 	hidesearchbar();
 }
 
@@ -134,30 +67,30 @@ function enterEditMode(tabId) {
 	leaveExpandedMode();
 
 	var tabEl = getTabElement(tabId);
-	var webview = getWebview(tabId)[0];
+	var webview = getWebview(tabId);
 
-	var currentURL = webview.getAttribute("src");
+	var currentURL = tabs.get(tabId).url;
 
 	if (currentURL == "about:blank") {
 		currentURL = "";
 	}
 
-	var input = tabEl.getInput();
+	var input = getTabInput(tabId);
 
-	tabEl.addClass("selected");
-	input.val(currentURL);
-	input.get(0).focus();
+	tabEl.classList.add("selected");
+	tabGroup.classList.add("has-selected-tab");
+
+	input.value = currentURL;
+	input.focus();
 	input.select();
+
 	showSearchbar(input);
-	showSearchbarResults("", input.get(0), null);
-	tabGroup.addClass("has-selected-tab");
+	showSearchbarResults("", input, null);
 
 	//show keyword suggestions in the searchbar
 
-	try { //before first webview navigation, this will be undefined
-		getWebview(tabs.getSelected())[0].send("getKeywordsData");
-	} catch (e) {
-
+	if (webview.send) { //before first webview navigation, this will be undefined
+		webview.send("getKeywordsData");
 	}
 }
 
@@ -166,19 +99,20 @@ function rerenderTabElement(tabId) {
 		tabData = tabs.get(tabId);
 
 	var tabTitle = tabData.title || "New Tab";
-	var title = tabEl.get(0).querySelector(".tab-view-contents .title");
+	var title = tabEl.querySelector(".tab-view-contents .title");
 
 	title.textContent = tabTitle;
 	title.title = tabTitle;
 
-	var secIcon = tabEl[0].getElementsByClassName("icon-tab-not-secure");
+	var secIcon = tabEl.getElementsByClassName("icon-tab-not-secure")[0];
 
 	if (tabData.secure === false) {
-		if (!secIcon[0]) {
-			tabEl.find(".tab-view-contents").prepend("<i class='fa fa-exclamation-triangle icon-tab-not-secure' title='Your connection to this website is not secure.'></i>");
+		if (!secIcon) {
+			var vc = tabEl.querySelector(".tab-view-contents");
+			vc.insertAdjacentHTML("afterbegin", "<i class='fa fa-exclamation-triangle icon-tab-not-secure' title='Your connection to this website is not secure.'></i>");
 		}
-	} else if (secIcon[0]) {
-		secIcon[0].parentNode.removeChild(secIcon[0]);
+	} else if (secIcon) {
+		secIcon.parentNode.removeChild(secIcon);
 	}
 
 	//update the star to reflect whether the page is bookmarked or not
@@ -189,39 +123,48 @@ function createTabElement(tabId) {
 	var data = tabs.get(tabId),
 		url = urlParser.parse(data.url);
 
-	var tab = $("<div class='tab-item'>");
-	tab.attr("data-tab", tabId);
+	var tabEl = document.createElement("div");
+	tabEl.className = "tab-item";
+	tabEl.setAttribute("data-tab", tabId);
 
 	if (data.private) {
-		tab.addClass("private-tab");
+		tabEl.classList.add("private-tab");
 	}
 
-	var ec = $("<div class='tab-edit-contents'>");
+	var ec = document.createElement("div");
+	ec.className = "tab-edit-contents";
 
-	var input = $("<input class='tab-input mousetrap'>");
-	input.attr("placeholder", "Search or enter address");
-	input.attr("value", url);
+	var input = document.createElement("input");
+	input.className = "tab-input mousetrap";
+	input.setAttribute("placeholder", "Search or enter address");
+	input.value = url;
 
-	input.appendTo(ec);
-	bookmarks.getStar(tabId).appendTo(ec);
+	ec.appendChild(input);
+	ec.appendChild(bookmarks.getStar(tabId));
 
-	ec.appendTo(tab);
+	tabEl.appendChild(ec);
 
-	var vc = $("<div class='tab-view-contents'>")
-	readerView.getButton(tabId).appendTo(vc);
+	var vc = document.createElement("div");
+	vc.className = "tab-view-contents";
+	vc.appendChild(readerView.getButton(tabId));
 
 	if (data.private) {
-		vc.prepend("<i class='fa fa-ban icon-tab-is-private'></i>").attr("title", "Private tab");
+		vc.insertAdjacentHTML("afterbegin", "<i class='fa fa-ban icon-tab-is-private'></i>");
+		vc.setAttribute("title", "Private tab");
 	}
 
-	vc.append($("<span class='title'>").text(data.title || "New Tab"));
+	var title = document.createElement("span");
+	title.className = "title";
+	title.textContent = data.title || "New Tab";
 
-	vc.append("<span class='secondary-text'></span>");
-	vc.appendTo(tab);
+	vc.appendChild(title);
+
+	vc.insertAdjacentHTML("beforeend", "<span class='secondary-text'></span>");
+	tabEl.appendChild(vc);
 
 	/* events */
 
-	input.on("keydown", function (e) {
+	input.addEventListener("keydown", function (e) {
 		if (e.keyCode == 9 || e.keyCode == 40) { //if the tab or arrow down key was pressed
 			focussearchbarItem();
 			e.preventDefault();
@@ -229,22 +172,21 @@ function createTabElement(tabId) {
 	});
 
 	//keypress doesn't fire on delete key - use keyup instead
-	input.on("keyup", function (e) {
+	input.addEventListener("keyup", function (e) {
 		if (e.keyCode == 8) {
 			showSearchbarResults(this.value, this, e);
 		}
 	});
 
-	input.on("keypress", function (e) {
+	input.addEventListener("keypress", function (e) {
 
 		if (e.keyCode == 13) { //return key pressed; update the url
-			var tabId = $(this).parents(".tab-item").attr("data-tab");
 			var newURL = currentACItem || parsesearchbarURL(this.value);
 
 			openURLFromsearchbar(e, newURL);
 
 			//focus the webview, so that autofocus inputs on the page work
-			getWebview(tabs.getSelected()).get(0).focus();
+			getWebview(tabs.getSelected()).focus();
 
 		} else if (e.keyCode == 9) {
 			return;
@@ -267,7 +209,7 @@ function createTabElement(tabId) {
 		if (v && sel == 0) {
 			this.selectionStart += 1;
 			didFireKeydownSelChange = true;
-			return false;
+			e.preventDefault();
 		} else {
 			didFireKeydownSelChange = false;
 		}
@@ -275,11 +217,63 @@ function createTabElement(tabId) {
 
 	//prevent clicking in the input from re-entering edit-tab mode
 
-	input.on("click", function (e) {
+	input.addEventListener("click", function (e) {
 		e.stopPropagation();
 	});
 
-	return tab;
+
+	//click to enter edit mode or switch to a tab
+	tabEl.addEventListener("click", function (e) {
+		var tabId = this.getAttribute("data-tab");
+
+		//if the tab isn't focused
+		if (tabs.getSelected() != tabId) {
+			switchToTab(tabId);
+		} else if (!isExpandedMode) { //the tab is focused, edit tab instead
+			enterEditMode(tabId);
+		}
+
+	});
+
+	tabEl.addEventListener("mousewheel", function (e) {
+		if (e.deltaY > 65 && e.deltaX < 10 && Date.now() - lastTabDeletion > 650) { //swipe up to delete tabs
+
+			lastTabDeletion = Date.now();
+
+			/* tab deletion is disabled in focus mode */
+			if (isFocusMode) {
+				showFocusModeError();
+				return;
+			}
+
+			var tab = this.getAttribute("data-tab");
+			this.style.transform = "translateY(-100%)";
+
+			setTimeout(function () {
+
+				if (tab == tabs.getSelected()) {
+					var currentIndex = tabs.getIndex(tabs.getSelected());
+					var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1);
+
+					destroyTab(tab);
+
+					if (nextTab) {
+						switchToTab(nextTab.id);
+					} else {
+						addTab();
+					}
+
+				} else {
+					destroyTab(tab);
+				}
+
+			}, 150); //wait until the animation has completed
+		}
+	});
+
+	tabEl.addEventListener("mouseenter", handleExpandedModeTabItemHover);
+
+	return tabEl;
 }
 
 function addTab(tabId, options) {
@@ -317,7 +311,10 @@ function addTab(tabId, options) {
 	}
 
 	var index = tabs.getIndex(tabId);
-	tabGroup.insertAt(index, createTabElement(tabId));
+
+	var tabEl = createTabElement(tabId);
+
+	tabGroup.insertBefore(tabEl, tabGroup.childNodes[index]);
 
 	addWebview(tabId);
 

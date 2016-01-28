@@ -47,7 +47,7 @@ var showBookmarkResults = debounce(function (text) {
 		results.splice(0, 2).forEach(function (result) {
 
 			//if a history item for the same page already exists, don't show a bookmark
-			if ($('.result-item[data-url="{url}"]:not([hidden])'.replace("{url}", result.url))[0]) {
+			if (searchbar.querySelector('.result-item[data-url="{url}"]:not([hidden])'.replace("{url}", result.url))) {
 				return;
 			}
 

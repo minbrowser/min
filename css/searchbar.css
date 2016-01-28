@@ -25,6 +25,7 @@ body.fullscreen #searchbar {
 	display: block;
 	padding: 0.55em;
 	cursor: pointer;
+	transition: 0.2s transform, 0.2s opacity;
 }
 #searchbar .result-item:after {
 	content: "";

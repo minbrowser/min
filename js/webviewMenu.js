@@ -40,7 +40,7 @@ var webviewMenu = {
 						enterEditMode: false,
 					});
 
-					getWebview(newTab).get(0).focus();
+					getWebview(newTab).focus();
 				}
 			}));
 
@@ -58,7 +58,7 @@ var webviewMenu = {
 							enterEditMode: false,
 						});
 
-						getWebview(newTab).get(0).focus();
+						getWebview(newTab).focus();
 					}
 				}));
 			}
@@ -98,7 +98,7 @@ var webviewMenu = {
 						enterEditMode: false,
 					});
 
-					getWebview(newTab).get(0).focus();
+					getWebview(newTab).focus();
 				}
 			}));
 		}
@@ -136,7 +136,7 @@ var webviewMenu = {
 		webviewMenu.cache.event = event;
 
 		var currentTab = tabs.getSelected();
-		var webview = getWebview(currentTab)[0]
+		var webview = getWebview(currentTab)
 
 		webviewMenu.cache.tab = currentTab;
 		webviewMenu.cache.webview = webview;

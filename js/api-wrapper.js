@@ -16,7 +16,9 @@ function navigate(tabId, newURL) {
 
 function destroyTab(id) {
 
-	getTabElement(id).remove(); //remove the actual tab element
+	var tabEl = getTabElement(id);
+	tabEl.parentNode.removeChild(tabEl);
+
 	var t = tabs.destroy(id); //remove from state - returns the index of the destroyed tab
 	destroyWebview(id); //remove the webview
 
@@ -41,7 +43,7 @@ function switchToTab(id, options) {
 	switchToWebview(id);
 
 	if (options.focusWebview != false && !isExpandedMode) { //trying to focus a webview while in expanded mode breaks the page
-		getWebview(id).get(0).focus();
+		getWebview(id).focus();
 	}
 
 	var tabData = tabs.get(id);

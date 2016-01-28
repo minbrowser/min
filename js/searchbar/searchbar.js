@@ -3,6 +3,10 @@ var METADATA_SEPARATOR = "·";
 var didFireKeydownSelChange = false;
 var currentsearchbarInput;
 
+//swipe left on history items to delete them
+
+var lastItemDeletion = Date.now();
+
 //https://remysharp.com/2010/07/21/throttling-function-calls#
 
 function throttle(fn, threshhold, scope) {
@@ -80,7 +84,11 @@ function openURLInBackground(url) { //used to open a url in the background, with
 		openInBackground: true,
 		leaveEditMode: false,
 	});
-	$(".result-item:focus").blur(); //remove the highlight from an awesoembar result item, if there is one
+
+	var i = searchbar.querySelector(".result-item:focus");
+	if (i) { //remove the highlight from an awesomebar result item, if there is one
+		i.blur();
+	}
 }
 
 //when clicking on a result item, this function should be called to open the URL
@@ -157,7 +165,8 @@ secondaryText: string - the item's secondary text
 url: string - the item's url (if there is one).
 icon: string - the name of a font awesome icon.
 image: string - the URL of an image to show
-descriptionBlock: string - the text in the description block
+descriptionBlock: string - the text in the description block,
+delete: function - a function to call to delete the result item when a left swipe is detected
 	
 classList: array - a list of classes to add to the item
 */
@@ -224,11 +233,28 @@ function createSearchbarItem(data) {
 		item.appendChild(dBlock);
 	}
 
+	if (data.delete) {
+		item.addEventListener("mousewheel", function (e) {
+			var self = this;
+			if (e.deltaX > 50 && e.deltaY < 3 && Date.now() - lastItemDeletion > 700) {
+				lastItemDeletion = Date.now();
+
+				self.style.opacity = "0";
+				self.style.transform = "translateX(-100%)";
+
+				setTimeout(function () {
+					data.delete(self);
+					self.parentNode.removeChild(self);
+					lastItemDeletion = Date.now();
+				}, 200);
+			}
+		});
+	}
+
 	return item;
 }
 
 var searchbar = document.getElementById("searchbar");
-var $searchbar = $(searchbar);
 
 function clearsearchbar() {
 	empty(opentabarea);
@@ -247,14 +273,14 @@ function showSearchbar(triggerInput) {
 
 	currentACItem = null
 
-	searchbarCachedText = triggerInput.val();
-	$(document.body).addClass("searchbar-shown");
+	searchbarCachedText = triggerInput.value;
+	document.body.classList.add("searchbar-shown");
 
 	clearsearchbar();
 
 	searchbar.hidden = false;
 
-	currentsearchbarInput = triggerInput.get(0);
+	currentsearchbarInput = triggerInput;
 
 }
 
@@ -267,12 +293,11 @@ function getValue(input) {
 
 function hidesearchbar() {
 	currentsearchbarInput = null;
-	$(document.body).removeClass("searchbar-shown");
+	document.body.classList.remove("searchbar-shown");
 	searchbar.hidden = true;
 	cachedBangSnippets = {};
 }
 var showSearchbarResults = function (text, input, event) {
-
 	if (event && event.metaKey) {
 		return;
 	}
@@ -339,28 +364,35 @@ var showSearchbarResults = function (text, input, event) {
 function focussearchbarItem(options) {
 	options = options || {}; //fallback if options is null
 	var previous = options.focusPrevious;
-	var allItems = $("#searchbar .result-item:not(.unfocusable)");
-	var currentItem = $("#searchbar .result-item:focus, .result-item.fakefocus");
-	var index = allItems.index(currentItem);
-	var logicalNextItem = allItems.eq((previous) ? index - 1 : index + 1);
 
-	$searchbar.find(".fakefocus").removeClass("fakefocus"); //clear previously focused items
+	var allItems = [].slice.call(searchbar.querySelectorAll(".result-item:not(.unfocusable)"));
+	var currentItem = searchbar.querySelector(".result-item:focus, .result-item.fakefocus");
 
-	if (currentItem[0] && logicalNextItem[0]) { //an item is focused and there is another item after it, move onto the next one
-		logicalNextItem.get(0).focus();
-	} else if (currentItem[0]) { //the last item is focused, focus the searchbar again
-		getTabElement(tabs.getSelected()).getInput().get(0).focus();
-	} else { // no item is focused.
-		$("#searchbar .result-item").first().get(0).focus();
+	var index = allItems.indexOf(currentItem);
+	var logicalNextItem = allItems[(previous) ? index - 1 : index + 1];
+
+	//clear previously focused items
+	var fakefocus = searchbar.querySelector(".fakefocus");
+	if (fakefocus) {
+		fakefocus.classList.remove("fakefocus");
 	}
 
-	var focusedItem = $("#searchbar .result-item:focus");
+	if (currentItem && logicalNextItem) { //an item is focused and there is another item after it, move onto the next one
+		logicalNextItem.focus();
+	} else if (currentItem) { //the last item is focused, focus the searchbar again
+		getTabInput(tabs.getSelected()).focus();
+		return;
+	} else { // no item is focused.
+		allItems[0].focus();
+	}
 
-	if (focusedItem.hasClass("iadata-onfocus")) {
+	var focusedItem = logicalNextItem || allItems[0];
+
+	if (focusedItem.classList.contains("iadata-onfocus")) {
 
 		setTimeout(function () {
-			if (document.activeElement == focusedItem[0]) {
-				var itext = focusedItem.find(".title").text();
+			if (document.activeElement == focusedItem) {
+				var itext = focusedItem.querySelector(".title").textContent;
 
 				showInstantAnswers(itext, currentsearchbarInput, {
 					alwaysShow: true,
@@ -375,9 +407,9 @@ function focussearchbarItem(options) {
 //tab key or arrowdown key should focus next item
 //arrowup key should focus previous item
 
-$searchbar.on("keydown", ".result-item", function (e) {
+searchbar.addEventListener("keydown", function (e) {
 	if (e.keyCode == 13) {
-		$(this).trigger("click");
+		e.target.click();
 	} else if (e.keyCode == 9 || e.keyCode == 40) { //tab or arrowdown key
 		e.preventDefault();
 		focussearchbarItem();
@@ -385,25 +417,6 @@ $searchbar.on("keydown", ".result-item", function (e) {
 		e.preventDefault();
 		focussearchbarItem({
 			focusPrevious: true
-		});
-	}
-});
-
-//swipe left on history items to delete them
-
-var lastItemDeletion = Date.now();
-
-$searchbar.on("mousewheel", ".history-results .result-item, .top-answer-results .result-item", function (e) {
-	var self = $(this)
-	if (e.originalEvent.deltaX > 50 && e.originalEvent.deltaY < 3 && self.attr("data-url") && Date.now() - lastItemDeletion > 700) {
-		lastItemDeletion = Date.now();
-		self.animate({
-			opacity: "0",
-			"margin-left": "-100%"
-		}, 200, function () {
-			self.remove();
-			bookmarks.deleteHistory(self.attr("data-url"));
-			lastItemDeletion = Date.now();
 		});
 	}
 });

@@ -219,12 +219,21 @@ var runNetwork = function anonymous(input
 }
 
 function setColor(bg, fg) {
-	$(".theme-background-color").css("background-color", bg);
-	$(".theme-text-color").css("color", fg);
+	var background = document.getElementsByClassName("theme-background-color");
+	var textcolor = document.getElementsByClassName("theme-text-color");
+
+	for (var i = 0; i < background.length; i++) {
+		background[i].style.backgroundColor = bg;
+	}
+
+	for (var i = 0; i < textcolor.length; i++) {
+		textcolor[i].style.color = fg;
+	}
+
 	if (fg == "white") {
-		$(document.body).addClass("dark-theme");
+		document.body.classList.add("dark-theme");
 	} else {
-		$(document.body).removeClass("dark-theme");
+		document.body.classList.remove("dark-theme");
 	}
 }
 

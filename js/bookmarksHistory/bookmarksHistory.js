@@ -30,11 +30,11 @@ var bookmarks = {
 	currentCallback: function () {},
 	onDataRecieved: function (data) {
 		//we can't trust that the data we get from webview_preload.js isn't malicious. Because of this, when we call bookmarks.bookmark(), we set authBookmarkTab to the bookmarked tab id. Then, we check if the url we get back actually matches the url of the tabtab we want to bookmark. This way, we know that the user actually wants to bookmark this url.
-		if (!bookmarks.authBookmarkTab || getWebview(bookmarks.authBookmarkTab)[0].getURL() != data.url) {
+		if (!bookmarks.authBookmarkTab || getWebview(bookmarks.authBookmarkTab).getURL() != data.url) {
 			throw new Error("Bookmark operation is unauthoritized.");
 		}
 
-		data.title = getWebview(bookmarks.authBookmarkTab)[0].getTitle();
+		data.title = getWebview(bookmarks.authBookmarkTab).getTitle();
 		bookmarks.bookmarksWorker.postMessage({
 			action: "addBookmark",
 			data: data
@@ -82,7 +82,7 @@ var bookmarks = {
 	bookmark: function (tabId) {
 
 		bookmarks.authBookmarkTab = tabId;
-		getWebview(tabId)[0].send("sendData");
+		getWebview(tabId).send("sendData");
 		//rest happens in onDataRecieved and worker
 	},
 	toggleBookmarked: function (tabId) { //toggles a bookmark. If it is bookmarked, delete the bookmark. Otherwise, add it.
@@ -106,37 +106,44 @@ var bookmarks = {
 			}
 		});
 	},
+	handleStarClick: function (star) {
+		star.classList.toggle("fa-star");
+		star.classList.toggle("fa-star-o");
+
+		bookmarks.toggleBookmarked(star.getAttribute("data-tab"));
+	},
 	getStar: function (tabId) {
-		//alternative icon is fa-bookmark
+		var star = document.createElement("i");
+		star.setAttribute("data-tab", tabId);
+		star.className = "fa fa-star-o bookmarks-button theme-text-color"; //alternative icon is fa-bookmark
 
-		var star = $("<i class='fa fa-star-o bookmarks-button theme-text-color'>").attr("data-tab", tabId);
-
-		star.on("click", function (e) {
-			$(this).toggleClass("fa-star").toggleClass("fa-star-o");
-
-			bookmarks.toggleBookmarked($(this).attr("data-tab"));
+		star.addEventListener("click", function (e) {
+			bookmarks.handleStarClick(e.target);
 		});
 
 		return bookmarks.renderStar(tabId, star);
 	},
 	renderStar: function (tabId, star) { //star is optional
-		star = star || $('.bookmarks-button[data-tab="{id}"]'.replace("{id}", tabId));
+		star = star || document.querySelector('.bookmarks-button[data-tab="{id}"]'.replace("{id}", tabId));
 
 		var currentURL = tabs.get(tabId).url;
 
 		if (!currentURL || currentURL == "about:blank") { //no url, can't be bookmarked
-			star.prop("hidden", true);
+			star.hidden = true;
 		} else {
-			star.prop("hidden", false);
+			star.hidden = false;
+			return star;
 		}
 
 		//check if the page is bookmarked or not, and update the star to match
 
 		bookmarks.searchBookmarks(currentURL, function (results) {
 			if (results && results[0] && results[0].url == currentURL) {
-				star.removeClass("fa-star-o").addClass("fa-star");
+				star.classList.remove("fa-star-o");
+				star.classList.add("fa-star");
 			} else {
-				star.removeClass("fa-star").addClass("fa-star-o");
+				star.classList.remove("fa-star");
+				star.classList.add("fa-star-o");
 			}
 		});
 		return star;

@@ -13,12 +13,13 @@ var tabActivity = {
 			tabSet.forEach(function (tab) {
 				if (selected == tab.id) { //never fade the current tab
 					getTabElement(tab.id).removeClass("fade");
+					getTabElement(tab.id).classList.remove("fade");
 					return;
 				}
 				if (time - tab.lastActivity > tabActivity.minFadeAge) { //the tab has been inactive for greater than minActivity, and it is not currently selected
-					getTabElement(tab.id).addClass("fade");
+					getTabElement(tab.id).classList.remove("fade");
 				} else {
-					getTabElement(tab.id).removeClass("fade");
+					getTabElement(tab.id).classList.remove("fade");
 				}
 			});
 		});

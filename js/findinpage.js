@@ -1,23 +1,20 @@
 var findinpage = {
-	container: $("#findinpage-bar"),
-	input: $("#findinpage-bar .findinpage-input"),
+	container: document.getElementById("findinpage-bar"),
 	isEnabled: false,
 	start: function (options) {
-		findinpage.container.prop("hidden", false);
+		findinpage.container.hidden = false;
 		findinpage.isEnabled = true;
-		findinpage.input.focus().select();
+		findinpage.input.focus();
+		findinpage.input.select();
 	},
 	end: function (options) {
-		findinpage.container.prop("hidden", true);
-		if (options && options.blurInput != false) {
-			findinpage.input.blur();
-		}
+		findinpage.container.hidden = true;
 		findinpage.isEnabled = false;
 
 		//focus the webview
 
-		if (findinpage.input.is(":focus")) {
-			getWebview(tabs.getSelected()).get(0).focus();
+		if (findinpage.input == document.activeElement) {
+			getWebview(tabs.getSelected()).focus();
 		}
 	},
 	toggle: function () {
@@ -32,14 +29,16 @@ var findinpage = {
 	}
 }
 
-findinpage.input.on("keyup", function (e) {
+findinpage.input = findinpage.container.querySelector(".findinpage-input");
+
+findinpage.input.addEventListener("keyup", function (e) {
 	//escape key should exit find mode, not continue searching
 	if (e.keyCode == 27) {
 		findinpage.end();
 		return;
 	}
-	var text = findinpage.escape($(this).val());
-	var webview = getWebview(tabs.getSelected())[0];
+	var text = findinpage.escape(this.value);
+	var webview = getWebview(tabs.getSelected());
 
 	//this stays on the current text if it still matches, preventing flickering. However, if the return key was pressed, we should move on to the next match instead, so this shouldn't run.
 	if (e.keyCode != 13) {
@@ -49,8 +48,6 @@ findinpage.input.on("keyup", function (e) {
 	webview.executeJavaScript("find('{t}', false, false, true, false, false, false)".replace("{t}", text)); //see https://developer.mozilla.org/en-US/docs/Web/API/Window/find for a description of the parameters
 });
 
-findinpage.input.on("blur", function (e) {
-	findinpage.end({
-			blurInput: false
-		}) //if end tries to blur it again, we'll get stuck in an infinite loop with the event handler
+findinpage.input.addEventListener("blur", function (e) {
+	findinpage.end();
 });
