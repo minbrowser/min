@@ -12,7 +12,6 @@ var tabActivity = {
 
 			tabSet.forEach(function (tab) {
 				if (selected == tab.id) { //never fade the current tab
-					getTabElement(tab.id).removeClass("fade");
 					getTabElement(tab.id).classList.remove("fade");
 					return;
 				}
