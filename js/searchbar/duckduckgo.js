@@ -28,11 +28,11 @@ function incrementBangCount(bang) {
 
 	//prevent the data from getting too big
 
-	if (bangUseCounts[bang] > 500) {
+	if (bangUseCounts[bang] > 1000) {
 		for (var bang in bangUseCounts) {
 			bangUseCounts[bang] = Math.floor(bangUseCounts[bang] * 0.9);
 
-			if (bangUseCounts[bang] < 10) {
+			if (bangUseCounts[bang] < 2) {
 				delete bangUseCounts[bang];
 			}
 		}
@@ -49,7 +49,7 @@ var IAFormats = {
 	color_code: function (searchText, answer) {
 		var alternateFormats = [answer.data.rgb, answer.data.hslc, answer.data.cmyb];
 
-		if (searchText.indexOf("#") == -1) { //if the search is not a hex code, show the hex code as an alternate format
+		if (!searchText.startsWith("#")) { //if the search is not a hex code, show the hex code as an alternate format
 			alternateFormats.unshift(answer.data.hexc);
 		}
 
