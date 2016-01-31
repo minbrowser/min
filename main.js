@@ -3,16 +3,17 @@ const app = electron.app; // Module to control application life.
 const BrowserWindow = electron.BrowserWindow; // Module to create native browser window.
 var electronScreen = null; //setup in app.ready
 
-var browserPage = 'file://' + __dirname + '/index.html';
+const browserPage = 'file://' + __dirname + '/index.html';
 
 var mainWindow = null;
 var isFocusMode = false;
 
 function sendIPCToWindow(window, action, data) {
-	if (!window) {
-		window = createWindow();
+	//if there are no windows, create a new one
+	if (!mainWindow) {
+		mainWindow = createWindow();
 	}
-	window.webContents.send(action, data || {});
+	mainWindow.webContents.send(action, data || {});
 }
 
 function createWindow() {
@@ -69,6 +70,32 @@ function createWindow() {
 
 	return mainWindow;
 }
+
+
+// Quit when all windows are closed.
+app.on('window-all-closed', function () {
+	// On OS X it is common for applications and their menu bar
+	// to stay active until the user quits explicitly with Cmd + Q
+	if (process.platform != 'darwin') {
+		app.quit();
+	}
+});
+
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+app.on('ready', function () {
+	// Create the browser window.
+	electronScreen = electron.screen; //this module must be loaded after the app is ready
+
+	createWindow();
+
+	// Open the DevTools.
+	//mainWindow.openDevTools();
+
+	createAppMenu();
+
+});
+
 
 function createAppMenu() {
 	// create the menu. based on example from http://electron.atom.io/docs/v0.34.0/api/menu/
@@ -330,27 +357,3 @@ function createAppMenu() {
 	Menu.setApplicationMenu(menu);
 
 }
-
-// Quit when all windows are closed.
-app.on('window-all-closed', function () {
-	// On OS X it is common for applications and their menu bar
-	// to stay active until the user quits explicitly with Cmd + Q
-	if (process.platform != 'darwin') {
-		app.quit();
-	}
-});
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-app.on('ready', function () {
-	// Create the browser window.
-	electronScreen = electron.screen; //this module must be loaded after the app is ready
-
-	createWindow();
-
-	// Open the DevTools.
-	//mainWindow.openDevTools();
-
-	createAppMenu();
-
-});
