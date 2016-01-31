@@ -132,7 +132,6 @@ var bookmarks = {
 			star.hidden = true;
 		} else {
 			star.hidden = false;
-			return star;
 		}
 
 		//check if the page is bookmarked or not, and update the star to match
