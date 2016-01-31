@@ -45,6 +45,8 @@ db.bookmarks
 			extraData: bookmark.extraData
 		};
 
+	}).then(function () {
+		console.log("bookmarks loaded in " + performance.now() + " ms");
 	});
 
 
