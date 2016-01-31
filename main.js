@@ -3,6 +3,8 @@ const app = electron.app; // Module to control application life.
 const BrowserWindow = electron.BrowserWindow; // Module to create native browser window.
 var electronScreen = null; //setup in app.ready
 
+var browserPage = 'file://' + __dirname + '/index.html';
+
 var mainWindow = null;
 var isFocusMode = false;
 
@@ -24,7 +26,7 @@ function createWindow() {
 	});
 
 	// and load the index.html of the app.
-	mainWindow.loadURL('file://' + __dirname + '/index.html');
+	mainWindow.loadURL(browserPage);
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function () {
@@ -56,6 +58,13 @@ function createWindow() {
 
 	mainWindow.on("leave-full-screen", function () {
 		sendIPCToWindow(mainWindow, "leave-full-screen");
+	});
+
+	//prevent remote pages from being loaded using drag-and-drop, since they would have node access
+	mainWindow.webContents.on("will-navigate", function (e, url) {
+		if (url != browserPage) {
+			e.preventDefault();
+		}
 	});
 
 	return mainWindow;
