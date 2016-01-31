@@ -51,7 +51,7 @@ function addPrivateTab() {
 	}
 
 
-	if (tabs.count() == 1 && tabs.getAtIndex(0).url == "about:blank") {
+	if (isEmpty(tabs.get())) {
 		destroyTab(tabs.getAtIndex(0).id);
 	}
 

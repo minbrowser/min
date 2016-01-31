@@ -106,5 +106,16 @@ var tabs = {
 			return newOrder.indexOf(a.id) - newOrder.indexOf(b.id);
 		});
 	},
+}
 
+function isEmpty(tabList) {
+	if (!tabList || tabList.length == 0) {
+		return true;
+	}
+
+	if (tabList.length == 1 && (!tabList[0].url || tabList[0].url == "about:blank")) {
+		return true;
+	}
+
+	return false;
 }

@@ -37,7 +37,7 @@ var sessionRestore = {
 
 			console.info("restoring tabs", data.tabs);
 
-			if (!data || !data.tabs || !data.tabs.length || (data.tabs.length == 1 && (!data.tabs[0].url || data.tabs[0].url == "about:blank"))) { //If there are no tabs, or if we only have one tab, and it's about:blank, don't restore
+			if (isEmpty(data.tabs)) { //If there are no tabs, or if we only have one tab, and it's about:blank, don't restore
 				addTab(tabs.add(), {
 					leaveEditMode: false
 				});
