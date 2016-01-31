@@ -12,7 +12,7 @@ var currentHistoryResults = null;
 
 function searchbarAutocomplete(text, input, historyResults) {
 
-	if (!text) {
+	if (!text || deleteKeyPressed) {
 		currentACItem = null;
 		return;
 	}
@@ -66,7 +66,7 @@ function autocompleteResultIfNeeded(input, result) {
 
 
 	for (var i = 0; i < possibleAutocompletions.length; i++) {
-		if (!deleteKeyPressed && possibleAutocompletions[i].toLowerCase().indexOf(text.toLowerCase()) == 0) { //we can autocomplete the item
+		if (possibleAutocompletions[i].toLowerCase().indexOf(text.toLowerCase()) == 0) { //we can autocomplete the item
 
 			input.value = possibleAutocompletions[i];
 			input.setSelectionRange(text.length, possibleAutocompletions[i].length);
