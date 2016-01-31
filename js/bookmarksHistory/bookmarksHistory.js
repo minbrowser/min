@@ -130,6 +130,7 @@ var bookmarks = {
 
 		if (!currentURL || currentURL == "about:blank") { //no url, can't be bookmarked
 			star.hidden = true;
+			return star;
 		} else {
 			star.hidden = false;
 		}
@@ -137,7 +138,20 @@ var bookmarks = {
 		//check if the page is bookmarked or not, and update the star to match
 
 		bookmarks.searchBookmarks(currentURL, function (results) {
-			if (results && results[0] && results[0].url == currentURL) {
+
+			if (!results) {
+				return;
+			}
+
+			var hasMatched = false;
+
+			results.forEach(function (r) {
+				if (r.url == currentURL) {
+					hasMatched = true;
+				}
+			});
+
+			if (hasMatched) {
 				star.classList.remove("fa-star-o");
 				star.classList.add("fa-star");
 			} else {
