@@ -13,40 +13,6 @@ function getQueryVariable(variable) {
 	console.log('Query variable %s not found', variable);
 }
 
-function cacheArticleForOffline(url, html) {
-	var data = {
-		version: 1,
-		createdAt: Date.now(),
-		html: html,
-	}
-	localStorage.setItem("readerview-cachedPage-" + url, JSON.stringify(data));
-}
-
-//remove old articles
-
-function cleanupOfflineArticles() {
-	var currentDate = Date.now();
-	var oneMonthInMS = 30 * 24 * 60 * 60 * 1000;
-	for (var item in localStorage) {
-		if (item.indexOf("readerview-cachedPage-") == 0) {
-			try {
-				var itemDate = JSON.parse(localStorage[item]).createdAt;
-			} catch (e) {
-				var itemDate = 0;
-			}
-			if (currentDate - itemDate > oneMonthInMS) {
-				localStorage.removeItem(item);
-			}
-		}
-	}
-}
-
-setTimeout(cleanupOfflineArticles, 5000);
-
-function getOfflineArticle(url) {
-	return localStorage.getItem("readerview-cachedPage-" + url);
-}
-
 var backbutton = document.getElementById("backtoarticle");
 
 var emptyHTMLdocument = "<!DOCTYPE html><html><head></head><body></body></html>"
@@ -86,19 +52,16 @@ function startReaderView(article) {
 				rframe.focus(); //allows spacebar page down and arrow keys to work correctly
 			});
 		});
-
-		/* site-specific workarounds */
-
-		//needed for wikipedia.org
-
-		var images = rframe.contentDocument.querySelectorAll("img")
-
-		for (var i = 0; i < images.length; i++) {
-			if (images[i].src && images[i].srcset) {
-				images[i].srcset = "";
-			}
-		}
 	}
+
+	//save the scroll position at intervals
+
+	setInterval(function () {
+		updateExtraData(url, {
+			scrollPosition: window.pageYOffset,
+			articleScrollLength: rframe.contentDocument.body.scrollHeight,
+		});
+	}, 10000);
 
 	document.body.appendChild(rframe);
 
@@ -127,8 +90,6 @@ document.body.appendChild(parserframe);
 
 function processArticle(data) {
 
-	cacheArticleForOffline(url, data);
-
 	window.d = data;
 	parserframe.srcdoc = d;
 
@@ -148,6 +109,18 @@ function processArticle(data) {
 			}
 		}
 
+		/* site-specific workarounds */
+
+		//needed for wikipedia.org
+
+		var images = doc.querySelectorAll("img")
+
+		for (var i = 0; i < images.length; i++) {
+			if (images[i].src && images[i].srcset) {
+				images[i].srcset = "";
+			}
+		}
+
 		var uri = {
 			spec: location.href,
 			host: location.host,
@@ -158,6 +131,11 @@ function processArticle(data) {
 		var article = new Readability(uri, doc).parse();
 		console.log(article);
 		startReaderView(article);
+
+		saveArticle(url, data, article, {
+			scrollPosition: 0,
+			articleScrollLength: null,
+		});
 	}
 
 }
@@ -170,14 +148,14 @@ fetch(url)
 	.catch(function (data) {
 		console.warn("request failed with error", data);
 
-		var cachedData = getOfflineArticle(url);
-
-		if (cachedData) {
-			console.log("offline article found, displaying");
-			processArticle(JSON.parse(cachedData).html);
-		} else {
-			startReaderView({
-				content: "<em>Failed to load article.</em>"
-			});
-		}
+		getArticle(url, function (item) {
+			if (item) {
+				console.log("offline article found, displaying");
+				startReaderView(item.article);
+			} else {
+				startReaderView({
+					content: "<em>Failed to load article.</em>"
+				});
+			}
+		});
 	});

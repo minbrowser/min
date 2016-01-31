@@ -3,10 +3,11 @@
 
 var db = new Dexie('browsingData');
 
-db.version(1)
+db.version(2)
 	.stores({
 		bookmarks: 'url, title, text, extraData', //url must come first so it is the primary key
 		history: 'url, title, color, visitCount, lastVisit, extraData', //same thing
+		readingList: 'url, time, visitCount, pageHTML, article, extraData', //article is the object from readability
 	});
 
 db.open().then(function () {

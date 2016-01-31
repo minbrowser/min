@@ -1,5 +1,8 @@
 var readerView = {
 	readerURL: "file://" + __dirname + "/reader/index.html",
+	getReaderURL: function (url) {
+		return readerView.readerURL + "?url=" + url;
+	},
 	getButton: function (tabId) {
 		//TODO better icon
 		var item = document.createElement("i");
@@ -55,43 +58,58 @@ var readerView = {
 		});
 	},
 	showReadingList: function (options) {
-		if (performance.now() < 1000) { //history hasn't loaded yet
-			return;
-		}
 
-		bookmarks.searchHistory(readerView.readerURL, function (data) {
-			var cTime = Date.now();
-			var oneWeekInMS = 7 * 24 * 60 * 60 * 1000;
+		showSearchbar(getTabInput(tabs.getSelected()));
 
-			function calculateReadingListScore(article) {
-				return article.lastVisit + (5000 * article.visitCount);
+		var articlesShown = 0;
+		var moreArticlesAvailable = false;
+
+		db.readingList.orderBy("time").reverse().each(function (article) {
+			if (!article.article) {
+				return;
+			}
+			if (options && options.limitResults && articlesShown > 3) {
+				moreArticlesAvailable = true;
+				return;
 			}
 
-			var articles = data.filter(function (item) {
-				return item.url.indexOf(readerView.readerURL) == 0 && (cTime - item.lastVisit < oneWeekInMS || (cTime - item.lastVisit < oneWeekInMS * 3 && item.visitCount == 1))
-			}).sort(function (a, b) {
-				return calculateReadingListScore(b) - calculateReadingListScore(a);
+			if (articlesShown == 0) {
+				clearsearchbar();
+			}
+
+			var item = createSearchbarItem({
+				title: article.article.title,
+				descriptionBlock: article.article.excerpt,
+				url: article.url,
+				delete: function (el) {
+					db.readingList.where("url").equals(el.getAttribute("data-url")).delete();
+				}
 			});
 
-			if (options && options.limitResults) {
-				articles = articles.slice(0, 4);
+			item.addEventListener("click", function (e) {
+				openURLFromsearchbar(e, readerView.getReaderURL(article.url));
+			});
+
+			if (article.visitCount > 5 || (article.extraData.scrollPosition > 0 && article.extraData.articleScrollLength - article.extraData.scrollPosition < 1000)) { //the article has been visited frequently, or the scroll position is at the bottom
+				item.style.opacity = 0.65;
 			}
 
-			articles.forEach(function (article) {
-				var item = createSearchbarItem({
-					title: article.title,
-					secondaryText: urlParser.prettyURL(article.url.replace(readerView.readerURL + "?url=", "")),
-					url: article.url
-				});
+			historyarea.appendChild(item);
 
-				item.addEventListener("click", function (e) {
-					openURLFromsearchbar(e, article.url);
+			articlesShown++;
+		}).then(function () {
+
+			if (articlesShown == 0) {
+				var item = createSearchbarItem({
+					title: "Your reading list is empty.",
+					descriptionBlock: "Articles you open in reader view are listed here, and are saved offline for 30 days."
 				});
 
 				historyarea.appendChild(item);
-			});
+				return;
+			}
 
-			if (options && options.limitResults) {
+			if (moreArticlesAvailable) {
 
 				var seeMoreLink = createSearchbarItem({
 					title: "More articles",

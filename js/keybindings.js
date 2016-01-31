@@ -25,10 +25,6 @@ ipc.on("inspectPage", function () {
 });
 
 ipc.on("showReadingList", function () {
-	showSearchbar(getTabElement(tabs.getSelected()).getInput());
-	enterEditMode(tabs.getSelected());
-	clearsearchbar();
-
 	readerView.showReadingList();
 })
 

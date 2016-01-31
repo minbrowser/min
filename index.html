@@ -14,6 +14,7 @@
 		require("require.async")(require);
 		window.electron = require("electron");
 		window.ipc = electron.ipcRenderer;
+		window.Dexie = require("dexie");
 
 		//disable dragdrop, since it currently doesn't work
 		window.addEventListener("drop", function(e) {
@@ -35,7 +36,7 @@
 
 <body>
 
-	<div class="tab-group theme-background-color theme-text-color">
+	<div class="tab-group theme-background-color theme-text-color" tabindex="-1">
 		<div id="tabs"></div>
 		<i id="add-tab-button" class="fa fa-plus" title="New Tab"></i>
 	</div>
@@ -62,6 +63,8 @@
 	<!-- add scripts in Gruntfile.js -->
 
 	<script src="dist/build.min.js"></script>
+	<script src="js/util/database.js"></script>
+
 
 	<link rel="stylesheet" href="css/findinpage.css" />
 
