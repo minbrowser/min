@@ -10,6 +10,7 @@
 	max-width: 100vw;
 	-webkit-user-select: none;
 	position: relative;
+	outline: none;
 }
 
 /* there are no window controls in fullscreen, so we don't need any padding */
