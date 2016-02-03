@@ -399,7 +399,7 @@ function focussearchbarItem(options) {
 					destroyPrevious: false,
 				});
 			}
-		}, 200);
+		}, 225);
 	}
 }
 
