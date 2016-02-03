@@ -44,7 +44,8 @@ var searchOpenTabs = function (searchText) {
 
 			item.addEventListener("click", function () {
 				//if we created a new tab but are switching away from it, destroy the current (empty) tab
-				if (tabs.get(tabs.getSelected()).url == "about:blank") {
+				var currentTabUrl = tabs.get(tabs.getSelected()).url;
+				if (!currentTabUrl || currentTabUrl == "about:blank") {
 					destroyTab(tabs.getSelected(), {
 						switchToTab: false
 					});
