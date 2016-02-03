@@ -111,7 +111,23 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			return; //never show history results for bang search
 		}
 
-		bookmarks.searchHistory(text, function (results) {
+		var fn = bookmarks.searchHistory;
+
+		var searchText = text;
+
+		//if there is no search text, show suggested sites instead
+		if (!searchText) {
+			fn = bookmarks.getHistorySuggestions;
+			searchText = tabs.get(tabs.getSelected()).url;
+
+			//current tab is empty
+			var idx = tabs.getIndex(tabs.getSelected());
+			if ((!searchText || searchText == "about:blank") && idx > 0) {
+				searchText = tabs.getAtIndex(idx - 1).url;
+			}
+		}
+
+		fn(searchText, function (results) {
 
 			currentHistoryResults = results;
 
@@ -122,6 +138,15 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			//if there is no text, only history results will be shown, so we can assume that 4 results should be shown.
 			if (!text) {
 				maxItems = 4;
+
+				//don't show sites currently open as site suggestions
+
+				var tabList = tabs.get().map(function (tab) {
+					return tab.url;
+				});
+				results = results.filter(function (item) {
+					return tabList.indexOf(item.url) == -1;
+				});
 			}
 
 			empty(historyarea);

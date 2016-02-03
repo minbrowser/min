@@ -71,6 +71,13 @@ var bookmarks = {
 			text: text,
 		});
 	},
+	getHistorySuggestions: function (url, callback) {
+		bookmarks.currentHistoryCallback = callback;
+		bookmarks.historyWorker.postMessage({
+			action: "getHistorySuggestions",
+			text: url,
+		});
+	},
 	onMessage: function (e) { //assumes this is from a search operation
 		if (e.data.scope == "bookmarks") {
 			//TODO this (and the rest) should use unique callback id's

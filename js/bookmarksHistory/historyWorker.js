@@ -58,6 +58,44 @@ loadHistoryInMemory();
 
 setInterval(loadHistoryInMemory, 30 * 60 * 1000);
 
+//calculates how similar two history items are
+
+function calculateHistorySimilarity(a, b) {
+	var score = 0;
+
+	if (a.url.split("/")[2] == b.url.split("/")[2]) {
+		score += 0.1;
+	}
+
+	var aWords = a.title.split(spacesRegex);
+	var bText = b.title + b.url;
+	var wm = 0;
+	for (var i = 0; i < aWords.length; i++) {
+		if (aWords[i].length > 5 && bText.indexOf(aWords[i]) != -1) {
+			score += 0.001 * aWords[i].length;
+			wm++;
+		}
+	}
+
+	score += (0.05 * Math.pow(1.3, wm));
+
+	if (wm / aWords.length > 0.75) {
+		score -= 0.1;
+	}
+
+	if (Math.abs(a.lastVisit - b.lastVisit) < 900000) {
+		score += 0.1 + (0.01 * Math.sqrt(a.visitCount));
+	}
+
+	var diffPct = Math.abs(a.visitCount - b.visitCount) / a.visitCount;
+
+	if (diffPct > 0.9 && diffPct < 1.1) {
+		score += 0.15;
+	}
+
+	return score;
+}
+
 onmessage = function (e) {
 	var action = e.data.action;
 	var pageData = e.data.data;
@@ -261,9 +299,65 @@ onmessage = function (e) {
 
 		console.info("history search took", tend - tstart);
 		postMessage({
-			result: matches.splice(0, 100),
+			result: matches.slice(0, 100),
 			scope: "history"
 		});
 	}
 
+	if (action == "getHistorySuggestions") {
+		//get the history item for the provided url
+
+		var baseItem = null;
+
+		for (var i = 0; i < historyInMemoryCache.length; i++) {
+			if (historyInMemoryCache[i].url == searchText) {
+				baseItem = historyInMemoryCache[i];
+				break;
+			}
+		}
+
+		//use a default item. This could occur if the given url is for a page that has never finished loading
+		if (!baseItem) {
+			baseItem = {
+				url: searchText,
+				title: "",
+				lastVisit: Date.now(),
+				visitCount: 1,
+			}
+		}
+
+		var results = historyInMemoryCache.slice();
+
+
+		var cTime = Date.now();
+
+		var boost;
+		var boostedItems = 0;
+		for (var i = 0; i < results.length; i++) {
+
+			if (boostedItems > 15) {
+				results[i].boost = 0;
+			} else {
+				results[i].boost = boost;
+				calculateHistorySimilarity(baseItem, results[i]);
+				boostedItems++;
+			}
+
+			if (cTime - results[i].lastVisit < 300000) {
+				results[i].boost -= 1;
+			}
+
+			results[i].hScore = calculateHistoryScore(results[i]);
+
+		}
+
+		var results = results.sort(function (a, b) {
+			return b.hScore - a.hScore;
+		});
+
+		postMessage({
+			result: results.slice(0, 100),
+			scope: "history",
+		});
+	}
 }
