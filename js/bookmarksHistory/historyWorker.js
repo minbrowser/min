@@ -331,15 +331,13 @@ onmessage = function (e) {
 
 		var cTime = Date.now();
 
-		var boost;
 		var boostedItems = 0;
 		for (var i = 0; i < results.length; i++) {
 
 			if (boostedItems > 15) {
 				results[i].boost = 0;
 			} else {
-				results[i].boost = boost;
-				calculateHistorySimilarity(baseItem, results[i]);
+				results[i].boost = calculateHistorySimilarity(baseItem, results[i]);;
 				boostedItems++;
 			}
 
