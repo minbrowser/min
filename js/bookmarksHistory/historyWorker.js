@@ -67,27 +67,26 @@ function calculateHistorySimilarity(a, b) {
 		score += 0.1;
 	}
 
-	var aWords = a.title.split(spacesRegex);
-	var bText = b.title + b.url;
+	var aWords = a.title.toLowerCase().split(spacesRegex);
+	var bText = b.title.toLowerCase();
 	var wm = 0;
 	for (var i = 0; i < aWords.length; i++) {
-		if (aWords[i].length > 5 && bText.indexOf(aWords[i]) != -1) {
-			score += 0.001 * aWords[i].length;
+		if (aWords[i].length > 2 && aWords[i] != "http" && aWords[i] != "https" && bText.indexOf(aWords[i]) != -1) {
+			score += 0.0025 * aWords[i].length;
 			wm++;
 		}
 	}
 
-	score += (0.05 * Math.pow(1.3, wm));
-
-	if (wm / aWords.length > 0.75) {
-		score -= 0.1;
+	if (wm > 1) {
+		score += (0.05 * Math.pow(1.5, wm));
 	}
 
-	if (Math.abs(a.lastVisit - b.lastVisit) < 900000) {
-		score += 0.1 + (0.01 * Math.sqrt(a.visitCount));
+	var vDiff = Math.abs(a.lastVisit - b.lastVisit);
+	if (vDiff < 600000 && b.visitCount > 10) {
+		score += 0.1 + (0.02 * Math.sqrt(a.visitCount)) + ((600000 - vDiff) * 0.0000025);
 	}
 
-	var diffPct = Math.abs(a.visitCount - b.visitCount) / a.visitCount;
+	var diffPct = vDiff / a.visitCount;
 
 	if (diffPct > 0.9 && diffPct < 1.1) {
 		score += 0.15;
@@ -328,25 +327,21 @@ onmessage = function (e) {
 
 		var results = historyInMemoryCache.slice();
 
-
 		var cTime = Date.now();
 
-		var boostedItems = 0;
 		for (var i = 0; i < results.length; i++) {
 
-			if (boostedItems > 15) {
+			if (cTime - results[i].lastVisit > 604800000) {
 				results[i].boost = 0;
 			} else {
-				results[i].boost = calculateHistorySimilarity(baseItem, results[i]);;
-				boostedItems++;
-			}
+				results[i].boost = calculateHistorySimilarity(baseItem, results[i]) * 1.2;
 
-			if (cTime - results[i].lastVisit < 300000) {
-				results[i].boost -= 1;
+				if (cTime - results[i].lastVisit < 60000) {
+					results[i].boost -= 0.1;
+				}
 			}
 
 			results[i].hScore = calculateHistoryScore(results[i]);
-
 		}
 
 		var results = results.sort(function (a, b) {
