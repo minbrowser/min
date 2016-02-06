@@ -9,7 +9,6 @@ steps to creating a bookmark:
 */
 
 var bookmarks = {
-	authBookmarkTab: null,
 	updateHistory: function (tabId) {
 		setTimeout(function () { //this prevents pages that are immediately left from being saved to history, and also gives the page-favicon-updated event time to fire (so the colors saved to history are correct).
 			var tab = tabs.get(tabId);
@@ -29,17 +28,10 @@ var bookmarks = {
 	},
 	currentCallback: function () {},
 	onDataRecieved: function (data) {
-		//we can't trust that the data we get from webview_preload.js isn't malicious. Because of this, when we call bookmarks.bookmark(), we set authBookmarkTab to the bookmarked tab id. Then, we check if the url we get back actually matches the url of the tabtab we want to bookmark. This way, we know that the user actually wants to bookmark this url.
-		if (!bookmarks.authBookmarkTab || getWebview(bookmarks.authBookmarkTab).getURL() != data.url) {
-			throw new Error("Bookmark operation is unauthoritized.");
-		}
-
-		data.title = getWebview(bookmarks.authBookmarkTab).getTitle();
 		bookmarks.bookmarksWorker.postMessage({
 			action: "addBookmark",
 			data: data
-		})
-		bookmarks.authBookmarkTab = null;
+		});
 	},
 	deleteBookmark: function (url) {
 		bookmarks.bookmarksWorker.postMessage({
@@ -87,8 +79,6 @@ var bookmarks = {
 		}
 	},
 	bookmark: function (tabId) {
-
-		bookmarks.authBookmarkTab = tabId;
 		getWebview(tabId).send("sendData");
 		//rest happens in onDataRecieved and worker
 	},
