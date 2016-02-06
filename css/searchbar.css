@@ -151,6 +151,16 @@ body.fullscreen #searchbar {
 	opacity: 0.666;
 	font-size: 0.85em;
 }
+#searchbar .result-item .attribution {
+	display: none;
+	line-height: 1.15em;
+	font-size: 0.85em;
+	opacity: 0.6;
+	margin-top: 0.2em;
+}
+#searchbar .result-item:focus .attribution {
+	display: block;
+}
 
 /* when a result is selected, we can show more of the description */
 

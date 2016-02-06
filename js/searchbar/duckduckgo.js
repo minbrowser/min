@@ -4,6 +4,8 @@ var iaarea = searchbar.querySelector(".instant-answer-results");
 var topAnswerarea = searchbar.querySelector(".top-answer-results");
 var suggestedsitearea = searchbar.querySelector("#searchbar .ddg-site-results");
 
+var ddgAttribution = "Results from DuckDuckGo";
+
 //cache duckduckgo bangs so we make fewer network requests
 var cachedBangSnippets = {};
 
@@ -56,7 +58,8 @@ var IAFormats = {
 		var item = createSearchbarItem({
 			title: searchText,
 			descriptionBlock: alternateFormats.join(" " + METADATA_SEPARATOR + " "),
-			classList: ["indent", "ddg-answer"]
+			classList: ["indent", "ddg-answer"],
+			attribution: ddgAttribution,
 		});
 
 		var colorCircle = document.createElement("div");
@@ -74,6 +77,7 @@ var IAFormats = {
 			image: answer.data.image,
 			descriptionBlock: answer.data.description + " " + answer.data.subtitle,
 			classList: ["indent", "ddg-answer"],
+			attribution: ddgAttribution,
 		});
 
 		return item;
@@ -84,6 +88,7 @@ var IAFormats = {
 		var item = createSearchbarItem({
 			descriptionBlock: formattedAnswer,
 			classList: ["indent", "ddg-answer"],
+			attribution: ddgAttribution,
 		});
 
 		var block = item.querySelector(".description-block");
@@ -119,7 +124,8 @@ var IAFormats = {
 		var item = createSearchbarItem({
 			title: title,
 			descriptionBlock: descriptionBlock,
-			classList: ["indent", "ddg-answer"]
+			classList: ["indent", "ddg-answer"],
+			attribution: ddgAttribution,
 		});
 
 		return item;
@@ -268,7 +274,8 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 					var data = {
 						title: removeTags(res.Answer || res.Heading),
 						descriptionBlock: res.Abstract || "Answer",
-						classList: ["ddg-answer", "indent"]
+						classList: ["ddg-answer", "indent"],
+						attribution: ddgAttribution,
 					}
 
 					if (res.Image && !res.ImageIsLogo) {

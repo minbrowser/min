@@ -166,6 +166,7 @@ url: string - the item's url (if there is one).
 icon: string - the name of a font awesome icon.
 image: string - the URL of an image to show
 descriptionBlock: string - the text in the description block,
+attribution: string - attribution text to display when the item is focused
 delete: function - a function to call to delete the result item when a left swipe is detected
 	
 classList: array - a list of classes to add to the item
@@ -231,6 +232,14 @@ function createSearchbarItem(data) {
 
 		dBlock.textContent = data.descriptionBlock;
 		item.appendChild(dBlock);
+	}
+
+	if (data.attribution) {
+		var attrBlock = document.createElement("span");
+		attrBlock.classList.add("attribution");
+
+		attrBlock.textContent = data.attribution;
+		item.appendChild(attrBlock);
 	}
 
 	if (data.delete) {
