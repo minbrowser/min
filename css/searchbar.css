@@ -145,11 +145,11 @@ body.fullscreen #searchbar {
 }
 #searchbar .result-item .description-block {
 	display: block;
-	line-height: 1.1em;
+	line-height: 1.15em;
 	max-height: 2.2em;
 	overflow: hidden;
 	opacity: 0.666;
-	font-size: 0.8em;
+	font-size: 0.85em;
 }
 
 /* when a result is selected, we can show more of the description */
