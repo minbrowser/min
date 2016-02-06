@@ -218,7 +218,7 @@ function checkPhishingStatus() {
 
 			var slashCt = fa.replace(window.location.toString(), "").replace(window.location.pathname, "").split("/").length - 1;
 
-			if (slashCt < 2) {
+			if (fa.indexOf("javascript:") != 0 && slashCt < 2) {
 				debug_phishing("form with simple path for action detected");
 				formWithSimplePathFound = true;
 			} else if (slashCt < 3) {
