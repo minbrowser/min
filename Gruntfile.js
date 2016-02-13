@@ -62,14 +62,30 @@ module.exports = function (grunt) {
 				src: 'dist/webview.js',
 				dest: 'dist/webview.min.js'
 			}
+		},
+		electron: {
+			osxBuild: {
+				options: {
+					name: 'Min',
+					dir: '',
+					out: 'dist/app',
+					version: '0.36.2',
+					'app-version': '0.6.0',
+					platform: 'darwin',
+					arch: 'x64',
+					icon: "icon.icns",
+				}
+			}
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-electron');
 
 	grunt.registerTask('default', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview']);
 	grunt.registerTask('browser', ['concat:browser', 'uglify:browser']);
 	grunt.registerTask('webview', ['concat:webview', 'uglify:webview']);
+	grunt.registerTask('build', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'electron:osxBuild'])
 
 };
