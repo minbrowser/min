@@ -16,7 +16,7 @@ var tabActivity = {
 					return;
 				}
 				if (time - tab.lastActivity > tabActivity.minFadeAge) { //the tab has been inactive for greater than minActivity, and it is not currently selected
-					getTabElement(tab.id).classList.remove("fade");
+					getTabElement(tab.id).classList.add("fade");
 				} else {
 					getTabElement(tab.id).classList.remove("fade");
 				}
