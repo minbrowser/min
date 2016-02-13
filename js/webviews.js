@@ -110,6 +110,24 @@ function getWebviewDom(options) {
 		});
 	});
 
+	w.addEventListener("close", function (e) {
+		var tabId = this.getAttribute("data-tab");
+		var selTab = tabs.getSelected();
+		var currentIndex = tabs.getIndex(tabId);
+		var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1);
+
+		destroyTab(tabId);
+
+		if (tabId == selTab) { //the tab being destroyed is the current tab, find another tab to switch to
+
+			if (nextTab) {
+				switchToTab(nextTab.id);
+			} else {
+				addTab();
+			}
+		}
+	})
+
 
 	// In embedder page. Send the text content to bookmarks when recieved.
 	w.addEventListener('ipc-message', function (e) {
