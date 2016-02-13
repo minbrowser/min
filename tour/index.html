@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Welcome to Min</title>
+	<link rel="stylesheet" href="tour.css" />
+	<link rel="stylesheet" href="../ext/font-awesome-4.5.0/css/font-awesome.min.css" />
+	<meta charset="utf-8">
+</head>
+
+<body>
+
+	<div class="spacer" style="height: 100%; background: linear-gradient(135deg, rgba(80,122,196,1) 43%,rgba(80,122,196,1) 43%,rgba(128,192,226,1) 89%,rgba(128,192,226,1) 89%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */"></div>
+	<div class="tour-intro page-centered color-white">
+		<h1 class="title-heading">Welcome to Min.</h1>
+		<div class="centered-container">
+			<button class="outlined-button start-browsing-onclick" style="min-width: 0px">Start Browsing</button>&nbsp;&nbsp;&nbsp; or &nbsp;&nbsp;&nbsp;
+			<button class="outlined-button solid-button" id="start-tour">
+				Take a Tour
+			</button>
+		</div>
+	</div>
+
+	<img class="bottom-pinned-image fade" src="img/tabstrip.png" id="tab-image" />
+
+	<div class="tour-card" layout="textonly">
+		<h1 id="tour-first-heading">Tabs</h1>
+		<div class="tour-info">
+			<ul>
+				<li>Click on the current tab to open the searchbar. </li>
+				<li> Swipe up on a tab to delete it (or press ⌘+W). </li>
+				<li>Tabs you haven't looked at in a while fade out, and brighten again when you click on them.</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="tour-card light-gray-background" layout="left">
+		<h1>Search</h1>
+		<div class="tour-info">The searchbar shows information from <a target="_blank" href="https://duckduckgo.com">DuckDuckGo</a>, including Wikipedia entries, a calculator, programming documentation, and more.
+			<br>
+			<br> The searchbar also supports fuzzy search, which lets you quickly find websites without typing the entire URL. For example, you can type "mgc" to search for "mail.google.com".
+			<i class="arrow-showmore-icon fa fa-angle-double-down"></i>
+		</div>
+		<img class="tour-image" src="img/searchbar_duckduckgo_answers.png" />
+	</div>
+
+	<div class="tour-card" layout="right">
+		<h1>Bookmarks</h1>
+		<div class="tour-info">
+			Click the <i class="fa fa-star-o"></i> icon in the searchbar to bookmark a page. When you create a bookmark, the full text of the webpage is saved, and becomes searchble, so you can find your bookmarks later.
+			<i class="arrow-showmore-icon fa fa-angle-double-down"></i>
+		</div>
+		<img class="tour-image" src="img/searchbar_bookmarks.png" />
+	</div>
+
+	<div class="tour-card light-gray-background" layout="left">
+		<h1>Reading List</h1>
+		<div class="tour-info">Click the <i class="fa fa-align-left"></i> icon in a tab to format an article and make it easier to read. Articles opened in reader view are saved in your reading list for the next 30 days, and are saved for offline reading.
+			<br>
+			<br> You can find your saved articles in the application menu: View > Reading List.
+			<i class="arrow-showmore-icon fa fa-angle-double-down"></i>
+		</div>
+		<img class="tour-image" src="img/reading_list.png" />
+	</div>
+
+	<div class="tour-card" layout="right">
+		<h1>Tips and Tricks</h1>
+		<div class="tour-info">
+			<ul>
+				<li>Swipe down on the tabstrip (or press ⇧+⌘+E) to expand the tabstrip and view all of your open tabs in a grid.</li>
+				<li>Quickly switch between tabs: press ⌘+1 to move one tab to the right, ⌘+2 to move two tabs to the right, etc. ⇧+⌘+1 moves one tab to the left.</li>
+				<li>Focus Mode lets you hide distractions. In focus mode, all your tabs except the current one are hidden, and you can't create new tabs. Turn on focus mode in the View menu > Focus Mode.</li>
+			</ul>
+		</div>
+		<img class="tour-image" src="img/expanded_tab_mode.png" />
+	</div>
+
+	<div class="tour-card light-gray-background" layout="textonly">
+		<h1>Improving Min</h1>
+		<div class="tour-info">Min is open-source software, writtten in JavaScript. <a target="_blank" href="https://github.com/PalmerAL/Min">View the source on GitHub</a>, or <a target="_blank" href="https://github.com/PalmerAL/Min/issues/new">file an issue.</a></div>
+	</div>
+
+	<div class="spacer" style="height: 2em"></div>
+
+
+	<button class="outlined-button solid-button solid-button-blue centered-container start-browsing-onclick">Start Browsing</button>
+
+	<div class="spacer" style="height: 1em"></div>
+
+	<script src="tour.js"></script>
+</body>
+
+</html>
