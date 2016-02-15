@@ -307,7 +307,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				//suggested site links
 
 
-				if (res.Results && res.Results[0] && res.Results[0].FirstURL) {
+				if (res.Results && res.Results[0] && res.Results[0].FirstURL && currentHistoryResults.length < 11) {
 
 					var url = res.Results[0].FirstURL;
 
