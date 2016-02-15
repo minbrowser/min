@@ -255,7 +255,13 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 function limitHistoryResults(maxItems) {
 	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));
 
-	var itemsToHide = historyarea.querySelectorAll(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1));
+	var limitAmt = maxHistoryResults;
+
+	if (topAnswerarea.getElementsByClassName("history-item")[0]) {
+		limitAmt--;
+	}
+
+	var itemsToHide = historyarea.querySelectorAll(".result-item:nth-child(n+{items})".replace("{items}", limitAmt + 1));
 
 	for (var i = 0; i < itemsToHide.length; i++) {
 		itemsToHide[i].hidden = true;
