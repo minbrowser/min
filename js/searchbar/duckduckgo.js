@@ -141,7 +141,7 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 
 	itemsToShow = Math.max(2, itemsToShow);
 
-	fetch("https://ac.duckduckgo.com/ac/?q=" + encodeURIComponent(text), {
+	fetch("https://ac.duckduckgo.com/ac/?t=min&q=" + encodeURIComponent(text), {
 			cache: "force-cache"
 		})
 		.then(function (response) {
@@ -254,7 +254,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 
 	if (text.length > 3) {
 
-		fetch("https://api.duckduckgo.com/?skip_disambig=1&no_redirect=1&format=json&q=" + encodeURIComponent(text))
+		fetch("https://api.duckduckgo.com/?t=min&skip_disambig=1&no_redirect=1&format=json&q=" + encodeURIComponent(text))
 			.then(function (data) {
 				return data.json();
 			})

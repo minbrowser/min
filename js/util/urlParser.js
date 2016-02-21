@@ -1,5 +1,5 @@
 var urlParser = {
-	searchBaseURL: "https://duckduckgo.com/?q=%s",
+	searchBaseURL: "https://duckduckgo.com/?t=min&q=%s",
 	startingWWWRegex: /www\.(.+\..+\/)/g,
 	trailingSlashRegex: /\/$/g,
 	isURL: function (url) {

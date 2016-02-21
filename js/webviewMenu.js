@@ -91,7 +91,7 @@ var webviewMenu = {
 				label: 'Search with DuckDuckGo',
 				click: function () {
 					var newTab = tabs.add({
-						url: "https://duckduckgo.com/?q=" + encodeURIComponent(IPCdata.selection),
+						url: "https://duckduckgo.com/?t=min&q=" + encodeURIComponent(IPCdata.selection),
 						private: tab.private,
 					})
 					addTab(newTab, {
