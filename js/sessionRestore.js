@@ -24,12 +24,25 @@ var sessionRestore = {
 		//get the data
 
 		try {
-			var data = JSON.parse(localStorage.getItem("sessionrestoredata") || "{}");
+			var data = localStorage.getItem("sessionrestoredata");
+
+			//first run, show the tour
+			if (!data) {
+				var newTab = tabs.add({
+					url: "https://palmeral.github.io/min/tour"
+				});
+				addTab(newTab, {
+					enterEditMode: false,
+				});
+				return;
+			}
+
+			data = JSON.parse(data);
 
 			localStorage.setItem("sessionrestoredata", "{}");
 
 			if (data.version && data.version != 1) { //if the version isn't compatible, we don't want to restore.
-				addTab({
+				addTab(tabs.add(), {
 					leaveEditMode: false //we know we aren't in edit mode yet, so we don't have to leave it
 				});
 				return;
@@ -50,6 +63,7 @@ var sessionRestore = {
 				addTab(newTab, {
 					openInBackground: true,
 					leaveEditMode: false,
+					focus: false,
 				});
 
 			});
