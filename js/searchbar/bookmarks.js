@@ -60,7 +60,13 @@ var showBookmarkResults = debounce(function (text) {
 			}
 
 		});
-		limitHistoryResults(5 - resultsShown); //if we have lots of bookmarks, don't show as many regular history items
+
+		//if we have lots of bookmarks, don't show as many regular history items
+		if (resultsShown == 3) {
+			limitHistoryResults(3);
+		} else {
+			limitHistoryResults(4);
+		}
 
 	});
 }, 133);
