@@ -27,6 +27,8 @@ function calculateHistoryScore(item, boost) { //boost - how much the score shoul
 
 var oneDayInMS = 24 * 60 * 60 * 1000; //one day in milliseconds
 
+var oneWeekAgo = Date.now() - (oneDayInMS * 7);
+
 //the oldest an item can be to remain in the database
 var minItemAge = Date.now() - (oneDayInMS * 42);
 
@@ -207,18 +209,20 @@ onmessage = function (e) {
 				}
 
 
-				var score = itext.replace(".com", "").replace(".net", "").replace(".org", "").score(st, 0);
+				if (item.visitCount != 1 || item.lastVisit > oneWeekAgo) { //if the item has been visited more than once, or has been visited in the last week, we should calculate the fuzzy score. Otherwise, it is ignored. This reduces the number of bad results and increases search speed.
+					var score = itext.score(st, 0);
 
-				if (score > 0.4 + (0.001 * itext.length)) {
-					item.boost = score;
+					if (score > 0.4 + (0.001 * itext.length)) {
+						item.boost = score;
 
-					if (score > 0.62) {
-						item.boost += 0.33;
+						if (score > 0.62) {
+							item.boost += 0.33;
+						}
+
+						matches.push(item);
 					}
 
-					matches.push(item);
 				}
-
 			}
 		}
 
