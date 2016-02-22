@@ -69,7 +69,7 @@ module.exports = function (grunt) {
 					name: 'Min',
 					dir: '',
 					out: 'dist/app',
-					version: '0.36.2',
+					version: '0.36.8',
 					'app-version': '0.6.0',
 					platform: 'darwin',
 					arch: 'x64',

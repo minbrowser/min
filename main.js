@@ -26,6 +26,15 @@ function createWindow() {
 		'title-bar-style': 'hidden-inset',
 	});
 
+
+	mainWindow.webContents.session.setPermissionRequestHandler(function (webContents, permission, callback) {
+		if (permission === "notifications" || permission === "fullscreen") {
+			callback(true);
+		} else {
+			callback(false);
+		}
+	});
+
 	// and load the index.html of the app.
 	mainWindow.loadURL(browserPage);
 
