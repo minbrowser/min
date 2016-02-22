@@ -32,6 +32,12 @@
 			document.body.classList.remove("fullscreen");
 		});
 
+		window.addEventListener("load", function(e) {
+			if (navigator.platform != "MacIntel") {
+				document.body.classList.add("notMac");
+			}
+		});
+
 	</script>
 </head>
 

@@ -15,7 +15,8 @@
 
 /* there are no window controls in fullscreen, so we don't need any padding */
 
-body.fullscreen .tab-group {
+body.fullscreen .tab-group,
+body.notMac .tab-group {
 	padding-left: 0;
 }
 
