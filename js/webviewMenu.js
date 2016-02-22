@@ -1,4 +1,6 @@
-var remote, Menu, MenuItem, clipboard;
+var Menu = remote.Menu;
+var MenuItem = remote.MenuItem;
+var clipboard = remote.clipboard;
 
 var webviewMenu = {
 	cache: {
@@ -124,13 +126,6 @@ var webviewMenu = {
 	},
 	/* cxevent: a contextmenu event. Can be a jquery event or a regular event. */
 	show: function (cxevent) {
-
-		if (!remote) { //we lazyload remote, so if it isn't loaded yet, call require()
-			remote = require('remote');
-			Menu = remote.require('menu');
-			MenuItem = remote.require('menu-item');
-			clipboard = require("clipboard")
-		}
 
 		var event = cxevent.originalEvent || cxevent;
 		webviewMenu.cache.event = event;

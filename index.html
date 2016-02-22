@@ -14,6 +14,7 @@
 		require("require.async")(require);
 		window.electron = require("electron");
 		window.ipc = electron.ipcRenderer;
+		window.remote = electron.remote;
 		window.Dexie = require("dexie");
 
 		//disable dragdrop, since it currently doesn't work

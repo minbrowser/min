@@ -26,6 +26,19 @@ function bindWebviewIPC(name, fn) {
 	})
 }
 
+//the permissionRequestHandler used for webviews
+function pagePermissionRequestHandler(webContents, permission, callback) {
+	if (permission === "notifications" || permission === "fullscreen") {
+		callback(true);
+	} else {
+		callback(false);
+	}
+}
+
+//set the permissionRequestHandler for non-private tabs
+
+remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler);
+
 function getWebviewDom(options) {
 
 	var w = document.createElement("webview");
@@ -40,7 +53,14 @@ function getWebviewDom(options) {
 	//if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
 	//since tab IDs are unique, we can use them as partition names
 	if (tabs.get(options.tabId).private == true) {
-		w.setAttribute("partition", options.tabId);
+		var partition = options.tabId.toString(); //options.tabId is a number, which remote.session.fromPartition won't accept. It must be converted to a string first
+
+		w.setAttribute("partition", partition);
+
+		//register permissionRequestHandler for this tab
+		//private tabs use a different session, so the default permissionRequestHandler won't apply
+
+		remote.session.fromPartition(partition).setPermissionRequestHandler(pagePermissionRequestHandler);
 	}
 
 	//webview events
