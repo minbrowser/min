@@ -3,12 +3,6 @@
 var electron = require("electron");
 var ipc = electron.ipcRenderer;
 var webFrame;
-
-/* disable getUserMedia/Geolocation until we have permissions prompts for this https://github.com/atom/electron/issues/3268 */
-
-delete navigator.__proto__.geolocation;
-delete navigator.__proto__.webkitGetUserMedia;
-delete navigator.__proto__.getUserMedia;
 ;/* send bookmarks data.  */
 
 function getBookmarksText(doc, win) {
@@ -33,31 +27,14 @@ function getBookmarksText(doc, win) {
 		}
 	}
 
-
-	var candidates = ["P", "B", "I", "U", "H1", "H2", "H3", "A", "PRE", "CODE", "SPAN"];
-	var text = "";
 	var pageElements = docClone.body.querySelectorAll("*");
-	if (pageElements) {
-		for (var i = 0; i < pageElements.length; i++) {
+	var text = "";
 
-			var el = pageElements[i];
+	for (var i = 0; i < pageElements.length; i++) {
+		pageElements[i].insertAdjacentHTML("beforeend", " ");
+	};
 
-			//spans with little text are unlikely to be useful
-			if (el.tagName == "span" && el.parentNode && el.parentNode.textContent.length < 30) {
-				continue;
-			}
-
-			if (candidates.indexOf(el.tagName) != -1 || !el.childElementCount) {
-
-				//ignore hidden elements
-				if (win.getComputedStyle(el).display == "none") {
-					continue;
-				}
-
-				text += " " + el.textContent;
-			}
-		}
-	}
+	text = docClone.body.textContent;
 
 	//special meta tags
 
@@ -160,6 +137,7 @@ ipc.on("sendData", function () {
 			text += ". " + getBookmarksText(frames[x].contentDocument, frames[x].contentWindow);
 		} catch (e) {}
 	}
+
 
 	ipc.sendToHost("bookmarksData", {
 		url: window.location.toString(),
@@ -426,7 +404,7 @@ function checkPhishingStatus() {
 
 			var slashCt = fa.replace(window.location.toString(), "").replace(window.location.pathname, "").split("/").length - 1;
 
-			if (slashCt < 2) {
+			if (fa.indexOf("javascript:") != 0 && slashCt < 2) {
 				debug_phishing("form with simple path for action detected");
 				formWithSimplePathFound = true;
 			} else if (slashCt < 3) {

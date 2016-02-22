@@ -15,7 +15,7 @@ var tabs = {
 		var tabId = tab.id || Math.round(Math.random() * 100000000000000000); //you can pass an id that will be used, or a random one will be generated.
 
 		var newTab = {
-			url: tab.url || "about:blank",
+			url: tab.url || "",
 			title: tab.title || "",
 			id: tabId,
 			lastActivity: tab.lastActivity || Date.now(),
@@ -106,10 +106,21 @@ var tabs = {
 			return newOrder.indexOf(a.id) - newOrder.indexOf(b.id);
 		});
 	},
+}
 
+function isEmpty(tabList) {
+	if (!tabList || tabList.length == 0) {
+		return true;
+	}
+
+	if (tabList.length == 1 && (!tabList[0].url || tabList[0].url == "about:blank")) {
+		return true;
+	}
+
+	return false;
 }
 ;var urlParser = {
-	searchBaseURL: "https://duckduckgo.com/?q=%s",
+	searchBaseURL: "https://duckduckgo.com/?t=min&q=%s",
 	startingWWWRegex: /www\.(.+\..+\/)/g,
 	trailingSlashRegex: /\/$/g,
 	isURL: function (url) {
@@ -179,7 +190,7 @@ var phishingWarningPage = "file://" + __dirname + "/pages/phishing/index.html"; 
 var crashedWebviewPage = "file:///" + __dirname + "/pages/crash/index.html";
 var errorPage = "file:///" + __dirname + "/pages/error/index.html"
 
-var webviewBase = $("#webviews");
+var webviewBase = document.getElementById("webviews");
 var webviewEvents = [];
 var webviewIPC = [];
 
@@ -203,33 +214,33 @@ function bindWebviewIPC(name, fn) {
 
 function getWebviewDom(options) {
 
-	var url = (options || {}).url || "about:blank";
+	var w = document.createElement("webview");
+	w.setAttribute("preload", "dist/webview.min.js");
 
-	var w = $("<webview>");
-	var w0 = w[0];
-	w.attr("preload", "dist/webview.min.js");
-	w.attr("src", urlParser.parse(url));
+	if (options.url) {
+		w.setAttribute("src", urlParser.parse(options.url));
+	}
 
-	w.attr("data-tab", options.tabId);
+	w.setAttribute("data-tab", options.tabId);
 
 	//if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
 	//since tab IDs are unique, we can use them as partition names
 	if (tabs.get(options.tabId).private == true) {
-		w.attr("partition", options.tabId);
+		w.setAttribute("partition", options.tabId);
 	}
 
 	//webview events
 
 	webviewEvents.forEach(function (i) {
-		w0.addEventListener(i.event, i.fn);
+		w.addEventListener(i.event, i.fn);
 	});
 
-	w0.addEventListener("page-favicon-updated", function (e) {
+	w.addEventListener("page-favicon-updated", function (e) {
 		var id = this.getAttribute("data-tab");
 		updateTabColor(e.favicons, id);
 	});
 
-	w0.addEventListener("page-title-set", function (e) {
+	w.addEventListener("page-title-set", function (e) {
 		var tab = this.getAttribute("data-tab");
 		tabs.update(tab, {
 			title: e.title
@@ -237,9 +248,9 @@ function getWebviewDom(options) {
 		rerenderTabElement(tab);
 	});
 
-	w0.addEventListener("did-finish-load", function (e) {
+	w.addEventListener("did-finish-load", function (e) {
 		var tab = this.getAttribute("data-tab");
-		var url = $(this).attr("src"); //src attribute changes whenever a page is loaded
+		var url = this.getAttribute("src"); //src attribute changes whenever a page is loaded
 
 		if (url.indexOf("https://") === 0 || url.indexOf("about:") == 0 || url.indexOf("chrome:") == 0 || url.indexOf("file://") == 0) {
 			tabs.update(tab, {
@@ -271,7 +282,7 @@ function getWebviewDom(options) {
 
 	//open links in new tabs
 
-	w0.addEventListener("new-window", function (e) {
+	w.addEventListener("new-window", function (e) {
 		var tab = this.getAttribute("data-tab");
 		var currentIndex = tabs.getIndex(tabs.getSelected());
 
@@ -285,29 +296,47 @@ function getWebviewDom(options) {
 		});
 	});
 
+	w.addEventListener("close", function (e) {
+		var tabId = this.getAttribute("data-tab");
+		var selTab = tabs.getSelected();
+		var currentIndex = tabs.getIndex(tabId);
+		var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1);
+
+		destroyTab(tabId);
+
+		if (tabId == selTab) { //the tab being destroyed is the current tab, find another tab to switch to
+
+			if (nextTab) {
+				switchToTab(nextTab.id);
+			} else {
+				addTab();
+			}
+		}
+	})
+
 
 	// In embedder page. Send the text content to bookmarks when recieved.
-	w.on('ipc-message', function (e) {
+	w.addEventListener('ipc-message', function (e) {
 		var w = this;
 		var tab = this.getAttribute("data-tab");
 
 		webviewIPC.forEach(function (item) {
-			if (item.name == e.originalEvent.channel) {
-				item.fn(w, tab, e.originalEvent.args);
+			if (item.name == e.channel) {
+				item.fn(w, tab, e.args);
 			}
 		});
 
-		if (e.originalEvent.channel == "bookmarksData") {
-			bookmarks.onDataRecieved(e.originalEvent.args[0]);
+		if (e.channel == "bookmarksData") {
+			bookmarks.onDataRecieved(e.args[0]);
 
-		} else if (e.originalEvent.channel == "phishingDetected") {
-			navigate($(this).attr("data-tab"), phishingWarningPage);
+		} else if (e.channel == "phishingDetected") {
+			navigate(this.getAttribute("data-tab"), phishingWarningPage);
 		}
 	});
 
-	w.on("contextmenu", webviewMenu.show);
+	w.addEventListener("contextmenu", webviewMenu.show);
 
-	w.on("crashed", function (e) {
+	w.addEventListener("crashed", function (e) {
 		var tabId = this.getAttribute("data-tab");
 
 		destroyWebview(tabId);
@@ -319,17 +348,17 @@ function getWebviewDom(options) {
 		switchToWebview(tabId);
 	});
 
-	w.on("did-fail-load", function (e) {
-		if (e.originalEvent.errorCode != -3 && e.originalEvent.validatedURL == e.target.getURL()) {
-			navigate($(this).attr("data-tab"), errorPage + "?ec=" + encodeURIComponent(e.originalEvent.errorCode) + "&url=" + e.target.getURL());
+	w.addEventListener("did-fail-load", function (e) {
+		if (e.errorCode != -3 && e.validatedURL == e.target.getURL()) {
+			navigate(this.getAttribute("data-tab"), errorPage + "?ec=" + encodeURIComponent(e.errorCode) + "&url=" + e.target.getURL());
 		}
 	});
 
-	w0.addEventListener("enter-html-full-screen", function (e) {
+	w.addEventListener("enter-html-full-screen", function (e) {
 		this.classList.add("fullscreen");
 	});
 
-	w0.addEventListener("leave-html-full-screen", function (e) {
+	w.addEventListener("leave-html-full-screen", function (e) {
 		this.classList.remove("fullscreen");
 	})
 
@@ -353,27 +382,33 @@ function addWebview(tabId) {
 
 	//this is used to hide the webview while still letting it load in the background
 	//webviews are hidden when added - call switchToWebview to show it
-	webview.addClass("hidden");
+	webview.classList.add("hidden");
 
-	webviewBase.append(webview);
+	webviewBase.appendChild(webview);
 }
 
 function switchToWebview(id) {
-	$("webview").prop("hidden", true);
+	var webviews = document.getElementsByTagName("webview");
+	for (var i = 0; i < webviews.length; i++) {
+		webviews[i].hidden = true;
+	}
 
-	getWebview(id).removeClass("hidden").prop("hidden", false); //in some cases, webviews had the hidden class instead of display:none to make them load in the background. We need to make sure to remove that.
+	var wv = getWebview(id);
+	wv.classList.remove("hidden");
+	wv.hidden = false;
 }
 
 function updateWebview(id, url) {
-	getWebview(id).attr("src", urlParser.parse(url));
+	getWebview(id).setAttribute("src", urlParser.parse(url));
 }
 
 function destroyWebview(id) {
-	$('webview[data-tab="{id}"]'.replace("{id}", id)).remove();
+	var w = document.querySelector('webview[data-tab="{id}"]'.replace("{id}", id));
+	w.parentNode.removeChild(w);
 }
 
 function getWebview(id) {
-	return $('webview[data-tab="{id}"]'.replace("{id}", id));
+	return document.querySelector('webview[data-tab="{id}"]'.replace("{id}", id));
 }
 ;var remote, Menu, MenuItem, clipboard;
 
@@ -417,7 +452,7 @@ var webviewMenu = {
 						enterEditMode: false,
 					});
 
-					getWebview(newTab).get(0).focus();
+					getWebview(newTab).focus();
 				}
 			}));
 
@@ -435,7 +470,7 @@ var webviewMenu = {
 							enterEditMode: false,
 						});
 
-						getWebview(newTab).get(0).focus();
+						getWebview(newTab).focus();
 					}
 				}));
 			}
@@ -468,14 +503,14 @@ var webviewMenu = {
 				label: 'Search with DuckDuckGo',
 				click: function () {
 					var newTab = tabs.add({
-						url: "https://duckduckgo.com/?q=" + encodeURIComponent(IPCdata.selection),
+						url: "https://duckduckgo.com/?t=min&q=" + encodeURIComponent(IPCdata.selection),
 						private: tab.private,
 					})
 					addTab(newTab, {
 						enterEditMode: false,
 					});
 
-					getWebview(newTab).get(0).focus();
+					getWebview(newTab).focus();
 				}
 			}));
 		}
@@ -513,7 +548,7 @@ var webviewMenu = {
 		webviewMenu.cache.event = event;
 
 		var currentTab = tabs.getSelected();
-		var webview = getWebview(currentTab)[0]
+		var webview = getWebview(currentTab)
 
 		webviewMenu.cache.tab = currentTab;
 		webviewMenu.cache.webview = webview;
@@ -539,7 +574,6 @@ steps to creating a bookmark:
 */
 
 var bookmarks = {
-	authBookmarkTab: null,
 	updateHistory: function (tabId) {
 		setTimeout(function () { //this prevents pages that are immediately left from being saved to history, and also gives the page-favicon-updated event time to fire (so the colors saved to history are correct).
 			var tab = tabs.get(tabId);
@@ -559,17 +593,10 @@ var bookmarks = {
 	},
 	currentCallback: function () {},
 	onDataRecieved: function (data) {
-		//we can't trust that the data we get from webview_preload.js isn't malicious. Because of this, when we call bookmarks.bookmark(), we set authBookmarkTab to the bookmarked tab id. Then, we check if the url we get back actually matches the url of the tabtab we want to bookmark. This way, we know that the user actually wants to bookmark this url.
-		if (!bookmarks.authBookmarkTab || getWebview(bookmarks.authBookmarkTab)[0].getURL() != data.url) {
-			throw new Error("Bookmark operation is unauthoritized.");
-		}
-
-		data.title = getWebview(bookmarks.authBookmarkTab)[0].getTitle();
 		bookmarks.bookmarksWorker.postMessage({
 			action: "addBookmark",
 			data: data
-		})
-		bookmarks.authBookmarkTab = null;
+		});
 	},
 	deleteBookmark: function (url) {
 		bookmarks.bookmarksWorker.postMessage({
@@ -601,6 +628,13 @@ var bookmarks = {
 			text: text,
 		});
 	},
+	getHistorySuggestions: function (url, callback) {
+		bookmarks.currentHistoryCallback = callback;
+		bookmarks.historyWorker.postMessage({
+			action: "getHistorySuggestions",
+			text: url,
+		});
+	},
 	onMessage: function (e) { //assumes this is from a search operation
 		if (e.data.scope == "bookmarks") {
 			//TODO this (and the rest) should use unique callback id's
@@ -610,9 +644,7 @@ var bookmarks = {
 		}
 	},
 	bookmark: function (tabId) {
-
-		bookmarks.authBookmarkTab = tabId;
-		getWebview(tabId)[0].send("sendData");
+		getWebview(tabId).send("sendData");
 		//rest happens in onDataRecieved and worker
 	},
 	toggleBookmarked: function (tabId) { //toggles a bookmark. If it is bookmarked, delete the bookmark. Otherwise, add it.
@@ -636,37 +668,57 @@ var bookmarks = {
 			}
 		});
 	},
+	handleStarClick: function (star) {
+		star.classList.toggle("fa-star");
+		star.classList.toggle("fa-star-o");
+
+		bookmarks.toggleBookmarked(star.getAttribute("data-tab"));
+	},
 	getStar: function (tabId) {
-		//alternative icon is fa-bookmark
+		var star = document.createElement("i");
+		star.setAttribute("data-tab", tabId);
+		star.className = "fa fa-star-o bookmarks-button theme-text-color"; //alternative icon is fa-bookmark
 
-		var star = $("<i class='fa fa-star-o bookmarks-button theme-text-color'>").attr("data-tab", tabId);
-
-		star.on("click", function (e) {
-			$(this).toggleClass("fa-star").toggleClass("fa-star-o");
-
-			bookmarks.toggleBookmarked($(this).attr("data-tab"));
+		star.addEventListener("click", function (e) {
+			bookmarks.handleStarClick(e.target);
 		});
 
 		return bookmarks.renderStar(tabId, star);
 	},
 	renderStar: function (tabId, star) { //star is optional
-		star = star || $('.bookmarks-button[data-tab="{id}"]'.replace("{id}", tabId));
+		star = star || document.querySelector('.bookmarks-button[data-tab="{id}"]'.replace("{id}", tabId));
 
 		var currentURL = tabs.get(tabId).url;
 
 		if (!currentURL || currentURL == "about:blank") { //no url, can't be bookmarked
-			star.prop("hidden", true);
+			star.hidden = true;
+			return star;
 		} else {
-			star.prop("hidden", false);
+			star.hidden = false;
 		}
 
 		//check if the page is bookmarked or not, and update the star to match
 
 		bookmarks.searchBookmarks(currentURL, function (results) {
-			if (results && results[0] && results[0].url == currentURL) {
-				star.removeClass("fa-star-o").addClass("fa-star");
+
+			if (!results) {
+				return;
+			}
+
+			var hasMatched = false;
+
+			results.forEach(function (r) {
+				if (r.url == currentURL) {
+					hasMatched = true;
+				}
+			});
+
+			if (hasMatched) {
+				star.classList.remove("fa-star-o");
+				star.classList.add("fa-star");
 			} else {
-				star.removeClass("fa-star").addClass("fa-star-o");
+				star.classList.remove("fa-star");
+				star.classList.add("fa-star-o");
 			}
 		});
 		return star;
@@ -700,7 +752,9 @@ function navigate(tabId, newURL) {
 
 function destroyTab(id) {
 
-	getTabElement(id).remove(); //remove the actual tab element
+	var tabEl = getTabElement(id);
+	tabEl.parentNode.removeChild(tabEl);
+
 	var t = tabs.destroy(id); //remove from state - returns the index of the destroyed tab
 	destroyWebview(id); //remove the webview
 
@@ -725,7 +779,7 @@ function switchToTab(id, options) {
 	switchToWebview(id);
 
 	if (options.focusWebview != false && !isExpandedMode) { //trying to focus a webview while in expanded mode breaks the page
-		getWebview(id).get(0).focus();
+		getWebview(id).focus();
 	}
 
 	var tabData = tabs.get(id);
@@ -749,6 +803,10 @@ function switchToTab(id, options) {
 var METADATA_SEPARATOR = "·";
 var didFireKeydownSelChange = false;
 var currentsearchbarInput;
+
+//swipe left on history items to delete them
+
+var lastItemDeletion = Date.now();
 
 //https://remysharp.com/2010/07/21/throttling-function-calls#
 
@@ -827,7 +885,11 @@ function openURLInBackground(url) { //used to open a url in the background, with
 		openInBackground: true,
 		leaveEditMode: false,
 	});
-	$(".result-item:focus").blur(); //remove the highlight from an awesoembar result item, if there is one
+
+	var i = searchbar.querySelector(".result-item:focus");
+	if (i) { //remove the highlight from an awesomebar result item, if there is one
+		i.blur();
+	}
 }
 
 //when clicking on a result item, this function should be called to open the URL
@@ -904,7 +966,9 @@ secondaryText: string - the item's secondary text
 url: string - the item's url (if there is one).
 icon: string - the name of a font awesome icon.
 image: string - the URL of an image to show
-descriptionBlock: string - the text in the description block
+descriptionBlock: string - the text in the description block,
+attribution: string - attribution text to display when the item is focused
+delete: function - a function to call to delete the result item when a left swipe is detected
 	
 classList: array - a list of classes to add to the item
 */
@@ -971,11 +1035,36 @@ function createSearchbarItem(data) {
 		item.appendChild(dBlock);
 	}
 
+	if (data.attribution) {
+		var attrBlock = document.createElement("span");
+		attrBlock.classList.add("attribution");
+
+		attrBlock.textContent = data.attribution;
+		item.appendChild(attrBlock);
+	}
+
+	if (data.delete) {
+		item.addEventListener("mousewheel", function (e) {
+			var self = this;
+			if (e.deltaX > 50 && e.deltaY < 3 && Date.now() - lastItemDeletion > 700) {
+				lastItemDeletion = Date.now();
+
+				self.style.opacity = "0";
+				self.style.transform = "translateX(-100%)";
+
+				setTimeout(function () {
+					data.delete(self);
+					self.parentNode.removeChild(self);
+					lastItemDeletion = Date.now();
+				}, 200);
+			}
+		});
+	}
+
 	return item;
 }
 
 var searchbar = document.getElementById("searchbar");
-var $searchbar = $(searchbar);
 
 function clearsearchbar() {
 	empty(opentabarea);
@@ -991,14 +1080,17 @@ function clearsearchbar() {
 }
 
 function showSearchbar(triggerInput) {
-	searchbarCachedText = triggerInput.val();
-	$(document.body).addClass("searchbar-shown");
+
+	currentACItem = null
+
+	searchbarCachedText = triggerInput.value;
+	document.body.classList.add("searchbar-shown");
 
 	clearsearchbar();
 
 	searchbar.hidden = false;
 
-	currentsearchbarInput = triggerInput.get(0);
+	currentsearchbarInput = triggerInput;
 
 }
 
@@ -1011,12 +1103,11 @@ function getValue(input) {
 
 function hidesearchbar() {
 	currentsearchbarInput = null;
-	$(document.body).removeClass("searchbar-shown");
+	document.body.classList.remove("searchbar-shown");
 	searchbar.hidden = true;
 	cachedBangSnippets = {};
 }
 var showSearchbarResults = function (text, input, event) {
-
 	if (event && event.metaKey) {
 		return;
 	}
@@ -1083,35 +1174,42 @@ var showSearchbarResults = function (text, input, event) {
 function focussearchbarItem(options) {
 	options = options || {}; //fallback if options is null
 	var previous = options.focusPrevious;
-	var allItems = $("#searchbar .result-item:not(.unfocusable)");
-	var currentItem = $("#searchbar .result-item:focus, .result-item.fakefocus");
-	var index = allItems.index(currentItem);
-	var logicalNextItem = allItems.eq((previous) ? index - 1 : index + 1);
 
-	$searchbar.find(".fakefocus").removeClass("fakefocus"); //clear previously focused items
+	var allItems = [].slice.call(searchbar.querySelectorAll(".result-item:not(.unfocusable)"));
+	var currentItem = searchbar.querySelector(".result-item:focus, .result-item.fakefocus");
 
-	if (currentItem[0] && logicalNextItem[0]) { //an item is focused and there is another item after it, move onto the next one
-		logicalNextItem.get(0).focus();
-	} else if (currentItem[0]) { //the last item is focused, focus the searchbar again
-		getTabElement(tabs.getSelected()).getInput().get(0).focus();
-	} else { // no item is focused.
-		$("#searchbar .result-item").first().get(0).focus();
+	var index = allItems.indexOf(currentItem);
+	var logicalNextItem = allItems[(previous) ? index - 1 : index + 1];
+
+	//clear previously focused items
+	var fakefocus = searchbar.querySelector(".fakefocus");
+	if (fakefocus) {
+		fakefocus.classList.remove("fakefocus");
 	}
 
-	var focusedItem = $("#searchbar .result-item:focus");
+	if (currentItem && logicalNextItem) { //an item is focused and there is another item after it, move onto the next one
+		logicalNextItem.focus();
+	} else if (currentItem) { //the last item is focused, focus the searchbar again
+		getTabInput(tabs.getSelected()).focus();
+		return;
+	} else { // no item is focused.
+		allItems[0].focus();
+	}
 
-	if (focusedItem.hasClass("iadata-onfocus")) {
+	var focusedItem = logicalNextItem || allItems[0];
+
+	if (focusedItem.classList.contains("iadata-onfocus")) {
 
 		setTimeout(function () {
-			if (document.activeElement == focusedItem[0]) {
-				var itext = focusedItem.find(".title").text();
+			if (document.activeElement == focusedItem) {
+				var itext = focusedItem.querySelector(".title").textContent;
 
 				showInstantAnswers(itext, currentsearchbarInput, {
 					alwaysShow: true,
 					destroyPrevious: false,
 				});
 			}
-		}, 200);
+		}, 225);
 	}
 }
 
@@ -1119,9 +1217,9 @@ function focussearchbarItem(options) {
 //tab key or arrowdown key should focus next item
 //arrowup key should focus previous item
 
-$searchbar.on("keydown", ".result-item", function (e) {
+searchbar.addEventListener("keydown", function (e) {
 	if (e.keyCode == 13) {
-		$(this).trigger("click");
+		e.target.click();
 	} else if (e.keyCode == 9 || e.keyCode == 40) { //tab or arrowdown key
 		e.preventDefault();
 		focussearchbarItem();
@@ -1129,25 +1227,6 @@ $searchbar.on("keydown", ".result-item", function (e) {
 		e.preventDefault();
 		focussearchbarItem({
 			focusPrevious: true
-		});
-	}
-});
-
-//swipe left on history items to delete them
-
-var lastItemDeletion = Date.now();
-
-$searchbar.on("mousewheel", ".history-results .result-item, .top-answer-results .result-item", function (e) {
-	var self = $(this)
-	if (e.originalEvent.deltaX > 50 && e.originalEvent.deltaY < 3 && self.attr("data-url") && Date.now() - lastItemDeletion > 700) {
-		lastItemDeletion = Date.now();
-		self.animate({
-			opacity: "0",
-			"margin-left": "-100%"
-		}, 200, function () {
-			self.remove();
-			bookmarks.deleteHistory(self.attr("data-url"));
-			lastItemDeletion = Date.now();
 		});
 	}
 });
@@ -1202,14 +1281,13 @@ var currentACItem = null;
 var deleteKeyPressed = false;
 
 var historyarea = searchbar.querySelector(".history-results");
-var $historyarea = $(historyarea);
 
 var maxHistoryResults = 4;
 var currentHistoryResults = null;
 
 function searchbarAutocomplete(text, input, historyResults) {
 
-	if (!text) {
+	if (!text || deleteKeyPressed) {
 		currentACItem = null;
 		return;
 	}
@@ -1263,7 +1341,7 @@ function autocompleteResultIfNeeded(input, result) {
 
 
 	for (var i = 0; i < possibleAutocompletions.length; i++) {
-		if (!deleteKeyPressed && possibleAutocompletions[i].toLowerCase().indexOf(text.toLowerCase()) == 0) { //we can autocomplete the item
+		if (possibleAutocompletions[i].toLowerCase().indexOf(text.toLowerCase()) == 0) { //we can autocomplete the item
 
 			input.value = possibleAutocompletions[i];
 			input.setSelectionRange(text.length, possibleAutocompletions[i].length);
@@ -1302,7 +1380,29 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			return;
 		}
 
-		bookmarks.searchHistory(text, function (results) {
+		if (text.indexOf("!") == 0) {
+			empty(historyarea);
+			showSearchSuggestions(text, input, 5);
+			return; //never show history results for bang search
+		}
+
+		var fn = bookmarks.searchHistory;
+
+		var searchText = text;
+
+		//if there is no search text, show suggested sites instead
+		if (!searchText) {
+			fn = bookmarks.getHistorySuggestions;
+			searchText = tabs.get(tabs.getSelected()).url;
+
+			//current tab is empty
+			var idx = tabs.getIndex(tabs.getSelected());
+			if ((!searchText || searchText == "about:blank") && idx > 0) {
+				searchText = tabs.getAtIndex(idx - 1).url;
+			}
+		}
+
+		fn(searchText, function (results) {
 
 			currentHistoryResults = results;
 
@@ -1313,6 +1413,15 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 			//if there is no text, only history results will be shown, so we can assume that 4 results should be shown.
 			if (!text) {
 				maxItems = 4;
+
+				//don't show sites currently open as site suggestions
+
+				var tabList = tabs.get().map(function (tab) {
+					return tab.url;
+				});
+				results = results.filter(function (item) {
+					return tabList.indexOf(item.url) == -1;
+				});
 			}
 
 			empty(historyarea);
@@ -1323,9 +1432,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 			searchbarAutocomplete(text, input, results);
 
-			if (text.indexOf("!") == 0) {
-				showSearchSuggestions(text, input, 5);
-			} else if (results.length < 10) {
+			if (results.length < 10) {
 				maxItems = 3;
 				showSearchSuggestions(text, input, 5 - results.length);
 			} else {
@@ -1338,16 +1445,13 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 
 			requestAnimationFrame(function () {
 
-				var isBangSearch = text.indexOf("!") == 0;
-
 				results.slice(0, 4).forEach(function (result) {
 
 					DDGSearchURLRegex.lastIndex = 0;
 					var isDDGSearch = DDGSearchURLRegex.test(result.url);
 
-					//if we're doing a bang search, but the item isn't a web search, it probably isn't useful, so we shouldn't show it
-					if (!isDDGSearch && isBangSearch) {
-						return;
+					var itemDeleteFunction = function (el) {
+						bookmarks.deleteHistory(el.getAttribute("data-url"));
 					}
 
 
@@ -1360,6 +1464,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 							title: processedTitle,
 							url: result.url,
 							classList: ["history-item"],
+							delete: itemDeleteFunction,
 						}
 					} else {
 						var data = {
@@ -1367,6 +1472,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 							title: getRealTitle(result.title) || result.url,
 							url: result.url,
 							classList: ["history-item"],
+							delete: itemDeleteFunction,
 						}
 
 						if (result.title !== result.url) {
@@ -1406,6 +1512,7 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 						classList: ["history-item", "fakefocus"],
 						icon: "fa-globe",
 						title: urlParser.prettyURL(currentACItem),
+						url: currentACItem,
 					});
 
 					item.addEventListener("click", function (e) {
@@ -1423,7 +1530,18 @@ var showHistoryResults = throttle(function (text, input, maxItems) {
 function limitHistoryResults(maxItems) {
 	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));
 
-	$historyarea.find(".result-item:nth-child(n+{items})".replace("{items}", maxHistoryResults + 1)).prop("hidden", true).addClass("unfocusable");
+	var limitAmt = maxHistoryResults;
+
+	if (topAnswerarea.getElementsByClassName("history-item")[0]) {
+		limitAmt--;
+	}
+
+	var itemsToHide = historyarea.querySelectorAll(".result-item:nth-child(n+{items})".replace("{items}", limitAmt + 1));
+
+	for (var i = 0; i < itemsToHide.length; i++) {
+		itemsToHide[i].hidden = true;
+		itemsToHide[i].classList.add("unfocusable");
+	}
 }
 ;var bookmarkarea = searchbar.querySelector(".bookmark-results");
 
@@ -1474,12 +1592,12 @@ var showBookmarkResults = debounce(function (text) {
 		results.splice(0, 2).forEach(function (result) {
 
 			//if a history item for the same page already exists, don't show a bookmark
-			if ($('.result-item[data-url="{url}"]:not([hidden])'.replace("{url}", result.url))[0]) {
+			if (searchbar.querySelector('.result-item[data-url="{url}"]:not([hidden])'.replace("{url}", result.url))) {
 				return;
 			}
 
 			//as more results are added, the threshold for adding another one gets higher
-			if (result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.25, text.length))) && (resultsShown == 1 || text.length > 6)) {
+			if ((result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.3, text.length))) || text.length > 25) && (resultsShown == 1 || text.length > 6)) {
 				requestAnimationFrame(function () {
 					addBookmarkItem(result);
 				});
@@ -1487,7 +1605,13 @@ var showBookmarkResults = debounce(function (text) {
 			}
 
 		});
-		limitHistoryResults(5 - resultsShown); //if we have lots of bookmarks, don't show as many regular history items
+
+		//if we have lots of bookmarks, don't show as many regular history items
+		if (resultsShown == 3) {
+			limitHistoryResults(3);
+		} else {
+			limitHistoryResults(4);
+		}
 
 	});
 }, 133);
@@ -1510,8 +1634,46 @@ var iaarea = searchbar.querySelector(".instant-answer-results");
 var topAnswerarea = searchbar.querySelector(".top-answer-results");
 var suggestedsitearea = searchbar.querySelector("#searchbar .ddg-site-results");
 
+var ddgAttribution = "Results from DuckDuckGo";
+
 //cache duckduckgo bangs so we make fewer network requests
 var cachedBangSnippets = {};
+
+//format is {bang: count}
+var bangUseCounts = JSON.parse(localStorage.getItem("bangUseCounts") || "{}");
+
+function removeAllDDGAnswers() {
+	var a = searchbar.querySelectorAll(".ddg-answer");
+	for (var i = 0; i < a.length; i++) {
+		a[i].parentNode.removeChild(a[i]);
+	}
+}
+
+function incrementBangCount(bang) {
+	//increment bangUseCounts
+
+	if (bangUseCounts[bang]) {
+		bangUseCounts[bang]++;
+	} else {
+		bangUseCounts[bang] = 1;
+	}
+
+	//prevent the data from getting too big
+
+	if (bangUseCounts[bang] > 1000) {
+		for (var bang in bangUseCounts) {
+			bangUseCounts[bang] = Math.floor(bangUseCounts[bang] * 0.9);
+
+			if (bangUseCounts[bang] < 2) {
+				delete bangUseCounts[bang];
+			}
+		}
+	}
+}
+
+var saveBangUseCounts = debounce(function () {
+	localStorage.setItem("bangUseCounts", JSON.stringify(bangUseCounts));
+}, 10000);
 
 /* custom answer layouts */
 
@@ -1519,48 +1681,58 @@ var IAFormats = {
 	color_code: function (searchText, answer) {
 		var alternateFormats = [answer.data.rgb, answer.data.hslc, answer.data.cmyb];
 
-		if (searchText.indexOf("#") == -1) { //if the search is not a hex code, show the hex code as an alternate format
+		if (!searchText.startsWith("#")) { //if the search is not a hex code, show the hex code as an alternate format
 			alternateFormats.unshift(answer.data.hexc);
 		}
 
-		var item = $("<div class='result-item indent ddg-answer' tabindex='-1'>");
-		$("<span class='title'>").text(searchText).appendTo(item);
+		var item = createSearchbarItem({
+			title: searchText,
+			descriptionBlock: alternateFormats.join(" " + METADATA_SEPARATOR + " "),
+			classList: ["indent", "ddg-answer"],
+			attribution: ddgAttribution,
+		});
 
-		$("<div class='result-icon color-circle'>").css("background-color", "#" + answer.data.hex_code).prependTo(item);
+		var colorCircle = document.createElement("div");
+		colorCircle.className = "result-icon color-circle";
+		colorCircle.style.backgroundColor = "#" + answer.data.hex_code;
 
-		$("<span class='description-block'>").text(alternateFormats.join(" " + METADATA_SEPARATOR + " ")).appendTo(item);
+		item.insertBefore(colorCircle, item.firstChild);
 
 		return item;
 	},
 	minecraft: function (searchText, answer) {
 
-		var item = $("<div class='result-item indent ddg-answer' tabindex='-1'>");
-
-		$("<span class='title'>").text(answer.data.title).appendTo(item);
-		$("<img class='result-icon image'>").attr("src", answer.data.image).prependTo(item);
-		$("<span class='description-block'>").text(answer.data.description + " " + answer.data.subtitle).appendTo(item);
+		var item = createSearchbarItem({
+			title: answer.data.title,
+			image: answer.data.image,
+			descriptionBlock: answer.data.description + " " + answer.data.subtitle,
+			classList: ["indent", "ddg-answer"],
+			attribution: ddgAttribution,
+		});
 
 		return item;
 	},
 	figlet: function (searchText, answer) {
 		var formattedAnswer = removeTags(answer).replace("Font: standard", "");
 
-		var item = $("<div class='result-item indent ddg-answer' tabindex='-1'>");
-		var desc = $("<span class='description-block'>").text(formattedAnswer).appendTo(item);
+		var item = createSearchbarItem({
+			descriptionBlock: formattedAnswer,
+			classList: ["indent", "ddg-answer"],
+			attribution: ddgAttribution,
+		});
+
+		var block = item.querySelector(".description-block");
 
 		//display the data correctly
-		desc.css({
-			"white-space": "pre-wrap",
-			"font-family": "monospace",
-			"max-height": "10em",
-			"-webkit-user-select": "auto",
-		});
+		block.style.whiteSpace = "pre-wrap";
+		block.style.fontFamily = "monospace";
+		block.style.maxHeight = "10em";
+		block.style.webkitUserSelect = "auto";
 
 		return item;
 
 	},
 	currency_in: function (searchText, answer) {
-		var item = $("<div class='result-item indent ddg-answer' tabindex='-1'>");
 		var title = "";
 		if (typeof answer == "string") { //there is only one currency
 			title = answer;
@@ -1573,12 +1745,18 @@ var IAFormats = {
 			title = currencyArr.join(", ");
 		}
 
-		var desc = $("<span class='title title-block'>").text(title).appendTo(item);
 		if (answer.data) {
-			var subtitle = $("<span class='description-block'>").text(answer.data.title).appendTo(item);
+			var descriptionBlock = answer.data.title;
 		} else {
-			var subtitle = $("<span class='description-block'>").text("Answer").appendTo(item);
+			var descriptionBlock = "Answer";
 		}
+
+		var item = createSearchbarItem({
+			title: title,
+			descriptionBlock: descriptionBlock,
+			classList: ["indent", "ddg-answer"],
+			attribution: ddgAttribution,
+		});
 
 		return item;
 	},
@@ -1593,7 +1771,9 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 
 	itemsToShow = Math.max(2, itemsToShow);
 
-	fetch("https://ac.duckduckgo.com/ac/?q=" + encodeURIComponent(text))
+	fetch("https://ac.duckduckgo.com/ac/?t=min&q=" + encodeURIComponent(text), {
+			cache: "force-cache"
+		})
 		.then(function (response) {
 			return response.json();
 		})
@@ -1603,7 +1783,20 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 
 			if (results && results[0] && results[0].snippet) { //!bang search - ddg api doesn't have a good way to detect this
 
-				results.splice(0, 5).forEach(function (result) {
+				results.sort(function (a, b) {
+					var aScore = a.score || 1;
+					var bScore = b.score || 1;
+					if (bangUseCounts[a.phrase]) {
+						aScore *= bangUseCounts[a.phrase];
+					}
+					if (bangUseCounts[b.phrase]) {
+						bScore *= bangUseCounts[b.phrase];
+					}
+
+					return bScore - aScore;
+				});
+
+				results.slice(0, 5).forEach(function (result) {
 					cachedBangSnippets[result.phrase] = result.snippet;
 
 					//autocomplete the bang, but allow the user to keep typing
@@ -1619,6 +1812,9 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 
 					item.addEventListener("click", function () {
 						setTimeout(function () {
+							incrementBangCount(result.phrase);
+							saveBangUseCounts();
+
 							input.value = result.phrase + " ";
 							input.focus();
 						}, 66);
@@ -1640,6 +1836,10 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 						data.title = result.phrase.replace(bangRegex, "");
 
 						var bang = result.phrase.match(bangRegex)[0];
+
+						incrementBangCount(bang);
+						saveBangUseCounts();
+
 						data.secondaryText = "Search on " + cachedBangSnippets[bang];
 					}
 
@@ -1660,7 +1860,7 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 			}
 		});
 
-}, 500);
+}, 350);
 
 window.showInstantAnswers = debounce(function (text, input, options) {
 
@@ -1684,7 +1884,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 
 	if (text.length > 3) {
 
-		fetch("https://api.duckduckgo.com/?skip_disambig=1&no_redirect=1&format=json&q=" + encodeURIComponent(text))
+		fetch("https://api.duckduckgo.com/?t=min&skip_disambig=1&no_redirect=1&format=json&q=" + encodeURIComponent(text))
 			.then(function (data) {
 				return data.json();
 			})
@@ -1697,14 +1897,15 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 
 				//if there is a custom format for the answer, use that
 				if (IAFormats[res.AnswerType]) {
-					var item = IAFormats[res.AnswerType](text, res.Answer).get(0);
+					var item = IAFormats[res.AnswerType](text, res.Answer);
 
 				} else if (res.Abstract || res.Answer) {
 
 					var data = {
 						title: removeTags(res.Answer || res.Heading),
 						descriptionBlock: res.Abstract || "Answer",
-						classList: ["ddg-answer", "indent"]
+						classList: ["ddg-answer", "indent"],
+						attribution: ddgAttribution,
 					}
 
 					if (res.Image && !res.ImageIsLogo) {
@@ -1715,7 +1916,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				}
 
 				if (options.destroyPrevious != false || item) {
-					$searchbar.find(".ddg-answer").remove();
+					removeAllDDGAnswers();
 				}
 
 				if (item) {
@@ -1736,7 +1937,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				//suggested site links
 
 
-				if (res.Results && res.Results[0] && res.Results[0].FirstURL) {
+				if (res.Results && res.Results[0] && res.Results[0].FirstURL && currentHistoryResults.length < 11) {
 
 					var url = res.Results[0].FirstURL;
 
@@ -1783,7 +1984,7 @@ window.showInstantAnswers = debounce(function (text, input, options) {
 				console.error(e);
 			});
 	} else {
-		$searchbar.find(".ddg-answer").remove(); //we still want to remove old items, even if we didn't make a new request
+		removeAllDDGAnswers(); //we still want to remove old items, even if we didn't make a new request
 	}
 
 }, 450);
@@ -1833,7 +2034,8 @@ var searchOpenTabs = function (searchText) {
 
 			item.addEventListener("click", function () {
 				//if we created a new tab but are switching away from it, destroy the current (empty) tab
-				if (tabs.get(tabs.getSelected()).url == "about:blank") {
+				var currentTabUrl = tabs.get(tabs.getSelected()).url;
+				if (!currentTabUrl || currentTabUrl == "about:blank") {
 					destroyTab(tabs.getSelected(), {
 						switchToTab: false
 					});
@@ -1847,12 +2049,19 @@ var searchOpenTabs = function (searchText) {
 }
 ;var readerView = {
 	readerURL: "file://" + __dirname + "/reader/index.html",
+	getReaderURL: function (url) {
+		return readerView.readerURL + "?url=" + url;
+	},
 	getButton: function (tabId) {
 		//TODO better icon
-		var item = $("<i class='fa fa-align-left reader-button'>").attr("data-tab", tabId).attr("title", "Enter reader view");
+		var item = document.createElement("i");
+		item.className = "fa fa-align-left reader-button";
 
-		item.on("click", function (e) {
-			var tabId = $(this).parents(".tab-item").attr("data-tab");
+		item.setAttribute("data-tab", tabId);
+		item.setAttribute("title", "Enter reader view");
+
+		item.addEventListener("click", function (e) {
+			var tabId = this.getAttribute("data-tab");
 			var tab = tabs.get(tabId);
 
 			e.stopPropagation();
@@ -1867,20 +2076,22 @@ var searchOpenTabs = function (searchText) {
 		return item;
 	},
 	updateButton: function (tabId) {
-		var button = $('.reader-button[data-tab="{id}"]'.replace("{id}", tabId));
+		var button = document.querySelector('.reader-button[data-tab="{id}"]'.replace("{id}", tabId));
 		var tab = tabs.get(tabId);
 
 		if (tab.isReaderView) {
-			button.addClass("is-reader").attr("title", "Exit reader view");
+			button.classList.add("is-reader");
+			button.setAttribute("title", "Exit reader view");
 			return;
 		} else {
-			button.removeClass("is-reader").attr("title", "Enter reader view");
+			button.classList.remove("is-reader");
+			button.setAttribute("title", "Enter reader view");
 		}
 
 		if (tab.readerable) {
-			button.addClass("can-reader");
+			button.classList.add("can-reader");
 		} else {
-			button.removeClass("can-reader");
+			button.classList.remove("can-reader");
 		}
 	},
 	enter: function (tabId) {
@@ -1896,43 +2107,58 @@ var searchOpenTabs = function (searchText) {
 		});
 	},
 	showReadingList: function (options) {
-		if (performance.now() < 1000) { //history hasn't loaded yet
-			return;
-		}
 
-		bookmarks.searchHistory(readerView.readerURL, function (data) {
-			var cTime = Date.now();
-			var oneWeekInMS = 7 * 24 * 60 * 60 * 1000;
+		showSearchbar(getTabInput(tabs.getSelected()));
 
-			function calculateReadingListScore(article) {
-				return article.lastVisit + (5000 * article.visitCount);
+		var articlesShown = 0;
+		var moreArticlesAvailable = false;
+
+		db.readingList.orderBy("time").reverse().each(function (article) {
+			if (!article.article) {
+				return;
+			}
+			if (options && options.limitResults && articlesShown > 3) {
+				moreArticlesAvailable = true;
+				return;
 			}
 
-			var articles = data.filter(function (item) {
-				return item.url.indexOf(readerView.readerURL) == 0 && (cTime - item.lastVisit < oneWeekInMS || (cTime - item.lastVisit < oneWeekInMS * 3 && item.visitCount == 1))
-			}).sort(function (a, b) {
-				return calculateReadingListScore(b) - calculateReadingListScore(a);
+			if (articlesShown == 0) {
+				clearsearchbar();
+			}
+
+			var item = createSearchbarItem({
+				title: article.article.title,
+				descriptionBlock: article.article.excerpt,
+				url: article.url,
+				delete: function (el) {
+					db.readingList.where("url").equals(el.getAttribute("data-url")).delete();
+				}
 			});
 
-			if (options && options.limitResults) {
-				articles = articles.slice(0, 4);
+			item.addEventListener("click", function (e) {
+				openURLFromsearchbar(e, readerView.getReaderURL(article.url));
+			});
+
+			if (article.visitCount > 5 || (article.extraData.scrollPosition > 0 && article.extraData.articleScrollLength - article.extraData.scrollPosition < 1000)) { //the article has been visited frequently, or the scroll position is at the bottom
+				item.style.opacity = 0.65;
 			}
 
-			articles.forEach(function (article) {
-				var item = createSearchbarItem({
-					title: article.title,
-					secondaryText: urlParser.prettyURL(article.url.replace(readerView.readerURL + "?url=", "")),
-					url: article.url
-				});
+			historyarea.appendChild(item);
 
-				item.addEventListener("click", function (e) {
-					openURLFromsearchbar(e, article.url);
+			articlesShown++;
+		}).then(function () {
+
+			if (articlesShown == 0) {
+				var item = createSearchbarItem({
+					title: "Your reading list is empty.",
+					descriptionBlock: "Articles you open in reader view are listed here, and are saved offline for 30 days."
 				});
 
 				historyarea.appendChild(item);
-			});
+				return;
+			}
 
-			if (options && options.limitResults) {
+			if (moreArticlesAvailable) {
 
 				var seeMoreLink = createSearchbarItem({
 					title: "More articles",
@@ -1956,8 +2182,8 @@ var searchOpenTabs = function (searchText) {
 //update the reader button on page load
 
 bindWebviewEvent("did-finish-load", function (e) {
-	var tab = $(this).attr("data-tab"),
-		url = $(this).attr("src");
+	var tab = this.getAttribute("data-tab"),
+		url = this.getAttribute("src");
 
 	if (url.indexOf(readerView.readerURL) == 0) {
 		tabs.update(tab, {
@@ -1995,13 +2221,13 @@ var tabActivity = {
 
 			tabSet.forEach(function (tab) {
 				if (selected == tab.id) { //never fade the current tab
-					getTabElement(tab.id).removeClass("fade");
+					getTabElement(tab.id).classList.remove("fade");
 					return;
 				}
 				if (time - tab.lastActivity > tabActivity.minFadeAge) { //the tab has been inactive for greater than minActivity, and it is not currently selected
-					getTabElement(tab.id).addClass("fade");
+					getTabElement(tab.id).classList.add("fade");
 				} else {
-					getTabElement(tab.id).removeClass("fade");
+					getTabElement(tab.id).classList.remove("fade");
 				}
 			});
 		});
@@ -2232,12 +2458,21 @@ var runNetwork = function anonymous(input
 }
 
 function setColor(bg, fg) {
-	$(".theme-background-color").css("background-color", bg);
-	$(".theme-text-color").css("color", fg);
+	var background = document.getElementsByClassName("theme-background-color");
+	var textcolor = document.getElementsByClassName("theme-text-color");
+
+	for (var i = 0; i < background.length; i++) {
+		background[i].style.backgroundColor = bg;
+	}
+
+	for (var i = 0; i < textcolor.length; i++) {
+		textcolor[i].style.color = fg;
+	}
+
 	if (fg == "white") {
-		$(document.body).addClass("dark-theme");
+		document.body.classList.add("dark-theme");
 	} else {
-		$(document.body).removeClass("dark-theme");
+		document.body.classList.remove("dark-theme");
 	}
 }
 
@@ -2256,114 +2491,44 @@ function getRGBObject(cssColor) {
 	return obj;
 
 }
-;//http://stackoverflow.com/a/5086688/4603285
-
-jQuery.fn.insertAt = function (index, element) {
-	var lastIndex = this.children().size()
-	if (index < 0) {
-		index = Math.max(0, lastIndex + 1 + index)
-	}
-	this.append(element)
-	if (index < lastIndex) {
-		this.children().eq(index).before(this.children().last())
-	}
-	return this;
-}
-
-var tabContainer = $(".tab-group");
-var tabGroup = $(".tab-group #tabs"); //TODO these names are confusing
+;var tabContainer = document.getElementsByClassName("tab-group")[0];
+var tabGroup = tabContainer.querySelector("#tabs"); //TODO these names are confusing
 
 /* tab events */
 
 var lastTabDeletion = 0;
 
-tabGroup.on("mousewheel", ".tab-item", function (e) {
-
-	if (e.originalEvent.deltaY > 65 && e.originalEvent.deltaX < 10 && Date.now() - lastTabDeletion > 650) { //swipe up to delete tabs
-
-		lastTabDeletion = Date.now();
-
-		/* tab deletion is disabled in focus mode */
-		if (isFocusMode) {
-			showFocusModeError();
-			return;
-		}
-
-		var tab = this.getAttribute("data-tab");
-
-		//TODO this should be a css animation
-		getTabElement(tab).animate({
-			"margin-top": "-40px",
-		}, 125, function () {
-
-			if (tab == tabs.getSelected()) {
-				var currentIndex = tabs.getIndex(tabs.getSelected());
-				var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1);
-
-				destroyTab(tab);
-
-				if (nextTab) {
-					switchToTab(nextTab.id);
-				} else {
-					addTab();
-				}
-
-			} else {
-				destroyTab(tab);
-			}
-
-		});
-	}
-
-	if (e.originalEvent.deltaY > 0) { //downward swipes should still be handled by expandedTabMode.js
-		e.stopPropagation(); //prevent the event from bubbling up to expandedTabMode.js, where exitExpandedMode would be triggered
-	}
-
-});
-
-//click to enter edit mode or switch to tab
-
-tabGroup.on("click", ".tab-item", function (e) {
-	var tabId = this.getAttribute("data-tab");
-
-	//if the tab isn't focused
-	if (tabs.getSelected() != tabId) {
-		switchToTab(tabId);
-	} else if (!isExpandedMode) { //the tab is focused, edit tab instead
-		enterEditMode(tabId);
-	}
-
-});
-
 /* draws tabs and manages tab events */
 
-function getTabElement(id) { //gets the DOM element for a tab
-	return $('.tab-item[data-tab="{id}"]'.replace("{id}", id))
+function getTabInput(tabId) {
+	return document.querySelector('.tab-item[data-tab="{id}"] .tab-input'.replace("{id}", tabId));
 }
 
-//gets the input for a tab element
-
-$.fn.getInput = function () {
-	return this.find(".tab-input");
+function getTabElement(id) { //gets the DOM element for a tab
+	return document.querySelector('.tab-item[data-tab="{id}"]'.replace("{id}", id));
 }
 
 function setActiveTabElement(tabId) {
-	$(".tab-item.active").removeClass("active");
+	var activeTab = document.querySelector(".tab-item.active");
+
+	if (activeTab) {
+		activeTab.classList.remove("active");
+	}
 
 	var el = getTabElement(tabId);
-	el.addClass("active");
+	el.classList.add("active");
 
 	if (tabs.count() > 1) { //if there is only one tab, we don't need to indicate which one is selected
-		el.addClass("has-highlight");
+		el.classList.add("has-highlight");
 	} else {
-		el.removeClass("has-highlight");
+		el.classList.remove("has-highlight");
 	}
 
 	if (!isExpandedMode) {
 
 		requestIdleCallback(function () {
 			requestAnimationFrame(function () {
-				el[0].scrollIntoView({
+				el.scrollIntoView({
 					behavior: "smooth"
 				});
 			});
@@ -2376,14 +2541,17 @@ function setActiveTabElement(tabId) {
 }
 
 function leaveTabEditMode(options) {
-	$(".tab-item.selected").removeClass("selected");
+	var selTab = document.querySelector(".tab-item.selected");
+	if (selTab) {
+		selTab.classList.remove("selected");
+	}
 	if (options && options.blur) {
 		var input = document.querySelector(".tab-item .tab-input:focus")
 		if (input) {
 			input.blur();
 		}
 	}
-	tabGroup.removeClass("has-selected-tab");
+	tabGroup.classList.remove("has-selected-tab");
 	hidesearchbar();
 }
 
@@ -2392,30 +2560,30 @@ function enterEditMode(tabId) {
 	leaveExpandedMode();
 
 	var tabEl = getTabElement(tabId);
-	var webview = getWebview(tabId)[0];
+	var webview = getWebview(tabId);
 
-	var currentURL = webview.getAttribute("src");
+	var currentURL = tabs.get(tabId).url;
 
 	if (currentURL == "about:blank") {
 		currentURL = "";
 	}
 
-	var input = tabEl.getInput();
+	var input = getTabInput(tabId);
 
-	tabEl.addClass("selected");
-	input.val(currentURL);
-	input.get(0).focus();
+	tabEl.classList.add("selected");
+	tabGroup.classList.add("has-selected-tab");
+
+	input.value = currentURL;
+	input.focus();
 	input.select();
+
 	showSearchbar(input);
-	showSearchbarResults("", input.get(0), null);
-	tabGroup.addClass("has-selected-tab");
+	showSearchbarResults("", input, null);
 
 	//show keyword suggestions in the searchbar
 
-	try { //before first webview navigation, this will be undefined
-		getWebview(tabs.getSelected())[0].send("getKeywordsData");
-	} catch (e) {
-
+	if (webview.send) { //before first webview navigation, this will be undefined
+		webview.send("getKeywordsData");
 	}
 }
 
@@ -2424,19 +2592,20 @@ function rerenderTabElement(tabId) {
 		tabData = tabs.get(tabId);
 
 	var tabTitle = tabData.title || "New Tab";
-	var title = tabEl.get(0).querySelector(".tab-view-contents .title");
+	var title = tabEl.querySelector(".tab-view-contents .title");
 
 	title.textContent = tabTitle;
 	title.title = tabTitle;
 
-	var secIcon = tabEl[0].getElementsByClassName("icon-tab-not-secure");
+	var secIcon = tabEl.getElementsByClassName("icon-tab-not-secure")[0];
 
 	if (tabData.secure === false) {
-		if (!secIcon[0]) {
-			tabEl.find(".tab-view-contents").prepend("<i class='fa fa-exclamation-triangle icon-tab-not-secure' title='Your connection to this website is not secure.'></i>");
+		if (!secIcon) {
+			var vc = tabEl.querySelector(".tab-view-contents");
+			vc.insertAdjacentHTML("afterbegin", "<i class='fa fa-exclamation-triangle icon-tab-not-secure' title='Your connection to this website is not secure.'></i>");
 		}
-	} else if (secIcon[0]) {
-		secIcon[0].parentNode.removeChild(secIcon[0]);
+	} else if (secIcon) {
+		secIcon.parentNode.removeChild(secIcon);
 	}
 
 	//update the star to reflect whether the page is bookmarked or not
@@ -2447,39 +2616,48 @@ function createTabElement(tabId) {
 	var data = tabs.get(tabId),
 		url = urlParser.parse(data.url);
 
-	var tab = $("<div class='tab-item'>");
-	tab.attr("data-tab", tabId);
+	var tabEl = document.createElement("div");
+	tabEl.className = "tab-item";
+	tabEl.setAttribute("data-tab", tabId);
 
 	if (data.private) {
-		tab.addClass("private-tab");
+		tabEl.classList.add("private-tab");
 	}
 
-	var ec = $("<div class='tab-edit-contents'>");
+	var ec = document.createElement("div");
+	ec.className = "tab-edit-contents";
 
-	var input = $("<input class='tab-input mousetrap'>");
-	input.attr("placeholder", "Search or enter address");
-	input.attr("value", url);
+	var input = document.createElement("input");
+	input.className = "tab-input mousetrap";
+	input.setAttribute("placeholder", "Search or enter address");
+	input.value = url;
 
-	input.appendTo(ec);
-	bookmarks.getStar(tabId).appendTo(ec);
+	ec.appendChild(input);
+	ec.appendChild(bookmarks.getStar(tabId));
 
-	ec.appendTo(tab);
+	tabEl.appendChild(ec);
 
-	var vc = $("<div class='tab-view-contents'>")
-	readerView.getButton(tabId).appendTo(vc);
+	var vc = document.createElement("div");
+	vc.className = "tab-view-contents";
+	vc.appendChild(readerView.getButton(tabId));
 
 	if (data.private) {
-		vc.prepend("<i class='fa fa-ban icon-tab-is-private'></i>").attr("title", "Private tab");
+		vc.insertAdjacentHTML("afterbegin", "<i class='fa fa-ban icon-tab-is-private'></i>");
+		vc.setAttribute("title", "Private tab");
 	}
 
-	vc.append($("<span class='title'>").text(data.title || "New Tab"));
+	var title = document.createElement("span");
+	title.className = "title";
+	title.textContent = data.title || "New Tab";
 
-	vc.append("<span class='secondary-text'></span>");
-	vc.appendTo(tab);
+	vc.appendChild(title);
+
+	vc.insertAdjacentHTML("beforeend", "<span class='secondary-text'></span>");
+	tabEl.appendChild(vc);
 
 	/* events */
 
-	input.on("keydown", function (e) {
+	input.addEventListener("keydown", function (e) {
 		if (e.keyCode == 9 || e.keyCode == 40) { //if the tab or arrow down key was pressed
 			focussearchbarItem();
 			e.preventDefault();
@@ -2487,22 +2665,21 @@ function createTabElement(tabId) {
 	});
 
 	//keypress doesn't fire on delete key - use keyup instead
-	input.on("keyup", function (e) {
+	input.addEventListener("keyup", function (e) {
 		if (e.keyCode == 8) {
 			showSearchbarResults(this.value, this, e);
 		}
 	});
 
-	input.on("keypress", function (e) {
+	input.addEventListener("keypress", function (e) {
 
 		if (e.keyCode == 13) { //return key pressed; update the url
-			var tabId = $(this).parents(".tab-item").attr("data-tab");
 			var newURL = currentACItem || parsesearchbarURL(this.value);
 
 			openURLFromsearchbar(e, newURL);
 
 			//focus the webview, so that autofocus inputs on the page work
-			getWebview(tabs.getSelected()).get(0).focus();
+			getWebview(tabs.getSelected()).focus();
 
 		} else if (e.keyCode == 9) {
 			return;
@@ -2525,7 +2702,7 @@ function createTabElement(tabId) {
 		if (v && sel == 0) {
 			this.selectionStart += 1;
 			didFireKeydownSelChange = true;
-			return false;
+			e.preventDefault();
 		} else {
 			didFireKeydownSelChange = false;
 		}
@@ -2533,11 +2710,63 @@ function createTabElement(tabId) {
 
 	//prevent clicking in the input from re-entering edit-tab mode
 
-	input.on("click", function (e) {
+	input.addEventListener("click", function (e) {
 		e.stopPropagation();
 	});
 
-	return tab;
+
+	//click to enter edit mode or switch to a tab
+	tabEl.addEventListener("click", function (e) {
+		var tabId = this.getAttribute("data-tab");
+
+		//if the tab isn't focused
+		if (tabs.getSelected() != tabId) {
+			switchToTab(tabId);
+		} else if (!isExpandedMode) { //the tab is focused, edit tab instead
+			enterEditMode(tabId);
+		}
+
+	});
+
+	tabEl.addEventListener("mousewheel", function (e) {
+		if (e.deltaY > 65 && e.deltaX < 10 && Date.now() - lastTabDeletion > 650) { //swipe up to delete tabs
+
+			lastTabDeletion = Date.now();
+
+			/* tab deletion is disabled in focus mode */
+			if (isFocusMode) {
+				showFocusModeError();
+				return;
+			}
+
+			var tab = this.getAttribute("data-tab");
+			this.style.transform = "translateY(-100%)";
+
+			setTimeout(function () {
+
+				if (tab == tabs.getSelected()) {
+					var currentIndex = tabs.getIndex(tabs.getSelected());
+					var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1);
+
+					destroyTab(tab);
+
+					if (nextTab) {
+						switchToTab(nextTab.id);
+					} else {
+						addTab();
+					}
+
+				} else {
+					destroyTab(tab);
+				}
+
+			}, 150); //wait until the animation has completed
+		}
+	});
+
+	tabEl.addEventListener("mouseenter", handleExpandedModeTabItemHover);
+
+	return tabEl;
 }
 
 function addTab(tabId, options) {
@@ -2575,7 +2804,10 @@ function addTab(tabId, options) {
 	}
 
 	var index = tabs.getIndex(tabId);
-	tabGroup.insertAt(index, createTabElement(tabId));
+
+	var tabEl = createTabElement(tabId);
+
+	tabGroup.insertBefore(tabEl, tabGroup.childNodes[index]);
 
 	addWebview(tabId);
 
@@ -2604,7 +2836,7 @@ bindWebviewEvent("focus", function () {
 });
 ;/* provides simple utilities for entering/exiting expanded tab mode */
 
-var tabDragArea = tabGroup[0]
+var tabDragArea = tabGroup;
 
 require.async("dragula", function (dragula) {
 
@@ -2615,35 +2847,36 @@ require.async("dragula", function (dragula) {
 
 		var tabOrder = [];
 
-		tabContainer.find(".tab-item").each(function () {
-			var tabId = parseInt($(this).attr("data-tab"));
+		var tabElements = tabContainer.querySelectorAll(".tab-item");
+
+		for (var i = 0; i < tabElements.length; i++) {
+			var tabId = parseInt(tabElements[i].getAttribute("data-tab"));
 			tabOrder.push(tabId);
-		});
+		}
 
 		tabs.reorder(tabOrder);
 	});
 
 });
 
-tabContainer.on("mousewheel", function (e) {
-	if (e.originalEvent.deltaY < -30 && e.originalEvent.deltaX < 10) { //swipe down to expand tabs
+tabContainer.addEventListener("mousewheel", function (e) {
+	if (e.deltaY < -30 && e.deltaX < 10) { //swipe down to expand tabs
 		enterExpandedMode();
 		e.stopImmediatePropagation();
 	}
 });
 
-tabContainer.on("mouseenter", ".tab-item", function (e) {
+//event listener added in navbarTabs.js
+function handleExpandedModeTabItemHover(e) {
 	if (isExpandedMode) {
-		var item = $(this);
+		var item = this;
 		setTimeout(function () {
-			if (item.is(":hover")) {
-				var tab = tabs.get(item.attr("data-tab"));
-
-				switchToTab(item.attr("data-tab"));
+			if (item.matches(":hover")) {
+				switchToTab(item.getAttribute("data-tab"));
 			}
 		}, 125);
 	}
-});
+}
 
 var isExpandedMode = false;
 
@@ -2659,13 +2892,15 @@ function enterExpandedMode() {
 		tabs.get().forEach(function (tab) {
 			var prettyURL = urlParser.prettyURL(tab.url);
 
-			getTabElement(tab.id).find(".secondary-text").text(prettyURL);
+			console.log(tab);
+
+			getTabElement(tab.id).querySelector(".secondary-text").textContent = prettyURL;
 		});
 
 		requestAnimationFrame(function () {
 
-			$(document.body).addClass("is-expanded-mode");
-			tabContainer.get(0).focus();
+			document.body.classList.add("is-expanded-mode");
+			tabContainer.focus();
 
 		});
 
@@ -2676,7 +2911,7 @@ function enterExpandedMode() {
 function leaveExpandedMode() {
 	if (isExpandedMode) {
 		dragRegion.containers = [];
-		$(document.body).removeClass("is-expanded-mode");
+		document.body.classList.remove("is-expanded-mode");
 
 		isExpandedMode = false;
 	}
@@ -2684,34 +2919,34 @@ function leaveExpandedMode() {
 
 //when a tab is clicked, we want to minimize the tabstrip
 
-tabContainer.on("click", ".tab-item", function () {
+tabContainer.addEventListener("click", function () {
 	if (isExpandedMode) {
 		leaveExpandedMode();
-		getWebview(tabs.getSelected())[0].focus();
+		getWebview(tabs.getSelected()).focus();
 	}
 });
-;var addTabButton = $(".add-tab");
+;var addTabButton = document.getElementById("add-tab-button");
 
-addTabButton.on("click", function (e) {
+addTabButton.addEventListener("click", function (e) {
 	var newTab = tabs.add({}, tabs.getIndex(tabs.getSelected()) + 1);
 	addTab(newTab);
 });
 ;/* defines keybindings that aren't in the menu (so they aren't defined by menu.js). For items in the menu, also handles ipc messages */
 
 ipc.on("zoomIn", function () {
-	getWebview(tabs.getSelected())[0].send("zoomIn");
+	getWebview(tabs.getSelected()).send("zoomIn");
 });
 
 ipc.on("zoomOut", function () {
-	getWebview(tabs.getSelected())[0].send("zoomOut");
+	getWebview(tabs.getSelected()).send("zoomOut");
 });
 
 ipc.on("zoomReset", function () {
-	getWebview(tabs.getSelected())[0].send("zoomReset");
+	getWebview(tabs.getSelected()).send("zoomReset");
 });
 
 ipc.on("print", function () {
-	getWebview(tabs.getSelected())[0].print();
+	getWebview(tabs.getSelected()).print();
 })
 
 ipc.on("findInPage", function () {
@@ -2719,14 +2954,10 @@ ipc.on("findInPage", function () {
 })
 
 ipc.on("inspectPage", function () {
-	getWebview(tabs.getSelected())[0].openDevTools();
+	getWebview(tabs.getSelected()).openDevTools();
 });
 
 ipc.on("showReadingList", function () {
-	showSearchbar(getTabElement(tabs.getSelected()).getInput());
-	enterEditMode(tabs.getSelected());
-	clearsearchbar();
-
 	readerView.showReadingList();
 })
 
@@ -2753,7 +2984,7 @@ function addPrivateTab() {
 	}
 
 
-	if (tabs.count() == 1 && tabs.getAtIndex(0).url == "about:blank") {
+	if (isEmpty(tabs.get())) {
 		destroyTab(tabs.getAtIndex(0).id);
 	}
 
@@ -2810,10 +3041,9 @@ require.async("mousetrap", function (Mousetrap) {
 	});
 
 	Mousetrap.bind("command+d", function (e) {
-		//TODO need an actual api for this that updates the star and bookmarks
-
-		getTabElement(tabs.getSelected()).find(".bookmarks-button").click();
-	})
+		bookmarks.handleStarClick(getTabElement(tabs.getSelected()).querySelector(".bookmarks-button"));
+		enterEditMode(tabs.getSelected()); //we need to show the bookmarks button, which is only visible in edit mode
+	});
 
 	// cmd+x should switch to tab x. Cmd+9 should switch to the last tab
 
@@ -2849,21 +3079,27 @@ require.async("mousetrap", function (Mousetrap) {
 	Mousetrap.bind("esc", function (e) {
 		leaveTabEditMode();
 		leaveExpandedMode();
-		getWebview(tabs.getSelected()).get(0).focus();
+		getWebview(tabs.getSelected()).focus();
 	});
 
 	Mousetrap.bind("shift+command+r", function () {
-		getTabElement(tabs.getSelected()).find(".reader-button").trigger("click");
+		var tab = tabs.get(tabs.getSelected());
+
+		if (tab.isReaderView) {
+			readerView.exit(tab.id);
+		} else {
+			readerView.enter(tab.id);
+		}
 	});
 
 	//TODO add help docs for this
 
 	Mousetrap.bind("command+left", function (d) {
-		getWebview(tabs.getSelected())[0].goBack();
+		getWebview(tabs.getSelected()).goBack();
 	});
 
 	Mousetrap.bind("command+right", function (d) {
-		getWebview(tabs.getSelected())[0].goForward();
+		getWebview(tabs.getSelected()).goForward();
 	});
 
 	Mousetrap.bind(["option+command+left", "shift+ctrl+tab"], function (d) {
@@ -2909,7 +3145,7 @@ require.async("mousetrap", function (Mousetrap) {
 	Mousetrap.bind("return", function () {
 		if (isExpandedMode) {
 			leaveExpandedMode();
-			getWebview(tabs.getSelected())[0].focus();
+			getWebview(tabs.getSelected()).focus();
 		}
 	});
 
@@ -2923,14 +3159,14 @@ require.async("mousetrap", function (Mousetrap) {
 
 	Mousetrap.bind("shift+command+b", function () {
 		clearsearchbar();
-		showSearchbar(getTabElement(tabs.getSelected()).getInput());
+		showSearchbar(getTabInput(tabs.getSelected()));
 		enterEditMode(tabs.getSelected());
 		showAllBookmarks();
 	});
 
 }); //end require mousetrap
 
-$(document.body).on("keyup", function (e) {
+document.body.addEventListener("keyup", function (e) {
 	if (e.keyCode == 17) { //ctrl key
 		leaveExpandedMode();
 	}
@@ -2963,29 +3199,26 @@ ipc.on("openPDF", function (event, filedata) {
 			enterEditMode: false
 		});
 
-		getWebview(newTab).get(0).focus();
+		getWebview(newTab).focus();
 	}
 });
 ;var findinpage = {
-	container: $("#findinpage-bar"),
-	input: $("#findinpage-bar .findinpage-input"),
+	container: document.getElementById("findinpage-bar"),
 	isEnabled: false,
 	start: function (options) {
-		findinpage.container.prop("hidden", false);
+		findinpage.container.hidden = false;
 		findinpage.isEnabled = true;
-		findinpage.input.focus().select();
+		findinpage.input.focus();
+		findinpage.input.select();
 	},
 	end: function (options) {
-		findinpage.container.prop("hidden", true);
-		if (options && options.blurInput != false) {
-			findinpage.input.blur();
-		}
+		findinpage.container.hidden = true;
 		findinpage.isEnabled = false;
 
 		//focus the webview
 
-		if (findinpage.input.is(":focus")) {
-			getWebview(tabs.getSelected()).get(0).focus();
+		if (findinpage.input == document.activeElement) {
+			getWebview(tabs.getSelected()).focus();
 		}
 	},
 	toggle: function () {
@@ -3000,14 +3233,16 @@ ipc.on("openPDF", function (event, filedata) {
 	}
 }
 
-findinpage.input.on("keyup", function (e) {
+findinpage.input = findinpage.container.querySelector(".findinpage-input");
+
+findinpage.input.addEventListener("keyup", function (e) {
 	//escape key should exit find mode, not continue searching
 	if (e.keyCode == 27) {
 		findinpage.end();
 		return;
 	}
-	var text = findinpage.escape($(this).val());
-	var webview = getWebview(tabs.getSelected())[0];
+	var text = findinpage.escape(this.value);
+	var webview = getWebview(tabs.getSelected());
 
 	//this stays on the current text if it still matches, preventing flickering. However, if the return key was pressed, we should move on to the next match instead, so this shouldn't run.
 	if (e.keyCode != 13) {
@@ -3017,10 +3252,8 @@ findinpage.input.on("keyup", function (e) {
 	webview.executeJavaScript("find('{t}', false, false, true, false, false, false)".replace("{t}", text)); //see https://developer.mozilla.org/en-US/docs/Web/API/Window/find for a description of the parameters
 });
 
-findinpage.input.on("blur", function (e) {
-	findinpage.end({
-			blurInput: false
-		}) //if end tries to blur it again, we'll get stuck in an infinite loop with the event handler
+findinpage.input.addEventListener("blur", function (e) {
+	findinpage.end();
 });
 ;var sessionRestore = {
 	save: function () {
@@ -3048,12 +3281,25 @@ findinpage.input.on("blur", function (e) {
 		//get the data
 
 		try {
-			var data = JSON.parse(localStorage.getItem("sessionrestoredata") || "{}");
+			var data = localStorage.getItem("sessionrestoredata");
+
+			//first run, show the tour
+			if (!data) {
+				var newTab = tabs.add({
+					url: "https://palmeral.github.io/min/tour"
+				});
+				addTab(newTab, {
+					enterEditMode: false,
+				});
+				return;
+			}
+
+			data = JSON.parse(data);
 
 			localStorage.setItem("sessionrestoredata", "{}");
 
 			if (data.version && data.version != 1) { //if the version isn't compatible, we don't want to restore.
-				addTab({
+				addTab(tabs.add(), {
 					leaveEditMode: false //we know we aren't in edit mode yet, so we don't have to leave it
 				});
 				return;
@@ -3061,7 +3307,7 @@ findinpage.input.on("blur", function (e) {
 
 			console.info("restoring tabs", data.tabs);
 
-			if (!data || !data.tabs || !data.tabs.length || (data.tabs.length == 1 && data.tabs[0].url == "about:blank")) { //If there are no tabs, or if we only have one tab, and it's about:blank, don't restore
+			if (isEmpty(data.tabs)) { //If there are no tabs, or if we only have one tab, and it's about:blank, don't restore
 				addTab(tabs.add(), {
 					leaveEditMode: false
 				});
@@ -3074,6 +3320,7 @@ findinpage.input.on("blur", function (e) {
 				addTab(newTab, {
 					openInBackground: true,
 					leaveEditMode: false,
+					focus: false,
 				});
 
 			});
@@ -3093,8 +3340,9 @@ findinpage.input.on("blur", function (e) {
 
 			localStorage.setItem("sessionrestoredata", "{}");
 
-			$("webview, .tab-item").remove();
-			addTab();
+			setTimeout(function () {
+				window.location.reload();
+			}, 500);
 
 		}
 	}
@@ -3109,7 +3357,7 @@ setInterval(sessionRestore.save, 12500);
 
 ipc.on("enterFocusMode", function () {
 	isFocusMode = true;
-	$(document.body).addClass("is-focus-mode");
+	document.body.classList.add("is-focus-mode");
 
 	setTimeout(function () { //wait to show the message until the tabs have been hidden, to make the message less confusing
 		electron.remote.require("dialog").showMessageBox({
@@ -3124,7 +3372,7 @@ ipc.on("enterFocusMode", function () {
 
 ipc.on("exitFocusMode", function () {
 	isFocusMode = false;
-	$(document.body).removeClass("is-focus-mode");
+	document.body.classList.remove("is-focus-mode");
 });
 
 function showFocusModeError() {
