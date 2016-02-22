@@ -212,6 +212,19 @@ function bindWebviewIPC(name, fn) {
 	})
 }
 
+//the permissionRequestHandler used for webviews
+function pagePermissionRequestHandler(webContents, permission, callback) {
+	if (permission === "notifications" || permission === "fullscreen") {
+		callback(true);
+	} else {
+		callback(false);
+	}
+}
+
+//set the permissionRequestHandler for non-private tabs
+
+remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler);
+
 function getWebviewDom(options) {
 
 	var w = document.createElement("webview");
@@ -226,7 +239,14 @@ function getWebviewDom(options) {
 	//if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
 	//since tab IDs are unique, we can use them as partition names
 	if (tabs.get(options.tabId).private == true) {
-		w.setAttribute("partition", options.tabId);
+		var partition = options.tabId.toString(); //options.tabId is a number, which remote.session.fromPartition won't accept. It must be converted to a string first
+
+		w.setAttribute("partition", partition);
+
+		//register permissionRequestHandler for this tab
+		//private tabs use a different session, so the default permissionRequestHandler won't apply
+
+		remote.session.fromPartition(partition).setPermissionRequestHandler(pagePermissionRequestHandler);
 	}
 
 	//webview events
@@ -410,7 +430,9 @@ function destroyWebview(id) {
 function getWebview(id) {
 	return document.querySelector('webview[data-tab="{id}"]'.replace("{id}", id));
 }
-;var remote, Menu, MenuItem, clipboard;
+;var Menu = remote.Menu;
+var MenuItem = remote.MenuItem;
+var clipboard = remote.clipboard;
 
 var webviewMenu = {
 	cache: {
@@ -536,13 +558,6 @@ var webviewMenu = {
 	},
 	/* cxevent: a contextmenu event. Can be a jquery event or a regular event. */
 	show: function (cxevent) {
-
-		if (!remote) { //we lazyload remote, so if it isn't loaded yet, call require()
-			remote = require('remote');
-			Menu = remote.require('menu');
-			MenuItem = remote.require('menu-item');
-			clipboard = require("clipboard")
-		}
 
 		var event = cxevent.originalEvent || cxevent;
 		webviewMenu.cache.event = event;
@@ -3002,16 +3017,16 @@ ipc.on("addPrivateTab", addPrivateTab);
 require.async("mousetrap", function (Mousetrap) {
 	window.Mousetrap = Mousetrap;
 
-	Mousetrap.bind("shift+command+p", addPrivateTab);
+	Mousetrap.bind("shift+mod+p", addPrivateTab);
 
-	Mousetrap.bind(["command+l", "command+k"], function (e) {
+	Mousetrap.bind(["mod+l", "mod+k"], function (e) {
 		enterEditMode(tabs.getSelected());
 		return false;
 	})
 
-	Mousetrap.bind("command+w", function (e) {
+	Mousetrap.bind("mod+w", function (e) {
 
-		//prevent command+w from closing the window
+		//prevent mod+w from closing the window
 		e.preventDefault();
 		e.stopImmediatePropagation();
 
@@ -3040,7 +3055,7 @@ require.async("mousetrap", function (Mousetrap) {
 		return false;
 	});
 
-	Mousetrap.bind("command+d", function (e) {
+	Mousetrap.bind("mod+d", function (e) {
 		bookmarks.handleStarClick(getTabElement(tabs.getSelected()).querySelector(".bookmarks-button"));
 		enterEditMode(tabs.getSelected()); //we need to show the bookmarks button, which is only visible in edit mode
 	});
@@ -3049,7 +3064,7 @@ require.async("mousetrap", function (Mousetrap) {
 
 	for (var i = 1; i < 9; i++) {
 		(function (i) {
-			Mousetrap.bind("command+" + i, function (e) {
+			Mousetrap.bind("mod+" + i, function (e) {
 				var currentIndex = tabs.getIndex(tabs.getSelected());
 				var newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i);
 				if (newTab) {
@@ -3057,7 +3072,7 @@ require.async("mousetrap", function (Mousetrap) {
 				}
 			})
 
-			Mousetrap.bind("shift+command+" + i, function (e) {
+			Mousetrap.bind("shift+mod+" + i, function (e) {
 				var currentIndex = tabs.getIndex(tabs.getSelected());
 				var newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i);
 				if (newTab) {
@@ -3068,11 +3083,11 @@ require.async("mousetrap", function (Mousetrap) {
 		})(i);
 	}
 
-	Mousetrap.bind("command+9", function (e) {
+	Mousetrap.bind("mod+9", function (e) {
 		switchToTab(tabs.getAtIndex(tabs.count() - 1).id);
 	})
 
-	Mousetrap.bind("shift+command+9", function (e) {
+	Mousetrap.bind("shift+mod+9", function (e) {
 		switchToTab(tabs.getAtIndex(0).id);
 	})
 
@@ -3082,7 +3097,7 @@ require.async("mousetrap", function (Mousetrap) {
 		getWebview(tabs.getSelected()).focus();
 	});
 
-	Mousetrap.bind("shift+command+r", function () {
+	Mousetrap.bind("shift+mod+r", function () {
 		var tab = tabs.get(tabs.getSelected());
 
 		if (tab.isReaderView) {
@@ -3094,15 +3109,15 @@ require.async("mousetrap", function (Mousetrap) {
 
 	//TODO add help docs for this
 
-	Mousetrap.bind("command+left", function (d) {
+	Mousetrap.bind("mod+left", function (d) {
 		getWebview(tabs.getSelected()).goBack();
 	});
 
-	Mousetrap.bind("command+right", function (d) {
+	Mousetrap.bind("mod+right", function (d) {
 		getWebview(tabs.getSelected()).goForward();
 	});
 
-	Mousetrap.bind(["option+command+left", "shift+ctrl+tab"], function (d) {
+	Mousetrap.bind(["option+mod+left", "shift+ctrl+tab"], function (d) {
 
 		enterExpandedMode(); //show the detailed tab switcher
 
@@ -3116,7 +3131,7 @@ require.async("mousetrap", function (Mousetrap) {
 		}
 	});
 
-	Mousetrap.bind(["option+command+right", "ctrl+tab"], function (d) {
+	Mousetrap.bind(["option+mod+right", "ctrl+tab"], function (d) {
 
 		enterExpandedMode();
 
@@ -3130,7 +3145,7 @@ require.async("mousetrap", function (Mousetrap) {
 		}
 	});
 
-	Mousetrap.bind("command+n", function (d) { //destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
+	Mousetrap.bind("mod+n", function (d) { //destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
 
 		var tset = tabs.get();
 		for (var i = 0; i < tset.length; i++) {
@@ -3149,7 +3164,7 @@ require.async("mousetrap", function (Mousetrap) {
 		}
 	});
 
-	Mousetrap.bind("shift+command+e", function () {
+	Mousetrap.bind("shift+mod+e", function () {
 		if (!isExpandedMode) {
 			enterExpandedMode();
 		} else {
@@ -3157,7 +3172,7 @@ require.async("mousetrap", function (Mousetrap) {
 		}
 	});
 
-	Mousetrap.bind("shift+command+b", function () {
+	Mousetrap.bind("shift+mod+b", function () {
 		clearsearchbar();
 		showSearchbar(getTabInput(tabs.getSelected()));
 		enterEditMode(tabs.getSelected());
