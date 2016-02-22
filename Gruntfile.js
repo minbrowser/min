@@ -75,6 +75,28 @@ module.exports = function (grunt) {
 					arch: 'x64',
 					icon: "icon.icns",
 				}
+			},
+			windowsBuild: {
+				options: {
+					name: 'Min',
+					dir: '',
+					out: 'dist/app',
+					version: '0.36.8',
+					'app-version': '1.0.0',
+					platform: 'win32',
+					arch: 'all',
+				}
+			},
+			linuxBuild: {
+				options: {
+					name: 'Min',
+					dir: '',
+					out: 'dist/app',
+					version: '0.36.8',
+					'app-version': '1.0.0',
+					platform: 'linux',
+					arch: 'all',
+				}
 			}
 		}
 	});
@@ -86,6 +108,6 @@ module.exports = function (grunt) {
 	grunt.registerTask('default', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview']);
 	grunt.registerTask('browser', ['concat:browser', 'uglify:browser']);
 	grunt.registerTask('webview', ['concat:webview', 'uglify:webview']);
-	grunt.registerTask('build', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'electron:osxBuild'])
+	grunt.registerTask('build', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'electron:osxBuild', 'electron:windowsBuild', 'electron:linuxBuild'])
 
 };
