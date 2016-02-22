@@ -70,7 +70,7 @@ module.exports = function (grunt) {
 					dir: '',
 					out: 'dist/app',
 					version: '0.36.8',
-					'app-version': '1.0.0',
+					'app-version': '1.0.1',
 					platform: 'darwin',
 					arch: 'x64',
 					icon: "icon.icns",
@@ -82,7 +82,7 @@ module.exports = function (grunt) {
 					dir: '',
 					out: 'dist/app',
 					version: '0.36.8',
-					'app-version': '1.0.0',
+					'app-version': '1.0.1',
 					platform: 'win32',
 					arch: 'all',
 				}
@@ -93,7 +93,7 @@ module.exports = function (grunt) {
 					dir: '',
 					out: 'dist/app',
 					version: '0.36.8',
-					'app-version': '1.0.0',
+					'app-version': '1.0.1',
 					platform: 'linux',
 					arch: 'all',
 				}
