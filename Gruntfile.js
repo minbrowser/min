@@ -74,6 +74,7 @@ module.exports = function (grunt) {
 					platform: 'darwin',
 					arch: 'x64',
 					icon: "icon.icns",
+					ignore: 'dist/app',
 				}
 			},
 			windowsBuild: {
@@ -85,6 +86,7 @@ module.exports = function (grunt) {
 					'app-version': '1.0.1',
 					platform: 'win32',
 					arch: 'all',
+					ignore: 'dist/app',
 				}
 			},
 			linuxBuild: {
@@ -96,6 +98,7 @@ module.exports = function (grunt) {
 					'app-version': '1.0.1',
 					platform: 'linux',
 					arch: 'all',
+					ignore: 'dist/app',
 				}
 			}
 		}
