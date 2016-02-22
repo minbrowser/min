@@ -188,7 +188,7 @@ function createAppMenu() {
 			submenu: [
 				{
 					label: 'Zoom in',
-					accelerator: 'Command+=',
+					accelerator: 'CmdOrCtrl+=',
 					click: function (item, window) {
 						sendIPCToWindow(window, "zoomIn");
 					}
@@ -318,12 +318,12 @@ function createAppMenu() {
       },
 				{
 					label: 'Hide ' + name,
-					accelerator: 'Command+H',
+					accelerator: 'CmdOrCtrl+H',
 					role: 'hide'
       },
 				{
 					label: 'Hide Others',
-					accelerator: 'Command+Shift+H',
+					accelerator: 'CmdOrCtrl+Shift+H',
 					role: 'hideothers'
       },
 				{
@@ -335,7 +335,7 @@ function createAppMenu() {
       },
 				{
 					label: 'Quit',
-					accelerator: 'Command+Q',
+					accelerator: 'CmdOrCtrl+Q',
 					click: function () {
 						app.quit();
 					}
