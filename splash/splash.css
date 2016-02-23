@@ -30,7 +30,7 @@ html {
 	top: 75%;
 	left: 5%;
 	width: 90%;
-	height: 40vh;
+	height: 25vw;
 	overflow: hidden;
 }
 .video-container #intro-video {
@@ -39,7 +39,7 @@ html {
 .video-container-spacer {
 	display: block;
 	/* this must be the same as (video-container - overlap between video-container and hero */
-	height: 30vh;
+	height: calc(25vw - 10vh);
 }
 .blue-gradient-background {
 	background: linear-gradient(135deg, rgba(80, 122, 196, 1) 43%, rgba(80, 122, 196, 1) 43%, rgba(128, 192, 226, 1) 89%, rgba(128, 192, 226, 1) 89%);
@@ -171,6 +171,7 @@ button.disabled {
 	position: fixed;
 	background: #fff;
 	padding: 1em;
+	overflow: auto;
 }
 .dialog h1,
 .dialog h2 {
@@ -178,4 +179,22 @@ button.disabled {
 }
 ul {
 	line-height: 1.33em;
+}
+
+/* smaller layout */
+
+@media all and (max-width: 675px) {
+	body,
+	html {
+		font-size: 13px;
+	}
+	.tour-card {
+		min-width: 100%;
+	}
+	.hero .centered {
+		width: 90%;
+	}
+	.dialog {
+		width: 100%;
+	}
 }
