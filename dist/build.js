@@ -184,6 +184,14 @@ function isEmpty(tabList) {
 		}
 	}
 }
+;//gets the tracking settings and sends them to the main process
+
+var setFilteringSettings = remote.getGlobal("setFilteringSettings");
+var registerFiltering = remote.getGlobal("registerFiltering");
+
+db.settings.where("key").equals("filtering").first(function (setting) { //this won't run if the setting hasn't been set
+	setFilteringSettings(setting.value);
+});
 ;/* implements selecting webviews, switching between them, and creating new ones. */
 
 var phishingWarningPage = "file://" + __dirname + "/pages/phishing/index.html"; //TODO move this somewhere that actually makes sense
@@ -247,6 +255,10 @@ function getWebviewDom(options) {
 		//private tabs use a different session, so the default permissionRequestHandler won't apply
 
 		remote.session.fromPartition(partition).setPermissionRequestHandler(pagePermissionRequestHandler);
+
+		//enable ad/tracker/contentType blocking in this tab if needed
+
+		registerFiltering(partition);
 	}
 
 	//webview events
@@ -2976,7 +2988,7 @@ ipc.on("showReadingList", function () {
 	readerView.showReadingList();
 })
 
-ipc.on("addTab", function (e) {
+ipc.on("addTab", function (e, data) {
 
 	/* new tabs can't be created in focus mode */
 	if (isFocusMode) {
@@ -2985,8 +2997,13 @@ ipc.on("addTab", function (e) {
 	}
 
 	var newIndex = tabs.getIndex(tabs.getSelected()) + 1;
-	var newTab = tabs.add({}, newIndex);
-	addTab(newTab);
+	var newTab = tabs.add({
+		url: data.url || "",
+	}, newIndex);
+
+	addTab(newTab, {
+		enterEditMode: !data.url, //only enter edit mode if the new tab is about:blank
+	});
 });
 
 function addPrivateTab() {
