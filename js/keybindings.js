@@ -28,7 +28,7 @@ ipc.on("showReadingList", function () {
 	readerView.showReadingList();
 })
 
-ipc.on("addTab", function (e) {
+ipc.on("addTab", function (e, data) {
 
 	/* new tabs can't be created in focus mode */
 	if (isFocusMode) {
@@ -37,8 +37,13 @@ ipc.on("addTab", function (e) {
 	}
 
 	var newIndex = tabs.getIndex(tabs.getSelected()) + 1;
-	var newTab = tabs.add({}, newIndex);
-	addTab(newTab);
+	var newTab = tabs.add({
+		url: data.url || "",
+	}, newIndex);
+
+	addTab(newTab, {
+		enterEditMode: !data.url, //only enter edit mode if the new tab is about:blank
+	});
 });
 
 function addPrivateTab() {

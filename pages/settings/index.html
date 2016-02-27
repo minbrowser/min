@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Privacy Settings |Min</title>
+	<link rel="stylesheet" href="../../css/base.css" />
+	<link rel="stylesheet" href="settings.css" />
+	<link rel="stylesheet" href="../../ext/font-awesome-4.4.0/css/font-awesome.min.css" />
+</head>
+
+<body>
+	<div class="hero short-hero blue-gradient-background">
+		<div class="container padding">
+			<h2>Privacy Settings</h2>
+		</div>
+	</div>
+	<div class="banner yellow-background" id="restart-required-banner" hidden>
+		<div class="container padding">
+			<i class="fa fa-info-circle"></i> You need to restart to apply these changes.
+		</div>
+	</div>
+	<div class="spacer"></div>
+	<div class="container padding" id="settings-container">
+		<h3>Content Blocking</h3>
+
+		<div class="setting-section">
+			<input type="checkbox" id="checkbox-block-trackers" />
+			<label for="checkbox-block-trackers">Block trackers and ads</label>
+			<div class="light-fade setting-secondary-label">Based on EasyList and EasyPrivacy, without element hiding rules. Created by <a target="_blank" href="https://easylist.adblockplus.org/">The EasyList authors</a> - <a target="_blank" href="https://creativecommons.org/licenses/by-sa/3.0/legalcode">view license</a>.</div>
+		</div>
+
+	</div>
+	<script src="../../ext/Dexie.min.js"></script>
+	<script src="../../js/util/database.js"></script>
+	<script src="settings.js"></script>
+</body>
+
+</html>

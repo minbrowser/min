@@ -11,6 +11,7 @@ module.exports = function (grunt) {
 				src: [
 						 "js/tabState.js",
 						"js/util/urlParser.js",
+						"js/filteringRenderer.js",
 						"js/webviews.js",
 						 "js/webviewMenu.js",
 						"js/bookmarksHistory/bookmarksHistory.js",
@@ -48,6 +49,13 @@ module.exports = function (grunt) {
 						"js/webview/fileViewer.js"
 						 ],
 				dest: 'dist/webview.js'
+			},
+			main: {
+				src: [
+						"main/main.js",
+					"main/filtering.js",
+						 ],
+				dest: 'main.build.js'
 			}
 		},
 		uglify: {
@@ -61,7 +69,7 @@ module.exports = function (grunt) {
 			webview: {
 				src: 'dist/webview.js',
 				dest: 'dist/webview.min.js'
-			}
+			},
 		},
 		electron: {
 			osxBuild: {
@@ -108,9 +116,9 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-electron');
 
-	grunt.registerTask('default', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview']);
+	grunt.registerTask('default', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main']);
 	grunt.registerTask('browser', ['concat:browser', 'uglify:browser']);
 	grunt.registerTask('webview', ['concat:webview', 'uglify:webview']);
-	grunt.registerTask('build', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'electron:osxBuild', 'electron:windowsBuild', 'electron:linuxBuild'])
+	grunt.registerTask('build', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main', 'electron:osxBuild', 'electron:windowsBuild', 'electron:linuxBuild'])
 
 };

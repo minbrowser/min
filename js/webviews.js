@@ -61,6 +61,10 @@ function getWebviewDom(options) {
 		//private tabs use a different session, so the default permissionRequestHandler won't apply
 
 		remote.session.fromPartition(partition).setPermissionRequestHandler(pagePermissionRequestHandler);
+
+		//enable ad/tracker/contentType blocking in this tab if needed
+
+		registerFiltering(partition);
 	}
 
 	//webview events

@@ -1,0 +1,151 @@
+/* common - TODO add a shared stylesheet for this */
+
+body,
+html {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	font-size: 16px;
+	font-family: '.SFNSText-Regular', 'Helvetica Neue', 'Arial', sans-serif;
+}
+* {
+	box-sizing: border-box;
+}
+.fade {
+	opacity: 0.333;
+}
+.light-fade {
+	opacity: 0.666;
+}
+.light-gray-background {
+	background-color: #f7f7f7;
+}
+.yellow-background {
+	background-color: rgb(250, 188, 43);
+}
+.color-white {
+	color: white;
+}
+.hero {
+	height: 85vh;
+	width: 100vw;
+	position: relative;
+	overflow: hidden;
+}
+.hero.short-hero {
+	height: 10vh;
+	min-height: 100px;
+}
+.blue-gradient-background {
+	background: linear-gradient(135deg, rgba(80, 122, 196, 1) 43%, rgba(80, 122, 196, 1) 43%, rgba(128, 192, 226, 1) 89%, rgba(128, 192, 226, 1) 89%);
+	color: #fff;
+}
+.blue-gradient-top {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+a {
+	color: rgb(68, 133, 220);
+	text-decoration: none;
+}
+a.inherit-color {
+	color: inherit;
+}
+h1,
+h2,
+h3 {
+	font-size: 5em;
+	font-weight: 300;
+	opacity: 0.8;
+	font-family: '.SFNSDisplay-Light', 'Helvetica Neue Light', 'Helvetica Neue', sans-serif;
+	margin: 0.5em 0;
+	color: inherit;
+	text-align: center;
+}
+h2 {
+	text-align: left;
+	font-size: 2.75em;
+}
+h3 {
+	text-align: left;
+	font-size: 2em;
+}
+h1 + h2 {
+	margin-top: -1em;
+}
+.container {
+	max-width: 1000px;
+	margin: auto;
+}
+.container.padding {
+	padding: 0 1em;
+}
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+.spacer {
+	height: 1em;
+}
+.outlined-button {
+	-webkit-appearance: none;
+	appearance: none;
+	background: none;
+	color: inherit;
+	font-size: 1em;
+	padding: 1em 1.5em;
+	border: 1px currentColor solid;
+	transition: 0.1s;
+	min-width: 40%;
+}
+.outlined-button:not(.disabled):hover,
+.solid-button {
+	background: #fff;
+	border-color: #fff;
+	color: #000;
+}
+.outlined-button:not(.disabled):hover:focus,
+.solid-button.solid-button-blue {
+	background: rgb(78, 123, 196);
+	color: #fff;
+	outline: none;
+}
+button .button-subtext {
+	display: block;
+	font-size: 0.8em;
+	text-align: center;
+	overflow: hidden;
+	height: 0;
+}
+button:hover .button-subtext,
+button.disabled .button-subtext {
+	height: auto;
+	padding-top: 0.2em;
+}
+button.disabled {
+	opacity: 0.5;
+}
+.primary-action-button {
+	width: 66%;
+	margin-left: 17.5%;
+	margin-top: 1.5em;
+}
+
+/* end shared */
+
+.setting-section {
+	padding: 0.5em 0;
+}
+.setting-secondary-label {
+	padding-left: 1.1em;
+	padding-top: 0.2em;
+}
+.banner {
+	padding: 0.6em 1em;
+}

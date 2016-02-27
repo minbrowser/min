@@ -1,7 +1,7 @@
 {
   "name": "Min",
   "version": "1.0.1",
-  "main": "main.js",
+  "main": "main.build.js",
   "dependencies": {
     "dexie": "^1.2.0",
     "dragula": "^3.6.2",
