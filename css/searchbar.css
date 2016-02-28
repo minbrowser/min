@@ -68,10 +68,13 @@ body.notMac #searchbar {
 	width: 1em;
 	height: 1em;
 }
-#searchbar .result-icon {
+#searchbar .result-item .result-icon {
 	height: 2.75em;
 	margin: 0.25em 0.5em 0.5em 0;
 	float: left;
+}
+#searchbar .result-item:focus .result-icon {
+	height: 4em;
 }
 #searchbar .result-icon.color-circle {
 	width: 1.8em;
