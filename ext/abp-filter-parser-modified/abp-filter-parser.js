@@ -166,13 +166,11 @@
 
 		// Check for element hiding rules
 		var index = input.indexOf('#', beginIndex);
-		if (index !== -1) {
-			if (input[index + 1] === '#' || input[index + 1] === '@') {
-				parseHTMLFilter(input.substring(beginIndex), index - beginIndex, parsedFilterData);
-				// HTML rules cannot be combined with other parsing,
-				// other than @@ exception marking.
-				return true;
-			}
+		if (index !== -1 && (input[index + 1] === '#' || input[index + 1] === '@')) {
+			parseHTMLFilter(input.substring(beginIndex), index - beginIndex, parsedFilterData);
+			// HTML rules cannot be combined with other parsing,
+			// other than @@ exception marking.
+			return true;
 		}
 
 		// Check for options, regex can have options too so check this before regex
@@ -244,6 +242,25 @@
 		parserData.noFingerprintFilters = parserData.noFingerprintFilters || [];
 		parserData.exceptionFilters = parserData.exceptionFilters || [];
 		parserData.htmlRuleFilters = parserData.htmlRuleFilters || [];
+
+		var filters = input.split("\n");
+		for (var i = 0; i < filters.length; i++) {
+			var filter = filters[i];
+			var parsedFilterData = {};
+			if (parseFilter(filter, parsedFilterData, parserData.bloomFilter, parserData.exceptionBloomFilter)) {
+				var fingerprint = getFingerprint(parsedFilterData.data);
+				if (parsedFilterData.htmlRuleSelector) {
+					parserData.htmlRuleFilters.push(parsedFilterData);
+				} else if (parsedFilterData.isException) {
+					parserData.exceptionFilters.push(parsedFilterData);
+				} else if (fingerprint.length > 0) {
+					parserData.filters.push(parsedFilterData);
+				} else {
+					parserData.noFingerprintFilters.push(parsedFilterData);
+				}
+			}
+		}
+		/*
 		var startPos = 0;
 		var endPos = input.length;
 		var newline = '\n';
@@ -271,7 +288,7 @@
 				}
 			}
 			startPos = endPos + 1;
-		}
+		}*/
 	}
 
 	/**
