@@ -73,7 +73,7 @@ body.notMac #searchbar {
 	margin: 0.25em 0.5em 0.5em 0;
 	float: left;
 }
-#searchbar .result-item:focus .result-icon {
+#searchbar .result-item:focus .result-icon:not(.inline) {
 	height: 4em;
 }
 #searchbar .result-icon.color-circle {
