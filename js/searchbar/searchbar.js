@@ -408,7 +408,7 @@ function focussearchbarItem(options) {
 					destroyPrevious: false,
 				});
 			}
-		}, 225);
+		}, 300);
 	}
 }
 
