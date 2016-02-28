@@ -425,8 +425,7 @@
 		if (contextParams['third-party'] !== undefined) {
 			// Is the current rule check for third party only?
 			if (filterDataContainsOption(parsedFilterData, 'third-party')) {
-				var inputHost = getUrlHost(input);
-				var inputHostIsThirdParty = isThirdPartyHost(parsedFilterData.host, inputHost);
+				var inputHostIsThirdParty = isThirdPartyHost(parsedFilterData.host, getUrlHost(input));
 				if (inputHostIsThirdParty || !contextParams['third-party']) {
 					return false;
 				}
@@ -440,9 +439,9 @@
 	 * Given an individual parsed filter data determines if the input url should block.
 	 */
 
-	function matchesFilter(parsedFilterData, input) {
-		var contextParams = arguments[2] || {};
-		var cachedInputData = arguments[3] || {};
+	function matchesFilter(parsedFilterData, input, params, cachedData) {
+		var contextParams = params || {};
+		var cachedInputData = cachedData || {};
 
 		if (!matchOptions(parsedFilterData, input, contextParams)) {
 			return false;
@@ -454,8 +453,11 @@
 		}
 
 		// Check for both left and right anchored
-		if (parsedFilterData.leftAnchored && parsedFilterData.rightAnchored) {
-			return parsedFilterData.data === input;
+		if (parsedFilterData.leftAnchored) {
+			if (parsedFilterData.rightAnchored) {
+				return parsedFilterData.data === input;
+			}
+			return input.substring(0, parsedFilterData.data.length) === parsedFilterData.data;
 		}
 
 		// Check for right anchored
@@ -463,17 +465,8 @@
 			return input.slice(-parsedFilterData.data.length) === parsedFilterData.data;
 		}
 
-		// Check for left anchored
-		if (parsedFilterData.leftAnchored) {
-			return input.substring(0, parsedFilterData.data.length) === parsedFilterData.data;
-		}
-
 		// Check for domain name anchored
 		if (parsedFilterData.hostAnchored) {
-			if (!cachedInputData.currentHost) {
-				cachedInputData.currentHost = getUrlHost(input);
-			}
-
 			return !isThirdPartyHost(parsedFilterData.host, cachedInputData.currentHost) && indexOfFilter(input, parsedFilterData.data) !== -1;
 		}
 
@@ -512,11 +505,15 @@
 		cachedInputData.bloomPositiveCount = cachedInputData.bloomPositiveCount || 0;
 		cachedInputData.notMatchCount = cachedInputData.notMatchCount || 0;
 		cachedInputData.bloomFalsePositiveCount = cachedInputData.bloomFalsePositiveCount || 0;
+
 		var hasMatchingNoFingerprintFilters = undefined;
 		var cleanedInput = input.replace(/^https?:\/\//, '');
 		if (cleanedInput.length > maxUrlChars) {
 			cleanedInput = cleanedInput.substring(0, maxUrlChars);
 		}
+
+		cachedInputData.currentHost = getUrlHost(input);
+
 		if (parserData.bloomFilter) {
 			if (!parserData.bloomFilter.substringExists(cleanedInput, fingerprintSize)) {
 				cachedInputData.bloomNegativeCount++;
@@ -533,7 +530,6 @@
 		cachedInputData.bloomPositiveCount++;
 
 		// console.log('not early return: ', input);
-		delete cachedInputData.currentHost;
 		cachedInputData.misses = cachedInputData.misses || new Set();
 		cachedInputData.missList = cachedInputData.missList || [];
 		if (cachedInputData.missList.length > maxCached) {
