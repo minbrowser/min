@@ -9,6 +9,8 @@ module.exports = function (grunt) {
 			},
 			browser: {
 				src: [
+						"js/default.js",
+						"js/util/database.js",
 						 "js/tabState.js",
 						"js/util/urlParser.js",
 						"js/filteringRenderer.js",

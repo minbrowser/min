@@ -3,6 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta http-equiv="Content-Security-Policy" content="script-src 'self'" />
 
 	<link rel="stylesheet" href="css/base.css" />
 	<link rel="stylesheet" href="css/navbarTabs.css" />
@@ -10,35 +11,6 @@
 	<link rel="stylesheet" href="css/searchbar.css" />
 	<link rel="stylesheet" href="ext/font-awesome-4.4.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="node_modules/dragula/dist/dragula.min.css" />
-	<script>
-		require("require.async")(require);
-		window.electron = require("electron");
-		window.ipc = electron.ipcRenderer;
-		window.remote = electron.remote;
-		window.Dexie = require("dexie");
-
-		//disable dragdrop, since it currently doesn't work
-		window.addEventListener("drop", function(e) {
-			e.preventDefault();
-		});
-
-		//add a class to the body for fullscreen status
-
-		ipc.on("enter-full-screen", function() {
-			document.body.classList.add("fullscreen");
-		});
-
-		ipc.on("leave-full-screen", function() {
-			document.body.classList.remove("fullscreen");
-		});
-
-		window.addEventListener("load", function(e) {
-			if (navigator.platform != "MacIntel") {
-				document.body.classList.add("notMac");
-			}
-		});
-
-	</script>
 </head>
 
 <body>
@@ -68,8 +40,6 @@
 	</div>
 
 	<!-- add scripts in Gruntfile.js -->
-
-	<script src="js/util/database.js"></script>
 
 	<script src="dist/build.min.js"></script>
 
