@@ -2,52 +2,65 @@ var findinpage = {
 	container: document.getElementById("findinpage-bar"),
 	isEnabled: false,
 	start: function (options) {
+		findinpage.counter.textContent = "";
+
 		findinpage.container.hidden = false;
 		findinpage.isEnabled = true;
 		findinpage.input.focus();
 		findinpage.input.select();
 	},
 	end: function (options) {
-		findinpage.container.hidden = true;
-		findinpage.isEnabled = false;
-
-		//focus the webview
-
-		if (findinpage.input == document.activeElement) {
-			getWebview(tabs.getSelected()).focus();
-		}
-	},
-	toggle: function () {
 		if (findinpage.isEnabled) {
-			findinpage.end();
-		} else {
-			findinpage.start();
+			findinpage.container.hidden = true;
+			findinpage.isEnabled = false;
+
+			var webview = getWebview(tabs.getSelected());
+			webview.stopFindInPage("keepSelection");
+			webview.focus();
 		}
 	},
-	escape: function (text) { //removes apostrophes from text so we can safely embed it in a string
-		return text.replace(/'/g, "\\'");
-	}
 }
 
 findinpage.input = findinpage.container.querySelector(".findinpage-input");
+findinpage.previous = findinpage.container.querySelector(".findinpage-previous-match");
+findinpage.next = findinpage.container.querySelector(".findinpage-next-match");
+findinpage.counter = findinpage.container.querySelector("#findinpage-count");
+findinpage.endButton = findinpage.container.querySelector("#findinpage-end");
 
-findinpage.input.addEventListener("keyup", function (e) {
-	//escape key should exit find mode, not continue searching
-	if (e.keyCode == 27) {
-		findinpage.end();
-		return;
-	}
-	var text = findinpage.escape(this.value);
-	var webview = getWebview(tabs.getSelected());
-
-	//this stays on the current text if it still matches, preventing flickering. However, if the return key was pressed, we should move on to the next match instead, so this shouldn't run.
-	if (e.keyCode != 13) {
-		webview.executeJavaScript("window.getSelection().empty()");
-	}
-
-	webview.executeJavaScript("find('{t}', false, false, true, false, false, false)".replace("{t}", text)); //see https://developer.mozilla.org/en-US/docs/Web/API/Window/find for a description of the parameters
-});
-
-findinpage.input.addEventListener("blur", function (e) {
+findinpage.endButton.addEventListener("click", function () {
 	findinpage.end();
 });
+
+findinpage.input.addEventListener("keyup", function (e) {
+	if (this.value) {
+		getWebview(tabs.getSelected()).findInPage(this.value);
+	}
+});
+
+findinpage.previous.addEventListener("click", function (e) {
+	getWebview(tabs.getSelected()).findInPage(findinpage.input.value, {
+		forward: false,
+		findNext: true
+	});
+	findinpage.input.focus();
+});
+
+findinpage.next.addEventListener("click", function (e) {
+	getWebview(tabs.getSelected()).findInPage(findinpage.input.value, {
+		forward: true,
+		findNext: true
+	});
+	findinpage.input.focus();
+});
+
+bindWebviewEvent("found-in-page", function (e) {
+	if (e.result.matches) {
+		if (e.result.matches > 1) {
+			var text = " matches";
+		} else {
+			var text = " match";
+		}
+
+		findinpage.counter.textContent = e.result.matches + text;
+	}
+})

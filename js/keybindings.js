@@ -151,7 +151,11 @@ require.async("mousetrap", function (Mousetrap) {
 	Mousetrap.bind("esc", function (e) {
 		leaveTabEditMode();
 		leaveExpandedMode();
-		getWebview(tabs.getSelected()).focus();
+		if (findinpage.isEnabled) {
+			findinpage.end(); //this also focuses the webview
+		} else {
+			getWebview(tabs.getSelected()).focus();
+		}
 	});
 
 	Mousetrap.bind("shift+mod+r", function () {

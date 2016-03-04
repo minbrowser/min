@@ -2,19 +2,23 @@
 	width: 100%;
 	display: flex;
 	position: absolute;
-	top: 36px;
+	top: 0;
 	left: 0;
-	box-shadow: 0px 3px 3px 0px rgba(20, 20, 20, 0.25);
 	align-items: center;
+	padding-left: 80px;
+	padding-right: 0.75em;
+	height: 36px;
+}
+body.fullscreen #findinpage-bar,
+body.notMac #findinpage-bar {
+	padding-left: 0.5em;
 }
 #findinpage-bar .findinpage-input {
-	padding: 0.5em;
 	flex: 1;
 	-webkit-appearance: none;
 	appearance: none;
 	outline: none;
 	border: 0;
-	font-size: 1.25em;
 	background: inherit;
 	color: inherit;
 }
@@ -22,9 +26,20 @@
 	opacity: 0.75;
 	color: inherit;
 }
+#findinpage-bar .divider {
+	height: 100%;
+	width: 1em;
+}
+#findinpage-bar .inline-text {
+	font-size: 0.85em;
+	vertical-align: middle;
+}
 #findinpage-bar .icon {
-	opacity: 0.5;
 	font-size: 1em;
-	padding-left: 0.5em;
+	padding: 0 0.5em;
 	margin-top: -2px;
+}
+#findinpage-bar .icon.fa-angle-up,
+#findinpage-bar .icon.fa-angle-down {
+	font-size: 1.2em;
 }
