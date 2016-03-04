@@ -28,7 +28,7 @@ var urlParser = {
 		url = url.trim(); //remove whitespace common on copy-pasted url's
 
 		if (!url) {
-			return "";
+			return "about:blank";
 		}
 		//if the url starts with a (supported) protocol, do nothing
 		if (urlParser.isURL(url)) {
