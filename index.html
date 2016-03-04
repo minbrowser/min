@@ -35,8 +35,14 @@
 	<!-- findinpage ui -->
 
 	<div id="findinpage-bar" hidden class="theme-background-color theme-text-color">
-		<i class="fa fa-search icon"></i>
 		<input class="findinpage-input mousetrap" placeholder="Search in Page" />
+		<span class="inline-text" id="findinpage-count">
+		</span>
+		<div class="divider"></div>
+		<i class="icon fa fa-angle-up findinpage-previous-match cancel-blur-propogation" tabindex="-1"></i>
+		<i class="icon fa fa-angle-down findinpage-next-match cancel-blur-propogation" tabindex="-1"></i>
+		<div class="divider"></div>
+		<i class="icon fa fa-close" id="findinpage-end"></i>
 	</div>
 
 	<!-- add scripts in Gruntfile.js -->
