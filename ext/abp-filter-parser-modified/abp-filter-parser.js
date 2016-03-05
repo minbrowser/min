@@ -50,6 +50,10 @@
 	// Exact size for fingerprints, if you change also change fingerprintRegexs
 	var fingerprintSize = 8;
 
+	// Matches protocols at the start of URL's
+
+	var protocolRegex = /^https?:\/\//;
+
 	/**
 	 * Maps element types to type mask.
 	 */
@@ -184,8 +188,7 @@
 		}
 
 		// Check for a regex
-		parsedFilterData.isRegex = input[beginIndex] === '/' && input[input.length - 1] === '/' && beginIndex !== input.length - 1;
-		if (parsedFilterData.isRegex) {
+		if (input[beginIndex] === '/' && input[input.length - 1] === '/' && beginIndex !== input.length - 1) {
 			parsedFilterData.data = input.slice(beginIndex + 1, -1);
 			parsedFilterData.regex = new RegExp(parsedFilterData.data);
 			return true;
@@ -448,7 +451,7 @@
 		}
 
 		// Check for a regex match
-		if (parsedFilterData.isRegex) {
+		if (parsedFilterData.regex) {
 			return parsedFilterData.regex.test(input);
 		}
 
@@ -485,9 +488,12 @@
 	}
 
 	function hasMatchingFilters(filterList, parsedFilterData, input, contextParams, cachedInputData) {
-		return filterList.some(function (parsedFilterData) {
-			return matchesFilter(parsedFilterData, input, contextParams, cachedInputData);
-		});
+		for (var i = 0; i < filterList.length; i++) {
+			if (matchesFilter(filterList[i], input, contextParams, cachedInputData)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -507,7 +513,7 @@
 		cachedInputData.bloomFalsePositiveCount = cachedInputData.bloomFalsePositiveCount || 0;
 
 		var hasMatchingNoFingerprintFilters = undefined;
-		var cleanedInput = input.replace(/^https?:\/\//, '');
+		var cleanedInput = input.replace(protocolRegex, '');
 		if (cleanedInput.length > maxUrlChars) {
 			cleanedInput = cleanedInput.substring(0, maxUrlChars);
 		}
@@ -533,7 +539,7 @@
 		cachedInputData.misses = cachedInputData.misses || new Set();
 		cachedInputData.missList = cachedInputData.missList || [];
 		if (cachedInputData.missList.length > maxCached) {
-			cachedInputData.misses['delete'](cachedInputData.missList[0]);
+			cachedInputData.misses.delete(cachedInputData.missList[0]);
 			cachedInputData.missList = cachedInputData.missList.splice(1);
 		}
 		if (cachedInputData.misses.has(input)) {
