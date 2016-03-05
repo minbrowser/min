@@ -212,8 +212,8 @@ onmessage = function (e) {
 				if (item.visitCount != 1 || item.lastVisit > oneWeekAgo) { //if the item has been visited more than once, or has been visited in the last week, we should calculate the fuzzy score. Otherwise, it is ignored. This reduces the number of bad results and increases search speed.
 					var score = itext.score(st, 0);
 
-					if (score > 0.4 + (0.001 * itext.length)) {
-						item.boost = score;
+					if (score > 0.4 + (0.00075 * itext.length)) {
+						item.boost = score * 0.5;
 
 						if (score > 0.62) {
 							item.boost += 0.33;
@@ -232,8 +232,8 @@ onmessage = function (e) {
 		var stl = searchText.length;
 		var searchWords = st.split(" ");
 		var substringSearchEnabled = false;
-		var itemStartBoost = 2.5 * stl;
-		var exactMatchBoost = 0.3 + (0.075 * stl);
+		var itemStartBoost = Math.min(2.5 * stl, 10);
+		var exactMatchBoost = 0.4 + (0.075 * stl);
 
 		if (searchText.indexOf(" ") != -1) {
 			substringSearchEnabled = true;
