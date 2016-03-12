@@ -487,8 +487,8 @@
 		return true;
 	}
 
-	function hasMatchingFilters(filterList, parsedFilterData, input, contextParams, cachedInputData) {
-		for (var i = 0; i < filterList.length; i++) {
+	function hasMatchingFilters(filterList, input, contextParams, cachedInputData) {
+		for (var i = 0, len = filterList.length; i < len; i++) {
 			if (matchesFilter(filterList[i], input, contextParams, cachedInputData)) {
 				return true;
 			}
@@ -525,7 +525,7 @@
 				cachedInputData.bloomNegativeCount++;
 				cachedInputData.notMatchCount++;
 				// console.log('early return because of bloom filter check!');
-				hasMatchingNoFingerprintFilters = hasMatchingFilters(parserData.noFingerprintFilters, parserData, input, contextParams, cachedInputData);
+				hasMatchingNoFingerprintFilters = hasMatchingFilters(parserData.noFingerprintFilters, input, contextParams, cachedInputData);
 
 				if (!hasMatchingNoFingerprintFilters) {
 					return false;
@@ -536,23 +536,21 @@
 		cachedInputData.bloomPositiveCount++;
 
 		// console.log('not early return: ', input);
-		cachedInputData.misses = cachedInputData.misses || new Set();
 		cachedInputData.missList = cachedInputData.missList || [];
 		if (cachedInputData.missList.length > maxCached) {
-			cachedInputData.misses.delete(cachedInputData.missList[0]);
 			cachedInputData.missList = cachedInputData.missList.splice(1);
 		}
-		if (cachedInputData.misses.has(input)) {
+		if (cachedInputData.missList.includes(input)) {
 			cachedInputData.notMatchCount++;
 			// console.log('positive match for input: ', input);
 			return false;
 		}
 
-		if (hasMatchingFilters(parserData.filters, parserData, input, contextParams, cachedInputData) || hasMatchingNoFingerprintFilters === true || hasMatchingNoFingerprintFilters === undefined && hasMatchingFilters(parserData.noFingerprintFilters, parserData, input, contextParams, cachedInputData)) {
+		if (hasMatchingFilters(parserData.filters, input, contextParams, cachedInputData) || hasMatchingNoFingerprintFilters === true || hasMatchingNoFingerprintFilters === undefined && hasMatchingFilters(parserData.noFingerprintFilters, input, contextParams, cachedInputData)) {
 			// Check for exceptions only when there's a match because matches are
 			// rare compared to the volume of checks
 			var exceptionBloomFilterMiss = parserData.exceptionBloomFilter && !parserData.exceptionBloomFilter.substringExists(cleanedInput, fingerprintSize);
-			if (!exceptionBloomFilterMiss || hasMatchingFilters(parserData.exceptionFilters, parserData, input, contextParams, cachedInputData)) {
+			if (!exceptionBloomFilterMiss || hasMatchingFilters(parserData.exceptionFilters, input, contextParams, cachedInputData)) {
 				cachedInputData.notMatchCount++;
 				return false;
 			}
@@ -562,7 +560,6 @@
 		// The bloom filter had a false positive, se we checked for nothing! :'(
 		// This is probably (but not always) an indication that the fingerprint selection should be tweaked!
 		cachedInputData.missList.push(input);
-		cachedInputData.misses.add(input);
 		cachedInputData.notMatchCount++;
 		cachedInputData.bloomFalsePositiveCount++;
 		// console.log('positive match for input: ', input);
