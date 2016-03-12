@@ -181,9 +181,8 @@ function createTabElement(tabId) {
 	input.addEventListener("keypress", function (e) {
 
 		if (e.keyCode == 13) { //return key pressed; update the url
-			var newURL = currentACItem || parsesearchbarURL(this.value);
 
-			openURLFromsearchbar(e, newURL);
+			openURLFromsearchbar(e, this.value);
 
 			//focus the webview, so that autofocus inputs on the page work
 			getWebview(tabs.getSelected()).focus();
@@ -208,10 +207,7 @@ function createTabElement(tabId) {
 
 		if (v && sel == 0) {
 			this.selectionStart += 1;
-			didFireKeydownSelChange = true;
 			e.preventDefault();
-		} else {
-			didFireKeydownSelChange = false;
 		}
 	});
 

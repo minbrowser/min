@@ -1,11 +1,7 @@
-var searchbarCachedText = "";
-var METADATA_SEPARATOR = "·";
-var didFireKeydownSelChange = false;
-var currentsearchbarInput;
+//common regex's
 
-//swipe left on history items to delete them
-
-var lastItemDeletion = Date.now();
+var trailingSlashRegex = /\/$/g,
+	plusRegex = /\+/g;
 
 //https://remysharp.com/2010/07/21/throttling-function-calls#
 
@@ -55,25 +51,6 @@ function removeTags(text) {
 	return text.replace(/<.*?>/g, "");
 }
 
-/* this is used by navbar-tabs.js. When a url is entered, endings such as ? need to be parsed and removed. */
-function parsesearchbarURL(url) {
-	//always use a search engine if the query starts with "?"
-
-	if (url.indexOf("?") == 0) {
-		url = urlParser.searchBaseURL.replace("%s", encodeURIComponent(url.replace("?", "")));
-	}
-
-	if (url.indexOf("^") == 0) {
-		url = url.replace("^", "");
-	}
-
-	if (url.indexOf("*") == 0) {
-		url = url.replace("*", "");
-	}
-
-	return url;
-}
-
 function openURLInBackground(url) { //used to open a url in the background, without leaving the searchbar
 	var newTab = tabs.add({
 		url: url,
@@ -85,7 +62,7 @@ function openURLInBackground(url) { //used to open a url in the background, with
 		leaveEditMode: false,
 	});
 
-	var i = searchbar.querySelector(".result-item:focus");
+	var i = searchbar.querySelector(".searchbar-item:focus");
 	if (i) { //remove the highlight from an awesomebar result item, if there is one
 		i.blur();
 	}
@@ -101,7 +78,7 @@ function openURLFromsearchbar(event, url) {
 		navigate(tabs.getSelected(), url);
 
 		if (!tabs.get(tabs.getSelected()).private) {
-
+			/*
 			//show the color and title of the new page immediately, to make the page load time seem faster
 			currentHistoryResults.forEach(function (res) {
 				if (res.url == url) {
@@ -112,7 +89,7 @@ function openURLFromsearchbar(event, url) {
 					rerenderTabElement(tabs.getSelected());
 				}
 			});
-
+			*/
 		}
 
 		return false;
@@ -154,6 +131,10 @@ function getRealTitle(text) {
 }
 
 
+//swipe left on history items to delete them
+
+var lastItemDeletion = Date.now();
+
 //creates a result item
 
 /*
@@ -174,7 +155,7 @@ classList: array - a list of classes to add to the item
 
 function createSearchbarItem(data) {
 	var item = document.createElement("div");
-	item.classList.add("result-item");
+	item.classList.add("searchbar-item");
 
 	item.setAttribute("tabindex", "-1");
 
@@ -203,6 +184,10 @@ function createSearchbarItem(data) {
 
 	if (data.url) {
 		item.setAttribute("data-url", data.url);
+
+		item.addEventListener("click", function (e) {
+			openURLFromsearchbar(e, data.url);
+		});
 	}
 
 	if (data.secondaryText) {
@@ -265,31 +250,12 @@ function createSearchbarItem(data) {
 
 var searchbar = document.getElementById("searchbar");
 
-function clearsearchbar() {
-	empty(opentabarea);
-	empty(topAnswerarea);
-	empty(bookmarkarea);
-	empty(historyarea);
-	empty(iaarea);
-	empty(suggestedsitearea);
-	empty(serarea);
-
-	//prevent memory leak
-	cachedBangSnippets = {};
-}
-
 function showSearchbar(triggerInput) {
 
-	currentACItem = null
-
-	searchbarCachedText = triggerInput.value;
 	document.body.classList.add("searchbar-shown");
-
-	clearsearchbar();
-
 	searchbar.hidden = false;
 
-	currentsearchbarInput = triggerInput;
+	currentSearchbarInput = triggerInput;
 
 }
 
@@ -301,81 +267,35 @@ function getValue(input) {
 }
 
 function hidesearchbar() {
-	currentsearchbarInput = null;
+	currentSearchbarInput = null;
 	document.body.classList.remove("searchbar-shown");
 	searchbar.hidden = true;
-	cachedBangSnippets = {};
+
+	clearSearchbar();
 }
 var showSearchbarResults = function (text, input, event) {
-	if (event && event.metaKey) {
-		return;
-	}
-
-	deleteKeyPressed = event && event.keyCode == 8;
 
 	//find the real input value, accounting for highlighted suggestions and the key that was just pressed
-
 	//delete key doesn't behave like the others, String.fromCharCode returns an unprintable character (which has a length of one)
 
 	if (event && event.keyCode != 8) {
-
-		text = text.substring(0, input.selectionStart) + String.fromCharCode(event.keyCode) + text.substring(input.selectionEnd, text.length);
-
+		var realText = text.substring(0, input.selectionStart) + String.fromCharCode(event.keyCode) + text.substring(input.selectionEnd, text.length);
+	} else {
+		var realText = text;
 	}
 
-	console.log("searchbar: ", "'" + text + "'", text.length);
+	console.log("searchbar: ", realText);
 
-	//there is no text, show only topsites
-	if (text.length < 1) {
-		showHistoryResults("", input);
-		clearsearchbar();
-		return;
-	}
+	runPlugins(realText, input, event);
 
-	//when you start with ?, always search with duckduckgo
-
-	if (text.indexOf("?") == 0) {
-		clearsearchbar();
-
-		currentSuggestionLimit = 5;
-		showSearchSuggestions(text.replace("?", ""), input);
-		return;
-	}
-
-	//when you start with ^, always search history (only)
-
-	if (text.indexOf("^") == 0) {
-		clearsearchbar();
-		showHistoryResults(text.replace("^", ""), input);
-		return;
-	}
-
-	//when you start with *, always search bookmarks (only)
-
-	if (text.indexOf("*") == 0) {
-		clearsearchbar();
-		showBookmarkResults(text.replace("*", ""), input);
-		return;
-	}
-
-	//show searchbar results
-
-	showBookmarkResults(text);
-
-	showHistoryResults(text, input);
-	showInstantAnswers(text, input);
-	searchOpenTabs(text, input);
-
-	//update cache
-	searchbarCachedText = text;
 };
 
 function focussearchbarItem(options) {
 	options = options || {}; //fallback if options is null
 	var previous = options.focusPrevious;
 
-	var allItems = [].slice.call(searchbar.querySelectorAll(".result-item:not(.unfocusable)"));
-	var currentItem = searchbar.querySelector(".result-item:focus, .result-item.fakefocus");
+	var allItems = [].slice.call(searchbar.querySelectorAll(".searchbar-item:not(.unfocusable)"));
+	var currentItem = searchbar.querySelector(".searchbar-item:focus, .searchbar-item.fakefocus");
 
 	var index = allItems.indexOf(currentItem);
 	var logicalNextItem = allItems[(previous) ? index - 1 : index + 1];
@@ -403,10 +323,7 @@ function focussearchbarItem(options) {
 			if (document.activeElement == focusedItem) {
 				var itext = focusedItem.querySelector(".title").textContent;
 
-				showInstantAnswers(itext, currentsearchbarInput, {
-					alwaysShow: true,
-					destroyPrevious: false,
-				});
+				showSearchbarInstantAnswers(itext, currentSearchbarInput, null, getSearchbarContainer("instantAnswers"));
 			}
 		}, 300);
 	}
@@ -440,6 +357,7 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 
 	var itemsShown = [];
 
+	var container = getSearchbarContainer("searchSuggestions");
 
 	data.entities.forEach(function (item, index) {
 
@@ -466,7 +384,7 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 			}
 		});
 
-		serarea.appendChild(div);
+		container.appendChild(div);
 
 		itemsCt++;
 		itemsShown.push(item.trim());

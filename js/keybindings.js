@@ -234,7 +234,7 @@ require.async("mousetrap", function (Mousetrap) {
 	});
 
 	Mousetrap.bind("shift+mod+b", function () {
-		clearsearchbar();
+		clearSearchbar();
 		showSearchbar(getTabInput(tabs.getSelected()));
 		enterEditMode(tabs.getSelected());
 		showAllBookmarks();

@@ -74,7 +74,7 @@ var readerView = {
 			}
 
 			if (articlesShown == 0) {
-				clearsearchbar();
+				clearSearchbar();
 			}
 
 			var item = createSearchbarItem({
@@ -94,7 +94,7 @@ var readerView = {
 				item.style.opacity = 0.65;
 			}
 
-			historyarea.appendChild(item);
+			getSearchbarContainer("history").appendChild(item);
 
 			articlesShown++;
 		}).then(function () {
@@ -118,7 +118,7 @@ var readerView = {
 				seeMoreLink.style.opacity = 0.5;
 
 				seeMoreLink.addEventListener("click", function (e) {
-					clearsearchbar();
+					clearSearchbar();
 					readerView.showReadingList({
 						limitResults: false
 					});

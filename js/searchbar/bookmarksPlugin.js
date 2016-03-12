@@ -1,6 +1,4 @@
-var bookmarkarea = searchbar.querySelector(".bookmark-results");
-
-function addBookmarkItem(result) {
+function getBookmarkItem(result) {
 
 	//create the basic item
 	//getRealTitle is defined in searchbar.js
@@ -10,10 +8,6 @@ function addBookmarkItem(result) {
 		title: getRealTitle(result.title),
 		secondaryText: urlParser.prettyURL(result.url),
 		url: result.url,
-	});
-
-	item.addEventListener("click", function (e) {
-		openURLFromsearchbar(e, result.url);
 	});
 
 	if (result.extraData && result.extraData.metadata) {
@@ -31,47 +25,38 @@ function addBookmarkItem(result) {
 
 	}
 
-	bookmarkarea.appendChild(item);
+	return item;
 }
 
-var showBookmarkResults = debounce(function (text) {
-	if (text.length < 5 || text.indexOf("!") == 0) { //if there is not enough text, or we're doing a bang search, don't show results
-		limitHistoryResults(5);
-		empty(bookmarkarea);
-		return;
-	}
+function showBookmarkResults(text, input, event, container) {
 
 	bookmarks.searchBookmarks(text, function (results) {
-		empty(bookmarkarea);
+
+		console.log(container);
+		empty(container);
+
 		var resultsShown = 1;
 		results.splice(0, 2).forEach(function (result) {
 
-			//if a history item for the same page already exists, don't show a bookmark
-			if (searchbar.querySelector('.result-item[data-url="{url}"]:not([hidden])'.replace("{url}", result.url))) {
-				return;
-			}
-
 			//as more results are added, the threshold for adding another one gets higher
 			if ((result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.3, text.length))) || text.length > 25) && (resultsShown == 1 || text.length > 6)) {
-				requestAnimationFrame(function () {
-					addBookmarkItem(result);
-				});
+				container.appendChild(getBookmarkItem(result));
 				resultsShown++;
 			}
 
 		});
-
-		//if we have lots of bookmarks, don't show as many regular history items
-		if (resultsShown == 3) {
-			limitHistoryResults(3);
-		} else {
-			limitHistoryResults(4);
-		}
-
 	});
-}, 133);
+}
 
-var showAllBookmarks = function () {
+registerSearchbarPlugin("bookmarks", {
+	index: 3,
+	trigger: function (text) {
+		return text.length > 4;
+	},
+	showResults: debounce(showBookmarkResults, 200),
+});
+
+function showAllBookmarks() {
 	bookmarks.searchBookmarks("", function (results) {
 
 		results.sort(function (a, b) {
@@ -80,6 +65,11 @@ var showAllBookmarks = function () {
 			if (a.url > b.url) return 1;
 			return 0;
 		});
-		results.forEach(addBookmarkItem);
+
+		var container = getSearchbarContainer("bookmarks");
+
+		results.forEach(function (result) {
+			container.appendChild(getBookmarkItem(result));
+		});
 	});
 }
