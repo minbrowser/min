@@ -84,7 +84,7 @@ function checkPhishingStatus() {
 
 	var sensitiveWords = ["secure", "account", "webscr", "login", "ebayisapi", "signing", "banking", "confirm"];
 	var sensitiveFormWords = ["password", "creditcard", "credit card", "security code", "expiration date", "card type", "social security", "income tax", "date of birth", "joint return"]; //word commonly found in forms that ask for personal information
-	var whitelistedDomains = ["adobeid-na1.services.adobe.com", "login.live.com", "www.phishtank.com", "www.wellsfargo.com", "online.citi.com", , "www.bankofamerica.com", "my.hrw.com", "www.fastcompany.com"]; //a whitelist of things we mistakenly think are bad. These should be fixed eventually, but for now a whitelist will work.
+	var whitelistedDomains = ["adobeid-na1.services.adobe.com", "www.zdnet.com"]; //a whitelist of things we mistakenly think are bad. These should be fixed eventually, but for now a whitelist will work.
 
 	//on the whitelist
 
@@ -407,7 +407,7 @@ function checkPhishingStatus() {
 
 		if (getRootDomain(aTest.hostname) != rd) {
 			debug_phishing("icon from external domain found");
-			phishingScore += 0.15;
+			phishingScore += 0.1;
 		}
 	}
 
