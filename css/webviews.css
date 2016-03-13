@@ -5,7 +5,6 @@
 	height: 100%;
 	width: 100%;
 	outline: none;
-	display: block;
 }
 #webviews webview.fullscreen {
 	position: fixed;
