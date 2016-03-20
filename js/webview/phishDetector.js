@@ -118,6 +118,10 @@ function checkPhishingStatus() {
 	if (window.location.protocol != "https:" && window.location.protocol != "file:") {
 		debug_phishing("no https");
 		phishingScore += 0.15;
+		if (window.location.protocol == "data:") {
+			debug_phishing("data: protocol found");
+			phishingScore += 0.25;
+		}
 	}
 
 	//penalize long hostnames, since these are often used for phishing
@@ -239,7 +243,7 @@ function checkPhishingStatus() {
 
 			if (fa.indexOf("javascript:") != 0 && getRootDomain(aTest.hostname) != getRootDomain(window.location.hostname)) {
 				debug_phishing("submitting form to xdomain");
-				phishingScore += 0.66;
+				phishingScore += 0.7;
 			}
 
 
