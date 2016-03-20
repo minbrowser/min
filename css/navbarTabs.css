@@ -6,7 +6,7 @@
 	min-height: 2.3333em;
 	max-height: 2.3333em;
 	align-items: center;
-	transition: 0.2s background-color, 0.1s max-height;
+	transition: 0.175s background-color, 0.1s max-height;
 	max-width: 100vw;
 	-webkit-user-select: none;
 	position: relative;

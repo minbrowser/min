@@ -1,10 +1,16 @@
 #webviews {
 	height: calc(100vh - 2.25em);
+	position: relative;
 }
 #webviews webview {
 	height: 100%;
 	width: 100%;
 	outline: none;
+	position: absolute;
+}
+#webviews webview[hidden] {
+	display: flex !important;
+	visibility: hidden;
 }
 #webviews webview.fullscreen {
 	position: fixed;
