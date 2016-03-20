@@ -10,7 +10,7 @@ ipc.on("openPDF", function (event, filedata) {
 
 	// we don't know which tab the event came from, so we loop through each tab to find out.
 
-	tabs.get().forEach(function (tab) {
+	currentTask.tabs.get().forEach(function (tab) {
 		if (tab.url == filedata.url) {
 			navigate(tab.id, PDFurl);
 			hasOpenedPDF = true;
@@ -18,9 +18,9 @@ ipc.on("openPDF", function (event, filedata) {
 	});
 
 	if (!hasOpenedPDF) {
-		var newTab = tabs.add({
+		var newTab = currentTask.tabs.add({
 			url: PDFurl
-		}, tabs.getIndex(tabs.getSelected()) + 1);
+		}, currentTask.tabs.getIndex(currentTask.tabs.getSelected()) + 1);
 
 		addTab(newTab, {
 			enterEditMode: false

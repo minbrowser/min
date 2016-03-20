@@ -1,10 +1,10 @@
 function showHistorySuggestions(text, input, event, container) {
 
 	//use the current tab's url for history suggestions, or the previous tab if the current tab is empty
-	var url = tabs.get(tabs.getSelected()).url;
+	var url = currentTask.tabs.get(currentTask.tabs.getSelected()).url;
 
 	if (!url || url == "about:blank") {
-		var previousTab = tabs.getAtIndex(tabs.getIndex(tabs.getSelected()) - 1);
+		var previousTab = currentTask.tabs.getAtIndex(currentTask.tabs.getIndex(currentTask.tabs.getSelected()) - 1);
 		if (previousTab) {
 			url = previousTab.url;
 		}
@@ -14,7 +14,7 @@ function showHistorySuggestions(text, input, event, container) {
 
 		empty(container);
 
-		var tabList = tabs.get().map(function (tab) {
+		var tabList = currentTask.tabs.get().map(function (tab) {
 			return tab.url;
 		});
 

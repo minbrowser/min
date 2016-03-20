@@ -14,7 +14,7 @@ var findinpage = {
 			findinpage.container.hidden = true;
 			findinpage.isEnabled = false;
 
-			var webview = getWebview(tabs.getSelected());
+			var webview = getWebview(currentTask.tabs.getSelected());
 			webview.stopFindInPage("keepSelection");
 			webview.focus();
 		}
@@ -33,12 +33,12 @@ findinpage.endButton.addEventListener("click", function () {
 
 findinpage.input.addEventListener("keyup", function (e) {
 	if (this.value) {
-		getWebview(tabs.getSelected()).findInPage(this.value);
+		getWebview(currentTask.tabs.getSelected()).findInPage(this.value);
 	}
 });
 
 findinpage.previous.addEventListener("click", function (e) {
-	getWebview(tabs.getSelected()).findInPage(findinpage.input.value, {
+	getWebview(currentTask.tabs.getSelected()).findInPage(findinpage.input.value, {
 		forward: false,
 		findNext: true
 	});
@@ -46,7 +46,7 @@ findinpage.previous.addEventListener("click", function (e) {
 });
 
 findinpage.next.addEventListener("click", function (e) {
-	getWebview(tabs.getSelected()).findInPage(findinpage.input.value, {
+	getWebview(currentTask.tabs.getSelected()).findInPage(findinpage.input.value, {
 		forward: true,
 		findNext: true
 	});

@@ -9,7 +9,7 @@ var webviewMenu = {
 	},
 	loadFromContextData: function (IPCdata) {
 
-		var tab = tabs.get(tabs.getSelected());
+		var tab = currentTask.tabs.get(currentTask.tabs.getSelected());
 
 		var event = webviewMenu.cache.event;
 
@@ -33,10 +33,10 @@ var webviewMenu = {
 			menu.append(new MenuItem({
 				label: 'Open in New Tab',
 				click: function () {
-					var newTab = tabs.add({
+					var newTab = currentTask.tabs.add({
 						url: IPCdata.src,
 						private: tab.private,
-					}, tabs.getIndex(tabs.getSelected()) + 1);
+					}, currentTask.tabs.getIndex(currentTask.tabs.getSelected()) + 1);
 
 					addTab(newTab, {
 						enterEditMode: false,
@@ -52,10 +52,10 @@ var webviewMenu = {
 				menu.append(new MenuItem({
 					label: 'Open in New Private Tab',
 					click: function () {
-						var newTab = tabs.add({
+						var newTab = currentTask.tabs.add({
 							url: IPCdata.src,
 							private: true,
-						}, tabs.getIndex(tabs.getSelected()) + 1)
+						}, currentTask.tabs.getIndex(currentTask.tabs.getSelected()) + 1)
 						addTab(newTab, {
 							enterEditMode: false,
 						});
@@ -92,7 +92,7 @@ var webviewMenu = {
 			menu.append(new MenuItem({
 				label: 'Search with DuckDuckGo',
 				click: function () {
-					var newTab = tabs.add({
+					var newTab = currentTask.tabs.add({
 						url: "https://duckduckgo.com/?t=min&q=" + encodeURIComponent(IPCdata.selection),
 						private: tab.private,
 					})
@@ -130,7 +130,7 @@ var webviewMenu = {
 		var event = cxevent.originalEvent || cxevent;
 		webviewMenu.cache.event = event;
 
-		var currentTab = tabs.getSelected();
+		var currentTab = currentTask.tabs.getSelected();
 		var webview = getWebview(currentTab)
 
 		webviewMenu.cache.tab = currentTab;

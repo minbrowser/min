@@ -1,11 +1,74 @@
-/* tracks the state of tabs */
+require("require.async")(require);
+window.electron = require("electron");
+window.ipc = electron.ipcRenderer;
+window.remote = electron.remote;
+window.Dexie = require("dexie");
 
-var tabs = {
-	_state: {
-		tabs: [],
-		selected: null,
-	},
+//disable dragdrop, since it currently doesn't work
+window.addEventListener("drop", function (e) {
+	e.preventDefault();
+});
+
+//add a class to the body for fullscreen status
+
+ipc.on("enter-full-screen", function () {
+	document.body.classList.add("fullscreen");
+});
+
+ipc.on("leave-full-screen", function () {
+	document.body.classList.remove("fullscreen");
+});
+
+window.addEventListener("load", function (e) {
+	if (navigator.platform != "MacIntel") {
+		document.body.classList.add("notMac");
+	}
+});
+;//defines schema for the browsingData database
+//requires Dexie.min.js
+
+var db = new Dexie('browsingData');
+
+//old version
+db.version(2)
+	.stores({
+		bookmarks: 'url, title, text, extraData', //url must come first so it is the primary key
+		history: 'url, title, color, visitCount, lastVisit, extraData', //same thing
+		readingList: 'url, time, visitCount, pageHTML, article, extraData', //article is the object from readability
+	});
+
+//current version
+db.version(3)
+	.stores({
+		bookmarks: 'url, title, text, extraData', //url must come first so it is the primary key
+		history: 'url, title, color, visitCount, lastVisit, extraData', //same thing
+		readingList: 'url, time, visitCount, pageHTML, article, extraData', //article is the object from readability
+		settings: 'key, value', //key is the name of the setting, value is an object
+	});
+
+/* current settings:
+
+key - filtering
+value - {trackers: boolean, contentTypes: array}
+
+*/
+
+db.open().then(function () {
+	console.log("database opened ", performance.now());
+});
+
+Dexie.Promise.on("error", function (error) {
+	console.warn("database error occured", error);
+});
+;var tabState = {
+	tasks: [], //each task is {id, name, tabs: [], selectedTab}
+	selectedTask: null,
+};
+
+var tabPrototype = {
 	add: function (tab, index) {
+
+		console.log("adding tab", tab);;
 
 		//make sure the tab exists before we create it
 		if (!tab) {
@@ -24,25 +87,29 @@ var tabs = {
 			readerable: tab.readerable || false,
 			backgroundColor: tab.backgroundColor,
 			foregroundColor: tab.foregroundColor,
+			selected: tab.selected || false,
 		}
 
 		if (index) {
-			tabs._state.tabs.splice(index, 0, newTab);
+			this.splice(index, 0, newTab);
 		} else {
-			tabs._state.tabs.push(newTab);
+			this.push(newTab);
 		}
 
+		console.log("has " + this.length + " tabs");
 
 		return tabId;
 
 	},
 	update: function (id, data) {
-		if (!tabs.get(id)) {
+		console.log("updating", id, data);
+		console.log("task has " + this.length + " tabs");
+		if (!this.get(id)) {
 			throw new ReferenceError("Attempted to update a tab that does not exist.");
 		}
 		var index = -1;
-		for (var i = 0; i < tabs._state.tabs.length; i++) {
-			if (tabs._state.tabs[i].id == id) {
+		for (var i = 0; i < this.length; i++) {
+			if (this[i].id == id) {
 				index = i;
 			}
 		}
@@ -50,62 +117,118 @@ var tabs = {
 			if (data[key] == undefined) {
 				throw new ReferenceError("Key " + key + " is undefined.");
 			}
-			tabs._state.tabs[index][key] = data[key];
+			this[index][key] = data[key];
 		}
 	},
 	destroy: function (id) {
-		for (var i = 0; i < tabs._state.tabs.length; i++) {
-			if (tabs._state.tabs[i].id == id) {
-				tabs._state.tabs.splice(i, 1);
+		console.log("destroying tab", id);
+		console.trace();
+		for (var i = 0; i < this.length; i++) {
+			if (this[i].id == id) {
+				this.splice(i, 1);
 				return i;
 			}
 		}
 		return false;
 	},
 	get: function (id) {
+		console.log("getting tab", id);
+		console.log("task has " + this.length + " tabs");
+		console.trace();
 		if (!id) { //no id provided, return an array of all tabs
 			//it is important to deep-copy the tab objects when returning them. Otherwise, the original tab objects get modified when the returned tabs are modified (such as when processing a url).
 			var tabsToReturn = [];
-			for (var i = 0; i < tabs._state.tabs.length; i++) {
-				tabsToReturn.push(JSON.parse(JSON.stringify(tabs._state.tabs[i])));
+			for (var i = 0; i < this.length; i++) {
+				tabsToReturn.push(JSON.parse(JSON.stringify(this[i])));
 			}
 			return tabsToReturn;
 		}
-		for (var i = 0; i < tabs._state.tabs.length; i++) {
-			if (tabs._state.tabs[i].id == id) {
-				return tabs._state.tabs[i]
+		for (var i = 0; i < this.length; i++) {
+			if (this[i].id == id) {
+				return this[i]
 			}
 		}
 		return undefined;
 	},
 	getIndex: function (id) {
-		for (var i = 0; i < tabs._state.tabs.length; i++) {
-			if (tabs._state.tabs[i].id == id) {
+		for (var i = 0; i < this.length; i++) {
+			if (this[i].id == id) {
 				return i;
 			}
 		}
 		return -1;
 	},
 	getSelected: function () {
-		return tabs._state.selected;
+		for (var i = 0; i < this.length; i++) {
+			if (this[i].selected) {
+				return this[i].id;
+			}
+		}
+		return null;
 	},
 	getAtIndex: function (index) {
-		return tabs._state.tabs[index] || undefined;
+		return this[index] || undefined;
 	},
 	setSelected: function (id) {
-		if (!tabs.get(id)) {
+		if (!this.get(id)) {
 			throw new ReferenceError("Attempted to select a tab that does not exist.");
 		}
-		tabs._state.selected = id;
+		for (var i = 0; i < this.length; i++) {
+			if (this[i].id == id) {
+				this[i].selected = true;
+			} else {
+				this[i].selected = false;
+			}
+		}
 	},
 	count: function () {
-		return tabs._state.tabs.length;
+		return this.length;
 	},
 	reorder: function (newOrder) { //newOrder is an array of [tabId, tabId] that indicates the order that tabs should be in
-		tabs._state.tabs.sort(function (a, b) {
+		this.sort(function (a, b) {
 			return newOrder.indexOf(a.id) - newOrder.indexOf(b.id);
 		});
 	},
+}
+
+function getRandomId() {
+	return Math.round(Math.random() * 100000000000000000);
+}
+
+var tasks = {
+	add: function (name, id) {
+		var task = {};
+
+		task.id = id || getRandomId();
+		task.name = name || null;
+		task.tabs = [];
+		task.selectedTab = null;
+
+		//task.currentTask.tabs.__proto__ = tabPrototype;
+
+		for (var key in tabPrototype) {
+			task.tabs.__proto__[key] = tabPrototype[key];
+		}
+
+		tabState.tasks.push(task);
+		return task.id;
+	},
+	get: function (id) {
+		for (var i = 0; i < tabState.tasks.length; i++) {
+			if (tabState.tasks[i].id == id) {
+				return tabState.tasks[i];
+			}
+		}
+		return tabState.tasks;
+	},
+	setSelected: function (id) {
+		tabState.selectedTask = id;
+		window.currentTask = tasks.get(id);
+	},
+}
+
+function getSelectedTask() {
+	return getTask(tabState.selectedTask);
 }
 
 function isEmpty(tabList) {
@@ -149,7 +272,7 @@ function isEmpty(tabList) {
 		url = url.trim(); //remove whitespace common on copy-pasted url's
 
 		if (!url) {
-			return "";
+			return "about:blank";
 		}
 		//if the url starts with a (supported) protocol, do nothing
 		if (urlParser.isURL(url)) {
@@ -246,7 +369,7 @@ function getWebviewDom(options) {
 
 	//if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
 	//since tab IDs are unique, we can use them as partition names
-	if (tabs.get(options.tabId).private == true) {
+	if (currentTask.tabs.get(options.tabId).private == true) {
 		var partition = options.tabId.toString(); //options.tabId is a number, which remote.session.fromPartition won't accept. It must be converted to a string first
 
 		w.setAttribute("partition", partition);
@@ -274,7 +397,7 @@ function getWebviewDom(options) {
 
 	w.addEventListener("page-title-set", function (e) {
 		var tab = this.getAttribute("data-tab");
-		tabs.update(tab, {
+		currentTask.tabs.update(tab, {
 			title: e.title
 		});
 		rerenderTabElement(tab);
@@ -285,12 +408,12 @@ function getWebviewDom(options) {
 		var url = this.getAttribute("src"); //src attribute changes whenever a page is loaded
 
 		if (url.indexOf("https://") === 0 || url.indexOf("about:") == 0 || url.indexOf("chrome:") == 0 || url.indexOf("file://") == 0) {
-			tabs.update(tab, {
+			currentTask.tabs.update(tab, {
 				secure: true,
 				url: url,
 			});
 		} else {
-			tabs.update(tab, {
+			currentTask.tabs.update(tab, {
 				secure: false,
 				url: url,
 			});
@@ -298,7 +421,7 @@ function getWebviewDom(options) {
 
 		var isInternalPage = url.indexOf(__dirname) != -1 && url.indexOf(readerView.readerURL) == -1
 
-		if (tabs.get(tab).private == false && !isInternalPage) { //don't save to history if in private mode, or the page is a browser page
+		if (currentTask.tabs.get(tab).private == false && !isInternalPage) { //don't save to history if in private mode, or the page is a browser page
 			bookmarks.updateHistory(tab);
 		}
 
@@ -316,11 +439,11 @@ function getWebviewDom(options) {
 
 	w.addEventListener("new-window", function (e) {
 		var tab = this.getAttribute("data-tab");
-		var currentIndex = tabs.getIndex(tabs.getSelected());
+		var currentIndex = currentTask.tabs.getIndex(currentTask.tabs.getSelected());
 
-		var newTab = tabs.add({
+		var newTab = currentTask.tabs.add({
 			url: e.url,
-			private: tabs.get(tab).private //inherit private status from the current tab
+			private: currentTask.tabs.get(tab).private //inherit private status from the current tab
 		}, currentIndex + 1);
 		addTab(newTab, {
 			enterEditMode: false,
@@ -330,9 +453,9 @@ function getWebviewDom(options) {
 
 	w.addEventListener("close", function (e) {
 		var tabId = this.getAttribute("data-tab");
-		var selTab = tabs.getSelected();
-		var currentIndex = tabs.getIndex(tabId);
-		var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1);
+		var selTab = currentTask.tabs.getSelected();
+		var currentIndex = currentTask.tabs.getIndex(tabId);
+		var nextTab = currentTask.tabs.getAtIndex(currentIndex - 1) || currentTask.tabs.getAtIndex(currentIndex + 1);
 
 		destroyTab(tabId);
 
@@ -372,7 +495,7 @@ function getWebviewDom(options) {
 		var tabId = this.getAttribute("data-tab");
 
 		destroyWebview(tabId);
-		tabs.update(tabId, {
+		currentTask.tabs.update(tabId, {
 			url: crashedWebviewPage
 		});
 
@@ -405,7 +528,7 @@ var WebviewsWithHiddenClass = false;
 
 function addWebview(tabId) {
 
-	var tabData = tabs.get(tabId);
+	var tabData = currentTask.tabs.get(tabId);
 
 	var webview = getWebviewDom({
 		tabId: tabId,
@@ -417,6 +540,8 @@ function addWebview(tabId) {
 	webview.classList.add("hidden");
 
 	webviewBase.appendChild(webview);
+
+	return webview;
 }
 
 function switchToWebview(id) {
@@ -426,6 +551,11 @@ function switchToWebview(id) {
 	}
 
 	var wv = getWebview(id);
+
+	if (!wv) {
+		wv = addWebview(id);
+	}
+
 	wv.classList.remove("hidden");
 	wv.hidden = false;
 }
@@ -453,7 +583,7 @@ var webviewMenu = {
 	},
 	loadFromContextData: function (IPCdata) {
 
-		var tab = tabs.get(tabs.getSelected());
+		var tab = currentTask.tabs.get(currentTask.tabs.getSelected());
 
 		var event = webviewMenu.cache.event;
 
@@ -477,10 +607,10 @@ var webviewMenu = {
 			menu.append(new MenuItem({
 				label: 'Open in New Tab',
 				click: function () {
-					var newTab = tabs.add({
+					var newTab = currentTask.tabs.add({
 						url: IPCdata.src,
 						private: tab.private,
-					}, tabs.getIndex(tabs.getSelected()) + 1);
+					}, currentTask.tabs.getIndex(currentTask.tabs.getSelected()) + 1);
 
 					addTab(newTab, {
 						enterEditMode: false,
@@ -496,10 +626,10 @@ var webviewMenu = {
 				menu.append(new MenuItem({
 					label: 'Open in New Private Tab',
 					click: function () {
-						var newTab = tabs.add({
+						var newTab = currentTask.tabs.add({
 							url: IPCdata.src,
 							private: true,
-						}, tabs.getIndex(tabs.getSelected()) + 1)
+						}, currentTask.tabs.getIndex(currentTask.tabs.getSelected()) + 1)
 						addTab(newTab, {
 							enterEditMode: false,
 						});
@@ -536,7 +666,7 @@ var webviewMenu = {
 			menu.append(new MenuItem({
 				label: 'Search with DuckDuckGo',
 				click: function () {
-					var newTab = tabs.add({
+					var newTab = currentTask.tabs.add({
 						url: "https://duckduckgo.com/?t=min&q=" + encodeURIComponent(IPCdata.selection),
 						private: tab.private,
 					})
@@ -574,7 +704,7 @@ var webviewMenu = {
 		var event = cxevent.originalEvent || cxevent;
 		webviewMenu.cache.event = event;
 
-		var currentTab = tabs.getSelected();
+		var currentTab = currentTask.tabs.getSelected();
 		var webview = getWebview(currentTab)
 
 		webviewMenu.cache.tab = currentTab;
@@ -603,7 +733,7 @@ steps to creating a bookmark:
 var bookmarks = {
 	updateHistory: function (tabId) {
 		setTimeout(function () { //this prevents pages that are immediately left from being saved to history, and also gives the page-favicon-updated event time to fire (so the colors saved to history are correct).
-			var tab = tabs.get(tabId);
+			var tab = currentTask.tabs.get(tabId);
 			if (tab) {
 				var data = {
 					url: tab.url,
@@ -675,7 +805,7 @@ var bookmarks = {
 		//rest happens in onDataRecieved and worker
 	},
 	toggleBookmarked: function (tabId) { //toggles a bookmark. If it is bookmarked, delete the bookmark. Otherwise, add it.
-		var url = tabs.get(tabId).url,
+		var url = currentTask.tabs.get(tabId).url,
 			exists = false;
 
 		bookmarks.searchBookmarks(url, function (d) {
@@ -688,8 +818,8 @@ var bookmarks = {
 
 
 			if (exists) {
-				console.log("deleting bookmark " + tabs.get(tabId).url);
-				bookmarks.deleteBookmark(tabs.get(tabId).url);
+				console.log("deleting bookmark " + currentTask.tabs.get(tabId).url);
+				bookmarks.deleteBookmark(currentTask.tabs.get(tabId).url);
 			} else {
 				bookmarks.bookmark(tabId);
 			}
@@ -715,7 +845,7 @@ var bookmarks = {
 	renderStar: function (tabId, star) { //star is optional
 		star = star || document.querySelector('.bookmarks-button[data-tab="{id}"]'.replace("{id}", tabId));
 
-		var currentURL = tabs.get(tabId).url;
+		var currentURL = currentTask.tabs.get(tabId).url;
 
 		if (!currentURL || currentURL == "about:blank") { //no url, can't be bookmarked
 			star.hidden = true;
@@ -766,7 +896,7 @@ bookmarks.init();
 function navigate(tabId, newURL) {
 	newURL = urlParser.parse(newURL);
 
-	tabs.update(tabId, {
+	currentTask.tabs.update(tabId, {
 		url: newURL
 	});
 
@@ -782,7 +912,7 @@ function destroyTab(id) {
 	var tabEl = getTabElement(id);
 	tabEl.parentNode.removeChild(tabEl);
 
-	var t = tabs.destroy(id); //remove from state - returns the index of the destroyed tab
+	var t = currentTask.tabs.destroy(id); //remove from state - returns the index of the destroyed tab
 	destroyWebview(id); //remove the webview
 
 }
@@ -801,7 +931,7 @@ function switchToTab(id, options) {
 
 	leaveTabEditMode();
 
-	tabs.setSelected(id);
+	currentTask.tabs.setSelected(id);
 	setActiveTabElement(id);
 	switchToWebview(id);
 
@@ -809,14 +939,14 @@ function switchToTab(id, options) {
 		getWebview(id).focus();
 	}
 
-	var tabData = tabs.get(id);
+	var tabData = currentTask.tabs.get(id);
 	setColor(tabData.backgroundColor, tabData.foregroundColor);
 
 	//we only want to mark the tab as active if someone actually interacts with it. If it is clicked on and then quickly clicked away from, it should still be marked as inactive
 
 	setTimeout(function () {
-		if (tabs.get(id) && tabs.getSelected() == id) {
-			tabs.update(id, {
+		if (currentTask.tabs.get(id) && currentTask.tabs.getSelected() == id) {
+			currentTask.tabs.update(id, {
 				lastActivity: Date.now(),
 			});
 			tabActivity.refresh();
@@ -826,14 +956,10 @@ function switchToTab(id, options) {
 	sessionRestore.save();
 
 }
-;var searchbarCachedText = "";
-var METADATA_SEPARATOR = "·";
-var didFireKeydownSelChange = false;
-var currentsearchbarInput;
+;//common regex's
 
-//swipe left on history items to delete them
-
-var lastItemDeletion = Date.now();
+var trailingSlashRegex = /\/$/g,
+	plusRegex = /\+/g;
 
 //https://remysharp.com/2010/07/21/throttling-function-calls#
 
@@ -883,37 +1009,18 @@ function removeTags(text) {
 	return text.replace(/<.*?>/g, "");
 }
 
-/* this is used by navbar-tabs.js. When a url is entered, endings such as ? need to be parsed and removed. */
-function parsesearchbarURL(url) {
-	//always use a search engine if the query starts with "?"
-
-	if (url.indexOf("?") == 0) {
-		url = urlParser.searchBaseURL.replace("%s", encodeURIComponent(url.replace("?", "")));
-	}
-
-	if (url.indexOf("^") == 0) {
-		url = url.replace("^", "");
-	}
-
-	if (url.indexOf("*") == 0) {
-		url = url.replace("*", "");
-	}
-
-	return url;
-}
-
 function openURLInBackground(url) { //used to open a url in the background, without leaving the searchbar
-	var newTab = tabs.add({
+	var newTab = currentTask.tabs.add({
 		url: url,
-		private: tabs.get(tabs.getSelected()).private
-	}, tabs.getIndex(tabs.getSelected()) + 1);
+		private: currentTask.tabs.get(currentTask.tabs.getSelected()).private
+	}, currentTask.tabs.getIndex(currentTask.tabs.getSelected()) + 1);
 	addTab(newTab, {
 		enterEditMode: false,
 		openInBackground: true,
 		leaveEditMode: false,
 	});
 
-	var i = searchbar.querySelector(".result-item:focus");
+	var i = searchbar.querySelector(".searchbar-item:focus");
 	if (i) { //remove the highlight from an awesomebar result item, if there is one
 		i.blur();
 	}
@@ -926,21 +1033,21 @@ function openURLFromsearchbar(event, url) {
 		openURLInBackground(url);
 		return true;
 	} else {
-		navigate(tabs.getSelected(), url);
+		navigate(currentTask.tabs.getSelected(), url);
 
-		if (!tabs.get(tabs.getSelected()).private) {
-
+		if (!currentTask.tabs.get(currentTask.tabs.getSelected()).private) {
+			/*
 			//show the color and title of the new page immediately, to make the page load time seem faster
 			currentHistoryResults.forEach(function (res) {
 				if (res.url == url) {
 					setColor(res.color, getTextColor(getRGBObject(res.color)));
-					tabs.update(tabs.getSelected(), {
+					currentTask.tabs.update(currentTask.tabs.getSelected(), {
 						title: res.title,
 					});
-					rerenderTabElement(tabs.getSelected());
+					rerenderTabElement(currentTask.tabs.getSelected());
 				}
 			});
-
+			*/
 		}
 
 		return false;
@@ -982,6 +1089,10 @@ function getRealTitle(text) {
 }
 
 
+//swipe left on history items to delete them
+
+var lastItemDeletion = Date.now();
+
 //creates a result item
 
 /*
@@ -1002,7 +1113,7 @@ classList: array - a list of classes to add to the item
 
 function createSearchbarItem(data) {
 	var item = document.createElement("div");
-	item.classList.add("result-item");
+	item.classList.add("searchbar-item");
 
 	item.setAttribute("tabindex", "-1");
 
@@ -1031,6 +1142,10 @@ function createSearchbarItem(data) {
 
 	if (data.url) {
 		item.setAttribute("data-url", data.url);
+
+		item.addEventListener("click", function (e) {
+			openURLFromsearchbar(e, data.url);
+		});
 	}
 
 	if (data.secondaryText) {
@@ -1093,31 +1208,12 @@ function createSearchbarItem(data) {
 
 var searchbar = document.getElementById("searchbar");
 
-function clearsearchbar() {
-	empty(opentabarea);
-	empty(topAnswerarea);
-	empty(bookmarkarea);
-	empty(historyarea);
-	empty(iaarea);
-	empty(suggestedsitearea);
-	empty(serarea);
-
-	//prevent memory leak
-	cachedBangSnippets = {};
-}
-
 function showSearchbar(triggerInput) {
 
-	currentACItem = null
-
-	searchbarCachedText = triggerInput.value;
 	document.body.classList.add("searchbar-shown");
-
-	clearsearchbar();
-
 	searchbar.hidden = false;
 
-	currentsearchbarInput = triggerInput;
+	currentSearchbarInput = triggerInput;
 
 }
 
@@ -1129,81 +1225,35 @@ function getValue(input) {
 }
 
 function hidesearchbar() {
-	currentsearchbarInput = null;
+	currentSearchbarInput = null;
 	document.body.classList.remove("searchbar-shown");
 	searchbar.hidden = true;
-	cachedBangSnippets = {};
+
+	clearSearchbar();
 }
 var showSearchbarResults = function (text, input, event) {
-	if (event && event.metaKey) {
-		return;
-	}
-
-	deleteKeyPressed = event && event.keyCode == 8;
 
 	//find the real input value, accounting for highlighted suggestions and the key that was just pressed
-
 	//delete key doesn't behave like the others, String.fromCharCode returns an unprintable character (which has a length of one)
 
 	if (event && event.keyCode != 8) {
-
-		text = text.substring(0, input.selectionStart) + String.fromCharCode(event.keyCode) + text.substring(input.selectionEnd, text.length);
-
+		var realText = text.substring(0, input.selectionStart) + String.fromCharCode(event.keyCode) + text.substring(input.selectionEnd, text.length);
+	} else {
+		var realText = text;
 	}
 
-	console.log("searchbar: ", "'" + text + "'", text.length);
+	console.log("searchbar: ", realText);
 
-	//there is no text, show only topsites
-	if (text.length < 1) {
-		showHistoryResults("", input);
-		clearsearchbar();
-		return;
-	}
+	runPlugins(realText, input, event);
 
-	//when you start with ?, always search with duckduckgo
-
-	if (text.indexOf("?") == 0) {
-		clearsearchbar();
-
-		currentSuggestionLimit = 5;
-		showSearchSuggestions(text.replace("?", ""), input);
-		return;
-	}
-
-	//when you start with ^, always search history (only)
-
-	if (text.indexOf("^") == 0) {
-		clearsearchbar();
-		showHistoryResults(text.replace("^", ""), input);
-		return;
-	}
-
-	//when you start with *, always search bookmarks (only)
-
-	if (text.indexOf("*") == 0) {
-		clearsearchbar();
-		showBookmarkResults(text.replace("*", ""), input);
-		return;
-	}
-
-	//show searchbar results
-
-	showBookmarkResults(text);
-
-	showHistoryResults(text, input);
-	showInstantAnswers(text, input);
-	searchOpenTabs(text, input);
-
-	//update cache
-	searchbarCachedText = text;
 };
 
 function focussearchbarItem(options) {
 	options = options || {}; //fallback if options is null
 	var previous = options.focusPrevious;
 
-	var allItems = [].slice.call(searchbar.querySelectorAll(".result-item:not(.unfocusable)"));
-	var currentItem = searchbar.querySelector(".result-item:focus, .result-item.fakefocus");
+	var allItems = [].slice.call(searchbar.querySelectorAll(".searchbar-item:not(.unfocusable)"));
+	var currentItem = searchbar.querySelector(".searchbar-item:focus, .searchbar-item.fakefocus");
 
 	var index = allItems.indexOf(currentItem);
 	var logicalNextItem = allItems[(previous) ? index - 1 : index + 1];
@@ -1217,7 +1267,7 @@ function focussearchbarItem(options) {
 	if (currentItem && logicalNextItem) { //an item is focused and there is another item after it, move onto the next one
 		logicalNextItem.focus();
 	} else if (currentItem) { //the last item is focused, focus the searchbar again
-		getTabInput(tabs.getSelected()).focus();
+		getTabInput(currentTask.tabs.getSelected()).focus();
 		return;
 	} else { // no item is focused.
 		allItems[0].focus();
@@ -1231,12 +1281,9 @@ function focussearchbarItem(options) {
 			if (document.activeElement == focusedItem) {
 				var itext = focusedItem.querySelector(".title").textContent;
 
-				showInstantAnswers(itext, currentsearchbarInput, {
-					alwaysShow: true,
-					destroyPrevious: false,
-				});
+				showSearchbarInstantAnswers(itext, currentSearchbarInput, null, getSearchbarContainer("instantAnswers"));
 			}
-		}, 225);
+		}, 300);
 	}
 }
 
@@ -1268,6 +1315,7 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 
 	var itemsShown = [];
 
+	var container = getSearchbarContainer("searchSuggestions");
 
 	data.entities.forEach(function (item, index) {
 
@@ -1290,421 +1338,338 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 			if (e.metaKey) {
 				openURLInBackground(item);
 			} else {
-				navigate(tabs.getSelected(), item);
+				navigate(currentTask.tabs.getSelected(), item);
 			}
 		});
 
-		serarea.appendChild(div);
+		container.appendChild(div);
 
 		itemsCt++;
 		itemsShown.push(item.trim());
 	});
 });
-;var DDGSearchURLRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
-	trailingSlashRegex = /\/$/g,
-	plusRegex = /\+/g;
+;var searchbarPlugins = []; //format is {name, container, trigger, showResults};
+var searchbarResultCount = 0;
+var hasAutocompleted = false;
+var topAnswerArea = searchbar.querySelector(".top-answer-area");
 
-var currentACItem = null;
-var deleteKeyPressed = false;
+//empties all containers in the searchbar
+function clearSearchbar() {
+	for (var i = 0; i < searchbarPlugins.length; i++) {
+		empty(searchbarPlugins[i].container);
+	};
+}
 
-var historyarea = searchbar.querySelector(".history-results");
-
-var maxHistoryResults = 4;
-var currentHistoryResults = null;
-
-function searchbarAutocomplete(text, input, historyResults) {
-
-	if (!text || deleteKeyPressed) {
-		currentACItem = null;
-		return;
-	}
-
-	if (text == searchbarCachedText && input.selectionStart != input.selectionEnd) { //if nothing has actually changed, don't try to autocomplete
-		return;
-	}
-	//if we moved the selection, we don't want to autocomplete again
-	if (didFireKeydownSelChange) {
-		return;
-	}
-
-	currentACItem = null;
-
-	var didAutocomplete = false;
-
-	for (var i = 0; !didAutocomplete && i < historyResults.length; i++) { //we only want to autocomplete the first item that matches
-		didAutocomplete = autocompleteResultIfNeeded(input, historyResults[i]); //this returns true or false depending on whether the item was autocompleted or not
+function setTopAnswer(pluginName, item) {
+	empty(topAnswerArea);
+	if (item) {
+		item.setAttribute("data-plugin", pluginName);
+		topAnswerArea.appendChild(item);
 	}
 }
 
-function autocompleteResultIfNeeded(input, result) {
-
-	//figure out if we should autocomplete based on the title
-
-	DDGSearchURLRegex.lastIndex = 0;
-	shouldAutocompleteTitle = DDGSearchURLRegex.test(result.url);
-
-	if (shouldAutocompleteTitle) {
-		result.title = decodeURIComponent(result.url.replace(DDGSearchURLRegex, "$1").replace(plusRegex, " "));
+function getSearchbarContainer(pluginName) {
+	for (var i = 0; i < searchbarPlugins.length; i++) {
+		if (searchbarPlugins[i].name == pluginName) {
+			return searchbarPlugins[i].container;
+		}
 	}
+	return null;
+}
 
-	var text = getValue(input); //make sure the input hasn't changed between start and end of query
-	try {
-		var hostname = new URL(result.url).hostname;
-	} catch (e) {
-		console.warn(result.url);
+function getTopAnswer(pluginName) {
+	if (pluginName) {
+		//TODO a template string would be useful here, but UglifyJS doesn't support them yet
+		return topAnswerArea.querySelector("[data-plugin={plugin}]".replace("{plugin}", pluginName));
+	} else {
+		return topAnswerArea.firstChild;
 	}
+}
 
-	var possibleAutocompletions = [ //the different variations of the URL we can autocomplete
-		hostname, //we start with the domain
-		(hostname + "/").replace(urlParser.startingWWWRegex, "$1").replace("/", ""), //if that doesn't match, try the hostname without the www instead. The regex requires a slash at the end, so we add one, run the regex, and then remove it
-		urlParser.prettyURL(result.url), //then try the whole url
-		urlParser.removeProtocol(result.url), //then try the url with querystring
-		result.url, //then just try the url with protocol
+function registerSearchbarPlugin(name, object) {
+
+	//add the container
+	var container = document.createElement("div");
+	container.classList.add("searchbar-plugin-container");
+	container.setAttribute("data-plugin", name);
+	searchbar.insertBefore(container, searchbar.childNodes[object.index + 1]);
+
+	searchbarPlugins.push({
+		name: name,
+		container: container,
+		trigger: object.trigger,
+		showResults: object.showResults,
+	});
+}
+
+function runPlugins(text, input, event) {
+
+	searchbarResultCount = 0;
+	hasAutocompleted = false;
+
+	for (var i = 0; i < searchbarPlugins.length; i++) {
+		if ((!searchbarPlugins[i].trigger || searchbarPlugins[i].trigger(text))) {
+			searchbarPlugins[i].showResults(text, input, event, searchbarPlugins[i].container);
+		} else {
+			empty(searchbarPlugins[i].container);
+
+			//if the plugin is not triggered, remove a previously created top answer
+			var associatedTopAnswer = getTopAnswer(searchbarPlugins[i].name);
+
+			if (associatedTopAnswer) {
+				associatedTopAnswer.remove();
+			}
+		}
+	}
+}
+;function autocomplete(input, text, strings) {
+
+	for (var i = 0; i < strings.length; i++) {
+
+		//check if the item can be autocompleted
+		if (strings[i].toLowerCase().indexOf(text.toLowerCase()) == 0) {
+
+			input.value = strings[i];
+			input.setSelectionRange(text.length, strings[i].length);
+
+			return {
+				valid: true,
+				matchIndex: i,
+			}
+		}
+	}
+	return {
+		valid: false
+	}
+}
+
+//autocompletes based on a result item
+//returns: 1 - the exact URL was autocompleted, 0 - the domain was autocompleted, -1: nothing was autocompleted
+function autocompleteURL(item, input) {
+
+	var text = getValue(input);
+
+	var url = new URL(item.url),
+		hostname = url.hostname;
+
+	//the different variations of the URL we can autocomplete
+	var possibleAutocompletions = [
+		//we start with the domain
+		hostname,
+		 //if that doesn't match, try the hostname without the www instead. The regex requires a slash at the end, so we add one, run the regex, and then remove it
+		(hostname + "/").replace(urlParser.startingWWWRegex, "$1").replace("/", ""),
+		//then try the whole URL
+		urlParser.prettyURL(item.url),
+		//then try the URL with querystring
+		urlParser.removeProtocol(item.url),
+		//then just try the URL with protocol
+		item.url,
 	]
 
-	if (shouldAutocompleteTitle) {
-		possibleAutocompletions.push(result.title);
+	var autocompleteResult = autocomplete(input, text, possibleAutocompletions);
+
+	if (!autocompleteResult.valid) {
+		return -1;
+	} else if (autocompleteResult.matchIndex < 2 && url.pathname != "/") {
+		return 0;
+	} else {
+		return 1;
 	}
-
-
-	for (var i = 0; i < possibleAutocompletions.length; i++) {
-		if (possibleAutocompletions[i].toLowerCase().indexOf(text.toLowerCase()) == 0) { //we can autocomplete the item
-
-			input.value = possibleAutocompletions[i];
-			input.setSelectionRange(text.length, possibleAutocompletions[i].length);
-
-			if (i < 2) { //if we autocompleted a domain, the cached item should be the domain, not the full url
-				var url = new URL(result.url);
-				currentACItem = url.protocol + "//" + url.hostname + "/";
-			} else {
-				currentACItem = result.url;
-			}
-			return true;
-		}
-	}
-
-	//nothing was autocompleted
-
-	return false;
 }
+;function showSearchbarHistoryResults(text, input, event, container) {
 
-var showHistoryResults = throttle(function (text, input, maxItems) {
+	bookmarks.searchHistory(text, function (results) {
 
-		if (!text && input.value) { //if the entire input is highlighted (such as when we first focus the input), don't show anything
-			return;
+		//remove a previous top answer
+
+		var historyTopAnswer = getTopAnswer("history");
+
+		if (historyTopAnswer && !hasAutocompleted) {
+			historyTopAnswer.remove();
 		}
 
-		if (text) {
-			text = text.trim();
-		}
+		//clear previous results
+		empty(container);
 
-		//if we're offline, the only sites that will work are reader articles, so we should show those as top sites
+		results.slice(0, 4).forEach(function (result) {
 
-		if (!text && !navigator.onLine) {
-			readerView.showReadingList({
-				limitResults: true
-			});
-			return;
-		}
+			//only autocomplete an item if the delete key wasn't pressed, and nothing has been autocompleted already
+			if (event.keyCode != 8 && !hasAutocompleted) {
+				var autocompletionType = autocompleteURL(result, input);
 
-		if (text.indexOf("!") == 0) {
-			empty(historyarea);
-			showSearchSuggestions(text, input, 5);
-			return; //never show history results for bang search
-		}
-
-		var fn = bookmarks.searchHistory;
-
-		var searchText = text;
-
-		//if there is no search text, show suggested sites instead
-		if (!searchText) {
-			fn = bookmarks.getHistorySuggestions;
-			searchText = tabs.get(tabs.getSelected()).url;
-
-			//current tab is empty
-			var idx = tabs.getIndex(tabs.getSelected());
-			if ((!searchText || searchText == "about:blank") && idx > 0) {
-				searchText = tabs.getAtIndex(idx - 1).url;
-			}
-		}
-
-		fn(searchText, function (results) {
-
-			currentHistoryResults = results;
-
-			var showedTopAnswer = false;
-
-			maxItems = maxItems || maxHistoryResults;
-
-			//if there is no text, only history results will be shown, so we can assume that 4 results should be shown.
-			if (!text) {
-				maxItems = 4;
-
-				//don't show sites currently open as site suggestions
-
-				var tabList = tabs.get().map(function (tab) {
-					return tab.url;
-				});
-				results = results.filter(function (item) {
-					return tabList.indexOf(item.url) == -1;
-				});
-			}
-
-			empty(historyarea);
-
-			if (topAnswerarea.getElementsByClassName("history-item").length > 0) {
-				empty(topAnswerarea);
-			}
-
-			searchbarAutocomplete(text, input, results);
-
-			if (results.length < 10) {
-				maxItems = 3;
-				showSearchSuggestions(text, input, 5 - results.length);
-			} else {
-				empty(serarea);
-			}
-
-			var resultsShown = 0;
-
-			//we will never have more than 5 results, so we don't need to create more DOM elements than that
-
-			requestAnimationFrame(function () {
-
-				results.slice(0, 4).forEach(function (result) {
-
-					DDGSearchURLRegex.lastIndex = 0;
-					var isDDGSearch = DDGSearchURLRegex.test(result.url);
-
-					var itemDeleteFunction = function (el) {
-						bookmarks.deleteHistory(el.getAttribute("data-url"));
-					}
-
-
-					if (isDDGSearch) { //show the result like a search suggestion
-
-						var processedTitle = decodeURIComponent(result.url.replace(DDGSearchURLRegex, "$1").replace(plusRegex, " "));
-
-						var data = {
-							icon: "fa-search",
-							title: processedTitle,
-							url: result.url,
-							classList: ["history-item"],
-							delete: itemDeleteFunction,
-						}
-					} else {
-						var data = {
-							icon: "fa-globe",
-							title: getRealTitle(result.title) || result.url,
-							url: result.url,
-							classList: ["history-item"],
-							delete: itemDeleteFunction,
-						}
-
-						if (result.title !== result.url) {
-							data.secondaryText = urlParser.prettyURL(result.url);
-						}
-					}
-
-
-					var item = createSearchbarItem(data);
-
-					item.addEventListener("click", function (e) {
-						openURLFromsearchbar(e, result.url);
-					});
-
-					if (resultsShown >= maxItems) { //only show up to n history items
-						item.hidden = true;
-						item.classList.add("unfocusable");
-					}
-
-					if (urlParser.areEqual(currentACItem, result.url) && resultsShown < maxItems && !showedTopAnswer) { //the item is being autocompleted, highlight it
-						item.classList.add("fakefocus");
-						topAnswerarea.appendChild(item);
-						showedTopAnswer = true;
-					} else {
-						historyarea.appendChild(item)
-					}
-
-
-					resultsShown++;
-
-				});
-
-				//show a top answer item if we did domain autocompletion
-
-				if (currentACItem && !showedTopAnswer && !DDGSearchURLRegex.test(currentACItem)) {
-					var item = createSearchbarItem({
-						classList: ["history-item", "fakefocus"],
-						icon: "fa-globe",
-						title: urlParser.prettyURL(currentACItem),
-						url: currentACItem,
-					});
-
-					item.addEventListener("click", function (e) {
-						openURLFromsearchbar(e, currentACItem);
-					});
-
-					topAnswerarea.appendChild(item);
+				if (autocompletionType != -1) {
+					hasAutocompleted = true;
 				}
-			});
+
+				if (autocompletionType == 0) { //the domain was autocompleted, show a domain result item
+					var domain = new URL(result.url).hostname;
+
+					setTopAnswer("history", createSearchbarItem({
+						title: domain,
+						url: domain,
+						classList: ["fakefocus"],
+					}));
+				}
+			}
+
+			var data = {
+				title: urlParser.prettyURL(result.url),
+				secondaryText: getRealTitle(result.title),
+				url: result.url,
+				delete: function () {
+					bookmarks.deleteHistory(result.url);
+				},
+			}
+
+			var item = createSearchbarItem(data);
+
+			if (autocompletionType == 1) { //if this exact URL was autocompleted, show the item as the top answer
+				item.classList.add("fakefocus");
+				setTopAnswer("history", item);
+			} else {
+				container.appendChild(item);
+			}
 
 		});
+
+		searchbarResultCount += Math.min(results.length, 4); //add the number of results that were displayed
+
+	});
+
+};
+
+registerSearchbarPlugin("history", {
+	index: 1,
+	trigger: function (text) {
+		return !!text && text.indexOf("!") != 0;
 	},
-	50);
+	showResults: throttle(showSearchbarHistoryResults, 50),
+});
+;function showSearchbarInstantAnswers(text, input, event, container) {
 
-function limitHistoryResults(maxItems) {
-	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));
+	console.log(searchbarResultCount);
 
-	var limitAmt = maxHistoryResults;
+	//don't make a request if the searchbar has already closed
 
-	if (topAnswerarea.getElementsByClassName("history-item")[0]) {
-		limitAmt--;
-	}
-
-	var itemsToHide = historyarea.querySelectorAll(".result-item:nth-child(n+{items})".replace("{items}", limitAmt + 1));
-
-	for (var i = 0; i < itemsToHide.length; i++) {
-		itemsToHide[i].hidden = true;
-		itemsToHide[i].classList.add("unfocusable");
-	}
-}
-;var bookmarkarea = searchbar.querySelector(".bookmark-results");
-
-function addBookmarkItem(result) {
-
-	//create the basic item
-	//getRealTitle is defined in searchbar.js
-
-	var item = createSearchbarItem({
-		icon: "fa-star",
-		title: getRealTitle(result.title),
-		secondaryText: urlParser.prettyURL(result.url),
-		url: result.url,
-	});
-
-	item.addEventListener("click", function (e) {
-		openURLFromsearchbar(e, result.url);
-	});
-
-	if (result.extraData && result.extraData.metadata) {
-
-		var secondaryText = item.querySelector(".secondary-text");
-
-		for (var md in result.extraData.metadata) {
-			var span = document.createElement("span");
-
-			span.className = "md-info";
-			span.textContent = result.extraData.metadata[md];
-
-			secondaryText.insertBefore(span, secondaryText.firstChild)
-		}
-
-	}
-
-	bookmarkarea.appendChild(item);
-}
-
-var showBookmarkResults = debounce(function (text) {
-	if (text.length < 5 || text.indexOf("!") == 0) { //if there is not enough text, or we're doing a bang search, don't show results
-		limitHistoryResults(5);
-		empty(bookmarkarea);
+	if (!currentSearchbarInput) {
 		return;
 	}
 
-	bookmarks.searchBookmarks(text, function (results) {
-		empty(bookmarkarea);
-		var resultsShown = 1;
-		results.splice(0, 2).forEach(function (result) {
+	fetch("https://api.duckduckgo.com/?t=min&skip_disambig=1&no_redirect=1&format=json&q=" + encodeURIComponent(text))
+		.then(function (data) {
+			return data.json();
+		})
+		.then(function (res) {
 
-			//if a history item for the same page already exists, don't show a bookmark
-			if (searchbar.querySelector('.result-item[data-url="{url}"]:not([hidden])'.replace("{url}", result.url))) {
-				return;
-			}
+			empty(container);
 
-			//as more results are added, the threshold for adding another one gets higher
-			if ((result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.3, text.length))) || text.length > 25) && (resultsShown == 1 || text.length > 6)) {
-				requestAnimationFrame(function () {
-					addBookmarkItem(result);
+			//if there is a custom format for the answer, use that
+			if (instantAnswers[res.AnswerType]) {
+				var item = instantAnswers[res.AnswerType](text, res.Answer);
+
+				//use the default format
+			} else if (res.Abstract || res.Answer) {
+
+				var data = {
+					title: removeTags(res.Answer || res.Heading),
+					descriptionBlock: res.Abstract || "Answer",
+					attribution: ddgAttribution,
+					url: res.AbstractURL || text,
+				}
+
+				if (res.Image && !res.ImageIsLogo) {
+					data.image = res.Image;
+				}
+
+				var item = createSearchbarItem(data);
+
+				//show a disambiguation
+			} else if (res.RelatedTopics) {
+
+				res.RelatedTopics.slice(0, 3).forEach(function (item) {
+					//the DDG api returns the entity name inside an <a> tag
+					var entityName = item.Result.replace(/.*>(.+?)<.*/g, "$1");
+
+					//the text starts with the entity name, remove it
+					var desc = item.Text.replace(entityName, "");
+
+					var item = createSearchbarItem({
+						title: entityName,
+						descriptionBlock: desc,
+						url: item.FirstURL,
+					});
+
+					container.appendChild(item);
 				});
-				resultsShown++;
+
+				searchbarResultCount += Math.min(res.RelatedTopics.length, 3);
 			}
 
-		});
+			if (item) {
 
-		//if we have lots of bookmarks, don't show as many regular history items
-		if (resultsShown == 3) {
-			limitHistoryResults(3);
-		} else {
-			limitHistoryResults(4);
-		}
+				//answers are more relevant, they should be displayed at the top
+				if (res.Answer) {
+					setTopAnswer("instantAnswers", item);
+				} else {
+					container.appendChild(item);
+				}
 
-	});
-}, 133);
-
-var showAllBookmarks = function () {
-	bookmarks.searchBookmarks("", function (results) {
-
-		results.sort(function (a, b) {
-			//http://stackoverflow.com/questions/6712034/sort-array-by-firstname-alphabetically-in-javascript
-			if (a.url < b.url) return -1;
-			if (a.url > b.url) return 1;
-			return 0;
-		});
-		results.forEach(addBookmarkItem);
-	});
-}
-;var bangRegex = /!\w+/g;
-var serarea = searchbar.querySelector(".search-engine-results");
-var iaarea = searchbar.querySelector(".instant-answer-results");
-var topAnswerarea = searchbar.querySelector(".top-answer-results");
-var suggestedsitearea = searchbar.querySelector("#searchbar .ddg-site-results");
-
-var ddgAttribution = "Results from DuckDuckGo";
-
-//cache duckduckgo bangs so we make fewer network requests
-var cachedBangSnippets = {};
-
-//format is {bang: count}
-var bangUseCounts = JSON.parse(localStorage.getItem("bangUseCounts") || "{}");
-
-function removeAllDDGAnswers() {
-	var a = searchbar.querySelectorAll(".ddg-answer");
-	for (var i = 0; i < a.length; i++) {
-		a[i].parentNode.removeChild(a[i]);
-	}
-}
-
-function incrementBangCount(bang) {
-	//increment bangUseCounts
-
-	if (bangUseCounts[bang]) {
-		bangUseCounts[bang]++;
-	} else {
-		bangUseCounts[bang] = 1;
-	}
-
-	//prevent the data from getting too big
-
-	if (bangUseCounts[bang] > 1000) {
-		for (var bang in bangUseCounts) {
-			bangUseCounts[bang] = Math.floor(bangUseCounts[bang] * 0.9);
-
-			if (bangUseCounts[bang] < 2) {
-				delete bangUseCounts[bang];
 			}
-		}
-	}
+
+			//suggested site links
+
+
+			if (searchbarResultCount < 4 && res.Results && res.Results[0] && res.Results[0].FirstURL) {
+
+				var url = res.Results[0].FirstURL;
+
+				var data = {
+					icon: "fa-globe",
+					title: urlParser.removeProtocol(url).replace(trailingSlashRegex, ""),
+					secondaryText: "Suggested site",
+					url: url,
+					classList: ["ddg-answer"],
+				}
+
+				var item = createSearchbarItem(data);
+
+				container.appendChild(item);
+			}
+
+			//if we're showing a location, show a "Search on OpenStreetMap" link
+
+			var entitiesWithLocations = ["location", "country", "u.s. state", "protected area"];
+
+			if (entitiesWithLocations.indexOf(res.Entity) != -1) {
+
+				var item = createSearchbarItem({
+					icon: "fa-search",
+					title: res.Heading,
+					secondaryText: "Search on OpenStreetMap",
+					classList: ["ddg-answer"],
+					url: "https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading)
+				});
+
+				container.insertBefore(item, container.firstChild);
+			}
+		})
+		.catch(function (e) {
+			console.error(e);
+		});
 }
 
-var saveBangUseCounts = debounce(function () {
-	localStorage.setItem("bangUseCounts", JSON.stringify(bangUseCounts));
-}, 10000);
+registerSearchbarPlugin("instantAnswers", {
+	index: 2,
+	trigger: function (text) {
+		return text.length > 3 && !urlParser.isURLMissingProtocol(text) && !currentTask.tabs.get(currentTask.tabs.getSelected()).private;
+	},
+	showResults: debounce(showSearchbarInstantAnswers, 400),
+});
 
-/* custom answer layouts */
 
-var IAFormats = {
+// custom instant answers
+
+var instantAnswers = {
 	color_code: function (searchText, answer) {
 		var alternateFormats = [answer.data.rgb, answer.data.hslc, answer.data.cmyb];
 
@@ -1714,8 +1679,7 @@ var IAFormats = {
 
 		var item = createSearchbarItem({
 			title: searchText,
-			descriptionBlock: alternateFormats.join(" " + METADATA_SEPARATOR + " "),
-			classList: ["indent", "ddg-answer"],
+			descriptionBlock: alternateFormats.join(" · "),
 			attribution: ddgAttribution,
 		});
 
@@ -1733,7 +1697,6 @@ var IAFormats = {
 			title: answer.data.title,
 			image: answer.data.image,
 			descriptionBlock: answer.data.description + " " + answer.data.subtitle,
-			classList: ["indent", "ddg-answer"],
 			attribution: ddgAttribution,
 		});
 
@@ -1744,7 +1707,6 @@ var IAFormats = {
 
 		var item = createSearchbarItem({
 			descriptionBlock: formattedAnswer,
-			classList: ["indent", "ddg-answer"],
 			attribution: ddgAttribution,
 		});
 
@@ -1781,22 +1743,194 @@ var IAFormats = {
 		var item = createSearchbarItem({
 			title: title,
 			descriptionBlock: descriptionBlock,
-			classList: ["indent", "ddg-answer"],
 			attribution: ddgAttribution,
 		});
 
 		return item;
 	},
 }
+;function getBookmarkItem(result) {
 
-//this is triggered from history.js - we only show search suggestions if we don't have history results
-window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
+	//create the basic item
+	//getRealTitle is defined in searchbar.js
 
-	if (!text || tabs.get(tabs.getSelected()).private) { //we don't show search suggestions in private tabs, since this would send typed text to DDG
+	var item = createSearchbarItem({
+		icon: "fa-star",
+		title: getRealTitle(result.title),
+		secondaryText: urlParser.prettyURL(result.url),
+		url: result.url,
+	});
+
+	if (result.extraData && result.extraData.metadata) {
+
+		var secondaryText = item.querySelector(".secondary-text");
+
+		for (var md in result.extraData.metadata) {
+			var span = document.createElement("span");
+
+			span.className = "md-info";
+			span.textContent = result.extraData.metadata[md];
+
+			secondaryText.insertBefore(span, secondaryText.firstChild)
+		}
+
+	}
+
+	return item;
+}
+
+function showBookmarkResults(text, input, event, container) {
+
+	bookmarks.searchBookmarks(text, function (results) {
+
+		console.log(container);
+		empty(container);
+
+		var resultsShown = 1;
+		results.splice(0, 2).forEach(function (result) {
+
+			//as more results are added, the threshold for adding another one gets higher
+			if ((result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.3, text.length))) || text.length > 25) && (resultsShown == 1 || text.length > 6)) {
+				container.appendChild(getBookmarkItem(result));
+				resultsShown++;
+			}
+
+		});
+	});
+}
+
+registerSearchbarPlugin("bookmarks", {
+	index: 3,
+	trigger: function (text) {
+		return text.length > 4;
+	},
+	showResults: debounce(showBookmarkResults, 200),
+});
+
+function showAllBookmarks() {
+	bookmarks.searchBookmarks("", function (results) {
+
+		results.sort(function (a, b) {
+			//http://stackoverflow.com/questions/6712034/sort-array-by-firstname-alphabetically-in-javascript
+			if (a.url < b.url) return -1;
+			if (a.url > b.url) return 1;
+			return 0;
+		});
+
+		var container = getSearchbarContainer("bookmarks");
+
+		results.forEach(function (result) {
+			container.appendChild(getBookmarkItem(result));
+		});
+	});
+}
+;var stringScore = require("string_score");
+
+var searchOpenTabs = function (text, input, event, container) {
+
+	empty(container);
+
+	var matches = [],
+		selTab = currentTask.tabs.getSelected();
+
+	currentTask.tabs.get().forEach(function (item) {
+		if (item.id == selTab || !item.title || item.url == "about:blank") {
+			return;
+		}
+
+		var itemUrl = urlParser.removeProtocol(item.url); //don't search protocols
+
+		var exactMatch = item.title.indexOf(text) != -1 || itemUrl.indexOf(text) != -1
+		var fuzzyMatch = item.title.substring(0, 50).score(text, 0.5) > 0.4 || itemUrl.score(text, 0.5) > 0.4;
+
+		if (exactMatch || fuzzyMatch) {
+			matches.push(item);
+		}
+	});
+
+	if (matches.length == 0) {
 		return;
 	}
 
-	itemsToShow = Math.max(2, itemsToShow);
+	var finalMatches = matches.splice(0, 2).sort(function (a, b) {
+		return b.title.score(text, 0.5) - a.title.score(text, 0.5);
+	});
+
+	finalMatches.forEach(function (tab) {
+
+		var data = {
+			icon: "fa-external-link-square",
+			title: tab.title,
+			secondaryText: urlParser.removeProtocol(tab.url).replace(trailingSlashRegex, "")
+		}
+
+		var item = createSearchbarItem(data);
+
+		item.addEventListener("click", function () {
+
+			//if we created a new tab but are switching away from it, destroy the current (empty) tab
+			var currentTabUrl = currentTask.tabs.get(currentTask.tabs.getSelected()).url;
+			if (!currentTabUrl || currentTabUrl == "about:blank") {
+				destroyTab(currentTask.tabs.getSelected(), {
+					switchToTab: false
+				});
+			}
+			switchToTab(tab.id);
+		});
+
+		container.appendChild(item);
+	});
+
+	searchbarResultCount += finalMatches.length;
+}
+
+registerSearchbarPlugin("openTabs", {
+	index: 4,
+	trigger: function (text) {
+		return text.length > 2;
+	},
+	showResults: searchOpenTabs,
+})
+;var ddgAttribution = "Results from DuckDuckGo",
+	bangRegex = /!\w+/g;
+
+//cache duckduckgo bangs so we make fewer network requests
+var cachedBangSnippets = {};
+
+//format is {bang: count}
+var bangUseCounts = JSON.parse(localStorage.getItem("bangUseCounts") || "{}");
+
+function incrementBangCount(bang) {
+	//increment bangUseCounts
+
+	if (bangUseCounts[bang]) {
+		bangUseCounts[bang]++;
+	} else {
+		bangUseCounts[bang] = 1;
+	}
+
+	//prevent the data from getting too big
+
+	if (bangUseCounts[bang] > 1000) {
+		for (var bang in bangUseCounts) {
+			bangUseCounts[bang] = Math.floor(bangUseCounts[bang] * 0.9);
+
+			if (bangUseCounts[bang] < 2) {
+				delete bangUseCounts[bang];
+			}
+		}
+	}
+}
+
+var saveBangUseCounts = debounce(function () {
+	localStorage.setItem("bangUseCounts", JSON.stringify(bangUseCounts));
+}, 10000);
+
+function showSearchSuggestions(text, input, event, container) {
+	if (searchbarResultCount > 3) {
+		empty(container);
+		return;
+	}
 
 	fetch("https://ac.duckduckgo.com/ac/?t=min&q=" + encodeURIComponent(text), {
 			cache: "force-cache"
@@ -1806,7 +1940,7 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 		})
 		.then(function (results) {
 
-			empty(serarea);
+			empty(container);
 
 			if (results && results[0] && results[0].snippet) { //!bang search - ddg api doesn't have a good way to detect this
 
@@ -1847,15 +1981,14 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 						}, 66);
 					});
 
-					serarea.appendChild(item);
+					container.appendChild(item);
 				});
 
 			} else if (results) {
-				results.splice(0, itemsToShow).forEach(function (result) {
+				results.slice(0, 3).forEach(function (result) {
 
 					var data = {
 						title: result.phrase,
-						classList: ["iadata-onfocus"],
 					}
 
 					if (bangRegex.test(result.phrase)) {
@@ -1882,198 +2015,69 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 						openURLFromsearchbar(e, result.phrase);
 					});
 
-					serarea.appendChild(item);
+					container.appendChild(item);
 				});
 			}
+			searchbarResultCount += results.length;
 		});
-
-}, 350);
-
-window.showInstantAnswers = debounce(function (text, input, options) {
-
-	options = options || {};
-
-	if (!text) {
-		empty(iaarea);
-		empty(suggestedsitearea);
-		return;
-	}
-
-	//don't make useless queries
-	if (urlParser.isURLMissingProtocol(text)) {
-		return;
-	}
-
-	//don't send typed text in private mode
-	if (tabs.get(tabs.getSelected()).private) {
-		return;
-	}
-
-	if (text.length > 3) {
-
-		fetch("https://api.duckduckgo.com/?t=min&skip_disambig=1&no_redirect=1&format=json&q=" + encodeURIComponent(text))
-			.then(function (data) {
-				return data.json();
-			})
-			.then(function (res) {
-
-				//if value has changed, don't show results
-				if (text != getValue(input) && !options.alwaysShow) {
-					return;
-				}
-
-				//if there is a custom format for the answer, use that
-				if (IAFormats[res.AnswerType]) {
-					var item = IAFormats[res.AnswerType](text, res.Answer);
-
-				} else if (res.Abstract || res.Answer) {
-
-					var data = {
-						title: removeTags(res.Answer || res.Heading),
-						descriptionBlock: res.Abstract || "Answer",
-						classList: ["ddg-answer", "indent"],
-						attribution: ddgAttribution,
-					}
-
-					if (res.Image && !res.ImageIsLogo) {
-						data.image = res.Image;
-					}
-
-					var item = createSearchbarItem(data);
-				}
-
-				if (options.destroyPrevious != false || item) {
-					removeAllDDGAnswers();
-				}
-
-				if (item) {
-					item.addEventListener("click", function (e) {
-						openURLFromsearchbar(e, res.AbstractURL || text);
-					});
-
-					//answers are more relevant, they should be displayed at the top
-					if (res.Answer) {
-						empty(topAnswerarea);
-						topAnswerarea.appendChild(item);
-					} else {
-						iaarea.appendChild(item);
-					}
-
-				}
-
-				//suggested site links
-
-
-				if (res.Results && res.Results[0] && res.Results[0].FirstURL && currentHistoryResults.length < 11) {
-
-					var url = res.Results[0].FirstURL;
-
-					var data = {
-						icon: "fa-globe",
-						title: urlParser.removeProtocol(url).replace(trailingSlashRegex, ""),
-						secondaryText: "Suggested site",
-						url: url,
-						classList: ["ddg-answer"],
-					}
-
-					var item = createSearchbarItem(data);
-
-					item.addEventListener("click", function (e) {
-						openURLFromsearchbar(e, res.Results[0].FirstURL);
-					});
-
-					suggestedsitearea.appendChild(item);
-				}
-
-				//if we're showing a location, show a "Search on OpenStreetMap" link
-
-				var entitiesWithLocations = ["location", "country", "u.s. state", "protected area"];
-
-				if (entitiesWithLocations.indexOf(res.Entity) != -1) {
-
-					var item = createSearchbarItem({
-						icon: "fa-search",
-						title: res.Heading,
-						secondaryText: "Search on OpenStreetMap",
-						classList: ["ddg-answer"]
-					});
-
-					item.addEventListener("click", function (e) {
-						openURLFromsearchbar(e, "https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading));
-					});
-
-					iaarea.insertBefore(item, iaarea.firstChild);
-				}
-
-
-			})
-			.catch(function (e) {
-				console.error(e);
-			});
-	} else {
-		removeAllDDGAnswers(); //we still want to remove old items, even if we didn't make a new request
-	}
-
-}, 450);
-;var spacesRegex = /[\s._/-]/g; //copied from historyworker.js
-var opentabarea = searchbar.querySelector(".opentab-results");
-
-var stringScore = require("string_score");
-
-var searchOpenTabs = function (searchText) {
-
-	requestAnimationFrame(function () {
-
-		empty(opentabarea);
-
-		if (searchText.length < 3) {
-			return;
-		}
-
-		var matches = [],
-			selTab = tabs.getSelected();
-
-		tabs.get().forEach(function (item) {
-			if (item.id == selTab || !item.title || item.url == "about:blank") {
-				return;
-			}
-
-			var itemUrl = urlParser.removeProtocol(item.url); //don't search protocols
-
-			var exactMatch = item.title.indexOf(searchText) != -1 || itemUrl.indexOf(searchText) != -1
-			var fuzzyMatch = item.title.substring(0, 50).score(searchText, 0.5) > 0.4 || itemUrl.score(searchText, 0.5) > 0.4;
-
-			if (exactMatch || fuzzyMatch) {
-				matches.push(item);
-			}
-		});
-
-		matches.splice(0, 2).sort(function (a, b) {
-			return b.title.score(searchText, 0.5) - a.title.score(searchText, 0.5);
-		}).forEach(function (tab) {
-			var data = {
-				icon: "fa-external-link-square",
-				title: tab.title,
-				secondaryText: urlParser.removeProtocol(tab.url).replace(trailingSlashRegex, "")
-			}
-
-			var item = createSearchbarItem(data);
-
-			item.addEventListener("click", function () {
-				//if we created a new tab but are switching away from it, destroy the current (empty) tab
-				var currentTabUrl = tabs.get(tabs.getSelected()).url;
-				if (!currentTabUrl || currentTabUrl == "about:blank") {
-					destroyTab(tabs.getSelected(), {
-						switchToTab: false
-					});
-				}
-				switchToTab(tab.id);
-			});
-
-			opentabarea.appendChild(item);
-		});
-	});
 }
+
+registerSearchbarPlugin("searchSuggestions", {
+	index: 3,
+	trigger: function (text) {
+		return !!text && !currentTask.tabs.get(currentTask.tabs.getSelected()).private;
+	},
+	showResults: debounce(showSearchSuggestions, 200),
+})
+;function showHistorySuggestions(text, input, event, container) {
+
+	//use the current tab's url for history suggestions, or the previous tab if the current tab is empty
+	var url = currentTask.tabs.get(currentTask.tabs.getSelected()).url;
+
+	if (!url || url == "about:blank") {
+		var previousTab = currentTask.tabs.getAtIndex(currentTask.tabs.getIndex(currentTask.tabs.getSelected()) - 1);
+		if (previousTab) {
+			url = previousTab.url;
+		}
+	}
+
+	bookmarks.getHistorySuggestions(url, function (results) {
+
+		empty(container);
+
+		var tabList = currentTask.tabs.get().map(function (tab) {
+			return tab.url;
+		});
+
+		results = results.filter(function (item) {
+			return tabList.indexOf(item.url) == -1;
+		});
+
+		results.slice(0, 4).forEach(function (result) {
+
+			var item = createSearchbarItem({
+				title: urlParser.prettyURL(result.url),
+				secondaryText: getRealTitle(result.title),
+				url: result.url,
+				delete: function () {
+					bookmarks.deleteHistory(result.url);
+				},
+			});
+
+			container.appendChild(item);
+
+		})
+	});
+
+}
+
+registerSearchbarPlugin("historySuggestions", {
+	index: 1,
+	trigger: function (text) {
+		return !text;
+	},
+	showResults: showHistorySuggestions,
+})
 ;var readerView = {
 	readerURL: "file://" + __dirname + "/reader/index.html",
 	getReaderURL: function (url) {
@@ -2089,7 +2093,7 @@ var searchOpenTabs = function (searchText) {
 
 		item.addEventListener("click", function (e) {
 			var tabId = this.getAttribute("data-tab");
-			var tab = tabs.get(tabId);
+			var tab = currentTask.tabs.get(tabId);
 
 			e.stopPropagation();
 
@@ -2104,7 +2108,7 @@ var searchOpenTabs = function (searchText) {
 	},
 	updateButton: function (tabId) {
 		var button = document.querySelector('.reader-button[data-tab="{id}"]'.replace("{id}", tabId));
-		var tab = tabs.get(tabId);
+		var tab = currentTask.tabs.get(tabId);
 
 		if (tab.isReaderView) {
 			button.classList.add("is-reader");
@@ -2122,20 +2126,20 @@ var searchOpenTabs = function (searchText) {
 		}
 	},
 	enter: function (tabId) {
-		navigate(tabId, readerView.readerURL + "?url=" + tabs.get(tabId).url);
-		tabs.update(tabId, {
+		navigate(tabId, readerView.readerURL + "?url=" + currentTask.tabs.get(tabId).url);
+		currentTask.tabs.update(tabId, {
 			isReaderView: true
 		});
 	},
 	exit: function (tabId) {
-		navigate(tabId, tabs.get(tabId).url.split("?url=")[1]);
-		tabs.update(tabId, {
+		navigate(tabId, currentTask.tabs.get(tabId).url.split("?url=")[1]);
+		currentTask.tabs.update(tabId, {
 			isReaderView: false
 		});
 	},
 	showReadingList: function (options) {
 
-		showSearchbar(getTabInput(tabs.getSelected()));
+		showSearchbar(getTabInput(currentTask.tabs.getSelected()));
 
 		var articlesShown = 0;
 		var moreArticlesAvailable = false;
@@ -2150,7 +2154,7 @@ var searchOpenTabs = function (searchText) {
 			}
 
 			if (articlesShown == 0) {
-				clearsearchbar();
+				clearSearchbar();
 			}
 
 			var item = createSearchbarItem({
@@ -2170,7 +2174,7 @@ var searchOpenTabs = function (searchText) {
 				item.style.opacity = 0.65;
 			}
 
-			historyarea.appendChild(item);
+			getSearchbarContainer("history").appendChild(item);
 
 			articlesShown++;
 		}).then(function () {
@@ -2194,7 +2198,7 @@ var searchOpenTabs = function (searchText) {
 				seeMoreLink.style.opacity = 0.5;
 
 				seeMoreLink.addEventListener("click", function (e) {
-					clearsearchbar();
+					clearSearchbar();
 					readerView.showReadingList({
 						limitResults: false
 					});
@@ -2213,12 +2217,12 @@ bindWebviewEvent("did-finish-load", function (e) {
 		url = this.getAttribute("src");
 
 	if (url.indexOf(readerView.readerURL) == 0) {
-		tabs.update(tab, {
+		currentTask.tabs.update(tab, {
 			isReaderView: true,
 			readerable: false, //assume the new page can't be readered, we'll get another message if it can
 		})
 	} else {
-		tabs.update(tab, {
+		currentTask.tabs.update(tab, {
 			isReaderView: false,
 			readerable: false,
 		})
@@ -2229,7 +2233,7 @@ bindWebviewEvent("did-finish-load", function (e) {
 });
 
 bindWebviewIPC("canReader", function (webview, tab) {
-	tabs.update(tab, {
+	currentTask.tabs.update(tab, {
 		readerable: true
 	});
 	readerView.updateButton(tab);
@@ -2241,8 +2245,8 @@ var tabActivity = {
 	refresh: function () {
 
 		requestAnimationFrame(function () {
-			var tabSet = tabs.get(),
-				selected = tabs.getSelected(),
+			var tabSet = currentTask.tabs.get(),
+				selected = currentTask.tabs.getSelected(),
 				time = Date.now();
 
 
@@ -2357,13 +2361,13 @@ setInterval(function () {
 function updateTabColor(favicons, tabId) {
 
 	//special color scheme for private tabs
-	if (tabs.get(tabId).private == true) {
-		tabs.update(tabId, {
+	if (currentTask.tabs.get(tabId).private == true) {
+		currentTask.tabs.update(tabId, {
 			backgroundColor: "#3a2c63",
 			foregroundColor: "white",
 		})
 
-		if (tabId == tabs.getSelected()) {
+		if (tabId == currentTask.tabs.getSelected()) {
 			setColor("#3a2c63", "white");
 		}
 		return;
@@ -2394,12 +2398,12 @@ function updateTabColor(favicons, tabId) {
 
 			var textclr = getTextColor(obj);
 
-			tabs.update(tabId, {
+			currentTask.tabs.update(tabId, {
 				backgroundColor: cr,
 				foregroundColor: textclr,
 			})
 
-			if (tabId == tabs.getSelected()) {
+			if (tabId == currentTask.tabs.getSelected()) {
 				setColor(cr, textclr);
 			}
 			return;
@@ -2518,14 +2522,10 @@ function getRGBObject(cssColor) {
 	return obj;
 
 }
-;var tabContainer = document.getElementsByClassName("tab-group")[0];
-var tabGroup = tabContainer.querySelector("#tabs"); //TODO these names are confusing
+;var navbar = document.getElementsByClassName("tab-group")[0];
+var tabContainer = navbar.querySelector("#tabs");
 
-/* tab events */
-
-var lastTabDeletion = 0;
-
-/* draws tabs and manages tab events */
+var lastTabDeletion = 0; //this is used in the tab event listeners
 
 function getTabInput(tabId) {
 	return document.querySelector('.tab-item[data-tab="{id}"] .tab-input'.replace("{id}", tabId));
@@ -2545,26 +2545,30 @@ function setActiveTabElement(tabId) {
 	var el = getTabElement(tabId);
 	el.classList.add("active");
 
-	if (tabs.count() > 1) { //if there is only one tab, we don't need to indicate which one is selected
+	if (currentTask.tabs.count() > 1) { //if there is only one tab, we don't need to indicate which one is selected
 		el.classList.add("has-highlight");
 	} else {
 		el.classList.remove("has-highlight");
 	}
 
-	if (!isExpandedMode) {
-
-		requestIdleCallback(function () {
-			requestAnimationFrame(function () {
-				el.scrollIntoView({
-					behavior: "smooth"
-				});
+	requestIdleCallback(function () {
+		requestAnimationFrame(function () {
+			el.scrollIntoView({
+				behavior: "smooth"
 			});
-		}, {
-			timeout: 1500
 		});
+	}, {
+		timeout: 1500
+	});
 
+}
+
+//redraws all of the tabs in the tabstrip
+function rerenderTabstrip() {
+	empty(tabContainer);
+	for (var i = 0; i < currentTask.tabs.length; i++) {
+		tabContainer.appendChild(createTabElement(currentTask.tabs[i]));
 	}
-
 }
 
 function leaveTabEditMode(options) {
@@ -2578,7 +2582,7 @@ function leaveTabEditMode(options) {
 			input.blur();
 		}
 	}
-	tabGroup.classList.remove("has-selected-tab");
+	tabContainer.classList.remove("has-selected-tab");
 	hidesearchbar();
 }
 
@@ -2586,19 +2590,18 @@ function enterEditMode(tabId) {
 
 	leaveExpandedMode();
 
-	var tabEl = getTabElement(tabId);
-	var webview = getWebview(tabId);
+	var tabEl = getTabElement(tabId),
+		webview = getWebview(tabId),
+		input = getTabInput(tabId);
 
-	var currentURL = tabs.get(tabId).url;
+	var currentURL = currentTask.tabs.get(tabId).url;
 
 	if (currentURL == "about:blank") {
 		currentURL = "";
 	}
 
-	var input = getTabInput(tabId);
-
 	tabEl.classList.add("selected");
-	tabGroup.classList.add("has-selected-tab");
+	tabContainer.classList.add("has-selected-tab");
 
 	input.value = currentURL;
 	input.focus();
@@ -2616,38 +2619,36 @@ function enterEditMode(tabId) {
 
 function rerenderTabElement(tabId) {
 	var tabEl = getTabElement(tabId),
-		tabData = tabs.get(tabId);
+		tabData = currentTask.tabs.get(tabId);
 
-	var tabTitle = tabData.title || "New Tab";
-	var title = tabEl.querySelector(".tab-view-contents .title");
+	var tabTitle = tabData.title || "New Tab",
+		titleElement = tabEl.querySelector(".tab-view-contents .title");
 
-	title.textContent = tabTitle;
-	title.title = tabTitle;
+	titleElement.textContent = tabTitle;
+	titleElement.title = tabTitle;
 
-	var secIcon = tabEl.getElementsByClassName("icon-tab-not-secure")[0];
+	var notSecureIcon = tabEl.getElementsByClassName("icon-tab-not-secure")[0];
 
 	if (tabData.secure === false) {
-		if (!secIcon) {
-			var vc = tabEl.querySelector(".tab-view-contents");
-			vc.insertAdjacentHTML("afterbegin", "<i class='fa fa-exclamation-triangle icon-tab-not-secure' title='Your connection to this website is not secure.'></i>");
+		if (!notSecureIcon) {
+			tabEl.querySelector(".tab-view-contents").insertAdjacentHTML("afterbegin", "<i class='fa fa-exclamation-triangle icon-tab-not-secure' title='Your connection to this website is not secure.'></i>");
 		}
-	} else if (secIcon) {
-		secIcon.parentNode.removeChild(secIcon);
+	} else if (notSecureIcon) {
+		notSecureIcon.parentNode.removeChild(notSecureIcon);
 	}
 
 	//update the star to reflect whether the page is bookmarked or not
 	bookmarks.renderStar(tabId);
 }
 
-function createTabElement(tabId) {
-	var data = tabs.get(tabId),
-		url = urlParser.parse(data.url);
+function createTabElement(tabData) {
+	var url = urlParser.parse(tabData.url);
 
 	var tabEl = document.createElement("div");
 	tabEl.className = "tab-item";
-	tabEl.setAttribute("data-tab", tabId);
+	tabEl.setAttribute("data-tab", tabData.id);
 
-	if (data.private) {
+	if (tabData.private) {
 		tabEl.classList.add("private-tab");
 	}
 
@@ -2660,22 +2661,22 @@ function createTabElement(tabId) {
 	input.value = url;
 
 	ec.appendChild(input);
-	ec.appendChild(bookmarks.getStar(tabId));
+	ec.appendChild(bookmarks.getStar(tabData.id));
 
 	tabEl.appendChild(ec);
 
 	var vc = document.createElement("div");
 	vc.className = "tab-view-contents";
-	vc.appendChild(readerView.getButton(tabId));
+	vc.appendChild(readerView.getButton(tabData.id));
 
-	if (data.private) {
+	if (tabData.private) {
 		vc.insertAdjacentHTML("afterbegin", "<i class='fa fa-ban icon-tab-is-private'></i>");
 		vc.setAttribute("title", "Private tab");
 	}
 
 	var title = document.createElement("span");
 	title.className = "title";
-	title.textContent = data.title || "New Tab";
+	title.textContent = tabData.title || "New Tab";
 
 	vc.appendChild(title);
 
@@ -2701,12 +2702,11 @@ function createTabElement(tabId) {
 	input.addEventListener("keypress", function (e) {
 
 		if (e.keyCode == 13) { //return key pressed; update the url
-			var newURL = currentACItem || parsesearchbarURL(this.value);
 
-			openURLFromsearchbar(e, newURL);
+			openURLFromsearchbar(e, this.value);
 
 			//focus the webview, so that autofocus inputs on the page work
-			getWebview(tabs.getSelected()).focus();
+			getWebview(currentTask.tabs.getSelected()).focus();
 
 		} else if (e.keyCode == 9) {
 			return;
@@ -2728,10 +2728,7 @@ function createTabElement(tabId) {
 
 		if (v && sel == 0) {
 			this.selectionStart += 1;
-			didFireKeydownSelChange = true;
 			e.preventDefault();
-		} else {
-			didFireKeydownSelChange = false;
 		}
 	});
 
@@ -2747,7 +2744,7 @@ function createTabElement(tabId) {
 		var tabId = this.getAttribute("data-tab");
 
 		//if the tab isn't focused
-		if (tabs.getSelected() != tabId) {
+		if (currentTask.tabs.getSelected() != tabId) {
 			switchToTab(tabId);
 		} else if (!isExpandedMode) { //the tab is focused, edit tab instead
 			enterEditMode(tabId);
@@ -2771,9 +2768,9 @@ function createTabElement(tabId) {
 
 			setTimeout(function () {
 
-				if (tab == tabs.getSelected()) {
-					var currentIndex = tabs.getIndex(tabs.getSelected());
-					var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1);
+				if (tab == currentTask.tabs.getSelected()) {
+					var currentIndex = currentTask.tabs.getIndex(currentTask.tabs.getSelected());
+					var nextTab = currentTask.tabs.getAtIndex(currentIndex - 1) || currentTask.tabs.getAtIndex(currentIndex + 1);
 
 					destroyTab(tab);
 
@@ -2812,29 +2809,31 @@ function addTab(tabId, options) {
 		leaveTabEditMode(); //if a tab is in edit-mode, we want to exit it
 	}
 
-	tabId = tabId || tabs.add();
+	tabId = tabId || currentTask.tabs.add();
 
-	var tab = tabs.get(tabId);
+	var tab = currentTask.tabs.get(tabId);
 
 	//use the correct new tab colors
 
 	if (tab.private && !tab.backgroundColor) {
-		tabs.update(tabId, {
+		currentTask.tabs.update(tabId, {
 			backgroundColor: defaultColors.private[0],
 			foregroundColor: defaultColors.private[1]
 		});
 	} else if (!tab.backgroundColor) {
-		tabs.update(tabId, {
+		currentTask.tabs.update(tabId, {
 			backgroundColor: defaultColors.regular[0],
 			foregroundColor: defaultColors.regular[1]
 		});
 	}
 
-	var index = tabs.getIndex(tabId);
+	findinpage.end();
 
-	var tabEl = createTabElement(tabId);
+	var index = currentTask.tabs.getIndex(tabId);
 
-	tabGroup.insertBefore(tabEl, tabGroup.childNodes[index]);
+	var tabEl = createTabElement(tab);
+
+	tabContainer.insertBefore(tabEl, tabContainer.childNodes[index]);
 
 	addWebview(tabId);
 
@@ -2860,10 +2859,11 @@ function addTab(tabId, options) {
 bindWebviewEvent("focus", function () {
 	leaveExpandedMode();
 	leaveTabEditMode();
+	findinpage.end();
 });
 ;/* provides simple utilities for entering/exiting expanded tab mode */
 
-var tabDragArea = tabGroup;
+var tabDragArea = tabContainer;
 
 require.async("dragula", function (dragula) {
 
@@ -2874,26 +2874,26 @@ require.async("dragula", function (dragula) {
 
 		var tabOrder = [];
 
-		var tabElements = tabContainer.querySelectorAll(".tab-item");
+		var tabElements = navbar.querySelectorAll(".tab-item");
 
 		for (var i = 0; i < tabElements.length; i++) {
 			var tabId = parseInt(tabElements[i].getAttribute("data-tab"));
 			tabOrder.push(tabId);
 		}
 
-		tabs.reorder(tabOrder);
+		currentTask.tabs.reorder(tabOrder);
 	});
 
 });
 
-tabContainer.addEventListener("mousewheel", function (e) {
+navbar.addEventListener("mousewheel", function (e) {
 	if (e.deltaY < -30 && e.deltaX < 10) { //swipe down to expand tabs
 		enterExpandedMode();
 		e.stopImmediatePropagation();
 	}
 });
 
-//event listener added in navbarTabs.js
+//event listener added in navbarcurrentTask.tabs.js
 function handleExpandedModeTabItemHover(e) {
 	if (isExpandedMode) {
 		var item = this;
@@ -2916,7 +2916,7 @@ function enterExpandedMode() {
 
 		//get the subtitles
 
-		tabs.get().forEach(function (tab) {
+		currentTask.tabs.get().forEach(function (tab) {
 			var prettyURL = urlParser.prettyURL(tab.url);
 
 			console.log(tab);
@@ -2927,7 +2927,7 @@ function enterExpandedMode() {
 		requestAnimationFrame(function () {
 
 			document.body.classList.add("is-expanded-mode");
-			tabContainer.focus();
+			navbar.focus();
 
 		});
 
@@ -2946,34 +2946,34 @@ function leaveExpandedMode() {
 
 //when a tab is clicked, we want to minimize the tabstrip
 
-tabContainer.addEventListener("click", function () {
+navbar.addEventListener("click", function () {
 	if (isExpandedMode) {
 		leaveExpandedMode();
-		getWebview(tabs.getSelected()).focus();
+		getWebview(currentTask.tabs.getSelected()).focus();
 	}
 });
 ;var addTabButton = document.getElementById("add-tab-button");
 
 addTabButton.addEventListener("click", function (e) {
-	var newTab = tabs.add({}, tabs.getIndex(tabs.getSelected()) + 1);
+	var newTab = currentTask.tabs.add({}, currentTask.tabs.getIndex(currentTask.tabs.getSelected()) + 1);
 	addTab(newTab);
 });
 ;/* defines keybindings that aren't in the menu (so they aren't defined by menu.js). For items in the menu, also handles ipc messages */
 
 ipc.on("zoomIn", function () {
-	getWebview(tabs.getSelected()).send("zoomIn");
+	getWebview(currentTask.tabs.getSelected()).send("zoomIn");
 });
 
 ipc.on("zoomOut", function () {
-	getWebview(tabs.getSelected()).send("zoomOut");
+	getWebview(currentTask.tabs.getSelected()).send("zoomOut");
 });
 
 ipc.on("zoomReset", function () {
-	getWebview(tabs.getSelected()).send("zoomReset");
+	getWebview(currentTask.tabs.getSelected()).send("zoomReset");
 });
 
 ipc.on("print", function () {
-	getWebview(tabs.getSelected()).print();
+	getWebview(currentTask.tabs.getSelected()).print();
 })
 
 ipc.on("findInPage", function () {
@@ -2981,7 +2981,7 @@ ipc.on("findInPage", function () {
 })
 
 ipc.on("inspectPage", function () {
-	getWebview(tabs.getSelected()).openDevTools();
+	getWebview(currentTask.tabs.getSelected()).openDevTools();
 });
 
 ipc.on("showReadingList", function () {
@@ -2996,8 +2996,8 @@ ipc.on("addTab", function (e, data) {
 		return;
 	}
 
-	var newIndex = tabs.getIndex(tabs.getSelected()) + 1;
-	var newTab = tabs.add({
+	var newIndex = currentTask.tabs.getIndex(currentTask.tabs.getSelected()) + 1;
+	var newTab = currentTask.tabs.add({
 		url: data.url || "",
 	}, newIndex);
 
@@ -3016,16 +3016,17 @@ function addPrivateTab() {
 	}
 
 
-	if (isEmpty(tabs.get())) {
-		destroyTab(tabs.getAtIndex(0).id);
+	if (isEmpty(currentTask.tabs.get())) {
+		destroyTab(currentTask.tabs.getAtIndex(0).id);
 	}
 
-	var newIndex = tabs.getIndex(tabs.getSelected()) + 1;
+	var newIndex = currentTask.tabs.getIndex(currentTask.tabs.getSelected()) + 1;
 
-	var privateTab = tabs.add({
+	var privateTab = currentTask.tabs.add({
 		url: "about:blank",
 		private: true,
-	}, newIndex)
+	}, newIndex);
+
 	addTab(privateTab);
 }
 
@@ -3037,7 +3038,7 @@ require.async("mousetrap", function (Mousetrap) {
 	Mousetrap.bind("shift+mod+p", addPrivateTab);
 
 	Mousetrap.bind(["mod+l", "mod+k"], function (e) {
-		enterEditMode(tabs.getSelected());
+		enterEditMode(currentTask.tabs.getSelected());
 		return false;
 	})
 
@@ -3054,9 +3055,9 @@ require.async("mousetrap", function (Mousetrap) {
 			return;
 		}
 
-		var currentTab = tabs.getSelected();
-		var currentIndex = tabs.getIndex(currentTab);
-		var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1);
+		var currentTab = currentTask.tabs.getSelected();
+		var currentIndex = currentTask.tabs.getIndex(currentTab);
+		var nextTab = currentTask.tabs.getAtIndex(currentIndex - 1) || currentTask.tabs.getAtIndex(currentIndex + 1);
 
 		destroyTab(currentTab);
 		if (nextTab) {
@@ -3065,7 +3066,7 @@ require.async("mousetrap", function (Mousetrap) {
 			addTab();
 		}
 
-		if (tabs.count() == 1) { //there isn't any point in being in expanded mode any longer
+		if (currentTask.tabs.count() == 1) { //there isn't any point in being in expanded mode any longer
 			leaveExpandedMode();
 		}
 
@@ -3073,8 +3074,8 @@ require.async("mousetrap", function (Mousetrap) {
 	});
 
 	Mousetrap.bind("mod+d", function (e) {
-		bookmarks.handleStarClick(getTabElement(tabs.getSelected()).querySelector(".bookmarks-button"));
-		enterEditMode(tabs.getSelected()); //we need to show the bookmarks button, which is only visible in edit mode
+		bookmarks.handleStarClick(getTabElement(currentTask.tabs.getSelected()).querySelector(".bookmarks-button"));
+		enterEditMode(currentTask.tabs.getSelected()); //we need to show the bookmarks button, which is only visible in edit mode
 	});
 
 	// cmd+x should switch to tab x. Cmd+9 should switch to the last tab
@@ -3082,16 +3083,16 @@ require.async("mousetrap", function (Mousetrap) {
 	for (var i = 1; i < 9; i++) {
 		(function (i) {
 			Mousetrap.bind("mod+" + i, function (e) {
-				var currentIndex = tabs.getIndex(tabs.getSelected());
-				var newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i);
+				var currentIndex = currentTask.tabs.getIndex(currentTask.tabs.getSelected());
+				var newTab = currentTask.tabs.getAtIndex(currentIndex + i) || currentTask.tabs.getAtIndex(currentIndex - i);
 				if (newTab) {
 					switchToTab(newTab.id);
 				}
 			})
 
 			Mousetrap.bind("shift+mod+" + i, function (e) {
-				var currentIndex = tabs.getIndex(tabs.getSelected());
-				var newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i);
+				var currentIndex = currentTask.tabs.getIndex(currentTask.tabs.getSelected());
+				var newTab = currentTask.tabs.getAtIndex(currentIndex - i) || currentTask.tabs.getAtIndex(currentIndex + i);
 				if (newTab) {
 					switchToTab(newTab.id);
 				}
@@ -3101,21 +3102,25 @@ require.async("mousetrap", function (Mousetrap) {
 	}
 
 	Mousetrap.bind("mod+9", function (e) {
-		switchToTab(tabs.getAtIndex(tabs.count() - 1).id);
+		switchToTab(currentTask.tabs.getAtIndex(currentTask.tabs.count() - 1).id);
 	})
 
 	Mousetrap.bind("shift+mod+9", function (e) {
-		switchToTab(tabs.getAtIndex(0).id);
+		switchToTab(currentTask.tabs.getAtIndex(0).id);
 	})
 
 	Mousetrap.bind("esc", function (e) {
 		leaveTabEditMode();
 		leaveExpandedMode();
-		getWebview(tabs.getSelected()).focus();
+		if (findinpage.isEnabled) {
+			findinpage.end(); //this also focuses the webview
+		} else {
+			getWebview(currentTask.tabs.getSelected()).focus();
+		}
 	});
 
 	Mousetrap.bind("shift+mod+r", function () {
-		var tab = tabs.get(tabs.getSelected());
+		var tab = currentTask.tabs.get(currentTask.tabs.getSelected());
 
 		if (tab.isReaderView) {
 			readerView.exit(tab.id);
@@ -3127,24 +3132,24 @@ require.async("mousetrap", function (Mousetrap) {
 	//TODO add help docs for this
 
 	Mousetrap.bind("mod+left", function (d) {
-		getWebview(tabs.getSelected()).goBack();
+		getWebview(currentTask.tabs.getSelected()).goBack();
 	});
 
 	Mousetrap.bind("mod+right", function (d) {
-		getWebview(tabs.getSelected()).goForward();
+		getWebview(currentTask.tabs.getSelected()).goForward();
 	});
 
 	Mousetrap.bind(["option+mod+left", "shift+ctrl+tab"], function (d) {
 
 		enterExpandedMode(); //show the detailed tab switcher
 
-		var currentIndex = tabs.getIndex(tabs.getSelected());
-		var previousTab = tabs.getAtIndex(currentIndex - 1);
+		var currentIndex = currentTask.tabs.getIndex(currentTask.tabs.getSelected());
+		var previousTab = currentTask.tabs.getAtIndex(currentIndex - 1);
 
 		if (previousTab) {
 			switchToTab(previousTab.id);
 		} else {
-			switchToTab(tabs.getAtIndex(tabs.count() - 1).id);
+			switchToTab(currentTask.tabs.getAtIndex(currentTask.tabs.count() - 1).id);
 		}
 	});
 
@@ -3152,19 +3157,19 @@ require.async("mousetrap", function (Mousetrap) {
 
 		enterExpandedMode();
 
-		var currentIndex = tabs.getIndex(tabs.getSelected());
-		var nextTab = tabs.getAtIndex(currentIndex + 1);
+		var currentIndex = currentTask.tabs.getIndex(currentTask.tabs.getSelected());
+		var nextTab = currentTask.tabs.getAtIndex(currentIndex + 1);
 
 		if (nextTab) {
 			switchToTab(nextTab.id);
 		} else {
-			switchToTab(tabs.getAtIndex(0).id);
+			switchToTab(currentTask.tabs.getAtIndex(0).id);
 		}
 	});
 
 	Mousetrap.bind("mod+n", function (d) { //destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
 
-		var tset = tabs.get();
+		var tset = currentTask.tabs.get();
 		for (var i = 0; i < tset.length; i++) {
 			destroyTab(tset[i].id);
 		}
@@ -3177,7 +3182,7 @@ require.async("mousetrap", function (Mousetrap) {
 	Mousetrap.bind("return", function () {
 		if (isExpandedMode) {
 			leaveExpandedMode();
-			getWebview(tabs.getSelected()).focus();
+			getWebview(currentTask.tabs.getSelected()).focus();
 		}
 	});
 
@@ -3190,9 +3195,9 @@ require.async("mousetrap", function (Mousetrap) {
 	});
 
 	Mousetrap.bind("shift+mod+b", function () {
-		clearsearchbar();
-		showSearchbar(getTabInput(tabs.getSelected()));
-		enterEditMode(tabs.getSelected());
+		clearSearchbar();
+		showSearchbar(getTabInput(currentTask.tabs.getSelected()));
+		enterEditMode(currentTask.tabs.getSelected());
 		showAllBookmarks();
 	});
 
@@ -3215,7 +3220,7 @@ ipc.on("openPDF", function (event, filedata) {
 
 	// we don't know which tab the event came from, so we loop through each tab to find out.
 
-	tabs.get().forEach(function (tab) {
+	currentTask.tabs.get().forEach(function (tab) {
 		if (tab.url == filedata.url) {
 			navigate(tab.id, PDFurl);
 			hasOpenedPDF = true;
@@ -3223,9 +3228,9 @@ ipc.on("openPDF", function (event, filedata) {
 	});
 
 	if (!hasOpenedPDF) {
-		var newTab = tabs.add({
+		var newTab = currentTask.tabs.add({
 			url: PDFurl
-		}, tabs.getIndex(tabs.getSelected()) + 1);
+		}, currentTask.tabs.getIndex(currentTask.tabs.getSelected()) + 1);
 
 		addTab(newTab, {
 			enterEditMode: false
@@ -3238,71 +3243,83 @@ ipc.on("openPDF", function (event, filedata) {
 	container: document.getElementById("findinpage-bar"),
 	isEnabled: false,
 	start: function (options) {
+		findinpage.counter.textContent = "";
+
 		findinpage.container.hidden = false;
 		findinpage.isEnabled = true;
 		findinpage.input.focus();
 		findinpage.input.select();
 	},
 	end: function (options) {
-		findinpage.container.hidden = true;
-		findinpage.isEnabled = false;
-
-		//focus the webview
-
-		if (findinpage.input == document.activeElement) {
-			getWebview(tabs.getSelected()).focus();
-		}
-	},
-	toggle: function () {
 		if (findinpage.isEnabled) {
-			findinpage.end();
-		} else {
-			findinpage.start();
+			findinpage.container.hidden = true;
+			findinpage.isEnabled = false;
+
+			var webview = getWebview(currentTask.tabs.getSelected());
+			webview.stopFindInPage("keepSelection");
+			webview.focus();
 		}
 	},
-	escape: function (text) { //removes apostrophes from text so we can safely embed it in a string
-		return text.replace(/'/g, "\\'");
-	}
 }
 
 findinpage.input = findinpage.container.querySelector(".findinpage-input");
+findinpage.previous = findinpage.container.querySelector(".findinpage-previous-match");
+findinpage.next = findinpage.container.querySelector(".findinpage-next-match");
+findinpage.counter = findinpage.container.querySelector("#findinpage-count");
+findinpage.endButton = findinpage.container.querySelector("#findinpage-end");
 
-findinpage.input.addEventListener("keyup", function (e) {
-	//escape key should exit find mode, not continue searching
-	if (e.keyCode == 27) {
-		findinpage.end();
-		return;
-	}
-	var text = findinpage.escape(this.value);
-	var webview = getWebview(tabs.getSelected());
-
-	//this stays on the current text if it still matches, preventing flickering. However, if the return key was pressed, we should move on to the next match instead, so this shouldn't run.
-	if (e.keyCode != 13) {
-		webview.executeJavaScript("window.getSelection().empty()");
-	}
-
-	webview.executeJavaScript("find('{t}', false, false, true, false, false, false)".replace("{t}", text)); //see https://developer.mozilla.org/en-US/docs/Web/API/Window/find for a description of the parameters
-});
-
-findinpage.input.addEventListener("blur", function (e) {
+findinpage.endButton.addEventListener("click", function () {
 	findinpage.end();
 });
+
+findinpage.input.addEventListener("keyup", function (e) {
+	if (this.value) {
+		getWebview(currentTask.tabs.getSelected()).findInPage(this.value);
+	}
+});
+
+findinpage.previous.addEventListener("click", function (e) {
+	getWebview(currentTask.tabs.getSelected()).findInPage(findinpage.input.value, {
+		forward: false,
+		findNext: true
+	});
+	findinpage.input.focus();
+});
+
+findinpage.next.addEventListener("click", function (e) {
+	getWebview(currentTask.tabs.getSelected()).findInPage(findinpage.input.value, {
+		forward: true,
+		findNext: true
+	});
+	findinpage.input.focus();
+});
+
+bindWebviewEvent("found-in-page", function (e) {
+	if (e.result.matches) {
+		if (e.result.matches > 1) {
+			var text = " matches";
+		} else {
+			var text = " match";
+		}
+
+		findinpage.counter.textContent = e.result.matches + text;
+	}
+})
 ;var sessionRestore = {
 	save: function () {
 		requestIdleCallback(function () {
 			var data = {
-				version: 1,
-				tabs: [],
-				selected: tabs._state.selected,
+				version: 2,
+				state: JSON.parse(JSON.stringify(tabState)),
 			}
 
 			//save all tabs that aren't private
 
-			tabs.get().forEach(function (tab) {
-				if (!tab.private) {
-					data.tabs.push(tab);
-				}
-			});
+			for (var i = 0; i < data.state.tasks.length; i++) {
+				data.state.tasks[i].tabs = data.state.tasks[i].tabs.filter(function (tab) {
+					return !tab.private;
+				});
+			}
 
 			localStorage.setItem("sessionrestoredata", JSON.stringify(data));
 		}, {
@@ -3310,73 +3327,77 @@ findinpage.input.addEventListener("blur", function (e) {
 		});
 	},
 	restore: function () {
-		//get the data
+		var data = localStorage.getItem("sessionrestoredata");
 
-		try {
-			var data = localStorage.getItem("sessionrestoredata");
+		console.log(data, data.version);
+		//first run, show the tour
+		if (!data) {
 
-			//first run, show the tour
-			if (!data) {
-				var newTab = tabs.add({
-					url: "https://palmeral.github.io/min/tour"
-				});
-				addTab(newTab, {
-					enterEditMode: false,
-				});
-				return;
-			}
+			tasks.setSelected(tasks.add()); //create a new task
 
-			data = JSON.parse(data);
+			var newTab = currentTask.tabs.add({
+				url: "https://palmeral.github.io/min/tour"
+			});
+			addTab(newTab, {
+				enterEditMode: false,
+			});
+			return;
+		}
 
-			localStorage.setItem("sessionrestoredata", "{}");
+		data = JSON.parse(data);
 
-			if (data.version && data.version != 1) { //if the version isn't compatible, we don't want to restore.
-				addTab(tabs.add(), {
-					leaveEditMode: false //we know we aren't in edit mode yet, so we don't have to leave it
-				});
-				return;
-			}
+		localStorage.setItem("sessionrestoredata", "");
 
-			console.info("restoring tabs", data.tabs);
+		//the data isn't restorable
+		if ((data.version && data.version != 2) || (data.state && data.state.tasks && data.state.tasks.length == 0)) {
 
-			if (isEmpty(data.tabs)) { //If there are no tabs, or if we only have one tab, and it's about:blank, don't restore
-				addTab(tabs.add(), {
-					leaveEditMode: false
-				});
-				return;
-			}
+			tasks.setSelected(tasks.add());
 
-			//actually restore the tabs
-			data.tabs.forEach(function (tab, index) {
-				var newTab = tabs.add(tab);
-				addTab(newTab, {
-					openInBackground: true,
-					leaveEditMode: false,
-					focus: false,
-				});
+			addTab(currentTask.tabs.add(), {
+				leaveEditMode: false //we know we aren't in edit mode yet, so we don't have to leave it
+			});
+			return;
+		}
 
+		console.info("restoring tabs", data.state);
+
+		//restore the tabs	
+
+		var state = data.state;
+
+		var selectedTask = state.tasks.filter(function (item) {
+			return item.id == state.selectedTask;
+		});
+
+		state.tasks.forEach(function (task) {
+			//restore the task item
+			var taskItem = tasks.get(tasks.add(task.name, task.id));
+
+			//restore the tabs within the task
+			task.tabs.forEach(function (tab) {
+				taskItem.tabs.add(tab);
 			});
 
-			//set the selected tab
+			console.log(taskItem, taskItem.tabs.getSelected());
+		});
 
-			if (tabs.get(data.selected)) { //if the selected tab was a private tab that we didn't restore, it's possible that the selected tab doesn't actually exist. This will throw an error, so we want to make sure the tab exists before we try to switch to it
-				switchToTab(data.selected);
-			} else { //switch to the first tab
-				switchToTab(data.tabs[0].id);
-			}
+		console.log(tabState);
 
-		} catch (e) {
-			//if we can't restore the session, try to start over with a blank tab
-			console.warn("failed to restore session, rolling back");
-			console.error(e);
+		console.log(state.selectedTask);
 
-			localStorage.setItem("sessionrestoredata", "{}");
+		switchToTask(state.selectedTask);
 
-			setTimeout(function () {
-				window.location.reload();
-			}, 500);
 
-		}
+		/*	} catch (e) {
+				//if we can't restore the session, try to start over with a blank tab
+				console.warn("failed to restore session");
+				console.error(e);
+
+				localStorage.setItem("sessionrestoredata", "");
+
+				alert("An error has occured. Please restart the browser.");
+
+			}*/
 	}
 }
 
@@ -3414,4 +3435,121 @@ function showFocusModeError() {
 		message: "You're in focus mode.",
 		detail: 'You can leave focus mode by unchecking "focus mode" in the view menu.'
 	});
+}
+;function switchToTask(id) {
+	tasks.setSelected(id);
+
+	rerenderTabstrip();
+
+	var taskData = tasks.get(id);
+
+	console.log(taskData);
+	console.log(taskData.tabs.getSelected());
+
+	if (taskData.tabs.length > 0) {
+		switchToTab(taskData.tabs.getSelected());
+	} else {
+		addTab();
+	}
+}
+
+var overlay = document.getElementById("task-overlay");
+var taskContainer = document.getElementById("task-area");
+var taskSwitcherButton = document.getElementById("switch-task-button");
+var addTaskButton = document.getElementById("add-task");
+
+taskSwitcherButton.addEventListener("click", function () {
+	taskOverlay.toggle();
+});
+
+addTaskButton.addEventListener("click", function (e) {
+	switchToTask(tasks.add());
+	taskOverlay.hide();
+});
+
+function getTabTile(tab) {
+	var el = document.createElement("div");
+	el.className = "tab-tile";
+
+	el.setAttribute("data-tab", tab.id);
+
+	var title = document.createElement("div");
+	title.className = "tab-title";
+
+	var subtitle = document.createElement("div");
+	subtitle.className = "tab-subtitle";
+
+	title.textContent = tab.title || "New Tab";
+	subtitle.textContent = urlParser.removeProtocol(tab.url);
+
+	el.appendChild(title);
+	el.appendChild(subtitle);
+
+	return el;
+}
+
+function getTaskElement(task, taskIndex) {
+	var container = document.createElement("div");
+	container.className = "task-container";
+
+	//add the input for the task name
+
+	var input = document.createElement("input");
+	input.classList.add("task-name");
+
+	input.placeholder = "Task " + (taskIndex + 1);
+
+	container.appendChild(input);
+
+	if (task.tabs) {
+		for (var i = 0; i < task.tabs.length; i++) {
+
+			var el = getTabTile(task.tabs[i]);
+
+			el.addEventListener("click", function (e) {
+				switchToTask(task.id);
+				switchToTab(this.getAttribute("data-tab"));
+
+				taskOverlay.hide();
+			});
+
+			container.appendChild(el);
+		}
+	}
+
+	return container;
+}
+
+var taskOverlay = {
+	isShown: false,
+	show: function () {
+
+		taskOverlay.isShown = true;
+
+		taskSwitcherButton.classList.add("active");
+
+		empty(taskContainer);
+
+		//show the task elements
+		tasks.get().forEach(function (task, index) {
+			taskContainer.appendChild(getTaskElement(task, index));
+		});
+
+		//un-hide the overlay
+
+		overlay.hidden = false;
+	},
+	hide: function () {
+		taskOverlay.isShown = false;
+		overlay.hidden = true;
+
+		taskSwitcherButton.classList.remove("active");
+	},
+	toggle: function () {
+		if (taskOverlay.isShown) {
+			taskOverlay.hide();
+		} else {
+			taskOverlay.show();
+		}
+	}
 }

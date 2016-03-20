@@ -5,8 +5,8 @@ var tabActivity = {
 	refresh: function () {
 
 		requestAnimationFrame(function () {
-			var tabSet = tabs.get(),
-				selected = tabs.getSelected(),
+			var tabSet = currentTask.tabs.get(),
+				selected = currentTask.tabs.getSelected(),
 				time = Date.now();
 
 

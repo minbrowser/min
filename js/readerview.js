@@ -13,7 +13,7 @@ var readerView = {
 
 		item.addEventListener("click", function (e) {
 			var tabId = this.getAttribute("data-tab");
-			var tab = tabs.get(tabId);
+			var tab = currentTask.tabs.get(tabId);
 
 			e.stopPropagation();
 
@@ -28,7 +28,7 @@ var readerView = {
 	},
 	updateButton: function (tabId) {
 		var button = document.querySelector('.reader-button[data-tab="{id}"]'.replace("{id}", tabId));
-		var tab = tabs.get(tabId);
+		var tab = currentTask.tabs.get(tabId);
 
 		if (tab.isReaderView) {
 			button.classList.add("is-reader");
@@ -46,20 +46,20 @@ var readerView = {
 		}
 	},
 	enter: function (tabId) {
-		navigate(tabId, readerView.readerURL + "?url=" + tabs.get(tabId).url);
-		tabs.update(tabId, {
+		navigate(tabId, readerView.readerURL + "?url=" + currentTask.tabs.get(tabId).url);
+		currentTask.tabs.update(tabId, {
 			isReaderView: true
 		});
 	},
 	exit: function (tabId) {
-		navigate(tabId, tabs.get(tabId).url.split("?url=")[1]);
-		tabs.update(tabId, {
+		navigate(tabId, currentTask.tabs.get(tabId).url.split("?url=")[1]);
+		currentTask.tabs.update(tabId, {
 			isReaderView: false
 		});
 	},
 	showReadingList: function (options) {
 
-		showSearchbar(getTabInput(tabs.getSelected()));
+		showSearchbar(getTabInput(currentTask.tabs.getSelected()));
 
 		var articlesShown = 0;
 		var moreArticlesAvailable = false;
@@ -137,12 +137,12 @@ bindWebviewEvent("did-finish-load", function (e) {
 		url = this.getAttribute("src");
 
 	if (url.indexOf(readerView.readerURL) == 0) {
-		tabs.update(tab, {
+		currentTask.tabs.update(tab, {
 			isReaderView: true,
 			readerable: false, //assume the new page can't be readered, we'll get another message if it can
 		})
 	} else {
-		tabs.update(tab, {
+		currentTask.tabs.update(tab, {
 			isReaderView: false,
 			readerable: false,
 		})
@@ -153,7 +153,7 @@ bindWebviewEvent("did-finish-load", function (e) {
 });
 
 bindWebviewIPC("canReader", function (webview, tab) {
-	tabs.update(tab, {
+	currentTask.tabs.update(tab, {
 		readerable: true
 	});
 	readerView.updateButton(tab);

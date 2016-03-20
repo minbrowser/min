@@ -1,6 +1,6 @@
 /* provides simple utilities for entering/exiting expanded tab mode */
 
-var tabDragArea = tabGroup;
+var tabDragArea = tabContainer;
 
 require.async("dragula", function (dragula) {
 
@@ -11,26 +11,26 @@ require.async("dragula", function (dragula) {
 
 		var tabOrder = [];
 
-		var tabElements = tabContainer.querySelectorAll(".tab-item");
+		var tabElements = navbar.querySelectorAll(".tab-item");
 
 		for (var i = 0; i < tabElements.length; i++) {
 			var tabId = parseInt(tabElements[i].getAttribute("data-tab"));
 			tabOrder.push(tabId);
 		}
 
-		tabs.reorder(tabOrder);
+		currentTask.tabs.reorder(tabOrder);
 	});
 
 });
 
-tabContainer.addEventListener("mousewheel", function (e) {
+navbar.addEventListener("mousewheel", function (e) {
 	if (e.deltaY < -30 && e.deltaX < 10) { //swipe down to expand tabs
 		enterExpandedMode();
 		e.stopImmediatePropagation();
 	}
 });
 
-//event listener added in navbarTabs.js
+//event listener added in navbarcurrentTask.tabs.js
 function handleExpandedModeTabItemHover(e) {
 	if (isExpandedMode) {
 		var item = this;
@@ -53,7 +53,7 @@ function enterExpandedMode() {
 
 		//get the subtitles
 
-		tabs.get().forEach(function (tab) {
+		currentTask.tabs.get().forEach(function (tab) {
 			var prettyURL = urlParser.prettyURL(tab.url);
 
 			console.log(tab);
@@ -64,7 +64,7 @@ function enterExpandedMode() {
 		requestAnimationFrame(function () {
 
 			document.body.classList.add("is-expanded-mode");
-			tabContainer.focus();
+			navbar.focus();
 
 		});
 
@@ -83,9 +83,9 @@ function leaveExpandedMode() {
 
 //when a tab is clicked, we want to minimize the tabstrip
 
-tabContainer.addEventListener("click", function () {
+navbar.addEventListener("click", function () {
 	if (isExpandedMode) {
 		leaveExpandedMode();
-		getWebview(tabs.getSelected()).focus();
+		getWebview(currentTask.tabs.getSelected()).focus();
 	}
 });

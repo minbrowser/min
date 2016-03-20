@@ -11,7 +11,7 @@ steps to creating a bookmark:
 var bookmarks = {
 	updateHistory: function (tabId) {
 		setTimeout(function () { //this prevents pages that are immediately left from being saved to history, and also gives the page-favicon-updated event time to fire (so the colors saved to history are correct).
-			var tab = tabs.get(tabId);
+			var tab = currentTask.tabs.get(tabId);
 			if (tab) {
 				var data = {
 					url: tab.url,
@@ -83,7 +83,7 @@ var bookmarks = {
 		//rest happens in onDataRecieved and worker
 	},
 	toggleBookmarked: function (tabId) { //toggles a bookmark. If it is bookmarked, delete the bookmark. Otherwise, add it.
-		var url = tabs.get(tabId).url,
+		var url = currentTask.tabs.get(tabId).url,
 			exists = false;
 
 		bookmarks.searchBookmarks(url, function (d) {
@@ -96,8 +96,8 @@ var bookmarks = {
 
 
 			if (exists) {
-				console.log("deleting bookmark " + tabs.get(tabId).url);
-				bookmarks.deleteBookmark(tabs.get(tabId).url);
+				console.log("deleting bookmark " + currentTask.tabs.get(tabId).url);
+				bookmarks.deleteBookmark(currentTask.tabs.get(tabId).url);
 			} else {
 				bookmarks.bookmark(tabId);
 			}
@@ -123,7 +123,7 @@ var bookmarks = {
 	renderStar: function (tabId, star) { //star is optional
 		star = star || document.querySelector('.bookmarks-button[data-tab="{id}"]'.replace("{id}", tabId));
 
-		var currentURL = tabs.get(tabId).url;
+		var currentURL = currentTask.tabs.get(tabId).url;
 
 		if (!currentURL || currentURL == "about:blank") { //no url, can't be bookmarked
 			star.hidden = true;

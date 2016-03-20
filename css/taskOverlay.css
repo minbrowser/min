@@ -1,0 +1,110 @@
+#switch-task-button {
+	position: absolute;
+	top: -0.375em;
+	right: 0;
+	z-index: 999999;
+}
+#switch-task-button.active {
+	color: royalblue !important;
+}
+#task-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #fff;
+	padding: 1em;
+	white-space: nowrap;
+	overflow: auto;
+}
+#task-overlay:not(.notMac):not(.fullscreen) {
+	padding-top: 40px;
+}
+#task-container {
+	display: inline-block;
+}
+#add-task {
+	display: inline-block;
+	width: 20%;
+	min-width: 250px;
+	max-width: 350px;
+	height: 100%;
+	vertical-align: top;
+	font-size: 2em;
+	position: relative;
+	border-radius: 4px;
+	border: 2px rgba(0, 0, 0, 0.75) dashed;
+	opacity: 0.75;
+}
+#add-task .inner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%)translateY(-50%);
+	height: auto;
+	text-align: center;
+}
+#add-task .fa {
+	display: block;
+	width: 100%;
+	font-size: 3em;
+	padding-bottom: 0.1em;
+	opacity: 0.7;
+}
+#task-area {
+	display: inline-block;
+	height: 100%;
+}
+
+/* task items */
+
+.task-container {
+	display: inline-block;
+	width: auto;
+	height: 100%;
+	overflow: auto;
+}
+
+/* tiles */
+
+.tab-tile {
+	width: 20%;
+	min-width: 250px;
+	max-width: 350px;
+	height: 90px;
+	cursor: pointer;
+	padding: 0.5em;
+	line-height: 1.25em;
+	transition: none;
+	vertical-align: top;
+	white-space: normal;
+}
+.tab-tile .tab-title {
+	max-height: 2.75em;
+	overflow: hidden;
+	display: inline-block;
+}
+.tab-tile .tab-subtitle {
+	display: block;
+	font-size: 0.8em;
+	line-height: 1em;
+	opacity: 0.75;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+/* inputs */
+
+.task-name {
+	-webkit-appearance: none;
+	appearance: none;
+	border: 0;
+	opacity: 0.75;
+	margin: 0.5em;
+}
+.task-name::-webkit-input-placeholder {
+	color: inherit;
+	opacity: 0.8;
+}

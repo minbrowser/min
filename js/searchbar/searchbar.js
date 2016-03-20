@@ -52,10 +52,10 @@ function removeTags(text) {
 }
 
 function openURLInBackground(url) { //used to open a url in the background, without leaving the searchbar
-	var newTab = tabs.add({
+	var newTab = currentTask.tabs.add({
 		url: url,
-		private: tabs.get(tabs.getSelected()).private
-	}, tabs.getIndex(tabs.getSelected()) + 1);
+		private: currentTask.tabs.get(currentTask.tabs.getSelected()).private
+	}, currentTask.tabs.getIndex(currentTask.tabs.getSelected()) + 1);
 	addTab(newTab, {
 		enterEditMode: false,
 		openInBackground: true,
@@ -75,18 +75,18 @@ function openURLFromsearchbar(event, url) {
 		openURLInBackground(url);
 		return true;
 	} else {
-		navigate(tabs.getSelected(), url);
+		navigate(currentTask.tabs.getSelected(), url);
 
-		if (!tabs.get(tabs.getSelected()).private) {
+		if (!currentTask.tabs.get(currentTask.tabs.getSelected()).private) {
 			/*
 			//show the color and title of the new page immediately, to make the page load time seem faster
 			currentHistoryResults.forEach(function (res) {
 				if (res.url == url) {
 					setColor(res.color, getTextColor(getRGBObject(res.color)));
-					tabs.update(tabs.getSelected(), {
+					currentTask.tabs.update(currentTask.tabs.getSelected(), {
 						title: res.title,
 					});
-					rerenderTabElement(tabs.getSelected());
+					rerenderTabElement(currentTask.tabs.getSelected());
 				}
 			});
 			*/
@@ -309,7 +309,7 @@ function focussearchbarItem(options) {
 	if (currentItem && logicalNextItem) { //an item is focused and there is another item after it, move onto the next one
 		logicalNextItem.focus();
 	} else if (currentItem) { //the last item is focused, focus the searchbar again
-		getTabInput(tabs.getSelected()).focus();
+		getTabInput(currentTask.tabs.getSelected()).focus();
 		return;
 	} else { // no item is focused.
 		allItems[0].focus();
@@ -380,7 +380,7 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 			if (e.metaKey) {
 				openURLInBackground(item);
 			} else {
-				navigate(tabs.getSelected(), item);
+				navigate(currentTask.tabs.getSelected(), item);
 			}
 		});
 

@@ -11,7 +11,8 @@ module.exports = function (grunt) {
 				src: [
 						"js/default.js",
 						"js/util/database.js",
-						 "js/tabState.js",
+						 //"js/tabState.js",
+							"js/tabs.js",
 						"js/util/urlParser.js",
 						"js/filteringRenderer.js",
 						"js/webviews.js",
@@ -38,6 +39,7 @@ module.exports = function (grunt) {
 						 "js/findinpage.js",
 							"js/sessionRestore.js",
 							"js/focusMode.js",
+							"js/taskOverlay.js",
 
 						 ],
 				dest: 'dist/build.js'

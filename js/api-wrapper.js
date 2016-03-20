@@ -3,7 +3,7 @@
 function navigate(tabId, newURL) {
 	newURL = urlParser.parse(newURL);
 
-	tabs.update(tabId, {
+	currentTask.tabs.update(tabId, {
 		url: newURL
 	});
 
@@ -19,7 +19,7 @@ function destroyTab(id) {
 	var tabEl = getTabElement(id);
 	tabEl.parentNode.removeChild(tabEl);
 
-	var t = tabs.destroy(id); //remove from state - returns the index of the destroyed tab
+	var t = currentTask.tabs.destroy(id); //remove from state - returns the index of the destroyed tab
 	destroyWebview(id); //remove the webview
 
 }
@@ -38,7 +38,7 @@ function switchToTab(id, options) {
 
 	leaveTabEditMode();
 
-	tabs.setSelected(id);
+	currentTask.tabs.setSelected(id);
 	setActiveTabElement(id);
 	switchToWebview(id);
 
@@ -46,14 +46,14 @@ function switchToTab(id, options) {
 		getWebview(id).focus();
 	}
 
-	var tabData = tabs.get(id);
+	var tabData = currentTask.tabs.get(id);
 	setColor(tabData.backgroundColor, tabData.foregroundColor);
 
 	//we only want to mark the tab as active if someone actually interacts with it. If it is clicked on and then quickly clicked away from, it should still be marked as inactive
 
 	setTimeout(function () {
-		if (tabs.get(id) && tabs.getSelected() == id) {
-			tabs.update(id, {
+		if (currentTask.tabs.get(id) && currentTask.tabs.getSelected() == id) {
+			currentTask.tabs.update(id, {
 				lastActivity: Date.now(),
 			});
 			tabActivity.refresh();

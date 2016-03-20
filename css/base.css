@@ -14,3 +14,6 @@ html {
 	overflow: hidden;
 	-webkit-user-select: none;
 }
+.invisible {
+	opacity: 0;
+}

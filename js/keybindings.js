@@ -1,19 +1,19 @@
 /* defines keybindings that aren't in the menu (so they aren't defined by menu.js). For items in the menu, also handles ipc messages */
 
 ipc.on("zoomIn", function () {
-	getWebview(tabs.getSelected()).send("zoomIn");
+	getWebview(currentTask.tabs.getSelected()).send("zoomIn");
 });
 
 ipc.on("zoomOut", function () {
-	getWebview(tabs.getSelected()).send("zoomOut");
+	getWebview(currentTask.tabs.getSelected()).send("zoomOut");
 });
 
 ipc.on("zoomReset", function () {
-	getWebview(tabs.getSelected()).send("zoomReset");
+	getWebview(currentTask.tabs.getSelected()).send("zoomReset");
 });
 
 ipc.on("print", function () {
-	getWebview(tabs.getSelected()).print();
+	getWebview(currentTask.tabs.getSelected()).print();
 })
 
 ipc.on("findInPage", function () {
@@ -21,7 +21,7 @@ ipc.on("findInPage", function () {
 })
 
 ipc.on("inspectPage", function () {
-	getWebview(tabs.getSelected()).openDevTools();
+	getWebview(currentTask.tabs.getSelected()).openDevTools();
 });
 
 ipc.on("showReadingList", function () {
@@ -36,8 +36,8 @@ ipc.on("addTab", function (e, data) {
 		return;
 	}
 
-	var newIndex = tabs.getIndex(tabs.getSelected()) + 1;
-	var newTab = tabs.add({
+	var newIndex = currentTask.tabs.getIndex(currentTask.tabs.getSelected()) + 1;
+	var newTab = currentTask.tabs.add({
 		url: data.url || "",
 	}, newIndex);
 
@@ -56,16 +56,17 @@ function addPrivateTab() {
 	}
 
 
-	if (isEmpty(tabs.get())) {
-		destroyTab(tabs.getAtIndex(0).id);
+	if (isEmpty(currentTask.tabs.get())) {
+		destroyTab(currentTask.tabs.getAtIndex(0).id);
 	}
 
-	var newIndex = tabs.getIndex(tabs.getSelected()) + 1;
+	var newIndex = currentTask.tabs.getIndex(currentTask.tabs.getSelected()) + 1;
 
-	var privateTab = tabs.add({
+	var privateTab = currentTask.tabs.add({
 		url: "about:blank",
 		private: true,
-	}, newIndex)
+	}, newIndex);
+
 	addTab(privateTab);
 }
 
@@ -77,7 +78,7 @@ require.async("mousetrap", function (Mousetrap) {
 	Mousetrap.bind("shift+mod+p", addPrivateTab);
 
 	Mousetrap.bind(["mod+l", "mod+k"], function (e) {
-		enterEditMode(tabs.getSelected());
+		enterEditMode(currentTask.tabs.getSelected());
 		return false;
 	})
 
@@ -94,9 +95,9 @@ require.async("mousetrap", function (Mousetrap) {
 			return;
 		}
 
-		var currentTab = tabs.getSelected();
-		var currentIndex = tabs.getIndex(currentTab);
-		var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1);
+		var currentTab = currentTask.tabs.getSelected();
+		var currentIndex = currentTask.tabs.getIndex(currentTab);
+		var nextTab = currentTask.tabs.getAtIndex(currentIndex - 1) || currentTask.tabs.getAtIndex(currentIndex + 1);
 
 		destroyTab(currentTab);
 		if (nextTab) {
@@ -105,7 +106,7 @@ require.async("mousetrap", function (Mousetrap) {
 			addTab();
 		}
 
-		if (tabs.count() == 1) { //there isn't any point in being in expanded mode any longer
+		if (currentTask.tabs.count() == 1) { //there isn't any point in being in expanded mode any longer
 			leaveExpandedMode();
 		}
 
@@ -113,8 +114,8 @@ require.async("mousetrap", function (Mousetrap) {
 	});
 
 	Mousetrap.bind("mod+d", function (e) {
-		bookmarks.handleStarClick(getTabElement(tabs.getSelected()).querySelector(".bookmarks-button"));
-		enterEditMode(tabs.getSelected()); //we need to show the bookmarks button, which is only visible in edit mode
+		bookmarks.handleStarClick(getTabElement(currentTask.tabs.getSelected()).querySelector(".bookmarks-button"));
+		enterEditMode(currentTask.tabs.getSelected()); //we need to show the bookmarks button, which is only visible in edit mode
 	});
 
 	// cmd+x should switch to tab x. Cmd+9 should switch to the last tab
@@ -122,16 +123,16 @@ require.async("mousetrap", function (Mousetrap) {
 	for (var i = 1; i < 9; i++) {
 		(function (i) {
 			Mousetrap.bind("mod+" + i, function (e) {
-				var currentIndex = tabs.getIndex(tabs.getSelected());
-				var newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i);
+				var currentIndex = currentTask.tabs.getIndex(currentTask.tabs.getSelected());
+				var newTab = currentTask.tabs.getAtIndex(currentIndex + i) || currentTask.tabs.getAtIndex(currentIndex - i);
 				if (newTab) {
 					switchToTab(newTab.id);
 				}
 			})
 
 			Mousetrap.bind("shift+mod+" + i, function (e) {
-				var currentIndex = tabs.getIndex(tabs.getSelected());
-				var newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i);
+				var currentIndex = currentTask.tabs.getIndex(currentTask.tabs.getSelected());
+				var newTab = currentTask.tabs.getAtIndex(currentIndex - i) || currentTask.tabs.getAtIndex(currentIndex + i);
 				if (newTab) {
 					switchToTab(newTab.id);
 				}
@@ -141,11 +142,11 @@ require.async("mousetrap", function (Mousetrap) {
 	}
 
 	Mousetrap.bind("mod+9", function (e) {
-		switchToTab(tabs.getAtIndex(tabs.count() - 1).id);
+		switchToTab(currentTask.tabs.getAtIndex(currentTask.tabs.count() - 1).id);
 	})
 
 	Mousetrap.bind("shift+mod+9", function (e) {
-		switchToTab(tabs.getAtIndex(0).id);
+		switchToTab(currentTask.tabs.getAtIndex(0).id);
 	})
 
 	Mousetrap.bind("esc", function (e) {
@@ -154,12 +155,12 @@ require.async("mousetrap", function (Mousetrap) {
 		if (findinpage.isEnabled) {
 			findinpage.end(); //this also focuses the webview
 		} else {
-			getWebview(tabs.getSelected()).focus();
+			getWebview(currentTask.tabs.getSelected()).focus();
 		}
 	});
 
 	Mousetrap.bind("shift+mod+r", function () {
-		var tab = tabs.get(tabs.getSelected());
+		var tab = currentTask.tabs.get(currentTask.tabs.getSelected());
 
 		if (tab.isReaderView) {
 			readerView.exit(tab.id);
@@ -171,24 +172,24 @@ require.async("mousetrap", function (Mousetrap) {
 	//TODO add help docs for this
 
 	Mousetrap.bind("mod+left", function (d) {
-		getWebview(tabs.getSelected()).goBack();
+		getWebview(currentTask.tabs.getSelected()).goBack();
 	});
 
 	Mousetrap.bind("mod+right", function (d) {
-		getWebview(tabs.getSelected()).goForward();
+		getWebview(currentTask.tabs.getSelected()).goForward();
 	});
 
 	Mousetrap.bind(["option+mod+left", "shift+ctrl+tab"], function (d) {
 
 		enterExpandedMode(); //show the detailed tab switcher
 
-		var currentIndex = tabs.getIndex(tabs.getSelected());
-		var previousTab = tabs.getAtIndex(currentIndex - 1);
+		var currentIndex = currentTask.tabs.getIndex(currentTask.tabs.getSelected());
+		var previousTab = currentTask.tabs.getAtIndex(currentIndex - 1);
 
 		if (previousTab) {
 			switchToTab(previousTab.id);
 		} else {
-			switchToTab(tabs.getAtIndex(tabs.count() - 1).id);
+			switchToTab(currentTask.tabs.getAtIndex(currentTask.tabs.count() - 1).id);
 		}
 	});
 
@@ -196,19 +197,19 @@ require.async("mousetrap", function (Mousetrap) {
 
 		enterExpandedMode();
 
-		var currentIndex = tabs.getIndex(tabs.getSelected());
-		var nextTab = tabs.getAtIndex(currentIndex + 1);
+		var currentIndex = currentTask.tabs.getIndex(currentTask.tabs.getSelected());
+		var nextTab = currentTask.tabs.getAtIndex(currentIndex + 1);
 
 		if (nextTab) {
 			switchToTab(nextTab.id);
 		} else {
-			switchToTab(tabs.getAtIndex(0).id);
+			switchToTab(currentTask.tabs.getAtIndex(0).id);
 		}
 	});
 
 	Mousetrap.bind("mod+n", function (d) { //destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
 
-		var tset = tabs.get();
+		var tset = currentTask.tabs.get();
 		for (var i = 0; i < tset.length; i++) {
 			destroyTab(tset[i].id);
 		}
@@ -221,7 +222,7 @@ require.async("mousetrap", function (Mousetrap) {
 	Mousetrap.bind("return", function () {
 		if (isExpandedMode) {
 			leaveExpandedMode();
-			getWebview(tabs.getSelected()).focus();
+			getWebview(currentTask.tabs.getSelected()).focus();
 		}
 	});
 
@@ -235,8 +236,8 @@ require.async("mousetrap", function (Mousetrap) {
 
 	Mousetrap.bind("shift+mod+b", function () {
 		clearSearchbar();
-		showSearchbar(getTabInput(tabs.getSelected()));
-		enterEditMode(tabs.getSelected());
+		showSearchbar(getTabInput(currentTask.tabs.getSelected()));
+		enterEditMode(currentTask.tabs.getSelected());
 		showAllBookmarks();
 	});
 

@@ -114,7 +114,7 @@ function showSearchbarInstantAnswers(text, input, event, container) {
 registerSearchbarPlugin("instantAnswers", {
 	index: 2,
 	trigger: function (text) {
-		return text.length > 3 && !urlParser.isURLMissingProtocol(text) && !tabs.get(tabs.getSelected()).private;
+		return text.length > 3 && !urlParser.isURLMissingProtocol(text) && !currentTask.tabs.get(currentTask.tabs.getSelected()).private;
 	},
 	showResults: debounce(showSearchbarInstantAnswers, 400),
 });

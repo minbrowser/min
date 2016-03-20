@@ -2,18 +2,17 @@ var sessionRestore = {
 	save: function () {
 		requestIdleCallback(function () {
 			var data = {
-				version: 1,
-				tabs: [],
-				selected: tabs._state.selected,
+				version: 2,
+				state: JSON.parse(JSON.stringify(tabState)),
 			}
 
 			//save all tabs that aren't private
 
-			tabs.get().forEach(function (tab) {
-				if (!tab.private) {
-					data.tabs.push(tab);
-				}
-			});
+			for (var i = 0; i < data.state.tasks.length; i++) {
+				data.state.tasks[i].tabs = data.state.tasks[i].tabs.filter(function (tab) {
+					return !tab.private;
+				});
+			}
 
 			localStorage.setItem("sessionrestoredata", JSON.stringify(data));
 		}, {
@@ -21,73 +20,77 @@ var sessionRestore = {
 		});
 	},
 	restore: function () {
-		//get the data
+		var data = localStorage.getItem("sessionrestoredata");
 
-		try {
-			var data = localStorage.getItem("sessionrestoredata");
+		console.log(data, data.version);
+		//first run, show the tour
+		if (!data) {
 
-			//first run, show the tour
-			if (!data) {
-				var newTab = tabs.add({
-					url: "https://palmeral.github.io/min/tour"
-				});
-				addTab(newTab, {
-					enterEditMode: false,
-				});
-				return;
-			}
+			tasks.setSelected(tasks.add()); //create a new task
 
-			data = JSON.parse(data);
+			var newTab = currentTask.tabs.add({
+				url: "https://palmeral.github.io/min/tour"
+			});
+			addTab(newTab, {
+				enterEditMode: false,
+			});
+			return;
+		}
 
-			localStorage.setItem("sessionrestoredata", "{}");
+		data = JSON.parse(data);
 
-			if (data.version && data.version != 1) { //if the version isn't compatible, we don't want to restore.
-				addTab(tabs.add(), {
-					leaveEditMode: false //we know we aren't in edit mode yet, so we don't have to leave it
-				});
-				return;
-			}
+		localStorage.setItem("sessionrestoredata", "");
 
-			console.info("restoring tabs", data.tabs);
+		//the data isn't restorable
+		if ((data.version && data.version != 2) || (data.state && data.state.tasks && data.state.tasks.length == 0)) {
 
-			if (isEmpty(data.tabs)) { //If there are no tabs, or if we only have one tab, and it's about:blank, don't restore
-				addTab(tabs.add(), {
-					leaveEditMode: false
-				});
-				return;
-			}
+			tasks.setSelected(tasks.add());
 
-			//actually restore the tabs
-			data.tabs.forEach(function (tab, index) {
-				var newTab = tabs.add(tab);
-				addTab(newTab, {
-					openInBackground: true,
-					leaveEditMode: false,
-					focus: false,
-				});
+			addTab(currentTask.tabs.add(), {
+				leaveEditMode: false //we know we aren't in edit mode yet, so we don't have to leave it
+			});
+			return;
+		}
 
+		console.info("restoring tabs", data.state);
+
+		//restore the tabs	
+
+		var state = data.state;
+
+		var selectedTask = state.tasks.filter(function (item) {
+			return item.id == state.selectedTask;
+		});
+
+		state.tasks.forEach(function (task) {
+			//restore the task item
+			var taskItem = tasks.get(tasks.add(task.name, task.id));
+
+			//restore the tabs within the task
+			task.tabs.forEach(function (tab) {
+				taskItem.tabs.add(tab);
 			});
 
-			//set the selected tab
+			console.log(taskItem, taskItem.tabs.getSelected());
+		});
 
-			if (tabs.get(data.selected)) { //if the selected tab was a private tab that we didn't restore, it's possible that the selected tab doesn't actually exist. This will throw an error, so we want to make sure the tab exists before we try to switch to it
-				switchToTab(data.selected);
-			} else { //switch to the first tab
-				switchToTab(data.tabs[0].id);
-			}
+		console.log(tabState);
 
-		} catch (e) {
-			//if we can't restore the session, try to start over with a blank tab
-			console.warn("failed to restore session, rolling back");
-			console.error(e);
+		console.log(state.selectedTask);
 
-			localStorage.setItem("sessionrestoredata", "{}");
+		switchToTask(state.selectedTask);
 
-			setTimeout(function () {
-				window.location.reload();
-			}, 500);
 
-		}
+		/*	} catch (e) {
+				//if we can't restore the session, try to start over with a blank tab
+				console.warn("failed to restore session");
+				console.error(e);
+
+				localStorage.setItem("sessionrestoredata", "");
+
+				alert("An error has occured. Please restart the browser.");
+
+			}*/
 	}
 }
 

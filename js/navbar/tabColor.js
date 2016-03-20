@@ -91,13 +91,13 @@ setInterval(function () {
 function updateTabColor(favicons, tabId) {
 
 	//special color scheme for private tabs
-	if (tabs.get(tabId).private == true) {
-		tabs.update(tabId, {
+	if (currentTask.tabs.get(tabId).private == true) {
+		currentTask.tabs.update(tabId, {
 			backgroundColor: "#3a2c63",
 			foregroundColor: "white",
 		})
 
-		if (tabId == tabs.getSelected()) {
+		if (tabId == currentTask.tabs.getSelected()) {
 			setColor("#3a2c63", "white");
 		}
 		return;
@@ -128,12 +128,12 @@ function updateTabColor(favicons, tabId) {
 
 			var textclr = getTextColor(obj);
 
-			tabs.update(tabId, {
+			currentTask.tabs.update(tabId, {
 				backgroundColor: cr,
 				foregroundColor: textclr,
 			})
 
-			if (tabId == tabs.getSelected()) {
+			if (tabId == currentTask.tabs.getSelected()) {
 				setColor(cr, textclr);
 			}
 			return;

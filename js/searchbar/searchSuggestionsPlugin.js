@@ -132,7 +132,7 @@ function showSearchSuggestions(text, input, event, container) {
 registerSearchbarPlugin("searchSuggestions", {
 	index: 3,
 	trigger: function (text) {
-		return !!text && !tabs.get(tabs.getSelected()).private;
+		return !!text && !currentTask.tabs.get(currentTask.tabs.getSelected()).private;
 	},
 	showResults: debounce(showSearchSuggestions, 200),
 })

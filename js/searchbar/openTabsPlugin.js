@@ -5,9 +5,9 @@ var searchOpenTabs = function (text, input, event, container) {
 	empty(container);
 
 	var matches = [],
-		selTab = tabs.getSelected();
+		selTab = currentTask.tabs.getSelected();
 
-	tabs.get().forEach(function (item) {
+	currentTask.tabs.get().forEach(function (item) {
 		if (item.id == selTab || !item.title || item.url == "about:blank") {
 			return;
 		}
@@ -43,9 +43,9 @@ var searchOpenTabs = function (text, input, event, container) {
 		item.addEventListener("click", function () {
 
 			//if we created a new tab but are switching away from it, destroy the current (empty) tab
-			var currentTabUrl = tabs.get(tabs.getSelected()).url;
+			var currentTabUrl = currentTask.tabs.get(currentTask.tabs.getSelected()).url;
 			if (!currentTabUrl || currentTabUrl == "about:blank") {
-				destroyTab(tabs.getSelected(), {
+				destroyTab(currentTask.tabs.getSelected(), {
 					switchToTab: false
 				});
 			}
