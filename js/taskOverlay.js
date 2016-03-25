@@ -95,7 +95,7 @@ function getTaskElement(task, taskIndex) {
 	//delete button
 
 	var deleteButton = document.createElement("i");
-	deleteButton.className = "fa fa-trash";
+	deleteButton.className = "fa fa-trash-o";
 
 	deleteButton.addEventListener("click", function (e) {
 		destroyTask(task.id);
