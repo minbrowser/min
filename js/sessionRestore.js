@@ -74,6 +74,9 @@ var sessionRestore = {
 
 		switchToTask(state.selectedTask);
 
+		if (isEmpty(currentTask.tabs)) {
+			enterEditMode(currentTask.tabs.getSelected());
+		}
 
 		/*	} catch (e) {
 				//if we can't restore the session, try to start over with a blank tab
