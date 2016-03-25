@@ -6,8 +6,6 @@ var tabState = {
 var tabPrototype = {
 	add: function (tab, index) {
 
-		console.log("adding tab", tab);;
-
 		//make sure the tab exists before we create it
 		if (!tab) {
 			var tab = {};
@@ -34,14 +32,10 @@ var tabPrototype = {
 			this.push(newTab);
 		}
 
-		console.log("has " + this.length + " tabs");
-
 		return tabId;
 
 	},
 	update: function (id, data) {
-		console.log("updating", id, data);
-		console.log("task has " + this.length + " tabs");
 		if (!this.get(id)) {
 			throw new ReferenceError("Attempted to update a tab that does not exist.");
 		}
@@ -59,8 +53,6 @@ var tabPrototype = {
 		}
 	},
 	destroy: function (id) {
-		console.log("destroying tab", id);
-		console.trace();
 		for (var i = 0; i < this.length; i++) {
 			if (this[i].id == id) {
 				this.splice(i, 1);
@@ -70,9 +62,6 @@ var tabPrototype = {
 		return false;
 	},
 	get: function (id) {
-		console.log("getting tab", id);
-		console.log("task has " + this.length + " tabs");
-		console.trace();
 		if (!id) { //no id provided, return an array of all tabs
 			//it is important to deep-copy the tab objects when returning them. Otherwise, the original tab objects get modified when the returned tabs are modified (such as when processing a url).
 			var tabsToReturn = [];
@@ -162,6 +151,15 @@ var tasks = {
 	setSelected: function (id) {
 		tabState.selectedTask = id;
 		window.currentTask = tasks.get(id);
+	},
+	destroy: function (id) {
+		for (var i = 0; i < tabState.tasks.length; i++) {
+			if (tabState.tasks[i].id == id) {
+				tabState.tasks.splice(i, 1);
+				return i;
+			}
+		}
+		return false;
 	},
 }
 

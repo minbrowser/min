@@ -70,13 +70,7 @@ var sessionRestore = {
 			task.tabs.forEach(function (tab) {
 				taskItem.tabs.add(tab);
 			});
-
-			console.log(taskItem, taskItem.tabs.getSelected());
 		});
-
-		console.log(tabState);
-
-		console.log(state.selectedTask);
 
 		switchToTask(state.selectedTask);
 

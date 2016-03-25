@@ -90,8 +90,10 @@ setInterval(function () {
 
 function updateTabColor(favicons, tabId) {
 
+	var tab = currentTask.tabs.get(tabId);
+
 	//special color scheme for private tabs
-	if (currentTask.tabs.get(tabId).private == true) {
+	if (tab && tab.private == true) {
 		currentTask.tabs.update(tabId, {
 			backgroundColor: "#3a2c63",
 			foregroundColor: "white",

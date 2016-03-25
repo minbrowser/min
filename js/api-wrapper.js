@@ -24,6 +24,16 @@ function destroyTab(id) {
 
 }
 
+function destroyTask(id) {
+	var task = tasks.get(id);
+
+	task.tabs.forEach(function (tab) {
+		destroyWebview(tab.id);
+	});
+
+	tasks.destroy(id);
+}
+
 /* switches to a tab - update the webview, state, tabstrip, etc. */
 
 function switchToTab(id, options) {
