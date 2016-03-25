@@ -35,6 +35,36 @@ function pagePermissionRequestHandler(webContents, permission, callback) {
 	}
 }
 
+//called whenever the page url changes
+
+function onPageLoad(e) {
+	var tab = this.getAttribute("data-tab");
+	var url = this.getAttribute("src"); //src attribute changes whenever a page is loaded
+
+	if (url.indexOf("https://") === 0 || url.indexOf("about:") == 0 || url.indexOf("chrome:") == 0 || url.indexOf("file://") == 0) {
+		tabs.update(tab, {
+			secure: true,
+			url: url,
+		});
+	} else {
+		tabs.update(tab, {
+			secure: false,
+			url: url,
+		});
+	}
+
+	var isInternalPage = url.indexOf(__dirname) != -1 && url.indexOf(readerView.readerURL) == -1
+
+	if (tabs.get(tab).private == false && !isInternalPage) { //don't save to history if in private mode, or the page is a browser page
+		bookmarks.updateHistory(tab);
+	}
+
+	rerenderTabElement(tab);
+
+	this.send("loadfinish"); //works around an electron bug (https://github.com/atom/electron/issues/1117), forcing Chromium to always  create the script context
+
+}
+
 //set the permissionRequestHandler for non-private tabs
 
 remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler);
@@ -86,33 +116,8 @@ function getWebviewDom(options) {
 		rerenderTabElement(tab);
 	});
 
-	w.addEventListener("did-finish-load", function (e) {
-		var tab = this.getAttribute("data-tab");
-		var url = this.getAttribute("src"); //src attribute changes whenever a page is loaded
-
-		if (url.indexOf("https://") === 0 || url.indexOf("about:") == 0 || url.indexOf("chrome:") == 0 || url.indexOf("file://") == 0) {
-			tabs.update(tab, {
-				secure: true,
-				url: url,
-			});
-		} else {
-			tabs.update(tab, {
-				secure: false,
-				url: url,
-			});
-		}
-
-		var isInternalPage = url.indexOf(__dirname) != -1 && url.indexOf(readerView.readerURL) == -1
-
-		if (tabs.get(tab).private == false && !isInternalPage) { //don't save to history if in private mode, or the page is a browser page
-			bookmarks.updateHistory(tab);
-		}
-
-		rerenderTabElement(tab);
-
-		this.send("loadfinish"); //works around an electron bug (https://github.com/atom/electron/issues/1117), forcing Chromium to always  create the script context
-
-	});
+	w.addEventListener("did-finish-load", onPageLoad);
+	w.addEventListener("did-navigate-in-page", onPageLoad);
 
 	/*w.on("did-get-redirect-request", function (e) {
 		console.log(e.originalEvent);
