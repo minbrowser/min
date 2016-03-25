@@ -64,7 +64,7 @@ function leaveTabEditMode(options) {
 
 function enterEditMode(tabId) {
 
-	leaveExpandedMode();
+	taskOverlay.hide();
 
 	var tabEl = getTabElement(tabId),
 		webview = getWebview(tabId),

@@ -36,7 +36,7 @@ addTaskButton.addEventListener("click", function (e) {
 function getTaskOverlayTabElement(tab, task) {
 
 	var item = createSearchbarItem({
-		title: tab.title,
+		title: tab.title || "New Tab",
 		secondaryText: urlParser.removeProtocol(tab.url),
 		classList: ["task-tab-item"],
 		delete: function () {
@@ -135,6 +135,8 @@ var taskOverlay = {
 
 		taskOverlay.isShown = true;
 
+		leaveTabEditMode();
+
 		taskSwitcherButton.classList.add("active");
 
 		empty(taskContainer);
@@ -158,10 +160,12 @@ var taskOverlay = {
 		overlay.hidden = false;
 	},
 	hide: function () {
-		taskOverlay.isShown = false;
-		overlay.hidden = true;
+		if (taskOverlay.isShown) {
+			taskOverlay.isShown = false;
+			overlay.hidden = true;
 
-		taskSwitcherButton.classList.remove("active");
+			taskSwitcherButton.classList.remove("active");
+		}
 	},
 	toggle: function () {
 		if (taskOverlay.isShown) {
