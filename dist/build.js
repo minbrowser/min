@@ -68,8 +68,6 @@ Dexie.Promise.on("error", function (error) {
 var tabPrototype = {
 	add: function (tab, index) {
 
-		console.log("adding tab", tab);;
-
 		//make sure the tab exists before we create it
 		if (!tab) {
 			var tab = {};
@@ -96,14 +94,10 @@ var tabPrototype = {
 			this.push(newTab);
 		}
 
-		console.log("has " + this.length + " tabs");
-
 		return tabId;
 
 	},
 	update: function (id, data) {
-		console.log("updating", id, data);
-		console.log("task has " + this.length + " tabs");
 		if (!this.get(id)) {
 			throw new ReferenceError("Attempted to update a tab that does not exist.");
 		}
@@ -121,8 +115,6 @@ var tabPrototype = {
 		}
 	},
 	destroy: function (id) {
-		console.log("destroying tab", id);
-		console.trace();
 		for (var i = 0; i < this.length; i++) {
 			if (this[i].id == id) {
 				this.splice(i, 1);
@@ -132,9 +124,6 @@ var tabPrototype = {
 		return false;
 	},
 	get: function (id) {
-		console.log("getting tab", id);
-		console.log("task has " + this.length + " tabs");
-		console.trace();
 		if (!id) { //no id provided, return an array of all tabs
 			//it is important to deep-copy the tab objects when returning them. Otherwise, the original tab objects get modified when the returned tabs are modified (such as when processing a url).
 			var tabsToReturn = [];
@@ -224,6 +213,15 @@ var tasks = {
 	setSelected: function (id) {
 		tabState.selectedTask = id;
 		window.currentTask = tasks.get(id);
+	},
+	destroy: function (id) {
+		for (var i = 0; i < tabState.tasks.length; i++) {
+			if (tabState.tasks[i].id == id) {
+				tabState.tasks.splice(i, 1);
+				return i;
+			}
+		}
+		return false;
 	},
 }
 
@@ -566,7 +564,12 @@ function updateWebview(id, url) {
 
 function destroyWebview(id) {
 	var w = document.querySelector('webview[data-tab="{id}"]'.replace("{id}", id));
-	w.parentNode.removeChild(w);
+	if (w) {
+		w.remove();
+		return true;
+	} else {
+		return false;
+	}
 }
 
 function getWebview(id) {
@@ -915,6 +918,16 @@ function destroyTab(id) {
 	var t = currentTask.tabs.destroy(id); //remove from state - returns the index of the destroyed tab
 	destroyWebview(id); //remove the webview
 
+}
+
+function destroyTask(id) {
+	var task = tasks.get(id);
+
+	task.tabs.forEach(function (tab) {
+		destroyWebview(tab.id);
+	});
+
+	tasks.destroy(id);
 }
 
 /* switches to a tab - update the webview, state, tabstrip, etc. */
@@ -2360,8 +2373,10 @@ setInterval(function () {
 
 function updateTabColor(favicons, tabId) {
 
+	var tab = currentTask.tabs.get(tabId);
+
 	//special color scheme for private tabs
-	if (currentTask.tabs.get(tabId).private == true) {
+	if (tab && tab.private == true) {
 		currentTask.tabs.update(tabId, {
 			backgroundColor: "#3a2c63",
 			foregroundColor: "white",
@@ -3377,13 +3392,7 @@ bindWebviewEvent("found-in-page", function (e) {
 			task.tabs.forEach(function (tab) {
 				taskItem.tabs.add(tab);
 			});
-
-			console.log(taskItem, taskItem.tabs.getSelected());
 		});
-
-		console.log(tabState);
-
-		console.log(state.selectedTask);
 
 		switchToTask(state.selectedTask);
 
@@ -3443,14 +3452,18 @@ function showFocusModeError() {
 
 	var taskData = tasks.get(id);
 
-	console.log(taskData);
-	console.log(taskData.tabs.getSelected());
-
 	if (taskData.tabs.length > 0) {
 		switchToTab(taskData.tabs.getSelected());
 	} else {
 		addTab();
 	}
+}
+
+function addTaskFromOverlay() {
+	tasks.setSelected(tasks.add());
+	rerenderTabstrip();
+	taskOverlay.hide();
+	addTab();
 }
 
 var overlay = document.getElementById("task-overlay");
@@ -3467,30 +3480,41 @@ addTaskButton.addEventListener("click", function (e) {
 	taskOverlay.hide();
 });
 
-function getTabTile(tab) {
-	var el = document.createElement("div");
-	el.className = "tab-tile";
+function getTaskOverlayTabElement(tab, task) {
 
-	el.setAttribute("data-tab", tab.id);
+	var item = createSearchbarItem({
+		title: tab.title,
+		secondaryText: urlParser.removeProtocol(tab.url),
+		classList: ["task-tab-item"],
+		delete: function () {
+			task.tabs.destroy(tab.id);
+			destroyWebview(tab.id);
 
-	var title = document.createElement("div");
-	title.className = "tab-title";
+			//if there are no tabs left, remove the task
 
-	var subtitle = document.createElement("div");
-	subtitle.className = "tab-subtitle";
+			if (task.tabs.count() == 0) {
+				destroyTask(task.id);
+				if (tasks.get().length == 0) {
+					addTaskFromOverlay();
+				} else {
+					//re-render the overlay to remove the task element
+					taskOverlay.show();
+				}
+			}
+		},
+	});
 
-	title.textContent = tab.title || "New Tab";
-	subtitle.textContent = urlParser.removeProtocol(tab.url);
+	item.setAttribute("data-tab", tab.id);
 
-	el.appendChild(title);
-	el.appendChild(subtitle);
-
-	return el;
+	return item;
 }
 
 function getTaskElement(task, taskIndex) {
 	var container = document.createElement("div");
 	container.className = "task-container";
+
+	var taskActionContainer = document.createElement("div");
+	taskActionContainer.className = "task-action-container";
 
 	//add the input for the task name
 
@@ -3499,12 +3523,44 @@ function getTaskElement(task, taskIndex) {
 
 	input.placeholder = "Task " + (taskIndex + 1);
 
-	container.appendChild(input);
+	input.value = task.name || "Task " + (taskIndex + 1);
+
+	input.addEventListener("keyup", function (e) {
+		if (e.keyCode == 13) {
+			this.blur();
+		}
+
+		tasks.get(task.id).name = this.value;
+	});
+
+	input.addEventListener("focus", function () {
+		this.select();
+	});
+
+	taskActionContainer.appendChild(input);
+
+	//delete button
+
+	var deleteButton = document.createElement("i");
+	deleteButton.className = "fa fa-trash";
+
+	deleteButton.addEventListener("click", function (e) {
+		destroyTask(task.id);
+		container.remove();
+
+		if (tasks.get().length == 0) { //create a new task
+			addTaskFromOverlay();
+		}
+	});
+
+	taskActionContainer.appendChild(deleteButton);
+
+	container.appendChild(taskActionContainer);
 
 	if (task.tabs) {
 		for (var i = 0; i < task.tabs.length; i++) {
 
-			var el = getTabTile(task.tabs[i]);
+			var el = getTaskOverlayTabElement(task.tabs[i], task);
 
 			el.addEventListener("click", function (e) {
 				switchToTask(task.id);
@@ -3534,6 +3590,15 @@ var taskOverlay = {
 		tasks.get().forEach(function (task, index) {
 			taskContainer.appendChild(getTaskElement(task, index));
 		});
+
+		//scroll to the selected element and focus it
+
+		var currentTabElement = document.querySelector('.task-tab-item[data-tab="{id}"]'.replace("{id}", currentTask.tabs.getSelected()));
+
+		if (currentTabElement) {
+			currentTabElement.scrollIntoViewIfNeeded();
+			currentTabElement.classList.add("fakefocus");
+		}
 
 		//un-hide the overlay
 
