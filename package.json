@@ -5,10 +5,7 @@
   "dependencies": {
     "dexie": "^1.2.0",
     "dragula": "^3.6.2",
-    "highlight.js": "^9.0.0",
-    "js-beautify": "^1.5.10",
     "lunr": "^0.6.0",
-    "marked": "^0.3.5",
     "mousetrap": "^1.5.3",
     "nlp_compromise": "^1.1.5",
     "require.async": "^0.1.1",

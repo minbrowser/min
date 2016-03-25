@@ -52,7 +52,6 @@ module.exports = function (grunt) {
 						"js/webview/swipeEvents.js",
 						"js/webview/zoom.js",
 						"js/webview/keywordExtractor.js",
-						"js/webview/fileViewer.js"
 						 ],
 				dest: 'dist/webview.js'
 			},
