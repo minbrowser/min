@@ -108,8 +108,8 @@ function rerenderTabElement(tabId) {
 
 	if (tabData.secure === false) {
 		if (!secIcon) {
-			var vc = tabEl.querySelector(".tab-view-contents");
-			vc.insertAdjacentHTML("afterbegin", "<i class='fa fa-exclamation-triangle icon-tab-not-secure' title='Your connection to this website is not secure.'></i>");
+			var iconArea = tabEl.querySelector(".tab-icon-area");
+			iconArea.insertAdjacentHTML("afterbegin", "<i class='fa fa-exclamation-triangle icon-tab-not-secure' title='Your connection to this website is not secure.'></i>");
 		}
 	} else if (secIcon) {
 		secIcon.parentNode.removeChild(secIcon);
@@ -148,10 +148,19 @@ function createTabElement(tabId) {
 	vc.className = "tab-view-contents";
 	vc.appendChild(readerView.getButton(tabId));
 
+	//icons
+
+	var iconArea = document.createElement("span");
+	iconArea.className = "tab-icon-area";
+
 	if (data.private) {
-		vc.insertAdjacentHTML("afterbegin", "<i class='fa fa-ban icon-tab-is-private'></i>");
+		iconArea.insertAdjacentHTML("afterbegin", "<i class='fa fa-ban icon-tab-is-private'></i>");
 		vc.setAttribute("title", "Private tab");
 	}
+
+	vc.appendChild(iconArea);
+
+	//title
 
 	var title = document.createElement("span");
 	title.className = "title";
@@ -160,6 +169,7 @@ function createTabElement(tabId) {
 	vc.appendChild(title);
 
 	vc.insertAdjacentHTML("beforeend", "<span class='secondary-text'></span>");
+
 	tabEl.appendChild(vc);
 
 	/* events */
