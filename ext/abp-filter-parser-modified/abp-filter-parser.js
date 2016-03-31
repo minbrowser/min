@@ -245,6 +245,7 @@
 		parserData.noFingerprintFilters = parserData.noFingerprintFilters || [];
 		parserData.exceptionFilters = parserData.exceptionFilters || [];
 		parserData.htmlRuleFilters = parserData.htmlRuleFilters || [];
+		parserData.regexFilters = parserData.regexFilters || [];
 
 		var filters = input.split("\n");
 		for (var i = 0; i < filters.length; i++) {
@@ -256,6 +257,8 @@
 					parserData.htmlRuleFilters.push(parsedFilterData);
 				} else if (parsedFilterData.isException) {
 					parserData.exceptionFilters.push(parsedFilterData);
+				} else if (parsedFilterData.regex) {
+					parserData.regexFilters.push(parsedFilterData);
 				} else if (fingerprint.length > 0) {
 					parserData.filters.push(parsedFilterData);
 				} else {
@@ -450,10 +453,12 @@
 			return false;
 		}
 
+		/*
 		// Check for a regex match
 		if (parsedFilterData.regex) {
 			return parsedFilterData.regex.test(input);
 		}
+		*/
 
 		// Check for both left and right anchored
 		if (parsedFilterData.leftAnchored) {
