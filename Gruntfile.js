@@ -1,5 +1,9 @@
 module.exports = function (grunt) {
 
+	var package = require("./package.json");
+	var version = package.version,
+		electronVersion = package.electronVersion;
+
 	// Project configuration.
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -82,8 +86,8 @@ module.exports = function (grunt) {
 					name: 'Min',
 					dir: '',
 					out: 'dist/app',
-					version: '0.36.8',
-					'app-version': '1.0.1',
+					version: electronVersion,
+					'app-version': version,
 					platform: 'darwin',
 					arch: 'x64',
 					icon: "icon.icns",
@@ -95,8 +99,8 @@ module.exports = function (grunt) {
 					name: 'Min',
 					dir: '',
 					out: 'dist/app',
-					version: '0.36.8',
-					'app-version': '1.0.1',
+					version: electronVersion,
+					'app-version': version,
 					platform: 'win32',
 					arch: 'all',
 					ignore: 'dist/app',
@@ -107,8 +111,8 @@ module.exports = function (grunt) {
 					name: 'Min',
 					dir: '',
 					out: 'dist/app',
-					version: '0.36.8',
-					'app-version': '1.0.1',
+					version: electronVersion,
+					'app-version': version,
 					platform: 'linux',
 					arch: 'all',
 					ignore: 'dist/app',
