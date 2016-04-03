@@ -47,7 +47,7 @@ window.addEventListener("scroll", throttle(function (e) {
 
 for (var i = 0; i < showMoreArrows.length; i++) {
 	showMoreArrows[i].addEventListener("click", function (e) {
-		document.body.scrollTop = document.body.scrollTop * 1.8;
+		document.body.scrollTop = document.body.scrollTop + (window.innerHeight * 0.7);
 	});
 }
 

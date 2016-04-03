@@ -10,7 +10,7 @@
 
 <body>
 
-	<div class="spacer" style="height: 100%; background: linear-gradient(135deg, rgba(80,122,196,1) 43%,rgba(80,122,196,1) 43%,rgba(128,192,226,1) 89%,rgba(128,192,226,1) 89%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */"></div>
+	<div class="spacer blue-gradient-background" style="height: 100%;"></div>
 	<div class="tour-intro page-centered color-white">
 		<h1 class="title-heading">Welcome to Min.</h1>
 		<div class="centered-container">
@@ -64,6 +64,14 @@
 	</div>
 
 	<div class="tour-card" layout="right">
+		<h1>Ad and tracker blocking</h1>
+		<div class="tour-info">Go to Min > Privacy Preferences (or press ⌘+,) to enable ad and tracker blocking. You can also choose to block images and Javascript, if you are on a limited internet connection.
+			<i class="arrow-showmore-icon fa fa-angle-double-down"></i>
+		</div>
+		<img class="tour-image" src="../splash/adblock.png" />
+	</div>
+
+	<div class="tour-card light-gray-background" layout="right">
 		<h1>Tips and Tricks</h1>
 		<div class="tour-info">
 			<ul>
@@ -75,17 +83,20 @@
 		<img class="tour-image" src="img/expanded_tab_mode.png" />
 	</div>
 
-	<div class="tour-card light-gray-background" layout="textonly">
+	<div class="tour-card" layout="textonly">
 		<h1>Improving Min</h1>
 		<div class="tour-info">Min is open-source software, writtten in JavaScript. <a target="_blank" href="https://github.com/PalmerAL/Min">View the source on GitHub</a>, or <a target="_blank" href="https://github.com/PalmerAL/Min/issues/new">file an issue.</a></div>
 	</div>
 
-	<div class="spacer" style="height: 2em"></div>
 
 
-	<button class="outlined-button solid-button solid-button-blue centered-container start-browsing-onclick">Start Browsing</button>
+	<div class="blue-gradient-background">
+		<div class="spacer" style="height: 2em"></div>
+		<button class="outlined-button solid-button centered-container start-browsing-onclick">Start Browsing</button>
+		<div class="spacer" style="height: 1em"></div>
 
-	<div class="spacer" style="height: 1em"></div>
+	</div>
+
 
 	<script src="tour.js"></script>
 </body>
