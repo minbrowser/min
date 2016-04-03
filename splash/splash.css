@@ -27,7 +27,7 @@ html {
 }
 .video-container {
 	position: absolute;
-	top: 75%;
+	top: 72.5%;
 	left: 5%;
 	width: 90%;
 	height: 25vw;
@@ -124,36 +124,46 @@ button.disabled {
 
 /* cards */
 
-.tour-card {
-	min-height: 0px;
-	padding: 1em 9% 2em 9%;
-	position: relative;
+.inline-block-wrapper {
+	font-size: 0;
 }
-.tour-card h1 {
+.inline-block-wrapper > * {
+	font-size: 1rem;
+}
+.section {
+	display: block;
+	white-space: nowrap;
+	padding: 1em 5% 2em 5%;
+}
+.section.half-width {
+	width: 50%;
+	display: inline-block;
+}
+.section.one-column .column {
+	width: 100%;
+}
+.section .column {
+	display: inline-block;
+	width: 50%;
+	vertical-align: top;
+	white-space: normal;
+	padding: 1.5em;
+}
+.section h1 {
 	font-size: 2.5em;
 	font-weight: 300;
 	margin: 0.5em 0;
 	font-family: '.SFNSDisplay-Light', 'Helvetica Neue Light', 'Helvetica Neue', sans-serif;
 }
-.tour-card .tour-info {
-	width: 100%;
+.section p {
 	font-size: 1.2em;
-}
-.tour-card.half-width-card {
-	display: inline-block;
-	width: 49.4%;
-	vertical-align: top;
-}
-.tour-card.half-width-card h1 {
-	display: inline-block;
-	width: 100%;
 }
 
 /* end copied from tour/tour.css */
 
 .primary-action-button {
-	width: 66%;
-	margin-left: 17.5%;
+	width: 80%;
+	margin-left: 10%;
 	margin-top: 1.5em;
 }
 
