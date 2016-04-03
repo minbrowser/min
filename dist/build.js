@@ -1,4 +1,66 @@
-/* tracks the state of tabs */
+require("require.async")(require);
+window.electron = require("electron");
+window.ipc = electron.ipcRenderer;
+window.remote = electron.remote;
+window.Dexie = require("dexie");
+
+//disable dragdrop, since it currently doesn't work
+window.addEventListener("drop", function (e) {
+	e.preventDefault();
+});
+
+//add a class to the body for fullscreen status
+
+ipc.on("enter-full-screen", function () {
+	document.body.classList.add("fullscreen");
+});
+
+ipc.on("leave-full-screen", function () {
+	document.body.classList.remove("fullscreen");
+});
+
+window.addEventListener("load", function (e) {
+	if (navigator.platform != "MacIntel") {
+		document.body.classList.add("notMac");
+	}
+});
+;//defines schema for the browsingData database
+//requires Dexie.min.js
+
+var db = new Dexie('browsingData');
+
+//old version
+db.version(2)
+	.stores({
+		bookmarks: 'url, title, text, extraData', //url must come first so it is the primary key
+		history: 'url, title, color, visitCount, lastVisit, extraData', //same thing
+		readingList: 'url, time, visitCount, pageHTML, article, extraData', //article is the object from readability
+	});
+
+//current version
+db.version(3)
+	.stores({
+		bookmarks: 'url, title, text, extraData', //url must come first so it is the primary key
+		history: 'url, title, color, visitCount, lastVisit, extraData', //same thing
+		readingList: 'url, time, visitCount, pageHTML, article, extraData', //article is the object from readability
+		settings: 'key, value', //key is the name of the setting, value is an object
+	});
+
+/* current settings:
+
+key - filtering
+value - {trackers: boolean, contentTypes: array}
+
+*/
+
+db.open().then(function () {
+	console.log("database opened ", performance.now());
+});
+
+Dexie.Promise.on("error", function (error) {
+	console.warn("database error occured", error);
+});
+;/* tracks the state of tabs */
 
 var tabs = {
 	_state: {
@@ -149,7 +211,7 @@ function isEmpty(tabList) {
 		url = url.trim(); //remove whitespace common on copy-pasted url's
 
 		if (!url) {
-			return "";
+			return "about:blank";
 		}
 		//if the url starts with a (supported) protocol, do nothing
 		if (urlParser.isURL(url)) {
@@ -229,6 +291,36 @@ function pagePermissionRequestHandler(webContents, permission, callback) {
 	}
 }
 
+//called whenever the page url changes
+
+function onPageLoad(e) {
+	var tab = this.getAttribute("data-tab");
+	var url = this.getAttribute("src"); //src attribute changes whenever a page is loaded
+
+	if (url.indexOf("https://") === 0 || url.indexOf("about:") == 0 || url.indexOf("chrome:") == 0 || url.indexOf("file://") == 0) {
+		tabs.update(tab, {
+			secure: true,
+			url: url,
+		});
+	} else {
+		tabs.update(tab, {
+			secure: false,
+			url: url,
+		});
+	}
+
+	var isInternalPage = url.indexOf(__dirname) != -1 && url.indexOf(readerView.readerURL) == -1
+
+	if (tabs.get(tab).private == false && !isInternalPage) { //don't save to history if in private mode, or the page is a browser page
+		bookmarks.updateHistory(tab);
+	}
+
+	rerenderTabElement(tab);
+
+	this.send("loadfinish"); //works around an electron bug (https://github.com/atom/electron/issues/1117), forcing Chromium to always  create the script context
+
+}
+
 //set the permissionRequestHandler for non-private tabs
 
 remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler);
@@ -280,33 +372,8 @@ function getWebviewDom(options) {
 		rerenderTabElement(tab);
 	});
 
-	w.addEventListener("did-finish-load", function (e) {
-		var tab = this.getAttribute("data-tab");
-		var url = this.getAttribute("src"); //src attribute changes whenever a page is loaded
-
-		if (url.indexOf("https://") === 0 || url.indexOf("about:") == 0 || url.indexOf("chrome:") == 0 || url.indexOf("file://") == 0) {
-			tabs.update(tab, {
-				secure: true,
-				url: url,
-			});
-		} else {
-			tabs.update(tab, {
-				secure: false,
-				url: url,
-			});
-		}
-
-		var isInternalPage = url.indexOf(__dirname) != -1 && url.indexOf(readerView.readerURL) == -1
-
-		if (tabs.get(tab).private == false && !isInternalPage) { //don't save to history if in private mode, or the page is a browser page
-			bookmarks.updateHistory(tab);
-		}
-
-		rerenderTabElement(tab);
-
-		this.send("loadfinish"); //works around an electron bug (https://github.com/atom/electron/issues/1117), forcing Chromium to always  create the script context
-
-	});
+	w.addEventListener("did-finish-load", onPageLoad);
+	w.addEventListener("did-navigate-in-page", onPageLoad);
 
 	/*w.on("did-get-redirect-request", function (e) {
 		console.log(e.originalEvent);
@@ -826,14 +893,10 @@ function switchToTab(id, options) {
 	sessionRestore.save();
 
 }
-;var searchbarCachedText = "";
-var METADATA_SEPARATOR = "·";
-var didFireKeydownSelChange = false;
-var currentsearchbarInput;
+;//common regex's
 
-//swipe left on history items to delete them
-
-var lastItemDeletion = Date.now();
+var trailingSlashRegex = /\/$/g,
+	plusRegex = /\+/g;
 
 //https://remysharp.com/2010/07/21/throttling-function-calls#
 
@@ -883,25 +946,6 @@ function removeTags(text) {
 	return text.replace(/<.*?>/g, "");
 }
 
-/* this is used by navbar-tabs.js. When a url is entered, endings such as ? need to be parsed and removed. */
-function parsesearchbarURL(url) {
-	//always use a search engine if the query starts with "?"
-
-	if (url.indexOf("?") == 0) {
-		url = urlParser.searchBaseURL.replace("%s", encodeURIComponent(url.replace("?", "")));
-	}
-
-	if (url.indexOf("^") == 0) {
-		url = url.replace("^", "");
-	}
-
-	if (url.indexOf("*") == 0) {
-		url = url.replace("*", "");
-	}
-
-	return url;
-}
-
 function openURLInBackground(url) { //used to open a url in the background, without leaving the searchbar
 	var newTab = tabs.add({
 		url: url,
@@ -913,7 +957,7 @@ function openURLInBackground(url) { //used to open a url in the background, with
 		leaveEditMode: false,
 	});
 
-	var i = searchbar.querySelector(".result-item:focus");
+	var i = searchbar.querySelector(".searchbar-item:focus");
 	if (i) { //remove the highlight from an awesomebar result item, if there is one
 		i.blur();
 	}
@@ -929,7 +973,7 @@ function openURLFromsearchbar(event, url) {
 		navigate(tabs.getSelected(), url);
 
 		if (!tabs.get(tabs.getSelected()).private) {
-
+			/*
 			//show the color and title of the new page immediately, to make the page load time seem faster
 			currentHistoryResults.forEach(function (res) {
 				if (res.url == url) {
@@ -940,7 +984,7 @@ function openURLFromsearchbar(event, url) {
 					rerenderTabElement(tabs.getSelected());
 				}
 			});
-
+			*/
 		}
 
 		return false;
@@ -982,6 +1026,10 @@ function getRealTitle(text) {
 }
 
 
+//swipe left on history items to delete them
+
+var lastItemDeletion = Date.now();
+
 //creates a result item
 
 /*
@@ -1002,7 +1050,7 @@ classList: array - a list of classes to add to the item
 
 function createSearchbarItem(data) {
 	var item = document.createElement("div");
-	item.classList.add("result-item");
+	item.classList.add("searchbar-item");
 
 	item.setAttribute("tabindex", "-1");
 
@@ -1031,6 +1079,10 @@ function createSearchbarItem(data) {
 
 	if (data.url) {
 		item.setAttribute("data-url", data.url);
+
+		item.addEventListener("click", function (e) {
+			openURLFromsearchbar(e, data.url);
+		});
 	}
 
 	if (data.secondaryText) {
@@ -1093,31 +1145,12 @@ function createSearchbarItem(data) {
 
 var searchbar = document.getElementById("searchbar");
 
-function clearsearchbar() {
-	empty(opentabarea);
-	empty(topAnswerarea);
-	empty(bookmarkarea);
-	empty(historyarea);
-	empty(iaarea);
-	empty(suggestedsitearea);
-	empty(serarea);
-
-	//prevent memory leak
-	cachedBangSnippets = {};
-}
-
 function showSearchbar(triggerInput) {
 
-	currentACItem = null
-
-	searchbarCachedText = triggerInput.value;
 	document.body.classList.add("searchbar-shown");
-
-	clearsearchbar();
-
 	searchbar.hidden = false;
 
-	currentsearchbarInput = triggerInput;
+	currentSearchbarInput = triggerInput;
 
 }
 
@@ -1129,81 +1162,35 @@ function getValue(input) {
 }
 
 function hidesearchbar() {
-	currentsearchbarInput = null;
+	currentSearchbarInput = null;
 	document.body.classList.remove("searchbar-shown");
 	searchbar.hidden = true;
-	cachedBangSnippets = {};
+
+	clearSearchbar();
 }
 var showSearchbarResults = function (text, input, event) {
-	if (event && event.metaKey) {
-		return;
-	}
-
-	deleteKeyPressed = event && event.keyCode == 8;
 
 	//find the real input value, accounting for highlighted suggestions and the key that was just pressed
-
 	//delete key doesn't behave like the others, String.fromCharCode returns an unprintable character (which has a length of one)
 
 	if (event && event.keyCode != 8) {
-
-		text = text.substring(0, input.selectionStart) + String.fromCharCode(event.keyCode) + text.substring(input.selectionEnd, text.length);
-
+		var realText = text.substring(0, input.selectionStart) + String.fromCharCode(event.keyCode) + text.substring(input.selectionEnd, text.length);
+	} else {
+		var realText = text;
 	}
 
-	console.log("searchbar: ", "'" + text + "'", text.length);
+	console.log("searchbar: ", realText);
 
-	//there is no text, show only topsites
-	if (text.length < 1) {
-		showHistoryResults("", input);
-		clearsearchbar();
-		return;
-	}
+	runPlugins(realText, input, event);
 
-	//when you start with ?, always search with duckduckgo
-
-	if (text.indexOf("?") == 0) {
-		clearsearchbar();
-
-		currentSuggestionLimit = 5;
-		showSearchSuggestions(text.replace("?", ""), input);
-		return;
-	}
-
-	//when you start with ^, always search history (only)
-
-	if (text.indexOf("^") == 0) {
-		clearsearchbar();
-		showHistoryResults(text.replace("^", ""), input);
-		return;
-	}
-
-	//when you start with *, always search bookmarks (only)
-
-	if (text.indexOf("*") == 0) {
-		clearsearchbar();
-		showBookmarkResults(text.replace("*", ""), input);
-		return;
-	}
-
-	//show searchbar results
-
-	showBookmarkResults(text);
-
-	showHistoryResults(text, input);
-	showInstantAnswers(text, input);
-	searchOpenTabs(text, input);
-
-	//update cache
-	searchbarCachedText = text;
 };
 
 function focussearchbarItem(options) {
 	options = options || {}; //fallback if options is null
 	var previous = options.focusPrevious;
 
-	var allItems = [].slice.call(searchbar.querySelectorAll(".result-item:not(.unfocusable)"));
-	var currentItem = searchbar.querySelector(".result-item:focus, .result-item.fakefocus");
+	var allItems = [].slice.call(searchbar.querySelectorAll(".searchbar-item:not(.unfocusable)"));
+	var currentItem = searchbar.querySelector(".searchbar-item:focus, .searchbar-item.fakefocus");
 
 	var index = allItems.indexOf(currentItem);
 	var logicalNextItem = allItems[(previous) ? index - 1 : index + 1];
@@ -1231,12 +1218,9 @@ function focussearchbarItem(options) {
 			if (document.activeElement == focusedItem) {
 				var itext = focusedItem.querySelector(".title").textContent;
 
-				showInstantAnswers(itext, currentsearchbarInput, {
-					alwaysShow: true,
-					destroyPrevious: false,
-				});
+				showSearchbarInstantAnswers(itext, currentSearchbarInput, null, getSearchbarContainer("instantAnswers"));
 			}
-		}, 225);
+		}, 300);
 	}
 }
 
@@ -1268,6 +1252,7 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 
 	var itemsShown = [];
 
+	var container = getSearchbarContainer("searchSuggestions");
 
 	data.entities.forEach(function (item, index) {
 
@@ -1294,417 +1279,334 @@ bindWebviewIPC("keywordsData", function (webview, tabId, arguements) {
 			}
 		});
 
-		serarea.appendChild(div);
+		container.appendChild(div);
 
 		itemsCt++;
 		itemsShown.push(item.trim());
 	});
 });
-;var DDGSearchURLRegex = /^https:\/\/duckduckgo.com\/\?q=([^&]*).*/g,
-	trailingSlashRegex = /\/$/g,
-	plusRegex = /\+/g;
+;var searchbarPlugins = []; //format is {name, container, trigger, showResults};
+var searchbarResultCount = 0;
+var hasAutocompleted = false;
+var topAnswerArea = searchbar.querySelector(".top-answer-area");
 
-var currentACItem = null;
-var deleteKeyPressed = false;
+//empties all containers in the searchbar
+function clearSearchbar() {
+	for (var i = 0; i < searchbarPlugins.length; i++) {
+		empty(searchbarPlugins[i].container);
+	};
+}
 
-var historyarea = searchbar.querySelector(".history-results");
-
-var maxHistoryResults = 4;
-var currentHistoryResults = null;
-
-function searchbarAutocomplete(text, input, historyResults) {
-
-	if (!text || deleteKeyPressed) {
-		currentACItem = null;
-		return;
-	}
-
-	if (text == searchbarCachedText && input.selectionStart != input.selectionEnd) { //if nothing has actually changed, don't try to autocomplete
-		return;
-	}
-	//if we moved the selection, we don't want to autocomplete again
-	if (didFireKeydownSelChange) {
-		return;
-	}
-
-	currentACItem = null;
-
-	var didAutocomplete = false;
-
-	for (var i = 0; !didAutocomplete && i < historyResults.length; i++) { //we only want to autocomplete the first item that matches
-		didAutocomplete = autocompleteResultIfNeeded(input, historyResults[i]); //this returns true or false depending on whether the item was autocompleted or not
+function setTopAnswer(pluginName, item) {
+	empty(topAnswerArea);
+	if (item) {
+		item.setAttribute("data-plugin", pluginName);
+		topAnswerArea.appendChild(item);
 	}
 }
 
-function autocompleteResultIfNeeded(input, result) {
-
-	//figure out if we should autocomplete based on the title
-
-	DDGSearchURLRegex.lastIndex = 0;
-	shouldAutocompleteTitle = DDGSearchURLRegex.test(result.url);
-
-	if (shouldAutocompleteTitle) {
-		result.title = decodeURIComponent(result.url.replace(DDGSearchURLRegex, "$1").replace(plusRegex, " "));
+function getSearchbarContainer(pluginName) {
+	for (var i = 0; i < searchbarPlugins.length; i++) {
+		if (searchbarPlugins[i].name == pluginName) {
+			return searchbarPlugins[i].container;
+		}
 	}
+	return null;
+}
 
-	var text = getValue(input); //make sure the input hasn't changed between start and end of query
-	try {
-		var hostname = new URL(result.url).hostname;
-	} catch (e) {
-		console.warn(result.url);
+function getTopAnswer(pluginName) {
+	if (pluginName) {
+		//TODO a template string would be useful here, but UglifyJS doesn't support them yet
+		return topAnswerArea.querySelector("[data-plugin={plugin}]".replace("{plugin}", pluginName));
+	} else {
+		return topAnswerArea.firstChild;
 	}
+}
 
-	var possibleAutocompletions = [ //the different variations of the URL we can autocomplete
-		hostname, //we start with the domain
-		(hostname + "/").replace(urlParser.startingWWWRegex, "$1").replace("/", ""), //if that doesn't match, try the hostname without the www instead. The regex requires a slash at the end, so we add one, run the regex, and then remove it
-		urlParser.prettyURL(result.url), //then try the whole url
-		urlParser.removeProtocol(result.url), //then try the url with querystring
-		result.url, //then just try the url with protocol
+function registerSearchbarPlugin(name, object) {
+
+	//add the container
+	var container = document.createElement("div");
+	container.classList.add("searchbar-plugin-container");
+	container.setAttribute("data-plugin", name);
+	searchbar.insertBefore(container, searchbar.childNodes[object.index + 1]);
+
+	searchbarPlugins.push({
+		name: name,
+		container: container,
+		trigger: object.trigger,
+		showResults: object.showResults,
+	});
+}
+
+function runPlugins(text, input, event) {
+
+	searchbarResultCount = 0;
+	hasAutocompleted = false;
+
+	for (var i = 0; i < searchbarPlugins.length; i++) {
+		if ((!searchbarPlugins[i].trigger || searchbarPlugins[i].trigger(text))) {
+			searchbarPlugins[i].showResults(text, input, event, searchbarPlugins[i].container);
+		} else {
+			empty(searchbarPlugins[i].container);
+
+			//if the plugin is not triggered, remove a previously created top answer
+			var associatedTopAnswer = getTopAnswer(searchbarPlugins[i].name);
+
+			if (associatedTopAnswer) {
+				associatedTopAnswer.remove();
+			}
+		}
+	}
+}
+;function autocomplete(input, text, strings) {
+
+	for (var i = 0; i < strings.length; i++) {
+
+		//check if the item can be autocompleted
+		if (strings[i].toLowerCase().indexOf(text.toLowerCase()) == 0) {
+
+			input.value = strings[i];
+			input.setSelectionRange(text.length, strings[i].length);
+
+			return {
+				valid: true,
+				matchIndex: i,
+			}
+		}
+	}
+	return {
+		valid: false
+	}
+}
+
+//autocompletes based on a result item
+//returns: 1 - the exact URL was autocompleted, 0 - the domain was autocompleted, -1: nothing was autocompleted
+function autocompleteURL(item, input) {
+
+	var text = getValue(input);
+
+	var url = new URL(item.url),
+		hostname = url.hostname;
+
+	//the different variations of the URL we can autocomplete
+	var possibleAutocompletions = [
+		//we start with the domain
+		hostname,
+		 //if that doesn't match, try the hostname without the www instead. The regex requires a slash at the end, so we add one, run the regex, and then remove it
+		(hostname + "/").replace(urlParser.startingWWWRegex, "$1").replace("/", ""),
+		//then try the whole URL
+		urlParser.prettyURL(item.url),
+		//then try the URL with querystring
+		urlParser.removeProtocol(item.url),
+		//then just try the URL with protocol
+		item.url,
 	]
 
-	if (shouldAutocompleteTitle) {
-		possibleAutocompletions.push(result.title);
+	var autocompleteResult = autocomplete(input, text, possibleAutocompletions);
+
+	if (!autocompleteResult.valid) {
+		return -1;
+	} else if (autocompleteResult.matchIndex < 2 && url.pathname != "/") {
+		return 0;
+	} else {
+		return 1;
 	}
-
-
-	for (var i = 0; i < possibleAutocompletions.length; i++) {
-		if (possibleAutocompletions[i].toLowerCase().indexOf(text.toLowerCase()) == 0) { //we can autocomplete the item
-
-			input.value = possibleAutocompletions[i];
-			input.setSelectionRange(text.length, possibleAutocompletions[i].length);
-
-			if (i < 2) { //if we autocompleted a domain, the cached item should be the domain, not the full url
-				var url = new URL(result.url);
-				currentACItem = url.protocol + "//" + url.hostname + "/";
-			} else {
-				currentACItem = result.url;
-			}
-			return true;
-		}
-	}
-
-	//nothing was autocompleted
-
-	return false;
 }
+;function showSearchbarHistoryResults(text, input, event, container) {
 
-var showHistoryResults = throttle(function (text, input, maxItems) {
+	bookmarks.searchHistory(text, function (results) {
 
-		if (!text && input.value) { //if the entire input is highlighted (such as when we first focus the input), don't show anything
-			return;
+		//remove a previous top answer
+
+		var historyTopAnswer = getTopAnswer("history");
+
+		if (historyTopAnswer && !hasAutocompleted) {
+			historyTopAnswer.remove();
 		}
 
-		if (text) {
-			text = text.trim();
-		}
+		//clear previous results
+		empty(container);
 
-		//if we're offline, the only sites that will work are reader articles, so we should show those as top sites
+		results.slice(0, 4).forEach(function (result) {
 
-		if (!text && !navigator.onLine) {
-			readerView.showReadingList({
-				limitResults: true
-			});
-			return;
-		}
+			//only autocomplete an item if the delete key wasn't pressed, and nothing has been autocompleted already
+			if (event.keyCode != 8 && !hasAutocompleted) {
+				var autocompletionType = autocompleteURL(result, input);
 
-		if (text.indexOf("!") == 0) {
-			empty(historyarea);
-			showSearchSuggestions(text, input, 5);
-			return; //never show history results for bang search
-		}
-
-		var fn = bookmarks.searchHistory;
-
-		var searchText = text;
-
-		//if there is no search text, show suggested sites instead
-		if (!searchText) {
-			fn = bookmarks.getHistorySuggestions;
-			searchText = tabs.get(tabs.getSelected()).url;
-
-			//current tab is empty
-			var idx = tabs.getIndex(tabs.getSelected());
-			if ((!searchText || searchText == "about:blank") && idx > 0) {
-				searchText = tabs.getAtIndex(idx - 1).url;
-			}
-		}
-
-		fn(searchText, function (results) {
-
-			currentHistoryResults = results;
-
-			var showedTopAnswer = false;
-
-			maxItems = maxItems || maxHistoryResults;
-
-			//if there is no text, only history results will be shown, so we can assume that 4 results should be shown.
-			if (!text) {
-				maxItems = 4;
-
-				//don't show sites currently open as site suggestions
-
-				var tabList = tabs.get().map(function (tab) {
-					return tab.url;
-				});
-				results = results.filter(function (item) {
-					return tabList.indexOf(item.url) == -1;
-				});
-			}
-
-			empty(historyarea);
-
-			if (topAnswerarea.getElementsByClassName("history-item").length > 0) {
-				empty(topAnswerarea);
-			}
-
-			searchbarAutocomplete(text, input, results);
-
-			if (results.length < 10) {
-				maxItems = 3;
-				showSearchSuggestions(text, input, 5 - results.length);
-			} else {
-				empty(serarea);
-			}
-
-			var resultsShown = 0;
-
-			//we will never have more than 5 results, so we don't need to create more DOM elements than that
-
-			requestAnimationFrame(function () {
-
-				results.slice(0, 4).forEach(function (result) {
-
-					DDGSearchURLRegex.lastIndex = 0;
-					var isDDGSearch = DDGSearchURLRegex.test(result.url);
-
-					var itemDeleteFunction = function (el) {
-						bookmarks.deleteHistory(el.getAttribute("data-url"));
-					}
-
-
-					if (isDDGSearch) { //show the result like a search suggestion
-
-						var processedTitle = decodeURIComponent(result.url.replace(DDGSearchURLRegex, "$1").replace(plusRegex, " "));
-
-						var data = {
-							icon: "fa-search",
-							title: processedTitle,
-							url: result.url,
-							classList: ["history-item"],
-							delete: itemDeleteFunction,
-						}
-					} else {
-						var data = {
-							icon: "fa-globe",
-							title: getRealTitle(result.title) || result.url,
-							url: result.url,
-							classList: ["history-item"],
-							delete: itemDeleteFunction,
-						}
-
-						if (result.title !== result.url) {
-							data.secondaryText = urlParser.prettyURL(result.url);
-						}
-					}
-
-
-					var item = createSearchbarItem(data);
-
-					item.addEventListener("click", function (e) {
-						openURLFromsearchbar(e, result.url);
-					});
-
-					if (resultsShown >= maxItems) { //only show up to n history items
-						item.hidden = true;
-						item.classList.add("unfocusable");
-					}
-
-					if (urlParser.areEqual(currentACItem, result.url) && resultsShown < maxItems && !showedTopAnswer) { //the item is being autocompleted, highlight it
-						item.classList.add("fakefocus");
-						topAnswerarea.appendChild(item);
-						showedTopAnswer = true;
-					} else {
-						historyarea.appendChild(item)
-					}
-
-
-					resultsShown++;
-
-				});
-
-				//show a top answer item if we did domain autocompletion
-
-				if (currentACItem && !showedTopAnswer && !DDGSearchURLRegex.test(currentACItem)) {
-					var item = createSearchbarItem({
-						classList: ["history-item", "fakefocus"],
-						icon: "fa-globe",
-						title: urlParser.prettyURL(currentACItem),
-						url: currentACItem,
-					});
-
-					item.addEventListener("click", function (e) {
-						openURLFromsearchbar(e, currentACItem);
-					});
-
-					topAnswerarea.appendChild(item);
+				if (autocompletionType != -1) {
+					hasAutocompleted = true;
 				}
-			});
+
+				if (autocompletionType == 0) { //the domain was autocompleted, show a domain result item
+					var domain = new URL(result.url).hostname;
+
+					setTopAnswer("history", createSearchbarItem({
+						title: domain,
+						url: domain,
+						classList: ["fakefocus"],
+					}));
+				}
+			}
+
+			var data = {
+				title: urlParser.prettyURL(result.url),
+				secondaryText: getRealTitle(result.title),
+				url: result.url,
+				delete: function () {
+					bookmarks.deleteHistory(result.url);
+				},
+			}
+
+			var item = createSearchbarItem(data);
+
+			if (autocompletionType == 1) { //if this exact URL was autocompleted, show the item as the top answer
+				item.classList.add("fakefocus");
+				setTopAnswer("history", item);
+			} else {
+				container.appendChild(item);
+			}
 
 		});
+
+		searchbarResultCount += Math.min(results.length, 4); //add the number of results that were displayed
+
+	});
+
+};
+
+registerSearchbarPlugin("history", {
+	index: 1,
+	trigger: function (text) {
+		return !!text && text.indexOf("!") != 0;
 	},
-	50);
+	showResults: throttle(showSearchbarHistoryResults, 50),
+});
+;function showSearchbarInstantAnswers(text, input, event, container) {
 
-function limitHistoryResults(maxItems) {
-	maxHistoryResults = Math.min(4, Math.max(maxItems, 2));
+	console.log(searchbarResultCount);
 
-	var limitAmt = maxHistoryResults;
+	//don't make a request if the searchbar has already closed
 
-	if (topAnswerarea.getElementsByClassName("history-item")[0]) {
-		limitAmt--;
-	}
-
-	var itemsToHide = historyarea.querySelectorAll(".result-item:nth-child(n+{items})".replace("{items}", limitAmt + 1));
-
-	for (var i = 0; i < itemsToHide.length; i++) {
-		itemsToHide[i].hidden = true;
-		itemsToHide[i].classList.add("unfocusable");
-	}
-}
-;var bookmarkarea = searchbar.querySelector(".bookmark-results");
-
-function addBookmarkItem(result) {
-
-	//create the basic item
-	//getRealTitle is defined in searchbar.js
-
-	var item = createSearchbarItem({
-		icon: "fa-star",
-		title: getRealTitle(result.title),
-		secondaryText: urlParser.prettyURL(result.url),
-		url: result.url,
-	});
-
-	item.addEventListener("click", function (e) {
-		openURLFromsearchbar(e, result.url);
-	});
-
-	if (result.extraData && result.extraData.metadata) {
-
-		var secondaryText = item.querySelector(".secondary-text");
-
-		for (var md in result.extraData.metadata) {
-			var span = document.createElement("span");
-
-			span.className = "md-info";
-			span.textContent = result.extraData.metadata[md];
-
-			secondaryText.insertBefore(span, secondaryText.firstChild)
-		}
-
-	}
-
-	bookmarkarea.appendChild(item);
-}
-
-var showBookmarkResults = debounce(function (text) {
-	if (text.length < 5 || text.indexOf("!") == 0) { //if there is not enough text, or we're doing a bang search, don't show results
-		limitHistoryResults(5);
-		empty(bookmarkarea);
+	if (!currentSearchbarInput) {
 		return;
 	}
 
-	bookmarks.searchBookmarks(text, function (results) {
-		empty(bookmarkarea);
-		var resultsShown = 1;
-		results.splice(0, 2).forEach(function (result) {
+	fetch("https://api.duckduckgo.com/?t=min&skip_disambig=1&no_redirect=1&format=json&q=" + encodeURIComponent(text))
+		.then(function (data) {
+			return data.json();
+		})
+		.then(function (res) {
 
-			//if a history item for the same page already exists, don't show a bookmark
-			if (searchbar.querySelector('.result-item[data-url="{url}"]:not([hidden])'.replace("{url}", result.url))) {
-				return;
-			}
+			empty(container);
 
-			//as more results are added, the threshold for adding another one gets higher
-			if ((result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.3, text.length))) || text.length > 25) && (resultsShown == 1 || text.length > 6)) {
-				requestAnimationFrame(function () {
-					addBookmarkItem(result);
+			//if there is a custom format for the answer, use that
+			if (instantAnswers[res.AnswerType]) {
+				var item = instantAnswers[res.AnswerType](text, res.Answer);
+
+				//use the default format
+			} else if (res.Abstract || res.Answer) {
+
+				var data = {
+					title: removeTags(res.Answer || res.Heading),
+					descriptionBlock: res.Abstract || "Answer",
+					attribution: ddgAttribution,
+					url: res.AbstractURL || text,
+				}
+
+				if (res.Image && !res.ImageIsLogo) {
+					data.image = res.Image;
+				}
+
+				var item = createSearchbarItem(data);
+
+				//show a disambiguation
+			} else if (res.RelatedTopics) {
+
+				res.RelatedTopics.slice(0, 3).forEach(function (item) {
+					//the DDG api returns the entity name inside an <a> tag
+					var entityName = item.Result.replace(/.*>(.+?)<.*/g, "$1");
+
+					//the text starts with the entity name, remove it
+					var desc = item.Text.replace(entityName, "");
+
+					var item = createSearchbarItem({
+						title: entityName,
+						descriptionBlock: desc,
+						url: item.FirstURL,
+					});
+
+					container.appendChild(item);
 				});
-				resultsShown++;
+
+				searchbarResultCount += Math.min(res.RelatedTopics.length, 3);
 			}
 
-		});
+			if (item) {
 
-		//if we have lots of bookmarks, don't show as many regular history items
-		if (resultsShown == 3) {
-			limitHistoryResults(3);
-		} else {
-			limitHistoryResults(4);
-		}
+				//answers are more relevant, they should be displayed at the top
+				if (res.Answer) {
+					setTopAnswer("instantAnswers", item);
+				} else {
+					container.appendChild(item);
+				}
 
-	});
-}, 133);
-
-var showAllBookmarks = function () {
-	bookmarks.searchBookmarks("", function (results) {
-
-		results.sort(function (a, b) {
-			//http://stackoverflow.com/questions/6712034/sort-array-by-firstname-alphabetically-in-javascript
-			if (a.url < b.url) return -1;
-			if (a.url > b.url) return 1;
-			return 0;
-		});
-		results.forEach(addBookmarkItem);
-	});
-}
-;var bangRegex = /!\w+/g;
-var serarea = searchbar.querySelector(".search-engine-results");
-var iaarea = searchbar.querySelector(".instant-answer-results");
-var topAnswerarea = searchbar.querySelector(".top-answer-results");
-var suggestedsitearea = searchbar.querySelector("#searchbar .ddg-site-results");
-
-var ddgAttribution = "Results from DuckDuckGo";
-
-//cache duckduckgo bangs so we make fewer network requests
-var cachedBangSnippets = {};
-
-//format is {bang: count}
-var bangUseCounts = JSON.parse(localStorage.getItem("bangUseCounts") || "{}");
-
-function removeAllDDGAnswers() {
-	var a = searchbar.querySelectorAll(".ddg-answer");
-	for (var i = 0; i < a.length; i++) {
-		a[i].parentNode.removeChild(a[i]);
-	}
-}
-
-function incrementBangCount(bang) {
-	//increment bangUseCounts
-
-	if (bangUseCounts[bang]) {
-		bangUseCounts[bang]++;
-	} else {
-		bangUseCounts[bang] = 1;
-	}
-
-	//prevent the data from getting too big
-
-	if (bangUseCounts[bang] > 1000) {
-		for (var bang in bangUseCounts) {
-			bangUseCounts[bang] = Math.floor(bangUseCounts[bang] * 0.9);
-
-			if (bangUseCounts[bang] < 2) {
-				delete bangUseCounts[bang];
 			}
-		}
-	}
+
+			//suggested site links
+
+
+			if (searchbarResultCount < 4 && res.Results && res.Results[0] && res.Results[0].FirstURL) {
+
+				var url = res.Results[0].FirstURL;
+
+				var data = {
+					icon: "fa-globe",
+					title: urlParser.removeProtocol(url).replace(trailingSlashRegex, ""),
+					secondaryText: "Suggested site",
+					url: url,
+					classList: ["ddg-answer"],
+				}
+
+				var item = createSearchbarItem(data);
+
+				container.appendChild(item);
+			}
+
+			//if we're showing a location, show a "Search on OpenStreetMap" link
+
+			var entitiesWithLocations = ["location", "country", "u.s. state", "protected area"];
+
+			if (entitiesWithLocations.indexOf(res.Entity) != -1) {
+
+				var item = createSearchbarItem({
+					icon: "fa-search",
+					title: res.Heading,
+					secondaryText: "Search on OpenStreetMap",
+					classList: ["ddg-answer"],
+					url: "https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading)
+				});
+
+				container.insertBefore(item, container.firstChild);
+			}
+		})
+		.catch(function (e) {
+			console.error(e);
+		});
 }
 
-var saveBangUseCounts = debounce(function () {
-	localStorage.setItem("bangUseCounts", JSON.stringify(bangUseCounts));
-}, 10000);
+registerSearchbarPlugin("instantAnswers", {
+	index: 2,
+	trigger: function (text) {
+		return text.length > 3 && !urlParser.isURLMissingProtocol(text) && !tabs.get(tabs.getSelected()).private;
+	},
+	showResults: debounce(showSearchbarInstantAnswers, 400),
+});
 
-/* custom answer layouts */
 
-var IAFormats = {
+// custom instant answers
+
+var instantAnswers = {
 	color_code: function (searchText, answer) {
 		var alternateFormats = [answer.data.rgb, answer.data.hslc, answer.data.cmyb];
 
@@ -1714,8 +1616,7 @@ var IAFormats = {
 
 		var item = createSearchbarItem({
 			title: searchText,
-			descriptionBlock: alternateFormats.join(" " + METADATA_SEPARATOR + " "),
-			classList: ["indent", "ddg-answer"],
+			descriptionBlock: alternateFormats.join(" · "),
 			attribution: ddgAttribution,
 		});
 
@@ -1733,7 +1634,6 @@ var IAFormats = {
 			title: answer.data.title,
 			image: answer.data.image,
 			descriptionBlock: answer.data.description + " " + answer.data.subtitle,
-			classList: ["indent", "ddg-answer"],
 			attribution: ddgAttribution,
 		});
 
@@ -1744,7 +1644,6 @@ var IAFormats = {
 
 		var item = createSearchbarItem({
 			descriptionBlock: formattedAnswer,
-			classList: ["indent", "ddg-answer"],
 			attribution: ddgAttribution,
 		});
 
@@ -1781,22 +1680,194 @@ var IAFormats = {
 		var item = createSearchbarItem({
 			title: title,
 			descriptionBlock: descriptionBlock,
-			classList: ["indent", "ddg-answer"],
 			attribution: ddgAttribution,
 		});
 
 		return item;
 	},
 }
+;function getBookmarkItem(result) {
 
-//this is triggered from history.js - we only show search suggestions if we don't have history results
-window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
+	//create the basic item
+	//getRealTitle is defined in searchbar.js
 
-	if (!text || tabs.get(tabs.getSelected()).private) { //we don't show search suggestions in private tabs, since this would send typed text to DDG
+	var item = createSearchbarItem({
+		icon: "fa-star",
+		title: getRealTitle(result.title),
+		secondaryText: urlParser.prettyURL(result.url),
+		url: result.url,
+	});
+
+	if (result.extraData && result.extraData.metadata) {
+
+		var secondaryText = item.querySelector(".secondary-text");
+
+		for (var md in result.extraData.metadata) {
+			var span = document.createElement("span");
+
+			span.className = "md-info";
+			span.textContent = result.extraData.metadata[md];
+
+			secondaryText.insertBefore(span, secondaryText.firstChild)
+		}
+
+	}
+
+	return item;
+}
+
+function showBookmarkResults(text, input, event, container) {
+
+	bookmarks.searchBookmarks(text, function (results) {
+
+		console.log(container);
+		empty(container);
+
+		var resultsShown = 1;
+		results.splice(0, 2).forEach(function (result) {
+
+			//as more results are added, the threshold for adding another one gets higher
+			if ((result.score > Math.max(0.0004, 0.0016 - (0.00012 * Math.pow(1.3, text.length))) || text.length > 25) && (resultsShown == 1 || text.length > 6)) {
+				container.appendChild(getBookmarkItem(result));
+				resultsShown++;
+			}
+
+		});
+	});
+}
+
+registerSearchbarPlugin("bookmarks", {
+	index: 3,
+	trigger: function (text) {
+		return text.length > 4;
+	},
+	showResults: debounce(showBookmarkResults, 200),
+});
+
+function showAllBookmarks() {
+	bookmarks.searchBookmarks("", function (results) {
+
+		results.sort(function (a, b) {
+			//http://stackoverflow.com/questions/6712034/sort-array-by-firstname-alphabetically-in-javascript
+			if (a.url < b.url) return -1;
+			if (a.url > b.url) return 1;
+			return 0;
+		});
+
+		var container = getSearchbarContainer("bookmarks");
+
+		results.forEach(function (result) {
+			container.appendChild(getBookmarkItem(result));
+		});
+	});
+}
+;var stringScore = require("string_score");
+
+var searchOpenTabs = function (text, input, event, container) {
+
+	empty(container);
+
+	var matches = [],
+		selTab = tabs.getSelected();
+
+	tabs.get().forEach(function (item) {
+		if (item.id == selTab || !item.title || item.url == "about:blank") {
+			return;
+		}
+
+		var itemUrl = urlParser.removeProtocol(item.url); //don't search protocols
+
+		var exactMatch = item.title.indexOf(text) != -1 || itemUrl.indexOf(text) != -1
+		var fuzzyMatch = item.title.substring(0, 50).score(text, 0.5) > 0.4 || itemUrl.score(text, 0.5) > 0.4;
+
+		if (exactMatch || fuzzyMatch) {
+			matches.push(item);
+		}
+	});
+
+	if (matches.length == 0) {
 		return;
 	}
 
-	itemsToShow = Math.max(2, itemsToShow);
+	var finalMatches = matches.splice(0, 2).sort(function (a, b) {
+		return b.title.score(text, 0.5) - a.title.score(text, 0.5);
+	});
+
+	finalMatches.forEach(function (tab) {
+
+		var data = {
+			icon: "fa-external-link-square",
+			title: tab.title,
+			secondaryText: urlParser.removeProtocol(tab.url).replace(trailingSlashRegex, "")
+		}
+
+		var item = createSearchbarItem(data);
+
+		item.addEventListener("click", function () {
+
+			//if we created a new tab but are switching away from it, destroy the current (empty) tab
+			var currentTabUrl = tabs.get(tabs.getSelected()).url;
+			if (!currentTabUrl || currentTabUrl == "about:blank") {
+				destroyTab(tabs.getSelected(), {
+					switchToTab: false
+				});
+			}
+			switchToTab(tab.id);
+		});
+
+		container.appendChild(item);
+	});
+
+	searchbarResultCount += finalMatches.length;
+}
+
+registerSearchbarPlugin("openTabs", {
+	index: 4,
+	trigger: function (text) {
+		return text.length > 2;
+	},
+	showResults: searchOpenTabs,
+})
+;var ddgAttribution = "Results from DuckDuckGo",
+	bangRegex = /!\w+/g;
+
+//cache duckduckgo bangs so we make fewer network requests
+var cachedBangSnippets = {};
+
+//format is {bang: count}
+var bangUseCounts = JSON.parse(localStorage.getItem("bangUseCounts") || "{}");
+
+function incrementBangCount(bang) {
+	//increment bangUseCounts
+
+	if (bangUseCounts[bang]) {
+		bangUseCounts[bang]++;
+	} else {
+		bangUseCounts[bang] = 1;
+	}
+
+	//prevent the data from getting too big
+
+	if (bangUseCounts[bang] > 1000) {
+		for (var bang in bangUseCounts) {
+			bangUseCounts[bang] = Math.floor(bangUseCounts[bang] * 0.9);
+
+			if (bangUseCounts[bang] < 2) {
+				delete bangUseCounts[bang];
+			}
+		}
+	}
+}
+
+var saveBangUseCounts = debounce(function () {
+	localStorage.setItem("bangUseCounts", JSON.stringify(bangUseCounts));
+}, 10000);
+
+function showSearchSuggestions(text, input, event, container) {
+	if (searchbarResultCount > 3) {
+		empty(container);
+		return;
+	}
 
 	fetch("https://ac.duckduckgo.com/ac/?t=min&q=" + encodeURIComponent(text), {
 			cache: "force-cache"
@@ -1806,7 +1877,7 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 		})
 		.then(function (results) {
 
-			empty(serarea);
+			empty(container);
 
 			if (results && results[0] && results[0].snippet) { //!bang search - ddg api doesn't have a good way to detect this
 
@@ -1847,15 +1918,14 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 						}, 66);
 					});
 
-					serarea.appendChild(item);
+					container.appendChild(item);
 				});
 
 			} else if (results) {
-				results.splice(0, itemsToShow).forEach(function (result) {
+				results.slice(0, 3).forEach(function (result) {
 
 					var data = {
 						title: result.phrase,
-						classList: ["iadata-onfocus"],
 					}
 
 					if (bangRegex.test(result.phrase)) {
@@ -1882,198 +1952,69 @@ window.showSearchSuggestions = throttle(function (text, input, itemsToShow) {
 						openURLFromsearchbar(e, result.phrase);
 					});
 
-					serarea.appendChild(item);
+					container.appendChild(item);
 				});
 			}
+			searchbarResultCount += results.length;
 		});
-
-}, 350);
-
-window.showInstantAnswers = debounce(function (text, input, options) {
-
-	options = options || {};
-
-	if (!text) {
-		empty(iaarea);
-		empty(suggestedsitearea);
-		return;
-	}
-
-	//don't make useless queries
-	if (urlParser.isURLMissingProtocol(text)) {
-		return;
-	}
-
-	//don't send typed text in private mode
-	if (tabs.get(tabs.getSelected()).private) {
-		return;
-	}
-
-	if (text.length > 3) {
-
-		fetch("https://api.duckduckgo.com/?t=min&skip_disambig=1&no_redirect=1&format=json&q=" + encodeURIComponent(text))
-			.then(function (data) {
-				return data.json();
-			})
-			.then(function (res) {
-
-				//if value has changed, don't show results
-				if (text != getValue(input) && !options.alwaysShow) {
-					return;
-				}
-
-				//if there is a custom format for the answer, use that
-				if (IAFormats[res.AnswerType]) {
-					var item = IAFormats[res.AnswerType](text, res.Answer);
-
-				} else if (res.Abstract || res.Answer) {
-
-					var data = {
-						title: removeTags(res.Answer || res.Heading),
-						descriptionBlock: res.Abstract || "Answer",
-						classList: ["ddg-answer", "indent"],
-						attribution: ddgAttribution,
-					}
-
-					if (res.Image && !res.ImageIsLogo) {
-						data.image = res.Image;
-					}
-
-					var item = createSearchbarItem(data);
-				}
-
-				if (options.destroyPrevious != false || item) {
-					removeAllDDGAnswers();
-				}
-
-				if (item) {
-					item.addEventListener("click", function (e) {
-						openURLFromsearchbar(e, res.AbstractURL || text);
-					});
-
-					//answers are more relevant, they should be displayed at the top
-					if (res.Answer) {
-						empty(topAnswerarea);
-						topAnswerarea.appendChild(item);
-					} else {
-						iaarea.appendChild(item);
-					}
-
-				}
-
-				//suggested site links
-
-
-				if (res.Results && res.Results[0] && res.Results[0].FirstURL && currentHistoryResults.length < 11) {
-
-					var url = res.Results[0].FirstURL;
-
-					var data = {
-						icon: "fa-globe",
-						title: urlParser.removeProtocol(url).replace(trailingSlashRegex, ""),
-						secondaryText: "Suggested site",
-						url: url,
-						classList: ["ddg-answer"],
-					}
-
-					var item = createSearchbarItem(data);
-
-					item.addEventListener("click", function (e) {
-						openURLFromsearchbar(e, res.Results[0].FirstURL);
-					});
-
-					suggestedsitearea.appendChild(item);
-				}
-
-				//if we're showing a location, show a "Search on OpenStreetMap" link
-
-				var entitiesWithLocations = ["location", "country", "u.s. state", "protected area"];
-
-				if (entitiesWithLocations.indexOf(res.Entity) != -1) {
-
-					var item = createSearchbarItem({
-						icon: "fa-search",
-						title: res.Heading,
-						secondaryText: "Search on OpenStreetMap",
-						classList: ["ddg-answer"]
-					});
-
-					item.addEventListener("click", function (e) {
-						openURLFromsearchbar(e, "https://www.openstreetmap.org/search?query=" + encodeURIComponent(res.Heading));
-					});
-
-					iaarea.insertBefore(item, iaarea.firstChild);
-				}
-
-
-			})
-			.catch(function (e) {
-				console.error(e);
-			});
-	} else {
-		removeAllDDGAnswers(); //we still want to remove old items, even if we didn't make a new request
-	}
-
-}, 450);
-;var spacesRegex = /[\s._/-]/g; //copied from historyworker.js
-var opentabarea = searchbar.querySelector(".opentab-results");
-
-var stringScore = require("string_score");
-
-var searchOpenTabs = function (searchText) {
-
-	requestAnimationFrame(function () {
-
-		empty(opentabarea);
-
-		if (searchText.length < 3) {
-			return;
-		}
-
-		var matches = [],
-			selTab = tabs.getSelected();
-
-		tabs.get().forEach(function (item) {
-			if (item.id == selTab || !item.title || item.url == "about:blank") {
-				return;
-			}
-
-			var itemUrl = urlParser.removeProtocol(item.url); //don't search protocols
-
-			var exactMatch = item.title.indexOf(searchText) != -1 || itemUrl.indexOf(searchText) != -1
-			var fuzzyMatch = item.title.substring(0, 50).score(searchText, 0.5) > 0.4 || itemUrl.score(searchText, 0.5) > 0.4;
-
-			if (exactMatch || fuzzyMatch) {
-				matches.push(item);
-			}
-		});
-
-		matches.splice(0, 2).sort(function (a, b) {
-			return b.title.score(searchText, 0.5) - a.title.score(searchText, 0.5);
-		}).forEach(function (tab) {
-			var data = {
-				icon: "fa-external-link-square",
-				title: tab.title,
-				secondaryText: urlParser.removeProtocol(tab.url).replace(trailingSlashRegex, "")
-			}
-
-			var item = createSearchbarItem(data);
-
-			item.addEventListener("click", function () {
-				//if we created a new tab but are switching away from it, destroy the current (empty) tab
-				var currentTabUrl = tabs.get(tabs.getSelected()).url;
-				if (!currentTabUrl || currentTabUrl == "about:blank") {
-					destroyTab(tabs.getSelected(), {
-						switchToTab: false
-					});
-				}
-				switchToTab(tab.id);
-			});
-
-			opentabarea.appendChild(item);
-		});
-	});
 }
+
+registerSearchbarPlugin("searchSuggestions", {
+	index: 3,
+	trigger: function (text) {
+		return !!text && !tabs.get(tabs.getSelected()).private;
+	},
+	showResults: debounce(showSearchSuggestions, 200),
+})
+;function showHistorySuggestions(text, input, event, container) {
+
+	//use the current tab's url for history suggestions, or the previous tab if the current tab is empty
+	var url = tabs.get(tabs.getSelected()).url;
+
+	if (!url || url == "about:blank") {
+		var previousTab = tabs.getAtIndex(tabs.getIndex(tabs.getSelected()) - 1);
+		if (previousTab) {
+			url = previousTab.url;
+		}
+	}
+
+	bookmarks.getHistorySuggestions(url, function (results) {
+
+		empty(container);
+
+		var tabList = tabs.get().map(function (tab) {
+			return tab.url;
+		});
+
+		results = results.filter(function (item) {
+			return tabList.indexOf(item.url) == -1;
+		});
+
+		results.slice(0, 4).forEach(function (result) {
+
+			var item = createSearchbarItem({
+				title: urlParser.prettyURL(result.url),
+				secondaryText: getRealTitle(result.title),
+				url: result.url,
+				delete: function () {
+					bookmarks.deleteHistory(result.url);
+				},
+			});
+
+			container.appendChild(item);
+
+		})
+	});
+
+}
+
+registerSearchbarPlugin("historySuggestions", {
+	index: 1,
+	trigger: function (text) {
+		return !text;
+	},
+	showResults: showHistorySuggestions,
+})
 ;var readerView = {
 	readerURL: "file://" + __dirname + "/reader/index.html",
 	getReaderURL: function (url) {
@@ -2150,7 +2091,7 @@ var searchOpenTabs = function (searchText) {
 			}
 
 			if (articlesShown == 0) {
-				clearsearchbar();
+				clearSearchbar();
 			}
 
 			var item = createSearchbarItem({
@@ -2170,7 +2111,7 @@ var searchOpenTabs = function (searchText) {
 				item.style.opacity = 0.65;
 			}
 
-			historyarea.appendChild(item);
+			getSearchbarContainer("history").appendChild(item);
 
 			articlesShown++;
 		}).then(function () {
@@ -2194,7 +2135,7 @@ var searchOpenTabs = function (searchText) {
 				seeMoreLink.style.opacity = 0.5;
 
 				seeMoreLink.addEventListener("click", function (e) {
-					clearsearchbar();
+					clearSearchbar();
 					readerView.showReadingList({
 						limitResults: false
 					});
@@ -2628,8 +2569,8 @@ function rerenderTabElement(tabId) {
 
 	if (tabData.secure === false) {
 		if (!secIcon) {
-			var vc = tabEl.querySelector(".tab-view-contents");
-			vc.insertAdjacentHTML("afterbegin", "<i class='fa fa-exclamation-triangle icon-tab-not-secure' title='Your connection to this website is not secure.'></i>");
+			var iconArea = tabEl.querySelector(".tab-icon-area");
+			iconArea.insertAdjacentHTML("afterbegin", "<i class='fa fa-exclamation-triangle icon-tab-not-secure' title='Your connection to this website is not secure.'></i>");
 		}
 	} else if (secIcon) {
 		secIcon.parentNode.removeChild(secIcon);
@@ -2668,10 +2609,19 @@ function createTabElement(tabId) {
 	vc.className = "tab-view-contents";
 	vc.appendChild(readerView.getButton(tabId));
 
+	//icons
+
+	var iconArea = document.createElement("span");
+	iconArea.className = "tab-icon-area";
+
 	if (data.private) {
-		vc.insertAdjacentHTML("afterbegin", "<i class='fa fa-ban icon-tab-is-private'></i>");
+		iconArea.insertAdjacentHTML("afterbegin", "<i class='fa fa-ban icon-tab-is-private'></i>");
 		vc.setAttribute("title", "Private tab");
 	}
+
+	vc.appendChild(iconArea);
+
+	//title
 
 	var title = document.createElement("span");
 	title.className = "title";
@@ -2680,6 +2630,7 @@ function createTabElement(tabId) {
 	vc.appendChild(title);
 
 	vc.insertAdjacentHTML("beforeend", "<span class='secondary-text'></span>");
+
 	tabEl.appendChild(vc);
 
 	/* events */
@@ -2701,9 +2652,8 @@ function createTabElement(tabId) {
 	input.addEventListener("keypress", function (e) {
 
 		if (e.keyCode == 13) { //return key pressed; update the url
-			var newURL = currentACItem || parsesearchbarURL(this.value);
 
-			openURLFromsearchbar(e, newURL);
+			openURLFromsearchbar(e, this.value);
 
 			//focus the webview, so that autofocus inputs on the page work
 			getWebview(tabs.getSelected()).focus();
@@ -2728,10 +2678,7 @@ function createTabElement(tabId) {
 
 		if (v && sel == 0) {
 			this.selectionStart += 1;
-			didFireKeydownSelChange = true;
 			e.preventDefault();
-		} else {
-			didFireKeydownSelChange = false;
 		}
 	});
 
@@ -2830,6 +2777,8 @@ function addTab(tabId, options) {
 		});
 	}
 
+	findinpage.end();
+
 	var index = tabs.getIndex(tabId);
 
 	var tabEl = createTabElement(tabId);
@@ -2860,6 +2809,7 @@ function addTab(tabId, options) {
 bindWebviewEvent("focus", function () {
 	leaveExpandedMode();
 	leaveTabEditMode();
+	findinpage.end();
 });
 ;/* provides simple utilities for entering/exiting expanded tab mode */
 
@@ -3111,7 +3061,11 @@ require.async("mousetrap", function (Mousetrap) {
 	Mousetrap.bind("esc", function (e) {
 		leaveTabEditMode();
 		leaveExpandedMode();
-		getWebview(tabs.getSelected()).focus();
+		if (findinpage.isEnabled) {
+			findinpage.end(); //this also focuses the webview
+		} else {
+			getWebview(tabs.getSelected()).focus();
+		}
 	});
 
 	Mousetrap.bind("shift+mod+r", function () {
@@ -3190,7 +3144,7 @@ require.async("mousetrap", function (Mousetrap) {
 	});
 
 	Mousetrap.bind("shift+mod+b", function () {
-		clearsearchbar();
+		clearSearchbar();
 		showSearchbar(getTabInput(tabs.getSelected()));
 		enterEditMode(tabs.getSelected());
 		showAllBookmarks();
@@ -3238,55 +3192,68 @@ ipc.on("openPDF", function (event, filedata) {
 	container: document.getElementById("findinpage-bar"),
 	isEnabled: false,
 	start: function (options) {
+		findinpage.counter.textContent = "";
+
 		findinpage.container.hidden = false;
 		findinpage.isEnabled = true;
 		findinpage.input.focus();
 		findinpage.input.select();
 	},
 	end: function (options) {
-		findinpage.container.hidden = true;
-		findinpage.isEnabled = false;
-
-		//focus the webview
-
-		if (findinpage.input == document.activeElement) {
-			getWebview(tabs.getSelected()).focus();
-		}
-	},
-	toggle: function () {
 		if (findinpage.isEnabled) {
-			findinpage.end();
-		} else {
-			findinpage.start();
+			findinpage.container.hidden = true;
+			findinpage.isEnabled = false;
+
+			var webview = getWebview(tabs.getSelected());
+			webview.stopFindInPage("keepSelection");
+			webview.focus();
 		}
 	},
-	escape: function (text) { //removes apostrophes from text so we can safely embed it in a string
-		return text.replace(/'/g, "\\'");
-	}
 }
 
 findinpage.input = findinpage.container.querySelector(".findinpage-input");
+findinpage.previous = findinpage.container.querySelector(".findinpage-previous-match");
+findinpage.next = findinpage.container.querySelector(".findinpage-next-match");
+findinpage.counter = findinpage.container.querySelector("#findinpage-count");
+findinpage.endButton = findinpage.container.querySelector("#findinpage-end");
 
-findinpage.input.addEventListener("keyup", function (e) {
-	//escape key should exit find mode, not continue searching
-	if (e.keyCode == 27) {
-		findinpage.end();
-		return;
-	}
-	var text = findinpage.escape(this.value);
-	var webview = getWebview(tabs.getSelected());
-
-	//this stays on the current text if it still matches, preventing flickering. However, if the return key was pressed, we should move on to the next match instead, so this shouldn't run.
-	if (e.keyCode != 13) {
-		webview.executeJavaScript("window.getSelection().empty()");
-	}
-
-	webview.executeJavaScript("find('{t}', false, false, true, false, false, false)".replace("{t}", text)); //see https://developer.mozilla.org/en-US/docs/Web/API/Window/find for a description of the parameters
-});
-
-findinpage.input.addEventListener("blur", function (e) {
+findinpage.endButton.addEventListener("click", function () {
 	findinpage.end();
 });
+
+findinpage.input.addEventListener("keyup", function (e) {
+	if (this.value) {
+		getWebview(tabs.getSelected()).findInPage(this.value);
+	}
+});
+
+findinpage.previous.addEventListener("click", function (e) {
+	getWebview(tabs.getSelected()).findInPage(findinpage.input.value, {
+		forward: false,
+		findNext: true
+	});
+	findinpage.input.focus();
+});
+
+findinpage.next.addEventListener("click", function (e) {
+	getWebview(tabs.getSelected()).findInPage(findinpage.input.value, {
+		forward: true,
+		findNext: true
+	});
+	findinpage.input.focus();
+});
+
+bindWebviewEvent("found-in-page", function (e) {
+	if (e.result.matches) {
+		if (e.result.matches > 1) {
+			var text = " matches";
+		} else {
+			var text = " match";
+		}
+
+		findinpage.counter.textContent = e.result.matches + text;
+	}
+})
 ;var sessionRestore = {
 	save: function () {
 		requestIdleCallback(function () {
