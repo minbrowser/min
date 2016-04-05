@@ -8,7 +8,15 @@ html {
 	font-family: '.SFNSText-Regular', 'Helvetica Neue', 'Arial', sans-serif;
 }
 * {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+}
+
+/* firefox < 4, safari < 5.1, ie < 11 doesn't support hidden attribute */
+
+[hidden] {
+	display: none;
 }
 .fade {
 	opacity: 0.333;
@@ -20,7 +28,7 @@ html {
 	color: white;
 }
 .hero {
-	height: 85vh;
+	height: 85%;
 	width: 100vw;
 	position: relative;
 	overflow: hidden;
@@ -30,6 +38,7 @@ html {
 	top: 72.5%;
 	left: 5%;
 	width: 90%;
+	height: 40%;
 	height: 25vw;
 	overflow: hidden;
 }
@@ -38,11 +47,15 @@ html {
 }
 .video-container-spacer {
 	display: block;
+	/* fallback for older browsers */
+	height: 25%;
 	/* this must be the same as (video-container - overlap between video-container and hero */
 	height: calc(25vw - 10vh);
 }
 .blue-gradient-background {
 	background: linear-gradient(135deg, rgba(80, 122, 196, 1) 43%, rgba(80, 122, 196, 1) 43%, rgba(128, 192, 226, 1) 89%, rgba(128, 192, 226, 1) 89%);
+	/* fallback for old browsers that don't support gradients */
+	background-color: rgb(80, 122, 196);
 }
 .blue-gradient-top {
 	width: 100%;
@@ -81,6 +94,9 @@ a.inherit-color {
 	position: absolute;
 	top: 50%;
 	left: 50%;
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
 	transform: translateX(-50%) translateY(-50%);
 }
 .outlined-button {
@@ -173,8 +189,8 @@ button.disabled {
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	background-color: rgba(0, 0, 0, 0.75);
 }
 .dialog {
@@ -198,8 +214,12 @@ ul {
 	html {
 		font-size: 13px;
 	}
-	.tour-card {
+	.column,
+	.section.half-width {
 		min-width: 100%;
+	}
+	.section img.column {
+		display: none;
 	}
 	.hero .centered {
 		width: 90%;

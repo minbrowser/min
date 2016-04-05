@@ -24,11 +24,9 @@ if (!platformMatched) {
 	}
 } else {
 	for (var i = 0; i < downloadButtons.length; i++) {
-		downloadButtons[i].addEventListener("click", function (e) {
-			setTimeout(function () {
-				openDialog();
-			}, 500);
-		});
+		downloadButtons[i].addEventListener("click", function () {
+			setTimeout(openDownloadPopup, 500);
+		}, false);
 	}
 }
 
@@ -37,22 +35,22 @@ var dialog = document.getElementsByClassName("dialog")[0];
 
 var dialogCloseButtons = document.getElementsByClassName("dialog-close-button");
 
-function openDialog() {
+function openDownloadPopup() {
 	backdrop.hidden = false;
 	dialog.hidden = false;
 }
 
-function closeDialog() {
+function closeDownloadPopup() {
 	backdrop.hidden = true;
 	dialog.hidden = true;
 }
 
 for (var i = 0; i < dialogCloseButtons.length; i++) {
 	dialogCloseButtons[i].addEventListener("click", function (e) {
-		closeDialog();
-	});
+		closeDownloadPopup();
+	}, false);
 }
 
 backdrop.addEventListener("click", function () {
-	closeDialog();
-});
+	closeDownloadPopup();
+}, false);
