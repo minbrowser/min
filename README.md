@@ -21,4 +21,6 @@ More information, and prebuilt binaries, are available [here](https://palmeral.g
 
 * run ``` npm install ```, then run ```grunt```.
 
-Generate a binary with ```grunt build```.
+##Building
+If you are using OS X, install [Homebrew](https://brew.sh), then run ```brew install fakeroot dpkg```.
+Then run ```grunt build```.

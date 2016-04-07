@@ -92,6 +92,7 @@ module.exports = function (grunt) {
 					arch: 'x64',
 					icon: "icon.icns",
 					ignore: 'dist/app',
+					overwrite: true,
 				}
 			},
 			windowsBuild: {
@@ -104,6 +105,7 @@ module.exports = function (grunt) {
 					platform: 'win32',
 					arch: 'all',
 					ignore: 'dist/app',
+					overwrite: true,
 				}
 			},
 			linuxBuild: {
@@ -116,7 +118,33 @@ module.exports = function (grunt) {
 					platform: 'linux',
 					arch: 'all',
 					ignore: 'dist/app',
+					overwrite: true,
 				}
+			}
+		},
+		'electron-installer-debian': {
+			options: {
+				productName: "min",
+				genericName: "Web Browser",
+				version: version,
+				section: "web",
+				homepage: "https://palmeral.github.io/min/",
+				icon: "icons/icon256.png",
+			},
+			linux32: {
+				options: {
+					arch: 'i386'
+				},
+				src: 'dist/app/Min-linux-ia32',
+				dest: 'dist/app/linux'
+			},
+
+			linux64: {
+				options: {
+					arch: 'amd64'
+				},
+				src: 'dist/app/Min-linux-x64',
+				dest: 'dist/app/linux'
 			}
 		}
 	});
@@ -124,10 +152,11 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-electron');
+	grunt.loadNpmTasks('grunt-electron-installer-debian');
 
 	grunt.registerTask('default', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main']);
 	grunt.registerTask('browser', ['concat:browser', 'uglify:browser']);
 	grunt.registerTask('webview', ['concat:webview', 'uglify:webview']);
-	grunt.registerTask('build', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main', 'electron:osxBuild', 'electron:windowsBuild', 'electron:linuxBuild'])
+	grunt.registerTask('build', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main', 'electron:osxBuild', 'electron:windowsBuild', 'electron:linuxBuild', 'electron-installer-debian:linux32', 'electron-installer-debian:linux64'])
 
 };

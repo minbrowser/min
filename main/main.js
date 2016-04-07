@@ -362,6 +362,26 @@ function createAppMenu() {
 		});
 	}
 
+	//preferences item on linux
+
+	if (process.platform == "linux") {
+
+		template[1].submenu.push({
+			type: "separator"
+		});
+
+		template[1].submenu.push({
+			label: 'Privacy Preferences',
+			accelerator: "CmdOrCtrl+,",
+			click: function (item, window) {
+				sendIPCToWindow(window, "addTab", {
+					url: "file://" + __dirname + "/pages/settings/index.html"
+				});
+			}
+		});
+
+	}
+
 	var menu = new Menu();
 
 	menu = Menu.buildFromTemplate(template);
