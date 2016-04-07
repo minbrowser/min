@@ -69,7 +69,11 @@ for (var contentType in contentTypes) {
 
 function getSetting(key, cb) {
 	db.settings.where("key").equals(key).first(function (item) {
-		cb(item.value);
+		if (item) {
+			cb(item.value);
+		} else {
+			cb(null);
+		}
 	});
 }
 
