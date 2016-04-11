@@ -4,29 +4,58 @@ var failMessage = "Min is not available on this OS";
 
 var availablePlatforms = ["MacIntel"];
 
-var downloadButtons = document.getElementsByClassName("download-button");
+var platforms = {
+	"MacIntel": "https://github.com/PalmerAL/min/releases/download/v1.1.1/Min-v1.1.1-darwin-x64.zip",
+	"Linux i686": "https://github.com/PalmerAL/min/releases/download/v1.1.1/Min_1.1.1_i386.deb",
+	"x86_64": "https://github.com/PalmerAL/min/releases/download/v1.1.1/Min_1.1.1_amd64.deb",
+}
 
-var platform = navigator.platform;
+var downloadButtons = document.getElementsByClassName("download-button");
+var subtexts = document.getElementsByClassName("button-subtext");
+
+var nav = navigator.platform;
 
 var platformMatched = false;
+var downloadLink = null;
 
-for (var i = 0; i < availablePlatforms.length; i++) {
-	if (platform == availablePlatforms[i]) {
+for (var platform in platforms) {
+	if (nav.indexOf(platform) !== -1) {
 		platformMatched = true;
+		downloadLink = platforms[platform];
 		break;
 	}
 }
 
-if (!platformMatched) {
+//android often reports linux as the platform
+
+if (navigator.userAgent.indexOf("Android") !== -1) {
+	platformMatched = false;
+}
+
+if (platformMatched) {
+	for (var i = 0; i < downloadButtons.length; i++) {
+		downloadButtons[i].parentElement.href = downloadLink;
+
+		//show gatekeeper instruction popup
+		if (nav === "MacIntel") {
+			downloadButtons[i].addEventListener("click", function () {
+				setTimeout(openDownloadPopup, 500);
+			}, false);
+		}
+	}
+} else {
 	for (var i = 0; i < downloadButtons.length; i++) {
 		downloadButtons[i].classList.add("disabled");
 		downloadButtons[i].getElementsByClassName("button-label")[0].textContent = failMessage;
 	}
-} else {
-	for (var i = 0; i < downloadButtons.length; i++) {
-		downloadButtons[i].addEventListener("click", function () {
-			setTimeout(openDownloadPopup, 500);
-		}, false);
+	for (var i = 0; i < subtexts.length; i++) {
+		subtexts[i].textContent = "Min requires OS X or Ubuntu";
+	}
+}
+
+if (platformMatched && nav != "MacIntel") {
+	for (var i = 0; i < subtexts.length; i++) {
+		subtexts[i].parentNode.removeChild(subtexts[i]);
 	}
 }
 
