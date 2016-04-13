@@ -10,7 +10,8 @@
     "mousetrap": "^1.5.3",
     "nlp_compromise": "^1.1.5",
     "require.async": "^0.1.1",
-    "string_score": "^0.1.22"
+    "string_score": "^0.1.22",
+    "hostile": "^1.0.2"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
