@@ -1,6 +1,6 @@
 /* check if Min is available for the user's computer */
 
-var failMessage = "Min is not available on this OS";
+var failMessage = "Min requires OS X or Ubuntu";
 
 var availablePlatforms = ["MacIntel"];
 
@@ -49,7 +49,7 @@ if (platformMatched) {
 		downloadButtons[i].getElementsByClassName("button-label")[0].textContent = failMessage;
 	}
 	for (var i = 0; i < subtexts.length; i++) {
-		subtexts[i].textContent = "Min requires OS X or Ubuntu";
+		subtexts[i].textContent = "Download anyway >>";
 	}
 }
 
