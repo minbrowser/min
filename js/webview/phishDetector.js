@@ -52,7 +52,7 @@ function checkPhishingStatus() {
 			if (tx.indexOf(sensitiveFormWords[i]) != -1) {
 				debug_phishing("sensitive word found in form, checking");
 				sensitiveFormFound = true;
-				minPhishingScore += 0.15;
+				minPhishingScore += 0.075;
 				return true;
 			}
 		}
@@ -138,7 +138,7 @@ function checkPhishingStatus() {
 		phishingScore += Math.min(window.location.toString().length * 0.0001, 0.2);
 	}
 
-	if (loc.split("/").length > 5) {
+	if (loc.split("#")[0].split("/").length > 5) {
 		debug_phishing("long path found");
 		phishingScore += Math.max(loc.split("/").length * 0.05, 0.25);
 	}
@@ -163,7 +163,7 @@ function checkPhishingStatus() {
 		minPhishingScore += 0.3 + 0.05 * (18 - window.location.hostname.length) - (0.01 * window.location.pathname.length);
 	}
 
-	var trustedTLDs = ["com", "org", "edu", "mil", "gov"];
+	var trustedTLDs = ["com", "org", "edu", "mil", "gov", "io"];
 
 	var pageTLD = window.location.hostname.split(".").reverse()[0];
 
@@ -251,15 +251,6 @@ function checkPhishingStatus() {
 				debug_phishing("submitting form without https");
 				phishingScore += 0.15;
 			}
-
-			//if the form text contians a sensitive word in it, it is more likely to be phishing
-
-			sensitiveWords.forEach(function (w) {
-				if (formText.indexOf(w) != -1) {
-					debug_phishing("sensitive word found in form");
-					phishingScore += 0.02;
-				}
-			})
 
 		}
 
@@ -371,8 +362,8 @@ function checkPhishingStatus() {
 		for (var i = 0; i < scripts.length; i++) {
 			if (scripts[i].src) {
 				aTest.href = scripts[i].src;
-				var rd = aTest.hostname;
-				scriptSources[rd] = scriptSources[rd] + 1 || 1;
+				var scriptHost = aTest.hostname;
+				scriptSources[scriptHost] = scriptSources[scriptHost] + 1 || 1;
 				totalScripts++;
 			}
 		}
@@ -406,8 +397,6 @@ function checkPhishingStatus() {
 
 	if (icon && icon.href) {
 		aTest.href = icon.href;
-
-
 
 		if (getRootDomain(aTest.hostname) != rd) {
 			debug_phishing("icon from external domain found");
