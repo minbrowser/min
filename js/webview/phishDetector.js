@@ -6,7 +6,6 @@ function debug_phishing(msg) {
 
 /* phishing detector. Implements methods from http://www.ml.cmu.edu/research/dap-papers/dap-guang-xiang.pdf and others, as well as some custom methods */
 
-var tldRegex = /\.(com|net|org|edu|gov|mil)$/g;
 
 var doubleDomainRegex = /\.(com|net|org|edu|gov|mil|uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)((\..*(com|net|org|edu|gov|mil))|(\..+(uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)))/g;
 
@@ -60,6 +59,8 @@ function checkPhishingStatus() {
 		return false;
 	}
 
+	var tldRegex = /\.(com|net|org|edu|gov|mil)$/g;
+
 	function getRootDomain(hostname) {
 		var newData = hostname;
 		tldRegex.lastIndex = 0;
@@ -73,6 +74,10 @@ function checkPhishingStatus() {
 			newData = newData.replace("www.", "");
 		}
 		return newData;
+	}
+
+	function isThirdParty(base, test) {
+		return base !== test && !test.endsWith("." + base);
 	}
 
 
@@ -241,7 +246,7 @@ function checkPhishingStatus() {
 
 			// if the form is submitted to a different domain, it is suspicious
 
-			if (fa.indexOf("javascript:") != 0 && getRootDomain(aTest.hostname) != getRootDomain(window.location.hostname)) {
+			if (fa.indexOf("javascript:") != 0 && isThirdParty(getRootDomain(window.location.hostname), getRootDomain(aTest.hostname))) {
 				debug_phishing("submitting form to xdomain");
 				phishingScore += 0.7;
 			}
