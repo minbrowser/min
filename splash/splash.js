@@ -13,6 +13,14 @@ var platforms = {
 var downloadButtons = document.getElementsByClassName("download-button");
 var subtexts = document.getElementsByClassName("button-subtext");
 
+//convert from a collection to an array, so the list doesn't change as we remove elements
+
+var subtextArray = [];
+
+for (var i = 0; i < subtexts.length; i++) {
+	subtextArray.push(subtexts[i]);
+}
+
 var nav = navigator.platform;
 
 var platformMatched = false;
@@ -54,8 +62,9 @@ if (platformMatched) {
 }
 
 if (platformMatched && nav != "MacIntel") {
-	for (var i = 0; i < subtexts.length; i++) {
-		subtexts[i].parentNode.removeChild(subtexts[i]);
+
+	for (var i = 0; i < subtextArray.length; i++) {
+		subtextArray[i].parentNode.removeChild(subtextArray[i]);
 	}
 }
 
