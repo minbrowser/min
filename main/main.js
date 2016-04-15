@@ -362,9 +362,9 @@ function createAppMenu() {
 		});
 	}
 
-	//preferences item on linux
+	//preferences item on linux and windows
 
-	if (process.platform == "linux") {
+	if (process.platform != "darwin") {
 
 		template[1].submenu.push({
 			type: "separator"
