@@ -6,7 +6,6 @@ function debug_phishing(msg) {
 
 /* phishing detector. Implements methods from http://www.ml.cmu.edu/research/dap-papers/dap-guang-xiang.pdf and others, as well as some custom methods */
 
-var tldRegex = /\.(com|net|org|edu|gov|mil)$/g;
 
 var doubleDomainRegex = /\.(com|net|org|edu|gov|mil|uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)((\..*(com|net|org|edu|gov|mil))|(\..+(uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)))/g;
 
@@ -52,13 +51,15 @@ function checkPhishingStatus() {
 			if (tx.indexOf(sensitiveFormWords[i]) != -1) {
 				debug_phishing("sensitive word found in form, checking");
 				sensitiveFormFound = true;
-				minPhishingScore += 0.15;
+				minPhishingScore += 0.075;
 				return true;
 			}
 		}
 
 		return false;
 	}
+
+	var tldRegex = /\.(com|net|org|edu|gov|mil)$/g;
 
 	function getRootDomain(hostname) {
 		var newData = hostname;
@@ -75,6 +76,10 @@ function checkPhishingStatus() {
 		return newData;
 	}
 
+	function isThirdParty(base, test) {
+		return base !== test && !test.endsWith("." + base);
+	}
+
 
 	//if we have a password input, set a lower threshold
 
@@ -84,7 +89,7 @@ function checkPhishingStatus() {
 
 	var sensitiveWords = ["secure", "account", "webscr", "login", "ebayisapi", "signing", "banking", "confirm"];
 	var sensitiveFormWords = ["password", "creditcard", "credit card", "security code", "expiration date", "card type", "social security", "income tax", "date of birth", "joint return"]; //word commonly found in forms that ask for personal information
-	var whitelistedDomains = ["adobeid-na1.services.adobe.com", "www.zdnet.com"]; //a whitelist of things we mistakenly think are bad. These should be fixed eventually, but for now a whitelist will work.
+	var whitelistedDomains = ["adobeid-na1.services.adobe.com", "www.zdnet.com", "www.discover.com"]; //a whitelist of things we mistakenly think are bad. These should be fixed eventually, but for now a whitelist will work.
 
 	//on the whitelist
 
@@ -138,7 +143,7 @@ function checkPhishingStatus() {
 		phishingScore += Math.min(window.location.toString().length * 0.0001, 0.2);
 	}
 
-	if (loc.split("/").length > 5) {
+	if (loc.split("#")[0].split("/").length > 5) {
 		debug_phishing("long path found");
 		phishingScore += Math.max(loc.split("/").length * 0.05, 0.25);
 	}
@@ -163,7 +168,7 @@ function checkPhishingStatus() {
 		minPhishingScore += 0.3 + 0.05 * (18 - window.location.hostname.length) - (0.01 * window.location.pathname.length);
 	}
 
-	var trustedTLDs = ["com", "org", "edu", "mil", "gov"];
+	var trustedTLDs = ["com", "org", "edu", "mil", "gov", "io"];
 
 	var pageTLD = window.location.hostname.split(".").reverse()[0];
 
@@ -241,7 +246,7 @@ function checkPhishingStatus() {
 
 			// if the form is submitted to a different domain, it is suspicious
 
-			if (fa.indexOf("javascript:") != 0 && getRootDomain(aTest.hostname) != getRootDomain(window.location.hostname)) {
+			if (fa.indexOf("javascript:") != 0 && isThirdParty(getRootDomain(window.location.hostname), getRootDomain(aTest.hostname))) {
 				debug_phishing("submitting form to xdomain");
 				phishingScore += 0.7;
 			}
@@ -251,15 +256,6 @@ function checkPhishingStatus() {
 				debug_phishing("submitting form without https");
 				phishingScore += 0.15;
 			}
-
-			//if the form text contians a sensitive word in it, it is more likely to be phishing
-
-			sensitiveWords.forEach(function (w) {
-				if (formText.indexOf(w) != -1) {
-					debug_phishing("sensitive word found in form");
-					phishingScore += 0.02;
-				}
-			})
 
 		}
 
@@ -371,8 +367,8 @@ function checkPhishingStatus() {
 		for (var i = 0; i < scripts.length; i++) {
 			if (scripts[i].src) {
 				aTest.href = scripts[i].src;
-				var rd = aTest.hostname;
-				scriptSources[rd] = scriptSources[rd] + 1 || 1;
+				var scriptHost = aTest.hostname;
+				scriptSources[scriptHost] = scriptSources[scriptHost] + 1 || 1;
 				totalScripts++;
 			}
 		}
@@ -406,8 +402,6 @@ function checkPhishingStatus() {
 
 	if (icon && icon.href) {
 		aTest.href = icon.href;
-
-
 
 		if (getRootDomain(aTest.hostname) != rd) {
 			debug_phishing("icon from external domain found");

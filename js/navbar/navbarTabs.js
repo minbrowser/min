@@ -284,12 +284,12 @@ function createTabElement(tabId) {
 
 function addTab(tabId, options) {
 
-	/* options 
-	
+	/* options
+
 						options.focus - whether to enter editing mode when the tab is created. Defaults to true.
 						options.openInBackground - whether to open the tab without switching to it. Defaults to false.
 						options.leaveEditMode - whether to hide the searchbar when creating the tab
-	
+
 						*/
 
 	options = options || {};
