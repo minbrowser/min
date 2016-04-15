@@ -60,6 +60,8 @@ body.notMac .tab-group {
 	font-size: 0.8em;
 	padding: 0.9em 0.9em 0.9em 0;
 	vertical-align: middle;
+	width: 1em;
+	box-sizing: content-box;
 }
 .tab-item.active.has-highlight {
 	background: rgba(255, 255, 255, 0.2);
@@ -147,6 +149,18 @@ body.notMac .tab-group {
 }
 .tab-item.active .reader-button.is-reader {
 	display: block;
+}
+
+/* when the tab is hovered, hide info buttons and show the close button */
+
+.tab-item.jshover .tab-info-icon {
+	display: none;
+}
+.tab-item .tab-close-button {
+	display: none;
+}
+.tab-item.jshover .tab-close-button {
+	display: inline-block;
 }
 
 /* expanded mode */

@@ -14,6 +14,7 @@ function navigate(tabId, newURL) {
 	});
 }
 
+//destroys the webview and tab element for a tab
 function destroyTab(id) {
 
 	var tabEl = getTabElement(id);
@@ -22,6 +23,32 @@ function destroyTab(id) {
 	var t = tabs.destroy(id); //remove from state - returns the index of the destroyed tab
 	destroyWebview(id); //remove the webview
 
+}
+
+//destroys a tab, and either switches to the next tab or creates a new one
+function closeTab(tabId) {
+
+	/* disabled in focus mode */
+	if (isFocusMode) {
+		showFocusModeError();
+		return;
+	}
+
+	if (tabId == tabs.getSelected()) {
+		var currentIndex = tabs.getIndex(tabs.getSelected());
+		var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1);
+
+		destroyTab(tabId);
+
+		if (nextTab) {
+			switchToTab(nextTab.id);
+		} else {
+			addTab();
+		}
+
+	} else {
+		destroyTab(tabId);
+	}
 }
 
 /* switches to a tab - update the webview, state, tabstrip, etc. */

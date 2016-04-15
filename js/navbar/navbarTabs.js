@@ -109,7 +109,7 @@ function rerenderTabElement(tabId) {
 	if (tabData.secure === false) {
 		if (!secIcon) {
 			var iconArea = tabEl.querySelector(".tab-icon-area");
-			iconArea.insertAdjacentHTML("afterbegin", "<i class='fa fa-exclamation-triangle icon-tab-not-secure' title='Your connection to this website is not secure.'></i>");
+			iconArea.insertAdjacentHTML("beforeend", "<i class='fa fa-exclamation-triangle icon-tab-not-secure tab-info-icon' title='Your connection to this website is not secure.'></i>");
 		}
 	} else if (secIcon) {
 		secIcon.parentNode.removeChild(secIcon);
@@ -130,6 +130,15 @@ function createTabElement(tabId) {
 	if (data.private) {
 		tabEl.classList.add("private-tab");
 	}
+
+	/* css :hover selectors are buggy when a webview is focused */
+	tabEl.addEventListener("mouseenter", function (e) {
+		this.classList.add("jshover");
+	});
+
+	tabEl.addEventListener("mouseleave", function (e) {
+		this.classList.remove("jshover");
+	})
 
 	var ec = document.createElement("div");
 	ec.className = "tab-edit-contents";
@@ -153,8 +162,23 @@ function createTabElement(tabId) {
 	var iconArea = document.createElement("span");
 	iconArea.className = "tab-icon-area";
 
+	var closeTabButton = document.createElement("i");
+	closeTabButton.classList.add("tab-close-button");
+	closeTabButton.classList.add("fa");
+	closeTabButton.classList.add("fa-times-circle");
+
+	closeTabButton.addEventListener("click", function (e) {
+
+		closeTab(tabId);
+
+		//prevent the searchbar from being opened
+		e.stopPropagation();
+	});
+
+	iconArea.appendChild(closeTabButton);
+
 	if (data.private) {
-		iconArea.insertAdjacentHTML("afterbegin", "<i class='fa fa-ban icon-tab-is-private'></i>");
+		iconArea.insertAdjacentHTML("afterbegin", "<i class='fa fa-ban icon-tab-is-private tab-info-icon'></i>");
 		vc.setAttribute("title", "Private tab");
 	}
 
@@ -256,23 +280,7 @@ function createTabElement(tabId) {
 			this.style.transform = "translateY(-100%)";
 
 			setTimeout(function () {
-
-				if (tab == tabs.getSelected()) {
-					var currentIndex = tabs.getIndex(tabs.getSelected());
-					var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1);
-
-					destroyTab(tab);
-
-					if (nextTab) {
-						switchToTab(nextTab.id);
-					} else {
-						addTab();
-					}
-
-				} else {
-					destroyTab(tab);
-				}
-
+				closeTab(tab);
 			}, 150); //wait until the animation has completed
 		}
 	});
