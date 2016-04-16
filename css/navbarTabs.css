@@ -22,15 +22,22 @@ body.notMac .tab-group {
 
 /* when the tab-group is white, we need a line to separate it from the webviews */
 
-.tab-group[style="color: black; background-color: rgb(255, 255, 255);"]:before {
+.tab-group:before {
 	content: "";
 	width: 100vw;
 	height: 1px;
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	background: rgba(0, 0, 0, 0.1);
+	background: transparent;
+	transition: 0.2s;
 }
+.tab-group[style="color: black; background-color: rgb(255, 255, 255);"]:before {
+	background: rgb(229, 229, 229);
+}
+
+/* tab layout */
+
 .tab-group #tabs {
 	display: flex;
 	flex: 1;
@@ -64,6 +71,9 @@ body.notMac .tab-group {
 	box-sizing: content-box;
 }
 .tab-item.active.has-highlight {
+	background: rgba(0, 0, 0, 0.05);
+}
+.dark-theme .tab-item.active.has-highlight {
 	background: rgba(255, 255, 255, 0.2);
 }
 .tab-item.selected {
@@ -85,6 +95,12 @@ body.notMac .tab-group {
 	height: 0;
 	padding: 0;
 	overflow: hidden;
+}
+
+/* the background isn't necessary when there is only one tab */
+
+.searchbar-shown .tab-item {
+	background: none !important;
 }
 
 /* show either the view or edit contents */
