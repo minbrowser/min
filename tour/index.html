@@ -4,28 +4,32 @@
 <head>
 	<title>Welcome to Min</title>
 	<link rel="stylesheet" href="tour.css" />
+	<link rel="stylesheet" href="../shared.css" />
 	<link rel="stylesheet" href="../ext/font-awesome-4.5.0/css/font-awesome.min.css" />
 	<meta charset="utf-8">
 </head>
 
 <body>
 
-	<div class="spacer blue-gradient-background" style="height: 100%;"></div>
-	<div class="tour-intro page-centered color-white">
-		<h1 class="title-heading">Welcome to Min.</h1>
-		<div class="centered-container">
-			<button class="outlined-button start-browsing-onclick" style="min-width: 0px">Start Browsing</button>&nbsp;&nbsp;&nbsp; or &nbsp;&nbsp;&nbsp;
-			<button class="outlined-button solid-button" id="start-tour">
-				Take a Tour
-			</button>
+	<div class="hero">
+		<div class="blue-gradient-background background-block"></div>
+		<div class="centered color-white">
+			<h1 class="title-heading">Welcome to Min.</h1>
+			<div class="horizontally-centered oneline">
+				<button class="outlined-button start-browsing-onclick" style="min-width: 0px">Start Browsing</button>
+				&nbsp;&nbsp;&nbsp; or &nbsp;&nbsp;&nbsp;
+				<button class="outlined-button solid-button" id="start-tour">
+					Take a Tour
+				</button>
+			</div>
 		</div>
 	</div>
 
 	<img class="bottom-pinned-image fade" src="img/tabstrip.png" id="tab-image" />
 
-	<div class="tour-card" layout="textonly">
-		<h1 id="tour-first-heading">Tabs</h1>
-		<div class="tour-info">
+	<div class="section one-column">
+		<div class="column">
+			<h1>Tabs</h1>
 			<ul>
 				<li>Click on the current tab to open the searchbar. </li>
 				<li> Swipe up on a tab to delete it (or press ⌘+W). </li>
@@ -34,65 +38,71 @@
 		</div>
 	</div>
 
-	<div class="tour-card light-gray-background" layout="left">
-		<h1>Search</h1>
-		<div class="tour-info">The searchbar shows information from <a target="_blank" href="https://duckduckgo.com">DuckDuckGo</a>, including Wikipedia entries, a calculator, programming documentation, and more.
-			<br>
-			<br> The searchbar also supports fuzzy search, which lets you quickly find websites without typing the entire URL. For example, you can type "mgc" to search for "mail.google.com".
+	<div class="section light-gray-background">
+		<div class="column">
+			<h1>Search</h1>
+			<p>The searchbar shows information from <a target="_blank" href="https://duckduckgo.com">DuckDuckGo</a>, including Wikipedia entries, a calculator, programming documentation, and more.
+				<br>
+				<br> The searchbar also supports fuzzy search, which lets you quickly find websites without typing the entire URL. For example, you can type "mgc" to search for "mail.google.com".
+			</p>
 			<i class="arrow-showmore-icon fa fa-angle-double-down"></i>
 		</div>
-		<img class="tour-image" src="img/searchbar_duckduckgo_answers.png" />
+		<img class="column" src="img/searchbar_duckduckgo_answers.png" />
 	</div>
 
-	<div class="tour-card" layout="right">
-		<h1>Bookmarks</h1>
-		<div class="tour-info">
-			Click the <i class="fa fa-star-o"></i> icon in the searchbar to bookmark a page. When you create a bookmark, the full text of the webpage is saved, and becomes searchble, so you can find your bookmarks later.
+	<div class="section">
+		<img class="column" src="img/searchbar_bookmarks.png" />
+		<div class="column">
+			<h1>Bookmarks</h1>
+			<p>Click the <i class="fa fa-star-o"></i> icon in the searchbar to bookmark a page. When you create a bookmark, the full text of the webpage is saved, and becomes searchble, so you can find your bookmarks later.
+			</p>
 			<i class="arrow-showmore-icon fa fa-angle-double-down"></i>
 		</div>
-		<img class="tour-image" src="img/searchbar_bookmarks.png" />
 	</div>
 
-	<div class="tour-card light-gray-background" layout="left">
-		<h1>Reading List</h1>
-		<div class="tour-info">Click the <i class="fa fa-align-left"></i> icon in a tab to format an article and make it easier to read. Articles opened in reader view are saved in your reading list for the next 30 days, and are saved for offline reading.
-			<br>
-			<br> You can find your saved articles in the application menu: View > Reading List.
+	<div class="section light-gray-background">
+		<div class="column">
+			<h1>Reading List</h1>
+			<p>>Click the <i class="fa fa-align-left"></i> icon in a tab to format an article and make it easier to read. Articles opened in reader view are saved in your reading list for the next 30 days, and are saved for offline reading.
+				<br>
+				<br> You can find your saved articles in the application menu: View &gt; Reading List.
+			</p>
 			<i class="arrow-showmore-icon fa fa-angle-double-down"></i>
 		</div>
-		<img class="tour-image" src="img/reading_list.png" />
+		<img class="column" src="img/reading_list.png" />
 	</div>
 
-	<div class="tour-card" layout="right">
-		<h1>Ad and tracker blocking</h1>
-		<div class="tour-info">Go to Min > Privacy Preferences (Or the Edit menu > Privacy Preferences on Linux) to enable ad and tracker blocking. You can also choose to block images and Javascript, if you are on a limited internet connection.
+	<div class="section">
+		<img class="column" src="../splash/adblock.png" />
+		<div class="column">
+			<h1>Ad and tracker blocking</h1>
+			<p>Go to Min &gt; Privacy Preferences (Or the Edit menu > Privacy Preferences on Linux) to enable ad and tracker blocking. You can also choose to block images and Javascript, if you are on a limited internet connection.
+			</p>
 			<i class="arrow-showmore-icon fa fa-angle-double-down"></i>
 		</div>
-		<img class="tour-image" src="../splash/adblock.png" />
 	</div>
 
-	<div class="tour-card light-gray-background" layout="right">
-		<h1>Tips and Tricks</h1>
-		<div class="tour-info">
+	<div class="section light-gray-background">
+		<div class="column">
+			<h1>Tips and Tricks</h1>
 			<ul>
 				<li>Swipe down on the tabstrip (or press ⇧+⌘+E) to expand the tabstrip and view all of your open tabs in a grid.</li>
 				<li>Quickly switch between tabs: press ⌘+1 to move one tab to the right, ⌘+2 to move two tabs to the right, etc. ⇧+⌘+1 moves one tab to the left.</li>
 				<li>Focus Mode lets you hide distractions. In focus mode, all your tabs except the current one are hidden, and you can't create new tabs. Turn on focus mode in the View menu > Focus Mode.</li>
 			</ul>
 		</div>
-		<img class="tour-image" src="img/expanded_tab_mode.png" />
+		<img class="column" src="img/expanded_tab_mode.png" />
 	</div>
 
-	<div class="tour-card" layout="textonly">
-		<h1>Improving Min</h1>
-		<div class="tour-info">Min is open-source software, written in JavaScript. <a target="_blank" href="https://github.com/PalmerAL/Min">View the source on GitHub</a>, or <a target="_blank" href="https://github.com/PalmerAL/Min/issues/new">file an issue.</a></div>
+	<div class="section one-column">
+		<div class="column">
+			<h1>Improving Min</h1> Min is open-source software, written in JavaScript. <a target="_blank" href="https://github.com/PalmerAL/Min">View the source on GitHub</a>, or <a target="_blank" href="https://github.com/PalmerAL/Min/issues/new">file an issue.</a>
+		</div>
 	</div>
-
-
 
 	<div class="blue-gradient-background">
 		<div class="spacer" style="height: 2em"></div>
-		<button class="outlined-button solid-button centered-container start-browsing-onclick">Start Browsing</button>
+		<button class="outlined-button solid-button horizontally-centered start-browsing-onclick">Start Browsing</button>
 		<div class="spacer" style="height: 1em"></div>
 
 	</div>

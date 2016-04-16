@@ -1,0 +1,208 @@
+body,
+html {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	font-size: 16px;
+	font-family: '.SFNSText-Regular', 'Helvetica Neue', 'Arial', sans-serif;
+}
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/* firefox < 4, safari < 5.1, ie < 11 doesn't support hidden attribute */
+
+[hidden] {
+	display: none;
+}
+
+/* colors */
+
+.blue-gradient-background {
+	background: linear-gradient(135deg, rgba(80, 122, 196, 1) 43%, rgba(80, 122, 196, 1) 43%, rgba(128, 192, 226, 1) 89%, rgba(128, 192, 226, 1) 89%);
+	/* fallback for old browsers that don't support gradients */
+	background-color: rgb(80, 122, 196);
+}
+.inherit-color {
+	color: inherit;
+}
+.fade {
+	opacity: 0.333;
+}
+.light-gray-background {
+	background-color: #f7f7f7;
+}
+.color-white {
+	color: white;
+}
+
+/* centering */
+
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+}
+.horizontally-centered {
+	display: block;
+	text-align: center;
+	margin: auto;
+}
+.oneline {
+	white-space: nowrap;
+}
+
+/* links */
+
+a {
+	color: rgb(68, 133, 220);
+	text-decoration: none;
+}
+
+/* headings */
+
+.title-heading,
+.title-subheading {
+	font-size: 5em;
+	font-weight: 300;
+	opacity: 0.8;
+	font-family: '.SFNSDisplay-Light', 'Helvetica Neue Light', 'Helvetica Neue', sans-serif;
+	margin: 0.5em 0;
+	color: #fff;
+	text-align: center;
+}
+.title-subheading {
+	font-size: 2em;
+}
+.title-heading + .title-subheading {
+	margin-top: -1em;
+}
+
+/* buttons */
+
+.outlined-button {
+	-webkit-appearance: none;
+	appearance: none;
+	background: none;
+	color: inherit;
+	font-size: 1em;
+	padding: 1em 1.5em;
+	border: 1px currentColor solid;
+	transition: 0.1s;
+	min-width: 40%;
+}
+.outlined-button:not(.disabled):hover,
+.solid-button {
+	background: #fff;
+	border-color: #fff;
+	color: #000;
+}
+.outlined-button:not(.disabled):hover:focus,
+.solid-button.solid-button-blue {
+	background: rgb(78, 123, 196);
+	color: #fff;
+	outline: none;
+}
+button .button-subtext {
+	display: block;
+	font-size: 0.8em;
+	text-align: center;
+	overflow: hidden;
+	height: 0;
+}
+button:hover .button-subtext,
+button.disabled .button-subtext {
+	height: auto;
+	padding-top: 0.2em;
+}
+.primary-action-button {
+	width: 80%;
+	margin-left: 10%;
+	margin-top: 1.5em;
+}
+button.disabled {
+	opacity: 0.5;
+}
+
+/* cards */
+
+.inline-block-wrapper {
+	font-size: 0;
+}
+.inline-block-wrapper > * {
+	font-size: 1rem;
+}
+.section {
+	display: block;
+	white-space: nowrap;
+	padding: 1em 5% 2em 5%;
+	position: relative;
+}
+.section.half-width {
+	width: 50%;
+	display: inline-block;
+}
+.section.one-column .column {
+	width: 100%;
+}
+.section .column {
+	display: inline-block;
+	width: 50%;
+	vertical-align: top;
+	white-space: normal;
+	padding: 0 1.5em;
+	font-size: 1.2em;
+}
+.section h1 {
+	font-size: 2.5em;
+	font-weight: 300;
+	margin: 0.5em 0;
+	font-family: '.SFNSDisplay-Light', 'Helvetica Neue Light', 'Helvetica Neue', sans-serif;
+}
+
+/* dialogs */
+
+.backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.75);
+}
+.dialog {
+	position: fixed;
+	background: #fff;
+	padding: 1em;
+	overflow: auto;
+}
+.dialog h1,
+.dialog h2 {
+	font-weight: normal;
+}
+ul {
+	line-height: 1.33em;
+}
+
+/* hero */
+
+.hero {
+	height: 85%;
+	width: 100vw;
+	position: relative;
+	overflow: hidden;
+}
+.background-block {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}

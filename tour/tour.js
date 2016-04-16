@@ -24,7 +24,6 @@ function throttle(fn, threshhold, scope) {
 }
 
 var startButton = document.getElementById("start-tour");
-var firstHeading = document.getElementById("tour-first-heading");
 var tabImage = document.getElementById("tab-image");
 var showMoreArrows = document.getElementsByClassName("arrow-showmore-icon");
 var startBrowsingButtons = document.getElementsByClassName("start-browsing-onclick");
@@ -47,7 +46,7 @@ window.addEventListener("scroll", throttle(function (e) {
 
 for (var i = 0; i < showMoreArrows.length; i++) {
 	showMoreArrows[i].addEventListener("click", function (e) {
-		document.body.scrollTop = document.body.scrollTop + (window.innerHeight * 0.7);
+		document.body.scrollTop = document.body.scrollTop + (window.innerHeight * 0.8);
 	});
 }
 
