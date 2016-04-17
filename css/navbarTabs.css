@@ -63,9 +63,12 @@ body.notMac .tab-group {
 
 /* icons */
 
+.tab-item .tab-icon-area {
+	float: right;
+}
 .tab-item i {
 	font-size: 0.8em;
-	padding: 0.9em 0.9em 0.9em 0;
+	padding: 0 0.66em;
 	vertical-align: middle;
 	width: 1em;
 	box-sizing: content-box;
@@ -156,15 +159,14 @@ body.notMac .tab-group {
 /* reader button */
 
 .tab-item .reader-button {
-	float: right;
 	display: none;
-	margin-left: 0.5em;
+	padding-left: 0;
 }
 .tab-item.active .reader-button.can-reader {
-	display: block;
+	display: inline-block;
 }
 .tab-item.active .reader-button.is-reader {
-	display: block;
+	display: inline-block;
 }
 
 /* when the tab is hovered, hide info buttons and show the close button */

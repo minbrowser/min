@@ -110,7 +110,7 @@ function rerenderTabElement(tabId) {
 	if (tabData.secure === false) {
 		if (!secIcon) {
 			var iconArea = tabEl.querySelector(".tab-icon-area");
-			iconArea.insertAdjacentHTML("beforeend", "<i class='fa fa-exclamation-triangle icon-tab-not-secure tab-info-icon' title='Your connection to this website is not secure.'></i>");
+			iconArea.insertAdjacentHTML("beforeend", "<i class='fa fa-unlock icon-tab-not-secure tab-info-icon' title='Your connection to this website is not secure.'></i>");
 		}
 	} else if (secIcon) {
 		secIcon.parentNode.removeChild(secIcon);
@@ -179,7 +179,7 @@ function createTabElement(tabId) {
 	iconArea.appendChild(closeTabButton);
 
 	if (data.private) {
-		iconArea.insertAdjacentHTML("afterbegin", "<i class='fa fa-ban icon-tab-is-private tab-info-icon'></i>");
+		iconArea.insertAdjacentHTML("afterbegin", "<i class='fa fa-eye-slash icon-tab-is-private tab-info-icon'></i>");
 		vc.setAttribute("title", "Private tab");
 	}
 
