@@ -88,7 +88,7 @@ body.notMac .tab-group {
 
 /* when an input is selected, hide other tabs */
 
-.tab-group #tabs.has-selected-tab .tab-item:not(.selected) {
+.is-edit-mode .tab-item:not(.selected) {
 	min-width: 0;
 	max-width: 0;
 	width: 0;
@@ -99,7 +99,7 @@ body.notMac .tab-group {
 
 /* the background isn't necessary when there is only one tab */
 
-.searchbar-shown .tab-item {
+.is-edit-mode .tab-item {
 	background: none !important;
 }
 

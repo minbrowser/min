@@ -58,7 +58,8 @@ function leaveTabEditMode(options) {
 			input.blur();
 		}
 	}
-	tabGroup.classList.remove("has-selected-tab");
+
+	document.body.classList.remove("is-edit-mode");
 	hidesearchbar();
 }
 
@@ -77,8 +78,8 @@ function enterEditMode(tabId) {
 
 	var input = getTabInput(tabId);
 
+	document.body.classList.add("is-edit-mode");
 	tabEl.classList.add("selected");
-	tabGroup.classList.add("has-selected-tab");
 
 	input.value = currentURL;
 	input.focus();
