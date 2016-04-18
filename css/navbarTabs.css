@@ -43,6 +43,9 @@ body.notMac .tab-group {
 	flex: 1;
 	overflow: auto;
 }
+.tab-group #tabs::-webkit-scrollbar {
+	display: none;
+}
 .tab-item {
 	flex: 1;
 	min-width: 125px;
