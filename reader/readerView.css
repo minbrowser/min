@@ -137,7 +137,9 @@ pre {
 	display: block;
 	overflow: auto;
 }
+q,
 blockquote {
+	display: block;
 	border-left: 1px currentColor solid;
 	padding-left: 0.5em;
 	font-size: 1.2em;

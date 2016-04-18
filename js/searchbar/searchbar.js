@@ -252,7 +252,6 @@ var searchbar = document.getElementById("searchbar");
 
 function showSearchbar(triggerInput) {
 
-	document.body.classList.add("searchbar-shown");
 	searchbar.hidden = false;
 
 	currentSearchbarInput = triggerInput;
@@ -268,7 +267,6 @@ function getValue(input) {
 
 function hidesearchbar() {
 	currentSearchbarInput = null;
-	document.body.classList.remove("searchbar-shown");
 	searchbar.hidden = true;
 
 	clearSearchbar();

@@ -183,7 +183,7 @@ body.notMac #searchbar {
 .searchbar-item:focus .description-block {
 	max-height: 6.6em;
 }
-body.searchbar-shown webview {
+body.is-edit-mode webview {
 	opacity: 0.5;
 }
 

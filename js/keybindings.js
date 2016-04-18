@@ -87,27 +87,7 @@ require.async("mousetrap", function (Mousetrap) {
 		e.preventDefault();
 		e.stopImmediatePropagation();
 
-
-		/* disabled in focus mode */
-		if (isFocusMode) {
-			showFocusModeError();
-			return;
-		}
-
-		var currentTab = tabs.getSelected();
-		var currentIndex = tabs.getIndex(currentTab);
-		var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1);
-
-		destroyTab(currentTab);
-		if (nextTab) {
-			switchToTab(nextTab.id);
-		} else {
-			addTab();
-		}
-
-		if (tabs.count() == 1) { //there isn't any point in being in expanded mode any longer
-			leaveExpandedMode();
-		}
+		closeTab(tabs.getSelected());
 
 		return false;
 	});
