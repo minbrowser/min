@@ -1,3 +1,24 @@
+// cache host file entries for host matching
+var hosts = [];
+
+var HOSTS_FILE = process.platform === 'win32'
+    ? 'C:/Windows/System32/drivers/etc/hosts'
+    : '/etc/hosts';
+
+require('fs').readFile(HOSTS_FILE, 'utf8', function (err, data) {
+    if (err) {
+        return;
+    }
+
+    data = data.replace(/(\s|#.*|255\.255\.255\.255|broadcasthost)+/g, ' ').split(' ');
+
+    data.forEach(function(host) {
+        if (host.length > 0 && hosts.indexOf(host) === -1) {
+            hosts.push(host);
+        }
+    });
+});
+
 var urlParser = {
 	searchBaseURL: "https://duckduckgo.com/?t=min&q=%s",
 	startingWWWRegex: /www\.(.+\..+\/)/g,
@@ -22,7 +43,11 @@ var urlParser = {
 		}
 	},
 	isURLMissingProtocol: function (url) {
-		return url.indexOf(" ") == -1 && url.indexOf(".") > 0;
+		if (url.indexOf(" ") == -1 && url.indexOf(".") > 0) {
+            return true;
+        }
+        var hostPart = url.replace(/(:|\/).+/, '');
+        return hosts.indexOf(hostPart) > -1;
 	},
 	parse: function (url) {
 		url = url.trim(); //remove whitespace common on copy-pasted url's
@@ -41,7 +66,7 @@ var urlParser = {
 			return "view-source:" + urlParser.parse(realURL);
 		}
 
-		//if the url doesn't have a space and has a ., assume it is a url without a protocol
+		//if the url doesn't have a space and has a ., or is a host from hosts file, assume it is a url without a protocol
 		if (urlParser.isURLMissingProtocol(url)) {
 			return "http://" + url;
 		}

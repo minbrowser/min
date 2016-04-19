@@ -31,6 +31,7 @@ module.exports = function (grunt) {
 							"js/searchbar/openTabsPlugin.js",
 							"js/searchbar/searchSuggestionsPlugin.js",
 							"js/searchbar/historySuggestionsPlugin.js",
+							"js/searchbar/hostsSuggestionsPlugin.js",
 							"js/readerview.js",
 						 "js/navbar/tabActivity.js",
 							"js/navbar/tabColor.js",
