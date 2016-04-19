@@ -1,32 +1,40 @@
+var fs = require('fs');
 var hosts = [];
-require('hostile').get(false, function (err, lines) {
-    if (!err) {
-        lines.forEach(function (line) {
-            line.forEach(function (host) {
-                host = host.split(' ');
-                host.forEach(function (host) {
-                    if (hosts.indexOf(host) === -1) {
-                        hosts.push(host);
-                    }
-                });
-            })
-        });
+
+var HOSTS_FILE = process.platform === 'win32'
+    ? 'C:/Windows/System32/drivers/etc/hosts'
+    : '/etc/hosts';
+
+fs.readFile(HOSTS_FILE, 'utf8', parseHosts);
+
+function parseHosts(err, data) {
+    if (err) {
+        return;
     }
-});
+
+    data = data.replace(/(\s|#.*|255\.255\.255\.255|broadcasthost)+/g, ' ').split(' ');
+
+    data.forEach(function(host) {
+        if (host.length > 0 && hosts.indexOf(host) === -1) {
+            hosts.push(host);
+        }
+    });
+}
 
 function showHostsSuggestions(text, input, event, container) {
 
     empty(container);
 
     var results = hosts.filter(function (host) {
-        return host.indexOf(text) > -1;
+        // only match start of host string
+        return host.indexOf(text) === 0;
     });
 
     results.slice(0, 4).forEach(function (result) {
 
         var item = createSearchbarItem({
             title: result,
-            secondaryText: 'via hosts file',
+            secondaryText: 'Hosts file entry',
             url: 'http://'+result
         });
 
@@ -39,7 +47,7 @@ function showHostsSuggestions(text, input, event, container) {
 registerSearchbarPlugin("hostsSuggestions", {
     index: 1,
     trigger: function (text) {
-        return !!text;
+        return (typeof text === 'string' && text.length > 2 );
     },
     showResults: showHostsSuggestions,
 });
