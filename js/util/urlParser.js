@@ -74,8 +74,11 @@ var urlParser = {
 		return urlParser.searchBaseURL.replace("%s", encodeURIComponent(url));
 	},
 	prettyURL: function (url) {
-		var urlOBJ = new URL(url);
-		return (urlOBJ.hostname + urlOBJ.pathname).replace(urlParser.startingWWWRegex, "$1").replace(urlParser.trailingSlashRegex, "");
+		try {
+			var urlOBJ = new URL(url);
+			return (urlOBJ.hostname + urlOBJ.pathname).replace(urlParser.startingWWWRegex, "$1").replace(urlParser.trailingSlashRegex, "");
+			return url;
+		}
 	},
 	areEqual: function (url1, url2) {
 		try {
