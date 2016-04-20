@@ -7,6 +7,7 @@ const browserPage = 'file://' + __dirname + '/index.html';
 
 var mainWindow = null;
 var isFocusMode = false;
+var appIsReady = false;
 
 function sendIPCToWindow(window, action, data) {
 	//if there are no windows, create a new one
@@ -87,6 +88,8 @@ app.on('window-all-closed', function () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function () {
+	appIsReady = true;
+
 	// Create the browser window.
 	electronScreen = electron.screen; //this module must be loaded after the app is ready
 
@@ -97,6 +100,22 @@ app.on('ready', function () {
 
 	createAppMenu();
 
+});
+
+app.on("open-url", function (e, url) {
+	if (appIsReady) {
+		sendIPCToWindow(mainWindow, "addTab", {
+			url: url
+		});
+	} else {
+		app.on("ready", function () {
+			setTimeout(function () { //TODO replace this with an event that occurs when the browserWindow finishes loading
+				sendIPCToWindow(mainWindow, "addTab", {
+					url: url
+				});
+			}, 750);
+		});
+	}
 });
 
 

@@ -94,6 +94,13 @@ module.exports = function (grunt) {
 					icon: "icon.icns",
 					ignore: 'dist/app',
 					overwrite: true,
+					protocols: [{
+						name: "HTTP link",
+						schemes: ["http", "https"]
+					}, {
+						name: "File",
+						schemes: ["file"]
+					}],
 				}
 			},
 			windowsBuild: {
