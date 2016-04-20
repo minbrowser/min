@@ -77,6 +77,7 @@ var urlParser = {
 		try {
 			var urlOBJ = new URL(url);
 			return (urlOBJ.hostname + urlOBJ.pathname).replace(urlParser.startingWWWRegex, "$1").replace(urlParser.trailingSlashRegex, "");
+		} catch (e) { //URL constructor will throw an error on malformed URLs
 			return url;
 		}
 	},
