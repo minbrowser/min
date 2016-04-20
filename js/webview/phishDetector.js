@@ -150,7 +150,7 @@ function checkPhishingStatus() {
 
 	//CANTINA - penalize locations with lots of dots
 
-	if (window.location.hostname.split(".").length > 3 && window.location.hostname.length > 20) {
+	if (window.location.hostname.replace("www.", "").split(".").length > 3 && window.location.hostname.length > 20) {
 		debug_phishing("high number of . characters detected");
 		phishingScore += Math.min(loc.split("?")[0].split(".").length * 0.03, 0.2);
 	}
