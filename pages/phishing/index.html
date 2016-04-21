@@ -17,7 +17,13 @@
 		<h1>This site could harm you.</h1>
 		<h2>This website could be trying to steal your personal information, such as passwords or banking information.</h2>
 
-		<button onclick="window.location = 'https://duckduckgo.com/'">Leave this site</button>
+		<button class="left" id="ignore-button">Visit site anyway</button>
+		<button id="continue-button">Leave this site</button>
+
+		<script src="../../ext/Dexie.min.js"></script>
+		<script src="../../js/util/database.js"></script>
+		<script src="../../js/util/settings.js"></script>
+		<script src="phishingError.js"></script>
 
 	</div>
 

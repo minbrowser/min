@@ -173,7 +173,24 @@ function getWebviewDom(options) {
 			bookmarks.onDataRecieved(e.args[0]);
 
 		} else if (e.channel == "phishingDetected") {
-			navigate(this.getAttribute("data-tab"), phishingWarningPage);
+			//check if the page is on the phishing detection whitelist
+
+			var url = w.getAttribute("src");
+
+			try {
+				var hostname = new URL(url).hostname;
+			} catch (e) {
+				var hostname = "";
+			}
+
+			settings.get("phishingWhitelist", function (value) {
+				if (!value || !hostname || value.indexOf(hostname) == -1) {
+					//show the warning page
+					navigate(tab, phishingWarningPage + "?url=" + encodeURIComponent(url));
+				}
+			}, {
+				fromCache: false
+			});
 		}
 	});
 

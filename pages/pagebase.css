@@ -47,3 +47,6 @@
 		background-color: rgba(0, 0, 0, 0.1);
 		margin-top: 0.5em;
 	}
+	button.left {
+		float: left;
+	}
