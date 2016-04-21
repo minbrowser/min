@@ -6,8 +6,8 @@ requires Dexie and util/database.js
 var settings = {
 	loaded: false,
 	list: {},
-	get: function (key, cb) {
-		if (settings.loaded) {
+	get: function (key, cb, options) {
+		if (settings.loaded && !(options && options.fromCache == false)) {
 			cb(settings.list[key]);
 		} else {
 			db.settings.where("key").equals(key).first(function (item) {
