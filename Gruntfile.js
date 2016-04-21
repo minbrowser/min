@@ -139,7 +139,8 @@ module.exports = function (grunt) {
 				section: "web",
 				homepage: "https://palmeral.github.io/min/",
 				icon: "icons/icon256.png",
-				categories: ["Network", "WebBrowser"]
+				categories: ["Network", "WebBrowser"],
+				mimeType: ["x-scheme-handler/http", "x-scheme-handler/https", "text/html"]
 			},
 			linux32: {
 				options: {
@@ -148,7 +149,6 @@ module.exports = function (grunt) {
 				src: 'dist/app/Min-linux-ia32',
 				dest: 'dist/app/linux'
 			},
-
 			linux64: {
 				options: {
 					arch: 'amd64'
