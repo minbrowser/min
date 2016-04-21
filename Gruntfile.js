@@ -139,6 +139,7 @@ module.exports = function (grunt) {
 				section: "web",
 				homepage: "https://palmeral.github.io/min/",
 				icon: "icons/icon256.png",
+				categories: ["Network", "WebBrowser"]
 			},
 			linux32: {
 				options: {
