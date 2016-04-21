@@ -19,15 +19,18 @@
 	h1 {
 		font-size: 2.75em;
 		font-weight: normal;
-		margin-bottom: 0.25em;
+		margin-bottom: 0.45em;
 		margin-top: 0;
 	}
 	h2 {
-		font-size: 1.25em;
+		font-size: 1em;
+		line-height: 1.5em;
 		font-family: ".SFNSText-Regular";
+		letter-spacing: -0.5px;
 		font-weight: normal;
 		text-align: justify;
 		margin-top: 0;
+		color: rgba(0, 0, 0, 0.4);
 	}
 	a {
 		color: cornflowerblue;
@@ -38,12 +41,13 @@
 		background-repeat: repeat-x;
 	}
 	button {
-		float: right;
+		float: left;
 		-webkit-appearance: none;
 		color: inherit;
-		font-size: 1.1em;
-		padding: 0.5em 1em;
+		font-size: 1em;
+		padding: 1.2em 2.5em;
 		border: 0;
 		background-color: rgba(0, 0, 0, 0.1);
-		margin-top: 0.5em;
+		margin-top: 2.5em;
+		border-radius: 4px;
 	}

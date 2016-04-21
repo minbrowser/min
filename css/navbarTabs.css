@@ -48,7 +48,7 @@ body.notMac .tab-group {
 	min-width: 125px;
 	transition: .15s min-width, 0.2s transform;
 	padding: 0 1em;
-	font-size: 0.8em;
+	font-size: 0.4em;
 	line-height: 36px;
 	height: 36px;
 	overflow: hidden;

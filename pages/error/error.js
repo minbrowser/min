@@ -1,6 +1,6 @@
 var websiteNotFound = {
 	name: "Server not found",
-	message: "Min couldn't find this website. If you think there should be something here, you can <a id='archivesearch-link'>search on archive.org</a> for this page."
+	message: "Min couldn't find this website. If you think there should be something here, <br>you can <a id='archivesearch-link'>search on archive.org</a> for this page."
 }
 
 var sslError = {
