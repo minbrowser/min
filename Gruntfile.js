@@ -156,6 +156,49 @@ module.exports = function (grunt) {
 				src: 'dist/app/Min-linux-x64',
 				dest: 'dist/app/linux'
 			}
+		},
+		'electron-installer-redhat': {
+			options: {
+				name: "min",
+				description: "Min Web Browser",
+				productName: "min",
+				productDescription: "A fast and efficient browser with built-in ad-blocking",
+				genericName: "Web Browser",
+				version: version,
+				homepage: "https://palmeral.github.io/min/",
+				icon: "icons/icon256.png",
+				categories: [
+					"Network"
+				]
+			},
+			linux32: {
+				options: {
+					arch: 'i686',
+					requires: [
+            "libnotify.so.4",
+						"libXtst.so.6",
+						"libgconf-2.so.4",
+						"libpk-gtk-module.so",
+						"libcanberra-gtk.so.0"
+					],
+				},
+				src: 'dist/app/Min-linux-ia32',
+				dest: 'dist/app/linux'
+			},
+			linux64: {
+				options: {
+					arch: 'x86_64',
+					requires: [
+						"libnotify.so.4()(64bit)",
+						"libXtst.so.6()(64bit)",
+						"libgconf-2.so.4()(64bit)",
+						"libpk-gtk-module.so()(64bit)",
+						"libcanberra-gtk.so.0()(64bit)"
+					],
+				},
+				src: 'dist/app/Min-linux-x64',
+				dest: 'dist/app/linux'
+			}
 		}
 	});
 
@@ -163,10 +206,11 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-electron');
 	grunt.loadNpmTasks('grunt-electron-installer-debian');
+	grunt.loadNpmTasks('grunt-electron-installer-redhat');
 
 	grunt.registerTask('default', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main']);
 	grunt.registerTask('browser', ['concat:browser', 'uglify:browser']);
 	grunt.registerTask('webview', ['concat:webview', 'uglify:webview']);
-	grunt.registerTask('build', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main', 'electron:osxBuild', 'electron:windowsBuild', 'electron:linuxBuild', 'electron-installer-debian:linux32', 'electron-installer-debian:linux64'])
+	grunt.registerTask('build', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main', 'electron:osxBuild', 'electron:windowsBuild', 'electron:linuxBuild', 'electron-installer-debian:linux32', 'electron-installer-debian:linux64', 'electron-installer-redhat:linux32', 'electron-installer-redhat:linux64'])
 
 };
