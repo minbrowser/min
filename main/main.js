@@ -262,8 +262,8 @@ function createAppMenu() {
 			label: 'Developer',
 			submenu: [
 				{
-					label: 'Reload',
-					accelerator: 'CmdOrCtrl+R',
+					label: 'Reload Browser',
+					accelerator: undefined,
 					click: function (item, focusedWindow) {
 						if (focusedWindow)
 							focusedWindow.reload();

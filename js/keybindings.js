@@ -220,6 +220,21 @@ require.async("mousetrap", function (Mousetrap) {
 		showAllBookmarks();
 	});
 
+	var lastReload = 0;
+
+	Mousetrap.bind("mod+r", function () {
+		var time = Date.now();
+
+		//pressing mod+r twice in a row reloads the whole browser
+		if (time - lastReload < 500) {
+			window.location.reload();
+		} else {
+			getWebview(tabs.getSelected()).reloadIgnoringCache();
+		}
+
+		lastReload = time;
+	});
+
 }); //end require mousetrap
 
 document.body.addEventListener("keyup", function (e) {
