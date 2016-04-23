@@ -229,7 +229,11 @@ require.async("mousetrap", function (Mousetrap) {
 		if (time - lastReload < 500) {
 			window.location.reload();
 		} else {
-			getWebview(tabs.getSelected()).reloadIgnoringCache();
+			var w = getWebview(tabs.getSelected());
+
+			if (w.src) { //webview methods aren't available if the webview is blank
+				w.reloadIgnoringCache();
+			}
 		}
 
 		lastReload = time;
