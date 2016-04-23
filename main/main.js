@@ -266,7 +266,7 @@ function createAppMenu() {
 					accelerator: 'CmdOrCtrl+R',
 					click: function (item, focusedWindow) {
 						if (focusedWindow)
-							focusedWindow.reload();
+							sendIPCToWindow(focusedWindow, "reload");
 					}
       },
 				{
