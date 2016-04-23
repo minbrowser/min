@@ -28,6 +28,10 @@ ipc.on("showReadingList", function () {
 	readerView.showReadingList();
 })
 
+ipc.on("reload", function () {
+	getWebview(tabs.getSelected()).reload();
+})
+
 ipc.on("addTab", function (e, data) {
 
 	/* new tabs can't be created in focus mode */
