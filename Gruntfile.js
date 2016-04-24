@@ -38,7 +38,6 @@ module.exports = function (grunt) {
 							"js/navbar/tabColor.js",
 						 "js/navbar/navbarTabs.js",
 							"js/taskOverlay.js",
-							"js/navbar/expandedTabMode.js",
 							"js/navbar/addTabButton.js",
 						 "js/keybindings.js",
 						 "js/fileDownloadManager.js",

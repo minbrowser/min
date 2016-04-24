@@ -93,7 +93,7 @@ function switchToTab(id, options) {
 	setActiveTabElement(id);
 	switchToWebview(id);
 
-	if (options.focusWebview != false && !isExpandedMode) { //trying to focus a webview while in expanded mode breaks the page
+	if (options.focusWebview != false) {
 		getWebview(id).focus();
 	}
 

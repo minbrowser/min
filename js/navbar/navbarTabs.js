@@ -32,19 +32,15 @@ function setActiveTabElement(tabId) {
 		el.classList.remove("has-highlight");
 	}
 
-	if (!isExpandedMode) {
-
-		requestIdleCallback(function () {
-			requestAnimationFrame(function () {
-				el.scrollIntoView({
-					behavior: "smooth"
-				});
+	requestIdleCallback(function () {
+		requestAnimationFrame(function () {
+			el.scrollIntoView({
+				behavior: "smooth"
 			});
-		}, {
-			timeout: 1500
 		});
-
-	}
+	}, {
+		timeout: 1500
+	});
 
 }
 
@@ -66,7 +62,7 @@ function leaveTabEditMode(options) {
 
 function enterEditMode(tabId) {
 
-	leaveExpandedMode();
+	taskOverlay.hide();
 
 	var tabEl = getTabElement(tabId);
 	var webview = getWebview(tabId);
@@ -269,7 +265,7 @@ function createTabElement(data) {
 		//if the tab isn't focused
 		if (tabs.getSelected() != data.id) {
 			switchToTab(data.id);
-		} else if (!isExpandedMode) { //the tab is focused, edit tab instead
+		} else { //the tab is focused, edit tab instead
 			enterEditMode(data.id);
 		}
 
@@ -294,8 +290,6 @@ function createTabElement(data) {
 			}, 150); //wait until the animation has completed
 		}
 	});
-
-	tabEl.addEventListener("mouseenter", handleExpandedModeTabItemHover);
 
 	return tabEl;
 }
@@ -364,7 +358,6 @@ function addTab(tabId, options) {
 //when we click outside the navbar, we leave editing mode
 
 bindWebviewEvent("focus", function () {
-	leaveExpandedMode();
 	leaveTabEditMode();
 	findinpage.end();
 });
