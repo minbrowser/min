@@ -1,7 +1,8 @@
 function addTaskFromOverlay() {
 	tasks.setSelected(tasks.add());
-	rerenderTabstrip();
 	taskOverlay.hide();
+
+	rerenderTabstrip();
 	addTab();
 }
 
@@ -37,7 +38,7 @@ function getTaskOverlayTabElement(tab, task) {
 					addTaskFromOverlay();
 				} else {
 					//re-render the overlay to remove the task element
-					taskOverlay.show();
+					getTaskContainer(task.id).remove();
 				}
 			}
 		},
@@ -51,6 +52,8 @@ function getTaskOverlayTabElement(tab, task) {
 function getTaskElement(task, taskIndex) {
 	var container = document.createElement("div");
 	container.className = "task-container";
+
+	container.setAttribute("data-task", task.id);
 
 	var taskActionContainer = document.createElement("div");
 	taskActionContainer.className = "task-action-container";
@@ -96,6 +99,9 @@ function getTaskElement(task, taskIndex) {
 
 	container.appendChild(taskActionContainer);
 
+	var tabContainer = document.createElement("div");
+	tabContainer.className = "task-tabs-container";
+
 	if (task.tabs) {
 		for (var i = 0; i < task.tabs.length; i++) {
 
@@ -108,28 +114,38 @@ function getTaskElement(task, taskIndex) {
 				taskOverlay.hide();
 			});
 
-			container.appendChild(el);
+			tabContainer.appendChild(el);
 		}
 	}
+
+	container.appendChild(tabContainer);
 
 	return container;
 }
 
+var dragula = require("dragula");
+
 var taskOverlay = {
 	isShown: false,
+	dragula: dragula({
+		direction: "vertical",
+	}),
 	show: function () {
-
-		taskOverlay.isShown = true;
 
 		leaveTabEditMode();
 
+		taskOverlay.isShown = true;
 		taskSwitcherButton.classList.add("active");
 
+		taskOverlay.dragula.containers = [];
 		empty(taskContainer);
 
 		//show the task elements
 		tasks.get().forEach(function (task, index) {
-			taskContainer.appendChild(getTaskElement(task, index));
+			var el = getTaskElement(task, index);
+
+			taskContainer.appendChild(el);
+			taskOverlay.dragula.containers.push(el.getElementsByClassName("task-tabs-container")[0]);
 		});
 
 		//scroll to the selected element and focus it
@@ -150,6 +166,11 @@ var taskOverlay = {
 			taskOverlay.isShown = false;
 			overlay.hidden = true;
 
+			//if the current task has been deleted, switch to the first task
+			if (!tasks.get(currentTask.id)) {
+				switchToTask(tasks.get()[0].id);
+			}
+
 			taskSwitcherButton.classList.remove("active");
 		}
 	},
@@ -161,3 +182,66 @@ var taskOverlay = {
 		}
 	}
 }
+
+//swipe down on the tabstrip to show the task overlay
+//this was the old expanded mode gesture, so it's remapped to the overlay
+tabContainer.addEventListener("mousewheel", function (e) {
+	if (e.deltaY < -30 && e.deltaX < 10) {
+		taskOverlay.show();
+		e.stopImmediatePropagation();
+	}
+});
+
+function getTaskContainer(id) {
+	return document.querySelector('.task-container[data-task="{id}"]'.replace("{id}", id));
+}
+
+function syncStateAndOverlay() {
+	var selectedTask = currentTask.id;
+
+	var tabSet = {};
+	//get a list of all of the currently open tabs
+
+	tasks.get().forEach(function (task) {
+		task.tabs.get().forEach(function (tab) {
+			tabSet[tab.id] = tab;
+		})
+	});
+
+	//loop through each task
+
+	tasks.get().forEach(function (task) {
+
+		var container = getTaskContainer(task.id);
+
+		//if the task still exists, update the tabs
+		if (container) {
+			//remove all of the old tabs
+			task.tabs.get().forEach(function (tab) {
+				task.tabs.destroy(tab.id);
+			});
+
+			//add the new tabs
+			var newTabs = container.getElementsByClassName("task-tab-item");
+
+			if (newTabs.length != 0) {
+				for (var i = 0; i < newTabs.length; i++) {
+					task.tabs.add(tabSet[newTabs[i].getAttribute("data-tab")]);
+				}
+			} else {
+				//the task has no tabs, remove it
+
+				destroyTask(task.id);
+				container.remove();
+			}
+		} else {
+			//the task no longer exists, remove it
+
+			destroyTask(task.id);
+		}
+	});
+}
+
+taskOverlay.dragula.on("drop", function () {
+	syncStateAndOverlay();
+})
