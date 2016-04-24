@@ -31,11 +31,6 @@
 	transform: none;
 	transition: 0.15s all;
 }
-@media all and (max-width: 600px) {
-	#task-overlay {
-		padding: 10% 5%;
-	}
-}
 #task-overlay[hidden] {
 	display: block !important;
 	visibility: hidden;
@@ -75,7 +70,6 @@
 	text-align: center;
 	color: inherit;
 	background-color: rgb(245, 245, 245);
-	margin-top: 2em;
 	cursor: pointer;
 }
 #add-task:hover {
@@ -89,4 +83,13 @@
 	display: flex;
 	align-items: center;
 	padding-right: 1em;
+}
+@media all and (max-width: 600px) {
+	#task-overlay {
+		padding: 10% 5% 5em 5%;
+	}
+	#add-task {
+		width: 90%;
+		left: 5%;
+	}
 }
