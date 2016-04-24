@@ -141,12 +141,16 @@ var tasks = {
 		return task.id;
 	},
 	get: function (id) {
+		if (!id) {
+			return tabState.tasks;
+		}
+
 		for (var i = 0; i < tabState.tasks.length; i++) {
 			if (tabState.tasks[i].id == id) {
 				return tabState.tasks[i];
 			}
 		}
-		return tabState.tasks;
+		return null;
 	},
 	setSelected: function (id) {
 		tabState.selectedTask = id;
