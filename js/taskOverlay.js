@@ -132,6 +132,12 @@ var taskOverlay = {
 	}),
 	show: function () {
 
+		/* disabled in focus mode */
+		if (isFocusMode) {
+			showFocusModeError();
+			return;
+		}
+
 		leaveTabEditMode();
 
 		taskOverlay.isShown = true;

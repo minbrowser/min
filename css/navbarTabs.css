@@ -189,7 +189,7 @@ body.notMac .tab-group {
 body.is-focus-mode .tab-item:not(.active) {
 	display: none;
 }
-body.is-focus-mode #add-tab-button {
+body.is-focus-mode .navbar-action-button {
 	display: none;
 }
 
