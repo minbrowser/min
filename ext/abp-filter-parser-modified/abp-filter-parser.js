@@ -272,24 +272,22 @@
 	// considered.
 	function matchOptions(parsedFilterData, input, contextParams, currentHost) {
 
-		if (parsedFilterData.options) {
-			if (contextParams.elementTypeMask !== undefined) {
-				if (parsedFilterData.options.elementTypeMask !== undefined && !(parsedFilterData.options.elementTypeMask & contextParams.elementTypeMask)) {
-					return false;
-				}
-				if (parsedFilterData.options.skipElementTypeMask !== undefined && parsedFilterData.options.skipElementTypeMask & contextParams.elementTypeMask) {
-					return false;
-				}
+		if (contextParams.elementTypeMask !== undefined && parsedFilterData.options) {
+			if (parsedFilterData.options.elementTypeMask !== undefined && !(parsedFilterData.options.elementTypeMask & contextParams.elementTypeMask)) {
+				return false;
 			}
+			if (parsedFilterData.options.skipElementTypeMask !== undefined && parsedFilterData.options.skipElementTypeMask & contextParams.elementTypeMask) {
+				return false;
+			}
+		}
 
-			// Domain option check
-			if (contextParams.domain !== undefined) {
-				if (parsedFilterData.options.domains || parsedFilterData.options.skipDomains) {
+		// Domain option check
+		if (contextParams.domain !== undefined && parsedFilterData.options) {
+			if (parsedFilterData.options.domains || parsedFilterData.options.skipDomains) {
 
-					//Min doesn't support getting the root domain yet
+				//Min doesn't support getting the root domain yet
 
-					return false;
-				}
+				return false;
 			}
 		}
 

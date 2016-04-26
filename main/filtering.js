@@ -50,7 +50,10 @@ function handleRequest(details, callback) {
 
 	if (thingsToFilter.trackers) {
 
-		if (parser.matches(parsedFilterData, details.url, {})) {
+		if (parser.matches(parsedFilterData, details.url, {
+				domain: "",
+				elementTypeMaskMap: parser.elementTypes.SCRIPT
+			})) {
 			callback({
 				cancel: true,
 				requestHeaders: details.requestHeaders
