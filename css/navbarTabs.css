@@ -49,9 +49,6 @@ body.notMac .tab-group {
 	flex: 1;
 	overflow: auto;
 }
-.tab-group #tabs::-webkit-scrollbar {
-	display: none;
-}
 .tab-item {
 	flex: 1;
 	min-width: 125px;
@@ -96,6 +93,23 @@ body.notMac .tab-group {
 }
 .tab-item.fade {
 	opacity: 0.5;
+}
+
+/* style tab scrollbar */
+.tab-group #tabs::-webkit-scrollbar {
+    height: 0.2em;
+}
+.tab-group #tabs::-webkit-scrollbar-track {
+    background-color: rgba(0,0,0,0.1);
+}
+.tab-group #tabs::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.3);
+}
+.dark-theme .tab-group #tabs::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+.dark-theme .tab-group #tabs::-webkit-scrollbar-thumb {
+    background-color: #999;
 }
 
 /* when an input is selected, hide other tabs */
