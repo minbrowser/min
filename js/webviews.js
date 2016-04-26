@@ -245,6 +245,8 @@ function addWebview(tabId) {
 	webview.classList.add("hidden");
 
 	webviewBase.appendChild(webview);
+
+	return webview;
 }
 
 function switchToWebview(id) {
@@ -254,6 +256,11 @@ function switchToWebview(id) {
 	}
 
 	var wv = getWebview(id);
+
+	if (!wv) {
+		wv = addWebview(id);
+	}
+
 	wv.classList.remove("hidden");
 	wv.hidden = false;
 }
@@ -264,7 +271,9 @@ function updateWebview(id, url) {
 
 function destroyWebview(id) {
 	var w = document.querySelector('webview[data-tab="{id}"]'.replace("{id}", id));
-	w.parentNode.removeChild(w);
+	if (w) {
+		w.parentNode.removeChild(w);
+	}
 }
 
 function getWebview(id) {

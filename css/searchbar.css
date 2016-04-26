@@ -7,7 +7,7 @@
 	background: #fff;
 	color: #000;
 	padding-left: 75px;
-	padding-right: 45px;
+	padding-right: 82px;
 	/* align with window controls */
 	-webkit-user-select: none;
 	max-height: calc(100% - 75px);
@@ -41,11 +41,11 @@ body.notMac #searchbar {
 	background-color: rgba(0, 0, 0, 0.08);
 	outline: none;
 }
-.dark-theme .searchbar-item:hover {
+.dark-theme .theme-background-color .searchbar-item:hover {
 	background-color: rgba(255, 255, 255, 0.08);
 }
-.dark-theme .searchbar-item:focus,
-.dark-theme .searchbar-item.fakefocus {
+.dark-theme .theme-background-color .searchbar-item:focus,
+.dark-theme .theme-background-color .searchbar-item.fakefocus {
 	background-color: rgba(255, 255, 255, 0.14);
 }
 .searchbar-item .title {
@@ -69,7 +69,7 @@ body.notMac #searchbar {
 	width: 1em;
 	height: 1em;
 }
-.dark-theme .searchbar-item i {
+.dark-theme .theme-background-color .searchbar-item i {
 	opacity: 0.33;
 }
 
@@ -209,9 +209,9 @@ body.is-edit-mode webview {
 .searchbar-item.tag:focus {
 	background: rgba(0, 0, 0, 0.08);
 }
-.dark-theme .searchbar-item.tag {
+.dark-theme .theme-background-color .searchbar-item.tag {
 	background-color: rgba(255, 255, 255, 0.08);
 }
-.dark-theme .searchbar-item.tag:focus {
+.dark-theme .theme-background-color .searchbar-item.tag:focus {
 	background-color: rgba(255, 255, 255, 0.12);
 }

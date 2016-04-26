@@ -158,8 +158,11 @@ body.notMac .tab-group {
 
 /* buttons */
 
-#add-tab-button {
+.navbar-action-button {
 	padding: 1em;
+}
+.navbar-action-button + .navbar-action-button {
+	padding-left: 0.5em;
 }
 
 /* reader button */
@@ -187,71 +190,12 @@ body.notMac .tab-group {
 	display: inline-block;
 }
 
-/* expanded mode */
-
-body.is-expanded-mode .tab-group {
-	min-height: 125px;
-	max-height: 600px;
-	padding-top: 40px;
-	padding-left: 1em;
-	overflow: hidden;
-}
-body.is-expanded-mode #tabs {
-	flex-wrap: wrap;
-	max-height: 100vh;
-	width: calc(100% - 20px) !important;
-}
-body.is-expanded-mode .tab-item {
-	min-width: 300px;
-	max-width: 350px;
-	height: 90px;
-	cursor: pointer;
-	padding: 0.5em;
-	transition: none;
-}
-body.is-expanded-mode .tab-item .tab-view-contents {
-	line-height: 1.25em;
-	word-break: normal;
-}
-body.is-expanded-mode .tab-item .secondary-text {
-	display: block;
-	font-size: 0.8em;
-	line-height: 1em;
-	opacity: 0.75;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
-}
-body.is-expanded-mode .tab-item i {
-	display: none !important;
-}
-body.is-expanded-mode #add-tab-button {
-	display: none;
-}
-@media all and (max-width: 650px) {
-	body.is-expanded-mode .tab-item {
-		min-width: 50%;
-		max-width: 50%;
-	}
-}
-@media all and (max-width: 450px) {
-	body.is-expanded-mode .tab-item {
-		min-width: 100%;
-		max-width: 100%;
-	}
-}
-body.is-expanded-mode .tab-item .tab-view-contents .title {
-	max-height: 2.9em;
-	overflow: hidden;
-	display: inline-block;
-}
-
 /* hide other tabs in focus mode */
 
 body.is-focus-mode .tab-item:not(.active) {
 	display: none;
 }
-body.is-focus-mode #add-tab-button {
+body.is-focus-mode .navbar-action-button {
 	display: none;
 }
 

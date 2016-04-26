@@ -145,6 +145,13 @@ function createAppMenu() {
 					}
       },
 				{
+					label: 'New Task',
+					accelerator: 'shift+CmdOrCtrl+n',
+					click: function (item, window) {
+						sendIPCToWindow(window, "addTask");
+					}
+      },
+				{
 					type: "separator"
       },
 				{

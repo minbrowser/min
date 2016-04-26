@@ -16,6 +16,7 @@ function getTabElement(id) { //gets the DOM element for a tab
 }
 
 function setActiveTabElement(tabId) {
+
 	var activeTab = document.querySelector(".tab-item.active");
 
 	if (activeTab) {
@@ -31,19 +32,15 @@ function setActiveTabElement(tabId) {
 		el.classList.remove("has-highlight");
 	}
 
-	if (!isExpandedMode) {
-
-		requestIdleCallback(function () {
-			requestAnimationFrame(function () {
-				el.scrollIntoView({
-					behavior: "smooth"
-				});
+	requestIdleCallback(function () {
+		requestAnimationFrame(function () {
+			el.scrollIntoView({
+				behavior: "smooth"
 			});
-		}, {
-			timeout: 1500
 		});
-
-	}
+	}, {
+		timeout: 1500
+	});
 
 }
 
@@ -65,7 +62,7 @@ function leaveTabEditMode(options) {
 
 function enterEditMode(tabId) {
 
-	leaveExpandedMode();
+	taskOverlay.hide();
 
 	var tabEl = getTabElement(tabId);
 	var webview = getWebview(tabId);
@@ -95,6 +92,15 @@ function enterEditMode(tabId) {
 	}
 }
 
+
+//redraws all of the tabs in the tabstrip
+function rerenderTabstrip() {
+	empty(tabGroup);
+	for (var i = 0; i < tabs.length; i++) {
+		tabGroup.appendChild(createTabElement(tabs[i]));
+	}
+}
+
 function rerenderTabElement(tabId) {
 	var tabEl = getTabElement(tabId),
 		tabData = tabs.get(tabId);
@@ -120,13 +126,12 @@ function rerenderTabElement(tabId) {
 	bookmarks.renderStar(tabId);
 }
 
-function createTabElement(tabId) {
-	var data = tabs.get(tabId),
-		url = urlParser.parse(data.url);
+function createTabElement(data) {
+	var url = urlParser.parse(data.url);
 
 	var tabEl = document.createElement("div");
 	tabEl.className = "tab-item";
-	tabEl.setAttribute("data-tab", tabId);
+	tabEl.setAttribute("data-tab", data.id);
 
 	if (data.private) {
 		tabEl.classList.add("private-tab");
@@ -150,13 +155,13 @@ function createTabElement(tabId) {
 	input.value = url;
 
 	ec.appendChild(input);
-	ec.appendChild(bookmarks.getStar(tabId));
+	ec.appendChild(bookmarks.getStar(data.id));
 
 	tabEl.appendChild(ec);
 
 	var vc = document.createElement("div");
 	vc.className = "tab-view-contents";
-	vc.appendChild(readerView.getButton(tabId));
+	vc.appendChild(readerView.getButton(data.id));
 
 	//icons
 
@@ -170,7 +175,7 @@ function createTabElement(tabId) {
 
 	closeTabButton.addEventListener("click", function (e) {
 
-		closeTab(tabId);
+		closeTab(data.id);
 
 		//prevent the searchbar from being opened
 		e.stopPropagation();
@@ -258,10 +263,10 @@ function createTabElement(tabId) {
 		var tabId = this.getAttribute("data-tab");
 
 		//if the tab isn't focused
-		if (tabs.getSelected() != tabId) {
-			switchToTab(tabId);
-		} else if (!isExpandedMode) { //the tab is focused, edit tab instead
-			enterEditMode(tabId);
+		if (tabs.getSelected() != data.id) {
+			switchToTab(data.id);
+		} else { //the tab is focused, edit tab instead
+			enterEditMode(data.id);
 		}
 
 	});
@@ -285,8 +290,6 @@ function createTabElement(tabId) {
 			}, 150); //wait until the animation has completed
 		}
 	});
-
-	tabEl.addEventListener("mouseenter", handleExpandedModeTabItemHover);
 
 	return tabEl;
 }
@@ -329,7 +332,7 @@ function addTab(tabId, options) {
 
 	var index = tabs.getIndex(tabId);
 
-	var tabEl = createTabElement(tabId);
+	var tabEl = createTabElement(tab);
 
 	tabGroup.insertBefore(tabEl, tabGroup.childNodes[index]);
 
@@ -355,7 +358,6 @@ function addTab(tabId, options) {
 //when we click outside the navbar, we leave editing mode
 
 bindWebviewEvent("focus", function () {
-	leaveExpandedMode();
 	leaveTabEditMode();
 	findinpage.end();
 });
