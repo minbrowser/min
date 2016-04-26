@@ -26,6 +26,7 @@ function createWindow() {
 		'min-height': 500,
 		'title-bar-style': 'hidden-inset',
 		'auto-hide-menu-bar': true,
+		icon: __dirname + '/icons/icon256.png',
 	});
 
 	// and load the index.html of the app.
