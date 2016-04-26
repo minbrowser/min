@@ -10,6 +10,7 @@ var overlay = document.getElementById("task-overlay");
 var taskContainer = document.getElementById("task-area");
 var taskSwitcherButton = document.getElementById("switch-task-button");
 var addTaskButton = document.getElementById("add-task");
+var navbar = document.getElementById("task-overlay-navbar");
 
 taskSwitcherButton.addEventListener("click", function () {
 	taskOverlay.toggle();
@@ -17,6 +18,10 @@ taskSwitcherButton.addEventListener("click", function () {
 
 addTaskButton.addEventListener("click", function (e) {
 	switchToTask(tasks.add());
+	taskOverlay.hide();
+});
+
+navbar.addEventListener("click", function () {
 	taskOverlay.hide();
 });
 
