@@ -12,7 +12,7 @@
 	position: absolute;
 	top: -0.375em;
 	right: 0;
-	z-index: 999999;
+	z-index: 9;
 }
 #switch-task-button.active {
 	color: royalblue !important;

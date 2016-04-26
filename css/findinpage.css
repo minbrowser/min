@@ -8,6 +8,7 @@
 	padding-left: 80px;
 	padding-right: 0.75em;
 	height: 36px;
+	z-index: 99;
 }
 body.fullscreen #findinpage-bar,
 body.notMac #findinpage-bar {
