@@ -71,6 +71,21 @@ function addPrivateTab() {
 
 ipc.on("addPrivateTab", addPrivateTab);
 
+ipc.on("addTask", function () {
+	/* new tasks can't be created in focus mode */
+	if (isFocusMode) {
+		showFocusModeError();
+		return;
+	}
+
+	addTaskFromOverlay();
+	taskOverlay.show();
+	setTimeout(function () {
+		taskOverlay.hide();
+		enterEditMode(tabs.getSelected());
+	}, 600);
+});
+
 require.async("mousetrap", function (Mousetrap) {
 	window.Mousetrap = Mousetrap;
 
