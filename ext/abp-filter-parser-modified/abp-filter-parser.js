@@ -146,8 +146,8 @@
 		}
 
 		// Check for exception instead of filter
-		parsedFilterData.isException = input[beginIndex] === '@' && input[beginIndex + 1] === '@';
-		if (parsedFilterData.isException) {
+		if (input[beginIndex] === '@' && input[beginIndex + 1] === '@') {
+			parsedFilterData.isException = true;
 			beginIndex = 2;
 		}
 
@@ -195,7 +195,13 @@
 			input = input.substring(0, input.length - 1);
 		}
 
-		parsedFilterData.data = input.substring(beginIndex) || '*';
+		var d = input.substring(beginIndex) || '*';
+
+		if (d.indexOf("*") !== -1 && !parsedFilterData.leftAnchored && !parsedFilterData.rightAnchored && !parsedFilterData.bothAnchored && !parsedFilterData.hostAnchored) { //the data string will never be used, only the wildcard match parts
+			parsedFilterData.wildcardMatchParts = d.split("*");
+		} else {
+			parsedFilterData.data = d;
+		}
 
 		return true;
 	}
@@ -307,7 +313,7 @@
 	 */
 
 	function parse(input, parserData) {
-		var filterCategories = ["regex", "leftAnchored", "rightAnchored", "bothAnchored", "hostAnchored", "indexOf"];
+		var filterCategories = ["regex", "leftAnchored", "rightAnchored", "bothAnchored", "hostAnchored", "wildcard", "indexOf"];
 
 		for (var i = 0; i < filterCategories.length; i++) {
 			parserData[filterCategories[i]] = parserData[filterCategories[i]] || [];
@@ -349,6 +355,8 @@
 					object.rightAnchored.push(parsedFilterData);
 				} else if (parsedFilterData.hostAnchored) {
 					object.hostAnchored.push(parsedFilterData);
+				} else if (parsedFilterData.wildcardMatchParts) {
+					object.wildcard.push(parsedFilterData);
 				} else {
 					object.indexOf.push(parsedFilterData);
 				}
@@ -413,32 +421,31 @@
 			}
 		}
 
+
 		//check if the string matches an indexOf filter
 
-		outer: for (i = 0, len = filters.indexOf.length; i < len; i++) {
+		for (i = 0, len = filters.indexOf.length; i < len; i++) {
 
 			filter = filters.indexOf[i];
 
-			if (filter.data.indexOf("*") === -1) {
-				if (indexOfFilter(input, filter.data, 0) == -1) {
+			if (indexOfFilter(input, filter.data, 0) !== -1 && matchOptions(filter, input, contextParams, currentHost)) {
+				return true;
+			}
+
+		}
+
+		outer: for (i = 0, len = filters.wildcard.length; i < len; i++) {
+
+			filter = filters.wildcard[i];
+
+			let index = 0;
+			for (let part of filter.wildcardMatchParts) {
+				let newIndex = indexOfFilter(input, part, index);
+				if (newIndex === -1) {
 					continue outer;
 				}
-				//the filter matches, continue to matchOptions
-			} else {
-
-				// Wildcard match comparison
-				let parts = filter.data.split('*');
-
-				let index = 0;
-				for (let part of parts) {
-					let newIndex = indexOfFilter(input, part, index);
-					if (newIndex === -1) {
-						continue outer;
-					}
-					index = newIndex + part.length;
-				}
+				index = newIndex + part.length;
 			}
-			//console.log(filter, 5);
 
 			if (matchOptions(filter, input, contextParams, currentHost)) {
 				return true;

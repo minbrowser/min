@@ -14,6 +14,16 @@ function navigate(tabId, newURL) {
 	});
 }
 
+function destroyTask(id) {
+	var task = tasks.get(id);
+
+	task.tabs.forEach(function (tab) {
+		destroyWebview(tab.id);
+	});
+
+	tasks.destroy(id);
+}
+
 //destroys the webview and tab element for a tab
 function destroyTab(id) {
 
@@ -51,6 +61,20 @@ function closeTab(tabId) {
 	}
 }
 
+function switchToTask(id) {
+	tasks.setSelected(id);
+
+	rerenderTabstrip();
+
+	var taskData = tasks.get(id);
+
+	if (taskData.tabs.length > 0) {
+		switchToTab(taskData.tabs.getSelected());
+	} else {
+		addTab();
+	}
+}
+
 /* switches to a tab - update the webview, state, tabstrip, etc. */
 
 function switchToTab(id, options) {
@@ -69,7 +93,7 @@ function switchToTab(id, options) {
 	setActiveTabElement(id);
 	switchToWebview(id);
 
-	if (options.focusWebview != false && !isExpandedMode) { //trying to focus a webview while in expanded mode breaks the page
+	if (options.focusWebview != false) {
 		getWebview(id).focus();
 	}
 

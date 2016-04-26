@@ -7,6 +7,7 @@ const browserPage = 'file://' + __dirname + '/index.html';
 
 var mainWindow = null;
 var isFocusMode = false;
+var appIsReady = false;
 
 function sendIPCToWindow(window, action, data) {
 	//if there are no windows, create a new one
@@ -24,6 +25,8 @@ function createWindow() {
 		'min-width': 320,
 		'min-height': 500,
 		'title-bar-style': 'hidden-inset',
+		'auto-hide-menu-bar': true,
+		icon: __dirname + '/icons/icon256.png',
 	});
 
 	// and load the index.html of the app.
@@ -86,6 +89,8 @@ app.on('window-all-closed', function () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function () {
+	appIsReady = true;
+
 	// Create the browser window.
 	electronScreen = electron.screen; //this module must be loaded after the app is ready
 
@@ -96,6 +101,22 @@ app.on('ready', function () {
 
 	createAppMenu();
 
+});
+
+app.on("open-url", function (e, url) {
+	if (appIsReady) {
+		sendIPCToWindow(mainWindow, "addTab", {
+			url: url
+		});
+	} else {
+		app.on("ready", function () {
+			setTimeout(function () { //TODO replace this with an event that occurs when the browserWindow finishes loading
+				sendIPCToWindow(mainWindow, "addTab", {
+					url: url
+				});
+			}, 750);
+		});
+	}
 });
 
 
@@ -122,6 +143,13 @@ function createAppMenu() {
 					accelerator: 'shift+CmdOrCtrl+t',
 					click: function (item, window) {
 						sendIPCToWindow(window, "addPrivateTab");
+					}
+      },
+				{
+					label: 'New Task',
+					accelerator: 'shift+CmdOrCtrl+n',
+					click: function (item, window) {
+						sendIPCToWindow(window, "addTask");
 					}
       },
 				{
@@ -242,8 +270,8 @@ function createAppMenu() {
 			label: 'Developer',
 			submenu: [
 				{
-					label: 'Reload',
-					accelerator: 'CmdOrCtrl+R',
+					label: 'Reload Browser',
+					accelerator: undefined,
 					click: function (item, focusedWindow) {
 						if (focusedWindow)
 							focusedWindow.reload();

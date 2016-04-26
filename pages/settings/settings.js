@@ -12,7 +12,7 @@ for (var contentType in contentTypes) {
 
 	(function (contentType) {
 
-		getSetting("filtering", function (value) {
+		settings.get("filtering", function (value) {
 
 			//create the settings section for blocking each content type
 
@@ -39,7 +39,7 @@ for (var contentType in contentTypes) {
 			container.appendChild(section);
 
 			checkbox.addEventListener("change", function (e) {
-				getSetting("filtering", function (value) {
+				settings.get("filtering", function (value) {
 					if (!value) {
 						value = {};
 					}
@@ -56,7 +56,7 @@ for (var contentType in contentTypes) {
 						console.log(false, value);
 					}
 
-					setSetting("filtering", value);
+					settings.set("filtering", value);
 					banner.hidden = false;
 				});
 			});
@@ -67,38 +67,17 @@ for (var contentType in contentTypes) {
 
 }
 
-function getSetting(key, cb) {
-	db.settings.where("key").equals(key).first(function (item) {
-		if (item) {
-			cb(item.value);
-		} else {
-			cb(null);
-		}
-	});
-}
-
-function setSetting(key, value, cb) {
-	db.settings.put({
-		key: key,
-		value: value
-	}).then(function () {
-		if (cb) {
-			cb();
-		}
-	});
-}
-
-getSetting("filtering", function (value) {
+settings.get("filtering", function (value) {
 	trackerCheckbox.checked = value.trackers;
 });
 
 trackerCheckbox.addEventListener("change", function (e) {
-	getSetting("filtering", function (value) {
+	settings.get("filtering", function (value) {
 		if (!value) {
 			value = {};
 		}
 		value.trackers = e.target.checked;
-		setSetting("filtering", value);
+		settings.set("filtering", value);
 		banner.hidden = false;
 	});
 });

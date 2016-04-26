@@ -71,6 +71,21 @@ function addPrivateTab() {
 
 ipc.on("addPrivateTab", addPrivateTab);
 
+ipc.on("addTask", function () {
+	/* new tasks can't be created in focus mode */
+	if (isFocusMode) {
+		showFocusModeError();
+		return;
+	}
+
+	addTaskFromOverlay();
+	taskOverlay.show();
+	setTimeout(function () {
+		taskOverlay.hide();
+		enterEditMode(tabs.getSelected());
+	}, 600);
+});
+
 require.async("mousetrap", function (Mousetrap) {
 	window.Mousetrap = Mousetrap;
 
@@ -129,8 +144,9 @@ require.async("mousetrap", function (Mousetrap) {
 	})
 
 	Mousetrap.bind("esc", function (e) {
+		taskOverlay.hide();
+
 		leaveTabEditMode();
-		leaveExpandedMode();
 		if (findinpage.isEnabled) {
 			findinpage.end(); //this also focuses the webview
 		} else {
@@ -160,8 +176,6 @@ require.async("mousetrap", function (Mousetrap) {
 
 	Mousetrap.bind(["option+mod+left", "shift+ctrl+tab"], function (d) {
 
-		enterExpandedMode(); //show the detailed tab switcher
-
 		var currentIndex = tabs.getIndex(tabs.getSelected());
 		var previousTab = tabs.getAtIndex(currentIndex - 1);
 
@@ -173,8 +187,6 @@ require.async("mousetrap", function (Mousetrap) {
 	});
 
 	Mousetrap.bind(["option+mod+right", "ctrl+tab"], function (d) {
-
-		enterExpandedMode();
 
 		var currentIndex = tabs.getIndex(tabs.getSelected());
 		var nextTab = tabs.getAtIndex(currentIndex + 1);
@@ -196,20 +208,11 @@ require.async("mousetrap", function (Mousetrap) {
 		addTab(); //create a new, blank tab
 	});
 
-	//return exits expanded mode
-
-	Mousetrap.bind("return", function () {
-		if (isExpandedMode) {
-			leaveExpandedMode();
-			getWebview(tabs.getSelected()).focus();
-		}
-	});
-
 	Mousetrap.bind("shift+mod+e", function () {
-		if (!isExpandedMode) {
-			enterExpandedMode();
+		if (taskOverlay.isShown) {
+			taskOverlay.hide();
 		} else {
-			leaveExpandedMode();
+			taskOverlay.show();
 		}
 	});
 
@@ -220,10 +223,23 @@ require.async("mousetrap", function (Mousetrap) {
 		showAllBookmarks();
 	});
 
-}); //end require mousetrap
+	var lastReload = 0;
 
-document.body.addEventListener("keyup", function (e) {
-	if (e.keyCode == 17) { //ctrl key
-		leaveExpandedMode();
-	}
-});
+	Mousetrap.bind("mod+r", function () {
+		var time = Date.now();
+
+		//pressing mod+r twice in a row reloads the whole browser
+		if (time - lastReload < 500) {
+			window.location.reload();
+		} else {
+			var w = getWebview(tabs.getSelected());
+
+			if (w.src) { //webview methods aren't available if the webview is blank
+				w.reloadIgnoringCache();
+			}
+		}
+
+		lastReload = time;
+	});
+
+}); //end require mousetrap

@@ -173,7 +173,24 @@ function getWebviewDom(options) {
 			bookmarks.onDataRecieved(e.args[0]);
 
 		} else if (e.channel == "phishingDetected") {
-			navigate(this.getAttribute("data-tab"), phishingWarningPage);
+			//check if the page is on the phishing detection whitelist
+
+			var url = w.getAttribute("src");
+
+			try {
+				var hostname = new URL(url).hostname;
+			} catch (e) {
+				var hostname = "";
+			}
+
+			settings.get("phishingWhitelist", function (value) {
+				if (!value || !hostname || value.indexOf(hostname) == -1) {
+					//show the warning page
+					navigate(tab, phishingWarningPage + "?url=" + encodeURIComponent(url));
+				}
+			}, {
+				fromCache: false
+			});
 		}
 	});
 
@@ -228,6 +245,8 @@ function addWebview(tabId) {
 	webview.classList.add("hidden");
 
 	webviewBase.appendChild(webview);
+
+	return webview;
 }
 
 function switchToWebview(id) {
@@ -237,6 +256,11 @@ function switchToWebview(id) {
 	}
 
 	var wv = getWebview(id);
+
+	if (!wv) {
+		wv = addWebview(id);
+	}
+
 	wv.classList.remove("hidden");
 	wv.hidden = false;
 }
@@ -247,7 +271,9 @@ function updateWebview(id, url) {
 
 function destroyWebview(id) {
 	var w = document.querySelector('webview[data-tab="{id}"]'.replace("{id}", id));
-	w.parentNode.removeChild(w);
+	if (w) {
+		w.parentNode.removeChild(w);
+	}
 }
 
 function getWebview(id) {

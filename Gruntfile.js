@@ -15,6 +15,7 @@ module.exports = function (grunt) {
 				src: [
 						"js/default.js",
 						"js/util/database.js",
+						"js/util/settings.js",
 						 "js/tabState.js",
 						"js/util/urlParser.js",
 						"js/filteringRenderer.js",
@@ -31,11 +32,12 @@ module.exports = function (grunt) {
 							"js/searchbar/openTabsPlugin.js",
 							"js/searchbar/searchSuggestionsPlugin.js",
 							"js/searchbar/historySuggestionsPlugin.js",
+							"js/searchbar/hostsSuggestionsPlugin.js",
 							"js/readerview.js",
 						 "js/navbar/tabActivity.js",
 							"js/navbar/tabColor.js",
 						 "js/navbar/navbarTabs.js",
-							"js/navbar/expandedTabMode.js",
+							"js/taskOverlay.js",
 							"js/navbar/addTabButton.js",
 						 "js/keybindings.js",
 						 "js/fileDownloadManager.js",
@@ -93,6 +95,13 @@ module.exports = function (grunt) {
 					icon: "icon.icns",
 					ignore: 'dist/app',
 					overwrite: true,
+					protocols: [{
+						name: "HTTP link",
+						schemes: ["http", "https"]
+					}, {
+						name: "File",
+						schemes: ["file"]
+					}],
 				}
 			},
 			windowsBuild: {
@@ -130,6 +139,8 @@ module.exports = function (grunt) {
 				section: "web",
 				homepage: "https://palmeral.github.io/min/",
 				icon: "icons/icon256.png",
+				categories: ["Network", "WebBrowser"],
+				mimeType: ["x-scheme-handler/http", "x-scheme-handler/https", "text/html"]
 			},
 			linux32: {
 				options: {
@@ -138,7 +149,6 @@ module.exports = function (grunt) {
 				src: 'dist/app/Min-linux-ia32',
 				dest: 'dist/app/linux'
 			},
-
 			linux64: {
 				options: {
 					arch: 'amd64'
