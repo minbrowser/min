@@ -140,7 +140,9 @@ module.exports = function (grunt) {
 				homepage: "https://palmeral.github.io/min/",
 				icon: "icons/icon256.png",
 				categories: ["Network", "WebBrowser"],
-				mimeType: ["x-scheme-handler/http", "x-scheme-handler/https", "text/html"]
+				mimeType: ["x-scheme-handler/http", "x-scheme-handler/https", "text/html"],
+				maintainer: "Min Developers <280953907a@zoho.com>",
+				description: "Min is a faster, smarter web browser.",
 			},
 			linux32: {
 				options: {
