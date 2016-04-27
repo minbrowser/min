@@ -133,7 +133,7 @@ module.exports = function (grunt) {
 		},
 		'electron-installer-debian': {
 			options: {
-				productName: "min",
+				productName: "Min",
 				genericName: "Web Browser",
 				version: version,
 				section: "web",

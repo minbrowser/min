@@ -1,5 +1,5 @@
 {
-  "name": "Min",
+  "name": "min",
   "version": "1.1.2",
   "electronVersion": "0.37.1",
   "main": "main.build.js",
