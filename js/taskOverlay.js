@@ -50,6 +50,7 @@ function getTaskOverlayTabElement(tab, task) {
 	});
 
 	item.setAttribute("data-tab", tab.id);
+	item.setAttribute("data-task", task.id);
 
 	return item;
 }
@@ -113,7 +114,7 @@ function getTaskElement(task, taskIndex) {
 			var el = getTaskOverlayTabElement(task.tabs[i], task);
 
 			el.addEventListener("click", function (e) {
-				switchToTask(task.id);
+				switchToTask(this.getAttribute("data-task"));
 				switchToTab(this.getAttribute("data-tab"));
 
 				taskOverlay.hide();
@@ -238,6 +239,8 @@ function syncStateAndOverlay() {
 			if (newTabs.length != 0) {
 				for (var i = 0; i < newTabs.length; i++) {
 					task.tabs.add(tabSet[newTabs[i].getAttribute("data-tab")]);
+					//update the data-task attribute of the tab element
+					newTabs[i].setAttribute("data-task", task.id);
 				}
 			} else {
 				//the task has no tabs, remove it

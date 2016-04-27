@@ -69,7 +69,17 @@ function switchToTask(id) {
 	var taskData = tasks.get(id);
 
 	if (taskData.tabs.length > 0) {
-		switchToTab(taskData.tabs.getSelected());
+		var selectedTab = taskData.tabs.getSelected();
+		
+		//if the task has no tab that is selected, switch to the most recent one
+		
+		if(!selectedTab) {
+			selectedTab = taskData.tabs.get().sort(function(a, b) {
+				return b.lastActivity - a.lastActivity;
+			})[0].id;
+		}
+		
+		switchToTab(selectedTab);
 	} else {
 		addTab();
 	}
