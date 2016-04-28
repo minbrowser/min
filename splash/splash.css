@@ -23,7 +23,7 @@
 @media all and (max-width: 675px) {
 	body,
 	html {
-		font-size: 13px;
+		font-size: 13px !important;
 	}
 	.column,
 	.section.half-width {
