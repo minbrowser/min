@@ -5,9 +5,9 @@ var failMessage = "Min requires OS X or Ubuntu";
 var availablePlatforms = ["MacIntel"];
 
 var platforms = {
-	"MacIntel": "https://github.com/PalmerAL/min/releases/download/v1.1.2/Min-v1.1.2-darwin-x64.zip",
-	"Linux i686": "https://github.com/PalmerAL/min/releases/download/v1.1.2/Min_1.1.2_i386.deb",
-	"x86_64": "https://github.com/PalmerAL/min/releases/download/v1.1.2/Min_1.1.2_amd64.deb",
+	"MacIntel": "https://github.com/PalmerAL/min/releases/download/v1.2.0/Min-v1.2.0-darwin-x64.zip",
+	"Linux i686": "https://github.com/PalmerAL/min/releases/download/v1.2.0/Min_1.2.0_i386.deb",
+	"x86_64": "https://github.com/PalmerAL/min/releases/download/v1.2.0/Min_1.2.0_amd64.deb",
 }
 
 var downloadButtons = document.getElementsByClassName("download-button");
