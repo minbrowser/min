@@ -83,6 +83,15 @@
 		return c !== '.' && c !== undefined;
 	}
 
+	function isSameOriginHost(baseContextHost, testHost) {
+		if (testHost.endsWith(baseContextHost)) {
+			var c = testHost[testHost.length - baseContextHost.length - 1];
+			return c === '.' || c === undefined;
+		} else {
+			return false;
+		}
+	}
+
 	/**
 	 * Parses the domain string using the passed in separator and
 	 * fills in options.
@@ -414,7 +423,7 @@
 
 			filter = filters.hostAnchored[i];
 
-			if (!isThirdPartyHost(filter.host, currentHost) && indexOfFilter(input, filter.data) !== -1 && matchOptions(filter, input, contextParams, currentHost)) {
+			if (isSameOriginHost(filter.host, currentHost) && indexOfFilter(input, filter.data) !== -1 && matchOptions(filter, input, contextParams, currentHost)) {
 				//console.log(filter, 4);
 
 				return true;
