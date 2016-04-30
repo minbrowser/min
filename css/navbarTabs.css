@@ -106,10 +106,10 @@ body.notMac .tab-group {
     background-color: rgba(0,0,0,0.3);
 }
 .dark-theme .tab-group #tabs::-webkit-scrollbar-track {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.3);
 }
 .dark-theme .tab-group #tabs::-webkit-scrollbar-thumb {
-    background-color: #999;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 /* when an input is selected, hide other tabs */
