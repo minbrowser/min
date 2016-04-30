@@ -243,3 +243,12 @@ require.async("mousetrap", function (Mousetrap) {
 	});
 
 }); //end require mousetrap
+
+//reload the webview when the F5 key is pressed
+document.body.addEventListener("keydown", function (e) {
+	if (e.keyCode == 116) {
+		try {
+			getWebview(tabs.getSelected()).reloadIgnoringCache();
+		} catch (e) {}
+	}
+});
