@@ -69,12 +69,6 @@ function startReaderView(article) {
 		window.location = url;
 	});
 
-	//make findinpage search the sandboxed iframe and not the parent window
-
-	window.find = function () {
-		rframe.contentWindow.find.apply(rframe.contentWindow, arguments);
-	};
-
 }
 
 //iframe hack to securely parse the document
