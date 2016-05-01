@@ -1,5 +1,14 @@
-//http://stackoverflow.com/a/2091331
+var hours = new Date().getHours();
 
+var isDarkTheme = false;
+
+if (hours > 21 || hours < 6) {
+	isDarkTheme = true;
+
+	document.body.classList.add("dark-theme")
+}
+
+//http://stackoverflow.com/a/2091331
 
 function getQueryVariable(variable) {
 	var query = window.location.search.substring(1);
@@ -14,8 +23,6 @@ function getQueryVariable(variable) {
 }
 
 var backbutton = document.getElementById("backtoarticle");
-
-var emptyHTMLdocument = "<!DOCTYPE html><html><head></head><body></body></html>"
 
 function startReaderView(article) {
 
@@ -45,6 +52,10 @@ function startReaderView(article) {
 	rframe.srcdoc = readerContent;
 
 	rframe.onload = function () {
+
+		if (isDarkTheme) {
+			rframe.contentDocument.body.classList.add("dark-theme");
+		}
 
 		requestAnimationFrame(function () {
 			rframe.height = rframe.contentDocument.body.querySelector(".reader-main").scrollHeight + "px";

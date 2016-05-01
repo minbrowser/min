@@ -108,10 +108,11 @@ a {
 	color: inherit;
 	font-size: 1em;
 	text-decoration: none;
-	color: #777;
+	opacity: 0.6;
 }
 a:hover {
 	color: #2196F3;
+	opacity: 1.0;
 }
 figure {
 	max-width: 50%;
@@ -145,6 +146,13 @@ blockquote {
 	font-size: 1.2em;
 	line-height: 1.5em;
 	margin: 1.5em 0;
+}
+
+/* dark theme */
+
+body.dark-theme {
+	background-color: #000;
+	color: #fff;
 }
 
 /* site-specific styles */
