@@ -144,19 +144,19 @@ module.exports = function (grunt) {
 				maintainer: "Min Developers <280953907a@zoho.com>",
 				description: "Min is a faster, smarter web browser.",
 				depends: [
-        'gconf2',
-        'gconf-service',
-        'gvfs-bin',
-        'libc6',
-        'libcap2',
-        'libgtk2.0-0',
-        'libudev0 | libudev1',
-        'libgcrypt11 | libgcrypt20',
-        'libnotify4',
-        'libnss3',
-        'libxtst6',
-        'python',
-        'xdg-utils'
+				'gconf2',
+				'gconf-service',
+				'gvfs-bin',
+				'libc6',
+				'libcap2',
+				'libgtk2.0-0',
+				'libudev0 | libudev1',
+				'libgcrypt11 | libgcrypt20',
+				'libnotify4',
+				'libnss3',
+				'libxtst6',
+				'python',
+				'xdg-utils'
 				]
 			},
 			linux32: {
