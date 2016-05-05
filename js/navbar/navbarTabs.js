@@ -260,10 +260,9 @@ function createTabElement(data) {
 
 	//click to enter edit mode or switch to a tab
 	tabEl.addEventListener("click", function (e) {
-		var tabId = this.getAttribute("data-tab");
-
-		//if the tab isn't focused
-		if (tabs.getSelected() != data.id) {
+		if (e.which == 2) { // if mouse middle click -> close tab
+			closeTab(data.id);
+		} else if (tabs.getSelected() != data.id) { // else switch to tab if it isn't focused
 			switchToTab(data.id);
 		} else { //the tab is focused, edit tab instead
 			enterEditMode(data.id);
