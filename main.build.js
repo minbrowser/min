@@ -119,6 +119,17 @@ app.on("open-url", function (e, url) {
 	}
 });
 
+/**
+ * Emitted when the application is activated, which usually happens when clicks on the applications's dock icon
+ * https://github.com/electron/electron/blob/master/docs/api/app.md#event-activate-os-x
+ *
+ * Opens a new tab when all tabs are closed, and min is still open by clicking on the application dock icon
+ */
+app.on("activate", function functionName(/*e, hasVisibleWindows*/) {
+	if (!mainWindow) {
+		createWindow();
+	}
+});
 
 function createAppMenu() {
 	// create the menu. based on example from http://electron.atom.io/docs/v0.34.0/api/menu/
