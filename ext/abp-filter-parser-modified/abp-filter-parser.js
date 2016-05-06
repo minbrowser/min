@@ -17,29 +17,10 @@
 		value: true
 	});
 
-	/**
-	 * bitwise mask of different request types
-	 */
-	var elementTypes = {
-		SCRIPT: 1,
-		IMAGE: 2,
-		STYLESHEET: 4,
-		OBJECT: 8,
-		XMLHTTPREQUEST: 16,
-		OBJECTSUBREQUEST: 32,
-		SUBDOCUMENT: 64,
-		DOCUMENT: 128,
-		OTHER: 256
-	};
+	var elementTypes = ["script", "image", "stylesheet", "object", "xmlhttprequest", "objectsubrequest", "subdocument", "document", "other"];
 
 	exports.elementTypes = elementTypes;
 
-	/**
-	 * Maps element types to type mask.
-	 */
-	var elementTypeMaskMap = new Map([['script', elementTypes.SCRIPT], ['image', elementTypes.IMAGE], ['stylesheet', elementTypes.STYLESHEET], ['object', elementTypes.OBJECT], ['xmlhttprequest', elementTypes.XMLHTTPREQUEST], ['object-subrequest', elementTypes.OBJECTSUBREQUEST], ['subdocument', elementTypes.SUBDOCUMENT], ['document', elementTypes.DOCUMENT], ['other', elementTypes.OTHER]]);
-
-	exports.elementTypeMaskMap = elementTypeMaskMap;
 	var separatorCharacters = ':?/=^';
 
 	/**
@@ -117,25 +98,28 @@
 
 	function parseOptions(input) {
 		var output = {
-			binaryOptions: new Set()
+			binaryOptions: [],
 		};
+
 		input.split(',').forEach(function (option) {
-			option = option.trim();
+
 			if (option.startsWith('domain=')) {
 				var domainString = option.split('=')[1].trim();
 				parseDomains(domainString, '|', output);
+
 			} else {
-				var optionWithoutPrefix = option[0] === '~' ? option.substring(1) : option;
-				if (elementTypeMaskMap.has(optionWithoutPrefix)) {
-					if (option[0] === '~') {
-						output.skipElementTypeMask |= elementTypeMaskMap.get(optionWithoutPrefix);
-					} else {
-						output.elementTypeMask |= elementTypeMaskMap.get(optionWithoutPrefix);
-					}
+
+				//the option is an element type to skip
+				if (option[0] === "~" && elementTypes.indexOf(option.substring(1)) !== -1) {
+					output.skipElementType = option.substring(1);
+
+					//the option is an element type to match
+				} else if (elementTypes.indexOf(option) !== -1) {
+					output.elementType = option;
 				}
-				output.binaryOptions.add(option);
 			}
 		});
+
 		return output;
 	}
 
@@ -271,7 +255,7 @@
 	}
 
 	function filterDataContainsOption(parsedFilterData, option) {
-		return parsedFilterData.options && parsedFilterData.options.binaryOptions && parsedFilterData.options.binaryOptions.has(option);
+		return parsedFilterData.options && parsedFilterData.options.binaryOptions && parsedFilterData.options.binaryOptions.indexOf(option) !== -1;
 	}
 
 	// Determines if there's a match based on the options, this doesn't
@@ -281,13 +265,11 @@
 	// considered.
 	function matchOptions(parsedFilterData, input, contextParams, currentHost) {
 
-		if (contextParams.elementTypeMask !== undefined && parsedFilterData.options) {
-			if (parsedFilterData.options.elementTypeMask !== undefined && !(parsedFilterData.options.elementTypeMask & contextParams.elementTypeMask)) {
-				return false;
-			}
-			if (parsedFilterData.options.skipElementTypeMask !== undefined && parsedFilterData.options.skipElementTypeMask & contextParams.elementTypeMask) {
-				return false;
-			}
+		if (parsedFilterData.options.elementType !== contextParams.elementType && parsedFilterData.options.elementType !== undefined) {
+			return false;
+		}
+		if (parsedFilterData.options.skipElementType === contextParams.elementType && parsedFilterData.options.skipElementType !== undefined) {
+			return false;
 		}
 
 		// Domain option check
@@ -438,6 +420,7 @@
 			filter = filters.indexOf[i];
 
 			if (indexOfFilter(input, filter.data, 0) !== -1 && matchOptions(filter, input, contextParams, currentHost)) {
+				//console.log(filter, 5);
 				return true;
 			}
 
@@ -457,6 +440,7 @@
 			}
 
 			if (matchOptions(filter, input, contextParams, currentHost)) {
+				//console.log(filter, 6);
 				return true;
 			}
 		}

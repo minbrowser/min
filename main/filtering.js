@@ -52,7 +52,7 @@ function handleRequest(details, callback) {
 
 		if (parser.matches(parsedFilterData, details.url, {
 				domain: "",
-				elementTypeMaskMap: parser.elementTypes.SCRIPT
+				elementType: details.resourceType,
 			})) {
 			callback({
 				cancel: true,
