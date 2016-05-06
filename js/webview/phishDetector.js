@@ -145,7 +145,7 @@ function checkPhishingStatus() {
 
 	if (loc.split("#")[0].split("/").length > 5) {
 		debug_phishing("long path found");
-		phishingScore += Math.max(loc.split("/").length * 0.05, 0.25);
+		phishingScore += Math.max(Math.min(loc.split("/").length * 0.05, 0.75), 0.25);
 	}
 
 	//CANTINA - penalize locations with lots of dots
