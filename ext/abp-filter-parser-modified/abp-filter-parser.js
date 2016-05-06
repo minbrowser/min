@@ -65,7 +65,7 @@
 	}
 
 	function isSameOriginHost(baseContextHost, testHost) {
-		if (testHost.endsWith(baseContextHost)) {
+		if (testHost.slice(-baseContextHost.length) === baseContextHost) {
 			var c = testHost[testHost.length - baseContextHost.length - 1];
 			return c === '.' || c === undefined;
 		} else {
@@ -304,7 +304,7 @@
 	 */
 
 	function parse(input, parserData) {
-		var filterCategories = ["regex", "leftAnchored", "rightAnchored", "bothAnchored", "hostAnchored", "wildcard", "indexOf"];
+		var filterCategories = ["regex", "leftAnchored", "rightAnchored", "bothAnchored", "hostAnchored", "wildcard", "plainString", "indexOf"];
 
 		for (var i = 0; i < filterCategories.length; i++) {
 			parserData[filterCategories[i]] = parserData[filterCategories[i]] || [];
@@ -348,6 +348,8 @@
 					object.hostAnchored.push(parsedFilterData);
 				} else if (parsedFilterData.wildcardMatchParts) {
 					object.wildcard.push(parsedFilterData);
+				} else if (parsedFilterData.data.indexOf("^") === -1) {
+					object.plainString.push(parsedFilterData);
 				} else {
 					object.indexOf.push(parsedFilterData);
 				}
@@ -368,7 +370,7 @@
 
 			filter = filters.leftAnchored[i];
 
-			if (input.substring(0, filter.data.length) === filter.data && matchOptions(filter, input, contextParams, currentHost)) {
+			if (input.startsWith(filter.data) && matchOptions(filter, input, contextParams, currentHost)) {
 				//console.log(filter, 1);
 				return true;
 			}
@@ -380,7 +382,7 @@
 
 			filter = filters.rightAnchored[i];
 
-			if (input.slice(-filter.data.length) === filter.data && matchOptions(filter, input, contextParams, currentHost)) {
+			if (input.endsWith(filter.data) && matchOptions(filter, input, contextParams, currentHost)) {
 				//console.log(filter, 2);
 
 				return true;
@@ -412,6 +414,18 @@
 			}
 		}
 
+		//check if the string matches a string filter
+
+		for (i = 0, len = filters.plainString.length; i < len; i++) {
+
+			filter = filters.plainString[i];
+
+			if (input.indexOf(filter.data) !== -1 && matchOptions(filter, input, contextParams, currentHost)) {
+				//console.log(filter, 5);
+				return true;
+			}
+
+		}
 
 		//check if the string matches an indexOf filter
 
@@ -429,6 +443,11 @@
 		outer: for (i = 0, len = filters.wildcard.length; i < len; i++) {
 
 			filter = filters.wildcard[i];
+
+			//most filters won't match on the first part, so there is no point in entering the loop
+			if (indexOfFilter(input, filter.wildcardMatchParts[0], 0) === -1) {
+				continue outer;
+			}
 
 			let index = 0;
 			for (let part of filter.wildcardMatchParts) {
