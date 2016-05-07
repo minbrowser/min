@@ -3,7 +3,6 @@ console.log("worker started ", performance.now());
 importScripts("../../ext/Dexie.min.js");
 importScripts("../../node_modules/string_score/string_score.min.js");
 importScripts("../util/database.js");
-console.log("scripts loaded ", performance.now());
 
 //extraData key is an object - its so we don't have to upgrade the db if we want to add stuff in the future
 

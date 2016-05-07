@@ -49,11 +49,9 @@ for (var contentType in contentTypes) {
 
 					if (e.target.checked) { //add the item to the array
 						value.contentTypes.push(contentTypes[contentType]);
-						console.log(true, value);
 					} else { //remove the item from the array
 						var idx = value.contentTypes.indexOf(contentTypes[contentType]);
 						value.contentTypes.splice(idx, 1);
-						console.log(false, value);
 					}
 
 					settings.set("filtering", value);

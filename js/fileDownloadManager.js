@@ -3,7 +3,6 @@
 var PDFViewerURL = "file://" + __dirname + "/pdfjs/web/viewer.html?url=";
 
 ipc.on("openPDF", function (event, filedata) {
-	console.log("opening PDF", filedata);
 
 	var PDFurl = PDFViewerURL + filedata.url,
 		hasOpenedPDF = false;

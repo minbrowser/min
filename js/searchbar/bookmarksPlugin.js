@@ -32,7 +32,6 @@ function showBookmarkResults(text, input, event, container) {
 
 	bookmarks.searchBookmarks(text, function (results) {
 
-		console.log(container);
 		empty(container);
 
 		var resultsShown = 1;

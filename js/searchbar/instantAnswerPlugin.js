@@ -1,7 +1,5 @@
 function showSearchbarInstantAnswers(text, input, event, container) {
 
-	console.log(searchbarResultCount);
-
 	//don't make a request if the searchbar has already closed
 
 	if (!currentSearchbarInput) {

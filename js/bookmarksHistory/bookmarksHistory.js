@@ -96,7 +96,6 @@ var bookmarks = {
 
 
 			if (exists) {
-				console.log("deleting bookmark " + tabs.get(tabId).url);
 				bookmarks.deleteBookmark(tabs.get(tabId).url);
 			} else {
 				bookmarks.bookmark(tabId);
