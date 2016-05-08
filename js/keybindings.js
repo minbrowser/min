@@ -86,6 +86,18 @@ ipc.on("addTask", function () {
 	}, 600);
 });
 
+ipc.on("goBack", function () {
+	try {
+		getWebview(tabs.getSelected()).goBack();
+	} catch (e) {}
+});
+
+ipc.on("goForward", function () {
+	try {
+		getWebview(tabs.getSelected()).goForward();
+	} catch (e) {}
+});
+
 require.async("mousetrap", function (Mousetrap) {
 	window.Mousetrap = Mousetrap;
 
