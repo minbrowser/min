@@ -64,6 +64,14 @@ function createWindow() {
 		sendIPCToWindow(mainWindow, "leave-full-screen");
 	});
 
+	mainWindow.on("app-command", function (e, command) {
+		if (command == "browser-backward") {
+			sendIPCToWindow(mainWindow, "goBack");
+		} else if (command == "browser-forward") {
+			sendIPCToWindow(mainWindow, "goForward");
+		}
+	});
+
 	//prevent remote pages from being loaded using drag-and-drop, since they would have node access
 	mainWindow.webContents.on("will-navigate", function (e, url) {
 		if (url != browserPage) {
@@ -481,7 +489,7 @@ function handleRequest(details, callback) {
 
 		if (parser.matches(parsedFilterData, details.url, {
 				domain: "",
-				elementTypeMaskMap: parser.elementTypes.SCRIPT
+				elementType: details.resourceType,
 			})) {
 			callback({
 				cancel: true,
