@@ -54,11 +54,11 @@ findinpage.next.addEventListener("click", function (e) {
 });
 
 bindWebviewEvent("found-in-page", function (e) {
-	if (e.result.matches) {
-		if (e.result.matches > 1) {
-			var text = " matches";
-		} else {
+	if (e.result.matches !== undefined) {
+		if (e.result.matches === 1) {
 			var text = " match";
+		} else {
+			var text = " matches";
 		}
 
 		findinpage.counter.textContent = e.result.matches + text;
