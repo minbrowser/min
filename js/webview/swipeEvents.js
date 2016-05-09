@@ -12,12 +12,12 @@ window.addEventListener("mousewheel", function (e) {
 
 	/* cmd-key while scrolling should zoom in and out */
 
-	if (verticalMouseMove > 55 && e.metaKey && eventsCaptured > 1) {
+	if (verticalMouseMove > 55 && (e.metaKey || e.ctrlKey) && eventsCaptured > 1) {
 		verticalMouseMove = -10;
 		return zoomOut();
 	}
 
-	if (verticalMouseMove < -55 && e.metaKey && eventsCaptured > 1) {
+	if (verticalMouseMove < -55 && (e.metaKey || e.ctrlKey) && eventsCaptured > 1) {
 		verticalMouseMove = -10;
 		return zoomIn();
 	}
