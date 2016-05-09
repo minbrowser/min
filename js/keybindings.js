@@ -254,6 +254,23 @@ require.async("mousetrap", function (Mousetrap) {
 		lastReload = time;
 	});
 
+	//mod+enter navigates to searchbar URL + ".com"
+	Mousetrap.bind("mod+enter", function () {
+		if (currentSearchbarInput) { //if the searchbar is open
+
+			var value = currentSearchbarInput.value;
+
+			leaveTabEditMode();
+
+			//if the text is already a URL, navigate to that page
+			if (urlParser.isURLMissingProtocol(value)) {
+				navigate(tabs.getSelected(), value);
+			} else {
+				navigate(tabs.getSelected(), urlParser.parse(value + ".com"));
+			}
+		}
+	});
+
 }); //end require mousetrap
 
 //reload the webview when the F5 key is pressed
