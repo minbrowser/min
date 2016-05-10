@@ -1,19 +1,20 @@
+var colorExtractorCanvas = document.createElement("canvas");
+var colorExtractorContext = colorExtractorCanvas.getContext("2d");
+
 function getColor(url, callback) {
 
 	colorExtractorImage.onload = function (e) {
-		var canvas = document.createElement("canvas");
-		var context = canvas.getContext("2d");
 
 		var w = colorExtractorImage.width,
 			h = colorExtractorImage.height;
-		canvas.width = w
-		canvas.height = h
+		colorExtractorCanvas.width = w
+		colorExtractorCanvas.height = h
 
 		var offset = Math.max(1, Math.round(0.00032 * w * h));
 
-		context.drawImage(colorExtractorImage, 0, 0, w, h);
+		colorExtractorContext.drawImage(colorExtractorImage, 0, 0, w, h);
 
-		var data = context.getImageData(0, 0, w, h).data;
+		var data = colorExtractorContext.getImageData(0, 0, w, h).data;
 
 		var pixels = {};
 
