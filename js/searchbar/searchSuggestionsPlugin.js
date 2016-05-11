@@ -70,8 +70,7 @@ function showSearchSuggestions(text, input, event, container) {
 					//autocomplete the bang, but allow the user to keep typing
 
 					var data = {
-						image: result.image,
-						imageIsInline: true,
+						iconImage: result.image,
 						title: result.snippet,
 						secondaryText: result.phrase
 					}
@@ -134,5 +133,5 @@ registerSearchbarPlugin("searchSuggestions", {
 	trigger: function (text) {
 		return !!text && !tabs.get(tabs.getSelected()).private;
 	},
-	showResults: debounce(showSearchSuggestions, 200),
+	showResults: debounce(showSearchSuggestions, 150),
 })

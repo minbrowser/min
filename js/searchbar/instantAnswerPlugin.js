@@ -135,7 +135,7 @@ var instantAnswers = {
 		});
 
 		var colorCircle = document.createElement("div");
-		colorCircle.className = "result-icon color-circle";
+		colorCircle.className = "image color-circle";
 		colorCircle.style.backgroundColor = "#" + answer.data.hex_code;
 
 		item.insertBefore(colorCircle, item.firstChild);

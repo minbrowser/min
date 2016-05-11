@@ -146,6 +146,7 @@ secondaryText: string - the item's secondary text
 url: string - the item's url (if there is one).
 icon: string - the name of a font awesome icon.
 image: string - the URL of an image to show
+iconImage: string - the URL of an image to show as an icon
 descriptionBlock: string - the text in the description block,
 attribution: string - attribution text to display when the item is focused
 delete: function - a function to call to delete the result item when a left swipe is detected
@@ -201,14 +202,18 @@ function createSearchbarItem(data) {
 
 	if (data.image) {
 		var image = document.createElement("img");
-		image.className = "result-icon image low-priority-image";
+		image.className = "image low-priority-image";
 		image.src = data.image;
 
-		if (data.imageIsInline) {
-			image.classList.add("inline");
-		}
-
 		item.insertBefore(image, item.childNodes[0]);
+	}
+
+	if (data.iconImage) {
+		var iconImage = document.createElement("img");
+		iconImage.className = "icon-image low-priority-image";
+		iconImage.src = data.iconImage;
+
+		item.insertBefore(iconImage, item.childNodes[0]);
 	}
 
 	if (data.descriptionBlock) {

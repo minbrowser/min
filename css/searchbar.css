@@ -60,7 +60,8 @@ body.notMac #searchbar {
 	display: block;
 	max-width: 100%;
 }
-.searchbar-item i {
+.searchbar-item i,
+.searchbar-item .icon-image {
 	opacity: 0.25;
 	font-size: 0.9em;
 	margin-right: 0.75em;
@@ -69,6 +70,9 @@ body.notMac #searchbar {
 	width: 1em;
 	height: 1em;
 }
+.searchbar-item .icon-image {
+	opacity: 1.0;
+}
 .dark-theme .theme-background-color .searchbar-item i {
 	opacity: 0.33;
 }
@@ -76,19 +80,21 @@ body.notMac #searchbar {
 /* move the icon when there isn't room to the left of the searchbar */
 
 .fullscreen .searchbar-item i,
-.notMac .searchbar-item i {
+.notMac .searchbar-item i,
+.fullscreen .searchbar-item .icon-image,
+.notMac .searchbar-item .icon-image {
 	margin-left: 0;
 	float: right;
 }
-.searchbar-item .result-icon {
+.searchbar-item .image {
 	height: 2.75em;
 	margin: 0.25em 0.5em 0.5em 0;
 	float: left;
 }
-.searchbar-item:focus .result-icon:not(.inline) {
+.searchbar-item:focus .image {
 	height: 4em;
 }
-#searchbar .result-icon.color-circle {
+#searchbar .image.color-circle {
 	width: 1.8em;
 	height: 1.8em;
 	border-radius: 50%;
@@ -96,23 +102,8 @@ body.notMac #searchbar {
 	border: 1px solid rgba(0, 0, 0, 0.2);
 	padding-right: 0.5em;
 }
-.dark-theme #searchbar .result-icon.color-circle {
+.dark-theme #searchbar .image.color-circle {
 	border-color: rgba(255, 255, 255, 0.2);
-}
-#searchbar img.result-icon {
-	background: rgba(255, 255, 255, 0.5);
-}
-
-/* bang icons */
-
-#searchbar .result-icon.inline {
-	height: 1em;
-	float: initial;
-	vertical-align: text-bottom;
-	margin: 0 0.5em 0 0;
-	background: none;
-	/* prevents images from being blurry */
-	image-rendering: pixelated;
 }
 .searchbar-item .secondary-text .md-info {
 	float: left;
@@ -185,12 +176,6 @@ body.notMac #searchbar {
 }
 body.is-edit-mode webview {
 	opacity: 0.5;
-}
-
-/* account for a missing icon */
-
-.searchbar-item.indent {
-	padding-left: 1.75em;
 }
 
 /* tag searches */
