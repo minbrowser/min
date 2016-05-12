@@ -5,7 +5,7 @@ ipc.on("enterFocusMode", function () {
 	document.body.classList.add("is-focus-mode");
 
 	setTimeout(function () { //wait to show the message until the tabs have been hidden, to make the message less confusing
-		electron.remote.require("dialog").showMessageBox({
+		electron.remote.dialog.showMessageBox({
 			type: "info",
 			buttons: ["OK"],
 			message: "You're in focus mode.",
@@ -21,7 +21,7 @@ ipc.on("exitFocusMode", function () {
 });
 
 function showFocusModeError() {
-	electron.remote.require("dialog").showMessageBox({
+	electron.remote.dialog.showMessageBox({
 		type: "info",
 		buttons: ["OK"],
 		message: "You're in focus mode.",

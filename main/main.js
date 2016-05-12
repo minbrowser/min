@@ -22,10 +22,10 @@ function createWindow() {
 	mainWindow = new BrowserWindow({
 		width: size.width,
 		height: size.height,
-		'min-width': 320,
-		'min-height': 500,
-		'title-bar-style': 'hidden-inset',
-		'auto-hide-menu-bar': true,
+		minWidth: 320,
+		minHeight: 500,
+		titleBarStyle: 'hidden-inset',
+		autoHideMenuBar: true,
 		icon: __dirname + '/icons/icon256.png',
 	});
 
@@ -133,7 +133,7 @@ app.on("open-url", function (e, url) {
  *
  * Opens a new tab when all tabs are closed, and min is still open by clicking on the application dock icon
  */
-app.on("activate", function functionName(/*e, hasVisibleWindows*/) {
+app.on("activate", function functionName( /*e, hasVisibleWindows*/ ) {
 	if (!mainWindow) {
 		createWindow();
 	}
@@ -142,8 +142,8 @@ app.on("activate", function functionName(/*e, hasVisibleWindows*/) {
 function createAppMenu() {
 	// create the menu. based on example from http://electron.atom.io/docs/v0.34.0/api/menu/
 
-	var Menu = require('menu');
-	var MenuItem = require('menu-item');
+	var Menu = electron.Menu;
+	var MenuItem = electron.MenuItem;
 
 
 	var template = [
@@ -338,7 +338,7 @@ function createAppMenu() {
 				{
 					label: 'Learn More',
 					click: function () {
-						require('shell').openExternal('http://github.com/palmerAl/browser')
+						electron.shell.openExternal('http://github.com/palmerAl/browser')
 					}
       },
     ]
