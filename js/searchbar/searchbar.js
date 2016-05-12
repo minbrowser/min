@@ -71,6 +71,32 @@ function openURLInBackground(url) { //used to open a url in the background, with
 //when clicking on a result item, this function should be called to open the URL
 
 function openURLFromsearchbar(event, url) {
+
+	//TODO decide if this should go somewhere else
+
+	//if the url is a !bang search
+	if (url.indexOf("!") === 0) {
+
+		//get all of the !bangs that could match
+		var bangs = searchCustomBangs(url);
+
+		//if there are !bangs that possibly match
+		if (bangs.length !== 0) {
+
+			var selectedBang = url.split(" ")[0];
+
+			//find the ones that are an exact match, and run them
+			for (var i = 0; i < bangs.length; i++) {
+				if (bangs[i].phrase === selectedBang) {
+					bangs[i].fn(url.replace(selectedBang, ""));
+					//don't open the URL
+					return;
+				}
+			}
+
+		}
+	}
+
 	if (event.metaKey) {
 		openURLInBackground(url);
 		return true;
