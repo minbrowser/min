@@ -1,7 +1,10 @@
 const electron = require("electron");
+const fs = require("fs");
 const app = electron.app; // Module to control application life.
 const BrowserWindow = electron.BrowserWindow; // Module to create native browser window.
 var electronScreen = null; //setup in app.ready
+
+var appDataPath = app.getPath("appData") + "/min/";
 
 const browserPage = 'file://' + __dirname + '/index.html';
 
@@ -9,19 +12,53 @@ var mainWindow = null;
 var isFocusMode = false;
 var appIsReady = false;
 
+var saveWindowBounds = function () {
+	if (mainWindow) {
+		fs.writeFile(appDataPath + "windowBounds.json", JSON.stringify(mainWindow.getBounds()));
+	}
+}
+
 function sendIPCToWindow(window, action, data) {
 	//if there are no windows, create a new one
 	if (!mainWindow) {
-		mainWindow = createWindow();
+		createWindow(function () {
+			mainWindow.webContents.send(action, data || {});
+		});
+	} else {
+		mainWindow.webContents.send(action, data || {});
 	}
-	mainWindow.webContents.send(action, data || {});
 }
 
-function createWindow() {
-	var size = electronScreen.getPrimaryDisplay().workAreaSize;
+function createWindow(cb) {
+	var savedBounds = fs.readFile(appDataPath + "windowBounds.json", "utf-8", function (e, data) {
+
+		if (e) { //there was an error, probably because the file doesn't exist
+			var size = electron.screen.getPrimaryDisplay().workAreaSize;
+			var bounds = {
+				x: 0,
+				y: 0,
+				width: size.width,
+				height: size.height
+			}
+		} else {
+			var bounds = JSON.parse(data);
+		}
+
+		createWindowWithBounds(bounds);
+
+		if (cb) {
+			cb();
+		}
+	});
+}
+
+function createWindowWithBounds(bounds) {
+
 	mainWindow = new BrowserWindow({
-		width: size.width,
-		height: size.height,
+		width: bounds.width,
+		height: bounds.height,
+		x: bounds.x,
+		y: bounds.y,
 		minWidth: 320,
 		minHeight: 500,
 		titleBarStyle: 'hidden-inset',
@@ -31,6 +68,11 @@ function createWindow() {
 
 	// and load the index.html of the app.
 	mainWindow.loadURL(browserPage);
+
+	//save the window size for the next launch of the app
+	mainWindow.on("close", function () {
+		saveWindowBounds();
+	});
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function () {
