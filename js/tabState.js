@@ -124,12 +124,12 @@ function getRandomId() {
 
 var tasks = {
 	add: function (name, id) {
-		var task = {};
-
-		task.id = id || getRandomId();
-		task.name = name || null;
-		task.tabs = [];
-		task.selectedTab = null;
+		var task = {
+			name: name || null,
+			tabs: [],
+			selectedTab: null,
+			id: id || getRandomId();
+		};
 
 		//task.currentTask.tabs.__proto__ = tabPrototype;
 
