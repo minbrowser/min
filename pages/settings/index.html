@@ -2,21 +2,21 @@
 <html>
 
 <head>
-	<title>Privacy Settings |Min</title>
+	<title>Settings |Min</title>
 	<link rel="stylesheet" href="../../css/base.css" />
 	<link rel="stylesheet" href="settings.css" />
 	<link rel="stylesheet" href="../../ext/font-awesome-4.4.0/css/font-awesome.min.css" />
 </head>
 
 <body>
-	<div class="hero short-hero blue-gradient-background">
-		<div class="container padding">
-			<h2>Privacy Settings</h2>
-		</div>
-	</div>
 	<div class="banner yellow-background" id="restart-required-banner" hidden>
 		<div class="container padding">
 			<i class="fa fa-info-circle"></i> You need to restart to apply these changes.
+		</div>
+	</div>
+	<div class="hero short-hero blue-gradient-background">
+		<div class="container padding">
+			<h2>Privacy Settings</h2>
 		</div>
 	</div>
 	<div class="spacer"></div>
@@ -30,8 +30,19 @@
 		</div>
 
 	</div>
+	<div class="spacer"></div>
+	<div class="container padding" id="keymap-settings-container">
+		<h3>KeyMap Settings</h3>
+		<div class="setting-section">
+			<div class="light-fade setting-secondary-label">Type "mod" to use the command or control key.</div>
+			<ul id="key-map-list" class="setting-section"></ul>
+		</div>
+	</div>
+
+	</div>
 	<script src="../../ext/Dexie.min.js"></script>
 	<script src="../../js/util/database.js"></script>
+	<script src="../../js/util/defaultKeyMap.js"></script>
 	<script src="../../js/util/settings.js"></script>
 	<script src="settings.js"></script>
 </body>

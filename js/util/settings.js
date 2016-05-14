@@ -1,4 +1,4 @@
-/* 
+/*
 gets and sets settings
 requires Dexie and util/database.js
 */
@@ -46,6 +46,6 @@ var settings = {
 			settings.loaded = true;
 		});
 	}
-}
+};
 
 settings.load();
