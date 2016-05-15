@@ -128,7 +128,7 @@ var tasks = {
 			name: name || null,
 			tabs: [],
 			selectedTab: null,
-			id: id || getRandomId();
+			id: id || getRandomId(),
 		};
 
 		//task.currentTask.tabs.__proto__ = tabPrototype;
