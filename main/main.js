@@ -75,6 +75,7 @@ function createWindowWithBounds(bounds) {
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function () {
+
 		// Dereference the window object, usually you would store windows
 		// in an array if your app supports multi windows, this is the time
 		// when you should delete the corresponding element.
@@ -140,10 +141,19 @@ app.on('window-all-closed', function () {
 app.on('ready', function () {
 	appIsReady = true;
 
-	// Create the browser window.
-	electronScreen = electron.screen; //this module must be loaded after the app is ready
+	createWindow(function () {
+		//if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
 
-	createWindow();
+		if (process.argv && process.argv[1] && process.argv[1] !== __dirname) {
+
+			mainWindow.webContents.on("did-finish-load", function () {
+				sendIPCToWindow(mainWindow, "addTab", {
+					url: process.argv[1]
+				});
+			});
+
+		}
+	});
 
 	// Open the DevTools.
 	//mainWindow.openDevTools();
