@@ -111,7 +111,7 @@ var bookmarks = {
 	getStar: function (tabId) {
 		var star = document.createElement("i");
 		star.setAttribute("data-tab", tabId);
-		star.className = "fa fa-star-o bookmarks-button theme-text-color"; //alternative icon is fa-bookmark
+		star.className = "fa fa-star-o bookmarks-button"; //alternative icon is fa-bookmark
 
 		star.addEventListener("click", function (e) {
 			bookmarks.handleStarClick(e.target);
