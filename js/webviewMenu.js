@@ -112,6 +112,12 @@ var webviewMenu = {
 					navigate(webviewMenu.cache.tab, IPCdata.image);
 				}
 			}));
+			menu.append(new MenuItem({
+				label: 'Save image',
+				click: function () {
+					remote.getCurrentWebContents().downloadURL(IPCdata.image);
+				}
+			}));
 		}
 
 
