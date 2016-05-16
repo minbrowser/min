@@ -273,7 +273,7 @@
 		}
 
 		// Domain option check
-		if (contextParams.domain !== undefined && parsedFilterData.options) {
+		if (contextParams.domain !== undefined) {
 			if (parsedFilterData.options.domains || parsedFilterData.options.skipDomains) {
 
 				//Min doesn't support getting the root domain yet
