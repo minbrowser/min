@@ -198,8 +198,6 @@ function createTabElement(data) {
 
 	vc.appendChild(title);
 
-	vc.insertAdjacentHTML("beforeend", "<span class='secondary-text'></span>");
-
 	tabEl.appendChild(vc);
 
 	/* events */
