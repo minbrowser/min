@@ -70,6 +70,13 @@ var webviewMenu = {
 			}));
 
 			menu.append(new MenuItem({
+				label: 'Download linked file',
+				click: function () {
+					remote.getCurrentWebContents().downloadURL(IPCdata.src);
+				}
+			}));
+			
+			menu.append(new MenuItem({
 				label: 'Copy link',
 				click: function () {
 					clipboard.writeText(IPCdata.src);

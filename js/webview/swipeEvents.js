@@ -9,15 +9,32 @@ window.addEventListener("mousewheel", function (e) {
 
 	verticalMouseMove += e.deltaY;
 	eventsCaptured++;
+	platformZoomKey = e.ctrKey;
 
+	if (navigator.platform == "MacIntel") {
+		if(e.ctrlKey) {
+			verticalMouseMove += e.deltaY;
+
+			e.preventDefault();
+			e.stopImmediatePropagation();
+
+			if( verticalMouseMove > 5 ) {
+				return zoomOut();
+			}
+			if( verticalMouseMove < -5 ) {
+				return zoomIn();
+			}
+		}
+		platformZoomKey = e.metaKey;
+	}
 	/* cmd-key while scrolling should zoom in and out */
 
-	if (verticalMouseMove > 55 && (e.metaKey || e.ctrlKey) && eventsCaptured > 1) {
+	if (verticalMouseMove > 55 && platformZoomKey && eventsCaptured > 1) {
 		verticalMouseMove = -10;
 		return zoomOut();
 	}
 
-	if (verticalMouseMove < -55 && (e.metaKey || e.ctrlKey) && eventsCaptured > 1) {
+	if (verticalMouseMove < -55 && platformZoomKey && eventsCaptured > 1) {
 		verticalMouseMove = -10;
 		return zoomIn();
 	}
