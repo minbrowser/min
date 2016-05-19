@@ -71,7 +71,7 @@ var webviewMenu = {
 				}));
 
 				menu.append(new MenuItem({
-					label: 'Save linked file',
+					label: 'Save Link As...',
 					click: function () {
 						remote.getCurrentWebContents().downloadURL(IPCdata.src);
 					}
