@@ -9,10 +9,10 @@ window.addEventListener("mousewheel", function (e) {
 
 	verticalMouseMove += e.deltaY;
 	eventsCaptured++;
-	platformZoomKey = e.ctrlKey;
+	var platformZoomKey = e.ctrlKey;
 
 	if (navigator.platform == "MacIntel") {
-		if(e.ctrlKey) {
+		if(e.ctrlKey && !e.defaultPrevented) {
 			if( verticalMouseMove > 10 ) {
 				return zoomOut();
 			}
