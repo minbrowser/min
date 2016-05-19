@@ -9,8 +9,13 @@ window.addEventListener("mousewheel", function (e) {
 
 	verticalMouseMove += e.deltaY;
 	eventsCaptured++;
+	/* default zoom modifier is ctrl. Mac uses cmd/meta/super so an exeption will be made below */
 	var platformZoomKey = e.ctrlKey;
 
+	/* if platform is Mac Enable pinch zoom
+		the browser engine detects piches as ctrl+mousewheel on mac,
+		therefore it should not affect other platforms that user ctrl+mousewheel to zoom.
+	*/
 	if (navigator.platform == "MacIntel") {
 		if(e.ctrlKey && !e.defaultPrevented) {
 			if( verticalMouseMove > 10 ) {
