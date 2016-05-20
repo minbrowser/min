@@ -8,6 +8,7 @@ html {
 	height: 100%;
 	font-size: 16px;
 	font-family: '.SFNSText-Regular', 'Helvetica Neue', 'Arial', sans-serif;
+	overflow: auto;
 }
 * {
 	box-sizing: border-box;
@@ -29,7 +30,6 @@ html {
 }
 .hero {
 	height: 85vh;
-	width: 100vw;
 	position: relative;
 	overflow: hidden;
 }
@@ -148,4 +148,21 @@ button.disabled {
 }
 .banner {
 	padding: 0.6em 1em;
+}
+
+#key-map-list li {
+	list-style-type: none;
+	padding: 0.4em 0;
+}
+
+#key-map-list li label {
+	padding: 0.2em 1em;
+	width: 30%;
+	display: inline-block;
+	text-align: right;
+}
+
+#key-map-list li input {
+	width: 30%;
+	padding: 0.2em;
 }

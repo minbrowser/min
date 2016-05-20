@@ -133,7 +133,7 @@ app.on("open-url", function (e, url) {
  *
  * Opens a new tab when all tabs are closed, and min is still open by clicking on the application dock icon
  */
-app.on("activate", function functionName(/*e, hasVisibleWindows*/) {
+app.on("activate", function functionName( /*e, hasVisibleWindows*/ ) {
 	if (!mainWindow) {
 		createWindow();
 	}
@@ -358,7 +358,7 @@ function createAppMenu() {
 					type: 'separator'
       },
 				{
-					label: 'Privacy Preferences',
+					label: 'Preferences',
 					accelerator: "CmdOrCtrl+,",
 					click: function (item, window) {
 						sendIPCToWindow(window, "addTab", {
@@ -418,7 +418,7 @@ function createAppMenu() {
 		});
 
 		template[1].submenu.push({
-			label: 'Privacy Preferences',
+			label: 'Preferences',
 			accelerator: "CmdOrCtrl+,",
 			click: function (item, window) {
 				sendIPCToWindow(window, "addTab", {

@@ -409,7 +409,7 @@ function createAppMenu() {
 					type: 'separator'
       },
 				{
-					label: 'Privacy Preferences',
+					label: 'Preferences',
 					accelerator: "CmdOrCtrl+,",
 					click: function (item, window) {
 						sendIPCToWindow(window, "addTab", {
@@ -469,7 +469,7 @@ function createAppMenu() {
 		});
 
 		template[1].submenu.push({
-			label: 'Privacy Preferences',
+			label: 'Preferences',
 			accelerator: "CmdOrCtrl+,",
 			click: function (item, window) {
 				sendIPCToWindow(window, "addTab", {

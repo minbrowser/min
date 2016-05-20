@@ -6,6 +6,55 @@ var contentTypes = {
 	//humanReadableName: contentType
 	"scripts": "script",
 	"images": "image",
+};
+
+settings.get('keyMap', function (keyMapSettings) {
+	keyMap = userKeyMap(keyMapSettings);
+
+	Object.keys(keyMap).forEach(createKeyMapInput);
+});
+
+function createKeyMapInput(action) {
+	var keyMapList = document.getElementById('key-map-list');
+	var key = keyMap[action];
+	var li = document.createElement('li');
+	var label = document.createElement('label');
+	var input = document.createElement('input');
+	label.innerText = formatCamelCase(action);
+	label.htmlFor = action;
+
+	input.type = "text";
+	input.id = input.name = action;
+	input.value = key;
+	input.addEventListener('change', onKeyMapChange);
+
+	li.appendChild(label);
+	li.appendChild(input);
+	keyMapList.appendChild(li);
+}
+
+function formatCamelCase(text) {
+	var result = text.replace( /([A-Z])/g, " $1" );
+	return result.charAt(0).toUpperCase() + result.slice(1);
+}
+
+function onKeyMapChange(e) {
+	var action = this.name;
+	var newKeyMap = this.value;
+
+	keyMap[action] = parseKeyInput(newKeyMap);
+	settings.set('keyMap', keyMap, function () {
+		banner.hidden = false;
+	});
+}
+
+function parseKeyInput(input) {
+	//input may be a single mapping or multiple mappings comma separated.
+	var parsed = input.split(',');
+	parsed = parsed.map(function (e) { return e.trim();});
+	//Remove empty
+	parsed = parsed.filter(Boolean);
+	return parsed.length > 1 ? parsed : parsed[0];
 }
 
 for (var contentType in contentTypes) {
