@@ -1,6 +1,5 @@
 var defaultKeyMap = {
   "addPrivateTab": "shift+mod+p",
-  "addTasks": "mod+n",
   "toggleTasks": "shift+mod+e",
   "goBack": "mod+left",
   "goForward": "mod+right",
