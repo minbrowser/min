@@ -180,7 +180,7 @@ button.disabled {
 .dialog {
 	position: fixed;
 	background: #fff;
-	padding: 1em;
+	padding: 1em 2em 2em 2em;
 	overflow: auto;
 }
 .dialog h1,
