@@ -65,6 +65,19 @@ var webviewMenu = {
 				}));
 			}
 
+			if(!IPCdata.image) {
+				menu.append(new MenuItem({
+					type: "separator"
+				}));
+
+				menu.append(new MenuItem({
+					label: 'Save Link As...',
+					click: function () {
+						remote.getCurrentWebContents().downloadURL(IPCdata.src);
+					}
+				}));
+			}
+
 			menu.append(new MenuItem({
 				type: "separator"
 			}));
