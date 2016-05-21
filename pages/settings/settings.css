@@ -149,20 +149,16 @@ button.disabled {
 .banner {
 	padding: 0.6em 1em;
 }
-
 #key-map-list li {
 	list-style-type: none;
 	padding: 0.4em 0;
 }
-
 #key-map-list li label {
-	padding: 0.2em 1em;
-	width: 30%;
+	padding: 0.2em 0;
+	width: 250px;
 	display: inline-block;
-	text-align: right;
 }
-
 #key-map-list li input {
-	width: 30%;
+	width: 40%;
 	padding: 0.2em;
 }
