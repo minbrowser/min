@@ -184,8 +184,8 @@ app.on("open-url", function (e, url) {
  *
  * Opens a new tab when all tabs are closed, and min is still open by clicking on the application dock icon
  */
-app.on("activate", function functionName( /*e, hasVisibleWindows*/ ) {
-	if (!mainWindow) {
+app.on("activate", function ( /*e, hasVisibleWindows*/ ) {
+	if (!mainWindow && appIsReady) { //sometimes, the event will be triggered before the app is ready, and creating new windows will fail
 		createWindow();
 	}
 });
