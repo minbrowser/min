@@ -147,7 +147,12 @@ button.disabled {
 	padding-top: 0.2em;
 }
 .banner {
-	padding: 0.6em 1em;
+	padding: 1em;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2);
 }
 #key-map-list li {
 	list-style-type: none;
