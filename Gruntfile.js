@@ -17,6 +17,7 @@ module.exports = function (grunt) {
 						"js/util/database.js",
 						"js/util/defaultKeyMap.js",
 						"js/util/settings.js",
+						"js/util/searchEngine.js",
 						 "js/tabState.js",
 						"js/util/urlParser.js",
 						"js/filteringRenderer.js",

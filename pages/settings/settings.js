@@ -1,6 +1,10 @@
-var container = document.getElementById("settings-container");
+var container = document.getElementById("privacy-settings-container");
 var trackerCheckbox = document.getElementById("checkbox-block-trackers");
 var banner = document.getElementById("restart-required-banner");
+
+function showRestartRequiredBanner() {
+	banner.hidden = false;
+}
 
 var contentTypes = {
 	//humanReadableName: contentType
@@ -127,4 +131,30 @@ trackerCheckbox.addEventListener("change", function (e) {
 		settings.set("filtering", value);
 		banner.hidden = false;
 	});
+});
+
+/* default search engine setting */
+
+var searchEngineDropdown = document.getElementById("default-search-engine");
+
+settings.onLoad(function () {
+
+	for (var searchEngine in searchEngines) {
+
+		var item = document.createElement("option");
+		item.textContent = searchEngines[searchEngine].name;
+
+		if (searchEngines[searchEngine].name == currentSearchEngine.name) {
+			item.setAttribute("selected", "true");
+		}
+
+		searchEngineDropdown.appendChild(item);
+
+	}
+
+});
+
+searchEngineDropdown.addEventListener("change", function (e) {
+	settings.set("searchEngine", this.value);
+	showRestartRequiredBanner();
 });

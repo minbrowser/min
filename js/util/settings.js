@@ -64,7 +64,13 @@ var settings = {
 
 			settings.onLoadCallbacks = [];
 		});
-	}
+	},
+	onLoad: function (cb) {
+		settings.onLoadCallbacks.push({
+			key: "",
+			cb: cb,
+		});
+	},
 };
 
 settings.load();

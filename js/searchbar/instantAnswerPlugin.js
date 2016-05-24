@@ -1,5 +1,10 @@
 function showSearchbarInstantAnswers(text, input, event, container) {
 
+	//only make requests to the DDG api if DDG is set as the search engine
+	if (currentSearchEngine.name != "DuckDuckGo") {
+		return;
+	}
+
 	//don't make a request if the searchbar has already closed
 
 	if (!currentSearchbarInput) {

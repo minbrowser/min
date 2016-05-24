@@ -103,10 +103,10 @@ var webviewMenu = {
 			}));
 
 			menu.append(new MenuItem({
-				label: 'Search with DuckDuckGo',
+				label: 'Search with ' + currentSearchEngine.name,
 				click: function () {
 					var newTab = tabs.add({
-						url: "https://duckduckgo.com/?t=min&q=" + encodeURIComponent(IPCdata.selection),
+						url: currentSearchEngine.searchURL.replace("%s", encodeURIComponent(IPCdata.selection)),
 						private: tab.private,
 					})
 					addTab(newTab, {

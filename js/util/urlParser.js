@@ -20,7 +20,6 @@ require('fs').readFile(HOSTS_FILE, 'utf8', function (err, data) {
 });
 
 var urlParser = {
-	searchBaseURL: "https://duckduckgo.com/?t=min&q=%s",
 	startingWWWRegex: /www\.(.+\..+\/)/g,
 	trailingSlashRegex: /\/$/g,
 	isURL: function (url) {
@@ -71,7 +70,7 @@ var urlParser = {
 			return "http://" + url;
 		}
 		//else, do a search
-		return urlParser.searchBaseURL.replace("%s", encodeURIComponent(url));
+		return currentSearchEngine.searchURL.replace("%s", encodeURIComponent(url));
 	},
 	prettyURL: function (url) {
 		try {

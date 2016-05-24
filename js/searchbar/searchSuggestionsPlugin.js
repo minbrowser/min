@@ -34,6 +34,12 @@ var saveBangUseCounts = debounce(function () {
 }, 10000);
 
 function showSearchSuggestions(text, input, event, container) {
+
+	//TODO support search suggestions for other search engines
+	if (currentSearchEngine.name != "DuckDuckGo") {
+		return;
+	}
+
 	if (searchbarResultCount > 3) {
 		empty(container);
 		return;
