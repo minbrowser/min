@@ -1,40 +1,40 @@
 /* zooms the page in an out, and resets */
 
-var _browser_zoomLevel = 0;
-var _browser_maxZoom = 9;
-var _browser_minZoom = -8;
+var _browserZoomLevel = 0
+var _browserMaxZoom = 9
+var _browserMinZoom = -8
 
-function zoomIn() {
-	if (!webFrame) {
-		webFrame = electron.webFrame;
-	}
+function zoomIn () {
+  if (!webFrame) {
+    webFrame = electron.webFrame
+  }
 
-	if (_browser_maxZoom > _browser_zoomLevel) {
-		_browser_zoomLevel += 1;
-	}
-	webFrame.setZoomLevel(_browser_zoomLevel);
+  if (_browserMaxZoom > _browserZoomLevel) {
+    _browserZoomLevel += 1
+  }
+  webFrame.setZoomLevel(_browserZoomLevel)
 }
 
-function zoomOut() {
-	if (!webFrame) {
-		webFrame = electron.webFrame;
-	}
+function zoomOut () {
+  if (!webFrame) {
+    webFrame = electron.webFrame
+  }
 
-	if (_browser_minZoom < _browser_zoomLevel) {
-		_browser_zoomLevel -= 1;
-	}
-	webFrame.setZoomLevel(_browser_zoomLevel);
+  if (_browserMinZoom < _browserZoomLevel) {
+    _browserZoomLevel -= 1
+  }
+  webFrame.setZoomLevel(_browserZoomLevel)
 }
 
-function zoomReset() {
-	if (!webFrame) {
-		webFrame = electron.webFrame;
-	}
+function zoomReset () {
+  if (!webFrame) {
+    webFrame = electron.webFrame
+  }
 
-	_browser_zoomLevel = 0;
-	webFrame.setZoomLevel(_browser_zoomLevel);
+  _browserZoomLevel = 0
+  webFrame.setZoomLevel(_browserZoomLevel)
 }
 
-ipc.on("zoomIn", zoomIn);
-ipc.on("zoomOut", zoomOut);
-ipc.on("zoomReset", zoomReset);
+ipc.on('zoomIn', zoomIn)
+ipc.on('zoomOut', zoomOut)
+ipc.on('zoomReset', zoomReset)

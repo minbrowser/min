@@ -16,7 +16,11 @@
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-uglify": "^0.10.0",
     "grunt-electron": "^2.0.1",
-    "grunt-electron-installer-debian": "^0.3.0"
+    "grunt-electron-installer-debian": "^0.3.0",
+    "standard": "^7.1.0"
   },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "node_modules/.bin/standard --verbose js/**/*.js main/*.js"
+  }
 }
