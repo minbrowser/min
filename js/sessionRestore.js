@@ -1,84 +1,82 @@
 var sessionRestore = {
-	save: function () {
-		requestIdleCallback(function () {
-			var data = {
-				version: 2,
-				state: JSON.parse(JSON.stringify(tabState)),
-			}
+  save: function () {
+    requestIdleCallback(function () {
+      var data = {
+        version: 2,
+        state: JSON.parse(JSON.stringify(tabState))
+      }
 
-			//save all tabs that aren't private
+      // save all tabs that aren't private
 
-			for (var i = 0; i < data.state.tasks.length; i++) {
-				data.state.tasks[i].tabs = data.state.tasks[i].tabs.filter(function (tab) {
-					return !tab.private;
-				});
-			}
+      for (var i = 0; i < data.state.tasks.length; i++) {
+        data.state.tasks[i].tabs = data.state.tasks[i].tabs.filter(function (tab) {
+          return !tab.private
+        })
+      }
 
-			localStorage.setItem("sessionrestoredata", JSON.stringify(data));
-		}, {
-			timeout: 2250
-		});
-	},
-	restore: function () {
-		var data = localStorage.getItem("sessionrestoredata");
+      localStorage.setItem('sessionrestoredata', JSON.stringify(data))
+    }, {
+      timeout: 2250
+    })
+  },
+  restore: function () {
+    var data = localStorage.getItem('sessionrestoredata')
 
-		//first run, show the tour
-		if (!data) {
+    // first run, show the tour
+    if (!data) {
+      tasks.setSelected(tasks.add()) // create a new task
 
-			tasks.setSelected(tasks.add()); //create a new task
+      var newTab = currentTask.tabs.add({
+        url: 'https://palmeral.github.io/min/tour'
+      })
+      addTab(newTab, {
+        enterEditMode: false
+      })
+      return
+    }
 
-			var newTab = currentTask.tabs.add({
-				url: "https://palmeral.github.io/min/tour"
-			});
-			addTab(newTab, {
-				enterEditMode: false,
-			});
-			return;
-		}
+    console.log(data)
 
-		console.log(data);
+    data = JSON.parse(data)
 
-		data = JSON.parse(data);
+    localStorage.setItem('sessionrestoredata', '')
 
-		localStorage.setItem("sessionrestoredata", "");
+    // the data isn't restorable
+    if ((data.version && data.version !== 2) || (data.state && data.state.tasks && data.state.tasks.length === 0)) {
+      tasks.setSelected(tasks.add())
 
-		//the data isn't restorable
-		if ((data.version && data.version != 2) || (data.state && data.state.tasks && data.state.tasks.length == 0)) {
+      addTab(currentTask.tabs.add(), {
+        leaveEditMode: false // we know we aren't in edit mode yet, so we don't have to leave it
+      })
+      return
+    }
 
-			tasks.setSelected(tasks.add());
+    // restore the tabs
 
-			addTab(currentTask.tabs.add(), {
-				leaveEditMode: false //we know we aren't in edit mode yet, so we don't have to leave it
-			});
-			return;
-		}
+    var selectedTask = data.state.tasks.filter(function (item) {
+      return item.id === data.state.selectedTask
+    })
 
-		//restore the tabs	
+    data.state.tasks.forEach(function (task) {
+      // restore the task item
+      var taskItem = tasks.get(tasks.add(task.name, task.id))
 
-		var selectedTask = data.state.tasks.filter(function (item) {
-			return item.id == data.state.selectedTask;
-		});
+      // restore the tabs within the task
+      task.tabs.forEach(function (tab) {
+        taskItem.tabs.add(tab)
+      })
+    })
 
-		data.state.tasks.forEach(function (task) {
-			//restore the task item
-			var taskItem = tasks.get(tasks.add(task.name, task.id));
+    switchToTask(data.state.selectedTask)
 
-			//restore the tabs within the task
-			task.tabs.forEach(function (tab) {
-				taskItem.tabs.add(tab);
-			});
-		});
-
-		switchToTask(data.state.selectedTask);
-
-		if (isEmpty(currentTask.tabs)) {
-			enterEditMode(currentTask.tabs.getSelected());
-		}
-	}
+    if (isEmpty(currentTask.tabs)) {
+      enterEditMode(currentTask.tabs.getSelected())
+    }
+  }
 }
 
-//TODO make this a preference
+// TODO make this a preference
 
-sessionRestore.restore();
+sessionRestore.restore()
 
-setInterval(sessionRestore.save, 12500);
+setInterval(sessionRestore.save, 12500)
