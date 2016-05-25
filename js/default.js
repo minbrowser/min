@@ -1,4 +1,3 @@
-require("require.async")(require);
 window.electron = require("electron");
 window.ipc = electron.ipcRenderer;
 window.remote = electron.remote;

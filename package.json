@@ -9,7 +9,6 @@
     "lunr": "^0.6.0",
     "mousetrap": "^1.5.3",
     "nlp_compromise": "^1.1.5",
-    "require.async": "^0.1.1",
     "string_score": "^0.1.22"
   },
   "devDependencies": {
