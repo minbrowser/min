@@ -28,7 +28,7 @@ If you just want to run Min, you can download binaries [here](https://github.com
 If you want to develop Min:
 
 * Install [Node](https://nodejs.org) and [Grunt](http://gruntjs.com).
-* RUn `npm install`, then run `grunt`.
+* Run `npm install`, then run `grunt`.
 * Download a copy of Electron from [here](https://github.com/electron/electron/releases).
 * Run `/Path/To/Electron /Path/To/Min`.
 
