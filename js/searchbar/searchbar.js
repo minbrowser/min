@@ -42,7 +42,7 @@ function debounce (fn, delay) {
 
 function empty (node) {
   var n
-  while (n === node.firstElementChild) {
+  while (n = node.firstElementChild) {
     node.removeChild(n)
   }
 }

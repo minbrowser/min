@@ -10,7 +10,7 @@ var tabPrototype = {
       var tab = {}
     }
 
-    var tabId = tab.id || Math.round(Math.random() * 100000000000000000) // you can pass an id that will be used, or a random one will be generated.
+    var tabId = String(tab.id || Math.round(Math.random() * 100000000000000000)) // you can pass an id that will be used, or a random one will be generated.
 
     var newTab = {
       url: tab.url || '',
@@ -126,13 +126,13 @@ var tasks = {
       name: name || null,
       tabs: [],
       selectedTab: null,
-      id: id || getRandomId()
+      id: id || String(getRandomId())
     }
 
     // task.currentTask.tabs.__proto__ = tabPrototype
 
     for (var key in tabPrototype) {
-      task.tabs.__proto__.key = tabPrototype[key]
+      task.tabs.__proto__[key] = tabPrototype[key]
     }
 
     tabState.tasks.push(task)
