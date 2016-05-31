@@ -1,7 +1,7 @@
 {
   "name": "min",
   "version": "1.2.2",
-  "electronVersion": "0.37.1",
+  "electronVersion": "1.2.0",
   "main": "main.build.js",
   "dependencies": {
     "dexie": "^1.2.0",
