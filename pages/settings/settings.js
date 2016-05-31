@@ -119,7 +119,9 @@ for (var contentType in contentTypes) {
 }
 
 settings.get("filtering", function (value) {
-	trackerCheckbox.checked = value.trackers;
+	if (value) {
+		trackerCheckbox.checked = value.trackers;
+	}
 });
 
 trackerCheckbox.addEventListener("change", function (e) {

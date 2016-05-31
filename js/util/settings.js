@@ -66,10 +66,14 @@ var settings = {
     })
   },
   onLoad: function (cb) {
-    settings.onLoadCallbacks.push({
-      key: '',
-      cb: cb
-    })
+    if (settings.loaded) {
+      cb()
+    } else {
+      settings.onLoadCallbacks.push({
+        key: '',
+        cb: cb
+      })
+    }
   }
 }
 
