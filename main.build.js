@@ -140,7 +140,7 @@ app.on('ready', function () {
   createWindow(function () {
     // if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
 
-    if (process.argv && process.argv[1] && process.argv[1] !== __dirname) {
+    if (process.argv && process.argv[1] && process.argv[1].toLowerCase() !== __dirname.toLowerCase()) {
       mainWindow.webContents.on('did-finish-load', function () {
         sendIPCToWindow(mainWindow, 'addTab', {
           url: process.argv[1]
