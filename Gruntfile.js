@@ -88,7 +88,7 @@ module.exports = function (grunt) {
 			osxBuild: {
 				options: {
 					name: 'Min',
-					dir: '/',
+					dir: __dirname,
 					out: 'dist/app',
 					version: electronVersion,
 					'app-version': version,
@@ -109,7 +109,7 @@ module.exports = function (grunt) {
 			windowsBuild: {
 				options: {
 					name: 'Min',
-					dir: '',
+					dir: __dirname,
 					out: 'dist/app',
 					version: electronVersion,
 					'app-version': version,
@@ -122,7 +122,7 @@ module.exports = function (grunt) {
 			linuxBuild: {
 				options: {
 					name: 'min',
-					dir: '',
+					dir: __dirname,
 					out: 'dist/app',
 					version: electronVersion,
 					'app-version': version,
