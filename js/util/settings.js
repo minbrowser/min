@@ -8,7 +8,7 @@ var settings = {
   list: {},
   onLoadCallbacks: [],
   get: function (key, cb, options) {
-    var isCacheable = !options || options.fromCache === false
+    var isCacheable = !options || options.fromCache !== false
 
     // get the setting from the cache if possible
     if (settings.loaded && isCacheable) {
