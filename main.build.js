@@ -30,7 +30,7 @@ function sendIPCToWindow (window, action, data) {
 
 function createWindow (cb) {
   var savedBounds = fs.readFile(appDataPath + 'windowBounds.json', 'utf-8', function (e, data) {
-    if (e) { // there was an error, probably because the file doesn't exist
+    if (e || !data) { // there was an error, probably because the file doesn't exist
       var size = electron.screen.getPrimaryDisplay().workAreaSize
       var bounds = {
         x: 0,
@@ -59,7 +59,6 @@ function createWindowWithBounds (bounds) {
     minWidth: 320,
     minHeight: 500,
     titleBarStyle: 'hidden-inset',
-    autoHideMenuBar: true,
     icon: __dirname + '/icons/icon256.png'
   })
 
@@ -140,7 +139,7 @@ app.on('ready', function () {
   createWindow(function () {
     // if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
 
-    if (process.argv && process.argv[1] && process.argv[1].toLowerCase() !== __dirname.toLowerCase()) {
+    if (process.argv && process.argv[1] && process.argv[1].toLowerCase() !== __dirname.toLowerCase() && process.argv[1].indexOf('://') !== -1) {
       mainWindow.webContents.on('did-finish-load', function () {
         sendIPCToWindow(mainWindow, 'addTab', {
           url: process.argv[1]
@@ -177,7 +176,7 @@ app.on('open-url', function (e, url) {
  *
  * Opens a new tab when all tabs are closed, and min is still open by clicking on the application dock icon
  */
-app.on('activate', function (/* e, hasVisibleWindows */) {
+app.on('activate', function ( /* e, hasVisibleWindows */) {
   if (!mainWindow && appIsReady) { // sometimes, the event will be triggered before the app is ready, and creating new windows will fail
     createWindow()
   }
@@ -542,6 +541,10 @@ function handleRequest (details, callback) {
 }
 
 global.setFilteringSettings = function (settings) {
+  if (!settings) {
+    settings = {}
+  }
+
   if (settings.trackers && !thingsToFilter.trackers) { // we're enabling tracker filtering
     initFilterList()
   }
