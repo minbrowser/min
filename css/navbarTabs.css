@@ -9,6 +9,7 @@
 	-webkit-user-select: none;
 	position: relative;
 	outline: none;
+	-webkit-app-region: drag;
 }
 
 /* there are no window controls in fullscreen, so we don't need any padding */
@@ -152,6 +153,7 @@ body.notMac .tab-group {
 	height: 1.5em;
 	outline: none;
 	-webkit-user-select: auto;
+	-webkit-app-region: no-drag;
 }
 .tab-item .tab-input::-webkit-input-placeholder {
 	color: inherit;
