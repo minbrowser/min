@@ -67,6 +67,10 @@ function handleRequest (details, callback) {
 }
 
 global.setFilteringSettings = function (settings) {
+  if (!settings) {
+    settings = {}
+  }
+
   if (settings.trackers && !thingsToFilter.trackers) { // we're enabling tracker filtering
     initFilterList()
   }
