@@ -59,7 +59,6 @@ function createWindowWithBounds (bounds) {
     minWidth: 320,
     minHeight: 500,
     titleBarStyle: 'hidden-inset',
-    autoHideMenuBar: true,
     icon: __dirname + '/icons/icon256.png'
   })
 
