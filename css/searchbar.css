@@ -142,7 +142,7 @@ body.notMac #searchbar {
 		display: block;
 		max-width: 100%;
 		padding-top: 0.1em;
-		padding-left: 1.5em;
+		padding-left: 0;
 		/* prevents letters like "g" from being cut off */
 		line-height: 1em;
 	}
