@@ -34,6 +34,10 @@ var searchEngines = {
     name: 'Wikipedia',
     searchURL: 'https://wikipedia.org/w/index.php?search=%s'
   },
+  Yandex: {
+    name: 'Yandex',
+    searchURL: 'https://yandex.com/search/?text=%s'
+  },
   none: {
     name: 'none',
     searchURL: 'http://%s'
