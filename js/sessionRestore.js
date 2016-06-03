@@ -1,23 +1,19 @@
 var sessionRestore = {
   save: function () {
-    requestIdleCallback(function () {
-      var data = {
-        version: 2,
-        state: JSON.parse(JSON.stringify(tabState))
-      }
+    var data = {
+      version: 2,
+      state: JSON.parse(JSON.stringify(tabState))
+    }
 
-      // save all tabs that aren't private
+    // save all tabs that aren't private
 
-      for (var i = 0; i < data.state.tasks.length; i++) {
-        data.state.tasks[i].tabs = data.state.tasks[i].tabs.filter(function (tab) {
-          return !tab.private
-        })
-      }
+    for (var i = 0; i < data.state.tasks.length; i++) {
+      data.state.tasks[i].tabs = data.state.tasks[i].tabs.filter(function (tab) {
+        return !tab.private
+      })
+    }
 
-      localStorage.setItem('sessionrestoredata', JSON.stringify(data))
-    }, {
-      timeout: 2250
-    })
+    localStorage.setItem('sessionrestoredata', JSON.stringify(data))
   },
   restore: function () {
     var data = localStorage.getItem('sessionrestoredata')
