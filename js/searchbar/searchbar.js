@@ -77,18 +77,18 @@ function openURLFromsearchbar(event, url) {
 	//if the url is a !bang search
 	if (url.indexOf("!") === 0) {
 
+		var selectedBang = url.split(" ")[0];
+
 		//get all of the !bangs that could match
-		var bangs = searchCustomBangs(url);
+		var bangs = searchCustomBangs(selectedBang);
 
 		//if there are !bangs that possibly match
 		if (bangs.length !== 0) {
 
-			var selectedBang = url.split(" ")[0];
-
 			//find the ones that are an exact match, and run them
 			for (var i = 0; i < bangs.length; i++) {
 				if (bangs[i].phrase === selectedBang) {
-					bangs[i].fn(url.replace(selectedBang, ""));
+					bangs[i].fn(url.replace(selectedBang + " ", ""));
 					//don't open the URL
 					return;
 				}
