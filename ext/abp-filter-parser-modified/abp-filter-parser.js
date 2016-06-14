@@ -121,7 +121,7 @@
     return output
   }
 
-  function parseFilter (input, parsedFilterData, bloomFilter, exceptionBloomFilter) {
+  function parseFilter (input, parsedFilterData) {
     input = input.trim()
 
     // Check for comment or nothing
