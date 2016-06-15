@@ -1,6 +1,10 @@
 var ddgAttribution = "Results from DuckDuckGo";
 
 function showSearchSuggestions(text, input, event, container) {
+  // TODO support search suggestions for other search engines
+  if (currentSearchEngine.name !== 'DuckDuckGo') {
+    return
+  }
 	if (searchbarResultCount > 3) {
 		empty(container);
 		return;
