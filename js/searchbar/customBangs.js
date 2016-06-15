@@ -52,3 +52,15 @@ registerCustomBang({
     }, 16)
   }
 })
+
+registerCustomBang({
+  phrase: '!clearhistory',
+  snippet: 'Clear All History',
+  isAction: true,
+  fn: function (text) {
+    db.history.clear();
+
+    //restart the workers
+    bookmarks.init();
+  }
+})
