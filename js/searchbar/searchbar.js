@@ -67,59 +67,57 @@ function openURLInBackground (url) { // used to open a url in the background, wi
     i.blur()
   }
 }
-//when clicking on a result item, this function should be called to open the URL
+// when clicking on a result item, this function should be called to open the URL
 
-function openURLFromsearchbar(event, url) {
+function openURLFromsearchbar (event, url) {
 
-	//TODO decide if this should go somewhere else
+  // TODO decide if this should go somewhere else
 
-	//if the url is a !bang search
-	if (url.indexOf("!") === 0) {
+  // if the url is a !bang search
+  if (url.indexOf('!') === 0) {
+    var selectedBang = url.split(' ')[0]
 
-		var selectedBang = url.split(" ")[0];
+    // get all of the !bangs that could match
+    var bangs = searchCustomBangs(selectedBang)
 
-		//get all of the !bangs that could match
-		var bangs = searchCustomBangs(selectedBang);
+    // if there are !bangs that possibly match
+    if (bangs.length !== 0) {
 
-		//if there are !bangs that possibly match
-		if (bangs.length !== 0) {
+      // find the ones that are an exact match, and run them
+      for (var i = 0; i < bangs.length; i++) {
+        if (bangs[i].phrase === selectedBang) {
+          leaveTabEditMode()
+          bangs[i].fn(url.replace(selectedBang + ' ', ''))
+          // don't open the URL
+          return
+        }
+      }
+    }
+  }
 
-			//find the ones that are an exact match, and run them
-			for (var i = 0; i < bangs.length; i++) {
-				if (bangs[i].phrase === selectedBang) {
-					leaveTabEditMode();
-					bangs[i].fn(url.replace(selectedBang + " ", ""));
-					//don't open the URL
-					return;
-				}
-			}
+  if (event.metaKey) {
+    openURLInBackground(url)
+    return true
+  } else {
+    navigate(tabs.getSelected(), url)
 
-		}
-	}
+    if (!tabs.get(tabs.getSelected()).private) {
+      /*
+      //show the color and title of the new page immediately, to make the page load time seem faster
+      currentHistoryResults.forEach(function (res) {
+      	if (res.url == url) {
+      		setColor(res.color, getTextColor(getRGBObject(res.color)))
+      		tabs.update(tabs.getSelected(), {
+      			title: res.title,
+      		})
+      		rerenderTabElement(tabs.getSelected())
+      	}
+      })
+      */
+    }
 
-	if (event.metaKey) {
-		openURLInBackground(url);
-		return true;
-	} else {
-		navigate(tabs.getSelected(), url);
-
-		if (!tabs.get(tabs.getSelected()).private) {
-			/*
-			//show the color and title of the new page immediately, to make the page load time seem faster
-			currentHistoryResults.forEach(function (res) {
-				if (res.url == url) {
-					setColor(res.color, getTextColor(getRGBObject(res.color)));
-					tabs.update(tabs.getSelected(), {
-						title: res.title,
-					});
-					rerenderTabElement(tabs.getSelected());
-				}
-			});
-			*/
-		}
-
-		return false;
-	}
+    return false
+  }
 }
 
 // attempts to shorten a page title, removing useless text like the site name

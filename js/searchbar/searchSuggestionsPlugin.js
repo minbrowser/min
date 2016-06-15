@@ -1,66 +1,63 @@
-var ddgAttribution = "Results from DuckDuckGo";
+var ddgAttribution = 'Results from DuckDuckGo'
 
-function showSearchSuggestions(text, input, event, container) {
+function showSearchSuggestions (text, input, event, container) {
   // TODO support search suggestions for other search engines
   if (currentSearchEngine.name !== 'DuckDuckGo') {
     return
   }
-	if (searchbarResultCount > 3) {
-		empty(container);
-		return;
-	}
 
-	fetch("https://ac.duckduckgo.com/ac/?t=min&q=" + encodeURIComponent(text), {
-			cache: "force-cache"
-		})
-		.then(function (response) {
-			return response.json();
-		})
-		.then(function (results) {
+  if (searchbarResultCount > 3) {
+    empty(container)
+    return
+  }
 
-			empty(container);
+  fetch('https://ac.duckduckgo.com/ac/?t=min&q=' + encodeURIComponent(text), {
+    cache: 'force-cache'
+  })
+    .then(function (response) {
+      return response.json()
+    })
+    .then(function (results) {
+      empty(container)
 
-			if (results && results[0] && results[0].snippet) { //!bang search - ddg api doesn't have a good way to detect this
+      if (results && results[0] && results[0].snippet) { // !bang search - ddg api doesn't have a good way to detect this
 
-				//located in bangsPlugin.js
-				showBangSearchResults(results.concat(searchCustomBangs(text)), input, event, container);
+        // located in bangsPlugin.js
+        showBangSearchResults(results.concat(searchCustomBangs(text)), input, event, container)
+      } else if (results) {
+        results.slice(0, 3).forEach(function (result) {
+          var data = {
+            title: result.phrase
+          }
 
-			} else if (results) {
-				results.slice(0, 3).forEach(function (result) {
+          if (bangRegex.test(result.phrase)) {
+            data.title = result.phrase.replace(bangRegex, '')
 
-					var data = {
-						title: result.phrase,
-					}
+            var bang = result.phrase.match(bangRegex)[0]
 
-					if (bangRegex.test(result.phrase)) {
+            incrementBangCount(bang)
+            saveBangUseCounts()
 
-						data.title = result.phrase.replace(bangRegex, "");
+            data.secondaryText = 'Search on ' + cachedBangSnippets[bang]
+          }
 
-						var bang = result.phrase.match(bangRegex)[0];
+          if (urlParser.isURL(result.phrase) || urlParser.isURLMissingProtocol(result.phrase)) { // website suggestions
+            data.icon = 'fa-globe'
+          } else { // regular search results
+            data.icon = 'fa-search'
+          }
 
-						incrementBangCount(bang);
-						saveBangUseCounts();
+          var item = createSearchbarItem(data)
 
-						data.secondaryText = "Search on " + cachedBangSnippets[bang];
-					}
+          item.addEventListener('click', function (e) {
+            openURLFromsearchbar(e, result.phrase)
+          })
 
-					if (urlParser.isURL(result.phrase) || urlParser.isURLMissingProtocol(result.phrase)) { //website suggestions
-						data.icon = "fa-globe";
-					} else { //regular search results
-						data.icon = "fa-search";
-					}
-
-					var item = createSearchbarItem(data);
-
-					item.addEventListener("click", function (e) {
-						openURLFromsearchbar(e, result.phrase);
-					});
-
-					container.appendChild(item);
-				});
-			}
-			searchbarResultCount += results.length;
-		});
+          container.appendChild(item)
+        })
+      }
+      searchbarResultCount += results.length
+    })
 }
 
 registerSearchbarPlugin('searchSuggestions', {
