@@ -14,7 +14,6 @@ registerCustomBang({
   snippet: 'Go Back',
   isAction: true,
   fn: function (text) {
-    leaveTabEditMode()
     try {
       getWebview(tabs.getSelected()).goBack()
     } catch(e) {}
@@ -26,7 +25,6 @@ registerCustomBang({
   snippet: 'Go Forward',
   isAction: true,
   fn: function (text) {
-    leaveTabEditMode()
     try {
       getWebview(tabs.getSelected()).goForward()
     } catch(e) {}
@@ -38,8 +36,6 @@ registerCustomBang({
   snippet: 'Take a Screenshot',
   isAction: true,
   fn: function (text) {
-    leaveTabEditMode()
-
     setTimeout(function () { // wait until the next frame so that the searchbar is hidden
       var rect = getWebview(tabs.getSelected()).getBoundingClientRect()
 

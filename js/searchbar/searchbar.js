@@ -88,6 +88,7 @@ function openURLFromsearchbar(event, url) {
 			//find the ones that are an exact match, and run them
 			for (var i = 0; i < bangs.length; i++) {
 				if (bangs[i].phrase === selectedBang) {
+					leaveTabEditMode();
 					bangs[i].fn(url.replace(selectedBang + " ", ""));
 					//don't open the URL
 					return;
