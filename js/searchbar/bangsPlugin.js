@@ -51,8 +51,6 @@ var saveBangUseCounts = debounce(function () {
   localStorage.setItem('bangUseCounts', JSON.stringify(bangUseCounts))
 }, 10000)
 
-// called from searchSuggestionsPlugin.js
-
 // results is an array of {phrase, snippet, image}
 function showBangSearchResults (results, input, event, container) {
   empty(container)
