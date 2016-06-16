@@ -32,6 +32,8 @@ module.exports = function (grunt) {
 							"js/searchbar/instantAnswerPlugin.js",
 							"js/searchbar/bookmarksPlugin.js",
 							"js/searchbar/openTabsPlugin.js",
+							"js/searchbar/bangsPlugin.js",
+							"js/searchbar/customBangs.js",
 							"js/searchbar/searchSuggestionsPlugin.js",
 							"js/searchbar/historySuggestionsPlugin.js",
 							"js/searchbar/hostsSuggestionsPlugin.js",
