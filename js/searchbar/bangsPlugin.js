@@ -22,11 +22,6 @@ function searchCustomBangs (text) {
   })
 }
 
-var bangRegex = /!\w+/g
-
-// cache duckduckgo bangs so we make fewer network requests
-var cachedBangSnippets = {}
-
 // format is {bang: count}
 var bangUseCounts = JSON.parse(localStorage.getItem('bangUseCounts') || '{}')
 
@@ -60,6 +55,8 @@ var saveBangUseCounts = debounce(function () {
 
 // results is an array of {phrase, snippet, image}
 function showBangSearchResults (results, input, event, container) {
+  empty(container)
+
   results.sort(function (a, b) {
     var aScore = a.score || 1
     var bScore = b.score || 1
@@ -74,7 +71,6 @@ function showBangSearchResults (results, input, event, container) {
   })
 
   results.slice(0, 5).forEach(function (result) {
-    cachedBangSnippets[result.phrase] = result.snippet
 
     // autocomplete the bang, but allow the user to keep typing
 
@@ -107,3 +103,31 @@ function showBangSearchResults (results, input, event, container) {
     container.appendChild(item)
   })
 }
+
+function getBangSearchResults (text, input, event, container) {
+
+  // get results from DuckDuckGo if it is a search engine, and the current tab is not a private tab
+  if (currentSearchEngine.name === 'DuckDuckGo' && !tabs.get(tabs.getSelected()).private) {
+    fetch('https://ac.duckduckgo.com/ac/?t=min&q=' + encodeURIComponent(text), {
+      cache: 'force-cache'
+    })
+      .then(function (response) {
+        return response.json()
+      })
+      .then(function (results) {
+        // show the DuckDuckGo results, combined with the custom !bangs
+        showBangSearchResults(results.concat(searchCustomBangs(text)), input, event, container)
+      })
+  } else {
+    // otherwise, only show custom !bangs
+    showBangSearchResults(searchCustomBangs(text), input, event, container)
+  }
+}
+
+registerSearchbarPlugin('bangs', {
+  index: 1,
+  trigger: function (text) {
+    return !!text && text.indexOf('!') === 0 && text.indexOf(' ') === -1
+  },
+  showResults: debounce(getBangSearchResults, 100)
+})
