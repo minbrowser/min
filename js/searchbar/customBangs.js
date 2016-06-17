@@ -62,5 +62,91 @@ registerCustomBang({
 
     //restart the workers
     bookmarks.init();
+
+// returns a task with the same name or index ("1" returns the first task, etc.)
+function getTaskByNameOrNumber (text) {
+  var taskSet = tasks.get()
+
+  var textAsNumber = parseInt(text)
+
+  for (var i = 0; i < taskSet.length; i++) {
+    if ((taskSet[i].name && taskSet[i].name.toLowerCase() === text) || i + 1 === textAsNumber) {
+      return taskSet[i]
+    }
+  }
+  return null
+}
+
+registerCustomBang({
+  phrase: '!task',
+  snippet: 'Switch to Task',
+  isAction: false,
+  fn: function (text) {
+    text = text.toLowerCase()
+
+    // no task was specified, show all of the tasks
+    if (!text) {
+      taskOverlay.show()
+      return
+    }
+
+    var task = getTaskByNameOrNumber(text)
+
+    if (task) {
+      switchToTask(task.id)
+    }
+  }
+})
+
+registerCustomBang({
+  phrase: '!newtask',
+  snippet: 'Create a task',
+  isAction: true,
+  fn: function (text) {
+    taskOverlay.show()
+
+    setTimeout(function () {
+      addTaskFromOverlay()
+      if (text) {
+        currentTask.name = text
+      }
+    }, 600)
+  }
+})
+
+registerCustomBang({
+  phrase: '!movetotask',
+  snippet: 'Move this tab to a task',
+  isAction: false,
+  fn: function (text) {
+    // remove the tab from the current task
+
+    var currentTab = tabs.get(tabs.getSelected())
+    tabs.destroy(currentTab.id)
+
+    // make sure the task has at least one tab in it
+    if (tabs.get().length === 0) {
+      tabs.add()
+    }
+
+    var newTask = getTaskByNameOrNumber(text)
+
+    if (newTask) {
+      newTask.tabs.add(currentTab)
+    } else {
+      // create a new task with the given name
+      var newTask = tasks.get(tasks.add())
+      newTask.name = text
+
+      newTask.tabs.add(currentTab)
+    }
+
+    taskOverlay.show()
+    switchToTask(newTask.id)
+    switchToTab(currentTab.id)
+
+    setTimeout(function () {
+      taskOverlay.hide()
+    }, 600)
   }
 })
