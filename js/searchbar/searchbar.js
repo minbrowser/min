@@ -87,7 +87,12 @@ function openURLFromsearchbar (event, url) {
       for (var i = 0; i < bangs.length; i++) {
         if (bangs[i].phrase === selectedBang) {
           leaveTabEditMode()
-          bangs[i].fn(url.replace(selectedBang + ' ', ''))
+          if (url.indexOf(selectedBang + ' ') === -1) {
+            var text = url.replace(selectedBang, '')
+          } else {
+            var text = url.replace(selectedBang + ' ', '')
+          }
+          bangs[i].fn(text)
           // don't open the URL
           return
         }
