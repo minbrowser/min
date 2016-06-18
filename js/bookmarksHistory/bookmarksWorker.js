@@ -1,17 +1,13 @@
 importScripts('../../ext/Dexie.min.js')
-importScripts('../../node_modules/lunr/lunr.min.js')
+importScripts('../../ext/elasticlunr.js/release/elasticlunr.min.js')
 importScripts('../util/database.js')
 
-// add bookmarks to the lunr index
-var bookmarksIndex = lunr(function () {
-  this.field('title', {
-    boost: 5
-  })
-  this.field('body')
-  this.field('url', {
-    boost: 1
-  })
-  this.ref('id') // url's are used as references
+// add bookmarks to the elasticlunr index
+var bookmarksIndex = elasticlunr(function () {
+  this.addField('title')
+  this.addField('body')
+  this.addField('url')
+  this.setRef('id') // url's are used as references
 })
 
 /* used to turn refs into bookmarks */
@@ -23,7 +19,7 @@ var bookmarksInMemory = {
 db.bookmarks.each(function (bookmark) {
   var t1 = performance.now()
 
-  bookmarksIndex.add({
+  bookmarksIndex.addDoc({
     id: bookmark.url,
     title: bookmark.title || '',
     body: bookmark.text || '',
@@ -59,7 +55,7 @@ onmessage = function (e) {
       extraData: pageData.extraData
     })
 
-    bookmarksIndex.add({
+    bookmarksIndex.addDoc({
       id: pageData.url,
       title: pageData.title || '',
       body: pageData.text || '',
@@ -105,7 +101,14 @@ onmessage = function (e) {
         }
       }
     } else {
-      var results = bookmarksIndex.search(searchText)
+      var results = bookmarksIndex.search(searchText, {
+        fields: {
+          title: {boost: 5},
+          url: {boost: 3},
+          body: {boost: 1}
+        },
+        bool: 'AND'
+      })
 
       // return 5, sorted by relevancy
 

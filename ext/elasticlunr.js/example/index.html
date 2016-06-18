@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Elasticlunr.js, lightweight full-text search engine in Javascript for browser search and offline search.</title>
+    <meta name="description" content="Elasticlunr.js, lightweight full-text search engine in Javascript for browser search and offline search. Elasticlunr.js is developed based on Lunr.js, but more flexible than lunr.js. Elasticlunr.js provides Query-Time boosting and field search. A bit like Solr, but much smaller and not as bright, but also provide flexible configuration and query-time boosting." />
+    <meta name="keywords" content="elasticlunr, full-text search, information retrieval, offline search" />
+    <meta name="author" content="Wei Song" />
+    <meta name="google-site-verification" content="d5kLmPozLqmPGqxLe9hfWv-axMcfuT1slS1bAJJLJps" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/sticky-footer-navbar.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <script data-main="./app.js" src="./require.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <main class="main" role="main" style="margin-top: 30px">
+            <div class="container">
+                <div class="row">
+                    <header style="margin-left: 15px; margin-right: 15px;">
+                        <h1>Elasticlunr<span>.js</span></h1>
+                        <h2>Lightweight full-text search engine in Javascript for browser search and offline search.</h2>
+                    </header>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <span><strong><i>Search Configuration:</i></strong></span>
+                        <textarea id="configuration" class="form-control" rows="6" style="font-size: 0.8em;"></textarea>
+                    </div>
+
+                    <div class="col-md-6" style="margin-left: 0px; margin-right: 0px; padding-right: 0px; padding-left: 0px;">
+                        <span><strong><i>Configuration Example:</i></strong></span>
+                        <pre style="font-size: 0.8em;">
+{
+    "fields": {
+        "title": {"boost": 2},
+        "body": {"boost": 1}
+    },
+    "boolean": "OR"
+}</pre>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-left: 0px; margin-right: 0px; border-top-style: solid; border-top-width: 0px; padding-top: 10px;"> 
+                    <div class="col-md-6" style="padding-left: 0px; padding-right: 50px">
+                        <form>
+                            <div class="form-group has-success">
+                                <div class="col-xs-9" style="padding-left: 0px;">
+                                    <input type="search" class="form-control" id="inputSuccess1" placeholder="search elasticlunr.js">
+                                </div>
+                            </div>
+                            <div><a class="all btn btn-primary btn-block" href="#">All</a></div>
+                        </form>
+                    </div>
+                    <div class="col-md-12" style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(7, 94, 115, 0.3); padding-left: 0px;"></div>
+                </div>
+
+                <div class="row" style="margin-left: 0px; margin-right: 0px;">
+                    <div class="col-md-6" style="margin-left: 0px; margin-right: 0px;">
+                        <div id='question-list-container' style="margin-left: 0px; margin-right: 0px;"></div>
+                    </div>
+
+                    <div class="col-md-6" style="margin-left: 0px; margin-right: 0px; padding-right: 0px; padding-left: 0px;">
+                        <div id='question-view-container' style="margin-left: 0px; margin-right: 0px; padding-right: 0px; padding-left: 0px;"></div>
+                    </div>
+                    <div class="col-md-12" style="padding-bottom: 15px; border-bottom:1px solid rgba(7,94,115,0.3);"></div>
+                </div>
+            </main>
+        </div>
+        <!-- end of wrapper -->
+
+        <!-- Begin footer -->
+        <footer class="footer vertical-center">
+            <div class="container">
+                <p class="pull-right text-muted"><a href="#">Back to top</a>
+                </p>
+                <p class="text-muted">Copyright &copy; Wei Song 2015.
+                    <a href="https://github.com/weixsong">https://github.com/weixsong</a> watkinsong@163.com.  Donate by Alipay: watkinsong@163.com</p>
+            </div>
+        </footer>
+
+        <script>
+            (function(hijs) {
+                //
+                // hijs - JavaScript Syntax Highlighter
+                //
+                // Copyright (c) 2010 Alexis Sellier
+                //
+
+                // All elements which match this will be syntax highlighted.
+                var selector = hijs || 'pre';
+
+                var keywords = ('var function if else for while break switch case do new null in with void ' + 'continue delete return this true false throw catch typeof with instanceof').split(' '),
+                    special = ('eval window document undefined NaN Infinity parseInt parseFloat ' + 'encodeURI decodeURI encodeURIComponent decodeURIComponent').split(' ');
+
+                // Syntax definition
+                // The key becomes the class name of the <span>
+                // around the matched block of code.
+                var syntax = [
+                    ['comment', /(\/\*(?:[^*\n]|\*+[^\/*])*\*+\/)/g],
+                    ['comment', /(\/\/[^\n]*)/g],
+                    ['string', /("(?:(?!")[^\\\n]|\\.)*"|'(?:(?!')[^\\\n]|\\.)*')/g],
+                    ['regexp', /(\/.+\/[mgi]*)(?!\s*\w)/g],
+                    ['class', /\b([A-Z][a-zA-Z]+)\b/g],
+                    ['number', /\b([0-9]+(?:\.[0-9]+)?)\b/g],
+                    ['keyword', new(RegExp)('\\b(' + keywords.join('|') + ')\\b', 'g')],
+                    ['special', new(RegExp)('\\b(' + special.join('|') + ')\\b', 'g')]
+                ];
+                var nodes, table = {};
+
+                if (/^[a-z]+$/.test(selector)) {
+                    nodes = document.getElementsByTagName(selector);
+                } else if (/^\.[\w-]+$/.test(selector)) {
+                    nodes = document.getElementsByClassName(selector.slice(1));
+                } else if (document.querySelectorAll) {
+                    nodes = document.querySelectorAll(selector);
+                } else {
+                    nodes = [];
+                }
+
+                for (var i = 0, children; i < nodes.length; i++) {
+                    children = nodes[i].childNodes;
+
+                    for (var j = 0, str; j < children.length; j++) {
+                        code = children[j];
+
+                        if (code.length >= 0) { // It's a text node
+                            // Don't highlight command-line snippets
+                            if (!/^\$/.test(code.nodeValue.trim())) {
+                                syntax.forEach(function(s) {
+                                    var k = s[0],
+                                        v = s[1];
+                                    code.nodeValue = code.nodeValue.replace(v, function(_, m) {
+                                        return '\u00ab' + encode(k) + '\u00b7' + encode(m) +
+                                            '\u00b7' + encode(k) + '\u00bb';
+                                    });
+                                });
+                            }
+                        }
+                    }
+                }
+                for (var i = 0; i < nodes.length; i++) {
+                    nodes[i].innerHTML =
+                        nodes[i].innerHTML.replace(/\u00ab(.+?)\u00b7(.+?)\u00b7\1\u00bb/g, function(_, name, value) {
+                            value = value.replace(/\u00ab[^\u00b7]+\u00b7/g, '').replace(/\u00b7[^\u00bb]+\u00bb/g, '');
+                            return '<span class="' + decode(name) + '">' + escape(decode(value)) + '</span>';
+                        });
+                }
+
+                function escape(str) {
+                    return str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                }
+
+                // Encode ASCII characters to, and from Braille
+                function encode(str, encoded) {
+                    table[encoded = str.split('').map(function(s) {
+                        if (s.charCodeAt(0) > 127) {
+                            return s
+                        }
+                        return String.fromCharCode(s.charCodeAt(0) + 0x2800);
+                    }).join('')] = str;
+                    return encoded;
+                }
+
+                function decode(str) {
+                    if (str in table) {
+                        return table[str];
+                    } else {
+                        return str.trim().split('').map(function(s) {
+                            if (s.charCodeAt(0) - 0x2800 > 127) {
+                                return s
+                            }
+                            return String.fromCharCode(s.charCodeAt(0) - 0x2800);
+                        }).join('');
+                    }
+                }
+
+            })(window.hijs);
+        </script>
+
+    <script src="assets/bootstrap/js/jquery-1.11.3.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
