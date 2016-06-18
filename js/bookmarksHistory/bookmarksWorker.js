@@ -8,6 +8,7 @@ var bookmarksIndex = elasticlunr(function () {
   this.addField('body')
   this.addField('url')
   this.setRef('id') // url's are used as references
+  this.saveDocument(false)
 })
 
 /* used to turn refs into bookmarks */
