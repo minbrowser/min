@@ -2,8 +2,48 @@ importScripts('../../ext/Dexie.min.js')
 importScripts('../../ext/elasticlunr.js/release/elasticlunr.min.js')
 importScripts('../util/database.js')
 
+// FNV-1a hash algorithm - code from https://github.com/schwarzkopfb/fnv1a
+
+var fnv1aHash = (function () {
+  /**
+ * Created by schwarzkopfb on 15/11/17.
+ */
+
+  /**
+   * FNV-1a hash generation init value.
+   * It's exposed, because this allows user to override it.
+   *
+   * @type {number}
+   */
+  hash.BASE = 0x811c9dc5
+
+  /**
+   * Generates 32 bit FNV-1a hash from the given string.
+   * As explained here: http://isthe.com/chongo/tech/comp/fnv/
+   *
+   * @param s {string} String to generate hash from.
+   * @returns {number} The result integer hash.
+   */
+  function hash (s) {
+    var h = hash.BASE
+
+    for (var i = 0, l = s.length; i < l; i++) {
+      h ^= s.charCodeAt(i)
+      h += (h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24)
+    }
+
+    return h >>> 0
+  }
+
+  return hash
+})()
+
 // add bookmarks to the elasticlunr index
 var bookmarksIndex = elasticlunr(function () {
+  this.pipeline.add(function (token, tokenIndex, tokens) {
+    return fnv1aHash(token).toString(16).substring(0, 4)
+  })
+
   this.addField('title')
   this.addField('body')
   this.addField('url')
@@ -20,8 +60,10 @@ var bookmarksInMemory = {
 db.bookmarks.each(function (bookmark) {
   var t1 = performance.now()
 
+  var urlHash = fnv1aHash(bookmark.url).toString(16)
+
   bookmarksIndex.addDoc({
-    id: bookmark.url,
+    id: urlHash,
     title: bookmark.title || '',
     body: bookmark.text || '',
     url: bookmark.url
@@ -33,7 +75,7 @@ db.bookmarks.each(function (bookmark) {
   	console.info("bookmark is slow", bookmark, bookmark.text.length)
   } */
 
-  bookmarksInMemory[bookmark.url] = {
+  bookmarksInMemory[urlHash] = {
     url: bookmark.url,
     title: bookmark.title,
     // we skip the text property, since it takes up a lot of memory and isn't used anywhere
