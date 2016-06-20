@@ -58,10 +58,12 @@ registerCustomBang({
   snippet: 'Clear All History',
   isAction: true,
   fn: function (text) {
-    db.history.clear();
+    db.history.clear()
 
-    //restart the workers
-    bookmarks.init();
+    // restart the workers
+    bookmarks.init()
+  }
+})
 
 // returns a task with the same name or index ("1" returns the first task, etc.)
 function getTaskByNameOrNumber (text) {
