@@ -77,7 +77,7 @@ function getTaskElement (task, taskIndex) {
       this.blur()
     }
 
-    tasks.get(task.id).name = this.value
+    tasks.update(task.id, {name: this.value})
   })
 
   input.addEventListener('focus', function () {
@@ -206,16 +206,33 @@ function getTaskContainer (id) {
 }
 
 function syncStateAndOverlay () {
-  var selectedTask = currentTask.id
+
+  // get a list of all of the currently open tabs and tasks
 
   var tabSet = {}
-  // get a list of all of the currently open tabs
+  var taskSet = {}
 
   tasks.get().forEach(function (task) {
+    taskSet[task.id] = task
     task.tabs.get().forEach(function (tab) {
       tabSet[tab.id] = tab
     })
   })
+
+  var selectedTask = currentTask.id
+
+  // destroy the old tasks
+  tasks.destroyAll()
+
+  // add the new tasks, in the order that they are listed in the overlay
+
+  var taskElements = taskContainer.getElementsByClassName('task-container')
+
+  for (var i = 0; i < taskElements.length; i++) {
+    tasks.add(taskSet[taskElements[i].getAttribute('data-task')])
+  }
+
+  tasks.setSelected(selectedTask)
 
   // loop through each task
 
@@ -225,9 +242,7 @@ function syncStateAndOverlay () {
     // if the task still exists, update the tabs
     if (container) {
       // remove all of the old tabs
-      task.tabs.get().forEach(function (tab) {
-        task.tabs.destroy(tab.id)
-      })
+      task.tabs.destroyAll()
 
       // add the new tabs
       var newTabs = container.getElementsByClassName('task-tab-item')

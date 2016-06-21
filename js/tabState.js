@@ -59,6 +59,10 @@ var tabPrototype = {
     }
     return false
   },
+  destroyAll: function () {
+    // this = [] doesn't work, so set the length of the array to 0 to remove all of the itemss
+    this.length = 0
+  },
   get: function (id) {
     if (!id) { // no id provided, return an array of all tabs
       // it is important to deep-copy the tab objects when returning them. Otherwise, the original tab objects get modified when the returned tabs are modified (such as when processing a url).
@@ -70,7 +74,7 @@ var tabPrototype = {
     }
     for (var i = 0; i < this.length; i++) {
       if (this[i].id === id) {
-        return this[i]
+        return JSON.parse(JSON.stringify(this[i]))
       }
     }
     return undefined
@@ -121,26 +125,39 @@ function getRandomId () {
 }
 
 var tasks = {
-  add: function (name, id) {
-    var task = {
-      name: name || null,
-      tabs: [],
-      selectedTab: null,
-      id: id || String(getRandomId())
+  add: function (task, index) {
+    if (!task) {
+      task = {}
+    }
+
+    var newTask = {
+      name: task.name || null,
+      tabs: task.tabs || [],
+      selectedTab: task.selectedTab || null,
+      id: task.id || String(getRandomId())
     }
 
     // task.currentTask.tabs.__proto__ = tabPrototype
 
     for (var key in tabPrototype) {
-      task.tabs.__proto__[key] = tabPrototype[key]
+      newTask.tabs.__proto__[key] = tabPrototype[key]
     }
 
-    tabState.tasks.push(task)
-    return task.id
+    if (index) {
+      tabState.tasks.splice(index, 0, newTask)
+    } else {
+      tabState.tasks.push(newTask)
+    }
+
+    return newTask.id
   },
   get: function (id) {
     if (!id) {
-      return tabState.tasks
+      var tasksToReturn = []
+      for (var i = 0; i < tabState.tasks.length; i++) {
+        tasksToReturn.push(JSON.parse(JSON.stringify(tabState.tasks[i])))
+      }
+      return tasksToReturn
     }
 
     for (var i = 0; i < tabState.tasks.length; i++) {
@@ -163,6 +180,24 @@ var tasks = {
       }
     }
     return false
+  },
+  destroyAll: function () {
+    tabState.tasks = []
+    currentTask = null
+  },
+  update: function (id, data) {
+    if (!tasks.get(id)) {
+      throw new ReferenceError('Attempted to update a task that does not exist.')
+    }
+
+    for (var i = 0; i < tabState.tasks.length; i++) {
+      if (tabState.tasks[i].id === id) {
+        for (var key in data) {
+          tabState.tasks[i][key] = data[key]
+        }
+        break
+      }
+    }
   }
 }
 

@@ -55,12 +55,7 @@ var sessionRestore = {
 
     data.state.tasks.forEach(function (task) {
       // restore the task item
-      var taskItem = tasks.get(tasks.add(task.name, task.id))
-
-      // restore the tabs within the task
-      task.tabs.forEach(function (tab) {
-        taskItem.tabs.add(tab)
-      })
+      tasks.add(task)
     })
 
     switchToTask(data.state.selectedTask)
