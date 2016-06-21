@@ -1,9 +1,11 @@
 /* send bookmarks data.  */
 
 function getBookmarksText (doc, win) {
-  var docClone = doc.cloneNode(doc, true)
 
-  var ignoredElements = docClone.body.querySelectorAll('link, style, script, noscript, .visually-hidden, .visuallyhidden, [role=presentation], [hidden], [style*="display:none"], .ad, .dialog, .modal')
+  var bodyClone = doc.createElement("div");
+  bodyClone.innerHTML = doc.body.innerHTML
+
+  var ignoredElements = bodyClone.querySelectorAll('link, style, script, noscript, .visually-hidden, .visuallyhidden, [role=presentation], [hidden], [style*="display:none"], .ad, .dialog, .modal')
 
   if (ignoredElements) {
     for (var i = 0; i < ignoredElements.length; i++) {
@@ -11,28 +13,13 @@ function getBookmarksText (doc, win) {
     }
   }
 
-  var ignoreIfMinor = docClone.body.querySelectorAll('aside, .sidebar, #sidebar')
+bodyClone.innerHTML = bodyClone.innerHTML.replace(/<\//g, ' </')
 
-  if (ignoreIfMinor) {
-    for (var i = 0; i < ignoreIfMinor.length; i++) {
-      if (ignoreIfMinor[i].textContent.length / docClone.body.textContent.length < 0.075) {
-        ignoreIfMinor[i].parentNode.removeChild(ignoreIfMinor[i])
-      }
-    }
-  }
-
-  var pageElements = docClone.body.querySelectorAll('*')
-  var text = ''
-
-  for (var i = 0; i < pageElements.length; i++) {
-    pageElements[i].insertAdjacentHTML('beforeend', ' ')
-  }
-
-  text = docClone.body.textContent
+  var text = bodyClone.textContent
 
   // special meta tags
 
-  var mt = docClone.querySelector('meta[name=description]')
+  var mt = doc.head.querySelector('meta[name=description]')
 
   if (mt) {
     text += ' ' + mt.content
@@ -41,7 +28,6 @@ function getBookmarksText (doc, win) {
   text = text.replace(/[\n\t]/g, '') // remove useless newlines/tabs that increase filesize
 
   text = text.replace(/\s{2,}/g, ' ') // collapse multiple spaces into one
-  text = text.replace(/<.*?>/g, '')
 
   return text
 }
