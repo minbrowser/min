@@ -153,11 +153,7 @@ var tasks = {
   },
   get: function (id) {
     if (!id) {
-      var tasksToReturn = []
-      for (var i = 0; i < tabState.tasks.length; i++) {
-        tasksToReturn.push(JSON.parse(JSON.stringify(tabState.tasks[i])))
-      }
-      return tasksToReturn
+      return tabState.tasks
     }
 
     for (var i = 0; i < tabState.tasks.length; i++) {
