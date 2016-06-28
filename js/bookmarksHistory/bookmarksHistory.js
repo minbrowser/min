@@ -1,98 +1,87 @@
-/*
-steps to creating a bookmark:
-
- - bookmarks.bookmark(tabId) is called
- - webview_preload.js sends an ipc to webviews.js
- - webviews.js detects the channel is "bookmarksData", and calls bookmarks.onDataRecieved(data)
- - The worker creates a bookmark, and adds it to the search index
-*/
-
 var bookmarks = {
-  updateHistory: function (tabId) {
-    setTimeout(function () { // this prevents pages that are immediately left from being saved to history, and also gives the page-favicon-updated event time to fire (so the colors saved to history are correct).
+  updateHistory: function (tabId, pageHTML, extractedText, metadata) {
+    /* this prevents pages that are immediately left from being saved to history, and also gives the page-favicon-updated event time to fire (so the colors saved to history are correct). */
+    setTimeout(function () {
       var tab = tabs.get(tabId)
       if (tab) {
         var data = {
           url: tab.url,
           title: tab.title,
-          color: tab.backgroundColor
+          color: tab.backgroundColor,
+          pageHTML: pageHTML || '',
+          extractedText: extractedText,
+          metadata: metadata
         }
-        bookmarks.historyWorker.postMessage({
+
+        bookmarks.worker.postMessage({
           action: 'updateHistory',
-          data: data
+          pageData: data
         })
       }
     }, 500)
   },
   currentCallback: function () {},
-  onDataRecieved: function (data) {
-    bookmarks.bookmarksWorker.postMessage({
-      action: 'addBookmark',
-      data: data
-    })
-  },
-  deleteBookmark: function (url) {
-    bookmarks.bookmarksWorker.postMessage({
-      action: 'deleteBookmark',
-      data: {
-        url: url
-      }
-    })
-  },
   deleteHistory: function (url) {
-    bookmarks.historyWorker.postMessage({
+    bookmarks.worker.postMessage({
       action: 'deleteHistory',
       data: {
         url: url
       }
     })
   },
-  searchBookmarks: function (text, callback) {
+  searchPlaces: function (text, callback) {
     bookmarks.currentCallback = callback // save for later, we run in onMessage
-    bookmarks.bookmarksWorker.postMessage({
-      action: 'searchBookmarks',
+    bookmarks.worker.postMessage({
+      action: 'searchPlaces',
       text: text
     })
   },
-  searchHistory: function (text, callback) {
-    bookmarks.currentHistoryCallback = callback // save for later, we run in onMessage
-    bookmarks.historyWorker.postMessage({
-      action: 'searchHistory',
-      text: text
-    })
-  },
-  getHistorySuggestions: function (url, callback) {
-    bookmarks.currentHistoryCallback = callback
-    bookmarks.historyWorker.postMessage({
-      action: 'getHistorySuggestions',
+  getPlaceSuggestions: function (url, callback) {
+    bookmarks.currentCallback = callback
+    bookmarks.worker.postMessage({
+      action: 'getPlaceSuggestions',
       text: url
     })
   },
   onMessage: function (e) { // assumes this is from a search operation
-    if (e.data.scope === 'bookmarks') {
-      // TODO this (and the rest) should use unique callback id's
-      bookmarks.currentCallback(e.data.result)
-    } else if (e.data.scope === 'history') { // history search
-      bookmarks.currentHistoryCallback(e.data.result)
-    }
+    bookmarks.currentCallback(e.data.result)
+  },
+  updateBookmarkState: function (tabId, shouldBeBookmarked) {
+    var url = tabs.get(tabId).url
+    db.places.where('url').equals(url).first(function (item) {
+      // a history item already exists, update it
+      if (item) {
+        db.places.where('url').equals(url).modify({isBookmarked: shouldBeBookmarked})
+      } else {
+        // create a new history item
+        // this should only happen if the page hasn't finished loading yet
+        db.places.add({
+          url: url,
+          title: url,
+          color: '',
+          visitCount: 1,
+          lastVisit: Date.now(),
+          pageHTML: '',
+          extractedText: '',
+          searchIndex: [],
+          isBookmarked: shouldBeBookmarked,
+          metadata: {}
+        })
+      }
+    })
   },
   bookmark: function (tabId) {
-    getWebview(tabId).send('sendData')
-  // rest happens in onDataRecieved and worker
+    bookmarks.updateBookmarkState(tabId, true)
+  },
+  deleteBookmark: function (tabId) {
+    bookmarks.updateBookmarkState(tabId, false)
   },
   toggleBookmarked: function (tabId) { // toggles a bookmark. If it is bookmarked, delete the bookmark. Otherwise, add it.
     var url = tabs.get(tabId).url
-    var exists = false
 
-    bookmarks.searchBookmarks(url, function (d) {
-      d.forEach(function (item) {
-        if (item.url === url) {
-          exists = true
-        }
-      })
-
-      if (exists) {
-        bookmarks.deleteBookmark(tabs.get(tabId).url)
+    db.places.where('url').equals(url).first(function (item) {
+      if (item && item.isBookmarked) {
+        bookmarks.deleteBookmark(tabId)
       } else {
         bookmarks.bookmark(tabId)
       }
@@ -129,20 +118,8 @@ var bookmarks = {
 
     // check if the page is bookmarked or not, and update the star to match
 
-    bookmarks.searchBookmarks(currentURL, function (results) {
-      if (!results) {
-        return
-      }
-
-      var hasMatched = false
-
-      results.forEach(function (r) {
-        if (r.url === currentURL) {
-          hasMatched = true
-        }
-      })
-
-      if (hasMatched) {
+    db.places.where('url').equals(currentURL).first(function (item) {
+      if (item && item.isBookmarked) {
         star.classList.remove('fa-star-o')
         star.classList.add('fa-star')
       } else {
@@ -153,11 +130,8 @@ var bookmarks = {
     return star
   },
   init: function () {
-    bookmarks.historyWorker = new Worker('js/bookmarksHistory/historyWorker.js')
-    bookmarks.historyWorker.onmessage = bookmarks.onMessage
-
-    bookmarks.bookmarksWorker = new Worker('js/bookmarksHistory/bookmarksWorker.js')
-    bookmarks.bookmarksWorker.onmessage = bookmarks.onMessage
+    bookmarks.worker = new Worker('js/bookmarksHistory/placesWorker.js')
+    bookmarks.worker.onmessage = bookmarks.onMessage
   }
 }
 

@@ -1,11 +1,11 @@
-function showSearchbarHistoryResults (text, input, event, container) {
-  bookmarks.searchHistory(text, function (results) {
+function showSearchbarPlaceResults (text, input, event, container) {
+  bookmarks.searchPlaces(text, function (results) {
     // remove a previous top answer
 
-    var historyTopAnswer = getTopAnswer('history')
+    var placesTopAnswer = getTopAnswer('places')
 
-    if (historyTopAnswer && !hasAutocompleted) {
-      historyTopAnswer.remove()
+    if (placesTopAnswer && !hasAutocompleted) {
+      placesTopAnswer.remove()
     }
 
     // clear previous results
@@ -23,7 +23,7 @@ function showSearchbarHistoryResults (text, input, event, container) {
         if (autocompletionType === 0) { // the domain was autocompleted, show a domain result item
           var domain = new URL(result.url).hostname
 
-          setTopAnswer('history', createSearchbarItem({
+          setTopAnswer('places', createSearchbarItem({
             title: domain,
             url: domain,
             classList: ['fakefocus']
@@ -40,11 +40,33 @@ function showSearchbarHistoryResults (text, input, event, container) {
         }
       }
 
+      // show a star for bookmarked items
+      if (result.isBookmarked) {
+        data.icon = 'fa-star'
+      }
+
+      // create the item
+
       var item = createSearchbarItem(data)
+
+      // show the metadata for the item
+
+      if (result.metadata) {
+        var secondaryText = item.querySelector('.secondary-text')
+
+        for (var md in result.metadata) {
+          var span = document.createElement('span')
+
+          span.className = 'md-info'
+          span.textContent = result.metadata[md]
+
+          secondaryText.insertBefore(span, secondaryText.firstChild)
+        }
+      }
 
       if (autocompletionType === 1) { // if this exact URL was autocompleted, show the item as the top answer
         item.classList.add('fakefocus')
-        setTopAnswer('history', item)
+        setTopAnswer('places', item)
       } else {
         container.appendChild(item)
       }
@@ -54,10 +76,10 @@ function showSearchbarHistoryResults (text, input, event, container) {
   })
 }
 
-registerSearchbarPlugin('history', {
+registerSearchbarPlugin('places', {
   index: 1,
   trigger: function (text) {
     return !!text && text.indexOf('!') !== 0
   },
-  showResults: throttle(showSearchbarHistoryResults, 50)
+  showResults: throttle(showSearchbarPlaceResults, 50)
 })

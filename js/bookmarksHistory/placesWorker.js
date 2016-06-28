@@ -3,8 +3,7 @@ console.log('worker started ', performance.now())
 importScripts('../../ext/Dexie.min.js')
 importScripts('../../node_modules/string_score/string_score.min.js')
 importScripts('../util/database.js')
-
-// extraData key is an object - its so we don't have to upgrade the db if we want to add stuff in the future
+importScripts('fullTextSearch.js')
 
 var spacesRegex = /[\+\s._/-]/g // things that could be considered spaces
 var wordRegex = /^[a-z\s]+$/g
@@ -32,7 +31,9 @@ var oneWeekAgo = Date.now() - (oneDayInMS * 7)
 var minItemAge = Date.now() - (oneDayInMS * 42)
 
 function cleanupHistoryDatabase () { // removes old history entries
-  db.history.where('lastVisit').below(minItemAge).delete()
+  db.places.where('lastVisit').below(minItemAge).and(function (item) {
+    return item.isBookmarked === false
+  }).delete()
 }
 
 setTimeout(cleanupHistoryDatabase, 20000) // don't run immediately on startup, since is might slow down searchbar search.
@@ -42,11 +43,23 @@ setInterval(cleanupHistoryDatabase, 60 * 60 * 1000)
 
 var historyInMemoryCache = []
 
+function addToHistoryCache (item) {
+  historyInMemoryCache.push({
+    url: item.url,
+    title: item.title,
+    color: item.color,
+    visitCount: item.visitCount,
+    lastVisit: item.lastVisit,
+    isBookmarked: item.isBookmarked,
+    metadata: item.metadata
+  })
+}
+
 function loadHistoryInMemory () {
   historyInMemoryCache = []
 
-  db.history.each(function (item) {
-    historyInMemoryCache.push(item)
+  db.places.each(function (item) {
+    addToHistoryCache(item)
   }).then(function () {
     // if we have enough matches during the search, we exit. In order for this to work, frequently visited sites have to come first in the cache.
     historyInMemoryCache.sort(function (a, b) {
@@ -98,51 +111,50 @@ function calculateHistorySimilarity (a, b) {
 
 onmessage = function (e) {
   var action = e.data.action
-  var pageData = e.data.data
+  var pageData = e.data.pageData
   var searchText = e.data.text && e.data.text.toLowerCase()
 
   if (action === 'updateHistory') {
-    if (pageData.url === 'about:blank' || pageData.url.indexOf('pages/phishing/index.html') !== -1) { // these are useless
-      return
+    var item = {
+      url: pageData.url,
+      title: pageData.title || pageData.url,
+      color: pageData.color,
+      /* visitCount is added below */
+      lastVisit: Date.now(),
+      pageHTML: pageData.pageHTML || '',
+      extractedText: pageData.extractedText || '',
+      // searchIndex is updated by DB hooks whenever extractedText changes
+      searchIndex: [],
+      metadata: pageData.metadata
     }
 
-    // if this entry existed previously, update it
+    db.transaction('rw', db.places, function () {
+      db.places.where('url').equals(pageData.url).first(function (oldItem) {
+        // a previous item exists, update it
+        if (oldItem) {
+          item.visitCount = oldItem.visitCount + 1
+          item.isBookmarked = oldItem.isBookmarked
+          db.places.where('url').equals(pageData.url).modify(item)
+        /* if the item doesn't exist, add a new item */
+        } else {
+          item.visitCount = 1
+          item.isBookmarked = false
+          db.places.add(item)
 
-    db.transaction('rw', db.history, function () {
-      console.log('recieved page for history: ' + pageData.url)
-
-      var ct = db.history.where('url').equals(pageData.url).count(function (ct) {
-        if (ct === 0) { // item doesn't exist, add it
-          var newItem = {
-            title: pageData.title || pageData.url,
-            url: pageData.url,
-            color: pageData.color,
-            visitCount: 1,
-            lastVisit: Date.now()
-          }
-
-          db.history.add(newItem)
-          historyInMemoryCache.push(newItem)
-        } else { // item exists, query previous values and update
-          db.history.where('url').equals(pageData.url).each(function (item) {
-            db.history.where('url').equals(pageData.url).modify({
-              visitCount: item.visitCount + 1,
-              lastVisit: Date.now(),
-              title: pageData.title || pageData.url, // the title and color might have changed - ex. if the site content was updated
-              color: pageData.color
-            })
-          })
+          addToHistoryCache(item)
         }
+      }).catch(function (err) {
+        console.warn('failed to update history.')
+        console.warn('page url was: ' + pageData.url)
+        console.error(err)
       })
-    }).catch(function (err) {
-      console.warn('failed to update history.')
-      console.warn('page url was: ' + pageData.url)
-      console.error(err)
     })
   }
 
   if (action === 'deleteHistory') {
-    db.history.where('url').equals(pageData.url).delete()
+    db.places.where('url').equals(pageData.url).filter(function (item) {
+      return item.isBookmarked === false
+    }).delete()
 
     // delete from the in-memory cache
     for (var i = 0; i < historyInMemoryCache.length; i++) {
@@ -152,7 +164,7 @@ onmessage = function (e) {
     }
   }
 
-  if (action === 'searchHistory') { // do a history search
+  if (action === 'searchPlaces') { // do a history search
     function processItem (item) {
       // if the text does not contain the first search word, it can't possibly be a match, so don't do any processing
       var itext = item.url.split('?')[0].replace('http://', '').replace('https://', '').replace('www.', '')
@@ -212,7 +224,7 @@ onmessage = function (e) {
 
     var tstart = performance.now()
     var matches = []
-    var st = searchText.replace(spacesRegex, ' ')
+    var st = searchText.replace(spacesRegex, ' ').split('?')[0].replace('http://', '').replace('https://', '').replace('www.', '')
     var stl = searchText.length
     var searchWords = st.split(' ')
     var substringSearchEnabled = false
@@ -230,20 +242,49 @@ onmessage = function (e) {
       processItem(historyInMemoryCache[i])
     }
 
-    matches.sort(function (a, b) { // we have to re-sort to account for the boosts applied to the items
-      return calculateHistoryScore(b) - calculateHistoryScore(a)
-    })
+    function afterSearchDone () {
+      matches.sort(function (a, b) { // we have to re-sort to account for the boosts applied to the items
+        return calculateHistoryScore(b) - calculateHistoryScore(a)
+      })
 
-    var tend = performance.now()
+      var tend = performance.now()
 
-    console.info('history search took', tend - tstart)
-    postMessage({
-      result: matches.slice(0, 100),
-      scope: 'history'
-    })
+      console.info('history search took', tend - tstart)
+      postMessage({
+        result: matches.slice(0, 100),
+        scope: 'history'
+      })
+    }
+
+    // if there are not enough matches, do a full-text search
+
+    if (matches.length < 4) {
+      fullTextPlacesSearch(searchText, function (searchResults) {
+        // add the full-text matches to the title and URL matches
+        matches = matches.concat(searchResults)
+
+        // remove duplicates
+
+        var urlSet = []
+
+        for (var i = 0; i < matches.length; i++) {
+          // if the item has already been found in the array, remove it
+          if (urlSet.indexOf(matches[i].url) !== -1) {
+            matches.splice(i, 1)
+            i--
+          } else {
+            urlSet.push(matches[i].url)
+          }
+        }
+
+        afterSearchDone()
+      })
+    } else {
+      afterSearchDone()
+    }
   }
 
-  if (action === 'getHistorySuggestions') {
+  if (action === 'getPlaceSuggestions') {
     // get the history item for the provided url
 
     var baseItem = null

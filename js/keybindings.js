@@ -222,13 +222,6 @@ settings.get('keyMap', function (keyMapSettings) {
     }
   })
 
-  Mousetrap.bind(keyMap.showBookmarks, function () {
-    clearSearchbar()
-    showSearchbar(getTabInput(tabs.getSelected()))
-    enterEditMode(tabs.getSelected())
-    showAllBookmarks()
-  })
-
   var lastReload = 0
 
   Mousetrap.bind(keyMap.reload, function () {

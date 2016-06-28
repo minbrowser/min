@@ -53,16 +53,23 @@ function onPageLoad (e) {
     })
   }
 
-  var isInternalPage = url.indexOf(__dirname) !== -1 && url.indexOf(readerView.readerURL) === -1
-
-  if (tabs.get(tab).private === false && !isInternalPage) { // don't save to history if in private mode, or the page is a browser page
-    bookmarks.updateHistory(tab)
-  }
-
   rerenderTabElement(tab)
 
   this.send('loadfinish') // works around an electron bug (https://github.com/atom/electron/issues/1117), forcing Chromium to always  create the script context
 }
+
+// called when js/webview/textExtractor.js returns the page's text content
+bindWebviewIPC('pageData', function (webview, tabId, arguments) {
+  var tab = tabs.get(tabId),
+      data = arguments[0]
+
+  var isInternalPage = tab.url.indexOf(__dirname) !== -1 && tab.url.indexOf(readerView.readerURL) === -1
+
+  // don't save to history if in private mode, or the page is a browser page
+  if (tab.private === false && !isInternalPage) {
+    bookmarks.updateHistory(tabId, data.pageHTML, data.extractedText, data.metadata)
+  }
+})
 
 // set the permissionRequestHandler for non-private tabs
 
@@ -165,9 +172,7 @@ function getWebviewDom (options) {
       }
     })
 
-    if (e.channel === 'bookmarksData') {
-      bookmarks.onDataRecieved(e.args[0])
-    } else if (e.channel === 'phishingDetected') {
+    if (e.channel === 'phishingDetected') {
       // check if the page is on the phishing detection whitelist
 
       var url = w.getAttribute('src')

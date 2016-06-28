@@ -58,7 +58,9 @@ registerCustomBang({
   snippet: 'Clear All History',
   isAction: true,
   fn: function (text) {
-    db.history.clear()
+    db.places.filter(function (item) {
+      return item.isBookmarked === false
+    }).delete()
 
     // restart the workers
     bookmarks.init()

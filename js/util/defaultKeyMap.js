@@ -3,7 +3,6 @@ var defaultKeyMap = {
   'toggleTasks': 'shift+mod+e',
   'goBack': 'mod+left',
   'goForward': 'mod+right',
-  'showBookmarks': 'shift+mod+b',
   'enterEditMode': ['mod+l', 'mod+k'],
   'completeSearchbar': 'mod+enter',
   'closeTab': 'mod+w',

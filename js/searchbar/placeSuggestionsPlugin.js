@@ -1,4 +1,4 @@
-function showHistorySuggestions (text, input, event, container) {
+function showPlaceSuggestions (text, input, event, container) {
   // use the current tab's url for history suggestions, or the previous tab if the current tab is empty
   var url = tabs.get(tabs.getSelected()).url
 
@@ -9,7 +9,7 @@ function showHistorySuggestions (text, input, event, container) {
     }
   }
 
-  bookmarks.getHistorySuggestions(url, function (results) {
+  bookmarks.getPlaceSuggestions(url, function (results) {
     empty(container)
 
     var tabList = tabs.get().map(function (tab) {
@@ -35,10 +35,10 @@ function showHistorySuggestions (text, input, event, container) {
   })
 }
 
-registerSearchbarPlugin('historySuggestions', {
+registerSearchbarPlugin('placeSuggestions', {
   index: 1,
   trigger: function (text) {
     return !text
   },
-  showResults: showHistorySuggestions
+  showResults: showPlaceSuggestions
 })

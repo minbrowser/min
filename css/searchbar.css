@@ -64,7 +64,7 @@ body.notMac #searchbar {
 .searchbar-item .icon-image {
 	opacity: 0.25;
 	font-size: 0.9em;
-	margin-right: 0.75em;
+	margin-right: 1em;
 	margin-left: -2em;
 	vertical-align: text-bottom;
 	width: 1em;
