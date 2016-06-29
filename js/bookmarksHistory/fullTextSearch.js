@@ -1,4 +1,5 @@
 var whitespaceRegex = /\s+/g
+var notWordOrWhitespaceRegex = /[^\w\s]/g
 
 // stop words list from https://github.com/weixsong/elasticlunr.js/blob/master/lib/stop_word_filter.js
 var stopWords = {
@@ -125,7 +126,7 @@ var stopWords = {
 }
 
 function tokenize (string) {
-  return string.trim().toLowerCase().split(whitespaceRegex).filter(function (token) {
+  return string.trim().toLowerCase().replace(notWordOrWhitespaceRegex, '').split(whitespaceRegex).filter(function (token) {
     return !stopWords[token]
   })
 }
