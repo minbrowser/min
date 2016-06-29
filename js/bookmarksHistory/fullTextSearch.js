@@ -145,29 +145,35 @@ db.places.hook('updating', function (changes, primaryKey, item, transaction) {
   }
 })
 
+// finds the documents that contain all of the prefixes in their searchIndex
+// code from https://github.com/dfahlander/Dexie.js/issues/281
+function getMatchingDocs (prefixes) {
+  return db.transaction('r', db.places, function * () {
+    // Parallell search for all prefixes - just select resulting primary keys
+    const results = yield Dexie.Promise.all(prefixes.map(prefix => db.places
+      .where('searchIndex')
+      .equals(prefix)
+      .primaryKeys()))
+
+    // Intersect result set of primary keys
+    const reduced = results
+      .reduce((a, b) => {
+        const set = new Set(b)
+        return a.filter(k => set.has(k))
+      })
+
+    // Finally select entire documents from intersection
+    return yield db.places.where('url').anyOf(reduced).toArray()
+  })
+}
+
 function fullTextPlacesSearch (searchText, callback) {
   var searchWords = tokenize(searchText)
-  var swl = searchWords.length
 
-  db.places.where('searchIndex').equals(searchWords[0]).distinct().toArray(function (items) {
-    var searchResults = []
-    var il = items.length
+  if (searchWords.length === 0) {
+    callback([])
+    return
+  }
 
-    // check if the item contains all of the search words
-    outer: for (var x = 0; x < il; x++) {
-      var item = items[x]
-      for (var i = 0; i < swl; i++) {
-        var token = searchWords[i]
-        if (item.searchIndex.indexOf(token) === -1) {
-          continue outer
-        }
-      }
-      // the item contains all of the tokens
-      searchResults.push(item)
-    }
-
-    console.log(searchResults)
-
-    callback(searchResults)
-  })
+  getMatchingDocs(searchWords).then(callback)
 }
