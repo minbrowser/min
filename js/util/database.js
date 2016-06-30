@@ -65,7 +65,7 @@ db.version(4).stores({
         lastVisit: 1,
         pageHTML: '',
         extractedText: bookmark.text,
-        searchIndex: bookmark.text.split(' '),
+        searchIndex: bookmark.text.trim().toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/g),
         isBookmarked: true,
         metadata: (bookmark.extraData || {}).metadata || {}
       })
