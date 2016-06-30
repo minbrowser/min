@@ -143,6 +143,10 @@ function getPageData () {
     } catch (e) {}
   }
 
+  // limit the amount of text that is collected
+
+  text = text.substring(0, 300000)
+
   return {
     pageHTML: document.documentElement.outerHTML,
     extractedText: text,
