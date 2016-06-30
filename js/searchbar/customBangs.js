@@ -86,6 +86,13 @@ registerCustomBang({
   snippet: 'Switch to Task',
   isAction: false,
   fn: function (text) {
+
+    /* disabled in focus mode */
+    if (isFocusMode) {
+      showFocusModeError()
+      return
+    }
+
     text = text.toLowerCase()
 
     // no task was specified, show all of the tasks
@@ -107,6 +114,13 @@ registerCustomBang({
   snippet: 'Create a task',
   isAction: true,
   fn: function (text) {
+
+    /* disabled in focus mode */
+    if (isFocusMode) {
+      showFocusModeError()
+      return
+    }
+
     taskOverlay.show()
 
     setTimeout(function () {
@@ -123,6 +137,13 @@ registerCustomBang({
   snippet: 'Move this tab to a task',
   isAction: false,
   fn: function (text) {
+
+    /* disabled in focus mode */
+    if (isFocusMode) {
+      showFocusModeError()
+      return
+    }
+
     // remove the tab from the current task
 
     var currentTab = tabs.get(tabs.getSelected())
