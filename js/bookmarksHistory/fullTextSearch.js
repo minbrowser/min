@@ -170,11 +170,62 @@ function getMatchingDocs (prefixes) {
 
 function fullTextPlacesSearch (searchText, callback) {
   var searchWords = tokenize(searchText)
+  var sl = searchWords.length
+
+  var searchWordsList = {}
+
+  for (var i = 0; i < sl; i++) {
+    searchWordsList[searchWords[i]] = true
+  }
+
+  var searchWordsSet = new Set(searchWords)
 
   if (searchWords.length === 0) {
     callback([])
     return
   }
 
-  getMatchingDocs(searchWords).then(callback)
+  getMatchingDocs(searchWords).then(function (docs) {
+    var docTermCounts = {}
+    var totalCounts = {}
+    var totalIndexLength = 0
+
+    // count how many times each search term occurs in the document
+    docs.forEach(function (doc) {
+      var termCount = {}
+      var sil = doc.searchIndex.length
+
+      for (var i = 0; i < sil; i++) {
+        if (searchWordsSet.has(doc.searchIndex[i])) {
+          var term = doc.searchIndex[i]
+          if (termCount[term]) {
+            termCount[term]++
+          } else {
+            termCount[term] = 1
+          }
+          if (totalCounts[term]) {
+            totalCounts[term]++
+          } else {
+            totalCounts[term] = 1
+          }
+        }
+      }
+
+      docTermCounts[doc.url] = termCount
+      totalIndexLength += doc.searchIndex.length
+    })
+
+    var dl = docs.length
+
+    for (var i = 0; i < dl; i++) {
+      var doc = docs[i]
+      var indexLen = doc.searchIndex.length
+
+      for (var x = 0; x < sl; x++) {
+        doc.boost = Math.min(1 + ((docTermCounts[doc.url][searchWords[x]]) / indexLen) / (totalCounts[searchWords[x]] / totalIndexLength) * 1.5, 2)
+      }
+    }
+
+    callback(docs)
+  })
 }
