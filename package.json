@@ -6,7 +6,6 @@
   "dependencies": {
     "dexie": "^1.2.0",
     "dragula": "^3.6.2",
-    "lunr": "^0.6.0",
     "mousetrap": "^1.5.3",
     "nlp_compromise": "^1.1.5",
     "string_score": "^0.1.22"
