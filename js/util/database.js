@@ -73,8 +73,8 @@ db.version(4).stores({
 
     // remove the old history and bookmarks tables
 
-    t.bookmarks.toCollection().delete()
-    t.history.toCollection().delete()
+  // t.bookmarks.toCollection().delete()
+  // t.history.toCollection().delete()
   })
 
 // TODO set the value of the bookmarks and history tables to null in a future version to delete them - see https://github.com/dfahlander/Dexie.js/issues/276
