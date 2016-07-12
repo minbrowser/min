@@ -126,7 +126,7 @@ var stopWords = {
 }
 
 function tokenize (string) {
-  return string.trim().toLowerCase().replace(notWordOrWhitespaceRegex, '').split(whitespaceRegex).filter(function (token) {
+  return string.trim().toLowerCase().replace(notWordOrWhitespaceRegex, ' ').split(whitespaceRegex).filter(function (token) {
     return !stopWords[token]
   })
 }
