@@ -121,6 +121,56 @@
     return output
   }
 
+  /* creates a trie */
+
+  function trie () {
+    this.data = {}
+  }
+
+  trie.prototype.add = function (string, stringData) {
+    var data = this.data
+
+    for (var i = 0; i < string.length; i++) {
+      var char = string[i]
+      if (!data[char]) {
+        data[char] = {}
+      }
+      data = data[char]
+    }
+    data._m = true
+    if (data._d) {
+      data._d.push(stringData)
+    } else {
+      data._d = [stringData]
+    }
+  }
+
+  trie.prototype.getSubstringsOf = function (string) {
+    var root = this.data
+    var substrings = []
+    // loop through each character in the string
+
+    outer: for (var i = 0; i < string.length; i++) {
+      var data = root[string[i]]
+      if (!data) {
+        continue
+      }
+      for (var x = i + 1; x < string.length; x++) {
+        var char = string[x]
+        if (data[char]) {
+          data = data[char]
+          if (data._m) {
+            substrings = substrings.concat(data._d)
+          }
+        } else {
+          continue outer
+        }
+      }
+    }
+
+    return substrings
+  }
+
   function parseFilter (input, parsedFilterData) {
     input = input.trim()
 
@@ -298,16 +348,26 @@
    */
 
   function parse (input, parserData) {
-    var filterCategories = ['regex', 'leftAnchored', 'rightAnchored', 'bothAnchored', 'hostAnchored', 'wildcard', 'plainString', 'indexOf']
+    var filterCategories = ['regex', 'leftAnchored', 'rightAnchored', 'bothAnchored', 'hostAnchored', 'wildcard', 'indexOf']
+
+    parserData.exceptionFilters = parserData.exceptionFilters || {}
 
     for (var i = 0; i < filterCategories.length; i++) {
       parserData[filterCategories[i]] = parserData[filterCategories[i]] || []
     }
 
-    parserData.exceptionFilters = parserData.exceptionFilters || {}
-
     for (var i = 0; i < filterCategories.length; i++) {
       parserData.exceptionFilters[filterCategories[i]] = parserData.exceptionFilters[filterCategories[i]] || []
+    }
+
+    var trieFilterCategories = ['plainString']
+
+    for (var i = 0; i < trieFilterCategories.length; i++) {
+      parserData[trieFilterCategories[i]] = parserData[trieFilterCategories[i]] || new trie()
+    }
+
+    for (var i = 0; i < trieFilterCategories.length; i++) {
+      parserData.exceptionFilters[trieFilterCategories[i]] = parserData.exceptionFilters[trieFilterCategories[i]] || new trie()
     }
 
     var filters = input.split('\n')
@@ -341,7 +401,7 @@
         } else if (parsedFilterData.wildcardMatchParts) {
           object.wildcard.push(parsedFilterData)
         } else if (parsedFilterData.data.indexOf('^') === -1) {
-          object.plainString.push(parsedFilterData)
+          object.plainString.add(parsedFilterData.data, parsedFilterData.options)
         } else {
           object.indexOf.push(parsedFilterData)
         }
@@ -401,12 +461,15 @@
 
     // check if the string matches a string filter
 
-    for (i = 0, len = filters.plainString.length; i < len; i++) {
-      filter = filters.plainString[i]
+    var plainStringMatches = filters.plainString.getSubstringsOf(input)
 
-      if (input.indexOf(filter.data) !== -1 && matchOptions(filter, input, contextParams, currentHost)) {
-        // console.log(filter, 5)
-        return true
+    if (plainStringMatches.length !== 0) {
+      var len = plainStringMatches.length
+
+      for (var i = 0; i < len; i++) {
+        if (matchOptions({options: plainStringMatches[i]}, input, contextParams, currentHost)) {
+          return true
+        }
       }
     }
 
