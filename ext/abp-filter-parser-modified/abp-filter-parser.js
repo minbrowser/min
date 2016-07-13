@@ -238,10 +238,10 @@
 
     var d = input.substring(beginIndex) || '*'
 
-    if (d.indexOf('*') !== -1 && !parsedFilterData.leftAnchored && !parsedFilterData.rightAnchored && !parsedFilterData.bothAnchored && !parsedFilterData.hostAnchored) { // the data string will never be used, only the wildcard match parts
-      parsedFilterData.wildcardMatchParts = d.split('*')
-    } else {
+    if (d.indexOf('*') === -1 || parsedFilterData.leftAnchored || parsedFilterData.rightAnchored || parsedFilterData.bothAnchored || parsedFilterData.hostAnchored) {
       parsedFilterData.data = d
+    } else { // the data string will never be used, only the wildcard match parts
+      parsedFilterData.wildcardMatchParts = d.split('*')
     }
 
     return true
