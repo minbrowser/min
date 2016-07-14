@@ -132,10 +132,11 @@
 
     for (var i = 0; i < string.length; i++) {
       var char = string[i]
-      if (!data[char]) {
-        data[char] = {}
-      }
+
       data = data[char]
+      if (!data) {
+        data = {}
+      }
     }
     data._m = true
     if (data._d) {
