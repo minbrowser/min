@@ -28,7 +28,7 @@ function searchPlaces (searchText, callback) {
         var substringMatch = true
 
         // check if the search text matches but is out of order
-        for (var i = 0; i < searchWords.length; i++) {
+        for (var i = 0; i < swl; i++) {
           if (itext.indexOf(searchWords[i]) === -1) {
             substringMatch = false
             break
@@ -36,7 +36,7 @@ function searchPlaces (searchText, callback) {
         }
 
         if (substringMatch) {
-          item.boost = 0.125 * searchWords.length + (0.02 * stl)
+          item.boost = 0.125 * swl + (0.02 * stl)
           matches.push(item)
           return
         }
@@ -63,6 +63,7 @@ function searchPlaces (searchText, callback) {
   var st = searchText.replace(spacesRegex, ' ').split('?')[0].replace('http://', '').replace('https://', '').replace('www.', '')
   var stl = searchText.length
   var searchWords = st.split(' ')
+  var swl = searchWords.length
   var substringSearchEnabled = false
   var itemStartBoost = Math.min(2.5 * stl, 10)
   var exactMatchBoost = 0.4 + (0.075 * stl)
