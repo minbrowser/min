@@ -308,17 +308,17 @@
   // should be considered given the current context.
   // By specifying context params, you can filter out the number of rules which are
   // considered.
-  function matchOptions (parsedFilterData, input, contextParams, currentHost) {
-    if (parsedFilterData.options.elementType !== contextParams.elementType && parsedFilterData.options.elementType !== undefined) {
+  function matchOptions (filterOptions, input, contextParams, currentHost) {
+    if (filterOptions.elementType !== contextParams.elementType && filterOptions.elementType !== undefined) {
       return false
     }
-    if (parsedFilterData.options.skipElementType === contextParams.elementType && parsedFilterData.options.skipElementType !== undefined) {
+    if (filterOptions.skipElementType === contextParams.elementType && filterOptions.skipElementType !== undefined) {
       return false
     }
 
     // Domain option check
     if (contextParams.domain !== undefined) {
-      if (parsedFilterData.options.domains || parsedFilterData.options.skipDomains) {
+      if (filterOptions.domains || filterOptions.skipDomains) {
 
         // Min doesn't support getting the root domain yet
 
@@ -326,16 +326,19 @@
       }
     }
 
-    // If we're in the context of third-party site, then consider third-party option checks
-    if (contextParams['third-party'] !== undefined) {
-      // Is the current rule check for third party only?
-      if (filterDataContainsOption(parsedFilterData, 'third-party')) {
-        var inputHostIsThirdParty = isThirdPartyHost(parsedFilterData.host, currentHost || getUrlHost(input))
-        if (inputHostIsThirdParty || !contextParams['third-party']) {
-          return false
+    /*
+        // If we're in the context of third-party site, then consider third-party option checks
+        if (contextParams['third-party'] !== undefined) {
+          // Is the current rule check for third party only?
+          if (filterDataContainsOption(parsedFilterData, 'third-party')) {
+            var inputHostIsThirdParty = isThirdPartyHost(parsedFilterData.host, currentHost || getUrlHost(input))
+            if (inputHostIsThirdParty || !contextParams['third-party']) {
+              return false
+            }
+          }
         }
-      }
-    }
+
+        */
 
     return true
   }
@@ -419,7 +422,7 @@
     for (i = 0, len = filters.leftAnchored.length; i < len; i++) {
       filter = filters.leftAnchored[i]
 
-      if (input.startsWith(filter.data) && matchOptions(filter, input, contextParams, currentHost)) {
+      if (input.startsWith(filter.data) && matchOptions(filter.options, input, contextParams, currentHost)) {
         // console.log(filter, 1)
         return true
       }
@@ -430,7 +433,7 @@
     for (i = 0, len = filters.rightAnchored.length; i < len; i++) {
       filter = filters.rightAnchored[i]
 
-      if (input.endsWith(filter.data) && matchOptions(filter, input, contextParams, currentHost)) {
+      if (input.endsWith(filter.data) && matchOptions(filter.options, input, contextParams, currentHost)) {
         // console.log(filter, 2)
 
         return true
@@ -440,7 +443,7 @@
     // check if the string matches a filter with both anchors
 
     for (i = 0, len = filters.bothAnchored.length; i < len; i++) {
-      if (filters.bothAnchored[i].data === input && matchOptions(filters.bothAnchored[i], input, contextParams, currentHost)) {
+      if (filters.bothAnchored[i].data === input && matchOptions(filters.bothAnchored[i].options, input, contextParams, currentHost)) {
         // console.log(filter, 3)
 
         return true
@@ -452,7 +455,7 @@
     for (i = 0, len = filters.hostAnchored.length; i < len; i++) {
       filter = filters.hostAnchored[i]
 
-      if (isSameOriginHost(filter.host, currentHost) && indexOfFilter(input, filter.data) !== -1 && matchOptions(filter, input, contextParams, currentHost)) {
+      if (isSameOriginHost(filter.host, currentHost) && indexOfFilter(input, filter.data) !== -1 && matchOptions(filter.options, input, contextParams, currentHost)) {
         // console.log(filter, 4)
 
         return true
@@ -467,7 +470,7 @@
       var len = plainStringMatches.length
 
       for (var i = 0; i < len; i++) {
-        if (matchOptions({options: plainStringMatches[i]}, input, contextParams, currentHost)) {
+        if (matchOptions(plainStringMatches[i], input, contextParams, currentHost)) {
           return true
         }
       }
@@ -478,7 +481,7 @@
     for (i = 0, len = filters.indexOf.length; i < len; i++) {
       filter = filters.indexOf[i]
 
-      if (indexOfFilter(input, filter.data, 0) !== -1 && matchOptions(filter, input, contextParams, currentHost)) {
+      if (indexOfFilter(input, filter.data, 0) !== -1 && matchOptions(filter.options, input, contextParams, currentHost)) {
         // console.log(filter, 5)
         return true
       }
@@ -501,7 +504,7 @@
         index = newIndex + part.length
       }
 
-      if (matchOptions(filter, input, contextParams, currentHost)) {
+      if (matchOptions(filter.options, input, contextParams, currentHost)) {
         // console.log(filter, 6)
         return true
       }
