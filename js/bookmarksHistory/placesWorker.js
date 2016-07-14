@@ -42,29 +42,28 @@ setInterval(cleanupHistoryDatabase, 60 * 60 * 1000)
 // cache history in memory for faster searching. This actually takes up very little space, so we can cache everything.
 
 var historyInMemoryCache = []
+var doneLoadingHistoryCache = false
 
 function addToHistoryCache (item) {
-  historyInMemoryCache.push({
-    url: item.url,
-    title: item.title,
-    color: item.color,
-    visitCount: item.visitCount,
-    lastVisit: item.lastVisit,
-    isBookmarked: item.isBookmarked,
-    metadata: item.metadata
-  })
+  delete item.pageHTML
+  delete item.extractedText
+  delete item.searchIndex
+
+  historyInMemoryCache.push(item)
 }
 
 function loadHistoryInMemory () {
   historyInMemoryCache = []
 
-  db.places.each(function (item) {
+  db.places.orderBy('visitCount').reverse().each(function (item) {
     addToHistoryCache(item)
   }).then(function () {
     // if we have enough matches during the search, we exit. In order for this to work, frequently visited sites have to come first in the cache.
     historyInMemoryCache.sort(function (a, b) {
       return calculateHistoryScore(b) - calculateHistoryScore(a)
     })
+
+    doneLoadingHistoryCache = true
   })
 }
 
@@ -258,7 +257,7 @@ onmessage = function (e) {
 
     // if there are not enough matches, do a full-text search
 
-    if (matches.length < 4) {
+    if (matches.length < 4 && doneLoadingHistoryCache) {
       fullTextPlacesSearch(searchText, function (searchResults) {
         // add the full-text matches to the title and URL matches
         matches = matches.concat(searchResults)
