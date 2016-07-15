@@ -198,13 +198,15 @@ function fullTextPlacesSearch (searchText, callback) {
       for (var i = 0; i < sil; i++) {
         if (searchWordsSet.has(doc.searchIndex[i])) {
           var term = doc.searchIndex[i]
-          if (termCount[term]) {
-            termCount[term]++
+          var prop = termCount[term]
+          if (prop) {
+            prop++
           } else {
-            termCount[term] = 1
+            prop = 1
           }
-          if (totalCounts[term]) {
-            totalCounts[term]++
+          var tcProp = totalCounts[term]
+          if (tcProp) {
+            tcProp++
           } else {
             totalCounts[term] = 1
           }
@@ -224,6 +226,12 @@ function fullTextPlacesSearch (searchText, callback) {
       for (var x = 0; x < sl; x++) {
         doc.boost = Math.min(1 + ((docTermCounts[doc.url][searchWords[x]]) / indexLen) / (totalCounts[searchWords[x]] / totalIndexLength) * 1.5, 2)
       }
+
+      // these properties are never used, and sending them from the worker takes a long time
+
+      delete doc.pageHTML
+      delete doc.extractedText
+      delete doc.searchIndex
     }
 
     callback(docs)
