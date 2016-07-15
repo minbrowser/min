@@ -164,7 +164,7 @@ function getMatchingDocs (prefixes) {
       })
 
     // Finally select entire documents from intersection
-    return yield db.places.where('url').anyOf(reduced).reverse().limit(100).toArray()
+    return yield db.places.where('url').anyOf(reduced).limit(100).toArray()
   })
 }
 
