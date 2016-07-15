@@ -56,8 +56,7 @@ function addToHistoryCache (item) {
 function loadHistoryInMemory () {
   historyInMemoryCache = []
 
-  var t1 = Date.now()
-  db.places.orderBy('visitCount').reverse().each(function (item, b) {
+  db.places.orderBy('visitCount').reverse().each(function (item) {
     addToHistoryCache(item)
   }).then(function () {
     // if we have enough matches during the search, we exit. In order for this to work, frequently visited sites have to come first in the cache.
@@ -66,10 +65,6 @@ function loadHistoryInMemory () {
     })
 
     doneLoadingHistoryCache = true
-
-    var t2 = Date.now()
-
-    console.log('loading history cache took ' + (t2 - t1) + ' ms')
   })
 }
 
