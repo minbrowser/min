@@ -181,14 +181,15 @@
     }
 
     // Check for comments
-    var beginIndex = 0
-    if (input[beginIndex] === '[' || input[beginIndex] === '!') {
+    if (input[0] === '[' || input[0] === '!') {
       parsedFilterData.isComment = true
       return false
     }
 
+    var beginIndex = 0
+
     // Check for exception instead of filter
-    if (input[beginIndex] === '@' && input[beginIndex + 1] === '@') {
+    if (input[0] === '@' && input[1] === '@') {
       parsedFilterData.isException = true
       beginIndex = 2
     }
@@ -239,7 +240,7 @@
 
     var d = input.substring(beginIndex) || '*'
 
-    if (d.indexOf('*') === -1 || parsedFilterData.leftAnchored || parsedFilterData.rightAnchored || parsedFilterData.bothAnchored || parsedFilterData.hostAnchored) {
+    if (parsedFilterData.leftAnchored || parsedFilterData.rightAnchored || parsedFilterData.bothAnchored || parsedFilterData.hostAnchored || d.indexOf('*') === -1) {
       parsedFilterData.data = d
     } else { // the data string will never be used, only the wildcard match parts
       parsedFilterData.wildcardMatchParts = d.split('*')
