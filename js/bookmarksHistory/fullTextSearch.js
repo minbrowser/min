@@ -208,7 +208,7 @@ function fullTextPlacesSearch (searchText, callback) {
           if (tcProp) {
             tcProp++
           } else {
-            totalCounts[term] = 1
+            tcProp = 1
           }
         }
       }
