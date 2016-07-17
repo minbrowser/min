@@ -113,6 +113,7 @@ onmessage = function (e) {
   var action = e.data.action
   var pageData = e.data.pageData
   var searchText = e.data.text && e.data.text.toLowerCase()
+  var callbackId = e.data.callbackId
 
   if (action === 'updateHistory') {
     var item = {
@@ -168,7 +169,7 @@ onmessage = function (e) {
     searchPlaces(searchText, function (matches) {
       postMessage({
         result: matches,
-        scope: 'history'
+        callbackId: callbackId
       })
     })
   }
@@ -219,7 +220,7 @@ onmessage = function (e) {
 
     postMessage({
       result: results.slice(0, 100),
-      scope: 'history'
+      callbackId: callbackId
     })
   }
 }

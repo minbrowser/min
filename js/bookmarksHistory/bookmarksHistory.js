@@ -20,7 +20,20 @@ var bookmarks = {
       }
     }, 500)
   },
-  currentCallback: function () {},
+  callbacks: [],
+  addWorkerCallback: function (callback) {
+    var callbackId = Date.now()
+    bookmarks.callbacks.push({id: callbackId, fn: callback})
+    return callbackId
+  },
+  runWorkerCallback: function (id, data) {
+    for (var i = 0; i < bookmarks.callbacks.length; i++) {
+      if (bookmarks.callbacks[i].id == id) {
+        bookmarks.callbacks[i].fn(data)
+        bookmarks.callbacks.splice(i, 1)
+      }
+    }
+  },
   deleteHistory: function (url) {
     bookmarks.worker.postMessage({
       action: 'deleteHistory',
@@ -30,21 +43,23 @@ var bookmarks = {
     })
   },
   searchPlaces: function (text, callback) {
-    bookmarks.currentCallback = callback // save for later, we run in onMessage
+    var callbackId = bookmarks.addWorkerCallback(callback)
     bookmarks.worker.postMessage({
       action: 'searchPlaces',
-      text: text
+      text: text,
+      callbackId: callbackId
     })
   },
   getPlaceSuggestions: function (url, callback) {
-    bookmarks.currentCallback = callback
+    var callbackId = bookmarks.addWorkerCallback(callback)
     bookmarks.worker.postMessage({
       action: 'getPlaceSuggestions',
-      text: url
+      text: url,
+      callbackId: callbackId
     })
   },
   onMessage: function (e) { // assumes this is from a search operation
-    bookmarks.currentCallback(e.data.result)
+    bookmarks.runWorkerCallback(e.data.callbackId, e.data.result)
   },
   updateBookmarkState: function (tabId, shouldBeBookmarked) {
     var url = tabs.get(tabId).url
