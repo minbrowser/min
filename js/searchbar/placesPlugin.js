@@ -1,5 +1,17 @@
+var currentResponseSent = 0
+
 function showSearchbarPlaceResults (text, input, event, container) {
+  var responseSent = Date.now()
+
   bookmarks.searchPlaces(text, function (results) {
+
+    // prevent responses from returning out of order
+    if (responseSent < currentResponseSent) {
+      return
+    }
+
+    currentResponseSent = responseSent
+
     // remove a previous top answer
 
     var placesTopAnswer = getTopAnswer('places')
