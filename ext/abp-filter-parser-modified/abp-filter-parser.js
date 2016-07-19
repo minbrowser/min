@@ -97,9 +97,7 @@
    */
 
   function parseOptions (input) {
-    var output = {
-      binaryOptions: []
-    }
+    var output = {}
 
     input.split(',').forEach(function (option) {
       if (option.startsWith('domain=')) {
@@ -301,10 +299,6 @@
     return beginIndex
   }
 
-  function filterDataContainsOption (parsedFilterData, option) {
-    return parsedFilterData.options && parsedFilterData.options.binaryOptions && parsedFilterData.options.binaryOptions.indexOf(option) !== -1
-  }
-
   // Determines if there's a match based on the options, this doesn't
   // mean that the filter rule shoudl be accepted, just that the filter rule
   // should be considered given the current context.
@@ -327,20 +321,6 @@
         return false
       }
     }
-
-    /*
-        // If we're in the context of third-party site, then consider third-party option checks
-        if (contextParams['third-party'] !== undefined) {
-          // Is the current rule check for third party only?
-          if (filterDataContainsOption(parsedFilterData, 'third-party')) {
-            var inputHostIsThirdParty = isThirdPartyHost(parsedFilterData.host, currentHost || getUrlHost(input))
-            if (inputHostIsThirdParty || !contextParams['third-party']) {
-              return false
-            }
-          }
-        }
-
-        */
 
     return true
   }
