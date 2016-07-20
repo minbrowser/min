@@ -51,23 +51,24 @@ db.version(4).stores({
         isBookmarked: false,
         metadata: (historyItem.extraData || {}).metadata || {}
       })
-    })
+    }).then(function () {
 
-    // upgrade bookmarks
+      // upgrade bookmarks
 
-    t.bookmarks.each(function (bookmark) {
-      // t.places.add cannot be used, since an item with the bookmark's url might already exist as a history item
-      t.places.put({
-        url: bookmark.url,
-        title: bookmark.title,
-        color: '',
-        visitCount: 1,
-        lastVisit: 1,
-        pageHTML: '',
-        extractedText: bookmark.text,
-        searchIndex: bookmark.text.trim().toLowerCase().replace(/[^\w\s]/g, ' ').split(/\s+/g),
-        isBookmarked: true,
-        metadata: (bookmark.extraData || {}).metadata || {}
+      t.bookmarks.each(function (bookmark) {
+        // t.places.add cannot be used, since an item with the bookmark's url might already exist as a history item
+        t.places.put({
+          url: bookmark.url,
+          title: bookmark.title,
+          color: '',
+          visitCount: 1,
+          lastVisit: 1,
+          pageHTML: '',
+          extractedText: bookmark.text,
+          searchIndex: bookmark.text.trim().toLowerCase().replace(/[^\w\s]/g, ' ').split(/\s+/g),
+          isBookmarked: true,
+          metadata: (bookmark.extraData || {}).metadata || {}
+        })
       })
     })
 
