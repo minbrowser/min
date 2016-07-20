@@ -236,12 +236,16 @@
       input = input.substring(0, input.length - 1)
     }
 
-    var d = input.substring(beginIndex) || '*'
+    if (input) {
+      input = input.substring(beginIndex)
+    } else {
+      input = '*'
+    }
 
-    if (parsedFilterData.leftAnchored || parsedFilterData.rightAnchored || parsedFilterData.bothAnchored || parsedFilterData.hostAnchored || d.indexOf('*') === -1) {
-      parsedFilterData.data = d
+    if (parsedFilterData.leftAnchored || parsedFilterData.rightAnchored || parsedFilterData.bothAnchored || parsedFilterData.hostAnchored || input.indexOf('*') === -1) {
+      parsedFilterData.data = input
     } else { // the data string will never be used, only the wildcard match parts
-      parsedFilterData.wildcardMatchParts = d.split('*')
+      parsedFilterData.wildcardMatchParts = input.split('*')
     }
 
     return true
