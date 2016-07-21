@@ -487,7 +487,7 @@ var parsedFilterData = {}
 function initFilterList () {
   parser = require('./ext/abp-filter-parser-modified/abp-filter-parser.js')
 
-  var data = require('fs').readFile(__dirname + '/ext/filterLists/easyprivacy+easylist-noelementhiding.txt', 'utf8', function (err, data) {
+  var data = require('fs').readFile(__dirname + '/ext/filterLists/easylist+easyprivacy-noelementhiding.txt', 'utf8', function (err, data) {
     if (err) {
       return
     }
