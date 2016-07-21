@@ -172,12 +172,6 @@ function fullTextPlacesSearch (searchText, callback) {
   var searchWords = tokenize(searchText)
   var sl = searchWords.length
 
-  var searchWordsList = {}
-
-  for (var i = 0; i < sl; i++) {
-    searchWordsList[searchWords[i]] = true
-  }
-
   var searchWordsSet = new Set(searchWords)
 
   if (searchWords.length === 0) {
