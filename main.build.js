@@ -28,6 +28,18 @@ function sendIPCToWindow (window, action, data) {
   }
 }
 
+//adjusts the coordinates to account for the window frame on Windows 10
+//fixes https://github.com/minbrowser/min/issues/214
+//based on https://github.com/electron/electron/issues/4045#issuecomment-170399607
+//should be removed once https://github.com/electron/electron/issues/4045 is fixed
+function adjustCoordinatesForWindows(coordinates) {
+  coordinates.x -= 7
+  coordinates.width += 14
+  coordinates.height += 7
+
+  return coordinates
+}
+
 function createWindow (cb) {
   var savedBounds = fs.readFile(appDataPath + 'windowBounds.json', 'utf-8', function (e, data) {
     if (e || !data) { // there was an error, probably because the file doesn't exist
@@ -42,7 +54,20 @@ function createWindow (cb) {
       var bounds = JSON.parse(data)
     }
 
-    createWindowWithBounds(bounds)
+    if(process.platform === 'win32') {
+
+      if(bounds.x === 0 && bounds.y === 0) {
+        var screenSize = electron.screen.getPrimaryDisplay().workAreaSize;
+        if(screenSize.width === bounds.width && screenSize.height === bounds.height) {
+          var shouldMaximize = true;
+        }
+      }
+
+      bounds = adjustCoordinatesForWindows(bounds)
+
+    }
+
+    createWindowWithBounds(bounds, shouldMaximize)
 
     if (cb) {
       cb()
@@ -50,7 +75,7 @@ function createWindow (cb) {
   })
 }
 
-function createWindowWithBounds (bounds) {
+function createWindowWithBounds (bounds, shouldMaximize) {
   mainWindow = new BrowserWindow({
     width: bounds.width,
     height: bounds.height,
@@ -64,6 +89,10 @@ function createWindowWithBounds (bounds) {
 
   // and load the index.html of the app.
   mainWindow.loadURL(browserPage)
+
+  if(shouldMaximize) {
+    mainWindow.maximize()
+  }
 
   // save the window size for the next launch of the app
   mainWindow.on('close', function () {
