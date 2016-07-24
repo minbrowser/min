@@ -63,6 +63,8 @@ var readerView = {
     var articlesShown = 0
     var moreArticlesAvailable = false
 
+    var container = getSearchbarContainer('readingList')
+
     db.readingList.orderBy('time').reverse().each(function (article) {
       if (!article.article) {
         return
@@ -93,7 +95,7 @@ var readerView = {
         item.style.opacity = 0.65
       }
 
-      getSearchbarContainer('history').appendChild(item)
+      container.appendChild(item)
 
       articlesShown++
     }).then(function () {
@@ -103,7 +105,7 @@ var readerView = {
           descriptionBlock: 'Articles you open in reader view are listed here, and are saved offline for 30 days.'
         })
 
-        historyarea.appendChild(item)
+        container.appendChild(item)
         return
       }
 
@@ -121,11 +123,22 @@ var readerView = {
           })
         })
 
-        historyarea.appendChild(seeMoreLink)
+        container.appendChild(seeMoreLink)
       }
     })
   }
 }
+
+// create a searchbar container to show reading list articles
+
+registerSearchbarPlugin('readingList', {
+  index: 9,
+  // the plugin is only used when triggered from the menubar
+  trigger: function () {
+    return false
+  },
+  showResults: null
+})
 
 // update the reader button on page load
 
