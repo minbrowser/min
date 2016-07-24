@@ -55,4 +55,16 @@ for (var i = 0; i < startBrowsingButtons.length; i++) {
 	startBrowsingButtons[i].addEventListener("click", function (e) {
 		window.close();
 	});
+// show the appropriate key (command or control) for keyboard shortcuts depending on the platform
+
+if (navigator.platform === 'MacIntel') {
+  var shortcutKey = '⌘'
+} else {
+  var shortcutKey = 'Ctrl'
+}
+
+var shortcutKeyNodes = document.getElementsByClassName('shortcut-key')
+
+for (var i = 0; i < shortcutKeyNodes.length; i++) {
+  shortcutKeyNodes[i].textContent = shortcutKey
 }
