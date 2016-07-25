@@ -28,11 +28,17 @@ function sendIPCToWindow (window, action, data) {
   }
 }
 
-//adjusts the coordinates to account for the window frame on Windows 10
-//fixes https://github.com/minbrowser/min/issues/214
-//based on https://github.com/electron/electron/issues/4045#issuecomment-170399607
-//should be removed once https://github.com/electron/electron/issues/4045 is fixed
-function adjustCoordinatesForWindows(coordinates) {
+function openTabInWindow (url) {
+  sendIPCToWindow(mainWindow, 'addTab', {
+    url: url
+  })
+}
+
+// adjusts the coordinates to account for the window frame on Windows 10
+// fixes https://github.com/minbrowser/min/issues/214
+// based on https://github.com/electron/electron/issues/4045#issuecomment-170399607
+// should be removed once https://github.com/electron/electron/issues/4045 is fixed
+function adjustCoordinatesForWindows (coordinates) {
   coordinates.x -= 7
   coordinates.width += 14
   coordinates.height += 7
@@ -405,9 +411,27 @@ function createAppMenu () {
       role: 'help',
       submenu: [
         {
-          label: 'Learn More',
+          label: 'Keyboard Shortcuts',
           click: function () {
-            electron.shell.openExternal('http://github.com/palmerAl/browser')
+            openTabInWindow('https://github.com/minbrowser/min/wiki#keyboard-shortcuts')
+          }
+        },
+        {
+          label: 'Report a Bug',
+          click: function () {
+            openTabInWindow('https://github.com/minbrowser/min/issues/new')
+          }
+        },
+        {
+          label: 'Take a Tour',
+          click: function () {
+            openTabInWindow('https://minbrowser.github.io/min/tour/')
+          }
+        },
+        {
+          label: 'View on GitHub',
+          click: function () {
+            openTabInWindow('https://github.com/minbrowser/min')
           }
         }
       ]
