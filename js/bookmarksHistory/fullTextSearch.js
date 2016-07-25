@@ -184,31 +184,32 @@ function fullTextPlacesSearch (searchText, callback) {
     var totalCounts = {}
     var totalIndexLength = 0
 
+    for (var i = 0; i < sl; i++) {
+      totalCounts[searchWords[i]] = 0
+    }
+
     // count how many times each search term occurs in the document
     docs.forEach(function (doc) {
       var termCount = {}
-      var sil = doc.searchIndex.length
+      var index = doc.searchIndex
 
-      for (var i = 0; i < sil; i++) {
-        if (searchWordsSet.has(doc.searchIndex[i])) {
-          var term = doc.searchIndex[i]
-          var prop = termCount[term]
-          if (prop) {
-            prop++
-          } else {
-            prop = 1
-          }
-          var tcProp = totalCounts[term]
-          if (tcProp) {
-            tcProp++
-          } else {
-            tcProp = 1
-          }
+      for (var i = 0; i < sl; i++) {
+        var count = 0
+        var token = searchWords[i]
+
+        var idx = doc.searchIndex.indexOf(token)
+
+        while(idx !== -1) {
+          count++
+          idx = doc.searchIndex.indexOf(token, idx + 1)
         }
+
+        termCount[searchWords[i]] = count
+        totalCounts[searchWords[i]] += count
       }
 
       docTermCounts[doc.url] = termCount
-      totalIndexLength += doc.searchIndex.length
+      totalIndexLength += index.length
     })
 
     var dl = docs.length
@@ -216,9 +217,10 @@ function fullTextPlacesSearch (searchText, callback) {
     for (var i = 0; i < dl; i++) {
       var doc = docs[i]
       var indexLen = doc.searchIndex.length
+      var termCounts = docTermCounts[doc.url]
 
       for (var x = 0; x < sl; x++) {
-        doc.boost = Math.min(1 + ((docTermCounts[doc.url][searchWords[x]]) / indexLen) / (totalCounts[searchWords[x]] / totalIndexLength) * 1.5, 2)
+        doc.boost = Math.min(1 + ((termCounts[searchWords[x]]) / indexLen) / (totalCounts[searchWords[x]] / totalIndexLength) * 1.5, 2)
       }
 
       // these properties are never used, and sending them from the worker takes a long time
