@@ -37,7 +37,7 @@ var bookmarks = {
   deleteHistory: function (url) {
     bookmarks.worker.postMessage({
       action: 'deleteHistory',
-      data: {
+      pageData: {
         url: url
       }
     })
