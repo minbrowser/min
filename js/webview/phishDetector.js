@@ -153,7 +153,7 @@ function checkPhishingStatus () {
 
   if (window.location.pathname.length > 25) {
     debugPhishing('paths detected')
-    phishingScore += Math.min(0.05 + (0.002 * window.location.pathname.length), 0.3)
+    phishingScore += Math.min(0.05 + (0.002 * window.location.pathname.length), 0.25)
   }
 
   if (isTrustedDomainEnding && window.location.pathname.length < 20 && window.location.hostname.replace('www.', '').length < 18) {
@@ -251,7 +251,7 @@ function checkPhishingStatus () {
     }
 
     if (formWithoutActionFound === true) {
-      phishingScore += 0.4
+      phishingScore += 0.3
       phishingScore += Math.min(0.2, totalFormLength * 0.0001)
     }
 
