@@ -5,6 +5,7 @@ var topAnswerArea = searchbar.querySelector('.top-answer-area')
 
 // empties all containers in the searchbar
 function clearSearchbar () {
+  empty(topAnswerArea)
   for (var i = 0; i < searchbarPlugins.length; i++) {
     empty(searchbarPlugins[i].container)
   }
