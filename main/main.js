@@ -60,17 +60,15 @@ function createWindow (cb) {
       var bounds = JSON.parse(data)
     }
 
-    if(process.platform === 'win32') {
-
-      if(bounds.x === 0 && bounds.y === 0) {
-        var screenSize = electron.screen.getPrimaryDisplay().workAreaSize;
-        if(screenSize.width === bounds.width && screenSize.height === bounds.height) {
-          var shouldMaximize = true;
+    if (process.platform === 'win32') {
+      if (bounds.x === 0 && bounds.y === 0) {
+        var screenSize = electron.screen.getPrimaryDisplay().workAreaSize
+        if (screenSize.width === bounds.width && screenSize.height === bounds.height) {
+          var shouldMaximize = true
         }
       }
 
       bounds = adjustCoordinatesForWindows(bounds)
-
     }
 
     createWindowWithBounds(bounds, shouldMaximize)
@@ -96,7 +94,7 @@ function createWindowWithBounds (bounds, shouldMaximize) {
   // and load the index.html of the app.
   mainWindow.loadURL(browserPage)
 
-  if(shouldMaximize) {
+  if (shouldMaximize) {
     mainWindow.maximize()
   }
 
