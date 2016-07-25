@@ -262,7 +262,7 @@ function checkPhishingStatus () {
   if (!sensitiveFormFound && !document.querySelector('input[type=password]')) {
     debugPhishing('no sensitive forms found, increasing minScore')
 
-    minPhishingScore += 0.33
+    minPhishingScore += 0.5
   }
 
   var links = document.querySelectorAll('a, area[href]') // area tag is for image maps
