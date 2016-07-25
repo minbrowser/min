@@ -97,6 +97,7 @@ module.exports = function (grunt) {
 					arch: 'x64',
 					icon: "icon.icns",
 					ignore: 'dist/app',
+					prune: true,
 					overwrite: true,
 					protocols: [{
 						name: "HTTP link",
@@ -117,6 +118,7 @@ module.exports = function (grunt) {
 					platform: 'win32',
 					arch: 'all',
 					ignore: 'dist/app',
+					prune: true,
 					overwrite: true,
 				}
 			},
@@ -130,6 +132,7 @@ module.exports = function (grunt) {
 					platform: 'linux',
 					arch: 'all',
 					ignore: 'dist/app',
+					prune: true,
 					overwrite: true,
 				}
 			}
