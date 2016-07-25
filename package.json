@@ -15,9 +15,7 @@
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-uglify": "^0.10.0",
     "grunt-electron": "^4.0.0",
-    "grunt-electron-installer-debian": "^0.3.0"
-  },
-  "optionalDependencies": {
+    "grunt-electron-installer-debian": "^0.3.0",
     "standard": "^7.1.0"
   },
   "license": "Apache-2.0",
