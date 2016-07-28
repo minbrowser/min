@@ -335,6 +335,16 @@ function createAppMenu () {
           type: 'separator'
         },
         {
+          label: 'Full Screen',
+          accelerator: (function() {
+            if (process.platform == 'darwin')
+              return 'Ctrl+Command+F';
+            else
+              return 'F11';
+          })(),
+          role: 'togglefullscreen'
+        },
+        {
           label: 'Focus mode',
           accelerator: undefined,
           type: 'checkbox',
