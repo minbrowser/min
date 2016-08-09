@@ -344,9 +344,6 @@
 
     for (var i = 0; i < filterCategories.length; i++) {
       parserData[filterCategories[i]] = parserData[filterCategories[i]] || []
-    }
-
-    for (var i = 0; i < filterCategories.length; i++) {
       parserData.exceptionFilters[filterCategories[i]] = parserData.exceptionFilters[filterCategories[i]] || []
     }
 
@@ -354,9 +351,6 @@
 
     for (var i = 0; i < trieFilterCategories.length; i++) {
       parserData[trieFilterCategories[i]] = parserData[trieFilterCategories[i]] || new trie()
-    }
-
-    for (var i = 0; i < trieFilterCategories.length; i++) {
       parserData.exceptionFilters[trieFilterCategories[i]] = parserData.exceptionFilters[trieFilterCategories[i]] || new trie()
     }
 
