@@ -128,13 +128,14 @@
   trie.prototype.add = function (string, stringData) {
     var data = this.data
 
-    for (var i = 0; i < string.length; i++) {
+    for (var i = 0, len = string.length; i < len; i++) {
       var char = string[i]
 
-      data = data[char]
-      if (!data) {
-        data = {}
+      if (!data[char]) {
+        data[char] = {}
       }
+
+      data = data[char]
     }
     data._m = true
     if (data._d) {
