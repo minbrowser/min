@@ -172,14 +172,15 @@
   function parseFilter (input, parsedFilterData) {
     input = input.trim()
 
+    var len = input.length
+
     // Check for comment or nothing
-    if (input.length === 0) {
+    if (len === 0) {
       return false
     }
 
     // Check for comments
     if (input[0] === '[' || input[0] === '!') {
-      parsedFilterData.isComment = true
       return false
     }
 
@@ -203,12 +204,13 @@
       parsedFilterData.options = parseOptions(input.substring(index + 1))
       // Get rid of the trailing options for the rest of the parsing
       input = input.substring(0, index)
+      len = input.length
     } else {
       parsedFilterData.options = {}
     }
 
     // Check for a regex
-    if (input[beginIndex] === '/' && input[input.length - 1] === '/' && beginIndex !== input.length - 1) {
+    if (input[beginIndex] === '/' && input[len - 1] === '/' && beginIndex !== len - 1) {
       parsedFilterData.data = input.slice(beginIndex + 1, -1)
       parsedFilterData.regex = new RegExp(parsedFilterData.data)
       return true
@@ -221,7 +223,7 @@
         parsedFilterData.hostAnchored = true
         var indexOfSep = findFirstSeparatorChar(input, beginIndex + 1)
         if (indexOfSep === -1) {
-          indexOfSep = input.length
+          indexOfSep = len
         }
         beginIndex += 2
         parsedFilterData.host = input.substring(beginIndex, indexOfSep)
@@ -230,9 +232,9 @@
         beginIndex++
       }
     }
-    if (input[input.length - 1] === '|') {
+    if (input[len - 1] === '|') {
       parsedFilterData.rightAnchored = true
-      input = input.substring(0, input.length - 1)
+      input = input.substring(0, len - 1)
     }
 
     if (input) {
