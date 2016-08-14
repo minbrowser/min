@@ -79,17 +79,15 @@
    */
 
   function parseDomains (input, separator, options) {
-    options.domains = options.domains || []
-    options.skipDomains = options.skipDomains || []
     var domains = input.split(separator)
-    options.domains = options.domains.concat(domains.filter(function (domain) {
+    options.domains = domains.filter(function (domain) {
       return domain[0] !== '~'
-    }))
-    options.skipDomains = options.skipDomains.concat(domains.filter(function (domain) {
+    })
+    options.skipDomains = domains.filter(function (domain) {
       return domain[0] === '~'
     }).map(function (domain) {
       return domain.substring(1)
-    }))
+    })
   }
 
   /**
