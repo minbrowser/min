@@ -204,8 +204,6 @@
       parsedFilterData.options = parseOptions(input.substring(index + 1))
       // Get rid of the trailing options for the rest of the parsing
       input = input.substring(0, index)
-    } else {
-      parsedFilterData.options = {}
       len = index
     }
 
@@ -310,6 +308,9 @@
   // By specifying context params, you can filter out the number of rules which are
   // considered.
   function matchOptions (filterOptions, input, contextParams, currentHost) {
+    if (!filterOptions) {
+      return true
+    }
     if (filterOptions.elementType !== contextParams.elementType && filterOptions.elementType !== undefined) {
       return false
     }
