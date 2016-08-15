@@ -204,9 +204,9 @@
       parsedFilterData.options = parseOptions(input.substring(index + 1))
       // Get rid of the trailing options for the rest of the parsing
       input = input.substring(0, index)
-      len = input.length
     } else {
       parsedFilterData.options = {}
+      len = index
     }
 
     // Check for a regex
