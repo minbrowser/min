@@ -256,6 +256,10 @@ settings.get('keyMap', function (keyMapSettings) {
       }
     }
   })
+
+  Mousetrap.bind(keyMap.showAndHideMenuBar, function () {
+    toggleMenuBar()
+  })
 }) // end settings.get
 
 // reload the webview when the F5 key is pressed
