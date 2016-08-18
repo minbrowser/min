@@ -135,7 +135,6 @@
 
       data = data[char]
     }
-    data._m = true
     if (data._d) {
       data._d.push(stringData)
     } else {
@@ -157,7 +156,7 @@
         var char = string[x]
         if (data[char]) {
           data = data[char]
-          if (data._m) {
+          if (data._d) {
             substrings = substrings.concat(data._d)
           }
         } else {
