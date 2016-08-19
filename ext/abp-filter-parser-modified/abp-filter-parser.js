@@ -19,8 +19,6 @@
 
   var elementTypes = ['script', 'image', 'stylesheet', 'object', 'xmlhttprequest', 'objectsubrequest', 'subdocument', 'document', 'other']
 
-  exports.elementTypes = elementTypes
-
   var separatorCharacters = ':?/=^'
 
   /**
