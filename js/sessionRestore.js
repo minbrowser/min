@@ -47,16 +47,14 @@ var sessionRestore = {
       return
     }
 
-    // restore the tabs
-
-    var selectedTask = data.state.tasks.filter(function (item) {
-      return item.id === data.state.selectedTask
-    })
+    // add the saved tasks
 
     data.state.tasks.forEach(function (task) {
       // restore the task item
       tasks.add(task)
     })
+
+    // switch to the previously selected tasks
 
     switchToTask(data.state.selectedTask)
 

@@ -129,10 +129,6 @@ function createTabElement (data) {
   tabEl.className = 'tab-item'
   tabEl.setAttribute('data-tab', data.id)
 
-  if (data.private) {
-    tabEl.classList.add('private-tab')
-  }
-
   /* css :hover selectors are buggy when a webview is focused */
   tabEl.addEventListener('mouseenter', function (e) {
     this.classList.add('jshover')
