@@ -1,4 +1,4 @@
-/* depends on placesWorker.js, fullTextSearch.js */
+/* depends on placesWorker.js */
 
 function searchPlaces (searchText, callback) {
   function processSearchItem (item) {
@@ -79,41 +79,12 @@ function searchPlaces (searchText, callback) {
     processSearchItem(historyInMemoryCache[i])
   }
 
-  function afterSearchDone () {
-    matches.sort(function (a, b) { // we have to re-sort to account for the boosts applied to the items
-      return calculateHistoryScore(b) - calculateHistoryScore(a)
-    })
+  matches.sort(function (a, b) { // we have to re-sort to account for the boosts applied to the items
+    return calculateHistoryScore(b) - calculateHistoryScore(a)
+  })
 
-    var tend = performance.now()
+  var tend = performance.now()
 
-    console.info('history search took', tend - tstart)
-    callback(matches.slice(0, 100))
-  }
-
-  // if there are not enough matches, do a full-text search
-
-  if (matches.length < 4 && doneLoadingHistoryCache) {
-    fullTextPlacesSearch(searchText, function (searchResults) {
-      // add the full-text matches to the title and URL matches
-      matches = matches.concat(searchResults)
-
-      // remove duplicates
-
-      var urlSet = []
-
-      for (var i = 0; i < matches.length; i++) {
-        // if the item has already been found in the array, remove it
-        if (urlSet.indexOf(matches[i].url) !== -1) {
-          matches.splice(i, 1)
-          i--
-        } else {
-          urlSet.push(matches[i].url)
-        }
-      }
-
-      afterSearchDone()
-    })
-  } else {
-    afterSearchDone()
-  }
+  console.info('history search took', tend - tstart)
+  callback(matches.slice(0, 100))
 }

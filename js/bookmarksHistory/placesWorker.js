@@ -174,6 +174,19 @@ onmessage = function (e) {
     })
   }
 
+  if (action === 'searchPlacesFullText') {
+    fullTextPlacesSearch(searchText, function (matches) {
+      matches.sort(function (a, b) {
+        return calculateHistoryScore(b) - calculateHistoryScore(a)
+      })
+
+      postMessage({
+        result: matches.slice(0, 100),
+        callbackId: callbackId
+      })
+    })
+  }
+
   if (action === 'getPlaceSuggestions') {
     // get the history item for the provided url
 

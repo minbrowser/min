@@ -50,6 +50,14 @@ var bookmarks = {
       callbackId: callbackId
     })
   },
+  searchPlacesFullText: function (text, callback) {
+    var callbackId = bookmarks.addWorkerCallback(callback)
+    bookmarks.worker.postMessage({
+      action: 'searchPlacesFullText',
+      text: text,
+      callbackId: callbackId
+    })
+  },
   getPlaceSuggestions: function (url, callback) {
     var callbackId = bookmarks.addWorkerCallback(callback)
     bookmarks.worker.postMessage({

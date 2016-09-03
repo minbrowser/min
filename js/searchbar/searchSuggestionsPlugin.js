@@ -50,5 +50,5 @@ registerSearchbarPlugin('searchSuggestions', {
   trigger: function (text) {
     return !!text && !(text.indexOf('!') === 0 && text.indexOf(' ') === -1) && !tabs.get(tabs.getSelected()).private
   },
-  showResults: debounce(showSearchSuggestions, 150)
+  showResults: debounce(showSearchSuggestions, 200)
 })

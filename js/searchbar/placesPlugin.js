@@ -1,9 +1,18 @@
 var currentResponseSent = 0
 
-function showSearchbarPlaceResults (text, input, event, container) {
+function showSearchbarPlaceResults (text, input, event, container, options) {
   var responseSent = Date.now()
 
-  bookmarks.searchPlaces(text, function (results) {
+  // this function is used for both regular and full-text searching, which are two separate plugins
+  var pluginName = container.getAttribute('data-plugin')
+
+  if (options && options.fullText) {
+    var searchFn = bookmarks.searchPlacesFullText
+  } else {
+    var searchFn = bookmarks.searchPlaces
+  }
+
+  searchFn(text, function (results) {
 
     // prevent responses from returning out of order
     if (responseSent < currentResponseSent) {
@@ -14,7 +23,7 @@ function showSearchbarPlaceResults (text, input, event, container) {
 
     // remove a previous top answer
 
-    var placesTopAnswer = getTopAnswer('places')
+    var placesTopAnswer = getTopAnswer(pluginName)
 
     if (placesTopAnswer && !hasAutocompleted) {
       placesTopAnswer.remove()
@@ -35,7 +44,7 @@ function showSearchbarPlaceResults (text, input, event, container) {
         if (autocompletionType === 0) { // the domain was autocompleted, show a domain result item
           var domain = new URL(result.url).hostname
 
-          setTopAnswer('places', createSearchbarItem({
+          setTopAnswer(pluginName, createSearchbarItem({
             title: domain,
             url: domain,
             classList: ['fakefocus']
@@ -78,7 +87,7 @@ function showSearchbarPlaceResults (text, input, event, container) {
 
       if (autocompletionType === 1) { // if this exact URL was autocompleted, show the item as the top answer
         item.classList.add('fakefocus')
-        setTopAnswer('places', item)
+        setTopAnswer(pluginName, item)
       } else {
         container.appendChild(item)
       }
@@ -94,4 +103,16 @@ registerSearchbarPlugin('places', {
     return !!text && text.indexOf('!') !== 0
   },
   showResults: throttle(showSearchbarPlaceResults, 50)
+})
+
+registerSearchbarPlugin('fullTextPlaces', {
+  index: 1,
+  trigger: function (text) {
+    return !!text && text.indexOf('!') !== 0
+  },
+  showResults: debounce(function () {
+    if (searchbarResultCount < 4 && currentSearchbarInput) {
+      showSearchbarPlaceResults.apply(this, Array.from(arguments).concat({fullText: true}))
+    }
+  }, 200)
 })
