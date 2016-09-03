@@ -106,7 +106,7 @@ registerSearchbarPlugin('places', {
 })
 
 registerSearchbarPlugin('fullTextPlaces', {
-  index: 1,
+  index: 2, 
   trigger: function (text) {
     return !!text && text.indexOf('!') !== 0
   },

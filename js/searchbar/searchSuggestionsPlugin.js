@@ -46,7 +46,7 @@ function showSearchSuggestions (text, input, event, container) {
 }
 
 registerSearchbarPlugin('searchSuggestions', {
-  index: 3,
+  index: 4,
   trigger: function (text) {
     return !!text && !(text.indexOf('!') === 0 && text.indexOf(' ') === -1) && !tabs.get(tabs.getSelected()).private
   },
