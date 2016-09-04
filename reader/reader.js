@@ -28,7 +28,7 @@ function startReaderView(article) {
 
 	document.body.removeChild(parserframe);
 
-	var readerContent = "<link rel='stylesheet' href='readerView.css'>";
+	var readerContent = "<link rel='stylesheet' href='readerView.css'>\n<link rel='stylesheet' href='../css/darkMode.css'>";
 
 	if (!article) { //we couln't parse an article
 		readerContent += "<div class='reader-main'><em>No article found.</em></div>";
