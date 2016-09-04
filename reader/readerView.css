@@ -193,3 +193,16 @@ dd {
 .off-screen {
 	display: none;
 }
+
+.dark-mode {
+  background-color: rgb(33, 37, 43);
+  color: lightgrey;
+}
+.dark-mode a {
+  color: dodgerblue;
+}
+
+/* Doing this because it doesn't seem to affect the text's color*/
+.dark-mode html {
+  color: lightgrey;
+}
