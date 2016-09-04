@@ -1,6 +1,7 @@
 var container = document.getElementById("privacy-settings-container");
 var trackerCheckbox = document.getElementById("checkbox-block-trackers");
 var banner = document.getElementById("restart-required-banner");
+var darkModeCheckbox = document.getElementById("checkbox-dark-mode");
 
 function showRestartRequiredBanner() {
 	banner.hidden = false;
@@ -133,6 +134,12 @@ trackerCheckbox.addEventListener("change", function (e) {
 		settings.set("filtering", value);
 		banner.hidden = false;
 	});
+});
+
+// Dark Mode Settings
+darkModeCheckbox.addEventListener("change", function (e) {
+	settings.set("darkMode", this.value)
+	showRestartRequiredBanner()
 });
 
 /* default search engine setting */
