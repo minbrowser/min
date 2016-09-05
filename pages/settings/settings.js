@@ -137,8 +137,12 @@ trackerCheckbox.addEventListener("change", function (e) {
 });
 
 // Dark Mode Settings
+settings.get('darkMode', function (value) {
+	darkModeCheckbox.checked = value;
+});
+
 darkModeCheckbox.addEventListener("change", function (e) {
-	settings.set("darkMode", this.value)
+	settings.set("darkMode", this.checked)
 	showRestartRequiredBanner()
 });
 

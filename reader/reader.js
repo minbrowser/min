@@ -1,13 +1,3 @@
-var hours = new Date().getHours();
-
-var isDarkTheme = false;
-
-if (hours > 21 || hours < 6) {
-	isDarkTheme = true;
-
-	document.body.classList.add("dark-theme")
-}
-
 //http://stackoverflow.com/a/2091331
 
 function getQueryVariable(variable) {
@@ -29,7 +19,7 @@ function startReaderView(article) {
 	document.body.removeChild(parserframe);
 
 	var readerContent = "<link rel='stylesheet' href='readerView.css'>";
-	
+
 	if (!article) { //we couln't parse an article
 		readerContent += "<div class='reader-main'><em>No article found.</em></div>";
 	} else {
@@ -53,8 +43,8 @@ function startReaderView(article) {
 
 	rframe.onload = function () {
 
-		if (isDarkTheme) {
-			rframe.contentDocument.body.classList.add("dark-theme");
+		if (isDarkMode) {
+			rframe.contentDocument.body.classList.add("dark-mode");
 		}
 
 		requestAnimationFrame(function () {

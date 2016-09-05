@@ -150,9 +150,12 @@ blockquote {
 
 /* dark theme */
 
-body.dark-theme {
-	background-color: #000;
-	color: #fff;
+body.dark-mode {
+  background-color: rgb(33, 37, 43);
+  color: lightgrey;
+}
+body.dark-mode a {
+  color: dodgerblue;
 }
 
 /* site-specific styles */
