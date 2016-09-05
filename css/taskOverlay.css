@@ -93,3 +93,7 @@
 		left: 5%;
 	}
 }
+
+.dark-mode #add-task {
+	background-color: rgb(40, 44, 52) !important;
+}

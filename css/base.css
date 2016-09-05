@@ -14,3 +14,11 @@ html {
 	overflow: hidden;
 	-webkit-user-select: none;
 }
+
+.dark-mode {
+  background-color: rgb(33, 37, 43) !important;
+  color: lightgrey;
+}
+.dark-mode a {
+  color: dodgerblue;
+}
