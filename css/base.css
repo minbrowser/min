@@ -15,6 +15,7 @@ html {
 	-webkit-user-select: none;
 }
 
+/* Dark Mode */
 .dark-mode {
   background-color: rgb(33, 37, 43) !important;
   color: lightgrey;

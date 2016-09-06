@@ -94,6 +94,10 @@
 	}
 }
 
-.dark-mode #add-task {
+body.dark-mode #task-overlay{
 	background-color: rgb(40, 44, 52) !important;
+}
+
+body.dark-mode #task-overlay #add-task {
+	background-color: rgb(33, 37, 43) !important;
 }
