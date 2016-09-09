@@ -48,6 +48,7 @@ module.exports = function (grunt) {
 						 "js/findinpage.js",
 							"js/sessionRestore.js",
 							"js/focusMode.js",
+							"js/util/theme.js"
 
 						 ],
 				dest: 'dist/build.js'

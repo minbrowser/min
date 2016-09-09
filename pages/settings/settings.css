@@ -167,3 +167,22 @@ button.disabled {
 	width: 40%;
 	padding: 0.2em;
 }
+
+
+.dark-mode {
+  background-color: rgb(33, 37, 43);
+  color: lightgrey;
+}
+.dark-mode a {
+  color: dodgerblue;
+}
+
+.dark-mode input {
+  background-color: rgb(40, 44, 52);
+  color: white;
+  border-color: transparent;
+}
+
+#restart-required-banner {
+  color: black;
+}

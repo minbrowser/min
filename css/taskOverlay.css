@@ -93,3 +93,17 @@
 		left: 5%;
 	}
 }
+
+body.dark-mode #task-overlay{
+	background-color: rgb(40, 44, 52) !important;
+	color: lightgrey;
+}
+
+.dark-mode #switch-task-button {
+  color: dodgerblue;
+}
+
+body.dark-mode #task-overlay #add-task {
+	background-color: rgb(33, 37, 43) !important;
+	color: lightgrey;
+}
