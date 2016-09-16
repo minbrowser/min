@@ -43,7 +43,7 @@ function startReaderView(article) {
 
 	rframe.onload = function () {
 
-		if (isDarkMode) {
+		if (window.isDarkMode) {
 			rframe.contentDocument.body.classList.add("dark-mode");
 		}
 
