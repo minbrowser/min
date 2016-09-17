@@ -3,7 +3,7 @@ const fs = require('fs')
 const app = electron.app // Module to control application life.
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
 
-var appDataPath = app.getPath('appData') + '/min/'
+var appDataPath = app.getPath('userData')
 
 const browserPage = 'file://' + __dirname + '/index.html'
 
