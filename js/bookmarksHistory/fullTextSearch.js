@@ -128,7 +128,7 @@ var stopWords = {
 function tokenize (string) {
   return string.trim().toLowerCase().replace(notWordOrWhitespaceRegex, ' ').split(whitespaceRegex).filter(function (token) {
     return !stopWords[token]
-  })
+  }).slice(0, 20000)
 }
 
 /* re-index the history item whenever it is created or updated */
