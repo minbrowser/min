@@ -101,12 +101,16 @@ function updateTabColor (favicons, tabId) {
   }
   requestIdleCallback(function () {
     getColor(favicons[0], function (c) {
-      // dim the colors late at night or early in the morning
+      // dim the colors late at night or early in the morning, or when dark mode is enabled
       var colorChange = 1
       if (hours > 20) {
         colorChange -= 0.015 * Math.pow(2.75, hours - 20)
       } else if (hours < 6.5) {
         colorChange -= -0.15 * Math.pow(1.36, hours) + 1.15
+      }
+
+      if (window.isDarkMode) {
+        colorChange = Math.min(colorChange, 0.66)
       }
 
       c[0] = Math.round(c[0] * colorChange)
