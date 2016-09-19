@@ -1,9 +1,10 @@
 const electron = require('electron')
 const fs = require('fs')
+const path = require('path')
 const app = electron.app // Module to control application life.
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
 
-var appDataPath = app.getPath('appData') + '/min/'
+var userDataPath = app.getPath('userData')
 
 const browserPage = 'file://' + __dirname + '/index.html'
 
@@ -13,7 +14,7 @@ var appIsReady = false
 
 var saveWindowBounds = function () {
   if (mainWindow) {
-    fs.writeFile(appDataPath + 'windowBounds.json', JSON.stringify(mainWindow.getBounds()))
+    fs.writeFile(path.join(userDataPath, 'windowBounds.json'), JSON.stringify(mainWindow.getBounds()))
   }
 }
 
@@ -47,7 +48,7 @@ function adjustCoordinatesForWindows (coordinates) {
 }
 
 function createWindow (cb) {
-  var savedBounds = fs.readFile(appDataPath + 'windowBounds.json', 'utf-8', function (e, data) {
+  var savedBounds = fs.readFile(path.join(userDataPath, 'windowBounds.json'), 'utf-8', function (e, data) {
     if (e || !data) { // there was an error, probably because the file doesn't exist
       var size = electron.screen.getPrimaryDisplay().workAreaSize
       var bounds = {
