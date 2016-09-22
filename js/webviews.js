@@ -54,8 +54,6 @@ function onPageLoad (e) {
   }
 
   rerenderTabElement(tab)
-
-  this.send('loadfinish') // works around an electron bug (https://github.com/atom/electron/issues/1117), forcing Chromium to always  create the script context
 }
 
 // called when js/webview/textExtractor.js returns the page's text content
@@ -145,20 +143,7 @@ function getWebviewDom (options) {
   })
 
   w.addEventListener('close', function (e) {
-    var tabId = this.getAttribute('data-tab')
-    var selTab = tabs.getSelected()
-    var currentIndex = tabs.getIndex(tabId)
-    var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1)
-
-    destroyTab(tabId)
-
-    if (tabId === selTab) { // the tab being destroyed is the current tab, find another tab to switch to
-      if (nextTab) {
-        switchToTab(nextTab.id)
-      } else {
-        addTab()
-      }
-    }
+    closeTab(this.getAttribute('data-tab'))
   })
 
   // In embedder page. Send the text content to bookmarks when recieved.
@@ -226,8 +211,6 @@ function getWebviewDom (options) {
 }
 
 /* options: openInBackground: should the webview be opened without switching to it? default is false. */
-
-var WebviewsWithHiddenClass = false
 
 function addWebview (tabId) {
   var tabData = tabs.get(tabId)
