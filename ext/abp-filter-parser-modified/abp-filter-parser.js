@@ -222,26 +222,27 @@
         }
         beginIndex += 2
         parsedFilterData.host = input.substring(beginIndex, indexOfSep)
+        parsedFilterData.data = input.substring(beginIndex)
       } else {
         parsedFilterData.leftAnchored = true
         beginIndex++
+        parsedFilterData.data = input.substring(beginIndex)
       }
     }
     if (input[len - 1] === '|') {
       parsedFilterData.rightAnchored = true
       input = input.substring(0, len - 1)
+      parsedFilterData.data = input.substring(beginIndex)
     }
 
-    if (input) {
-      input = input.substring(beginIndex)
-    } else {
-      input = '*'
-    }
+    // for plainString and wildcard filters
 
-    if (parsedFilterData.leftAnchored || parsedFilterData.rightAnchored || parsedFilterData.bothAnchored || parsedFilterData.hostAnchored || input.indexOf('*') === -1) {
-      parsedFilterData.data = input
-    } else { // the data string will never be used, only the wildcard match parts
-      parsedFilterData.wildcardMatchParts = input.split('*')
+    if (!parsedFilterData.data) {
+      if (input.indexOf('*') === -1) {
+        parsedFilterData.data = input.substring(beginIndex)
+      } else {
+        parsedFilterData.wildcardMatchParts = input.split('*')
+      }
     }
 
     return true
