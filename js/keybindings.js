@@ -45,6 +45,25 @@ ipc.on('addTab', function (e, data) {
   })
 })
 
+ipc.on('saveCurrentPage', function () {
+  var currentTab = tabs.get(tabs.getSelected())
+
+  // new tabs cannot be saved
+  if (!currentTab.url) {
+    return
+  }
+
+  var savePath = remote.dialog.showSaveDialog(remote.getCurrentWindow(), {})
+
+  // savePath will be undefined if the save dialog is canceled
+  if (savePath) {
+    if (!savePath.endsWith('.html')) {
+      savePath = savePath + '.html'
+    }
+    getWebview(currentTab.id).getWebContents().savePage(savePath, 'HTMLComplete', function () {})
+  }
+})
+
 function addPrivateTab () {
   /* new tabs can't be created in focus mode */
   if (isFocusMode) {

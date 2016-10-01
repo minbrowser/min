@@ -251,6 +251,16 @@ function createAppMenu () {
           type: 'separator'
         },
         {
+          label: 'Save Page As',
+          accelerator: 'CmdOrCtrl+s',
+          click: function (item, window) {
+            sendIPCToWindow(window, 'saveCurrentPage')
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
           label: 'Print',
           accelerator: 'CmdOrCtrl+p',
           click: function (item, window) {
@@ -337,11 +347,11 @@ function createAppMenu () {
         },
         {
           label: 'Full Screen',
-          accelerator: (function() {
+          accelerator: (function () {
             if (process.platform == 'darwin')
-              return 'Ctrl+Command+F';
+              return 'Ctrl+Command+F'
             else
-              return 'F11';
+              return 'F11'
           })(),
           role: 'togglefullscreen'
         },
@@ -392,11 +402,11 @@ function createAppMenu () {
         },
         {
           label: 'Inspect page',
-          accelerator: (function() {
+          accelerator: (function () {
             if (process.platform == 'darwin')
-              return 'Cmd+Alt+I';
+              return 'Cmd+Alt+I'
             else
-              return 'Ctrl+Shift+I';
+              return 'Ctrl+Shift+I'
           })(),
           click: function (item, window) {
             sendIPCToWindow(window, 'inspectPage')
