@@ -35,18 +35,6 @@ function openTabInWindow (url) {
   })
 }
 
-// adjusts the coordinates to account for the window frame on Windows 10
-// fixes https://github.com/minbrowser/min/issues/214
-// based on https://github.com/electron/electron/issues/4045#issuecomment-170399607
-// should be removed once https://github.com/electron/electron/issues/4045 is fixed
-function adjustCoordinatesForWindows (coordinates) {
-  coordinates.x -= 7
-  coordinates.width += 14
-  coordinates.height += 7
-
-  return coordinates
-}
-
 function createWindow (cb) {
   var savedBounds = fs.readFile(path.join(userDataPath, 'windowBounds.json'), 'utf-8', function (e, data) {
     if (e || !data) { // there was an error, probably because the file doesn't exist
@@ -61,15 +49,17 @@ function createWindow (cb) {
       var bounds = JSON.parse(data)
     }
 
+
+// maximizes the window frame in windows 10
+// fixes https://github.com/minbrowser/min/issues/214
+// should be removed once https://github.com/electron/electron/issues/4045 is fixed
     if (process.platform === 'win32') {
-      if (bounds.x === 0 && bounds.y === 0) {
+      if ((bounds.x === 0 && bounds.y === 0) || (bounds.x === -8 && bounds.y === -8)) {
         var screenSize = electron.screen.getPrimaryDisplay().workAreaSize
-        if (screenSize.width === bounds.width && screenSize.height === bounds.height) {
+        if ((screenSize.width === bounds.width || bounds.width - screenSize.width === 16) && (screenSize.height === bounds.height || bounds.height - screenSize.height === 16)) {
           var shouldMaximize = true
         }
       }
-
-      bounds = adjustCoordinatesForWindows(bounds)
     }
 
     createWindowWithBounds(bounds, shouldMaximize)
