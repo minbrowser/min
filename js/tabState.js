@@ -194,6 +194,18 @@ var tasks = {
         break
       }
     }
+  },
+  getLastActivity: function (id) {
+    var tabs = tasks.get(id).tabs
+    var lastActivity = 0
+
+    for (var i = 0; i < tabs.length; i++) {
+      if (tabs[i].lastActivity > lastActivity) {
+        lastActivity = tabs[i].lastActivity
+      }
+    }
+
+    return lastActivity
   }
 }
 

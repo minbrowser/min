@@ -175,9 +175,23 @@ var taskOverlay = {
       taskOverlay.isShown = false
       overlay.hidden = true
 
-      // if the current task has been deleted, switch to the first task
+      // if the current task has been deleted, switch to the most recent task
       if (!tasks.get(currentTask.id)) {
-        switchToTask(tasks.get()[0].id)
+
+        // find the last activity of each remaining task
+        var recentTaskList = []
+
+        tasks.get().forEach(function (task) {
+          recentTaskList.push({id: task.id, lastActivity: tasks.getLastActivity(task.id)})
+        })
+
+        // sort the tasks based on how recent they are
+
+        recentTaskList.sort(function (a, b) {
+          return b.lastActivity - a.lastActivity
+        })
+
+        switchToTask(recentTaskList[0].id)
       }
 
       taskSwitcherButton.classList.remove('active')
