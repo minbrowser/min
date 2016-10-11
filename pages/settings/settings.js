@@ -45,12 +45,18 @@ function formatCamelCase(text) {
 
 function onKeyMapChange(e) {
 	var action = this.name;
-	var newKeyMap = this.value;
+	var newValue = this.value;
 
-	keyMap[action] = parseKeyInput(newKeyMap);
-	settings.set('keyMap', keyMap, function () {
-		banner.hidden = false;
-	});
+	settings.get('keyMap', function(keyMapSettings) {
+		if(!keyMapSettings) {
+			keyMapSettings = {}
+		}
+		
+		keyMapSettings[action] = parseKeyInput(newValue);
+		settings.set('keyMap', keyMapSettings, function () {
+			showRestartRequiredBanner()
+		})
+	})
 }
 
 function parseKeyInput(input) {
