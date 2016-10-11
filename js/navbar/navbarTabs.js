@@ -25,12 +25,6 @@ function setActiveTabElement (tabId) {
   var el = getTabElement(tabId)
   el.classList.add('active')
 
-  if (tabs.count() > 1) { // if there is only one tab, we don't need to indicate which one is selected
-    el.classList.add('has-highlight')
-  } else {
-    el.classList.remove('has-highlight')
-  }
-
   requestIdleCallback(function () {
     requestAnimationFrame(function () {
       el.scrollIntoView({

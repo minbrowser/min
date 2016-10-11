@@ -75,10 +75,10 @@ body.notMac .tab-group {
 	width: 1em;
 	box-sizing: content-box;
 }
-.tab-item.active.has-highlight {
+.tab-item.active:not(:only-child) {
 	background: rgba(0, 0, 0, 0.05);
 }
-.dark-theme .tab-item.active.has-highlight {
+.dark-theme .tab-item.active:not(:only-child) {
 	background: rgba(255, 255, 255, 0.2);
 }
 .tab-item.selected {
@@ -215,6 +215,6 @@ body.is-focus-mode .navbar-action-button {
 
 /* since only one tab is shown in focus mode, the highlight isn't needed */
 
-body.is-focus-mode .tab-item.has-highlight {
-	background: none;
+body.is-focus-mode .tab-item {
+	background: none !important;
 }
