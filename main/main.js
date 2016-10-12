@@ -232,7 +232,7 @@ function createAppMenu () {
         },
         {
           label: 'New Task',
-          accelerator: 'shift+CmdOrCtrl+n',
+          accelerator: 'CmdOrCtrl+n',
           click: function (item, window) {
             sendIPCToWindow(window, 'addTask')
           }

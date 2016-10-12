@@ -12,7 +12,7 @@ var defaultKeyMap = {
   'toggleReaderView': 'shift+mod+r',
   'switchToNextTab': ['option+mod+right', 'ctrl+tab', 'shift+mod+pagedown'],
   'switchToPreviousTab': ['option+mod+left', 'shift+ctrl+tab', 'shift+mod+pageup'],
-  'newWindow': 'mod+n',
+  'closeAllTabs': 'shift+mod+n',
   'reload': 'mod+r',
   'showAndHideMenuBar': 'alt'
 }
