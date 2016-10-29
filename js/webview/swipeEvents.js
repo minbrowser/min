@@ -12,46 +12,53 @@ function debounce (fn, delay) {
   }
 }
 
-var horizontalMouseMove = 0;
-var verticalMouseMove = 0;
+var horizontalMouseMove = 0
+var verticalMouseMove = 0
 
-function resetCounters() {
-    horizontalMouseMove = 0;
-    verticalMouseMove = 0;
+var beginningScrollLeft = null
+var beginningScrollRight = null
+
+function resetCounters () {
+  horizontalMouseMove = 0
+  verticalMouseMove = 0
+
+  beginningScrollLeft = null
+  beginningScrollRight = null
 }
 
 var onSwipeGestureFinish = debounce(function () {
 
-    //swipe to the left to go forward
-    if(horizontalMouseMove > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5 && document.scrollingElement.scrollLeft + document.scrollingElement.clientWidth == document.scrollingElement.scrollWidth) {
-
-      //if the page can be scrolled, increase the minimum swipe distance
-      if(document.scrollingElement.scrollWidth === document.scrollingElement.clientWidth || horizontalMouseMove > 800) {
-        resetCounters();
-        window.history.go(1)
-      }
+  // swipe to the left to go forward
+  if (horizontalMouseMove - beginningScrollRight > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
+    if (beginningScrollRight < 10 || horizontalMouseMove - beginningScrollRight > 800) {
+      resetCounters()
+      window.history.go(1)
     }
+  }
 
-    //swipe to the right to go backwards
-    if(horizontalMouseMove < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5 && document.scrollingElement.scrollLeft === 0) {
-      
-      if(document.scrollingElement.scrollWidth === document.scrollingElement.clientWidth || horizontalMouseMove < -800) {
-        resetCounters();
-       window.history.go(-1)
-      }
+  // swipe to the right to go backwards
+  if (horizontalMouseMove + beginningScrollLeft < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
+    if (beginningScrollLeft < 10 || horizontalMouseMove + beginningScrollLeft < -800) {
+      resetCounters()
+      window.history.go(-1)
     }
+  }
 
-    resetCounters();
-}, 70);
+  resetCounters()
+}, 70)
 
-window.addEventListener('wheel', function(e) {
+window.addEventListener('wheel', function (e) {
+  horizontalMouseMove += e.deltaX
+  verticalMouseMove += e.deltaY
 
-    horizontalMouseMove += e.deltaX
-    verticalMouseMove += e.deltaY
+  if (!beginningScrollLeft || !beginningScrollRight) {
+    beginningScrollLeft = document.scrollingElement.scrollLeft
+    beginningScrollRight = document.scrollingElement.scrollWidth - document.scrollingElement.clientWidth - document.scrollingElement.scrollLeft
+  }
 
-    if(Math.abs(e.deltaX) >= 20 || Math.abs(e.deltaY) >= 20) {
-        onSwipeGestureFinish();
-    }
+  if (Math.abs(e.deltaX) >= 20 || Math.abs(e.deltaY) >= 20) {
+    onSwipeGestureFinish()
+  }
 
   /* default zoom modifier is ctrl. Mac uses cmd/meta/super so an exeption will be made below */
   var platformZoomKey = e.ctrlKey
@@ -63,7 +70,7 @@ window.addEventListener('wheel', function(e) {
   if (navigator.platform === 'MacIntel') {
     if (e.ctrlKey && !e.defaultPrevented) {
       if (verticalMouseMove > 10) {
-       zoomOut()
+        zoomOut()
       }
       if (verticalMouseMove < -10) {
         zoomIn()
@@ -82,5 +89,4 @@ window.addEventListener('wheel', function(e) {
     verticalMouseMove = -10
     zoomIn()
   }
-
 })
