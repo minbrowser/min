@@ -148,7 +148,6 @@ function getPageData () {
   text = text.substring(0, 300000)
 
   return {
-    pageHTML: document.documentElement.outerHTML,
     extractedText: text,
     metadata: {
       price: price,

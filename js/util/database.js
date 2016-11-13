@@ -22,7 +22,7 @@ db.version(3).stores({
 db.version(4).stores({
   /*
   color - the main color of the page, extracted from the page icon
-  pageHTMl - a saved copy of the page's HTML, when it was last visited
+  pageHTML - a saved copy of the page's HTML, when it was last visited. Removed in 1.6.0, so all pages visited after then will have an empty string in this field.
   extractedText - the text content of the page, extracted from pageHTML,
   searchIndex - an array of words on the page (created from extractedText), used for full-text searchIndex
   isBookmarked - whether the page is a bookmark

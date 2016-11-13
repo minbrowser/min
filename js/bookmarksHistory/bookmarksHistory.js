@@ -1,5 +1,5 @@
 var bookmarks = {
-  updateHistory: function (tabId, pageHTML, extractedText, metadata) {
+  updateHistory: function (tabId, extractedText, metadata) {
     /* this prevents pages that are immediately left from being saved to history, and also gives the page-favicon-updated event time to fire (so the colors saved to history are correct). */
     setTimeout(function () {
       var tab = tabs.get(tabId)
@@ -8,7 +8,6 @@ var bookmarks = {
           url: tab.url,
           title: tab.title,
           color: tab.backgroundColor,
-          pageHTML: pageHTML || '',
           extractedText: extractedText,
           metadata: metadata
         }

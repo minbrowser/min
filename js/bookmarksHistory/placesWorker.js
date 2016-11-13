@@ -122,7 +122,7 @@ onmessage = function (e) {
       color: pageData.color,
       /* visitCount is added below */
       lastVisit: Date.now(),
-      pageHTML: pageData.pageHTML || '',
+      pageHTML: '',
       extractedText: pageData.extractedText || '',
       // searchIndex is updated by DB hooks whenever extractedText changes
       searchIndex: [],
