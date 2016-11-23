@@ -402,7 +402,7 @@ function checkPhishingStatus () {
   var paragraphs = document.querySelectorAll('p')
   if (paragraphs.length > 50) {
     debugPhishing('many paragraphs found, increasing minScore')
-    minPhishingScore += 0.1 + Math.min(0.025 * paragraphs.length, 0.2)
+    minPhishingScore += 0.1 + Math.min(0.025 * paragraphs.length, 0.25)
   }
 
   // finally, if the phishing score is above a threshold, alert the parent process so we can redirect to a warning page
