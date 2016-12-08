@@ -1,6 +1,9 @@
+var phishingDebugMessages = []
+
 function debugPhishing (msg) {
-  // uncomment for debug mode
-  console.log(msg)
+  phishingDebugMessages.push(msg)
+// uncomment for debug mode
+// console.log(msg)
 }
 
 /* phishing detector. Implements methods from http://www.ml.cmu.edu/research/dap-papers/dap-guang-xiang.pdf and others, as well as some custom methods */
@@ -89,7 +92,7 @@ function checkPhishingStatus () {
 
   for (var i = 0; i < whitelistedDomains.length; i++) {
     if (whitelistedDomains[i] === window.location.hostname) {
-      console.log('domain is whitelisted, not checking')
+      debugPhishing('domain is whitelisted, not checking')
       return
     }
   }
@@ -407,17 +410,17 @@ function checkPhishingStatus () {
 
   // finally, if the phishing score is above a threshold, alert the parent process so we can redirect to a warning page
 
-  console.log('min ' + minPhishingScore)
+  debugPhishing('min ' + minPhishingScore)
 
-  console.log('status', phishingScore)
+  debugPhishing('status ' + phishingScore)
 
   if (phishingScore > minPhishingScore) {
-    ipc.sendToHost('phishingDetected')
+    ipc.sendToHost('phishingDetected', phishingDebugMessages)
   }
 
   var scanEnd = performance.now()
 
-  console.log('phishing scan took ' + (scanEnd - scanStart) + ' milliseconds')
+  debugPhishing('phishing scan took ' + (scanEnd - scanStart) + ' milliseconds')
 
   return true
 }

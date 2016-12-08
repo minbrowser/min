@@ -164,14 +164,16 @@ function getWebviewDom (options) {
 
       try {
         var hostname = new URL(url).hostname
+        var redirectURL = phishingWarningPage + '?url=' + encodeURIComponent(url) + '&info=' + encodeURIComponent(e.args[0].join('\n'))
       } catch (e) {
         var hostname = ''
+        var redirectURL = phishingWarningPage
       }
 
       settings.get('phishingWhitelist', function (value) {
         if (!value || !hostname || value.indexOf(hostname) === -1) {
           // show the warning page
-          navigate(tab, phishingWarningPage + '?url=' + encodeURIComponent(url))
+          navigate(tab, redirectURL)
         }
       }, {
         fromCache: false
