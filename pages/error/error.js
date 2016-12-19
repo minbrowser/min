@@ -62,19 +62,7 @@ const errorCodes = {
 	"-806": dnsError,
 }
 
-//http://stackoverflow.com/a/2091331
-
-function getQueryVariable(variable) {
-	var query = window.location.search.substring(1);
-	var vars = query.split('&');
-	for (var i = 0; i < vars.length; i++) {
-		var pair = vars[i].split('=');
-		if (decodeURIComponent(pair[0]) == variable) {
-			return decodeURIComponent(pair[1]);
-		}
-	}
-	console.log('Query variable %s not found', variable);
-}
+var searchParams = new URLSearchParams(window.location.search.replace("?", ""));
 
 //show the error message and detail
 
@@ -82,8 +70,8 @@ var h1 = document.getElementById("error-name");
 var h2 = document.getElementById("error-desc");
 var button = document.getElementById("ta-button");
 
-var ec = getQueryVariable("ec");
-var url = getQueryVariable("url");
+var ec = searchParams.get("ec");
+var url = searchParams.get("url");
 
 if (errorCodes[ec]) {
 	h1.innerHTML += errorCodes[ec].name || "";

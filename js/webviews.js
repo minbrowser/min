@@ -197,7 +197,7 @@ function getWebviewDom (options) {
 
   w.addEventListener('did-fail-load', function (e) {
     if (e.errorCode !== -3 && e.validatedURL === e.target.getURL()) {
-      navigate(this.getAttribute('data-tab'), errorPage + '?ec=' + encodeURIComponent(e.errorCode) + '&url=' + e.target.getURL())
+      navigate(this.getAttribute('data-tab'), errorPage + '?ec=' + encodeURIComponent(e.errorCode) + '&url=' + encodeURIComponent(e.target.getURL()))
     }
   })
 
