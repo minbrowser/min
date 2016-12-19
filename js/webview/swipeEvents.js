@@ -1,16 +1,4 @@
-// https://remysharp.com/2010/07/21/throttling-function-calls
-
-function debounce (fn, delay) {
-  var timer = null
-  return function () {
-    var context = this
-    var args = arguments
-    clearTimeout(timer)
-    timer = setTimeout(function () {
-      fn.apply(context, args)
-    }, delay)
-  }
-}
+var swipeGestureTimeout = -1
 
 var horizontalMouseMove = 0
 var verticalMouseMove = 0
@@ -26,7 +14,7 @@ function resetCounters () {
   beginningScrollRight = null
 }
 
-var onSwipeGestureFinish = debounce(function () {
+function onSwipeGestureFinish () {
 
   // swipe to the left to go forward
   if (horizontalMouseMove - beginningScrollRight > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
@@ -45,7 +33,7 @@ var onSwipeGestureFinish = debounce(function () {
   }
 
   resetCounters()
-}, 70)
+}
 
 window.addEventListener('wheel', function (e) {
   horizontalMouseMove += e.deltaX
@@ -57,7 +45,8 @@ window.addEventListener('wheel', function (e) {
   }
 
   if (Math.abs(e.deltaX) >= 20 || Math.abs(e.deltaY) >= 20) {
-    onSwipeGestureFinish()
+    clearTimeout(swipeGestureTimeout)
+    swipeGestureTimeout = setTimeout(onSwipeGestureFinish, 70)
   }
 
   /* default zoom modifier is ctrl. Mac uses cmd/meta/super so an exeption will be made below */
