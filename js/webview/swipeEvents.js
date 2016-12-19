@@ -1,13 +1,54 @@
-/* detects back/forward swipes */
+var swipeGestureTimeout = -1
 
-var totalMouseMove = 0
+var horizontalMouseMove = 0
 var verticalMouseMove = 0
-var eventsCaptured = 0
-var documentUnloaded = false
 
-window.addEventListener('mousewheel', function (e) {
+var beginningScrollLeft = null
+var beginningScrollRight = null
+
+function resetCounters () {
+  horizontalMouseMove = 0
+  verticalMouseMove = 0
+
+  beginningScrollLeft = null
+  beginningScrollRight = null
+}
+
+function onSwipeGestureFinish () {
+
+  // swipe to the left to go forward
+  if (horizontalMouseMove - beginningScrollRight > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
+    if (beginningScrollRight < 10 || horizontalMouseMove - beginningScrollRight > 800) {
+      resetCounters()
+      window.history.go(1)
+    }
+  }
+
+  // swipe to the right to go backwards
+  if (horizontalMouseMove + beginningScrollLeft < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
+    if (beginningScrollLeft < 10 || horizontalMouseMove + beginningScrollLeft < -800) {
+      resetCounters()
+      window.history.go(-1)
+    }
+  }
+
+  resetCounters()
+}
+
+window.addEventListener('wheel', function (e) {
+  horizontalMouseMove += e.deltaX
   verticalMouseMove += e.deltaY
-  eventsCaptured++
+
+  if (!beginningScrollLeft || !beginningScrollRight) {
+    beginningScrollLeft = document.scrollingElement.scrollLeft
+    beginningScrollRight = document.scrollingElement.scrollWidth - document.scrollingElement.clientWidth - document.scrollingElement.scrollLeft
+  }
+
+  if (Math.abs(e.deltaX) >= 20 || Math.abs(e.deltaY) >= 20) {
+    clearTimeout(swipeGestureTimeout)
+    swipeGestureTimeout = setTimeout(onSwipeGestureFinish, 70)
+  }
+
   /* default zoom modifier is ctrl. Mac uses cmd/meta/super so an exeption will be made below */
   var platformZoomKey = e.ctrlKey
 
@@ -18,54 +59,23 @@ window.addEventListener('mousewheel', function (e) {
   if (navigator.platform === 'MacIntel') {
     if (e.ctrlKey && !e.defaultPrevented) {
       if (verticalMouseMove > 10) {
-        return zoomOut()
+        zoomOut()
       }
       if (verticalMouseMove < -10) {
-        return zoomIn()
+        zoomIn()
       }
     }
     platformZoomKey = e.metaKey
   }
   /* cmd-key while scrolling should zoom in and out */
 
-  if (verticalMouseMove > 55 && platformZoomKey && eventsCaptured > 1) {
+  if (verticalMouseMove > 55 && platformZoomKey) {
     verticalMouseMove = -10
-    return zoomOut()
+    zoomOut()
   }
 
-  if (verticalMouseMove < -55 && platformZoomKey && eventsCaptured > 1) {
+  if (verticalMouseMove < -55 && platformZoomKey) {
     verticalMouseMove = -10
-    return zoomIn()
-  }
-  if (e.deltaY > 5 || e.deltaY < -10) {
-    return
-  }
-
-  if (!documentUnloaded) {
-    totalMouseMove += e.deltaX
-
-    if (totalMouseMove < -150) {
-      doneNavigating = true
-      window.history.back()
-      documentUnloaded = true
-      setTimeout(function () {
-        documentUnloaded = false
-      }, 3000)
-    } else if (totalMouseMove > 100) {
-      documentUnloaded = true
-      window.history.go(1)
-      setTimeout(function () {
-        documentUnloaded = false
-      }, 3000)
-    }
+    zoomIn()
   }
 })
-
-setInterval(function () {
-  totalMouseMove = 0
-}, 4000)
-
-setInterval(function () {
-  verticalMouseMove = 0
-  eventsCaptured = 0
-}, 1000)
