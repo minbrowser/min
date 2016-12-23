@@ -122,10 +122,6 @@ function getWebviewDom (options) {
   w.addEventListener('did-finish-load', onPageLoad)
   w.addEventListener('did-navigate-in-page', onPageLoad)
 
-  /* w.on("did-get-redirect-request", function (e) {
-  	console.log(e.originalEvent)
-  }); */
-
   // open links in new tabs
 
   w.addEventListener('new-window', function (e) {
@@ -146,7 +142,6 @@ function getWebviewDom (options) {
     closeTab(this.getAttribute('data-tab'))
   })
 
-  // In embedder page. Send the text content to bookmarks when recieved.
   w.addEventListener('ipc-message', function (e) {
     var w = this
     var tab = this.getAttribute('data-tab')
