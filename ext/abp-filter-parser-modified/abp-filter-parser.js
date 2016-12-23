@@ -337,16 +337,22 @@
    */
 
   function parse (input, parserData) {
-    var filterCategories = ['regex', 'leftAnchored', 'rightAnchored', 'bothAnchored', 'hostAnchored', 'wildcard', 'indexOf']
+    var arrayFilterCategories = ['regex', 'leftAnchored', 'rightAnchored', 'bothAnchored', 'wildcard', 'indexOf']
+    var objectFilterCategories = ['hostAnchored']
+    var trieFilterCategories = ['plainString']
 
     parserData.exceptionFilters = parserData.exceptionFilters || {}
 
-    for (var i = 0; i < filterCategories.length; i++) {
-      parserData[filterCategories[i]] = parserData[filterCategories[i]] || []
-      parserData.exceptionFilters[filterCategories[i]] = parserData.exceptionFilters[filterCategories[i]] || []
+    for (var i = 0; i < arrayFilterCategories.length; i++) {
+      parserData[arrayFilterCategories[i]] = parserData[arrayFilterCategories[i]] || []
+      parserData.exceptionFilters[arrayFilterCategories[i]] = parserData.exceptionFilters[arrayFilterCategories[i]] || []
     }
 
-    var trieFilterCategories = ['plainString']
+    for (var i = 0; i < objectFilterCategories.length; i++) {
+      parserData[objectFilterCategories[i]] = parserData[objectFilterCategories[i]] || {}
+      parserData.exceptionFilters[objectFilterCategories[i]] = parserData.exceptionFilters[objectFilterCategories[i]] || {}
+    }
+
 
     for (var i = 0; i < trieFilterCategories.length; i++) {
       parserData[trieFilterCategories[i]] = parserData[trieFilterCategories[i]] || new trie()
@@ -380,7 +386,13 @@
         } else if (parsedFilterData.rightAnchored) {
           object.rightAnchored.push(parsedFilterData)
         } else if (parsedFilterData.hostAnchored) {
-          object.hostAnchored.push(parsedFilterData)
+          var ending = parsedFilterData.host.slice(-2)
+
+          if (object.hostAnchored[ending]) {
+            object.hostAnchored[ending].push(parsedFilterData)
+          } else {
+            object.hostAnchored[ending] = [parsedFilterData]
+          }
         } else if (parsedFilterData.wildcardMatchParts) {
           object.wildcard.push(parsedFilterData)
         } else if (parsedFilterData.data.indexOf('^') === -1) {
@@ -430,15 +442,20 @@
       }
     }
 
+    // get all of the host anchored filters with the same domain ending as the current domain
+    var hostFiltersToCheck = filters.hostAnchored[currentHost.slice(-2)]
+
+    if (hostFiltersToCheck) {
     // check if the string matches a domain name anchored filter
 
-    for (i = 0, len = filters.hostAnchored.length; i < len; i++) {
-      filter = filters.hostAnchored[i]
+      for (i = 0, len = hostFiltersToCheck.length; i < len; i++) {
+        filter = hostFiltersToCheck[i]
 
-      if (isSameOriginHost(filter.host, currentHost) && indexOfFilter(input, filter.data) !== -1 && matchOptions(filter.options, input, contextParams, currentHost)) {
+        if (isSameOriginHost(filter.host, currentHost) && indexOfFilter(input, filter.data) !== -1 && matchOptions(filter.options, input, contextParams, currentHost)) {
         // console.log(filter, 4)
 
-        return true
+          return true
+        }
       }
     }
 
