@@ -10,7 +10,7 @@ var overlay = document.getElementById('task-overlay')
 var taskContainer = document.getElementById('task-area')
 var taskSwitcherButton = document.getElementById('switch-task-button')
 var addTaskButton = document.getElementById('add-task')
-var navbar = document.getElementById('task-overlay-navbar')
+var taskOverlayNavbar = document.getElementById('task-overlay-navbar')
 
 taskSwitcherButton.addEventListener('click', function () {
   taskOverlay.toggle()
@@ -21,7 +21,7 @@ addTaskButton.addEventListener('click', function (e) {
   taskOverlay.hide()
 })
 
-navbar.addEventListener('click', function () {
+taskOverlayNavbar.addEventListener('click', function () {
   taskOverlay.hide()
 })
 
@@ -208,7 +208,7 @@ var taskOverlay = {
 
 // swipe down on the tabstrip to show the task overlay
 // this was the old expanded mode gesture, so it's remapped to the overlay
-tabContainer.addEventListener('mousewheel', function (e) {
+navbar.addEventListener('mousewheel', function (e) {
   if (e.deltaY < -30 && e.deltaX < 10) {
     taskOverlay.show()
     e.stopImmediatePropagation()

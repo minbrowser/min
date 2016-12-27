@@ -1,5 +1,5 @@
-var tabContainer = document.getElementsByClassName('tab-group')[0]
-var tabGroup = tabContainer.querySelector('#tabs') // TODO these names are confusing
+var navbar = document.getElementById('navbar')
+var tabContainer = document.getElementById('tabs')
 
 /* tab events */
 
@@ -85,9 +85,9 @@ function enterEditMode (tabId) {
 
 // redraws all of the tabs in the tabstrip
 function rerenderTabstrip () {
-  empty(tabGroup)
+  empty(tabContainer)
   for (var i = 0; i < tabs.length; i++) {
-    tabGroup.appendChild(createTabElement(tabs[i]))
+    tabContainer.appendChild(createTabElement(tabs[i]))
   }
 }
 
@@ -309,7 +309,7 @@ function addTab (tabId, options) {
 
   var tabEl = createTabElement(tab)
 
-  tabGroup.insertBefore(tabEl, tabGroup.childNodes[index])
+  tabContainer.insertBefore(tabEl, tabContainer.childNodes[index])
 
   addWebview(tabId)
 
