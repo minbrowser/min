@@ -30,6 +30,7 @@
 	opacity: 1;
 	transform: none;
 	transition: 0.15s all;
+	z-index: 3;
 }
 #task-overlay[hidden] {
 	display: block !important;
