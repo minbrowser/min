@@ -1,5 +1,5 @@
 var tabState = {
-  tasks: [], // each task is {id, name, tabs: [], selectedTab}
+  tasks: [], // each task is {id, name, tabs: []}
   selectedTask: null
 }
 
@@ -133,7 +133,6 @@ var tasks = {
     var newTask = {
       name: task.name || null,
       tabs: task.tabs || [],
-      selectedTab: task.selectedTab || null,
       id: task.id || String(getRandomId())
     }
 
