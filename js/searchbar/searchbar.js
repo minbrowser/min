@@ -165,6 +165,7 @@ var lastItemDeletion = Date.now()
 data:
 
 title: string - the title of the item
+metadata: array - a list of strings to include (separated by hyphens) in front of the secondary text
 secondaryText: string - the item's secondary text
 url: string - the item's url (if there is one).
 icon: string - the name of a font awesome icon.
@@ -219,6 +220,17 @@ function createSearchbarItem (data) {
     secondaryText.textContent = data.secondaryText
 
     item.appendChild(secondaryText)
+
+    if (data.metadata) {
+      data.metadata.forEach(function (str) {
+        var metadataElement = document.createElement('span')
+        metadataElement.className = 'md-info'
+
+        metadataElement.textContent = str
+
+        secondaryText.insertBefore(metadataElement, secondaryText.firstChild)
+      })
+    }
   }
 
   if (data.image) {

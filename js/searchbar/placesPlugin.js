@@ -66,24 +66,19 @@ function showSearchbarPlaceResults (text, input, event, container, options) {
         data.icon = 'fa-star'
       }
 
+     // show the metadata for the item
+
+      if (result.metadata) {
+        data.metadata = []
+
+        for (var md in result.metadata) {
+          data.metadata.push(result.metadata[md])
+        }
+      }
+
       // create the item
 
       var item = createSearchbarItem(data)
-
-      // show the metadata for the item
-
-      if (result.metadata) {
-        var secondaryText = item.querySelector('.secondary-text')
-
-        for (var md in result.metadata) {
-          var span = document.createElement('span')
-
-          span.className = 'md-info'
-          span.textContent = result.metadata[md]
-
-          secondaryText.insertBefore(span, secondaryText.firstChild)
-        }
-      }
 
       if (autocompletionType === 1) { // if this exact URL was autocompleted, show the item as the top answer
         item.classList.add('fakefocus')
@@ -106,7 +101,7 @@ registerSearchbarPlugin('places', {
 })
 
 registerSearchbarPlugin('fullTextPlaces', {
-  index: 2, 
+  index: 2,
   trigger: function (text) {
     return !!text && text.indexOf('!') !== 0
   },

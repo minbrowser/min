@@ -163,6 +163,14 @@ var tasks = {
     }
     return null
   },
+  getIndex: function (id) {
+    for (var i = 0; i < tabState.tasks.length; i++) {
+      if (tabState.tasks[i].id === id) {
+        return i
+      }
+    }
+    return -1
+  },
   setSelected: function (id) {
     tabState.selectedTask = id
     window.currentTask = tasks.get(id)

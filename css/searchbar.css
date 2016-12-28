@@ -117,7 +117,8 @@ body.notMac #searchbar {
 	padding-right: 0.5em;
 }
 .searchbar-item .secondary-text .md-info + .md-info:before {
-	content: " - ";
+	content: "-";
+	padding: 0 0.3em;
 }
 .searchbar-item .secondary-text {
 	display: inline-block;
