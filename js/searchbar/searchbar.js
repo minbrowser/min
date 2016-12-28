@@ -3,50 +3,6 @@
 var trailingSlashRegex = /\/$/g
 var plusRegex = /\+/g
 
-// https://remysharp.com/2010/07/21/throttling-function-calls#
-
-function throttle (fn, threshhold, scope) {
-  threshhold || (threshhold = 250)
-  var last,
-    deferTimer
-  return function () {
-    var context = scope || this
-
-    var now = new Date()
-    var args = arguments
-    if (last && now < last + threshhold) {
-      // hold on to it
-      clearTimeout(deferTimer)
-      deferTimer = setTimeout(function () {
-        last = now
-        fn.apply(context, args)
-      }, threshhold)
-    } else {
-      last = now
-      fn.apply(context, args)
-    }
-  }
-}
-
-function debounce (fn, delay) {
-  var timer = null
-  return function () {
-    var context = this
-    var args = arguments
-    clearTimeout(timer)
-    timer = setTimeout(function () {
-      fn.apply(context, args)
-    }, delay)
-  }
-}
-
-function empty (node) {
-  var n
-  while (n = node.firstElementChild) {
-    node.removeChild(n)
-  }
-}
-
 function removeTags (text) {
   return text.replace(/<.*?>/g, '')
 }
