@@ -15,6 +15,7 @@
     "grunt": "^1.0.1",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
     "grunt-electron": "^5.0.0",
     "grunt-electron-installer-debian": "^0.4.0",
     "standard": "^7.1.0"

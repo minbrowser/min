@@ -87,6 +87,15 @@ module.exports = function (grunt) {
 				dest: 'dist/webview.min.js'
 			},
 		},
+		watch: {
+			scripts: {
+				files: ['js/**/*.js', 'main/*.js'],
+				tasks: ['default'],
+				options: {
+					spawn: false
+				}
+			},
+		},
 		electron: {
 			osxBuild: {
 				options: {
@@ -188,6 +197,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-electron');
 	grunt.loadNpmTasks('grunt-electron-installer-debian');
+	grunt.loadNpmTasks('grunt-contrib-watch')
 
 	grunt.registerTask('default', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main']);
 	grunt.registerTask('browser', ['concat:browser', 'uglify:browser']);
