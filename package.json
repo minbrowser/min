@@ -12,11 +12,11 @@
     "string_score": "^0.1.22"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-concat": "^0.5.1",
-    "grunt-contrib-uglify": "^0.10.0",
-    "grunt-electron": "^4.0.0",
-    "grunt-electron-installer-debian": "^0.3.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-electron": "^5.0.0",
+    "grunt-electron-installer-debian": "^0.4.0",
     "standard": "^7.1.0"
   },
   "license": "Apache-2.0",
