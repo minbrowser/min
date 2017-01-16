@@ -14,7 +14,7 @@ body.fullscreen #findinpage-bar,
 body.notMac #findinpage-bar {
 	padding-left: 0.5em;
 }
-#findinpage-bar .findinpage-input {
+#findinpage-bar #findinpage-input {
 	flex: 1;
 	-webkit-appearance: none;
 	appearance: none;
@@ -22,8 +22,9 @@ body.notMac #findinpage-bar {
 	border: 0;
 	background: inherit;
 	color: inherit;
+	min-width: 80px;
 }
-#findinpage-bar .findinpage-input::-webkit-input-placeholder {
+#findinpage-bar #findinpage-input::-webkit-input-placeholder {
 	opacity: 0.75;
 	color: inherit;
 }

@@ -173,13 +173,9 @@ settings.get('keyMap', function (keyMapSettings) {
 
   Mousetrap.bind('esc', function (e) {
     taskOverlay.hide()
-
     leaveTabEditMode()
-    if (findinpage.isEnabled) {
-      findinpage.end() // this also focuses the webview
-    } else {
-      getWebview(tabs.getSelected()).focus()
-    }
+
+    getWebview(tabs.getSelected()).focus()
   })
 
   Mousetrap.bind(keyMap.toggleReaderView, function () {

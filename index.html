@@ -36,14 +36,13 @@
 	<!-- findinpage ui -->
 
 	<div id="findinpage-bar" hidden class="theme-background-color theme-text-color">
-		<input class="findinpage-input mousetrap" placeholder="Search in Page" />
-		<span class="inline-text" id="findinpage-count">
-		</span>
+		<input id="findinpage-input" class="mousetrap" placeholder="Search in Page" />
+		<span id="findinpage-count" class="inline-text"></span>
 		<div class="divider"></div>
-		<i class="icon fa fa-angle-up findinpage-previous-match cancel-blur-propogation" tabindex="-1"></i>
-		<i class="icon fa fa-angle-down findinpage-next-match cancel-blur-propogation" tabindex="-1"></i>
+		<i id="findinpage-previous-match" class="icon fa fa-angle-up findinpage-control" tabindex="-1"></i>
+		<i id="findinpage-next-match" class="icon fa fa-angle-down findinpage-control" tabindex="-1"></i>
 		<div class="divider"></div>
-		<i class="icon fa fa-close" id="findinpage-end"></i>
+		<i id="findinpage-end" class="icon fa fa-close"></i>
 	</div>
 
 	<div id="task-overlay" class="" hidden>

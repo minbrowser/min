@@ -303,8 +303,6 @@ function addTab (tabId, options) {
     })
   }
 
-  findinpage.end()
-
   var index = tabs.getIndex(tabId)
 
   var tabEl = createTabElement(tab)
@@ -334,5 +332,4 @@ function addTab (tabId, options) {
 
 bindWebviewEvent('focus', function () {
   leaveTabEditMode()
-  findinpage.end()
 })
