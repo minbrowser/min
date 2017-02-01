@@ -1,4 +1,4 @@
-/* global importScripts db performance doneLoadingHistoryCache searchPlaces postMessage fullTextPlacesSearch */
+/* global importScripts db performance searchPlaces postMessage fullTextPlacesSearch */
 
 console.log('worker started ', performance.now())
 
