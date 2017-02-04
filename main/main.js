@@ -110,9 +110,9 @@ function createWindowWithBounds (bounds, shouldMaximize) {
       event.preventDefault()
       sendIPCToWindow(mainWindow, 'openPDF', {
         url: itemURL,
+        webContentsId: webContents.getId(),
         event: event,
         item: item, // as of electron 0.35.1, this is an empty object
-        webContents: webContents
       })
     }
     return true
