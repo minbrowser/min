@@ -1,8 +1,10 @@
-var whitespaceRegex = /\s+/g
-var notWordOrWhitespaceRegex = /[^\w\s]/g
+/* global db Dexie */
+
+const whitespaceRegex = /\s+/g
+const notWordOrWhitespaceRegex = /[^\w\s]/g
 
 // stop words list from https://github.com/weixsong/elasticlunr.js/blob/master/lib/stop_word_filter.js
-var stopWords = {
+const stopWords = {
   '': true,
   'a': true,
   'able': true,
@@ -138,7 +140,7 @@ db.places.hook('creating', function (primaryKey, item, transaction) {
 })
 db.places.hook('updating', function (changes, primaryKey, item, transaction) {
   if (changes.extractedText) {
-    if (typeof changes.extractedText == 'string') {
+    if (typeof changes.extractedText === 'string') {
       return { searchIndex: tokenize(changes.extractedText) }
     } else {
       return { searchIndex: [] }
@@ -169,10 +171,10 @@ function getMatchingDocs (prefixes) {
 }
 
 function fullTextPlacesSearch (searchText, callback) {
-  var searchWords = tokenize(searchText)
-  var sl = searchWords.length
+  const searchWords = tokenize(searchText)
+  const sl = searchWords.length
 
-  var searchWordsSet = new Set(searchWords)
+  const searchWordsSet = new Set(searchWords)
 
   if (searchWords.length === 0) {
     callback([])
@@ -180,26 +182,26 @@ function fullTextPlacesSearch (searchText, callback) {
   }
 
   getMatchingDocs(searchWords).then(function (docs) {
-    var docTermCounts = {}
-    var totalCounts = {}
-    var totalIndexLength = 0
+    const docTermCounts = {}
+    const totalCounts = {}
+    let totalIndexLength = 0
 
-    for (var i = 0; i < sl; i++) {
+    for (let i = 0; i < sl; i++) {
       totalCounts[searchWords[i]] = 0
     }
 
     // count how many times each search term occurs in the document
     docs.forEach(function (doc) {
-      var termCount = {}
-      var index = doc.searchIndex
+      const termCount = {}
+      const index = doc.searchIndex
 
-      for (var i = 0; i < sl; i++) {
-        var count = 0
-        var token = searchWords[i]
+      for (let i = 0; i < sl; i++) {
+        let count = 0
+        const token = searchWords[i]
 
-        var idx = doc.searchIndex.indexOf(token)
+        let idx = doc.searchIndex.indexOf(token)
 
-        while(idx !== -1) {
+        while (idx !== -1) {
           count++
           idx = doc.searchIndex.indexOf(token, idx + 1)
         }
@@ -212,14 +214,14 @@ function fullTextPlacesSearch (searchText, callback) {
       totalIndexLength += index.length
     })
 
-    var dl = docs.length
+    const dl = docs.length
 
-    for (var i = 0; i < dl; i++) {
-      var doc = docs[i]
-      var indexLen = doc.searchIndex.length
-      var termCounts = docTermCounts[doc.url]
+    for (let i = 0; i < dl; i++) {
+      let doc = docs[i]
+      const indexLen = doc.searchIndex.length
+      const termCounts = docTermCounts[doc.url]
 
-      for (var x = 0; x < sl; x++) {
+      for (let x = 0; x < sl; x++) {
         doc.boost = Math.min(1 + ((termCounts[searchWords[x]]) / indexLen) / (totalCounts[searchWords[x]] / totalIndexLength) * 1.5, 2)
       }
 
