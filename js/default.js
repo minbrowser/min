@@ -78,3 +78,32 @@ function empty (node) {
     node.removeChild(n)
   }
 }
+
+/* prevent a click event from firing after dragging the window */
+
+window.addEventListener('load', function () {
+  var isMouseDown = false
+  var isDragging = false
+
+  document.body.addEventListener('mousedown', function () {
+    isMouseDown = true
+    isDragging = false
+  })
+
+  var dragHandles = document.getElementsByClassName('windowDragHandle')
+
+  for (var i = 0; i < dragHandles.length; i++) {
+    dragHandles[i].addEventListener('mousemove', function () {
+      if (isMouseDown) {
+        isDragging = true
+      }
+    })
+  }
+
+  document.body.addEventListener('click', function (e) {
+    if (isDragging) {
+      e.stopImmediatePropagation()
+      isDragging = false
+    }
+  }, true)
+})
