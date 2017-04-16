@@ -545,7 +545,6 @@ function createDockMenu () {
   // create the menu. based on example from https://github.com/electron/electron/blob/master/docs/tutorial/desktop-environment-integration.md#custom-dock-menu-macos
   if (process.platform === 'darwin') {
     var Menu = electron.Menu
-    var MenuItem = electron.MenuItem
 
     var template = [
       {
@@ -566,10 +565,9 @@ function createDockMenu () {
           sendIPCToWindow(window, 'addTask')
         }
       }
-    ];
-    
-    var dockMenu = new Menu()
-    dockMenu = Menu.buildFromTemplate(template)
+    ]
+
+    var dockMenu = Menu.buildFromTemplate(template)
     app.dock.setMenu(dockMenu)
   }
 }
