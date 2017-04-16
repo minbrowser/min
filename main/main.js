@@ -176,6 +176,7 @@ app.on('ready', function () {
   // mainWindow.openDevTools()
 
   createAppMenu()
+  createDockMenu()
 })
 
 app.on('open-url', function (e, url) {
@@ -538,4 +539,35 @@ function createAppMenu () {
 
   menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
+}
+
+function createDockMenu () {
+  // create the menu. based on example from https://github.com/electron/electron/blob/master/docs/tutorial/desktop-environment-integration.md#custom-dock-menu-macos
+  if (process.platform === 'darwin') {
+    var Menu = electron.Menu
+
+    var template = [
+      {
+        label: 'New Tab',
+        click: function (item, window) {
+          sendIPCToWindow(window, 'addTab')
+        }
+      },
+      {
+        label: 'New Private Tab',
+        click: function (item, window) {
+          sendIPCToWindow(window, 'addPrivateTab')
+        }
+      },
+      {
+        label: 'New Task',
+        click: function (item, window) {
+          sendIPCToWindow(window, 'addTask')
+        }
+      }
+    ]
+
+    var dockMenu = Menu.buildFromTemplate(template)
+    app.dock.setMenu(dockMenu)
+  }
 }
