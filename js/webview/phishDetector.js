@@ -8,7 +8,7 @@ function debugPhishing (msg) {
 
 /* phishing detector. Implements methods from http://www.ml.cmu.edu/research/dap-papers/dap-guang-xiang.pdf and others, as well as some custom methods */
 
-var doubleDomainRegex = /\.(com|net|org|edu|gov|mil|uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)((\..*(com|net|org|edu|gov|mil))|(\..+(uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)))/g
+var doubleDomainRegex = /.+(com|net|org|edu|gov|mil|uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)(([^a-zA-Z\/][^\/\n]*)\.(com|net|org|edu|gov|mil|uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es))\//g
 
 function checkPhishingStatus () {
   // if there isn't a password input or ßform, skip the phishing analysis, since this probably isn't a phish
@@ -60,18 +60,14 @@ function checkPhishingStatus () {
   var tldRegex = /\.(com|net|org|edu|gov|mil)$/g
 
   function getRootDomain (hostname) {
-    var newData = hostname
     tldRegex.lastIndex = 0
     var chunks = hostname.split('.')
 
     if (tldRegex.test(hostname)) {
-      newData = chunks[chunks.length - 2] + '.' + chunks[chunks.length - 1]
+      return chunks.slice(-2).join('.')
+    } else {
+      return chunks.slice(-3).join('.')
     }
-
-    if (newData.indexOf('www.') === 0) {
-      newData = newData.replace('www.', '')
-    }
-    return newData
   }
 
   function isThirdParty (base, test) {
@@ -140,8 +136,8 @@ function checkPhishingStatus () {
     phishingScore += Math.min(window.location.toString().length * 0.0001, 0.2)
   }
 
-  if (loc.split('#')[0].split('/').length > 5) {
-    debugPhishing('long path found')
+  if (loc.split('#')[0].split('/').length > 6) {
+    debugPhishing('long path found: ' + loc)
     phishingScore += Math.max(Math.min(loc.split('/').length * 0.05, 0.75), 0.25)
   }
 
