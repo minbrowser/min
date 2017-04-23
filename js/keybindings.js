@@ -60,7 +60,7 @@ ipc.on('saveCurrentPage', function () {
     if (!savePath.endsWith('.html')) {
       savePath = savePath + '.html'
     }
-    getWebview(currentTab.id).getWebContents().savePage(savePath, 'HTMLComplete', function () {})
+    getWebview(currentTab.id).getWebContents().savePage(savePath, 'HTMLComplete', function () { })
   }
 })
 
@@ -104,14 +104,30 @@ ipc.on('addTask', function () {
 ipc.on('goBack', function () {
   try {
     getWebview(tabs.getSelected()).goBack()
-  } catch (e) {}
+  } catch (e) { }
 })
 
 ipc.on('goForward', function () {
   try {
     getWebview(tabs.getSelected()).goForward()
-  } catch (e) {}
+  } catch (e) { }
 })
+
+function defineShortcut (keyMapName, fn) {
+  Mousetrap.bind(keyMap[keyMapName], function (e, combo) {
+    // mod+left and mod+right are also text editing shortcuts, so they should not run when an input field is focused
+    if (combo === 'mod+left' || combo === 'mod+right') {
+      getWebview(tabs.getSelected()).executeJavaScript('document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA"', function (isInputFocused) {
+        if (isInputFocused === false) {
+          fn(e, combo)
+        }
+      })
+    } else {
+      // other shortcuts can run immediately
+      fn(e, combo)
+    }
+  })
+}
 
 settings.get('keyMap', function (keyMapSettings) {
   keyMap = userKeyMap(keyMapSettings)
@@ -119,14 +135,14 @@ settings.get('keyMap', function (keyMapSettings) {
   var Mousetrap = require('mousetrap')
 
   window.Mousetrap = Mousetrap
-  Mousetrap.bind(keyMap.addPrivateTab, addPrivateTab)
+  defineShortcut('addPrivateTab', addPrivateTab)
 
-  Mousetrap.bind(keyMap.enterEditMode, function (e) {
+  defineShortcut('enterEditMode', function (e) {
     enterEditMode(tabs.getSelected())
     return false
   })
 
-  Mousetrap.bind(keyMap.closeTab, function (e) {
+  defineShortcut('closeTab', function (e) {
     // prevent mod+w from closing the window
     e.preventDefault()
     e.stopImmediatePropagation()
@@ -136,7 +152,7 @@ settings.get('keyMap', function (keyMapSettings) {
     return false
   })
 
-  Mousetrap.bind(keyMap.addToFavorites, function (e) {
+  defineShortcut('addToFavorites', function (e) {
     bookmarks.handleStarClick(getTabElement(tabs.getSelected()).querySelector('.bookmarks-button'))
     enterEditMode(tabs.getSelected()) // we need to show the bookmarks button, which is only visible in edit mode
   })
@@ -163,11 +179,11 @@ settings.get('keyMap', function (keyMapSettings) {
     })(i)
   }
 
-  Mousetrap.bind(keyMap.gotoLastTab, function (e) {
+  defineShortcut('gotoLastTab', function (e) {
     switchToTab(tabs.getAtIndex(tabs.count() - 1).id)
   })
 
-  Mousetrap.bind(keyMap.gotoFirstTab, function (e) {
+  defineShortcut('gotoFirstTab', function (e) {
     switchToTab(tabs.getAtIndex(0).id)
   })
 
@@ -178,7 +194,7 @@ settings.get('keyMap', function (keyMapSettings) {
     getWebview(tabs.getSelected()).focus()
   })
 
-  Mousetrap.bind(keyMap.toggleReaderView, function () {
+  defineShortcut('toggleReaderView', function () {
     var tab = tabs.get(tabs.getSelected())
 
     if (tab.isReaderView) {
@@ -190,15 +206,15 @@ settings.get('keyMap', function (keyMapSettings) {
 
   // TODO add help docs for this
 
-  Mousetrap.bind(keyMap.goBack, function (d) {
+  defineShortcut('goBack', function (d) {
     getWebview(tabs.getSelected()).goBack()
   })
 
-  Mousetrap.bind(keyMap.goForward, function (d) {
+  defineShortcut('goForward', function (d) {
     getWebview(tabs.getSelected()).goForward()
   })
 
-  Mousetrap.bind(keyMap.switchToPreviousTab, function (d) {
+  defineShortcut('switchToPreviousTab', function (d) {
     var currentIndex = tabs.getIndex(tabs.getSelected())
     var previousTab = tabs.getAtIndex(currentIndex - 1)
 
@@ -209,7 +225,7 @@ settings.get('keyMap', function (keyMapSettings) {
     }
   })
 
-  Mousetrap.bind(keyMap.switchToNextTab, function (d) {
+  defineShortcut('switchToNextTab', function (d) {
     var currentIndex = tabs.getIndex(tabs.getSelected())
     var nextTab = tabs.getAtIndex(currentIndex + 1)
 
@@ -220,7 +236,7 @@ settings.get('keyMap', function (keyMapSettings) {
     }
   })
 
-  Mousetrap.bind(keyMap.closeAllTabs, function (d) { // destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
+  defineShortcut('closeAllTabs', function (d) { // destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
     var tset = tabs.get()
     for (var i = 0; i < tset.length; i++) {
       destroyTab(tset[i].id)
@@ -229,7 +245,7 @@ settings.get('keyMap', function (keyMapSettings) {
     addTab() // create a new, blank tab
   })
 
-  Mousetrap.bind(keyMap.toggleTasks, function () {
+  defineShortcut('toggleTasks', function () {
     if (taskOverlay.isShown) {
       taskOverlay.hide()
     } else {
@@ -239,7 +255,7 @@ settings.get('keyMap', function (keyMapSettings) {
 
   var lastReload = 0
 
-  Mousetrap.bind(keyMap.reload, function () {
+  defineShortcut('reload', function () {
     var time = Date.now()
 
     // pressing mod+r twice in a row reloads the whole browser
@@ -257,7 +273,7 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   // mod+enter navigates to searchbar URL + ".com"
-  Mousetrap.bind(keyMap.completeSearchbar, function () {
+  defineShortcut('completeSearchbar', function () {
     if (currentSearchbarInput) { // if the searchbar is open
       var value = currentSearchbarInput.value
 
@@ -272,7 +288,7 @@ settings.get('keyMap', function (keyMapSettings) {
     }
   })
 
-  Mousetrap.bind(keyMap.showAndHideMenuBar, function () {
+  defineShortcut('showAndHideMenuBar', function () {
     toggleMenuBar()
   })
 }) // end settings.get
@@ -282,6 +298,6 @@ document.body.addEventListener('keydown', function (e) {
   if (e.keyCode === 116) {
     try {
       getWebview(tabs.getSelected()).reloadIgnoringCache()
-    } catch (e) {}
+    } catch (e) { }
   }
 })
