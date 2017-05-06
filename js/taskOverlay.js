@@ -62,8 +62,10 @@ function addTabCloseButton (tabContainer, taskTabElement) {
     closeTab(taskTabElement.getAttribute('data-tab'))
     tabContainer.removeChild(taskTabElement)
 
-    // do not close taskOverlay
-    e.preventDefault()
+    // do not close taskOverlay 
+    // (the close button is part of the tab-element, so a click on it 
+    // would otherwise trigger opening this tab, and it was just closed)
+    e.stopImmediatePropagation()
   })
 
   taskTabElement.querySelector('.title').appendChild(closeTabButton)
