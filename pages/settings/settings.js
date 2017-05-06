@@ -14,14 +14,17 @@ var contentTypes = {
 };
 
 settings.get('keyMap', function (keyMapSettings) {
-	keyMap = userKeyMap(keyMapSettings);
+	var keyMap = userKeyMap(keyMapSettings);
 
-	Object.keys(keyMap).forEach(createKeyMapInput);
+	var keyMapList = document.getElementById('key-map-list');
+
+	Object.keys(keyMap).forEach(function(action) {
+		var li = createKeyMapListItem(action, keyMap);
+		keyMapList.appendChild(li);
+	});
 });
 
-function createKeyMapInput(action) {
-	var keyMapList = document.getElementById('key-map-list');
-	var key = keyMap[action];
+function createKeyMapListItem(action, keyMap) {
 	var li = document.createElement('li');
 	var label = document.createElement('label');
 	var input = document.createElement('input');
@@ -30,12 +33,13 @@ function createKeyMapInput(action) {
 
 	input.type = "text";
 	input.id = input.name = action;
-	input.value = key;
+	input.value = keyMap[action];
 	input.addEventListener('change', onKeyMapChange);
 
 	li.appendChild(label);
 	li.appendChild(input);
-	keyMapList.appendChild(li);
+
+	return li;
 }
 
 function formatCamelCase(text) {
