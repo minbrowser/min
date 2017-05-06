@@ -24,8 +24,11 @@ taskOverlayNavbar.addEventListener('click', function () {
   taskOverlay.hide()
 })
 
-function getTaskOverlayTabElement (tab, task) {
-  var item = createSearchbarItem({
+/*
+ * @TODO: Find a better name. Currently it's the same as TaskOverlayBuilder.create.tabElement
+ */
+function createTaskOverlayTabElement (tab, task) {
+  return createSearchbarItem({
     title: tab.title || 'New Tab',
     secondaryText: urlParser.removeProtocol(tab.url),
     classList: ['task-tab-item'],
@@ -46,11 +49,6 @@ function getTaskOverlayTabElement (tab, task) {
       }
     }
   })
-
-  item.setAttribute('data-tab', tab.id)
-  item.setAttribute('data-task', task.id)
-
-  return item
 }
 
 function addTabCloseButton (tabContainer, taskTabElement) {
@@ -62,8 +60,8 @@ function addTabCloseButton (tabContainer, taskTabElement) {
     closeTab(taskTabElement.getAttribute('data-tab'))
     tabContainer.removeChild(taskTabElement)
 
-    // do not close taskOverlay 
-    // (the close button is part of the tab-element, so a click on it 
+    // do not close taskOverlay
+    // (the close button is part of the tab-element, so a click on it
     // would otherwise trigger opening this tab, and it was just closed)
     e.stopImmediatePropagation()
   })
@@ -124,7 +122,10 @@ var TaskOverlayBuilder = {
     },
 
     tabElement: function (tabContainer, task, tab) {
-      var el = getTaskOverlayTabElement(tab, task)
+      var el = createTaskOverlayTabElement(tab, task)
+
+      el.setAttribute('data-tab', tab.id)
+      el.setAttribute('data-task', task.id)
 
       el.addEventListener('click', function (e) {
         switchToTask(this.getAttribute('data-task'))
