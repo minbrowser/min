@@ -48,7 +48,6 @@
     position: relative;
 }
 .task-container button.closeTab {
-    color: red;
     position: absolute;
     width: 1.5em;
     height: 1.5em;
@@ -56,7 +55,7 @@
     top: calc(0.55em - 1px); /* searchbar styles padding-top */
     bottom:0;
     display: none;
-    background-color: red;
+    background-color: #888;
     color: white;
     border: none;
     border-radius: .75em;
