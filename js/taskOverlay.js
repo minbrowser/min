@@ -120,8 +120,36 @@ var TaskOverlayBuilder = {
       taskActionContainer.appendChild(deleteButton)
 
       return taskActionContainer
+    },
+
+    tabElement: function (tabContainer, task, tab, taskOverlay) {
+      var el = getTaskOverlayTabElement(tab, task)
+
+      el.addEventListener('click', function (e) {
+        switchToTask(this.getAttribute('data-task'))
+        switchToTab(this.getAttribute('data-tab'))
+
+        taskOverlay.hide()
+      })
+
+      addTabCloseButton(tabContainer, el)
+      return el
+    },
+
+    tabContainer: function (task, taskOverlay) {
+      var tabContainer = document.createElement('div')
+      tabContainer.className = 'task-tabs-container'
+
+      if (task.tabs) {
+        for (var i = 0; i < task.tabs.length; i++) {
+          var el = this.tabElement(tabContainer, task, task.tabs[i], taskOverlay)
+          tabContainer.appendChild(el)
+        }
+      }
+
+      return tabContainer
     }
-  }
+  },
   // extend with other helper functions?
 }
 
@@ -133,25 +161,7 @@ function createTaskContainer (task, taskIndex) {
   var taskActionContainer = TaskOverlayBuilder.create.taskActionContainer(container, task, taskIndex)
   container.appendChild(taskActionContainer)
 
-  var tabContainer = document.createElement('div')
-  tabContainer.className = 'task-tabs-container'
-
-  if (task.tabs) {
-    for (var i = 0; i < task.tabs.length; i++) {
-      var el = getTaskOverlayTabElement(task.tabs[i], task)
-
-      el.addEventListener('click', function (e) {
-        switchToTask(this.getAttribute('data-task'))
-        switchToTab(this.getAttribute('data-tab'))
-
-        taskOverlay.hide()
-      })
-
-      addTabCloseButton(tabContainer, el)
-      tabContainer.appendChild(el)
-    }
-  }
-
+  var tabContainer = TaskOverlayBuilder.create.tabContainer(task, taskOverlay)
   container.appendChild(tabContainer)
 
   return container
