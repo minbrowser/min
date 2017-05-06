@@ -70,54 +70,67 @@ function addTabCloseButton (tabContainer, taskTabElement) {
   taskTabElement.querySelector('.title').appendChild(closeTabButton)
 }
 
-function getTaskElement (task, taskIndex) {
+var TaskOverlayBuilder = {
+  create: {
+    taskNameInputField: function (task, taskIndex) {
+      var input = document.createElement('input')
+      input.classList.add('task-name')
+
+      input.placeholder = 'Task ' + (taskIndex + 1)
+      input.value = task.name || 'Task ' + (taskIndex + 1)
+
+      input.addEventListener('keyup', function (e) {
+        if (e.keyCode === 13) {
+          this.blur()
+        }
+        tasks.update(task.id, {name: this.value})
+      })
+
+      input.addEventListener('focus', function () {
+        this.select()
+      })
+      return input
+    },
+
+    taskDeleteButton: function (container, task) {
+      var deleteButton = document.createElement('i')
+      deleteButton.className = 'fa fa-trash-o'
+
+      deleteButton.addEventListener('click', function (e) {
+        destroyTask(task.id)
+        container.remove()
+
+        if (tasks.get().length === 0) { // create a new task
+          addTaskFromOverlay()
+        }
+      })
+      return deleteButton
+    },
+
+    taskActionContainer: function (container, task, taskIndex) {
+      var taskActionContainer = document.createElement('div')
+      taskActionContainer.className = 'task-action-container'
+
+      // add the input for the task name
+      var input = this.taskNameInputField(task, taskIndex)
+      taskActionContainer.appendChild(input)
+
+      // add the delete button
+      var deleteButton = this.taskDeleteButton(container, task)
+      taskActionContainer.appendChild(deleteButton)
+
+      return taskActionContainer
+    }
+  }
+  // extend with other helper functions?
+}
+
+function createTaskContainer (task, taskIndex) {
   var container = document.createElement('div')
   container.className = 'task-container'
-
   container.setAttribute('data-task', task.id)
 
-  var taskActionContainer = document.createElement('div')
-  taskActionContainer.className = 'task-action-container'
-
-  // add the input for the task name
-
-  var input = document.createElement('input')
-  input.classList.add('task-name')
-
-  input.placeholder = 'Task ' + (taskIndex + 1)
-
-  input.value = task.name || 'Task ' + (taskIndex + 1)
-
-  input.addEventListener('keyup', function (e) {
-    if (e.keyCode === 13) {
-      this.blur()
-    }
-
-    tasks.update(task.id, {name: this.value})
-  })
-
-  input.addEventListener('focus', function () {
-    this.select()
-  })
-
-  taskActionContainer.appendChild(input)
-
-  // delete button
-
-  var deleteButton = document.createElement('i')
-  deleteButton.className = 'fa fa-trash-o'
-
-  deleteButton.addEventListener('click', function (e) {
-    destroyTask(task.id)
-    container.remove()
-
-    if (tasks.get().length === 0) { // create a new task
-      addTaskFromOverlay()
-    }
-  })
-
-  taskActionContainer.appendChild(deleteButton)
-
+  var taskActionContainer = TaskOverlayBuilder.create.taskActionContainer(container, task, taskIndex)
   container.appendChild(taskActionContainer)
 
   var tabContainer = document.createElement('div')
@@ -168,7 +181,7 @@ var taskOverlay = {
 
     // show the task elements
     tasks.get().forEach(function (task, index) {
-      var el = getTaskElement(task, index)
+      var el = createTaskContainer(task, index)
 
       taskContainer.appendChild(el)
       taskOverlay.dragula.containers.push(el.getElementsByClassName('task-tabs-container')[0])
@@ -298,6 +311,4 @@ function syncStateAndOverlay () {
   })
 }
 
-taskOverlay.dragula.on('drop', function () {
-  syncStateAndOverlay()
-})
+taskOverlay.dragula.on('drop', syncStateAndOverlay)
