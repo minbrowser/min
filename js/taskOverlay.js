@@ -6,7 +6,6 @@ function addTaskFromOverlay () {
   addTab()
 }
 
-var overlay = document.getElementById('task-overlay')
 var taskContainer = document.getElementById('task-area')
 var taskSwitcherButton = document.getElementById('switch-task-button')
 var addTaskButton = document.getElementById('add-task')
@@ -122,7 +121,7 @@ var TaskOverlayBuilder = {
       return taskActionContainer
     },
 
-    tabElement: function (tabContainer, task, tab, taskOverlay) {
+    tabElement: function (tabContainer, task, tab) {
       var el = getTaskOverlayTabElement(tab, task)
 
       el.addEventListener('click', function (e) {
@@ -136,13 +135,13 @@ var TaskOverlayBuilder = {
       return el
     },
 
-    tabContainer: function (task, taskOverlay) {
+    tabContainer: function (task) {
       var tabContainer = document.createElement('div')
       tabContainer.className = 'task-tabs-container'
 
       if (task.tabs) {
         for (var i = 0; i < task.tabs.length; i++) {
-          var el = this.tabElement(tabContainer, task, task.tabs[i], taskOverlay)
+          var el = this.tabElement(tabContainer, task, task.tabs[i])
           tabContainer.appendChild(el)
         }
       }
@@ -161,7 +160,7 @@ function createTaskContainer (task, taskIndex) {
   var taskActionContainer = TaskOverlayBuilder.create.taskActionContainer(container, task, taskIndex)
   container.appendChild(taskActionContainer)
 
-  var tabContainer = TaskOverlayBuilder.create.tabContainer(task, taskOverlay)
+  var tabContainer = TaskOverlayBuilder.create.tabContainer(task)
   container.appendChild(tabContainer)
 
   return container
@@ -170,10 +169,13 @@ function createTaskContainer (task, taskIndex) {
 var dragula = require('dragula')
 
 var taskOverlay = {
+  overlayElement: document.getElementById('task-overlay'),
+
   isShown: false,
   dragula: dragula({
     direction: 'vertical'
   }),
+
   show: function () {
     /* disabled in focus mode */
     if (isFocusMode) {
@@ -183,10 +185,10 @@ var taskOverlay = {
 
     leaveTabEditMode()
 
-    taskOverlay.isShown = true
+    this.isShown = true
     taskSwitcherButton.classList.add('active')
 
-    taskOverlay.dragula.containers = []
+    this.dragula.containers = []
     empty(taskContainer)
 
     // show the task elements
@@ -207,13 +209,13 @@ var taskOverlay = {
     }
 
     // un-hide the overlay
-
-    overlay.hidden = false
+    this.overlayElement.hidden = false
   },
+
   hide: function () {
-    if (taskOverlay.isShown) {
-      taskOverlay.isShown = false
-      overlay.hidden = true
+    if (this.isShown) {
+      this.isShown = false
+      this.overlayElement.hidden = true
 
       // if the current task has been deleted, switch to the most recent task
       if (!tasks.get(currentTask.id)) {
@@ -237,11 +239,12 @@ var taskOverlay = {
       taskSwitcherButton.classList.remove('active')
     }
   },
+
   toggle: function () {
-    if (taskOverlay.isShown) {
-      taskOverlay.hide()
+    if (this.isShown) {
+      this.hide()
     } else {
-      taskOverlay.show()
+      this.show()
     }
   }
 }
