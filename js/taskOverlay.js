@@ -54,6 +54,22 @@ function getTaskOverlayTabElement (tab, task) {
   return item
 }
 
+function addTabCloseButton (tabContainer, taskTabElement) {
+  var closeTabButton = document.createElement('button')
+  closeTabButton.innerHTML = '✕'
+  closeTabButton.className = 'closeTab'
+
+  closeTabButton.addEventListener('click', function (e) {
+    closeTab(taskTabElement.getAttribute('data-tab'))
+    tabContainer.removeChild(taskTabElement)
+
+    // do not close taskOverlay
+    e.preventDefault()
+  })
+
+  taskTabElement.querySelector('.title').appendChild(closeTabButton)
+}
+
 function getTaskElement (task, taskIndex) {
   var container = document.createElement('div')
   container.className = 'task-container'
@@ -118,6 +134,7 @@ function getTaskElement (task, taskIndex) {
         taskOverlay.hide()
       })
 
+      addTabCloseButton(tabContainer, el)
       tabContainer.appendChild(el)
     }
   }
