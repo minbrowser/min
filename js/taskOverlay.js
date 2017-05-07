@@ -25,7 +25,7 @@ taskOverlayNavbar.addEventListener('click', function () {
 })
 
 /*
- * @TODO: Find a better name. Currently it's the same as TaskOverlayBuilder.create.tabElement
+ * @TODO: Find a better name. Currently it's the same as TaskOverlayBuilder.create.tab.element
  */
 function createTaskOverlayTabElement (tab, task) {
   return createSearchbarItem({
@@ -111,7 +111,7 @@ var TaskOverlayBuilder = {
         var taskActionContainer = this.actionContainer(container, task, taskIndex)
         container.appendChild(taskActionContainer)
 
-        var tabContainer = TaskOverlayBuilder.create.tab.container(task)
+        var tabContainer = builder.tab.container(task)
         container.appendChild(tabContainer)
 
         return container
@@ -174,6 +174,10 @@ var TaskOverlayBuilder = {
   // extend with other helper functions?
 };
 
+// Add an alias for ease of use.
+// Consider renaming TaskOverlayBuilder.create to Builder wholy.
+var builder = TaskOverlayBuilder.create;
+
 var dragula = require('dragula')
 
 var taskOverlay = {
@@ -201,7 +205,7 @@ var taskOverlay = {
 
     // show the task elements
     tasks.get().forEach(function (task, index) {
-      var el = TaskOverlayBuilder.create.task.container(task, index)
+      var el = builder.task.container(task, index)
 
       taskContainer.appendChild(el)
       taskOverlay.dragula.containers.push(el.getElementsByClassName('task-tabs-container')[0])
