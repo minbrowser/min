@@ -97,7 +97,7 @@ var TaskOverlayBuilder = {
         var taskActionContainer = this.actionContainer(container, task, taskIndex)
         container.appendChild(taskActionContainer)
 
-        var tabContainer = builder.tab.container(task)
+        var tabContainer = TaskOverlayBuilder.create.tab.container(task)
         container.appendChild(tabContainer)
 
         return container
@@ -180,9 +180,7 @@ var TaskOverlayBuilder = {
   // extend with other helper functions?
 };
 
-// Add an alias for ease of use.
-// Consider renaming TaskOverlayBuilder.create to Builder wholy.
-var builder = TaskOverlayBuilder.create;
+var task_container_build_func = null
 
 var dragula = require('dragula')
 
@@ -211,7 +209,7 @@ var taskOverlay = {
 
     // show the task elements
     tasks.get().forEach(function (task, index) {
-      var el = builder.task.container(task, index)
+      var el = task_container_build_func(task, index)
 
       taskContainer.appendChild(el)
       taskOverlay.dragula.containers.push(el.getElementsByClassName('task-tabs-container')[0])
@@ -343,3 +341,5 @@ function syncStateAndOverlay () {
 }
 
 taskOverlay.dragula.on('drop', syncStateAndOverlay)
+
+task_container_build_func = TaskOverlayBuilder.create.task.container.bind(TaskOverlayBuilder.create.task)
