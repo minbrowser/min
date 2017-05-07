@@ -1,11 +1,3 @@
-function addTaskFromOverlay () {
-  tasks.setSelected(tasks.add())
-  taskOverlay.hide()
-
-  rerenderTabstrip()
-  addTab()
-}
-
 var taskContainer = document.getElementById('task-area')
 var taskSwitcherButton = document.getElementById('switch-task-button')
 var addTaskButton = document.getElementById('add-task')
@@ -23,19 +15,6 @@ addTaskButton.addEventListener('click', function (e) {
 taskOverlayNavbar.addEventListener('click', function () {
   taskOverlay.hide()
 })
-
-function removeTaskIfEmpty(task) {
-  // if there are no tabs left, remove the task
-  if (task.tabs.count() === 0) {
-    destroyTask(task.id)
-    if (tasks.get().length === 0) {
-      addTaskFromOverlay()
-    } else {
-      // re-render the overlay to remove the task element
-      getTaskContainer(task.id).remove()
-    }
-  }
-}
 
 var dragula = require('dragula')
 

@@ -1,3 +1,27 @@
+function addTaskFromOverlay () {
+  tasks.setSelected(tasks.add())
+  taskOverlay.hide()
+
+  rerenderTabstrip()
+  addTab()
+}
+
+function removeTaskFromOverlay(tabId, task) {
+  task.tabs.destroy(tabId)
+  destroyWebview(tabId)
+
+  // if there are no tabs left, remove the task
+  if (task.tabs.count() === 0) {
+    destroyTask(task.id)
+    if (tasks.get().length === 0) {
+      addTaskFromOverlay()
+    } else {
+      // re-render the overlay to remove the task element
+      getTaskContainer(task.id).remove()
+    }
+  }
+}
+
 var TaskOverlayBuilder = {
   create: {
     task: {
@@ -72,10 +96,7 @@ var TaskOverlayBuilder = {
           secondaryText: urlParser.removeProtocol(tab.url),
           classList: ['task-tab-item'],
           delete: function () {
-            task.tabs.destroy(tab.id)
-            destroyWebview(tab.id)
-
-            removeTaskIfEmpty(task)
+            removeTaskFromOverlay(tab.id, task)
           }
         })
 
@@ -119,11 +140,7 @@ var TaskOverlayBuilder = {
           var current_selected = getSelectedTask()
 
           if(tabId !== current_selected.tabs.getSelected() ) {
-            tasks.setSelected(taskId)
-            destroyTab(tabId)
-            removeTaskIfEmpty(tasks.get(taskId))
-            tasks.setSelected(current_selected.id)
-
+            removeTaskFromOverlay(tasks.get(taskId))
             taskTabElement.parentNode.removeChild(taskTabElement)
           }
 
