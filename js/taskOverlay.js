@@ -24,6 +24,19 @@ taskOverlayNavbar.addEventListener('click', function () {
   taskOverlay.hide()
 })
 
+function removeTaskIfEmpty(task) {
+  // if there are no tabs left, remove the task
+  if (task.tabs.count() === 0) {
+    destroyTask(task.id)
+    if (tasks.get().length === 0) {
+      addTaskFromOverlay()
+    } else {
+      // re-render the overlay to remove the task element
+      getTaskContainer(task.id).remove()
+    }
+  }
+}
+
 var TaskOverlayBuilder = {
   create: {
     task: {
@@ -101,16 +114,7 @@ var TaskOverlayBuilder = {
             task.tabs.destroy(tab.id)
             destroyWebview(tab.id)
 
-            // if there are no tabs left, remove the task
-            if (task.tabs.count() === 0) {
-              destroyTask(task.id)
-              if (tasks.get().length === 0) {
-                addTaskFromOverlay()
-              } else {
-                // re-render the overlay to remove the task element
-                getTaskContainer(task.id).remove()
-              }
-            }
+            removeTaskIfEmpty(task)
           }
         })
 
@@ -124,7 +128,7 @@ var TaskOverlayBuilder = {
           taskOverlay.hide()
         })
 
-        var closeTabButton = this.closeButton(tabContainer, el)
+        var closeTabButton = this.closeButton(el)
         el.querySelector('.title').appendChild(closeTabButton)
         return el
       },
@@ -143,14 +147,24 @@ var TaskOverlayBuilder = {
         return tabContainer
       },
 
-      closeButton: function (tabContainer, taskTabElement) {
+      closeButton: function (taskTabElement) {
         var closeTabButton = document.createElement('button')
         closeTabButton.innerHTML = '✕'
         closeTabButton.className = 'closeTab'
 
         closeTabButton.addEventListener('click', function (e) {
-          closeTab(taskTabElement.getAttribute('data-tab'))
-          tabContainer.removeChild(taskTabElement)
+          var tabId = taskTabElement.getAttribute('data-tab')
+          var taskId = taskTabElement.getAttribute('data-task')
+          var current_selected = getSelectedTask()
+
+          if(tabId !== current_selected.tabs.getSelected() ) {
+            tasks.setSelected(taskId)
+            destroyTab(tabId)
+            removeTaskIfEmpty(tasks.get(taskId))
+            tasks.setSelected(current_selected.id)
+
+            taskTabElement.parentNode.removeChild(taskTabElement)
+          }
 
           // do not close taskOverlay
           // (the close button is part of the tab-element, so a click on it
