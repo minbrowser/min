@@ -51,24 +51,6 @@ function createTaskOverlayTabElement (tab, task) {
   })
 }
 
-function addTabCloseButton (tabContainer, taskTabElement) {
-  var closeTabButton = document.createElement('button')
-  closeTabButton.innerHTML = '✕'
-  closeTabButton.className = 'closeTab'
-
-  closeTabButton.addEventListener('click', function (e) {
-    closeTab(taskTabElement.getAttribute('data-tab'))
-    tabContainer.removeChild(taskTabElement)
-
-    // do not close taskOverlay
-    // (the close button is part of the tab-element, so a click on it
-    // would otherwise trigger opening this tab, and it was just closed)
-    e.stopImmediatePropagation()
-  })
-
-  taskTabElement.querySelector('.title').appendChild(closeTabButton)
-}
-
 var TaskOverlayBuilder = {
   create: {
     taskNameInputField: function (task, taskIndex) {
@@ -134,7 +116,8 @@ var TaskOverlayBuilder = {
         taskOverlay.hide()
       })
 
-      addTabCloseButton(tabContainer, el)
+      var closeTabButton = this.tabCloseButton(tabContainer, el)
+      el.querySelector('.title').appendChild(closeTabButton)
       return el
     },
 
@@ -150,23 +133,41 @@ var TaskOverlayBuilder = {
       }
 
       return tabContainer
+    },
+
+    taskContainer: function (task, taskIndex) {
+      var container = document.createElement('div')
+      container.className = 'task-container'
+      container.setAttribute('data-task', task.id)
+
+      var taskActionContainer = this.taskActionContainer(container, task, taskIndex)
+      container.appendChild(taskActionContainer)
+
+      var tabContainer = this.tabContainer(task)
+      container.appendChild(tabContainer)
+
+      return container
+    },
+
+    tabCloseButton: function (tabContainer, taskTabElement) {
+      var closeTabButton = document.createElement('button')
+      closeTabButton.innerHTML = '✕'
+      closeTabButton.className = 'closeTab'
+
+      closeTabButton.addEventListener('click', function (e) {
+        closeTab(taskTabElement.getAttribute('data-tab'))
+        tabContainer.removeChild(taskTabElement)
+
+        // do not close taskOverlay
+        // (the close button is part of the tab-element, so a click on it
+        // would otherwise trigger opening this tab, and it was just closed)
+        e.stopImmediatePropagation()
+      })
+
+      return closeTabButton
     }
   },
   // extend with other helper functions?
-}
-
-function createTaskContainer (task, taskIndex) {
-  var container = document.createElement('div')
-  container.className = 'task-container'
-  container.setAttribute('data-task', task.id)
-
-  var taskActionContainer = TaskOverlayBuilder.create.taskActionContainer(container, task, taskIndex)
-  container.appendChild(taskActionContainer)
-
-  var tabContainer = TaskOverlayBuilder.create.tabContainer(task)
-  container.appendChild(tabContainer)
-
-  return container
 }
 
 var dragula = require('dragula')
@@ -196,7 +197,7 @@ var taskOverlay = {
 
     // show the task elements
     tasks.get().forEach(function (task, index) {
-      var el = createTaskContainer(task, index)
+      var el = TaskOverlayBuilder.create.taskContainer(task, index)
 
       taskContainer.appendChild(el)
       taskOverlay.dragula.containers.push(el.getElementsByClassName('task-tabs-container')[0])
