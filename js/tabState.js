@@ -217,7 +217,7 @@ var tasks = {
 }
 
 function getSelectedTask () {
-  return getTask(tabState.selectedTask)
+  return tasks.get(tabState.selectedTask)
 }
 
 function isEmpty (tabList) {
