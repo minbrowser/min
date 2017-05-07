@@ -53,122 +53,126 @@ function createTaskOverlayTabElement (tab, task) {
 
 var TaskOverlayBuilder = {
   create: {
-    taskNameInputField: function (task, taskIndex) {
-      var input = document.createElement('input')
-      input.classList.add('task-name')
+    task: {
+      nameInputField: function (task, taskIndex) {
+        var input = document.createElement('input')
+        input.classList.add('task-name')
 
-      input.placeholder = 'Task ' + (taskIndex + 1)
-      input.value = task.name || 'Task ' + (taskIndex + 1)
+        input.placeholder = 'Task ' + (taskIndex + 1)
+        input.value = task.name || 'Task ' + (taskIndex + 1)
 
-      input.addEventListener('keyup', function (e) {
-        if (e.keyCode === 13) {
-          this.blur()
+        input.addEventListener('keyup', function (e) {
+          if (e.keyCode === 13) {
+            this.blur()
+          }
+          tasks.update(task.id, {name: this.value})
+        })
+
+        input.addEventListener('focus', function () {
+          this.select()
+        })
+        return input
+      },
+
+      deleteButton: function (container, task) {
+        var deleteButton = document.createElement('i')
+        deleteButton.className = 'fa fa-trash-o'
+
+        deleteButton.addEventListener('click', function (e) {
+          destroyTask(task.id)
+          container.remove()
+
+          if (tasks.get().length === 0) { // create a new task
+            addTaskFromOverlay()
+          }
+        })
+        return deleteButton
+      },
+
+      actionContainer: function (taskContainer, task, taskIndex) {
+        var taskActionContainer = document.createElement('div')
+        taskActionContainer.className = 'task-action-container'
+
+        // add the input for the task name
+        var input = this.nameInputField(task, taskIndex)
+        taskActionContainer.appendChild(input)
+
+        // add the delete button
+        var deleteButton = this.deleteButton(taskContainer, task)
+        taskActionContainer.appendChild(deleteButton)
+
+        return taskActionContainer
+      },
+      container: function (task, taskIndex) {
+        var container = document.createElement('div')
+        container.className = 'task-container'
+        container.setAttribute('data-task', task.id)
+
+        var taskActionContainer = this.actionContainer(container, task, taskIndex)
+        container.appendChild(taskActionContainer)
+
+        var tabContainer = TaskOverlayBuilder.create.tab.container(task)
+        container.appendChild(tabContainer)
+
+        return container
+      },
+    },
+
+    tab: {
+      element: function (tabContainer, task, tab) {
+        var el = createTaskOverlayTabElement(tab, task)
+
+        el.setAttribute('data-tab', tab.id)
+        el.setAttribute('data-task', task.id)
+
+        el.addEventListener('click', function (e) {
+          switchToTask(this.getAttribute('data-task'))
+          switchToTab(this.getAttribute('data-tab'))
+
+          taskOverlay.hide()
+        })
+
+        var closeTabButton = this.closeButton(tabContainer, el)
+        el.querySelector('.title').appendChild(closeTabButton)
+        return el
+      },
+
+      container: function (task) {
+        var tabContainer = document.createElement('div')
+        tabContainer.className = 'task-tabs-container'
+
+        if (task.tabs) {
+          for (var i = 0; i < task.tabs.length; i++) {
+            var el = this.element(tabContainer, task, task.tabs[i])
+            tabContainer.appendChild(el)
+          }
         }
-        tasks.update(task.id, {name: this.value})
-      })
 
-      input.addEventListener('focus', function () {
-        this.select()
-      })
-      return input
-    },
+        return tabContainer
+      },
 
-    taskDeleteButton: function (container, task) {
-      var deleteButton = document.createElement('i')
-      deleteButton.className = 'fa fa-trash-o'
+      closeButton: function (tabContainer, taskTabElement) {
+        var closeTabButton = document.createElement('button')
+        closeTabButton.innerHTML = '✕'
+        closeTabButton.className = 'closeTab'
 
-      deleteButton.addEventListener('click', function (e) {
-        destroyTask(task.id)
-        container.remove()
+        closeTabButton.addEventListener('click', function (e) {
+          closeTab(taskTabElement.getAttribute('data-tab'))
+          tabContainer.removeChild(taskTabElement)
 
-        if (tasks.get().length === 0) { // create a new task
-          addTaskFromOverlay()
-        }
-      })
-      return deleteButton
-    },
+          // do not close taskOverlay
+          // (the close button is part of the tab-element, so a click on it
+          // would otherwise trigger opening this tab, and it was just closed)
+          e.stopImmediatePropagation()
+        })
 
-    taskActionContainer: function (container, task, taskIndex) {
-      var taskActionContainer = document.createElement('div')
-      taskActionContainer.className = 'task-action-container'
-
-      // add the input for the task name
-      var input = this.taskNameInputField(task, taskIndex)
-      taskActionContainer.appendChild(input)
-
-      // add the delete button
-      var deleteButton = this.taskDeleteButton(container, task)
-      taskActionContainer.appendChild(deleteButton)
-
-      return taskActionContainer
-    },
-
-    tabElement: function (tabContainer, task, tab) {
-      var el = createTaskOverlayTabElement(tab, task)
-
-      el.setAttribute('data-tab', tab.id)
-      el.setAttribute('data-task', task.id)
-
-      el.addEventListener('click', function (e) {
-        switchToTask(this.getAttribute('data-task'))
-        switchToTab(this.getAttribute('data-tab'))
-
-        taskOverlay.hide()
-      })
-
-      var closeTabButton = this.tabCloseButton(tabContainer, el)
-      el.querySelector('.title').appendChild(closeTabButton)
-      return el
-    },
-
-    tabContainer: function (task) {
-      var tabContainer = document.createElement('div')
-      tabContainer.className = 'task-tabs-container'
-
-      if (task.tabs) {
-        for (var i = 0; i < task.tabs.length; i++) {
-          var el = this.tabElement(tabContainer, task, task.tabs[i])
-          tabContainer.appendChild(el)
-        }
+        return closeTabButton
       }
-
-      return tabContainer
     },
 
-    taskContainer: function (task, taskIndex) {
-      var container = document.createElement('div')
-      container.className = 'task-container'
-      container.setAttribute('data-task', task.id)
-
-      var taskActionContainer = this.taskActionContainer(container, task, taskIndex)
-      container.appendChild(taskActionContainer)
-
-      var tabContainer = this.tabContainer(task)
-      container.appendChild(tabContainer)
-
-      return container
-    },
-
-    tabCloseButton: function (tabContainer, taskTabElement) {
-      var closeTabButton = document.createElement('button')
-      closeTabButton.innerHTML = '✕'
-      closeTabButton.className = 'closeTab'
-
-      closeTabButton.addEventListener('click', function (e) {
-        closeTab(taskTabElement.getAttribute('data-tab'))
-        tabContainer.removeChild(taskTabElement)
-
-        // do not close taskOverlay
-        // (the close button is part of the tab-element, so a click on it
-        // would otherwise trigger opening this tab, and it was just closed)
-        e.stopImmediatePropagation()
-      })
-
-      return closeTabButton
-    }
   },
   // extend with other helper functions?
-}
+};
 
 var dragula = require('dragula')
 
@@ -197,7 +201,7 @@ var taskOverlay = {
 
     // show the task elements
     tasks.get().forEach(function (task, index) {
-      var el = TaskOverlayBuilder.create.taskContainer(task, index)
+      var el = TaskOverlayBuilder.create.task.container(task, index)
 
       taskContainer.appendChild(el)
       taskOverlay.dragula.containers.push(el.getElementsByClassName('task-tabs-container')[0])
