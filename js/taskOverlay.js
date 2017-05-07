@@ -24,33 +24,6 @@ taskOverlayNavbar.addEventListener('click', function () {
   taskOverlay.hide()
 })
 
-/*
- * @TODO: Find a better name. Currently it's the same as TaskOverlayBuilder.create.tab.element
- */
-function createTaskOverlayTabElement (tab, task) {
-  return createSearchbarItem({
-    title: tab.title || 'New Tab',
-    secondaryText: urlParser.removeProtocol(tab.url),
-    classList: ['task-tab-item'],
-    delete: function () {
-      task.tabs.destroy(tab.id)
-      destroyWebview(tab.id)
-
-      // if there are no tabs left, remove the task
-
-      if (task.tabs.count() === 0) {
-        destroyTask(task.id)
-        if (tasks.get().length === 0) {
-          addTaskFromOverlay()
-        } else {
-          // re-render the overlay to remove the task element
-          getTaskContainer(task.id).remove()
-        }
-      }
-    }
-  })
-}
-
 var TaskOverlayBuilder = {
   create: {
     task: {
@@ -120,7 +93,26 @@ var TaskOverlayBuilder = {
 
     tab: {
       element: function (tabContainer, task, tab) {
-        var el = createTaskOverlayTabElement(tab, task)
+        var el = createSearchbarItem({
+          title: tab.title || 'New Tab',
+          secondaryText: urlParser.removeProtocol(tab.url),
+          classList: ['task-tab-item'],
+          delete: function () {
+            task.tabs.destroy(tab.id)
+            destroyWebview(tab.id)
+
+            // if there are no tabs left, remove the task
+            if (task.tabs.count() === 0) {
+              destroyTask(task.id)
+              if (tasks.get().length === 0) {
+                addTaskFromOverlay()
+              } else {
+                // re-render the overlay to remove the task element
+                getTaskContainer(task.id).remove()
+              }
+            }
+          }
+        })
 
         el.setAttribute('data-tab', tab.id)
         el.setAttribute('data-task', task.id)
