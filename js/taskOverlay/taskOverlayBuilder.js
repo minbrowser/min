@@ -140,7 +140,7 @@ var TaskOverlayBuilder = {
           var current_selected = getSelectedTask()
 
           if(tabId !== current_selected.tabs.getSelected() ) {
-            removeTaskFromOverlay(tasks.get(taskId))
+            removeTaskFromOverlay(tabId, tasks.get(taskId))
             taskTabElement.parentNode.removeChild(taskTabElement)
           }
 
