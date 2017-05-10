@@ -6,7 +6,7 @@ function addTaskFromOverlay () {
   addTab()
 }
 
-function removeTaskFromOverlay(tabId, task) {
+function removeTaskFromOverlay (tabId, task) {
   task.tabs.destroy(tabId)
   destroyWebview(tabId)
 
@@ -86,7 +86,7 @@ var TaskOverlayBuilder = {
         container.appendChild(tabContainer)
 
         return container
-      },
+      }
     },
 
     tab: {
@@ -139,7 +139,7 @@ var TaskOverlayBuilder = {
           var taskId = taskTabElement.getAttribute('data-task')
           var current_selected = getSelectedTask()
 
-          if(tabId !== current_selected.tabs.getSelected() ) {
+          if (tabId !== current_selected.tabs.getSelected()) {
             removeTaskFromOverlay(tabId, tasks.get(taskId))
             taskTabElement.parentNode.removeChild(taskTabElement)
           }
@@ -152,11 +152,11 @@ var TaskOverlayBuilder = {
 
         return closeTabButton
       }
-    },
+    }
 
-  },
+  }
   // extend with other helper functions?
-};
+}
 
 window.task_container_build_func = TaskOverlayBuilder.create.task.container.bind(TaskOverlayBuilder.create.task)
 
