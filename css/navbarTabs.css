@@ -46,7 +46,8 @@ body.notMac #navbar {
 #navbar #tabs {
 	display: flex;
 	flex: 1;
-	overflow: auto;
+	/* https://github.com/w3c/csswg-drafts/issues/92 - don't make the scrollbar height affect the layout */
+	overflow: overlay;
 }
 .tab-item {
 	flex: 1;
