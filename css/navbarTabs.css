@@ -10,6 +10,7 @@
 	position: relative;
 	outline: none;
 	-webkit-app-region: drag;
+	z-index: 2;
 }
 
 /* there are no window controls in fullscreen, so we don't need any padding */
@@ -162,6 +163,23 @@ body.notMac #navbar {
 	line-height: 1.25em;
 }
 
+/* show the overlay in edit mode */
+
+#overlay {
+	display: none;
+}
+
+body.is-edit-mode #overlay {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(255, 255, 255, 0.5);
+	z-index: 1;
+	pointer-events: none;
+}
 /* hide the lock icon unless its the current tab */
 
 .tab-item:not(.active) .icon-tab-not-secure {
