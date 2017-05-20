@@ -232,6 +232,8 @@ function addWebview (tabId) {
   // webviews are hidden when added - call switchToWebview to show it
   webview.classList.add('hidden')
 
+  webview.classList.add('loading')
+
   webviewBase.appendChild(webview)
 
   return webview
