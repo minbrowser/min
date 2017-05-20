@@ -1,0 +1,22 @@
+language: node_js
+
+os:
+    - linux
+    - osx
+    - windows
+
+node_js:
+      - "7.10.0"
+
+before_install:
+    - npm install electron
+    - npm install -g grunt-cli
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install fakeroot dpkg; fi
+
+install: npm install
+
+before_script:
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then grunt macBuild; fi
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then grunt linuxBuild; fi
+    - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then grunt windowsBuild; fi

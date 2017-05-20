@@ -15,24 +15,27 @@ function resetCounters () {
 }
 
 function onSwipeGestureFinish () {
+  settings.get('swipeNavigationDisabled', function(value) {
+    if (value !== true) {
+      // swipe to the left to go forward
+      if (horizontalMouseMove - beginningScrollRight > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
+        if (beginningScrollRight < 10 || horizontalMouseMove - beginningScrollRight > 800) {
+          resetCounters()
+          window.history.go(1)
+        }
+      }
 
-  // swipe to the left to go forward
-  if (horizontalMouseMove - beginningScrollRight > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
-    if (beginningScrollRight < 10 || horizontalMouseMove - beginningScrollRight > 800) {
-      resetCounters()
-      window.history.go(1)
+      // swipe to the right to go backwards
+      if (horizontalMouseMove + beginningScrollLeft < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
+        if (beginningScrollLeft < 10 || horizontalMouseMove + beginningScrollLeft < -800) {
+          resetCounters()
+          window.history.go(-1)
+        }
+      }
+
+    resetCounters()
     }
-  }
-
-  // swipe to the right to go backwards
-  if (horizontalMouseMove + beginningScrollLeft < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
-    if (beginningScrollLeft < 10 || horizontalMouseMove + beginningScrollLeft < -800) {
-      resetCounters()
-      window.history.go(-1)
-    }
-  }
-
-  resetCounters()
+  });
 }
 
 window.addEventListener('wheel', function (e) {
