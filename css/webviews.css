@@ -7,10 +7,14 @@
 	width: 100%;
 	outline: none;
 	position: absolute;
+	background: #fff;
 }
-#webviews webview[hidden] {
+#webviews webview.hidden:not(.loading) {
 	display: flex !important;
 	visibility: hidden;
+}
+#webviews webview.loading.hidden {
+	z-index: -1;
 }
 #webviews webview.fullscreen {
 	position: fixed;
@@ -19,10 +23,4 @@
 	width: 100vw;
 	height: 100vh;
 	z-index: 99;
-}
-
-/* hack to work around display: none issues with webviews */
-
-#webviews webview.hidden {
-	visibility: hidden;
 }

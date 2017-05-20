@@ -57,9 +57,9 @@ function onPageLoad (e) {
 }
 
 // called when js/webview/textExtractor.js returns the page's text content
-bindWebviewIPC('pageData', function (webview, tabId, arguments) {
+bindWebviewIPC('pageData', function (webview, tabId, args) {
   var tab = tabs.get(tabId),
-      data = arguments[0]
+    data = args[0]
 
   var isInternalPage = tab.url.indexOf(__dirname) !== -1 && tab.url.indexOf(readerView.readerURL) === -1
 
@@ -121,6 +121,17 @@ function getWebviewDom (options) {
 
   w.addEventListener('did-finish-load', onPageLoad)
   w.addEventListener('did-navigate-in-page', onPageLoad)
+
+  /* workaround for https://github.com/electron/electron/issues/8505 and similar issues */
+  w.addEventListener('did-start-loading', function () {
+    this.classList.add('loading')
+  })
+
+  w.addEventListener('did-stop-loading', function () {
+    setTimeout(function () {
+      w.classList.remove('loading')
+    }, 100)
+  })
 
   // open links in new tabs
 
@@ -229,7 +240,7 @@ function addWebview (tabId) {
 function switchToWebview (id) {
   var webviews = document.getElementsByTagName('webview')
   for (var i = 0; i < webviews.length; i++) {
-    webviews[i].hidden = true
+    webviews[i].classList.add('hidden')
   }
 
   var wv = getWebview(id)
@@ -239,7 +250,6 @@ function switchToWebview (id) {
   }
 
   wv.classList.remove('hidden')
-  wv.hidden = false
 }
 
 function updateWebview (id, url) {
