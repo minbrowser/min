@@ -20,7 +20,6 @@ function onSwipeGestureFinish () {
   if (horizontalMouseMove - beginningScrollRight > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
     if (beginningScrollRight < 10 || horizontalMouseMove - beginningScrollRight > 800) {
       resetCounters()
-      console.log('sending ipc goForward')
       ipc.sendToHost('goForward')
     }
   }
@@ -29,7 +28,6 @@ function onSwipeGestureFinish () {
   if (horizontalMouseMove + beginningScrollLeft < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
     if (beginningScrollLeft < 10 || horizontalMouseMove + beginningScrollLeft < -800) {
       resetCounters()
-      console.log('sending ipc goBack')
       ipc.sendToHost('goBack')
     }
   }
