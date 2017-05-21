@@ -57,8 +57,8 @@ function onSwipe (e) {
   var platformZoomKey = e.ctrlKey
 
   /* if platform is Mac Enable pinch zoom
-    the browser engine detects piches as ctrl+mousewheel on mac,
-    therefore it should not affect other platforms that user ctrl+mousewheel to zoom.
+  	the browser engine detects piches as ctrl+mousewheel on mac,
+  	therefore it should not affect other platforms that user ctrl+mousewheel to zoom.
   */
   if (navigator.platform === 'MacIntel') {
     if (e.ctrlKey && !e.defaultPrevented) {
