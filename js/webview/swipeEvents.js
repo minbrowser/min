@@ -15,11 +15,13 @@ function resetCounters () {
 }
 
 function onSwipeGestureFinish () {
+
   // swipe to the left to go forward
   if (horizontalMouseMove - beginningScrollRight > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
     if (beginningScrollRight < 10 || horizontalMouseMove - beginningScrollRight > 800) {
       resetCounters()
-      getCurrentWebview().goForward()
+      console.log('sending ipc goForward')
+      ipc.sendToHost('goForward')
     }
   }
 
@@ -27,31 +29,27 @@ function onSwipeGestureFinish () {
   if (horizontalMouseMove + beginningScrollLeft < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
     if (beginningScrollLeft < 10 || horizontalMouseMove + beginningScrollLeft < -800) {
       resetCounters()
-      getCurrentWebview().goBack()
+      console.log('sending ipc goBack')
+      ipc.sendToHost('goBack')
     }
   }
 
   resetCounters()
 }
 
-function onSwipe (e) {
+window.addEventListener('wheel', function (e) {
   verticalMouseMove += e.deltaY
+  horizontalMouseMove += e.deltaX
 
-  settings.get('swipeNavigationDisabled', function (value) {
-    if (value === false) {
-      horizontalMouseMove += e.deltaX
+  if (!beginningScrollLeft || !beginningScrollRight) {
+    beginningScrollLeft = document.scrollingElement.scrollLeft
+    beginningScrollRight = document.scrollingElement.scrollWidth - document.scrollingElement.clientWidth - document.scrollingElement.scrollLeft
+  }
 
-      if (!beginningScrollLeft || !beginningScrollRight) {
-        beginningScrollLeft = document.scrollingElement.scrollLeft
-        beginningScrollRight = document.scrollingElement.scrollWidth - document.scrollingElement.clientWidth - document.scrollingElement.scrollLeft
-      }
-
-      if (Math.abs(e.deltaX) >= 20 || Math.abs(e.deltaY) >= 20) {
-        clearTimeout(swipeGestureTimeout)
-        swipeGestureTimeout = setTimeout(onSwipeGestureFinish, 70)
-      }
-    }
-  })
+  if (Math.abs(e.deltaX) >= 20 || Math.abs(e.deltaY) >= 20) {
+    clearTimeout(swipeGestureTimeout)
+    swipeGestureTimeout = setTimeout(onSwipeGestureFinish, 70)
+  }
 
   /* default zoom modifier is ctrl. Mac uses cmd/meta/super so an exeption will be made below */
   var platformZoomKey = e.ctrlKey
@@ -82,4 +80,4 @@ function onSwipe (e) {
     verticalMouseMove = -10
     zoomIn()
   }
-}
+})
