@@ -17,10 +17,11 @@ module.exports = function (grunt) {
 						"js/util/database.js",
 						"js/util/defaultKeyMap.js",
 						"js/util/settings.js",
-                        "js/util/swipeEvents.js",
 						"js/util/searchEngine.js",
 						"js/menuBarVisibility.js",
 						 "js/tabState.js",
+                        "js/zoom.js",
+                        "js/swipeEvents.js",
 						"js/util/urlParser.js",
 						"js/filteringRenderer.js",
 						"js/webviews.js",
@@ -49,8 +50,7 @@ module.exports = function (grunt) {
 						 "js/findinpage.js",
 							"js/sessionRestore.js",
 							"js/focusMode.js",
-							"js/util/theme.js"
-
+							"js/util/theme.js",
 						 ],
 				dest: 'dist/build.js'
 			},
@@ -61,7 +61,6 @@ module.exports = function (grunt) {
 						"js/webview/contextMenu.js",
 						"js/webview/phishDetector.js",
 						"js/webview/readerDetector.js",
-						"js/webview/zoom.js",
 						"js/webview/keywordExtractor.js",
 						 ],
 				dest: 'dist/webview.js'

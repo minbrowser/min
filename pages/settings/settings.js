@@ -164,6 +164,7 @@ settings.get('swipeNavigationDisabled', function (value) {
 
 swipeNavigationCheckbox.addEventListener("change", function (e) {
     settings.set("swipeNavigationDisabled", this.checked);
+    showRestartRequiredBanner();
 });
 
 /* default search engine setting */

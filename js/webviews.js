@@ -7,6 +7,7 @@ var errorPage = 'file:///' + __dirname + '/pages/error/index.html'
 var webviewBase = document.getElementById('webviews')
 var webviewEvents = []
 var webviewIPC = []
+var currentWebviewId
 
 // this only affects newly created webviews, so all bindings should be done on startup
 
@@ -215,6 +216,8 @@ function getWebviewDom (options) {
     this.classList.remove('fullscreen')
   })
 
+  w.addEventListener('wheel', onSwipe)
+
   return w
 }
 
@@ -252,6 +255,7 @@ function switchToWebview (id) {
   }
 
   wv.classList.remove('hidden')
+  currentWebviewId = id
 }
 
 function updateWebview (id, url) {
@@ -267,4 +271,8 @@ function destroyWebview (id) {
 
 function getWebview (id) {
   return document.querySelector('webview[data-tab="{id}"]'.replace('{id}', id))
+}
+
+function getCurrentWebview () {
+  return getWebview (currentWebviewId)
 }
