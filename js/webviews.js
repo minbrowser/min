@@ -70,17 +70,33 @@ bindWebviewIPC('pageData', function (webview, tabId, args) {
 })
 
 // called when a swipe event is triggered in js/webview/swipeEvents.js
+var swipePreferenceSet;
+
 bindWebviewIPC('goBack', function () {
-  settings.get('swipeNavigationDisabled', function (value) {
-    if (value === false) {
+  // if the swipe preference is true once then it is always true
+  if (swipePreferenceSet !== true) {
+    settings.get('swipePreferenceSet', function (value) {
+      swipePreferenceSet = value
+    })
+  }
+
+  settings.get('swipeNavigationEnabled', function (value) {
+    if (value === true || swipePreferenceSet !== true) {
       getWebview(tabs.getSelected()).goBack()
     }
   })
 })
 
 bindWebviewIPC('goForward', function () {
-  settings.get('swipeNavigationDisabled', function (value) {
-    if (value === false) {
+  // if the swipe preference is true once then it is always true
+  if (swipePreferenceSet !== true) {
+    settings.get('swipePreferenceSet', function (value) {
+      swipePreferenceSet = value
+    })
+  }
+
+  settings.get('swipeNavigationEnabled', function (value) {
+    if (value === true || swipePreferenceSet !== true) {
       getWebview(tabs.getSelected()).goForward()
     }
   })
