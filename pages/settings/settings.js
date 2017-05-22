@@ -158,21 +158,16 @@ darkModeCheckbox.addEventListener("change", function (e) {
 });
 
 // Swipe navigation settings
-settings.get("swipePreferenceSet", function (value) {
-    swipePreferenceSet = value;
-});
 
 settings.get("swipeNavigationEnabled", function (value) {
-    if (swipePreferenceSet === true) {
-        swipeNavigationCheckbox.checked = value
+    if (value === true || value === undefined) {
+        swipeNavigationCheckbox.checked = true
     } else {
-        // Default preference is checked
-        swipeNavigationCheckbox.checked = true;
+        swipeNavigationCheckbox.checked = false;
     }
 });
 
 swipeNavigationCheckbox.addEventListener("change", function (e) {
-    settings.set("swipePreferenceSet", true);
     settings.set("swipeNavigationEnabled", this.checked);
     showRestartRequiredBanner();
 });
