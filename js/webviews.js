@@ -69,6 +69,24 @@ bindWebviewIPC('pageData', function (webview, tabId, args) {
   }
 })
 
+// called when a swipe event is triggered in js/webview/swipeEvents.js
+
+bindWebviewIPC('goBack', function () {
+  settings.get('swipeNavigationEnabled', function (value) {
+    if (value === true || value === undefined) {
+      getWebview(tabs.getSelected()).goBack()
+    }
+  })
+})
+
+bindWebviewIPC('goForward', function () {
+  settings.get('swipeNavigationEnabled', function (value) {
+    if (value === true || value === undefined) {
+      getWebview(tabs.getSelected()).goForward()
+    }
+  })
+})
+
 // set the permissionRequestHandler for non-private tabs
 
 remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler)

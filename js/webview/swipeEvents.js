@@ -20,7 +20,7 @@ function onSwipeGestureFinish () {
   if (horizontalMouseMove - beginningScrollRight > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
     if (beginningScrollRight < 10 || horizontalMouseMove - beginningScrollRight > 800) {
       resetCounters()
-      window.history.go(1)
+      ipc.sendToHost('goForward')
     }
   }
 
@@ -28,7 +28,7 @@ function onSwipeGestureFinish () {
   if (horizontalMouseMove + beginningScrollLeft < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
     if (beginningScrollLeft < 10 || horizontalMouseMove + beginningScrollLeft < -800) {
       resetCounters()
-      window.history.go(-1)
+      ipc.sendToHost('goBack')
     }
   }
 
@@ -36,8 +36,8 @@ function onSwipeGestureFinish () {
 }
 
 window.addEventListener('wheel', function (e) {
-  horizontalMouseMove += e.deltaX
   verticalMouseMove += e.deltaY
+  horizontalMouseMove += e.deltaX
 
   if (!beginningScrollLeft || !beginningScrollRight) {
     beginningScrollLeft = document.scrollingElement.scrollLeft
