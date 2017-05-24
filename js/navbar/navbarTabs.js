@@ -189,7 +189,7 @@ function createTabElement (data) {
 
   input.addEventListener('keydown', function (e) {
     if (e.keyCode === 9 || e.keyCode === 40) { // if the tab or arrow down key was pressed
-      focussearchbarItem()
+      focusSearchbarItem()
       e.preventDefault()
     }
   })

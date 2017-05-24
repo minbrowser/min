@@ -262,7 +262,7 @@ var showSearchbarResults = function (text, input, event) {
   runPlugins(realText, input, event)
 }
 
-function focussearchbarItem (options) {
+function focusSearchbarItem (options) {
   options = options || {} // fallback if options is null
   var previous = options.focusPrevious
 
@@ -309,10 +309,10 @@ searchbar.addEventListener('keydown', function (e) {
     e.target.click()
   } else if (e.keyCode === 9 || e.keyCode === 40) { // tab or arrowdown key
     e.preventDefault()
-    focussearchbarItem()
+    focusSearchbarItem()
   } else if (e.keyCode === 38) {
     e.preventDefault()
-    focussearchbarItem({
+    focusSearchbarItem({
       focusPrevious: true
     })
   }
