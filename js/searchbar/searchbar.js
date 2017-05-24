@@ -61,22 +61,6 @@ function openURLFromsearchbar (event, url) {
     return true
   } else {
     navigate(tabs.getSelected(), url)
-
-    if (!tabs.get(tabs.getSelected()).private) {
-      /*
-      //show the color and title of the new page immediately, to make the page load time seem faster
-      currentHistoryResults.forEach(function (res) {
-      	if (res.url == url) {
-      		setColor(res.color, getTextColor(getRGBObject(res.color)))
-      		tabs.update(tabs.getSelected(), {
-      			title: res.title,
-      		})
-      		rerenderTabElement(tabs.getSelected())
-      	}
-      })
-      */
-    }
-
     return false
   }
 }
