@@ -44,6 +44,31 @@
 .task-container + .task-container {
 	padding-top: 0.75em;
 }
+.task-tab-item {
+    position: relative;
+}
+.task-container button.closeTab {
+    position: absolute;
+    width: 1.5em;
+    height: 1.5em;
+    left: -1em;
+    top: calc(0.55em - 1px); /* searchbar styles padding-top */
+    bottom:0;
+    display: none;
+    background-color: #888;
+    color: white;
+    border: none;
+    border-radius: .75em;
+    outline: none;
+    cursor: pointer;
+    opacity: 0.3;
+}
+.task-tab-item:hover button.closeTab {
+    display: block;
+}
+.task-tab-item button.closeTab:hover {
+    opacity: 1;
+}
 
 /* inputs */
 
