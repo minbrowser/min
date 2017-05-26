@@ -1,33 +1,42 @@
-const MAX_TAB_HISTORY_DEPTH = 20
-var tabHistoryStack = Array()
+function TabHistory() {
+  this.depth = 20
+  this.stack = Array()
 
-var tabHistory = {
-  push: function (tabId) {
-    var tab = tabs.get(tabId)
-    // Do not store private tabs or blank tabs
-    if (tab.private || tab.url === 'about:blank' || tab.url === '') {
-      return
-    }
+  if (arguments.callee._singletonInstance) {
+    return arguments.callee._singletonInstance
+  }
 
-    if (tabHistoryStack.length < MAX_TAB_HISTORY_DEPTH) {
-      tabHistoryStack.push(tab)
-    } else {
-      tabHistoryStack.shift()
-      tabHistoryStack.push(tab)
-    }
-  },
-  restore: function () {
-    if (tabHistoryStack.length === 0) {
-      return
-    }
+  arguments.callee._singletonInstance = this;
+}
 
-    var newIndex = tabs.getIndex(tabs.getSelected()) + 1
-    var newTab = tabs.add(tabHistoryStack.pop(), newIndex)
+TabHistory.prototype.push = function (tabId) {
+  var tab = tabs.get(tabId)
+  // Do not store private tabs or blank tabs
+  if (tab.private || tab.url === 'about:blank' || tab.url === '') {
+    return
+  }
 
-    addTab(newTab, {
-      focus: false,
-      leaveEditMode: true,
-      enterEditMode: false,
-    })
+  if (this.stack.length < this.depth) {
+    this.stack.push(tab)
+  } else {
+    this.stack.shift()
+    this.stack.push(tab)
   }
 }
+
+TabHistory.prototype.restore = function () {
+  if (this.stack.length === 0) {
+    return
+  }
+
+  var newIndex = tabs.getIndex(tabs.getSelected()) + 1
+  var newTab = tabs.add(this.stack.pop(), newIndex)
+
+  addTab(newTab, {
+    focus: false,
+    leaveEditMode: true,
+    enterEditMode: false,
+  })
+}
+
+var tabHistory = new TabHistory()
