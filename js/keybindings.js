@@ -158,11 +158,7 @@ settings.get('keyMap', function (keyMapSettings) {
       return
     }
 
-    if (isEmpty(tabs.get())) {
-      destroyTab(tabs.getAtIndex(0).id)
-    }
-
-    tabHistory.restore()
+    window.currentTask.history.restore()
   })
 
   defineShortcut('addToFavorites', function (e) {

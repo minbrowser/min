@@ -1,25 +1,10 @@
-function TabHistory() {
+function TabStack() {
   this.depth = 20
-  this.stack = Array()
-
-  if (arguments.callee._singletonInstance) {
-    return arguments.callee._singletonInstance
-  }
-
-  arguments.callee._singletonInstance = this;
+  this.stack = []
 }
 
-TabHistory.prototype.push = function (tabId) {
+TabStack.prototype.push = function (tabId) {
   var closedTab = tabs.get(tabId)
-  var parentTask
-
-  tasks.get().forEach(function (task) {
-    task.tabs.forEach(function (tab) {
-      if (tab.id === tabId) {
-        parentTask = task
-      }
-    })
-  })
 
   // Do not store private tabs or blank tabs
   if (closedTab.private
@@ -28,36 +13,19 @@ TabHistory.prototype.push = function (tabId) {
     return
   }
 
-  if (this.stack.length < this.depth) {
-    this.stack.push({
-      tab: closedTab,
-      task: parentTask || getSelectedTask(),
-    })
-  } else {
+  if (this.stack.length >= this.depth) {
     this.stack.shift()
-    this.stack.push({
-      tab: closedTab,
-      task: parentTask || getSelectedTask(),
-    })
   }
+
+  this.stack.push(closedTab)
 }
 
-TabHistory.prototype.restore = function () {
+TabStack.prototype.restore = function () {
   if (this.stack.length === 0) {
     return
   }
 
-  var stackTop = this.stack.pop()
-  var parentTask = stackTop.task
-
-  if (tasks.get(parentTask.id) === null) {
-    // The task has since been destroyed. Create a new one.
-    parentTask.tabs = []
-    tasks.add(parentTask)
-  }
-
-  switchToTask(parentTask.id)
-  lastTab = getSelectedTask().tabs[parentTask.tabs.length - 1]
+  lastTab = window.currentTask.tabs[window.tabs.length - 1]
 
   // Open the tab in the last slot
   if (lastTab === undefined)  {
@@ -70,7 +38,7 @@ TabHistory.prototype.restore = function () {
     destroyTab(tabs.getAtIndex(0).id)
   }
 
-  var newTab = tabs.add(stackTop.tab, newIndex)
+  var newTab = tabs.add(this.stack.pop(), newIndex)
 
   addTab(newTab, {
     focus: false,
@@ -78,5 +46,3 @@ TabHistory.prototype.restore = function () {
     enterEditMode: false,
   })
 }
-
-var tabHistory = new TabHistory()
