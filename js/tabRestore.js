@@ -5,7 +5,7 @@ var tabHistory = {
   push: function (tabId) {
     var tab = tabs.get(tabId)
     // Do not store private tabs or blank tabs
-    if (tab.private || tab.url === 'about:blank') {
+    if (tab.private || tab.url === 'about:blank' || tab.url === '') {
       return
     }
 

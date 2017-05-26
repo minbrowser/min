@@ -232,13 +232,6 @@ function createAppMenu () {
           }
         },
         {
-          label: 'Restore Last Closed Tab',
-          accelerator: 'shift+CmdOrCtrl+t',
-          click: function (item, window) {
-            sendIPCToWindow(window, 'restoreTab')
-          }
-        },
-        {
           label: 'New Task',
           accelerator: 'CmdOrCtrl+n',
           click: function (item, window) {
