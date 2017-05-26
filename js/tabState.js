@@ -131,10 +131,17 @@ var tasks = {
       task = {}
     }
 
+    var tabStack
+    if (task.history) {
+      tabStack = Object.setPrototypeOf(task.history, TabStack.prototype)
+    } else {
+      tabStack = new TabStack()
+    }
+
     var newTask = {
       name: task.name || null,
       tabs: task.tabs || [],
-      history: new TabStack(),
+      history: tabStack,
       id: task.id || String(getRandomId())
     }
 
