@@ -86,6 +86,21 @@ function addPrivateTab () {
 
 ipc.on('addPrivateTab', addPrivateTab)
 
+function restoreTab () {
+  if (isFocusMode) {
+    showFocusModeError()
+    return
+  }
+
+  if (isEmpty(tabs.get())) {
+    destroyTab(tabs.getAtIndex(0).id)
+  }
+
+  tabHistory.restore()
+}
+
+ipc.on('restoreTab', restoreTab)
+
 ipc.on('addTask', function () {
   /* new tasks can't be created in focus mode */
   if (isFocusMode) {
@@ -150,6 +165,10 @@ settings.get('keyMap', function (keyMapSettings) {
     closeTab(tabs.getSelected())
 
     return false
+  })
+
+  defineShortcut('restoreTab', function (e) {
+    restoreTab()
   })
 
   defineShortcut('addToFavorites', function (e) {

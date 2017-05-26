@@ -226,9 +226,16 @@ function createAppMenu () {
         },
         {
           label: 'New Private Tab',
-          accelerator: 'shift+CmdOrCtrl+t',
+          accelerator: 'shift+CmdOrCtrl+p',
           click: function (item, window) {
             sendIPCToWindow(window, 'addPrivateTab')
+          }
+        },
+        {
+          label: 'Restore Last Closed Tab',
+          accelerator: 'shift+CmdOrCtrl+t',
+          click: function (item, window) {
+            sendIPCToWindow(window, 'restoreTab')
           }
         },
         {
