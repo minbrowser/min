@@ -257,8 +257,6 @@ var showSearchbarResults = function (text, input, event) {
     var realText = text
   }
 
-  console.log('searchbar: ', realText)
-
   runPlugins(realText, input, event)
 }
 
