@@ -43,12 +43,13 @@ const bookmarks = {
       }
     })
   },
-  searchPlaces: function (text, callback) {
+  searchPlaces: function (text, callback, options) {
     const callbackId = bookmarks.addWorkerCallback(callback)
     bookmarks.worker.postMessage({
       action: 'searchPlaces',
       text: text,
-      callbackId: callbackId
+      callbackId: callbackId,
+      options: options
     })
   },
   searchPlacesFullText: function (text, callback) {

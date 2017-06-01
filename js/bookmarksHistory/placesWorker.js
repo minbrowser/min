@@ -116,6 +116,7 @@ onmessage = function (e) {
   const pageData = e.data.pageData
   const searchText = e.data.text && e.data.text.toLowerCase()
   const callbackId = e.data.callbackId
+  const options = e.data.options
 
   if (action === 'updateHistory') {
     const item = {
@@ -173,7 +174,7 @@ onmessage = function (e) {
         result: matches,
         callbackId: callbackId
       })
-    })
+    }, options)
   }
 
   if (action === 'searchPlacesFullText') {

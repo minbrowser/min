@@ -25,7 +25,7 @@ function openURLInBackground (url) { // used to open a url in the background, wi
 }
 // when clicking on a result item, this function should be called to open the URL
 
-function openURLFromsearchbar (event, url) {
+function openURLFromSearchbar (url, event) {
 
   // TODO decide if this should go somewhere else
 
@@ -33,30 +33,18 @@ function openURLFromsearchbar (event, url) {
   if (url.indexOf('!') === 0) {
     var selectedBang = url.split(' ')[0]
 
-    // get all of the !bangs that could match
-    var bangs = searchCustomBangs(selectedBang)
+    // get the matching custom !bang
+    var bang = getCustomBang(selectedBang)
 
-    // if there are !bangs that possibly match
-    if (bangs.length !== 0) {
-
-      // find the ones that are an exact match, and run them
-      for (var i = 0; i < bangs.length; i++) {
-        if (bangs[i].phrase === selectedBang) {
-          leaveTabEditMode()
-          if (url.indexOf(selectedBang + ' ') === -1) {
-            var text = url.replace(selectedBang, '')
-          } else {
-            var text = url.replace(selectedBang + ' ', '')
-          }
-          bangs[i].fn(text)
-          // don't open the URL
-          return
-        }
-      }
+    if (bang) {
+      leaveTabEditMode()
+      bang.fn(url.replace(selectedBang, '').trimLeft())
+      // don't open the URL
+      return
     }
   }
 
-  if (event.metaKey) {
+  if (event && event.metaKey) {
     openURLInBackground(url)
     return true
   } else {
@@ -149,7 +137,7 @@ function createSearchbarItem (data) {
     item.setAttribute('data-url', data.url)
 
     item.addEventListener('click', function (e) {
-      openURLFromsearchbar(e, data.url)
+      openURLFromSearchbar(data.url, e)
     })
   }
 
@@ -221,6 +209,10 @@ function createSearchbarItem (data) {
         }, 200)
       }
     })
+  }
+
+  if (data.click) {
+    item.addEventListener('click', data.click)
   }
 
   return item

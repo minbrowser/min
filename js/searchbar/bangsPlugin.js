@@ -10,6 +10,7 @@ function registerCustomBang (data) {
     snippet: data.snippet,
     score: data.score || 500000, // half of the default score
     icon: data.icon || 'fa-terminal',
+    showSuggestions: data.showSuggestions,
     fn: data.fn,
     isCustom: true,
     isAction: data.isAction || false
@@ -20,6 +21,13 @@ function searchCustomBangs (text) {
   return customBangs.filter(function (item) {
     return item.phrase.indexOf(text) === 0
   })
+}
+
+function getCustomBang (text) {
+  var bang = text.split(' ')[0]
+  return customBangs.filter(function (item) {
+    return item.phrase === bang
+  })[0]
 }
 
 // format is {bang: count}
@@ -85,7 +93,7 @@ function showBangSearchResults (results, input, event, container) {
 
       // if the item is an action, clicking on it should immediately trigger it instead of prompting for additional text
       if (result.isAction && result.fn) {
-        openURLFromsearchbar(e, result.phrase)
+        openURLFromSearchbar(result.phrase, e)
         return
       }
 
@@ -95,6 +103,11 @@ function showBangSearchResults (results, input, event, container) {
 
         input.value = result.phrase + ' '
         input.focus()
+
+        // show search suggestions for custom bangs
+        if (result.showSuggestions) {
+          result.showSuggestions('', input, event, container)
+        }
       }, 66)
     })
 
@@ -103,6 +116,20 @@ function showBangSearchResults (results, input, event, container) {
 }
 
 function getBangSearchResults (text, input, event, container) {
+
+  // if there is a space in the text, show bang search suggestions (only supported for custom bangs)
+
+  if (text.indexOf(' ') !== -1) {
+    var bang = getCustomBang(text)
+
+    if (bang && bang.showSuggestions) {
+      bang.showSuggestions(text.replace(bang.phrase, '').trimLeft(), input, event, container)
+    }
+
+    return
+  }
+
+  // otherwise search for bangs
 
   // get results from DuckDuckGo if it is a search engine, and the current tab is not a private tab
   if (currentSearchEngine.name === 'DuckDuckGo' && !tabs.get(tabs.getSelected()).private) {
@@ -125,7 +152,7 @@ function getBangSearchResults (text, input, event, container) {
 registerSearchbarPlugin('bangs', {
   index: 1,
   trigger: function (text) {
-    return !!text && text.indexOf('!') === 0 && text.indexOf(' ') === -1
+    return !!text && text.indexOf('!') === 0
   },
   showResults: debounce(getBangSearchResults, 100)
 })

@@ -203,7 +203,7 @@ function createTabElement (data) {
 
   input.addEventListener('keypress', function (e) {
     if (e.keyCode === 13) { // return key pressed; update the url
-      openURLFromsearchbar(e, this.value)
+      openURLFromSearchbar(this.value, e)
 
       // focus the webview, so that autofocus inputs on the page work
       getWebview(tabs.getSelected()).focus()
