@@ -1,9 +1,9 @@
 function TabStack(tabStack) {
+  this.depth = 20
+
   if (tabStack) {
-    this.depth = tabStack.depth
     this.stack = tabStack.stack
   } else {
-    this.depth = 20
     this.stack = []
   }
 }
