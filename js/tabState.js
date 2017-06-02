@@ -1,5 +1,5 @@
 var tabState = {
-  tasks: [], // each task is {id, name, tabs: [], history: TabStack}
+  tasks: [], // each task is {id, name, tabs: [], tabHistory: TabStack}
   selectedTask: null
 }
 
@@ -53,7 +53,7 @@ var tabPrototype = {
   destroy: function (id) {
     for (var i = 0; i < this.length; i++) {
       if (this[i].id === id) {
-        window.currentTask.history.push(id)
+        window.currentTask.tabHistory.push(id)
         this.splice(i, 1)
         return i
       }
@@ -131,17 +131,10 @@ var tasks = {
       task = {}
     }
 
-    var tabStack
-    if (task.history) {
-      tabStack = Object.setPrototypeOf(task.history, TabStack.prototype)
-    } else {
-      tabStack = new TabStack()
-    }
-
     var newTask = {
       name: task.name || null,
       tabs: task.tabs || [],
-      history: tabStack,
+      tabHistory: new TabStack(task.tabHistory),
       id: task.id || String(getRandomId())
     }
 

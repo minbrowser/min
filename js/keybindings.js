@@ -158,7 +158,22 @@ settings.get('keyMap', function (keyMapSettings) {
       return
     }
 
-    window.currentTask.history.restore()
+    var restoredTab = window.currentTask.tabHistory.pop()
+
+    // The tab history stack is empty
+    if (!restoredTab) {
+      return
+    }
+
+    if (isEmpty(tabs.get())) {
+      destroyTab(tabs.getAtIndex(0).id)
+    }
+
+    addTab(tabs.add(restoredTab, tabs.getIndex(tabs.getSelected()) + 1), {
+      focus: false,
+      leaveEditMode: true,
+      enterEditMode: false,
+    })
   })
 
   defineShortcut('addToFavorites', function (e) {
