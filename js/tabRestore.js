@@ -11,11 +11,10 @@ function TabStack(tabStack) {
 TabStack.prototype.push = function (tabId) {
   var closedTab = tabs.get(tabId)
 
-  // Do not store private tabs, blank tabs, or preferences
+  // Do not store private tabs or blank tabs
   if (closedTab.private
     || closedTab.url === 'about:blank'
-    || closedTab.url === ''
-    || closedTab.url.match(/^file:\/\/\/.*\/min\/pages\/settings\/index.html$/)) {
+    || closedTab.url === '') {
     return
   }
 
