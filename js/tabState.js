@@ -1,5 +1,5 @@
 var tabState = {
-  tasks: [], // each task is {id, name, tabs: []}
+  tasks: [], // each task is {id, name, tabs: [], tabHistory: TabStack}
   selectedTask: null
 }
 
@@ -53,6 +53,7 @@ var tabPrototype = {
   destroy: function (id) {
     for (var i = 0; i < this.length; i++) {
       if (this[i].id === id) {
+        window.currentTask.tabHistory.push(id)
         this.splice(i, 1)
         return i
       }
@@ -133,6 +134,7 @@ var tasks = {
     var newTask = {
       name: task.name || null,
       tabs: task.tabs || [],
+      tabHistory: new TabStack(task.tabHistory),
       id: task.id || String(getRandomId())
     }
 

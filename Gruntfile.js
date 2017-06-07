@@ -48,6 +48,7 @@ module.exports = function (grunt) {
 						 "js/fileDownloadManager.js",
 						 "js/findinpage.js",
 							"js/sessionRestore.js",
+							"js/tabRestore.js",
 							"js/focusMode.js",
 							"js/util/theme.js",
 						 ],
