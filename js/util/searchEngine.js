@@ -38,6 +38,10 @@ var searchEngines = {
     name: 'Yandex',
     searchURL: 'https://yandex.com/search/?text=%s'
   },
+  Metager: {
+    name: 'Metager',
+    searchURL: 'https://metager.de/meta/meta.ger3?focus=web&eingabe=%s'
+  },
   none: {
     name: 'none',
     searchURL: 'http://%s'
