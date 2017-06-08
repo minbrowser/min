@@ -221,7 +221,9 @@ settings.get('keyMap', function (keyMapSettings) {
     taskOverlay.hide()
     leaveTabEditMode()
 
-    getWebview(tabs.getSelected()).focus()
+    if (document.activeElement !== getWebview(tabs.getSelected())) {
+      getWebview(tabs.getSelected()).focus()
+    }
   })
 
   defineShortcut('toggleReaderView', function () {
