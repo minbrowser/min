@@ -3,18 +3,45 @@ const fs = require('fs')
 const path = require('path')
 const app = electron.app // Module to control application life.
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
+const ipc = electron.ipcMain
 
 var userDataPath = app.getPath('userData')
 
 const browserPage = 'file://' + __dirname + '/index.html'
 
 var mainWindow = null
+var windowSettings = {}
+var mainMenu = null
 var isFocusMode = false
 var appIsReady = false
 
-var saveWindowBounds = function () {
+function loadWindowSettings (cb) {
+  fs.readFile(path.join(userDataPath, 'windowSettings.json'), 'utf-8', function (e, data) {
+    if (e || !data) { // there was an error, probably because the file doesn't exist
+      var size = electron.screen.getPrimaryDisplay().workAreaSize
+      var settings = {
+        x: 0,
+        y: 0,
+        width: size.width,
+        height: size.height,
+        systemTitlebar: false
+      }
+    } else {
+      var settings = JSON.parse(data)
+    }
+
+    cb(settings)
+  })
+}
+
+function saveWindowSettings () {
   if (mainWindow) {
-    fs.writeFile(path.join(userDataPath, 'windowBounds.json'), JSON.stringify(mainWindow.getBounds()))
+    var bounds = mainWindow.getBounds()
+    windowSettings.x = bounds.x
+    windowSettings.y = bounds.y
+    windowSettings.width = bounds.width
+    windowSettings.height = bounds.height
+    fs.writeFile(path.join(userDataPath, 'windowSettings.json'), JSON.stringify(windowSettings))
   }
 }
 
@@ -36,48 +63,40 @@ function openTabInWindow (url) {
 }
 
 function createWindow (cb) {
-  var savedBounds = fs.readFile(path.join(userDataPath, 'windowBounds.json'), 'utf-8', function (e, data) {
-    if (e || !data) { // there was an error, probably because the file doesn't exist
-      var size = electron.screen.getPrimaryDisplay().workAreaSize
-      var bounds = {
-        x: 0,
-        y: 0,
-        width: size.width,
-        height: size.height
-      }
-    } else {
-      var bounds = JSON.parse(data)
-    }
 
+  loadWindowSettings(function (settings) {
 
 // maximizes the window frame in windows 10
 // fixes https://github.com/minbrowser/min/issues/214
 // should be removed once https://github.com/electron/electron/issues/4045 is fixed
     if (process.platform === 'win32') {
-      if ((bounds.x === 0 && bounds.y === 0) || (bounds.x === -8 && bounds.y === -8)) {
+      if ((windowSettings.x === 0 && windowSettings.y === 0) || (windowSettings.x === -8 && windowSettings.y === -8)) {
         var screenSize = electron.screen.getPrimaryDisplay().workAreaSize
-        if ((screenSize.width === bounds.width || bounds.width - screenSize.width === 16) && (screenSize.height === bounds.height || bounds.height - screenSize.height === 16)) {
+        if ((screenSize.width === windowSettings.width || windowSettings.width - screenSize.width === 16) && (screenSize.height === windowSettings.height || windowSettings.height - screenSize.height === 16)) {
           var shouldMaximize = true
         }
       }
     }
 
-    createWindowWithBounds(bounds, shouldMaximize)
-
+    createWindowWithOptions(settings, shouldMaximize)
     if (cb) {
       cb()
     }
   })
 }
 
-function createWindowWithBounds (bounds, shouldMaximize) {
+function createWindowWithOptions (options, shouldMaximize) {
+
+  windowSettings = options
+
   mainWindow = new BrowserWindow({
-    width: bounds.width,
-    height: bounds.height,
-    x: bounds.x,
-    y: bounds.y,
+    width: options.width,
+    height: options.height,
+    x: options.x,
+    y: options.y,
     minWidth: 320,
     minHeight: 500,
+    frame: process.platform==='darwin'||options.systemTitlebar,
     titleBarStyle: 'hidden-inset',
     icon: __dirname + '/icons/icon256.png'
   })
@@ -91,7 +110,7 @@ function createWindowWithBounds (bounds, shouldMaximize) {
 
   // save the window size for the next launch of the app
   mainWindow.on('close', function () {
-    saveWindowBounds()
+    saveWindowSettings()
   })
 
   // Emitted when the window is closed.
@@ -170,12 +189,14 @@ app.on('ready', function () {
         })
       })
     }
+
+    // Open the DevTools.
+    // mainWindow.openDevTools();
+
+    // Wait until the window is created, before settings it's menu
+    createAppMenu()
   })
 
-  // Open the DevTools.
-  // mainWindow.openDevTools()
-
-  createAppMenu()
   createDockMenu()
 })
 
@@ -185,15 +206,36 @@ app.on('open-url', function (e, url) {
       url: url
     })
   } else {
-    app.on('ready', function () {
-      setTimeout(function () { // TODO replace this with an event that occurs when the browserWindow finishes loading
-        sendIPCToWindow(mainWindow, 'addTab', {
-          url: url
-        })
-      }, 750)
+    ipc.once('ready', function () {
+      sendIPCToWindow(mainWindow, 'addTab', {
+        url: url
+      })
     })
   }
 })
+
+ipc.on('ready', function () {
+  sendIPCToWindow(mainWindow, windowSettings.systemTitlebar?'showSystemTitlebar':'hideSystemTitlebar')
+})
+
+ipc.on('showMenu', function (event, data) {
+  if (mainMenu) {
+    mainMenu.popup(mainWindow, {
+      x: data.x,
+      y: data.y,
+      async: true
+    })
+  }
+})
+
+ipc.on('showSystemTitlebar', function () {
+  windowSettings.systemTitlebar = true
+})
+
+ipc.on('hideSystemTitlebar', function () {
+  windowSettings.systemTitlebar = false
+})
+
 
 /**
  * Emitted when the application is activated, which usually happens when clicks on the applications's dock icon
@@ -535,10 +577,12 @@ function createAppMenu () {
     })
   }
 
-  var menu = new Menu()
-
-  menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
+  mainMenu = Menu.buildFromTemplate(template)
+  if (process.platform === 'darwin') {
+    Menu.setApplicationMenu(mainMenu)
+  } else {
+    Menu.setApplicationMenu(null)
+  }
 }
 
 function createDockMenu () {

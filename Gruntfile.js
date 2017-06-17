@@ -18,7 +18,6 @@ module.exports = function (grunt) {
 						"js/util/defaultKeyMap.js",
 						"js/util/settings.js",
 						"js/util/searchEngine.js",
-						"js/menuBarVisibility.js",
 						 "js/tabState.js",
 						"js/util/urlParser.js",
 						"js/filteringRenderer.js",
@@ -43,6 +42,8 @@ module.exports = function (grunt) {
 						 "js/navbar/navbarTabs.js",
 							"js/taskOverlay/taskOverlay.js",
 							"js/taskOverlay/taskOverlayBuilder.js",
+							"js/navbar/menuButton.js",
+							"js/navbar/captionButtons.js",
 							"js/navbar/addTabButton.js",
 						 "js/keybindings.js",
 						 "js/fileDownloadManager.js",
@@ -50,7 +51,8 @@ module.exports = function (grunt) {
 							"js/sessionRestore.js",
 							"js/focusMode.js",
 							"js/util/theme.js",
-						 ],
+						"js/ready.js"
+				],
 				dest: 'dist/build.js'
 			},
 			webview: {

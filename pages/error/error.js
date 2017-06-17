@@ -87,7 +87,7 @@ if (err) {
   h1.innerHTML += 'An error occured'
 }
 
-if (err.secondaryAction) {
+if (err&&err.secondaryAction) {
   secondaryButton.hidden = false
   secondaryButton.textContent = err.secondaryAction.title
   secondaryButton.addEventListener('click', function () {

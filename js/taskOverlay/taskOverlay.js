@@ -1,10 +1,15 @@
 var taskContainer = document.getElementById('task-area')
 var taskSwitcherButton = document.getElementById('switch-task-button')
+var taskSwitcherExitButton = document.getElementById('switch-task-exit-button')
 var addTaskButton = document.getElementById('add-task')
 var taskOverlayNavbar = document.getElementById('task-overlay-navbar')
 
 taskSwitcherButton.addEventListener('click', function () {
-  taskOverlay.toggle()
+  taskOverlay.show()
+})
+
+taskSwitcherExitButton.addEventListener('click', function () {
+  taskOverlay.hide()
 })
 
 addTaskButton.addEventListener('click', function (e) {
@@ -36,7 +41,10 @@ var taskOverlay = {
     leaveTabEditMode()
 
     this.isShown = true
-    taskSwitcherButton.classList.add('active')
+    taskSwitcherExitButton.hidden = false
+    var rect = taskSwitcherButton.getBoundingClientRect()
+    taskSwitcherExitButton.style.left = rect.left+'px'
+    taskSwitcherExitButton.style.top = rect.top+'px'
 
     this.dragula.containers = []
     empty(taskContainer)
@@ -66,6 +74,7 @@ var taskOverlay = {
     if (this.isShown) {
       this.isShown = false
       this.overlayElement.hidden = true
+      taskSwitcherExitButton.hidden = true
 
       // if the current task has been deleted, switch to the most recent task
       if (!tasks.get(currentTask.id)) {

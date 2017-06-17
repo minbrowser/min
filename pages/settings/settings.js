@@ -2,6 +2,7 @@ var container = document.getElementById("privacy-settings-container");
 var trackerCheckbox = document.getElementById("checkbox-block-trackers");
 var banner = document.getElementById("restart-required-banner");
 var darkModeCheckbox = document.getElementById("checkbox-dark-mode");
+var systemTitlebarCheckbox = document.getElementById("checkbox-system-titlebar");
 var swipeNavigationCheckbox = document.getElementById("checkbox-swipe-navigation");
 
 function showRestartRequiredBanner() {
@@ -29,12 +30,24 @@ function createKeyMapListItem(action, keyMap) {
 	var li = document.createElement('li');
 	var label = document.createElement('label');
 	var input = document.createElement('input');
+	var text = (''+keyMap[action]).replace(/,/g,', ');
 	label.innerText = formatCamelCase(action);
 	label.htmlFor = action;
 
+	if (navigator.platform === 'MacIntel') {
+		text = text.replace( /\bmod\b/g, 'Command' );
+		text = text.replace( /\boption\b/g, 'Option' );
+
+	} else {
+		text = text.replace( /\bmod\b/g, 'Ctrl' );
+		text = text.replace( /\boption\b/g, 'Alt' );
+	}
+
+	text = text.replace(/\b([a-z])/g,function(x){ return x.toUpperCase() })
+
 	input.type = "text";
 	input.id = input.name = action;
-	input.value = keyMap[action];
+	input.value = text;
 	input.addEventListener('change', onKeyMapChange);
 
 	li.appendChild(label);
@@ -66,8 +79,20 @@ function onKeyMapChange(e) {
 
 function parseKeyInput(input) {
 	//input may be a single mapping or multiple mappings comma separated.
-	var parsed = input.split(',');
-	parsed = parsed.map(function (e) { return e.trim();});
+	var parsed = input.toLowerCase().split(',');
+	parsed = parsed.map(function (e) {
+		var result = e.trim();
+
+		if (navigator.platform === 'MacIntel') {
+			result = result.replace( /\bcommand\b/g, 'mod' );
+
+		} else {
+			result = result.replace( /\bctrl\b/g, 'mod' );
+			result = result.replace( /\balt\b/g, 'option' );
+		}
+
+		return result;
+	});
 	//Remove empty
 	parsed = parsed.filter(Boolean);
 	return parsed.length > 1 ? parsed : parsed[0];
@@ -154,22 +179,17 @@ settings.get('darkMode', function (value) {
 
 darkModeCheckbox.addEventListener("change", function (e) {
 	settings.set("darkMode", this.checked)
+});
+
+// System titlebar settings
+
+settings.get('systemTitlebar', function (value) {
+	systemTitlebarCheckbox.checked = value;
+});
+
+systemTitlebarCheckbox.addEventListener("change", function (e) {
+	settings.set("systemTitlebar", this.checked)
 	showRestartRequiredBanner()
-});
-
-// Swipe navigation settings
-
-settings.get("swipeNavigationEnabled", function (value) {
-    if (value === true || value === undefined) {
-        swipeNavigationCheckbox.checked = true
-    } else {
-        swipeNavigationCheckbox.checked = false;
-    }
-});
-
-swipeNavigationCheckbox.addEventListener("change", function (e) {
-    settings.set("swipeNavigationEnabled", this.checked);
-    showRestartRequiredBanner();
 });
 
 /* default search engine setting */

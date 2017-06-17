@@ -89,6 +89,8 @@ function rerenderTabstrip () {
   for (var i = 0; i < tabs.length; i++) {
     tabContainer.appendChild(createTabElement(tabs[i]))
   }
+
+  recalculateTabSizes()
 }
 
 function rerenderTabElement (tabId) {
@@ -158,6 +160,10 @@ function createTabElement (data) {
   closeTabButton.classList.add('tab-close-button')
   closeTabButton.classList.add('fa')
   closeTabButton.classList.add('fa-times-circle')
+
+  closeTabButton.addEventListener('mousedown', function (e) {
+    e.stopPropagation()
+  })
 
   closeTabButton.addEventListener('click', function (e) {
     closeTab(data.id)
@@ -309,6 +315,8 @@ function addTab (tabId, options) {
 
   tabContainer.insertBefore(tabEl, tabContainer.childNodes[index])
 
+  recalculateTabSizes()
+
   addWebview(tabId)
 
   // open in background - we don't want to enter edit mode or switch to tab
@@ -324,6 +332,11 @@ function addTab (tabId, options) {
   if (options.enterEditMode !== false) {
     enterEditMode(tabId)
   }
+}
+
+function recalculateTabSizes () {
+  var count = tabContainer.children.length;
+  tabContainer.style.flexBasis = count*300 + 'px';
 }
 
 // startup state is created in sessionRestore.js

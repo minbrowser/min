@@ -1,8 +1,6 @@
 var defaultKeyMap = {
   'addPrivateTab': 'shift+mod+p',
   'toggleTasks': 'shift+mod+e',
-  'goBack': 'mod+left',
-  'goForward': 'mod+right',
   'enterEditMode': ['mod+l', 'mod+k'],
   'completeSearchbar': 'mod+enter',
   'closeTab': 'mod+w',
@@ -13,9 +11,23 @@ var defaultKeyMap = {
   'switchToNextTab': ['option+mod+right', 'ctrl+tab', 'shift+mod+pagedown'],
   'switchToPreviousTab': ['option+mod+left', 'shift+ctrl+tab', 'shift+mod+pageup'],
   'closeAllTabs': 'shift+mod+n',
-  'reload': 'mod+r',
-  'showAndHideMenuBar': 'alt'
 }
+
+switch(navigator.platform){
+  case 'MacIntel':
+    defaultKeyMap.goBack = 'mod+left'
+    defaultKeyMap.goForward = 'mod+right'
+    defaultKeyMap.reload = 'mod+r'
+    break;
+
+  default:
+    defaultKeyMap.showMenu = ['option+f', 'option+e']
+    defaultKeyMap.goBack = 'option+left'
+    defaultKeyMap.goForward = 'option+right'
+    defaultKeyMap.reload = ['mod+r', 'f5']
+    break;
+}
+
 /* Utility function to override default mapping with user settings */
 function userKeyMap (settings) {
   var keyMapCopy = Object.assign({}, defaultKeyMap)

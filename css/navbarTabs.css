@@ -9,7 +9,7 @@
 	-webkit-user-select: none;
 	position: relative;
 	outline: none;
-	-webkit-app-region: drag;
+	cursor: default;
 	z-index: 2;
 }
 
@@ -33,6 +33,10 @@ body.notMac #navbar {
 	transition: 0.2s;
 }
 
+body:not(.menubar) #menu-button {
+	display: none;
+}
+
 /* dark colors don't need to be darkened as much for contrast */
 
 .dark-theme #navbar:before {
@@ -46,7 +50,7 @@ body.notMac #navbar {
 
 #navbar #tabs {
 	display: flex;
-	flex: 1;
+	flex: 1 1 300px;
 	/* https://github.com/w3c/csswg-drafts/issues/92 - don't make the scrollbar height affect the layout */
 	overflow: overlay;
 }
@@ -61,8 +65,10 @@ body.notMac #navbar {
 	overflow: hidden;
 	word-break: break-all;
 }
-.tab-item:not(.active):hover {
-	background-color: rgba(255, 255, 255, 0.1);
+.tab-item:not(.active):hover,
+body.notMac .tab-item:only-child:hover {
+	// background-color: rgba(255, 255, 255, 0.1);
+	background-color: rgba(196, 196, 196, 0.4);
 }
 
 /* icons */
@@ -192,10 +198,29 @@ body.is-edit-mode #overlay {
 /* buttons */
 
 .navbar-action-button {
-	padding: 1em;
+	padding: 0 0.75em;
+	transition: width .15s, padding .15s;
 }
-.navbar-action-button + .navbar-action-button {
-	padding-left: 0.5em;
+.navbar-action-button.fa {
+	font-size: 14px;
+}
+body.notMac.is-edit-mode #add-tab-button,
+body.notMac.is-edit-mode #switch-task-button {
+	width: 0;
+	min-width: 0;
+	padding: 0;
+	visibility: hidden;
+}
+body .navbar-action-button {
+	line-height: 36px;
+	min-width: 36px;
+	text-align: center;
+}
+.navbar-action-button:hover {
+	background-color: rgba(196, 196, 196, 0.4);
+}
+.navbar-action-button:active {
+	background-color: rgba(168, 168, 168, 0.5);
 }
 
 /* reader button */
@@ -228,7 +253,7 @@ body.is-edit-mode #overlay {
 body.is-focus-mode .tab-item:not(.active) {
 	display: none;
 }
-body.is-focus-mode .navbar-action-button {
+body.is-focus-mode .navbar-action-button:not(#menu-button) {
 	display: none;
 }
 
@@ -236,4 +261,11 @@ body.is-focus-mode .navbar-action-button {
 
 body.is-focus-mode .tab-item {
 	background: none !important;
+}
+
+@media (max-width: 600px) {
+	#add-tab-button,
+	#switch-task-button {
+		display: none;
+	}
 }

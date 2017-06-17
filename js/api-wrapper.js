@@ -31,6 +31,7 @@ function destroyTab (id) {
     // The tab does not have a coresponding .tab-item element.
     // This happens when destroying tabs from other task where this .tab-item is not present
     tabEl.parentNode.removeChild(tabEl)
+    recalculateTabSizes()
   }
 
   var t = tabs.destroy(id) // remove from state - returns the index of the destroyed tab

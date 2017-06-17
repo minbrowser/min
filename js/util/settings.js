@@ -38,6 +38,8 @@ var settings = {
       value: value
     }).then(function () {
       settings.list[key] = value
+
+      window.dispatchEvent(new Event('minUpdatedSettings'))
       if (cb) {
         cb()
       }
@@ -58,11 +60,12 @@ var settings = {
     }).then(function () {
       settings.loaded = true
 
-      settings.onLoadCallbacks.forEach(function (item) {
+      var callbacks = settings.onLoadCallbacks
+      settings.onLoadCallbacks = []
+
+      callbacks.forEach(function (item) {
         item.cb(settings.list[item.key])
       })
-
-      settings.onLoadCallbacks = []
     })
   },
   onLoad: function (cb) {
@@ -74,6 +77,11 @@ var settings = {
         cb: cb
       })
     }
+  },
+  clearCache: function () {
+    this.loaded = false
+    this.list = {}
+    this.load()
   }
 }
 

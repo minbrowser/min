@@ -87,6 +87,20 @@ bindWebviewIPC('goForward', function () {
   })
 })
 
+bindWebviewIPC('updatedSettings', function () {
+  settings.clearCache()
+
+  darkModeUpdate()
+
+  settings.get('systemTitlebar', function (value) {
+    if (value) {
+      ipc.send('showSystemTitlebar')
+    }else{
+      ipc.send('hideSystemTitlebar')
+    }
+  })
+})
+
 // set the permissionRequestHandler for non-private tabs
 
 remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler)

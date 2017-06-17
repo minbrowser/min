@@ -18,11 +18,28 @@ ipc.on('leave-full-screen', function () {
   document.body.classList.remove('fullscreen')
 })
 
-window.addEventListener('load', function (e) {
-  if (navigator.platform !== 'MacIntel') {
-    document.body.classList.add('notMac')
-  }
+ipc.on('showSystemTitlebar', function () {
+  document.body.classList.remove('captionButtons')
 })
+
+ipc.on('hideSystemTitlebar', function () {
+  document.body.classList.add('captionButtons')
+})
+
+if (navigator.platform !== 'MacIntel') {
+  document.body.classList.add('notMac', 'menubar')
+}
+switch (process.platform) {
+  case 'darwin':
+    document.body.classList.add('mac')
+    break;
+  case 'win32':
+    document.body.classList.add('windows')
+    break;
+  case 'linux':
+    document.body.classList.add('linux')
+    break;
+}
 
 // work around https://github.com/electron/electron/issues/5900
 
