@@ -192,6 +192,21 @@ systemTitlebarCheckbox.addEventListener("change", function (e) {
 	showRestartRequiredBanner()
 });
 
+// Swipe navigation settings
+
+settings.get("swipeNavigationEnabled", function (value) {
+	if (value === true || value === undefined) {
+		swipeNavigationCheckbox.checked = true
+	} else {
+		swipeNavigationCheckbox.checked = false;
+	}
+});
+
+swipeNavigationCheckbox.addEventListener("change", function (e) {
+	settings.set("swipeNavigationEnabled", this.checked);
+	showRestartRequiredBanner();
+});
+
 /* default search engine setting */
 
 var searchEngineDropdown = document.getElementById("default-search-engine");
