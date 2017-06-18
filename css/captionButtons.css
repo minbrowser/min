@@ -38,7 +38,8 @@ body:not(.windows) .titlebar-windows {
 body:not(.captionButtons) .caption-drag {
 	display: none;
 }
-.is-edit-mode .caption-drag {
+body.is-edit-mode .caption-drag,
+body.find-in-page .caption-drag {
 	min-width: 0;
 	flex: 0;
 }

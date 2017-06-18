@@ -1,9 +1,9 @@
 #findinpage-bar {
-	width: 100%;
 	display: flex;
 	position: absolute;
 	top: 0;
 	left: 0;
+	right: 0;
 	align-items: center;
 	padding-left: 80px;
 	padding-right: 0.75em;
@@ -13,6 +13,15 @@
 body.fullscreen #findinpage-bar,
 body.notMac #findinpage-bar {
 	padding-left: 0.5em;
+}
+body.menubar #findinpage-bar {
+	left: 36px;
+}
+body.windows #findinpage-bar {
+	right: 138px;
+}
+body.linux #findinpage-bar {
+	right: 125px;
 }
 #findinpage-bar #findinpage-input {
 	flex: 1;

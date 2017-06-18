@@ -9,6 +9,7 @@ var findinpage = {
   start: function (options) {
     findinpage.activeWebview = getWebview(tabs.getSelected())
 
+    document.body.classList.add('find-in-page')
     findinpage.counter.textContent = ''
     findinpage.container.hidden = false
     findinpage.input.focus()
@@ -19,6 +20,7 @@ var findinpage = {
     }
   },
   end: function (options) {
+    document.body.classList.remove('find-in-page')
     findinpage.container.hidden = true
 
     if (findinpage.activeWebview) {
