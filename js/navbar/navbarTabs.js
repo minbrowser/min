@@ -161,10 +161,6 @@ function createTabElement (data) {
   closeTabButton.classList.add('fa')
   closeTabButton.classList.add('fa-times-circle')
 
-  closeTabButton.addEventListener('mousedown', function (e) {
-    e.stopPropagation()
-  })
-
   closeTabButton.addEventListener('click', function (e) {
     closeTab(data.id)
 
