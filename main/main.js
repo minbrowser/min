@@ -282,6 +282,14 @@ function createAppMenu () {
           }
         },
         {
+          label: 'Close Tab',
+          accelerator: 'CmdOrCtrl+W',
+          click: function (item, window) {
+            sendIPCToWindow(window, 'closeTab')
+          }
+        },
+
+        {
           type: 'separator'
         },
         {

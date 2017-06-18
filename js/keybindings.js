@@ -86,6 +86,10 @@ function addPrivateTab () {
 
 ipc.on('addPrivateTab', addPrivateTab)
 
+ipc.on('closeTab', function () {
+  closeTab(tabs.getSelected())
+})
+
 function addTask () {
   /* new tasks can't be created in focus mode */
   if (isFocusMode) {
@@ -149,16 +153,6 @@ settings.get('keyMap', function (keyMapSettings) {
 
   defineShortcut('enterEditMode', function (e) {
     enterEditMode(tabs.getSelected())
-    return false
-  })
-
-  defineShortcut('closeTab', function (e) {
-    // prevent mod+w from closing the window
-    e.preventDefault()
-    e.stopImmediatePropagation()
-
-    closeTab(tabs.getSelected())
-
     return false
   })
 
