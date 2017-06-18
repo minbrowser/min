@@ -10,32 +10,31 @@ var captionRestore =
 var captionClose =
   document.querySelector('body.windows .titlebar-windows .caption-close, body.linux .titlebar-linux .caption-close')
 
-
-captionMinimise.addEventListener('click', function (e) {
-  remote.getCurrentWindow().minimize()
-})
-
-captionMaximise.addEventListener('click', function (e) {
-  remote.getCurrentWindow().maximize()
-})
-
-captionRestore.addEventListener('click', function (e) {
-  if (browserWindow.isFullScreen()) {
-    remote.getCurrentWindow().setFullScreen(false)
-  } else {
-    remote.getCurrentWindow().restore()
-  }
-})
-
-captionClose.addEventListener('click', function (e) {
-  remote.getCurrentWindow().close()
-})
-
 {
   var browserWindow = remote.getCurrentWindow()
   switch(process.platform){
     case 'win32':
     case 'linux':
+      captionMinimise.addEventListener('click', function (e) {
+        remote.getCurrentWindow().minimize()
+      })
+
+      captionMaximise.addEventListener('click', function (e) {
+        remote.getCurrentWindow().maximize()
+      })
+
+      captionRestore.addEventListener('click', function (e) {
+        if (browserWindow.isFullScreen()) {
+          remote.getCurrentWindow().setFullScreen(false)
+        } else {
+          remote.getCurrentWindow().restore()
+        }
+      })
+
+      captionClose.addEventListener('click', function (e) {
+        remote.getCurrentWindow().close()
+      })
+
       if (browserWindow.isMaximized()||browserWindow.isFullScreen()) {
         captionMaximise.hidden = true
         captionRestore.hidden = false
