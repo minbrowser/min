@@ -3,6 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const app = electron.app // Module to control application life.
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
+const globalShortcut = electron.globalShortcut
 const ipc = electron.ipcMain
 
 var userDataPath = app.getPath('userData')
@@ -581,7 +582,18 @@ function createAppMenu () {
   if (process.platform === 'darwin') {
     Menu.setApplicationMenu(mainMenu)
   } else {
+    installMenuShortcuts(mainMenu)
     Menu.setApplicationMenu(null)
+  }
+}
+
+function installMenuShortcuts (menu) {
+  if (menu.items) for (var item of menu.items) {
+    globalShortcut.register(item.accelerator, item.click)
+
+    if (item.submenu) for(var submenuItem of item.submenu.items){
+      installMenuShortcuts(submenuItem.menu)
+    }
   }
 }
 
