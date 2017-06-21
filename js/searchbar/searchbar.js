@@ -31,14 +31,12 @@ function openURLFromSearchbar (url, event) {
 
   // if the url is a !bang search
   if (url.indexOf('!') === 0) {
-    var selectedBang = url.split(' ')[0]
-
     // get the matching custom !bang
-    var bang = getCustomBang(selectedBang)
+    var bang = getCustomBang(url)
 
     if (bang) {
       leaveTabEditMode()
-      bang.fn(url.replace(selectedBang, '').trimLeft())
+      bang.fn(url.replace(bang.phrase, '').trimLeft())
       // don't open the URL
       return
     }
