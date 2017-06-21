@@ -191,7 +191,10 @@ registerCustomBang({
         resultCount = 100
       }
 
-      results.slice(0, resultCount).forEach(function (result) {
+      results.slice(0, resultCount).sort(function (a, b) {
+        // order by last visit
+        return b.lastVisit - a.lastVisit
+      }).forEach(function (result) {
         container.appendChild(createSearchbarItem({
           title: result.title,
           icon: 'fa-star',
