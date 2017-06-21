@@ -10,8 +10,10 @@ var captionRestore =
 var captionClose =
   document.querySelector('body.windows .titlebar-windows .caption-close, body.linux .titlebar-linux .caption-close')
 
+var windowIsMaximised = false
+var windowIsFullscreen = false
+
 {
-  var browserWindow = remote.getCurrentWindow()
   switch(process.platform){
     case 'win32':
     case 'linux':
@@ -24,7 +26,7 @@ var captionClose =
       })
 
       captionRestore.addEventListener('click', function (e) {
-        if (browserWindow.isFullScreen()) {
+        if (windowIsFullscreen) {
           remote.getCurrentWindow().setFullScreen(false)
         } else {
           remote.getCurrentWindow().restore()
@@ -35,7 +37,7 @@ var captionClose =
         remote.getCurrentWindow().close()
       })
 
-      if (browserWindow.isMaximized()||browserWindow.isFullScreen()) {
+      if (windowIsMaximised||windowIsFullscreen) {
         captionMaximise.hidden = true
         captionRestore.hidden = false
       } else {
@@ -43,20 +45,24 @@ var captionClose =
         captionRestore.hidden = true
       }
 
-      browserWindow.on('maximize', function (e) {
+      ipc.on('maximize', function (e) {
+        windowIsMaximised = true
         captionMaximise.hidden = true
         captionRestore.hidden = false
       })
-      browserWindow.on('unmaximize', function (e) {
+      ipc.on('unmaximize', function (e) {
+        windowIsMaximised = false
         captionMaximise.hidden = false
         captionRestore.hidden = true
       })
-      browserWindow.on('enter-full-screen', function (e) {
+      ipc.on('enter-full-screen', function (e) {
+        windowIsFullscreen = true
         captionMaximise.hidden = true
         captionRestore.hidden = false
       })
-      browserWindow.on('leave-full-screen', function (e) {
-        if (browserWindow.isMaximized()) {
+      ipc.on('leave-full-screen', function (e) {
+        windowIsFullscreen = false
+        if (windowIsMaximised) {
           captionMaximise.hidden = true
           captionRestore.hidden = false
         } else {
@@ -64,6 +70,7 @@ var captionClose =
           captionRestore.hidden = true
         }
       })
+
       break;
   }
 }

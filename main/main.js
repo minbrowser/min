@@ -138,6 +138,18 @@ function createWindowWithOptions (options, shouldMaximize) {
     return true
   })
 
+  mainWindow.on('minimize', function () {
+    sendIPCToWindow(mainWindow, 'minimize')
+  })
+
+  mainWindow.on('maximize', function () {
+    sendIPCToWindow(mainWindow, 'maximize')
+  })
+  
+  mainWindow.on('unmaximize', function () {
+    sendIPCToWindow(mainWindow, 'unmaximize')
+  })
+
   mainWindow.on('enter-full-screen', function () {
     sendIPCToWindow(mainWindow, 'enter-full-screen')
   })
@@ -217,6 +229,12 @@ app.on('open-url', function (e, url) {
 
 ipc.on('ready', function () {
   sendIPCToWindow(mainWindow, windowSettings.systemTitlebar?'showSystemTitlebar':'hideSystemTitlebar')
+  if (mainWindow.isFullScreen()) {
+    sendIPCToWindow(mainWindow, 'enter-full-screen')
+  }
+  if (mainWindow.isMaximized()) {
+    sendIPCToWindow(mainWindow, 'maximize')
+  }
 })
 
 ipc.on('showMenu', function (event, data) {
