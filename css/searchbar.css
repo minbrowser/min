@@ -10,7 +10,7 @@
 	padding-right: 82px;
 	/* align with window controls */
 	-webkit-user-select: none;
-	max-height: calc(100% - 75px);
+	max-height: calc(100% - 125px);
 	overflow-y: auto;
 	will-change: display;
 }
