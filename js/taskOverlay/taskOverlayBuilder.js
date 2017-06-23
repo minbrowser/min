@@ -6,7 +6,7 @@ function addTaskFromOverlay () {
   addTab()
 }
 
-function removeTaskFromOverlay (tabId, task) {
+function removeTabFromOverlay (tabId, task) {
   task.tabs.destroy(tabId)
   destroyWebview(tabId)
 
@@ -96,7 +96,7 @@ var TaskOverlayBuilder = {
           secondaryText: urlParser.removeProtocol(tab.url),
           classList: ['task-tab-item'],
           delete: function () {
-            removeTaskFromOverlay(tab.id, task)
+            removeTabFromOverlay(tab.id, task)
           }
         })
 
@@ -140,7 +140,7 @@ var TaskOverlayBuilder = {
           var current_selected = getSelectedTask()
 
           if (tabId !== current_selected.tabs.getSelected()) {
-            removeTaskFromOverlay(tabId, tasks.get(taskId))
+            removeTabFromOverlay(tabId, tasks.get(taskId))
             taskTabElement.parentNode.removeChild(taskTabElement)
           }
 
