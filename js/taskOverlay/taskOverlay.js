@@ -94,8 +94,6 @@ var taskOverlay = {
 
         if (mostRecentTab) {
           switchToTab(mostRecentTab.id)
-        } else {
-          addTab()
         }
       }
 
