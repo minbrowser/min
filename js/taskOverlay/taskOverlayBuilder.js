@@ -139,12 +139,9 @@ var TaskOverlayBuilder = {
         closeTabButton.addEventListener('click', function (e) {
           var tabId = taskTabElement.getAttribute('data-tab')
           var taskId = taskTabElement.getAttribute('data-task')
-          var current_selected = getSelectedTask()
 
-          if (tabId !== current_selected.tabs.getSelected()) {
-            removeTabFromOverlay(tabId, tasks.get(taskId))
-            taskTabElement.parentNode.removeChild(taskTabElement)
-          }
+          removeTabFromOverlay(tabId, tasks.get(taskId))
+          taskTabElement.parentNode.removeChild(taskTabElement)
 
           // do not close taskOverlay
           // (the close button is part of the tab-element, so a click on it
