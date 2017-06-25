@@ -1,4 +1,4 @@
-function TabStack(tabStack) {
+function TabStack (tabStack) {
   this.depth = 20
 
   if (tabStack) {
@@ -8,9 +8,7 @@ function TabStack(tabStack) {
   }
 }
 
-TabStack.prototype.push = function (tabId) {
-  var closedTab = tabs.get(tabId)
-
+TabStack.prototype.push = function (closedTab) {
   // Do not store private tabs or blank tabs
   if (closedTab.private
     || closedTab.url === 'about:blank'

@@ -53,7 +53,7 @@ var tabPrototype = {
   destroy: function (id) {
     for (var i = 0; i < this.length; i++) {
       if (this[i].id === id) {
-        window.currentTask.tabHistory.push(id)
+        tasks.getTaskContainingTab(id).tabHistory.push(this[i])
         this.splice(i, 1)
         return i
       }
@@ -79,6 +79,14 @@ var tabPrototype = {
       }
     }
     return undefined
+  },
+  has: function (id) {
+    for (var i = 0; i < this.length; i++) {
+      if (this[i].id === id) {
+        return true
+      }
+    }
+    return false
   },
   getIndex: function (id) {
     for (var i = 0; i < this.length; i++) {
@@ -159,6 +167,14 @@ var tasks = {
 
     for (var i = 0; i < tabState.tasks.length; i++) {
       if (tabState.tasks[i].id === id) {
+        return tabState.tasks[i]
+      }
+    }
+    return null
+  },
+  getTaskContainingTab: function (tabId) {
+    for (var i = 0; i < tabState.tasks.length; i++) {
+      if (tabState.tasks[i].tabs.has(tabId)) {
         return tabState.tasks[i]
       }
     }
