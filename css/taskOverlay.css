@@ -47,27 +47,52 @@
 .task-tab-item {
     position: relative;
 }
-.task-container button.closeTab {
+
+/* close tab button */
+
+.task-tab-item button.closeTab {
     position: absolute;
-    width: 1.5em;
-    height: 1.5em;
-    left: -1em;
-    top: calc(0.55em - 1px); /* searchbar styles padding-top */
-    bottom:0;
-    display: none;
-    background-color: #888;
-    color: white;
+    width: 2em;
+    height: 2em;
+    left: -2.1em;
+    top: calc(0.16em + 1px); /* searchbar styles padding-top */
+    bottom :0;
     border: none;
-    border-radius: .75em;
+    border-radius: 50%;
     outline: none;
     cursor: pointer;
-    opacity: 0.3;
+    opacity: 0;
+    background: transparent;
+	transition: 0.05s;
+	color: currentColor;
 }
 .task-tab-item:hover button.closeTab {
-    display: block;
+    opacity: 0.5;
+}
+.dark-mode .task-tab-item:hover button.closeTab {
+	opacity: 0.7;
 }
 .task-tab-item button.closeTab:hover {
     opacity: 1;
+    background: rgba(0, 0, 0, 0.05);
+}
+.dark-mode .task-tab-item button.closeTab:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.15);
+}
+.task-tab-item button.closeTab:active {
+    background: rgba(0, 0, 0, 0.175);
+}
+.dark-mode .task-tab-item button.closeTab:active {
+    background: rgba(0, 0, 0, 0.35);
+}
+.task-tab-item button.closeTab > i {
+    margin-left: -1px;
+    margin-right: 0;
+    padding: 0;
+    opacity: 1;
+    vertical-align: baseline;
+    font-size: 1em;
 }
 
 /* inputs */
