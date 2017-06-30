@@ -268,6 +268,50 @@ settings.get('keyMap', function (keyMapSettings) {
     }
   })
 
+  var taskSwitchTimeout = null
+
+  defineShortcut('switchToNextTask', function (d) {
+    taskOverlay.show()
+
+    var currentTaskIdx = tasks.get().map(function (task) {
+      return task.id
+    }).indexOf(currentTask.id)
+
+    if (tasks.get()[currentTaskIdx + 1]) {
+      switchToTask(tasks.get()[currentTaskIdx + 1].id)
+    } else {
+      switchToTask(tasks.get()[0].id)
+    }
+
+    taskOverlay.show()
+
+    clearInterval(taskSwitchTimeout)
+    taskSwitchTimeout = setTimeout(function () {
+      taskOverlay.hide()
+    }, 500)
+  })
+
+  defineShortcut('switchToPreviousTask', function (d) {
+    taskOverlay.show()
+
+    var currentTaskIdx = tasks.get().map(function (task) {
+      return task.id
+    }).indexOf(currentTask.id)
+
+    if (tasks.get()[currentTaskIdx - 1]) {
+      switchToTask(tasks.get()[currentTaskIdx - 1].id)
+    } else {
+      switchToTask(tasks.get()[tasks.get().length - 1].id)
+    }
+
+    taskOverlay.show()
+
+    clearInterval(taskSwitchTimeout)
+    taskSwitchTimeout = setTimeout(function () {
+      taskOverlay.hide()
+    }, 500)
+  })
+
   defineShortcut('closeAllTabs', function (d) { // destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
     var tset = tabs.get()
     for (var i = 0; i < tset.length; i++) {
