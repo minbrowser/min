@@ -181,14 +181,14 @@ module.exports = function (grunt) {
 				options: {
 					arch: 'i386'
 				},
-				src: 'dist/app/Min-linux-ia32',
+				src: 'dist/app/min-linux-ia32',
 				dest: 'dist/app/linux'
 			},
 			linux64: {
 				options: {
 					arch: 'amd64'
 				},
-				src: 'dist/app/Min-linux-x64',
+				src: 'dist/app/min-linux-x64',
 				dest: 'dist/app/linux'
 			}
 		}
