@@ -126,6 +126,17 @@ var tabPrototype = {
     this.sort(function (a, b) {
       return newOrder.indexOf(a.id) - newOrder.indexOf(b.id)
     })
+  },
+  isEmpty: function () {
+    if (!this || this.length === 0) {
+      return true
+    }
+
+    if (this.length === 1 && (!this[0].url || this[0].url === 'about:blank')) {
+      return true
+    }
+
+    return false
   }
 }
 
@@ -236,16 +247,4 @@ var tasks = {
 
 function getSelectedTask () {
   return tasks.get(tabState.selectedTask)
-}
-
-function isEmpty (tabList) {
-  if (!tabList || tabList.length === 0) {
-    return true
-  }
-
-  if (tabList.length === 1 && (!tabList[0].url || tabList[0].url === 'about:blank')) {
-    return true
-  }
-
-  return false
 }

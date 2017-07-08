@@ -71,7 +71,7 @@ function addPrivateTab () {
     return
   }
 
-  if (isEmpty(tabs.get())) {
+  if (tabs.isEmpty()) {
     destroyTab(tabs.getAtIndex(0).id)
   }
 
@@ -171,7 +171,7 @@ settings.get('keyMap', function (keyMapSettings) {
       return
     }
 
-    if (isEmpty(tabs.get())) {
+    if (tabs.isEmpty()) {
       destroyTab(tabs.getAtIndex(0).id)
     }
 
