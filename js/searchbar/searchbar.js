@@ -1,7 +1,6 @@
 // common regex's
 
 var trailingSlashRegex = /\/$/g
-var plusRegex = /\+/g
 
 function removeTags (text) {
   return text.replace(/<.*?>/g, '')

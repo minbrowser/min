@@ -244,7 +244,3 @@ var tasks = {
     return lastActivity
   }
 }
-
-function getSelectedTask () {
-  return tasks.get(tabState.selectedTask)
-}

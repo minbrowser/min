@@ -33,7 +33,7 @@ function destroyTab (id) {
     tabEl.parentNode.removeChild(tabEl)
   }
 
-  var t = tabs.destroy(id) // remove from state - returns the index of the destroyed tab
+  tabs.destroy(id) // remove from state - returns the index of the destroyed tab
   destroyWebview(id) // remove the webview
 }
 
