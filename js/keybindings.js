@@ -35,14 +35,19 @@ ipc.on('addTab', function (e, data) {
     return
   }
 
-  var newIndex = tabs.getIndex(tabs.getSelected()) + 1
-  var newTab = tabs.add({
-    url: data.url || ''
-  }, newIndex)
+  // if opening a URL (instead of adding an empty tab), and only an empty tab is open, navigate the current tab rather than creating another one
+  if (tabs.isEmpty() && data.url) {
+    navigate(tabs.getSelected(), data.url)
+  } else {
+    var newIndex = tabs.getIndex(tabs.getSelected()) + 1
+    var newTab = tabs.add({
+      url: data.url || ''
+    }, newIndex)
 
-  addTab(newTab, {
-    enterEditMode: !data.url // only enter edit mode if the new tab is about:blank
-  })
+    addTab(newTab, {
+      enterEditMode: !data.url // only enter edit mode if the new tab is about:blank
+    })
+  }
 })
 
 ipc.on('saveCurrentPage', function () {
