@@ -112,7 +112,7 @@ function createWindowWithBounds (bounds, shouldMaximize) {
         url: itemURL,
         webContentsId: webContents.getId(),
         event: event,
-        item: item, // as of electron 0.35.1, this is an empty object
+        item: item // as of electron 0.35.1, this is an empty object
       })
     }
     return true
@@ -201,7 +201,7 @@ app.on('open-url', function (e, url) {
  *
  * Opens a new tab when all tabs are closed, and min is still open by clicking on the application dock icon
  */
-app.on('activate', function ( /* e, hasVisibleWindows */) {
+app.on('activate', function (/* e, hasVisibleWindows */) {
   if (!mainWindow && appIsReady) { // sometimes, the event will be triggered before the app is ready, and creating new windows will fail
     createWindow()
   }
@@ -313,21 +313,21 @@ function createAppMenu () {
       label: 'View',
       submenu: [
         {
-          label: 'Zoom in',
+          label: 'Zoom In',
           accelerator: 'CmdOrCtrl+=',
           click: function (item, window) {
             sendIPCToWindow(window, 'zoomIn')
           }
         },
         {
-          label: 'Zoom out',
+          label: 'Zoom Out',
           accelerator: 'CmdOrCtrl+-',
           click: function (item, window) {
             sendIPCToWindow(window, 'zoomOut')
           }
         },
         {
-          label: 'Actual size',
+          label: 'Actual Size',
           accelerator: 'CmdOrCtrl+0',
           click: function (item, window) {
             sendIPCToWindow(window, 'zoomReset')
@@ -347,7 +347,7 @@ function createAppMenu () {
           role: 'togglefullscreen'
         },
         {
-          label: 'Focus mode',
+          label: 'Focus Mode',
           accelerator: undefined,
           type: 'checkbox',
           checked: false,
@@ -383,7 +383,7 @@ function createAppMenu () {
           }
         },
         {
-          label: 'Inspect browser',
+          label: 'Inspect Browser',
           click: function (item, focusedWindow) {
             if (focusedWindow) focusedWindow.toggleDevTools()
           }
@@ -392,7 +392,7 @@ function createAppMenu () {
           type: 'separator'
         },
         {
-          label: 'Inspect page',
+          label: 'Inspect Page',
           accelerator: (function () {
             if (process.platform == 'darwin')
               return 'Cmd+Alt+I'
