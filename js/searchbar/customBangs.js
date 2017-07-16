@@ -184,14 +184,7 @@ registerCustomBang({
     bookmarks.searchPlaces(text, function (results) {
       empty(container)
 
-      var resultCount = 4
-
-      // show a list of all bookmarks when no text is entered
-      if (text == '') {
-        resultCount = 100
-      }
-
-      results.slice(0, resultCount).sort(function (a, b) {
+      results.sort(function (a, b) {
         // order by last visit
         return b.lastVisit - a.lastVisit
       }).forEach(function (result) {
