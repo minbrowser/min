@@ -9,6 +9,11 @@
 	position: absolute;
 	background: #fff;
 }
+/* new tabs should show as black when dark mode is enabled */
+
+.dark-mode #webviews webview:not([src]) {
+	background: rgb(30, 33, 39);
+}
 #webviews webview.hidden:not(.loading) {
 	display: flex !important;
 	visibility: hidden;

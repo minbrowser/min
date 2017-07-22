@@ -180,6 +180,9 @@ body.is-edit-mode #overlay {
 	z-index: 1;
 	pointer-events: none;
 }
+body.dark-mode #overlay {
+	background: rgba(0, 0, 0, 0.4);
+}
 /* hide the lock icon unless its the current tab */
 
 .tab-item:not(.active) .icon-tab-not-secure {

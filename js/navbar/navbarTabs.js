@@ -288,21 +288,6 @@ function addTab (tabId, options) {
   tabId = tabId || tabs.add()
 
   var tab = tabs.get(tabId)
-
-  // use the correct new tab colors
-
-  if (tab.private && !tab.backgroundColor) {
-    tabs.update(tabId, {
-      backgroundColor: defaultColors.private[0],
-      foregroundColor: defaultColors.private[1]
-    })
-  } else if (!tab.backgroundColor) {
-    tabs.update(tabId, {
-      backgroundColor: defaultColors.regular[0],
-      foregroundColor: defaultColors.regular[1]
-    })
-  }
-
   var index = tabs.getIndex(tabId)
 
   var tabEl = createTabElement(tab)

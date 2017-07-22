@@ -114,8 +114,7 @@ function switchToTab (id, options) {
     getWebview(id).focus()
   }
 
-  var tabData = tabs.get(id)
-  setColor(tabData.backgroundColor, tabData.foregroundColor)
+  updateColorPalette()
 
   sessionRestore.save()
 
