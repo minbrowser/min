@@ -18,7 +18,7 @@ function onSwipeGestureFinish () {
 
   // swipe to the left to go forward
   if (horizontalMouseMove - beginningScrollRight > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
-    if (beginningScrollRight < 10 || horizontalMouseMove - beginningScrollRight > 800) {
+    if (beginningScrollRight < 10) {
       resetCounters()
       ipc.sendToHost('goForward')
     }
@@ -26,7 +26,7 @@ function onSwipeGestureFinish () {
 
   // swipe to the right to go backwards
   if (horizontalMouseMove + beginningScrollLeft < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
-    if (beginningScrollLeft < 10 || horizontalMouseMove + beginningScrollLeft < -800) {
+    if (beginningScrollLeft < 10) {
       resetCounters()
       ipc.sendToHost('goBack')
     }
