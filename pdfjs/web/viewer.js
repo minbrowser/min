@@ -6455,7 +6455,8 @@ var pdfjsWebLibs;
      }
      var fileOrigin = new URL(file, window.location.href).origin;
      if (fileOrigin !== viewerOrigin) {
-      throw new Error('file origin does not match viewer\'s');
+       //disabled because this doesn't work in Min
+      //throw new Error('file origin does not match viewer\'s');
      }
     } catch (e) {
      var message = e && e.message;
@@ -6485,7 +6486,9 @@ var pdfjsWebLibs;
     var file;
     var queryString = document.location.search.substring(1);
     var params = parseQueryString(queryString);
-    file = 'file' in params ? params.file : DEFAULT_URL;
+   // file = 'file' in params ? params.file : DEFAULT_URL;
+   //match other Min internal pages
+   file = 'url' in params ? params.url : DEFAULT_URL;
     validateFileURL(file);
     var waitForBeforeOpening = [];
     var appConfig = PDFViewerApplication.appConfig;
