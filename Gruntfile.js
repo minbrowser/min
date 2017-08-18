@@ -9,7 +9,7 @@ module.exports = function (grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		concat: {
 			options: {
-				separator: ';'
+				separator: '\n;'
 			},
 			browser: {
 				src: [
@@ -58,7 +58,6 @@ module.exports = function (grunt) {
 				src: [
 						"js/webview/default.js",
 						"js/webview/textExtractor.js",
-						"js/webview/contextMenu.js",
 						"js/webview/phishDetector.js",
 						"js/webview/readerDetector.js",
 						"js/webview/swipeEvents.js",

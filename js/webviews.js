@@ -10,10 +10,11 @@ var webviewIPC = []
 
 // this only affects newly created webviews, so all bindings should be done on startup
 
-function bindWebviewEvent (event, fn) {
+function bindWebviewEvent (event, fn, useWebContents) {
   webviewEvents.push({
     event: event,
-    fn: fn
+    fn: fn,
+    useWebContents: useWebContents
   })
 }
 
@@ -120,8 +121,14 @@ function getWebviewDom (options) {
 
   // webview events
 
-  webviewEvents.forEach(function (i) {
-    w.addEventListener(i.event, i.fn)
+  webviewEvents.forEach(function (ev) {
+    if (ev.useWebContents) { // some events (such as context-menu) are only available on the webContents rather than the webview element
+      w.addEventListener('did-attach', function () {
+        this.getWebContents().on(ev.event, ev.fn)
+      })
+    } else {
+      w.addEventListener(ev.event, ev.fn)
+    }
   })
 
   w.addEventListener('page-favicon-updated', function (e) {
@@ -204,8 +211,6 @@ function getWebviewDom (options) {
       })
     }
   })
-
-  w.addEventListener('contextmenu', webviewMenu.show)
 
   w.addEventListener('crashed', function (e) {
     var tabId = this.getAttribute('data-tab')
