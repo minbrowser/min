@@ -161,15 +161,20 @@ app.on('ready', function () {
   appIsReady = true
 
   createWindow(function () {
-    // if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
-
-    if (process.argv && process.argv[1] && process.argv[1].toLowerCase() !== __dirname.toLowerCase() && process.argv[1].indexOf('://') !== -1) {
-      mainWindow.webContents.on('did-finish-load', function () {
+    mainWindow.webContents.on('did-finish-load', function () {
+      // if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
+      if (process.argv && process.argv[1] && process.argv[1].toLowerCase() !== __dirname.toLowerCase() && process.argv[1].indexOf('://') !== -1) {
         sendIPCToWindow(mainWindow, 'addTab', {
           url: process.argv[1]
         })
-      })
-    }
+      } else if (global.URLToOpen) {
+        // if there is a previously set URL to open (probably from opening a link on macOS), open it
+        sendIPCToWindow(mainWindow, 'addTab', {
+          url: global.URLToOpen
+        })
+        global.URLToOpen = null
+      }
+    })
   })
 
   // Open the DevTools.
@@ -185,13 +190,7 @@ app.on('open-url', function (e, url) {
       url: url
     })
   } else {
-    app.on('ready', function () {
-      setTimeout(function () { // TODO replace this with an event that occurs when the browserWindow finishes loading
-        sendIPCToWindow(mainWindow, 'addTab', {
-          url: url
-        })
-      }, 750)
-    })
+    global.URLToOpen = url // this will be handled later in the createWindow callback
   }
 })
 
