@@ -3,6 +3,8 @@ const fs = require('fs')
 const path = require('path')
 const app = electron.app // Module to control application life.
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
+const CustomEventEmitter = require('events')
+const customEventEmitter = new CustomEventEmitter()
 
 var userDataPath = app.getPath('userData')
 
@@ -50,9 +52,9 @@ function createWindow (cb) {
     }
 
 
-// maximizes the window frame in windows 10
-// fixes https://github.com/minbrowser/min/issues/214
-// should be removed once https://github.com/electron/electron/issues/4045 is fixed
+    // maximizes the window frame in windows 10
+    // fixes https://github.com/minbrowser/min/issues/214
+    // should be removed once https://github.com/electron/electron/issues/4045 is fixed
     if (process.platform === 'win32') {
       if ((bounds.x === 0 && bounds.y === 0) || (bounds.x === -8 && bounds.y === -8)) {
         var screenSize = electron.screen.getPrimaryDisplay().workAreaSize
@@ -141,6 +143,10 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     }
   })
 
+  mainWindow.webContents.on('did-finish-load', function () {
+    customEventEmitter.emit('mainWindowReadyToShow')
+  })
+
   registerFiltering() // register filtering for the default session
 
   return mainWindow
@@ -186,11 +192,11 @@ app.on('open-url', function (e, url) {
     })
   } else {
     app.on('ready', function () {
-      setTimeout(function () { // TODO replace this with an event that occurs when the browserWindow finishes loading
+      customEventEmitter.on('mainWindowReadyToShow', function () {
         sendIPCToWindow(mainWindow, 'addTab', {
           url: url
         })
-      }, 750)
+      })
     })
   }
 })
@@ -512,9 +518,9 @@ function createAppMenu () {
     template[3].submenu.push({
       type: 'separator'
     }, {
-      label: 'Bring All to Front',
-      role: 'front'
-    })
+        label: 'Bring All to Front',
+        role: 'front'
+      })
   }
 
   // preferences item on linux and windows
