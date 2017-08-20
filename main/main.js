@@ -3,6 +3,8 @@ const fs = require('fs')
 const path = require('path')
 const app = electron.app // Module to control application life.
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
+const CustomEventEmitter = require('events')
+const customEventEmitter = new CustomEventEmitter()
 
 var userDataPath = app.getPath('userData')
 
@@ -140,6 +142,10 @@ function createWindowWithBounds (bounds, shouldMaximize) {
       e.preventDefault()
     }
   })
+  
+  mainWindow.once('ready-to-show', function() {
+    customEventEmitter.emit('mainWindowReadyToShow')
+  })
 
   registerFiltering() // register filtering for the default session
 
@@ -186,11 +192,11 @@ app.on('open-url', function (e, url) {
     })
   } else {
     app.on('ready', function () {
-      setTimeout(function () { // TODO replace this with an event that occurs when the browserWindow finishes loading
+      customEventEmitter.on('mainWindowReadyToShow', function() {
         sendIPCToWindow(mainWindow, 'addTab', {
           url: url
         })
-      }, 750)
+      })
     })
   }
 })
