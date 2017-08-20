@@ -52,9 +52,9 @@ function createWindow (cb) {
     }
 
 
-// maximizes the window frame in windows 10
-// fixes https://github.com/minbrowser/min/issues/214
-// should be removed once https://github.com/electron/electron/issues/4045 is fixed
+    // maximizes the window frame in windows 10
+    // fixes https://github.com/minbrowser/min/issues/214
+    // should be removed once https://github.com/electron/electron/issues/4045 is fixed
     if (process.platform === 'win32') {
       if ((bounds.x === 0 && bounds.y === 0) || (bounds.x === -8 && bounds.y === -8)) {
         var screenSize = electron.screen.getPrimaryDisplay().workAreaSize
@@ -142,8 +142,8 @@ function createWindowWithBounds (bounds, shouldMaximize) {
       e.preventDefault()
     }
   })
-  
-  mainWindow.once('ready-to-show', function() {
+
+  mainWindow.webContents.on('did-finish-load', function () {
     customEventEmitter.emit('mainWindowReadyToShow')
   })
 
@@ -192,7 +192,7 @@ app.on('open-url', function (e, url) {
     })
   } else {
     app.on('ready', function () {
-      customEventEmitter.on('mainWindowReadyToShow', function() {
+      customEventEmitter.on('mainWindowReadyToShow', function () {
         sendIPCToWindow(mainWindow, 'addTab', {
           url: url
         })
@@ -518,9 +518,9 @@ function createAppMenu () {
     template[3].submenu.push({
       type: 'separator'
     }, {
-      label: 'Bring All to Front',
-      role: 'front'
-    })
+        label: 'Bring All to Front',
+        role: 'front'
+      })
   }
 
   // preferences item on linux and windows
