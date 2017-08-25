@@ -27,13 +27,13 @@ function destroyTask (id) {
 // destroys the webview and tab element for a tab
 function destroyTab (id) {
   var tabEl = getTabElement(id)
-  if(tabEl) { 
+  if (tabEl) {
     // The tab does not have a coresponding .tab-item element.
     // This happens when destroying tabs from other task where this .tab-item is not present
     tabEl.parentNode.removeChild(tabEl)
   }
 
-  var t = tabs.destroy(id) // remove from state - returns the index of the destroyed tab
+  tabs.destroy(id) // remove from state - returns the index of the destroyed tab
   destroyWebview(id) // remove the webview
 }
 
@@ -98,6 +98,14 @@ function switchToTab (id, options) {
 
   leaveTabEditMode()
 
+  // set the tab's lastActivity to the current time
+
+  if (tabs.getSelected()) {
+    tabs.update(tabs.getSelected(), {
+      lastActivity: Date.now()
+    })
+  }
+
   tabs.setSelected(id)
   setActiveTabElement(id)
   switchToWebview(id)
@@ -106,19 +114,9 @@ function switchToTab (id, options) {
     getWebview(id).focus()
   }
 
-  var tabData = tabs.get(id)
-  setColor(tabData.backgroundColor, tabData.foregroundColor)
-
-  // we only want to mark the tab as active if someone actually interacts with it. If it is clicked on and then quickly clicked away from, it should still be marked as inactive
-
-  setTimeout(function () {
-    if (tabs.get(id) && tabs.getSelected() === id) {
-      tabs.update(id, {
-        lastActivity: Date.now()
-      })
-      tabActivity.refresh()
-    }
-  }, 2500)
+  updateColorPalette()
 
   sessionRestore.save()
+
+  tabActivity.refresh()
 }

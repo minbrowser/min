@@ -3,7 +3,7 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-size: 16px;
-	font-family: '.SFNSText-Regular', 'Helvetica Neue', 'Arial', sans-serif;
+	font-family: '.SFNSText-Regular', 'BlinkMacSystemFont', 'Helvetica Neue', 'Segoe UI', 'Arial', sans-serif;
 }
 [hidden] {
 	display: none !important;

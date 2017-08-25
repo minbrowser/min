@@ -2,6 +2,7 @@ var container = document.getElementById("privacy-settings-container");
 var trackerCheckbox = document.getElementById("checkbox-block-trackers");
 var banner = document.getElementById("restart-required-banner");
 var darkModeCheckbox = document.getElementById("checkbox-dark-mode");
+var swipeNavigationCheckbox = document.getElementById("checkbox-swipe-navigation");
 
 function showRestartRequiredBanner() {
 	banner.hidden = false;
@@ -154,6 +155,21 @@ settings.get('darkMode', function (value) {
 darkModeCheckbox.addEventListener("change", function (e) {
 	settings.set("darkMode", this.checked)
 	showRestartRequiredBanner()
+});
+
+// Swipe navigation settings
+
+settings.get("swipeNavigationEnabled", function (value) {
+    if (value === true || value === undefined) {
+        swipeNavigationCheckbox.checked = true
+    } else {
+        swipeNavigationCheckbox.checked = false;
+    }
+});
+
+swipeNavigationCheckbox.addEventListener("change", function (e) {
+    settings.set("swipeNavigationEnabled", this.checked);
+    showRestartRequiredBanner();
 });
 
 /* default search engine setting */

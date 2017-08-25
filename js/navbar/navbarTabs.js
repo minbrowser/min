@@ -189,7 +189,7 @@ function createTabElement (data) {
 
   input.addEventListener('keydown', function (e) {
     if (e.keyCode === 9 || e.keyCode === 40) { // if the tab or arrow down key was pressed
-      focussearchbarItem()
+      focusSearchbarItem()
       e.preventDefault()
     }
   })
@@ -203,7 +203,7 @@ function createTabElement (data) {
 
   input.addEventListener('keypress', function (e) {
     if (e.keyCode === 13) { // return key pressed; update the url
-      openURLFromsearchbar(e, this.value)
+      openURLFromSearchbar(this.value, e)
 
       // focus the webview, so that autofocus inputs on the page work
       getWebview(tabs.getSelected()).focus()
@@ -288,21 +288,6 @@ function addTab (tabId, options) {
   tabId = tabId || tabs.add()
 
   var tab = tabs.get(tabId)
-
-  // use the correct new tab colors
-
-  if (tab.private && !tab.backgroundColor) {
-    tabs.update(tabId, {
-      backgroundColor: defaultColors.private[0],
-      foregroundColor: defaultColors.private[1]
-    })
-  } else if (!tab.backgroundColor) {
-    tabs.update(tabId, {
-      backgroundColor: defaultColors.regular[0],
-      foregroundColor: defaultColors.regular[1]
-    })
-  }
-
   var index = tabs.getIndex(tabId)
 
   var tabEl = createTabElement(tab)

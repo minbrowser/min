@@ -6,9 +6,11 @@ function addTaskFromOverlay () {
   addTab()
 }
 
-function removeTaskFromOverlay (tabId, task) {
+function removeTabFromOverlay (tabId, task) {
   task.tabs.destroy(tabId)
   destroyWebview(tabId)
+
+  rerenderTabstrip()
 
   // if there are no tabs left, remove the task
   if (task.tabs.count() === 0) {
@@ -96,7 +98,7 @@ var TaskOverlayBuilder = {
           secondaryText: urlParser.removeProtocol(tab.url),
           classList: ['task-tab-item'],
           delete: function () {
-            removeTaskFromOverlay(tab.id, task)
+            removeTabFromOverlay(tab.id, task)
           }
         })
 
@@ -131,18 +133,15 @@ var TaskOverlayBuilder = {
 
       closeButton: function (taskTabElement) {
         var closeTabButton = document.createElement('button')
-        closeTabButton.innerHTML = '✕'
+        closeTabButton.innerHTML = '<i class="fa fa-close"/>'
         closeTabButton.className = 'closeTab'
 
         closeTabButton.addEventListener('click', function (e) {
           var tabId = taskTabElement.getAttribute('data-tab')
           var taskId = taskTabElement.getAttribute('data-task')
-          var current_selected = getSelectedTask()
 
-          if (tabId !== current_selected.tabs.getSelected()) {
-            removeTaskFromOverlay(tabId, tasks.get(taskId))
-            taskTabElement.parentNode.removeChild(taskTabElement)
-          }
+          removeTabFromOverlay(tabId, tasks.get(taskId))
+          taskTabElement.parentNode.removeChild(taskTabElement)
 
           // do not close taskOverlay
           // (the close button is part of the tab-element, so a click on it

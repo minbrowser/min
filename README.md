@@ -4,18 +4,18 @@
 
 Min is a smarter, faster web browser. It includes features such as:
 
-* Information from [DuckDuckGo](https://duckduckgo.com) in the searchbar.
+* Information from [DuckDuckGo](https://duckduckgo.com) in the search bar.
 * Built-in ad and tracker blocking
 * Fuzzy search
 * Full-text search for bookmarks
 * Reading list
 * Tabs improvements (tabs open to the right, and fade out when inactive).
 
-More information, and prebuilt binaries, are available [here](https://minbrowser.github.io/min/).
+More information, and prebuilt binaries are available [here](https://minbrowser.github.io/min/).
 
 ## Screenshots
 
-![The searchbar, showing information from DuckDuckGo](http://minbrowser.github.io/min/tour/img/searchbar_duckduckgo_answers.png)
+![The search bar, showing information from DuckDuckGo](http://minbrowser.github.io/min/tour/img/searchbar_duckduckgo_answers.png)
 
 ![The Tasks Overlay](http://minbrowser.github.io/min/tour/img/tasks.png)
 

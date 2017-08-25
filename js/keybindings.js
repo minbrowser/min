@@ -35,14 +35,19 @@ ipc.on('addTab', function (e, data) {
     return
   }
 
-  var newIndex = tabs.getIndex(tabs.getSelected()) + 1
-  var newTab = tabs.add({
-    url: data.url || ''
-  }, newIndex)
+  // if opening a URL (instead of adding an empty tab), and only an empty tab is open, navigate the current tab rather than creating another one
+  if (tabs.isEmpty() && data.url) {
+    navigate(tabs.getSelected(), data.url)
+  } else {
+    var newIndex = tabs.getIndex(tabs.getSelected()) + 1
+    var newTab = tabs.add({
+      url: data.url || ''
+    }, newIndex)
 
-  addTab(newTab, {
-    enterEditMode: !data.url // only enter edit mode if the new tab is about:blank
-  })
+    addTab(newTab, {
+      enterEditMode: !data.url // only enter edit mode if the new tab is about:blank
+    })
+  }
 })
 
 ipc.on('saveCurrentPage', function () {
@@ -71,7 +76,7 @@ function addPrivateTab () {
     return
   }
 
-  if (isEmpty(tabs.get())) {
+  if (tabs.isEmpty()) {
     destroyTab(tabs.getAtIndex(0).id)
   }
 
@@ -113,8 +118,14 @@ ipc.on('goForward', function () {
   } catch (e) { }
 })
 
+var menuBarShortcuts = ['mod+t', 'shift+mod+p', 'mod+n'] // shortcuts that are already used for menu bar items
+
 function defineShortcut (keyMapName, fn) {
   Mousetrap.bind(keyMap[keyMapName], function (e, combo) {
+    // these shortcuts are already used by menu bar items, so also using them here would result in actions happening twice
+    if (menuBarShortcuts.indexOf(combo) !== -1) {
+      return
+    }
     // mod+left and mod+right are also text editing shortcuts, so they should not run when an input field is focused
     if (combo === 'mod+left' || combo === 'mod+right') {
       getWebview(tabs.getSelected()).executeJavaScript('document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA"', function (isInputFocused) {
@@ -150,6 +161,30 @@ settings.get('keyMap', function (keyMapSettings) {
     closeTab(tabs.getSelected())
 
     return false
+  })
+
+  defineShortcut('restoreTab', function (e) {
+    if (isFocusMode) {
+      showFocusModeError()
+      return
+    }
+
+    var restoredTab = window.currentTask.tabHistory.pop()
+
+    // The tab history stack is empty
+    if (!restoredTab) {
+      return
+    }
+
+    if (tabs.isEmpty()) {
+      destroyTab(tabs.getAtIndex(0).id)
+    }
+
+    addTab(tabs.add(restoredTab, tabs.getIndex(tabs.getSelected()) + 1), {
+      focus: false,
+      leaveEditMode: true,
+      enterEditMode: false
+    })
   })
 
   defineShortcut('addToFavorites', function (e) {
@@ -191,7 +226,9 @@ settings.get('keyMap', function (keyMapSettings) {
     taskOverlay.hide()
     leaveTabEditMode()
 
-    getWebview(tabs.getSelected()).focus()
+    if (document.activeElement !== getWebview(tabs.getSelected())) {
+      getWebview(tabs.getSelected()).focus()
+    }
   })
 
   defineShortcut('toggleReaderView', function () {
@@ -234,6 +271,50 @@ settings.get('keyMap', function (keyMapSettings) {
     } else {
       switchToTab(tabs.getAtIndex(0).id)
     }
+  })
+
+  var taskSwitchTimeout = null
+
+  defineShortcut('switchToNextTask', function (d) {
+    taskOverlay.show()
+
+    var currentTaskIdx = tasks.get().map(function (task) {
+      return task.id
+    }).indexOf(currentTask.id)
+
+    if (tasks.get()[currentTaskIdx + 1]) {
+      switchToTask(tasks.get()[currentTaskIdx + 1].id)
+    } else {
+      switchToTask(tasks.get()[0].id)
+    }
+
+    taskOverlay.show()
+
+    clearInterval(taskSwitchTimeout)
+    taskSwitchTimeout = setTimeout(function () {
+      taskOverlay.hide()
+    }, 500)
+  })
+
+  defineShortcut('switchToPreviousTask', function (d) {
+    taskOverlay.show()
+
+    var currentTaskIdx = tasks.get().map(function (task) {
+      return task.id
+    }).indexOf(currentTask.id)
+
+    if (tasks.get()[currentTaskIdx - 1]) {
+      switchToTask(tasks.get()[currentTaskIdx - 1].id)
+    } else {
+      switchToTask(tasks.get()[tasks.get().length - 1].id)
+    }
+
+    taskOverlay.show()
+
+    clearInterval(taskSwitchTimeout)
+    taskSwitchTimeout = setTimeout(function () {
+      taskOverlay.hide()
+    }, 500)
   })
 
   defineShortcut('closeAllTabs', function (d) { // destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.

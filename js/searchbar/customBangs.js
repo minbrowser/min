@@ -16,7 +16,7 @@ registerCustomBang({
   fn: function (text) {
     try {
       getWebview(tabs.getSelected()).goBack()
-    } catch(e) {}
+    } catch (e) {}
   }
 })
 
@@ -27,7 +27,7 @@ registerCustomBang({
   fn: function (text) {
     try {
       getWebview(tabs.getSelected()).goForward()
-    } catch(e) {}
+    } catch (e) {}
   }
 })
 
@@ -173,5 +173,41 @@ registerCustomBang({
     setTimeout(function () {
       taskOverlay.hide()
     }, 600)
+  }
+})
+
+registerCustomBang({
+  phrase: '!bookmarks',
+  snippet: 'Search bookmarks',
+  isAction: false,
+  showSuggestions: function (text, input, event, container) {
+    bookmarks.searchPlaces(text, function (results) {
+      empty(container)
+
+      results.sort(function (a, b) {
+        // order by last visit
+        return b.lastVisit - a.lastVisit
+      }).forEach(function (result) {
+        container.appendChild(createSearchbarItem({
+          title: result.title,
+          icon: 'fa-star',
+          secondaryText: result.url,
+          url: result.url,
+          delete: function () {
+            bookmarks.deleteHistory(result.url)
+          }
+        }))
+      })
+    }, {searchBookmarks: true})
+  },
+  fn: function (text) {
+    if (!text) {
+      return
+    }
+    bookmarks.searchPlaces(text, function (results) {
+      if (results.length !== 0) {
+        openURLFromSearchbar(results[0].url, null)
+      }
+    }, {searchBookmarks: true})
   }
 })

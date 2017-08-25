@@ -1,4 +1,4 @@
-;(function (global, factory) {
+; (function (global, factory) {
   if (typeof define === 'function' && define.amd) {
     define(['exports'], factory)
   } else if (typeof exports !== 'undefined') {
@@ -105,7 +105,7 @@
         if (option[0] === '~' && elementTypes.indexOf(option.substring(1)) !== -1) {
           output.skipElementType = option.substring(1)
 
-        // the option is an element type to match
+          // the option is an element type to match
         } else if (elementTypes.indexOf(option) !== -1) {
           output.elementType = option
         }
@@ -386,7 +386,15 @@
         } else if (parsedFilterData.rightAnchored) {
           object.rightAnchored.push(parsedFilterData)
         } else if (parsedFilterData.hostAnchored) {
-          var ending = parsedFilterData.host.slice(-2)
+          /* add the filters to the object based on the last 5 characters of their domain.
+            All domains must be at least 5 characters long: the TLD is at least 2 characters,
+            the . character adds one more character, and the domain name must be at least two
+            characters long. By storing the last 5 characters in an object, we can skip checking
+            whether every filter's domain is from the same origin as the URL we are checking.
+            Instead, we can just get the last 5 characters of the URL to check, get the filters
+            stored in that property of the object, and then check if the complete domains match.
+           */
+          var ending = parsedFilterData.host.slice(-5)
 
           if (object.hostAnchored[ending]) {
             object.hostAnchored[ending].push(parsedFilterData)
@@ -443,16 +451,16 @@
     }
 
     // get all of the host anchored filters with the same domain ending as the current domain
-    var hostFiltersToCheck = filters.hostAnchored[currentHost.slice(-2)]
+    var hostFiltersToCheck = filters.hostAnchored[currentHost.slice(-5)]
 
     if (hostFiltersToCheck) {
-    // check if the string matches a domain name anchored filter
+      // check if the string matches a domain name anchored filter
 
       for (i = 0, len = hostFiltersToCheck.length; i < len; i++) {
         filter = hostFiltersToCheck[i]
 
         if (isSameOriginHost(filter.host, currentHost) && indexOfFilter(input, filter.data) !== -1 && matchOptions(filter.options, input, contextParams, currentHost)) {
-        // console.log(filter, 4)
+          // console.log(filter, 4)
 
           return true
         }

@@ -9,7 +9,7 @@ module.exports = function (grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		concat: {
 			options: {
-				separator: ';'
+				separator: '\n;'
 			},
 			browser: {
 				src: [
@@ -48,9 +48,9 @@ module.exports = function (grunt) {
 						 "js/fileDownloadManager.js",
 						 "js/findinpage.js",
 							"js/sessionRestore.js",
+							"js/tabRestore.js",
 							"js/focusMode.js",
-							"js/util/theme.js"
-
+							"js/util/theme.js",
 						 ],
 				dest: 'dist/build.js'
 			},
@@ -58,7 +58,6 @@ module.exports = function (grunt) {
 				src: [
 						"js/webview/default.js",
 						"js/webview/textExtractor.js",
-						"js/webview/contextMenu.js",
 						"js/webview/phishDetector.js",
 						"js/webview/readerDetector.js",
 						"js/webview/swipeEvents.js",
@@ -181,14 +180,14 @@ module.exports = function (grunt) {
 				options: {
 					arch: 'i386'
 				},
-				src: 'dist/app/Min-linux-ia32',
+				src: 'dist/app/min-linux-ia32',
 				dest: 'dist/app/linux'
 			},
 			linux64: {
 				options: {
 					arch: 'amd64'
 				},
-				src: 'dist/app/Min-linux-x64',
+				src: 'dist/app/min-linux-x64',
 				dest: 'dist/app/linux'
 			}
 		}

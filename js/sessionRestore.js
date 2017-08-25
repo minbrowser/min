@@ -58,7 +58,7 @@ var sessionRestore = {
 
     switchToTask(data.state.selectedTask)
 
-    if (isEmpty(currentTask.tabs)) {
+    if (currentTask.tabs.isEmpty()) {
       enterEditMode(currentTask.tabs.getSelected())
     }
   }

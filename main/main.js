@@ -112,7 +112,7 @@ function createWindowWithBounds (bounds, shouldMaximize) {
         url: itemURL,
         webContentsId: webContents.getId(),
         event: event,
-        item: item, // as of electron 0.35.1, this is an empty object
+        item: item // as of electron 0.35.1, this is an empty object
       })
     }
     return true
@@ -161,15 +161,20 @@ app.on('ready', function () {
   appIsReady = true
 
   createWindow(function () {
-    // if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
-
-    if (process.argv && process.argv[1] && process.argv[1].toLowerCase() !== __dirname.toLowerCase() && process.argv[1].indexOf('://') !== -1) {
-      mainWindow.webContents.on('did-finish-load', function () {
+    mainWindow.webContents.on('did-finish-load', function () {
+      // if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
+      if (process.argv && process.argv[1] && process.argv[1].toLowerCase() !== __dirname.toLowerCase() && process.argv[1].indexOf('://') !== -1) {
         sendIPCToWindow(mainWindow, 'addTab', {
           url: process.argv[1]
         })
-      })
-    }
+      } else if (global.URLToOpen) {
+        // if there is a previously set URL to open (probably from opening a link on macOS), open it
+        sendIPCToWindow(mainWindow, 'addTab', {
+          url: global.URLToOpen
+        })
+        global.URLToOpen = null
+      }
+    })
   })
 
   // Open the DevTools.
@@ -185,13 +190,7 @@ app.on('open-url', function (e, url) {
       url: url
     })
   } else {
-    app.on('ready', function () {
-      setTimeout(function () { // TODO replace this with an event that occurs when the browserWindow finishes loading
-        sendIPCToWindow(mainWindow, 'addTab', {
-          url: url
-        })
-      }, 750)
-    })
+    global.URLToOpen = url // this will be handled later in the createWindow callback
   }
 })
 
@@ -201,7 +200,7 @@ app.on('open-url', function (e, url) {
  *
  * Opens a new tab when all tabs are closed, and min is still open by clicking on the application dock icon
  */
-app.on('activate', function ( /* e, hasVisibleWindows */) {
+app.on('activate', function (/* e, hasVisibleWindows */) {
   if (!mainWindow && appIsReady) { // sometimes, the event will be triggered before the app is ready, and creating new windows will fail
     createWindow()
   }
@@ -226,7 +225,7 @@ function createAppMenu () {
         },
         {
           label: 'New Private Tab',
-          accelerator: 'shift+CmdOrCtrl+t',
+          accelerator: 'shift+CmdOrCtrl+p',
           click: function (item, window) {
             sendIPCToWindow(window, 'addPrivateTab')
           }
@@ -313,21 +312,21 @@ function createAppMenu () {
       label: 'View',
       submenu: [
         {
-          label: 'Zoom in',
+          label: 'Zoom In',
           accelerator: 'CmdOrCtrl+=',
           click: function (item, window) {
             sendIPCToWindow(window, 'zoomIn')
           }
         },
         {
-          label: 'Zoom out',
+          label: 'Zoom Out',
           accelerator: 'CmdOrCtrl+-',
           click: function (item, window) {
             sendIPCToWindow(window, 'zoomOut')
           }
         },
         {
-          label: 'Actual size',
+          label: 'Actual Size',
           accelerator: 'CmdOrCtrl+0',
           click: function (item, window) {
             sendIPCToWindow(window, 'zoomReset')
@@ -347,7 +346,7 @@ function createAppMenu () {
           role: 'togglefullscreen'
         },
         {
-          label: 'Focus mode',
+          label: 'Focus Mode',
           accelerator: undefined,
           type: 'checkbox',
           checked: false,
@@ -383,7 +382,7 @@ function createAppMenu () {
           }
         },
         {
-          label: 'Inspect browser',
+          label: 'Inspect Browser',
           click: function (item, focusedWindow) {
             if (focusedWindow) focusedWindow.toggleDevTools()
           }
@@ -392,7 +391,7 @@ function createAppMenu () {
           type: 'separator'
         },
         {
-          label: 'Inspect page',
+          label: 'Inspect Page',
           accelerator: (function () {
             if (process.platform == 'darwin')
               return 'Cmd+Alt+I'

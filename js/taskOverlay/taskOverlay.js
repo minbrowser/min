@@ -78,12 +78,23 @@ var taskOverlay = {
         })
 
         // sort the tasks based on how recent they are
-
         recentTaskList.sort(function (a, b) {
           return b.lastActivity - a.lastActivity
         })
 
         switchToTask(recentTaskList[0].id)
+      }
+
+      // if the current tab has been deleted, switch to the most recent one
+
+      if (!tabs.getSelected()) {
+        var mostRecentTab = tabs.get().sort(function (a, b) {
+          return b.lastActivity - a.lastActivity
+        })[0]
+
+        if (mostRecentTab) {
+          switchToTab(mostRecentTab.id)
+        }
       }
 
       taskSwitcherButton.classList.remove('active')
