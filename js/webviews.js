@@ -39,22 +39,27 @@ function pagePermissionRequestHandler (webContents, permission, callback) {
 // called whenever the page url changes
 
 function onPageLoad (e) {
-  var tab = this.getAttribute('data-tab')
-  var url = this.getAttribute('src') // src attribute changes whenever a page is loaded
+  var _this = this
+  setTimeout(function () { // TODO convert to arrow function
+    /* add a small delay before getting these attributes, because they don't seem to update until a short time after the did-finish-load event is fired. Fixes #320 */
 
-  if (url.indexOf('https://') === 0 || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('file://') === 0) {
-    tabs.update(tab, {
-      secure: true,
-      url: url
-    })
-  } else {
-    tabs.update(tab, {
-      secure: false,
-      url: url
-    })
-  }
+    var tab = _this.getAttribute('data-tab')
+    var url = _this.getAttribute('src') // src attribute changes whenever a page is loaded
 
-  rerenderTabElement(tab)
+    if (url.indexOf('https://') === 0 || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('file://') === 0) {
+      tabs.update(tab, {
+        secure: true,
+        url: url
+      })
+    } else {
+      tabs.update(tab, {
+        secure: false,
+        url: url
+      })
+    }
+
+    rerenderTabElement(tab)
+  }, 0)
 }
 
 // called when js/webview/textExtractor.js returns the page's text content
