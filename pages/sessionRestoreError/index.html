@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<Title>Session Restore Error</Title>
+	<link rel="stylesheet" href="../pagebase.css" />
+	<link rel="stylesheet" href="../../ext/font-awesome-4.4.0/css/font-awesome.min.css" />
+</head>
+
+<body>
+
+	<div id="page-wrapper">
+		<h1>An error occured</h1>
+		<h2>Your saved tabs couldn't be restored correctly.
+			<br>
+			<br> We've saved a backup of your data at this location:
+			<span id="backup-location"></span>.
+			<br>
+			<br> If this error continues to occur, please open a new issue <a href="https://github.com/minbrowser/min/issues/new"
+			 target="_blank">here</a>.</h2>
+	</div>
+	<script src="../../ext/Dexie.min.js"></script>
+	<script src="../../js/util/database.js"></script>
+	<script src="../../js/util/settings.js"></script>
+	<script src="../../js/util/theme.js"></script>
+
+	<script>
+		document.getElementById("backup-location").textContent = new URLSearchParams(window.location.search).get("backupLoc");
+	</script>
+</body>
+
+</html>
