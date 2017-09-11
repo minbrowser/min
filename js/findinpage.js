@@ -7,6 +7,8 @@ var findinpage = {
   endButton: document.getElementById('findinpage-end'),
   activeWebview: null,
   start: function (options) {
+    findinpage.input.placeholder = 'Search in Page'
+
     findinpage.activeWebview = getWebview(tabs.getSelected())
 
     findinpage.counter.textContent = ''
