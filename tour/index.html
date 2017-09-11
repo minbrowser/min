@@ -16,8 +16,8 @@
 		<div class="centered color-white">
 			<h1 class="title-heading">Welcome to Min.</h1>
 			<div class="horizontally-centered oneline">
-				<button class="outlined-button start-browsing-onclick" style="min-width: 0px">Start Browsing</button>
-				&nbsp;&nbsp;&nbsp; or &nbsp;&nbsp;&nbsp;
+				<button class="outlined-button start-browsing-onclick" style="min-width: 0px">Start Browsing</button> &nbsp;&nbsp;&nbsp;
+				or &nbsp;&nbsp;&nbsp;
 				<button class="outlined-button solid-button" id="start-tour">
 					Take a Tour
 				</button>
@@ -31,8 +31,9 @@
 		<div class="column">
 			<h1>Tabs</h1>
 			<ul>
+				<li>Press <i class="fa fa-plus"></i> to create a new tab.</li>
+				<li> Hover over a tab and click the <i class="fa fa-times-circle"></i> button to delete it. </li>
 				<li>Click on the current tab to open the searchbar. </li>
-				<li> Hover over a tab and click the <i class="fa fa-times-circle"></i> button to delete it (or press <span class="shortcut-key"></span>+W). </li>
 				<li>Tabs you haven't looked at in a while fade out, and brighten again when you click on them.</li>
 			</ul>
 		</div>
@@ -41,12 +42,13 @@
 	<div class="section light-gray-background">
 		<div class="column">
 			<h1>Search</h1>
-			<p>The searchbar shows information from <a target="_blank" href="https://duckduckgo.com">DuckDuckGo</a>, including Wikipedia entries, a calculator, programming documentation, and more.
+			<p>The searchbar shows information from <a target="_blank" href="https://duckduckgo.com">DuckDuckGo</a>, including Wikipedia
+				entries, a calculator, programming documentation, and more.
 				<br>
-				<br> The searchbar also supports fuzzy search, which lets you quickly find websites without typing the entire URL. For example, you can type "mgc" to search for "mail.google.com".
+				<br> You can also use fuzzy search, which lets you quickly find websites without typing the entire URL. For example,
+				you can type "mgc" to search for "mail.google.com".
 				<br>
-				<br>
-				Every page you visit is automatically saved, so you can search the contents of pages as well as the title.
+				<br> Every page you visit is automatically saved, so you can search the contents of pages as well as the title.
 			</p>
 			<i class="arrow-showmore-icon fa fa-angle-double-down"></i>
 		</div>
@@ -54,12 +56,16 @@
 	</div>
 
 	<div class="section">
-		<img class="column" src="img/reading_list.png" />
+		<img class="column" src="img/tasks.png" />
 		<div class="column">
-			<h1>Reading List</h1>
-			<p>Click the <i class="fa fa-align-left"></i> icon in a tab to format an article and make it easier to read. Articles opened in reader view are saved in your reading list for the next 30 days, and are saved for offline reading.
-				<br>
-				<br> You can find your saved articles in the application menu: View &gt; Reading List.
+			<h1>Tasks</h1>
+			<p>Tasks let you split your tabs into groups, letting you keep the ones you want to look at visible while hiding others in
+				the background.
+				<ul>
+					<li> Click the <i class="fa fa-bars"></i> button in the top-right to see all of your open tasks. </li>
+					<li>The button on the bottom lets you create a new task. </li>
+					<li>From here, you can also drag-and-drop to rearrange tabs, or click on a task's name to change it. </li>
+				</ul>
 			</p>
 			<i class="arrow-showmore-icon fa fa-angle-double-down"></i>
 		</div>
@@ -68,7 +74,8 @@
 	<div class="section light-gray-background">
 		<div class="column">
 			<h1>Ad and tracker blocking</h1>
-			<p>Go to Min &gt; Privacy Preferences (Or the Edit menu > Privacy Preferences on Linux) to enable ad and tracker blocking. You can also choose to block images and Javascript, if you are on a limited internet connection.
+			<p>Go to Min &gt; Preferences (Or Edit > Preferences on Linux) to enable ad and tracker blocking. You can also choose to
+				block images and Javascript, if you are on a limited internet connection.
 			</p>
 			<i class="arrow-showmore-icon fa fa-angle-double-down"></i>
 		</div>
@@ -76,30 +83,50 @@
 	</div>
 
 	<div class="section">
-		<img class="column" src="img/tasks.png" />
+		<img class="column" src="img/reading_list.png" />
 		<div class="column">
-			<h1>Tasks</h1>
-			<p>Tasks let you split your tabs into groups. Click the <i class="fa fa-bars"></i> icon in the top-right to see all of your open tasks. The button on the bottom lets you create a new task. From the tasks overlay, you can also drag-and drop to reorder tabs or move them to a different task.
+			<h1>Reading List</h1>
+			<p>Click the <i class="fa fa-align-left"></i> icon in a tab to format an article and make it easier to read. Articles opened
+				in reader view are saved in your reading list for the next 30 days, and are saved for offline reading.
+				<br>
+				<br> You can find your saved articles in the application menu: View &gt; Reading List.
 			</p>
 			<i class="arrow-showmore-icon fa fa-angle-double-down"></i>
 		</div>
 	</div>
 
 	<div class="section light-gray-background">
-		<div class="column">
-			<h1>Tips and Tricks</h1>
-			<ul>
-				<li>Focus Mode lets you hide distractions. In focus mode, all your tabs except the current one are hidden, and you can't create new tabs. Turn on focus mode in the View menu > Focus Mode.</li>
-				<li>Quickly switch between tabs: press <span class="shortcut-key"></span>+1 to move one tab to the right, <span class="shortcut-key"></span>+2 to move two tabs to the right, etc. ⇧+<span class="shortcut-key"></span>+1 moves one tab to the left. See more  shortcuts <a href="https://github.com/minbrowser/min/wiki#keyboard-shortcuts" target="_blank">here</a>.</li>
-				<li>Browser actions let you quickly do almost anything, even if you don't remember the keyboard shortcut. Type "!" in the searchbar, and then type an action. You can view a list of available browser actions <a href="https://github.com/minbrowser/min/wiki#browser-actions" target="_blank">here</a>.
-			</ul>
+		<h1>Tips and Tricks</h1>
+		<div class="feature-grid">
+			<div class="feature-card">
+				<img src="img/focusmode.png" />
+				<h2> Focus Mode</h1>
+					<p>In focus mode, all your tabs except the current one are hidden, letting you avoid distractions. Turn on focus mode in
+						the View menu > Focus Mode.
+					</p>
+			</div>
+			<div class="feature-card">
+				<img src="img/browser_actions.png" />
+				<h2> Browser Actions</h1>
+					<p>Browser actions let you quickly do almost anything, even if you don't remember the keyboard shortcut. Type "!" in the
+						searchbar, and then type an action. You can view a list of available browser actions <a href="https://github.com/minbrowser/min/wiki#browser-actions"
+						 target="_blank">here</a>.
+					</p>
+			</div>
+			<div class="feature-card">
+				<img src="img/dark_mode.png" />
+				<h2> Dark Mode</h1>
+					<p>Enable dark mode from the preferences page to turn the browser dark, making it easier to see at night.
+					</p>
+			</div>
+
 		</div>
-		<img class="column" src="img/focusmode.png" style="margin-top: 1em"/>
 	</div>
 
 	<div class="section one-column">
 		<div class="column">
-			<h1>Improving Min</h1> Min is open-source software, written in JavaScript. <a target="_blank" href="https://github.com/minbrowser/min">View the source on GitHub</a>, or <a target="_blank" href="https://github.com/minbrowser/min/issues/new">file an issue.</a>
+			<h1>Improving Min</h1> Min is open-source software, written in JavaScript. <a target="_blank" href="https://github.com/minbrowser/min">View the source on GitHub</a>,
+			or <a target="_blank" href="https://github.com/minbrowser/min/issues/new">file an issue.</a>
 		</div>
 	</div>
 
