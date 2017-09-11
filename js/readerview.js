@@ -57,20 +57,15 @@ var readerView = {
       isReaderView: false
     })
   },
-  showReadingList: function (options) {
+  showReadingList: function () {
     showSearchbar(getTabInput(tabs.getSelected()))
 
     var articlesShown = 0
-    var moreArticlesAvailable = false
 
     var container = getSearchbarContainer('readingList')
 
     db.readingList.orderBy('time').reverse().each(function (article) {
       if (!article.article) {
-        return
-      }
-      if (options && options.limitResults && articlesShown > 3) {
-        moreArticlesAvailable = true
         return
       }
 
@@ -107,23 +102,6 @@ var readerView = {
 
         container.appendChild(item)
         return
-      }
-
-      if (moreArticlesAvailable) {
-        var seeMoreLink = createSearchbarItem({
-          title: 'More articles'
-        })
-
-        seeMoreLink.style.opacity = 0.5
-
-        seeMoreLink.addEventListener('click', function (e) {
-          clearSearchbar()
-          readerView.showReadingList({
-            limitResults: false
-          })
-        })
-
-        container.appendChild(seeMoreLink)
       }
     })
   }
