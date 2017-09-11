@@ -15,7 +15,7 @@
 	/* fallback for older browsers */
 	height: 25%;
 	/* this must be the same as (video-container - overlap between video-container and hero */
-	height: calc(25vw - 10vh);
+	height: calc(25vw - 12.5vh);
 }
 
 /* smaller layout */
