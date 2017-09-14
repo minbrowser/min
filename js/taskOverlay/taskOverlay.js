@@ -4,8 +4,8 @@ var addTaskButton = document.getElementById('add-task')
 var addTaskLabel = addTaskButton.querySelector('span')
 var taskOverlayNavbar = document.getElementById('task-overlay-navbar')
 
-taskSwitcherButton.title = 'View Tasks'
-addTaskLabel.textContent = 'New Task'
+taskSwitcherButton.title = l('viewTasks')
+addTaskLabel.textContent = l('newTask')
 
 taskSwitcherButton.addEventListener('click', function () {
   taskOverlay.toggle()

@@ -11,24 +11,25 @@
 <body>
 	<div class="banner yellow-background" id="restart-required-banner" hidden>
 		<div class="container padding">
-			<i class="fa fa-info-circle"></i> You need to restart to apply these changes.
+			<i class="fa fa-info-circle"></i>
+			 <span data-string="settingsRestartRequired"></span>
 		</div>
 	</div>
 
 	<div class="hero short-hero blue-gradient-background">
 		<div class="container padding">
-			<h2>Preferences</h2>
+			<h2 data-string="settingsPreferencesHeading"></h2>
 		</div>
 	</div>
 
 	<div class="spacer"></div>
 	<div class="container padding" id="privacy-settings-container">
-		<h3>Content Blocking</h3>
+		<h3 data-string="settingsPrivacyHeading"></h3>
 
 		<div class="setting-section">
 			<input type="checkbox" id="checkbox-block-trackers" />
-			<label for="checkbox-block-trackers">Block trackers and ads</label>
-			<div class="light-fade setting-secondary-label">Based on EasyList and EasyPrivacy, without element hiding rules. Created by <a target="_blank" href="https://easylist.to/">The EasyList authors</a> - <a target="_blank" href="https://creativecommons.org/licenses/by-sa/3.0/legalcode">view license</a>.</div>
+			<label for="checkbox-block-trackers" data-string="settingsContentBlockingToggle"></label>
+			<div class="light-fade setting-secondary-label" data-string="settingsEasyListCredit" data-allowHTML></div>
 		</div>
 	</div>
 
@@ -37,21 +38,21 @@
 
 	<div class="spacer"></div>
 	<div class="container padding" id="appearance-settings-container">
-		<h3>Appearance</h3>
+		<h3 data-string="settingsAppearanceHeading"></h3>
 
 		<div class="setting-section">
 			<input type="checkbox" id="checkbox-dark-mode" />
-			<label for="checkbox-dark-mode">Enable dark mode</label>
+			<label for="checkbox-dark-mode" data-string="settingsDarkModeToggle"></label>
 		</div>
 	</div>
 
 	<div class="spacer"></div>
 	<div class="container padding" id="swipe-settings-container">
-		<h3>Swipe Navigation</h3>
+		<h3 data-string="settingsSwipeNavigationHeading"></h3>
 
 		<div class="setting-section">
 			<input type="checkbox" id="checkbox-swipe-navigation" />
-			<label for="checkbox-swipe-navigation">Enable swipe for navigating back and forth between pages.</label>
+			<label for="checkbox-swipe-navigation" data-string="settingsSwipeNavigationToggle"></label>
 		</div>
 	</div>
 
@@ -59,18 +60,19 @@
 	</div>
 
 	<div class="container padding" id="search-engine-settings-container">
-		<h3>Search Engine</h3>
+		<h3 data-string="settingsSearchEngineHeading"></h3>
 
-		<label for="defaultSearchEngine">Choose a default search engine: &nbsp;</label>
+		<label for="defaultSearchEngine" data-string="settingsDefaultSearchEngine"></label>
+		&nbsp;
 		<select id="default-search-engine" name="defaultSearchEngine" style="min-width: 225px"></select>
 
-		<div class="light-fade" style="padding-top:0.4em">Set DuckDuckGo as the default search engine to see instant answers in the searchbar.</div>
+		<div class="light-fade" style="padding-top:0.4em" data-string="settingsDDGExplanation"></div>
 	</div>
 
 	<div class="spacer"></div>
 	<div class="container padding" id="keymap-settings-container">
-		<h3>Keyboard Shortcuts</h3>
-		<div class="light-fade">Type "mod" to use the command or control key.</div>
+		<h3 data-string="settingsKeyboardShortcutsHeading"></h3>
+		<div class="light-fade" data-string="settingsKeyboardShortcutsHelp"></div>
 
 		<div class="setting-section">
 			<ul id="key-map-list" class="setting-section"></ul>
@@ -83,6 +85,7 @@
 	<script src="../../js/util/settings.js"></script>
 	<script src="../../js/util/searchEngine.js"></script>
 	<script src="../../js/util/theme.js"></script>
+	<script src="../../dist/localization.build.js"></script>	
 	<script src="settings.js"></script>
 </body>
 

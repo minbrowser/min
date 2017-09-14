@@ -10,22 +10,28 @@
 <body>
 
 	<div id="page-wrapper">
-		<h1>An error occured</h1>
-		<h2>Your saved tabs couldn't be restored correctly.
+		<h1 data-string="sessionRestoreErrorTitle"></h1>
+		<h2 id="error-message">
+			<span data-string="sessionRestoreErrorExplanation"></span>
 			<br>
-			<br> We've saved a backup of your data at this location:
-			<span id="backup-location"></span>.
 			<br>
-			<br> If this error continues to occur, please open a new issue <a href="https://github.com/minbrowser/min/issues/new"
-			 target="_blank">here</a>.</h2>
+			<span id="backup-info"></span>
+			<br>
+			<br>
+			<span id="link-info" data-string="sessionRestoreErrorLinkInfo" data-allowHTML></span>
+		</h2>
 	</div>
 	<script src="../../ext/Dexie.min.js"></script>
 	<script src="../../js/util/database.js"></script>
 	<script src="../../js/util/settings.js"></script>
 	<script src="../../js/util/theme.js"></script>
+	<script src="../../dist/localization.build.js"></script>
 
 	<script>
-		document.getElementById("backup-location").textContent = new URLSearchParams(window.location.search).get("backupLoc");
+		var backupLoc = new URLSearchParams(window.location.search).get("backupLoc");
+
+		var backupInfoEl = document.getElementById("backup-info");
+		backupInfoEl.textContent = l('sessionRestoreErrorBackupInfo').replace("%l", backupLoc);
 	</script>
 </body>
 

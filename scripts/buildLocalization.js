@@ -1,0 +1,32 @@
+/* compile the language files into dist/localization.build.js */
+
+const path = require('path')
+const fs = require('fs')
+const decomment = require('decomment')
+
+const outputDir = path.join(__dirname, '../dist/localization.build.js')
+
+// read all the files from the "languages" directory
+
+const languageFileDir = path.join(__dirname, '../localization/languages')
+const languageFiles = fs.readdirSync(languageFileDir)
+
+// build languages object
+
+let languages = {}
+
+languageFiles.forEach(function (file) {
+  let data = fs.readFileSync(path.join(languageFileDir, file), 'utf-8')
+
+  let obj = JSON.parse(decomment(data))
+
+  languages[obj.identifier] = obj
+})
+
+let fileContents = 'var languages = ' + JSON.stringify(languages) + ';\n'
+
+// add contents of localization.js (helper functions, ...)
+
+fileContents += fs.readFileSync(path.join(__dirname, '../localization/localizationHelpers.js'))
+
+fs.writeFileSync(outputDir, fileContents)

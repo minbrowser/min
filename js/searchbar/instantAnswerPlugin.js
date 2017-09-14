@@ -23,7 +23,7 @@ function showSearchbarInstantAnswers (text, input, event, container) {
     } else if (res.Abstract || res.Answer) {
       var data = {
         title: removeTags(res.Answer || res.Heading),
-        descriptionBlock: res.Abstract || 'Answer',
+        descriptionBlock: res.Abstract || l('DDGAnswerSubtitle'),
         attribution: ddgAttribution,
         url: res.AbstractURL || text
       }
@@ -71,7 +71,7 @@ function showSearchbarInstantAnswers (text, input, event, container) {
       var data = {
         icon: 'fa-globe',
         title: urlParser.removeProtocol(url).replace(trailingSlashRegex, ''),
-        secondaryText: 'Suggested site',
+        secondaryText: l('suggestedSite'),
         url: url,
         classList: ['ddg-answer']
       }
@@ -89,7 +89,7 @@ function showSearchbarInstantAnswers (text, input, event, container) {
       var item = createSearchbarItem({
         icon: 'fa-search',
         title: res.Heading,
-        secondaryText: 'Search on OpenStreetMap',
+        secondaryText: l('searchWith').replace('%s', 'OpenStreetMap'),
         classList: ['ddg-answer'],
         url: 'https://www.openstreetmap.org/search?query=' + encodeURIComponent(res.Heading)
       })
@@ -177,7 +177,7 @@ var instantAnswers = {
     if (answer.data) {
       var descriptionBlock = answer.data.title
     } else {
-      var descriptionBlock = 'Answer'
+      var descriptionBlock = l('DDGAnswerSubtitle')
     }
 
     var item = createSearchbarItem({

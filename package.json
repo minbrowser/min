@@ -12,6 +12,7 @@
     "string_score": "^0.1.22"
   },
   "devDependencies": {
+    "decomment": "^0.9.0",
     "grunt": "^1.0.1",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-uglify": "^2.0.0",
@@ -25,10 +26,11 @@
   "license": "Apache-2.0",
   "scripts": {
     "test": "node_modules/.bin/standard --verbose js/**/*.js main/*.js",
-    "updateFilters": "node ./ext/filterLists/updateEasylist.js"
+    "updateFilters": "node ./ext/filterLists/updateEasylist.js",
+    "buildTranslations": "node ./scripts/buildLocalization.js"
   },
   "repository": {
-      "type": "git",
-      "url": "https://github.com/minbrowser/min.git"
+    "type": "git",
+    "url": "https://github.com/minbrowser/min.git"
   }
 }

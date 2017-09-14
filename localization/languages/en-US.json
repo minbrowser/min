@@ -1,0 +1,152 @@
+{
+    "name": "English (United States)",
+    "identifier": "en-US",
+    "translations": {
+        /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+        "openInNewTab": "Open in New Tab",
+        "openInNewPrivateTab": "Open in New Private Tab",
+        "viewImage": "View Image",
+        "openImageInNewTab": "Open Image in New Tab",
+        "openImageInNewPrivateTab": "Open Image in New Private Tab",
+        "saveImageAs": "Save Image As",
+        "searchWith": "Search with %s", //%s will be replaced with the name of the current search engine
+        "copyLink": "Copy Link",
+        "copy": "Copy", //this is a verb (as in "copy the currently-selected text")
+        "paste": "Paste",
+        "goBack": "Go Back",
+        "goForward": "Go Forward",
+        "inspectElement": "Inspect Element",
+        /* searchbar */
+        "DDGAnswerSubtitle": "Answer", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+        "suggestedSite": "Suggested site", //this is used to label suggested websites from the DuckDuckGo API,
+        "resultsFromDDG": "Results from DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+        "taskN": "Task %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "hostsFileEntry": "Hosts file entry", //this is a label used to indicate that a result is coming from the user's host file        
+        /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+        "viewSettings": "View Settings",
+        "takeScreenshot": "Take a Screenshot",
+        "clearHistory": "Clear All History",
+        "switchToTask": "Switch to Task",
+        "createTask": "Create a Task",
+        "moveToTask": "Move this tab to a task",
+        "searchBookmarks": "Search bookmarks",
+        /* navbar */
+        "enterReaderView": "Enter reader view",
+        "exitReaderView": "Exit reader view",
+        "emptyReadingListTitle": "Your reading list is empty",
+        "emptyReadingListSubtitle": "Articles you open in reader view are listed here, and are saved offline for 30 days.",
+        "newTabLabel": "New Tab", //this is a noun, used for tabs that don't have a page loaded in them yet
+        "connectionNotSecure": "Your connection to this website is not secure.",
+        "searchbarPlaceholder": "Search or enter address",
+        "privateTab": "Private tab",
+        "newTabAction": "New Tab", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        /* task overlay */
+        "viewTasks": "View Tasks",
+        "newTask": "New Task", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": "Task %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        /* find in page toolbar */
+        "searchInPage": "Search in Page", //this is used as the placeholder text for the textbox in the find in page toolbar
+        "findMatchesSingular": "%i of %t match", //this and the next label are used to indicate which match is currently highlighted
+        "findMatchesPlural": "%i of %t matches",
+        /* Focus mode */
+        "isFocusMode": "You're in Focus Mode.",
+        "closeDialog": "OK", //used as a label for the button that closes the dialog
+        "focusModeExplanation1": "In focus mode, all tabs except the current one are hidden, and you can't create new tabs.",
+        "focusModeExplanation2": "You can leave focus mode by unchecking \"focus mode\" in the view menu.",
+        /* pages/crash/index.html */
+        "crashErrorTitle": "Something went wrong.",
+        "crashErrorSubtitle": "A problem has occured while displaying this page.",
+        /* pages/error/index.html */
+        "errorPagePrimaryAction": "Try again",
+        "serverNotFoundTitle": "Server not found",
+        "serverNotFoundSubtitle": "Min couldn't find this website.",
+        "archiveSearchAction": "Search on archive.org",
+        "sslErrorTitle": "This website is not available",
+        "sslErrorMessage": "Min couldn't connect securely to this website.",
+        "dnsErrorTitle": "Website not found",
+        "dnsErrorMessage": "A DNS error occured.",
+        "offlineErrorTitle": "You are offline",
+        "offlineErrorMessage": "Reconnect to the internet and try again.",
+        "genericConnectionFail": "Min couldn't connect to the website.",
+        "sslTimeErrorMessage": "Min couldn't connect securely to this website. Please make sure your computer's clock is set correctly.",
+        "addressInvalidTitle": "This address is invalid.",
+        "genericError": "An error occured",
+        /* pages/phishing/index.html */
+        "phishingErrorTitle": "This site could harm you.",
+        "phishingErrorMessage": "This website could be trying to steal your personal information, such as passwords or banking information.",
+        "phishingErrorVisitAnyway": "Visit site anyway",
+        "phishingErrorLeave": "Leave this site",
+        /* pages/sessionRestoreError/index.html */
+        "sessionRestoreErrorTitle": "An error occured",
+        "sessionRestoreErrorExplanation": "Your saved tabs couldn't be restored correctly.",
+        "sessionRestoreErrorBackupInfo": "We've saved a backup of your data at this location: %l.", //%l will be replaced with a path to a file
+        "sessionRestoreErrorLinkInfo": {
+            "unsafeHTML": "If this error continues to occur, please open a new issue <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">here</a>."
+        },
+        /* pages/settings/index.html */
+        "settingsPreferencesHeading": "Preferences",
+        "settingsRestartRequired": "You need to restart to apply these changes.",
+        "settingsPrivacyHeading": "Content Blocking",
+        "settingsContentBlockingToggle": "Block trackers and ads",
+        "settingsBlockScriptsToggle": "Block scripts",
+        "settingsBlockImagesToggle": "Block images",
+        "settingsEasyListCredit": {
+            "unsafeHTML": "Based on EasyList and EasyPrivacy, without element hiding rules. Created by <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>."
+        },
+        "settingsAppearanceHeading": "Appearance",
+        "settingsDarkModeToggle": "Enable dark mode",
+        "settingsSwipeNavigationHeading": "Swipe navigation",
+        "settingsSwipeNavigationToggle": "Enable swipe for navigating back and forth between pages.",
+        "settingsSearchEngineHeading": "Search Engine",
+        "settingsDefaultSearchEngine": "Choose a default search engine:",
+        "settingsDDGExplanation": "Set DuckDuckGo as the default search engine to see instant answers in the searchbar.",
+        "settingsKeyboardShortcutsHeading": "Keyboard Shortcuts",
+        "settingsKeyboardShortcutsHelp": "Type \"mod\" to use the command or control key.",
+        /* app menu */
+        "appMenuFile": "File",
+        "appMenuNewTab": "New Tab",
+        "appMenuNewPrivateTab": "New Private Tab",
+        "appMenuNewTask": "New Task",
+        "appMenuSavePageAs": "Save Page As",
+        "appMenuPrint": "Print",
+        "appMenuEdit": "Edit",
+        "appMenuUndo": "Undo",
+        "appMenuRedo": "Redo",
+        "appMenuCut": "Cut",
+        "appMenuCopy": "Copy",
+        "appMenuPaste": "Paste",
+        "appMenuSelectAll": "Select All",
+        "appMenuFind": "Find",
+        "appMenuView": "View",
+        "appMenuZoomIn": "Zoom In",
+        "appMenuZoomOut": "Zoom Out",
+        "appMenuActualSize": "Actual Size",
+        "appMenuFullScreen": "Full Screen", //on some platforms, this string is replaced with one built-in to the OS
+        "appMenuFocusMode": "Focus Mode",
+        "appMenuReadingList": "Reading List",
+        "appMenuDeveloper": "Developer",
+        "appMenuReloadBrowser": "Reload Browser",
+        "appMenuInspectBrowser": "Inspect Browser",
+        "appMenuInspectPage": "Inspect Page",
+        "appMenuWindow": "Window",
+        "appMenuMinimize": "Minimize",
+        "appMenuClose": "Close",
+        "appMenuHelp": "Help",
+        "appMenuKeyboardShortcuts": "Keyboard Shortcuts",
+        "appMenuReportBug": "Report a Bug",
+        "appMenuTakeTour": "Take a Tour",
+        "appMenuViewGithub": "View on GitHub",
+        "appMenuAbout": "About %n", //%n is replaced with app name
+        "appMenuPreferences": "Preferences",
+        "appMenuServices": "Services",
+        "appMenuHide": "Hide %n",
+        "appMenuHideOthers": "Hide Others",
+        "appMenuShowAll": "Show All",
+        "appMenuQuit": "Quit %n",
+        "appMenuBringToFront": "Bring All to Front"
+    }
+}

@@ -7,7 +7,7 @@ var findinpage = {
   endButton: document.getElementById('findinpage-end'),
   activeWebview: null,
   start: function (options) {
-    findinpage.input.placeholder = 'Search in Page'
+    findinpage.input.placeholder = l('searchInPage')
 
     findinpage.activeWebview = getWebview(tabs.getSelected())
 
@@ -77,12 +77,13 @@ findinpage.next.addEventListener('click', function (e) {
 
 bindWebviewEvent('found-in-page', function (e) {
   if (e.result.matches !== undefined) {
+    var text
     if (e.result.matches === 1) {
-      var text = ' match'
+      text = l('findMatchesSingular')
     } else {
-      var text = ' matches'
+      text = l('findMatchesPlural')
     }
 
-    findinpage.counter.textContent = e.result.activeMatchOrdinal + ' of ' + e.result.matches + text
+    findinpage.counter.textContent = text.replace('%i', e.result.activeMatchOrdinal).replace('%t', e.result.matches)
   }
 })

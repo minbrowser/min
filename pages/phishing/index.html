@@ -14,15 +14,16 @@
 
 	<div id="page-wrapper">
 
-		<h1>This site could harm you.</h1>
-		<h2>This website could be trying to steal your personal information, such as passwords or banking information.</h2>
+		<h1 data-string="phishingErrorTitle"></h1>
+		<h2 data-string="phishingErrorMessage"></h2>
 
-		<button class="secondary-button" id="ignore-button">Visit site anyway</button>
-		<button class="primary-button" id="continue-button">Leave this site</button>
+		<button class="secondary-button" id="ignore-button" data-string="phishingErrorVisitAnyway"></button>
+		<button class="primary-button" id="continue-button" data-string="phishingErrorLeave"></button>
 
 		<script src="../../ext/Dexie.min.js"></script>
 		<script src="../../js/util/database.js"></script>
 		<script src="../../js/util/settings.js"></script>
+		<script src="../../dist/localization.build.js"></script>
 		<script src="phishingError.js"></script>
 
 	</div>

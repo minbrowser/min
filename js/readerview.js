@@ -9,7 +9,7 @@ var readerView = {
     item.className = 'fa fa-align-left reader-button'
 
     item.setAttribute('data-tab', tabId)
-    item.setAttribute('title', 'Enter reader view')
+    item.setAttribute('title', l('enterReaderView'))
 
     item.addEventListener('click', function (e) {
       var tabId = this.getAttribute('data-tab')
@@ -32,11 +32,11 @@ var readerView = {
 
     if (tab.isReaderView) {
       button.classList.add('is-reader')
-      button.setAttribute('title', 'Exit reader view')
+      button.setAttribute('title', l('exitReaderView'))
       return
     } else {
       button.classList.remove('is-reader')
-      button.setAttribute('title', 'Enter reader view')
+      button.setAttribute('title', l('enterReaderView'))
     }
 
     if (tab.readerable) {
@@ -96,8 +96,8 @@ var readerView = {
     }).then(function () {
       if (articlesShown === 0) {
         var item = createSearchbarItem({
-          title: 'Your reading list is empty.',
-          descriptionBlock: 'Articles you open in reader view are listed here, and are saved offline for 30 days.'
+          title: l('emptyReadingListTitle'),
+          descriptionBlock: l('emptyReadingListSubtitle')
         })
 
         container.appendChild(item)

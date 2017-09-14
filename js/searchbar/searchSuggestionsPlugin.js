@@ -1,4 +1,4 @@
-var ddgAttribution = 'Results from DuckDuckGo'
+var ddgAttribution = l('resultsFromDDG')
 
 function showSearchSuggestions (text, input, event, container) {
   // TODO support search suggestions for other search engines

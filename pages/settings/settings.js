@@ -1,199 +1,204 @@
-var container = document.getElementById("privacy-settings-container");
-var trackerCheckbox = document.getElementById("checkbox-block-trackers");
-var banner = document.getElementById("restart-required-banner");
-var darkModeCheckbox = document.getElementById("checkbox-dark-mode");
-var swipeNavigationCheckbox = document.getElementById("checkbox-swipe-navigation");
+var container = document.getElementById('privacy-settings-container')
+var trackerCheckbox = document.getElementById('checkbox-block-trackers')
+var banner = document.getElementById('restart-required-banner')
+var darkModeCheckbox = document.getElementById('checkbox-dark-mode')
+var swipeNavigationCheckbox = document.getElementById('checkbox-swipe-navigation')
 
-function showRestartRequiredBanner() {
-	banner.hidden = false;
+function showRestartRequiredBanner () {
+  banner.hidden = false
 }
 
 var contentTypes = {
-	//humanReadableName: contentType
-	"scripts": "script",
-	"images": "image",
-};
+    // humanReadableName: contentType
+  'scripts': 'script',
+  'images': 'image'
+}
+
+// used for showing localized strings
+var contentTypeSettingNames = {
+  'scripts': 'settingsBlockScriptsToggle',
+  'images': 'settingsBlockImagesToggle'
+}
 
 settings.get('keyMap', function (keyMapSettings) {
-	var keyMap = userKeyMap(keyMapSettings);
+  var keyMap = userKeyMap(keyMapSettings)
 
-	var keyMapList = document.getElementById('key-map-list');
+  var keyMapList = document.getElementById('key-map-list')
 
-	Object.keys(keyMap).forEach(function(action) {
-		var li = createKeyMapListItem(action, keyMap);
-		keyMapList.appendChild(li);
-	});
-});
+  Object.keys(keyMap).forEach(function (action) {
+    var li = createKeyMapListItem(action, keyMap)
+    keyMapList.appendChild(li)
+  })
+})
 
-function createKeyMapListItem(action, keyMap) {
-	var li = document.createElement('li');
-	var label = document.createElement('label');
-	var input = document.createElement('input');
-	label.innerText = formatCamelCase(action);
-	label.htmlFor = action;
+function createKeyMapListItem (action, keyMap) {
+  var li = document.createElement('li')
+  var label = document.createElement('label')
+  var input = document.createElement('input')
+  label.innerText = formatCamelCase(action)
+  label.htmlFor = action
 
-	input.type = "text";
-	input.id = input.name = action;
-	input.value = keyMap[action];
-	input.addEventListener('change', onKeyMapChange);
+  input.type = 'text'
+  input.id = input.name = action
+  input.value = keyMap[action]
+  input.addEventListener('change', onKeyMapChange)
 
-	li.appendChild(label);
-	li.appendChild(input);
+  li.appendChild(label)
+  li.appendChild(input)
 
-	return li;
+  return li
 }
 
-function formatCamelCase(text) {
-	var result = text.replace( /([A-Z])/g, " $1" );
-	return result.charAt(0).toUpperCase() + result.slice(1);
+function formatCamelCase (text) {
+  var result = text.replace(/([A-Z])/g, ' $1')
+  return result.charAt(0).toUpperCase() + result.slice(1)
 }
 
-function onKeyMapChange(e) {
-	var action = this.name;
-	var newValue = this.value;
+function onKeyMapChange (e) {
+  var action = this.name
+  var newValue = this.value
 
-	settings.get('keyMap', function(keyMapSettings) {
-		if(!keyMapSettings) {
-			keyMapSettings = {}
-		}
-		
-		keyMapSettings[action] = parseKeyInput(newValue);
-		settings.set('keyMap', keyMapSettings, function () {
-			showRestartRequiredBanner()
-		})
-	})
+  settings.get('keyMap', function (keyMapSettings) {
+    if (!keyMapSettings) {
+      keyMapSettings = {}
+    }
+
+    keyMapSettings[action] = parseKeyInput(newValue)
+    settings.set('keyMap', keyMapSettings, function () {
+      showRestartRequiredBanner()
+    })
+  })
 }
 
-function parseKeyInput(input) {
-	//input may be a single mapping or multiple mappings comma separated.
-	var parsed = input.split(',');
-	parsed = parsed.map(function (e) { return e.trim();});
-	//Remove empty
-	parsed = parsed.filter(Boolean);
-	return parsed.length > 1 ? parsed : parsed[0];
+function parseKeyInput (input) {
+    // input may be a single mapping or multiple mappings comma separated.
+  var parsed = input.split(',')
+  parsed = parsed.map(function (e) { return e.trim() })
+    // Remove empty
+  parsed = parsed.filter(Boolean)
+  return parsed.length > 1 ? parsed : parsed[0]
 }
 
 for (var contentType in contentTypes) {
 
-	(function (contentType) {
+  (function (contentType) {
 
-		settings.get("filtering", function (value) {
+    settings.get('filtering', function (value) {
 
-			//create the settings section for blocking each content type
+            // create the settings section for blocking each content type
 
-			var section = document.createElement("div");
-			section.classList.add("setting-section");
+      var section = document.createElement('div')
+      section.classList.add('setting-section')
 
-			var id = "checkbox-block-" + contentTypes[contentType];
+      var id = 'checkbox-block-' + contentTypes[contentType]
 
-			var checkbox = document.createElement("input");
-			checkbox.type = "checkbox";
-			checkbox.id = id;
+      var checkbox = document.createElement('input')
+      checkbox.type = 'checkbox'
+      checkbox.id = id
 
-			if (value && value.contentTypes) {
-				checkbox.checked = value.contentTypes.indexOf(contentTypes[contentType]) != -1;
-			}
+      if (value && value.contentTypes) {
+        checkbox.checked = value.contentTypes.indexOf(contentTypes[contentType]) != -1
+      }
 
-			var label = document.createElement("label");
-			label.setAttribute("for", id);
-			label.textContent = " Block " + contentType;
+      var label = document.createElement('label')
+      label.setAttribute('for', id)
+      label.textContent = l(contentTypeSettingNames[contentType])
 
-			section.appendChild(checkbox);
-			section.appendChild(label);
+      section.appendChild(checkbox)
+      section.appendChild(label)
 
-			container.appendChild(section);
+      container.appendChild(section)
 
-			checkbox.addEventListener("change", function (e) {
-				settings.get("filtering", function (value) {
-					if (!value) {
-						value = {};
-					}
-					if (!value.contentTypes) {
-						value.contentTypes = [];
-					}
+      checkbox.addEventListener('change', function (e) {
+        settings.get('filtering', function (value) {
+          if (!value) {
+            value = {}
+          }
+          if (!value.contentTypes) {
+            value.contentTypes = []
+          }
 
-					if (e.target.checked) { //add the item to the array
-						value.contentTypes.push(contentTypes[contentType]);
-					} else { //remove the item from the array
-						var idx = value.contentTypes.indexOf(contentTypes[contentType]);
-						value.contentTypes.splice(idx, 1);
-					}
+          if (e.target.checked) { // add the item to the array
+            value.contentTypes.push(contentTypes[contentType])
+          } else { // remove the item from the array
+            var idx = value.contentTypes.indexOf(contentTypes[contentType])
+            value.contentTypes.splice(idx, 1)
+          }
 
-					settings.set("filtering", value);
-					banner.hidden = false;
-				});
-			});
+          settings.set('filtering', value)
+          banner.hidden = false
+        })
+      })
 
-		});
+    })
 
-	})(contentType);
+  })(contentType)
 
 }
 
-settings.get("filtering", function (value) {
-	if (value) {
-		trackerCheckbox.checked = value.trackers;
-	}
-});
+settings.get('filtering', function (value) {
+  if (value) {
+    trackerCheckbox.checked = value.trackers
+  }
+})
 
-trackerCheckbox.addEventListener("change", function (e) {
-	settings.get("filtering", function (value) {
-		if (!value) {
-			value = {};
-		}
-		value.trackers = e.target.checked;
-		settings.set("filtering", value);
-		banner.hidden = false;
-	});
-});
+trackerCheckbox.addEventListener('change', function (e) {
+  settings.get('filtering', function (value) {
+    if (!value) {
+      value = {}
+    }
+    value.trackers = e.target.checked
+    settings.set('filtering', value)
+    banner.hidden = false
+  })
+})
 
 // Dark Mode Settings
 settings.get('darkMode', function (value) {
-	darkModeCheckbox.checked = value;
-});
+  darkModeCheckbox.checked = value
+})
 
-darkModeCheckbox.addEventListener("change", function (e) {
-	settings.set("darkMode", this.checked)
-	showRestartRequiredBanner()
-});
+darkModeCheckbox.addEventListener('change', function (e) {
+  settings.set('darkMode', this.checked)
+  showRestartRequiredBanner()
+})
 
 // Swipe navigation settings
 
-settings.get("swipeNavigationEnabled", function (value) {
-    if (value === true || value === undefined) {
-        swipeNavigationCheckbox.checked = true
-    } else {
-        swipeNavigationCheckbox.checked = false;
-    }
-});
+settings.get('swipeNavigationEnabled', function (value) {
+  if (value === true || value === undefined) {
+    swipeNavigationCheckbox.checked = true
+  } else {
+    swipeNavigationCheckbox.checked = false
+  }
+})
 
-swipeNavigationCheckbox.addEventListener("change", function (e) {
-    settings.set("swipeNavigationEnabled", this.checked);
-    showRestartRequiredBanner();
-});
+swipeNavigationCheckbox.addEventListener('change', function (e) {
+  settings.set('swipeNavigationEnabled', this.checked)
+  showRestartRequiredBanner()
+})
 
 /* default search engine setting */
 
-var searchEngineDropdown = document.getElementById("default-search-engine");
+var searchEngineDropdown = document.getElementById('default-search-engine')
 
 settings.onLoad(function () {
 
-	for (var searchEngine in searchEngines) {
+  for (var searchEngine in searchEngines) {
 
-		var item = document.createElement("option");
-		item.textContent = searchEngines[searchEngine].name;
+    var item = document.createElement('option')
+    item.textContent = searchEngines[searchEngine].name
 
-		if (searchEngines[searchEngine].name == currentSearchEngine.name) {
-			item.setAttribute("selected", "true");
-		}
+    if (searchEngines[searchEngine].name == currentSearchEngine.name) {
+      item.setAttribute('selected', 'true')
+    }
 
-		searchEngineDropdown.appendChild(item);
+    searchEngineDropdown.appendChild(item)
+  }
 
-	}
+})
 
-});
-
-searchEngineDropdown.addEventListener("change", function (e) {
-	settings.set("searchEngine", this.value);
-	showRestartRequiredBanner();
-});
+searchEngineDropdown.addEventListener('change', function (e) {
+  settings.set('searchEngine', this.value)
+  showRestartRequiredBanner()
+})

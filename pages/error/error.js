@@ -9,34 +9,34 @@ var ec = searchParams.get('ec')
 var url = searchParams.get('url')
 
 var websiteNotFound = {
-  name: 'Server not found',
-  message: "Min couldn't find this website.",
+  name: l('serverNotFoundTitle'),
+  message: l('serverNotFoundSubtitle'),
   secondaryAction: {
-    title: 'Search on archive.org',
+    title: l('archiveSearchAction'),
     url: 'https://web.archive.org/web/*/' + url
   }
 }
 
 var sslError = {
-  name: 'This website is not available',
-  message: "Min couldn't connect securely to this website."
+  name: l('sslErrorTitle'),
+  message: l('sslErrorMessage')
 }
 
 var dnsError = {
-  name: 'Website not found',
-  messge: 'A DNS error occured.'
+  name: l('dnsErrorTitle'),
+  messge: l('dnsErrorMessage')
 }
 
 var offlineError = {
-  name: 'You are offline',
-  message: 'Reconnect to the internet and try again.'
+  name: l('offlineErrorTitle'),
+  message: l('offlineErrorMessage')
 }
 
 // list: https://code.google.com/p/chromium/codesearch#chromium/src/net/base/net_error_list.h&sq=package:chromium&type=cs
 const errorCodes = {
   '-21': offlineError, // network changed
   '-104': {
-    message: "Min couldn't connect to the website."
+    message: l('genericConnectionFail')
   },
   '-105': websiteNotFound,
   '-106': offlineError,
@@ -49,8 +49,8 @@ const errorCodes = {
   '-117': sslError,
   '-200': sslError,
   '-201': {
-    name: 'This website is not available',
-    message: "Min couldn't connect securely to this website. Please make sure your computer's clock is set correctly."
+    name: l('sslErrorTitle'),
+    message: l('sslTimeErrorMessage')
   },
   '-202': sslError,
   '-203': sslError,
@@ -64,7 +64,7 @@ const errorCodes = {
   '-212': sslError,
   '-213': sslError,
   '-300': {
-    name: 'This address is invalid.'
+    name: l('addressInvalidTitle')
   },
   '-501': sslError,
   '-800': dnsError,
@@ -84,7 +84,7 @@ if (err) {
   h1.innerHTML += err.name || ''
   h2.innerHTML += err.message || ''
 } else {
-  h1.innerHTML += 'An error occured'
+  h1.innerHTML += l('genericError')
 }
 
 if (err.secondaryAction) {
