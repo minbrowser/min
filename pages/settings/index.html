@@ -2,7 +2,10 @@
 <html>
 
 <head>
-	<title>Preferences | Min</title>
+	<meta charset="UTF-8" />
+
+	<!-- title is set in JS -->
+
 	<link rel="stylesheet" href="../../css/base.css" />
 	<link rel="stylesheet" href="settings.css" />
 	<link rel="stylesheet" href="../../ext/font-awesome-4.4.0/css/font-awesome.min.css" />
@@ -12,7 +15,7 @@
 	<div class="banner yellow-background" id="restart-required-banner" hidden>
 		<div class="container padding">
 			<i class="fa fa-info-circle"></i>
-			 <span data-string="settingsRestartRequired"></span>
+			<span data-string="settingsRestartRequired"></span>
 		</div>
 	</div>
 
@@ -62,8 +65,7 @@
 	<div class="container padding" id="search-engine-settings-container">
 		<h3 data-string="settingsSearchEngineHeading"></h3>
 
-		<label for="defaultSearchEngine" data-string="settingsDefaultSearchEngine"></label>
-		&nbsp;
+		<label for="defaultSearchEngine" data-string="settingsDefaultSearchEngine"></label> &nbsp;
 		<select id="default-search-engine" name="defaultSearchEngine" style="min-width: 225px"></select>
 
 		<div class="light-fade" style="padding-top:0.4em" data-string="settingsDDGExplanation"></div>
@@ -85,7 +87,7 @@
 	<script src="../../js/util/settings.js"></script>
 	<script src="../../js/util/searchEngine.js"></script>
 	<script src="../../js/util/theme.js"></script>
-	<script src="../../dist/localization.build.js"></script>	
+	<script src="../../dist/localization.build.js"></script>
 	<script src="settings.js"></script>
 </body>
 

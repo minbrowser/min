@@ -1,3 +1,5 @@
+document.title = l('settingsPreferencesHeading') + ' | Min'
+
 var container = document.getElementById('privacy-settings-container')
 var trackerCheckbox = document.getElementById('checkbox-block-trackers')
 var banner = document.getElementById('restart-required-banner')

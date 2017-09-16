@@ -80,12 +80,19 @@ const errorCodes = {
 
 var err = errorCodes[ec]
 
+var title, subtitle
+
 if (err) {
-  h1.innerHTML += err.name || ''
-  h2.innerHTML += err.message || ''
+  title = err.name || ''
+  subtitle = err.message || ''
 } else {
-  h1.innerHTML += l('genericError')
+  title = l('genericError')
+  subtitle = ''
 }
+
+h1.textContent = title
+h2.textContent = subtitle
+document.title = title
 
 if (err.secondaryAction) {
   secondaryButton.hidden = false
