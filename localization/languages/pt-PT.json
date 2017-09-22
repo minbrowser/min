@@ -1,0 +1,152 @@
+{
+    "name": "Portuguese (Portugal))",
+    "identifier": "pt",
+    "translations": {
+        /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+        "openInNewTab": "Abrir em novo separador",
+        "openInNewPrivateTab": "Abrir em novo separador privado",
+        "viewImage": "Ver imagem",
+        "openImageInNewTab": "Abrir imagem em novo separador",
+        "openImageInNewPrivateTab": "Abrir imagem em novo separador privado",
+        "saveImageAs": "Guardar imagem como",
+        "searchWith": "Pesquisar com %s", //%s will be replaced with the name of the current search engine
+        "copyLink": "Copiar ligação",
+        "copy": "Copiar", //this is a verb (as in "copy the currently-selected text")
+        "paste": "Colar",
+        "goBack": "Recuar",
+        "goForward": "Avançar",
+        "inspectElement": "Inspecionar elemento",
+        /* searchbar */
+        "DDGAnswerSubtitle": "Resposta", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+        "suggestedSite": "Site sugerido", //this is used to label suggested websites from the DuckDuckGo API,
+        "resultsFromDDG": "Resultados em DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+        "taskN": "Tarefa %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "hostsFileEntry": "Entrada do ficheiro 'hosts'", //this is a label used to indicate that a result is coming from the user's host file        
+        /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+        "viewSettings": "Ver definições",
+        "takeScreenshot": "Obter captura de ecrão",
+        "clearHistory": "Limpar todo o histórico",
+        "switchToTask": "Trocar para a tarefa",
+        "createTask": "Criar tarefa",
+        "moveToTask": "Mover este seperador para uma tarefa",
+        "searchBookmarks": "Pesquisar nos marcadores",
+        /* navbar */
+        "enterReaderView": "Ativar modo de leitura",
+        "exitReaderView": "Desativar modo de leitura",
+        "emptyReadingListTitle": "A lista de leitura está vazia",
+        "emptyReadingListSubtitle": "Os artigos abertos no modo de leitura serão listados e mantidos aqui durante 30 dias.",
+        "newTabLabel": "Novo separador", //this is a noun, used for tabs that don't have a page loaded in them yet
+        "connectionNotSecure": "A ligação a este site não é segura.",
+        "searchbarPlaceholder": "Pesquisar ou digitar endereço",
+        "privateTab": "Separador privado",
+        "newTabAction": "Novo separador", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        /* task overlay */
+        "viewTasks": "Ver tarefas",
+        "newTask": "Nova tarefa", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": "Tarefa %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        /* find in page toolbar */
+        "searchInPage": "Pesquisar na página", //this is used as the placeholder text for the textbox in the find in page toolbar
+        "findMatchesSingular": "%i de %t ocorrência", //this and the next label are used to indicate which match is currently highlighted
+        "findMatchesPlural": "%i de %t ocorrências",
+        /* Focus mode */
+        "isFocusMode": "Está no modo de foco.",
+        "closeDialog": "OK", //used as a label for the button that closes the dialog
+        "focusModeExplanation1": "Neste modo, todos os separadores estão ocultos à exceção do atual e não será possível criar novos separadores.",
+        "focusModeExplanation2": "Pode desativar este modo desmarcando a caixa \"Modo de foco\" no menu Ver.",
+        /* pages/crash/index.html */
+        "crashErrorTitle": "Algo errado aconteceu.",
+        "crashErrorSubtitle": "Ocorreu um erro ao tentar mostrar esta página.",
+        /* pages/error/index.html */
+        "errorPagePrimaryAction": "Tentar novamente",
+        "serverNotFoundTitle": "Servidor não encontrado",
+        "serverNotFoundSubtitle": "O Min não conseguiu encontrar este site.",
+        "archiveSearchAction": "Pesquisar em archive.org",
+        "sslErrorTitle": "Este site não está disponível",
+        "sslErrorMessage": "O Min não conseguiu estabelecer uma ligação segura a este site.",
+        "dnsErrorTitle": "Site não encontrado",
+        "dnsErrorMessage": "Ocorreu um erro de DNS.",
+        "offlineErrorTitle": "Está no modo off-line",
+        "offlineErrorMessage": "Ative o modo on-line e tente novamente.",
+        "genericConnectionFail": "O Min não conseguiu estabelecer a ligação ao site.",
+        "sslTimeErrorMessage": "O Min não conseguiu estabelecer uma ligação segura a este site. Verifique se a hora do computador está correta.",
+        "addressInvalidTitle": "Este endereço não é válido.",
+        "genericError": "Ocorreu um erro",
+        /* pages/phishing/index.html */
+        "phishingErrorTitle": "Este site pode ser perigoso.",
+        "phishingErrorMessage": "Este site pode estar a tentar obter informações pessoais, tais como palavras-passe ou informações bancárias.",
+        "phishingErrorVisitAnyway": "Aceder na mesma",
+        "phishingErrorLeave": "Sair do site",
+        /* pages/sessionRestoreError/index.html */
+        "sessionRestoreErrorTitle": "Ocorreu um erro",
+        "sessionRestoreErrorExplanation": "Os separadores guardados não foram restaurados corretamente.",
+        "sessionRestoreErrorBackupInfo": "Criámos um backup dos seus dados em: %l.", //%l will be replaced with a path to a file
+        "sessionRestoreErrorLinkInfo": {
+            "unsafeHTML": "Se este erro persistir, crie um relatório de erros <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">aqui</a>."
+        },
+        /* pages/settings/index.html */
+        "settingsPreferencesHeading": "Preferências",
+        "settingsRestartRequired": "Tem que reiniciar o navegador para aplicar as alterações.",
+        "settingsPrivacyHeading": "Bloqueio de conteúdo",
+        "settingsContentBlockingToggle": "Bloquear rastreadores e anúncios",
+        "settingsBlockScriptsToggle": "Bloquear scripts",
+        "settingsBlockImagesToggle": "Bloquear imagens",
+        "settingsEasyListCredit": {
+            "unsafeHTML": "Baseado nas listas EasyList e EasyPrivacy, sem regras de ocultação de elementos. Criado por <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">ver licença</a>."
+        },
+        "settingsAppearanceHeading": "Aparência",
+        "settingsDarkModeToggle": "Ativar modo escuro",
+        "settingsSwipeNavigationHeading": "Navegação com gestos",
+        "settingsSwipeNavigationToggle": "Ativar gestos para navegar entre as páginas visitadas.",
+        "settingsSearchEngineHeading": "Motor de pesquisa",
+        "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",
+        "settingsDDGExplanation": "Defina DuckDuckGo como motor de pesquisa padrão para poder obter sugestões instantâneas na barra de pesquisa.",
+        "settingsKeyboardShortcutsHeading": "Teclas de atalho",
+        "settingsKeyboardShortcutsHelp": "Digite \"mod\" para utilizar as teclas Ctrl ou Comando.",
+        /* app menu */
+        "appMenuFile": "Ficheiro",
+        "appMenuNewTab": "Novo separador",
+        "appMenuNewPrivateTab": "Novo separador privado",
+        "appMenuNewTask": "Nova tarefa",
+        "appMenuSavePageAs": "Guardar página como",
+        "appMenuPrint": "Imprimir",
+        "appMenuEdit": "Editar",
+        "appMenuUndo": "Desfazer",
+        "appMenuRedo": "Refazer",
+        "appMenuCut": "Cortar",
+        "appMenuCopy": "Copiar",
+        "appMenuPaste": "Colar",
+        "appMenuSelectAll": "Selecionar tudo",
+        "appMenuFind": "Localizar",
+        "appMenuView": "Ver",
+        "appMenuZoomIn": "Ampliar",
+        "appMenuZoomOut": "Reduzir",
+        "appMenuActualSize": "Tamanho real",
+        "appMenuFullScreen": "Ecrã completo", //on some platforms, this string is replaced with one built-in to the OS
+        "appMenuFocusMode": "Modo de foco",
+        "appMenuReadingList": "Lista de leitura",
+        "appMenuDeveloper": "Programador",
+        "appMenuReloadBrowser": "Recarregar navegador",
+        "appMenuInspectBrowser": "Inspecionar navegador",
+        "appMenuInspectPage": "Inspecionar página",
+        "appMenuWindow": "Janela",
+        "appMenuMinimize": "Minimizar",
+        "appMenuClose": "Fechar",
+        "appMenuHelp": "Ajuda",
+        "appMenuKeyboardShortcuts": "Teclas de atalho",
+        "appMenuReportBug": "Reporte de erros",
+        "appMenuTakeTour": "Visão geral",
+        "appMenuViewGithub": "Ver em GitHub",
+        "appMenuAbout": "Acerca do %n", //%n is replaced with app name
+        "appMenuPreferences": "Preferências",
+        "appMenuServices": "Serviços",
+        "appMenuHide": "Ocultar %n",
+        "appMenuHideOthers": "Ocultar outras",
+        "appMenuShowAll": "Mostrar tudo",
+        "appMenuQuit": "Sair do %n",
+        "appMenuBringToFront": "Trazer tudo para a frente"
+    }
+}
