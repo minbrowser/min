@@ -5,9 +5,7 @@ function saveArticle (url, pageHTML, article, extraData) {
   }
 
   db.readingList.where('url').equals(url).count(function (ct) {
-    console.log('got count', ct)
     if (ct == 0) {
-      console.log('adding')
       db.readingList.add({
         url: url,
         time: Date.now(),
@@ -18,7 +16,6 @@ function saveArticle (url, pageHTML, article, extraData) {
       })
     } else {
       db.readingList.where('url').equals(url).each(function (item) {
-        console.log('updating')
         db.readingList.where('url').equals(url).modify({
           url: url,
           time: Date.now(),
