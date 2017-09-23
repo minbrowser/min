@@ -59,7 +59,7 @@
         "focusModeExplanation2": "You can leave focus mode by unchecking \"focus mode\" in the view menu.",
         /* pages/crash/index.html */
         "crashErrorTitle": "Something went wrong.",
-        "crashErrorSubtitle": "A problem has occured while displaying this page.",
+        "crashErrorSubtitle": "A problem has occurred while displaying this page.",
         /* pages/error/index.html */
         "errorPagePrimaryAction": "Try again",
         "serverNotFoundTitle": "Server not found",
@@ -68,20 +68,20 @@
         "sslErrorTitle": "This website is not available",
         "sslErrorMessage": "Min couldn't connect securely to this website.",
         "dnsErrorTitle": "Website not found",
-        "dnsErrorMessage": "A DNS error occured.",
+        "dnsErrorMessage": "A DNS error occurred.",
         "offlineErrorTitle": "You are offline",
         "offlineErrorMessage": "Reconnect to the internet and try again.",
         "genericConnectionFail": "Min couldn't connect to the website.",
         "sslTimeErrorMessage": "Min couldn't connect securely to this website. Please make sure your computer's clock is set correctly.",
         "addressInvalidTitle": "This address is invalid.",
-        "genericError": "An error occured",
+        "genericError": "An error occurred",
         /* pages/phishing/index.html */
         "phishingErrorTitle": "This site could harm you.",
         "phishingErrorMessage": "This website could be trying to steal your personal information, such as passwords or banking information.",
         "phishingErrorVisitAnyway": "Visit site anyway",
         "phishingErrorLeave": "Leave this site",
         /* pages/sessionRestoreError/index.html */
-        "sessionRestoreErrorTitle": "An error occured",
+        "sessionRestoreErrorTitle": "An error occurred",
         "sessionRestoreErrorExplanation": "Your saved tabs couldn't be restored correctly.",
         "sessionRestoreErrorBackupInfo": "We've saved a backup of your data at this location: %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
