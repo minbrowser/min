@@ -56,7 +56,7 @@
         "isFocusMode": "Jste v režimu zaměření.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
         "focusModeExplanation1": "V režimu zaměření jsou všechny karty kromě aktuální skryté a nelze vytvářet nové karty.",
-        "focusModeExplanation2": "Můžete opustit režim zaměření odškrtnutím \"focus mode\" v nabídce zobrazení.",
+        "focusModeExplanation2": "Můžete opustit režim zaměření odškrtnutím \"Režim zaměření\" v nabídce zobrazení.",
         /* pages/crash/index.html */
         "crashErrorTitle": "Něco se pokazilo.",
         "crashErrorSubtitle": "Během zobrazování této stránky došlo k potížím.",
