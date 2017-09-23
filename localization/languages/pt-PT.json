@@ -1,5 +1,5 @@
 {
-    "name": "Portuguese (Portugal))",
+    "name": "Portuguese (Portugal)",
     "identifier": "pt-PT",
     "translations": {
         /* Context menu items
@@ -28,11 +28,11 @@
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
         "viewSettings": "Ver definições",
-        "takeScreenshot": "Obter captura de ecrão",
+        "takeScreenshot": "Obter captura de ecrã",
         "clearHistory": "Limpar todo o histórico",
         "switchToTask": "Trocar para a tarefa",
         "createTask": "Criar tarefa",
-        "moveToTask": "Mover este seperador para uma tarefa",
+        "moveToTask": "Mover este separador para uma tarefa",
         "searchBookmarks": "Pesquisar nos marcadores",
         /* navbar */
         "enterReaderView": "Ativar modo de leitura",
