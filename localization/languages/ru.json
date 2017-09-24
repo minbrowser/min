@@ -16,14 +16,14 @@
         "copy": "Копировать", //this is a verb (as in "copy the currently-selected text")
         "paste": "Вставить",
         "goBack": "Назад",
-        "goForward": "Вперед",
+        "goForward": "Вперёд",
         "inspectElement": "Инспектировать элемент",
         /* searchbar */
         "DDGAnswerSubtitle": "Ответ", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Предложенный сайт", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Результаты из DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
         "taskN": "Задача %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "Hosts file entry", //this is a label used to indicate that a result is coming from the user's host file        
+        "hostsFileEntry": "Запись из файла hosts", //this is a label used to indicate that a result is coming from the user's host file        
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
@@ -77,12 +77,12 @@
         "genericError": "Произошла ошибка",
         /* pages/phishing/index.html */
         "phishingErrorTitle": "Этот сайт может вам навредить.",
-        "phishingErrorMessage": "Этот сайт может попытаться украсть ваши данные, такие как пароли и банковские данные.",
+        "phishingErrorMessage": "Этот сайт может попытаться украсть ваши личные данные, такие как пароли и банковские данные.",
         "phishingErrorVisitAnyway": "Все равно посетить сайт",
         "phishingErrorLeave": "Уйти с сайта",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Произошла ошибка",
-        "sessionRestoreErrorExplanation": "Ваши сохраненные вкладки не могут быть корректно восстановлены.",
+        "sessionRestoreErrorExplanation": "Ваши сохранённые вкладки не могут быть корректно восстановлены.",
         "sessionRestoreErrorBackupInfo": "Мы сохранили резервную копию ваших данных по этому адресу: %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
             "unsafeHTML": "Если эта ошибка продолжает появляться, пожалуйста, сообщите о ней <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">сюда</a>."
@@ -97,56 +97,56 @@
         "settingsEasyListCredit": {
             "unsafeHTML": "Основано на списках \"EasyList\" и \"EasyPrivacy\" (без правил для скрытия элементов). Создано <a target=\"_blank\" href=\"https://easylist.to/\">авторами \"EasyList\"</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">посмотреть лицензионное соглашение</a>."
         },
-        "settingsAppearanceHeading": "Appearance",
-        "settingsDarkModeToggle": "Enable dark mode",
-        "settingsSwipeNavigationHeading": "Swipe navigation",
-        "settingsSwipeNavigationToggle": "Enable swipe for navigating back and forth between pages.",
-        "settingsSearchEngineHeading": "Search Engine",
-        "settingsDefaultSearchEngine": "Choose a default search engine:",
-        "settingsDDGExplanation": "Set DuckDuckGo as the default search engine to see instant answers in the searchbar.",
-        "settingsKeyboardShortcutsHeading": "Keyboard Shortcuts",
-        "settingsKeyboardShortcutsHelp": "Type \"mod\" to use the command or control key.",
+        "settingsAppearanceHeading": "Внешний вид",
+        "settingsDarkModeToggle": "Использовать тёмную тему",
+        "settingsSwipeNavigationHeading": "Свайп-навигация",
+        "settingsSwipeNavigationToggle": "Включить навигацию свайпом для перехода вперёд и назад по страницам.",
+        "settingsSearchEngineHeading": "Поиск",
+        "settingsDefaultSearchEngine": "Выберите поиск по умолчанию:",
+        "settingsDDGExplanation": "Чтобы видеть мгновенные ответы в строке поиска, установите DuckDuckGo поисковиком по умолчанию.",
+        "settingsKeyboardShortcutsHeading": "Горячие клавиши",
+        "settingsKeyboardShortcutsHelp": "Для обозначения клавиши Ctrl/Cmd используйте слово \"mod\".",
         /* app menu */
-        "appMenuFile": "File",
-        "appMenuNewTab": "New Tab",
-        "appMenuNewPrivateTab": "New Private Tab",
-        "appMenuNewTask": "New Task",
-        "appMenuSavePageAs": "Save Page As",
-        "appMenuPrint": "Print",
-        "appMenuEdit": "Edit",
-        "appMenuUndo": "Undo",
-        "appMenuRedo": "Redo",
-        "appMenuCut": "Cut",
-        "appMenuCopy": "Copy",
-        "appMenuPaste": "Paste",
-        "appMenuSelectAll": "Select All",
-        "appMenuFind": "Find",
-        "appMenuView": "View",
-        "appMenuZoomIn": "Zoom In",
-        "appMenuZoomOut": "Zoom Out",
-        "appMenuActualSize": "Actual Size",
-        "appMenuFullScreen": "Full Screen", //on some platforms, this string is replaced with one built-in to the OS
-        "appMenuFocusMode": "Focus Mode",
-        "appMenuReadingList": "Reading List",
-        "appMenuDeveloper": "Developer",
-        "appMenuReloadBrowser": "Reload Browser",
-        "appMenuInspectBrowser": "Inspect Browser",
-        "appMenuInspectPage": "Inspect Page",
-        "appMenuWindow": "Window",
-        "appMenuMinimize": "Minimize",
-        "appMenuClose": "Close",
-        "appMenuHelp": "Help",
-        "appMenuKeyboardShortcuts": "Keyboard Shortcuts",
-        "appMenuReportBug": "Report a Bug",
-        "appMenuTakeTour": "Take a Tour",
-        "appMenuViewGithub": "View on GitHub",
-        "appMenuAbout": "About %n", //%n is replaced with app name
-        "appMenuPreferences": "Preferences",
-        "appMenuServices": "Services",
-        "appMenuHide": "Hide %n",
-        "appMenuHideOthers": "Hide Others",
-        "appMenuShowAll": "Show All",
-        "appMenuQuit": "Quit %n",
-        "appMenuBringToFront": "Bring All to Front"
+        "appMenuFile": "Файл",
+        "appMenuNewTab": "Новая вкладка",
+        "appMenuNewPrivateTab": "Новая приватная вкладка",
+        "appMenuNewTask": "Новая задача",
+        "appMenuSavePageAs": "Сохранить страницу как",
+        "appMenuPrint": "Печать",
+        "appMenuEdit": "Правка",
+        "appMenuUndo": "Отменить",
+        "appMenuRedo": "Повторить",
+        "appMenuCut": "Вырезать",
+        "appMenuCopy": "Копировать",
+        "appMenuPaste": "Вставить",
+        "appMenuSelectAll": "Выделить всё",
+        "appMenuFind": "Найти",
+        "appMenuView": "Вид",
+        "appMenuZoomIn": "Увеличить масштаб",
+        "appMenuZoomOut": "Уменьшить масштаб",
+        "appMenuActualSize": "Масштаб 100%",
+        "appMenuFullScreen": "Полноэкранный режим", //on some platforms, this string is replaced with one built-in to the OS
+        "appMenuFocusMode": "Изолированный режим",
+        "appMenuReadingList": "Список для чтения",
+        "appMenuDeveloper": "Разработка",
+        "appMenuReloadBrowser": "Перезагрузить браузер",
+        "appMenuInspectBrowser": "Инспектировать браузер",
+        "appMenuInspectPage": "Инспектировать страницу",
+        "appMenuWindow": "Окно",
+        "appMenuMinimize": "Свернуть",
+        "appMenuClose": "Закрыть",
+        "appMenuHelp": "Помощь",
+        "appMenuKeyboardShortcuts": "Горячие клавиши",
+        "appMenuReportBug": "Сообщить об ошибке",
+        "appMenuTakeTour": "Экскурсия по браузеру",
+        "appMenuViewGithub": "Мы на GitHub",
+        "appMenuAbout": "О %n", //%n is replaced with app name
+        "appMenuPreferences": "Настройки",
+        "appMenuServices": "Услуги",
+        "appMenuHide": "Скрыть %n",
+        "appMenuHideOthers": "Скрыть остальное",
+        "appMenuShowAll": "Показать всё",
+        "appMenuQuit": "Выйти из %n",
+        "appMenuBringToFront": "Переместить всё на передний план"
     }
 }
