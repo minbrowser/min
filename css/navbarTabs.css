@@ -242,4 +242,5 @@ body.is-focus-mode .navbar-action-button {
 
 body.is-focus-mode .tab-item {
 	background: none !important;
+	border-right-style: none;
 }
