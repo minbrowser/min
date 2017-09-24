@@ -64,3 +64,8 @@ button.secondary-button {
 button.primary-button {
 	float: right;
 }
+
+a {
+	color: royalblue;
+	text-decoration: none;
+}

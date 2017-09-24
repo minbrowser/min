@@ -2,7 +2,7 @@
 
 registerCustomBang({
   phrase: '!settings',
-  snippet: 'View Settings',
+  snippet: l('viewSettings'),
   isAction: true,
   fn: function (text) {
     navigate(tabs.getSelected(), 'file://' + __dirname + '/pages/settings/index.html')
@@ -11,7 +11,7 @@ registerCustomBang({
 
 registerCustomBang({
   phrase: '!back',
-  snippet: 'Go Back',
+  snippet: l('goBack'),
   isAction: true,
   fn: function (text) {
     try {
@@ -22,7 +22,7 @@ registerCustomBang({
 
 registerCustomBang({
   phrase: '!forward',
-  snippet: 'Go Forward',
+  snippet: l('goForward'),
   isAction: true,
   fn: function (text) {
     try {
@@ -33,7 +33,7 @@ registerCustomBang({
 
 registerCustomBang({
   phrase: '!screenshot',
-  snippet: 'Take a Screenshot',
+  snippet: l('takeScreenshot'),
   isAction: true,
   fn: function (text) {
     setTimeout(function () { // wait until the next frame so that the searchbar is hidden
@@ -55,7 +55,7 @@ registerCustomBang({
 
 registerCustomBang({
   phrase: '!clearhistory',
-  snippet: 'Clear All History',
+  snippet: l('clearHistory'),
   isAction: true,
   fn: function (text) {
     db.places.filter(function (item) {
@@ -83,7 +83,7 @@ function getTaskByNameOrNumber (text) {
 
 registerCustomBang({
   phrase: '!task',
-  snippet: 'Switch to Task',
+  snippet: l('switchToTask'),
   isAction: false,
   fn: function (text) {
 
@@ -111,7 +111,7 @@ registerCustomBang({
 
 registerCustomBang({
   phrase: '!newtask',
-  snippet: 'Create a task',
+  snippet: l('createTask'),
   isAction: true,
   fn: function (text) {
 
@@ -134,7 +134,7 @@ registerCustomBang({
 
 registerCustomBang({
   phrase: '!movetotask',
-  snippet: 'Move this tab to a task',
+  snippet: l('moveToTask'),
   isAction: false,
   fn: function (text) {
 
@@ -178,7 +178,7 @@ registerCustomBang({
 
 registerCustomBang({
   phrase: '!bookmarks',
-  snippet: 'Search bookmarks',
+  snippet: l('searchBookmarks'),
   isAction: false,
   showSuggestions: function (text, input, event, container) {
     bookmarks.searchPlaces(text, function (results) {

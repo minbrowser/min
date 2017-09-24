@@ -51,7 +51,7 @@ var searchOpenTabs = function (text, input, event, container) {
     }
 
     if (match.task.id !== currentTask.id) {
-      var taskName = match.task.name || 'Task ' + (tasks.getIndex(match.task.id) + 1)
+      var taskName = match.task.name || l('taskN').replace('%n', (tasks.getIndex(match.task.id) + 1))
       data.metadata = [taskName]
     }
 

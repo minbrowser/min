@@ -95,7 +95,7 @@ function rerenderTabElement (tabId) {
   var tabEl = getTabElement(tabId)
   var tabData = tabs.get(tabId)
 
-  var tabTitle = tabData.title || 'New Tab'
+  var tabTitle = tabData.title || l('newTabLabel')
   var title = tabEl.querySelector('.tab-view-contents .title')
 
   title.textContent = tabTitle
@@ -106,7 +106,7 @@ function rerenderTabElement (tabId) {
   if (tabData.secure === false) {
     if (!secIcon) {
       var iconArea = tabEl.querySelector('.tab-icon-area')
-      iconArea.insertAdjacentHTML('beforeend', "<i class='fa fa-unlock icon-tab-not-secure tab-info-icon' title='Your connection to this website is not secure.'></i>")
+      iconArea.insertAdjacentHTML('beforeend', "<i class='fa fa-unlock icon-tab-not-secure tab-info-icon' title='" + l('connectionNotSecure') + "'></i>")
     }
   } else if (secIcon) {
     secIcon.parentNode.removeChild(secIcon)
@@ -137,7 +137,7 @@ function createTabElement (data) {
 
   var input = document.createElement('input')
   input.className = 'tab-input mousetrap'
-  input.setAttribute('placeholder', 'Search or enter address')
+  input.setAttribute('placeholder', l('searchbarPlaceholder'))
   input.value = url
 
   ec.appendChild(input)
@@ -170,7 +170,7 @@ function createTabElement (data) {
 
   if (data.private) {
     iconArea.insertAdjacentHTML('afterbegin', "<i class='fa fa-eye-slash icon-tab-is-private tab-info-icon'></i>")
-    vc.setAttribute('title', 'Private tab')
+    vc.setAttribute('title', l('privateTab'))
   }
 
   vc.appendChild(iconArea)
@@ -179,7 +179,7 @@ function createTabElement (data) {
 
   var title = document.createElement('span')
   title.className = 'title'
-  title.textContent = data.title || 'New Tab'
+  title.textContent = data.title || l('newTabLabel')
 
   vc.appendChild(title)
 

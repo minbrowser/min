@@ -1,0 +1,152 @@
+{
+    "name": "Česky",
+    "identifier": "cs",
+    "translations": {
+        /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+        "openInNewTab": "Otevřít v nové kartě",
+        "openInNewPrivateTab": "Otevřít v nové soukromé kartě",
+        "viewImage": "Zobrazit obrázek",
+        "openImageInNewTab": "Otevřít obrázek v nové kartě",
+        "openImageInNewPrivateTab": "Otevřít obrázek v nové soukromé kartě",
+        "saveImageAs": "Uložit obrázek jako",
+        "searchWith": "Vyhledávat pomocí %s", //%s will be replaced with the name of the current search engine
+        "copyLink": "Kopírovat odkaz",
+        "copy": "Kopírovat", //this is a verb (as in "copy the currently-selected text")
+        "paste": "Vložit",
+        "goBack": "Jít zpět",
+        "goForward": "Jít dopředu",
+        "inspectElement": "Prozkoumat prvek",
+        /* searchbar */
+        "DDGAnswerSubtitle": "Odpověď", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+        "suggestedSite": "Doporučené stránky", //this is used to label suggested websites from the DuckDuckGo API,
+        "resultsFromDDG": "Výsledky z DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+        "taskN": "Dimenze %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "hostsFileEntry": "Lokální soubor", //this is a label used to indicate that a result is coming from the user's host file        
+        /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+        "viewSettings": "Zobrazit nastavení",
+        "takeScreenshot": "Pořídit snímek obrazovky",
+        "clearHistory": "Vymazat celou historii",
+        "switchToTask": "Skočit do dimenze",
+        "createTask": "Vytvořit dimenzi",
+        "moveToTask": "Přesunout tuto kartu do dimenze",
+        "searchBookmarks": "Vyhledávat záložky",
+        /* navbar */
+        "enterReaderView": "Otevřít režim čtení",
+        "exitReaderView": "Zavřít režim čtení",
+        "emptyReadingListTitle": "Váš seznam čtení je prázdný.",
+        "emptyReadingListSubtitle": "Stránky, otevřené v režimu čtení, zde budou uloženy pro offline zobrazení po dobu 30 dnů.",
+        "newTabLabel": "Nová karta", //this is a noun, used for tabs that don't have a page loaded in them yet
+        "connectionNotSecure": "Vaše připojení k této stránce není zabezpečené.",
+        "searchbarPlaceholder": "Vyhledávejte nebo zadejte adresu",
+        "privateTab": "Soukromá karta",
+        "newTabAction": "Nová karta", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        /* task overlay */
+        "viewTasks": "Zobrazit dimenze",
+        "newTask": "Nová dimenze", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": "Dimenze %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        /* find in page toolbar */
+        "searchInPage": "Vyhledávat na stránce", //this is used as the placeholder text for the textbox in the find in page toolbar
+        "findMatchesSingular": "%i z %t výsledku", //this and the next label are used to indicate which match is currently highlighted
+        "findMatchesPlural": "%i z %t výsledků",
+        /* Focus mode */
+        "isFocusMode": "Jste v režimu zaměření.",
+        "closeDialog": "OK", //used as a label for the button that closes the dialog
+        "focusModeExplanation1": "V režimu zaměření jsou všechny karty kromě aktuální skryté a nelze vytvářet nové karty.",
+        "focusModeExplanation2": "Můžete opustit režim zaměření odškrtnutím \"Režim zaměření\" v nabídce zobrazení.",
+        /* pages/crash/index.html */
+        "crashErrorTitle": "Něco se pokazilo.",
+        "crashErrorSubtitle": "Během zobrazování této stránky došlo k potížím.",
+        /* pages/error/index.html */
+        "errorPagePrimaryAction": "Zkusit znovu",
+        "serverNotFoundTitle": "Server nenalezen",
+        "serverNotFoundSubtitle": "Prohlížeč Min nemůže najít tuto webovou stránku.",
+        "archiveSearchAction": "Vyhledávat na archive.org",
+        "sslErrorTitle": "Tato webová stránka není dostupná",
+        "sslErrorMessage": "Prohlížeč Min nemůže s touto stránkou navázat zabezpečené spojení.",
+        "dnsErrorTitle": "Webová stránka nenalezena",
+        "dnsErrorMessage": "Došlo k chybě DNS.",
+        "offlineErrorTitle": "Jste offline",
+        "offlineErrorMessage": "Připojte se k internetu a zkuste to znovu.",
+        "genericConnectionFail": "Prohlížeč Min se nemůže připojit k této webové adrese.",
+        "sslTimeErrorMessage": "Prohlížeč Min nemůže s touto stránkou navázat zabezpečené spojení. Prosím zkontrolujte, zda máte v počítači správně nastavený čas.",
+        "addressInvalidTitle": "Tato adresa je neplatná.",
+        "genericError": "Vyskytla se chyba",
+        /* pages/phishing/index.html */
+        "phishingErrorTitle": "Tyto stránky by vám mohly ublížit.",
+        "phishingErrorMessage": "Tyto webové stránky se mohou pokusit ukrást vaše osobní údaje, například hesla nebo bankovní informace.",
+        "phishingErrorVisitAnyway": "Přesto stránky navštívit",
+        "phishingErrorLeave": "Opustit tyto stránky",
+        /* pages/sessionRestoreError/index.html */
+        "sessionRestoreErrorTitle": "Vyskytla se chyba",
+        "sessionRestoreErrorExplanation": "Vaše uložené karty nelze správně obnovit.",
+        "sessionRestoreErrorBackupInfo": "Zálohu vašich dat jsme uložili na tomto místě: %l.", //%l will be replaced with a path to a file
+        "sessionRestoreErrorLinkInfo": {
+            "unsafeHTML": "Pokud se tato chyba opakuje, založte prosím nový problém <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">zde</a>."
+        },
+        /* pages/settings/index.html */
+        "settingsPreferencesHeading": "Nastavení",
+        "settingsRestartRequired": "Pro použití změn musíte restartovat aplikaci.",
+        "settingsPrivacyHeading": "Blokování obsahu",
+        "settingsContentBlockingToggle": "Blokovat trackery a reklamy",
+        "settingsBlockScriptsToggle": "Blokovat skripty",
+        "settingsBlockImagesToggle": "Blokovat obrázky",
+        "settingsEasyListCredit": {
+            "unsafeHTML": "Na základě EasyList a EasyPrivacy bez pravidel skrývání prvků. Vytvořili <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">s licencí</a>."
+        },
+        "settingsAppearanceHeading": "Vzhled",
+        "settingsDarkModeToggle": "Použít tmavý režim",
+        "settingsSwipeNavigationHeading": "Swipe navigace",
+        "settingsSwipeNavigationToggle": "Povolit touchpad swipe gesto pro navigaci zpět a dopředu mezi stránkami.",
+        "settingsSearchEngineHeading": "Vyhledávač",
+        "settingsDefaultSearchEngine": "Zvolte si výchozí vyhledávač:",
+        "settingsDDGExplanation": "Nastavte DuckDuckGo jako výchozí vyhledávač pro zobrazování okamžitých odpovědí ve vyhledávacím panelu.",
+        "settingsKeyboardShortcutsHeading": "Klávesové zkratky",
+        "settingsKeyboardShortcutsHelp": "Pište \"mod\" pro použití příkazu nebo kontrolní klávesy (Ctrl).",
+        /* app menu */
+        "appMenuFile": "Soubor",
+        "appMenuNewTab": "Nová karta",
+        "appMenuNewPrivateTab": "Nová soukromá karta",
+        "appMenuNewTask": "Nová dimenze",
+        "appMenuSavePageAs": "Uložit stránku jako",
+        "appMenuPrint": "Tisk",
+        "appMenuEdit": "Úpravy",
+        "appMenuUndo": "Krok zpět",
+        "appMenuRedo": "Krok vpřed",
+        "appMenuCut": "Vyjmout",
+        "appMenuCopy": "Kopírovat",
+        "appMenuPaste": "Vložit",
+        "appMenuSelectAll": "Označit vše",
+        "appMenuFind": "Najít",
+        "appMenuView": "Zobrazení",
+        "appMenuZoomIn": "Přiblížit",
+        "appMenuZoomOut": "Oddálit",
+        "appMenuActualSize": "Skutečná velikost",
+        "appMenuFullScreen": "Celá obrazovka", //on some platforms, this string is replaced with one built-in to the OS
+        "appMenuFocusMode": "Režim zaměření",
+        "appMenuReadingList": "Seznam čtení",
+        "appMenuDeveloper": "Vývojář",
+        "appMenuReloadBrowser": "Znovu načíst prohlížeč",
+        "appMenuInspectBrowser": "Prozkoumat prohlížeč",
+        "appMenuInspectPage": "Prozkoumat stránku",
+        "appMenuWindow": "Okno",
+        "appMenuMinimize": "Minimalizovat",
+        "appMenuClose": "Zavřít",
+        "appMenuHelp": "Nápověda",
+        "appMenuKeyboardShortcuts": "Klávesové zkratky",
+        "appMenuReportBug": "Nahlásit chybu",
+        "appMenuTakeTour": "Otevřít průvodce",
+        "appMenuViewGithub": "Zobrazit na GitHubu",
+        "appMenuAbout": "O aplikaci %n", //%n is replaced with app name
+        "appMenuPreferences": "Nastavení",
+        "appMenuServices": "Služby",
+        "appMenuHide": "Skrýt %n",
+        "appMenuHideOthers": "Skrýt ostatní",
+        "appMenuShowAll": "Zobrazit vše",
+        "appMenuQuit": "Ukončit %n",
+        "appMenuBringToFront": "Přenést vše do popředí"
+    }
+}

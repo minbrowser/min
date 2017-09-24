@@ -1,6 +1,7 @@
 var Menu, MenuItem, clipboard // these are only loaded when the menu is shown
 
 var webviewMenu = {
+  lastDisplayedAt: 0,
   showMenu: function (data) { // data comes from a context-menu event
     if (!Menu || !MenuItem || !clipboard) {
       Menu = remote.Menu
@@ -29,7 +30,7 @@ var webviewMenu = {
 
       if (!currentTab.private) {
         linkActions.push(new MenuItem({
-          label: 'Open in New Tab',
+          label: l('openInNewTab'),
           click: function () {
             addTab(tabs.add({ url: link }, tabs.getIndex(tabs.getSelected()) + 1), { enterEditMode: false })
           }
@@ -37,7 +38,7 @@ var webviewMenu = {
       }
 
       linkActions.push(new MenuItem({
-        label: 'Open in New Private Tab',
+        label: l('openInNewPrivateTab'),
         click: function () {
           addTab(tabs.add({ url: link, private: true }, tabs.getIndex(tabs.getSelected()) + 1), { enterEditMode: false })
         }
@@ -56,7 +57,7 @@ var webviewMenu = {
       ]
 
       imageActions.push(new MenuItem({
-        label: 'View Image',
+        label: l('viewImage'),
         click: function () {
           navigate(tabs.getSelected(), image)
         }
@@ -64,7 +65,7 @@ var webviewMenu = {
 
       if (!currentTab.private) {
         imageActions.push(new MenuItem({
-          label: 'Open Image in New Tab',
+          label: l('openImageInNewTab'),
           click: function () {
             addTab(tabs.add({ url: image }, tabs.getIndex(tabs.getSelected()) + 1), { enterEditMode: false })
           }
@@ -72,7 +73,7 @@ var webviewMenu = {
       }
 
       imageActions.push(new MenuItem({
-        label: 'Open Image in New Private Tab',
+        label: l('openImageInNewPrivateTab'),
         click: function () {
           addTab(tabs.add({ url: image, private: true }, tabs.getIndex(tabs.getSelected()) + 1), { enterEditMode: false })
         }
@@ -82,7 +83,7 @@ var webviewMenu = {
 
       menuSections.push([
         new MenuItem({
-          label: 'Save Image As',
+          label: l('saveImageAs'),
           click: function () {
             remote.getCurrentWebContents().downloadURL(image)
           }
@@ -97,7 +98,7 @@ var webviewMenu = {
     if (selection) {
       var textActions = [
         new MenuItem({
-          label: 'Search with ' + currentSearchEngine.name,
+          label: l('searchWith').replace('%s', currentSearchEngine.name),
           click: function () {
             var newTab = tabs.add({
               url: currentSearchEngine.searchURL.replace('%s', encodeURIComponent(selection)),
@@ -118,7 +119,7 @@ var webviewMenu = {
 
     if (link || image) {
       clipboardActions.push(new MenuItem({
-        label: 'Copy Link',
+        label: l('copyLink'),
         click: function () {
           clipboard.writeText(link || image)
         }
@@ -127,16 +128,16 @@ var webviewMenu = {
 
     if (selection) {
       clipboardActions.push(new MenuItem({
-        label: 'Copy',
+        label: l('copy'),
         click: function () {
           clipboard.writeText(selection)
         }
       }))
     }
 
-    if (data.editFlags.canPaste) {
+    if (data.editFlags && data.editFlags.canPaste) {
       clipboardActions.push(new MenuItem({
-        label: 'Paste',
+        label: l('paste'),
         click: function () {
           getWebview(tabs.getSelected()).paste()
         }
@@ -149,7 +150,7 @@ var webviewMenu = {
 
     var navigationActions = [
       new MenuItem({
-        label: 'Go Back',
+        label: l('goBack'),
         click: function () {
           try {
             getWebview(tabs.getSelected()).goBack()
@@ -157,7 +158,7 @@ var webviewMenu = {
         }
       }),
       new MenuItem({
-        label: 'Go Forward',
+        label: l('goForward'),
         click: function () {
           try {
             getWebview(tabs.getSelected()).goForward()
@@ -171,7 +172,7 @@ var webviewMenu = {
     /* inspect element */
     menuSections.push([
       new MenuItem({
-        label: 'Inspect Element',
+        label: l('inspectElement'),
         click: function () {
           getWebview(tabs.getSelected()).inspectElement(data.x, data.y)
         }
@@ -186,9 +187,22 @@ var webviewMenu = {
     })
 
     menu.popup(remote.getCurrentWindow())
+
+    webviewMenu.lastDisplayedAt = Date.now()
   }
 }
 
 bindWebviewEvent('context-menu', function (e, data) {
-  webviewMenu.showMenu(data)
+  /* if the shift key was pressed and the page does not have a custom context menu, both the contextmenu and context-menu events will fire. To avoid showing a menu twice, we check if a menu has just been dismissed before this event occurs.
+  Note: this only works if the contextmenu event fires before the context-menu one, which may change in future Electron versions. */
+  if (Date.now() - webviewMenu.lastDisplayedAt > 5) {
+    webviewMenu.showMenu(data)
+  }
 }, true) // only available on webContents
+
+/* this runs when the shift key is pressed to override a custom context menu */
+bindWebviewEvent('contextmenu', function (e) {
+  if (e.shiftKey) {
+    webviewMenu.showMenu({})
+  }
+})

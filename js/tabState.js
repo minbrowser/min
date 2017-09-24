@@ -1,7 +1,13 @@
-var tabState = {
-  tasks: [], // each task is {id, name, tabs: [], tabHistory: TabStack}
-  selectedTask: null
+function initializeTabState () {
+  window.tabState = {
+    tasks: [], // each task is {id, name, tabs: [], tabHistory: TabStack}
+    selectedTask: null
+  }
+  window.currentTask = undefined
+  window.tabs = undefined
 }
+
+initializeTabState()
 
 var tabPrototype = {
   add: function (tab, index) {

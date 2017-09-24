@@ -90,6 +90,10 @@ window.addEventListener('load', function () {
     isDragging = false
   })
 
+  document.body.addEventListener('mouseup', function () {
+    isMouseDown = false
+  })
+
   var dragHandles = document.getElementsByClassName('windowDragHandle')
 
   for (var i = 0; i < dragHandles.length; i++) {

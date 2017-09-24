@@ -31,8 +31,10 @@ var TaskOverlayBuilder = {
         var input = document.createElement('input')
         input.classList.add('task-name')
 
-        input.placeholder = 'Task ' + (taskIndex + 1)
-        input.value = task.name || 'Task ' + (taskIndex + 1)
+        var taskName = l('defaultTaskName').replace('%n', (taskIndex + 1))
+
+        input.placeholder = taskName
+        input.value = task.name || taskName
 
         input.addEventListener('keyup', function (e) {
           if (e.keyCode === 13) {
@@ -94,7 +96,7 @@ var TaskOverlayBuilder = {
     tab: {
       element: function (tabContainer, task, tab) {
         var el = createSearchbarItem({
-          title: tab.title || 'New Tab',
+          title: tab.title || l('newTabLabel'),
           secondaryText: urlParser.removeProtocol(tab.url),
           classList: ['task-tab-item'],
           delete: function () {
