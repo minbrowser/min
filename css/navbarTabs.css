@@ -58,6 +58,8 @@ body.notMac #navbar {
 	font-size: 0.8em;
 	line-height: 36px;
 	height: 36px;
+	border-right-style: solid;
+	border-width: 1px;
 	overflow: hidden;
 	word-break: break-all;
 }
@@ -119,6 +121,7 @@ body.notMac #navbar {
 	width: 0;
 	height: 0;
 	padding: 0;
+	border-style: none;
 	overflow: hidden;
 }
 
