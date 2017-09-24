@@ -10,7 +10,7 @@
         "viewImage": "Показать изображение",
         "openImageInNewTab": "Открыть изображение в новой вкладке",
         "openImageInNewPrivateTab": "Открыть изображение в приватной вкладке",
-        "saveImageAs": "Сохранить изображение как",
+        "saveImageAs": "Сохранить изображение как...",
         "searchWith": "Искать в %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Копировать ссылку",
         "copy": "Копировать", //this is a verb (as in "copy the currently-selected text")
@@ -111,7 +111,7 @@
         "appMenuNewTab": "Новая вкладка",
         "appMenuNewPrivateTab": "Новая приватная вкладка",
         "appMenuNewTask": "Новая задача",
-        "appMenuSavePageAs": "Сохранить страницу как",
+        "appMenuSavePageAs": "Сохранить страницу как...",
         "appMenuPrint": "Печать",
         "appMenuEdit": "Правка",
         "appMenuUndo": "Отменить",
