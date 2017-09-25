@@ -4,6 +4,7 @@ var container = document.getElementById('privacy-settings-container')
 var trackerCheckbox = document.getElementById('checkbox-block-trackers')
 var banner = document.getElementById('restart-required-banner')
 var darkModeCheckbox = document.getElementById('checkbox-dark-mode')
+var historyButtonsCheckbox = document.getElementById('checkbox-history-buttons')
 var swipeNavigationCheckbox = document.getElementById('checkbox-swipe-navigation')
 
 function showRestartRequiredBanner () {
@@ -162,6 +163,17 @@ settings.get('darkMode', function (value) {
 
 darkModeCheckbox.addEventListener('change', function (e) {
   settings.set('darkMode', this.checked)
+  showRestartRequiredBanner()
+})
+
+// History buttons settings
+
+settings.get('historyButtons', function (value) {
+  historyButtonsCheckbox.checked = value
+})
+
+historyButtonsCheckbox.addEventListener('change', function (e) {
+  settings.set('historyButtons', this.checked)
   showRestartRequiredBanner()
 })
 

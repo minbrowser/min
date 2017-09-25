@@ -99,6 +99,7 @@
         },
         "settingsAppearanceHeading": "Appearance",
         "settingsDarkModeToggle": "Enable dark mode",
+        "settingsHistoryButtonsToggle": "Enable history buttons",
         "settingsSwipeNavigationHeading": "Swipe navigation",
         "settingsSwipeNavigationToggle": "Enable swipe for navigating back and forth between pages.",
         "settingsSearchEngineHeading": "Search Engine",
