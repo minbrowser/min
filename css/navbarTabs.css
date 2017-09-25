@@ -42,6 +42,16 @@ body.notMac #navbar {
 	background: none;
 }
 
+/* history buttons */
+
+#forward-button {
+	opacity: 1;
+}
+
+#back-button {
+	opacity: 1;
+}
+
 /* tab layout */
 
 #navbar #tabs {
