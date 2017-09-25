@@ -169,7 +169,11 @@ darkModeCheckbox.addEventListener('change', function (e) {
 // History buttons settings
 
 settings.get('historyButtons', function (value) {
-  historyButtonsCheckbox.checked = value
+  if (value === true || value === undefined) {
+    historyButtonsCheckbox.checked = true
+  } else {
+    historyButtonsCheckbox.checked = false
+  }
 })
 
 historyButtonsCheckbox.addEventListener('change', function (e) {
