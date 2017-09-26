@@ -286,12 +286,12 @@ function setColor (bg, fg) {
   if (fg === 'white') {
     document.body.classList.add('dark-theme')
     for (var i = 0; i < tabs.length; i++) {
-		tabs[i].style.borderRightColor = lightenDarkenHexColor(rgb2hex(bg), 20)
+		tabs[i].style.borderLeftColor = lightenDarkenHexColor(rgb2hex(bg), 20)
 	}
   } else {
     document.body.classList.remove('dark-theme')
     for (var i = 0; i < tabs.length; i++) {
-		tabs[i].style.borderRightColor = lightenDarkenHexColor(rgb2hex(bg), -20)
+		tabs[i].style.borderLeftColor = lightenDarkenHexColor(rgb2hex(bg), -20)
 	}
   }
 }

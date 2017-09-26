@@ -50,6 +50,13 @@ body.notMac #navbar {
 	/* https://github.com/w3c/csswg-drafts/issues/92 - don't make the scrollbar height affect the layout */
 	overflow: overlay;
 }
+
+/* for borders */
+.tab-item + .tab-item {
+	border-left-style: solid;
+	border-width: 1px;
+}
+
 .tab-item {
 	flex: 1;
 	min-width: 125px;
@@ -58,8 +65,6 @@ body.notMac #navbar {
 	font-size: 0.8em;
 	line-height: 36px;
 	height: 36px;
-	border-right-style: solid;
-	border-width: 1px;
 	overflow: hidden;
 	word-break: break-all;
 }
