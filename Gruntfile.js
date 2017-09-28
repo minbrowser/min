@@ -3,6 +3,8 @@ module.exports = function (grunt) {
   const version = packageFile.version
   const electronVersion = packageFile.electronVersion
 
+  const ignoredDirs = ['dist/app', 'ext/readability-master/test'] // directories that will be ignored when building binaries
+
     // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -108,7 +110,7 @@ module.exports = function (grunt) {
           platform: 'darwin',
           arch: 'x64',
           icon: 'icon.icns',
-          ignore: 'dist/app',
+          ignore: ignoredDirs,
           prune: true,
           overwrite: true,
           protocols: [{
@@ -129,7 +131,7 @@ module.exports = function (grunt) {
           'app-version': version,
           platform: 'win32',
           arch: 'all',
-          ignore: 'dist/app',
+          ignore: ignoredDirs,
           prune: true,
           overwrite: true
         }
@@ -143,7 +145,7 @@ module.exports = function (grunt) {
           'app-version': version,
           platform: 'linux',
           arch: 'all',
-          ignore: 'dist/app',
+          ignore: ignoredDirs,
           prune: true,
           overwrite: true
         }
