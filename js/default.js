@@ -81,13 +81,28 @@ function empty (node) {
 
 /* prevent a click event from firing after dragging the window */
 
+var mouseX = 0
+var mouseY = 0
+
+var mouseLocation = function(e) {
+  mouseX = e.screenX
+  mouseY = e.screenY
+  if (mouseX < 0){mouseX = 0}
+  if (mouseY < 0){mouseY = 0}
+  return true;
+}
+
 window.addEventListener('load', function () {
   var isMouseDown = false
   var isDragging = false
+  var recordX = 0
+  var recordY = 0
+  var pauseRecord = true
 
   document.body.addEventListener('mousedown', function () {
     isMouseDown = true
     isDragging = false
+    pauseRecord = false
   })
 
   document.body.addEventListener('mouseup', function () {
@@ -97,17 +112,27 @@ window.addEventListener('load', function () {
   var dragHandles = document.getElementsByClassName('windowDragHandle')
 
   for (var i = 0; i < dragHandles.length; i++) {
-    dragHandles[i].addEventListener('mousemove', function () {
+    dragHandles[i].addEventListener('mousemove', function (e) {
       if (isMouseDown) {
         isDragging = true
+        if (!pauseRecord){
+          mouseLocation(e)
+          recordX = mouseX
+          recordY = mouseY
+          pauseRecord = true
+        }
       }
     })
   }
 
-  document.body.addEventListener('click', function (e) {
-    if (isDragging) {
+  document.body.addEventListener('click', function (e) {    
+    mouseLocation(e)
+    distance = Math.sqrt(Math.pow(recordX-mouseX,2) + Math.pow(recordY-mouseY,2))
+
+    if (isDragging && distance >= 10.0) {
       e.stopImmediatePropagation()
       isDragging = false
+      pauseRecord = false
     }
   }, true)
 })
