@@ -3,7 +3,6 @@ const fs = require('fs')
 const path = require('path')
 const app = electron.app // Module to control application life.
 const protocol = electron.protocol // Module to control protocol handling
-const shell = electron.shell // Module to call system functionality
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
 
 var userDataPath = app.getPath('userData')
@@ -162,8 +161,6 @@ app.on('window-all-closed', function () {
 app.on('ready', function () {
   appIsReady = true
 
-  registerProtocols()
-
   createWindow(function () {
     mainWindow.webContents.on('did-finish-load', function () {
       // if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
@@ -186,6 +183,7 @@ app.on('ready', function () {
 
   createAppMenu()
   createDockMenu()
+  registerProtocols()
 })
 
 app.on('open-url', function (e, url) {
@@ -210,9 +208,9 @@ app.on('activate', function (/* e, hasVisibleWindows */) {
   }
 })
 
-function registerProtocols() {
-  protocol.registerStringProtocol('mailto', function(req, cb) {
-    shell.openExternal(req.url)
+function registerProtocols () {
+  protocol.registerStringProtocol('mailto', function (req, cb) {
+    electron.shell.openExternal(req.url)
     return null
   }, function (error) {
     if (error) {
