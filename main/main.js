@@ -2,6 +2,8 @@ const electron = require('electron')
 const fs = require('fs')
 const path = require('path')
 const app = electron.app // Module to control application life.
+const protocol = electron.protocol // Module to control protocol handling
+const shell = electron.shell // Module to call system functionality
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
 
 var userDataPath = app.getPath('userData')
@@ -160,6 +162,8 @@ app.on('window-all-closed', function () {
 app.on('ready', function () {
   appIsReady = true
 
+  registerProtocols()
+
   createWindow(function () {
     mainWindow.webContents.on('did-finish-load', function () {
       // if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
@@ -205,6 +209,17 @@ app.on('activate', function (/* e, hasVisibleWindows */) {
     createWindow()
   }
 })
+
+function registerProtocols() {
+  protocol.registerStringProtocol('mailto', function(req, cb) {
+    shell.openExternal(req.url)
+    return null
+  }, function (error) {
+    if (error) {
+      console.log('Could not register mailto protocol.')
+    }
+  })
+}
 
 function createAppMenu () {
   // create the menu. based on example from http://electron.atom.io/docs/v0.34.0/api/menu/
