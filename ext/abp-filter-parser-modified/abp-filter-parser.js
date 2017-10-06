@@ -353,7 +353,6 @@
       parserData.exceptionFilters[objectFilterCategories[i]] = parserData.exceptionFilters[objectFilterCategories[i]] || {}
     }
 
-
     for (var i = 0; i < trieFilterCategories.length; i++) {
       parserData[trieFilterCategories[i]] = parserData[trieFilterCategories[i]] || new trie()
       parserData.exceptionFilters[trieFilterCategories[i]] = parserData.exceptionFilters[trieFilterCategories[i]] || new trie()
@@ -361,31 +360,36 @@
 
     var filters = input.split('\n')
 
-    for (var i = 0, len = filters.length; i < len; i++) {
-      var filter = filters[i]
-      var parsedFilterData = {}
-
-      var object
-
-      if (parseFilter(filter, parsedFilterData)) {
-        if (parsedFilterData.isException) {
-          object = parserData.exceptionFilters
-        } else {
-          object = parserData
+    function processChunk (start, end) {
+      for (var i = start, len = end; i < len; i++) {
+        var filter = filters[i]
+        if (!filter) {
+          continue
         }
 
-        // Check for a regex match
-        if (parsedFilterData.regex) {
-          object.regex.push(parsedFilterData)
-        } else if (parsedFilterData.leftAnchored) {
-          if (parsedFilterData.rightAnchored) {
-            object.bothAnchored.push(parsedFilterData)
+        var parsedFilterData = {}
+
+        var object
+
+        if (parseFilter(filter, parsedFilterData)) {
+          if (parsedFilterData.isException) {
+            object = parserData.exceptionFilters
           } else {
-            object.leftAnchored.push(parsedFilterData)
+            object = parserData
           }
-        } else if (parsedFilterData.rightAnchored) {
-          object.rightAnchored.push(parsedFilterData)
-        } else if (parsedFilterData.hostAnchored) {
+
+        // Check for a regex match
+          if (parsedFilterData.regex) {
+            object.regex.push(parsedFilterData)
+          } else if (parsedFilterData.leftAnchored) {
+            if (parsedFilterData.rightAnchored) {
+              object.bothAnchored.push(parsedFilterData)
+            } else {
+              object.leftAnchored.push(parsedFilterData)
+            }
+          } else if (parsedFilterData.rightAnchored) {
+            object.rightAnchored.push(parsedFilterData)
+          } else if (parsedFilterData.hostAnchored) {
           /* add the filters to the object based on the last 5 characters of their domain.
             All domains must be at least 5 characters long: the TLD is at least 2 characters,
             the . character adds one more character, and the domain name must be at least two
@@ -394,22 +398,48 @@
             Instead, we can just get the last 5 characters of the URL to check, get the filters
             stored in that property of the object, and then check if the complete domains match.
            */
-          var ending = parsedFilterData.host.slice(-5)
+            var ending = parsedFilterData.host.slice(-5)
 
-          if (object.hostAnchored[ending]) {
-            object.hostAnchored[ending].push(parsedFilterData)
+            if (object.hostAnchored[ending]) {
+              object.hostAnchored[ending].push(parsedFilterData)
+            } else {
+              object.hostAnchored[ending] = [parsedFilterData]
+            }
+          } else if (parsedFilterData.wildcardMatchParts) {
+            object.wildcard.push(parsedFilterData)
+          } else if (parsedFilterData.data.indexOf('^') === -1) {
+            object.plainString.add(parsedFilterData.data, parsedFilterData.options)
           } else {
-            object.hostAnchored[ending] = [parsedFilterData]
+            object.indexOf.push(parsedFilterData)
           }
-        } else if (parsedFilterData.wildcardMatchParts) {
-          object.wildcard.push(parsedFilterData)
-        } else if (parsedFilterData.data.indexOf('^') === -1) {
-          object.plainString.add(parsedFilterData.data, parsedFilterData.options)
-        } else {
-          object.indexOf.push(parsedFilterData)
         }
       }
     }
+
+    /* parse filters in chunks to prevent the main process from freezing */
+
+    var filtersLength = filters.length
+    var lastFilterIdx = 0
+    var nextChunkSize = 1500
+    var targetMsPerChunk = 12
+
+    function nextChunk () {
+      var t1 = Date.now()
+      processChunk(lastFilterIdx, lastFilterIdx + nextChunkSize)
+      var t2 = Date.now()
+
+      lastFilterIdx += nextChunkSize
+
+      if (t2 - t1 !== 0) {
+        nextChunkSize = Math.round(nextChunkSize / ((t2 - t1) / targetMsPerChunk))
+      }
+
+      if (lastFilterIdx < filtersLength) {
+        setTimeout(nextChunk, 16)
+      }
+    }
+
+    nextChunk()
   }
 
   function matchesFilters (filters, input, contextParams) {
