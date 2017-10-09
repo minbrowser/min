@@ -1,6 +1,6 @@
 /* check if Min is available for the user's computer */
 
-var failMessage = 'Min requires macOS or Ubuntu'
+var failMessage = 'Min requires macOS or Linux'
 
 var availablePlatforms = ['MacIntel']
 
