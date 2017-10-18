@@ -54,15 +54,15 @@ findinpage.input.addEventListener('input', function (e) {
 })
 
 findinpage.input.addEventListener('keypress', function (e) {
-  // ctrl-return is keyCode 10
-  if (e.keyCode === 10) {
-    findinpage.end({action: 'activateSelection'})
-  }
-  else if (e.keyCode === 13) {
+  if (e.keyCode === 13) {
     findinpage.activeWebview.findInPage(findinpage.input.value, {
       forward: true,
       findNext: true
     })
+  }
+  // ctrl-return is keyCode 10
+  else if (e.keyCode === 10) {
+    findinpage.end({action: 'activateSelection'})
   }
 })
 
@@ -83,7 +83,6 @@ findinpage.next.addEventListener('click', function (e) {
 })
 
 bindWebviewEvent('found-in-page', function (e) {
-  console.log("found-in-page")
   if (e.result.matches !== undefined) {
     var text
     if (e.result.matches === 1) {
