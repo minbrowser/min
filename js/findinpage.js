@@ -21,10 +21,13 @@ var findinpage = {
     }
   },
   end: function (options) {
+    options = options || {}
+    var action = options.action || 'keepSelection'
+
     findinpage.container.hidden = true
 
     if (findinpage.activeWebview) {
-      findinpage.activeWebview.stopFindInPage('keepSelection')
+      findinpage.activeWebview.stopFindInPage(action)
       if (findinpage.input === document.activeElement) {
         findinpage.activeWebview.focus()
       }
@@ -51,7 +54,11 @@ findinpage.input.addEventListener('input', function (e) {
 })
 
 findinpage.input.addEventListener('keypress', function (e) {
-  if (e.keyCode === 13) {
+  // ctrl-return is keyCode 10
+  if (e.keyCode === 10) {
+    findinpage.end({action: 'activateSelection'})
+  }
+  else if (e.keyCode === 13) {
     findinpage.activeWebview.findInPage(findinpage.input.value, {
       forward: true,
       findNext: true
@@ -76,6 +83,7 @@ findinpage.next.addEventListener('click', function (e) {
 })
 
 bindWebviewEvent('found-in-page', function (e) {
+  console.log("found-in-page")
   if (e.result.matches !== undefined) {
     var text
     if (e.result.matches === 1) {
