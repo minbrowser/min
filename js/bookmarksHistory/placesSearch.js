@@ -63,7 +63,6 @@ function searchPlaces (searchText, callback, options) {
     }
   }
 
-  const tstart = performance.now()
   const matches = []
   const st = searchText.replace(spacesRegex, ' ').split('?')[0].replace('http://', '').replace('https://', '').replace('www.', '')
   const stl = searchText.length
@@ -89,8 +88,5 @@ function searchPlaces (searchText, callback, options) {
     return calculateHistoryScore(b) - calculateHistoryScore(a)
   })
 
-  const tend = performance.now()
-
-  console.info('history search took', tend - tstart)
   callback(matches.slice(0, 100))
 }
