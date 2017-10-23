@@ -5,7 +5,7 @@ module.exports = function (grunt) {
 
   const ignoredDirs = ['dist/app', 'ext/readability-master/test'] // directories that will be ignored when building binaries
 
-    // Project configuration.
+      // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
@@ -46,6 +46,7 @@ module.exports = function (grunt) {
           'js/taskOverlay/taskOverlay.js',
           'js/taskOverlay/taskOverlayBuilder.js',
           'js/navbar/addTabButton.js',
+          'js/navbar/goBackButton.js',
           'js/keybindings.js',
           'js/fileDownloadManager.js',
           'js/findinpage.js',
