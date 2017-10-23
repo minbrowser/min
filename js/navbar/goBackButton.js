@@ -7,9 +7,8 @@ goBackButton.addEventListener('click', function (e) {
 })
 
 settings.get('historyButtons', function (value) {
-  if (value === false)
-  {
-	  goBackButton.style.display = 'none'
-	  goBackButton.removeAttribute('transition')
+  if (value === false) {
+    goBackButton.style.display = 'none'
+    goBackButton.removeAttribute('transition')
   }
 })
