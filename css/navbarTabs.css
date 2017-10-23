@@ -50,6 +50,7 @@ body.notMac #navbar {
 
 #back-button {
 	opacity: 1;
+	transition: none;
 }
 
 /* tab layout */
