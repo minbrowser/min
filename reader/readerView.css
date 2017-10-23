@@ -1,13 +1,12 @@
 #backtoarticle {
-	padding: 0 2.5em;
+	padding: 2em 0 0 44px;
 	color: dodgerblue;
 	max-width: 800px;
 	margin: auto;
 	display: block;
 	box-sizing: border-box;
-	margin-top: 2em;
 	cursor: pointer;
-	font-family: ".SFNSText-Regular", sans-serif;
+	font-family: system-ui, ".SFNSText-Regular", sans-serif;
 }
 #backtoarticle i {
 	vertical-align: baseline;
@@ -45,7 +44,7 @@ iframe.reader-frame {
 	display: none;
 }
 h1.article-title {
-	padding: 0.5em 1em;
+	padding: 0 1em 0.5em 1em;
 	margin-top: 0.5em;
 	margin: 0;
 	font-size: 2em;
@@ -105,14 +104,18 @@ ol li {
 	padding: 0.25rem 0;
 }
 a {
-	color: inherit;
+	color: #1b74bb;
 	font-size: 1em;
 	text-decoration: none;
-	opacity: 0.6;
+}
+body.dark-mode a {
+	color: #65a9ed;
 }
 a:hover {
-	color: #2196F3;
-	opacity: 1.0;
+	background-image: linear-gradient(to bottom, transparent 70%, currentColor 0%);
+	background-size: 1px 3px;
+	background-position: 0px 0.98em;
+	background-repeat: repeat-x;
 }
 figure {
 	max-width: 50%;
@@ -153,9 +156,6 @@ blockquote {
 body.dark-mode {
   background-color: rgb(33, 37, 43);
   color: lightgrey;
-}
-body.dark-mode a {
-  color: dodgerblue;
 }
 
 /* site-specific styles */

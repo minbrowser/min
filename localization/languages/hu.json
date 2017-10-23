@@ -1,0 +1,152 @@
+{
+    "name": "Hungarian (Hungary)",
+    "identifier": "hu",
+    "translations": {
+        /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+        "openInNewTab": "Megnyit Új Fülbe",
+        "openInNewPrivateTab": "Megnyit új Privát fülbe",
+        "viewImage": "Kép Megtekintése",
+        "openImageInNewTab": "Kép Megnyitása Új Fülbe",
+        "openImageInNewPrivateTab": "Kép Megnyitása Új Privát Fülbe",
+        "saveImageAs": "Kép Mentése Másként",
+        "searchWith": "Keresés %s keresővel", //%s will be replaced with the name of the current search engine
+        "copyLink": "Hibatkozás Másolás",
+        "copy": "Másol", //this is a verb (as in "copy the currently-selected text")
+        "paste": "Illeszt",
+        "goBack": "Visza lép",
+        "goForward": "Előre lép",
+        "inspectElement": "Részlet megtekintése",
+        /* searchbar */
+        "DDGAnswerSubtitle": "Válasz", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+        "suggestedSite": "Ajánlott oldal", //this is used to label suggested websites from the DuckDuckGo API,
+        "resultsFromDDG": "Válaszok a DuckDuckGo-töl", //this is used as a label to indicate which results come from DuckDuckGo's API
+        "taskN": "Feladat %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "hostsFileEntry": "Host Fajl tartalma", //this is a label used to indicate that a result is coming from the user's host file
+        /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+        "viewSettings": "Beálitások Megtekintése",
+        "takeScreenshot": "Képernyő kép készités",
+        "clearHistory": "Összes Történet törlés",
+        "switchToTask": "Váltsz Feladatot",
+        "createTask": "Feladat létrehozás",
+        "moveToTask": "Tedd a fül-t feladatba",
+        "searchBookmarks": "Könyvjelző keresés",
+        /* navbar */
+        "enterReaderView": "Lépj olvasó nézetbe",
+        "exitReaderView": "Kilép olvasó nézetböl",
+        "emptyReadingListTitle": "Olvasó Listája üres",
+        "emptyReadingListSubtitle": "Cikkek amiket az Olvaső Nézetbe Megnyit, 30 napig helyileg tároljuk",
+        "newTabLabel": "Új Fül", //this is a noun, used for tabs that don't have a page loaded in them yet
+        "connectionNotSecure": "Kapcsoalta ezzel az oldalal nem biztonságos.",
+        "searchbarPlaceholder": "Keress, vagy irja be a cimet",
+        "privateTab": "Privát Fül",
+        "newTabAction": "Új Fül", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        /* task overlay */
+        "viewTasks": "Feladat megtekintése",
+        "newTask": "Új Feladat", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": "Feladat %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        /* find in page toolbar */
+        "searchInPage": "Keress az oldalon", //this is used as the placeholder text for the textbox in the find in page toolbar
+        "findMatchesSingular": "%i a %t találat", //this and the next label are used to indicate which match is currently highlighted
+        "findMatchesPlural": "%i a %t találatok",
+        /* Focus mode */
+        "isFocusMode": "Most Fókusz módban van.",
+        "closeDialog": "OK", //used as a label for the button that closes the dialog
+        "focusModeExplanation1": "Fókusz módba, csak a jelenlegi Fül jelenik meg, nem tud új Fült nyitni vagy másik Fülre lépni.",
+        "focusModeExplanation2": "Elhagyhatod a \"focus mode\" a megtekintés menu kipipálásával.",
+        /* pages/crash/index.html */
+        "crashErrorTitle": "Valami hiba történt.",
+        "crashErrorSubtitle": "Egy hiba lépet fel az oldal menyitásákor.",
+        /* pages/error/index.html */
+        "errorPagePrimaryAction": "Probálja Újra",
+        "serverNotFoundTitle": "Szerver nem található meg",
+        "serverNotFoundSubtitle": "Min Nem találja a kért oldalt.",
+        "archiveSearchAction": "Keress a archive.org-on",
+        "sslErrorTitle": "Ez az oldal nem elérhető",
+        "sslErrorMessage": "Min nem tudott biztonságosan kapcsolódni az oldalhoz.",
+        "dnsErrorTitle": "Az oldal nem található",
+        "dnsErrorMessage": "DNS hiba történt.",
+        "offlineErrorTitle": "Nincs Hálozati kapcsolant",
+        "offlineErrorMessage": "Kapcsolódjon az internethez és probálja újra.",
+        "genericConnectionFail": "Min nem tudta betölteni az oldalt.",
+        "sslTimeErrorMessage": "Min nem tudott kapcsolódni biztonságosan az oldalhos. Kérem elenőrize hogy a számitógép óra beálitásait.",
+        "addressInvalidTitle": "A cim hibás.",
+        "genericError": "Hiba lépet fel",
+        /* pages/phishing/index.html */
+        "phishingErrorTitle": "Ez az óldal ártalmas lehet.",
+        "phishingErrorMessage": "Ez az oldal probálkozik a személjes adatait lopni, mint. pl. a jelszavakat, vagy bankolási infomációkat.",
+        "phishingErrorVisitAnyway": "Eltekint és oldal betöltése",
+        "phishingErrorLeave": "Hagya el az oldalt",
+        /* pages/sessionRestoreError/index.html */
+        "sessionRestoreErrorTitle": "Egy hiba lépet fel",
+        "sessionRestoreErrorExplanation": "A mentet fült nem sikerült helyre álitani.",
+        "sessionRestoreErrorBackupInfo": "Egy biztonsági mentést készitettünk itt: %l.", //%l will be replaced with a path to a file
+        "sessionRestoreErrorLinkInfo": {
+            "unsafeHTML": "Ha a probléme nem múlik él, itt nyisson egy hibajelentést <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">here</a>."
+        },
+        /* pages/settings/index.html */
+        "settingsPreferencesHeading": "Beálitások",
+        "settingsRestartRequired": "Újra kell inditani hogy a változások életbe lépjenek.",
+        "settingsPrivacyHeading": "Tartalom Tiltás",
+        "settingsContentBlockingToggle": "Tiltsa le a Reklámoka, és a követést",
+        "settingsBlockScriptsToggle": "Szkriptek Tiltása",
+        "settingsBlockImagesToggle": "Képek Tiltása",
+        "settingsEasyListCredit": {
+            "unsafeHTML": "Az EasyList és EasyPrivacy, Elemek rejtése nélkul. Készitette <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>."
+        },
+        "settingsAppearanceHeading": "Megjelenés",
+        "settingsDarkModeToggle": "Kapcsolja be a sotét nézetett",
+        "settingsSwipeNavigationHeading": "Swipe Navigáció",
+        "settingsSwipeNavigationToggle": "Kapcsolja be a swipe Navigációt előre és hátra az oldalakal.",
+        "settingsSearchEngineHeading": "Kereső Motor",
+        "settingsDefaultSearchEngine": "Válasza ki Alap kereső Motorját:",
+        "settingsDDGExplanation": "Set DuckDuckGo as the default search engine to see instant answers in the searchbar.",
+        "settingsKeyboardShortcutsHeading": "Billentjüzet kombinációk",
+        "settingsKeyboardShortcutsHelp": "Irja a \"mod\" hogy használja a command vagy kontroll gombot.",
+        /* app menu */
+        "appMenuFile": "Fajl",
+        "appMenuNewTab": "Új Fül",
+        "appMenuNewPrivateTab": "Új Privát Fül",
+        "appMenuNewTask": "Új Feladat",
+        "appMenuSavePageAs": "Oldal Mentése Másként",
+        "appMenuPrint": "Nyomtat",
+        "appMenuEdit": "Szerkeszt",
+        "appMenuUndo": "Viszaálit",
+        "appMenuRedo": "Újra",
+        "appMenuCut": "Kivág",
+        "appMenuCopy": "Másol",
+        "appMenuPaste": "Illeszt",
+        "appMenuSelectAll": "Mindent kiválaszt",
+        "appMenuFind": "Keress",
+        "appMenuView": "Nézet",
+        "appMenuZoomIn": "Nagyitás",
+        "appMenuZoomOut": "Kicsinyit",
+        "appMenuActualSize": "Eredeti méret",
+        "appMenuFullScreen": "Teljes képernyő", //on some platforms, this string is replaced with one built-in to the OS
+        "appMenuFocusMode": "Fókusz Mode",
+        "appMenuReadingList": "Olvasó lista",
+        "appMenuDeveloper": "Fejlesző",
+        "appMenuReloadBrowser": "Böngésző újra töltése",
+        "appMenuInspectBrowser": "Böngésző elenőrzés",
+        "appMenuInspectPage": "Oldal Elenőrzés",
+        "appMenuWindow": "Ablak",
+        "appMenuMinimize": "Minimalizál",
+        "appMenuClose": "Bezár",
+        "appMenuHelp": "Segitség",
+        "appMenuKeyboardShortcuts": "Billenytüzet kombinációk",
+        "appMenuReportBug": "Bug Jelentés",
+        "appMenuTakeTour": "Túra megtekintése",
+        "appMenuViewGithub": "Megtekint GitHubon",
+        "appMenuAbout": "A termékröl %n", //%n is replaced with app name
+        "appMenuPreferences": "Beálitások",
+        "appMenuServices": "Szolgáltatások",
+        "appMenuHide": "Elrejt %n",
+        "appMenuHideOthers": "Többi Elrejtése",
+        "appMenuShowAll": "Mindnet Mutat",
+        "appMenuQuit": "Kilép %n",
+        "appMenuBringToFront": "Mindnet előtérbe hoz"
+    }
+}
