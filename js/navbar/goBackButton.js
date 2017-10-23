@@ -7,7 +7,9 @@ goBackButton.addEventListener('click', function (e) {
 })
 
 settings.get('historyButton', function (value) {
-  if (value === false) {
-    goBackButton.style.display = 'none'
+  if (value === true || value === undefined) {
+    goBackButton.hidden = false
+  } else {
+    goBackButton.hidden = true
   }
 })
