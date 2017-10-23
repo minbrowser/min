@@ -51,6 +51,10 @@ body.notMac #navbar {
     padding: 0.8em 0.6em 0.8em 0.4em;
 }
 
+body.is-edit-mode #back-button {
+	display: none;
+}
+
 /* tab layout */
 
 #navbar #tabs {
