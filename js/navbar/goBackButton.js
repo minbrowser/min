@@ -6,7 +6,7 @@ goBackButton.addEventListener('click', function (e) {
   getWebview(tabs.getSelected()).goBack()
 })
 
-settings.get('historyButtons', function (value) {
+settings.get('historyButton', function (value) {
   if (value === false) {
     goBackButton.style.display = 'none'
   }
