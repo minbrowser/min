@@ -17,25 +17,3 @@
 	/* this must be the same as (video-container - overlap between video-container and hero */
 	height: calc(25vw - 12.5vh);
 }
-
-/* smaller layout */
-
-@media all and (max-width: 675px) {
-	body,
-	html {
-		font-size: 13px !important;
-	}
-	.column,
-	.section.half-width {
-		min-width: 100%;
-	}
-	.section img.column {
-		display: none;
-	}
-	.hero .centered {
-		width: 90%;
-	}
-	.dialog {
-		width: 100%;
-	}
-}

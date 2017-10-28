@@ -16,15 +16,28 @@
 
 /* showmore arrow */
 
+.arrow-spacer {
+	height: 110px;
+}
+
 i.arrow-showmore-icon {
 	display: block;
 	font-size: 3em;
 	text-align: center;
 	opacity: 0.75;
 	position: absolute;
-	bottom: 15%;
+	bottom: 80px;
 	width: 33%;
 	text-align: center;
+}
+
+@media all and (max-width: 1280px) {
+	.arrow-spacer {
+		height: 70px;
+	}
+	i.arrow-showmore-icon {
+		bottom: 40px;
+	}
 }
 
 /* feature grid */

@@ -144,11 +144,6 @@ button.disabled {
 	padding: 1em 5% 2em 5%;
 	position: relative;
 }
-@media all and (max-width: 1000px) {
-	.section {
-		padding: 1em 2.5% 2em 2.5%;
-	}
-}
 .section.half-width {
 	width: 50%;
 	display: inline-block;
@@ -164,11 +159,9 @@ button.disabled {
 	padding: 0 1.5em;
 	font-size: 1.2em;
 }
-.section img.column:first-child {
+.section img.column {
 	padding-left: 0;
-}
-.section img.column:last-child {
-	padding-left: 0;
+	padding-right: 0;
 }
 .section h1 {
 	font-size: 2.25em;
@@ -221,4 +214,40 @@ ul {
 	position: absolute;
 	top: 0;
 	left: 0;
+}
+
+
+/* smaller layout */
+
+@media all and (max-width: 1000px) {
+	.section {
+		padding: 1em 2.5% 2em 2.5%;
+	}
+}
+
+@media all and (max-width: 675px) {
+	body,
+	html {
+		font-size: 14px !important;
+	}
+	.title-heading {
+		font-size: 4.5em;
+	}
+	.section {
+		white-space: normal !important;
+	}
+	.arrow-spacer, i.arrow-showmore-icon {
+		display: none;
+	}
+	.section,
+	.column,
+	.section.half-width {
+		min-width: 100%;
+	}
+	.hero .centered {
+		width: 90%;
+	}
+	.dialog {
+		width: 100%;
+	}
 }
