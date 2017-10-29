@@ -2,30 +2,44 @@ PDFJS.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.js'
 
 var url = new URLSearchParams(window.location.search.replace('?', '')).get('url')
 
-function updatePageCounter() {
-  pageCounterInput.value = currentPage + 1;
-  pageCounterTotal.textContent = pageCount;
+/* page counter UI */
+var pageCounter = {
+  init: function () {
+    pageCounter.container = document.getElementById("page-counter");
+    pageCounter.input = pageCounter.container.getElementsByTagName('input')[0];
+    pageCounter.totalEl = pageCounter.container.querySelector("#total");
+
+    pageCounter.container.addEventListener("click", function () {
+      pageCounter.input.focus();
+      pageCounter.input.select();
+    })
+
+    pageCounter.input.addEventListener("change", function (e) {
+      var pageIndex = parseInt(this.value) - 1;
+      if (pageViews[pageIndex] && pageViews[pageIndex].div) {
+        pageViews[pageIndex].div.scrollIntoView();
+      }
+      updateVisiblePages();
+      pageCounter.update();
+      pageCounter.input.blur();
+    })
+  },
+  show: function() {
+    pageCounter.update();    
+    pageCounter.container.classList.remove("hidden");
+  },
+  hide: function() {
+    pageCounter.container.classList.add("hidden");
+  },
+  update: function () {
+    pageCounter.input.value = currentPage + 1;
+    pageCounter.totalEl.textContent = pageCount;
+  }
 }
 
-var pageCounter = document.getElementById("page-counter");
-var pageCounterInput = pageCounter.getElementsByTagName('input')[0];
-var pageCounterTotal = pageCounter.querySelector('#total');
+pageCounter.init();
+
 var downloadButton = document.getElementById("download-button");
-
-pageCounterInput.addEventListener("change", function (e) {
-    var pageIndex = parseInt(this.value) - 1;
-    if (pageViews[pageIndex] && pageViews[pageIndex].div) {
-      pageViews[pageIndex].div.scrollIntoView();
-    }
-    updateVisiblePages();
-    updatePageCounter();
-    pageCounterInput.blur();
-})
-
-pageCounter.addEventListener("click", function () {
-  pageCounterInput.focus();
-  pageCounterInput.select();
-})
 
 var progressBar = document.getElementById("progress-bar");
 
@@ -44,13 +58,12 @@ document.querySelectorAll(".side-gutter").forEach(function (el) {
 
 function showViewerUI() {
   downloadButton.classList.remove("hidden");
-  pageCounter.classList.remove("hidden");
-  updatePageCounter();
+  pageCounter.show();
 }
 
 const hideViewerUI = debounce(function () {
   if (!document.querySelector(".side-gutter:hover")) {
-    pageCounter.classList.add("hidden");
+    pageCounter.hide();
     downloadButton.classList.add("hidden");
   }
 }, 600);
@@ -319,7 +332,7 @@ function updateVisiblePages() {
 }
 
 window.addEventListener('scroll', throttle(function () {
-  updatePageCounter();
+  pageCounter.update();
   updateVisiblePages()
 }, 50));
 
