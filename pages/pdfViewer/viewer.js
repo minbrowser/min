@@ -247,7 +247,7 @@ PDFJS.getDocument({ url: url, withCredentials: true }).then(async function (pdf)
 
       (function (pageNumber, pdfPageView) {
         setTimeout(function () {
-          if (pageNumber < pageBuffer) {
+          if (pageNumber < pageBuffer || (currentPage && Math.abs(currentPage - pageNumber) < pageBuffer)) {
             pageContainer.classList.add("loading");
             pdfPageView.draw().then(function () { setupPageNavigation(pdfPageView) }).then(function () {
               pageContainer.classList.remove("loading");
