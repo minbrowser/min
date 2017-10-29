@@ -24,11 +24,11 @@ var pageCounter = {
       pageCounter.input.blur();
     })
   },
-  show: function() {
-    pageCounter.update();    
+  show: function () {
+    pageCounter.update();
     pageCounter.container.classList.remove("hidden");
   },
-  hide: function() {
+  hide: function () {
     pageCounter.container.classList.add("hidden");
   },
   update: function () {
@@ -39,9 +39,54 @@ var pageCounter = {
 
 pageCounter.init();
 
-var downloadButton = document.getElementById("download-button");
+/* progress bar UI */
 
-var progressBar = document.getElementById("progress-bar");
+var progressBar = {
+  element: document.getElementById("progress-bar"),
+  enabled: false,
+  progress: 0,
+  incrementProgress: function (progress) { //progress: amount by which to increase the progress bar (number 0-1, 1 = 100%)
+    progressBar.progress += progress;
+
+    if (!progressBar.enabled) {
+      return;
+    }
+
+    if (progressBar.progress >= 1) {
+      progressBar.enabled = false;
+      progressBar.element.style.transform = "translateX(0%)";
+      setTimeout(function () {
+        progressBar.element.hidden = true;
+      }, 200);
+      return;
+    }
+
+    progressBar.element.hidden = false;
+
+    var width = progressBar.progress * 90
+    progressBar.element.style.transform = "translateX(-" + (100 - width) + "%)";
+  },
+  init: function () {
+    setTimeout(function () {
+      if (!pdf) {
+        progressBar.enabled = true;
+        progressBar.incrementProgress(0.05);
+
+        var loadingFakeInterval = setInterval(function () { //we can't reliably determine actual download progress, so instead we make the bar move very slowly until the first page has loaded, then show how many pages have rendered
+          if (progressBar.progress < 0.125) {
+            progressBar.incrementProgress(0.002);
+          } else {
+            clearInterval(loadingFakeInterval);
+          }
+        }, 250);
+      }
+    }, 3000);
+  }
+}
+
+progressBar.init();
+
+var downloadButton = document.getElementById("download-button");
 
 downloadButton.addEventListener("click", function () {
   downloadPDF();
@@ -137,15 +182,6 @@ DefaultTextLayerFactory.prototype = {
 var pageViews = []
 var pdf = null
 
-var progressBarEnabled = false;
-
-setTimeout(function () {
-  if (!pdf) {
-    progressBar.style.transform = "translateX(-95%)";
-    progressBarEnabled = true;
-  }
-}, 4000);
-
 const updateCachedPages = throttle(function () {
   if (currentPage == null) {
     return
@@ -194,17 +230,7 @@ PDFJS.getDocument({ url: url, withCredentials: true }).then(async function (pdf)
 
     await pdf.getPage(pageNumber).then(function (page) {
 
-      if (progressBarEnabled) {
-        if (pageNumber === pageCount) {
-          progressBar.style.transform = "translateX(0%)";
-          setTimeout(function () {
-            progressBar.hidden = true;
-          }, 200);
-        } else if (pageCount) {
-          var width = (5 + ((pageNumber / pageCount) * 75))
-          progressBar.style.transform = "translateX(-" + (100 - width) + "%)";
-        }
-      }
+      progressBar.incrementProgress(1 / pageCount);
 
       var defaultScale = 1.15
       var minimumPageWidth = 625 // px
