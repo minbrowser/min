@@ -14,6 +14,8 @@ Min is a smarter, faster web browser. It includes features such as:
 
 More information, and prebuilt binaries are available [here](https://minbrowser.github.io/min/).
 
+> :warning: [Browsers are officially not a supported Electron use-case](https://electron.atom.io/docs/tutorial/security/).  Any security updates may come very late!  Use min at your own risk!
+
 ## Screenshots
 
 ![The search bar, showing information from DuckDuckGo](http://minbrowser.github.io/min/tour/img/searchbar_duckduckgo_answers.png)
