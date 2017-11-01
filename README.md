@@ -14,6 +14,8 @@ Min is a smarter, faster web browser. It includes features such as:
 
 More information, and prebuilt binaries are available [here](https://minbrowser.github.io/min/).
 
+> Note: Min uses an older version of Chromium, which may be missing security fixes from later versions. [More Information](https://github.com/minbrowser/min/issues/440#issuecomment-338080554)
+
 ## Screenshots
 
 ![The search bar, showing information from DuckDuckGo](http://minbrowser.github.io/min/tour/img/searchbar_duckduckgo_answers.png)
