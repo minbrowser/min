@@ -145,6 +145,9 @@ function setupPageDom(pageView) {
   canvasWrapper.style.width = div.style.width;
   canvasWrapper.style.height = div.style.height;
   canvasWrapper.classList.add('canvasWrapper');
+  if (pageView.annotationLayer && pageView.annotationLayer.div && !pageView.annotationLayer.div.parentNode) {
+    div.appendChild(pageView.annotationLayer.div);
+  }
   if (pageView.annotationLayer && pageView.annotationLayer.div) {
     div.insertBefore(canvasWrapper, pageView.annotationLayer.div);
   } else {
@@ -320,6 +323,10 @@ var isBlurred = false
 var currentPage = null
 
 function updateVisiblePages() {
+  if (isPrinting) {
+    return
+  }
+
   var pageRects = new Array(pageViews.length);
 
   for (var i = 0; i < pageViews.length; i++) {
@@ -522,3 +529,74 @@ document.body.addEventListener('keydown', function (e) {
     downloadPDF()
   }
 })
+
+/* printing */
+
+var isPrinting = false;
+
+var printPreviousScaleList = [];
+
+function afterPrintComplete() {
+  for (var i = 0; i < pageViews.length; i++) {
+    pageViews[i].viewport = pageViews[i].viewport.clone({ scale: printPreviousScaleList[i] * (4 / 3) });
+    pageViews[i].cssTransform(pageViews[i].canvas);
+  }
+  printPreviousScaleList = [];
+  isPrinting = false;
+  updateVisiblePages();
+}
+
+function printDocument() {
+  var begunCount = 0;
+  var doneCount = 0;
+
+  isPrinting = true;
+
+  function onPageRenderComplete() {
+    doneCount++;
+    if (doneCount === begunCount) {
+      //rendering is complete, we can print the document now
+      setTimeout(function () {
+        window.print();
+      }, 100);
+    }
+  }
+
+  //we can't print very large documents because of memory usage, so offer to download the file instead
+  if (pageCount > 100) {
+    isPrinting = false;
+    downloadPDF();
+  } else {
+    var minimumAcceptableScale = 3.125 / devicePixelRatio;
+    //redraw each page at a high-enough scale for printing
+    for (var i = 0; i < pageViews.length; i++) {
+      (function (i) {
+        printPreviousScaleList.push(pageViews[i].scale);
+        var needsScaleChange = pageViews[i].scale < minimumAcceptableScale
+
+        if (needsScaleChange) {
+          pageViews[i].viewport = pageViews[i].viewport.clone({ scale: minimumAcceptableScale * (4 / 3) });
+        }
+
+        if (needsScaleChange || !pageViews[i].canvas) {
+          begunCount++;
+          redrawPageCanvas(i, function () {
+            if (needsScaleChange) {
+              pageViews[i].cssTransform(pageViews[i].canvas);
+            }
+            onPageRenderComplete();
+          })
+        }
+      })(i);
+    }
+  }
+}
+
+var mediaQueryList = window.matchMedia('print');
+mediaQueryList.onchange = function (mql) {
+  if (!mql.matches) {
+    setTimeout(function () {
+      afterPrintComplete();
+    }, 1000);
+  }
+};
