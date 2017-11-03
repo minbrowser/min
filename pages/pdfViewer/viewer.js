@@ -521,15 +521,6 @@ function downloadPDF() {
   })
 }
 
-// cmd+s should save pdf, not page
-
-document.body.addEventListener('keydown', function (e) {
-  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-    e.preventDefault()
-    downloadPDF()
-  }
-})
-
 /* printing */
 
 var isPrinting = false;
