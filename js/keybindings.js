@@ -62,6 +62,12 @@ ipc.on('saveCurrentPage', function () {
     return
   }
 
+  // if the current tab is a PDF, let the PDF viewer handle saving the document
+  if (PDFViewer.isPDFViewer(tabs.getSelected())) {
+    PDFViewer.savePDF(tabs.getSelected())
+    return
+  }
+
   var savePath = remote.dialog.showSaveDialog(remote.getCurrentWindow(), {})
 
   // savePath will be undefined if the save dialog is canceled

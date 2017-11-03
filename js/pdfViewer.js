@@ -15,6 +15,13 @@ var PDFViewer = {
 
     getWebview(viewerTabId).executeJavaScript('printDocument()', false)
   },
+  savePDF: function (viewerTabId) {
+    if (!PDFViewer.isPDFViewer(viewerTabId)) {
+      throw new Error("attempting to save in a tab that isn't a PDF viewer")
+    }
+
+    getWebview(viewerTabId).executeJavaScript('downloadPDF()', false)
+  },
   handlePDFOpenEvent: function (event, data) {
     var PDFurl = PDFViewer.url.base + PDFViewer.url.queryString.replace('%l', encodeURIComponent(data.url))
 
