@@ -9,7 +9,7 @@
     "dragula": "^3.6.2",
     "mousetrap": "^1.5.3",
     "nlp_compromise": "^1.1.5",
-    "pdfjs-dist": "^1.9.628",
+    "pdfjs-dist": "^2.0.91",
     "string_score": "^0.1.22"
   },
   "devDependencies": {
