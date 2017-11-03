@@ -13,7 +13,11 @@ ipc.on('zoomReset', function () {
 })
 
 ipc.on('print', function () {
-  getWebview(tabs.getSelected()).print()
+  if (PDFViewer.isPDFViewer(tabs.getSelected())) {
+    PDFViewer.printPDF(tabs.getSelected())
+  } else {
+    getWebview(tabs.getSelected()).print()
+  }
 })
 
 ipc.on('findInPage', function () {
