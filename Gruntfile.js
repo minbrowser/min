@@ -3,7 +3,7 @@ module.exports = function (grunt) {
   const version = packageFile.version
   const electronVersion = packageFile.electronVersion
 
-  const ignoredDirs = ['dist/app', 'ext/readability-master/test'] // directories that will be ignored when building binaries
+  const ignoredDirs = ['dist/app', 'ext/readability-master/test', /\.map$/g] // directories that will be ignored when building binaries
 
     // Project configuration.
   grunt.initConfig({
