@@ -543,13 +543,17 @@ function printDocument() {
 
   isPrinting = true;
 
+  function onAllRenderingDone() {
+    //we can print the document now
+    setTimeout(function () {
+      window.print();
+    }, 100);
+  }
+
   function onPageRenderComplete() {
     doneCount++;
     if (doneCount === begunCount) {
-      //rendering is complete, we can print the document now
-      setTimeout(function () {
-        window.print();
-      }, 100);
+      onAllRenderingDone();
     }
   }
 
@@ -579,6 +583,10 @@ function printDocument() {
           })
         }
       })(i);
+    }
+    if (begunCount === 0) {
+      //we don't have to redraw any pages
+      onAllRenderingDone();
     }
   }
 }
