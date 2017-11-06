@@ -316,6 +316,10 @@ PDFJS.getDocument({ url: url, withCredentials: true }).then(async function (pdf)
       })(pageNumber, pdfPageView);
     })
   }
+}).catch(function (e) {
+  console.warn("error while loading PDF", e);
+  //we can't display a preview, offer to download instead
+  downloadPDF();
 })
 
 var isBlurred = false
@@ -513,12 +517,22 @@ function throttle(fn, threshhold, scope) {
 }
 
 function downloadPDF() {
-  pdf.getMetadata().then(function (data) {
+  function startDownload(title) {
     var a = document.createElement('a')
-    a.download = data.info.Title || ''
+    a.download = title || ''
     a.href = url + '#pdfjs.action=download' // tell Min to download instead of opening in the viewer
     a.click()
-  })
+  }
+  if (pdf) {
+    pdf.getMetadata().then(function (data) {
+      startDownload(data.info.Title);
+    });
+  } else {
+    //there is no PDF data available
+    //this can happen if the download is happening because the file isn't a PDF and we can't show a preview
+    //or if the file hasn't loaded yet
+    startDownload("");
+  }
 }
 
 /* printing */
