@@ -13,7 +13,11 @@ ipc.on('zoomReset', function () {
 })
 
 ipc.on('print', function () {
-  getWebview(tabs.getSelected()).print()
+  if (PDFViewer.isPDFViewer(tabs.getSelected())) {
+    PDFViewer.printPDF(tabs.getSelected())
+  } else {
+    getWebview(tabs.getSelected()).print()
+  }
 })
 
 ipc.on('findInPage', function () {
@@ -55,6 +59,12 @@ ipc.on('saveCurrentPage', function () {
 
   // new tabs cannot be saved
   if (!currentTab.url) {
+    return
+  }
+
+  // if the current tab is a PDF, let the PDF viewer handle saving the document
+  if (PDFViewer.isPDFViewer(tabs.getSelected())) {
+    PDFViewer.savePDF(tabs.getSelected())
     return
   }
 
