@@ -148,8 +148,8 @@ button.disabled {
 }
 .banner {
 	padding: 1em;
-	position: fixed;
-	bottom: 0;
+	position: sticky;
+	bottom: -1px;
 	left: 0;
 	width: 100%;
 	z-index: 9;

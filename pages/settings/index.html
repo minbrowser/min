@@ -12,13 +12,6 @@
 </head>
 
 <body>
-	<div class="banner yellow-background" id="restart-required-banner" hidden>
-		<div class="container padding">
-			<i class="fa fa-info-circle"></i>
-			<span data-string="settingsRestartRequired"></span>
-		</div>
-	</div>
-
 	<div class="hero short-hero blue-gradient-background">
 		<div class="container padding">
 			<h2 data-string="settingsPreferencesHeading"></h2>
@@ -81,6 +74,14 @@
 
 		<div class="setting-section">
 			<ul id="key-map-list" class="setting-section"></ul>
+		</div>
+	</div>
+
+	<!-- this needs to be placed a the bottom so that sticky positioning works correctly -->
+	<div class="banner yellow-background" id="restart-required-banner" hidden>
+		<div class="container padding">
+			<i class="fa fa-info-circle"></i>
+			<span data-string="settingsRestartRequired"></span>
 		</div>
 	</div>
 
