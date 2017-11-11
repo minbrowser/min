@@ -15,7 +15,6 @@ function getQueryVariable (variable) {
 var backbutton = document.getElementById('backtoarticle')
 
 function startReaderView (article) {
-
   document.body.removeChild(parserframe)
 
   var readerContent = "<link rel='stylesheet' href='readerView.css'>"
@@ -32,9 +31,7 @@ function startReaderView (article) {
     }
 
     readerContent += article.content + '</div>'
-
   }
-
 
   window.rframe = document.createElement('iframe')
   rframe.classList.add('reader-frame')
@@ -42,7 +39,6 @@ function startReaderView (article) {
   rframe.srcdoc = readerContent
 
   rframe.onload = function () {
-
     if (window.isDarkMode) {
       rframe.contentDocument.body.classList.add('dark-mode')
     }
@@ -55,7 +51,7 @@ function startReaderView (article) {
     })
   }
 
-    // save the scroll position at intervals
+  // save the scroll position at intervals
 
   setInterval(function () {
     updateExtraData(url, {
@@ -69,7 +65,6 @@ function startReaderView (article) {
   backbutton.addEventListener('click', function (e) {
     window.location = url
   })
-
 }
 
 // iframe hack to securely parse the document
@@ -84,7 +79,6 @@ parserframe.sandbox = 'allow-same-origin'
 document.body.appendChild(parserframe)
 
 function processArticle (data) {
-
   window.d = data
   parserframe.srcdoc = d
 
@@ -94,7 +88,7 @@ function processArticle (data) {
 
     var location = new URL(url)
 
-        // in order for links to work correctly, they all need to open in a new tab
+    // in order for links to work correctly, they all need to open in a new tab
 
     var links = doc.querySelectorAll('a')
 
@@ -104,9 +98,9 @@ function processArticle (data) {
       }
     }
 
-        /* site-specific workarounds */
+    /* site-specific workarounds */
 
-        // needed for wikipedia.org
+    // needed for wikipedia.org
 
     var images = doc.querySelectorAll('img')
 
@@ -132,27 +126,26 @@ function processArticle (data) {
       articleScrollLength: null
     })
   }
-
 }
 
 fetch(url, {
   credentials: 'include'
 })
-    .then(function (response) {
-      return response.text()
-    })
-    .then(processArticle)
-    .catch(function (data) {
-      console.warn('request failed with error', data)
+  .then(function (response) {
+    return response.text()
+  })
+  .then(processArticle)
+  .catch(function (data) {
+    console.warn('request failed with error', data)
 
-      getArticle(url, function (item) {
-        if (item) {
-          console.log('offline article found, displaying')
-          startReaderView(item.article)
-        } else {
-          startReaderView({
-            content: '<em>Failed to load article.</em>'
-          })
-        }
-      })
+    getArticle(url, function (item) {
+      if (item) {
+        console.log('offline article found, displaying')
+        startReaderView(item.article)
+      } else {
+        startReaderView({
+          content: '<em>Failed to load article.</em>'
+        })
+      }
     })
+  })
