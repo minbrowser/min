@@ -382,6 +382,10 @@ settings.get('keyMap', function (keyMapSettings) {
   defineShortcut('showAndHideMenuBar', function () {
     toggleMenuBar()
   })
+
+  defineShortcut('followLink', function () {
+    findinpage.end({action: 'activateSelection'})
+  })
 }) // end settings.get
 
 // reload the webview when the F5 key is pressed

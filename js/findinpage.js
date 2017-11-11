@@ -21,10 +21,13 @@ var findinpage = {
     }
   },
   end: function (options) {
+    options = options || {}
+    var action = options.action || 'keepSelection'
+
     findinpage.container.hidden = true
 
     if (findinpage.activeWebview) {
-      findinpage.activeWebview.stopFindInPage('keepSelection')
+      findinpage.activeWebview.stopFindInPage(action)
       if (findinpage.input === document.activeElement) {
         findinpage.activeWebview.focus()
       }
