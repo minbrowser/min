@@ -3,11 +3,6 @@ window.ipc = electron.ipcRenderer
 window.remote = electron.remote
 window.Dexie = require('dexie')
 
-// disable dragdrop, since it currently doesn't work
-window.addEventListener('drop', function (e) {
-  e.preventDefault()
-})
-
 // add a class to the body for fullscreen status
 
 ipc.on('enter-full-screen', function () {
