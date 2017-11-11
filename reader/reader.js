@@ -149,3 +149,26 @@ fetch(url, {
       }
     })
   })
+
+  /* update appearance when theme changes */
+
+var iconElement = document.getElementById('page-icon')
+function setPageIcon () {
+  if (window.isDarkMode) {
+    iconElement.href = 'blackFavicon.png'
+  } else {
+    iconElement.href = 'whiteFavicon.png'
+  }
+}
+setPageIcon()
+
+window.addEventListener('themechange', function () {
+  if (window.rframe) {
+    if (window.isDarkMode) {
+      rframe.contentDocument.body.classList.add('dark-mode')
+    } else {
+      rframe.contentDocument.body.classList.remove('dark-mode')
+    }
+  }
+  setPageIcon()
+})
