@@ -1,6 +1,5 @@
 #navbar {
-	/* make room for the window controls */
-	padding-left: 75px;
+	padding-left: 0;
 	display: flex;
 	height: 2.3333em;
 	align-items: center;
@@ -13,11 +12,9 @@
 	z-index: 2;
 }
 
-/* there are no window controls in fullscreen, so we don't need any padding */
-
-body.fullscreen #navbar,
-body.notMac #navbar {
-	padding-left: 0;
+/* make room for the window controls */
+body.mac:not(.fullscreen) #navbar {
+	padding-left: 75px;
 }
 
 /* when the tab-group is white, we need a line to separate it from the webviews */

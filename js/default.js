@@ -18,11 +18,9 @@ ipc.on('leave-full-screen', function () {
   document.body.classList.remove('fullscreen')
 })
 
-window.addEventListener('load', function (e) {
-  if (navigator.platform !== 'MacIntel') {
-    document.body.classList.add('notMac')
-  }
-})
+if (navigator.platform === 'MacIntel') {
+  document.body.classList.add('mac')
+}
 
 // work around https://github.com/electron/electron/issues/5900
 
@@ -107,7 +105,7 @@ window.addEventListener('load', function () {
     })
   }
 
-  document.body.addEventListener('click', function (e) {    
+  document.body.addEventListener('click', function (e) {
     if (isDragging && distance >= 10.0) {
       e.stopImmediatePropagation()
       isDragging = false

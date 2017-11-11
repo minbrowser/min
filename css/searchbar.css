@@ -6,21 +6,19 @@
 	width: 100%;
 	background: #fff;
 	color: #000;
-	padding-left: 75px;
+	padding-left: 0;
 	padding-right: 82px;
-	/* align with window controls */
 	-webkit-user-select: none;
 	max-height: calc(100% - 125px);
 	overflow-y: auto;
 	will-change: display;
 }
 
-/* the navbar gets moved over in fullscreen, but the searchbar still needs to be aligned with it */
-
-body.fullscreen #searchbar,
-body.notMac #searchbar {
-	padding-left: 0;
+/* align with window controls */
+body.mac:not(.fullscreen) #searchbar {
+	padding-left: 75px;
 }
+
 .searchbar-item {
 	width: 100%;
 	display: block;
@@ -80,9 +78,9 @@ body.notMac #searchbar {
 /* move the icon when there isn't room to the left of the searchbar */
 
 .fullscreen .searchbar-item i,
-.notMac .searchbar-item i,
+body:not(.mac) .searchbar-item i,
 .fullscreen .searchbar-item .icon-image,
-.notMac .searchbar-item .icon-image {
+body:not(.mac) .searchbar-item .icon-image {
 	margin-left: 0;
 	float: right;
 }
