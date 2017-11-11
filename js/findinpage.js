@@ -60,10 +60,6 @@ findinpage.input.addEventListener('keypress', function (e) {
       findNext: true
     })
   }
-  // ctrl-return is keyCode 10
-  else if (e.keyCode === 10) {
-    findinpage.end({action: 'activateSelection'})
-  }
 })
 
 findinpage.previous.addEventListener('click', function (e) {
