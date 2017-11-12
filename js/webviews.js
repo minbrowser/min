@@ -93,6 +93,17 @@ bindWebviewIPC('goForward', function () {
   })
 })
 
+/* workaround for https://github.com/electron/electron/issues/3471 */
+
+bindWebviewEvent('did-get-redirect-request', function (e, oldURL, newURL, isMainFrame, httpResponseCode, requestMethod, referrer, header) {
+  if (isMainFrame && httpResponseCode === 302 && requestMethod === 'POST') {
+    var _this = this
+    setTimeout(function () {
+      _this.loadURL(newURL)
+    }, 100)
+  }
+}, true)
+
 // set the permissionRequestHandler for non-private tabs
 
 remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler)
@@ -129,7 +140,9 @@ function getWebviewDom (options) {
   webviewEvents.forEach(function (ev) {
     if (ev.useWebContents) { // some events (such as context-menu) are only available on the webContents rather than the webview element
       w.addEventListener('did-attach', function () {
-        this.getWebContents().on(ev.event, ev.fn)
+        this.getWebContents().on(ev.event, function () {
+          ev.fn.apply(w, arguments)
+        })
       })
     } else {
       w.addEventListener(ev.event, ev.fn)
