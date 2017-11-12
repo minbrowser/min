@@ -4,6 +4,7 @@ const path = require('path')
 const app = electron.app // Module to control application life.
 const protocol = electron.protocol // Module to control protocol handling
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
+const ipc = electron.ipcMain
 
 var userDataPath = app.getPath('userData')
 
