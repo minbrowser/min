@@ -133,16 +133,6 @@ var instantAnswers = {
 
     return item
   },
-  minecraft: function (searchText, answer) {
-    var item = createSearchbarItem({
-      title: answer.data.title,
-      image: answer.data.image,
-      descriptionBlock: answer.data.description + ' ' + answer.data.subtitle,
-      attribution: ddgAttribution
-    })
-
-    return item
-  },
   figlet: function (searchText, answer) {
     var formattedAnswer = removeTags(answer).replace('Font: standard', '')
 
