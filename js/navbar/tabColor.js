@@ -227,6 +227,7 @@ function updateColorPalette () {
 function setColor (bg, fg) {
   var background = document.getElementsByClassName('theme-background-color')
   var textcolor = document.getElementsByClassName('theme-text-color')
+  var progressBar = document.getElementsByClassName('progress-bar')
 
   for (var i = 0; i < background.length; i++) {
     background[i].style.backgroundColor = bg
@@ -234,6 +235,10 @@ function setColor (bg, fg) {
 
   for (var i = 0; i < textcolor.length; i++) {
     textcolor[i].style.color = fg
+  }
+
+  for (var i = 0; i < progressBar.length; i++) {
+    progressBar[i].style.backgroundColor = fg
   }
 
   if (fg === 'white') {
