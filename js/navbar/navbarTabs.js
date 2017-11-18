@@ -91,6 +91,19 @@ function rerenderTabstrip () {
   }
 }
 
+function handleProgressBar (id, status) {
+  var tabEl = getTabElement(id)
+
+  if (status == 'start') {
+    tabEl.querySelector('#pb').className = 'progress-bar p25'
+  } else {
+    tabEl.querySelector('#pb').className = 'progress-bar p100'
+    setTimeout(function () {
+      tabEl.querySelector('#pb').className = 'progress-bar p0'
+    }, 500)
+  }
+}
+
 function rerenderTabElement (tabId) {
   var tabEl = getTabElement(tabId)
   var tabData = tabs.get(tabId)
