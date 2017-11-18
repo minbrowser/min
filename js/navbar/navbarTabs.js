@@ -152,7 +152,7 @@ function createTabElement (data) {
   var pb = document.createElement('div')
   pb.className = 'progress-bar p0'
   pb.id = 'pb'
-  tabEl.appendChild(pb)
+  vc.appendChild(pb)
 
   // icons
 

@@ -66,10 +66,11 @@ body.is-edit-mode #back-button {
 	transition: .15s min-width, 0.2s transform;
 	padding: 0 1em;
 	font-size: 0.8em;
-	line-height: 34px;
+	line-height: 36px;
 	height: 36px;
 	overflow: hidden;
 	word-break: break-all;
+	position: relative;
 }
 .tab-item:not(.active):hover {
 	background-color: rgba(255, 255, 255, 0.1);
@@ -255,6 +256,10 @@ body.is-focus-mode .tab-item {
 
 .progress-bar {
 	height: 2px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0 0.75em;
 }
 
 .p0 {
