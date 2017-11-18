@@ -93,13 +93,14 @@ function rerenderTabstrip () {
 
 function handleProgressBar (id, status) {
   var tabEl = getTabElement(id)
+  var bar = tabEl.querySelector('.progress-bar')
 
-  if (status == 'start') {
-    tabEl.querySelector('#pb').className = 'progress-bar p25'
+  if (status === 'start') {
+    bar.className = 'progress-bar p25'
   } else {
-    tabEl.querySelector('#pb').className = 'progress-bar p100'
+    bar.className = 'progress-bar p100'
     setTimeout(function () {
-      tabEl.querySelector('#pb').className = 'progress-bar p0'
+      bar.className = 'progress-bar p0'
     }, 500)
   }
 }
@@ -164,7 +165,6 @@ function createTabElement (data) {
 
   var pb = document.createElement('div')
   pb.className = 'progress-bar p0'
-  pb.id = 'pb'
   vc.appendChild(pb)
 
   // icons
