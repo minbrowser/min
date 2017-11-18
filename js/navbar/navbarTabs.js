@@ -149,6 +149,11 @@ function createTabElement (data) {
   vc.className = 'tab-view-contents'
   vc.appendChild(readerView.getButton(data.id))
 
+  var pb = document.createElement('div')
+  pb.className = 'progress-bar p0'
+  pb.id = 'pb'
+  tabEl.appendChild(pb)
+
   // icons
 
   var iconArea = document.createElement('span')
@@ -184,17 +189,6 @@ function createTabElement (data) {
   vc.appendChild(title)
 
   tabEl.appendChild(vc)
-
-  //spinner
-
-  var spinner = document.createElement('i')
-  spinner.className = 'fa fa-circle-o-notch fa-spin'
-  spinner.setAttribute('hidden', 'true')
-  spinner.id = 'spinner'
-
-  vc.insertBefore(spinner, title)
-
-  /* events */
 
   input.addEventListener('keydown', function (e) {
     if (e.keyCode === 9 || e.keyCode === 40) { // if the tab or arrow down key was pressed

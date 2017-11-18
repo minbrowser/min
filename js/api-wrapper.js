@@ -121,12 +121,15 @@ function switchToTab (id, options) {
   tabActivity.refresh()
 }
 
-function handleSpinner (id, status) {
+function handleProgressBar (id, status) {
   var tabEl = getTabElement(id)
 
   if (status == 'start'){
-    tabEl.querySelector('#spinner').removeAttribute('hidden')
+    tabEl.querySelector('#pb').className = 'progress-bar p25'
   } else {
-    tabEl.querySelector('#spinner').setAttribute('hidden','true')
+    tabEl.querySelector('#pb').className = 'progress-bar p100'
+    setTimeout( function () {
+      tabEl.querySelector('#pb').className = 'progress-bar p0'
+    }, 500)
   }
 }
