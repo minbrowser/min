@@ -157,8 +157,8 @@ var instantAnswers = {
       title = answer
     } else { // multiple currencies
       var currencyArr = []
-      for (var countryCode in answer.data.record_data) {
-        currencyArr.push(answer.data.record_data[countryCode] + ' (' + countryCode + ')')
+      for (var countryCode in answer) {
+        currencyArr.push(answer[countryCode] + ' (' + countryCode + ')')
       }
 
       title = currencyArr.join(', ')
