@@ -171,9 +171,12 @@ function createTabElement (data) {
   vc.className = 'tab-view-contents'
   vc.appendChild(readerView.getButton(data.id))
 
+  var pbContainer = document.createElement('div')
+  pbContainer.className = 'progress-bar-container'
+  vc.appendChild(pbContainer)
   var pb = document.createElement('div')
   pb.className = 'progress-bar p0'
-  vc.appendChild(pb)
+  pbContainer.appendChild(pb)
 
   // icons
 

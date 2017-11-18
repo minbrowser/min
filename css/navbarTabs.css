@@ -254,25 +254,33 @@ body.is-focus-mode .tab-item {
 
 /* progress bar */
 
-.progress-bar {
+
+.progress-bar-container {
 	height: 2px;
-	background-color: currentColor;
+	width: 100%;
 	position: absolute;
 	top: 0;
 	left: 0;
 	margin: 0 0.8em;
+	overflow: hidden;
+}
+
+.progress-bar {
+	height: 2px;
+	width: 100%;
+	background-color: currentColor;
 }
 
 .p0 {
-	width: 0%;
+	transform: translateX(-100%);
 }
 
 .p25 {
-	width: 25%;
-	transition: all 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transform: translateX(-75%);
+	transition: transform 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .p100 {
-	width: 100%;
-	transition: all 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transform: translateX(0%);
+	transition: transform 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
