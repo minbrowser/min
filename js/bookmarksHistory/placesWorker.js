@@ -45,7 +45,6 @@ setInterval(cleanupHistoryDatabase, 60 * 60 * 1000)
 // cache history in memory for faster searching. This actually takes up very little space, so we can cache everything.
 
 let historyInMemoryCache = []
-let doneLoadingHistoryCache = false
 
 function addToHistoryCache (item) {
   delete item.pageHTML
@@ -65,8 +64,6 @@ function loadHistoryInMemory () {
     historyInMemoryCache.sort(function (a, b) {
       return calculateHistoryScore(b) - calculateHistoryScore(a)
     })
-
-    doneLoadingHistoryCache = true
   })
 }
 
