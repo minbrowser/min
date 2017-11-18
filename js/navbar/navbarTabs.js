@@ -185,6 +185,15 @@ function createTabElement (data) {
 
   tabEl.appendChild(vc)
 
+  //spinner
+
+  var spinner = document.createElement('i')
+  spinner.className = 'fa fa-circle-o-notch fa-spin'
+  spinner.setAttribute('hidden', 'true')
+  spinner.id = 'spinner'
+
+  vc.insertBefore(spinner, title)
+
   /* events */
 
   input.addEventListener('keydown', function (e) {

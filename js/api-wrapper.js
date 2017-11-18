@@ -120,3 +120,13 @@ function switchToTab (id, options) {
 
   tabActivity.refresh()
 }
+
+function handleSpinner (id, status) {
+  var tabEl = getTabElement(id)
+
+  if (status == 'start'){
+    tabEl.querySelector('#spinner').removeAttribute('hidden')
+  } else {
+    tabEl.querySelector('#spinner').setAttribute('hidden','true')
+  }
+}

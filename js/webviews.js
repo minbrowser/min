@@ -167,10 +167,12 @@ function getWebviewDom (options) {
 
   /* workaround for https://github.com/electron/electron/issues/8505 and similar issues */
   w.addEventListener('did-start-loading', function () {
+    handleSpinner(this.getAttribute('data-tab'),'start')
     this.classList.add('loading')
   })
 
   w.addEventListener('did-stop-loading', function () {
+    handleSpinner(this.getAttribute('data-tab'),'finish')
     setTimeout(function () {
       w.classList.remove('loading')
     }, 100)
