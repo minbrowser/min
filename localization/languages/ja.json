@@ -148,6 +148,8 @@
         "appMenuHideOthers": "ほかを隠す",
         "appMenuShowAll": "すべてを表示",
         "appMenuQuit": "%nを終了",
-        "appMenuBringToFront": "すべてを最前面に移動"
+        "appMenuBringToFront": "すべてを最前面に移動",
+        /* PDF Viewer */
+        "PDFPageCounter": {"unsafeHTML": "<span id='total'></span> ページ中 <input type='text'/> ページ目"}
     }
 }
