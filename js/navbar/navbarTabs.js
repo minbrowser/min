@@ -96,12 +96,20 @@ function handleProgressBar (id, status) {
   var bar = tabEl.querySelector('.progress-bar')
 
   if (status === 'start') {
-    bar.className = 'progress-bar p25'
-  } else {
-    bar.className = 'progress-bar p100'
+    bar.setAttribute('loading', 'true')
     setTimeout(function () {
-      bar.className = 'progress-bar p0'
-    }, 500)
+      if (bar.getAttribute('loading') === 'true') {
+        bar.className = 'progress-bar p25'
+      }
+    }, 3500)
+  } else {
+    bar.setAttribute('loading', 'false')
+    if (bar.classList.contains('p25')) {
+      bar.className = 'progress-bar p100'
+      setTimeout(function () {
+        bar.className = 'progress-bar p0'
+      }, 500)
+    }
   }
 }
 
