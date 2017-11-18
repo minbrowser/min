@@ -99,7 +99,10 @@ function handleProgressBar (id, status) {
     bar.setAttribute('loading', 'true')
     setTimeout(function () {
       if (bar.getAttribute('loading') === 'true') {
-        bar.className = 'progress-bar p25'
+        bar.hidden = false
+        requestAnimationFrame(function () {
+          bar.className = 'progress-bar p25'
+        })
       }
     }, 3500)
   } else {
@@ -108,6 +111,7 @@ function handleProgressBar (id, status) {
       bar.className = 'progress-bar p100'
       setTimeout(function () {
         bar.className = 'progress-bar p0'
+        bar.hidden = true
       }, 500)
     }
   }
@@ -176,6 +180,7 @@ function createTabElement (data) {
   vc.appendChild(pbContainer)
   var pb = document.createElement('div')
   pb.className = 'progress-bar p0'
+  pb.hidden = true
   pbContainer.appendChild(pb)
 
   // icons
