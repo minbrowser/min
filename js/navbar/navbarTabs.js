@@ -104,7 +104,7 @@ function handleProgressBar (id, status) {
           bar.className = 'progress-bar p25'
         })
       }
-    }, 3500)
+    }, 4000)
   } else {
     bar.setAttribute('loading', 'false')
     if (bar.classList.contains('p25')) {
