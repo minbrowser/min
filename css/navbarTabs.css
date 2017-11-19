@@ -271,6 +271,10 @@ body.is-focus-mode .tab-item {
 	background-color: currentColor;
 }
 
+body:not(.dark-theme) .progress-bar {
+    opacity: 0.8;
+}
+
 .p0 {
 	transform: translateX(-100%);
 }
