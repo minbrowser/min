@@ -166,11 +166,15 @@ function getWebviewDom (options) {
   w.addEventListener('did-navigate-in-page', onPageLoad)
 
   /* workaround for https://github.com/electron/electron/issues/8505 and similar issues */
-  w.addEventListener('did-start-loading', function () {
+  w.addEventListener('load-commit', function (e) {
+    if (e.isMainFrame) {
+      handleProgressBar(this.getAttribute('data-tab'), 'start')
+    }
     this.classList.add('loading')
   })
 
   w.addEventListener('did-stop-loading', function () {
+    handleProgressBar(this.getAttribute('data-tab'), 'finish')
     setTimeout(function () {
       w.classList.remove('loading')
     }, 100)

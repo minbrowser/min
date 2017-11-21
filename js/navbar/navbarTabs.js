@@ -91,6 +91,33 @@ function rerenderTabstrip () {
   }
 }
 
+function handleProgressBar (id, status) {
+  var tabEl = getTabElement(id)
+  var bar = tabEl.querySelector('.progress-bar')
+
+  if (status === 'start') {
+    var loadID = Date.now().toString()
+    bar.setAttribute('loading', loadID) // we need to use unique ID's to ensure that the same page that was loading initialy is the same page that is loading 4 seconds later
+    setTimeout(function () {
+      if (bar.getAttribute('loading') === loadID) {
+        bar.hidden = false
+        requestAnimationFrame(function () {
+          bar.className = 'progress-bar p25'
+        })
+      }
+    }, 4000)
+  } else {
+    bar.setAttribute('loading', 'false')
+    if (bar.classList.contains('p25')) {
+      bar.className = 'progress-bar p100'
+      setTimeout(function () {
+        bar.className = 'progress-bar p0'
+        bar.hidden = true
+      }, 500)
+    }
+  }
+}
+
 function rerenderTabElement (tabId) {
   var tabEl = getTabElement(tabId)
   var tabData = tabs.get(tabId)
@@ -149,6 +176,14 @@ function createTabElement (data) {
   vc.className = 'tab-view-contents'
   vc.appendChild(readerView.getButton(data.id))
 
+  var pbContainer = document.createElement('div')
+  pbContainer.className = 'progress-bar-container'
+  vc.appendChild(pbContainer)
+  var pb = document.createElement('div')
+  pb.className = 'progress-bar p0'
+  pb.hidden = true
+  pbContainer.appendChild(pb)
+
   // icons
 
   var iconArea = document.createElement('span')
@@ -184,8 +219,6 @@ function createTabElement (data) {
   vc.appendChild(title)
 
   tabEl.appendChild(vc)
-
-  /* events */
 
   input.addEventListener('keydown', function (e) {
     if (e.keyCode === 9 || e.keyCode === 40) { // if the tab or arrow down key was pressed
