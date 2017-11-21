@@ -96,9 +96,10 @@ function handleProgressBar (id, status) {
   var bar = tabEl.querySelector('.progress-bar')
 
   if (status === 'start') {
-    bar.setAttribute('loading', 'true')
+    var loadID = Date.now().toString()
+    bar.setAttribute('loading', loadID) // we need to use unique ID's to ensure that the same page that was loading initialy is the same page that is loading 4 seconds later
     setTimeout(function () {
-      if (bar.getAttribute('loading') === 'true') {
+      if (bar.getAttribute('loading') === loadID) {
         bar.hidden = false
         requestAnimationFrame(function () {
           bar.className = 'progress-bar p25'
