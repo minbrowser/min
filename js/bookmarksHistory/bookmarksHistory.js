@@ -71,44 +71,23 @@ const bookmarks = {
   onMessage: function (e) { // assumes this is from a search operation
     bookmarks.runWorkerCallback(e.data.callbackId, e.data.result)
   },
-  updateBookmarkState: function (tabId, shouldBeBookmarked) {
-    const url = tabs.get(tabId).url
-    db.places.where('url').equals(url).first(function (item) {
-      // a history item already exists, update it
-      if (item) {
-        db.places.where('url').equals(url).modify({isBookmarked: shouldBeBookmarked})
-      } else {
-        // create a new history item
-        // this should only happen if the page hasn't finished loading yet
-        db.places.add({
-          url: url,
-          title: url,
-          color: '',
-          visitCount: 1,
-          lastVisit: Date.now(),
-          pageHTML: '',
-          extractedText: '',
-          searchIndex: [],
-          isBookmarked: shouldBeBookmarked,
-          metadata: {}
-        })
+  updateBookmarkState: function (url, shouldBeBookmarked) {
+    bookmarks.worker.postMessage({
+      action: 'updateBookmarkState',
+      pageData: {
+        url: url,
+        shouldBeBookmarked: shouldBeBookmarked
       }
     })
   },
-  bookmark: function (tabId) {
-    bookmarks.updateBookmarkState(tabId, true)
-  },
-  deleteBookmark: function (tabId) {
-    bookmarks.updateBookmarkState(tabId, false)
-  },
-  toggleBookmarked: function (tabId) { // toggles a bookmark. If it is bookmarked, delete the bookmark. Otherwise, add it.
+  toggleBookmarked: function (tabId) { // Toggles whether a URL is bookmarked or not
     const url = tabs.get(tabId).url
 
     db.places.where('url').equals(url).first(function (item) {
       if (item && item.isBookmarked) {
-        bookmarks.deleteBookmark(tabId)
+        bookmarks.updateBookmarkState(url, false)
       } else {
-        bookmarks.bookmark(tabId)
+        bookmarks.updateBookmarkState(url, true)
       }
     })
   },

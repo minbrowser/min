@@ -54,6 +54,26 @@ function addToHistoryCache (item) {
   historyInMemoryCache.push(item)
 }
 
+function addOrUpdateHistoryCache (item) {
+  delete item.pageHTML
+  delete item.extractedText
+  delete item.searchIndex
+
+  let found = true
+
+  for (let i = 0; i < historyInMemoryCache.length; i++) {
+    if (historyInMemoryCache[i].url === item.url) {
+      historyInMemoryCache[i] = item
+      found = true
+      break
+    }
+  }
+
+  if (!found) {
+    historyInMemoryCache.push(item)
+  }
+}
+
 function loadHistoryInMemory () {
   historyInMemoryCache = []
 
@@ -68,8 +88,6 @@ function loadHistoryInMemory () {
 }
 
 loadHistoryInMemory()
-
-setInterval(loadHistoryInMemory, 30 * 60 * 1000)
 
 // calculates how similar two history items are
 
@@ -136,6 +154,8 @@ onmessage = function (e) {
           item.visitCount = oldItem.visitCount + 1
           item.isBookmarked = oldItem.isBookmarked
           db.places.where('url').equals(pageData.url).modify(item)
+
+          addOrUpdateHistoryCache(item)
         /* if the item doesn't exist, add a new item */
         } else {
           item.visitCount = 1
@@ -148,6 +168,31 @@ onmessage = function (e) {
         console.warn('failed to update history.')
         console.warn('page url was: ' + pageData.url)
         console.error(err)
+      })
+    })
+  }
+
+  if (action === 'updateBookmarkState') {
+    db.transaction('rw', db.places, function () {
+      db.places.where('url').equals(pageData.url).first(function (item) {
+        if (!item) {
+          item = {
+            url: url,
+            title: url,
+            color: '',
+            visitCount: 1,
+            lastVisit: Date.now(),
+            pageHTML: '',
+            extractedText: '',
+            searchIndex: [],
+            metadata: {}
+          }
+        }
+        item.isBookmarked = pageData.shouldBeBookmarked
+
+        db.places.where('url').equals(pageData.url).modify(item)
+
+        addOrUpdateHistoryCache(item)
       })
     })
   }
