@@ -236,8 +236,15 @@ settings.get('keyMap', function (keyMapSettings) {
     taskOverlay.hide()
     leaveTabEditMode()
 
-    if (document.activeElement !== getWebview(tabs.getSelected())) {
-      getWebview(tabs.getSelected()).focus()
+    var webview = getWebview(tabs.getSelected())
+
+    // exit full screen mode
+    if (webview.executeJavaScript) {
+      webview.executeJavaScript('if(document.webkitIsFullScreen){document.webkitExitFullscreen()}')
+    }
+
+    if (document.activeElement !== webview) {
+      webview.focus()
     }
   })
 
