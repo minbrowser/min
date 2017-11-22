@@ -97,10 +97,8 @@ bindWebviewIPC('goForward', function () {
 
 bindWebviewEvent('did-get-redirect-request', function (e, oldURL, newURL, isMainFrame, httpResponseCode, requestMethod, referrer, header) {
   if (isMainFrame && httpResponseCode === 302 && requestMethod === 'POST') {
-    var _this = this
-    setTimeout(function () {
-      _this.loadURL(newURL)
-    }, 100)
+    this.stop()
+    this.loadURL(newURL)
   }
 }, true)
 
