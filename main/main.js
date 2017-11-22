@@ -56,7 +56,7 @@ function createWindow (cb) {
 // fixes https://github.com/minbrowser/min/issues/214
 // should be removed once https://github.com/electron/electron/issues/4045 is fixed
     if (process.platform === 'win32') {
-      if ((bounds.x === 0 && bounds.y === 0) || (bounds.x === -8 && bounds.y === -8)) {
+      if (bounds.x === 0 || bounds.y === 0 || bounds.x === -8 || bounds.y === -8) {
         var screenSize = electron.screen.getPrimaryDisplay().workAreaSize
         if ((screenSize.width === bounds.width || bounds.width - screenSize.width === 16) && (screenSize.height === bounds.height || bounds.height - screenSize.height === 16)) {
           var shouldMaximize = true
