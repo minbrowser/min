@@ -148,7 +148,7 @@
         "appMenuHideOthers": "Esconder o resto",
         "appMenuShowAll": "Mostrar tudo",
         "appMenuQuit": "Sair de %n",
-        "appMenuBringToFront": "Trazer tudo para a frente"
+        "appMenuBringToFront": "Trazer tudo para a frente",
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "página <input type='text'/> de <span id='total'></span>"}
     }
