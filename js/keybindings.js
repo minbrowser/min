@@ -391,7 +391,7 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('followLink', function () {
-    findinpage.end({action: 'activateSelection'})
+    findinpage.end({ action: 'activateSelection' })
   })
 }) // end settings.get
 
