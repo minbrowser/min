@@ -137,12 +137,18 @@ function defineShortcut (keyMapName, fn) {
       return
     }
     // mod+left and mod+right are also text editing shortcuts, so they should not run when an input field is focused
-    if (combo === 'mod+left' || combo === 'mod+right') {
-      getWebview(tabs.getSelected()).executeJavaScript('document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA"', function (isInputFocused) {
-        if (isInputFocused === false) {
-          fn(e, combo)
-        }
-      })
+    // also block single-letter shortcuts when an input field is focused, so that it's still possible to type in an input
+    if (!combo.includes('+') || combo === 'mod+left' || combo === 'mod+right') {
+      var webview = getWebview(tabs.getSelected())
+      if (!webview.src) {
+        fn(e, combo)
+      } else {
+        webview.executeJavaScript('document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA"', function (isInputFocused) {
+          if (isInputFocused === false) {
+            fn(e, combo)
+          }
+        })
+      }
     } else {
       // other shortcuts can run immediately
       fn(e, combo)
