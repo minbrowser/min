@@ -164,6 +164,7 @@ module.exports = function (grunt) {
         mimeType: ['x-scheme-handler/http', 'x-scheme-handler/https', 'text/html'],
         maintainer: 'Min Developers <280953907a@zoho.com>',
         description: 'Min is a faster, smarter web browser.',
+        productDescription: 'A web browser with smarter search, improved tab management, and built-in ad blocking. Includes full-text history search, instant answers from DuckDuckGo, the ability to split tabs into groups, and more.',
         depends: [
           'gconf2',
           'gconf-service',
