@@ -22,7 +22,7 @@
     "standard": "^7.1.0"
   },
   "optionalDependencies": {
-    "grunt-electron-installer-debian": "^0.4.0"
+    "grunt-electron-installer-debian": "^0.5.0"
   },
   "license": "Apache-2.0",
   "scripts": {
