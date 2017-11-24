@@ -1,4 +1,4 @@
-{
+
     "name": "Portuguese (Portugal)",
     "identifier": "pt-PT",
     "translations": {
@@ -99,7 +99,8 @@
         },
         "settingsAppearanceHeading": "Aparência",
         "settingsDarkModeToggle": "Ativar modo escuro",
-        "settingsSwipeNavigationHeading": "Navegação com gestos",
+		"settingsHistoryButtonToggle": "Ativar botão para recuar",        
+		"settingsSwipeNavigationHeading": "Navegação com gestos",
         "settingsSwipeNavigationToggle": "Ativar gestos para navegar entre as páginas visitadas.",
         "settingsSearchEngineHeading": "Motor de pesquisa",
         "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",
@@ -148,5 +149,7 @@
         "appMenuShowAll": "Mostrar tudo",
         "appMenuQuit": "Sair do %n",
         "appMenuBringToFront": "Trazer tudo para a frente"
+		        /* PDF Viewer */
+        "PDFPageCounter": {"unsafeHTML": "página <input type='text'/> de <span id='total'></span>"}
     }
 }
