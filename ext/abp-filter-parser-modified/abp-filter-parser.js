@@ -21,6 +21,8 @@
 
   var separatorCharacters = ':?/=^'
 
+  var noSpecialCharactersRegex = /[a-zA-Z0-9]+/
+
   /**
    * Finds the first separator character in the input string
    */
@@ -149,6 +151,9 @@
       var data = root[string[i]]
       if (!data) {
         continue
+      }
+      if (data._d) {
+        substrings = substrings.concat(data._d)
       }
       for (var x = i + 1; x < string.length; x++) {
         var char = string[x]
@@ -337,9 +342,9 @@
    */
 
   function parse (input, parserData) {
-    var arrayFilterCategories = ['regex', 'leftAnchored', 'rightAnchored', 'bothAnchored', 'wildcard', 'indexOf']
+    var arrayFilterCategories = ['regex', 'leftAnchored', 'rightAnchored', 'bothAnchored', 'indexOf']
     var objectFilterCategories = ['hostAnchored']
-    var trieFilterCategories = ['plainString']
+    var trieFilterCategories = ['plainString', 'wildcard']
 
     parserData.exceptionFilters = parserData.exceptionFilters || {}
 
@@ -406,7 +411,18 @@
               object.hostAnchored[ending] = [parsedFilterData]
             }
           } else if (parsedFilterData.wildcardMatchParts) {
-            object.wildcard.push(parsedFilterData)
+            var wildcardToken = noSpecialCharactersRegex.exec(parsedFilterData.wildcardMatchParts[0])
+            if (!wildcardToken || wildcardToken[0].length < 3) {
+              var wildcardToken2 = noSpecialCharactersRegex.exec(parsedFilterData.wildcardMatchParts[1])
+              if (wildcardToken2 && (!wildcardToken || wildcardToken2[0].length > wildcardToken[0].length)) {
+                wildcardToken = wildcardToken2
+              }
+            }
+            if (wildcardToken) {
+              object.wildcard.add(wildcardToken[0], parsedFilterData)
+            } else {
+              object.wildcard.add('', parsedFilterData)
+            }
           } else if (parsedFilterData.data.indexOf('^') === -1) {
             object.plainString.add(parsedFilterData.data, parsedFilterData.options)
           } else {
@@ -522,26 +538,31 @@
       }
     }
 
-    outer: for (i = 0, len = filters.wildcard.length; i < len; i++) {
-      filter = filters.wildcard[i]
+    // check if the string matches a wildcard filter
 
-      // most filters won't match on the first part, so there is no point in entering the loop
-      if (indexOfFilter(input, filter.wildcardMatchParts[0], 0) === -1) {
-        continue outer
-      }
+    var wildcardMatches = filters.wildcard.getSubstringsOf(input)
 
-      let index = 0
-      for (let part of filter.wildcardMatchParts) {
-        let newIndex = indexOfFilter(input, part, index)
-        if (newIndex === -1) {
+    if (wildcardMatches.length !== 0) {
+      outer: for (i = 0, len = wildcardMatches.length; i < len; i++) {
+        filter = wildcardMatches[i]
+
+        // most filters won't match on the first part, so there is no point in entering the loop
+        if (indexOfFilter(input, filter.wildcardMatchParts[0], 0) === -1) {
           continue outer
         }
-        index = newIndex + part.length
-      }
 
-      if (matchOptions(filter.options, input, contextParams, currentHost)) {
-        // console.log(filter, 6)
-        return true
+        let index = 0
+        for (let part of filter.wildcardMatchParts) {
+          let newIndex = indexOfFilter(input, part, index)
+          if (newIndex === -1) {
+            continue outer
+          }
+          index = newIndex + part.length
+        }
+
+        if (matchOptions(filter.options, input, contextParams, currentHost)) {
+          // console.log(filter, 6)
+        }
       }
     }
 
