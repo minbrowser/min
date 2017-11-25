@@ -562,6 +562,7 @@
 
         if (matchOptions(filter.options, input, contextParams, currentHost)) {
           // console.log(filter, 6)
+          return true
         }
       }
     }
