@@ -119,11 +119,11 @@
 
   /* creates a trie */
 
-  function trie () {
+  function Trie () {
     this.data = {}
   }
 
-  trie.prototype.add = function (string, stringData) {
+  Trie.prototype.add = function (string, stringData) {
     var data = this.data
 
     for (var i = 0, len = string.length; i < len; i++) {
@@ -142,7 +142,7 @@
     }
   }
 
-  trie.prototype.getSubstringsOf = function (string) {
+  Trie.prototype.getSubstringsOf = function (string) {
     var root = this.data
     var substrings = []
     // loop through each character in the string
@@ -359,8 +359,8 @@
     }
 
     for (var i = 0; i < trieFilterCategories.length; i++) {
-      parserData[trieFilterCategories[i]] = parserData[trieFilterCategories[i]] || new trie()
-      parserData.exceptionFilters[trieFilterCategories[i]] = parserData.exceptionFilters[trieFilterCategories[i]] || new trie()
+      parserData[trieFilterCategories[i]] = parserData[trieFilterCategories[i]] || new Trie()
+      parserData.exceptionFilters[trieFilterCategories[i]] = parserData.exceptionFilters[trieFilterCategories[i]] || new Trie()
     }
 
     var filters = input.split('\n')
