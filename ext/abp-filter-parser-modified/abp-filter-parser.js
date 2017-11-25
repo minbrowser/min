@@ -83,11 +83,14 @@
     options.domains = domains.filter(function (domain) {
       return domain[0] !== '~'
     })
-    options.skipDomains = domains.filter(function (domain) {
+    var skipDomains = domains.filter(function (domain) {
       return domain[0] === '~'
     }).map(function (domain) {
       return domain.substring(1)
     })
+    if (skipDomains.length !== 0) {
+      options.skipDomains = skipDomains
+    }
   }
 
   /**
