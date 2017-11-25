@@ -22,17 +22,17 @@
         "DDGAnswerSubtitle": "Réponse", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Site suggéré", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Résultats de DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
-        "taskN": "Tache %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "Fichier local", //this is a label used to indicate that a result is coming from the user's host file        
+        "taskN": "Tâche %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "hostsFileEntry": "Fichier local", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
         "viewSettings": "Voir les réglages",
         "takeScreenshot": "Prendre une capture d'écran",
         "clearHistory": "Vider l'historique",
-        "switchToTask": "Changer de tache",
-        "createTask": "Créer une tache",
-        "moveToTask": "Déplacer cette tache à cet onglet",
+        "switchToTask": "Changer de tâche",
+        "createTask": "Créer une tâche",
+        "moveToTask": "Déplacer cette tâche à cet onglet",
         "searchBookmarks": "Rechercher des signets",
         /* navbar */
         "enterReaderView": "Entrer en mode lecteur",
@@ -40,14 +40,14 @@
         "emptyReadingListTitle": "Votre liste de lecture est vide",
         "emptyReadingListSubtitle": "Les articles que vous ouvrez en mode lecteur sont sauvegardés ici pendant 30 jours.",
         "newTabLabel": "Nouvel onglet", //this is a noun, used for tabs that don't have a page loaded in them yet
-        "connectionNotSecure": "Votre connection n'est pas sécurisée.",
+        "connectionNotSecure": "Votre connexion n'est pas sécurisée.",
         "searchbarPlaceholder": "Recherchez et entrez une adresse",
         "privateTab": "Onglet privé",
         "newTabAction": "Ajouter un onglet", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
-        "viewTasks": "Voir les taches",
-        "newTask": "Nouvelle tache", //"new" is a verb - it is used for a button at the bottom of the task overlay
-        "defaultTaskName": "Tache %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        "viewTasks": "Voir les tâches",
+        "newTask": "Nouvelle tâche", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": "Tâche %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
         /* find in page toolbar */
         "searchInPage": "Rechercher dans la page", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%i de %t match", //this and the next label are used to indicate which match is currently highlighted
@@ -66,26 +66,26 @@
         "serverNotFoundSubtitle": "Min ne peut pas trouver ce site internet.",
         "archiveSearchAction": "Rechercher sur archive.org",
         "sslErrorTitle": "Ce site n'est pas disponible",
-        "sslErrorMessage": "Min ne peut pas établir une connection sécurisée avec ce site.",
+        "sslErrorMessage": "Min ne peut pas établir une connexion sécurisée avec ce site.",
         "dnsErrorTitle": "Site non trouvé",
         "dnsErrorMessage": "Il y a eu un problème DNS avec ce site.",
         "offlineErrorTitle": "Vous êtes hors-ligne",
         "offlineErrorMessage": "Reconnectez vous à internet et réessayez.",
-        "genericConnectionFail": "Min ne peut pas se connecter à ce sit internet.",
-        "sslTimeErrorMessage": "Min ne peux pas établir une connection sécurisée avec ce site. Merci de vérifier que votre horloge est bien réglée.",
+        "genericConnectionFail": "Min ne peut pas se connecter à ce site internet.",
+        "sslTimeErrorMessage": "Min ne peux pas établir une connexion sécurisée avec ce site. Merci de vérifier que votre horloge est bien réglée.",
         "addressInvalidTitle": "Cette adresse est invalide.",
         "genericError": "Il y a une erreur",
         /* pages/phishing/index.html */
-        "phishingErrorTitle": "Ce site peut vous nuir.",
+        "phishingErrorTitle": "Ce site peut vous nuire.",
         "phishingErrorMessage": "Ce site peux essayer de vous dérober vos informations personnelles, comme un mot de passe ou des informations bancaires",
         "phishingErrorVisitAnyway": "Visiter quand même",
         "phishingErrorLeave": "Quitter ce site",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Il y a eu une erreur",
         "sessionRestoreErrorExplanation": "Vos onglets sauvegardés n'ont pas pu être restaurés correctement.",
-        "sessionRestoreErrorBackupInfo": "Nous avons enregistrés une sauvegarde de vos données à cette localisation: %l.", //%l will be replaced with a path to a file
+        "sessionRestoreErrorBackupInfo": "Nous avons enregistrés une sauvegarde de vos données à cette localisation : %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
-            "unsafeHTML": "Si cette erreur continue à se produire, merci d'ouvrir un ticket: <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">ici</a>."
+            "unsafeHTML": "Si cette erreur continue à se produire, merci d'ouvrir un ticket : <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">ici</a>."
         },
         /* pages/settings/index.html */
         "settingsPreferencesHeading": "Préférences",
@@ -103,7 +103,7 @@
         "settingsSwipeNavigationHeading": "Swipe navigation", //same on french
         "settingsSwipeNavigationToggle": "Activer swipe pour changer de page.",
         "settingsSearchEngineHeading": "Moteur de recherche",
-        "settingsDefaultSearchEngine": "Choisir un moteur de recherche par défaut:",
+        "settingsDefaultSearchEngine": "Choisir un moteur de recherche par défaut :",
         "settingsDDGExplanation": "Définir DuckDuckGo comme moteur de recherche par défaut pour voir instantanément des résulats dans la barre de recherche.",
         "settingsKeyboardShortcutsHeading": "Raccourcis clavier",
         "settingsKeyboardShortcutsHelp": "Tapez \"mod\" pour utiliser la commande ou la touche de controle.",
@@ -141,7 +141,7 @@
         "appMenuReportBug": "Reporter un problème",
         "appMenuTakeTour": "Faire un tour",
         "appMenuViewGithub": "Voir sur GitHub",
-        "appMenuAbout": "A propos de %n", //%n is replaced with app name
+        "appMenuAbout": "À propos de %n", //%n is replaced with app name
         "appMenuPreferences": "Préférences",
         "appMenuServices": "Services",
         "appMenuHide": "Cacher %n",
