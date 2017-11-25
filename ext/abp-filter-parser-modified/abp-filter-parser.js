@@ -341,7 +341,7 @@
    *   with the filters, exceptionFilters and htmlRuleFilters.
    */
 
-  function parse (input, parserData) {
+  function parse (input, parserData, callback) {
     var arrayFilterCategories = ['regex', 'leftAnchored', 'rightAnchored', 'bothAnchored', 'indexOf']
     var objectFilterCategories = ['hostAnchored']
     var trieFilterCategories = ['plainString', 'wildcard']
@@ -452,6 +452,8 @@
 
       if (lastFilterIdx < filtersLength) {
         setTimeout(nextChunk, 16)
+      } else if (callback) {
+        callback()
       }
     }
 
