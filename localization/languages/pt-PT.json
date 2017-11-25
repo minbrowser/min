@@ -99,6 +99,7 @@
         },
         "settingsAppearanceHeading": "Aparência",
         "settingsDarkModeToggle": "Ativar modo escuro",
+        "settingsHistoryButtonToggle": "Ativar botão para recuar",
         "settingsSwipeNavigationHeading": "Navegação com gestos",
         "settingsSwipeNavigationToggle": "Ativar gestos para navegar entre as páginas visitadas.",
         "settingsSearchEngineHeading": "Motor de pesquisa",
@@ -147,6 +148,8 @@
         "appMenuHideOthers": "Ocultar outras",
         "appMenuShowAll": "Mostrar tudo",
         "appMenuQuit": "Sair do %n",
-        "appMenuBringToFront": "Trazer tudo para a frente"
+        "appMenuBringToFront": "Trazer tudo para a frente",
+        /* PDF Viewer */
+        "PDFPageCounter": {"unsafeHTML": "página <input type='text'/> de <span id='total'></span>"}
     }
 }
