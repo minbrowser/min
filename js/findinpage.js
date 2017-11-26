@@ -54,9 +54,9 @@ findinpage.input.addEventListener('input', function (e) {
 })
 
 findinpage.input.addEventListener('keypress', function (e) {
-  if (e.keyCode === 13) {
+  if (e.keyCode === 13) { // Return/Enter key
     findinpage.activeWebview.findInPage(findinpage.input.value, {
-      forward: true,
+      forward: !e.shiftKey, // find previous if Shift is pressed
       findNext: true
     })
   }
