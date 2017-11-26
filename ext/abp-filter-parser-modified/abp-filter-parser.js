@@ -21,6 +21,8 @@
 
   var separatorCharacters = ':?/=^'
 
+  var noSpecialCharactersRegex = /[a-zA-Z0-9]+/
+
   /**
    * Finds the first separator character in the input string
    */
@@ -81,11 +83,14 @@
     options.domains = domains.filter(function (domain) {
       return domain[0] !== '~'
     })
-    options.skipDomains = domains.filter(function (domain) {
+    var skipDomains = domains.filter(function (domain) {
       return domain[0] === '~'
     }).map(function (domain) {
       return domain.substring(1)
     })
+    if (skipDomains.length !== 0) {
+      options.skipDomains = skipDomains
+    }
   }
 
   /**
@@ -117,11 +122,11 @@
 
   /* creates a trie */
 
-  function trie () {
+  function Trie () {
     this.data = {}
   }
 
-  trie.prototype.add = function (string, stringData) {
+  Trie.prototype.add = function (string, stringData) {
     var data = this.data
 
     for (var i = 0, len = string.length; i < len; i++) {
@@ -140,7 +145,7 @@
     }
   }
 
-  trie.prototype.getSubstringsOf = function (string) {
+  Trie.prototype.getSubstringsOf = function (string) {
     var root = this.data
     var substrings = []
     // loop through each character in the string
@@ -149,6 +154,9 @@
       var data = root[string[i]]
       if (!data) {
         continue
+      }
+      if (data._d) {
+        substrings = substrings.concat(data._d)
       }
       for (var x = i + 1; x < string.length; x++) {
         var char = string[x]
@@ -196,7 +204,7 @@
     }
 
     // Check for options, regex can have options too so check this before regex
-    index = input.indexOf('$', beginIndex)
+    index = input.lastIndexOf('$')
     if (index !== -1) {
       parsedFilterData.options = parseOptions(input.substring(index + 1))
       // Get rid of the trailing options for the rest of the parsing
@@ -336,10 +344,10 @@
    *   with the filters, exceptionFilters and htmlRuleFilters.
    */
 
-  function parse (input, parserData) {
-    var arrayFilterCategories = ['regex', 'leftAnchored', 'rightAnchored', 'bothAnchored', 'wildcard', 'indexOf']
+  function parse (input, parserData, callback) {
+    var arrayFilterCategories = ['regex', 'leftAnchored', 'rightAnchored', 'bothAnchored', 'indexOf']
     var objectFilterCategories = ['hostAnchored']
-    var trieFilterCategories = ['plainString']
+    var trieFilterCategories = ['plainString', 'wildcard']
 
     parserData.exceptionFilters = parserData.exceptionFilters || {}
 
@@ -353,39 +361,43 @@
       parserData.exceptionFilters[objectFilterCategories[i]] = parserData.exceptionFilters[objectFilterCategories[i]] || {}
     }
 
-
     for (var i = 0; i < trieFilterCategories.length; i++) {
-      parserData[trieFilterCategories[i]] = parserData[trieFilterCategories[i]] || new trie()
-      parserData.exceptionFilters[trieFilterCategories[i]] = parserData.exceptionFilters[trieFilterCategories[i]] || new trie()
+      parserData[trieFilterCategories[i]] = parserData[trieFilterCategories[i]] || new Trie()
+      parserData.exceptionFilters[trieFilterCategories[i]] = parserData.exceptionFilters[trieFilterCategories[i]] || new Trie()
     }
 
     var filters = input.split('\n')
 
-    for (var i = 0, len = filters.length; i < len; i++) {
-      var filter = filters[i]
-      var parsedFilterData = {}
-
-      var object
-
-      if (parseFilter(filter, parsedFilterData)) {
-        if (parsedFilterData.isException) {
-          object = parserData.exceptionFilters
-        } else {
-          object = parserData
+    function processChunk (start, end) {
+      for (var i = start, len = end; i < len; i++) {
+        var filter = filters[i]
+        if (!filter) {
+          continue
         }
 
-        // Check for a regex match
-        if (parsedFilterData.regex) {
-          object.regex.push(parsedFilterData)
-        } else if (parsedFilterData.leftAnchored) {
-          if (parsedFilterData.rightAnchored) {
-            object.bothAnchored.push(parsedFilterData)
+        var parsedFilterData = {}
+
+        var object
+
+        if (parseFilter(filter, parsedFilterData)) {
+          if (parsedFilterData.isException) {
+            object = parserData.exceptionFilters
           } else {
-            object.leftAnchored.push(parsedFilterData)
+            object = parserData
           }
-        } else if (parsedFilterData.rightAnchored) {
-          object.rightAnchored.push(parsedFilterData)
-        } else if (parsedFilterData.hostAnchored) {
+
+        // Check for a regex match
+          if (parsedFilterData.regex) {
+            object.regex.push(parsedFilterData)
+          } else if (parsedFilterData.leftAnchored) {
+            if (parsedFilterData.rightAnchored) {
+              object.bothAnchored.push(parsedFilterData)
+            } else {
+              object.leftAnchored.push(parsedFilterData)
+            }
+          } else if (parsedFilterData.rightAnchored) {
+            object.rightAnchored.push(parsedFilterData)
+          } else if (parsedFilterData.hostAnchored) {
           /* add the filters to the object based on the last 5 characters of their domain.
             All domains must be at least 5 characters long: the TLD is at least 2 characters,
             the . character adds one more character, and the domain name must be at least two
@@ -394,22 +406,61 @@
             Instead, we can just get the last 5 characters of the URL to check, get the filters
             stored in that property of the object, and then check if the complete domains match.
            */
-          var ending = parsedFilterData.host.slice(-5)
+            var ending = parsedFilterData.host.slice(-5)
 
-          if (object.hostAnchored[ending]) {
-            object.hostAnchored[ending].push(parsedFilterData)
+            if (object.hostAnchored[ending]) {
+              object.hostAnchored[ending].push(parsedFilterData)
+            } else {
+              object.hostAnchored[ending] = [parsedFilterData]
+            }
+          } else if (parsedFilterData.wildcardMatchParts) {
+            var wildcardToken = noSpecialCharactersRegex.exec(parsedFilterData.wildcardMatchParts[0])
+            if (!wildcardToken || wildcardToken[0].length < 3) {
+              var wildcardToken2 = noSpecialCharactersRegex.exec(parsedFilterData.wildcardMatchParts[1])
+              if (wildcardToken2 && (!wildcardToken || wildcardToken2[0].length > wildcardToken[0].length)) {
+                wildcardToken = wildcardToken2
+              }
+            }
+            if (wildcardToken) {
+              object.wildcard.add(wildcardToken[0], parsedFilterData)
+            } else {
+              object.wildcard.add('', parsedFilterData)
+            }
+          } else if (parsedFilterData.data.indexOf('^') === -1) {
+            object.plainString.add(parsedFilterData.data, parsedFilterData.options)
           } else {
-            object.hostAnchored[ending] = [parsedFilterData]
+            object.indexOf.push(parsedFilterData)
           }
-        } else if (parsedFilterData.wildcardMatchParts) {
-          object.wildcard.push(parsedFilterData)
-        } else if (parsedFilterData.data.indexOf('^') === -1) {
-          object.plainString.add(parsedFilterData.data, parsedFilterData.options)
-        } else {
-          object.indexOf.push(parsedFilterData)
         }
       }
     }
+
+    /* parse filters in chunks to prevent the main process from freezing */
+
+    var filtersLength = filters.length
+    var lastFilterIdx = 0
+    var nextChunkSize = 1500
+    var targetMsPerChunk = 12
+
+    function nextChunk () {
+      var t1 = Date.now()
+      processChunk(lastFilterIdx, lastFilterIdx + nextChunkSize)
+      var t2 = Date.now()
+
+      lastFilterIdx += nextChunkSize
+
+      if (t2 - t1 !== 0) {
+        nextChunkSize = Math.round(nextChunkSize / ((t2 - t1) / targetMsPerChunk))
+      }
+
+      if (lastFilterIdx < filtersLength) {
+        setTimeout(nextChunk, 16)
+      } else if (callback) {
+        callback()
+      }
+    }
+
+    nextChunk()
   }
 
   function matchesFilters (filters, input, contextParams) {
@@ -492,26 +543,32 @@
       }
     }
 
-    outer: for (i = 0, len = filters.wildcard.length; i < len; i++) {
-      filter = filters.wildcard[i]
+    // check if the string matches a wildcard filter
 
-      // most filters won't match on the first part, so there is no point in entering the loop
-      if (indexOfFilter(input, filter.wildcardMatchParts[0], 0) === -1) {
-        continue outer
-      }
+    var wildcardMatches = filters.wildcard.getSubstringsOf(input)
 
-      let index = 0
-      for (let part of filter.wildcardMatchParts) {
-        let newIndex = indexOfFilter(input, part, index)
-        if (newIndex === -1) {
+    if (wildcardMatches.length !== 0) {
+      outer: for (i = 0, len = wildcardMatches.length; i < len; i++) {
+        filter = wildcardMatches[i]
+
+        // most filters won't match on the first part, so there is no point in entering the loop
+        if (indexOfFilter(input, filter.wildcardMatchParts[0], 0) === -1) {
           continue outer
         }
-        index = newIndex + part.length
-      }
 
-      if (matchOptions(filter.options, input, contextParams, currentHost)) {
-        // console.log(filter, 6)
-        return true
+        let index = 0
+        for (let part of filter.wildcardMatchParts) {
+          let newIndex = indexOfFilter(input, part, index)
+          if (newIndex === -1) {
+            continue outer
+          }
+          index = newIndex + part.length
+        }
+
+        if (matchOptions(filter.options, input, contextParams, currentHost)) {
+          // console.log(filter, 6)
+          return true
+        }
       }
     }
 

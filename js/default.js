@@ -3,11 +3,6 @@ window.ipc = electron.ipcRenderer
 window.remote = electron.remote
 window.Dexie = require('dexie')
 
-// disable dragdrop, since it currently doesn't work
-window.addEventListener('drop', function (e) {
-  e.preventDefault()
-})
-
 // add a class to the body for fullscreen status
 
 ipc.on('enter-full-screen', function () {
@@ -18,11 +13,9 @@ ipc.on('leave-full-screen', function () {
   document.body.classList.remove('fullscreen')
 })
 
-window.addEventListener('load', function (e) {
-  if (navigator.platform !== 'MacIntel') {
-    document.body.classList.add('notMac')
-  }
-})
+if (navigator.platform === 'MacIntel') {
+  document.body.classList.add('mac')
+}
 
 // work around https://github.com/electron/electron/issues/5900
 
@@ -84,10 +77,12 @@ function empty (node) {
 window.addEventListener('load', function () {
   var isMouseDown = false
   var isDragging = false
+  var distance = 0
 
   document.body.addEventListener('mousedown', function () {
     isMouseDown = true
     isDragging = false
+    distance = 0
   })
 
   document.body.addEventListener('mouseup', function () {
@@ -97,15 +92,16 @@ window.addEventListener('load', function () {
   var dragHandles = document.getElementsByClassName('windowDragHandle')
 
   for (var i = 0; i < dragHandles.length; i++) {
-    dragHandles[i].addEventListener('mousemove', function () {
+    dragHandles[i].addEventListener('mousemove', function (e) {
       if (isMouseDown) {
         isDragging = true
+        distance += Math.abs(e.movementX) + Math.abs(e.movementY)
       }
     })
   }
 
   document.body.addEventListener('click', function (e) {
-    if (isDragging) {
+    if (isDragging && distance >= 10.0) {
       e.stopImmediatePropagation()
       isDragging = false
     }

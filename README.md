@@ -14,6 +14,8 @@ Min is a smarter, faster web browser. It includes features such as:
 
 More information, and prebuilt binaries are available [here](https://minbrowser.github.io/min/).
 
+> Note: Min uses an older version of Chromium, which may be missing security fixes from later versions. [More Information](https://github.com/minbrowser/min/issues/440#issuecomment-338080554)
+
 ## Screenshots
 
 ![The search bar, showing information from DuckDuckGo](http://minbrowser.github.io/min/tour/img/searchbar_duckduckgo_answers.png)
@@ -47,10 +49,10 @@ Then:
 
 Thanks for taking the time to translate Min! To add translations for your local language:
 
-* Make a copy of <a href="https://github.com/minbrowser/min/blob/master/localization/languages/en-US.json">localization/languages/en-US.json</a>, which contains a list of strings to translate.
 * Find the language code that goes with your language from [this list](https://electron.atom.io/docs/api/locales/#locales).
-* Change the name of your new file to the language code listed above.
-* Also open the file, and change the "identifier" field to that same language code.
+* In the ```localization/languages``` directory, create a new file, and name it "[your language code].json".
+* Open your new file, and copy the contents of the <a href="https://github.com/minbrowser/min/blob/master/localization/languages/en-US.json">localization/languages/en-US.json</a> file into your new file.
+* Change the "identifier" field in the new file to the language code from step 1.
 * Inside the file, replace each English string in the right-hand column with the equivalent translation.
 * (Optional) See your translations live by following the [development instructions](#installing) above. Min will display in the same language as your operating system, so make sure your computer is set to the same language that you're translating.
 * That's it! Make a pull request with your changes.

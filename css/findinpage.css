@@ -5,14 +5,13 @@
 	top: 0;
 	left: 0;
 	align-items: center;
-	padding-left: 80px;
+	padding-left: 0.5em;
 	padding-right: 0.75em;
 	height: 36px;
 	z-index: 99;
 }
-body.fullscreen #findinpage-bar,
-body.notMac #findinpage-bar {
-	padding-left: 0.5em;
+body.mac:not(.fullscreen) #findinpage-bar {
+	padding-left: 80px;
 }
 #findinpage-bar #findinpage-input {
 	flex: 1;

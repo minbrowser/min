@@ -99,6 +99,7 @@
         },
         "settingsAppearanceHeading": "Appearance",
         "settingsDarkModeToggle": "Enable dark mode",
+        "settingsHistoryButtonToggle": "Enable back button",
         "settingsSwipeNavigationHeading": "Swipe navigation",
         "settingsSwipeNavigationToggle": "Enable swipe for navigating back and forth between pages.",
         "settingsSearchEngineHeading": "Search Engine",
@@ -147,6 +148,8 @@
         "appMenuHideOthers": "Hide Others",
         "appMenuShowAll": "Show All",
         "appMenuQuit": "Quit %n",
-        "appMenuBringToFront": "Bring All to Front"
+        "appMenuBringToFront": "Bring All to Front",
+        /* PDF Viewer */
+        "PDFPageCounter": {"unsafeHTML": "page <input type='text'/> of <span id='total'></span>"}
     }
 }

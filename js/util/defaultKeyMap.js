@@ -17,7 +17,8 @@ var defaultKeyMap = {
   'switchToPreviousTask': 'mod+[',
   'closeAllTabs': 'shift+mod+n',
   'reload': 'mod+r',
-  'showAndHideMenuBar': 'alt'
+  'showAndHideMenuBar': 'alt',
+  'followLink': 'mod+enter'
 }
 /* Utility function to override default mapping with user settings */
 function userKeyMap (settings) {

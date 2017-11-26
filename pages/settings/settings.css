@@ -140,7 +140,17 @@ button.disabled {
 /* end shared */
 
 .setting-section {
-	padding: 0.5em 0;
+	font-size: 0; /* avoid adding space between inline-block children */
+	padding: 0.5rem 0;
+}
+.setting-section input[type=checkbox] {
+	vertical-align: middle;
+}
+.setting-section input[type=checkbox] + label {
+	vertical-align: middle;
+}
+.setting-section input + label {
+	padding-left: 4px;
 }
 .setting-secondary-label {
 	padding-left: 1.1em;
@@ -148,8 +158,8 @@ button.disabled {
 }
 .banner {
 	padding: 1em;
-	position: fixed;
-	bottom: 0;
+	position: sticky;
+	bottom: -1px;
 	left: 0;
 	width: 100%;
 	z-index: 9;

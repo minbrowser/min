@@ -160,7 +160,7 @@ function createSearchbarItem (data) {
 
   if (data.image) {
     var image = document.createElement('img')
-    image.className = 'image low-priority-image'
+    image.className = 'image'
     image.src = data.image
 
     item.insertBefore(image, item.childNodes[0])
@@ -168,7 +168,7 @@ function createSearchbarItem (data) {
 
   if (data.iconImage) {
     var iconImage = document.createElement('img')
-    iconImage.className = 'icon-image low-priority-image'
+    iconImage.className = 'icon-image'
     iconImage.src = data.iconImage
 
     item.insertBefore(iconImage, item.childNodes[0])

@@ -13,7 +13,11 @@ ipc.on('zoomReset', function () {
 })
 
 ipc.on('print', function () {
-  getWebview(tabs.getSelected()).print()
+  if (PDFViewer.isPDFViewer(tabs.getSelected())) {
+    PDFViewer.printPDF(tabs.getSelected())
+  } else {
+    getWebview(tabs.getSelected()).print()
+  }
 })
 
 ipc.on('findInPage', function () {
@@ -55,6 +59,12 @@ ipc.on('saveCurrentPage', function () {
 
   // new tabs cannot be saved
   if (!currentTab.url) {
+    return
+  }
+
+  // if the current tab is a PDF, let the PDF viewer handle saving the document
+  if (PDFViewer.isPDFViewer(tabs.getSelected())) {
+    PDFViewer.savePDF(tabs.getSelected())
     return
   }
 
@@ -127,12 +137,18 @@ function defineShortcut (keyMapName, fn) {
       return
     }
     // mod+left and mod+right are also text editing shortcuts, so they should not run when an input field is focused
-    if (combo === 'mod+left' || combo === 'mod+right') {
-      getWebview(tabs.getSelected()).executeJavaScript('document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA"', function (isInputFocused) {
-        if (isInputFocused === false) {
-          fn(e, combo)
-        }
-      })
+    // also block single-letter shortcuts when an input field is focused, so that it's still possible to type in an input
+    if (!combo.includes('+') || combo === 'mod+left' || combo === 'mod+right') {
+      var webview = getWebview(tabs.getSelected())
+      if (!webview.src) {
+        fn(e, combo)
+      } else {
+        webview.executeJavaScript('document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA"', function (isInputFocused) {
+          if (isInputFocused === false) {
+            fn(e, combo)
+          }
+        })
+      }
     } else {
       // other shortcuts can run immediately
       fn(e, combo)
@@ -226,8 +242,15 @@ settings.get('keyMap', function (keyMapSettings) {
     taskOverlay.hide()
     leaveTabEditMode()
 
-    if (document.activeElement !== getWebview(tabs.getSelected())) {
-      getWebview(tabs.getSelected()).focus()
+    var webview = getWebview(tabs.getSelected())
+
+    // exit full screen mode
+    if (webview.executeJavaScript) {
+      webview.executeJavaScript('if(document.webkitIsFullScreen){document.webkitExitFullscreen()}')
+    }
+
+    if (document.activeElement !== webview) {
+      webview.focus()
     }
   })
 
@@ -371,6 +394,10 @@ settings.get('keyMap', function (keyMapSettings) {
 
   defineShortcut('showAndHideMenuBar', function () {
     toggleMenuBar()
+  })
+
+  defineShortcut('followLink', function () {
+    findinpage.end({ action: 'activateSelection' })
   })
 }) // end settings.get
 

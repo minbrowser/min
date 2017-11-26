@@ -113,33 +113,23 @@ registerSearchbarPlugin('instantAnswers', {
 
 var instantAnswers = {
   color_code: function (searchText, answer) {
-    var alternateFormats = [answer.data.rgb, answer.data.hslc, answer.data.cmyb]
-
-    if (!searchText.startsWith('#')) { // if the search is not a hex code, show the hex code as an alternate format
-      alternateFormats.unshift(answer.data.hexc)
-    }
-
     var item = createSearchbarItem({
       title: searchText,
-      descriptionBlock: alternateFormats.join(' · '),
+      descriptionBlock: answer.replace(/\n/g, ' · ').replace(/\s~\s/g, ' · '),
       attribution: ddgAttribution
     })
 
-    var colorCircle = document.createElement('div')
-    colorCircle.className = 'image color-circle'
-    colorCircle.style.backgroundColor = '#' + answer.data.hex_code
-
-    item.insertBefore(colorCircle, item.firstChild)
-
-    return item
-  },
-  minecraft: function (searchText, answer) {
-    var item = createSearchbarItem({
-      title: answer.data.title,
-      image: answer.data.image,
-      descriptionBlock: answer.data.description + ' ' + answer.data.subtitle,
-      attribution: ddgAttribution
+    var rgb = answer.split(' ~ ').filter(function (format) {
+      return format.startsWith('RGBA')
     })
+
+    if (rgb[0]) {
+      var colorCircle = document.createElement('div')
+      colorCircle.className = 'image color-circle'
+      colorCircle.style.backgroundColor = rgb[0]
+
+      item.insertBefore(colorCircle, item.firstChild)
+    }
 
     return item
   },
@@ -167,8 +157,8 @@ var instantAnswers = {
       title = answer
     } else { // multiple currencies
       var currencyArr = []
-      for (var countryCode in answer.data.record_data) {
-        currencyArr.push(answer.data.record_data[countryCode] + ' (' + countryCode + ')')
+      for (var countryCode in answer) {
+        currencyArr.push(answer[countryCode] + ' (' + countryCode + ')')
       }
 
       title = currencyArr.join(', ')

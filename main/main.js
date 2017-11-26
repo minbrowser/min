@@ -2,7 +2,9 @@ const electron = require('electron')
 const fs = require('fs')
 const path = require('path')
 const app = electron.app // Module to control application life.
+const protocol = electron.protocol // Module to control protocol handling
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
+const ipc = electron.ipcMain
 
 var userDataPath = app.getPath('userData')
 
@@ -54,7 +56,7 @@ function createWindow (cb) {
 // fixes https://github.com/minbrowser/min/issues/214
 // should be removed once https://github.com/electron/electron/issues/4045 is fixed
     if (process.platform === 'win32') {
-      if ((bounds.x === 0 && bounds.y === 0) || (bounds.x === -8 && bounds.y === -8)) {
+      if (bounds.x === 0 || bounds.y === 0 || bounds.x === -8 || bounds.y === -8) {
         var screenSize = electron.screen.getPrimaryDisplay().workAreaSize
         if ((screenSize.width === bounds.width || bounds.width - screenSize.width === 16) && (screenSize.height === bounds.height || bounds.height - screenSize.height === 16)) {
           var shouldMaximize = true
@@ -182,6 +184,7 @@ app.on('ready', function () {
 
   createAppMenu()
   createDockMenu()
+  registerProtocols()
 })
 
 app.on('open-url', function (e, url) {
@@ -205,6 +208,17 @@ app.on('activate', function (/* e, hasVisibleWindows */) {
     createWindow()
   }
 })
+
+function registerProtocols () {
+  protocol.registerStringProtocol('mailto', function (req, cb) {
+    electron.shell.openExternal(req.url)
+    return null
+  }, function (error) {
+    if (error) {
+      console.log('Could not register mailto protocol.')
+    }
+  })
+}
 
 function createAppMenu () {
   // create the menu. based on example from http://electron.atom.io/docs/v0.34.0/api/menu/

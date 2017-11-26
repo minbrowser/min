@@ -4,7 +4,8 @@ const path = require('path')
 const fs = require('fs')
 const decomment = require('decomment')
 
-const outputDir = path.join(__dirname, '../dist/localization.build.js')
+const outputDir = path.join(__dirname, '../dist')
+const outputFile = path.join(outputDir, 'localization.build.js')
 
 // read all the files from the "languages" directory
 
@@ -29,4 +30,8 @@ let fileContents = 'var languages = ' + JSON.stringify(languages) + ';\n'
 
 fileContents += fs.readFileSync(path.join(__dirname, '../localization/localizationHelpers.js'))
 
-fs.writeFileSync(outputDir, fileContents)
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir)
+}
+
+fs.writeFileSync(outputFile, fileContents)

@@ -1,0 +1,155 @@
+{
+    "name": "日本語",
+    "identifier": "ja",
+    "translations": {
+        /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+        "openInNewTab": "新規タブで開く",
+        "openInNewPrivateTab": "新規プライベートタブで開く",
+        "viewImage": "画像を表示",
+        "openImageInNewTab": "画像を新規タブで開く",
+        "openImageInNewPrivateTab": "画像を新規プライベートタブで開く",
+        "saveImageAs": "画像を別名で保存",
+        "searchWith": "%s で検索", //%s will be replaced with the name of the current search engine
+        "copyLink": "リンクをコピー",
+        "copy": "コピー", //this is a verb (as in "copy the currently-selected text")
+        "paste": "ペースト",
+        "goBack": "戻る",
+        "goForward": "進む",
+        "inspectElement": "要素を検証",
+        /* searchbar */
+        "DDGAnswerSubtitle": "インスタントアンサー", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+        "suggestedSite": "おすすめサイト", //this is used to label suggested websites from the DuckDuckGo API,
+        "resultsFromDDG": "DuckDuckGoからの結果", //this is used as a label to indicate which results come from DuckDuckGo's API
+        "taskN": "タスク %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "hostsFileEntry": "ホストファイルエントリー", //this is a label used to indicate that a result is coming from the user's host file        
+        /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+        "viewSettings": "設定を表示",
+        "takeScreenshot": "スクリーンショットを撮る",
+        "clearHistory": "すべての履歴をクリア",
+        "switchToTask": "タスクに切り替える",
+        "createTask": "タスクを作成",
+        "moveToTask": "このタブをタスクに移動",
+        "searchBookmarks": "ブックマークを検索",
+        /* navbar */
+        "enterReaderView": "リーダービューを開始",
+        "exitReaderView": "リーダービューを終了",
+        "emptyReadingListTitle": "リーディングリストは空です",
+        "emptyReadingListSubtitle": "リーダービューで表示した記事がここに30日間オフラインで保存されます。",
+        "newTabLabel": "新しいタブ", //this is a noun, used for tabs that don't have a page loaded in them yet
+        "connectionNotSecure": "このウェブサイトへの接続は保護されていません。",
+        "searchbarPlaceholder": "検索ワードまたはアドレスを入力",
+        "privateTab": "プライベートタブ",
+        "newTabAction": "新規タブを開く", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        /* task overlay */
+        "viewTasks": "タスクを表示",
+        "newTask": "新規タスク", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": "タスク %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        /* find in page toolbar */
+        "searchInPage": "ページ内を検索", //this is used as the placeholder text for the textbox in the find in page toolbar
+        "findMatchesSingular": "%t 件中 %i 件目", //this and the next label are used to indicate which match is currently highlighted
+        "findMatchesPlural": "%t 件中 %i 件目",
+        /* Focus mode */
+        "isFocusMode": "フォーカスモード中です",
+        "closeDialog": "OK", //used as a label for the button that closes the dialog
+        "focusModeExplanation1": "フォーカスモード中は、現在選択中のタブを除くすべてのタブが非表示になり、新規タブの作成もできなくなります。",
+        "focusModeExplanation2": "\"表示\"メニューから\"フォーカスモード\"のチェックを外すことで、フォーカスモードを終了できます。",
+        /* pages/crash/index.html */
+        "crashErrorTitle": "予期しない問題が発生しました",
+        "crashErrorSubtitle": "ページの表示中に問題が発生しました。",
+        /* pages/error/index.html */
+        "errorPagePrimaryAction": "再試行する",
+        "serverNotFoundTitle": "サーバーが見つかりません",
+        "serverNotFoundSubtitle": "Minはこのウェブサイトを見つけることができませんでした。",
+        "archiveSearchAction": "archive.orgで検索する",
+        "sslErrorTitle": "このウェブサイトは利用できません",
+        "sslErrorMessage": "Minはこのウェブサイトとの安全な接続を行えませんでした。",
+        "dnsErrorTitle": "ウェブサイトが見つかりません",
+        "dnsErrorMessage": "DNSエラーが発生しました。",
+        "offlineErrorTitle": "オフラインです",
+        "offlineErrorMessage": "インターネットに再接続してからもう一度お試しください。",
+        "genericConnectionFail": "Minはウェブサイトに接続できませんでした。",
+        "sslTimeErrorMessage": "Minはこのウェブサイトとの安全な接続を行えませんでした。お使いのコンピューターの時刻が正しく設定されているか確認してください。",
+        "addressInvalidTitle": "このアドレスは無効です。",
+        "genericError": "エラーが発生しました",
+        /* pages/phishing/index.html */
+        "phishingErrorTitle": "このサイトは安全ではない可能性があります。",
+        "phishingErrorMessage": "このウェブサイトは、あなたのパスワードや口座情報などの個人情報を盗もうとしている可能性があります。",
+        "phishingErrorVisitAnyway": "それでもこのサイトを訪問する",
+        "phishingErrorLeave": "このサイトから離れる",
+        /* pages/sessionRestoreError/index.html */
+        "sessionRestoreErrorTitle": "エラーが発生しました",
+        "sessionRestoreErrorExplanation": "保存したタブを正しく復元できませんでした。",
+        "sessionRestoreErrorBackupInfo": "次の場所にデータのバックアップを保存しました: %l", //%l will be replaced with a path to a file
+        "sessionRestoreErrorLinkInfo": {
+            "unsafeHTML": "もしこのエラーが立て続けに発生する場合は、<a href=\"https://github.com/minbrowser/min\" target=\"_blank\">こちら</a>から新しいissueを開いてください。"
+        },
+        /* pages/settings/index.html */
+        "settingsPreferencesHeading": "環境設定",
+        "settingsRestartRequired": "これらの変更を適用するには再起動が必要です。",
+        "settingsPrivacyHeading": "コンテンツブロッカー",
+        "settingsContentBlockingToggle": "トラッカーと広告をブロックする",
+        "settingsBlockScriptsToggle": "スクリプトをブロック",
+        "settingsBlockImagesToggle": "画像をブロック",
+        "settingsEasyListCredit": {
+            "unsafeHTML": "フィルターはEasyListとEasyPrivacyから要素隠蔽ルールを省いたものに基づいています。<a target=\"_blank\" href=\"https://easylist.to/\">EasyListの作者</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">ライセンスを表示</a>"
+        },
+        "settingsAppearanceHeading": "外観",
+        "settingsDarkModeToggle": "ダークモードを使用",
+        "settingsHistoryButtonToggle": "戻るボタンを使用",
+        "settingsSwipeNavigationHeading": "スワイプナビゲーション",
+        "settingsSwipeNavigationToggle": "スワイプしてページを行き来できるようにする",
+        "settingsSearchEngineHeading": "検索エンジン",
+        "settingsDefaultSearchEngine": "デフォルトの検索エンジンを選択してください:",
+        "settingsDDGExplanation": "検索バーにインスタントアンサーを表示するには、DuckDuckGoをデフォルトの検索エンジンに設定してください。",
+        "settingsKeyboardShortcutsHeading": "キーボードショートカット",
+        "settingsKeyboardShortcutsHelp": "コマンドまたはコントロールキーを使用するには、\"mod\"と入力してください。",
+        /* app menu */
+        "appMenuFile": "ファイル",
+        "appMenuNewTab": "新規タブ",
+        "appMenuNewPrivateTab": "新規プライベートタブ",
+        "appMenuNewTask": "新規タスク",
+        "appMenuSavePageAs": "ページを別名で保存",
+        "appMenuPrint": "プリント",
+        "appMenuEdit": "編集",
+        "appMenuUndo": "取り消す",
+        "appMenuRedo": "やり直す",
+        "appMenuCut": "カット",
+        "appMenuCopy": "コピー",
+        "appMenuPaste": "ペースト",
+        "appMenuSelectAll": "すべて選択",
+        "appMenuFind": "検索",
+        "appMenuView": "表示",
+        "appMenuZoomIn": "拡大",
+        "appMenuZoomOut": "縮小",
+        "appMenuActualSize": "実際のサイズ",
+        "appMenuFullScreen": "フルスクリーン", //on some platforms, this string is replaced with one built-in to the OS
+        "appMenuFocusMode": "フォーカスモード",
+        "appMenuReadingList": "リーディングリスト",
+        "appMenuDeveloper": "開発",
+        "appMenuReloadBrowser": "ブラウザを再読み込み",
+        "appMenuInspectBrowser": "ブラウザを検証",
+        "appMenuInspectPage": "ページを検証",
+        "appMenuWindow": "ウインドウ",
+        "appMenuMinimize": "最小化",
+        "appMenuClose": "閉じる",
+        "appMenuHelp": "ヘルプ",
+        "appMenuKeyboardShortcuts": "キーボードショートカット",
+        "appMenuReportBug": "バグを報告",
+        "appMenuTakeTour": "ツアーを見る",
+        "appMenuViewGithub": "GitHubで表示",
+        "appMenuAbout": "%nについて", //%n is replaced with app name
+        "appMenuPreferences": "環境設定",
+        "appMenuServices": "サービス",
+        "appMenuHide": "%nを隠す",
+        "appMenuHideOthers": "ほかを隠す",
+        "appMenuShowAll": "すべてを表示",
+        "appMenuQuit": "%nを終了",
+        "appMenuBringToFront": "すべてを最前面に移動",
+        /* PDF Viewer */
+        "PDFPageCounter": {"unsafeHTML": "<span id='total'></span> ページ中 <input type='text'/> ページ目"}
+    }
+}

@@ -93,6 +93,15 @@ bindWebviewIPC('goForward', function () {
   })
 })
 
+/* workaround for https://github.com/electron/electron/issues/3471 */
+
+bindWebviewEvent('did-get-redirect-request', function (e, oldURL, newURL, isMainFrame, httpResponseCode, requestMethod, referrer, header) {
+  if (isMainFrame && httpResponseCode === 302 && requestMethod === 'POST') {
+    this.stop()
+    this.loadURL(newURL)
+  }
+}, true)
+
 // set the permissionRequestHandler for non-private tabs
 
 remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler)
@@ -129,7 +138,9 @@ function getWebviewDom (options) {
   webviewEvents.forEach(function (ev) {
     if (ev.useWebContents) { // some events (such as context-menu) are only available on the webContents rather than the webview element
       w.addEventListener('did-attach', function () {
-        this.getWebContents().on(ev.event, ev.fn)
+        this.getWebContents().on(ev.event, function () {
+          ev.fn.apply(w, arguments)
+        })
       })
     } else {
       w.addEventListener(ev.event, ev.fn)
@@ -153,11 +164,15 @@ function getWebviewDom (options) {
   w.addEventListener('did-navigate-in-page', onPageLoad)
 
   /* workaround for https://github.com/electron/electron/issues/8505 and similar issues */
-  w.addEventListener('did-start-loading', function () {
+  w.addEventListener('load-commit', function (e) {
+    if (e.isMainFrame) {
+      handleProgressBar(this.getAttribute('data-tab'), 'start')
+    }
     this.classList.add('loading')
   })
 
   w.addEventListener('did-stop-loading', function () {
+    handleProgressBar(this.getAttribute('data-tab'), 'finish')
     setTimeout(function () {
       w.classList.remove('loading')
     }, 100)

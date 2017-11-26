@@ -60,9 +60,11 @@ window.addEventListener('wheel', function (e) {
     if (e.ctrlKey && !e.defaultPrevented) {
       if (verticalMouseMove > 10) {
         zoomOut()
+        verticalMouseMove = 0
       }
       if (verticalMouseMove < -10) {
         zoomIn()
+        verticalMouseMove = 0
       }
     }
     platformZoomKey = e.metaKey
