@@ -399,6 +399,8 @@ settings.get('keyMap', function (keyMapSettings) {
   defineShortcut('followLink', function () {
     findinpage.end({ action: 'activateSelection' })
   })
+
+  defineShortcut('findInPage', findinpage.start)
 }) // end settings.get
 
 // reload the webview when the F5 key is pressed
