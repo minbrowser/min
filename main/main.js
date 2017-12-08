@@ -79,7 +79,7 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     x: bounds.x,
     y: bounds.y,
     minWidth: 320,
-    minHeight: 500,
+    minHeight: 350,
     titleBarStyle: 'hidden-inset',
     icon: __dirname + '/icons/icon256.png'
   })
