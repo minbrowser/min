@@ -1,194 +1,89 @@
 /* defines keybindings that aren't in the menu (so they aren't defined by menu.js). For items in the menu, also handles ipc messages */
 
-ipc.on('zoomIn', function () {
-  getWebview(tabs.getSelected()).send('zoomIn')
-})
+settings.get('taskAnimationDisabled', function(taskAnimationDisabled) {
+  ipc.on('zoomIn', function () {
+    getWebview(tabs.getSelected()).send('zoomIn')
+  })
 
-ipc.on('zoomOut', function () {
-  getWebview(tabs.getSelected()).send('zoomOut')
-})
+  ipc.on('zoomOut', function () {
+    getWebview(tabs.getSelected()).send('zoomOut')
+  })
 
-ipc.on('zoomReset', function () {
-  getWebview(tabs.getSelected()).send('zoomReset')
-})
+  ipc.on('zoomReset', function () {
+    getWebview(tabs.getSelected()).send('zoomReset')
+  })
 
-ipc.on('print', function () {
-  if (PDFViewer.isPDFViewer(tabs.getSelected())) {
-    PDFViewer.printPDF(tabs.getSelected())
-  } else {
-    getWebview(tabs.getSelected()).print()
-  }
-})
-
-ipc.on('findInPage', function () {
-  findinpage.start()
-})
-
-ipc.on('inspectPage', function () {
-  getWebview(tabs.getSelected()).openDevTools()
-})
-
-ipc.on('showReadingList', function () {
-  readerView.showReadingList()
-})
-
-ipc.on('addTab', function (e, data) {
-  /* new tabs can't be created in focus mode */
-  if (isFocusMode) {
-    showFocusModeError()
-    return
-  }
-
-  // if opening a URL (instead of adding an empty tab), and only an empty tab is open, navigate the current tab rather than creating another one
-  if (tabs.isEmpty() && data.url) {
-    navigate(tabs.getSelected(), data.url)
-  } else {
-    var newIndex = tabs.getIndex(tabs.getSelected()) + 1
-    var newTab = tabs.add({
-      url: data.url || ''
-    }, newIndex)
-
-    addTab(newTab, {
-      enterEditMode: !data.url // only enter edit mode if the new tab is about:blank
-    })
-  }
-})
-
-ipc.on('saveCurrentPage', function () {
-  var currentTab = tabs.get(tabs.getSelected())
-
-  // new tabs cannot be saved
-  if (!currentTab.url) {
-    return
-  }
-
-  // if the current tab is a PDF, let the PDF viewer handle saving the document
-  if (PDFViewer.isPDFViewer(tabs.getSelected())) {
-    PDFViewer.savePDF(tabs.getSelected())
-    return
-  }
-
-  var savePath = remote.dialog.showSaveDialog(remote.getCurrentWindow(), {})
-
-  // savePath will be undefined if the save dialog is canceled
-  if (savePath) {
-    if (!savePath.endsWith('.html')) {
-      savePath = savePath + '.html'
-    }
-    getWebview(currentTab.id).getWebContents().savePage(savePath, 'HTMLComplete', function () { })
-  }
-})
-
-function addPrivateTab () {
-  /* new tabs can't be created in focus mode */
-  if (isFocusMode) {
-    showFocusModeError()
-    return
-  }
-
-  if (tabs.isEmpty()) {
-    destroyTab(tabs.getAtIndex(0).id)
-  }
-
-  var newIndex = tabs.getIndex(tabs.getSelected()) + 1
-
-  var privateTab = tabs.add({
-    url: 'about:blank',
-    private: true
-  }, newIndex)
-  addTab(privateTab)
-}
-
-ipc.on('addPrivateTab', addPrivateTab)
-
-ipc.on('addTask', function () {
-  /* new tasks can't be created in focus mode */
-  if (isFocusMode) {
-    showFocusModeError()
-    return
-  }
-
-  addTaskFromOverlay()
-  taskOverlay.show()
-  setTimeout(function () {
-    taskOverlay.hide()
-    enterEditMode(tabs.getSelected())
-  }, 600)
-})
-
-ipc.on('goBack', function () {
-  try {
-    getWebview(tabs.getSelected()).goBack()
-  } catch (e) { }
-})
-
-ipc.on('goForward', function () {
-  try {
-    getWebview(tabs.getSelected()).goForward()
-  } catch (e) { }
-})
-
-var menuBarShortcuts = ['mod+t', 'shift+mod+p', 'mod+n'] // shortcuts that are already used for menu bar items
-
-function defineShortcut (keyMapName, fn) {
-  Mousetrap.bind(keyMap[keyMapName], function (e, combo) {
-    // these shortcuts are already used by menu bar items, so also using them here would result in actions happening twice
-    if (menuBarShortcuts.indexOf(combo) !== -1) {
-      return
-    }
-    // mod+left and mod+right are also text editing shortcuts, so they should not run when an input field is focused
-    // also block single-letter shortcuts when an input field is focused, so that it's still possible to type in an input
-    if (!combo.includes('+') || combo === 'mod+left' || combo === 'mod+right') {
-      var webview = getWebview(tabs.getSelected())
-      if (!webview.src) {
-        fn(e, combo)
-      } else {
-        webview.executeJavaScript('document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA"', function (isInputFocused) {
-          if (isInputFocused === false) {
-            fn(e, combo)
-          }
-        })
-      }
+  ipc.on('print', function () {
+    if (PDFViewer.isPDFViewer(tabs.getSelected())) {
+      PDFViewer.printPDF(tabs.getSelected())
     } else {
-      // other shortcuts can run immediately
-      fn(e, combo)
+      getWebview(tabs.getSelected()).print()
     }
   })
-}
 
-settings.get('keyMap', function (keyMapSettings) {
-  keyMap = userKeyMap(keyMapSettings)
-
-  var Mousetrap = require('mousetrap')
-
-  window.Mousetrap = Mousetrap
-  defineShortcut('addPrivateTab', addPrivateTab)
-
-  defineShortcut('enterEditMode', function (e) {
-    enterEditMode(tabs.getSelected())
-    return false
+  ipc.on('findInPage', function () {
+    findinpage.start()
   })
 
-  defineShortcut('closeTab', function (e) {
-    // prevent mod+w from closing the window
-    e.preventDefault()
-    e.stopImmediatePropagation()
-
-    closeTab(tabs.getSelected())
-
-    return false
+  ipc.on('inspectPage', function () {
+    getWebview(tabs.getSelected()).openDevTools()
   })
 
-  defineShortcut('restoreTab', function (e) {
+  ipc.on('showReadingList', function () {
+    readerView.showReadingList()
+  })
+
+  ipc.on('addTab', function (e, data) {
+    /* new tabs can't be created in focus mode */
     if (isFocusMode) {
       showFocusModeError()
       return
     }
 
-    var restoredTab = window.currentTask.tabHistory.pop()
+    // if opening a URL (instead of adding an empty tab), and only an empty tab is open, navigate the current tab rather than creating another one
+    if (tabs.isEmpty() && data.url) {
+      navigate(tabs.getSelected(), data.url)
+    } else {
+      var newIndex = tabs.getIndex(tabs.getSelected()) + 1
+      var newTab = tabs.add({
+        url: data.url || ''
+      }, newIndex)
 
-    // The tab history stack is empty
-    if (!restoredTab) {
+      addTab(newTab, {
+        enterEditMode: !data.url // only enter edit mode if the new tab is about:blank
+      })
+    }
+  })
+
+  ipc.on('saveCurrentPage', function () {
+    var currentTab = tabs.get(tabs.getSelected())
+
+    // new tabs cannot be saved
+    if (!currentTab.url) {
+      return
+    }
+
+    // if the current tab is a PDF, let the PDF viewer handle saving the document
+    if (PDFViewer.isPDFViewer(tabs.getSelected())) {
+      PDFViewer.savePDF(tabs.getSelected())
+      return
+    }
+
+    var savePath = remote.dialog.showSaveDialog(remote.getCurrentWindow(), {})
+
+    // savePath will be undefined if the save dialog is canceled
+    if (savePath) {
+      if (!savePath.endsWith('.html')) {
+        savePath = savePath + '.html'
+      }
+      getWebview(currentTab.id).getWebContents().savePage(savePath, 'HTMLComplete', function () { })
+    }
+  })
+
+  function addPrivateTab () {
+    /* new tabs can't be created in focus mode */
+    if (isFocusMode) {
+      showFocusModeError()
       return
     }
 
@@ -196,210 +91,321 @@ settings.get('keyMap', function (keyMapSettings) {
       destroyTab(tabs.getAtIndex(0).id)
     }
 
-    addTab(tabs.add(restoredTab, tabs.getIndex(tabs.getSelected()) + 1), {
-      focus: false,
-      leaveEditMode: true,
-      enterEditMode: false
-    })
-  })
+    var newIndex = tabs.getIndex(tabs.getSelected()) + 1
 
-  defineShortcut('addToFavorites', function (e) {
-    bookmarks.handleStarClick(getTabElement(tabs.getSelected()).querySelector('.bookmarks-button'))
-    enterEditMode(tabs.getSelected()) // we need to show the bookmarks button, which is only visible in edit mode
-  })
-
-  // cmd+x should switch to tab x. Cmd+9 should switch to the last tab
-
-  for (var i = 1; i < 9; i++) {
-    (function (i) {
-      Mousetrap.bind('mod+' + i, function (e) {
-        var currentIndex = tabs.getIndex(tabs.getSelected())
-        var newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i)
-        if (newTab) {
-          switchToTab(newTab.id)
-        }
-      })
-
-      Mousetrap.bind('shift+mod+' + i, function (e) {
-        var currentIndex = tabs.getIndex(tabs.getSelected())
-        var newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i)
-        if (newTab) {
-          switchToTab(newTab.id)
-        }
-      })
-    })(i)
+    var privateTab = tabs.add({
+      url: 'about:blank',
+      private: true
+    }, newIndex)
+    addTab(privateTab)
   }
 
-  defineShortcut('gotoLastTab', function (e) {
-    switchToTab(tabs.getAtIndex(tabs.count() - 1).id)
-  })
+  ipc.on('addPrivateTab', addPrivateTab)
 
-  defineShortcut('gotoFirstTab', function (e) {
-    switchToTab(tabs.getAtIndex(0).id)
-  })
-
-  Mousetrap.bind('esc', function (e) {
-    taskOverlay.hide()
-    leaveTabEditMode()
-
-    var webview = getWebview(tabs.getSelected())
-
-    // exit full screen mode
-    if (webview.executeJavaScript) {
-      webview.executeJavaScript('if(document.webkitIsFullScreen){document.webkitExitFullscreen()}')
+  ipc.on('addTask', function () {
+    /* new tasks can't be created in focus mode */
+    if (isFocusMode) {
+      showFocusModeError()
+      return
     }
 
-    if (document.activeElement !== webview) {
-      webview.focus()
+    addTaskFromOverlay()
+
+    if (taskAnimationDisabled) {
+      enterEditMode(tabs.getSelected())
     }
-  })
-
-  defineShortcut('toggleReaderView', function () {
-    var tab = tabs.get(tabs.getSelected())
-
-    if (tab.isReaderView) {
-      readerView.exit(tab.id)
-    } else {
-      readerView.enter(tab.id)
-    }
-  })
-
-  // TODO add help docs for this
-
-  defineShortcut('goBack', function (d) {
-    getWebview(tabs.getSelected()).goBack()
-  })
-
-  defineShortcut('goForward', function (d) {
-    getWebview(tabs.getSelected()).goForward()
-  })
-
-  defineShortcut('switchToPreviousTab', function (d) {
-    var currentIndex = tabs.getIndex(tabs.getSelected())
-    var previousTab = tabs.getAtIndex(currentIndex - 1)
-
-    if (previousTab) {
-      switchToTab(previousTab.id)
-    } else {
-      switchToTab(tabs.getAtIndex(tabs.count() - 1).id)
-    }
-  })
-
-  defineShortcut('switchToNextTab', function (d) {
-    var currentIndex = tabs.getIndex(tabs.getSelected())
-    var nextTab = tabs.getAtIndex(currentIndex + 1)
-
-    if (nextTab) {
-      switchToTab(nextTab.id)
-    } else {
-      switchToTab(tabs.getAtIndex(0).id)
-    }
-  })
-
-  var taskSwitchTimeout = null
-
-  defineShortcut('switchToNextTask', function (d) {
-    taskOverlay.show()
-
-    var currentTaskIdx = tasks.get().map(function (task) {
-      return task.id
-    }).indexOf(currentTask.id)
-
-    if (tasks.get()[currentTaskIdx + 1]) {
-      switchToTask(tasks.get()[currentTaskIdx + 1].id)
-    } else {
-      switchToTask(tasks.get()[0].id)
-    }
-
-    taskOverlay.show()
-
-    clearInterval(taskSwitchTimeout)
-    taskSwitchTimeout = setTimeout(function () {
-      taskOverlay.hide()
-    }, 500)
-  })
-
-  defineShortcut('switchToPreviousTask', function (d) {
-    taskOverlay.show()
-
-    var currentTaskIdx = tasks.get().map(function (task) {
-      return task.id
-    }).indexOf(currentTask.id)
-
-    if (tasks.get()[currentTaskIdx - 1]) {
-      switchToTask(tasks.get()[currentTaskIdx - 1].id)
-    } else {
-      switchToTask(tasks.get()[tasks.get().length - 1].id)
-    }
-
-    taskOverlay.show()
-
-    clearInterval(taskSwitchTimeout)
-    taskSwitchTimeout = setTimeout(function () {
-      taskOverlay.hide()
-    }, 500)
-  })
-
-  defineShortcut('closeAllTabs', function (d) { // destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
-    var tset = tabs.get()
-    for (var i = 0; i < tset.length; i++) {
-      destroyTab(tset[i].id)
-    }
-
-    addTab() // create a new, blank tab
-  })
-
-  defineShortcut('toggleTasks', function () {
-    if (taskOverlay.isShown) {
-      taskOverlay.hide()
-    } else {
+    else {
       taskOverlay.show()
+      setTimeout(function () {
+        taskOverlay.hide()
+        enterEditMode(tabs.getSelected())
+      }, 600)
     }
   })
 
-  var lastReload = 0
+  ipc.on('goBack', function () {
+    try {
+      getWebview(tabs.getSelected()).goBack()
+    } catch (e) { }
+  })
 
-  defineShortcut('reload', function () {
-    var time = Date.now()
+  ipc.on('goForward', function () {
+    try {
+      getWebview(tabs.getSelected()).goForward()
+    } catch (e) { }
+  })
 
-    // pressing mod+r twice in a row reloads the whole browser
-    if (time - lastReload < 500) {
-      window.location.reload()
-    } else {
-      var w = getWebview(tabs.getSelected())
+  var menuBarShortcuts = ['mod+t', 'shift+mod+p', 'mod+n'] // shortcuts that are already used for menu bar items
 
-      if (w.src) { // webview methods aren't available if the webview is blank
-        w.reloadIgnoringCache()
+  function defineShortcut (keyMapName, fn) {
+    Mousetrap.bind(keyMap[keyMapName], function (e, combo) {
+      // these shortcuts are already used by menu bar items, so also using them here would result in actions happening twice
+      if (menuBarShortcuts.indexOf(combo) !== -1) {
+        return
       }
+      // mod+left and mod+right are also text editing shortcuts, so they should not run when an input field is focused
+      // also block single-letter shortcuts when an input field is focused, so that it's still possible to type in an input
+      if (!combo.includes('+') || combo === 'mod+left' || combo === 'mod+right') {
+        var webview = getWebview(tabs.getSelected())
+        if (!webview.src) {
+          fn(e, combo)
+        } else {
+          webview.executeJavaScript('document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA"', function (isInputFocused) {
+            if (isInputFocused === false) {
+              fn(e, combo)
+            }
+          })
+        }
+      } else {
+        // other shortcuts can run immediately
+        fn(e, combo)
+      }
+    })
+  }
+
+  settings.get('keyMap', function (keyMapSettings) {
+    keyMap = userKeyMap(keyMapSettings)
+
+    var Mousetrap = require('mousetrap')
+
+    window.Mousetrap = Mousetrap
+    defineShortcut('addPrivateTab', addPrivateTab)
+
+    defineShortcut('enterEditMode', function (e) {
+      enterEditMode(tabs.getSelected())
+      return false
+    })
+
+    defineShortcut('closeTab', function (e) {
+      // prevent mod+w from closing the window
+      e.preventDefault()
+      e.stopImmediatePropagation()
+
+      closeTab(tabs.getSelected())
+
+      return false
+    })
+
+    defineShortcut('restoreTab', function (e) {
+      if (isFocusMode) {
+        showFocusModeError()
+        return
+      }
+
+      var restoredTab = window.currentTask.tabHistory.pop()
+
+      // The tab history stack is empty
+      if (!restoredTab) {
+        return
+      }
+
+      if (tabs.isEmpty()) {
+        destroyTab(tabs.getAtIndex(0).id)
+      }
+
+      addTab(tabs.add(restoredTab, tabs.getIndex(tabs.getSelected()) + 1), {
+        focus: false,
+        leaveEditMode: true,
+        enterEditMode: false
+      })
+    })
+
+    defineShortcut('addToFavorites', function (e) {
+      bookmarks.handleStarClick(getTabElement(tabs.getSelected()).querySelector('.bookmarks-button'))
+      enterEditMode(tabs.getSelected()) // we need to show the bookmarks button, which is only visible in edit mode
+    })
+
+    // cmd+x should switch to tab x. Cmd+9 should switch to the last tab
+
+    for (var i = 1; i < 9; i++) {
+      (function (i) {
+        Mousetrap.bind('mod+' + i, function (e) {
+          var currentIndex = tabs.getIndex(tabs.getSelected())
+          var newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i)
+          if (newTab) {
+            switchToTab(newTab.id)
+          }
+        })
+
+        Mousetrap.bind('shift+mod+' + i, function (e) {
+          var currentIndex = tabs.getIndex(tabs.getSelected())
+          var newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i)
+          if (newTab) {
+            switchToTab(newTab.id)
+          }
+        })
+      })(i)
     }
 
-    lastReload = time
-  })
+    defineShortcut('gotoLastTab', function (e) {
+      switchToTab(tabs.getAtIndex(tabs.count() - 1).id)
+    })
 
-  // mod+enter navigates to searchbar URL + ".com"
-  defineShortcut('completeSearchbar', function () {
-    if (currentSearchbarInput) { // if the searchbar is open
-      var value = currentSearchbarInput.value
+    defineShortcut('gotoFirstTab', function (e) {
+      switchToTab(tabs.getAtIndex(0).id)
+    })
 
+    Mousetrap.bind('esc', function (e) {
+      taskOverlay.hide()
       leaveTabEditMode()
 
-      // if the text is already a URL, navigate to that page
-      if (urlParser.isURLMissingProtocol(value)) {
-        navigate(tabs.getSelected(), value)
-      } else {
-        navigate(tabs.getSelected(), urlParser.parse(value + '.com'))
+      var webview = getWebview(tabs.getSelected())
+
+      // exit full screen mode
+      if (webview.executeJavaScript) {
+        webview.executeJavaScript('if(document.webkitIsFullScreen){document.webkitExitFullscreen()}')
       }
-    }
-  })
 
-  defineShortcut('showAndHideMenuBar', function () {
-    toggleMenuBar()
-  })
+      if (document.activeElement !== webview) {
+        webview.focus()
+      }
+    })
 
-  defineShortcut('followLink', function () {
-    findinpage.end({ action: 'activateSelection' })
-  })
-}) // end settings.get
+    defineShortcut('toggleReaderView', function () {
+      var tab = tabs.get(tabs.getSelected())
+
+      if (tab.isReaderView) {
+        readerView.exit(tab.id)
+      } else {
+        readerView.enter(tab.id)
+      }
+    })
+
+    // TODO add help docs for this
+
+    defineShortcut('goBack', function (d) {
+      getWebview(tabs.getSelected()).goBack()
+    })
+
+    defineShortcut('goForward', function (d) {
+      getWebview(tabs.getSelected()).goForward()
+    })
+
+    defineShortcut('switchToPreviousTab', function (d) {
+      var currentIndex = tabs.getIndex(tabs.getSelected())
+      var previousTab = tabs.getAtIndex(currentIndex - 1)
+
+      if (previousTab) {
+        switchToTab(previousTab.id)
+      } else {
+        switchToTab(tabs.getAtIndex(tabs.count() - 1).id)
+      }
+    })
+
+    defineShortcut('switchToNextTab', function (d) {
+      var currentIndex = tabs.getIndex(tabs.getSelected())
+      var nextTab = tabs.getAtIndex(currentIndex + 1)
+
+      if (nextTab) {
+        switchToTab(nextTab.id)
+      } else {
+        switchToTab(tabs.getAtIndex(0).id)
+      }
+    })
+
+    var taskSwitchTimeout = null
+
+    defineShortcut('switchToNextTask', function (d) {
+      var currentTaskIdx = tasks.get().map(function (task) {
+        return task.id
+      }).indexOf(currentTask.id)
+
+      if (tasks.get()[currentTaskIdx + 1]) {
+        switchToTask(tasks.get()[currentTaskIdx + 1].id)
+      } else {
+        switchToTask(tasks.get()[0].id)
+      }
+
+      if (!taskAnimationDisabled) {
+        taskOverlay.show()
+        clearInterval(taskSwitchTimeout)
+        taskSwitchTimeout = setTimeout(function () {
+          taskOverlay.hide()
+        }, 500)
+      }
+    })
+
+    defineShortcut('switchToPreviousTask', function (d) {
+      var currentTaskIdx = tasks.get().map(function (task) {
+        return task.id
+      }).indexOf(currentTask.id)
+
+      if (tasks.get()[currentTaskIdx - 1]) {
+        switchToTask(tasks.get()[currentTaskIdx - 1].id)
+      } else {
+        switchToTask(tasks.get()[tasks.get().length - 1].id)
+      }
+
+      if (!taskAnimationDisabled) {
+        taskOverlay.show()
+        clearInterval(taskSwitchTimeout)
+        taskSwitchTimeout = setTimeout(function () {
+          taskOverlay.hide()
+        }, 500)
+      }
+    })
+
+    defineShortcut('closeAllTabs', function (d) { // destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
+      var tset = tabs.get()
+      for (var i = 0; i < tset.length; i++) {
+        destroyTab(tset[i].id)
+      }
+
+      addTab() // create a new, blank tab
+    })
+
+    defineShortcut('toggleTasks', function () {
+      if (taskOverlay.isShown) {
+        taskOverlay.hide()
+      } else {
+        taskOverlay.show()
+      }
+    })
+
+    var lastReload = 0
+
+    defineShortcut('reload', function () {
+      var time = Date.now()
+
+      // pressing mod+r twice in a row reloads the whole browser
+      if (time - lastReload < 500) {
+        window.location.reload()
+      } else {
+        var w = getWebview(tabs.getSelected())
+
+        if (w.src) { // webview methods aren't available if the webview is blank
+          w.reloadIgnoringCache()
+        }
+      }
+
+      lastReload = time
+    })
+
+    // mod+enter navigates to searchbar URL + ".com"
+    defineShortcut('completeSearchbar', function () {
+      if (currentSearchbarInput) { // if the searchbar is open
+        var value = currentSearchbarInput.value
+
+        leaveTabEditMode()
+
+        // if the text is already a URL, navigate to that page
+        if (urlParser.isURLMissingProtocol(value)) {
+          navigate(tabs.getSelected(), value)
+        } else {
+          navigate(tabs.getSelected(), urlParser.parse(value + '.com'))
+        }
+      }
+    })
+
+    defineShortcut('showAndHideMenuBar', function () {
+      toggleMenuBar()
+    })
+
+    defineShortcut('followLink', function () {
+      findinpage.end({ action: 'activateSelection' })
+    })
+  }) // end settings.get
+})
 
 // reload the webview when the F5 key is pressed
 document.body.addEventListener('keydown', function (e) {

@@ -5,6 +5,7 @@ var trackerCheckbox = document.getElementById('checkbox-block-trackers')
 var banner = document.getElementById('restart-required-banner')
 var darkModeCheckbox = document.getElementById('checkbox-dark-mode')
 var historyButtonCheckbox = document.getElementById('checkbox-history-button')
+var taskAnimationDisabledCheckbox= document.getElementById('checkbox-task-animation-disable')
 var swipeNavigationCheckbox = document.getElementById('checkbox-swipe-navigation')
 
 function showRestartRequiredBanner () {
@@ -178,6 +179,21 @@ settings.get('historyButton', function (value) {
 
 historyButtonCheckbox.addEventListener('change', function (e) {
   settings.set('historyButton', this.checked)
+  showRestartRequiredBanner()
+})
+
+// Animation settings
+
+settings.get('taskAnimationDisabled', function (value) {
+  if (value === true || value === undefined) {
+    taskAnimationDisabledCheckbox.checked = true
+  } else {
+    taskAnimationDisabledCheckbox.checked = false
+  }
+})
+
+taskAnimationDisabledCheckbox.addEventListener('change', function (e) {
+  settings.set('taskAnimationDisabled', this.checked)
   showRestartRequiredBanner()
 })
 
