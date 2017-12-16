@@ -135,8 +135,11 @@ var TaskOverlayBuilder = {
 
       closeButton: function (taskTabElement) {
         var closeTabButton = document.createElement('button')
-        closeTabButton.innerHTML = '<i class="fa fa-close"/>'
         closeTabButton.className = 'closeTab'
+
+        var closeTabIcon = document.createElement('i')
+        closeTabIcon.className = 'fa fa-close'
+        closeTabButton.appendChild(closeTabIcon)
 
         closeTabButton.addEventListener('click', function (e) {
           var tabId = taskTabElement.getAttribute('data-tab')
