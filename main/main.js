@@ -11,6 +11,8 @@ var userDataPath = app.getPath('userData')
 const browserPage = 'file://' + __dirname + '/index.html'
 
 var mainWindow = null
+var mainMenu = null
+var mainMenuSecondary = null
 var isFocusMode = false
 var appIsReady = false
 
@@ -219,6 +221,16 @@ app.on('open-url', function (e, url) {
 app.on('activate', function (/* e, hasVisibleWindows */) {
   if (!mainWindow && appIsReady) { // sometimes, the event will be triggered before the app is ready, and creating new windows will fail
     createWindow()
+  }
+})
+
+ipc.on('showMenu', function (event, data) {
+  if (mainMenu) {
+    mainMenu.popup(mainWindow, {
+      x: data.x,
+      y: data.y,
+      async: true
+    })
   }
 })
 
@@ -561,10 +573,9 @@ function createAppMenu () {
     })
   }
 
-  var menu = new Menu()
-
-  menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
+  mainMenu = Menu.buildFromTemplate(template)
+  mainMenuSecondary = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(mainMenu)
 }
 
 

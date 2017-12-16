@@ -48,6 +48,7 @@ module.exports = function (grunt) {
           'js/taskOverlay/taskOverlayBuilder.js',
           'js/navbar/addTabButton.js',
           'js/navbar/goBackButton.js',
+          'js/navbar/menuButton.js',
           'js/keybindings.js',
           'js/pdfViewer.js',
           'js/findinpage.js',

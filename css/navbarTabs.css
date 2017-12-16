@@ -58,7 +58,7 @@ body.windows #navbar {
 	background: none;
 }
 
-/* history buttons */
+/* navbar buttons */
 
 #back-button {
 	opacity: 1;
@@ -67,7 +67,12 @@ body.windows #navbar {
     padding: 0.8em 0.6em 0.8em 0.4em;
 }
 
-body.is-edit-mode #back-button {
+body.is-edit-mode #back-button,
+body.is-edit-mode #menu-button {
+	display: none;
+}
+
+body:not(.windows) #menu-button {
 	display: none;
 }
 
