@@ -81,7 +81,8 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     minWidth: 320,
     minHeight: 350,
     titleBarStyle: 'hidden-inset',
-    icon: __dirname + '/icons/icon256.png'
+    icon: __dirname + '/icons/icon256.png',
+    frame: process.platform !== 'win32'
   })
 
   // and load the index.html of the app.
@@ -118,6 +119,18 @@ function createWindowWithBounds (bounds, shouldMaximize) {
       })
     }
     return true
+  })
+
+  mainWindow.on('minimize', function () {
+    sendIPCToWindow(mainWindow, 'minimize')
+  })
+
+  mainWindow.on('maximize', function () {
+    sendIPCToWindow(mainWindow, 'maximize')
+  })
+
+  mainWindow.on('unmaximize', function () {
+    sendIPCToWindow(mainWindow, 'unmaximize')
   })
 
   mainWindow.on('enter-full-screen', function () {

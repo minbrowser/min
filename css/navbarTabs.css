@@ -1,20 +1,39 @@
 #navbar {
 	padding-left: 0;
 	display: flex;
-	height: 2.3333em;
+	height: 36px;
 	align-items: center;
 	transition: 0.2s background-color;
 	max-width: 100vw;
 	-webkit-user-select: none;
 	position: relative;
 	outline: none;
-	-webkit-app-region: drag;
 	z-index: 2;
+}
+
+body.windows .windows-drag-area {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 12px;
+	-webkit-app-region: drag;
+}
+
+body.mac #navbar {
+	-webkit-app-region: drag;
 }
 
 /* make room for the window controls */
 body.mac:not(.fullscreen) #navbar {
 	padding-left: 75px;
+}
+
+body.windows #navbar {
+	padding-top: 10px;
+	height: 48px;
+	padding-right: 138px;
 }
 
 /* when the tab-group is white, we need a line to separate it from the webviews */

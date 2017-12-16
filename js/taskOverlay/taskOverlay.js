@@ -31,6 +31,7 @@ var taskOverlay = {
   }),
 
   show: function () {
+    document.body.classList.add('task-overlay-is-shown')
     /* disabled in focus mode */
     if (isFocusMode) {
       showFocusModeError()
@@ -70,6 +71,8 @@ var taskOverlay = {
     if (this.isShown) {
       this.isShown = false
       this.overlayElement.hidden = true
+
+      document.body.classList.remove('task-overlay-is-shown')
 
       // if the current task has been deleted, switch to the most recent task
       if (!tasks.get(currentTask.id)) {
