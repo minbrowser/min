@@ -57,44 +57,11 @@ var readerView = {
       isReaderView: false
     })
   },
-  showReadingList: function () {
-    showSearchbar(getTabInput(tabs.getSelected()))
+  showReadingList: function (container, filterText) {
+    db.readingList.orderBy('time').reverse().toArray().then(function (articles) {
+      empty(container)
 
-    var articlesShown = 0
-
-    var container = getSearchbarContainer('readingList')
-
-    db.readingList.orderBy('time').reverse().each(function (article) {
-      if (!article.article) {
-        return
-      }
-
-      if (articlesShown === 0) {
-        clearSearchbar()
-      }
-
-      var item = createSearchbarItem({
-        title: article.article.title,
-        descriptionBlock: article.article.excerpt,
-        url: article.url,
-        delete: function (el) {
-          db.readingList.where('url').equals(el.getAttribute('data-url')).delete()
-        }
-      })
-
-      item.addEventListener('click', function (e) {
-        openURLFromSearchbar(readerView.getReaderURL(article.url), e)
-      })
-
-      if (article.visitCount > 5 || (article.extraData.scrollPosition > 0 && article.extraData.articleScrollLength - article.extraData.scrollPosition < 1000)) { // the article has been visited frequently, or the scroll position is at the bottom
-        item.style.opacity = 0.65
-      }
-
-      container.appendChild(item)
-
-      articlesShown++
-    }).then(function () {
-      if (articlesShown === 0) {
+      if (articles.length === 0) {
         var item = createSearchbarItem({
           title: l('emptyReadingListTitle'),
           descriptionBlock: l('emptyReadingListSubtitle')
@@ -103,19 +70,54 @@ var readerView = {
         container.appendChild(item)
         return
       }
+
+      articles.forEach(function (article) {
+        if (!article.article) {
+          return
+        }
+
+        // TODO integrate this with the regular history search system
+
+        if (filterText) {
+          var normalizedFilterText = filterText.trim().toLowerCase().replace(/\s+/g, ' ').replace(/\W+/g, '')
+          var normalizedArticleText = (article.url + article.article.title + article.article.excerpt).trim().toLowerCase().replace(/\s+/g, ' ').replace(/\W+/g, '')
+          if (normalizedArticleText.indexOf(normalizedFilterText) === -1) {
+            return
+          }
+        }
+
+        var item = createSearchbarItem({
+          title: article.article.title,
+          descriptionBlock: article.article.excerpt,
+          url: article.url,
+          delete: function (el) {
+            db.readingList.where('url').equals(el.getAttribute('data-url')).delete()
+          }
+        })
+
+        item.addEventListener('click', function (e) {
+          openURLFromSearchbar(readerView.getReaderURL(article.url), e)
+        })
+
+        if (article.visitCount > 5 || (article.extraData.scrollPosition > 0 && article.extraData.articleScrollLength - article.extraData.scrollPosition < 1000)) { // the article has been visited frequently, or the scroll position is at the bottom
+          item.style.opacity = 0.65
+        }
+
+        container.appendChild(item)
+      })
     })
   }
 }
 
-// create a searchbar container to show reading list articles
+/* typing !readinglist in the searchbar shows the list */
 
-registerSearchbarPlugin('readingList', {
-  index: 9,
-  // the plugin is only used when triggered from the menubar
-  trigger: function () {
-    return false
-  },
-  showResults: null
+registerCustomBang({
+  phrase: '!readinglist',
+  snippet: l('viewReadingList'),
+  isAction: false,
+  showSuggestions: function (text, input, event, container) {
+    readerView.showReadingList(container, text)
+  }
 })
 
 // update the reader button on page load

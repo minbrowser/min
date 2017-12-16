@@ -28,6 +28,7 @@
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
         "viewSettings": "View Settings",
+        "viewReadingList": "View Reading List",
         "takeScreenshot": "Take a Screenshot",
         "clearHistory": "Clear All History",
         "switchToTask": "Switch to Task",

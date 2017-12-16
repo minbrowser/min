@@ -29,7 +29,8 @@ ipc.on('inspectPage', function () {
 })
 
 ipc.on('showReadingList', function () {
-  readerView.showReadingList()
+  // open the searchbar with "!readinglist " as the input
+  enterEditMode(tabs.getSelected(), '!readinglist ')
 })
 
 ipc.on('addTab', function (e, data) {

@@ -52,7 +52,7 @@ function leaveTabEditMode (options) {
   hidesearchbar()
 }
 
-function enterEditMode (tabId) {
+function enterEditMode (tabId, editingValue) { // editingValue: an optional string to show in the searchbar instead of the current URL
   taskOverlay.hide()
 
   var tabEl = getTabElement(tabId)
@@ -69,12 +69,19 @@ function enterEditMode (tabId) {
   document.body.classList.add('is-edit-mode')
   tabEl.classList.add('selected')
 
-  input.value = currentURL
+  input.value = editingValue || currentURL
   input.focus()
-  input.select()
+  if (!editingValue) {
+    input.select()
+  }
 
   showSearchbar(input)
-  showSearchbarResults('', input, null)
+
+  if (editingValue) {
+    showSearchbarResults(editingValue, input, null)
+  } else {
+    showSearchbarResults('', input, null)
+  }
 
   // show keyword suggestions in the searchbar
 
