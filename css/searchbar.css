@@ -39,11 +39,14 @@ body.mac:not(.fullscreen) #searchbar {
 	background-color: rgba(0, 0, 0, 0.08);
 	outline: none;
 }
-.dark-theme .theme-background-color .searchbar-item:hover {
+.dark-theme .theme-background-color .searchbar-item:hover,
+.dark-mode .searchbar-item:hover {
 	background-color: rgba(255, 255, 255, 0.08);
 }
 .dark-theme .theme-background-color .searchbar-item:focus,
-.dark-theme .theme-background-color .searchbar-item.fakefocus {
+.dark-theme .theme-background-color .searchbar-item.fakefocus,
+.dark-mode .searchbar-item:focus,
+.dark-mode .searchbar-item.fakefocus {
 	background-color: rgba(255, 255, 255, 0.14);
 }
 .searchbar-item .title {
