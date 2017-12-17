@@ -9,7 +9,7 @@ function showSecondaryMenu () {
   var rect = menuButton.getBoundingClientRect()
   var navbarRect = navbar.getBoundingClientRect()
 
-  ipc.send('showMenu', {
+  ipc.send('showSecondaryMenu', {
     x: Math.round(rect.left),
     y: Math.round(navbarRect.bottom),
     async: true

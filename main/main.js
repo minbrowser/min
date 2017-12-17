@@ -224,7 +224,7 @@ app.on('activate', function (/* e, hasVisibleWindows */) {
   }
 })
 
-ipc.on('showMenu', function (event, data) {
+ipc.on('showSecondaryMenu', function (event, data) {
   if (mainMenu) {
     mainMenu.popup(mainWindow, {
       x: data.x,
