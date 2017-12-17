@@ -1,10 +1,10 @@
 var menuButton = document.getElementById('menu-button')
 
 menuButton.addEventListener('click', function (e) {
-  showMenu()
+  showSecondaryMenu()
 })
 
-function showMenu () {
+function showSecondaryMenu () {
   var navbar = document.getElementById('navbar')
   var rect = menuButton.getBoundingClientRect()
   var navbarRect = navbar.getBoundingClientRect()
