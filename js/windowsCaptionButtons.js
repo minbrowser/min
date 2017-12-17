@@ -13,7 +13,7 @@ var captionClose =
 var windowIsMaximised = false
 var windowIsFullscreen = false
 
-if (navigator.platform === 'Win32' || true) {
+if (navigator.platform === 'Win32') {
   captionMinimise.addEventListener('click', function (e) {
     remote.getCurrentWindow().minimize()
   })

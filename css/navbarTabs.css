@@ -11,6 +11,12 @@
 	z-index: 2;
 }
 
+/* window drag regions */
+
+.windows-drag-area {
+	display: none;
+}
+
 body.windows .windows-drag-area {
 	display: block;
 	position: fixed;
