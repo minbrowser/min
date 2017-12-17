@@ -12,7 +12,6 @@ const browserPage = 'file://' + __dirname + '/index.html'
 
 var mainWindow = null
 var mainMenu = null
-var mainMenuSecondary = null
 var isFocusMode = false
 var appIsReady = false
 
@@ -574,7 +573,6 @@ function createAppMenu () {
   }
 
   mainMenu = Menu.buildFromTemplate(template)
-  mainMenuSecondary = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(mainMenu)
 }
 
