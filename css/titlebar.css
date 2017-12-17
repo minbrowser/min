@@ -6,7 +6,7 @@
 body.windows .windows-caption-buttons {
 	display: flex;
 	position: absolute;
-	top: 12px;
+	top: 10px;
 	right: 0;
 	z-index: 10;
 }

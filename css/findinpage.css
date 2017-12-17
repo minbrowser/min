@@ -14,7 +14,7 @@ body.mac:not(.fullscreen) #findinpage-bar {
 	padding-left: 80px;
 }
 body.windows #findinpage-bar {
-	top: 12px;
+	top: 10px;
 	right: 138px;
 	width: calc(100% - 138px);
 }
