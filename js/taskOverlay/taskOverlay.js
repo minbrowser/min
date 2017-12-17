@@ -31,12 +31,13 @@ var taskOverlay = {
   }),
 
   show: function () {
-    document.body.classList.add('task-overlay-is-shown')
     /* disabled in focus mode */
     if (isFocusMode) {
       showFocusModeError()
       return
     }
+
+    document.body.classList.add('task-overlay-is-shown')
 
     leaveTabEditMode()
 
