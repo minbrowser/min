@@ -266,7 +266,7 @@ body.dark-mode #overlay {
 body.is-focus-mode .tab-item:not(.active) {
 	display: none;
 }
-body.is-focus-mode .navbar-action-button {
+body.is-focus-mode .navbar-action-button:not(#menu-button) {
 	display: none;
 }
 
