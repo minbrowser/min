@@ -40,7 +40,7 @@ body.windows #switch-task-button {
 	z-index: 3;
 }
 body.windows #task-overlay {
-	padding-top: 52px;
+	padding-top: 50px;
 }
 #task-overlay[hidden] {
 	display: block !important;
