@@ -91,6 +91,10 @@ function createWindowWithBounds (bounds, shouldMaximize) {
 
   if (shouldMaximize) {
     mainWindow.maximize()
+
+    mainWindow.webContents.on('did-finish-load', function () {
+      sendIPCToWindow(mainWindow, 'maximize')
+    })
   }
 
   // save the window size for the next launch of the app
