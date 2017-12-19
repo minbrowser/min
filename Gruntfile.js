@@ -134,6 +134,7 @@ module.exports = function (grunt) {
           'app-version': version,
           platform: 'win32',
           arch: 'all',
+          icon: 'icons/icon256.ico',
           ignore: ignoredDirs,
           prune: true,
           overwrite: true
