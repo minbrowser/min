@@ -1,0 +1,54 @@
+
+.windows-caption-buttons {
+    display: none;
+}
+
+body.windows .windows-caption-buttons {
+	display: flex;
+	position: absolute;
+	top: 10px;
+	right: 0;
+	z-index: 10;
+}
+
+.windows-caption-buttons .element {
+	line-height: 36px;
+	width: 36px;
+	stroke: #000;
+	padding: 0 5px;
+	box-sizing: content-box;
+	fill: transparent;
+	text-align: center;
+}
+
+body:not(.task-overlay-is-shown).dark-theme .windows-caption-buttons .element {
+	stroke: #fff;
+}
+
+
+.windows-caption-buttons .element > svg {
+	width: 12px;
+	height: 12px;
+}
+
+.windows-caption-buttons .element {
+	transition: background-color 0.1s linear, color 0.1s linear;
+}
+.windows-caption-buttons .element:hover {
+	background-color: rgba(196, 196, 196, 0.4);
+	transition: none;
+}
+.windows-caption-buttons .element:active {
+	background-color: rgba(168, 168, 168, 0.5);
+}
+.windows-caption-buttons .element.caption-close:hover {
+	background-color: #e81123;
+}
+.windows-caption-buttons .element.caption-close:hover > svg,
+.windows-caption-buttons .element.caption-close:active > svg {
+	stroke: #fff;
+	stroke-width: 1.1px;
+}
+.windows-caption-buttons .element.caption-close:active {
+	background-color: rgba(232, 17, 35, 0.6);
+}

@@ -37,6 +37,8 @@ var taskOverlay = {
       return
     }
 
+    document.body.classList.add('task-overlay-is-shown')
+
     leaveTabEditMode()
 
     this.isShown = true
@@ -70,6 +72,8 @@ var taskOverlay = {
     if (this.isShown) {
       this.isShown = false
       this.overlayElement.hidden = true
+
+      document.body.classList.remove('task-overlay-is-shown')
 
       // if the current task has been deleted, switch to the most recent task
       if (!tasks.get(currentTask.id)) {

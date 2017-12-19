@@ -17,6 +17,10 @@ function hideMenuBar () {
 }
 
 function toggleMenuBar () {
+  if (navigator.platform === 'Win32') {
+    // use secondary menu instead of application menu on Windows
+    return showSecondaryMenu()
+  }
   settings.get('menuBarVisible', function (value) {
     if (value === false) {
       showMenuBar()

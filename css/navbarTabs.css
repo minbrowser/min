@@ -1,20 +1,45 @@
 #navbar {
 	padding-left: 0;
 	display: flex;
-	height: 2.3333em;
+	height: 36px;
 	align-items: center;
 	transition: 0.2s background-color;
 	max-width: 100vw;
 	-webkit-user-select: none;
 	position: relative;
 	outline: none;
-	-webkit-app-region: drag;
 	z-index: 2;
+}
+
+/* window drag regions */
+
+.windows-drag-area {
+	display: none;
+}
+
+body.windows .windows-drag-area {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 10px;
+	-webkit-app-region: drag;
+}
+
+body.mac #navbar {
+	-webkit-app-region: drag;
 }
 
 /* make room for the window controls */
 body.mac:not(.fullscreen) #navbar {
 	padding-left: 75px;
+}
+
+body.windows #navbar {
+	padding-top: 10px;
+	height: 46px;
+	padding-right: 138px;
 }
 
 /* when the tab-group is white, we need a line to separate it from the webviews */
@@ -39,7 +64,7 @@ body.mac:not(.fullscreen) #navbar {
 	background: none;
 }
 
-/* history buttons */
+/* navbar buttons */
 
 #back-button {
 	opacity: 1;
@@ -48,7 +73,12 @@ body.mac:not(.fullscreen) #navbar {
     padding: 0.8em 0.6em 0.8em 0.4em;
 }
 
-body.is-edit-mode #back-button {
+body.is-edit-mode #back-button,
+body.is-edit-mode #menu-button {
+	display: none;
+}
+
+body:not(.windows) #menu-button {
 	display: none;
 }
 
@@ -242,7 +272,7 @@ body.dark-mode #overlay {
 body.is-focus-mode .tab-item:not(.active) {
 	display: none;
 }
-body.is-focus-mode .navbar-action-button {
+body.is-focus-mode .navbar-action-button:not(#menu-button) {
 	display: none;
 }
 

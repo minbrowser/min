@@ -1,7 +1,7 @@
 #searchbar {
 	z-index: 99;
 	position: fixed;
-	top: 2.25em;
+	top: 36px;
 	left: 0;
 	width: 100%;
 	background: #fff;
@@ -12,6 +12,10 @@
 	max-height: calc(100% - 125px);
 	overflow-y: auto;
 	will-change: display;
+}
+
+body.windows #searchbar {
+	top: 46px;
 }
 
 /* align with window controls */

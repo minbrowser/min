@@ -16,6 +16,7 @@ module.exports = function (grunt) {
         src: [
           'dist/localization.build.js',
           'js/default.js',
+          'js/windowsCaptionButtons.js',
           'js/util/database.js',
           'js/util/defaultKeyMap.js',
           'js/util/settings.js',
@@ -47,6 +48,7 @@ module.exports = function (grunt) {
           'js/taskOverlay/taskOverlayBuilder.js',
           'js/navbar/addTabButton.js',
           'js/navbar/goBackButton.js',
+          'js/navbar/menuButton.js',
           'js/keybindings.js',
           'js/pdfViewer.js',
           'js/findinpage.js',

@@ -11,6 +11,7 @@ var userDataPath = app.getPath('userData')
 const browserPage = 'file://' + __dirname + '/index.html'
 
 var mainWindow = null
+var mainMenu = null
 var isFocusMode = false
 var appIsReady = false
 
@@ -81,7 +82,8 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     minWidth: 320,
     minHeight: 350,
     titleBarStyle: 'hidden-inset',
-    icon: __dirname + '/icons/icon256.png'
+    icon: __dirname + '/icons/icon256.png',
+    frame: process.platform !== 'win32'
   })
 
   // and load the index.html of the app.
@@ -89,6 +91,10 @@ function createWindowWithBounds (bounds, shouldMaximize) {
 
   if (shouldMaximize) {
     mainWindow.maximize()
+
+    mainWindow.webContents.on('did-finish-load', function () {
+      sendIPCToWindow(mainWindow, 'maximize')
+    })
   }
 
   // save the window size for the next launch of the app
@@ -118,6 +124,18 @@ function createWindowWithBounds (bounds, shouldMaximize) {
       })
     }
     return true
+  })
+
+  mainWindow.on('minimize', function () {
+    sendIPCToWindow(mainWindow, 'minimize')
+  })
+
+  mainWindow.on('maximize', function () {
+    sendIPCToWindow(mainWindow, 'maximize')
+  })
+
+  mainWindow.on('unmaximize', function () {
+    sendIPCToWindow(mainWindow, 'unmaximize')
   })
 
   mainWindow.on('enter-full-screen', function () {
@@ -206,6 +224,16 @@ app.on('open-url', function (e, url) {
 app.on('activate', function (/* e, hasVisibleWindows */) {
   if (!mainWindow && appIsReady) { // sometimes, the event will be triggered before the app is ready, and creating new windows will fail
     createWindow()
+  }
+})
+
+ipc.on('showSecondaryMenu', function (event, data) {
+  if (mainMenu) {
+    mainMenu.popup(mainWindow, {
+      x: data.x,
+      y: data.y,
+      async: true
+    })
   }
 })
 
@@ -548,10 +576,8 @@ function createAppMenu () {
     })
   }
 
-  var menu = new Menu()
-
-  menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
+  mainMenu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(mainMenu)
 }
 
 
