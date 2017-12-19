@@ -2,13 +2,16 @@ const electron = require('electron')
 const fs = require('fs')
 const path = require('path')
 const app = electron.app // Module to control application life.
+const protocol = electron.protocol // Module to control protocol handling
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
+const ipc = electron.ipcMain
 
 var userDataPath = app.getPath('userData')
 
 const browserPage = 'file://' + __dirname + '/index.html'
 
 var mainWindow = null
+var mainMenu = null
 var isFocusMode = false
 var appIsReady = false
 
@@ -54,7 +57,7 @@ function createWindow (cb) {
 // fixes https://github.com/minbrowser/min/issues/214
 // should be removed once https://github.com/electron/electron/issues/4045 is fixed
     if (process.platform === 'win32') {
-      if ((bounds.x === 0 && bounds.y === 0) || (bounds.x === -8 && bounds.y === -8)) {
+      if (bounds.x === 0 || bounds.y === 0 || bounds.x === -8 || bounds.y === -8) {
         var screenSize = electron.screen.getPrimaryDisplay().workAreaSize
         if ((screenSize.width === bounds.width || bounds.width - screenSize.width === 16) && (screenSize.height === bounds.height || bounds.height - screenSize.height === 16)) {
           var shouldMaximize = true
@@ -77,9 +80,10 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     x: bounds.x,
     y: bounds.y,
     minWidth: 320,
-    minHeight: 500,
+    minHeight: 350,
     titleBarStyle: 'hidden-inset',
-    icon: __dirname + '/icons/icon256.png'
+    icon: __dirname + '/icons/icon256.png',
+    frame: process.platform !== 'win32'
   })
 
   // and load the index.html of the app.
@@ -87,6 +91,10 @@ function createWindowWithBounds (bounds, shouldMaximize) {
 
   if (shouldMaximize) {
     mainWindow.maximize()
+
+    mainWindow.webContents.on('did-finish-load', function () {
+      sendIPCToWindow(mainWindow, 'maximize')
+    })
   }
 
   // save the window size for the next launch of the app
@@ -112,10 +120,22 @@ function createWindowWithBounds (bounds, shouldMaximize) {
         url: itemURL,
         webContentsId: webContents.getId(),
         event: event,
-        item: item, // as of electron 0.35.1, this is an empty object
+        item: item // as of electron 0.35.1, this is an empty object
       })
     }
     return true
+  })
+
+  mainWindow.on('minimize', function () {
+    sendIPCToWindow(mainWindow, 'minimize')
+  })
+
+  mainWindow.on('maximize', function () {
+    sendIPCToWindow(mainWindow, 'maximize')
+  })
+
+  mainWindow.on('unmaximize', function () {
+    sendIPCToWindow(mainWindow, 'unmaximize')
   })
 
   mainWindow.on('enter-full-screen', function () {
@@ -161,21 +181,28 @@ app.on('ready', function () {
   appIsReady = true
 
   createWindow(function () {
-    // if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
-
-    if (process.argv && process.argv[1] && process.argv[1].toLowerCase() !== __dirname.toLowerCase() && process.argv[1].indexOf('://') !== -1) {
-      mainWindow.webContents.on('did-finish-load', function () {
+    mainWindow.webContents.on('did-finish-load', function () {
+      // if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
+      if (process.argv && process.argv[1] && process.argv[1].toLowerCase() !== __dirname.toLowerCase() && process.argv[1].indexOf('://') !== -1) {
         sendIPCToWindow(mainWindow, 'addTab', {
           url: process.argv[1]
         })
-      })
-    }
+      } else if (global.URLToOpen) {
+        // if there is a previously set URL to open (probably from opening a link on macOS), open it
+        sendIPCToWindow(mainWindow, 'addTab', {
+          url: global.URLToOpen
+        })
+        global.URLToOpen = null
+      }
+    })
   })
 
   // Open the DevTools.
   // mainWindow.openDevTools()
 
   createAppMenu()
+  createDockMenu()
+  registerProtocols()
 })
 
 app.on('open-url', function (e, url) {
@@ -184,13 +211,7 @@ app.on('open-url', function (e, url) {
       url: url
     })
   } else {
-    app.on('ready', function () {
-      setTimeout(function () { // TODO replace this with an event that occurs when the browserWindow finishes loading
-        sendIPCToWindow(mainWindow, 'addTab', {
-          url: url
-        })
-      }, 750)
-    })
+    global.URLToOpen = url // this will be handled later in the createWindow callback
   }
 })
 
@@ -200,11 +221,32 @@ app.on('open-url', function (e, url) {
  *
  * Opens a new tab when all tabs are closed, and min is still open by clicking on the application dock icon
  */
-app.on('activate', function ( /* e, hasVisibleWindows */) {
+app.on('activate', function (/* e, hasVisibleWindows */) {
   if (!mainWindow && appIsReady) { // sometimes, the event will be triggered before the app is ready, and creating new windows will fail
     createWindow()
   }
 })
+
+ipc.on('showSecondaryMenu', function (event, data) {
+  if (mainMenu) {
+    mainMenu.popup(mainWindow, {
+      x: data.x,
+      y: data.y,
+      async: true
+    })
+  }
+})
+
+function registerProtocols () {
+  protocol.registerStringProtocol('mailto', function (req, cb) {
+    electron.shell.openExternal(req.url)
+    return null
+  }, function (error) {
+    if (error) {
+      console.log('Could not register mailto protocol.')
+    }
+  })
+}
 
 function createAppMenu () {
   // create the menu. based on example from http://electron.atom.io/docs/v0.34.0/api/menu/
@@ -214,24 +256,24 @@ function createAppMenu () {
 
   var template = [
     {
-      label: 'File',
+      label: l('appMenuFile'),
       submenu: [
         {
-          label: 'New Tab',
+          label: l('appMenuNewTab'),
           accelerator: 'CmdOrCtrl+t',
           click: function (item, window) {
             sendIPCToWindow(window, 'addTab')
           }
         },
         {
-          label: 'New Private Tab',
-          accelerator: 'shift+CmdOrCtrl+t',
+          label: l('appMenuNewPrivateTab'),
+          accelerator: 'shift+CmdOrCtrl+p',
           click: function (item, window) {
             sendIPCToWindow(window, 'addPrivateTab')
           }
         },
         {
-          label: 'New Task',
+          label: l('appMenuNewTask'),
           accelerator: 'CmdOrCtrl+n',
           click: function (item, window) {
             sendIPCToWindow(window, 'addTask')
@@ -241,7 +283,7 @@ function createAppMenu () {
           type: 'separator'
         },
         {
-          label: 'Save Page As',
+          label: l('appMenuSavePageAs'),
           accelerator: 'CmdOrCtrl+s',
           click: function (item, window) {
             sendIPCToWindow(window, 'saveCurrentPage')
@@ -251,7 +293,7 @@ function createAppMenu () {
           type: 'separator'
         },
         {
-          label: 'Print',
+          label: l('appMenuPrint'),
           accelerator: 'CmdOrCtrl+p',
           click: function (item, window) {
             sendIPCToWindow(window, 'print')
@@ -260,15 +302,15 @@ function createAppMenu () {
       ]
     },
     {
-      label: 'Edit',
+      label: l('appMenuEdit'),
       submenu: [
         {
-          label: 'Undo',
+          label: l('appMenuUndo'),
           accelerator: 'CmdOrCtrl+Z',
           role: 'undo'
         },
         {
-          label: 'Redo',
+          label: l('appMenuRedo'),
           accelerator: 'Shift+CmdOrCtrl+Z',
           role: 'redo'
         },
@@ -276,22 +318,22 @@ function createAppMenu () {
           type: 'separator'
         },
         {
-          label: 'Cut',
+          label: l('appMenuCut'),
           accelerator: 'CmdOrCtrl+X',
           role: 'cut'
         },
         {
-          label: 'Copy',
+          label: l('appMenuCopy'),
           accelerator: 'CmdOrCtrl+C',
           role: 'copy'
         },
         {
-          label: 'Paste',
+          label: l('appMenuPaste'),
           accelerator: 'CmdOrCtrl+V',
           role: 'paste'
         },
         {
-          label: 'Select All',
+          label: l('appMenuSelectAll'),
           accelerator: 'CmdOrCtrl+A',
           role: 'selectall'
         },
@@ -299,7 +341,7 @@ function createAppMenu () {
           type: 'separator'
         },
         {
-          label: 'Find',
+          label: l('appMenuFind'),
           accelerator: 'CmdOrCtrl+F',
           click: function (item, window) {
             sendIPCToWindow(window, 'findInPage')
@@ -309,24 +351,24 @@ function createAppMenu () {
     },
     /* these items are added by os x */
     {
-      label: 'View',
+      label: l('appMenuView'),
       submenu: [
         {
-          label: 'Zoom in',
+          label: l('appMenuZoomIn'),
           accelerator: 'CmdOrCtrl+=',
           click: function (item, window) {
             sendIPCToWindow(window, 'zoomIn')
           }
         },
         {
-          label: 'Zoom out',
+          label: l('appMenuZoomOut'),
           accelerator: 'CmdOrCtrl+-',
           click: function (item, window) {
             sendIPCToWindow(window, 'zoomOut')
           }
         },
         {
-          label: 'Actual size',
+          label: l('appMenuActualSize'),
           accelerator: 'CmdOrCtrl+0',
           click: function (item, window) {
             sendIPCToWindow(window, 'zoomReset')
@@ -336,7 +378,7 @@ function createAppMenu () {
           type: 'separator'
         },
         {
-          label: 'Full Screen',
+          label: l('appMenuFullScreen'),
           accelerator: (function () {
             if (process.platform == 'darwin')
               return 'Ctrl+Command+F'
@@ -346,7 +388,7 @@ function createAppMenu () {
           role: 'togglefullscreen'
         },
         {
-          label: 'Focus mode',
+          label: l('appMenuFocusMode'),
           accelerator: undefined,
           type: 'checkbox',
           checked: false,
@@ -363,7 +405,7 @@ function createAppMenu () {
           }
         },
         {
-          label: 'Reading List',
+          label: l('appMenuReadingList'),
           accelerator: undefined,
           click: function (item, window) {
             sendIPCToWindow(window, 'showReadingList')
@@ -372,17 +414,17 @@ function createAppMenu () {
       ]
     },
     {
-      label: 'Developer',
+      label: l('appMenuDeveloper'),
       submenu: [
         {
-          label: 'Reload Browser',
+          label: l('appMenuReloadBrowser'),
           accelerator: undefined,
           click: function (item, focusedWindow) {
             if (focusedWindow) focusedWindow.reload()
           }
         },
         {
-          label: 'Inspect browser',
+          label: l('appMenuInspectBrowser'),
           click: function (item, focusedWindow) {
             if (focusedWindow) focusedWindow.toggleDevTools()
           }
@@ -391,7 +433,7 @@ function createAppMenu () {
           type: 'separator'
         },
         {
-          label: 'Inspect page',
+          label: l('appMenuInspectPage'),
           accelerator: (function () {
             if (process.platform == 'darwin')
               return 'Cmd+Alt+I'
@@ -405,45 +447,45 @@ function createAppMenu () {
       ]
     },
     {
-      label: 'Window',
+      label: l('appMenuWindow'),
       role: 'window',
       submenu: [
         {
-          label: 'Minimize',
+          label: l('appMenuMinimize'),
           accelerator: 'CmdOrCtrl+M',
           role: 'minimize'
         },
         {
-          label: 'Close',
+          label: l('appMenuClose'),
           accelerator: 'CmdOrCtrl+W',
           role: 'close'
         }
       ]
     },
     {
-      label: 'Help',
+      label: l('appMenuHelp'),
       role: 'help',
       submenu: [
         {
-          label: 'Keyboard Shortcuts',
+          label: l('appMenuKeyboardShortcuts'),
           click: function () {
             openTabInWindow('https://github.com/minbrowser/min/wiki#keyboard-shortcuts')
           }
         },
         {
-          label: 'Report a Bug',
+          label: l('appMenuReportBug'),
           click: function () {
             openTabInWindow('https://github.com/minbrowser/min/issues/new')
           }
         },
         {
-          label: 'Take a Tour',
+          label: l('appMenuTakeTour'),
           click: function () {
             openTabInWindow('https://minbrowser.github.io/min/tour/')
           }
         },
         {
-          label: 'View on GitHub',
+          label: l('appMenuViewGithub'),
           click: function () {
             openTabInWindow('https://github.com/minbrowser/min')
           }
@@ -458,14 +500,14 @@ function createAppMenu () {
       label: name,
       submenu: [
         {
-          label: 'About ' + name,
+          label: l('appMenuAbout').replace('%n', name),
           role: 'about'
         },
         {
           type: 'separator'
         },
         {
-          label: 'Preferences',
+          label: l('appMenuPreferences'),
           accelerator: 'CmdOrCtrl+,',
           click: function (item, window) {
             sendIPCToWindow(window, 'addTab', {
@@ -482,24 +524,24 @@ function createAppMenu () {
           type: 'separator'
         },
         {
-          label: 'Hide ' + name,
+          label: l('appMenuHide').replace('%n', name),
           accelerator: 'CmdOrCtrl+H',
           role: 'hide'
         },
         {
-          label: 'Hide Others',
+          label: l('appMenuHideOthers'),
           accelerator: 'CmdOrCtrl+Shift+H',
           role: 'hideothers'
         },
         {
-          label: 'Show All',
+          label: l('appMenuShowAll'),
           role: 'unhide'
         },
         {
           type: 'separator'
         },
         {
-          label: 'Quit',
+          label: l('appMenuQuit').replace('%n', name),
           accelerator: 'CmdOrCtrl+Q',
           click: function () {
             app.quit()
@@ -511,7 +553,7 @@ function createAppMenu () {
     template[3].submenu.push({
       type: 'separator'
     }, {
-      label: 'Bring All to Front',
+      label: l('appMenuBringToFront'),
       role: 'front'
     })
   }
@@ -524,7 +566,7 @@ function createAppMenu () {
     })
 
     template[1].submenu.push({
-      label: 'Preferences',
+      label: l('appMenuPreferences'),
       accelerator: 'CmdOrCtrl+,',
       click: function (item, window) {
         sendIPCToWindow(window, 'addTab', {
@@ -534,8 +576,38 @@ function createAppMenu () {
     })
   }
 
-  var menu = new Menu()
+  mainMenu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(mainMenu)
+}
 
-  menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
+
+function createDockMenu () {
+  // create the menu. based on example from https://github.com/electron/electron/blob/master/docs/tutorial/desktop-environment-integration.md#custom-dock-menu-macos
+  if (process.platform === 'darwin') {
+    var Menu = electron.Menu
+
+    var template = [
+      {
+        label: l('appMenuNewTab'),
+        click: function (item, window) {
+          sendIPCToWindow(window, 'addTab')
+        }
+      },
+      {
+        label: l('appMenuNewPrivateTab'),
+        click: function (item, window) {
+          sendIPCToWindow(window, 'addPrivateTab')
+        }
+      },
+      {
+        label: l('appMenuNewTask'),
+        click: function (item, window) {
+          sendIPCToWindow(window, 'addTask')
+        }
+      }
+    ]
+
+    var dockMenu = Menu.buildFromTemplate(template)
+    app.dock.setMenu(dockMenu)
+  }
 }

@@ -2,8 +2,11 @@
 
 /* depends on placesWorker.js */
 
-function searchPlaces (searchText, callback) {
+function searchPlaces (searchText, callback, options) {
   function processSearchItem (item) {
+    if (limitToBookmarks && !item.isBookmarked) {
+      return
+    }
     // if the text does not contain the first search word, it can't possibly be a match, so don't do any processing
     let itext = item.url.split('?')[0].replace('http://', '').replace('https://', '').replace('www.', '')
 
@@ -60,7 +63,6 @@ function searchPlaces (searchText, callback) {
     }
   }
 
-  const tstart = performance.now()
   const matches = []
   const st = searchText.replace(spacesRegex, ' ').split('?')[0].replace('http://', '').replace('https://', '').replace('www.', '')
   const stl = searchText.length
@@ -69,6 +71,7 @@ function searchPlaces (searchText, callback) {
   let substringSearchEnabled = false
   const itemStartBoost = Math.min(2.5 * stl, 10)
   const exactMatchBoost = 0.4 + (0.075 * stl)
+  const limitToBookmarks = options && options.searchBookmarks
 
   if (searchText.indexOf(' ') !== -1) {
     substringSearchEnabled = true
@@ -85,8 +88,5 @@ function searchPlaces (searchText, callback) {
     return calculateHistoryScore(b) - calculateHistoryScore(a)
   })
 
-  const tend = performance.now()
-
-  console.info('history search took', tend - tstart)
   callback(matches.slice(0, 100))
 }

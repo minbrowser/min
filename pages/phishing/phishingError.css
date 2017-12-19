@@ -2,11 +2,3 @@ body {
 	background: #D42020;
 	color: #fff;
 }
-#ignore-button {
-	transition: 0.1s;
-}
-#ignore-button:not(:hover) {
-	background: none;
-	outline: 1px rgba(255, 255, 255, 0.75) solid;
-	opacity: 0.5;
-}

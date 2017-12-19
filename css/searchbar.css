@@ -1,26 +1,28 @@
 #searchbar {
 	z-index: 99;
 	position: fixed;
-	top: 2.25em;
+	top: 36px;
 	left: 0;
 	width: 100%;
 	background: #fff;
 	color: #000;
-	padding-left: 75px;
+	padding-left: 0;
 	padding-right: 82px;
-	/* align with window controls */
 	-webkit-user-select: none;
-	max-height: calc(100% - 75px);
+	max-height: calc(100% - 125px);
 	overflow-y: auto;
 	will-change: display;
 }
 
-/* the navbar gets moved over in fullscreen, but the searchbar still needs to be aligned with it */
-
-body.fullscreen #searchbar,
-body.notMac #searchbar {
-	padding-left: 0;
+body.windows #searchbar {
+	top: 46px;
 }
+
+/* align with window controls */
+body.mac:not(.fullscreen) #searchbar {
+	padding-left: 75px;
+}
+
 .searchbar-item {
 	width: 100%;
 	display: block;
@@ -41,11 +43,14 @@ body.notMac #searchbar {
 	background-color: rgba(0, 0, 0, 0.08);
 	outline: none;
 }
-.dark-theme .theme-background-color .searchbar-item:hover {
+.dark-theme .theme-background-color .searchbar-item:hover,
+.dark-mode .searchbar-item:hover {
 	background-color: rgba(255, 255, 255, 0.08);
 }
 .dark-theme .theme-background-color .searchbar-item:focus,
-.dark-theme .theme-background-color .searchbar-item.fakefocus {
+.dark-theme .theme-background-color .searchbar-item.fakefocus,
+.dark-mode .searchbar-item:focus,
+.dark-mode .searchbar-item.fakefocus {
 	background-color: rgba(255, 255, 255, 0.14);
 }
 .searchbar-item .title {
@@ -80,9 +85,9 @@ body.notMac #searchbar {
 /* move the icon when there isn't room to the left of the searchbar */
 
 .fullscreen .searchbar-item i,
-.notMac .searchbar-item i,
+body:not(.mac) .searchbar-item i,
 .fullscreen .searchbar-item .icon-image,
-.notMac .searchbar-item .icon-image {
+body:not(.mac) .searchbar-item .icon-image {
 	margin-left: 0;
 	float: right;
 }
@@ -147,7 +152,7 @@ body.notMac #searchbar {
 		/* prevents letters like "g" from being cut off */
 		line-height: 1em;
 	}
-	.searchbar-item .low-priority-image {
+	.searchbar-item .image {
 		display: none;
 	}
 }
@@ -174,9 +179,6 @@ body.notMac #searchbar {
 
 .searchbar-item:focus .description-block {
 	max-height: 6.6em;
-}
-body.is-edit-mode webview {
-	opacity: 0.5;
 }
 
 /* tag searches */

@@ -1,6 +1,9 @@
 // gets the tracking settings and sends them to the main process
 
-var setFilteringSettings = remote.getGlobal('setFilteringSettings')
-var registerFiltering = remote.getGlobal('registerFiltering')
+settings.get('filtering', function (settings) {
+  ipc.send('setFilteringSettings', settings)
+})
 
-settings.get('filtering', setFilteringSettings)
+function registerFiltering (ses) {
+  ipc.send('registerFiltering', ses)
+}

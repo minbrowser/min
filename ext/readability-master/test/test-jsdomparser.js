@@ -1,6 +1,3 @@
-var path = require("path");
-var fs = require("fs");
-
 var chai = require("chai");
 chai.config.includeStack = true;
 var expect = chai.expect;
@@ -9,7 +6,7 @@ var readability = require("../index.js");
 var JSDOMParser = readability.JSDOMParser;
 
 var BASETESTCASE = '<html><body><p>Some text and <a class="someclass" href="#">a link</a></p>' +
-                   '<div id="foo">With a <script>With < fancy " characters in it because' +
+                   '<div id="foo">With a <script>With &lt; fancy " characters in it because' +
                    '</script> that is fun.<span>And another node to make it harder</span></div><form><input type="text"/><input type="number"/>Here\'s a form</form></body></html>';
 
 var baseDoc = new JSDOMParser().parse(BASETESTCASE);
@@ -35,7 +32,7 @@ describe("Test JSDOM functionality", function() {
     expect(generatedHTML).eql('Some text and <a class="someclass" href="#">a link</a>');
     var scriptNode = baseDoc.getElementsByTagName("script")[0];
     generatedHTML = scriptNode.innerHTML;
-    expect(generatedHTML).eql('With < fancy " characters in it because');
+    expect(generatedHTML).eql('With &lt; fancy " characters in it because');
     expect(scriptNode.textContent).eql('With < fancy " characters in it because');
 
   });
@@ -226,8 +223,8 @@ describe("Test HTML escaping", function() {
   });
 
   it("should handle decimal and hex escape sequences", function() {
-    var doc = new JSDOMParser().parse("<p>&#32;&#x20;</p>");
-    expect(doc.getElementsByTagName("p")[0].textContent).eql("  ");
+    var parsedDoc = new JSDOMParser().parse("<p>&#32;&#x20;</p>");
+    expect(parsedDoc.getElementsByTagName("p")[0].textContent).eql("  ");
   });
 });
 
@@ -239,7 +236,7 @@ describe("Script parsing", function() {
     expect(doc.firstChild.tagName).eql("SCRIPT");
     expect(doc.firstChild.textContent).eql("");
     expect(doc.firstChild.children.length).eql(0);
-    expect(doc.firstChild.childNodes.length).eql(1);
+    expect(doc.firstChild.childNodes.length).eql(0);
   });
 
   it("should strip !-based comments within script tags", function() {
@@ -248,11 +245,11 @@ describe("Script parsing", function() {
     expect(doc.firstChild.tagName).eql("SCRIPT");
     expect(doc.firstChild.textContent).eql("");
     expect(doc.firstChild.children.length).eql(0);
-    expect(doc.firstChild.childNodes.length).eql(1);
+    expect(doc.firstChild.childNodes.length).eql(0);
   });
 
   it("should strip any other nodes within script tags", function() {
-    var html = "<script><div>Hello, I'm not really in a </div></script>";
+    var html = "<script>&lt;div>Hello, I'm not really in a &lt;/div></script>";
     var doc = new JSDOMParser().parse(html);
     expect(doc.firstChild.tagName).eql("SCRIPT");
     expect(doc.firstChild.textContent).eql("<div>Hello, I'm not really in a </div>");
@@ -260,8 +257,17 @@ describe("Script parsing", function() {
     expect(doc.firstChild.childNodes.length).eql(1);
   });
 
+  it("should strip any other invalid script nodes within script tags", function() {
+    var html = '<script>&lt;script src="foo.js">&lt;/script></script>';
+    var doc = new JSDOMParser().parse(html);
+    expect(doc.firstChild.tagName).eql("SCRIPT");
+    expect(doc.firstChild.textContent).eql("<script src=\"foo.js\"></script>");
+    expect(doc.firstChild.children.length).eql(0);
+    expect(doc.firstChild.childNodes.length).eql(1);
+  });
+
   it("should not be confused by partial closing tags", function() {
-    var html = "<script>var x = '<script>Hi<' + '/script>';</script>";
+    var html = "<script>var x = '&lt;script>Hi&lt;' + '/script>';</script>";
     var doc = new JSDOMParser().parse(html);
     expect(doc.firstChild.tagName).eql("SCRIPT");
     expect(doc.firstChild.textContent).eql("var x = '<script>Hi<' + '/script>';");
@@ -280,5 +286,17 @@ describe("Tag local name case handling", function() {
     expect(doc.firstChild.firstChild.localName).eql("svg");
     expect(doc.firstChild.firstChild.firstChild.tagName).eql("CLIPPATH");
     expect(doc.firstChild.firstChild.firstChild.localName).eql("clippath");
+  });
+});
+
+describe("Recovery from self-closing tags that have close tags", function() {
+  it("should handle delayed closing of a tag", function() {
+    var html = "<div><input><p>I'm in an input</p></input></div>";
+    var doc = new JSDOMParser().parse(html);
+    expect(doc.firstChild.localName).eql("div");
+    expect(doc.firstChild.childNodes.length).eql(1);
+    expect(doc.firstChild.firstChild.localName).eql("input");
+    expect(doc.firstChild.firstChild.childNodes.length).eql(1);
+    expect(doc.firstChild.firstChild.firstChild.localName).eql("p");
   });
 });

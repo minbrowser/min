@@ -7,9 +7,9 @@ ipc.on('enterFocusMode', function () {
   setTimeout(function () { // wait to show the message until the tabs have been hidden, to make the message less confusing
     electron.remote.dialog.showMessageBox({
       type: 'info',
-      buttons: ['OK'],
-      message: "You're in focus mode.",
-      detail: 'In focus mode, all tabs except the current one are hidden, and you can\'t create new tabs. You can leave focus mode by unchecking "focus mode" from the view menu.'
+      buttons: [l('closeDialog')],
+      message: l('isFocusMode'),
+      detail: l('focusModeExplanation1') + ' ' + l('focusModeExplanation2')
     })
   }, 16)
 })
@@ -22,8 +22,8 @@ ipc.on('exitFocusMode', function () {
 function showFocusModeError () {
   electron.remote.dialog.showMessageBox({
     type: 'info',
-    buttons: ['OK'],
-    message: "You're in focus mode.",
-    detail: 'You can leave focus mode by unchecking "focus mode" in the view menu.'
+    buttons: [l('closeDialog')],
+    message: l('isFocusMode'),
+    detail: l('focusModeExplanation2')
   })
 }

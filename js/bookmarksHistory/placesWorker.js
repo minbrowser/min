@@ -45,7 +45,6 @@ setInterval(cleanupHistoryDatabase, 60 * 60 * 1000)
 // cache history in memory for faster searching. This actually takes up very little space, so we can cache everything.
 
 let historyInMemoryCache = []
-let doneLoadingHistoryCache = false
 
 function addToHistoryCache (item) {
   delete item.pageHTML
@@ -53,6 +52,26 @@ function addToHistoryCache (item) {
   delete item.searchIndex
 
   historyInMemoryCache.push(item)
+}
+
+function addOrUpdateHistoryCache (item) {
+  delete item.pageHTML
+  delete item.extractedText
+  delete item.searchIndex
+
+  let found = true
+
+  for (let i = 0; i < historyInMemoryCache.length; i++) {
+    if (historyInMemoryCache[i].url === item.url) {
+      historyInMemoryCache[i] = item
+      found = true
+      break
+    }
+  }
+
+  if (!found) {
+    historyInMemoryCache.push(item)
+  }
 }
 
 function loadHistoryInMemory () {
@@ -65,14 +84,10 @@ function loadHistoryInMemory () {
     historyInMemoryCache.sort(function (a, b) {
       return calculateHistoryScore(b) - calculateHistoryScore(a)
     })
-
-    doneLoadingHistoryCache = true
   })
 }
 
 loadHistoryInMemory()
-
-setInterval(loadHistoryInMemory, 30 * 60 * 1000)
 
 // calculates how similar two history items are
 
@@ -116,6 +131,7 @@ onmessage = function (e) {
   const pageData = e.data.pageData
   const searchText = e.data.text && e.data.text.toLowerCase()
   const callbackId = e.data.callbackId
+  const options = e.data.options
 
   if (action === 'updateHistory') {
     const item = {
@@ -138,6 +154,8 @@ onmessage = function (e) {
           item.visitCount = oldItem.visitCount + 1
           item.isBookmarked = oldItem.isBookmarked
           db.places.where('url').equals(pageData.url).modify(item)
+
+          addOrUpdateHistoryCache(item)
         /* if the item doesn't exist, add a new item */
         } else {
           item.visitCount = 1
@@ -150,6 +168,31 @@ onmessage = function (e) {
         console.warn('failed to update history.')
         console.warn('page url was: ' + pageData.url)
         console.error(err)
+      })
+    })
+  }
+
+  if (action === 'updateBookmarkState') {
+    db.transaction('rw', db.places, function () {
+      db.places.where('url').equals(pageData.url).first(function (item) {
+        if (!item) {
+          item = {
+            url: pageData.url,
+            title: pageData.url,
+            color: '',
+            visitCount: 1,
+            lastVisit: Date.now(),
+            pageHTML: '',
+            extractedText: '',
+            searchIndex: [],
+            metadata: {}
+          }
+        }
+        item.isBookmarked = pageData.shouldBeBookmarked
+
+        db.places.where('url').equals(pageData.url).modify(item)
+
+        addOrUpdateHistoryCache(item)
       })
     })
   }
@@ -173,7 +216,7 @@ onmessage = function (e) {
         result: matches,
         callbackId: callbackId
       })
-    })
+    }, options)
   }
 
   if (action === 'searchPlacesFullText') {

@@ -7,6 +7,8 @@ var findinpage = {
   endButton: document.getElementById('findinpage-end'),
   activeWebview: null,
   start: function (options) {
+    findinpage.input.placeholder = l('searchInPage')
+
     findinpage.activeWebview = getWebview(tabs.getSelected())
 
     findinpage.counter.textContent = ''
@@ -19,10 +21,13 @@ var findinpage = {
     }
   },
   end: function (options) {
+    options = options || {}
+    var action = options.action || 'keepSelection'
+
     findinpage.container.hidden = true
 
     if (findinpage.activeWebview) {
-      findinpage.activeWebview.stopFindInPage('keepSelection')
+      findinpage.activeWebview.stopFindInPage(action)
       if (findinpage.input === document.activeElement) {
         findinpage.activeWebview.focus()
       }
@@ -49,9 +54,9 @@ findinpage.input.addEventListener('input', function (e) {
 })
 
 findinpage.input.addEventListener('keypress', function (e) {
-  if (e.keyCode === 13) {
+  if (e.keyCode === 13) { // Return/Enter key
     findinpage.activeWebview.findInPage(findinpage.input.value, {
-      forward: true,
+      forward: !e.shiftKey, // find previous if Shift is pressed
       findNext: true
     })
   }
@@ -75,12 +80,13 @@ findinpage.next.addEventListener('click', function (e) {
 
 bindWebviewEvent('found-in-page', function (e) {
   if (e.result.matches !== undefined) {
+    var text
     if (e.result.matches === 1) {
-      var text = ' match'
+      text = l('findMatchesSingular')
     } else {
-      var text = ' matches'
+      text = l('findMatchesPlural')
     }
 
-    findinpage.counter.textContent = e.result.activeMatchOrdinal + ' of ' + e.result.matches + text
+    findinpage.counter.textContent = text.replace('%i', e.result.activeMatchOrdinal).replace('%t', e.result.matches)
   }
 })

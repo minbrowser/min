@@ -34,7 +34,7 @@ function showSearchbarPlaceResults (text, input, event, container, options) {
 
     results.slice(0, 4).forEach(function (result) {
       // only autocomplete an item if the delete key wasn't pressed, and nothing has been autocompleted already
-      if (event.keyCode !== 8 && !hasAutocompleted) {
+      if (event && event.keyCode !== 8 && !hasAutocompleted) {
         var autocompletionType = autocompleteURL(result, input)
 
         if (autocompletionType !== -1) {

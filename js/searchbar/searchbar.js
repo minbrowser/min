@@ -1,7 +1,6 @@
 // common regex's
 
 var trailingSlashRegex = /\/$/g
-var plusRegex = /\+/g
 
 function removeTags (text) {
   return text.replace(/<.*?>/g, '')
@@ -25,58 +24,28 @@ function openURLInBackground (url) { // used to open a url in the background, wi
 }
 // when clicking on a result item, this function should be called to open the URL
 
-function openURLFromsearchbar (event, url) {
+function openURLFromSearchbar (url, event) {
 
   // TODO decide if this should go somewhere else
 
   // if the url is a !bang search
   if (url.indexOf('!') === 0) {
-    var selectedBang = url.split(' ')[0]
+    // get the matching custom !bang
+    var bang = getCustomBang(url)
 
-    // get all of the !bangs that could match
-    var bangs = searchCustomBangs(selectedBang)
-
-    // if there are !bangs that possibly match
-    if (bangs.length !== 0) {
-
-      // find the ones that are an exact match, and run them
-      for (var i = 0; i < bangs.length; i++) {
-        if (bangs[i].phrase === selectedBang) {
-          leaveTabEditMode()
-          if (url.indexOf(selectedBang + ' ') === -1) {
-            var text = url.replace(selectedBang, '')
-          } else {
-            var text = url.replace(selectedBang + ' ', '')
-          }
-          bangs[i].fn(text)
-          // don't open the URL
-          return
-        }
-      }
+    if (bang) {
+      leaveTabEditMode()
+      bang.fn(url.replace(bang.phrase, '').trimLeft())
+      // don't open the URL
+      return
     }
   }
 
-  if (event.metaKey) {
+  if (event && event.metaKey) {
     openURLInBackground(url)
     return true
   } else {
     navigate(tabs.getSelected(), url)
-
-    if (!tabs.get(tabs.getSelected()).private) {
-      /*
-      //show the color and title of the new page immediately, to make the page load time seem faster
-      currentHistoryResults.forEach(function (res) {
-      	if (res.url == url) {
-      		setColor(res.color, getTextColor(getRGBObject(res.color)))
-      		tabs.update(tabs.getSelected(), {
-      			title: res.title,
-      		})
-      		rerenderTabElement(tabs.getSelected())
-      	}
-      })
-      */
-    }
-
     return false
   }
 }
@@ -165,7 +134,7 @@ function createSearchbarItem (data) {
     item.setAttribute('data-url', data.url)
 
     item.addEventListener('click', function (e) {
-      openURLFromsearchbar(e, data.url)
+      openURLFromSearchbar(data.url, e)
     })
   }
 
@@ -191,7 +160,7 @@ function createSearchbarItem (data) {
 
   if (data.image) {
     var image = document.createElement('img')
-    image.className = 'image low-priority-image'
+    image.className = 'image'
     image.src = data.image
 
     item.insertBefore(image, item.childNodes[0])
@@ -199,7 +168,7 @@ function createSearchbarItem (data) {
 
   if (data.iconImage) {
     var iconImage = document.createElement('img')
-    iconImage.className = 'icon-image low-priority-image'
+    iconImage.className = 'icon-image'
     iconImage.src = data.iconImage
 
     item.insertBefore(iconImage, item.childNodes[0])
@@ -239,6 +208,10 @@ function createSearchbarItem (data) {
     })
   }
 
+  if (data.click) {
+    item.addEventListener('click', data.click)
+  }
+
   return item
 }
 
@@ -273,12 +246,10 @@ var showSearchbarResults = function (text, input, event) {
     var realText = text
   }
 
-  console.log('searchbar: ', realText)
-
   runPlugins(realText, input, event)
 }
 
-function focussearchbarItem (options) {
+function focusSearchbarItem (options) {
   options = options || {} // fallback if options is null
   var previous = options.focusPrevious
 
@@ -325,10 +296,10 @@ searchbar.addEventListener('keydown', function (e) {
     e.target.click()
   } else if (e.keyCode === 9 || e.keyCode === 40) { // tab or arrowdown key
     e.preventDefault()
-    focussearchbarItem()
+    focusSearchbarItem()
   } else if (e.keyCode === 38) {
     e.preventDefault()
-    focussearchbarItem({
+    focusSearchbarItem({
       focusPrevious: true
     })
   }

@@ -10,10 +10,11 @@ var webviewIPC = []
 
 // this only affects newly created webviews, so all bindings should be done on startup
 
-function bindWebviewEvent (event, fn) {
+function bindWebviewEvent (event, fn, useWebContents) {
   webviewEvents.push({
     event: event,
-    fn: fn
+    fn: fn,
+    useWebContents: useWebContents
   })
 }
 
@@ -38,28 +39,33 @@ function pagePermissionRequestHandler (webContents, permission, callback) {
 // called whenever the page url changes
 
 function onPageLoad (e) {
-  var tab = this.getAttribute('data-tab')
-  var url = this.getAttribute('src') // src attribute changes whenever a page is loaded
+  var _this = this
+  setTimeout(function () { // TODO convert to arrow function
+    /* add a small delay before getting these attributes, because they don't seem to update until a short time after the did-finish-load event is fired. Fixes #320 */
 
-  if (url.indexOf('https://') === 0 || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('file://') === 0) {
-    tabs.update(tab, {
-      secure: true,
-      url: url
-    })
-  } else {
-    tabs.update(tab, {
-      secure: false,
-      url: url
-    })
-  }
+    var tab = _this.getAttribute('data-tab')
+    var url = _this.getAttribute('src') // src attribute changes whenever a page is loaded
 
-  rerenderTabElement(tab)
+    if (url.indexOf('https://') === 0 || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('file://') === 0) {
+      tabs.update(tab, {
+        secure: true,
+        url: url
+      })
+    } else {
+      tabs.update(tab, {
+        secure: false,
+        url: url
+      })
+    }
+
+    rerenderTabElement(tab)
+  }, 0)
 }
 
 // called when js/webview/textExtractor.js returns the page's text content
-bindWebviewIPC('pageData', function (webview, tabId, arguments) {
+bindWebviewIPC('pageData', function (webview, tabId, args) {
   var tab = tabs.get(tabId),
-      data = arguments[0]
+    data = args[0]
 
   var isInternalPage = tab.url.indexOf(__dirname) !== -1 && tab.url.indexOf(readerView.readerURL) === -1
 
@@ -68,6 +74,36 @@ bindWebviewIPC('pageData', function (webview, tabId, arguments) {
     bookmarks.updateHistory(tabId, data.extractedText, data.metadata)
   }
 })
+
+// called when a swipe event is triggered in js/webview/swipeEvents.js
+
+bindWebviewIPC('goBack', function () {
+  settings.get('swipeNavigationEnabled', function (value) {
+    if (value === true || value === undefined) {
+      getWebview(tabs.getSelected()).goBack()
+    }
+  })
+})
+
+bindWebviewIPC('goForward', function () {
+  settings.get('swipeNavigationEnabled', function (value) {
+    if (value === true || value === undefined) {
+      getWebview(tabs.getSelected()).goForward()
+    }
+  })
+})
+
+/* workaround for https://github.com/electron/electron/issues/3471 */
+
+bindWebviewEvent('did-get-redirect-request', function (e, oldURL, newURL, isMainFrame, httpResponseCode, requestMethod, referrer, header) {
+  if (isMainFrame && httpResponseCode === 302 && requestMethod === 'POST') {
+    this.stop()
+    var _this = this
+    setTimeout(function () {
+      _this.loadURL(newURL)
+    }, 0)
+  }
+}, true)
 
 // set the permissionRequestHandler for non-private tabs
 
@@ -102,8 +138,16 @@ function getWebviewDom (options) {
 
   // webview events
 
-  webviewEvents.forEach(function (i) {
-    w.addEventListener(i.event, i.fn)
+  webviewEvents.forEach(function (ev) {
+    if (ev.useWebContents) { // some events (such as context-menu) are only available on the webContents rather than the webview element
+      w.addEventListener('did-attach', function () {
+        this.getWebContents().on(ev.event, function () {
+          ev.fn.apply(w, arguments)
+        })
+      })
+    } else {
+      w.addEventListener(ev.event, ev.fn)
+    }
   })
 
   w.addEventListener('page-favicon-updated', function (e) {
@@ -121,6 +165,21 @@ function getWebviewDom (options) {
 
   w.addEventListener('did-finish-load', onPageLoad)
   w.addEventListener('did-navigate-in-page', onPageLoad)
+
+  /* workaround for https://github.com/electron/electron/issues/8505 and similar issues */
+  w.addEventListener('load-commit', function (e) {
+    if (e.isMainFrame) {
+      handleProgressBar(this.getAttribute('data-tab'), 'start')
+    }
+    this.classList.add('loading')
+  })
+
+  w.addEventListener('did-stop-loading', function () {
+    handleProgressBar(this.getAttribute('data-tab'), 'finish')
+    setTimeout(function () {
+      w.classList.remove('loading')
+    }, 100)
+  })
 
   // open links in new tabs
 
@@ -176,8 +235,6 @@ function getWebviewDom (options) {
     }
   })
 
-  w.addEventListener('contextmenu', webviewMenu.show)
-
   w.addEventListener('crashed', function (e) {
     var tabId = this.getAttribute('data-tab')
 
@@ -221,6 +278,8 @@ function addWebview (tabId) {
   // webviews are hidden when added - call switchToWebview to show it
   webview.classList.add('hidden')
 
+  webview.classList.add('loading')
+
   webviewBase.appendChild(webview)
 
   return webview
@@ -229,7 +288,7 @@ function addWebview (tabId) {
 function switchToWebview (id) {
   var webviews = document.getElementsByTagName('webview')
   for (var i = 0; i < webviews.length; i++) {
-    webviews[i].hidden = true
+    webviews[i].classList.add('hidden')
   }
 
   var wv = getWebview(id)
@@ -239,7 +298,6 @@ function switchToWebview (id) {
   }
 
   wv.classList.remove('hidden')
-  wv.hidden = false
 }
 
 function updateWebview (id, url) {

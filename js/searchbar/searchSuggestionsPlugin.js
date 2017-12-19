@@ -1,4 +1,4 @@
-var ddgAttribution = 'Results from DuckDuckGo'
+var ddgAttribution = l('resultsFromDDG')
 
 function showSearchSuggestions (text, input, event, container) {
   // TODO support search suggestions for other search engines
@@ -35,7 +35,7 @@ function showSearchSuggestions (text, input, event, container) {
           var item = createSearchbarItem(data)
 
           item.addEventListener('click', function (e) {
-            openURLFromsearchbar(e, result.phrase)
+            openURLFromSearchbar(result.phrase, e)
           })
 
           container.appendChild(item)
@@ -48,7 +48,7 @@ function showSearchSuggestions (text, input, event, container) {
 registerSearchbarPlugin('searchSuggestions', {
   index: 4,
   trigger: function (text) {
-    return !!text && !(text.indexOf('!') === 0 && text.indexOf(' ') === -1) && !tabs.get(tabs.getSelected()).private
+    return !!text && text.indexOf('!') !== 0 && !tabs.get(tabs.getSelected()).private
   },
   showResults: debounce(showSearchSuggestions, 200)
 })

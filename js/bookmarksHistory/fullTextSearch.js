@@ -174,8 +174,6 @@ function fullTextPlacesSearch (searchText, callback) {
   const searchWords = tokenize(searchText)
   const sl = searchWords.length
 
-  const searchWordsSet = new Set(searchWords)
-
   if (searchWords.length === 0) {
     callback([])
     return

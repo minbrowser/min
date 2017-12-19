@@ -11,7 +11,7 @@ function showHostsSuggestions (text, input, event, container) {
   results.slice(0, 4).forEach(function (result) {
     var item = createSearchbarItem({
       title: result,
-      secondaryText: 'Hosts file entry',
+      secondaryText: l('hostsFileEntry'),
       url: 'http://' + result
     })
 

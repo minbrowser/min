@@ -66,7 +66,7 @@ function handleRequest (details, callback) {
   })
 }
 
-global.setFilteringSettings = function (settings) {
+function setFilteringSettings (settings) {
   if (!settings) {
     settings = {}
   }
@@ -81,7 +81,7 @@ global.setFilteringSettings = function (settings) {
   filterContentTypes = thingsToFilter.contentTypes.length !== 0
 }
 
-global.registerFiltering = function (ses) {
+function registerFiltering (ses) {
   if (ses) {
     ses = session.fromPartition(ses)
   } else {
@@ -90,3 +90,11 @@ global.registerFiltering = function (ses) {
 
   ses.webRequest.onBeforeRequest(handleRequest)
 }
+
+ipc.on('setFilteringSettings', function (e, settings) {
+  setFilteringSettings(settings)
+})
+
+ipc.on('registerFiltering', function (e, ses) {
+  registerFiltering(ses)
+})

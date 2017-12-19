@@ -1,4 +1,3 @@
-var prettyPrint = require("./utils").prettyPrint;
 var jsdom = require("jsdom").jsdom;
 var chai = require("chai");
 chai.config.includeStack = true;
@@ -16,16 +15,56 @@ function reformatError(err) {
   return formattedError;
 }
 
-function runTestsWithItems(label, beforeFn, expectedContent, expectedMetadata) {
+function inOrderTraverse(fromNode) {
+  if (fromNode.firstChild) {
+    return fromNode.firstChild;
+  }
+  while (fromNode && !fromNode.nextSibling) {
+    fromNode = fromNode.parentNode;
+  }
+  return fromNode ? fromNode.nextSibling : null;
+}
+
+function inOrderIgnoreEmptyTextNodes(fromNode) {
+  do {
+    fromNode = inOrderTraverse(fromNode);
+  } while (fromNode && fromNode.nodeType == 3 && !fromNode.textContent.trim());
+  return fromNode;
+}
+
+function traverseDOM(callback, expectedDOM, actualDOM) {
+  var actualNode = actualDOM.documentElement || actualDOM.childNodes[0];
+  var expectedNode = expectedDOM.documentElement || expectedDOM.childNodes[0];
+  while (actualNode) {
+    if (!callback(actualNode, expectedNode)) {
+      break;
+    }
+    actualNode = inOrderIgnoreEmptyTextNodes(actualNode);
+    expectedNode = inOrderIgnoreEmptyTextNodes(expectedNode);
+  }
+}
+
+// Collapse subsequent whitespace like HTML:
+function htmlTransform(str) {
+  return str.replace(/\s+/g, " ");
+}
+
+function runTestsWithItems(label, domGenerationFn, uri, source, expectedContent, expectedMetadata) {
   describe(label, function() {
-    this.timeout(5000);
+    this.timeout(10000);
 
     var result;
 
     before(function() {
       try {
-        result = beforeFn();
-      } catch(err) {
+        var doc = domGenerationFn(source);
+        var myReader = new Readability(uri, doc);
+        // Needs querySelectorAll function to test isProbablyReaderable method.
+        // jsdom implements querySelector but JSDOMParser doesn't.
+        var readerable = label === "jsdom" ? myReader.isProbablyReaderable() : null;
+        result = myReader.parse();
+        result.readerable = readerable;
+      } catch (err) {
         throw reformatError(err);
       }
     });
@@ -35,7 +74,83 @@ function runTestsWithItems(label, beforeFn, expectedContent, expectedMetadata) {
     });
 
     it("should extract expected content", function() {
-      expect(expectedContent.split("\n")).eql(prettyPrint(result.content).split("\n"));
+      function nodeStr(n) {
+        if (n.nodeType == 3) {
+          return "#text(" + htmlTransform(n.textContent) + ")";
+        }
+        if (n.nodeType != 1) {
+          return "some other node type: " + n.nodeType + " with data " + n.data;
+        }
+        var rv = n.localName;
+        if (n.id) {
+          rv += "#" + n.id;
+        }
+        if (n.className) {
+          rv += ".(" + n.className + ")";
+        }
+        return rv;
+      }
+
+      function genPath(node) {
+        if (node.id) {
+          return '#' + node.id;
+        }
+        if (node.tagName == "BODY") {
+          return 'body';
+        }
+        var parent = node.parentNode;
+        var parentPath = genPath(parent);
+        var index = Array.prototype.indexOf.call(parent.childNodes, node) + 1;
+        return parentPath + " > " + nodeStr(node) + ":nth-child(" + index + ")";
+      }
+
+      function findableNodeDesc(node) {
+        return genPath(node) + "(in: ``" + node.parentNode.innerHTML + "``)";
+      }
+
+      function attributesForNode(node) {
+        return Array.from(node.attributes).map(function(attr) {
+          return attr.name + "=" + attr.value;
+        }).join(",");
+      }
+
+      var actualDOM = domGenerationFn(result.content);
+      var expectedDOM = domGenerationFn(expectedContent);
+      traverseDOM(function(actualNode, expectedNode) {
+        expect(!!actualNode).eql(!!expectedNode);
+        if (actualNode && expectedNode) {
+          var actualDesc = nodeStr(actualNode);
+          var expectedDesc = nodeStr(expectedNode);
+          if (actualDesc != expectedDesc) {
+            expect(actualDesc, findableNodeDesc(actualNode)).eql(expectedDesc);
+            return false;
+          }
+          // Compare text for text nodes:
+          if (actualNode.nodeType == 3) {
+            var actualText = htmlTransform(actualNode.textContent);
+            var expectedText = htmlTransform(expectedNode.textContent);
+            expect(actualText, findableNodeDesc(actualNode)).eql(expectedText);
+            if (actualText != expectedText) {
+              return false;
+            }
+          // Compare attributes for element nodes:
+          } else if (actualNode.nodeType == 1) {
+            var actualNodeDesc = attributesForNode(actualNode);
+            var expectedNodeDesc = attributesForNode(expectedNode);
+            var desc = "node " + nodeStr(actualNode) + " attributes (" + actualNodeDesc + ") should match (" + expectedNodeDesc + ") ";
+            expect(actualNode.attributes.length, desc).eql(expectedNode.attributes.length);
+            for (var i = 0; i < actualNode.attributes.length; i++) {
+              var attr = actualNode.attributes[i].name;
+              var actualValue = actualNode.getAttribute(attr);
+              var expectedValue = expectedNode.getAttribute(attr);
+              expect(expectedValue, "node (" + findableNodeDesc(actualNode) + ") attribute " + attr + " should match").eql(actualValue);
+            }
+          }
+        } else {
+          return false;
+        }
+        return true;
+      }, actualDOM, expectedDOM);
     });
 
     it("should extract expected title", function() {
@@ -50,20 +165,25 @@ function runTestsWithItems(label, beforeFn, expectedContent, expectedMetadata) {
       expect(expectedMetadata.excerpt).eql(result.excerpt);
     });
 
-    it("should probably be readerable", function() {
+    expectedMetadata.dir && it("should extract expected direction", function() {
+      expect(expectedMetadata.dir).eql(result.dir);
+    });
+
+    label === "jsdom" && it("should probably be readerable", function() {
       expect(expectedMetadata.readerable).eql(result.readerable);
     });
   });
 }
 
 function removeCommentNodesRecursively(node) {
-  [].forEach.call(node.childNodes, function(child) {
+  for (var i = node.childNodes.length - 1; i >= 0; i--) {
+    var child = node.childNodes[i];
     if (child.nodeType === child.COMMENT_NODE) {
       node.removeChild(child);
     } else if (child.nodeType === child.ELEMENT_NODE) {
       removeCommentNodesRecursively(child);
     }
-  });
+  }
 }
 
 describe("Readability API", function() {
@@ -110,29 +230,26 @@ describe("Test pages", function() {
         pathBase: "http://fakehost/test/"
       };
 
-      runTestsWithItems("jsdom", function() {
-        var doc = jsdom(testPage.source, {
+      runTestsWithItems("jsdom", function(source) {
+        var doc = jsdom(source, {
           features: {
             FetchExternalResources: false,
             ProcessExternalResources: false
           }
         });
         removeCommentNodesRecursively(doc);
-        var readability = new Readability(uri, doc);
-        var readerable = readability.isProbablyReaderable();
-        var result = readability.parse();
-        result.readerable = readerable;
-        return result;
-      }, testPage.expectedContent, testPage.expectedMetadata);
+        return doc;
+      }, uri, testPage.source, testPage.expectedContent, testPage.expectedMetadata);
 
-      runTestsWithItems("JSDOMParser", function() {
-        var doc = new JSDOMParser().parse(testPage.source);
-        var readability = new Readability(uri, doc);
-        var readerable = readability.isProbablyReaderable();
-        var result = readability.parse();
-        result.readerable = readerable;
-        return result;
-      }, testPage.expectedContent, testPage.expectedMetadata);
+      runTestsWithItems("JSDOMParser", function(source) {
+        var parser = new JSDOMParser();
+        var doc = parser.parse(source);
+        if (parser.errorState) {
+          console.error("Parsing this DOM caused errors:", parser.errorState);
+          return null;
+        }
+        return doc;
+      }, uri, testPage.source, testPage.expectedContent, testPage.expectedMetadata);
     });
   });
 });

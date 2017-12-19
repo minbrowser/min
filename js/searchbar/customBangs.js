@@ -2,7 +2,7 @@
 
 registerCustomBang({
   phrase: '!settings',
-  snippet: 'View Settings',
+  snippet: l('viewSettings'),
   isAction: true,
   fn: function (text) {
     navigate(tabs.getSelected(), 'file://' + __dirname + '/pages/settings/index.html')
@@ -11,29 +11,29 @@ registerCustomBang({
 
 registerCustomBang({
   phrase: '!back',
-  snippet: 'Go Back',
+  snippet: l('goBack'),
   isAction: true,
   fn: function (text) {
     try {
       getWebview(tabs.getSelected()).goBack()
-    } catch(e) {}
+    } catch (e) {}
   }
 })
 
 registerCustomBang({
   phrase: '!forward',
-  snippet: 'Go Forward',
+  snippet: l('goForward'),
   isAction: true,
   fn: function (text) {
     try {
       getWebview(tabs.getSelected()).goForward()
-    } catch(e) {}
+    } catch (e) {}
   }
 })
 
 registerCustomBang({
   phrase: '!screenshot',
-  snippet: 'Take a Screenshot',
+  snippet: l('takeScreenshot'),
   isAction: true,
   fn: function (text) {
     setTimeout(function () { // wait until the next frame so that the searchbar is hidden
@@ -55,7 +55,7 @@ registerCustomBang({
 
 registerCustomBang({
   phrase: '!clearhistory',
-  snippet: 'Clear All History',
+  snippet: l('clearHistory'),
   isAction: true,
   fn: function (text) {
     db.places.filter(function (item) {
@@ -83,7 +83,7 @@ function getTaskByNameOrNumber (text) {
 
 registerCustomBang({
   phrase: '!task',
-  snippet: 'Switch to Task',
+  snippet: l('switchToTask'),
   isAction: false,
   fn: function (text) {
 
@@ -111,7 +111,7 @@ registerCustomBang({
 
 registerCustomBang({
   phrase: '!newtask',
-  snippet: 'Create a task',
+  snippet: l('createTask'),
   isAction: true,
   fn: function (text) {
 
@@ -134,7 +134,7 @@ registerCustomBang({
 
 registerCustomBang({
   phrase: '!movetotask',
-  snippet: 'Move this tab to a task',
+  snippet: l('moveToTask'),
   isAction: false,
   fn: function (text) {
 
@@ -173,5 +173,41 @@ registerCustomBang({
     setTimeout(function () {
       taskOverlay.hide()
     }, 600)
+  }
+})
+
+registerCustomBang({
+  phrase: '!bookmarks',
+  snippet: l('searchBookmarks'),
+  isAction: false,
+  showSuggestions: function (text, input, event, container) {
+    bookmarks.searchPlaces(text, function (results) {
+      empty(container)
+
+      results.sort(function (a, b) {
+        // order by last visit
+        return b.lastVisit - a.lastVisit
+      }).forEach(function (result) {
+        container.appendChild(createSearchbarItem({
+          title: result.title,
+          icon: 'fa-star',
+          secondaryText: result.url,
+          url: result.url,
+          delete: function () {
+            bookmarks.deleteHistory(result.url)
+          }
+        }))
+      })
+    }, {searchBookmarks: true})
+  },
+  fn: function (text) {
+    if (!text) {
+      return
+    }
+    bookmarks.searchPlaces(text, function (results) {
+      if (results.length !== 0) {
+        openURLFromSearchbar(results[0].url, null)
+      }
+    }, {searchBookmarks: true})
   }
 })

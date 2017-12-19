@@ -1,3 +1,4 @@
+/*eslint-env es6:false*/
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -25,10 +26,6 @@
  *      document, you must take care to manually update them yourself.
  */
 (function (global) {
-
-  function error(m) {
-    dump("JSDOMParser error: " + m + "\n");
-  }
 
   // XML only defines these and the numeric ones:
 
@@ -456,16 +453,15 @@
             else
               this.children.push(newNode);
           }
-        } else {
+        } else if (oldNode.nodeType === Node.ELEMENT_NODE) {
           // new node is not an element node.
           // if the old one was, update its element siblings:
-          if (oldNode.nodeType === Node.ELEMENT_NODE) {
-            if (oldNode.previousElementSibling)
-              oldNode.previousElementSibling.nextElementSibling = oldNode.nextElementSibling;
-            if (oldNode.nextElementSibling)
-              oldNode.nextElementSibling.previousElementSibling = oldNode.previousElementSibling;
-            this.children.splice(this.children.indexOf(oldNode), 1);
-          }
+          if (oldNode.previousElementSibling)
+            oldNode.previousElementSibling.nextElementSibling = oldNode.nextElementSibling;
+          if (oldNode.nextElementSibling)
+            oldNode.nextElementSibling.previousElementSibling = oldNode.previousElementSibling;
+          this.children.splice(this.children.indexOf(oldNode), 1);
+
           // If the old node wasn't an element, neither the new nor the old node was an element,
           // and the children array and its members shouldn't need any updating.
         }
@@ -485,8 +481,8 @@
     __JSDOMParser__: true,
   };
 
-  for (var i in nodeTypes) {
-    Node[i] = Node.prototype[i] = nodeTypes[i];
+  for (var nodeType in nodeTypes) {
+    Node[nodeType] = Node.prototype[nodeType] = nodeTypes[nodeType];
   }
 
   var Attribute = function (name, value) {
@@ -555,7 +551,7 @@
       this._textContent = newText;
       delete this._innerHTML;
     },
-  }
+  };
 
   var Document = function () {
     this.styleSheets = [];
@@ -669,9 +665,9 @@
               arr.push(" " + attr.name + '=' + quote + val + quote);
             }
 
-            if (child.localName in voidElems) {
+            if (child.localName in voidElems && !child.childNodes.length) {
               // if this is a self-closing element, end it here
-              arr.push(">");
+              arr.push("/>");
             } else {
               // otherwise, add its children
               arr.push(">");
@@ -695,12 +691,13 @@
     set innerHTML(html) {
       var parser = new JSDOMParser();
       var node = parser.parse(html);
-      for (var i = this.childNodes.length; --i >= 0;) {
+      var i;
+      for (i = this.childNodes.length; --i >= 0;) {
         this.childNodes[i].parentNode = null;
       }
       this.childNodes = node.childNodes;
       this.children = node.children;
-      for (var i = this.childNodes.length; --i >= 0;) {
+      for (i = this.childNodes.length; --i >= 0;) {
         this.childNodes[i].parentNode = this;
       }
     },
@@ -824,7 +821,7 @@
       Style.prototype.__defineSetter__(jsName, function (value) {
         this.setStyle(cssName, value);
       });
-    }) (styleMap[jsName]);
+    })(styleMap[jsName]);
   }
 
   var JSDOMParser = function () {
@@ -842,9 +839,16 @@
     // makeElementNode(), which saves us from having to allocate a new array
     // every time.
     this.retPair = [];
+
+    this.errorState = "";
   };
 
   JSDOMParser.prototype = {
+    error: function(m) {
+      dump("JSDOMParser error: " + m + "\n");
+      this.errorState += m + "\n";
+    },
+
     /**
      * Look at the next character without advancing the index.
      */
@@ -899,7 +903,7 @@
       // After a '=', we should see a '"' for the attribute value
       var c = this.nextChar();
       if (c !== '"' && c !== "'") {
-        error("Error reading attribute " + name + ", expecting '\"'");
+        this.error("Error reading attribute " + name + ", expecting '\"'");
         return;
       }
 
@@ -952,19 +956,19 @@
       }
 
       // If this is a self-closing tag, read '/>'
-      var closed = tag in voidElems;
+      var closed = false;
       if (c === "/") {
         closed = true;
         c = this.nextChar();
         if (c !== ">") {
-          error("expected '>' to close " + tag);
+          this.error("expected '>' to close " + tag);
           return false;
         }
       }
 
       retPair[0] = node;
       retPair[1] = closed;
-      return true
+      return true;
     },
 
     /**
@@ -1006,46 +1010,6 @@
       }
     },
 
-    readScript: function (node) {
-      while (this.currentChar < this.html.length) {
-        var c = this.nextChar();
-        var nextC = this.peekNext();
-        if (c === "<") {
-          if (nextC === "!" || nextC === "?") {
-            // We're still before the ! or ? that is starting this comment:
-            this.currentChar++;
-            node.appendChild(this.discardNextComment());
-            continue;
-          }
-          if (nextC === "/" && this.html.substr(this.currentChar, 8 /*"/script>".length */).toLowerCase() == "/script>") {
-            // Go back before the '<' so we find the end tag.
-            this.currentChar--;
-            // Done with this script tag, the caller will close:
-            return;
-          }
-        }
-        // Either c wasn't a '<' or it was but we couldn't find either a comment
-        // or a closing script tag, so we should just parse as text until the next one
-        // comes along:
-
-        var haveTextNode = node.lastChild && node.lastChild.nodeType === Node.TEXT_NODE;
-        var textNode = haveTextNode ? node.lastChild : new Text();
-        var n = this.html.indexOf("<", this.currentChar);
-        // Decrement this to include the current character *afterwards* so we don't get stuck
-        // looking for the same < all the time.
-        this.currentChar--;
-        if (n === -1) {
-          textNode.innerHTML += this.html.substring(this.currentChar, this.html.length);
-          this.currentChar = this.html.length;
-        } else {
-          textNode.innerHTML += this.html.substring(this.currentChar, n);
-          this.currentChar = n;
-        }
-        if (!haveTextNode)
-          node.appendChild(textNode);
-      }
-    },
-
     discardNextComment: function() {
       if (this.match("--")) {
         this.discardTo("-->");
@@ -1078,16 +1042,16 @@
       // Read any text as Text node
       if (c !== "<") {
         --this.currentChar;
-        var node = new Text();
+        var textNode = new Text();
         var n = this.html.indexOf("<", this.currentChar);
         if (n === -1) {
-          node.innerHTML = this.html.substring(this.currentChar, this.html.length);
+          textNode.innerHTML = this.html.substring(this.currentChar, this.html.length);
           this.currentChar = this.html.length;
         } else {
-          node.innerHTML = this.html.substring(this.currentChar, n);
+          textNode.innerHTML = this.html.substring(this.currentChar, n);
           this.currentChar = n;
         }
-        return node;
+        return textNode;
       }
 
       c = this.peekNext();
@@ -1120,14 +1084,10 @@
 
       // If this isn't a void Element, read its child nodes
       if (!closed) {
-        if (localName == "script") {
-          this.readScript(node);
-        } else {
-          this.readChildren(node);
-        }
+        this.readChildren(node);
         var closingTag = "</" + localName + ">";
         if (!this.match(closingTag)) {
-          error("expected '" + closingTag + "'");
+          this.error("expected '" + closingTag + "' and got " + this.html.substr(this.currentChar, closingTag.length));
           return null;
         }
       }
@@ -1181,4 +1141,4 @@
   // Attach JSDOMParser to the global scope
   global.JSDOMParser = JSDOMParser;
 
-}) (this);
+})(this);

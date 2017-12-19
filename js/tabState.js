@@ -1,7 +1,13 @@
-var tabState = {
-  tasks: [], // each task is {id, name, tabs: []}
-  selectedTask: null
+function initializeTabState () {
+  window.tabState = {
+    tasks: [], // each task is {id, name, tabs: [], tabHistory: TabStack}
+    selectedTask: null
+  }
+  window.currentTask = undefined
+  window.tabs = undefined
 }
+
+initializeTabState()
 
 var tabPrototype = {
   add: function (tab, index) {
@@ -53,6 +59,7 @@ var tabPrototype = {
   destroy: function (id) {
     for (var i = 0; i < this.length; i++) {
       if (this[i].id === id) {
+        tasks.getTaskContainingTab(id).tabHistory.push(this[i])
         this.splice(i, 1)
         return i
       }
@@ -78,6 +85,14 @@ var tabPrototype = {
       }
     }
     return undefined
+  },
+  has: function (id) {
+    for (var i = 0; i < this.length; i++) {
+      if (this[i].id === id) {
+        return true
+      }
+    }
+    return false
   },
   getIndex: function (id) {
     for (var i = 0; i < this.length; i++) {
@@ -117,6 +132,17 @@ var tabPrototype = {
     this.sort(function (a, b) {
       return newOrder.indexOf(a.id) - newOrder.indexOf(b.id)
     })
+  },
+  isEmpty: function () {
+    if (!this || this.length === 0) {
+      return true
+    }
+
+    if (this.length === 1 && (!this[0].url || this[0].url === 'about:blank')) {
+      return true
+    }
+
+    return false
   }
 }
 
@@ -133,6 +159,7 @@ var tasks = {
     var newTask = {
       name: task.name || null,
       tabs: task.tabs || [],
+      tabHistory: new TabStack(task.tabHistory),
       id: task.id || String(getRandomId())
     }
 
@@ -157,6 +184,14 @@ var tasks = {
 
     for (var i = 0; i < tabState.tasks.length; i++) {
       if (tabState.tasks[i].id === id) {
+        return tabState.tasks[i]
+      }
+    }
+    return null
+  },
+  getTaskContainingTab: function (tabId) {
+    for (var i = 0; i < tabState.tasks.length; i++) {
+      if (tabState.tasks[i].tabs.has(tabId)) {
         return tabState.tasks[i]
       }
     }
@@ -214,20 +249,4 @@ var tasks = {
 
     return lastActivity
   }
-}
-
-function getSelectedTask () {
-  return getTask(tabState.selectedTask)
-}
-
-function isEmpty (tabList) {
-  if (!tabList || tabList.length === 0) {
-    return true
-  }
-
-  if (tabList.length === 1 && (!tabList[0].url || tabList[0].url === 'about:blank')) {
-    return true
-  }
-
-  return false
 }

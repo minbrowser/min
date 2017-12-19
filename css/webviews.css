@@ -1,16 +1,28 @@
 #webviews {
-	height: calc(100vh - 2.25em);
+	height: calc(100vh - 36px);
 	position: relative;
+}
+body.windows #webviews {
+	height: calc(100vh - 46px);
 }
 #webviews webview {
 	height: 100%;
 	width: 100%;
 	outline: none;
 	position: absolute;
+	background: #fff;
 }
-#webviews webview[hidden] {
+/* new tabs should show as black when dark mode is enabled */
+
+.dark-mode #webviews webview:not([src]) {
+	background: rgb(30, 33, 39);
+}
+#webviews webview.hidden:not(.loading) {
 	display: flex !important;
 	visibility: hidden;
+}
+#webviews webview.loading.hidden {
+	z-index: -1;
 }
 #webviews webview.fullscreen {
 	position: fixed;
@@ -19,10 +31,4 @@
 	width: 100vw;
 	height: 100vh;
 	z-index: 99;
-}
-
-/* hack to work around display: none issues with webviews */
-
-#webviews webview.hidden {
-	visibility: hidden;
 }
