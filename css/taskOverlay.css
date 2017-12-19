@@ -18,7 +18,7 @@ body.windows .navbar {
 	z-index: 9;
 }
 body.windows #switch-task-button {
-	top: 5px;
+	top: 4px;
 	right: 138px;
 }
 #switch-task-button.active {
