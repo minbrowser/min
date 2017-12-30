@@ -1,14 +1,3 @@
-function initializeTabState () {
-  window.tabState = {
-    tasks: [], // each task is {id, name, tabs: [], tabHistory: TabStack}
-    selectedTask: null
-  }
-  window.currentTask = undefined
-  window.tabs = undefined
-}
-
-initializeTabState()
-
 var tabPrototype = {
   add: function (tab, index) {
     // make sure the tab exists before we create it
@@ -150,7 +139,7 @@ function getRandomId () {
   return Math.round(Math.random() * 100000000000000000)
 }
 
-var tasks = {
+var taskPrototype = {
   add: function (task, index) {
     if (!task) {
       task = {}
@@ -163,10 +152,8 @@ var tasks = {
       id: task.id || String(getRandomId())
     }
 
-    // task.currentTask.tabs.__proto__ = tabPrototype
-
     for (var key in tabPrototype) {
-      newTask.tabs.__proto__[key] = tabPrototype[key]
+      newTask.tabs[key] = tabPrototype[key]
     }
 
     if (index) {
@@ -250,3 +237,19 @@ var tasks = {
     return lastActivity
   }
 }
+
+function initializeTabState () {
+  window.tabState = {
+    tasks: [], // each task is {id, name, tabs: [], tabHistory: TabStack}
+    selectedTask: null
+  }
+  for (var key in taskPrototype) {
+    tabState.tasks[key] = taskPrototype[key]
+  }
+
+  window.tasks = tabState.tasks
+  window.currentTask = undefined
+  window.tabs = undefined
+}
+
+initializeTabState()
