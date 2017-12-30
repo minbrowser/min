@@ -109,7 +109,7 @@ ipc.on('addTask', function () {
     return
   }
 
-  addTaskFromOverlay()
+  addTask()
   taskOverlay.show()
   setTimeout(function () {
     taskOverlay.hide()

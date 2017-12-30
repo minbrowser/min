@@ -1,11 +1,3 @@
-function addTaskFromOverlay () {
-  tasks.setSelected(tasks.add())
-  taskOverlay.hide()
-
-  rerenderTabstrip()
-  addTab()
-}
-
 function removeTabFromOverlay (tabId, task) {
   task.tabs.destroy(tabId)
   destroyWebview(tabId)
@@ -16,7 +8,7 @@ function removeTabFromOverlay (tabId, task) {
   if (task.tabs.count() === 0) {
     destroyTask(task.id)
     if (tasks.get().length === 0) {
-      addTaskFromOverlay()
+      addTask()
     } else {
       // re-render the overlay to remove the task element
       getTaskContainer(task.id).remove()
@@ -58,7 +50,7 @@ var TaskOverlayBuilder = {
           container.remove()
 
           if (tasks.get().length === 0) { // create a new task
-            addTaskFromOverlay()
+            addTask()
           }
         })
         return deleteButton

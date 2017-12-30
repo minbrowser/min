@@ -124,7 +124,7 @@ registerCustomBang({
     taskOverlay.show()
 
     setTimeout(function () {
-      addTaskFromOverlay()
+      addTask()
       if (text) {
         currentTask.name = text
       }

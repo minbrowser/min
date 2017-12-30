@@ -7,6 +7,14 @@ var taskOverlayNavbar = document.getElementById('task-overlay-navbar')
 taskSwitcherButton.title = l('viewTasks')
 addTaskLabel.textContent = l('newTask')
 
+function addTask () {
+  tasks.setSelected(tasks.add())
+  taskOverlay.hide()
+
+  rerenderTabstrip()
+  addTab()
+}
+
 taskSwitcherButton.addEventListener('click', function () {
   taskOverlay.toggle()
 })
