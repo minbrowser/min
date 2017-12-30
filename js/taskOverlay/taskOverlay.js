@@ -190,13 +190,13 @@ function syncStateAndOverlay () {
       } else {
         // the task has no tabs, remove it
 
-        destroyTask(task.id)
+        closeTask(task.id)
         container.remove()
       }
     } else {
       // the task no longer exists, remove it
 
-      destroyTask(task.id)
+      closeTask(task.id)
     }
   })
 }

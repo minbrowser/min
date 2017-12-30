@@ -6,13 +6,10 @@ function removeTabFromOverlay (tabId, task) {
 
   // if there are no tabs left, remove the task
   if (task.tabs.count() === 0) {
-    destroyTask(task.id)
-    if (tasks.get().length === 0) {
-      addTask()
-    } else {
-      // re-render the overlay to remove the task element
-      getTaskContainer(task.id).remove()
-    }
+    // remove the task element from the overlay
+    getTaskContainer(task.id).remove()
+    // close the task
+    closeTask(task.id)
   }
 }
 
@@ -32,7 +29,7 @@ var TaskOverlayBuilder = {
           if (e.keyCode === 13) {
             this.blur()
           }
-          tasks.update(task.id, {name: this.value})
+          tasks.update(task.id, { name: this.value })
         })
 
         input.addEventListener('focus', function () {
@@ -46,12 +43,8 @@ var TaskOverlayBuilder = {
         deleteButton.className = 'fa fa-trash-o'
 
         deleteButton.addEventListener('click', function (e) {
-          destroyTask(task.id)
           container.remove()
-
-          if (tasks.get().length === 0) { // create a new task
-            addTask()
-          }
+          closeTask(task.id)
         })
         return deleteButton
       },

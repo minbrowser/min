@@ -41,6 +41,34 @@ function destroyTab (id) {
   destroyWebview(id) // remove the webview
 }
 
+/* destroys a task, and either switches to the next most-recent task or creates a new one */
+
+function closeTask (taskId) {
+  destroyTask(taskId)
+
+  if (taskId === currentTask.id) {
+    // the current task was destroyed, find another task to switch to
+
+    if (tasks.get().length === 0) {
+      // there are no tasks left, create a new one
+      return addTask()
+    } else {
+      // switch to the most-recent task
+
+      var recentTaskList = tasks.get().map(function (task) {
+        return { id: task.id, lastActivity: tasks.getLastActivity(task.id) }
+      })
+
+      // sort the tasks based on how recent they are
+      recentTaskList.sort(function (a, b) {
+        return b.lastActivity - a.lastActivity
+      })
+
+      return switchToTask(recentTaskList[0].id)
+    }
+  }
+}
+
 /* destroys a tab, and either switches to the next tab or creates a new one */
 function closeTab (tabId) {
   /* disabled in focus mode */
