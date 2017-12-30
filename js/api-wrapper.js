@@ -1,4 +1,6 @@
-/* common to webview, tabrenderer, etc */
+/* common actions that affect different parts of the UI (webviews, tabstrip, etc) */
+
+/* loads a page in a webview */
 
 function navigate (tabId, newURL) {
   newURL = urlParser.parse(newURL)
@@ -14,6 +16,8 @@ function navigate (tabId, newURL) {
   })
 }
 
+/* destroys a task object and the associated webviews */
+
 function destroyTask (id) {
   var task = tasks.get(id)
 
@@ -24,7 +28,7 @@ function destroyTask (id) {
   tasks.destroy(id)
 }
 
-// destroys the webview and tab element for a tab
+/* destroys the webview and tab element for a tab */
 function destroyTab (id) {
   var tabEl = getTabElement(id)
   if (tabEl) {
@@ -37,7 +41,7 @@ function destroyTab (id) {
   destroyWebview(id) // remove the webview
 }
 
-// destroys a tab, and either switches to the next tab or creates a new one
+/* destroys a tab, and either switches to the next tab or creates a new one */
 function closeTab (tabId) {
   /* disabled in focus mode */
   if (isFocusMode) {
@@ -60,6 +64,8 @@ function closeTab (tabId) {
     destroyTab(tabId)
   }
 }
+
+/* changes the currently-selected task and updates the UI */
 
 function switchToTask (id) {
   tasks.setSelected(id)
