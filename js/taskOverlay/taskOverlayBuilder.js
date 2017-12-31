@@ -90,10 +90,9 @@ var TaskOverlayBuilder = {
         })
 
         el.setAttribute('data-tab', tab.id)
-        el.setAttribute('data-task', task.id)
 
         el.addEventListener('click', function (e) {
-          switchToTask(this.getAttribute('data-task'))
+          switchToTask(this.parentNode.getAttribute('data-task'))
           switchToTab(this.getAttribute('data-tab'))
 
           taskOverlay.hide()
@@ -107,6 +106,7 @@ var TaskOverlayBuilder = {
       container: function (task) {
         var tabContainer = document.createElement('div')
         tabContainer.className = 'task-tabs-container'
+        tabContainer.setAttribute('data-task', task.id)
 
         if (task.tabs) {
           for (var i = 0; i < task.tabs.length; i++) {
@@ -128,7 +128,7 @@ var TaskOverlayBuilder = {
 
         closeTabButton.addEventListener('click', function (e) {
           var tabId = taskTabElement.getAttribute('data-tab')
-          var taskId = taskTabElement.getAttribute('data-task')
+          var taskId = taskTabElement.parentNode.getAttribute('data-task')
 
           removeTabFromOverlay(tabId, tasks.get(taskId))
           taskTabElement.parentNode.removeChild(taskTabElement)

@@ -90,7 +90,7 @@ var taskOverlay = {
         var recentTaskList = []
 
         tasks.get().forEach(function (task) {
-          recentTaskList.push({id: task.id, lastActivity: tasks.getLastActivity(task.id)})
+          recentTaskList.push({ id: task.id, lastActivity: tasks.getLastActivity(task.id) })
         })
 
         // sort the tasks based on how recent they are
@@ -139,67 +139,35 @@ function getTaskContainer (id) {
   return document.querySelector('.task-container[data-task="{id}"]'.replace('{id}', id))
 }
 
-function syncStateAndOverlay () {
+/* rearrange tabs when they are dropped */
 
-  // get a list of all of the currently open tabs and tasks
-
-  var tabSet = {}
-  var taskSet = {}
-
-  tasks.get().forEach(function (task) {
-    taskSet[task.id] = task
-    task.tabs.get().forEach(function (tab) {
-      tabSet[tab.id] = tab
-    })
-  })
-
-  var selectedTask = currentTask.id
-
-  // destroy the old tasks
-  tasks.destroyAll()
-
-  // add the new tasks, in the order that they are listed in the overlay
-
-  var taskElements = taskContainer.getElementsByClassName('task-container')
-
-  for (var i = 0; i < taskElements.length; i++) {
-    tasks.add(taskSet[taskElements[i].getAttribute('data-task')])
+taskOverlay.dragula.on('drop', function (el, target, source, sibling) { // see https://github.com/bevacqua/dragula#drakeon-events
+  var tabId = el.getAttribute('data-tab')
+  if (sibling) {
+    var adjacentTadId = sibling.getAttribute('data-tab')
   }
 
-  tasks.setSelected(selectedTask)
+  var previousTask = tasks.get(source.getAttribute('data-task'))
+  var newTask = tasks.get(target.getAttribute('data-task'))
 
-  // loop through each task
+  // remove tab from old task
+  var oldTab = previousTask.tabs.splice(previousTask.tabs.getIndex(tabId), 1)[0]
 
-  tasks.get().forEach(function (task) {
-    var container = getTaskContainer(task.id)
+  // if the old task has no tabs left in it, destroy it
 
-    // if the task still exists, update the tabs
-    if (container) {
-      // remove all of the old tabs
-      task.tabs.destroyAll()
+  if (previousTask.tabs.length === 0) {
+    closeTask(previousTask.id)
+    getTaskContainer(previousTask.id).remove()
+  }
 
-      // add the new tabs
-      var newTabs = container.getElementsByClassName('task-tab-item')
+  // find where in the new task the tab should be inserted
+  if (adjacentTadId) {
+    var newIdx = newTask.tabs.getIndex(adjacentTadId)
+  } else {
+    // tab was inserted at end
+    var newIdx = newTask.tabs.length
+  }
 
-      if (newTabs.length !== 0) {
-        for (var i = 0; i < newTabs.length; i++) {
-          task.tabs.add(tabSet[newTabs[i].getAttribute('data-tab')])
-          // update the data-task attribute of the tab element
-          newTabs[i].setAttribute('data-task', task.id)
-        }
-      } else {
-        // the task has no tabs, remove it
-
-        closeTask(task.id)
-        container.remove()
-      }
-    } else {
-      // the task no longer exists, remove it
-
-      closeTask(task.id)
-    }
-  })
-}
-
-taskOverlay.dragula.on('drop', syncStateAndOverlay)
-
+  // insert the tab at the correct spot
+  newTask.tabs.splice(newIdx, 0, oldTab)
+})
