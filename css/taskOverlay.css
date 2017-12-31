@@ -102,6 +102,20 @@ body.windows #task-overlay {
     font-size: 1em;
 }
 
+/* drag handle */
+
+.task-drag-handle {
+	margin-left: -1.5em;
+	padding-right: 0.5em;
+	margin-top: 0.1em;
+	opacity: 0;
+	transition: 0.2s opacity;
+}
+
+.task-container:hover .task-drag-handle {
+	opacity: 0.6;
+}
+
 /* inputs */
 
 .task-name {

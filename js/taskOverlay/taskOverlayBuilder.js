@@ -16,6 +16,11 @@ function removeTabFromOverlay (tabId, task) {
 var TaskOverlayBuilder = {
   create: {
     task: {
+      dragHandle: function () {
+        var dragHandle = document.createElement('i')
+        dragHandle.className = 'fa fa-arrows task-drag-handle'
+        return dragHandle
+      },
       nameInputField: function (task, taskIndex) {
         var input = document.createElement('input')
         input.classList.add('task-name')
@@ -37,7 +42,6 @@ var TaskOverlayBuilder = {
         })
         return input
       },
-
       deleteButton: function (container, task) {
         var deleteButton = document.createElement('i')
         deleteButton.className = 'fa fa-trash-o'
@@ -52,6 +56,10 @@ var TaskOverlayBuilder = {
       actionContainer: function (taskContainer, task, taskIndex) {
         var taskActionContainer = document.createElement('div')
         taskActionContainer.className = 'task-action-container'
+
+        // add the drag handle
+        var dragHandle = this.dragHandle()
+        taskActionContainer.appendChild(dragHandle)
 
         // add the input for the task name
         var input = this.nameInputField(task, taskIndex)

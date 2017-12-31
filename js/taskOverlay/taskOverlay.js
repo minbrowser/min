@@ -32,12 +32,26 @@ var dragula = require('dragula')
 
 var taskOverlay = {
   overlayElement: document.getElementById('task-overlay'),
-
   isShown: false,
-  dragula: dragula({
+  tabDragula: dragula({
     direction: 'vertical'
   }),
-
+  taskDragula: dragula({
+    direction: 'vertical',
+    containers: [taskContainer],
+    moves: function (el, source, handle, sibling) {
+      // ignore drag events that come from a tab element, since they will be handled by the other dragula instance
+      // also ignore inputs, since using them as drag handles breaks text selection
+      var n = handle
+      while (n) {
+        if (n.classList.contains('task-tab-item') || n.tagName === 'INPUT') {
+          return false
+        }
+        n = n.parentElement
+      }
+      return true
+    }
+  }),
   show: function () {
     /* disabled in focus mode */
     if (isFocusMode) {
@@ -52,7 +66,7 @@ var taskOverlay = {
     this.isShown = true
     taskSwitcherButton.classList.add('active')
 
-    this.dragula.containers = []
+    this.tabDragula.containers = []
     empty(taskContainer)
 
     // show the task elements
@@ -60,7 +74,7 @@ var taskOverlay = {
       var el = window.task_container_build_func(task, index)
 
       taskContainer.appendChild(el)
-      taskOverlay.dragula.containers.push(el.getElementsByClassName('task-tabs-container')[0])
+      taskOverlay.tabDragula.containers.push(el.getElementsByClassName('task-tabs-container')[0])
     })
 
     // scroll to the selected element and focus it
@@ -123,7 +137,7 @@ function getTaskContainer (id) {
 
 /* rearrange tabs when they are dropped */
 
-taskOverlay.dragula.on('drop', function (el, target, source, sibling) { // see https://github.com/bevacqua/dragula#drakeon-events
+taskOverlay.tabDragula.on('drop', function (el, target, source, sibling) { // see https://github.com/bevacqua/dragula#drakeon-events
   var tabId = el.getAttribute('data-tab')
   if (sibling) {
     var adjacentTadId = sibling.getAttribute('data-tab')
@@ -152,4 +166,26 @@ taskOverlay.dragula.on('drop', function (el, target, source, sibling) { // see h
 
   // insert the tab at the correct spot
   newTask.tabs.splice(newIdx, 0, oldTab)
+})
+
+/* rearrange tasks when they are dropped */
+
+taskOverlay.taskDragula.on('drop', function (el, target, source, sibling) {
+  var droppedTaskId = el.getAttribute('data-task')
+  if (sibling) {
+    var adjacentTaskId = sibling.getAttribute('data-task')
+  }
+
+  // remove the task from the tasks list
+  var droppedTask = tasks.splice(tasks.getIndex(droppedTaskId), 1)[0]
+
+  // find where it should be inserted
+  if (adjacentTaskId) {
+    var newIdx = tasks.getIndex(adjacentTaskId)
+  } else {
+    var newIdx = tasks.length
+  }
+
+  // reinsert the task
+  tasks.splice(newIdx, 0, droppedTask)
 })
