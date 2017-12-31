@@ -83,24 +83,6 @@ var taskOverlay = {
 
       document.body.classList.remove('task-overlay-is-shown')
 
-      // if the current task has been deleted, switch to the most recent task
-      if (!tasks.get(currentTask.id)) {
-
-        // find the last activity of each remaining task
-        var recentTaskList = []
-
-        tasks.get().forEach(function (task) {
-          recentTaskList.push({ id: task.id, lastActivity: tasks.getLastActivity(task.id) })
-        })
-
-        // sort the tasks based on how recent they are
-        recentTaskList.sort(function (a, b) {
-          return b.lastActivity - a.lastActivity
-        })
-
-        switchToTask(recentTaskList[0].id)
-      }
-
       // if the current tab has been deleted, switch to the most recent one
 
       if (!tabs.getSelected()) {
