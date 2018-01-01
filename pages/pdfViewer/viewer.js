@@ -322,7 +322,7 @@ PDFJS.getDocument({ url: url, withCredentials: true }).then(async function (pdf)
   downloadPDF();
 })
 
-var isBlurred = false
+var isFindInPage = false
 
 var currentPage = null
 
@@ -346,7 +346,7 @@ function updateVisiblePages() {
     var rect = pageRects[i]
     var textLayer = pageViews[i].textLayer
 
-    if (!isBlurred && (rect.bottom < -80 || rect.top > ih)) {
+    if (!isFindInPage && (rect.bottom < -80 || rect.top > ih)) {
       pageViews[i].div.style.visibility = 'hidden'
       if (textLayer) {
         textLayer.textLayerDiv.style.display = 'none'
@@ -372,22 +372,6 @@ window.addEventListener('scroll', throttle(function () {
   pageCounter.update();
   updateVisiblePages()
 }, 50));
-
-window.addEventListener('blur', function () {
-  isBlurred = true
-
-  for (var i = 0; i < pageViews.length; i++) {
-    pageViews[i].div.style.visibility = 'visible'
-    if (pageViews[i].textLayer) {
-      pageViews[i].textLayer.textLayerDiv.style.display = 'block'
-    }
-  }
-})
-
-window.addEventListener('focus', function () {
-  isBlurred = false
-  updateVisiblePages()
-})
 
 /* keep the UI size constant, regardless of the zoom level.
 It would probably be better to add API's in Min for this. */
@@ -614,9 +598,29 @@ mediaQueryList.onchange = function (mql) {
   }
 };
 
+/* find in page mode - make all pages visible so that Chromium's search can search the whole PDF */
+
+function startFindInPage() {
+  isFindInPage = true
+
+  for (var i = 0; i < pageViews.length; i++) {
+    pageViews[i].div.style.visibility = 'visible'
+    if (pageViews[i].textLayer) {
+      pageViews[i].textLayer.textLayerDiv.style.display = 'block'
+    }
+  }
+}
+
+function endFindInPage() {
+  isFindInPage = false
+  updateVisiblePages()
+}
+
 /* these functions are called from the parent process */
 
 var parentProcessActions = {
   downloadPDF: downloadPDF,
-  printPDF: printPDF
+  printPDF: printPDF,
+  startFindInPage: startFindInPage,
+  endFindInPage: endFindInPage
 }

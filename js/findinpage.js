@@ -11,6 +11,12 @@ var findinpage = {
 
     findinpage.activeWebview = getWebview(tabs.getSelected())
 
+    /* special case for PDF viewer */
+
+    if (PDFViewer.isPDFViewer(tabs.getSelected())) {
+      PDFViewer.startFindInPage(tabs.getSelected())
+    }
+
     findinpage.counter.textContent = ''
     findinpage.container.hidden = false
     findinpage.input.focus()
@@ -28,6 +34,12 @@ var findinpage = {
 
     if (findinpage.activeWebview) {
       findinpage.activeWebview.stopFindInPage(action)
+
+      /* special case for PDF viewer */
+      if (PDFViewer.isPDFViewer(tabs.getSelected())) {
+        PDFViewer.endFindInPage(tabs.getSelected())
+      }
+
       if (findinpage.input === document.activeElement) {
         findinpage.activeWebview.focus()
       }
