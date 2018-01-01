@@ -551,7 +551,7 @@ function afterPrintComplete() {
   updateVisiblePages();
 }
 
-function printDocument() {
+function printPDF() {
   var begunCount = 0;
   var doneCount = 0;
 
@@ -613,3 +613,10 @@ mediaQueryList.onchange = function (mql) {
     }, 1000);
   }
 };
+
+/* these functions are called from the parent process */
+
+var parentProcessActions = {
+  downloadPDF: downloadPDF,
+  printPDF: printPDF
+}

@@ -13,14 +13,14 @@ var PDFViewer = {
       throw new Error("attempting to print in a tab that isn't a PDF viewer")
     }
 
-    getWebview(viewerTabId).executeJavaScript('printDocument()', false)
+    getWebview(viewerTabId).executeJavaScript('parentProcessActions.printPDF()', false)
   },
   savePDF: function (viewerTabId) {
     if (!PDFViewer.isPDFViewer(viewerTabId)) {
       throw new Error("attempting to save in a tab that isn't a PDF viewer")
     }
 
-    getWebview(viewerTabId).executeJavaScript('downloadPDF()', false)
+    getWebview(viewerTabId).executeJavaScript('parentProcessActions.downloadPDF()', false)
   },
   handlePDFOpenEvent: function (event, data) {
     var PDFurl = PDFViewer.url.base + PDFViewer.url.queryString.replace('%l', encodeURIComponent(data.url))
