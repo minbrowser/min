@@ -172,6 +172,11 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 })
 
+function formatCamelCase (text) {
+  var result = text.replace(/([A-Z])/g, ' $1')
+  return result.charAt(0).toUpperCase() + result.slice(1)
+}
+
 function createKeyMapListItem (action, keyMap) {
   var li = document.createElement('li')
   var label = document.createElement('label')
@@ -181,7 +186,7 @@ function createKeyMapListItem (action, keyMap) {
 
   input.type = 'text'
   input.id = input.name = action
-  input.value = keyMap[action]
+  input.value = formatKeyValue(keyMap[action])
   input.addEventListener('change', onKeyMapChange)
 
   li.appendChild(label)
@@ -190,9 +195,38 @@ function createKeyMapListItem (action, keyMap) {
   return li
 }
 
-function formatCamelCase (text) {
-  var result = text.replace(/([A-Z])/g, ' $1')
-  return result.charAt(0).toUpperCase() + result.slice(1)
+function formatKeyValue (value) {
+  // multiple shortcuts should be separated by commas
+  if (value instanceof Array) {
+    value = value.join(', ')
+  }
+  // use either command or ctrl depending on the platform
+  if (navigator.platform === 'MacIntel') {
+    value = value.replace(/\bmod\b/g, 'command')
+  } else {
+    value = value.replace(/\bmod\b/g, 'ctrl')
+    value = value.replace(/\boption\b/g, 'alt')
+  }
+  return value
+}
+
+function parseKeyInput (input) {
+  // input may be a single mapping or multiple mappings comma separated.
+  var parsed = input.split(',')
+  parsed = parsed.map(function (e) { return e.trim() })
+  // Remove empty
+  parsed = parsed.filter(Boolean)
+  // convert key names back to generic equivalents
+  parsed = parsed.map(function (e) {
+    if (navigator.platform === 'MacIntel') {
+      e = e.replace(/\b(command)|(cmd)\b/g, 'mod')
+    } else {
+      e = e.replace(/\b(control)|(ctrl)\b/g, 'mod')
+      e = e.replace(/\balt\b/g, 'option')
+    }
+    return e
+  })
+  return parsed.length > 1 ? parsed : parsed[0]
 }
 
 function onKeyMapChange (e) {
@@ -209,13 +243,4 @@ function onKeyMapChange (e) {
       showRestartRequiredBanner()
     })
   })
-}
-
-function parseKeyInput (input) {
-    // input may be a single mapping or multiple mappings comma separated.
-  var parsed = input.split(',')
-  parsed = parsed.map(function (e) { return e.trim() })
-    // Remove empty
-  parsed = parsed.filter(Boolean)
-  return parsed.length > 1 ? parsed : parsed[0]
 }
