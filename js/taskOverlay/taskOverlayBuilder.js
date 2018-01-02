@@ -1,11 +1,3 @@
-function addTaskFromOverlay () {
-  tasks.setSelected(tasks.add())
-  taskOverlay.hide()
-
-  rerenderTabstrip()
-  addTab()
-}
-
 function removeTabFromOverlay (tabId, task) {
   task.tabs.destroy(tabId)
   destroyWebview(tabId)
@@ -14,19 +6,21 @@ function removeTabFromOverlay (tabId, task) {
 
   // if there are no tabs left, remove the task
   if (task.tabs.count() === 0) {
-    destroyTask(task.id)
-    if (tasks.get().length === 0) {
-      addTaskFromOverlay()
-    } else {
-      // re-render the overlay to remove the task element
-      getTaskContainer(task.id).remove()
-    }
+    // remove the task element from the overlay
+    getTaskContainer(task.id).remove()
+    // close the task
+    closeTask(task.id)
   }
 }
 
 var TaskOverlayBuilder = {
   create: {
     task: {
+      dragHandle: function () {
+        var dragHandle = document.createElement('i')
+        dragHandle.className = 'fa fa-arrows task-drag-handle'
+        return dragHandle
+      },
       nameInputField: function (task, taskIndex) {
         var input = document.createElement('input')
         input.classList.add('task-name')
@@ -40,7 +34,7 @@ var TaskOverlayBuilder = {
           if (e.keyCode === 13) {
             this.blur()
           }
-          tasks.update(task.id, {name: this.value})
+          tasks.update(task.id, { name: this.value })
         })
 
         input.addEventListener('focus', function () {
@@ -48,18 +42,13 @@ var TaskOverlayBuilder = {
         })
         return input
       },
-
       deleteButton: function (container, task) {
         var deleteButton = document.createElement('i')
         deleteButton.className = 'fa fa-trash-o'
 
         deleteButton.addEventListener('click', function (e) {
-          destroyTask(task.id)
           container.remove()
-
-          if (tasks.get().length === 0) { // create a new task
-            addTaskFromOverlay()
-          }
+          closeTask(task.id)
         })
         return deleteButton
       },
@@ -67,6 +56,10 @@ var TaskOverlayBuilder = {
       actionContainer: function (taskContainer, task, taskIndex) {
         var taskActionContainer = document.createElement('div')
         taskActionContainer.className = 'task-action-container'
+
+        // add the drag handle
+        var dragHandle = this.dragHandle()
+        taskActionContainer.appendChild(dragHandle)
 
         // add the input for the task name
         var input = this.nameInputField(task, taskIndex)
@@ -105,10 +98,9 @@ var TaskOverlayBuilder = {
         })
 
         el.setAttribute('data-tab', tab.id)
-        el.setAttribute('data-task', task.id)
 
         el.addEventListener('click', function (e) {
-          switchToTask(this.getAttribute('data-task'))
+          switchToTask(this.parentNode.getAttribute('data-task'))
           switchToTab(this.getAttribute('data-tab'))
 
           taskOverlay.hide()
@@ -122,6 +114,7 @@ var TaskOverlayBuilder = {
       container: function (task) {
         var tabContainer = document.createElement('div')
         tabContainer.className = 'task-tabs-container'
+        tabContainer.setAttribute('data-task', task.id)
 
         if (task.tabs) {
           for (var i = 0; i < task.tabs.length; i++) {
@@ -135,12 +128,15 @@ var TaskOverlayBuilder = {
 
       closeButton: function (taskTabElement) {
         var closeTabButton = document.createElement('button')
-        closeTabButton.innerHTML = '<i class="fa fa-close"/>'
         closeTabButton.className = 'closeTab'
+
+        var closeTabIcon = document.createElement('i')
+        closeTabIcon.className = 'fa fa-close'
+        closeTabButton.appendChild(closeTabIcon)
 
         closeTabButton.addEventListener('click', function (e) {
           var tabId = taskTabElement.getAttribute('data-tab')
-          var taskId = taskTabElement.getAttribute('data-task')
+          var taskId = taskTabElement.parentNode.getAttribute('data-task')
 
           removeTabFromOverlay(tabId, tasks.get(taskId))
           taskTabElement.parentNode.removeChild(taskTabElement)

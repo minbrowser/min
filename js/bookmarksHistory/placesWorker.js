@@ -177,8 +177,8 @@ onmessage = function (e) {
       db.places.where('url').equals(pageData.url).first(function (item) {
         if (!item) {
           item = {
-            url: url,
-            title: url,
+            url: pageData.url,
+            title: pageData.url,
             color: '',
             visitCount: 1,
             lastVisit: Date.now(),

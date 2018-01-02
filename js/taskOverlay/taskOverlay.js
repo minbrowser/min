@@ -7,6 +7,14 @@ var taskOverlayNavbar = document.getElementById('task-overlay-navbar')
 taskSwitcherButton.title = l('viewTasks')
 addTaskLabel.textContent = l('newTask')
 
+function addTask () {
+  tasks.setSelected(tasks.add())
+  taskOverlay.hide()
+
+  rerenderTabstrip()
+  addTab()
+}
+
 taskSwitcherButton.addEventListener('click', function () {
   taskOverlay.toggle()
 })
@@ -24,12 +32,26 @@ var dragula = require('dragula')
 
 var taskOverlay = {
   overlayElement: document.getElementById('task-overlay'),
-
   isShown: false,
-  dragula: dragula({
+  tabDragula: dragula({
     direction: 'vertical'
   }),
-
+  taskDragula: dragula({
+    direction: 'vertical',
+    containers: [taskContainer],
+    moves: function (el, source, handle, sibling) {
+      // ignore drag events that come from a tab element, since they will be handled by the other dragula instance
+      // also ignore inputs, since using them as drag handles breaks text selection
+      var n = handle
+      while (n) {
+        if (n.classList.contains('task-tab-item') || n.tagName === 'INPUT') {
+          return false
+        }
+        n = n.parentElement
+      }
+      return true
+    }
+  }),
   show: function () {
     /* disabled in focus mode */
     if (isFocusMode) {
@@ -37,12 +59,14 @@ var taskOverlay = {
       return
     }
 
+    document.body.classList.add('task-overlay-is-shown')
+
     leaveTabEditMode()
 
     this.isShown = true
     taskSwitcherButton.classList.add('active')
 
-    this.dragula.containers = []
+    this.tabDragula.containers = []
     empty(taskContainer)
 
     // show the task elements
@@ -50,7 +74,7 @@ var taskOverlay = {
       var el = window.task_container_build_func(task, index)
 
       taskContainer.appendChild(el)
-      taskOverlay.dragula.containers.push(el.getElementsByClassName('task-tabs-container')[0])
+      taskOverlay.tabDragula.containers.push(el.getElementsByClassName('task-tabs-container')[0])
     })
 
     // scroll to the selected element and focus it
@@ -71,23 +95,7 @@ var taskOverlay = {
       this.isShown = false
       this.overlayElement.hidden = true
 
-      // if the current task has been deleted, switch to the most recent task
-      if (!tasks.get(currentTask.id)) {
-
-        // find the last activity of each remaining task
-        var recentTaskList = []
-
-        tasks.get().forEach(function (task) {
-          recentTaskList.push({id: task.id, lastActivity: tasks.getLastActivity(task.id)})
-        })
-
-        // sort the tasks based on how recent they are
-        recentTaskList.sort(function (a, b) {
-          return b.lastActivity - a.lastActivity
-        })
-
-        switchToTask(recentTaskList[0].id)
-      }
+      document.body.classList.remove('task-overlay-is-shown')
 
       // if the current tab has been deleted, switch to the most recent one
 
@@ -127,67 +135,57 @@ function getTaskContainer (id) {
   return document.querySelector('.task-container[data-task="{id}"]'.replace('{id}', id))
 }
 
-function syncStateAndOverlay () {
+/* rearrange tabs when they are dropped */
 
-  // get a list of all of the currently open tabs and tasks
-
-  var tabSet = {}
-  var taskSet = {}
-
-  tasks.get().forEach(function (task) {
-    taskSet[task.id] = task
-    task.tabs.get().forEach(function (tab) {
-      tabSet[tab.id] = tab
-    })
-  })
-
-  var selectedTask = currentTask.id
-
-  // destroy the old tasks
-  tasks.destroyAll()
-
-  // add the new tasks, in the order that they are listed in the overlay
-
-  var taskElements = taskContainer.getElementsByClassName('task-container')
-
-  for (var i = 0; i < taskElements.length; i++) {
-    tasks.add(taskSet[taskElements[i].getAttribute('data-task')])
+taskOverlay.tabDragula.on('drop', function (el, target, source, sibling) { // see https://github.com/bevacqua/dragula#drakeon-events
+  var tabId = el.getAttribute('data-tab')
+  if (sibling) {
+    var adjacentTadId = sibling.getAttribute('data-tab')
   }
 
-  tasks.setSelected(selectedTask)
+  var previousTask = tasks.get(source.getAttribute('data-task'))
+  var newTask = tasks.get(target.getAttribute('data-task'))
 
-  // loop through each task
+  // remove tab from old task
+  var oldTab = previousTask.tabs.splice(previousTask.tabs.getIndex(tabId), 1)[0]
 
-  tasks.get().forEach(function (task) {
-    var container = getTaskContainer(task.id)
+  // if the old task has no tabs left in it, destroy it
 
-    // if the task still exists, update the tabs
-    if (container) {
-      // remove all of the old tabs
-      task.tabs.destroyAll()
+  if (previousTask.tabs.length === 0) {
+    closeTask(previousTask.id)
+    getTaskContainer(previousTask.id).remove()
+  }
 
-      // add the new tabs
-      var newTabs = container.getElementsByClassName('task-tab-item')
+  // find where in the new task the tab should be inserted
+  if (adjacentTadId) {
+    var newIdx = newTask.tabs.getIndex(adjacentTadId)
+  } else {
+    // tab was inserted at end
+    var newIdx = newTask.tabs.length
+  }
 
-      if (newTabs.length !== 0) {
-        for (var i = 0; i < newTabs.length; i++) {
-          task.tabs.add(tabSet[newTabs[i].getAttribute('data-tab')])
-          // update the data-task attribute of the tab element
-          newTabs[i].setAttribute('data-task', task.id)
-        }
-      } else {
-        // the task has no tabs, remove it
+  // insert the tab at the correct spot
+  newTask.tabs.splice(newIdx, 0, oldTab)
+})
 
-        destroyTask(task.id)
-        container.remove()
-      }
-    } else {
-      // the task no longer exists, remove it
+/* rearrange tasks when they are dropped */
 
-      destroyTask(task.id)
-    }
-  })
-}
+taskOverlay.taskDragula.on('drop', function (el, target, source, sibling) {
+  var droppedTaskId = el.getAttribute('data-task')
+  if (sibling) {
+    var adjacentTaskId = sibling.getAttribute('data-task')
+  }
 
-taskOverlay.dragula.on('drop', syncStateAndOverlay)
+  // remove the task from the tasks list
+  var droppedTask = tasks.splice(tasks.getIndex(droppedTaskId), 1)[0]
 
+  // find where it should be inserted
+  if (adjacentTaskId) {
+    var newIdx = tasks.getIndex(adjacentTaskId)
+  } else {
+    var newIdx = tasks.length
+  }
+
+  // reinsert the task
+  tasks.splice(newIdx, 0, droppedTask)
+})

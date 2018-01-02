@@ -7,11 +7,16 @@
 	align-items: center;
 	padding-left: 0.5em;
 	padding-right: 0.75em;
-	height: 36px;
+	height: 35px;
 	z-index: 99;
 }
 body.mac:not(.fullscreen) #findinpage-bar {
 	padding-left: 80px;
+}
+body.windows #findinpage-bar {
+	top: 10px;
+	right: 138px;
+	width: calc(100% - 138px);
 }
 #findinpage-bar #findinpage-input {
 	flex: 1;

@@ -16,6 +16,7 @@ module.exports = function (grunt) {
         src: [
           'dist/localization.build.js',
           'js/default.js',
+          'js/windowsCaptionButtons.js',
           'js/util/database.js',
           'js/util/defaultKeyMap.js',
           'js/util/settings.js',
@@ -47,6 +48,7 @@ module.exports = function (grunt) {
           'js/taskOverlay/taskOverlayBuilder.js',
           'js/navbar/addTabButton.js',
           'js/navbar/goBackButton.js',
+          'js/navbar/menuButton.js',
           'js/keybindings.js',
           'js/pdfViewer.js',
           'js/findinpage.js',
@@ -132,6 +134,7 @@ module.exports = function (grunt) {
           'app-version': version,
           platform: 'win32',
           arch: 'all',
+          icon: 'icons/icon256.ico',
           ignore: ignoredDirs,
           prune: true,
           overwrite: true

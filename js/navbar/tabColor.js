@@ -103,7 +103,7 @@ function updateTabColor (favicons, tabId) {
       }
 
       if (window.isDarkMode) {
-        colorChange = Math.min(colorChange, 0.66)
+        colorChange = Math.min(colorChange, 0.58)
       }
 
       c[0] = Math.round(c[0] * colorChange)

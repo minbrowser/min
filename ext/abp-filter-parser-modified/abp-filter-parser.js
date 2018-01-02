@@ -455,8 +455,12 @@
 
       if (lastFilterIdx < filtersLength) {
         setTimeout(nextChunk, 16)
-      } else if (callback) {
-        callback()
+      } else {
+        parserData.initialized = true
+
+        if (callback) {
+          callback()
+        }
       }
     }
 
@@ -578,6 +582,9 @@
   }
 
   function matches (filters, input, contextParams) {
+    if (!filters.initialized) {
+      return false
+    }
     if (matchesFilters(filters, input, contextParams) && !matchesFilters(filters.exceptionFilters, input, contextParams)) {
       return true
     }

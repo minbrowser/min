@@ -11,6 +11,12 @@ var findinpage = {
 
     findinpage.activeWebview = getWebview(tabs.getSelected())
 
+    /* special case for PDF viewer */
+
+    if (PDFViewer.isPDFViewer(tabs.getSelected())) {
+      PDFViewer.startFindInPage(tabs.getSelected())
+    }
+
     findinpage.counter.textContent = ''
     findinpage.container.hidden = false
     findinpage.input.focus()
@@ -28,6 +34,12 @@ var findinpage = {
 
     if (findinpage.activeWebview) {
       findinpage.activeWebview.stopFindInPage(action)
+
+      /* special case for PDF viewer */
+      if (PDFViewer.isPDFViewer(tabs.getSelected())) {
+        PDFViewer.endFindInPage(tabs.getSelected())
+      }
+
       if (findinpage.input === document.activeElement) {
         findinpage.activeWebview.focus()
       }
@@ -67,10 +79,10 @@ findinpage.input.addEventListener('input', function (e) {
 
 findinpage.input.addEventListener('keypress', function (e) {
   if (e.keyCode === 13) { // Return/Enter key
-    if(e.shiftKey)
-      findinpage.goToPrev()
-    else
-      findinpage.goToNext()
+    findinpage.activeWebview.findInPage(findinpage.input.value, {
+      forward: !e.shiftKey, // find previous if Shift is pressed
+      findNext: true
+    })
   }
 })
 

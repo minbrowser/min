@@ -1,6 +1,9 @@
 #webviews {
-	height: calc(100vh - 2.25em);
+	height: calc(100vh - 36px);
 	position: relative;
+}
+body.windows #webviews {
+	height: calc(100vh - 46px);
 }
 #webviews webview {
 	height: 100%;

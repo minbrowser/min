@@ -94,7 +94,7 @@ h1.textContent = title
 h2.textContent = subtitle
 document.title = title
 
-if (err.secondaryAction) {
+if (err && err.secondaryAction) {
   secondaryButton.hidden = false
   secondaryButton.textContent = err.secondaryAction.title
   secondaryButton.addEventListener('click', function () {
