@@ -212,7 +212,7 @@ function formatKeyValue (value) {
 
 function parseKeyInput (input) {
   // input may be a single mapping or multiple mappings comma separated.
-  var parsed = input.split(',')
+  var parsed = input.toLowerCase().split(',')
   parsed = parsed.map(function (e) { return e.trim() })
   // Remove empty
   parsed = parsed.filter(Boolean)
