@@ -106,7 +106,7 @@
         "settingsDefaultSearchEngine": "Elija un motor de búsqueda predeterminado:",
         "settingsDDGExplanation": "Establezca DuckDuckGo como motor de búsqueda predeterminado para ver respuestas instantáneas en la barra de búsqueda.",
         "settingsKeyboardShortcutsHeading": "Atajos de teclado",
-        "settingsKeyboardShortcutsHelp": "Escriba \"mod\" para usar la tecla Comando o de control.",
+        "settingsKeyboardShortcutsHelp": null, //missing translation
         /* app menu */
         "appMenuFile": "Archivo",
         "appMenuNewTab": "Nueva pestaña",

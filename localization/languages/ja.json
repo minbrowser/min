@@ -106,7 +106,7 @@
         "settingsDefaultSearchEngine": "デフォルトの検索エンジンを選択してください:",
         "settingsDDGExplanation": "検索バーにインスタントアンサーを表示するには、DuckDuckGoをデフォルトの検索エンジンに設定してください。",
         "settingsKeyboardShortcutsHeading": "キーボードショートカット",
-        "settingsKeyboardShortcutsHelp": "コマンドまたはコントロールキーを使用するには、\"mod\"と入力してください。",
+        "settingsKeyboardShortcutsHelp": null, //missing translation
         /* app menu */
         "appMenuFile": "ファイル",
         "appMenuNewTab": "新規タブ",

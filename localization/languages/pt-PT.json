@@ -106,7 +106,7 @@
         "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",
         "settingsDDGExplanation": "Defina DuckDuckGo como motor de pesquisa padrão para poder obter sugestões instantâneas na barra de pesquisa.",
         "settingsKeyboardShortcutsHeading": "Teclas de atalho",
-        "settingsKeyboardShortcutsHelp": "Digite \"mod\" para utilizar as teclas Ctrl ou Comando.",
+        "settingsKeyboardShortcutsHelp": null, //missing translation
         /* app menu */
         "appMenuFile": "Ficheiro",
         "appMenuNewTab": "Novo separador",

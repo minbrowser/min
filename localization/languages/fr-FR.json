@@ -106,7 +106,7 @@
         "settingsDefaultSearchEngine": "Choisir un moteur de recherche par défaut :",
         "settingsDDGExplanation": "Définir DuckDuckGo comme moteur de recherche par défaut pour voir instantanément des résulats dans la barre de recherche.",
         "settingsKeyboardShortcutsHeading": "Raccourcis clavier",
-        "settingsKeyboardShortcutsHelp": "Tapez \"mod\" pour utiliser la commande ou la touche de controle.",
+        "settingsKeyboardShortcutsHelp": null, //missing translation
         /* app menu */
         "appMenuFile": "Fichier",
         "appMenuNewTab": "Nouvel onglet",

@@ -105,7 +105,7 @@
         "settingsDefaultSearchEngine": "Выберите поиск по умолчанию:",
         "settingsDDGExplanation": "Чтобы видеть мгновенные ответы в строке поиска, установите DuckDuckGo поисковиком по умолчанию.",
         "settingsKeyboardShortcutsHeading": "Горячие клавиши",
-        "settingsKeyboardShortcutsHelp": "Для обозначения клавиши Ctrl/Cmd используйте слово \"mod\".",
+        "settingsKeyboardShortcutsHelp": null, //missing translation
         /* app menu */
         "appMenuFile": "Файл",
         "appMenuNewTab": "Новая вкладка",

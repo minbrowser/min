@@ -105,7 +105,7 @@
         "settingsDefaultSearchEngine": "Suchmaschine auswählen:",
         "settingsDDGExplanation": "DuckDuckGo als Standard-Suchmaschine einstellen, um sofort Vorschläge in der Suchleiste zu erhalten.",
         "settingsKeyboardShortcutsHeading": "Tastaturkürzel",
-        "settingsKeyboardShortcutsHelp": "Geben Sie \"mod\" ein um die Kommando- oder Kontrolltaste zu nutzen.",
+        "settingsKeyboardShortcutsHelp": null, //missing translation
         /* app menu */
         "appMenuFile": "Datei",
         "appMenuNewTab": "Neuer Tab",

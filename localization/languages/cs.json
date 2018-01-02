@@ -105,7 +105,7 @@
         "settingsDefaultSearchEngine": "Zvolte si výchozí vyhledávač:",
         "settingsDDGExplanation": "Nastavte DuckDuckGo jako výchozí vyhledávač pro zobrazování okamžitých odpovědí ve vyhledávacím panelu.",
         "settingsKeyboardShortcutsHeading": "Klávesové zkratky",
-        "settingsKeyboardShortcutsHelp": "Pište \"mod\" pro použití příkazu nebo kontrolní klávesy (Ctrl).",
+        "settingsKeyboardShortcutsHelp": null, //missing translation
         /* app menu */
         "appMenuFile": "Soubor",
         "appMenuNewTab": "Nová karta",
