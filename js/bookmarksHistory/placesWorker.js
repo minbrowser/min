@@ -198,9 +198,7 @@ onmessage = function (e) {
   }
 
   if (action === 'deleteHistory') {
-    db.places.where('url').equals(pageData.url).filter(function (item) {
-      return item.isBookmarked === false
-    }).delete()
+    db.places.where('url').equals(pageData.url).delete()
 
     // delete from the in-memory cache
     for (let i = 0; i < historyInMemoryCache.length; i++) {
