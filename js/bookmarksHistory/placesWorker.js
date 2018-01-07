@@ -59,7 +59,7 @@ function addOrUpdateHistoryCache (item) {
   delete item.extractedText
   delete item.searchIndex
 
-  let found = true
+  let found = false
 
   for (let i = 0; i < historyInMemoryCache.length; i++) {
     if (historyInMemoryCache[i].url === item.url) {
@@ -190,7 +190,7 @@ onmessage = function (e) {
         }
         item.isBookmarked = pageData.shouldBeBookmarked
 
-        db.places.where('url').equals(pageData.url).modify(item)
+        db.places.put(item)
 
         addOrUpdateHistoryCache(item)
       })
