@@ -141,9 +141,8 @@ onmessage = function (e) {
       /* visitCount is added below */
       lastVisit: Date.now(),
       pageHTML: '',
-      extractedText: pageData.extractedText || '',
-      // searchIndex is updated by DB hooks whenever extractedText changes
-      searchIndex: [],
+      extractedText: '',
+      searchIndex: tokenize(pageData.extractedText || ''),
       metadata: pageData.metadata
     }
 
@@ -153,7 +152,7 @@ onmessage = function (e) {
         if (oldItem) {
           item.visitCount = oldItem.visitCount + 1
           item.isBookmarked = oldItem.isBookmarked
-          db.places.where('url').equals(pageData.url).modify(item)
+          db.places.put(item)
 
           addOrUpdateHistoryCache(item)
         /* if the item doesn't exist, add a new item */

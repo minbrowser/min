@@ -127,26 +127,12 @@ const stopWords = {
   'your': true
 }
 
+/* this is used in placesWorker.js when a history item is created */
 function tokenize (string) {
   return string.trim().toLowerCase().replace(notWordOrWhitespaceRegex, ' ').split(whitespaceRegex).filter(function (token) {
     return !stopWords[token]
   }).slice(0, 20000)
 }
-
-/* re-index the history item whenever it is created or updated */
-
-db.places.hook('creating', function (primaryKey, item, transaction) {
-  item.searchIndex = tokenize(item.extractedText)
-})
-db.places.hook('updating', function (changes, primaryKey, item, transaction) {
-  if (changes.extractedText) {
-    if (typeof changes.extractedText === 'string') {
-      return { searchIndex: tokenize(changes.extractedText) }
-    } else {
-      return { searchIndex: [] }
-    }
-  }
-})
 
 // finds the documents that contain all of the prefixes in their searchIndex
 // code from https://github.com/dfahlander/Dexie.js/issues/281
