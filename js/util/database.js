@@ -3,14 +3,7 @@
 
 var db = new Dexie('browsingData')
 
-// old version
-db.version(2).stores({
-  bookmarks: 'url, title, text, extraData', // url must come first so it is the primary key
-  history: 'url, title, color, visitCount, lastVisit, extraData', // same thing
-  readingList: 'url, time, visitCount, pageHTML, article, extraData' // article is the object from readability
-})
-
-// current version
+// Min 1.1.0-1.3.1
 db.version(3).stores({
   bookmarks: 'url, title, text, extraData', // url must come first so it is the primary key
   history: 'url, title, color, visitCount, lastVisit, extraData', // same thing
@@ -79,11 +72,6 @@ db.version(4).stores({
   })
 
 // TODO set the value of the bookmarks and history tables to null in a future version to delete them - see https://github.com/dfahlander/Dexie.js/issues/276
-
-/* current settings:
-
-key - filtering
-value - {trackers: boolean, contentTypes: array} */
 
 db.open().then(function () {
   console.log('database opened ', performance.now())
