@@ -100,13 +100,13 @@
         "settingsAppearanceHeading": "Apparence",
         "settingsDarkModeToggle": "Activer le mode nuit",
         "settingsHistoryButtonToggle": "Activer le boutton navigation",
-        "settingsSwipeNavigationHeading": "Swipe navigation", //same on french
-        "settingsSwipeNavigationToggle": "Activer swipe pour changer de page.",
+        "settingsSwipeNavigationHeading": "Navigation par glissement",
+        "settingsSwipeNavigationToggle": "Activer le glissement pour changer de page.",
         "settingsSearchEngineHeading": "Moteur de recherche",
         "settingsDefaultSearchEngine": "Choisir un moteur de recherche par défaut :",
         "settingsDDGExplanation": "Définir DuckDuckGo comme moteur de recherche par défaut pour voir instantanément des résulats dans la barre de recherche.",
         "settingsKeyboardShortcutsHeading": "Raccourcis clavier",
-        "settingsKeyboardShortcutsHelp": null, //missing translation
+        "settingsKeyboardShortcutsHelp": "Séparer les raccourcis clavier multiples par une virgule.",
         /* app menu */
         "appMenuFile": "Fichier",
         "appMenuNewTab": "Nouvel onglet",
