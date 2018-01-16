@@ -5,9 +5,9 @@ var failMessage = 'Min requires macOS or Linux'
 var availablePlatforms = ['MacIntel']
 
 var platforms = {
-  'MacIntel': 'https://github.com/minbrowser/min/releases/download/v1.6.3/Min-v1.6.3-darwin-x64.zip',
-  'Linux i686': 'https://github.com/minbrowser/min/releases/download/v1.6.3/Min_1.6.3_i386.deb',
-  'x86_64': 'https://github.com/minbrowser/min/releases/download/v1.6.3/Min_1.6.3_amd64.deb'
+  'MacIntel': 'https://github.com/minbrowser/min/releases/download/v1.7.0/Min-v1.7.0-darwin-x64.zip',
+  'Linux i686': 'https://github.com/minbrowser/min/releases/download/v1.7.0/Min_1.7.0_i386.deb',
+  'x86_64': 'https://github.com/minbrowser/min/releases/download/v1.7.0/Min_1.7.0_amd64.deb'
 }
 
 var downloadButtons = document.getElementsByClassName('download-button')
