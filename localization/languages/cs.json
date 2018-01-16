@@ -28,6 +28,7 @@
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
         "viewSettings": "Zobrazit nastavení",
+        "viewReadingList": "Zobrazit seznam čtení",
         "takeScreenshot": "Pořídit snímek obrazovky",
         "clearHistory": "Vymazat celou historii",
         "switchToTask": "Skočit do dimenze",
@@ -99,13 +100,14 @@
         },
         "settingsAppearanceHeading": "Vzhled",
         "settingsDarkModeToggle": "Použít tmavý režim",
+        "settingsHistoryButtonToggle": "Zobrazit tlačítko zpět",
         "settingsSwipeNavigationHeading": "Swipe navigace",
         "settingsSwipeNavigationToggle": "Povolit touchpad swipe gesto pro navigaci zpět a vpřed mezi stránkami.",
         "settingsSearchEngineHeading": "Vyhledávač",
         "settingsDefaultSearchEngine": "Zvolte si výchozí vyhledávač:",
         "settingsDDGExplanation": "Nastavte DuckDuckGo jako výchozí vyhledávač pro zobrazování okamžitých odpovědí ve vyhledávacím panelu.",
         "settingsKeyboardShortcutsHeading": "Klávesové zkratky",
-        "settingsKeyboardShortcutsHelp": null, //missing translation
+        "settingsKeyboardShortcutsHelp": "Používejte čárky pro oddělení klávesových zkratek.",
         /* app menu */
         "appMenuFile": "Soubor",
         "appMenuNewTab": "Nová karta",
