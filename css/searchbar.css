@@ -180,26 +180,3 @@ body:not(.mac) .searchbar-item .icon-image {
 .searchbar-item:focus .description-block {
 	max-height: 6.6em;
 }
-
-/* tag searches */
-
-.searchbar-item.tag {
-	display: inline-block;
-	width: auto;
-	background-color: rgba(0, 0, 0, 0.04);
-	margin: 0.75em 0.5em;
-	border-radius: 3px;
-	padding-right: 1em;
-}
-.searchbar-item.tag .title {
-	max-width: 100%;
-}
-.searchbar-item.tag:focus {
-	background: rgba(0, 0, 0, 0.08);
-}
-.dark-theme .theme-background-color .searchbar-item.tag {
-	background-color: rgba(255, 255, 255, 0.08);
-}
-.dark-theme .theme-background-color .searchbar-item.tag:focus {
-	background-color: rgba(255, 255, 255, 0.12);
-}

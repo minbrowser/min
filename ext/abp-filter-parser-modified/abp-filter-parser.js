@@ -17,7 +17,7 @@
     value: true
   })
 
-  var elementTypes = ['script', 'image', 'stylesheet', 'object', 'xmlhttprequest', 'objectsubrequest', 'subdocument', 'document', 'other']
+  var elementTypes = ['script', 'image', 'stylesheet', 'object', 'xmlhttprequest', 'object-subrequest', 'subdocument', 'ping', 'websocket', 'webrtc', 'document', 'elemhide', 'generichide', 'genericblock', 'popup', 'other']
 
   var separatorCharacters = ':?/=^'
 
@@ -99,25 +99,38 @@
 
   function parseOptions (input) {
     var output = {}
+    var hasValidOptions = false;
 
     input.split(',').forEach(function (option) {
       if (option.startsWith('domain=')) {
         var domainString = option.split('=')[1].trim()
         parseDomains(domainString, '|', output)
+        hasValidOptions = true;
       } else {
 
         // the option is an element type to skip
         if (option[0] === '~' && elementTypes.indexOf(option.substring(1)) !== -1) {
           output.skipElementType = option.substring(1)
+          hasValidOptions = true;
 
           // the option is an element type to match
         } else if (elementTypes.indexOf(option) !== -1) {
           output.elementType = option
+          hasValidOptions = true;
+        }
+
+        //we don't support these yet, but they should still be marked as valid options
+        if(option === "third-party" || option === "~third-party") {
+          hasValidOptions = true;
         }
       }
     })
 
-    return output
+    if(hasValidOptions) {
+      return output
+    } else {
+      return null;
+    }
   }
 
   /* creates a trie */
@@ -206,10 +219,15 @@
     // Check for options, regex can have options too so check this before regex
     index = input.lastIndexOf('$')
     if (index !== -1) {
-      parsedFilterData.options = parseOptions(input.substring(index + 1))
-      // Get rid of the trailing options for the rest of the parsing
-      input = input.substring(0, index)
-      len = index
+      var options = parseOptions(input.substring(index + 1))
+      if (options) {
+        //if there are no valid options, we shouldn't do any of this, because the $ sign can also be part of the main filter part
+        //example: https://github.com/easylist/easylist/commit/1bcf25d782de073764bf122a8dffec785434d8cc
+        parsedFilterData.options = options;
+        // Get rid of the trailing options for the rest of the parsing
+        input = input.substring(0, index)
+        len = index
+      }
     }
 
     // Check for a regex
@@ -531,6 +549,7 @@
 
       for (var i = 0; i < len; i++) {
         if (matchOptions(plainStringMatches[i], input, contextParams, currentHost)) {
+          // console.log(plainStringMatches[i], 5);
           return true
         }
       }
@@ -542,7 +561,7 @@
       filter = filters.indexOf[i]
 
       if (indexOfFilter(input, filter.data, 0) !== -1 && matchOptions(filter.options, input, contextParams, currentHost)) {
-        // console.log(filter, 5)
+        // console.log(filter, 6)
         return true
       }
     }
@@ -570,7 +589,7 @@
         }
 
         if (matchOptions(filter.options, input, contextParams, currentHost)) {
-          // console.log(filter, 6)
+          // console.log(filter, 7)
           return true
         }
       }

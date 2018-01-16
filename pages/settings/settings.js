@@ -11,6 +11,27 @@ function showRestartRequiredBanner () {
   banner.hidden = false
 }
 
+/* tracking checkbox */
+
+settings.get('filtering', function (value) {
+  if (value) {
+    trackerCheckbox.checked = value.trackers
+  }
+})
+
+trackerCheckbox.addEventListener('change', function (e) {
+  settings.get('filtering', function (value) {
+    if (!value) {
+      value = {}
+    }
+    value.trackers = e.target.checked
+    settings.set('filtering', value)
+    banner.hidden = false
+  })
+})
+
+/* content type settings */
+
 var contentTypes = {
     // humanReadableName: contentType
   'scripts': 'script',
@@ -23,72 +44,10 @@ var contentTypeSettingNames = {
   'images': 'settingsBlockImagesToggle'
 }
 
-settings.get('keyMap', function (keyMapSettings) {
-  var keyMap = userKeyMap(keyMapSettings)
-
-  var keyMapList = document.getElementById('key-map-list')
-
-  Object.keys(keyMap).forEach(function (action) {
-    var li = createKeyMapListItem(action, keyMap)
-    keyMapList.appendChild(li)
-  })
-})
-
-function createKeyMapListItem (action, keyMap) {
-  var li = document.createElement('li')
-  var label = document.createElement('label')
-  var input = document.createElement('input')
-  label.innerText = formatCamelCase(action)
-  label.htmlFor = action
-
-  input.type = 'text'
-  input.id = input.name = action
-  input.value = keyMap[action]
-  input.addEventListener('change', onKeyMapChange)
-
-  li.appendChild(label)
-  li.appendChild(input)
-
-  return li
-}
-
-function formatCamelCase (text) {
-  var result = text.replace(/([A-Z])/g, ' $1')
-  return result.charAt(0).toUpperCase() + result.slice(1)
-}
-
-function onKeyMapChange (e) {
-  var action = this.name
-  var newValue = this.value
-
-  settings.get('keyMap', function (keyMapSettings) {
-    if (!keyMapSettings) {
-      keyMapSettings = {}
-    }
-
-    keyMapSettings[action] = parseKeyInput(newValue)
-    settings.set('keyMap', keyMapSettings, function () {
-      showRestartRequiredBanner()
-    })
-  })
-}
-
-function parseKeyInput (input) {
-    // input may be a single mapping or multiple mappings comma separated.
-  var parsed = input.split(',')
-  parsed = parsed.map(function (e) { return e.trim() })
-    // Remove empty
-  parsed = parsed.filter(Boolean)
-  return parsed.length > 1 ? parsed : parsed[0]
-}
-
 for (var contentType in contentTypes) {
-
   (function (contentType) {
-
     settings.get('filtering', function (value) {
-
-            // create the settings section for blocking each content type
+      // create the settings section for blocking each content type
 
       var section = document.createElement('div')
       section.classList.add('setting-section')
@@ -132,31 +91,12 @@ for (var contentType in contentTypes) {
           banner.hidden = false
         })
       })
-
     })
-
   })(contentType)
-
 }
 
-settings.get('filtering', function (value) {
-  if (value) {
-    trackerCheckbox.checked = value.trackers
-  }
-})
+/* dark mode setting */
 
-trackerCheckbox.addEventListener('change', function (e) {
-  settings.get('filtering', function (value) {
-    if (!value) {
-      value = {}
-    }
-    value.trackers = e.target.checked
-    settings.set('filtering', value)
-    banner.hidden = false
-  })
-})
-
-// Dark Mode Settings
 settings.get('darkMode', function (value) {
   darkModeCheckbox.checked = value
 })
@@ -166,7 +106,7 @@ darkModeCheckbox.addEventListener('change', function (e) {
   showRestartRequiredBanner()
 })
 
-// History buttons settings
+/* history button setting */
 
 settings.get('historyButton', function (value) {
   if (value === true || value === undefined) {
@@ -181,7 +121,7 @@ historyButtonCheckbox.addEventListener('change', function (e) {
   showRestartRequiredBanner()
 })
 
-// Swipe navigation settings
+/* swipe navigation settings */
 
 settings.get('swipeNavigationEnabled', function (value) {
   if (value === true || value === undefined) {
@@ -201,7 +141,6 @@ swipeNavigationCheckbox.addEventListener('change', function (e) {
 var searchEngineDropdown = document.getElementById('default-search-engine')
 
 settings.onLoad(function () {
-
   for (var searchEngine in searchEngines) {
 
     var item = document.createElement('option')
@@ -213,10 +152,95 @@ settings.onLoad(function () {
 
     searchEngineDropdown.appendChild(item)
   }
-
 })
 
 searchEngineDropdown.addEventListener('change', function (e) {
   settings.set('searchEngine', this.value)
   showRestartRequiredBanner()
 })
+
+/* key map settings */
+
+settings.get('keyMap', function (keyMapSettings) {
+  var keyMap = userKeyMap(keyMapSettings)
+
+  var keyMapList = document.getElementById('key-map-list')
+
+  Object.keys(keyMap).forEach(function (action) {
+    var li = createKeyMapListItem(action, keyMap)
+    keyMapList.appendChild(li)
+  })
+})
+
+function formatCamelCase (text) {
+  var result = text.replace(/([A-Z])/g, ' $1')
+  return result.charAt(0).toUpperCase() + result.slice(1)
+}
+
+function createKeyMapListItem (action, keyMap) {
+  var li = document.createElement('li')
+  var label = document.createElement('label')
+  var input = document.createElement('input')
+  label.innerText = formatCamelCase(action)
+  label.htmlFor = action
+
+  input.type = 'text'
+  input.id = input.name = action
+  input.value = formatKeyValue(keyMap[action])
+  input.addEventListener('change', onKeyMapChange)
+
+  li.appendChild(label)
+  li.appendChild(input)
+
+  return li
+}
+
+function formatKeyValue (value) {
+  // multiple shortcuts should be separated by commas
+  if (value instanceof Array) {
+    value = value.join(', ')
+  }
+  // use either command or ctrl depending on the platform
+  if (navigator.platform === 'MacIntel') {
+    value = value.replace(/\bmod\b/g, 'command')
+  } else {
+    value = value.replace(/\bmod\b/g, 'ctrl')
+    value = value.replace(/\boption\b/g, 'alt')
+  }
+  return value
+}
+
+function parseKeyInput (input) {
+  // input may be a single mapping or multiple mappings comma separated.
+  var parsed = input.toLowerCase().split(',')
+  parsed = parsed.map(function (e) { return e.trim() })
+  // Remove empty
+  parsed = parsed.filter(Boolean)
+  // convert key names back to generic equivalents
+  parsed = parsed.map(function (e) {
+    if (navigator.platform === 'MacIntel') {
+      e = e.replace(/\b(command)|(cmd)\b/g, 'mod')
+    } else {
+      e = e.replace(/\b(control)|(ctrl)\b/g, 'mod')
+      e = e.replace(/\balt\b/g, 'option')
+    }
+    return e
+  })
+  return parsed.length > 1 ? parsed : parsed[0]
+}
+
+function onKeyMapChange (e) {
+  var action = this.name
+  var newValue = this.value
+
+  settings.get('keyMap', function (keyMapSettings) {
+    if (!keyMapSettings) {
+      keyMapSettings = {}
+    }
+
+    keyMapSettings[action] = parseKeyInput(newValue)
+    settings.set('keyMap', keyMapSettings, function () {
+      showRestartRequiredBanner()
+    })
+  })
+}

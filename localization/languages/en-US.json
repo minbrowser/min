@@ -107,7 +107,7 @@
         "settingsDefaultSearchEngine": "Choose a default search engine:",
         "settingsDDGExplanation": "Set DuckDuckGo as the default search engine to see instant answers in the searchbar.",
         "settingsKeyboardShortcutsHeading": "Keyboard Shortcuts",
-        "settingsKeyboardShortcutsHelp": "Type \"mod\" to use the command or control key.",
+        "settingsKeyboardShortcutsHelp": "Use commas to separate multiple shortcuts.",
         /* app menu */
         "appMenuFile": "File",
         "appMenuNewTab": "New Tab",

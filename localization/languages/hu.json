@@ -105,7 +105,7 @@
         "settingsDefaultSearchEngine": "Válasza ki Alap kereső Motorját:",
         "settingsDDGExplanation": "Set DuckDuckGo as the default search engine to see instant answers in the searchbar.",
         "settingsKeyboardShortcutsHeading": "Billentjüzet kombinációk",
-        "settingsKeyboardShortcutsHelp": "Irja a \"mod\" hogy használja a command vagy kontroll gombot.",
+        "settingsKeyboardShortcutsHelp": null, //missing translation
         /* app menu */
         "appMenuFile": "Fajl",
         "appMenuNewTab": "Új Fül",

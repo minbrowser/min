@@ -59,7 +59,7 @@ function addOrUpdateHistoryCache (item) {
   delete item.extractedText
   delete item.searchIndex
 
-  let found = true
+  let found = false
 
   for (let i = 0; i < historyInMemoryCache.length; i++) {
     if (historyInMemoryCache[i].url === item.url) {
@@ -141,9 +141,8 @@ onmessage = function (e) {
       /* visitCount is added below */
       lastVisit: Date.now(),
       pageHTML: '',
-      extractedText: pageData.extractedText || '',
-      // searchIndex is updated by DB hooks whenever extractedText changes
-      searchIndex: [],
+      extractedText: '',
+      searchIndex: tokenize(pageData.extractedText || ''),
       metadata: pageData.metadata
     }
 
@@ -153,7 +152,7 @@ onmessage = function (e) {
         if (oldItem) {
           item.visitCount = oldItem.visitCount + 1
           item.isBookmarked = oldItem.isBookmarked
-          db.places.where('url').equals(pageData.url).modify(item)
+          db.places.put(item)
 
           addOrUpdateHistoryCache(item)
         /* if the item doesn't exist, add a new item */
@@ -190,7 +189,7 @@ onmessage = function (e) {
         }
         item.isBookmarked = pageData.shouldBeBookmarked
 
-        db.places.where('url').equals(pageData.url).modify(item)
+        db.places.put(item)
 
         addOrUpdateHistoryCache(item)
       })
@@ -198,9 +197,7 @@ onmessage = function (e) {
   }
 
   if (action === 'deleteHistory') {
-    db.places.where('url').equals(pageData.url).filter(function (item) {
-      return item.isBookmarked === false
-    }).delete()
+    db.places.where('url').equals(pageData.url).delete()
 
     // delete from the in-memory cache
     for (let i = 0; i < historyInMemoryCache.length; i++) {

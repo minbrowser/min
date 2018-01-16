@@ -106,7 +106,7 @@
         "settingsDefaultSearchEngine": "Escolha o serviço de busca padrão:",
         "settingsDDGExplanation": "Defina DuckDuckGo como o serviço padrão de buscas para ver respostas instantâneas na barra de busca.",
         "settingsKeyboardShortcutsHeading": "Teclas de atalho",
-        "settingsKeyboardShortcutsHelp": "Digite \"mod\" para usar as teclas de comando ou controle (Command ou Ctrl).",
+        "settingsKeyboardShortcutsHelp": null, //missing translation
         /* app menu */
         "appMenuFile": "Arquivo",
         "appMenuNewTab": "Nova aba",
