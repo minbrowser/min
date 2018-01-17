@@ -31,7 +31,7 @@ body.windows #switch-task-button {
 	width: 100%;
 	height: 100%;
 	background-color: #fff;
-	padding: 40px 10% 10% 10%;
+	padding: 40px 10% 5em 10%;
 	white-space: nowrap;
 	overflow: auto;
 	opacity: 1;
@@ -158,7 +158,8 @@ body.windows #task-overlay {
 }
 @media all and (max-width: 600px) {
 	#task-overlay {
-		padding: 10% 5% 5em 5%;
+		padding-left: 5%;
+		padding-right: 5%;
 	}
 	#add-task {
 		width: 90%;
