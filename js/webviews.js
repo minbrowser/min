@@ -43,6 +43,7 @@ function onPageLoad(e) {
 
 var webviews = {
     container: document.getElementById('webviews'),
+    elementMap: {}, //tabId: webview
     internalPages: {
         crash: 'file:///' + __dirname + '/pages/crash/index.html',
         error: 'file:///' + __dirname + '/pages/error/index.html',
@@ -201,10 +202,11 @@ var webviews = {
             url: tabData.url
         })
 
+        webviews.elementMap[tabId] = webview;
+
         // this is used to hide the webview while still letting it load in the background
         // webviews are hidden when added - call webviews.setSelected to show it
         webview.classList.add('hidden')
-
         webview.classList.add('loading')
 
         webviews.container.appendChild(webview)
@@ -229,13 +231,14 @@ var webviews = {
         webviews.get(id).setAttribute('src', urlParser.parse(url))
     },
     destroy: function (id) {
-        var w = document.querySelector('webview[data-tab="{id}"]'.replace('{id}', id))
+        var w = webviews.elementMap[id]
         if (w) {
             w.parentNode.removeChild(w)
         }
+        delete webviews.elementMap[id]
     },
     get: function (id) {
-        return document.querySelector('webview[data-tab="{id}"]'.replace('{id}', id))
+        return webviews.elementMap[id]
     }
 }
 
