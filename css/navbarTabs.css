@@ -20,6 +20,7 @@
 body.windows .windows-drag-area {
 	display: block;
 	position: fixed;
+	/* leave an empty space around the edges of the drag area so that the window can be resized */
 	top: 3px;
 	left: 3px;
 	width: calc(100% - 6px);
