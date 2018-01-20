@@ -1,6 +1,5 @@
 /* implements selecting webviews, switching between them, and creating new ones. */
 
-var webviewBase = document.getElementById('webviews')
 
 // the permissionRequestHandler used for webviews
 function pagePermissionRequestHandler(webContents, permission, callback) {
@@ -43,6 +42,7 @@ function onPageLoad(e) {
 }
 
 var webviews = {
+    container: document.getElementById('webviews'),
     internalPages: {
         crash: 'file:///' + __dirname + '/pages/crash/index.html',
         error: 'file:///' + __dirname + '/pages/error/index.html',
@@ -207,7 +207,7 @@ var webviews = {
 
         webview.classList.add('loading')
 
-        webviewBase.appendChild(webview)
+        webviews.container.appendChild(webview)
 
         return webview
     },
