@@ -1,8 +1,5 @@
 /* implements selecting webviews, switching between them, and creating new ones. */
 
-var crashedWebviewPage = 'file:///' + __dirname + '/pages/crash/index.html'
-var errorPage = 'file:///' + __dirname + '/pages/error/index.html'
-
 var webviewBase = document.getElementById('webviews')
 var webviewEvents = []
 var webviewIPC = []
@@ -48,6 +45,10 @@ function onPageLoad(e) {
 }
 
 var webviews = {
+    internalPages: {
+        crash: 'file:///' + __dirname + '/pages/crash/index.html',
+        error: 'file:///' + __dirname + '/pages/error/index.html',
+    },
     bindEvent: function (event, fn, useWebContents) {
         webviewEvents.push({
             event: event,
@@ -169,7 +170,7 @@ var webviews = {
 
             webviews.destroy(tabId)
             tabs.update(tabId, {
-                url: crashedWebviewPage
+                url: webviews.internalPages.crash
             })
 
             webviews.add(tabId)
@@ -178,7 +179,7 @@ var webviews = {
 
         w.addEventListener('did-fail-load', function (e) {
             if (e.errorCode !== -3 && e.validatedURL === e.target.getURL()) {
-                navigate(this.getAttribute('data-tab'), errorPage + '?ec=' + encodeURIComponent(e.errorCode) + '&url=' + encodeURIComponent(e.target.getURL()))
+                navigate(this.getAttribute('data-tab'), webviews.internalPages.error + '?ec=' + encodeURIComponent(e.errorCode) + '&url=' + encodeURIComponent(e.target.getURL()))
             }
         })
 
