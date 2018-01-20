@@ -1,8 +1,6 @@
 /* implements selecting webviews, switching between them, and creating new ones. */
 
 var webviewBase = document.getElementById('webviews')
-var webviewEvents = []
-var webviewIPC = []
 
 // the permissionRequestHandler used for webviews
 function pagePermissionRequestHandler(webContents, permission, callback) {
@@ -49,15 +47,17 @@ var webviews = {
         crash: 'file:///' + __dirname + '/pages/crash/index.html',
         error: 'file:///' + __dirname + '/pages/error/index.html',
     },
+    events: [],
+    IPCEvents: [],
     bindEvent: function (event, fn, useWebContents) {
-        webviewEvents.push({
+        webviews.events.push({
             event: event,
             fn: fn,
             useWebContents: useWebContents
         })
     },
     bindIPC: function (name, fn) {
-        webviewIPC.push({
+        webviews.IPCEvents.push({
             name: name,
             fn: fn
         })
@@ -91,7 +91,7 @@ var webviews = {
 
         // webview events
 
-        webviewEvents.forEach(function (ev) {
+        webviews.events.forEach(function (ev) {
             if (ev.useWebContents) { // some events (such as context-menu) are only available on the webContents rather than the webview element
                 w.addEventListener('did-attach', function () {
                     this.getWebContents().on(ev.event, function () {
@@ -158,7 +158,7 @@ var webviews = {
             var w = this
             var tab = this.getAttribute('data-tab')
 
-            webviewIPC.forEach(function (item) {
+            webviews.IPCEvents.forEach(function (item) {
                 if (item.name === e.channel) {
                     item.fn(w, tab, e.args)
                 }
