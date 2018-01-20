@@ -122,7 +122,7 @@ registerCustomBang({
 
 // update the reader button on page load
 
-bindWebviewEvent('did-finish-load', function (e) {
+webviews.bindEvent('did-finish-load', function (e) {
   var tab = this.getAttribute('data-tab')
   var url = this.getAttribute('src')
 
@@ -141,7 +141,7 @@ bindWebviewEvent('did-finish-load', function (e) {
   readerView.updateButton(tab)
 })
 
-bindWebviewIPC('canReader', function (webview, tab) {
+webviews.bindIPC('canReader', function (webview, tab) {
   tabs.update(tab, {
     readerable: true
   })

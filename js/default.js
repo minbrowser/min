@@ -26,7 +26,7 @@ if (navigator.platform === 'MacIntel') {
 window.addEventListener('focus', function () {
   // if nothing in the UI is focused, focus the current tab's webview
   if (document.activeElement === document.body) {
-    getWebview(tabs.getSelected()).focus()
+    webviews.get(tabs.getSelected()).focus()
   }
 })
 

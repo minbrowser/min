@@ -56,7 +56,7 @@ function enterEditMode (tabId, editingValue) { // editingValue: an optional stri
   taskOverlay.hide()
 
   var tabEl = getTabElement(tabId)
-  var webview = getWebview(tabId)
+  var webview = webviews.get(tabId)
 
   var currentURL = tabs.get(tabId).url
 
@@ -246,7 +246,7 @@ function createTabElement (data) {
       openURLFromSearchbar(this.value, e)
 
       // focus the webview, so that autofocus inputs on the page work
-      getWebview(tabs.getSelected()).focus()
+      webviews.get(tabs.getSelected()).focus()
     } else if (e.keyCode === 9) {
       return
     // tab key, do nothing - in keydown listener
@@ -338,7 +338,7 @@ function addTab (tabId, options) {
 
   tabContainer.insertBefore(tabEl, tabContainer.childNodes[index])
 
-  addWebview(tabId)
+  webviews.add(tabId)
 
   // open in background - we don't want to enter edit mode or switch to tab
 
@@ -359,6 +359,6 @@ function addTab (tabId, options) {
 
 // when we click outside the navbar, we leave editing mode
 
-bindWebviewEvent('focus', function () {
+webviews.bindEvent('focus', function () {
   leaveTabEditMode()
 })

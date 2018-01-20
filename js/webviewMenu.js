@@ -108,7 +108,7 @@ var webviewMenu = {
               enterEditMode: false
             })
 
-            getWebview(newTab).focus()
+            webviews.get(newTab).focus()
           }
         })
       ]
@@ -139,7 +139,7 @@ var webviewMenu = {
       clipboardActions.push(new MenuItem({
         label: l('paste'),
         click: function () {
-          getWebview(tabs.getSelected()).paste()
+          webviews.get(tabs.getSelected()).paste()
         }
       }))
     }
@@ -153,7 +153,7 @@ var webviewMenu = {
         label: l('goBack'),
         click: function () {
           try {
-            getWebview(tabs.getSelected()).goBack()
+            webviews.get(tabs.getSelected()).goBack()
           } catch (e) { }
         }
       }),
@@ -161,7 +161,7 @@ var webviewMenu = {
         label: l('goForward'),
         click: function () {
           try {
-            getWebview(tabs.getSelected()).goForward()
+            webviews.get(tabs.getSelected()).goForward()
           } catch (e) { }
         }
       })
@@ -174,7 +174,7 @@ var webviewMenu = {
       new MenuItem({
         label: l('inspectElement'),
         click: function () {
-          getWebview(tabs.getSelected()).inspectElement(data.x, data.y)
+          webviews.get(tabs.getSelected()).inspectElement(data.x, data.y)
         }
       })
     ])
@@ -192,7 +192,7 @@ var webviewMenu = {
   }
 }
 
-bindWebviewEvent('context-menu', function (e, data) {
+webviews.bindEvent('context-menu', function (e, data) {
   /* if the shift key was pressed and the page does not have a custom context menu, both the contextmenu and context-menu events will fire. To avoid showing a menu twice, we check if a menu has just been dismissed before this event occurs.
   Note: this only works if the contextmenu event fires before the context-menu one, which may change in future Electron versions. */
   if (Date.now() - webviewMenu.lastDisplayedAt > 5) {
@@ -201,7 +201,7 @@ bindWebviewEvent('context-menu', function (e, data) {
 }, true) // only available on webContents
 
 /* this runs when the shift key is pressed to override a custom context menu */
-bindWebviewEvent('contextmenu', function (e) {
+webviews.bindEvent('contextmenu', function (e) {
   if (e.shiftKey) {
     webviewMenu.showMenu({})
   }

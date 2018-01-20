@@ -307,7 +307,7 @@ searchbar.addEventListener('keydown', function (e) {
 
 // when we get keywords data from the page, we show those results in the searchbar
 
-bindWebviewIPC('keywordsData', function (webview, tabId, arguements) {
+webviews.bindIPC('keywordsData', function (webview, tabId, arguements) {
   var data = arguements[0]
 
   var itemsCt = 0

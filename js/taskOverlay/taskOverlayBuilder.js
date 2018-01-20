@@ -1,6 +1,6 @@
 function removeTabFromOverlay (tabId, task) {
   task.tabs.destroy(tabId)
-  destroyWebview(tabId)
+  webviews.destroy(tabId)
 
   rerenderTabstrip()
 

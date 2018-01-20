@@ -13,28 +13,28 @@ var PDFViewer = {
       throw new Error("attempting to print in a tab that isn't a PDF viewer")
     }
 
-    getWebview(viewerTabId).executeJavaScript('parentProcessActions.printPDF()', false)
+    webviews.get(viewerTabId).executeJavaScript('parentProcessActions.printPDF()', false)
   },
   savePDF: function (viewerTabId) {
     if (!PDFViewer.isPDFViewer(viewerTabId)) {
       throw new Error("attempting to save in a tab that isn't a PDF viewer")
     }
 
-    getWebview(viewerTabId).executeJavaScript('parentProcessActions.downloadPDF()', false)
+    webviews.get(viewerTabId).executeJavaScript('parentProcessActions.downloadPDF()', false)
   },
   startFindInPage: function (viewerTabId) {
     if (!PDFViewer.isPDFViewer(viewerTabId)) {
       throw new Error("attempting to call startFindInPage in a tab that isn't a PDF viewer")
     }
 
-    getWebview(viewerTabId).executeJavaScript('parentProcessActions.startFindInPage()', false)
+    webviews.get(viewerTabId).executeJavaScript('parentProcessActions.startFindInPage()', false)
   },
   endFindInPage: function (viewerTabId) {
     if (!PDFViewer.isPDFViewer(viewerTabId)) {
       throw new Error("attempting to call endFindInPage in a tab that isn't a PDF viewer")
     }
 
-    getWebview(viewerTabId).executeJavaScript('parentProcessActions.endFindInPage()', false)
+    webviews.get(viewerTabId).executeJavaScript('parentProcessActions.endFindInPage()', false)
   },
   handlePDFOpenEvent: function (event, data) {
     var PDFurl = PDFViewer.url.base + PDFViewer.url.queryString.replace('%l', encodeURIComponent(data.url))
@@ -42,7 +42,7 @@ var PDFViewer = {
     // we don't know which tab the event came from, so we loop through each tab to find out.
 
     tabs.get().forEach(function (tab) {
-      var webview = getWebview(tab.id)
+      var webview = webviews.get(tab.id)
       if (webview && webview.getWebContents().getId() === data.webContentsId) {
         navigate(tab.id, PDFurl)
       }

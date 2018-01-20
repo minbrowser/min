@@ -9,7 +9,7 @@ function navigate (tabId, newURL) {
     url: newURL
   })
 
-  updateWebview(tabId, newURL)
+  webviews.update(tabId, newURL)
 
   leaveTabEditMode({
     blur: true
@@ -22,7 +22,7 @@ function destroyTask (id) {
   var task = tasks.get(id)
 
   task.tabs.forEach(function (tab) {
-    destroyWebview(tab.id)
+    webviews.destroy(tab.id)
   })
 
   tasks.destroy(id)
@@ -38,7 +38,7 @@ function destroyTab (id) {
   }
 
   tabs.destroy(id) // remove from state - returns the index of the destroyed tab
-  destroyWebview(id) // remove the webview
+  webviews.destroy(id) // remove the webview
 }
 
 /* destroys a task, and either switches to the next most-recent task or creates a new one */
@@ -142,10 +142,10 @@ function switchToTab (id, options) {
 
   tabs.setSelected(id)
   setActiveTabElement(id)
-  switchToWebview(id)
+  webviews.setSelected(id)
 
   if (options.focusWebview !== false) {
-    getWebview(id).focus()
+    webviews.get(id).focus()
   }
 
   updateColorPalette()

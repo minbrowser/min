@@ -1,22 +1,22 @@
 /* defines keybindings that aren't in the menu (so they aren't defined by menu.js). For items in the menu, also handles ipc messages */
 
 ipc.on('zoomIn', function () {
-  getWebview(tabs.getSelected()).send('zoomIn')
+  webviews.get(tabs.getSelected()).send('zoomIn')
 })
 
 ipc.on('zoomOut', function () {
-  getWebview(tabs.getSelected()).send('zoomOut')
+  webviews.get(tabs.getSelected()).send('zoomOut')
 })
 
 ipc.on('zoomReset', function () {
-  getWebview(tabs.getSelected()).send('zoomReset')
+  webviews.get(tabs.getSelected()).send('zoomReset')
 })
 
 ipc.on('print', function () {
   if (PDFViewer.isPDFViewer(tabs.getSelected())) {
     PDFViewer.printPDF(tabs.getSelected())
   } else {
-    getWebview(tabs.getSelected()).print()
+    webviews.get(tabs.getSelected()).print()
   }
 })
 
@@ -25,7 +25,7 @@ ipc.on('findInPage', function () {
 })
 
 ipc.on('inspectPage', function () {
-  getWebview(tabs.getSelected()).openDevTools()
+  webviews.get(tabs.getSelected()).openDevTools()
 })
 
 ipc.on('showReadingList', function () {
@@ -76,7 +76,7 @@ ipc.on('saveCurrentPage', function () {
     if (!savePath.endsWith('.html')) {
       savePath = savePath + '.html'
     }
-    getWebview(currentTab.id).getWebContents().savePage(savePath, 'HTMLComplete', function () { })
+    webviews.get(currentTab.id).getWebContents().savePage(savePath, 'HTMLComplete', function () { })
   }
 })
 
@@ -119,13 +119,13 @@ ipc.on('addTask', function () {
 
 ipc.on('goBack', function () {
   try {
-    getWebview(tabs.getSelected()).goBack()
+    webviews.get(tabs.getSelected()).goBack()
   } catch (e) { }
 })
 
 ipc.on('goForward', function () {
   try {
-    getWebview(tabs.getSelected()).goForward()
+    webviews.get(tabs.getSelected()).goForward()
   } catch (e) { }
 })
 
@@ -140,7 +140,7 @@ function defineShortcut (keyMapName, fn) {
     // mod+left and mod+right are also text editing shortcuts, so they should not run when an input field is focused
     // also block single-letter shortcuts when an input field is focused, so that it's still possible to type in an input
     if (!combo.includes('+') || combo === 'mod+left' || combo === 'mod+right') {
-      var webview = getWebview(tabs.getSelected())
+      var webview = webviews.get(tabs.getSelected())
       if (!webview.src) {
         fn(e, combo)
       } else {
@@ -243,7 +243,7 @@ settings.get('keyMap', function (keyMapSettings) {
     taskOverlay.hide()
     leaveTabEditMode()
 
-    var webview = getWebview(tabs.getSelected())
+    var webview = webviews.get(tabs.getSelected())
 
     // exit full screen mode
     if (webview.executeJavaScript) {
@@ -268,11 +268,11 @@ settings.get('keyMap', function (keyMapSettings) {
   // TODO add help docs for this
 
   defineShortcut('goBack', function (d) {
-    getWebview(tabs.getSelected()).goBack()
+    webviews.get(tabs.getSelected()).goBack()
   })
 
   defineShortcut('goForward', function (d) {
-    getWebview(tabs.getSelected()).goForward()
+    webviews.get(tabs.getSelected()).goForward()
   })
 
   defineShortcut('switchToPreviousTab', function (d) {
@@ -367,7 +367,7 @@ settings.get('keyMap', function (keyMapSettings) {
     if (time - lastReload < 500) {
       window.location.reload()
     } else {
-      var w = getWebview(tabs.getSelected())
+      var w = webviews.get(tabs.getSelected())
 
       if (w.src) { // webview methods aren't available if the webview is blank
         w.reloadIgnoringCache()
@@ -406,7 +406,7 @@ settings.get('keyMap', function (keyMapSettings) {
 document.body.addEventListener('keydown', function (e) {
   if (e.keyCode === 116) {
     try {
-      getWebview(tabs.getSelected()).reloadIgnoringCache()
+      webviews.get(tabs.getSelected()).reloadIgnoringCache()
     } catch (e) { }
   }
 })
