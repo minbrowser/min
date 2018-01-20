@@ -26,6 +26,7 @@ module.exports = function (grunt) {
           'js/util/urlParser.js',
           'js/filteringRenderer.js',
           'js/webviews.js',
+          'js/phishingWarning.js',
           'js/webviewMenu.js',
           'js/bookmarksHistory/bookmarksHistory.js',
           'js/api-wrapper.js',

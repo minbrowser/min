@@ -1,6 +1,5 @@
 /* implements selecting webviews, switching between them, and creating new ones. */
 
-var phishingWarningPage = 'file://' + __dirname + '/pages/phishing/index.html' // TODO move this somewhere that actually makes sense
 var crashedWebviewPage = 'file:///' + __dirname + '/pages/crash/index.html'
 var errorPage = 'file:///' + __dirname + '/pages/error/index.html'
 
@@ -163,29 +162,6 @@ var webviews = {
                     item.fn(w, tab, e.args)
                 }
             })
-
-            if (e.channel === 'phishingDetected') {
-                // check if the page is on the phishing detection whitelist
-
-                var url = w.getAttribute('src')
-
-                try {
-                    var hostname = new URL(url).hostname
-                    var redirectURL = phishingWarningPage + '?url=' + encodeURIComponent(url) + '&info=' + encodeURIComponent(e.args[0].join('\n'))
-                } catch (e) {
-                    var hostname = ''
-                    var redirectURL = phishingWarningPage
-                }
-
-                settings.get('phishingWhitelist', function (value) {
-                    if (!value || !hostname || value.indexOf(hostname) === -1) {
-                        // show the warning page
-                        navigate(tab, redirectURL)
-                    }
-                }, {
-                        fromCache: false
-                    })
-            }
         })
 
         w.addEventListener('crashed', function (e) {
