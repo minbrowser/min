@@ -51,14 +51,14 @@ window.addEventListener('wheel', function (e) {
   if (Math.abs(e.deltaX) >= 20 || Math.abs(e.deltaY) >= 20) {
     clearTimeout(swipeGestureTimeout)
 
-    if (horizontalMouseMove < -150 && !hasShownSwipeArrow) {
+    if (horizontalMouseMove < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5 && !hasShownSwipeArrow) {
       hasShownSwipeArrow = true
       ipc.sendToHost('showBackArrow')
-    } else if (horizontalMouseMove > 150 && !hasShownSwipeArrow) {
+    } else if (horizontalMouseMove > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5 && !hasShownSwipeArrow) {
       hasShownSwipeArrow = true
       ipc.sendToHost('showForwardArrow')
     }
-    
+
     swipeGestureTimeout = setTimeout(onSwipeGestureFinish, 70)
   }
 
