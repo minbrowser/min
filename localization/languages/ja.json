@@ -103,10 +103,10 @@
         "settingsSwipeNavigationHeading": "スワイプナビゲーション",
         "settingsSwipeNavigationToggle": "スワイプしてページを行き来できるようにする",
         "settingsSearchEngineHeading": "検索エンジン",
-        "settingsDefaultSearchEngine": "デフォルトの検索エンジンを選択してください:",
+        "settingsDefaultSearchEngine": "デフォルトの検索エンジン:",
         "settingsDDGExplanation": "検索バーにインスタントアンサーを表示するには、DuckDuckGoをデフォルトの検索エンジンに設定してください。",
         "settingsKeyboardShortcutsHeading": "キーボードショートカット",
-        "settingsKeyboardShortcutsHelp": null, //missing translation
+        "settingsKeyboardShortcutsHelp": "カンマ区切りで複数のショートカットを登録できます。",
         /* app menu */
         "appMenuFile": "ファイル",
         "appMenuNewTab": "新規タブ",
