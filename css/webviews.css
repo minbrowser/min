@@ -32,3 +32,40 @@ body.windows #webviews {
 	height: 100vh;
 	z-index: 99;
 }
+
+.arrow-indicator {
+	width: 140px;
+    height: 140px;
+    border-radius: 70px;
+    background: rgba(0,0,0,0.8);
+    position: fixed;
+    top: 50%;
+    z-index: 1;
+    transition: opacity 0.3s, visibility 0.3s;
+  	opacity: 0;
+  	visibility: hidden;
+}
+.arrow-indicator.shown {  
+	opacity: 1;
+	visibility: visible;
+}
+#left {
+	left: -70px;
+}
+#right {
+	right: -70px;
+}
+
+.arrow {
+	color: white;
+    font-size: 40px !important;
+    margin-top: 50px;
+}
+#leftArrow {
+    float: right;
+    margin-right: 15px;
+}
+#rightArrow {
+    float: left;
+    margin-left: 15px;
+}
