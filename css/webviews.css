@@ -35,13 +35,13 @@ body.windows #webviews {
 
 .arrow-indicator {
 	width: 140px;
-    height: 140px;
-    border-radius: 70px;
-    background: rgba(0,0,0,0.8);
-    position: fixed;
-    top: 50%;
-    z-index: 1;
-    transition: opacity 0.3s, visibility 0.3s;
+	height: 140px;
+	border-radius: 70px;
+	background: rgba(0,0,0,0.8);
+	position: fixed;
+	top: 50%;
+	z-index: 1;
+	transition: opacity 0.3s, visibility 0.3s;
 	opacity: 0;
 	visibility: hidden;
 }
