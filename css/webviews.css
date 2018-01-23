@@ -42,8 +42,8 @@ body.windows #webviews {
     top: 50%;
     z-index: 1;
     transition: opacity 0.3s, visibility 0.3s;
-  	opacity: 0;
-  	visibility: hidden;
+	opacity: 0;
+	visibility: hidden;
 }
 .arrow-indicator.shown {  
 	opacity: 1;
