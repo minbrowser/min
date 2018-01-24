@@ -17,11 +17,11 @@
         "paste": "Illeszt",
         "goBack": "Visza lép",
         "goForward": "Előre lép",
-        "inspectElement": "Részlet megtekintése",
+        "inspectElement": "Részletek megtekintése",
         /* searchbar */
         "DDGAnswerSubtitle": "Válasz", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Ajánlott oldal", //this is used to label suggested websites from the DuckDuckGo API,
-        "resultsFromDDG": "Válaszok a DuckDuckGo-töl", //this is used as a label to indicate which results come from DuckDuckGo's API
+        "resultsFromDDG": "Válaszok a DuckDuckGo-rol", //this is used as a label to indicate which results come from DuckDuckGo's API
         "taskN": "Feladat %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
         "hostsFileEntry": "Host Fajl tartalma", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
@@ -62,7 +62,7 @@
         "crashErrorSubtitle": "Egy hiba lépet fel az oldal menyitásákor.",
         /* pages/error/index.html */
         "errorPagePrimaryAction": "Probálja Újra",
-        "serverNotFoundTitle": "Szerver nem található meg",
+        "serverNotFoundTitle": "Szerver nem található",
         "serverNotFoundSubtitle": "Min Nem találja a kért oldalt.",
         "archiveSearchAction": "Keress a archive.org-on",
         "sslErrorTitle": "Ez az oldal nem elérhető",
@@ -72,12 +72,12 @@
         "offlineErrorTitle": "Nincs Hálozati kapcsolant",
         "offlineErrorMessage": "Kapcsolódjon az internethez és probálja újra.",
         "genericConnectionFail": "Min nem tudta betölteni az oldalt.",
-        "sslTimeErrorMessage": "Min nem tudott kapcsolódni biztonságosan az oldalhos. Kérem elenőrize hogy a számitógép óra beálitásait.",
+        "sslTimeErrorMessage": "Min nem tudott kapcsolódni biztonságosan az oldalhos. Kérem elenőrize a számitógép óra beálitásait.",
         "addressInvalidTitle": "A cim hibás.",
         "genericError": "Hiba lépet fel",
         /* pages/phishing/index.html */
         "phishingErrorTitle": "Ez az óldal ártalmas lehet.",
-        "phishingErrorMessage": "Ez az oldal probálkozik a személjes adatait lopni, mint. pl. a jelszavakat, vagy bankolási infomációkat.",
+        "phishingErrorMessage": "Ez az oldal probálkozik a személjes adatait lopni, mint. pl. a jelszavakat, vagy bankolási információkat.",
         "phishingErrorVisitAnyway": "Eltekint és oldal betöltése",
         "phishingErrorLeave": "Hagya el az oldalt",
         /* pages/sessionRestoreError/index.html */
@@ -91,7 +91,7 @@
         "settingsPreferencesHeading": "Beálitások",
         "settingsRestartRequired": "Újra kell inditani hogy a változások életbe lépjenek.",
         "settingsPrivacyHeading": "Tartalom Tiltás",
-        "settingsContentBlockingToggle": "Tiltsa le a Reklámoka, és a követést",
+        "settingsContentBlockingToggle": "Tiltsa le a Reklámokat, és a követést",
         "settingsBlockScriptsToggle": "Szkriptek Tiltása",
         "settingsBlockImagesToggle": "Képek Tiltása",
         "settingsEasyListCredit": {
@@ -102,10 +102,10 @@
         "settingsSwipeNavigationHeading": "Swipe Navigáció",
         "settingsSwipeNavigationToggle": "Kapcsolja be a swipe Navigációt előre és hátra az oldalakal.",
         "settingsSearchEngineHeading": "Kereső Motor",
-        "settingsDefaultSearchEngine": "Válasza ki Alap kereső Motorját:",
-        "settingsDDGExplanation": "Set DuckDuckGo as the default search engine to see instant answers in the searchbar.",
+        "settingsDefaultSearchEngine": "Válasza ki az Alap kereső Motorját:",
+        "settingsDDGExplanation": "Állitsa be a DuckDuckGo kereső motort hogy lássa a válaszokat a kereső sorba.",
         "settingsKeyboardShortcutsHeading": "Billentjüzet kombinációk",
-        "settingsKeyboardShortcutsHelp": null, //missing translation
+        "settingsKeyboardShortcutsHelp": "Használj , tobb kombináció megadásához.", //missing translation
         /* app menu */
         "appMenuFile": "Fajl",
         "appMenuNewTab": "Új Fül",
