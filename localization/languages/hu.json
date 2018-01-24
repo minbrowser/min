@@ -29,6 +29,7 @@
         Each one of these strings describes what the command will do when you run it. */
         "viewSettings": "Beálitások Megtekintése",
         "takeScreenshot": "Képernyő kép készités",
+        "viewReadingList": "Olvasási lista Megtekintése",
         "clearHistory": "Összes Történet törlés",
         "switchToTask": "Váltsz Feladatot",
         "createTask": "Feladat létrehozás",
@@ -99,6 +100,7 @@
         },
         "settingsAppearanceHeading": "Megjelenés",
         "settingsDarkModeToggle": "Kapcsolja be a sotét nézetett",
+        "settingsHistoryButtonToggle": "Vissza gomb bekapcsolása",
         "settingsSwipeNavigationHeading": "Swipe Navigáció",
         "settingsSwipeNavigationToggle": "Kapcsolja be a swipe Navigációt előre és hátra az oldalakal.",
         "settingsSearchEngineHeading": "Kereső Motor",
@@ -106,6 +108,7 @@
         "settingsDDGExplanation": "Állitsa be a DuckDuckGo kereső motort hogy lássa a válaszokat a kereső sorba.",
         "settingsKeyboardShortcutsHeading": "Billentjüzet kombinációk",
         "settingsKeyboardShortcutsHelp": "Használj , tobb kombináció megadásához.",
+
         /* app menu */
         "appMenuFile": "Fajl",
         "appMenuNewTab": "Új Fül",
@@ -148,5 +151,7 @@
         "appMenuShowAll": "Mindnet Mutat",
         "appMenuQuit": "Kilép %n",
         "appMenuBringToFront": "Mindnet előtérbe hoz"
+        /* PDF Viewer */
+        "PDFPageCounter": {"unsafeHTML": "oldal <input type='text'/> bol <span id='total'></span>"}
     }
 }
