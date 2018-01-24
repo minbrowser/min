@@ -105,7 +105,7 @@
         "settingsDefaultSearchEngine": "Válasza ki az Alap kereső Motorját:",
         "settingsDDGExplanation": "Állitsa be a DuckDuckGo kereső motort hogy lássa a válaszokat a kereső sorba.",
         "settingsKeyboardShortcutsHeading": "Billentjüzet kombinációk",
-        "settingsKeyboardShortcutsHelp": "Használj , tobb kombináció megadásához.", //missing translation
+        "settingsKeyboardShortcutsHelp": "Használj , tobb kombináció megadásához.",
         /* app menu */
         "appMenuFile": "Fajl",
         "appMenuNewTab": "Új Fül",
