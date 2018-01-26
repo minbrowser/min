@@ -67,6 +67,7 @@ var taskOverlay = {
     taskSwitcherButton.classList.add('active')
 
     this.tabDragula.containers = []
+    empty(taskContainer)
 
     // show the task elements
     tasks.get().forEach(function (task, index) {
@@ -96,7 +97,9 @@ var taskOverlay = {
 
       //wait until the animation is complete to remove the tab elements
       setTimeout(function () {
-        empty(taskContainer)
+        if (!taskOverlay.isShown) {
+          empty(taskContainer)
+        }
       }, 200);
 
       document.body.classList.remove('task-overlay-is-shown')
