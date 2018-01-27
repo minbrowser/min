@@ -275,7 +275,7 @@ webviews.bindIPC('goForward', function () {
 })
 
 webviews.bindIPC('showBackArrow', function() {
-    var backArrow = document.getElementById('left')
+    var backArrow = document.getElementById('leftArrowContainer')
     backArrow.classList.toggle('shown')
     setTimeout(function() {
       backArrow.classList.toggle('shown')
@@ -283,7 +283,7 @@ webviews.bindIPC('showBackArrow', function() {
 })
 
 webviews.bindIPC('showForwardArrow', function() {
-    var forwardArrow = document.getElementById('right')
+    var forwardArrow = document.getElementById('rightArrowContainer')
     forwardArrow.classList.toggle('shown')
     setTimeout(function() {
       forwardArrow.classList.toggle('shown')

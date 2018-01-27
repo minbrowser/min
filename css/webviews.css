@@ -49,10 +49,10 @@ body.windows #webviews {
 	opacity: 1;
 	visibility: visible;
 }
-#left {
+#leftArrowContainer {
 	left: -70px;
 }
-#right {
+#rightArrowContainer {
 	right: -70px;
 }
 
