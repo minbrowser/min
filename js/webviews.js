@@ -278,6 +278,22 @@ webviews.bindIPC('goForward', function () {
     })
 })
 
+webviews.bindIPC('showBackArrow', function() {
+    var backArrow = document.getElementById('leftArrowContainer')
+    backArrow.classList.toggle('shown')
+    setTimeout(function() {
+      backArrow.classList.toggle('shown')
+    }, 600)
+})
+
+webviews.bindIPC('showForwardArrow', function() {
+    var forwardArrow = document.getElementById('rightArrowContainer')
+    forwardArrow.classList.toggle('shown')
+    setTimeout(function() {
+      forwardArrow.classList.toggle('shown')
+    }, 600)
+})
+
 /* workaround for https://github.com/electron/electron/issues/3471 */
 
 webviews.bindEvent('did-get-redirect-request', function (e, oldURL, newURL, isMainFrame, httpResponseCode, requestMethod, referrer, header) {

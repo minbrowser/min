@@ -6,12 +6,16 @@ var verticalMouseMove = 0
 var beginningScrollLeft = null
 var beginningScrollRight = null
 
+var hasShownSwipeArrow  = false
+
 function resetCounters () {
   horizontalMouseMove = 0
   verticalMouseMove = 0
 
   beginningScrollLeft = null
   beginningScrollRight = null
+
+  hasShownSwipeArrow = false
 }
 
 function onSwipeGestureFinish () {
@@ -46,6 +50,15 @@ window.addEventListener('wheel', function (e) {
 
   if (Math.abs(e.deltaX) >= 20 || Math.abs(e.deltaY) >= 20) {
     clearTimeout(swipeGestureTimeout)
+
+    if (horizontalMouseMove < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5 && !hasShownSwipeArrow) {
+      hasShownSwipeArrow = true
+      ipc.sendToHost('showBackArrow')
+    } else if (horizontalMouseMove > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5 && !hasShownSwipeArrow) {
+      hasShownSwipeArrow = true
+      ipc.sendToHost('showForwardArrow')
+    }
+
     swipeGestureTimeout = setTimeout(onSwipeGestureFinish, 70)
   }
 
