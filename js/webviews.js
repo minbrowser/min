@@ -279,7 +279,7 @@ webviews.bindIPC('showBackArrow', function() {
     backArrow.classList.toggle('shown')
     setTimeout(function() {
       backArrow.classList.toggle('shown')
-    }, 800)
+    }, 600)
 })
 
 webviews.bindIPC('showForwardArrow', function() {
@@ -287,7 +287,7 @@ webviews.bindIPC('showForwardArrow', function() {
     forwardArrow.classList.toggle('shown')
     setTimeout(function() {
       forwardArrow.classList.toggle('shown')
-    }, 800)
+    }, 600)
 })
 
 /* workaround for https://github.com/electron/electron/issues/3471 */
