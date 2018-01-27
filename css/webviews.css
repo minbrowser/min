@@ -58,8 +58,8 @@ body.windows #webviews {
 
 .arrow {
 	color: white;
-    font-size: 40px !important;
-    margin-top: 50px;
+	font-size: 40px !important;
+	margin-top: 50px;
 }
 #leftArrow {
     float: right;
