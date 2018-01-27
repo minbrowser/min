@@ -37,7 +37,7 @@ body.windows #webviews {
 	width: 140px;
 	height: 140px;
 	border-radius: 70px;
-	background: rgba(0,0,0,0.8);
+	background: #000;
 	position: fixed;
 	top: 50%;
 	z-index: 1;
@@ -45,8 +45,8 @@ body.windows #webviews {
 	opacity: 0;
 	visibility: hidden;
 }
-.arrow-indicator.shown {  
-	opacity: 1;
+.arrow-indicator.shown {
+	opacity: 0.6;
 	visibility: visible;
 }
 #leftArrowContainer {
