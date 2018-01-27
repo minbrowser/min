@@ -169,13 +169,17 @@ var webviews = {
         w.addEventListener('crashed', function (e) {
             var tabId = this.getAttribute('data-tab')
 
-            webviews.destroy(tabId)
             tabs.update(tabId, {
                 url: webviews.internalPages.crash
             })
 
+            //the existing process has crashed, so we can't reuse it
+            webviews.destroy(tabId)
             webviews.add(tabId)
-            webviews.setSelected(tabId)
+
+            if (tabId === tabs.getSelected()) {
+                webviews.setSelected(tabId)
+            }
         })
 
         w.addEventListener('did-fail-load', function (e) {
