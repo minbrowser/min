@@ -46,6 +46,8 @@ function openURLFromSearchbar (url, event) {
     return true
   } else {
     navigate(tabs.getSelected(), url)
+    // focus the webview, so that autofocus inputs on the page work
+    webviews.get(tabs.getSelected()).focus()
     return false
   }
 }
