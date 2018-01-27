@@ -62,10 +62,10 @@ body.windows #webviews {
 	margin-top: 50px;
 }
 #leftArrow {
-    float: right;
-    margin-right: 15px;
+	float: right;
+	margin-right: 15px;
 }
 #rightArrow {
-    float: left;
-    margin-left: 15px;
+	float: left;
+	margin-left: 15px;
 }
