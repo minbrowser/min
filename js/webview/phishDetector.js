@@ -77,7 +77,8 @@ function checkPhishingStatus () {
   // if we have a password input, set a lower threshold
 
   if (document.querySelector('input[type=password]')) {
-    minPhishingScore = 0.65
+    debugPhishing("found password input, resetting minScore")
+    minPhishingScore = 0.9
   }
 
   var sensitiveWords = ['secure', 'account', 'webscr', 'login', 'ebayisapi', 'signing', 'banking', 'confirm']
@@ -97,7 +98,7 @@ function checkPhishingStatus () {
   var bodyText = document.body.textContent
   var bodyHtml = document.body.innerHTML
 
-  var minPhishingScore = 1.25
+  var minPhishingScore = 1.35
   var phishingScore = 0
 
   // used for url parsing
