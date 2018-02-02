@@ -2,19 +2,37 @@
 
 var failMessage = 'Min requires macOS or Linux'
 
-var platforms = {
+//matches against navigator.platform
+var platformMatchStrings = {
   'MacIntel': 'https://github.com/minbrowser/min/releases/download/v1.7.0/Min-v1.7.0-darwin-x64.zip',
   'Linux i686': 'https://github.com/minbrowser/min/releases/download/v1.7.0/Min_1.7.0_i386.deb',
   'x86_64': 'https://github.com/minbrowser/min/releases/download/v1.7.0/Min_1.7.0_amd64.deb'
 }
 
+//matches against navigator.userAgent
+var UAMatchStrings = {
+  'Win64': 'https://github.com/minbrowser/min/releases/download/v1.7.0/Min-v1.7.0-win32-x64.zip',
+  'WOW64': 'https://github.com/minbrowser/min/releases/download/v1.7.0/Min-v1.7.0-win32-x64.zip',
+  //neither of the 64-bit strings matched, fall back to 32-bit
+  'Windows NT': 'https://github.com/minbrowser/min/releases/download/v1.7.0/Min-v1.7.0-win32-ia32.zip'
+}
+
 function getDownloadLink() {
   var downloadLink = null
 
-  for (var platform in platforms) {
+  for (var platform in platformMatchStrings) {
     if (navigator.platform.indexOf(platform) !== -1) {
-      downloadLink = platforms[platform]
+      downloadLink = platformMatchStrings[platform]
       break
+    }
+  }
+
+  if (!downloadLink) {
+    for (var ua in UAMatchStrings) {
+      if (navigator.userAgent.indexOf(ua) !== -1) {
+        downloadLink = UAMatchStrings[ua]
+        break
+      }
     }
   }
 
