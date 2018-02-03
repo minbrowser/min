@@ -58,7 +58,7 @@ var sessionRestore = {
       switchToTask(data.state.selectedTask)
 
       if (currentTask.tabs.isEmpty()) {
-        enterEditMode(currentTask.tabs.getSelected())
+        tabBar.enterEditMode(currentTask.tabs.getSelected())
       }
     } catch (e) {
       // an error occured while restoring the session data

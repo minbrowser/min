@@ -53,7 +53,7 @@ var taskOverlay = {
 
     document.body.classList.add('task-overlay-is-shown')
 
-    leaveTabEditMode()
+    tabBar.leaveEditMode()
 
     this.isShown = true
     taskSwitcherButton.classList.add('active')

@@ -34,7 +34,7 @@ function openURLFromSearchbar (url, event) {
     var bang = getCustomBang(url)
 
     if (bang) {
-      leaveTabEditMode()
+      tabBar.leaveEditMode()
       bang.fn(url.replace(bang.phrase, '').trimLeft())
       // don't open the URL
       return
@@ -270,7 +270,7 @@ function focusSearchbarItem (options) {
   if (currentItem && logicalNextItem) { // an item is focused and there is another item after it, move onto the next one
     logicalNextItem.focus()
   } else if (currentItem) { // the last item is focused, focus the searchbar again
-    getTabInput(tabs.getSelected()).focus()
+    tabBar.getTabInput(tabs.getSelected()).focus()
     return
   } else { // no item is focused.
     allItems[0].focus()

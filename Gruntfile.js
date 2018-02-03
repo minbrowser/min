@@ -44,7 +44,7 @@ module.exports = function (grunt) {
           'js/readerview.js',
           'js/navbar/tabActivity.js',
           'js/navbar/tabColor.js',
-          'js/navbar/navbarTabs.js',
+          'js/navbar/tabBar.js',
           'js/taskOverlay/taskOverlay.js',
           'js/taskOverlay/taskOverlayBuilder.js',
           'js/navbar/addTabButton.js',

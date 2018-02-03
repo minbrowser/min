@@ -30,7 +30,7 @@ ipc.on('inspectPage', function () {
 
 ipc.on('showReadingList', function () {
   // open the searchbar with "!readinglist " as the input
-  enterEditMode(tabs.getSelected(), '!readinglist ')
+  tabBar.enterEditMode(tabs.getSelected(), '!readinglist ')
 })
 
 ipc.on('addTab', function (e, data) {
@@ -113,7 +113,7 @@ ipc.on('addTask', function () {
   taskOverlay.show()
   setTimeout(function () {
     taskOverlay.hide()
-    enterEditMode(tabs.getSelected())
+    tabBar.enterEditMode(tabs.getSelected())
   }, 600)
 })
 
@@ -166,7 +166,7 @@ settings.get('keyMap', function (keyMapSettings) {
   defineShortcut('addPrivateTab', addPrivateTab)
 
   defineShortcut('enterEditMode', function (e) {
-    enterEditMode(tabs.getSelected())
+    tabBar.enterEditMode(tabs.getSelected())
     return false
   })
 
@@ -205,8 +205,8 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('addToFavorites', function (e) {
-    bookmarks.handleStarClick(getTabElement(tabs.getSelected()).querySelector('.bookmarks-button'))
-    enterEditMode(tabs.getSelected()) // we need to show the bookmarks button, which is only visible in edit mode
+    bookmarks.handleStarClick(tabBar.getTab(tabs.getSelected()).querySelector('.bookmarks-button'))
+    tabBar.enterEditMode(tabs.getSelected()) // we need to show the bookmarks button, which is only visible in edit mode
   })
 
   // cmd+x should switch to tab x. Cmd+9 should switch to the last tab
@@ -241,7 +241,7 @@ settings.get('keyMap', function (keyMapSettings) {
 
   Mousetrap.bind('esc', function (e) {
     taskOverlay.hide()
-    leaveTabEditMode()
+    tabBar.leaveEditMode()
 
     var webview = webviews.get(tabs.getSelected())
 
@@ -382,7 +382,7 @@ settings.get('keyMap', function (keyMapSettings) {
     if (currentSearchbarInput) { // if the searchbar is open
       var value = currentSearchbarInput.value
 
-      leaveTabEditMode()
+      tabBar.leaveEditMode()
 
       // if the text is already a URL, navigate to that page
       if (urlParser.isURLMissingProtocol(value)) {

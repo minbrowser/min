@@ -93,7 +93,7 @@ function enterEditMode (tabId, editingValue) { // editingValue: an optional stri
 function rerenderTabstrip () {
   empty(tabContainer)
   for (var i = 0; i < tabs.length; i++) {
-    tabContainer.appendChild(createTabElement(tabs[i]))
+    tabContainer.appendChild(tabBar.createElement(tabs[i]))
   }
 }
 
@@ -278,7 +278,7 @@ function createTabElement (data) {
     if (tabs.getSelected() !== data.id) { // else switch to tab if it isn't focused
       switchToTab(data.id)
     } else { // the tab is focused, edit tab instead
-      enterEditMode(data.id)
+      tabBar.enterEditMode(data.id)
     }
   })
 
@@ -314,7 +314,7 @@ function addTabElement(tabId) {
   var tab = tabs.get(tabId)
   var index = tabs.getIndex(tabId)
 
-  var tabEl = createTabElement(tab)
+  var tabEl = tabBar.createElement(tab)
   tabContainer.insertBefore(tabEl, tabContainer.childNodes[index])
 }
 
@@ -323,5 +323,5 @@ function addTabElement(tabId) {
 // when we click outside the navbar, we leave editing mode
 
 webviews.bindEvent('focus', function () {
-  leaveTabEditMode()
+  tabBar.leaveEditMode()
 })

@@ -11,7 +11,7 @@ function navigate (tabId, newURL) {
 
   webviews.update(tabId, newURL)
 
-  leaveTabEditMode({
+  tabBar.leaveEditMode({
     blur: true
   })
 }
@@ -22,7 +22,7 @@ function addTask () {
   tasks.setSelected(tasks.add())
   taskOverlay.hide()
 
-  rerenderTabstrip()
+  tabBar.rerenderAll()
   addTab()
 }
 
@@ -39,12 +39,12 @@ function addTab (tabId, options) {
   options = options || {}
 
   if (options.leaveEditMode !== false) {
-    leaveTabEditMode() // if a tab is in edit-mode, we want to exit it
+    tabBar.leaveEditMode() // if a tab is in edit-mode, we want to exit it
   }
 
   tabId = tabId || tabs.add()
 
-  addTabElement(tabId)
+  tabBar.addElement(tabId)
   webviews.add(tabId)
 
   // open in background - we don't want to enter edit mode or switch to tab
@@ -57,7 +57,7 @@ function addTab (tabId, options) {
     focusWebview: false
   })
   if (options.enterEditMode !== false) {
-    enterEditMode(tabId)
+    tabBar.enterEditMode(tabId)
   }
 }
 
@@ -75,7 +75,7 @@ function destroyTask (id) {
 
 /* destroys the webview and tab element for a tab */
 function destroyTab (id) {
-  var tabEl = getTabElement(id)
+  var tabEl = tabBar.getTab(id)
   if (tabEl) {
     // The tab does not have a coresponding .tab-item element.
     // This happens when destroying tabs from other task where this .tab-item is not present
@@ -143,7 +143,7 @@ function closeTab (tabId) {
 function switchToTask (id) {
   tasks.setSelected(id)
 
-  rerenderTabstrip()
+  tabBar.rerenderAll()
 
   var taskData = tasks.get(id)
 
@@ -175,7 +175,7 @@ function switchToTab (id, options) {
     return
   }
 
-  leaveTabEditMode()
+  tabBar.leaveEditMode()
 
   // set the tab's lastActivity to the current time
 
@@ -186,7 +186,7 @@ function switchToTab (id, options) {
   }
 
   tabs.setSelected(id)
-  setActiveTabElement(id)
+  tabBar.setActiveTab(id)
   webviews.setSelected(id)
 
   if (options.focusWebview !== false) {
