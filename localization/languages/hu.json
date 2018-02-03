@@ -150,7 +150,7 @@
         "appMenuHideOthers": "Többi Elrejtése",
         "appMenuShowAll": "Mindnet Mutat",
         "appMenuQuit": "Kilép %n",
-        "appMenuBringToFront": "Mindnet előtérbe hoz"
+        "appMenuBringToFront": "Mindnet előtérbe hoz",
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "oldal <input type='text'/> bol <span id='total'></span>"}
     }
