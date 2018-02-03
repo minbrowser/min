@@ -123,7 +123,7 @@ var taskOverlay = {
 
 // swipe down on the tabstrip to show the task overlay
 // this was the old expanded mode gesture, so it's remapped to the overlay
-navbar.addEventListener('mousewheel', function (e) {
+document.getElementById('navbar').addEventListener('mousewheel', function (e) {
   if (e.deltaY < -30 && e.deltaX < 10) {
     taskOverlay.show()
     e.stopImmediatePropagation()
