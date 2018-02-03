@@ -311,45 +311,12 @@ function createTabElement (data) {
   return tabEl
 }
 
-function addTab (tabId, options) {
-  /*
-  options
-
-    options.focus - whether to enter editing mode when the tab is created. Defaults to true.
-    options.openInBackground - whether to open the tab without switching to it. Defaults to false.
-    options.leaveEditMode - whether to hide the searchbar when creating the tab
-  */
-
-  options = options || {}
-
-  if (options.leaveEditMode !== false) {
-    leaveTabEditMode() // if a tab is in edit-mode, we want to exit it
-  }
-
-  tabId = tabId || tabs.add()
-
+function addTabElement(tabId) {
   var tab = tabs.get(tabId)
   var index = tabs.getIndex(tabId)
 
   var tabEl = createTabElement(tab)
-
   tabContainer.insertBefore(tabEl, tabContainer.childNodes[index])
-
-  webviews.add(tabId)
-
-  // open in background - we don't want to enter edit mode or switch to tab
-
-  if (options.openInBackground) {
-    return
-  }
-
-  switchToTab(tabId, {
-    focusWebview: false
-  })
-
-  if (options.enterEditMode !== false) {
-    enterEditMode(tabId)
-  }
 }
 
 // startup state is created in sessionRestore.js

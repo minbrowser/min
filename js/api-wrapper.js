@@ -16,6 +16,51 @@ function navigate (tabId, newURL) {
   })
 }
 
+/* creates a new task */
+
+function addTask () {
+  tasks.setSelected(tasks.add())
+  taskOverlay.hide()
+
+  rerenderTabstrip()
+  addTab()
+}
+
+/* creates a new tab */
+
+function addTab (tabId, options) {
+  /*
+  options
+
+    options.focus - whether to enter editing mode when the tab is created. Defaults to true.
+    options.openInBackground - whether to open the tab without switching to it. Defaults to false.
+    options.leaveEditMode - whether to hide the searchbar when creating the tab
+  */
+  options = options || {}
+
+  if (options.leaveEditMode !== false) {
+    leaveTabEditMode() // if a tab is in edit-mode, we want to exit it
+  }
+
+  tabId = tabId || tabs.add()
+
+  addTabElement(tabId)
+  webviews.add(tabId)
+
+  // open in background - we don't want to enter edit mode or switch to tab
+
+  if (options.openInBackground) {
+    return
+  }
+
+  switchToTab(tabId, {
+    focusWebview: false
+  })
+  if (options.enterEditMode !== false) {
+    enterEditMode(tabId)
+  }
+}
+
 /* destroys a task object and the associated webviews */
 
 function destroyTask (id) {
