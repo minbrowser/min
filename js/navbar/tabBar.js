@@ -2,8 +2,9 @@ var lastTabDeletion = 0 //TODO get rid of this
 
 var tabBar = {
     container: document.getElementById('tabs'),
+    tabElementMap: {}, //tabId: tab element
     getTab: function (tabId) {
-        return document.querySelector('.tab-item[data-tab="{id}"]'.replace('{id}', tabId))
+        return tabBar.tabElementMap[tabId]
     },
     getTabInput: function (tabId) {
         return document.querySelector('.tab-item[data-tab="{id}"] .tab-input'.replace('{id}', tabId))
@@ -107,8 +108,11 @@ var tabBar = {
     },
     rerenderAll: function () {
         empty(tabBar.container)
+        tabBar.tabElementMap = {}
         for (var i = 0; i < tabs.length; i++) {
-            tabBar.container.appendChild(tabBar.createElement(tabs[i]))
+            var el = tabBar.createElement(tabs[i])
+            tabBar.container.appendChild(el)
+            tabBar.tabElementMap[tabs[i].id] = el
         }
     },
     handleProgressBar: function (tabId, status) {
@@ -303,6 +307,7 @@ var tabBar = {
 
         var tabEl = tabBar.createElement(tab)
         tabBar.container.insertBefore(tabEl, tabBar.container.childNodes[index])
+        tabBar.tabElementMap[tabId] = tabEl
     },
     removeTab: function (tabId) {
         var tabEl = tabBar.getTab(tabId)
@@ -310,6 +315,7 @@ var tabBar = {
             // The tab does not have a coresponding .tab-item element.
             // This happens when destroying tabs from other task where this .tab-item is not present
             tabBar.container.removeChild(tabEl)
+            delete tabBar.tabElementMap[tabId]
         }
     }
 }
