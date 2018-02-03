@@ -297,18 +297,25 @@ var tabBar = {
 
         return tabEl
     },
-    addElement: function (tabId) {
+    addTab: function (tabId) {
         var tab = tabs.get(tabId)
         var index = tabs.getIndex(tabId)
 
         var tabEl = tabBar.createElement(tab)
         tabBar.container.insertBefore(tabEl, tabBar.container.childNodes[index])
     },
+    removeTab: function (tabId) {
+        var tabEl = tabBar.getTab(tabId)
+        if (tabEl) {
+            // The tab does not have a coresponding .tab-item element.
+            // This happens when destroying tabs from other task where this .tab-item is not present
+            tabBar.container.removeChild(tabEl)
+        }
+    }
 }
 
 // when we click outside the navbar, we leave editing mode
 
 webviews.bindEvent('focus', function () {
     tabBar.leaveEditMode()
-  })
-  
+})
