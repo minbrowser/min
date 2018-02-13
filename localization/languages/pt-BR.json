@@ -28,6 +28,7 @@
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
         "viewSettings": "Ver configurações",
+        "viewReadingList": "Ver listas de leitura",
         "takeScreenshot": "Capturar tela",
         "clearHistory": "Limpar todo o histórico",
         "switchToTask": "Trocar para a tarefa",
@@ -43,7 +44,7 @@
         "connectionNotSecure": "Sua conexão com este site não é segura.",
         "searchbarPlaceholder": "Busque ou digite um endereço",
         "privateTab": "Aba privada",
-        "newTabAction": "Novo separador", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        "newTabAction": "Nova aba", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
         "viewTasks": "Ver tarefas",
         "newTask": "Nova tarefa", //"new" is a verb - it is used for a button at the bottom of the task overlay
@@ -56,7 +57,7 @@
         "isFocusMode": "Você está no modo concentração.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
         "focusModeExplanation1": "No modo concentração, todas as abas com exceção da atual ficam escondidas e você não pode criar novas abas.",
-        "focusModeExplanation2": "Você pode desativar o modo concentração desmarcando a caixa \"modo concentração\" no menu visualisar.",
+        "focusModeExplanation2": "Você pode desativar o modo concentração desmarcando a caixa \"modo concentração\" no menu visualizar.",
         /* pages/crash/index.html */
         "crashErrorTitle": "Ocorreu algo de errado.",
         "crashErrorSubtitle": "Ocorreu um problema ao tentar mostrar esta página.",
@@ -93,7 +94,7 @@
         "settingsPrivacyHeading": "Bloqueio de Conteúdo",
         "settingsContentBlockingToggle": "Bloquear rastreadores e propagandas",
         "settingsBlockScriptsToggle": "Bloquear scripts",
-        "settingsBlockImagesToggle": "Bloquear images",
+        "settingsBlockImagesToggle": "Bloquear imagens",
         "settingsEasyListCredit": {
             "unsafeHTML": "Baseado em EasyList e EasyPrivacy, sem regras para ocultar elementos. Criado pelos <a target=\"_blank\" href=\"https://easylist.to/\">autores EasyList</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">ver licença</a>."
         },
@@ -113,7 +114,7 @@
         "appMenuNewPrivateTab": "Nova aba privada",
         "appMenuNewTask": "Nova tarefa",
         "appMenuSavePageAs": "Salvar página como",
-        "appMenuPrint": "Imrimir",
+        "appMenuPrint": "Imprimir",
         "appMenuEdit": "Editar",
         "appMenuUndo": "Desfazer",
         "appMenuRedo": "Refazer",
