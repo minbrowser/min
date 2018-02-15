@@ -14,7 +14,8 @@ var websiteNotFound = {
   secondaryAction: {
     title: l('archiveSearchAction'),
     url: 'https://web.archive.org/web/*/' + url
-  }
+  },
+  retryOnReconnect: true
 }
 
 var sslError = {
@@ -29,7 +30,8 @@ var dnsError = {
 
 var offlineError = {
   name: l('offlineErrorTitle'),
-  message: l('offlineErrorMessage')
+  message: l('offlineErrorMessage'),
+  retryOnReconnect: true
 }
 
 // list: https://code.google.com/p/chromium/codesearch#chromium/src/net/base/net_error_list.h&sq=package:chromium&type=cs
@@ -79,6 +81,12 @@ const errorCodes = {
 // show the error message and detail
 
 var err = errorCodes[ec]
+
+if (err.retryOnReconnect) {
+  window.addEventListener('online', function () {
+    window.location = url
+  })
+}
 
 var title, subtitle
 
