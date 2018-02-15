@@ -8,6 +8,14 @@ var secondaryButton = document.getElementById('secondary-button')
 var ec = searchParams.get('ec')
 var url = searchParams.get('url')
 
+function retry () {
+  // make the page blank while the replacement page is loading, so it doesn't look like the error condition still exists
+  document.body.innerHTML = ''
+  document.body.style.backgroundColor = '#fff'
+
+  window.location = url
+}
+
 var websiteNotFound = {
   name: l('serverNotFoundTitle'),
   message: l('serverNotFoundSubtitle'),
@@ -84,7 +92,7 @@ var err = errorCodes[ec]
 
 if (err.retryOnReconnect) {
   window.addEventListener('online', function () {
-    window.location = url
+    retry()
   })
 }
 
@@ -118,7 +126,7 @@ if (errorCodes[ec] === sslError) {
 
 if (url) {
   primaryButton.addEventListener('click', function () {
-    window.location = url
+    retry()
   })
 }
 
