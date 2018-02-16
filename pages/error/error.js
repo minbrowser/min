@@ -90,7 +90,7 @@ const errorCodes = {
 
 var err = errorCodes[ec]
 
-if (err.retryOnReconnect) {
+if (err && err.retryOnReconnect) {
   window.addEventListener('online', function () {
     retry()
   })
