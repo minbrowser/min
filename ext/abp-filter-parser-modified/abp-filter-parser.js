@@ -55,15 +55,6 @@
     return input.substring(domainIndexStart, domainIndexEnd)
   }
 
-  function isThirdPartyHost (baseContextHost, testHost) {
-    if (!testHost.endsWith(baseContextHost)) {
-      return true
-    }
-
-    var c = testHost[testHost.length - baseContextHost.length - 1]
-    return c !== '.' && c !== undefined
-  }
-
   function isSameOriginHost (baseContextHost, testHost) {
     if (testHost.slice(-baseContextHost.length) === baseContextHost) {
       var c = testHost[testHost.length - baseContextHost.length - 1]
