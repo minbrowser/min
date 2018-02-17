@@ -1,4 +1,4 @@
-; (function (global, factory) {
+;(function (global, factory) {
   if (typeof define === 'function' && define.amd) {
     define(['exports'], factory)
   } else if (typeof exports !== 'undefined') {
@@ -99,37 +99,37 @@
 
   function parseOptions (input) {
     var output = {}
-    var hasValidOptions = false;
+    var hasValidOptions = false
 
     input.split(',').forEach(function (option) {
       if (option.startsWith('domain=')) {
         var domainString = option.split('=')[1].trim()
         parseDomains(domainString, '|', output)
-        hasValidOptions = true;
+        hasValidOptions = true
       } else {
 
         // the option is an element type to skip
         if (option[0] === '~' && elementTypes.indexOf(option.substring(1)) !== -1) {
           output.skipElementType = option.substring(1)
-          hasValidOptions = true;
+          hasValidOptions = true
 
-          // the option is an element type to match
+        // the option is an element type to match
         } else if (elementTypes.indexOf(option) !== -1) {
           output.elementType = option
-          hasValidOptions = true;
+          hasValidOptions = true
         }
 
-        //we don't support these yet, but they should still be marked as valid options
-        if(option === "third-party" || option === "~third-party") {
-          hasValidOptions = true;
+        // we don't support these yet, but they should still be marked as valid options
+        if (option === 'third-party' || option === '~third-party') {
+          hasValidOptions = true
         }
       }
     })
 
-    if(hasValidOptions) {
+    if (hasValidOptions) {
       return output
     } else {
-      return null;
+      return null
     }
   }
 
@@ -221,9 +221,9 @@
     if (index !== -1) {
       var options = parseOptions(input.substring(index + 1))
       if (options) {
-        //if there are no valid options, we shouldn't do any of this, because the $ sign can also be part of the main filter part
-        //example: https://github.com/easylist/easylist/commit/1bcf25d782de073764bf122a8dffec785434d8cc
-        parsedFilterData.options = options;
+        // if there are no valid options, we shouldn't do any of this, because the $ sign can also be part of the main filter part
+        // example: https://github.com/easylist/easylist/commit/1bcf25d782de073764bf122a8dffec785434d8cc
+        parsedFilterData.options = options
         // Get rid of the trailing options for the rest of the parsing
         input = input.substring(0, index)
         len = index
@@ -404,7 +404,7 @@
             object = parserData
           }
 
-        // Check for a regex match
+          // Check for a regex match
           if (parsedFilterData.regex) {
             object.regex.push(parsedFilterData)
           } else if (parsedFilterData.leftAnchored) {
@@ -416,14 +416,14 @@
           } else if (parsedFilterData.rightAnchored) {
             object.rightAnchored.push(parsedFilterData)
           } else if (parsedFilterData.hostAnchored) {
-          /* add the filters to the object based on the last 5 characters of their domain.
-            All domains must be at least 5 characters long: the TLD is at least 2 characters,
-            the . character adds one more character, and the domain name must be at least two
-            characters long. By storing the last 5 characters in an object, we can skip checking
-            whether every filter's domain is from the same origin as the URL we are checking.
-            Instead, we can just get the last 5 characters of the URL to check, get the filters
-            stored in that property of the object, and then check if the complete domains match.
-           */
+            /* add the filters to the object based on the last 5 characters of their domain.
+              All domains must be at least 5 characters long: the TLD is at least 2 characters,
+              the . character adds one more character, and the domain name must be at least two
+              characters long. By storing the last 5 characters in an object, we can skip checking
+              whether every filter's domain is from the same origin as the URL we are checking.
+              Instead, we can just get the last 5 characters of the URL to check, get the filters
+              stored in that property of the object, and then check if the complete domains match.
+             */
             var ending = parsedFilterData.host.slice(-5)
 
             if (object.hostAnchored[ending]) {
@@ -524,8 +524,8 @@
     }
 
     // get all of the host anchored filters with the same domain ending as the current domain
-    var hostFiltersToCheck = filters.hostAnchored[currentHost.slice(-5)]
-
+    var hostFiltersToCheck = filters.hostAnchored[currentHos.slice(-5)]
+ 
     if (hostFiltersToCheck) {
       // check if the string matches a domain name anchored filter
 
@@ -549,7 +549,7 @@
 
       for (var i = 0; i < len; i++) {
         if (matchOptions(plainStringMatches[i], input, contextParams, currentHost)) {
-          // console.log(plainStringMatches[i], 5);
+          // console.log(plainStringMatches[i], 5)
           return true
         }
       }
