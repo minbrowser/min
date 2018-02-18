@@ -87,12 +87,14 @@ var taskOverlay = {
       this.isShown = false
       this.overlayElement.hidden = true
 
-      //wait until the animation is complete to remove the tab elements
+      // wait until the animation is complete to remove the tab elements
       setTimeout(function () {
         if (!taskOverlay.isShown) {
           empty(taskContainer)
         }
-      }, 200);
+      }, 200)
+
+      this.tabDragula.containers = []
 
       document.body.classList.remove('task-overlay-is-shown')
 
