@@ -515,7 +515,7 @@
     }
 
     // get all of the host anchored filters with the same domain ending as the current domain
-    var hostFiltersToCheck = filters.hostAnchored[currentHos.slice(-5)]
+    var hostFiltersToCheck = filters.hostAnchored[currentHost.slice(-5)]
  
     if (hostFiltersToCheck) {
       // check if the string matches a domain name anchored filter
