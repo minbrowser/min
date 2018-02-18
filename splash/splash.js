@@ -78,9 +78,9 @@ if (downloadLink) {
   }
 }
 
-if (downloadLink && navigator.platform !== 'MacIntel') {
+if (downloadLink && navigator.platform === 'MacIntel') {
   for (var i = 0; i < subtextArray.length; i++) {
-    subtextArray[i].parentNode.removeChild(subtextArray[i])
+    subtextArray[i].textContent = 'Requires macOS 10.10 or greater'
   }
 }
 
