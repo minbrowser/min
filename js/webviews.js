@@ -14,7 +14,6 @@ function pagePermissionRequestHandler(webContents, permission, callback) {
 
 remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler)
 
-
 // called whenever the page url changes
 
 function onPageLoad(e) {
@@ -120,19 +119,25 @@ var webviews = {
         w.addEventListener('did-finish-load', onPageLoad)
         w.addEventListener('did-navigate-in-page', onPageLoad)
 
-        /* workaround for https://github.com/electron/electron/issues/8505 and similar issues */
         w.addEventListener('load-commit', function (e) {
             if (e.isMainFrame) {
                 tabBar.handleProgressBar(this.getAttribute('data-tab'), 'start')
             }
+            /* workaround for https://github.com/electron/electron/issues/8505 and similar issues */
             this.classList.add('loading')
+            this.setAttribute("last-load-event", Date.now().toString())
         })
 
         w.addEventListener('did-stop-loading', function () {
             tabBar.handleProgressBar(this.getAttribute('data-tab'), 'finish')
+
+            this.setAttribute("last-load-event", Date.now().toString())
+            //only set webviews to hidden if no load events have occurred for 15 seconds because of https://github.com/electron/electron/issues/8505
             setTimeout(function () {
-                w.classList.remove('loading')
-            }, 100)
+                if (Date.now() - parseInt(w.getAttribute("last-load-event")) > 14000) {
+                    w.classList.remove('loading')
+                }
+            }, 15000)
         })
 
         // open links in new tabs
