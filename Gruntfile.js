@@ -5,7 +5,7 @@ module.exports = function (grunt) {
 
   const ignoredDirs = ['.DS_Store', 'dist/app', 'ext/readability-master/test', /\.map$/g, /\.md$/g] // directories that will be ignored when building binaries
 
-      // Project configuration.
+  // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
@@ -68,7 +68,8 @@ module.exports = function (grunt) {
           'js/webview/readerDetector.js',
           'js/webview/swipeEvents.js',
           'js/webview/zoom.js',
-          'js/webview/keywordExtractor.js'
+          'js/webview/keywordExtractor.js',
+          'js/webview/siteUnbreak.js'
         ],
         dest: 'dist/webview.js'
       },
