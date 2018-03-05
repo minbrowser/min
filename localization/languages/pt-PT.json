@@ -28,6 +28,7 @@
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
         "viewSettings": "Ver definições",
+        "viewReadingList": "Ver lista de leitura",
         "takeScreenshot": "Obter captura de ecrã",
         "clearHistory": "Limpar todo o histórico",
         "switchToTask": "Trocar para a tarefa",
