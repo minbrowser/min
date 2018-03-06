@@ -65,7 +65,7 @@ ipc.on('getKeywordsData', function (e) {
         thisKeyword.push(words[i])
 
         // if this word ends with a phrase-ending character, we should jump to saving or discarding
-        if (phraseEndingCharcters.includes(words[i][words[i].length - 1])) {
+        if (words[i].length > 1 && phraseEndingCharcters.includes(words[i][words[i].length - 1])) {
         } else {
           // otherwise, we should skip the save-or-discard and continue adding words
           continue
