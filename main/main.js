@@ -52,10 +52,9 @@ function createWindow (cb) {
       var bounds = JSON.parse(data)
     }
 
-
-// maximizes the window frame in windows 10
-// fixes https://github.com/minbrowser/min/issues/214
-// should be removed once https://github.com/electron/electron/issues/4045 is fixed
+    // maximizes the window frame in windows 10
+    // fixes https://github.com/minbrowser/min/issues/214
+    // should be removed once https://github.com/electron/electron/issues/4045 is fixed
     if (process.platform === 'win32') {
       if (bounds.x === 0 || bounds.y === 0 || bounds.x === -8 || bounds.y === -8) {
         var screenSize = electron.screen.getPrimaryDisplay().workAreaSize
@@ -221,7 +220,7 @@ app.on('open-url', function (e, url) {
  *
  * Opens a new tab when all tabs are closed, and min is still open by clicking on the application dock icon
  */
-app.on('activate', function (/* e, hasVisibleWindows */) {
+app.on('activate', function ( /* e, hasVisibleWindows */) {
   if (!mainWindow && appIsReady) { // sometimes, the event will be triggered before the app is ready, and creating new windows will fail
     createWindow()
   }
@@ -253,6 +252,8 @@ function createAppMenu () {
 
   var Menu = electron.Menu
   var MenuItem = electron.MenuItem
+
+  var appName = app.getName()
 
   var template = [
     {
@@ -495,12 +496,11 @@ function createAppMenu () {
   ]
 
   if (process.platform === 'darwin') {
-    var name = app.getName()
     template.unshift({
-      label: name,
+      label: appName,
       submenu: [
         {
-          label: l('appMenuAbout').replace('%n', name),
+          label: l('appMenuAbout').replace('%n', appName),
           role: 'about'
         },
         {
@@ -524,7 +524,7 @@ function createAppMenu () {
           type: 'separator'
         },
         {
-          label: l('appMenuHide').replace('%n', name),
+          label: l('appMenuHide').replace('%n', appName),
           accelerator: 'CmdOrCtrl+H',
           role: 'hide'
         },
@@ -541,7 +541,7 @@ function createAppMenu () {
           type: 'separator'
         },
         {
-          label: l('appMenuQuit').replace('%n', name),
+          label: l('appMenuQuit').replace('%n', appName),
           accelerator: 'CmdOrCtrl+Q',
           click: function () {
             app.quit()
@@ -574,12 +574,33 @@ function createAppMenu () {
         })
       }
     })
+
+    // about item on linux and windows
+
+    template[5].submenu.push({
+      type: 'separator'
+    })
+
+    template[5].submenu.push({
+      label: l('appMenuAbout').replace('%n', appName),
+      click: function (item, window) {
+        var info = [
+          'Min v' + app.getVersion(),
+          'Chromium v' + process.versions.chrome
+        ]
+        electron.dialog.showMessageBox({
+          type: 'info',
+          title: l('appMenuAbout').replace('%n', appName),
+          message: info.join('\n'),
+          buttons: [l('closeDialog')]
+        })
+      }
+    })
   }
 
   mainMenu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(mainMenu)
 }
-
 
 function createDockMenu () {
   // create the menu. based on example from https://github.com/electron/electron/blob/master/docs/tutorial/desktop-environment-integration.md#custom-dock-menu-macos
