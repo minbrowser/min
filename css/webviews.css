@@ -41,9 +41,12 @@ body.windows #webviews {
 	position: fixed;
 	top: 50%;
 	z-index: 1;
-	transition: opacity 0.3s, visibility 0.3s;
 	opacity: 0;
 	visibility: hidden;
+}
+/* use a separate class to avoid an issue where the arrow sometimes appears briefly on startup beginning in Chromium 61 */
+.arrow-indicator.animating {
+	transition: opacity 0.3s, visibility 0.3s;
 }
 .arrow-indicator.shown {
 	opacity: 0.6;
