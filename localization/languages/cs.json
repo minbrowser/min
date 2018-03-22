@@ -149,6 +149,8 @@
         "appMenuHideOthers": "Skrýt ostatní",
         "appMenuShowAll": "Zobrazit vše",
         "appMenuQuit": "Ukončit %n",
-        "appMenuBringToFront": "Přenést vše do popředí"
+        "appMenuBringToFront": "Přenést vše do popředí",
+        /* PDF Viewer */
+        "PDFPageCounter": {"unsafeHTML": "Strana <input type='text'/> z <span id='total'></span>"}
     }
 }
