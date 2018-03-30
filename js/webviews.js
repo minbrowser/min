@@ -241,6 +241,10 @@ var webviews = {
   destroy: function (id) {
     var w = webviews.elementMap[id]
     if (w) {
+      var partition = w.getAttribute('partition')
+      if (partition) {
+        remote.session.fromPartition(partition).destroy()
+      }
       w.parentNode.removeChild(w)
     }
     delete webviews.elementMap[id]
