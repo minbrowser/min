@@ -99,7 +99,7 @@
         },
         "settingsAppearanceHeading": "Aussehen",
         "settingsDarkModeToggle": "Dark-Mode einschalten",
-        "settingsSwipeNavigationHeading": "Navigation durch Wischgesten",
+        "settingsadditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "Wischgesten zur Navigation zwischen Webseiten einschalten.",
         "settingsSearchEngineHeading": "Suchmaschine",
         "settingsDefaultSearchEngine": "Suchmaschine auswählen:",

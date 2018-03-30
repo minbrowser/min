@@ -53,6 +53,7 @@ module.exports = function (grunt) {
           'js/keybindings.js',
           'js/pdfViewer.js',
           'js/findinpage.js',
+          'js/userscripts.js',
           'js/sessionRestore.js',
           'js/tabRestore.js',
           'js/focusMode.js',

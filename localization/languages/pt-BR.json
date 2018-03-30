@@ -101,7 +101,7 @@
         "settingsAppearanceHeading": "Aparência",
         "settingsDarkModeToggle": "Habilitar modo noturno",
         "settingsHistoryButtonToggle": "Habilitar botão voltar",
-        "settingsSwipeNavigationHeading": "Navegação por gestos",
+        "settingsadditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "Habilitar navegação por gestos para voltar e avançar entre páginas.",
         "settingsSearchEngineHeading": "Serviço de busca",
         "settingsDefaultSearchEngine": "Escolha o serviço de busca padrão:",

@@ -6,6 +6,7 @@ var banner = document.getElementById('restart-required-banner')
 var darkModeCheckbox = document.getElementById('checkbox-dark-mode')
 var historyButtonCheckbox = document.getElementById('checkbox-history-button')
 var swipeNavigationCheckbox = document.getElementById('checkbox-swipe-navigation')
+var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
 
 function showRestartRequiredBanner () {
   banner.hidden = false
@@ -33,7 +34,7 @@ trackerCheckbox.addEventListener('change', function (e) {
 /* content type settings */
 
 var contentTypes = {
-    // humanReadableName: contentType
+  // humanReadableName: contentType
   'scripts': 'script',
   'images': 'image'
 }
@@ -136,13 +137,25 @@ swipeNavigationCheckbox.addEventListener('change', function (e) {
   showRestartRequiredBanner()
 })
 
+/* userscripts setting */
+
+settings.get('userscriptsEnabled', function (value) {
+  if (value === true) {
+    userscriptsCheckbox.checked = true
+  }
+})
+
+userscriptsCheckbox.addEventListener('change', function (e) {
+  settings.set('userscriptsEnabled', this.checked)
+  showRestartRequiredBanner()
+})
+
 /* default search engine setting */
 
 var searchEngineDropdown = document.getElementById('default-search-engine')
 
 settings.onLoad(function () {
   for (var searchEngine in searchEngines) {
-
     var item = document.createElement('option')
     item.textContent = searchEngines[searchEngine].name
 

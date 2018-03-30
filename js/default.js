@@ -1,4 +1,5 @@
 window.electron = require('electron')
+window.fs = require('fs')
 window.ipc = electron.ipcRenderer
 window.remote = electron.remote
 window.Dexie = require('dexie')
