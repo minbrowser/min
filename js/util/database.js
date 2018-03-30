@@ -82,7 +82,7 @@ Dexie.Promise.on('error', function (error) {
   console.warn('database error occured', error)
 
   if (!dbAlertShown) {
-    window && window.alert && window.alert('Make sure no other Min instance is running and then restart Electron.')
+    window && window.alert && window.alert(l('multipleInstancesErrorMessage'))
 
     dbAlertShown = true
   }

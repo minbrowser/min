@@ -23,7 +23,7 @@
         "suggestedSite": "Suggested site", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Results from DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
         "taskN": "Task %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "Hosts file entry", //this is a label used to indicate that a result is coming from the user's host file        
+        "hostsFileEntry": "Hosts file entry", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
@@ -81,6 +81,8 @@
         "phishingErrorMessage": "This website could be trying to steal your personal information, such as passwords or banking information.",
         "phishingErrorVisitAnyway": "Visit site anyway",
         "phishingErrorLeave": "Leave this site",
+        /* multiple instances alert */
+        "multipleInstancesErrorMessage": "An error occurred. Please close any other open instances and restart Min.",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "An error occurred",
         "sessionRestoreErrorExplanation": "Your saved tabs couldn't be restored correctly.",
