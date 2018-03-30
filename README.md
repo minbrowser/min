@@ -38,9 +38,10 @@ If you want to develop Min:
 * Build a copy of the JS by running ```grunt```.
   * You can also have Grunt watch for changes and automatically rebuild by running ```grunt watch:scripts```.
 * Download a copy of Electron from [here](https://github.com/electron/electron/releases).
-* Start Min by running `/Path/To/Electron /Path/To/Min`.<sup>1</sup>
+* Start Min by running `/Path/To/Electron /Path/To/Min`.<sup>1,2</sup>
 
-<sup>1</sup>: _Make sure no `Min` instance is already running before starting the development version of `Min`._
+<sup>1</sup>: _Make sure no `Min` instance is already running before starting the development version of `Min`._<br>
+<sup>2</sup>: _On `macOS`, the path to `Electron` is `Path/To/Electron.app/Contents/MacOS/Electron`_
 
 ## Building Binaries
 
