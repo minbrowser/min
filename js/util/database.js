@@ -2,6 +2,7 @@
 // requires Dexie.min.js
 
 var db = new Dexie('browsingData')
+var dbAlertShown = false
 
 // Min 1.1.0-1.3.1
 db.version(3).stores({
@@ -79,4 +80,10 @@ db.open().then(function () {
 
 Dexie.Promise.on('error', function (error) {
   console.warn('database error occured', error)
+
+  if (!dbAlertShown) {
+    window.alert('Make sure no other Min instance is running and then restart Electron.')
+
+    dbAlertShown = true
+  }
 })
