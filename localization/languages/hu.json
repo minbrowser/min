@@ -101,7 +101,7 @@
         "settingsAppearanceHeading": "Megjelenés",
         "settingsDarkModeToggle": "Kapcsolja be a sotét nézetett",
         "settingsHistoryButtonToggle": "Vissza gomb bekapcsolása",
-        "settingsadditionalFeaturesHeading": null, //missing translation
+        "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "Kapcsolja be a swipe Navigációt előre és hátra az oldalakal.",
         "settingsSearchEngineHeading": "Kereső Motor",
         "settingsDefaultSearchEngine": "Válasza ki az Alap kereső Motorját:",

@@ -101,7 +101,7 @@
         "settingsAppearanceHeading": "Aparência",
         "settingsDarkModeToggle": "Ativar modo escuro",
         "settingsHistoryButtonToggle": "Ativar botão para recuar",
-        "settingsadditionalFeaturesHeading": null, //missing translation
+        "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "Ativar gestos para navegar entre as páginas visitadas.",
         "settingsSearchEngineHeading": "Motor de pesquisa",
         "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",

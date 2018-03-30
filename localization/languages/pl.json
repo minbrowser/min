@@ -101,7 +101,7 @@
         "settingsAppearanceHeading": "Wygląd",
         "settingsDarkModeToggle": "Włącz tryb ciemny",
         "settingsHistoryButtonToggle": "Włącz przycisk Wstecz",
-        "settingsadditionalFeaturesHeading": null, //missing translation
+        "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "Włącz przewijanie, aby nawigować między stronami.",
         "settingsSearchEngineHeading": "Wyszukiwarka",
         "settingsDefaultSearchEngine": "Wybierz domyślną wyszukiwarkę:",

@@ -101,7 +101,7 @@
         "settingsAppearanceHeading": "Appearance",
         "settingsDarkModeToggle": "Enable dark mode",
         "settingsHistoryButtonToggle": "Enable back button",
-        "settingsadditionalFeaturesHeading": "Additional Features",
+        "settingsAdditionalFeaturesHeading": "Additional Features",
         "settingsSwipeNavigationToggle": "Enable swipe for navigating back and forth between pages.",
         "settingsUserscriptsToggle": "Enable user scripts",
         "settingsUserscriptsExplanation": {"unsafeHTML": "User scripts allow you to modify the behavior of webpages - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},

@@ -100,7 +100,7 @@
         "settingsAppearanceHeading": "外観",
         "settingsDarkModeToggle": "ダークモードを使用",
         "settingsHistoryButtonToggle": "戻るボタンを使用",
-        "settingsadditionalFeaturesHeading": null, //missing translation
+        "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "スワイプしてページを行き来できるようにする",
         "settingsSearchEngineHeading": "検索エンジン",
         "settingsDefaultSearchEngine": "デフォルトの検索エンジン:",
