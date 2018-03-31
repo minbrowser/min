@@ -79,6 +79,8 @@ window.addEventListener('wheel', function (e) {
         zoomIn()
         verticalMouseMove = 0
       }
+
+      e.preventDefault()
     }
     platformZoomKey = e.metaKey
   }
@@ -92,5 +94,9 @@ window.addEventListener('wheel', function (e) {
   if (verticalMouseMove < -55 && platformZoomKey) {
     verticalMouseMove = -10
     zoomIn()
+  }
+
+  if (platformZoomKey) {
+    e.preventDefault()
   }
 })
