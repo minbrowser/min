@@ -100,6 +100,7 @@ module.exports = function (grunt) {
         files: ['js/**/*.js', 'main/*.js'],
         tasks: ['default'],
         options: {
+          atBegin: true,
           spawn: false
         }
       }
