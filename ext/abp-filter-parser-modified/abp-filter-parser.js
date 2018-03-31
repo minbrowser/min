@@ -110,8 +110,13 @@
           hasValidOptions = true
         }
 
-        // we don't support these yet, but they should still be marked as valid options
-        if (option === 'third-party' || option === '~third-party') {
+        if (option === 'third-party') {
+          output.thirdParty = true
+          hasValidOptions = true
+        }
+
+        if (option === '~third-party') {
+          output.notThirdParty = true
           hasValidOptions = true
         }
       }
@@ -335,11 +340,22 @@
 
     // Domain option check
     if (contextParams.domain !== undefined) {
-      if (filterOptions.domains || filterOptions.skipDomains) {
+      if (filterOptions.domains || filterOptions.skipDomains || filterOptions.thirdParty || filterOptions.notThirdParty) {
+        if (filterOptions.thirdParty && contextParams.domain === currentHost) {
+          return false
+        }
 
-        // Min doesn't support getting the root domain yet
+        if (filterOptions.notThirdParty && contextParams.domain !== currentHost) {
+          return false
+        }
 
-        return false
+        if (filterOptions.skipDomains && filterOptions.skipDomains.indexOf(contextParams.domain) !== -1) {
+          return false
+        }
+
+        if (filterOptions.domains && filterOptions.domains.indexOf(contextParams.domain) === -1) {
+          return false
+        }
       }
     }
 
@@ -516,7 +532,7 @@
 
     // get all of the host anchored filters with the same domain ending as the current domain
     var hostFiltersToCheck = filters.hostAnchored[currentHost.slice(-5)]
- 
+
     if (hostFiltersToCheck) {
       // check if the string matches a domain name anchored filter
 
@@ -604,4 +620,5 @@
   exports.parse = parse
   exports.matchesFilters = matchesFilters
   exports.matches = matches
+  exports.getUrlHost = getUrlHost
 })
