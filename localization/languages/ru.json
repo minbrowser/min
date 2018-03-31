@@ -23,7 +23,7 @@
         "suggestedSite": "Предложенный сайт", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Результаты из DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
         "taskN": "Задача %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "Запись из файла hosts", //this is a label used to indicate that a result is coming from the user's host file        
+        "hostsFileEntry": "Запись из файла hosts", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
@@ -80,6 +80,8 @@
         "phishingErrorMessage": "Этот сайт может попытаться украсть ваши личные данные, такие как пароли и банковские данные.",
         "phishingErrorVisitAnyway": "Все равно посетить сайт",
         "phishingErrorLeave": "Уйти с сайта",
+        /* multiple instances alert */
+        "multipleInstancesErrorMessage": null, // missing translation
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Произошла ошибка",
         "sessionRestoreErrorExplanation": "Ваши сохранённые вкладки не могут быть корректно восстановлены.",

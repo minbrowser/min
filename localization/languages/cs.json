@@ -23,7 +23,7 @@
         "suggestedSite": "Doporučené stránky", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Výsledky z DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
         "taskN": "Dimenze %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "Lokální soubor", //this is a label used to indicate that a result is coming from the user's host file        
+        "hostsFileEntry": "Lokální soubor", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
@@ -81,6 +81,8 @@
         "phishingErrorMessage": "Tyto webové stránky se mohou pokusit ukrást vaše osobní údaje, například hesla nebo bankovní informace.",
         "phishingErrorVisitAnyway": "Přesto stránky navštívit",
         "phishingErrorLeave": "Opustit tyto stránky",
+        /* multiple instances alert */
+        "multipleInstancesErrorMessage": null, // missing translation
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Vyskytla se chyba",
         "sessionRestoreErrorExplanation": "Vaše uložené karty nelze správně obnovit.",

@@ -23,7 +23,7 @@
         "suggestedSite": "建议站点", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "DuckDuckGo 返回的结果", //this is used as a label to indicate which results come from DuckDuckGo's API
         "taskN": "标签组 %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "宿主机文件", //this is a label used to indicate that a result is coming from the user's host file        
+        "hostsFileEntry": "宿主机文件", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
@@ -80,6 +80,8 @@
         "phishingErrorMessage": "这个站点可能会窃取你的个人信息，比如密码或是银行信息。",
         "phishingErrorVisitAnyway": "继续访问",
         "phishingErrorLeave": "离开",
+        /* multiple instances alert */
+        "multipleInstancesErrorMessage": null, // missing translation
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "发生错误",
         "sessionRestoreErrorExplanation": "你保存的标签页未能正确恢复。",
