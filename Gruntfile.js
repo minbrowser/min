@@ -201,6 +201,15 @@ module.exports = function (grunt) {
         src: 'dist/app/min-linux-x64',
         dest: 'dist/app/linux'
       }
+    },
+    // https://stackoverflow.com/a/47304117/865175
+    run: {
+      buildTranslations: {
+        exec: 'npm run buildTranslations --silent'
+      },
+      updateFilters: {
+        exec: 'npm run updateFilters --silent'
+      },
     }
   })
 
@@ -209,13 +218,16 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-electron')
   grunt.loadNpmTasks('grunt-electron-installer-debian')
   grunt.loadNpmTasks('grunt-contrib-watch')
+  grunt.loadNpmTasks('grunt-run')
 
   grunt.registerTask('browser', ['concat:browser', 'uglify:browser'])
   grunt.registerTask('webview', ['concat:webview', 'uglify:webview'])
 
-  grunt.registerTask('default', ['browser', 'webview', 'concat:main'])
+  grunt.registerTask('default', ['run:buildTranslations', 'browser', 'webview', 'concat:main'])
 
-  grunt.registerTask('macBuild', ['default', 'electron:osxBuild'])
-  grunt.registerTask('linuxBuild', ['default', 'electron:linuxBuild', 'electron-installer-debian:linux32', 'electron-installer-debian:linux64'])
-  grunt.registerTask('windowsBuild', ['default', 'electron:windowsBuild'])
+  grunt.registerTask('build', ['default', 'run:updateFilters'])
+
+  grunt.registerTask('macBuild', ['build', 'electron:osxBuild'])
+  grunt.registerTask('linuxBuild', ['build', 'electron:linuxBuild', 'electron-installer-debian:linux32', 'electron-installer-debian:linux64'])
+  grunt.registerTask('windowsBuild', ['build', 'electron:windowsBuild'])
 }
