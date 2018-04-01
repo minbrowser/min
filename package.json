@@ -19,6 +19,7 @@
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-electron": "^5.0.0",
+    "grunt-run": "^0.8.0",
     "standard": "^7.1.0"
   },
   "optionalDependencies": {
