@@ -2,7 +2,7 @@
 // requires Dexie.min.js
 
 var db = new Dexie('browsingData')
-var dbAlertShown = false
+var dbErrorAlertShown = false
 
 // Min 1.1.0-1.3.1
 db.version(3).stores({
@@ -81,9 +81,9 @@ db.open().then(function () {
 Dexie.Promise.on('error', function (error) {
   console.warn('database error occured', error)
 
-  if (!dbAlertShown) {
+  if (!dbErrorAlertShown) {
     window && window.alert && window.alert(l('multipleInstancesErrorMessage'))
 
-    dbAlertShown = true
+    dbErrorAlertShown = true
   }
 })
