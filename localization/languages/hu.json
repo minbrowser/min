@@ -81,6 +81,8 @@
         "phishingErrorMessage": "Ez az oldal probálkozik a személjes adatait lopni, mint. pl. a jelszavakat, vagy bankolási információkat.",
         "phishingErrorVisitAnyway": "Eltekint és oldal betöltése",
         "phishingErrorLeave": "Hagya el az oldalt",
+        /* multiple instances alert */
+        "multipleInstancesErrorMessage": null, // missing translation
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Egy hiba lépet fel",
         "sessionRestoreErrorExplanation": "A mentet fült nem sikerült helyre álitani.",

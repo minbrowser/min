@@ -81,6 +81,8 @@
         "phishingErrorMessage": "Ta strona może próbować wykraść twoje dane osobowe, takie jak hasła lub informacje bankowe.",
         "phishingErrorVisitAnyway": "Odwiedź stronę mimo to",
         "phishingErrorLeave": "Opuść tę stronę",
+        /* multiple instances alert */
+        "multipleInstancesErrorMessage": null, // missing translation
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Wystąpił błąd",
         "sessionRestoreErrorExplanation": "Nie można przywrócić poprawnie zapisanych kart.",

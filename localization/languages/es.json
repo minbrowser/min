@@ -23,7 +23,7 @@
         "suggestedSite": "Sitio sugerido", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Resultados de DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
         "taskN": "Tarea %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "Entrada del fichero hosts", //this is a label used to indicate that a result is coming from the user's host file        
+        "hostsFileEntry": "Entrada del fichero hosts", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
@@ -80,6 +80,8 @@
         "phishingErrorMessage": "Este sitio web podría estar tratando de robar su información personal, como contraseñas o información bancaria.",
         "phishingErrorVisitAnyway": "Visitar este sitio de todos modos",
         "phishingErrorLeave": "Salir de este sitio",
+        /* multiple instances alert */
+        "multipleInstancesErrorMessage": null, // missing translation
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Ha ocurrido un error",
         "sessionRestoreErrorExplanation": "Tus pestañas guardadas no se pudieron restaurar correctamente.",

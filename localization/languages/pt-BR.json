@@ -81,6 +81,8 @@
         "phishingErrorMessage": "Este website pode estar tentando roubar suas informações pessoais, como senhas ou detalhes bancários.",
         "phishingErrorVisitAnyway": "Visitar o site mesmo assim",
         "phishingErrorLeave": "Sair deste site",
+        /* multiple instances alert */
+        "multipleInstancesErrorMessage": null, // missing translation
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Ocorreu um erro",
         "sessionRestoreErrorExplanation": "Suas abas salvas não puderam ser restauradas corretamente.",

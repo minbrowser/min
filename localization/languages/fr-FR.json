@@ -80,6 +80,8 @@
         "phishingErrorMessage": "Ce site peux essayer de vous dérober vos informations personnelles, comme un mot de passe ou des informations bancaires",
         "phishingErrorVisitAnyway": "Visiter quand même",
         "phishingErrorLeave": "Quitter ce site",
+        /* multiple instances alert */
+        "multipleInstancesErrorMessage": null, // missing translation
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Il y a eu une erreur",
         "sessionRestoreErrorExplanation": "Vos onglets sauvegardés n'ont pas pu être restaurés correctement.",
