@@ -6,7 +6,9 @@ var verticalMouseMove = 0
 var beginningScrollLeft = null
 var beginningScrollRight = null
 
-var hasShownSwipeArrow  = false
+var hasShownSwipeArrow = false
+
+var initialZoomKeyState = null
 
 function resetCounters () {
   horizontalMouseMove = 0
@@ -16,6 +18,8 @@ function resetCounters () {
   beginningScrollRight = null
 
   hasShownSwipeArrow = false
+
+  initialZoomKeyState = null
 }
 
 function onSwipeGestureFinish () {
@@ -43,6 +47,8 @@ window.addEventListener('wheel', function (e) {
   verticalMouseMove += e.deltaY
   horizontalMouseMove += e.deltaX
 
+  var platformZoomKey = ((navigator.platform === 'MacIntel') ? e.metaKey : e.ctrlKey)
+
   if (!beginningScrollLeft || !beginningScrollRight) {
     beginningScrollLeft = document.scrollingElement.scrollLeft
     beginningScrollRight = document.scrollingElement.scrollWidth - document.scrollingElement.clientWidth - document.scrollingElement.scrollLeft
@@ -50,6 +56,11 @@ window.addEventListener('wheel', function (e) {
 
   if (Math.abs(e.deltaX) >= 20 || Math.abs(e.deltaY) >= 20) {
     clearTimeout(swipeGestureTimeout)
+    swipeGestureTimeout = setTimeout(onSwipeGestureFinish, 70)
+
+    if (initialZoomKeyState === null) {
+      initialZoomKeyState = platformZoomKey
+    }
 
     if (horizontalMouseMove < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5 && !hasShownSwipeArrow) {
       hasShownSwipeArrow = true
@@ -58,12 +69,7 @@ window.addEventListener('wheel', function (e) {
       hasShownSwipeArrow = true
       ipc.sendToHost('showForwardArrow')
     }
-
-    swipeGestureTimeout = setTimeout(onSwipeGestureFinish, 70)
   }
-
-  /* default zoom modifier is ctrl. Mac uses cmd/meta/super so an exeption will be made below */
-  var platformZoomKey = e.ctrlKey
 
   /* if platform is Mac, enable pinch zoom
   	the browser engine detects pinches as ctrl+mousewheel on Mac,
@@ -82,21 +88,20 @@ window.addEventListener('wheel', function (e) {
 
       e.preventDefault()
     }
-    platformZoomKey = e.metaKey
   }
   /* cmd-key while scrolling should zoom in and out */
 
-  if (verticalMouseMove > 55 && platformZoomKey) {
+  if (verticalMouseMove > 55 && platformZoomKey && initialZoomKeyState) {
     verticalMouseMove = -10
     zoomOut()
   }
 
-  if (verticalMouseMove < -55 && platformZoomKey) {
+  if (verticalMouseMove < -55 && platformZoomKey && initialZoomKeyState) {
     verticalMouseMove = -10
     zoomIn()
   }
 
-  if (platformZoomKey) {
+  if (platformZoomKey && initialZoomKeyState) {
     e.preventDefault()
   }
 })
