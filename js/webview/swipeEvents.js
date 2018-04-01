@@ -91,17 +91,17 @@ window.addEventListener('wheel', function (e) {
   }
   /* cmd-key while scrolling should zoom in and out */
 
-  if (verticalMouseMove > 55 && platformZoomKey && initialZoomKeyState) {
-    verticalMouseMove = -10
-    zoomOut()
-  }
-
-  if (verticalMouseMove < -55 && platformZoomKey && initialZoomKeyState) {
-    verticalMouseMove = -10
-    zoomIn()
-  }
-
   if (platformZoomKey && initialZoomKeyState) {
-    e.preventDefault()
+    if (verticalMouseMove > 55) {
+      verticalMouseMove = -10
+      zoomOut()
+    }
+
+    if (verticalMouseMove < -55) {
+      verticalMouseMove = -10
+      zoomIn()
+    }
+
+      e.preventDefault()
   }
 })
