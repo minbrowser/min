@@ -1,4 +1,5 @@
 var swipeGestureTimeout = -1
+var swipeGestureDelay = 70 // the time (in ms) that can elapse without a minimum amount of movement before the gesture is considered completed
 
 var horizontalMouseMove = 0
 var verticalMouseMove = 0
@@ -56,7 +57,7 @@ window.addEventListener('wheel', function (e) {
 
   if (Math.abs(e.deltaX) >= 20 || Math.abs(e.deltaY) >= 20) {
     clearTimeout(swipeGestureTimeout)
-    swipeGestureTimeout = setTimeout(onSwipeGestureFinish, 70)
+    swipeGestureTimeout = setTimeout(onSwipeGestureFinish, swipeGestureDelay)
 
     if (initialZoomKeyState === null) {
       initialZoomKeyState = platformZoomKey
@@ -102,6 +103,6 @@ window.addEventListener('wheel', function (e) {
       zoomIn()
     }
 
-      e.preventDefault()
+    e.preventDefault()
   }
 })
