@@ -34,9 +34,9 @@ If you want to develop Min:
 
 * Install [Node](https://nodejs.org) and [Grunt](http://gruntjs.com).
 * Run `npm install` to install dependencies.
-* Run ```npm run buildTranslations``` to build the translation files.
-* Build a copy of the JS by running ```grunt```.
-  * You can also have Grunt watch for changes and automatically rebuild by running ```grunt watch:scripts```.
+* Run `npm run buildTranslations` to build the translation files.
+* Build a copy of the JS by running `grunt`.
+  * You can also have Grunt watch for changes and automatically rebuild by running `grunt watch:scripts`.
 * Download a copy of Electron from [here](https://github.com/electron/electron/releases).
 * Start Min by running `node_modules/.bin/electron .`.<sup>1</sup>
 
@@ -46,15 +46,15 @@ If you want to develop Min:
 
 If you are using OS X, install [Homebrew](http://brew.sh), then run `brew install fakeroot dpkg`.
 Then:
-* Run ```npm run buildTranslations``` and ```npm run updateFilters``` to build the translation files and update the version of EasyList included with Min.
-* Run ```grunt macBuild```, ```grunt linuxBuild```, or ```grunt windowsBuild``` depending on which platform you want binaries for (Windows is only partially supported).
+* Run `npm run buildTranslations` and `npm run updateFilters` to build the translation files and update the version of EasyList included with Min.
+* Run `grunt macBuild`, `grunt linuxBuild`, or `grunt windowsBuild` depending on which platform you want binaries for (Windows is only partially supported).
 
 ## Contributing Translations
 
 Thanks for taking the time to translate Min! To add translations for your local language:
 
 * Find the language code that goes with your language from [this list](https://electron.atom.io/docs/api/locales/#locales).
-* In the ```localization/languages``` directory, create a new file, and name it "[your language code].json".
+* In the `localization/languages` directory, create a new file, and name it "[your language code].json".
 * Open your new file, and copy the contents of the <a href="https://github.com/minbrowser/min/blob/master/localization/languages/en-US.json">localization/languages/en-US.json</a> file into your new file.
 * Change the "identifier" field in the new file to the language code from step 1.
 * Inside the file, replace each English string in the right-hand column with the equivalent translation.
