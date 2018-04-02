@@ -7,6 +7,7 @@
   "dependencies": {
     "dexie": "^1.2.0",
     "dragula": "^3.6.2",
+    "electron": "^2.0.0-beta.6",
     "mousetrap": "^1.5.3",
     "pdfjs-dist": "2.0.91",
     "string_score": "^0.1.22"
