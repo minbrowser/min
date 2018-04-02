@@ -76,7 +76,7 @@ ipc.on('saveCurrentPage', function () {
     if (!savePath.endsWith('.html')) {
       savePath = savePath + '.html'
     }
-    webviews.get(currentTab.id).getWebContents().savePage(savePath, 'HTMLComplete', function () { })
+    webviews.get(currentTab.id).getWebContents().savePage(savePath, 'HTMLComplete', function () {})
   }
 })
 
@@ -120,13 +120,13 @@ ipc.on('addTask', function () {
 ipc.on('goBack', function () {
   try {
     webviews.get(tabs.getSelected()).goBack()
-  } catch (e) { }
+  } catch (e) {}
 })
 
 ipc.on('goForward', function () {
   try {
     webviews.get(tabs.getSelected()).goForward()
-  } catch (e) { }
+  } catch (e) {}
 })
 
 var menuBarShortcuts = ['mod+t', 'shift+mod+p', 'mod+n'] // shortcuts that are already used for menu bar items
@@ -367,11 +367,8 @@ settings.get('keyMap', function (keyMapSettings) {
     if (time - lastReload < 500) {
       window.location.reload()
     } else {
-      var w = webviews.get(tabs.getSelected())
-
-      if (w.src) { // webview methods aren't available if the webview is blank
-        w.reloadIgnoringCache()
-      }
+      // the webview.reload() method can't be used because if the webview is displaying an error page, we want to reload the original page rather than show the error page again
+      navigate(tabs.getSelected(), tabs.get(tabs.getSelected()).url)
     }
 
     lastReload = time
@@ -407,6 +404,6 @@ document.body.addEventListener('keydown', function (e) {
   if (e.keyCode === 116) {
     try {
       webviews.get(tabs.getSelected()).reloadIgnoringCache()
-    } catch (e) { }
+    } catch (e) {}
   }
 })

@@ -23,6 +23,11 @@ function onPageLoad (e) {
     var tab = _this.getAttribute('data-tab')
     var url = _this.getAttribute('src') // src attribute changes whenever a page is loaded
 
+    // if the page is an error page, the URL is really the value of the "url" query parameter
+    if (url.startsWith(webviews.internalPages.error) || url.startsWith(webviews.internalPages.crash)) {
+      url = new URLSearchParams(new URL(url).search).get('url')
+    }
+
     if (url.indexOf('https://') === 0 || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('file://') === 0) {
       tabs.update(tab, {
         secure: true,
@@ -43,8 +48,8 @@ var webviews = {
   container: document.getElementById('webviews'),
   elementMap: {}, // tabId: webview
   internalPages: {
-    crash: 'file:///' + __dirname + '/pages/crash/index.html',
-    error: 'file:///' + __dirname + '/pages/error/index.html'
+    crash: 'file://' + __dirname + '/pages/crash/index.html',
+    error: 'file://' + __dirname + '/pages/error/index.html'
   },
   events: [],
   IPCEvents: [],
@@ -172,9 +177,10 @@ var webviews = {
 
     w.addEventListener('crashed', function (e) {
       var tabId = this.getAttribute('data-tab')
+      var url = this.getAttribute('src')
 
       tabs.update(tabId, {
-        url: webviews.internalPages.crash
+        url: webviews.internalPages.crash + '?url=' + encodeURIComponent(url)
       })
 
       // the existing process has crashed, so we can't reuse it
