@@ -26,7 +26,7 @@ More information, and prebuilt binaries are available [here](https://minbrowser.
 
 ## Installing
 
-If you just want to run Min, you can download binaries [here](https://github.com/minbrowser/min/releases).
+To run a prebuilt version, download one of the binaries [here](https://github.com/minbrowser/min/releases). If you want to build Min yourself, see the "Building" section below.
 
 ## Developing
 
@@ -45,8 +45,8 @@ If you want to develop Min:
 
 If you are using OS X, install [Homebrew](http://brew.sh), then run `brew install fakeroot dpkg`.
 Then:
-* Run `npm run updateFilters` to build the translation files and update the version of EasyList included with Min.
-* Run `grunt macBuild`, `grunt linuxBuild`, or `grunt windowsBuild` depending on which platform you want binaries for (Windows is only partially supported).
+* Run `npm run updateFilters` to update the version of EasyList included with Min.
+* Run `grunt macBuild`, `grunt linuxBuild`, or `grunt windowsBuild` depending on which platform you want binaries for.
 
 ## Contributing Translations
 
