@@ -45,7 +45,8 @@ If you want to develop Min:
 
 If you are using OS X, install [Homebrew](http://brew.sh), then run `brew install fakeroot dpkg`.
 Then:
-* Run `grunt macBuild`, `grunt linuxBuild`, or `grunt windowsBuild` depending on which platform you want binaries for (Windows is only partially supported). This will also build the translation files and update the version of EasyList included with Min.
+* Run `npm run updateFilters` to build the translation files and update the version of EasyList included with Min.
+* Run `grunt macBuild`, `grunt linuxBuild`, or `grunt windowsBuild` depending on which platform you want binaries for (Windows is only partially supported).
 
 ## Contributing Translations
 

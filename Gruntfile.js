@@ -206,10 +206,7 @@ module.exports = function (grunt) {
     run: {
       buildTranslations: {
         exec: 'npm run buildTranslations --silent'
-      },
-      updateFilters: {
-        exec: 'npm run updateFilters --silent'
-      },
+      }
     }
   })
 
@@ -225,9 +222,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', ['run:buildTranslations', 'browser', 'webview', 'concat:main'])
 
-  grunt.registerTask('build', ['default', 'run:updateFilters'])
-
-  grunt.registerTask('macBuild', ['build', 'electron:osxBuild'])
-  grunt.registerTask('linuxBuild', ['build', 'electron:linuxBuild', 'electron-installer-debian:linux32', 'electron-installer-debian:linux64'])
-  grunt.registerTask('windowsBuild', ['build', 'electron:windowsBuild'])
+  grunt.registerTask('macBuild', ['default', 'electron:osxBuild'])
+  grunt.registerTask('linuxBuild', ['default', 'electron:linuxBuild', 'electron-installer-debian:linux32', 'electron-installer-debian:linux64'])
+  grunt.registerTask('windowsBuild', ['default', 'electron:windowsBuild'])
 }
