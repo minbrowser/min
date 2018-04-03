@@ -34,9 +34,8 @@ If you want to develop Min:
 
 * Install [Node](https://nodejs.org) and [Grunt](http://gruntjs.com).
 * Run `npm install` to install dependencies.
-* Run `npm run buildTranslations` to build the translation files.
-* Build a copy of the JS by running `grunt`.
-  * You can also have Grunt watch for changes and automatically rebuild by running `grunt watch:scripts`.
+* Build the translation files and a copy of the JS by running `grunt`.
+  * You can also have Grunt watch for changes and automatically rebuild by running `grunt watch`.
 * Download a copy of Electron from [here](https://github.com/electron/electron/releases).
 * Start Min by running `node_modules/.bin/electron .`.<sup>1</sup>
 
@@ -46,7 +45,7 @@ If you want to develop Min:
 
 If you are using OS X, install [Homebrew](http://brew.sh), then run `brew install fakeroot dpkg`.
 Then:
-* Run `npm run buildTranslations` and `npm run updateFilters` to build the translation files and update the version of EasyList included with Min.
+* Run `npm run updateFilters` to build the translation files and update the version of EasyList included with Min.
 * Run `grunt macBuild`, `grunt linuxBuild`, or `grunt windowsBuild` depending on which platform you want binaries for (Windows is only partially supported).
 
 ## Contributing Translations
