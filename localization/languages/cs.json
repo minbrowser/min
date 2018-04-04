@@ -82,7 +82,7 @@
         "phishingErrorVisitAnyway": "Přesto stránky navštívit",
         "phishingErrorLeave": "Opustit tyto stránky",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": null, // missing translation
+        "multipleInstancesErrorMessage": "Vyskytla se chyba. Prosím zavřete všechny ostatní spuštěné instance a restartujte Min.",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Vyskytla se chyba",
         "sessionRestoreErrorExplanation": "Vaše uložené karty nelze správně obnovit.",
