@@ -272,13 +272,13 @@ function focusSearchbarItem (options) {
   } else if (currentItem) { // the last item is focused, focus the searchbar again
     tabBar.getTabInput(tabs.getSelected()).focus()
     return
-  } else { // no item is focused.
+  } else if (allItems[0]) { // no item is focused.
     allItems[0].focus()
   }
 
   var focusedItem = logicalNextItem || allItems[0]
 
-  if (focusedItem.classList.contains('iadata-onfocus')) {
+  if (focusedItem && focusedItem.classList.contains('iadata-onfocus')) {
     setTimeout(function () {
       if (document.activeElement === focusedItem) {
         var itext = focusedItem.querySelector('.title').textContent
