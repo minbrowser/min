@@ -29,7 +29,7 @@ var tabPrototype = {
     return tabId
   },
   update: function (id, data) {
-    if (!this.get(id)) {
+    if (!this.has(id)) {
       throw new ReferenceError('Attempted to update a tab that does not exist.')
     }
     var index = -1
@@ -103,7 +103,7 @@ var tabPrototype = {
     return this[index] || undefined
   },
   setSelected: function (id) {
-    if (!this.get(id)) {
+    if (!this.has(id)) {
       throw new ReferenceError('Attempted to select a tab that does not exist.')
     }
     for (var i = 0; i < this.length; i++) {
