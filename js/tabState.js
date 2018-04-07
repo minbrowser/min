@@ -117,11 +117,6 @@ var tabPrototype = {
   count: function () {
     return this.length
   },
-  reorder: function (newOrder) { // newOrder is an array of [tabId, tabId] that indicates the order that tabs should be in
-    this.sort(function (a, b) {
-      return newOrder.indexOf(a.id) - newOrder.indexOf(b.id)
-    })
-  },
   isEmpty: function () {
     if (!this || this.length === 0) {
       return true
