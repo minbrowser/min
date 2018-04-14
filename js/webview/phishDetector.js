@@ -77,7 +77,7 @@ function checkPhishingStatus () {
   // if we have a password input, set a lower threshold
 
   if (document.querySelector('input[type=password]')) {
-    debugPhishing("found password input, resetting minScore")
+    debugPhishing('found password input, resetting minScore')
     minPhishingScore = 0.9
   }
 
@@ -185,6 +185,7 @@ function checkPhishingStatus () {
   var totalFormLength = 0
   var formWithoutActionFound = false
   var formWithSimplePathFound = false
+  var insecureFormFound = false
   var sensitiveFormFound = false
 
   // loop through each form
@@ -204,7 +205,6 @@ function checkPhishingStatus () {
       // if no action, form might be fake
 
       if (!fa || loc.split('?')[0].indexOf(fa.split('?')[0]) !== -1) { // we also check if the form just submits to the same page with a different query string
-        debugPhishing('form without action detected')
         formWithoutActionFound = true
         continue
       }
@@ -221,7 +221,6 @@ function checkPhishingStatus () {
       var slashCt = fa.replace(window.location.toString(), '').replace(window.location.pathname, '').split('/').length - 1
 
       if (fa.indexOf('javascript:') !== 0 && slashCt < 2) {
-        debugPhishing('form with simple path for action detected')
         formWithSimplePathFound = true
       } else if (slashCt < 3) {
         debugPhishing('non-absolute form path detected')
@@ -245,18 +244,24 @@ function checkPhishingStatus () {
       }
 
       if (aTest.protocol !== 'https:') {
-        debugPhishing('submitting form without https')
-        phishingScore += 0.15
+        insecureFormFound = true
       }
     }
 
     if (formWithoutActionFound === true) {
+      debugPhishing('form without action detected')
       phishingScore += 0.3
       phishingScore += Math.min(0.2, totalFormLength * 0.0001)
     }
 
     if (formWithSimplePathFound === true) {
+      debugPhishing('form with simple path for action detected')
       phishingScore += 0.75
+    }
+
+    if (insecureFormFound) {
+      debugPhishing('submitting form without https')
+      phishingScore += 0.15
     }
   }
   if (!sensitiveFormFound && !document.querySelector('input[type=password]')) {
