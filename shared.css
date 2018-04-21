@@ -176,6 +176,15 @@ button.disabled {
 	margin: 0.5em 0;
 }
 
+@media all and (max-width: 600px) {
+	.section h1 {
+		font-size: 1.75em;
+	}
+	.section h2 {
+		font-size: 1.5em;
+	}
+}
+
 /* dialogs */
 
 .backdrop {

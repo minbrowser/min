@@ -1,19 +1,26 @@
-.video-container {
+.header-image-container {
 	position: absolute;
-	top: 72.5%;
+	top: calc(85% - 5vw);
 	left: 5%;
 	width: 90%;
 	height: 40%;
-	height: 25vw;
+	height: 10vw;
 	overflow: hidden;
 }
-.video-container #intro-video {
+.header-image-container #header-image {
 	width: 100%;
 }
-.video-container-spacer {
+.header-image-spacer {
 	display: block;
 	/* fallback for older browsers */
 	height: 25%;
-	/* this must be the same as (video-container - overlap between video-container and hero */
-	height: calc(25vw - 12.5vh);
+	/* this must be equal (image height) - (overlap between header image and gardient background) */
+	height: calc(10vw - 5vw);
+}
+
+@media all and (max-width: 600px) {
+	.header-image-container {
+		width: 100%;
+		left: 0;
+	}
 }
