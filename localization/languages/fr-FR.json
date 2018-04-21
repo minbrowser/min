@@ -102,7 +102,7 @@
         "settingsAppearanceHeading": "Apparence",
         "settingsDarkModeToggle": "Activer le mode nuit",
         "settingsHistoryButtonToggle": "Activer le boutton navigation",
-        "settingsSwipeNavigationHeading": "Navigation par glissement",
+        "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "Activer le glissement pour changer de page.",
         "settingsSearchEngineHeading": "Moteur de recherche",
         "settingsDefaultSearchEngine": "Choisir un moteur de recherche par défaut :",

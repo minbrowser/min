@@ -101,7 +101,7 @@
         },
         "settingsAppearanceHeading": "Внешний вид",
         "settingsDarkModeToggle": "Использовать тёмную тему",
-        "settingsSwipeNavigationHeading": "Свайп-навигация",
+        "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "Включить навигацию свайпом для перехода вперёд и назад по страницам.",
         "settingsSearchEngineHeading": "Поиск",
         "settingsDefaultSearchEngine": "Выберите поиск по умолчанию:",

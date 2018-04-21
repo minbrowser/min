@@ -5,7 +5,7 @@ var HOSTS_FILE = process.platform === 'win32'
   ? 'C:/Windows/System32/drivers/etc/hosts'
   : '/etc/hosts'
 
-require('fs').readFile(HOSTS_FILE, 'utf8', function (err, data) {
+fs.readFile(HOSTS_FILE, 'utf8', function (err, data) {
   if (err) {
     console.warn('error retrieving hosts file', err)
     return

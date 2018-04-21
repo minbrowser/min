@@ -101,7 +101,7 @@
         },
         "settingsAppearanceHeading": "外观",
         "settingsDarkModeToggle": "启用夜间模式",
-        "settingsSwipeNavigationHeading": "手势导航",
+        "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "允许通过手势在页面上进行前进和后退操作。",
         "settingsSearchEngineHeading": "搜索引擎",
         "settingsDefaultSearchEngine": "选择默认的搜索引擎:",

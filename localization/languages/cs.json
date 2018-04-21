@@ -103,7 +103,7 @@
         "settingsAppearanceHeading": "Vzhled",
         "settingsDarkModeToggle": "Použít tmavý režim",
         "settingsHistoryButtonToggle": "Zobrazit tlačítko zpět",
-        "settingsSwipeNavigationHeading": "Swipe navigace",
+        "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "Povolit touchpad swipe gesto pro navigaci zpět a vpřed mezi stránkami.",
         "settingsSearchEngineHeading": "Vyhledávač",
         "settingsDefaultSearchEngine": "Zvolte si výchozí vyhledávač:",
