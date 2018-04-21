@@ -54,6 +54,11 @@ webviews.bindEvent('dom-ready', function (e) {
     if (domain.startsWith('www.')) {
       domain = domain.slice(4)
     }
+    // global script
+    if (domainScriptMap.global) {
+      this.executeJavaScript(domainScriptMap.global, false, null)
+    }
+    // domain-specific scripts
     if (domainScriptMap[domain]) {
       this.executeJavaScript(domainScriptMap[domain], false, null)
     }
