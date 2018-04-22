@@ -102,6 +102,18 @@ var urlParser = {
       return url
     }
   },
+  getDisplayURL: function (url) {
+    // converts internal URLs (like the PDF viewer or the reader view) to the URL of the page they are displaying
+    if (url.startsWith('file://' + __dirname)) {
+      try {
+        var realURL = new URLSearchParams(new URL(url).search).get('url')
+        if (realURL) {
+          return realURL
+        }
+      } catch(e) {}
+    }
+    return url
+  },
   areEqual: function (url1, url2) {
     try {
       var obj1 = new URL(url1)
