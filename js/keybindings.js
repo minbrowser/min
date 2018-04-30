@@ -1,15 +1,15 @@
 /* defines keybindings that aren't in the menu (so they aren't defined by menu.js). For items in the menu, also handles ipc messages */
 
 ipc.on('zoomIn', function () {
-  webviews.get(tabs.getSelected()).send('zoomIn')
+  webviewGestures.zoomWebviewIn(tabs.getSelected())
 })
 
 ipc.on('zoomOut', function () {
-  webviews.get(tabs.getSelected()).send('zoomOut')
+  webviewGestures.zoomWebviewOut(tabs.getSelected())
 })
 
 ipc.on('zoomReset', function () {
-  webviews.get(tabs.getSelected()).send('zoomReset')
+  webviewGestures.resetWebviewZoom(tabs.getSelected())
 })
 
 ipc.on('print', function () {
@@ -76,7 +76,7 @@ ipc.on('saveCurrentPage', function () {
     if (!savePath.endsWith('.html')) {
       savePath = savePath + '.html'
     }
-    webviews.get(currentTab.id).getWebContents().savePage(savePath, 'HTMLComplete', function () { })
+    webviews.get(currentTab.id).getWebContents().savePage(savePath, 'HTMLComplete', function () {})
   }
 })
 
@@ -120,13 +120,13 @@ ipc.on('addTask', function () {
 ipc.on('goBack', function () {
   try {
     webviews.get(tabs.getSelected()).goBack()
-  } catch (e) { }
+  } catch (e) {}
 })
 
 ipc.on('goForward', function () {
   try {
     webviews.get(tabs.getSelected()).goForward()
-  } catch (e) { }
+  } catch (e) {}
 })
 
 var menuBarShortcuts = ['mod+t', 'shift+mod+p', 'mod+n'] // shortcuts that are already used for menu bar items
@@ -407,6 +407,6 @@ document.body.addEventListener('keydown', function (e) {
   if (e.keyCode === 116) {
     try {
       webviews.get(tabs.getSelected()).reloadIgnoringCache()
-    } catch (e) { }
+    } catch (e) {}
   }
 })
