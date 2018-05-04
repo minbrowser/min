@@ -57,7 +57,8 @@ module.exports = function (grunt) {
           'js/sessionRestore.js',
           'js/tabRestore.js',
           'js/focusMode.js',
-          'js/util/theme.js'
+          'js/util/theme.js',
+          'js/webviewGestures.js'
         ],
         dest: 'dist/build.js'
       },
@@ -67,8 +68,6 @@ module.exports = function (grunt) {
           'js/webview/textExtractor.js',
           'js/webview/phishDetector.js',
           'js/webview/readerDetector.js',
-          'js/webview/swipeEvents.js',
-          'js/webview/zoom.js',
           'js/webview/keywordExtractor.js',
           'js/webview/siteUnbreak.js'
         ],

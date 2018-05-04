@@ -1,15 +1,15 @@
 /* defines keybindings that aren't in the menu (so they aren't defined by menu.js). For items in the menu, also handles ipc messages */
 
 ipc.on('zoomIn', function () {
-  webviews.get(tabs.getSelected()).send('zoomIn')
+  webviewGestures.zoomWebviewIn(tabs.getSelected())
 })
 
 ipc.on('zoomOut', function () {
-  webviews.get(tabs.getSelected()).send('zoomOut')
+  webviewGestures.zoomWebviewOut(tabs.getSelected())
 })
 
 ipc.on('zoomReset', function () {
-  webviews.get(tabs.getSelected()).send('zoomReset')
+  webviewGestures.resetWebviewZoom(tabs.getSelected())
 })
 
 ipc.on('print', function () {
