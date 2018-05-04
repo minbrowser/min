@@ -411,10 +411,8 @@
             object = parserData
           }
 
-          // Check for a regex match
-          if (parsedFilterData.regex) {
-            object.regex.push(parsedFilterData)
-          } else if (parsedFilterData.leftAnchored) {
+          // add the filters to the appropriate category
+          if (parsedFilterData.leftAnchored) {
             if (parsedFilterData.rightAnchored) {
               object.bothAnchored.push(parsedFilterData)
             } else {
@@ -451,6 +449,8 @@
             } else {
               object.wildcard.add('', parsedFilterData)
             }
+          } else if (parsedFilterData.regex) {
+            object.regex.push(parsedFilterData)
           } else if (parsedFilterData.data.indexOf('^') === -1) {
             object.plainString.add(parsedFilterData.data, parsedFilterData.options)
           } else {
