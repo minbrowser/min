@@ -6,6 +6,17 @@
 
 	<link rel="stylesheet" href="../pagebase.css" />
 	<link rel="stylesheet" href="../../ext/font-awesome-4.4.0/css/font-awesome.min.css" />
+    <style type="text/css" media="screen">
+        #retry-url-input {
+            /* taken from css/pagebase.css buttom selector */
+            color: inherit;
+            font-size: 1.1em;
+            padding: 0.5em 1em;
+            border: 0;
+            background-color: rgba(0, 0, 0, 0.1);
+            margin-top: 0.5em;
+        }
+    </style>
 </head>
 
 <body>
@@ -16,7 +27,10 @@
 		<h2 id="error-desc"></h2>
 
 		<button id="secondary-button" class="secondary-button"></button>
-		<button id="primary-button" data-string="errorPagePrimaryAction"></button>
+        <div id="try-again-row" class="name">
+            <input type="url" id="retry-url-input" autofocus />
+            <button id="primary-button" data-string="errorPagePrimaryAction"></button>
+        </div>
 	</div>
 
 	<script src="../../ext/Dexie.min.js"></script>

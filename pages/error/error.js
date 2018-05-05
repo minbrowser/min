@@ -4,6 +4,7 @@ var h1 = document.getElementById('error-name')
 var h2 = document.getElementById('error-desc')
 var primaryButton = document.getElementById('primary-button')
 var secondaryButton = document.getElementById('secondary-button')
+var pageUrlInput = document.getElementById('retry-url-input')
 
 var ec = searchParams.get('ec')
 var url = searchParams.get('url')
@@ -102,16 +103,22 @@ if (err && err.secondaryAction) {
   })
 }
 
+function retryPageLoad() {
+    window.location = pageUrlInput.value
+}
+
 // if an ssl error occured, "try again" should go to the http:// version, which might work
 
 if (errorCodes[ec] === sslError) {
   url = url.replace('https://', 'http://')
 }
 
-if (url) {
-  primaryButton.addEventListener('click', function () {
-    window.location = url
-  })
-}
+pageUrlInput.value = url
+pageUrlInput.focus()
 
-primaryButton.focus()
+primaryButton.addEventListener('click', retryPageLoad)
+pageUrlInput.addEventListener('keydown', function (e) {
+    if(e.keyCode === 13) {
+        retryPageLoad()
+    }
+})
