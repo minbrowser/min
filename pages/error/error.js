@@ -4,6 +4,7 @@ var h1 = document.getElementById('error-name')
 var h2 = document.getElementById('error-desc')
 var primaryButton = document.getElementById('primary-button')
 var secondaryButton = document.getElementById('secondary-button')
+var pageUrlInput = document.getElementById('retry-url-input')
 
 var ec = searchParams.get('ec')
 var url = searchParams.get('url')
@@ -13,7 +14,7 @@ function retry () {
   document.body.innerHTML = ''
   document.body.style.backgroundColor = '#fff'
 
-  window.location = url
+  window.location = pageUrlInput.value
 }
 
 var websiteNotFound = {
@@ -124,10 +125,12 @@ if (errorCodes[ec] === sslError) {
   url = url.replace('https://', 'http://')
 }
 
-if (url) {
-  primaryButton.addEventListener('click', function () {
-    retry()
-  })
-}
+pageUrlInput.value = url
+pageUrlInput.focus()
 
-primaryButton.focus()
+primaryButton.addEventListener('click', retry)
+pageUrlInput.addEventListener('keydown', function (e) {
+    if(e.keyCode === 13) {
+        retry()
+    }
+})

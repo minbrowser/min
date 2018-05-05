@@ -18,6 +18,7 @@ var defaultKeyMap = {
   'closeAllTabs': 'shift+mod+n',
   'reload': 'mod+r',
   'showAndHideMenuBar': 'alt',
+  'findInPage': 'mod+f',
   'followLink': 'mod+enter'
 }
 /* Utility function to override default mapping with user settings */

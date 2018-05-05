@@ -46,6 +46,20 @@ var findinpage = {
     }
 
     findinpage.activeWebview = null
+  }, 
+  goToNext: function () {
+    findinpage.activeWebview.findInPage(findinpage.input.value, {
+      forward: true,
+      findNext: true
+    })
+    findinpage.input.focus()
+  },
+  goToPrev: function () {
+    findinpage.activeWebview.findInPage(findinpage.input.value, {
+      forward: false,
+      findNext: true
+    })
+    findinpage.input.focus()
   }
 }
 
@@ -55,9 +69,7 @@ findinpage.input.addEventListener('blur', function (e) {
   }
 })
 
-findinpage.endButton.addEventListener('click', function () {
-  findinpage.end()
-})
+findinpage.endButton.addEventListener('click', findinpage.end)
 
 findinpage.input.addEventListener('input', function (e) {
   if (this.value) {
@@ -74,21 +86,8 @@ findinpage.input.addEventListener('keypress', function (e) {
   }
 })
 
-findinpage.previous.addEventListener('click', function (e) {
-  findinpage.activeWebview.findInPage(findinpage.input.value, {
-    forward: false,
-    findNext: true
-  })
-  findinpage.input.focus()
-})
-
-findinpage.next.addEventListener('click', function (e) {
-  findinpage.activeWebview.findInPage(findinpage.input.value, {
-    forward: true,
-    findNext: true
-  })
-  findinpage.input.focus()
-})
+findinpage.previous.addEventListener('click', findinpage.goToPrev)
+findinpage.next.addEventListener('click', findinpage.goToNext)
 
 webviews.bindEvent('found-in-page', function (e) {
   if (e.result.matches !== undefined) {
