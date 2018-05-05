@@ -46,13 +46,13 @@ var readerView = {
     }
   },
   enter: function (tabId) {
-    navigate(tabId, readerView.readerURL + '?url=' + tabs.get(tabId).url)
+    navigate(tabId, readerView.readerURL + '?url=' + encodeURIComponent(tabs.get(tabId).url))
     tabs.update(tabId, {
       isReaderView: true
     })
   },
   exit: function (tabId) {
-    navigate(tabId, tabs.get(tabId).url.split('?url=')[1])
+    navigate(tabId, decodeURIComponent(tabs.get(tabId).url.split('?url=')[1]))
     tabs.update(tabId, {
       isReaderView: false
     })
@@ -122,7 +122,7 @@ registerCustomBang({
 
 // update the reader button on page load
 
-bindWebviewEvent('did-finish-load', function (e) {
+webviews.bindEvent('did-finish-load', function (e) {
   var tab = this.getAttribute('data-tab')
   var url = this.getAttribute('src')
 
@@ -141,7 +141,7 @@ bindWebviewEvent('did-finish-load', function (e) {
   readerView.updateButton(tab)
 })
 
-bindWebviewIPC('canReader', function (webview, tab) {
+webviews.bindIPC('canReader', function (webview, tab) {
   tabs.update(tab, {
     readerable: true
   })

@@ -1,7 +1,12 @@
 window.electron = require('electron')
+window.fs = require('fs')
 window.ipc = electron.ipcRenderer
 window.remote = electron.remote
 window.Dexie = require('dexie')
+
+window.webFrame = window.electron.webFrame
+window.webFrame.setVisualZoomLevelLimits(1, 1)
+window.webFrame.setLayoutZoomLevelLimits(0, 0)
 
 // add a class to the body for fullscreen status
 
@@ -26,7 +31,7 @@ if (navigator.platform === 'MacIntel') {
 window.addEventListener('focus', function () {
   // if nothing in the UI is focused, focus the current tab's webview
   if (document.activeElement === document.body) {
-    getWebview(tabs.getSelected()).focus()
+    webviews.get(tabs.getSelected()).focus()
   }
 })
 

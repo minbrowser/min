@@ -9,7 +9,7 @@ var findinpage = {
   start: function (options) {
     findinpage.input.placeholder = l('searchInPage')
 
-    findinpage.activeWebview = getWebview(tabs.getSelected())
+    findinpage.activeWebview = webviews.get(tabs.getSelected())
 
     /* special case for PDF viewer */
 
@@ -89,7 +89,7 @@ findinpage.input.addEventListener('keypress', function (e) {
 findinpage.previous.addEventListener('click', findinpage.goToPrev)
 findinpage.next.addEventListener('click', findinpage.goToNext)
 
-bindWebviewEvent('found-in-page', function (e) {
+webviews.bindEvent('found-in-page', function (e) {
   if (e.result.matches !== undefined) {
     var text
     if (e.result.matches === 1) {

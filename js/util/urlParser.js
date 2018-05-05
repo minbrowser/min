@@ -5,7 +5,7 @@ var HOSTS_FILE = process.platform === 'win32'
   ? 'C:/Windows/System32/drivers/etc/hosts'
   : '/etc/hosts'
 
-require('fs').readFile(HOSTS_FILE, 'utf8', function (err, data) {
+fs.readFile(HOSTS_FILE, 'utf8', function (err, data) {
   if (err) {
     console.warn('error retrieving hosts file', err)
     return
@@ -46,9 +46,6 @@ var urlParser = {
   trailingSlashRegex: /\/$/g,
   isURL: function (url) {
     return url.indexOf('http://') === 0 || url.indexOf('https://') === 0 || url.indexOf('file://') === 0 || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('data:') === 0
-  },
-  isSystemURL: function (url) {
-    return url.indexOf('chrome') === 0 || url.indexOf('about:') === 0
   },
   removeProtocol: function (url) {
     if (!urlParser.isURL(url)) {
@@ -102,14 +99,16 @@ var urlParser = {
       return url
     }
   },
-  areEqual: function (url1, url2) {
-    try {
-      var obj1 = new URL(url1)
-      var obj2 = new URL(url2)
-
-      return obj1.hostname === obj2.hostname && obj1.pathname === obj2.pathname
-    } catch (e) { // if either of the url's are invalid, the URL constructor will throw an error
-      return url1 === url2
+  getDisplayURL: function (url) {
+    // converts internal URLs (like the PDF viewer or the reader view) to the URL of the page they are displaying
+    if (url.startsWith('file://' + __dirname)) {
+      try {
+        var realURL = new URLSearchParams(new URL(url).search).get('url')
+        if (realURL) {
+          return realURL
+        }
+      } catch(e) {}
     }
+    return url
   }
 }

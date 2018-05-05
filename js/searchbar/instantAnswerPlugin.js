@@ -20,9 +20,9 @@ function showSearchbarInstantAnswers (text, input, event, container) {
       var item = instantAnswers[res.AnswerType](text, res.Answer)
 
     // use the default format
-    } else if (res.Abstract || res.Answer) {
+    } else if (res.Abstract || (res.Answer && typeof res.Answer === 'string')) {
       var data = {
-        title: removeTags(res.Answer || res.Heading),
+        title: (typeof res.Answer === 'string' && removeTags(res.Answer)) || removeTags(res.Heading),
         descriptionBlock: res.Abstract || l('DDGAnswerSubtitle'),
         attribution: ddgAttribution,
         url: res.AbstractURL || text

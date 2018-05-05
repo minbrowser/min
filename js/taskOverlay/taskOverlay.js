@@ -7,14 +7,6 @@ var taskOverlayNavbar = document.getElementById('task-overlay-navbar')
 taskSwitcherButton.title = l('viewTasks')
 addTaskLabel.textContent = l('newTask')
 
-function addTask () {
-  tasks.setSelected(tasks.add())
-  taskOverlay.hide()
-
-  rerenderTabstrip()
-  addTab()
-}
-
 taskSwitcherButton.addEventListener('click', function () {
   taskOverlay.toggle()
 })
@@ -61,7 +53,7 @@ var taskOverlay = {
 
     document.body.classList.add('task-overlay-is-shown')
 
-    leaveTabEditMode()
+    tabBar.leaveEditMode()
 
     this.isShown = true
     taskSwitcherButton.classList.add('active')
@@ -95,6 +87,15 @@ var taskOverlay = {
       this.isShown = false
       this.overlayElement.hidden = true
 
+      // wait until the animation is complete to remove the tab elements
+      setTimeout(function () {
+        if (!taskOverlay.isShown) {
+          empty(taskContainer)
+        }
+      }, 200)
+
+      this.tabDragula.containers = []
+
       document.body.classList.remove('task-overlay-is-shown')
 
       // if the current tab has been deleted, switch to the most recent one
@@ -124,7 +125,7 @@ var taskOverlay = {
 
 // swipe down on the tabstrip to show the task overlay
 // this was the old expanded mode gesture, so it's remapped to the overlay
-navbar.addEventListener('mousewheel', function (e) {
+document.getElementById('navbar').addEventListener('mousewheel', function (e) {
   if (e.deltaY < -30 && e.deltaX < 10) {
     taskOverlay.show()
     e.stopImmediatePropagation()

@@ -3,6 +3,9 @@
 
 var db = new Dexie('browsingData')
 
+var dbErrorMessage = 'Internal error opening backing store for indexedDB.open'
+var dbErrorAlertShown = false
+
 // Min 1.1.0-1.3.1
 db.version(3).stores({
   bookmarks: 'url, title, text, extraData', // url must come first so it is the primary key
@@ -79,4 +82,10 @@ db.open().then(function () {
 
 Dexie.Promise.on('error', function (error) {
   console.warn('database error occured', error)
+
+  if (error.message.indexOf(dbErrorMessage) !== -1 && !dbErrorAlertShown) {
+    window && window.alert && window.alert(l('multipleInstancesErrorMessage'))
+
+    dbErrorAlertShown = true
+  }
 })

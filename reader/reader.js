@@ -1,17 +1,3 @@
-// http://stackoverflow.com/a/2091331
-
-function getQueryVariable (variable) {
-  var query = window.location.search.substring(1)
-  var vars = query.split('&')
-  for (var i = 0; i < vars.length; i++) {
-    var pair = vars[i].split('=')
-    if (decodeURIComponent(pair[0]) == variable) {
-      return decodeURIComponent(pair[1])
-    }
-  }
-  console.log('Query variable %s not found', variable)
-}
-
 var backbutton = document.getElementById('backtoarticle')
 
 function startReaderView (article) {
@@ -69,7 +55,7 @@ function startReaderView (article) {
 
 // iframe hack to securely parse the document
 
-var url = getQueryVariable('url')
+var url = new URLSearchParams(window.location.search).get('url')
 
 document.title = 'Reader View | ' + url
 
@@ -83,7 +69,6 @@ function processArticle (data) {
   parserframe.srcdoc = d
 
   parserframe.onload = function () {
-
     var doc = parserframe.contentDocument
 
     var location = new URL(url)
@@ -150,7 +135,7 @@ fetch(url, {
     })
   })
 
-  /* update appearance when theme changes */
+/* update appearance when theme changes */
 
 var iconElement = document.getElementById('page-icon')
 function setPageIcon () {

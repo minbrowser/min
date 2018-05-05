@@ -5,7 +5,7 @@ module.exports = function (grunt) {
 
   const ignoredDirs = ['.DS_Store', 'dist/app', 'ext/readability-master/test', /\.map$/g, /\.md$/g] // directories that will be ignored when building binaries
 
-      // Project configuration.
+  // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
@@ -26,6 +26,7 @@ module.exports = function (grunt) {
           'js/util/urlParser.js',
           'js/filteringRenderer.js',
           'js/webviews.js',
+          'js/phishingWarning.js',
           'js/webviewMenu.js',
           'js/bookmarksHistory/bookmarksHistory.js',
           'js/api-wrapper.js',
@@ -43,7 +44,7 @@ module.exports = function (grunt) {
           'js/readerview.js',
           'js/navbar/tabActivity.js',
           'js/navbar/tabColor.js',
-          'js/navbar/navbarTabs.js',
+          'js/navbar/tabBar.js',
           'js/taskOverlay/taskOverlay.js',
           'js/taskOverlay/taskOverlayBuilder.js',
           'js/navbar/addTabButton.js',
@@ -52,10 +53,12 @@ module.exports = function (grunt) {
           'js/keybindings.js',
           'js/pdfViewer.js',
           'js/findinpage.js',
+          'js/userscripts.js',
           'js/sessionRestore.js',
           'js/tabRestore.js',
           'js/focusMode.js',
-          'js/util/theme.js'
+          'js/util/theme.js',
+          'js/webviewGestures.js'
         ],
         dest: 'dist/build.js'
       },
@@ -65,9 +68,8 @@ module.exports = function (grunt) {
           'js/webview/textExtractor.js',
           'js/webview/phishDetector.js',
           'js/webview/readerDetector.js',
-          'js/webview/swipeEvents.js',
-          'js/webview/zoom.js',
-          'js/webview/keywordExtractor.js'
+          'js/webview/keywordExtractor.js',
+          'js/webview/siteUnbreak.js'
         ],
         dest: 'dist/webview.js'
       },
@@ -98,6 +100,7 @@ module.exports = function (grunt) {
         files: ['js/**/*.js', 'main/*.js'],
         tasks: ['default'],
         options: {
+          atBegin: true,
           spawn: false
         }
       }
@@ -198,6 +201,12 @@ module.exports = function (grunt) {
         src: 'dist/app/min-linux-x64',
         dest: 'dist/app/linux'
       }
+    },
+    // https://stackoverflow.com/a/47304117/865175
+    run: {
+      buildTranslations: {
+        exec: 'npm run buildTranslations --silent'
+      }
     }
   })
 
@@ -206,12 +215,14 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-electron')
   grunt.loadNpmTasks('grunt-electron-installer-debian')
   grunt.loadNpmTasks('grunt-contrib-watch')
+  grunt.loadNpmTasks('grunt-run')
 
-  grunt.registerTask('default', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main'])
   grunt.registerTask('browser', ['concat:browser', 'uglify:browser'])
   grunt.registerTask('webview', ['concat:webview', 'uglify:webview'])
 
-  grunt.registerTask('macBuild', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main', 'electron:osxBuild'])
-  grunt.registerTask('linuxBuild', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main', 'electron:linuxBuild', 'electron-installer-debian:linux32', 'electron-installer-debian:linux64'])
-  grunt.registerTask('windowsBuild', ['concat:browser', 'uglify:browser', 'concat:webview', 'uglify:webview', 'concat:main', 'electron:windowsBuild'])
+  grunt.registerTask('default', ['run:buildTranslations', 'browser', 'webview', 'concat:main'])
+
+  grunt.registerTask('macBuild', ['default', 'electron:osxBuild'])
+  grunt.registerTask('linuxBuild', ['default', 'electron:linuxBuild', 'electron-installer-debian:linux32', 'electron-installer-debian:linux64'])
+  grunt.registerTask('windowsBuild', ['default', 'electron:windowsBuild'])
 }

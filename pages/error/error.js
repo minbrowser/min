@@ -8,13 +8,22 @@ var secondaryButton = document.getElementById('secondary-button')
 var ec = searchParams.get('ec')
 var url = searchParams.get('url')
 
+function retry () {
+  // make the page blank while the replacement page is loading, so it doesn't look like the error condition still exists
+  document.body.innerHTML = ''
+  document.body.style.backgroundColor = '#fff'
+
+  window.location = url
+}
+
 var websiteNotFound = {
   name: l('serverNotFoundTitle'),
   message: l('serverNotFoundSubtitle'),
   secondaryAction: {
     title: l('archiveSearchAction'),
     url: 'https://web.archive.org/web/*/' + url
-  }
+  },
+  retryOnReconnect: true
 }
 
 var sslError = {
@@ -29,7 +38,8 @@ var dnsError = {
 
 var offlineError = {
   name: l('offlineErrorTitle'),
-  message: l('offlineErrorMessage')
+  message: l('offlineErrorMessage'),
+  retryOnReconnect: true
 }
 
 // list: https://code.google.com/p/chromium/codesearch#chromium/src/net/base/net_error_list.h&sq=package:chromium&type=cs
@@ -80,6 +90,12 @@ const errorCodes = {
 
 var err = errorCodes[ec]
 
+if (err && err.retryOnReconnect) {
+  window.addEventListener('online', function () {
+    retry()
+  })
+}
+
 var title, subtitle
 
 if (err) {
@@ -110,7 +126,7 @@ if (errorCodes[ec] === sslError) {
 
 if (url) {
   primaryButton.addEventListener('click', function () {
-    window.location = url
+    retry()
   })
 }
 

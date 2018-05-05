@@ -1,22 +1,22 @@
 /* defines keybindings that aren't in the menu (so they aren't defined by menu.js). For items in the menu, also handles ipc messages */
 
 ipc.on('zoomIn', function () {
-  getWebview(tabs.getSelected()).send('zoomIn')
+  webviewGestures.zoomWebviewIn(tabs.getSelected())
 })
 
 ipc.on('zoomOut', function () {
-  getWebview(tabs.getSelected()).send('zoomOut')
+  webviewGestures.zoomWebviewOut(tabs.getSelected())
 })
 
 ipc.on('zoomReset', function () {
-  getWebview(tabs.getSelected()).send('zoomReset')
+  webviewGestures.resetWebviewZoom(tabs.getSelected())
 })
 
 ipc.on('print', function () {
   if (PDFViewer.isPDFViewer(tabs.getSelected())) {
     PDFViewer.printPDF(tabs.getSelected())
   } else {
-    getWebview(tabs.getSelected()).print()
+    webviews.get(tabs.getSelected()).print()
   }
 })
 
@@ -25,12 +25,12 @@ ipc.on('findInPage', function () {
 })
 
 ipc.on('inspectPage', function () {
-  getWebview(tabs.getSelected()).openDevTools()
+  webviews.get(tabs.getSelected()).openDevTools()
 })
 
 ipc.on('showReadingList', function () {
   // open the searchbar with "!readinglist " as the input
-  enterEditMode(tabs.getSelected(), '!readinglist ')
+  tabBar.enterEditMode(tabs.getSelected(), '!readinglist ')
 })
 
 ipc.on('addTab', function (e, data) {
@@ -76,7 +76,7 @@ ipc.on('saveCurrentPage', function () {
     if (!savePath.endsWith('.html')) {
       savePath = savePath + '.html'
     }
-    getWebview(currentTab.id).getWebContents().savePage(savePath, 'HTMLComplete', function () { })
+    webviews.get(currentTab.id).getWebContents().savePage(savePath, 'HTMLComplete', function () {})
   }
 })
 
@@ -113,20 +113,20 @@ ipc.on('addTask', function () {
   taskOverlay.show()
   setTimeout(function () {
     taskOverlay.hide()
-    enterEditMode(tabs.getSelected())
+    tabBar.enterEditMode(tabs.getSelected())
   }, 600)
 })
 
 ipc.on('goBack', function () {
   try {
-    getWebview(tabs.getSelected()).goBack()
-  } catch (e) { }
+    webviews.get(tabs.getSelected()).goBack()
+  } catch (e) {}
 })
 
 ipc.on('goForward', function () {
   try {
-    getWebview(tabs.getSelected()).goForward()
-  } catch (e) { }
+    webviews.get(tabs.getSelected()).goForward()
+  } catch (e) {}
 })
 
 var menuBarShortcuts = ['mod+t', 'shift+mod+p', 'mod+n'] // shortcuts that are already used for menu bar items
@@ -140,7 +140,7 @@ function defineShortcut (keyMapName, fn) {
     // mod+left and mod+right are also text editing shortcuts, so they should not run when an input field is focused
     // also block single-letter shortcuts when an input field is focused, so that it's still possible to type in an input
     if (!combo.includes('+') || combo === 'mod+left' || combo === 'mod+right') {
-      var webview = getWebview(tabs.getSelected())
+      var webview = webviews.get(tabs.getSelected())
       if (!webview.src) {
         fn(e, combo)
       } else {
@@ -166,7 +166,7 @@ settings.get('keyMap', function (keyMapSettings) {
   defineShortcut('addPrivateTab', addPrivateTab)
 
   defineShortcut('enterEditMode', function (e) {
-    enterEditMode(tabs.getSelected())
+    tabBar.enterEditMode(tabs.getSelected())
     return false
   })
 
@@ -205,8 +205,8 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('addToFavorites', function (e) {
-    bookmarks.handleStarClick(getTabElement(tabs.getSelected()).querySelector('.bookmarks-button'))
-    enterEditMode(tabs.getSelected()) // we need to show the bookmarks button, which is only visible in edit mode
+    bookmarks.handleStarClick(tabBar.getTab(tabs.getSelected()).querySelector('.bookmarks-button'))
+    tabBar.enterEditMode(tabs.getSelected()) // we need to show the bookmarks button, which is only visible in edit mode
   })
 
   // cmd+x should switch to tab x. Cmd+9 should switch to the last tab
@@ -241,9 +241,9 @@ settings.get('keyMap', function (keyMapSettings) {
 
   Mousetrap.bind('esc', function (e) {
     taskOverlay.hide()
-    leaveTabEditMode()
+    tabBar.leaveEditMode()
 
-    var webview = getWebview(tabs.getSelected())
+    var webview = webviews.get(tabs.getSelected())
 
     // exit full screen mode
     if (webview.executeJavaScript) {
@@ -268,11 +268,11 @@ settings.get('keyMap', function (keyMapSettings) {
   // TODO add help docs for this
 
   defineShortcut('goBack', function (d) {
-    getWebview(tabs.getSelected()).goBack()
+    webviews.get(tabs.getSelected()).goBack()
   })
 
   defineShortcut('goForward', function (d) {
-    getWebview(tabs.getSelected()).goForward()
+    webviews.get(tabs.getSelected()).goForward()
   })
 
   defineShortcut('switchToPreviousTab', function (d) {
@@ -367,11 +367,8 @@ settings.get('keyMap', function (keyMapSettings) {
     if (time - lastReload < 500) {
       window.location.reload()
     } else {
-      var w = getWebview(tabs.getSelected())
-
-      if (w.src) { // webview methods aren't available if the webview is blank
-        w.reloadIgnoringCache()
-      }
+      // the webview.reload() method can't be used because if the webview is displaying an error page, we want to reload the original page rather than show the error page again
+      navigate(tabs.getSelected(), tabs.get(tabs.getSelected()).url)
     }
 
     lastReload = time
@@ -382,7 +379,7 @@ settings.get('keyMap', function (keyMapSettings) {
     if (currentSearchbarInput) { // if the searchbar is open
       var value = currentSearchbarInput.value
 
-      leaveTabEditMode()
+      tabBar.leaveEditMode()
 
       // if the text is already a URL, navigate to that page
       if (urlParser.isURLMissingProtocol(value)) {
@@ -408,7 +405,7 @@ settings.get('keyMap', function (keyMapSettings) {
 document.body.addEventListener('keydown', function (e) {
   if (e.keyCode === 116) {
     try {
-      getWebview(tabs.getSelected()).reloadIgnoringCache()
-    } catch (e) { }
+      webviews.get(tabs.getSelected()).reloadIgnoringCache()
+    } catch (e) {}
   }
 })

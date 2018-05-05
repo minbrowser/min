@@ -34,7 +34,7 @@ function openURLFromSearchbar (url, event) {
     var bang = getCustomBang(url)
 
     if (bang) {
-      leaveTabEditMode()
+      tabBar.leaveEditMode()
       bang.fn(url.replace(bang.phrase, '').trimLeft())
       // don't open the URL
       return
@@ -46,6 +46,8 @@ function openURLFromSearchbar (url, event) {
     return true
   } else {
     navigate(tabs.getSelected(), url)
+    // focus the webview, so that autofocus inputs on the page work
+    webviews.get(tabs.getSelected()).focus()
     return false
   }
 }
@@ -268,15 +270,15 @@ function focusSearchbarItem (options) {
   if (currentItem && logicalNextItem) { // an item is focused and there is another item after it, move onto the next one
     logicalNextItem.focus()
   } else if (currentItem) { // the last item is focused, focus the searchbar again
-    getTabInput(tabs.getSelected()).focus()
+    tabBar.getTabInput(tabs.getSelected()).focus()
     return
-  } else { // no item is focused.
+  } else if (allItems[0]) { // no item is focused.
     allItems[0].focus()
   }
 
   var focusedItem = logicalNextItem || allItems[0]
 
-  if (focusedItem.classList.contains('iadata-onfocus')) {
+  if (focusedItem && focusedItem.classList.contains('iadata-onfocus')) {
     setTimeout(function () {
       if (document.activeElement === focusedItem) {
         var itext = focusedItem.querySelector('.title').textContent
@@ -307,7 +309,7 @@ searchbar.addEventListener('keydown', function (e) {
 
 // when we get keywords data from the page, we show those results in the searchbar
 
-bindWebviewIPC('keywordsData', function (webview, tabId, arguements) {
+webviews.bindIPC('keywordsData', function (webview, tabId, arguements) {
   var data = arguements[0]
 
   var itemsCt = 0

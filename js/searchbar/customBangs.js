@@ -15,7 +15,7 @@ registerCustomBang({
   isAction: true,
   fn: function (text) {
     try {
-      getWebview(tabs.getSelected()).goBack()
+      webviews.get(tabs.getSelected()).goBack()
     } catch (e) {}
   }
 })
@@ -26,7 +26,7 @@ registerCustomBang({
   isAction: true,
   fn: function (text) {
     try {
-      getWebview(tabs.getSelected()).goForward()
+      webviews.get(tabs.getSelected()).goForward()
     } catch (e) {}
   }
 })
@@ -37,7 +37,7 @@ registerCustomBang({
   isAction: true,
   fn: function (text) {
     setTimeout(function () { // wait until the next frame so that the searchbar is hidden
-      var rect = getWebview(tabs.getSelected()).getBoundingClientRect()
+      var rect = webviews.get(tabs.getSelected()).getBoundingClientRect()
 
       var imageRect = {
         x: Math.round(rect.left),

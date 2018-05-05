@@ -2,7 +2,6 @@
 
 var electron = require('electron')
 var ipc = electron.ipcRenderer
-var webFrame
 
 /* define window.chrome
    this is necessary because some websites (such as the Google Drive file viewer, see issue #378) check for a
