@@ -85,6 +85,7 @@ Dexie.Promise.on('error', function (error) {
 
   if (error.message.indexOf(dbErrorMessage) !== -1 && !dbErrorAlertShown) {
     window && window.alert && window.alert(l('multipleInstancesErrorMessage'))
+    remote.app.quit()
 
     dbErrorAlertShown = true
   }
