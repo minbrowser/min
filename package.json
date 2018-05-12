@@ -12,8 +12,10 @@
     "string_score": "^0.1.22"
   },
   "devDependencies": {
+    "browserify": "^16.2.2",
     "decomment": "^0.9.0",
     "electron": "^2.0.0-beta.6",
+    "electron-renderify": "0.0.2",
     "grunt": "^1.0.1",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-uglify": "^2.0.0",
@@ -29,6 +31,7 @@
   "scripts": {
     "test": "node_modules/.bin/standard --verbose js/**/*.js main/*.js",
     "updateFilters": "node ./ext/filterLists/updateEasylist.js",
+    "buildBrowser": "node ./scripts/buildBrowser.js",
     "buildTranslations": "node ./scripts/buildLocalization.js"
   },
   "repository": {
