@@ -71,7 +71,7 @@ body.mac:not(.fullscreen) #searchbar {
 	font-size: 0.9em;
 	margin-right: 1em;
 	margin-left: -2em;
-	vertical-align: text-bottom;
+	vertical-align: middle;
 	width: 1em;
 	height: 1em;
 }
