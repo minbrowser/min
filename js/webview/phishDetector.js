@@ -8,7 +8,7 @@ function debugPhishing (msg) {
 
 /* phishing detector. Implements methods from http://www.ml.cmu.edu/research/dap-papers/dap-guang-xiang.pdf and others, as well as some custom methods */
 
-var doubleDomainRegex = /.+(com|net|org|edu|gov|mil|uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)(([^a-zA-Z\/][^\/\n]*)\.(com|net|org|edu|gov|mil|uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es))\//g
+var doubleDomainRegex = /[^a-zA-Z]+(com|net|org|edu|gov|mil|uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)([^a-zA-Z][^\n]*)\.(com|net|org|edu|gov|mil|uk|ca|jp|fr|au|us|ru|ch|it|nl|de|es)/g
 
 function checkPhishingStatus () {
   // if there isn't a password input or ßform, skip the phishing analysis, since this probably isn't a phish
@@ -107,7 +107,7 @@ function checkPhishingStatus () {
 
   // checks if the url has multiple domain endings in it. Catches things like "example.com.com", "example.com/example2.com", "secure.example.com.phishingsite.com", etc.
 
-  if (doubleDomainRegex.test(loc)) {
+  if (doubleDomainRegex.test(window.location.hostname)) {
     debugPhishing('found misleading domain')
     phishingScore += 0.0075 * window.location.toString().length
   }
