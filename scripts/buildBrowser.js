@@ -1,8 +1,9 @@
 const browserify = require('browserify')
+const renderify = require('electron-renderify')
 const path = require('path')
 const fs = require('fs')
-var renderify = require('electron-renderify')
 
+const intermediateOutput = path.resolve(__dirname, '../dist/build.js')
 const outFile = path.resolve(__dirname, '../dist/bundle.js')
 
 /* avoid adding modules to this list, require() them from the correct place instead */
@@ -53,8 +54,6 @@ const legacyModules = [
   'js/util/theme.js',
   'js/webviewGestures.js'
 ]
-
-const intermediateOutput = path.resolve(__dirname, '../dist/build.js')
 
 /* concatenate legacy modules */
 let output = ''
