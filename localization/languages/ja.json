@@ -81,7 +81,7 @@
         "phishingErrorVisitAnyway": "それでもこのサイトを訪問する",
         "phishingErrorLeave": "このサイトから離れる",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": null, // missing translation
+        "multipleInstancesErrorMessage": "エラーが発生しました。他に起動している全てのインスタンスを終了させ、Minを再起動してください。",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "エラーが発生しました",
         "sessionRestoreErrorExplanation": "保存したタブを正しく復元できませんでした。",
@@ -100,10 +100,12 @@
             "unsafeHTML": "フィルターはEasyListとEasyPrivacyから要素隠蔽ルールを省いたものに基づいています。<a target=\"_blank\" href=\"https://easylist.to/\">EasyListの作者</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">ライセンスを表示</a>"
         },
         "settingsAppearanceHeading": "外観",
-        "settingsDarkModeToggle": "ダークモードを使用",
-        "settingsHistoryButtonToggle": "戻るボタンを使用",
-        "settingsAdditionalFeaturesHeading": null, //missing translation
+        "settingsDarkModeToggle": "ダークモードを使用する",
+        "settingsHistoryButtonToggle": "戻るボタンを使用する",
+        "settingsAdditionalFeaturesHeading": "追加機能",
         "settingsSwipeNavigationToggle": "スワイプしてページを行き来できるようにする",
+        "settingsUserscriptsToggle": "ユーザースクリプトを使用する",
+        "settingsUserscriptsExplanation": {"unsafeHTML": "ユーザースクリプトを使用すると、ウェブサイトの挙動をカスタマイズすることが出来ます - 詳細は<a href=\"https://github.com/minbrowser/min/wiki/userscripts\">こちら</a>。"},
         "settingsSearchEngineHeading": "検索エンジン",
         "settingsDefaultSearchEngine": "デフォルトの検索エンジン:",
         "settingsDDGExplanation": "検索バーにインスタントアンサーを表示するには、DuckDuckGoをデフォルトの検索エンジンに設定してください。",
