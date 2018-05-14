@@ -128,10 +128,14 @@ window.addEventListener('wheel', function (e) {
 
     if (horizontalMouseMove < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5 && !hasShownSwipeArrow) {
       hasShownSwipeArrow = true
-      webviewGestures.showBackArrow()
+      if (webviews.get(tabs.getSelected()).canGoBack()) {
+        webviewGestures.showBackArrow()
+      }
     } else if (horizontalMouseMove > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5 && !hasShownSwipeArrow) {
       hasShownSwipeArrow = true
-      webviewGestures.showForwardArrow()
+      if (webviews.get(tabs.getSelected()).canGoForward()) {
+        webviewGestures.showForwardArrow()
+      }
     }
   }
 
