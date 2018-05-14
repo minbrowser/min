@@ -7,10 +7,11 @@ goBackButton.title = l('goBack')
 
 goBackButton.addEventListener('click', function (e) {
   if (!navigationHistoryOpened) {
-    if (webviews.get(tabs.getSelected()).canGoBack()) {
-      webviews.get(tabs.getSelected()).goBack()
-    } else if (webviews.get(tabs.getSelected()).canGoForward()) {
-      webviews.get(tabs.getSelected()).goForward()
+    var webview = webviews.get(tabs.getSelected())
+    if (webview.canGoBack()) {
+      webview.goBack()
+    } else if (webview.canGoForward()) {
+      webview.goForward()
     }
   }
 })
@@ -21,13 +22,14 @@ goBackButton.addEventListener('mouseup', function (e) {
 
 goBackButton.addEventListener('mousedown', function (e) {
 	pressTimer = window.setTimeout(function() {
-    var tabHistory = webviews.get(tabs.getSelected()).getWebContents().history
-    var currentIndex = webviews.get(tabs.getSelected()).getWebContents().getActiveIndex()
+    var webview = webviews.get(tabs.getSelected())
+    var tabHistory = webview.getWebContents().history
+    var currentIndex = webview.getWebContents().getActiveIndex()
     var backForwardHistory = []
 
-    if (webviews.get(tabs.getSelected()).canGoBack()) {
+    if (webview.canGoBack()) {
       backForwardHistory = tabHistory.slice(0, currentIndex).reverse()
-    } else if (webviews.get(tabs.getSelected()).canGoForward()) {
+    } else if (webview.canGoForward()) {
       backForwardHistory = tabHistory.slice(currentIndex+1, tabHistory.length)
     }
 
@@ -50,13 +52,12 @@ goBackButton.addEventListener('mousedown', function (e) {
 })
 
 function historyItemClicked(index) {
-  var currentIndex = webviews.get(tabs.getSelected()).getWebContents().getActiveIndex()
+  var webview = webviews.get(tabs.getSelected())
 
-  if (webviews.get(tabs.getSelected()).canGoBack()) {
-    webviews.get(tabs.getSelected()).goToIndex(currentIndex - index)
-  } else {
-    webviews.get(tabs.getSelected()).goToIndex(currentIndex + index)
-  }
+  var currentIndex = webview.getWebContents().getActiveIndex()
+  var delta = webview.canGoBack() ? -index : index
+  console.log(delta)
+  webview.goToIndex(currentIndex + delta)
 
   hideNavigationHistory()
 }

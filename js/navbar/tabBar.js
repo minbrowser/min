@@ -269,19 +269,17 @@ var tabBar = {
         tabEl.addEventListener('click', function (e) {
             if (tabs.getSelected() !== data.id) { // else switch to tab if it isn't focused
                 switchToTab(data.id)
-                if (webviews.get(tabs.getSelected()).canGoBack()) {
-                    goBackButton.classList.remove('fa-angle-right')
-                    goBackButton.classList.add('fa-angle-left')
+                var webview = webviews.get(tabs.getSelected())
+                if (webview.canGoBack()) {
+                    goBackButton.className = goBackButton.className.replace( /(?:^|\s)fa-angle-right(?!\S)/g , ' fa-angle-left ' )
                     goBackButton.style.opacity = '1'
                     goBackButton.title = l('goBack')
-                } else if (webviews.get(tabs.getSelected()).canGoForward()) {
-                    goBackButton.classList.remove('fa-angle-left')
-                    goBackButton.classList.add('fa-angle-right')
+                } else if (webview.canGoForward()) {
+                    goBackButton.className = goBackButton.className.replace( /(?:^|\s)fa-angle-left(?!\S)/g , ' fa-angle-right ' )
                     goBackButton.style.opacity = '1'
                     goBackButton.title = l('goForward')
                 } else {
-                    goBackButton.classList.remove('fa-angle-right')
-                    goBackButton.classList.add('fa-angle-left')
+                    goBackButton.className = goBackButton.className.replace( /(?:^|\s)fa-angle-right(?!\S)/g , ' fa-angle-left ' )
                     goBackButton.style.opacity = '0.5'
                     goBackButton.title = l('goBack')
                 }

@@ -95,6 +95,8 @@ function onSwipeGestureFinish () {
 }
 
 window.addEventListener('wheel', function (e) {
+  var webview = webviews.get(tabs.getSelected())
+
   if (e.target.tagName !== 'WEBVIEW') {
     return
   }
@@ -106,7 +108,7 @@ window.addEventListener('wheel', function (e) {
   var platformSecondaryKey = ((navigator.platform === 'MacIntel') ? e.ctrlKey : false)
 
   if (beginningScrollLeft === null || beginningScrollRight === null) {
-    webviews.get(tabs.getSelected()).executeJavaScript('({left: document.scrollingElement.scrollLeft, right: document.scrollingElement.scrollWidth - document.scrollingElement.clientWidth - document.scrollingElement.scrollLeft})', false, function (result) {
+    webview.executeJavaScript('({left: document.scrollingElement.scrollLeft, right: document.scrollingElement.scrollWidth - document.scrollingElement.clientWidth - document.scrollingElement.scrollLeft})', false, function (result) {
       if (beginningScrollLeft === null || beginningScrollRight === null) {
         beginningScrollLeft = result.left
         beginningScrollRight = result.right
@@ -128,12 +130,12 @@ window.addEventListener('wheel', function (e) {
 
     if (horizontalMouseMove < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5 && !hasShownSwipeArrow) {
       hasShownSwipeArrow = true
-      if (webviews.get(tabs.getSelected()).canGoBack()) {
+      if (webview.canGoBack()) {
         webviewGestures.showBackArrow()
       }
     } else if (horizontalMouseMove > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5 && !hasShownSwipeArrow) {
       hasShownSwipeArrow = true
-      if (webviews.get(tabs.getSelected()).canGoForward()) {
+      if (webview.canGoForward()) {
         webviewGestures.showForwardArrow()
       }
     }

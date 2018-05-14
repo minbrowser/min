@@ -23,23 +23,6 @@ function onPageLoad (e) {
     var tab = _this.getAttribute('data-tab')
     var url = _this.getAttribute('src') // src attribute changes whenever a page is loaded
 
-    if (webviews.get(tabs.getSelected()).canGoBack()) {
-      goBackButton.classList.remove('fa-angle-right')
-      goBackButton.classList.add('fa-angle-left')
-      goBackButton.style.opacity = '1'
-      goBackButton.title = l('goBack')
-    } else if (webviews.get(tabs.getSelected()).canGoForward()) {
-      goBackButton.classList.remove('fa-angle-left')
-      goBackButton.classList.add('fa-angle-right')
-      goBackButton.style.opacity = '1'
-      goBackButton.title = l('goForward')
-    } else {
-      goBackButton.classList.remove('fa-angle-right')
-      goBackButton.classList.add('fa-angle-left')
-      goBackButton.style.opacity = '0.5'
-      goBackButton.title = l('goBack')
-    }
-
     // if the page is an error page, the URL is really the value of the "url" query parameter
     if (url.startsWith(webviews.internalPages.error) || url.startsWith(webviews.internalPages.crash)) {
       url = new URLSearchParams(new URL(url).search).get('url')
@@ -58,6 +41,21 @@ function onPageLoad (e) {
     }
 
     tabBar.rerenderTab(tab)
+
+    var webview = webviews.get(tabs.getSelected())
+    if (webview.canGoBack()) {
+      goBackButton.className = goBackButton.className.replace( /(?:^|\s)fa-angle-right(?!\S)/g , ' fa-angle-left ' )
+      goBackButton.style.opacity = '1'
+      goBackButton.title = l('goBack')
+    } else if (webview.canGoForward()) {
+      goBackButton.className = goBackButton.className.replace( /(?:^|\s)fa-angle-left(?!\S)/g , ' fa-angle-right ' )
+      goBackButton.style.opacity = '1'
+      goBackButton.title = l('goForward')
+    } else {
+      goBackButton.className = goBackButton.className.replace( /(?:^|\s)fa-angle-right(?!\S)/g , ' fa-angle-left ' )
+      goBackButton.style.opacity = '0.5'
+      goBackButton.title = l('goBack')
+    }
   }, 0)
 }
 
