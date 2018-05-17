@@ -15,6 +15,8 @@ var mainMenu = null
 var isFocusMode = false
 var appIsReady = false
 
+app.commandLine.appendSwitch('disable-smooth-scrolling');
+
 var saveWindowBounds = function () {
   if (mainWindow) {
     fs.writeFile(path.join(userDataPath, 'windowBounds.json'), JSON.stringify(mainWindow.getBounds()))
