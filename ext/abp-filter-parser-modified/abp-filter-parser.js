@@ -65,20 +65,21 @@
   }
 
   /**
-   * Parses the domain string using the passed in separator and
-   * fills in options.
+   * Parses the domain string and fills in options.
    */
 
-  function parseDomains (input, separator, options) {
-    var domains = input.split(separator)
-    options.domains = domains.filter(function (domain) {
-      return domain[0] !== '~'
-    })
-    var skipDomains = domains.filter(function (domain) {
-      return domain[0] === '~'
-    }).map(function (domain) {
-      return domain.substring(1)
-    })
+  function parseDomains (input, options) {
+    var domains = input.split('|')
+    var matchDomains = []
+    var skipDomains = []
+    for (var i = 0; i < domains.length; i++) {
+      if (domains[i][0] === '~') {
+        skipDomains.push(domains[i].substring(1))
+      } else {
+        matchDomains.push(domains[i])
+      }
+    }
+    options.domains = matchDomains
     if (skipDomains.length !== 0) {
       options.skipDomains = skipDomains
     }
@@ -95,7 +96,7 @@
     input.split(',').forEach(function (option) {
       if (option.startsWith('domain=')) {
         var domainString = option.split('=')[1].trim()
-        parseDomains(domainString, '|', output)
+        parseDomains(domainString, output)
         hasValidOptions = true
       } else {
 
