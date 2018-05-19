@@ -106,7 +106,7 @@ window.addEventListener('wheel', function (e) {
   var platformSecondaryKey = ((navigator.platform === 'MacIntel') ? e.ctrlKey : false)
 
   if (beginningScrollLeft === null || beginningScrollRight === null) {
-    webviews.get(tabs.getSelected()).executeJavaScript('({left: document.scrollingElement.scrollLeft, right: document.scrollingElement.scrollWidth - document.scrollingElement.clientWidth - document.scrollingElement.scrollLeft})', false, function (result) {
+    webviews.get(tabs.getSelected()).executeJavaScript('({left: (document.scrollingElement) ? document.scrollingElement.scrollLeft : 0, right: (document.scrollingElement) ? (document.scrollingElement.scrollWidth - document.scrollingElement.clientWidth - document.scrollingElement.scrollLeft) : 0})', false, function (result) {
       if (beginningScrollLeft === null || beginningScrollRight === null) {
         beginningScrollLeft = result.left
         beginningScrollRight = result.right
