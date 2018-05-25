@@ -87,10 +87,10 @@ var tabBar = {
         var tabData = tabs.get(tabId)
 
         var tabTitle = tabData.title || l('newTabLabel')
-        var title = tabEl.querySelector('.tab-view-contents .title')
 
-        title.textContent = tabTitle
-        title.title = tabTitle
+        tabEl.title = tabTitle
+        var titleEl = tabEl.querySelector('.tab-view-contents .title')
+        titleEl.textContent = tabTitle
 
         var secIcon = tabEl.getElementsByClassName('icon-tab-not-secure')[0]
 
@@ -143,10 +143,12 @@ var tabBar = {
     },
     createElement: function (data) {
         var url = urlParser.parse(data.url)
+        var tabTitle = data.title || l('newTabLabel')
 
         var tabEl = document.createElement('div')
         tabEl.className = 'tab-item'
         tabEl.setAttribute('data-tab', data.id)
+        tabEl.title = tabTitle
 
         /* css :hover selectors are buggy when a webview is focused */
         tabEl.addEventListener('mouseenter', function (e) {
@@ -212,7 +214,7 @@ var tabBar = {
 
         var title = document.createElement('span')
         title.className = 'title'
-        title.textContent = data.title || l('newTabLabel')
+        title.textContent = tabTitle
 
         vc.appendChild(title)
 
