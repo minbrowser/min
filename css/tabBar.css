@@ -235,12 +235,11 @@ body.dark-mode #overlay {
 
 /* buttons */
 
-.navbar-action-button.invisible {
-	visibility: hidden;
-}
-
 .navbar-action-button {
 	padding: 1em;
+}
+.navbar-action-button.invisible {
+	visibility: hidden;
 }
 .navbar-action-button + .navbar-action-button {
 	padding-left: 0.5em;

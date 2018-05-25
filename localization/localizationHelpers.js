@@ -10,7 +10,7 @@ var languages = {
 */
 
 function getCurrentLanguage () {
-    // TODO add a setting to change the language to something other than the default
+  // TODO add a setting to change the language to something other than the default
 
   var language = 'en-US' // default
 
@@ -45,6 +45,7 @@ function l (stringId) {
 
 /* for static HTML pages
 insert a localized string into all elements with a [data-string] attribute
+set the correct attributes for all elements with a [data-label] attribute
  */
 
 if (typeof document !== 'undefined') {
@@ -54,6 +55,15 @@ if (typeof document !== 'undefined') {
       el.textContent = str
     } else if (str && str.unsafeHTML && el.hasAttribute('data-allowHTML')) {
       el.innerHTML = str.unsafeHTML
+    }
+  })
+  document.querySelectorAll('[data-label]').forEach(function (el) {
+    var str = l(el.getAttribute('data-label'))
+    if (typeof str === 'string') {
+      el.setAttribute('title', str)
+      el.setAttribute('aria-label', str)
+    } else {
+      throw new Error('invalid data-label value: ' + str)
     }
   })
 }

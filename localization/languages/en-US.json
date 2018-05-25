@@ -36,6 +36,7 @@
         "moveToTask": "Move this tab to a task",
         "searchBookmarks": "Search bookmarks",
         /* navbar */
+        "openMenu": "Open menu", //application menu button on windows
         "enterReaderView": "Enter reader view",
         "exitReaderView": "Exit reader view",
         "emptyReadingListTitle": "Your reading list is empty",

@@ -8,6 +8,13 @@
 [hidden] {
 	display: none !important;
 }
+/* buttons are styled like normal text by default */
+button {
+	background: none;
+	border: none;
+	color: inherit;
+	outline: none;
+}
 body,
 html {
 	height: 100%;
