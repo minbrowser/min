@@ -131,7 +131,10 @@ body:not(.windows) #menu-button {
 	padding-left: 9px;
 }
 .tab-item.fade {
-	opacity: 0.5;
+	opacity: 0.55;
+}
+.tab-item.fade:hover {
+	opacity: 1;
 }
 
 /* style tab scrollbar */
