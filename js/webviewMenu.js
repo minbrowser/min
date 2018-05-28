@@ -174,7 +174,7 @@ var webviewMenu = {
       new MenuItem({
         label: l('inspectElement'),
         click: function () {
-          webviews.get(tabs.getSelected()).inspectElement(data.x, data.y)
+          webviews.get(tabs.getSelected()).inspectElement(data.x || 0, data.y || 0)
         }
       })
     ])
