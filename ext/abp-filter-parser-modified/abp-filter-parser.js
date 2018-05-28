@@ -275,12 +275,17 @@
    * Similar to str1.indexOf(filter, startingPos) but with
    * extra consideration to some ABP filter rules like ^.
    */
+  var filterArrCache = {}
   function indexOfFilter (input, filter, startingPos) {
     if (filter.indexOf('^') == -1) { // no separator characters, no need to do the rest of the parsing
       return input.indexOf(filter, startingPos)
     }
-
-    var filterParts = filter.split('^')
+    if (filterArrCache[filter]) {
+      var filterParts = filterArrCache[filter]
+    } else {
+      var filterParts = filter.split('^')
+      filterArrCache[filter] = filterParts
+    }
     var index = startingPos,
       beginIndex = -1,
       prefixedSeparatorChar = false
