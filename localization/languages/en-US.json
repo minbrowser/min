@@ -135,6 +135,7 @@
         "appMenuFullScreen": "Full Screen", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Focus Mode",
         "appMenuReadingList": "Reading List",
+        "appMenuBookmarks": "Bookmarks",
         "appMenuDeveloper": "Developer",
         "appMenuReloadBrowser": "Reload Browser",
         "appMenuInspectBrowser": "Inspect Browser",

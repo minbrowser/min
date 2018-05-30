@@ -33,6 +33,10 @@ ipc.on('showReadingList', function () {
   tabBar.enterEditMode(tabs.getSelected(), '!readinglist ')
 })
 
+ipc.on('showBookmarks', function () {
+  tabBar.enterEditMode(tabs.getSelected(), '!bookmarks ')
+})
+
 ipc.on('addTab', function (e, data) {
   /* new tabs can't be created in focus mode */
   if (isFocusMode) {

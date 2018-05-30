@@ -379,14 +379,21 @@ function createAppMenu () {
           type: 'separator'
         },
         {
-          label: l('appMenuFullScreen'),
-          accelerator: (function () {
-            if (process.platform == 'darwin')
-              return 'Ctrl+Command+F'
-            else
-              return 'F11'
-          })(),
-          role: 'togglefullscreen'
+          label: l('appMenuReadingList'),
+          accelerator: undefined,
+          click: function (item, window) {
+            sendIPCToWindow(window, 'showReadingList')
+          }
+        },
+        {
+          label: l('appMenuBookmarks'),
+          accelerator: undefined,
+          click: function (item, window) {
+            sendIPCToWindow(window, 'showBookmarks')
+          }
+        },
+        {
+          type: 'separator'
         },
         {
           label: l('appMenuFocusMode'),
@@ -406,11 +413,14 @@ function createAppMenu () {
           }
         },
         {
-          label: l('appMenuReadingList'),
-          accelerator: undefined,
-          click: function (item, window) {
-            sendIPCToWindow(window, 'showReadingList')
-          }
+          label: l('appMenuFullScreen'),
+          accelerator: (function () {
+            if (process.platform == 'darwin')
+              return 'Ctrl+Command+F'
+            else
+              return 'F11'
+          })(),
+          role: 'togglefullscreen'
         }
       ]
     },
