@@ -23,7 +23,8 @@ function showSearchSuggestions (text, input, event, container) {
       if (results) {
         results.slice(0, 3).forEach(function (result) {
           var data = {
-            title: result.phrase
+            title: result.phrase,
+            classList: ['iadata-onfocus']
           }
 
           if (urlParser.isURL(result.phrase) || urlParser.isURLMissingProtocol(result.phrase)) { // website suggestions
