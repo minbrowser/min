@@ -94,8 +94,6 @@ body:not(.windows) #menu-button {
 	flex: 1;
 	min-width: 125px;
 	transition: .15s min-width, 0.2s transform;
-	padding: 0 1em;
-	font-size: 0.8em;
 	line-height: 36px;
 	height: 36px;
 	overflow: hidden;
@@ -104,6 +102,10 @@ body:not(.windows) #menu-button {
 }
 .tab-item:not(.active):hover {
 	background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tab-view-contents {
+	padding: 0 0.8em;
 }
 
 /* icons */
