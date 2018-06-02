@@ -11,7 +11,7 @@ importScripts('placesSearch.js')
 const spacesRegex = /[\+\s._/-]/g // things that could be considered spaces
 const wordRegex = /^[a-z\s]+$/g
 
-function calculateHistoryScore (item, boost) { // boost - how much the score should be multiplied by. Example - 0.05
+function calculateHistoryScore (item) { // item.boost - how much the score should be multiplied by. Example - 0.05
   let fs = item.lastVisit * (1 + 0.036 * Math.sqrt(item.visitCount))
 
   // bonus for short url's
