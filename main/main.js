@@ -82,7 +82,8 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     minHeight: 350,
     titleBarStyle: 'hiddenInset',
     icon: __dirname + '/icons/icon256.png',
-    frame: process.platform !== 'win32'
+    frame: process.platform !== 'win32',
+    backgroundColor: '#fff', // the value of this is ignored, but setting it seems to work around https://github.com/electron/electron/issues/10559
   })
 
   // and load the index.html of the app.
