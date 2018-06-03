@@ -97,7 +97,7 @@ ipc.on('getKeywordsData', function (e) {
     return keywords.slice(0, 5)
   }
 
-  if (getReaderScore() < 400 && window.location.toString().indexOf('reader/index.html') === -1) {
+  if (!pageIsReaderable() && window.location.toString().indexOf('reader/index.html') === -1) {
     return
   }
 
