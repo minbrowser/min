@@ -1,0 +1,156 @@
+{
+    "name": "Turkish (Turkey)",
+    "identifier": "tr-TR",
+    "translations": {
+        /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+        "openInNewTab": "Yeni Pencerede Aç",
+        "openInNewPrivateTab": "Yeni Özel Sekmede Aç",
+        "viewImage": "Resim Göster",
+        "openImageInNewTab": "Resmi Yeni Sekmede Aç",
+        "openImageInNewPrivateTab": "Resmi Yeni Özel Sekmede Aç",
+        "saveImageAs": "Resmi Farklı Kaydet",
+        "searchWith": "%s ile ara", //%s will be replaced with the name of the current search engine
+        "copyLink": "Linki Kopyala",
+        "copy": "Kopyala", //this is a verb (as in "copy the currently-selected text")
+        "paste": "Yapıştır",
+        "goBack": "Geri Git",
+        "goForward": "İleri Git",
+        "inspectElement": "Öğeyi İncele",
+        /* searchbar */
+        "DDGAnswerSubtitle": "Cevap", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+        "suggestedSite": "Önerilen site", //this is used to label suggested websites from the DuckDuckGo API,
+        "resultsFromDDG": "DuckDuckGo'dan sonuçlar", //this is used as a label to indicate which results come from DuckDuckGo's API
+        "taskN": "Task %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "hostsFileEntry": "Hosts dosya girişi", //this is a label used to indicate that a result is coming from the user's host file        
+        /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+        "viewSettings": "Görünüm Ayarları",
+        "viewReadingList": "Okuma Listesini Görüntüle",
+        "takeScreenshot": "Ekran görüntüsü al",
+        "clearHistory": "Tüm Geçmişi Temizle",
+        "switchToTask": "Göreve geç",
+        "createTask": "Görev oluştur",
+        "moveToTask": "Bu sekmeyi bir göreve taşı",
+        "searchBookmarks": "Yer işaretlerini ara",
+        /* navbar */
+        "enterReaderView": "Okuyucu görünümüne girin",
+        "exitReaderView": "Okuyucu görünümünden çıkın",
+        "emptyReadingListTitle": "Okuma listeniz boş",
+        "emptyReadingListSubtitle": "Okuyucu görünümünde açtığınız makaleler burada listelenir ve 30 gün boyunca çevrimdışına kaydedilir.",
+        "newTabLabel": "New Tab", //this is a noun, used for tabs that don't have a page loaded in them yet
+        "connectionNotSecure": "Bu web sitesine bağlantınız güvenli değil.",
+        "searchbarPlaceholder": "Arayın veya adres girin",
+        "privateTab": "Özel Sekme",
+        "newTabAction": "Yeni Sekme", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        /* task overlay */
+        "viewTasks": "Görevleri Görüntüle",
+        "newTask": "Yeni Görev", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": "%n Görev", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        /* find in page toolbar */
+        "searchInPage": "Sayfada Ara", //this is used as the placeholder text for the textbox in the find in page toolbar
+        "findMatchesSingular": "%i of %t match", //this and the next label are used to indicate which match is currently highlighted
+        "findMatchesPlural": "%i of %t matches",
+        /* Focus mode */
+        "isFocusMode": "Odak Modundasınız.",
+        "closeDialog": "Tamam", //used as a label for the button that closes the dialog
+        "focusModeExplanation1": "Odaklama modunda, geçerli olanın dışındaki tüm sekmeler gizlenir ve yeni sekmeler oluşturamazsınız.",
+        "focusModeExplanation2": "Görüntüleme modunda \"Odak Modu\" nun işaretini kaldırarak netleme modundan çıkabilirsiniz.",
+        /* pages/crash/index.html */
+        "crashErrorTitle": "Bir şeyler yanlış gitti.",
+        "crashErrorSubtitle": "Bu sayfayı görüntülerken bir sorun oluştu.",
+        /* pages/error/index.html */
+        "errorPagePrimaryAction": "Tekrar deneyin",
+        "serverNotFoundTitle": "Sunucu bulunamadı",
+        "serverNotFoundSubtitle": "Min bu web sitesini bulamadı.",
+        "archiveSearchAction": "archive.org'da ara",
+        "sslErrorTitle": "Bu web sitesi mevcut değildir",
+        "sslErrorMessage": "Min bu siteye güvenli bir şekilde bağlanamadı.",
+        "dnsErrorTitle": "Web sitesi bulunamadı",
+        "dnsErrorMessage": "Bir DNS hatası oluştu.",
+        "offlineErrorTitle": "Çevrimdışısınız",
+        "offlineErrorMessage": "İnternete yeniden bağlanın ve tekrar deneyin.",
+        "genericConnectionFail": "Min web sitesine bağlanılamadı.",
+        "sslTimeErrorMessage": "Min bu siteye güvenli bir şekilde bağlanamadı. Lütfen bilgisayarınızın saatinin doğru ayarlandığından emin olun.",
+        "addressInvalidTitle": "Bu adres geçersiz.",
+        "genericError": "Bir hata oluştu",
+        /* pages/phishing/index.html */
+        "phishingErrorTitle": "Bu site size zarar verebilir.",
+        "phishingErrorMessage": "Bu web sitesi, parola veya banka bilgileri gibi kişisel bilgilerinizi çalmaya çalışıyor olabilir.",
+        "phishingErrorVisitAnyway": "Siteyi yine de ziyaret et",
+        "phishingErrorLeave": "Bu siteden ayrıl",
+        /* pages/sessionRestoreError/index.html */
+        "sessionRestoreErrorTitle": "Bir hata oluştu",
+        "sessionRestoreErrorExplanation": "Kaydedilen sekmeleriniz doğru bir şekilde geri yüklenemedi.",
+        "sessionRestoreErrorBackupInfo": "Verilerinizin bir yedeğini bu konumda kaydettik: %l.", //%l will be replaced with a path to a file
+        "sessionRestoreErrorLinkInfo": {
+            "unsafeHTML": "Bu hata oluşmaya devam ederse, lütfen yeni bir sorun açın <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">buradan</a>."
+        },
+        /* pages/settings/index.html */
+        "settingsPreferencesHeading": "Tercihler",
+        "settingsRestartRequired": "Bu değişiklikleri uygulamak için yeniden başlatmanız gerekiyor.",
+        "settingsPrivacyHeading": "İçerik Engelleme",
+        "settingsContentBlockingToggle": "İzleyicileri ve reklamları engelle",
+        "settingsBlockScriptsToggle": "Scriptleri engelle",
+        "settingsBlockImagesToggle": "Resimleri engelle",
+        "settingsEasyListCredit": {
+            "unsafeHTML": "Unsuru gizleme kuralları olmadan, EasyList ve EasyPrivacy'e dayanarak. Created by <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>."
+        },
+        "settingsAppearanceHeading": "Görünüm",
+        "settingsDarkModeToggle": "Koyu modu etkinleştir",
+        "settingsHistoryButtonToggle": "Geri al düğmesini etkinleştir",
+        "settingsSwipeNavigationHeading": "Swipe navigasyon",
+        "settingsSwipeNavigationToggle": "Sayfalar arasında ileri ve geri gitmek için kaydırmayı etkinleştirin.",
+        "settingsSearchEngineHeading": "Arama Motoru",
+        "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçi:",
+        "settingsDDGExplanation": "Arama çubuğundaki anlık yanıtları görmek için DuckDuckGo’yu varsayılan arama motoru olarak ayarlayın.",
+        "settingsKeyboardShortcutsHeading": "Klavye Kısayolları",
+        "settingsKeyboardShortcutsHelp": "Birden çok kısayolu ayırmak için virgül kullanın.",
+        /* app menu */
+        "appMenuFile": "Dosya",
+        "appMenuNewTab": "Yeni Sekme",
+        "appMenuNewPrivateTab": "Yeni Özel Sekme",
+        "appMenuNewTask": "Yeni Görev",
+        "appMenuSavePageAs": "Sayfayı Farklı Kaydet",
+        "appMenuPrint": "Yazdır",
+        "appMenuEdit": "Düzen",
+        "appMenuUndo": "Geri",
+        "appMenuRedo": "İleri",
+        "appMenuCut": "Kes",
+        "appMenuCopy": "Kopyala",
+        "appMenuPaste": "Yapıştır",
+        "appMenuSelectAll": "Tümünü Seç",
+        "appMenuFind": "Bul",
+        "appMenuView": "Görünüm",
+        "appMenuZoomIn": "Yakınlaştır",
+        "appMenuZoomOut": "Uzaklaştır",
+        "appMenuActualSize": "Gerçek Boyut",
+        "appMenuFullScreen": "Tam Ekran", //on some platforms, this string is replaced with one built-in to the OS
+        "appMenuFocusMode": "Odak Modu",
+        "appMenuReadingList": "Okuma Listesi",
+        "appMenuDeveloper": "Geliştirici",
+        "appMenuReloadBrowser": "Tarayıcıyı Yeniden Yükle",
+        "appMenuInspectBrowser": "Tarayıcıyı İncele",
+        "appMenuInspectPage": "Sayfayı İncele",
+        "appMenuWindow": "Pencere",
+        "appMenuMinimize": "Küçült",
+        "appMenuClose": "Kapat",
+        "appMenuHelp": "Yardım",
+        "appMenuKeyboardShortcuts": "Klavye Kısayolları",
+        "appMenuReportBug": "Hata Bildir",
+        "appMenuTakeTour": "Tur atın",
+        "appMenuViewGithub": "GitHub'da Göster",
+        "appMenuAbout": "%n Hakkında", //%n is replaced with app name
+        "appMenuPreferences": "Seçenekler",
+        "appMenuServices": "Servisler",
+        "appMenuHide": "Hide %n",
+        "appMenuHideOthers": "Hide Others",
+        "appMenuShowAll": "Tümünü Göster",
+        "appMenuQuit": "%n Çıkış",
+        "appMenuBringToFront": "Tümünü Öne Getir",
+        /* PDF Viewer */
+        "PDFPageCounter": {"unsafeHTML": "sayfa <input type='text'/> of <span id='total'></span>"}
+    }
+}
