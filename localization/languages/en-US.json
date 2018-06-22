@@ -59,6 +59,15 @@
         "closeDialog": "OK", //used as a label for the button that closes the dialog
         "focusModeExplanation1": "In focus mode, all tabs except the current one are hidden, and you can't create new tabs.",
         "focusModeExplanation2": "You can leave focus mode by unchecking \"focus mode\" in the view menu.",
+        /* relative dates */
+        "timeRangeJustNow": "Just now",
+        "timeRangeMinutes": "A few minutes ago",
+        "timeRangeHour": "In the past hour",
+        "timeRangeDay": "In the past day",
+        "timeRangeWeek": "In the past week",
+        "timeRangeMonth": "In the past month",
+        "timeRangeYear": "In the past year",
+        "timeRangeLongerAgo": "Longer ago",
         /* pages/crash/index.html */
         "crashErrorTitle": "Something went wrong.",
         "crashErrorSubtitle": "A problem has occurred while displaying this page.",

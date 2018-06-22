@@ -82,6 +82,13 @@ body.mac:not(.fullscreen) #searchbar {
 	opacity: 0.33;
 }
 
+.searchbar-heading {
+	font-weight: normal;
+    padding: 0.75em 0.55em 0.25em 0.55em;
+	opacity: 0.7;
+	cursor: default;
+}
+
 /* move the icon when there isn't room to the left of the searchbar */
 
 .fullscreen .searchbar-item i,

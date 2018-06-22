@@ -184,10 +184,20 @@ registerCustomBang({
     bookmarks.searchPlaces(text, function (results) {
       empty(container)
 
+      var lastRelativeDate = '' // used to generate headings
+
       results.sort(function (a, b) {
         // order by last visit
         return b.lastVisit - a.lastVisit
       }).forEach(function (result) {
+        var thisRelativeDate = formatRelativeDate(result.lastVisit)
+        if (thisRelativeDate !== lastRelativeDate) {
+          var heading = document.createElement('h2')
+          heading.className = 'searchbar-heading'
+          heading.textContent = thisRelativeDate
+          container.appendChild(heading)
+          lastRelativeDate = thisRelativeDate
+        }
         container.appendChild(createSearchbarItem({
           title: result.title,
           icon: 'fa-star',
