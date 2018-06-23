@@ -56,20 +56,28 @@ const legacyModules = [
   'js/webviewGestures.js'
 ]
 
-/* concatenate legacy modules */
-let output = ''
-legacyModules.forEach(function (script) {
-  output += fs.readFileSync(path.resolve(__dirname, '../', script)) + ';\n'
-})
+function buildBrowser () {
+  /* concatenate legacy modules */
+  let output = ''
+  legacyModules.forEach(function (script) {
+    output += fs.readFileSync(path.resolve(__dirname, '../', script)) + ';\n'
+  })
 
-fs.writeFileSync(intermediateOutput, output, 'utf-8')
+  fs.writeFileSync(intermediateOutput, output, 'utf-8')
 
-let instance = browserify(intermediateOutput, {
-  ignoreMissing: true,
-  node: true,
-  detectGlobals: false
-})
+  let instance = browserify(intermediateOutput, {
+    ignoreMissing: true,
+    node: true,
+    detectGlobals: false
+  })
 
-instance.transform(renderify)
-let stream = fs.createWriteStream(outFile, {encoding: 'utf-8'})
-instance.bundle().pipe(stream)
+  instance.transform(renderify)
+  let stream = fs.createWriteStream(outFile, {encoding: 'utf-8'})
+  instance.bundle().pipe(stream)
+}
+
+if (module.parent) {
+  module.exports = buildBrowser
+} else {
+  buildBrowser()
+}

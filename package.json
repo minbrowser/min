@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "browserify": "^16.2.2",
+    "chokidar": "^2.0.4",
     "decomment": "^0.9.0",
     "electron": "^2.0.0-beta.6",
     "electron-renderify": "0.0.2",
@@ -30,6 +31,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "test": "node_modules/.bin/standard --verbose js/**/*.js main/*.js",
+    "watch": "node ./scripts/watch.js",
     "updateFilters": "node ./ext/filterLists/updateEasylist.js",
     "buildBrowser": "node ./scripts/buildBrowser.js",
     "buildTranslations": "node ./scripts/buildLocalization.js"
