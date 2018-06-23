@@ -70,6 +70,8 @@ var webviews = {
     var w = document.createElement('webview')
     w.setAttribute('preload', 'dist/webview.min.js')
 
+    w.setAttribute('webpreferences', 'scrollBounce=yes')
+
     if (options.url) {
       w.setAttribute('src', urlParser.parse(options.url))
     }
@@ -231,7 +233,7 @@ var webviews = {
     var webviewEls = document.getElementsByTagName('webview')
     for (var i = 0; i < webviewEls.length; i++) {
       webviewEls[i].classList.add('hidden')
-      webviewEls[i].setAttribute("aria-hidden", "true")
+      webviewEls[i].setAttribute('aria-hidden', 'true')
     }
 
     var wv = webviews.get(id)
@@ -241,7 +243,7 @@ var webviews = {
     }
 
     wv.classList.remove('hidden')
-    wv.removeAttribute("aria-hidden")
+    wv.removeAttribute('aria-hidden')
   },
   update: function (id, url) {
     webviews.get(id).setAttribute('src', urlParser.parse(url))
