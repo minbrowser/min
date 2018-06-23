@@ -8,104 +8,6 @@ module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    concat: {
-      options: {
-        separator: '\n;'
-      },
-      browser: {
-        src: [
-          'dist/localization.build.js',
-          'js/default.js',
-          'js/windowsCaptionButtons.js',
-          'js/util/database.js',
-          'js/util/defaultKeyMap.js',
-          'js/util/settings.js',
-          'js/util/searchEngine.js',
-          'js/util/relativeDate.js',
-          'js/menuBarVisibility.js',
-          'js/tabState.js',
-          'js/util/urlParser.js',
-          'js/filteringRenderer.js',
-          'js/webviews.js',
-          'js/phishingWarning.js',
-          'js/webviewMenu.js',
-          'js/bookmarksHistory/bookmarksHistory.js',
-          'js/api-wrapper.js',
-          'js/searchbar/searchbar.js',
-          'js/searchbar/searchbar-plugins.js',
-          'js/searchbar/searchbar-autocomplete.js',
-          'js/searchbar/placesPlugin.js',
-          'js/searchbar/instantAnswerPlugin.js',
-          'js/searchbar/openTabsPlugin.js',
-          'js/searchbar/bangsPlugin.js',
-          'js/searchbar/customBangs.js',
-          'js/searchbar/searchSuggestionsPlugin.js',
-          'js/searchbar/placeSuggestionsPlugin.js',
-          'js/searchbar/hostsSuggestionsPlugin.js',
-          'js/readerview.js',
-          'js/navbar/tabActivity.js',
-          'js/navbar/tabColor.js',
-          'js/navbar/tabBar.js',
-          'js/taskOverlay/taskOverlay.js',
-          'js/taskOverlay/taskOverlayBuilder.js',
-          'js/navbar/addTabButton.js',
-          'js/navbar/goBackButton.js',
-          'js/navbar/menuButton.js',
-          'js/keybindings.js',
-          'js/pdfViewer.js',
-          'js/findinpage.js',
-          'js/userscripts.js',
-          'js/sessionRestore.js',
-          'js/tabRestore.js',
-          'js/focusMode.js',
-          'js/util/theme.js',
-          'js/webviewGestures.js'
-        ],
-        dest: 'dist/build.js'
-      },
-      webview: {
-        src: [
-          'js/webview/default.js',
-          'js/webview/textExtractor.js',
-          'js/webview/phishDetector.js',
-          'js/webview/readerDetector.js',
-          'js/webview/keywordExtractor.js',
-          'js/webview/siteUnbreak.js'
-        ],
-        dest: 'dist/webview.js'
-      },
-      main: {
-        src: [
-          'dist/localization.build.js',
-          'main/main.js',
-          'main/filtering.js'
-        ],
-        dest: 'main.build.js'
-      }
-    },
-    uglify: {
-      options: {
-        banner: '/*! <%= grunt.template.today("mm-dd-yyyy") %> */\n'
-      },
-      browser: {
-        src: 'dist/build.js',
-        dest: 'dist/build.min.js'
-      },
-      webview: {
-        src: 'dist/webview.js',
-        dest: 'dist/webview.min.js'
-      }
-    },
-    watch: {
-      scripts: {
-        files: ['js/**/*.js', 'main/*.js'],
-        tasks: ['default'],
-        options: {
-          atBegin: true,
-          spawn: false
-        }
-      }
-    },
     electron: {
       osxBuild: {
         options: {
@@ -217,11 +119,8 @@ module.exports = function (grunt) {
     }
   })
 
-  grunt.loadNpmTasks('grunt-contrib-concat')
-  grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-electron')
   grunt.loadNpmTasks('grunt-electron-installer-debian')
-  grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-run')
 
   grunt.registerTask('default', ['run:buildBrowser', 'run:buildPreload', 'run:buildMain'])
