@@ -205,8 +205,14 @@ module.exports = function (grunt) {
     },
     // https://stackoverflow.com/a/47304117/865175
     run: {
-      buildTranslations: {
-        exec: 'npm run buildTranslations --silent'
+      buildMain: {
+        exec: 'npm run buildMain --silent'
+      },
+      buildBrowser: {
+        exec: 'npm run buildBrowser --silent'
+      },
+      buildPreload: {
+        exec: 'npm run buildPreload --silent'
       }
     }
   })
@@ -218,10 +224,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-run')
 
-  grunt.registerTask('browser', ['concat:browser', 'uglify:browser'])
-  grunt.registerTask('webview', ['concat:webview', 'uglify:webview'])
-
-  grunt.registerTask('default', ['run:buildTranslations', 'browser', 'webview', 'concat:main'])
+  grunt.registerTask('default', ['run:buildBrowser', 'run:buildPreload', 'run:buildMain'])
 
   grunt.registerTask('macBuild', ['default', 'electron:osxBuild'])
   grunt.registerTask('linuxBuild', ['default', 'electron:linuxBuild', 'electron-installer-debian:linux32', 'electron-installer-debian:linux64'])
