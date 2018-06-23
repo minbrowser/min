@@ -7,31 +7,40 @@ const decomment = require('decomment')
 const outputDir = path.join(__dirname, '../dist')
 const outputFile = path.join(outputDir, 'localization.build.js')
 
-// read all the files from the "languages" directory
-
 const languageFileDir = path.join(__dirname, '../localization/languages')
-const languageFiles = fs.readdirSync(languageFileDir)
 
-// build languages object
+function buildLocalization () {
+  // read all the files from the "languages" directory
 
-let languages = {}
+  const languageFiles = fs.readdirSync(languageFileDir)
 
-languageFiles.forEach(function (file) {
-  let data = fs.readFileSync(path.join(languageFileDir, file), 'utf-8')
+  // build languages object
 
-  let obj = JSON.parse(decomment(data))
+  let languages = {}
 
-  languages[obj.identifier] = obj
-})
+  languageFiles.forEach(function (file) {
+    let data = fs.readFileSync(path.join(languageFileDir, file), 'utf-8')
 
-let fileContents = 'var languages = ' + JSON.stringify(languages) + ';\n'
+    let obj = JSON.parse(decomment(data))
 
-// add contents of localization.js (helper functions, ...)
+    languages[obj.identifier] = obj
+  })
 
-fileContents += fs.readFileSync(path.join(__dirname, '../localization/localizationHelpers.js'))
+  let fileContents = 'var languages = ' + JSON.stringify(languages) + ';\n'
 
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir)
+  // add contents of localization.js (helper functions, ...)
+
+  fileContents += fs.readFileSync(path.join(__dirname, '../localization/localizationHelpers.js'))
+
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir)
+  }
+
+  fs.writeFileSync(outputFile, fileContents)
 }
 
-fs.writeFileSync(outputFile, fileContents)
+if (module.parent) {
+  module.exports = buildLocalization
+} else {
+  buildLocalization()
+}
