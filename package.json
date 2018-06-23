@@ -32,9 +32,10 @@
   "scripts": {
     "test": "node_modules/.bin/standard --verbose js/**/*.js main/*.js",
     "watch": "node ./scripts/watch.js",
-    "updateFilters": "node ./ext/filterLists/updateEasylist.js",
     "buildBrowser": "node ./scripts/buildBrowser.js",
-    "buildTranslations": "node ./scripts/buildLocalization.js"
+    "buildPreload": "node ./scripts/buildPreload.js",
+    "buildTranslations": "node ./scripts/buildLocalization.js",
+    "updateFilters": "node ./ext/filterLists/updateEasylist.js"
   },
   "repository": {
     "type": "git",
