@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 
-const outFile = path.resolve(__dirname, '../dist/webview.js')
+const outFile = path.resolve(__dirname, '../dist/preload.js')
 
 const modules = [
   'js/webview/default.js',
