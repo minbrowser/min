@@ -32,7 +32,7 @@
     "buildMain": "node ./scripts/buildMain.js",
     "buildBrowser": "node ./scripts/buildBrowser.js",
     "buildPreload": "node ./scripts/buildPreload.js",
-    "buildTranslations": "node ./scripts/buildLocalization.js",
+    "build": "npm run buildMain && npm run buildBrowser && npm run buildPreload",
     "updateFilters": "node ./ext/filterLists/updateEasylist.js"
   },
   "repository": {

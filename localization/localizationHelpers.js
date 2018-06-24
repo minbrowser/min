@@ -1,7 +1,7 @@
 /* provides helper functions for using localized strings */
 
 /*
-translations are compiled into here by running "npm run buildTranslations" in this format
+translations are compiled into here by running "npm run build" in this format
 
 var languages = {
     en-US: {name: "English (United States), identifier: "en-US", translations: {...}}
