@@ -1,14 +1,20 @@
 const chokidar = require('chokidar')
 const path = require('path')
 
-const jsDir = path.resolve(__dirname, '../js')
 const mainDir = path.resolve(__dirname, '../main')
+const jsDir = path.resolve(__dirname, '../js')
 const preloadDir = path.resolve(__dirname, '../js/webview')
 
+const buildMain = require('./buildMain.js')
 const buildBrowser = require('./buildBrowser.js')
 const buildPreload = require('./buildPreload.js')
 
-chokidar.watch([jsDir, mainDir], {ignored: preloadDir}).on('change', function () {
+chokidar.watch(mainDir).on('change', function () {
+  console.log('rebuilding main')
+  buildMain()
+})
+
+chokidar.watch(jsDir, {ignored: preloadDir}).on('change', function () {
   console.log('rebuilding browser')
   buildBrowser()
 })
