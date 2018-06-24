@@ -34,8 +34,8 @@ If you want to develop Min:
 
 * Install [Node](https://nodejs.org) and [Grunt](http://gruntjs.com).
 * Run `npm install` to install dependencies.
-* Build the translation files and a copy of the JS by running `grunt`.
-  * You can also have Grunt watch for changes and automatically rebuild by running `grunt watch`.
+* Build the translation files and a copy of the JS by running `npm run build`.
+  * You can also watch for changes and automatically rebuild by running `npm run watch`.
 * Download a copy of Electron from [here](https://github.com/electron/electron/releases).
 * Start Min by running `node_modules/.bin/electron .`.<sup>1</sup>
 
