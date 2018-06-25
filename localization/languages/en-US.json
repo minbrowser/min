@@ -35,6 +35,7 @@
         "createTask": "Create a Task",
         "moveToTask": "Move this tab to a task",
         "searchBookmarks": "Search bookmarks",
+        "searchHistory": "Search history",
         /* navbar */
         "openMenu": "Open menu", //application menu button on windows
         "enterReaderView": "Enter reader view",

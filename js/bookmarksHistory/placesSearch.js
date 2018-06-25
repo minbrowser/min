@@ -72,13 +72,14 @@ function searchPlaces (searchText, callback, options) {
   const itemStartBoost = Math.min(2.5 * stl, 10)
   const exactMatchBoost = 0.4 + (0.075 * stl)
   const limitToBookmarks = options && options.searchBookmarks
+  const resultsLimit = options && options.limit || 100
 
   if (searchText.indexOf(' ') !== -1) {
     substringSearchEnabled = true
   }
 
   for (let i = 0; i < historyInMemoryCache.length; i++) {
-    if (matches.length > 200) {
+    if (matches.length > (resultsLimit * 2)) {
       break
     }
     processSearchItem(historyInMemoryCache[i])
@@ -88,5 +89,5 @@ function searchPlaces (searchText, callback, options) {
     return calculateHistoryScore(b) - calculateHistoryScore(a)
   })
 
-  callback(matches.slice(0, 100))
+  callback(matches.slice(0, resultsLimit))
 }

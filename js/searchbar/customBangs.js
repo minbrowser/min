@@ -216,8 +216,59 @@ registerCustomBang({
     }
     bookmarks.searchPlaces(text, function (results) {
       if (results.length !== 0) {
+        results = results.sort(function (a, b) {
+          return b.lastVisit - a.lastVisit
+        })
         openURLFromSearchbar(results[0].url, null)
       }
     }, {searchBookmarks: true})
+  }
+})
+
+registerCustomBang({
+  phrase: '!history',
+  snippet: l('searchHistory'),
+  isAction: false,
+  showSuggestions: function (text, input, event, container) {
+    bookmarks.searchPlaces(text, function (results) {
+      empty(container)
+
+      var lastRelativeDate = '' // used to generate headings
+
+      results.sort(function (a, b) {
+        // order by last visit
+        return b.lastVisit - a.lastVisit
+      }).slice(0, 250).forEach(function (result) {
+        var thisRelativeDate = formatRelativeDate(result.lastVisit)
+        if (thisRelativeDate !== lastRelativeDate) {
+          var heading = document.createElement('h2')
+          heading.className = 'searchbar-heading'
+          heading.textContent = thisRelativeDate
+          container.appendChild(heading)
+          lastRelativeDate = thisRelativeDate
+        }
+        container.appendChild(createSearchbarItem({
+          title: result.title,
+          secondaryText: result.url,
+          url: result.url,
+          delete: function () {
+            bookmarks.deleteHistory(result.url)
+          }
+        }))
+      })
+    }, {limit: Infinity})
+  },
+  fn: function (text) {
+    if (!text) {
+      return
+    }
+    bookmarks.searchPlaces(text, function (results) {
+      if (results.length !== 0) {
+        results = results.sort(function (a, b) {
+          return b.lastVisit - a.lastVisit
+        })
+        openURLFromSearchbar(results[0].url, null)
+      }
+    }, {limit: Infinity})
   }
 })
