@@ -37,6 +37,10 @@ ipc.on('showBookmarks', function () {
   tabBar.enterEditMode(tabs.getSelected(), '!bookmarks ')
 })
 
+ipc.on('showHistory', function () {
+  tabBar.enterEditMode(tabs.getSelected(), '!history ')
+})
+
 ipc.on('addTab', function (e, data) {
   /* new tabs can't be created in focus mode */
   if (isFocusMode) {

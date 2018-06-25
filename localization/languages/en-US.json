@@ -146,6 +146,7 @@
         "appMenuFocusMode": "Focus Mode",
         "appMenuReadingList": "Reading List",
         "appMenuBookmarks": "Bookmarks",
+        "appMenuHistory": "History",
         "appMenuDeveloper": "Developer",
         "appMenuReloadBrowser": "Reload Browser",
         "appMenuInspectBrowser": "Inspect Browser",

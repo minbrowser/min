@@ -394,6 +394,13 @@ function createAppMenu () {
           }
         },
         {
+          label: l('appMenuHistory'),
+          accelerator: undefined,
+          click: function (item, window) {
+            sendIPCToWindow(window, 'showHistory')
+          }
+        },
+        {
           type: 'separator'
         },
         {
