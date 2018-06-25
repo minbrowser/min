@@ -217,6 +217,13 @@ function createSearchbarItem (data) {
   return item
 }
 
+function createSearchbarHeading (data) {
+  var heading = document.createElement('h2')
+  heading.className = 'searchbar-heading'
+  heading.textContent = data.text || ''
+  return heading
+}
+
 var searchbar = document.getElementById('searchbar')
 
 function showSearchbar (triggerInput) {

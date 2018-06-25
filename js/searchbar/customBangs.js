@@ -192,9 +192,7 @@ registerCustomBang({
       }).forEach(function (result) {
         var thisRelativeDate = formatRelativeDate(result.lastVisit)
         if (thisRelativeDate !== lastRelativeDate) {
-          var heading = document.createElement('h2')
-          heading.className = 'searchbar-heading'
-          heading.textContent = thisRelativeDate
+          var heading = createSearchbarHeading({text: thisRelativeDate})
           container.appendChild(heading)
           lastRelativeDate = thisRelativeDate
         }
@@ -241,9 +239,7 @@ registerCustomBang({
       }).slice(0, 250).forEach(function (result) {
         var thisRelativeDate = formatRelativeDate(result.lastVisit)
         if (thisRelativeDate !== lastRelativeDate) {
-          var heading = document.createElement('h2')
-          heading.className = 'searchbar-heading'
-          heading.textContent = thisRelativeDate
+          var heading = createSearchbarHeading({text: thisRelativeDate})
           container.appendChild(heading)
           lastRelativeDate = thisRelativeDate
         }
