@@ -3,6 +3,8 @@ const renderify = require('electron-renderify')
 const path = require('path')
 const fs = require('fs')
 
+const rootDir = path.resolve(__dirname, '../js')
+
 const intermediateOutput = path.resolve(__dirname, '../dist/build.js')
 const outFile = path.resolve(__dirname, '../dist/bundle.js')
 
@@ -69,7 +71,8 @@ function buildBrowser () {
   fs.writeFileSync(intermediateOutput, output, 'utf-8')
 
   let instance = browserify(intermediateOutput, {
-    ignoreMissing: true,
+    paths: [rootDir],
+    ignoreMissing: false,
     node: true,
     detectGlobals: false
   })
