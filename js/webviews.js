@@ -68,7 +68,7 @@ var webviews = {
   },
   getDOM: function (options) {
     var w = document.createElement('webview')
-    w.setAttribute('preload', 'dist/webview.min.js')
+    w.setAttribute('preload', 'dist/preload.js')
 
     w.setAttribute('webpreferences', 'scrollBounce=yes')
 

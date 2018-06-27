@@ -12,12 +12,12 @@
     "string_score": "^0.1.22"
   },
   "devDependencies": {
+    "browserify": "^16.2.2",
+    "chokidar": "^2.0.4",
     "decomment": "^0.9.0",
     "electron": "^2.0.0-beta.6",
+    "electron-renderify": "0.0.2",
     "grunt": "^1.0.1",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-uglify": "^2.0.0",
-    "grunt-contrib-watch": "^1.0.0",
     "grunt-electron": "^5.0.0",
     "grunt-run": "^0.8.0",
     "standard": "^7.1.0"
@@ -28,8 +28,12 @@
   "license": "Apache-2.0",
   "scripts": {
     "test": "node_modules/.bin/standard --verbose js/**/*.js main/*.js",
-    "updateFilters": "node ./ext/filterLists/updateEasylist.js",
-    "buildTranslations": "node ./scripts/buildLocalization.js"
+    "watch": "node ./scripts/watch.js",
+    "buildMain": "node ./scripts/buildMain.js",
+    "buildBrowser": "node ./scripts/buildBrowser.js",
+    "buildPreload": "node ./scripts/buildPreload.js",
+    "build": "npm run buildMain && npm run buildBrowser && npm run buildPreload",
+    "updateFilters": "node ./ext/filterLists/updateEasylist.js"
   },
   "repository": {
     "type": "git",
