@@ -91,6 +91,9 @@ var urlParser = {
     // else, do a search
     return currentSearchEngine.searchURL.replace('%s', encodeURIComponent(url))
   },
+  basicURL: function (url) {
+    return urlParser.removeProtocol(url).replace(urlParser.trailingSlashRegex, '')
+  },
   prettyURL: function (url) {
     try {
       var urlOBJ = new URL(url)

@@ -13,7 +13,7 @@ var searchOpenTabs = function (text, input, event, container) {
         return
       }
 
-      var tabUrl = urlParser.removeProtocol(tab.url) // don't search protocols
+      var tabUrl = urlParser.basicURL(tab.url) // don't search protocols
 
       var exactMatch = tab.title.toLowerCase().indexOf(searchText) !== -1 || tabUrl.toLowerCase().indexOf(searchText) !== -1
       var fuzzyTitleScore = tab.title.substring(0, 50).score(text, 0.5)
@@ -47,7 +47,7 @@ var searchOpenTabs = function (text, input, event, container) {
     var data = {
       icon: 'fa-external-link-square',
       title: match.tab.title,
-      secondaryText: urlParser.removeProtocol(match.tab.url).replace(trailingSlashRegex, '')
+      secondaryText: urlParser.basicURL(match.tab.url)
     }
 
     if (match.task.id !== currentTask.id) {

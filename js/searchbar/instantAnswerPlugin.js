@@ -70,7 +70,6 @@ function showSearchbarInstantAnswers (text, input, event, container) {
 
       var data = {
         icon: 'fa-globe',
-        title: urlParser.removeProtocol(url).replace(trailingSlashRegex, ''),
         secondaryText: l('suggestedSite'),
         url: url,
         classList: ['ddg-answer']

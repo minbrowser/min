@@ -33,7 +33,7 @@ function autocompleteURL (item, input) {
     // then try the whole URL
     urlParser.prettyURL(item.url),
     // then try the URL with querystring
-    urlParser.removeProtocol(item.url),
+    urlParser.basicURL(item.url),
     // then just try the URL with protocol
     item.url
   ]

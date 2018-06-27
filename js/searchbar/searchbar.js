@@ -1,7 +1,3 @@
-// common regex's
-
-var trailingSlashRegex = /\/$/g
-
 function removeTags (text) {
   return text.replace(/<.*?>/g, '')
 }

@@ -90,7 +90,7 @@ var TaskOverlayBuilder = {
       element: function (tabContainer, task, tab) {
         var el = createSearchbarItem({
           title: tab.title || l('newTabLabel'),
-          secondaryText: urlParser.removeProtocol(tab.url),
+          secondaryText: urlParser.basicURL(tab.url),
           classList: ['task-tab-item'],
           delete: function () {
             removeTabFromOverlay(tab.id, task)
