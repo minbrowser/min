@@ -124,9 +124,11 @@ function getBangSearchResults (text, input, event, container) {
 
     if (bang && bang.showSuggestions) {
       bang.showSuggestions(text.replace(bang.phrase, '').trimLeft(), input, event, container)
+      return
+    } else if (text.trim().indexOf(' ') !== -1) {
+      empty(container)
+      return
     }
-
-    return
   }
 
   // otherwise search for bangs

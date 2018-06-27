@@ -6,6 +6,12 @@ function showSearchSuggestions (text, input, event, container) {
     return
   }
 
+  // if the search text is a custom bang, we should never show suggestions
+  if (getCustomBang(text)) {
+    empty(container)
+    return
+  }
+
   if (searchbarResultCount > 3) {
     empty(container)
     return
@@ -49,7 +55,7 @@ function showSearchSuggestions (text, input, event, container) {
 registerSearchbarPlugin('searchSuggestions', {
   index: 4,
   trigger: function (text) {
-    return !!text && text.indexOf('!') !== 0 && !tabs.get(tabs.getSelected()).private
+    return !!text && (text.indexOf('!') !== 0 || text.trim().indexOf(' ') !== -1) && !tabs.get(tabs.getSelected()).private
   },
-  showResults: debounce(showSearchSuggestions, 200)
+  showResults: debounce(showSearchSuggestions, 150)
 })
