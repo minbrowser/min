@@ -21,7 +21,6 @@ const legacyModules = [
   'js/util/settings.js',
   'js/util/searchEngine.js',
   'js/util/relativeDate.js',
-  'js/menuBarVisibility.js',
   'js/tabState.js',
   'js/util/urlParser.js',
   'js/filteringRenderer.js',

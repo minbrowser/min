@@ -8,6 +8,8 @@ window.webFrame = window.electron.webFrame
 window.webFrame.setVisualZoomLevelLimits(1, 1)
 window.webFrame.setLayoutZoomLevelLimits(0, 0)
 
+require('menuBarVisibility.js').initialize()
+
 // add a class to the body for fullscreen status
 
 ipc.on('enter-full-screen', function () {

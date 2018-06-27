@@ -3,6 +3,10 @@ gets and sets settings
 requires Dexie and util/database.js
 */
 
+if (typeof db === 'undefined' && typeof require !== 'undefined') {
+  var db = require('util/database.js')
+}
+
 var settings = {
   loaded: false,
   list: {},
@@ -78,3 +82,7 @@ var settings = {
 }
 
 settings.load()
+
+if (typeof module !== 'undefined') {
+  module.exports = settings
+}

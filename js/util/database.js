@@ -1,6 +1,10 @@
 // defines schema for the browsingData database
 // requires Dexie.min.js
 
+if (typeof Dexie === 'undefined' && typeof require !== 'undefined') {
+  var Dexie = require('dexie')
+}
+
 var db = new Dexie('browsingData')
 
 var dbErrorMessage = 'Internal error opening backing store for indexedDB.open'
@@ -90,3 +94,7 @@ Dexie.Promise.on('error', function (error) {
     dbErrorAlertShown = true
   }
 })
+
+if (typeof module !== 'undefined') {
+  module.exports = db
+}

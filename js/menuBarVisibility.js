@@ -1,10 +1,14 @@
-settings.get('menuBarVisible', function (value) {
-  if (value === false) {
-    remote.getCurrentWindow().setMenuBarVisibility(false)
-  } else {
-    // menu bar should be visible, do nothing
-  }
-})
+const settings = require('util/settings.js')
+
+function initialize () {
+  settings.get('menuBarVisible', function (value) {
+    if (value === false) {
+      remote.getCurrentWindow().setMenuBarVisibility(false)
+    } else {
+      // menu bar should be visible, do nothing
+    }
+  })
+}
 
 function showMenuBar () {
   remote.getCurrentWindow().setMenuBarVisibility(true)
@@ -29,3 +33,5 @@ function toggleMenuBar () {
     }
   })
 }
+
+module.exports = {initialize, toggleMenuBar}

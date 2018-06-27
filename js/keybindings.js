@@ -1,5 +1,7 @@
 /* defines keybindings that aren't in the menu (so they aren't defined by menu.js). For items in the menu, also handles ipc messages */
 
+const menuBarVisibility = require('menuBarVisibility.js')
+
 ipc.on('zoomIn', function () {
   webviewGestures.zoomWebviewIn(tabs.getSelected())
 })
@@ -399,7 +401,7 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('showAndHideMenuBar', function () {
-    toggleMenuBar()
+    menuBarVisibility.toggleMenuBar()
   })
 
   defineShortcut('followLink', function () {
