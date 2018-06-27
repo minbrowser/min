@@ -78,7 +78,11 @@ function buildBrowser () {
 
   instance.transform(renderify)
   let stream = fs.createWriteStream(outFile, {encoding: 'utf-8'})
-  instance.bundle().pipe(stream)
+  instance.bundle()
+    .on('error', function (e) {
+      console.warn('\x1b[31m' + 'Error while building: ' + e.message + '\x1b[30m')
+    })
+    .pipe(stream)
 }
 
 if (module.parent) {
