@@ -1,7 +1,3 @@
-function removeTags (text) {
-  return text.replace(/<.*?>/g, '')
-}
-
 function openURLInBackground (url) { // used to open a url in the background, without leaving the searchbar
   var newTab = tabs.add({
     url: url,

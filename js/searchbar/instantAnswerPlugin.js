@@ -1,3 +1,7 @@
+function removeTags (text) {
+  return text.replace(/<.*?>/g, '')
+}
+
 function showSearchbarInstantAnswers (text, input, event, container) {
   // only make requests to the DDG api if DDG is set as the search engine
   if (currentSearchEngine.name !== 'DuckDuckGo') {
@@ -70,6 +74,7 @@ function showSearchbarInstantAnswers (text, input, event, container) {
 
       var data = {
         icon: 'fa-globe',
+        title: urlParser.basicURL(url),
         secondaryText: l('suggestedSite'),
         url: url,
         classList: ['ddg-answer']
