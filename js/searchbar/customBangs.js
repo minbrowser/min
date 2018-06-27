@@ -1,5 +1,7 @@
 /* list of the available custom !bangs */
 
+const formatRelativeDate = require('util/relativeDate.js')
+
 registerCustomBang({
   phrase: '!settings',
   snippet: l('viewSettings'),

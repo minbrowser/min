@@ -18,3 +18,5 @@ function formatRelativeDate (date) {
   }
   return null
 }
+
+module.exports = formatRelativeDate
