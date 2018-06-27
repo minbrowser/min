@@ -4,12 +4,12 @@ const fs = require('fs')
 const outFile = path.resolve(__dirname, '../dist/preload.js')
 
 const modules = [
-  'js/webview/default.js',
-  'js/webview/textExtractor.js',
-  'js/webview/phishDetector.js',
-  'js/webview/readerDetector.js',
-  'js/webview/keywordExtractor.js',
-  'js/webview/siteUnbreak.js'
+  'js/preload/default.js',
+  'js/preload/textExtractor.js',
+  'js/preload/phishDetector.js',
+  'js/preload/readerDetector.js',
+  'js/preload/keywordExtractor.js',
+  'js/preload/siteUnbreak.js'
 ]
 
 function buildPreload () {

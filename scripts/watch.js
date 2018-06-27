@@ -3,7 +3,7 @@ const path = require('path')
 
 const mainDir = path.resolve(__dirname, '../main')
 const jsDir = path.resolve(__dirname, '../js')
-const preloadDir = path.resolve(__dirname, '../js/webview')
+const preloadDir = path.resolve(__dirname, '../js/preload')
 
 const buildMain = require('./buildMain.js')
 const buildBrowser = require('./buildBrowser.js')

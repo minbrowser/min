@@ -264,7 +264,7 @@ var webviews = {
   }
 }
 
-// called when js/webview/textExtractor.js returns the page's text content
+// called when js/preload/textExtractor.js returns the page's text content
 webviews.bindIPC('pageData', function (webview, tabId, args) {
   var tab = tabs.get(tabId),
     data = args[0]
@@ -277,7 +277,7 @@ webviews.bindIPC('pageData', function (webview, tabId, args) {
   }
 })
 
-// called when a swipe event is triggered in js/webview/swipeEvents.js
+// called when a swipe event is triggered in js/preload/swipeEvents.js
 
 webviews.bindIPC('goBack', function () {
   settings.get('swipeNavigationEnabled', function (value) {
