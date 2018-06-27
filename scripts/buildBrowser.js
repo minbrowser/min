@@ -8,9 +8,6 @@ const rootDir = path.resolve(__dirname, '../js')
 const intermediateOutput = path.resolve(__dirname, '../dist/build.js')
 const outFile = path.resolve(__dirname, '../dist/bundle.js')
 
-// build localization support first, since it is included in the browser bundle
-require('./buildLocalization.js')()
-
 /* avoid adding modules to this list, require() them from the correct place instead */
 const legacyModules = [
   'dist/localization.build.js',
@@ -60,6 +57,10 @@ const legacyModules = [
 ]
 
 function buildBrowser () {
+
+  // build localization support first, since it is included in the browser bundle
+  require('./buildLocalization.js')()
+
   /* concatenate legacy modules */
   let output = ''
   legacyModules.forEach(function (script) {
