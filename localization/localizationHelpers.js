@@ -67,3 +67,8 @@ if (typeof document !== 'undefined') {
     }
   })
 }
+if (typeof window !== 'undefined') {
+  window.l = l
+  window.userLanguage = userLanguage
+  window.getCurrentLanguage = getCurrentLanguage
+}
