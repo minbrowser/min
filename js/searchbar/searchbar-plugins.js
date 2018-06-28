@@ -1,7 +1,7 @@
 var searchbarPlugins = [] // format is {name, container, trigger, showResults}
 var searchbarResultCount = 0
 var hasAutocompleted = false
-var topAnswerArea = searchbar.querySelector('.top-answer-area')
+var topAnswerArea = searchbar.el.querySelector('.top-answer-area')
 
 // empties all containers in the searchbar
 function clearSearchbar () {
@@ -42,7 +42,7 @@ function registerSearchbarPlugin (name, object) {
   var container = document.createElement('div')
   container.classList.add('searchbar-plugin-container')
   container.setAttribute('data-plugin', name)
-  searchbar.insertBefore(container, searchbar.childNodes[object.index + 1])
+  searchbar.el.insertBefore(container, searchbar.el.childNodes[object.index + 1])
 
   searchbarPlugins.push({
     name: name,
@@ -57,7 +57,7 @@ function runPlugins (text, input, event) {
   hasAutocompleted = false
 
   for (var i = 0; i < searchbarPlugins.length; i++) {
-    if ((!searchbarPlugins[i].trigger || searchbarPlugins[i].trigger(text))) {
+    if ( (!searchbarPlugins[i].trigger || searchbarPlugins[i].trigger(text))) {
       searchbarPlugins[i].showResults(text, input, event, searchbarPlugins[i].container)
     } else {
       empty(searchbarPlugins[i].container)

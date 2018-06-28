@@ -10,7 +10,7 @@ function showSearchbarInstantAnswers (text, input, event, container) {
 
   // don't make a request if the searchbar has already closed
 
-  if (!currentSearchbarInput) {
+  if (!searchbar.associatedInput) {
     return
   }
 

@@ -209,7 +209,6 @@ settings.get('keyMap', function (keyMapSettings) {
 
     addTab(tabs.add(restoredTab, tabs.getIndex(tabs.getSelected()) + 1), {
       focus: false,
-      leaveEditMode: true,
       enterEditMode: false
     })
   })
@@ -386,8 +385,8 @@ settings.get('keyMap', function (keyMapSettings) {
 
   // mod+enter navigates to searchbar URL + ".com"
   defineShortcut('completeSearchbar', function () {
-    if (currentSearchbarInput) { // if the searchbar is open
-      var value = currentSearchbarInput.value
+    if (searchbar.associatedInput) { // if the searchbar is open
+      var value = searchbar.associatedInput.value
 
       tabBar.leaveEditMode()
 

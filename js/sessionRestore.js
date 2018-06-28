@@ -40,9 +40,7 @@ var sessionRestore = {
       if ((data.version && data.version !== 2) || (data.state && data.state.tasks && data.state.tasks.length === 0)) {
         tasks.setSelected(tasks.add())
 
-        addTab(currentTask.tabs.add(), {
-          leaveEditMode: false // we know we aren't in edit mode yet, so we don't have to leave it
-        })
+        addTab(currentTask.tabs.add())
         return
       }
 

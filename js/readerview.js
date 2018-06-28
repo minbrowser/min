@@ -96,7 +96,7 @@ var readerView = {
         })
 
         item.addEventListener('click', function (e) {
-          openURLFromSearchbar(readerView.getReaderURL(article.url), e)
+          searchbar.openURL(readerView.getReaderURL(article.url), e)
         })
 
         if (article.visitCount > 5 || (article.extraData.scrollPosition > 0 && article.extraData.articleScrollLength - article.extraData.scrollPosition < 1000)) { // the article has been visited frequently, or the scroll position is at the bottom

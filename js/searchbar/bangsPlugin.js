@@ -93,7 +93,7 @@ function showBangSearchResults (results, input, event, container) {
 
       // if the item is an action, clicking on it should immediately trigger it instead of prompting for additional text
       if (result.isAction && result.fn) {
-        openURLFromSearchbar(result.phrase, e)
+        searchbar.openURL(result.phrase, e)
         return
       }
 

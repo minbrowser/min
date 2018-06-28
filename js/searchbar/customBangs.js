@@ -219,7 +219,7 @@ registerCustomBang({
         results = results.sort(function (a, b) {
           return b.lastVisit - a.lastVisit
         })
-        openURLFromSearchbar(results[0].url, null)
+        searchbar.openURL(results[0].url, null)
       }
     }, {searchBookmarks: true})
   }
@@ -265,7 +265,7 @@ registerCustomBang({
         results = results.sort(function (a, b) {
           return b.lastVisit - a.lastVisit
         })
-        openURLFromSearchbar(results[0].url, null)
+        searchbar.openURL(results[0].url, null)
       }
     }, {limit: Infinity})
   }

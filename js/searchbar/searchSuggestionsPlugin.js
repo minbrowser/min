@@ -42,7 +42,7 @@ function showSearchSuggestions (text, input, event, container) {
           var item = createSearchbarItem(data)
 
           item.addEventListener('click', function (e) {
-            openURLFromSearchbar(result.phrase, e)
+            searchbar.openURL(result.phrase, e)
           })
 
           container.appendChild(item)

@@ -19,7 +19,7 @@ function autocomplete (input, text, strings) {
 // autocompletes based on a result item
 // returns: 1 - the exact URL was autocompleted, 0 - the domain was autocompleted, -1: nothing was autocompleted
 function autocompleteURL (item, input) {
-  var text = getValue(input)
+  var text = searchbar.getValue()
 
   var url = new URL(item.url)
   var hostname = url.hostname

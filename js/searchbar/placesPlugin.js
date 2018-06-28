@@ -106,7 +106,7 @@ registerSearchbarPlugin('fullTextPlaces', {
     return !!text && text.indexOf('!') !== 0
   },
   showResults: debounce(function () {
-    if (searchbarResultCount < 4 && currentSearchbarInput) {
+    if (searchbarResultCount < 4 && searchbar.associatedInput) {
       showSearchbarPlaceResults.apply(this, Array.from(arguments).concat({fullText: true}))
     }
   }, 200)
