@@ -89,14 +89,10 @@ var readerView = {
         var item = createSearchbarItem({
           title: article.article.title,
           descriptionBlock: article.article.excerpt,
-          url: article.url,
+          url: readerView.getReaderURL(article.url),
           delete: function (el) {
             db.readingList.where('url').equals(el.getAttribute('data-url')).delete()
           }
-        })
-
-        item.addEventListener('click', function (e) {
-          searchbar.openURL(readerView.getReaderURL(article.url), e)
         })
 
         if (article.visitCount > 5 || (article.extraData.scrollPosition > 0 && article.extraData.articleScrollLength - article.extraData.scrollPosition < 1000)) { // the article has been visited frequently, or the scroll position is at the bottom
