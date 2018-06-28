@@ -1,3 +1,5 @@
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+
 function removeTags (text) {
   return text.replace(/<.*?>/g, '')
 }
@@ -56,20 +58,20 @@ function showSearchbarInstantAnswers (text, input, event, container) {
         container.appendChild(item)
       })
 
-      searchbarResultCount += Math.min(res.RelatedTopics.length, 3)
+      searchbarPlugins.addResults(Math.min(res.RelatedTopics.length, 3))
     }
 
     if (item) {
       // answers are more relevant, they should be displayed at the top
       if (res.Answer) {
-        setTopAnswer('instantAnswers', item)
+        searchbarPlugins.setTopAnswer('instantAnswers', item)
       } else {
         container.appendChild(item)
       }
     }
 
     // suggested site links
-    if (searchbarResultCount < 4 && res.Results && res.Results[0] && res.Results[0].FirstURL) {
+    if (searchbarPlugins.getResultCount() < 4 && res.Results && res.Results[0] && res.Results[0].FirstURL) {
       var url = res.Results[0].FirstURL
 
       var data = {
@@ -105,7 +107,7 @@ function showSearchbarInstantAnswers (text, input, event, container) {
   })
 }
 
-registerSearchbarPlugin('instantAnswers', {
+searchbarPlugins.register('instantAnswers', {
   index: 3,
   trigger: function (text) {
     return text.length > 3 && !urlParser.isURLMissingProtocol(text) && !tabs.get(tabs.getSelected()).private

@@ -1,3 +1,5 @@
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+
 var stringScore = require('string_score')
 
 var searchOpenTabs = function (text, input, event, container) {
@@ -74,10 +76,10 @@ var searchOpenTabs = function (text, input, event, container) {
     container.appendChild(item)
   })
 
-  searchbarResultCount += finalMatches.length
+  searchbarPlugins.addResults(finalMatches.length)
 }
 
-registerSearchbarPlugin('openTabs', {
+searchbarPlugins.register('openTabs', {
   index: 4,
   trigger: function (text) {
     return text.length > 2

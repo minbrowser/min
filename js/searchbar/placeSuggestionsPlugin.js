@@ -1,3 +1,5 @@
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+
 function showPlaceSuggestions (text, input, event, container) {
   // use the current tab's url for history suggestions, or the previous tab if the current tab is empty
   var url = tabs.get(tabs.getSelected()).url
@@ -35,10 +37,44 @@ function showPlaceSuggestions (text, input, event, container) {
   })
 }
 
-registerSearchbarPlugin('placeSuggestions', {
+searchbarPlugins.register('placeSuggestions', {
   index: 1,
   trigger: function (text) {
     return !text
   },
   showResults: showPlaceSuggestions
+})
+
+// when we get keywords data from the page, we show those results in the searchbar
+
+webviews.bindIPC('keywordsData', function (webview, tabId, arguements) {
+  var data = arguements[0]
+
+  var itemsCt = 0
+  var itemsShown = []
+
+  var container = searchbarPlugins.getContainer('searchSuggestions')
+
+  data.entities.forEach(function (item, index) {
+    // ignore one-word items, they're usually useless
+    if (!/\s/g.test(item.trim())) {
+      return
+    }
+
+    if (itemsCt >= 5 || itemsShown.indexOf(item.trim()) !== -1) {
+      return
+    }
+
+    var div = createSearchbarItem({
+      icon: 'fa-search',
+      title: item,
+      url: item,
+      classList: ['iadata-onfocus']
+    })
+
+    container.appendChild(div)
+
+    itemsCt++
+    itemsShown.push(item.trim())
+  })
 })

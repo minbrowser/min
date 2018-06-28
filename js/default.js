@@ -76,7 +76,7 @@ function debounce (fn, delay) {
   }
 }
 
-function empty (node) {
+window.empty = function (node) {
   var n
   while (n = node.firstElementChild) {
     node.removeChild(n)

@@ -1,3 +1,5 @@
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+
 var ddgAttribution = l('resultsFromDDG')
 
 function showSearchSuggestions (text, input, event, container) {
@@ -12,7 +14,7 @@ function showSearchSuggestions (text, input, event, container) {
     return
   }
 
-  if (searchbarResultCount > 3) {
+  if (searchbarPlugins.getResultCount() > 3) {
     empty(container)
     return
   }
@@ -48,11 +50,11 @@ function showSearchSuggestions (text, input, event, container) {
           container.appendChild(item)
         })
       }
-      searchbarResultCount += results.length
+      searchbarPlugins.addResults(results.length)
     })
 }
 
-registerSearchbarPlugin('searchSuggestions', {
+searchbarPlugins.register('searchSuggestions', {
   index: 4,
   trigger: function (text) {
     return !!text && (text.indexOf('!') !== 0 || text.trim().indexOf(' ') !== -1) && !tabs.get(tabs.getSelected()).private

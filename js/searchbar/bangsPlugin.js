@@ -1,3 +1,5 @@
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+
 // format is {phrase, snippet, score, icon, fn, isCustom, isAction} to match https://ac.duckduckgo.com/ac?q=!
 
 // isAction describes whether the !bang is an action (like "open preferences"), or a place to search (like "search reading list items")
@@ -151,7 +153,7 @@ function getBangSearchResults (text, input, event, container) {
   }
 }
 
-registerSearchbarPlugin('bangs', {
+searchbarPlugins.register('bangs', {
   index: 1,
   trigger: function (text) {
     return !!text && text.indexOf('!') === 0

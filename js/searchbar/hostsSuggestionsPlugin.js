@@ -1,3 +1,5 @@
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+
 // hosts are parsed in util/urlParser
 
 function showHostsSuggestions (text, input, event, container) {
@@ -19,7 +21,7 @@ function showHostsSuggestions (text, input, event, container) {
   })
 }
 
-registerSearchbarPlugin('hostsSuggestions', {
+searchbarPlugins.register('hostsSuggestions', {
   index: 1,
   trigger: function (text) {
     return (hosts.length && typeof text === 'string' && text.length > 2)

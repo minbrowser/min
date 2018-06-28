@@ -1,3 +1,5 @@
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+
 function openURLInBackground (url) { // used to open a url in the background, without leaving the searchbar
   var newTab = tabs.add({
     url: url,
@@ -26,7 +28,7 @@ var searchbar = {
     searchbar.associatedInput = null
     searchbar.el.hidden = true
 
-    clearSearchbar()
+    searchbarPlugins.clearAll()
   },
   getValue: function () {
     var text = searchbar.associatedInput.value
@@ -42,7 +44,7 @@ var searchbar = {
       var realText = text
     }
 
-    runPlugins(realText, searchbar.associatedInput, event)
+    searchbarPlugins.run(realText, searchbar.associatedInput, event)
   },
   focusItem: function (options) {
     options = options || {} // fallback if options is null
@@ -76,7 +78,7 @@ var searchbar = {
         if (document.activeElement === focusedItem) {
           var itext = focusedItem.querySelector('.title').textContent
 
-          showSearchbarInstantAnswers(itext, searchbar.associatedInput, null, getSearchbarContainer('instantAnswers'))
+          showSearchbarInstantAnswers(itext, searchbar.associatedInput, null, searchbarPlugins.getContainer('instantAnswers'))
         }
       }, 300)
     }
@@ -125,36 +127,4 @@ searchbar.el.addEventListener('keydown', function (e) {
   }
 })
 
-// when we get keywords data from the page, we show those results in the searchbar
-
-webviews.bindIPC('keywordsData', function (webview, tabId, arguements) {
-  var data = arguements[0]
-
-  var itemsCt = 0
-  var itemsShown = []
-
-  var container = getSearchbarContainer('searchSuggestions')
-
-  data.entities.forEach(function (item, index) {
-    // ignore one-word items, they're usually useless
-    if (!/\s/g.test(item.trim())) {
-      return
-    }
-
-    if (itemsCt >= 5 || itemsShown.indexOf(item.trim()) !== -1) {
-      return
-    }
-
-    var div = createSearchbarItem({
-      icon: 'fa-search',
-      title: item,
-      url: item,
-      classList: ['iadata-onfocus']
-    })
-
-    container.appendChild(div)
-
-    itemsCt++
-    itemsShown.push(item.trim())
-  })
-})
+module.exports = searchbar

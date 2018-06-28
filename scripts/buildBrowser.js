@@ -27,7 +27,6 @@ const legacyModules = [
   'js/api-wrapper.js',
   'js/searchbar/searchbar.js',
   'js/searchbar/searchbarUtils.js',
-  'js/searchbar/searchbar-plugins.js',
   'js/searchbar/searchbar-autocomplete.js',
   'js/searchbar/placesPlugin.js',
   'js/searchbar/instantAnswerPlugin.js',
