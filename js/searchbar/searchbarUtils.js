@@ -1,3 +1,5 @@
+var searchbar = require('searchbar/searchbar.js')
+
 var lastItemDeletion = Date.now() // TODO get rid of this
 
 // creates a result item

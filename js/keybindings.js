@@ -1,6 +1,7 @@
 /* defines keybindings that aren't in the menu (so they aren't defined by menu.js). For items in the menu, also handles ipc messages */
 
 const menuBarVisibility = require('menuBarVisibility.js')
+var searchbar = require('searchbar/searchbar.js')
 
 ipc.on('zoomIn', function () {
   webviewGestures.zoomWebviewIn(tabs.getSelected())

@@ -44,7 +44,7 @@ function onPageLoad (e) {
   }, 0)
 }
 
-var webviews = {
+window.webviews = {
   container: document.getElementById('webviews'),
   elementMap: {}, // tabId: webview
   internalPages: {

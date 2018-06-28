@@ -25,7 +25,6 @@ const legacyModules = [
   'js/webviewMenu.js',
   'js/bookmarksHistory/bookmarksHistory.js',
   'js/api-wrapper.js',
-  'js/searchbar/searchbar.js',
   'js/searchbar/searchbarUtils.js',
   'js/searchbar/searchbar-autocomplete.js',
   'js/searchbar/placesPlugin.js',

@@ -2,7 +2,7 @@
 
 /* loads a page in a webview */
 
-function navigate (tabId, newURL) {
+window.navigate = function (tabId, newURL) {
   newURL = urlParser.parse(newURL)
 
   tabs.update(tabId, {

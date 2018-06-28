@@ -1,3 +1,5 @@
+var searchbar = require('searchbar/searchbar.js')
+
 var lastTabDeletion = 0 // TODO get rid of this
 
 var tabBar = {

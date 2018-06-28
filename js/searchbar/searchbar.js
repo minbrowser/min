@@ -65,7 +65,7 @@ var searchbar = {
     if (currentItem && logicalNextItem) { // an item is focused and there is another item after it, move onto the next one
       logicalNextItem.focus()
     } else if (currentItem) { // the last item is focused, focus the searchbar again
-      tabBar.getTabInput(tabs.getSelected()).focus()
+      searchbar.associatedInput.focus()
       return
     } else if (allItems[0]) { // no item is focused.
       allItems[0].focus()

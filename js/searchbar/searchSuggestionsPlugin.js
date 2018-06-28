@@ -1,3 +1,4 @@
+var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 
 var ddgAttribution = l('resultsFromDDG')

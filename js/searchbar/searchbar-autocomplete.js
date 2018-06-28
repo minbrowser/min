@@ -1,3 +1,5 @@
+var searchbar = require('searchbar/searchbar.js')
+
 function autocomplete (input, text, strings) {
   for (var i = 0; i < strings.length; i++) {
     // check if the item can be autocompleted

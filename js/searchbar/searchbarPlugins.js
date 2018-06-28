@@ -1,8 +1,8 @@
-var searchbar = require('searchbar/searchbar.js')
+var searchbar = document.getElementById('searchbar')
 
 var searchbarPlugins = [] // format is {name, container, trigger, showResults}
 var resultCount = 0
-var topAnswerArea = searchbar.el.querySelector('.top-answer-area')
+var topAnswerArea = searchbar.querySelector('.top-answer-area')
 
 // empties all containers in the searchbar
 function clearAll () {
@@ -43,7 +43,7 @@ function register (name, object) {
   var container = document.createElement('div')
   container.classList.add('searchbar-plugin-container')
   container.setAttribute('data-plugin', name)
-  searchbar.el.insertBefore(container, searchbar.el.childNodes[object.index + 1])
+  searchbar.insertBefore(container, searchbar.childNodes[object.index + 1])
 
   searchbarPlugins.push({
     name: name,

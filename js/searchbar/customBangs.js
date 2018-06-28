@@ -1,5 +1,5 @@
 /* list of the available custom !bangs */
-
+var searchbar = require('searchbar/searchbar.js')
 const formatRelativeDate = require('util/relativeDate.js')
 
 registerCustomBang({
