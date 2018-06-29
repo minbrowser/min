@@ -1,6 +1,15 @@
-var searchbar = require('searchbar/searchbar.js')
+var urlParser = require('util/urlParser.js')
 
-function autocomplete (input, text, strings) {
+function autocomplete (input, strings) {
+  // if there is text after the selection, we can never autocomplete
+  if (input.selectionEnd !== input.value.length) {
+    return {
+      valid: false
+    }
+  }
+
+  var text = input.value.substring(0, input.selectionStart)
+
   for (var i = 0; i < strings.length; i++) {
     // check if the item can be autocompleted
     if (strings[i].toLowerCase().indexOf(text.toLowerCase()) === 0) {
@@ -21,8 +30,6 @@ function autocomplete (input, text, strings) {
 // autocompletes based on a result item
 // returns: 1 - the exact URL was autocompleted, 0 - the domain was autocompleted, -1: nothing was autocompleted
 function autocompleteURL (item, input) {
-  var text = searchbar.getValue()
-
   var url = new URL(item.url)
   var hostname = url.hostname
 
@@ -40,7 +47,7 @@ function autocompleteURL (item, input) {
     item.url
   ]
 
-  var autocompleteResult = autocomplete(input, text, possibleAutocompletions)
+  var autocompleteResult = autocomplete(input, possibleAutocompletions)
 
   if (!autocompleteResult.valid) {
     return -1
@@ -50,3 +57,5 @@ function autocompleteURL (item, input) {
     return 1
   }
 }
+
+module.exports = {autocomplete, autocompleteURL}

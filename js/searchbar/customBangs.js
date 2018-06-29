@@ -1,5 +1,6 @@
 /* list of the available custom !bangs */
 var searchbar = require('searchbar/searchbar.js')
+var searchbarUtils = require('searchbar/searchbarUtils.js')
 const formatRelativeDate = require('util/relativeDate.js')
 
 registerCustomBang({
@@ -194,11 +195,11 @@ registerCustomBang({
       }).forEach(function (result) {
         var thisRelativeDate = formatRelativeDate(result.lastVisit)
         if (thisRelativeDate !== lastRelativeDate) {
-          var heading = createSearchbarHeading({text: thisRelativeDate})
+          var heading = searchbarUtils.createHeading({text: thisRelativeDate})
           container.appendChild(heading)
           lastRelativeDate = thisRelativeDate
         }
-        container.appendChild(createSearchbarItem({
+        container.appendChild(searchbarUtils.createItem({
           title: result.title,
           icon: 'fa-star',
           secondaryText: result.url,
@@ -241,11 +242,11 @@ registerCustomBang({
       }).slice(0, 250).forEach(function (result) {
         var thisRelativeDate = formatRelativeDate(result.lastVisit)
         if (thisRelativeDate !== lastRelativeDate) {
-          var heading = createSearchbarHeading({text: thisRelativeDate})
+          var heading = searchbarUtils.createHeading({text: thisRelativeDate})
           container.appendChild(heading)
           lastRelativeDate = thisRelativeDate
         }
-        container.appendChild(createSearchbarItem({
+        container.appendChild(searchbarUtils.createItem({
           title: result.title,
           secondaryText: result.url,
           url: result.url,

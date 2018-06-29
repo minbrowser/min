@@ -1,4 +1,5 @@
 var searchbar = require('searchbar/searchbar.js')
+var searchbarUtils = require('searchbar/searchbarUtils.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 
 // format is {phrase, snippet, score, icon, fn, isCustom, isAction} to match https://ac.duckduckgo.com/ac?q=!
@@ -90,7 +91,7 @@ function showBangSearchResults (results, input, event, container) {
       secondaryText: result.phrase
     }
 
-    var item = createSearchbarItem(data)
+    var item = searchbarUtils.createItem(data)
 
     item.addEventListener('click', function (e) {
 

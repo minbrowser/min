@@ -115,3 +115,5 @@ var urlParser = {
     return url
   }
 }
+
+module.exports = urlParser

@@ -1,4 +1,5 @@
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var searchbarUtils = require('searchbar/searchbarUtils.js')
 
 var stringScore = require('string_score')
 
@@ -57,7 +58,7 @@ var searchOpenTabs = function (text, input, event, container) {
       data.metadata = [taskName]
     }
 
-    var item = createSearchbarItem(data)
+    var item = searchbarUtils.createItem(data)
 
     item.addEventListener('click', function () {
       // if we created a new tab but are switching away from it, destroy the current (empty) tab

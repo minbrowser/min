@@ -1,3 +1,5 @@
+var urlParser = require('util/urlParser.js')
+
 var searchbar = require('searchbar/searchbar.js')
 
 var lastItemDeletion = Date.now() // TODO get rid of this
@@ -20,7 +22,7 @@ delete: function - a function to call to delete the result item when a left swip
 classList: array - a list of classes to add to the item
 */
 
-function createSearchbarItem (data) {
+function createItem (data) {
   var item = document.createElement('div')
   item.classList.add('searchbar-item')
 
@@ -133,7 +135,7 @@ function createSearchbarItem (data) {
   return item
 }
 
-function createSearchbarHeading (data) {
+function createHeading (data) {
   var heading = document.createElement('h2')
   heading.className = 'searchbar-heading'
   heading.textContent = data.text || ''
@@ -168,3 +170,5 @@ function getRealTitle (text) {
 
   return text
 }
+
+module.exports = {createItem, createHeading, getRealTitle}

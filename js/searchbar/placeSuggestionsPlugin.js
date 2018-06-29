@@ -1,4 +1,5 @@
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var searchbarUtils = require('searchbar/searchbarUtils.js')
 
 function showPlaceSuggestions (text, input, event, container) {
   // use the current tab's url for history suggestions, or the previous tab if the current tab is empty
@@ -23,9 +24,9 @@ function showPlaceSuggestions (text, input, event, container) {
     })
 
     results.slice(0, 4).forEach(function (result) {
-      var item = createSearchbarItem({
+      var item = searchbarUtils.createItem({
         title: urlParser.prettyURL(result.url),
-        secondaryText: getRealTitle(result.title),
+        secondaryText: searchbarUtils.getRealTitle(result.title),
         url: result.url,
         delete: function () {
           bookmarks.deleteHistory(result.url)
@@ -65,7 +66,7 @@ webviews.bindIPC('keywordsData', function (webview, tabId, arguements) {
       return
     }
 
-    var div = createSearchbarItem({
+    var div = searchbarUtils.createItem({
       icon: 'fa-search',
       title: item,
       url: item,

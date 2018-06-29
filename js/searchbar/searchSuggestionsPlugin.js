@@ -1,5 +1,6 @@
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var searchbarUtils = require('searchbar/searchbarUtils.js')
 
 var ddgAttribution = l('resultsFromDDG')
 
@@ -42,7 +43,7 @@ function showSearchSuggestions (text, input, event, container) {
             data.icon = 'fa-search'
           }
 
-          var item = createSearchbarItem(data)
+          var item = searchbarUtils.createItem(data)
 
           item.addEventListener('click', function (e) {
             searchbar.openURL(result.phrase, e)

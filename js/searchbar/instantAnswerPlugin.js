@@ -1,5 +1,6 @@
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var searchbarUtils = require('searchbar/searchbarUtils.js')
 
 function removeTags (text) {
   return text.replace(/<.*?>/g, '')
@@ -39,7 +40,7 @@ function showSearchbarInstantAnswers (text, input, event, container) {
         data.image = res.Image
       }
 
-      var item = createSearchbarItem(data)
+      var item = searchbarUtils.createItem(data)
 
     // show a disambiguation
     } else if (res.RelatedTopics) {
@@ -50,7 +51,7 @@ function showSearchbarInstantAnswers (text, input, event, container) {
         // the text starts with the entity name, remove it
         var desc = item.Text.replace(entityName, '')
 
-        var item = createSearchbarItem({
+        var item = searchbarUtils.createItem({
           title: entityName,
           descriptionBlock: desc,
           url: item.FirstURL
@@ -83,7 +84,7 @@ function showSearchbarInstantAnswers (text, input, event, container) {
         classList: ['ddg-answer']
       }
 
-      var item = createSearchbarItem(data)
+      var item = searchbarUtils.createItem(data)
 
       container.appendChild(item)
     }
@@ -93,7 +94,7 @@ function showSearchbarInstantAnswers (text, input, event, container) {
     var entitiesWithLocations = ['location', 'country', 'u.s. state', 'protected area']
 
     if (entitiesWithLocations.indexOf(res.Entity) !== -1) {
-      var item = createSearchbarItem({
+      var item = searchbarUtils.createItem({
         icon: 'fa-search',
         title: res.Heading,
         secondaryText: l('searchWith').replace('%s', 'OpenStreetMap'),
@@ -120,7 +121,7 @@ searchbarPlugins.register('instantAnswers', {
 
 var instantAnswers = {
   color_code: function (searchText, answer) {
-    var item = createSearchbarItem({
+    var item = searchbarUtils.createItem({
       title: searchText,
       descriptionBlock: answer.replace(/\n/g, ' · ').replace(/\s~\s/g, ' · '),
       attribution: ddgAttribution
@@ -143,7 +144,7 @@ var instantAnswers = {
   figlet: function (searchText, answer) {
     var formattedAnswer = removeTags(answer).replace('Font: standard', '')
 
-    var item = createSearchbarItem({
+    var item = searchbarUtils.createItem({
       descriptionBlock: formattedAnswer,
       attribution: ddgAttribution
     })
@@ -177,7 +178,7 @@ var instantAnswers = {
       var descriptionBlock = l('DDGAnswerSubtitle')
     }
 
-    var item = createSearchbarItem({
+    var item = searchbarUtils.createItem({
       title: title,
       descriptionBlock: descriptionBlock,
       attribution: ddgAttribution

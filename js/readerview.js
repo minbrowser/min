@@ -1,3 +1,5 @@
+var searchbarUtils = require('searchbar/searchbarUtils.js')
+
 var readerView = {
   readerURL: 'file://' + __dirname + '/reader/index.html',
   getReaderURL: function (url) {
@@ -62,7 +64,7 @@ var readerView = {
       empty(container)
 
       if (articles.length === 0) {
-        var item = createSearchbarItem({
+        var item = searchbarUtils.createItem({
           title: l('emptyReadingListTitle'),
           descriptionBlock: l('emptyReadingListSubtitle')
         })
@@ -86,7 +88,7 @@ var readerView = {
           }
         }
 
-        var item = createSearchbarItem({
+        var item = searchbarUtils.createItem({
           title: article.article.title,
           descriptionBlock: article.article.excerpt,
           url: readerView.getReaderURL(article.url),

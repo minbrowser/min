@@ -1,5 +1,7 @@
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var searchbarUtils = require('searchbar/searchbarUtils.js')
+var searchbarAutocomplete = require('searchbar/searchbarAutocomplete.js')
 
 var currentResponseSent = 0
 
@@ -40,7 +42,7 @@ function showSearchbarPlaceResults (text, input, event, container, options) {
     results.slice(0, 4).forEach(function (result) {
       // only autocomplete an item if the delete key wasn't pressed, and nothing has been autocompleted already
       if (event && event.keyCode !== 8 && !hasAutocompleted) {
-        var autocompletionType = autocompleteURL(result, input)
+        var autocompletionType = searchbarAutocomplete.autocompleteURL(result, input)
 
         if (autocompletionType !== -1) {
           hasAutocompleted = true
@@ -49,7 +51,7 @@ function showSearchbarPlaceResults (text, input, event, container, options) {
         if (autocompletionType === 0) { // the domain was autocompleted, show a domain result item
           var domain = new URL(result.url).hostname
 
-          searchbarPlugins.setTopAnswer(pluginName, createSearchbarItem({
+          searchbarPlugins.setTopAnswer(pluginName, searchbarUtils.createItem({
             title: domain,
             url: domain,
             classList: ['fakefocus']
@@ -59,7 +61,7 @@ function showSearchbarPlaceResults (text, input, event, container, options) {
 
       var data = {
         title: urlParser.prettyURL(result.url),
-        secondaryText: getRealTitle(result.title),
+        secondaryText: searchbarUtils.getRealTitle(result.title),
         url: result.url,
         delete: function () {
           bookmarks.deleteHistory(result.url)
@@ -83,7 +85,7 @@ function showSearchbarPlaceResults (text, input, event, container, options) {
 
       // create the item
 
-      var item = createSearchbarItem(data)
+      var item = searchbarUtils.createItem(data)
 
       if (autocompletionType === 1) { // if this exact URL was autocompleted, show the item as the top answer
         item.classList.add('fakefocus')
