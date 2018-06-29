@@ -1,6 +1,7 @@
 var searchbar = document.getElementById('searchbar')
 
 var searchbarPlugins = [] // format is {name, container, trigger, showResults}
+var URLHandlers = [] // format is {trigger, action}
 var resultCount = 0
 var topAnswerArea = searchbar.querySelector('.top-answer-area')
 
@@ -72,6 +73,23 @@ function run (text, input, event) {
   }
 }
 
+function registerURLHandler (object) {
+  URLHandlers.push({
+    trigger: object.trigger,
+    action: object.action
+  })
+}
+
+function runURLHandlers (text) {
+  for (var i = 0; i < URLHandlers.length; i++) {
+    if (URLHandlers[i].trigger(text)) {
+      URLHandlers[i].action(text)
+      return true
+    }
+  }
+  return false
+}
+
 function getResultCount () {
   return resultCount
 }
@@ -80,4 +98,4 @@ function addResults (ct) {
   resultCount += ct
 }
 
-module.exports = {clearAll, getTopAnswer, setTopAnswer, getContainer, register, run, getResultCount, addResults}
+module.exports = {clearAll, getTopAnswer, setTopAnswer, getContainer, register, run, registerURLHandler, runURLHandlers, getResultCount, addResults}

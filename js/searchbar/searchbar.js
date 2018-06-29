@@ -84,17 +84,9 @@ var searchbar = {
     }
   },
   openURL: function (url, event) {
-    // if the url is a !bang search
-    if (url.indexOf('!') === 0) {
-      // get the matching custom !bang
-      var bang = getCustomBang(url)
-
-      if (bang) {
-        tabBar.leaveEditMode()
-        bang.fn(url.replace(bang.phrase, '').trimLeft())
-        // don't open the URL
-        return
-      }
+    var hasURLHandler = searchbarPlugins.runURLHandlers(url)
+    if (hasURLHandler) {
+      return
     }
 
     if (event && event.metaKey) {

@@ -162,3 +162,17 @@ searchbarPlugins.register('bangs', {
   },
   showResults: debounce(getBangSearchResults, 100)
 })
+
+searchbarPlugins.registerURLHandler({
+  trigger: function (url) {
+    return url.indexOf('!') === 0 && getCustomBang(url)
+  },
+  action: function (url) {
+    var bang = getCustomBang(url)
+
+    if (bang) {
+      tabBar.leaveEditMode()
+      bang.fn(url.replace(bang.phrase, '').trimLeft())
+    }
+  }
+})
