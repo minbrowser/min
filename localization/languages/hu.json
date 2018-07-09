@@ -12,7 +12,7 @@
         "openImageInNewPrivateTab": "Kép Megnyitása Új Privát Fülbe",
         "saveImageAs": "Kép Mentése Másként",
         "searchWith": "Keresés %s keresővel", //%s will be replaced with the name of the current search engine
-        "copyLink": "Hibatkozás Másolás",
+        "copyLink": "Hivatkozás Másolás",
         "copy": "Másol", //this is a verb (as in "copy the currently-selected text")
         "paste": "Illeszt",
         "goBack": "Visza lép",
@@ -82,7 +82,7 @@
         "phishingErrorVisitAnyway": "Eltekint és oldal betöltése",
         "phishingErrorLeave": "Hagya el az oldalt",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": null, // missing translation
+        "multipleInstancesErrorMessage": "Hiba lépett fel, kérlek zárd be az összes böngészőt ablakot, és initsd újra a Min böngészőt",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Egy hiba lépet fel",
         "sessionRestoreErrorExplanation": "A mentet fült nem sikerült helyre álitani.",
@@ -103,7 +103,7 @@
         "settingsAppearanceHeading": "Megjelenés",
         "settingsDarkModeToggle": "Kapcsolja be a sotét nézetett",
         "settingsHistoryButtonToggle": "Vissza gomb bekapcsolása",
-        "settingsAdditionalFeaturesHeading": null, //missing translation
+        "settingsAdditionalFeaturesHeading": "További beálitások",
         "settingsSwipeNavigationToggle": "Kapcsolja be a swipe Navigációt előre és hátra az oldalakal.",
         "settingsSearchEngineHeading": "Kereső Motor",
         "settingsDefaultSearchEngine": "Válasza ki az Alap kereső Motorját:",
