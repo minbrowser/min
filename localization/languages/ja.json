@@ -28,13 +28,16 @@
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
         "viewSettings": "設定を表示",
+        "viewReadingList": null, //missing translation
         "takeScreenshot": "スクリーンショットを撮る",
         "clearHistory": "すべての履歴をクリア",
         "switchToTask": "タスクに切り替える",
         "createTask": "タスクを作成",
         "moveToTask": "このタブをタスクに移動",
         "searchBookmarks": "ブックマークを検索",
+        "searchHistory": null, //missing translation
         /* navbar */
+        "openMenu": null, //missing translation
         "enterReaderView": "リーダービューを開始",
         "exitReaderView": "リーダービューを終了",
         "emptyReadingListTitle": "リーディングリストは空です",
@@ -57,6 +60,15 @@
         "closeDialog": "OK", //used as a label for the button that closes the dialog
         "focusModeExplanation1": "フォーカスモード中は、現在選択中のタブを除くすべてのタブが非表示になり、新規タブの作成もできなくなります。",
         "focusModeExplanation2": "\"表示\"メニューから\"フォーカスモード\"のチェックを外すことで、フォーカスモードを終了できます。",
+        /* relative dates */
+        "timeRangeJustNow": null, //missing translation
+        "timeRangeMinutes": null, //missing translation
+        "timeRangeHour": null, //missing translation
+        "timeRangeDay": null, //missing translation
+        "timeRangeWeek": null, //missing translation
+        "timeRangeMonth": null, //missing translation
+        "timeRangeYear": null, //missing translation
+        "timeRangeLongerAgo": null, //missing translation
         /* pages/crash/index.html */
         "crashErrorTitle": "予期しない問題が発生しました",
         "crashErrorSubtitle": "ページの表示中に問題が発生しました。",
@@ -104,6 +116,8 @@
         "settingsHistoryButtonToggle": "戻るボタンを使用",
         "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "スワイプしてページを行き来できるようにする",
+        "settingsUserscriptsToggle": null, //missing translation
+        "settingsUserscriptsExplanation": null, //missing translation
         "settingsSearchEngineHeading": "検索エンジン",
         "settingsDefaultSearchEngine": "デフォルトの検索エンジン:",
         "settingsDDGExplanation": "検索バーにインスタントアンサーを表示するには、DuckDuckGoをデフォルトの検索エンジンに設定してください。",
@@ -131,6 +145,8 @@
         "appMenuFullScreen": "フルスクリーン", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "フォーカスモード",
         "appMenuReadingList": "リーディングリスト",
+        "appMenuBookmarks": null, //missing translation
+        "appMenuHistory": null, //missing translation
         "appMenuDeveloper": "開発",
         "appMenuReloadBrowser": "ブラウザを再読み込み",
         "appMenuInspectBrowser": "ブラウザを検証",

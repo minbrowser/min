@@ -35,7 +35,9 @@
         "createTask": "Criar uma tarefa",
         "moveToTask": "Mover esta aba para uma tarefa",
         "searchBookmarks": "Buscar nos favoritos",
+        "searchHistory": null, //missing translation
         /* navbar */
+        "openMenu": null, //missing translation
         "enterReaderView": "Entrar no modo leitura",
         "exitReaderView": "Sair do modo leitura",
         "emptyReadingListTitle": "Sua lista de leitura está vazia",
@@ -58,6 +60,15 @@
         "closeDialog": "OK", //used as a label for the button that closes the dialog
         "focusModeExplanation1": "No modo concentração, todas as abas com exceção da atual ficam escondidas e você não pode criar novas abas.",
         "focusModeExplanation2": "Você pode desativar o modo concentração desmarcando a caixa \"modo concentração\" no menu visualizar.",
+        /* relative dates */
+        "timeRangeJustNow": null, //missing translation
+        "timeRangeMinutes": null, //missing translation
+        "timeRangeHour": null, //missing translation
+        "timeRangeDay": null, //missing translation
+        "timeRangeWeek": null, //missing translation
+        "timeRangeMonth": null, //missing translation
+        "timeRangeYear": null, //missing translation
+        "timeRangeLongerAgo": null, //missing translation
         /* pages/crash/index.html */
         "crashErrorTitle": "Ocorreu algo de errado.",
         "crashErrorSubtitle": "Ocorreu um problema ao tentar mostrar esta página.",
@@ -105,6 +116,8 @@
         "settingsHistoryButtonToggle": "Habilitar botão voltar",
         "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "Habilitar navegação por gestos para voltar e avançar entre páginas.",
+        "settingsUserscriptsToggle": null, //missing translation
+        "settingsUserscriptsExplanation": null, //missing translation
         "settingsSearchEngineHeading": "Serviço de busca",
         "settingsDefaultSearchEngine": "Escolha o serviço de busca padrão:",
         "settingsDDGExplanation": "Defina DuckDuckGo como o serviço padrão de buscas para ver respostas instantâneas na barra de busca.",
@@ -132,6 +145,8 @@
         "appMenuFullScreen": "Tela cheia", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Modo concentração",
         "appMenuReadingList": "Lista de leitura",
+        "appMenuBookmarks": null, //missing translation
+        "appMenuHistory": null, //missing translation
         "appMenuDeveloper": "Desenvolvedor",
         "appMenuReloadBrowser": "Recarregar navegador",
         "appMenuInspectBrowser": "Inspecionar navegador",

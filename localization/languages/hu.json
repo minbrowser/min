@@ -28,14 +28,16 @@
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
         "viewSettings": "Beálitások Megtekintése",
-        "takeScreenshot": "Képernyő kép készités",
         "viewReadingList": "Olvasási lista Megtekintése",
+        "takeScreenshot": "Képernyő kép készités",
         "clearHistory": "Összes Történet törlés",
         "switchToTask": "Váltsz Feladatot",
         "createTask": "Feladat létrehozás",
         "moveToTask": "Tedd a fül-t feladatba",
         "searchBookmarks": "Könyvjelző keresés",
+        "searchHistory": null, //missing translation
         /* navbar */
+        "openMenu": null, //missing translation
         "enterReaderView": "Lépj olvasó nézetbe",
         "exitReaderView": "Kilép olvasó nézetböl",
         "emptyReadingListTitle": "Olvasó Listája üres",
@@ -58,6 +60,15 @@
         "closeDialog": "OK", //used as a label for the button that closes the dialog
         "focusModeExplanation1": "Fókusz módba, csak a jelenlegi Fül jelenik meg, nem tud új Fült nyitni vagy másik Fülre lépni.",
         "focusModeExplanation2": "Elhagyhatod a \"focus mode\" a megtekintés menu kipipálásával.",
+        /* relative dates */
+        "timeRangeJustNow": null, //missing translation
+        "timeRangeMinutes": null, //missing translation
+        "timeRangeHour": null, //missing translation
+        "timeRangeDay": null, //missing translation
+        "timeRangeWeek": null, //missing translation
+        "timeRangeMonth": null, //missing translation
+        "timeRangeYear": null, //missing translation
+        "timeRangeLongerAgo": null, //missing translation
         /* pages/crash/index.html */
         "crashErrorTitle": "Valami hiba történt.",
         "crashErrorSubtitle": "Egy hiba lépet fel az oldal menyitásákor.",
@@ -105,12 +116,13 @@
         "settingsHistoryButtonToggle": "Vissza gomb bekapcsolása",
         "settingsAdditionalFeaturesHeading": "További beálitások",
         "settingsSwipeNavigationToggle": "Kapcsolja be a swipe Navigációt előre és hátra az oldalakal.",
+        "settingsUserscriptsToggle": null, //missing translation
+        "settingsUserscriptsExplanation": null, //missing translation
         "settingsSearchEngineHeading": "Kereső Motor",
         "settingsDefaultSearchEngine": "Válasza ki az Alap kereső Motorját:",
         "settingsDDGExplanation": "Állitsa be a DuckDuckGo kereső motort hogy lássa a válaszokat a kereső sorba.",
         "settingsKeyboardShortcutsHeading": "Billentjüzet kombinációk",
         "settingsKeyboardShortcutsHelp": "Használj , tobb kombináció megadásához.",
-
         /* app menu */
         "appMenuFile": "Fajl",
         "appMenuNewTab": "Új Fül",
@@ -133,6 +145,8 @@
         "appMenuFullScreen": "Teljes képernyő", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Fókusz Mode",
         "appMenuReadingList": "Olvasó lista",
+        "appMenuBookmarks": null, //missing translation
+        "appMenuHistory": null, //missing translation
         "appMenuDeveloper": "Fejlesző",
         "appMenuReloadBrowser": "Böngésző újra töltése",
         "appMenuInspectBrowser": "Böngésző elenőrzés",

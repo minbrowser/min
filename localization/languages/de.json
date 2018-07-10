@@ -28,13 +28,16 @@
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
         "viewSettings": "Einstellungen anzeigen",
+        "viewReadingList": null, //missing translation
         "takeScreenshot": "Screenshot erstellen",
         "clearHistory": "Verlauf komplett löschen",
         "switchToTask": "zu Aufgabe wechseln",
         "createTask": "Aufgabe erstellen",
         "moveToTask": "Verschiebe diesen Tab zu Aufgabe",
         "searchBookmarks": "Bookmarks durchsuchen",
+        "searchHistory": null, //missing translation
         /* navbar */
+        "openMenu": null, //missing translation
         "enterReaderView": "Leseansicht öffnen",
         "exitReaderView": "Leseansicht verlassen",
         "emptyReadingListTitle": "Die Leseansicht ist leer",
@@ -57,6 +60,15 @@
         "closeDialog": "OK", //used as a label for the button that closes the dialog
         "focusModeExplanation1": "Im Fokus-Mode sind alle außer dem aktuellen Tab versteckt und es können keine neuen Tabs geöffnet werden.",
         "focusModeExplanation2": "Der Fokus-Mode kann im Menü 'Anzeige' durch Klick auf \"fokus-mode\" verlassen werden.",
+        /* relative dates */
+        "timeRangeJustNow": null, //missing translation
+        "timeRangeMinutes": null, //missing translation
+        "timeRangeHour": null, //missing translation
+        "timeRangeDay": null, //missing translation
+        "timeRangeWeek": null, //missing translation
+        "timeRangeMonth": null, //missing translation
+        "timeRangeYear": null, //missing translation
+        "timeRangeLongerAgo": null, //missing translation
         /* pages/crash/index.html */
         "crashErrorTitle": "Etwas ging schief.",
         "crashErrorSubtitle": "Bei der Anzeige der Seite trat ein Problem auf.",
@@ -101,8 +113,11 @@
         },
         "settingsAppearanceHeading": "Aussehen",
         "settingsDarkModeToggle": "Dark-Mode einschalten",
+        "settingsHistoryButtonToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "Wischgesten zur Navigation zwischen Webseiten einschalten.",
+        "settingsUserscriptsToggle": null, //missing translation
+        "settingsUserscriptsExplanation": null, //missing translation
         "settingsSearchEngineHeading": "Suchmaschine",
         "settingsDefaultSearchEngine": "Suchmaschine auswählen:",
         "settingsDDGExplanation": "DuckDuckGo als Standard-Suchmaschine einstellen, um sofort Vorschläge in der Suchleiste zu erhalten.",
@@ -130,6 +145,8 @@
         "appMenuFullScreen": "Ganzer Bildschirm", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Fokus-Mode",
         "appMenuReadingList": "Leseansicht",
+        "appMenuBookmarks": null, //missing translation
+        "appMenuHistory": null, //missing translation
         "appMenuDeveloper": "Entwickler",
         "appMenuReloadBrowser": "Browser neu laden",
         "appMenuInspectBrowser": "Browser überprüfen",
@@ -149,6 +166,8 @@
         "appMenuHideOthers": "Andere verstecken",
         "appMenuShowAll": "Zeige alle",
         "appMenuQuit": "Beende %n",
-        "appMenuBringToFront": "Alle nach vorne bringen"
+        "appMenuBringToFront": "Alle nach vorne bringen",
+        /* PDF Viewer */
+        "PDFPageCounter": null //missing translation
     }
 }

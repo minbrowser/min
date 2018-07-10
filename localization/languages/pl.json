@@ -35,7 +35,9 @@
         "createTask": "Utwórz zadanie",
         "moveToTask": "Przenieś tę kartę do zadania",
         "searchBookmarks": "Zakładki wyszukiwania",
+        "searchHistory": null, //missing translation
         /* navbar */
+        "openMenu": null, //missing translation
         "enterReaderView": "Otwórz widok czytnika",
         "exitReaderView": "Zamknij widok czytnika",
         "emptyReadingListTitle": "Twoja lista czytelnicza jest pusta",
@@ -58,6 +60,15 @@
         "closeDialog": "OK", //used as a label for the button that closes the dialog
         "focusModeExplanation1": "W trybie ustawiania ostrości wszystkie karty oprócz bieżącego są ukryte i nie można tworzyć nowych kart.",
         "focusModeExplanation2": "Możesz wyłączyć tryb ostrości, odznaczając \"tryb ostrości\" w menu widoku.",
+         /* relative dates */
+         "timeRangeJustNow": null, //missing translation
+         "timeRangeMinutes": null, //missing translation
+         "timeRangeHour": null, //missing translation
+         "timeRangeDay": null, //missing translation
+         "timeRangeWeek": null, //missing translation
+         "timeRangeMonth": null, //missing translation
+         "timeRangeYear": null, //missing translation
+         "timeRangeLongerAgo": null, //missing translation
         /* pages/crash/index.html */
         "crashErrorTitle": "Coś poszło nie tak.",
         "crashErrorSubtitle": "Wystąpił problem podczas wyświetlania tej strony.",
@@ -105,6 +116,8 @@
         "settingsHistoryButtonToggle": "Włącz przycisk Wstecz",
         "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "Włącz przewijanie, aby nawigować między stronami.",
+        "settingsUserscriptsToggle": null, //missing translation
+        "settingsUserscriptsExplanation": null, //missing translation
         "settingsSearchEngineHeading": "Wyszukiwarka",
         "settingsDefaultSearchEngine": "Wybierz domyślną wyszukiwarkę:",
         "settingsDDGExplanation": "Ustaw DuckDuckGo jako domyślną wyszukiwarkę, aby zobaczyć błyskawiczne odpowiedzi na pasku wyszukiwania.",
@@ -132,6 +145,8 @@
         "appMenuFullScreen": "Pełen ekran", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Tryb ostrości",
         "appMenuReadingList": "Lista czytelnia",
+        "appMenuBookmarks": null, //missing translation
+        "appMenuHistory": null, //missing translation
         "appMenuDeveloper": "Programista",
         "appMenuReloadBrowser": "Załaduj ponownie",
         "appMenuInspectBrowser": "Zbadaj przegldarkę",

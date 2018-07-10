@@ -35,7 +35,9 @@
         "createTask": "Vytvořit dimenzi",
         "moveToTask": "Přesunout tuto kartu do dimenze",
         "searchBookmarks": "Vyhledávat záložky",
+        "searchHistory": null, //missing translation
         /* navbar */
+        "openMenu": null, //missing translation
         "enterReaderView": "Otevřít režim čtení",
         "exitReaderView": "Zavřít režim čtení",
         "emptyReadingListTitle": "Váš seznam čtení je prázdný.",
@@ -58,6 +60,15 @@
         "closeDialog": "OK", //used as a label for the button that closes the dialog
         "focusModeExplanation1": "V režimu zaměření jsou všechny karty kromě aktuální skryté a nelze vytvářet nové karty.",
         "focusModeExplanation2": "Můžete opustit režim zaměření odškrtnutím \"Režim zaměření\" v nabídce zobrazení.",
+        /* relative dates */
+        "timeRangeJustNow": null, //missing translation
+        "timeRangeMinutes": null, //missing translation
+        "timeRangeHour": null, //missing translation
+        "timeRangeDay": null, //missing translation
+        "timeRangeWeek": null, //missing translation
+        "timeRangeMonth": null, //missing translation
+        "timeRangeYear": null, //missing translation
+        "timeRangeLongerAgo": null, //missing translation
         /* pages/crash/index.html */
         "crashErrorTitle": "Něco se pokazilo.",
         "crashErrorSubtitle": "Během zobrazování této stránky došlo k potížím.",
@@ -105,6 +116,8 @@
         "settingsHistoryButtonToggle": "Zobrazit tlačítko zpět",
         "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "Povolit touchpad swipe gesto pro navigaci zpět a vpřed mezi stránkami.",
+        "settingsUserscriptsToggle": null, //missing translation
+        "settingsUserscriptsExplanation": null, //missing translation
         "settingsSearchEngineHeading": "Vyhledávač",
         "settingsDefaultSearchEngine": "Zvolte si výchozí vyhledávač:",
         "settingsDDGExplanation": "Nastavte DuckDuckGo jako výchozí vyhledávač pro zobrazování okamžitých odpovědí ve vyhledávacím panelu.",
@@ -132,6 +145,8 @@
         "appMenuFullScreen": "Celá obrazovka", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Režim zaměření",
         "appMenuReadingList": "Seznam čtení",
+        "appMenuBookmarks": null, //missing translation
+        "appMenuHistory": null, //missing translation
         "appMenuDeveloper": "Vývojář",
         "appMenuReloadBrowser": "Znovu načíst prohlížeč",
         "appMenuInspectBrowser": "Prozkoumat prohlížeč",

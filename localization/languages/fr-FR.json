@@ -28,13 +28,16 @@
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
         "viewSettings": "Voir les réglages",
+        "viewReadingList": null, //missing translation
         "takeScreenshot": "Prendre une capture d'écran",
         "clearHistory": "Vider l'historique",
         "switchToTask": "Changer de tâche",
         "createTask": "Créer une tâche",
         "moveToTask": "Déplacer cette tâche à cet onglet",
         "searchBookmarks": "Rechercher des signets",
+        "searchHistory": null, //missing translation
         /* navbar */
+        "openMenu": null, //missing translation
         "enterReaderView": "Entrer en mode lecteur",
         "exitReaderView": "Sortir du mode lecteur",
         "emptyReadingListTitle": "Votre liste de lecture est vide",
@@ -57,6 +60,15 @@
         "closeDialog": "OK", //used as a label for the button that closes the dialog
         "focusModeExplanation1": "En mode focus, tous les onglets à l'exeption de celui actif sont cachés, et vous pouvez créer de nouveaux onglets.",
         "focusModeExplanation2": "Vous pouvez quitter le mode focus en désactivantla fonction \"focus mode\" dans le menu vue.",
+        /* relative dates */
+        "timeRangeJustNow": null, //missing translation
+        "timeRangeMinutes": null, //missing translation
+        "timeRangeHour": null, //missing translation
+        "timeRangeDay": null, //missing translation
+        "timeRangeWeek": null, //missing translation
+        "timeRangeMonth": null, //missing translation
+        "timeRangeYear": null, //missing translation
+        "timeRangeLongerAgo": null, //missing translation
         /* pages/crash/index.html */
         "crashErrorTitle": "Il y a eu un problème.",
         "crashErrorSubtitle": "Il y a eu un problème en affichant cette page.",
@@ -104,6 +116,8 @@
         "settingsHistoryButtonToggle": "Activer le boutton navigation",
         "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "Activer le glissement pour changer de page.",
+        "settingsUserscriptsToggle": null, //missing translation
+        "settingsUserscriptsExplanation": null, //missing translation
         "settingsSearchEngineHeading": "Moteur de recherche",
         "settingsDefaultSearchEngine": "Choisir un moteur de recherche par défaut :",
         "settingsDDGExplanation": "Définir DuckDuckGo comme moteur de recherche par défaut pour voir instantanément des résulats dans la barre de recherche.",
@@ -131,6 +145,8 @@
         "appMenuFullScreen": "Plein écran", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Mode focus",
         "appMenuReadingList": "Liste de lecture",
+        "appMenuBookmarks": null, //missing translation
+        "appMenuHistory": null, //missing translation
         "appMenuDeveloper": "Developpeur",
         "appMenuReloadBrowser": "Recharger le navigateur",
         "appMenuInspectBrowser": "Inspecter le contenu",
@@ -150,6 +166,8 @@
         "appMenuHideOthers": "Cacher les autres",
         "appMenuShowAll": "Montrer tout",
         "appMenuQuit": "Quitter %n",
-        "appMenuBringToFront": "Tout mettre à l'avant"
+        "appMenuBringToFront": "Tout mettre à l'avant",
+        /* PDF Viewer */
+        "PDFPageCounter": null //missing translation
     }
 }

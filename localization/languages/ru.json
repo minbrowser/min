@@ -28,13 +28,16 @@
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
         "viewSettings": "Открыть настройки",
+        "viewReadingList": null, //missing translation
         "takeScreenshot": "Сделать скриншот",
         "clearHistory": "Очистить историю",
         "switchToTask": "Переключиться на задачу",
         "createTask": "Создать задачу",
         "moveToTask": "Переместить эту вкладку в задачу",
         "searchBookmarks": "Искать в закладках",
+        "searchHistory": null, //missing translation
         /* navbar */
+        "openMenu": null, //missing translation
         "enterReaderView": "Включить режим чтения",
         "exitReaderView": "Выключить режим чтения",
         "emptyReadingListTitle": "Ваш список для чтения пуст",
@@ -57,6 +60,15 @@
         "closeDialog": "OK", //used as a label for the button that closes the dialog
         "focusModeExplanation1": "В изолированном режиме все вкладки, кроме текущей, спрятаны, а создание новой — невозможно.",
         "focusModeExplanation2": "Чтобы вернуться в нормальный режим, снимите флажок с пункта \"Изолированный режим\" в меню \"Вид\".",
+        /* relative dates */
+        "timeRangeJustNow": null, //missing translation
+        "timeRangeMinutes": null, //missing translation
+        "timeRangeHour": null, //missing translation
+        "timeRangeDay": null, //missing translation
+        "timeRangeWeek": null, //missing translation
+        "timeRangeMonth": null, //missing translation
+        "timeRangeYear": null, //missing translation
+        "timeRangeLongerAgo": null, //missing translation
         /* pages/crash/index.html */
         "crashErrorTitle": "Что-то пошло не так.",
         "crashErrorSubtitle": "При попытке отобразить эту страницу возникла ошибка.",
@@ -101,8 +113,11 @@
         },
         "settingsAppearanceHeading": "Внешний вид",
         "settingsDarkModeToggle": "Использовать тёмную тему",
+        "settingsHistoryButtonToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "Включить навигацию свайпом для перехода вперёд и назад по страницам.",
+        "settingsUserscriptsToggle": null, //missing translation
+        "settingsUserscriptsExplanation": null, //missing translation
         "settingsSearchEngineHeading": "Поиск",
         "settingsDefaultSearchEngine": "Выберите поиск по умолчанию:",
         "settingsDDGExplanation": "Чтобы видеть мгновенные ответы в строке поиска, установите DuckDuckGo поисковиком по умолчанию.",
@@ -130,6 +145,8 @@
         "appMenuFullScreen": "Полноэкранный режим", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Изолированный режим",
         "appMenuReadingList": "Список для чтения",
+        "appMenuBookmarks": null, //missing translation
+        "appMenuHistory": null, //missing translation
         "appMenuDeveloper": "Разработка",
         "appMenuReloadBrowser": "Перезагрузить браузер",
         "appMenuInspectBrowser": "Инспектировать браузер",
@@ -149,6 +166,8 @@
         "appMenuHideOthers": "Скрыть остальное",
         "appMenuShowAll": "Показать всё",
         "appMenuQuit": "Выйти из %n",
-        "appMenuBringToFront": "Переместить всё на передний план"
+        "appMenuBringToFront": "Переместить всё на передний план",
+        /* PDF Viewer */
+        "PDFPageCounter": null //missing translation
     }
 }
