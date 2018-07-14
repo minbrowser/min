@@ -35,9 +35,9 @@
         "createTask": "Feladat létrehozás",
         "moveToTask": "Tedd a fül-t feladatba",
         "searchBookmarks": "Könyvjelző keresés",
-        "searchHistory": null, //missing translation
+        "searchHistory": "Keresés Történet",
         /* navbar */
-        "openMenu": null, //missing translation
+        "openMenu": "Menu Megnyitása",
         "enterReaderView": "Lépj olvasó nézetbe",
         "exitReaderView": "Kilép olvasó nézetböl",
         "emptyReadingListTitle": "Olvasó Listája üres",
@@ -61,14 +61,14 @@
         "focusModeExplanation1": "Fókusz módba, csak a jelenlegi Fül jelenik meg, nem tud új Fült nyitni vagy másik Fülre lépni.",
         "focusModeExplanation2": "Elhagyhatod a \"focus mode\" a megtekintés menu kipipálásával.",
         /* relative dates */
-        "timeRangeJustNow": null, //missing translation
-        "timeRangeMinutes": null, //missing translation
-        "timeRangeHour": null, //missing translation
-        "timeRangeDay": null, //missing translation
-        "timeRangeWeek": null, //missing translation
-        "timeRangeMonth": null, //missing translation
-        "timeRangeYear": null, //missing translation
-        "timeRangeLongerAgo": null, //missing translation
+        "timeRangeJustNow": "Idő intervalum, éppen most",
+        "timeRangeMinutes": "Idő intervalum, Perc",
+        "timeRangeHour": "Idő intervalum, Óra",
+        "timeRangeDay": "Idő intervalum, Nap",
+        "timeRangeWeek": "Idő intervalum, Hét",
+        "timeRangeMonth": "Idő intervalum, Hónap",
+        "timeRangeYear": "Idő intervalum, Év",
+        "timeRangeLongerAgo": "Idő intervalum, még régebi",
         /* pages/crash/index.html */
         "crashErrorTitle": "Valami hiba történt.",
         "crashErrorSubtitle": "Egy hiba lépet fel az oldal menyitásákor.",
@@ -85,7 +85,7 @@
         "offlineErrorMessage": "Kapcsolódjon az internethez és probálja újra.",
         "genericConnectionFail": "Min nem tudta betölteni az oldalt.",
         "sslTimeErrorMessage": "Min nem tudott kapcsolódni biztonságosan az oldalhos. Kérem elenőrize a számitógép óra beálitásait.",
-        "addressInvalidTitle": "A cim hibás.",
+        "addressInvalidTitle": "A cím hibás.",
         "genericError": "Hiba lépet fel",
         /* pages/phishing/index.html */
         "phishingErrorTitle": "Ez az óldal ártalmas lehet.",
@@ -116,8 +116,8 @@
         "settingsHistoryButtonToggle": "Vissza gomb bekapcsolása",
         "settingsAdditionalFeaturesHeading": "További beálitások",
         "settingsSwipeNavigationToggle": "Kapcsolja be a swipe Navigációt előre és hátra az oldalakal.",
-        "settingsUserscriptsToggle": null, //missing translation
-        "settingsUserscriptsExplanation": null, //missing translation
+        "settingsUserscriptsToggle": "Felhasználói Szkriptek",
+        "settingsUserscriptsExplanation": "Felhasználói Szkriptek magyarázat",
         "settingsSearchEngineHeading": "Kereső Motor",
         "settingsDefaultSearchEngine": "Válasza ki az Alap kereső Motorját:",
         "settingsDDGExplanation": "Állitsa be a DuckDuckGo kereső motort hogy lássa a válaszokat a kereső sorba.",
@@ -145,8 +145,8 @@
         "appMenuFullScreen": "Teljes képernyő", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Fókusz Mode",
         "appMenuReadingList": "Olvasó lista",
-        "appMenuBookmarks": null, //missing translation
-        "appMenuHistory": null, //missing translation
+        "appMenuBookmarks": "Könyvjelzők",
+        "appMenuHistory": "Régeben látogatott oldalak",
         "appMenuDeveloper": "Fejlesző",
         "appMenuReloadBrowser": "Böngésző újra töltése",
         "appMenuInspectBrowser": "Böngésző elenőrzés",
