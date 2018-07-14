@@ -82,7 +82,7 @@
         "phishingErrorVisitAnyway": "Eltekint és oldal betöltése",
         "phishingErrorLeave": "Hagya el az oldalt",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": null, // missing translation
+        "multipleInstancesErrorMessage": "Több példányba futt a böngésző",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Egy hiba lépet fel",
         "sessionRestoreErrorExplanation": "A mentet fült nem sikerült helyre álitani.",
@@ -101,9 +101,9 @@
             "unsafeHTML": "Az EasyList és EasyPrivacy, Elemek rejtése nélkul. Készitette <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>."
         },
         "settingsAppearanceHeading": "Megjelenés",
-        "settingsDarkModeToggle": "Kapcsolja be a sotét nézetett",
+        "settingsDarkModeToggle": "Kapcsolja be a sötét nézetett",
         "settingsHistoryButtonToggle": "Vissza gomb bekapcsolása",
-        "settingsAdditionalFeaturesHeading": null, //missing translation
+        "settingsAdditionalFeaturesHeading": "Továbi beálitások ",
         "settingsSwipeNavigationToggle": "Kapcsolja be a swipe Navigációt előre és hátra az oldalakal.",
         "settingsSearchEngineHeading": "Kereső Motor",
         "settingsDefaultSearchEngine": "Válasza ki az Alap kereső Motorját:",
