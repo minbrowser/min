@@ -24,15 +24,15 @@ var tabBar = {
 
     requestIdleCallback(function () {
       requestAnimationFrame(function () {
-        el.scrollIntoView({
-          behavior: 'smooth'
-        })
+        el.scrollIntoView()
       })
     }, {
       timeout: 1500
     })
   },
   enterEditMode: function (tabId, editingValue) {
+    webviews.showPlaceholder(tabId)
+
     // editingValue: an optional string to show in the searchbar instead of the current URL
     taskOverlay.hide()
 
@@ -71,6 +71,7 @@ var tabBar = {
     }
   },
   leaveEditMode: function (options) {
+    console.log(tabBar.editingTab)
     if (!tabBar.editingTab) {
       return
     }
@@ -87,6 +88,8 @@ var tabBar = {
 
     document.body.classList.remove('is-edit-mode')
     searchbar.hide()
+
+    webviews.hidePlaceholder(tabBar.editingTab)
 
     tabBar.editingTab = null
   },
@@ -332,6 +335,6 @@ var tabBar = {
 
 // when we click outside the navbar, we leave editing mode
 
-webviews.bindEvent('focus', function () {
+document.getElementById('webviews').addEventListener('click', function () {
   tabBar.leaveEditMode()
 })

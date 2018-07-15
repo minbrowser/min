@@ -9,6 +9,15 @@ function pagePermissionRequestHandler (webContents, permission, callback) {
   }
 }
 
+function getViewBounds () {
+  return {
+    x: 0,
+    y: 36, // TODO adjust based on platform
+    width: window.innerWidth,
+    height: window.innerHeight - 36
+  }
+}
+
 // set the permissionRequestHandler for non-private tabs
 
 remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler)
@@ -20,8 +29,10 @@ function onPageLoad (e) {
   setTimeout(function () { // TODO convert to arrow function
     /* add a small delay before getting these attributes, because they don't seem to update until a short time after the did-finish-load event is fired. Fixes #320 */
 
-    var tab = _this.getAttribute('data-tab')
-    var url = _this.getAttribute('src') // src attribute changes whenever a page is loaded
+    // var tab = _this.getAttribute('data-tab')
+    // var url = _this.getAttribute('src') // src attribute changes whenever a page is loaded
+    var tab = webviews.getTabFromContents(_this)
+    var url = _this.getURL()
 
     // if the page is an error page, the URL is really the value of the "url" query parameter
     if (url.startsWith(webviews.internalPages.error) || url.startsWith(webviews.internalPages.crash)) {
@@ -47,6 +58,9 @@ function onPageLoad (e) {
 window.webviews = {
   container: document.getElementById('webviews'),
   elementMap: {}, // tabId: webview
+  tabViewMap: {}, // tabId: browserView
+  tabContentsMap: {}, // tabId: webContents
+  selectedId: null,
   internalPages: {
     crash: 'file://' + __dirname + '/pages/crash/index.html',
     error: 'file://' + __dirname + '/pages/error/index.html'
@@ -109,21 +123,21 @@ window.webviews = {
       }
     })
 
-    w.addEventListener('page-favicon-updated', function (e) {
-      var id = this.getAttribute('data-tab')
-      updateTabColor(e.favicons, id)
-    })
+    /*     w.addEventListener('page-favicon-updated', function (e) {
+          var id = this.getAttribute('data-tab')
+          updateTabColor(e.favicons, id)
+        })
 
-    w.addEventListener('page-title-set', function (e) {
-      var tab = this.getAttribute('data-tab')
-      tabs.update(tab, {
-        title: e.title
-      })
-      tabBar.rerenderTab(tab)
-    })
+        w.addEventListener('page-title-set', function (e) {
+          var tab = this.getAttribute('data-tab')
+          tabs.update(tab, {
+            title: e.title
+          })
+          tabBar.rerenderTab(tab)
+        }) */
 
-    w.addEventListener('did-finish-load', onPageLoad)
-    w.addEventListener('did-navigate-in-page', onPageLoad)
+    // w.addEventListener('did-finish-load', onPageLoad)
+    // w.addEventListener('did-navigate-in-page', onPageLoad)
 
     w.addEventListener('load-commit', function (e) {
       if (e.isMainFrame) {
@@ -148,7 +162,7 @@ window.webviews = {
 
     // open links in new tabs
 
-    w.addEventListener('new-window', function (e) {
+    /*w.addEventListener('new-window', function (e) {
       var tab = this.getAttribute('data-tab')
       var currentIndex = tabs.getIndex(tabs.getSelected())
 
@@ -160,7 +174,7 @@ window.webviews = {
         enterEditMode: false,
         openInBackground: e.disposition === 'background-tab' // possibly open in background based on disposition
       })
-    })
+    })*/
 
     w.addEventListener('close', function (e) {
       closeTab(this.getAttribute('data-tab'))
@@ -213,54 +227,108 @@ window.webviews = {
   add: function (tabId) {
     var tabData = tabs.get(tabId)
 
-    var webview = webviews.getDOM({
-      tabId: tabId,
-      url: tabData.url
+    // if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
+    // since tab IDs are unique, we can use them as partition names
+    if (tabs.get(tabId).private === true) {
+      var partition = tabId.toString() // options.tabId is a number, which remote.session.fromPartition won't accept. It must be converted to a string first
+
+      // register permissionRequestHandler for this tab
+      // private tabs use a different session, so the default permissionRequestHandler won't apply
+
+      remote.session.fromPartition(partition).setPermissionRequestHandler(pagePermissionRequestHandler)
+
+      // enable ad/tracker/contentType blocking in this tab if needed
+
+      registerFiltering(partition)
+    }
+
+    let view = new BrowserView({
+      webPreferences: {
+        nodeIntegration: false,
+        scrollBounce: true,
+        preload: __dirname + '/dist/preload.js', // TODO fix on windows
+        allowPopups: false,
+        partition: partition
+      }
     })
 
-    webviews.elementMap[tabId] = webview
+    let contents = view.webContents
 
-    // this is used to hide the webview while still letting it load in the background
-    // webviews are hidden when added - call webviews.setSelected to show it
-    webview.classList.add('hidden')
-    webview.classList.add('loading')
+    webviews.events.forEach(function (ev) {
+      contents.on(ev.event, function () {
+        ev.fn.apply(contents, arguments)
+      })
+    })
 
-    webviews.container.appendChild(webview)
+    contents.on('ipc-message', function (e, args) {
+      var w = this
+      var tab = webviews.getTabFromContents(this)
 
-    return webview
+      webviews.IPCEvents.forEach(function (item) {
+        if (item.name === args[0]) {
+          item.fn(w, tab, args[1])
+        }
+      })
+    })
+
+    view.setBounds(getViewBounds())
+    contents.loadURL(tabData.url)
+
+    webviews.tabViewMap[tabId] = view
+    webviews.tabContentsMap[tabId] = contents
+    return view
   },
   setSelected: function (id) {
-    var webviewEls = document.getElementsByTagName('webview')
-    for (var i = 0; i < webviewEls.length; i++) {
-      webviewEls[i].classList.add('hidden')
-      webviewEls[i].setAttribute('aria-hidden', 'true')
+    webviews.selectedId = id
+    var view = webviews.getView(id)
+    if (!view) {
+      view = webviews.add(id)
     }
 
-    var wv = webviews.get(id)
-
-    if (!wv) {
-      wv = webviews.add(id)
-    }
-
-    wv.classList.remove('hidden')
-    wv.removeAttribute('aria-hidden')
+    mainWindow.setBrowserView(view)
+    view.setBounds(getViewBounds())
   },
   update: function (id, url) {
-    webviews.get(id).setAttribute('src', urlParser.parse(url))
+    webviews.get(id).loadURL(urlParser.parse(url))
   },
   destroy: function (id) {
-    var w = webviews.elementMap[id]
+    var w = webviews.tabViewMap[id]
     if (w) {
-      var partition = w.getAttribute('partition')
-      if (partition) {
-        remote.session.fromPartition(partition).destroy()
+      if (id === webviews.selectedId) {
+        mainWindow.setBrowserView(null)
+        webviews.selectedId = null
       }
-      w.parentNode.removeChild(w)
+      w.destroy()
     }
-    delete webviews.elementMap[id]
+    delete webviews.tabViewMap[id]
+    delete webviews.tabContentsMap[id]
+  },
+  getView: function (id) {
+    return webviews.tabViewMap[id]
   },
   get: function (id) {
-    return webviews.elementMap[id]
+    return webviews.tabContentsMap[id]
+  },
+  showPlaceholder: function (id) {
+    mainWindow.webContents.focus()
+    mainWindow.setBrowserView(null)
+  },
+  hidePlaceholder: function (id) {
+    if (webviews.tabViewMap[id]) {
+      mainWindow.setBrowserView(webviews.tabViewMap[id])
+      webviews.tabViewMap[id].webContents.focus()
+    }
+  },
+  getTabFromContents: function (contents) {
+    for (let tabId in webviews.tabContentsMap) {
+      if (webviews.tabContentsMap[tabId] === contents) {
+        return tabId
+      }
+    }
+    return null
+  },
+  releaseFocus: function () {
+    mainWindow.webContents.focus()
   }
 }
 
@@ -297,12 +365,61 @@ webviews.bindIPC('goForward', function () {
 
 /* workaround for https://github.com/electron/electron/issues/3471 */
 
-webviews.bindEvent('did-get-redirect-request', function (e, oldURL, newURL, isMainFrame, httpResponseCode, requestMethod, referrer, header) {
-  if (isMainFrame && httpResponseCode === 302 && requestMethod === 'POST') {
-    this.stop()
-    var _this = this
-    setTimeout(function () {
-      _this.loadURL(newURL)
-    }, 0)
+webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
+  e.preventDefault()
+  var tab = webviews.getTabFromContents(this)
+  var currentIndex = tabs.getIndex(tabs.getSelected())
+
+  var newTab = tabs.add({
+    url: url,
+    private: tabs.get(tab).private // inherit private status from the current tab
+  }, currentIndex + 1)
+  addTab(newTab, {
+    enterEditMode: false,
+    openInBackground: disposition === 'background-tab' // possibly open in background based on disposition
+  })
+})
+
+window.addEventListener('resize', function () {
+  var view = webviews.tabViewMap[webviews.selectedId]
+  if (view) {
+    view.setBounds(getViewBounds())
   }
-}, true)
+})
+
+webviews.bindEvent('did-finish-load', onPageLoad)
+webviews.bindEvent('did-navigate-in-page', onPageLoad)
+
+webviews.bindEvent('page-favicon-updated', function (e, favicons) {
+  var id = webviews.getTabFromContents(this)
+  updateTabColor(favicons, id)
+})
+
+webviews.bindEvent('page-title-updated', function (e, title, explicitSet) {
+  var tab = webviews.getTabFromContents(this)
+  tabs.update(tab, {
+    title: title
+  })
+  tabBar.rerenderTab(tab)
+})
+
+/* forward key events from the BrowserView to the main window */
+
+webviews.bindIPC('receive-event', function (view, tab, ev) {
+  ev = JSON.parse(ev)
+  ev.target = webviews.container
+  var event = new KeyboardEvent(ev.type, ev)
+
+  // https://stackoverflow.com/questions/10455626/keydown-simulation-in-chrome-fires-normally-but-not-the-correct-key/10520017#10520017
+  Object.defineProperty(event, 'keyCode', {
+    get: function () {
+      return ev.keyCode
+    }
+  })
+  Object.defineProperty(event, 'which', {
+    get: function () {
+      return ev.which
+    }
+  })
+  webviews.container.dispatchEvent(event)
+})

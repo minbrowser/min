@@ -1,7 +1,6 @@
 var Menu, MenuItem, clipboard // these are only loaded when the menu is shown
 
 var webviewMenu = {
-  lastDisplayedAt: 0,
   showMenu: function (data) { // data comes from a context-menu event
     if (!Menu || !MenuItem || !clipboard) {
       Menu = remote.Menu
@@ -154,7 +153,7 @@ var webviewMenu = {
         click: function () {
           try {
             webviews.get(tabs.getSelected()).goBack()
-          } catch (e) { }
+          } catch (e) {}
         }
       }),
       new MenuItem({
@@ -162,7 +161,7 @@ var webviewMenu = {
         click: function () {
           try {
             webviews.get(tabs.getSelected()).goForward()
-          } catch (e) { }
+          } catch (e) {}
         }
       })
     ]
@@ -187,22 +186,9 @@ var webviewMenu = {
     })
 
     menu.popup(remote.getCurrentWindow())
-
-    webviewMenu.lastDisplayedAt = Date.now()
   }
 }
 
-webviews.bindEvent('context-menu', function (e) {
-  /* if the shift key was pressed and the page does not have a custom context menu, both the contextmenu and context-menu events will fire. To avoid showing a menu twice, we check if a menu has just been dismissed before this event occurs.
-  Note: this only works if the contextmenu event fires before the context-menu one, which may change in future Electron versions. */
-  if (Date.now() - webviewMenu.lastDisplayedAt > 5) {
-    webviewMenu.showMenu(e.params)
-  }
-})
-
-/* this runs when the shift key is pressed to override a custom context menu */
-webviews.bindEvent('contextmenu', function (e) {
-  if (e.shiftKey) {
-    webviewMenu.showMenu({})
-  }
+webviews.bindEvent('context-menu', function (e, data) {
+  webviewMenu.showMenu(data)
 })

@@ -106,7 +106,7 @@ function showBangSearchResults (results, input, event, container) {
         saveBangUseCounts()
 
         input.value = result.phrase + ' '
-        input.focus()
+    //    input.focus()
 
         // show search suggestions for custom bangs
         if (result.showSuggestions) {

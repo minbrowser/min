@@ -2,11 +2,14 @@ window.electron = require('electron')
 window.fs = require('fs')
 window.ipc = electron.ipcRenderer
 window.remote = electron.remote
+window.BrowserView = electron.remote.BrowserView
 window.Dexie = require('dexie')
 
 window.webFrame = window.electron.webFrame
 window.webFrame.setVisualZoomLevelLimits(1, 1)
 window.webFrame.setLayoutZoomLevelLimits(0, 0)
+
+window.mainWindow = remote.getCurrentWindow()
 
 require('menuBarVisibility.js').initialize()
 
@@ -33,7 +36,7 @@ if (navigator.platform === 'MacIntel') {
 window.addEventListener('focus', function () {
   // if nothing in the UI is focused, focus the current tab's webview
   if (document.activeElement === document.body) {
-    webviews.get(tabs.getSelected()).focus()
+    // webviews.get(tabs.getSelected()).focus()
   }
 })
 
