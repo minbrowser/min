@@ -430,12 +430,9 @@ webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
   })
 })
 
-window.addEventListener('resize', function () {
-  var view = webviews.tabViewMap[webviews.selectedId]
-  if (view) {
-    view.setBounds(getViewBounds())
-  }
-})
+window.addEventListener('resize', throttle(function () {
+  ipc.send('setBounds', {id: tabs.getSelected(), bounds: getViewBounds()})
+}, 100))
 
 webviews.bindEvent('did-finish-load', onPageLoad)
 webviews.bindEvent('did-navigate-in-page', onPageLoad)

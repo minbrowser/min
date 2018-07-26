@@ -84,6 +84,10 @@ ipc.on('setView', function (e, args) {
   setBounds(args.id, args.bounds)
 })
 
+ipc.on('setBounds', function (e, args) {
+  setBounds(args.id, args.bounds)
+})
+
 ipc.on('focusView', function (e, id) {
   focusView(id)
 })
