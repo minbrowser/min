@@ -478,8 +478,7 @@ function createAppMenu () {
         },
         {
           label: l('appMenuClose'),
-          accelerator: 'CmdOrCtrl+W',
-        // role: 'close'
+          accelerator: 'CmdOrCtrl+W'
         }
       ]
     },

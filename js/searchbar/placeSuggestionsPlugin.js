@@ -48,8 +48,8 @@ searchbarPlugins.register('placeSuggestions', {
 
 // when we get keywords data from the page, we show those results in the searchbar
 
-webviews.bindIPC('keywordsData', function (webview, tabId, arguements) {
-  var data = arguements[0]
+webviews.bindIPC('keywordsData', function (webview, tabId, args) {
+  var data = args[0]
 
   var itemsCt = 0
   var itemsShown = []

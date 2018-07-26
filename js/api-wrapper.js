@@ -184,7 +184,7 @@ function switchToTab (id, options) {
   webviews.setSelected(id)
 
   if (options.focusWebview !== false) {
-    webviews.get(id).focus()
+    webviews.focus(id)
   }
 
   updateColorPalette()

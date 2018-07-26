@@ -115,7 +115,7 @@ ipc.on('getKeywordsData', function (e) {
 
   var entities = extractKeywords(text)
 
-  ipc.sendToHost('keywordsData', {
+  ipc.send('keywordsData', {
     entities: entities
   })
 })

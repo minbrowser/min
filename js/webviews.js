@@ -1,5 +1,22 @@
 /* implements selecting webviews, switching between them, and creating new ones. */
 
+var createView = remote.getGlobal('createView')
+var destroyView = remote.getGlobal('destroyView')
+var getView = remote.getGlobal('getView')
+var getContents = remote.getGlobal('getContents')
+
+function lazyRemoteObject (getObject) {
+  var cachedItem = null
+  return new Proxy({}, {
+    get: function (obj, prop) {
+      if (!cachedItem) {
+        cachedItem = getObject()
+      }
+      return cachedItem[prop]
+    }
+  })
+}
+
 // the permissionRequestHandler used for webviews
 function pagePermissionRequestHandler (webContents, permission, callback) {
   if (permission === 'notifications' || permission === 'fullscreen') {
@@ -242,37 +259,58 @@ window.webviews = {
       registerFiltering(partition)
     }
 
-    let view = new BrowserView({
-      webPreferences: {
-        nodeIntegration: false,
-        scrollBounce: true,
-        preload: __dirname + '/dist/preload.js', // TODO fix on windows
-        allowPopups: false,
-        partition: partition
-      }
-    })
-
-    let contents = view.webContents
-
-    webviews.events.forEach(function (ev) {
-      contents.on(ev.event, function () {
-        ev.fn.apply(contents, arguments)
-      })
-    })
-
-    contents.on('ipc-message', function (e, args) {
-      var w = this
-      var tab = webviews.getTabFromContents(this)
-
-      webviews.IPCEvents.forEach(function (item) {
-        if (item.name === args[0]) {
-          item.fn(w, tab, args[1])
+    ipc.send('createView', {
+      id: tabId,
+      webPreferencesString: JSON.stringify({
+        webPreferences: {
+          nodeIntegration: false,
+          scrollBounce: true,
+          preload: __dirname + '/dist/preload.js', // TODO fix on windows
+          allowPopups: false,
+          partition: partition
         }
-      })
+      }),
+      boundsString: JSON.stringify(getViewBounds()),
+      events: webviews.events
+    })
+    /*
+        let view = createView(
+          tabId,
+          JSON.stringify({
+            webPreferences: {
+              nodeIntegration: false,
+              scrollBounce: true,
+              preload: __dirname + '/dist/preload.js', // TODO fix on windows
+              allowPopups: false,
+              partition: partition
+            }
+          }),
+          JSON.stringify(getViewBounds()),
+          webviews.events
+        )
+        */
+
+    let view = lazyRemoteObject(function () {
+      return getView(tabId)
     })
 
-    view.setBounds(getViewBounds())
-    contents.loadURL(tabData.url)
+    let contents = lazyRemoteObject(function () {
+      return getView(tabId).webContents
+    })
+
+    /*    contents.on('ipc-message', function (e, args) {
+          var w = this
+          var tab = webviews.getTabFromContents(this)
+
+          webviews.IPCEvents.forEach(function (item) {
+            if (item.name === args[0]) {
+              item.fn(w, tab, args[1])
+            }
+          })
+        })*/
+
+    // contents.loadURL(tabData.url)
+    webviews.callAsync(tabData.id, 'loadURL', tabData.url)
 
     webviews.tabViewMap[tabId] = view
     webviews.tabContentsMap[tabId] = contents
@@ -285,8 +323,13 @@ window.webviews = {
       view = webviews.add(id)
     }
 
-    mainWindow.setBrowserView(view)
-    view.setBounds(getViewBounds())
+    ipc.send('setView', {
+      id: id,
+      bounds: getViewBounds()
+    })
+
+  // mainWindow.setBrowserView(view)
+  // view.setBounds(getViewBounds())
   },
   update: function (id, url) {
     webviews.get(id).loadURL(urlParser.parse(url))
@@ -294,11 +337,13 @@ window.webviews = {
   destroy: function (id) {
     var w = webviews.tabViewMap[id]
     if (w) {
-      if (id === webviews.selectedId) {
-        mainWindow.setBrowserView(null)
-        webviews.selectedId = null
-      }
-      w.destroy()
+      ipc.send('destroyView', id)
+    /*if (id === webviews.selectedId) {
+      mainWindow.setBrowserView(null)
+      webviews.selectedId = null
+    }
+    w.destroy()
+    */
     }
     delete webviews.tabViewMap[id]
     delete webviews.tabContentsMap[id]
@@ -310,13 +355,11 @@ window.webviews = {
     return webviews.tabContentsMap[id]
   },
   showPlaceholder: function (id) {
-    mainWindow.webContents.focus()
-    mainWindow.setBrowserView(null)
+    ipc.send('hideView', id)
   },
   hidePlaceholder: function (id) {
     if (webviews.tabViewMap[id]) {
-      mainWindow.setBrowserView(webviews.tabViewMap[id])
-      webviews.tabViewMap[id].webContents.focus()
+      ipc.send('showView', id)
     }
   },
   getTabFromContents: function (contents) {
@@ -329,6 +372,12 @@ window.webviews = {
   },
   releaseFocus: function () {
     mainWindow.webContents.focus()
+  },
+  focus: function (id) {
+    ipc.send('focusView', id)
+  },
+  callAsync: function (id, method, arg) {
+    ipc.send('callViewMethod', {id: id, method: method, arg: arg})
   }
 }
 
@@ -366,7 +415,8 @@ webviews.bindIPC('goForward', function () {
 /* workaround for https://github.com/electron/electron/issues/3471 */
 
 webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
-  e.preventDefault()
+  // e.preventDefault()
+  // TODO reenable this?
   var tab = webviews.getTabFromContents(this)
   var currentIndex = tabs.getIndex(tabs.getSelected())
 
@@ -406,7 +456,7 @@ webviews.bindEvent('page-title-updated', function (e, title, explicitSet) {
 /* forward key events from the BrowserView to the main window */
 
 webviews.bindIPC('receive-event', function (view, tab, ev) {
-  ev = JSON.parse(ev)
+  ev = JSON.parse(ev[0])
   ev.target = webviews.container
   var event = new KeyboardEvent(ev.type, ev)
 
@@ -422,4 +472,20 @@ webviews.bindIPC('receive-event', function (view, tab, ev) {
     }
   })
   webviews.container.dispatchEvent(event)
+})
+
+ipc.on('view-event', function (e, args) {
+  webviews.events.forEach(function (ev) {
+    if (ev.event === args.name) {
+      ev.fn.apply(webviews.tabContentsMap[args.id], [e].concat(args.args))
+    }
+  })
+})
+
+ipc.on('view-ipc', function (e, data) {
+  webviews.IPCEvents.forEach(function (item) {
+    if (item.name === data.name) {
+      item.fn(webviews.tabContentsMap[data.id], data.id, [data.data])
+    }
+  })
 })

@@ -65,13 +65,9 @@ var tabBar = {
     tabBar.editingTab = tabId
 
     // show keyword suggestions in the searchbar
-
-    if (webview.send) { // before first webview navigation, this will be undefined
-      webview.send('getKeywordsData')
-    }
+    webviews.callAsync(tabs.getSelected(), 'send', 'getKeywordsData')
   },
   leaveEditMode: function (options) {
-    console.log(tabBar.editingTab)
     if (!tabBar.editingTab) {
       return
     }
