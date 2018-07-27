@@ -57,7 +57,7 @@ ipc.on('addTab', function (e, data) {
   } else {
     var newIndex = tabs.getIndex(tabs.getSelected()) + 1
     var newTab = tabs.add({
-      url: data.url || ''
+      url: data.url || 'about:blank'
     }, newIndex)
 
     addTab(newTab, {
