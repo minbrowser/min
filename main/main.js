@@ -478,7 +478,14 @@ function createAppMenu () {
         },
         {
           label: l('appMenuClose'),
-          accelerator: 'CmdOrCtrl+W'
+          accelerator: 'CmdOrCtrl+W',
+          click: function (item, window) {
+            if (mainWindow.webContents.isDevToolsOpened() && !mainWindow.isFocused()) {
+              mainWindow.closeDevTools()
+            } else {
+              sendIPCToWindow(window, 'closeTab')
+            }
+          }
         }
       ]
     },

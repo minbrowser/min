@@ -44,6 +44,10 @@ ipc.on('showHistory', function () {
   tabBar.enterEditMode(tabs.getSelected(), '!history ')
 })
 
+ipc.on('closeTab', function () {
+  closeTab(tabs.getSelected())
+})
+
 ipc.on('addTab', function (e, data) {
   /* new tabs can't be created in focus mode */
   if (isFocusMode) {
@@ -181,15 +185,11 @@ settings.get('keyMap', function (keyMapSettings) {
     return false
   })
 
-  defineShortcut('closeTab', function (e) {
-    // prevent mod+w from closing the window
-    e.preventDefault()
-    e.stopImmediatePropagation()
-
-    closeTab(tabs.getSelected())
-
-    return false
-  })
+  if (keyMap['closeTab'] && keyMap['closeTab'] !== 'mod+w') {
+    defineShortcut('closeTab', function (e) {
+      closeTab(tabs.getSelected())
+    })
+  }
 
   defineShortcut('restoreTab', function (e) {
     if (isFocusMode) {
