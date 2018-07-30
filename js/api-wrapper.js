@@ -54,7 +54,7 @@ function addTab (tabId, options) {
   }
 
   switchToTab(tabId, {
-    focusWebview: false
+    focusWebview: options.enterEditMode === false
   })
   if (options.enterEditMode !== false) {
     tabBar.enterEditMode(tabId)
