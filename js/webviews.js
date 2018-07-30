@@ -78,7 +78,7 @@ window.webviews = {
   tabViewMap: {}, // tabId: browserView
   tabContentsMap: {}, // tabId: webContents
   selectedId: null,
-  placeholderRequestCount: 0,
+  placeholderRequests: [],
   internalPages: {
     crash: 'file://' + __dirname + '/pages/crash/index.html',
     error: 'file://' + __dirname + '/pages/error/index.html'
@@ -360,14 +360,16 @@ window.webviews = {
   get: function (id) {
     return webviews.tabContentsMap[id]
   },
-  showPlaceholder: function () {
-    webviews.placeholderRequestCount++
+  requestPlaceholder: function (reason) {
+    if (!webviews.placeholderRequests.includes(reason)) {
+      webviews.placeholderRequests.push(reason)
+    }
     ipc.send('hideView', webviews.selectedId)
   },
-  hidePlaceholder: function () {
-    webviews.placeholderRequestCount--
+  hidePlaceholder: function (reason) {
+    webviews.placeholderRequests.splice(webviews.placeholderRequests.indexOf(reason), 1)
 
-    if (webviews.placeholderRequestCount === 0) {
+    if (webviews.placeholderRequests.length === 0) {
       // multiple things can request a placeholder at the same time, but we should only show the view again if nothing requires a placeholder anymore
       if (webviews.tabViewMap[webviews.selectedId]) {
         ipc.send('showView', webviews.selectedId)
