@@ -5,7 +5,7 @@ var destroyView = remote.getGlobal('destroyView')
 var getView = remote.getGlobal('getView')
 var getContents = remote.getGlobal('getContents')
 
-var windowIsFullscreen = false //TODO track this for each individual webContents
+var windowIsFullscreen = false // TODO track this for each individual webContents
 
 function lazyRemoteObject (getObject) {
   var cachedItem = null
@@ -180,31 +180,6 @@ window.webviews = {
           item.fn(w, tab, e.args)
         }
       })
-    })
-
-    w.addEventListener('crashed', function (e) {
-      var tabId = this.getAttribute('data-tab')
-      var url = this.getAttribute('src')
-
-      tabs.update(tabId, {
-        url: webviews.internalPages.crash + '?url=' + encodeURIComponent(url)
-      })
-
-      // the existing process has crashed, so we can't reuse it
-      webviews.destroy(tabId)
-      webviews.add(tabId)
-
-      if (tabId === tabs.getSelected()) {
-        webviews.setSelected(tabId)
-      }
-    })
-
-    w.addEventListener('enter-html-full-screen', function (e) {
-      this.classList.add('fullscreen')
-    })
-
-    w.addEventListener('leave-html-full-screen', function (e) {
-      this.classList.remove('fullscreen')
     })
 
     return w
@@ -452,6 +427,23 @@ webviews.bindEvent('did-stop-loading', function () {
 webviews.bindEvent('did-fail-load', function (e, errorCode, errorDesc, validatedURL, isMainFrame) {
   if (errorCode !== -3 && isMainFrame) {
     navigate(webviews.getTabFromContents(this), webviews.internalPages.error + '?ec=' + encodeURIComponent(errorCode) + '&url=' + encodeURIComponent(validatedURL))
+  }
+})
+
+webviews.bindEvent('crashed', function (e, isKilled) {
+  var tabId = webviews.getTabFromContents(this)
+  var url = tabs.get(tabId).url
+
+  tabs.update(tabId, {
+    url: webviews.internalPages.crash + '?url=' + encodeURIComponent(url)
+  })
+
+  // the existing process has crashed, so we can't reuse it
+  webviews.destroy(tabId)
+  webviews.add(tabId)
+
+  if (tabId === tabs.getSelected()) {
+    webviews.setSelected(tabId)
   }
 })
 
