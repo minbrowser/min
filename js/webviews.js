@@ -5,6 +5,8 @@ var destroyView = remote.getGlobal('destroyView')
 var getView = remote.getGlobal('getView')
 var getContents = remote.getGlobal('getContents')
 
+var windowIsFullscreen = false //TODO track this for each individual webContents
+
 function lazyRemoteObject (getObject) {
   var cachedItem = null
   return new Proxy({}, {
@@ -27,6 +29,14 @@ function pagePermissionRequestHandler (webContents, permission, callback) {
 }
 
 function getViewBounds () {
+  if (windowIsFullscreen) {
+    return {
+      x: 0,
+      y: 0,
+      width: window.innerWidth,
+      height: window.innerHeight
+    }
+  }
   return {
     x: 0,
     y: 36, // TODO adjust based on platform
@@ -404,6 +414,16 @@ webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
 window.addEventListener('resize', throttle(function () {
   ipc.send('setBounds', {id: tabs.getSelected(), bounds: getViewBounds()})
 }, 100))
+
+mainWindow.on('enter-html-full-screen', function () {
+  windowIsFullscreen = true
+  ipc.send('setBounds', {id: tabs.getSelected(), bounds: getViewBounds()})
+})
+
+mainWindow.on('leave-html-full-screen', function () {
+  windowIsFullscreen = false
+  ipc.send('setBounds', {id: tabs.getSelected(), bounds: getViewBounds()})
+})
 
 webviews.bindEvent('did-finish-load', onPageLoad)
 webviews.bindEvent('did-navigate-in-page', onPageLoad)
