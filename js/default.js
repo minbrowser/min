@@ -25,10 +25,13 @@ ipc.on('leave-full-screen', function () {
 
 if (navigator.platform === 'MacIntel') {
   document.body.classList.add('mac')
+  window.platformType = 'mac'
 } else if (navigator.platform === 'Win32') {
   document.body.classList.add('windows')
+  window.platformType = 'windows'
 } else {
   document.body.classList.add('linux')
+  window.platformType = 'linux'
 }
 
 // work around https://github.com/electron/electron/issues/5900

@@ -371,27 +371,6 @@ webviews.bindEvent('crashed', function (e, isKilled) {
   }
 })
 
-/* forward key events from the BrowserView to the main window */
-
-webviews.bindIPC('receive-event', function (view, tab, ev) {
-  ev = JSON.parse(ev[0])
-  ev.target = webviews.container
-  var event = new KeyboardEvent(ev.type, ev)
-
-  // https://stackoverflow.com/questions/10455626/keydown-simulation-in-chrome-fires-normally-but-not-the-correct-key/10520017#10520017
-  Object.defineProperty(event, 'keyCode', {
-    get: function () {
-      return ev.keyCode
-    }
-  })
-  Object.defineProperty(event, 'which', {
-    get: function () {
-      return ev.which
-    }
-  })
-  webviews.container.dispatchEvent(event)
-})
-
 ipc.on('view-event', function (e, args) {
   webviews.events.forEach(function (ev) {
     if (ev.event === args.name) {
