@@ -27,10 +27,6 @@ window.addEventListener('keydown', function (e) {
   ipc.send('receive-event', cloneEvent(e))
 })
 
-window.addEventListener('keypress', function (e) {
-  ipc.send('receive-event', cloneEvent(e))
-})
-
 window.addEventListener('keyup', function (e) {
   ipc.send('receive-event', cloneEvent(e))
 })
