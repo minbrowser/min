@@ -141,43 +141,6 @@ window.webviews = {
       }
     })
 
-    /*     w.addEventListener('page-favicon-updated', function (e) {
-          var id = this.getAttribute('data-tab')
-          updateTabColor(e.favicons, id)
-        })
-
-        w.addEventListener('page-title-set', function (e) {
-          var tab = this.getAttribute('data-tab')
-          tabs.update(tab, {
-            title: e.title
-          })
-          tabBar.rerenderTab(tab)
-        }) */
-
-    // w.addEventListener('did-finish-load', onPageLoad)
-    // w.addEventListener('did-navigate-in-page', onPageLoad)
-
-    w.addEventListener('load-commit', function (e) {
-      if (e.isMainFrame) {
-        tabBar.handleProgressBar(this.getAttribute('data-tab'), 'start')
-      }
-      /* workaround for https://github.com/electron/electron/issues/8505 and similar issues */
-      this.classList.add('loading')
-      this.setAttribute('last-load-event', Date.now().toString())
-    })
-
-    w.addEventListener('did-stop-loading', function () {
-      tabBar.handleProgressBar(this.getAttribute('data-tab'), 'finish')
-
-      this.setAttribute('last-load-event', Date.now().toString())
-      // only set webviews to hidden if no load events have occurred for 15 seconds because of https://github.com/electron/electron/issues/8505
-      setTimeout(function () {
-        if (Date.now() - parseInt(w.getAttribute('last-load-event')) > 14000) {
-          w.classList.remove('loading')
-        }
-      }, 15000)
-    })
-
     // open links in new tabs
 
     /*w.addEventListener('new-window', function (e) {
@@ -462,6 +425,14 @@ webviews.bindEvent('page-title-updated', function (e, title, explicitSet) {
     title: title
   })
   tabBar.rerenderTab(tab)
+})
+
+webviews.bindEvent('did-start-loading', function () {
+  tabBar.handleProgressBar(webviews.getTabFromContents(this), 'start')
+})
+
+webviews.bindEvent('did-stop-loading', function () {
+  tabBar.handleProgressBar(webviews.getTabFromContents(this), 'finish')
 })
 
 /* forward key events from the BrowserView to the main window */
