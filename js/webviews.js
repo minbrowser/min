@@ -189,12 +189,6 @@ window.webviews = {
       }
     })
 
-    w.addEventListener('did-fail-load', function (e) {
-      if (e.errorCode !== -3 && e.validatedURL === e.target.getURL()) {
-        navigate(this.getAttribute('data-tab'), webviews.internalPages.error + '?ec=' + encodeURIComponent(e.errorCode) + '&url=' + encodeURIComponent(e.target.getURL()))
-      }
-    })
-
     w.addEventListener('enter-html-full-screen', function (e) {
       this.classList.add('fullscreen')
     })
@@ -433,6 +427,12 @@ webviews.bindEvent('did-start-loading', function () {
 
 webviews.bindEvent('did-stop-loading', function () {
   tabBar.handleProgressBar(webviews.getTabFromContents(this), 'finish')
+})
+
+webviews.bindEvent('did-fail-load', function (e, errorCode, errorDesc, validatedURL, isMainFrame) {
+  if (errorCode !== -3 && isMainFrame) {
+    navigate(webviews.getTabFromContents(this), webviews.internalPages.error + '?ec=' + encodeURIComponent(errorCode) + '&url=' + encodeURIComponent(validatedURL))
+  }
 })
 
 /* forward key events from the BrowserView to the main window */
