@@ -51,7 +51,7 @@ var taskOverlay = {
       return
     }
 
-    webviews.showPlaceholder(tabs.getSelected())
+    webviews.showPlaceholder()
 
     document.body.classList.add('task-overlay-is-shown')
 
@@ -93,7 +93,7 @@ var taskOverlay = {
       setTimeout(function () {
         if (!taskOverlay.isShown) {
           empty(taskContainer)
-          webviews.hidePlaceholder(tabs.getSelected())
+          webviews.hidePlaceholder()
         }
       }, 200)
 

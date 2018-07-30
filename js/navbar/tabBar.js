@@ -31,7 +31,7 @@ var tabBar = {
     })
   },
   enterEditMode: function (tabId, editingValue) {
-    webviews.showPlaceholder(tabId)
+    webviews.showPlaceholder()
 
     // editingValue: an optional string to show in the searchbar instead of the current URL
     taskOverlay.hide()
@@ -85,7 +85,7 @@ var tabBar = {
     document.body.classList.remove('is-edit-mode')
     searchbar.hide()
 
-    webviews.hidePlaceholder(tabBar.editingTab)
+    webviews.hidePlaceholder()
 
     tabBar.editingTab = null
   },

@@ -78,6 +78,7 @@ window.webviews = {
   tabViewMap: {}, // tabId: browserView
   tabContentsMap: {}, // tabId: webContents
   selectedId: null,
+  placeholderRequestCount: 0,
   internalPages: {
     crash: 'file://' + __dirname + '/pages/crash/index.html',
     error: 'file://' + __dirname + '/pages/error/index.html'
@@ -318,9 +319,14 @@ window.webviews = {
   },
   setSelected: function (id) {
     webviews.selectedId = id
-    var view = webviews.getView(id)
-    if (!view) {
-      view = webviews.add(id)
+
+    // create the view if it doesn't already exist
+    if (!webviews.getView(id)) {
+      webviews.add(id)
+    }
+
+    if (webviews.placeholderRequestCount > 0) {
+      return
     }
 
     ipc.send('setView', {
@@ -354,12 +360,18 @@ window.webviews = {
   get: function (id) {
     return webviews.tabContentsMap[id]
   },
-  showPlaceholder: function (id) {
-    ipc.send('hideView', id)
+  showPlaceholder: function () {
+    webviews.placeholderRequestCount++
+    ipc.send('hideView', webviews.selectedId)
   },
-  hidePlaceholder: function (id) {
-    if (webviews.tabViewMap[id]) {
-      ipc.send('showView', id)
+  hidePlaceholder: function () {
+    webviews.placeholderRequestCount--
+
+    if (webviews.placeholderRequestCount === 0) {
+      // multiple things can request a placeholder at the same time, but we should only show the view again if nothing requires a placeholder anymore
+      if (webviews.tabViewMap[webviews.selectedId]) {
+        ipc.send('showView', webviews.selectedId)
+      }
     }
   },
   getTabFromContents: function (contents) {
