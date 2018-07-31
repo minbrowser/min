@@ -5,6 +5,8 @@ var destroyView = remote.getGlobal('destroyView')
 var getView = remote.getGlobal('getView')
 var getContents = remote.getGlobal('getContents')
 
+var placeholderImg = document.getElementById('webview-placeholder')
+
 var windowIsFullscreen = false // TODO track this for each individual webContents
 
 function lazyRemoteObject (getObject) {
@@ -230,7 +232,25 @@ window.webviews = {
     if (!webviews.placeholderRequests.includes(reason)) {
       webviews.placeholderRequests.push(reason)
     }
-    ipc.send('hideView', webviews.selectedId)
+    if (webviews.placeholderRequests.length === 1) {
+      // create a new placeholder
+
+      var img = tabs.get(tabs.getSelected()).previewImage
+      var url = tabs.get(tabs.getSelected()).url
+      if (img) {
+        placeholderImg.src = img
+        placeholderImg.hidden = false
+      } else if (url && url !== 'about:blank') {
+        ipc.send('getCapture', {
+          id: tabs.getSelected(),
+          width: Math.round(window.innerWidth / 10),
+          height: Math.round(window.innerHeight / 10)
+        })
+      }
+    }
+    setTimeout(function () {
+      ipc.send('hideView', webviews.selectedId)
+    }, 0)
   },
   hidePlaceholder: function (reason) {
     webviews.placeholderRequests.splice(webviews.placeholderRequests.indexOf(reason), 1)
@@ -240,6 +260,7 @@ window.webviews = {
       if (webviews.tabViewMap[webviews.selectedId]) {
         ipc.send('showView', webviews.selectedId)
       }
+      placeholderImg.hidden = true
     }
   },
   getTabFromContents: function (contents) {
@@ -385,4 +406,26 @@ ipc.on('view-ipc', function (e, data) {
       item.fn(webviews.tabContentsMap[data.id], data.id, [data.data])
     }
   })
+})
+
+setInterval(function () {
+  if (webviews.placeholderRequests.length > 0) {
+    // capturePage doesn't work while the view is hidden
+    return
+  }
+  ipc.send('getCapture', {
+    id: tabs.getSelected(),
+    width: Math.round(window.innerWidth / 10),
+    height: Math.round(window.innerHeight / 10)
+  })
+}, 25000)
+
+ipc.on('captureData', function (e, data) {
+  tabs.update(data.id, {
+    previewImage: data.url
+  })
+  if (data.id === tabs.getSelected() && webviews.placeholderRequests.length > 0) {
+    placeholderImg.src = data.url
+    placeholderImg.hidden = false
+  }
 })

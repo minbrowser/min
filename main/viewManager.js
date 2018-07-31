@@ -103,3 +103,10 @@ ipc.on('showView', function (e, id) {
 ipc.on('callViewMethod', function (e, data) {
   viewMap[data.id].webContents[data.method](data.arg)
 })
+
+ipc.on('getCapture', function (e, data) {
+  viewMap[data.id].webContents.capturePage(function (img) {
+    img = img.resize({width: data.width, height: data.height})
+    mainWindow.webContents.send('captureData', {id: data.id, url: img.toDataURL()})
+  })
+})

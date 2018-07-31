@@ -72,3 +72,9 @@ body.windows #webviews {
 	float: left;
 	margin-left: 15px;
 }
+
+#webview-placeholder {
+	width: 100%;
+	height: 100%;
+	filter: blur(6px)
+}

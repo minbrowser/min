@@ -17,7 +17,8 @@ var tabPrototype = {
       readerable: tab.readerable || false,
       backgroundColor: tab.backgroundColor,
       foregroundColor: tab.foregroundColor,
-      selected: tab.selected || false
+      selected: tab.selected || false,
+      previewImage: "",
     }
 
     if (index) {
