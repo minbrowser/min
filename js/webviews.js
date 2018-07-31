@@ -9,6 +9,12 @@ var placeholderImg = document.getElementById('webview-placeholder')
 
 var windowIsFullscreen = false // TODO track this for each individual webContents
 
+if (window.platformType === 'windows') {
+  var navbarHeight = 46 // used to set the bounds of the view
+} else {
+  var navbarHeight = 36
+}
+
 function lazyRemoteObject (getObject) {
   var cachedItem = null
   return new Proxy({}, {
@@ -41,7 +47,7 @@ function getViewBounds () {
   }
   return {
     x: 0,
-    y: 36, // TODO adjust based on platform
+    y: navbarHeight,
     width: window.innerWidth,
     height: window.innerHeight - 36
   }
