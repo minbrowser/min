@@ -47,6 +47,14 @@ function getViewBounds () {
   }
 }
 
+function captureCurrentTab () {
+  ipc.send('getCapture', {
+    id: tabs.getSelected(),
+    width: Math.round(window.innerWidth / 10),
+    height: Math.round(window.innerHeight / 10)
+  })
+}
+
 // set the permissionRequestHandler for non-private tabs
 
 remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler)
@@ -81,6 +89,12 @@ function onPageLoad (e) {
     }
 
     tabBar.rerenderTab(tab)
+
+    // capture a preview image if necessary
+
+    if (tab === tabs.getSelected() && tabs.get(tab).url && tabs.get(tab).url !== 'about:blank' && !tabs.get(tab).previewImage) {
+      captureCurrentTab()
+    }
   }, 0)
 }
 
@@ -241,11 +255,7 @@ window.webviews = {
         placeholderImg.src = img
         placeholderImg.hidden = false
       } else if (url && url !== 'about:blank') {
-        ipc.send('getCapture', {
-          id: tabs.getSelected(),
-          width: Math.round(window.innerWidth / 10),
-          height: Math.round(window.innerHeight / 10)
-        })
+        captureCurrentTab()
       }
     }
     setTimeout(function () {
@@ -413,12 +423,8 @@ setInterval(function () {
     // capturePage doesn't work while the view is hidden
     return
   }
-  ipc.send('getCapture', {
-    id: tabs.getSelected(),
-    width: Math.round(window.innerWidth / 10),
-    height: Math.round(window.innerHeight / 10)
-  })
-}, 25000)
+  captureCurrentTab()
+}, 30000)
 
 ipc.on('captureData', function (e, data) {
   tabs.update(data.id, {
