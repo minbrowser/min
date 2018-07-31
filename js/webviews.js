@@ -111,11 +111,11 @@ window.webviews = {
   },
   events: [],
   IPCEvents: [],
-  bindEvent: function (event, fn, useWebContents) {
+  bindEvent: function (event, fn, options) {
     webviews.events.push({
       event: event,
       fn: fn,
-      useWebContents: useWebContents
+      options: options
     })
   },
   bindIPC: function (name, fn) {
@@ -326,8 +326,6 @@ webviews.bindIPC('goForward', function () {
 /* workaround for https://github.com/electron/electron/issues/3471 */
 
 webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
-  // e.preventDefault()
-  // TODO reenable this?
   var tab = webviews.getTabFromContents(this)
   var currentIndex = tabs.getIndex(tabs.getSelected())
 
@@ -339,7 +337,7 @@ webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
     enterEditMode: false,
     openInBackground: disposition === 'background-tab' // possibly open in background based on disposition
   })
-})
+}, {preventDefault: true})
 
 window.addEventListener('resize', throttle(function () {
   ipc.send('setBounds', {id: tabs.getSelected(), bounds: getViewBounds()})

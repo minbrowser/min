@@ -5,6 +5,9 @@ function createView (id, webPreferencesString, boundsString, events) {
 
   events.forEach(function (ev) {
     view.webContents.on(ev.event, function (e) {
+      if (ev.options && ev.options.preventDefault) {
+        e.preventDefault()
+      }
       // ev.fn.apply(view.webContents, arguments)
       mainWindow.webContents.send('view-event', {
         id: id,
