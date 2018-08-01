@@ -4,6 +4,7 @@ const path = require('path')
 const app = electron.app // Module to control application life.
 const protocol = electron.protocol // Module to control protocol handling
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
+const webContents = electron.webContents
 const ipc = electron.ipcMain
 
 var userDataPath = app.getPath('userData')
@@ -480,11 +481,17 @@ function createAppMenu () {
           label: l('appMenuClose'),
           accelerator: 'CmdOrCtrl+W',
           click: function (item, window) {
-            if (mainWindow.webContents.isDevToolsOpened() && !mainWindow.isFocused()) {
-              mainWindow.closeDevTools()
-            } else {
-              sendIPCToWindow(window, 'closeTab')
+            if (!mainWindow.isFocused()) {
+              // a devtools window is focused, close it
+              var contents = webContents.getAllWebContents()
+              for (var i = 0; i < contents.length; i++) {
+                if (contents[i].isDevToolsFocused()) {
+                  contents[i].closeDevTools()
+                  return
+                }
+              }
             }
+            // otherwise, this event will be handled in the main window
           }
         }
       ]
