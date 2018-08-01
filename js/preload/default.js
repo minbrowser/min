@@ -10,3 +10,17 @@ var ipc = electron.ipcRenderer
    */
 
 window.chrome = {}
+
+var propertiesToClone = ['deltaX', 'deltaY', 'metaKey', 'ctrlKey', 'defaultPrevented']
+
+function cloneEvent (e) {
+  var obj = {}
+
+  for (var i = 0; i < propertiesToClone.length; i++) {
+    obj[propertiesToClone[i]] = e[propertiesToClone[i]]
+  }
+  return JSON.stringify(obj)
+}
+window.addEventListener('wheel', function (e) {
+  ipc.send('wheel-event', cloneEvent(e))
+})

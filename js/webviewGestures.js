@@ -94,10 +94,8 @@ function onSwipeGestureFinish () {
   resetCounters()
 }
 
-window.addEventListener('wheel', function (e) {
-  if (e.target.tagName !== 'WEBVIEW') {
-    return
-  }
+webviews.bindIPC('wheel-event', function (webview, tabId, e) {
+  e = JSON.parse(e)
 
   verticalMouseMove += e.deltaY
   horizontalMouseMove += e.deltaX
@@ -152,8 +150,6 @@ window.addEventListener('wheel', function (e) {
         webviewGestures.zoomWebviewIn(tabs.getSelected())
         verticalMouseMove = 0
       }
-
-      e.preventDefault()
     }
   }
 
@@ -169,7 +165,5 @@ window.addEventListener('wheel', function (e) {
       verticalMouseMove = -10
       webviewGestures.zoomWebviewIn(tabs.getSelected())
     }
-
-    e.preventDefault()
   }
 })
