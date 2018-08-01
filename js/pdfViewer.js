@@ -43,7 +43,7 @@ var PDFViewer = {
 
     tabs.get().forEach(function (tab) {
       var webview = webviews.get(tab.id)
-      if (webview && webview.getWebContents().getId() === data.webContentsId) {
+      if (webview && webview.id === data.webContentsId) {
         navigate(tab.id, PDFurl)
       }
     })
