@@ -168,7 +168,7 @@ function defineShortcut (keysOrKeyMapName, fn) {
     // also block single-letter shortcuts when an input field is focused, so that it's still possible to type in an input
     if (!combo.includes('+') || combo === 'mod+left' || combo === 'mod+right') {
       var webview = webviews.get(tabs.getSelected())
-      if (!tabs.get(tabs.getSelected()).url) {
+      if (!tabs.get(tabs.getSelected()).url || !webview.isFocused()) {
         fn(e, combo)
       } else {
         webview.executeJavaScript('document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA"', function (isInputFocused) {
