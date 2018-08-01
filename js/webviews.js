@@ -216,7 +216,7 @@ window.webviews = {
       webviews.add(id)
     }
 
-    if (webviews.placeholderRequestCount > 0) {
+    if (webviews.placeholderRequests.length > 0) {
       return
     }
 
