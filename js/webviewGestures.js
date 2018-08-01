@@ -136,23 +136,6 @@ webviews.bindIPC('wheel-event', function (webview, tabId, e) {
   clearTimeout(swipeGestureTimeout)
   swipeGestureTimeout = setTimeout(onSwipeGestureFinish, swipeGestureDelay)
 
-  /* if platform is Mac, enable pinch zoom
-  	the browser engine detects pinches as ctrl+mousewheel on Mac,
-  	therefore, it should not affect other platforms that uses ctrl+mousewheel to zoom.
-  */
-  if (navigator.platform === 'MacIntel') {
-    if (initialSecondaryKeyState && !e.defaultPrevented) {
-      if (verticalMouseMove > 10) {
-        webviewGestures.zoomWebviewOut(tabs.getSelected())
-        verticalMouseMove = 0
-      }
-      if (verticalMouseMove < -10) {
-        webviewGestures.zoomWebviewIn(tabs.getSelected())
-        verticalMouseMove = 0
-      }
-    }
-  }
-
   /* cmd-key while scrolling should zoom in and out */
 
   if (platformZoomKey && initialZoomKeyState) {
