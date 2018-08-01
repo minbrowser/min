@@ -99,8 +99,9 @@ ipc.on('hideView', function (e, id) {
   hideView(id)
 })
 
-ipc.on('showView', function (e, id) {
-  showView(id)
+ipc.on('showView', function (e, data) {
+  showView(data.id)
+  setBounds(data.id, data.bounds)
 })
 
 ipc.on('callViewMethod', function (e, data) {

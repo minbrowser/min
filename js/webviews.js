@@ -100,7 +100,7 @@ function onPageLoad (e) {
 
     if (tab === tabs.getSelected() && tabs.get(tab).url && tabs.get(tab).url !== 'about:blank' && !tabs.get(tab).previewImage) {
       setTimeout(function () {
-        //sometimes the page isn't visible until a short time after the did-finish-load event occurs
+        // sometimes the page isn't visible until a short time after the did-finish-load event occurs
         captureCurrentTab()
       }, 100)
     }
@@ -277,7 +277,10 @@ window.webviews = {
     if (webviews.placeholderRequests.length === 0) {
       // multiple things can request a placeholder at the same time, but we should only show the view again if nothing requires a placeholder anymore
       if (webviews.tabViewMap[webviews.selectedId]) {
-        ipc.send('showView', webviews.selectedId)
+        ipc.send('showView', {
+          id: webviews.selectedId,
+          bounds: getViewBounds()
+        })
       }
       placeholderImg.hidden = true
     }
