@@ -99,7 +99,10 @@ function onPageLoad (e) {
     // capture a preview image if necessary
 
     if (tab === tabs.getSelected() && tabs.get(tab).url && tabs.get(tab).url !== 'about:blank' && !tabs.get(tab).previewImage) {
-      captureCurrentTab()
+      setTimeout(function () {
+        //sometimes the page isn't visible until a short time after the did-finish-load event occurs
+        captureCurrentTab()
+      }, 100)
     }
   }, 0)
 }
