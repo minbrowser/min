@@ -351,7 +351,7 @@ webviews.bindEvent('did-stop-loading', function () {
 })
 
 webviews.bindEvent('did-fail-load', function (e, errorCode, errorDesc, validatedURL, isMainFrame) {
-  if (errorCode !== -3 && isMainFrame && validatedURL) {
+  if (errorCode && errorCode !== -3 && isMainFrame && validatedURL) {
     navigate(webviews.getTabFromContents(this), webviews.internalPages.error + '?ec=' + encodeURIComponent(errorCode) + '&url=' + encodeURIComponent(validatedURL))
   }
 })
