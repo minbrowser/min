@@ -1,4 +1,4 @@
-﻿{
+{
     "name": "中文 (繁體中文)",
     "identifier": "zh-TW",
     "translations": {
@@ -35,9 +35,9 @@
         "createTask": "新建標籤組",
         "moveToTask": "以當前標籤頁創建一個新的標籤組",
         "searchBookmarks": "搜索書籤內容",
-        "searchHistory": "搜索歷史"
+        "searchHistory": "搜索歷史",
         /* navbar */
-        "openMenu": "打開菜單"
+        "openMenu": "打開菜單",
         "enterReaderView": "進入閱讀模式",
         "exitReaderView": "退出閱讀模式",
         "emptyReadingListTitle": "您的閱讀列表為空",
