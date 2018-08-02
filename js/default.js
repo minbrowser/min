@@ -33,15 +33,6 @@ if (navigator.platform === 'MacIntel') {
   window.platformType = 'linux'
 }
 
-// work around https://github.com/electron/electron/issues/5900
-
-window.addEventListener('focus', function () {
-  // if nothing in the UI is focused, focus the current tab's webview
-  if (document.activeElement === document.body) {
-    // webviews.get(tabs.getSelected()).focus()
-  }
-})
-
 // https://remysharp.com/2010/07/21/throttling-function-calls
 
 function throttle (fn, threshhold, scope) {
