@@ -1,5 +1,13 @@
 /* defines keybindings that aren't in the menu (so they aren't defined by menu.js). For items in the menu, also handles ipc messages */
 
+/*
+There are three possible ways that keybindings can be handled.
+ Shortcuts that appear in the menubar are registered in main.js, and send IPC messages to the window (which are handled by this file)
+Shortcuts that don't appear in the menubar are registered in this file, using defineShortcut(). 
+ - If the browser UI is focused, these are handled by Mousetrap.
+  - If a BrowserView is focused, these are handled by the before-input-event listener.
+  */
+
 const menuBarVisibility = require('menuBarVisibility.js')
 var searchbar = require('searchbar/searchbar.js')
 
