@@ -51,6 +51,11 @@ function getViewBounds () {
 }
 
 function captureCurrentTab () {
+  if (webviews.placeholderRequests.length > 0) {
+    // capturePage doesn't work while the view is hidden
+    return
+  }
+
   ipc.send('getCapture', {
     id: tabs.getSelected(),
     width: Math.round(window.innerWidth / 10),
@@ -74,6 +79,14 @@ function onPageLoad (e) {
     var tab = webviews.getTabFromContents(_this)
     var url = _this.getURL()
 
+    // capture a preview image if a new page has been loaded
+    if (tab === tabs.getSelected() && tabs.get(tab).url !== url) {
+      setTimeout(function () {
+        // sometimes the page isn't visible until a short time after the did-finish-load event occurs
+        captureCurrentTab()
+      }, 100)
+    }
+
     // if the page is an error page, the URL is really the value of the "url" query parameter
     if (url.startsWith(webviews.internalPages.error) || url.startsWith(webviews.internalPages.crash)) {
       url = new URLSearchParams(new URL(url).search).get('url')
@@ -92,15 +105,6 @@ function onPageLoad (e) {
     }
 
     tabBar.rerenderTab(tab)
-
-    // capture a preview image if necessary
-
-    if (tab === tabs.getSelected() && tabs.get(tab).url && tabs.get(tab).url !== 'about:blank' && !tabs.get(tab).previewImage) {
-      setTimeout(function () {
-        // sometimes the page isn't visible until a short time after the did-finish-load event occurs
-        captureCurrentTab()
-      }, 100)
-    }
   }, 0)
 }
 
@@ -392,10 +396,6 @@ ipc.on('view-ipc', function (e, data) {
 })
 
 setInterval(function () {
-  if (webviews.placeholderRequests.length > 0) {
-    // capturePage doesn't work while the view is hidden
-    return
-  }
   captureCurrentTab()
 }, 30000)
 
