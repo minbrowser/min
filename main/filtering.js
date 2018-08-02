@@ -1,5 +1,3 @@
-var session = electron.session
-
 var thingsToFilter = {
   trackers: false,
   contentTypes: [] // script, image

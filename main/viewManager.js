@@ -32,6 +32,12 @@ function createView (id, webPreferencesString, boundsString, events) {
 }
 
 function destroyView (id) {
+  // destroy an associated partition
+
+  var partition = viewMap[id].webContents.getWebPreferences().partition
+  if (partition) {
+    session.fromPartition(partition).destroy()
+  }
   if (viewMap[id] === mainWindow.getBrowserView()) {
     mainWindow.setBrowserView(null)
   }
