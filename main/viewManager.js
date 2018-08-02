@@ -109,3 +109,5 @@ ipc.on('getCapture', function (e, data) {
     mainWindow.webContents.send('captureData', {id: data.id, url: img.toDataURL()})
   })
 })
+
+global.getView = getView

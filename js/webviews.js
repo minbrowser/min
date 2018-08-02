@@ -1,3 +1,5 @@
+var getView = remote.getGlobal('getView')
+
 /* implements selecting webviews, switching between them, and creating new ones. */
 
 var placeholderImg = document.getElementById('webview-placeholder')
@@ -202,6 +204,7 @@ window.webviews = {
     var w = webviews.tabViewMap[id]
     if (w) {
       ipc.send('destroyView', id)
+    }
     delete webviews.tabViewMap[id]
     delete webviews.tabContentsMap[id]
   },
