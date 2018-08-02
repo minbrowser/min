@@ -202,7 +202,7 @@ window.webviews = {
   // view.setBounds(getViewBounds())
   },
   update: function (id, url) {
-    webviews.get(id).loadURL(urlParser.parse(url))
+    webviews.callAsync(id, "loadURL", urlParser.parse(url))
   },
   destroy: function (id) {
     var w = webviews.tabViewMap[id]
