@@ -2,7 +2,6 @@ window.electron = require('electron')
 window.fs = require('fs')
 window.ipc = electron.ipcRenderer
 window.remote = electron.remote
-window.BrowserView = electron.remote.BrowserView
 window.Dexie = require('dexie')
 
 window.webFrame = window.electron.webFrame

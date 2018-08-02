@@ -110,8 +110,6 @@ function onPageLoad (e) {
 }
 
 window.webviews = {
-  container: document.getElementById('webviews'),
-  elementMap: {}, // tabId: webview
   tabViewMap: {}, // tabId: browserView
   tabContentsMap: {}, // tabId: webContents
   selectedId: null,
@@ -159,7 +157,7 @@ window.webviews = {
         webPreferences: {
           nodeIntegration: false,
           scrollBounce: true,
-          preload: __dirname + '/dist/preload.js', // TODO fix on windows
+          preload: __dirname + '/dist/preload.js',
           allowPopups: false,
           partition: partition
         }
@@ -198,9 +196,6 @@ window.webviews = {
       id: id,
       bounds: getViewBounds()
     })
-
-  // mainWindow.setBrowserView(view)
-  // view.setBounds(getViewBounds())
   },
   update: function (id, url) {
     webviews.callAsync(id, 'loadURL', urlParser.parse(url))
@@ -302,8 +297,6 @@ webviews.bindIPC('goForward', function () {
     }
   })
 })
-
-/* workaround for https://github.com/electron/electron/issues/3471 */
 
 webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
   var tab = webviews.getTabFromContents(this)
