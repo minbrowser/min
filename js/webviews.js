@@ -380,6 +380,10 @@ webviews.bindEvent('crashed', function (e, isKilled) {
   }
 })
 
+webviews.bindIPC('close-window', function (webview, tabId, args) {
+  closeTab(tabId)
+})
+
 ipc.on('view-event', function (e, args) {
   webviews.events.forEach(function (ev) {
     if (ev.event === args.name) {

@@ -24,3 +24,8 @@ function cloneEvent (e) {
 window.addEventListener('wheel', function (e) {
   ipc.send('wheel-event', cloneEvent(e))
 })
+
+/* re-implement window.close, since the built-in function doesn't work correctly */
+window.close = function () {
+  ipc.send('close-window')
+}
