@@ -1,10 +1,5 @@
 /* implements selecting webviews, switching between them, and creating new ones. */
 
-var createView = remote.getGlobal('createView')
-var destroyView = remote.getGlobal('destroyView')
-var getView = remote.getGlobal('getView')
-var getContents = remote.getGlobal('getContents')
-
 var placeholderImg = document.getElementById('webview-placeholder')
 
 var windowIsFullscreen = false // TODO track this for each individual webContents
@@ -165,22 +160,6 @@ window.webviews = {
       boundsString: JSON.stringify(getViewBounds()),
       events: webviews.events
     })
-    /*
-        let view = createView(
-          tabId,
-          JSON.stringify({
-            webPreferences: {
-              nodeIntegration: false,
-              scrollBounce: true,
-              preload: __dirname + '/dist/preload.js', // TODO fix on windows
-              allowPopups: false,
-              partition: partition
-            }
-          }),
-          JSON.stringify(getViewBounds()),
-          webviews.events
-        )
-        */
 
     let view = lazyRemoteObject(function () {
       return getView(tabId)
@@ -190,18 +169,6 @@ window.webviews = {
       return getView(tabId).webContents
     })
 
-    /*    contents.on('ipc-message', function (e, args) {
-          var w = this
-          var tab = webviews.getTabFromContents(this)
-
-          webviews.IPCEvents.forEach(function (item) {
-            if (item.name === args[0]) {
-              item.fn(w, tab, args[1])
-            }
-          })
-        })*/
-
-    // contents.loadURL(tabData.url)
     webviews.callAsync(tabData.id, 'loadURL', tabData.url)
 
     webviews.tabViewMap[tabId] = view
@@ -235,13 +202,6 @@ window.webviews = {
     var w = webviews.tabViewMap[id]
     if (w) {
       ipc.send('destroyView', id)
-    /*if (id === webviews.selectedId) {
-      mainWindow.setBrowserView(null)
-      webviews.selectedId = null
-    }
-    w.destroy()
-    */
-    }
     delete webviews.tabViewMap[id]
     delete webviews.tabContentsMap[id]
   },

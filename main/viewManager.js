@@ -8,7 +8,6 @@ function createView (id, webPreferencesString, boundsString, events) {
       if (ev.options && ev.options.preventDefault) {
         e.preventDefault()
       }
-      // ev.fn.apply(view.webContents, arguments)
       mainWindow.webContents.send('view-event', {
         id: id,
         name: ev.event,
@@ -69,10 +68,6 @@ function getView (id) {
 function getContents (id) {
   return viewMap[id].webContents
 }
-
-global.createView = createView
-global.getView = getView
-global.getContents = getContents
 
 ipc.on('createView', function (e, args) {
   createView(args.id, args.webPreferencesString, args.boundsString, args.events)
