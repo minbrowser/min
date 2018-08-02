@@ -75,8 +75,6 @@ function onPageLoad (e) {
   setTimeout(function () { // TODO convert to arrow function
     /* add a small delay before getting these attributes, because they don't seem to update until a short time after the did-finish-load event is fired. Fixes #320 */
 
-    // var tab = _this.getAttribute('data-tab')
-    // var url = _this.getAttribute('src') // src attribute changes whenever a page is loaded
     var tab = webviews.getTabFromContents(_this)
     var url = _this.getURL()
 
