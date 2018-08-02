@@ -8,6 +8,8 @@ window.webFrame = window.electron.webFrame
 window.webFrame.setVisualZoomLevelLimits(1, 1)
 window.webFrame.setLayoutZoomLevelLimits(0, 0)
 
+window.mainWindow = remote.getCurrentWindow()
+
 require('menuBarVisibility.js').initialize()
 
 // add a class to the body for fullscreen status
@@ -22,20 +24,14 @@ ipc.on('leave-full-screen', function () {
 
 if (navigator.platform === 'MacIntel') {
   document.body.classList.add('mac')
+  window.platformType = 'mac'
 } else if (navigator.platform === 'Win32') {
   document.body.classList.add('windows')
+  window.platformType = 'windows'
 } else {
   document.body.classList.add('linux')
+  window.platformType = 'linux'
 }
-
-// work around https://github.com/electron/electron/issues/5900
-
-window.addEventListener('focus', function () {
-  // if nothing in the UI is focused, focus the current tab's webview
-  if (document.activeElement === document.body) {
-    webviews.get(tabs.getSelected()).focus()
-  }
-})
 
 // https://remysharp.com/2010/07/21/throttling-function-calls
 

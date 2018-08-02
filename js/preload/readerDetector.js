@@ -40,11 +40,11 @@ window.addEventListener('load', function (e) {
     // some websites can cause multiple did-finish-load events. In webview.js, we assume these mean a new page, and set readerable to false. Because of this, if we send canReader, and later there is another load event, the button will never show up. To get around this, we send multiple canReader events at intervals.
 
     setTimeout(function () {
-      ipc.sendToHost('canReader')
+      ipc.send('canReader')
     }, 500)
 
     setTimeout(function () {
-      ipc.sendToHost('canReader')
+      ipc.send('canReader')
     }, 2500)
   }
 })

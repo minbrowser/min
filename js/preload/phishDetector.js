@@ -417,7 +417,7 @@ function checkPhishingStatus () {
   debugPhishing('status ' + phishingScore)
 
   if (phishingScore > minPhishingScore) {
-    ipc.sendToHost('phishingDetected', phishingDebugMessages)
+    ipc.send('phishingDetected', phishingDebugMessages)
   }
 
   var scanEnd = performance.now()

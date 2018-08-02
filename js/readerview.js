@@ -121,8 +121,8 @@ registerCustomBang({
 // update the reader button on page load
 
 webviews.bindEvent('did-finish-load', function (e) {
-  var tab = this.getAttribute('data-tab')
-  var url = this.getAttribute('src')
+  var tab = webviews.getTabFromContents(this)
+  var url = this.getURL()
 
   if (url.indexOf(readerView.readerURL) === 0) {
     tabs.update(tab, {

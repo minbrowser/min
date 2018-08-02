@@ -4,6 +4,8 @@ const path = require('path')
 const app = electron.app // Module to control application life.
 const protocol = electron.protocol // Module to control protocol handling
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
+const webContents = electron.webContents
+const session = electron.session
 const ipc = electron.ipcMain
 
 var userDataPath = app.getPath('userData')
@@ -28,7 +30,7 @@ function sendIPCToWindow (window, action, data) {
       mainWindow.webContents.send(action, data || {})
     })
   } else {
-    mainWindow.webContents.send(action, data || {})
+      mainWindow.webContents.send(action, data || {})
   }
 }
 
@@ -118,7 +120,7 @@ function createWindowWithBounds (bounds, shouldMaximize) {
       event.preventDefault()
       sendIPCToWindow(mainWindow, 'openPDF', {
         url: itemURL,
-        webContentsId: webContents.getId(),
+        webContentsId: webContents.id,
         event: event,
         item: item // as of electron 0.35.1, this is an empty object
       })
@@ -477,7 +479,19 @@ function createAppMenu () {
         {
           label: l('appMenuClose'),
           accelerator: 'CmdOrCtrl+W',
-          role: 'close'
+          click: function (item, window) {
+            if (!mainWindow.isFocused()) {
+              // a devtools window is focused, close it
+              var contents = webContents.getAllWebContents()
+              for (var i = 0; i < contents.length; i++) {
+                if (contents[i].isDevToolsFocused()) {
+                  contents[i].closeDevTools()
+                  return
+                }
+              }
+            }
+          // otherwise, this event will be handled in the main window
+          }
         }
       ]
     },

@@ -6,7 +6,8 @@ const outFile = path.resolve(__dirname, '../main.build.js')
 const modules = [
   'dist/localization.build.js',
   'main/main.js',
-  'main/filtering.js'
+  'main/filtering.js',
+  'main/viewManager.js'
 ]
 
 function buildMain () {

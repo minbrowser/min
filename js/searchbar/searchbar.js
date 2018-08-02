@@ -95,7 +95,7 @@ var searchbar = {
     } else {
       navigate(tabs.getSelected(), url)
       // focus the webview, so that autofocus inputs on the page work
-      webviews.get(tabs.getSelected()).focus()
+      webviews.focus(tabs.getSelected())
       return false
     }
   }

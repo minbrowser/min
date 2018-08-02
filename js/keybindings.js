@@ -1,5 +1,13 @@
 /* defines keybindings that aren't in the menu (so they aren't defined by menu.js). For items in the menu, also handles ipc messages */
 
+/*
+There are three possible ways that keybindings can be handled.
+ Shortcuts that appear in the menubar are registered in main.js, and send IPC messages to the window (which are handled by this file)
+Shortcuts that don't appear in the menubar are registered in this file, using defineShortcut(). 
+ - If the browser UI is focused, these are handled by Mousetrap.
+  - If a BrowserView is focused, these are handled by the before-input-event listener.
+  */
+
 const menuBarVisibility = require('menuBarVisibility.js')
 var searchbar = require('searchbar/searchbar.js')
 
@@ -142,8 +150,20 @@ ipc.on('goForward', function () {
 
 var menuBarShortcuts = ['mod+t', 'shift+mod+p', 'mod+n'] // shortcuts that are already used for menu bar items
 
-function defineShortcut (keyMapName, fn) {
-  Mousetrap.bind(keyMap[keyMapName], function (e, combo) {
+var shortcutsList = []
+
+function defineShortcut (keysOrKeyMapName, fn) {
+  if (keysOrKeyMapName.keys) {
+    var binding = keysOrKeyMapName.keys
+  } else {
+    var binding = keyMap[keysOrKeyMapName]
+  }
+
+  if (typeof binding === 'string') {
+    binding = [binding]
+  }
+
+  var shortcutCallback = function (e, combo) {
     // these shortcuts are already used by menu bar items, so also using them here would result in actions happening twice
     if (menuBarShortcuts.indexOf(combo) !== -1) {
       return
@@ -152,7 +172,7 @@ function defineShortcut (keyMapName, fn) {
     // also block single-letter shortcuts when an input field is focused, so that it's still possible to type in an input
     if (!combo.includes('+') || combo === 'mod+left' || combo === 'mod+right') {
       var webview = webviews.get(tabs.getSelected())
-      if (!webview.src) {
+      if (!tabs.get(tabs.getSelected()).url || !webview.isFocused()) {
         fn(e, combo)
       } else {
         webview.executeJavaScript('document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA"', function (isInputFocused) {
@@ -165,7 +185,17 @@ function defineShortcut (keyMapName, fn) {
       // other shortcuts can run immediately
       fn(e, combo)
     }
+  }
+
+  binding.forEach(function (keys) {
+    shortcutsList.push({
+      combo: keys,
+      keys: keys.split('+'),
+      fn: shortcutCallback
+    })
   })
+
+  Mousetrap.bind(binding, shortcutCallback)
 }
 
 settings.get('keyMap', function (keyMapSettings) {
@@ -182,13 +212,7 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('closeTab', function (e) {
-    // prevent mod+w from closing the window
-    e.preventDefault()
-    e.stopImmediatePropagation()
-
     closeTab(tabs.getSelected())
-
-    return false
   })
 
   defineShortcut('restoreTab', function (e) {
@@ -223,7 +247,7 @@ settings.get('keyMap', function (keyMapSettings) {
 
   for (var i = 1; i < 9; i++) {
     (function (i) {
-      Mousetrap.bind('mod+' + i, function (e) {
+      defineShortcut({keys: 'mod+' + i}, function (e) {
         var currentIndex = tabs.getIndex(tabs.getSelected())
         var newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i)
         if (newTab) {
@@ -231,7 +255,7 @@ settings.get('keyMap', function (keyMapSettings) {
         }
       })
 
-      Mousetrap.bind('shift+mod+' + i, function (e) {
+      defineShortcut({keys: 'shift+mod+' + i}, function (e) {
         var currentIndex = tabs.getIndex(tabs.getSelected())
         var newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i)
         if (newTab) {
@@ -249,7 +273,7 @@ settings.get('keyMap', function (keyMapSettings) {
     switchToTab(tabs.getAtIndex(0).id)
   })
 
-  Mousetrap.bind('esc', function (e) {
+  defineShortcut({keys: 'esc'}, function (e) {
     taskOverlay.hide()
     tabBar.leaveEditMode()
 
@@ -415,5 +439,52 @@ document.body.addEventListener('keydown', function (e) {
     try {
       webviews.get(tabs.getSelected()).reloadIgnoringCache()
     } catch (e) {}
+  }
+})
+
+webviews.bindEvent('before-input-event', function (e, input) {
+  var expectedKeys = 1
+  if (input.alt) {
+    expectedKeys++
+  }
+  if (input.shift) {
+    expectedKeys++
+  }
+  if (input.control) {
+    expectedKeys++
+  }
+  if (input.meta) {
+    expectedKeys++
+  }
+
+  if (input.type === 'keyDown') {
+    shortcutsList.forEach(function (shortcut) {
+      var matches = true
+      var matchedKeys = 0
+      shortcut.keys.forEach(function (key) {
+        if (! (
+          key === input.key.toLowerCase() ||
+          key === input.code.replace('Digit', '') ||
+          (key === 'left' && input.key === 'ArrowLeft') ||
+          (key === 'right' && input.key === 'ArrowRight') ||
+          (key === 'up' && input.key === 'ArrowUp') ||
+          (key === 'down' && input.key === 'ArrowDown') ||
+          (key === 'alt' && input.alt) ||
+          (key === 'shift' && input.shift) ||
+          (key === 'ctrl' && input.control) ||
+          (key === 'mod' && window.platformType === 'mac' && input.meta) ||
+          (key === 'mod' && window.platformType !== 'mac' && input.control)
+          )
+        ) {
+          matches = false
+        } else {
+          matchedKeys++
+        }
+      })
+
+      if (matches && matchedKeys === expectedKeys) {
+        shortcut.fn(null, shortcut.combo)
+      }
+    })
   }
 })

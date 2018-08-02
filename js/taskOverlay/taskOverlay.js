@@ -51,6 +51,8 @@ var taskOverlay = {
       return
     }
 
+    webviews.requestPlaceholder('taskOverlay')
+
     document.body.classList.add('task-overlay-is-shown')
 
     tabBar.leaveEditMode()
@@ -91,6 +93,7 @@ var taskOverlay = {
       setTimeout(function () {
         if (!taskOverlay.isShown) {
           empty(taskContainer)
+          webviews.hidePlaceholder('taskOverlay')
         }
       }, 200)
 

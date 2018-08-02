@@ -1,5 +1,7 @@
 var webviewGestures = {
   showBackArrow: function () {
+    // this is temporarily disabled until we find a way to make it work with BrowserViews
+    return
     var backArrow = document.getElementById('leftArrowContainer')
     backArrow.classList.toggle('shown')
     backArrow.classList.toggle('animating')
@@ -11,6 +13,8 @@ var webviewGestures = {
     }, 900)
   },
   showForwardArrow: function () {
+    // this is temporarily disabled until we find a way to make it work with BrowserViews
+    return
     var forwardArrow = document.getElementById('rightArrowContainer')
     forwardArrow.classList.toggle('shown')
     forwardArrow.classList.toggle('animating')
@@ -94,10 +98,8 @@ function onSwipeGestureFinish () {
   resetCounters()
 }
 
-window.addEventListener('wheel', function (e) {
-  if (e.target.tagName !== 'WEBVIEW') {
-    return
-  }
+webviews.bindIPC('wheel-event', function (webview, tabId, e) {
+  e = JSON.parse(e)
 
   verticalMouseMove += e.deltaY
   horizontalMouseMove += e.deltaX
@@ -138,25 +140,6 @@ window.addEventListener('wheel', function (e) {
   clearTimeout(swipeGestureTimeout)
   swipeGestureTimeout = setTimeout(onSwipeGestureFinish, swipeGestureDelay)
 
-  /* if platform is Mac, enable pinch zoom
-  	the browser engine detects pinches as ctrl+mousewheel on Mac,
-  	therefore, it should not affect other platforms that uses ctrl+mousewheel to zoom.
-  */
-  if (navigator.platform === 'MacIntel') {
-    if (initialSecondaryKeyState && !e.defaultPrevented) {
-      if (verticalMouseMove > 10) {
-        webviewGestures.zoomWebviewOut(tabs.getSelected())
-        verticalMouseMove = 0
-      }
-      if (verticalMouseMove < -10) {
-        webviewGestures.zoomWebviewIn(tabs.getSelected())
-        verticalMouseMove = 0
-      }
-
-      e.preventDefault()
-    }
-  }
-
   /* cmd-key while scrolling should zoom in and out */
 
   if (platformZoomKey && initialZoomKeyState) {
@@ -169,7 +152,5 @@ window.addEventListener('wheel', function (e) {
       verticalMouseMove = -10
       webviewGestures.zoomWebviewIn(tabs.getSelected())
     }
-
-    e.preventDefault()
   }
 })

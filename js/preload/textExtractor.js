@@ -163,7 +163,7 @@ function getPageData () {
 
 function checkDoc () {
   if (document.readyState === 'complete') {
-    ipc.sendToHost('pageData', getPageData())
+    ipc.send('pageData', getPageData())
   } else {
     setTimeout(checkDoc, 500)
   }
