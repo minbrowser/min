@@ -1,3 +1,4 @@
+const previewCache = require('previewCache.js')
 var getView = remote.getGlobal('getView')
 
 /* implements selecting webviews, switching between them, and creating new ones. */
@@ -202,7 +203,7 @@ window.webviews = {
   // view.setBounds(getViewBounds())
   },
   update: function (id, url) {
-    webviews.callAsync(id, "loadURL", urlParser.parse(url))
+    webviews.callAsync(id, 'loadURL', urlParser.parse(url))
   },
   destroy: function (id) {
     var w = webviews.tabViewMap[id]
@@ -225,7 +226,7 @@ window.webviews = {
     if (webviews.placeholderRequests.length === 1) {
       // create a new placeholder
 
-      var img = tabs.get(tabs.getSelected()).previewImage
+      var img = previewCache.get(tabs.getSelected())
       var url = tabs.get(tabs.getSelected()).url
       if (img) {
         placeholderImg.src = img
@@ -400,9 +401,7 @@ setInterval(function () {
 }, 30000)
 
 ipc.on('captureData', function (e, data) {
-  tabs.update(data.id, {
-    previewImage: data.url
-  })
+  previewCache.set(data.id, data.url)
   if (data.id === tabs.getSelected() && webviews.placeholderRequests.length > 0) {
     placeholderImg.src = data.url
     placeholderImg.hidden = false
