@@ -30,9 +30,7 @@ function sendIPCToWindow (window, action, data) {
       mainWindow.webContents.send(action, data || {})
     })
   } else {
-    setTimeout(function () { // fixes hangs when this IPC message causes another sync message to be sent back to the main process
       mainWindow.webContents.send(action, data || {})
-    }, 0)
   }
 }
 
@@ -492,7 +490,7 @@ function createAppMenu () {
                 }
               }
             }
-            // otherwise, this event will be handled in the main window
+          // otherwise, this event will be handled in the main window
           }
         }
       ]
