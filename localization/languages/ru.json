@@ -121,6 +121,7 @@
         "settingsSearchEngineHeading": "Поиск",
         "settingsDefaultSearchEngine": "Выберите поиск по умолчанию:",
         "settingsDDGExplanation": "Чтобы видеть мгновенные ответы в строке поиска, установите DuckDuckGo поисковиком по умолчанию.",
+        "customSearchEngineDescription": null, //missing translation
         "settingsKeyboardShortcutsHeading": "Горячие клавиши",
         "settingsKeyboardShortcutsHelp": null, //missing translation
         /* app menu */

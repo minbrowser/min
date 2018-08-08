@@ -121,6 +121,7 @@
         "settingsSearchEngineHeading": "Search Engine",
         "settingsDefaultSearchEngine": "Choose a default search engine:",
         "settingsDDGExplanation": "Set DuckDuckGo as the default search engine to see instant answers in the searchbar.",
+        "customSearchEngineDescription": "Replace the search term with %s",
         "settingsKeyboardShortcutsHeading": "Keyboard Shortcuts",
         "settingsKeyboardShortcutsHelp": "Use commas to separate multiple shortcuts.",
         /* app menu */

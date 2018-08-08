@@ -121,6 +121,7 @@
         "settingsSearchEngineHeading": "Motor de pesquisa",
         "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",
         "settingsDDGExplanation": "Defina DuckDuckGo como motor de pesquisa padrão para poder obter sugestões instantâneas na barra de pesquisa.",
+        "customSearchEngineDescription": null, //missing translation
         "settingsKeyboardShortcutsHeading": "Teclas de atalho",
         "settingsKeyboardShortcutsHelp": null, //missing translation
         /* app menu */

@@ -121,6 +121,7 @@
         "settingsSearchEngineHeading": "Vyhledávač",
         "settingsDefaultSearchEngine": "Zvolte si výchozí vyhledávač:",
         "settingsDDGExplanation": "Nastavte DuckDuckGo jako výchozí vyhledávač pro zobrazování okamžitých odpovědí ve vyhledávacím panelu.",
+        "customSearchEngineDescription": null, //missing translation
         "settingsKeyboardShortcutsHeading": "Klávesové zkratky",
         "settingsKeyboardShortcutsHelp": "Používejte čárky pro oddělení klávesových zkratek.",
         /* app menu */

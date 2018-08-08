@@ -121,6 +121,7 @@
         "settingsSearchEngineHeading": "搜索引擎",
         "settingsDefaultSearchEngine": "选择默认的搜索引擎:",
         "settingsDDGExplanation": "将 DuckDuckGo 设为默认的搜索引擎可以直接在搜索栏查看搜索结果。",
+        "customSearchEngineDescription": null, //missing translation
         "settingsKeyboardShortcutsHeading": "快捷键",
         "settingsKeyboardShortcutsHelp": null, //missing translation
         /* app menu */

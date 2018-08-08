@@ -121,6 +121,7 @@
         "settingsSearchEngineHeading": "検索エンジン",
         "settingsDefaultSearchEngine": "デフォルトの検索エンジン:",
         "settingsDDGExplanation": "検索バーにインスタントアンサーを表示するには、DuckDuckGoをデフォルトの検索エンジンに設定してください。",
+        "customSearchEngineDescription": null, //missing translation
         "settingsKeyboardShortcutsHeading": "キーボードショートカット",
         "settingsKeyboardShortcutsHelp": "カンマ区切りで複数のショートカットを登録できます。",
         /* app menu */

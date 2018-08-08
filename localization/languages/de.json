@@ -121,6 +121,7 @@
         "settingsSearchEngineHeading": "Suchmaschine",
         "settingsDefaultSearchEngine": "Suchmaschine auswählen:",
         "settingsDDGExplanation": "DuckDuckGo als Standard-Suchmaschine einstellen, um sofort Vorschläge in der Suchleiste zu erhalten.",
+        "customSearchEngineDescription": null, //missing translation
         "settingsKeyboardShortcutsHeading": "Tastaturkürzel",
         "settingsKeyboardShortcutsHelp": null, //missing translation
         /* app menu */

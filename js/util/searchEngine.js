@@ -45,8 +45,20 @@ var searchEngines = {
 }
 
 settings.get('searchEngine', function (value) {
-  if (value) {
-    currentSearchEngine = searchEngines[value]
+  if (typeof value === 'string') {
+    // migrate from legacy format
+    value = {name: value}
+    settings.set('searchEngine', value)
+  }
+
+  if (value && value.name) {
+    currentSearchEngine = searchEngines[value.name]
+  } else if (value && value.url) {
+    currentSearchEngine = {
+      name: 'custom',
+      searchURL: value.url,
+      custom: true
+    }
   } else {
     currentSearchEngine = searchEngines[defaultSearchEngine]
   }

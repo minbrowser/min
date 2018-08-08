@@ -121,6 +121,7 @@
         "settingsSearchEngineHeading": "搜索引擎",
         "settingsDefaultSearchEngine": "選擇默認的搜索引擎：",
         "settingsDDGExplanation": "將 DuckDuckGo 設為默認的搜索引擎可以直接在搜索欄查看搜索結果。",
+        "customSearchEngineDescription": null, //missing translation
         "settingsKeyboardShortcutsHeading": "快捷鍵",
         "settingsKeyboardShortcutsHelp": "使用逗號以分割多個指令",
         /* app menu */

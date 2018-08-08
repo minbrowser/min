@@ -121,6 +121,7 @@
         "settingsSearchEngineHeading": "Arama Motoru",
         "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçi:",
         "settingsDDGExplanation": "Arama çubuğundaki anlık yanıtları görmek için DuckDuckGo’yu varsayılan arama motoru olarak ayarlayın.",
+        "customSearchEngineDescription": null, //missing translation
         "settingsKeyboardShortcutsHeading": "Klavye Kısayolları",
         "settingsKeyboardShortcutsHelp": "Birden çok kısayolu ayırmak için virgül kullanın.",
         /* app menu */
