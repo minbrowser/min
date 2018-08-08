@@ -38,6 +38,10 @@ var searchEngines = {
     name: 'Yandex',
     searchURL: 'https://yandex.com/search/?text=%s'
   },
+  Quadrazid: {
+    name: 'Quadrazid',
+    searchURL: 'https://www.quadrazid.com/#q=%s'
+  },
   none: {
     name: 'none',
     searchURL: 'http://%s'
