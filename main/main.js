@@ -148,6 +148,14 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     sendIPCToWindow(mainWindow, 'leave-full-screen')
   })
 
+  mainWindow.on('enter-html-full-screen', function () {
+    sendIPCToWindow(mainWindow, 'enter-html-full-screen')
+  })
+
+  mainWindow.on('leave-html-full-screen', function () {
+    sendIPCToWindow(mainWindow, 'leave-html-full-screen')
+  })
+
   mainWindow.on('app-command', function (e, command) {
     if (command === 'browser-backward') {
       sendIPCToWindow(mainWindow, 'goBack')
@@ -227,6 +235,10 @@ app.on('activate', function ( /* e, hasVisibleWindows */) {
   if (!mainWindow && appIsReady) { // sometimes, the event will be triggered before the app is ready, and creating new windows will fail
     createWindow()
   }
+})
+
+ipc.on('focusMainWebContents', function () {
+  mainWindow.webContents.focus()
 })
 
 ipc.on('showSecondaryMenu', function (event, data) {

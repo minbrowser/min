@@ -255,7 +255,7 @@ window.webviews = {
     return null
   },
   releaseFocus: function () {
-    mainWindow.webContents.focus()
+    ipc.send('focusMainWebContents')
   },
   focus: function (id) {
     ipc.send('focusView', id)
@@ -314,12 +314,12 @@ window.addEventListener('resize', throttle(function () {
   ipc.send('setBounds', {id: tabs.getSelected(), bounds: getViewBounds()})
 }, 100))
 
-mainWindow.on('enter-html-full-screen', function () {
+ipc.on('enter-html-full-screen', function () {
   windowIsFullscreen = true
   ipc.send('setBounds', {id: tabs.getSelected(), bounds: getViewBounds()})
 })
 
-mainWindow.on('leave-html-full-screen', function () {
+ipc.on('leave-html-full-screen', function () {
   windowIsFullscreen = false
   ipc.send('setBounds', {id: tabs.getSelected(), bounds: getViewBounds()})
 })

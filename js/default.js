@@ -8,8 +8,6 @@ window.webFrame = window.electron.webFrame
 window.webFrame.setVisualZoomLevelLimits(1, 1)
 window.webFrame.setLayoutZoomLevelLimits(0, 0)
 
-window.mainWindow = remote.getCurrentWindow()
-
 require('menuBarVisibility.js').initialize()
 
 // add a class to the body for fullscreen status
