@@ -17,6 +17,7 @@ button {
 }
 body,
 html {
+	background-color: #fff;
 	height: 100%;
 	overflow: hidden;
 	-webkit-user-select: none;
