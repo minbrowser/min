@@ -1,4 +1,4 @@
-var currentSearchEngine = {
+window.currentSearchEngine = {
   name: '',
   searchURL: '%s'
 }
@@ -52,14 +52,14 @@ settings.get('searchEngine', function (value) {
   }
 
   if (value && value.name) {
-    currentSearchEngine = searchEngines[value.name]
+    window.currentSearchEngine = searchEngines[value.name]
   } else if (value && value.url) {
-    currentSearchEngine = {
+    window.currentSearchEngine = {
       name: 'custom',
       searchURL: value.url,
       custom: true
     }
   } else {
-    currentSearchEngine = searchEngines[defaultSearchEngine]
+    window.currentSearchEngine = searchEngines[defaultSearchEngine]
   }
 })
