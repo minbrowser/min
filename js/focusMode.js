@@ -19,18 +19,16 @@ ipc.on('exitFocusMode', function () {
   document.body.classList.remove('is-focus-mode')
 })
 
-function showFocusModeError () {
-  electron.remote.dialog.showMessageBox({
-    type: 'info',
-    buttons: [l('closeDialog')],
-    message: l('isFocusMode'),
-    detail: l('focusModeExplanation2')
-  })
-}
-
 module.exports = {
   enabled: function () {
     return isFocusMode
   },
-  warn: showFocusModeError
+  warn: function () {
+    electron.remote.dialog.showMessageBox({
+      type: 'info',
+      buttons: [l('closeDialog')],
+      message: l('isFocusMode'),
+      detail: l('focusModeExplanation2')
+    })
+  }
 }

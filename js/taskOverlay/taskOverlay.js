@@ -1,4 +1,5 @@
 var browserUI = require('api-wrapper.js')
+var focusMode = require('focusMode.js')
 
 var taskContainer = document.getElementById('task-area')
 var taskSwitcherButton = document.getElementById('switch-task-button')
@@ -48,8 +49,8 @@ window.taskOverlay = {
   }),
   show: function () {
     /* disabled in focus mode */
-    if (isFocusMode) {
-      showFocusModeError()
+    if (focusMode.enabled()) {
+      focusMode.warn()
       return
     }
 

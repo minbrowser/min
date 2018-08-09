@@ -1,5 +1,6 @@
 /* list of the available custom !bangs */
 var browserUI = require('api-wrapper.js')
+var focusMode = require('focusMode.js')
 var searchbar = require('searchbar/searchbar.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 const formatRelativeDate = require('util/relativeDate.js')
@@ -92,8 +93,8 @@ registerCustomBang({
   fn: function (text) {
 
     /* disabled in focus mode */
-    if (isFocusMode) {
-      showFocusModeError()
+    if (focusMode.enabled()) {
+      focusMode.warn()
       return
     }
 
@@ -120,8 +121,8 @@ registerCustomBang({
   fn: function (text) {
 
     /* disabled in focus mode */
-    if (isFocusMode) {
-      showFocusModeError()
+    if (focusMode.enabled()) {
+      focusMode.warn()
       return
     }
 
@@ -143,8 +144,8 @@ registerCustomBang({
   fn: function (text) {
 
     /* disabled in focus mode */
-    if (isFocusMode) {
-      showFocusModeError()
+    if (focusMode.enabled()) {
+      focusMode.warn()
       return
     }
 

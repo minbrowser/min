@@ -11,6 +11,7 @@ Shortcuts that don't appear in the menubar are registered in this file, using de
 const menuBarVisibility = require('menuBarVisibility.js')
 var searchbar = require('searchbar/searchbar.js')
 var browserUI = require('api-wrapper.js')
+var focusMode = require('focusMode.js')
 
 ipc.on('zoomIn', function () {
   webviewGestures.zoomWebviewIn(tabs.getSelected())
@@ -55,8 +56,8 @@ ipc.on('showHistory', function () {
 
 ipc.on('addTab', function (e, data) {
   /* new tabs can't be created in focus mode */
-  if (isFocusMode) {
-    showFocusModeError()
+  if (focusMode.enabled()) {
+    focusMode.warn()
     return
   }
 
@@ -102,8 +103,8 @@ ipc.on('saveCurrentPage', function () {
 
 function addPrivateTab () {
   /* new tabs can't be created in focus mode */
-  if (isFocusMode) {
-    showFocusModeError()
+  if (focusMode.enabled()) {
+    focusMode.warn()
     return
   }
 
@@ -124,8 +125,8 @@ ipc.on('addPrivateTab', addPrivateTab)
 
 ipc.on('addTask', function () {
   /* new tasks can't be created in focus mode */
-  if (isFocusMode) {
-    showFocusModeError()
+  if (focusMode.enabled()) {
+    focusMode.warn()
     return
   }
 
@@ -217,8 +218,8 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('restoreTab', function (e) {
-    if (isFocusMode) {
-      showFocusModeError()
+    if (focusMode.enabled()) {
+      focusMode.warn()
       return
     }
 

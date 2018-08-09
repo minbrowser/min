@@ -1,5 +1,5 @@
 var browserUI = require('api-wrapper.js')
-
+var focusMode = require('focusMode.js')
 var searchbar = require('searchbar/searchbar.js')
 
 var lastTabDeletion = 0 // TODO get rid of this
@@ -296,8 +296,8 @@ window.tabBar = {
         lastTabDeletion = Date.now()
 
         /* tab deletion is disabled in focus mode */
-        if (isFocusMode) {
-          showFocusModeError()
+        if (focusMode.enabled()) {
+          focusMode.warn()
           return
         }
 
