@@ -1,3 +1,4 @@
+var browserUI = require('api-wrapper.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 
 var readerView = {
@@ -48,13 +49,13 @@ var readerView = {
     }
   },
   enter: function (tabId) {
-    navigate(tabId, readerView.readerURL + '?url=' + encodeURIComponent(tabs.get(tabId).url))
+    browserUI.navigate(tabId, readerView.readerURL + '?url=' + encodeURIComponent(tabs.get(tabId).url))
     tabs.update(tabId, {
       isReaderView: true
     })
   },
   exit: function (tabId) {
-    navigate(tabId, decodeURIComponent(tabs.get(tabId).url.split('?url=')[1]))
+    browserUI.navigate(tabId, decodeURIComponent(tabs.get(tabId).url.split('?url=')[1]))
     tabs.update(tabId, {
       isReaderView: false
     })

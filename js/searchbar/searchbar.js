@@ -1,3 +1,4 @@
+var browserUI = require('api-wrapper.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 
 function openURLInBackground (url) { // used to open a url in the background, without leaving the searchbar
@@ -5,9 +6,9 @@ function openURLInBackground (url) { // used to open a url in the background, wi
     url: url,
     private: tabs.get(tabs.getSelected()).private
   }, tabs.getIndex(tabs.getSelected()) + 1)
-  addTab(newTab, {
+  browserUI.addTab(newTab, {
     enterEditMode: false,
-    openInBackground: true,
+    openInBackground: true
   })
 
   var i = searchbar.el.querySelector('.searchbar-item:focus')
@@ -92,7 +93,7 @@ var searchbar = {
       openURLInBackground(url)
       return true
     } else {
-      navigate(tabs.getSelected(), url)
+      browserUI.navigate(tabs.getSelected(), url)
       // focus the webview, so that autofocus inputs on the page work
       webviews.focus(tabs.getSelected())
       return false

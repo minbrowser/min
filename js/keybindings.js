@@ -10,6 +10,7 @@ Shortcuts that don't appear in the menubar are registered in this file, using de
 
 const menuBarVisibility = require('menuBarVisibility.js')
 var searchbar = require('searchbar/searchbar.js')
+var browserUI = require('api-wrapper.js')
 
 ipc.on('zoomIn', function () {
   webviewGestures.zoomWebviewIn(tabs.getSelected())
@@ -61,14 +62,14 @@ ipc.on('addTab', function (e, data) {
 
   // if opening a URL (instead of adding an empty tab), and only an empty tab is open, navigate the current tab rather than creating another one
   if (tabs.isEmpty() && data.url) {
-    navigate(tabs.getSelected(), data.url)
+    browserUI.navigate(tabs.getSelected(), data.url)
   } else {
     var newIndex = tabs.getIndex(tabs.getSelected()) + 1
     var newTab = tabs.add({
       url: data.url || ''
     }, newIndex)
 
-    addTab(newTab, {
+    browserUI.addTab(newTab, {
       enterEditMode: !data.url // only enter edit mode if the new tab is about:blank
     })
   }
@@ -107,7 +108,7 @@ function addPrivateTab () {
   }
 
   if (tabs.isEmpty()) {
-    destroyTab(tabs.getAtIndex(0).id)
+    browserUI.destroyTab(tabs.getAtIndex(0).id)
   }
 
   var newIndex = tabs.getIndex(tabs.getSelected()) + 1
@@ -116,7 +117,7 @@ function addPrivateTab () {
     url: 'about:blank',
     private: true
   }, newIndex)
-  addTab(privateTab)
+  browserUI.addTab(privateTab)
 }
 
 ipc.on('addPrivateTab', addPrivateTab)
@@ -128,7 +129,7 @@ ipc.on('addTask', function () {
     return
   }
 
-  addTask()
+  browserUI.addTask()
   taskOverlay.show()
   setTimeout(function () {
     taskOverlay.hide()
@@ -212,7 +213,7 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('closeTab', function (e) {
-    closeTab(tabs.getSelected())
+    browserUI.closeTab(tabs.getSelected())
   })
 
   defineShortcut('restoreTab', function (e) {
@@ -229,10 +230,10 @@ settings.get('keyMap', function (keyMapSettings) {
     }
 
     if (tabs.isEmpty()) {
-      destroyTab(tabs.getAtIndex(0).id)
+      browserUI.destroyTab(tabs.getAtIndex(0).id)
     }
 
-    addTab(tabs.add(restoredTab, tabs.getIndex(tabs.getSelected()) + 1), {
+    browserUI.addTab(tabs.add(restoredTab, tabs.getIndex(tabs.getSelected()) + 1), {
       enterEditMode: false
     })
   })
@@ -250,7 +251,7 @@ settings.get('keyMap', function (keyMapSettings) {
         var currentIndex = tabs.getIndex(tabs.getSelected())
         var newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i)
         if (newTab) {
-          switchToTab(newTab.id)
+          browserUI.switchToTab(newTab.id)
         }
       })
 
@@ -258,18 +259,18 @@ settings.get('keyMap', function (keyMapSettings) {
         var currentIndex = tabs.getIndex(tabs.getSelected())
         var newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i)
         if (newTab) {
-          switchToTab(newTab.id)
+          browserUI.switchToTab(newTab.id)
         }
       })
     })(i)
   }
 
   defineShortcut('gotoLastTab', function (e) {
-    switchToTab(tabs.getAtIndex(tabs.count() - 1).id)
+    browserUI.switchToTab(tabs.getAtIndex(tabs.count() - 1).id)
   })
 
   defineShortcut('gotoFirstTab', function (e) {
-    switchToTab(tabs.getAtIndex(0).id)
+    browserUI.switchToTab(tabs.getAtIndex(0).id)
   })
 
   defineShortcut({keys: 'esc'}, function (e) {
@@ -313,9 +314,9 @@ settings.get('keyMap', function (keyMapSettings) {
     var previousTab = tabs.getAtIndex(currentIndex - 1)
 
     if (previousTab) {
-      switchToTab(previousTab.id)
+      browserUI.switchToTab(previousTab.id)
     } else {
-      switchToTab(tabs.getAtIndex(tabs.count() - 1).id)
+      browserUI.switchToTab(tabs.getAtIndex(tabs.count() - 1).id)
     }
   })
 
@@ -324,9 +325,9 @@ settings.get('keyMap', function (keyMapSettings) {
     var nextTab = tabs.getAtIndex(currentIndex + 1)
 
     if (nextTab) {
-      switchToTab(nextTab.id)
+      browserUI.switchToTab(nextTab.id)
     } else {
-      switchToTab(tabs.getAtIndex(0).id)
+      browserUI.switchToTab(tabs.getAtIndex(0).id)
     }
   })
 
@@ -340,9 +341,9 @@ settings.get('keyMap', function (keyMapSettings) {
     }).indexOf(currentTask.id)
 
     if (tasks.get()[currentTaskIdx + 1]) {
-      switchToTask(tasks.get()[currentTaskIdx + 1].id)
+      browserUI.switchToTask(tasks.get()[currentTaskIdx + 1].id)
     } else {
-      switchToTask(tasks.get()[0].id)
+      browserUI.switchToTask(tasks.get()[0].id)
     }
 
     taskOverlay.show()
@@ -361,9 +362,9 @@ settings.get('keyMap', function (keyMapSettings) {
     }).indexOf(currentTask.id)
 
     if (tasks.get()[currentTaskIdx - 1]) {
-      switchToTask(tasks.get()[currentTaskIdx - 1].id)
+      browserUI.switchToTask(tasks.get()[currentTaskIdx - 1].id)
     } else {
-      switchToTask(tasks.get()[tasks.get().length - 1].id)
+      browserUI.switchToTask(tasks.get()[tasks.get().length - 1].id)
     }
 
     taskOverlay.show()
@@ -377,10 +378,10 @@ settings.get('keyMap', function (keyMapSettings) {
   defineShortcut('closeAllTabs', function (d) { // destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
     var tset = tabs.get()
     for (var i = 0; i < tset.length; i++) {
-      destroyTab(tset[i].id)
+      browserUI.destroyTab(tset[i].id)
     }
 
-    addTab() // create a new, blank tab
+    browserUI.addTab() // create a new, blank tab
   })
 
   defineShortcut('toggleTasks', function () {
@@ -401,7 +402,7 @@ settings.get('keyMap', function (keyMapSettings) {
       window.location.reload()
     } else {
       // the webview.reload() method can't be used because if the webview is displaying an error page, we want to reload the original page rather than show the error page again
-      navigate(tabs.getSelected(), tabs.get(tabs.getSelected()).url)
+      browserUI.navigate(tabs.getSelected(), tabs.get(tabs.getSelected()).url)
     }
 
     lastReload = time
@@ -416,9 +417,9 @@ settings.get('keyMap', function (keyMapSettings) {
 
       // if the text is already a URL, navigate to that page
       if (urlParser.isURLMissingProtocol(value)) {
-        navigate(tabs.getSelected(), value)
+        browserUI.navigate(tabs.getSelected(), value)
       } else {
-        navigate(tabs.getSelected(), urlParser.parse(value + '.com'))
+        browserUI.navigate(tabs.getSelected(), urlParser.parse(value + '.com'))
       }
     }
   })

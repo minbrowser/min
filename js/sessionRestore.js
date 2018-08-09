@@ -1,4 +1,6 @@
-var sessionRestore = {
+var browserUI = require('api-wrapper.js')
+
+window.sessionRestore = {
   save: function () {
     var data = {
       version: 2,
@@ -26,7 +28,7 @@ var sessionRestore = {
         var newTab = currentTask.tabs.add({
           url: 'https://minbrowser.github.io/min/tour'
         })
-        addTab(newTab, {
+        browserUI.addTab(newTab, {
           enterEditMode: false
         })
         return
@@ -40,7 +42,7 @@ var sessionRestore = {
       if ((data.version && data.version !== 2) || (data.state && data.state.tasks && data.state.tasks.length === 0)) {
         tasks.setSelected(tasks.add())
 
-        addTab(currentTask.tabs.add())
+        browserUI.addTab(currentTask.tabs.add())
         return
       }
 
@@ -53,7 +55,7 @@ var sessionRestore = {
 
       // switch to the previously selected tasks
 
-      switchToTask(data.state.selectedTask)
+      browserUI.switchToTask(data.state.selectedTask)
 
       if (currentTask.tabs.isEmpty()) {
         tabBar.enterEditMode(currentTask.tabs.getSelected())
@@ -76,8 +78,8 @@ var sessionRestore = {
         url: 'file://' + __dirname + '/pages/sessionRestoreError/index.html?backupLoc=' + encodeURIComponent(backupSavePath)
       })
 
-      switchToTask(newTask)
-      switchToTab(newSessionErrorTab)
+      browserUI.switchToTask(newTask)
+      browserUI.switchToTab(newSessionErrorTab)
     }
   }
 }

@@ -1,4 +1,5 @@
 /* list of the available custom !bangs */
+var browserUI = require('api-wrapper.js')
 var searchbar = require('searchbar/searchbar.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 const formatRelativeDate = require('util/relativeDate.js')
@@ -8,7 +9,7 @@ registerCustomBang({
   snippet: l('viewSettings'),
   isAction: true,
   fn: function (text) {
-    navigate(tabs.getSelected(), 'file://' + __dirname + '/pages/settings/index.html')
+    browserUI.navigate(tabs.getSelected(), 'file://' + __dirname + '/pages/settings/index.html')
   }
 })
 
@@ -107,7 +108,7 @@ registerCustomBang({
     var task = getTaskByNameOrNumber(text)
 
     if (task) {
-      switchToTask(task.id)
+      browserUI.switchToTask(task.id)
     }
   }
 })
@@ -127,7 +128,7 @@ registerCustomBang({
     taskOverlay.show()
 
     setTimeout(function () {
-      addTask()
+      browserUI.addTask()
       if (text) {
         currentTask.name = text
       }
@@ -170,8 +171,8 @@ registerCustomBang({
     }
 
     taskOverlay.show()
-    switchToTask(newTask.id)
-    switchToTab(currentTab.id)
+    browserUI.switchToTask(newTask.id)
+    browserUI.switchToTab(currentTab.id)
 
     setTimeout(function () {
       taskOverlay.hide()

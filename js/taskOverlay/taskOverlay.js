@@ -1,3 +1,5 @@
+var browserUI = require('api-wrapper.js')
+
 var taskContainer = document.getElementById('task-area')
 var taskSwitcherButton = document.getElementById('switch-task-button')
 var addTaskButton = document.getElementById('add-task')
@@ -12,7 +14,7 @@ taskSwitcherButton.addEventListener('click', function () {
 })
 
 addTaskButton.addEventListener('click', function (e) {
-  switchToTask(tasks.add())
+  browserUI.switchToTask(tasks.add())
   taskOverlay.hide()
 })
 
@@ -22,7 +24,7 @@ taskOverlayNavbar.addEventListener('click', function () {
 
 var dragula = require('dragula')
 
-var taskOverlay = {
+window.taskOverlay = {
   overlayElement: document.getElementById('task-overlay'),
   isShown: false,
   tabDragula: dragula({
@@ -109,7 +111,7 @@ var taskOverlay = {
         })[0]
 
         if (mostRecentTab) {
-          switchToTab(mostRecentTab.id)
+          browserUI.switchToTab(mostRecentTab.id)
         }
       }
 
@@ -156,7 +158,7 @@ taskOverlay.tabDragula.on('drop', function (el, target, source, sibling) { // se
   // if the old task has no tabs left in it, destroy it
 
   if (previousTask.tabs.length === 0) {
-    closeTask(previousTask.id)
+    browserUI.closeTask(previousTask.id)
     getTaskContainer(previousTask.id).remove()
   }
 

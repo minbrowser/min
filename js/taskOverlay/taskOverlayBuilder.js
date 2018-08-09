@@ -1,3 +1,4 @@
+var browserUI = require('api-wrapper.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 
 function removeTabFromOverlay (tabId, task) {
@@ -11,7 +12,7 @@ function removeTabFromOverlay (tabId, task) {
     // remove the task element from the overlay
     getTaskContainer(task.id).remove()
     // close the task
-    closeTask(task.id)
+    browserUI.closeTask(task.id)
   }
 }
 
@@ -50,7 +51,7 @@ var TaskOverlayBuilder = {
 
         deleteButton.addEventListener('click', function (e) {
           container.remove()
-          closeTask(task.id)
+          browserUI.closeTask(task.id)
         })
         return deleteButton
       },
@@ -102,8 +103,8 @@ var TaskOverlayBuilder = {
         el.setAttribute('data-tab', tab.id)
 
         el.addEventListener('click', function (e) {
-          switchToTask(this.parentNode.getAttribute('data-task'))
-          switchToTab(this.getAttribute('data-tab'))
+          browserUI.switchToTask(this.parentNode.getAttribute('data-task'))
+          browserUI.switchToTab(this.getAttribute('data-tab'))
 
           taskOverlay.hide()
         })

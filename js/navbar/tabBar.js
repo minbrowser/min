@@ -1,8 +1,10 @@
+var browserUI = require('api-wrapper.js')
+
 var searchbar = require('searchbar/searchbar.js')
 
 var lastTabDeletion = 0 // TODO get rid of this
 
-var tabBar = {
+window.tabBar = {
   container: document.getElementById('tabs'),
   tabElementMap: {}, // tabId: tab element
   editingTab: null, // the ID of the tab that is being edited
@@ -202,7 +204,7 @@ var tabBar = {
     closeTabButton.classList.add('fa-times-circle')
 
     closeTabButton.addEventListener('click', function (e) {
-      closeTab(data.id)
+      browserUI.closeTab(data.id)
 
       // prevent the searchbar from being opened
       e.stopPropagation()
@@ -277,7 +279,7 @@ var tabBar = {
     // click to enter edit mode or switch to a tab
     tabEl.addEventListener('click', function (e) {
       if (tabs.getSelected() !== data.id) { // else switch to tab if it isn't focused
-        switchToTab(data.id)
+        browserUI.switchToTab(data.id)
       } else { // the tab is focused, edit tab instead
         tabBar.enterEditMode(data.id)
       }
@@ -285,7 +287,7 @@ var tabBar = {
 
     tabEl.addEventListener('auxclick', function (e) {
       if (e.which === 2) { // if mouse middle click -> close tab
-        closeTab(data.id)
+        browserUI.closeTab(data.id)
       }
     })
 
@@ -303,7 +305,7 @@ var tabBar = {
         this.style.transform = 'translateY(-100%)'
 
         setTimeout(function () {
-          closeTab(tab)
+          browserUI.closeTab(tab)
         }, 150) // wait until the animation has completed
       }
     })

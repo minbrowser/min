@@ -27,3 +27,10 @@ function showFocusModeError () {
     detail: l('focusModeExplanation2')
   })
 }
+
+module.exports = {
+  enabled: function () {
+    return isFocusMode
+  },
+  warn: showFocusModeError
+}

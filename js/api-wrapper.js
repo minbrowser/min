@@ -1,5 +1,9 @@
 /* common actions that affect different parts of the UI (webviews, tabstrip, etc) */
 
+var urlParser = require('util/urlParser.js')
+var focusMode = require('focusMode.js')
+var tabActivity = require('navbar/tabActivity.js')
+
 /* loads a page in a webview */
 
 window.navigate = function (tabId, newURL) {
@@ -101,8 +105,8 @@ function closeTask (taskId) {
 /* destroys a tab, and either switches to the next tab or creates a new one */
 function closeTab (tabId) {
   /* disabled in focus mode */
-  if (isFocusMode) {
-    showFocusModeError()
+  if (focusMode.enabled()) {
+    focusMode.warn()
     return
   }
 
@@ -154,8 +158,8 @@ function switchToTab (id, options) {
   options = options || {}
 
   /* tab switching disabled in focus mode */
-  if (isFocusMode) {
-    showFocusModeError()
+  if (focusMode.enabled()) {
+    focusMode.warn()
     return
   }
 
@@ -181,3 +185,5 @@ function switchToTab (id, options) {
 
   tabActivity.refresh()
 }
+
+module.exports = {navigate, addTask, addTab, destroyTask, destroyTab, closeTask, closeTab, switchToTask, switchToTab}

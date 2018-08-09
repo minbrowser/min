@@ -1,3 +1,4 @@
+var browserUI = require('api-wrapper.js')
 const previewCache = require('previewCache.js')
 var getView = remote.getGlobal('getView')
 
@@ -306,7 +307,7 @@ webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
     url: url,
     private: tabs.get(tab).private // inherit private status from the current tab
   }, currentIndex + 1)
-  addTab(newTab, {
+  browserUI.addTab(newTab, {
     enterEditMode: false,
     openInBackground: disposition === 'background-tab' // possibly open in background based on disposition
   })
@@ -352,7 +353,7 @@ webviews.bindEvent('did-stop-loading', function () {
 
 webviews.bindEvent('did-fail-load', function (e, errorCode, errorDesc, validatedURL, isMainFrame) {
   if (errorCode && errorCode !== -3 && isMainFrame && validatedURL) {
-    navigate(webviews.getTabFromContents(this), webviews.internalPages.error + '?ec=' + encodeURIComponent(errorCode) + '&url=' + encodeURIComponent(validatedURL))
+    browserUI.navigate(webviews.getTabFromContents(this), webviews.internalPages.error + '?ec=' + encodeURIComponent(errorCode) + '&url=' + encodeURIComponent(validatedURL))
   }
 })
 
@@ -374,7 +375,7 @@ webviews.bindEvent('crashed', function (e, isKilled) {
 })
 
 webviews.bindIPC('close-window', function (webview, tabId, args) {
-  closeTab(tabId)
+  browserUI.closeTab(tabId)
 })
 
 ipc.on('view-event', function (e, args) {

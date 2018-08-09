@@ -1,5 +1,7 @@
 /* redirects to the phishing warning page when a message is recieved from the webview */
 
+var browserUI = require('api-wrapper.js')
+
 var phishingWarningPage = 'file://' + __dirname + '/pages/phishing/index.html'
 
 webviews.bindIPC('phishingDetected', function (webview, tabId, args) {
@@ -16,7 +18,7 @@ webviews.bindIPC('phishingDetected', function (webview, tabId, args) {
   settings.get('phishingWhitelist', function (value) {
     if (!value || !hostname || value.indexOf(hostname) === -1) {
       // show the warning page
-      navigate(tabId, redirectURL)
+      browserUI.navigate(tabId, redirectURL)
     }
   }, {
     fromCache: false

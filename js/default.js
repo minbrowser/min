@@ -9,6 +9,7 @@ window.webFrame.setVisualZoomLevelLimits(1, 1)
 window.webFrame.setLayoutZoomLevelLimits(0, 0)
 
 require('menuBarVisibility.js').initialize()
+require('navbar/tabActivity.js').init()
 
 // add a class to the body for fullscreen status
 

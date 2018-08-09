@@ -25,4 +25,5 @@ var tabActivity = {
     setInterval(tabActivity.refresh, 7500)
   }
 }
-tabActivity.init()
+
+module.exports = tabActivity

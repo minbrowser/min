@@ -1,3 +1,4 @@
+var browserUI = require('api-wrapper.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 
@@ -64,14 +65,14 @@ var searchOpenTabs = function (text, input, event, container) {
       // if we created a new tab but are switching away from it, destroy the current (empty) tab
       var currentTabUrl = tabs.get(tabs.getSelected()).url
       if (!currentTabUrl || currentTabUrl === 'about:blank') {
-        closeTab(tabs.getSelected())
+        browserUI.closeTab(tabs.getSelected())
       }
 
       if (match.task.id !== currentTask.id) {
-        switchToTask(match.task.id)
+        browserUI.switchToTask(match.task.id)
       }
 
-      switchToTab(match.tab.id)
+      browserUI.switchToTab(match.tab.id)
     })
 
     container.appendChild(item)

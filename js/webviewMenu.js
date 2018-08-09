@@ -1,3 +1,5 @@
+var browserUI = require('api-wrapper.js')
+
 var Menu, MenuItem, clipboard // these are only loaded when the menu is shown
 
 var webviewMenu = {
@@ -31,7 +33,7 @@ var webviewMenu = {
         linkActions.push(new MenuItem({
           label: l('openInNewTab'),
           click: function () {
-            addTab(tabs.add({ url: link }, tabs.getIndex(tabs.getSelected()) + 1), { enterEditMode: false })
+            browserUI.addTab(tabs.add({ url: link }, tabs.getIndex(tabs.getSelected()) + 1), { enterEditMode: false })
           }
         }))
       }
@@ -39,7 +41,7 @@ var webviewMenu = {
       linkActions.push(new MenuItem({
         label: l('openInNewPrivateTab'),
         click: function () {
-          addTab(tabs.add({ url: link, private: true }, tabs.getIndex(tabs.getSelected()) + 1), { enterEditMode: false })
+          browserUI.addTab(tabs.add({ url: link, private: true }, tabs.getIndex(tabs.getSelected()) + 1), { enterEditMode: false })
         }
       }))
 
@@ -58,7 +60,7 @@ var webviewMenu = {
       imageActions.push(new MenuItem({
         label: l('viewImage'),
         click: function () {
-          navigate(tabs.getSelected(), image)
+          browserUI.navigate(tabs.getSelected(), image)
         }
       }))
 
@@ -66,7 +68,7 @@ var webviewMenu = {
         imageActions.push(new MenuItem({
           label: l('openImageInNewTab'),
           click: function () {
-            addTab(tabs.add({ url: image }, tabs.getIndex(tabs.getSelected()) + 1), { enterEditMode: false })
+            browserUI.addTab(tabs.add({ url: image }, tabs.getIndex(tabs.getSelected()) + 1), { enterEditMode: false })
           }
         }))
       }
@@ -74,7 +76,7 @@ var webviewMenu = {
       imageActions.push(new MenuItem({
         label: l('openImageInNewPrivateTab'),
         click: function () {
-          addTab(tabs.add({ url: image, private: true }, tabs.getIndex(tabs.getSelected()) + 1), { enterEditMode: false })
+          browserUI.addTab(tabs.add({ url: image, private: true }, tabs.getIndex(tabs.getSelected()) + 1), { enterEditMode: false })
         }
       }))
 
@@ -103,7 +105,7 @@ var webviewMenu = {
               url: currentSearchEngine.searchURL.replace('%s', encodeURIComponent(selection)),
               private: currentTab.private
             }, tabs.getIndex(tabs.getSelected()) + 1)
-            addTab(newTab, {
+            browserUI.addTab(newTab, {
               enterEditMode: false
             })
 
