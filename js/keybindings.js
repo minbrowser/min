@@ -233,7 +233,6 @@ settings.get('keyMap', function (keyMapSettings) {
     }
 
     addTab(tabs.add(restoredTab, tabs.getIndex(tabs.getSelected()) + 1), {
-      focus: false,
       enterEditMode: false
     })
   })

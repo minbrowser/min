@@ -8,7 +8,6 @@ function openURLInBackground (url) { // used to open a url in the background, wi
   addTab(newTab, {
     enterEditMode: false,
     openInBackground: true,
-    leaveEditMode: false
   })
 
   var i = searchbar.el.querySelector('.searchbar-item:focus')
