@@ -281,24 +281,6 @@ webviews.bindIPC('pageData', function (webview, tabId, args) {
   }
 })
 
-// called when a swipe event is triggered in js/preload/swipeEvents.js
-
-webviews.bindIPC('goBack', function () {
-  settings.get('swipeNavigationEnabled', function (value) {
-    if (value === true || value === undefined) {
-      webviews.get(tabs.getSelected()).goBack()
-    }
-  })
-})
-
-webviews.bindIPC('goForward', function () {
-  settings.get('swipeNavigationEnabled', function (value) {
-    if (value === true || value === undefined) {
-      webviews.get(tabs.getSelected()).goForward()
-    }
-  })
-})
-
 webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
   var tab = webviews.getTabFromContents(this)
   var currentIndex = tabs.getIndex(tabs.getSelected())
