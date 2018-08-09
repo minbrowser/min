@@ -58,7 +58,7 @@ function captureCurrentTab () {
   }
 
   ipc.send('getCapture', {
-    id: tabs.getSelected(),
+    id: webviews.selectedId,
     width: Math.round(window.innerWidth / 10),
     height: Math.round(window.innerHeight / 10)
   })
@@ -219,8 +219,8 @@ window.webviews = {
     if (webviews.placeholderRequests.length === 1) {
       // create a new placeholder
 
-      var img = previewCache.get(tabs.getSelected())
-      var url = tabs.get(tabs.getSelected()).url
+      var img = previewCache.get(webviews.selectedId)
+      var url = tabs.get(webviews.selectedId).url
       if (img) {
         placeholderImg.src = img
         placeholderImg.hidden = false
@@ -311,17 +311,17 @@ webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
 }, {preventDefault: true})
 
 window.addEventListener('resize', throttle(function () {
-  ipc.send('setBounds', {id: tabs.getSelected(), bounds: getViewBounds()})
+  ipc.send('setBounds', {id: webviews.selectedId, bounds: getViewBounds()})
 }, 100))
 
 ipc.on('enter-html-full-screen', function () {
   windowIsFullscreen = true
-  ipc.send('setBounds', {id: tabs.getSelected(), bounds: getViewBounds()})
+  ipc.send('setBounds', {id: webviews.selectedId, bounds: getViewBounds()})
 })
 
 ipc.on('leave-html-full-screen', function () {
   windowIsFullscreen = false
-  ipc.send('setBounds', {id: tabs.getSelected(), bounds: getViewBounds()})
+  ipc.send('setBounds', {id: webviews.selectedId, bounds: getViewBounds()})
 })
 
 webviews.bindEvent('did-finish-load', onPageLoad)
@@ -397,7 +397,7 @@ setInterval(function () {
 
 ipc.on('captureData', function (e, data) {
   previewCache.set(data.id, data.url)
-  if (data.id === tabs.getSelected() && webviews.placeholderRequests.length > 0) {
+  if (data.id === webviews.selectedId && webviews.placeholderRequests.length > 0) {
     placeholderImg.src = data.url
     placeholderImg.hidden = false
   }
