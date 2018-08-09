@@ -62,17 +62,8 @@ function hideView (id) {
   mainWindow.webContents.focus()
 }
 
-function showView (id) {
-  mainWindow.setBrowserView(viewMap[id])
-  viewMap[id].webContents.focus()
-}
-
 function getView (id) {
   return viewMap[id]
-}
-
-function getContents (id) {
-  return viewMap[id].webContents
 }
 
 ipc.on('createView', function (e, args) {
@@ -86,6 +77,9 @@ ipc.on('destroyView', function (e, id) {
 ipc.on('setView', function (e, args) {
   setView(args.id)
   setBounds(args.id, args.bounds)
+  if (args.focus) {
+    focusView(args.id)
+  }
 })
 
 ipc.on('setBounds', function (e, args) {
@@ -98,11 +92,6 @@ ipc.on('focusView', function (e, id) {
 
 ipc.on('hideView', function (e, id) {
   hideView(id)
-})
-
-ipc.on('showView', function (e, data) {
-  showView(data.id)
-  setBounds(data.id, data.bounds)
 })
 
 ipc.on('callViewMethod', function (e, data) {

@@ -181,11 +181,9 @@ function switchToTab (id, options) {
 
   tabs.setSelected(id)
   tabBar.setActiveTab(id)
-  webviews.setSelected(id)
-
-  if (options.focusWebview !== false) {
-    webviews.focus(id)
-  }
+  webviews.setSelected(id, {
+    focus: options.focusWebview !== false
+  })
 
   updateColorPalette()
 

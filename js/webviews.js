@@ -178,7 +178,7 @@ window.webviews = {
     webviews.tabContentsMap[tabId] = contents
     return view
   },
-  setSelected: function (id) {
+  setSelected: function (id, options) { // options.focus - whether to focus the view. Defaults to true.
     webviews.selectedId = id
 
     // create the view if it doesn't already exist
@@ -192,7 +192,8 @@ window.webviews = {
 
     ipc.send('setView', {
       id: id,
-      bounds: getViewBounds()
+      bounds: getViewBounds(),
+      focus: !options || options.focus !== false
     })
   },
   update: function (id, url) {
@@ -238,9 +239,10 @@ window.webviews = {
     if (webviews.placeholderRequests.length === 0) {
       // multiple things can request a placeholder at the same time, but we should only show the view again if nothing requires a placeholder anymore
       if (webviews.tabViewMap[webviews.selectedId]) {
-        ipc.send('showView', {
+        ipc.send('setView', {
           id: webviews.selectedId,
-          bounds: getViewBounds()
+          bounds: getViewBounds(),
+          focus: true
         })
       }
       placeholderImg.hidden = true
