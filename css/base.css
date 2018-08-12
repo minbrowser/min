@@ -5,6 +5,9 @@
 	font-size: 16px;
 	font-family: '.SFNSText-Regular', 'BlinkMacSystemFont', 'Helvetica Neue', 'Segoe UI', 'Arial', sans-serif;
 }
+body.mac * {
+	letter-spacing: 0.3px;
+}
 [hidden] {
 	display: none !important;
 }
