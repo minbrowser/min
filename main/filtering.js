@@ -8,8 +8,6 @@ var filterContentTypes = thingsToFilter.contentTypes.length !== 0
 var parser = require('./ext/abp-filter-parser-modified/abp-filter-parser.js')
 var parsedFilterData = {}
 
-var webContentsHostMap = {} // used to track which domain corresponds to which webContents
-
 function initFilterList () {
   var data = require('fs').readFile(__dirname + '/ext/filterLists/easylist+easyprivacy-noelementhiding.txt', 'utf8', function (err, data) {
     if (err) {
@@ -23,9 +21,6 @@ function initFilterList () {
 }
 
 function handleRequest (details, callback) {
-  if (details.resourceType === 'mainFrame') {
-    webContentsHostMap[details.webContentsId] = parser.getUrlHost(details.url)
-  }
   if (!(details.url.startsWith('http://') || details.url.startsWith('https://')) || details.resourceType === 'mainFrame') {
     callback({
       cancel: false,
@@ -48,9 +43,15 @@ function handleRequest (details, callback) {
     }
   }
 
+  if (details.webContentsId) {
+    var domain = parser.getUrlHost(webContents.fromId(details.webContentsId).getURL())
+  } else {
+    var domain = undefined
+  }
+
   if (thingsToFilter.trackers) {
     if (parser.matches(parsedFilterData, details.url, {
-        domain: webContentsHostMap[details.webContentsId],
+        domain: domain,
         elementType: details.resourceType
       })) {
       callback({

@@ -363,6 +363,8 @@
           return false
         }
       }
+    } else if (filterOptions.domains || filterOptions.skipDomains) {
+      return false
     }
 
     return true
