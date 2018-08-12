@@ -173,6 +173,9 @@ taskOverlay.tabDragula.on('drop', function (el, target, source, sibling) { // se
 
   // insert the tab at the correct spot
   newTask.tabs.splice(newIdx, 0, oldTab)
+
+  // update the visible tabs
+  tabBar.rerenderAll()
 })
 
 /* rearrange tasks when they are dropped */
