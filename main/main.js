@@ -19,7 +19,7 @@ var appIsReady = false
 
 var saveWindowBounds = function () {
   if (mainWindow) {
-    fs.writeFile(path.join(userDataPath, 'windowBounds.json'), JSON.stringify(mainWindow.getBounds()))
+    fs.writeFileSync(path.join(userDataPath, 'windowBounds.json'), JSON.stringify(mainWindow.getBounds()))
   }
 }
 
