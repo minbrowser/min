@@ -123,6 +123,9 @@ window.tabBar = {
       tabBar.container.appendChild(el)
       tabBar.tabElementMap[tabs[i].id] = el
     }
+    if (tabs.getSelected()) {
+      tabBar.setActiveTab(tabs.getSelected())
+    }
   },
   handleProgressBar: function (tabId, status) {
     var tabEl = tabBar.getTab(tabId)
