@@ -106,6 +106,14 @@ function onPageLoad (e) {
 
     tabBar.rerenderTab(tab)
   }, 0)
+
+  onNavigate()
+}
+
+function onNavigate () {
+  const webview = webviews.get(tabs.getSelected())
+
+  goBackButton.style.opacity = webview.canGoBack() ? 1 : 0.2
 }
 
 window.webviews = {
@@ -186,6 +194,8 @@ window.webviews = {
     if (!webviews.getView(id)) {
       webviews.add(id)
     }
+
+    onNavigate()
 
     if (webviews.placeholderRequests.length > 0) {
       return
@@ -311,6 +321,7 @@ ipc.on('leave-html-full-screen', function () {
 
 webviews.bindEvent('did-finish-load', onPageLoad)
 webviews.bindEvent('did-navigate-in-page', onPageLoad)
+webviews.bindEvent('did-navigate', onNavigate)
 
 webviews.bindEvent('page-favicon-updated', function (e, favicons) {
   var id = webviews.getTabFromContents(this)
