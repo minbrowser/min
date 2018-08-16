@@ -65,6 +65,12 @@ function captureCurrentTab () {
   })
 }
 
+function updateBackButton () {
+  const webview = webviews.get(tabs.getSelected())
+
+  goBackButton.style.opacity = webview.canGoBack() ? 1 : 0.2
+}
+
 // set the permissionRequestHandler for non-private tabs
 
 remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler)
@@ -107,13 +113,13 @@ function onPageLoad (e) {
     tabBar.rerenderTab(tab)
   }, 0)
 
-  onNavigate()
+  updateBackButton()
 }
 
-function onNavigate () {
-  const webview = webviews.get(tabs.getSelected())
+// called whenever a navigation finishes
 
-  goBackButton.style.opacity = webview.canGoBack() ? 1 : 0.2
+function onNavigate () {
+  updateBackButton()
 }
 
 window.webviews = {
@@ -195,7 +201,7 @@ window.webviews = {
       webviews.add(id)
     }
 
-    onNavigate()
+    updateBackButton()
 
     if (webviews.placeholderRequests.length > 0) {
       return
