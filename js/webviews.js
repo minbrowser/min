@@ -68,7 +68,7 @@ function captureCurrentTab () {
 function updateBackButton () {
   const webview = webviews.get(tabs.getSelected())
 
-  goBackButton.style.opacity = webview.canGoBack() ? 1 : 0.2
+  goBackButton.disabled = !webview.canGoBack()
 }
 
 // set the permissionRequestHandler for non-private tabs

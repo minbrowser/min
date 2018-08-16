@@ -72,6 +72,9 @@ body.windows #navbar {
 	font-size: 1.5em;
     padding: 0.8em 0.6em 0.8em 0.4em;
 }
+#back-button:disabled {
+	opacity: 0.2;
+}
 
 body.is-edit-mode #back-button,
 body.is-edit-mode #menu-button {
