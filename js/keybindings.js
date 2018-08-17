@@ -401,9 +401,12 @@ settings.get('keyMap', function (keyMapSettings) {
     // pressing mod+r twice in a row reloads the whole browser
     if (time - lastReload < 500) {
       window.location.reload()
-    } else {
+    } else if (tabs.get(tabs.getSelected()).url.startsWith('file://')) {
       // the webview.reload() method can't be used because if the webview is displaying an error page, we want to reload the original page rather than show the error page again
       browserUI.navigate(tabs.getSelected(), tabs.get(tabs.getSelected()).url)
+    } else {
+      // this can't be an error page, use the normal reload method
+      webviews.callAsync(tabs.getSelected(), 'reload')
     }
 
     lastReload = time
