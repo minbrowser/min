@@ -99,7 +99,11 @@ ipc.on('hideView', function (e, id) {
 })
 
 ipc.on('callViewMethod', function (e, data) {
-  viewMap[data.id].webContents[data.method](data.arg)
+  var webContents = viewMap[data.id].webContents
+  var result = webContents[data.method].apply(webContents, data.args)
+  if (data.callId) {
+    mainWindow.webContents.send('async-call-result', {callId: data.callId, data: result})
+  }
 })
 
 ipc.on('getCapture', function (e, data) {

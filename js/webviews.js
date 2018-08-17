@@ -66,9 +66,9 @@ function captureCurrentTab () {
 }
 
 function updateBackButton () {
-  const webview = webviews.get(tabs.getSelected())
-
-  goBackButton.disabled = !webview.canGoBack()
+  webviews.callAsync(tabs.getSelected(), 'canGoBack', null, function (canGoBack) {
+    goBackButton.disabled = !canGoBack
+  })
 }
 
 // set the permissionRequestHandler for non-private tabs
@@ -127,6 +127,7 @@ window.webviews = {
   tabContentsMap: {}, // tabId: webContents
   selectedId: null,
   placeholderRequests: [],
+  asyncCallbacks: {},
   internalPages: {
     crash: 'file://' + __dirname + '/pages/crash/index.html',
     error: 'file://' + __dirname + '/pages/error/index.html'
@@ -279,8 +280,15 @@ window.webviews = {
   focus: function (id) {
     ipc.send('focusView', id)
   },
-  callAsync: function (id, method, arg) {
-    ipc.send('callViewMethod', {id: id, method: method, arg: arg})
+  callAsync: function (id, method, args, callback) {
+    if (!(args instanceof Array)) {
+      args = [args]
+    }
+    if (callback) {
+      var callId = Math.random()
+      webviews.asyncCallbacks[callId] = callback
+    }
+    ipc.send('callViewMethod', {id: id, callId: callId, method: method, args: args})
   }
 }
 
@@ -383,6 +391,11 @@ ipc.on('view-event', function (e, args) {
       ev.fn.apply(webviews.tabContentsMap[args.id], [e].concat(args.args))
     }
   })
+})
+
+ipc.on('async-call-result', function (e, args) {
+  webviews.asyncCallbacks[args.callId](args.data)
+  delete webviews.asyncCallbacks[args.callId]
 })
 
 ipc.on('view-ipc', function (e, data) {
