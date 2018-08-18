@@ -263,7 +263,12 @@ window.webviews = {
           focus: true
         })
       }
-      placeholderImg.hidden = true
+      // wait for the view to be visible before removing the placeholder
+      setTimeout(function () {
+        if (webviews.placeholderRequests.length === 0) { // make sure the placeholder hasn't been re-enabled
+          placeholderImg.hidden = true
+        }
+      }, 32)
     }
   },
   getTabFromContents: function (contents) {
