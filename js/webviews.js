@@ -239,11 +239,11 @@ window.webviews = {
       // create a new placeholder
 
       var img = previewCache.get(webviews.selectedId)
-      var url = tabs.get(webviews.selectedId).url
+      var associatedTab = tabs.get(webviews.selectedId)
       if (img) {
         placeholderImg.src = img
         placeholderImg.hidden = false
-      } else if (url && url !== 'about:blank') {
+      } else if (associatedTab && associatedTab.url && associatedTab.url !== 'about:blank') {
         captureCurrentTab()
       }
     }
