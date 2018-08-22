@@ -11,7 +11,7 @@
       "openImageInNewTab":"চিত্রটি নতুন ট্যাবে খুলুন",
       "openImageInNewPrivateTab":"নতুন ব্যক্তিগত ট্যাবে চিত্র খুলুন",
       "saveImageAs":"ইমেজ সেভ করুন এভাবে",
-      "searchWith":"% S এর সাথে অনুসন্ধান করুন", //%s will be replaced with the name of the current search engine
+      "searchWith":"%s এর সাথে অনুসন্ধান করুন", //%s will be replaced with the name of the current search engine
       "copyLink":"লিংক কপি করুন",
       "copy":"কপি",  //this is a verb (as in "copy the currently-selected text")
       "paste":"প্রতিলেপন",
@@ -22,7 +22,7 @@
       "DDGAnswerSubtitle":"উত্তর", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
       "suggestedSite":"প্রস্তাবিত সাইট", //this is used to label suggested websites from the DuckDuckGo API,
       "resultsFromDDG":"ডকডকলহ থেকে ফলাফল", //this is used as a label to indicate which results come from DuckDuckGo's API
-      "taskN":"টাস্ক% n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+      "taskN":"টাস্ক%n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
       "hostsFileEntry":"হোস্ট ফাইল এন্ট্রি", //this is a label used to indicate that a result is coming from the user's host file
       /* custom !bangs
       these are some of the items that show up when you press ! in the searchbar.
@@ -50,11 +50,11 @@
       /* task overlay */
       "viewTasks":"কাজগুলি দেখুন",
       "newTask":"ত্যে", //"new" is a verb - it is used for a button at the bottom of the task overlay
-      "defaultTaskName":"টাস্ক% n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+      "defaultTaskName":"টাস্ক%n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
       /* find in page toolbar */
       "searchInPage":"পৃষ্ঠা অনুসন্ধান করুন",
-      "findMatchesSingular":"% i এর% টি মিল",
-      "findMatchesPlural":"% i এর% i মিলগুলি",
+      "findMatchesSingular":"%i এর %t টি মিল",
+      "findMatchesPlural":"%i এর %t মিলগুলি",
       /* Focus mode */
       "isFocusMode":"আপনি ফোকাস মোডে আছেন",
       "closeDialog":"ঠিক আছে", //used as a label for the button that closes the dialog
@@ -75,16 +75,16 @@
       /* pages/error/index.html */
       "errorPagePrimaryAction":"আবার চেষ্টা কর",
       "serverNotFoundTitle":"সার্ভার পাচ্ছে না",
-      "serverNotFoundSubtitle":"মিনিট এই ওয়েবসাইটটি খুঁজে পাওয়া যায়নি।",
+      "serverNotFoundSubtitle":"Min এই ওয়েবসাইটটি খুঁজে পাওয়া যায়নি।",
       "archiveSearchAction":"Archive.org এ অনুসন্ধান করুন",
       "sslErrorTitle":"এই ওয়েবসাইটটি উপলব্ধ নয়",
-      "sslErrorMessage":"ন্যূনতম এই ওয়েবসাইট থেকে নিরাপদে সংযোগ করতে পারে নি।",
+      "sslErrorMessage":"Min এই ওয়েবসাইট থেকে নিরাপদে সংযোগ করতে পারে নি।",
       "dnsErrorTitle":"ওয়েবসাইট খুঁজে পাওয়া যায় নি",
       "dnsErrorMessage":"একটি DNS ত্রুটি ঘটেছে",
       "offlineErrorTitle":"আপনি অফলাইনে",
       "offlineErrorMessage":"ইন্টারনেট থেকে পুনরায় সংযোগ করুন এবং আবার চেষ্টা করুন।",
-      "genericConnectionFail":"ন্যূনতম ওয়েবসাইট সংযোগ করতে পারে না।",
-      "sslTimeErrorMessage":"ন্যূনতম এই ওয়েবসাইট থেকে নিরাপদে সংযোগ করতে পারে নি। দয়া করে নিশ্চিত করুন যে আপনার কম্পিউটারের ঘড়ি সঠিকভাবে সেট করা আছে।",
+      "genericConnectionFail":"Min ওয়েবসাইট সংযোগ করতে পারে না।",
+      "sslTimeErrorMessage":"Min এই ওয়েবসাইট থেকে নিরাপদে সংযোগ করতে পারে নি। দয়া করে নিশ্চিত করুন যে আপনার কম্পিউটারের ঘড়ি সঠিকভাবে সেট করা আছে।",
       "addressInvalidTitle":"এই ঠিকানাটি অবৈধ।",
       /* pages/phishing/index.html */
       "genericError":"একটি ত্রুটি ঘটেছে",
@@ -93,11 +93,11 @@
       "phishingErrorVisitAnyway":"যাইহোক সাইট পরিদর্শন করুন",
       "phishingErrorLeave":"এই সাইটটি ছেড়ে দিন",
       /* multiple instances alert */
-      "multipleInstancesErrorMessage":"একটি ত্রুটি ঘটেছে. অন্য কোনও খোলা দৃষ্টান্ত বন্ধ করুন এবং মিনিট পুনরায় আরম্ভ করুন।",
+      "multipleInstancesErrorMessage":"একটি ত্রুটি ঘটেছে. অন্য কোনও খোলা দৃষ্টান্ত বন্ধ করুন এবং Min পুনরায় আরম্ভ করুন।",
       /* pages/sessionRestoreError/index.html */
       "sessionRestoreErrorTitle":"একটি ত্রুটি ঘটেছে",
       "sessionRestoreErrorExplanation":"আপনার সংরক্ষিত ট্যাবগুলি সঠিকভাবে পুনরুদ্ধার করা যাবে না।",
-      "sessionRestoreErrorBackupInfo":"আমরা এই অবস্থানে আপনার ডেটা ব্যাকআপ সংরক্ষণ করেছি:% l",
+      "sessionRestoreErrorBackupInfo":"আমরা এই অবস্থানে আপনার ডেটা ব্যাকআপ সংরক্ষণ করেছি:%l",
       "sessionRestoreErrorLinkInfo": {
         "unsafeHTML": "যদি এই ত্রুটিটি ঘটতে থাকে তবে দয়া করে একটি নতুন সমস্যা <a href=\"https://github.com/minbrowser/min\" target=\"_blank\"> এখানে </a> খুলুন।"
       },
@@ -121,7 +121,7 @@
       "settingsSearchEngineHeading":"খোঁজ যন্ত্র",
       "settingsDefaultSearchEngine":"একটি ডিফল্ট অনুসন্ধান ইঞ্জিন চয়ন করুন:",
       "settingsDDGExplanation":"Searchbar এ তাত্ক্ষণিক উত্তর দেখতে ডিফল্ট অনুসন্ধান ইঞ্জিন হিসাবে DuckDuckGo সেট করুন।",
-      "customSearchEngineDescription":"অনুসন্ধানটি% s এর সাথে প্রতিস্থাপন করুন",
+      "customSearchEngineDescription":"অনুসন্ধানটি%s এর সাথে প্রতিস্থাপন করুন",
       "settingsKeyboardShortcutsHeading":"কীবোর্ড শর্টকাটগুলি",
       "settingsKeyboardShortcutsHelp":"একাধিক শর্টকাট পৃথক করার জন্য কমা ব্যবহার করুন।",
       /* app menu */
@@ -160,13 +160,13 @@
       "appMenuReportBug":"একটি বাগ রিপোর্ট করুন",
       "appMenuTakeTour":"ঘুরে আসা",
       "appMenuViewGithub":"GitHub এ দেখুন",
-      "appMenuAbout":"প্রায়% n", //%n is replaced with app name
+      "appMenuAbout":"প্রায়%n", //%n is replaced with app name
       "appMenuPreferences":"পছন্দসমূহ",
       "appMenuServices":"সার্ভিস",
-      "appMenuHide":"% N লুকান",
+      "appMenuHide":"%n লুকান",
       "appMenuHideOthers":"অন্যদের লুকান",
       "appMenuShowAll":"সব দেখাও",
-      "appMenuQuit":"% N ছাড়ুন",
+      "appMenuQuit":"%n ছাড়ুন",
       "appMenuBringToFront":"সব থেকে সামনে আনুন",
       /* PDF Viewer */
       "PDFPageCounter": {"unsafeHTML": "<span id = 'total'> </ span> এর <input type = 'text' /> পৃষ্ঠা"}
