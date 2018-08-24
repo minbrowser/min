@@ -1,0 +1,174 @@
+{
+   "name":"বাংলা",
+   "identifier":"bn",
+   "translations":{
+       /* Context menu items
+       these are the items displayed in the menu when you right-click on a page
+       */
+      "openInNewTab":"নতুন ট্যাবে খুলুন",
+      "openInNewPrivateTab":"নতুন ব্যক্তিগত ট্যাবে খুলুন",
+      "viewImage":"ভিউ ইমেজ",
+      "openImageInNewTab":"চিত্রটি নতুন ট্যাবে খুলুন",
+      "openImageInNewPrivateTab":"নতুন ব্যক্তিগত ট্যাবে চিত্র খুলুন",
+      "saveImageAs":"ইমেজ সেভ করুন এভাবে",
+      "searchWith":"%s এর সাথে অনুসন্ধান করুন", //%s will be replaced with the name of the current search engine
+      "copyLink":"লিংক কপি করুন",
+      "copy":"কপি",  //this is a verb (as in "copy the currently-selected text")
+      "paste":"প্রতিলেপন",
+      "goBack":"ফিরে যাও",
+      "goForward":"সামনে আগান",
+      "inspectElement":"এলিমেন্ট পরিদর্শন করুন",
+      /* searchbar */
+      "DDGAnswerSubtitle":"উত্তর", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+      "suggestedSite":"প্রস্তাবিত সাইট", //this is used to label suggested websites from the DuckDuckGo API,
+      "resultsFromDDG":"ডকডকলহ থেকে ফলাফল", //this is used as a label to indicate which results come from DuckDuckGo's API
+      "taskN":"টাস্ক%n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+      "hostsFileEntry":"হোস্ট ফাইল এন্ট্রি", //this is a label used to indicate that a result is coming from the user's host file
+      /* custom !bangs
+      these are some of the items that show up when you press ! in the searchbar.
+      Each one of these strings describes what the command will do when you run it. */
+      "viewSettings":"সেটিংস দেখুন",
+      "viewReadingList":"পঠন তালিকা দেখুন",
+      "takeScreenshot":"একটি স্ক্রিনশট নিন",
+      "clearHistory":"সমস্ত ইতিহাস সাফ করুন",
+      "switchToTask":"টাস্কে স্যুইচ করুন",
+      "createTask":"একটি টাস্ক তৈরি করুন",
+      "moveToTask":"একটি টাস্ক এই ট্যাব সরান",
+      "searchBookmarks":"বুকমার্কগুলি অনুসন্ধান করুন",
+      "searchHistory":"অনুসন্ধানের ইতিহাস",
+      "openMenu":"খুলুন মেনু", //application menu button on windows
+      /* navbar */
+      "enterReaderView":"রিডার ভিউ লিখুন",
+      "exitReaderView":"রিডার ভিউ প্রস্থান করুন",
+      "emptyReadingListTitle":"আপনার পড়া তালিকা খালি",
+      "emptyReadingListSubtitle":"রিডার ভিউতে আপনার খোলা নিবন্ধগুলি এখানে তালিকাভুক্ত করা হয়েছে এবং 30 দিনের জন্য অফলাইনে সংরক্ষণ করা হয়েছে।",
+      "newTabLabel":"নতুন ট্যাব", //this is a noun, used for tabs that don't have a page loaded in them yet
+      "connectionNotSecure":"এই ওয়েবসাইটে আপনার সংযোগ নিরাপদ নয়।",
+      "searchbarPlaceholder":"অনুসন্ধান করুন বা ঠিকানা লিখুন",
+      "privateTab":"ব্যক্তিগত ট্যাব",
+      "newTabAction":"নতুন ট্যাব",
+      /* task overlay */
+      "viewTasks":"কাজগুলি দেখুন",
+      "newTask":"ত্যে", //"new" is a verb - it is used for a button at the bottom of the task overlay
+      "defaultTaskName":"টাস্ক%n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+      /* find in page toolbar */
+      "searchInPage":"পৃষ্ঠা অনুসন্ধান করুন",
+      "findMatchesSingular":"%i এর %t টি মিল",
+      "findMatchesPlural":"%i এর %t মিলগুলি",
+      /* Focus mode */
+      "isFocusMode":"আপনি ফোকাস মোডে আছেন",
+      "closeDialog":"ঠিক আছে", //used as a label for the button that closes the dialog
+      "focusModeExplanation1":"ফোকাস মোডে, বর্তমান ট্যাব ছাড়া সব ট্যাব লুকানো আছে এবং আপনি নতুন ট্যাব তৈরি করতে পারবেন না",
+      "focusModeExplanation2":"আপনি ভিউ মেনুতে \"ফোকাস মোড\" অনির্ধারণ করে ফোকাস মোডটি ত্যাগ করতে পারেন।",
+      /* relative dates */
+      "timeRangeJustNow":"এক্ষুনি",
+      "timeRangeMinutes":"কিছু মিনিট আগে",
+      "timeRangeHour":"অতীত ঘন্টার মধ্যে",
+      "timeRangeDay":"গত দিনে",
+      "timeRangeWeek":"গত সপ্তাহে",
+      "timeRangeMonth":"গত মাসে",
+      "timeRangeYear":"গত বছর",
+      "timeRangeLongerAgo":"দীর্ঘ আগে",
+      /* pages/crash/index.html */
+      "crashErrorTitle":"কিছু ভুল হয়েছে.",
+      "crashErrorSubtitle":"এই পৃষ্ঠাটি প্রদর্শন করার সময় একটি সমস্যা ঘটেছে।",
+      /* pages/error/index.html */
+      "errorPagePrimaryAction":"আবার চেষ্টা কর",
+      "serverNotFoundTitle":"সার্ভার পাচ্ছে না",
+      "serverNotFoundSubtitle":"Min এই ওয়েবসাইটটি খুঁজে পাওয়া যায়নি।",
+      "archiveSearchAction":"Archive.org এ অনুসন্ধান করুন",
+      "sslErrorTitle":"এই ওয়েবসাইটটি উপলব্ধ নয়",
+      "sslErrorMessage":"Min এই ওয়েবসাইট থেকে নিরাপদে সংযোগ করতে পারে নি।",
+      "dnsErrorTitle":"ওয়েবসাইট খুঁজে পাওয়া যায় নি",
+      "dnsErrorMessage":"একটি DNS ত্রুটি ঘটেছে",
+      "offlineErrorTitle":"আপনি অফলাইনে",
+      "offlineErrorMessage":"ইন্টারনেট থেকে পুনরায় সংযোগ করুন এবং আবার চেষ্টা করুন।",
+      "genericConnectionFail":"Min ওয়েবসাইট সংযোগ করতে পারে না।",
+      "sslTimeErrorMessage":"Min এই ওয়েবসাইট থেকে নিরাপদে সংযোগ করতে পারে নি। দয়া করে নিশ্চিত করুন যে আপনার কম্পিউটারের ঘড়ি সঠিকভাবে সেট করা আছে।",
+      "addressInvalidTitle":"এই ঠিকানাটি অবৈধ।",
+      /* pages/phishing/index.html */
+      "genericError":"একটি ত্রুটি ঘটেছে",
+      "phishingErrorTitle":"এই সাইটটি আপনাকে ক্ষতি করতে পারে।",
+      "phishingErrorMessage":"এই ওয়েবসাইট আপনার ব্যক্তিগত তথ্য, যেমন পাসওয়ার্ড বা ব্যাংকিং তথ্য চুরি করার চেষ্টা করা হতে পারে।",
+      "phishingErrorVisitAnyway":"যাইহোক সাইট পরিদর্শন করুন",
+      "phishingErrorLeave":"এই সাইটটি ছেড়ে দিন",
+      /* multiple instances alert */
+      "multipleInstancesErrorMessage":"একটি ত্রুটি ঘটেছে. অন্য কোনও খোলা দৃষ্টান্ত বন্ধ করুন এবং Min পুনরায় আরম্ভ করুন।",
+      /* pages/sessionRestoreError/index.html */
+      "sessionRestoreErrorTitle":"একটি ত্রুটি ঘটেছে",
+      "sessionRestoreErrorExplanation":"আপনার সংরক্ষিত ট্যাবগুলি সঠিকভাবে পুনরুদ্ধার করা যাবে না।",
+      "sessionRestoreErrorBackupInfo":"আমরা এই অবস্থানে আপনার ডেটা ব্যাকআপ সংরক্ষণ করেছি:%l",
+      "sessionRestoreErrorLinkInfo": {
+        "unsafeHTML": "যদি এই ত্রুটিটি ঘটতে থাকে তবে দয়া করে একটি নতুন সমস্যা <a href=\"https://github.com/minbrowser/min\" target=\"_blank\"> এখানে </a> খুলুন।"
+      },
+      /* pages/settings/index.html */
+      "settingsPreferencesHeading":"পছন্দসমূহ",
+      "settingsRestartRequired":"আপনি এই পরিবর্তনগুলি প্রয়োগ করতে পুনরায় শুরু করতে হবে।",
+      "settingsPrivacyHeading":"সামগ্রী ব্লকিং",
+      "settingsContentBlockingToggle":"ব্লক trackers এবং বিজ্ঞাপন ব্লক",
+      "settingsBlockScriptsToggle":"স্ক্রিপ্ট ব্লক করুন",
+      "settingsBlockImagesToggle":"ইমেজ ব্লক করুন",
+      "settingsEasyListCredit": {
+        "unsafeHTML": "সহজলভ্য এবং সহজপ্রীতি উপর ভিত্তি করে, উপাদান গোপন নিয়ম ছাড়া। <a target=\"_blank\" href=\"https://easylist.to/\"> EasyList লেখকগণ দ্বারা তৈরি </a> - <a target=\"_blank\" href=\"https://easylist.to/\"> লাইসেন্স দেখুন </a>"
+      },
+      "settingsAppearanceHeading":"চেহারা",
+      "settingsDarkModeToggle":"অন্ধকার মোড সক্রিয় করুন",
+      "settingsHistoryButtonToggle":"ফিরে বোতাম সক্ষম করুন",
+      "settingsAdditionalFeaturesHeading":"অতিরিক্ত বৈশিষ্ট্য",
+      "settingsSwipeNavigationToggle":"পৃষ্ঠার মধ্যে পিছনে এবং পিছনে নেভিগেট করার জন্য সোয়াইপ সক্ষম করুন",
+      "settingsUserscriptsToggle":"ব্যবহারকারী স্ক্রিপ্ট সক্রিয় করুন",
+      "settingsUserscriptsExplanation": {"unsafeHTML": "ব্যবহারকারীর স্ক্রিপ্ট আপনাকে ওয়েবসাইটের আচরণ পরিবর্তন করার অনুমতি দেয় - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\"> আরও শিখুন </a>"},
+      "settingsSearchEngineHeading":"খোঁজ যন্ত্র",
+      "settingsDefaultSearchEngine":"একটি ডিফল্ট অনুসন্ধান ইঞ্জিন চয়ন করুন:",
+      "settingsDDGExplanation":"Searchbar এ তাত্ক্ষণিক উত্তর দেখতে ডিফল্ট অনুসন্ধান ইঞ্জিন হিসাবে DuckDuckGo সেট করুন।",
+      "customSearchEngineDescription":"অনুসন্ধানটি%s এর সাথে প্রতিস্থাপন করুন",
+      "settingsKeyboardShortcutsHeading":"কীবোর্ড শর্টকাটগুলি",
+      "settingsKeyboardShortcutsHelp":"একাধিক শর্টকাট পৃথক করার জন্য কমা ব্যবহার করুন।",
+      /* app menu */
+      "appMenuFile":"ফাইল",
+      "appMenuNewTab":"নতুন ট্যাব",
+      "appMenuNewPrivateTab":"নতুন ব্যক্তিগত ট্যাব",
+      "appMenuNewTask":"ত্যে",
+      "appMenuSavePageAs":"যেমন পৃষ্ঠা সংরক্ষণ",
+      "appMenuPrint":"ছাপা",
+      "appMenuEdit":"সম্পাদন করা",
+      "appMenuUndo":"বাতিল করা",
+      "appMenuRedo":"পুনরায় করা",
+      "appMenuCut":"কাটা",
+      "appMenuCopy":"কপি",
+      "appMenuPaste":"প্রতিলেপন",
+      "appMenuSelectAll":"সব নির্বাচন করুন",
+      "appMenuFind":"আবিষ্কার",
+      "appMenuView":"দৃশ্য",
+      "appMenuZoomIn":"প্রসারিত করো",
+      "appMenuZoomOut":"ছোট করা",
+      "appMenuActualSize":"সঠিক আকার",
+      "appMenuFullScreen":"পূর্ণ পর্দা", //on some platforms, this string is replaced with one built-in to the OS
+      "appMenuFocusMode":"ফোকাস মোড",
+      "appMenuReadingList":"পড়ার তালিকা",
+      "appMenuBookmarks":"বুকমার্ক",
+      "appMenuHistory":"ইতিহাস",
+      "appMenuDeveloper":"বিকাশকারী",
+      "appMenuReloadBrowser":"ব্রাউজার পুনরায় লোড করুন",
+      "appMenuInspectBrowser":"ব্রাউজার পরিদর্শন করুন",
+      "appMenuInspectPage":"পৃষ্ঠা পরিদর্শন করুন",
+      "appMenuWindow":"জানলা",
+      "appMenuMinimize":"কমান",
+      "appMenuClose":"ঘনিষ্ঠ",
+      "appMenuHelp":"সাহায্য করুন",
+      "appMenuKeyboardShortcuts":"কীবোর্ড শর্টকাটগুলি",
+      "appMenuReportBug":"একটি বাগ রিপোর্ট করুন",
+      "appMenuTakeTour":"ঘুরে আসা",
+      "appMenuViewGithub":"GitHub এ দেখুন",
+      "appMenuAbout":"প্রায়%n", //%n is replaced with app name
+      "appMenuPreferences":"পছন্দসমূহ",
+      "appMenuServices":"সার্ভিস",
+      "appMenuHide":"%n লুকান",
+      "appMenuHideOthers":"অন্যদের লুকান",
+      "appMenuShowAll":"সব দেখাও",
+      "appMenuQuit":"%n ছাড়ুন",
+      "appMenuBringToFront":"সব থেকে সামনে আনুন",
+      /* PDF Viewer */
+      "PDFPageCounter": {"unsafeHTML": "<span id = 'total'> </ span> এর <input type = 'text' /> পৃষ্ঠা"}
+   }
+}
