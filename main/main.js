@@ -190,6 +190,8 @@ app.on('window-all-closed', function () {
 app.on('ready', function () {
   appIsReady = true
 
+  app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required') // allow autoplay by default
+
   createWindow(function () {
     mainWindow.webContents.on('did-finish-load', function () {
       // if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
