@@ -123,21 +123,21 @@ registerCustomBang({
 
 webviews.bindEvent('did-finish-load', function (e) {
   var tab = webviews.getTabFromContents(this)
-  var url = this.getURL()
+  webviews.callAsync(tab, 'getURL', null, function (url) {
+    if (url.indexOf(readerView.readerURL) === 0) {
+      tabs.update(tab, {
+        isReaderView: true,
+        readerable: false // assume the new page can't be readered, we'll get another message if it can
+      })
+    } else {
+      tabs.update(tab, {
+        isReaderView: false,
+        readerable: false
+      })
+    }
 
-  if (url.indexOf(readerView.readerURL) === 0) {
-    tabs.update(tab, {
-      isReaderView: true,
-      readerable: false // assume the new page can't be readered, we'll get another message if it can
-    })
-  } else {
-    tabs.update(tab, {
-      isReaderView: false,
-      readerable: false
-    })
-  }
-
-  readerView.updateButton(tab)
+    readerView.updateButton(tab)
+  })
 })
 
 webviews.bindIPC('canReader', function (webview, tab) {

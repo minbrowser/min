@@ -78,13 +78,9 @@ remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestH
 // called whenever the page url changes
 
 function onPageLoad (e) {
-  var _this = this
-  setTimeout(function () { // TODO convert to arrow function
-    /* add a small delay before getting these attributes, because they don't seem to update until a short time after the did-finish-load event is fired. Fixes #320 */
+  var tab = webviews.getTabFromContents(this)
 
-    var tab = webviews.getTabFromContents(_this)
-    var url = _this.getURL()
-
+  webviews.callAsync(tab, 'getURL', null, function (url) {
     // capture a preview image if a new page has been loaded
     if (tab === tabs.getSelected() && tabs.get(tab).url !== url) {
       setTimeout(function () {
@@ -111,9 +107,9 @@ function onPageLoad (e) {
     }
 
     tabBar.rerenderTab(tab)
-  }, 0)
 
-  updateBackButton()
+    updateBackButton()
+  })
 }
 
 // called whenever a navigation finishes
