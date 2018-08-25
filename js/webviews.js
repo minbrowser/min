@@ -248,7 +248,7 @@ window.webviews = {
       }
     }
     setTimeout(function () {
-      ipc.send('hideView', webviews.selectedId)
+      ipc.send('hideCurrentView')
     }, 0)
   },
   hidePlaceholder: function (reason) {

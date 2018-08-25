@@ -57,8 +57,8 @@ function focusView (id) {
   viewMap[id].webContents.focus()
 }
 
-function hideView (id) {
-  viewMap[id].setBounds({x: 0, y: 0, width: 0, height: 0})
+function hideCurrentView () {
+  mainWindow.getBrowserView().setBounds({x: 0, y: 0, width: 0, height: 0})
   mainWindow.webContents.focus()
 }
 
@@ -94,8 +94,8 @@ ipc.on('focusView', function (e, id) {
   focusView(id)
 })
 
-ipc.on('hideView', function (e, id) {
-  hideView(id)
+ipc.on('hideCurrentView', function (e) {
+  hideCurrentView()
 })
 
 ipc.on('callViewMethod', function (e, data) {
