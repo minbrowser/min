@@ -25,7 +25,7 @@ setInterval(function () {
   // discard any images for tabs that don't exist any more
   // TODO replace this with an event listener
   for (var tab in previewCache.images) {
-    if (!tabs.has(tab)) {
+    if (!tasks.getTaskContainingTab(tab)) {
       delete previewCache.images[tab]
     }
   }
