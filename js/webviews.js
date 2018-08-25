@@ -52,8 +52,8 @@ function getViewBounds () {
   }
 }
 
-function captureCurrentTab () {
-  if (webviews.placeholderRequests.length > 0) {
+function captureCurrentTab (options) {
+  if (webviews.placeholderRequests.length > 0 && !(options && options.forceCapture === true)) {
     // capturePage doesn't work while the view is hidden
     return
   }
@@ -244,7 +244,9 @@ window.webviews = {
         placeholderImg.src = img
         placeholderImg.hidden = false
       } else if (associatedTab && associatedTab.url && associatedTab.url !== 'about:blank') {
-        captureCurrentTab()
+        captureCurrentTab({forceCapture: true})
+      } else {
+        placeholderImg.hidden = true
       }
     }
     setTimeout(function () {
