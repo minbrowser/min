@@ -268,7 +268,7 @@ window.webviews = {
         if (webviews.placeholderRequests.length === 0) { // make sure the placeholder hasn't been re-enabled
           placeholderImg.hidden = true
         }
-      }, 32)
+      }, 200)
     }
   },
   getTabFromContents: function (contents) {

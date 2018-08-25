@@ -98,7 +98,7 @@ window.taskOverlay = {
           empty(taskContainer)
           webviews.hidePlaceholder('taskOverlay')
         }
-      }, 200)
+      }, 150)
 
       this.tabDragula.containers = []
 
