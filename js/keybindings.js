@@ -278,16 +278,10 @@ settings.get('keyMap', function (keyMapSettings) {
     taskOverlay.hide()
     tabBar.leaveEditMode()
 
-    var webview = webviews.get(tabs.getSelected())
-
     // exit full screen mode
-    if (webview.executeJavaScript) {
-      webview.executeJavaScript('if(document.webkitIsFullScreen){document.webkitExitFullscreen()}')
-    }
+    webviews.callAsync(tabs.getSelected(), 'executeJavaScript', 'if(document.webkitIsFullScreen){document.webkitExitFullscreen()}')
 
-    if (document.activeElement !== webview) {
-      webview.focus()
-    }
+    webviews.callAsync(tabs.getSelected(), 'focus')
   })
 
   defineShortcut('toggleReaderView', function () {
