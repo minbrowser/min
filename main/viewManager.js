@@ -58,7 +58,7 @@ function focusView (id) {
 }
 
 function hideView (id) {
-  mainWindow.setBrowserView(null)
+  viewMap[id].setBounds({x: 0, y: 0, width: 0, height: 0})
   mainWindow.webContents.focus()
 }
 
