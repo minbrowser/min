@@ -86,19 +86,31 @@ a {
 
 /* buttons */
 
-.outlined-button {
+.outlined-button,
+.solid-button {
 	-webkit-appearance: none;
 	appearance: none;
 	background: none;
+	border-width: 1px;
+	border-style: solid;
 	color: inherit;
 	font-size: 1em;
 	padding: 1em 1.5em;
-	border: 1px currentColor solid;
 	transition: 0.1s;
 	min-width: 40%;
 }
-.outlined-button:not(.disabled):hover,
+.outlined-button {
+	border-color: currentColor;
+}
+.outlined-button-white {
+	background: #fff;
+}
 .solid-button {
+	background: #fff;
+	border-color: #fff;
+	color: #000;
+}
+.outlined-button:not(.disabled):not(.outlined-button-white):hover {
 	background: #fff;
 	border-color: #fff;
 	color: #000;
@@ -106,8 +118,16 @@ a {
 .outlined-button:not(.disabled):hover:focus,
 .solid-button.solid-button-blue {
 	background: rgb(78, 123, 196);
+	border-color: rgb(78, 123, 196);
 	color: #fff;
 	outline: none;
+}
+.outlined-button-white:hover {
+	background: #eee;
+}
+.solid-button.solid-button-blue:hover {
+	background: rgb(70, 110, 175);
+	border-color: rgb(70, 110, 175);
 }
 button .button-subtext {
 	display: block;
