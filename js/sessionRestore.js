@@ -20,6 +20,13 @@ window.sessionRestore = {
   restore: function () {
     var savedStringData = localStorage.getItem('sessionrestoredata')
 
+    /* the survey should only be shown after an upgrade from an earlier version */
+    var shouldShowSurvey = false
+    if (savedStringData && !localStorage.getItem('1.8survey')) {
+      shouldShowSurvey = true
+    }
+    localStorage.setItem('1.8survey', 'true')
+
     try {
       // first run, show the tour
       if (!savedStringData) {
@@ -59,6 +66,28 @@ window.sessionRestore = {
 
       if (currentTask.tabs.isEmpty()) {
         tabBar.enterEditMode(currentTask.tabs.getSelected())
+      }
+
+      // if this isn't the first run, and the survey popup hasn't been shown yet, show it
+
+      if (shouldShowSurvey) {
+        fetch('https://minbrowser.github.io/min/survey/survey.json').then(function (response) {
+          return response.json()
+        }).then(function (data) {
+          setTimeout(function () {
+            if (data.available && data.url) {
+              if (currentTask.tabs.isEmpty()) {
+                navigate(currentTask.tabs.getSelected(), data.url)
+              } else {
+                var surveyTab = currentTask.tabs.add({
+                  url: data.url
+                })
+                browserUI.addTab(surveyTab, {
+                  enterEditMode: false
+                })
+              }
+            }}, 200)
+        })
       }
     } catch (e) {
       // an error occured while restoring the session data
