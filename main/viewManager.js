@@ -80,10 +80,6 @@ ipc.on('destroyView', function (e, id) {
 ipc.on('setView', function (e, args) {
   setView(args.id)
   setBounds(args.id, args.bounds)
-  /* call setView twice as a workaround for https://github.com/electron/electron/issues/14038
-  This causes performance issues, so we should try to get rid of it eventually
-  */
-  setView(args.id)
   if (args.focus) {
     focusView(args.id)
   }

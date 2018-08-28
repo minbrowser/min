@@ -26,6 +26,16 @@ function lazyRemoteObject (getObject) {
   })
 }
 
+function forceUpdateDragRegions () {
+  // manually force the drag regions to update to work around https://github.com/electron/electron/issues/14038
+  var d = document.createElement('div')
+  d.setAttribute('style', '-webkit-app-region:drag; width: 1px; height: 1px;')
+  document.body.appendChild(d)
+  setTimeout(function () {
+    document.body.removeChild(d)
+  }, 100)
+}
+
 // the permissionRequestHandler used for webviews
 function pagePermissionRequestHandler (webContents, permission, callback) {
   if (permission === 'notifications' || permission === 'fullscreen') {
@@ -209,6 +219,8 @@ window.webviews = {
       bounds: getViewBounds(),
       focus: !options || options.focus !== false
     })
+
+    forceUpdateDragRegions()
   },
   update: function (id, url) {
     webviews.callAsync(id, 'loadURL', urlParser.parse(url))
@@ -260,6 +272,7 @@ window.webviews = {
           bounds: getViewBounds(),
           focus: true
         })
+        forceUpdateDragRegions()
       }
       // wait for the view to be visible before removing the placeholder
       setTimeout(function () {
