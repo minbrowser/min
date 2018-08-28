@@ -49,18 +49,24 @@ webviews.bindEvent('dom-ready', function (e) {
   if (!userScriptsEnabled) {
     return
   }
-  try {
-    var domain = new URL(this.getAttribute('src')).hostname
-    if (domain.startsWith('www.')) {
-      domain = domain.slice(4)
+  var tab = webviews.getTabFromContents(this)
+
+  webviews.callAsync(tab, 'getURL', null, src => {
+    try {
+      var domain = new URL(src).hostname
+      if (domain.startsWith('www.')) {
+        domain = domain.slice(4)
+      }
+      // global script
+      if (domainScriptMap.global) {
+        this.executeJavaScript(domainScriptMap.global, false, null)
+      }
+      // domain-specific scripts
+      if (domainScriptMap[domain]) {
+        this.executeJavaScript(domainScriptMap[domain], false, null)
+      }
+    } catch(e) {
+      console.warn(e)
     }
-    // global script
-    if (domainScriptMap.global) {
-      this.executeJavaScript(domainScriptMap.global, false, null)
-    }
-    // domain-specific scripts
-    if (domainScriptMap[domain]) {
-      this.executeJavaScript(domainScriptMap[domain], false, null)
-    }
-  } catch(e) {}
+  })
 })
