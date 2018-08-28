@@ -292,6 +292,7 @@ function checkPhishingStatus () {
 
     if (href.indexOf('javascript:') === 0) {
       javascriptLinksFound++
+      continue
     }
 
     aTest.href = links[i].href
