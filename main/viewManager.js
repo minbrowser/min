@@ -58,7 +58,10 @@ function focusView (id) {
 }
 
 function hideCurrentView () {
-  mainWindow.getBrowserView().setBounds({x: 0, y: 0, width: 0, height: 0})
+  var view = mainWindow.getBrowserView()
+  if (view) {
+    view.setBounds({x: 0, y: 0, width: 0, height: 0})
+  }
   mainWindow.webContents.focus()
 }
 
