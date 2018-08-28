@@ -5,63 +5,63 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "openInNewTab": "在新標籤頁打開",
-        "openInNewPrivateTab": "在新隱私標籤頁中打開",
+        "openInNewTab": "在新分頁中開啟",
+        "openInNewPrivateTab": "在新無痕頁面中開啟",
         "viewImage": "查看圖片",
-        "openImageInNewTab": "在新標籤頁中打開圖片",
-        "openImageInNewPrivateTab": "在新的隱私標籤頁中打開圖片",
-        "saveImageAs": "圖片另存為",
-        "searchWith": "在 %s 中搜索", //%s will be replaced with the name of the current search engine
-        "copyLink": "複製鏈接",
+        "openImageInNewTab": "在新分頁中開啟圖片",
+        "openImageInNewPrivateTab": "在新無痕頁面中開啟圖片",
+        "saveImageAs": "儲存圖片",
+        "searchWith": "以 %s 搜尋", //%s will be replaced with the name of the current search engine
+        "copyLink": "複製連結",
         "copy": "複製", //this is a verb (as in "copy the currently-selected text")
-        "paste": "黏貼",
-        "goBack": "后貼",
-        "goForward": "前進",
-        "inspectElement": "查看元素",
+        "paste": "貼上",
+        "goBack": "上一頁",
+        "goForward": "下一頁",
+        "inspectElement": "檢查元素",
         /* searchbar */
-        "DDGAnswerSubtitle": "搜索結果", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
-        "suggestedSite": "建議站點", //this is used to label suggested websites from the DuckDuckGo API,
-        "resultsFromDDG": "DuckDuckGo 返回結果", //this is used as a label to indicate which results come from DuckDuckGo's API
-        "taskN": "標籤組 %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "宿主機文件", //this is a label used to indicate that a result is coming from the user's host file
+        "DDGAnswerSubtitle": "搜尋結果", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+        "suggestedSite": "建議網站", //this is used to label suggested websites from the DuckDuckGo API,
+        "resultsFromDDG": "來自 DuckDuckGo 的結果", //this is used as a label to indicate which results come from DuckDuckGo's API
+        "taskN": "任務 %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "hostsFileEntry": "Host 文件", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "viewSettings": "查看設置界面",
-        "viewReadingList": "顯示閱讀列表",
-        "takeScreenshot": "截圖",
-        "clearHistory": "清除所有歷史記錄",
-        "switchToTask": "切換到標籤組列表",
-        "createTask": "新建標籤組",
-        "moveToTask": "以當前標籤頁創建一個新的標籤組",
-        "searchBookmarks": "搜索書籤內容",
-        "searchHistory": "搜索歷史",
+        "viewSettings": "查看設定",
+        "viewReadingList": "查看閱讀清單",
+        "takeScreenshot": "螢幕截圖",
+        "clearHistory": "清除所有歷史",
+        "switchToTask": "切換至任務",
+        "createTask": "新增任務",
+        "moveToTask": "移動至任務",
+        "searchBookmarks": "搜尋書籤",
+        "searchHistory": "搜尋歷史",
         /* navbar */
-        "openMenu": "打開菜單",
+        "openMenu": "打開選單",
         "enterReaderView": "進入閱讀模式",
         "exitReaderView": "退出閱讀模式",
-        "emptyReadingListTitle": "您的閱讀列表為空",
-        "emptyReadingListSubtitle": "您在閱讀模式下打開過的文章，將顯示在此處，并離線保存 30 天。",
-        "newTabLabel": "新標籤頁", //this is a noun, used for tabs that don't have a page loaded in them yet
-        "connectionNotSecure": "您與此站點建立的連接並不安全。",
-        "searchbarPlaceholder": "輸入搜索內容或網站地址",
-        "privateTab": "隱私標籤頁",
-        "newTabAction": "新建標籤頁", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        "emptyReadingListTitle": "您的閱讀列表是空的",
+        "emptyReadingListSubtitle": "您的閱讀清單會顯示於此，並保留30天",
+        "newTabLabel": "新分頁", //this is a noun, used for tabs that don't have a page loaded in them yet
+        "connectionNotSecure": "此網頁不安全",
+        "searchbarPlaceholder": "搜尋或輸入網址",
+        "privateTab": "無痕分頁",
+        "newTabAction": "新增分頁", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
-        "viewTasks": "查看標籤組",
-        "newTask": "新建標籤組", //"new" is a verb - it is used for a button at the bottom of the task overlay
-        "defaultTaskName": "標籤組 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        "viewTasks": "查看任務",
+        "newTask": "新增任務", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": "任務 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
         /* find in page toolbar */
-        "searchInPage": "搜索當前頁", //this is used as the placeholder text for the textbox in the find in page toolbar
-        "findMatchesSingular": "%i/%t", //this and the next label are used to indicate which match is currently highlighted
-        "findMatchesPlural": "%i/%t",
+        "searchInPage": "在頁面中尋找", //this is used as the placeholder text for the textbox in the find in page toolbar
+        "findMatchesSingular": "%i / %t", //this and the next label are used to indicate which match is currently highlighted
+        "findMatchesPlural": "%i / %t",
         /* Focus mode */
-        "isFocusMode": "當前處於焦點模式",
+        "isFocusMode": "已進入專心模式",
         "closeDialog": "確定", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "在焦點模式中，隱藏除當前標籤頁外的其他所有標籤頁，且不能新建標籤頁。",
-        "focusModeExplanation2": "您可以通過菜單\"視圖->焦點模式\"退出焦點模式。",
+        "focusModeExplanation1": "在專心模式，只會顯示正在瀏覽的分頁，且不能新增分頁。",
+        "focusModeExplanation2": "您可以取消勾選 \"選單 > 檢視 > 專心模式\" 退出專心模式。",
         /* relative dates */
-        "timeRangeJustNow": "幾秒前", 
+        "timeRangeJustNow": "剛剛", 
         "timeRangeMinutes": "幾分鐘前",
         "timeRangeHour": "幾小時前",
         "timeRangeDay": "幾天前",
@@ -70,44 +70,44 @@
         "timeRangeYear": "幾年前",
         "timeRangeLongerAgo": "很久以前",
         /* pages/crash/index.html */
-        "crashErrorTitle": "發生故障。",
-        "crashErrorSubtitle": "渲染頁面時，發生錯誤。",
+        "crashErrorTitle": "出了一些問題",
+        "crashErrorSubtitle": "顯示此頁面時發生了一些問題",
         /* pages/error/index.html */
         "errorPagePrimaryAction": "重試",
-        "serverNotFoundTitle": "未找到服務器",
-        "serverNotFoundSubtitle": "Min 無法找到當前地址的服務器。",
-        "archiveSearchAction": "從 archive.org 搜索內容",
-        "sslErrorTitle": "當前站點是無效的",
-        "sslErrorMessage": "Min 不能與當前站點建立安全連接。",
-        "dnsErrorTitle": "站點未找到",
-        "dnsErrorMessage": "發生 DNS 錯誤。",
-        "offlineErrorTitle": "您處於離線狀態",
-        "offlineErrorMessage": "重新連接網絡并重試。",
-        "genericConnectionFail": "Min 無法連接到站台。",
-        "sslTimeErrorMessage": "Min 無法安全地連接到當前站點。請確保您的電腦時鐘是否正確。",
-        "addressInvalidTitle": "無效地址。",
-        "genericError": "發生錯誤",
+        "serverNotFoundTitle": "找不到伺服器",
+        "serverNotFoundSubtitle": "Min 找不到這個網站",
+        "archiveSearchAction": "在 archive.org 上搜尋",
+        "sslErrorTitle": "這個網站不存在",
+        "sslErrorMessage": "Min 無法與此網站建立安全連線",
+        "dnsErrorTitle": "找不到這個網站",
+        "dnsErrorMessage": "發生 DNS 錯誤",
+        "offlineErrorTitle": "沒有網際網路連線",
+        "offlineErrorMessage": "重新連線至網路再試一次",
+        "genericConnectionFail": "Min 無法連線至這個網站",
+        "sslTimeErrorMessage": "Min 無法安全地連線到此網站，請確認時間是否設定正確",
+        "addressInvalidTitle": "網址錯誤",
+        "genericError": "發生了一些問題",
         /* pages/phishing/index.html */
-        "phishingErrorTitle": "這是一個危險網站。",
-        "phishingErrorMessage": "這個站點可能會截取您的個人信息，如密碼或銀行信息。",
-        "phishingErrorVisitAnyway": "繼續訪問",
+        "phishingErrorTitle": "這個網站可能有危險",
+        "phishingErrorMessage": "這個網站可能會駭取你的個人資料，像是密碼和銀行資訊",
+        "phishingErrorVisitAnyway": "還是繼續",
         "phishingErrorLeave": "離開",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": "發生錯誤。 請關閉其他視窗并重啟 Min 瀏覽器。", 
+        "multipleInstancesErrorMessage": "發生了一些問題，請關閉其他分頁然後重新啟動 Min", 
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "發生錯誤",
-        "sessionRestoreErrorExplanation": "您保存的標籤頁未能正確恢復。",
-        "sessionRestoreErrorBackupInfo": "我們將您的數據備份保存在：%l.", //%l will be replaced with a path to a file
+        "sessionRestoreErrorExplanation": "上次瀏覽的分頁無法回復",
+        "sessionRestoreErrorBackupInfo": "我們將您的資料備份儲存在：%l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
-            "unsafeHTML": "如果持續發生此錯誤，請在<a href=\"https://github.com/minbrowser/min\" target=\"_blank\">此處</a>報告錯誤信息。"
+            "unsafeHTML": "如果持續發生此錯誤，請至<a href=\"https://github.com/minbrowser/min\" target=\"_blank\">此頁面</a>報告錯誤"
         },
         /* pages/settings/index.html */
-        "settingsPreferencesHeading": "設置",
-        "settingsRestartRequired": "您需要重啟以應用這些修改",
-        "settingsPrivacyHeading": "隱私設置",
-        "settingsContentBlockingToggle": "禁用跟蹤與廣告",
-        "settingsBlockScriptsToggle": "阻止腳本運行",
-        "settingsBlockImagesToggle": "阻止加載圖片",
+        "settingsPreferencesHeading": "設定",
+        "settingsRestartRequired": "重新啟動以套用變更",
+        "settingsPrivacyHeading": "隱私設定",
+        "settingsContentBlockingToggle": "封鎖跟蹤與廣告",
+        "settingsBlockScriptsToggle": "封鎖 javascript 腳本運行",
+        "settingsBlockImagesToggle": "封鎖圖片",
         "settingsEasyListCredit": {
             "unsafeHTML": "基於 EasyList 和 EasyPrivacy. <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>."
         },
@@ -115,59 +115,59 @@
         "settingsDarkModeToggle": "啟用夜間模式",
         "settingsHistoryButtonToggle": "啟用返回鍵",
         "settingsAdditionalFeaturesHeading": "其他功能",
-        "settingsSwipeNavigationToggle": "允許通過手勢在頁面上進行前進和後退的操作。",
+        "settingsSwipeNavigationToggle": "允許通過手勢在頁面上進行上一頁和下一頁的操作",
         "settingsUserscriptsToggle": "允許使用者指令",
         "settingsUserscriptsExplanation": {"unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."},
         "settingsSearchEngineHeading": "搜索引擎",
-        "settingsDefaultSearchEngine": "選擇默認的搜索引擎：",
-        "settingsDDGExplanation": "將 DuckDuckGo 設為默認的搜索引擎可以直接在搜索欄查看搜索結果。",
-        "customSearchEngineDescription": null, //missing translation
-        "settingsKeyboardShortcutsHeading": "快捷鍵",
-        "settingsKeyboardShortcutsHelp": "使用逗號以分割多個指令",
+        "settingsDefaultSearchEngine": "選擇預設的搜索引擎：",
+        "settingsDDGExplanation": "將 DuckDuckGo 設為預設的搜索引擎可以直接在網址欄查看搜尋結果",
+        "customSearchEngineDescription": "將搜尋字串以 %s 取代", //missing translation
+        "settingsKeyboardShortcutsHeading": "快速鍵",
+        "settingsKeyboardShortcutsHelp": "以逗號分割多個快速鍵",
         /* app menu */
-        "appMenuFile": "文件",
-        "appMenuNewTab": "新標籤頁",
-        "appMenuNewPrivateTab": "新的隐私标签页",
-        "appMenuNewTask": "新標籤組",
-        "appMenuSavePageAs": "頁面另存為",
-        "appMenuPrint": "打印",
+        "appMenuFile": "檔案",
+        "appMenuNewTab": "新分頁",
+        "appMenuNewPrivateTab": "新無痕分頁",
+        "appMenuNewTask": "新任務",
+        "appMenuSavePageAs": "另存網頁",
+        "appMenuPrint": "列印",
         "appMenuEdit": "編輯",
         "appMenuUndo": "復原",
         "appMenuRedo": "重做",
-        "appMenuCut": "剪切",
+        "appMenuCut": "剪下",
         "appMenuCopy": "複製",
-        "appMenuPaste": "黏貼",
+        "appMenuPaste": "貼上",
         "appMenuSelectAll": "全選",
-        "appMenuFind": "查找",
-        "appMenuView": "查看",
+        "appMenuFind": "尋找",
+        "appMenuView": "檢視",
         "appMenuZoomIn": "放大",
         "appMenuZoomOut": "縮小",
-        "appMenuActualSize": "實際大小",
-        "appMenuFullScreen": "全屏", //on some platforms, this string is replaced with one built-in to the OS
-        "appMenuFocusMode": "焦點模式",
-        "appMenuReadingList": "閱讀列表",
+        "appMenuActualSize": "原始大小",
+        "appMenuFullScreen": "全螢幕", //on some platforms, this string is replaced with one built-in to the OS
+        "appMenuFocusMode": "專心模式",
+        "appMenuReadingList": "閱讀清單",
         "appMenuBookmarks": "書籤",
         "appMenuHistory": "歷史",
-        "appMenuDeveloper": "開發",
-        "appMenuReloadBrowser": "重新加載瀏覽器",
+        "appMenuDeveloper": "偵錯",
+        "appMenuReloadBrowser": "重新載入瀏覽器",
         "appMenuInspectBrowser": "切換開發人員工具",
-        "appMenuInspectPage": "查看頁面元素",
-        "appMenuWindow": "窗口",
+        "appMenuInspectPage": "檢查網頁元素",
+        "appMenuWindow": "視窗",
         "appMenuMinimize": "最小化",
         "appMenuClose": "關閉",
         "appMenuHelp": "幫助",
-        "appMenuKeyboardShortcuts": "快捷鍵",
-        "appMenuReportBug": "報告 Bug",
-        "appMenuTakeTour": "使用手冊",
-        "appMenuViewGithub": "GitHub",
+        "appMenuKeyboardShortcuts": "快速鍵",
+        "appMenuReportBug": "提交 Bug",
+        "appMenuTakeTour": "導覽",
+        "appMenuViewGithub": "在 GitHub 上查看",
         "appMenuAbout": "關於 %n", //%n is replaced with app name
-        "appMenuPreferences": "設置",
+        "appMenuPreferences": "設定",
         "appMenuServices": "服務",
         "appMenuHide": "隱藏 %n",
         "appMenuHideOthers": "隱藏其他",
         "appMenuShowAll": "顯示全部",
-        "appMenuQuit": "退出 %n",
-        "appMenuBringToFront": "前置所有窗口",
+        "appMenuQuit": "結束 %n",
+        "appMenuBringToFront": "顯示所有窗口",
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "<input type='text'/> / <span id='total'></span> 頁"}
     }
