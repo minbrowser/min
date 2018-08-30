@@ -433,3 +433,11 @@ ipc.on('captureData', function (e, data) {
     placeholderImg.hidden = false
   }
 })
+
+/* focus the view when the window is focused */
+
+window.addEventListener('focus', function () {
+  if (document.activeElement === document.body) {
+    webviews.focus(webviews.selectedId)
+  }
+})
