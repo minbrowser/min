@@ -1,6 +1,6 @@
 var viewMap = {} // id: view
 
-function createView (id, webPreferencesString, boundsString, events) {
+function createView (id, webPreferencesString, events) {
   let view = new electron.BrowserView(JSON.parse(webPreferencesString))
 
   events.forEach(function (ev) {
@@ -23,8 +23,6 @@ function createView (id, webPreferencesString, boundsString, events) {
       data: data[1]
     })
   })
-
-  view.setBounds(JSON.parse(boundsString))
 
   view.setBackgroundColor('#fff')
 
@@ -72,7 +70,7 @@ function getView (id) {
 }
 
 ipc.on('createView', function (e, args) {
-  createView(args.id, args.webPreferencesString, args.boundsString, args.events)
+  createView(args.id, args.webPreferencesString, args.events)
 })
 
 ipc.on('destroyView', function (e, id) {
