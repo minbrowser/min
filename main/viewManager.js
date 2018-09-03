@@ -26,6 +26,8 @@ function createView (id, webPreferencesString, boundsString, events) {
 
   view.setBounds(JSON.parse(boundsString))
 
+  view.setBackgroundColor('#fff')
+
   viewMap[id] = view
 
   return view
