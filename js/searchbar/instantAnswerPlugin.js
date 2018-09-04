@@ -114,7 +114,7 @@ searchbarPlugins.register('instantAnswers', {
   trigger: function (text) {
     return text.length > 3 && !urlParser.isURLMissingProtocol(text) && !tabs.get(tabs.getSelected()).private
   },
-  showResults: debounce(showSearchbarInstantAnswers, 400)
+  showResults: debounce(showSearchbarInstantAnswers, 300)
 })
 
 // custom instant answers

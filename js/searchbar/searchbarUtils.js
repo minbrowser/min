@@ -45,6 +45,10 @@ function createItem (data) {
     var title = document.createElement('span')
     title.classList.add('title')
 
+    if (!data.secondaryText) {
+      title.classList.add('wide')
+    }
+
     title.textContent = data.title
 
     item.appendChild(title)

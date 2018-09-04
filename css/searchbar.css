@@ -61,9 +61,8 @@ body.mac:not(.fullscreen) #searchbar {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-.searchbar-item .title.title-block {
-	display: block;
-	max-width: 100%;
+.searchbar-item .title.wide {
+	max-width: 70%;
 }
 .searchbar-item i,
 .searchbar-item .icon-image {
