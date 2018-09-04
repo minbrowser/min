@@ -1,0 +1,174 @@
+{
+    "name": "Lietuvių",
+    "identifier": "lt",
+    "translations": {
+        /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+        "openInNewTab": "Atverti naujoje kortelėje",
+        "openInNewPrivateTab": "Atverti naujoje privačioje kortelėje",
+        "viewImage": "Rodyti paveikslą",
+        "openImageInNewTab": "Atverti paveikslą naujoje kortelėje",
+        "openImageInNewPrivateTab": "Atverti paveikslą naujoje privačioje kortelėje",
+        "saveImageAs": "Įrašyti paveikslą kaip",
+        "searchWith": "Ieškoti naudojant %s", //%s will be replaced with the name of the current search engine
+        "copyLink": "Kopijuoti nuorodą",
+        "copy": "Kopijuoti", //this is a verb (as in "copy the currently-selected text")
+        "paste": "Įdėti",
+        "goBack": "Grįžti",
+        "goForward": "Pirmyn",
+        "inspectElement": "Ištirti elementą",
+        /* searchbar */
+        "DDGAnswerSubtitle": "Atsakymas", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+        "suggestedSite": "Siūloma svetainė", //this is used to label suggested websites from the DuckDuckGo API,
+        "resultsFromDDG": "Rezultatai iš DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+        "taskN": "Užduotis %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "hostsFileEntry": "Serverių failo įrašas", //this is a label used to indicate that a result is coming from the user's host file
+        /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+        "viewSettings": "Rodyti nustatymus",
+        "viewReadingList": "Rodyti skaitymo sąrašą",
+        "takeScreenshot": "Padaryti ekrano kopiją",
+        "clearHistory": "Išvalyti visą istoriją",
+        "switchToTask": "Perjungti į užduotį",
+        "createTask": "Sukurti užduotį",
+        "moveToTask": "Perkelti šią kortelę į užduotį",
+        "searchBookmarks": "Ieškoti adresyno įrašų",
+        "searchHistory": "Ieškoti istorijos",
+        /* navbar */
+        "openMenu": "Atverti meniu", //application menu button on windows
+        "enterReaderView": "Įeiti į skaitymo rodinį",
+        "exitReaderView": "Išeiti iš skaitymo rodinio",
+        "emptyReadingListTitle": "Jūsų skaitymo sąrašas tuščias",
+        "emptyReadingListSubtitle": "Čia yra išvardijami skaitymo rodinyje atverti straipsniai, kurie saugomi autonominiam naudojimui 30 dienų.",
+        "newTabLabel": "Nauja kortelė", //this is a noun, used for tabs that don't have a page loaded in them yet
+        "connectionNotSecure": "Jūsų ryšys su šia svetaine nėra saugus.",
+        "searchbarPlaceholder": "Atlikite paiešką arba įveskite adresą",
+        "privateTab": "Privatii kortelė",
+        "newTabAction": "Nauja kortelė", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        /* task overlay */
+        "viewTasks": "Rodyti užduotis",
+        "newTask": "Nauja užduotis", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": "Užduotis %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        /* find in page toolbar */
+        "searchInPage": "Ieškoti puslapyje", //this is used as the placeholder text for the textbox in the find in page toolbar
+        "findMatchesSingular": "%i iš %t atitikmens", //this and the next label are used to indicate which match is currently highlighted
+        "findMatchesPlural": "%i iš %t atitikmenų",
+        /* Focus mode */
+        "isFocusMode": "Jūs esate susitelkimo veiksenoje.",
+        "closeDialog": "Gerai", //used as a label for the button that closes the dialog
+        "focusModeExplanation1": "Susitelkimo veiksenoje, visos kortelės išskyrus esamą yra paslepiamos ir jūs negalite sukurti naujų kortelių.",
+        "focusModeExplanation2": "Galite išeiti iš susitelkimo veiksenos rodinio meniu nuimdami žymėjimą nuo \"Susitelkimo veiksena\".",
+        /* relative dates */
+        "timeRangeJustNow": "Ką tik",
+        "timeRangeMinutes": "Prieš kelias minutes",
+        "timeRangeHour": "Per pastarąją valandą",
+        "timeRangeDay": "Per pastarąją dieną",
+        "timeRangeWeek": "Per pastarąją savaitę",
+        "timeRangeMonth": "Per pastarąjį mėnesį",
+        "timeRangeYear": "Per pastaruosius metus",
+        "timeRangeLongerAgo": "Dar seniau",
+        /* pages/crash/index.html */
+        "crashErrorTitle": "Kažkas nutiko.",
+        "crashErrorSubtitle": "Atsirado problemų, atvaizduojant šį puslapį.",
+        /* pages/error/index.html */
+        "errorPagePrimaryAction": "Bandyti dar kartą",
+        "serverNotFoundTitle": "Serveris nerastas",
+        "serverNotFoundSubtitle": "Min nepavyko rasti šios internetinės svetainės.",
+        "archiveSearchAction": "Ieškoti ties archive.org",
+        "sslErrorTitle": "Ši internetinė svetainė yra neprieinama",
+        "sslErrorMessage": "Min nepavyko saugiai prisijungti prie šios internetinės svetainės.",
+        "dnsErrorTitle": "Internetinė svetainė nerasta",
+        "dnsErrorMessage": "Įvyko DNS klaida.",
+        "offlineErrorTitle": "Jūs esate atsijungę",
+        "offlineErrorMessage": "Iš naujo prisijunkite prie interneto ir bandykite dar kartą.",
+        "genericConnectionFail": "Min nepavyko prisijungti prie internetinės svetainės.",
+        "sslTimeErrorMessage": "Min nepavyko saugiai prisijungti prie šios internetinės svetainės. Įsitikinkite, kad jūsų kompiuterio laikrodis yra nustatytas teisingai.",
+        "addressInvalidTitle": "Šis adresas yra neteisingas.",
+        "genericError": "Įvyko klaida",
+        /* pages/phishing/index.html */
+        "phishingErrorTitle": "Ši svetainė gali jums pakenkti.",
+        "phishingErrorMessage": "Gali būti, kad ši svetainė bando pavogti jūsų asmeninę informaciją, tokią kaip slaptažodžiai ar banko informacija.",
+        "phishingErrorVisitAnyway": "Vis tiek apsilankyti svetainėje",
+        "phishingErrorLeave": "Išeiti iš šios svetainės",
+        /* multiple instances alert */
+        "multipleInstancesErrorMessage": "Įvyko klaida. Užverkite bet kokius kitus atvertus egzempliorius ir paleiskite Min iš naujo.",
+        /* pages/sessionRestoreError/index.html */
+        "sessionRestoreErrorTitle": "Įvyko klaida",
+        "sessionRestoreErrorExplanation": "Nepavyko teisingai atkurti jūsų įrašytų kortelių.",
+        "sessionRestoreErrorBackupInfo": "Įrašėme atsarginę jūsų duomenų kopiją šioje vietoje: %l.", //%l will be replaced with a path to a file
+        "sessionRestoreErrorLinkInfo": {
+            "unsafeHTML": "Jei ši klaida atsiranda ir toliau, tuomet praneškite apie problemą <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">čia</a>."
+        },
+        /* pages/settings/index.html */
+        "settingsPreferencesHeading": "Nuostatos",
+        "settingsRestartRequired": "Norėdami taikyti šiuos pakeitimus, turite paleisti programą iš naujo.",
+        "settingsPrivacyHeading": "Turinio blokavimas",
+        "settingsContentBlockingToggle": "Blokuoti seklius ir reklamas",
+        "settingsBlockScriptsToggle": "Blokuoti scenarijus",
+        "settingsBlockImagesToggle": "Blokuoti paveikslus",
+        "settingsEasyListCredit": {
+            "unsafeHTML": "Remiantis EasyList ir EasyPrivacy, be elementų slėpimo taisyklių. Sukurta <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList autorių</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">rodyti licenciją</a>."
+        },
+        "settingsAppearanceHeading": "Išvaizda",
+        "settingsDarkModeToggle": "Įjungti tamsią veikseną",
+        "settingsHistoryButtonToggle": "Įjungti grįžties mygtuką",
+        "settingsAdditionalFeaturesHeading": "Papildomos ypatybės",
+        "settingsSwipeNavigationToggle": "Įjungti perbraukimus, skirtus naršyti tarp puslapių pirmyn ir atgal.",
+        "settingsUserscriptsToggle": "Įjungti naudotojo scenarijus",
+        "settingsUserscriptsExplanation": {"unsafeHTML": "Naudotojo scenarijai leidžia jums modifikuoti internetinių svetainių elgseną - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">sužinokite daugiau</a>."},
+        "settingsSearchEngineHeading": "Paieškos sistema",
+        "settingsDefaultSearchEngine": "Pasirinkite numatytąją paieškos sistemą:",
+        "settingsDDGExplanation": "Nustatykite DuckDuckGo kaip numatytąją paieškos sistemą, norėdami paieškos juostoje matyti greitus atsakymus.",
+        "customSearchEngineDescription": "Pakeiskite paieškos žodį į %s",
+        "settingsKeyboardShortcutsHeading": "Spartieji klavišai",
+        "settingsKeyboardShortcutsHelp": "Naudokite kablelius, norėdami atskirti kelis sparčiuosius klavišus.",
+        /* app menu */
+        "appMenuFile": "Failas",
+        "appMenuNewTab": "Nauja kortelė",
+        "appMenuNewPrivateTab": "Nauja privati kortelė",
+        "appMenuNewTask": "Nauja užduotis",
+        "appMenuSavePageAs": "Įrašyti puslapį kaip",
+        "appMenuPrint": "Spausdinti",
+        "appMenuEdit": "Taisa",
+        "appMenuUndo": "Atšaukti",
+        "appMenuRedo": "Grąžinti",
+        "appMenuCut": "Iškirpti",
+        "appMenuCopy": "Kopijuoti",
+        "appMenuPaste": "Įdėti",
+        "appMenuSelectAll": "Žymėti viską",
+        "appMenuFind": "Rasti",
+        "appMenuView": "Rodinys",
+        "appMenuZoomIn": "Didinti",
+        "appMenuZoomOut": "Mažinti",
+        "appMenuActualSize": "Faktinis dydis",
+        "appMenuFullScreen": "Visas ekranas", //on some platforms, this string is replaced with one built-in to the OS
+        "appMenuFocusMode": "Susitelkimo veiksena",
+        "appMenuReadingList": "Skaitymo sąrašas",
+        "appMenuBookmarks": "Adresynas",
+        "appMenuHistory": "Istorija",
+        "appMenuDeveloper": "Kūrėjas",
+        "appMenuReloadBrowser": "Įkelti naršyklę iš naujo",
+        "appMenuInspectBrowser": "Ištirti naršyklę",
+        "appMenuInspectPage": "Ištirti puslapį",
+        "appMenuWindow": "Langas",
+        "appMenuMinimize": "Suskleisti",
+        "appMenuClose": "Užverti",
+        "appMenuHelp": "Žinynas",
+        "appMenuKeyboardShortcuts": "Spartieji klavišai",
+        "appMenuReportBug": "Pranešti apie klaidą",
+        "appMenuTakeTour": "Susipažinti su programa",
+        "appMenuViewGithub": "Rodyti GitHub svetainėje",
+        "appMenuAbout": "Apie %n", //%n is replaced with app name
+        "appMenuPreferences": "Nuostatos",
+        "appMenuServices": "Tarnybos",
+        "appMenuHide": "Slėpti %n",
+        "appMenuHideOthers": "Slėpti kitus",
+        "appMenuShowAll": "Rodyti visus",
+        "appMenuQuit": "Išeiti iš %n",
+        "appMenuBringToFront": "Perkelti visus į priekį",
+        /* PDF Viewer */
+        "PDFPageCounter": {"unsafeHTML": "puslapis <input type='text'/> iš <span id='total'></span>"}
+    }
+}
