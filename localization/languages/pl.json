@@ -35,9 +35,9 @@
         "createTask": "Utwórz zadanie",
         "moveToTask": "Przenieś tę kartę do zadania",
         "searchBookmarks": "Zakładki wyszukiwania",
-        "searchHistory": null, //missing translation
+        "searchHistory": "Historia wyszukiwania",
         /* navbar */
-        "openMenu": null, //missing translation
+        "openMenu": "Otwórz menu", //application menu button on windows
         "enterReaderView": "Otwórz widok czytnika",
         "exitReaderView": "Zamknij widok czytnika",
         "emptyReadingListTitle": "Twoja lista czytelnicza jest pusta",
@@ -60,15 +60,15 @@
         "closeDialog": "OK", //used as a label for the button that closes the dialog
         "focusModeExplanation1": "W trybie ustawiania ostrości wszystkie karty oprócz bieżącego są ukryte i nie można tworzyć nowych kart.",
         "focusModeExplanation2": "Możesz wyłączyć tryb ostrości, odznaczając \"tryb ostrości\" w menu widoku.",
-         /* relative dates */
-         "timeRangeJustNow": null, //missing translation
-         "timeRangeMinutes": null, //missing translation
-         "timeRangeHour": null, //missing translation
-         "timeRangeDay": null, //missing translation
-         "timeRangeWeek": null, //missing translation
-         "timeRangeMonth": null, //missing translation
-         "timeRangeYear": null, //missing translation
-         "timeRangeLongerAgo": null, //missing translation
+        /* relative dates */
+        "timeRangeJustNow": "Przed chwilą",
+        "timeRangeMinutes": "Kilka minut temu",
+        "timeRangeHour": "W ciągu ostatniej godziny",
+        "timeRangeDay": "W poprzednim dniu",
+        "timeRangeWeek": "W poprzednim tygodniu",
+        "timeRangeMonth": "W poprzednim miesiącu",
+        "timeRangeYear": "W poprzednim roku",
+        "timeRangeLongerAgo": "Wcześniej",
         /* pages/crash/index.html */
         "crashErrorTitle": "Coś poszło nie tak.",
         "crashErrorSubtitle": "Wystąpił problem podczas wyświetlania tej strony.",
@@ -93,13 +93,13 @@
         "phishingErrorVisitAnyway": "Odwiedź stronę mimo to",
         "phishingErrorLeave": "Opuść tę stronę",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": null, // missing translation
+        "multipleInstancesErrorMessage": "Wystąpił błąd. Zamknij wszystkie inne otwarte wystąpienia i uruchom ponownie Min.",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Wystąpił błąd",
         "sessionRestoreErrorExplanation": "Nie można przywrócić poprawnie zapisanych kart.",
         "sessionRestoreErrorBackupInfo": "W tej lokalizacji zapisaliśmy kopię zapasową danych: %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
-            "unsafeHTML": "Jeśli błąd nadal występuje, otwórz nowy problem <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">here</a>."
+          "unsafeHTML": "Jeśli błąd nadal występuje, otwórz nowy problem <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">tutaj</a>."
         },
         /* pages/settings/index.html */
         "settingsPreferencesHeading": "Preferencje",
@@ -114,14 +114,14 @@
         "settingsAppearanceHeading": "Wygląd",
         "settingsDarkModeToggle": "Włącz tryb ciemny",
         "settingsHistoryButtonToggle": "Włącz przycisk Wstecz",
-        "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsSwipeNavigationToggle": "Włącz przewijanie, aby nawigować między stronami.",
-        "settingsUserscriptsToggle": null, //missing translation
-        "settingsUserscriptsExplanation": null, //missing translation
+        "settingsAdditionalFeaturesHeading": "Dodatkowe funkcje",
+        "settingsUserscriptsToggle": "Włącz skrypty użytkownika",
+        "settingsUserscriptsExplanation": {"unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
         "settingsSearchEngineHeading": "Wyszukiwarka",
         "settingsDefaultSearchEngine": "Wybierz domyślną wyszukiwarkę:",
         "settingsDDGExplanation": "Ustaw DuckDuckGo jako domyślną wyszukiwarkę, aby zobaczyć błyskawiczne odpowiedzi na pasku wyszukiwania.",
-        "customSearchEngineDescription": null, //missing translation
+        "customSearchEngineDescription": "Zamień wyszukiwane hasło na %s",
         "settingsKeyboardShortcutsHeading": "Skróty klawiszowe",
         "settingsKeyboardShortcutsHelp": "Użyj przecinków, aby oddzielić wiele skrótów.",
         /* app menu */
@@ -146,8 +146,8 @@
         "appMenuFullScreen": "Pełen ekran", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Tryb ostrości",
         "appMenuReadingList": "Lista czytelnia",
-        "appMenuBookmarks": null, //missing translation
-        "appMenuHistory": null, //missing translation
+        "appMenuBookmarks": "Zakładki",
+        "appMenuHistory": "Historia",
         "appMenuDeveloper": "Programista",
         "appMenuReloadBrowser": "Załaduj ponownie",
         "appMenuInspectBrowser": "Zbadaj przegldarkę",
