@@ -182,6 +182,7 @@ window.webviews = {
           partition: partition
         }
       }),
+      boundsString: JSON.stringify(getViewBounds()),
       events: webviews.events
     })
 
