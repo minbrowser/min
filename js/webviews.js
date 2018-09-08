@@ -76,6 +76,10 @@ function captureCurrentTab (options) {
 }
 
 function updateBackButton () {
+  if(!tabs.get(tabs.getSelected()).url) {
+    goBackButton.disabled = true;
+    return;
+  }
   webviews.callAsync(tabs.getSelected(), 'canGoBack', null, function (canGoBack) {
     goBackButton.disabled = !canGoBack
   })
@@ -194,7 +198,9 @@ window.webviews = {
       return getView(tabId).webContents
     })
 
-    webviews.callAsync(tabData.id, 'loadURL', tabData.url)
+    if (tabData.url) {
+      webviews.callAsync(tabData.id, 'loadURL', tabData.url)
+    }
 
     webviews.tabViewMap[tabId] = view
     webviews.tabContentsMap[tabId] = contents
