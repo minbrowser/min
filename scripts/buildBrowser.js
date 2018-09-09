@@ -36,7 +36,6 @@ const legacyModules = [
   'js/navbar/tabColor.js',
   'js/navbar/tabBar.js',
   'js/taskOverlay/taskOverlay.js',
-  'js/taskOverlay/taskOverlayBuilder.js',
   'js/navbar/addTabButton.js',
   'js/navbar/goBackButton.js',
   'js/navbar/menuButton.js',

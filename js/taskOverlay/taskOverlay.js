@@ -1,6 +1,8 @@
 var browserUI = require('api-wrapper.js')
 var focusMode = require('focusMode.js')
 
+const createTaskContainer = require("taskOverlay/taskOverlayBuilder.js")
+
 var taskContainer = document.getElementById('task-area')
 var taskSwitcherButton = document.getElementById('switch-task-button')
 var addTaskButton = document.getElementById('add-task')
@@ -68,7 +70,7 @@ window.taskOverlay = {
 
     // show the task elements
     tasks.get().forEach(function (task, index) {
-      var el = window.task_container_build_func(task, index)
+      const el = createTaskContainer(task, index)
 
       taskContainer.appendChild(el)
       taskOverlay.tabDragula.containers.push(el.getElementsByClassName('task-tabs-container')[0])
