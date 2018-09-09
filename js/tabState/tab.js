@@ -27,12 +27,8 @@ var tabPrototype = {
     if (!this.has(id)) {
       throw new ReferenceError('Attempted to update a tab that does not exist.')
     }
-    var index = -1
-    for (var i = 0; i < this.length; i++) {
-      if (this[i].id === id) {
-        index = i
-      }
-    }
+    const index = this.getIndex(id)
+    
     for (var key in data) {
       if (data[key] === undefined) {
         throw new ReferenceError('Key ' + key + ' is undefined.')
@@ -41,14 +37,13 @@ var tabPrototype = {
     }
   },
   destroy: function (id) {
-    for (var i = 0; i < this.length; i++) {
-      if (this[i].id === id) {
-        tasks.getTaskContainingTab(id).tabHistory.push(this[i])
-        this.splice(i, 1)
-        return i
-      }
-    }
-    return false
+    const index = this.getIndex(id)
+    if(index < 0) return false
+
+    tasks.getTaskContainingTab(id).tabHistory.push(this[index])
+    this.splice(index, 1)
+
+    return index
   },
   destroyAll: function () {
     // this = [] doesn't work, so set the length of the array to 0 to remove all of the itemss
