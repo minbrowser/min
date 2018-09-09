@@ -4,6 +4,12 @@ var HOSTS_FILE = process.platform === 'win32'
   ? 'C:/Windows/System32/drivers/etc/hosts'
   : '/etc/hosts'
 
+function truncatedHostsFileLines(data, limit) {
+  if (data.length <= limit) return data.split('\n')
+
+  return data.substring(0, limit).split('\n').slice(0, -1)
+}
+
 fs.readFile(HOSTS_FILE, 'utf8', function (err, data) {
   if (err) {
     console.warn('error retrieving hosts file', err)
@@ -12,22 +18,9 @@ fs.readFile(HOSTS_FILE, 'utf8', function (err, data) {
 
   var hostsMap = {} // this is used to deduplicate the list
 
-  // truncate data to 1MB
-  var truncationLimit = Math.pow(1024, 2)
-  var isTruncated = false
+  const lines = truncatedHostsFileLines(data, Math.pow(1024, 2))
 
-  if (data.length > truncationLimit) {
-    data = data.substring(0, truncationLimit)
-    isTruncated = true
-  }
-
-  data = data.split('\n')
-
-  if (isTruncated) { // if the data is truncated the last line won't be complete
-    data = data.slice(0, -1)
-  }
-
-  data.forEach(function (line) {
+  lines.forEach(function (line) {
     if (line.startsWith('#')) {
       return
     }
