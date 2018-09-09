@@ -18,7 +18,6 @@ const legacyModules = [
   'js/util/settings.js',
   'js/util/searchEngine.js',
   'js/tabState.js',
-  'js/util/urlParser.js',
   'js/filteringRenderer.js',
   'js/webviews.js',
   'js/phishingWarning.js',
