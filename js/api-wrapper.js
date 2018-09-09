@@ -32,15 +32,12 @@ function addTask () {
 
 /* creates a new tab */
 
-function addTab (tabId, options) {
-  /*
-  options
-    options.enterEditMode - whether to enter editing mode when the tab is created. Defaults to true.
-    options.openInBackground - whether to open the tab without switching to it. Defaults to false.
-  */
-  options = options || {}
-
-  tabId = tabId || tabs.add()
+/*
+options
+  options.enterEditMode - whether to enter editing mode when the tab is created. Defaults to true.
+  options.openInBackground - whether to open the tab without switching to it. Defaults to false.
+*/
+function addTab (tabId = tabs.add(), options = {}) {
 
   tabBar.addTab(tabId)
   webviews.add(tabId)
