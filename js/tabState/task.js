@@ -1,6 +1,7 @@
-var tabPrototype = require("tabState/tab.js")
+const tabPrototype = require("tabState/tab.js")
+const TabStack = require("tabRestore.js")
 
-var taskPrototype = {
+const taskPrototype = {
   add: function (task, index) {
     if (!task) {
       task = {}

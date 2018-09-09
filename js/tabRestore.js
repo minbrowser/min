@@ -26,3 +26,5 @@ TabStack.prototype.push = function (closedTab) {
 TabStack.prototype.pop = function () {
   return this.stack.pop()
 }
+
+module.exports = TabStack

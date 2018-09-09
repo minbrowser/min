@@ -45,7 +45,6 @@ const legacyModules = [
   'js/findinpage.js',
   'js/userscripts.js',
   'js/sessionRestore.js',
-  'js/tabRestore.js',
   'js/util/theme.js',
   'js/webviewGestures.js'
 ]

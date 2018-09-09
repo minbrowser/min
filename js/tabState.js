@@ -1,9 +1,3 @@
-const tabPrototype = require("tabState/tab.js")
-
-function getRandomId () {
-  return Math.round(Math.random() * 100000000000000000)
-}
-
 var taskPrototype = require("tabState/task.js")
 
 function initializeTabState () {
