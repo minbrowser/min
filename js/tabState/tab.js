@@ -66,12 +66,7 @@ var tabPrototype = {
     return undefined
   },
   has: function (id) {
-    for (var i = 0; i < this.length; i++) {
-      if (this[i].id === id) {
-        return true
-      }
-    }
-    return false
+    return this.getIndex(id) > -1
   },
   getIndex: function (id) {
     for (var i = 0; i < this.length; i++) {
