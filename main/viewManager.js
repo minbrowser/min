@@ -3,8 +3,6 @@ var viewMap = {} // id: view
 function createView (id, webPreferencesString, boundsString, events) {
   let view = new electron.BrowserView(JSON.parse(webPreferencesString))
 
-  if(!view) throw Error("No view!")
-
   events.forEach(function (ev) {
     view.webContents.on(ev.event, function (e) {
       if (ev.options && ev.options.preventDefault) {
@@ -58,7 +56,6 @@ function setBounds (id, bounds) {
 }
 
 function focusView (id) {
-  if(!viewMap[id]) throw Error("No view in focusview")
   viewMap[id].webContents.focus()
 }
 
@@ -84,7 +81,6 @@ ipc.on('destroyView', function (e, id) {
 
 ipc.on('setView', function (e, args) {
   setView(args.id)
-  if(args.id === null) throw Error("View id is null 2")
   setBounds(args.id, args.bounds)
   if (args.focus) {
     focusView(args.id)
@@ -92,7 +88,6 @@ ipc.on('setView', function (e, args) {
 })
 
 ipc.on('setBounds', function (e, args) {
-  if(args.id === null) throw Error("View id is null")
   setBounds(args.id, args.bounds)
 })
 

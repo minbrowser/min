@@ -68,7 +68,6 @@ function captureCurrentTab (options) {
     return
   }
 
-  if(webviews.selectedId === null) throw Error("Will send getCapture, webviews.selectedId is null")
   ipc.send('getCapture', {
     id: webviews.selectedId,
     width: Math.round(window.innerWidth / 10),
@@ -301,7 +300,6 @@ window.webviews = {
     ipc.send('focusMainWebContents')
   },
   focus: function (id) {
-      if(id === null) throw Error("vewbviews. focus() id is null")
     ipc.send('focusView', id)
   },
   callAsync: function (id, method, args, callback) {
@@ -344,19 +342,16 @@ webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
 }, {preventDefault: true})
 
 window.addEventListener('resize', throttle(function () {
-    if(webviews.selectedId === null) throw Error("Webviews selId is null 1")
   ipc.send('setBounds', {id: webviews.selectedId, bounds: getViewBounds()})
 }, 100))
 
 ipc.on('enter-html-full-screen', function () {
   windowIsFullscreen = true
-    if(webviews.selectedId === null) throw Error("Webviews selId is null 2")
   ipc.send('setBounds', {id: webviews.selectedId, bounds: getViewBounds()})
 })
 
 ipc.on('leave-html-full-screen', function () {
   windowIsFullscreen = false
-    if(webviews.selectedId === null) throw Error("Webviews selId is null 3")
   ipc.send('setBounds', {id: webviews.selectedId, bounds: getViewBounds()})
 })
 
@@ -435,7 +430,7 @@ ipc.on('view-ipc', function (e, data) {
 
 setInterval(function () {
   captureCurrentTab()
-}, 3000)
+}, 30000)
 
 ipc.on('captureData', function (e, data) {
   previewCache.set(data.id, data.url)
