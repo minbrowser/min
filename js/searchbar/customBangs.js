@@ -74,17 +74,11 @@ registerCustomBang({
 
 // returns a task with the same name or index ("1" returns the first task, etc.)
 function getTaskByNameOrNumber (text) {
-  var taskSet = tasks.tasks // @TODO FIX ASAP. E.g. move this function to TaskList. Used here for simplicity
-  console.warn("tasks.tasks is a hack, should not be used.")
+  const textAsNumber = parseInt(text)
 
-  var textAsNumber = parseInt(text)
-
-  for (var i = 0; i < taskSet.length; i++) {
-    if ((taskSet[i].name && taskSet[i].name.toLowerCase() === text) || i + 1 === textAsNumber) {
-      return taskSet[i]
-    }
-  }
-  return null
+  return tasks.find((task, index) =>
+    (task.name && task.name.toLowerCase() === text) || index + 1 === textAsNumber
+  )
 }
 
 registerCustomBang({
@@ -92,7 +86,6 @@ registerCustomBang({
   snippet: l('switchToTask'),
   isAction: false,
   fn: function (text) {
-
     /* disabled in focus mode */
     if (focusMode.enabled()) {
       focusMode.warn()
@@ -120,7 +113,6 @@ registerCustomBang({
   snippet: l('createTask'),
   isAction: true,
   fn: function (text) {
-
     /* disabled in focus mode */
     if (focusMode.enabled()) {
       focusMode.warn()
@@ -143,7 +135,6 @@ registerCustomBang({
   snippet: l('moveToTask'),
   isAction: false,
   fn: function (text) {
-
     /* disabled in focus mode */
     if (focusMode.enabled()) {
       focusMode.warn()

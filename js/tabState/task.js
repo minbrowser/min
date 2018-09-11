@@ -126,6 +126,8 @@ class TaskList {
 
   indexOf(task) { return this.tasks.indexOf(task) }
 
+  find(task) { return this.tasks.find(task) }
+
   static getRandomId () {
     return Math.round(Math.random() * 100000000000000000)
   }
