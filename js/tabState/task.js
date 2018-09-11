@@ -72,12 +72,6 @@ class TaskList {
     currentTask = null
   }
 
-  update (task, data) {
-    for (const key in data) {
-      task[key] = data[key]
-    }
-  }
-
   getLastActivity (id) {
     var tabs = this.get(id).tabs
     var lastActivity = 0

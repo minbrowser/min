@@ -39,7 +39,7 @@ var TaskOverlayBuilder = {
             this.blur()
           }
 
-          tasks.update(task, { name: this.value })
+          task.name = this.value
         })
 
         input.addEventListener('focus', function () {
