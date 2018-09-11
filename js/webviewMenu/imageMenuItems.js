@@ -1,8 +1,6 @@
 var Menu, MenuItem, clipboard // these are only loaded when the menu is shown
 
 module.exports = function makeImageMenuItems (image, isPrivate) {
-      /* images */
-      /* we don't show the image actions if there are already link actions, because it makes the menu too long and because the image actions typically aren't very useful if the image is a link */
   if (!Menu || !MenuItem || !clipboard) {
     Menu = remote.Menu
     MenuItem = remote.MenuItem

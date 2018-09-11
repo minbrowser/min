@@ -16,16 +16,14 @@ module.exports = function makeMenuSections (data, searchEngine) {
 
   var menuSections = []
 
-  /* links */
-
   var link = data.linkURL || data.frameURL
 
   var image = data.srcURL
 
+  /* we don't show the image actions if there are already link actions, because it makes the menu too long and because the image actions typically aren't very useful if the image is a link */
   if (link) {
     menuSections.push(makeLinkMenuItems(link, currentTabIsPrivate))
-  } 
-  if (image) {
+  } else if (image) {
     menuSections.push(makeImageMenuItems(image, currentTabIsPrivate))
 
     menuSections.push([
