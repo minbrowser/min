@@ -46,5 +46,5 @@ module.exports = function makeMenuSections (clipboard, data, searchEngine) {
     }
   ])
 
-  return menuSections.filter(s => s.length) // filter out empty sections
+  return menuSections.filter(s => !!s) // filter out empty sections
 }

@@ -1,7 +1,7 @@
 var browserUI = require('api-wrapper.js')
 
 module.exports = function makeImageMenuItems (image, isPrivate) {
-  if (!image) return []
+  if (!image) return undefined
 
   var imageActions = [
     {

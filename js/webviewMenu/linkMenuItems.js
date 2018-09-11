@@ -1,7 +1,7 @@
 var browserUI = require('api-wrapper.js')
 
 module.exports = function makeLinkMenuItems (link, isPrivate) {
-  if (!link) return []
+  if (!link) return undefined
 
   var linkActions = [
     {
