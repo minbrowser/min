@@ -130,7 +130,8 @@ var webviewMenu = {
 
     if (link) {
       menuSections.push(makeLinkMenuItems(link, currentTabIsPrivate))
-    } else if (image) {
+    } 
+    if (image) {
       menuSections.push(makeImageMenuItems(image, currentTabIsPrivate))
 
       menuSections.push([
