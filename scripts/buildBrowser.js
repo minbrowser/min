@@ -21,7 +21,6 @@ const legacyModules = [
   'js/filteringRenderer.js',
   'js/webviews.js',
   'js/phishingWarning.js',
-  'js/webviewMenu.js',
   'js/bookmarksHistory/bookmarksHistory.js',
   'js/searchbar/placesPlugin.js',
   'js/searchbar/instantAnswerPlugin.js',
