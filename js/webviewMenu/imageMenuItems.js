@@ -1,3 +1,5 @@
+var browserUI = require('api-wrapper.js')
+
 var Menu, MenuItem, clipboard // these are only loaded when the menu is shown
 
 module.exports = function makeImageMenuItems (image, isPrivate) {

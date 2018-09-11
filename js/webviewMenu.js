@@ -1,5 +1,3 @@
-var browserUI = require('api-wrapper.js')
-
 var Menu, MenuItem, clipboard // these are only loaded when the menu is shown
 
 const makeMenuItem = menuItem => new MenuItem(menuItem)
