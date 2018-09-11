@@ -36,12 +36,7 @@ class TaskList {
   }
 
   get (id) {
-    for (var i = 0; i < this.tasks.length; i++) {
-      if (this.tasks[i].id === id) {
-        return this.tasks[i]
-      }
-    }
-    return null
+    return this.tasks.find(task => task.id == id) || null
   }
 
   byIndex (index) {
@@ -49,21 +44,11 @@ class TaskList {
   }
 
   getTaskContainingTab (tabId) {
-    for (var i = 0; i < this.tasks.length; i++) {
-      if (this.tasks[i].tabs.has(tabId)) {
-        return this.tasks[i]
-      }
-    }
-    return null
+    return this.find(task => task.tabs.has(tabId)) || null
   }
 
   getIndex (id) {
-    for (var i = 0; i < this.tasks.length; i++) {
-      if (this.tasks[i].id === id) {
-        return i
-      }
-    }
-    return -1
+    return this.tasks.findIndex(task => task.id == id)
   }
 
   setSelected (id) {
@@ -73,13 +58,12 @@ class TaskList {
   }
 
   destroy (id) {
-    for (var i = 0; i < this.tasks.length; i++) {
-      if (this.tasks[i].id === id) {
-        this.tasks.splice(i, 1)
-        return i
-      }
-    }
-    return false
+    const index = this.getIndex(id)
+
+    if(index < 0) return false
+
+    this.tasks.splice(index, 1)
+    return index
   }
 
   destroyAll () {
