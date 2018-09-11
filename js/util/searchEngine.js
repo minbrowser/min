@@ -1,3 +1,7 @@
+if (typeof settings === 'undefined' && typeof require !== 'undefined') {
+  var settings = require('util/settings.js')
+}
+
 window.currentSearchEngine = {
   name: '',
   searchURL: '%s'
