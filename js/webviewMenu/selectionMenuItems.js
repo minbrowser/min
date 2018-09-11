@@ -1,16 +1,8 @@
 var browserUI = require('api-wrapper.js')
 
-var Menu, MenuItem, clipboard // these are only loaded when the menu is shown
-
 module.exports = function makeSelectionMenuItems (selection, isPrivate, searchEngine) {
-  if (!Menu || !MenuItem || !clipboard) {
-    Menu = remote.Menu
-    MenuItem = remote.MenuItem
-    clipboard = remote.clipboard
-  }
-
   return [
-    new MenuItem({
+    {
       label: l('searchWith').replace('%s', searchEngine.name),
       click: function () {
         var newTab = tabs.add({
@@ -23,6 +15,6 @@ module.exports = function makeSelectionMenuItems (selection, isPrivate, searchEn
 
         webviews.get(newTab).focus()
       }
-    })
+    }
   ]
 }

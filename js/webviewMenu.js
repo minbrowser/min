@@ -17,11 +17,10 @@ var webviewMenu = {
 
     const menu = new Menu()
 
-    makeMenuSections(data, searchEngine)
+    makeMenuSections(clipboard, data, searchEngine)
       .map(addSeparatorToSection)
-      .forEach(function (section) {
-      section.forEach(item => menu.append(item))
-    })
+      .map(makeMenuItems)
+      .forEach(section => section.forEach(item => menu.append(item)))
 
     menu.popup(remote.getCurrentWindow())
   }

@@ -1,17 +1,9 @@
-const makeLinkMenuItems = require("./linkMenuItems")
-const makeImageMenuItems = require("./imageMenuItems")
-const makeSelectionMenuItems = require("./selectionMenuItems")
-const makeNavigationMenuItems = require("./navigationMenuItems")
+const makeLinkMenuItems = require('./linkMenuItems')
+const makeImageMenuItems = require('./imageMenuItems')
+const makeSelectionMenuItems = require('./selectionMenuItems')
+const makeNavigationMenuItems = require('./navigationMenuItems')
 
-var Menu, MenuItem, clipboard // these are only loaded when the menu is shown
-
-module.exports = function makeMenuSections (data, searchEngine) {
-  if (!Menu || !MenuItem || !clipboard) {
-    Menu = remote.Menu
-    MenuItem = remote.MenuItem
-    clipboard = remote.clipboard
-  }
-
+module.exports = function makeMenuSections (clipboard, data, searchEngine) {
   var currentTabIsPrivate = tabs.get(tabs.getSelected()).private
 
   var menuSections = []
@@ -27,12 +19,12 @@ module.exports = function makeMenuSections (data, searchEngine) {
     menuSections.push(makeImageMenuItems(image, currentTabIsPrivate))
 
     menuSections.push([
-      new MenuItem({
+      {
         label: l('saveImageAs'),
         click: function () {
           remote.getCurrentWebContents().downloadURL(image)
         }
-      })
+      }
     ])
   }
 
@@ -47,30 +39,30 @@ module.exports = function makeMenuSections (data, searchEngine) {
   var clipboardActions = []
 
   if (link || image) {
-    clipboardActions.push(new MenuItem({
+    clipboardActions.push({
       label: l('copyLink'),
       click: function () {
         clipboard.writeText(link || image)
       }
-    }))
+    })
   }
 
   if (selection) {
-    clipboardActions.push(new MenuItem({
+    clipboardActions.push({
       label: l('copy'),
       click: function () {
         clipboard.writeText(selection)
       }
-    }))
+    })
   }
 
   if (data.editFlags && data.editFlags.canPaste) {
-    clipboardActions.push(new MenuItem({
+    clipboardActions.push({
       label: l('paste'),
       click: function () {
         webviews.get(tabs.getSelected()).paste()
       }
-    }))
+    })
   }
 
   if (clipboardActions.length !== 0) {
@@ -81,12 +73,12 @@ module.exports = function makeMenuSections (data, searchEngine) {
 
   /* inspect element */
   menuSections.push([
-    new MenuItem({
+    {
       label: l('inspectElement'),
       click: function () {
         webviews.get(tabs.getSelected()).inspectElement(data.x || 0, data.y || 0)
       }
-    })
+    }
   ])
 
   return menuSections
