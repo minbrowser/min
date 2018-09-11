@@ -360,6 +360,10 @@ ipc.on('leave-html-full-screen', function () {
   ipc.send('setBounds', {id: webviews.selectedId, bounds: getViewBounds()})
 })
 
+webviews.bindEvent('context-menu', function (e, data) {
+  webviewMenu.showMenu(data, currentSearchEngine)
+})
+
 webviews.bindEvent('did-finish-load', onPageLoad)
 webviews.bindEvent('did-navigate-in-page', onPageLoad)
 webviews.bindEvent('did-navigate', onNavigate)

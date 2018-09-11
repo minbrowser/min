@@ -206,7 +206,3 @@ var webviewMenu = {
     menu.popup(remote.getCurrentWindow())
   }
 }
-
-webviews.bindEvent('context-menu', function (e, data) {
-  webviewMenu.showMenu(data)
-})
