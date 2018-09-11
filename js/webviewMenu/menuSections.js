@@ -36,35 +36,7 @@ module.exports = function makeMenuSections (clipboard, data, searchEngine) {
     menuSections.push(makeSelectionMenuItems(selection, currentTabIsPrivate, searchEngine))
   }
 
-  var clipboardActions = []
-
-  if (link || image) {
-    clipboardActions.push({
-      label: l('copyLink'),
-      click: function () {
-        clipboard.writeText(link || image)
-      }
-    })
-  }
-
-  if (selection) {
-    clipboardActions.push({
-      label: l('copy'),
-      click: function () {
-        clipboard.writeText(selection)
-      }
-    })
-  }
-
-  if (data.editFlags && data.editFlags.canPaste) {
-    clipboardActions.push({
-      label: l('paste'),
-      click: function () {
-        webviews.get(tabs.getSelected()).paste()
-      }
-    })
-  }
-
+  const clipboardActions = clipboardMenuItems(link, image, selection, data, clipboard)
   if (clipboardActions.length !== 0) {
     menuSections.push(clipboardActions)
   }
