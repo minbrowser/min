@@ -7,6 +7,8 @@ const makeMenuItems = menuItems => menuItems.map(makeMenuItem)
 
 const makeMenuSections = require("webviewMenu/menuSections.js")
 
+const addSeparatorToSection = section => [...section, new MenuItem({ type: 'separator' })]
+
 var webviewMenu = {
   showMenu: function (data, searchEngine) { // data comes from a context-menu event
     if (!Menu || !MenuItem || !clipboard) {
@@ -17,11 +19,10 @@ var webviewMenu = {
 
     const menu = new Menu()
 
-    makeMenuSections(data, searchEngine).forEach(function (section) {
-      section.forEach(function (item) {
-        menu.append(item)
-      })
-      menu.append(new MenuItem({ type: 'separator' }))
+    makeMenuSections(data, searchEngine)
+      .map(addSeparatorToSection)
+      .forEach(function (section) {
+      section.forEach(item => menu.append(item))
     })
 
     menu.popup(remote.getCurrentWindow())
