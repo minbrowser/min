@@ -1,6 +1,8 @@
 var browserUI = require('api-wrapper.js')
 
 module.exports = function makeSelectionMenuItems (selection, isPrivate, searchEngine) {
+  if (!selection) return []
+
   return [
     {
       label: l('searchWith').replace('%s', searchEngine.name),

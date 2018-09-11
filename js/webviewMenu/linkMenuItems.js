@@ -1,6 +1,8 @@
 var browserUI = require('api-wrapper.js')
 
 module.exports = function makeLinkMenuItems (link, isPrivate) {
+  if (!link) return []
+
   var linkActions = [
     {
       label: (link.length > 60) ? link.substring(0, 60) + '...' : link,
