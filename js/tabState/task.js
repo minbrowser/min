@@ -73,17 +73,13 @@ class TaskList {
   }
 
   update (id, data) {
-    if (!this.get(id)) {
+    const task = this.get(id)
+    if (!task) {
       throw new ReferenceError('Attempted to update a task that does not exist.')
     }
 
-    for (var i = 0; i < this.tasks.length; i++) {
-      if (this.tasks[i].id === id) {
-        for (var key in data) {
-          this.tasks[i][key] = data[key]
-        }
-        break
-      }
+    for (var key in data) {
+      task[key] = data[key]
     }
   }
 
