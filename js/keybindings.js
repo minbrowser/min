@@ -356,7 +356,7 @@ settings.get('keyMap', function (keyMapSettings) {
     const currentTaskIdx = tasks.indexOf(currentTask)
 
     const nextTaskIndex = (currentTaskIdx + 1) % tasks.getLength()
-    browserUI.switchToTask(tasks.tasks[nextTaskIndex].id)
+    browserUI.switchToTask(tasks.byIndex(nextTaskIndex).id)
 
     taskOverlay.show()
 
@@ -375,7 +375,7 @@ settings.get('keyMap', function (keyMapSettings) {
     // The addition of taskCount fixes 0 --> -1
     // E.g. with 5 elements: (0-1+5)%5 = 4, i.e. the last index
     const previousTaskIndex = (currentTaskIdx - 1 + taskCount) % taskCount
-    browserUI.switchToTask(tasks.tasks[previousTaskIndex].id)
+    browserUI.switchToTask(tasks.byIndex(previousTaskIndex).id)
 
     taskOverlay.show()
 

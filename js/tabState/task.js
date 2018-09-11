@@ -44,6 +44,10 @@ class TaskList {
     return null
   }
 
+  byIndex (index) {
+    return this.tasks[index]
+  }
+
   getTaskContainingTab (tabId) {
     for (var i = 0; i < this.tasks.length; i++) {
       if (this.tasks[i].tabs.has(tabId)) {
