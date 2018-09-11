@@ -355,11 +355,8 @@ settings.get('keyMap', function (keyMapSettings) {
 
     const currentTaskIdx = tasks.indexOf(currentTask)
 
-    if (tasks.tasks[currentTaskIdx + 1]) {
-      browserUI.switchToTask(tasks.tasks[currentTaskIdx + 1].id)
-    } else {
-      browserUI.switchToTask(tasks.tasks[0].id)
-    }
+    const nextTaskIndex = (currentTaskIdx + 1) % tasks.getLength()
+    browserUI.switchToTask(tasks.tasks[nextTaskIndex].id)
 
     taskOverlay.show()
 
@@ -372,13 +369,13 @@ settings.get('keyMap', function (keyMapSettings) {
   defineShortcut('switchToPreviousTask', function (d) {
     taskOverlay.show()
 
-    var currentTaskIdx = tasks.indexOf(currentTask)
+    const currentTaskIdx = tasks.indexOf(currentTask),
+          taskCount = tasks.getLength()
 
-    if (tasks.tasks[currentTaskIdx - 1]) {
-      browserUI.switchToTask(tasks.tasks[currentTaskIdx - 1].id)
-    } else {
-      browserUI.switchToTask(tasks.tasks[tasks.getLength() - 1].id)
-    }
+    // The addition of taskCount fixes 0 --> -1
+    // E.g. with 5 elements: (0-1+5)%5 = 4, i.e. the last index
+    const previousTaskIndex = (currentTaskIdx - 1 + taskCount) % taskCount
+    browserUI.switchToTask(tasks.tasks[previousTaskIndex].id)
 
     taskOverlay.show()
 
