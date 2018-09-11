@@ -4,7 +4,7 @@ window.sessionRestore = {
   save: function () {
     var data = {
       version: 2,
-      state: JSON.parse(JSON.stringify(tabState))
+      state: JSON.parse(JSON.stringify(tasks.getStringifyableState()))
     }
 
     // save all tabs that aren't private
