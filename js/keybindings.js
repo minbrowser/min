@@ -353,9 +353,7 @@ settings.get('keyMap', function (keyMapSettings) {
   defineShortcut('switchToNextTask', function (d) {
     taskOverlay.show()
 
-    var currentTaskIdx = tasks.map(function (task) {
-      return task.id
-    }).indexOf(currentTask.id)
+    const currentTaskIdx = tasks.indexOf(currentTask)
 
     if (tasks.tasks[currentTaskIdx + 1]) {
       browserUI.switchToTask(tasks.tasks[currentTaskIdx + 1].id)
@@ -374,9 +372,7 @@ settings.get('keyMap', function (keyMapSettings) {
   defineShortcut('switchToPreviousTask', function (d) {
     taskOverlay.show()
 
-    var currentTaskIdx = tasks.map(function (task) {
-      return task.id
-    }).indexOf(currentTask.id)
+    var currentTaskIdx = tasks.indexOf(currentTask)
 
     if (tasks.tasks[currentTaskIdx - 1]) {
       browserUI.switchToTask(tasks.tasks[currentTaskIdx - 1].id)

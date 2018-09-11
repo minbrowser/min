@@ -120,6 +120,8 @@ class TaskList {
 
   forEach(fun) { return this.tasks.forEach(fun) }
 
+  indexOf(task) { return this.tasks.indexOf(task) }
+
   static getRandomId () {
     return Math.round(Math.random() * 100000000000000000)
   }
