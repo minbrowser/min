@@ -74,7 +74,8 @@ registerCustomBang({
 
 // returns a task with the same name or index ("1" returns the first task, etc.)
 function getTaskByNameOrNumber (text) {
-  var taskSet = tasks.get()
+  var taskSet = tasks.tasks // @TODO FIX ASAP. E.g. move this function to TaskList. Used here for simplicity
+  console.warn("tasks.tasks is a hack, should not be used.")
 
   var textAsNumber = parseInt(text)
 

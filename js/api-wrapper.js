@@ -79,13 +79,13 @@ function closeTask (taskId) {
   if (taskId === currentTask.id) {
     // the current task was destroyed, find another task to switch to
 
-    if (tasks.get().length === 0) {
+    if (tasks.getLength() === 0) {
       // there are no tasks left, create a new one
       return addTask()
     } else {
       // switch to the most-recent task
 
-      var recentTaskList = tasks.get().map(function (task) {
+      var recentTaskList = tasks.map(function (task) {
         return { id: task.id, lastActivity: tasks.getLastActivity(task.id) }
       })
 

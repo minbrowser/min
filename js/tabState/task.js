@@ -36,10 +36,6 @@ class TaskList {
   }
 
   get (id) {
-    if (!id) {
-      return this.tasks
-    }
-
     for (var i = 0; i < this.tasks.length; i++) {
       if (this.tasks[i].id === id) {
         return this.tasks[i]
@@ -115,6 +111,14 @@ class TaskList {
 
     return lastActivity
   }
+
+  getLength() {
+    return this.tasks.length
+  }
+
+  map(fun) { return this.tasks.map(fun) }
+
+  forEach(fun) { return this.tasks.forEach(fun) }
 
   static getRandomId () {
     return Math.round(Math.random() * 100000000000000000)
