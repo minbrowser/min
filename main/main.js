@@ -17,10 +17,8 @@ var mainMenu = null
 var isFocusMode = false
 var appIsReady = false
 
-var saveWindowBounds = function () {
-  if (mainWindow) {
-    fs.writeFileSync(path.join(userDataPath, 'windowBounds.json'), JSON.stringify(mainWindow.getBounds()))
-  }
+const saveWindowBounds = function (bounds) {
+  fs.writeFileSync(path.join(userDataPath, 'windowBounds.json'), JSON.stringify(bounds))
 }
 
 function sendIPCToWindow (window, action, data) {
@@ -101,7 +99,7 @@ function createWindowWithBounds (bounds, shouldMaximize) {
 
   // save the window size for the next launch of the app
   mainWindow.on('close', function () {
-    saveWindowBounds()
+    saveWindowBounds(mainWindow.getBounds())
   })
 
   // Emitted when the window is closed.
