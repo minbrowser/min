@@ -2,7 +2,7 @@ var browserUI = require('api-wrapper.js')
 const previewCache = require('previewCache.js')
 var getView = remote.getGlobal('getView')
 var urlParser = require('util/urlParser.js')
-const showWebviewMenu = require("webviewMenu.js")
+const createWebviewMenu = require("webviewMenu.js")
 
 /* implements selecting webviews, switching between them, and creating new ones. */
 
@@ -362,7 +362,7 @@ ipc.on('leave-html-full-screen', function () {
 })
 
 webviews.bindEvent('context-menu', function (e, data) {
-  showWebviewMenu(data, currentSearchEngine)
+  createWebviewMenu(data, currentSearchEngine).popup(remote.getCurrentWindow())
 })
 
 webviews.bindEvent('did-finish-load', onPageLoad)
