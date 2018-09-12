@@ -54,6 +54,27 @@ ipc.on('showHistory', function () {
   tabBar.enterEditMode(tabs.getSelected(), '!history ')
 })
 
+ipc.on('duplicateTab', function (e) {
+  /* new tabs can't be created in focus mode */
+  if (focusMode.enabled()) {
+    focusMode.warn()
+    return
+  }
+
+  // can't duplicate if tabs is empty 
+  if (tabs.isEmpty()) {
+    return
+  }
+
+  const newIndex = tabs.getIndex(tabs.getSelected()) + 1
+
+  const sourceTab = tabs.get(tabs.getSelected())
+  // strip tab id so that a new one is generated
+  const newTab = tabs.add({...sourceTab, id: undefined}, newIndex)
+
+  browserUI.addTab(newTab, { enterEditMode: false })
+})
+
 ipc.on('addTab', function (e, data) {
   /* new tabs can't be created in focus mode */
   if (focusMode.enabled()) {

@@ -284,6 +284,13 @@ function createAppMenu () {
           }
         },
         {
+          label: l('appMenuDuplicateTab'),
+          accelerator: 'shift+CmdOrCtrl+d',
+          click: function (item, window) {
+            sendIPCToWindow(window, 'duplicateTab')
+          }
+        },
+        {
           label: l('appMenuNewPrivateTab'),
           accelerator: 'shift+CmdOrCtrl+p',
           click: function (item, window) {
