@@ -258,12 +258,10 @@ function parseKeyInput (input) {
   // convert key names back to generic equivalents
   parsed = parsed.map(function (e) {
     if (navigator.platform === 'MacIntel') {
-      e = e.replace(/\b(command)|(cmd)\b/g, 'mod')
-    } else {
-      e = e.replace(/\b(control)|(ctrl)\b/g, 'mod')
-      e = e.replace(/\balt\b/g, 'option')
+      return e.replace(/\b(command)|(cmd)\b/g, 'mod')
+              .replace(/\balt\b/g, 'option')
     }
-    return e
+    return e.replace(/\b(control)|(ctrl)\b/g, 'mod')
   })
   return parsed.length > 1 ? parsed : parsed[0]
 }
@@ -272,14 +270,8 @@ function onKeyMapChange (e) {
   var action = this.name
   var newValue = this.value
 
-  settings.get('keyMap', function (keyMapSettings) {
-    if (!keyMapSettings) {
-      keyMapSettings = {}
-    }
-
+  settings.get('keyMap', function (keyMapSettings = {}) {
     keyMapSettings[action] = parseKeyInput(newValue)
-    settings.set('keyMap', keyMapSettings, function () {
-      showRestartRequiredBanner()
-    })
+    settings.set('keyMap', keyMapSettings, showRestartRequiredBanner)
   })
 }
