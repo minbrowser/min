@@ -1,6 +1,6 @@
 var browserUI = require('api-wrapper.js')
 
-module.exports = function makeLinkMenuItems (link, isPrivate) {
+module.exports = function makeLinkMenuItems (link, isPrivate, isFocusMode) {
   if (!link) return undefined
 
   var linkActions = [
@@ -9,6 +9,8 @@ module.exports = function makeLinkMenuItems (link, isPrivate) {
       enabled: false
     }
   ]
+
+  if(isFocusMode) return linkActions;
 
   if (!isPrivate) {
     linkActions.push({

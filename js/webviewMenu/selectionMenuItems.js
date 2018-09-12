@@ -1,7 +1,7 @@
 var browserUI = require('api-wrapper.js')
 
-module.exports = function makeSelectionMenuItems (selection, isPrivate, searchEngine) {
-  if (!selection) return undefined
+module.exports = function makeSelectionMenuItems (selection, isPrivate, searchEngine, isFocusMode) {
+  if (!selection || isFocusMode) return undefined
 
   return [
     {

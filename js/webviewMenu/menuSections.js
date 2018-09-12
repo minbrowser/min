@@ -4,8 +4,9 @@ const makeSelectionMenuItems = require('./selectionMenuItems')
 const makeNavigationMenuItems = require('./navigationMenuItems')
 const makeClipboardMenuItems = require("./clipboardMenuItems")
 
-module.exports = function makeMenuSections (clipboard, data, searchEngine) {
-  var currentTabIsPrivate = tabs.get(tabs.getSelected()).private
+module.exports = function makeMenuSections (clipboard, data, focusMode, searchEngine) {
+  var currentTabIsPrivate = tabs.get(tabs.getSelected()).private,
+    isFocusMode = focusMode.enabled()
 
   var menuSections = []
 
@@ -14,8 +15,8 @@ module.exports = function makeMenuSections (clipboard, data, searchEngine) {
   var image = data.srcURL
 
   /* we don't show the image actions if there are already link actions, because it makes the menu too long and because the image actions typically aren't very useful if the image is a link */
-  menuSections.push(makeLinkMenuItems(link, currentTabIsPrivate) 
-                 || makeImageMenuItems(image, currentTabIsPrivate))
+  menuSections.push(makeLinkMenuItems(link, currentTabIsPrivate, isFocusMode) 
+                 || makeImageMenuItems(image, currentTabIsPrivate, isFocusMode))
 
   if (image) {
     menuSections.push([
@@ -29,22 +30,22 @@ module.exports = function makeMenuSections (clipboard, data, searchEngine) {
   }
 
   const selection = data.selectionText
-  menuSections.push(makeSelectionMenuItems(selection, currentTabIsPrivate, searchEngine))
+  menuSections.push(makeSelectionMenuItems(selection, currentTabIsPrivate, searchEngine, isFocusMode))
 
   const clipboardActions = makeClipboardMenuItems(link, image, selection, data, clipboard)
   menuSections.push(clipboardActions)
 
-  menuSections.push(makeNavigationMenuItems())
-
-  /* inspect element */
-  menuSections.push([
-    {
-      label: l('inspectElement'),
-      click: function () {
-        webviews.get(tabs.getSelected()).inspectElement(data.x || 0, data.y || 0)
+  if(!isFocusMode) {
+    menuSections.push(makeNavigationMenuItems())
+    menuSections.push([
+      {
+        label: l('inspectElement'),
+        click: function () {
+          webviews.get(tabs.getSelected()).inspectElement(data.x || 0, data.y || 0)
+        }
       }
-    }
-  ])
+    ])
+  }
 
   return menuSections.filter(s => !!s) // filter out empty sections
 }
