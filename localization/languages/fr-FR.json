@@ -127,6 +127,7 @@
         /* app menu */
         "appMenuFile": "Fichier",
         "appMenuNewTab": "Nouvel onglet",
+        "appMenuDuplicateTab": null, //missing translation
         "appMenuNewPrivateTab": "Nouvel onglet de navigation privée",
         "appMenuNewTask": "Nouvelle tâche",
         "appMenuSavePageAs": "Enregistrer la page sous",

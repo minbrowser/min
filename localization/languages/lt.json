@@ -127,6 +127,7 @@
         /* app menu */
         "appMenuFile": "Failas",
         "appMenuNewTab": "Nauja kortelė",
+        "appMenuDuplicateTab": null, //missing translation
         "appMenuNewPrivateTab": "Nauja privati kortelė",
         "appMenuNewTask": "Nauja užduotis",
         "appMenuSavePageAs": "Įrašyti puslapį kaip",

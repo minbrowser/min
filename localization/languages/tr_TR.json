@@ -127,6 +127,7 @@
         /* app menu */
         "appMenuFile": "Dosya",
         "appMenuNewTab": "Yeni Sekme",
+        "appMenuDuplicateTab": null, //missing translation
         "appMenuNewPrivateTab": "Yeni Özel Sekme",
         "appMenuNewTask": "Yeni Görev",
         "appMenuSavePageAs": "Sayfayı Farklı Kaydet",

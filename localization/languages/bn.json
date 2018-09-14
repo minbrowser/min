@@ -127,6 +127,7 @@
       /* app menu */
       "appMenuFile":"ফাইল",
       "appMenuNewTab":"নতুন ট্যাব",
+      "appMenuDuplicateTab": null, //missing translation
       "appMenuNewPrivateTab":"নতুন ব্যক্তিগত ট্যাব",
       "appMenuNewTask":"ত্যে",
       "appMenuSavePageAs":"যেমন পৃষ্ঠা সংরক্ষণ",

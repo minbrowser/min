@@ -127,6 +127,7 @@
         /* app menu */
         "appMenuFile": "Datei",
         "appMenuNewTab": "Neuer Tab",
+        "appMenuDuplicateTab": null, //missing translation
         "appMenuNewPrivateTab": "Neuer Inkognito-Tab",
         "appMenuNewTask": "Neue Aufgabe",
         "appMenuSavePageAs": "Seite sichern als",

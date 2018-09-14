@@ -127,6 +127,7 @@
         /* app menu */
         "appMenuFile": "Soubor",
         "appMenuNewTab": "Nová karta",
+        "appMenuDuplicateTab": null, //missing translation
         "appMenuNewPrivateTab": "Nová soukromá karta",
         "appMenuNewTask": "Nová dimenze",
         "appMenuSavePageAs": "Uložit stránku jako",

@@ -127,6 +127,7 @@
         /* app menu */
         "appMenuFile": "Plik",
         "appMenuNewTab": "Nowa karta",
+        "appMenuDuplicateTab": null, //missing translation
         "appMenuNewPrivateTab": "Nowa karta prywatna",
         "appMenuNewTask": "Nowe zadanie",
         "appMenuSavePageAs": "Zapisz stronę jako",

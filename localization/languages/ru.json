@@ -127,6 +127,7 @@
         /* app menu */
         "appMenuFile": "Файл",
         "appMenuNewTab": "Новая вкладка",
+        "appMenuDuplicateTab": null, //missing translation
         "appMenuNewPrivateTab": "Новая приватная вкладка",
         "appMenuNewTask": "Новая задача",
         "appMenuSavePageAs": "Сохранить страницу как...",

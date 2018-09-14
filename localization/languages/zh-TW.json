@@ -127,6 +127,7 @@
         /* app menu */
         "appMenuFile": "檔案",
         "appMenuNewTab": "新分頁",
+        "appMenuDuplicateTab": null, //missing translation
         "appMenuNewPrivateTab": "新無痕分頁",
         "appMenuNewTask": "新任務",
         "appMenuSavePageAs": "另存網頁",

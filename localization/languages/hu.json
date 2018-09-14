@@ -127,6 +127,7 @@
         /* app menu */
         "appMenuFile": "Fajl",
         "appMenuNewTab": "Új Fül",
+        "appMenuDuplicateTab": null, //missing translation
         "appMenuNewPrivateTab": "Új Privát Fül",
         "appMenuNewTask": "Új Feladat",
         "appMenuSavePageAs": "Oldal Mentése Másként",

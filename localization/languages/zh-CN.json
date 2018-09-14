@@ -127,6 +127,7 @@
         /* app menu */
         "appMenuFile": "文件",
         "appMenuNewTab": "新标签页",
+        "appMenuDuplicateTab": null, //missing translation
         "appMenuNewPrivateTab": "新的隐私标签页",
         "appMenuNewTask": "新标签组",
         "appMenuSavePageAs": "页面另存为",
