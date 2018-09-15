@@ -553,7 +553,8 @@
     },
   };
 
-  var Document = function () {
+  var Document = function (url) {
+    this.documentURI = url;
     this.styleSheets = [];
     this.childNodes = [];
     this.children = [];
@@ -593,9 +594,30 @@
       node.textContent = text;
       return node;
     },
+
+    get baseURI() {
+      if (!this.hasOwnProperty("_baseURI")) {
+        this._baseURI = this.documentURI;
+        var baseElements = this.getElementsByTagName("base");
+        var href = baseElements[0] && baseElements[0].getAttribute("href");
+        if (href) {
+          try {
+            this._baseURI = (new URL(href, this._baseURI)).href;
+          } catch (ex) {/* Just fall back to documentURI */}
+        }
+      }
+      return this._baseURI;
+    },
   };
 
   var Element = function (tag) {
+    // We use this to find the closing tag.
+    this._matchingTag = tag;
+    // We're explicitly a non-namespace aware parser, we just pretend it's all HTML.
+    var lastColonIndex = tag.lastIndexOf(":");
+    if (lastColonIndex != -1) {
+      tag = tag.substring(lastColonIndex + 1);
+    }
     this.attributes = [];
     this.childNodes = [];
     this.children = [];
@@ -662,7 +684,7 @@
               // the attribute value will be HTML escaped.
               var val = attr.value;
               var quote = (val.indexOf('"') === -1 ? '"' : "'");
-              arr.push(" " + attr.name + '=' + quote + val + quote);
+              arr.push(" " + attr.name + "=" + quote + val + quote);
             }
 
             if (child.localName in voidElems && !child.childNodes.length) {
@@ -763,7 +785,13 @@
           break;
         }
       }
-    }
+    },
+
+    hasAttribute: function (name) {
+      return this.attributes.some(function (attr) {
+        return attr.name == name;
+      });
+    },
   };
 
   var Style = function (node) {
@@ -935,7 +963,7 @@
         strBuf.push(c);
         c = this.nextChar();
       }
-      var tag = strBuf.join('');
+      var tag = strBuf.join("");
 
       if (!tag)
         return false;
@@ -946,7 +974,9 @@
       while (c !== "/" && c !== ">") {
         if (c === undefined)
           return false;
-        while (whitespace.indexOf(this.html[this.currentChar++]) != -1);
+        while (whitespace.indexOf(this.html[this.currentChar++]) != -1) {
+          // Advance cursor to first non-whitespace char.
+        }
         this.currentChar--;
         c = this.nextChar();
         if (c !== "/" && c !== ">") {
@@ -1040,9 +1070,10 @@
         return null;
 
       // Read any text as Text node
+      var textNode;
       if (c !== "<") {
         --this.currentChar;
-        var textNode = new Text();
+        textNode = new Text();
         var n = this.html.indexOf("<", this.currentChar);
         if (n === -1) {
           textNode.innerHTML = this.html.substring(this.currentChar, this.html.length);
@@ -1051,6 +1082,18 @@
           textNode.innerHTML = this.html.substring(this.currentChar, n);
           this.currentChar = n;
         }
+        return textNode;
+      }
+
+      if (this.match("![CDATA[")) {
+        var endChar = this.html.indexOf("]]>", this.currentChar);
+        if (endChar === -1) {
+          this.error("unclosed CDATA section");
+          return null;
+        }
+        textNode = new Text();
+        textNode.textContent = this.html.substring(this.currentChar, endChar);
+        this.currentChar = endChar + ("]]>").length;
         return textNode;
       }
 
@@ -1085,7 +1128,7 @@
       // If this isn't a void Element, read its child nodes
       if (!closed) {
         this.readChildren(node);
-        var closingTag = "</" + localName + ">";
+        var closingTag = "</" + node._matchingTag + ">";
         if (!this.match(closingTag)) {
           this.error("expected '" + closingTag + "' and got " + this.html.substr(this.currentChar, closingTag.length));
           return null;
@@ -1111,9 +1154,9 @@
     /**
      * Parses an HTML string and returns a JS implementation of the Document.
      */
-    parse: function (html) {
+    parse: function (html, url) {
       this.html = html;
-      var doc = this.doc = new Document();
+      var doc = this.doc = new Document(url);
       this.readChildren(doc);
 
       // If this is an HTML document, remove root-level children except for the
