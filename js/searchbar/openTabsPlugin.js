@@ -1,6 +1,7 @@
 var browserUI = require('api-wrapper.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
+var urlParser = require('util/urlParser.js')
 
 var stringScore = require('string_score')
 

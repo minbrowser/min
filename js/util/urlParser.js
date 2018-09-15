@@ -1,5 +1,5 @@
 // cache host file entries for host matching
-var hosts = []
+if(typeof window.hosts !== 'object') window.hosts = []
 
 var HOSTS_FILE = process.platform === 'win32'
   ? 'C:/Windows/System32/drivers/etc/hosts'

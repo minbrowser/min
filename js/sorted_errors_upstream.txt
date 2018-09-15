@@ -1,0 +1,109 @@
+    203 'tabs' is not defined.
+    135 'webviews' is not defined.
+     64 'l' is not defined.
+     53 'tabBar' is not defined.
+     51 'ipc' is not defined.
+     46 'tasks' is not defined.
+     27 'taskOverlay' is not defined.
+     23 'remote' is not defined.
+     22 'tabState' is not defined.
+     20 'empty' is not defined.
+     19 'currentTask' is not defined.
+     16 'bookmarks' is not defined.
+     14 'urlParser' is not defined.
+     11 'registerCustomBang' is not defined.
+     10 Use path.join() or path.resolve() instead of + to create paths.
+     10 'settings' is not defined.
+      9 Block must not be padded by blank lines.
+      8 'PDFViewer' is not defined.
+      8 'localStorage' is not defined.
+      8 'i' is already defined.
+      8 'db' is not defined.
+      7 'URL' is not defined.
+      6 'currentSearchEngine' is not defined.
+      5 'debounce' is not defined.
+      4 Unreachable code.
+      4 Unexpected mix of '&&' and '||'.
+      4 'readerView' is not defined.
+      4 'item' is already defined.
+      4 'fetch' is not defined.
+      4 'electron' is not defined.
+      4 'ddgAttribution' is not defined.
+      3 'webviewGestures' is not defined.
+      3 'updateColorPalette' is not defined.
+      3 Unexpected literal in error position of callback.
+      3 Trailing spaces not allowed.
+      3 Strings must use singlequote.
+      3 'sessionRestore' is not defined.
+      3 'requestAnimationFrame' is not defined.
+      3 'performance' is not defined.
+      3 'fs' is not defined.
+      3 'CustomEvent' is not defined.
+      2 'URLSearchParams' is not defined.
+      2 Unexpected mix of '||' and '&&'.
+      2 'throttle' is not defined.
+      2 '||' should be placed at the end of the line.
+      2 Requires a space before '}'.
+      2 'requestIdleCallback' is not defined.
+      2 'newIdx' is already defined.
+      2 'navigate' is not defined.
+      2 'keyMap' is not defined.
+      2 'hosts' is not defined.
+      2 'goBackButton' is not defined.
+      2 'findinpage' is not defined.
+      2 Extra semicolon.
+      2 Expected space(s) after "while".
+      2 Expected space(s) after "if".
+      2 Expected space(s) after "catch".
+      2 Closing curly brace should be on the same line as opening curly brace or on the line after the previous block.
+      1 'wordRegex' is assigned a value but never used.
+      1 'webview' is assigned a value but never used.
+      1 'userKeyMap' is not defined.
+      1 'userKeyMap' is defined but never used.
+      1 'updateTabColor' is not defined.
+      1 'updateTabColor' is defined but never used.
+      1 Unnecessary return statement.
+      1 Unnecessary escape character: \+.
+      1 Unexpected trailing comma.
+      1 Unexpected space after unary operator '!'.
+      1 'tokenize' is not defined.
+      1 'throttle' is defined but never used.
+      1 There should be no spaces inside this paren.
+      1 'stringScore' is assigned a value but never used.
+      1 Split initialized 'var' declarations into multiple statements.
+      1 'showSecondaryMenu' is not defined.
+      1 'showSearchbarInstantAnswers' is not defined.
+      1 'searchPlaces' is defined but never used.
+      1 'searchFn' is already defined.
+      1 'registerFiltering' is not defined.
+      1 'registerFiltering' is defined but never used.
+      1 'registerCustomBang' is defined but never used.
+      1 'redirectURL' is already defined.
+      1 'realText' is already defined.
+      1 'previous' is assigned a value but never used.
+      1 'performance' is defined but never used.
+      1 'pageIsReaderable' is not defined.
+      1 'onmessage' is not defined.
+      1 'oneWeekAgo' is assigned a value but never used.
+      1 'newTask' is already defined.
+      1 'navbarHeight' is already defined.
+      1 'Mousetrap' is not defined.
+      1 'minPhishingScore' was used before it was defined.
+      1 'locationEl' is already defined.
+      1 'isTrustedDomainEnding' was used before it was defined.
+      1 'initializeTabState' is not defined.
+      1 'hostname' is already defined.
+      1 'getTaskContainer' is not defined.
+      1 'getCustomBang' is not defined.
+      1 'fullTextPlacesSearch' is defined but never used.
+      1 'formText' is assigned a value but never used.
+      1 Expected a conditional expression and instead saw an assignment.
+      1 'Dexie' was used before it was defined.
+      1 'descriptionBlock' is already defined.
+      1 'debounce' is defined but never used.
+      1 'ddgAttribution' is assigned a value but never used.
+      1 'db' was used before it was defined.
+      1 'data' is already defined.
+      1 'bodyText' is assigned a value but never used.
+      1 'binding' is already defined.
+      1 'bang' is already defined.

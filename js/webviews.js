@@ -1,7 +1,7 @@
 var browserUI = require('api-wrapper.js')
 const previewCache = require('previewCache.js')
 var getView = remote.getGlobal('getView')
-const urlParser = require('util/urlParser.js')
+var urlParser = require('util/urlParser.js')
 
 /* implements selecting webviews, switching between them, and creating new ones. */
 
