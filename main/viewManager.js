@@ -1,7 +1,9 @@
 var viewMap = {} // id: view
 
+const BrowserView = electron.BrowserView
+
 function createView (id, webPreferencesString, boundsString, events) {
-  let view = new electron.BrowserView(JSON.parse(webPreferencesString))
+  let view = new BrowserView(JSON.parse(webPreferencesString))
 
   events.forEach(function (ev) {
     view.webContents.on(ev.event, function (e) {
