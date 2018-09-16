@@ -4,10 +4,10 @@ var HOSTS_FILE = process.platform === 'win32'
   ? 'C:/Windows/System32/drivers/etc/hosts'
   : '/etc/hosts'
 
-function truncatedHostsFileLines(data, limit) {
-  if (data.length <= limit) return data.split('\n')
-
-  return data.substring(0, limit).split('\n').slice(0, -1)
+function truncatedHostsFileLines (data, limit) {
+  return data.length > limit
+    ? data.substring(0, limit).split('\n').slice(0, -1)
+    : data.split('\n')
 }
 
 fs.readFile(HOSTS_FILE, 'utf8', function (err, data) {
