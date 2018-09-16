@@ -343,8 +343,12 @@ webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
 }, {preventDefault: true})
 
 window.addEventListener('resize', throttle(function () {
+  if (webviews.placeholderRequests.length > 0) {
+    // can't set view bounds if the view is hidden
+    return
+  }
   ipc.send('setBounds', {id: webviews.selectedId, bounds: getViewBounds()})
-}, 100))
+}, 75))
 
 ipc.on('enter-html-full-screen', function () {
   windowIsFullscreen = true
