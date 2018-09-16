@@ -9,9 +9,9 @@
 	font-family: system-ui, ".SFNSText-Regular", sans-serif;
 }
 #backtoarticle i {
-	vertical-align: baseline;
+	vertical-align: text-bottom;
 	margin-right: 0.25em;
-	font-size: 1.1em;
+	font-size: 1.275em;
 }
 body,
 html {
