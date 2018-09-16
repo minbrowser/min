@@ -1,5 +1,6 @@
 var browserUI = require('api-wrapper.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
+var urlParser = require('util/urlParser.js')
 
 function removeTabFromOverlay (tabId, task) {
   task.tabs.destroy(tabId)
@@ -154,4 +155,6 @@ var TaskOverlayBuilder = {
 // extend with other helper functions?
 }
 
-window.task_container_build_func = TaskOverlayBuilder.create.task.container.bind(TaskOverlayBuilder.create.task)
+module.exports = function createTaskContainer(task, index) {
+  return TaskOverlayBuilder.create.task.container(task, index)
+}

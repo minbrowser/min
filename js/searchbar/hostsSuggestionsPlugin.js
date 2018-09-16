@@ -1,5 +1,6 @@
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
+var urlParser = require('util/urlParser.js')
 
 // hosts are parsed in util/urlParser
 

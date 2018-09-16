@@ -12,6 +12,7 @@ const menuBarVisibility = require('menuBarVisibility.js')
 var searchbar = require('searchbar/searchbar.js')
 var browserUI = require('api-wrapper.js')
 var focusMode = require('focusMode.js')
+var urlParser = require('util/urlParser.js')
 
 ipc.on('zoomIn', function () {
   webviewGestures.zoomWebviewIn(tabs.getSelected())
