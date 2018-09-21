@@ -355,8 +355,8 @@ settings.get('keyMap', function (keyMapSettings) {
 
     const currentTaskIdx = tasks.indexOf(currentTask)
 
-    const nextTaskIndex = (currentTaskIdx + 1) % tasks.getLength()
-    browserUI.switchToTask(tasks.byIndex(nextTaskIndex).id)
+    const nextTask = tasks.byIndex(currentTaskIdx + 1) || tasks.byIndex(0)
+    browserUI.switchToTask(nextTask.id)
 
     taskOverlay.show()
 
