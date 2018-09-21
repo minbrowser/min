@@ -2,6 +2,12 @@ var colorExtractorImage = document.createElement('img')
 var colorExtractorCanvas = document.createElement('canvas')
 var colorExtractorContext = colorExtractorCanvas.getContext('2d')
 
+const defaultColors = {
+  private: ['rgb(58, 44, 99)', 'white'],
+  lightMode: ['rgb(255, 255, 255)', 'black'],
+  darkMode: ['rgb(40, 44, 52)', 'white']
+}
+
 function getColorFromImage (image) {
   var w = colorExtractorImage.width
   var h = colorExtractorImage.height
@@ -83,12 +89,6 @@ function getColorFromImage (image) {
   return res
 }
 
-const defaultColors = {
-  private: ['rgb(58, 44, 99)', 'white'],
-  lightMode: ['rgb(255, 255, 255)', 'black'],
-  darkMode: ['rgb(40, 44, 52)', 'white']
-}
-
 function getHours () {
   return new Date().getHours() + (new Date().getMinutes() / 60)
 }
@@ -98,38 +98,10 @@ var hours = getHours()
 // we cache the hours so we don't have to query every time we change the color
 setInterval(function () {
   hours = getHours()
-}, 4 * 60 * 1000)
+}, 5 * 60 * 1000)
 
 function getRGBString (c) {
   return 'rgb(' + c[0] + ',' + c[1] + ',' + c[2] + ')'
-}
-
-function updateTabColor (favicons, tabId) {
-  // private tabs always use a special color, we don't need to get the icon
-  if (tabs.get(tabId).private === true) {
-    return
-  }
-
-  requestIdleCallback(function () {
-    colorExtractorImage.onload = function (e) {
-      let backgroundColor = getColorFromImage(colorExtractorImage)
-      let textColor = getTextColor(backgroundColor)
-
-      let backgroundString = getRGBString(backgroundColor)
-
-      tabs.update(tabId, {
-        backgroundColor: backgroundString,
-        foregroundColor: textColor
-      })
-
-      if (tabId === tabs.getSelected()) {
-        updateColorPalette()
-      }
-    }
-    colorExtractorImage.src = favicons[0]
-  }, {
-    timeout: 1000
-  })
 }
 
 var getTextColor = function (bgColor) {
@@ -209,33 +181,16 @@ var runNetwork = function anonymous (input) {
   return output
 }
 
-window.updateColorPalette = function () {
-  var tab = tabs.get(tabs.getSelected())
-
-  if (tab.private) {
-    // private tabs have their own color scheme
-    return setColor(defaultColors.private[0], defaultColors.private[1])
-  // use the colors extracted from the page icon
-  } else if (tab.backgroundColor || tab.foregroundColor) {
-    return setColor(tab.backgroundColor, tab.foregroundColor)
-  // otherwise use the default colors
-  } else if (window.isDarkMode) {
-    return setColor(defaultColors.darkMode[0], defaultColors.darkMode[1])
-  } else {
-    return setColor(defaultColors.lightMode[0], defaultColors.lightMode[1])
-  }
-}
-
 function setColor (bg, fg) {
-  var background = document.getElementsByClassName('theme-background-color')
-  var textcolor = document.getElementsByClassName('theme-text-color')
+  var backgroundElements = document.getElementsByClassName('theme-background-color')
+  var textElements = document.getElementsByClassName('theme-text-color')
 
-  for (var i = 0; i < background.length; i++) {
-    background[i].style.backgroundColor = bg
+  for (var i = 0; i < backgroundElements.length; i++) {
+    backgroundElements[i].style.backgroundColor = bg
   }
 
-  for (var i = 0; i < textcolor.length; i++) {
-    textcolor[i].style.color = fg
+  for (var i = 0; i < textElements.length; i++) {
+    textElements[i].style.color = fg
   }
 
   if (fg === 'white') {
@@ -245,7 +200,61 @@ function setColor (bg, fg) {
   }
 }
 
-// theme changes can affect the tab colors
-window.addEventListener('themechange', function (e) {
-  updateColorPalette()
-})
+const tabColor = {
+  initialize: function () {
+    webviews.bindEvent('page-favicon-updated', function (e, favicons) {
+      var id = webviews.getTabFromContents(this)
+      tabColor.updateFromImage(favicons, id)
+    })
+
+    // theme changes can affect the tab colors
+    window.addEventListener('themechange', function (e) {
+      tabColor.refresh()
+    })
+  },
+  updateFromImage: function (favicons, tabId) {
+    // private tabs always use a special color, we don't need to get the icon
+    if (tabs.get(tabId).private === true) {
+      return
+    }
+
+    requestIdleCallback(function () {
+      colorExtractorImage.onload = function (e) {
+        let backgroundColor = getColorFromImage(colorExtractorImage)
+        let textColor = getTextColor(backgroundColor)
+
+        let backgroundString = getRGBString(backgroundColor)
+
+        tabs.update(tabId, {
+          backgroundColor: backgroundString,
+          foregroundColor: textColor
+        })
+
+        if (tabId === tabs.getSelected()) {
+          tabColor.refresh()
+        }
+      }
+      colorExtractorImage.src = favicons[0]
+    }, {
+      timeout: 1000
+    })
+  },
+  refresh: function () {
+    var tab = tabs.get(tabs.getSelected())
+
+    if (tab.private) {
+      // private tabs have their own color scheme
+      return setColor(defaultColors.private[0], defaultColors.private[1])
+    // use the colors extracted from the page icon
+    } else if (tab.backgroundColor || tab.foregroundColor) {
+      return setColor(tab.backgroundColor, tab.foregroundColor)
+    // otherwise use the default colors
+    } else if (window.isDarkMode) {
+      return setColor(defaultColors.darkMode[0], defaultColors.darkMode[1])
+    } else {
+      return setColor(defaultColors.lightMode[0], defaultColors.lightMode[1])
+    }
+  }
+}
+
+module.exports = tabColor

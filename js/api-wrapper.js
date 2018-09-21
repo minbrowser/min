@@ -3,6 +3,7 @@
 var urlParser = require('util/urlParser.js')
 var focusMode = require('focusMode.js')
 var tabActivity = require('navbar/tabActivity.js')
+var tabColor = require('navbar/tabColor.js')
 
 /* loads a page in a webview */
 
@@ -37,8 +38,7 @@ options
   options.enterEditMode - whether to enter editing mode when the tab is created. Defaults to true.
   options.openInBackground - whether to open the tab without switching to it. Defaults to false.
 */
-function addTab (tabId = tabs.add(), options = {}) {
-
+function addTab (tabId = tabs.add() , options = {}) {
   tabBar.addTab(tabId)
   webviews.add(tabId)
 
@@ -176,7 +176,7 @@ function switchToTab (id, options) {
     focus: options.focusWebview !== false
   })
 
-  updateColorPalette()
+  tabColor.refresh()
 
   sessionRestore.save()
 

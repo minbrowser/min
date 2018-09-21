@@ -32,7 +32,6 @@ const legacyModules = [
   'js/searchbar/placeSuggestionsPlugin.js',
   'js/searchbar/hostsSuggestionsPlugin.js',
   'js/readerview.js',
-  'js/navbar/tabColor.js',
   'js/navbar/tabBar.js',
   'js/taskOverlay/taskOverlay.js',
   'js/navbar/addTabButton.js',
@@ -42,6 +41,7 @@ const legacyModules = [
   'js/pdfViewer.js',
   'js/findinpage.js',
   'js/userscripts.js',
+  'js/deferredLoad.js',
   'js/sessionRestore.js',
   'js/util/theme.js',
   'js/webviewGestures.js'
