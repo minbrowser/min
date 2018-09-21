@@ -69,7 +69,7 @@ window.taskOverlay = {
     empty(taskContainer)
 
     // show the task elements
-    tasks.get().forEach(function (task, index) {
+    tasks.forEach(function (task, index) {
       const el = createTaskContainer(task, index)
 
       taskContainer.appendChild(el)
