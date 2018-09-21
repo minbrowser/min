@@ -1,76 +1,87 @@
+var colorExtractorImage = document.createElement('img')
 var colorExtractorCanvas = document.createElement('canvas')
 var colorExtractorContext = colorExtractorCanvas.getContext('2d')
 
-function getColor (url, callback) {
-  colorExtractorImage.onload = function (e) {
-    var w = colorExtractorImage.width
-    var h = colorExtractorImage.height
-    colorExtractorCanvas.width = w
-    colorExtractorCanvas.height = h
+function getColorFromImage (image) {
+  var w = colorExtractorImage.width
+  var h = colorExtractorImage.height
+  colorExtractorCanvas.width = w
+  colorExtractorCanvas.height = h
 
-    var offset = Math.max(1, Math.round(0.00032 * w * h))
+  var offset = Math.max(1, Math.round(0.00032 * w * h))
 
-    colorExtractorContext.drawImage(colorExtractorImage, 0, 0, w, h)
+  colorExtractorContext.drawImage(colorExtractorImage, 0, 0, w, h)
 
-    var data = colorExtractorContext.getImageData(0, 0, w, h).data
+  var data = colorExtractorContext.getImageData(0, 0, w, h).data
 
-    var pixels = {}
+  var pixels = {}
 
-    var d, add, sum
+  var d, add, sum
 
-    for (var i = 0; i < data.length; i += 4 * offset) {
-      d = Math.round(data[i] / 5) * 5 + ',' + Math.round(data[i + 1] / 5) * 5 + ',' + Math.round(data[i + 2] / 5) * 5
+  for (var i = 0; i < data.length; i += 4 * offset) {
+    d = Math.round(data[i] / 5) * 5 + ',' + Math.round(data[i + 1] / 5) * 5 + ',' + Math.round(data[i + 2] / 5) * 5
 
-      add = 1
-      sum = data[i] + data[i + 1] + data[i + 2]
+    add = 1
+    sum = data[i] + data[i + 1] + data[i + 2]
 
-      // very dark or light pixels shouldn't be counted as heavily
-      if (sum < 310) {
-        add = 0.35
-      }
-
-      if (sum < 50) {
-        add = 0.01
-      }
-
-      if (data[i] > 210 || data[i + 1] > 210 || data[i + 2] > 210) {
-        add = 0.5 - (0.0001 * sum)
-      }
-
-      if (pixels[d]) {
-        pixels[d] = pixels[d] + add
-      } else {
-        pixels[d] = add
-      }
+    // very dark or light pixels shouldn't be counted as heavily
+    if (sum < 310) {
+      add = 0.35
     }
 
-    // find the largest pixel set
-    var largestPixelSet = null
-    var ct = 0
-
-    for (var k in pixels) {
-      if (k === '255,255,255' || k === '0,0,0') {
-        pixels[k] *= 0.05
-      }
-      if (pixels[k] > ct) {
-        largestPixelSet = k
-        ct = pixels[k]
-      }
+    if (sum < 50) {
+      add = 0.01
     }
 
-    var res = largestPixelSet.split(',')
-
-    for (var i = 0; i < res.length; i++) {
-      res[i] = parseInt(res[i])
+    if (data[i] > 210 || data[i + 1] > 210 || data[i + 2] > 210) {
+      add = 0.5 - (0.0001 * sum)
     }
 
-    callback(res)
+    if (pixels[d]) {
+      pixels[d] = pixels[d] + add
+    } else {
+      pixels[d] = add
+    }
   }
 
-  colorExtractorImage.src = url
-}
+  // find the largest pixel set
+  var largestPixelSet = null
+  var ct = 0
 
-var colorExtractorImage = document.createElement('img')
+  for (var k in pixels) {
+    if (k === '255,255,255' || k === '0,0,0') {
+      pixels[k] *= 0.05
+    }
+    if (pixels[k] > ct) {
+      largestPixelSet = k
+      ct = pixels[k]
+    }
+  }
+
+  var res = largestPixelSet.split(',')
+
+  for (var i = 0; i < res.length; i++) {
+    res[i] = parseInt(res[i])
+  }
+
+  // dim the colors late at night or early in the morning, or when dark mode is enabled
+  var colorChange = 1
+  if (hours > 20) {
+    colorChange -= 0.015 * Math.pow(2.75, hours - 20)
+  } else if (hours < 6.5) {
+    colorChange -= -0.15 * Math.pow(1.36, hours) + 1.15
+  }
+
+  if (window.isDarkMode) {
+    colorChange = Math.min(colorChange, 0.58)
+  }
+
+  res[0] = Math.round(res[0] * colorChange)
+  res[1] = Math.round(res[1] * colorChange)
+  res[2] = Math.round(res[2] * colorChange)
+
+  return res
+}
 
 const defaultColors = {
   private: ['rgb(58, 44, 99)', 'white'],
@@ -78,72 +89,63 @@ const defaultColors = {
   darkMode: ['rgb(40, 44, 52)', 'white']
 }
 
-var hours = new Date().getHours() + (new Date().getMinutes() / 60)
+function getHours () {
+  return new Date().getHours() + (new Date().getMinutes() / 60)
+}
+
+var hours = getHours()
 
 // we cache the hours so we don't have to query every time we change the color
-
 setInterval(function () {
-  var d = new Date()
-  hours = d.getHours() + (d.getMinutes() / 60)
+  hours = getHours()
 }, 4 * 60 * 1000)
+
+function getRGBString (c) {
+  return 'rgb(' + c[0] + ',' + c[1] + ',' + c[2] + ')'
+}
 
 function updateTabColor (favicons, tabId) {
   // private tabs always use a special color, we don't need to get the icon
   if (tabs.get(tabId).private === true) {
     return
   }
+
   requestIdleCallback(function () {
-    getColor(favicons[0], function (c) {
-      // dim the colors late at night or early in the morning, or when dark mode is enabled
-      var colorChange = 1
-      if (hours > 20) {
-        colorChange -= 0.015 * Math.pow(2.75, hours - 20)
-      } else if (hours < 6.5) {
-        colorChange -= -0.15 * Math.pow(1.36, hours) + 1.15
-      }
+    colorExtractorImage.onload = function (e) {
+      let backgroundColor = getColorFromImage(colorExtractorImage)
+      let textColor = getTextColor(backgroundColor)
 
-      if (window.isDarkMode) {
-        colorChange = Math.min(colorChange, 0.58)
-      }
-
-      c[0] = Math.round(c[0] * colorChange)
-      c[1] = Math.round(c[1] * colorChange)
-      c[2] = Math.round(c[2] * colorChange)
-
-      var cr = 'rgb(' + c[0] + ',' + c[1] + ',' + c[2] + ')'
-
-      var obj = {
-        r: c[0] / 255,
-        g: c[1] / 255,
-        b: c[2] / 255
-      }
-
-      var textclr = getTextColor(obj)
+      let backgroundString = getRGBString(backgroundColor)
 
       tabs.update(tabId, {
-        backgroundColor: cr,
-        foregroundColor: textclr
+        backgroundColor: backgroundString,
+        foregroundColor: textColor
       })
 
       if (tabId === tabs.getSelected()) {
         updateColorPalette()
       }
-      return
-    })
+    }
+    colorExtractorImage.src = favicons[0]
   }, {
     timeout: 1000
   })
 }
 
-// generated using http://harthur.github.io/brain/
 var getTextColor = function (bgColor) {
-  var output = runNetwork(bgColor)
+  var obj = {
+    r: bgColor[0] / 255,
+    g: bgColor[1] / 255,
+    b: bgColor[2] / 255
+  }
+  var output = runNetwork(obj)
   if (output.black > 0.5) {
     return 'black'
   }
   return 'white'
 }
 
+// generated using http://harthur.github.io/brain/
 var runNetwork = function anonymous (input) {
   var net = {
     'layers': [{
