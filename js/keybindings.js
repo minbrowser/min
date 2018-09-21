@@ -353,15 +353,10 @@ settings.get('keyMap', function (keyMapSettings) {
   defineShortcut('switchToNextTask', function (d) {
     taskOverlay.show()
 
-    var currentTaskIdx = tasks.get().map(function (task) {
-      return task.id
-    }).indexOf(currentTask.id)
+    const currentTaskIdx = tasks.indexOf(currentTask)
 
-    if (tasks.get()[currentTaskIdx + 1]) {
-      browserUI.switchToTask(tasks.get()[currentTaskIdx + 1].id)
-    } else {
-      browserUI.switchToTask(tasks.get()[0].id)
-    }
+    const nextTask = tasks.byIndex(currentTaskIdx + 1) || tasks.byIndex(0)
+    browserUI.switchToTask(nextTask.id)
 
     taskOverlay.show()
 
@@ -374,15 +369,11 @@ settings.get('keyMap', function (keyMapSettings) {
   defineShortcut('switchToPreviousTask', function (d) {
     taskOverlay.show()
 
-    var currentTaskIdx = tasks.get().map(function (task) {
-      return task.id
-    }).indexOf(currentTask.id)
+    const currentTaskIdx = tasks.indexOf(currentTask),
+          taskCount = tasks.getLength()
 
-    if (tasks.get()[currentTaskIdx - 1]) {
-      browserUI.switchToTask(tasks.get()[currentTaskIdx - 1].id)
-    } else {
-      browserUI.switchToTask(tasks.get()[tasks.get().length - 1].id)
-    }
+    const previousTask = tasks.byIndex(currentTaskIdx - 1) || tasks.byIndex(tasks.getLength() - 1)
+    browserUI.switchToTask(previousTask.id)
 
     taskOverlay.show()
 

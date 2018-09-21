@@ -38,7 +38,6 @@ options
   options.openInBackground - whether to open the tab without switching to it. Defaults to false.
 */
 function addTab (tabId = tabs.add(), options = {}) {
-
   tabBar.addTab(tabId)
   webviews.add(tabId)
 
@@ -79,22 +78,22 @@ function closeTask (taskId) {
   if (taskId === currentTask.id) {
     // the current task was destroyed, find another task to switch to
 
-    if (tasks.get().length === 0) {
+    if (tasks.getLength() === 0) {
       // there are no tasks left, create a new one
       return addTask()
     } else {
       // switch to the most-recent task
 
-      var recentTaskList = tasks.get().map(function (task) {
+      var recentTaskList = tasks.map(function (task) {
         return { id: task.id, lastActivity: tasks.getLastActivity(task.id) }
       })
 
-      // sort the tasks based on how recent they are
-      recentTaskList.sort(function (a, b) {
-        return b.lastActivity - a.lastActivity
-      })
+      const mostRecent = recentTaskList.reduce(
+        (latest, current) =>
+          current.lastActivity > latest.lastActivity ? current : latest
+      )
 
-      return switchToTask(recentTaskList[0].id)
+      return switchToTask(mostRecent.id)
     }
   }
 }
@@ -109,7 +108,8 @@ function closeTab (tabId) {
 
   if (tabId === tabs.getSelected()) {
     var currentIndex = tabs.getIndex(tabs.getSelected())
-    var nextTab = tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1)
+    var nextTab =
+      tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1)
 
     destroyTab(tabId)
 
@@ -183,4 +183,14 @@ function switchToTab (id, options) {
   tabActivity.refresh()
 }
 
-module.exports = {navigate, addTask, addTab, destroyTask, destroyTab, closeTask, closeTab, switchToTask, switchToTab}
+module.exports = {
+  navigate,
+  addTask,
+  addTab,
+  destroyTask,
+  destroyTab,
+  closeTask,
+  closeTab,
+  switchToTask,
+  switchToTab
+}

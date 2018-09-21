@@ -33,7 +33,7 @@ var TaskOverlayBuilder = {
         var input = document.createElement('input')
         input.classList.add('task-name')
 
-        var taskName = l('defaultTaskName').replace('%n', (taskIndex + 1))
+        var taskName = l('defaultTaskName').replace('%n', taskIndex + 1)
 
         input.placeholder = taskName
         input.value = task.name || taskName
@@ -42,7 +42,8 @@ var TaskOverlayBuilder = {
           if (e.keyCode === 13) {
             this.blur()
           }
-          tasks.update(task.id, { name: this.value })
+
+          task.name = this.value
         })
 
         input.addEventListener('focus', function () {
@@ -84,7 +85,11 @@ var TaskOverlayBuilder = {
         container.className = 'task-container'
         container.setAttribute('data-task', task.id)
 
-        var taskActionContainer = this.actionContainer(container, task, taskIndex)
+        var taskActionContainer = this.actionContainer(
+          container,
+          task,
+          taskIndex
+        )
         container.appendChild(taskActionContainer)
 
         var tabContainer = TaskOverlayBuilder.create.tab.container(task)
@@ -154,9 +159,8 @@ var TaskOverlayBuilder = {
         return closeTabButton
       }
     }
-
   }
-// extend with other helper functions?
+  // extend with other helper functions?
 }
 
 module.exports = function createTaskContainer (task, index) {
