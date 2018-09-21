@@ -36,7 +36,7 @@ class TaskList {
   }
 
   get (id) {
-    return this.tasks.find(task => task.id == id) || null
+    return this.find(task => task.id == id) || null
   }
 
   byIndex (index) {
@@ -95,7 +95,13 @@ class TaskList {
 
   indexOf(task) { return this.tasks.indexOf(task) }
 
-  find(task) { return this.tasks.find(task) }
+  find(filter) {
+    for (var i = 0, len = this.tasks.length; i < len; i++) {
+      if (filter(this.tasks[i])) {
+        return this.tasks[i]
+      }
+    } 
+  }
 
   static getRandomId () {
     return Math.round(Math.random() * 100000000000000000)
