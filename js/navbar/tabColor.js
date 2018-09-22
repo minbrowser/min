@@ -90,7 +90,8 @@ function getColorFromImage (image) {
 }
 
 function getHours () {
-  return new Date().getHours() + (new Date().getMinutes() / 60)
+  const date = new Date()
+  return date.getHours() + (date.getMinutes() / 60)
 }
 
 var hours = getHours()
@@ -242,18 +243,21 @@ const tabColor = {
   refresh: function () {
     var tab = tabs.get(tabs.getSelected())
 
+    // private tabs have their own color scheme
     if (tab.private) {
-      // private tabs have their own color scheme
       return setColor(defaultColors.private[0], defaultColors.private[1])
-    // use the colors extracted from the page icon
-    } else if (tab.backgroundColor || tab.foregroundColor) {
-      return setColor(tab.backgroundColor, tab.foregroundColor)
-    // otherwise use the default colors
-    } else if (window.isDarkMode) {
-      return setColor(defaultColors.darkMode[0], defaultColors.darkMode[1])
-    } else {
-      return setColor(defaultColors.lightMode[0], defaultColors.lightMode[1])
     }
+
+    // use the colors extracted from the page icon
+    if (tab.backgroundColor || tab.foregroundColor) {
+      return setColor(tab.backgroundColor, tab.foregroundColor)
+    }
+
+    // otherwise use the default colors
+    if (window.isDarkMode) {
+      return setColor(defaultColors.darkMode[0], defaultColors.darkMode[1])
+    }
+    return setColor(defaultColors.lightMode[0], defaultColors.lightMode[1])
   }
 }
 
