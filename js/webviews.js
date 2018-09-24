@@ -362,7 +362,7 @@ ipc.on('leave-html-full-screen', function () {
 })
 
 webviews.bindEvent('context-menu', function (e, data) {
-  createWebviewMenu(data, focusMode, currentSearchEngine).popup(remote.getCurrentWindow())
+  createWebviewMenu(data, currentSearchEngine).popup(remote.getCurrentWindow())
 })
 
 webviews.bindEvent('did-finish-load', onPageLoad)

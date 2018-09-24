@@ -1,6 +1,6 @@
 var browserUI = require('api-wrapper.js')
 
-module.exports = function makeImageMenuItems (image, isPrivate, isFocusMode) {
+module.exports = function makeImageMenuItems (image, isPrivate) {
   if (!image) return undefined
 
   var imageActions = [
@@ -9,8 +9,6 @@ module.exports = function makeImageMenuItems (image, isPrivate, isFocusMode) {
       enabled: false
     }
   ]
-
-  if(isFocusMode) return imageActions;
 
   imageActions.push({
     label: l('viewImage'),
