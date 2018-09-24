@@ -35,18 +35,7 @@ module.exports = function makeMenuSections (clipboard, data, focusMode, searchEn
   const clipboardActions = makeClipboardMenuItems(link, image, selection, data, clipboard)
   menuSections.push(clipboardActions)
 
-  if(isFocusMode) {
-    menuSections.push([{
-      label: l('leaveFocusMode'),
-      click: function (item, window) {
-        alert("Unimplemented, yet.")
-        // These do not work for some reason:
-        window.isFocusMode = false 
-        document.body.classList.remove('is-focus-mode')
-        // At best, the focusMode object should provide a method to leave focus mode
-      }
-    }])
-  } else {
+  if(!isFocusMode) {
     menuSections.push(makeNavigationMenuItems())
     menuSections.push([
       {
