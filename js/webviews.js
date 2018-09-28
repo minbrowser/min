@@ -239,6 +239,9 @@ window.webviews = {
     }
     delete webviews.tabViewMap[id]
     delete webviews.tabContentsMap[id]
+    if (webviews.selectedId === id) {
+      webviews.selectedId = null
+    }
   },
   getView: function (id) {
     return webviews.tabViewMap[id]
@@ -300,8 +303,10 @@ window.webviews = {
   releaseFocus: function () {
     ipc.send('focusMainWebContents')
   },
-  focus: function (id) {
-    ipc.send('focusView', id)
+  focus: function () {
+    if (webviews.selectedId) {
+      ipc.send('focusView', webviews.selectedId)
+    }
   },
   callAsync: function (id, method, args, callback) {
     if (!(args instanceof Array)) {
@@ -457,6 +462,6 @@ ipc.on('captureData', function (e, data) {
 
 window.addEventListener('focus', function () {
   if (document.activeElement === document.body) {
-    webviews.focus(webviews.selectedId)
+    webviews.focus()
   }
 })
