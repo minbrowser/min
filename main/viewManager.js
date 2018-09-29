@@ -49,6 +49,12 @@ function destroyView (id) {
   delete viewMap[id]
 }
 
+function destroyAllViews () {
+  for (let id in viewMap) {
+    destroyView(id)
+  }
+}
+
 function setView (id) {
   mainWindow.setBrowserView(viewMap[id])
 }
@@ -79,6 +85,10 @@ ipc.on('createView', function (e, args) {
 
 ipc.on('destroyView', function (e, id) {
   destroyView(id)
+})
+
+ipc.on('destroyAllViews', function () {
+  destroyAllViews()
 })
 
 ipc.on('setView', function (e, args) {
