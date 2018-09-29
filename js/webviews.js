@@ -28,12 +28,14 @@ function lazyRemoteObject (getObject) {
 }
 
 function forceUpdateDragRegions () {
-  // manually force the drag regions to update to work around https://github.com/electron/electron/issues/14038
-  var d = document.createElement('div')
-  d.setAttribute('style', '-webkit-app-region:drag; width: 1px; height: 1px;')
-  document.body.appendChild(d)
   setTimeout(function () {
-    document.body.removeChild(d)
+    // manually force the drag regions to update to work around https://github.com/electron/electron/issues/14038
+    var d = document.createElement('div')
+    d.setAttribute('style', '-webkit-app-region:drag; width: 1px; height: 1px;')
+    document.body.appendChild(d)
+    setTimeout(function () {
+      document.body.removeChild(d)
+    }, 100)
   }, 100)
 }
 
@@ -289,7 +291,7 @@ window.webviews = {
         if (webviews.placeholderRequests.length === 0) { // make sure the placeholder hasn't been re-enabled
           placeholderImg.hidden = true
         }
-      }, 200)
+      }, 400)
     }
   },
   getTabFromContents: function (contents) {
