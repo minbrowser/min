@@ -462,7 +462,10 @@ function createAppMenu () {
           label: l('appMenuReloadBrowser'),
           accelerator: undefined,
           click: function (item, focusedWindow) {
-            if (focusedWindow) focusedWindow.reload()
+            if (focusedWindow) {
+              destroyAllViews()
+              focusedWindow.reload()
+            }
           }
         },
         {
