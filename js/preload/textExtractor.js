@@ -76,15 +76,29 @@ function getPageData () {
   var currencyEl = document.querySelector('[itemprop=priceCurrency], [property=priceCurrency]')
 
   if (priceEl) {
-    price = priceEl.textContent
+    price = priceEl.getAttribute('content') || priceEl.textContent
+  }
+
+  if (currencyEl) {
+    var currency = currencyEl.getAttribute('content') || currencyEl.textContent
   }
 
   if (!/\d/g.test(price)) { // if the price doesn't contain a number, it probably isn't accurate
     price = undefined
   }
 
-  if (price && price.indexOf('$') === -1 && currencyEl && navigator.language === 'en-US') { // try to add a currency if we don't have one. We should probably check for other currencies, too.
-    price = (currencyEl.content || currencyEl.textContent).replace('USD', '$') + price
+  var currencySymbolMap = {
+    'USD': '$',
+    'EUR': '€',
+  // TODO add support for more currencies
+  }
+
+  if (price && /^[\d\.]+$/g.test(price) && currencySymbolMap[currency]) { // try to add a currency if we don't have one
+    price = currencySymbolMap[currency] + price
+  }
+
+  if (price) {
+    price = price.trim()
   }
 
   // ratings
@@ -96,11 +110,24 @@ function getPageData () {
   }
 
   if (ratingEl) {
-    rating = ratingEl.title || ratingEl.alt || ratingEl.content || ratingEl.textContent
+    rating = ratingEl.title || ratingEl.alt || ratingEl.content || ratingEl.getAttribute('content') || ratingEl.textContent
     rating = rating.replace('rating', '').replace('stars', '').replace('star', '').trim()
+
+    // if the rating is just a number, round it first, because some websites (such as walmart.com) don't round it automatically
+    if (/^[\d\.]+$/g.test(rating)) {
+      try {
+        rating = Math.round(parseFloat(rating) * 100) / 100
+      } catch (e) {}
+    }
+
     if (rating && /\d+$/g.test(rating)) { // if the rating ends in a number, we assume it means "stars", and append the prefix
       rating = rating + ' stars'
     }
+  }
+
+  if (rating && rating.length > 20) {
+    // very long strings are unlikely to actually be ratings
+    rating = undefined
   }
 
   // location
