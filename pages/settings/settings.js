@@ -3,6 +3,7 @@ document.title = l('settingsPreferencesHeading') + ' | Min'
 var container = document.getElementById('privacy-settings-container')
 var trackerCheckbox = document.getElementById('checkbox-block-trackers')
 var banner = document.getElementById('restart-required-banner')
+var siteThemesCheckbox = document.getElementById('checkbox-site-themes')
 var darkModeCheckbox = document.getElementById('checkbox-dark-mode')
 var historyButtonCheckbox = document.getElementById('checkbox-history-button')
 var swipeNavigationCheckbox = document.getElementById('checkbox-swipe-navigation')
@@ -95,6 +96,17 @@ for (var contentType in contentTypes) {
     })
   })(contentType)
 }
+
+/* site themes setting */
+
+settings.get('siteThemes', function (value) {
+  siteThemesCheckbox.checked = value
+})
+
+siteThemesCheckbox.addEventListener('change', function (e) {
+  settings.set('siteThemes', this.checked)
+  showRestartRequiredBanner()
+})
 
 /* dark mode setting */
 

@@ -3,6 +3,16 @@ function shouldEnableDarkMode () {
   return hours > 21 || hours < 6
 }
 
+settings.get('siteThemes', function(value) {
+  if (value === true) {
+    window.allowSiteThemes = true
+    window.dispatchEvent(new CustomEvent('themechange'))
+  } else {
+    window.allowSiteThemes = false
+    window.dispatchEvent(new CustomEvent('themechange'))
+  }
+});
+
 settings.get('darkMode', function (value) {
   if (value === true || shouldEnableDarkMode()) {
     document.body.classList.add('dark-mode')

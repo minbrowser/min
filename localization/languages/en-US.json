@@ -112,6 +112,7 @@
             "unsafeHTML": "Based on EasyList and EasyPrivacy, without element hiding rules. Created by <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>."
         },
         "settingsAppearanceHeading": "Appearance",
+        "settingsSiteThemesToggle": "Enable site themes",
         "settingsDarkModeToggle": "Enable dark mode",
         "settingsHistoryButtonToggle": "Enable back button",
         "settingsAdditionalFeaturesHeading": "Additional Features",

@@ -214,7 +214,7 @@ window.updateColorPalette = function () {
     // private tabs have their own color scheme
     return setColor(defaultColors.private[0], defaultColors.private[1])
   // use the colors extracted from the page icon
-  } else if (tab.backgroundColor || tab.foregroundColor) {
+  } else if (window.allowSiteThemes && (tab.backgroundColor || tab.foregroundColor)) {
     return setColor(tab.backgroundColor, tab.foregroundColor)
   // otherwise use the default colors
   } else if (window.isDarkMode) {
