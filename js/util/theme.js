@@ -4,14 +4,9 @@ function shouldEnableDarkMode () {
 }
 
 settings.get('siteThemes', function(value) {
-  if (value === true) {
-    window.allowSiteThemes = true
-    window.dispatchEvent(new CustomEvent('themechange'))
-  } else {
-    window.allowSiteThemes = false
-    window.dispatchEvent(new CustomEvent('themechange'))
-  }
-});
+  window.allowSiteThemes = value
+  window.dispatchEvent(new CustomEvent('themechange'))
+})
 
 settings.get('darkMode', function (value) {
   if (value === true || shouldEnableDarkMode()) {
