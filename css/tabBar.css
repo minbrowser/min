@@ -118,7 +118,7 @@ body:not(.windows) #menu-button {
 }
 .tab-item i {
 	font-size: 0.8em;
-	padding: 0 0.66em;
+	padding: 0.66em;
 	vertical-align: middle;
 	width: 1em;
 	box-sizing: content-box;
