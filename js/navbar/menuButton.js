@@ -4,7 +4,7 @@ menuButton.addEventListener('click', function (e) {
   showSecondaryMenu()
 })
 
-function showSecondaryMenu () {
+window.showSecondaryMenu = function () {
   var navbar = document.getElementById('navbar')
   var rect = menuButton.getBoundingClientRect()
   var navbarRect = navbar.getBoundingClientRect()
