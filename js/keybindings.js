@@ -456,16 +456,17 @@ document.body.addEventListener('keydown', function (e) {
 
 webviews.bindEvent('before-input-event', function (e, input) {
   var expectedKeys = 1
-  if (input.alt) {
+  //account for additional keys that aren't in the input.key property
+  if (input.alt && input.key !== "Alt") {
     expectedKeys++
   }
-  if (input.shift) {
+  if (input.shift && input.key !== "Shift") {
     expectedKeys++
   }
-  if (input.control) {
+  if (input.control && input.key !== "Control") {
     expectedKeys++
   }
-  if (input.meta) {
+  if (input.meta && input.key !== "Meta") {
     expectedKeys++
   }
 
@@ -481,11 +482,11 @@ webviews.bindEvent('before-input-event', function (e, input) {
           (key === 'right' && input.key === 'ArrowRight') ||
           (key === 'up' && input.key === 'ArrowUp') ||
           (key === 'down' && input.key === 'ArrowDown') ||
-          (key === 'alt' && input.alt) ||
-          (key === 'shift' && input.shift) ||
-          (key === 'ctrl' && input.control) ||
-          (key === 'mod' && window.platformType === 'mac' && input.meta) ||
-          (key === 'mod' && window.platformType !== 'mac' && input.control)
+          (key === 'alt' && (input.alt || input.key === "Alt")) ||
+          (key === 'shift' && (input.shift || input.key === "Shift")) ||
+          (key === 'ctrl' && (input.control || input.key === "Control")) ||
+          (key === 'mod' && window.platformType === 'mac' && (input.meta || input.key === "Meta")) ||
+          (key === 'mod' && window.platformType !== 'mac' && (input.control || input.key === "Control"))
           )
         ) {
           matches = false
