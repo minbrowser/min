@@ -176,7 +176,7 @@ var menuBarShortcuts = ['mod+t', 'shift+mod+p', 'mod+n'] // shortcuts that are a
 
 var shortcutsList = []
 
-function defineShortcut (keysOrKeyMapName, fn) {
+function defineShortcut (keysOrKeyMapName, fn, options = {}) {
   if (keysOrKeyMapName.keys) {
     var binding = keysOrKeyMapName.keys
   } else {
@@ -215,11 +215,12 @@ function defineShortcut (keysOrKeyMapName, fn) {
     shortcutsList.push({
       combo: keys,
       keys: keys.split('+'),
-      fn: shortcutCallback
+      fn: shortcutCallback,
+      keyUp: options.keyUp
     })
   })
 
-  Mousetrap.bind(binding, shortcutCallback)
+  Mousetrap.bind(binding, shortcutCallback, (options.keyUp ? "keyup" : null))
 }
 
 settings.get('keyMap', function (keyMapSettings) {
@@ -438,7 +439,7 @@ settings.get('keyMap', function (keyMapSettings) {
 
   defineShortcut('showAndHideMenuBar', function () {
     menuBarVisibility.toggleMenuBar()
-  })
+  }, {keyUp: true}) //run on keyUp to avoid interfering with alt+f4 shortcut, see https://github.com/minbrowser/min/issues/631
 
   defineShortcut('followLink', function () {
     findinpage.end({ action: 'activateSelection' })
@@ -470,34 +471,35 @@ webviews.bindEvent('before-input-event', function (e, input) {
     expectedKeys++
   }
 
-  if (input.type === 'keyDown') {
-    shortcutsList.forEach(function (shortcut) {
-      var matches = true
-      var matchedKeys = 0
-      shortcut.keys.forEach(function (key) {
-        if (! (
-          key === input.key.toLowerCase() ||
-          key === input.code.replace('Digit', '') ||
-          (key === 'left' && input.key === 'ArrowLeft') ||
-          (key === 'right' && input.key === 'ArrowRight') ||
-          (key === 'up' && input.key === 'ArrowUp') ||
-          (key === 'down' && input.key === 'ArrowDown') ||
-          (key === 'alt' && (input.alt || input.key === "Alt")) ||
-          (key === 'shift' && (input.shift || input.key === "Shift")) ||
-          (key === 'ctrl' && (input.control || input.key === "Control")) ||
-          (key === 'mod' && window.platformType === 'mac' && (input.meta || input.key === "Meta")) ||
-          (key === 'mod' && window.platformType !== 'mac' && (input.control || input.key === "Control"))
-          )
-        ) {
-          matches = false
-        } else {
-          matchedKeys++
-        }
-      })
-
-      if (matches && matchedKeys === expectedKeys) {
-        shortcut.fn(null, shortcut.combo)
+  shortcutsList.forEach(function (shortcut) {
+    if ((shortcut.keyUp && input.type !== "keyUp") || (!shortcut.keyUp && input.type !== "keyDown")) {
+      return
+    }
+    var matches = true
+    var matchedKeys = 0
+    shortcut.keys.forEach(function (key) {
+      if (! (
+        key === input.key.toLowerCase() ||
+        key === input.code.replace('Digit', '') ||
+        (key === 'left' && input.key === 'ArrowLeft') ||
+        (key === 'right' && input.key === 'ArrowRight') ||
+        (key === 'up' && input.key === 'ArrowUp') ||
+        (key === 'down' && input.key === 'ArrowDown') ||
+        (key === 'alt' && (input.alt || input.key === "Alt")) ||
+        (key === 'shift' && (input.shift || input.key === "Shift")) ||
+        (key === 'ctrl' && (input.control || input.key === "Control")) ||
+        (key === 'mod' && window.platformType === 'mac' && (input.meta || input.key === "Meta")) ||
+        (key === 'mod' && window.platformType !== 'mac' && (input.control || input.key === "Control"))
+        )
+      ) {
+        matches = false
+      } else {
+        matchedKeys++
       }
     })
-  }
+
+    if (matches && matchedKeys === expectedKeys) {
+      shortcut.fn(null, shortcut.combo)
+    }
+  })
 })
