@@ -1,7 +1,7 @@
 var browserUI = require('api-wrapper.js')
 var focusMode = require('focusMode.js')
 
-const createTaskContainer = require("taskOverlay/taskOverlayBuilder.js")
+const createTaskContainer = require('taskOverlay/taskOverlayBuilder.js')
 
 var taskContainer = document.getElementById('task-area')
 var taskSwitcherButton = document.getElementById('switch-task-button')
@@ -195,7 +195,7 @@ taskOverlay.taskDragula.on('drop', function (el, target, source, sibling) {
   if (adjacentTaskId) {
     var newIdx = tasks.getIndex(adjacentTaskId)
   } else {
-    var newIdx = tasks.length
+    var newIdx = tasks.getLength()
   }
 
   // reinsert the task

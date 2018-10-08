@@ -7,7 +7,7 @@ class TaskList {
     this.tasks = [] // each task is {id, name, tabs: [], tabHistory: TabStack}
   }
 
-  add (task = {}, index) {
+  add (task = {} , index) {
     const newTask = {
       name: task.name || null,
       tabs: task.tabs || [],
@@ -60,7 +60,7 @@ class TaskList {
   destroy (id) {
     const index = this.getIndex(id)
 
-    if(index < 0) return false
+    if (index < 0) return false
 
     this.tasks.splice(index, 1)
     return index
@@ -85,22 +85,24 @@ class TaskList {
     return lastActivity
   }
 
-  getLength() {
+  getLength () {
     return this.tasks.length
   }
 
-  map(fun) { return this.tasks.map(fun) }
+  map (fun) { return this.tasks.map(fun) }
 
-  forEach(fun) { return this.tasks.forEach(fun) }
+  forEach (fun) { return this.tasks.forEach(fun) }
 
-  indexOf(task) { return this.tasks.indexOf(task) }
+  indexOf (task) { return this.tasks.indexOf(task) }
 
-  find(filter) {
+  splice (...args) { return this.tasks.splice.apply(this.tasks, args) }
+
+  find (filter) {
     for (var i = 0, len = this.tasks.length; i < len; i++) {
       if (filter(this.tasks[i])) {
         return this.tasks[i]
       }
-    } 
+    }
   }
 
   static getRandomId () {
