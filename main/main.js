@@ -128,6 +128,10 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     return true
   })
 
+  mainWindow.on("focus", function() {
+    sendIPCToWindow(mainWindow, 'windowFocus')
+  })
+
   mainWindow.on('minimize', function () {
     sendIPCToWindow(mainWindow, 'minimize')
   })

@@ -462,7 +462,7 @@ ipc.on('captureData', function (e, data) {
 
 /* focus the view when the window is focused */
 
-window.addEventListener('focus', function () {
+ipc.on('windowFocus', function () {
   if (document.activeElement === document.body) {
     webviews.focus()
   }
