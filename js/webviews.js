@@ -371,11 +371,6 @@ webviews.bindEvent('did-finish-load', onPageLoad)
 webviews.bindEvent('did-navigate-in-page', onPageLoad)
 webviews.bindEvent('did-navigate', onNavigate)
 
-webviews.bindEvent('page-favicon-updated', function (e, favicons) {
-  var id = webviews.getTabFromContents(this)
-  updateTabColor(favicons, id)
-})
-
 webviews.bindEvent('page-title-updated', function (e, title, explicitSet) {
   var tab = webviews.getTabFromContents(this)
   tabs.update(tab, {
