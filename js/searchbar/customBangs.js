@@ -41,20 +41,11 @@ registerCustomBang({
   snippet: l('takeScreenshot'),
   isAction: true,
   fn: function (text) {
-    setTimeout(function () { // wait until the next frame so that the searchbar is hidden
-      var rect = webviews.get(tabs.getSelected()).getBoundingClientRect()
-
-      var imageRect = {
-        x: Math.round(rect.left),
-        y: Math.round(rect.top),
-        width: Math.round(rect.width),
-        height: Math.round(rect.height)
-      }
-
-      remote.getCurrentWindow().capturePage(imageRect, function (image) {
+    setTimeout(function () { // wait so that the view placeholder is hidden
+      webviews.get(tabs.getSelected()).capturePage(function (image) {
         remote.getCurrentWebContents().downloadURL(image.toDataURL())
       })
-    }, 16)
+    }, 400)
   }
 })
 
