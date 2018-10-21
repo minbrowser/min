@@ -68,7 +68,7 @@ body.windows #navbar {
 	opacity: 1;
 	transition: none;
 	font-size: 1.5em;
-    padding: 0 0.6em 0 0.4em;
+	padding: 0 0.6em 0 0.4em;
 }
 #back-button:disabled {
 	opacity: 0.2;
@@ -242,8 +242,8 @@ body.dark-mode #overlay {
 /* buttons */
 
 .navbar-action-button {
-    padding: 0 1em;
-    height: 36px;
+	padding: 0 1em;
+	height: 36px;
 	line-height: 36px !important;
 }
 .navbar-action-button.invisible {
@@ -268,13 +268,13 @@ body.dark-mode #overlay {
 
 /* when the tab is hovered, hide info buttons and show the close button */
 
-.tab-item.jshover .tab-info-icon {
+.tab-item:hover .tab-info-icon {
 	display: none;
 }
 .tab-item .tab-close-button {
 	display: none;
 }
-.tab-item.jshover .tab-close-button {
+.tab-item:hover .tab-close-button {
 	display: inline-block;
 }
 
@@ -313,7 +313,7 @@ body.is-focus-mode .tab-item {
 }
 
 body:not(.dark-theme) .progress-bar {
-    opacity: 0.8;
+	opacity: 0.8;
 }
 
 .p0 {

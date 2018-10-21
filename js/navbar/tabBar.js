@@ -163,15 +163,6 @@ window.tabBar = {
     tabEl.setAttribute('data-tab', data.id)
     tabEl.title = tabTitle
 
-    /* css :hover selectors are buggy when a webview is focused */
-    tabEl.addEventListener('mouseenter', function (e) {
-      this.classList.add('jshover')
-    })
-
-    tabEl.addEventListener('mouseleave', function (e) {
-      this.classList.remove('jshover')
-    })
-
     var ec = document.createElement('div')
     ec.className = 'tab-edit-contents'
 
