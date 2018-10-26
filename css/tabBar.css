@@ -91,6 +91,9 @@ body:not(.windows) #menu-button {
 	/* https://github.com/w3c/csswg-drafts/issues/92 - don't make the scrollbar height affect the layout */
 	overflow: overlay;
 }
+body.is-edit-mode #navbar #tabs {
+	overflow: hidden;
+}
 .tab-item {
 	flex: 1;
 	min-width: 125px;
