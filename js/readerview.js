@@ -60,6 +60,13 @@ var readerView = {
       isReaderView: false
     })
   },
+  printArticle: function (tabId) {
+    if (!tabs.get(tabId).isReaderView) {
+      throw new Error("attempting to print in a tab that isn't a reader page")
+    }
+
+    webviews.get(tabId).executeJavaScript('parentProcessActions.printArticle()', false)
+  },
   showReadingList: function (container, filterText) {
     db.readingList.orderBy('time').reverse().toArray().then(function (articles) {
       empty(container)

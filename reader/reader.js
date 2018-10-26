@@ -21,7 +21,7 @@ function startReaderView (article) {
 
   window.rframe = document.createElement('iframe')
   rframe.classList.add('reader-frame')
-  rframe.sandbox = 'allow-same-origin allow-popups'
+  rframe.sandbox = 'allow-same-origin allow-popups allow-modals'
   rframe.srcdoc = readerContent
 
   rframe.onload = function () {
@@ -157,3 +157,13 @@ window.addEventListener('themechange', function () {
   }
   setPageIcon()
 })
+
+function printArticle () {
+  rframe.contentWindow.print()
+}
+
+/* these functions are called from the parent process */
+
+var parentProcessActions = {
+  printArticle: printArticle
+}

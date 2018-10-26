@@ -29,6 +29,8 @@ ipc.on('zoomReset', function () {
 ipc.on('print', function () {
   if (PDFViewer.isPDFViewer(tabs.getSelected())) {
     PDFViewer.printPDF(tabs.getSelected())
+  } else if (tabs.get(tabs.getSelected()).isReaderView) {
+    readerView.printArticle(tabs.getSelected())
   } else {
     webviews.get(tabs.getSelected()).print()
   }
