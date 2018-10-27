@@ -1,4 +1,4 @@
-var browserUI = require('api-wrapper.js')
+var browserUI = require('browserUI.js')
 
 var addTabButton = document.getElementById('add-tab-button')
 

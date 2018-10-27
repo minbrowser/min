@@ -1,6 +1,6 @@
 /* handles viewing pdf files using pdf.js. Recieves events from main.js will-download */
 
-var browserUI = require('api-wrapper.js')
+var browserUI = require('browserUI.js')
 
 var PDFViewer = {
   url: {

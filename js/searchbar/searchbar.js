@@ -1,4 +1,4 @@
-var browserUI = require('api-wrapper.js')
+var browserUI = require('browserUI.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 
 function openURLInBackground (url) { // used to open a url in the background, without leaving the searchbar

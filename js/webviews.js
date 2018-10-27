@@ -1,4 +1,4 @@
-var browserUI = require('api-wrapper.js')
+var browserUI = require('browserUI.js')
 const previewCache = require('previewCache.js')
 var getView = remote.getGlobal('getView')
 var urlParser = require('util/urlParser.js')

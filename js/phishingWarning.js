@@ -1,6 +1,6 @@
 /* redirects to the phishing warning page when a message is recieved from the webview */
 
-var browserUI = require('api-wrapper.js')
+var browserUI = require('browserUI.js')
 
 var phishingWarningPage = 'file://' + __dirname + '/pages/phishing/index.html'
 

@@ -1,4 +1,4 @@
-var browserUI = require('api-wrapper.js')
+var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
 
 const createTaskContainer = require('taskOverlay/taskOverlayBuilder.js')

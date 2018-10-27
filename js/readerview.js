@@ -1,4 +1,4 @@
-var browserUI = require('api-wrapper.js')
+var browserUI = require('browserUI.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 
 var readerView = {
