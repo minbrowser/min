@@ -29,7 +29,7 @@ ipc.on('zoomReset', function () {
 ipc.on('print', function () {
   if (PDFViewer.isPDFViewer(tabs.getSelected())) {
     PDFViewer.printPDF(tabs.getSelected())
-  } else if (tabs.get(tabs.getSelected()).isReaderView) {
+  } else if (readerView.isReader(tabs.getSelected())) {
     readerView.printArticle(tabs.getSelected())
   } else {
     webviews.get(tabs.getSelected()).print()
@@ -310,12 +310,10 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('toggleReaderView', function () {
-    var tab = tabs.get(tabs.getSelected())
-
-    if (tab.isReaderView) {
-      readerView.exit(tab.id)
+    if (readerView.isReader(tabs.getSelected())) {
+      readerView.exit(tabs.getSelected())
     } else {
-      readerView.enter(tab.id)
+      readerView.enter(tabs.getSelected())
     }
   })
 

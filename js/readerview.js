@@ -6,6 +6,9 @@ var readerView = {
   getReaderURL: function (url) {
     return readerView.readerURL + '?url=' + url
   },
+  isReader: function (tabId) {
+    return tabs.get(tabId).url.indexOf(readerView.readerURL) === 0
+  },
   getButton: function (tabId) {
     // TODO better icon
     var item = document.createElement('i')
@@ -16,11 +19,10 @@ var readerView = {
 
     item.addEventListener('click', function (e) {
       var tabId = this.getAttribute('data-tab')
-      var tab = tabs.get(tabId)
 
       e.stopPropagation()
 
-      if (tab.isReaderView) {
+      if (readerView.isReader(tabId)) {
         readerView.exit(tabId)
       } else {
         readerView.enter(tabId)
@@ -33,7 +35,7 @@ var readerView = {
     var button = document.querySelector('.reader-button[data-tab="{id}"]'.replace('{id}', tabId))
     var tab = tabs.get(tabId)
 
-    if (tab.isReaderView) {
+    if (readerView.isReader(tabId)) {
       button.classList.add('is-reader')
       button.setAttribute('title', l('exitReaderView'))
       return
@@ -50,18 +52,12 @@ var readerView = {
   },
   enter: function (tabId) {
     browserUI.navigate(tabId, readerView.readerURL + '?url=' + encodeURIComponent(tabs.get(tabId).url))
-    tabs.update(tabId, {
-      isReaderView: true
-    })
   },
   exit: function (tabId) {
     browserUI.navigate(tabId, decodeURIComponent(tabs.get(tabId).url.split('?url=')[1]))
-    tabs.update(tabId, {
-      isReaderView: false
-    })
   },
   printArticle: function (tabId) {
-    if (!tabs.get(tabId).isReaderView) {
+    if (!readerView.isReader(tabId)) {
       throw new Error("attempting to print in a tab that isn't a reader page")
     }
 
@@ -130,21 +126,11 @@ registerCustomBang({
 
 webviews.bindEvent('did-finish-load', function (e) {
   var tab = webviews.getTabFromContents(this)
-  webviews.callAsync(tab, 'getURL', null, function (url) {
-    if (url.indexOf(readerView.readerURL) === 0) {
-      tabs.update(tab, {
-        isReaderView: true,
-        readerable: false // assume the new page can't be readered, we'll get another message if it can
-      })
-    } else {
-      tabs.update(tab, {
-        isReaderView: false,
-        readerable: false
-      })
-    }
-
-    readerView.updateButton(tab)
+  tabs.update(tab, {
+    readerable: false // assume the new page can't be readered, we'll get another message if it can
   })
+
+  readerView.updateButton(tab)
 })
 
 webviews.bindIPC('canReader', function (webview, tab) {
