@@ -11,7 +11,7 @@ var ipc = electron.ipcRenderer
 
 window.chrome = {}
 
-var propertiesToClone = ['deltaX', 'deltaY', 'metaKey', 'ctrlKey', 'defaultPrevented']
+var propertiesToClone = ['deltaX', 'deltaY', 'metaKey', 'ctrlKey', 'defaultPrevented', 'clientX', 'clientY']
 
 function cloneEvent (e) {
   var obj = {}

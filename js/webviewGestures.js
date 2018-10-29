@@ -116,7 +116,22 @@ webviews.bindIPC('wheel-event', function (webview, tabId, e) {
   var platformSecondaryKey = ((navigator.platform === 'MacIntel') ? e.ctrlKey : false)
 
   if (beginningScrollLeft === null || beginningScrollRight === null) {
-    webviews.get(tabs.getSelected()).executeJavaScript('({left: (document.scrollingElement) ? document.scrollingElement.scrollLeft : 0, right: (document.scrollingElement) ? (document.scrollingElement.scrollWidth - document.scrollingElement.clientWidth - document.scrollingElement.scrollLeft) : 0})', false, function (result) {
+    webviews.get(tabs.getSelected()).executeJavaScript(`
+    (function () {
+      var left = 0
+      var right = 0
+      
+      var n = document.elementFromPoint(${e.clientX}, ${e.clientY})
+      while (n) {
+        if (n.scrollLeft !== undefined) {
+            left = Math.max(left, n.scrollLeft)
+            right = Math.max(right, n.scrollWidth - n.clientWidth - n.scrollLeft)
+        }
+        n = n.parentElement
+      }  
+      return {left, right}
+    })()
+    `, false, function (result) {
       if (beginningScrollLeft === null || beginningScrollRight === null) {
         beginningScrollLeft = result.left
         beginningScrollRight = result.right
