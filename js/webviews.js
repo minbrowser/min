@@ -142,8 +142,8 @@ window.webviews = {
   placeholderRequests: [],
   asyncCallbacks: {},
   internalPages: {
-    crash: 'file://' + __dirname + '/pages/crash/index.html',
-    error: 'file://' + __dirname + '/pages/error/index.html'
+    crash: urlParser.getFileURL(__dirname + '/pages/crash/index.html'),
+    error: urlParser.getFileURL(__dirname + '/pages/error/index.html'),
   },
   events: [],
   IPCEvents: [],

@@ -1,10 +1,11 @@
 /* handles viewing pdf files using pdf.js. Recieves events from main.js will-download */
 
 var browserUI = require('browserUI.js')
+var urlParser = require('util/urlParser.js')
 
 var PDFViewer = {
   url: {
-    base: 'file://' + __dirname + '/pages/pdfViewer/index.html',
+    base: urlParser.getFileURL(__dirname + '/pages/pdfViewer/index.html'),
     queryString: '?url=%l'
   },
   isPDFViewer: function (tabId) {

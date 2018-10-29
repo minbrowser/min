@@ -63,7 +63,7 @@ var urlParser = {
   },
   getDisplayURL: function (url) {
     // converts internal URLs (like the PDF viewer or the reader view) to the URL of the page they are displaying
-    if (url.startsWith('file://' + __dirname)) {
+    if (url.startsWith(urlParser.getFileURL(__dirname))) {
       try {
         var realURL = new URLSearchParams(new URL(url).search).get('url')
         if (realURL) {
@@ -72,6 +72,22 @@ var urlParser = {
       } catch(e) {}
     }
     return url
+  },
+  getFileURL: function (path) {
+    if (window.platformType === 'windows') {
+      // convert backslash to forward slash
+      path = path.replace(/\\/g, '/')
+      // https://blogs.msdn.microsoft.com/ie/2006/12/06/file-uris-in-windows/
+
+      // UNC path?
+      if (path.startsWith('//')) {
+        return 'file:' + path
+      } else {
+        return 'file:///' + path
+      }
+    } else {
+      return 'file://' + path
+    }
   }
 }
 

@@ -1,8 +1,9 @@
 var browserUI = require('browserUI.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
+var urlParser = require('util/urlParser.js')
 
 var readerView = {
-  readerURL: 'file://' + __dirname + '/reader/index.html',
+  readerURL: urlParser.getFileURL(__dirname + '/reader/index.html'),
   getReaderURL: function (url) {
     return readerView.readerURL + '?url=' + url
   },
