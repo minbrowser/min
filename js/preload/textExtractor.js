@@ -148,6 +148,10 @@ function getPageData () {
     location = location.replace(/,?\d{5}$/g, '')
   }
 
+  if (location && location.length > 60) {
+    location = undefined
+  }
+
   // cooking time
 
   var cookingTimeEl = document.querySelector('[itemprop="totalTime"], [itemprop="cookTime"]')
@@ -156,6 +160,10 @@ function getPageData () {
     cookTime = cookingTimeEl.textContent
     cookTime = cookTime.replace(/\sm$/g, ' minutes').replace(/\sh$/g, ' hours')
     cookTime = cookTime.replace('1 hours', '1 hour')
+  }
+
+  if (cookTime && cookTime.length > 20) {
+    cookTime = undefined;
   }
 
   var text = extractPageText(document, window)
