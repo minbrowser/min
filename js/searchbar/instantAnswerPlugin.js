@@ -52,10 +52,19 @@ function showSearchbarInstantAnswers (text, input, event, container) {
         // the text starts with the entity name, remove it
         var desc = item.Text.replace(entityName, '')
 
+        // try to convert the given url to a wikipedia link
+        var entityNameRegex = /https:\/\/duckduckgo.com\/([a-zA-Z0-9\)\(_%]+)$/
+
+        if (entityNameRegex.test(item.FirstURL)) {
+          var url = 'https://wikipedia.org/wiki/' + entityNameRegex.exec(item.FirstURL)[1]
+        } else {
+          var url = item.FirstURL
+        }
+
         var item = searchbarUtils.createItem({
           title: entityName,
           descriptionBlock: desc,
-          url: item.FirstURL
+          url: url
         })
 
         container.appendChild(item)
