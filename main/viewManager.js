@@ -65,7 +65,7 @@ function setBounds (id, bounds) {
 
 function focusView (id) {
   // empty views can't be focused because they won't propogate keyboard events correctly, see https://github.com/minbrowser/min/issues/616
-  if (viewMap[id].webContents.getURL() !== '') {
+  if (viewMap[id].webContents.getURL() !== '' || viewMap[id].webContents.isLoading()) {
     viewMap[id].webContents.focus()
   } else {
     mainWindow.webContents.focus()
