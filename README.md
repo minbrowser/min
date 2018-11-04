@@ -33,6 +33,7 @@ To run a prebuilt version, download one of the binaries [here](https://github.co
 If you want to develop Min:
 
 * Install [Node](https://nodejs.org) and [Grunt](http://gruntjs.com).
+  * If you are using OS X, install [Homebrew](http://brew.sh), then run `brew install node`.
 * Run `npm install` to install dependencies.
 * Build the translation files and a copy of the JS by running `npm run build`.
   * You can also watch for changes and automatically rebuild by running `npm run watch`.
