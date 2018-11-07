@@ -1,0 +1,175 @@
+{
+    "name": "Persian",
+    "identifier": "fa",
+    "translations": {
+        /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+        "openInNewTab": "باز کردن در برگه جدید",
+        "openInNewPrivateTab": "باز کردن در برگه خصوصی جدید",
+        "viewImage": "نمایش تصویر",
+        "openImageInNewTab": "باز کردن تصویر در برگه جدید",
+        "openImageInNewPrivateTab": "باز کردن تصویر در برگه خصوصی جدید",
+        "saveImageAs": "ذخیره تصویر",
+        "searchWith": "جستجو با %s", //%s will be replaced with the name of the current search engine
+        "copyLink": "کپی لینک",
+        "copy": "کپی", //this is a verb (as in "copy the currently-selected text")
+        "paste": "چسباندن",
+        "goBack": "عقب",
+        "goForward": "جلو",
+        "inspectElement": "وارسی",
+        /* searchbar */
+        "DDGAnswerSubtitle": "پاسخ", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+        "suggestedSite": "سایت پیشنهادی", //this is used to label suggested websites from the DuckDuckGo API,
+        "resultsFromDDG": "نتایج از DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+        "taskN": "وظیفه %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "hostsFileEntry": "نتایج از فایل Hosts", //this is a label used to indicate that a result is coming from the user's host file
+        /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+        "viewSettings": "نمایش تنظیمات",
+        "viewReadingList": "نمایش لیست خواندن",
+        "takeScreenshot": "عکس گرفتن از صفحه",
+        "clearHistory": "حذف تاریخچه مرورگر",
+        "switchToTask": "تغییر به وظیفه",
+        "createTask": "ایجاد وظیفه جدید",
+        "moveToTask": "انتقال این برگه به یک وظیفه",
+        "searchBookmarks": "جستجوی نشانک ها",
+        "searchHistory": "جستجوی تاریخچه",
+        /* navbar */
+        "openMenu": "باز کردن منو", //application menu button on windows
+        "enterReaderView": "ورود به حالت خواندن",
+        "exitReaderView": "خروج از حالت خواندن",
+        "emptyReadingListTitle": "لیست خواندن شما خالی است",
+        "emptyReadingListSubtitle": "مقالاتی که شما در حالت خواندن باز می کنید در اینجا لیست می شوند و به مدت سی روز به آنها دسترسی آفلاین دارید.",
+        "newTabLabel": "برگه جدید", //this is a noun, used for tabs that don't have a page loaded in them yet
+        "connectionNotSecure": "ارتباط شما با این سایت امن نیست.",
+        "searchbarPlaceholder": "جستجو کنید یا آدرس سایت را وارد کنید",
+        "privateTab": "برگه خصوصی",
+        "newTabAction": "برگه جدید", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        /* task overlay */
+        "viewTasks": "نمایش وظایف",
+        "newTask": "وظیفه جدید", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": "وظیفه %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        /* find in page toolbar */
+        "searchInPage": "جستجو در صفحه", //this is used as the placeholder text for the textbox in the find in page toolbar
+        "findMatchesSingular": "%i از %t نتیجه", //this and the next label are used to indicate which match is currently highlighted
+        "findMatchesPlural": "%i از %t نتیجه",
+        /* Focus mode */
+        "isFocusMode": "شما در حالت تمرکز هستید",
+        "closeDialog": "تایید", //used as a label for the button that closes the dialog
+        "focusModeExplanation1": "در حالت تمرکز تمام برگه ها به جز برگه فعلی مخفی شده و شما قادر به ایجاد برگه جدید نیستید.",
+        "focusModeExplanation2": "شما می توانید با غیرفعال کردن گزینه \"حالت تمرکز\" در منوی نمایش از حالت تمرکز خارج شوید.",
+        /* relative dates */
+        "timeRangeJustNow": "همین الان",
+        "timeRangeMinutes": "دقایقی پیش",
+        "timeRangeHour": "ساعتی پیش",
+        "timeRangeDay": "روز پیش",
+        "timeRangeWeek": "هفته پیش",
+        "timeRangeMonth": "ماه پیش",
+        "timeRangeYear": "سال پیش",
+        "timeRangeLongerAgo": "خیلی وقت پیش",
+        /* pages/crash/index.html */
+        "crashErrorTitle": "مشکلی پیش آمد.",
+        "crashErrorSubtitle": "مشکلی هنگام نمایش این صفحه پیش آمد.",
+        /* pages/error/index.html */
+        "errorPagePrimaryAction": "تلاش دوباره",
+        "serverNotFoundTitle": "سرور یافت نشد",
+        "serverNotFoundSubtitle": "مرورگر قادر به پیدا کردن این سایت نیست.",
+        "archiveSearchAction": "جستجو در archive.org",
+        "sslErrorTitle": "این سایت در دسترس نیست",
+        "sslErrorMessage": "مرورگر قادر به ایجاد ارتباط امن با سایت نیست.",
+        "dnsErrorTitle": "سایتی یافت نشد",
+        "dnsErrorMessage": "خطای DNS.",
+        "offlineErrorTitle": "شما آفلاین هستید",
+        "offlineErrorMessage": "لطفا به اینترت متصل شده و دوباره تلاش کنید.",
+        "genericConnectionFail": "مرورگر قادر به اتصال به این سایت نیست.",
+        "sslTimeErrorMessage": "مرورگر قادر به ایجاد ارتباط امن با سایت نیست. لطفا مطمئن شوید که ساعت رایانه شما به درستی تنظیم شده است.",
+        "addressInvalidTitle": "آدرس اشتباه است.",
+        "genericError": "خطایی رخ داد",
+        /* pages/phishing/index.html */
+        "phishingErrorTitle": "این سایت خطرناک است.",
+        "phishingErrorMessage": "این سایت ممکن است اطلاعات شخصی شما از جمله رمز عبور و اطلاعات بانکی شما را به سرقت ببرد.",
+        "phishingErrorVisitAnyway": "نمایش سایت",
+        "phishingErrorLeave": "خروج از سایت",
+        /* multiple instances alert */
+        "multipleInstancesErrorMessage": "خطایی رخ داد. لطفا مرورگر را به صورت کامل بسته و دوباره باز کنید.",
+        /* pages/sessionRestoreError/index.html */
+        "sessionRestoreErrorTitle": "خطایی رخ داد",
+        "sessionRestoreErrorExplanation": "برگه های ذخیره شده شما به درستی بازیابی نشدند.",
+        "sessionRestoreErrorBackupInfo": "ما یک کپی از داده های شما را در این آدرس ذخیره کرده ایم: %l.", //%l will be replaced with a path to a file
+        "sessionRestoreErrorLinkInfo": {
+            "unsafeHTML": "اگر این خطا همواره رخ می دهد لطفا یک تیکت جدید در <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">اینجا</a> باز کنید."
+        },
+        /* pages/settings/index.html */
+        "settingsPreferencesHeading": "تنظیمات",
+        "settingsRestartRequired": "جهت اعمال تغییرات شما می بایست مرورگر را دوباره باز کنید.",
+        "settingsPrivacyHeading": "مسدود سازی",
+        "settingsContentBlockingToggle": "مسدود کردن تبلیغات و دنبال کنندگان",
+        "settingsBlockScriptsToggle": "مسدود کردن اسکریپت ها",
+        "settingsBlockImagesToggle": "مسدود کردن تصاویر",
+        "settingsEasyListCredit": {
+            "unsafeHTML": "بر مبنای EasyList و EasyPrivacy بدون قوانین مخفی سازی. ساخته شده توسط <a target=\"_blank\" href=\"https://easylist.to/\">توسعه دهندگان EasyList</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">نمایش گواهینامه</a>."
+        },
+        "settingsAppearanceHeading": "ظاهر",
+        "settingsDarkModeToggle": "فعال کردن حالت تاریک",
+        "settingsHistoryButtonToggle": "فعال کردن دکمه بازگشت",
+        "settingsAdditionalFeaturesHeading": "امکانات اضافه",
+        "settingsSwipeNavigationToggle": "فعال سازی قابلیت کشیدن برای مرور به عقب و جلو بین صفحات.",
+        "settingsUserscriptsToggle": "فعال کردن اسکریپت های کاربر",
+        "settingsUserscriptsExplanation": {"unsafeHTML": "اسکریپت های کاربر این اجازه را به شما می دهند تا رفتار سایت ها را تغییر دهید - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اطلاعات بیشتر</a>."},
+        "settingsSearchEngineHeading": "موتور جستجو",
+        "settingsDefaultSearchEngine": "انتخاب موتور جستجوی پیش فرض:",
+        "settingsDDGExplanation": "DuckDuckGo را به عنوان موتور جستجوی پیش فرض تنظیم کنید تا در نوار جستجو نتایج آنی ببینید.",
+        "customSearchEngineDescription": "تعویض عبارت جستجو شده با %s",
+        "settingsKeyboardShortcutsHeading": "میانبرهای صفحه کلید",
+        "settingsKeyboardShortcutsHelp": "از ویرگول جهت جدا کردن میانبرها استفاده کنید.",
+        /* app menu */
+        "appMenuFile": "پرونده",
+        "appMenuNewTab": "برگه جدید",
+        "appMenuDuplicateTab": "برگه تکراری",
+        "appMenuNewPrivateTab": "برگه خصوصی جدید",
+        "appMenuNewTask": "وظیفه جدید",
+        "appMenuSavePageAs": "ذخیره صفحه",
+        "appMenuPrint": "جاپ",
+        "appMenuEdit": "ویرایش",
+        "appMenuUndo": "لغو آخرین دستور",
+        "appMenuRedo": "تکرار آخرین دستور",
+        "appMenuCut": "برش",
+        "appMenuCopy": "کپی",
+        "appMenuPaste": "چسباندن",
+        "appMenuSelectAll": "انتخاب همه",
+        "appMenuFind": "جستجو",
+        "appMenuView": "نمایش",
+        "appMenuZoomIn": "بزرگ نمایی",
+        "appMenuZoomOut": "کوچک نمایی",
+        "appMenuActualSize": "اندازه واقعی",
+        "appMenuFullScreen": "تمام صفحه", //on some platforms, this string is replaced with one built-in to the OS
+        "appMenuFocusMode": "حالت تمرکز",
+        "appMenuReadingList": "فهرست خواندن",
+        "appMenuBookmarks": "نشانک ها",
+        "appMenuHistory": "تاریخچه",
+        "appMenuDeveloper": "توسعه دهنده",
+        "appMenuReloadBrowser": "بازنگری مرورگر",
+        "appMenuInspectBrowser": "وارسی مرورگر",
+        "appMenuInspectPage": "وارسی صفحه",
+        "appMenuWindow": "پنجره",
+        "appMenuMinimize": "کوچک نمایی",
+        "appMenuClose": "بستن",
+        "appMenuHelp": "راهنما",
+        "appMenuKeyboardShortcuts": "میانبرهای صفحه کلید",
+        "appMenuReportBug": "گزارش اشکالات نرم افزاری",
+        "appMenuTakeTour": "تور آموزشی",
+        "appMenuViewGithub": "نمایش در گیت هاب",
+        "appMenuAbout": "درباره %n", //%n is replaced with app name
+        "appMenuPreferences": "تنظیمات",
+        "appMenuServices": "سرویس ها",
+        "appMenuHide": "مخفی کردن %n",
+        "appMenuHideOthers": "مخفی کردن بقیه",
+        "appMenuShowAll": "نمایش همه",
+        "appMenuQuit": "خروج از %n",
+        "appMenuBringToFront": "نمایش همه",
+        /* PDF Viewer */
+        "PDFPageCounter": {"unsafeHTML": "صفحه <input type='text'/> از <span id='total'></span>"}
+    }
+}
