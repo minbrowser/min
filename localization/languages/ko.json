@@ -99,7 +99,7 @@
         "sessionRestoreErrorExplanation": "저장된 탭을 정상적으로 복원 할 수 없습니다.",
         "sessionRestoreErrorBackupInfo": "데이터 백업 저장위치: %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
-            "안전하지 않은 HTML": "오류가 계속 발생하면 <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">문의</a> 바랍니다."
+            "unsafeHTML": "오류가 계속 발생하면 <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">문의</a> 바랍니다."
         },
         /* pages/settings/index.html */
         "settingsPreferencesHeading": "환경설정",
@@ -109,7 +109,7 @@
         "settingsBlockScriptsToggle": "스크립트 차단",
         "settingsBlockImagesToggle": "이미지 차단",
         "settingsEasyListCredit": {
-            "안전하지 않은 HTML": "요소 숨기 규칙없이 EasyList 및 EasyPrivacy를 기반으로합니다. 작성자: <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">라이선스</a>"
+            "unsafeHTML": "요소 숨기 규칙없이 EasyList 및 EasyPrivacy를 기반으로합니다. 작성자: <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">라이선스</a>"
         },
         "settingsAppearanceHeading": "외모",
         "settingsDarkModeToggle": "어두운 모드 사용",
@@ -117,7 +117,7 @@
         "settingsAdditionalFeaturesHeading": "추가 기능",
         "settingsSwipeNavigationToggle": "페이지간 이동을 위한 스와이프 모드 사용",
         "settingsUserscriptsToggle": "사용자 스크립트 사용",
-        "settingsUserscriptsExplanation": {"안전하지 않은 HTML": "사용자 스크립트를 사용하면 웹 사이트의 행동을 수정할 수 있습니다. - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">더보기</a>."},
+        "settingsUserscriptsExplanation": {"unsafeHTML": "사용자 스크립트를 사용하면 웹 사이트의 행동을 수정할 수 있습니다. - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">더보기</a>."},
         "settingsSearchEngineHeading": "검색 엔진",
         "settingsDefaultSearchEngine": "기본 검색 엔진:",
         "settingsDDGExplanation": "SDuckDuckGo를 기본 검색 엔진으로 설정하여 검색 창에서 바로 검색 해 보세요.",
@@ -170,6 +170,6 @@
         "appMenuQuit": "%n 종료",
         "appMenuBringToFront": "맨 앞으로",
         /* PDF Viewer */
-        "PDFPageCounter": {"안전하지 않은 HTML": "<span id='total'></span> 의 <input type='text'/> 페이지"}
+        "PDFPageCounter": {"unsafeHTML": "<span id='total'></span> 의 <input type='text'/> 페이지"}
     }
 }
