@@ -49,6 +49,8 @@ function addTab (tabId = tabs.add(), options = {}) {
     if (options.enterEditMode !== false) {
       tabBar.enterEditMode(tabId)
     }
+  } else {
+    tabBar.getTab(tabId).scrollIntoView()
   }
 }
 
