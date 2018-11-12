@@ -28,16 +28,16 @@
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
         "viewSettings": "Voir les réglages",
-        "viewReadingList": null, //missing translation
+        "viewReadingList": "Voir la liste de lecture",
         "takeScreenshot": "Prendre une capture d'écran",
         "clearHistory": "Vider l'historique",
         "switchToTask": "Changer de tâche",
         "createTask": "Créer une tâche",
         "moveToTask": "Déplacer cette tâche à cet onglet",
         "searchBookmarks": "Rechercher des signets",
-        "searchHistory": null, //missing translation
+        "searchHistory": "Rechercher dans l'historique",
         /* navbar */
-        "openMenu": null, //missing translation
+        "openMenu": "Ouvrir le menu", ///application menu button on windows
         "enterReaderView": "Entrer en mode lecteur",
         "exitReaderView": "Sortir du mode lecteur",
         "emptyReadingListTitle": "Votre liste de lecture est vide",
@@ -61,14 +61,14 @@
         "focusModeExplanation1": "En mode focus, tous les onglets à l'exeption de celui actif sont cachés, et vous pouvez créer de nouveaux onglets.",
         "focusModeExplanation2": "Vous pouvez quitter le mode focus en désactivantla fonction \"focus mode\" dans le menu vue.",
         /* relative dates */
-        "timeRangeJustNow": null, //missing translation
-        "timeRangeMinutes": null, //missing translation
-        "timeRangeHour": null, //missing translation
-        "timeRangeDay": null, //missing translation
-        "timeRangeWeek": null, //missing translation
-        "timeRangeMonth": null, //missing translation
-        "timeRangeYear": null, //missing translation
-        "timeRangeLongerAgo": null, //missing translation
+        "timeRangeJustNow": "À l'instant",
+        "timeRangeMinutes": "Il y a quelques minutes",
+        "timeRangeHour": "Il y a quelques heures",
+        "timeRangeDay": "Il y a quelques jours",
+        "timeRangeWeek": "Cette semaine",
+        "timeRangeMonth": "Ce mois-ci",
+        "timeRangeYear": "Cette année",
+        "timeRangeLongerAgo": "Il y a plus longtemps",
         /* pages/crash/index.html */
         "crashErrorTitle": "Il y a eu un problème.",
         "crashErrorSubtitle": "Il y a eu un problème en affichant cette page.",
@@ -93,7 +93,7 @@
         "phishingErrorVisitAnyway": "Visiter quand même",
         "phishingErrorLeave": "Quitter ce site",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": null, // missing translation
+        "multipleInstancesErrorMessage": "Une erreur a été rencontrée. Veuillez fermer les autres fenêtres et relancer Min.",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Il y a eu une erreur",
         "sessionRestoreErrorExplanation": "Vos onglets sauvegardés n'ont pas pu être restaurés correctement.",
@@ -114,20 +114,20 @@
         "settingsAppearanceHeading": "Apparence",
         "settingsDarkModeToggle": "Activer le mode nuit",
         "settingsHistoryButtonToggle": "Activer le boutton navigation",
-        "settingsAdditionalFeaturesHeading": null, //missing translation
+        "settingsAdditionalFeaturesHeading": "Fonctionnalités supplémentaires",
         "settingsSwipeNavigationToggle": "Activer le glissement pour changer de page.",
-        "settingsUserscriptsToggle": null, //missing translation
-        "settingsUserscriptsExplanation": null, //missing translation
+        "settingsUserscriptsToggle": "Activer les scripts personnalisés",
+        "settingsUserscriptsExplanation": {"unsafeHTML": "Les scripts personnalisés vous permettent de modifier le comportement des pages web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">en savoir plus (en anglais)</a>."},
         "settingsSearchEngineHeading": "Moteur de recherche",
         "settingsDefaultSearchEngine": "Choisir un moteur de recherche par défaut :",
         "settingsDDGExplanation": "Définir DuckDuckGo comme moteur de recherche par défaut pour voir instantanément des résulats dans la barre de recherche.",
-        "customSearchEngineDescription": null, //missing translation
+        "customSearchEngineDescription": "Remplacer la recherche par %s",
         "settingsKeyboardShortcutsHeading": "Raccourcis clavier",
         "settingsKeyboardShortcutsHelp": "Séparer les raccourcis clavier multiples par une virgule.",
         /* app menu */
         "appMenuFile": "Fichier",
         "appMenuNewTab": "Nouvel onglet",
-        "appMenuDuplicateTab": null, //missing translation
+        "appMenuDuplicateTab": "Dupliquer l'onglet",
         "appMenuNewPrivateTab": "Nouvel onglet de navigation privée",
         "appMenuNewTask": "Nouvelle tâche",
         "appMenuSavePageAs": "Enregistrer la page sous",
@@ -147,9 +147,9 @@
         "appMenuFullScreen": "Plein écran", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Mode focus",
         "appMenuReadingList": "Liste de lecture",
-        "appMenuBookmarks": null, //missing translation
-        "appMenuHistory": null, //missing translation
-        "appMenuDeveloper": "Developpeur",
+        "appMenuBookmarks": "Signets",
+        "appMenuHistory": "Historique",
+        "appMenuDeveloper": "Développeur",
         "appMenuReloadBrowser": "Recharger le navigateur",
         "appMenuInspectBrowser": "Inspecter le contenu",
         "appMenuInspectPage": "Inspecter la page",
@@ -170,6 +170,6 @@
         "appMenuQuit": "Quitter %n",
         "appMenuBringToFront": "Tout mettre à l'avant",
         /* PDF Viewer */
-        "PDFPageCounter": null //missing translation
+        "PDFPageCounter": {"unsafeHTML": "page <input type='text'/> sur <span id='total'></span>"}
     }
 }
