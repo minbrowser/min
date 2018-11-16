@@ -70,7 +70,7 @@ function showSearchbarInstantAnswers (text, input, event, container) {
         container.appendChild(item)
       })
 
-      searchbarPlugins.addResults(Math.min(res.RelatedTopics.length, 3))
+      searchbarPlugins.addResults('instantAnswers', Math.min(res.RelatedTopics.length, 3))
     }
 
     if (item) {
@@ -80,6 +80,7 @@ function showSearchbarInstantAnswers (text, input, event, container) {
       } else {
         container.appendChild(item)
       }
+      searchbarPlugins.addResults('instantAnswers', 1)
     }
 
     // suggested site links
@@ -97,6 +98,7 @@ function showSearchbarInstantAnswers (text, input, event, container) {
       var item = searchbarUtils.createItem(data)
 
       container.appendChild(item)
+      searchbarPlugins.addResults('instantAnswers', 1)
     }
 
     // if we're showing a location, show a "Search on OpenStreetMap" link
@@ -113,6 +115,7 @@ function showSearchbarInstantAnswers (text, input, event, container) {
       })
 
       container.insertBefore(item, container.firstChild)
+      searchbarPlugins.addResults('instantAnswers', 1)
     }
   }).catch(function (e) {
     console.error(e)

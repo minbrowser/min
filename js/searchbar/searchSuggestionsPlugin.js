@@ -32,7 +32,8 @@ function showSearchSuggestions (text, input, event, container) {
       empty(container)
 
       if (results) {
-        results.slice(0, 3).forEach(function (result) {
+        results = results.slice(0, 3)
+        results.forEach(function (result) {
           var data = {
             title: result.phrase,
             classList: ['iadata-onfocus']
@@ -52,8 +53,8 @@ function showSearchSuggestions (text, input, event, container) {
 
           container.appendChild(item)
         })
+        searchbarPlugins.addResults('searchSuggestions', results.length)
       }
-      searchbarPlugins.addResults(results.length)
     })
 }
 

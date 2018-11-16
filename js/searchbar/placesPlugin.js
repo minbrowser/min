@@ -6,16 +6,15 @@ var urlParser = require('util/urlParser.js')
 
 var currentResponseSent = 0
 
-function showSearchbarPlaceResults (text, input, event, container, options) {
+function showSearchbarPlaceResults (text, input, event, container, pluginName = 'places') {
   var responseSent = Date.now()
 
-  // this function is used for both regular and full-text searching, which are two separate plugins
-  var pluginName = container.getAttribute('data-plugin')
-
-  if (options && options.fullText) {
+  if (pluginName === 'fullTextPlaces') {
     var searchFn = bookmarks.searchPlacesFullText
+    var resultCount = 4 - searchbarPlugins.getResultCount('places')
   } else {
     var searchFn = bookmarks.searchPlaces
+    var resultCount = 4
   }
 
   var hasAutocompleted = false
@@ -40,7 +39,9 @@ function showSearchbarPlaceResults (text, input, event, container, options) {
     // clear previous results
     empty(container)
 
-    results.slice(0, 4).forEach(function (result) {
+    results = results.slice(0, resultCount)
+
+    results.forEach(function (result) {
       // only autocomplete an item if the delete key wasn't pressed, and nothing has been autocompleted already
       if (event && event.keyCode !== 8 && !hasAutocompleted) {
         var autocompletionType = searchbarAutocomplete.autocompleteURL(result, input)
@@ -96,7 +97,7 @@ function showSearchbarPlaceResults (text, input, event, container, options) {
       }
     })
 
-    searchbarPlugins.addResults(Math.min(results.length, 4)) // add the number of results that were displayed
+    searchbarPlugins.addResults(pluginName, results.length)
   })
 }
 
@@ -114,8 +115,11 @@ searchbarPlugins.register('fullTextPlaces', {
     return !!text && text.indexOf('!') !== 0
   },
   showResults: debounce(function () {
-    if (searchbarPlugins.getResultCount() < 4 && searchbar.associatedInput) {
-      showSearchbarPlaceResults.apply(this, Array.from(arguments).concat({fullText: true}))
+    if (searchbarPlugins.getResultCount('places') < 4 && searchbar.associatedInput) {
+      showSearchbarPlaceResults.apply(this, Array.from(arguments).concat('fullTextPlaces'))
+    } else {
+      // can't show results, clear any previous ones
+      empty(arguments[3])
     }
   }, 200)
 })

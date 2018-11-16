@@ -79,7 +79,7 @@ var searchOpenTabs = function (text, input, event, container) {
     container.appendChild(item)
   })
 
-  searchbarPlugins.addResults(finalMatches.length)
+  searchbarPlugins.addResults('openTabs', finalMatches.length)
 }
 
 searchbarPlugins.register('openTabs', {
