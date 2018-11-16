@@ -166,18 +166,20 @@ function fullTextPlacesSearch (searchText, callback) {
   }
 
   getMatchingDocs(searchWords).then(function (docs) {
-    const docTermCounts = {}
     const totalCounts = {}
-    let totalIndexLength = 0
-
     for (let i = 0; i < sl; i++) {
       totalCounts[searchWords[i]] = 0
     }
 
-    // count how many times each search term occurs in the document
+    const docTermCounts = {}
+    const docIndexes = {}
+    let totalIndexLength = 0
+
+    // find the number and position of the search terms in each document
     docs.forEach(function (doc) {
       const termCount = {}
       const index = doc.searchIndex
+      const indexList = []
 
       for (let i = 0; i < sl; i++) {
         let count = 0
@@ -187,6 +189,7 @@ function fullTextPlacesSearch (searchText, callback) {
 
         while (idx !== -1) {
           count++
+          indexList.push(idx)
           idx = doc.searchIndex.indexOf(token, idx + 1)
         }
 
@@ -195,6 +198,7 @@ function fullTextPlacesSearch (searchText, callback) {
       }
 
       docTermCounts[doc.url] = termCount
+      docIndexes[doc.url] = indexList.sort((a, b) => a - b)
       totalIndexLength += index.length
     })
 
@@ -205,8 +209,24 @@ function fullTextPlacesSearch (searchText, callback) {
       const indexLen = doc.searchIndex.length
       const termCounts = docTermCounts[doc.url]
 
+      if (!doc.boost) {
+        doc.boost = 0
+      }
+
+      // add boost when search terms appear more frequently than in other documents
       for (let x = 0; x < sl; x++) {
-        doc.boost = Math.min(1 + ((termCounts[searchWords[x]]) / indexLen) / (totalCounts[searchWords[x]] / totalIndexLength) * 1.5, 2)
+        doc.boost += Math.min(((termCounts[searchWords[x]] / indexLen) / (totalCounts[searchWords[x]] / totalIndexLength)) * 0.33, 1)
+      }
+
+      // add boost when search terms appear close to each other
+
+      const indexList = docIndexes[doc.url]
+
+      for (let n = 1; n < indexList.length; n++) {
+        let distance = indexList[n] - indexList[n - 1]
+        if (distance < 50) {
+          doc.boost += (50 - distance) * 0.003
+        }
       }
 
       // these properties are never used, and sending them from the worker takes a long time
