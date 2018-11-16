@@ -58,7 +58,7 @@ function extractPageText (doc, win) {
 
   text = text.trim()
 
-  text = text.replace(/[\n\t]/g, '') // remove useless newlines/tabs that increase filesize
+  text = text.replace(/[\n\t]/g, ' ') // remove useless newlines/tabs that increase filesize
 
   text = text.replace(/\s{2,}/g, ' ') // collapse multiple spaces into one
 
