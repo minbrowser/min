@@ -1,3 +1,11 @@
+let currrentDownloadItems = {}
+
+ipc.on('cancelDownload', function (e, path) {
+  if (currrentDownloadItems[path]) {
+    currrentDownloadItems[path].cancel()
+  }
+})
+
 function downloadHandler (event, item, webContents) {
   var itemURL = item.getURL()
   if (item.getMimeType() === 'application/pdf' && itemURL.indexOf('blob:') !== 0 && itemURL.indexOf('#pdfjs.action=download') === -1) { // clicking the download button in the viewer opens a blob url, so we don't want to open those in the viewer (since that would make it impossible to download a PDF)
@@ -18,6 +26,9 @@ function downloadHandler (event, item, webContents) {
     })
 
     item.on('updated', function (e, state) {
+      if (item.getSavePath()) {
+        currrentDownloadItems[item.getSavePath()] = item
+      }
       sendIPCToWindow(mainWindow, 'download-info', {
         path: item.getSavePath(),
         name: item.getFilename(),
@@ -27,6 +38,7 @@ function downloadHandler (event, item, webContents) {
     })
 
     item.once('done', function (e, state) {
+      delete currrentDownloadItems[item.getSavePath()]
       sendIPCToWindow(mainWindow, 'download-info', {
         path: item.getSavePath(),
         name: item.getFilename(),

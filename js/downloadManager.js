@@ -72,7 +72,6 @@ const downloadManager = {
 
     let infoBox = document.createElement('div')
     infoBox.className = 'download-info'
-    infoBox.textContent = getFileSizeString(downloadItem.size.total)
     container.appendChild(infoBox)
 
     let progress = document.createElement('div')
@@ -85,6 +84,21 @@ const downloadManager = {
 
     container.addEventListener('click', function () {
       downloadManager.onItemClicked(downloadItem.path)
+    })
+
+    dropdown.addEventListener('click', function () {
+      let menu = new remote.Menu()
+      menu.append(new remote.MenuItem({
+        label: 'Cancel', // TODO localize string
+        click: function () {
+          ipc.send('cancelDownload', downloadItem.path)
+          downloadManager.removeItem(downloadItem.path)
+        }
+      }))
+      menu.popup({
+        x: Math.round(dropdown.getBoundingClientRect().left),
+        y: Math.round(dropdown.getBoundingClientRect().top - 15)
+      })
     })
 
     downloadManager.container.appendChild(container)
@@ -106,6 +120,9 @@ const downloadManager = {
       elements.infoBox.textContent = 'Failed' // TODO localize string
     } else {
       elements.container.classList.add('loading')
+      elements.progress.hidden = false
+      elements.dropdown.hidden = false
+      elements.infoBox.textContent = getFileSizeString(downloadItem.size.total)
       elements.progress.style.transform = 'scaleX(' + (downloadItem.size.received / downloadItem.size.total) + ')'
     }
   },
