@@ -14,27 +14,31 @@ function getFileSizeString (bytes) {
 
 const downloadManager = {
   isShown: false,
-  container: document.getElementById('download-bar'),
+  bar: document.getElementById('download-bar'),
+  container: document.getElementById('download-container'),
+  closeButton: document.getElementById('download-close-button'),
   height: 39,
   downloadItems: {},
   downloadBarElements: {},
   show: function () {
     if (!downloadManager.isShown) {
       downloadManager.isShown = true
-      downloadManager.container.hidden = false
+      downloadManager.bar.hidden = false
       webviews.adjustMargin([0, 0, downloadManager.height, 0])
     }
   },
   hide: function () {
     if (downloadManager.isShown) {
       downloadManager.isShown = false
-      setTimeout(function () {
-        // provide a bit of time for the file to open before the download bar disappears
-        if (!downloadManager.isShown) {
-          downloadManager.container.hidden = true
-          webviews.adjustMargin([0, 0, downloadManager.height * -1, 0])
+      downloadManager.bar.hidden = true
+      webviews.adjustMargin([0, 0, downloadManager.height * -1, 0])
+
+      // remove all completed items
+      for (let item in downloadManager.downloadItems) {
+        if (downloadManager.downloadItems[item].status === 'completed') {
+          downloadManager.removeItem(item)
         }
-      }, 100)
+      }
     }
   },
   removeItem: function (path) {
@@ -50,12 +54,16 @@ const downloadManager = {
   onItemClicked: function (path) {
     if (downloadManager.downloadItems[path].status === 'completed') {
       electron.shell.openItem(path)
-      downloadManager.removeItem(path)
+      // provide a bit of time for the file to open before the download bar disappears
+      setTimeout(function () {
+        downloadManager.removeItem(path)
+      }, 100)
     }
   },
   createItem: function (downloadItem) {
     let container = document.createElement('div')
     container.className = 'download-item'
+    container.setAttribute('role', 'listitem')
 
     let title = document.createElement('div')
     title.className = 'download-title'
@@ -102,8 +110,11 @@ const downloadManager = {
     }
   },
   initialize: function () {
+    this.closeButton.addEventListener('click', function () {
+      downloadManager.hide()
+    })
+
     ipc.on('download-info', function (e, info) {
-      console.log(info)
       if (!info.path) {
         // download save location hasn't been chosen yet
         return

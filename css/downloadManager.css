@@ -1,4 +1,5 @@
 #download-bar {
+    display: flex;
     position: absolute;
     bottom: 0px;
     left: 0px;
@@ -7,15 +8,19 @@
     border-top: 1px solid rgb(204, 204, 204);
     color: black;
     padding: 0 0.5em;
-    white-space: nowrap;
-    overflow-x: auto;
     z-index: 1;
 }
 
 .dark-mode #download-bar {
-    background: rgb(33, 37, 43);
+    background: rgb(41, 44, 52);
     color: white;
-    border-top-color: rgb(70, 70, 70);
+    border-top-color: rgb(80, 80, 80);
+}
+
+#download-container {
+    display: flex;
+    flex: 1;
+    overflow-x: auto;
 }
 
 .download-item {
@@ -31,7 +36,7 @@
 }
 
 .dark-mode .download-item {
-    border-right-color: rgb(70, 70, 70);
+    border-right-color: rgb(80, 80, 80);
 }
 
 .download-item:active {
@@ -76,7 +81,7 @@
 }
 
 .dark-mode .download-progress {
-    background: rgb(26, 146, 269);
+    background: rgb(28, 160, 255);
 }
 
 .download-progress[hidden] {
@@ -90,4 +95,14 @@
     top: calc(50% - 0.5em);
     font-size: 1.2em;
     opacity: 0.7;
+}
+
+#download-close-button {
+    padding: 11px;
+    margin-top: -1px;
+    opacity: 0.7;
+}
+
+.dark-mode #download-close-button {
+    opacity: 0.9;
 }
