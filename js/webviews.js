@@ -151,12 +151,21 @@ window.webviews = {
     ipc.send('setBounds', {id: webviews.selectedId, bounds: webviews.getViewBounds()})
   },
   getViewBounds: function () {
-    const viewMargins = webviews.viewMargins
-    return {
-      x: 0 + viewMargins[3],
-      y: 0 + viewMargins[0] + ((windowIsFullscreen) ? 0 : navbarHeight),
-      width: window.innerWidth - (viewMargins[1] + viewMargins[3]),
-      height: window.innerHeight - (viewMargins[0] + viewMargins[2]) - ((windowIsFullscreen) ? 0 : navbarHeight)
+    if (windowIsFullscreen) {
+      return {
+        x: 0,
+        y: 0,
+        width: window.innerWidth,
+        height: window.innerHeight
+      }
+    } else {
+      const viewMargins = webviews.viewMargins
+      return {
+        x: 0 + viewMargins[3],
+        y: 0 + viewMargins[0] + navbarHeight,
+        width: window.innerWidth - (viewMargins[1] + viewMargins[3]),
+        height: window.innerHeight - (viewMargins[0] + viewMargins[2]) - navbarHeight
+      }
     }
   },
   add: function (tabId) {
