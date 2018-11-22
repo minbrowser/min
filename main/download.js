@@ -32,7 +32,7 @@ function downloadHandler (event, item, webContents) {
       sendIPCToWindow(mainWindow, 'download-info', {
         path: item.getSavePath(),
         name: item.getFilename(),
-        status: (state === 'progressing') ? 'progressing' : 'failed',
+        status: state,
         size: {received: item.getReceivedBytes(), total: item.getTotalBytes()}
       })
     })
@@ -42,7 +42,7 @@ function downloadHandler (event, item, webContents) {
       sendIPCToWindow(mainWindow, 'download-info', {
         path: item.getSavePath(),
         name: item.getFilename(),
-        status: (state === 'completed') ? 'completed' : 'failed',
+        status: state,
         size: {received: item.getTotalBytes(), total: item.getTotalBytes()}
       })
     })

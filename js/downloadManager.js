@@ -42,7 +42,9 @@ const downloadManager = {
     }
   },
   removeItem: function (path) {
-    downloadManager.downloadBarElements[path].container.remove()
+    if (downloadManager.downloadBarElements[path]) {
+      downloadManager.downloadBarElements[path].container.remove()
+    }
 
     delete downloadManager.downloadBarElements[path]
     delete downloadManager.downloadItems[path]
@@ -113,7 +115,7 @@ const downloadManager = {
       elements.progress.hidden = true
       elements.dropdown.hidden = true
       elements.infoBox.textContent = 'Completed' // TODO localize string
-    } else if (downloadItem.status === 'failed') {
+    } else if (downloadItem.status === 'interrupted') {
       elements.container.classList.remove('loading')
       elements.progress.hidden = true
       elements.dropdown.hidden = true
@@ -134,6 +136,11 @@ const downloadManager = {
     ipc.on('download-info', function (e, info) {
       if (!info.path) {
         // download save location hasn't been chosen yet
+        return
+      }
+
+      if (info.status === 'cancelled') {
+        downloadManager.removeItem(info.path)
         return
       }
 
