@@ -412,15 +412,18 @@ function parse (input, parserData, callback) {
         } else if (parsedFilterData.rightAnchored) {
           object.rightAnchored.push(parsedFilterData)
         } else if (parsedFilterData.hostAnchored) {
-          /* add the filters to the object based on the last 5 characters of their domain.
-            All domains must be at least 5 characters long: the TLD is at least 2 characters,
+          /* add the filters to the object based on the last 6 characters of their domain.
+            Domains can be just 5 characters long: the TLD is at least 2 characters,
             the . character adds one more character, and the domain name must be at least two
-            characters long. By storing the last 5 characters in an object, we can skip checking
-            whether every filter's domain is from the same origin as the URL we are checking.
-            Instead, we can just get the last 5 characters of the URL to check, get the filters
-            stored in that property of the object, and then check if the complete domains match.
+            characters long. However, slicing the last 6 characters of a 5-character string 
+            will give us the 5 available characters; we can then check for both a 
+            5-character and a 6-character match in matchesFilters. By storing the last 
+            characters in an object, we can skip checking whether every filter's domain 
+            is from the same origin as the URL we are checking. Instead, we can just get 
+            the last characters of the URL to check, get the filters stored in that 
+            property of the object, and then check if the complete domains match.
            */
-          var ending = parsedFilterData.host.slice(-5)
+          var ending = parsedFilterData.host.slice(-6)
 
           if (object.hostAnchored[ending]) {
             object.hostAnchored[ending].push(parsedFilterData)
@@ -522,7 +525,16 @@ function matchesFilters (filters, input, contextParams) {
   }
 
   // get all of the host anchored filters with the same domain ending as the current domain
-  var hostFiltersToCheck = filters.hostAnchored[currentHost.slice(-5)]
+  var hostFiltersLong = filters.hostAnchored[currentHost.slice(-6)]
+  var hostFiltersShort = filters.hostAnchored[currentHost.slice(-5)]
+
+  var hostFiltersToCheck = []
+  if (hostFiltersLong) {
+    hostFiltersToCheck = hostFiltersToCheck.concat(hostFiltersLong)
+  }
+  if (hostFiltersShort) {
+    hostFiltersToCheck = hostFiltersToCheck.concat(hostFiltersShort)
+  }
 
   if (hostFiltersToCheck) {
     // check if the string matches a domain name anchored filter
