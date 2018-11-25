@@ -18,6 +18,7 @@ const downloadManager = {
   container: document.getElementById('download-container'),
   closeButton: document.getElementById('download-close-button'),
   height: 39,
+  lastDownloadCompleted: null,
   downloadItems: {},
   downloadBarElements: {},
   show: function () {
@@ -61,6 +62,14 @@ const downloadManager = {
         downloadManager.removeItem(path)
       }, 100)
     }
+  },
+  onDownloadCompleted: function () {
+    downloadManager.lastDownloadCompleted = Date.now()
+    setTimeout(function () {
+      if (Date.now() - downloadManager.lastDownloadCompleted >= 120000 && Object.values(downloadManager.downloadItems).filter(i => i.status === 'progressing').length === 0) {
+        downloadManager.hide()
+      }
+    }, 120 * 1000)
   },
   createItem: function (downloadItem) {
     let container = document.createElement('div')
@@ -142,6 +151,10 @@ const downloadManager = {
       if (info.status === 'cancelled') {
         downloadManager.removeItem(info.path)
         return
+      }
+
+      if (info.status === 'completed') {
+        downloadManager.onDownloadCompleted()
       }
 
       if (!downloadManager.downloadItems[info.path]) {
