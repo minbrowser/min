@@ -69,10 +69,9 @@
         "timeRangeMonth": "Per pastarąjį mėnesį",
         "timeRangeYear": "Per pastaruosius metus",
         "timeRangeLongerAgo": "Dar seniau",
-        /* pages/crash/index.html */
+        /* pages/error/index.html */
         "crashErrorTitle": "Kažkas nutiko.",
         "crashErrorSubtitle": "Atsirado problemų, atvaizduojant šį puslapį.",
-        /* pages/error/index.html */
         "errorPagePrimaryAction": "Bandyti dar kartą",
         "serverNotFoundTitle": "Serveris nerastas",
         "serverNotFoundSubtitle": "Min nepavyko rasti šios internetinės svetainės.",

@@ -107,7 +107,7 @@ function onPageLoad (e) {
     }
 
     // if the page is an error page, the URL is really the value of the "url" query parameter
-    if (url.startsWith(webviews.internalPages.error) || url.startsWith(webviews.internalPages.crash)) {
+    if (url.startsWith(webviews.internalPages.error)) {
       url = new URLSearchParams(new URL(url).search).get('url')
     }
 
@@ -142,8 +142,7 @@ window.webviews = {
   placeholderRequests: [],
   asyncCallbacks: {},
   internalPages: {
-    crash: urlParser.getFileURL(__dirname + '/pages/crash/index.html'),
-    error: urlParser.getFileURL(__dirname + '/pages/error/index.html'),
+    error: urlParser.getFileURL(__dirname + '/pages/error/index.html')
   },
   events: [],
   IPCEvents: [],
@@ -398,7 +397,7 @@ webviews.bindEvent('crashed', function (e, isKilled) {
   var url = tabs.get(tabId).url
 
   tabs.update(tabId, {
-    url: webviews.internalPages.crash + '?url=' + encodeURIComponent(url)
+    url: webviews.internalPages.error + '?ec=crash&url=' + encodeURIComponent(url)
   })
 
   // the existing process has crashed, so we can't reuse it

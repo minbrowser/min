@@ -69,10 +69,9 @@
         "timeRangeMonth": "Idő intervalum, Hónap",
         "timeRangeYear": "Idő intervalum, Év",
         "timeRangeLongerAgo": "Idő intervalum, még régebi",
-        /* pages/crash/index.html */
+        /* pages/error/index.html */
         "crashErrorTitle": "Valami hiba történt.",
         "crashErrorSubtitle": "Egy hiba lépet fel az oldal menyitásákor.",
-        /* pages/error/index.html */
         "errorPagePrimaryAction": "Probálja Újra",
         "serverNotFoundTitle": "Szerver nem található",
         "serverNotFoundSubtitle": "Min Nem találja a kért oldalt.",
