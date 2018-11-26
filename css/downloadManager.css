@@ -61,6 +61,7 @@
     padding-left: 0.75em;
     font-size: 0.75em;
     opacity: 0.7;
+    white-space: nowrap;
 }
 
 .download-item.loading .download-info {
