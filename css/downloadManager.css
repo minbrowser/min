@@ -27,9 +27,12 @@
     display: inline-flex;
     align-items: center;
     padding: 0.66em 0.75em;
+    height: 39px;
     width: 30%;
     min-width: 175px;
     max-width: 300px;
+    line-height: 39px;
+    overflow: hidden;
     border-right: 1px rgb(230, 230, 230) solid;
     position: relative;
     transition: 0.05s background-color;
