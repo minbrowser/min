@@ -69,10 +69,9 @@
         "timeRangeMonth": "ماه پیش",
         "timeRangeYear": "سال پیش",
         "timeRangeLongerAgo": "خیلی وقت پیش",
-        /* pages/crash/index.html */
+        /* pages/error/index.html */
         "crashErrorTitle": "مشکلی پیش آمد.",
         "crashErrorSubtitle": "مشکلی هنگام نمایش این صفحه پیش آمد.",
-        /* pages/error/index.html */
         "errorPagePrimaryAction": "تلاش دوباره",
         "serverNotFoundTitle": "سرور یافت نشد",
         "serverNotFoundSubtitle": "مرورگر قادر به پیدا کردن این سایت نیست.",

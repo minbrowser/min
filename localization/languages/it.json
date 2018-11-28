@@ -1,0 +1,174 @@
+{
+    "name": "Italiano",
+    "identifier": "it",
+    "translations": {
+        /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+        "openInNewTab": "Apri in nuova scheda",
+        "openInNewPrivateTab": "Apri in nuova scheda privata",
+        "viewImage": "Visualizza immagine",
+        "openImageInNewTab": "Apri immagine in nuova scheda",
+        "openImageInNewPrivateTab": "Apri immagine in nuova scheda privata",
+        "saveImageAs": "Salva immagine con nome",
+        "searchWith": "Cerca con %s", //%s will be replaced with the name of the current search engine
+        "copyLink": "Copia Link",
+        "copy": "Copia", //this is a verb (as in "copy the currently-selected text")
+        "paste": "Incolla",
+        "goBack": "Indietro",
+        "goForward": "Avanti",
+        "inspectElement": "Ispeziona elemento",
+        /* searchbar */
+        "DDGAnswerSubtitle": "Risposta", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+        "suggestedSite": "Sito suggerito", //this is used to label suggested websites from the DuckDuckGo API,
+        "resultsFromDDG": "Risultati di DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+        "taskN": "Task %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "hostsFileEntry": "Elemento file hosts", //this is a label used to indicate that a result is coming from the user's host file
+        /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+        "viewSettings": "Vedi Impostazioni",
+        "viewReadingList": "Vedi Lista di Lettura",
+        "takeScreenshot": "Cattura Screenshot",
+        "clearHistory": "Svuota la cronologia",
+        "switchToTask": "Passa a Task",
+        "createTask": "Crea un Task",
+        "moveToTask": "Sposta questa scheda in un task",
+        "searchBookmarks": "Cerca nei preferiti",
+        "searchHistory": "Cerca nella cronologia",
+        /* navbar */
+        "openMenu": "Apri menu", //application menu button on windows
+        "enterReaderView": "Entra in Modalità Lettura",
+        "exitReaderView": "Esci dalla Modalità Lettura",
+        "emptyReadingListTitle": "La tua Lista di Lettura è vuota",
+        "emptyReadingListSubtitle": "Gli articoli che apri in Modalità Lettura sono elencati qui. Rimangono salvati online per 30 giorni.",
+        "newTabLabel": "Nuova scheda", //this is a noun, used for tabs that don't have a page loaded in them yet
+        "connectionNotSecure": "La tua connessione a questo sito non è sicura..",
+        "searchbarPlaceholder": "Cerca o inserisci indirizzo",
+        "privateTab": "Scheda privata",
+        "newTabAction": "Nuova scheda", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        /* task overlay */
+        "viewTasks": "Mostra Task",
+        "newTask": "Nuovo Task", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": "Task %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        /* find in page toolbar */
+        "searchInPage": "Cerca nella pagina", //this is used as the placeholder text for the textbox in the find in page toolbar
+        "findMatchesSingular": "%i su %t risultato", //this and the next label are used to indicate which match is currently highlighted
+        "findMatchesPlural": "%i su %t risultati",
+        /* Focus mode */
+        "isFocusMode": "Sei in Modalità Focus.",
+        "closeDialog": "OK", //used as a label for the button that closes the dialog
+        "focusModeExplanation1": "In Modalità Focus, tutte le schede eccetto quella corrente vengono nascoste, e non puoi crearne di nuove.",
+        "focusModeExplanation2": "Puoi uscire dalla Modalità Focus deselezionando \"Modalità Focus\" nel menù Vista.",
+        /* relative dates */
+        "timeRangeJustNow": "Proprio ora",
+        "timeRangeMinutes": "Pochi minuti fa",
+        "timeRangeHour": "Quest'ora",
+        "timeRangeDay": "Oggi",
+        "timeRangeWeek": "Questa settimana",
+        "timeRangeMonth": "Questo mese",
+        "timeRangeYear": "Quest'anno",
+        "timeRangeLongerAgo": "Longer ago",
+        /* pages/error/index.html */
+        "crashErrorTitle": "Qualcosa non ha funzionato.",
+        "crashErrorSubtitle": "Si è verificato un errore nella visualizzazione di questa pagina.",
+        "errorPagePrimaryAction": "Riprova",
+        "serverNotFoundTitle": "Server non trovato",
+        "serverNotFoundSubtitle": "Min non è riuscito a trovare il server.",
+        "archiveSearchAction": "Cerca su archive.org",
+        "sslErrorTitle": "Questo sito non è disponibile",
+        "sslErrorMessage": "Min non ha potuto stabilire una connessione sicura con questo sito.",
+        "dnsErrorTitle": "Sito non trovato",
+        "dnsErrorMessage": "Si è verificato un errore DNS.",
+        "offlineErrorTitle": "Sei offline",
+        "offlineErrorMessage": "Riconnettiti ad Internet e riprova.",
+        "genericConnectionFail": "Min non ha potuto connettersi a questo sito.",
+        "sslTimeErrorMessage": "Min non ha potuto stabilire una connessione sicura con questo sito. Assicurati che l'orologio di questo computer sia impostato correttamente.",
+        "addressInvalidTitle": "Questo indirizzo non è valido.",
+        "genericError": "Si è verificato un errore",
+        /* pages/phishing/index.html */
+        "phishingErrorTitle": "Questo sito è pericoloso.",
+        "phishingErrorMessage": "Questo sito potrebbe cercare di rubare i tuoi dati sensibili, come password o credenziali bancarie.",
+        "phishingErrorVisitAnyway": "Visita sito comunque",
+        "phishingErrorLeave": "Portami via da questo sito",
+        /* multiple instances alert */
+        "multipleInstancesErrorMessage": "Si è verificato un errore. Chiudi ogni altra instanza e riavvia Min.",
+        /* pages/sessionRestoreError/index.html */
+        "sessionRestoreErrorTitle": "Si è verificato un errore",
+        "sessionRestoreErrorExplanation": "Impossibile recuperare le tue schede precedentemente aperte.",
+        "sessionRestoreErrorBackupInfo": "Min ha salvato un backup dei tuoi dati in: %l.", //%l will be replaced with a path to a file
+        "sessionRestoreErrorLinkInfo": {
+            "unsafeHTML": "Se questo errore persiste, apri un nuovo issue <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">qui</a>."
+        },
+        /* pages/settings/index.html */
+        "settingsPreferencesHeading": "Impostazioni",
+        "settingsRestartRequired": "Devi riavviare Min per applicare queste modifiche.",
+        "settingsPrivacyHeading": "Blocco contenuti",
+        "settingsContentBlockingToggle": "Blocca tracker e pubblicità",
+        "settingsBlockScriptsToggle": "Blocca script",
+        "settingsBlockImagesToggle": "Blocca immagini",
+        "settingsEasyListCredit": {
+            "unsafeHTML": "Utilizza EasyList ed EasyPrivacy, senza regole che nascondono elementi. Creato da <a target=\"_blank\" href=\"https://easylist.to/\">gli autori di EasyList</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">vedi licenza</a>."
+        },
+        "settingsAppearanceHeading": "Aspetto",
+        "settingsDarkModeToggle": "Abilita dark mode",
+        "settingsHistoryButtonToggle": "Abilita pulsante Indietro",
+        "settingsAdditionalFeaturesHeading": "Funzionalità aggiuntive",
+        "settingsSwipeNavigationToggle": "Abilita swipe per andare avanti ed indietro tra le pagine.",
+        "settingsUserscriptsToggle": "Abilita script definiti dall'utente",
+        "settingsUserscriptsExplanation": {"unsafeHTML": "Gli script definiti dall'utente ti permettono di modificare il comportamento dei siti - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">scopri di più</a>."},
+        "settingsSearchEngineHeading": "Motore di ricerca",
+        "settingsDefaultSearchEngine": "Scegli un motore di ricerac predefinito:",
+        "settingsDDGExplanation": "Imposta DuckDuckGo come motore di ricerca predefinito per vedere risposte istantanee nella barra di ricerca.",
+        "customSearchEngineDescription": "Sostituisci il termine di ricerca con %s",
+        "settingsKeyboardShortcutsHeading": "Scorciatoie da tastiera",
+        "settingsKeyboardShortcutsHelp": "Utilizza una virgola per separare scorciatoie multiple.",
+        /* app menu */
+        "appMenuFile": "File",
+        "appMenuNewTab": "Nuova scheda",
+        "appMenuDuplicateTab": "Duplica scheda",
+        "appMenuNewPrivateTab": "Nuova scheda privata",
+        "appMenuNewTask": "Nuovo task",
+        "appMenuSavePageAs": "Salva pagina con nome",
+        "appMenuPrint": "Stampa",
+        "appMenuEdit": "Modifica",
+        "appMenuUndo": "Annulla",
+        "appMenuRedo": "Ripeti",
+        "appMenuCut": "Taglia",
+        "appMenuCopy": "Copia",
+        "appMenuPaste": "Incolla",
+        "appMenuSelectAll": "Seleziona tutto",
+        "appMenuFind": "Trova",
+        "appMenuView": "Vista",
+        "appMenuZoomIn": "Aumenta zoom",
+        "appMenuZoomOut": "Riduci zoom",
+        "appMenuActualSize": "Dimensioni reali",
+        "appMenuFullScreen": "Schermo pieno", //on some platforms, this string is replaced with one built-in to the OS
+        "appMenuFocusMode": "Modalità focus",
+        "appMenuReadingList": "Lista di Lettura",
+        "appMenuBookmarks": "Preferiti",
+        "appMenuHistory": "Cronologia",
+        "appMenuDeveloper": "Sviluppo",
+        "appMenuReloadBrowser": "Ricarica browser",
+        "appMenuInspectBrowser": "Ispeziona browser",
+        "appMenuInspectPage": "Ispeziona pagina",
+        "appMenuWindow": "Finestra",
+        "appMenuMinimize": "Minimizza",
+        "appMenuClose": "Chiudi",
+        "appMenuHelp": "Aiuto",
+        "appMenuKeyboardShortcuts": "Scorciatoie da tastiera",
+        "appMenuReportBug": "Segnala un bug",
+        "appMenuTakeTour": "Fai un tour",
+        "appMenuViewGithub": "Vedi su GitHub",
+        "appMenuAbout": "A proposito di %n", //%n is replaced with app name
+        "appMenuPreferences": "Preferenze",
+        "appMenuServices": "Servizi",
+        "appMenuHide": "Nascondi %n",
+        "appMenuHideOthers": "Nascondi altre",
+        "appMenuShowAll": "Mostra tutte",
+        "appMenuQuit": "Esci da %n",
+        "appMenuBringToFront": "Porta avanti",
+        /* PDF Viewer */
+        "PDFPageCounter": {"unsafeHTML": "pagina <input type='text'/> su <span id='total'></span>"}
+    }
+}

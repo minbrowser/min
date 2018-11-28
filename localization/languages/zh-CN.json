@@ -69,10 +69,9 @@
         "timeRangeMonth": "几个月前",
         "timeRangeYear": "几年前",
         "timeRangeLongerAgo": "很久以前",
-        /* pages/crash/index.html */
+        /* pages/error/index.html */
         "crashErrorTitle": "发生故障。",
         "crashErrorSubtitle": "渲染页面时，发生错误。",
-        /* pages/error/index.html */
         "errorPagePrimaryAction": "重试",
         "serverNotFoundTitle": "未找到服务器",
         "serverNotFoundSubtitle": "Min 无法找到当前地址的服务器。",

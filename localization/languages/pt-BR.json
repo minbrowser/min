@@ -69,10 +69,9 @@
         "timeRangeMonth": null, //missing translation
         "timeRangeYear": null, //missing translation
         "timeRangeLongerAgo": null, //missing translation
-        /* pages/crash/index.html */
+        /* pages/error/index.html */
         "crashErrorTitle": "Ocorreu algo de errado.",
         "crashErrorSubtitle": "Ocorreu um problema ao tentar mostrar esta página.",
-        /* pages/error/index.html */
         "errorPagePrimaryAction": "Tentar novamente",
         "serverNotFoundTitle": "Servidor não encontrado",
         "serverNotFoundSubtitle": "Min não conseguiu achar este site.",

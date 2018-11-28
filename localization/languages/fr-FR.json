@@ -69,10 +69,9 @@
         "timeRangeMonth": "Ce mois-ci",
         "timeRangeYear": "Cette année",
         "timeRangeLongerAgo": "Il y a plus longtemps",
-        /* pages/crash/index.html */
+        /* pages/error/index.html */
         "crashErrorTitle": "Il y a eu un problème.",
         "crashErrorSubtitle": "Il y a eu un problème en affichant cette page.",
-        /* pages/error/index.html */
         "errorPagePrimaryAction": "Essayer encore",
         "serverNotFoundTitle": "Serveur non trouvé",
         "serverNotFoundSubtitle": "Min ne peut pas trouver ce site internet.",

@@ -69,10 +69,9 @@
         "timeRangeMonth": "지난 달",
         "timeRangeYear": "작년",
         "timeRangeLongerAgo": "오래전",
-        /* pages/crash/index.html */
+        /* pages/error/index.html */
         "crashErrorTitle": "문제가 발생했습니다.",
         "crashErrorSubtitle": "이 페이지를 표시하는 동안 문제가 발생했습니다.",
-        /* pages/error/index.html */
         "errorPagePrimaryAction": "다시 시도",
         "serverNotFoundTitle": "서버를 찾을 수 없습니다",
         "serverNotFoundSubtitle": "웹 사이트를 찾을 수 없습니다.",

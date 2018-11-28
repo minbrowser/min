@@ -69,10 +69,9 @@
         "timeRangeMonth": "幾個月前",
         "timeRangeYear": "幾年前",
         "timeRangeLongerAgo": "很久以前",
-        /* pages/crash/index.html */
+        /* pages/error/index.html */
         "crashErrorTitle": "出了一些問題",
         "crashErrorSubtitle": "顯示此頁面時發生了一些問題",
-        /* pages/error/index.html */
         "errorPagePrimaryAction": "重試",
         "serverNotFoundTitle": "找不到伺服器",
         "serverNotFoundSubtitle": "Min 找不到這個網站",

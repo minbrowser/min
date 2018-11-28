@@ -127,7 +127,7 @@ function checkPhishingStatus () {
 
   if (window.location.host.length > 25) {
     debugPhishing('long hostname detected')
-    phishingScore += window.location.host.length * 0.0075
+    phishingScore += Math.min(window.location.host.length * 0.0075, 0.15)
   }
 
   // penalize extremely long locations, since these could also be used for phishing

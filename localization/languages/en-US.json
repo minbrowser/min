@@ -69,10 +69,9 @@
         "timeRangeMonth": "In the past month",
         "timeRangeYear": "In the past year",
         "timeRangeLongerAgo": "Longer ago",
-        /* pages/crash/index.html */
+        /* pages/error/index.html */
         "crashErrorTitle": "Something went wrong.",
         "crashErrorSubtitle": "A problem has occurred while displaying this page.",
-        /* pages/error/index.html */
         "errorPagePrimaryAction": "Try again",
         "serverNotFoundTitle": "Server not found",
         "serverNotFoundSubtitle": "Min couldn't find this website.",

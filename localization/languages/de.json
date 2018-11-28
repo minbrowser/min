@@ -69,10 +69,9 @@
         "timeRangeMonth": null, //missing translation
         "timeRangeYear": null, //missing translation
         "timeRangeLongerAgo": null, //missing translation
-        /* pages/crash/index.html */
+        /* pages/error/index.html */
         "crashErrorTitle": "Etwas ging schief.",
         "crashErrorSubtitle": "Bei der Anzeige der Seite trat ein Problem auf.",
-        /* pages/error/index.html */
         "errorPagePrimaryAction": "Erneut versuchen",
         "serverNotFoundTitle": "Server nicht gefunden",
         "serverNotFoundSubtitle": "Min konnte diese Webseite nicht finden.",

@@ -221,13 +221,19 @@ function fullTextPlacesSearch (searchText, callback) {
       // add boost when search terms appear close to each other
 
       const indexList = docIndexes[doc.url]
+      let totalWordDistanceBoost = 0
 
       for (let n = 1; n < indexList.length; n++) {
         let distance = indexList[n] - indexList[n - 1]
         if (distance < 50) {
-          doc.boost += (50 - distance) * 0.003
+          totalWordDistanceBoost += Math.pow(50 - distance, 2) * 0.00005
+        }
+        if (distance === 1) {
+          totalWordDistanceBoost += 0.04
         }
       }
+
+      doc.boost += Math.min(totalWordDistanceBoost, 5)
 
       // these properties are never used, and sending them from the worker takes a long time
 
