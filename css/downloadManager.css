@@ -5,7 +5,7 @@
     left: 0px;
     background: rgb(250, 250, 250);
     width: 100%;
-    border-top: 1px solid rgb(204, 204, 204);
+    border-top: 1px solid rgb(214, 214, 214);
     color: black;
     padding: 0 0.5em;
     z-index: 1;
@@ -107,7 +107,7 @@
 #download-close-button {
     padding: 11px;
     margin-top: -1px;
-    opacity: 0.7;
+    opacity: 0.66;
 }
 
 .dark-mode #download-close-button {

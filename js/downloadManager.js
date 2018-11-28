@@ -17,7 +17,7 @@ const downloadManager = {
   bar: document.getElementById('download-bar'),
   container: document.getElementById('download-container'),
   closeButton: document.getElementById('download-close-button'),
-  height: 39,
+  height: 40,
   lastDownloadCompleted: null,
   downloadItems: {},
   downloadBarElements: {},
