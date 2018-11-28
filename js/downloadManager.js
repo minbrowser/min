@@ -100,7 +100,7 @@ const downloadManager = {
     dropdown.addEventListener('click', function () {
       let menu = new remote.Menu()
       menu.append(new remote.MenuItem({
-        label: 'Cancel', // TODO localize string
+        label: l('downloadCancel'), // TODO localize string
         click: function () {
           ipc.send('cancelDownload', downloadItem.path)
           downloadManager.removeItem(downloadItem.path)
@@ -123,12 +123,12 @@ const downloadManager = {
       elements.container.classList.remove('loading')
       elements.progress.hidden = true
       elements.dropdown.hidden = true
-      elements.infoBox.textContent = 'Completed' // TODO localize string
+      elements.infoBox.textContent = l('downloadStateCompleted')
     } else if (downloadItem.status === 'interrupted') {
       elements.container.classList.remove('loading')
       elements.progress.hidden = true
       elements.dropdown.hidden = true
-      elements.infoBox.textContent = 'Failed' // TODO localize string
+      elements.infoBox.textContent = l('downloadStateFailed')
     } else {
       elements.container.classList.add('loading')
       elements.progress.hidden = false
