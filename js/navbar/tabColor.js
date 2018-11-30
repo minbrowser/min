@@ -88,7 +88,14 @@ function getColorFromImage (image) {
   res[1] = Math.round(res[1] * colorChange)
   res[2] = Math.round(res[2] * colorChange)
 
-  return res
+  let isLowContrast = false
+  // is this a color that won't change very much when lightened or darkened?
+  // TODO is lowContrast the best name for this?
+  if (res.filter(i => (i > 240 || i < 16)).length === 3) {
+    isLowContrast = true
+  }
+
+  return {color: res, isLowContrast}
 }
 
 function getHours () {
@@ -120,7 +127,7 @@ function getTextColor (bgColor) {
   return 'white'
 }
 
-function setColor (bg, fg) {
+function setColor (bg, fg, isLowContrast) {
   const backgroundElements = document.getElementsByClassName('theme-background-color')
   const textElements = document.getElementsByClassName('theme-text-color')
 
@@ -136,6 +143,11 @@ function setColor (bg, fg) {
     document.body.classList.add('dark-theme')
   } else {
     document.body.classList.remove('dark-theme')
+  }
+  if (isLowContrast) {
+    document.body.classList.add('theme-background-low-contrast')
+  } else {
+    document.body.classList.remove('theme-background-low-contrast')
   }
 }
 
@@ -160,12 +172,13 @@ const tabColor = {
     requestIdleCallback(function () {
       colorExtractorImage.onload = function (e) {
         const backgroundColor = getColorFromImage(colorExtractorImage)
-        const textColor = getTextColor(backgroundColor)
+        const textColor = getTextColor(backgroundColor.color)
 
-        const backgroundString = getRGBString(backgroundColor)
+        const backgroundString = getRGBString(backgroundColor.color)
 
         tabs.update(tabId, {
           backgroundColor: backgroundString,
+          lowContrastBackground: backgroundColor.isLowContrast,
           foregroundColor: textColor
         })
 
@@ -188,7 +201,7 @@ const tabColor = {
 
     // use the colors extracted from the page icon
     if (tab.backgroundColor || tab.foregroundColor) {
-      return setColor(tab.backgroundColor, tab.foregroundColor)
+      return setColor(tab.backgroundColor, tab.foregroundColor, tab.lowContrastBackground)
     }
 
     // otherwise use the default colors

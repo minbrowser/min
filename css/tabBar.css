@@ -130,6 +130,9 @@ body.is-edit-mode #navbar #tabs {
 .dark-theme .tab-item.active:not(:only-child) {
 	background: rgba(255, 255, 255, 0.2);
 }
+.dark-theme.theme-background-low-contrast .tab-item.active:not(:only-child) {
+	background: rgba(255, 255, 255, 0.24);
+}
 .tab-item.selected {
 	min-width: 100%;
 	/* remove the white transparent-ness */
