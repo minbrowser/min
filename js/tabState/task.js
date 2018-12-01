@@ -99,7 +99,7 @@ class TaskList {
 
   find (filter) {
     for (var i = 0, len = this.tasks.length; i < len; i++) {
-      if (filter(this.tasks[i])) {
+      if (filter(this.tasks[i], i, this.tasks)) {
         return this.tasks[i]
       }
     }
