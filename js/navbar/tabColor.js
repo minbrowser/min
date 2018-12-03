@@ -91,7 +91,7 @@ function getColorFromImage (image) {
   let isLowContrast = false
   // is this a color that won't change very much when lightened or darkened?
   // TODO is lowContrast the best name for this?
-  if (res.filter(i => (i > 240 || i < 16)).length === 3) {
+  if (res.filter(i => (i > 235 || i < 15)).length === 3) {
     isLowContrast = true
   }
 
