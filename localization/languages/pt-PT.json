@@ -169,6 +169,10 @@
         "appMenuQuit": "Sair do %n",
         "appMenuBringToFront": "Trazer tudo para a frente",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "página <input type='text'/> de <span id='total'></span>"}
+        "PDFPageCounter": {"unsafeHTML": "página <input type='text'/> de <span id='total'></span>"},
+        /* Download manager */
+        "downloadCancel": null, //missing translation
+        "downloadStateCompleted": null, //missing translation
+        "downloadStateFailed": null //missing translation
     }
 }

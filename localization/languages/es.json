@@ -169,6 +169,10 @@
         "appMenuQuit": "Salir de %n",
         "appMenuBringToFront": "Traer todo al frente",
         /* PDF Viewer */
-        "PDFPageCounter": null //missing translation
+        "PDFPageCounter": null, //missing translation
+        /* Download manager */
+        "downloadCancel": null, //missing translation
+        "downloadStateCompleted": null, //missing translation
+        "downloadStateFailed": null //missing translation
         }
 }

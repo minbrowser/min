@@ -48,23 +48,6 @@ function pagePermissionRequestHandler (webContents, permission, callback) {
   }
 }
 
-function getViewBounds () {
-  if (windowIsFullscreen) {
-    return {
-      x: 0,
-      y: 0,
-      width: window.innerWidth,
-      height: window.innerHeight
-    }
-  }
-  return {
-    x: 0,
-    y: navbarHeight,
-    width: window.innerWidth,
-    height: window.innerHeight - 36
-  }
-}
-
 function captureCurrentTab (options) {
   if (webviews.placeholderRequests.length > 0 && !(options && options.forceCapture === true)) {
     // capturePage doesn't work while the view is hidden
@@ -159,6 +142,31 @@ window.webviews = {
       fn: fn
     })
   },
+  viewMargins: [0, 0, 0, 0], // top, right, bottom, left
+  adjustMargin: function (margins) {
+    for (var i = 0; i < margins.length; i++) {
+      webviews.viewMargins[i] += margins[i]
+    }
+    ipc.send('setBounds', {id: webviews.selectedId, bounds: webviews.getViewBounds()})
+  },
+  getViewBounds: function () {
+    if (windowIsFullscreen) {
+      return {
+        x: 0,
+        y: 0,
+        width: window.innerWidth,
+        height: window.innerHeight
+      }
+    } else {
+      const viewMargins = webviews.viewMargins
+      return {
+        x: 0 + viewMargins[3],
+        y: 0 + viewMargins[0] + navbarHeight,
+        width: window.innerWidth - (viewMargins[1] + viewMargins[3]),
+        height: window.innerHeight - (viewMargins[0] + viewMargins[2]) - navbarHeight
+      }
+    }
+  },
   add: function (tabId) {
     var tabData = tabs.get(tabId)
 
@@ -188,7 +196,7 @@ window.webviews = {
           partition: partition
         }
       }),
-      boundsString: JSON.stringify(getViewBounds()),
+      boundsString: JSON.stringify(webviews.getViewBounds()),
       events: webviews.events
     })
 
@@ -224,7 +232,7 @@ window.webviews = {
 
     ipc.send('setView', {
       id: id,
-      bounds: getViewBounds(),
+      bounds: webviews.getViewBounds(),
       focus: !options || options.focus !== false
     })
 
@@ -280,7 +288,7 @@ window.webviews = {
       if (webviews.tabViewMap[webviews.selectedId]) {
         ipc.send('setView', {
           id: webviews.selectedId,
-          bounds: getViewBounds(),
+          bounds: webviews.getViewBounds(),
           focus: true
         })
         forceUpdateDragRegions()
@@ -353,17 +361,17 @@ window.addEventListener('resize', throttle(function () {
     // can't set view bounds if the view is hidden
     return
   }
-  ipc.send('setBounds', {id: webviews.selectedId, bounds: getViewBounds()})
+  ipc.send('setBounds', {id: webviews.selectedId, bounds: webviews.getViewBounds()})
 }, 75))
 
 ipc.on('enter-html-full-screen', function () {
   windowIsFullscreen = true
-  ipc.send('setBounds', {id: webviews.selectedId, bounds: getViewBounds()})
+  ipc.send('setBounds', {id: webviews.selectedId, bounds: webviews.getViewBounds()})
 })
 
 ipc.on('leave-html-full-screen', function () {
   windowIsFullscreen = false
-  ipc.send('setBounds', {id: webviews.selectedId, bounds: getViewBounds()})
+  ipc.send('setBounds', {id: webviews.selectedId, bounds: webviews.getViewBounds()})
 })
 
 webviews.bindEvent('did-finish-load', onPageLoad)

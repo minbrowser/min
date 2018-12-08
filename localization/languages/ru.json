@@ -169,6 +169,10 @@
         "appMenuQuit": "Выйти из %n",
         "appMenuBringToFront": "Переместить всё на передний план",
         /* PDF Viewer */
-        "PDFPageCounter": null //missing translation
+        "PDFPageCounter": null, //missing translation
+        /* Download manager */
+        "downloadCancel": null, //missing translation
+        "downloadStateCompleted": null, //missing translation
+        "downloadStateFailed": null //missing translation
     }
 }

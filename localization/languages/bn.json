@@ -169,6 +169,10 @@
       "appMenuQuit":"%n ছাড়ুন",
       "appMenuBringToFront":"সব থেকে সামনে আনুন",
       /* PDF Viewer */
-      "PDFPageCounter": {"unsafeHTML": "<span id = 'total'> </ span> এর <input type = 'text' /> পৃষ্ঠা"}
+      "PDFPageCounter": {"unsafeHTML": "<span id = 'total'> </ span> এর <input type = 'text' /> পৃষ্ঠা"},
+      /* Download manager */
+      "downloadCancel": null, //missing translation
+      "downloadStateCompleted": null, //missing translation
+      "downloadStateFailed": null //missing translation
    }
 }

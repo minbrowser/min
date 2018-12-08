@@ -169,6 +169,10 @@
         "appMenuQuit": "結束 %n",
         "appMenuBringToFront": "顯示所有窗口",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "<input type='text'/> / <span id='total'></span> 頁"}
+        "PDFPageCounter": {"unsafeHTML": "<input type='text'/> / <span id='total'></span> 頁"},
+        /* Download manager */
+        "downloadCancel": null, //missing translation
+        "downloadStateCompleted": null, //missing translation
+        "downloadStateFailed": null //missing translation
     }
 }

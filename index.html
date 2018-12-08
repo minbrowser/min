@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="css/webviews.css" />
 	<link rel="stylesheet" href="css/searchbar.css" />
 	<link rel="stylesheet" href="css/findinpage.css" />
+	<link rel="stylesheet" href="css/downloadManager.css" />
 	<link rel="stylesheet" href="ext/font-awesome-4.4.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="node_modules/dragula/dist/dragula.min.css" />
 </head>
@@ -90,6 +91,11 @@
 			<i class="fa fa-pencil-square-o"></i>
 			<span></span>
 		</div>
+	</div>
+
+	<div id="download-bar" hidden>
+		<div id="download-container" role="list"></div>
+		<button id="download-close-button" class="fa fa-times"></button>
 	</div>
 
 	<!-- add scripts in Gruntfile.js -->

@@ -10,6 +10,7 @@ window.webFrame.setLayoutZoomLevelLimits(0, 0)
 
 require('menuBarVisibility.js').initialize()
 require('navbar/tabActivity.js').init()
+require('downloadManager.js').initialize()
 
 // add a class to the body for fullscreen status
 

@@ -169,6 +169,10 @@
         "appMenuQuit": "%n 종료",
         "appMenuBringToFront": "맨 앞으로",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "<span id='total'></span> 의 <input type='text'/> 페이지"}
+        "PDFPageCounter": {"unsafeHTML": "<span id='total'></span> 의 <input type='text'/> 페이지"},
+        /* Download manager */
+        "downloadCancel": null, //missing translation
+        "downloadStateCompleted": null, //missing translation
+        "downloadStateFailed": null //missing translation
     }
 }

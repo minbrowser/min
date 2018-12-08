@@ -7,7 +7,8 @@ const modules = [
   'dist/localization.build.js',
   'main/main.js',
   'main/filtering.js',
-  'main/viewManager.js'
+  'main/viewManager.js',
+  'main/download.js',
 ]
 
 function buildMain () {

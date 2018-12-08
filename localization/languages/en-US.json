@@ -169,6 +169,10 @@
         "appMenuQuit": "Quit %n",
         "appMenuBringToFront": "Bring All to Front",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "page <input type='text'/> of <span id='total'></span>"}
+        "PDFPageCounter": {"unsafeHTML": "page <input type='text'/> of <span id='total'></span>"},
+        /* Download manager */
+        "downloadCancel": "Cancel",
+        "downloadStateCompleted": "Completed",
+        "downloadStateFailed": "Failed"
     }
 }

@@ -112,22 +112,6 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     mainWindow = null
   })
 
-  /* handle pdf downloads - ipc recieved in fileDownloadManager.js */
-
-  mainWindow.webContents.session.on('will-download', function (event, item, webContents) {
-    var itemURL = item.getURL()
-    if (item.getMimeType() === 'application/pdf' && itemURL.indexOf('blob:') !== 0 && itemURL.indexOf('#pdfjs.action=download') === -1) { // clicking the download button in the viewer opens a blob url, so we don't want to open those in the viewer (since that would make it impossible to download a PDF)
-      event.preventDefault()
-      sendIPCToWindow(mainWindow, 'openPDF', {
-        url: itemURL,
-        webContentsId: webContents.id,
-        event: event,
-        item: item // as of electron 0.35.1, this is an empty object
-      })
-    }
-    return true
-  })
-
   mainWindow.on("focus", function() {
     sendIPCToWindow(mainWindow, 'windowFocus')
   })

@@ -169,6 +169,10 @@
         "appMenuQuit": "退出 %n",
         "appMenuBringToFront": "前置所有窗口",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "<input type='text'/> / <span id='total'></span> 页"}
+        "PDFPageCounter": {"unsafeHTML": "<input type='text'/> / <span id='total'></span> 页"},
+        /* Download manager */
+        "downloadCancel": null, //missing translation
+        "downloadStateCompleted": null, //missing translation
+        "downloadStateFailed": null //missing translation
     }
 }
