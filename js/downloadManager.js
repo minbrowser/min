@@ -100,7 +100,7 @@ const downloadManager = {
     dropdown.addEventListener('click', function () {
       let menu = new remote.Menu()
       menu.append(new remote.MenuItem({
-        label: l('downloadCancel'), // TODO localize string
+        label: l('downloadCancel'),
         click: function () {
           ipc.send('cancelDownload', downloadItem.path)
           downloadManager.removeItem(downloadItem.path)
