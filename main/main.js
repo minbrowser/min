@@ -17,6 +17,12 @@ var mainMenu = null
 var isFocusMode = false
 var appIsReady = false
 
+const isFirstInstance = app.requestSingleInstanceLock()
+
+if (!isFirstInstance) {
+  app.quit()
+}
+
 var saveWindowBounds = function () {
   if (mainWindow) {
     fs.writeFileSync(path.join(userDataPath, 'windowBounds.json'), JSON.stringify(mainWindow.getBounds()))
@@ -30,7 +36,7 @@ function sendIPCToWindow (window, action, data) {
       mainWindow.webContents.send(action, data || {})
     })
   } else {
-      mainWindow.webContents.send(action, data || {})
+    mainWindow.webContents.send(action, data || {})
   }
 }
 
@@ -38,6 +44,17 @@ function openTabInWindow (url) {
   sendIPCToWindow(mainWindow, 'addTab', {
     url: url
   })
+}
+
+function handleCommandLineArguments (argv) {
+  // the "ready" event must occur before this function can be used
+  if (argv && argv[1] && argv[1].toLowerCase() !== __dirname.toLowerCase() && argv[1].indexOf('://') !== -1) {
+    sendIPCToWindow(mainWindow, 'addTab', {
+      url: argv[1]
+    })
+    return true
+  }
+  return false
 }
 
 function createWindow (cb) {
@@ -112,7 +129,7 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     mainWindow = null
   })
 
-  mainWindow.on("focus", function() {
+  mainWindow.on('focus', function () {
     sendIPCToWindow(mainWindow, 'windowFocus')
   })
 
@@ -183,11 +200,10 @@ app.on('ready', function () {
   createWindow(function () {
     mainWindow.webContents.on('did-finish-load', function () {
       // if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
-      if (process.argv && process.argv[1] && process.argv[1].toLowerCase() !== __dirname.toLowerCase() && process.argv[1].indexOf('://') !== -1) {
-        sendIPCToWindow(mainWindow, 'addTab', {
-          url: process.argv[1]
-        })
-      } else if (global.URLToOpen) {
+      handleCommandLineArguments(process.argv)
+
+      // there is a URL from an "open-url" event (on Mac)
+      if (global.URLToOpen) {
         // if there is a previously set URL to open (probably from opening a link on macOS), open it
         sendIPCToWindow(mainWindow, 'addTab', {
           url: global.URLToOpen
@@ -196,9 +212,6 @@ app.on('ready', function () {
       }
     })
   })
-
-  // Open the DevTools.
-  // mainWindow.openDevTools()
 
   createAppMenu()
   createDockMenu()
@@ -212,6 +225,17 @@ app.on('open-url', function (e, url) {
     })
   } else {
     global.URLToOpen = url // this will be handled later in the createWindow callback
+  }
+})
+
+app.on('second-instance', function (e, argv, workingDir) {
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) {
+      mainWindow.restore()
+    }
+    mainWindow.focus()
+    // add a tab with the new URL
+    handleCommandLineArguments(argv)
   }
 })
 
