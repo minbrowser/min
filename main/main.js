@@ -383,6 +383,30 @@ function createAppMenu () {
       label: l('appMenuView'),
       submenu: [
         {
+          label: l('appMenuBookmarks'),
+          accelerator: undefined,
+          click: function (item, window) {
+            sendIPCToWindow(window, 'showBookmarks')
+          }
+        },
+        {
+          label: l('appMenuHistory'),
+          accelerator: undefined,
+          click: function (item, window) {
+            sendIPCToWindow(window, 'showHistory')
+          }
+        },
+        {
+          label: l('appMenuReadingList'),
+          accelerator: undefined,
+          click: function (item, window) {
+            sendIPCToWindow(window, 'showReadingList')
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
           label: l('appMenuZoomIn'),
           accelerator: 'CmdOrCtrl+=',
           click: function (item, window) {
@@ -401,30 +425,6 @@ function createAppMenu () {
           accelerator: 'CmdOrCtrl+0',
           click: function (item, window) {
             sendIPCToWindow(window, 'zoomReset')
-          }
-        },
-        {
-          type: 'separator'
-        },
-        {
-          label: l('appMenuReadingList'),
-          accelerator: undefined,
-          click: function (item, window) {
-            sendIPCToWindow(window, 'showReadingList')
-          }
-        },
-        {
-          label: l('appMenuBookmarks'),
-          accelerator: undefined,
-          click: function (item, window) {
-            sendIPCToWindow(window, 'showBookmarks')
-          }
-        },
-        {
-          label: l('appMenuHistory'),
-          accelerator: undefined,
-          click: function (item, window) {
-            sendIPCToWindow(window, 'showHistory')
           }
         },
         {
