@@ -6,6 +6,8 @@ var urlParser = require('util/urlParser.js')
 
 var currentResponseSent = 0
 
+var previousPlacesResults = {} // used to avoid duplicating results between places and fullTextPlaces
+
 function showSearchbarPlaceResults (text, input, event, container, pluginName = 'places') {
   var responseSent = Date.now()
 
@@ -38,6 +40,14 @@ function showSearchbarPlaceResults (text, input, event, container, pluginName = 
 
     // clear previous results
     empty(container)
+
+    if (pluginName === 'fullTextPlaces') {
+      // avoid showing results that are already being shown by the regular places plugin
+      // this assumes that places runs before fullTextPlaces
+      if (previousPlacesResults.text === text) {
+        results = results.filter(r => previousPlacesResults.results.indexOf(r.url) === -1)
+      }
+    }
 
     results = results.slice(0, resultCount)
 
@@ -98,6 +108,9 @@ function showSearchbarPlaceResults (text, input, event, container, pluginName = 
     })
 
     searchbarPlugins.addResults(pluginName, results.length)
+    if (pluginName === 'places') {
+      previousPlacesResults = {text, results: results.map(r => r.url)}
+    }
   })
 }
 
@@ -106,7 +119,7 @@ searchbarPlugins.register('places', {
   trigger: function (text) {
     return !!text && text.indexOf('!') !== 0
   },
-  showResults: throttle(showSearchbarPlaceResults, 50)
+  showResults: showSearchbarPlaceResults
 })
 
 searchbarPlugins.register('fullTextPlaces', {
