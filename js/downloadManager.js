@@ -63,6 +63,18 @@ const downloadManager = {
       }, 100)
     }
   },
+  onItemDragged: function (path) {
+    remote.app.getFileIcon(path, {}, function (err, icon) {
+      if (err) {
+        console.warn(err)
+        return
+      }
+      remote.getCurrentWebContents().startDrag({
+        file: path,
+        icon: icon
+      })
+    })
+  },
   onDownloadCompleted: function () {
     downloadManager.lastDownloadCompleted = Date.now()
     setTimeout(function () {
@@ -75,6 +87,7 @@ const downloadManager = {
     let container = document.createElement('div')
     container.className = 'download-item'
     container.setAttribute('role', 'listitem')
+    container.setAttribute('draggable', 'true')
 
     let title = document.createElement('div')
     title.className = 'download-title'
@@ -95,6 +108,10 @@ const downloadManager = {
 
     container.addEventListener('click', function () {
       downloadManager.onItemClicked(downloadItem.path)
+    })
+    container.addEventListener('dragstart', function (e) {
+      e.preventDefault()
+      downloadManager.onItemDragged(downloadItem.path)
     })
 
     dropdown.addEventListener('click', function () {
