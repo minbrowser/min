@@ -33,7 +33,7 @@ ipc.on('getKeywordsData', function (e) {
       }
     }
 
-    text = text.replace(/[\n\t]/g, '') // remove useless newlines/tabs that increase filesize
+    text = text.replace(/[\n\t]/g, ' ') // remove useless newlines/tabs that increase filesize
 
     return text
   }
@@ -55,7 +55,7 @@ ipc.on('getKeywordsData', function (e) {
     var thisKeyword = []
     for (var i = 0; i < words.length; i++) {
       // skip the first word after a sentence
-      if (words[i - 1] && words[i - 1].length > 1 && sentenceEndingCharacters.includes(words[i - 1][words[i - 1].length - 1])) {
+      if (words[i - 1] && words[i - 1].length > 2 && sentenceEndingCharacters.includes(words[i - 1][words[i - 1].length - 1])) {
         thisKeyword = []
         continue
       }
@@ -65,7 +65,7 @@ ipc.on('getKeywordsData', function (e) {
         thisKeyword.push(words[i])
 
         // if this word ends with a phrase-ending character, we should jump to saving or discarding
-        if (words[i].length > 1 && phraseEndingCharcters.includes(words[i][words[i].length - 1])) {
+        if (words[i].length > 2 && phraseEndingCharcters.includes(words[i][words[i].length - 1])) {
         } else {
           // otherwise, we should skip the save-or-discard and continue adding words
           continue
