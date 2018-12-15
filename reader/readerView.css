@@ -1,7 +1,7 @@
 #backtoarticle {
 	padding: 2em 0 0 44px;
 	color: dodgerblue;
-	max-width: 800px;
+	max-width: 720px;
 	margin: auto;
 	display: block;
 	box-sizing: border-box;
@@ -17,7 +17,7 @@ body,
 html {
 	padding: 0;
 	margin: 0;
-	font-size: 22px;
+	font-size: 21px;
 }
 iframe {
 	display: none;
@@ -30,7 +30,7 @@ iframe.reader-frame {
 }
 .reader-main {
 	padding-top: 1em;
-	max-width: 800px;
+	max-width: 720px;
 	display: block;
 	margin: auto;
 }
@@ -114,7 +114,7 @@ body.dark-mode a {
 a:hover {
 	background-image: linear-gradient(to bottom, transparent 70%, currentColor 0%);
 	background-size: 1px 3px;
-	background-position: 0px 0.98em;
+	background-position: 0px 1.03em;
 	background-repeat: repeat-x;
 }
 figure {
@@ -129,8 +129,12 @@ figure {
 	}
 }
 figure figcaption {
-	font-size: 0.9em;
-	padding-top: 1em;
+	font-size: 0.8em;
+	margin-top: 1em;
+	opacity: 0.75;
+}
+figure figcaption * {
+	font-family: sans-serif;
 }
 pre,
 pre *,
@@ -167,7 +171,8 @@ body.dark-mode {
 .lede-container {
 	display: none;
 }
-figure figcaption .credit {
+figure figcaption .credit,
+figure figcaption [itemprop=copyrightHolder] {
 	display: block;
 	font-style: italic;
 	margin-top: 0.25em;
@@ -179,7 +184,7 @@ figure figcaption .credit {
 	display: none;
 }
 
-/* wsj */
+/* wsj.com */
 
 dd {
 	display: block;
@@ -195,5 +200,11 @@ dd {
 /* bbc.com */
 
 .off-screen {
+	display: none;
+}
+
+/* lifehacker.com (and possibly others */
+
+svg {
 	display: none;
 }
