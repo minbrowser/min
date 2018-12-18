@@ -35,9 +35,9 @@
         "createTask": "Criar tarefa",
         "moveToTask": "Mover este separador para uma tarefa",
         "searchBookmarks": "Pesquisar nos marcadores",
-        "searchHistory": null, //missing translation
+        "searchHistory": "Pesquisar no histórico",
         /* navbar */
-        "openMenu": null, //missing translation
+        "openMenu": "Abrir menu", //application menu button on windows
         "enterReaderView": "Ativar modo de leitura",
         "exitReaderView": "Desativar modo de leitura",
         "emptyReadingListTitle": "A lista de leitura está vazia",
@@ -61,14 +61,14 @@
         "focusModeExplanation1": "Neste modo, todos os separadores estão ocultos à exceção do atual e não será possível criar novos separadores.",
         "focusModeExplanation2": "Pode desativar este modo desmarcando a caixa \"Modo de foco\" no menu Ver.",
         /* relative dates */
-        "timeRangeJustNow": null, //missing translation
-        "timeRangeMinutes": null, //missing translation
-        "timeRangeHour": null, //missing translation
-        "timeRangeDay": null, //missing translation
-        "timeRangeWeek": null, //missing translation
-        "timeRangeMonth": null, //missing translation
-        "timeRangeYear": null, //missing translation
-        "timeRangeLongerAgo": null, //missing translation
+        "timeRangeJustNow": "Agora mesmo",
+        "timeRangeMinutes": "Há alguns minutos",
+        "timeRangeHour": "Na última hora",
+        "timeRangeDay": "No último dia",
+        "timeRangeWeek": "Na última semana",
+        "timeRangeMonth": "No último mês",
+        "timeRangeYear": "No último ano",
+        "timeRangeLongerAgo": "Mais antigo",
         /* pages/error/index.html */
         "crashErrorTitle": "Algo errado aconteceu.",
         "crashErrorSubtitle": "Ocorreu um erro ao tentar mostrar esta página.",
@@ -92,10 +92,10 @@
         "phishingErrorVisitAnyway": "Aceder na mesma",
         "phishingErrorLeave": "Sair do site",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": null, // missing translation
+        "multipleInstancesErrorMessage": "Ocorreu um erro. Feche todas as instâncias abertas e reinicie o navegador.",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Ocorreu um erro",
-        "sessionRestoreErrorExplanation": "Os separadores guardados não foram restaurados corretamente.",
+        "sessionRestoreErrorExplanation": "Não foi possível restaurar os separadores guardados.",
         "sessionRestoreErrorBackupInfo": "Criámos um backup dos seus dados em: %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
             "unsafeHTML": "Se este erro persistir, crie um relatório de erros <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">aqui</a>."
@@ -108,25 +108,25 @@
         "settingsBlockScriptsToggle": "Bloquear scripts",
         "settingsBlockImagesToggle": "Bloquear imagens",
         "settingsEasyListCredit": {
-            "unsafeHTML": "Baseado nas listas EasyList e EasyPrivacy, sem regras de ocultação de elementos. Criado por <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">ver licença</a>."
+            "unsafeHTML": "Baseado em EasyList e EasyPrivacy, sem regras de ocultação de elementos. Criado por <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">ver licença</a>."
         },
         "settingsAppearanceHeading": "Aparência",
         "settingsDarkModeToggle": "Ativar modo escuro",
         "settingsHistoryButtonToggle": "Ativar botão para recuar",
-        "settingsAdditionalFeaturesHeading": null, //missing translation
+        "settingsAdditionalFeaturesHeading": "Outras funcionalidades",
         "settingsSwipeNavigationToggle": "Ativar gestos para navegar entre as páginas visitadas.",
-        "settingsUserscriptsToggle": null, //missing translation
-        "settingsUserscriptsExplanation": null, //missing translation
+        "settingsUserscriptsToggle": "Ativar scripts de utilizador",
+        "settingsUserscriptsExplanation": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."},
         "settingsSearchEngineHeading": "Motor de pesquisa",
         "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",
         "settingsDDGExplanation": "Defina DuckDuckGo como motor de pesquisa padrão para poder obter sugestões instantâneas na barra de pesquisa.",
-        "customSearchEngineDescription": null, //missing translation
+        "customSearchEngineDescription": "Substituir termo de pesquisa por %s",
         "settingsKeyboardShortcutsHeading": "Teclas de atalho",
-        "settingsKeyboardShortcutsHelp": null, //missing translation
+        "settingsKeyboardShortcutsHelp": "Utilize vírgulas para separar os diversos atalhos",
         /* app menu */
         "appMenuFile": "Ficheiro",
         "appMenuNewTab": "Novo separador",
-        "appMenuDuplicateTab": null, //missing translation
+        "appMenuDuplicateTab": "Duplicar separador",
         "appMenuNewPrivateTab": "Novo separador privado",
         "appMenuNewTask": "Nova tarefa",
         "appMenuSavePageAs": "Guardar página como",
@@ -146,8 +146,8 @@
         "appMenuFullScreen": "Ecrã completo", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Modo de foco",
         "appMenuReadingList": "Lista de leitura",
-        "appMenuBookmarks": null, //missing translation
-        "appMenuHistory": null, //missing translation
+        "appMenuBookmarks": "Marcadores",
+        "appMenuHistory": "Histórico",
         "appMenuDeveloper": "Programador",
         "appMenuReloadBrowser": "Recarregar navegador",
         "appMenuInspectBrowser": "Inspecionar navegador",
@@ -160,19 +160,19 @@
         "appMenuReportBug": "Reporte de erros",
         "appMenuTakeTour": "Visão geral",
         "appMenuViewGithub": "Ver em GitHub",
-        "appMenuAbout": "Acerca do %n", //%n is replaced with app name
+        "appMenuAbout": "Acerca de %n", //%n is replaced with app name
         "appMenuPreferences": "Preferências",
         "appMenuServices": "Serviços",
         "appMenuHide": "Ocultar %n",
         "appMenuHideOthers": "Ocultar outras",
         "appMenuShowAll": "Mostrar tudo",
-        "appMenuQuit": "Sair do %n",
+        "appMenuQuit": "Sair de %n",
         "appMenuBringToFront": "Trazer tudo para a frente",
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "página <input type='text'/> de <span id='total'></span>"},
         /* Download manager */
-        "downloadCancel": null, //missing translation
-        "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null //missing translation
+        "downloadCancel": "Cancelar",
+        "downloadStateCompleted": "Terminada",
+        "downloadStateFailed": "Falhada",
     }
 }
