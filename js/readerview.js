@@ -125,13 +125,15 @@ registerCustomBang({
 
 // update the reader button on page load
 
-webviews.bindEvent('did-finish-load', function (e) {
-  var tab = webviews.getTabFromContents(this)
-  tabs.update(tab, {
-    readerable: false // assume the new page can't be readered, we'll get another message if it can
-  })
+webviews.bindEvent('did-start-navigation', function (e, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
+  if (isMainFrame && !isInPlace) {
+    var tab = webviews.getTabFromContents(this)
+    tabs.update(tab, {
+      readerable: false // assume the new page can't be readered, we'll get another message if it can
+    })
 
-  readerView.updateButton(tab)
+    readerView.updateButton(tab)
+  }
 })
 
 webviews.bindIPC('canReader', function (webview, tab) {

@@ -33,18 +33,11 @@ function pageIsReaderable () {
   }
 }
 
-window.addEventListener('load', function (e) {
+function checkReaderStatus () {
   if (pageIsReaderable()) {
-    // the page is probably an article
-
-    // some websites can cause multiple did-finish-load events. In webview.js, we assume these mean a new page, and set readerable to false. Because of this, if we send canReader, and later there is another load event, the button will never show up. To get around this, we send multiple canReader events at intervals.
-
-    setTimeout(function () {
-      ipc.send('canReader')
-    }, 500)
-
-    setTimeout(function () {
-      ipc.send('canReader')
-    }, 2500)
+    ipc.send('canReader')
   }
-})
+}
+
+document.addEventListener('DOMContentLoaded', checkReaderStatus)
+window.addEventListener('load', checkReaderStatus)

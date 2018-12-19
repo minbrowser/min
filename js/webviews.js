@@ -75,8 +75,27 @@ function updateBackButton () {
 
 remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler)
 
-// called whenever the page url changes
+// called whenever a new page starts loading, or an in-page navigation occurs
+function onPageURLChange (tab, url) {
+  // if the page is an error page, the URL is really the value of the "url" query parameter
+  if (url.startsWith(webviews.internalPages.error)) {
+    url = new URLSearchParams(new URL(url).search).get('url')
+  }
 
+  if (url.indexOf('https://') === 0 || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('file://') === 0) {
+    tabs.update(tab, {
+      secure: true,
+      url: url
+    })
+  } else {
+    tabs.update(tab, {
+      secure: false,
+      url: url
+    })
+  }
+}
+
+// called whenever the page finishes loading
 function onPageLoad (e) {
   var tab = webviews.getTabFromContents(this)
 
@@ -89,22 +108,7 @@ function onPageLoad (e) {
       }, 100)
     }
 
-    // if the page is an error page, the URL is really the value of the "url" query parameter
-    if (url.startsWith(webviews.internalPages.error)) {
-      url = new URLSearchParams(new URL(url).search).get('url')
-    }
-
-    if (url.indexOf('https://') === 0 || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('file://') === 0) {
-      tabs.update(tab, {
-        secure: true,
-        url: url
-      })
-    } else {
-      tabs.update(tab, {
-        secure: false,
-        url: url
-      })
-    }
+    onPageURLChange(tab, url)
 
     tabBar.rerenderTab(tab)
 
@@ -113,8 +117,9 @@ function onPageLoad (e) {
 }
 
 // called whenever a navigation finishes
-
-function onNavigate () {
+function onNavigate (e, url, httpResponseCode, httpStatusText) {
+  var tab = webviews.getTabFromContents(this)
+  onPageURLChange(tab, url)
   updateBackButton()
 }
 
