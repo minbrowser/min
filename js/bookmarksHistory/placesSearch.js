@@ -7,14 +7,14 @@ function searchPlaces (searchText, callback, options) {
     if (limitToBookmarks && !item.isBookmarked) {
       return
     }
-    // if the text does not contain the first search word, it can't possibly be a match, so don't do any processing
-    let itext = item.url.split('?')[0].replace('http://', '').replace('https://', '').replace('www.', '')
+    let itext
+    let itextURL = item.url.split('?')[0].replace('http://', '').replace('https://', '').replace('www.', '').toLowerCase().replace(spacesRegex, ' ')
 
-    if (item.url !== item.title) {
-      itext += ' ' + item.title
+    if (item.url === item.title) {
+      itext = itextURL
+    } else {
+      itext = itextURL + ' ' + item.title.toLowerCase().replace(spacesRegex, ' ')
     }
-
-    itext = itext.toLowerCase().replace(spacesRegex, ' ')
 
     const tindex = itext.indexOf(st)
 
@@ -48,9 +48,9 @@ function searchPlaces (searchText, callback, options) {
       }
 
       if (item.visitCount !== 1 || item.lastVisit > oneWeekAgo) { // if the item has been visited more than once, or has been visited in the last week, we should calculate the fuzzy score. Otherwise, it is ignored. This reduces the number of bad results and increases search speed.
-        const score = itext.score(st, 0)
+        const score = itextURL.score(st, 0)
 
-        if (score > 0.4 + (0.00075 * itext.length)) {
+        if (score > 0.4 + (0.00075 * itextURL.length)) {
           item.boost = score * 0.5
 
           if (score > 0.62) {
