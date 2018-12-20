@@ -21,7 +21,16 @@ function buildLocalization () {
   languageFiles.forEach(function (file) {
     let data = fs.readFileSync(path.join(languageFileDir, file), 'utf-8')
 
-    let obj = JSON.parse(decomment(data))
+    let obj
+    try {
+      obj = JSON.parse(decomment(data))
+    } catch (e) {
+      console.error('parsing language file "' + file + '" failed.')
+      console.error(e.toString())
+      let loc = parseInt(/at position (\d+)/g.exec(e)[1])
+      console.info('"' + decomment(data).substring(loc - 40, loc + 40) + '"')
+      process.exit()
+    }
 
     languages[obj.identifier] = obj
   })

@@ -173,6 +173,6 @@
         /* Download manager */
         "downloadCancel": "Cancelar",
         "downloadStateCompleted": "Terminada",
-        "downloadStateFailed": "Falhada",
+        "downloadStateFailed": "Falhada"
     }
 }
