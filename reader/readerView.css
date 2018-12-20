@@ -101,7 +101,8 @@ p {
 }
 ul li,
 ol li {
-	padding: 0.25rem 0;
+	margin: 0.25rem 0;
+	line-height: 1.5em;
 }
 a {
 	color: #1b74bb;
