@@ -21,9 +21,13 @@ function cloneEvent (e) {
   }
   return JSON.stringify(obj)
 }
-window.addEventListener('wheel', function (e) {
-  ipc.send('wheel-event', cloneEvent(e))
-})
+
+// workaround for Electron bug
+setTimeout(function () {
+  document.addEventListener('wheel', function (e) {
+    ipc.send('wheel-event', cloneEvent(e))
+  })
+}, 0)
 
 /* re-implement window.close, since the built-in function doesn't work correctly */
 window.close = function () {
