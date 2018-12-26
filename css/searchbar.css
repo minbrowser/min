@@ -14,7 +14,7 @@
 	will-change: display;
 }
 
-body.windows #searchbar {
+body.windows:not(.maximized) #searchbar {
 	top: 46px;
 }
 

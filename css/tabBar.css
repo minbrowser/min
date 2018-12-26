@@ -15,7 +15,7 @@
 	display: none;
 }
 
-body.windows .windows-drag-area {
+body.windows:not(.maximized) .windows-drag-area {
 	display: block;
 	position: fixed;
 	/* leave an empty space around the edges of the drag area so that the window can be resized */
@@ -36,9 +36,11 @@ body.mac:not(.fullscreen) #navbar {
 }
 
 body.windows #navbar {
+	padding-right: 138px;
+}
+body.windows:not(.maximized) #navbar {
 	padding-top: 10px;
 	height: 46px;
-	padding-right: 138px;
 }
 
 /* when the tab-group is white, we need a line to separate it from the webviews */

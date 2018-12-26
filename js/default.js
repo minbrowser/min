@@ -33,6 +33,16 @@ if (navigator.platform === 'MacIntel') {
   window.platformType = 'linux'
 }
 
+if (window.platformType === 'windows') {
+  ipc.on('maximize', function () {
+    document.body.classList.add('maximized')
+  })
+
+  ipc.on('unmaximize', function () {
+    document.body.classList.remove('maximized')
+  })
+}
+
 // https://remysharp.com/2010/07/21/throttling-function-calls
 
 function throttle (fn, threshhold, scope) {

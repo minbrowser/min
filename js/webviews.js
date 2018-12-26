@@ -7,13 +7,8 @@ var urlParser = require('util/urlParser.js')
 
 var placeholderImg = document.getElementById('webview-placeholder')
 
+var windowIsMaximized = false // affects navbar height on Windows
 var windowIsFullscreen = false // TODO track this for each individual webContents
-
-if (window.platformType === 'windows') {
-  var navbarHeight = 46 // used to set the bounds of the view
-} else {
-  var navbarHeight = 36
-}
 
 function lazyRemoteObject (getObject) {
   var cachedItem = null
@@ -152,7 +147,7 @@ window.webviews = {
     for (var i = 0; i < margins.length; i++) {
       webviews.viewMargins[i] += margins[i]
     }
-    ipc.send('setBounds', {id: webviews.selectedId, bounds: webviews.getViewBounds()})
+    webviews.resize()
   },
   getViewBounds: function () {
     if (windowIsFullscreen) {
@@ -163,6 +158,12 @@ window.webviews = {
         height: window.innerHeight
       }
     } else {
+      if (window.platformType === 'windows' && !windowIsMaximised) {
+        var navbarHeight = 46
+      } else {
+        var navbarHeight = 36
+      }
+
       const viewMargins = webviews.viewMargins
       return {
         x: 0 + viewMargins[3],
@@ -322,6 +323,9 @@ window.webviews = {
       ipc.send('focusView', webviews.selectedId)
     }
   },
+  resize: function () {
+    ipc.send('setBounds', {id: webviews.selectedId, bounds: webviews.getViewBounds()})
+  },
   callAsync: function (id, method, args, callback) {
     if (!(args instanceof Array)) {
       args = [args]
@@ -366,17 +370,27 @@ window.addEventListener('resize', throttle(function () {
     // can't set view bounds if the view is hidden
     return
   }
-  ipc.send('setBounds', {id: webviews.selectedId, bounds: webviews.getViewBounds()})
+  webviews.resize()
 }, 75))
 
 ipc.on('enter-html-full-screen', function () {
   windowIsFullscreen = true
-  ipc.send('setBounds', {id: webviews.selectedId, bounds: webviews.getViewBounds()})
+  webviews.resize()
 })
 
 ipc.on('leave-html-full-screen', function () {
   windowIsFullscreen = false
-  ipc.send('setBounds', {id: webviews.selectedId, bounds: webviews.getViewBounds()})
+  webviews.resize()
+})
+
+ipc.on('maximize', function () {
+  windowIsMaximised = true
+  webviews.resize()
+})
+
+ipc.on('unmaximize', function () {
+  windowIsMaximised = false
+  webviews.resize()
 })
 
 webviews.bindEvent('did-finish-load', onPageLoad)

@@ -8,7 +8,7 @@
 	z-index: 1;
 	border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
 }
-body.windows .navbar {
+body.windows:not(.maximized) .navbar {
 	height: 46px;
 }
 #switch-task-button {
@@ -18,8 +18,10 @@ body.windows .navbar {
 	z-index: 9;
 }
 body.windows #switch-task-button {
-	top: 10px;
 	right: 138px;
+}
+body.windows:not(.maximized) #switch-task-button {
+	top: 10px;
 }
 #switch-task-button.active {
 	color: royalblue !important;
@@ -39,7 +41,7 @@ body.windows #switch-task-button {
 	transition: 0.15s all;
 	z-index: 3;
 }
-body.windows #task-overlay {
+body.windows:not(.maximized) #task-overlay {
 	padding-top: 50px;
 }
 #task-overlay[hidden] {
