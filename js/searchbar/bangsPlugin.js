@@ -2,6 +2,8 @@ var searchbar = require('searchbar/searchbar.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 
+var searchEngine = require('util/searchEngine.js')
+
 // format is {phrase, snippet, score, icon, fn, isCustom, isAction} to match https://ac.duckduckgo.com/ac?q=!
 
 // isAction describes whether the !bang is an action (like "open preferences"), or a place to search (like "search reading list items")
@@ -138,7 +140,7 @@ function getBangSearchResults (text, input, event, container) {
   // otherwise search for bangs
 
   // get results from DuckDuckGo if it is a search engine, and the current tab is not a private tab
-  if (currentSearchEngine.name === 'DuckDuckGo' && !tabs.get(tabs.getSelected()).private) {
+  if (searchEngine.getCurrent().name === 'DuckDuckGo' && !tabs.get(tabs.getSelected()).private) {
     fetch('https://ac.duckduckgo.com/ac/?t=min&q=' + encodeURIComponent(text), {
       cache: 'force-cache'
     })

@@ -1,4 +1,5 @@
 var browserUI = require('browserUI.js')
+var searchEngine = require('util/searchEngine.js')
 
 var Menu, MenuItem, clipboard // these are only loaded when the menu is shown
 
@@ -99,10 +100,10 @@ var webviewMenu = {
     if (selection) {
       var textActions = [
         new MenuItem({
-          label: l('searchWith').replace('%s', currentSearchEngine.name),
+          label: l('searchWith').replace('%s', searchEngine.getCurrent().name),
           click: function () {
             var newTab = tabs.add({
-              url: currentSearchEngine.searchURL.replace('%s', encodeURIComponent(selection)),
+              url: searchEngine.getCurrent().searchURL.replace('%s', encodeURIComponent(selection)),
               private: currentTab.private
             }, tabs.getIndex(tabs.getSelected()) + 1)
             browserUI.addTab(newTab, {

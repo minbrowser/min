@@ -1,7 +1,9 @@
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
+
 var urlParser = require('util/urlParser.js')
+var searchEngine = require('util/searchEngine.js')
 
 function removeTags (text) {
   return text.replace(/<.*?>/g, '')
@@ -9,7 +11,7 @@ function removeTags (text) {
 
 function showSearchbarInstantAnswers (text, input, event, container) {
   // only make requests to the DDG api if DDG is set as the search engine
-  if (currentSearchEngine.name !== 'DuckDuckGo') {
+  if (searchEngine.getCurrent().name !== 'DuckDuckGo') {
     return
   }
 

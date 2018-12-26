@@ -17,7 +17,6 @@ const legacyModules = [
   'js/util/database.js',
   'js/util/defaultKeyMap.js',
   'js/util/settings.js',
-  'js/util/searchEngine.js',
   'js/tabState.js',
   'js/filteringRenderer.js',
   'js/webviews.js',

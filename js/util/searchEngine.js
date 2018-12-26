@@ -1,4 +1,9 @@
-window.currentSearchEngine = {
+if (typeof require !== 'undefined') {
+  var settings = require('util/settings.js')
+}
+// otherwise, assume window.settings exists already
+
+var currentSearchEngine = {
   name: '',
   searchURL: '%s'
 }
@@ -52,14 +57,26 @@ settings.get('searchEngine', function (value) {
   }
 
   if (value && value.name) {
-    window.currentSearchEngine = searchEngines[value.name]
+    currentSearchEngine = searchEngines[value.name]
   } else if (value && value.url) {
-    window.currentSearchEngine = {
+    currentSearchEngine = {
       name: 'custom',
       searchURL: value.url,
       custom: true
     }
   } else {
-    window.currentSearchEngine = searchEngines[defaultSearchEngine]
+    currentSearchEngine = searchEngines[defaultSearchEngine]
   }
 })
+
+var searchEngine = {
+  getCurrent: function () {
+    return currentSearchEngine
+  }
+}
+
+if (typeof module === 'undefined') {
+  window.currentSearchEngine = currentSearchEngine
+} else {
+  module.exports = searchEngine
+}

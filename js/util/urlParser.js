@@ -1,3 +1,5 @@
+const searchEngine = require('util/searchEngine.js')
+
 const hosts = require('./hosts.js')
 
 var urlParser = {
@@ -48,7 +50,7 @@ var urlParser = {
       return 'http://' + url
     }
     // else, do a search
-    return currentSearchEngine.searchURL.replace('%s', encodeURIComponent(url))
+    return searchEngine.getCurrent().searchURL.replace('%s', encodeURIComponent(url))
   },
   basicURL: function (url) {
     return urlParser.removeProtocol(url).replace(urlParser.trailingSlashRegex, '')
