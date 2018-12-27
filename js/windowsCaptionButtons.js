@@ -1,19 +1,31 @@
 var captionMinimise =
-  document.querySelector('.windows-caption-buttons .caption-minimise, body.linux .titlebar-linux .caption-minimise')
+document.querySelector('.windows-caption-buttons .caption-minimise, body.linux .titlebar-linux .caption-minimise')
 
 var captionMaximise =
-  document.querySelector('.windows-caption-buttons .caption-maximise, body.linux .titlebar-linux .caption-maximise')
+document.querySelector('.windows-caption-buttons .caption-maximise, body.linux .titlebar-linux .caption-maximise')
 
 var captionRestore =
-  document.querySelector('.windows-caption-buttons .caption-restore, body.linux .titlebar-linux .caption-restore')
+document.querySelector('.windows-caption-buttons .caption-restore, body.linux .titlebar-linux .caption-restore')
 
 var captionClose =
-  document.querySelector('.windows-caption-buttons .caption-close, body.linux .titlebar-linux .caption-close')
+document.querySelector('.windows-caption-buttons .caption-close, body.linux .titlebar-linux .caption-close')
 
 var windowIsMaximised = false
 var windowIsFullscreen = false
 
+function updateCaptionButtons () {
+  if (windowIsMaximised || windowIsFullscreen) {
+    captionMaximise.hidden = true
+    captionRestore.hidden = false
+  } else {
+    captionMaximise.hidden = false
+    captionRestore.hidden = true
+  }
+}
+
 if (navigator.platform === 'Win32') {
+  updateCaptionButtons()
+
   captionMinimise.addEventListener('click', function (e) {
     remote.getCurrentWindow().minimize()
   })
@@ -34,37 +46,20 @@ if (navigator.platform === 'Win32') {
     remote.getCurrentWindow().close()
   })
 
-  if (windowIsMaximised || windowIsFullscreen) {
-    captionMaximise.hidden = true
-    captionRestore.hidden = false
-  } else {
-    captionMaximise.hidden = false
-    captionRestore.hidden = true
-  }
-
   ipc.on('maximize', function (e) {
     windowIsMaximised = true
-    captionMaximise.hidden = true
-    captionRestore.hidden = false
+    updateCaptionButtons()
   })
   ipc.on('unmaximize', function (e) {
     windowIsMaximised = false
-    captionMaximise.hidden = false
-    captionRestore.hidden = true
+    updateCaptionButtons()
   })
   ipc.on('enter-full-screen', function (e) {
     windowIsFullscreen = true
-    captionMaximise.hidden = true
-    captionRestore.hidden = false
+    updateCaptionButtons()
   })
   ipc.on('leave-full-screen', function (e) {
     windowIsFullscreen = false
-    if (windowIsMaximised) {
-      captionMaximise.hidden = true
-      captionRestore.hidden = false
-    } else {
-      captionMaximise.hidden = false
-      captionRestore.hidden = true
-    }
+    updateCaptionButtons()
   })
 }
