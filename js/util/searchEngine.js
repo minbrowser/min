@@ -17,7 +17,7 @@ var searchEngines = {
   },
   Google: {
     name: 'Google',
-    searchURL: 'https://google.com/search?q=%s'
+    searchURL: 'https://www.google.com/search?q=%s'
   },
   Bing: {
     name: 'Bing',
@@ -72,6 +72,14 @@ settings.get('searchEngine', function (value) {
 var searchEngine = {
   getCurrent: function () {
     return currentSearchEngine
+  },
+  isSearchURL: function (url) {
+    if (!currentSearchEngine.name || currentSearchEngine.name === 'none') {
+      return false
+    } else {
+      let searchFragment = currentSearchEngine.searchURL.split('%s')[0]
+      return url.startsWith(searchFragment)
+    }
   }
 }
 
