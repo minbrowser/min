@@ -86,7 +86,10 @@ ipc.on('getKeywordsData', function (e) {
           thisKeyword.pop()
         }
         if (thisKeyword.length > 1) { // make sure there are still two words left after discarding ignorables
-          keywords.push(thisKeyword.join(' ').replace(/^\W+/g, '').replace(/\W+$/g, ''))
+          let keywordText = thisKeyword.join(' ').replace(/^\W+/g, '').replace(/\W+$/g, '').trim()
+          if (!keywords.includes(keywordText)) {
+            keywords.push(keywordText)
+          }
         }
         thisKeyword = []
       } else {
@@ -94,7 +97,7 @@ ipc.on('getKeywordsData', function (e) {
       }
     }
 
-    return keywords.slice(0, 5)
+    return keywords
   }
 
   if (!pageIsReaderable() && window.location.toString().indexOf('reader/index.html') === -1) {

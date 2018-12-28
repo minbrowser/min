@@ -70,18 +70,6 @@ var searchbar = {
     } else if (allItems[0]) { // no item is focused.
       allItems[0].focus()
     }
-
-    var focusedItem = logicalNextItem || allItems[0]
-
-    if (focusedItem && focusedItem.classList.contains('iadata-onfocus')) {
-      setTimeout(function () {
-        if (document.activeElement === focusedItem) {
-          var itext = focusedItem.querySelector('.title').textContent
-
-          showSearchbarInstantAnswers(itext, searchbar.associatedInput, null, searchbarPlugins.getContainer('instantAnswers'))
-        }
-      }, 300)
-    }
   },
   openURL: function (url, event) {
     var hasURLHandler = searchbarPlugins.runURLHandlers(url)

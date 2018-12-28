@@ -13,7 +13,7 @@ window.tabBar = {
     return tabBar.tabElementMap[tabId]
   },
   getTabInput: function (tabId) {
-    return document.querySelector('.tab-item[data-tab="{id}"] .tab-input'.replace('{id}', tabId))
+    return tabBar.getTab(tabId).querySelector('.tab-input')
   },
   setActiveTab: function (tabId) {
     var activeTab = document.querySelector('.tab-item.active')
@@ -34,9 +34,9 @@ window.tabBar = {
     })
   },
   enterEditMode: function (tabId, editingValue) {
-    webviews.requestPlaceholder('editMode')
-
     // editingValue: an optional string to show in the searchbar instead of the current URL
+
+    webviews.requestPlaceholder('editMode')
     taskOverlay.hide()
 
     var tabEl = tabBar.getTab(tabId)
@@ -66,9 +66,6 @@ window.tabBar = {
     }
 
     tabBar.editingTab = tabId
-
-    // show keyword suggestions in the searchbar
-    webviews.callAsync(tabs.getSelected(), 'send', 'getKeywordsData')
   },
   leaveEditMode: function (options) {
     if (!tabBar.editingTab) {
