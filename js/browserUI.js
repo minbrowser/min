@@ -16,9 +16,7 @@ window.navigate = function (tabId, newURL) {
 
   webviews.update(tabId, newURL)
 
-  tabBar.leaveEditMode({
-    blur: true
-  })
+  tabBar.leaveEditMode()
 }
 
 /* creates a new task */

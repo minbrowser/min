@@ -8,7 +8,7 @@ webviews.bindIPC('keywordsData', function (webview, tabId, args) {
 
   empty(container)
 
-  args[0].entities.slice(0, 5).forEach(function (item, index) {
+  args[0].entities.slice(0, 5).forEach(function (item) {
     var div = searchbarUtils.createItem({
       icon: 'fa-search',
       title: item,

@@ -67,7 +67,7 @@ window.tabBar = {
 
     tabBar.editingTab = tabId
   },
-  leaveEditMode: function (options) {
+  leaveEditMode: function () {
     if (!tabBar.editingTab) {
       return
     }
@@ -75,11 +75,10 @@ window.tabBar = {
     if (selTab) {
       selTab.classList.remove('selected')
     }
-    if (options && options.blur) {
-      var input = document.querySelector('.tab-item .tab-input:focus')
-      if (input) {
-        input.blur()
-      }
+
+    var input = document.querySelector('.tab-item .tab-input:focus')
+    if (input) {
+      input.blur()
     }
 
     document.body.classList.remove('is-edit-mode')
@@ -100,14 +99,10 @@ window.tabBar = {
     titleEl.textContent = tabTitle
 
     var secIcon = tabEl.getElementsByClassName('icon-tab-not-secure')[0]
-
     if (tabData.secure === false) {
-      if (!secIcon) {
-        var iconArea = tabEl.querySelector('.tab-icon-area')
-        iconArea.insertAdjacentHTML('beforeend', "<i class='fa fa-unlock icon-tab-not-secure tab-info-icon' title='" + l('connectionNotSecure') + "'></i>")
-      }
-    } else if (secIcon) {
-      secIcon.parentNode.removeChild(secIcon)
+      secIcon.hidden = false
+    } else {
+      secIcon.hidden = true
     }
 
     // update the star to reflect whether the page is bookmarked or not
@@ -175,6 +170,7 @@ window.tabBar = {
 
     var vc = document.createElement('div')
     vc.className = 'tab-view-contents'
+
     vc.appendChild(readerView.getButton(data.id))
 
     var pbContainer = document.createElement('div')
@@ -197,7 +193,6 @@ window.tabBar = {
 
     closeTabButton.addEventListener('click', function (e) {
       browserUI.closeTab(data.id)
-
       // prevent the searchbar from being opened
       e.stopPropagation()
     })
@@ -205,9 +200,19 @@ window.tabBar = {
     iconArea.appendChild(closeTabButton)
 
     if (data.private) {
-      iconArea.insertAdjacentHTML('afterbegin', "<i class='fa fa-eye-slash icon-tab-is-private tab-info-icon'></i>")
+      var pbIcon = document.createElement('i')
+      pbIcon.className = 'fa fa-eye-slash icon-tab-is-private tab-info-icon'
+      iconArea.appendChild(pbIcon)
+
       vc.setAttribute('title', l('privateTab'))
     }
+
+    var secIcon = document.createElement('i')
+    secIcon.className = 'fa fa-unlock icon-tab-not-secure tab-info-icon'
+    secIcon.title = l('connectionNotSecure')
+
+    secIcon.hidden = data.secure !== false
+    iconArea.appendChild(secIcon)
 
     vc.appendChild(iconArea)
 
