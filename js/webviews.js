@@ -128,12 +128,15 @@ window.webviews = {
     error: urlParser.getFileURL(__dirname + '/pages/error/index.html')
   },
   events: [],
+  eventCount: 0,
   IPCEvents: [],
   bindEvent: function (event, fn, options) {
+    webviews.eventCount++
     webviews.events.push({
       event: event,
       fn: fn,
-      options: options
+      options: options,
+      id: webviews.eventCount
     })
   },
   bindIPC: function (name, fn) {
@@ -447,13 +450,13 @@ webviews.bindIPC('close-window', function (webview, tabId, args) {
 })
 
 ipc.on('view-event', function (e, args) {
-  if (!webviews.tabViewMap[args.id]) {
+  if (!webviews.tabViewMap[args.viewId]) {
     // the view could have been destroyed between when the event was occured and when it was recieved in the UI process, see https://github.com/minbrowser/min/issues/604#issuecomment-419653437
     return
   }
   webviews.events.forEach(function (ev) {
-    if (ev.event === args.name) {
-      ev.fn.apply(webviews.tabContentsMap[args.id], [e].concat(args.args))
+    if (ev.id === args.eventId) {
+      ev.fn.apply(webviews.tabContentsMap[args.viewId], [e].concat(args.args))
     }
   })
 })

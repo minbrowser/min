@@ -11,8 +11,8 @@ function createView (id, webPreferencesString, boundsString, events) {
         e.preventDefault()
       }
       mainWindow.webContents.send('view-event', {
-        id: id,
-        name: ev.event,
+        viewId: id,
+        eventId: ev.id,
         args: Array.prototype.slice.call(arguments).slice(1)
       })
     })
