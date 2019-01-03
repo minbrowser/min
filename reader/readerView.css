@@ -44,8 +44,8 @@ iframe.reader-frame {
 	display: none;
 }
 h1.article-title {
-	padding: 0 1em 0.5em 1em;
-	margin-top: 0.5em;
+	padding: 0 2rem 1rem 2rem;
+	margin-top: 1rem;
 	margin: 0;
 	font-size: 2em;
 	font-weight: 500;
@@ -62,7 +62,7 @@ h2.article-authors {
 
 @media all and (max-width: 600px) {
 	h1.article-title {
-		font-size: 2em;
+		font-size: 1.5em;
 	}
 	h2.article-authors {
 		font-size: 1.1em;
@@ -162,6 +162,15 @@ blockquote {
 body.dark-mode {
   background-color: rgb(33, 37, 43);
   color: lightgrey;
+}
+
+/* printing */
+
+@media print {
+	body {
+		color: #000 !important;
+		font-size: 16px !important;
+	}
 }
 
 /* site-specific styles */
