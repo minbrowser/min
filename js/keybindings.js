@@ -139,7 +139,6 @@ function addPrivateTab () {
   var newIndex = tabs.getIndex(tabs.getSelected()) + 1
 
   var privateTab = tabs.add({
-    url: 'about:blank',
     private: true
   }, newIndex)
   browserUI.addTab(privateTab)
