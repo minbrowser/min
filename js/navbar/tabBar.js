@@ -333,3 +333,13 @@ window.tabBar = {
 document.getElementById('webviews').addEventListener('click', function () {
   tabBar.leaveEditMode()
 })
+
+/* progress bar events */
+
+webviews.bindEvent('did-start-loading', function () {
+  tabBar.handleProgressBar(webviews.getTabFromContents(this), 'start')
+})
+
+webviews.bindEvent('did-stop-loading', function () {
+  tabBar.handleProgressBar(webviews.getTabFromContents(this), 'finish')
+})
