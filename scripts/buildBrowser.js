@@ -22,7 +22,7 @@ const legacyModules = [
   'js/webviews.js',
   'js/phishingWarning.js',
   'js/webviewMenu.js',
-  'js/bookmarksHistory/bookmarksHistory.js',
+  'js/places/places.js',
   'js/searchbar/placesPlugin.js',
   'js/searchbar/instantAnswerPlugin.js',
   'js/searchbar/openTabsPlugin.js',

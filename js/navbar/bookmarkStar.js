@@ -17,7 +17,7 @@ const bookmarkStar = {
     star.classList.toggle('fa-star')
     star.classList.toggle('fa-star-o')
 
-    bookmarks.toggleBookmarked(tabId)
+    places.toggleBookmarked(tabId)
   },
   update: function (tabId, star) {
     const currentURL = tabs.get(tabId).url

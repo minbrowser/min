@@ -12,10 +12,10 @@ function showSearchbarPlaceResults (text, input, event, container, pluginName = 
   var responseSent = Date.now()
 
   if (pluginName === 'fullTextPlaces') {
-    var searchFn = bookmarks.searchPlacesFullText
+    var searchFn = places.searchPlacesFullText
     var resultCount = 4 - searchbarPlugins.getResultCount('places')
   } else {
-    var searchFn = bookmarks.searchPlaces
+    var searchFn = places.searchPlaces
     var resultCount = 4
   }
 
@@ -76,7 +76,7 @@ function showSearchbarPlaceResults (text, input, event, container, pluginName = 
         secondaryText: searchbarUtils.getRealTitle(result.title),
         url: result.url,
         delete: function () {
-          bookmarks.deleteHistory(result.url)
+          places.deleteHistory(result.url)
         }
       }
 

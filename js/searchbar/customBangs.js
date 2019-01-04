@@ -59,7 +59,7 @@ registerCustomBang({
     }).delete()
 
     // restart the workers
-    bookmarks.init()
+    places.init()
   }
 })
 
@@ -169,7 +169,7 @@ registerCustomBang({
   snippet: l('searchBookmarks'),
   isAction: false,
   showSuggestions: function (text, input, event, container) {
-    bookmarks.searchPlaces(text, function (results) {
+    places.searchPlaces(text, function (results) {
       empty(container)
 
       var lastRelativeDate = '' // used to generate headings
@@ -190,7 +190,7 @@ registerCustomBang({
           secondaryText: result.url,
           url: result.url,
           delete: function () {
-            bookmarks.deleteHistory(result.url)
+            places.deleteHistory(result.url)
           }
         }))
       })
@@ -200,7 +200,7 @@ registerCustomBang({
     if (!text) {
       return
     }
-    bookmarks.searchPlaces(text, function (results) {
+    places.searchPlaces(text, function (results) {
       if (results.length !== 0) {
         results = results.sort(function (a, b) {
           return b.lastVisit - a.lastVisit
@@ -216,7 +216,7 @@ registerCustomBang({
   snippet: l('searchHistory'),
   isAction: false,
   showSuggestions: function (text, input, event, container) {
-    bookmarks.searchPlaces(text, function (results) {
+    places.searchPlaces(text, function (results) {
       empty(container)
 
       var lastRelativeDate = '' // used to generate headings
@@ -236,7 +236,7 @@ registerCustomBang({
           secondaryText: result.url,
           url: result.url,
           delete: function () {
-            bookmarks.deleteHistory(result.url)
+            places.deleteHistory(result.url)
           }
         }))
       })
@@ -246,7 +246,7 @@ registerCustomBang({
     if (!text) {
       return
     }
-    bookmarks.searchPlaces(text, function (results) {
+    places.searchPlaces(text, function (results) {
       if (results.length !== 0) {
         results = results.sort(function (a, b) {
           return b.lastVisit - a.lastVisit

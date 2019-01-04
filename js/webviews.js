@@ -356,7 +356,7 @@ webviews.bindIPC('pageData', function (webview, tabId, args) {
 
   // don't save to history if in private mode, or the page is a browser page
   if (tab.private === false && !isInternalPage) {
-    bookmarks.updateHistory(tabId, data.extractedText, data.metadata)
+    places.updateHistory(tabId, data.extractedText, data.metadata)
   }
 })
 

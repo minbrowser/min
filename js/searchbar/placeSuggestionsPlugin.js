@@ -13,7 +13,7 @@ function showPlaceSuggestions (text, input, event, container) {
     }
   }
 
-  bookmarks.getPlaceSuggestions(url, function (results) {
+  places.getPlaceSuggestions(url, function (results) {
     empty(container)
 
     var tabList = tabs.get().map(function (tab) {
@@ -30,7 +30,7 @@ function showPlaceSuggestions (text, input, event, container) {
         secondaryText: searchbarUtils.getRealTitle(result.title),
         url: result.url,
         delete: function () {
-          bookmarks.deleteHistory(result.url)
+          places.deleteHistory(result.url)
         }
       })
 
