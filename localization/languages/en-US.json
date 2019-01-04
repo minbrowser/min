@@ -104,7 +104,10 @@
         "settingsPreferencesHeading": "Preferences",
         "settingsRestartRequired": "You need to restart to apply these changes.",
         "settingsPrivacyHeading": "Content Blocking",
-        "settingsContentBlockingToggle": "Block trackers and ads",
+        "settingsContentBlockingLevel0": "Allow all ads and trackers",
+        "settingsContentBlockingLevel1": "Block third-party ads and trackers",
+        "settingsContentBlockingLevel2": "Block all ads and trackers",
+        "settingsContentBlockingExceptions": "Ads will still be allowed on these websites:",
         "settingsBlockScriptsToggle": "Block scripts",
         "settingsBlockImagesToggle": "Block images",
         "settingsEasyListCredit": {
