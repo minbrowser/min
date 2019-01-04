@@ -4,6 +4,7 @@ var searchbar = require('searchbar/searchbar.js')
 var urlParser = require('util/urlParser.js')
 
 var progressBar = require('navbar/progressBar.js')
+var bookmarkStar = require('navbar/bookmarkStar.js')
 
 var lastTabDeletion = 0 // TODO get rid of this
 
@@ -108,7 +109,7 @@ window.tabBar = {
     }
 
     // update the star to reflect whether the page is bookmarked or not
-    bookmarks.renderStar(tabId)
+    bookmarkStar.update(tabId, tabBar.getTab(tabId).querySelector('.bookmarks-button'))
   },
   rerenderAll: function () {
     empty(tabBar.container)
@@ -140,7 +141,7 @@ window.tabBar = {
     input.value = url
 
     ec.appendChild(input)
-    ec.appendChild(bookmarks.getStar(data.id))
+    ec.appendChild(bookmarkStar.create(data.id))
 
     tabEl.appendChild(ec)
 

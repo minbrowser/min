@@ -91,52 +91,12 @@ const bookmarks = {
       }
     })
   },
-  handleStarClick: function (star) {
-    star.classList.toggle('fa-star')
-    star.classList.toggle('fa-star-o')
-
-    bookmarks.toggleBookmarked(star.getAttribute('data-tab'))
-  },
-  getStar: function (tabId) {
-    const star = document.createElement('i')
-    star.setAttribute('data-tab', tabId)
-    star.className = 'fa fa-star-o bookmarks-button' // alternative icon is fa-bookmark
-
-    star.addEventListener('click', function (e) {
-      bookmarks.handleStarClick(e.target)
-    })
-
-    return bookmarks.renderStar(tabId, star)
-  },
-  renderStar: function (tabId, star) { // star is optional
-    star = star || document.querySelector('.bookmarks-button[data-tab="{id}"]'.replace('{id}', tabId))
-
-    const currentURL = tabs.get(tabId).url
-
-    if (!currentURL || currentURL === 'about:blank') { // no url, can't be bookmarked
-      star.hidden = true
-      return star
-    } else {
-      star.hidden = false
-    }
-
-    // check if the page is bookmarked or not, and update the star to match
-
-    db.places.where('url').equals(currentURL).first(function (item) {
-      if (item && item.isBookmarked) {
-        star.classList.remove('fa-star-o')
-        star.classList.add('fa-star')
-      } else {
-        star.classList.remove('fa-star')
-        star.classList.add('fa-star-o')
-      }
-    })
-    return star
-  },
   init: function () {
     bookmarks.worker = new Worker('js/bookmarksHistory/placesWorker.js')
     bookmarks.worker.onmessage = bookmarks.onMessage
   }
 }
+
+window.bookmarks = bookmarks
 
 bookmarks.init()

@@ -264,7 +264,7 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('addToFavorites', function (e) {
-    bookmarks.handleStarClick(tabBar.getTab(tabs.getSelected()).querySelector('.bookmarks-button'))
+    tabBar.getTab(tabs.getSelected()).querySelector('.bookmarks-button').click()
     tabBar.enterEditMode(tabs.getSelected()) // we need to show the bookmarks button, which is only visible in edit mode
   })
 
