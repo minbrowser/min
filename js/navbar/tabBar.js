@@ -3,6 +3,8 @@ var focusMode = require('focusMode.js')
 var searchbar = require('searchbar/searchbar.js')
 var urlParser = require('util/urlParser.js')
 
+var progressBar = require('navbar/progressBar.js')
+
 var lastTabDeletion = 0 // TODO get rid of this
 
 window.tabBar = {
@@ -120,32 +122,6 @@ window.tabBar = {
       tabBar.setActiveTab(tabs.getSelected())
     }
   },
-  handleProgressBar: function (tabId, status) {
-    var tabEl = tabBar.getTab(tabId)
-    var bar = tabEl.querySelector('.progress-bar')
-
-    if (status === 'start') {
-      var loadID = Date.now().toString()
-      bar.setAttribute('loading', loadID) // we need to use unique ID's to ensure that the same page that was loading initialy is the same page that is loading 4 seconds later
-      setTimeout(function () {
-        if (bar.getAttribute('loading') === loadID) {
-          bar.hidden = false
-          requestAnimationFrame(function () {
-            bar.className = 'progress-bar p25'
-          })
-        }
-      }, 4000)
-    } else {
-      bar.setAttribute('loading', 'false')
-      if (bar.classList.contains('p25')) {
-        bar.className = 'progress-bar p100'
-        setTimeout(function () {
-          bar.className = 'progress-bar p0'
-          bar.hidden = true
-        }, 500)
-      }
-    }
-  },
   createElement: function (data) {
     var url = urlParser.parse(data.url)
     var tabTitle = data.title || l('newTabLabel')
@@ -172,14 +148,7 @@ window.tabBar = {
     vc.className = 'tab-view-contents'
 
     vc.appendChild(readerView.getButton(data.id))
-
-    var pbContainer = document.createElement('div')
-    pbContainer.className = 'progress-bar-container'
-    vc.appendChild(pbContainer)
-    var pb = document.createElement('div')
-    pb.className = 'progress-bar p0'
-    pb.hidden = true
-    pbContainer.appendChild(pb)
+    vc.appendChild(progressBar.create())
 
     // icons
 
@@ -337,9 +306,11 @@ document.getElementById('webviews').addEventListener('click', function () {
 /* progress bar events */
 
 webviews.bindEvent('did-start-loading', function () {
-  tabBar.handleProgressBar(webviews.getTabFromContents(this), 'start')
+  var tabId = webviews.getTabFromContents(this)
+  progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'start')
 })
 
 webviews.bindEvent('did-stop-loading', function () {
-  tabBar.handleProgressBar(webviews.getTabFromContents(this), 'finish')
+  var tabId = webviews.getTabFromContents(this)
+  progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'finish')
 })
