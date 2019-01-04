@@ -341,25 +341,6 @@ window.webviews = {
   }
 }
 
-// called when js/preload/textExtractor.js returns the page's text content
-webviews.bindIPC('pageData', function (webview, tabId, args) {
-  var tab = tabs.get(tabId),
-    data = args[0]
-
-  var isInternalPage = tab.url.indexOf(__dirname) !== -1 && tab.url.indexOf(readerView.readerURL) === -1
-  var isSearchPage = searchEngine.isSearchURL(tab.url)
-
-  // full-text data from search results isn't useful
-  if (isSearchPage) {
-    data.extractedText = ''
-  }
-
-  // don't save to history if in private mode, or the page is a browser page
-  if (tab.private === false && !isInternalPage) {
-    places.updateHistory(tabId, data.extractedText, data.metadata)
-  }
-})
-
 webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
   var tab = webviews.getTabFromContents(this)
   var currentIndex = tabs.getIndex(tabs.getSelected())

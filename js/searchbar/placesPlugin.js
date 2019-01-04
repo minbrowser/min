@@ -4,6 +4,8 @@ var searchbarUtils = require('searchbar/searchbarUtils.js')
 var searchbarAutocomplete = require('searchbar/searchbarAutocomplete.js')
 var urlParser = require('util/urlParser.js')
 
+var places = require('places/places.js')
+
 var currentResponseSent = 0
 
 var previousPlacesResults = {} // used to avoid duplicating results between places and fullTextPlaces

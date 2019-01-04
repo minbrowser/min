@@ -1,4 +1,5 @@
 const db = require('util/database.js')
+const places = require('places/places.js')
 
 const bookmarkStar = {
   create: function (tabId) {

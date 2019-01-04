@@ -207,6 +207,14 @@ onmessage = function (e) {
     }
   }
 
+  if (action === 'deleteAllHistory') {
+    db.places.filter(function (item) {
+      return item.isBookmarked === false
+    }).delete().then(function () {
+      loadHistoryInMemory()
+    })
+  }
+
   if (action === 'searchPlaces') { // do a history search
     searchPlaces(searchText, function (matches) {
       postMessage({

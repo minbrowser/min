@@ -112,6 +112,8 @@ var readerView = {
   }
 }
 
+window.readerView = readerView
+
 /* typing !readinglist in the searchbar shows the list */
 
 registerCustomBang({

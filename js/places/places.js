@@ -1,4 +1,7 @@
-/* global db Worker tabs */
+/* global Worker tabs */
+
+const db = require('util/database.js')
+const searchEngine = require('util/searchEngine.js')
 
 const places = {
   updateHistory: function (tabId, extractedText, metadata) {
@@ -21,6 +24,25 @@ const places = {
       }
     }, 500)
   },
+  receiveHistoryData: function (webview, tabId, args) {
+    // called when js/preload/textExtractor.js returns the page's text content
+
+    var tab = tabs.get(tabId),
+      data = args[0]
+
+    var isInternalPage = tab.url.indexOf(__dirname) !== -1 && tab.url.indexOf(readerView.readerURL) === -1
+    var isSearchPage = searchEngine.isSearchURL(tab.url)
+
+    // full-text data from search results isn't useful
+    if (isSearchPage) {
+      data.extractedText = ''
+    }
+
+    // don't save to history if in private mode, or the page is a browser page
+    if (tab.private === false && !isInternalPage) {
+      places.updateHistory(tabId, data.extractedText, data.metadata)
+    }
+  },
   callbacks: [],
   addWorkerCallback: function (callback) {
     const callbackId = Date.now()
@@ -41,6 +63,11 @@ const places = {
       pageData: {
         url: url
       }
+    })
+  },
+  deleteAllHistory: function () {
+    places.worker.postMessage({
+      action: 'deleteAllHistory'
     })
   },
   searchPlaces: function (text, callback, options) {
@@ -91,12 +118,12 @@ const places = {
       }
     })
   },
-  init: function () {
+  initialize: function () {
     places.worker = new Worker('js/places/placesWorker.js')
     places.worker.onmessage = places.onMessage
+
+    webviews.bindIPC('pageData', places.receiveHistoryData)
   }
 }
 
-window.places = places
-
-places.init()
+module.exports = places

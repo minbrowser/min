@@ -3,6 +3,7 @@ var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
 var searchbar = require('searchbar/searchbar.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
+var places = require('places/places.js')
 const formatRelativeDate = require('util/relativeDate.js')
 
 registerCustomBang({
@@ -54,12 +55,7 @@ registerCustomBang({
   snippet: l('clearHistory'),
   isAction: true,
   fn: function (text) {
-    db.places.filter(function (item) {
-      return item.isBookmarked === false
-    }).delete()
-
-    // restart the workers
-    places.init()
+    places.deleteAllHistory()
   }
 })
 
