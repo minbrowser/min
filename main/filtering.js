@@ -21,6 +21,12 @@ function initFilterList () {
 
 function requestIsThirdParty (baseDomain, requestURL) {
   var requestDomain = parser.getUrlHost(requestURL)
+  if (baseDomain.startsWith('www.')) {
+    baseDomain = baseDomain.replace('www.', '')
+  }
+  if (requestDomain.startsWith('www.')) {
+    requestDomain = requestDomain.replace('www.', '')
+  }
   return !(parser.isSameOriginHost(baseDomain, requestDomain) || parser.isSameOriginHost(requestDomain, baseDomain))
 }
 
