@@ -54,6 +54,9 @@ const downloadManager = {
       downloadManager.hide()
     }
   },
+  openFolder: function (path) {
+    electron.shell.showItemInFolder(path)
+  },
   onItemClicked: function (path) {
     if (downloadManager.downloadItems[path].status === 'completed') {
       electron.shell.openItem(path)
@@ -103,8 +106,13 @@ const downloadManager = {
     container.appendChild(progress)
 
     let dropdown = document.createElement('i')
-    dropdown.className = 'download-cancel-button fa fa-angle-down'
+    dropdown.className = 'download-action-button fa fa-angle-down'
     container.appendChild(dropdown)
+
+    let openFolder = document.createElement('i')
+    openFolder.className = 'download-action-button fa fa-folder-o'
+    openFolder.hidden = true
+    container.appendChild(openFolder)
 
     container.addEventListener('click', function () {
       downloadManager.onItemClicked(downloadItem.path)
@@ -114,7 +122,8 @@ const downloadManager = {
       downloadManager.onItemDragged(downloadItem.path)
     })
 
-    dropdown.addEventListener('click', function () {
+    dropdown.addEventListener('click', function (e) {
+      e.stopPropagation()
       let menu = new remote.Menu()
       menu.append(new remote.MenuItem({
         label: l('downloadCancel'),
@@ -129,27 +138,39 @@ const downloadManager = {
       })
     })
 
+    openFolder.addEventListener('click', function (e) {
+      e.stopPropagation()
+      downloadManager.openFolder(downloadItem.path)
+      downloadManager.removeItem(downloadItem.path)
+    })
+
     downloadManager.container.appendChild(container)
     downloadManager.downloadBarElements[downloadItem.path] = {
-    container, title, infoBox, progress, dropdown}
+    container, title, infoBox, progress, dropdown, openFolder}
   },
   updateItem: function (downloadItem) {
     let elements = downloadManager.downloadBarElements[downloadItem.path]
 
     if (downloadItem.status === 'completed') {
       elements.container.classList.remove('loading')
+      elements.container.classList.add('completed')
       elements.progress.hidden = true
       elements.dropdown.hidden = true
+      elements.openFolder.hidden = false
       elements.infoBox.textContent = l('downloadStateCompleted')
     } else if (downloadItem.status === 'interrupted') {
       elements.container.classList.remove('loading')
+      elements.container.classList.remove('completed')
       elements.progress.hidden = true
       elements.dropdown.hidden = true
+      elements.openFolder.hidden = true
       elements.infoBox.textContent = l('downloadStateFailed')
     } else {
       elements.container.classList.add('loading')
+      elements.container.classList.remove('completed')
       elements.progress.hidden = false
       elements.dropdown.hidden = false
+      elements.openFolder.hidden = true
       elements.infoBox.textContent = getFileSizeString(downloadItem.size.total)
       elements.progress.style.transform = 'scaleX(' + (downloadItem.size.received / downloadItem.size.total) + ')'
     }

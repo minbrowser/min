@@ -67,8 +67,9 @@
     white-space: nowrap;
 }
 
-.download-item.loading .download-info {
-    /* leave room for the dropdown button */
+.download-item.loading .download-info,
+.download-item.completed .download-info {
+    /* leave room for the action buttons */
     padding-right: 32px;
 }
 
@@ -94,7 +95,7 @@
     opacity: 0;
 }
 
-.download-cancel-button {
+.download-action-button {
     position: absolute;
     right: 1em;
     top: calc(50% - 0.5em);
