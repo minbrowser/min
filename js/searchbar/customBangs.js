@@ -190,7 +190,7 @@ registerCustomBang({
           }
         }))
       })
-    }, {searchBookmarks: true})
+    }, {searchBookmarks: true, limit: (text ? 100 : Infinity)})
   },
   fn: function (text) {
     if (!text) {
