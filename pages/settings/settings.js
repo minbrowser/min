@@ -57,7 +57,7 @@ settings.get('filtering', function (value) {
   updateBlockingLevelUI((value && value.blockingLevel) || 0)
 
   if (value && value.exceptions) {
-    blockingExceptionsInput.value = value.exceptions.join(', ')
+    blockingExceptionsInput.value = value.exceptions.join(', ') + ', '
   }
 })
 
@@ -68,7 +68,7 @@ trackingLevelOptions.forEach(function (item, idx) {
 })
 
 blockingExceptionsInput.addEventListener('change', function () {
-  var newValue = this.value.split(',').map(i => i.trim())
+  var newValue = this.value.split(',').map(i => i.trim()).filter(i => !!i)
 
   settings.get('filtering', function (value) {
     if (!value) {
