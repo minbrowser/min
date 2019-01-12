@@ -111,7 +111,7 @@
         "settingsBlockScriptsToggle": "Block scripts",
         "settingsBlockImagesToggle": "Block images",
         "settingsEasyListCredit": {
-            "unsafeHTML": "Based on EasyList and EasyPrivacy, without element hiding rules. Created by <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>."
+            "unsafeHTML": "Based on EasyList and EasyPrivacy, created by <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>)."
         },
         "settingsAppearanceHeading": "Appearance",
         "settingsDarkModeToggle": "Enable dark mode",

@@ -111,7 +111,7 @@
       "settingsBlockScriptsToggle":"স্ক্রিপ্ট ব্লক করুন",
       "settingsBlockImagesToggle":"ইমেজ ব্লক করুন",
       "settingsEasyListCredit": {
-        "unsafeHTML": "সহজলভ্য এবং সহজপ্রীতি উপর ভিত্তি করে, উপাদান গোপন নিয়ম ছাড়া। <a target=\"_blank\" href=\"https://easylist.to/\"> EasyList লেখকগণ দ্বারা তৈরি </a> - <a target=\"_blank\" href=\"https://easylist.to/\"> লাইসেন্স দেখুন </a>"
+        "unsafeHTML": null //missing translation
       },
       "settingsAppearanceHeading":"চেহারা",
       "settingsDarkModeToggle":"অন্ধকার মোড সক্রিয় করুন",

@@ -111,7 +111,7 @@
         "settingsBlockScriptsToggle": "스크립트 차단",
         "settingsBlockImagesToggle": "이미지 차단",
         "settingsEasyListCredit": {
-            "unsafeHTML": "요소 숨기 규칙없이 EasyList 및 EasyPrivacy를 기반으로합니다. 작성자: <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">라이선스</a>"
+            "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "외모",
         "settingsDarkModeToggle": "어두운 모드 사용",

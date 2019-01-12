@@ -108,7 +108,7 @@
         "settingsBlockScriptsToggle": "Blokovat skripty",
         "settingsBlockImagesToggle": "Blokovat obrázky",
         "settingsEasyListCredit": {
-            "unsafeHTML": "Na základě EasyList a EasyPrivacy bez pravidel skrývání prvků. Vytvořili <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">s licencí</a>."
+            "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "Vzhled",
         "settingsDarkModeToggle": "Použít tmavý režim",

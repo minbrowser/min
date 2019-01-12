@@ -111,7 +111,7 @@
         "settingsBlockScriptsToggle": "Szkriptek Tiltása",
         "settingsBlockImagesToggle": "Képek Tiltása",
         "settingsEasyListCredit": {
-            "unsafeHTML": "Az EasyList és EasyPrivacy, Elemek rejtése nélkul. Készitette <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>."
+            "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "Megjelenés",
         "settingsDarkModeToggle": "Kapcsolja be a sotét nézetett",

@@ -111,7 +111,7 @@
         "settingsBlockScriptsToggle": "Блокировать скрипты",
         "settingsBlockImagesToggle": "Блокировать изображения",
         "settingsEasyListCredit": {
-            "unsafeHTML": "Основано на списках \"EasyList\" и \"EasyPrivacy\" (без правил для скрытия элементов). Создано <a target=\"_blank\" href=\"https://easylist.to/\">авторами \"EasyList\"</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">посмотреть лицензионное соглашение</a>."
+            "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "Внешний вид",
         "settingsDarkModeToggle": "Использовать тёмную тему",

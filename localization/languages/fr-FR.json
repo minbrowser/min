@@ -111,7 +111,7 @@
         "settingsBlockScriptsToggle": "Scripts bloqués",
         "settingsBlockImagesToggle": "Images bloquées",
         "settingsEasyListCredit": {
-            "unsafeHTML": "Basé sur EasyList et EasyPrivacy, sans élément caché. Créé par <a target=\"_blank\" href=\"https://easylist.to/\">Les auteurs de EasyList</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">voir la licence</a>."
+            "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "Apparence",
         "settingsDarkModeToggle": "Activer le mode nuit",

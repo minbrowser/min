@@ -111,7 +111,7 @@
         "settingsBlockScriptsToggle": "阻止脚本运行",
         "settingsBlockImagesToggle": "阻止加载图片",
         "settingsEasyListCredit": {
-            "unsafeHTML": "基于 EasyList 和 EasyPrivacy. <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>."
+            "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "外观",
         "settingsDarkModeToggle": "启用夜间模式",
