@@ -56,7 +56,7 @@ settings.get('filtering', function (value) {
 
   updateBlockingLevelUI((value && value.blockingLevel) || 0)
 
-  if (value && value.exceptions) {
+  if (value && value.exceptions && value.exceptions.length > 0) {
     blockingExceptionsInput.value = value.exceptions.join(', ') + ', '
   }
 })
