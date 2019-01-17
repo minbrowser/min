@@ -13,12 +13,12 @@
         "openImageInNewTab": "فتح الصورة في علامة تبويب جديدة",
         "openImageInNewPrivateTab": "فتح الصورة في التصفح المتخفي",
         "saveImageAs": "حفظ الصورة باسم",
-        "searchWith": "%s بحت مع", //%s will be replaced with the name of the current search engine
+        "searchWith": "%s بحث مع", //%s will be replaced with the name of the current search engine
         "copyLink": "نسخ الرابط",
         "copy": "نسخ", //this is a verb (as in "copy the currently-selected text")
         "paste": "لصق",
         "goBack": "الرجوع الى الوراء",
-        "goForward": "الانتقال الى الامام",
+        "goForward": "تقدم للامام",
         "inspectElement": "تدقيق العنصر",
         /* searchbar */
         "DDGAnswerSubtitle": "جواب", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
@@ -37,7 +37,7 @@
         "createTask": "انشاء مهمة",
         "moveToTask": "نقل التبويب الى المهام",
         "searchBookmarks": "البحث عن الإشارات",
-        "searchHistory": "البحت عن السجل",
+        "searchHistory": "البحث عن السجل",
         /* navbar */
         "openMenu": "فتح القائمة", //application menu button on windows
         "enterReaderView": "دخول وضع القراءة",
@@ -46,7 +46,7 @@
         "emptyReadingListSubtitle": "يتم سرد المقالات التي تفتحها في عرض القارئ هنا ، ويتم حفظها لمدة 30 يومًا",
         "newTabLabel": "تبويب جديدة", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "اتصالك مع هدا الموقع غير محمي.",
-        "searchbarPlaceholder": "ابحت او ادخل الرابط",
+        "searchbarPlaceholder": "ابحث او ادخل الرابط",
         "privateTab": "تبويب متخفي",
         "newTabAction": "تبويب جديدة", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
@@ -54,7 +54,7 @@
         "newTask": "مهمة جديدة", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": " %n مهمة رقم", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
         /* find in page toolbar */
-        "searchInPage": "ابحت في الصفحة", //this is used as the placeholder text for the textbox in the find in page toolbar
+        "searchInPage": "ابحث في الصفحة", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "مطابق %t من i%", //this and the next label are used to indicate which match is currently highlighted
         "findMatchesPlural": "مطابق %t من i%",
         /* Focus mode */  
@@ -72,25 +72,25 @@
         "timeRangeYear": "في السنة الماضية",
         "timeRangeLongerAgo": "قديما",
         /* pages/error/index.html */
-        "crashErrorTitle": "حدت خطأ ما.",
+        "crashErrorTitle": "حدث خطأ ما.",
         "crashErrorSubtitle": "حدثت مشكلة أثناء عرض هذه الصفحة.",
         "errorPagePrimaryAction": "اعد المحاولة",
         "serverNotFoundTitle": "الخادم غير موجود",
-        "serverNotFoundSubtitle": "لم يستطيع الحصول على هادا الموقع Min",
-        "archiveSearchAction": "archive.org البحت في",
-        "sslErrorTitle": "هادا الموقع لا يوجد ",
-        "sslErrorMessage": "لا يستطيع الاتصال الامن مع هادا الموقع Min",
+        "serverNotFoundSubtitle": "لم يستطيع الحصول على هذا الموقع Min",
+        "archiveSearchAction": "archive.org البحث في",
+        "sslErrorTitle": "هذا الموقع لا يوجد ",
+        "sslErrorMessage": "لا يستطيع الاتصال الامن مع هذا الموقع Min",
         "dnsErrorTitle": "الموقع غير موجود",
-        "dnsErrorMessage": "حدت خطأ في DNS",
+        "dnsErrorMessage": "حدث خطأ في DNS",
         "offlineErrorTitle": "انت خارج الاتصال",
         "offlineErrorMessage": "اعد الاتصال مع الانترنيت تم اعد المحاولة",
         "genericConnectionFail": "لا يستطيع الاتصال مع الموقع Min",
-        "sslTimeErrorMessage": " لا يستطيع الاتصال الامن مع هادا الموقع تأكد من ان التوقيت صحيح Min",
-        "addressInvalidTitle": "هادا العنوان غير صحيح",
-        "genericError": "حدت خطأ ما",
+        "sslTimeErrorMessage": " لا يستطيع الاتصال الامن مع هذا الموقع تأكد من ان التوقيت صحيح Min",
+        "addressInvalidTitle": "هذا العنوان غير صحيح",
+        "genericError": "حدث خطأ ما",
         /* pages/phishing/index.html */
-        "phishingErrorTitle": "هادا الموقع يمكن ان يضرك",
-        "phishingErrorMessage": "هادا الموقع يمكن ان يحاول ان يسرق معلوماتك الشخصية . كلمات مرور و معلوماتك البنكية",
+        "phishingErrorTitle": "هذا الموقع يمكن ان يضرك",
+        "phishingErrorMessage": "هذا الموقع يمكن ان يحاول ان يسرق معلوماتك الشخصية . كلمات مرور و معلوماتك البنكية",
         "phishingErrorVisitAnyway": "متابعة على اية حال",
         "phishingErrorLeave": "مغادرة الموقع",
         /* multiple instances alert */
@@ -100,7 +100,7 @@
         "sessionRestoreErrorExplanation": "لم نستطيع اعادة فتح التبويبات المحفوظة بشكل صحيح",
         "sessionRestoreErrorBackupInfo": " %l حفظنا نسخة احتياطية لمعلوماتك. وسوف تجدها في المسار التالي", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
-            "unsafeHTML": "<a href=\"https://github.com/minbrowser/min\" target=\"_blank\">هنا</a> ادا ظهر لك هادا المشكل مرة اخرى.قم بفتح مشكلة "
+            "unsafeHTML": "<a href=\"https://github.com/minbrowser/min\" target=\"_blank\">هنا</a> ادا ظهر لك هذا المشكل مرة اخرى.قم بفتح مشكلة "
         },
         /* pages/settings/index.html */
         "settingsPreferencesHeading": "تفضيلات",
@@ -113,16 +113,16 @@
             "unsafeHTML": "Based on EasyList and EasyPrivacy, without element hiding rules. Created by <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>."
         },
         "settingsAppearanceHeading": "تفضيلات",
-        "settingsDarkModeToggle": "تمكين الوضع اليلي",
+        "settingsDarkModeToggle": "تمكين الوضع الليلي",
         "settingsHistoryButtonToggle": "تمكين زر العودة",
         "settingsAdditionalFeaturesHeading": "مميزات اضافية",
         "settingsSwipeNavigationToggle": "تمكين التمرير للتنقل ذهابًا وإيابًا بين الصفحات.",
         "settingsUserscriptsToggle": "تمكين سكريبت المستخدم",
         "settingsUserscriptsExplanation": {"unsafeHTML": "يمكن سكريبت المستخدم من  تغير سلوك المواقع - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">معرفة المزيد</a>."},
-        "settingsSearchEngineHeading": "محرك بحت",
-        "settingsDefaultSearchEngine": "اختر محرك بحت اساسي",
-        "settingsDDGExplanation": "كمحرك بحت اساسي لرؤية النتائج الآنية في مربع البحت DuckDuckGo اختر",
-        "customSearchEngineDescription": "%s غير كلمة البحت ب",
+        "settingsSearchEngineHeading": "محرك بحث",
+        "settingsDefaultSearchEngine": "اختر محرك بحث اساسي",
+        "settingsDDGExplanation": "كمحرك بحث اساسي لرؤية النتائج الآنية في مربع البحث DuckDuckGo اختر",
+        "customSearchEngineDescription": "%s غير كلمة البحث ب",
         "settingsKeyboardShortcutsHeading": "اختصار لوحة مفاتيح",
         "settingsKeyboardShortcutsHelp": "اسعمل الفاصلة للفصل بين الاختصارات",
         /* app menu */
@@ -140,7 +140,7 @@
         "appMenuCopy": "نسخ",
         "appMenuPaste": "لصق",
         "appMenuSelectAll": "تحديد الكل",
-        "appMenuFind": "بحت",
+        "appMenuFind": "بحث",
         "appMenuView": "مشاهدة",
         "appMenuZoomIn": "تكبير",
         "appMenuZoomOut": "تصغير",
@@ -188,7 +188,7 @@
         "openImageInNewTab": "فتح الصورة في علامة تبويب جديدة",
         "openImageInNewPrivateTab": "فتح الصورة في التصفح المتخفي",
         "saveImageAs": "حفظ الصورة باسم",
-        "searchWith": "%s بحت مع", //%s will be replaced with the name of the current search engine
+        "searchWith": "%s بحث مع", //%s will be replaced with the name of the current search engine
         "copyLink": "نسخ الرابط",
         "copy": "نسخ", //this is a verb (as in "copy the currently-selected text")
         "paste": "لصق",
@@ -212,7 +212,7 @@
         "createTask": "انشاء مهمة",
         "moveToTask": "نقل التبويب الى المهام",
         "searchBookmarks": "البحث عن الإشارات",
-        "searchHistory": "البحت عن السجل",
+        "searchHistory": "البحث عن السجل",
         /* navbar */
         "openMenu": "فتح القائمة", //application menu button on windows
         "enterReaderView": "دخول وضع القراءة",
@@ -221,7 +221,7 @@
         "emptyReadingListSubtitle": "يتم سرد المقالات التي تفتحها في عرض القارئ هنا ، ويتم حفظها لمدة 30 يومًا",
         "newTabLabel": "تبويب جديدة", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "اتصالك مع هدا الموقع غير محمي.",
-        "searchbarPlaceholder": "ابحت او ادخل الرابط",
+        "searchbarPlaceholder": "ابحث او ادخل الرابط",
         "privateTab": "تبويب متخفي",
         "newTabAction": "تبويب جديدة", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
@@ -229,7 +229,7 @@
         "newTask": "مهمة جديدة", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": " %n مهمة رقم", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
         /* find in page toolbar */
-        "searchInPage": "ابحت في الصفحة", //this is used as the placeholder text for the textbox in the find in page toolbar
+        "searchInPage": "ابحث في الصفحة", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "مطابق %t من i%", //this and the next label are used to indicate which match is currently highlighted
         "findMatchesPlural": "مطابق %t من i%",
         /* Focus mode */  
@@ -247,25 +247,25 @@
         "timeRangeYear": "في السنة الماضية",
         "timeRangeLongerAgo": "قديما",
         /* pages/error/index.html */
-        "crashErrorTitle": "حدت خطأ ما.",
+        "crashErrorTitle": "حدث خطأ ما.",
         "crashErrorSubtitle": "حدثت مشكلة أثناء عرض هذه الصفحة.",
         "errorPagePrimaryAction": "اعد المحاولة",
         "serverNotFoundTitle": "الخادم غير موجود",
-        "serverNotFoundSubtitle": "لم يستطيع الحصول على هادا الموقع Min",
-        "archiveSearchAction": "archive.org البحت في",
-        "sslErrorTitle": "هادا الموقع لا يوجد ",
-        "sslErrorMessage": "لا يستطيع الاتصال الامن مع هادا الموقع Min",
+        "serverNotFoundSubtitle": "لم يستطيع الحصول على هذا الموقع Min",
+        "archiveSearchAction": "archive.org البحث في",
+        "sslErrorTitle": "هذا الموقع لا يوجد ",
+        "sslErrorMessage": "لا يستطيع الاتصال الامن مع هذا الموقع Min",
         "dnsErrorTitle": "الموقع غير موجود",
-        "dnsErrorMessage": "حدت خطأ في DNS",
+        "dnsErrorMessage": "حدث خطأ في DNS",
         "offlineErrorTitle": "انت خارج الاتصال",
         "offlineErrorMessage": "اعد الاتصال مع الانترنيت تم اعد المحاولة",
         "genericConnectionFail": "لا يستطيع الاتصال مع الموقع Min",
-        "sslTimeErrorMessage": " لا يستطيع الاتصال الامن مع هادا الموقع تأكد من ان التوقيت صحيح Min",
-        "addressInvalidTitle": "هادا العنوان غير صحيح",
-        "genericError": "حدت خطأ ما",
+        "sslTimeErrorMessage": " لا يستطيع الاتصال الامن مع هذا الموقع تأكد من ان التوقيت صحيح Min",
+        "addressInvalidTitle": "هذا العنوان غير صحيح",
+        "genericError": "حدث خطأ ما",
         /* pages/phishing/index.html */
-        "phishingErrorTitle": "هادا الموقع يمكن ان يضرك",
-        "phishingErrorMessage": "هادا الموقع يمكن ان يحاول ان يسرق معلوماتك الشخصية . كلمات مرور و معلوماتك البنكية",
+        "phishingErrorTitle": "هذا الموقع يمكن ان يضرك",
+        "phishingErrorMessage": "هذا الموقع يمكن ان يحاول ان يسرق معلوماتك الشخصية . كلمات مرور و معلوماتك البنكية",
         "phishingErrorVisitAnyway": "متابعة على اية حال",
         "phishingErrorLeave": "مغادرة الموقع",
         /* multiple instances alert */
@@ -275,26 +275,26 @@
         "sessionRestoreErrorExplanation": "لم نستطيع اعادة فتح التبويبات المحفوظة بشكل صحيح",
         "sessionRestoreErrorBackupInfo": " %l حفظنا نسخة احتياطية لمعلوماتك. وسوف تجدها في المسار التالي", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
-            "unsafeHTML": "<a href=\"https://github.com/minbrowser/min\" target=\"_blank\">هنا</a> ادا ظهر لك "هادا المشكل مرة اخرى.قم بفتح مشكلة "
+            "unsafeHTML": "<a href=\"https://github.com/minbrowser/min\" target=\"_blank\">هنا</a> ادا ظهر لك "هذا المشكل مرة اخرى.قم بفتح مشكلة "
         },
         "settingsAppearanceHeading": "تفضيلات",
-        "settingsDarkModeToggle": "تشغيل الوضع اليلي",
+        "settingsDarkModeToggle": "تشغيل الوضع الليلي",
         "settingsHistoryButtonToggle": "تشغيل زر الرجوع",
         "settingsAdditionalFeaturesHeading": "مميزات اضافية",
         "settingsSwipeNavigationToggle": "تمكين التمرير للتنقل ذهابًا وإيابًا بين الصفحات.",
         "settingsUserscriptsToggle": "تمكين سكريبت المستخدم",
         "settingsUserscriptsExplanation": {"unsafeHTML": "يمكن سكريبت المستخدم من  تغير سلوك المواقع - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">معرفة المزيد</a>."},
-        "settingsSearchEngineHeading": "محرك بحت",
-        "settingsDefaultSearchEngine": "اختر محرك بحت اساسي",
-        "settingsDDGExplanation": "كمحرك بحت اساسي لرؤية النتائج الآنية في مربع البحت DuckDuckGo ",
-        "customSearchEngineDescription": "%s غير كلمة البحت ب",
+        "settingsSearchEngineHeading": "محرك بحث",
+        "settingsDefaultSearchEngine": "اختر محرك بحث اساسي",
+        "settingsDDGExplanation": "كمحرك بحث اساسي لرؤية النتائج الآنية في مربع البحث DuckDuckGo ",
+        "customSearchEngineDescription": "%s غير كلمة البحث ب",
         "settingsKeyboardShortcutsHeading": "اختصار لوحة مفاتيح",
         "settingsKeyboardShortcutsHelp": "اسعمل الفاصلة للفصل بين الاختصارات",
         /* app menu */
         "appMenuFile": "ملف",
         "appMenuNewTab": "تبويب جديد",
         "appMenuDuplicateTab": "تبويب مكررة",
-        "appMenuNewPrivateTab": "تصفح الخفي",
+        "appMenuNewPrivateTab": "التصفح الخفي",
         "appMenuNewTask": "مهمة جديدة",
         "appMenuSavePageAs": "حفظ الصفحة باسم",
         "appMenuPrint": "طباعة",
@@ -305,7 +305,7 @@
         "appMenuCopy": "نسخ",
         "appMenuPaste": "لصق",
         "appMenuSelectAll": "تحديد الكل",
-        "appMenuFind": "بحت",
+        "appMenuFind": "بحث",
         "appMenuView": "مشاهدة",
         "appMenuZoomIn": "تكبير",
         "appMenuZoomOut": "تصغير",
@@ -319,13 +319,13 @@
         "appMenuReloadBrowser": "اعادة تحميل المتصفح",
         "appMenuInspectBrowser": "فحص المتصفح",
         "appMenuInspectPage": "فحص الصفحة",
-        "appMenuWindow": "تافدة",
+        "appMenuWindow": "نافذة",
         "appMenuMinimize": "تصغير",
         "appMenuClose": "اغلاق",
         "appMenuHelp": "مساعدة",
         "appMenuKeyboardShortcuts": "اختصار لوحة مفاتيح",
         "appMenuReportBug": "الابلاغ عن الخطأ",
-        "appMenuTakeTour": "خد جولة",
+        "appMenuTakeTour": "خذ جولة",
         "appMenuViewGithub": "GitHub مشاهدة قي",
         "appMenuAbout": "%n حول", //%n is replaced with app name
         "appMenuPreferences": "تفضيلات",
