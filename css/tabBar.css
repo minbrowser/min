@@ -154,19 +154,19 @@ body.is-edit-mode #navbar #tabs {
 /* style tab scrollbar */
 
 #navbar #tabs::-webkit-scrollbar {
-	height: 0.2em;
+	height: 0.25em;
 }
 #navbar #tabs::-webkit-scrollbar-track {
-	background-color: rgba(0, 0, 0, 0.1);
+	background-color: rgba(0, 0, 0, 0.075);
 }
 #navbar #tabs::-webkit-scrollbar-thumb {
-	background-color: rgba(0, 0, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.175);
 }
 .dark-theme #navbar #tabs::-webkit-scrollbar-track {
-	background-color: rgba(255, 255, 255, 0.3);
+	background-color: rgba(255, 255, 255, 0.25);
 }
 .dark-theme #navbar #tabs::-webkit-scrollbar-thumb {
-	background-color: rgba(255, 255, 255, 0.8);
+	background-color: rgba(255, 255, 255, 0.6);
 }
 
 /* when an input is selected, hide other tabs */
