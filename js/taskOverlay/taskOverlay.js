@@ -132,8 +132,11 @@ window.taskOverlay = {
 }
 
 // swipe down on the tabstrip to show the task overlay
-// this was the old expanded mode gesture, so it's remapped to the overlay
-document.getElementById('navbar').addEventListener('mousewheel', function (e) {
+document.getElementById('navbar').addEventListener('wheel', function (e) {
+  if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
+    // https://github.com/minbrowser/min/issues/698
+    return
+  }
   if (e.deltaY < -30 && e.deltaX < 10) {
     taskOverlay.show()
     e.stopImmediatePropagation()

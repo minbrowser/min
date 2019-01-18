@@ -258,7 +258,11 @@ window.tabBar = {
       }
     })
 
-    tabEl.addEventListener('mousewheel', function (e) {
+    tabEl.addEventListener('wheel', function (e) {
+      if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
+        // https://github.com/minbrowser/min/issues/698
+        return
+      }
       if (e.deltaY > 65 && e.deltaX < 10 && Date.now() - lastTabDeletion > 650) { // swipe up to delete tabs
         lastTabDeletion = Date.now()
 
