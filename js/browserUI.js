@@ -76,7 +76,7 @@ function destroyTab (id) {
 function closeTask (taskId) {
   destroyTask(taskId)
 
-  if (taskId === currentTask.id) {
+  if (taskId === tasks.getSelected().id) {
     // the current task was destroyed, find another task to switch to
 
     if (tasks.getLength() === 0) {

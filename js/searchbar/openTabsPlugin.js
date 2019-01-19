@@ -10,6 +10,7 @@ var searchOpenTabs = function (text, input, event, container) {
 
   var matches = []
   var searchText = text.toLowerCase()
+  var currentTask = tasks.getSelected()
   var currentTab = currentTask.tabs.getSelected()
 
   tasks.forEach(function (task) {

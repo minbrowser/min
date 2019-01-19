@@ -247,7 +247,7 @@ settings.get('keyMap', function (keyMapSettings) {
       return
     }
 
-    var restoredTab = window.currentTask.tabHistory.pop()
+    var restoredTab = tasks.getSelected().tabHistory.pop()
 
     // The tab history stack is empty
     if (!restoredTab) {
@@ -353,7 +353,7 @@ settings.get('keyMap', function (keyMapSettings) {
   defineShortcut('switchToNextTask', function (d) {
     taskOverlay.show()
 
-    const currentTaskIdx = tasks.indexOf(currentTask)
+    const currentTaskIdx = tasks.indexOf(tasks.getSelected())
 
     const nextTask = tasks.byIndex(currentTaskIdx + 1) || tasks.byIndex(0)
     browserUI.switchToTask(nextTask.id)
@@ -369,7 +369,7 @@ settings.get('keyMap', function (keyMapSettings) {
   defineShortcut('switchToPreviousTask', function (d) {
     taskOverlay.show()
 
-    const currentTaskIdx = tasks.indexOf(currentTask),
+    const currentTaskIdx = tasks.indexOf(tasks.getSelected()),
           taskCount = tasks.getLength()
 
     const previousTask = tasks.byIndex(currentTaskIdx - 1) || tasks.byIndex(tasks.getLength() - 1)

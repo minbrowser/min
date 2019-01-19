@@ -32,7 +32,7 @@ window.sessionRestore = {
       if (!savedStringData) {
         tasks.setSelected(tasks.add()) // create a new task
 
-        var newTab = currentTask.tabs.add({
+        var newTab = tasks.getSelected().tabs.add({
           url: 'https://minbrowser.github.io/min/tour'
         })
         browserUI.addTab(newTab, {
@@ -49,7 +49,7 @@ window.sessionRestore = {
       if ((data.version && data.version !== 2) || (data.state && data.state.tasks && data.state.tasks.length === 0)) {
         tasks.setSelected(tasks.add())
 
-        browserUI.addTab(currentTask.tabs.add())
+        browserUI.addTab(tasks.getSelected().tabs.add())
         return
       }
 
@@ -64,8 +64,8 @@ window.sessionRestore = {
 
       browserUI.switchToTask(data.state.selectedTask)
 
-      if (currentTask.tabs.isEmpty()) {
-        tabBar.enterEditMode(currentTask.tabs.getSelected())
+      if (tasks.getSelected().tabs.isEmpty()) {
+        tabBar.enterEditMode(tasks.getSelected().tabs.getSelected())
       }
 
       // if this isn't the first run, and the survey popup hasn't been shown yet, show it
@@ -76,10 +76,10 @@ window.sessionRestore = {
         }).then(function (data) {
           setTimeout(function () {
             if (data.available && data.url) {
-              if (currentTask.tabs.isEmpty()) {
-                navigate(currentTask.tabs.getSelected(), data.url)
+              if (tasks.getSelected().tabs.isEmpty()) {
+                navigate(tasks.getSelected().tabs.getSelected(), data.url)
               } else {
-                var surveyTab = currentTask.tabs.add({
+                var surveyTab = tasks.getSelected().tabs.add({
                   url: data.url
                 })
                 browserUI.addTab(surveyTab, {

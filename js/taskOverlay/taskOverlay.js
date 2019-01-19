@@ -78,7 +78,7 @@ window.taskOverlay = {
 
     // scroll to the selected element and focus it
 
-    var currentTabElement = document.querySelector('.task-tab-item[data-tab="{id}"]'.replace('{id}', currentTask.tabs.getSelected()))
+    var currentTabElement = document.querySelector('.task-tab-item[data-tab="{id}"]'.replace('{id}', tasks.getSelected().tabs.getSelected()))
 
     if (currentTabElement) {
       currentTabElement.scrollIntoViewIfNeeded()

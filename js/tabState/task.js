@@ -39,6 +39,10 @@ class TaskList {
     return this.find(task => task.id == id) || null
   }
 
+  getSelected () {
+    return this.get(this.selected)
+  }
+
   byIndex (index) {
     return this.tasks[index]
   }
@@ -53,8 +57,7 @@ class TaskList {
 
   setSelected (id) {
     this.selected = id
-    window.currentTask = this.get(id)
-    window.tabs = currentTask.tabs
+    window.tabs = this.get(id).tabs
   }
 
   destroy (id) {
@@ -69,7 +72,6 @@ class TaskList {
   destroyAll () {
     this.tasks = []
     this.selected = null
-    currentTask = null
   }
 
   getLastActivity (id) {

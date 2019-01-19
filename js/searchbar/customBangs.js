@@ -63,8 +63,7 @@ registerCustomBang({
 function getTaskByNameOrNumber (text) {
   const textAsNumber = parseInt(text)
 
-  return tasks.find((task, index) =>
-    (task.name && task.name.toLowerCase() === text) || index + 1 === textAsNumber
+  return tasks.find((task, index) => (task.name && task.name.toLowerCase() === text) || index + 1 === textAsNumber
   )
 }
 
@@ -111,7 +110,7 @@ registerCustomBang({
     setTimeout(function () {
       browserUI.addTask()
       if (text) {
-        currentTask.name = text
+        tasks.getSelected().name = text
       }
     }, 600)
   }
