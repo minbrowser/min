@@ -104,11 +104,14 @@
         "settingsPreferencesHeading": "環境設定",
         "settingsRestartRequired": "これらの変更を適用するには再起動が必要です。",
         "settingsPrivacyHeading": "コンテンツブロッカー",
-        "settingsContentBlockingToggle": "トラッカーと広告をブロックする",
+        "settingsContentBlockingLevel0": null, //missing translation
+        "settingsContentBlockingLevel1": null, //missing translation
+        "settingsContentBlockingLevel2": null, //missing translation
+        "settingsContentBlockingExceptions": null, //missing translation
         "settingsBlockScriptsToggle": "スクリプトをブロック",
         "settingsBlockImagesToggle": "画像をブロック",
         "settingsEasyListCredit": {
-            "unsafeHTML": "フィルターはEasyListとEasyPrivacyから要素隠蔽ルールを省いたものに基づいています。<a target=\"_blank\" href=\"https://easylist.to/\">EasyListの作者</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">ライセンスを表示</a>"
+            "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "外観",
         "settingsDarkModeToggle": "ダークモードを使用",

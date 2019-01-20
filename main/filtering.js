@@ -1,9 +1,8 @@
 var thingsToFilter = {
-  trackers: false,
-  contentTypes: [] // script, image
+  blockingLevel: 0,
+  contentTypes: [], // script, image
+  exceptionDomains: []
 }
-
-var filterContentTypes = thingsToFilter.contentTypes.length !== 0
 
 var parser = require('./ext/abp-filter-parser-modified/abp-filter-parser.js')
 var parsedFilterData = {}
@@ -20,6 +19,24 @@ function initFilterList () {
   })
 }
 
+function requestIsThirdParty (baseDomain, requestURL) {
+  var requestDomain = parser.getUrlHost(requestURL)
+  if (baseDomain.startsWith('www.')) {
+    baseDomain = baseDomain.replace('www.', '')
+  }
+  if (requestDomain.startsWith('www.')) {
+    requestDomain = requestDomain.replace('www.', '')
+  }
+  return !(parser.isSameOriginHost(baseDomain, requestDomain) || parser.isSameOriginHost(requestDomain, baseDomain))
+}
+
+function requestDomainIsException (domain) {
+  if (domain.startsWith('www.')) {
+    domain = domain.replace('www.', '')
+  }
+  return thingsToFilter.exceptionDomains.includes(domain)
+}
+
 function handleRequest (details, callback) {
   if (!(details.url.startsWith('http://') || details.url.startsWith('https://')) || details.resourceType === 'mainFrame') {
     callback({
@@ -31,7 +48,7 @@ function handleRequest (details, callback) {
 
   // block javascript and images if needed
 
-  if (filterContentTypes) {
+  if (thingsToFilter.contentTypes.length > 0) {
     for (var i = 0; i < thingsToFilter.contentTypes.length; i++) {
       if (details.resourceType === thingsToFilter.contentTypes[i]) {
         callback({
@@ -46,19 +63,27 @@ function handleRequest (details, callback) {
   if (details.webContentsId) {
     var domain = parser.getUrlHost(webContents.fromId(details.webContentsId).getURL())
   } else {
+    // webContentsId may not exist if this request is for the main document of a subframe
     var domain = undefined
   }
 
-  if (thingsToFilter.trackers) {
-    if (parser.matches(parsedFilterData, details.url, {
+  if (thingsToFilter.blockingLevel > 0 && !(domain && requestDomainIsException(domain))) {
+    if (
+      (thingsToFilter.blockingLevel === 1 && (!domain || requestIsThirdParty(domain, details.url)))
+      || (thingsToFilter.blockingLevel === 2)
+    ) {
+      // by doing this check second, we can skip checking same-origin requests if only third-party blocking is enabled
+      var matchesFilters = parser.matches(parsedFilterData, details.url, {
         domain: domain,
         elementType: details.resourceType
-      })) {
-      callback({
-        cancel: true,
-        requestHeaders: details.requestHeaders
       })
-      return
+      if (matchesFilters) {
+        callback({
+          cancel: true,
+          requestHeaders: details.requestHeaders
+        })
+        return
+      }
     }
   }
 
@@ -73,14 +98,13 @@ function setFilteringSettings (settings) {
     settings = {}
   }
 
-  if (settings.trackers && !thingsToFilter.trackers) { // we're enabling tracker filtering
+  if (settings.blockingLevel > 0 && !(thingsToFilter.blockingLevel > 0)) { // we're enabling tracker filtering
     initFilterList()
   }
 
   thingsToFilter.contentTypes = settings.contentTypes || []
-  thingsToFilter.trackers = settings.trackers || false
-
-  filterContentTypes = thingsToFilter.contentTypes.length !== 0
+  thingsToFilter.blockingLevel = settings.blockingLevel || 0
+  thingsToFilter.exceptionDomains = settings.exceptions || []
 }
 
 function registerFiltering (ses) {

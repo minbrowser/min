@@ -624,3 +624,4 @@ exports.parse = parse
 exports.matchesFilters = matchesFilters
 exports.matches = matches
 exports.getUrlHost = getUrlHost
+exports.isSameOriginHost = isSameOriginHost

@@ -1,7 +1,6 @@
 document.title = l('settingsPreferencesHeading') + ' | Min'
 
 var container = document.getElementById('privacy-settings-container')
-var trackerCheckbox = document.getElementById('checkbox-block-trackers')
 var banner = document.getElementById('restart-required-banner')
 var darkModeCheckbox = document.getElementById('checkbox-dark-mode')
 var historyButtonCheckbox = document.getElementById('checkbox-history-button')
@@ -12,22 +11,72 @@ function showRestartRequiredBanner () {
   banner.hidden = false
 }
 
-/* tracking checkbox */
+/* content blocking settings */
 
-settings.get('filtering', function (value) {
-  if (value) {
-    trackerCheckbox.checked = value.trackers
+var trackingLevelContainer = document.getElementById('tracking-level-container')
+var trackingLevelOptions = Array.from(document.querySelectorAll('input[name=blockingLevel]'))
+var blockingExceptionsContainer = document.getElementById('content-blocking-information')
+var blockingExceptionsInput = document.getElementById('content-blocking-exceptions')
+
+function updateBlockingLevelUI (level) {
+  trackingLevelOptions[level].checked = true
+
+  if (level === 0) {
+    blockingExceptionsContainer.hidden = true
+  } else {
+    blockingExceptionsContainer.hidden = false
+    var insertionPoint = Array.from(trackingLevelContainer.children).indexOf(trackingLevelOptions[level]) + 2
+    trackingLevelContainer.insertBefore(blockingExceptionsContainer, trackingLevelContainer.children[insertionPoint])
   }
-})
+}
 
-trackerCheckbox.addEventListener('change', function (e) {
+function changeBlockingLevelSetting (level) {
   settings.get('filtering', function (value) {
     if (!value) {
       value = {}
     }
-    value.trackers = e.target.checked
+    value.blockingLevel = level
     settings.set('filtering', value)
-    banner.hidden = false
+    updateBlockingLevelUI(level)
+    showRestartRequiredBanner()
+  })
+}
+
+settings.get('filtering', function (value) {
+  // migrate from old settings (<v1.9.0)
+  if (value && typeof value.trackers === 'boolean') {
+    if (value.trackers === true) {
+      value.blockingLevel = 2
+    } else if (value.trackers === false) {
+      value.blockingLevel = 0
+    }
+    delete value.trackers
+    settings.set('filtering', value)
+  }
+
+  updateBlockingLevelUI((value && value.blockingLevel) || 0)
+
+  if (value && value.exceptions && value.exceptions.length > 0) {
+    blockingExceptionsInput.value = value.exceptions.join(', ') + ', '
+  }
+})
+
+trackingLevelOptions.forEach(function (item, idx) {
+  item.addEventListener('change', function () {
+    changeBlockingLevelSetting(idx)
+  })
+})
+
+blockingExceptionsInput.addEventListener('change', function () {
+  var newValue = this.value.split(',').map(i => i.trim()).filter(i => !!i)
+
+  settings.get('filtering', function (value) {
+    if (!value) {
+      value = {}
+    }
+    value.exceptions = newValue
+    settings.set('filtering', value)
+    showRestartRequiredBanner()
   })
 })
 

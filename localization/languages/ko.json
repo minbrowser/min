@@ -104,11 +104,14 @@
         "settingsPreferencesHeading": "환경설정",
         "settingsRestartRequired": "변경 사항을 적용하려면 다시 시작해야합니다.",
         "settingsPrivacyHeading": "콘텐츠 차단",
-        "settingsContentBlockingToggle": "추적기 및 광고 차단",
+        "settingsContentBlockingLevel0": null, //missing translation
+        "settingsContentBlockingLevel1": null, //missing translation
+        "settingsContentBlockingLevel2": null, //missing translation
+        "settingsContentBlockingExceptions": null, //missing translation
         "settingsBlockScriptsToggle": "스크립트 차단",
         "settingsBlockImagesToggle": "이미지 차단",
         "settingsEasyListCredit": {
-            "unsafeHTML": "요소 숨기 규칙없이 EasyList 및 EasyPrivacy를 기반으로합니다. 작성자: <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">라이선스</a>"
+            "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "외모",
         "settingsDarkModeToggle": "어두운 모드 사용",

@@ -35,7 +35,7 @@ function l (stringId) {
   // get the translated string for the given ID
 
   // try to use the string for the user's language
-  if (languages[userLanguage] && languages[userLanguage].translations[stringId]) {
+  if (languages[userLanguage] && languages[userLanguage].translations[stringId] && languages[userLanguage].translations[stringId].unsafeHTML !== null) {
     return languages[userLanguage].translations[stringId]
   } else {
     // fallback to en-US

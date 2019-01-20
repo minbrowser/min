@@ -90,6 +90,9 @@ h1 + h2 {
 	left: 50%;
 	transform: translateX(-50%) translateY(-50%);
 }
+.spacer-small {
+	height: 0.5em;
+}
 .spacer {
 	height: 1em;
 }
@@ -150,10 +153,10 @@ button.disabled {
 	vertical-align: middle;
 }
 .setting-section input + label {
-	padding-left: 4px;
+	padding-left: 0.33em;
 }
 .setting-secondary-label {
-	padding-left: 1.1em;
+	padding-left: 1.18em;
 	padding-top: 0.2em;
 }
 .banner {
@@ -179,6 +182,15 @@ button.disabled {
 	padding: 0.2em;
 }
 
+#content-blocking-information {
+	padding: 0.5em;
+    margin: 0.75em 0.5em 0.25em 1.08em;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+}
+.dark-mode #content-blocking-information {
+	background-color: #141414;
+}
 
 .dark-mode {
   background-color: rgb(33, 37, 43);
