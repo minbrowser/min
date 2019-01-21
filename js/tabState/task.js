@@ -66,6 +66,11 @@ class TaskList {
     if (index < 0) return false
 
     this.tasks.splice(index, 1)
+
+    if (this.selected === id) {
+      this.selected = null
+    }
+
     return index
   }
 

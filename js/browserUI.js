@@ -74,9 +74,11 @@ function destroyTab (id) {
 /* destroys a task, and either switches to the next most-recent task or creates a new one */
 
 function closeTask (taskId) {
+  var previousCurrentTask = tasks.getSelected().id
+
   destroyTask(taskId)
 
-  if (taskId === tasks.getSelected().id) {
+  if (taskId === previousCurrentTask) {
     // the current task was destroyed, find another task to switch to
 
     if (tasks.getLength() === 0) {
