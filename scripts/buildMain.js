@@ -9,6 +9,7 @@ const modules = [
   'main/filtering.js',
   'main/viewManager.js',
   'main/download.js',
+  'main/UASwitcher.js',
 ]
 
 function buildMain () {
