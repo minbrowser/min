@@ -54,10 +54,14 @@ settings.get('filtering', function (value) {
     settings.set('filtering', value)
   }
 
-  updateBlockingLevelUI((value && value.blockingLevel) || 0)
+  if (value && value.blockingLevel !== undefined) {
+    updateBlockingLevelUI(value.blockingLevel)
+  } else {
+    updateBlockingLevelUI(1)
+  }
 
-  if (value && value.exceptions && value.exceptions.length > 0) {
-    blockingExceptionsInput.value = value.exceptions.join(', ') + ', '
+  if (value && value.exceptionDomains && value.exceptionDomains.length > 0) {
+    blockingExceptionsInput.value = value.exceptionDomains.join(', ') + ', '
   }
 })
 
@@ -74,7 +78,7 @@ blockingExceptionsInput.addEventListener('change', function () {
     if (!value) {
       value = {}
     }
-    value.exceptions = newValue
+    value.exceptionDomains = newValue
     settings.set('filtering', value)
     showRestartRequiredBanner()
   })

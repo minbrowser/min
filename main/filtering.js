@@ -1,4 +1,10 @@
-var thingsToFilter = {
+var defaultFilteringSettings = {
+  blockingLevel: 1,
+  contentTypes: [],
+  exceptionDomains: []
+}
+
+var enabledFilteringOptions = {
   blockingLevel: 0,
   contentTypes: [], // script, image
   exceptionDomains: []
@@ -34,7 +40,7 @@ function requestDomainIsException (domain) {
   if (domain.startsWith('www.')) {
     domain = domain.replace('www.', '')
   }
-  return thingsToFilter.exceptionDomains.includes(domain)
+  return enabledFilteringOptions.exceptionDomains.includes(domain)
 }
 
 function handleRequest (details, callback) {
@@ -48,9 +54,9 @@ function handleRequest (details, callback) {
 
   // block javascript and images if needed
 
-  if (thingsToFilter.contentTypes.length > 0) {
-    for (var i = 0; i < thingsToFilter.contentTypes.length; i++) {
-      if (details.resourceType === thingsToFilter.contentTypes[i]) {
+  if (enabledFilteringOptions.contentTypes.length > 0) {
+    for (var i = 0; i < enabledFilteringOptions.contentTypes.length; i++) {
+      if (details.resourceType === enabledFilteringOptions.contentTypes[i]) {
         callback({
           cancel: true,
           requestHeaders: details.requestHeaders
@@ -67,10 +73,10 @@ function handleRequest (details, callback) {
     var domain = undefined
   }
 
-  if (thingsToFilter.blockingLevel > 0 && !(domain && requestDomainIsException(domain))) {
+  if (enabledFilteringOptions.blockingLevel > 0 && !(domain && requestDomainIsException(domain))) {
     if (
-      (thingsToFilter.blockingLevel === 1 && (!domain || requestIsThirdParty(domain, details.url)))
-      || (thingsToFilter.blockingLevel === 2)
+      (enabledFilteringOptions.blockingLevel === 1 && (!domain || requestIsThirdParty(domain, details.url)))
+      || (enabledFilteringOptions.blockingLevel === 2)
     ) {
       // by doing this check second, we can skip checking same-origin requests if only third-party blocking is enabled
       var matchesFilters = parser.matches(parsedFilterData, details.url, {
@@ -98,13 +104,19 @@ function setFilteringSettings (settings) {
     settings = {}
   }
 
-  if (settings.blockingLevel > 0 && !(thingsToFilter.blockingLevel > 0)) { // we're enabling tracker filtering
+  for (var key in defaultFilteringSettings) {
+    if (settings[key] === undefined) {
+      settings[key] = defaultFilteringSettings[key]
+    }
+  }
+
+  if (settings.blockingLevel > 0 && !(enabledFilteringOptions.blockingLevel > 0)) { // we're enabling tracker filtering
     initFilterList()
   }
 
-  thingsToFilter.contentTypes = settings.contentTypes || []
-  thingsToFilter.blockingLevel = settings.blockingLevel || 0
-  thingsToFilter.exceptionDomains = settings.exceptions || []
+  enabledFilteringOptions.contentTypes = settings.contentTypes
+  enabledFilteringOptions.blockingLevel = settings.blockingLevel
+  enabledFilteringOptions.exceptionDomains = settings.exceptionDomains
 }
 
 function registerFiltering (ses) {
