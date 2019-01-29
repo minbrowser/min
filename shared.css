@@ -86,11 +86,10 @@ a {
 
 /* buttons */
 
-.outlined-button,
-.solid-button {
+.button {
 	-webkit-appearance: none;
 	appearance: none;
-	background: none;
+	background: unset;
 	border-width: 1px;
 	border-style: solid;
 	color: inherit;
@@ -102,29 +101,26 @@ a {
 .outlined-button {
 	border-color: currentColor;
 }
-.outlined-button-white {
+.outlined-button:not(.disabled):not(.outlined-button-white):hover {
 	background: #fff;
+	border-color: #fff;
+	color: #000;
+}
+.outlined-button-white:hover {
+	background: #eee;
 }
 .solid-button {
 	background: #fff;
 	border-color: #fff;
 	color: #000;
 }
-.outlined-button:not(.disabled):not(.outlined-button-white):hover {
-	background: #fff;
-	border-color: #fff;
-	color: #000;
-}
-.outlined-button:not(.disabled):hover:focus,
 .solid-button.solid-button-blue {
 	background: rgb(78, 123, 196);
 	border-color: rgb(78, 123, 196);
 	color: #fff;
 	outline: none;
 }
-.outlined-button-white:hover {
-	background: #eee;
-}
+
 .solid-button.solid-button-blue:hover {
 	background: rgb(70, 110, 175);
 	border-color: rgb(70, 110, 175);

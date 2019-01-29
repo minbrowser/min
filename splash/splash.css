@@ -24,3 +24,33 @@
 		left: 0;
 	}
 }
+
+/* footer */
+
+#footer {
+	padding: 1em calc(5% + 1.5em);
+	background-color: #eee;
+}
+
+#footer #logo-image {
+	width: 64px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+@media all and (max-width: 500px) {
+	#footer #logo-image {
+		width: 48px;
+	}
+}
+
+#footer #footer-links {
+	display: inline-block;
+	padding-left: 2em;
+}
+
+#footer #footer-links a {
+	display: block;
+	color: #222;
+	padding: 0.5em 0;
+}
