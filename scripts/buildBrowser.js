@@ -20,7 +20,6 @@ const legacyModules = [
   'js/tabState.js',
   'js/filteringRenderer.js',
   'js/webviews.js',
-  'js/phishingWarning.js',
   'js/webviewMenu.js',
   'js/searchbar/placesPlugin.js',
   'js/searchbar/instantAnswerPlugin.js',
