@@ -32,7 +32,8 @@ ipc.on('print', function () {
   } else if (readerView.isReader(tabs.getSelected())) {
     readerView.printArticle(tabs.getSelected())
   } else {
-    webviews.get(tabs.getSelected()).print()
+    //TODO figure out why webContents.print() doesn't work in Electron 4
+    webviews.get(tabs.getSelected()).executeJavaScript("window.print()")
   }
 })
 
