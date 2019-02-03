@@ -201,6 +201,7 @@ window.webviews = {
           nodeIntegration: false,
           scrollBounce: true,
           preload: __dirname + '/dist/preload.js',
+          contextIsolation: true,
           allowPopups: false,
           partition: partition
         }
