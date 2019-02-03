@@ -34,15 +34,6 @@ function forceUpdateDragRegions () {
   }, 100)
 }
 
-// the permissionRequestHandler used for webviews
-function pagePermissionRequestHandler (webContents, permission, callback) {
-  if (permission === 'notifications' || permission === 'fullscreen') {
-    callback(true)
-  } else {
-    callback(false)
-  }
-}
-
 function captureCurrentTab (options) {
   if (webviews.placeholderRequests.length > 0 && !(options && options.forceCapture === true)) {
     // capturePage doesn't work while the view is hidden
@@ -65,10 +56,6 @@ function updateBackButton () {
     goBackButton.disabled = !canGoBack
   })
 }
-
-// set the permissionRequestHandler for non-private tabs
-
-remote.session.defaultSession.setPermissionRequestHandler(pagePermissionRequestHandler)
 
 // called whenever a new page starts loading, or an in-page navigation occurs
 function onPageURLChange (tab, url) {
@@ -183,11 +170,6 @@ window.webviews = {
     // since tab IDs are unique, we can use them as partition names
     if (tabs.get(tabId).private === true) {
       var partition = tabId.toString() // options.tabId is a number, which remote.session.fromPartition won't accept. It must be converted to a string first
-
-      // register permissionRequestHandler for this tab
-      // private tabs use a different session, so the default permissionRequestHandler won't apply
-
-      remote.session.fromPartition(partition).setPermissionRequestHandler(pagePermissionRequestHandler)
 
       // enable ad/tracker/contentType blocking in this tab if needed
 
