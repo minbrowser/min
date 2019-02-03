@@ -2,7 +2,7 @@
   "name": "min",
   "productName": "Min",
   "version": "1.8.0",
-  "electronVersion": "3.0.13",
+  "electronVersion": "4.0.4",
   "main": "main.build.js",
   "dependencies": {
     "dexie": "^1.2.0",
