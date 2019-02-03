@@ -184,6 +184,8 @@ window.webviews = {
           scrollBounce: true,
           preload: __dirname + '/dist/preload.js',
           contextIsolation: true,
+          sandbox: true,
+          enableRemoteModule: false,
           allowPopups: false,
           partition: partition
         }
