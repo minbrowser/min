@@ -84,3 +84,25 @@ var shortcutKeyNodes = document.getElementsByClassName('shortcut-key')
 for (var i = 0; i < shortcutKeyNodes.length; i++) {
   shortcutKeyNodes[i].textContent = shortcutKey
 }
+
+// show other platform-specific content
+// guess a platform for mobile devices (rather than showing nothing), although it's unlikely the tour would be accessed outside of the browser
+
+var platform
+
+if (['MacIntel', 'iPod', 'iPhone', 'iPad'].includes(navigator.platform)) {
+  platform = 'mac'
+} else if (navigator.platform.startsWith('Linux') || navigator.platform.startsWith('FreeBSD')) {
+  // FreeBSD isn't Linux, but we don't separate them for now, and the tour content should be the same for both
+  platform = 'linux'
+} else {
+  platform = 'windows'
+}
+
+[].slice.call(document.querySelectorAll('[data-platform]')).forEach(function (el) {
+  if (el.getAttribute('data-platform').includes(platform)) {
+    el.hidden = false
+  } else {
+    el.hidden = true
+  }
+})
