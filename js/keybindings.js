@@ -196,11 +196,15 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
     }
     // mod+left and mod+right are also text editing shortcuts, so they should not run when an input field is focused
     // also block single-letter shortcuts when an input field is focused, so that it's still possible to type in an input
-    if (!combo.includes('+') || combo === 'mod+left' || combo === 'mod+right') {
+    if (/^\w$/.test(combo) || combo === 'mod+left' || combo === 'mod+right') {
       var webview = webviews.get(tabs.getSelected())
       if (!tabs.get(tabs.getSelected()).url || !webview.isFocused()) {
-        fn(e, combo)
+        //check whether an input is focused in the browser UI
+        if (document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA") {
+          fn(e, combo)
+        }
       } else {
+        //check whether an input is focused in the webview
         webview.executeJavaScript('document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA"', function (isInputFocused) {
           if (isInputFocused === false) {
             fn(e, combo)
