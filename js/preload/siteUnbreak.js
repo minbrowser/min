@@ -20,11 +20,25 @@ if (window.location.hostname === 'google.com' || window.location.hostname.endsWi
   /* define window.chrome
      this is necessary because some websites (such as the Google Drive file viewer, see issue #378) check for a
      Chrome user agent, and then do things like if(chrome.<module>) {}
-     so we need to define an empty chrome object to prevent errors
+     so we need to create a chrome object to prevent errors
+     (https://github.com/electron/electron/issues/16587)
      */
 
   scriptsToRun.push(`
-    window.chrome = {}
+    window.chrome = {
+      runtime: {
+        connect: () => {
+          return {
+            onMessage: {
+              addListener: () => {console.warn('chrome.runtime is not implemented')},
+              removeListener: () => {console.warn('chrome.runtime is not implemented')},
+            },
+            postMessage: () => {console.warn('chrome.runtime is not implemented')},
+            disconnect: () => {console.warn('chrome.runtime is not implemented')},
+          }
+        }
+      }
+    }
   `)
 }
 
