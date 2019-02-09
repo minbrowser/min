@@ -15,7 +15,7 @@
     "browserify": "^16.2.2",
     "chokidar": "^2.0.4",
     "decomment": "^0.9.0",
-    "electron": "^2.0.0-beta.6",
+    "electron": "^4.0.4",
     "electron-renderify": "0.0.2",
     "grunt": "^1.0.1",
     "grunt-electron": "^9.0.1",
