@@ -1,7 +1,8 @@
 /* global db Dexie */
 
+importScripts('../../ext/xregexp/nonLetterRegex.js')
+
 const whitespaceRegex = /\s+/g
-const notWordOrWhitespaceRegex = /[^\w\s]/g
 
 // stop words list from https://github.com/weixsong/elasticlunr.js/blob/master/lib/stop_word_filter.js
 const stopWords = {
@@ -129,7 +130,7 @@ const stopWords = {
 
 /* this is used in placesWorker.js when a history item is created */
 function tokenize (string) {
-  return string.trim().toLowerCase().replace(notWordOrWhitespaceRegex, ' ').split(whitespaceRegex).filter(function (token) {
+  return string.trim().toLowerCase().replace(nonLetterRegex, ' ').split(whitespaceRegex).filter(function (token) {
     return !stopWords[token]
   }).slice(0, 20000)
 }
