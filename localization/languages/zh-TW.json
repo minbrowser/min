@@ -22,7 +22,7 @@
         "DDGAnswerSubtitle": "搜尋結果", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "建議網站", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "來自 DuckDuckGo 的結果", //this is used as a label to indicate which results come from DuckDuckGo's API
-        "taskN": "任務 %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "taskN": "工作 %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
         "hostsFileEntry": "Host 文件", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
@@ -31,9 +31,9 @@
         "viewReadingList": "查看閱讀清單",
         "takeScreenshot": "螢幕截圖",
         "clearHistory": "清除所有歷史",
-        "switchToTask": "切換至任務",
-        "createTask": "新增任務",
-        "moveToTask": "移動至任務",
+        "switchToTask": "切換至工作",
+        "createTask": "新增工作",
+        "moveToTask": "移動至工作",
         "searchBookmarks": "搜尋書籤",
         "searchHistory": "搜尋歷史",
         /* navbar */
@@ -48,9 +48,9 @@
         "privateTab": "無痕分頁",
         "newTabAction": "新增分頁", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
-        "viewTasks": "查看任務",
-        "newTask": "新增任務", //"new" is a verb - it is used for a button at the bottom of the task overlay
-        "defaultTaskName": "任務 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        "viewTasks": "查看工作",
+        "newTask": "新增工作", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": "工作 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
         /* find in page toolbar */
         "searchInPage": "在頁面中尋找", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%i / %t", //this and the next label are used to indicate which match is currently highlighted
@@ -104,14 +104,14 @@
         "settingsPreferencesHeading": "設定",
         "settingsRestartRequired": "重新啟動以套用變更",
         "settingsPrivacyHeading": "隱私設定",
-        "settingsContentBlockingLevel0": null, //missing translation
-        "settingsContentBlockingLevel1": null, //missing translation
-        "settingsContentBlockingLevel2": null, //missing translation
-        "settingsContentBlockingExceptions": null, //missing translation
-        "settingsBlockScriptsToggle": "封鎖 javascript 腳本運行",
-        "settingsBlockImagesToggle": "封鎖圖片",
+        "settingsContentBlockingLevel0": "允許所有廣告與追蹤器",
+        "settingsContentBlockingLevel1": "阻止第三方廣告與追蹤器",
+        "settingsContentBlockingLevel2": "阻止所有廣告與追蹤器",
+        "settingsContentBlockingExceptions": "不要在這些網站阻擋廣告：",
+        "settingsBlockScriptsToggle": "阻擋 Javascript 腳本運行",
+        "settingsBlockImagesToggle": "阻擋圖片",
         "settingsEasyListCredit": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "基於 EasyList 和 EasyPrivacy，由<a target=\"_blank\" href=\"https://easylist.to/\">EasyList 作者</a>創作 （<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">查看憑證</a>）"
         },
         "settingsAppearanceHeading": "外觀",
         "settingsDarkModeToggle": "啟用夜間模式",
@@ -123,15 +123,15 @@
         "settingsSearchEngineHeading": "搜索引擎",
         "settingsDefaultSearchEngine": "選擇預設的搜索引擎：",
         "settingsDDGExplanation": "將 DuckDuckGo 設為預設的搜索引擎可以直接在網址欄查看搜尋結果",
-        "customSearchEngineDescription": "將搜尋字串以 %s 取代", //missing translation
+        "customSearchEngineDescription": "將搜尋字串以 %s 取代",
         "settingsKeyboardShortcutsHeading": "快速鍵",
         "settingsKeyboardShortcutsHelp": "以逗號分割多個快速鍵",
         /* app menu */
         "appMenuFile": "檔案",
         "appMenuNewTab": "新分頁",
-        "appMenuDuplicateTab": null, //missing translation
+        "appMenuDuplicateTab": "複製分頁",
         "appMenuNewPrivateTab": "新無痕分頁",
-        "appMenuNewTask": "新任務",
+        "appMenuNewTask": "新工作",
         "appMenuSavePageAs": "另存網頁",
         "appMenuPrint": "列印",
         "appMenuEdit": "編輯",
@@ -174,8 +174,8 @@
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "<input type='text'/> / <span id='total'></span> 頁"},
         /* Download manager */
-        "downloadCancel": null, //missing translation
-        "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null //missing translation
+        "downloadCancel": "取消",
+        "downloadStateCompleted": "已完成",
+        "downloadStateFailed": "失敗"
     }
 }
