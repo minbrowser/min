@@ -89,7 +89,7 @@ a {
 .button {
 	-webkit-appearance: none;
 	appearance: none;
-	background: unset;
+	background: none;
 	border-width: 1px;
 	border-style: solid;
 	color: inherit;
