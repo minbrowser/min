@@ -623,7 +623,7 @@ function createAppMenu () {
       ]
     })
     // Window menu.
-    template[3].submenu.push({
+    template[5].submenu.push({
       type: 'separator'
     }, {
       label: l('appMenuBringToFront'),
