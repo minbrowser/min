@@ -12,6 +12,8 @@
 	vertical-align: text-bottom;
 	margin-right: 0.25em;
 	font-size: 1.275em;
+	/* pre-define the width to avoid the text moving after fontawesome loads */
+	width: 0.36em;
 }
 body,
 html {
