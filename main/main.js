@@ -476,6 +476,21 @@ function createAppMenu () {
       label: l('appMenuDeveloper'),
       submenu: [
         {
+          label: l('appMenuInspectPage'),
+          accelerator: (function () {
+            if (process.platform == 'darwin')
+              return 'Cmd+Alt+I'
+            else
+              return 'Ctrl+Shift+I'
+          })(),
+          click: function (item, window) {
+            sendIPCToWindow(window, 'inspectPage')
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
           label: l('appMenuReloadBrowser'),
           accelerator: undefined,
           click: function (item, focusedWindow) {
@@ -489,21 +504,6 @@ function createAppMenu () {
           label: l('appMenuInspectBrowser'),
           click: function (item, focusedWindow) {
             if (focusedWindow) focusedWindow.toggleDevTools()
-          }
-        },
-        {
-          type: 'separator'
-        },
-        {
-          label: l('appMenuInspectPage'),
-          accelerator: (function () {
-            if (process.platform == 'darwin')
-              return 'Cmd+Alt+I'
-            else
-              return 'Ctrl+Shift+I'
-          })(),
-          click: function (item, window) {
-            sendIPCToWindow(window, 'inspectPage')
           }
         }
       ]
