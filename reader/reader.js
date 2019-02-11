@@ -8,7 +8,11 @@ function startReaderView (article) {
   if (!article) { // we couln't parse an article
     readerContent += "<div class='reader-main'><em>No article found.</em></div>"
   } else {
-    document.title = article.title
+    if (article.title) {
+      document.title = article.title
+    } else {
+      document.title = 'Reader View | ' + url
+    }
 
     readerContent += "<div class='reader-main'>" + "<h1 class='article-title'>" + (article.title || '') + '</h1>'
 
@@ -24,6 +28,10 @@ function startReaderView (article) {
   rframe.sandbox = 'allow-same-origin allow-popups allow-modals'
   rframe.srcdoc = readerContent
 
+  // set an initial height equal to the available space in the window
+  rframe.height = window.innerHeight - 68
+
+  // resize the frame once the page has loaded and the content height can be determined
   rframe.onload = function () {
     if (window.isDarkMode) {
       rframe.contentDocument.body.classList.add('dark-mode')
@@ -56,8 +64,6 @@ function startReaderView (article) {
 // iframe hack to securely parse the document
 
 var url = new URLSearchParams(window.location.search).get('url')
-
-document.title = 'Reader View | ' + url
 
 var parserframe = document.createElement('iframe')
 parserframe.className = 'temporary-iframe'
