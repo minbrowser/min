@@ -120,6 +120,7 @@
         "settingsAdditionalFeaturesHeading": "Dodatkowe funkcje",
         "settingsUserscriptsToggle": "Włącz skrypty użytkownika",
         "settingsUserscriptsExplanation": {"unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
+        "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Wyszukiwarka",
         "settingsDefaultSearchEngine": "Wybierz domyślną wyszukiwarkę:",
         "settingsDDGExplanation": "Ustaw DuckDuckGo jako domyślną wyszukiwarkę, aby zobaczyć błyskawiczne odpowiedzi na pasku wyszukiwania.",
@@ -176,6 +177,8 @@
         /* Download manager */
         "downloadCancel": null, //missing translation
         "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null //missing translation
+        "downloadStateFailed": null, //missing translation
+        /* Update Notifications */
+        "updateNotificationTitle": null //missing translation
     }
 }

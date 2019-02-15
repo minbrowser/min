@@ -120,6 +120,7 @@
         "settingsSwipeNavigationToggle": "Включить навигацию свайпом для перехода вперёд и назад по страницам.",
         "settingsUserscriptsToggle": null, //missing translation
         "settingsUserscriptsExplanation": null, //missing translation
+        "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Поиск",
         "settingsDefaultSearchEngine": "Выберите поиск по умолчанию:",
         "settingsDDGExplanation": "Чтобы видеть мгновенные ответы в строке поиска, установите DuckDuckGo поисковиком по умолчанию.",
@@ -176,6 +177,8 @@
         /* Download manager */
         "downloadCancel": null, //missing translation
         "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null //missing translation
+        "downloadStateFailed": null, //missing translation
+        /* Update Notifications */
+        "updateNotificationTitle": null //missing translation
     }
 }

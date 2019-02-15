@@ -120,6 +120,7 @@
         "settingsSwipeNavigationToggle": "Activer le glissement pour changer de page.",
         "settingsUserscriptsToggle": "Activer les scripts personnalisés",
         "settingsUserscriptsExplanation": {"unsafeHTML": "Les scripts personnalisés vous permettent de modifier le comportement des pages web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">en savoir plus (en anglais)</a>."},
+        "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Moteur de recherche",
         "settingsDefaultSearchEngine": "Choisir un moteur de recherche par défaut :",
         "settingsDDGExplanation": "Définir DuckDuckGo comme moteur de recherche par défaut pour voir instantanément des résulats dans la barre de recherche.",
@@ -176,6 +177,8 @@
         /* Download manager */
         "downloadCancel": null, //missing translation
         "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null //missing translation
+        "downloadStateFailed": null, //missing translation
+        /* Update Notifications */
+        "updateNotificationTitle": null //missing translation
     }
 }

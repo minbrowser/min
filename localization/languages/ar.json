@@ -120,6 +120,7 @@
         "settingsSwipeNavigationToggle": "تمكين التمرير للتنقل ذهابًا وإيابًا بين الصفحات.",
         "settingsUserscriptsToggle": "تمكين سكريبت المستخدم",
         "settingsUserscriptsExplanation": {"unsafeHTML": "يمكن سكريبت المستخدم من  تغير سلوك المواقع - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">معرفة المزيد</a>."},
+        "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "محرك بحث",
         "settingsDefaultSearchEngine": "اختر محرك بحث اساسي",
         "settingsDDGExplanation": "كمحرك بحث اساسي لرؤية النتائج الآنية في مربع البحث DuckDuckGo ",
@@ -176,6 +177,8 @@
         /* Download manager */
         "downloadCancel": "الغاء",
         "downloadStateCompleted": "تم بنجاح",
-        "downloadStateFailed": "فشل"
+        "downloadStateFailed": "فشل",
+        /* Update Notifications */
+        "updateNotificationTitle": null //missing translation
     }
 }

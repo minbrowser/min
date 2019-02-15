@@ -120,6 +120,7 @@
         "settingsSwipeNavigationToggle": "Kapcsolja be a swipe Navigációt előre és hátra az oldalakal.",
         "settingsUserscriptsToggle": "Felhasználói Szkriptek",
         "settingsUserscriptsExplanation": "Felhasználói Szkriptek magyarázat",
+        "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Kereső Motor",
         "settingsDefaultSearchEngine": "Válasza ki az Alap kereső Motorját:",
         "settingsDDGExplanation": "Állitsa be a DuckDuckGo kereső motort hogy lássa a válaszokat a kereső sorba.",
@@ -176,6 +177,8 @@
         /* Download manager */
         "downloadCancel": null, //missing translation
         "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null //missing translation
+        "downloadStateFailed": null, //missing translation
+        /* Update Notifications */
+        "updateNotificationTitle": null //missing translation
     }
 }
