@@ -120,6 +120,7 @@
       "settingsSwipeNavigationToggle":"পৃষ্ঠার মধ্যে পিছনে এবং পিছনে নেভিগেট করার জন্য সোয়াইপ সক্ষম করুন",
       "settingsUserscriptsToggle":"ব্যবহারকারী স্ক্রিপ্ট সক্রিয় করুন",
       "settingsUserscriptsExplanation": {"unsafeHTML": "ব্যবহারকারীর স্ক্রিপ্ট আপনাকে ওয়েবসাইটের আচরণ পরিবর্তন করার অনুমতি দেয় - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\"> আরও শিখুন </a>"},
+      "settingsUpdateNotificationsToggle": null, //missing translation
       "settingsSearchEngineHeading":"খোঁজ যন্ত্র",
       "settingsDefaultSearchEngine":"একটি ডিফল্ট অনুসন্ধান ইঞ্জিন চয়ন করুন:",
       "settingsDDGExplanation":"Searchbar এ তাত্ক্ষণিক উত্তর দেখতে ডিফল্ট অনুসন্ধান ইঞ্জিন হিসাবে DuckDuckGo সেট করুন।",
@@ -176,6 +177,8 @@
       /* Download manager */
       "downloadCancel": null, //missing translation
       "downloadStateCompleted": null, //missing translation
-      "downloadStateFailed": null //missing translation
+      "downloadStateFailed": null, //missing translation
+      /* Update Notifications */
+      "updateNotificationTitle": null //missing translation
    }
 }

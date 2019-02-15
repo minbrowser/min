@@ -120,6 +120,7 @@
         "settingsSwipeNavigationToggle": "فعال سازی قابلیت کشیدن برای مرور به عقب و جلو بین صفحات.",
         "settingsUserscriptsToggle": "فعال کردن اسکریپت های کاربر",
         "settingsUserscriptsExplanation": {"unsafeHTML": "اسکریپت های کاربر این اجازه را به شما می دهند تا رفتار سایت ها را تغییر دهید - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اطلاعات بیشتر</a>."},
+        "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "موتور جستجو",
         "settingsDefaultSearchEngine": "انتخاب موتور جستجوی پیش فرض:",
         "settingsDDGExplanation": "DuckDuckGo را به عنوان موتور جستجوی پیش فرض تنظیم کنید تا در نوار جستجو نتایج آنی ببینید.",
@@ -176,6 +177,8 @@
         /* Download manager */
         "downloadCancel": null, //missing translation
         "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null //missing translation
+        "downloadStateFailed": null, //missing translation
+        /* Update Notifications */
+        "updateNotificationTitle": null //missing translation
     }
 }
