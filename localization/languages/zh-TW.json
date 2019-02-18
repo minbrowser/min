@@ -120,6 +120,7 @@
         "settingsSwipeNavigationToggle": "允許通過手勢在頁面上進行上一頁和下一頁的操作",
         "settingsUserscriptsToggle": "允許使用者指令",
         "settingsUserscriptsExplanation": {"unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."},
+        "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "搜索引擎",
         "settingsDefaultSearchEngine": "選擇預設的搜索引擎：",
         "settingsDDGExplanation": "將 DuckDuckGo 設為預設的搜索引擎可以直接在網址欄查看搜尋結果",
@@ -176,6 +177,8 @@
         /* Download manager */
         "downloadCancel": "取消",
         "downloadStateCompleted": "已完成",
-        "downloadStateFailed": "失敗"
+        "downloadStateFailed": "失敗",
+        /* Update Notifications */
+        "updateNotificationTitle": null //missing translation
     }
 }

@@ -120,6 +120,7 @@
         "settingsSwipeNavigationToggle": "Enable swipe for navigating back and forth between pages.",
         "settingsUserscriptsToggle": "Enable user scripts",
         "settingsUserscriptsExplanation": {"unsafeHTML": "User scripts allow you to modify the behavior of websites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
+        "settingsUpdateNotificationsToggle": "Automatically check for updates",
         "settingsSearchEngineHeading": "Search Engine",
         "settingsDefaultSearchEngine": "Choose a default search engine:",
         "settingsDDGExplanation": "Set DuckDuckGo as the default search engine to see instant answers in the searchbar.",
@@ -176,6 +177,8 @@
         /* Download manager */
         "downloadCancel": "Cancel",
         "downloadStateCompleted": "Completed",
-        "downloadStateFailed": "Failed"
+        "downloadStateFailed": "Failed",
+        /* Update Notifications */
+        "updateNotificationTitle": "A new version of Min is available"
     }
 }

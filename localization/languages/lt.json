@@ -120,6 +120,7 @@
         "settingsSwipeNavigationToggle": "Įjungti perbraukimus, skirtus naršyti tarp puslapių pirmyn ir atgal.",
         "settingsUserscriptsToggle": "Įjungti naudotojo scenarijus",
         "settingsUserscriptsExplanation": {"unsafeHTML": "Naudotojo scenarijai leidžia jums modifikuoti internetinių svetainių elgseną - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">sužinokite daugiau</a>."},
+        "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Paieškos sistema",
         "settingsDefaultSearchEngine": "Pasirinkite numatytąją paieškos sistemą:",
         "settingsDDGExplanation": "Nustatykite DuckDuckGo kaip numatytąją paieškos sistemą, norėdami paieškos juostoje matyti greitus atsakymus.",
@@ -176,6 +177,8 @@
         /* Download manager */
         "downloadCancel": null, //missing translation
         "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null //missing translation
+        "downloadStateFailed": null, //missing translation
+        /* Update Notifications */
+        "updateNotificationTitle": null //missing translation
     }
 }

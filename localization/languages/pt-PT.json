@@ -120,6 +120,7 @@
         "settingsSwipeNavigationToggle": "Ativar gestos para navegar entre as páginas visitadas.",
         "settingsUserscriptsToggle": "Ativar scripts de utilizador",
         "settingsUserscriptsExplanation": {"unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."},
+        "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Motor de pesquisa",
         "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",
         "settingsDDGExplanation": "Defina DuckDuckGo como motor de pesquisa padrão para poder obter sugestões instantâneas na barra de pesquisa.",
@@ -176,6 +177,8 @@
         /* Download manager */
         "downloadCancel": "Cancelar",
         "downloadStateCompleted": "Terminada",
-        "downloadStateFailed": "Falhada"
+        "downloadStateFailed": "Falhada",
+        /* Update Notifications */
+        "updateNotificationTitle": null //missing translation
     }
 }

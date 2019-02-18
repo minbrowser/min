@@ -120,6 +120,7 @@
         "settingsSwipeNavigationToggle": "Abilita swipe per andare avanti ed indietro tra le pagine.",
         "settingsUserscriptsToggle": "Abilita script definiti dall'utente",
         "settingsUserscriptsExplanation": {"unsafeHTML": "Gli script definiti dall'utente ti permettono di modificare il comportamento dei siti - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">scopri di più</a>."},
+        "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Motore di ricerca",
         "settingsDefaultSearchEngine": "Scegli un motore di ricerac predefinito:",
         "settingsDDGExplanation": "Imposta DuckDuckGo come motore di ricerca predefinito per vedere risposte istantanee nella barra di ricerca.",
@@ -172,6 +173,12 @@
         "appMenuQuit": "Esci da %n",
         "appMenuBringToFront": "Porta avanti",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "pagina <input type='text'/> su <span id='total'></span>"}
+        "PDFPageCounter": {"unsafeHTML": "pagina <input type='text'/> su <span id='total'></span>"},
+        /* Download manager */
+        "downloadCancel": null, //missing translation
+        "downloadStateCompleted": null, //missing translation
+        "downloadStateFailed": null, //missing translation
+        /* Update Notifications */
+        "updateNotificationTitle": null //missing translation
     }
 }
