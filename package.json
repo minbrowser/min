@@ -1,7 +1,7 @@
 {
   "name": "min",
   "productName": "Min",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "electronVersion": "4.0.5",
   "main": "main.build.js",
   "dependencies": {
