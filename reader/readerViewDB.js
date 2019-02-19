@@ -1,5 +1,5 @@
-function saveArticle (url, pageHTML, article, extraData) {
-  if (!url || !pageHTML) {
+function saveArticle (url, article, extraData) {
+  if (!url || !article) {
     console.warn('no article found for db')
     return
   }
@@ -10,7 +10,7 @@ function saveArticle (url, pageHTML, article, extraData) {
         url: url,
         time: Date.now(),
         visitCount: 1,
-        pageHTML: pageHTML,
+        pageHTML: '',
         article: article,
         extraData: extraData || {}
       })
@@ -20,7 +20,7 @@ function saveArticle (url, pageHTML, article, extraData) {
           url: url,
           time: Date.now(),
           visitCount: item.visitCount + 1,
-          pageHTML: pageHTML,
+          pageHTML: '',
           article: article,
           extraData: extraData || {}
         })

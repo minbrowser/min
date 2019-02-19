@@ -112,7 +112,7 @@ function processArticle (data) {
     console.log(article)
     startReaderView(article)
 
-    saveArticle(url, data, article, {
+    saveArticle(url, article, {
       scrollPosition: 0,
       articleScrollLength: null
     })
@@ -120,7 +120,8 @@ function processArticle (data) {
 }
 
 fetch(url, {
-  credentials: 'include'
+  credentials: 'include',
+  cache: 'force-cache'
 })
   .then(function (response) {
     return response.text()

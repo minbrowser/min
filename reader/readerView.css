@@ -100,6 +100,7 @@ img {
 }
 p {
 	line-height: 1.5em;
+	word-break: break-word;
 }
 ul li,
 ol li {
