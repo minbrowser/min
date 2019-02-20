@@ -72,9 +72,14 @@ document.body.appendChild(parserframe)
 
 function processArticle (data) {
   window.d = data
-  parserframe.srcdoc = d
+  parserframe.srcdoc = data
 
   parserframe.onload = function () {
+    // allow readability to parse relative links correctly
+    var b = document.createElement('base')
+    b.href = url
+    parserframe.contentDocument.head.appendChild(b)
+
     var doc = parserframe.contentDocument
 
     var location = new URL(url)
@@ -108,7 +113,7 @@ function processArticle (data) {
       scheme: location.protocol.substr(0, location.protocol.indexOf(':')),
       pathBase: location.protocol + '//' + location.host + location.pathname.substr(0, location.pathname.lastIndexOf('/') + 1)
     }
-    var article = new Readability(uri, doc).parse()
+    var article = new Readability(doc).parse()
     console.log(article)
     startReaderView(article)
 
