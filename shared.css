@@ -132,7 +132,6 @@ button .button-subtext {
 	overflow: hidden;
 	height: 0;
 }
-button:hover .button-subtext,
 button.disabled .button-subtext {
 	height: auto;
 	padding-top: 0.2em;
