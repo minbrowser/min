@@ -507,34 +507,6 @@ function createAppMenu () {
       ]
     },
     {
-      label: l('appMenuWindow'),
-      role: 'window',
-      submenu: [
-        {
-          label: l('appMenuMinimize'),
-          accelerator: 'CmdOrCtrl+M',
-          role: 'minimize'
-        },
-        {
-          label: l('appMenuClose'),
-          accelerator: 'CmdOrCtrl+W',
-          click: function (item, window) {
-            if (!mainWindow.isFocused()) {
-              // a devtools window is focused, close it
-              var contents = webContents.getAllWebContents()
-              for (var i = 0; i < contents.length; i++) {
-                if (contents[i].isDevToolsFocused()) {
-                  contents[i].closeDevTools()
-                  return
-                }
-              }
-            }
-          // otherwise, this event will be handled in the main window
-          }
-        }
-      ]
-    },
-    {
       label: l('appMenuHelp'),
       role: 'help',
       submenu: [
@@ -567,6 +539,7 @@ function createAppMenu () {
   ]
 
   if (process.platform === 'darwin') {
+    /* main app menu */
     template.unshift({
       label: appName,
       submenu: [
@@ -620,18 +593,46 @@ function createAppMenu () {
         }
       ]
     })
-    // Window menu.
-    template[5].submenu.push({
-      type: 'separator'
-    }, {
-      label: l('appMenuBringToFront'),
-      role: 'front'
+
+    /* window menu */
+    template.splice(5, 0, {
+      label: l('appMenuWindow'),
+      role: 'window',
+      submenu: [
+        {
+          label: l('appMenuMinimize'),
+          accelerator: 'CmdOrCtrl+M',
+          role: 'minimize'
+        },
+        {
+          label: l('appMenuClose'),
+          accelerator: 'CmdOrCtrl+W',
+          click: function (item, window) {
+            if (!mainWindow.isFocused()) {
+              // a devtools window is focused, close it
+              var contents = webContents.getAllWebContents()
+              for (var i = 0; i < contents.length; i++) {
+                if (contents[i].isDevToolsFocused()) {
+                  contents[i].closeDevTools()
+                  return
+                }
+              }
+            }
+          // otherwise, this event will be handled in the main window
+          }
+        },
+        {
+          type: 'separator'
+        }, {
+          label: l('appMenuBringToFront'),
+          role: 'front'
+        }
+      ]
     })
   }
 
-  // preferences item on linux and windows
-
   if (process.platform !== 'darwin') {
+    // preferences item in edit menu on linux and windows
     template[1].submenu.push({
       type: 'separator'
     })
@@ -648,11 +649,11 @@ function createAppMenu () {
 
     // about item on linux and windows
 
-    template[5].submenu.push({
+    template[4].submenu.push({
       type: 'separator'
     })
 
-    template[5].submenu.push({
+    template[4].submenu.push({
       label: l('appMenuAbout').replace('%n', appName),
       click: function (item, window) {
         var info = [
