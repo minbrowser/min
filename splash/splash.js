@@ -78,12 +78,6 @@ if (downloadLink) {
   }
 }
 
-if (downloadLink && navigator.platform === 'MacIntel') {
-  for (var i = 0; i < subtextArray.length; i++) {
-    subtextArray[i].textContent = 'Requires macOS 10.10 or greater'
-  }
-}
-
 var backdrop = document.getElementsByClassName('backdrop')[0]
 var dialog = document.getElementsByClassName('dialog')[0]
 
