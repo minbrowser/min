@@ -309,6 +309,26 @@ window.webviews = {
   resize: function () {
     ipc.send('setBounds', {id: webviews.selectedId, bounds: webviews.getViewBounds()})
   },
+  goBackIgnoringRedirects: function (id) {
+    // special case: the current page is an internal page representing a regular webpage, and the previous page in history is that page (which likely means a redirect happened from the original page to the internal page)
+    // probably either an error page (after  a redirect from the original page) or reader view
+    var url = tabs.get(id).url
+
+    var isInternalURL = url.startsWith(urlParser.getFileURL(__dirname))
+    if (isInternalURL) {
+      var representedURL
+      try {
+        representedURL = new URL(url).searchParams.get('url')
+      } catch (e) {}
+      var history = webviews.get(id).history
+    }
+
+    if (isInternalURL && representedURL && history[history.length - 2] === representedURL) {
+      webviews.get(id).goToOffset(-2)
+    } else {
+      webviews.get(id).goBack()
+    }
+  },
   callAsync: function (id, method, args, callback) {
     if (!(args instanceof Array)) {
       args = [args]

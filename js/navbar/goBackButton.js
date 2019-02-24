@@ -1,7 +1,7 @@
 var goBackButton = document.getElementById('back-button')
 
 goBackButton.addEventListener('click', function (e) {
-  webviews.get(tabs.getSelected()).goBack()
+  webviews.goBackIgnoringRedirects(tabs.getSelected())
 })
 
 settings.get('historyButton', function (value) {

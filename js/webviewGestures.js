@@ -95,7 +95,7 @@ function onSwipeGestureLowVelocity () {
       resetCounters()
       settings.get('swipeNavigationEnabled', function (value) {
         if (value === true || value === undefined) {
-          webviews.get(tabs.getSelected()).goBack()
+          webviews.goBackIgnoringRedirects(tabs.getSelected())
         }
       })
     }
