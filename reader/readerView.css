@@ -122,21 +122,16 @@ a:hover {
 	background-repeat: repeat-x;
 }
 figure {
-	float: right;
+	max-width: 100%;
+	margin: 1em 0;
 }
-@media all and (max-width: 600px) {
-	figure {
-		max-width: 100%;
-		float: initial;
-		margin: 0;
-	}
-}
+
 figure figcaption {
 	font-size: 0.8em;
 	margin-top: 1em;
 	opacity: 0.75;
 }
-figure figcaption * {
+figure figcaption, figure figcaption * {
 	font-family: sans-serif;
 }
 pre,
