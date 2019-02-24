@@ -414,9 +414,9 @@ settings.get('keyMap', function (keyMapSettings) {
     if (time - lastReload < 500) {
       ipc.send('destroyAllViews')
       remote.getCurrentWindow().webContents.reload()
-    } else if (webviews.get(tabs.getSelected()).getURL().startsWith('file://')) {
-      // the webview.reload() method can't be used because if the webview is displaying an error page, we want to reload the original page rather than show the error page again
-      browserUI.navigate(tabs.getSelected(), tabs.get(tabs.getSelected()).url)
+    } else if (webviews.get(tabs.getSelected()).getURL().startsWith(webviews.internalPages.error)) {
+      //reload the original page rather than show the error page again
+      browserUI.navigate(tabs.getSelected(), new URL(webviews.get(tabs.getSelected()).getURL()).searchParams.get("url"))
     } else {
       // this can't be an error page, use the normal reload method
       webviews.callAsync(tabs.getSelected(), 'reload')
