@@ -34,11 +34,13 @@ searchbarPlugins.register('keywordSuggestions', {
     // request keyword suggestions, which will be displayed later
 
     if (tabs.get(tabs.getSelected()).url) {
-      var sourceTab = tabs.getSelected()
+      var sourceTab = tabs.get(tabs.getSelected())
     } else {
       // if this is a new tab, show suggestions from the previous tab
-      var sourceTab = tabs.getAtIndex(tabs.getIndex(tabs.getSelected()) - 1).id
+      var sourceTab = tabs.getAtIndex(tabs.getIndex(tabs.getSelected()) - 1)
     }
-    webviews.callAsync(sourceTab, 'send', 'getKeywordsData')
+    if (sourceTab) {
+      webviews.callAsync(sourceTab.id, 'send', 'getKeywordsData')
+    }
   }
 })
