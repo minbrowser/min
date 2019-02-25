@@ -198,7 +198,7 @@ window.webviews = {
     })
 
     if (tabData.url) {
-      webviews.callAsync(tabData.id, 'loadURL', tabData.url)
+      webviews.callAsync(tabData.id, 'loadURL', urlParser.parse(tabData.url))
     }
 
     webviews.tabViewMap[tabId] = view

@@ -8,7 +8,13 @@ webviews.bindIPC('keywordsData', function (webview, tabId, args) {
 
   empty(container)
 
-  args[0].entities.slice(0, 5).forEach(function (item) {
+  if (tabs.get(tabs.getSelected()).url) {
+    var entities = args[0].entities.slice(0, 5)
+  } else {
+    var entities = args[0].entities.slice(0, 2)
+  }
+
+  entities.forEach(function (item) {
     var div = searchbarUtils.createItem({
       icon: 'fa-search',
       title: item,
@@ -26,6 +32,13 @@ searchbarPlugins.register('keywordSuggestions', {
   },
   showResults: function () {
     // request keyword suggestions, which will be displayed later
-    webviews.callAsync(tabs.getSelected(), 'send', 'getKeywordsData')
+
+    if (tabs.get(tabs.getSelected()).url) {
+      var sourceTab = tabs.getSelected()
+    } else {
+      // if this is a new tab, show suggestions from the previous tab
+      var sourceTab = tabs.getAtIndex(tabs.getIndex(tabs.getSelected()) - 1).id
+    }
+    webviews.callAsync(sourceTab, 'send', 'getKeywordsData')
   }
 })
