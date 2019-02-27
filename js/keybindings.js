@@ -122,7 +122,7 @@ ipc.on('saveCurrentPage', function () {
     if (!savePath.endsWith('.html')) {
       savePath = savePath + '.html'
     }
-    webviews.get(currentTab.id).getWebContents().savePage(savePath, 'HTMLComplete', function () {})
+    webviews.get(currentTab.id).savePage(savePath, 'HTMLComplete', function () {})
   }
 })
 
