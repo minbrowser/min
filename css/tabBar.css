@@ -268,7 +268,7 @@ body.dark-mode #overlay {
 
 .tab-item .reader-button {
 	display: none;
-	padding-left: 0;
+	margin-left: -0.66em;
 }
 .tab-item.active .reader-button.can-reader {
 	display: inline-block;
