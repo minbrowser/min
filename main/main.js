@@ -64,7 +64,16 @@ function handleCommandLineArguments (argv) {
 
 function createWindow (cb) {
   var savedBounds = fs.readFile(path.join(userDataPath, 'windowBounds.json'), 'utf-8', function (e, data) {
-    if (e || !data) { // there was an error, probably because the file doesn't exist
+    var bounds
+
+    if (data) {
+      try {
+        bounds = JSON.parse(data)
+      } catch (e) {
+        console.warn('error parsing window bounds file: ', e)
+      }
+    }
+    if (e || !data || !bounds) { // there was an error, probably because the file doesn't exist
       var size = electron.screen.getPrimaryDisplay().workAreaSize
       var bounds = {
         x: 0,
@@ -72,8 +81,6 @@ function createWindow (cb) {
         width: size.width,
         height: size.height
       }
-    } else {
-      var bounds = JSON.parse(data)
     }
 
     // maximizes the window frame in windows 10
