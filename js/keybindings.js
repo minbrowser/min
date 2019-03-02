@@ -133,8 +133,8 @@ function addPrivateTab () {
     return
   }
 
-  if (tabs.isEmpty()) {
-    browserUI.destroyTab(tabs.getAtIndex(0).id)
+  if (!tabs.get(tabs.getSelected()).url && !tabs.get(tabs.getSelected()).private) {
+    browserUI.destroyTab(tabs.getSelected())
   }
 
   var newIndex = tabs.getIndex(tabs.getSelected()) + 1
