@@ -35,6 +35,11 @@ function forceUpdateDragRegions () {
 }
 
 function captureCurrentTab (options) {
+  if (tabs.get(tabs.getSelected()).private) {
+    //don't capture placeholders for private tabs
+    return;
+  }
+
   if (webviews.placeholderRequests.length > 0 && !(options && options.forceCapture === true)) {
     // capturePage doesn't work while the view is hidden
     return
