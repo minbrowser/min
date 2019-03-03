@@ -36,8 +36,8 @@ function forceUpdateDragRegions () {
 
 function captureCurrentTab (options) {
   if (tabs.get(tabs.getSelected()).private) {
-    //don't capture placeholders for private tabs
-    return;
+    // don't capture placeholders for private tabs
+    return
   }
 
   if (webviews.placeholderRequests.length > 0 && !(options && options.forceCapture === true)) {
@@ -325,10 +325,11 @@ window.webviews = {
       try {
         representedURL = new URL(url).searchParams.get('url')
       } catch (e) {}
-      var history = webviews.get(id).history
+      // TODO this uses internal Electron API's - figure out a way to do this with the public API
+      var history = webviews.get(id).history.slice(0, webviews.get(id).currentIndex + 1)
     }
 
-    if (isInternalURL && representedURL && history[history.length - 2] === representedURL) {
+    if (isInternalURL && representedURL && history.length > 2 && history[history.length - 2] === representedURL) {
       webviews.get(id).goToOffset(-2)
     } else {
       webviews.get(id).goBack()
