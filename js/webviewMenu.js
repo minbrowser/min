@@ -160,7 +160,7 @@ var webviewMenu = {
         label: l('goBack'),
         click: function () {
           try {
-            webviews.get(tabs.getSelected()).goBack()
+            webviews.goBackIgnoringRedirects(tabs.getSelected())
           } catch (e) {}
         }
       }),

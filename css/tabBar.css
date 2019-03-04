@@ -136,7 +136,7 @@ body.is-edit-mode #navbar #tabs {
 	background: rgba(255, 255, 255, 0.2);
 }
 .dark-theme.theme-background-low-contrast .tab-item.active:not(:only-child) {
-	background: rgba(255, 255, 255, 0.24);
+	background: rgba(255, 255, 255, 0.25);
 }
 .tab-item.selected {
 	min-width: 100%;
