@@ -1,0 +1,184 @@
+{
+    "name": "Українська",
+    "identifier": "uk",
+    "translations": {
+        /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+        "openInNewTab": "Відкрити в новій вкладці",
+        "openInNewPrivateTab": "Відкрити в приватній вкладці",
+        "viewImage": "Переглянути зображення",
+        "openImageInNewTab": "Відкрити зображення в новій вкладці",
+        "openImageInNewPrivateTab": "Відкрити зображення в приватній вкладці",
+        "saveImageAs": "Зберегти зображення як...",
+        "searchWith": "Шукати з %s", //%s will be replaced with the name of the current search engine
+        "copyLink": "Копіювати посилання",
+        "copy": "Копіювати", //this is a verb (as in "copy the currently-selected text")
+        "paste": "Вставити",
+        "goBack": "Назад",
+        "goForward": "Вперед",
+        "inspectElement": "Дослідити елемент",
+        /* searchbar */
+        "DDGAnswerSubtitle": "Відповідь", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+        "suggestedSite": "Запропонований сайт", //this is used to label suggested websites from the DuckDuckGo API,
+        "resultsFromDDG": "Результати із DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+        "taskN": "Завдання %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "hostsFileEntry": "Запис із файлу hosts", //this is a label used to indicate that a result is coming from the user's host file
+        /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+        "viewSettings": "Показати налаштування",
+        "viewReadingList": "Переглянути список читання",
+        "takeScreenshot": "Зробити знімок екрану",
+        "clearHistory": "Очистити історію",
+        "switchToTask": "Перейти до завдання",
+        "createTask": "Створити завдання",
+        "moveToTask": "Перемістіть цю вкладку до завдання",
+        "searchBookmarks": "Пошук закладок",
+        "searchHistory": "Історія пошуку",
+        /* navbar */
+        "openMenu": "Відкрити меню", //application menu button on windows
+        "enterReaderView": "Включити режим читання",
+        "exitReaderView": "Вийти з режиму читання",
+        "emptyReadingListTitle": "Ваш список читання порожній",
+        "emptyReadingListSubtitle": "Статті, які ви відкриваєте у вікні читача, перелічені тут, і зберігаються в автономному режимі протягом 30 днів.",
+        "newTabLabel": "Нова вкладка", //this is a noun, used for tabs that don't have a page loaded in them yet
+        "connectionNotSecure": "Ваше з'єднання з цим веб-сайтом не захищене.",
+        "searchbarPlaceholder": "Пошуковий запит чи адреса",
+        "privateTab": "Приватна вкладка",
+        "newTabAction": "Нова вкладка", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        /* task overlay */
+        "viewTasks": "Переглянути завдання",
+        "newTask": "Нове завдання", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": "Завдання %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        /* find in page toolbar */
+        "searchInPage": "Знайти на сторінці", //this is used as the placeholder text for the textbox in the find in page toolbar
+        "findMatchesSingular": "%i з %t входження", //this and the next label are used to indicate which match is currently highlighted
+        "findMatchesPlural": "%i з %t входжень",
+        /* Focus mode */
+        "isFocusMode": "Ви в режимі фокусування",
+        "closeDialog": "OK", //used as a label for the button that closes the dialog
+        "focusModeExplanation1": "В режимі фокусування всі вкладки, окрім поточної, приховані, і ви не можете створювати нові вкладки.",
+        "focusModeExplanation2": "Режим фокусування можна залишити, знявши прапорець \"Режим фокусування\" у меню \"Вигляд\".",
+        /* relative dates */
+        "timeRangeJustNow": "Зараз",
+        "timeRangeMinutes": "Кілька хвилин тому",
+        "timeRangeHour": "Годину тому",
+        "timeRangeDay": "Вчора",
+        "timeRangeWeek": "Тиждень тому",
+        "timeRangeMonth": "Місяць тому",
+        "timeRangeYear": "У минулому році",
+        "timeRangeLongerAgo": "Давно",
+        /* pages/error/index.html */
+        "crashErrorTitle": "Щось пішло не так.",
+        "crashErrorSubtitle": "Виникла проблема при відображенні цієї сторінки.",
+        "errorPagePrimaryAction": "Спробувати знову",
+        "serverNotFoundTitle": "Сервер не знайдений",
+        "serverNotFoundSubtitle": "Min не зміг знайти цей веб-сайт.",
+        "archiveSearchAction": "Пошук на archive.org",
+        "sslErrorTitle": "Сайт недоступний",
+        "sslErrorMessage": "Min не зміг безпечно з'єднатися з цим сайтом.",
+        "dnsErrorTitle": "Сайт не знайдено",
+        "dnsErrorMessage": "Сталася помилка DNS.",
+        "offlineErrorTitle": "Не вдалося встановити з'єднання з Інтернетом",
+        "offlineErrorMessage": "Підключіться до Інтернету та повторіть спробу.",
+        "genericConnectionFail": "Min не вдалося підключитися до веб-сайту.",
+        "sslTimeErrorMessage": "Мін не може надійно підключитися до цього веб-сайту. Переконайтеся, що годинник комп'ютера встановлено правильно.",
+        "addressInvalidTitle": "Недійсна адреса.",
+        "genericError": "Виникла помилка",
+        /* pages/phishing/index.html */
+        "phishingErrorTitle": "Цей сайт може вам зашкодити.",
+        "phishingErrorMessage": "Цей веб-сайт може намагатися викрасти вашу особисту інформацію, наприклад, паролі чи банківську інформацію.",
+        "phishingErrorVisitAnyway": "Все одно відвідати сайт",
+        "phishingErrorLeave": "Залишити цей сайт",
+        /* multiple instances alert */
+        "multipleInstancesErrorMessage": "Виникла помилка. Закрийте інші відкриті екземпляри та перезапустіть Min.",
+        /* pages/sessionRestoreError/index.html */
+        "sessionRestoreErrorTitle": "Виникла помилка",
+        "sessionRestoreErrorExplanation": "Ваші збережені вкладки не можуть бути відновлені правильно.",
+        "sessionRestoreErrorBackupInfo": "Ми зберегли резервну копію даних у цьому місці: %l.", //%l will be replaced with a path to a file
+        "sessionRestoreErrorLinkInfo": {
+            "unsafeHTML": "Якщо ця помилка продовжує з'являтися, будь ласка, повідомте про неї <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">сюди</a>."
+        },
+        /* pages/settings/index.html */
+        "settingsPreferencesHeading": "Налаштування",
+        "settingsRestartRequired": "Щоб застосувати ці зміни, потрібно перезапустити програму.",
+        "settingsPrivacyHeading": "Блокування вмісту",
+        "settingsContentBlockingLevel0": "Дозволити всю рекламу та стеження",
+        "settingsContentBlockingLevel1": "Блокувати сторонню рекламу та стеження",
+        "settingsContentBlockingLevel2": "Блокувати всю рекламу та стеження",
+        "settingsContentBlockingExceptions": "Дозволити рекламу на цих сайтах:",
+        "settingsBlockScriptsToggle": "Блокувати скрипти",
+        "settingsBlockImagesToggle": "Блокувати зображення",
+        "settingsEasyListCredit": {
+            "unsafeHTML": "На основі EasyList і EasyPrivacy, створених <a target=\"_blank\" href=\"https://easylist.to/\">авторами EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">переглянути ліцензію</a>)."
+        },
+        "settingsAppearanceHeading": "Зовнішній вигляд",
+        "settingsDarkModeToggle": "Увімкнути темний режим",
+        "settingsHistoryButtonToggle": "Увімкнути кнопку \"Назад\"",
+        "settingsAdditionalFeaturesHeading": "Додаткові можливості",
+        "settingsSwipeNavigationToggle": "Увімкнути прогортання для переміщення вперед і назад між сторінками.",
+        "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
+        "settingsUserscriptsExplanation": {"unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."},
+        "settingsUpdateNotificationsToggle": "Автоматично перевіряти наявність оновлень",
+        "settingsSearchEngineHeading": "Пошукова система",
+        "settingsDefaultSearchEngine": "Виберіть типову пошукову систему:",
+        "settingsDDGExplanation": "Встановіть DuckDuckGo як типову пошукову систему, щоб побачити миттєві відповіді на панелі пошуку.",
+        "customSearchEngineDescription": "Замініть пошуковий запит на %s",
+        "settingsKeyboardShortcutsHeading": "Сполучення клавіш",
+        "settingsKeyboardShortcutsHelp": "Використовуйте коми, щоб розділити декілька сполучень клавіш.",
+        /* app menu */
+        "appMenuFile": "Файл",
+        "appMenuNewTab": "Нова вкладка",
+        "appMenuDuplicateTab": "Дублювати вкладку",
+        "appMenuNewPrivateTab": "Нова приватна вкладка",
+        "appMenuNewTask": "Нове завдання",
+        "appMenuSavePageAs": "Зберегти сторінку як",
+        "appMenuPrint": "Друк",
+        "appMenuEdit": "Редагувати",
+        "appMenuUndo": "Скасувати",
+        "appMenuRedo": "Повернути",
+        "appMenuCut": "Вирізати",
+        "appMenuCopy": "Копіювати",
+        "appMenuPaste": "Вставити",
+        "appMenuSelectAll": "Вибрати все",
+        "appMenuFind": "Знайти",
+        "appMenuView": "Вигляд",
+        "appMenuZoomIn": "Збільшити",
+        "appMenuZoomOut": "Зменшити",
+        "appMenuActualSize": "Реальний розмір",
+        "appMenuFullScreen": "Повноекранний режим", //on some platforms, this string is replaced with one built-in to the OS
+        "appMenuFocusMode": "Режим фокусування",
+        "appMenuReadingList": "Список читання",
+        "appMenuBookmarks": "Закладки",
+        "appMenuHistory": "Історія",
+        "appMenuDeveloper": "Розробник",
+        "appMenuReloadBrowser": "Перезавантажити браузер",
+        "appMenuInspectBrowser": "Дослідити браузер",
+        "appMenuInspectPage": "Дослідити сторінку",
+        "appMenuWindow": "Вікно",
+        "appMenuMinimize": "Згорнути",
+        "appMenuClose": "Закрити",
+        "appMenuHelp": "Допомога",
+        "appMenuKeyboardShortcuts": "Сполучення клавіш",
+        "appMenuReportBug": "Повідомити про помилку",
+        "appMenuTakeTour": "Знайомство з Min",
+        "appMenuViewGithub": "Переглянути на GitHub",
+        "appMenuAbout": "Про %n", //%n is replaced with app name
+        "appMenuPreferences": "Налаштування",
+        "appMenuServices": "Сервіси",
+        "appMenuHide": "Приховати %n",
+        "appMenuHideOthers": "Приховати інші",
+        "appMenuShowAll": "Показати все",
+        "appMenuQuit": "Вийти %n",
+        "appMenuBringToFront": "Все на передній план",
+        /* PDF Viewer */
+        "PDFPageCounter": {"unsafeHTML": "сторінка <input type='text'/> з <span id='total'></span>"},
+        /* Download manager */
+        "downloadCancel": "Скасувати",
+        "downloadStateCompleted": "Завершено",
+        "downloadStateFailed": "Невдача",
+        /* Update Notifications */
+        "updateNotificationTitle": "Доступна нова версія Min"
+    }
+}
