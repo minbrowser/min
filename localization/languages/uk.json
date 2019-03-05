@@ -111,7 +111,7 @@
         "settingsBlockScriptsToggle": "Блокувати скрипти",
         "settingsBlockImagesToggle": "Блокувати зображення",
         "settingsEasyListCredit": {
-            "unsafeHTML": "На основі EasyList і EasyPrivacy, без правил приховування елементів. Створений <a target=\"_blank\" href=\"https://easylist.to/\">Автори EasyList</a> - <a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">переглянути ліцензію</a>."
+            "unsafeHTML": "На основі EasyList і EasyPrivacy, створених <a target=\"_blank\" href=\"https://easylist.to/\">авторами EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">переглянути ліцензію</a>)."
         },
         "settingsAppearanceHeading": "Зовнішній вигляд",
         "settingsDarkModeToggle": "Увімкнути темний режим",
