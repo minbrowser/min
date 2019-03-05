@@ -130,8 +130,8 @@ var TaskOverlayBuilder = {
         tabContainer.setAttribute('data-task', task.id)
 
         if (task.tabs) {
-          for (var i = 0; i < task.tabs.length; i++) {
-            var el = this.element(tabContainer, task, task.tabs[i])
+          for (var i = 0; i < task.tabs.count(); i++) {
+            var el = this.element(tabContainer, task, task.tabs.getAtIndex(i))
             tabContainer.appendChild(el)
           }
         }
@@ -160,7 +160,7 @@ var TaskOverlayBuilder = {
       }
     }
   }
-  // extend with other helper functions?
+// extend with other helper functions?
 }
 
 module.exports = function createTaskContainer (task, index) {

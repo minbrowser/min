@@ -1,4 +1,4 @@
-const tabPrototype = require('tabState/tab.js')
+const TabList = require('tabState/tab.js')
 const TabStack = require('tabRestore.js')
 
 class TaskList {
@@ -10,13 +10,9 @@ class TaskList {
   add (task = {} , index) {
     const newTask = {
       name: task.name || null,
-      tabs: task.tabs || [],
+      tabs: new TabList(task.tabs),
       tabHistory: new TabStack(task.tabHistory),
       id: task.id || String(TaskList.getRandomId())
-    }
-
-    for (var key in tabPrototype) {
-      newTask.tabs[key] = tabPrototype[key]
     }
 
     if (index) {
@@ -30,7 +26,7 @@ class TaskList {
 
   getStringifyableState () {
     return {
-      tasks: this.tasks,
+      tasks: this.tasks.map(task => Object.assign({}, task, {tabs: task.tabs.getStringifyableState()})),
       selectedTask: this.selected
     }
   }
@@ -83,9 +79,9 @@ class TaskList {
     var tabs = this.get(id).tabs
     var lastActivity = 0
 
-    for (var i = 0; i < tabs.length; i++) {
-      if (tabs[i].lastActivity > lastActivity) {
-        lastActivity = tabs[i].lastActivity
+    for (var i = 0; i < tabs.count(); i++) {
+      if (tabs.getAtIndex(i).lastActivity > lastActivity) {
+        lastActivity = tabs.getAtIndex(i).lastActivity
       }
     }
 

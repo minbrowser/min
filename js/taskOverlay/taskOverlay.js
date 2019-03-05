@@ -163,7 +163,7 @@ taskOverlay.tabDragula.on('drop', function (el, target, source, sibling) { // se
 
   // if the old task has no tabs left in it, destroy it
 
-  if (previousTask.tabs.length === 0) {
+  if (previousTask.tabs.count() === 0) {
     browserUI.closeTask(previousTask.id)
     getTaskContainer(previousTask.id).remove()
   }
@@ -173,7 +173,7 @@ taskOverlay.tabDragula.on('drop', function (el, target, source, sibling) { // se
     var newIdx = newTask.tabs.getIndex(adjacentTadId)
   } else {
     // tab was inserted at end
-    var newIdx = newTask.tabs.length
+    var newIdx = newTask.tabs.count()
   }
 
   // insert the tab at the correct spot

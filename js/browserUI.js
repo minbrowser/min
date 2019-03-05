@@ -36,7 +36,7 @@ options
   options.enterEditMode - whether to enter editing mode when the tab is created. Defaults to true.
   options.openInBackground - whether to open the tab without switching to it. Defaults to false.
 */
-function addTab (tabId = tabs.add(), options = {}) {
+function addTab (tabId = tabs.add() , options = {}) {
   tabBar.addTab(tabId)
   webviews.add(tabId)
 
@@ -92,8 +92,7 @@ function closeTask (taskId) {
       })
 
       const mostRecent = recentTaskList.reduce(
-        (latest, current) =>
-          current.lastActivity > latest.lastActivity ? current : latest
+        (latest, current) => current.lastActivity > latest.lastActivity ? current : latest
       )
 
       return switchToTask(mostRecent.id)
@@ -112,7 +111,7 @@ function closeTab (tabId) {
   if (tabId === tabs.getSelected()) {
     var currentIndex = tabs.getIndex(tabs.getSelected())
     var nextTab =
-      tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1)
+    tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1)
 
     destroyTab(tabId)
 
@@ -135,7 +134,7 @@ function switchToTask (id) {
 
   var taskData = tasks.get(id)
 
-  if (taskData.tabs.length > 0) {
+  if (taskData.tabs.count() > 0) {
     var selectedTab = taskData.tabs.getSelected()
 
     // if the task has no tab that is selected, switch to the most recent one
@@ -195,5 +194,4 @@ module.exports = {
   closeTask,
   closeTab,
   switchToTask,
-  switchToTab
-}
+switchToTab}

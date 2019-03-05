@@ -114,10 +114,10 @@ window.tabBar = {
   rerenderAll: function () {
     empty(tabBar.container)
     tabBar.tabElementMap = {}
-    for (var i = 0; i < tabs.length; i++) {
-      var el = tabBar.createElement(tabs[i])
+    for (var i = 0; i < tabs.count(); i++) {
+      var el = tabBar.createElement(tabs.getAtIndex(i))
       tabBar.container.appendChild(el)
-      tabBar.tabElementMap[tabs[i].id] = el
+      tabBar.tabElementMap[tabs.getAtIndex(i).id] = el
     }
     if (tabs.getSelected()) {
       tabBar.setActiveTab(tabs.getSelected())

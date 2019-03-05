@@ -14,7 +14,7 @@ var searchOpenTabs = function (text, input, event, container) {
   var currentTab = currentTask.tabs.getSelected()
 
   tasks.forEach(function (task) {
-    task.tabs.get().forEach(function (tab) {
+    task.tabs.forEach(function (tab) {
       if (tab.id === currentTab || !tab.title || tab.url === 'about:blank') {
         return
       }

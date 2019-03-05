@@ -133,7 +133,7 @@ registerCustomBang({
     tabs.destroy(currentTab.id)
 
     // make sure the task has at least one tab in it
-    if (tabs.get().length === 0) {
+    if (tabs.count() === 0) {
       tabs.add()
     }
 

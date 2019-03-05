@@ -1,5 +1,8 @@
-var tabPrototype = {
-  add: function (tab = {}, index) {
+class TabList {
+  constructor (tabs) {
+    this.tabs = tabs || []
+  }
+  add (tab = {} , index) {
     var tabId = String(tab.id || Math.round(Math.random() * 100000000000000000)) // you can pass an id that will be used, or a random one will be generated.
 
     var newTab = {
@@ -16,103 +19,113 @@ var tabPrototype = {
     }
 
     if (index) {
-      this.splice(index, 0, newTab)
+      this.tabs.splice(index, 0, newTab)
     } else {
-      this.push(newTab)
+      this.tabs.push(newTab)
     }
 
     return tabId
-  },
-  update: function (id, data) {
+  }
+  update (id, data) {
     if (!this.has(id)) {
       throw new ReferenceError('Attempted to update a tab that does not exist.')
     }
     const index = this.getIndex(id)
-    
+
     for (var key in data) {
       if (data[key] === undefined) {
         throw new ReferenceError('Key ' + key + ' is undefined.')
       }
-      this[index][key] = data[key]
+      this.tabs[index][key] = data[key]
     }
-  },
-  destroy: function (id) {
+  }
+  destroy (id) {
     const index = this.getIndex(id)
-    if(index < 0) return false
+    if (index < 0) return false
 
-    tasks.getTaskContainingTab(id).tabHistory.push(this[index])
-    this.splice(index, 1)
+    tasks.getTaskContainingTab(id).tabHistory.push(this.tabs[index])
+    this.tabs.splice(index, 1)
 
     return index
-  },
-  destroyAll: function () {
+  }
+  destroyAll () {
     // this = [] doesn't work, so set the length of the array to 0 to remove all of the itemss
-    this.length = 0
-  },
-  get: function (id) {
+    this.tabs.length = 0
+  }
+  get (id) {
     if (!id) { // no id provided, return an array of all tabs
       // it is important to deep-copy the tab objects when returning them. Otherwise, the original tab objects get modified when the returned tabs are modified (such as when processing a url).
       var tabsToReturn = []
-      for (var i = 0; i < this.length; i++) {
-        tabsToReturn.push(JSON.parse(JSON.stringify(this[i])))
+      for (var i = 0; i < this.tabs.length; i++) {
+        tabsToReturn.push(JSON.parse(JSON.stringify(this.tabs[i])))
       }
       return tabsToReturn
     }
-    for (var i = 0; i < this.length; i++) {
-      if (this[i].id === id) {
-        return JSON.parse(JSON.stringify(this[i]))
+    for (var i = 0; i < this.tabs.length; i++) {
+      if (this.tabs[i].id === id) {
+        return JSON.parse(JSON.stringify(this.tabs[i]))
       }
     }
     return undefined
-  },
-  has: function (id) {
+  }
+  has (id) {
     return this.getIndex(id) > -1
-  },
-  getIndex: function (id) {
-    for (var i = 0; i < this.length; i++) {
-      if (this[i].id === id) {
+  }
+
+  getIndex (id) {
+    for (var i = 0; i < this.tabs.length; i++) {
+      if (this.tabs[i].id === id) {
         return i
       }
     }
     return -1
-  },
-  getSelected: function () {
-    for (var i = 0; i < this.length; i++) {
-      if (this[i].selected) {
-        return this[i].id
+  }
+  getSelected () {
+    for (var i = 0; i < this.tabs.length; i++) {
+      if (this.tabs[i].selected) {
+        return this.tabs[i].id
       }
     }
     return null
-  },
-  getAtIndex: function (index) {
-    return this[index] || undefined
-  },
-  setSelected: function (id) {
+  }
+  getAtIndex (index) {
+    return this.tabs[index] || undefined
+  }
+  setSelected (id) {
     if (!this.has(id)) {
       throw new ReferenceError('Attempted to select a tab that does not exist.')
     }
-    for (var i = 0; i < this.length; i++) {
-      if (this[i].id === id) {
-        this[i].selected = true
+    for (var i = 0; i < this.tabs.length; i++) {
+      if (this.tabs[i].id === id) {
+        this.tabs[i].selected = true
       } else {
-        this[i].selected = false
+        this.tabs[i].selected = false
       }
     }
-  },
-  count: function () {
-    return this.length
-  },
-  isEmpty: function () {
-    if (!this || this.length === 0) {
+  }
+  count () {
+    return this.tabs.length
+  }
+  isEmpty () {
+    if (!this.tabs || this.tabs.length === 0) {
       return true
     }
 
-    if (this.length === 1 && (!this[0].url || this[0].url === 'about:blank')) {
+    if (this.tabs.length === 1 && (!this.tabs[0].url || this.tabs[0].url === 'about:blank')) {
       return true
     }
 
     return false
   }
+  forEach (fun) {
+    return this.tabs.forEach(fun)
+  }
+  splice (...args) {
+    return this.tabs.splice.apply(this.tabs, args)
+  }
+  getStringifyableState () {
+    return this.tabs
+  }
 }
 
-module.exports = tabPrototype
+module.exports = TabList
