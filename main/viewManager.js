@@ -18,11 +18,11 @@ function createView (id, webPreferencesString, boundsString, events) {
     })
   })
 
-  view.webContents.on('ipc-message', function (e, data) {
+  view.webContents.on('ipc-message', function (e, channel, data) {
     mainWindow.webContents.send('view-ipc', {
       id: id,
-      name: data[0],
-      data: data[1]
+      name: channel,
+      data: data
     })
   })
 
