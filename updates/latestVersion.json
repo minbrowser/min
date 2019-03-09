@@ -1,7 +1,7 @@
 {
-    "version": "1.9.0",
-    "releaseTime": 1549173600000,
-    "releaseHeadline": "Improved content blocking and download management",
-    "releaseNotes": "https://github.com/minbrowser/min/releases/tag/v1.9.0",
+    "version": "1.9.2",
+    "releaseTime": 1552090180118,
+    "releaseHeadline": "Fixed a security issue",
+    "releaseNotes": "https://github.com/minbrowser/min/releases/tag/v1.9.2",
     "availabilityPercent": 1
 }
