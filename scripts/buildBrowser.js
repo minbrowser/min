@@ -35,7 +35,6 @@ const legacyModules = [
   'js/navbar/tabBar.js',
   'js/taskOverlay/taskOverlay.js',
   'js/navbar/addTabButton.js',
-  'js/navbar/goBackButton.js',
   'js/navbar/menuButton.js',
   'js/keybindings.js',
   'js/pdfViewer.js',

@@ -52,16 +52,6 @@ function captureCurrentTab (options) {
   })
 }
 
-function updateBackButton () {
-  if (!tabs.get(tabs.getSelected()).url) {
-    goBackButton.disabled = true
-    return
-  }
-  webviews.callAsync(tabs.getSelected(), 'canGoBack', null, function (canGoBack) {
-    goBackButton.disabled = !canGoBack
-  })
-}
-
 // called whenever a new page starts loading, or an in-page navigation occurs
 function onPageURLChange (tab, url) {
   if (url.indexOf('https://') === 0 || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('file://') === 0) {
@@ -93,8 +83,6 @@ function onPageLoad (e) {
     onPageURLChange(tab, url)
 
     tabBar.rerenderTab(tab)
-
-    updateBackButton()
   })
 }
 
@@ -102,7 +90,6 @@ function onPageLoad (e) {
 function onNavigate (e, url, httpResponseCode, httpStatusText) {
   var tab = webviews.getTabFromContents(this)
   onPageURLChange(tab, url)
-  updateBackButton()
 }
 
 window.webviews = {
@@ -217,8 +204,6 @@ window.webviews = {
     if (!webviews.getView(id)) {
       webviews.add(id)
     }
-
-    updateBackButton()
 
     if (webviews.placeholderRequests.length > 0) {
       return
