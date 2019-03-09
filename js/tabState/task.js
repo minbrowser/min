@@ -72,6 +72,7 @@ class TaskList {
     this.selected = id
     window.tabs = this.get(id).tabs
     this.emit('task-selected', id)
+    this.emit('tab-selected', tabs.getSelected())
   }
 
   destroy (id) {

@@ -12,12 +12,12 @@ const outFile = path.resolve(__dirname, '../dist/bundle.js')
 /* avoid adding modules to this list, require() them from the correct place instead */
 const legacyModules = [
   'dist/localization.build.js',
+  'js/tabState.js',
   'js/default.js',
   'js/windowsCaptionButtons.js',
   'js/util/database.js',
   'js/util/defaultKeyMap.js',
   'js/util/settings.js',
-  'js/tabState.js',
   'js/filteringRenderer.js',
   'js/webviews.js',
   'js/webviewMenu.js',

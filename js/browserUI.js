@@ -2,8 +2,6 @@
 
 var urlParser = require('util/urlParser.js')
 var focusMode = require('focusMode.js')
-var tabActivity = require('navbar/tabActivity.js')
-var tabColor = require('navbar/tabColor.js')
 
 /* loads a page in a webview */
 
@@ -178,11 +176,7 @@ function switchToTab (id, options) {
     focus: options.focusWebview !== false
   })
 
-  tabColor.refresh()
-
   sessionRestore.save()
-
-  tabActivity.refresh()
 }
 
 module.exports = {
