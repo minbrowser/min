@@ -5,12 +5,27 @@ class TaskList {
   constructor () {
     this.selected = null
     this.tasks = [] // each task is {id, name, tabs: [], tabHistory: TabStack}
+    this.events = []
+  }
+
+  on (name, fn) {
+    this.events.push({name, fn})
+  }
+
+  emit (name, data) {
+    setTimeout(() => {
+      this.events.forEach(function (listener) {
+        if (listener.name === name) {
+          listener.fn(data)
+        }
+      })
+    }, 0)
   }
 
   add (task = {} , index) {
     const newTask = {
       name: task.name || null,
-      tabs: new TabList(task.tabs),
+      tabs: new TabList(task.tabs, this),
       tabHistory: new TabStack(task.tabHistory),
       id: task.id || String(TaskList.getRandomId())
     }
@@ -20,6 +35,8 @@ class TaskList {
     } else {
       this.tasks.push(newTask)
     }
+
+    this.emit('task-added', newTask.id)
 
     return newTask.id
   }
@@ -54,10 +71,16 @@ class TaskList {
   setSelected (id) {
     this.selected = id
     window.tabs = this.get(id).tabs
+    this.emit('task-selected', id)
   }
 
   destroy (id) {
     const index = this.getIndex(id)
+
+    // emit the tab-destroyed event for all tabs in this task
+    this.get(id).tabs.forEach(tab => this.emit('tab-destroyed', tab.id))
+
+    this.emit('task-destroyed', id)
 
     if (index < 0) return false
 

@@ -1,6 +1,7 @@
 class TabList {
-  constructor (tabs) {
+  constructor (tabs, parentTaskList) {
     this.tabs = tabs || []
+    this.parentTaskList = parentTaskList
   }
   add (tab = {} , index) {
     var tabId = String(tab.id || Math.round(Math.random() * 100000000000000000)) // you can pass an id that will be used, or a random one will be generated.
@@ -24,6 +25,8 @@ class TabList {
       this.tabs.push(newTab)
     }
 
+    this.parentTaskList.emit('tab-added', tabId)
+
     return tabId
   }
   update (id, data) {
@@ -45,6 +48,8 @@ class TabList {
 
     tasks.getTaskContainingTab(id).tabHistory.push(this.tabs[index])
     this.tabs.splice(index, 1)
+
+    this.parentTaskList.emit('tab-destroyed', id)
 
     return index
   }
@@ -102,6 +107,7 @@ class TabList {
         this.tabs[i].selected = false
       }
     }
+    this.parentTaskList.emit('tab-selected', id)
   }
   count () {
     return this.tabs.length
