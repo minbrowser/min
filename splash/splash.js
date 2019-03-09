@@ -4,17 +4,17 @@ var failMessage = "Min isn't supported on your OS"
 
 // matches against navigator.platform
 var platformMatchStrings = {
-  'MacIntel': 'https://github.com/minbrowser/min/releases/download/v1.9.1/Min-v1.9.1-darwin-x64.zip',
-  'Linux i686': 'https://github.com/minbrowser/min/releases/download/v1.9.1/Min_1.9.1_i386.deb',
-  'x86_64': 'https://github.com/minbrowser/min/releases/download/v1.9.1/Min_1.9.1_amd64.deb'
+  'MacIntel': 'https://github.com/minbrowser/min/releases/download/v1.9.2/Min-v1.9.2-darwin-x64.zip',
+  'Linux i686': 'https://github.com/minbrowser/min/releases/download/v1.9.2/Min_1.9.2_i386.deb',
+  'x86_64': 'https://github.com/minbrowser/min/releases/download/v1.9.2/Min_1.9.2_amd64.deb'
 }
 
 // matches against navigator.userAgent
 var UAMatchStrings = {
-  'Win64': 'https://github.com/minbrowser/min/releases/download/v1.9.1/Min-v1.9.1-win32-x64.zip',
-  'WOW64': 'https://github.com/minbrowser/min/releases/download/v1.9.1/Min-v1.9.1-win32-x64.zip',
+  'Win64': 'https://github.com/minbrowser/min/releases/download/v1.9.2/Min-v1.9.2-win32-x64.zip',
+  'WOW64': 'https://github.com/minbrowser/min/releases/download/v1.9.2/Min-v1.9.2-win32-x64.zip',
   // neither of the 64-bit strings matched, fall back to 32-bit
-  'Windows NT': 'https://github.com/minbrowser/min/releases/download/v1.9.1/Min-v1.9.1-win32-ia32.zip'
+  'Windows NT': 'https://github.com/minbrowser/min/releases/download/v1.9.2/Min-v1.9.2-win32-ia32.zip'
 }
 
 function getDownloadLink () {
