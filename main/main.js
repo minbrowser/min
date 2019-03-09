@@ -115,6 +115,9 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     icon: __dirname + '/icons/icon256.png',
     frame: process.platform !== 'win32',
     backgroundColor: '#fff', // the value of this is ignored, but setting it seems to work around https://github.com/electron/electron/issues/10559
+    webPreferences: {
+      nodeIntegration: true
+    },
   })
 
   // and load the index.html of the app.

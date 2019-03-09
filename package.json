@@ -2,7 +2,7 @@
   "name": "min",
   "productName": "Min",
   "version": "1.9.1",
-  "electronVersion": "4.0.5",
+  "electronVersion": "5.0.0-beta.5",
   "main": "main.build.js",
   "dependencies": {
     "dexie": "^1.2.0",
@@ -15,7 +15,7 @@
     "browserify": "^16.2.2",
     "chokidar": "^2.0.4",
     "decomment": "^0.9.0",
-    "electron": "^4.0.5",
+    "electron": "^5.0.0-beta.5",
     "electron-renderify": "0.0.2",
     "grunt": "^1.0.1",
     "grunt-electron": "^9.0.1",
