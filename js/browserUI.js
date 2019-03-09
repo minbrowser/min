@@ -162,21 +162,11 @@ function switchToTab (id, options) {
 
   tabBar.leaveEditMode()
 
-  // set the tab's lastActivity to the current time
-
-  if (tabs.getSelected()) {
-    tabs.update(tabs.getSelected(), {
-      lastActivity: Date.now()
-    })
-  }
-
   tabs.setSelected(id)
   tabBar.setActiveTab(id)
   webviews.setSelected(id, {
     focus: options.focusWebview !== false
   })
-
-  sessionRestore.save()
 }
 
 module.exports = {

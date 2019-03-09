@@ -103,8 +103,10 @@ class TabList {
     for (var i = 0; i < this.tabs.length; i++) {
       if (this.tabs[i].id === id) {
         this.tabs[i].selected = true
-      } else {
+        this.tabs[i].lastActivity = Date.now()
+      } else if (this.tabs[i].selected) {
         this.tabs[i].selected = false
+        this.tabs[i].lastActivity = Date.now()
       }
     }
     this.parentTaskList.emit('tab-selected', id)

@@ -117,4 +117,6 @@ window.sessionRestore = {
 
 sessionRestore.restore()
 
+tasks.on("tab-selected", sessionRestore.save)
+
 setInterval(sessionRestore.save, 12500)
