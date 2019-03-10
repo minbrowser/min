@@ -104,14 +104,14 @@
         "settingsPreferencesHeading": "Preferencje",
         "settingsRestartRequired": "Musisz ponownie uruchomić, aby zastosować te zmiany.",
         "settingsPrivacyHeading": "Blokowanie treści",
-        "settingsContentBlockingLevel0": null, //missing translation
-        "settingsContentBlockingLevel1": null, //missing translation
-        "settingsContentBlockingLevel2": null, //missing translation
-        "settingsContentBlockingExceptions": null, //missing translation
+        "settingsContentBlockingLevel0": "Zezwalaj na wszystkie reklamy i śledzenie",
+        "settingsContentBlockingLevel1": "Blokuj reklamy i śledzenie innych firm",
+        "settingsContentBlockingLevel2": "Zablokuj wszystkie reklamy i śledzenie",
+        "settingsContentBlockingExceptions": "Zezwalaj na reklamy w tych witrynach:",
         "settingsBlockScriptsToggle": "Zablokuj skrypty",
         "settingsBlockImagesToggle": "Zablokuj obrazy",
         "settingsEasyListCredit": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "Oparte na EasyList i EasyPrivacy stworzone przez <a target=\"_blank\" href=\"https://easylist.to/\">autorów EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">wyświetl licencję</a>)."
         },
         "settingsAppearanceHeading": "Wygląd",
         "settingsDarkModeToggle": "Włącz tryb ciemny",
@@ -120,7 +120,7 @@
         "settingsAdditionalFeaturesHeading": "Dodatkowe funkcje",
         "settingsUserscriptsToggle": "Włącz skrypty użytkownika",
         "settingsUserscriptsExplanation": {"unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
-        "settingsUpdateNotificationsToggle": null, //missing translation
+        "settingsUpdateNotificationsToggle": "Automatycznie sprawdź dostępność aktualizacji",
         "settingsSearchEngineHeading": "Wyszukiwarka",
         "settingsDefaultSearchEngine": "Wybierz domyślną wyszukiwarkę:",
         "settingsDDGExplanation": "Ustaw DuckDuckGo jako domyślną wyszukiwarkę, aby zobaczyć błyskawiczne odpowiedzi na pasku wyszukiwania.",
@@ -130,7 +130,7 @@
         /* app menu */
         "appMenuFile": "Plik",
         "appMenuNewTab": "Nowa karta",
-        "appMenuDuplicateTab": null, //missing translation
+        "appMenuDuplicateTab": "Powielona karta",
         "appMenuNewPrivateTab": "Nowa karta prywatna",
         "appMenuNewTask": "Nowe zadanie",
         "appMenuSavePageAs": "Zapisz stronę jako",
@@ -175,10 +175,10 @@
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "strona <input type='text'/> z <span id='total'></span>"},
         /* Download manager */
-        "downloadCancel": null, //missing translation
-        "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null, //missing translation
+        "downloadCancel": "Anuluj pobieranie",
+        "downloadStateCompleted": "Pobieranie zakończone",
+        "downloadStateFailed": "Błąd pobierania",
         /* Update Notifications */
-        "updateNotificationTitle": null //missing translation
+        "updateNotificationTitle": "Dostępna jest nowa wersja Min"
     }
 }
