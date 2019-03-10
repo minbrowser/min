@@ -354,8 +354,8 @@ function onKeyMapChange (e) {
     // if the keymap before change already contains this key combination...
     Object.keys(currentKeyMap).forEach(keySetting => {
       if (currentKeyMap[keySetting] === keyMapSettings[action]) {
-        keyMapSettings[keySetting] = 'unassigned';
-        document.getElementById(keySetting).value = 'unassigned';
+        keyMapSettings[keySetting] = 'unassigned'
+        document.getElementById(keySetting).value = 'unassigned'
       }
     })
 
