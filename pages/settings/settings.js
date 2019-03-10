@@ -2,6 +2,7 @@ document.title = l('settingsPreferencesHeading') + ' | Min'
 
 var container = document.getElementById('privacy-settings-container')
 var banner = document.getElementById('restart-required-banner')
+var bannerError = document.getElementById('settings-error-banner')
 var darkModeCheckbox = document.getElementById('checkbox-dark-mode')
 var historyButtonCheckbox = document.getElementById('checkbox-history-button')
 var swipeNavigationCheckbox = document.getElementById('checkbox-swipe-navigation')
@@ -9,6 +10,14 @@ var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
 
 function showRestartRequiredBanner () {
   banner.hidden = false
+}
+
+function showErrorBanner () {
+  bannerError.hidden = false
+}
+
+function hideErrorBanner () {
+  bannerError.hidden = true
 }
 
 /* content blocking settings */
@@ -339,6 +348,7 @@ function parseKeyInput (input) {
 }
 
 function onKeyMapChange (e) {
+  hideErrorBanner()
   var action = this.name
   var newValue = this.value
 
@@ -347,7 +357,17 @@ function onKeyMapChange (e) {
       keyMapSettings = {}
     }
 
+    var currentKeyMap = {...defaultKeyMap, ...keyMapSettings}
+
     keyMapSettings[action] = parseKeyInput(newValue)
+
+    // if the keymap before change already contains this key combination...
+    if (Object.values(currentKeyMap).includes(keyMapSettings[action])) {
+      // show some error text.
+      bannerError.textContent = l('settingsError').replace("%l", newValue)
+      showErrorBanner()
+    }
+
     settings.set('keyMap', keyMapSettings, function () {
       showRestartRequiredBanner()
     })
