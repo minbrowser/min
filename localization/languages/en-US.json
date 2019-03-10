@@ -103,7 +103,6 @@
         /* pages/settings/index.html */
         "settingsPreferencesHeading": "Preferences",
         "settingsRestartRequired": "You need to restart to apply these changes.",
-        "settingsError": "You currently have the key combination %l assigned to multiple actions.  If this is not what you intended, please update your settings.", // %l = key combination
         "settingsPrivacyHeading": "Content Blocking",
         "settingsContentBlockingLevel0": "Allow all ads and trackers",
         "settingsContentBlockingLevel1": "Block third-party ads and trackers",
