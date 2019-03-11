@@ -160,7 +160,7 @@ const tabColor = {
 
     // theme changes can affect the tab colors
     window.addEventListener('themechange', function (e) {
-      tabColor.refresh()
+      tabColor.updateColors()
     })
 
     tasks.on('tab-selected', this.updateColors)
