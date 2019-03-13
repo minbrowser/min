@@ -8,7 +8,7 @@ var urlParser = require('util/urlParser.js')
 var placeholderImg = document.getElementById('webview-placeholder')
 
 var windowIsMaximized = false // affects navbar height on Windows
-var windowIsFullscreen = false // TODO track this for each individual webContents
+var browserViewIsFullscreen = false // TODO track this for each individual webContents
 
 function lazyRemoteObject (getObject) {
   var cachedItem = null
@@ -127,7 +127,7 @@ window.webviews = {
     webviews.resize()
   },
   getViewBounds: function () {
-    if (windowIsFullscreen) {
+    if (browserViewIsFullscreen) {
       return {
         x: 0,
         y: 0,
@@ -355,12 +355,12 @@ window.addEventListener('resize', throttle(function () {
 }, 75))
 
 ipc.on('enter-html-full-screen', function () {
-  windowIsFullscreen = true
+  browserViewIsFullscreen = true
   webviews.resize()
 })
 
 ipc.on('leave-html-full-screen', function () {
-  windowIsFullscreen = false
+  browserViewIsFullscreen = false
   webviews.resize()
 })
 
