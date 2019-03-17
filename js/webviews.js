@@ -8,7 +8,6 @@ var urlParser = require('util/urlParser.js')
 var placeholderImg = document.getElementById('webview-placeholder')
 
 var windowIsMaximized = false // affects navbar height on Windows
-var browserViewIsFullscreen = false // TODO track this for each individual webContents
 
 function lazyRemoteObject (getObject) {
   var cachedItem = null
@@ -95,6 +94,7 @@ function onNavigate (e, url, httpResponseCode, httpStatusText) {
 window.webviews = {
   tabViewMap: {}, // tabId: browserView
   tabContentsMap: {}, // tabId: webContents
+  viewFullscreenMap: {}, // tabId, isFullscreen
   selectedId: null,
   placeholderRequests: [],
   asyncCallbacks: {},
@@ -127,7 +127,7 @@ window.webviews = {
     webviews.resize()
   },
   getViewBounds: function () {
-    if (browserViewIsFullscreen) {
+    if (webviews.viewFullscreenMap[webviews.selectedId]) {
       return {
         x: 0,
         y: 0,
@@ -227,6 +227,7 @@ window.webviews = {
     }
     delete webviews.tabViewMap[id]
     delete webviews.tabContentsMap[id]
+    delete webviews.viewFullscreenMap[id]
     if (webviews.selectedId === id) {
       webviews.selectedId = null
     }
@@ -354,13 +355,23 @@ window.addEventListener('resize', throttle(function () {
   webviews.resize()
 }, 75))
 
-ipc.on('enter-html-full-screen', function () {
-  browserViewIsFullscreen = true
+//leave HTML fullscreen when leaving window fullscreen
+ipc.on('leave-full-screen', function () {
+  // electron normally does this automatically (https://github.com/electron/electron/pull/13090/files), but it doesn't work for BrowserViews
+  for (var view in webviews.viewFullscreenMap) {
+    if (webviews.viewFullscreenMap[view]) {
+      webviews.callAsync(view, 'executeJavaScript', 'document.exitFullscreen()')
+    }
+  }
+})
+
+webviews.bindEvent('enter-html-full-screen', function () {
+  webviews.viewFullscreenMap[webviews.getTabFromContents(this)] = true
   webviews.resize()
 })
 
-ipc.on('leave-html-full-screen', function () {
-  browserViewIsFullscreen = false
+webviews.bindEvent('leave-html-full-screen', function () {
+  webviews.viewFullscreenMap[webviews.getTabFromContents(this)] = false
   webviews.resize()
 })
 
