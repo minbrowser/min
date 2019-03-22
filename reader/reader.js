@@ -9,7 +9,7 @@ backbutton.addEventListener('click', function (e) {
 })
 
 function startReaderView (article) {
-  var readerContent = "<link rel='stylesheet' href='readerView.css'>"
+  var readerContent = "<link rel='stylesheet' href='readerContent.css'>"
 
   if (!article) { // we couln't parse an article
     readerContent += "<div class='reader-main'><em>No article found.</em></div>"

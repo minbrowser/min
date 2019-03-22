@@ -1,20 +1,3 @@
-#backtoarticle {
-	padding: 2em 0 0 44px;
-	color: dodgerblue;
-	max-width: 720px;
-	margin: auto;
-	display: block;
-	box-sizing: border-box;
-	cursor: pointer;
-	font-family: system-ui, ".SFNSText-Regular", sans-serif;
-}
-#backtoarticle i {
-	vertical-align: text-bottom;
-	margin-right: 0.25em;
-	font-size: 1.275em;
-	/* pre-define the width to avoid the text moving after fontawesome loads */
-	width: 0.36em;
-}
 body,
 html {
 	padding: 0;
@@ -24,23 +7,16 @@ html {
 iframe {
 	display: none;
 }
-iframe.reader-frame {
-	display: block;
-	width: 100%;
-	/* height is set in js */
-	border: 0;
-}
 .reader-main {
 	padding-top: 1em;
 	max-width: 720px;
 	display: block;
 	margin: auto;
 }
+
 * {
 	font-family: "Charter", "Georgia", serif;
 }
-
-/* actual reader content */
 
 .visually-hidden {
 	display: none;
