@@ -40,6 +40,18 @@ const readerDecision = {
   },
   getURLStatus: function (url) {
     return readerDecision.info.URLStatus[url].isReaderable
+  },
+  getSameDomainStatuses: function (url) {
+    var results = []
+    for (var itemURL in readerDecision.info.URLStatus) {
+      try {
+        if (new URL(itemURL).hostname === new URL(url).hostname && itemURL !== url) {
+          results.push(readerDecision.info.URLStatus[itemURL])
+        }
+      } catch (e) {}
+    }
+
+    return results
   }
 }
 

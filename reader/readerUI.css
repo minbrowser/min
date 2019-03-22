@@ -10,9 +10,10 @@ body.dark-mode {
 #auto-redirect-banner {
 	max-width: 650px;
 	margin: 1em auto;
-	border: 1px #ccc solid;
+	border: 1px #ddd solid;
 	padding: 0.5em;
 	border-radius: 3px;
+	color: #333;
 }
 
 .dark-mode #auto-redirect-banner {

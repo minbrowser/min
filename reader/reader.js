@@ -12,9 +12,10 @@ var autoRedirectBanner = document.getElementById('auto-redirect-banner')
 var autoRedirectYes = document.getElementById('auto-redirect-yes')
 var autoRedirectNo = document.getElementById('auto-redirect-no')
 
-if (readerDecision.getDomainStatus(articleURL) === undefined) {
-  autoRedirectBanner.hidden = false
-}
+  if (readerDecision.getDomainStatus(articleURL) === undefined && readerDecision.getSameDomainStatuses(articleURL).length > 0) {
+    autoRedirectBanner.hidden = false
+  }
+
 autoRedirectYes.addEventListener('click', function () {
   readerDecision.setDomainStatus(articleURL, true)
   autoRedirectBanner.hidden = true
