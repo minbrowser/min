@@ -5,18 +5,52 @@ body {
 body.dark-mode {
 	background-color: rgb(33, 37, 43);
 	color: lightgrey;
-  }
+}
+
+#auto-redirect-banner {
+	max-width: 650px;
+	margin: 1em auto;
+	border: 1px #ccc solid;
+	padding: 0.5em;
+	border-radius: 3px;
+}
+
+.dark-mode #auto-redirect-banner {
+	border-color: #aaa;
+}
+
+#auto-redirect-button-area {
+	float: right;
+	padding-right: 0.5em;
+}
+
+#auto-redirect-button-area button {
+	padding: 0.5em;
+	margin-top: -0.5em;
+	color: royalblue;
+}
+
+.dark-mode #auto-redirect-button-area button {
+	color: dodgerblue
+}
+
+#auto-redirect-button-area button:active {
+	background: rgba(0,0,0,0.1);
+}
 
 #backtoarticle {
 	font-size: 1.25em;
-	padding: 2em 0 0 44px;
+	padding: 2em 0 0 0.25em;
 	color: dodgerblue;
-	max-width: 720px;
+	max-width: 650px;
 	margin: auto;
 	display: block;
 	box-sizing: border-box;
 	cursor: pointer;
 	font-family: system-ui, ".SFNSText-Regular", sans-serif;
+}
+#auto-redirect-banner:not([hidden]) + #backtoarticle {
+	padding-top: 0.5em;
 }
 #backtoarticle i {
 	vertical-align: text-bottom;
@@ -24,6 +58,10 @@ body.dark-mode {
 	font-size: 1.275em;
 	/* pre-define the width to avoid the text moving after fontawesome loads */
 	width: 0.36em;
+}
+
+.temporary-frame {
+	display: none;
 }
 
 .reader-frame {

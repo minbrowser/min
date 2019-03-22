@@ -131,7 +131,7 @@ registerCustomBang({
 
 webviews.bindEvent('did-start-navigation', function (e, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
   var tab = webviews.getTabFromContents(this)
-  if (readerDecision.getURLStatus(url) === 1) {
+  if (readerDecision.shouldRedirect(url) === 1) {
     // if this URL has previously been marked as readerable, load reader view without waiting for the page to load
     readerView.enter(tab, url)
   } else if (isMainFrame && !isInPlace) {
@@ -144,7 +144,7 @@ webviews.bindEvent('did-start-navigation', function (e, url, isInPlace, isMainFr
 })
 
 webviews.bindIPC('canReader', function (webview, tab) {
-  if (readerDecision.getURLStatus(tabs.get(tab).url) >= 0) {
+  if (readerDecision.shouldRedirect(tabs.get(tab).url) >= 0) {
     // if automatic reader mode has been enabled for this domain, and the page is readerable, enter reader mode
     readerView.enter(tab)
   }

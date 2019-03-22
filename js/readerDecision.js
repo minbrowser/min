@@ -1,7 +1,7 @@
 /* Determines whether a page should redirect to reader view based on visit history */
 
 const readerDecision = {
-  getURLStatus: function (url) {
+  shouldRedirect: function (url) {
     /*
     returns:
         -1: never redirect, even if the page is confirmed to be readerable
@@ -11,10 +11,12 @@ const readerDecision = {
 
     try {
       if (readerDecision.info.domainStatus[new URL(url).hostname] === true) {
-        if (readerDecision.info.URLStatus[url].isReaderable === true) {
-          return 1
-        } else if (readerDecision.info.URLStatus[url].isReaderable === false) {
-          return -1
+        if (readerDecision.info.URLStatus[url]) {
+          if (readerDecision.info.URLStatus[url].isReaderable === true) {
+            return 1
+          } else if (readerDecision.info.URLStatus[url].isReaderable === false) {
+            return -1
+          }
         } else {
           return 0
         }
@@ -29,9 +31,15 @@ const readerDecision = {
     readerDecision.info.domainStatus[new URL(url).hostname] = autoRedirect
     saveData()
   },
+  getDomainStatus: function (url) {
+    return readerDecision.info.domainStatus[new URL(url).hostname]
+  },
   setURLStatus(url, isReaderable) {
     readerDecision.info.URLStatus[url] = {lastVisit: Date.now(), isReaderable}
     saveData()
+  },
+  getURLStatus: function (url) {
+    return readerDecision.info.URLStatus[url].isReaderable
   }
 }
 

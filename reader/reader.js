@@ -8,6 +8,22 @@ backbutton.addEventListener('click', function (e) {
   window.location = articleURL
 })
 
+var autoRedirectBanner = document.getElementById('auto-redirect-banner')
+var autoRedirectYes = document.getElementById('auto-redirect-yes')
+var autoRedirectNo = document.getElementById('auto-redirect-no')
+
+if (readerDecision.getDomainStatus(articleURL) === undefined) {
+  autoRedirectBanner.hidden = false
+}
+autoRedirectYes.addEventListener('click', function () {
+  readerDecision.setDomainStatus(articleURL, true)
+  autoRedirectBanner.hidden = true
+})
+autoRedirectNo.addEventListener('click', function () {
+  readerDecision.setDomainStatus(articleURL, false)
+  autoRedirectBanner.hidden = false
+})
+
 function startReaderView (article) {
   var readerContent = "<link rel='stylesheet' href='readerContent.css'>"
 
@@ -65,7 +81,7 @@ function startReaderView (article) {
 
 function processArticle (data) {
   var parserframe = document.createElement('iframe')
-  parserframe.className = 'temporary-iframe'
+  parserframe.className = 'temporary-frame'
   parserframe.sandbox = 'allow-same-origin'
   document.body.appendChild(parserframe)
 

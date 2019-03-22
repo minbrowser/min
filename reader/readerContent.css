@@ -9,7 +9,7 @@ iframe {
 }
 .reader-main {
 	padding-top: 1em;
-	max-width: 720px;
+	max-width: 650px;
 	display: block;
 	margin: auto;
 }
@@ -22,14 +22,14 @@ iframe {
 	display: none;
 }
 h1.article-title {
-	padding: 0 2rem 1rem 2rem;
+	padding-bottom: 1rem;
 	margin-top: 1rem;
 	margin: 0;
 	font-size: 2em;
 	font-weight: 500;
 }
 h2.article-authors {
-	padding: 0 2.5rem;
+	padding: 0;
 	font-size: 1.2em;
 	font-weight: 400;
 	margin: 0;
@@ -63,7 +63,7 @@ h4 {
 	font-weight: 600;
 }
 .page {
-	padding: 0 2.25rem 2.25rem 2.25rem;
+	padding-bottom: 2.25rem;
 }
 .article-authors + .page {
 	padding-top: 1rem;

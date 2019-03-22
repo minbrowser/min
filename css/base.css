@@ -13,6 +13,7 @@ body.mac * {
 }
 /* buttons are styled like normal text by default */
 button {
+	-webkit-appearance: none;
 	background: none;
 	border: none;
 	color: inherit;
