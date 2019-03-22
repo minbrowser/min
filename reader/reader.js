@@ -2,6 +2,9 @@ var backbutton = document.getElementById('backtoarticle')
 var articleURL = new URLSearchParams(window.location.search).get('url')
 
 backbutton.addEventListener('click', function (e) {
+  // there's likely a problem with reader view on this page, so don't auto-redirect to it in the future
+  readerDecision.setURLStatus(articleURL, false)
+
   window.location = articleURL
 })
 
@@ -103,6 +106,11 @@ function processArticle (data) {
     var article = new Readability(doc).parse()
     console.log(article)
     startReaderView(article)
+
+    if (article) {
+      // mark this page as readerable so that auto-redirect can happen faster on future visits
+      readerDecision.setURLStatus(articleURL, true)
+    }
 
     document.body.removeChild(parserframe)
 

@@ -2,6 +2,8 @@ var browserUI = require('browserUI.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 var urlParser = require('util/urlParser.js')
 
+var readerDecision = require('readerDecision.js')
+
 var readerView = {
   readerURL: urlParser.getFileURL(__dirname + '/reader/index.html'),
   getReaderURL: function (url) {
@@ -51,8 +53,8 @@ var readerView = {
       button.classList.remove('can-reader')
     }
   },
-  enter: function (tabId) {
-    browserUI.navigate(tabId, readerView.readerURL + '?url=' + encodeURIComponent(tabs.get(tabId).url))
+  enter: function (tabId, url) {
+    browserUI.navigate(tabId, readerView.readerURL + '?url=' + encodeURIComponent(url || tabs.get(tabId).url))
   },
   exit: function (tabId) {
     browserUI.navigate(tabId, decodeURIComponent(tabs.get(tabId).url.split('?url=')[1]))
@@ -128,8 +130,11 @@ registerCustomBang({
 // update the reader button on page load
 
 webviews.bindEvent('did-start-navigation', function (e, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
-  if (isMainFrame && !isInPlace) {
-    var tab = webviews.getTabFromContents(this)
+  var tab = webviews.getTabFromContents(this)
+  if (readerDecision.getURLStatus(url) === 1) {
+    // if this URL has previously been marked as readerable, load reader view without waiting for the page to load
+    readerView.enter(tab, url)
+  } else if (isMainFrame && !isInPlace) {
     tabs.update(tab, {
       readerable: false // assume the new page can't be readered, we'll get another message if it can
     })
@@ -139,6 +144,11 @@ webviews.bindEvent('did-start-navigation', function (e, url, isInPlace, isMainFr
 })
 
 webviews.bindIPC('canReader', function (webview, tab) {
+  if (readerDecision.getURLStatus(tabs.get(tab).url) >= 0) {
+    // if automatic reader mode has been enabled for this domain, and the page is readerable, enter reader mode
+    readerView.enter(tab)
+  }
+
   tabs.update(tab, {
     readerable: true
   })
