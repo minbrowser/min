@@ -191,8 +191,6 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     }
   })
 
-  registerFiltering() // register filtering for the default session
-
   return mainWindow
 }
 

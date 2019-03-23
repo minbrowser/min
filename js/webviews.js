@@ -157,10 +157,6 @@ window.webviews = {
     // since tab IDs are unique, we can use them as partition names
     if (tabs.get(tabId).private === true) {
       var partition = tabId.toString() // options.tabId is a number, which remote.session.fromPartition won't accept. It must be converted to a string first
-
-      // enable ad/tracker/contentType blocking in this tab if needed
-
-      registerFiltering(partition)
     }
 
     ipc.send('createView', {
