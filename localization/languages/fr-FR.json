@@ -58,8 +58,8 @@
         /* Focus mode */
         "isFocusMode": "Vous êtes en mode Focus.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "En mode focus, tous les onglets à l'exeption de celui actif sont cachés, et vous pouvez créer de nouveaux onglets.",
-        "focusModeExplanation2": "Vous pouvez quitter le mode focus en désactivantla fonction \"focus mode\" dans le menu vue.",
+        "focusModeExplanation1": "En mode focus, tous les onglets à l'exception de celui actif sont cachés, et vous pouvez créer de nouveaux onglets.",
+        "focusModeExplanation2": "Vous pouvez quitter le mode focus en désactivant la fonction \"focus mode\" dans le menu affichage.",
         /* relative dates */
         "timeRangeJustNow": "À l'instant",
         "timeRangeMinutes": "Il y a quelques minutes",
@@ -81,7 +81,7 @@
         "dnsErrorTitle": "Site non trouvé",
         "dnsErrorMessage": "Il y a eu un problème DNS avec ce site.",
         "offlineErrorTitle": "Vous êtes hors-ligne",
-        "offlineErrorMessage": "Reconnectez vous à internet et réessayez.",
+        "offlineErrorMessage": "Reconnectez-vous à internet et réessayez.",
         "genericConnectionFail": "Min ne peut pas se connecter à ce site internet.",
         "sslTimeErrorMessage": "Min ne peux pas établir une connexion sécurisée avec ce site. Merci de vérifier que votre horloge est bien réglée.",
         "addressInvalidTitle": "Cette adresse est invalide.",
@@ -104,29 +104,29 @@
         "settingsPreferencesHeading": "Préférences",
         "settingsRestartRequired": "Vous devez redémarrer pour appliquer les changements.",
         "settingsPrivacyHeading": "Contenu bloqué",
-        "settingsContentBlockingLevel0": null, //missing translation
-        "settingsContentBlockingLevel1": null, //missing translation
-        "settingsContentBlockingLevel2": null, //missing translation
-        "settingsContentBlockingExceptions": null, //missing translation
+        "settingsContentBlockingLevel0": "Autoriser toutes les publicités et traqueurs",
+        "settingsContentBlockingLevel1": "Bloquer les publicités et traqueurs tiers",
+        "settingsContentBlockingLevel2": "Bloquer toutes les publicités et traqueurs",
+        "settingsContentBlockingExceptions": "Les publicités resteront activées sur les sites suivants :",
         "settingsBlockScriptsToggle": "Scripts bloqués",
         "settingsBlockImagesToggle": "Images bloquées",
         "settingsEasyListCredit": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "Basé sur EasyList et EasyPrivacy, créé par <a target=\"_blank\" href=\"https://easylist.to/\">Les auteurs de Easylist</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">voir la license</a>)."
         },
         "settingsAppearanceHeading": "Apparence",
         "settingsDarkModeToggle": "Activer le mode nuit",
-        "settingsHistoryButtonToggle": "Activer le boutton navigation",
+        "settingsHistoryButtonToggle": "Activer le bouton navigation",
         "settingsAdditionalFeaturesHeading": "Fonctionnalités supplémentaires",
         "settingsSwipeNavigationToggle": "Activer le glissement pour changer de page.",
         "settingsUserscriptsToggle": "Activer les scripts personnalisés",
         "settingsUserscriptsExplanation": {"unsafeHTML": "Les scripts personnalisés vous permettent de modifier le comportement des pages web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">en savoir plus (en anglais)</a>."},
-        "settingsUpdateNotificationsToggle": null, //missing translation
+        "settingsUpdateNotificationsToggle": "Vérifier automatiquement pour des mises à jour",
         "settingsSearchEngineHeading": "Moteur de recherche",
         "settingsDefaultSearchEngine": "Choisir un moteur de recherche par défaut :",
         "settingsDDGExplanation": "Définir DuckDuckGo comme moteur de recherche par défaut pour voir instantanément des résulats dans la barre de recherche.",
         "customSearchEngineDescription": "Remplacer la recherche par %s",
         "settingsKeyboardShortcutsHeading": "Raccourcis clavier",
-        "settingsKeyboardShortcutsHelp": "Séparer les raccourcis clavier multiples par une virgule.",
+        "settingsKeyboardShortcutsHelp": "Séparer les raccourcis claviers multiples par une virgule.",
         /* app menu */
         "appMenuFile": "Fichier",
         "appMenuNewTab": "Nouvel onglet",
@@ -175,10 +175,10 @@
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "page <input type='text'/> sur <span id='total'></span>"},
         /* Download manager */
-        "downloadCancel": null, //missing translation
-        "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null, //missing translation
+        "downloadCancel": "Annuler", 
+        "downloadStateCompleted": "Complété", 
+        "downloadStateFailed": "Échoué", 
         /* Update Notifications */
-        "updateNotificationTitle": null //missing translation
+        "updateNotificationTitle": "Une nouvelle version de Min est disponible" 
     }
 }
