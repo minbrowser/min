@@ -1,4 +1,5 @@
-body {
+body, html {
+	height: auto;
 	overflow: auto;
 }
 
@@ -17,6 +18,7 @@ body.dark-mode {
 }
 
 .dark-mode #auto-redirect-banner {
+	color: #ddd;
 	border-color: #aaa;
 }
 
