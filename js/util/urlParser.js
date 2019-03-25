@@ -63,9 +63,12 @@ var urlParser = {
       return url
     }
   },
-  getDisplayURL: function (url) {
+  isInternalURL: function (url) {
+    return url.startsWith(urlParser.getFileURL(__dirname))
+  },
+  getSourceURL: function (url) {
     // converts internal URLs (like the PDF viewer or the reader view) to the URL of the page they are displaying
-    if (url.startsWith(urlParser.getFileURL(__dirname))) {
+    if (urlParser.isInternalURL(url)) {
       try {
         var realURL = new URLSearchParams(new URL(url).search).get('url')
         if (realURL) {

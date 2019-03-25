@@ -31,7 +31,9 @@ const places = {
     var tab = tabs.get(tabId),
       data = args[0]
 
-    var isInternalPage = tab.url.indexOf(__dirname) !== -1 && tab.url.indexOf(readerView.readerURL) === -1
+    /* if the page is an internal page, it normally shouldn't be saved,
+     unless the page represents another page (such as the PDF viewer or reader view) */
+    var isNonIndexableInternalPage = urlParser.isInternalURL(tab.url) && urlParser.getSourceURL(tab.url) === tab.url
     var isSearchPage = searchEngine.isSearchURL(tab.url)
 
     // full-text data from search results isn't useful
@@ -44,8 +46,8 @@ const places = {
       data.extractedText = urlParser.removeProtocol(tab.url).substr(0, 200) + ' ' + tab.title + ' ' + data.extractedText
     }
 
-    // don't save to history if in private mode, or the page is a browser page
-    if (tab.private === false && !isInternalPage) {
+    // don't save to history if in private mode, or the page is a browser page (unless it contains the content of a normal page)
+    if (tab.private === false && !isNonIndexableInternalPage) {
       places.updateHistory(tabId, data.extractedText, data.metadata)
     }
   },

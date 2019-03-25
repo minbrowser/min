@@ -45,7 +45,7 @@ window.tabBar = {
     var tabEl = tabBar.getTab(tabId)
     var webview = webviews.get(tabId)
 
-    var currentURL = urlParser.getDisplayURL(tabs.get(tabId).url)
+    var currentURL = urlParser.getSourceURL(tabs.get(tabId).url)
     if (currentURL === 'about:blank') {
       currentURL = ''
     }

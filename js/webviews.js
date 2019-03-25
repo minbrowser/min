@@ -301,17 +301,14 @@ window.webviews = {
     // probably either an error page (after  a redirect from the original page) or reader view
     var url = tabs.get(id).url
 
-    var isInternalURL = url.startsWith(urlParser.getFileURL(__dirname))
+    var isInternalURL = urlParser.isInternalURL(url)
     if (isInternalURL) {
-      var representedURL
-      try {
-        representedURL = new URL(url).searchParams.get('url')
-      } catch (e) {}
+      var representedURL = urlParser.getSourceURL(url)
       // TODO this uses internal Electron API's - figure out a way to do this with the public API
       var history = webviews.get(id).history.slice(0, webviews.get(id).currentIndex + 1)
     }
 
-    if (isInternalURL && representedURL && history.length > 2 && history[history.length - 2] === representedURL) {
+    if (isInternalURL && history.length > 2 && history[history.length - 2] === representedURL) {
       webviews.get(id).goToOffset(-2)
     } else {
       webviews.get(id).goBack()
