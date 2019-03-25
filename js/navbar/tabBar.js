@@ -319,3 +319,9 @@ webviews.bindEvent('did-stop-loading', function () {
   var tabId = webviews.getTabFromContents(this)
   progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'finish')
 })
+
+tasks.on('tab-updated', function (id, key) {
+  if (key === 'title' || key === 'secure' || key === 'url') {
+    tabBar.rerenderTab(id)
+  }
+})

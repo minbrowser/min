@@ -40,6 +40,7 @@ class TabList {
         throw new ReferenceError('Key ' + key + ' is undefined.')
       }
       this.tabs[index][key] = data[key]
+      this.parentTaskList.emit('tab-updated', id, key)
     }
   }
   destroy (id) {

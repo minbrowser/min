@@ -6,20 +6,29 @@ class TaskList {
     this.selected = null
     this.tasks = [] // each task is {id, name, tabs: [], tabHistory: TabStack}
     this.events = []
+    this.pendingCallbacks = []
+    this.pendingCallbackTimeout = null
   }
 
   on (name, fn) {
     this.events.push({name, fn})
   }
 
-  emit (name, data) {
-    setTimeout(() => {
-      this.events.forEach(function (listener) {
-        if (listener.name === name) {
-          listener.fn(data)
+  emit (name, ...data) {
+    this.events.forEach(listener => {
+      if (listener.name === name) {
+        this.pendingCallbacks.push([listener.fn, data])
+
+        // run multiple events in one timeout, since calls to setTimeout() appear to be slow (at least based on timeline data)
+        if (!this.pendingCallbackTimeout) {
+          this.pendingCallbackTimeout = setTimeout(() => {
+            this.pendingCallbacks.forEach(t => t[0].apply(this, t[1]))
+            this.pendingCallbacks = []
+            this.pendingCallbackTimeout = null
+          }, 0)
         }
-      })
-    }, 0)
+      }
+    })
   }
 
   add (task = {} , index) {

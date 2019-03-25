@@ -80,8 +80,6 @@ function onPageLoad (e) {
     }
 
     onPageURLChange(tab, url)
-
-    tabBar.rerenderTab(tab)
   })
 }
 
@@ -387,7 +385,6 @@ webviews.bindEvent('page-title-updated', function (e, title, explicitSet) {
   tabs.update(tab, {
     title: title
   })
-  tabBar.rerenderTab(tab)
 })
 
 webviews.bindEvent('did-fail-load', function (e, errorCode, errorDesc, validatedURL, isMainFrame) {
