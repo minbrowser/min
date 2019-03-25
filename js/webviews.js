@@ -244,7 +244,7 @@ window.webviews = {
       if (img) {
         placeholderImg.src = img
         placeholderImg.hidden = false
-      } else if (associatedTab && associatedTab.url && associatedTab.url !== 'about:blank') {
+      } else if (associatedTab && associatedTab.url) {
         captureCurrentTab({forceCapture: true})
       } else {
         placeholderImg.hidden = true

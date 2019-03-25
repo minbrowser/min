@@ -120,7 +120,7 @@ class TabList {
       return true
     }
 
-    if (this.tabs.length === 1 && (!this.tabs[0].url || this.tabs[0].url === 'about:blank')) {
+    if (this.tabs.length === 1 && !this.tabs[0].url) {
       return true
     }
 

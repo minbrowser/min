@@ -96,7 +96,7 @@ ipc.on('addTab', function (e, data) {
     }, newIndex)
 
     browserUI.addTab(newTab, {
-      enterEditMode: !data.url // only enter edit mode if the new tab is about:blank
+      enterEditMode: !data.url // only enter edit mode if the new tab is empty
     })
   }
 })

@@ -23,7 +23,7 @@ const bookmarkStar = {
   update: function (tabId, star) {
     const currentURL = tabs.get(tabId).url
 
-    if (!currentURL || currentURL === 'about:blank') { // no url, can't be bookmarked
+    if (!currentURL) { // no url, can't be bookmarked
       star.hidden = true
     } else {
       star.hidden = false

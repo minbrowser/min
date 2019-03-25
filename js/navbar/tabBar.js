@@ -46,9 +46,6 @@ window.tabBar = {
     var webview = webviews.get(tabId)
 
     var currentURL = urlParser.getSourceURL(tabs.get(tabId).url)
-    if (currentURL === 'about:blank') {
-      currentURL = ''
-    }
 
     document.body.classList.add('is-edit-mode')
     tabEl.classList.add('selected')
