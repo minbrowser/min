@@ -182,7 +182,7 @@ registerCustomBang({
         container.appendChild(searchbarUtils.createItem({
           title: result.title,
           icon: 'fa-star',
-          secondaryText: result.url,
+          secondaryText: urlParser.getSourceURL(result.url),
           url: result.url,
           delete: function () {
             places.deleteHistory(result.url)
@@ -228,7 +228,7 @@ registerCustomBang({
         }
         container.appendChild(searchbarUtils.createItem({
           title: result.title,
-          secondaryText: result.url,
+          secondaryText: urlParser.getSourceURL(result.url),
           url: result.url,
           delete: function () {
             places.deleteHistory(result.url)
