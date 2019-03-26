@@ -185,6 +185,16 @@ var webviewMenu = {
         }
       })
     ])
+    
+    /* view source (havent tested this! if not, add view-source: to beginning of url) */
+    menuSections.push([
+      new MenuItem({
+        label: l('viewSource'),
+        click: function () {
+          webviews.get(tabs.getSelected()).viewSource(data.x || 0, data.y || 0)
+        }
+      })
+    ])
 
     menuSections.forEach(function (section) {
       section.forEach(function (item) {
