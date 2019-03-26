@@ -117,7 +117,6 @@
         "settingsDarkModeToggle": "Увімкнути темний режим",
         "settingsHistoryButtonToggle": "Увімкнути кнопку \"Назад\"",
         "settingsAdditionalFeaturesHeading": "Додаткові можливості",
-        "settingsSwipeNavigationToggle": "Увімкнути прогортання для переміщення вперед і назад між сторінками.",
         "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
         "settingsUserscriptsExplanation": {"unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."},
         "settingsUpdateNotificationsToggle": "Автоматично перевіряти наявність оновлень",

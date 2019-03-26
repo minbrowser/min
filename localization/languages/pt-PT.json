@@ -117,7 +117,6 @@
         "settingsDarkModeToggle": "Ativar modo escuro",
         "settingsHistoryButtonToggle": "Ativar botão para recuar",
         "settingsAdditionalFeaturesHeading": "Outras funcionalidades",
-        "settingsSwipeNavigationToggle": "Ativar gestos para navegar entre as páginas visitadas.",
         "settingsUserscriptsToggle": "Ativar scripts de utilizador",
         "settingsUserscriptsExplanation": {"unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."},
         "settingsUpdateNotificationsToggle": null, //missing translation

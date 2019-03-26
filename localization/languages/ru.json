@@ -117,7 +117,6 @@
         "settingsDarkModeToggle": "Использовать тёмную тему",
         "settingsHistoryButtonToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": null, //missing translation
-        "settingsSwipeNavigationToggle": "Включить навигацию свайпом для перехода вперёд и назад по страницам.",
         "settingsUserscriptsToggle": null, //missing translation
         "settingsUserscriptsExplanation": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation

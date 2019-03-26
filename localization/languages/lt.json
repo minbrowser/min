@@ -117,7 +117,6 @@
         "settingsDarkModeToggle": "Įjungti tamsią veikseną",
         "settingsHistoryButtonToggle": "Įjungti grįžties mygtuką",
         "settingsAdditionalFeaturesHeading": "Papildomos ypatybės",
-        "settingsSwipeNavigationToggle": "Įjungti perbraukimus, skirtus naršyti tarp puslapių pirmyn ir atgal.",
         "settingsUserscriptsToggle": "Įjungti naudotojo scenarijus",
         "settingsUserscriptsExplanation": {"unsafeHTML": "Naudotojo scenarijai leidžia jums modifikuoti internetinių svetainių elgseną - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">sužinokite daugiau</a>."},
         "settingsUpdateNotificationsToggle": "Automatiškai tikrinti ar yra atnaujinimų",

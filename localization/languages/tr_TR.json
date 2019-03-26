@@ -117,7 +117,6 @@
         "settingsDarkModeToggle": "Koyu modu etkinleştir",
         "settingsHistoryButtonToggle": "Geri al düğmesini etkinleştir",
         "settingsAdditionalFeaturesHeading": null, //missing translation
-        "settingsSwipeNavigationToggle": "Sayfalar arasında ileri ve geri gitmek için kaydırmayı etkinleştirin.",
         "settingsUserscriptsToggle": null, //missing translation
         "settingsUserscriptsExplanation": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation

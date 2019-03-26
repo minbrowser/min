@@ -117,7 +117,6 @@
       "settingsDarkModeToggle":"অন্ধকার মোড সক্রিয় করুন",
       "settingsHistoryButtonToggle":"ফিরে বোতাম সক্ষম করুন",
       "settingsAdditionalFeaturesHeading":"অতিরিক্ত বৈশিষ্ট্য",
-      "settingsSwipeNavigationToggle":"পৃষ্ঠার মধ্যে পিছনে এবং পিছনে নেভিগেট করার জন্য সোয়াইপ সক্ষম করুন",
       "settingsUserscriptsToggle":"ব্যবহারকারী স্ক্রিপ্ট সক্রিয় করুন",
       "settingsUserscriptsExplanation": {"unsafeHTML": "ব্যবহারকারীর স্ক্রিপ্ট আপনাকে ওয়েবসাইটের আচরণ পরিবর্তন করার অনুমতি দেয় - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\"> আরও শিখুন </a>"},
       "settingsUpdateNotificationsToggle": null, //missing translation

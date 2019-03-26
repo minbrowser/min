@@ -114,7 +114,6 @@
         "settingsDarkModeToggle": "Použít tmavý režim",
         "settingsHistoryButtonToggle": "Zobrazit tlačítko zpět",
         "settingsAdditionalFeaturesHeading": null, //missing translation
-        "settingsSwipeNavigationToggle": "Povolit touchpad swipe gesto pro navigaci zpět a vpřed mezi stránkami.",
         "settingsUserscriptsToggle": null, //missing translation
         "settingsUserscriptsExplanation": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation

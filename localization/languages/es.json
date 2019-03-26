@@ -117,7 +117,6 @@
         "settingsDarkModeToggle": "Habilitar modo oscuro",
         "settingsHistoryButtonToggle": "Habilitar botón Atrás",
         "settingsAdditionalFeaturesHeading": null, //missing translation
-        "settingsSwipeNavigationToggle": "Habilitar gestos para navegar hacia atrás y adelante entre las páginas.",
         "settingsUserscriptsToggle": null, //missing translation
         "settingsUserscriptsExplanation": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation

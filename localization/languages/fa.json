@@ -117,7 +117,6 @@
         "settingsDarkModeToggle": "فعال کردن حالت تاریک",
         "settingsHistoryButtonToggle": "فعال کردن دکمه بازگشت",
         "settingsAdditionalFeaturesHeading": "امکانات اضافه",
-        "settingsSwipeNavigationToggle": "فعال سازی قابلیت کشیدن برای مرور به عقب و جلو بین صفحات.",
         "settingsUserscriptsToggle": "فعال کردن اسکریپت های کاربر",
         "settingsUserscriptsExplanation": {"unsafeHTML": "اسکریپت های کاربر این اجازه را به شما می دهند تا رفتار سایت ها را تغییر دهید - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اطلاعات بیشتر</a>."},
         "settingsUpdateNotificationsToggle": null, //missing translation

@@ -117,7 +117,6 @@
         "settingsDarkModeToggle": "Abilita dark mode",
         "settingsHistoryButtonToggle": "Abilita pulsante Indietro",
         "settingsAdditionalFeaturesHeading": "Funzionalità aggiuntive",
-        "settingsSwipeNavigationToggle": "Abilita swipe per andare avanti ed indietro tra le pagine.",
         "settingsUserscriptsToggle": "Abilita script definiti dall'utente",
         "settingsUserscriptsExplanation": {"unsafeHTML": "Gli script definiti dall'utente ti permettono di modificare il comportamento dei siti - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">scopri di più</a>."},
         "settingsUpdateNotificationsToggle": null, //missing translation

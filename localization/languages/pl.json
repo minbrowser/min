@@ -116,7 +116,6 @@
         "settingsAppearanceHeading": "Wygląd",
         "settingsDarkModeToggle": "Włącz tryb ciemny",
         "settingsHistoryButtonToggle": "Włącz przycisk Wstecz",
-        "settingsSwipeNavigationToggle": "Włącz przewijanie, aby nawigować między stronami.",
         "settingsAdditionalFeaturesHeading": "Dodatkowe funkcje",
         "settingsUserscriptsToggle": "Włącz skrypty użytkownika",
         "settingsUserscriptsExplanation": {"unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},

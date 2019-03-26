@@ -117,7 +117,6 @@
         "settingsDarkModeToggle": "Dark-Mode einschalten",
         "settingsHistoryButtonToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": null, //missing translation
-        "settingsSwipeNavigationToggle": "Wischgesten zur Navigation zwischen Webseiten einschalten.",
         "settingsUserscriptsToggle": null, //missing translation
         "settingsUserscriptsExplanation": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation

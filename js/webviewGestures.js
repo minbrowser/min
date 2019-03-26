@@ -81,11 +81,7 @@ function onSwipeGestureLowVelocity () {
   if (horizontalMouseMove - beginningScrollRight > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
     if (beginningScrollRight < 10) {
       resetCounters()
-      settings.get('swipeNavigationEnabled', function (value) {
-        if (value === true || value === undefined) {
-          webviews.get(tabs.getSelected()).goForward()
-        }
-      })
+      webviews.get(tabs.getSelected()).goForward()
     }
   }
 
@@ -93,11 +89,7 @@ function onSwipeGestureLowVelocity () {
   if (horizontalMouseMove + beginningScrollLeft < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
     if (beginningScrollLeft < 10) {
       resetCounters()
-      settings.get('swipeNavigationEnabled', function (value) {
-        if (value === true || value === undefined) {
-          webviews.goBackIgnoringRedirects(tabs.getSelected())
-        }
-      })
+      webviews.goBackIgnoringRedirects(tabs.getSelected())
     }
   }
 }
