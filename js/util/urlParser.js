@@ -22,9 +22,11 @@ var urlParser = {
     }
   },
   isURLMissingProtocol: function (url) {
+    // assume anything with no spaces and a . is a URL
     if (url.indexOf(' ') === -1 && url.indexOf('.') > 0) {
       return true
     }
+    // a host from the hosts file is also a URL
     var hostPart = url.replace(/(:|\/).+/, '')
     return hosts.indexOf(hostPart) > -1
   },
@@ -34,15 +36,28 @@ var urlParser = {
     if (!url) {
       return 'about:blank'
     }
-    // if the url starts with a (supported) protocol, do nothing
-    if (urlParser.isURL(url)) {
-      return url
-    }
 
     if (url.indexOf('view-source:') === 0) {
       var realURL = url.replace('view-source:', '')
 
       return 'view-source:' + urlParser.parse(realURL)
+    }
+
+    // if the URL is an internal URL, convert it to the correct file:// url
+    if (url.startsWith('min:')) {
+      try {
+        var urlObj = new URL(url)
+        var path = urlObj.pathname.replace('//', '')
+        if (/^[a-zA-Z]+$/.test(path)) {
+          // only paths with letters are allowed
+          return urlParser.getFileURL(__dirname + '/pages/' + path + '/index.html' + urlObj.search)
+        }
+      } catch (e) {}
+    }
+
+    // if the url starts with a (supported) protocol, do nothing
+    if (urlParser.isURL(url)) {
+      return url
     }
 
     // if the url doesn't have a space and has a ., or is a host from hosts file, assume it is a url without a protocol
@@ -69,12 +84,21 @@ var urlParser = {
   getSourceURL: function (url) {
     // converts internal URLs (like the PDF viewer or the reader view) to the URL of the page they are displaying
     if (urlParser.isInternalURL(url)) {
+      var representedURL
       try {
-        var realURL = new URLSearchParams(new URL(url).search).get('url')
-        if (realURL) {
-          return realURL
-        }
+        representedURL = new URLSearchParams(new URL(url).search).get('url')
       } catch(e) {}
+      if (representedURL) {
+        return representedURL
+      } else {
+        try {
+          var pageName = url.match(/\/pages\/([a-zA-Z]+)\//)
+          var urlObj = new URL(url)
+          if (pageName) {
+            return 'min://' + pageName[1] + urlObj.search
+          }
+        } catch (e) {}
+      }
     }
     return url
   },
