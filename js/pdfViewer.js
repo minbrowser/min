@@ -54,25 +54,3 @@ var PDFViewer = {
 }
 
 ipc.on('openPDF', PDFViewer.handlePDFOpenEvent)
-
-/*
-migrate legacy bookmarked PDFs to the new viewer URL
-TODO remove this in a future version
-*/
-
-var legacyPDFViewerURL = 'file://' + __dirname + '/pdfjs/web/viewer.html?url='
-
-db.transaction('rw', db.places, function () {
-  db.places.where('url').startsWith(legacyPDFViewerURL).each(function (item) {
-    var oldItemURL = item.url
-
-    var pdfBaseURL = oldItemURL.replace(legacyPDFViewerURL, '')
-    var newViewerURL = PDFViewer.url.base + PDFViewer.url.queryString.replace('%l', encodeURIComponent(pdfBaseURL))
-
-    item.url = newViewerURL
-
-    db.places.put(item).then(function () {
-      db.places.where('url').equals(oldItemURL).delete()
-    })
-  })
-})

@@ -20,6 +20,11 @@ var webviewMenu = {
 
     var link = data.linkURL || data.frameURL
 
+    if (link === 'about:srcdoc') {
+      /* srcdoc is used in reader view, but it can't actually be opened anywhere outside of the reader page */
+      link = null
+    }
+
     var image = data.srcURL
 
     if (link) {
@@ -155,7 +160,7 @@ var webviewMenu = {
         label: l('goBack'),
         click: function () {
           try {
-            webviews.get(tabs.getSelected()).goBack()
+            webviews.goBackIgnoringRedirects(tabs.getSelected())
           } catch (e) {}
         }
       }),

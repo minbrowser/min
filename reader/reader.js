@@ -1,14 +1,41 @@
 var backbutton = document.getElementById('backtoarticle')
+var articleURL = new URLSearchParams(window.location.search).get('url')
+
+backbutton.addEventListener('click', function (e) {
+  // there's likely a problem with reader view on this page, so don't auto-redirect to it in the future
+  readerDecision.setURLStatus(articleURL, false)
+
+  window.location = articleURL
+})
+
+var autoRedirectBanner = document.getElementById('auto-redirect-banner')
+var autoRedirectYes = document.getElementById('auto-redirect-yes')
+var autoRedirectNo = document.getElementById('auto-redirect-no')
+
+  if (readerDecision.getDomainStatus(articleURL) === undefined && readerDecision.getSameDomainStatuses(articleURL).length > 0) {
+    autoRedirectBanner.hidden = false
+  }
+
+autoRedirectYes.addEventListener('click', function () {
+  readerDecision.setDomainStatus(articleURL, true)
+  autoRedirectBanner.hidden = true
+})
+autoRedirectNo.addEventListener('click', function () {
+  readerDecision.setDomainStatus(articleURL, false)
+  autoRedirectBanner.hidden = false
+})
 
 function startReaderView (article) {
-  document.body.removeChild(parserframe)
-
-  var readerContent = "<link rel='stylesheet' href='readerView.css'>"
+  var readerContent = "<link rel='stylesheet' href='readerContent.css'>"
 
   if (!article) { // we couln't parse an article
     readerContent += "<div class='reader-main'><em>No article found.</em></div>"
   } else {
-    document.title = article.title
+    if (article.title) {
+      document.title = article.title
+    } else {
+      document.title = 'Reader View | ' + articleURL
+    }
 
     readerContent += "<div class='reader-main'>" + "<h1 class='article-title'>" + (article.title || '') + '</h1>'
 
@@ -24,6 +51,10 @@ function startReaderView (article) {
   rframe.sandbox = 'allow-same-origin allow-popups allow-modals'
   rframe.srcdoc = readerContent
 
+  // set an initial height equal to the available space in the window
+  rframe.height = window.innerHeight - 68
+
+  // resize the frame once the page has loaded and the content height can be determined
   rframe.onload = function () {
     if (window.isDarkMode) {
       rframe.contentDocument.body.classList.add('dark-mode')
@@ -40,38 +71,32 @@ function startReaderView (article) {
   // save the scroll position at intervals
 
   setInterval(function () {
-    updateExtraData(url, {
+    updateExtraData(articleURL, {
       scrollPosition: window.pageYOffset,
       articleScrollLength: rframe.contentDocument.body.scrollHeight
     })
   }, 10000)
 
   document.body.appendChild(rframe)
-
-  backbutton.addEventListener('click', function (e) {
-    window.location = url
-  })
 }
 
-// iframe hack to securely parse the document
-
-var url = new URLSearchParams(window.location.search).get('url')
-
-document.title = 'Reader View | ' + url
-
-var parserframe = document.createElement('iframe')
-parserframe.className = 'temporary-iframe'
-parserframe.sandbox = 'allow-same-origin'
-document.body.appendChild(parserframe)
-
 function processArticle (data) {
-  window.d = data
-  parserframe.srcdoc = d
+  var parserframe = document.createElement('iframe')
+  parserframe.className = 'temporary-frame'
+  parserframe.sandbox = 'allow-same-origin'
+  document.body.appendChild(parserframe)
+
+  parserframe.srcdoc = data
 
   parserframe.onload = function () {
+    // allow readability to parse relative links correctly
+    var b = document.createElement('base')
+    b.href = articleURL
+    parserframe.contentDocument.head.appendChild(b)
+
     var doc = parserframe.contentDocument
 
-    var location = new URL(url)
+    var location = new URL(articleURL)
 
     // in order for links to work correctly, they all need to open in a new tab
 
@@ -95,26 +120,27 @@ function processArticle (data) {
       }
     }
 
-    var uri = {
-      spec: location.href,
-      host: location.host,
-      prePath: location.protocol + '//' + location.host,
-      scheme: location.protocol.substr(0, location.protocol.indexOf(':')),
-      pathBase: location.protocol + '//' + location.host + location.pathname.substr(0, location.pathname.lastIndexOf('/') + 1)
-    }
-    var article = new Readability(uri, doc).parse()
+    var article = new Readability(doc).parse()
     console.log(article)
     startReaderView(article)
 
-    saveArticle(url, data, article, {
+    if (article) {
+      // mark this page as readerable so that auto-redirect can happen faster on future visits
+      readerDecision.setURLStatus(articleURL, true)
+    }
+
+    document.body.removeChild(parserframe)
+
+    saveArticle(articleURL, article, {
       scrollPosition: 0,
       articleScrollLength: null
     })
   }
 }
 
-fetch(url, {
-  credentials: 'include'
+fetch(articleURL, {
+  credentials: 'include',
+  cache: 'force-cache'
 })
   .then(function (response) {
     return response.text()
@@ -123,7 +149,7 @@ fetch(url, {
   .catch(function (data) {
     console.warn('request failed with error', data)
 
-    getArticle(url, function (item) {
+    getArticle(articleURL, function (item) {
       if (item) {
         console.log('offline article found, displaying')
         startReaderView(item.article)

@@ -114,9 +114,9 @@
         "settingsDarkModeToggle": "Použít tmavý režim",
         "settingsHistoryButtonToggle": "Zobrazit tlačítko zpět",
         "settingsAdditionalFeaturesHeading": null, //missing translation
-        "settingsSwipeNavigationToggle": "Povolit touchpad swipe gesto pro navigaci zpět a vpřed mezi stránkami.",
         "settingsUserscriptsToggle": null, //missing translation
         "settingsUserscriptsExplanation": null, //missing translation
+        "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Vyhledávač",
         "settingsDefaultSearchEngine": "Zvolte si výchozí vyhledávač:",
         "settingsDDGExplanation": "Nastavte DuckDuckGo jako výchozí vyhledávač pro zobrazování okamžitých odpovědí ve vyhledávacím panelu.",
@@ -173,6 +173,8 @@
         /* Download manager */
         "downloadCancel": null, //missing translation
         "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null //missing translation
+        "downloadStateFailed": null, //missing translation
+        /* Update Notifications */
+        "updateNotificationTitle": null //missing translation
     }
 }

@@ -120,19 +120,15 @@ function setFilteringSettings (settings) {
 }
 
 function registerFiltering (ses) {
-  if (ses) {
-    ses = session.fromPartition(ses)
-  } else {
-    ses = session.defaultSession
-  }
-
   ses.webRequest.onBeforeRequest(handleRequest)
 }
 
-ipc.on('setFilteringSettings', function (e, settings) {
-  setFilteringSettings(settings)
+app.once('ready', function () {
+  registerFiltering(session.defaultSession)
 })
 
-ipc.on('registerFiltering', function (e, ses) {
-  registerFiltering(ses)
+app.on('session-created', registerFiltering)
+
+ipc.on('setFilteringSettings', function (e, settings) {
+  setFilteringSettings(settings)
 })

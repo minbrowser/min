@@ -4,8 +4,6 @@ var elementTypes = ['script', 'image', 'stylesheet', 'object', 'xmlhttprequest',
 
 var separatorCharacters = ':?/=^'
 
-var noSpecialCharactersRegex = /[a-zA-Z0-9]+/
-
 /**
  * Finds the first separator character in the input string
  */
@@ -431,15 +429,15 @@ function parse (input, parserData, callback) {
             object.hostAnchored[ending] = [parsedFilterData]
           }
         } else if (parsedFilterData.wildcardMatchParts) {
-          var wildcardToken = noSpecialCharactersRegex.exec(parsedFilterData.wildcardMatchParts[0])
-          if (!wildcardToken || wildcardToken[0].length < 3) {
-            var wildcardToken2 = noSpecialCharactersRegex.exec(parsedFilterData.wildcardMatchParts[1])
-            if (wildcardToken2 && (!wildcardToken || wildcardToken2[0].length > wildcardToken[0].length)) {
+          var wildcardToken = parsedFilterData.wildcardMatchParts[0].split('^')[0].substring(0, 10)
+          if (wildcardToken.length < 4) {
+            var wildcardToken2 = parsedFilterData.wildcardMatchParts[1].split('^')[0].substring(0, 10)
+            if (wildcardToken2 && wildcardToken2.length > wildcardToken.length) {
               wildcardToken = wildcardToken2
             }
           }
           if (wildcardToken) {
-            object.wildcard.add(wildcardToken[0], parsedFilterData)
+            object.wildcard.add(wildcardToken, parsedFilterData)
           } else {
             object.wildcard.add('', parsedFilterData)
           }

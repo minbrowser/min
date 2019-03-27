@@ -160,8 +160,10 @@ const tabColor = {
 
     // theme changes can affect the tab colors
     window.addEventListener('themechange', function (e) {
-      tabColor.refresh()
+      tabColor.updateColors()
     })
+
+    tasks.on('tab-selected', this.updateColors)
   },
   updateFromImage: function (favicons, tabId) {
     // private tabs always use a special color, we don't need to get the icon
@@ -183,7 +185,7 @@ const tabColor = {
         })
 
         if (tabId === tabs.getSelected()) {
-          tabColor.refresh()
+          tabColor.updateColors()
         }
       }
       colorExtractorImage.src = favicons[0]
@@ -191,7 +193,7 @@ const tabColor = {
       timeout: 1000
     })
   },
-  refresh: function () {
+  updateColors: function () {
     const tab = tabs.get(tabs.getSelected())
 
     // private tabs have their own color scheme

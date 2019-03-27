@@ -4,12 +4,20 @@
 <head>
 	<link id="page-icon" rel="icon"/>
 	<script src="../ext/readability-master/Readability.js"></script>
-	<link rel="stylesheet" href="readerView.css" />
+	<link rel="stylesheet" href="../css/base.css"/>
+	<link rel="stylesheet" href="readerUI.css" />
 	<link rel="stylesheet" href="../ext/font-awesome-4.4.0/css/font-awesome.min.css" />
 </head>
 
 <body>
 
+	<div id="auto-redirect-banner" hidden>
+		Always open articles from this site in reader view?
+		<span id="auto-redirect-button-area">
+			<button id="auto-redirect-yes">Yes</button>
+			<button id="auto-redirect-no">No</button>
+		</span>
+	</div>
 	<div id="backtoarticle"><i class="fa fa-angle-left"></i>Back to Article </div>
 	<!-- DOM inserted in reader.js -->
 
@@ -18,6 +26,7 @@
 	<script src="../js/util/settings.js"></script>
 	<script src="../js/util/theme.js"></script>
 	<script src="readerViewDB.js"></script>
+	<script src="../js/readerDecision.js"></script>
 	<script src="reader.js"></script>
 </body>
 

@@ -194,14 +194,9 @@ function getPageData () {
 }
 
 // send the data when the page loads
-// TODO find out why using window.onload breaks the preload script
 
-function checkDoc () {
-  if (document.readyState === 'complete') {
+window.addEventListener('load', function (e) {
+  setTimeout(function () {
     ipc.send('pageData', getPageData())
-  } else {
-    setTimeout(checkDoc, 500)
-  }
-}
-
-setTimeout(checkDoc, 500)
+  }, 500)
+})

@@ -58,17 +58,21 @@ function run (text, input, event) {
   resultCounts = {}
 
   for (var i = 0; i < searchbarPlugins.length; i++) {
-    if ( (!searchbarPlugins[i].trigger || searchbarPlugins[i].trigger(text))) {
-      searchbarPlugins[i].showResults(text, input, event, searchbarPlugins[i].container)
-    } else {
-      empty(searchbarPlugins[i].container)
+    try {
+      if ( (!searchbarPlugins[i].trigger || searchbarPlugins[i].trigger(text))) {
+        searchbarPlugins[i].showResults(text, input, event, searchbarPlugins[i].container)
+      } else {
+        empty(searchbarPlugins[i].container)
 
-      // if the plugin is not triggered, remove a previously created top answer
-      var associatedTopAnswer = getTopAnswer(searchbarPlugins[i].name)
+        // if the plugin is not triggered, remove a previously created top answer
+        var associatedTopAnswer = getTopAnswer(searchbarPlugins[i].name)
 
-      if (associatedTopAnswer) {
-        associatedTopAnswer.remove()
+        if (associatedTopAnswer) {
+          associatedTopAnswer.remove()
+        }
       }
+    } catch(e) {
+      console.error('error in searchbar plugin "' + searchbarPlugins[i].name + '":', e)
     }
   }
 }

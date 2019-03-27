@@ -1,15 +1,22 @@
 /* detects terms in the webpage to show as search suggestions */
 
-function isScrolledIntoView (el) { // http://stackoverflow.com/a/22480938/4603285
-  var elemTop = el.getBoundingClientRect().top
-  var elemBottom = el.getBoundingClientRect().bottom
+function isScrolledIntoView (el, doc, win) {
+  var rect = el.getBoundingClientRect()
+  var x = rect.x, y = rect.y
 
-  var isVisible = elemTop < window.innerHeight && elemBottom >= 0
+  if (win.frameElement) {
+    // this item is inside an iframe, adjust the coordinates to account for the coordinates of the frame
+    var frameRect = win.frameElement.getBoundingClientRect()
+    x += frameRect.x, y += frameRect.y
+  }
+
+  var isVisible = y > 0 && y < window.innerHeight && x > 0 && x < window.innerWidth
+
   return isVisible
 }
 
 ipc.on('getKeywordsData', function (e) {
-  function extractPageText (doc) {
+  function extractPageText (doc, win) {
     var ignore = ['LINK', 'STYLE', 'SCRIPT', 'NOSCRIPT', 'svg', 'symbol', 'title', 'path', 'style']
     var text = ''
     var pageElements = doc.querySelectorAll('p, h2, h3, h4, li, [name=author], [itemprop=name], .article-author')
@@ -18,7 +25,7 @@ ipc.on('getKeywordsData', function (e) {
     for (var i = 0; i < pageElements.length; i++) {
       var el = pageElements[i]
 
-      if ((!isScrolledIntoView(pageElements[i]) && doc === document) || (pageElements[i].tagName === 'META' && scrollY > 500) || pageElements[i].textContent.length < 100 || pageElements[i].querySelector('time, span, div, menu')) {
+      if (!isScrolledIntoView(pageElements[i], doc, win) || (pageElements[i].tagName === 'META' && scrollY > 500) || pageElements[i].textContent.length < 100 || pageElements[i].querySelector('time, span, div, menu')) {
         continue
       }
 
@@ -42,26 +49,29 @@ ipc.on('getKeywordsData', function (e) {
     /* attempt to identify strings of capitalized words in the text */
     /* TODO add support for languages other than English */
 
-    var words = text.split(/\s+/g)
+    var words = text
+      .replace(/[\u201C\u201D]/g, '"') // convert curly quotes to straight quotes
+      .split(/\s+/g)
+
     // discard empty words
     words = words.filter(function (word) {
       return !!word
     })
 
     var keywords = []
-    var ignoreWords = ['a', 'an', 'the', 'on', 'of', 'or', 'i']
-    var sentenceEndingCharacters = ['.', '?', '!']
+    var ignoreWords = ['a', 'an', 'the', 'on', 'of', 'or', 'i', 'for']
+    var sentenceEndingCharacters = ['.', '."', '?', '?"', '!', '!"']
     var phraseEndingCharcters = [',', ':', ';', '.']
     var thisKeyword = []
     for (var i = 0; i < words.length; i++) {
       // skip the first word after a sentence
-      if (words[i - 1] && words[i - 1].length > 2 && sentenceEndingCharacters.includes(words[i - 1][words[i - 1].length - 1])) {
+      if (words[i - 1] && words[i - 1].length > 2 && sentenceEndingCharacters.find(char => words[i - 1].endsWith(char))) {
         thisKeyword = []
         continue
       }
 
-      // if this word is capitalized, it should be part of the keyword
-      if (words[i][0].toUpperCase() === words[i][0] && /[A-Z]/g.test(words[i][0])) {
+      // if this word is capitalized (but not all upper-case), it should be part of the keyword
+      if (words[i][0].toUpperCase() === words[i][0] && /[A-Z]/g.test(words[i][0]) && words[i] !== words[i].toUpperCase()) {
         thisKeyword.push(words[i])
 
         // if this word ends with a phrase-ending character, we should jump to saving or discarding
@@ -104,14 +114,14 @@ ipc.on('getKeywordsData', function (e) {
     return
   }
 
-  var text = extractPageText(document)
+  var text = extractPageText(document, window)
 
   var frames = document.querySelectorAll('iframe')
 
   if (frames) {
     for (var i = 0; i < frames.length; i++) {
       try { // reading contentDocument will throw an error if the frame is not same-origin
-        text += ' ' + extractPageText(frames[i].contentDocument)
+        text += ' ' + extractPageText(frames[i].contentDocument, frames[i].contentWindow)
       } catch (e) {}
     }
   }

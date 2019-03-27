@@ -96,7 +96,7 @@ ipc.on('addTab', function (e, data) {
     }, newIndex)
 
     browserUI.addTab(newTab, {
-      enterEditMode: !data.url // only enter edit mode if the new tab is about:blank
+      enterEditMode: !data.url // only enter edit mode if the new tab is empty
     })
   }
 })
@@ -122,7 +122,7 @@ ipc.on('saveCurrentPage', function () {
     if (!savePath.endsWith('.html')) {
       savePath = savePath + '.html'
     }
-    webviews.get(currentTab.id).getWebContents().savePage(savePath, 'HTMLComplete', function () {})
+    webviews.get(currentTab.id).savePage(savePath, 'HTMLComplete', function () {})
   }
 })
 
@@ -133,8 +133,8 @@ function addPrivateTab () {
     return
   }
 
-  if (tabs.isEmpty()) {
-    browserUI.destroyTab(tabs.getAtIndex(0).id)
+  if (!tabs.get(tabs.getSelected()).url && !tabs.get(tabs.getSelected()).private) {
+    browserUI.destroyTab(tabs.getSelected())
   }
 
   var newIndex = tabs.getIndex(tabs.getSelected()) + 1
@@ -414,9 +414,9 @@ settings.get('keyMap', function (keyMapSettings) {
     if (time - lastReload < 500) {
       ipc.send('destroyAllViews')
       remote.getCurrentWindow().webContents.reload()
-    } else if (webviews.get(tabs.getSelected()).getURL().startsWith('file://')) {
-      // the webview.reload() method can't be used because if the webview is displaying an error page, we want to reload the original page rather than show the error page again
-      browserUI.navigate(tabs.getSelected(), tabs.get(tabs.getSelected()).url)
+    } else if (webviews.get(tabs.getSelected()).getURL().startsWith(webviews.internalPages.error)) {
+      //reload the original page rather than show the error page again
+      browserUI.navigate(tabs.getSelected(), new URL(webviews.get(tabs.getSelected()).getURL()).searchParams.get("url"))
     } else {
       // this can't be an error page, use the normal reload method
       webviews.callAsync(tabs.getSelected(), 'reload')

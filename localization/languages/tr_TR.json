@@ -117,9 +117,9 @@
         "settingsDarkModeToggle": "Koyu modu etkinleştir",
         "settingsHistoryButtonToggle": "Geri al düğmesini etkinleştir",
         "settingsAdditionalFeaturesHeading": null, //missing translation
-        "settingsSwipeNavigationToggle": "Sayfalar arasında ileri ve geri gitmek için kaydırmayı etkinleştirin.",
         "settingsUserscriptsToggle": null, //missing translation
         "settingsUserscriptsExplanation": null, //missing translation
+        "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Arama Motoru",
         "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçi:",
         "settingsDDGExplanation": "Arama çubuğundaki anlık yanıtları görmek için DuckDuckGo’yu varsayılan arama motoru olarak ayarlayın.",
@@ -176,6 +176,8 @@
         /* Download manager */
         "downloadCancel": null, //missing translation
         "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null //missing translation
+        "downloadStateFailed": null, //missing translation
+        /* Update Notifications */
+        "updateNotificationTitle": null //missing translation
     }
 }

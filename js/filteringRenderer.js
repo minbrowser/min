@@ -13,7 +13,3 @@ settings.get('filtering', function (value) {
   }
   ipc.send('setFilteringSettings', value)
 })
-
-function registerFiltering (ses) {
-  ipc.send('registerFiltering', ses)
-}

@@ -8,7 +8,7 @@ function showPlaceSuggestions (text, input, event, container) {
   // use the current tab's url for history suggestions, or the previous tab if the current tab is empty
   var url = tabs.get(tabs.getSelected()).url
 
-  if (!url || url === 'about:blank') {
+  if (!url) {
     var previousTab = tabs.getAtIndex(tabs.getIndex(tabs.getSelected()) - 1)
     if (previousTab) {
       url = previousTab.url

@@ -1,22 +1,42 @@
-const tabPrototype = require('tabState/tab.js')
+const TabList = require('tabState/tab.js')
 const TabStack = require('tabRestore.js')
 
 class TaskList {
   constructor () {
     this.selected = null
     this.tasks = [] // each task is {id, name, tabs: [], tabHistory: TabStack}
+    this.events = []
+    this.pendingCallbacks = []
+    this.pendingCallbackTimeout = null
+  }
+
+  on (name, fn) {
+    this.events.push({name, fn})
+  }
+
+  emit (name, ...data) {
+    this.events.forEach(listener => {
+      if (listener.name === name) {
+        this.pendingCallbacks.push([listener.fn, data])
+
+        // run multiple events in one timeout, since calls to setTimeout() appear to be slow (at least based on timeline data)
+        if (!this.pendingCallbackTimeout) {
+          this.pendingCallbackTimeout = setTimeout(() => {
+            this.pendingCallbacks.forEach(t => t[0].apply(this, t[1]))
+            this.pendingCallbacks = []
+            this.pendingCallbackTimeout = null
+          }, 0)
+        }
+      }
+    })
   }
 
   add (task = {} , index) {
     const newTask = {
       name: task.name || null,
-      tabs: task.tabs || [],
+      tabs: new TabList(task.tabs, this),
       tabHistory: new TabStack(task.tabHistory),
       id: task.id || String(TaskList.getRandomId())
-    }
-
-    for (var key in tabPrototype) {
-      newTask.tabs[key] = tabPrototype[key]
     }
 
     if (index) {
@@ -25,12 +45,14 @@ class TaskList {
       this.tasks.push(newTask)
     }
 
+    this.emit('task-added', newTask.id)
+
     return newTask.id
   }
 
   getStringifyableState () {
     return {
-      tasks: this.tasks,
+      tasks: this.tasks.map(task => Object.assign({}, task, {tabs: task.tabs.getStringifyableState()})),
       selectedTask: this.selected
     }
   }
@@ -58,10 +80,17 @@ class TaskList {
   setSelected (id) {
     this.selected = id
     window.tabs = this.get(id).tabs
+    this.emit('task-selected', id)
+    this.emit('tab-selected', tabs.getSelected())
   }
 
   destroy (id) {
     const index = this.getIndex(id)
+
+    // emit the tab-destroyed event for all tabs in this task
+    this.get(id).tabs.forEach(tab => this.emit('tab-destroyed', tab.id))
+
+    this.emit('task-destroyed', id)
 
     if (index < 0) return false
 
@@ -83,9 +112,9 @@ class TaskList {
     var tabs = this.get(id).tabs
     var lastActivity = 0
 
-    for (var i = 0; i < tabs.length; i++) {
-      if (tabs[i].lastActivity > lastActivity) {
-        lastActivity = tabs[i].lastActivity
+    for (var i = 0; i < tabs.count(); i++) {
+      if (tabs.getAtIndex(i).lastActivity > lastActivity) {
+        lastActivity = tabs.getAtIndex(i).lastActivity
       }
     }
 

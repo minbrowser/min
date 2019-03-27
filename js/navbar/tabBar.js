@@ -45,10 +45,7 @@ window.tabBar = {
     var tabEl = tabBar.getTab(tabId)
     var webview = webviews.get(tabId)
 
-    var currentURL = urlParser.getDisplayURL(tabs.get(tabId).url)
-    if (currentURL === 'about:blank') {
-      currentURL = ''
-    }
+    var currentURL = urlParser.getSourceURL(tabs.get(tabId).url)
 
     document.body.classList.add('is-edit-mode')
     tabEl.classList.add('selected')
@@ -114,10 +111,10 @@ window.tabBar = {
   rerenderAll: function () {
     empty(tabBar.container)
     tabBar.tabElementMap = {}
-    for (var i = 0; i < tabs.length; i++) {
-      var el = tabBar.createElement(tabs[i])
+    for (var i = 0; i < tabs.count(); i++) {
+      var el = tabBar.createElement(tabs.getAtIndex(i))
       tabBar.container.appendChild(el)
-      tabBar.tabElementMap[tabs[i].id] = el
+      tabBar.tabElementMap[tabs.getAtIndex(i).id] = el
     }
     if (tabs.getSelected()) {
       tabBar.setActiveTab(tabs.getSelected())
@@ -318,4 +315,10 @@ webviews.bindEvent('did-start-loading', function () {
 webviews.bindEvent('did-stop-loading', function () {
   var tabId = webviews.getTabFromContents(this)
   progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'finish')
+})
+
+tasks.on('tab-updated', function (id, key) {
+  if (key === 'title' || key === 'secure' || key === 'url') {
+    tabBar.rerenderTab(id)
+  }
 })

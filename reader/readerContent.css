@@ -1,57 +1,35 @@
-#backtoarticle {
-	padding: 2em 0 0 44px;
-	color: dodgerblue;
-	max-width: 720px;
-	margin: auto;
-	display: block;
-	box-sizing: border-box;
-	cursor: pointer;
-	font-family: system-ui, ".SFNSText-Regular", sans-serif;
-}
-#backtoarticle i {
-	vertical-align: text-bottom;
-	margin-right: 0.25em;
-	font-size: 1.275em;
-}
 body,
 html {
 	padding: 0;
 	margin: 0;
-	font-size: 21px;
+	font-size: 20px;
 }
 iframe {
 	display: none;
 }
-iframe.reader-frame {
-	display: block;
-	width: 100%;
-	/* height is set in js */
-	border: 0;
-}
 .reader-main {
 	padding-top: 1em;
-	max-width: 720px;
+	max-width: 650px;
 	display: block;
 	margin: auto;
 }
+
 * {
 	font-family: "Charter", "Georgia", serif;
 }
-
-/* actual reader content */
 
 .visually-hidden {
 	display: none;
 }
 h1.article-title {
-	padding: 0 2rem 1rem 2rem;
+	padding-bottom: 1rem;
 	margin-top: 1rem;
 	margin: 0;
 	font-size: 2em;
 	font-weight: 500;
 }
 h2.article-authors {
-	padding: 0 2.5rem;
+	padding: 0;
 	font-size: 1.2em;
 	font-weight: 400;
 	margin: 0;
@@ -85,7 +63,7 @@ h4 {
 	font-weight: 600;
 }
 .page {
-	padding: 0 2.25rem 2.25rem 2.25rem;
+	padding-bottom: 2.25rem;
 }
 .article-authors + .page {
 	padding-top: 1rem;
@@ -98,6 +76,7 @@ img {
 }
 p {
 	line-height: 1.5em;
+	word-break: break-word;
 }
 ul li,
 ol li {
@@ -119,22 +98,16 @@ a:hover {
 	background-repeat: repeat-x;
 }
 figure {
-	max-width: 50%;
-	float: right;
+	max-width: 100%;
+	margin: 1em 0;
 }
-@media all and (max-width: 600px) {
-	figure {
-		max-width: 100%;
-		float: initial;
-		margin: 0;
-	}
-}
+
 figure figcaption {
 	font-size: 0.8em;
 	margin-top: 1em;
 	opacity: 0.75;
 }
-figure figcaption * {
+figure figcaption, figure figcaption * {
 	font-family: sans-serif;
 }
 pre,

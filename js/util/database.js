@@ -29,7 +29,7 @@ db.version(4).stores({
   extraData - other metadata about the page
   */
   places: 'url, title, color, visitCount, lastVisit, pageHTML, extractedText, *searchIndex, isBookmarked, metadata',
-  readingList: 'url, time, visitCount, pageHTML, article, extraData', // article is the object from readability
+  readingList: 'url, time, visitCount, pageHTML, article, extraData', // article is the object from readability, pageHTML is unused (TODO remove this)
   settings: 'key, value', // key is the name of the setting, value is an object
 })
   // upgrade from v3 to v4

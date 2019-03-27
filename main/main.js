@@ -64,7 +64,16 @@ function handleCommandLineArguments (argv) {
 
 function createWindow (cb) {
   var savedBounds = fs.readFile(path.join(userDataPath, 'windowBounds.json'), 'utf-8', function (e, data) {
-    if (e || !data) { // there was an error, probably because the file doesn't exist
+    var bounds
+
+    if (data) {
+      try {
+        bounds = JSON.parse(data)
+      } catch (e) {
+        console.warn('error parsing window bounds file: ', e)
+      }
+    }
+    if (e || !data || !bounds) { // there was an error, probably because the file doesn't exist
       var size = electron.screen.getPrimaryDisplay().workAreaSize
       var bounds = {
         x: 0,
@@ -72,8 +81,6 @@ function createWindow (cb) {
         width: size.width,
         height: size.height
       }
-    } else {
-      var bounds = JSON.parse(data)
     }
 
     // maximizes the window frame in windows 10
@@ -108,6 +115,9 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     icon: __dirname + '/icons/icon256.png',
     frame: process.platform !== 'win32',
     backgroundColor: '#fff', // the value of this is ignored, but setting it seems to work around https://github.com/electron/electron/issues/10559
+    webPreferences: {
+      nodeIntegration: true
+    },
   })
 
   // and load the index.html of the app.
@@ -181,8 +191,6 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     }
   })
 
-  registerFiltering() // register filtering for the default session
-
   return mainWindow
 }
 
@@ -199,8 +207,6 @@ app.on('window-all-closed', function () {
 // initialization and is ready to create browser windows.
 app.on('ready', function () {
   appIsReady = true
-
-  app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required') // allow autoplay by default
 
   createWindow(function () {
     mainWindow.webContents.on('did-finish-load', function () {
@@ -476,6 +482,21 @@ function createAppMenu () {
       label: l('appMenuDeveloper'),
       submenu: [
         {
+          label: l('appMenuInspectPage'),
+          accelerator: (function () {
+            if (process.platform == 'darwin')
+              return 'Cmd+Alt+I'
+            else
+              return 'Ctrl+Shift+I'
+          })(),
+          click: function (item, window) {
+            sendIPCToWindow(window, 'inspectPage')
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
           label: l('appMenuReloadBrowser'),
           accelerator: undefined,
           click: function (item, focusedWindow) {
@@ -489,49 +510,6 @@ function createAppMenu () {
           label: l('appMenuInspectBrowser'),
           click: function (item, focusedWindow) {
             if (focusedWindow) focusedWindow.toggleDevTools()
-          }
-        },
-        {
-          type: 'separator'
-        },
-        {
-          label: l('appMenuInspectPage'),
-          accelerator: (function () {
-            if (process.platform == 'darwin')
-              return 'Cmd+Alt+I'
-            else
-              return 'Ctrl+Shift+I'
-          })(),
-          click: function (item, window) {
-            sendIPCToWindow(window, 'inspectPage')
-          }
-        }
-      ]
-    },
-    {
-      label: l('appMenuWindow'),
-      role: 'window',
-      submenu: [
-        {
-          label: l('appMenuMinimize'),
-          accelerator: 'CmdOrCtrl+M',
-          role: 'minimize'
-        },
-        {
-          label: l('appMenuClose'),
-          accelerator: 'CmdOrCtrl+W',
-          click: function (item, window) {
-            if (!mainWindow.isFocused()) {
-              // a devtools window is focused, close it
-              var contents = webContents.getAllWebContents()
-              for (var i = 0; i < contents.length; i++) {
-                if (contents[i].isDevToolsFocused()) {
-                  contents[i].closeDevTools()
-                  return
-                }
-              }
-            }
-          // otherwise, this event will be handled in the main window
           }
         }
       ]
@@ -569,6 +547,7 @@ function createAppMenu () {
   ]
 
   if (process.platform === 'darwin') {
+    /* main app menu */
     template.unshift({
       label: appName,
       submenu: [
@@ -622,18 +601,46 @@ function createAppMenu () {
         }
       ]
     })
-    // Window menu.
-    template[3].submenu.push({
-      type: 'separator'
-    }, {
-      label: l('appMenuBringToFront'),
-      role: 'front'
+
+    /* window menu */
+    template.splice(5, 0, {
+      label: l('appMenuWindow'),
+      role: 'window',
+      submenu: [
+        {
+          label: l('appMenuMinimize'),
+          accelerator: 'CmdOrCtrl+M',
+          role: 'minimize'
+        },
+        {
+          label: l('appMenuClose'),
+          accelerator: 'CmdOrCtrl+W',
+          click: function (item, window) {
+            if (!mainWindow.isFocused()) {
+              // a devtools window is focused, close it
+              var contents = webContents.getAllWebContents()
+              for (var i = 0; i < contents.length; i++) {
+                if (contents[i].isDevToolsFocused()) {
+                  contents[i].closeDevTools()
+                  return
+                }
+              }
+            }
+          // otherwise, this event will be handled in the main window
+          }
+        },
+        {
+          type: 'separator'
+        }, {
+          label: l('appMenuBringToFront'),
+          role: 'front'
+        }
+      ]
     })
   }
 
-  // preferences item on linux and windows
-
   if (process.platform !== 'darwin') {
+    // preferences item in edit menu on linux and windows
     template[1].submenu.push({
       type: 'separator'
     })
@@ -650,11 +657,11 @@ function createAppMenu () {
 
     // about item on linux and windows
 
-    template[5].submenu.push({
+    template[4].submenu.push({
       type: 'separator'
     })
 
-    template[5].submenu.push({
+    template[4].submenu.push({
       label: l('appMenuAbout').replace('%n', appName),
       click: function (item, window) {
         var info = [

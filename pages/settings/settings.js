@@ -4,7 +4,6 @@ var container = document.getElementById('privacy-settings-container')
 var banner = document.getElementById('restart-required-banner')
 var darkModeCheckbox = document.getElementById('checkbox-dark-mode')
 var historyButtonCheckbox = document.getElementById('checkbox-history-button')
-var swipeNavigationCheckbox = document.getElementById('checkbox-swipe-navigation')
 var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
 
 function showRestartRequiredBanner () {
@@ -175,21 +174,6 @@ historyButtonCheckbox.addEventListener('change', function (e) {
   showRestartRequiredBanner()
 })
 
-/* swipe navigation settings */
-
-settings.get('swipeNavigationEnabled', function (value) {
-  if (value === true || value === undefined) {
-    swipeNavigationCheckbox.checked = true
-  } else {
-    swipeNavigationCheckbox.checked = false
-  }
-})
-
-swipeNavigationCheckbox.addEventListener('change', function (e) {
-  settings.set('swipeNavigationEnabled', this.checked)
-  showRestartRequiredBanner()
-})
-
 /* userscripts setting */
 
 settings.get('userscriptsEnabled', function (value) {
@@ -200,6 +184,23 @@ settings.get('userscriptsEnabled', function (value) {
 
 userscriptsCheckbox.addEventListener('change', function (e) {
   settings.set('userscriptsEnabled', this.checked)
+  showRestartRequiredBanner()
+})
+
+/* update notifications setting */
+
+var updateNotificationsCheckbox = document.getElementById('checkbox-update-notifications')
+
+settings.get('updateNotificationsEnabled', function (value) {
+  if (value === false) {
+    updateNotificationsCheckbox.checked = false
+  } else {
+    updateNotificationsCheckbox.checked = true
+  }
+})
+
+updateNotificationsCheckbox.addEventListener('change', function (e) {
+  settings.set('updateNotificationsEnabled', this.checked)
   showRestartRequiredBanner()
 })
 
