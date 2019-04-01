@@ -85,6 +85,9 @@ function showSearchbarPlaceResults (text, input, event, container, pluginName = 
       // show a star for bookmarked items
       if (result.isBookmarked) {
         data.icon = 'fa-star'
+      } else if (result.url.startsWith(readerView.readerURL)) {
+        // show an icon to indicate that this page will open in reader view
+        data.icon = 'fa-align-left'
       }
 
       // show the metadata for the item

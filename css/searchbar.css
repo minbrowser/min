@@ -74,6 +74,11 @@ body.mac:not(.fullscreen) #searchbar {
 	width: 1em;
 	height: 1em;
 }
+.searchbar-item i.fa-align-left {
+	/* this icon isn't aligned with the rest of the icon set, so add an additional margin for it */
+	margin-top: 0.25em;
+}
+
 .searchbar-item .icon-image {
 	opacity: 1.0;
 }
