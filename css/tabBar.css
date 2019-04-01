@@ -264,6 +264,10 @@ body.dark-mode #overlay {
 	padding-left: 0.5em;
 }
 
+.tab-item .bookmarks-button {
+	font-size: 0.9em;
+}
+
 /* reader button */
 
 .tab-item .reader-button {
