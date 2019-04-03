@@ -86,8 +86,8 @@ ipc.on('addTab', function (e, data) {
     return
   }
 
-  // if opening a URL (instead of adding an empty tab), and only an empty tab is open, navigate the current tab rather than creating another one
-  if (tabs.isEmpty() && data.url) {
+  // if opening a URL (instead of adding an empty tab), and the current tab is empty, navigate the current tab rather than creating another one
+  if (!tabs.get(tabs.getSelected()).url && data.url) {
     browserUI.navigate(tabs.getSelected(), data.url)
   } else {
     var newIndex = tabs.getIndex(tabs.getSelected()) + 1
