@@ -130,6 +130,24 @@ blockquote {
 	margin: 1.5em 0;
 }
 
+table {
+	border-collapse: collapse;
+}
+
+td, th {
+	padding: 0.25em;
+	border: 1px #ddd solid;
+	text-align: center;
+}
+
+.dark-mode td, .dark-mode th {
+	border-color: #444;
+}
+
+td li, th li {
+	text-align: left;
+}
+
 /* dark theme */
 
 body.dark-mode {
