@@ -82,7 +82,7 @@
         "dnsErrorMessage": "Ocorreu um erro de DNS.",
         "offlineErrorTitle": "Está no modo off-line",
         "offlineErrorMessage": "Ative o modo on-line e tente novamente.",
-        "genericConnectionFail": "O Min não conseguiu estabelecer a ligação ao site.",
+        "genericConnectionFail": "O Min não conseguiu estabelecer uma ligação ao site.",
         "sslTimeErrorMessage": "O Min não conseguiu estabelecer uma ligação segura a este site. Verifique se a hora do computador está correta.",
         "addressInvalidTitle": "Este endereço não é válido.",
         "genericError": "Ocorreu um erro",
@@ -92,7 +92,7 @@
         "phishingErrorVisitAnyway": "Aceder na mesma",
         "phishingErrorLeave": "Sair do site",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": "Ocorreu um erro. Feche todas as instâncias abertas e reinicie o navegador.",
+        "multipleInstancesErrorMessage": "Ocorreu um erro. Feche todas as instâncias e reinicie o navegador.",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Ocorreu um erro",
         "sessionRestoreErrorExplanation": "Não foi possível restaurar os separadores guardados.",
@@ -104,14 +104,14 @@
         "settingsPreferencesHeading": "Preferências",
         "settingsRestartRequired": "Tem que reiniciar o navegador para aplicar as alterações.",
         "settingsPrivacyHeading": "Bloqueio de conteúdo",
-        "settingsContentBlockingLevel0": null, //missing translation
-        "settingsContentBlockingLevel1": null, //missing translation
-        "settingsContentBlockingLevel2": null, //missing translation
-        "settingsContentBlockingExceptions": null, //missing translation
+        "settingsContentBlockingLevel0": "Permitir todos os anúncios e 'trackers'",
+        "settingsContentBlockingLevel1": "Bloquear anúncios e trackers de terceiros",
+        "settingsContentBlockingLevel2": "Bloquear todos os anúncios e 'trackers'",
+        "settingsContentBlockingExceptions": "Permitir anúncios nestes sites:",
         "settingsBlockScriptsToggle": "Bloquear scripts",
         "settingsBlockImagesToggle": "Bloquear imagens",
         "settingsEasyListCredit": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "Baseado em EasyList e EasyPrivacy, criadas por <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>)."
         },
         "settingsAppearanceHeading": "Aparência",
         "settingsDarkModeToggle": "Ativar modo escuro",
@@ -119,7 +119,7 @@
         "settingsAdditionalFeaturesHeading": "Outras funcionalidades",
         "settingsUserscriptsToggle": "Ativar scripts de utilizador",
         "settingsUserscriptsExplanation": {"unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."},
-        "settingsUpdateNotificationsToggle": null, //missing translation
+        "settingsUpdateNotificationsToggle": "Procurar atualizações automaticamente",
         "settingsSearchEngineHeading": "Motor de pesquisa",
         "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",
         "settingsDDGExplanation": "Defina DuckDuckGo como motor de pesquisa padrão para poder obter sugestões instantâneas na barra de pesquisa.",
@@ -178,6 +178,6 @@
         "downloadStateCompleted": "Terminada",
         "downloadStateFailed": "Falhada",
         /* Update Notifications */
-        "updateNotificationTitle": null //missing translation
+        "updateNotificationTitle": "Está disponível uma atualização para Min"
     }
 }
