@@ -31,10 +31,12 @@ window.taskOverlay = {
   overlayElement: document.getElementById('task-overlay'),
   isShown: false,
   tabDragula: dragula({
-    direction: 'vertical'
+    direction: 'vertical',
+    mirrorContainer: document.getElementById('task-overlay')
   }),
   taskDragula: dragula({
     direction: 'vertical',
+    mirrorContainer: document.getElementById('task-overlay'),
     containers: [taskContainer],
     moves: function (el, source, handle, sibling) {
       // ignore drag events that come from a tab element, since they will be handled by the other dragula instance
@@ -203,4 +205,46 @@ taskOverlay.taskDragula.on('drop', function (el, target, source, sibling) {
 
   // reinsert the task
   tasks.splice(newIdx, 0, droppedTask)
+})
+
+/* auto-scroll the container when the item is dragged to the edge of the screen */
+
+var draggingScrollInterval = null
+
+function onMouseMoveWhileDragging (e) {
+  clearInterval(draggingScrollInterval)
+  if (e.pageY < 100) {
+    draggingScrollInterval = setInterval(function () {
+      taskOverlay.overlayElement.scrollBy(0, -5)
+    }, 16)
+  } else if (e.pageY > (window.innerHeight - 125)) {
+    draggingScrollInterval = setInterval(function () {
+      taskOverlay.overlayElement.scrollBy(0, 5)
+    }, 16)
+  }
+}
+
+function startMouseDragRecording () {
+  window.addEventListener('mousemove', onMouseMoveWhileDragging)
+}
+
+function endMouseDragRecording () {
+  window.removeEventListener('mousemove', onMouseMoveWhileDragging)
+  clearInterval(draggingScrollInterval)
+}
+
+taskOverlay.tabDragula.on('drag', function () {
+  startMouseDragRecording()
+})
+
+taskOverlay.tabDragula.on('dragend', function () {
+  endMouseDragRecording()
+})
+
+taskOverlay.taskDragula.on('drag', function () {
+  startMouseDragRecording()
+})
+
+taskOverlay.taskDragula.on('dragend', function () {
+  endMouseDragRecording()
 })
