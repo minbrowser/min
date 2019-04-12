@@ -60,7 +60,9 @@ function parseDomains (input, options) {
       matchDomains.push(domains[i])
     }
   }
-  options.domains = matchDomains
+  if (matchDomains.length !== 0) {
+    options.domains = matchDomains
+  }
   if (skipDomains.length !== 0) {
     options.skipDomains = skipDomains
   }
