@@ -3,9 +3,14 @@ body, html {
 	overflow: auto;
 }
 
-body.dark-mode {
+body[theme="dark"] {
 	background-color: rgb(33, 37, 43);
 	color: lightgrey;
+}
+
+body[theme="sepia"] {
+	background-color: rgb(245, 237, 220);
+	color: rgba(80, 55, 35, 1);
 }
 
 #auto-redirect-banner {
@@ -17,7 +22,15 @@ body.dark-mode {
 	color: #333;
 }
 
-.dark-mode #auto-redirect-banner {
+@media all and (max-width: 800px) {
+	/* make sure there is room for the settings button */
+	#auto-redirect-banner {
+		margin-right: 4em;
+		margin-left: 0.5em;
+	}
+}
+
+body[theme="dark"] #auto-redirect-banner {
 	color: #ddd;
 	border-color: #aaa;
 }
@@ -61,6 +74,70 @@ body.dark-mode {
 	font-size: 1.275em;
 	/* pre-define the width to avoid the text moving after fontawesome loads */
 	width: 0.36em;
+}
+
+#settings-button {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	opacity: 0.5;
+	font-size: 1.5em;
+	/* increase click area */
+	padding: 1em;
+	margin: -1em;
+}
+
+#settings-dropdown {
+	position: absolute;
+	top: 3.5em;
+	right: 1em;
+	background: white;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
+	padding: 0.75em 0.5em;
+	width: 240px;
+	border-radius: 5px;
+}
+body[theme="dark"] #settings-dropdown {
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.75);
+	background: rgba(255, 255, 255 , 0.075);
+}
+
+#settings-dropdown .setting-section {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.setting-section + .setting-section {
+	padding-top: 0.5em;
+}
+
+#settings-dropdown label {
+	padding-left: 0.25em;
+	margin-top: -1px;
+}
+
+#settings-dropdown .theme-circle {
+	display: inline-block;
+	width: 2em;
+	height: 2em;
+	border-radius: 50%;
+	margin: 0.25em;
+	border: 1px #ddd solid;
+	transition: 0.15s border-color;
+}
+
+#settings-dropdown .theme-circle[data-theme="light"] {
+	background: #fff;
+}
+#settings-dropdown .theme-circle[data-theme="sepia"] {
+	background: rgb(245, 237, 220);
+}
+#settings-dropdown .theme-circle[data-theme="dark"] {
+	background: rgb(33, 37, 43);
+}
+#settings-dropdown .theme-circle.selected {
+	border-color: dodgerblue;
+	border-width: 3px;
 }
 
 .temporary-frame {

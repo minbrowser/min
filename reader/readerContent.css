@@ -4,6 +4,17 @@ html {
 	margin: 0;
 	font-size: 20px;
 }
+
+body[theme="dark"] {
+	background-color: rgb(33, 37, 43);
+	color: lightgrey;
+}
+
+body[theme="sepia"] {
+	background-color: rgb(245, 237, 220);
+	color: rgba(80, 55, 35, 1);
+}
+
 iframe {
 	display: none;
 }
@@ -88,7 +99,7 @@ a {
 	font-size: 1em;
 	text-decoration: none;
 }
-body.dark-mode a {
+body[theme="dark"] a {
 	color: #65a9ed;
 }
 a:hover {
@@ -140,19 +151,12 @@ td, th {
 	text-align: center;
 }
 
-.dark-mode td, .dark-mode th {
+body[theme="dark"] td, body[theme="dark"] th {
 	border-color: #444;
 }
 
 td li, th li {
 	text-align: left;
-}
-
-/* dark theme */
-
-body.dark-mode {
-  background-color: rgb(33, 37, 43);
-  color: lightgrey;
 }
 
 /* printing */

@@ -11,6 +11,17 @@
 
 <body>
 
+	<button id="settings-button" class="fa fa-gear" title="Reader Settings"></button>
+	<div id="settings-dropdown" hidden>
+		<div class="setting-section">
+				<button class="theme-circle selected" data-theme="light" title="Light theme"></button>
+				<button class="theme-circle" data-theme="sepia" title="Sepia theme"></button>
+				<button class="theme-circle" data-theme="dark" title="Dark theme"></button>
+			</div>
+		<div class="setting-section">
+			<input type="checkbox" id="auto-reader-checkbox"/><label for="auto-reader-checkbox">Always open in reader view</label>
+		</div>
+	</div>
 	<div id="auto-redirect-banner" hidden>
 		Always open articles from this site in reader view?
 		<span id="auto-redirect-button-area">
@@ -24,10 +35,10 @@
 	<script src="../ext/Dexie.min.js"></script>
 	<script src="../js/util/database.js"></script>
 	<script src="../js/util/settings.js"></script>
-	<script src="../js/util/theme.js"></script>
 	<script src="readerViewDB.js"></script>
 	<script src="../js/readerDecision.js"></script>
 	<script src="reader.js"></script>
+	<script src="readerThemeSelector.js"></script>
 </body>
 
 </html>

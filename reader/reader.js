@@ -1,3 +1,5 @@
+/* Back button */
+
 var backbutton = document.getElementById('backtoarticle')
 var articleURL = new URLSearchParams(window.location.search).get('url')
 
@@ -8,13 +10,14 @@ backbutton.addEventListener('click', function (e) {
   window.location = articleURL
 })
 
+/* Auto redirect banner */
 var autoRedirectBanner = document.getElementById('auto-redirect-banner')
 var autoRedirectYes = document.getElementById('auto-redirect-yes')
 var autoRedirectNo = document.getElementById('auto-redirect-no')
 
-  if (readerDecision.getDomainStatus(articleURL) === undefined && readerDecision.getSameDomainStatuses(articleURL).length > 0) {
-    autoRedirectBanner.hidden = false
-  }
+if (readerDecision.getDomainStatus(articleURL) === undefined && readerDecision.getSameDomainStatuses(articleURL).length > 0) {
+  autoRedirectBanner.hidden = false
+}
 
 autoRedirectYes.addEventListener('click', function () {
   readerDecision.setDomainStatus(articleURL, true)
@@ -23,6 +26,35 @@ autoRedirectYes.addEventListener('click', function () {
 autoRedirectNo.addEventListener('click', function () {
   readerDecision.setDomainStatus(articleURL, false)
   autoRedirectBanner.hidden = false
+})
+
+/* Settings */
+
+var settingsButton = document.getElementById('settings-button')
+var settingsDropdown = document.getElementById('settings-dropdown')
+
+settingsButton.addEventListener('click', function () {
+  settingsDropdown.hidden = !settingsDropdown.hidden
+})
+
+window.addEventListener('blur', function () {
+  if (document.activeElement.tagName === 'IFRAME') {
+    // clicked on reader frame
+    settingsDropdown.hidden = true
+  }
+})
+
+document.addEventListener('click', function (e) {
+  if (!settingsDropdown.contains(e.target) && e.target !== settingsButton) {
+    settingsDropdown.hidden = true
+  }
+})
+
+var autoReaderCheckbox = document.getElementById('auto-reader-checkbox')
+autoReaderCheckbox.checked = (readerDecision.getDomainStatus(articleURL) === true)
+autoReaderCheckbox.addEventListener('change', function () {
+  readerDecision.setDomainStatus(articleURL, this.checked)
+  autoRedirectBanner.hidden = true
 })
 
 function startReaderView (article) {
@@ -56,10 +88,7 @@ function startReaderView (article) {
 
   // resize the frame once the page has loaded and the content height can be determined
   rframe.onload = function () {
-    if (window.isDarkMode) {
-      rframe.contentDocument.body.classList.add('dark-mode')
-    }
-
+    setReaderTheme()
     requestAnimationFrame(function () {
       rframe.height = rframe.contentDocument.body.querySelector('.reader-main').scrollHeight + 'px'
       requestAnimationFrame(function () {
@@ -160,29 +189,6 @@ fetch(articleURL, {
       }
     })
   })
-
-/* update appearance when theme changes */
-
-var iconElement = document.getElementById('page-icon')
-function setPageIcon () {
-  if (window.isDarkMode) {
-    iconElement.href = 'blackFavicon.png'
-  } else {
-    iconElement.href = 'whiteFavicon.png'
-  }
-}
-setPageIcon()
-
-window.addEventListener('themechange', function () {
-  if (window.rframe) {
-    if (window.isDarkMode) {
-      rframe.contentDocument.body.classList.add('dark-mode')
-    } else {
-      rframe.contentDocument.body.classList.remove('dark-mode')
-    }
-  }
-  setPageIcon()
-})
 
 function printArticle () {
   rframe.contentWindow.print()
