@@ -1,6 +1,7 @@
 body, html {
 	height: auto;
 	overflow: auto;
+	min-height: 100vh;
 }
 
 body[theme="dark"] {
