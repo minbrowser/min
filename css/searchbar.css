@@ -26,6 +26,7 @@ body.mac:not(.fullscreen) #searchbar {
 .searchbar-item {
 	width: 100%;
 	display: block;
+	position: relative;
 	padding: 0.55em 0.55em 0.55em 9px;
 	cursor: pointer;
 	transition: 0.2s transform, 0.2s opacity;
@@ -65,18 +66,19 @@ body.mac:not(.fullscreen) #searchbar {
 	max-width: 70%;
 }
 .searchbar-item i,
-.searchbar-item .icon-image {
+.searchbar-item .icon-image
+ {
+	position: absolute;
+	top: 0.9em;
+	left: -1.4em;
 	opacity: 0.25;
 	font-size: 0.9em;
-	margin-right: 1em;
-	margin-left: -2em;
-	vertical-align: middle;
 	width: 1em;
 	height: 1em;
 }
 .searchbar-item i.fa-align-left {
 	/* this icon isn't aligned with the rest of the icon set, so add an additional margin for it */
-	margin-top: 0.25em;
+	margin-top: 0.1em;
 }
 
 .searchbar-item .icon-image {
@@ -99,9 +101,49 @@ body.mac:not(.fullscreen) #searchbar {
 body:not(.mac) .searchbar-item i,
 .fullscreen .searchbar-item .icon-image,
 body:not(.mac) .searchbar-item .icon-image {
-	margin-left: 0;
-	float: right;
+	left: auto;
+	right: 0.8em;
 }
+
+/* buttons */
+
+.searchbar-item .action-button {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    right: 0.45em;
+    top: calc(0.16em + 1px);
+    bottom: 0;
+    border: none;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    opacity: 0;
+    background: transparent;
+	transition: 0.05s;
+	color: currentColor;
+}
+.searchbar-item:hover .action-button {
+    opacity: 0.6;
+}
+.dark-mode .searchbar-item:hover .action-button {
+	opacity: 0.8;
+}
+.searchbar-item .action-button:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.05);
+}
+.dark-mode .searchbar-item .action-button:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.15);
+}
+.searchbar-item .action-button:active {
+    background: rgba(0, 0, 0, 0.175);
+}
+.dark-mode .searchbar-item .action-button:active {
+    background: rgba(0, 0, 0, 0.35);
+}
+
 .searchbar-item .image {
 	height: 2.75em;
 	margin: 0.25em 0.5em 0.5em 0;

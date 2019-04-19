@@ -19,6 +19,8 @@ iconImage: string - the URL of an image to show as an icon
 descriptionBlock: string - the text in the description block,
 attribution: string - attribution text to display when the item is focused
 delete: function - a function to call to delete the result item when a left swipe is detected
+showDeleteButton - whether to show an [x] button that calls the delete function
+button: {icon: string, fn: function} a button that will appear to the right of the item (if showDeleteButton is false)
 classList: array - a list of classes to add to the item
 */
 
@@ -130,6 +132,28 @@ function createItem (data) {
         }, 200)
       }
     })
+  }
+
+  // delete button is just a pre-defined action button
+  if (data.showDeleteButton) {
+    data.button = {
+      icon: 'fa-close',
+      fn: function () {
+        data.delete(item)
+        item.parentNode.removeChild(item)
+      }
+    }
+  }
+
+  if (data.button) {
+    var button = document.createElement('button')
+    button.classList.add('action-button')
+    button.classList.add('fa')
+    button.classList.add(data.button.icon)
+
+    button.addEventListener('click', data.button.fn)
+    item.appendChild(button)
+    item.classList.add('has-action-button')
   }
 
   if (data.click) {
