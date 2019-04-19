@@ -64,7 +64,8 @@
         "timeRangeJustNow": "Ką tik",
         "timeRangeMinutes": "Prieš kelias minutes",
         "timeRangeHour": "Per pastarąją valandą",
-        "timeRangeDay": "Per pastarąją dieną",
+        "timeRangeToday": null, //missing translation
+        "timeRangeYesterday": null, //missing translation
         "timeRangeWeek": "Per pastarąją savaitę",
         "timeRangeMonth": "Per pastarąjį mėnesį",
         "timeRangeYear": "Per pastaruosius metus",

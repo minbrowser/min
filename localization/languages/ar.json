@@ -64,7 +64,8 @@
         "timeRangeJustNow": "الآن",
         "timeRangeMinutes": "قبل عدة دقائق",
         "timeRangeHour": "قبل عدة ساعات",
-        "timeRangeDay": "في الامس",
+        "timeRangeToday": null, //missing translation
+        "timeRangeYesterday": null, //missing translation
         "timeRangeWeek": "في الاسبوع الماضي",
         "timeRangeMonth": "في الشهر الماضي",
         "timeRangeYear": "في السنة الماضية",

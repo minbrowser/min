@@ -64,7 +64,8 @@
         "timeRangeJustNow": "几秒前",
         "timeRangeMinutes": "几分钟前",
         "timeRangeHour": "几小时前",
-        "timeRangeDay": "几天前",
+        "timeRangeToday": null, //missing translation
+        "timeRangeYesterday": null, //missing translation
         "timeRangeWeek": "几星期前",
         "timeRangeMonth": "几个月前",
         "timeRangeYear": "几年前",

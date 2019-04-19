@@ -90,7 +90,7 @@ body.mac:not(.fullscreen) #searchbar {
 
 .searchbar-heading {
 	font-weight: normal;
-	padding: 0.75em 0.55em 0.25em 0.55em;
+	padding: 0.9em 0.55em 0.33em 0.55em;
 	opacity: 0.7;
 	cursor: default;
 }

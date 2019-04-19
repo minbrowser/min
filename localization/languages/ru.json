@@ -64,7 +64,8 @@
         "timeRangeJustNow": null, //missing translation
         "timeRangeMinutes": null, //missing translation
         "timeRangeHour": null, //missing translation
-        "timeRangeDay": null, //missing translation
+        "timeRangeToday": null, //missing translation
+        "timeRangeYesterday": null, //missing translation
         "timeRangeWeek": null, //missing translation
         "timeRangeMonth": null, //missing translation
         "timeRangeYear": null, //missing translation

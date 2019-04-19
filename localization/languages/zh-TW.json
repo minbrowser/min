@@ -64,7 +64,8 @@
         "timeRangeJustNow": "剛剛", 
         "timeRangeMinutes": "幾分鐘前",
         "timeRangeHour": "幾小時前",
-        "timeRangeDay": "幾天前",
+        "timeRangeToday": null, //missing translation
+        "timeRangeYesterday": null, //missing translation
         "timeRangeWeek": "幾星期前", 
         "timeRangeMonth": "幾個月前",
         "timeRangeYear": "幾年前",

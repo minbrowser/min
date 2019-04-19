@@ -64,7 +64,8 @@
         "timeRangeJustNow": "Agora mesmo",
         "timeRangeMinutes": "Há alguns minutos",
         "timeRangeHour": "Na última hora",
-        "timeRangeDay": "No último dia",
+        "timeRangeToday": null, //missing translation
+        "timeRangeYesterday": null, //missing translation
         "timeRangeWeek": "Na última semana",
         "timeRangeMonth": "No último mês",
         "timeRangeYear": "No último ano",

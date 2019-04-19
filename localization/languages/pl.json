@@ -64,7 +64,8 @@
         "timeRangeJustNow": "Przed chwilą",
         "timeRangeMinutes": "Kilka minut temu",
         "timeRangeHour": "W ciągu ostatniej godziny",
-        "timeRangeDay": "W poprzednim dniu",
+        "timeRangeToday": null, //missing translation
+        "timeRangeYesterday": null, //missing translation
         "timeRangeWeek": "W poprzednim tygodniu",
         "timeRangeMonth": "W poprzednim miesiącu",
         "timeRangeYear": "W poprzednim roku",

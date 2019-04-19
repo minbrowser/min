@@ -64,7 +64,8 @@
       "timeRangeJustNow":"এক্ষুনি",
       "timeRangeMinutes":"কিছু মিনিট আগে",
       "timeRangeHour":"অতীত ঘন্টার মধ্যে",
-      "timeRangeDay":"গত দিনে",
+      "timeRangeToday": null, //missing translation
+      "timeRangeYesterday": null, //missing translation
       "timeRangeWeek":"গত সপ্তাহে",
       "timeRangeMonth":"গত মাসে",
       "timeRangeYear":"গত বছর",

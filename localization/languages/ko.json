@@ -64,7 +64,8 @@
         "timeRangeJustNow": "방금",
         "timeRangeMinutes": "몇분 전",
         "timeRangeHour": "몇시간 전",
-        "timeRangeDay": "어제",
+        "timeRangeToday": null, //missing translation
+        "timeRangeYesterday": null, //missing translation
         "timeRangeWeek": "지난 주",
         "timeRangeMonth": "지난 달",
         "timeRangeYear": "작년",

@@ -64,7 +64,8 @@
         "timeRangeJustNow": "Proprio ora",
         "timeRangeMinutes": "Pochi minuti fa",
         "timeRangeHour": "Quest'ora",
-        "timeRangeDay": "Oggi",
+        "timeRangeToday": null, //missing translation
+        "timeRangeYesterday": null, //missing translation
         "timeRangeWeek": "Questa settimana",
         "timeRangeMonth": "Questo mese",
         "timeRangeYear": "Quest'anno",

@@ -64,7 +64,8 @@
         "timeRangeJustNow": "Зараз",
         "timeRangeMinutes": "Кілька хвилин тому",
         "timeRangeHour": "Годину тому",
-        "timeRangeDay": "Вчора",
+        "timeRangeToday": null, //missing translation
+        "timeRangeYesterday": null, //missing translation
         "timeRangeWeek": "Тиждень тому",
         "timeRangeMonth": "Місяць тому",
         "timeRangeYear": "У минулому році",

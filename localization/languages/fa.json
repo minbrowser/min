@@ -64,7 +64,8 @@
         "timeRangeJustNow": "همین الان",
         "timeRangeMinutes": "دقایقی پیش",
         "timeRangeHour": "ساعتی پیش",
-        "timeRangeDay": "روز پیش",
+        "timeRangeToday": null, //missing translation
+        "timeRangeYesterday": null, //missing translation
         "timeRangeWeek": "هفته پیش",
         "timeRangeMonth": "ماه پیش",
         "timeRangeYear": "سال پیش",

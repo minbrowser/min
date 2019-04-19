@@ -64,7 +64,8 @@
         "timeRangeJustNow": "Idő intervalum, éppen most",
         "timeRangeMinutes": "Idő intervalum, perc",
         "timeRangeHour": "Idő intervalum, óra",
-        "timeRangeDay": "Idő intervalum, nap",
+        "timeRangeToday": null, //missing translation
+        "timeRangeYesterday": null, //missing translation
         "timeRangeWeek": "Idő intervalum, hét",
         "timeRangeMonth": "Idő intervalum, hónap",
         "timeRangeYear": "Idő intervalum, év",
