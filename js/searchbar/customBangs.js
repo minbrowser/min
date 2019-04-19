@@ -186,7 +186,8 @@ registerCustomBang({
           url: result.url,
           delete: function () {
             places.deleteHistory(result.url)
-          }
+          },
+          showDeleteButton: true
         }))
       })
     }, {searchBookmarks: true, limit: (text ? 100 : Infinity)})
@@ -232,7 +233,8 @@ registerCustomBang({
           url: result.url,
           delete: function () {
             places.deleteHistory(result.url)
-          }
+          },
+          showDeleteButton: true
         }))
       })
     }, {limit: Infinity})

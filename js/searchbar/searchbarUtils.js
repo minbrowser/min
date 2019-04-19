@@ -151,7 +151,10 @@ function createItem (data) {
     button.classList.add('fa')
     button.classList.add(data.button.icon)
 
-    button.addEventListener('click', data.button.fn)
+    button.addEventListener('click', function (e) {
+      e.stopPropagation()
+      data.button.fn(this)
+    })
     item.appendChild(button)
     item.classList.add('has-action-button')
   }
