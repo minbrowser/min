@@ -102,7 +102,16 @@ body:not(.mac) .searchbar-item i,
 .fullscreen .searchbar-item .icon-image,
 body:not(.mac) .searchbar-item .icon-image {
 	left: auto;
-	right: 0.8em;
+	right: 1.1em;
+}
+
+/* if an action button is visible, the searchbar icon should disappear (if they occupy the same position) */
+
+.fullscreen .searchbar-item.has-action-button:hover i,
+body:not(.mac) .searchbar-item.has-action-button:hover i,
+.fullscreen .searchbar-item.has-action-button:hover .icon-image,
+body:not(.mac) .searchbar-item.has-action-button:hover .icon-image {
+	display: none;
 }
 
 /* buttons */
