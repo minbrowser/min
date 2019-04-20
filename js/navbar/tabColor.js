@@ -75,13 +75,13 @@ function getColorFromImage (image) {
   // dim the colors late at night or early in the morning, or when dark mode is enabled
   let colorChange = 1
   if (hours > 20) {
-    colorChange -= 0.015 * Math.pow(2.75, hours - 20)
+    colorChange = 1.01 / (1 + 0.9 * Math.pow(Math.E, 1.5 * (hours - 22.75)))
   } else if (hours < 6.5) {
-    colorChange -= -0.15 * Math.pow(1.36, hours) + 1.15
+    colorChange = 1.04 / (1 + 0.9 * Math.pow(Math.E, -2 * (hours - 5)))
   }
 
   if (window.isDarkMode) {
-    colorChange = Math.min(colorChange, 0.58)
+    colorChange = Math.min(colorChange, 0.6)
   }
 
   res[0] = Math.round(res[0] * colorChange)
