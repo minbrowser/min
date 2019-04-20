@@ -70,7 +70,10 @@ function onPageURLChange (tab, url) {
 function onPageLoad (e) {
   var tab = webviews.getTabFromContents(this)
 
-  webviews.callAsync(tab, 'getURL', null, function (url) {
+  webviews.callAsync(tab, 'getURL', null, function (err, url) {
+    if (err) {
+      return
+    }
     // capture a preview image if a new page has been loaded
     if (tab === tabs.getSelected() && tabs.get(tab).url !== url) {
       setTimeout(function () {
@@ -427,7 +430,7 @@ ipc.on('view-event', function (e, args) {
 })
 
 ipc.on('async-call-result', function (e, args) {
-  webviews.asyncCallbacks[args.callId](args.data)
+  webviews.asyncCallbacks[args.callId](args.error, args.result)
   delete webviews.asyncCallbacks[args.callId]
 })
 

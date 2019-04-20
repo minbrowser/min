@@ -114,10 +114,15 @@ ipc.on('hideCurrentView', function (e) {
 })
 
 ipc.on('callViewMethod', function (e, data) {
-  var webContents = viewMap[data.id].webContents
-  var result = webContents[data.method].apply(webContents, data.args)
+  var error, result
+  try {
+    var webContents = viewMap[data.id].webContents
+    result = webContents[data.method].apply(webContents, data.args)
+  } catch (e) {
+    error = e
+  }
   if (data.callId) {
-    mainWindow.webContents.send('async-call-result', {callId: data.callId, data: result})
+    mainWindow.webContents.send('async-call-result', {callId: data.callId, error, result})
   }
 })
 
