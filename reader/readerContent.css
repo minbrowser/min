@@ -130,7 +130,13 @@ code * {
 pre {
 	display: block;
 	overflow: auto;
+	padding: 0.5em;
+	background: rgba(0, 0, 0, 0.025);
 }
+body[theme="dark"] pre {
+	background: rgba(0, 0, 0, 0.33)
+}
+
 q,
 blockquote {
 	display: block;
