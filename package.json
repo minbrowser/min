@@ -40,6 +40,7 @@
     "buildPreload": "node ./scripts/buildPreload.js",
     "build": "npm run buildMain && npm run buildBrowser && npm run buildPreload",
     "buildWindows": "npm run build && node ./scripts/buildWindows.js",
+    "buildMac": "npm run build && node ./scripts/buildMac.js",
     "updateFilters": "node ./ext/filterLists/updateEasylist.js"
   },
   "repository": {
