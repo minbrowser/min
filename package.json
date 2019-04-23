@@ -1,21 +1,27 @@
 {
   "name": "min",
   "productName": "Min",
+  "author": "PalmerAL",
   "version": "1.9.1",
+  "description": "A fast, minimal browser that protects your privacy",
   "electronVersion": "5.0.0-beta.5",
   "main": "main.build.js",
   "dependencies": {
     "dexie": "^1.2.0",
     "dragula": "^3.6.2",
+    "electron-squirrel-startup": "^1.0.0",
     "mousetrap": "^1.5.3",
     "pdfjs-dist": "2.0.91",
     "string_score": "^0.1.22"
   },
   "devDependencies": {
+    "archiver": "^3.0.0",
     "browserify": "^16.2.2",
     "chokidar": "^2.0.4",
     "decomment": "^0.9.0",
     "electron": "^5.0.0-beta.5",
+    "electron-installer-windows": "^1.1.1",
+    "electron-packager": "^13.1.1",
     "electron-renderify": "0.0.2",
     "grunt": "^1.0.1",
     "grunt-electron": "^9.0.1",
@@ -33,6 +39,7 @@
     "buildBrowser": "node ./scripts/buildBrowser.js",
     "buildPreload": "node ./scripts/buildPreload.js",
     "build": "npm run buildMain && npm run buildBrowser && npm run buildPreload",
+    "buildWindows": "npm run build && node ./scripts/buildWindows.js",
     "updateFilters": "node ./ext/filterLists/updateEasylist.js"
   },
   "repository": {

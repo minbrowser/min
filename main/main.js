@@ -8,6 +8,10 @@ const webContents = electron.webContents
 const session = electron.session
 const ipc = electron.ipcMain
 
+if (process.platform === 'win32' && require('electron-squirrel-startup')) {
+  app.quit()
+}
+
 var userDataPath = app.getPath('userData')
 
 const browserPage = 'file://' + __dirname + '/index.html'
@@ -117,7 +121,7 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     backgroundColor: '#fff', // the value of this is ignored, but setting it seems to work around https://github.com/electron/electron/issues/10559
     webPreferences: {
       nodeIntegration: true
-    },
+    }
   })
 
   // and load the index.html of the app.
