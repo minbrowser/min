@@ -1,9 +1,24 @@
 const fs = require('fs')
+const archiver = require('archiver')
 
 const packageFile = require('./../package.json')
 const version = packageFile.version
 
 require('./createPackage.js')('win32').then(function (appPaths) {
+
+  /* create zip files */
+
+  appPaths.forEach(function (packagePath) {
+    var output = fs.createWriteStream(packagePath.replace('Min-', 'Min-v' + version + '-') + '.zip')
+    var archive = archiver('zip', {
+      zlib: { level: 9 }
+    })
+    archive.directory(packagePath, 'Min-v' + version)
+    archive.pipe(output)
+    archive.finalize()
+  })
+
+  /* create installer */
   const installer = require('electron-installer-windows')
 
   const options = {

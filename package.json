@@ -15,6 +15,7 @@
     "string_score": "^0.1.22"
   },
   "devDependencies": {
+    "archiver": "^3.0.0",
     "browserify": "^16.2.2",
     "chokidar": "^2.0.4",
     "decomment": "^0.9.0",
