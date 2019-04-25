@@ -24,6 +24,7 @@ var platformOptions = {
   darwin: {
     platform: 'darwin',
     icon: 'icon.icns',
+    darwinDarkModeSupport: true,
     protocols: [{
       name: 'HTTP link',
       schemes: ['http', 'https']
