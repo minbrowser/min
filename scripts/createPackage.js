@@ -14,7 +14,6 @@ var baseOptions = {
   electronVersion: electronVersion,
   appVersion: version,
   arch: 'all',
-  icon: 'icons/icon256.ico',
   ignore: ignoredDirs,
   prune: true,
   overwrite: true
@@ -38,7 +37,9 @@ var platformOptions = {
     icon: 'icons/icon256.ico'
   },
   linux: {
-    platform: 'linux'
+    name: 'min', // name must be lowercase to run correctly after installation
+    platform: 'linux',
+    arch: 'x64'
   }
 }
 
