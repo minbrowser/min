@@ -22,6 +22,7 @@ if (readerDecision.getDomainStatus(articleURL) === undefined && readerDecision.g
 autoRedirectYes.addEventListener('click', function () {
   readerDecision.setDomainStatus(articleURL, true)
   autoRedirectBanner.hidden = true
+  autoReaderCheckbox.checked = true
 })
 autoRedirectNo.addEventListener('click', function () {
   readerDecision.setDomainStatus(articleURL, false)
