@@ -12,6 +12,9 @@ if (process.platform === 'win32' && require('electron-squirrel-startup')) {
   app.quit()
 }
 
+// workaround for flicker when focusing app (https://github.com/electron/electron/issues/17942)
+app.commandLine.appendSwitch('disable-backgrounding-occluded-windows', 'true')
+
 var userDataPath = app.getPath('userData')
 
 const browserPage = 'file://' + __dirname + '/index.html'
