@@ -33,6 +33,7 @@
         "clearHistory": "Išvalyti visą istoriją",
         "switchToTask": "Perjungti į užduotį",
         "createTask": "Sukurti užduotį",
+        "closeTask": null, //missing translation
         "moveToTask": "Perkelti šią kortelę į užduotį",
         "searchBookmarks": "Ieškoti adresyno įrašų",
         "searchHistory": "Ieškoti istorijos",

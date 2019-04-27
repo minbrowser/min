@@ -33,6 +33,7 @@
         "clearHistory": "Tüm Geçmişi Temizle",
         "switchToTask": "Göreve geç",
         "createTask": "Görev oluştur",
+        "closeTask": null, //missing translation
         "moveToTask": "Bu sekmeyi bir göreve taşı",
         "searchBookmarks": "Yer işaretlerini ara",
         "searchHistory": null, //missing translation

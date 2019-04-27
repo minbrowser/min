@@ -33,6 +33,7 @@
         "clearHistory": "Verlauf komplett löschen",
         "switchToTask": "zu Aufgabe wechseln",
         "createTask": "Aufgabe erstellen",
+        "closeTask": null, //missing translation
         "moveToTask": "Verschiebe diesen Tab zu Aufgabe",
         "searchBookmarks": "Bookmarks durchsuchen",
         "searchHistory": null, //missing translation

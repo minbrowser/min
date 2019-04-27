@@ -33,6 +33,7 @@
         "clearHistory": "Clear All History",
         "switchToTask": "Switch to Task",
         "createTask": "Create a Task",
+        "closeTask": "Close a Task",
         "moveToTask": "Move this tab to a task",
         "searchBookmarks": "Search bookmarks",
         "searchHistory": "Search history",

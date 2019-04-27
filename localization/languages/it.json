@@ -33,6 +33,7 @@
         "clearHistory": "Svuota la cronologia",
         "switchToTask": "Passa a Task",
         "createTask": "Crea un Task",
+        "closeTask": null, //missing translation
         "moveToTask": "Sposta questa scheda in un task",
         "searchBookmarks": "Cerca nei preferiti",
         "searchHistory": "Cerca nella cronologia",

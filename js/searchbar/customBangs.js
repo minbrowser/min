@@ -160,6 +160,26 @@ registerCustomBang({
 })
 
 registerCustomBang({
+  phrase: '!closetask',
+  snippet: l('closeTask'),
+  isAction: false,
+  fn: function (text) {
+    if (text) {
+      taskToClose = getTaskByNameOrNumber(text)
+      if (taskToClose) {
+        browserUI.closeTask(taskToClose.id)
+      }
+    } else {
+      browserUI.closeTask(tasks.getSelected().id)
+    }
+    taskOverlay.show()
+    setTimeout(function () {
+      taskOverlay.hide()
+    }, 600)
+  }
+})
+
+registerCustomBang({
   phrase: '!bookmarks',
   snippet: l('searchBookmarks'),
   isAction: false,
