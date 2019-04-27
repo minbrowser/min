@@ -203,6 +203,8 @@ window.webviews = {
     }
 
     if (webviews.placeholderRequests.length > 0) {
+      // update the placeholder instead of showing the actual view
+      webviews.requestPlaceholder()
       return
     }
 
@@ -236,10 +238,10 @@ window.webviews = {
     return webviews.tabContentsMap[id]
   },
   requestPlaceholder: function (reason) {
-    if (!webviews.placeholderRequests.includes(reason)) {
+    if (reason && !webviews.placeholderRequests.includes(reason)) {
       webviews.placeholderRequests.push(reason)
     }
-    if (webviews.placeholderRequests.length === 1) {
+    if (webviews.placeholderRequests.length >= 1) {
       // create a new placeholder
 
       var img = previewCache.get(webviews.selectedId)
