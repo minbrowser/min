@@ -33,6 +33,7 @@
         "clearHistory": "清除所有歷史",
         "switchToTask": "切換至工作",
         "createTask": "新增工作",
+        "closeTask": null, //missing translation
         "moveToTask": "移動至工作",
         "searchBookmarks": "搜尋書籤",
         "searchHistory": "搜尋歷史",

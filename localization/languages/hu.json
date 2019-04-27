@@ -33,6 +33,7 @@
         "clearHistory": "Összes történet törlés",
         "switchToTask": "Feladat váltása",
         "createTask": "Feladat létrehozás",
+        "closeTask": null, //missing translation
         "moveToTask": "Tedd a fület feladatba",
         "searchBookmarks": "Könyvjelző keresés",
         "searchHistory": "Keresési előzmények",

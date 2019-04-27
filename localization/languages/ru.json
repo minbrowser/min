@@ -33,6 +33,7 @@
         "clearHistory": "Очистить историю",
         "switchToTask": "Переключиться на задачу",
         "createTask": "Создать задачу",
+        "closeTask": null, //missing translation
         "moveToTask": "Переместить эту вкладку в задачу",
         "searchBookmarks": "Искать в закладках",
         "searchHistory": null, //missing translation

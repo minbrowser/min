@@ -33,6 +33,7 @@
         "clearHistory": "مسح السجل",
         "switchToTask": "تحويل الى مهام",
         "createTask": "انشاء مهمة",
+        "closeTask": null, //missing translation
         "moveToTask": "نقل التبويب الى المهام",
         "searchBookmarks": "البحث عن الإشارات",
         "searchHistory": "البحث عن السجل",

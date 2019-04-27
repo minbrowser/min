@@ -33,6 +33,7 @@
         "clearHistory": "기록 삭제",
         "switchToTask": "태스크 변경",
         "createTask": "태스크 생성",
+        "closeTask": null, //missing translation
         "moveToTask": "태스트로 탭 이동",
         "searchBookmarks": "북마크 검색",
         "searchHistory": "기록 검색",

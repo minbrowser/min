@@ -33,6 +33,7 @@
         "clearHistory": "Vider l'historique",
         "switchToTask": "Changer de tâche",
         "createTask": "Créer une tâche",
+        "closeTask": null, //missing translation
         "moveToTask": "Déplacer cette tâche à cet onglet",
         "searchBookmarks": "Rechercher des signets",
         "searchHistory": "Rechercher dans l'historique",

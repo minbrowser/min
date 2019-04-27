@@ -33,6 +33,7 @@
         "clearHistory": "Vymazat celou historii",
         "switchToTask": "Skočit do dimenze",
         "createTask": "Vytvořit dimenzi",
+        "closeTask": null, //missing translation
         "moveToTask": "Přesunout tuto kartu do dimenze",
         "searchBookmarks": "Vyhledávat záložky",
         "searchHistory": null, //missing translation

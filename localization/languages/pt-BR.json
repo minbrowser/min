@@ -33,6 +33,7 @@
         "clearHistory": "Limpar todo o histórico",
         "switchToTask": "Trocar para a tarefa",
         "createTask": "Criar uma tarefa",
+        "closeTask": null, //missing translation
         "moveToTask": "Mover esta aba para uma tarefa",
         "searchBookmarks": "Buscar nos favoritos",
         "searchHistory": null, //missing translation

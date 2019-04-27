@@ -33,6 +33,7 @@
         "clearHistory": "すべての履歴をクリア",
         "switchToTask": "タスクに切り替える",
         "createTask": "タスクを作成",
+        "closeTask": null, //missing translation
         "moveToTask": "このタブをタスクに移動",
         "searchBookmarks": "ブックマークを検索",
         "searchHistory": null, //missing translation

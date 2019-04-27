@@ -33,6 +33,7 @@
         "clearHistory": "حذف تاریخچه مرورگر",
         "switchToTask": "تغییر به وظیفه",
         "createTask": "ایجاد وظیفه جدید",
+        "closeTask": null, //missing translation
         "moveToTask": "انتقال این برگه به یک وظیفه",
         "searchBookmarks": "جستجوی نشانک ها",
         "searchHistory": "جستجوی تاریخچه",
