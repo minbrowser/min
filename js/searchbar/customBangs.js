@@ -164,18 +164,24 @@ registerCustomBang({
   snippet: l('closeTask'),
   isAction: false,
   fn: function (text) {
+    var currentTask = tasks.getSelected()
+    var taskToClose
+
     if (text) {
       taskToClose = getTaskByNameOrNumber(text)
-      if (taskToClose) {
-        browserUI.closeTask(taskToClose.id)
-      }
     } else {
-      browserUI.closeTask(tasks.getSelected().id)
+      taskToClose = tasks.getSelected()
     }
-    taskOverlay.show()
-    setTimeout(function () {
-      taskOverlay.hide()
-    }, 600)
+
+    if (taskToClose) {
+      browserUI.closeTask(taskToClose.id)
+      if (currentTask.id === taskToClose.id) {
+        taskOverlay.show()
+        setTimeout(function () {
+          taskOverlay.hide()
+        }, 600)
+      }
+    }
   }
 })
 
