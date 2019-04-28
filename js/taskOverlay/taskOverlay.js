@@ -82,13 +82,15 @@ window.taskOverlay = {
 
     var currentTabElement = document.querySelector('.task-tab-item[data-tab="{id}"]'.replace('{id}', tasks.getSelected().tabs.getSelected()))
 
-    if (currentTabElement) {
-      currentTabElement.scrollIntoViewIfNeeded()
-      currentTabElement.classList.add('fakefocus')
-    }
-
     // un-hide the overlay
     this.overlayElement.hidden = false
+
+    // focus() has no effect if it is called immediately, TODO figure out why
+    setTimeout(function () {
+      if (currentTabElement) {
+        currentTabElement.focus()
+      }
+    }, 50)
   },
 
   hide: function () {

@@ -150,6 +150,7 @@ function createItem (data) {
     button.classList.add('action-button')
     button.classList.add('fa')
     button.classList.add(data.button.icon)
+    button.tabIndex = -1
 
     button.addEventListener('click', function (e) {
       e.stopPropagation()

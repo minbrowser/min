@@ -111,7 +111,15 @@ var TaskOverlayBuilder = {
           showDeleteButton: true
         })
 
+        el.tabIndex = 0
         el.setAttribute('data-tab', tab.id)
+
+        // return or space should act like click
+        el.addEventListener('keydown', function (e) {
+          if (e.keyCode === 13 || e.keyCode === 32) {
+            el.click()
+          }
+        })
 
         el.addEventListener('click', function (e) {
           browserUI.switchToTask(this.parentNode.getAttribute('data-task'))
