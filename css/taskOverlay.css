@@ -54,6 +54,13 @@ body.windows:not(.maximized) #task-overlay {
 	padding-top: 0.75em;
 }
 
+.task-tab-item:not(.fakefocus):focus {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+.dark-mode .task-tab-item:not(.fakefocus):focus {
+	background-color: rgba(255, 255, 255, 0.08);
+}
+
 /* drag handle */
 
 .task-drag-handle {

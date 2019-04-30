@@ -85,6 +85,7 @@ window.taskOverlay = {
     // un-hide the overlay
     this.overlayElement.hidden = false
 
+    currentTabElement.classList.add("fakefocus")
     // focus() has no effect if it is called immediately, TODO figure out why
     setTimeout(function () {
       if (currentTabElement) {
