@@ -256,7 +256,11 @@ window.webviews = {
       }
     }
     setTimeout(function () {
-      ipc.send('hideCurrentView')
+      // wait to make sure the image is visible before the view is hidden
+      // make sure the placeholder was not removed between when the timeout was created and when it occurs
+      if (webviews.placeholderRequests.length > 0) {
+        ipc.send('hideCurrentView')
+      }
     }, 0)
   },
   hidePlaceholder: function (reason) {
