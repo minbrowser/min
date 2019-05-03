@@ -1,4 +1,5 @@
 var viewMap = {} // id: view
+var viewStateMap = {} // id: view state
 
 const BrowserView = electron.BrowserView
 
@@ -28,9 +29,8 @@ function createView (id, webPreferencesString, boundsString, events) {
 
   view.setBounds(JSON.parse(boundsString))
 
-  view.setBackgroundColor('#fff')
-
   viewMap[id] = view
+  viewStateMap[id] = {loadedInitialURL: false}
 
   return view
 }
@@ -47,6 +47,7 @@ function destroyView (id) {
   }
   viewMap[id].destroy()
   delete viewMap[id]
+  delete viewStateMap[id]
 }
 
 function destroyAllViews () {
@@ -111,6 +112,15 @@ ipc.on('focusView', function (e, id) {
 
 ipc.on('hideCurrentView', function (e) {
   hideCurrentView()
+})
+
+ipc.on('loadURLInView', function (e, args) {
+  // wait until the first URL is loaded to set the background color so that new tabs can use a custom background
+  if (!viewStateMap[args.id].loadedInitialURL) {
+    viewMap[args.id].setBackgroundColor('#fff')
+  }
+  viewMap[args.id].webContents.loadURL(args.url)
+  viewStateMap[args.id].loadedInitialURL = true
 })
 
 ipc.on('callViewMethod', function (e, data) {

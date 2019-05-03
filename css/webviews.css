@@ -6,6 +6,10 @@ body.windows #webviews {
 	height: calc(100vh - 46px);
 }
 
+.dark-mode #webviews {
+	background-color: rgb(33, 37, 43);
+}
+
 .arrow-indicator {
 	width: 140px;
 	height: 140px;

@@ -187,7 +187,7 @@ window.webviews = {
     })
 
     if (tabData.url) {
-      webviews.callAsync(tabData.id, 'loadURL', urlParser.parse(tabData.url))
+      ipc.send('loadURLInView', {id: tabData.id, url: urlParser.parse(tabData.url)})
     }
 
     webviews.tabViewMap[tabId] = view
@@ -217,7 +217,7 @@ window.webviews = {
     forceUpdateDragRegions()
   },
   update: function (id, url) {
-    webviews.callAsync(id, 'loadURL', urlParser.parse(url))
+    ipc.send('loadURLInView', {id: id, url: urlParser.parse(url)})
   },
   destroy: function (id) {
     var w = webviews.tabViewMap[id]
