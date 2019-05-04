@@ -167,6 +167,27 @@ Trie.prototype.getSubstringsOf = function (string) {
   return substrings
 }
 
+Trie.prototype.getStartingSubstringsOf = function (string) {
+  var substrings = []
+  // loop through each character in the string
+
+  var data = this.data[string[0]]
+  if (!data) {
+    return substrings
+  }
+  for (var i = 1; i < string.length; i++) {
+    data = data[string[i]]
+    if (!data) {
+      break
+    }
+    if (data._d) {
+      substrings = substrings.concat(data._d)
+    }
+  }
+
+  return substrings
+}
+
 function parseFilter (input, parsedFilterData) {
   input = input.trim()
 
@@ -361,9 +382,9 @@ function matchOptions (filterOptions, input, contextParams, currentHost) {
  */
 
 function parse (input, parserData, callback) {
-  var arrayFilterCategories = ['regex', 'leftAnchored', 'rightAnchored', 'bothAnchored', 'indexOf']
+  var arrayFilterCategories = ['regex', 'rightAnchored', 'bothAnchored', 'indexOf']
   var objectFilterCategories = ['hostAnchored']
-  var trieFilterCategories = ['plainString', 'wildcard']
+  var trieFilterCategories = ['plainString', 'leftAnchored', 'wildcard']
 
   parserData.exceptionFilters = parserData.exceptionFilters || {}
 
@@ -407,7 +428,7 @@ function parse (input, parserData, callback) {
           if (parsedFilterData.rightAnchored) {
             object.bothAnchored.push(parsedFilterData)
           } else {
-            object.leftAnchored.push(parsedFilterData)
+            object.leftAnchored.add(parsedFilterData.data, parsedFilterData.options)
           }
         } else if (parsedFilterData.rightAnchored) {
           object.rightAnchored.push(parsedFilterData)
@@ -493,12 +514,13 @@ function matchesFilters (filters, input, contextParams) {
 
   // check if the string matches a left anchored filter
 
-  for (i = 0, len = filters.leftAnchored.length; i < len; i++) {
-    filter = filters.leftAnchored[i]
-
-    if (input.startsWith(filter.data) && matchOptions(filter.options, input, contextParams, currentHost)) {
-      // console.log(filter, 1)
-      return true
+  var leftAnchoredMatches = filters.leftAnchored.getStartingSubstringsOf(input)
+  if (leftAnchoredMatches.length !== 0) {
+    var len = leftAnchoredMatches.length
+    for (i = 0; i < len; i++) {
+      if (matchOptions(leftAnchoredMatches[i], input, contextParams, currentHost)) {
+        return true
+      }
     }
   }
 
