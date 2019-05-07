@@ -262,7 +262,7 @@ function parseFilter (input, parsedFilterData) {
     parsedFilterData.data = input.substring(beginIndex)
   }
 
-  // for plainString and wildcard filters
+  // for nonAnchoredString and wildcard filters
 
   if (!parsedFilterData.data) {
     if (input.indexOf('*') === -1) {
@@ -382,9 +382,9 @@ function matchOptions (filterOptions, input, contextParams, currentHost) {
  */
 
 function parse (input, parserData, callback) {
-  var arrayFilterCategories = ['regex', 'rightAnchored', 'bothAnchored', 'indexOf']
+  var arrayFilterCategories = ['regex', 'rightAnchored', 'bothAnchored']
   var objectFilterCategories = ['hostAnchored']
-  var trieFilterCategories = ['plainString', 'leftAnchored', 'wildcard']
+  var trieFilterCategories = ['nonAnchoredString', 'leftAnchored', 'wildcard']
 
   parserData.exceptionFilters = parserData.exceptionFilters || {}
 
@@ -466,10 +466,8 @@ function parse (input, parserData, callback) {
           }
         } else if (parsedFilterData.regex) {
           object.regex.push(parsedFilterData)
-        } else if (parsedFilterData.data.indexOf('^') === -1) {
-          object.plainString.add(parsedFilterData.data, parsedFilterData.options)
         } else {
-          object.indexOf.push(parsedFilterData)
+          object.nonAnchoredString.add(parsedFilterData.data.split('^')[0], parsedFilterData)
         }
       }
     }
@@ -574,27 +572,16 @@ function matchesFilters (filters, input, contextParams) {
 
   // check if the string matches a string filter
 
-  var plainStringMatches = filters.plainString.getSubstringsOf(input)
+  var nonAnchoredStringMatches = filters.nonAnchoredString.getSubstringsOf(input)
 
-  if (plainStringMatches.length !== 0) {
-    var len = plainStringMatches.length
+  if (nonAnchoredStringMatches.length !== 0) {
+    var len = nonAnchoredStringMatches.length
 
     for (var i = 0; i < len; i++) {
-      if (matchOptions(plainStringMatches[i], input, contextParams, currentHost)) {
-        // console.log(plainStringMatches[i], 5)
+      if (indexOfFilter(input, nonAnchoredStringMatches[i].data, 0) !== -1 && matchOptions(nonAnchoredStringMatches[i].options, input, contextParams, currentHost)) {
+        // console.log(nonAnchoredStringMatches[i], 5)
         return true
       }
-    }
-  }
-
-  // check if the string matches an indexOf filter
-
-  for (i = 0, len = filters.indexOf.length; i < len; i++) {
-    filter = filters.indexOf[i]
-
-    if (indexOfFilter(input, filter.data, 0) !== -1 && matchOptions(filter.options, input, contextParams, currentHost)) {
-      // console.log(filter, 6)
-      return true
     }
   }
 
