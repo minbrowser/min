@@ -119,6 +119,7 @@ function Trie () {
   this.data = {}
 }
 
+/* adds a string to the trie */
 Trie.prototype.add = function (string, stringData) {
   var data = this.data
 
@@ -138,6 +139,27 @@ Trie.prototype.add = function (string, stringData) {
   }
 }
 
+/* adds a string to the trie in reverse order */
+Trie.prototype.addReverse = function (string, stringData) {
+  var data = this.data
+
+  for (var i = string.length - 1; i >= 0; i--) {
+    var char = string[i]
+
+    if (!data[char]) {
+      data[char] = {}
+    }
+
+    data = data[char]
+  }
+  if (data._d) {
+    data._d.push(stringData)
+  } else {
+    data._d = [stringData]
+  }
+}
+
+/* finds all strings added to the trie that are a substring of the input string */
 Trie.prototype.getSubstringsOf = function (string) {
   var root = this.data
   var substrings = []
@@ -167,6 +189,7 @@ Trie.prototype.getSubstringsOf = function (string) {
   return substrings
 }
 
+/* find all strings added to the trie that are located at the beginning of the input string */
 Trie.prototype.getStartingSubstringsOf = function (string) {
   var substrings = []
   // loop through each character in the string
@@ -176,6 +199,29 @@ Trie.prototype.getStartingSubstringsOf = function (string) {
     return substrings
   }
   for (var i = 1; i < string.length; i++) {
+    data = data[string[i]]
+    if (!data) {
+      break
+    }
+    if (data._d) {
+      substrings = substrings.concat(data._d)
+    }
+  }
+
+  return substrings
+}
+
+/* finds all strings within the trie that are located at the end of the input string.
+only works if all strings have been added to the trie with addReverse () */
+Trie.prototype.getEndingSubstringsOfReversed = function (string) {
+  var substrings = []
+  // loop through each character in the string
+
+  var data = this.data[string[string.length - 1]]
+  if (!data) {
+    return substrings
+  }
+  for (var i = string.length - 2; i >= 0; i--) {
     data = data[string[i]]
     if (!data) {
       break
@@ -382,9 +428,9 @@ function matchOptions (filterOptions, input, contextParams, currentHost) {
  */
 
 function parse (input, parserData, callback) {
-  var arrayFilterCategories = ['regex', 'rightAnchored', 'bothAnchored']
+  var arrayFilterCategories = ['regex', 'bothAnchored']
   var objectFilterCategories = ['hostAnchored']
-  var trieFilterCategories = ['nonAnchoredString', 'leftAnchored', 'wildcard']
+  var trieFilterCategories = ['nonAnchoredString', 'leftAnchored', 'rightAnchored', 'wildcard']
 
   parserData.exceptionFilters = parserData.exceptionFilters || {}
 
@@ -431,7 +477,7 @@ function parse (input, parserData, callback) {
             object.leftAnchored.add(parsedFilterData.data, parsedFilterData.options)
           }
         } else if (parsedFilterData.rightAnchored) {
-          object.rightAnchored.push(parsedFilterData)
+          object.rightAnchored.addReverse(parsedFilterData.data, parsedFilterData.options)
         } else if (parsedFilterData.hostAnchored) {
           /* add the filters to the object based on the last 6 characters of their domain.
             Domains can be just 5 characters long: the TLD is at least 2 characters,
@@ -524,13 +570,13 @@ function matchesFilters (filters, input, contextParams) {
 
   // check if the string matches a right anchored filter
 
-  for (i = 0, len = filters.rightAnchored.length; i < len; i++) {
-    filter = filters.rightAnchored[i]
-
-    if (input.endsWith(filter.data) && matchOptions(filter.options, input, contextParams, currentHost)) {
-      // console.log(filter, 2)
-
-      return true
+  var rightAnchoredMatches = filters.rightAnchored.getEndingSubstringsOfReversed(input)
+  if (rightAnchoredMatches.length !== 0) {
+    var len = rightAnchoredMatches.length
+    for (i = 0; i < len; i++) {
+      if (matchOptions(rightAnchoredMatches[i], input, contextParams, currentHost)) {
+        return true
+      }
     }
   }
 
