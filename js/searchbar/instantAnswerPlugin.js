@@ -55,7 +55,7 @@ function showSearchbarInstantAnswers (text, input, event, container) {
         var desc = item.Text.replace(entityName, '')
 
         // try to convert the given url to a wikipedia link
-        var entityNameRegex = /https:\/\/duckduckgo.com\/([a-zA-Z0-9\)\(_%]+)$/
+        var entityNameRegex = /https:\/\/duckduckgo.com\/(.*?)\/?$/
 
         if (entityNameRegex.test(item.FirstURL)) {
           var url = 'https://wikipedia.org/wiki/' + entityNameRegex.exec(item.FirstURL)[1]
