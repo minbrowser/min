@@ -14,7 +14,7 @@ function registerCustomBang (data) {
   customBangs.push({
     phrase: data.phrase,
     snippet: data.snippet,
-    score: data.score || 500000, // half of the default score
+    score: data.score || 256000,
     icon: data.icon || 'fa-terminal',
     showSuggestions: data.showSuggestions,
     fn: data.fn,
@@ -39,6 +39,10 @@ function getCustomBang (text) {
 // format is {bang: count}
 var bangUseCounts = JSON.parse(localStorage.getItem('bangUseCounts') || '{}')
 
+var saveBangUseCounts = debounce(function () {
+  localStorage.setItem('bangUseCounts', JSON.stringify(bangUseCounts))
+}, 10000)
+
 function incrementBangCount (bang) {
   // increment bangUseCounts
 
@@ -50,20 +54,18 @@ function incrementBangCount (bang) {
 
   // prevent the data from getting too big
 
-  if (bangUseCounts[bang] > 1000) {
+  if (bangUseCounts[bang] > 100) {
     for (var bang in bangUseCounts) {
-      bangUseCounts[bang] = Math.floor(bangUseCounts[bang] * 0.9)
+      bangUseCounts[bang] = Math.floor(bangUseCounts[bang] * 0.8)
 
       if (bangUseCounts[bang] < 2) {
         delete bangUseCounts[bang]
       }
     }
   }
-}
 
-var saveBangUseCounts = debounce(function () {
-  localStorage.setItem('bangUseCounts', JSON.stringify(bangUseCounts))
-}, 10000)
+  saveBangUseCounts()
+}
 
 // results is an array of {phrase, snippet, image}
 function showBangSearchResults (results, input, event, container) {
@@ -105,7 +107,6 @@ function showBangSearchResults (results, input, event, container) {
 
       setTimeout(function () {
         incrementBangCount(result.phrase)
-        saveBangUseCounts()
 
         input.value = result.phrase + ' '
         input.focus()
@@ -165,16 +166,16 @@ searchbarPlugins.register('bangs', {
   showResults: debounce(getBangSearchResults, 100)
 })
 
-searchbarPlugins.registerURLHandler({
-  trigger: function (url) {
-    return url.indexOf('!') === 0 && getCustomBang(url)
-  },
-  action: function (url) {
+searchbarPlugins.registerURLHandler(function (url) {
+  if (url.indexOf('!') === 0) {
+    incrementBangCount(url.split(' ')[0])
+
     var bang = getCustomBang(url)
 
     if (bang) {
       tabBar.leaveEditMode()
       bang.fn(url.replace(bang.phrase, '').trimLeft())
+      return true // override the default action
     }
   }
 })

@@ -77,17 +77,13 @@ function run (text, input, event) {
   }
 }
 
-function registerURLHandler (object) {
-  URLHandlers.push({
-    trigger: object.trigger,
-    action: object.action
-  })
+function registerURLHandler (handler) {
+  URLHandlers.push(handler)
 }
 
 function runURLHandlers (text) {
   for (var i = 0; i < URLHandlers.length; i++) {
-    if (URLHandlers[i].trigger(text)) {
-      URLHandlers[i].action(text)
+    if (URLHandlers[i](text)) {
       return true
     }
   }
