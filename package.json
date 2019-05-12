@@ -11,7 +11,7 @@
     "dragula": "^3.6.2",
     "electron-squirrel-startup": "^1.0.0",
     "mousetrap": "^1.5.3",
-    "pdfjs-dist": "2.0.91",
+    "pdfjs-dist": "2.0.943",
     "string_score": "^0.1.22"
   },
   "devDependencies": {
