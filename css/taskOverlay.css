@@ -139,3 +139,39 @@ body.dark-mode #task-overlay #add-task {
 	background-color: rgb(33, 37, 43) !important;
 	color: lightgrey;
 }
+
+/* survey */
+
+#task-overlay-survey-banner {
+	font-size: 10px;
+	max-width: 225px;
+	margin: 0.5em auto;
+	background: rgb(245, 245, 245);
+	padding: 0.25em 0.75em;
+	border-radius: 3px;
+	text-align: center;
+}
+.dark-mode #task-overlay-survey-banner {
+	background: rgb(60, 60, 60);
+}
+
+#task-overlay-survey-link {
+	font-size: 15px;
+	color: rgb(28, 116, 204);
+}
+.dark-mode #task-overlay-survey-link {
+	color: rgb(67, 161, 255);
+}
+
+#task-overlay-survey-close-button {
+	font-size: 16px;
+	margin-left: 0.5em;
+	margin-right: 0.25em;
+	padding: 0.25em;
+	margin-top: -0.25em;
+	opacity: 0.6;
+	color: #333;
+}
+.dark-mode #task-overlay-survey-close-button {
+	color: #fff;
+}
