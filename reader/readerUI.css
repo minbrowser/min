@@ -100,7 +100,7 @@ body[theme="dark"] #auto-redirect-banner {
 }
 body[theme="dark"] #settings-dropdown {
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.75);
-	background: rgba(255, 255, 255 , 0.075);
+	background: rgb(49, 52, 59);
 }
 
 #settings-dropdown .setting-section {
