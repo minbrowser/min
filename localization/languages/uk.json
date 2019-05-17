@@ -33,7 +33,7 @@
         "clearHistory": "Очистити історію",
         "switchToTask": "Перейти до завдання",
         "createTask": "Створити завдання",
-        "closeTask": null, //missing translation
+        "closeTask": "Закрити завдання",
         "moveToTask": "Перемістіть цю вкладку до завдання",
         "searchBookmarks": "Пошук закладок",
         "searchHistory": "Історія пошуку",
@@ -65,8 +65,8 @@
         "timeRangeJustNow": "Зараз",
         "timeRangeMinutes": "Кілька хвилин тому",
         "timeRangeHour": "Годину тому",
-        "timeRangeToday": null, //missing translation
-        "timeRangeYesterday": null, //missing translation
+        "timeRangeToday": "Сьогодні",
+        "timeRangeYesterday": "Вчора",
         "timeRangeWeek": "Тиждень тому",
         "timeRangeMonth": "Місяць тому",
         "timeRangeYear": "У минулому році",
