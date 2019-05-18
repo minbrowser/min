@@ -13,10 +13,10 @@
         "saveImageAs": "图片另存为",
         "searchWith": "在 %s 中搜索", //%s will be replaced with the name of the current search engine
         "copyLink": "复制链接",
-        "select-all": "Select All", // Missing Translation
-        "undo": "Undo", // Missing Translation
-        "redo": "Redo", // Missing Translation
-        "cut": "Cut", // Missing Translation
+        "selectAll": "", // Missing Translation
+        "undo": "", // Missing Translation
+        "redo": "", // Missing Translation
+        "cut": "", // Missing Translation
         "copy": "复制", //this is a verb (as in "copy the currently-selected text")
         "paste": "粘贴",
         "goBack": "后退",

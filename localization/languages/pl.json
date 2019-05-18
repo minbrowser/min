@@ -13,10 +13,10 @@
         "saveImageAs": "Zapisz grafikę jako",
         "searchWith": "Szukaj %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Kopiuj link",
-        "select-all": "Select All", // Missing Translation
-        "undo": "Undo", // Missing Translation
-        "redo": "Redo", // Missing Translation
-        "cut": "Cut", // Missing Translation
+        "selectAll": "", // Missing Translation
+        "undo": "", // Missing Translation
+        "redo": "", // Missing Translation
+        "cut": "", // Missing Translation
         "copy": "Kopiuj", //this is a verb (as in "copy the currently-selected text")
         "paste": "Wklej",
         "goBack": "Cofnij",

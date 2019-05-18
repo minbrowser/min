@@ -13,10 +13,10 @@
         "saveImageAs": "Kép mentése másként",
         "searchWith": "Keresés %s keresővel", //%s will be replaced with the name of the current search engine
         "copyLink": "Hivatkozás másolás",
-        "select-all": "Select All", // Missing Translation
-        "undo": "Undo", // Missing Translation
-        "redo": "Redo", // Missing Translation
-        "cut": "Cut", // Missing Translation
+        "selectAll": "", // Missing Translation
+        "undo": "", // Missing Translation
+        "redo": "", // Missing Translation
+        "cut": "", // Missing Translation
         "copy": "Másolás", //this is a verb (as in "copy the currently-selected text")
         "paste": "Beillesztés",
         "goBack": "Vissza lépés",

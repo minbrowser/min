@@ -13,7 +13,7 @@
         "saveImageAs": "Enregistrer l'image sous",
         "searchWith": "Rechercher avec %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copier le lien",
-        "select-all": "Tout sélectionner",
+        "selectAll": "Tout sélectionner",
         "undo": "Annuler",
         "redo": "Rétablir",
         "cut": "Couper",
@@ -93,7 +93,7 @@
         "addressInvalidTitle": "Cette adresse est invalide.",
         "genericError": "Il y a une erreur",
         /* pages/phishing/index.html */
-        "phishingErrorTitle": "Ce site peut vous nuire. (Tentative de Phishing)",
+        "phishingErrorTitle": "Ce site pourrait vous nuire.",
         "phishingErrorMessage": "Ce site peux essayer de vous dérober vos informations personnelles, comme un mot de passe ou des informations bancaires",
         "phishingErrorVisitAnyway": "Visiter quand même",
         "phishingErrorLeave": "Quitter ce site",

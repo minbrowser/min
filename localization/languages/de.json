@@ -13,10 +13,10 @@
         "saveImageAs": "Bild speichern als",
         "searchWith": "Suche mit %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Link kopieren",
-        "select-all": "Select All", // Missing Translation
-        "undo": "Undo", // Missing Translation
-        "redo": "Redo", // Missing Translation
-        "cut": "Cut", // Missing Translation
+        "selectAll": "", // Missing Translation
+        "undo": "", // Missing Translation
+        "redo": "", // Missing Translation
+        "cut": "", // Missing Translation
         "copy": "Kopieren", //this is a verb (as in "copy the currently-selected text")
         "paste": "Einfügen",
         "goBack": "Gehe zurück",

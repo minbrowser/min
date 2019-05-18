@@ -3,7 +3,6 @@ window.fs = require('fs')
 window.ipc = electron.ipcRenderer
 window.remote = electron.remote
 window.Dexie = require('dexie')
-window.Menu = remote.Menu;
 
 window.webFrame = window.electron.webFrame
 window.webFrame.setVisualZoomLevelLimits(1, 1)
@@ -44,46 +43,7 @@ if (window.platformType === 'windows') {
   })
 }
 
-// ISSUE 753: Someone wants to right click on address bar to copy/paste/stuff
-InputMenu = window.Menu.buildFromTemplate([{
-  label: l('undo'),
-  role: 'undo',
-}, {
-  label: l('redo'),
-  role: 'redo',
-}, {
-  type: 'separator',
-}, {
-  label: l('cut'),
-  role: 'cut',
-}, {
-  label: l('copy'),
-  role: 'copy',
-}, {
-  label: l('paste'),
-  role: 'paste',
-}, {
-  type: 'separator',
-}, {
-  label: l('select-all'),
-  role: 'selectall',
-},
-]);
 
-document.body.addEventListener('contextmenu', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-
-  let node = e.target;
-
-  while (node) {
-    if (node.nodeName.match(/^(input|textarea)$/i) || node.isContentEditable) {
-        InputMenu.popup(remote.getCurrentWindow());
-        break;
-    }
-    node = node.parentNode;
-  }
-});
 
 // https://remysharp.com/2010/07/21/throttling-function-calls
 

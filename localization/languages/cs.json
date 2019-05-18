@@ -13,10 +13,10 @@
         "saveImageAs": "Uložit obrázek jako",
         "searchWith": "Vyhledávat pomocí %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Kopírovat odkaz",
-        "select-all": "Select All", // Missing Translation
-        "undo": "Undo", // Missing Translation
-        "redo": "Redo", // Missing Translation
-        "cut": "Cut", // Missing Translation
+        "selectAll": "", // Missing Translation
+        "undo": "", // Missing Translation
+        "redo": "", // Missing Translation
+        "cut": "", // Missing Translation
         "copy": "Kopírovat", //this is a verb (as in "copy the currently-selected text")
         "paste": "Vložit",
         "goBack": "Jít zpět",

@@ -13,7 +13,7 @@
         "saveImageAs": "Save Image As",
         "searchWith": "Search with %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copy Link",
-        "select-all": "Select All", 
+        "selectAll": "Select All", 
         "undo": "Undo", 
         "redo": "Redo", 
         "cut": "Cut", 
