@@ -2,7 +2,7 @@
 	height: calc(100vh - 36px);
 	position: relative;
 }
-body.windows #webviews {
+body.windows:not(.maximized) #webviews {
 	height: calc(100vh - 46px);
 }
 
