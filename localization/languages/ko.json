@@ -13,6 +13,14 @@
         "saveImageAs": "이미지를 다른 이름으로 저장",
         "searchWith": "%s에서 검색", //%s will be replaced with the name of the current search engine
         "copyLink": "주소 복사",
+        "select-all": "Select All", // Missing Translation
+        "undo": "Undo", // Missing Translation
+        "redo": "Redo", // Missing Translation
+        "cut": "Cut", // Missing Translation
+        "select-all": "Select All", // Missing Translation
+        "undo": "Undo", // Missing Translation
+        "redo": "Redo", // Missing Translation
+        "cut": "Cut", // Missing Translation
         "copy": "복사", //this is a verb (as in "copy the currently-selected text")
         "paste": "붙여넣기",
         "goBack": "뒤로",

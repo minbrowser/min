@@ -13,6 +13,10 @@
         "saveImageAs": "Resmi Farklı Kaydet",
         "searchWith": "%s ile ara", //%s will be replaced with the name of the current search engine
         "copyLink": "Linki Kopyala",
+        "select-all": "Select All", // Missing Translation
+        "undo": "Undo", // Missing Translation
+        "redo": "Redo", // Missing Translation
+        "cut": "Cut", // Missing Translation
         "copy": "Kopyala", //this is a verb (as in "copy the currently-selected text")
         "paste": "Yapıştır",
         "goBack": "Geri Git",

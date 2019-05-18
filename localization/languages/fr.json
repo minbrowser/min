@@ -13,6 +13,10 @@
         "saveImageAs": "Enregistrer l'image sous",
         "searchWith": "Rechercher avec %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copier le lien",
+        "select-all": "Tout sélectionner",
+        "undo": "Annuler",
+        "redo": "Rétablir",
+        "cut": "Couper",
         "copy": "Copier", //this is a verb (as in "copy the currently-selected text")
         "paste": "Coller",
         "goBack": "Retour",

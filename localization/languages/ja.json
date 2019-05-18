@@ -13,6 +13,10 @@
         "saveImageAs": "画像を別名で保存",
         "searchWith": "%s で検索", //%s will be replaced with the name of the current search engine
         "copyLink": "リンクをコピー",
+        "select-all": "Select All", // Missing Translation
+        "undo": "Undo", // Missing Translation
+        "redo": "Redo", // Missing Translation
+        "cut": "Cut", // Missing Translation
         "copy": "コピー", //this is a verb (as in "copy the currently-selected text")
         "paste": "ペースト",
         "goBack": "戻る",

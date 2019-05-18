@@ -13,6 +13,10 @@
         "saveImageAs": "ذخیره تصویر",
         "searchWith": "جستجو با %s", //%s will be replaced with the name of the current search engine
         "copyLink": "کپی لینک",
+        "select-all": "Select All", // Missing Translation
+        "undo": "Undo", // Missing Translation
+        "redo": "Redo", // Missing Translation
+        "cut": "Cut", // Missing Translation
         "copy": "کپی", //this is a verb (as in "copy the currently-selected text")
         "paste": "چسباندن",
         "goBack": "عقب",
