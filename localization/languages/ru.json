@@ -13,10 +13,10 @@
         "saveImageAs": "Сохранить изображение как...",
         "searchWith": "Искать в %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Копировать ссылку",
-        "selectAll": null, // Missing Translation
-        "undo": null, // Missing Translation
-        "redo": null, // Missing Translation
-        "cut": null, // Missing Translation
+        "selectAll": "Выделить все", // Missing Translation
+        "undo": "Отменить", // Missing Translation
+        "redo": "Повторить", // Missing Translation
+        "cut": "Вырезать", // Missing Translation
         "copy": "Копировать", //this is a verb (as in "copy the currently-selected text")
         "paste": "Вставить",
         "goBack": "Назад",
