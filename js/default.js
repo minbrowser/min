@@ -43,8 +43,6 @@ if (window.platformType === 'windows') {
   })
 }
 
-
-
 // https://remysharp.com/2010/07/21/throttling-function-calls
 
 function throttle (fn, threshhold, scope) {

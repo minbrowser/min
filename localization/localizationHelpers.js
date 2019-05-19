@@ -21,6 +21,7 @@ function getCurrentLanguage () {
   } else {
     // nothing worked, fall back to default
   }
+
   return language
 }
 
