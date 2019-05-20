@@ -33,7 +33,7 @@
         "clearHistory": "Limpar todo o histórico",
         "switchToTask": "Trocar para a tarefa",
         "createTask": "Criar tarefa",
-        "closeTask": null, //missing translation
+        "closeTask": "Fechar tarefa",
         "moveToTask": "Mover este separador para uma tarefa",
         "searchBookmarks": "Pesquisar nos marcadores",
         "searchHistory": "Pesquisar no histórico",
@@ -65,8 +65,8 @@
         "timeRangeJustNow": "Agora mesmo",
         "timeRangeMinutes": "Há alguns minutos",
         "timeRangeHour": "Na última hora",
-        "timeRangeToday": null, //missing translation
-        "timeRangeYesterday": null, //missing translation
+        "timeRangeToday": "Hoje",
+        "timeRangeYesterday": "Ontem",
         "timeRangeWeek": "Na última semana",
         "timeRangeMonth": "No último mês",
         "timeRangeYear": "No último ano",
