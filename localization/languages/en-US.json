@@ -13,6 +13,10 @@
         "saveImageAs": "Save Image As",
         "searchWith": "Search with %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copy Link",
+        "selectAll": "Select All", 
+        "undo": "Undo", 
+        "redo": "Redo", 
+        "cut": "Cut", 
         "copy": "Copy", //this is a verb (as in "copy the currently-selected text")
         "paste": "Paste",
         "goBack": "Go Back",

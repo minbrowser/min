@@ -13,6 +13,10 @@
       "saveImageAs":"ইমেজ সেভ করুন এভাবে",
       "searchWith":"%s এর সাথে অনুসন্ধান করুন", //%s will be replaced with the name of the current search engine
       "copyLink":"লিংক কপি করুন",
+      "selectAll": null, // Missing Translation
+      "undo": null, // Missing Translation
+      "redo": null, // Missing Translation
+      "cut": null, // Missing Translation
       "copy":"কপি",  //this is a verb (as in "copy the currently-selected text")
       "paste":"প্রতিলেপন",
       "goBack":"ফিরে যাও",

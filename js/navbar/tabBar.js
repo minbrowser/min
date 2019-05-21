@@ -1,5 +1,6 @@
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
+var contextMenu = require('contextMenu.js')
 var searchbar = require('searchbar/searchbar.js')
 var urlParser = require('util/urlParser.js')
 
