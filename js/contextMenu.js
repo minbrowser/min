@@ -2,9 +2,7 @@ document.getElementById('tabs').addEventListener('contextmenu', (e) => {
   e.preventDefault();
   e.stopPropagation();
 
-  if (e.target.classList.contains('tab-input')){
-
-    remote = electron.remote, Menu = remote.Menu;
+    Menu = remote.Menu;
 
     InputMenu = Menu.buildFromTemplate([{
       label: l('undo'),
@@ -31,7 +29,6 @@ document.getElementById('tabs').addEventListener('contextmenu', (e) => {
     },
     ]);
       InputMenu.popup(remote.getCurrentWindow());
-  }
 });
 
 
