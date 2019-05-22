@@ -85,6 +85,14 @@ body:not(.windows) #menu-button {
 	display: none;
 }
 
+#add-tab-button{
+	transition: 0.2s transform;
+}
+
+#add-tab-button:hover{
+	transform: scale(1.15);
+}
+
 /* tab layout */
 
 #navbar #tabs {
