@@ -171,6 +171,14 @@ var webviewMenu = {
             webviews.get(tabs.getSelected()).goForward()
           } catch (e) {}
         }
+      }),
+      new MenuItem({
+        label: l('selectAll'), 
+        click: function () {
+          try {
+            webviews.get(tabs.getSelected()).selectAll()
+          } catch (e) {}
+        }
       })
     ]
 
@@ -185,6 +193,7 @@ var webviewMenu = {
         }
       })
     ])
+
 
     menuSections.forEach(function (section) {
       section.forEach(function (item) {
