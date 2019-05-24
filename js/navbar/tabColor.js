@@ -10,6 +10,18 @@ const defaultColors = {
   darkMode: ['rgb(40, 44, 52)', 'white']
 }
 
+function getHours () {
+  const date = new Date()
+  return date.getHours() + (date.getMinutes() / 60)
+}
+
+let hours = getHours()
+
+// we cache the hours so we don't have to query every time we change the color
+setInterval(function () {
+  hours = getHours()
+}, 5 * 60 * 1000)
+
 function getColorFromImage (image) {
   const w = colorExtractorImage.width
   const h = colorExtractorImage.height
@@ -72,43 +84,17 @@ function getColorFromImage (image) {
     res[i] = parseInt(res[i])
   }
 
-  // dim the colors late at night or early in the morning, or when dark mode is enabled
-  let colorChange = 1
-  if (hours > 20) {
-    colorChange = 1.01 / (1 + 0.9 * Math.pow(Math.E, 1.5 * (hours - 22.75)))
-  } else if (hours < 6.5) {
-    colorChange = 1.04 / (1 + 0.9 * Math.pow(Math.E, -2 * (hours - 5)))
-  }
-
-  if (window.isDarkMode) {
-    colorChange = Math.min(colorChange, 0.6)
-  }
-
-  res[0] = Math.round(res[0] * colorChange)
-  res[1] = Math.round(res[1] * colorChange)
-  res[2] = Math.round(res[2] * colorChange)
-
-  let isLowContrast = false
-  // is this a color that won't change very much when lightened or darkened?
-  // TODO is lowContrast the best name for this?
-  if (res.filter(i => (i > 235 || i < 15)).length === 3) {
-    isLowContrast = true
-  }
-
-  return {color: res, isLowContrast}
+  return adjustColorForTheme(res)
 }
 
-function getHours () {
-  const date = new Date()
-  return date.getHours() + (date.getMinutes() / 60)
+function getColorFromString (str) {
+  colorExtractorContext.clearRect(0, 0, 1, 1)
+  colorExtractorContext.fillStyle = str
+  colorExtractorContext.fillRect(0, 0, 1, 1)
+  let rgb = Array.from(colorExtractorContext.getImageData(0, 0, 1, 1).data).slice(0, 3)
+
+  return adjustColorForTheme(rgb)
 }
-
-let hours = getHours()
-
-// we cache the hours so we don't have to query every time we change the color
-setInterval(function () {
-  hours = getHours()
-}, 5 * 60 * 1000)
 
 function getRGBString (c) {
   return 'rgb(' + c[0] + ',' + c[1] + ',' + c[2] + ')'
@@ -125,6 +111,32 @@ function getTextColor (bgColor) {
     return 'black'
   }
   return 'white'
+}
+
+function isLowContrast (color) {
+  // is this a color that won't change very much when lightened or darkened?
+  // TODO is lowContrast the best name for this?
+  return color.filter(i => (i > 235 || i < 15)).length === 3
+}
+
+function adjustColorForTheme (color) {
+  // dim the colors late at night or early in the morning, or when dark mode is enabled
+  let colorChange = 1
+  if (hours > 20) {
+    colorChange = 1.01 / (1 + 0.9 * Math.pow(Math.E, 1.5 * (hours - 22.75)))
+  } else if (hours < 6.5) {
+    colorChange = 1.04 / (1 + 0.9 * Math.pow(Math.E, -2 * (hours - 5)))
+  }
+
+  if (window.isDarkMode) {
+    colorChange = Math.min(colorChange, 0.6)
+  }
+
+  color[0] = Math.round(color[0] * colorChange)
+  color[1] = Math.round(color[1] * colorChange)
+  color[2] = Math.round(color[2] * colorChange)
+
+  return color
 }
 
 function setColor (bg, fg, isLowContrast) {
@@ -158,12 +170,46 @@ const tabColor = {
       tabColor.updateFromImage(favicons, id)
     })
 
+    webviews.bindEvent('did-change-theme-color', function (e, color) {
+      const id = webviews.getTabFromContents(this)
+      tabColor.updateFromThemeColor(color, id)
+    })
+
+    webviews.bindEvent('did-navigate', function (e) {
+      const id = webviews.getTabFromContents(this)
+      tabs.update(id, {
+        themeColor: null,
+        backgroundColor: null
+      })
+    })
+
     // theme changes can affect the tab colors
     window.addEventListener('themechange', function (e) {
       tabColor.updateColors()
     })
 
     tasks.on('tab-selected', this.updateColors)
+  },
+  updateFromThemeColor: function (color, tabId) {
+    if (!color) {
+      tabs.update(tabId, {
+        themeColor: null
+      })
+      return
+    }
+
+    const rgb = getColorFromString(color)
+
+    tabs.update(tabId, {
+      themeColor: {
+        color: getRGBString(rgb),
+        textColor: getTextColor(rgb),
+        isLowContrast: isLowContrast(rgb)
+      }
+    })
+    if (tabId === tabs.getSelected()) {
+      tabColor.updateColors()
+    }
   },
   updateFromImage: function (favicons, tabId) {
     // private tabs always use a special color, we don't need to get the icon
@@ -174,14 +220,13 @@ const tabColor = {
     requestIdleCallback(function () {
       colorExtractorImage.onload = function (e) {
         const backgroundColor = getColorFromImage(colorExtractorImage)
-        const textColor = getTextColor(backgroundColor.color)
-
-        const backgroundString = getRGBString(backgroundColor.color)
 
         tabs.update(tabId, {
-          backgroundColor: backgroundString,
-          lowContrastBackground: backgroundColor.isLowContrast,
-          foregroundColor: textColor
+          backgroundColor: {
+            color: getRGBString(backgroundColor),
+            textColor: getTextColor(backgroundColor),
+            isLowContrast: isLowContrast(backgroundColor)
+          }
         })
 
         if (tabId === tabs.getSelected()) {
@@ -201,9 +246,14 @@ const tabColor = {
       return setColor(defaultColors.private[0], defaultColors.private[1])
     }
 
+    // use the theme color
+    if (tab.themeColor && tab.themeColor.color) {
+      return setColor(tab.themeColor.color, tab.themeColor.textColor, tab.themeColor.isLowContrast)
+    }
+
     // use the colors extracted from the page icon
-    if (tab.backgroundColor || tab.foregroundColor) {
-      return setColor(tab.backgroundColor, tab.foregroundColor, tab.lowContrastBackground)
+    if (tab.backgroundColor && tab.backgroundColor.color) {
+      return setColor(tab.backgroundColor.color, tab.backgroundColor.textColor, tab.backgroundColor.isLowContrast)
     }
 
     // otherwise use the default colors
