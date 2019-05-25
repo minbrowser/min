@@ -11,7 +11,7 @@ function pageIsReaderable () {
   }
 
   for (var i = 0; i < paragraphs.length; i++) {
-    var pLength = Math.max(paragraphs[i].textContent.length - 100, -30)
+    var pLength = Math.max(paragraphs[i].textContent.replace(/\s+/g, ' ').length - 100, -30)
     totalLength += pLength
 
     var prev = paragraphMap.get(paragraphs[i].parentNode) || 0
@@ -26,7 +26,7 @@ function pageIsReaderable () {
     }
   })
 
-  if ((largestValue > 400 && largestValue / totalLength > 0.33) || (largestValue > 200 && document.querySelector('article, meta[property="og:type"][content="article"]'))) {
+  if ((largestValue > 600 && largestValue / totalLength > 0.33) || (largestValue > 400 && document.querySelector('article, meta[property="og:type"][content="article"]'))) {
     return true
   } else {
     return false

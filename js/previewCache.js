@@ -21,11 +21,14 @@ if (savedData) {
   }
 }
 
-tasks.on('tab-destroyed', function (id) {
-  delete previewCache.images[id]
-})
-
 setInterval(function () {
+  // discard any images for tabs that don't exist any more
+  for (var tab in previewCache.images) {
+    if (!tasks.getTaskContainingTab(tab)) {
+      delete previewCache.images[tab]
+    }
+  }
+
   localStorage.setItem('previewCache', JSON.stringify(previewCache.images))
 }, 60000)
 

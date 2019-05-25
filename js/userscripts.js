@@ -51,7 +51,10 @@ webviews.bindEvent('dom-ready', function (e) {
   }
   var tab = webviews.getTabFromContents(this)
 
-  webviews.callAsync(tab, 'getURL', null, src => {
+  webviews.callAsync(tab, 'getURL', null, (err, src) => {
+    if (err) {
+      return
+    }
     try {
       var domain = new URL(src).hostname
       if (domain.startsWith('www.')) {

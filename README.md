@@ -25,27 +25,35 @@ More information, and prebuilt binaries are available [here](https://minbrowser.
 
 ## Installing
 
-You can find prebuilt binaries for Min [here](https://github.com/minbrowser/min/releases). Alternatively, you can build Min directly from the source code:
-
-* If you are using OS X, install [Homebrew](http://brew.sh), then run `brew install fakeroot dpkg`.
-* Then, run `grunt macBuild`, `grunt linuxBuild`, or `grunt windowsBuild` depending on which platform you want binaries for.
+You can find prebuilt binaries for Min [here](https://github.com/minbrowser/min/releases). Alternatively, skip to the section below for instructions on how to build Min directly from source.
 
 ## Developing
 
 If you want to develop Min:
 
-* Install [Node](https://nodejs.org) and [Grunt](http://gruntjs.com).
+* Install [Node](https://nodejs.org).
 * Run `npm install` to install dependencies.
 * Build the translation files and a copy of the JS by running `npm run build`.
   * You can also watch for changes and automatically rebuild by running `npm run watch`.
-* Download a copy of Electron from [here](https://github.com/electron/electron/releases).
 * Start Min by running `node_modules/.bin/electron .`.<sup>1</sup>
+* After you make changes, you can press `ctrl+r` (or `cmd+r` on Mac) twice to restart the browser.
 
 <sup>1</sup>: _Make sure no `Min` instance is already running before starting the development version of `Min`._<br>
 
+### Building binaries
+
+In order to build Min from source, follow the installation instructions above, then use one of the following commands to create binaries:
+* ```npm run buildWindows```
+* ```npm run buildMac```
+* ```npm run buildLinux```
+
+Depending on the platform you are building for, you may need to install additional dependencies:
+* If you are using macOS and building a package for Linux, install [Homebrew](http://brew.sh), then run `brew install fakeroot dpkg` first.
+* If you are using macOS or Linux and building a package for Windows, you will need to install [Mono](https://www.mono-project.com/) and [Wine](https://www.winehq.org/).
+
 ## Contributing to Min
 
-Please feel free to open an issue with any problems you encounter or suggestions you have. Code contributions are also highly appreciated; if you have any questions about how to add something to Min, please open an issue about it.
+Please feel free to open an issue with any problems you encounter or suggestions you have! Code contributions are also highly appreciated; if you have any questions about how to add something to Min, please open an issue about it.
 
 ### Contributing Translations
 

@@ -107,10 +107,19 @@ var TaskOverlayBuilder = {
           classList: ['task-tab-item'],
           delete: function () {
             removeTabFromOverlay(tab.id, task)
-          }
+          },
+          showDeleteButton: true
         })
 
+        el.tabIndex = 0
         el.setAttribute('data-tab', tab.id)
+
+        // return or space should act like click
+        el.addEventListener('keydown', function (e) {
+          if (e.keyCode === 13 || e.keyCode === 32) {
+            el.click()
+          }
+        })
 
         el.addEventListener('click', function (e) {
           browserUI.switchToTask(this.parentNode.getAttribute('data-task'))
@@ -118,9 +127,6 @@ var TaskOverlayBuilder = {
 
           taskOverlay.hide()
         })
-
-        var closeTabButton = this.closeButton(el)
-        el.querySelector('.title').appendChild(closeTabButton)
         return el
       },
 
@@ -137,26 +143,6 @@ var TaskOverlayBuilder = {
         }
 
         return tabContainer
-      },
-
-      closeButton: function (taskTabElement) {
-        var closeTabButton = document.createElement('button')
-        closeTabButton.className = 'closeTab fa fa-close'
-
-        closeTabButton.addEventListener('click', function (e) {
-          var tabId = taskTabElement.getAttribute('data-tab')
-          var taskId = taskTabElement.parentNode.getAttribute('data-task')
-
-          removeTabFromOverlay(tabId, tasks.get(taskId))
-          taskTabElement.parentNode.removeChild(taskTabElement)
-
-          // do not close taskOverlay
-          // (the close button is part of the tab-element, so a click on it
-          // would otherwise trigger opening this tab, and it was just closed)
-          e.stopImmediatePropagation()
-        })
-
-        return closeTabButton
       }
     }
   }

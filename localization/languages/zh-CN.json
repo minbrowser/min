@@ -13,6 +13,10 @@
         "saveImageAs": "图片另存为",
         "searchWith": "在 %s 中搜索", //%s will be replaced with the name of the current search engine
         "copyLink": "复制链接",
+        "selectAll": null, // Missing Translation
+        "undo": null, // Missing Translation
+        "redo": null, // Missing Translation
+        "cut": null, // Missing Translation
         "copy": "复制", //this is a verb (as in "copy the currently-selected text")
         "paste": "粘贴",
         "goBack": "后退",
@@ -32,6 +36,7 @@
         "takeScreenshot": "截图",
         "clearHistory": "清除所有历史记录",
         "switchToTask": "切换到标签组列表",
+        "closeTask": null, //missing translation
         "createTask": "新建标签组",
         "moveToTask": "以当前标签页创建一个新的标签组",
         "searchBookmarks": "搜索书签内容",
@@ -64,7 +69,8 @@
         "timeRangeJustNow": "几秒前",
         "timeRangeMinutes": "几分钟前",
         "timeRangeHour": "几小时前",
-        "timeRangeDay": "几天前",
+        "timeRangeToday": null, //missing translation
+        "timeRangeYesterday": null, //missing translation
         "timeRangeWeek": "几星期前",
         "timeRangeMonth": "几个月前",
         "timeRangeYear": "几年前",

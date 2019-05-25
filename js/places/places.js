@@ -31,6 +31,16 @@ const places = {
     var tab = tabs.get(tabId),
       data = args[0]
 
+    if (tab.url.startsWith('data:') || tab.url.length > 5000) {
+      /*
+      very large URLs cause performance issues. In particular:
+      * they can cause the database to grow abnormally large, which increases memory usage and startup time
+      * they can cause the browser to hang when they are displayed in search results
+      To avoid this, don't save them to history
+      */
+      return
+    }
+
     /* if the page is an internal page, it normally shouldn't be saved,
      unless the page represents another page (such as the PDF viewer or reader view) */
     var isNonIndexableInternalPage = urlParser.isInternalURL(tab.url) && urlParser.getSourceURL(tab.url) === tab.url
@@ -42,7 +52,6 @@ const places = {
     } else {
       // include page URL tokens and title in search text
       // this allows for queries that include both the site name and some text from the page
-      // limit tab URL length because of data: urls
       data.extractedText = urlParser.removeProtocol(tab.url).substr(0, 200) + ' ' + tab.title + ' ' + data.extractedText
     }
 

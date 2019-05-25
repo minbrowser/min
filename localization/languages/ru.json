@@ -13,6 +13,10 @@
         "saveImageAs": "Сохранить изображение как...",
         "searchWith": "Искать в %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Копировать ссылку",
+        "selectAll": "Выделить все", // Missing Translation
+        "undo": "Отменить", // Missing Translation
+        "redo": "Повторить", // Missing Translation
+        "cut": "Вырезать", // Missing Translation
         "copy": "Копировать", //this is a verb (as in "copy the currently-selected text")
         "paste": "Вставить",
         "goBack": "Назад",
@@ -33,6 +37,7 @@
         "clearHistory": "Очистить историю",
         "switchToTask": "Переключиться на задачу",
         "createTask": "Создать задачу",
+        "closeTask": null, //missing translation
         "moveToTask": "Переместить эту вкладку в задачу",
         "searchBookmarks": "Искать в закладках",
         "searchHistory": null, //missing translation
@@ -64,7 +69,8 @@
         "timeRangeJustNow": null, //missing translation
         "timeRangeMinutes": null, //missing translation
         "timeRangeHour": null, //missing translation
-        "timeRangeDay": null, //missing translation
+        "timeRangeToday": null, //missing translation
+        "timeRangeYesterday": null, //missing translation
         "timeRangeWeek": null, //missing translation
         "timeRangeMonth": null, //missing translation
         "timeRangeYear": null, //missing translation

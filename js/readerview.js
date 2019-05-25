@@ -14,15 +14,12 @@ var readerView = {
   },
   getButton: function (tabId) {
     // TODO better icon
-    var item = document.createElement('i')
-    item.className = 'fa fa-align-left reader-button'
+    var button = document.createElement('i')
+    button.className = 'fa fa-align-left reader-button'
 
-    item.setAttribute('data-tab', tabId)
-    item.setAttribute('title', l('enterReaderView'))
+    button.setAttribute('data-tab', tabId)
 
-    item.addEventListener('click', function (e) {
-      var tabId = this.getAttribute('data-tab')
-
+    button.addEventListener('click', function (e) {
       e.stopPropagation()
 
       if (readerView.isReader(tabId)) {
@@ -32,31 +29,34 @@ var readerView = {
       }
     })
 
-    return item
+    readerView.updateButton(tabId, button)
+
+    return button
   },
-  updateButton: function (tabId) {
-    var button = document.querySelector('.reader-button[data-tab="{id}"]'.replace('{id}', tabId))
+  updateButton: function (tabId, button) {
+    var button = button || document.querySelector('.reader-button[data-tab="{id}"]'.replace('{id}', tabId))
     var tab = tabs.get(tabId)
 
     if (readerView.isReader(tabId)) {
       button.classList.add('is-reader')
       button.setAttribute('title', l('exitReaderView'))
-      return
     } else {
       button.classList.remove('is-reader')
       button.setAttribute('title', l('enterReaderView'))
-    }
 
-    if (tab.readerable) {
-      button.classList.add('can-reader')
-    } else {
-      button.classList.remove('can-reader')
+      if (tab.readerable) {
+        button.classList.add('can-reader')
+      } else {
+        button.classList.remove('can-reader')
+      }
     }
   },
   enter: function (tabId, url) {
     browserUI.navigate(tabId, readerView.readerURL + '?url=' + encodeURIComponent(url || tabs.get(tabId).url))
   },
   exit: function (tabId) {
+    // this page should not be automatically readerable in the future
+    readerDecision.setURLStatus(urlParser.getSourceURL(tabs.get(tabId).url), false)
     browserUI.navigate(tabId, decodeURIComponent(tabs.get(tabId).url.split('?url=')[1]))
   },
   printArticle: function (tabId) {

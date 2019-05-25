@@ -1,4 +1,4 @@
-PDFJS.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.js'
+pdfjsLib.GlobalWorkerOptions.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.js'
 
 var url = new URLSearchParams(window.location.search.replace('?', '')).get('url')
 
@@ -173,7 +173,7 @@ function DefaultTextLayerFactory() { }
 DefaultTextLayerFactory.prototype = {
   createTextLayerBuilder: function (textLayerDiv, pageIndex, viewport,
     enhanceTextSelection) {
-    return new PDFJS.TextLayerBuilder({
+    return new pdfjsViewer.TextLayerBuilder({
       textLayerDiv: textLayerDiv,
       pageIndex: pageIndex,
       viewport: viewport,
@@ -213,7 +213,7 @@ const updateCachedPages = throttle(function () {
 
 var pageCount;
 
-PDFJS.getDocument({ url: url, withCredentials: true }).then(async function (pdf) {
+pdfjsLib.getDocument({ url: url, withCredentials: true }).then(async function (pdf) {
   window.pdf = pdf
 
   pageCount = pdf.numPages
@@ -259,13 +259,13 @@ PDFJS.getDocument({ url: url, withCredentials: true }).then(async function (pdf)
       }
 
       var pageContainer = createContainer();
-      var pdfPageView = new PDFJS.PDFPageView({
+      var pdfPageView = new pdfjsViewer.PDFPageView({
         container: pageContainer,
         id: pageNumber,
         scale: scale,
         defaultViewport: viewport,
         textLayerFactory: new DefaultTextLayerFactory(),
-        annotationLayerFactory: new PDFJS.DefaultAnnotationLayerFactory(),
+        annotationLayerFactory: new pdfjsViewer.DefaultAnnotationLayerFactory(),
       })
       pdfPageView.setPdfPage(page)
       pageViews.push(pdfPageView)

@@ -31,10 +31,12 @@ window.taskOverlay = {
   overlayElement: document.getElementById('task-overlay'),
   isShown: false,
   tabDragula: dragula({
-    direction: 'vertical'
+    direction: 'vertical',
+    mirrorContainer: document.getElementById('task-overlay')
   }),
   taskDragula: dragula({
     direction: 'vertical',
+    mirrorContainer: document.getElementById('task-overlay'),
     containers: [taskContainer],
     moves: function (el, source, handle, sibling) {
       // ignore drag events that come from a tab element, since they will be handled by the other dragula instance
@@ -80,13 +82,16 @@ window.taskOverlay = {
 
     var currentTabElement = document.querySelector('.task-tab-item[data-tab="{id}"]'.replace('{id}', tasks.getSelected().tabs.getSelected()))
 
-    if (currentTabElement) {
-      currentTabElement.scrollIntoViewIfNeeded()
-      currentTabElement.classList.add('fakefocus')
-    }
-
     // un-hide the overlay
     this.overlayElement.hidden = false
+
+    currentTabElement.classList.add("fakefocus")
+    // focus() has no effect if it is called immediately, TODO figure out why
+    setTimeout(function () {
+      if (currentTabElement) {
+        currentTabElement.focus()
+      }
+    }, 50)
   },
 
   hide: function () {
@@ -204,3 +209,77 @@ taskOverlay.taskDragula.on('drop', function (el, target, source, sibling) {
   // reinsert the task
   tasks.splice(newIdx, 0, droppedTask)
 })
+
+/* auto-scroll the container when the item is dragged to the edge of the screen */
+
+var draggingScrollInterval = null
+
+function onMouseMoveWhileDragging (e) {
+  clearInterval(draggingScrollInterval)
+  if (e.pageY < 100) {
+    draggingScrollInterval = setInterval(function () {
+      taskOverlay.overlayElement.scrollBy(0, -5)
+    }, 16)
+  } else if (e.pageY > (window.innerHeight - 125)) {
+    draggingScrollInterval = setInterval(function () {
+      taskOverlay.overlayElement.scrollBy(0, 5)
+    }, 16)
+  }
+}
+
+function startMouseDragRecording () {
+  window.addEventListener('mousemove', onMouseMoveWhileDragging)
+}
+
+function endMouseDragRecording () {
+  window.removeEventListener('mousemove', onMouseMoveWhileDragging)
+  clearInterval(draggingScrollInterval)
+}
+
+taskOverlay.tabDragula.on('drag', function () {
+  startMouseDragRecording()
+})
+
+taskOverlay.tabDragula.on('dragend', function () {
+  endMouseDragRecording()
+})
+
+taskOverlay.taskDragula.on('drag', function () {
+  startMouseDragRecording()
+})
+
+taskOverlay.taskDragula.on('dragend', function () {
+  endMouseDragRecording()
+})
+
+/* survey */
+
+var taskSurveyBanner = document.getElementById('task-overlay-survey-banner')
+var taskSurveyLink = document.getElementById('task-overlay-survey-link')
+var taskSurveyButton = document.getElementById('task-overlay-survey-close-button')
+
+if (!localStorage.getItem('110tasksurvey')) {
+  fetch('https://minbrowser.github.io/min/survey/tasksSurvey.json')
+    .then(response => response.json())
+    .then(function (data) {
+      if (data.available) {
+        taskSurveyBanner.hidden = false
+        taskSurveyLink.addEventListener('click', function (e) {
+          taskOverlay.hide()
+          browserUI.addTab(tabs.add({
+            url: data.url
+          }), {
+            enterEditMode: false
+          })
+          localStorage.setItem('110tasksurvey', 'true')
+          taskSurveyBanner.hidden = true
+        })
+        taskSurveyButton.addEventListener('click', function (e) {
+          e.stopPropagation()
+          localStorage.setItem('110tasksurvey', 'false')
+          taskSurveyBanner.hidden = true
+        })
+      }
+    })
+    .catch(e => console.error('error getting tasks survey', e))
+}

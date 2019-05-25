@@ -1,6 +1,6 @@
 {
-    "name": "Français (France)",
-    "identifier": "fr-FR",
+    "name": "Français",
+    "identifier": "fr",
     "translations": {
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
@@ -37,7 +37,7 @@
         "clearHistory": "Vider l'historique",
         "switchToTask": "Changer de tâche",
         "createTask": "Créer une tâche",
-        "closeTask": "Fermer cette tâche", //missing translation
+        "closeTask": "Fermer cette tâche", 
         "moveToTask": "Déplacer cette tâche à cet onglet",
         "searchBookmarks": "Rechercher des signets",
         "searchHistory": "Rechercher dans l'historique",

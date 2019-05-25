@@ -60,7 +60,9 @@ function parseDomains (input, options) {
       matchDomains.push(domains[i])
     }
   }
-  options.domains = matchDomains
+  if (matchDomains.length !== 0) {
+    options.domains = matchDomains
+  }
   if (skipDomains.length !== 0) {
     options.skipDomains = skipDomains
   }
@@ -117,6 +119,7 @@ function Trie () {
   this.data = {}
 }
 
+/* adds a string to the trie */
 Trie.prototype.add = function (string, stringData) {
   var data = this.data
 
@@ -136,6 +139,27 @@ Trie.prototype.add = function (string, stringData) {
   }
 }
 
+/* adds a string to the trie in reverse order */
+Trie.prototype.addReverse = function (string, stringData) {
+  var data = this.data
+
+  for (var i = string.length - 1; i >= 0; i--) {
+    var char = string[i]
+
+    if (!data[char]) {
+      data[char] = {}
+    }
+
+    data = data[char]
+  }
+  if (data._d) {
+    data._d.push(stringData)
+  } else {
+    data._d = [stringData]
+  }
+}
+
+/* finds all strings added to the trie that are a substring of the input string */
 Trie.prototype.getSubstringsOf = function (string) {
   var root = this.data
   var substrings = []
@@ -159,6 +183,51 @@ Trie.prototype.getSubstringsOf = function (string) {
       } else {
         continue outer
       }
+    }
+  }
+
+  return substrings
+}
+
+/* find all strings added to the trie that are located at the beginning of the input string */
+Trie.prototype.getStartingSubstringsOf = function (string) {
+  var substrings = []
+  // loop through each character in the string
+
+  var data = this.data[string[0]]
+  if (!data) {
+    return substrings
+  }
+  for (var i = 1; i < string.length; i++) {
+    data = data[string[i]]
+    if (!data) {
+      break
+    }
+    if (data._d) {
+      substrings = substrings.concat(data._d)
+    }
+  }
+
+  return substrings
+}
+
+/* finds all strings within the trie that are located at the end of the input string.
+only works if all strings have been added to the trie with addReverse () */
+Trie.prototype.getEndingSubstringsOfReversed = function (string) {
+  var substrings = []
+  // loop through each character in the string
+
+  var data = this.data[string[string.length - 1]]
+  if (!data) {
+    return substrings
+  }
+  for (var i = string.length - 2; i >= 0; i--) {
+    data = data[string[i]]
+    if (!data) {
+      break
+    }
+    if (data._d) {
+      substrings = substrings.concat(data._d)
     }
   }
 
@@ -239,7 +308,7 @@ function parseFilter (input, parsedFilterData) {
     parsedFilterData.data = input.substring(beginIndex)
   }
 
-  // for plainString and wildcard filters
+  // for nonAnchoredString and wildcard filters
 
   if (!parsedFilterData.data) {
     if (input.indexOf('*') === -1) {
@@ -359,9 +428,9 @@ function matchOptions (filterOptions, input, contextParams, currentHost) {
  */
 
 function parse (input, parserData, callback) {
-  var arrayFilterCategories = ['regex', 'leftAnchored', 'rightAnchored', 'bothAnchored', 'indexOf']
+  var arrayFilterCategories = ['regex', 'bothAnchored']
   var objectFilterCategories = ['hostAnchored']
-  var trieFilterCategories = ['plainString', 'wildcard']
+  var trieFilterCategories = ['nonAnchoredString', 'leftAnchored', 'rightAnchored', 'wildcard']
 
   parserData.exceptionFilters = parserData.exceptionFilters || {}
 
@@ -405,10 +474,10 @@ function parse (input, parserData, callback) {
           if (parsedFilterData.rightAnchored) {
             object.bothAnchored.push(parsedFilterData)
           } else {
-            object.leftAnchored.push(parsedFilterData)
+            object.leftAnchored.add(parsedFilterData.data, parsedFilterData.options)
           }
         } else if (parsedFilterData.rightAnchored) {
-          object.rightAnchored.push(parsedFilterData)
+          object.rightAnchored.addReverse(parsedFilterData.data, parsedFilterData.options)
         } else if (parsedFilterData.hostAnchored) {
           /* add the filters to the object based on the last 6 characters of their domain.
             Domains can be just 5 characters long: the TLD is at least 2 characters,
@@ -443,10 +512,8 @@ function parse (input, parserData, callback) {
           }
         } else if (parsedFilterData.regex) {
           object.regex.push(parsedFilterData)
-        } else if (parsedFilterData.data.indexOf('^') === -1) {
-          object.plainString.add(parsedFilterData.data, parsedFilterData.options)
         } else {
-          object.indexOf.push(parsedFilterData)
+          object.nonAnchoredString.add(parsedFilterData.data.split('^')[0], parsedFilterData)
         }
       }
     }
@@ -491,24 +558,25 @@ function matchesFilters (filters, input, contextParams) {
 
   // check if the string matches a left anchored filter
 
-  for (i = 0, len = filters.leftAnchored.length; i < len; i++) {
-    filter = filters.leftAnchored[i]
-
-    if (input.startsWith(filter.data) && matchOptions(filter.options, input, contextParams, currentHost)) {
-      // console.log(filter, 1)
-      return true
+  var leftAnchoredMatches = filters.leftAnchored.getStartingSubstringsOf(input)
+  if (leftAnchoredMatches.length !== 0) {
+    var len = leftAnchoredMatches.length
+    for (i = 0; i < len; i++) {
+      if (matchOptions(leftAnchoredMatches[i], input, contextParams, currentHost)) {
+        return true
+      }
     }
   }
 
   // check if the string matches a right anchored filter
 
-  for (i = 0, len = filters.rightAnchored.length; i < len; i++) {
-    filter = filters.rightAnchored[i]
-
-    if (input.endsWith(filter.data) && matchOptions(filter.options, input, contextParams, currentHost)) {
-      // console.log(filter, 2)
-
-      return true
+  var rightAnchoredMatches = filters.rightAnchored.getEndingSubstringsOfReversed(input)
+  if (rightAnchoredMatches.length !== 0) {
+    var len = rightAnchoredMatches.length
+    for (i = 0; i < len; i++) {
+      if (matchOptions(rightAnchoredMatches[i], input, contextParams, currentHost)) {
+        return true
+      }
     }
   }
 
@@ -550,27 +618,16 @@ function matchesFilters (filters, input, contextParams) {
 
   // check if the string matches a string filter
 
-  var plainStringMatches = filters.plainString.getSubstringsOf(input)
+  var nonAnchoredStringMatches = filters.nonAnchoredString.getSubstringsOf(input)
 
-  if (plainStringMatches.length !== 0) {
-    var len = plainStringMatches.length
+  if (nonAnchoredStringMatches.length !== 0) {
+    var len = nonAnchoredStringMatches.length
 
     for (var i = 0; i < len; i++) {
-      if (matchOptions(plainStringMatches[i], input, contextParams, currentHost)) {
-        // console.log(plainStringMatches[i], 5)
+      if (indexOfFilter(input, nonAnchoredStringMatches[i].data, 0) !== -1 && matchOptions(nonAnchoredStringMatches[i].options, input, contextParams, currentHost)) {
+        // console.log(nonAnchoredStringMatches[i], 5)
         return true
       }
-    }
-  }
-
-  // check if the string matches an indexOf filter
-
-  for (i = 0, len = filters.indexOf.length; i < len; i++) {
-    filter = filters.indexOf[i]
-
-    if (indexOfFilter(input, filter.data, 0) !== -1 && matchOptions(filter.options, input, contextParams, currentHost)) {
-      // console.log(filter, 6)
-      return true
     }
   }
 

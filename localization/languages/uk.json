@@ -13,6 +13,10 @@
         "saveImageAs": "Зберегти зображення як...",
         "searchWith": "Шукати з %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Копіювати посилання",
+        "selectAll": "Вибрати все",
+        "undo": "Скасувати",
+        "redo": "Повторити",
+        "cut": "Вирізати",
         "copy": "Копіювати", //this is a verb (as in "copy the currently-selected text")
         "paste": "Вставити",
         "goBack": "Назад",
@@ -33,6 +37,7 @@
         "clearHistory": "Очистити історію",
         "switchToTask": "Перейти до завдання",
         "createTask": "Створити завдання",
+        "closeTask": "Закрити завдання",
         "moveToTask": "Перемістіть цю вкладку до завдання",
         "searchBookmarks": "Пошук закладок",
         "searchHistory": "Історія пошуку",
@@ -64,7 +69,8 @@
         "timeRangeJustNow": "Зараз",
         "timeRangeMinutes": "Кілька хвилин тому",
         "timeRangeHour": "Годину тому",
-        "timeRangeDay": "Вчора",
+        "timeRangeToday": "Сьогодні",
+        "timeRangeYesterday": "Вчора",
         "timeRangeWeek": "Тиждень тому",
         "timeRangeMonth": "Місяць тому",
         "timeRangeYear": "У минулому році",

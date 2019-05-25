@@ -70,7 +70,10 @@ function onPageURLChange (tab, url) {
 function onPageLoad (e) {
   var tab = webviews.getTabFromContents(this)
 
-  webviews.callAsync(tab, 'getURL', null, function (url) {
+  webviews.callAsync(tab, 'getURL', null, function (err, url) {
+    if (err) {
+      return
+    }
     // capture a preview image if a new page has been loaded
     if (tab === tabs.getSelected() && tabs.get(tab).url !== url) {
       setTimeout(function () {
@@ -184,7 +187,7 @@ window.webviews = {
     })
 
     if (tabData.url) {
-      webviews.callAsync(tabData.id, 'loadURL', urlParser.parse(tabData.url))
+      ipc.send('loadURLInView', {id: tabData.id, url: urlParser.parse(tabData.url)})
     }
 
     webviews.tabViewMap[tabId] = view
@@ -200,6 +203,8 @@ window.webviews = {
     }
 
     if (webviews.placeholderRequests.length > 0) {
+      // update the placeholder instead of showing the actual view
+      webviews.requestPlaceholder()
       return
     }
 
@@ -212,7 +217,7 @@ window.webviews = {
     forceUpdateDragRegions()
   },
   update: function (id, url) {
-    webviews.callAsync(id, 'loadURL', urlParser.parse(url))
+    ipc.send('loadURLInView', {id: id, url: urlParser.parse(url)})
   },
   destroy: function (id) {
     var w = webviews.tabViewMap[id]
@@ -233,10 +238,10 @@ window.webviews = {
     return webviews.tabContentsMap[id]
   },
   requestPlaceholder: function (reason) {
-    if (!webviews.placeholderRequests.includes(reason)) {
+    if (reason && !webviews.placeholderRequests.includes(reason)) {
       webviews.placeholderRequests.push(reason)
     }
-    if (webviews.placeholderRequests.length === 1) {
+    if (webviews.placeholderRequests.length >= 1) {
       // create a new placeholder
 
       var img = previewCache.get(webviews.selectedId)
@@ -251,7 +256,11 @@ window.webviews = {
       }
     }
     setTimeout(function () {
-      ipc.send('hideCurrentView')
+      // wait to make sure the image is visible before the view is hidden
+      // make sure the placeholder was not removed between when the timeout was created and when it occurs
+      if (webviews.placeholderRequests.length > 0) {
+        ipc.send('hideCurrentView')
+      }
     }, 0)
   },
   hidePlaceholder: function (reason) {
@@ -427,7 +436,7 @@ ipc.on('view-event', function (e, args) {
 })
 
 ipc.on('async-call-result', function (e, args) {
-  webviews.asyncCallbacks[args.callId](args.data)
+  webviews.asyncCallbacks[args.callId](args.error, args.result)
   delete webviews.asyncCallbacks[args.callId]
 })
 

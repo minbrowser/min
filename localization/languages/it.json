@@ -13,6 +13,10 @@
         "saveImageAs": "Salva immagine con nome",
         "searchWith": "Cerca con %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copia Link",
+        "selectAll": null, // Missing Translation
+        "undo": null, // Missing Translation
+        "redo": null, // Missing Translation
+        "cut": null, // Missing Translation
         "copy": "Copia", //this is a verb (as in "copy the currently-selected text")
         "paste": "Incolla",
         "goBack": "Indietro",
@@ -33,6 +37,7 @@
         "clearHistory": "Svuota la cronologia",
         "switchToTask": "Passa a Task",
         "createTask": "Crea un Task",
+        "closeTask": null, //missing translation
         "moveToTask": "Sposta questa scheda in un task",
         "searchBookmarks": "Cerca nei preferiti",
         "searchHistory": "Cerca nella cronologia",
@@ -64,7 +69,8 @@
         "timeRangeJustNow": "Proprio ora",
         "timeRangeMinutes": "Pochi minuti fa",
         "timeRangeHour": "Quest'ora",
-        "timeRangeDay": "Oggi",
+        "timeRangeToday": null, //missing translation
+        "timeRangeYesterday": null, //missing translation
         "timeRangeWeek": "Questa settimana",
         "timeRangeMonth": "Questo mese",
         "timeRangeYear": "Quest'anno",

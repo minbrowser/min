@@ -13,6 +13,10 @@
         "saveImageAs": "Save Image As",
         "searchWith": "Search with %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copy Link",
+        "selectAll": "Select All", 
+        "undo": "Undo", 
+        "redo": "Redo", 
+        "cut": "Cut", 
         "copy": "Copy", //this is a verb (as in "copy the currently-selected text")
         "paste": "Paste",
         "goBack": "Go Back",
@@ -33,6 +37,7 @@
         "clearHistory": "Clear All History",
         "switchToTask": "Switch to Task",
         "createTask": "Create a Task",
+        "closeTask": "Close a Task",
         "moveToTask": "Move this tab to a task",
         "searchBookmarks": "Search bookmarks",
         "searchHistory": "Search history",
@@ -64,7 +69,8 @@
         "timeRangeJustNow": "Just now",
         "timeRangeMinutes": "A few minutes ago",
         "timeRangeHour": "In the past hour",
-        "timeRangeDay": "In the past day",
+        "timeRangeToday": "Today",
+        "timeRangeYesterday": "Yesterday",
         "timeRangeWeek": "In the past week",
         "timeRangeMonth": "In the past month",
         "timeRangeYear": "In the past year",

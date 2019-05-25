@@ -1,5 +1,6 @@
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
+var contextMenu = require('contextMenu.js')
 var searchbar = require('searchbar/searchbar.js')
 var urlParser = require('util/urlParser.js')
 
@@ -94,9 +95,13 @@ window.tabBar = {
 
     var tabTitle = tabData.title || l('newTabLabel')
 
-    tabEl.title = tabTitle
     var titleEl = tabEl.querySelector('.tab-view-contents .title')
     titleEl.textContent = tabTitle
+
+    tabEl.title = tabTitle
+    if (tabData.private) {
+      tabEl.title += ' (' + l('privateTab') + ')'
+    }
 
     var secIcon = tabEl.getElementsByClassName('icon-tab-not-secure')[0]
     if (tabData.secure === false) {
@@ -127,7 +132,11 @@ window.tabBar = {
     var tabEl = document.createElement('div')
     tabEl.className = 'tab-item'
     tabEl.setAttribute('data-tab', data.id)
+
     tabEl.title = tabTitle
+    if (data.private) {
+      tabEl.title += ' (' + l('privateTab') + ')'
+    }
 
     var ec = document.createElement('div')
     ec.className = 'tab-edit-contents'
@@ -170,8 +179,6 @@ window.tabBar = {
       var pbIcon = document.createElement('i')
       pbIcon.className = 'fa fa-eye-slash icon-tab-is-private tab-info-icon'
       iconArea.appendChild(pbIcon)
-
-      vc.setAttribute('title', l('privateTab'))
     }
 
     var secIcon = document.createElement('i')

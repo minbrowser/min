@@ -3,7 +3,19 @@ html {
 	padding: 0;
 	margin: 0;
 	font-size: 20px;
+	color: rgb(15, 15, 15);
 }
+
+body[theme="dark"] {
+	background-color: rgb(33, 37, 43);
+	color: lightgrey;
+}
+
+body[theme="sepia"] {
+	background-color: rgb(245, 237, 220);
+	color: rgba(80, 55, 35, 1);
+}
+
 iframe {
 	display: none;
 }
@@ -88,7 +100,7 @@ a {
 	font-size: 1em;
 	text-decoration: none;
 }
-body.dark-mode a {
+body[theme="dark"] a {
 	color: #65a9ed;
 }
 a:hover {
@@ -119,7 +131,13 @@ code * {
 pre {
 	display: block;
 	overflow: auto;
+	padding: 0.5em;
+	background: rgba(0, 0, 0, 0.025);
 }
+body[theme="dark"] pre {
+	background: rgba(0, 0, 0, 0.33)
+}
+
 q,
 blockquote {
 	display: block;
@@ -130,11 +148,22 @@ blockquote {
 	margin: 1.5em 0;
 }
 
-/* dark theme */
+table {
+	border-collapse: collapse;
+}
 
-body.dark-mode {
-  background-color: rgb(33, 37, 43);
-  color: lightgrey;
+td, th {
+	padding: 0.25em;
+	border: 1px #ddd solid;
+	text-align: center;
+}
+
+body[theme="dark"] td, body[theme="dark"] th {
+	border-color: #444;
+}
+
+td li, th li {
+	text-align: left;
 }
 
 /* printing */
