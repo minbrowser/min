@@ -13,10 +13,10 @@
         "saveImageAs": "儲存圖片",
         "searchWith": "以 %s 搜尋", //%s will be replaced with the name of the current search engine
         "copyLink": "複製連結",
-        "selectAll": null, // Missing Translation
-        "undo": null, // Missing Translation
-        "redo": null, // Missing Translation
-        "cut": null, // Missing Translation
+        "selectAll": "全選",
+        "undo": "復原",
+        "redo": "重做",
+        "cut": "剪下",
         "copy": "複製", //this is a verb (as in "copy the currently-selected text")
         "paste": "貼上",
         "goBack": "上一頁",
@@ -37,7 +37,7 @@
         "clearHistory": "清除所有歷史",
         "switchToTask": "切換至工作",
         "createTask": "新增工作",
-        "closeTask": null, //missing translation
+        "closeTask": "關閉工作",
         "moveToTask": "移動至工作",
         "searchBookmarks": "搜尋書籤",
         "searchHistory": "搜尋歷史",
@@ -69,8 +69,8 @@
         "timeRangeJustNow": "剛剛", 
         "timeRangeMinutes": "幾分鐘前",
         "timeRangeHour": "幾小時前",
-        "timeRangeToday": null, //missing translation
-        "timeRangeYesterday": null, //missing translation
+        "timeRangeToday": "今天",
+        "timeRangeYesterday": "昨天",
         "timeRangeWeek": "幾星期前", 
         "timeRangeMonth": "幾個月前",
         "timeRangeYear": "幾年前",
@@ -125,7 +125,7 @@
         "settingsAdditionalFeaturesHeading": "其他功能",
         "settingsUserscriptsToggle": "允許使用者指令",
         "settingsUserscriptsExplanation": {"unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."},
-        "settingsUpdateNotificationsToggle": null, //missing translation
+        "settingsUpdateNotificationsToggle": "自動檢查更新",
         "settingsSearchEngineHeading": "搜索引擎",
         "settingsDefaultSearchEngine": "選擇預設的搜索引擎：",
         "settingsDDGExplanation": "將 DuckDuckGo 設為預設的搜索引擎可以直接在網址欄查看搜尋結果",
@@ -184,6 +184,6 @@
         "downloadStateCompleted": "已完成",
         "downloadStateFailed": "失敗",
         /* Update Notifications */
-        "updateNotificationTitle": null //missing translation
+        "updateNotificationTitle": "已有新版本"
     }
 }
