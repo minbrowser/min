@@ -232,7 +232,7 @@ window.tabBar = {
 
       // on keydown, if the autocomplete result doesn't change, we move the selection instead of regenerating it to avoid race conditions with typing. Adapted from https://github.com/patrickburke/jquery.inlineComplete
 
-      var v = String.fromCharCode(e.keyCode).toLowerCase()
+      var v = e.key.toLowerCase()
       var sel = this.value.substring(this.selectionStart, this.selectionEnd).indexOf(v)
 
       if (v && sel === 0) {
