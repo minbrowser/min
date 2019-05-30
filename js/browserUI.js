@@ -1,11 +1,12 @@
 /* common actions that affect different parts of the UI (webviews, tabstrip, etc) */
 
+var webviews = require('webviews.js')
 var urlParser = require('util/urlParser.js')
 var focusMode = require('focusMode.js')
 
 /* loads a page in a webview */
 
-window.navigate = function (tabId, newURL) {
+function navigate (tabId, newURL) {
   newURL = urlParser.parse(newURL)
 
   tabs.update(tabId, {
@@ -168,6 +169,25 @@ function switchToTab (id, options) {
     focus: options.focusWebview !== false
   })
 }
+
+webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
+  var tab = webviews.getTabFromContents(this)
+  var currentIndex = tabs.getIndex(tabs.getSelected())
+
+  var newTab = tabs.add({
+    url: url,
+    private: tabs.get(tab).private // inherit private status from the current tab
+  }, currentIndex + 1)
+
+  addTab(newTab, {
+    enterEditMode: false,
+    openInBackground: disposition === 'background-tab' // possibly open in background based on disposition
+  })
+}, {preventDefault: true})
+
+webviews.bindIPC('close-window', function (webview, tabId, args) {
+  closeTab(tabId)
+})
 
 module.exports = {
   navigate,

@@ -1,5 +1,6 @@
 /* handles viewing pdf files using pdf.js. Recieves events from main.js will-download */
 
+var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var urlParser = require('util/urlParser.js')
 

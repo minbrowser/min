@@ -1,3 +1,4 @@
+var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
 var contextMenu = require('contextMenu.js')

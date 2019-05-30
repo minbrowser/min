@@ -1,4 +1,5 @@
 /* list of the available custom !bangs */
+var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
 var searchbar = require('searchbar/searchbar.js')

@@ -1,3 +1,5 @@
+var webviews = require('webviews.js')
+
 function getFileSizeString (bytes) {
   let prefixes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
 

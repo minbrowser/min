@@ -1,3 +1,4 @@
+var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var searchEngine = require('util/searchEngine.js')
 

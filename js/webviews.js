@@ -1,4 +1,3 @@
-var browserUI = require('browserUI.js')
 const previewCache = require('previewCache.js')
 var getView = remote.getGlobal('getView')
 var urlParser = require('util/urlParser.js')
@@ -92,7 +91,7 @@ function onNavigate (e, url, httpResponseCode, httpStatusText) {
   onPageURLChange(tab, url)
 }
 
-window.webviews = {
+const webviews = {
   tabViewMap: {}, // tabId: browserView
   tabContentsMap: {}, // tabId: webContents
   viewFullscreenMap: {}, // tabId, isFullscreen
@@ -333,20 +332,6 @@ window.webviews = {
   }
 }
 
-webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
-  var tab = webviews.getTabFromContents(this)
-  var currentIndex = tabs.getIndex(tabs.getSelected())
-
-  var newTab = tabs.add({
-    url: url,
-    private: tabs.get(tab).private // inherit private status from the current tab
-  }, currentIndex + 1)
-  browserUI.addTab(newTab, {
-    enterEditMode: false,
-    openInBackground: disposition === 'background-tab' // possibly open in background based on disposition
-  })
-}, {preventDefault: true})
-
 window.addEventListener('resize', throttle(function () {
   if (webviews.placeholderRequests.length > 0) {
     // can't set view bounds if the view is hidden
@@ -398,7 +383,7 @@ webviews.bindEvent('page-title-updated', function (e, title, explicitSet) {
 
 webviews.bindEvent('did-fail-load', function (e, errorCode, errorDesc, validatedURL, isMainFrame) {
   if (errorCode && errorCode !== -3 && isMainFrame && validatedURL) {
-    browserUI.navigate(webviews.getTabFromContents(this), webviews.internalPages.error + '?ec=' + encodeURIComponent(errorCode) + '&url=' + encodeURIComponent(validatedURL))
+    webviews.update(webviews.getTabFromContents(this), webviews.internalPages.error + '?ec=' + encodeURIComponent(errorCode) + '&url=' + encodeURIComponent(validatedURL))
   }
 })
 
@@ -417,10 +402,6 @@ webviews.bindEvent('crashed', function (e, isKilled) {
   if (tabId === tabs.getSelected()) {
     webviews.setSelected(tabId)
   }
-})
-
-webviews.bindIPC('close-window', function (webview, tabId, args) {
-  browserUI.closeTab(tabId)
 })
 
 ipc.on('view-event', function (e, args) {
@@ -471,3 +452,5 @@ ipc.on('windowFocus', function () {
     webviews.focus()
   }
 })
+
+module.exports = webviews

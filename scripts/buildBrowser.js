@@ -19,7 +19,6 @@ const legacyModules = [
   'js/util/defaultKeyMap.js',
   'js/util/settings.js',
   'js/filteringRenderer.js',
-  'js/webviews.js',
   'js/webviewMenu.js',
   'js/searchbar/placesPlugin.js',
   'js/searchbar/instantAnswerPlugin.js',

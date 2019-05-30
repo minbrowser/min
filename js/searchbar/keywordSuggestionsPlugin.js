@@ -1,3 +1,4 @@
+var webviews = require('webviews.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 

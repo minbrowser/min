@@ -1,3 +1,4 @@
+const webviews = require('webviews.js')
 const settings = require('util/settings.js')
 
 var goBackButton = {

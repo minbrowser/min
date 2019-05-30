@@ -1,3 +1,4 @@
+var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 var urlParser = require('util/urlParser.js')

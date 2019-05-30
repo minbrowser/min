@@ -1,3 +1,5 @@
+var webviews = require('webviews.js')
+
 var webviewGestures = {
   showBackArrow: function () {
     // this is temporarily disabled until we find a way to make it work with BrowserViews

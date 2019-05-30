@@ -77,7 +77,7 @@ window.sessionRestore = {
           setTimeout(function () {
             if (data.available && data.url) {
               if (tasks.getSelected().tabs.isEmpty()) {
-                navigate(tasks.getSelected().tabs.getSelected(), data.url)
+                browserUI.navigate(tasks.getSelected().tabs.getSelected(), data.url)
               } else {
                 var surveyTab = tasks.getSelected().tabs.add({
                   url: data.url

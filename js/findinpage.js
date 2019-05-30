@@ -1,3 +1,5 @@
+var webviews = require('webviews.js')
+
 var findinpage = {
   container: document.getElementById('findinpage-bar'),
   input: document.getElementById('findinpage-input'),

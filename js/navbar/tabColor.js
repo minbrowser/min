@@ -1,3 +1,5 @@
+var webviews = require('webviews.js')
+
 const colorExtractorImage = document.createElement('img')
 const colorExtractorCanvas = document.createElement('canvas')
 const colorExtractorContext = colorExtractorCanvas.getContext('2d')

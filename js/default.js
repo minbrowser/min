@@ -8,10 +8,6 @@ window.webFrame = window.electron.webFrame
 window.webFrame.setVisualZoomLevelLimits(1, 1)
 window.webFrame.setLayoutZoomLevelLimits(0, 0)
 
-require('menuBarVisibility.js').initialize()
-require('navbar/tabActivity.js').init()
-require('downloadManager.js').initialize()
-
 // add a class to the body for fullscreen status
 
 ipc.on('enter-full-screen', function () {
@@ -45,7 +41,7 @@ if (window.platformType === 'windows') {
 
 // https://remysharp.com/2010/07/21/throttling-function-calls
 
-function throttle (fn, threshhold, scope) {
+window.throttle = function (fn, threshhold, scope) {
   threshhold || (threshhold = 250)
   var last,
     deferTimer
@@ -70,7 +66,7 @@ function throttle (fn, threshhold, scope) {
 
 // https://remysharp.com/2010/07/21/throttling-function-calls
 
-function debounce (fn, delay) {
+window.debounce = function (fn, delay) {
   var timer = null
   return function () {
     var context = this
@@ -124,3 +120,7 @@ window.addEventListener('load', function () {
     }
   }, true)
 })
+
+require('menuBarVisibility.js').initialize()
+require('navbar/tabActivity.js').init()
+require('downloadManager.js').initialize()
