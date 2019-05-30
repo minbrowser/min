@@ -39,7 +39,6 @@ const legacyModules = [
   'js/pdfViewer.js',
   'js/findinpage.js',
   'js/userscripts.js',
-  'js/deferredLoad.js',
   'js/sessionRestore.js',
   'js/util/theme.js',
   'js/webviewGestures.js'

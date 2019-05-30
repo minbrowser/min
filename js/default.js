@@ -4,10 +4,6 @@ window.ipc = electron.ipcRenderer
 window.remote = electron.remote
 window.Dexie = require('dexie')
 
-window.webFrame = window.electron.webFrame
-window.webFrame.setVisualZoomLevelLimits(1, 1)
-window.webFrame.setLayoutZoomLevelLimits(0, 0)
-
 // add a class to the body for fullscreen status
 
 ipc.on('enter-full-screen', function () {
@@ -123,4 +119,7 @@ window.addEventListener('load', function () {
 
 require('menuBarVisibility.js').initialize()
 require('navbar/tabActivity.js').init()
+require('navbar/tabColor.js').initialize()
+require('navbar/goBackButton.js').initialize()
+require('places/places.js').initialize()
 require('downloadManager.js').initialize()
