@@ -167,19 +167,16 @@ function setColor (bg, fg, isLowContrast) {
 
 const tabColor = {
   initialize: function () {
-    webviews.bindEvent('page-favicon-updated', function (e, favicons) {
-      const id = webviews.getTabFromContents(this)
-      tabColor.updateFromImage(favicons, id)
+    webviews.bindEvent('page-favicon-updated', function (webview, tabId, e, favicons) {
+      tabColor.updateFromImage(favicons, tabId)
     })
 
-    webviews.bindEvent('did-change-theme-color', function (e, color) {
-      const id = webviews.getTabFromContents(this)
-      tabColor.updateFromThemeColor(color, id)
+    webviews.bindEvent('did-change-theme-color', function (webview, tabId, e, color) {
+      tabColor.updateFromThemeColor(color, tabId)
     })
 
-    webviews.bindEvent('did-navigate', function (e) {
-      const id = webviews.getTabFromContents(this)
-      tabs.update(id, {
+    webviews.bindEvent('did-navigate', function (webview, tabId, e) {
+      tabs.update(tabId, {
         themeColor: null,
         backgroundColor: null
       })

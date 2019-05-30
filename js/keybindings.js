@@ -460,7 +460,7 @@ document.body.addEventListener('keydown', function (e) {
   }
 })
 
-webviews.bindEvent('before-input-event', function (e, input) {
+webviews.bindEvent('before-input-event', function (webview, tabId, e, input) {
   var expectedKeys = 1
   //account for additional keys that aren't in the input.key property
   if (input.alt && input.key !== "Alt") {

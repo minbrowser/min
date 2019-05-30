@@ -198,6 +198,6 @@ var webviewMenu = {
   }
 }
 
-webviews.bindEvent('context-menu', function (e, data) {
+webviews.bindEvent('context-menu', function (webview, tabId, e, data) {
   webviewMenu.showMenu(data)
 })

@@ -47,13 +47,12 @@ this listener has to be attached immediately so that we can capture events for
 webviews that are created at startup
 */
 
-webviews.bindEvent('dom-ready', function (e) {
+webviews.bindEvent('dom-ready', function (webview, tabId, e) {
   if (!userScriptsEnabled) {
     return
   }
-  var tab = webviews.getTabFromContents(this)
 
-  webviews.callAsync(tab, 'getURL', null, (err, src) => {
+  webviews.callAsync(tabId, 'getURL', null, (err, src) => {
     if (err) {
       return
     }

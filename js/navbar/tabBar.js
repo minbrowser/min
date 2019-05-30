@@ -315,13 +315,11 @@ document.getElementById('webviews').addEventListener('click', function () {
 
 /* progress bar events */
 
-webviews.bindEvent('did-start-loading', function () {
-  var tabId = webviews.getTabFromContents(this)
+webviews.bindEvent('did-start-loading', function (webview, tabId, e) {
   progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'start')
 })
 
-webviews.bindEvent('did-stop-loading', function () {
-  var tabId = webviews.getTabFromContents(this)
+webviews.bindEvent('did-stop-loading', function (webview, tabId, e) {
   progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'finish')
 })
 

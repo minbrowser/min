@@ -94,7 +94,7 @@ findinpage.next.addEventListener('click', function (e) {
   findinpage.input.focus()
 })
 
-webviews.bindEvent('found-in-page', function (e, data) {
+webviews.bindEvent('found-in-page', function (webview, tabId, e, data) {
   if (data.matches !== undefined) {
     var text
     if (data.matches === 1) {

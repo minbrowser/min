@@ -66,29 +66,26 @@ function onPageURLChange (tab, url) {
 }
 
 // called whenever the page finishes loading
-function onPageLoad (e) {
-  var tab = webviews.getTabFromContents(this)
-
-  webviews.callAsync(tab, 'getURL', null, function (err, url) {
+function onPageLoad (webview, tabId, e) {
+  webviews.callAsync(tabId, 'getURL', null, function (err, url) {
     if (err) {
       return
     }
     // capture a preview image if a new page has been loaded
-    if (tab === tabs.getSelected() && tabs.get(tab).url !== url) {
+    if (tabId === tabs.getSelected() && tabs.get(tabId).url !== url) {
       setTimeout(function () {
         // sometimes the page isn't visible until a short time after the did-finish-load event occurs
         captureCurrentTab()
       }, 100)
     }
 
-    onPageURLChange(tab, url)
+    onPageURLChange(tabId, url)
   })
 }
 
 // called whenever a navigation finishes
-function onNavigate (e, url, httpResponseCode, httpStatusText) {
-  var tab = webviews.getTabFromContents(this)
-  onPageURLChange(tab, url)
+function onNavigate (webview, tabId, e, url, httpResponseCode, httpStatusText) {
+  onPageURLChange(tabId, url)
 }
 
 const webviews = {
@@ -374,21 +371,19 @@ webviews.bindEvent('did-finish-load', onPageLoad)
 webviews.bindEvent('did-navigate-in-page', onPageLoad)
 webviews.bindEvent('did-navigate', onNavigate)
 
-webviews.bindEvent('page-title-updated', function (e, title, explicitSet) {
-  var tab = webviews.getTabFromContents(this)
-  tabs.update(tab, {
+webviews.bindEvent('page-title-updated', function (webview, tabId, e, title, explicitSet) {
+  tabs.update(tabId, {
     title: title
   })
 })
 
-webviews.bindEvent('did-fail-load', function (e, errorCode, errorDesc, validatedURL, isMainFrame) {
+webviews.bindEvent('did-fail-load', function (webview, tabId, e, errorCode, errorDesc, validatedURL, isMainFrame) {
   if (errorCode && errorCode !== -3 && isMainFrame && validatedURL) {
-    webviews.update(webviews.getTabFromContents(this), webviews.internalPages.error + '?ec=' + encodeURIComponent(errorCode) + '&url=' + encodeURIComponent(validatedURL))
+    webviews.update(tabId, webviews.internalPages.error + '?ec=' + encodeURIComponent(errorCode) + '&url=' + encodeURIComponent(validatedURL))
   }
 })
 
-webviews.bindEvent('crashed', function (e, isKilled) {
-  var tabId = webviews.getTabFromContents(this)
+webviews.bindEvent('crashed', function (webview, tabId, e, isKilled) {
   var url = tabs.get(tabId).url
 
   tabs.update(tabId, {
@@ -411,7 +406,7 @@ ipc.on('view-event', function (e, args) {
   }
   webviews.events.forEach(function (ev) {
     if (ev.id === args.eventId) {
-      ev.fn.apply(webviews.tabContentsMap[args.viewId], [e].concat(args.args))
+      ev.fn.apply(webviews.tabContentsMap[args.viewId], [webviews.tabContentsMap[args.viewId], args.viewId, e].concat(args.args))
     }
   })
 })

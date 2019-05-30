@@ -170,13 +170,12 @@ function switchToTab (id, options) {
   })
 }
 
-webviews.bindEvent('new-window', function (e, url, frameName, disposition) {
-  var tab = webviews.getTabFromContents(this)
+webviews.bindEvent('new-window', function (webview, tabId, e, url, frameName, disposition) {
   var currentIndex = tabs.getIndex(tabs.getSelected())
 
   var newTab = tabs.add({
     url: url,
-    private: tabs.get(tab).private // inherit private status from the current tab
+    private: tabs.get(tabId).private // inherit private status from the current tab
   }, currentIndex + 1)
 
   addTab(newTab, {

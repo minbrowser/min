@@ -130,17 +130,16 @@ registerCustomBang({
 
 // update the reader button on page load
 
-webviews.bindEvent('did-start-navigation', function (e, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
-  var tab = webviews.getTabFromContents(this)
+webviews.bindEvent('did-start-navigation', function (webview, tabId, e, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
   if (readerDecision.shouldRedirect(url) === 1) {
     // if this URL has previously been marked as readerable, load reader view without waiting for the page to load
-    readerView.enter(tab, url)
+    readerView.enter(tabId, url)
   } else if (isMainFrame && !isInPlace) {
-    tabs.update(tab, {
+    tabs.update(tabId, {
       readerable: false // assume the new page can't be readered, we'll get another message if it can
     })
 
-    readerView.updateButton(tab)
+    readerView.updateButton(tabId)
   }
 })
 
