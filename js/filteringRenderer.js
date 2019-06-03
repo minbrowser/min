@@ -1,5 +1,7 @@
 // gets the tracking settings and sends them to the main process
 
+var settings = require('util/settings/settings.js')
+
 settings.get('filtering', function (value) {
   // migrate from old settings (<v1.9.0)
   if (value && typeof value.trackers === 'boolean') {

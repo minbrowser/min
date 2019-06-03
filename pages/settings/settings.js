@@ -156,7 +156,6 @@ settings.get('darkMode', function (value) {
 
 darkModeCheckbox.addEventListener('change', function (e) {
   settings.set('darkMode', this.checked)
-  showRestartRequiredBanner()
 })
 
 /* history button setting */
@@ -171,7 +170,6 @@ settings.get('historyButton', function (value) {
 
 historyButtonCheckbox.addEventListener('change', function (e) {
   settings.set('historyButton', this.checked)
-  showRestartRequiredBanner()
 })
 
 /* userscripts setting */
