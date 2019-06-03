@@ -1,3 +1,7 @@
+if (typeof require !== 'undefined') {
+  var settings = require('util/settings/settings.js')
+}
+
 function shouldEnableDarkMode () {
   var hours = new Date().getHours()
   return hours > 21 || hours < 6
