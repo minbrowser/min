@@ -18,6 +18,8 @@ function disableDarkMode () {
 var themeInterval = null
 
 settings.listen('darkMode', function (value) {
+  clearInterval(themeInterval)
+
   if (value === true) {
     enableDarkMode()
     return
@@ -29,7 +31,6 @@ settings.listen('darkMode', function (value) {
     disableDarkMode()
   }
 
-  clearInterval(themeInterval)
   themeInterval = setInterval(function () {
     if (shouldEnableDarkMode()) {
       if (!window.isDarkMode) {
