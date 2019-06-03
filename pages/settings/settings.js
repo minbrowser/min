@@ -196,7 +196,6 @@ settings.get('updateNotificationsEnabled', function (value) {
 
 updateNotificationsCheckbox.addEventListener('change', function (e) {
   settings.set('updateNotificationsEnabled', this.checked)
-  showRestartRequiredBanner()
 })
 
 /* default search engine setting */
