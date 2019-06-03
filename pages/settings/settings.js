@@ -237,13 +237,11 @@ searchEngineDropdown.addEventListener('change', function (e) {
   } else {
     searchEngineInput.hidden = true
     settings.set('searchEngine', {name: this.value})
-    showRestartRequiredBanner()
   }
 })
 
 searchEngineInput.addEventListener('change', function (e) {
   settings.set('searchEngine', {url: this.value})
-  showRestartRequiredBanner()
 })
 
 /* key map settings */

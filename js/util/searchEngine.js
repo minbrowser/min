@@ -49,7 +49,7 @@ var searchEngines = {
   }
 }
 
-settings.get('searchEngine', function (value) {
+settings.listen('searchEngine', function (value) {
   if (typeof value === 'string') {
     // migrate from legacy format
     value = {name: value}
