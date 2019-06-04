@@ -55,8 +55,16 @@ var settings = {
       settings.list = JSON.parse(fileData)
     } else if (process.type === 'renderer') {
       // import from indexeddb
+      var didMigrateSettings = false
       db.settings.each(function (setting) {
+        didMigrateSettings = true
         settings.set(setting.key, setting.value)
+      }).then(function () {
+        if (didMigrateSettings) {
+          // need to restart, since some setting changes won't apply otherwise
+          ipc.send('destroyAllViews')
+          remote.getCurrentWindow().webContents.reload()
+        }
       })
     }
 
