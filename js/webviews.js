@@ -132,7 +132,7 @@ const webviews = {
         height: window.innerHeight
       }
     } else {
-      if (window.platformType === 'windows' && !windowIsMaximised) {
+      if (window.platformType === 'windows' && !windowIsMaximized) {
         var navbarHeight = 46
       } else {
         var navbarHeight = 36
@@ -358,12 +358,12 @@ webviews.bindEvent('leave-html-full-screen', function () {
 })
 
 ipc.on('maximize', function () {
-  windowIsMaximised = true
+  windowIsMaximized = true
   webviews.resize()
 })
 
 ipc.on('unmaximize', function () {
-  windowIsMaximised = false
+  windowIsMaximized = false
   webviews.resize()
 })
 

@@ -1,8 +1,8 @@
 var captionMinimise =
 document.querySelector('.windows-caption-buttons .caption-minimise, body.linux .titlebar-linux .caption-minimise')
 
-var captionMaximise =
-document.querySelector('.windows-caption-buttons .caption-maximise, body.linux .titlebar-linux .caption-maximise')
+var captionMaximize =
+document.querySelector('.windows-caption-buttons .caption-maximize, body.linux .titlebar-linux .caption-maximize')
 
 var captionRestore =
 document.querySelector('.windows-caption-buttons .caption-restore, body.linux .titlebar-linux .caption-restore')
@@ -10,15 +10,15 @@ document.querySelector('.windows-caption-buttons .caption-restore, body.linux .t
 var captionClose =
 document.querySelector('.windows-caption-buttons .caption-close, body.linux .titlebar-linux .caption-close')
 
-var windowIsMaximised = false
+var windowIsMaximized = false
 var windowIsFullscreen = false
 
 function updateCaptionButtons () {
-  if (windowIsMaximised || windowIsFullscreen) {
-    captionMaximise.hidden = true
+  if (windowIsMaximized || windowIsFullscreen) {
+    captionMaximize.hidden = true
     captionRestore.hidden = false
   } else {
-    captionMaximise.hidden = false
+    captionMaximize.hidden = false
     captionRestore.hidden = true
   }
 }
@@ -30,7 +30,7 @@ if (navigator.platform === 'Win32') {
     remote.getCurrentWindow().minimize()
   })
 
-  captionMaximise.addEventListener('click', function (e) {
+  captionMaximize.addEventListener('click', function (e) {
     remote.getCurrentWindow().maximize()
   })
 
@@ -47,11 +47,11 @@ if (navigator.platform === 'Win32') {
   })
 
   ipc.on('maximize', function (e) {
-    windowIsMaximised = true
+    windowIsMaximized = true
     updateCaptionButtons()
   })
   ipc.on('unmaximize', function (e) {
-    windowIsMaximised = false
+    windowIsMaximized = false
     updateCaptionButtons()
   })
   ipc.on('enter-full-screen', function (e) {
