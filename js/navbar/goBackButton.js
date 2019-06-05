@@ -1,5 +1,5 @@
 const webviews = require('webviews.js')
-const settings = require('util/settings.js')
+const settings = require('util/settings/settings.js')
 
 var goBackButton = {
   element: document.getElementById('back-button'),
@@ -17,7 +17,7 @@ var goBackButton = {
       webviews.goBackIgnoringRedirects(tabs.getSelected())
     })
 
-    settings.get('historyButton', function (value) {
+    settings.listen('historyButton', function (value) {
       if (value === true || value === undefined) {
         goBackButton.element.hidden = false
       } else {

@@ -1,5 +1,5 @@
 if (typeof require !== 'undefined') {
-  var settings = require('util/settings.js')
+  var settings = require('util/settings/settings.js')
 }
 // otherwise, assume window.settings exists already
 
@@ -49,7 +49,7 @@ var searchEngines = {
   }
 }
 
-settings.get('searchEngine', function (value) {
+settings.listen('searchEngine', function (value) {
   if (typeof value === 'string') {
     // migrate from legacy format
     value = {name: value}

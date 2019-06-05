@@ -1,6 +1,7 @@
 /* implements userscript support */
 
 var webviews = require('webviews.js')
+var settings = require('util/settings/settings.js')
 
 var userScriptsEnabled = false
 var domainScriptMap = {}

@@ -1,6 +1,7 @@
 const previewCache = require('previewCache.js')
 var getView = remote.getGlobal('getView')
 var urlParser = require('util/urlParser.js')
+var settings = require('util/settings/settings.js')
 
 /* implements selecting webviews, switching between them, and creating new ones. */
 
@@ -397,6 +398,27 @@ webviews.bindEvent('crashed', function (webview, tabId, e, isKilled) {
   if (tabId === tabs.getSelected()) {
     webviews.setSelected(tabId)
   }
+})
+
+webviews.bindIPC('getSettingsData', function (webview, tabId, args) {
+  webview.send('receiveSettingsData', settings.list)
+})
+webviews.bindIPC('setSetting', function (webview, tabId, args) {
+  settings.set(args[0].key, args[0].value)
+})
+
+settings.listen(function () {
+  tasks.forEach(function (task) {
+    task.tabs.forEach(function (tab) {
+      if (tab.url.startsWith('file://')) {
+        try {
+          webviews.get(tab.id).send('receiveSettingsData', settings.list)
+        } catch (e) {
+          // webview might not actually exist
+        }
+      }
+    })
+  })
 })
 
 ipc.on('view-event', function (e, args) {

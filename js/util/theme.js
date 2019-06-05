@@ -1,3 +1,7 @@
+if (typeof require !== 'undefined') {
+  var settings = require('util/settings/settings.js')
+}
+
 function shouldEnableDarkMode () {
   var hours = new Date().getHours()
   return hours > 21 || hours < 6
@@ -15,7 +19,11 @@ function disableDarkMode () {
   window.dispatchEvent(new CustomEvent('themechange'))
 }
 
-settings.get('darkMode', function (value) {
+var themeInterval = null
+
+settings.listen('darkMode', function (value) {
+  clearInterval(themeInterval)
+
   if (value === true) {
     enableDarkMode()
     return
@@ -23,9 +31,11 @@ settings.get('darkMode', function (value) {
 
   if (shouldEnableDarkMode()) {
     enableDarkMode()
+  } else {
+    disableDarkMode()
   }
 
-  setInterval(function () {
+  themeInterval = setInterval(function () {
     if (shouldEnableDarkMode()) {
       if (!window.isDarkMode) {
         enableDarkMode()

@@ -14,6 +14,7 @@ var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
 var urlParser = require('util/urlParser.js')
+var settings = require("util/settings/settings.js")
 
 ipc.on('zoomIn', function () {
   webviewGestures.zoomWebviewIn(tabs.getSelected())

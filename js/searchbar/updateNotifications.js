@@ -1,5 +1,7 @@
 const UPDATE_URL = 'https://minbrowser.github.io/min/updates/latestVersion.json'
 
+var settings = require('util/settings/settings.js')
+
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 

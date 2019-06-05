@@ -37,7 +37,6 @@ function changeBlockingLevelSetting (level) {
     value.blockingLevel = level
     settings.set('filtering', value)
     updateBlockingLevelUI(level)
-    showRestartRequiredBanner()
   })
 }
 
@@ -79,7 +78,6 @@ blockingExceptionsInput.addEventListener('change', function () {
     }
     value.exceptionDomains = newValue
     settings.set('filtering', value)
-    showRestartRequiredBanner()
   })
 })
 
@@ -141,7 +139,6 @@ for (var contentType in contentTypes) {
           }
 
           settings.set('filtering', value)
-          banner.hidden = false
         })
       })
     })
@@ -156,7 +153,6 @@ settings.get('darkMode', function (value) {
 
 darkModeCheckbox.addEventListener('change', function (e) {
   settings.set('darkMode', this.checked)
-  showRestartRequiredBanner()
 })
 
 /* history button setting */
@@ -171,7 +167,6 @@ settings.get('historyButton', function (value) {
 
 historyButtonCheckbox.addEventListener('change', function (e) {
   settings.set('historyButton', this.checked)
-  showRestartRequiredBanner()
 })
 
 /* userscripts setting */
@@ -201,7 +196,6 @@ settings.get('updateNotificationsEnabled', function (value) {
 
 updateNotificationsCheckbox.addEventListener('change', function (e) {
   settings.set('updateNotificationsEnabled', this.checked)
-  showRestartRequiredBanner()
 })
 
 /* default search engine setting */
@@ -243,13 +237,11 @@ searchEngineDropdown.addEventListener('change', function (e) {
   } else {
     searchEngineInput.hidden = true
     settings.set('searchEngine', {name: this.value})
-    showRestartRequiredBanner()
   }
 })
 
 searchEngineInput.addEventListener('change', function (e) {
   settings.set('searchEngine', {url: this.value})
-  showRestartRequiredBanner()
 })
 
 /* key map settings */

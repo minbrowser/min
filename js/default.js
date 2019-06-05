@@ -1,3 +1,5 @@
+window.userDataPath = process.argv.filter(a => a.startsWith('--user-data-path='))[0].replace('--user-data-path=', '')
+
 window.electron = require('electron')
 window.fs = require('fs')
 window.ipc = electron.ipcRenderer
@@ -117,6 +119,7 @@ window.addEventListener('load', function () {
   }, true)
 })
 
+require('util/settings/settings.js').initialize()
 require('menuBarVisibility.js').initialize()
 require('navbar/tabActivity.js').init()
 require('navbar/tabColor.js').initialize()

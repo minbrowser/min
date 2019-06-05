@@ -1,4 +1,4 @@
-const settings = require('util/settings.js')
+const settings = require('util/settings/settings.js')
 
 function initialize () {
   settings.get('menuBarVisible', function (value) {
