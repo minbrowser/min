@@ -1,5 +1,6 @@
 var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
+var searchbar = require('searchbar/searchbar.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 var urlParser = require('util/urlParser.js')
 
@@ -101,7 +102,7 @@ var readerView = {
           descriptionBlock: article.article.excerpt,
           url: readerView.getReaderURL(article.url),
           delete: function (el) {
-            db.readingList.where('url').equals(el.getAttribute('data-url')).delete()
+            db.readingList.where('url').equals(article.url).delete()
           }
         })
 
@@ -125,6 +126,11 @@ registerCustomBang({
   isAction: false,
   showSuggestions: function (text, input, event, container) {
     readerView.showReadingList(container, text)
+  },
+  fn: function (text) {
+    db.readingList.orderBy('time').reverse().first(function (article) {
+      searchbar.openURL(readerView.getReaderURL(article.url))
+    })
   }
 })
 
