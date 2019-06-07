@@ -68,8 +68,28 @@ var readerView = {
 
     webviews.get(tabId).executeJavaScript('parentProcessActions.printArticle()', false)
   },
+  searchForArticles: function (filterText, cb) {
+    var results = []
+    db.readingList.orderBy('time').reverse().each(function (article) {
+      if (!article.article) {
+        return
+      }
+
+      if (filterText) {
+        var normalizedFilterText = filterText.trim().toLowerCase().replace(/\s+/g, ' ').replace(/\W+/g, '')
+        var normalizedArticleText = (article.url + article.article.title + article.article.excerpt).trim().toLowerCase().replace(/\s+/g, ' ').replace(/\W+/g, '')
+        if (normalizedArticleText.indexOf(normalizedFilterText) !== -1) {
+          results.push(article)
+        }
+      } else {
+        results.push(article)
+      }
+    }).then(function () {
+      cb(results)
+    })
+  },
   showReadingList: function (container, filterText) {
-    db.readingList.orderBy('time').reverse().toArray().then(function (articles) {
+    readerView.searchForArticles(filterText, function (articles) {
       empty(container)
 
       if (articles.length === 0) {
@@ -82,25 +102,12 @@ var readerView = {
         return
       }
 
-      articles.forEach(function (article) {
-        if (!article.article) {
-          return
-        }
-
-        // TODO integrate this with the regular history search system
-
-        if (filterText) {
-          var normalizedFilterText = filterText.trim().toLowerCase().replace(/\s+/g, ' ').replace(/\W+/g, '')
-          var normalizedArticleText = (article.url + article.article.title + article.article.excerpt).trim().toLowerCase().replace(/\s+/g, ' ').replace(/\W+/g, '')
-          if (normalizedArticleText.indexOf(normalizedFilterText) === -1) {
-            return
-          }
-        }
-
+      articles.forEach(function (article, idx) {
         var item = searchbarUtils.createItem({
           title: article.article.title,
           descriptionBlock: article.article.excerpt,
           url: readerView.getReaderURL(article.url),
+          classList: (idx === 0 ? ["fakefocus"] : null),
           delete: function (el) {
             db.readingList.where('url').equals(article.url).delete()
           }
@@ -128,8 +135,10 @@ registerCustomBang({
     readerView.showReadingList(container, text)
   },
   fn: function (text) {
-    db.readingList.orderBy('time').reverse().first(function (article) {
-      searchbar.openURL(readerView.getReaderURL(article.url))
+    readerView.searchForArticles(text, function (articles) {
+      if (articles[0]) {
+        searchbar.openURL(readerView.getReaderURL(articles[0].url))
+      }
     })
   }
 })
