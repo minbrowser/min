@@ -244,6 +244,10 @@ settings.get('keyMap', function (keyMapSettings) {
     return false
   })
 
+  defineShortcut('runShortcut', function (e) {
+    tabBar.enterEditMode(tabs.getSelected(), "!");
+  })
+
   defineShortcut('closeTab', function (e) {
     browserUI.closeTab(tabs.getSelected())
   })

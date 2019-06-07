@@ -4,6 +4,7 @@ var defaultKeyMap = {
   'goBack': 'mod+left',
   'goForward': 'mod+right',
   'enterEditMode': ['mod+l', 'mod+k'],
+  'runShortcut': 'mod+e',
   'completeSearchbar': 'mod+enter',
   'closeTab': 'mod+w',
   'restoreTab': 'shift+mod+t',
