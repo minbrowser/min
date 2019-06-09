@@ -56,7 +56,9 @@ registerCustomBang({
   snippet: l('clearHistory'),
   isAction: true,
   fn: function (text) {
-    places.deleteAllHistory()
+    if (confirm(l('clearHistoryConfirmation'))) {
+      places.deleteAllHistory()
+    }
   }
 })
 

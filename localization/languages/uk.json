@@ -35,6 +35,7 @@
         "viewReadingList": "Переглянути список читання",
         "takeScreenshot": "Зробити знімок екрану",
         "clearHistory": "Очистити історію",
+        "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Перейти до завдання",
         "createTask": "Створити завдання",
         "closeTask": "Закрити завдання",

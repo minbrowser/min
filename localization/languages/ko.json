@@ -35,6 +35,7 @@
         "viewReadingList": "읽기 항목",
         "takeScreenshot": "스크린샷",
         "clearHistory": "기록 삭제",
+        "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "태스크 변경",
         "createTask": "태스크 생성",
         "closeTask": null, //missing translation

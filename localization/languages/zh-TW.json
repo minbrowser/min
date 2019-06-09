@@ -35,6 +35,7 @@
         "viewReadingList": "查看閱讀清單",
         "takeScreenshot": "螢幕截圖",
         "clearHistory": "清除所有歷史",
+        "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "切換至工作",
         "createTask": "新增工作",
         "closeTask": "關閉工作",

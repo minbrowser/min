@@ -35,6 +35,7 @@
         "viewReadingList": null, //missing translation
         "takeScreenshot": "Сделать скриншот",
         "clearHistory": "Очистить историю",
+        "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Переключиться на задачу",
         "createTask": "Создать задачу",
         "closeTask": null, //missing translation

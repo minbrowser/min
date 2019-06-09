@@ -35,6 +35,7 @@
         "viewReadingList": null, //missing translation
         "takeScreenshot": "Screenshot erstellen",
         "clearHistory": "Verlauf komplett löschen",
+        "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "zu Aufgabe wechseln",
         "createTask": "Aufgabe erstellen",
         "closeTask": null, //missing translation

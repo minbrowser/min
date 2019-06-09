@@ -35,6 +35,7 @@
         "viewReadingList": null, //missing translation
         "takeScreenshot": "スクリーンショットを撮る",
         "clearHistory": "すべての履歴をクリア",
+        "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "タスクに切り替える",
         "createTask": "タスクを作成",
         "closeTask": null, //missing translation

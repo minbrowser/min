@@ -35,6 +35,7 @@
         "viewReadingList": "Vedi Lista di Lettura",
         "takeScreenshot": "Cattura Screenshot",
         "clearHistory": "Svuota la cronologia",
+        "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Passa a Task",
         "createTask": "Crea un Task",
         "closeTask": null, //missing translation

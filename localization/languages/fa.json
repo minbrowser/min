@@ -35,6 +35,7 @@
         "viewReadingList": "نمایش لیست خواندن",
         "takeScreenshot": "عکس گرفتن از صفحه",
         "clearHistory": "حذف تاریخچه مرورگر",
+        "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "تغییر به وظیفه",
         "createTask": "ایجاد وظیفه جدید",
         "closeTask": null, //missing translation

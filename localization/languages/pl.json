@@ -35,6 +35,7 @@
         "viewReadingList": "Wyświetl listę czytelnia",
         "takeScreenshot": "Zrób zrzut ekranu",
         "clearHistory": "Wyczyść całą historię",
+        "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Przełącz na zadanie",
         "createTask": "Utwórz zadanie",
         "closeTask": null, //missing translation

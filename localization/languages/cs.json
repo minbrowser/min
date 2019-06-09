@@ -35,6 +35,7 @@
         "viewReadingList": "Zobrazit seznam čtení",
         "takeScreenshot": "Pořídit snímek obrazovky",
         "clearHistory": "Vymazat celou historii",
+        "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Skočit do dimenze",
         "createTask": "Vytvořit dimenzi",
         "closeTask": null, //missing translation
