@@ -13,10 +13,10 @@
         "saveImageAs": "Сохранить изображение как...",
         "searchWith": "Искать в %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Копировать ссылку",
-        "selectAll": "Выделить все", // Missing Translation
-        "undo": "Отменить", // Missing Translation
-        "redo": "Повторить", // Missing Translation
-        "cut": "Вырезать", // Missing Translation
+        "selectAll": "Выделить все",
+        "undo": "Отменить",
+        "redo": "Повторить",
+        "cut": "Вырезать",
         "copy": "Копировать", //this is a verb (as in "copy the currently-selected text")
         "paste": "Вставить",
         "goBack": "Назад",
@@ -32,18 +32,18 @@
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
         "viewSettings": "Открыть настройки",
-        "viewReadingList": null, //missing translation
+        "viewReadingList": "Посмотреть список чтения",
         "takeScreenshot": "Сделать скриншот",
         "clearHistory": "Очистить историю",
-        "clearHistoryConfirmation": null, //missing translation
+        "clearHistoryConfirmation": "Вы действительно хотите очистить историю?",
         "switchToTask": "Переключиться на задачу",
         "createTask": "Создать задачу",
-        "closeTask": null, //missing translation
+        "closeTask": "Закрыть задачу",
         "moveToTask": "Переместить эту вкладку в задачу",
         "searchBookmarks": "Искать в закладках",
-        "searchHistory": null, //missing translation
+        "searchHistory": "Искать в истории",
         /* navbar */
-        "openMenu": null, //missing translation
+        "openMenu": "Открыть меню",
         "enterReaderView": "Включить режим чтения",
         "exitReaderView": "Выключить режим чтения",
         "emptyReadingListTitle": "Ваш список для чтения пуст",
@@ -67,15 +67,15 @@
         "focusModeExplanation1": "В изолированном режиме все вкладки, кроме текущей, спрятаны, а создание новой — невозможно.",
         "focusModeExplanation2": "Чтобы вернуться в нормальный режим, снимите флажок с пункта \"Изолированный режим\" в меню \"Вид\".",
         /* relative dates */
-        "timeRangeJustNow": null, //missing translation
-        "timeRangeMinutes": null, //missing translation
-        "timeRangeHour": null, //missing translation
-        "timeRangeToday": null, //missing translation
-        "timeRangeYesterday": null, //missing translation
-        "timeRangeWeek": null, //missing translation
-        "timeRangeMonth": null, //missing translation
-        "timeRangeYear": null, //missing translation
-        "timeRangeLongerAgo": null, //missing translation
+        "timeRangeJustNow": "Только что",
+        "timeRangeMinutes": "Несколько минут назад",
+        "timeRangeHour": "Час назад",
+        "timeRangeToday": "Сегодня",
+        "timeRangeYesterday": "Вчера",
+        "timeRangeWeek": "На прошлой неделе",
+        "timeRangeMonth": "В прошлом месяце",
+        "timeRangeYear": "В прошлом году",
+        "timeRangeLongerAgo": "Давно",
         /* pages/error/index.html */
         "crashErrorTitle": "Что-то пошло не так.",
         "crashErrorSubtitle": "При попытке отобразить эту страницу возникла ошибка.",
@@ -99,7 +99,7 @@
         "phishingErrorVisitAnyway": "Все равно посетить сайт",
         "phishingErrorLeave": "Уйти с сайта",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": null, // missing translation
+        "multipleInstancesErrorMessage": "Произошла ошибка. Пожалуйста, закройте все другие открытые экземпляры и перезапустите Min.",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Произошла ошибка",
         "sessionRestoreErrorExplanation": "Ваши сохранённые вкладки не могут быть корректно восстановлены.",
@@ -111,32 +111,32 @@
         "settingsPreferencesHeading": "Настройки",
         "settingsRestartRequired": "Для применения этих изменений необходимо перезапустить браузер.",
         "settingsPrivacyHeading": "Блокирование содержимого",
-        "settingsContentBlockingLevel0": null, //missing translation
-        "settingsContentBlockingLevel1": null, //missing translation
-        "settingsContentBlockingLevel2": null, //missing translation
-        "settingsContentBlockingExceptions": null, //missing translation
+        "settingsContentBlockingLevel0": "Разрешить всю рекламу и трекеры",
+        "settingsContentBlockingLevel1": "Блокировать сторонюю рекламу и трекеры",
+        "settingsContentBlockingLevel2": "Блокировать всю рекламу и трекеры",
+        "settingsContentBlockingExceptions": "Реклама по-прежнему будет разрешена на этих сайтах:",
         "settingsBlockScriptsToggle": "Блокировать скрипты",
         "settingsBlockImagesToggle": "Блокировать изображения",
         "settingsEasyListCredit": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "На основе EasyList и EasyPrivacy, созданных <a target=\"_blank\" href=\"https://easylist.to/\">авторами EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">просмотреть лицензию</a>)."
         },
         "settingsAppearanceHeading": "Внешний вид",
         "settingsDarkModeToggle": "Использовать тёмную тему",
-        "settingsHistoryButtonToggle": null, //missing translation
-        "settingsAdditionalFeaturesHeading": null, //missing translation
-        "settingsUserscriptsToggle": null, //missing translation
-        "settingsUserscriptsExplanation": null, //missing translation
-        "settingsUpdateNotificationsToggle": null, //missing translation
+        "settingsHistoryButtonToggle": "История",
+        "settingsAdditionalFeaturesHeading": "Дополнительные возможности",
+        "settingsUserscriptsToggle": "Пользовательские скрипты",
+        "settingsUserscriptsExplanation": {"unsafeHTML": "Пользовательские скрипты позволяют изменять поведение сайтов - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">узнать больше</a>."},
+        "settingsUpdateNotificationsToggle": "Автоматически проверять наличие обновлений",
         "settingsSearchEngineHeading": "Поиск",
         "settingsDefaultSearchEngine": "Выберите поиск по умолчанию:",
         "settingsDDGExplanation": "Чтобы видеть мгновенные ответы в строке поиска, установите DuckDuckGo поисковиком по умолчанию.",
-        "customSearchEngineDescription": null, //missing translation
+        "customSearchEngineDescription": "Заменить поисковый термин на %s",
         "settingsKeyboardShortcutsHeading": "Горячие клавиши",
-        "settingsKeyboardShortcutsHelp": null, //missing translation
+        "settingsKeyboardShortcutsHelp": "Используйте запятые для разделения нескольких ярлыков.",
         /* app menu */
         "appMenuFile": "Файл",
         "appMenuNewTab": "Новая вкладка",
-        "appMenuDuplicateTab": null, //missing translation
+        "appMenuDuplicateTab": "Дублировать",
         "appMenuNewPrivateTab": "Новая приватная вкладка",
         "appMenuNewTask": "Новая задача",
         "appMenuSavePageAs": "Сохранить страницу как...",
@@ -156,8 +156,8 @@
         "appMenuFullScreen": "Полноэкранный режим", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Изолированный режим",
         "appMenuReadingList": "Список для чтения",
-        "appMenuBookmarks": null, //missing translation
-        "appMenuHistory": null, //missing translation
+        "appMenuBookmarks": "Закладки",
+        "appMenuHistory": "История",
         "appMenuDeveloper": "Разработка",
         "appMenuReloadBrowser": "Перезагрузить браузер",
         "appMenuInspectBrowser": "Инспектировать браузер",
@@ -179,12 +179,12 @@
         "appMenuQuit": "Выйти из %n",
         "appMenuBringToFront": "Переместить всё на передний план",
         /* PDF Viewer */
-        "PDFPageCounter": null, //missing translation
+        "PDFPageCounter": {"unsafeHTML": "страница <input type='text'/> из <span id='total'></span>"},
         /* Download manager */
-        "downloadCancel": null, //missing translation
-        "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null, //missing translation
+        "downloadCancel": "Отменить",
+        "downloadStateCompleted": "Завершено",
+        "downloadStateFailed": "Не удалось",
         /* Update Notifications */
-        "updateNotificationTitle": null //missing translation
+        "updateNotificationTitle": "Доступна новая версия Min"
     }
 }
