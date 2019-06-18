@@ -13,10 +13,10 @@
         "saveImageAs": "Guardar imagem como",
         "searchWith": "Pesquisar com %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copiar ligação",
-        "selectAll": null, // Missing Translation
-        "undo": null, // Missing Translation
-        "redo": null, // Missing Translation
-        "cut": null, // Missing Translation
+        "selectAll": "Selecionar tudo,
+        "undo": "Desfazer",
+        "redo": "Refazer",
+        "cut": "Cortar",
         "copy": "Copiar", //this is a verb (as in "copy the currently-selected text")
         "paste": "Colar",
         "goBack": "Recuar",
@@ -35,7 +35,7 @@
         "viewReadingList": "Ver lista de leitura",
         "takeScreenshot": "Obter captura de ecrã",
         "clearHistory": "Limpar todo o histórico",
-        "clearHistoryConfirmation": null, //missing translation
+        "clearHistoryConfirmation": "Limpar histórico e dados de navegação?",
         "switchToTask": "Trocar para a tarefa",
         "createTask": "Criar tarefa",
         "closeTask": "Fechar tarefa",
