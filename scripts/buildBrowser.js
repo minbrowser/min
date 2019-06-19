@@ -28,6 +28,7 @@ const legacyModules = [
   'js/searchbar/hostsSuggestionsPlugin.js',
   'js/searchbar/keywordSuggestionsPlugin.js',
   'js/searchbar/updateNotifications.js',
+  'js/searchbar/restoreTaskPlugin.js',
   'js/readerview.js',
   'js/navbar/tabBar.js',
   'js/taskOverlay/taskOverlay.js',
