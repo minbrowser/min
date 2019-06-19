@@ -201,7 +201,7 @@ registerCustomBang({
       results.sort(function (a, b) {
         // order by last visit
         return b.lastVisit - a.lastVisit
-      }).forEach(function (result) {
+      }).forEach(function (result, index) {
         var thisRelativeDate = formatRelativeDate(result.lastVisit)
         if (thisRelativeDate !== lastRelativeDate) {
           var heading = searchbarUtils.createHeading({text: thisRelativeDate})
@@ -212,6 +212,7 @@ registerCustomBang({
           title: result.title,
           icon: 'fa-star',
           secondaryText: urlParser.getSourceURL(result.url),
+          classList: (index === 0 && text ? ['fakefocus'] : []),
           url: result.url,
           delete: function () {
             places.deleteHistory(result.url)
@@ -249,7 +250,7 @@ registerCustomBang({
       results.sort(function (a, b) {
         // order by last visit
         return b.lastVisit - a.lastVisit
-      }).slice(0, 250).forEach(function (result) {
+      }).slice(0, 250).forEach(function (result, index) {
         var thisRelativeDate = formatRelativeDate(result.lastVisit)
         if (thisRelativeDate !== lastRelativeDate) {
           var heading = searchbarUtils.createHeading({text: thisRelativeDate})
@@ -259,6 +260,7 @@ registerCustomBang({
         container.appendChild(searchbarUtils.createItem({
           title: result.title,
           secondaryText: urlParser.getSourceURL(result.url),
+          classList: (index === 0 && text ? ['fakefocus'] : []),
           url: result.url,
           delete: function () {
             places.deleteHistory(result.url)
