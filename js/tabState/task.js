@@ -131,6 +131,8 @@ class TaskList {
 
   indexOf (task) { return this.tasks.indexOf(task) }
 
+  slice () { return this.tasks.slice.apply(this.tasks, arguments) }
+
   splice (...args) { return this.tasks.splice.apply(this.tasks, args) }
 
   find (filter) {
