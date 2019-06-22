@@ -3,6 +3,25 @@ var browserUI = require('browserUI.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 var urlParser = require('util/urlParser.js')
 
+function getTaskRelativeDate (task) {
+  var startOfYesterday = new Date()
+  startOfYesterday.setHours(0)
+  startOfYesterday.setMinutes(0)
+  startOfYesterday.setSeconds(0)
+  startOfYesterday = startOfYesterday.getTime()
+  startOfYesterday -= (24 * 60 * 60 * 1000);
+
+  var time = tasks.getLastActivity(task.id)
+  var d = new Date(time)
+
+  // don't show times for recent tasks in order to save space
+  if (time > startOfYesterday) {
+    return null
+  } else {
+    return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
+  }
+}
+
 function getTaskContainer (id) {
   return document.querySelector('.task-container[data-task="{id}"]'.replace('{id}', id))
 }
@@ -81,6 +100,17 @@ var TaskOverlayBuilder = {
 
         return taskActionContainer
       },
+      dateContainer: function (task) {
+        var dateContainer = document.createElement('div')
+        dateContainer.className = 'task-date-container'
+
+        var date = getTaskRelativeDate(task)
+
+        if (date) {
+          dateContainer.textContent = getTaskRelativeDate(task)
+          return dateContainer
+        }
+      },
       container: function (task, taskIndex) {
         var container = document.createElement('div')
         container.className = 'task-container'
@@ -92,6 +122,11 @@ var TaskOverlayBuilder = {
           taskIndex
         )
         container.appendChild(taskActionContainer)
+
+        var dateContainer = this.dateContainer(task)
+        if (dateContainer) {
+          container.appendChild(dateContainer)
+        }
 
         var tabContainer = TaskOverlayBuilder.create.tab.container(task)
         container.appendChild(tabContainer)

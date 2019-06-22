@@ -115,6 +115,12 @@ body.windows:not(.maximized) #task-overlay {
 	align-items: center;
 	padding-right: 1em;
 }
+.task-date-container {
+    font-size: 0.9em;
+    padding: 0 8px;
+    opacity: 0.6;
+    margin: -0.25em 0 0.25em 0;
+}
 @media all and (max-width: 600px) {
 	#task-overlay {
 		padding-left: 5%;
