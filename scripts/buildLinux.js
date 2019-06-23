@@ -23,6 +23,7 @@ require('./createPackage.js')('linux').then(function (appPaths) {
       'gconf2',
       'gconf-service',
       'gvfs-bin',
+      'libasound2',
       'libc6',
       'libcap2',
       'libgtk2.0-0',
@@ -30,6 +31,7 @@ require('./createPackage.js')('linux').then(function (appPaths) {
       'libgcrypt11 | libgcrypt20',
       'libnotify4',
       'libnss3',
+      'libxssl1',
       'libxtst6',
       'python',
       'xdg-utils'
