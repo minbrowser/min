@@ -102,17 +102,19 @@ var TaskOverlayBuilder = {
         deleteButton.className = 'fa fa-trash-o task-delete-button'
 
         deleteButton.addEventListener('click', function (e) {
-          container.classList.add('deleting')
-          setTimeout(function () {
-            if (container.classList.contains('deleting')) {
-              container.style.opacity = 0
-              // transitionend would be nice here, but it doesn't work if the element is removed from the DOM
-              setTimeout(function () {
-                container.remove()
-                browserUI.closeTask(task.id)
-              }, 500)
-            }
-          }, 10000)
+          if (task.tabs.isEmpty()) {
+            container.remove()
+            browserUI.closeTask(task.id)
+          } else {
+            container.classList.add('deleting')
+            setTimeout(function () {
+              if (container.classList.contains('deleting')) {
+                container.style.opacity = 0
+                // transitionend would be nice here, but it doesn't work if the element is removed from the DOM
+                setTimeout(function () {}, 500)
+              }
+            }, 10000)
+          }
         })
         return deleteButton
       },
