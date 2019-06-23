@@ -5,186 +5,186 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "openInNewTab": "فتح الرابط في علامة تبويب جديدة",
-        "openInNewPrivateTab": "فتح الرابط في التصفح المتخفي",
+        "openInNewTab": "فتح الرابط في صفحة جديدة",
+        "openInNewPrivateTab": "فتح الرابط في صفحة سرية",
         "viewImage": "مشاهدة الصورة",
-        "openImageInNewTab": "فتح الصورة في علامة تبويب جديدة",
-        "openImageInNewPrivateTab": "فتح الصورة في التصفح المتخفي",
+        "openImageInNewTab": "فتح الصورة في صفحة جديدة",
+        "openImageInNewPrivateTab": "فتح الصورة في صفحة سرية",
         "saveImageAs": "حفظ الصورة باسم",
         "searchWith": "%s بحث مع", //%s will be replaced with the name of the current search engine
         "copyLink": "نسخ الرابط",
-        "selectAll": null, // Missing Translation
-        "undo": null, // Missing Translation
-        "redo": null, // Missing Translation
-        "cut": null, // Missing Translation
+        "selectAll": "اختر الكل", // Missing Translation
+        "undo": "إلغاء", // Missing Translation
+        "redo": "إعادة", // Missing Translation
+        "cut": "قص", // Missing Translation
         "copy": "نسخ", //this is a verb (as in "copy the currently-selected text")
         "paste": "لصق",
-        "goBack": "الرجوع الى الوراء",
-        "goForward": "تقدم للامام",
-        "inspectElement": "تدقيق العنصر",
+        "goBack": "رجوع",
+        "goForward": "تقدم",
+        "inspectElement": "فحص النص البرمجي",
         /* searchbar */
         "DDGAnswerSubtitle": "جواب", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "الموقع المقترح", //this is used to label suggested websites from the DuckDuckGo API,
-        "resultsFromDDG": "DuckDuckGo نتائج من", //this is used as a label to indicate which results come from DuckDuckGo's API
-        "taskN": "%n مهمة", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "نتائج من الملف المضيف", //this is a label used to indicate that a result is coming from the user's host file
+        "resultsFromDDG": "نتائج دك دك غو", //this is used as a label to indicate which results come from DuckDuckGo's API
+        "taskN": "%n الشغلة", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "hostsFileEntry": "نتائج الملف المضيف", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "viewSettings": "عرض الاعدادات",
-        "viewReadingList": "عرض قائمة القراءة",
-        "takeScreenshot": "خذ لقطة شاشة",
-        "clearHistory": "مسح السجل",
-        "clearHistoryConfirmation": null, //missing translation
-        "switchToTask": "تحويل الى مهام",
-        "createTask": "انشاء مهمة",
-        "closeTask": null, //missing translation
-        "moveToTask": "نقل التبويب الى المهام",
-        "searchBookmarks": "البحث عن الإشارات",
-        "searchHistory": "البحث عن السجل",
+        "viewSettings": "الإعدادات",
+        "viewReadingList": "قائمة القراءة",
+        "takeScreenshot": "أخذ لقطة شاشة",
+        "clearHistory": "مسح تاريخ الصفحات",
+        "clearHistoryConfirmation": "امسح التاريخ ومعطيات التصفح؟", 
+        "switchToTask": "الانتقال لشغلة",
+        "createTask": "إنشاء شغلة",
+        "closeTask": "إغلاق الشغلة", 
+        "moveToTask": "نقل الصفحة لشغلة",
+        "searchBookmarks": "بحث علامات الصفحات",
+        "searchHistory": "بحث تاريخ الصفحات",
         /* navbar */
         "openMenu": "فتح القائمة", //application menu button on windows
-        "enterReaderView": "دخول وضع القراءة",
-        "exitReaderView": "خروج وضع القراءة",
+        "enterReaderView": "الدخول إلى وضع القراءة",
+        "exitReaderView": "الخروج من وضع القراءة",
         "emptyReadingListTitle": "قائمة القراءة فارغة ",
         "emptyReadingListSubtitle": "يتم سرد المقالات التي تفتحها في عرض القارئ هنا ، ويتم حفظها لمدة 30 يومًا",
         "newTabLabel": "تبويب جديدة", //this is a noun, used for tabs that don't have a page loaded in them yet
-        "connectionNotSecure": "اتصالك مع هدا الموقع غير محمي.",
-        "searchbarPlaceholder": "ابحث او ادخل الرابط",
-        "privateTab": "تبويب متخفي",
-        "newTabAction": "تبويب جديدة", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        "connectionNotSecure": "دخول هذا الموقع غير آمنا.",
+        "searchbarPlaceholder": "البحث أو كتابة رابط",
+        "privateTab": "صفحة سرية",
+        "newTabAction": "صفحة جديدة", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
-        "viewTasks": "عرض المهام",
-        "newTask": "مهمة جديدة", //"new" is a verb - it is used for a button at the bottom of the task overlay
-        "defaultTaskName": " %n مهمة رقم", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        "viewTasks": "عرض الشغلات",
+        "newTask": "شغلة جديدة", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": " %n الشغلة رقم", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
         /* find in page toolbar */
         "searchInPage": "ابحث في الصفحة", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "مطابق %t من i%", //this and the next label are used to indicate which match is currently highlighted
-        "findMatchesPlural": "مطابق %t من i%",
+        "findMatchesPlural": "النتيجة %t من أصل i%",
         /* Focus mode */  
         "isFocusMode": "أنت في وضع التركيز.",
-        "closeDialog": "تم", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "في وضع التركيز , جميع التبوييات ما عادا المفتوحة الان مخفية , لا يمكنك فتح علامة جديدة",
-        "focusModeExplanation2": "يمكنك الخروج من وضع التركيز عبر الغاء تحديد \"وضع التركيز\" في القائمة",
+        "closeDialog": "تمام", //used as a label for the button that closes the dialog
+        "focusModeExplanation1": "جميع التبوييات في وضع التركيز مخفية ما عدا المفتوحة الآن ولا يمكنك فتح علامة جديدة",
+        "focusModeExplanation2": "للخروج من وضع التركيز أزل علامة \"وضع التركيز\" في القائمة",
         /* relative dates */
         "timeRangeJustNow": "الآن",
-        "timeRangeMinutes": "قبل عدة دقائق",
-        "timeRangeHour": "قبل عدة ساعات",
-        "timeRangeToday": null, //missing translation
-        "timeRangeYesterday": null, //missing translation
-        "timeRangeWeek": "في الاسبوع الماضي",
-        "timeRangeMonth": "في الشهر الماضي",
-        "timeRangeYear": "في السنة الماضية",
-        "timeRangeLongerAgo": "قديما",
+        "timeRangeMinutes": "منذ دقائق",
+        "timeRangeHour": "منذ ساعات",
+        "timeRangeToday": "اليوم", 
+        "timeRangeYesterday": "أمس", 
+        "timeRangeWeek": "الأسبوع الماضي",
+        "timeRangeMonth": "الشهر الماضي",
+        "timeRangeYear": "العام الماضي",
+        "timeRangeLongerAgo": "أكثر من عام",
         /* pages/error/index.html */
-        "crashErrorTitle": "حدث خطأ ما.",
-        "crashErrorSubtitle": "حدثت مشكلة أثناء عرض هذه الصفحة.",
-        "errorPagePrimaryAction": "اعد المحاولة",
+        "crashErrorTitle": "حدث خطأ.",
+        "crashErrorSubtitle": "حدثت مشكلة عند عرض هذه الصفحة.",
+        "errorPagePrimaryAction": "جرب ثانية",
         "serverNotFoundTitle": "الخادم غير موجود",
-        "serverNotFoundSubtitle": "لم يستطيع الحصول على هذا الموقع Min",
-        "archiveSearchAction": "archive.org البحث في",
-        "sslErrorTitle": "هذا الموقع لا يوجد ",
-        "sslErrorMessage": "لا يستطيع الاتصال الامن مع هذا الموقع Min",
+        "serverNotFoundSubtitle": "تعذر على المتصفح إيجاد هذا الموقع",
+        "archiveSearchAction": "البحث في موقع أركايف دون أورغ",
+        "sslErrorTitle": "هذا الموقع غير موجود",
+        "sslErrorMessage": "تعذر على المتصفح فتح هذا الموقع فتحا آمنا",
         "dnsErrorTitle": "الموقع غير موجود",
-        "dnsErrorMessage": "حدث خطأ في DNS",
-        "offlineErrorTitle": "انت خارج الاتصال",
-        "offlineErrorMessage": "اعد الاتصال مع الانترنيت تم اعد المحاولة",
-        "genericConnectionFail": "لا يستطيع الاتصال مع الموقع Min",
-        "sslTimeErrorMessage": " لا يستطيع الاتصال الامن مع هذا الموقع تأكد من ان التوقيت صحيح Min",
-        "addressInvalidTitle": "هذا العنوان غير صحيح",
-        "genericError": "حدث خطأ ما",
+        "dnsErrorMessage": "حدث خطأ في نظام أسماء النطاقات",
+        "offlineErrorTitle": "الإنترنت منقطع",
+        "offlineErrorMessage": "شغل الأنترنت ثم جرب ثانية",
+        "genericConnectionFail": "تعذر على المتصفح فتح الموقع",
+        "sslTimeErrorMessage": "تعذر الدخول الآمن. تحقق أن التوقيت مضبوط",
+        "addressInvalidTitle": "العنوان غير صحيح",
+        "genericError": "حدث خطأ",
         /* pages/phishing/index.html */
-        "phishingErrorTitle": "هذا الموقع يمكن ان يضرك",
-        "phishingErrorMessage": "هذا الموقع يمكن ان يحاول ان يسرق معلوماتك الشخصية . كلمات مرور و معلوماتك البنكية",
-        "phishingErrorVisitAnyway": "متابعة على اية حال",
-        "phishingErrorLeave": "مغادرة الموقع",
+        "phishingErrorTitle": "هذا الموقع قد يضرك",
+        "phishingErrorMessage": "هذا الموقع قد يحاول سرقة معلوماتك الشخصية مثل كلمات السر والمعلومات المصرفية",
+        "phishingErrorVisitAnyway": "دخول الموقع",
+        "phishingErrorLeave": "ترك الموقع",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": "حدث خطأ. الرجاء إغلاق أي نوافد مفتوحة أخرى وإعادة تشغيل Min",
+        "multipleInstancesErrorMessage": "حدث خطأ. أغلق أي نوافد أخرى مفتوحة وشغل المتصفح ثانية",
         /* pages/sessionRestoreError/index.html */
-        "sessionRestoreErrorTitle": "حدث خطأ ما",
-        "sessionRestoreErrorExplanation": "لم نستطيع اعادة فتح التبويبات المحفوظة بشكل صحيح",
-        "sessionRestoreErrorBackupInfo": " %l حفظنا نسخة احتياطية لمعلوماتك. وسوف تجدها في المسار التالي", //%l will be replaced with a path to a file
+        "sessionRestoreErrorTitle": "حدث خطأ",
+        "sessionRestoreErrorExplanation": "تعذر إعادة فتح التبويبات المحفوظة",
+        "sessionRestoreErrorBackupInfo": " %l حفظت نسخة احتياطية من معلوماتك. تجدها في العنوان التالي", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
-            "unsafeHTML": "<a href=\"https://github.com/minbrowser/min\" target=\"_blank\">هنا</a> ادا ظهر لك \"هذا المشكل مرة اخرى.قم بفتح مشكلة "
+            "unsafeHTML": "إذا حصل المشكل مرة ثانية \" فاكتب إخطارا <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">هنا</a>"
         },
         /* pages/settings/index.html */
-        "settingsPreferencesHeading": "تفضيلات",
-        "settingsRestartRequired": "قم بأعادة تشغيل المتصفح لتطبيق هده التغيرات",
+        "settingsPreferencesHeading": "التفضيلات",
+        "settingsRestartRequired": "افتح المتصفح ثانية لتفعيل التغيرات",
         "settingsPrivacyHeading": "منع المحتوى",
-        "settingsContentBlockingLevel0": "السماح لجميع الاعلانات و المتعقبين",
-        "settingsContentBlockingLevel1": "حظر اعلانات الطرف التالت و المتعقبين",
-        "settingsContentBlockingLevel2": "حظر جميع الاعلانات و المتعقبين",
-        "settingsContentBlockingExceptions": "سيظل مسموحًا بعرض الاعلانات على هده المواقع",
-        "settingsBlockScriptsToggle": "منع السكريبت",
+        "settingsContentBlockingLevel0": "السماح بإظهار جميع الإعلانات والتعقب",
+        "settingsContentBlockingLevel1": "منع إعلانات الأطراف الثالثة والتعقب",
+        "settingsContentBlockingLevel2": "منع جميع الإعلانات والتعقب",
+        "settingsContentBlockingExceptions": "السمحا بعرض الإعلانات في هذه المواقع",
+        "settingsBlockScriptsToggle": "منع جافاسكربت",
         "settingsBlockImagesToggle": "منع الصور",
         "settingsEasyListCredit": {
-             "unsafeHTML": " استنادا الى EasyList و EasyPrivacy, التي تم انشائها من طرف <a target=\"_blank\" href=\"https://easylist.to/\"> EasyList المؤلفون ل</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">مشاهدة الترخيص</a>)." 
+             "unsafeHTML": " باستعمال قائمتي «إيزي لست» و«إيزي برايفاسي» <a target=\"_blank\" href=\"https://easylist.to/\">لأصحاب «إيزي ليست»</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">قراءة الرخصة</a>)." 
             },
-        "settingsAppearanceHeading": "تفضيلات",
-        "settingsDarkModeToggle": "تشغيل الوضع الليلي",
-        "settingsHistoryButtonToggle": "تمكين زر العودة",
-        "settingsAdditionalFeaturesHeading": "مميزات اضافية",
-        "settingsUserscriptsToggle": "تمكين سكريبت المستخدم",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "يمكن سكريبت المستخدم من  تغير سلوك المواقع - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">معرفة المزيد</a>."},
-        "settingsUpdateNotificationsToggle": null, //missing translation
-        "settingsSearchEngineHeading": "محرك بحث",
-        "settingsDefaultSearchEngine": "اختر محرك بحث اساسي",
-        "settingsDDGExplanation": "كمحرك بحث اساسي لرؤية النتائج الآنية في مربع البحث DuckDuckGo ",
-        "customSearchEngineDescription": "%s غير كلمة البحث ب",
-        "settingsKeyboardShortcutsHeading": "اختصار لوحة مفاتيح",
-        "settingsKeyboardShortcutsHelp": "اسعمل الفاصلة للفصل بين الاختصارات",
+        "settingsAppearanceHeading": "التفضيلات",
+        "settingsDarkModeToggle": "تشغيل الوضع الداكن",
+        "settingsHistoryButtonToggle": "إظهار زر الرجوع",
+        "settingsAdditionalFeaturesHeading": "المميزات المضافة",
+        "settingsUserscriptsToggle": "تشغيل جافاسكربت المستخدم",
+        "settingsUserscriptsExplanation": {"«إتش تي إم إل» غير آمن": "اكتب نص جافاسكربت لتغير كيفية تصفح المواقع - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اقرأ المزيد</a>."},
+        "settingsUpdateNotificationsToggle": "استطلاع تحديثات المتصفح تلقائيا", 
+        "settingsSearchEngineHeading": "محرك البحث",
+        "settingsDefaultSearchEngine": "اختر محرك البحث المستعمل",
+        "settingsDDGExplanation": "اختر «دك دك غو» لإظهار النتائج وأنت تكتب في مربع البحث",
+        "customSearchEngineDescription": "الرمز %s يحل محل كلمة البحث",
+        "settingsKeyboardShortcutsHeading": "اختصارات لوحة مفاتيح",
+        "settingsKeyboardShortcutsHelp": "اسعمل الفاصلة «,» للفصل بين الاختصارات",
         /* app menu */
-        "appMenuFile": "ملف",
-        "appMenuNewTab": "تبويب جديد",
-        "appMenuDuplicateTab": "تبويب مكررة",
-        "appMenuNewPrivateTab": "التصفح الخفي",
-        "appMenuNewTask": "مهمة جديدة",
+        "appMenuFile": "الملف",
+        "appMenuNewTab": "صفحة جديدة",
+        "appMenuDuplicateTab": "صفحة مكررة",
+        "appMenuNewPrivateTab": "التصفح السري",
+        "appMenuNewTask": "شغلة جديدة",
         "appMenuSavePageAs": "حفظ الصفحة باسم",
         "appMenuPrint": "طباعة",
         "appMenuEdit": "تعديل",
-        "appMenuUndo": "تراجع",
-        "appMenuRedo": "اعادة",
+        "appMenuUndo": "رجوع",
+        "appMenuRedo": "إعادة",
         "appMenuCut": "قص",
         "appMenuCopy": "نسخ",
         "appMenuPaste": "لصق",
-        "appMenuSelectAll": "تحديد الكل",
-        "appMenuFind": "بحث",
-        "appMenuView": "مشاهدة",
-        "appMenuZoomIn": "تكبير",
-        "appMenuZoomOut": "تصغير",
-        "appMenuActualSize": "حجم حقيقي",
+        "appMenuSelectAll": "اختيار الكل",
+        "appMenuFind": "البحث",
+        "appMenuView": "الاطلاع",
+        "appMenuZoomIn": "التكبير",
+        "appMenuZoomOut": "التصغير",
+        "appMenuActualSize": "الحجم العادي",
         "appMenuFullScreen": "ملء الشاشة", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "وضع التركيز",
         "appMenuReadingList": "قائمة القراءة",
-        "appMenuBookmarks": "اشارة",
-        "appMenuHistory": "سجل",
-        "appMenuDeveloper": "مطور",
-        "appMenuReloadBrowser": "اعادة تحميل المتصفح",
+        "appMenuBookmarks": "علامة الصفحة",
+        "appMenuHistory": "التاريخ",
+        "appMenuDeveloper": "المطور",
+        "appMenuReloadBrowser": "تحميل المتصفح ثانية",
         "appMenuInspectBrowser": "فحص المتصفح",
         "appMenuInspectPage": "فحص الصفحة",
         "appMenuWindow": "نافذة",
-        "appMenuMinimize": "تصغير",
-        "appMenuClose": "اغلاق",
-        "appMenuHelp": "مساعدة",
-        "appMenuKeyboardShortcuts": "اختصار لوحة مفاتيح",
-        "appMenuReportBug": "الابلاغ عن الخطأ",
-        "appMenuTakeTour": "خذ جولة",
-        "appMenuViewGithub": "GitHub مشاهدة قي",
-        "appMenuAbout": "%n حول", //%n is replaced with app name
-        "appMenuPreferences": "تفضيلات",
-        "appMenuServices": "خدمات",
-        "appMenuHide": "%n اخفاء",
-        "appMenuHideOthers": "اخفاء الباقي",
-        "appMenuShowAll": "عرض الكل",
-        "appMenuQuit": "%n انهاء",
-        "appMenuBringToFront": "جلب الكل الى المقدمة",
+        "appMenuMinimize": "التصغير",
+        "appMenuClose": "الإغلاق",
+        "appMenuHelp": "المساعدة",
+        "appMenuKeyboardShortcuts": "اختصارات لوحة مفاتيح",
+        "appMenuReportBug": "الإبلاغ عن الخطأ",
+        "appMenuTakeTour": "شرح الاستعمال",
+        "appMenuViewGithub": "الاطلاع في «غيت هب»",
+        "appMenuAbout": "عن %n", //%n is replaced with app name
+        "appMenuPreferences": "التفضيلات",
+        "appMenuServices": "الخدمات",
+        "appMenuHide": "%n الإخفاء",
+        "appMenuHideOthers": "إخفاء الباقي",
+        "appMenuShowAll": "إظهار الكل",
+        "appMenuQuit": "الخروج من %n",
+        "appMenuBringToFront": "جلب الكل إلى المقدمة",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "page <input type='text'/> of <span id='total'></span>"},
+        "PDFPageCounter": {"«إتش تي إم إل» غير آمن": "الصفحة <input type='text'/> من أصل <span id='total'></span>"},
         /* Download manager */
-        "downloadCancel": "الغاء",
-        "downloadStateCompleted": "تم بنجاح",
+        "downloadCancel": "الإلغاء",
+        "downloadStateCompleted": "تمام",
         "downloadStateFailed": "فشل",
         /* Update Notifications */
-        "updateNotificationTitle": null //missing translation
+        "updateNotificationTitle": "صدرت نسخة جديدة من متصفح «مين»" 
     }
 }
