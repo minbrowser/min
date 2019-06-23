@@ -41,8 +41,12 @@ function removeTabFromOverlay (tabId, task) {
   }
 }
 
+function taskIsCollapsed (task) {
+  return task.collapsed || (task.collapsed === undefined && Date.now() - tasks.getLastActivity(task.id) > (7 * 24 * 60 * 60 * 1000))
+}
+
 function toggleCollapsed (taskContainer, task) {
-  tasks.get(task.id).collapsed = !tasks.get(task.id).collapsed
+  tasks.get(task.id).collapsed = !taskIsCollapsed(tasks.get(task.id))
   taskContainer.classList.toggle('collapsed')
 
   var collapseButton = taskContainer.querySelector('.task-collapse-button')
@@ -56,7 +60,7 @@ var TaskOverlayBuilder = {
       collapseButton: function (taskContainer, task) {
         var collapseButton = document.createElement('i')
         collapseButton.className = 'fa task-collapse-button'
-        if (task.collapsed) {
+        if (taskIsCollapsed(task)) {
           collapseButton.classList.add('fa-angle-right')
         } else {
           collapseButton.classList.add('fa-angle-down')
@@ -136,7 +140,8 @@ var TaskOverlayBuilder = {
       container: function (task, taskIndex) {
         var container = document.createElement('div')
         container.className = 'task-container'
-        if (task.collapsed) {
+
+        if (task.id !== tasks.getSelected().id && taskIsCollapsed(task)) {
           container.classList.add('collapsed')
         }
         if (task.id === tasks.getSelected().id) {

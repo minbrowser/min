@@ -36,7 +36,7 @@ class TaskList {
       name: task.name || null,
       tabs: new TabList(task.tabs, this),
       tabHistory: new TabStack(task.tabHistory),
-      collapsed: task.collapsed || null,
+      collapsed: task.collapsed, // this property must stay undefined if it is already (since there is a difference between "explicitly uncollapsed" and "never collapsed")
       id: task.id || String(TaskList.getRandomId())
     }
 
