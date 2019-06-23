@@ -100,6 +100,11 @@ body.windows:not(.maximized) #task-overlay {
 	display: none;
 }
 
+.task-delete-button {
+	padding: 0.66em;
+	margin: -0.66em;
+}
+
 .task-container.collapsed .task-delete-button {
 	display: none;
 }
