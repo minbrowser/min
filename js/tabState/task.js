@@ -36,6 +36,7 @@ class TaskList {
       name: task.name || null,
       tabs: new TabList(task.tabs, this),
       tabHistory: new TabStack(task.tabHistory),
+      collapsed: task.collapsed || null,
       id: task.id || String(TaskList.getRandomId())
     }
 

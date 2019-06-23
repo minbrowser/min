@@ -9,7 +9,7 @@ function getTaskRelativeDate (task) {
   startOfYesterday.setMinutes(0)
   startOfYesterday.setSeconds(0)
   startOfYesterday = startOfYesterday.getTime()
-  startOfYesterday -= (24 * 60 * 60 * 1000);
+  startOfYesterday -= (24 * 60 * 60 * 1000)
 
   var time = tasks.getLastActivity(task.id)
   var d = new Date(time)
@@ -41,13 +41,31 @@ function removeTabFromOverlay (tabId, task) {
   }
 }
 
+function toggleCollapsed (taskContainer, task) {
+  tasks.get(task.id).collapsed = !tasks.get(task.id).collapsed
+  taskContainer.classList.toggle('collapsed')
+
+  var collapseButton = taskContainer.querySelector('.task-collapse-button')
+  collapseButton.classList.toggle('fa-angle-right')
+  collapseButton.classList.toggle('fa-angle-down')
+}
+
 var TaskOverlayBuilder = {
   create: {
     task: {
-      dragHandle: function () {
-        var dragHandle = document.createElement('i')
-        dragHandle.className = 'fa fa-arrows task-drag-handle'
-        return dragHandle
+      collapseButton: function (taskContainer, task) {
+        var collapseButton = document.createElement('i')
+        collapseButton.className = 'fa task-collapse-button'
+        if (task.collapsed) {
+          collapseButton.classList.add('fa-angle-right')
+        } else {
+          collapseButton.classList.add('fa-angle-down')
+        }
+        collapseButton.addEventListener('click', function (e) {
+          e.stopPropagation()
+          toggleCollapsed(taskContainer, task)
+        })
+        return collapseButton
       },
       nameInputField: function (task, taskIndex) {
         var input = document.createElement('input')
@@ -66,14 +84,18 @@ var TaskOverlayBuilder = {
           task.name = this.value
         })
 
-        input.addEventListener('focus', function () {
+        input.addEventListener('focusin', function (e) {
+          if (tasks.get(task.id).collapsed) {
+            this.blur()
+            return
+          }
           this.select()
         })
         return input
       },
       deleteButton: function (container, task) {
         var deleteButton = document.createElement('i')
-        deleteButton.className = 'fa fa-trash-o'
+        deleteButton.className = 'fa fa-trash-o task-delete-button'
 
         deleteButton.addEventListener('click', function (e) {
           container.remove()
@@ -86,9 +108,9 @@ var TaskOverlayBuilder = {
         var taskActionContainer = document.createElement('div')
         taskActionContainer.className = 'task-action-container'
 
-        // add the drag handle
-        var dragHandle = this.dragHandle()
-        taskActionContainer.appendChild(dragHandle)
+        // add the collapse button
+        var collapseButton = this.collapseButton(taskContainer, task)
+        taskActionContainer.appendChild(collapseButton)
 
         // add the input for the task name
         var input = this.nameInputField(task, taskIndex)
@@ -114,7 +136,19 @@ var TaskOverlayBuilder = {
       container: function (task, taskIndex) {
         var container = document.createElement('div')
         container.className = 'task-container'
+        if (task.collapsed) {
+          container.classList.add('collapsed')
+        }
+        if (task.id === tasks.getSelected().id) {
+          container.classList.add('selected')
+        }
         container.setAttribute('data-task', task.id)
+
+        container.addEventListener('click', function (e) {
+          if (tasks.get(task.id).collapsed) {
+            toggleCollapsed(container, task)
+          }
+        })
 
         var taskActionContainer = this.actionContainer(
           container,
