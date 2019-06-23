@@ -55,6 +55,7 @@ body.windows:not(.maximized) #task-overlay {
 	margin: auto;
 	border-left: 5vw solid transparent;
 	border-right: 5vw solid transparent;
+	transition: 0.5s opacity;
 }
 .task-container.collapsed {
 	opacity: 0.75;
@@ -100,6 +101,20 @@ body.windows:not(.maximized) #task-overlay {
 }
 
 .task-container.collapsed .task-delete-button {
+	display: none;
+}
+
+.task-container .task-delete-warning {
+	background: rgba(0, 0, 0, 0.05);
+	padding: 1em;
+	text-align: center;
+}
+
+.task-container:not(.deleting) .task-delete-warning {
+	display: none;
+}
+
+.task-container.deleting > *:not(.task-delete-warning) {
 	display: none;
 }
 

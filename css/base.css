@@ -26,3 +26,8 @@ html {
 	overflow: hidden;
 	-webkit-user-select: none;
 }
+
+a {
+	color: royalblue;
+	text-decoration: none;
+}

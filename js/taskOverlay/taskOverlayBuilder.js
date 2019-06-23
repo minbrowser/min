@@ -102,10 +102,29 @@ var TaskOverlayBuilder = {
         deleteButton.className = 'fa fa-trash-o task-delete-button'
 
         deleteButton.addEventListener('click', function (e) {
-          container.remove()
-          browserUI.closeTask(task.id)
+          container.classList.add('deleting')
+          setTimeout(function () {
+            if (container.classList.contains('deleting')) {
+              container.style.opacity = 0
+              // transitionend would be nice here, but it doesn't work if the element is removed from the DOM
+              setTimeout(function () {
+                container.remove()
+                browserUI.closeTask(task.id)
+              }, 500)
+            }
+          }, 10000)
         })
         return deleteButton
+      },
+      deleteWarning: function (container, task) {
+        var deleteWarning = document.createElement('div')
+        deleteWarning.className = 'task-delete-warning'
+
+        deleteWarning.innerHTML = 'Task deleted. <a> Undo?</a>'
+        deleteWarning.addEventListener('click', function (e) {
+          container.classList.remove('deleting')
+        })
+        return deleteWarning
       },
 
       actionContainer: function (taskContainer, task, taskIndex) {
@@ -166,6 +185,9 @@ var TaskOverlayBuilder = {
         if (dateContainer) {
           container.appendChild(dateContainer)
         }
+
+        var deleteWarning = this.deleteWarning(container, task)
+        container.appendChild(deleteWarning)
 
         var tabContainer = TaskOverlayBuilder.create.tab.container(task)
         container.appendChild(tabContainer)
