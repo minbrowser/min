@@ -344,3 +344,38 @@ function onKeyMapChange (e) {
     })
   })
 }
+
+/* Password auto-fill settings  */
+
+var bitwardenCheckbox = document.getElementById('checkbox-bitwarden')
+var bitwardenSettingsContainer = document.getElementById('bitwarden-settings-container')
+var bitwardenSessionKeyInput = document.getElementById('bitwarden-session-key')
+
+settings.get('bitwardenEnabled', function (value) {
+  if (value != null) {
+    bitwardenCheckbox.checked = value
+    bitwardenSettingsContainer.hidden = !value
+  }
+})
+
+settings.get('bitwardenSessionKey', function(value) {
+  if (value != null) {
+    bitwardenSessionKeyInput.value = value
+  }
+})
+
+bitwardenCheckbox.addEventListener('change', function(e) {
+  const value = this.checked
+  settings.set('bitwardenEnabled', value, function () {
+    console.log('saving bitwarden key')
+    bitwardenSettingsContainer.hidden = !value
+    showRestartRequiredBanner()
+  })
+})
+
+bitwardenSessionKeyInput.addEventListener('change', function(e) {
+  const value = this.value
+  settings.set('bitwardenSessionKey', value, function () {
+    showRestartRequiredBanner()
+  })
+})

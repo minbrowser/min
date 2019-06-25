@@ -36,7 +36,7 @@
 			<label for="blocking-block-all" data-string="settingsContentBlockingLevel2"></label>
 			<div class="spacer-small"></div>
 
-			<div id="content-blocking-information" hidden>
+			<div id="content-blocking-information" class="sub-input-field" hidden>
 				<div><span data-string="settingsContentBlockingExceptions"></span> &nbsp;
 					<input type="text" id="content-blocking-exceptions" style="width: 100%; max-width: 500px">
 				</div>
@@ -89,6 +89,23 @@
 		<input id="custom-search-engine" style="margin-left: 0.5em; min-width: 325px" hidden/>
 
 		<div class="light-fade" style="padding-top:0.4em" data-string="settingsDDGExplanation"></div>
+	</div>
+
+	<div class="spacer"></div>
+	<div class="container padding" id="password-autofill-container">
+		<h3 data-string="settingsPasswordAutoFillHeadline"></h3>
+
+		<div class="setting-section">
+			<input type="checkbox" id="checkbox-bitwarden" />
+			<label for="checkbox-bitwarden" data-string="settingsBitwardenToggle"></label>
+		</div>
+
+		<div id="bitwarden-settings-container" class="sub-input-field" hidden>
+			<div>
+				<span data-string="settingsBitwardenSessionKey"></span> &nbsp;
+				<input type="text" id="bitwarden-session-key" style="width: 100%; max-width: 600px">
+			</div>
+		</div>
 	</div>
 
 	<div class="spacer"></div>

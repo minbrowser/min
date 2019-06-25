@@ -198,6 +198,9 @@
         "downloadStateCompleted": "Completed",
         "downloadStateFailed": "Failed",
         /* Update Notifications */
-        "updateNotificationTitle": "A new version of Min is available"
+        "updateNotificationTitle": "A new version of Min is available",
+        "settingsPasswordAutoFillHeadline": "Password Auto-Fill",
+        "settingsBitwardenToggle": "Enable Bitwarden integration",
+        "settingsBitwardenSessionKey": "Bitwarden session key:"
     }
 }
