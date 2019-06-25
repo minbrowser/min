@@ -10,6 +10,7 @@ const modules = [
   'js/preload/keywordExtractor.js',
   'js/preload/siteUnbreak.js',
   'js/util/settings/settingsPreload.js'
+  'js/preload/passwordFill.js',
 ]
 
 function buildPreload () {
