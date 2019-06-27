@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- title is set in JS -->
+
+  <link rel="stylesheet" href="../../css/base.css" />
+  <link rel="stylesheet" href="prompt.css" />
+</head>
+<body>
+  <div class='container padding'>
+    <p id='label'></p>
+    <div class='input-container'>
+      <input type='password' id='data' value='' onkeypress='handleKeyPress(event)'>
+    </div>
+    <div class='buttons'>
+      <input type='button' id='ok' value='OK' onclick='response()'>
+      <input type='button' value='Cancel' onclick='cancel()'>
+    </div>
+  </div>
+  <script>
+    const { ipcRenderer } = require('electron')
+
+    function cancel() {
+      ipcRenderer.send('close-prompt', '')
+      this.close();
+    }
+
+    function response() {
+      ipcRenderer.send('close-prompt', document.getElementById('data').value)
+      this.close();
+    }
+
+    function handleKeyPress(event) {
+      var key = event.keyCode || event.which
+      if (key == 13) {
+        response()
+      }
+    }
+
+    window.addEventListener('load', function() {
+      var options = ipcRenderer.sendSync('open-prompt', '')
+      var params = JSON.parse(options)
+      document.getElementById('label').innerHTML = params.label;
+      document.getElementById('data').value = params.value;
+      document.getElementById('ok').value = params.ok;
+      document.getElementById('data').focus();
+    })
+  </script>
+  <script src="../../ext/Dexie.min.js"></script>
+  <script src="../../js/util/database.js"></script>
+  <script src="../../js/util/settings.js"></script>
+  <script src="../../js/util/theme.js"></script>
+</body>

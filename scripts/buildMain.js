@@ -13,7 +13,8 @@ const modules = [
   'main/viewManager.js',
   'main/download.js',
   'main/UASwitcher.js',
-  'main/permissionManager.js'
+  'main/permissionManager.js',
+  'main/prompt.js'
 ]
 
 function buildMain () {

@@ -6,6 +6,10 @@ attributes. If we find something useful, we dispatch an IPC event
 'password-autofill' to signal that we want to check if there is auto-fill data
 available.
 
+We can send an additional 'force' parameters in the event args to indicate that
+we want to unlock password manager if it's locked. Otherwise the search will
+be done only if manager is already unlocked.
+
 When we receive back an IPC event 'password-autofill-match' with auto-fill 
 data, we do one of two things:
 
@@ -114,6 +118,7 @@ function addFocusListener(element, credentials) {
       let selectedCredentials = credentials.filter(el => { return el.username === username })[0]
       fillCredentials(selectedCredentials)
       removeAutocompleteList()
+      element.focus()
     })
 
     parent.appendChild(suggestionItem)
@@ -146,15 +151,15 @@ function addFocusListener(element, credentials) {
   }
 }
 
-function checkInputs() {
+function checkInputs(force) {
   if (getUsernameFields().length + getPasswordFields().length > 0) {
-    ipc.send('password-autofill')
+    ipc.send('password-autofill', { force: force })
   }
 }
 
 // Check for username/password fields on page load.
-document.addEventListener('DOMContentLoaded', checkInputs)
-window.addEventListener('load', checkInputs)
+document.addEventListener('DOMContentLoaded', () => checkInputs(false))
+window.addEventListener('load', () => checkInputs(false))
 
 // Handle credentials fetched from the backend. Credentials are expected to be 
 // an array of { username, password, manager } objects.
@@ -162,6 +167,12 @@ ipc.on('password-autofill-match', (event, credentials) => {
   if (credentials.length == 1) {
     fillCredentials(credentials[0])
   } else {
-    addFocusListener(getUsernameFields()[0], credentials)
+    let firstField = getUsernameFields().filter(field => field.type != 'hidden')[0]
+    addFocusListener(firstField, credentials)
+    firstField.focus()
   }
+})
+
+ipc.on('password-autofill-shortcut', (event) => {
+  checkInputs(true)
 })
