@@ -111,7 +111,10 @@ var TaskOverlayBuilder = {
               if (container.classList.contains('deleting')) {
                 container.style.opacity = 0
                 // transitionend would be nice here, but it doesn't work if the element is removed from the DOM
-                setTimeout(function () {}, 500)
+                setTimeout(function () {
+                  container.remove()
+                  browserUI.closeTask(task.id)
+                }, 500)
               }
             }, 10000)
           }
