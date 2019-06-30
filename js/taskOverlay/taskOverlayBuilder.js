@@ -4,18 +4,18 @@ var searchbarUtils = require('searchbar/searchbarUtils.js')
 var urlParser = require('util/urlParser.js')
 
 function getTaskRelativeDate (task) {
-  var startOfYesterday = new Date()
-  startOfYesterday.setHours(0)
-  startOfYesterday.setMinutes(0)
-  startOfYesterday.setSeconds(0)
-  startOfYesterday = startOfYesterday.getTime()
-  startOfYesterday -= (24 * 60 * 60 * 1000)
+  var minimumTime = new Date()
+  minimumTime.setHours(0)
+  minimumTime.setMinutes(0)
+  minimumTime.setSeconds(0)
+  minimumTime = minimumTime.getTime()
+  minimumTime -= (5 * 24 * 60 * 60 * 1000)
 
   var time = tasks.getLastActivity(task.id)
   var d = new Date(time)
 
   // don't show times for recent tasks in order to save space
-  if (time > startOfYesterday) {
+  if (time > minimumTime) {
     return null
   } else {
     return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
@@ -89,7 +89,7 @@ var TaskOverlayBuilder = {
         })
 
         input.addEventListener('focusin', function (e) {
-          if (tasks.get(task.id).collapsed) {
+          if (taskIsCollapsed(tasks.get(task.id))) {
             this.blur()
             return
           }
@@ -150,16 +150,33 @@ var TaskOverlayBuilder = {
 
         return taskActionContainer
       },
-      dateContainer: function (task) {
-        var dateContainer = document.createElement('div')
-        dateContainer.className = 'task-date-container'
+      infoContainer: function (task) {
+        var infoContainer = document.createElement('div')
+        infoContainer.className = 'task-info-container'
 
         var date = getTaskRelativeDate(task)
 
         if (date) {
-          dateContainer.textContent = getTaskRelativeDate(task)
-          return dateContainer
+          var dateEl = document.createElement('span')
+          dateEl.className = 'task-date'
+          dateEl.textContent = date
+          infoContainer.appendChild(dateEl)
         }
+
+        var lastTabEl = document.createElement('span')
+        lastTabEl.className = 'task-last-tab-title'
+        var lastTabTitle = task.tabs.get().sort((a, b) => b.lastActivity - a.lastActivity)[0].title
+
+        if (lastTabTitle) {
+          lastTabTitle = searchbarUtils.getRealTitle(lastTabTitle)
+          if (lastTabTitle.length > 40) {
+            lastTabTitle = lastTabTitle.substring(0, 40) + '...'
+          }
+          lastTabEl.textContent = searchbarUtils.getRealTitle(lastTabTitle)
+        }
+        infoContainer.appendChild(lastTabEl)
+
+        return infoContainer
       },
       container: function (task, taskIndex) {
         var container = document.createElement('div')
@@ -174,7 +191,7 @@ var TaskOverlayBuilder = {
         container.setAttribute('data-task', task.id)
 
         container.addEventListener('click', function (e) {
-          if (tasks.get(task.id).collapsed) {
+          if (taskIsCollapsed(tasks.get(task.id))) {
             toggleCollapsed(container, task)
           }
         })
@@ -186,10 +203,8 @@ var TaskOverlayBuilder = {
         )
         container.appendChild(taskActionContainer)
 
-        var dateContainer = this.dateContainer(task)
-        if (dateContainer) {
-          container.appendChild(dateContainer)
-        }
+        var infoContainer = this.infoContainer(task)
+        container.appendChild(infoContainer)
 
         var deleteWarning = this.deleteWarning(container, task)
         container.appendChild(deleteWarning)

@@ -83,10 +83,10 @@ body.windows:not(.maximized) #task-overlay {
 
 .task-collapse-button {
 	font-size: 1.25em !important;
-	width: 1em;
+	width: 2em;
 	text-align: center;
-	margin-left: -1.25em;
-	padding-right: 0.5rem;
+	margin-left: -2em;
+	padding: 0.5em;
 	margin-top: 0.1rem;
 	transition: 0.2s opacity;
 	opacity: 0.7;
@@ -163,11 +163,20 @@ body.windows:not(.maximized) #task-overlay {
 	align-items: center;
 	padding-right: 1em;
 }
-.task-date-container {
+.task-info-container {
+	padding: 0 0.6em;
+}
+.task-info-container span {
     font-size: 0.9em;
-    padding: 0 8px;
     opacity: 0.6;
     margin: -0.25em 0 0.25em 0;
+}
+.task-info-container span + span:before {
+	content: " - ";
+}
+
+.task-container:not(.collapsed) .task-info-container .task-last-tab-title {
+	display: none;
 }
 @media all and (max-width: 600px) {
 	.task-container {
