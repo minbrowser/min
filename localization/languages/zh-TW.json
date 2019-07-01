@@ -31,6 +31,7 @@
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
+        "showMoreBangs": null, //missing translation
         "viewSettings": "查看設定",
         "viewReadingList": "查看閱讀清單",
         "takeScreenshot": "螢幕截圖",

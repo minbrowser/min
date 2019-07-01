@@ -37,6 +37,9 @@ var settings = {
   set: function (key, value, cb) {
     settings.list[key] = value
     postMessage({message: 'setSetting', key, value})
+    if (cb) {
+      cb()
+    }
     settings.runChangeCallacks()
   },
   load: function () {

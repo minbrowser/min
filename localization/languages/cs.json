@@ -31,6 +31,7 @@
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
+        "showMoreBangs": null, //missing translation
         "viewSettings": "Zobrazit nastavení",
         "viewReadingList": "Zobrazit seznam čtení",
         "takeScreenshot": "Pořídit snímek obrazovky",
