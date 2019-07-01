@@ -7,8 +7,8 @@ html {
 }
 
 body[theme="dark"] {
-	background-color: rgb(33, 37, 43);
-	color: lightgrey;
+	background-color: rgb(36, 41, 47);
+	color: rgb(180,180,180);
 }
 
 body[theme="sepia"] {
