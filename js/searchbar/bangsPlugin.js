@@ -1,6 +1,7 @@
 var searchbar = require('searchbar/searchbar.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var searchbarAutocomplete = require('searchbar/searchbarAutocomplete.js')
 
 var searchEngine = require('util/searchEngine.js')
 
@@ -68,7 +69,7 @@ function incrementBangCount (bang) {
 }
 
 // results is an array of {phrase, snippet, image}
-function showBangSearchResults (results, input, event, container) {
+function showBangSearchResults (text, results, input, event, container, limit = 5) {
   empty(container)
 
   results.sort(function (a, b) {
@@ -84,7 +85,7 @@ function showBangSearchResults (results, input, event, container) {
     return bScore - aScore
   })
 
-  results.slice(0, 5).forEach(function (result) {
+  results.slice(0, limit).forEach(function (result, idx) {
 
     // autocomplete the bang, but allow the user to keep typing
 
@@ -93,6 +94,10 @@ function showBangSearchResults (results, input, event, container) {
       iconImage: result.image,
       title: result.snippet,
       secondaryText: result.phrase
+    }
+
+    if (text !== '!' && idx === 0) {
+      data.classList = ['fakefocus']
     }
 
     var item = searchbarUtils.createItem(data)
@@ -140,22 +145,39 @@ function getBangSearchResults (text, input, event, container) {
 
   // otherwise search for bangs
 
+  var resultsPromise
+
   // get results from DuckDuckGo if it is a search engine, and the current tab is not a private tab
   if (searchEngine.getCurrent().name === 'DuckDuckGo' && !tabs.get(tabs.getSelected()).private) {
-    fetch('https://ac.duckduckgo.com/ac/?t=min&q=' + encodeURIComponent(text), {
+    resultsPromise = fetch('https://ac.duckduckgo.com/ac/?t=min&q=' + encodeURIComponent(text), {
       cache: 'force-cache'
     })
       .then(function (response) {
         return response.json()
       })
-      .then(function (results) {
-        // show the DuckDuckGo results, combined with the custom !bangs
-        showBangSearchResults(results.concat(searchCustomBangs(text)), input, event, container)
-      })
   } else {
-    // otherwise, only show custom !bangs
-    showBangSearchResults(searchCustomBangs(text), input, event, container)
+    resultsPromise = Promise.resolve([])
   }
+
+  resultsPromise.then(function (results) {
+    results = results.concat(searchCustomBangs(text))
+    if (text === '!') {
+      showBangSearchResults(text, results, input, event, container, 4)
+      container.appendChild(searchbarUtils.createItem({
+        title: l('showMoreBangs'),
+        icon: 'fa-angle-down',
+        click: function () {
+          showBangSearchResults(text, results, input, event, container, 20)
+        }
+      }))
+    } else {
+      showBangSearchResults(text, results, input, event, container)
+
+      if (results[0] && event.keyCode !== 8) {
+        searchbarAutocomplete.autocomplete(input, [results[0].phrase])
+      }
+    }
+  })
 }
 
 searchbarPlugins.register('bangs', {
@@ -163,7 +185,7 @@ searchbarPlugins.register('bangs', {
   trigger: function (text) {
     return !!text && text.indexOf('!') === 0
   },
-  showResults: debounce(getBangSearchResults, 100)
+  showResults: getBangSearchResults
 })
 
 searchbarPlugins.registerURLHandler(function (url) {
@@ -172,7 +194,12 @@ searchbarPlugins.registerURLHandler(function (url) {
 
     var bang = getCustomBang(url)
 
-    if (bang) {
+    if ((!bang || !bang.isAction) && url.split(' ').length === 1 && !url.endsWith(' ')) {
+      // the bang is non-custom or a custom bang that requires search text, so add a space after it
+      tabBar.enterEditMode(tabs.getSelected(), url + ' ')
+      return true
+    } else if (bang) {
+      // there is a custom bang that is an action or has search text, so it can be run
       tabBar.leaveEditMode()
       bang.fn(url.replace(bang.phrase, '').trimLeft())
       return true // override the default action
