@@ -156,7 +156,12 @@ function getBangSearchResults (text, input, event, container) {
         return response.json()
       })
   } else {
-    resultsPromise = Promise.resolve([])
+    resultsPromise = new Promise(function (resolve, reject) {
+      // autocomplete doesn't work if we attempt to autocomplete at the same time as the key is being pressed, so add a small delay (TODO fix this)
+      setTimeout(function () {
+        resolve([])
+      }, 0)
+    })
   }
 
   resultsPromise.then(function (results) {
