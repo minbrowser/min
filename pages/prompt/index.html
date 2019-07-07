@@ -23,12 +23,12 @@
 
     function cancel() {
       ipcRenderer.send('close-prompt', '')
-      this.close();
+      this.close()
     }
 
     function response() {
       ipcRenderer.send('close-prompt', document.getElementById('data').value)
-      this.close();
+      this.close()
     }
 
     function handleKeyPress(event) {

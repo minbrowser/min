@@ -347,17 +347,30 @@ function onKeyMapChange (e) {
 
 /* Password auto-fill settings  */
 
-var bitwardenCheckbox = document.getElementById('checkbox-bitwarden')
+var passwordManagersDropdown = document.getElementById('selected-password-manager')
 
-settings.get('bitwardenEnabled', function (value) {
-  if (value != null) {
-    bitwardenCheckbox.checked = value
+settings.onLoad(function () {
+  for (var manager in passwordManagers) {
+    var item = document.createElement('option')
+    item.textContent = passwordManagers[manager].name
+
+    if (manager == currentPasswordManager.name) {
+      item.setAttribute('selected', 'true')
+    }
+
+    passwordManagersDropdown.appendChild(item)
   }
 })
 
-bitwardenCheckbox.addEventListener('change', function(e) {
-  const value = this.checked
-  settings.set('bitwardenEnabled', value, function () {
-    showRestartRequiredBanner()
-  })
+passwordManagersDropdown.addEventListener('change', function (e) {
+  if (this.value === 'None') {
+    settings.set('passwordManager', null)
+    currentPasswordManager = null
+  } else {
+    settings.set('passwordManager', { name: this.value })
+    currentPasswordManager = this.value
+  }
+
+  showRestartRequiredBanner()
 })
+

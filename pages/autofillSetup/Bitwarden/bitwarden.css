@@ -1,0 +1,144 @@
+/* common - TODO add a shared stylesheet for this */
+
+body,
+html {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	font-size: 16px;
+	font-family: '.SFNSText-Regular', 'Helvetica Neue', 'Arial', sans-serif;
+	overflow: auto;
+}
+* {
+	box-sizing: border-box;
+}
+.fade {
+	opacity: 0.333;
+}
+.light-fade {
+	opacity: 0.666;
+}
+.light-gray-background {
+	background-color: #f7f7f7;
+}
+.yellow-background {
+	background-color: rgb(250, 188, 43);
+}
+.color-white {
+	color: white;
+}
+.hero {
+	height: 85vh;
+	position: relative;
+	overflow: hidden;
+}
+.hero.short-hero {
+	height: 10vh;
+	min-height: 100px;
+}
+.blue-gradient-background {
+	background: linear-gradient(135deg, rgba(80, 122, 196, 1) 43%, rgba(80, 122, 196, 1) 43%, rgba(128, 192, 226, 1) 89%, rgba(128, 192, 226, 1) 89%);
+	color: #fff;
+}
+.blue-gradient-top {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+a {
+	color: rgb(68, 133, 220);
+	text-decoration: none;
+}
+a.inherit-color {
+	color: inherit;
+}
+h1,
+h2,
+h3 {
+	font-size: 5em;
+	font-weight: 300;
+	opacity: 0.8;
+	font-family: '.SFNSDisplay-Light', 'Helvetica Neue Light', 'Helvetica Neue', sans-serif;
+	margin: 0.5em 0;
+	color: inherit;
+	text-align: center;
+}
+h2 {
+	text-align: left;
+	font-size: 2.75em;
+}
+h3 {
+	text-align: left;
+	font-size: 2em;
+}
+h1 + h2 {
+	margin-top: -1em;
+}
+.container {
+	max-width: 500px;
+	margin: auto;
+}
+.container.padding {
+	padding: 0 1em;
+}
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+.spacer-small {
+	height: 0.5em;
+}
+.spacer {
+	height: 1em;
+}
+.dark-mode {
+  background-color: rgb(33, 37, 43);
+  color: lightgrey;
+}
+
+.drag-and-drop-box {
+    height: 200px;
+    width: 100%;
+    border-width:2px;
+    border-style:dashed;
+    border-color:#2eb9ce;
+    border-radius:10px;
+    padding: 15px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.dark-mode.drag-and-drop-box {
+
+}
+
+.buttons {
+  float: right;
+}
+
+input[type='button'] {
+  padding: 0.2em;
+}
+
+input:hover[type='button'] {
+  background-color: '#aaaaaa'
+}
+
+.dark-mode input {
+  background-color: rgb(40, 44, 52);
+  color: white;
+  border-color: transparent;
+}
+
+.dark-mode input:hover[type='button'] {
+  background-color: rgb(80, 84, 92);
+}

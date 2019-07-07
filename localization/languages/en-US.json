@@ -199,8 +199,24 @@
         "downloadStateFailed": "Failed",
         /* Update Notifications */
         "updateNotificationTitle": "A new version of Min is available",
+        /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Password Auto-Fill",
-        "settingsBitwardenToggle": "Enable Bitwarden integration",
-        "settingsBitwardenSessionKey": "Bitwarden session key:"
+        "settingsSelectPasswordManager": "Choose one of the supported password managers:",
+        /* Bitwarden-specific strings */
+        "bitwardenSetupHeading": "Finish setting up Bitwarden to use Autofill",
+        "bitwardenSetupDescription": "We could not detect Bitwarden CLI tool in your system. Please either add it to your PATH environment variable, or follow the instructions below to install it locally for Min.",
+        "bitwardenSetupStep1": {
+            "unsafeHTML": "Go to <a href=\"https://help.bitwarden.com/article/cli/#download--install\">bitwarden.com</a> and download and extract Bitwarden CLI binary for your system."
+        },
+        "bitwardenSetupStep2": "Drag the tool into the box below:",
+        "bitwardenDragBox": "Drag the tool here",
+        "bitwardenDisableAutofill": "Disable Autofill",
+        "bitwardenNotNow": "Not Now",
+        "bitwardenDone": "All good!",
+        "bitwardenInstalling": "Installing...",
+        "bitwardenError": "Failed to install Bitwarden-CLI: ",
+        "bitwardenVerify": "Enter Bitwarden master password to verify the tool:",
+        "bitwardenUnlockError": "Failed to unlock the password store: ",
+        "bitwardenRetry": "Make sure you're using the right file and entering a correct password. You can retry by dragging the tool here again."
     }
 }

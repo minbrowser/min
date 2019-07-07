@@ -5,10 +5,12 @@ var promptOptions
 
 function createPrompt(options, callback) {
   promptOptions = options
+  let parent = options['parent']
+
   var promptWindow = new BrowserWindow({
     width:360, 
     height: 120, 
-    parent: mainWindow,
+    parent: parent != null ? parent : mainWindow,
     show: false,
     modal: true,
     alwaysOnTop : true, 

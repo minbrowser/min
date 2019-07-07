@@ -95,10 +95,9 @@
 	<div class="container padding" id="password-autofill-container">
 		<h3 data-string="settingsPasswordAutoFillHeadline"></h3>
 
-		<div class="setting-section">
-			<input type="checkbox" id="checkbox-bitwarden" />
-			<label for="checkbox-bitwarden" data-string="settingsBitwardenToggle"></label>
-		</div>
+		<label for="selectedPasswordManagers" data-string="settingsSelectPasswordManager"></label> &nbsp;
+                <select id="selected-password-manager" name="selectedPasswordManager" style="min-width: 225px"></select>
+
 	</div>
 
 	<div class="spacer"></div>
@@ -125,6 +124,7 @@
 	<script src="../../js/util/settings/settingsContent.js"></script>
 	<script src="../../js/util/searchEngine.js"></script>
 	<script src="../../js/util/theme.js"></script>
+	<script src="../../js/util/passwordManager.js"></script>
 	<script src="../../dist/localization.build.js"></script>
 	<script src="settings.js"></script>
 </body>

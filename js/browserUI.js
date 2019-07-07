@@ -100,6 +100,7 @@ function closeTask (taskId) {
 }
 
 /* destroys a tab, and either switches to the next tab or creates a new one */
+
 function closeTab (tabId) {
   /* disabled in focus mode */
   if (focusMode.enabled()) {
@@ -170,6 +171,7 @@ function switchToTab (id, options) {
   })
 }
 
+<<<<<<< HEAD
 webviews.bindEvent('new-window', function (webview, tabId, e, url, frameName, disposition) {
   var newTab = tabs.add({
     url: url,
@@ -185,6 +187,20 @@ webviews.bindEvent('new-window', function (webview, tabId, e, url, frameName, di
 webviews.bindIPC('close-window', function (webview, tabId, args) {
   closeTab(tabId)
 })
+
+/* Creates a new tab and loads given url */
+function navigateInNewTab(data) {
+  if (tasks.getSelected().tabs.isEmpty()) {
+    navigate(tasks.getSelected().tabs.getSelected(), data.url)
+  } else {
+    var newTab = tasks.getSelected().tabs.add({
+      url: data.url
+    })
+    browserUI.addTab(newTab, {
+      enterEditMode: false
+    })
+  }
+}
 
 module.exports = {
   navigate,

@@ -49,11 +49,8 @@ input:hover[type='button'] {
 }
 
 .buttons {
-  position: absolute; 
-  bottom: 0;
-  right: 0;
-  padding: 0.5em;
-  padding-right: 1.5em;
+  margin-top: 0.5em;
+  float: right;
 }
 
 .dark-mode .sub-input-field {

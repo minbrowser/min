@@ -23,10 +23,11 @@ const legacyModules = [
   'js/navbar/addTabButton.js',
   'js/navbar/menuButton.js',
   'js/userscripts.js',
+  'js/passwordManager/passwordManager.js',
   'js/sessionRestore.js',
   'js/util/theme.js',
   'js/webviewGestures.js',
-  'js/passwordManager/passwordManager.js',
+  'js/autofillSetup.js',
 ]
 
 function buildBrowser () {
