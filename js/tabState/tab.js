@@ -14,8 +14,8 @@ class TabList {
       secure: tab.secure,
       private: tab.private || false,
       readerable: tab.readerable || false,
+      themeColor: tab.themeColor,
       backgroundColor: tab.backgroundColor,
-      foregroundColor: tab.foregroundColor,
       selected: tab.selected || false
     }
 
