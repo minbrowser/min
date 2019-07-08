@@ -2,6 +2,7 @@ var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 var urlParser = require('util/urlParser.js')
+var searchEngine = require('util/searchEngine.js')
 
 function getTaskRelativeDate (task) {
   var minimumTime = new Date()
@@ -218,15 +219,26 @@ var TaskOverlayBuilder = {
 
     tab: {
       element: function (tabContainer, task, tab) {
-        var el = searchbarUtils.createItem({
-          title: tab.title || l('newTabLabel'),
-          secondaryText: urlParser.basicURL(urlParser.getSourceURL(tab.url)),
+        var data = {
           classList: ['task-tab-item'],
           delete: function () {
             removeTabFromOverlay(tab.id, task)
           },
           showDeleteButton: true
-        })
+        }
+
+        var source = urlParser.getSourceURL(tab.url)
+        var searchQuery = searchEngine.getSearch(source)
+
+        if (searchQuery) {
+          data.title = searchQuery.search
+          data.secondaryText = searchQuery.engine
+        } else {
+          data.title = tab.title || l('newTabLabel')
+          data.secondaryText = urlParser.basicURL(source)
+        }
+
+        var el = searchbarUtils.createItem(data)
 
         el.tabIndex = 0
         el.setAttribute('data-tab', tab.id)

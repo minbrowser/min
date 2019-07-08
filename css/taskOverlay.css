@@ -58,7 +58,7 @@ body.windows:not(.maximized) #task-overlay {
 	transition: 0.5s opacity;
 }
 .task-container.collapsed {
-	opacity: 0.75;
+	opacity: 0.8;
 	cursor: pointer;
 }
 .task-container.collapsed input {
