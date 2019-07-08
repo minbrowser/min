@@ -359,39 +359,29 @@ settings.get('keyMap', function (keyMapSettings) {
     }
   })
 
-  var taskSwitchTimeout = null
-
   defineShortcut('switchToNextTask', function (d) {
-    taskOverlay.show()
-
     const currentTaskIdx = tasks.indexOf(tasks.getSelected())
 
     const nextTask = tasks.byIndex(currentTaskIdx + 1) || tasks.byIndex(0)
     browserUI.switchToTask(nextTask.id)
 
-    taskOverlay.show()
-
-    clearInterval(taskSwitchTimeout)
-    taskSwitchTimeout = setTimeout(function () {
-      taskOverlay.hide()
-    }, 500)
+    document.getElementById("switch-task-button").style.transform = "scale(1.6)"
+    setTimeout(function () {
+      document.getElementById("switch-task-button").style.transform = "none"
+    }, 500);
   })
 
   defineShortcut('switchToPreviousTask', function (d) {
-    taskOverlay.show()
-
     const currentTaskIdx = tasks.indexOf(tasks.getSelected()),
           taskCount = tasks.getLength()
 
     const previousTask = tasks.byIndex(currentTaskIdx - 1) || tasks.byIndex(tasks.getLength() - 1)
     browserUI.switchToTask(previousTask.id)
 
-    taskOverlay.show()
-
-    clearInterval(taskSwitchTimeout)
-    taskSwitchTimeout = setTimeout(function () {
-      taskOverlay.hide()
-    }, 500)
+    document.getElementById("switch-task-button").style.transform = "scale(1.6)"
+    setTimeout(function () {
+      document.getElementById("switch-task-button").style.transform = "none"
+    }, 500);
   })
 
   defineShortcut('closeAllTabs', function (d) { // destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
