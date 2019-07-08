@@ -136,6 +136,8 @@ class TaskList {
 
   splice (...args) { return this.tasks.splice.apply(this.tasks, args) }
 
+  filter (...args) { return this.tasks.filter.apply(this.tasks, args) }
+
   find (filter) {
     for (var i = 0, len = this.tasks.length; i < len; i++) {
       if (filter(this.tasks[i], i, this.tasks)) {

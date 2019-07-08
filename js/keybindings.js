@@ -359,10 +359,17 @@ settings.get('keyMap', function (keyMapSettings) {
     }
   })
 
-  defineShortcut('switchToNextTask', function (d) {
-    const currentTaskIdx = tasks.indexOf(tasks.getSelected())
+  /* TODO make a method of task */
+  function taskIsCollapsed (task) {
+    return task.collapsed || (task.collapsed === undefined && Date.now() - tasks.getLastActivity(task.id) > (7 * 24 * 60 * 60 * 1000))
+  }
 
-    const nextTask = tasks.byIndex(currentTaskIdx + 1) || tasks.byIndex(0)
+  defineShortcut('switchToNextTask', function (d) {
+    const taskSwitchList = tasks.filter(t => !taskIsCollapsed(t));
+
+    const currentTaskIdx = taskSwitchList.findIndex(t => t.id === tasks.getSelected().id)
+
+    const nextTask = taskSwitchList[currentTaskIdx + 1] || taskSwitchList[0]
     browserUI.switchToTask(nextTask.id)
 
     document.getElementById("switch-task-button").style.transform = "scale(1.6)"
@@ -372,10 +379,12 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('switchToPreviousTask', function (d) {
-    const currentTaskIdx = tasks.indexOf(tasks.getSelected()),
-          taskCount = tasks.getLength()
+    const taskSwitchList = tasks.filter(t => !taskIsCollapsed(t));
 
-    const previousTask = tasks.byIndex(currentTaskIdx - 1) || tasks.byIndex(tasks.getLength() - 1)
+    const currentTaskIdx = taskSwitchList.findIndex(t => t.id === tasks.getSelected().id)
+          taskCount = taskSwitchList.length
+
+    const previousTask = taskSwitchList[currentTaskIdx - 1] || taskSwitchList[taskCount - 1]
     browserUI.switchToTask(previousTask.id)
 
     document.getElementById("switch-task-button").style.transform = "scale(1.6)"
