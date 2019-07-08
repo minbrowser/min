@@ -1,3 +1,8 @@
+/* TODO remove before release */
+body:not(.task-icons) #task-overlay .icon-image {
+	display: none;
+}
+
 .navbar {
 	position: fixed;
 	top: 0;

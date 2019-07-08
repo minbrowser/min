@@ -10,6 +10,25 @@ var addTaskButton = document.getElementById('add-task')
 var addTaskLabel = addTaskButton.querySelector('span')
 var taskOverlayNavbar = document.getElementById('task-overlay-navbar')
 
+/* TODO remove this before release */
+var taskIconsCheckbox = document.getElementById('task-icons-checkbox')
+if (localStorage.getItem('taskIconsEnabled') === 'true') {
+  taskIconsCheckbox.checked = true
+  document.body.classList.add('task-icons')
+}
+taskIconsCheckbox.parentNode.addEventListener('click', function (e) {
+  e.stopPropagation()
+})
+taskIconsCheckbox.addEventListener('change', function () {
+  if (this.checked) {
+    localStorage.setItem('taskIconsEnabled', 'true')
+    document.body.classList.add('task-icons')
+  } else {
+    localStorage.setItem('taskIconsEnabled', 'false')
+    document.body.classList.remove('task-icons')
+  }
+})
+
 taskSwitcherButton.title = l('viewTasks')
 addTaskLabel.textContent = l('newTask')
 

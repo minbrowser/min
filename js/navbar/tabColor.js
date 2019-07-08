@@ -168,6 +168,9 @@ function setColor (bg, fg, isLowContrast) {
 const tabColor = {
   initialize: function () {
     webviews.bindEvent('page-favicon-updated', function (webview, tabId, e, favicons) {
+      tabs.update(tabId, {
+        favicon: favicons[0]
+      })
       tabColor.updateFromImage(favicons, tabId)
     })
 

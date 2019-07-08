@@ -220,6 +220,7 @@ var TaskOverlayBuilder = {
     tab: {
       element: function (tabContainer, task, tab) {
         var data = {
+          iconImage: tab.favicon,
           classList: ['task-tab-item'],
           delete: function () {
             removeTabFromOverlay(tab.id, task)
