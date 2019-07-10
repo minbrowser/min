@@ -13,10 +13,10 @@
         "saveImageAs": "画像を別名で保存",
         "searchWith": "%s で検索", //%s will be replaced with the name of the current search engine
         "copyLink": "リンクをコピー",
-        "selectAll": null, // Missing Translation
-        "undo": null, // Missing Translation
-        "redo": null, // Missing Translation
-        "cut": null, // Missing Translation
+        "selectAll": "すべて表示する",
+        "undo": "アンドゥ",
+        "redo": "やり直し",
+        "cut": "カット",
         "copy": "コピー", //this is a verb (as in "copy the currently-selected text")
         "paste": "ペースト",
         "goBack": "戻る",
@@ -31,20 +31,20 @@
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": null, //missing translation
+        "showMoreBangs": "すべて表示する", 
         "viewSettings": "設定を表示",
-        "viewReadingList": null, //missing translation
+        "viewReadingList": "閲覧リストを見る",
         "takeScreenshot": "スクリーンショットを撮る",
         "clearHistory": "すべての履歴をクリア",
-        "clearHistoryConfirmation": null, //missing translation
+        "clearHistoryConfirmation": "履歴をクリアしてもよろしいですか？",
         "switchToTask": "タスクに切り替える",
         "createTask": "タスクを作成",
-        "closeTask": null, //missing translation
+        "closeTask": "タスクを閉じる",
         "moveToTask": "このタブをタスクに移動",
         "searchBookmarks": "ブックマークを検索",
-        "searchHistory": null, //missing translation
+        "searchHistory": "検索履歴",
         /* navbar */
-        "openMenu": null, //missing translation
+        "openMenu": "メニューを開く",
         "enterReaderView": "リーダービューを開始",
         "exitReaderView": "リーダービューを終了",
         "emptyReadingListTitle": "リーディングリストは空です",
@@ -68,15 +68,15 @@
         "focusModeExplanation1": "フォーカスモード中は、現在選択中のタブを除くすべてのタブが非表示になり、新規タブの作成もできなくなります。",
         "focusModeExplanation2": "\"表示\"メニューから\"フォーカスモード\"のチェックを外すことで、フォーカスモードを終了できます。",
         /* relative dates */
-        "timeRangeJustNow": null, //missing translation
-        "timeRangeMinutes": null, //missing translation
-        "timeRangeHour": null, //missing translation
-        "timeRangeToday": null, //missing translation
-        "timeRangeYesterday": null, //missing translation
-        "timeRangeWeek": null, //missing translation
-        "timeRangeMonth": null, //missing translation
-        "timeRangeYear": null, //missing translation
-        "timeRangeLongerAgo": null, //missing translation
+        "timeRangeJustNow": "ちょうど今",
+        "timeRangeMinutes": "数分前に",
+        "timeRangeHour": "過去1時間に",
+        "timeRangeToday": "今日",
+        "timeRangeYesterday": "昨日",
+        "timeRangeWeek": "先週",
+        "timeRangeMonth": "先月",
+        "timeRangeYear": "昨年は",
+        "timeRangeLongerAgo": "ずっと前",
         /* pages/error/index.html */
         "crashErrorTitle": "予期しない問題が発生しました",
         "crashErrorSubtitle": "ページの表示中に問題が発生しました。",
@@ -100,7 +100,7 @@
         "phishingErrorVisitAnyway": "それでもこのサイトを訪問する",
         "phishingErrorLeave": "このサイトから離れる",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": null, // missing translation
+        "multipleInstancesErrorMessage": "エラーが発生しました。 他の開いているインスタンスを閉じてMinを再起動してください。",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "エラーが発生しました",
         "sessionRestoreErrorExplanation": "保存したタブを正しく復元できませんでした。",
@@ -112,32 +112,32 @@
         "settingsPreferencesHeading": "環境設定",
         "settingsRestartRequired": "これらの変更を適用するには再起動が必要です。",
         "settingsPrivacyHeading": "コンテンツブロッカー",
-        "settingsContentBlockingLevel0": null, //missing translation
-        "settingsContentBlockingLevel1": null, //missing translation
-        "settingsContentBlockingLevel2": null, //missing translation
-        "settingsContentBlockingExceptions": null, //missing translation
+        "settingsContentBlockingLevel0": "すべての広告とトラッカーを許可します",
+        "settingsContentBlockingLevel1": "第三者の広告やトラッカーをブロックする",
+        "settingsContentBlockingLevel2": "すべての広告とトラッカーをブロックする",
+        "settingsContentBlockingExceptions": "これらのウェブサイトでは広告は引き続き許可されます:",
         "settingsBlockScriptsToggle": "スクリプトをブロック",
         "settingsBlockImagesToggle": "画像をブロック",
         "settingsEasyListCredit": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "<a target=\"_blank\" href=\"https://easylist.to/\"> EasyListの作成者</a>によって作成されたEasyListおよびEasyPrivacyに基づいています（<a target=\"_blank\" href=\"https：//creativecommons.org/licenses/by-sa/3.0/legalcode\">ライセンスを表示</a>)。"
         },
         "settingsAppearanceHeading": "外観",
         "settingsDarkModeToggle": "ダークモードを使用",
         "settingsHistoryButtonToggle": "戻るボタンを使用",
-        "settingsAdditionalFeaturesHeading": null, //missing translation
-        "settingsUserscriptsToggle": null, //missing translation
-        "settingsUserscriptsExplanation": null, //missing translation
-        "settingsUpdateNotificationsToggle": null, //missing translation
+        "settingsAdditionalFeaturesHeading": "追加機能",
+        "settingsUserscriptsToggle": "ユーザースクリプトを有効にする",
+        "settingsUserscriptsExplanation": {"unsafeHTML": "ユーザースクリプトを使用して、Webサイトの動作を変更できます -  <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">詳細</a>。"},
+        "settingsUpdateNotificationsToggle": "アップデートを自動的に確認する",
         "settingsSearchEngineHeading": "検索エンジン",
         "settingsDefaultSearchEngine": "デフォルトの検索エンジン:",
         "settingsDDGExplanation": "検索バーにインスタントアンサーを表示するには、DuckDuckGoをデフォルトの検索エンジンに設定してください。",
-        "customSearchEngineDescription": null, //missing translation
+        "customSearchEngineDescription": "検索語を％sに置き換えます",
         "settingsKeyboardShortcutsHeading": "キーボードショートカット",
         "settingsKeyboardShortcutsHelp": "カンマ区切りで複数のショートカットを登録できます。",
         /* app menu */
         "appMenuFile": "ファイル",
         "appMenuNewTab": "新規タブ",
-        "appMenuDuplicateTab": null, //missing translation
+        "appMenuDuplicateTab": "重複タブ",
         "appMenuNewPrivateTab": "新規プライベートタブ",
         "appMenuNewTask": "新規タスク",
         "appMenuSavePageAs": "ページを別名で保存",
@@ -157,8 +157,8 @@
         "appMenuFullScreen": "フルスクリーン", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "フォーカスモード",
         "appMenuReadingList": "リーディングリスト",
-        "appMenuBookmarks": null, //missing translation
-        "appMenuHistory": null, //missing translation
+        "appMenuBookmarks": "ブックマーク",
+        "appMenuHistory": "歴史",
         "appMenuDeveloper": "開発",
         "appMenuReloadBrowser": "ブラウザを再読み込み",
         "appMenuInspectBrowser": "ブラウザを検証",
@@ -182,10 +182,10 @@
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "<span id='total'></span> ページ中 <input type='text'/> ページ目"},
         /* Download manager */
-        "downloadCancel": null, //missing translation
-        "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null, //missing translation
+        "downloadCancel": "キャンセル",
+        "downloadStateCompleted": "完了しました",
+        "downloadStateFailed": "フェイル",
         /* Update Notifications */
-        "updateNotificationTitle": null //missing translation
+        "updateNotificationTitle": "Minの新しいバージョンが利用可能です。"
     }
 }
