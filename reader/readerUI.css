@@ -79,8 +79,8 @@ body[theme="dark"] #auto-redirect-banner {
 
 #settings-button {
 	position: absolute;
-	top: 1em;
-	right: 1em;
+	top: 0.66em;
+	right: 0.66em;
 	opacity: 0.5;
 	font-size: 1.5em;
 	/* increase click area */
@@ -90,7 +90,7 @@ body[theme="dark"] #auto-redirect-banner {
 
 #settings-dropdown {
 	position: absolute;
-	top: 3.5em;
+	top: 3.166em;
 	right: 1em;
 	background: white;
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
@@ -150,4 +150,34 @@ body[theme="dark"] #settings-dropdown {
 	width: 100%;
 	/* height is set in js */
 	border: 0;
+}
+
+#site-nav-links {
+	padding: 1em 1.5em;
+}
+
+#site-nav-links a {
+	color: inherit;
+	display: inline-block;
+	opacity: 0.55;
+	text-decoration: none;
+	padding: 0 0.5em;
+	font-size: 1.1em;
+	white-space: nowrap;
+	max-width: 15em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#site-nav-links a.selected {
+	opacity: 0.66;
+	font-weight: 600;
+}
+
+body:not([theme="light"]) #site-nav-links a {
+	opacity: 0.65;
+}
+
+body:not([theme="light"]) #site-nav-links a.selected {
+	opacity: 0.75;
 }

@@ -58,6 +58,61 @@ autoReaderCheckbox.addEventListener('change', function () {
   autoRedirectBanner.hidden = true
 })
 
+var navLinksContainer = document.getElementById('site-nav-links')
+
+function extractAndShowNavigation (doc) {
+  try {
+    // URL parsing can fail, but this shouldn't prevent the article from displaying
+
+    let currentDir = new URL(articleURL).pathname.split('/').slice(0, -1).join('/')
+
+    var items = Array.from(doc.querySelectorAll('[class*="menu"] a, [class*="navigation"] a, header li a, [role=tabpanel] a, nav a'))
+      .filter(el => {
+        let n = el
+        while (n) {
+          if (n.className.includes('social')) {
+            return false
+          }
+          n = n.parentElement
+        }
+        return true
+      })
+      .filter(el => el.getAttribute('href') && !el.getAttribute('href').startsWith('#') && !el.getAttribute('href').startsWith('javascript:'))
+      .filter(el => {
+        // we want links that go to different sections of the site, so links to the same directory as the current article should be excluded
+        let url = new URL(el.href)
+        let dir = url.pathname.split('/').slice(0, -1).join('/')
+        return dir !== currentDir
+      })
+      .filter(el => el.textContent.trim() && el.textContent.trim().replace(/\s+/g, ' ').length < 65)
+
+    // remove duplicates
+    var itemURLSet = items.map(item => new URL(item.href).toString())
+    items = items.filter((item, idx) => itemURLSet.indexOf(new URL(item.href).toString()) === idx)
+
+    // show a maximum of 7 links
+    // TODO maybe have a way to show more links (dropdown menu?)
+    items.slice(0, 7).forEach(function (item) {
+      // need to use articleURL as base URL to parse relative links correctly
+      var realURL = new URL(item.getAttribute('href'), articleURL)
+
+      var el = document.createElement('a')
+      el.textContent = item.textContent
+      el.title = item.textContent
+      el.href = realURL.toString()
+
+      // if the link is to a parent directory of this article, assume it links to the section that this article is in
+      if (realURL.pathname !== '/' && articleURL.startsWith(realURL.toString())) {
+        el.classList.add('selected')
+      }
+
+      navLinksContainer.appendChild(el)
+    })
+  } catch (e) {
+    console.warn('error extracting navigation links', e)
+  }
+}
+
 function startReaderView (article) {
   var readerContent = "<link rel='stylesheet' href='readerContent.css'>"
 
@@ -149,6 +204,8 @@ function processArticle (data) {
         images[i].srcset = ''
       }
     }
+
+    extractAndShowNavigation(doc)
 
     var article = new Readability(doc).parse()
     console.log(article)
