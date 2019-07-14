@@ -460,7 +460,7 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('showAndHideMenuBar', function () {
-    menuBarVisibility.toggleMenuBar()
+   // menuBarVisibility.toggleMenuBar()
   }, {keyUp: true}) //run on keyUp to avoid interfering with alt+f4 shortcut, see https://github.com/minbrowser/min/issues/631
 
   defineShortcut('followLink', function () {
