@@ -393,6 +393,19 @@ settings.get('keyMap', function (keyMapSettings) {
     }, 500);
   })
 
+  // option+cmd+x should switch to task x
+
+  for (var i = 1; i < 10; i++) {
+    (function (i) {
+      defineShortcut({keys: 'option+mod+' + i}, function (e) {
+        const taskSwitchList = tasks.filter(t => !taskIsCollapsed(t));
+        if (taskSwitchList[i - 1]) {
+          browserUI.switchToTask(taskSwitchList[i - 1].id)
+        }
+      })
+    })(i)
+  }
+
   defineShortcut('closeAllTabs', function (d) { // destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
     var tset = tabs.get()
     for (var i = 0; i < tset.length; i++) {
@@ -495,6 +508,7 @@ webviews.bindEvent('before-input-event', function (webview, tabId, e, input) {
         (key === 'up' && input.key === 'ArrowUp') ||
         (key === 'down' && input.key === 'ArrowDown') ||
         (key === 'alt' && (input.alt || input.key === "Alt")) ||
+        (key === 'option' && (input.alt || input.key === "Alt")) ||
         (key === 'shift' && (input.shift || input.key === "Shift")) ||
         (key === 'ctrl' && (input.control || input.key === "Control")) ||
         (key === 'mod' && window.platformType === 'mac' && (input.meta || input.key === "Meta")) ||
