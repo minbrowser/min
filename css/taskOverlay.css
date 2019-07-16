@@ -85,6 +85,13 @@ body.windows:not(.maximized) #task-overlay {
 	background-color: rgba(255, 255, 255, 0.08);
 }
 
+.dark-mode .task-tab-item.dark-favicon .icon-image {
+	box-sizing: content-box;
+	background: rgba(255, 255, 255, 0.7);
+	border: 2px transparent solid;
+	margin: -2px;
+}
+
 /* drag handle */
 
 .task-collapse-button {

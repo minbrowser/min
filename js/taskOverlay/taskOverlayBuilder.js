@@ -220,12 +220,16 @@ var TaskOverlayBuilder = {
     tab: {
       element: function (tabContainer, task, tab) {
         var data = {
-          iconImage: tab.favicon,
+          iconImage: (tab.favicon || {}).url,
           classList: ['task-tab-item'],
           delete: function () {
             removeTabFromOverlay(tab.id, task)
           },
           showDeleteButton: true
+        }
+
+        if (tab.favicon && tab.favicon.luminance && tab.favicon.luminance < 70) {
+          data.classList.push('dark-favicon')
         }
 
         var source = urlParser.getSourceURL(tab.url)
