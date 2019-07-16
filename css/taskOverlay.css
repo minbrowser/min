@@ -85,6 +85,13 @@ body.windows:not(.maximized) #task-overlay {
 	background-color: rgba(255, 255, 255, 0.08);
 }
 
+.task-tab-item .icon-image {
+	opacity: 0.75 !important;
+}
+.dark-mode .task-tab-item .icon-image {
+	opacity: 0.9 !important;
+}
+
 .dark-mode .task-tab-item.dark-favicon .icon-image {
 	box-sizing: content-box;
 	background: rgba(255, 255, 255, 0.7);
@@ -96,9 +103,9 @@ body.windows:not(.maximized) #task-overlay {
 
 .task-collapse-button {
 	font-size: 1.25em !important;
-	width: 2em;
+	width: 1.5em;
 	text-align: center;
-	margin-left: -2em;
+	margin-left: -1.5em;
 	padding: 0.5em;
 	margin-top: 0.1rem;
 	transition: 0.2s opacity;
