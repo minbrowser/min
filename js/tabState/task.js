@@ -122,6 +122,11 @@ class TaskList {
     return lastActivity
   }
 
+  isCollapsed (id) {
+    var task = this.get(id)
+    return task.collapsed || (task.collapsed === undefined && Date.now() - tasks.getLastActivity(task.id) > (7 * 24 * 60 * 60 * 1000))
+  }
+
   getLength () {
     return this.tasks.length
   }

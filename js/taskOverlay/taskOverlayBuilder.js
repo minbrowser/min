@@ -42,12 +42,8 @@ function removeTabFromOverlay (tabId, task) {
   }
 }
 
-function taskIsCollapsed (task) {
-  return task.collapsed || (task.collapsed === undefined && Date.now() - tasks.getLastActivity(task.id) > (7 * 24 * 60 * 60 * 1000))
-}
-
 function toggleCollapsed (taskContainer, task) {
-  tasks.get(task.id).collapsed = !taskIsCollapsed(tasks.get(task.id))
+  tasks.get(task.id).collapsed = !tasks.isCollapsed(task.id)
   taskContainer.classList.toggle('collapsed')
 
   var collapseButton = taskContainer.querySelector('.task-collapse-button')
@@ -61,7 +57,7 @@ var TaskOverlayBuilder = {
       collapseButton: function (taskContainer, task) {
         var collapseButton = document.createElement('i')
         collapseButton.className = 'fa task-collapse-button'
-        if (taskIsCollapsed(task)) {
+        if (tasks.isCollapsed(task.id)) {
           collapseButton.classList.add('fa-angle-right')
         } else {
           collapseButton.classList.add('fa-angle-down')
@@ -90,7 +86,7 @@ var TaskOverlayBuilder = {
         })
 
         input.addEventListener('focusin', function (e) {
-          if (taskIsCollapsed(tasks.get(task.id))) {
+          if (tasks.isCollapsed(task.id)) {
             this.blur()
             return
           }
@@ -183,7 +179,7 @@ var TaskOverlayBuilder = {
         var container = document.createElement('div')
         container.className = 'task-container'
 
-        if (task.id !== tasks.getSelected().id && taskIsCollapsed(task)) {
+        if (task.id !== tasks.getSelected().id && tasks.isCollapsed(task.id)) {
           container.classList.add('collapsed')
         }
         if (task.id === tasks.getSelected().id) {
@@ -192,7 +188,7 @@ var TaskOverlayBuilder = {
         container.setAttribute('data-task', task.id)
 
         container.addEventListener('click', function (e) {
-          if (taskIsCollapsed(tasks.get(task.id))) {
+          if (tasks.isCollapsed(task.id)) {
             toggleCollapsed(container, task)
           }
         })
