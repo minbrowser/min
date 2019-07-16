@@ -31,7 +31,7 @@ require('./createPackage.js')('linux').then(function (appPaths) {
       'libgcrypt11 | libgcrypt20',
       'libnotify4',
       'libnss3',
-      'libxssl1',
+      'libxss1',
       'libxtst6',
       'python',
       'xdg-utils'
