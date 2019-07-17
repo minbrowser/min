@@ -46,9 +46,9 @@ body.windows:not(.maximized) #task-overlay {
 }
 #task-overlay[hidden] {
 	display: block !important;
-	visibility: hidden;
 	transform: scale(1.05);
 	opacity: 0;
+	pointer-events: none;
 }
 .task-container {
 	width: 90%;
