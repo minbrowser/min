@@ -179,6 +179,7 @@ body.windows:not(.maximized) #task-overlay {
 }
 .task-info-container {
 	padding: 0 0.6em;
+	overflow: hidden;
 }
 .task-info-container span {
     font-size: 0.9em;
@@ -191,15 +192,6 @@ body.windows:not(.maximized) #task-overlay {
 
 .task-container:not(.collapsed) .task-info-container .task-last-tab-title {
 	display: none;
-}
-@media all and (max-width: 600px) {
-	.task-container {
-		width: 100%;
-	}
-	#add-task {
-		width: 90%;
-		left: 5%;
-	}
 }
 
 body.dark-mode #task-overlay{

@@ -225,12 +225,12 @@ var TaskOverlayBuilder = {
 
         if (tab.private) {
           data.icon = 'fa-eye-slash'
-        } else {
-          data.iconImage = (tab.favicon || {}).url
-        }
+        } else if (tab.favicon) {
+          data.iconImage = tab.favicon.url
 
-        if (tab.favicon && tab.favicon.luminance && tab.favicon.luminance < 70) {
-          data.classList.push('dark-favicon')
+          if (tab.favicon.luminance && tab.favicon.luminance < 70) {
+            data.classList.push('dark-favicon')
+          }
         }
 
         var source = urlParser.getSourceURL(tab.url)
