@@ -366,11 +366,6 @@ settings.get('keyMap', function (keyMapSettings) {
 
     const nextTask = taskSwitchList[currentTaskIdx + 1] || taskSwitchList[0]
     browserUI.switchToTask(nextTask.id)
-
-    document.getElementById("switch-task-button").style.transform = "scale(1.6)"
-    setTimeout(function () {
-      document.getElementById("switch-task-button").style.transform = "none"
-    }, 500);
   })
 
   defineShortcut('switchToPreviousTask', function (d) {
@@ -381,11 +376,6 @@ settings.get('keyMap', function (keyMapSettings) {
 
     const previousTask = taskSwitchList[currentTaskIdx - 1] || taskSwitchList[taskCount - 1]
     browserUI.switchToTask(previousTask.id)
-
-    document.getElementById("switch-task-button").style.transform = "scale(1.6)"
-    setTimeout(function () {
-      document.getElementById("switch-task-button").style.transform = "none"
-    }, 500);
   })
 
   // option+cmd+x should switch to task x
