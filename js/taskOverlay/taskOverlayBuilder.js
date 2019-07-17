@@ -216,12 +216,17 @@ var TaskOverlayBuilder = {
     tab: {
       element: function (tabContainer, task, tab) {
         var data = {
-          iconImage: (tab.favicon || {}).url,
           classList: ['task-tab-item'],
           delete: function () {
             removeTabFromOverlay(tab.id, task)
           },
           showDeleteButton: true
+        }
+
+        if (tab.private) {
+          data.icon = 'fa-eye-slash'
+        } else {
+          data.iconImage = (tab.favicon || {}).url
         }
 
         if (tab.favicon && tab.favicon.luminance && tab.favicon.luminance < 70) {
