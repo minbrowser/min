@@ -20,6 +20,7 @@
     "chokidar": "^2.0.4",
     "decomment": "^0.9.0",
     "electron": "^5.0.1",
+    "electron-installer-redhat": "^2.0.0",
     "electron-installer-windows": "^1.1.1",
     "electron-packager": "^13.1.1",
     "electron-renderify": "0.0.2",
@@ -38,8 +39,9 @@
     "build": "npm run buildMain && npm run buildBrowser && npm run buildPreload",
     "buildWindows": "npm run build && node ./scripts/buildWindows.js",
     "buildMac": "npm run build && node ./scripts/buildMac.js",
-    "buildLinux": "npm run build && node ./scripts/buildLinux.js",
-    "buildAll": "npm run buildWindows && npm run buildMac && npm run buildLinux",
+    "buildDebian": "npm run build && node ./scripts/buildDebian.js",
+    "buildRedhat": "npm run build && node ./scripts/buildRedhat.js",
+    "buildAll": "npm run buildWindows && npm run buildMac && npm run buildDebian && npm run buildRedhat",
     "updateFilters": "node ./ext/filterLists/updateEasylist.js"
   },
   "repository": {

@@ -27,6 +27,11 @@ More information, and prebuilt binaries are available [here](https://minbrowser.
 
 You can find prebuilt binaries for Min [here](https://github.com/minbrowser/min/releases). Alternatively, skip to the section below for instructions on how to build Min directly from source.
 
+### Installation on Linux
+
+* To install the .deb file, use `sudo dpkg -i /path/to/download`
+* To install the RPM build, use `sudo rpm -i /path/to/download --ignoreos`
+
 ## Developing
 
 If you want to develop Min:
@@ -45,7 +50,8 @@ If you want to develop Min:
 In order to build Min from source, follow the installation instructions above, then use one of the following commands to create binaries:
 * ```npm run buildWindows```
 * ```npm run buildMac```
-* ```npm run buildLinux```
+* ```npm run buildDebian```
+* ```npm run buildRedhat```
 
 Depending on the platform you are building for, you may need to install additional dependencies:
 * If you are using macOS and building a package for Linux, install [Homebrew](http://brew.sh), then run `brew install fakeroot dpkg` first.
