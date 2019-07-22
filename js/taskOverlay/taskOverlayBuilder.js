@@ -19,7 +19,7 @@ function getTaskRelativeDate (task) {
   if (time > minimumTime) {
     return null
   } else {
-    return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
+    return new Intl.DateTimeFormat(navigator.language, {month: 'long', day: 'numeric', year: 'numeric'}).format(d)
   }
 }
 
@@ -122,7 +122,7 @@ var TaskOverlayBuilder = {
         var deleteWarning = document.createElement('div')
         deleteWarning.className = 'task-delete-warning'
 
-        deleteWarning.innerHTML = 'Task deleted. <a> Undo?</a>'
+        deleteWarning.innerHTML = l('taskDeleteWarning').unsafeHTML
         deleteWarning.addEventListener('click', function (e) {
           container.classList.remove('deleting')
         })

@@ -18,14 +18,14 @@ searchbarPlugins.register('restoreTask', {
     if (recentTabs.length === 1) {
       var title = searchbarUtils.getRealTitle(recentTabs[0].title)
     } else if (recentTabs.length === 2) {
-      var title = searchbarUtils.getRealTitle(recentTabs[0].title) + ' and ' + searchbarUtils.getRealTitle(recentTabs[1].title)
+      var title = l('taskDescriptionTwo').replace('%t', searchbarUtils.getRealTitle(recentTabs[0].title)).replace('%t', searchbarUtils.getRealTitle(recentTabs[1].title))
     } else {
-      var title = searchbarUtils.getRealTitle(recentTabs[0].title) + ', ' + searchbarUtils.getRealTitle(recentTabs[1].title) + ', and ' + (lastTask.tabs.count() - 2) + ' more'
+      var title = l('taskDescriptionThree').replace('%t', searchbarUtils.getRealTitle(recentTabs[0].title)).replace('%t', searchbarUtils.getRealTitle(recentTabs[1].title)).replace('%n', (lastTask.tabs.count() - 2))
     }
 
     var item = searchbarUtils.createItem({
       title: title,
-      descriptionBlock: 'Return to your previous task'
+      descriptionBlock: l('returnToTask')
     })
     item.addEventListener('click', function (e) {
       var thisTask = tasks.getSelected().id

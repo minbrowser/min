@@ -58,6 +58,10 @@
         "viewTasks": "Mostra Task",
         "newTask": "Nuovo Task", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Task %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
+        "returnToTask": null, //missing translation
+        "taskDescriptionTwo": null, //missing translation
+        "taskDescriptionThree": null, //missing translation
         /* find in page toolbar */
         "searchInPage": "Cerca nella pagina", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%i su %t risultato", //this and the next label are used to indicate which match is currently highlighted
