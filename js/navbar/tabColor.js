@@ -86,7 +86,7 @@ function getColorFromImage (image) {
     res[i] = parseInt(res[i])
   }
 
-  return adjustColorForTheme(res)
+  return res
 }
 
 function getColorFromString (str) {
@@ -95,7 +95,7 @@ function getColorFromString (str) {
   colorExtractorContext.fillRect(0, 0, 1, 1)
   let rgb = Array.from(colorExtractorContext.getImageData(0, 0, 1, 1).data).slice(0, 3)
 
-  return adjustColorForTheme(rgb)
+  return rgb
 }
 
 function getRGBString (c) {
@@ -134,11 +134,16 @@ function adjustColorForTheme (color) {
     colorChange = Math.min(colorChange, 0.6)
   }
 
-  color[0] = Math.round(color[0] * colorChange)
-  color[1] = Math.round(color[1] * colorChange)
-  color[2] = Math.round(color[2] * colorChange)
+  return [
+    Math.round(color[0] * colorChange),
+    Math.round(color[1] * colorChange),
+    Math.round(color[2] * colorChange)
+  ]
+}
 
-  return color
+// https://stackoverflow.com/a/596243
+function getLuminance (c) {
+  return 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]
 }
 
 function setColor (bg, fg, isLowContrast) {
@@ -198,12 +203,13 @@ const tabColor = {
     }
 
     const rgb = getColorFromString(color)
+    const rgbAdjusted = adjustColorForTheme(rgb)
 
     tabs.update(tabId, {
       themeColor: {
-        color: getRGBString(rgb),
-        textColor: getTextColor(rgb),
-        isLowContrast: isLowContrast(rgb)
+        color: getRGBString(rgbAdjusted),
+        textColor: getTextColor(rgbAdjusted),
+        isLowContrast: isLowContrast(rgbAdjusted)
       }
     })
     if (tabId === tabs.getSelected()) {
@@ -219,12 +225,17 @@ const tabColor = {
     requestIdleCallback(function () {
       colorExtractorImage.onload = function (e) {
         const backgroundColor = getColorFromImage(colorExtractorImage)
+        const backgroundColorAdjusted = adjustColorForTheme(backgroundColor)
 
         tabs.update(tabId, {
           backgroundColor: {
-            color: getRGBString(backgroundColor),
-            textColor: getTextColor(backgroundColor),
-            isLowContrast: isLowContrast(backgroundColor)
+            color: getRGBString(backgroundColorAdjusted),
+            textColor: getTextColor(backgroundColorAdjusted),
+            isLowContrast: isLowContrast(backgroundColorAdjusted)
+          },
+          favicon: {
+            url: favicons[0],
+            luminance: getLuminance(backgroundColor)
           }
         })
 

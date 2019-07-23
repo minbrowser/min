@@ -86,13 +86,8 @@ window.taskOverlay = {
     // un-hide the overlay
     this.overlayElement.hidden = false
 
-    currentTabElement.classList.add("fakefocus")
-    // focus() has no effect if it is called immediately, TODO figure out why
-    setTimeout(function () {
-      if (currentTabElement) {
-        currentTabElement.focus()
-      }
-    }, 50)
+    currentTabElement.classList.add('fakefocus')
+    currentTabElement.focus()
   },
 
   hide: function () {
@@ -111,6 +106,13 @@ window.taskOverlay = {
       this.tabDragula.containers = []
 
       document.body.classList.remove('task-overlay-is-shown')
+
+      // close any tasks that are pending deletion
+
+      var pendingDeleteTasks = document.body.querySelectorAll('.task-container.deleting')
+      for (var i = 0; i < pendingDeleteTasks.length; i++) {
+        browserUI.closeTask(pendingDeleteTasks[i].getAttribute('data-task'))
+      }
 
       // if the current tab has been deleted, switch to the most recent one
 

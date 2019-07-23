@@ -33,7 +33,7 @@ body.windows:not(.maximized) #switch-task-button {
 	width: 100%;
 	height: 100%;
 	background-color: #fff;
-	padding: 40px 10% 5em 10%;
+	padding: 40px 0 5em 0;
 	white-space: nowrap;
 	overflow: auto;
 	opacity: 1;
@@ -46,12 +46,30 @@ body.windows:not(.maximized) #task-overlay {
 }
 #task-overlay[hidden] {
 	display: block !important;
-	visibility: hidden;
 	transform: scale(1.05);
 	opacity: 0;
+	pointer-events: none;
+}
+.task-container {
+	width: 90%;
+	margin: auto;
+	border-left: 5vw solid transparent;
+	border-right: 5vw solid transparent;
+	transition: 0.5s opacity;
+}
+.task-container.collapsed {
+	opacity: 0.8;
+	cursor: pointer;
+}
+.task-container.collapsed input {
+	cursor: pointer;
 }
 .task-container + .task-container {
 	padding-top: 0.75em;
+}
+
+.task-container.collapsed .task-tabs-container {
+	display: none;
 }
 
 .task-tab-item:not(.fakefocus):focus {
@@ -61,18 +79,66 @@ body.windows:not(.maximized) #task-overlay {
 	background-color: rgba(255, 255, 255, 0.08);
 }
 
-/* drag handle */
-
-.task-drag-handle {
-	margin-left: -1.5em;
-	padding-right: 0.5em;
-	margin-top: 0.1em;
-	opacity: 0;
-	transition: 0.2s opacity;
+.task-tab-item .icon-image {
+	opacity: 0.75 !important;
+}
+.dark-mode .task-tab-item .icon-image {
+	opacity: 0.9 !important;
 }
 
-.task-container:hover .task-drag-handle {
-	opacity: 0.6;
+.dark-mode .task-tab-item.dark-favicon .icon-image {
+	box-sizing: content-box;
+	background: rgba(255, 255, 255, 0.7);
+	border: 2px transparent solid;
+	margin: -2px;
+}
+
+/* drag handle */
+
+.task-collapse-button {
+	font-size: 1.25em !important;
+	width: 1.5em;
+	text-align: center;
+	margin-left: -1.5em;
+	padding: 0.5em;
+	margin-top: 0.1rem;
+	transition: 0.2s opacity;
+	opacity: 0.7;
+}
+
+.task-container:not(.collapsed):not(:hover) .task-collapse-button {
+	opacity: 0;
+}
+
+.task-container.selected .task-collapse-button {
+	display: none;
+}
+
+.task-delete-button {
+	padding: 0.66em;
+	margin: -0.66em;
+}
+
+.task-container.collapsed .task-delete-button {
+	display: none;
+}
+
+.task-container .task-delete-warning {
+	background: rgba(0, 0, 0, 0.05);
+	padding: 1em;
+	text-align: center;
+}
+
+.dark-mode .task-container .task-delete-warning {
+	background: rgba(0, 0, 0, 0.12);
+}
+
+.task-container:not(.deleting) .task-delete-warning {
+	display: none;
+}
+
+.task-container.deleting > *:not(.task-delete-warning) {
+	display: none;
 }
 
 /* inputs */
@@ -115,15 +181,21 @@ body.windows:not(.maximized) #task-overlay {
 	align-items: center;
 	padding-right: 1em;
 }
-@media all and (max-width: 600px) {
-	#task-overlay {
-		padding-left: 5%;
-		padding-right: 5%;
-	}
-	#add-task {
-		width: 90%;
-		left: 5%;
-	}
+.task-info-container {
+	padding: 0 0.6em;
+	overflow: hidden;
+}
+.task-info-container span {
+    font-size: 0.9em;
+    opacity: 0.6;
+    margin: -0.25em 0 0.25em 0;
+}
+.task-info-container span + span:before {
+	content: " - ";
+}
+
+.task-container:not(.collapsed) .task-info-container .task-last-tab-title {
+	display: none;
 }
 
 body.dark-mode #task-overlay{

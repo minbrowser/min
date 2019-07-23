@@ -23,70 +23,6 @@ body.mac:not(.fullscreen) #searchbar {
 	padding-left: 75px;
 }
 
-.searchbar-item {
-	width: 100%;
-	display: block;
-	position: relative;
-	padding: 0.55em 0.55em 0.55em 9px;
-	cursor: pointer;
-	transition: 0.2s transform, 0.2s opacity;
-}
-.searchbar-item:after {
-	content: "";
-	clear: both;
-	display: block;
-}
-.searchbar-item:hover {
-	background-color: rgba(0, 0, 0, 0.04);
-}
-.searchbar-item:focus,
-.searchbar-item.fakefocus {
-	background-color: rgba(0, 0, 0, 0.08);
-	outline: none;
-}
-.dark-theme .theme-background-color .searchbar-item:hover,
-.dark-mode .searchbar-item:hover {
-	background-color: rgba(255, 255, 255, 0.08);
-}
-.dark-theme .theme-background-color .searchbar-item:focus,
-.dark-theme .theme-background-color .searchbar-item.fakefocus,
-.dark-mode .searchbar-item:focus,
-.dark-mode .searchbar-item.fakefocus {
-	background-color: rgba(255, 255, 255, 0.14);
-}
-.searchbar-item .title {
-	display: inline-block;
-	vertical-align: middle;
-	max-width: 45%;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-.searchbar-item .title.wide {
-	max-width: 70%;
-}
-.searchbar-item i,
-.searchbar-item .icon-image
- {
-	position: absolute;
-	top: 0.9em;
-	left: -1.4em;
-	opacity: 0.25;
-	font-size: 0.9em;
-	width: 1em;
-	height: 1em;
-}
-.searchbar-item i.fa-align-left {
-	/* this icon isn't aligned with the rest of the icon set, so add an additional margin for it */
-	margin-top: 0.1em;
-}
-
-.searchbar-item .icon-image {
-	opacity: 1.0;
-}
-.dark-theme .theme-background-color .searchbar-item i {
-	opacity: 0.33;
-}
 
 .searchbar-heading {
 	font-weight: normal;
@@ -97,70 +33,23 @@ body.mac:not(.fullscreen) #searchbar {
 
 /* move the icon when there isn't room to the left of the searchbar */
 
-.fullscreen .searchbar-item i,
-body:not(.mac) .searchbar-item i,
-.fullscreen .searchbar-item .icon-image,
-body:not(.mac) .searchbar-item .icon-image {
+.fullscreen #searchbar .searchbar-item i,
+body:not(.mac) #searchbar .searchbar-item i,
+.fullscreen #searchbar .searchbar-item .icon-image,
+body:not(.mac) #searchbar .searchbar-item .icon-image {
 	left: auto;
 	right: 1.1em;
 }
 
 /* if an action button is visible, the searchbar icon should disappear (if they occupy the same position) */
 
-.fullscreen .searchbar-item.has-action-button:hover i,
-body:not(.mac) .searchbar-item.has-action-button:hover i,
-.fullscreen .searchbar-item.has-action-button:hover .icon-image,
-body:not(.mac) .searchbar-item.has-action-button:hover .icon-image {
+.fullscreen #searchbar .searchbar-item.has-action-button:hover i,
+body:not(.mac) #searchbar .searchbar-item.has-action-button:hover i,
+.fullscreen #searchbar .searchbar-item.has-action-button:hover .icon-image,
+body:not(.mac) #searchbar .searchbar-item.has-action-button:hover .icon-image {
 	display: none;
 }
 
-/* buttons */
-
-.searchbar-item .action-button {
-    position: absolute;
-    width: 2em;
-    height: 2em;
-    right: 0.45em;
-    top: calc(0.16em + 1px);
-    bottom: 0;
-    border: none;
-    border-radius: 50%;
-    outline: none;
-    cursor: pointer;
-    opacity: 0;
-    background: transparent;
-	transition: 0.05s;
-	color: currentColor;
-}
-.searchbar-item:hover .action-button {
-    opacity: 0.6;
-}
-.dark-mode .searchbar-item:hover .action-button {
-	opacity: 0.8;
-}
-.searchbar-item .action-button:hover {
-    opacity: 1;
-    background: rgba(0, 0, 0, 0.05);
-}
-.dark-mode .searchbar-item .action-button:hover {
-    opacity: 1;
-    background: rgba(0, 0, 0, 0.15);
-}
-.searchbar-item .action-button:active {
-    background: rgba(0, 0, 0, 0.175);
-}
-.dark-mode .searchbar-item .action-button:active {
-    background: rgba(0, 0, 0, 0.35);
-}
-
-.searchbar-item .image {
-	height: 2.75em;
-	margin: 0.25em 0.5em 0.5em 0;
-	float: left;
-}
-.searchbar-item:focus .image {
-	height: 4em;
-}
 #searchbar .image.color-circle {
 	width: 1.8em;
 	height: 1.8em;
@@ -171,74 +60,4 @@ body:not(.mac) .searchbar-item.has-action-button:hover .icon-image {
 }
 .dark-theme #searchbar .image.color-circle {
 	border-color: rgba(255, 255, 255, 0.2);
-}
-.searchbar-item .secondary-text .md-info {
-	float: left;
-	opacity: 0.8;
-	font-size: inherit;
-}
-.searchbar-item .secondary-text .md-info:first-child {
-	padding-left: 0;
-}
-.searchbar-item .secondary-text .md-info:last-of-type {
-	padding-right: 0.5em;
-}
-.searchbar-item .secondary-text .md-info + .md-info:before {
-	content: "-";
-	padding: 0 0.3em;
-}
-.searchbar-item .secondary-text {
-	display: inline-block;
-	opacity: 0.66;
-	font-size: 0.95em;
-	overflow: hidden;
-	vertical-align: middle;
-	padding-left: 1.5em;
-	max-width: 50%;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	max-height: 2em;
-}
-
-/* switch to a two-line layout */
-
-@media all and (max-width: 650px) {
-	.searchbar-item .title {
-		max-width: calc(100% - 50px);
-	}
-	.searchbar-item .secondary-text {
-		display: block;
-		max-width: 100%;
-		padding-top: 0.1em;
-		padding-left: 0;
-		/* prevents letters like "g" from being cut off */
-		line-height: 1em;
-	}
-	.searchbar-item .image {
-		display: none;
-	}
-}
-.searchbar-item .description-block {
-	display: block;
-	line-height: 1.15em;
-	max-height: 2.2em;
-	overflow: hidden;
-	opacity: 0.666;
-	font-size: 0.85em;
-}
-.searchbar-item .attribution {
-	display: none;
-	line-height: 1.15em;
-	font-size: 0.85em;
-	opacity: 0.6;
-	margin-top: 0.2em;
-}
-.searchbar-item:focus .attribution {
-	display: block;
-}
-
-/* when a result is selected, we can show more of the description */
-
-.searchbar-item:focus .description-block {
-	max-height: 6.6em;
 }

@@ -13,35 +13,43 @@ var defaultSearchEngine = 'DuckDuckGo'
 var searchEngines = {
   DuckDuckGo: {
     name: 'DuckDuckGo',
-    searchURL: 'https://duckduckgo.com/?q=%s&t=min'
+    searchURL: 'https://duckduckgo.com/?q=%s&t=min',
+    queryParam: 'q'
   },
   Google: {
     name: 'Google',
-    searchURL: 'https://www.google.com/search?q=%s'
+    searchURL: 'https://www.google.com/search?q=%s',
+    queryParam: 'q'
   },
   Bing: {
     name: 'Bing',
-    searchURL: 'https://www.bing.com/search?q=%s'
+    searchURL: 'https://www.bing.com/search?q=%s',
+    queryParam: 'q'
   },
   Yahoo: {
     name: 'Yahoo',
-    searchURL: 'https://search.yahoo.com/yhs/search?p=%s'
+    searchURL: 'https://search.yahoo.com/yhs/search?p=%s',
+    queryParam: 'p'
   },
   Baidu: {
     name: 'Baidu',
-    searchURL: 'https://www.baidu.com/s?wd=%s'
+    searchURL: 'https://www.baidu.com/s?wd=%s',
+    queryParam: 'wd'
   },
   StartPage: {
     name: 'StartPage',
-    searchURL: 'https://startpage.com/do/search?q=%s'
+    searchURL: 'https://www.startpage.com/do/search?q=%s',
+    queryParam: 'q'
   },
   Wikipedia: {
     name: 'Wikipedia',
-    searchURL: 'https://wikipedia.org/w/index.php?search=%s'
+    searchURL: 'https://wikipedia.org/w/index.php?search=%s',
+    queryParam: 'search'
   },
   Yandex: {
     name: 'Yandex',
-    searchURL: 'https://yandex.com/search/?text=%s'
+    searchURL: 'https://yandex.com/search/?text=%s',
+    queryParam: 'text'
   },
   none: {
     name: 'none',
@@ -80,6 +88,29 @@ var searchEngine = {
       let searchFragment = currentSearchEngine.searchURL.split('%s')[0]
       return url.startsWith(searchFragment)
     }
+  },
+  getSearch: function (url) {
+    var urlObj
+    try {
+      urlObj = new URL(url)
+    } catch (e) {
+      return null
+    }
+    for (var e in searchEngines) {
+      if (!searchEngines[e].queryParam) {
+        continue
+      }
+      var engineURL = new URL(searchEngines[e].searchURL)
+      if (engineURL.hostname === urlObj.hostname && engineURL.pathname === urlObj.pathname) {
+        if (urlObj.searchParams.get(searchEngines[e].queryParam)) {
+          return {
+            engine: searchEngines[e].name,
+            search: urlObj.searchParams.get(searchEngines[e].queryParam)
+          }
+        }
+      }
+    }
+    return null
   }
 }
 

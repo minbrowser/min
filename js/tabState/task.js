@@ -36,6 +36,7 @@ class TaskList {
       name: task.name || null,
       tabs: new TabList(task.tabs, this),
       tabHistory: new TabStack(task.tabHistory),
+      collapsed: task.collapsed, // this property must stay undefined if it is already (since there is a difference between "explicitly uncollapsed" and "never collapsed")
       id: task.id || String(TaskList.getRandomId())
     }
 
@@ -121,6 +122,11 @@ class TaskList {
     return lastActivity
   }
 
+  isCollapsed (id) {
+    var task = this.get(id)
+    return task.collapsed || (task.collapsed === undefined && Date.now() - tasks.getLastActivity(task.id) > (7 * 24 * 60 * 60 * 1000))
+  }
+
   getLength () {
     return this.tasks.length
   }
@@ -131,7 +137,11 @@ class TaskList {
 
   indexOf (task) { return this.tasks.indexOf(task) }
 
+  slice (...args) { return this.tasks.slice.apply(this.tasks, args) }
+
   splice (...args) { return this.tasks.splice.apply(this.tasks, args) }
+
+  filter (...args) { return this.tasks.filter.apply(this.tasks, args) }
 
   find (filter) {
     for (var i = 0, len = this.tasks.length; i < len; i++) {

@@ -58,6 +58,10 @@
         "viewTasks": "View Tasks",
         "newTask": "New Task", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Task %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        "taskDeleteWarning": {"unsafeHTML": "Task deleted. <a>Undo?</a>"},
+        "returnToTask": "Return to your previous task",
+        "taskDescriptionTwo": "%t and %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
+        "taskDescriptionThree": "%t, %t, and %n more", //used to describe a task that has three or more tabs
         /* find in page toolbar */
         "searchInPage": "Search in Page", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%i of %t match", //this and the next label are used to indicate which match is currently highlighted

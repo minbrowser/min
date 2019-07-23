@@ -359,40 +359,37 @@ settings.get('keyMap', function (keyMapSettings) {
     }
   })
 
-  var taskSwitchTimeout = null
-
   defineShortcut('switchToNextTask', function (d) {
-    taskOverlay.show()
+    const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id));
 
-    const currentTaskIdx = tasks.indexOf(tasks.getSelected())
+    const currentTaskIdx = taskSwitchList.findIndex(t => t.id === tasks.getSelected().id)
 
-    const nextTask = tasks.byIndex(currentTaskIdx + 1) || tasks.byIndex(0)
+    const nextTask = taskSwitchList[currentTaskIdx + 1] || taskSwitchList[0]
     browserUI.switchToTask(nextTask.id)
-
-    taskOverlay.show()
-
-    clearInterval(taskSwitchTimeout)
-    taskSwitchTimeout = setTimeout(function () {
-      taskOverlay.hide()
-    }, 500)
   })
 
   defineShortcut('switchToPreviousTask', function (d) {
-    taskOverlay.show()
+    const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id));
 
-    const currentTaskIdx = tasks.indexOf(tasks.getSelected()),
-          taskCount = tasks.getLength()
+    const currentTaskIdx = taskSwitchList.findIndex(t => t.id === tasks.getSelected().id)
+          taskCount = taskSwitchList.length
 
-    const previousTask = tasks.byIndex(currentTaskIdx - 1) || tasks.byIndex(tasks.getLength() - 1)
+    const previousTask = taskSwitchList[currentTaskIdx - 1] || taskSwitchList[taskCount - 1]
     browserUI.switchToTask(previousTask.id)
-
-    taskOverlay.show()
-
-    clearInterval(taskSwitchTimeout)
-    taskSwitchTimeout = setTimeout(function () {
-      taskOverlay.hide()
-    }, 500)
   })
+
+  // option+cmd+x should switch to task x
+
+  for (var i = 1; i < 10; i++) {
+    (function (i) {
+      defineShortcut({keys: 'option+mod+' + i}, function (e) {
+        const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id));
+        if (taskSwitchList[i - 1]) {
+          browserUI.switchToTask(taskSwitchList[i - 1].id)
+        }
+      })
+    })(i)
+  }
 
   defineShortcut('closeAllTabs', function (d) { // destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
     var tset = tabs.get()
@@ -448,8 +445,8 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('showAndHideMenuBar', function () {
-    menuBarVisibility.toggleMenuBar()
-  }, {keyUp: true}) //run on keyUp to avoid interfering with alt+f4 shortcut, see https://github.com/minbrowser/min/issues/631
+   menuBarVisibility.toggleMenuBar()
+  })
 
   defineShortcut('followLink', function () {
     findinpage.end({ action: 'activateSelection' })
@@ -496,6 +493,7 @@ webviews.bindEvent('before-input-event', function (webview, tabId, e, input) {
         (key === 'up' && input.key === 'ArrowUp') ||
         (key === 'down' && input.key === 'ArrowDown') ||
         (key === 'alt' && (input.alt || input.key === "Alt")) ||
+        (key === 'option' && (input.alt || input.key === "Alt")) ||
         (key === 'shift' && (input.shift || input.key === "Shift")) ||
         (key === 'ctrl' && (input.control || input.key === "Control")) ||
         (key === 'mod' && window.platformType === 'mac' && (input.meta || input.key === "Meta")) ||
