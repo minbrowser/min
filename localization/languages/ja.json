@@ -41,6 +41,7 @@
         "createTask": "タスクを作成",
         "closeTask": "タスクを閉じる",
         "moveToTask": "このタブをタスクに移動",
+        "nameTask": null, //missing translation
         "searchBookmarks": "ブックマークを検索",
         "searchHistory": "検索履歴",
         /* navbar */

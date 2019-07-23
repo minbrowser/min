@@ -41,6 +41,7 @@
         "createTask": "Crea un Task",
         "closeTask": null, //missing translation
         "moveToTask": "Sposta questa scheda in un task",
+        "nameTask": null, //missing translation
         "searchBookmarks": "Cerca nei preferiti",
         "searchHistory": "Cerca nella cronologia",
         /* navbar */

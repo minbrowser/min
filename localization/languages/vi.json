@@ -41,6 +41,7 @@
         "createTask": "Tạo quá trình",
         "closeTask": "Kết thúc quá trình",
         "moveToTask": "Chuyển tab này sang quá trình khác",
+        "nameTask": null, //missing translation
         "searchBookmarks": "Tìm kiếm trong trang web đánh dấu",
         "searchHistory": "Tìm kiếm trong lịch sử",
         /* navbar */

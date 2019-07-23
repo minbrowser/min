@@ -189,6 +189,15 @@ registerCustomBang({
 })
 
 registerCustomBang({
+  phrase: '!nametask',
+  snippet: l('nameTask'),
+  isAction: false,
+  fn: function (text) {
+    tasks.getSelected().name = text
+  }
+})
+
+registerCustomBang({
   phrase: '!bookmarks',
   snippet: l('searchBookmarks'),
   isAction: false,

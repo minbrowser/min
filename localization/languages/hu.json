@@ -41,6 +41,7 @@
         "createTask": "Feladat létrehozás",
         "closeTask": null, //missing translation
         "moveToTask": "Tedd a fület feladatba",
+        "nameTask": null, //missing translation
         "searchBookmarks": "Könyvjelző keresés",
         "searchHistory": "Keresési előzmények",
         /* navbar */

@@ -41,6 +41,7 @@
         "createTask": "Sukurti užduotį",
         "closeTask": null, //missing translation
         "moveToTask": "Perkelti šią kortelę į užduotį",
+        "nameTask": null, //missing translation
         "searchBookmarks": "Ieškoti adresyno įrašų",
         "searchHistory": "Ieškoti istorijos",
         /* navbar */

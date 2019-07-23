@@ -41,6 +41,7 @@
         "createTask": "انشاء مهمة",
         "closeTask": null, //missing translation
         "moveToTask": "نقل التبويب الى المهام",
+        "nameTask": null, //missing translation
         "searchBookmarks": "البحث عن الإشارات",
         "searchHistory": "البحث عن السجل",
         /* navbar */

@@ -41,6 +41,7 @@
       "createTask":"একটি টাস্ক তৈরি করুন",
       "closeTask": null, //missing translation
       "moveToTask":"একটি টাস্ক এই ট্যাব সরান",
+      "nameTask": null, //missing translation
       "searchBookmarks":"বুকমার্কগুলি অনুসন্ধান করুন",
       "searchHistory":"অনুসন্ধানের ইতিহাস",
       "openMenu":"খুলুন মেনু", //application menu button on windows

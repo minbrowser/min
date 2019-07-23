@@ -41,6 +41,7 @@
         "createTask": "Criar tarefa",
         "closeTask": "Fechar tarefa",
         "moveToTask": "Mover este separador para uma tarefa",
+        "nameTask": null, //missing translation
         "searchBookmarks": "Pesquisar nos marcadores",
         "searchHistory": "Pesquisar no histórico",
         /* navbar */

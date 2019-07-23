@@ -41,6 +41,7 @@
         "createTask": "Görev oluştur",
         "closeTask": null, //missing translation
         "moveToTask": "Bu sekmeyi bir göreve taşı",
+        "nameTask": null, //missing translation
         "searchBookmarks": "Yer işaretlerini ara",
         "searchHistory": null, //missing translation
         /* navbar */

@@ -41,6 +41,7 @@
         "createTask": "Créer une tâche",
         "closeTask": "Fermer cette tâche", //missing translation
         "moveToTask": "Déplacer cette tâche à cet onglet",
+        "nameTask": null, //missing translation
         "searchBookmarks": "Rechercher des signets",
         "searchHistory": "Rechercher dans l'historique",
         /* navbar */

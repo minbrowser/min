@@ -41,6 +41,7 @@
         "createTask": "新增工作",
         "closeTask": "關閉工作",
         "moveToTask": "移動至工作",
+        "nameTask": null, //missing translation
         "searchBookmarks": "搜尋書籤",
         "searchHistory": "搜尋歷史",
         /* navbar */

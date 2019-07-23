@@ -41,6 +41,7 @@
         "createTask": "Создать задачу",
         "closeTask": "Закрыть задачу",
         "moveToTask": "Переместить эту вкладку в задачу",
+        "nameTask": null, //missing translation
         "searchBookmarks": "Искать в закладках",
         "searchHistory": "Искать в истории",
         /* navbar */

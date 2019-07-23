@@ -41,6 +41,7 @@
         "closeTask": null, //missing translation
         "createTask": "新建标签组",
         "moveToTask": "以当前标签页创建一个新的标签组",
+        "nameTask": null, //missing translation
         "searchBookmarks": "搜索书签内容",
         "searchHistory": null, //missing translation
         /* navbar */

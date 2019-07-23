@@ -41,6 +41,7 @@
         "createTask": "Aufgabe erstellen",
         "closeTask": null, //missing translation
         "moveToTask": "Verschiebe diesen Tab zu Aufgabe",
+        "nameTask": null, //missing translation
         "searchBookmarks": "Bookmarks durchsuchen",
         "searchHistory": null, //missing translation
         /* navbar */

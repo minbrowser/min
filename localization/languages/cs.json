@@ -41,6 +41,7 @@
         "createTask": "Vytvořit dimenzi",
         "closeTask": null, //missing translation
         "moveToTask": "Přesunout tuto kartu do dimenze",
+        "nameTask": null, //missing translation
         "searchBookmarks": "Vyhledávat záložky",
         "searchHistory": null, //missing translation
         /* navbar */

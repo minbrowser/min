@@ -41,6 +41,7 @@
         "createTask": "ایجاد وظیفه جدید",
         "closeTask": null, //missing translation
         "moveToTask": "انتقال این برگه به یک وظیفه",
+        "nameTask": null, //missing translation
         "searchBookmarks": "جستجوی نشانک ها",
         "searchHistory": "جستجوی تاریخچه",
         /* navbar */

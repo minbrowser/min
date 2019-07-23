@@ -41,6 +41,7 @@
         "createTask": "Utwórz zadanie",
         "closeTask": null, //missing translation
         "moveToTask": "Przenieś tę kartę do zadania",
+        "nameTask": null, //missing translation
         "searchBookmarks": "Zakładki wyszukiwania",
         "searchHistory": "Historia wyszukiwania",
         /* navbar */

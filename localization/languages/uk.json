@@ -41,6 +41,7 @@
         "createTask": "Створити завдання",
         "closeTask": "Закрити завдання",
         "moveToTask": "Перемістіть цю вкладку до завдання",
+        "nameTask": null, //missing translation
         "searchBookmarks": "Пошук закладок",
         "searchHistory": "Історія пошуку",
         /* navbar */

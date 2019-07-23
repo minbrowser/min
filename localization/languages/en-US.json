@@ -41,6 +41,7 @@
         "createTask": "Create a Task",
         "closeTask": "Close a Task",
         "moveToTask": "Move this tab to a task",
+        "nameTask": "Name this task",
         "searchBookmarks": "Search bookmarks",
         "searchHistory": "Search history",
         /* navbar */

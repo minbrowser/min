@@ -41,6 +41,7 @@
         "createTask": "태스크 생성",
         "closeTask": null, //missing translation
         "moveToTask": "태스트로 탭 이동",
+        "nameTask": null, //missing translation
         "searchBookmarks": "북마크 검색",
         "searchHistory": "기록 검색",
         /* navbar */
