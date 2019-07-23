@@ -259,7 +259,7 @@ function parseFilter (input, parsedFilterData) {
 
   // Check for element hiding rules
   var index = input.indexOf('#', beginIndex)
-  if (index !== -1 && (input[index + 1] === '#' || input[index + 1] === '@')) {
+  if (index !== -1 && (input[index + 1] === '#' || input[index + 1] === '@' || input[index + 1] === '?')) {
     return false
   }
 
