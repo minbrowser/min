@@ -16,11 +16,11 @@ searchbarPlugins.register('restoreTask', {
     var recentTabs = lastTask.tabs.get().sort((a, b) => b.lastActivity - a.lastActivity).slice(0, 3)
 
     if (recentTabs.length === 1) {
-      var title = searchbarUtils.getRealTitle(recentTabs[0].title)
+      var title = searchbarUtils.getRealTitle(recentTabs[0].title) || l('newTabLabel')
     } else if (recentTabs.length === 2) {
-      var title = l('taskDescriptionTwo').replace('%t', searchbarUtils.getRealTitle(recentTabs[0].title)).replace('%t', searchbarUtils.getRealTitle(recentTabs[1].title))
+      var title = l('taskDescriptionTwo').replace('%t', searchbarUtils.getRealTitle(recentTabs[0].title) || l('newTabLabel')).replace('%t', searchbarUtils.getRealTitle(recentTabs[1].title) || l('newTabLabel'))
     } else {
-      var title = l('taskDescriptionThree').replace('%t', searchbarUtils.getRealTitle(recentTabs[0].title)).replace('%t', searchbarUtils.getRealTitle(recentTabs[1].title)).replace('%n', (lastTask.tabs.count() - 2))
+      var title = l('taskDescriptionThree').replace('%t', searchbarUtils.getRealTitle(recentTabs[0].title) || l('newTabLabel')).replace('%t', searchbarUtils.getRealTitle(recentTabs[1].title) || l('newTabLabel')).replace('%n', (lastTask.tabs.count() - 2))
     }
 
     var item = searchbarUtils.createItem({
