@@ -107,6 +107,13 @@ window.taskOverlay = {
 
       document.body.classList.remove('task-overlay-is-shown')
 
+      // close any tasks that are pending deletion
+
+      var pendingDeleteTasks = document.body.querySelectorAll('.task-container.deleting')
+      for (var i = 0; i < pendingDeleteTasks.length; i++) {
+        browserUI.closeTask(pendingDeleteTasks[i].getAttribute('data-task'))
+      }
+
       // if the current tab has been deleted, switch to the most recent one
 
       if (!tabs.getSelected()) {

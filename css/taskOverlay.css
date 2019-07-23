@@ -129,6 +129,10 @@ body.windows:not(.maximized) #task-overlay {
 	text-align: center;
 }
 
+.dark-mode .task-container .task-delete-warning {
+	background: rgba(0, 0, 0, 0.12);
+}
+
 .task-container:not(.deleting) .task-delete-warning {
 	display: none;
 }
