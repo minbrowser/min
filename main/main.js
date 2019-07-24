@@ -24,11 +24,6 @@ var mainMenu = null
 var isFocusMode = false
 var appIsReady = false
 
-if (process.platform === 'darwin' || process.platform === 'win32') {
-  // TODO enable for all platforms after upgrading to Electron 5.0
-  app.enableMixedSandbox()
-}
-
 const isFirstInstance = app.requestSingleInstanceLock()
 
 if (!isFirstInstance) {
