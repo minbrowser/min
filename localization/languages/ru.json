@@ -41,7 +41,7 @@
         "createTask": "Создать задачу",
         "closeTask": "Закрыть задачу",
         "moveToTask": "Переместить эту вкладку в задачу",
-        "nameTask": null, //missing translation
+        "nameTask": "Название этой задачи",
         "searchBookmarks": "Искать в закладках",
         "searchHistory": "Искать в истории",
         /* navbar */
@@ -59,10 +59,10 @@
         "viewTasks": "Показать задачи",
         "newTask": "Новая задача", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Задача %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
-        "returnToTask": null, //missing translation
-        "taskDescriptionTwo": null, //missing translation
-        "taskDescriptionThree": null, //missing translation
+        "taskDeleteWarning": {"unsafeHTML": "Задача удалена. <a> Отменить? </a>"},
+        "returnToTask": "Вернуться к предыдущей задаче",
+        "taskDescriptionTwo": "%t и %t",
+        "taskDescriptionThree": "%t, %t, и %n больше",
         /* find in page toolbar */
         "searchInPage": "Найти на странице", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%i из %t", //this and the next label are used to indicate which match is currently highlighted
