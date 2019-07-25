@@ -41,7 +41,7 @@
         "createTask": "Створити завдання",
         "closeTask": "Закрити завдання",
         "moveToTask": "Перемістіть цю вкладку до завдання",
-        "nameTask": null, //missing translation
+        "nameTask": "Назвіть це завдання",
         "searchBookmarks": "Пошук закладок",
         "searchHistory": "Історія пошуку",
         /* navbar */
@@ -59,10 +59,10 @@
         "viewTasks": "Переглянути завдання",
         "newTask": "Нове завдання", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Завдання %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
-        "returnToTask": null, //missing translation
-        "taskDescriptionTwo": null, //missing translation
-        "taskDescriptionThree": null, //missing translation
+        "taskDeleteWarning": {"unsafeHTML": "Завдання видалено. <a>Скасувати?</a>"},
+        "returnToTask": "Повернутися до попереднього завдання",
+        "taskDescriptionTwo": "%t і %t",
+        "taskDescriptionThree": "%t, %t, і ще %n",
         /* find in page toolbar */
         "searchInPage": "Знайти на сторінці", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%i з %t входження", //this and the next label are used to indicate which match is currently highlighted
