@@ -59,7 +59,7 @@
         "viewTasks": "Показать задачи",
         "newTask": "Новая задача", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Задача %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Задача удалена. <a> Отменить? </a>"},
+        "taskDeleteWarning": {"unsafeHTML": "Задача удалена. <a>Отменить?</a>"},
         "returnToTask": "Вернуться к предыдущей задаче",
         "taskDescriptionTwo": "%t и %t",
         "taskDescriptionThree": "%t, %t, и %n больше",
