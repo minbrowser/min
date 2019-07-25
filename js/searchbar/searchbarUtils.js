@@ -22,6 +22,7 @@ delete: function - a function to call to delete the result item when a left swip
 showDeleteButton - whether to show an [x] button that calls the delete function
 button: {icon: string, fn: function} a button that will appear to the right of the item (if showDeleteButton is false)
 classList: array - a list of classes to add to the item
+fakeFocus - boolean - whether the item should appear to be focused
 */
 
 function createItem (data) {
@@ -34,6 +35,10 @@ function createItem (data) {
     for (var i = 0; i < data.classList.length; i++) {
       item.classList.add(data.classList[i])
     }
+  }
+
+  if (data.fakeFocus) {
+    item.classList.add('fakefocus')
   }
 
   if (data.icon) {

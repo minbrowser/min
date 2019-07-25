@@ -93,17 +93,11 @@ function showBangSearchResults (text, results, input, event, container, limit = 
       icon: result.icon,
       iconImage: result.image,
       title: result.snippet,
-      secondaryText: result.phrase
+      secondaryText: result.phrase,
+      fakeFocus: text !== '!' && idx === 0
     }
 
-    if (text !== '!' && idx === 0) {
-      data.classList = ['fakefocus']
-    }
-
-    var item = searchbarUtils.createItem(data)
-
-    item.addEventListener('click', function (e) {
-
+    data.click = function (e) {
       // if the item is an action, clicking on it should immediately trigger it instead of prompting for additional text
       if (result.isAction && result.fn) {
         searchbar.openURL(result.phrase, e)
@@ -121,7 +115,9 @@ function showBangSearchResults (text, results, input, event, container, limit = 
           result.showSuggestions('', input, event, container)
         }
       }, 66)
-    })
+    }
+
+    var item = searchbarUtils.createItem(data)
 
     container.appendChild(item)
   })

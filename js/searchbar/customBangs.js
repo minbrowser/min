@@ -221,7 +221,7 @@ registerCustomBang({
           title: result.title,
           icon: 'fa-star',
           secondaryText: urlParser.getSourceURL(result.url),
-          classList: (index === 0 && text ? ['fakefocus'] : []),
+          fakeFocus: index === 0 && text,
           url: result.url,
           delete: function () {
             places.deleteHistory(result.url)
@@ -269,7 +269,7 @@ registerCustomBang({
         container.appendChild(searchbarUtils.createItem({
           title: result.title,
           secondaryText: urlParser.getSourceURL(result.url),
-          classList: (index === 0 && text ? ['fakefocus'] : []),
+          fakeFocus: index === 0 && text,
           url: result.url,
           delete: function () {
             places.deleteHistory(result.url)

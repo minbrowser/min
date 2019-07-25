@@ -37,7 +37,8 @@ function showSearchSuggestions (text, input, event, container) {
         results = results.slice(0, 3)
         results.forEach(function (result) {
           var data = {
-            title: result.phrase
+            title: result.phrase,
+            url: result.phrase
           }
 
           if (urlParser.isURL(result.phrase) || urlParser.isURLMissingProtocol(result.phrase)) { // website suggestions
@@ -47,10 +48,6 @@ function showSearchSuggestions (text, input, event, container) {
           }
 
           var item = searchbarUtils.createItem(data)
-
-          item.addEventListener('click', function (e) {
-            searchbar.openURL(result.phrase, e)
-          })
 
           container.appendChild(item)
         })

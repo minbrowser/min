@@ -25,13 +25,14 @@ searchbarPlugins.register('restoreTask', {
 
     var item = searchbarUtils.createItem({
       title: title,
-      descriptionBlock: l('returnToTask')
+      descriptionBlock: l('returnToTask'),
+      click: function (e) {
+        var thisTask = tasks.getSelected().id
+        browserUI.switchToTask(lastTask.id)
+        browserUI.closeTask(thisTask)
+      }
     })
-    item.addEventListener('click', function (e) {
-      var thisTask = tasks.getSelected().id
-      browserUI.switchToTask(lastTask.id)
-      browserUI.closeTask(thisTask)
-    })
+
     container.appendChild(item)
   }
 })

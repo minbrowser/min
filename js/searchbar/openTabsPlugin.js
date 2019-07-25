@@ -61,9 +61,7 @@ var searchOpenTabs = function (text, input, event, container) {
       data.metadata = [taskName]
     }
 
-    var item = searchbarUtils.createItem(data)
-
-    item.addEventListener('click', function () {
+    data.click = function () {
       // if we created a new tab but are switching away from it, destroy the current (empty) tab
       var currentTabUrl = tabs.get(tabs.getSelected()).url
       if (!currentTabUrl) {
@@ -75,7 +73,9 @@ var searchOpenTabs = function (text, input, event, container) {
       }
 
       browserUI.switchToTab(match.tab.id)
-    })
+    }
+
+    var item = searchbarUtils.createItem(data)
 
     container.appendChild(item)
   })

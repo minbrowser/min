@@ -69,7 +69,7 @@ function showSearchbarPlaceResults (text, input, event, container, pluginName = 
           searchbarPlugins.setTopAnswer(pluginName, searchbarUtils.createItem({
             title: domain,
             url: domain,
-            classList: ['fakefocus']
+            fakeFocus: true
           }))
         }
       }
@@ -85,7 +85,7 @@ function showSearchbarPlaceResults (text, input, event, container, pluginName = 
         var query = searchEngine.getSearch(result.url)
         data.title = query.search
         data.secondaryText = query.engine
-        data.icon = "fa-search"
+        data.icon = 'fa-search'
       } else {
         data.title = urlParser.prettyURL(urlParser.getSourceURL(result.url))
         data.secondaryText = searchbarUtils.getRealTitle(result.title)
@@ -109,12 +109,15 @@ function showSearchbarPlaceResults (text, input, event, container, pluginName = 
         }
       }
 
+      if (autocompletionType === 1) {
+        data.fakeFocus = true
+      }
+
       // create the item
 
       var item = searchbarUtils.createItem(data)
 
       if (autocompletionType === 1) { // if this exact URL was autocompleted, show the item as the top answer
-        item.classList.add('fakefocus')
         searchbarPlugins.setTopAnswer(pluginName, item)
       } else {
         container.appendChild(item)

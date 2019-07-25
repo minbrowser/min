@@ -107,7 +107,7 @@ var readerView = {
           title: article.article.title,
           descriptionBlock: article.article.excerpt,
           url: readerView.getReaderURL(article.url),
-          classList: (filterText && idx === 0 ? ['fakefocus'] : null),
+          fakeFocus: filterText && idx === 0,
           delete: function (el) {
             db.readingList.where('url').equals(article.url).delete()
           }
