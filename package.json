@@ -22,7 +22,7 @@
     "electron": "^6.0.0-beta.15",
     "electron-installer-redhat": "^2.0.0",
     "electron-installer-windows": "^1.1.1",
-    "electron-packager": "^13.1.1",
+    "electron-packager": "^14.0.3",
     "electron-renderify": "0.0.2",
     "standard": "^7.1.0"
   },
