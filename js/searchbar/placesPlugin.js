@@ -5,6 +5,7 @@ var searchbarAutocomplete = require('searchbar/searchbarAutocomplete.js')
 var urlParser = require('util/urlParser.js')
 
 var places = require('places/places.js')
+var searchEngine = require('util/searchEngine.js')
 
 var currentResponseSent = 0
 
@@ -74,12 +75,20 @@ function showSearchbarPlaceResults (text, input, event, container, pluginName = 
       }
 
       var data = {
-        title: urlParser.prettyURL(urlParser.getSourceURL(result.url)),
-        secondaryText: searchbarUtils.getRealTitle(result.title),
         url: result.url,
         delete: function () {
           places.deleteHistory(result.url)
         }
+      }
+
+      if (searchEngine.isSearchURL(result.url)) {
+        var query = searchEngine.getSearch(result.url)
+        data.title = query.search
+        data.secondaryText = query.engine
+        data.icon = "fa-search"
+      } else {
+        data.title = urlParser.prettyURL(urlParser.getSourceURL(result.url))
+        data.secondaryText = searchbarUtils.getRealTitle(result.title)
       }
 
       // show a star for bookmarked items
