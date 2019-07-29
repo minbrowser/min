@@ -128,6 +128,7 @@
         },
         "settingsAppearanceHeading": "Apariencia",
         "settingsDarkModeToggle": "Habilitar modo oscuro",
+        "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Habilitar botón Atrás",
         "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsUserscriptsToggle": null, //missing translation

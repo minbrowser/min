@@ -128,6 +128,7 @@
         },
         "settingsAppearanceHeading": "Зовнішній вигляд",
         "settingsDarkModeToggle": "Увімкнути темний режим",
+        "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Увімкнути кнопку \"Назад\"",
         "settingsAdditionalFeaturesHeading": "Додаткові можливості",
         "settingsUserscriptsToggle": "Увімкнути скрипти користувача",

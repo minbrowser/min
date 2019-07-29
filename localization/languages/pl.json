@@ -128,6 +128,7 @@
         },
         "settingsAppearanceHeading": "Wygląd",
         "settingsDarkModeToggle": "Włącz tryb ciemny",
+        "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Włącz przycisk Wstecz",
         "settingsAdditionalFeaturesHeading": "Dodatkowe funkcje",
         "settingsUserscriptsToggle": "Włącz skrypty użytkownika",

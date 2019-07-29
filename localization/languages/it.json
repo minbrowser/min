@@ -128,6 +128,7 @@
         },
         "settingsAppearanceHeading": "Aspetto",
         "settingsDarkModeToggle": "Abilita dark mode",
+        "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Abilita pulsante Indietro",
         "settingsAdditionalFeaturesHeading": "Funzionalità aggiuntive",
         "settingsUserscriptsToggle": "Abilita script definiti dall'utente",

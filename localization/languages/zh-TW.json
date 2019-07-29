@@ -128,6 +128,7 @@
         },
         "settingsAppearanceHeading": "外觀",
         "settingsDarkModeToggle": "啟用夜間模式",
+        "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "啟用返回鍵",
         "settingsAdditionalFeaturesHeading": "其他功能",
         "settingsUserscriptsToggle": "允許使用者指令",

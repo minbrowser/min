@@ -125,6 +125,7 @@
         },
         "settingsAppearanceHeading": "Vzhled",
         "settingsDarkModeToggle": "Použít tmavý režim",
+        "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Zobrazit tlačítko zpět",
         "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsUserscriptsToggle": null, //missing translation

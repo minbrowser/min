@@ -128,6 +128,7 @@
         },
         "settingsAppearanceHeading": "Aparência",
         "settingsDarkModeToggle": "Ativar modo escuro",
+        "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Ativar botão para recuar",
         "settingsAdditionalFeaturesHeading": "Outras funcionalidades",
         "settingsUserscriptsToggle": "Ativar scripts de utilizador",

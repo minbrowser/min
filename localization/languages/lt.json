@@ -128,6 +128,7 @@
         },
         "settingsAppearanceHeading": "Išvaizda",
         "settingsDarkModeToggle": "Įjungti tamsią veikseną",
+        "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Įjungti grįžties mygtuką",
         "settingsAdditionalFeaturesHeading": "Papildomos ypatybės",
         "settingsUserscriptsToggle": "Įjungti naudotojo scenarijus",

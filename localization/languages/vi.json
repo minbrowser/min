@@ -124,6 +124,7 @@
         },
         "settingsAppearanceHeading": "Giao diện",
         "settingsDarkModeToggle": "Bật chế độ tối",
+        "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Bật nút đi lại trang trước",
         "settingsAdditionalFeaturesHeading": "Đặc tính hơn",
         "settingsUserscriptsToggle": "Bật mã script người dùng",

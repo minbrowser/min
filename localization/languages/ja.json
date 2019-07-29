@@ -128,6 +128,7 @@
         },
         "settingsAppearanceHeading": "外観",
         "settingsDarkModeToggle": "ダークモードを使用",
+        "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "戻るボタンを使用",
         "settingsAdditionalFeaturesHeading": "追加機能",
         "settingsUserscriptsToggle": "ユーザースクリプトを有効にする",

@@ -128,6 +128,7 @@
         },
         "settingsAppearanceHeading": "외모",
         "settingsDarkModeToggle": "어두운 모드 사용",
+        "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "뒤로 버튼 사용",
         "settingsAdditionalFeaturesHeading": "추가 기능",
         "settingsUserscriptsToggle": "사용자 스크립트 사용",

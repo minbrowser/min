@@ -128,6 +128,7 @@
             },
         "settingsAppearanceHeading": "تفضيلات",
         "settingsDarkModeToggle": "تشغيل الوضع الليلي",
+        "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "تمكين زر العودة",
         "settingsAdditionalFeaturesHeading": "مميزات اضافية",
         "settingsUserscriptsToggle": "تمكين سكريبت المستخدم",
