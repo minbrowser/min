@@ -1,6 +1,12 @@
-var iconElement = document.getElementById('page-icon')
+var metaThemeElement = document.getElementById('meta-theme')
 
 var themeSelectors = document.querySelectorAll('.theme-circle')
+
+var metaThemeValues = {
+  light: '#fff',
+  dark: 'rgb(36, 41, 47)',
+  sepia: 'rgb(245, 237, 220)'
+}
 
 function isNight () {
   var hours = new Date().getHours()
@@ -13,7 +19,7 @@ function setTheme (theme) {
     rframe.contentDocument.body.setAttribute('theme', theme)
   }
 
-  iconElement.href = theme + 'Favicon.png'
+  metaThemeElement.content = metaThemeValues[theme]
 
   themeSelectors.forEach(function (el) {
     if (el.getAttribute('data-theme') === theme) {
