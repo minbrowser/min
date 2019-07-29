@@ -9,9 +9,7 @@ var searchEngine = require('util/searchEngine.js')
 
 var currentResponseSent = 0
 
-var previousPlacesResults = {} // used to avoid duplicating results between places and fullTextPlaces
-
-function showSearchbarPlaceResults (text, input, event, container, pluginName = 'places') {
+function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
   var responseSent = Date.now()
 
   if (pluginName === 'fullTextPlaces') {
@@ -33,24 +31,7 @@ function showSearchbarPlaceResults (text, input, event, container, pluginName = 
 
     currentResponseSent = responseSent
 
-    // remove a previous top answer
-
-    var placesTopAnswer = searchbarPlugins.getTopAnswer(pluginName)
-
-    if (placesTopAnswer && !hasAutocompleted) {
-      placesTopAnswer.remove()
-    }
-
-    // clear previous results
-    empty(container)
-
-    if (pluginName === 'fullTextPlaces') {
-      // avoid showing results that are already being shown by the regular places plugin
-      // this assumes that places runs before fullTextPlaces
-      if (previousPlacesResults.text === text) {
-        results = results.filter(r => previousPlacesResults.results.indexOf(r.url) === -1)
-      }
-    }
+    searchbarPlugins.reset(pluginName)
 
     results = results.slice(0, resultCount)
 
@@ -66,11 +47,11 @@ function showSearchbarPlaceResults (text, input, event, container, pluginName = 
         if (autocompletionType === 0) { // the domain was autocompleted, show a domain result item
           var domain = new URL(result.url).hostname
 
-          searchbarPlugins.setTopAnswer(pluginName, searchbarUtils.createItem({
+          searchbarPlugins.setTopAnswer(pluginName, {
             title: domain,
             url: domain,
             fakeFocus: true
-          }))
+          })
         }
       }
 
@@ -115,19 +96,12 @@ function showSearchbarPlaceResults (text, input, event, container, pluginName = 
 
       // create the item
 
-      var item = searchbarUtils.createItem(data)
-
       if (autocompletionType === 1) { // if this exact URL was autocompleted, show the item as the top answer
-        searchbarPlugins.setTopAnswer(pluginName, item)
+        searchbarPlugins.setTopAnswer(pluginName, data)
       } else {
-        container.appendChild(item)
+        searchbarPlugins.addResult(pluginName, data)
       }
     })
-
-    searchbarPlugins.addResults(pluginName, results.length)
-    if (pluginName === 'places') {
-      previousPlacesResults = {text, results: results.map(r => r.url)}
-    }
   })
 }
 
@@ -149,7 +123,7 @@ searchbarPlugins.register('fullTextPlaces', {
       showSearchbarPlaceResults.apply(this, Array.from(arguments).concat('fullTextPlaces'))
     } else {
       // can't show results, clear any previous ones
-      empty(arguments[3])
+      searchbarPlugins.reset('fullTextPlaces')
     }
   }, 200)
 })

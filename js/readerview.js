@@ -2,6 +2,7 @@ var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var searchbar = require('searchbar/searchbar.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var urlParser = require('util/urlParser.js')
 
 var readerDecision = require('readerDecision.js')
@@ -90,20 +91,18 @@ var readerView = {
   },
   showReadingList: function (container, filterText) {
     readerView.searchForArticles(filterText, function (articles) {
-      empty(container)
+      searchbarPlugins.reset('bangs')
 
       if (articles.length === 0) {
-        var item = searchbarUtils.createItem({
+        searchbarPlugins.addResult('bangs', {
           title: l('emptyReadingListTitle'),
           descriptionBlock: l('emptyReadingListSubtitle')
         })
-
-        container.appendChild(item)
         return
       }
 
       articles.forEach(function (article, idx) {
-        var item = searchbarUtils.createItem({
+        var data = {
           title: article.article.title,
           descriptionBlock: article.article.excerpt,
           url: readerView.getReaderURL(article.url),
@@ -111,13 +110,13 @@ var readerView = {
           delete: function (el) {
             db.readingList.where('url').equals(article.url).delete()
           }
-        })
-
-        if (article.visitCount > 5 || (article.extraData.scrollPosition > 0 && article.extraData.articleScrollLength - article.extraData.scrollPosition < 1000)) { // the article has been visited frequently, or the scroll position is at the bottom
-          item.style.opacity = 0.65
         }
 
-        container.appendChild(item)
+        if (article.visitCount > 5 || (article.extraData.scrollPosition > 0 && article.extraData.articleScrollLength - article.extraData.scrollPosition < 1000)) { // the article has been visited frequently, or the scroll position is at the bottom
+          data.opacity = 0.65
+        }
+
+        searchbarPlugins.addResult('bangs', data)
       })
     })
   }

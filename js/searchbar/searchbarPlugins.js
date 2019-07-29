@@ -1,113 +1,176 @@
 var searchbar = document.getElementById('searchbar')
+var searchbarUtils = require('searchbar/searchbarUtils.js')
 
-var searchbarPlugins = [] // format is {name, container, trigger, showResults}
-var URLHandlers = [] // format is {trigger, action}
-var resultCounts = {}; // format is {pluginName: count}
 var topAnswerArea = searchbar.querySelector('.top-answer-area')
 
-// empties all containers in the searchbar
-function clearAll () {
-  empty(topAnswerArea)
-  for (var i = 0; i < searchbarPlugins.length; i++) {
-    empty(searchbarPlugins[i].container)
-  }
+var plugins = [] // format is {name, container, trigger, showResults}
+var results = {}; // format is {pluginName: [results]}
+var URLOpener
+var URLHandlers = [] // format is {trigger, action}
+
+var topAnswer = {
+  plugin: null,
+  item: null
 }
 
-function getTopAnswer (pluginName) {
-  if (pluginName) {
-    // TODO a template string would be useful here, but UglifyJS doesn't support them yet
-    return topAnswerArea.querySelector('[data-plugin={plugin}]'.replace('{plugin}', pluginName))
-  } else {
-    return topAnswerArea.firstChild
-  }
-}
-
-function setTopAnswer (pluginName, item) {
-  empty(topAnswerArea)
-  if (item) {
-    item.setAttribute('data-plugin', pluginName)
-    topAnswerArea.appendChild(item)
-  }
-}
-
-function getContainer (pluginName) {
-  for (var i = 0; i < searchbarPlugins.length; i++) {
-    if (searchbarPlugins[i].name === pluginName) {
-      return searchbarPlugins[i].container
+const searchbarPlugins = {
+  // empties all containers in the searchbar
+  clearAll: function () {
+    empty(topAnswerArea)
+    topAnswer = {
+      plugin: null,
+      item: null
     }
-  }
-  return null
-}
+    for (var i = 0; i < plugins.length; i++) {
+      empty(plugins[i].container)
+    }
+  },
 
-function register (name, object) {
-  // add the container
-  var container = document.createElement('div')
-  container.classList.add('searchbar-plugin-container')
-  container.setAttribute('data-plugin', name)
-  searchbar.insertBefore(container, searchbar.childNodes[object.index + 1])
+  reset: function (pluginName) {
+    empty(searchbarPlugins.getContainer(pluginName))
 
-  searchbarPlugins.push({
-    name: name,
-    container: container,
-    trigger: object.trigger,
-    showResults: object.showResults
-  })
-}
+    var ta = searchbarPlugins.getTopAnswer(pluginName)
+    if (ta) {
+      ta.remove()
+      topAnswer = {
+        plugin: null,
+        item: null
+      }
+    }
 
-function run (text, input, event) {
-  resultCounts = {}
+    results[pluginName] = []
+  },
 
-  for (var i = 0; i < searchbarPlugins.length; i++) {
-    try {
-      if ( (!searchbarPlugins[i].trigger || searchbarPlugins[i].trigger(text))) {
-        searchbarPlugins[i].showResults(text, input, event, searchbarPlugins[i].container)
+  getTopAnswer: function (pluginName) {
+    if (pluginName) {
+      if (topAnswer.plugin === pluginName) {
+        return topAnswer.item
       } else {
-        empty(searchbarPlugins[i].container)
+        return null
+      }
+    } else {
+      return topAnswerArea.firstChild
+    }
+  },
 
-        // if the plugin is not triggered, remove a previously created top answer
-        var associatedTopAnswer = getTopAnswer(searchbarPlugins[i].name)
+  setTopAnswer: function (pluginName, data) {
+    empty(topAnswerArea)
 
-        if (associatedTopAnswer) {
-          associatedTopAnswer.remove()
+    var item = searchbarUtils.createItem(data)
+    item.setAttribute('data-plugin', pluginName)
+    item.setAttribute('data-url', data.url)
+    topAnswerArea.appendChild(item)
+
+    item.addEventListener('click', function (e) {
+      URLOpener(data.url, e)
+    })
+
+    topAnswer = {
+      plugin: pluginName,
+      item: item
+    }
+
+    results[pluginName].push(data)
+  },
+
+  addResult: function (pluginName, data, options = {}) {
+    if (options.allowDuplicates) {
+      data.allowDuplicates = true
+    }
+    if (data.url && !data.allowDuplicates) {
+      // skip duplicates
+      for (var plugin in results) {
+        for (var i = 0; i < results[plugin].length; i++) {
+          if (results[plugin][i].url === data.url && !results[plugin][i].allowDuplicates) {
+            return
+          }
         }
       }
-    } catch(e) {
-      console.error('error in searchbar plugin "' + searchbarPlugins[i].name + '":', e)
     }
-  }
-}
+    var item = searchbarUtils.createItem(data)
+    item.setAttribute('data-url', data.url)
 
-function registerURLHandler (handler) {
-  URLHandlers.push(handler)
-}
+    item.addEventListener('click', function (e) {
+      URLOpener(data.url, e)
+    })
 
-function runURLHandlers (text) {
-  for (var i = 0; i < URLHandlers.length; i++) {
-    if (URLHandlers[i](text)) {
-      return true
+    searchbarPlugins.getContainer(pluginName).appendChild(item)
+
+    results[pluginName].push(data)
+  },
+
+  addHeading: function (pluginName, data) {
+    searchbarPlugins.getContainer(pluginName).appendChild(searchbarUtils.createHeading(data))
+  },
+
+  getContainer: function (pluginName) {
+    for (var i = 0; i < plugins.length; i++) {
+      if (plugins[i].name === pluginName) {
+        return plugins[i].container
+      }
     }
-  }
-  return false
-}
+    return null
+  },
 
-function getResultCount (pluginName) {
-  if (pluginName) {
-    return resultCounts[pluginName] || 0
-  } else {
-    var resultCount = 0
-    for (var plugin in resultCounts) {
-      resultCount += resultCounts[plugin]
+  register: function (name, object) {
+    // add the container
+    var container = document.createElement('div')
+    container.classList.add('searchbar-plugin-container')
+    container.setAttribute('data-plugin', name)
+    searchbar.insertBefore(container, searchbar.childNodes[object.index + 1])
+
+    plugins.push({
+      name: name,
+      container: container,
+      trigger: object.trigger,
+      showResults: object.showResults
+    })
+
+    results[name] = []
+  },
+
+  run: function (text, input, event) {
+    for (var i = 0; i < plugins.length; i++) {
+      try {
+        if ( (!plugins[i].trigger || plugins[i].trigger(text))) {
+          plugins[i].showResults(text, input, event)
+        } else {
+          searchbarPlugins.reset(plugins[i].name)
+        }
+      } catch(e) {
+        console.error('error in searchbar plugin "' + plugins[i].name + '":', e)
+      }
     }
-    return resultCount
+  },
+
+  registerURLHandler: function (handler) {
+    URLHandlers.push(handler)
+  },
+
+  runURLHandlers: function (text) {
+    for (var i = 0; i < URLHandlers.length; i++) {
+      if (URLHandlers[i](text)) {
+        return true
+      }
+    }
+    return false
+  },
+
+  getResultCount: function (pluginName) {
+    if (pluginName) {
+      return results[pluginName].length
+    } else {
+      var resultCount = 0
+      for (var plugin in results) {
+        resultCount += results[plugin].length
+      }
+      return resultCount
+    }
+  },
+
+  initialize: function (opener) {
+    URLOpener = opener
   }
 }
 
-function addResults (pluginName, ct) {
-  if (resultCounts[pluginName]) {
-    resultCounts[pluginName] += ct
-  } else {
-    resultCounts[pluginName] = ct
-  }
-}
-
-module.exports = {clearAll, getTopAnswer, setTopAnswer, getContainer, register, run, registerURLHandler, runURLHandlers, getResultCount, addResults}
+module.exports = searchbarPlugins

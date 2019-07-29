@@ -8,8 +8,8 @@ searchbarPlugins.register('restoreTask', {
   trigger: function (text) {
     return !text && performance.now() < 5000 && tasks.getSelected().tabs.isEmpty() && window.createdNewTaskOnStartup
   },
-  showResults: function (text, input, event, container) {
-    empty(container)
+  showResults: function (text, input, event) {
+    searchbarPlugins.reset('restoreTask')
 
     var lastTask = tasks.slice().sort((a, b) => {
       return tasks.getLastActivity(b.id) - tasks.getLastActivity(a.id)})[1]
@@ -23,7 +23,7 @@ searchbarPlugins.register('restoreTask', {
       var title = l('taskDescriptionThree').replace('%t', searchbarUtils.getRealTitle(recentTabs[0].title) || l('newTabLabel')).replace('%t', searchbarUtils.getRealTitle(recentTabs[1].title) || l('newTabLabel')).replace('%n', (lastTask.tabs.count() - 2))
     }
 
-    var item = searchbarUtils.createItem({
+    searchbarPlugins.addResult('restoreTask', {
       title: title,
       descriptionBlock: l('returnToTask'),
       click: function (e) {
@@ -32,7 +32,5 @@ searchbarPlugins.register('restoreTask', {
         browserUI.closeTask(thisTask)
       }
     })
-
-    container.appendChild(item)
   }
 })
