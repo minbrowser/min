@@ -382,7 +382,7 @@ settings.get('keyMap', function (keyMapSettings) {
 
   for (var i = 1; i < 10; i++) {
     (function (i) {
-      defineShortcut({keys: 'option+mod+' + i}, function (e) {
+      defineShortcut({keys: 'shift+option+mod+' + i}, function (e) {
         const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id));
         if (taskSwitchList[i - 1]) {
           browserUI.switchToTask(taskSwitchList[i - 1].id)
