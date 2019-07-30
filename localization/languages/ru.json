@@ -128,7 +128,7 @@
         },
         "settingsAppearanceHeading": "Внешний вид",
         "settingsDarkModeToggle": "Использовать тёмную тему",
-        "settingsSiteThemeToggle": null, //missing translation
+        "settingsSiteThemeToggle": "Использовать тему сайта",
         "settingsHistoryButtonToggle": "История",
         "settingsAdditionalFeaturesHeading": "Дополнительные возможности",
         "settingsUserscriptsToggle": "Пользовательские скрипты",
