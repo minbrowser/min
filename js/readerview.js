@@ -89,7 +89,7 @@ var readerView = {
       cb(results)
     })
   },
-  showReadingList: function (container, filterText) {
+  showReadingList: function (filterText) {
     readerView.searchForArticles(filterText, function (articles) {
       searchbarPlugins.reset('bangs')
 
@@ -130,8 +130,8 @@ registerCustomBang({
   phrase: '!readinglist',
   snippet: l('viewReadingList'),
   isAction: false,
-  showSuggestions: function (text, input, event, container) {
-    readerView.showReadingList(container, text)
+  showSuggestions: function (text, input, event) {
+    readerView.showReadingList(text)
   },
   fn: function (text) {
     readerView.searchForArticles(text, function (articles) {
