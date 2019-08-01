@@ -12,7 +12,6 @@ data:
 title: string - the title of the item
 metadata: array - a list of strings to include (separated by hyphens) in front of the secondary text
 secondaryText: string - the item's secondary text
-url: string - the item's url (if there is one).
 icon: string - the name of a font awesome icon.
 image: string - the URL of an image to show
 iconImage: string - the URL of an image to show as an icon
@@ -22,7 +21,9 @@ delete: function - a function to call to delete the result item when a left swip
 showDeleteButton - whether to show an [x] button that calls the delete function
 button: {icon: string, fn: function} a button that will appear to the right of the item (if showDeleteButton is false)
 classList: array - a list of classes to add to the item
-fakeFocus - boolean - whether the item should appear to be focused
+fakeFocus - boolean - whether the item should appear to be focused,
+colorCircle - string - display a color circle with a given color
+opacity - number - the opacity of the item
 */
 
 function createItem (data) {
@@ -39,6 +40,18 @@ function createItem (data) {
 
   if (data.fakeFocus) {
     item.classList.add('fakefocus')
+  }
+
+  if (data.opacity) {
+    item.style.opacity = data.opacity
+  }
+
+  if (data.colorCircle) {
+    var colorCircle = document.createElement('div')
+    colorCircle.className = 'image color-circle'
+    colorCircle.style.backgroundColor = data.colorCircle
+
+    item.appendChild(colorCircle)
   }
 
   if (data.icon) {

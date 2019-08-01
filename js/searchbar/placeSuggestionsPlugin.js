@@ -4,7 +4,7 @@ var urlParser = require('util/urlParser.js')
 
 var places = require('places/places.js')
 
-function showPlaceSuggestions (text, input, event, container) {
+function showPlaceSuggestions (text, input, event) {
   // use the current tab's url for history suggestions, or the previous tab if the current tab is empty
   var url = tabs.get(tabs.getSelected()).url
 
@@ -16,7 +16,7 @@ function showPlaceSuggestions (text, input, event, container) {
   }
 
   places.getPlaceSuggestions(url, function (results) {
-    empty(container)
+    searchbarPlugins.reset('placeSuggestions')
 
     var tabList = tabs.get().map(function (tab) {
       return tab.url
@@ -27,7 +27,7 @@ function showPlaceSuggestions (text, input, event, container) {
     })
 
     results.slice(0, 4).forEach(function (result) {
-      var item = searchbarUtils.createItem({
+      searchbarPlugins.addResult('placeSuggestions', {
         title: urlParser.prettyURL(result.url),
         secondaryText: searchbarUtils.getRealTitle(result.title),
         url: result.url,
@@ -35,8 +35,6 @@ function showPlaceSuggestions (text, input, event, container) {
           places.deleteHistory(result.url)
         }
       })
-
-      container.appendChild(item)
     })
   })
 }

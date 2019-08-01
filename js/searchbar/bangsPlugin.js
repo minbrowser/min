@@ -1,5 +1,4 @@
 var searchbar = require('searchbar/searchbar.js')
-var searchbarUtils = require('searchbar/searchbarUtils.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var searchbarAutocomplete = require('searchbar/searchbarAutocomplete.js')
 
@@ -69,8 +68,8 @@ function incrementBangCount (bang) {
 }
 
 // results is an array of {phrase, snippet, image}
-function showBangSearchResults (text, results, input, event, container, limit = 5) {
-  empty(container)
+function showBangSearchResults (text, results, input, event, limit = 5) {
+  searchbarPlugins.reset('bangs')
 
   results.sort(function (a, b) {
     var aScore = a.score || 1
@@ -112,18 +111,16 @@ function showBangSearchResults (text, results, input, event, container, limit = 
 
         // show search suggestions for custom bangs
         if (result.showSuggestions) {
-          result.showSuggestions('', input, event, container)
+          result.showSuggestions('', input, event)
         }
       }, 66)
     }
 
-    var item = searchbarUtils.createItem(data)
-
-    container.appendChild(item)
+    searchbarPlugins.addResult('bangs', data)
   })
 }
 
-function getBangSearchResults (text, input, event, container) {
+function getBangSearchResults (text, input, event) {
 
   // if there is a space in the text, show bang search suggestions (only supported for custom bangs)
 
@@ -131,10 +128,10 @@ function getBangSearchResults (text, input, event, container) {
     var bang = getCustomBang(text)
 
     if (bang && bang.showSuggestions) {
-      bang.showSuggestions(text.replace(bang.phrase, '').trimLeft(), input, event, container)
+      bang.showSuggestions(text.replace(bang.phrase, '').trimLeft(), input, event)
       return
     } else if (text.trim().indexOf(' ') !== -1) {
-      empty(container)
+      searchbarPlugins.reset('bangs')
       return
     }
   }
@@ -163,16 +160,16 @@ function getBangSearchResults (text, input, event, container) {
   resultsPromise.then(function (results) {
     results = results.concat(searchCustomBangs(text))
     if (text === '!') {
-      showBangSearchResults(text, results, input, event, container, 4)
-      container.appendChild(searchbarUtils.createItem({
+      showBangSearchResults(text, results, input, event, 4)
+      searchbarPlugins.addResult('bangs', {
         title: l('showMoreBangs'),
         icon: 'fa-angle-down',
         click: function () {
-          showBangSearchResults(text, results, input, event, container, 20)
+          showBangSearchResults(text, results, input, event, 20)
         }
-      }))
+      })
     } else {
-      showBangSearchResults(text, results, input, event, container)
+      showBangSearchResults(text, results, input, event)
 
       if (results[0] && event.keyCode !== 8) {
         searchbarAutocomplete.autocomplete(input, [results[0].phrase])

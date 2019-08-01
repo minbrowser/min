@@ -1,26 +1,20 @@
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
-var searchbarUtils = require('searchbar/searchbarUtils.js')
 
 var urlParser = require('util/urlParser.js')
 var searchEngine = require('util/searchEngine.js')
 
 var ddgAttribution = l('resultsFromDDG')
 
-function showSearchSuggestions (text, input, event, container) {
+function showSearchSuggestions (text, input, event) {
   // TODO support search suggestions for other search engines
   if (searchEngine.getCurrent().name !== 'DuckDuckGo') {
-    return
-  }
-
-  // if the search text is a custom bang, we should never show suggestions
-  if (getCustomBang(text)) {
-    empty(container)
+    searchbarPlugins.reset('searchSuggestions')
     return
   }
 
   if (searchbarPlugins.getResultCount() > 3) {
-    empty(container)
+    searchbarPlugins.reset('searchSuggestions')
     return
   }
 
@@ -31,7 +25,7 @@ function showSearchSuggestions (text, input, event, container) {
       return response.json()
     })
     .then(function (results) {
-      empty(container)
+      searchbarPlugins.reset('searchSuggestions')
 
       if (results) {
         results = results.slice(0, 3)
@@ -47,11 +41,8 @@ function showSearchSuggestions (text, input, event, container) {
             data.icon = 'fa-search'
           }
 
-          var item = searchbarUtils.createItem(data)
-
-          container.appendChild(item)
+          var item = searchbarPlugins.addResult('searchSuggestions', data)
         })
-        searchbarPlugins.addResults('searchSuggestions', results.length)
       }
     })
 }
@@ -59,7 +50,7 @@ function showSearchSuggestions (text, input, event, container) {
 searchbarPlugins.register('searchSuggestions', {
   index: 4,
   trigger: function (text) {
-    return !!text && (text.indexOf('!') !== 0 || text.trim().indexOf(' ') !== -1) && !tabs.get(tabs.getSelected()).private
+    return !!text && text.indexOf('!') !== 0 && !tabs.get(tabs.getSelected()).private
   },
   showResults: debounce(showSearchSuggestions, 150)
 })

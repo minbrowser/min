@@ -3,7 +3,7 @@ var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
 var searchbar = require('searchbar/searchbar.js')
-var searchbarUtils = require('searchbar/searchbarUtils.js')
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var places = require('places/places.js')
 const formatRelativeDate = require('util/relativeDate.js')
 
@@ -201,9 +201,9 @@ registerCustomBang({
   phrase: '!bookmarks',
   snippet: l('searchBookmarks'),
   isAction: false,
-  showSuggestions: function (text, input, event, container) {
+  showSuggestions: function (text, input, event) {
     places.searchPlaces(text, function (results) {
-      empty(container)
+      searchbarPlugins.reset('bangs')
 
       var lastRelativeDate = '' // used to generate headings
 
@@ -213,11 +213,10 @@ registerCustomBang({
       }).forEach(function (result, index) {
         var thisRelativeDate = formatRelativeDate(result.lastVisit)
         if (thisRelativeDate !== lastRelativeDate) {
-          var heading = searchbarUtils.createHeading({text: thisRelativeDate})
-          container.appendChild(heading)
+          searchbarPlugins.addHeading('bangs', {text: thisRelativeDate})
           lastRelativeDate = thisRelativeDate
         }
-        container.appendChild(searchbarUtils.createItem({
+        searchbarPlugins.addResult('bangs', {
           title: result.title,
           icon: 'fa-star',
           secondaryText: urlParser.getSourceURL(result.url),
@@ -227,7 +226,7 @@ registerCustomBang({
             places.deleteHistory(result.url)
           },
           showDeleteButton: true
-        }))
+        })
       })
     }, {searchBookmarks: true, limit: (text ? 100 : Infinity)})
   },
@@ -250,9 +249,9 @@ registerCustomBang({
   phrase: '!history',
   snippet: l('searchHistory'),
   isAction: false,
-  showSuggestions: function (text, input, event, container) {
+  showSuggestions: function (text, input, event) {
     places.searchPlaces(text, function (results) {
-      empty(container)
+      searchbarPlugins.reset('bangs')
 
       var lastRelativeDate = '' // used to generate headings
 
@@ -262,11 +261,10 @@ registerCustomBang({
       }).slice(0, 250).forEach(function (result, index) {
         var thisRelativeDate = formatRelativeDate(result.lastVisit)
         if (thisRelativeDate !== lastRelativeDate) {
-          var heading = searchbarUtils.createHeading({text: thisRelativeDate})
-          container.appendChild(heading)
+          searchbarPlugins.addHeading('bangs', {text: thisRelativeDate})
           lastRelativeDate = thisRelativeDate
         }
-        container.appendChild(searchbarUtils.createItem({
+        searchbarPlugins.addResult('bangs', {
           title: result.title,
           secondaryText: urlParser.getSourceURL(result.url),
           fakeFocus: index === 0 && text,
@@ -275,7 +273,7 @@ registerCustomBang({
             places.deleteHistory(result.url)
           },
           showDeleteButton: true
-        }))
+        })
       })
     }, {limit: Infinity})
   },

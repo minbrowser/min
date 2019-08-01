@@ -1,13 +1,10 @@
 var webviews = require('webviews.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
-var searchbarUtils = require('searchbar/searchbarUtils.js')
 
 // when we get keywords data from the page, show those results in the searchbar
 
 webviews.bindIPC('keywordsData', function (webview, tabId, args) {
-  var container = searchbarPlugins.getContainer('keywordSuggestions')
-
-  empty(container)
+  searchbarPlugins.reset('keywordSuggestions')
 
   if (tabs.get(tabs.getSelected()).url) {
     var entities = args[0].entities.slice(0, 5)
@@ -16,13 +13,11 @@ webviews.bindIPC('keywordsData', function (webview, tabId, args) {
   }
 
   entities.forEach(function (item) {
-    var div = searchbarUtils.createItem({
+    searchbarPlugins.addResult('keywordSuggestions', {
       icon: 'fa-search',
       title: item,
       url: item
     })
-
-    container.appendChild(div)
   })
 })
 

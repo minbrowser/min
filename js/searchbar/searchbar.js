@@ -108,4 +108,6 @@ searchbar.el.addEventListener('keydown', function (e) {
   }
 })
 
+searchbarPlugins.initialize(searchbar.openURL)
+
 module.exports = searchbar

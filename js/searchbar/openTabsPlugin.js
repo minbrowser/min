@@ -1,12 +1,11 @@
 var browserUI = require('browserUI.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
-var searchbarUtils = require('searchbar/searchbarUtils.js')
 var urlParser = require('util/urlParser.js')
 
 var stringScore = require('string_score')
 
-var searchOpenTabs = function (text, input, event, container) {
-  empty(container)
+var searchOpenTabs = function (text, input, event) {
+  searchbarPlugins.reset('openTabs')
 
   var matches = []
   var searchText = text.toLowerCase()
@@ -75,12 +74,8 @@ var searchOpenTabs = function (text, input, event, container) {
       browserUI.switchToTab(match.tab.id)
     }
 
-    var item = searchbarUtils.createItem(data)
-
-    container.appendChild(item)
+    searchbarPlugins.addResult('openTabs', data)
   })
-
-  searchbarPlugins.addResults('openTabs', finalMatches.length)
 }
 
 searchbarPlugins.register('openTabs', {

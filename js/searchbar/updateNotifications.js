@@ -3,7 +3,6 @@ const UPDATE_URL = 'https://minbrowser.github.io/min/updates/latestVersion.json'
 var settings = require('util/settings/settings.js')
 
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
-var searchbarUtils = require('searchbar/searchbarUtils.js')
 
 function compareVersions (v1, v2) {
   /*
@@ -50,10 +49,9 @@ function getAvailableUpdates () {
         .then(res => res.json())
         .then(function (response) {
           console.info('got response from update check', response)
-          if (response.version && 
-            compareVersions(remote.app.getVersion(), response.version) > 0 && 
-            (!response.availabilityPercent || getUpdateRandomNum() < response.availabilityPercent)) 
-            {
+          if (response.version &&
+            compareVersions(remote.app.getVersion(), response.version) > 0 &&
+            (!response.availabilityPercent || getUpdateRandomNum() < response.availabilityPercent)) {
             console.info('an update is available')
             localStorage.setItem('availableUpdate', JSON.stringify(response))
           } else {
@@ -71,15 +69,15 @@ function getAvailableUpdates () {
   })
 }
 
-function showUpdateNotification (text, input, event, container) {
+function showUpdateNotification (text, input, event) {
   function displayUpdateNotification () {
-    empty(container)
-    container.appendChild(searchbarUtils.createItem({
+    searchbarPlugins.reset('updateNotifications')
+    searchbarPlugins.addResult('updateNotifications', {
       title: l('updateNotificationTitle'),
       descriptionBlock: update.releaseHeadline || 'View release notes',
       url: update.releaseNotes,
       icon: 'fa-bell'
-    }))
+    })
   }
   // is there an update?
   var update = JSON.parse(localStorage.getItem('availableUpdate'))

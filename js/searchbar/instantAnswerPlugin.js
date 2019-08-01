@@ -1,6 +1,5 @@
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
-var searchbarUtils = require('searchbar/searchbarUtils.js')
 
 var urlParser = require('util/urlParser.js')
 var searchEngine = require('util/searchEngine.js')
@@ -9,7 +8,7 @@ function removeTags (text) {
   return text.replace(/<.*?>/g, '')
 }
 
-function showSearchbarInstantAnswers (text, input, event, container) {
+function showSearchbarInstantAnswers (text, input, event) {
   // only make requests to the DDG api if DDG is set as the search engine
   if (searchEngine.getCurrent().name !== 'DuckDuckGo') {
     return
@@ -24,11 +23,11 @@ function showSearchbarInstantAnswers (text, input, event, container) {
   fetch('https://api.duckduckgo.com/?t=min&skip_disambig=1&no_redirect=1&format=json&q=' + encodeURIComponent(text)).then(function (data) {
     return data.json()
   }).then(function (res) {
-    empty(container)
+    searchbarPlugins.reset('instantAnswers')
 
     // if there is a custom format for the answer, use that
     if (instantAnswers[res.AnswerType]) {
-      var item = instantAnswers[res.AnswerType](text, res.Answer)
+      var data = instantAnswers[res.AnswerType](text, res.Answer)
 
     // use the default format
     } else if (res.Abstract || (res.Answer && typeof res.Answer === 'string')) {
@@ -42,8 +41,6 @@ function showSearchbarInstantAnswers (text, input, event, container) {
       if (res.Image && !res.ImageIsLogo) {
         data.image = res.Image
       }
-
-      var item = searchbarUtils.createItem(data)
 
     // show a disambiguation
     } else if (res.RelatedTopics) {
@@ -63,44 +60,34 @@ function showSearchbarInstantAnswers (text, input, event, container) {
           var url = item.FirstURL
         }
 
-        var item = searchbarUtils.createItem({
+        searchbarPlugins.addResult('instantAnswers', {
           title: entityName,
           descriptionBlock: desc,
           url: url
-        })
-
-        container.appendChild(item)
+        }, {allowDuplicates: true})
       })
-
-      searchbarPlugins.addResults('instantAnswers', Math.min(res.RelatedTopics.length, 3))
     }
 
-    if (item) {
+    if (data) {
       // answers are more relevant, they should be displayed at the top
       if (res.Answer) {
-        searchbarPlugins.setTopAnswer('instantAnswers', item)
+        searchbarPlugins.setTopAnswer('instantAnswers', data)
       } else {
-        container.appendChild(item)
+        searchbarPlugins.addResult('instantAnswers', data, {allowDuplicates: true})
       }
-      searchbarPlugins.addResults('instantAnswers', 1)
     }
 
     // suggested site links
     if (searchbarPlugins.getResultCount() < 4 && res.Results && res.Results[0] && res.Results[0].FirstURL) {
       var url = res.Results[0].FirstURL
 
-      var data = {
+      searchbarPlugins.addResult('instantAnswers', {
         icon: 'fa-globe',
         title: urlParser.basicURL(url),
         secondaryText: l('suggestedSite'),
         url: url,
         classList: ['ddg-answer']
-      }
-
-      var item = searchbarUtils.createItem(data)
-
-      container.appendChild(item)
-      searchbarPlugins.addResults('instantAnswers', 1)
+      })
     }
 
     // if we're showing a location, show a "Search on OpenStreetMap" link
@@ -108,16 +95,13 @@ function showSearchbarInstantAnswers (text, input, event, container) {
     var entitiesWithLocations = ['location', 'country', 'u.s. state', 'protected area']
 
     if (entitiesWithLocations.indexOf(res.Entity) !== -1) {
-      var item = searchbarUtils.createItem({
+      searchbarPlugins.addResult('instantAnswers', {
         icon: 'fa-search',
         title: res.Heading,
         secondaryText: l('searchWith').replace('%s', 'OpenStreetMap'),
         classList: ['ddg-answer'],
         url: 'https://www.openstreetmap.org/search?query=' + encodeURIComponent(res.Heading)
       })
-
-      container.insertBefore(item, container.firstChild)
-      searchbarPlugins.addResults('instantAnswers', 1)
     }
   }).catch(function (e) {
     console.error(e)
@@ -136,43 +120,21 @@ searchbarPlugins.register('instantAnswers', {
 
 var instantAnswers = {
   color_code: function (searchText, answer) {
-    var item = searchbarUtils.createItem({
+    var data = {
       title: searchText,
       descriptionBlock: answer.replace(/\n/g, ' · ').replace(/\s~\s/g, ' · '),
       attribution: ddgAttribution
-    })
+    }
 
     var rgb = answer.split(' ~ ').filter(function (format) {
       return format.startsWith('RGBA')
     })
 
     if (rgb[0]) {
-      var colorCircle = document.createElement('div')
-      colorCircle.className = 'image color-circle'
-      colorCircle.style.backgroundColor = rgb[0]
-
-      item.insertBefore(colorCircle, item.firstChild)
+      data.colorCircle = rgb[0]
     }
 
-    return item
-  },
-  figlet: function (searchText, answer) {
-    var formattedAnswer = removeTags(answer).replace('Font: standard', '')
-
-    var item = searchbarUtils.createItem({
-      descriptionBlock: formattedAnswer,
-      attribution: ddgAttribution
-    })
-
-    var block = item.querySelector('.description-block')
-
-    // display the data correctly
-    block.style.whiteSpace = 'pre-wrap'
-    block.style.fontFamily = 'monospace'
-    block.style.maxHeight = '10em'
-    block.style.webkitUserSelect = 'auto'
-
-    return item
+    return data
   },
   currency_in: function (searchText, answer) {
     var title = ''
@@ -193,12 +155,10 @@ var instantAnswers = {
       var descriptionBlock = l('DDGAnswerSubtitle')
     }
 
-    var item = searchbarUtils.createItem({
+    return {
       title: title,
       descriptionBlock: descriptionBlock,
       attribution: ddgAttribution
-    })
-
-    return item
+    }
   }
 }
