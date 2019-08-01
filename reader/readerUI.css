@@ -32,8 +32,12 @@ body[theme="sepia"] {
 }
 
 body[theme="dark"] #auto-redirect-banner {
-	color: #ddd;
-	border-color: #aaa;
+	color: #bbb;
+	border-color: #bbb;
+}
+
+body[theme="dark"] #auto-redirect-button-area button {
+	color: dodgerblue
 }
 
 #auto-redirect-button-area {

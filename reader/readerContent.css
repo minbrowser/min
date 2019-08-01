@@ -2,7 +2,7 @@ body,
 html {
 	padding: 0;
 	margin: 0;
-	font-size: 20px;
+	font-size: 19.5px;
 	color: rgb(15, 15, 15);
 }
 
@@ -20,7 +20,7 @@ iframe {
 	display: none;
 }
 .reader-main {
-	padding-top: 1em;
+	padding: 1em;
 	max-width: 650px;
 	display: block;
 	margin: auto;
@@ -34,7 +34,7 @@ iframe {
 	display: none;
 }
 h1.article-title {
-	padding-bottom: 1rem;
+	padding-bottom: 0.5rem;
 	margin-top: 1rem;
 	margin: 0;
 	font-size: 2em;
@@ -78,7 +78,7 @@ h4 {
 	padding-bottom: 2.25rem;
 }
 .article-authors + .page {
-	padding-top: 1rem;
+	padding-top: 0.5rem;
 }
 img {
 	display: block;
@@ -143,13 +143,22 @@ blockquote {
 	display: block;
 	border-left: 1px currentColor solid;
 	padding-left: 0.5em;
-	font-size: 1.2em;
+	font-size: 1.15em;
 	line-height: 1.5em;
 	margin: 1.5em 0;
 }
 
 table {
 	border-collapse: collapse;
+}
+
+@media all and (min-width: 600px) {
+	[domain*="wikipedia.org"] table:first-child {
+		width: 50%;
+		float: right;
+		margin-left: 2em;
+		margin-bottom: 0.5em;
+	}
 }
 
 td, th {
@@ -164,6 +173,10 @@ body[theme="dark"] td, body[theme="dark"] th {
 
 td li, th li {
 	text-align: left;
+}
+
+sup {
+	font-size: 0.75em;
 }
 
 /* printing */

@@ -125,7 +125,9 @@ function startReaderView (article) {
       document.title = 'Reader View | ' + articleURL
     }
 
-    readerContent += "<div class='reader-main'>" + "<h1 class='article-title'>" + (article.title || '') + '</h1>'
+    var readerDomain = new URL(articleURL).hostname
+
+    readerContent += "<div class='reader-main' domain='" + readerDomain + "'>" + "<h1 class='article-title'>" + (article.title || '') + '</h1>'
 
     if (article.byline) {
       readerContent += "<h2 class='article-authors'>" + article.byline + '</h2>'
@@ -136,7 +138,7 @@ function startReaderView (article) {
 
   window.rframe = document.createElement('iframe')
   rframe.classList.add('reader-frame')
-  rframe.sandbox = 'allow-same-origin allow-popups allow-modals'
+  rframe.sandbox = 'allow-same-origin allow-top-navigation allow-modals'
   rframe.srcdoc = readerContent
 
   // set an initial height equal to the available space in the window
@@ -189,7 +191,7 @@ function processArticle (data) {
 
     if (links) {
       for (var i = 0; i < links.length; i++) {
-        links[i].target = '_blank'
+        links[i].target = '_top'
       }
     }
 
