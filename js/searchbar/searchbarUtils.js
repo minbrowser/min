@@ -74,14 +74,6 @@ function createItem (data) {
     item.appendChild(title)
   }
 
-  if (data.url) {
-    item.setAttribute('data-url', data.url)
-
-    item.addEventListener('click', function (e) {
-      searchbar.openURL(data.url, e)
-    })
-  }
-
   if (data.secondaryText) {
     var secondaryText = document.createElement('span')
     secondaryText.classList.add('secondary-text')

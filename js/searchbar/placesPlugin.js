@@ -105,25 +105,29 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
   })
 }
 
-searchbarPlugins.register('places', {
-  index: 1,
-  trigger: function (text) {
-    return !!text && text.indexOf('!') !== 0
-  },
-  showResults: showSearchbarPlaceResults
-})
+function initialize () {
+  searchbarPlugins.register('places', {
+    index: 1,
+    trigger: function (text) {
+      return !!text && text.indexOf('!') !== 0
+    },
+    showResults: showSearchbarPlaceResults
+  })
 
-searchbarPlugins.register('fullTextPlaces', {
-  index: 2,
-  trigger: function (text) {
-    return !!text && text.indexOf('!') !== 0
-  },
-  showResults: debounce(function () {
-    if (searchbarPlugins.getResultCount('places') < 4 && searchbar.associatedInput) {
-      showSearchbarPlaceResults.apply(this, Array.from(arguments).concat('fullTextPlaces'))
-    } else {
-      // can't show results, clear any previous ones
-      searchbarPlugins.reset('fullTextPlaces')
-    }
-  }, 200)
-})
+  searchbarPlugins.register('fullTextPlaces', {
+    index: 2,
+    trigger: function (text) {
+      return !!text && text.indexOf('!') !== 0
+    },
+    showResults: debounce(function () {
+      if (searchbarPlugins.getResultCount('places') < 4 && searchbar.associatedInput) {
+        showSearchbarPlaceResults.apply(this, Array.from(arguments).concat('fullTextPlaces'))
+      } else {
+        // can't show results, clear any previous ones
+        searchbarPlugins.reset('fullTextPlaces')
+      }
+    }, 200)
+  })
+}
+
+module.exports = {initialize}

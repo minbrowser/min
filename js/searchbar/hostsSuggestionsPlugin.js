@@ -19,10 +19,14 @@ function showHostsSuggestions (text, input, event) {
   })
 }
 
-searchbarPlugins.register('hostsSuggestions', {
-  index: 1,
-  trigger: function (text) {
-    return (hosts.length && typeof text === 'string' && text.length > 2)
-  },
-  showResults: showHostsSuggestions
-})
+function initialize () {
+  searchbarPlugins.register('hostsSuggestions', {
+    index: 1,
+    trigger: function (text) {
+      return (hosts.length && typeof text === 'string' && text.length > 2)
+    },
+    showResults: showHostsSuggestions
+  })
+}
+
+module.exports = {initialize}

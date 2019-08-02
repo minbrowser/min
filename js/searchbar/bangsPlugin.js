@@ -178,29 +178,33 @@ function getBangSearchResults (text, input, event) {
   })
 }
 
-searchbarPlugins.register('bangs', {
-  index: 1,
-  trigger: function (text) {
-    return !!text && text.indexOf('!') === 0
-  },
-  showResults: getBangSearchResults
-})
+function initialize () {
+  searchbarPlugins.register('bangs', {
+    index: 1,
+    trigger: function (text) {
+      return !!text && text.indexOf('!') === 0
+    },
+    showResults: getBangSearchResults
+  })
 
-searchbarPlugins.registerURLHandler(function (url) {
-  if (url.indexOf('!') === 0) {
-    incrementBangCount(url.split(' ')[0])
+  searchbarPlugins.registerURLHandler(function (url) {
+    if (url.indexOf('!') === 0) {
+      incrementBangCount(url.split(' ')[0])
 
-    var bang = getCustomBang(url)
+      var bang = getCustomBang(url)
 
-    if ((!bang || !bang.isAction) && url.split(' ').length === 1 && !url.endsWith(' ')) {
-      // the bang is non-custom or a custom bang that requires search text, so add a space after it
-      tabBar.enterEditMode(tabs.getSelected(), url + ' ')
-      return true
-    } else if (bang) {
-      // there is a custom bang that is an action or has search text, so it can be run
-      tabBar.leaveEditMode()
-      bang.fn(url.replace(bang.phrase, '').trimLeft())
-      return true // override the default action
+      if ((!bang || !bang.isAction) && url.split(' ').length === 1 && !url.endsWith(' ')) {
+        // the bang is non-custom or a custom bang that requires search text, so add a space after it
+        tabBar.enterEditMode(tabs.getSelected(), url + ' ')
+        return true
+      } else if (bang) {
+        // there is a custom bang that is an action or has search text, so it can be run
+        tabBar.leaveEditMode()
+        bang.fn(url.replace(bang.phrase, '').trimLeft())
+        return true // override the default action
+      }
     }
-  }
-})
+  })
+}
+
+module.exports = {initialize, registerCustomBang}

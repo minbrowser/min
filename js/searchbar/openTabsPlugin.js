@@ -78,10 +78,14 @@ var searchOpenTabs = function (text, input, event) {
   })
 }
 
-searchbarPlugins.register('openTabs', {
-  index: 4,
-  trigger: function (text) {
-    return text.length > 2
-  },
-  showResults: searchOpenTabs
-})
+function initialize () {
+  searchbarPlugins.register('openTabs', {
+    index: 4,
+    trigger: function (text) {
+      return text.length > 2
+    },
+    showResults: searchOpenTabs
+  })
+}
+
+module.exports = {initialize}

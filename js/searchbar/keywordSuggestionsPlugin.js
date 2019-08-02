@@ -21,22 +21,26 @@ webviews.bindIPC('keywordsData', function (webview, tabId, args) {
   })
 })
 
-searchbarPlugins.register('keywordSuggestions', {
-  index: 10,
-  trigger: function (text) {
-    return !text
-  },
-  showResults: function () {
-    // request keyword suggestions, which will be displayed later
+function initialize () {
+  searchbarPlugins.register('keywordSuggestions', {
+    index: 10,
+    trigger: function (text) {
+      return !text
+    },
+    showResults: function () {
+      // request keyword suggestions, which will be displayed later
 
-    if (tabs.get(tabs.getSelected()).url) {
-      var sourceTab = tabs.get(tabs.getSelected())
-    } else {
-      // if this is a new tab, show suggestions from the previous tab
-      var sourceTab = tabs.getAtIndex(tabs.getIndex(tabs.getSelected()) - 1)
+      if (tabs.get(tabs.getSelected()).url) {
+        var sourceTab = tabs.get(tabs.getSelected())
+      } else {
+        // if this is a new tab, show suggestions from the previous tab
+        var sourceTab = tabs.getAtIndex(tabs.getIndex(tabs.getSelected()) - 1)
+      }
+      if (sourceTab) {
+        webviews.callAsync(sourceTab.id, 'send', 'getKeywordsData')
+      }
     }
-    if (sourceTab) {
-      webviews.callAsync(sourceTab.id, 'send', 'getKeywordsData')
-    }
-  }
-})
+  })
+}
+
+module.exports = {initialize}

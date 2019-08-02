@@ -39,10 +39,15 @@ function showPlaceSuggestions (text, input, event) {
   })
 }
 
-searchbarPlugins.register('placeSuggestions', {
-  index: 1,
-  trigger: function (text) {
-    return !text
-  },
-  showResults: showPlaceSuggestions
-})
+function initialize () {
+  searchbarPlugins.register('placeSuggestions', {
+    index: 1,
+    trigger: function (text) {
+      return !text
+    },
+    showResults: showPlaceSuggestions
+  })
+}
+
+module.exports = {initialize}
+

@@ -1,3 +1,5 @@
+var bangsPlugin = require('searchbar/bangsPlugin.js')
+
 /* list of the available custom !bangs */
 var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
@@ -7,7 +9,7 @@ var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var places = require('places/places.js')
 const formatRelativeDate = require('util/relativeDate.js')
 
-registerCustomBang({
+bangsPlugin.registerCustomBang({
   phrase: '!settings',
   snippet: l('viewSettings'),
   isAction: true,
@@ -16,7 +18,7 @@ registerCustomBang({
   }
 })
 
-registerCustomBang({
+bangsPlugin.registerCustomBang({
   phrase: '!back',
   snippet: l('goBack'),
   isAction: true,
@@ -27,7 +29,7 @@ registerCustomBang({
   }
 })
 
-registerCustomBang({
+bangsPlugin.registerCustomBang({
   phrase: '!forward',
   snippet: l('goForward'),
   isAction: true,
@@ -38,7 +40,7 @@ registerCustomBang({
   }
 })
 
-registerCustomBang({
+bangsPlugin.registerCustomBang({
   phrase: '!screenshot',
   snippet: l('takeScreenshot'),
   isAction: true,
@@ -51,7 +53,7 @@ registerCustomBang({
   }
 })
 
-registerCustomBang({
+bangsPlugin.registerCustomBang({
   phrase: '!clearhistory',
   snippet: l('clearHistory'),
   isAction: true,
@@ -70,7 +72,7 @@ function getTaskByNameOrNumber (text) {
   )
 }
 
-registerCustomBang({
+bangsPlugin.registerCustomBang({
   phrase: '!task',
   snippet: l('switchToTask'),
   isAction: false,
@@ -97,7 +99,7 @@ registerCustomBang({
   }
 })
 
-registerCustomBang({
+bangsPlugin.registerCustomBang({
   phrase: '!newtask',
   snippet: l('createTask'),
   isAction: true,
@@ -119,7 +121,7 @@ registerCustomBang({
   }
 })
 
-registerCustomBang({
+bangsPlugin.registerCustomBang({
   phrase: '!movetotask',
   snippet: l('moveToTask'),
   isAction: false,
@@ -162,7 +164,7 @@ registerCustomBang({
   }
 })
 
-registerCustomBang({
+bangsPlugin.registerCustomBang({
   phrase: '!closetask',
   snippet: l('closeTask'),
   isAction: false,
@@ -188,7 +190,7 @@ registerCustomBang({
   }
 })
 
-registerCustomBang({
+bangsPlugin.registerCustomBang({
   phrase: '!nametask',
   snippet: l('nameTask'),
   isAction: false,
@@ -197,7 +199,7 @@ registerCustomBang({
   }
 })
 
-registerCustomBang({
+bangsPlugin.registerCustomBang({
   phrase: '!bookmarks',
   snippet: l('searchBookmarks'),
   isAction: false,
@@ -245,7 +247,7 @@ registerCustomBang({
   }
 })
 
-registerCustomBang({
+bangsPlugin.registerCustomBang({
   phrase: '!history',
   snippet: l('searchHistory'),
   isAction: false,

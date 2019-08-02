@@ -126,3 +126,16 @@ require('navbar/tabColor.js').initialize()
 require('navbar/goBackButton.js').initialize()
 require('places/places.js').initialize()
 require('downloadManager.js').initialize()
+
+// default searchbar plugins
+
+require('searchbar/placesPlugin.js').initialize()
+require('searchbar/instantAnswerPlugin.js').initialize()
+require('searchbar/openTabsPlugin.js').initialize()
+require('searchbar/bangsPlugin.js').initialize()
+require('searchbar/searchSuggestionsPlugin.js').initialize()
+require('searchbar/placeSuggestionsPlugin.js').initialize()
+require('searchbar/hostsSuggestionsPlugin.js').initialize()
+require('searchbar/keywordSuggestionsPlugin.js').initialize()
+require('searchbar/updateNotifications.js').initialize()
+require('searchbar/restoreTaskPlugin.js').initialize()

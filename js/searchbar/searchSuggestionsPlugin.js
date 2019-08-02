@@ -4,8 +4,6 @@ var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var urlParser = require('util/urlParser.js')
 var searchEngine = require('util/searchEngine.js')
 
-var ddgAttribution = l('resultsFromDDG')
-
 function showSearchSuggestions (text, input, event) {
   // TODO support search suggestions for other search engines
   if (searchEngine.getCurrent().name !== 'DuckDuckGo') {
@@ -47,10 +45,14 @@ function showSearchSuggestions (text, input, event) {
     })
 }
 
-searchbarPlugins.register('searchSuggestions', {
-  index: 4,
-  trigger: function (text) {
-    return !!text && text.indexOf('!') !== 0 && !tabs.get(tabs.getSelected()).private
-  },
-  showResults: debounce(showSearchSuggestions, 150)
-})
+function initialize () {
+  searchbarPlugins.register('searchSuggestions', {
+    index: 4,
+    trigger: function (text) {
+      return !!text && text.indexOf('!') !== 0 && !tabs.get(tabs.getSelected()).private
+    },
+    showResults: debounce(showSearchSuggestions, 150)
+  })
+}
+
+module.exports = {initialize}

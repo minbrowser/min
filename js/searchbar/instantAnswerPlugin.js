@@ -4,8 +4,57 @@ var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var urlParser = require('util/urlParser.js')
 var searchEngine = require('util/searchEngine.js')
 
+var ddgAttribution = l('resultsFromDDG')
+
 function removeTags (text) {
   return text.replace(/<.*?>/g, '')
+}
+
+// custom instant answers
+
+var instantAnswers = {
+  color_code: function (searchText, answer) {
+    var data = {
+      title: searchText,
+      descriptionBlock: answer.replace(/\n/g, ' · ').replace(/\s~\s/g, ' · '),
+      attribution: ddgAttribution
+    }
+
+    var rgb = answer.split(' ~ ').filter(function (format) {
+      return format.startsWith('RGBA')
+    })
+
+    if (rgb[0]) {
+      data.colorCircle = rgb[0]
+    }
+
+    return data
+  },
+  currency_in: function (searchText, answer) {
+    var title = ''
+    if (typeof answer === 'string') { // there is only one currency
+      title = answer
+    } else { // multiple currencies
+      var currencyArr = []
+      for (var countryCode in answer) {
+        currencyArr.push(answer[countryCode] + ' (' + countryCode + ')')
+      }
+
+      title = currencyArr.join(', ')
+    }
+
+    if (answer.data) {
+      var descriptionBlock = answer.data.title
+    } else {
+      var descriptionBlock = l('DDGAnswerSubtitle')
+    }
+
+    return {
+      title: title,
+      descriptionBlock: descriptionBlock,
+      attribution: ddgAttribution
+    }
+  }
 }
 
 function showSearchbarInstantAnswers (text, input, event) {
@@ -108,57 +157,14 @@ function showSearchbarInstantAnswers (text, input, event) {
   })
 }
 
-searchbarPlugins.register('instantAnswers', {
-  index: 3,
-  trigger: function (text) {
-    return text.length > 3 && !urlParser.isURLMissingProtocol(text) && !tabs.get(tabs.getSelected()).private
-  },
-  showResults: debounce(showSearchbarInstantAnswers, 300)
-})
-
-// custom instant answers
-
-var instantAnswers = {
-  color_code: function (searchText, answer) {
-    var data = {
-      title: searchText,
-      descriptionBlock: answer.replace(/\n/g, ' · ').replace(/\s~\s/g, ' · '),
-      attribution: ddgAttribution
-    }
-
-    var rgb = answer.split(' ~ ').filter(function (format) {
-      return format.startsWith('RGBA')
-    })
-
-    if (rgb[0]) {
-      data.colorCircle = rgb[0]
-    }
-
-    return data
-  },
-  currency_in: function (searchText, answer) {
-    var title = ''
-    if (typeof answer === 'string') { // there is only one currency
-      title = answer
-    } else { // multiple currencies
-      var currencyArr = []
-      for (var countryCode in answer) {
-        currencyArr.push(answer[countryCode] + ' (' + countryCode + ')')
-      }
-
-      title = currencyArr.join(', ')
-    }
-
-    if (answer.data) {
-      var descriptionBlock = answer.data.title
-    } else {
-      var descriptionBlock = l('DDGAnswerSubtitle')
-    }
-
-    return {
-      title: title,
-      descriptionBlock: descriptionBlock,
-      attribution: ddgAttribution
-    }
-  }
+function initialize () {
+  searchbarPlugins.register('instantAnswers', {
+    index: 3,
+    trigger: function (text) {
+      return text.length > 3 && !urlParser.isURLMissingProtocol(text) && !tabs.get(tabs.getSelected()).private
+    },
+    showResults: debounce(showSearchbarInstantAnswers, 300)
+  })
 }
+
+module.exports = {initialize}

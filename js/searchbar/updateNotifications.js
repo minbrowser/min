@@ -77,7 +77,7 @@ function showUpdateNotification (text, input, event) {
       descriptionBlock: update.releaseHeadline || 'View release notes',
       url: update.releaseNotes,
       icon: 'fa-bell'
-    })
+    }, {allowDuplicates: true})
   }
   // is there an update?
   var update = JSON.parse(localStorage.getItem('availableUpdate'))
@@ -87,7 +87,6 @@ function showUpdateNotification (text, input, event) {
       return
     }
     var updateAge = Date.now() - update.releaseTime
-
     /* initially, only show an update notification when no tabs are open, in order to minimize disruption */
     if (updateAge < (3 * 7 * 24 * 60 * 60 * 1000)) {
       if (tabs.isEmpty()) {
@@ -105,10 +104,14 @@ function showUpdateNotification (text, input, event) {
 setTimeout(getAvailableUpdates, 30000)
 setInterval(getAvailableUpdates, 24 * 60 * 60 * 1000)
 
-searchbarPlugins.register('updateNotifications', {
-  index: 11,
-  trigger: function (text) {
-    return !text && performance.now() > 5000
-  },
-  showResults: showUpdateNotification
-})
+function initialize () {
+  searchbarPlugins.register('updateNotifications', {
+    index: 11,
+    trigger: function (text) {
+      return !text && performance.now() > 5000
+    },
+    showResults: showUpdateNotification
+  })
+}
+
+module.exports = {initialize}

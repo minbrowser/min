@@ -1,8 +1,8 @@
 var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var searchbar = require('searchbar/searchbar.js')
-var searchbarUtils = require('searchbar/searchbarUtils.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var bangsPlugin = require('searchbar/bangsPlugin.js')
 var urlParser = require('util/urlParser.js')
 
 var readerDecision = require('readerDecision.js')
@@ -126,7 +126,7 @@ window.readerView = readerView
 
 /* typing !readinglist in the searchbar shows the list */
 
-registerCustomBang({
+bangsPlugin.registerCustomBang({
   phrase: '!readinglist',
   snippet: l('viewReadingList'),
   isAction: false,
