@@ -82,11 +82,7 @@ db.version(4).stores({
 
 db.open().then(function () {
   console.log('database opened ', performance.now())
-})
-
-Dexie.Promise.on('error', function (error) {
-  console.warn('database error occured', error)
-
+}).catch(function (error) {
   if (error.message.indexOf(dbErrorMessage) !== -1 && !dbErrorAlertShown) {
     window && window.alert && window.alert(l('multipleInstancesErrorMessage'))
     remote.app.quit()

@@ -42,8 +42,6 @@ window.sessionRestore = {
         return
       }
 
-      console.log(savedStringData)
-
       var data = JSON.parse(savedStringData)
 
       // the data isn't restorable
