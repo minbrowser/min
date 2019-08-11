@@ -55,13 +55,14 @@ function openTabInWindow (url) {
 
 function handleCommandLineArguments (argv) {
   // the "ready" event must occur before this function can be used
-  if (argv && argv[1] && argv[1].toLowerCase() !== __dirname.toLowerCase() && argv[1].indexOf('://') !== -1) {
-    sendIPCToWindow(mainWindow, 'addTab', {
-      url: argv[1]
+  if (argv) {
+    argv.forEach(function (arg) {
+      if (arg && arg.toLowerCase() !== __dirname.toLowerCase() && arg.indexOf('://') !== -1)
+        sendIPCToWindow(mainWindow, 'addTab', {
+          url: arg
+        })
     })
-    return true
   }
-  return false
 }
 
 function createWindow (cb) {
