@@ -154,9 +154,9 @@ bangsPlugin.registerCustomBang({
       newTask.tabs.add(currentTab)
     }
 
-    taskOverlay.show()
     browserUI.switchToTask(newTask.id)
     browserUI.switchToTab(currentTab.id)
+    taskOverlay.show()
 
     setTimeout(function () {
       taskOverlay.hide()

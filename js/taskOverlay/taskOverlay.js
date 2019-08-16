@@ -86,8 +86,10 @@ window.taskOverlay = {
     // un-hide the overlay
     this.overlayElement.hidden = false
 
-    currentTabElement.classList.add('fakefocus')
-    currentTabElement.focus()
+    if (currentTabElement) {
+      currentTabElement.classList.add('fakefocus')
+      currentTabElement.focus()
+    }
   },
 
   hide: function () {
