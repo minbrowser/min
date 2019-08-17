@@ -13,10 +13,10 @@
         "saveImageAs": "Zapisz grafikę jako",
         "searchWith": "Szukaj %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Kopiuj link",
-        "selectAll": null, // Missing Translation
-        "undo": null, // Missing Translation
-        "redo": null, // Missing Translation
-        "cut": null, // Missing Translation
+        "selectAll": "Zaznacz wszystko",
+        "undo": "Cofnij",
+        "redo": "Przywróć",
+        "cut": "Wytnij",
         "copy": "Kopiuj", //this is a verb (as in "copy the currently-selected text")
         "paste": "Wklej",
         "goBack": "Cofnij",
@@ -31,17 +31,17 @@
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": null, //missing translation
+        "showMoreBangs": "Pokaż więcej",
         "viewSettings": "Wyświetl Ustawienia",
         "viewReadingList": "Wyświetl listę czytelnia",
         "takeScreenshot": "Zrób zrzut ekranu",
         "clearHistory": "Wyczyść całą historię",
-        "clearHistoryConfirmation": null, //missing translation
+        "clearHistoryConfirmation": "Czy wyczyścić całą historię i dane przeglądania?",
         "switchToTask": "Przełącz na zadanie",
         "createTask": "Utwórz zadanie",
-        "closeTask": null, //missing translation
+        "closeTask": "Zamknij zadanie",
         "moveToTask": "Przenieś tę kartę do zadania",
-        "nameTask": null, //missing translation
+        "nameTask": "Nazwij to zadanie",
         "searchBookmarks": "Zakładki wyszukiwania",
         "searchHistory": "Historia wyszukiwania",
         /* navbar */
@@ -59,10 +59,10 @@
         "viewTasks": "Wyświetl zadania",
         "newTask": "Nowe zadanie", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Zadanie %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
-        "returnToTask": null, //missing translation
-        "taskDescriptionTwo": null, //missing translation
-        "taskDescriptionThree": null, //missing translation
+        "taskDeleteWarning": {"unsafeHTML": "Zadanie usunięte. <a>Cofnąć?</a>"},
+        "returnToTask": "Wróć do poprzedniego zadania",
+        "taskDescriptionTwo": "%t i %t",
+        "taskDescriptionThree": "%t, %t i %n więcej",
         /* find in page toolbar */
         "searchInPage": "Wyszukaj na stronie", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%i z %t dopasowania", //this and the next label are used to indicate which match is currently highlighted
@@ -76,8 +76,8 @@
         "timeRangeJustNow": "Przed chwilą",
         "timeRangeMinutes": "Kilka minut temu",
         "timeRangeHour": "W ciągu ostatniej godziny",
-        "timeRangeToday": null, //missing translation
-        "timeRangeYesterday": null, //missing translation
+        "timeRangeToday": "Dzisiaj",
+        "timeRangeYesterday": "Wczoraj",
         "timeRangeWeek": "W poprzednim tygodniu",
         "timeRangeMonth": "W poprzednim miesiącu",
         "timeRangeYear": "W poprzednim roku",
@@ -128,7 +128,7 @@
         },
         "settingsAppearanceHeading": "Wygląd",
         "settingsDarkModeToggle": "Włącz tryb ciemny",
-        "settingsSiteThemeToggle": null, //missing translation
+        "settingsSiteThemeToggle": "Włącz motyw witryny",
         "settingsHistoryButtonToggle": "Włącz przycisk Wstecz",
         "settingsAdditionalFeaturesHeading": "Dodatkowe funkcje",
         "settingsUserscriptsToggle": "Włącz skrypty użytkownika",
