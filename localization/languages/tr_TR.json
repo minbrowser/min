@@ -7,16 +7,16 @@
         */
         "openInNewTab": "Yeni Pencerede Aç",
         "openInNewPrivateTab": "Yeni Özel Sekmede Aç",
-        "viewImage": "Resim Göster",
+        "viewImage": "Resmi Göster",
         "openImageInNewTab": "Resmi Yeni Sekmede Aç",
         "openImageInNewPrivateTab": "Resmi Yeni Özel Sekmede Aç",
         "saveImageAs": "Resmi Farklı Kaydet",
         "searchWith": "%s ile ara", //%s will be replaced with the name of the current search engine
         "copyLink": "Linki Kopyala",
-        "selectAll": null, // Missing Translation
-        "undo": null, // Missing Translation
-        "redo": null, // Missing Translation
-        "cut": null, // Missing Translation
+        "selectAll": "Hepsini Seç",
+        "undo": "Geri",
+        "redo": "İleri",
+        "cut": "Kes",
         "copy": "Kopyala", //this is a verb (as in "copy the currently-selected text")
         "paste": "Yapıştır",
         "goBack": "Geri Git",
@@ -26,62 +26,62 @@
         "DDGAnswerSubtitle": "Cevap", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Önerilen site", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "DuckDuckGo'dan sonuçlar", //this is used as a label to indicate which results come from DuckDuckGo's API
-        "taskN": "Task %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "taskN": "Görev %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
         "hostsFileEntry": "Hosts dosya girişi", //this is a label used to indicate that a result is coming from the user's host file        
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": null, //missing translation
+        "showMoreBangs": "Daha fazla göster",
         "viewSettings": "Görünüm Ayarları",
         "viewReadingList": "Okuma Listesini Görüntüle",
-        "takeScreenshot": "Ekran görüntüsü al",
+        "takeScreenshot": "Ekran Görüntüsü Al",
         "clearHistory": "Tüm Geçmişi Temizle",
-        "clearHistoryConfirmation": null, //missing translation
-        "switchToTask": "Göreve geç",
-        "createTask": "Görev oluştur",
-        "closeTask": null, //missing translation
+        "clearHistoryConfirmation": "Tüm geçmişi ve tarama verilerini silmek istiyor musunuz?",
+        "switchToTask": "Göreve Geç",
+        "createTask": "Görev Oluştur",
+        "closeTask": "Görevi Kapat",
         "moveToTask": "Bu sekmeyi bir göreve taşı",
-        "nameTask": null, //missing translation
+        "nameTask": "Bu görevi adlandır",
         "searchBookmarks": "Yer işaretlerini ara",
-        "searchHistory": null, //missing translation
+        "searchHistory": "Arama Geçmişi", 
         /* navbar */
-        "openMenu": null, //missing translation
+        "openMenu": "Menüyü Aç",
         "enterReaderView": "Okuyucu görünümüne girin",
         "exitReaderView": "Okuyucu görünümünden çıkın",
         "emptyReadingListTitle": "Okuma listeniz boş",
-        "emptyReadingListSubtitle": "Okuyucu görünümünde açtığınız makaleler burada listelenir ve 30 gün boyunca çevrimdışına kaydedilir.",
-        "newTabLabel": "New Tab", //this is a noun, used for tabs that don't have a page loaded in them yet
-        "connectionNotSecure": "Bu web sitesine bağlantınız güvenli değil.",
+        "emptyReadingListSubtitle": "Okuyucu görünümünde açtığınız makaleler burada listelenir ve çevrimdışı olarak 30 gün boyunca saklanır.",
+        "newTabLabel": "Yeni Sekme", //this is a noun, used for tabs that don't have a page loaded in them yet
+        "connectionNotSecure": "Bu web sitesine yapmış olduğunuz bağlantı güvenli değil.",
         "searchbarPlaceholder": "Arayın veya adres girin",
-        "privateTab": "Özel Sekme",
+        "privateTab": "Özel sekme",
         "newTabAction": "Yeni Sekme", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
         "viewTasks": "Görevleri Görüntüle",
         "newTask": "Yeni Görev", //"new" is a verb - it is used for a button at the bottom of the task overlay
-        "defaultTaskName": "%n Görev", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
-        "returnToTask": null, //missing translation
-        "taskDescriptionTwo": null, //missing translation
-        "taskDescriptionThree": null, //missing translation
+        "defaultTaskName": "Görev %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        "taskDeleteWarning": {"unsafeHTML": "Görev silindi. <a>Geri?</a>"}, //missing translation
+        "returnToTask": "Önceki göreve geri dön", //missing translation
+        "taskDescriptionTwo": "%t ve %t", //missing translation
+        "taskDescriptionThree": "%t, %t ve %n fazlası", //missing translation
         /* find in page toolbar */
         "searchInPage": "Sayfada Ara", //this is used as the placeholder text for the textbox in the find in page toolbar
-        "findMatchesSingular": "%i of %t match", //this and the next label are used to indicate which match is currently highlighted
-        "findMatchesPlural": "%i of %t matches",
+        "findMatchesSingular": "%t eşleşmeden %i i", //this and the next label are used to indicate which match is currently highlighted
+        "findMatchesPlural": "%t eşleşmeden %i i",
         /* Focus mode */
         "isFocusMode": "Odak Modundasınız.",
         "closeDialog": "Tamam", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "Odaklama modunda, geçerli olanın dışındaki tüm sekmeler gizlenir ve yeni sekmeler oluşturamazsınız.",
-        "focusModeExplanation2": "Görüntüleme modunda \"Odak Modu\" nun işaretini kaldırarak netleme modundan çıkabilirsiniz.",
+        "focusModeExplanation1": "Odak modunda, geçerli olan sekme dışındaki tüm sekmeler gizlenir ve yeni sekmeler oluşturamazsınız.",
+        "focusModeExplanation2": "Görüntüleme modunda \"odak modu\" nun işaretini kaldırarak odak modundan çıkabilirsiniz.",
         /* relative dates */
-        "timeRangeJustNow": null, //missing translation
-        "timeRangeMinutes": null, //missing translation
-        "timeRangeHour": null, //missing translation
-        "timeRangeToday": null, //missing translation
-        "timeRangeYesterday": null, //missing translation
-        "timeRangeWeek": null, //missing translation
-        "timeRangeMonth": null, //missing translation
-        "timeRangeYear": null, //missing translation
-        "timeRangeLongerAgo": null, //missing translation
+        "timeRangeJustNow": "Şu anda", //missing translation
+        "timeRangeMinutes": "Birkaç dakika önce", //missing translation
+        "timeRangeHour": "Son bir saat içinde", //missing translation
+        "timeRangeToday": "Bugün", //missing translation
+        "timeRangeYesterday": "Dün", //missing translation
+        "timeRangeWeek": "Geçtiğimiz hafta", //missing translation
+        "timeRangeMonth": "Geçtiğimiz ay", //missing translation
+        "timeRangeYear": "Geçtiğimiz yıl", //missing translation
+        "timeRangeLongerAgo": "Çok uzun zaman önce", //missing translation
         /* pages/error/index.html */
         "crashErrorTitle": "Bir şeyler yanlış gitti.",
         "crashErrorSubtitle": "Bu sayfayı görüntülerken bir sorun oluştu.",
@@ -96,59 +96,59 @@
         "offlineErrorTitle": "Çevrimdışısınız",
         "offlineErrorMessage": "İnternete yeniden bağlanın ve tekrar deneyin.",
         "genericConnectionFail": "Min web sitesine bağlanılamadı.",
-        "sslTimeErrorMessage": "Min bu siteye güvenli bir şekilde bağlanamadı. Lütfen bilgisayarınızın saatinin doğru ayarlandığından emin olun.",
+        "sslTimeErrorMessage": "Min bu siteye güvenli bir şekilde bağlanamadı. Lütfen bilgisayarınızın saat ayarının doğru olduğundan emin olun.",
         "addressInvalidTitle": "Bu adres geçersiz.",
         "genericError": "Bir hata oluştu",
         /* pages/phishing/index.html */
         "phishingErrorTitle": "Bu site size zarar verebilir.",
-        "phishingErrorMessage": "Bu web sitesi, parola veya banka bilgileri gibi kişisel bilgilerinizi çalmaya çalışıyor olabilir.",
+        "phishingErrorMessage": "Bu web sitesi parola veya banka bilgileri gibi kişisel bilgilerinizi çalmaya çalışıyor olabilir.",
         "phishingErrorVisitAnyway": "Siteyi yine de ziyaret et",
         "phishingErrorLeave": "Bu siteden ayrıl",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": null, // missing translation
+        "multipleInstancesErrorMessage": "Bir hata oluştu. Lütfen açık olan tüm Min'leri kapatıp yeniden başlatın.", // missing translation
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Bir hata oluştu",
         "sessionRestoreErrorExplanation": "Kaydedilen sekmeleriniz doğru bir şekilde geri yüklenemedi.",
         "sessionRestoreErrorBackupInfo": "Verilerinizin bir yedeğini bu konumda kaydettik: %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
-            "unsafeHTML": "Bu hata oluşmaya devam ederse, lütfen yeni bir sorun açın <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">buradan</a>."
+            "unsafeHTML": "Bu hata olmaya devam ederse, lütfen <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">buradan</a> yeni bir sorun başlığı açın."
         },
         /* pages/settings/index.html */
         "settingsPreferencesHeading": "Tercihler",
         "settingsRestartRequired": "Bu değişiklikleri uygulamak için yeniden başlatmanız gerekiyor.",
         "settingsPrivacyHeading": "İçerik Engelleme",
-        "settingsContentBlockingLevel0": null, //missing translation
-        "settingsContentBlockingLevel1": null, //missing translation
-        "settingsContentBlockingLevel2": null, //missing translation
-        "settingsContentBlockingExceptions": null, //missing translation
+        "settingsContentBlockingLevel0": "Tüm reklamlar ve iz sürücülere izin ver", //missing translation
+        "settingsContentBlockingLevel1": "Üçüncü parti reklamları ve iz sürücüleri engelle", //missing translation
+        "settingsContentBlockingLevel2": "Tüm reklamları ve iz sürücüleri engelle", //missing translation
+        "settingsContentBlockingExceptions": "Bu websitelerinde reklamlara izin verildi", //missing translation
         "settingsBlockScriptsToggle": "Scriptleri engelle",
         "settingsBlockImagesToggle": "Resimleri engelle",
         "settingsEasyListCredit": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "EasyList ve EasyPrivacy temel alınmıştır, <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList yaratıcıları</a> tarafından oluşturuldu.(<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">lisansı görüntüle</a>)." //missing translation
         },
         "settingsAppearanceHeading": "Görünüm",
         "settingsDarkModeToggle": "Koyu modu etkinleştir",
-        "settingsSiteThemeToggle": null, //missing translation
+        "settingsSiteThemeToggle": "Site temasını etkinleştir", //missing translation
         "settingsHistoryButtonToggle": "Geri al düğmesini etkinleştir",
-        "settingsAdditionalFeaturesHeading": null, //missing translation
-        "settingsUserscriptsToggle": null, //missing translation
-        "settingsUserscriptsExplanation": null, //missing translation
-        "settingsUpdateNotificationsToggle": null, //missing translation
+        "settingsAdditionalFeaturesHeading": "Ek Özellikler", //missing translation
+        "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir", //missing translation
+        "settingsUserscriptsExplanation": {"unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."}, //missing translation
+        "settingsUpdateNotificationsToggle": "Güncelleştirmeleri otomatik olarak denetle", //missing translation
         "settingsSearchEngineHeading": "Arama Motoru",
-        "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçi:",
+        "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçin:",
         "settingsDDGExplanation": "Arama çubuğundaki anlık yanıtları görmek için DuckDuckGo’yu varsayılan arama motoru olarak ayarlayın.",
-        "customSearchEngineDescription": null, //missing translation
+        "customSearchEngineDescription": "Arama terimini %s ile değiştir", //missing translation
         "settingsKeyboardShortcutsHeading": "Klavye Kısayolları",
         "settingsKeyboardShortcutsHelp": "Birden çok kısayolu ayırmak için virgül kullanın.",
         /* app menu */
         "appMenuFile": "Dosya",
         "appMenuNewTab": "Yeni Sekme",
-        "appMenuDuplicateTab": null, //missing translation
+        "appMenuDuplicateTab": "Sekmeyi Çoğalt", //missing translation
         "appMenuNewPrivateTab": "Yeni Özel Sekme",
         "appMenuNewTask": "Yeni Görev",
         "appMenuSavePageAs": "Sayfayı Farklı Kaydet",
         "appMenuPrint": "Yazdır",
-        "appMenuEdit": "Düzen",
+        "appMenuEdit": "Düzenle",
         "appMenuUndo": "Geri",
         "appMenuRedo": "İleri",
         "appMenuCut": "Kes",
@@ -163,8 +163,8 @@
         "appMenuFullScreen": "Tam Ekran", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Odak Modu",
         "appMenuReadingList": "Okuma Listesi",
-        "appMenuBookmarks": null, //missing translation
-        "appMenuHistory": null, //missing translation
+        "appMenuBookmarks": "Yer İmleri", //missing translation
+        "appMenuHistory": "Geçmiş", //missing translation
         "appMenuDeveloper": "Geliştirici",
         "appMenuReloadBrowser": "Tarayıcıyı Yeniden Yükle",
         "appMenuInspectBrowser": "Tarayıcıyı İncele",
@@ -180,18 +180,18 @@
         "appMenuAbout": "%n Hakkında", //%n is replaced with app name
         "appMenuPreferences": "Seçenekler",
         "appMenuServices": "Servisler",
-        "appMenuHide": "Hide %n",
-        "appMenuHideOthers": "Hide Others",
+        "appMenuHide": "%n i Gizle",
+        "appMenuHideOthers": "Diğerlerini Gizle",
         "appMenuShowAll": "Tümünü Göster",
         "appMenuQuit": "%n Çıkış",
         "appMenuBringToFront": "Tümünü Öne Getir",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "sayfa <input type='text'/> of <span id='total'></span>"},
+        "PDFPageCounter": {"unsafeHTML": "<span id='total'></span> sayfanın <input type='text'/> i"},
         /* Download manager */
-        "downloadCancel": null, //missing translation
-        "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null, //missing translation
+        "downloadCancel": "İptal", //missing translation
+        "downloadStateCompleted": "Tamamlandı", //missing translation
+        "downloadStateFailed": "Başarısız oldu", //missing translation
         /* Update Notifications */
-        "updateNotificationTitle": null //missing translation
+        "updateNotificationTitle": "Min'in yeni bir sürümü mevcut" //missing translation
     }
 }
