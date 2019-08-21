@@ -59,10 +59,10 @@
         "viewTasks": "Görevleri Görüntüle",
         "newTask": "Yeni Görev", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Görev %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Görev silindi. <a>Geri?</a>"}, //missing translation
-        "returnToTask": "Önceki göreve geri dön", //missing translation
-        "taskDescriptionTwo": "%t ve %t", //missing translation
-        "taskDescriptionThree": "%t, %t ve %n fazlası", //missing translation
+        "taskDeleteWarning": {"unsafeHTML": "Görev silindi. <a>Geri?</a>"},
+        "returnToTask": "Önceki göreve geri dön",
+        "taskDescriptionTwo": "%t ve %t",
+        "taskDescriptionThree": "%t, %t ve %n fazlası",
         /* find in page toolbar */
         "searchInPage": "Sayfada Ara", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%t eşleşmeden %i i", //this and the next label are used to indicate which match is currently highlighted
@@ -73,15 +73,15 @@
         "focusModeExplanation1": "Odak modunda, geçerli olan sekme dışındaki tüm sekmeler gizlenir ve yeni sekmeler oluşturamazsınız.",
         "focusModeExplanation2": "Görüntüleme modunda \"odak modu\" nun işaretini kaldırarak odak modundan çıkabilirsiniz.",
         /* relative dates */
-        "timeRangeJustNow": "Şu anda", //missing translation
-        "timeRangeMinutes": "Birkaç dakika önce", //missing translation
-        "timeRangeHour": "Son bir saat içinde", //missing translation
-        "timeRangeToday": "Bugün", //missing translation
-        "timeRangeYesterday": "Dün", //missing translation
-        "timeRangeWeek": "Geçtiğimiz hafta", //missing translation
-        "timeRangeMonth": "Geçtiğimiz ay", //missing translation
-        "timeRangeYear": "Geçtiğimiz yıl", //missing translation
-        "timeRangeLongerAgo": "Çok uzun zaman önce", //missing translation
+        "timeRangeJustNow": "Şu anda",
+        "timeRangeMinutes": "Birkaç dakika önce",
+        "timeRangeHour": "Son bir saat içinde",
+        "timeRangeToday": "Bugün",
+        "timeRangeYesterday": "Dün",
+        "timeRangeWeek": "Geçtiğimiz hafta",
+        "timeRangeMonth": "Geçtiğimiz ay",
+        "timeRangeYear": "Geçtiğimiz yıl",
+        "timeRangeLongerAgo": "Çok uzun zaman önce",
         /* pages/error/index.html */
         "crashErrorTitle": "Bir şeyler yanlış gitti.",
         "crashErrorSubtitle": "Bu sayfayı görüntülerken bir sorun oluştu.",
@@ -117,33 +117,33 @@
         "settingsPreferencesHeading": "Tercihler",
         "settingsRestartRequired": "Bu değişiklikleri uygulamak için yeniden başlatmanız gerekiyor.",
         "settingsPrivacyHeading": "İçerik Engelleme",
-        "settingsContentBlockingLevel0": "Tüm reklamlar ve iz sürücülere izin ver", //missing translation
-        "settingsContentBlockingLevel1": "Üçüncü parti reklamları ve iz sürücüleri engelle", //missing translation
-        "settingsContentBlockingLevel2": "Tüm reklamları ve iz sürücüleri engelle", //missing translation
-        "settingsContentBlockingExceptions": "Bu websitelerinde reklamlara izin verildi", //missing translation
+        "settingsContentBlockingLevel0": "Tüm reklamlar ve iz sürücülere izin ver",
+        "settingsContentBlockingLevel1": "Üçüncü parti reklamları ve iz sürücüleri engelle",
+        "settingsContentBlockingLevel2": "Tüm reklamları ve iz sürücüleri engelle",
+        "settingsContentBlockingExceptions": "Bu websitelerinde reklamlara izin verildi",
         "settingsBlockScriptsToggle": "Scriptleri engelle",
         "settingsBlockImagesToggle": "Resimleri engelle",
         "settingsEasyListCredit": {
-            "unsafeHTML": "EasyList ve EasyPrivacy temel alınmıştır, <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList yaratıcıları</a> tarafından oluşturuldu.(<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">lisansı görüntüle</a>)." //missing translation
+            "unsafeHTML": "EasyList ve EasyPrivacy temel alınmıştır, <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList yaratıcıları</a> tarafından oluşturuldu.(<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">lisansı görüntüle</a>)."
         },
         "settingsAppearanceHeading": "Görünüm",
         "settingsDarkModeToggle": "Koyu modu etkinleştir",
-        "settingsSiteThemeToggle": "Site temasını etkinleştir", //missing translation
+        "settingsSiteThemeToggle": "Site temasını etkinleştir",
         "settingsHistoryButtonToggle": "Geri al düğmesini etkinleştir",
-        "settingsAdditionalFeaturesHeading": "Ek Özellikler", //missing translation
-        "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir", //missing translation
-        "settingsUserscriptsExplanation": {"unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."}, //missing translation
-        "settingsUpdateNotificationsToggle": "Güncelleştirmeleri otomatik olarak denetle", //missing translation
+        "settingsAdditionalFeaturesHeading": "Ek Özellikler",
+        "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",
+        "settingsUserscriptsExplanation": {"unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."},
+        "settingsUpdateNotificationsToggle": "Güncelleştirmeleri otomatik olarak denetle",
         "settingsSearchEngineHeading": "Arama Motoru",
         "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçin:",
         "settingsDDGExplanation": "Arama çubuğundaki anlık yanıtları görmek için DuckDuckGo’yu varsayılan arama motoru olarak ayarlayın.",
-        "customSearchEngineDescription": "Arama terimini %s ile değiştir", //missing translation
+        "customSearchEngineDescription": "Arama terimini %s ile değiştir",
         "settingsKeyboardShortcutsHeading": "Klavye Kısayolları",
         "settingsKeyboardShortcutsHelp": "Birden çok kısayolu ayırmak için virgül kullanın.",
         /* app menu */
         "appMenuFile": "Dosya",
         "appMenuNewTab": "Yeni Sekme",
-        "appMenuDuplicateTab": "Sekmeyi Çoğalt", //missing translation
+        "appMenuDuplicateTab": "Sekmeyi Çoğalt",
         "appMenuNewPrivateTab": "Yeni Özel Sekme",
         "appMenuNewTask": "Yeni Görev",
         "appMenuSavePageAs": "Sayfayı Farklı Kaydet",
@@ -163,8 +163,8 @@
         "appMenuFullScreen": "Tam Ekran", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Odak Modu",
         "appMenuReadingList": "Okuma Listesi",
-        "appMenuBookmarks": "Yer İmleri", //missing translation
-        "appMenuHistory": "Geçmiş", //missing translation
+        "appMenuBookmarks": "Yer İmleri",
+        "appMenuHistory": "Geçmiş",
         "appMenuDeveloper": "Geliştirici",
         "appMenuReloadBrowser": "Tarayıcıyı Yeniden Yükle",
         "appMenuInspectBrowser": "Tarayıcıyı İncele",
@@ -188,10 +188,10 @@
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "<span id='total'></span> sayfanın <input type='text'/> i"},
         /* Download manager */
-        "downloadCancel": "İptal", //missing translation
-        "downloadStateCompleted": "Tamamlandı", //missing translation
-        "downloadStateFailed": "Başarısız oldu", //missing translation
+        "downloadCancel": "İptal",
+        "downloadStateCompleted": "Tamamlandı",
+        "downloadStateFailed": "Başarısız oldu",
         /* Update Notifications */
-        "updateNotificationTitle": "Min'in yeni bir sürümü mevcut" //missing translation
+        "updateNotificationTitle": "Min'in yeni bir sürümü mevcut"
     }
 }
