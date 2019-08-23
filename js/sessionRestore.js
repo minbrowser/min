@@ -69,7 +69,14 @@ window.sessionRestore = {
         }
       } else {
         window.createdNewTaskOnStartup = true
-        browserUI.addTask()
+        // try to reuse a previous empty task
+        var lastTask = tasks.byIndex(tasks.getLength() - 1)
+        if (lastTask && lastTask.tabs.isEmpty() && !lastTask.name) {
+          browserUI.switchToTask(lastTask.id)
+          tabBar.enterEditMode(lastTask.tabs.getSelected())
+        } else {
+          browserUI.addTask()
+        }
       }
 
       // if this isn't the first run, and the survey popup hasn't been shown yet, show it
