@@ -25,6 +25,10 @@ function showSearchSuggestions (text, input, event) {
     .then(function (results) {
       searchbarPlugins.reset('searchSuggestions')
 
+      if (searchbarPlugins.getResultCount() > 3) {
+        return
+      }
+
       if (results) {
         results = results.slice(0, 3)
         results.forEach(function (result) {
@@ -51,7 +55,7 @@ function initialize () {
     trigger: function (text) {
       return !!text && text.indexOf('!') !== 0 && !tabs.get(tabs.getSelected()).private
     },
-    showResults: debounce(showSearchSuggestions, 150)
+    showResults: debounce(showSearchSuggestions, 100)
   })
 }
 

@@ -163,7 +163,7 @@ function initialize () {
     trigger: function (text) {
       return text.length > 3 && !urlParser.isURLMissingProtocol(text) && !tabs.get(tabs.getSelected()).private
     },
-    showResults: debounce(showSearchbarInstantAnswers, 300)
+    showResults: debounce(showSearchbarInstantAnswers, 200)
   })
 }
 
