@@ -8,6 +8,7 @@ Shortcuts that don't appear in the menubar are registered in this file, using de
   - If a BrowserView is focused, these are handled by the before-input-event listener.
   */
 
+const keyMapModule = require("util/keyMap.js")
 const menuBarVisibility = require('menuBarVisibility.js')
 var searchbar = require('searchbar/searchbar.js')
 var webviews = require('webviews.js')
@@ -15,6 +16,8 @@ var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
 var urlParser = require('util/urlParser.js')
 var settings = require("util/settings/settings.js")
+
+var keyMap;
 
 ipc.on('zoomIn', function () {
   webviewGestures.zoomWebviewIn(tabs.getSelected())
@@ -232,7 +235,7 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
 }
 
 settings.get('keyMap', function (keyMapSettings) {
-  keyMap = userKeyMap(keyMapSettings)
+  keyMap = keyMapModule.userKeyMap(keyMapSettings)
 
   var Mousetrap = require('mousetrap')
 

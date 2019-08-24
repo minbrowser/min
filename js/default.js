@@ -126,6 +126,7 @@ require('navbar/tabColor.js').initialize()
 require('navbar/goBackButton.js').initialize()
 require('places/places.js').initialize()
 require('downloadManager.js').initialize()
+require('webviewMenu.js').initialize()
 
 // default searchbar plugins
 

@@ -34,3 +34,7 @@ function userKeyMap (settings) {
   }
   return keyMapCopy
 }
+
+if (typeof module !== 'undefined') {
+  module.exports = {defaultKeyMap, userKeyMap}
+}
