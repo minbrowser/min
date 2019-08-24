@@ -148,7 +148,7 @@ bangsPlugin.registerCustomBang({
       newTask.tabs.add(currentTab)
     } else {
       // create a new task with the given name
-      var newTask = tasks.get(tasks.add())
+      var newTask = tasks.get(tasks.add(undefined, tasks.getIndex(tasks.getSelected().id) + 1))
       newTask.name = text
 
       newTask.tabs.add(currentTab)
