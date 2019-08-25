@@ -7,7 +7,7 @@ body.windows:not(.maximized) #webviews {
 }
 
 /* disabled on linux due to https://github.com/minbrowser/min/issues/807 */
-body:not(.linux) .dark-mode #webviews {
+body:not(.linux).dark-mode #webviews {
 	background-color: rgb(33, 37, 43);
 }
 
