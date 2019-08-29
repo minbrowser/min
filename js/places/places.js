@@ -6,7 +6,7 @@ const searchEngine = require('util/searchEngine.js')
 const urlParser = require('util/urlParser.js')
 
 const places = {
-  updateHistory: function (tabId, extractedText, metadata) {
+  savePage: function (tabId, extractedText, metadata) {
     /* this prevents pages that are immediately left from being saved to history, and also gives the page-favicon-updated event time to fire (so the colors saved to history are correct). */
     setTimeout(function () {
       const tab = tabs.get(tabId)
@@ -20,8 +20,11 @@ const places = {
         }
 
         places.worker.postMessage({
-          action: 'updateHistory',
-          pageData: data
+          action: 'updatePlace',
+          pageData: data,
+          flags: {
+            isNewVisit: true
+          }
         })
       }
     }, 500)
@@ -58,7 +61,7 @@ const places = {
 
     // don't save to history if in private mode, or the page is a browser page (unless it contains the content of a normal page)
     if (tab.private === false && !isNonIndexableInternalPage) {
-      places.updateHistory(tabId, data.extractedText, data.metadata)
+      places.savePage(tabId, data.extractedText, data.metadata)
     }
   },
   callbacks: [],
@@ -118,10 +121,10 @@ const places = {
   },
   updateBookmarkState: function (url, shouldBeBookmarked) {
     places.worker.postMessage({
-      action: 'updateBookmarkState',
+      action: 'updatePlace',
       pageData: {
         url: url,
-        shouldBeBookmarked: shouldBeBookmarked
+        isBookmarked: shouldBeBookmarked
       }
     })
   },

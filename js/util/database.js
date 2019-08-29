@@ -18,7 +18,7 @@ db.version(3).stores({
   settings: 'key, value' // key is the name of the setting, value is an object
 })
 
-// Min >= 1.4.0
+// Min 1.4.0-1.11.0
 db.version(4).stores({
   /*
   color - the main color of the page, extracted from the page icon
@@ -78,7 +78,27 @@ db.version(4).stores({
   // t.history.toCollection().delete()
   })
 
-// TODO set the value of the bookmarks and history tables to null in a future version to delete them - see https://github.com/dfahlander/Dexie.js/issues/276
+// Min >= 1.12.0
+db.version(5).stores({
+  /*
+  color - the main color of the page, extracted from the page icon
+  pageHTML - a saved copy of the page's HTML, when it was last visited. Removed in 1.6.0, so all pages visited after then will have an empty string in this field.
+  extractedText - the text content of the page, extracted from pageHTML. Unused as of 1.7.0, should be removed completely in a future version.
+  searchIndex - an array of words on the page (created from extractedText), used for full-text searchIndex
+  isBookmarked - whether the page is a bookmark
+  extraData - other metadata about the page
+  */
+  places: 'url, title, color, visitCount, lastVisit, pageHTML, extractedText, *searchIndex, isBookmarked, *tags, metadata',
+  readingList: 'url, time, visitCount, article, extraData', // article is the object from readability
+  settings: 'key, value', // key is the name of the setting, value is an object
+  bookmarks: null, // https://github.com/dfahlander/Dexie.js/issues/276
+  history: null
+})
+  .upgrade(function (t) {
+    console.log('migration begin', Date.now())
+    t.places.toCollection().modify({tags: []}).then(() => {
+      console.log('migration end', Date.now())})
+  })
 
 db.open().then(function () {
   console.log('database opened ', performance.now())
