@@ -427,7 +427,7 @@ function matchOptions (filterOptions, input, contextParams, currentHost) {
  *   with the filters, exceptionFilters and htmlRuleFilters.
  */
 
-function parse (input, parserData, callback) {
+function parse (input, parserData, callback, options = {}) {
   var arrayFilterCategories = ['regex', 'bothAnchored']
   var objectFilterCategories = ['hostAnchored']
   var trieFilterCategories = ['nonAnchoredString', 'leftAnchored', 'rightAnchored', 'wildcard']
@@ -519,36 +519,40 @@ function parse (input, parserData, callback) {
     }
   }
 
-  /* parse filters in chunks to prevent the main process from freezing */
+  if (options.async === false) {
+    processChunk(0, filters.length)
+  } else {
+    /* parse filters in chunks to prevent the main process from freezing */
 
-  var filtersLength = filters.length
-  var lastFilterIdx = 0
-  var nextChunkSize = 1500
-  var targetMsPerChunk = 12
+    var filtersLength = filters.length
+    var lastFilterIdx = 0
+    var nextChunkSize = 1500
+    var targetMsPerChunk = 12
 
-  function nextChunk () {
-    var t1 = Date.now()
-    processChunk(lastFilterIdx, lastFilterIdx + nextChunkSize)
-    var t2 = Date.now()
+    function nextChunk () {
+      var t1 = Date.now()
+      processChunk(lastFilterIdx, lastFilterIdx + nextChunkSize)
+      var t2 = Date.now()
 
-    lastFilterIdx += nextChunkSize
+      lastFilterIdx += nextChunkSize
 
-    if (t2 - t1 !== 0) {
-      nextChunkSize = Math.round(nextChunkSize / ((t2 - t1) / targetMsPerChunk))
-    }
+      if (t2 - t1 !== 0) {
+        nextChunkSize = Math.round(nextChunkSize / ((t2 - t1) / targetMsPerChunk))
+      }
 
-    if (lastFilterIdx < filtersLength) {
-      setTimeout(nextChunk, 16)
-    } else {
-      parserData.initialized = true
+      if (lastFilterIdx < filtersLength) {
+        setTimeout(nextChunk, 16)
+      } else {
+        parserData.initialized = true
 
-      if (callback) {
-        callback()
+        if (callback) {
+          callback()
+        }
       }
     }
-  }
 
-  nextChunk()
+    nextChunk()
+  }
 }
 
 function matchesFilters (filters, input, contextParams) {
