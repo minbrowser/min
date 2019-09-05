@@ -521,6 +521,7 @@ function parse (input, parserData, callback, options = {}) {
 
   if (options.async === false) {
     processChunk(0, filters.length)
+    parserData.initialized = true
   } else {
     /* parse filters in chunks to prevent the main process from freezing */
 
