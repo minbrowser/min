@@ -101,6 +101,67 @@
 		</div>
 	</div>
 
+	<div class="spacer"></div>
+	<div class="container padding" id="proxymode-container">
+		<h3 data-string="settingsProxyHeading"></h3>
+		<input id="no-proxy-mode" type="radio" name="proxyMode" value="no-proxy">
+		<label for="no-proxy-mode" data-string="settingsNoProxyLabel"></label>
+		<div class="spacer"></div>
+		<input id="manual-proxy-mode" type="radio" name="proxyMode" value="manual-proxy">
+		<label for="manual-proxy-mode" data-string="settingsManualProxyLabel"></label>
+		
+		<div class="spacer"></div>
+		<table style="text-align:end;">
+			<tr>
+				<td>
+					<label for="http-proxy-host-input" data-string="settingsHTTPHostLabel"></label>
+					<input id="http-proxy-host-input" type="text" name="proxyInput"/>
+				</td>
+				<td>
+					<label for="http-proxy-port-input" data-string="settingsProxyPortLabel"></label>
+					<input id="http-proxy-port-input" type="number" min=0 max=65535 maxlength="5" name="proxyInput"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="ssl-proxy-host-input" data-string="settingsSSLHostLabel"></label>
+					<input id="ssl-proxy-host-input" type="text" name="proxyInput"/>
+				</td>
+				<td>
+					<label for="ssl-proxy-port-input" data-string="settingsProxyPortLabel"></label>
+					<input id="ssl-proxy-port-input" type="number" min=0 max=65535 maxlength="5" name="proxyInput"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="ftp-proxy-host-input" data-string="settingsFTPHostLabel"></label>
+					<input id="ftp-proxy-host-input" type="text" name="proxyInput"/>
+				</td>
+				<td>
+					<label for="ftp-proxy-port-input" data-string="settingsProxyPortLabel"></label>
+					<input id="ftp-proxy-port-input" type="number" min=0 max=65535 maxlength="5" name="proxyInput"/>
+				</td>
+			</tr>
+			<tr>
+					<td>
+						<label for="socks-proxy-host-input" data-string="settingsSOCKSHostLabel"></label>
+						<input id="socks-proxy-host-input" type="text" name="proxyInput"/>
+					</td>
+					<td>
+						<label for="socks-proxy-port-input" data-string="settingsProxyPortLabel"></label>
+						<input id="socks-proxy-port-input" type="number" min=0 max=65535 maxlength="5" name="proxyInput"/>
+					</td>
+				</tr>
+		</table>
+		<input id="socks4-proxy-mode" type="radio" name="socksMode" value="socks4" name="proxyInput"/>
+		<label for="socks4-proxy-mode" data-string="settingsSOCKS4Label"></label>
+		<input id="socks5-proxy-mode" type="radio" name="socksMode" value="socks5" name="proxyInput"/>
+		<label for="socks4-proxy-mode" data-string="settingsSOCKS5Label"></label>
+	</div>
+
+	<div class="spacer">
+	</div>
+
 	<!-- this needs to be placed at the bottom so that sticky positioning works correctly -->
 	<div class="banner yellow-background" id="restart-required-banner" hidden>
 		<div class="container padding">

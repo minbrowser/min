@@ -344,3 +344,56 @@ function onKeyMapChange (e) {
     })
   })
 }
+
+/* proxy settings */
+
+var proxyModeContainer = document.getElementById('proxymode-container');
+var proxyModeOptions = Array.from(document.querySelectorAll('input[name=proxyMode]'));
+var proxyInput = Array.from(document.querySelectorAll('input[name=proxyInput]'));
+
+function updateProxyMode(mode) {
+  settings.set("proxyMode", mode)
+  if(mode=='no-proxy'){
+    proxyInput.forEach(function(item){
+      item.disabled = true;
+    })
+  } else {
+    proxyInput.forEach(function(item){
+      item.disabled = false;
+    })
+  }
+}
+
+settings.get("proxyMode", function(mode){
+  if(mode == null){
+    return "no-proxy";
+  }
+  else {
+    proxyModeOptions.forEach(function(item){
+      if(item.value == mode){
+        item.checked = true;
+      }
+    })
+  }
+  if(mode=='no-proxy'){
+    proxyInput.forEach(function(item){
+      item.disabled = true;
+    })
+  } else {
+    proxyInput.forEach(function(item){
+      item.disabled = false;
+    })
+  }
+})
+
+proxyModeOptions.forEach(function(item){
+  item.addEventListener('change', function(){
+    updateProxyMode(item.value);
+  })
+})
+
+proxyInput.forEach(function(item){
+  item.addEventListener('change', function(){
+    //
+  })
+})
