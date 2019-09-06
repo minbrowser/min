@@ -119,9 +119,9 @@ window.addEventListener('load', function () {
   }, true)
 })
 
-// window.addEventListener('proxy-change', function (e) {
-//   window.ipc.sendSync('proxyChange', e.detail)
-// })
+window.addEventListener('proxy-change', function (e) {
+  window.ipc.sendSync('proxyChange', e.detail)
+})
 
 require('util/settings/settings.js').initialize()
 require('menuBarVisibility.js').initialize()

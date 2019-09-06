@@ -6,17 +6,15 @@ const { session } = require('electron')
 
 var proxy = {
   rules: {
-    proxyRules: "",
     proxyBypassRules: "localhost"
   },
   initialize: function () {
     settings.listen("proxyMode", function(value){
       if (value == 'no-proxy') {
-        proxy.rules.proxyRules = ""
-        proxy.changeHandler()
+        proxy.changeHandler("")
       }
       else {
-        var proxyRules = new Array();
+        var proxyRules = {}
         settings.listen('proxies', function(proxy){
           if ( proxy.httpHost ) {
             var proxyString
@@ -24,7 +22,7 @@ var proxy = {
               proxyString = "http://" + proxy.httpHost + ":" + proxy.httpPort
             else
               proxyString = "http://" + proxy.httpHost
-            proxyRules.push(proxyString)
+            proxyRules.httpProxy = proxyString
           }
           if ( proxy.sslHost ) {
             var proxyString
@@ -32,7 +30,7 @@ var proxy = {
               proxyString = "https://" + proxy.sslHost + ":" + proxy.sslPort
             else
               proxyString = "https://" + proxy.sslHost
-            proxyRules.push(proxyString)
+            proxyRules.sslProxy = proxyString
           }
           if ( proxy.ftpHost ) {
             var proxyString
@@ -40,7 +38,7 @@ var proxy = {
               proxyString = "http://" + proxy.ftpHost + ":" + proxy.ftpPort
             else
               proxyString = "http://" + proxy.ftpHost
-            proxyRules.push(proxyString)
+            proxyRules.ftpProxy = proxyString
           }
           if ( proxy.socksHost ) {
             var proxyString
@@ -55,17 +53,18 @@ var proxy = {
               proxyString += proxy.socksHost + ":" + proxy.socksPort
             else
               proxyString += proxy.socksHost
-            proxyRules.push(proxyString)
+            proxyRules.socksProxy = proxyString
           }
         })
-        console.log(proxyRules)
+        proxy.changeHandler( Object.values(proxyRules).join(";") )
       }
     })
   },
-  changeHandler: function() {
-    // window.dispatchEvent(new CustomEvent("proxy-change", {
-    //   detail: rules
-    // }))
+  changeHandler: function(proxyRules) {
+    proxy.rules.proxyRules = proxyRules
+    window.dispatchEvent(new CustomEvent("proxy-change", {
+      detail: proxy.rules
+    }))
   }
 }
 
