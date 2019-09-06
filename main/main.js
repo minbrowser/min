@@ -280,6 +280,11 @@ ipc.on('showSecondaryMenu', function (event, data) {
   }
 })
 
+ipc.on('proxyChange', function(event, data) {
+  session.defaultSession.setProxy(data)
+  event.returnValue = data
+})
+
 function registerProtocols () {
   protocol.registerStringProtocol('mailto', function (req, cb) {
     electron.shell.openExternal(req.url)

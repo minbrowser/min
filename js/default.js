@@ -119,6 +119,10 @@ window.addEventListener('load', function () {
   }, true)
 })
 
+// window.addEventListener('proxy-change', function (e) {
+//   window.ipc.sendSync('proxyChange', e.detail)
+// })
+
 require('util/settings/settings.js').initialize()
 require('menuBarVisibility.js').initialize()
 require('navbar/tabActivity.js').init()
@@ -140,3 +144,4 @@ require('searchbar/hostsSuggestionsPlugin.js').initialize()
 require('searchbar/keywordSuggestionsPlugin.js').initialize()
 require('searchbar/updateNotifications.js').initialize()
 require('searchbar/restoreTaskPlugin.js').initialize()
+require('util/proxy.js').initialize()

@@ -100,7 +100,8 @@ for (var contentType in contentTypes) {
   (function (contentType) {
     settings.get('filtering', function (value) {
       // create the settings section for blocking each content type
-
+      if ( value == undefined ) 
+        return
       var section = document.createElement('div')
       section.classList.add('setting-section')
 
@@ -267,6 +268,8 @@ settings.get('keyMap', function (keyMapSettings) {
   var keyMapList = document.getElementById('key-map-list')
 
   Object.keys(keyMap).forEach(function (action) {
+    if (action == undefined)
+      return
     var li = createKeyMapListItem(action, keyMap)
     keyMapList.appendChild(li)
   })
@@ -392,8 +395,101 @@ proxyModeOptions.forEach(function(item){
   })
 })
 
+settings.get('proxies', function(value) {
+  if ( value == null )
+    return
+  document.getElementById('http-proxy-host-input').value = value.httpHost == undefined ? "" : value.httpHost
+  document.getElementById('ssl-proxy-host-input').value = value.sslHost == undefined ? "" : value.sslHost
+  document.getElementById('ftp-proxy-host-input').value = value.ftpHost == undefined ? "" : value.ftpHost
+  document.getElementById('socks-proxy-host-input').value = value.socksHost == undefined ? "" : value.socksHost
+  document.getElementById('http-proxy-port-input').value = value.httpPort == undefined ? 0 : value.httpPort
+  document.getElementById('ssl-proxy-port-input').value = value.sslPort == undefined ? 0 : value.sslPort
+  document.getElementById('ftp-proxy-port-input').value = value.ftpPort == undefined ? 0 : value.ftpPort
+  document.getElementById('socks-proxy-port-input').value = value.socksPort == undefined ? 0 : value.socksPort
+  if ( value.socksMode == 'socks4' ) {
+    document.getElementById('socks4-proxy-mode').checked = true;
+  } else {
+    document.getElementById('socks5-proxy-mode').checked = true;      
+  }
+})
+
+var proxies = {
+  httpHost: "",
+  sslHost: "",
+  ftpHost: "",
+  socksHost: "",
+  httpPort: 0,
+  sslPort: 0,
+  ftpPort: 0,
+  socksPort: 0,
+  socksMode: "socks5"
+}
+
+settings.get('proxies', function(proxySetting){
+  if (proxySetting) {
+    if (  proxySetting.httpHost == undefined ) {
+      proxies.httpHost = proxySetting.httpHost
+    }
+    if (  proxySetting.sslHost == undefined ) {
+      proxies.sslHost = proxySetting.sslHost
+    }
+    if (  proxySetting.ftpHost == undefined ) {
+      proxies.ftpHost = proxySetting.ftpHost
+    }
+    if (  proxySetting.socksHost == undefined ) {
+      proxies.socksHost = proxySetting.socksHost
+    }
+    if (  proxySetting.httpPort == undefined ) {
+      proxies.httpPort = proxySetting.httpPort
+    }
+    if (  proxySetting.sslPort == undefined ) {
+      proxies.sslPort = proxySetting.sslPort
+    }
+    if (  proxySetting.ftpPort == undefined ) {
+      proxies.ftpPort = proxySetting.ftpPort
+    }
+    if (  proxySetting.socksPort == undefined ) {
+      proxies.socksPort = proxySetting.socksPort
+    }
+    if (  proxySetting.socksMode == undefined ) {
+      proxies.socksMode = proxySetting.socksMode
+    }
+  }
+})
+
 proxyInput.forEach(function(item){
-  item.addEventListener('change', function(){
-    //
+  item.addEventListener('change', function() {
+    // TODO: Write IP validator.
+    if (item.id === 'http-proxy-host-input') {
+      proxies.httpHost = item.value;
+    }
+    if ( item.id === 'ssl-proxy-host-input' ) {
+      proxies.sslHost = item.value
+    }
+    if ( item.id === 'ftp-proxy-host-input') {
+      proxies.ftpHost = item.value
+    }
+    if ( item.id === 'socks-proxy-host-input') {
+      proxies.socksHost = item.value
+    }
+    if (item.id === 'http-proxy-port-input') {
+      proxies.httpPort = item.value
+    }
+    if ( item.id === 'ssl-proxy-port-input' ) {
+      proxies.sslPort = item.value
+    }
+    if ( item.id === 'ftp-proxy-port-input') {
+      proxies.ftpPort = item.value
+    }
+    if ( item.id === 'socks-proxy-port-input') {
+      proxies.socksPort = item.value
+    }
+    if ( item.id === 'socks4-proxy-mode') {
+      proxies.socksMode = item.value
+    }
+    if ( item.id === 'socks5-proxy-mode') {
+      proxies.socksMode = item.value
+    }
+    settings.set("proxies", proxies);
   })
 })
