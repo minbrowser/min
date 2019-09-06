@@ -425,43 +425,18 @@ var proxies = {
   socksMode: "socks5"
 }
 
-settings.get('proxies', function(proxySetting){
-  if (proxySetting) {
-    if (  proxySetting.httpHost == undefined ) {
-      proxies.httpHost = proxySetting.httpHost
-    }
-    if (  proxySetting.sslHost == undefined ) {
-      proxies.sslHost = proxySetting.sslHost
-    }
-    if (  proxySetting.ftpHost == undefined ) {
-      proxies.ftpHost = proxySetting.ftpHost
-    }
-    if (  proxySetting.socksHost == undefined ) {
-      proxies.socksHost = proxySetting.socksHost
-    }
-    if (  proxySetting.httpPort == undefined ) {
-      proxies.httpPort = proxySetting.httpPort
-    }
-    if (  proxySetting.sslPort == undefined ) {
-      proxies.sslPort = proxySetting.sslPort
-    }
-    if (  proxySetting.ftpPort == undefined ) {
-      proxies.ftpPort = proxySetting.ftpPort
-    }
-    if (  proxySetting.socksPort == undefined ) {
-      proxies.socksPort = proxySetting.socksPort
-    }
-    if (  proxySetting.socksMode == undefined ) {
-      proxies.socksMode = proxySetting.socksMode
-    }
-  }
-})
+function updateProxies() {
+  settings.get('proxies', function(proxySetting){
+    proxies = proxySetting;
+  })
+}
 
 proxyInput.forEach(function(item){
   item.addEventListener('change', function() {
     // TODO: Write IP validator.
-    if (item.id === 'http-proxy-host-input') {
-      proxies.httpHost = item.value;
+    updateProxies()
+    if ( item.id === 'http-proxy-host-input' ) {
+      proxies.httpHost = item.value
     }
     if ( item.id === 'ssl-proxy-host-input' ) {
       proxies.sslHost = item.value
