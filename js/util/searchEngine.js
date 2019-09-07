@@ -41,6 +41,11 @@ var searchEngines = {
     searchURL: 'https://www.startpage.com/do/search?q=%s',
     queryParam: 'q'
   },
+  Ecosia: {
+    name: 'Ecosia',
+    searchURL: 'https://www.ecosia.org/search?q=%s',
+    queryParam: 'q'
+  },
   Wikipedia: {
     name: 'Wikipedia',
     searchURL: 'https://wikipedia.org/w/index.php?search=%s',
