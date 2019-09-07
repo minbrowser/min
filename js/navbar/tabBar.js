@@ -308,7 +308,7 @@ window.tabBar = {
       tabBar.container.removeChild(tabEl)
       delete tabBar.tabElementMap[tabId]
     }
-  }
+  },
 }
 
 // when we click outside the navbar, we leave editing mode

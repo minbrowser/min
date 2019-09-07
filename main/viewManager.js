@@ -23,7 +23,8 @@ function createView (id, webPreferencesString, boundsString, events) {
     mainWindow.webContents.send('view-ipc', {
       id: id,
       name: channel,
-      data: data
+      data: data,
+      frameId: e.frameId,
     })
   })
 

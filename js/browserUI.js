@@ -171,7 +171,6 @@ function switchToTab (id, options) {
   })
 }
 
-<<<<<<< HEAD
 webviews.bindEvent('new-window', function (webview, tabId, e, url, frameName, disposition) {
   var newTab = tabs.add({
     url: url,

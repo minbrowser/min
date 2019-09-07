@@ -217,6 +217,7 @@
         "bitwardenError": "Failed to install Bitwarden-CLI: ",
         "bitwardenVerify": "Enter Bitwarden master password to verify the tool:",
         "bitwardenUnlockError": "Failed to unlock the password store: ",
-        "bitwardenRetry": "Make sure you're using the right file and entering a correct password. You can retry by dragging the tool here again."
+        "bitwardenRetry": "Make sure you're using the right file and entering a correct password. You can retry by dragging the tool here again.",
+        "passwordFillAction": "Fill Login Form"
     }
 }

@@ -6,10 +6,6 @@ attributes. If we find something useful, we dispatch an IPC event
 'password-autofill' to signal that we want to check if there is auto-fill data
 available.
 
-We can send an additional 'force' parameters in the event args to indicate that
-we want to unlock password manager if it's locked. Otherwise the search will
-be done only if manager is already unlocked.
-
 When we receive back an IPC event 'password-autofill-match' with auto-fill 
 data, we do one of two things:
 
@@ -27,6 +23,39 @@ add a MutationObserver to the document, or DOMNodeInserted listener, but I
 wanted to keep it lightweight and not impact browser performace too much.
 */
 
+const keyIcon = '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="key" class="svg-inline--fa fa-key fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M512 176.001C512 273.203 433.202 352 336 352c-11.22 0-22.19-1.062-32.827-3.069l-24.012 27.014A23.999 23.999 0 0 1 261.223 384H224v40c0 13.255-10.745 24-24 24h-40v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24v-78.059c0-6.365 2.529-12.47 7.029-16.971l161.802-161.802C163.108 213.814 160 195.271 160 176 160 78.798 238.797.001 335.999 0 433.488-.001 512 78.511 512 176.001zM336 128c0 26.51 21.49 48 48 48s48-21.49 48-48-21.49-48-48-48-48 21.49-48 48z"></path></svg>'
+
+// Creates an unlock button element.
+// 
+// - input: Input element to 'attach' unlock button to.
+function createUnlockButton(input) {
+  // Container.
+  var unlockDiv = document.createElement('div')
+
+  // Style.
+  unlockDiv.style.width = '20px'
+  unlockDiv.style.height = '20px'
+  unlockDiv.style.zIndex = 100
+
+  // Position.
+  unlockDiv.style.position = 'absolute'
+  unlockDiv.style.left = (input.offsetLeft + input.offsetWidth - 20 - 10) + 'px'
+  unlockDiv.style.top = (input.offsetTop + (input.offsetHeight - 20) / 2.0) + 'px'
+
+  // Button.
+  button = document.createElement('div')
+  button.style.width = '20px'
+  button.style.height = '20px'
+  button.innerHTML = keyIcon
+  button.addEventListener('mousedown', (event) => {
+    event.preventDefault()
+    checkInputs()
+  })
+  unlockDiv.appendChild(button)
+
+  return unlockDiv
+}
+
 // Tries to find if an element has a specific attribute value that contains at 
 // least one of the values from 'matches' array.
 function checkAttribute(element, attribute, matches) {
@@ -42,7 +71,6 @@ function getInputs(names, types) {
 
   let matchedFields = []
   for (let field of allFields) {
-
     if (!checkAttribute(field, 'type', types)) {
       continue
     }
@@ -83,10 +111,12 @@ function fillCredentials(credentials) {
     
     for (let field of getUsernameFields()) {
       field.value = username
+      field.dispatchEvent(new Event('change', { 'bubbles': true }))
     }
 
     for (let field of getPasswordFields()) {
       field.value = password
+      field.dispatchEvent(new Event('change', { 'bubbles': true }))
     }
 }
 
@@ -99,7 +129,6 @@ function fillCredentials(credentials) {
 // - element: input field to add a listener to
 // - credentials: an array of { username, password } objects
 function addFocusListener(element, credentials) {
-
   // Creates an options list container.
   function buildContainer() {
     let suggestionsDiv = document.createElement('div')
@@ -152,15 +181,44 @@ function addFocusListener(element, credentials) {
   }
 }
 
-function checkInputs(force) {
+function checkInputs() {
   if (getUsernameFields().length + getPasswordFields().length > 0) {
-    ipc.send('password-autofill', { force: force })
+    ipc.send('password-autofill')
   }
 }
 
-// Check for username/password fields on page load.
-document.addEventListener('DOMContentLoaded', () => checkInputs(false))
-window.addEventListener('load', () => checkInputs(false))
+// Ref to added unlock button.
+var currentFocusElement = null
+
+function handleFocus(event) {
+  let target = event.target
+  const types = ['text', 'email', 'password']
+  const names = ['user', 'email', 'login', 'auth', 'pass', 'password']
+
+  // We expect the field to have either 'name', 'formcontrolname' or 'id' attribute
+  // that we can use to identify it as a login form input field.
+  if (typeof target.getAttribute === 'function' && 
+      checkAttribute(target, 'type', types) && 
+      (checkAttribute(target, 'name', names) || 
+       checkAttribute(target, 'formcontrolname', names) || 
+       checkAttribute(target, 'id', names))) {
+    // DANGER. Set the parent's position to relative. Potentially can break layout.
+    target.parentElement.style.position = 'relative'
+    let unlockButton = createUnlockButton(target)
+    target.parentElement.appendChild(unlockButton)
+    
+    currentFocusElement = unlockButton
+  }
+}
+
+function handleBlur(event) {
+  if (currentFocusElement !== null && currentFocusElement.parentElement != null) {
+    currentFocusElement.parentElement.removeChild(currentFocusElement)
+  }
+}
+
+window.addEventListener('blur', handleBlur, true)
+window.addEventListener('focus', handleFocus, true)
 
 // Handle credentials fetched from the backend. Credentials are expected to be 
 // an array of { username, password, manager } objects.
@@ -174,6 +232,3 @@ ipc.on('password-autofill-match', (event, credentials) => {
   }
 })
 
-ipc.on('password-autofill-shortcut', (event) => {
-  checkInputs(true)
-})

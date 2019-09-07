@@ -53,10 +53,6 @@ input:hover[type='button'] {
   float: right;
 }
 
-.dark-mode .sub-input-field {
-  background-color: #141414;
-}
-
 .dark-mode {
   background-color: rgb(33, 37, 43);
   color: lightgrey;

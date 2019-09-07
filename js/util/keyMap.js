@@ -19,8 +19,6 @@ var defaultKeyMap = {
   'closeAllTabs': 'shift+mod+n',
   'reload': 'mod+r',
   'showAndHideMenuBar': 'ctrl+m',
-  'followLink': 'mod+enter'
-  'showAndHideMenuBar': 'alt',
   'followLink': 'mod+enter',
   'passwordAutofillShortcut': 'mod+a'
 }

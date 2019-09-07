@@ -190,15 +190,9 @@ async function getConfiguredPasswordManager() {
 }
 
 // Called when page preload script detects a form with username and password.
-webviews.bindIPC('password-autofill', function (webview, tab, args) {
-  const force = args[0].force
-
+webviews.bindIPC('password-autofill', function (webview, tab, args, frameId) {
   getConfiguredPasswordManager().then((manager) => {
     if (!manager) {
-      return
-    }
-
-    if (!force && !manager.isUnlocked()) {
       return
     }
 
@@ -211,7 +205,7 @@ webviews.bindIPC('password-autofill', function (webview, tab, args) {
       var self = this
       manager.getSuggestions(domain).then(credentials => {
         if (credentials.length > 0) {
-          webview.send('password-autofill-match', credentials)
+          webview.sendToFrame(frameId, 'password-autofill-match', credentials)
         }
       }).catch(e => {
         console.error('Failed to get password suggestions: ' + e.message)

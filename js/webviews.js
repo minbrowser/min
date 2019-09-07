@@ -162,6 +162,7 @@ const webviews = {
       webPreferencesString: JSON.stringify({
         webPreferences: {
           nodeIntegration: false,
+          nodeIntegrationInSubFrames: true,
           scrollBounce: true,
           preload: __dirname + '/dist/preload.js',
           contextIsolation: true,
@@ -448,7 +449,7 @@ ipc.on('view-ipc', function (e, args) {
   }
   webviews.IPCEvents.forEach(function (item) {
     if (item.name === args.name) {
-      item.fn(webviews.tabContentsMap[args.id], args.id, [args.data])
+      item.fn(webviews.tabContentsMap[args.id], args.id, [args.data], args.frameId)
     }
   })
 })
