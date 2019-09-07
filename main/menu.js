@@ -59,6 +59,14 @@ function createAppMenu () {
     }
   ]
 
+  var quitAction = {
+    label: l('appMenuQuit').replace('%n', appName),
+    accelerator: 'CmdOrCtrl+Q',
+    click: function () {
+      app.quit()
+    }
+  }
+
   var template = [
     ...(process.platform === 'win32' ? tabTaskActions : []),
     ...(process.platform === 'win32' ? [{type: 'separator'}] : []),
@@ -110,13 +118,7 @@ function createAppMenu () {
             {
               type: 'separator'
             },
-            {
-              label: l('appMenuQuit').replace('%n', appName),
-              accelerator: 'CmdOrCtrl+Q',
-              click: function () {
-                app.quit()
-              }
-            }
+            quitAction
           ]
         }
       ] : []),
@@ -141,7 +143,9 @@ function createAppMenu () {
           click: function (item, window) {
             sendIPCToWindow(window, 'print')
           }
-        }
+        },
+        ...(process.platform === 'linux' ? [{type: 'separator'}] : []),
+        ...(process.platform === 'linux' ? [quitAction] : [])
       ]
     },
     {
