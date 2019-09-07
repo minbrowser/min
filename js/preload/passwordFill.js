@@ -32,7 +32,7 @@ wanted to keep it lightweight and not impact browser performace too much.
 function checkAttribute(element, attribute, matches) {
   let value = element.getAttribute(attribute)
   if (value == null) { return false }
-  return matches.filter(match => value.includes(match)).length > 0
+  return matches.filter(match => value.toLowerCase().includes(match)).length > 0
 }
 
 // Gets all input fields on a page that contain at least one of the provided
