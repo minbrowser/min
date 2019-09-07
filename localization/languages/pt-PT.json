@@ -31,7 +31,7 @@
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": null, //missing translation
+        "showMoreBangs": "Mostrar mais",
         "viewSettings": "Ver definições",
         "viewReadingList": "Ver lista de leitura",
         "takeScreenshot": "Obter captura de ecrã",
@@ -41,7 +41,7 @@
         "createTask": "Criar tarefa",
         "closeTask": "Fechar tarefa",
         "moveToTask": "Mover este separador para uma tarefa",
-        "nameTask": null, //missing translation
+        "nameTask": "Dar nome a esta tarefa",
         "searchBookmarks": "Pesquisar nos marcadores",
         "searchHistory": "Pesquisar no histórico",
         /* navbar */
@@ -59,10 +59,10 @@
         "viewTasks": "Ver tarefas",
         "newTask": "Nova tarefa", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Tarefa %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
-        "returnToTask": null, //missing translation
-        "taskDescriptionTwo": null, //missing translation
-        "taskDescriptionThree": null, //missing translation
+        "taskDeleteWarning": {"unsafeHTML": "Tarefa eliminada. <a>Desfazer</a>?"},
+        "returnToTask": "Retornar à tarefa anterior",
+        "taskDescriptionTwo": "%t e %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
+        "taskDescriptionThree": ""%t, %t e %n mais", //used to describe a task that has three or more tabs
         /* find in page toolbar */
         "searchInPage": "Pesquisar na página", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%i de %t ocorrência", //this and the next label are used to indicate which match is currently highlighted
@@ -95,13 +95,13 @@
         "dnsErrorMessage": "Ocorreu um erro de DNS.",
         "offlineErrorTitle": "Está no modo off-line",
         "offlineErrorMessage": "Ative o modo on-line e tente novamente.",
-        "genericConnectionFail": "O Min não conseguiu estabelecer uma ligação ao site.",
+        "genericConnectionFail": "O Min não conseguiu estabelecer a ligação ao site.",
         "sslTimeErrorMessage": "O Min não conseguiu estabelecer uma ligação segura a este site. Verifique se a hora do computador está correta.",
         "addressInvalidTitle": "Este endereço não é válido.",
         "genericError": "Ocorreu um erro",
         /* pages/phishing/index.html */
         "phishingErrorTitle": "Este site pode ser perigoso.",
-        "phishingErrorMessage": "Este site pode estar a tentar obter informações pessoais, tais como palavras-passe ou informações bancárias.",
+        "phishingErrorMessage": "Este site pode estar a tentar obter informações pessoais, tais como palavras-passe ou dados bancários.",
         "phishingErrorVisitAnyway": "Aceder na mesma",
         "phishingErrorLeave": "Sair do site",
         /* multiple instances alert */
@@ -111,7 +111,7 @@
         "sessionRestoreErrorExplanation": "Não foi possível restaurar os separadores guardados.",
         "sessionRestoreErrorBackupInfo": "Criámos um backup dos seus dados em: %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
-            "unsafeHTML": "Se este erro persistir, crie um relatório de erros <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">aqui</a>."
+            "unsafeHTML": "Se este erro persistir, crie um relatório de erro <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">aqui</a>."
         },
         /* pages/settings/index.html */
         "settingsPreferencesHeading": "Preferências",
@@ -128,15 +128,15 @@
         },
         "settingsAppearanceHeading": "Aparência",
         "settingsDarkModeToggle": "Ativar modo escuro",
-        "settingsSiteThemeToggle": null, //missing translation
-        "settingsHistoryButtonToggle": "Ativar botão para recuar",
+        "settingsSiteThemeToggle": "Ativar tema do site",
+        "settingsHistoryButtonToggle": "Mostrar botão para recuar",
         "settingsAdditionalFeaturesHeading": "Outras funcionalidades",
         "settingsUserscriptsToggle": "Ativar scripts de utilizador",
         "settingsUserscriptsExplanation": {"unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."},
         "settingsUpdateNotificationsToggle": "Procurar atualizações automaticamente",
         "settingsSearchEngineHeading": "Motor de pesquisa",
         "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",
-        "settingsDDGExplanation": "Defina DuckDuckGo como motor de pesquisa padrão para poder obter sugestões instantâneas na barra de pesquisa.",
+        "settingsDDGExplanation": "Defina DuckDuckGo como motor de pesquisa padrão para poder obter sugestões imediatas na barra de pesquisa.",
         "customSearchEngineDescription": "Substituir termo de pesquisa por %s",
         "settingsKeyboardShortcutsHeading": "Teclas de atalho",
         "settingsKeyboardShortcutsHelp": "Utilize vírgulas para separar os diversos atalhos",
@@ -192,6 +192,6 @@
         "downloadStateCompleted": "Terminada",
         "downloadStateFailed": "Falhada",
         /* Update Notifications */
-        "updateNotificationTitle": "Está disponível uma atualização para Min"
+        "updateNotificationTitle": "Está disponível uma uma nova versão"
     }
 }
