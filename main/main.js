@@ -135,8 +135,9 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     })
   }
 
-  // save the window size for the next launch of the app
   mainWindow.on('close', function () {
+    destroyAllViews()
+    // save the window size for the next launch of the app
     saveWindowBounds()
   })
 
