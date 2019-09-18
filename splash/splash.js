@@ -4,19 +4,19 @@ var failMessage = "Min isn't supported on your OS"
 
 // matches against navigator.platform
 var platformMatchStrings = {
-  'MacIntel': 'https://github.com/minbrowser/min/releases/download/v1.11.0/Min-v1.11.0-darwin-x64.zip',
+  'MacIntel': 'https://github.com/minbrowser/min/releases/download/v1.11.1/Min-v1.11.1-darwin-x64.zip',
   // electron no longer supports 32-bit linux (https://electronjs.org/blog/linux-32bit-support), so there's only a 64-bit build available
   // As of 1.9, around 15% of Linux downloads are 32-bit, so hopefully we're just detecting support incorrectly and the 64-bit build will work
-  'Linux i686': 'https://github.com/minbrowser/min/releases/download/v1.11.0/min_1.11.0_amd64.deb',
-  'x86_64': 'https://github.com/minbrowser/min/releases/download/v1.11.0/min_1.11.0_amd64.deb'
+  'Linux i686': 'https://github.com/minbrowser/min/releases/download/v1.11.1/min_1.11.1_amd64.deb',
+  'x86_64': 'https://github.com/minbrowser/min/releases/download/v1.11.1/min_1.11.1_amd64.deb'
 }
 
 // matches against navigator.userAgent
 var UAMatchStrings = {
-  'Win64': 'https://github.com/minbrowser/min/releases/download/v1.11.0/min-1.11.0-setup.exe',
-  'WOW64': 'https://github.com/minbrowser/min/releases/download/v1.11.0/min-1.11.0-setup.exe',
+  'Win64': 'https://github.com/minbrowser/min/releases/download/v1.11.1/min-1.11.1-setup.exe',
+  'WOW64': 'https://github.com/minbrowser/min/releases/download/v1.11.1/min-1.11.1-setup.exe',
   // neither of the 64-bit strings matched, fall back to 32-bit
-  'Windows NT': 'https://github.com/minbrowser/min/releases/download/v1.11.0/Min-v1.11.0-win32-ia32.zip'
+  'Windows NT': 'https://github.com/minbrowser/min/releases/download/v1.11.1/Min-v1.11.1-win32-ia32.zip'
 }
 
 function getDownloadLink () {
