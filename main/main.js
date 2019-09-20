@@ -112,7 +112,7 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     height: bounds.height,
     x: bounds.x,
     y: bounds.y,
-    minWidth: 320,
+    minWidth: (process.platform === 'win32' ? 400 : 320), // controls take up more horizontal space on Windows
     minHeight: 350,
     titleBarStyle: 'hiddenInset',
     icon: __dirname + '/icons/icon256.png',

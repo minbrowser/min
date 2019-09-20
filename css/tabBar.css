@@ -76,9 +76,12 @@ body.windows:not(.maximized) #navbar {
 	opacity: 0.2;
 }
 
-body.is-edit-mode #back-button,
-body.is-edit-mode #menu-button {
+body.is-edit-mode #back-button {
 	display: none;
+}
+
+#menu-button {
+	margin-top: 1px;
 }
 
 body:not(.windows) #menu-button {

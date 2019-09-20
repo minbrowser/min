@@ -22,6 +22,10 @@ body.windows:not(.maximized) #searchbar {
 body.mac:not(.fullscreen) #searchbar {
 	padding-left: 75px;
 }
+body.windows #searchbar {
+	padding-left: 36px;
+	padding-right: 220px;
+}
 
 
 .searchbar-heading {
