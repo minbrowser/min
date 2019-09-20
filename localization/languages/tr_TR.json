@@ -44,6 +44,7 @@
         "nameTask": "Bu görevi adlandır",
         "searchBookmarks": "Yer işaretlerini ara",
         "searchHistory": "Arama Geçmişi", 
+        "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "Menüyü Aç",
         "enterReaderView": "Okuyucu görünümüne girin",

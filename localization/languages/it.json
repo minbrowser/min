@@ -44,6 +44,7 @@
         "nameTask": null, //missing translation
         "searchBookmarks": "Cerca nei preferiti",
         "searchHistory": "Cerca nella cronologia",
+        "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "Apri menu", //application menu button on windows
         "enterReaderView": "Entra in Modalità Lettura",

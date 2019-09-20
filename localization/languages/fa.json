@@ -44,6 +44,7 @@
         "nameTask": null, //missing translation
         "searchBookmarks": "جستجوی نشانک ها",
         "searchHistory": "جستجوی تاریخچه",
+        "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "باز کردن منو", //application menu button on windows
         "enterReaderView": "ورود به حالت خواندن",

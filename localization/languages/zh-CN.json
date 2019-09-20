@@ -44,6 +44,7 @@
         "nameTask": null, //missing translation
         "searchBookmarks": "搜索书签内容",
         "searchHistory": null, //missing translation
+        "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": null, //missing translation
         "enterReaderView": "进入阅读模式",

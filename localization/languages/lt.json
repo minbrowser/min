@@ -44,6 +44,7 @@
         "nameTask": null, //missing translation
         "searchBookmarks": "Ieškoti adresyno įrašų",
         "searchHistory": "Ieškoti istorijos",
+        "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "Atverti meniu", //application menu button on windows
         "enterReaderView": "Įeiti į skaitymo rodinį",

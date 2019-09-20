@@ -44,6 +44,7 @@
         "nameTask": null, //missing translation
         "searchBookmarks": "Könyvjelző keresés",
         "searchHistory": "Keresési előzmények",
+        "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "Menü megnyitása",
         "enterReaderView": "Lépj be az olvasó nézetbe",

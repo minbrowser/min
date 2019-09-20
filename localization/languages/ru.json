@@ -44,6 +44,7 @@
         "nameTask": "Название этой задачи",
         "searchBookmarks": "Искать в закладках",
         "searchHistory": "Искать в истории",
+        "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "Открыть меню",
         "enterReaderView": "Включить режим чтения",

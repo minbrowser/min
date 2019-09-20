@@ -44,6 +44,7 @@
         "nameTask": "このタスクの名前",
         "searchBookmarks": "ブックマークを検索",
         "searchHistory": "検索履歴",
+        "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "メニューを開く",
         "enterReaderView": "リーダービューを開始",

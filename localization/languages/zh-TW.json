@@ -44,6 +44,7 @@
         "nameTask": null, //missing translation
         "searchBookmarks": "搜尋書籤",
         "searchHistory": "搜尋歷史",
+        "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "打開選單",
         "enterReaderView": "進入閱讀模式",

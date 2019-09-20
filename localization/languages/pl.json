@@ -44,6 +44,7 @@
         "nameTask": "Nazwij to zadanie",
         "searchBookmarks": "Zakładki wyszukiwania",
         "searchHistory": "Historia wyszukiwania",
+        "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "Otwórz menu", //application menu button on windows
         "enterReaderView": "Otwórz widok czytnika",

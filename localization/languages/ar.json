@@ -44,6 +44,7 @@
         "nameTask": null, //missing translation
         "searchBookmarks": "البحث عن الإشارات",
         "searchHistory": "البحث عن السجل",
+        "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "فتح القائمة", //application menu button on windows
         "enterReaderView": "دخول وضع القراءة",

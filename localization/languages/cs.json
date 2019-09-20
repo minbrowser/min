@@ -44,6 +44,7 @@
         "nameTask": null, //missing translation
         "searchBookmarks": "Vyhledávat záložky",
         "searchHistory": null, //missing translation
+        "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": null, //missing translation
         "enterReaderView": "Otevřít režim čtení",

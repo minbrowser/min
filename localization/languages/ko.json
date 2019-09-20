@@ -44,6 +44,7 @@
         "nameTask": null, //missing translation
         "searchBookmarks": "북마크 검색",
         "searchHistory": "기록 검색",
+        "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "메뉴", //application menu button on windows
         "enterReaderView": "읽기 모드",

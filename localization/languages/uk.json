@@ -44,6 +44,7 @@
         "nameTask": "Назвіть це завдання",
         "searchBookmarks": "Пошук закладок",
         "searchHistory": "Історія пошуку",
+        "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "Відкрити меню", //application menu button on windows
         "enterReaderView": "Включити режим читання",
