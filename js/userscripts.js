@@ -64,11 +64,11 @@ webviews.bindEvent('dom-ready', function (webview, tabId, e) {
       }
       // global script
       if (domainScriptMap.global) {
-        this.executeJavaScript(domainScriptMap.global, false, null)
+        webviews.callAsync(tabId, 'executeJavaScript', [domainScriptMap.global, false, null])
       }
       // domain-specific scripts
       if (domainScriptMap[domain]) {
-        this.executeJavaScript(domainScriptMap[domain], false, null)
+        webviews.callAsync(tabId, 'executeJavaScript', [domainScriptMap[domain], false, null])
       }
     } catch(e) {
       console.warn(e)
