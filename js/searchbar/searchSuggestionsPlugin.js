@@ -11,7 +11,7 @@ function showSearchSuggestions (text, input, event) {
     return
   }
 
-  if (searchbarPlugins.getResultCount() > 3) {
+  if ((searchbarPlugins.getResultCount() - searchbarPlugins.getResultCount('searchSuggestions')) > 3) {
     searchbarPlugins.reset('searchSuggestions')
     return
   }
