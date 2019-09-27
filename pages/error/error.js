@@ -107,7 +107,7 @@ if (err) {
   subtitle = err.message || ''
 } else {
   title = l('genericError')
-  subtitle = ''
+  subtitle = '(' + ec + ')'
 }
 
 h1.textContent = title
