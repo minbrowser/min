@@ -45,6 +45,7 @@ fs.readFile(savePath, function (err, data) {
       places.initialize()
     // completed history migration, move on to reading list
       migrateReadingListItem()
+      return
     }
     var item = historyItems.shift()
     item.tags = []
