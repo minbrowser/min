@@ -1,7 +1,7 @@
 /* global Worker tabs */
 
 var webviews = require('webviews.js')
-const db = require('util/database.js')
+const db = require('util/database.js').db
 const searchEngine = require('util/searchEngine.js')
 const urlParser = require('util/urlParser.js')
 
@@ -137,6 +137,9 @@ const places = {
     })
   },
   initialize: function () {
+    if (places.worker) {
+      places.worker.terminate()
+    }
     places.worker = new Worker('js/places/placesWorker.js')
     places.worker.onmessage = places.onMessage
 

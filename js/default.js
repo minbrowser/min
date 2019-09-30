@@ -119,6 +119,8 @@ window.addEventListener('load', function () {
   }, true)
 })
 
+require('dbMigration.js')
+
 require('util/settings/settings.js').initialize()
 require('menuBarVisibility.js').initialize()
 require('navbar/tabActivity.js').init()
