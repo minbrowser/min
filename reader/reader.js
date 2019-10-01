@@ -2,6 +2,7 @@
 
 var backbutton = document.getElementById('backtoarticle')
 var articleURL = new URLSearchParams(window.location.search).get('url')
+var articleLocation = new URL(articleURL)
 
 backbutton.addEventListener('click', function (e) {
   // there's likely a problem with reader view on this page, so don't auto-redirect to it in the future
@@ -64,7 +65,7 @@ function extractAndShowNavigation (doc) {
   try {
     // URL parsing can fail, but this shouldn't prevent the article from displaying
 
-    let currentDir = new URL(articleURL).pathname.split('/').slice(0, -1).join('/')
+    let currentDir = articleLocation.pathname.split('/').slice(0, -1).join('/')
 
     var items = Array.from(doc.querySelectorAll('[class*="menu"] a, [class*="navigation"] a, header li a, [role=tabpanel] a, nav a'))
       .filter(el => {
@@ -125,7 +126,7 @@ function startReaderView (article) {
       document.title = 'Reader View | ' + articleURL
     }
 
-    var readerDomain = new URL(articleURL).hostname
+    var readerDomain = articleLocation.hostname
 
     readerContent += "<div class='reader-main' domain='" + readerDomain + "'>" + "<h1 class='article-title'>" + (article.title || '') + '</h1>'
 
@@ -146,6 +147,24 @@ function startReaderView (article) {
 
   // resize the frame once the page has loaded and the content height can be determined
   rframe.onload = function () {
+    /* add special handling for links */
+    var links = rframe.contentDocument.querySelectorAll('a')
+
+    if (links) {
+      for (var i = 0; i < links.length; i++) {
+        // if the link is to the same page, it needs to be handled differently
+        try {
+          let href = new URL(links[i].href)
+          if (href.hostname === articleLocation.hostname && href.pathname === articleLocation.pathname && href.search === articleLocation.search) {
+            links[i].addEventListener('click', function (e) {
+              e.preventDefault()
+              rframe.contentWindow.location.hash = href.hash
+            })
+          }
+        } catch (e) {}
+      }
+    }
+
     setReaderTheme()
     requestAnimationFrame(function () {
       rframe.height = rframe.contentDocument.body.querySelector('.reader-main').scrollHeight + 'px'
@@ -182,8 +201,6 @@ function processArticle (data) {
     parserframe.contentDocument.head.appendChild(b)
 
     var doc = parserframe.contentDocument
-
-    var location = new URL(articleURL)
 
     // in order for links to work correctly, they all need to open in a new tab
 

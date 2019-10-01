@@ -1,6 +1,11 @@
 /* Determines whether a page should redirect to reader view based on visit history */
 
 const readerDecision = {
+  trimURL: function (url) {
+    var loc = new URL(url)
+    loc.hash = ''
+    return loc.toString()
+  },
   shouldRedirect: function (url) {
     /*
     returns:
@@ -8,6 +13,8 @@ const readerDecision = {
         0: redirect once the page is confirmed to be readerable
         1: redirect even before the page is confirmed to be readerable
     */
+
+    url = readerDecision.trimURL(url)
 
     try {
       var urlObj = new URL(url)
@@ -45,11 +52,15 @@ const readerDecision = {
   getDomainStatus: function (url) {
     return readerDecision.info.domainStatus[new URL(url).hostname]
   },
-  setURLStatus(url, isReaderable) {
+  setURLStatus (url, isReaderable) {
+    url = readerDecision.trimURL(url)
+
     readerDecision.info.URLStatus[url] = {lastVisit: Date.now(), isReaderable}
     saveData()
   },
   getURLStatus: function (url) {
+    url = readerDecision.trimURL(url)
+
     return readerDecision.info.URLStatus[url].isReaderable
   },
   getSameDomainStatuses: function (url) {
