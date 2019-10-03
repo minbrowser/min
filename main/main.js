@@ -19,16 +19,12 @@ var userDataPath = app.getPath('userData')
 
 var dbPath = userDataPath + (process.platform === 'win32' ? '\\IndexedDB\\file__0.indexeddb.leveldb' : '/IndexedDB/file__0.indexeddb.leveldb')
 
-if (process.argv.some(item => item.includes('rename-db-and-relaunch'))) {
-  fs.rename(dbPath, dbPath + '.recovery', function () {
-    setTimeout(function () {
-      app.relaunch({
-        args: process.argv.slice(1, -1)
-      })
-      app.quit()    
-    }, 500);
-  })
-  return
+if (process.argv.some(item => item.includes('rename-db'))) {
+  try {
+    fs.renameSync(dbPath, dbPath + '.recovery')
+  } catch (e) {
+    console.warn('renaming database failed', e)
+  }
 }
 
 const browserPage = 'file://' + __dirname + '/index.html'

@@ -20,7 +20,7 @@ dbLegacy.places.count().then(function (oldCount) {
       }).then(function () {
         fs.writeFileSync(savePath, JSON.stringify({history: historyItems, readingList: readingListItems}))
         remote.app.relaunch({
-          args: remote.getGlobal('process').argv.slice(1).concat(['--rename-db-and-relaunch'])
+          args: remote.getGlobal('process').argv.slice(1).concat(['--rename-db'])
         })
         remote.app.quit()
       })
