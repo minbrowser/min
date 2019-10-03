@@ -21,9 +21,10 @@ var dbPath = userDataPath + (process.platform === 'win32' ? '\\IndexedDB\\file__
 
 if (process.argv.some(item => item.includes('rename-db'))) {
   try {
-    fs.renameSync(dbPath, dbPath + '.recovery')
+    fs.renameSync(dbPath, dbPath + '-' + Date.now() + '.recovery')
   } catch (e) {
     console.warn('renaming database failed', e)
+    app.quit()
   }
 }
 
