@@ -12,18 +12,27 @@ dbLegacy.places.count().then(function (oldCount) {
     var historyItems = []
     var readingListItems = []
 
-    dbLegacy.places.each(function (item) {
-      historyItems.push(item)
-    }).then(function () {
+    Promise.all([
+      dbLegacy.places.each(function (item) {
+        historyItems.push(item)
+      }),
       dbLegacy.readingList.each(function (item) {
         readingListItems.push(item)
-      }).then(function () {
-        fs.writeFileSync(savePath, JSON.stringify({history: historyItems, readingList: readingListItems}))
-        remote.app.relaunch({
-          args: remote.getGlobal('process').argv.slice(1).concat(['--rename-db'])
-        })
-        remote.app.quit()
+      }),
+      // it's possible for both the new DB and the old DB to contain items if you downgrade to an old version,
+      // then upgrade again. In that case, we should attempt to merge both databases.
+      db.places.each(function (item) {
+        historyItems.push(item)
+      }),
+      db.readingList.each(function (item) {
+        readingListItems.push(item)
       })
+    ]).then(function () {
+      fs.writeFileSync(savePath, JSON.stringify({history: historyItems, readingList: readingListItems}))
+      remote.app.relaunch({
+        args: remote.getGlobal('process').argv.slice(1).concat(['--rename-db'])
+      })
+      remote.app.quit()
     })
   }
 })
@@ -37,7 +46,7 @@ fs.readFile(savePath, function (err, data) {
   var items = JSON.parse(data)
   var historyItems = items.history
   var readingListItems = items.readingList
-  console.log(items)
+  console.log(JSON.parse(JSON.stringify(items)))
 
   function migrateHistoryItem () {
     if (historyItems.length === 0) {
@@ -48,7 +57,11 @@ fs.readFile(savePath, function (err, data) {
       return
     }
     var item = historyItems.shift()
-    item.tags = []
+    if (!item.tags) {
+      item.tags = []
+    }
+    // the item could have an ID already if it's being merged from an existing new database, but we can't reuse it because it will overlap with the new items being created
+    delete item.id
     db.places.where('url').equals(item.url).count().then(function (count) {
       if (count === 0) {
         db.places.put(item).then(function () {
@@ -66,7 +79,7 @@ fs.readFile(savePath, function (err, data) {
   function migrateReadingListItem () {
     if (readingListItems.length === 0) {
         // completed migration
-      fs.rename(savePath, savePath + '.recovery', function () {})
+      fs.rename(savePath, savePath + '-' + Date.now() + '.recovery', function () {})
       return
     }
 
