@@ -1,7 +1,3 @@
-if (process.type === 'renderer') {
-  var db = require('util/database.js').db
-}
-
 var settings = {
   filePath: userDataPath + (process.platform === 'win32' ? '\\' : '/') + 'settings.json',
   list: {},
@@ -27,12 +23,12 @@ var settings = {
       }
     })
   },
-  get: function (key, cb) {
-    cb(settings.list[key])
+  get: function (key) {
+    return settings.list[key]
   },
   listen: function (key, cb) {
     if (key && cb) {
-      settings.get(key, cb)
+      cb(settings.get(key))
       settings.onChangeCallbacks.push({key, cb})
     } else if (key) {
       // global listener

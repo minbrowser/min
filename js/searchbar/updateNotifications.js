@@ -40,12 +40,11 @@ function getUpdateRandomNum () {
 }
 
 function getAvailableUpdates () {
-  settings.get('updateNotificationsEnabled', function (value) {
-    if (value !== false) {
-      console.info('checking for updates')
-      fetch(UPDATE_URL, {
-        cache: 'no-cache'
-      })
+  if (settings.get('updateNotificationsEnabled') !== false) {
+    console.info('checking for updates')
+    fetch(UPDATE_URL, {
+      cache: 'no-cache'
+    })
         .then(res => res.json())
         .then(function (response) {
           console.info('got response from update check', response)
@@ -63,10 +62,9 @@ function getAvailableUpdates () {
         .catch(function (e) {
           console.info('failed to get update info', e)
         })
-    } else {
-      console.info('update checking is disabled')
-    }
-  })
+  } else {
+    console.info('update checking is disabled')
+  }
 }
 
 function showUpdateNotification (text, input, event) {

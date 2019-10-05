@@ -18,7 +18,7 @@ var urlParser = require('util/urlParser.js')
 var settings = require('util/settings/settings.js')
 var findinpage = require('findinpage.js')
 
-var keyMap
+var keyMap = keyMapModule.userKeyMap(settings.get('keyMap'))
 
 function addPrivateTab () {
   /* new tabs can't be created in focus mode */
@@ -92,227 +92,223 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
   Mousetrap.bind(binding, shortcutCallback, (options.keyUp ? 'keyup' : null))
 }
 
-settings.get('keyMap', function (keyMapSettings) {
-  keyMap = keyMapModule.userKeyMap(keyMapSettings)
+var Mousetrap = require('mousetrap')
 
-  var Mousetrap = require('mousetrap')
+window.Mousetrap = Mousetrap
+defineShortcut('addPrivateTab', addPrivateTab)
 
-  window.Mousetrap = Mousetrap
-  defineShortcut('addPrivateTab', addPrivateTab)
+defineShortcut('enterEditMode', function (e) {
+  tabBar.enterEditMode(tabs.getSelected())
+  return false
+})
 
-  defineShortcut('enterEditMode', function (e) {
-    tabBar.enterEditMode(tabs.getSelected())
-    return false
-  })
+defineShortcut('runShortcut', function (e) {
+  tabBar.enterEditMode(tabs.getSelected(), '!')
+})
 
-  defineShortcut('runShortcut', function (e) {
-    tabBar.enterEditMode(tabs.getSelected(), '!')
-  })
+defineShortcut('closeTab', function (e) {
+  browserUI.closeTab(tabs.getSelected())
+})
 
-  defineShortcut('closeTab', function (e) {
-    browserUI.closeTab(tabs.getSelected())
-  })
+defineShortcut('restoreTab', function (e) {
+  if (focusMode.enabled()) {
+    focusMode.warn()
+    return
+  }
 
-  defineShortcut('restoreTab', function (e) {
-    if (focusMode.enabled()) {
-      focusMode.warn()
-      return
-    }
-
-    var restoredTab = tasks.getSelected().tabHistory.pop()
+  var restoredTab = tasks.getSelected().tabHistory.pop()
 
     // The tab history stack is empty
-    if (!restoredTab) {
-      return
-    }
+  if (!restoredTab) {
+    return
+  }
 
-    if (tabs.isEmpty()) {
-      browserUI.destroyTab(tabs.getAtIndex(0).id)
-    }
+  if (tabs.isEmpty()) {
+    browserUI.destroyTab(tabs.getAtIndex(0).id)
+  }
 
-    browserUI.addTab(tabs.add(restoredTab), {
-      enterEditMode: false
-    })
+  browserUI.addTab(tabs.add(restoredTab), {
+    enterEditMode: false
   })
+})
 
-  defineShortcut('addToFavorites', function (e) {
-    tabBar.getTab(tabs.getSelected()).querySelector('.bookmarks-button').click()
-    tabBar.enterEditMode(tabs.getSelected()) // we need to show the bookmarks button, which is only visible in edit mode
-  })
+defineShortcut('addToFavorites', function (e) {
+  tabBar.getTab(tabs.getSelected()).querySelector('.bookmarks-button').click()
+  tabBar.enterEditMode(tabs.getSelected()) // we need to show the bookmarks button, which is only visible in edit mode
+})
 
   // cmd+x should switch to tab x. Cmd+9 should switch to the last tab
 
-  for (var i = 1; i < 9; i++) {
-    (function (i) {
-      defineShortcut({keys: 'mod+' + i}, function (e) {
-        var currentIndex = tabs.getIndex(tabs.getSelected())
-        var newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i)
-        if (newTab) {
-          browserUI.switchToTab(newTab.id)
-        }
-      })
+for (var i = 1; i < 9; i++) {
+  (function (i) {
+    defineShortcut({keys: 'mod+' + i}, function (e) {
+      var currentIndex = tabs.getIndex(tabs.getSelected())
+      var newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i)
+      if (newTab) {
+        browserUI.switchToTab(newTab.id)
+      }
+    })
 
-      defineShortcut({keys: 'shift+mod+' + i}, function (e) {
-        var currentIndex = tabs.getIndex(tabs.getSelected())
-        var newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i)
-        if (newTab) {
-          browserUI.switchToTab(newTab.id)
-        }
-      })
-    })(i)
-  }
+    defineShortcut({keys: 'shift+mod+' + i}, function (e) {
+      var currentIndex = tabs.getIndex(tabs.getSelected())
+      var newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i)
+      if (newTab) {
+        browserUI.switchToTab(newTab.id)
+      }
+    })
+  })(i)
+}
 
-  defineShortcut('gotoLastTab', function (e) {
-    browserUI.switchToTab(tabs.getAtIndex(tabs.count() - 1).id)
-  })
+defineShortcut('gotoLastTab', function (e) {
+  browserUI.switchToTab(tabs.getAtIndex(tabs.count() - 1).id)
+})
 
-  defineShortcut('gotoFirstTab', function (e) {
-    browserUI.switchToTab(tabs.getAtIndex(0).id)
-  })
+defineShortcut('gotoFirstTab', function (e) {
+  browserUI.switchToTab(tabs.getAtIndex(0).id)
+})
 
-  defineShortcut({keys: 'esc'}, function (e) {
-    taskOverlay.hide()
-    tabBar.leaveEditMode()
+defineShortcut({keys: 'esc'}, function (e) {
+  taskOverlay.hide()
+  tabBar.leaveEditMode()
 
     // exit full screen mode
-    webviews.callAsync(tabs.getSelected(), 'executeJavaScript', 'if(document.webkitIsFullScreen){document.webkitExitFullscreen()}')
+  webviews.callAsync(tabs.getSelected(), 'executeJavaScript', 'if(document.webkitIsFullScreen){document.webkitExitFullscreen()}')
 
-    webviews.callAsync(tabs.getSelected(), 'focus')
-  })
+  webviews.callAsync(tabs.getSelected(), 'focus')
+})
 
-  defineShortcut('toggleReaderView', function () {
-    if (readerView.isReader(tabs.getSelected())) {
-      readerView.exit(tabs.getSelected())
-    } else {
-      readerView.enter(tabs.getSelected())
-    }
-  })
+defineShortcut('toggleReaderView', function () {
+  if (readerView.isReader(tabs.getSelected())) {
+    readerView.exit(tabs.getSelected())
+  } else {
+    readerView.enter(tabs.getSelected())
+  }
+})
 
   // TODO add help docs for this
 
-  defineShortcut('goBack', function (d) {
-    webviews.get(tabs.getSelected()).goBack()
-  })
+defineShortcut('goBack', function (d) {
+  webviews.get(tabs.getSelected()).goBack()
+})
 
-  defineShortcut('goForward', function (d) {
-    webviews.get(tabs.getSelected()).goForward()
-  })
+defineShortcut('goForward', function (d) {
+  webviews.get(tabs.getSelected()).goForward()
+})
 
-  defineShortcut('switchToPreviousTab', function (d) {
-    var currentIndex = tabs.getIndex(tabs.getSelected())
-    var previousTab = tabs.getAtIndex(currentIndex - 1)
+defineShortcut('switchToPreviousTab', function (d) {
+  var currentIndex = tabs.getIndex(tabs.getSelected())
+  var previousTab = tabs.getAtIndex(currentIndex - 1)
 
-    if (previousTab) {
-      browserUI.switchToTab(previousTab.id)
-    } else {
-      browserUI.switchToTab(tabs.getAtIndex(tabs.count() - 1).id)
-    }
-  })
+  if (previousTab) {
+    browserUI.switchToTab(previousTab.id)
+  } else {
+    browserUI.switchToTab(tabs.getAtIndex(tabs.count() - 1).id)
+  }
+})
 
-  defineShortcut('switchToNextTab', function (d) {
-    var currentIndex = tabs.getIndex(tabs.getSelected())
-    var nextTab = tabs.getAtIndex(currentIndex + 1)
+defineShortcut('switchToNextTab', function (d) {
+  var currentIndex = tabs.getIndex(tabs.getSelected())
+  var nextTab = tabs.getAtIndex(currentIndex + 1)
 
-    if (nextTab) {
-      browserUI.switchToTab(nextTab.id)
-    } else {
-      browserUI.switchToTab(tabs.getAtIndex(0).id)
-    }
-  })
+  if (nextTab) {
+    browserUI.switchToTab(nextTab.id)
+  } else {
+    browserUI.switchToTab(tabs.getAtIndex(0).id)
+  }
+})
 
-  defineShortcut('switchToNextTask', function (d) {
-    const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id))
+defineShortcut('switchToNextTask', function (d) {
+  const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id))
 
-    const currentTaskIdx = taskSwitchList.findIndex(t => t.id === tasks.getSelected().id)
+  const currentTaskIdx = taskSwitchList.findIndex(t => t.id === tasks.getSelected().id)
 
-    const nextTask = taskSwitchList[currentTaskIdx + 1] || taskSwitchList[0]
-    browserUI.switchToTask(nextTask.id)
-  })
+  const nextTask = taskSwitchList[currentTaskIdx + 1] || taskSwitchList[0]
+  browserUI.switchToTask(nextTask.id)
+})
 
-  defineShortcut('switchToPreviousTask', function (d) {
-    const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id))
+defineShortcut('switchToPreviousTask', function (d) {
+  const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id))
 
-    const currentTaskIdx = taskSwitchList.findIndex(t => t.id === tasks.getSelected().id)
-    taskCount = taskSwitchList.length
+  const currentTaskIdx = taskSwitchList.findIndex(t => t.id === tasks.getSelected().id)
+  taskCount = taskSwitchList.length
 
-    const previousTask = taskSwitchList[currentTaskIdx - 1] || taskSwitchList[taskCount - 1]
-    browserUI.switchToTask(previousTask.id)
-  })
+  const previousTask = taskSwitchList[currentTaskIdx - 1] || taskSwitchList[taskCount - 1]
+  browserUI.switchToTask(previousTask.id)
+})
 
   // option+cmd+x should switch to task x
 
-  for (var i = 1; i < 10; i++) {
-    (function (i) {
-      defineShortcut({keys: 'shift+option+mod+' + i}, function (e) {
-        const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id))
-        if (taskSwitchList[i - 1]) {
-          browserUI.switchToTask(taskSwitchList[i - 1].id)
-        }
-      })
-    })(i)
+for (var i = 1; i < 10; i++) {
+  (function (i) {
+    defineShortcut({keys: 'shift+option+mod+' + i}, function (e) {
+      const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id))
+      if (taskSwitchList[i - 1]) {
+        browserUI.switchToTask(taskSwitchList[i - 1].id)
+      }
+    })
+  })(i)
+}
+
+defineShortcut('closeAllTabs', function (d) { // destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
+  var tset = tabs.get()
+  for (var i = 0; i < tset.length; i++) {
+    browserUI.destroyTab(tset[i].id)
   }
 
-  defineShortcut('closeAllTabs', function (d) { // destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
-    var tset = tabs.get()
-    for (var i = 0; i < tset.length; i++) {
-      browserUI.destroyTab(tset[i].id)
-    }
+  browserUI.addTab() // create a new, blank tab
+})
 
-    browserUI.addTab() // create a new, blank tab
-  })
+defineShortcut('toggleTasks', function () {
+  if (taskOverlay.isShown) {
+    taskOverlay.hide()
+  } else {
+    taskOverlay.show()
+  }
+})
 
-  defineShortcut('toggleTasks', function () {
-    if (taskOverlay.isShown) {
-      taskOverlay.hide()
-    } else {
-      taskOverlay.show()
-    }
-  })
+var lastReload = 0
 
-  var lastReload = 0
-
-  defineShortcut('reload', function () {
-    var time = Date.now()
+defineShortcut('reload', function () {
+  var time = Date.now()
 
     // pressing mod+r twice in a row reloads the whole browser
-    if (time - lastReload < 500) {
-      ipc.send('destroyAllViews')
-      remote.getCurrentWindow().webContents.reload()
-    } else if (webviews.get(tabs.getSelected()).getURL().startsWith(webviews.internalPages.error)) {
+  if (time - lastReload < 500) {
+    ipc.send('destroyAllViews')
+    remote.getCurrentWindow().webContents.reload()
+  } else if (webviews.get(tabs.getSelected()).getURL().startsWith(webviews.internalPages.error)) {
       // reload the original page rather than show the error page again
-      browserUI.navigate(tabs.getSelected(), new URL(webviews.get(tabs.getSelected()).getURL()).searchParams.get('url'))
-    } else {
+    browserUI.navigate(tabs.getSelected(), new URL(webviews.get(tabs.getSelected()).getURL()).searchParams.get('url'))
+  } else {
       // this can't be an error page, use the normal reload method
-      webviews.callAsync(tabs.getSelected(), 'reload')
-    }
+    webviews.callAsync(tabs.getSelected(), 'reload')
+  }
 
-    lastReload = time
-  })
+  lastReload = time
+})
 
   // mod+enter navigates to searchbar URL + ".com"
-  defineShortcut('completeSearchbar', function () {
-    if (searchbar.associatedInput) { // if the searchbar is open
-      var value = searchbar.associatedInput.value
+defineShortcut('completeSearchbar', function () {
+  if (searchbar.associatedInput) { // if the searchbar is open
+    var value = searchbar.associatedInput.value
 
-      tabBar.leaveEditMode()
+    tabBar.leaveEditMode()
 
       // if the text is already a URL, navigate to that page
-      if (urlParser.isURLMissingProtocol(value)) {
-        browserUI.navigate(tabs.getSelected(), value)
-      } else {
-        browserUI.navigate(tabs.getSelected(), urlParser.parse(value + '.com'))
-      }
+    if (urlParser.isURLMissingProtocol(value)) {
+      browserUI.navigate(tabs.getSelected(), value)
+    } else {
+      browserUI.navigate(tabs.getSelected(), urlParser.parse(value + '.com'))
     }
-  })
+  }
+})
 
-  defineShortcut('showAndHideMenuBar', function () {
-    menuBarVisibility.toggleMenuBar()
-  })
+defineShortcut('showAndHideMenuBar', function () {
+  menuBarVisibility.toggleMenuBar()
+})
 
-  defineShortcut('followLink', function () {
-    findinpage.end({ action: 'activateSelection' })
-  })
-}) // end settings.get
+defineShortcut('followLink', function () {
+  findinpage.end({ action: 'activateSelection' })
+})
 
 // reload the webview when the F5 key is pressed
 document.body.addEventListener('keydown', function (e) {
