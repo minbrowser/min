@@ -24,11 +24,9 @@ const legacyModules = [
   'js/navbar/menuButton.js',
   'js/keybindings.js',
   'js/pdfViewer.js',
-  'js/findinpage.js',
   'js/userscripts.js',
   'js/sessionRestore.js',
-  'js/util/theme.js',
-  'js/webviewGestures.js'
+  'js/util/theme.js'
 ]
 
 function buildBrowser () {

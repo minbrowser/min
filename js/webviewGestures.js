@@ -171,3 +171,5 @@ webviews.bindIPC('wheel-event', function (webview, tabId, e) {
     }
   }
 })
+
+module.exports = webviewGestures

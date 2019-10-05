@@ -106,3 +106,5 @@ webviews.bindEvent('found-in-page', function (webview, tabId, e, data) {
     findinpage.counter.textContent = text.replace('%i', data.activeMatchOrdinal).replace('%t', data.matches)
   }
 })
+
+module.exports = findinpage

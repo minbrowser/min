@@ -4,7 +4,7 @@ var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var urlParser = require('util/urlParser.js')
 
-var PDFViewer = {
+window.PDFViewer = {
   url: {
     base: urlParser.getFileURL(__dirname + '/pages/pdfViewer/index.html'),
     queryString: '?url=%l'

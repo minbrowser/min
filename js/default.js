@@ -129,6 +129,7 @@ require('navbar/goBackButton.js').initialize()
 require('places/places.js').initialize()
 require('downloadManager.js').initialize()
 require('webviewMenu.js').initialize()
+require('menuRenderer.js').initialize()
 
 // default searchbar plugins
 
