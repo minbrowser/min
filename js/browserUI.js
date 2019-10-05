@@ -35,7 +35,7 @@ options
   options.enterEditMode - whether to enter editing mode when the tab is created. Defaults to true.
   options.openInBackground - whether to open the tab without switching to it. Defaults to false.
 */
-function addTab (tabId = tabs.add() , options = {}) {
+function addTab (tabId = tabs.add(), options = {}) {
   tabBar.addTab(tabId)
   webviews.add(tabId)
 
@@ -171,12 +171,10 @@ function switchToTab (id, options) {
 }
 
 webviews.bindEvent('new-window', function (webview, tabId, e, url, frameName, disposition) {
-  var currentIndex = tabs.getIndex(tabs.getSelected())
-
   var newTab = tabs.add({
     url: url,
     private: tabs.get(tabId).private // inherit private status from the current tab
-  }, currentIndex + 1)
+  })
 
   addTab(newTab, {
     enterEditMode: false,
@@ -197,4 +195,4 @@ module.exports = {
   closeTask,
   closeTab,
   switchToTask,
-switchToTab}
+  switchToTab}

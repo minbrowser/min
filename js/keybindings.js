@@ -75,11 +75,9 @@ ipc.on('duplicateTab', function (e) {
     return
   }
 
-  const newIndex = tabs.getIndex(tabs.getSelected()) + 1
-
   const sourceTab = tabs.get(tabs.getSelected())
   // strip tab id so that a new one is generated
-  const newTab = tabs.add({...sourceTab, id: undefined}, newIndex)
+  const newTab = tabs.add({...sourceTab, id: undefined})
 
   browserUI.addTab(newTab, { enterEditMode: false })
 })
@@ -95,10 +93,9 @@ ipc.on('addTab', function (e, data) {
   if (!tabs.get(tabs.getSelected()).url && data.url) {
     browserUI.navigate(tabs.getSelected(), data.url)
   } else {
-    var newIndex = tabs.getIndex(tabs.getSelected()) + 1
     var newTab = tabs.add({
       url: data.url || ''
-    }, newIndex)
+    })
 
     browserUI.addTab(newTab, {
       enterEditMode: !data.url // only enter edit mode if the new tab is empty
@@ -142,11 +139,9 @@ function addPrivateTab () {
     browserUI.destroyTab(tabs.getSelected())
   }
 
-  var newIndex = tabs.getIndex(tabs.getSelected()) + 1
-
   var privateTab = tabs.add({
     private: true
-  }, newIndex)
+  })
   browserUI.addTab(privateTab)
 }
 
@@ -272,7 +267,7 @@ settings.get('keyMap', function (keyMapSettings) {
       browserUI.destroyTab(tabs.getAtIndex(0).id)
     }
 
-    browserUI.addTab(tabs.add(restoredTab, tabs.getIndex(tabs.getSelected()) + 1), {
+    browserUI.addTab(tabs.add(restoredTab), {
       enterEditMode: false
     })
   })

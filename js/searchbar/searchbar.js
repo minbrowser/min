@@ -6,7 +6,7 @@ function openURLInBackground (url) { // used to open a url in the background, wi
   var newTab = tabs.add({
     url: url,
     private: tabs.get(tabs.getSelected()).private
-  }, tabs.getIndex(tabs.getSelected()) + 1)
+  })
   browserUI.addTab(newTab, {
     enterEditMode: false,
     openInBackground: true

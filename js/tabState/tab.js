@@ -3,7 +3,7 @@ class TabList {
     this.tabs = tabs || []
     this.parentTaskList = parentTaskList
   }
-  add (tab = {} , index) {
+  add (tab = {}, options = {}) {
     var tabId = String(tab.id || Math.round(Math.random() * 100000000000000000)) // you can pass an id that will be used, or a random one will be generated.
 
     var newTab = {
@@ -19,10 +19,10 @@ class TabList {
       selected: tab.selected || false
     }
 
-    if (index) {
-      this.tabs.splice(index, 0, newTab)
-    } else {
+    if (options.atEnd) {
       this.tabs.push(newTab)
+    } else {
+      this.tabs.splice(this.getSelectedIndex() + 1, 0, newTab)
     }
 
     this.parentTaskList.emit('tab-added', tabId)
@@ -90,6 +90,14 @@ class TabList {
     for (var i = 0; i < this.tabs.length; i++) {
       if (this.tabs[i].selected) {
         return this.tabs[i].id
+      }
+    }
+    return null
+  }
+  getSelectedIndex () {
+    for (var i = 0; i < this.tabs.length; i++) {
+      if (this.tabs[i].selected) {
+        return i
       }
     }
     return null
