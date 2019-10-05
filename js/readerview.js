@@ -1,4 +1,5 @@
 var webviews = require('webviews.js')
+var keybindings = require('keybindings.js')
 var browserUI = require('browserUI.js')
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
@@ -172,4 +173,14 @@ webviews.bindIPC('canReader', function (webview, tab) {
     readerable: true
   })
   readerView.updateButton(tab)
+})
+
+// add a keyboard shortcut to enter reader mode
+
+keybindings.defineShortcut('toggleReaderView', function () {
+  if (readerView.isReader(tabs.getSelected())) {
+    readerView.exit(tabs.getSelected())
+  } else {
+    readerView.enter(tabs.getSelected())
+  }
 })

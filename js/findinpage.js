@@ -1,4 +1,5 @@
 var webviews = require('webviews.js')
+var keybindings = require('keybindings.js')
 
 var findinpage = {
   container: document.getElementById('findinpage-bar'),
@@ -105,6 +106,10 @@ webviews.bindEvent('found-in-page', function (webview, tabId, e, data) {
 
     findinpage.counter.textContent = text.replace('%i', data.activeMatchOrdinal).replace('%t', data.matches)
   }
+})
+
+keybindings.defineShortcut('followLink', function () {
+  findinpage.end({ action: 'activateSelection' })
 })
 
 module.exports = findinpage

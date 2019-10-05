@@ -1,4 +1,5 @@
 const settings = require('util/settings/settings.js')
+const keybindings = require('keybindings.js')
 
 function initialize () {
   if (settings.get('menuBarVisible') === false) {
@@ -6,6 +7,10 @@ function initialize () {
   } else {
       // menu bar should be visible, do nothing
   }
+
+  keybindings.defineShortcut('showAndHideMenuBar', function () {
+    toggleMenuBar()
+  })
 }
 
 function showMenuBar () {

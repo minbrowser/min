@@ -1,5 +1,7 @@
 var webviews = require('webviews.js')
+var keybindings = require('keybindings.js')
 var browserUI = require('browserUI.js')
+var urlParser = require('util/urlParser.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 
 function openURLInBackground (url) { // used to open a url in the background, without leaving the searchbar
@@ -105,6 +107,22 @@ searchbar.el.addEventListener('keydown', function (e) {
     searchbar.focusItem({
       focusPrevious: true
     })
+  }
+})
+
+  // mod+enter navigates to searchbar URL + ".com"
+keybindings.defineShortcut('completeSearchbar', function () {
+  if (searchbar.associatedInput) { // if the searchbar is open
+    var value = searchbar.associatedInput.value
+
+    tabBar.leaveEditMode()
+
+      // if the text is already a URL, navigate to that page
+    if (urlParser.isURLMissingProtocol(value)) {
+      browserUI.navigate(tabs.getSelected(), value)
+    } else {
+      browserUI.navigate(tabs.getSelected(), urlParser.parse(value + '.com'))
+    }
   }
 })
 

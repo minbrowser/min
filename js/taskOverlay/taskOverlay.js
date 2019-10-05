@@ -1,4 +1,5 @@
 var webviews = require('webviews.js')
+var keybindings = require('keybindings.js')
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
 
@@ -151,6 +152,18 @@ document.getElementById('navbar').addEventListener('wheel', function (e) {
     taskOverlay.show()
     e.stopImmediatePropagation()
   }
+})
+
+keybindings.defineShortcut('toggleTasks', function () {
+  if (taskOverlay.isShown) {
+    taskOverlay.hide()
+  } else {
+    taskOverlay.show()
+  }
+})
+
+keybindings.defineShortcut({keys: 'esc'}, function (e) {
+  taskOverlay.hide()
 })
 
 function getTaskContainer (id) {
