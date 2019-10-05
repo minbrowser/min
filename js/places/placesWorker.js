@@ -9,7 +9,6 @@ importScripts('fullTextSearch.js')
 importScripts('placesSearch.js')
 
 const spacesRegex = /[\+\s._/-]/g // things that could be considered spaces
-const wordRegex = /^[a-z\s]+$/g
 
 function calculateHistoryScore (item) { // item.boost - how much the score should be multiplied by. Example - 0.05
   let fs = item.lastVisit * (1 + 0.036 * Math.sqrt(item.visitCount))
@@ -27,7 +26,6 @@ function calculateHistoryScore (item) { // item.boost - how much the score shoul
 }
 
 let oneDayInMS = 24 * 60 * 60 * 1000 // one day in milliseconds
-
 let oneWeekAgo = Date.now() - (oneDayInMS * 7)
 
 // the oldest an item can be to remain in the database
@@ -129,72 +127,54 @@ function calculateHistorySimilarity (a, b) {
 onmessage = function (e) {
   const action = e.data.action
   const pageData = e.data.pageData
+  const flags = e.data.flags || {}
   const searchText = e.data.text && e.data.text.toLowerCase()
   const callbackId = e.data.callbackId
   const options = e.data.options
 
-  if (action === 'updateHistory') {
-    const item = {
-      url: pageData.url,
-      title: pageData.title || pageData.url,
-      color: pageData.color,
-      /* visitCount is added below */
-      lastVisit: Date.now(),
-      pageHTML: '',
-      extractedText: '',
-      searchIndex: tokenize(pageData.extractedText || ''),
-      metadata: pageData.metadata,
-      tags: []
-    }
-
+  if (action === 'updatePlace') {
     db.transaction('rw', db.places, function () {
-      db.places.where('url').equals(pageData.url).first(function (oldItem) {
-        // a previous item exists, update it
-        if (oldItem) {
-          item.id = oldItem.id
-          item.visitCount = oldItem.visitCount + 1
-          item.isBookmarked = oldItem.isBookmarked
-          db.places.put(item)
+      db.places.where('url').equals(pageData.url).first(function (item) {
+        var isNewItem = false
+        if (!item) {
+          isNewItem = true
+          item = {
+            url: pageData.url,
+            title: pageData.url,
+            color: null,
+            visitCount: 0,
+            lastVisit: Date.now(),
+            pageHTML: '',
+            extractedText: '',
+            searchIndex: [],
+            isBookmarked: false,
+            tags: [],
+            metadata: {}
+          }
+        }
+        for (let key in pageData) {
+          if (key === 'extractedText') {
+            item.searchIndex = tokenize(pageData.extractedText)
+          } else {
+            item[key] = pageData[key]
+          }
+        }
 
-          addOrUpdateHistoryCache(item)
-        /* if the item doesn't exist, add a new item */
-        } else {
-          item.visitCount = 1
-          item.isBookmarked = false
-          db.places.add(item)
+        if (flags.isNewVisit) {
+          item.visitCount++
+          item.lastVisit = Date.now()
+        }
 
+        db.places.put(item)
+        if (isNewItem) {
           addToHistoryCache(item)
+        } else {
+          addOrUpdateHistoryCache(item)
         }
       }).catch(function (err) {
         console.warn('failed to update history.')
         console.warn('page url was: ' + pageData.url)
         console.error(err)
-      })
-    })
-  }
-
-  if (action === 'updateBookmarkState') {
-    db.transaction('rw', db.places, function () {
-      db.places.where('url').equals(pageData.url).first(function (item) {
-        if (!item) {
-          item = {
-            url: pageData.url,
-            title: pageData.url,
-            color: '',
-            visitCount: 1,
-            lastVisit: Date.now(),
-            pageHTML: '',
-            extractedText: '',
-            searchIndex: [],
-            metadata: {},
-            tags: []
-          }
-        }
-        item.isBookmarked = pageData.shouldBeBookmarked
-
-        db.places.put(item)
-
-        addOrUpdateHistoryCache(item)
       })
     })
   }
