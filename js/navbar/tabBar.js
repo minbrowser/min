@@ -179,7 +179,7 @@ window.tabBar = {
 
     if (data.private) {
       var pbIcon = document.createElement('i')
-      pbIcon.className = 'fa fa-eye-slash icon-tab-is-private tab-info-icon'
+      pbIcon.className = 'fa fa-eye-slash icon-tab-is-private tab-icon tab-info-icon'
       iconArea.appendChild(pbIcon)
     }
 
