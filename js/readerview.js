@@ -17,10 +17,12 @@ var readerView = {
   },
   getButton: function (tabId) {
     // TODO better icon
-    var button = document.createElement('i')
-    button.className = 'fa fa-align-left reader-button'
+    var button = document.createElement('img')
+    button.className = 'reader-button tab-icon'
+    button.src = 'images/readerIcon.svg'
 
     button.setAttribute('data-tab', tabId)
+    button.setAttribute('role', 'button')
 
     button.addEventListener('click', function (e) {
       e.stopPropagation()

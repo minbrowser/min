@@ -125,7 +125,7 @@ body.is-edit-mode #navbar #tabs {
 .tab-item .tab-icon-area {
 	float: right;
 }
-.tab-item i {
+.tab-item .tab-icon {
 	font-size: 0.8em;
 	padding: 0.66em;
 	vertical-align: middle;
@@ -276,6 +276,16 @@ body.dark-mode #overlay {
 .tab-item .reader-button {
 	display: none;
 	margin-left: -0.66em;
+	height: 11px;
+	margin-top: -2px;
+	/* fixes blurry rendering.
+	image-rendering: pixelated should do the same thing, 
+	but it doesn't seem to work.
+	*/
+	transform: scaleX(1.00001);
+}
+.dark-theme .tab-item .reader-button {
+	filter: invert(1);
 }
 .tab-item.active .reader-button.can-reader {
 	display: inline-block;

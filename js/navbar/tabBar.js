@@ -164,6 +164,7 @@ window.tabBar = {
     iconArea.className = 'tab-icon-area'
 
     var closeTabButton = document.createElement('i')
+    closeTabButton.classList.add('tab-icon')
     closeTabButton.classList.add('tab-close-button')
     closeTabButton.classList.add('fa')
     closeTabButton.classList.add('fa-times-circle')
@@ -183,7 +184,7 @@ window.tabBar = {
     }
 
     var secIcon = document.createElement('i')
-    secIcon.className = 'fa fa-unlock icon-tab-not-secure tab-info-icon'
+    secIcon.className = 'fa fa-unlock icon-tab-not-secure tab-icon tab-info-icon'
     secIcon.title = l('connectionNotSecure')
 
     secIcon.hidden = data.secure !== false
