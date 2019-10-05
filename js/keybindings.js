@@ -3,21 +3,21 @@
 /*
 There are three possible ways that keybindings can be handled.
  Shortcuts that appear in the menubar are registered in main.js, and send IPC messages to the window (which are handled by this file)
-Shortcuts that don't appear in the menubar are registered in this file, using defineShortcut(). 
+Shortcuts that don't appear in the menubar are registered in this file, using defineShortcut().
  - If the browser UI is focused, these are handled by Mousetrap.
   - If a BrowserView is focused, these are handled by the before-input-event listener.
   */
 
-const keyMapModule = require("util/keyMap.js")
+const keyMapModule = require('util/keyMap.js')
 const menuBarVisibility = require('menuBarVisibility.js')
 var searchbar = require('searchbar/searchbar.js')
 var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
 var urlParser = require('util/urlParser.js')
-var settings = require("util/settings/settings.js")
+var settings = require('util/settings/settings.js')
 
-var keyMap;
+var keyMap
 
 ipc.on('zoomIn', function () {
   webviewGestures.zoomWebviewIn(tabs.getSelected())
@@ -37,8 +37,8 @@ ipc.on('print', function () {
   } else if (readerView.isReader(tabs.getSelected())) {
     readerView.printArticle(tabs.getSelected())
   } else {
-    //TODO figure out why webContents.print() doesn't work in Electron 4
-    webviews.get(tabs.getSelected()).executeJavaScript("window.print()")
+    // TODO figure out why webContents.print() doesn't work in Electron 4
+    webviews.get(tabs.getSelected()).executeJavaScript('window.print()')
   }
 })
 
@@ -70,7 +70,7 @@ ipc.on('duplicateTab', function (e) {
     return
   }
 
-  // can't duplicate if tabs is empty 
+  // can't duplicate if tabs is empty
   if (tabs.isEmpty()) {
     return
   }
@@ -204,12 +204,12 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
     if (/^\w$/.test(combo) || combo === 'mod+left' || combo === 'mod+right') {
       var webview = webviews.get(tabs.getSelected())
       if (!tabs.get(tabs.getSelected()).url || !webview.isFocused()) {
-        //check whether an input is focused in the browser UI
-        if (document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA") {
+        // check whether an input is focused in the browser UI
+        if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
           fn(e, combo)
         }
       } else {
-        //check whether an input is focused in the webview
+        // check whether an input is focused in the webview
         webview.executeJavaScript('document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA"', function (isInputFocused) {
           if (isInputFocused === false) {
             fn(e, combo)
@@ -231,7 +231,7 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
     })
   })
 
-  Mousetrap.bind(binding, shortcutCallback, (options.keyUp ? "keyup" : null))
+  Mousetrap.bind(binding, shortcutCallback, (options.keyUp ? 'keyup' : null))
 }
 
 settings.get('keyMap', function (keyMapSettings) {
@@ -248,7 +248,7 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('runShortcut', function (e) {
-    tabBar.enterEditMode(tabs.getSelected(), "!");
+    tabBar.enterEditMode(tabs.getSelected(), '!')
   })
 
   defineShortcut('closeTab', function (e) {
@@ -363,7 +363,7 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('switchToNextTask', function (d) {
-    const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id));
+    const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id))
 
     const currentTaskIdx = taskSwitchList.findIndex(t => t.id === tasks.getSelected().id)
 
@@ -372,10 +372,10 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('switchToPreviousTask', function (d) {
-    const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id));
+    const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id))
 
     const currentTaskIdx = taskSwitchList.findIndex(t => t.id === tasks.getSelected().id)
-          taskCount = taskSwitchList.length
+    taskCount = taskSwitchList.length
 
     const previousTask = taskSwitchList[currentTaskIdx - 1] || taskSwitchList[taskCount - 1]
     browserUI.switchToTask(previousTask.id)
@@ -386,7 +386,7 @@ settings.get('keyMap', function (keyMapSettings) {
   for (var i = 1; i < 10; i++) {
     (function (i) {
       defineShortcut({keys: 'shift+option+mod+' + i}, function (e) {
-        const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id));
+        const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id))
         if (taskSwitchList[i - 1]) {
           browserUI.switchToTask(taskSwitchList[i - 1].id)
         }
@@ -421,8 +421,8 @@ settings.get('keyMap', function (keyMapSettings) {
       ipc.send('destroyAllViews')
       remote.getCurrentWindow().webContents.reload()
     } else if (webviews.get(tabs.getSelected()).getURL().startsWith(webviews.internalPages.error)) {
-      //reload the original page rather than show the error page again
-      browserUI.navigate(tabs.getSelected(), new URL(webviews.get(tabs.getSelected()).getURL()).searchParams.get("url"))
+      // reload the original page rather than show the error page again
+      browserUI.navigate(tabs.getSelected(), new URL(webviews.get(tabs.getSelected()).getURL()).searchParams.get('url'))
     } else {
       // this can't be an error page, use the normal reload method
       webviews.callAsync(tabs.getSelected(), 'reload')
@@ -448,7 +448,7 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 
   defineShortcut('showAndHideMenuBar', function () {
-   menuBarVisibility.toggleMenuBar()
+    menuBarVisibility.toggleMenuBar()
   })
 
   defineShortcut('followLink', function () {
@@ -467,40 +467,40 @@ document.body.addEventListener('keydown', function (e) {
 
 webviews.bindEvent('before-input-event', function (webview, tabId, e, input) {
   var expectedKeys = 1
-  //account for additional keys that aren't in the input.key property
-  if (input.alt && input.key !== "Alt") {
+  // account for additional keys that aren't in the input.key property
+  if (input.alt && input.key !== 'Alt') {
     expectedKeys++
   }
-  if (input.shift && input.key !== "Shift") {
+  if (input.shift && input.key !== 'Shift') {
     expectedKeys++
   }
-  if (input.control && input.key !== "Control") {
+  if (input.control && input.key !== 'Control') {
     expectedKeys++
   }
-  if (input.meta && input.key !== "Meta") {
+  if (input.meta && input.key !== 'Meta') {
     expectedKeys++
   }
 
   shortcutsList.forEach(function (shortcut) {
-    if ((shortcut.keyUp && input.type !== "keyUp") || (!shortcut.keyUp && input.type !== "keyDown")) {
+    if ((shortcut.keyUp && input.type !== 'keyUp') || (!shortcut.keyUp && input.type !== 'keyDown')) {
       return
     }
     var matches = true
     var matchedKeys = 0
     shortcut.keys.forEach(function (key) {
-      if (! (
+      if (!(
         key === input.key.toLowerCase() ||
         key === input.code.replace('Digit', '') ||
         (key === 'left' && input.key === 'ArrowLeft') ||
         (key === 'right' && input.key === 'ArrowRight') ||
         (key === 'up' && input.key === 'ArrowUp') ||
         (key === 'down' && input.key === 'ArrowDown') ||
-        (key === 'alt' && (input.alt || input.key === "Alt")) ||
-        (key === 'option' && (input.alt || input.key === "Alt")) ||
-        (key === 'shift' && (input.shift || input.key === "Shift")) ||
-        (key === 'ctrl' && (input.control || input.key === "Control")) ||
-        (key === 'mod' && window.platformType === 'mac' && (input.meta || input.key === "Meta")) ||
-        (key === 'mod' && window.platformType !== 'mac' && (input.control || input.key === "Control"))
+        (key === 'alt' && (input.alt || input.key === 'Alt')) ||
+        (key === 'option' && (input.alt || input.key === 'Alt')) ||
+        (key === 'shift' && (input.shift || input.key === 'Shift')) ||
+        (key === 'ctrl' && (input.control || input.key === 'Control')) ||
+        (key === 'mod' && window.platformType === 'mac' && (input.meta || input.key === 'Meta')) ||
+        (key === 'mod' && window.platformType !== 'mac' && (input.control || input.key === 'Control'))
         )
       ) {
         matches = false
