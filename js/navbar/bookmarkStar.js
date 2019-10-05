@@ -1,4 +1,4 @@
-const db = require('util/database.js')
+const db = require('util/database.js').db
 const places = require('places/places.js')
 
 const bookmarkStar = {

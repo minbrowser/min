@@ -1,5 +1,5 @@
 if (process.type === 'renderer') {
-  var db = require('util/database.js')
+  var db = require('util/database.js').db
 }
 
 var settings = {
@@ -18,7 +18,7 @@ var settings = {
       mainWindow.webContents.send('receiveSettingsData', settings.list)
     }
   },
-  runChangeCallacks() {
+  runChangeCallacks () {
     settings.onChangeCallbacks.forEach(function (listener) {
       if (listener.key) {
         listener.cb(settings.list[listener.key])
@@ -53,19 +53,6 @@ var settings = {
     }
     if (fileData) {
       settings.list = JSON.parse(fileData)
-    } else if (process.type === 'renderer') {
-      // import from indexeddb
-      var didMigrateSettings = false
-      db.settings.each(function (setting) {
-        didMigrateSettings = true
-        settings.set(setting.key, setting.value)
-      }).then(function () {
-        if (didMigrateSettings) {
-          // need to restart, since some setting changes won't apply otherwise
-          ipc.send('destroyAllViews')
-          remote.getCurrentWindow().webContents.reload()
-        }
-      })
     }
 
     ipc.on('receiveSettingsData', function (e, data) {

@@ -17,6 +17,17 @@ app.commandLine.appendSwitch('disable-backgrounding-occluded-windows', 'true')
 
 var userDataPath = app.getPath('userData')
 
+var dbPath = userDataPath + (process.platform === 'win32' ? '\\IndexedDB\\file__0.indexeddb.leveldb' : '/IndexedDB/file__0.indexeddb.leveldb')
+
+if (process.argv.some(item => item.includes('rename-db'))) {
+  try {
+    fs.renameSync(dbPath, dbPath + '-' + Date.now() + '.recovery')
+  } catch (e) {
+    console.warn('renaming database failed', e)
+    app.quit()
+  }
+}
+
 const browserPage = 'file://' + __dirname + '/index.html'
 
 var mainWindow = null
@@ -261,7 +272,7 @@ app.on('second-instance', function (e, argv, workingDir) {
  *
  * Opens a new tab when all tabs are closed, and min is still open by clicking on the application dock icon
  */
-app.on('activate', function ( /* e, hasVisibleWindows */) {
+app.on('activate', function (/* e, hasVisibleWindows */) {
   if (!mainWindow && appIsReady) { // sometimes, the event will be triggered before the app is ready, and creating new windows will fail
     createWindow()
   }

@@ -143,13 +143,15 @@ onmessage = function (e) {
       pageHTML: '',
       extractedText: '',
       searchIndex: tokenize(pageData.extractedText || ''),
-      metadata: pageData.metadata
+      metadata: pageData.metadata,
+      tags: []
     }
 
     db.transaction('rw', db.places, function () {
       db.places.where('url').equals(pageData.url).first(function (oldItem) {
         // a previous item exists, update it
         if (oldItem) {
+          item.id = oldItem.id
           item.visitCount = oldItem.visitCount + 1
           item.isBookmarked = oldItem.isBookmarked
           db.places.put(item)
@@ -184,7 +186,8 @@ onmessage = function (e) {
             pageHTML: '',
             extractedText: '',
             searchIndex: [],
-            metadata: {}
+            metadata: {},
+            tags: []
           }
         }
         item.isBookmarked = pageData.shouldBeBookmarked
