@@ -5,6 +5,7 @@ var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var bangsPlugin = require('searchbar/bangsPlugin.js')
 var urlParser = require('util/urlParser.js')
+var {db} = require('util/database.js')
 
 var readerDecision = require('readerDecision.js')
 

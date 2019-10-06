@@ -8,6 +8,7 @@ var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var places = require('places/places.js')
 var urlParser = require('util/urlParser.js')
+var {db} = require('util/database.js')
 const formatRelativeDate = require('util/relativeDate.js')
 
 bangsPlugin.registerCustomBang({

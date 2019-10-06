@@ -15,7 +15,6 @@ const legacyModules = [
   'js/tabState.js',
   'js/default.js',
   'js/windowsCaptionButtons.js',
-  'js/util/database.js',
   'js/searchbar/customBangs.js',
   'js/readerview.js',
   'js/navbar/tabBar.js',
