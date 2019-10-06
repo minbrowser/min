@@ -18,6 +18,7 @@ var keyMap = keyMapModule.userKeyMap(settings.get('keyMap'))
 var menuBarShortcuts = ['mod+t', 'shift+mod+p', 'mod+n'] // shortcuts that are already used for menu bar items
 
 var shortcutsList = []
+var registeredMousetrapBindings = {}
 
 function defineShortcut (keysOrKeyMapName, fn, options = {}) {
   if (keysOrKeyMapName.keys) {
@@ -65,9 +66,19 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
       fn: shortcutCallback,
       keyUp: options.keyUp
     })
+    if (!registeredMousetrapBindings[keys]) {
+      // mousetrap only allows one listener for each key combination
+      // so register a single listener, and have it call all the other listeners that we have
+      Mousetrap.bind(keys, function (e, combo) {
+        shortcutsList.forEach(function (shortcut) {
+          if (shortcut.combo === combo) {
+            shortcut.fn(e, combo)
+          }
+        })
+      }, (options.keyUp ? 'keyup' : null))
+      registeredMousetrapBindings[keys] = true
+    }
   })
-
-  Mousetrap.bind(binding, shortcutCallback, (options.keyUp ? 'keyup' : null))
 }
 
 function initialize () {
