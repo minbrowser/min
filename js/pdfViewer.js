@@ -1,10 +1,10 @@
 /* handles viewing pdf files using pdf.js. Recieves events from main.js will-download */
 
-var webviews = require('webviews.js')
-var browserUI = require('browserUI.js')
-var urlParser = require('util/urlParser.js')
+const webviews = require('webviews.js')
+const browserUI = require('browserUI.js')
+const urlParser = require('util/urlParser.js')
 
-window.PDFViewer = {
+const PDFViewer = {
   url: {
     base: urlParser.getFileURL(__dirname + '/pages/pdfViewer/index.html'),
     queryString: '?url=%l'
@@ -51,7 +51,10 @@ window.PDFViewer = {
         browserUI.navigate(tab.id, PDFurl)
       }
     })
+  },
+  initialize: function () {
+    ipc.on('openPDF', PDFViewer.handlePDFOpenEvent)
   }
 }
 
-ipc.on('openPDF', PDFViewer.handlePDFOpenEvent)
+module.exports = PDFViewer

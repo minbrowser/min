@@ -131,6 +131,7 @@ require('downloadManager.js').initialize()
 require('webviewMenu.js').initialize()
 require('menuRenderer.js').initialize()
 require('keybindings.js').initialize()
+require('pdfViewer.js').initialize()
 
 // default searchbar plugins
 

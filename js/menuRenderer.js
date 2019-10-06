@@ -5,6 +5,7 @@ var webviewGestures = require('webviewGestures.js')
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
 var findinpage = require('findinpage.js')
+var PDFViewer = require('pdfViewer.js')
 
 function addPrivateTab () {
     /* new tabs can't be created in focus mode */

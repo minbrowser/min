@@ -1,5 +1,6 @@
 var webviews = require('webviews.js')
 var keybindings = require('keybindings.js')
+var PDFViewer = require('pdfViewer.js')
 
 var findinpage = {
   container: document.getElementById('findinpage-bar'),
