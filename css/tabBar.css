@@ -11,11 +11,11 @@
 
 /* window drag regions */
 
-.windows-drag-area {
+.window-drag-area {
 	display: none;
 }
 
-body.windows:not(.maximized) .windows-drag-area {
+body.windows:not(.maximized) .window-drag-area {
 	display: block;
 	position: fixed;
 	/* leave an empty space around the edges of the drag area so that the window can be resized */
@@ -26,7 +26,13 @@ body.windows:not(.maximized) .windows-drag-area {
 	-webkit-app-region: drag;
 }
 
-body.mac #navbar {
+body.mac .window-drag-area {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 32px;
 	-webkit-app-region: drag;
 }
 
@@ -160,10 +166,11 @@ body.is-edit-mode #navbar #tabs {
 	height: 0.25em;
 }
 #navbar #tabs::-webkit-scrollbar-track {
-	background-color: rgba(0, 0, 0, 0.075);
+	background-color: rgba(0, 0, 0, 0.05);
 }
 #navbar #tabs::-webkit-scrollbar-thumb {
 	background-color: rgba(0, 0, 0, 0.175);
+	border-radius: 0.25em;
 }
 .dark-theme #navbar #tabs::-webkit-scrollbar-track {
 	background-color: rgba(255, 255, 255, 0.25);
