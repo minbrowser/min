@@ -13,10 +13,10 @@
         "saveImageAs": "Salva immagine con nome",
         "searchWith": "Cerca con %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copia Link",
-        "selectAll": null, // Missing Translation
-        "undo": null, // Missing Translation
-        "redo": null, // Missing Translation
-        "cut": null, // Missing Translation
+        "selectAll": "Seleziona Tutto",
+        "undo": "Annulla", 
+        "redo": "Ripeti", 
+        "cut": "Taglia", 
         "copy": "Copia", //this is a verb (as in "copy the currently-selected text")
         "paste": "Incolla",
         "goBack": "Indietro",
@@ -31,20 +31,20 @@
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": null, //missing translation
+        "showMoreBangs": "Mostra di più", 
         "viewSettings": "Vedi Impostazioni",
         "viewReadingList": "Vedi Lista di Lettura",
         "takeScreenshot": "Cattura Screenshot",
         "clearHistory": "Svuota la cronologia",
-        "clearHistoryConfirmation": null, //missing translation
+        "clearHistoryConfirmation": "Cancellare tutti i dati di navigazione?", 
         "switchToTask": "Passa a Task",
         "createTask": "Crea un Task",
-        "closeTask": null, //missing translation
+        "closeTask": "Chiudi un Task",
         "moveToTask": "Sposta questa scheda in un task",
-        "nameTask": null, //missing translation
-        "searchBookmarks": "Cerca nei preferiti",
+        "nameTask": "Dai un nome a questo task", 
+        "searchBookmarks": "Cerca nei Preferiti",
         "searchHistory": "Cerca nella cronologia",
-        "exportBookmarks": null, //missing translation
+        "exportBookmarks": "Esporta Preferiti",
         /* navbar */
         "openMenu": "Apri menu", //application menu button on windows
         "enterReaderView": "Entra in Modalità Lettura",
@@ -60,10 +60,10 @@
         "viewTasks": "Mostra Task",
         "newTask": "Nuovo Task", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Task %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
-        "returnToTask": null, //missing translation
-        "taskDescriptionTwo": null, //missing translation
-        "taskDescriptionThree": null, //missing translation
+        "taskDeleteWarning": {"unsafeHTML": "Task eliminato. <a>Annullare?</a>"}, 
+        "returnToTask": "Torna al task precedente", 
+        "taskDescriptionTwo": "%t , %t", 
+        "taskDescriptionThree": "%t, %t, e altri %n", 
         /* find in page toolbar */
         "searchInPage": "Cerca nella pagina", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%i su %t risultato", //this and the next label are used to indicate which match is currently highlighted
@@ -77,8 +77,8 @@
         "timeRangeJustNow": "Proprio ora",
         "timeRangeMinutes": "Pochi minuti fa",
         "timeRangeHour": "Quest'ora",
-        "timeRangeToday": null, //missing translation
-        "timeRangeYesterday": null, //missing translation
+        "timeRangeToday": "Oggi", 
+        "timeRangeYesterday": "Ieri", 
         "timeRangeWeek": "Questa settimana",
         "timeRangeMonth": "Questo mese",
         "timeRangeYear": "Quest'anno",
@@ -109,7 +109,7 @@
         "multipleInstancesErrorMessage": "Si è verificato un errore. Chiudi ogni altra instanza e riavvia Min.",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Si è verificato un errore",
-        "sessionRestoreErrorExplanation": "Impossibile recuperare le tue schede precedentemente aperte.",
+        "sessionRestoreErrorExplanation": "Impossibile recuperare le schede precedentemente aperte.",
         "sessionRestoreErrorBackupInfo": "Min ha salvato un backup dei tuoi dati in: %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
             "unsafeHTML": "Se questo errore persiste, apri un nuovo issue <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">qui</a>."
@@ -118,25 +118,25 @@
         "settingsPreferencesHeading": "Impostazioni",
         "settingsRestartRequired": "Devi riavviare Min per applicare queste modifiche.",
         "settingsPrivacyHeading": "Blocco contenuti",
-        "settingsContentBlockingLevel0": null, //missing translation
-        "settingsContentBlockingLevel1": null, //missing translation
-        "settingsContentBlockingLevel2": null, //missing translation
-        "settingsContentBlockingExceptions": null, //missing translation
+        "settingsContentBlockingLevel0": "Autorizza Pubblicità e tracker",
+        "settingsContentBlockingLevel1": "Blocca Pubblicità e tracker di terze parti",
+        "settingsContentBlockingLevel2": "Blocca tutte le pubblicità e i tracker", 
+        "settingsContentBlockingExceptions": "Consenti pubblicità sui seguenti siti:", 
         "settingsBlockScriptsToggle": "Blocca script",
         "settingsBlockImagesToggle": "Blocca immagini",
         "settingsEasyListCredit": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "Basato su EasyList and EasyPrivacy, creato da <a target=\"_blank\" href=\"https://easylist.to/\">Gli autori di EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">mostra licenza</a>)." 
         },
         "settingsAppearanceHeading": "Aspetto",
         "settingsDarkModeToggle": "Abilita dark mode",
-        "settingsSiteThemeToggle": null, //missing translation
+        "settingsSiteThemeToggle": "Abilita tema adattivo (si adatta al sito)",
         "settingsHistoryButtonToggle": "Abilita pulsante Indietro",
         "settingsAdditionalFeaturesHeading": "Funzionalità aggiuntive",
         "settingsUserscriptsToggle": "Abilita script definiti dall'utente",
         "settingsUserscriptsExplanation": {"unsafeHTML": "Gli script definiti dall'utente ti permettono di modificare il comportamento dei siti - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">scopri di più</a>."},
-        "settingsUpdateNotificationsToggle": null, //missing translation
+        "settingsUpdateNotificationsToggle": "Controlla automaticamente la presenza di aggiornamenti", 
         "settingsSearchEngineHeading": "Motore di ricerca",
-        "settingsDefaultSearchEngine": "Scegli un motore di ricerac predefinito:",
+        "settingsDefaultSearchEngine": "Scegli un motore di ricerca predefinito:",
         "settingsDDGExplanation": "Imposta DuckDuckGo come motore di ricerca predefinito per vedere risposte istantanee nella barra di ricerca.",
         "customSearchEngineDescription": "Sostituisci il termine di ricerca con %s",
         "settingsKeyboardShortcutsHeading": "Scorciatoie da tastiera",
@@ -161,8 +161,8 @@
         "appMenuZoomIn": "Aumenta zoom",
         "appMenuZoomOut": "Riduci zoom",
         "appMenuActualSize": "Dimensioni reali",
-        "appMenuFullScreen": "Schermo pieno", //on some platforms, this string is replaced with one built-in to the OS
-        "appMenuFocusMode": "Modalità focus",
+        "appMenuFullScreen": "Schermo Intero", //on some platforms, this string is replaced with one built-in to the OS
+        "appMenuFocusMode": "Modalità Focus",
         "appMenuReadingList": "Lista di Lettura",
         "appMenuBookmarks": "Preferiti",
         "appMenuHistory": "Cronologia",
@@ -189,10 +189,10 @@
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "pagina <input type='text'/> su <span id='total'></span>"},
         /* Download manager */
-        "downloadCancel": null, //missing translation
-        "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null, //missing translation
+        "downloadCancel": "Annulla", 
+        "downloadStateCompleted": "Completato",
+        "downloadStateFailed": "Fallito",
         /* Update Notifications */
-        "updateNotificationTitle": null //missing translation
+        "updateNotificationTitle": "Una nuova versione di Min è disponibile" 
     }
 }
