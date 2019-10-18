@@ -2,10 +2,12 @@ var browserUI = require('browserUI.js')
 
 window.sessionRestore = {
   savePath: userDataPath + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
-  save: function () {
+  previousState: null,
+  save: throttle(function () {
+    var stateString = JSON.stringify(tasks.getStringifyableState())
     var data = {
       version: 2,
-      state: JSON.parse(JSON.stringify(tasks.getStringifyableState())),
+      state: JSON.parse(stateString),
       saveTime: Date.now()
     }
 
@@ -17,8 +19,11 @@ window.sessionRestore = {
       })
     }
 
-    fs.writeFile(sessionRestore.savePath, JSON.stringify(data), function () {})
-  },
+    if (stateString !== sessionRestore.previousState) {
+      fs.writeFile(sessionRestore.savePath, JSON.stringify(data), function () {})
+      sessionRestore.previousState = stateString
+    }
+  }, 5000),
   restore: function () {
     var savedStringData
     try {
