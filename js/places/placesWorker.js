@@ -29,10 +29,10 @@ let oneDayInMS = 24 * 60 * 60 * 1000 // one day in milliseconds
 let oneWeekAgo = Date.now() - (oneDayInMS * 7)
 
 // the oldest an item can be to remain in the database
-let minItemAge = Date.now() - (oneDayInMS * 42)
+let maxItemAge = oneDayInMS * 42
 
 function cleanupHistoryDatabase () { // removes old history entries
-  db.places.where('lastVisit').below(minItemAge).and(function (item) {
+  db.places.where('lastVisit').below(Date.now() - maxItemAge).and(function (item) {
     return item.isBookmarked === false
   }).delete()
 }
