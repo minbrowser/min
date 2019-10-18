@@ -1,6 +1,7 @@
 var browserUI = require('browserUI.js')
 
 window.sessionRestore = {
+  savePath: userDataPath + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
   save: function () {
     var data = {
       version: 2,
@@ -16,10 +17,19 @@ window.sessionRestore = {
       })
     }
 
-    localStorage.setItem('sessionrestoredata', JSON.stringify(data))
+    fs.writeFile(sessionRestore.savePath, JSON.stringify(data), function () {})
   },
   restore: function () {
-    var savedStringData = localStorage.getItem('sessionrestoredata')
+    var savedStringData
+    try {
+      savedStringData = fs.readFileSync(sessionRestore.savePath, 'utf-8')
+    } catch (e) {
+      console.warn('failed to read session restore data', e)
+    }
+    if (!savedStringData) {
+      // migrate from previous version
+      savedStringData = localStorage.getItem('sessionrestoredata')
+    }
 
     /* the survey should only be shown after an upgrade from an earlier version */
     var shouldShowSurvey = false
@@ -97,7 +107,7 @@ window.sessionRestore = {
                   enterEditMode: false
                 })
               }
-            }}, 200)
+            } }, 200)
         })
       }
     } catch (e) {
@@ -107,7 +117,7 @@ window.sessionRestore = {
 
       var backupSavePath = require('path').join(remote.app.getPath('userData'), 'sessionRestoreBackup-' + Date.now() + '.json')
 
-      require('fs').writeFileSync(backupSavePath, savedStringData)
+      fs.writeFileSync(backupSavePath, savedStringData)
 
       // destroy any tabs that were created during the restore attempt
       initializeTabState()
