@@ -1,0 +1,65 @@
+.bookmark-editor {
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+    border-radius: 3px;
+    background: transparent !important;
+}
+
+.bookmark-editor .bookmark-delete-button {
+    top: auto;
+    bottom: calc(0.16em + 1px);
+}
+
+.bookmark-editor .bookmark-url {
+    opacity: 0.66;
+    font-size: 0.95em;
+}
+
+.bookmark-editor .tag-edit-area {
+    padding: 0.6em 0 0 0;
+}
+
+#searchbar .tag {
+    display: inline-block;
+    padding: 0.33em 0.5em;
+    border-radius: 3px;
+    border: 1px rgba(0,0,0, 0.1) solid;
+    opacity: 0.66;
+}
+
+.tag-edit-area .tag-input {
+    -webkit-appearance: none;
+    padding: 0.33em 0.5em;
+    border-radius: 3px;
+    background: transparent;
+    border: 1px rgba(0,0,0, 0.1) solid;
+    opacity: 0.8;
+}
+.dark-theme #searchbar .tag-input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.66);
+}
+#searchbar .tag-edit-area span {
+    font-size: 0.9em;
+    padding: 0 0.25em 0 0.5em;
+}
+#searchbar .tag.suggested{
+    border-width: 2px;
+    border-style: dotted;
+}
+
+#searchbar .tag-edit-area > * + * {
+    margin-left: 0.5em;
+}
+
+#searchbar .tag.selected {
+    background-color: rgba(0, 0, 0, 0.075);
+    border-color: transparent;
+    opacity: 1;
+}
+
+#searchbar .tag:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#searchbar .tag:focus {
+    background-color: rgba(0, 0, 0, 0.15);
+}

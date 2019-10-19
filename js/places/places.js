@@ -119,12 +119,12 @@ const places = {
   onMessage: function (e) { // assumes this is from a search operation
     places.runWorkerCallback(e.data.callbackId, e.data.result)
   },
-  updateBookmarkState: function (url, shouldBeBookmarked) {
+  updateItem: function (url, fields) {
     places.worker.postMessage({
       action: 'updatePlace',
       pageData: {
         url: url,
-        isBookmarked: shouldBeBookmarked
+        ...fields
       }
     })
   },
@@ -133,10 +133,29 @@ const places = {
 
     db.places.where('url').equals(url).first(function (item) {
       if (item && item.isBookmarked) {
-        places.updateBookmarkState(url, false)
+        places.updateItem(url, {isBookmarked: false})
       } else {
-        places.updateBookmarkState(url, true)
+        places.updateItem(url, {isBookmarked: true})
       }
+    })
+  },
+  toggleTag: function (url, tag) {
+    db.places.where('url').equals(url).first(function (item) {
+      if (!item) {
+        return
+      }
+      if (item.tags.includes(tag)) {
+        item.tags = item.tags.filter(t => t !== tag)
+      } else {
+        item.tags.push(tag)
+      }
+      places.worker.postMessage({
+        action: 'updatePlace',
+        pageData: {
+          url: url,
+          tags: item.tags
+        }
+      })
     })
   },
   initialize: function () {
