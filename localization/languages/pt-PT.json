@@ -44,7 +44,7 @@
         "nameTask": "Dar nome a esta tarefa",
         "searchBookmarks": "Pesquisar nos marcadores",
         "searchHistory": "Pesquisar no histórico",
-        "exportBookmarks": null, //missing translation
+        "exportBookmarks": "Exportar marcadores",
         /* navbar */
         "openMenu": "Abrir menu", //application menu button on windows
         "enterReaderView": "Ativar modo de leitura",
