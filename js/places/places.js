@@ -158,6 +158,16 @@ const places = {
       })
     })
   },
+  getSuggestedTags: function (url, callback) {
+    const callbackId = places.addWorkerCallback(callback)
+    places.worker.postMessage({
+      action: 'getSuggestedTags',
+      pageData: {
+        url: url
+      },
+      callbackId: callbackId
+    })
+  },
   initialize: function () {
     if (places.worker) {
       places.worker.terminate()

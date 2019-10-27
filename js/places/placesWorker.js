@@ -7,6 +7,7 @@ importScripts('../../node_modules/string_score/string_score.min.js')
 importScripts('../util/database.js')
 importScripts('fullTextSearch.js')
 importScripts('placesSearch.js')
+importScripts('tagIndex.js')
 
 const spacesRegex = /[\+\s._/-]/g // things that could be considered spaces
 
@@ -45,6 +46,9 @@ setInterval(cleanupHistoryDatabase, 60 * 60 * 1000)
 let historyInMemoryCache = []
 
 function addToHistoryCache (item) {
+  if (item.isBookmarked) {
+    tagIndex.addPage(item)
+  }
   delete item.pageHTML
   delete item.extractedText
   delete item.searchIndex
@@ -195,6 +199,13 @@ onmessage = function (e) {
       return item.isBookmarked === false
     }).delete().then(function () {
       loadHistoryInMemory()
+    })
+  }
+
+  if (action === 'getSuggestedTags') {
+    postMessage({
+      result: tagIndex.getSuggestedTags(historyInMemoryCache.find(i => i.url === pageData.url)),
+      callbackId: callbackId
     })
   }
 

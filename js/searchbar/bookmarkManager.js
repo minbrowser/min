@@ -114,9 +114,9 @@ async function getBookmarkEditor(url, closeFn) {
   })
   tags.selected = bookmark.tags
 
-  db.places.orderBy('lastVisit').reverse().limit(50).each(function (item) {
-    tags.suggested = tags.suggested.concat(item.tags)
-  }).then(function () {
+  places.getSuggestedTags(bookmark.url, function(suggestions) {
+    tags.suggested = tags.suggested.concat(suggestions)
+
     tags.suggested.filter((tag, idx) => {
       return tags.suggested.indexOf(tag) === idx && !tags.selected.includes(tag)
     }).slice(0, 3).forEach(function (tag, idx) {
