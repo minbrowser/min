@@ -29,10 +29,9 @@ var webviewGestures = {
   },
   zoomWebviewBy: function (tabId, amt) {
     var w = webviews.get(tabId)
-    w.getZoomFactor(function (existingZoom) {
-      var newZoom = Math.min(webviewMaxZoom, Math.max(webviewMinZoom, existingZoom + amt))
-      w.setZoomFactor(newZoom)
-    })
+    var existingZoom = w.getZoomFactor()
+    var newZoom = Math.min(webviewMaxZoom, Math.max(webviewMinZoom, existingZoom + amt))
+    w.setZoomFactor(newZoom)
   },
   zoomWebviewIn: function (tabId) {
     return this.zoomWebviewBy(tabId, 0.2)
