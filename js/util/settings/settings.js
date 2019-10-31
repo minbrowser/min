@@ -58,8 +58,5 @@ var settings = {
   }
 }
 
-if (require.main === module) {
-  settings.initialize()
-} else {
-  module.exports = settings
-}
+settings.initialize()
+module.exports = settings

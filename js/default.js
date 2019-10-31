@@ -121,12 +121,10 @@ window.addEventListener('load', function () {
 
 require('dbMigration.js')
 
-require('util/settings/settings.js').initialize()
 require('menuBarVisibility.js').initialize()
 require('navbar/tabActivity.js').init()
 require('navbar/tabColor.js').initialize()
 require('navbar/goBackButton.js').initialize()
-require('places/places.js').initialize()
 require('downloadManager.js').initialize()
 require('webviewMenu.js').initialize()
 require('menuRenderer.js').initialize()
