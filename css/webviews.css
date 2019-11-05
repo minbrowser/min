@@ -6,8 +6,8 @@ body.windows:not(.maximized) #webviews {
 	height: calc(100vh - 46px);
 }
 
-/* disabled on linux due to https://github.com/minbrowser/min/issues/807 */
-body:not(.linux).dark-mode #webviews {
+/* disabled on linux and windows due to https://github.com/minbrowser/min/issues/807 */
+body.mac.dark-mode #webviews {
 	background-color: rgb(33, 37, 43);
 }
 
