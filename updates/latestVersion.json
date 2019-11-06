@@ -1,7 +1,7 @@
 {
-    "version": "1.11.0",
-    "releaseTime": 1566428253230,
-    "releaseHeadline": "Easier task management and other improvements",
+    "version": "1.11.2",
+    "releaseTime": 1573021033486,
+    "releaseHeadline": "Fixed a security issue",
     "releaseNotes": "https://github.com/minbrowser/min/releases",
     "availabilityPercent": 1
 }
