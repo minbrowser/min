@@ -216,6 +216,13 @@ onmessage = function (e) {
     })
   }
 
+  if (action === 'autocompleteTags') {
+    postMessage({
+      result: tagIndex.autocompleteTags(pageData.tags),
+      callbackId: callbackId
+    })
+  }
+
   if (action === 'searchPlaces') { // do a history search
     searchPlaces(searchText, function (matches) {
       postMessage({

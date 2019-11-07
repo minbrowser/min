@@ -178,6 +178,16 @@ const places = {
       callbackId: callbackId
     })
   },
+  autocompleteTags: function (tags, callback) {
+    const callbackId = places.addWorkerCallback(callback)
+    places.worker.postMessage({
+      action: 'autocompleteTags',
+      pageData: {
+        tags: tags
+      },
+      callbackId: callbackId
+    })
+  },
   initialize: function () {
     if (places.worker) {
       places.worker.terminate()

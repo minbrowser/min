@@ -187,6 +187,8 @@ bangsPlugin.registerCustomBang({
   showSuggestions: function (text, input, event) {
     var container = searchbarPlugins.getContainer('bangs')
 
+    var originalText = text;
+
     // filter out tags from the typed text
     var searchedTags = getTagText(text);
     searchedTags.forEach(function (word) {
@@ -198,6 +200,17 @@ bangsPlugin.registerCustomBang({
  var displayedURLset = []
     places.searchPlaces(text, function (results) {
       searchbarPlugins.reset('bangs')
+
+      var tagBar = document.createElement("div");
+      container.appendChild(tagBar);
+
+      places.autocompleteTags(searchedTags, function(suggestedTags) {
+        suggestedTags.forEach(function(suggestion) {
+          tagBar.appendChild(getTagElement(suggestion, false, function() {
+            tabBar.enterEditMode(tabs.getSelected(), "!bookmarks " + originalText + " #" + suggestion);
+          }))
+        })
+      });
 
       var lastRelativeDate = '' // used to generate headings
 

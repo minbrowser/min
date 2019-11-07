@@ -2,6 +2,8 @@ var tagIndex = {
   totalDocs: 0,
   termDocCounts: {},
   termTags: {},
+  tagTagMap: {},
+  tagCounts: {},
   getPageTokens: function (page) {
     try {
       var url = new URL(page.url)
@@ -41,6 +43,28 @@ var tagIndex = {
           tagIndex.termTags[token][tag]++
         } else {
           tagIndex.termTags[token][tag] = 1
+        }
+      })
+    })
+
+    page.tags.forEach(function (t1) {
+      if (!tagIndex.tagCounts[t1]) {
+        tagIndex.tagCounts[t1] = 1
+      } else {
+        tagIndex.tagCounts[t1]++
+      }
+      page.tags.forEach(function (t2) {
+        if (t1 === t2) {
+          return
+        }
+        if (!tagIndex.tagTagMap[t1]) {
+          tagIndex.tagTagMap[t1] = {}
+        }
+
+        if (!tagIndex.tagTagMap[t1][t2]) {
+          tagIndex.tagTagMap[t1][t2] = 1
+        } else {
+          tagIndex.tagTagMap[t1][t2]++
         }
       })
     })
@@ -96,5 +120,19 @@ var tagIndex = {
     })
 
     return set.map(i => i.page)
+  },
+  autocompleteTags: function (searchTags) {
+    var tagScores = []
+
+    for (var tag in tagIndex.tagCounts) {
+      var score = tagIndex.tagCounts[tag]
+      searchTags.forEach(function (searchTag) {
+        score *= tagIndex.tagTagMap[searchTag][tag] || 0
+      })
+      tagScores.push({tag, score})
+    }
+    console.log(tagScores)
+
+    return tagScores.filter(t => t.score > 0).sort((a, b) => b.score - a.score).map(i => i.tag)
   }
 }
