@@ -195,6 +195,7 @@ bangsPlugin.registerCustomBang({
 
  //   showTagSuggestions(searchbarPlugins.topAnswerArea);
 
+ var displayedURLset = []
     places.searchPlaces(text, function (results) {
       searchbarPlugins.reset('bangs')
 
@@ -210,6 +211,8 @@ bangsPlugin.registerCustomBang({
           }
         }
 
+        displayedURLset.push(result.url);
+
         var thisRelativeDate = formatRelativeDate(result.lastVisit)
         if (thisRelativeDate !== lastRelativeDate) {
           searchbarPlugins.addHeading('bangs', { text: thisRelativeDate })
@@ -217,6 +220,21 @@ bangsPlugin.registerCustomBang({
         }
         var item = getBookmarkListItem(result, index === 0 && text);
         container.appendChild(item)
+      })
+
+      places.getSuggestedItemsForTags(searchedTags, function(suggestedResults) {
+        suggestedResults = suggestedResults.filter(res => !displayedURLset.includes(res.url));
+        if (suggestedResults.length === 0) {
+          return;
+        }
+        searchbarPlugins.addHeading('bangs', { text: "Similar items" })
+        suggestedResults.sort(function (a, b) {
+          // order by last visit
+          return b.lastVisit - a.lastVisit
+        }).forEach(function (result, index) {
+          var item = getBookmarkListItem(result, false);
+          container.appendChild(item)
+        })
       })
     }, { searchBookmarks: true, limit: (text ? 100 : Infinity) })
   },

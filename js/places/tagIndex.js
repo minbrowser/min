@@ -80,5 +80,21 @@ var tagIndex = {
     probsArr = probsArr.sort((a, b) => { return b.value - a.value })
 
     return probsArr.filter(p => p.value > 0.9).map(p => p.tag)
+  },
+  getSuggestedItemsForTags: function (tags) {
+    var set = historyInMemoryCache.filter(i => i.isBookmarked).map(p => {
+      return {page: p, tags: tagIndex.getSuggestedTags(p)}
+    })
+
+    set = set.filter(function (result) {
+      for (var i = 0; i < tags.length; i++) {
+        if (!result.tags.includes(tags[i])) {
+          return false
+        }
+      }
+      return true
+    })
+
+    return set.map(i => i.page)
   }
 }

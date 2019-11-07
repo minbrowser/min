@@ -168,6 +168,16 @@ const places = {
       callbackId: callbackId
     })
   },
+  getSuggestedItemsForTags: function (tags, callback) {
+    const callbackId = places.addWorkerCallback(callback)
+    places.worker.postMessage({
+      action: 'getSuggestedItemsForTags',
+      pageData: {
+        tags: tags
+      },
+      callbackId: callbackId
+    })
+  },
   initialize: function () {
     if (places.worker) {
       places.worker.terminate()

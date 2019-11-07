@@ -209,6 +209,13 @@ onmessage = function (e) {
     })
   }
 
+  if (action === 'getSuggestedItemsForTags') {
+    postMessage({
+      result: tagIndex.getSuggestedItemsForTags(pageData.tags),
+      callbackId: callbackId
+    })
+  }
+
   if (action === 'searchPlaces') { // do a history search
     searchPlaces(searchText, function (matches) {
       postMessage({
