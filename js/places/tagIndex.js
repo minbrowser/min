@@ -1,10 +1,8 @@
-importScripts('../../ext/bayes-classifier/bayes-classifier.js')
-
 var tagIndex = {
-  classifier: new BayesClassifier(),
-  tagClassifiers: {},
-  tagCounts: {},
-  getPageStr: function (page) {
+  totalDocs: 0,
+  termDocCounts: {},
+  termTags: {},
+  getPageTokens: function (page) {
     try {
       var url = new URL(page.url)
       var urlChunk = url.hostname + ' ' + url.pathname
@@ -14,7 +12,7 @@ var tagIndex = {
     var generic = ['www', 'com', 'net', 'html', 'pdf', 'file']
     tokens = tokens.filter(t => t.length > 2 && !generic.includes(t))
 
-    return tokens.join(' ')
+    return tokens
   },
   existingDocs: [],
   addPage: function (page) {
@@ -22,55 +20,65 @@ var tagIndex = {
       return
     }
 
-    var str = tagIndex.getPageStr(page)
+    tagIndex.totalDocs++
 
-    // make sure there's a classifier for each tag in this document
+    var tokens = tagIndex.getPageTokens(page)
+
+    tokens.filter((t, i) => tokens.indexOf(t) === i).forEach(function (token) {
+      if (!tagIndex.termDocCounts[token]) {
+        tagIndex.termDocCounts[token] = 1
+      } else {
+        tagIndex.termDocCounts[token]++
+      }
+    })
+
     page.tags.forEach(function (tag) {
-      if (!tagIndex.tagClassifiers[tag]) {
-        tagIndex.tagClassifiers[tag] = new BayesClassifier()
-        // add all existing documents
-        tagIndex.existingDocs.forEach(function (doc) {
-          tagIndex.tagClassifiers[tag].addDocument(doc, 'false')
-          tagIndex.tagClassifiers[tag].train()
-        })
-      }
+      tokens.forEach(function (token) {
+        if (!tagIndex.termTags[token]) {
+          tagIndex.termTags[token] = {}
+        }
+        if (tagIndex.termTags[token][tag]) {
+          tagIndex.termTags[token][tag]++
+        } else {
+          tagIndex.termTags[token][tag] = 1
+        }
+      })
     })
-
-    // then set the value of each classifier based on this document
-    for (var classTag in tagIndex.tagClassifiers) {
-      if (page.tags.includes(classTag)) {
-        tagIndex.tagClassifiers[classTag].addDocument(str, 'true')
-        tagIndex.tagClassifiers[classTag].train()
-      } else {
-        tagIndex.tagClassifiers[classTag].addDocument(str, 'false')
-        tagIndex.tagClassifiers[classTag].train()
-      }
-    }
-
-    page.tags.forEach(t => {
-      if (tagIndex.tagCounts[t]) {
-        tagIndex.tagCounts[t]++
-      } else {
-        tagIndex.tagCounts[t] = 1
-      }
-    })
-
-    tagIndex.existingDocs.push(str)
   },
   getSuggestedTags: function (page) {
-    var tags = []
-    var str = tagIndex.getPageStr(page)
-    for (var tag in tagIndex.tagClassifiers) {
-      var classifications = tagIndex.tagClassifiers[tag].getClassifications(str)
-      if (classifications.length !== 2) {
-        continue
+    var tokens = tagIndex.getPageTokens(page)
+    // get term frequency
+    var terms = {}
+    tokens.forEach(function (t) {
+      if (!terms[t]) {
+        terms[t] = 1
+      } else {
+        terms[t]++
       }
-      var t = classifications.filter(t => t.label === 'true')[0].value
-      var f = classifications.filter(t => t.label === 'false')[0].value
-      if (t / f > 3 && t > Math.pow(2, -16)) {
-        tags.push({ tag: tag, cf: t })
+    })
+
+    var probs = {}
+
+    for (var term in terms) {
+      var tf = terms[term] / tokens.length
+      var idf = Math.log(tagIndex.totalDocs / (tagIndex.termDocCounts[term] || 1))
+      var tfidf = tf * idf
+
+      if (tagIndex.termTags[term]) {
+        for (var tag in tagIndex.termTags[term]) {
+          if (probs[tag]) {
+            probs[tag] += tagIndex.termTags[term][tag] * tfidf
+          } else {
+            probs[tag] = tagIndex.termTags[term][tag] * tfidf
+          }
+        }
       }
     }
-    return tags.sort((a, b) => { return b.cf - a.cf }).map(t => t.tag).filter(t => tagIndex.tagCounts[t] >= 3)
+
+    var probsArr = Object.keys(probs).map(key => { return {tag: key, value: probs[key]} })
+
+    probsArr = probsArr.sort((a, b) => { return b.value - a.value })
+
+    return probsArr.filter(p => p.value > 0.9).map(p => p.tag)
   }
 }
