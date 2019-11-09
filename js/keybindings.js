@@ -47,11 +47,25 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
         }
       } else {
         // check whether an input is focused in the webview
-        webview.executeJavaScript('document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA"', function (isInputFocused) {
+        webview.executeJavaScript(`
+        document.activeElement.tagName === "INPUT"
+        || document.activeElement.tagName === "TEXTAREA"
+        || (function () {
+          var n = document.activeElement;
+          while (n) {
+            if (n.getAttribute && n.getAttribute("contenteditable")) {
+              return true;
+            }
+            n = n.parentElement;
+          }
+          return false;
+        })()
+        `).then(function (isInputFocused) {
           if (isInputFocused === false) {
             fn(e, combo)
           }
         })
+        .catch(e => console.log(e))
       }
     } else {
       // other shortcuts can run immediately
