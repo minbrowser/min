@@ -170,6 +170,7 @@
         "appMenuWindow": "Okno",
         "appMenuMinimize": "Minimalizovat",
         "appMenuClose": "Zavřít",
+        "appMenuAlwaysOnTop": null, //missing translation
         "appMenuHelp": "Nápověda",
         "appMenuKeyboardShortcuts": "Klávesové zkratky",
         "appMenuReportBug": "Nahlásit chybu",

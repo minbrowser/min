@@ -173,6 +173,7 @@
         "appMenuWindow": "ウインドウ",
         "appMenuMinimize": "最小化",
         "appMenuClose": "閉じる",
+        "appMenuAlwaysOnTop": null, //missing translation
         "appMenuHelp": "ヘルプ",
         "appMenuKeyboardShortcuts": "キーボードショートカット",
         "appMenuReportBug": "バグを報告",

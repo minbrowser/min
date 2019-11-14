@@ -173,6 +173,7 @@
         "appMenuWindow": "窗口",
         "appMenuMinimize": "最小化",
         "appMenuClose": "关闭",
+        "appMenuAlwaysOnTop": null, //missing translation
         "appMenuHelp": "帮助",
         "appMenuKeyboardShortcuts": "快捷键",
         "appMenuReportBug": "报告 Bug",

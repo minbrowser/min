@@ -242,11 +242,9 @@ function createAppMenu () {
           checked: false,
           click: function (item, window) {
             if (isFocusMode) {
-              item.checked = false
               isFocusMode = false
               sendIPCToWindow(window, 'exitFocusMode')
             } else {
-              item.checked = true
               isFocusMode = true
               sendIPCToWindow(window, 'enterFocusMode')
             }
@@ -328,8 +326,20 @@ function createAppMenu () {
             }
           },
           {
+            label: l('appMenuAlwaysOnTop'),
+            type: 'checkbox',
+            checked: settings.get('windowAlwaysOnTop') || false,
+            click: function (item, window) {
+              if (mainWindow) {
+                mainWindow.setAlwaysOnTop(item.checked)
+              }
+              settings.set('windowAlwaysOnTop', item.checked)
+            }
+          },
+          {
             type: 'separator'
-          }, {
+          },
+          {
             label: l('appMenuBringToFront'),
             role: 'front'
           }

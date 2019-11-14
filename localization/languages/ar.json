@@ -173,6 +173,7 @@
         "appMenuWindow": "نافذة",
         "appMenuMinimize": "تصغير",
         "appMenuClose": "اغلاق",
+        "appMenuAlwaysOnTop": null, //missing translation
         "appMenuHelp": "مساعدة",
         "appMenuKeyboardShortcuts": "اختصار لوحة مفاتيح",
         "appMenuReportBug": "الابلاغ عن الخطأ",

@@ -173,6 +173,7 @@
         "appMenuWindow": "Вікно",
         "appMenuMinimize": "Згорнути",
         "appMenuClose": "Закрити",
+        "appMenuAlwaysOnTop": null, //missing translation
         "appMenuHelp": "Допомога",
         "appMenuKeyboardShortcuts": "Сполучення клавіш",
         "appMenuReportBug": "Повідомити про помилку",

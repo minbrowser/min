@@ -173,6 +173,7 @@
         "appMenuWindow": "Langas",
         "appMenuMinimize": "Suskleisti",
         "appMenuClose": "Užverti",
+        "appMenuAlwaysOnTop": null, //missing translation
         "appMenuHelp": "Žinynas",
         "appMenuKeyboardShortcuts": "Spartieji klavišai",
         "appMenuReportBug": "Pranešti apie klaidą",

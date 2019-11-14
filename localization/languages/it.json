@@ -173,6 +173,7 @@
         "appMenuWindow": "Finestra",
         "appMenuMinimize": "Minimizza",
         "appMenuClose": "Chiudi",
+        "appMenuAlwaysOnTop": null, //missing translation
         "appMenuHelp": "Aiuto",
         "appMenuKeyboardShortcuts": "Scorciatoie da tastiera",
         "appMenuReportBug": "Segnala un bug",

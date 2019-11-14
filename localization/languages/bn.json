@@ -173,7 +173,8 @@
       "appMenuWindow":"জানলা",
       "appMenuMinimize":"কমান",
       "appMenuClose":"ঘনিষ্ঠ",
-      "appMenuHelp":"সাহায্য করুন",
+      "appMenuAlwaysOnTop": null, //missing translation
+        "appMenuHelp":"সাহায্য করুন",
       "appMenuKeyboardShortcuts":"কীবোর্ড শর্টকাটগুলি",
       "appMenuReportBug":"একটি বাগ রিপোর্ট করুন",
       "appMenuTakeTour":"ঘুরে আসা",
