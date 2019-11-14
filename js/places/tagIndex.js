@@ -16,7 +16,6 @@ var tagIndex = {
 
     return tokens
   },
-  existingDocs: [],
   addPage: function (page) {
     if (page.tags.length === 0) {
       return
@@ -68,6 +67,52 @@ var tagIndex = {
         }
       })
     })
+  },
+  removePage: function (page) {
+    if (page.tags.length === 0) {
+      return
+    }
+
+    tagIndex.totalDocs--
+
+    var tokens = tagIndex.getPageTokens(page)
+
+    tokens.filter((t, i) => tokens.indexOf(t) === i).forEach(function (token) {
+      if (tagIndex.termDocCounts[token]) {
+        tagIndex.termDocCounts[token]--
+      }
+    })
+
+    page.tags.forEach(function (tag) {
+      tokens.forEach(function (token) {
+        if (tagIndex.termTags[token] && tagIndex.termTags[token][tag]) {
+          tagIndex.termTags[token][tag]--
+        }
+      })
+    })
+
+    page.tags.forEach(function (t1) {
+      if (tagIndex.tagCounts[t1]) {
+        tagIndex.tagCounts[t1]--
+      }
+
+      page.tags.forEach(function (t2) {
+        if (t1 === t2) {
+          return
+        }
+        if (!tagIndex.tagTagMap[t1]) {
+          tagIndex.tagTagMap[t1] = {}
+        }
+
+        if (tagIndex.tagTagMap[t1] && tagIndex.tagTagMap[t1][t2]) {
+          tagIndex.tagTagMap[t1][t2]--
+        }
+      })
+    })
+  },
+  onChange: function (oldPage, newPage) {
+    tagIndex.removePage(oldPage)
+    tagIndex.addPage(newPage)
   },
   getSuggestedTags: function (page) {
     var tokens = tagIndex.getPageTokens(page)
@@ -131,7 +176,6 @@ var tagIndex = {
       })
       tagScores.push({tag, score})
     }
-    console.log(tagScores)
 
     return tagScores.filter(t => t.score > 0).sort((a, b) => b.score - a.score).map(i => i.tag)
   }

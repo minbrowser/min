@@ -61,18 +61,22 @@ function addOrUpdateHistoryCache (item) {
   delete item.extractedText
   delete item.searchIndex
 
-  let found = false
+  let oldItem
 
   for (let i = 0; i < historyInMemoryCache.length; i++) {
     if (historyInMemoryCache[i].url === item.url) {
+      oldItem = historyInMemoryCache[i]
       historyInMemoryCache[i] = item
-      found = true
       break
     }
   }
 
-  if (!found) {
+  if (!oldItem) {
     historyInMemoryCache.push(item)
+  }
+
+  if (oldItem) {
+    tagIndex.onChange(oldItem, item)
   }
 }
 
