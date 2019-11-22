@@ -113,21 +113,26 @@ bangsPlugin.registerCustomBang({
         container.appendChild(item)
       })
 
-      places.getSuggestedItemsForTags(searchedTags, function (suggestedResults) {
-        suggestedResults = suggestedResults.filter(res => !displayedURLset.includes(res.url))
-        if (suggestedResults.length === 0) {
-          return
-        }
-        searchbarPlugins.addHeading('bangs', { text: 'Similar items' })
-        suggestedResults.sort(function (a, b) {
+      if (searchedTags.length > 0) {
+        places.getSuggestedItemsForTags(searchedTags, function (suggestedResults) {
+          suggestedResults = suggestedResults.filter(res => !displayedURLset.includes(res.url))
+          if (suggestedResults.length === 0) {
+            return
+          }
+          searchbarPlugins.addHeading('bangs', { text: 'Similar items' })
+          suggestedResults.sort(function (a, b) {
           // order by last visit
-          return b.lastVisit - a.lastVisit
-        }).forEach(function (result, index) {
-          var item = getBookmarkListItem(result, false)
-          container.appendChild(item)
+            return b.lastVisit - a.lastVisit
+          }).forEach(function (result, index) {
+            var item = getBookmarkListItem(result, false)
+            container.appendChild(item)
+          })
         })
-      })
-    }, { searchBookmarks: true, limit: Infinity})
+      }
+    }, {
+      searchBookmarks: true,
+      limit: Infinity
+    })
   },
   fn: function (text) {
     if (!text) {

@@ -14,52 +14,52 @@
     font-size: 0.95em;
 }
 
-.bookmark-editor .tag-edit-area {
-    padding: 0.6em 0 0 0;
-}
-
 #searchbar .tag {
     display: inline-block;
     padding: 0.33em 0.5em;
+    margin-top: 0.5em;
     border-radius: 3px;
-    border: 1px rgba(0,0,0, 0.1) solid;
+    background-color: rgba(0, 0, 0, 0.075);
+    border: 2px transparent solid;
     opacity: 0.66;
+}
+
+#searchbar .tag.suggested {
+    background: transparent;
+    border-style: dotted;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+#searchbar .tag + .tag {
+    margin-left: 0.33em;
+}
+
+#searchbar .tag.selected {
+    opacity: 1;
+}
+
+#searchbar .tag:hover {
+    border-color: transparent;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#searchbar .tag:focus {
+    border-color: transparent;
+    background-color: rgba(0, 0, 0, 0.15);
 }
 
 .tag-edit-area .tag-input {
     -webkit-appearance: none;
     padding: 0.33em 0.5em;
+    margin-top: 0.5em;
     border-radius: 3px;
     background: transparent;
     border: 1px rgba(0,0,0, 0.1) solid;
     opacity: 0.8;
 }
-.dark-theme #searchbar .tag-input::-webkit-input-placeholder {
-    color: rgba(255, 255, 255, 0.66);
-}
-#searchbar .tag-edit-area span {
-    font-size: 0.9em;
-    padding: 0 0.25em 0 0.5em;
-}
-#searchbar .tag.suggested{
-    border-width: 2px;
-    border-style: dotted;
-}
-
-#searchbar .tag-edit-area > * + * {
+.tag-edit-area .tag + .tag-input {
     margin-left: 0.5em;
 }
-
-#searchbar .tag.selected {
-    background-color: rgba(0, 0, 0, 0.075);
-    border-color: transparent;
-    opacity: 1;
-}
-
-#searchbar .tag:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-#searchbar .tag:focus {
-    background-color: rgba(0, 0, 0, 0.15);
+.dark-theme #searchbar .tag-input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.66);
 }

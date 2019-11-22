@@ -5,9 +5,9 @@ var tagIndex = {
   tagTagMap: {},
   tagCounts: {},
   getPageTokens: function (page) {
+    var urlChunk = ''
     try {
-      var url = new URL(page.url)
-      var urlChunk = url.hostname + ' ' + url.pathname
+      urlChunk = new URL(page.url).hostname
     } catch (e) { }
     var tokens = tokenize(page.title + ' ' + urlChunk.split(/\W/g).join(' '))
 
@@ -135,11 +135,13 @@ var tagIndex = {
 
       if (tagIndex.termTags[term]) {
         for (var tag in tagIndex.termTags[term]) {
-          if (probs[tag]) {
-            probs[tag] += tagIndex.termTags[term][tag] * tfidf
-          } else {
-            probs[tag] = tagIndex.termTags[term][tag] * tfidf
+          if (tagIndex.tagCounts[tag] < 2) {
+            continue
           }
+          if (!probs[tag]) {
+            probs[tag] = 0
+          }
+          probs[tag] += (tagIndex.termTags[term][tag] / tagIndex.tagCounts[tag]) * tfidf
         }
       }
     }
@@ -148,7 +150,7 @@ var tagIndex = {
 
     probsArr = probsArr.sort((a, b) => { return b.value - a.value })
 
-    return probsArr.filter(p => p.value > 0.9).map(p => p.tag)
+    return probsArr.filter(p => p.value > 0.5).map(p => p.tag)
   },
   getSuggestedItemsForTags: function (tags) {
     var set = historyInMemoryCache.filter(i => i.isBookmarked).map(p => {
@@ -167,12 +169,18 @@ var tagIndex = {
     return set.map(i => i.page)
   },
   autocompleteTags: function (searchTags) {
+    // find which tags are most frequently associated with the searched tags
     var tagScores = []
 
     for (var tag in tagIndex.tagCounts) {
       var score = tagIndex.tagCounts[tag]
       searchTags.forEach(function (searchTag) {
-        score *= tagIndex.tagTagMap[searchTag][tag] || 0
+        // tagtagMap[searchTag][tag] holds the number of items that have both searchTag and tag
+        if (tagIndex.tagTagMap[searchTag]) {
+          score *= tagIndex.tagTagMap[searchTag][tag] || 0
+        } else {
+          score = 0
+        }
       })
       tagScores.push({tag, score})
     }

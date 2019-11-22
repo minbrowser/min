@@ -66,7 +66,7 @@ const places = {
   },
   callbacks: [],
   addWorkerCallback: function (callback) {
-    const callbackId = Date.now()
+    const callbackId = (Date.now() / 1000) + Math.random()
     places.callbacks.push({id: callbackId, fn: callback})
     return callbackId
   },
