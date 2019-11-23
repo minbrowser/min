@@ -166,7 +166,7 @@ var tagIndex = {
       return true
     })
 
-    return set.map(i => i.page)
+    return set.map(i => i.page).slice(0, 50)
   },
   autocompleteTags: function (searchTags) {
     // find which tags are most frequently associated with the searched tags

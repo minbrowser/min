@@ -7,10 +7,29 @@ var formatRelativeDate = require('util/relativeDate.js')
 
 var bookmarkEditor = require('searchbar/bookmarkEditor.js')
 
-function getTagText (text) {
-  return text.split(/\s/g).filter(function (word) {
+function parseBookmarkSearch (text) {
+  var tags = text.split(/\s/g).filter(function (word) {
     return word.startsWith('#') && word.length > 1
   }).map(t => t.substring(1))
+
+  var newText = text
+  tags.forEach(function (word) {
+    newText = newText.replace('#' + word, '')
+  })
+  newText = newText.trim()
+  return {
+    tags,
+    text: newText
+  }
+}
+
+function itemMatchesTags (item, tags) {
+  for (var i = 0; i < tags.length; i++) {
+    if (!item.tags.filter(t => t.startsWith(tags[i])).length) {
+      return false
+    }
+  }
+  return true
 }
 
 function showBookmarkEditor (url, item) {
@@ -31,9 +50,7 @@ function getBookmarkListItem (result, focus) {
     secondaryText: urlParser.getSourceURL(result.url),
     fakeFocus: focus,
     click: function (e) {
-      if (!item.classList.contains('editing')) {
-        searchbar.openURL(result.url, e)
-      }
+      searchbar.openURL(result.url, e)
     },
     classList: ['bookmark-item'],
     delete: function () {
@@ -49,79 +66,72 @@ function getBookmarkListItem (result, focus) {
   return item
 }
 
-bangsPlugin.registerCustomBang({
-  phrase: '!bookmarks',
-  snippet: l('searchBookmarks'),
-  isAction: false,
-  showSuggestions: function (text, input, event) {
-    var container = searchbarPlugins.getContainer('bangs')
+function showBookmarks (text, input, event) {
+  var container = searchbarPlugins.getContainer('bangs')
 
-    var originalText = text
+  var parsedText = parseBookmarkSearch(text)
 
-    // filter out tags from the typed text
-    var searchedTags = getTagText(text)
-    searchedTags.forEach(function (word) {
-      text = text.replace('#' + word, '')
-    })
-    text = text.trim()
-
-    var displayedURLset = []
-    places.searchPlaces(text, function (results) {
+  var displayedURLset = []
+  var hiddenURLSet = []
+  places.searchPlaces(parsedText.text, function (results) {
+    places.autocompleteTags(parsedText.tags, function (suggestedTags) {
       searchbarPlugins.reset('bangs')
 
       var tagBar = document.createElement('div')
       container.appendChild(tagBar)
 
-      places.autocompleteTags(searchedTags, function (suggestedTags) {
-        searchedTags.forEach(function (tag) {
-          tagBar.appendChild(bookmarkEditor.getTagElement(tag, true, function () {
-            tabBar.enterEditMode(tabs.getSelected(), '!bookmarks ' + originalText.replace('#' + tag, ''))
-          }))
-        })
-        suggestedTags.forEach(function (suggestion) {
-          tagBar.appendChild(bookmarkEditor.getTagElement(suggestion, false, function () {
-            tabBar.enterEditMode(tabs.getSelected(), '!bookmarks ' + originalText + ' #' + suggestion)
-          }))
-        })
+      parsedText.tags.forEach(function (tag) {
+        tagBar.appendChild(bookmarkEditor.getTagElement(tag, true, function () {
+          tabBar.enterEditMode(tabs.getSelected(), '!bookmarks ' + text.replace('#' + tag, ''))
+        }, {autoRemove: false}))
       })
+      // it doesn't make sense to display tag suggestions if there's a search, since the suggestions are generated without taking the search into account
+      if (!parsedText.text) {
+        suggestedTags.slice(0, 12).forEach(function (suggestion) {
+          tagBar.appendChild(bookmarkEditor.getTagElement(suggestion, false, function () {
+            var needsSpace = text.slice(-1) !== ' ' && text.slice(-1) !== ''
+            tabBar.enterEditMode(tabs.getSelected(), '!bookmarks ' + text + (needsSpace ? ' #' : '#') + suggestion + ' ')
+          }))
+        })
+      }
 
       var lastRelativeDate = '' // used to generate headings
 
       results
-      .filter(function (result) {
-        for (var i = 0; i < searchedTags.length; i++) {
-          if (!result.tags.filter(t => t.startsWith(searchedTags[i])).length) {
-            return false
-          }
-        }
+    .filter(function (result) {
+      if (itemMatchesTags(result, parsedText.tags)) {
         return true
-      })
-      .sort(function (a, b) {
-        // order by last visit
-        return b.lastVisit - a.lastVisit
-      })
-      .slice(0, 100)
-      .forEach(function (result, index) {
-        displayedURLset.push(result.url)
+      } else {
+        hiddenURLSet.push(result.url)
+        return false
+      }
+    })
+    .sort(function (a, b) {
+      // order by last visit
+      return b.lastVisit - a.lastVisit
+    })
+    .slice(0, 100)
+    .forEach(function (result, index) {
+      displayedURLset.push(result.url)
 
-        var thisRelativeDate = formatRelativeDate(result.lastVisit)
-        if (thisRelativeDate !== lastRelativeDate) {
-          searchbarPlugins.addHeading('bangs', { text: thisRelativeDate })
-          lastRelativeDate = thisRelativeDate
-        }
-        var item = getBookmarkListItem(result, index === 0 && text)
-        container.appendChild(item)
-      })
+      var thisRelativeDate = formatRelativeDate(result.lastVisit)
+      if (thisRelativeDate !== lastRelativeDate) {
+        searchbarPlugins.addHeading('bangs', { text: thisRelativeDate })
+        lastRelativeDate = thisRelativeDate
+      }
+      var item = getBookmarkListItem(result, index === 0 && parsedText.text)
+      container.appendChild(item)
+    })
 
-      if (searchedTags.length > 0) {
-        places.getSuggestedItemsForTags(searchedTags, function (suggestedResults) {
-          suggestedResults = suggestedResults.filter(res => !displayedURLset.includes(res.url))
+      if (parsedText.tags.length > 0) {
+        places.getSuggestedItemsForTags(parsedText.tags, function (suggestedResults) {
+          suggestedResults = suggestedResults.filter(res => hiddenURLSet.includes(res.url))
           if (suggestedResults.length === 0) {
             return
           }
           searchbarPlugins.addHeading('bangs', { text: 'Similar items' })
           suggestedResults.sort(function (a, b) {
-          // order by last visit
+        // order by last visit
             return b.lastVisit - a.lastVisit
           }).forEach(function (result, index) {
             var item = getBookmarkListItem(result, false)
@@ -129,20 +139,30 @@ bangsPlugin.registerCustomBang({
           })
         })
       }
-    }, {
-      searchBookmarks: true,
-      limit: Infinity
     })
-  },
+  }, {
+    searchBookmarks: true,
+    limit: Infinity
+  })
+}
+
+bangsPlugin.registerCustomBang({
+  phrase: '!bookmarks',
+  snippet: l('searchBookmarks'),
+  isAction: false,
+  showSuggestions: showBookmarks,
   fn: function (text) {
-    if (!text) {
+    var parsedText = parseBookmarkSearch(text)
+    if (!parsedText.text) {
       return
     }
-    places.searchPlaces(text, function (results) {
-      if (results.length !== 0) {
-        results = results.sort(function (a, b) {
+    places.searchPlaces(parsedText.text, function (results) {
+      results = results
+        .filter(r => itemMatchesTags(r, parsedText.tags))
+        .sort(function (a, b) {
           return b.lastVisit - a.lastVisit
         })
+      if (results.length !== 0) {
         searchbar.openURL(results[0].url, null)
       }
     }, { searchBookmarks: true })

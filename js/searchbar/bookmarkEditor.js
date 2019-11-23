@@ -3,7 +3,7 @@ var places = require('places/places.js')
 
 const bookmarkEditor = {
     currentInstance: null,
-    getTagElement: function (tag, selected, onClick) {
+    getTagElement: function (tag, selected, onClick, options = {}) {
         var el = document.createElement('button')
         el.className = 'tag'
         el.textContent = tag
@@ -16,7 +16,7 @@ const bookmarkEditor = {
         }
         el.addEventListener('click', function () {
           onClick()
-          if (el.classList.contains('selected')) {
+          if (el.classList.contains('selected') && options.autoRemove !== false) {
             el.remove()
           } else {
             el.classList.add('selected')
@@ -24,7 +24,7 @@ const bookmarkEditor = {
         })
         return el
       },
-    render: async function(url) {
+    render: async function (url) {
         bookmarkEditor.currentInstance = {};
         bookmarkEditor.currentInstance.bookmark = await db.places.where('url').equals(url).first();
   
@@ -100,9 +100,12 @@ const bookmarkEditor = {
           newTagInput.classList.add('mousetrap')
           tagArea.appendChild(newTagInput)
           newTagInput.addEventListener('change', function () {
-            if (!tags.selected.includes(this.value)) {
-              places.toggleTag(bookmarkEditor.currentInstance.bookmark.url, this.value)
-              tagArea.insertBefore(bookmarkEditor.getTagElement(this.value, true), tagArea.firstElementChild)
+            var val = this.value;
+            if (!tags.selected.includes(val)) {
+              places.toggleTag(bookmarkEditor.currentInstance.bookmark.url, val)
+              tagArea.insertBefore(bookmarkEditor.getTagElement(val, true, function() {
+                places.toggleTag(bookmarkEditor.currentInstance.bookmark.url, val)
+              }), tagArea.firstElementChild)
             }
             this.value = ''
           })
@@ -110,7 +113,7 @@ const bookmarkEditor = {
       
         return editor;
     },
-    show: function(url, replaceItem, onClose) {
+    show: function (url, replaceItem, onClose) {
         if (bookmarkEditor.currentInstance) {
             if (bookmarkEditor.currentInstance.editor.parentNode) {
                 bookmarkEditor.currentInstance.onClose(bookmarkEditor.currentInstance.bookmark);
@@ -118,7 +121,7 @@ const bookmarkEditor = {
             }
             bookmarkEditor.currentInstance = null;
         }
-        bookmarkEditor.render(url).then(function(editor) {
+        bookmarkEditor.render(url).then(function (editor) {
             replaceItem.hidden = true;
             replaceItem.parentNode.insertBefore(editor, replaceItem);
             bookmarkEditor.currentInstance.editor = editor;
