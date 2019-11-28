@@ -82,7 +82,7 @@ function showBookmarks (text, input, event) {
 
       parsedText.tags.forEach(function (tag) {
         tagBar.appendChild(bookmarkEditor.getTagElement(tag, true, function () {
-          tabBar.enterEditMode(tabs.getSelected(), '!bookmarks ' + text.replace('#' + tag, ''))
+          tabBar.enterEditMode(tabs.getSelected(), '!bookmarks ' + text.replace('#' + tag, '').trim())
         }, {autoRemove: false}))
       })
       // it doesn't make sense to display tag suggestions if there's a search, since the suggestions are generated without taking the search into account

@@ -150,7 +150,7 @@ var tagIndex = {
 
     probsArr = probsArr.sort((a, b) => { return b.value - a.value })
 
-    return probsArr.filter(p => p.value > 0.5).map(p => p.tag)
+    return probsArr.filter(p => p.value > 0.2).map(p => p.tag)
   },
   getSuggestedItemsForTags: function (tags) {
     var set = historyInMemoryCache.filter(i => i.isBookmarked).map(p => {

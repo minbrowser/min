@@ -82,6 +82,17 @@
 	transition: 0.05s;
 	color: currentColor;
 }
+/* increase button click area
+:before is already used for icon */
+.searchbar-item .action-button:after {
+	content: "";
+    width: 3em;
+    height: 2.5em;
+    top: -0.25em;
+    left: -0.75em;
+    display: block;
+    position: absolute;
+}
 .searchbar-item:hover .action-button {
     opacity: 0.6;
 }
