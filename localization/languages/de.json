@@ -175,6 +175,7 @@
         "appMenuWindow": "Fenster",
         "appMenuMinimize": "Minimieren",
         "appMenuClose": "Schließen",
+        "appMenuAlwaysOnTop": null, //missing translation
         "appMenuHelp": "Hilfe",
         "appMenuKeyboardShortcuts": "Tastaturkürzel",
         "appMenuReportBug": "Fehler melden",

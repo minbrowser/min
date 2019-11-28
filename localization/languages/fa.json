@@ -175,6 +175,7 @@
         "appMenuWindow": "پنجره",
         "appMenuMinimize": "کوچک نمایی",
         "appMenuClose": "بستن",
+        "appMenuAlwaysOnTop": null, //missing translation
         "appMenuHelp": "راهنما",
         "appMenuKeyboardShortcuts": "میانبرهای صفحه کلید",
         "appMenuReportBug": "گزارش اشکالات نرم افزاری",

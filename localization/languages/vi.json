@@ -171,6 +171,7 @@
         "appMenuWindow": "Cửa sổ",
         "appMenuMinimize": "Cực tiểu hóa",
         "appMenuClose": "Đóng",
+        "appMenuAlwaysOnTop": null, //missing translation
         "appMenuHelp": "Trợ giúp",
         "appMenuKeyboardShortcuts": "Phím tắt",
         "appMenuReportBug": "Báo cáo lỗi",

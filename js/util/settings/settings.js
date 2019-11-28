@@ -10,7 +10,7 @@ var settings = {
     })
     if (process.type === 'renderer') {
       ipc.send('receiveSettingsData', settings.list)
-    } else if (process.type === 'browser') {
+    } else if (process.type === 'browser' && mainWindow) {
       mainWindow.webContents.send('receiveSettingsData', settings.list)
     }
   },
@@ -58,8 +58,5 @@ var settings = {
   }
 }
 
-if (require.main === module) {
-  settings.initialize()
-} else {
-  module.exports = settings
-}
+settings.initialize()
+module.exports = settings

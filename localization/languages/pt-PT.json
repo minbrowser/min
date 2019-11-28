@@ -44,9 +44,9 @@
         "nameTask": "Dar nome a esta tarefa",
         "searchBookmarks": "Pesquisar nos marcadores",
         "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
-		"searchHistory": "Pesquisar no histórico",
-        "exportBookmarks": null, //missing translation
+		    "bookmarksSimilarItems": null, //missing translation
+		    "searchHistory": "Pesquisar no histórico",
+        "exportBookmarks": "Exportar marcadores",
         /* navbar */
         "openMenu": "Abrir menu", //application menu button on windows
         "enterReaderView": "Ativar modo de leitura",
@@ -175,6 +175,7 @@
         "appMenuWindow": "Janela",
         "appMenuMinimize": "Minimizar",
         "appMenuClose": "Fechar",
+        "appMenuAlwaysOnTop": "Sempre na frente",
         "appMenuHelp": "Ajuda",
         "appMenuKeyboardShortcuts": "Teclas de atalho",
         "appMenuReportBug": "Reporte de erros",

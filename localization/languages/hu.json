@@ -175,6 +175,7 @@
         "appMenuWindow": "Ablak",
         "appMenuMinimize": "Minimalizálás",
         "appMenuClose": "Bezárás",
+        "appMenuAlwaysOnTop": null, //missing translation
         "appMenuHelp": "Segitség",
         "appMenuKeyboardShortcuts": "Billentyű kombinációk",
         "appMenuReportBug": "Hiba jelentése",

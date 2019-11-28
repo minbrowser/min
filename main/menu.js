@@ -2,8 +2,6 @@ function createAppMenu () {
   var Menu = electron.Menu
   var MenuItem = electron.MenuItem
 
-  var appName = app.getName()
-
   var tabTaskActions = [
     {
       label: l('appMenuNewTab'),
@@ -60,7 +58,7 @@ function createAppMenu () {
   ]
 
   var quitAction = {
-    label: l('appMenuQuit').replace('%n', appName),
+    label: l('appMenuQuit').replace('%n', app.name),
     accelerator: 'CmdOrCtrl+Q',
     click: function () {
       app.quit()
@@ -75,10 +73,10 @@ function createAppMenu () {
     ...(process.platform === 'darwin' ?
       [
         {
-          label: appName,
+          label: app.name,
           submenu: [
             {
-              label: l('appMenuAbout').replace('%n', appName),
+              label: l('appMenuAbout').replace('%n', app.name),
               role: 'about'
             },
             {
@@ -102,7 +100,7 @@ function createAppMenu () {
               type: 'separator'
             },
             {
-              label: l('appMenuHide').replace('%n', appName),
+              label: l('appMenuHide').replace('%n', app.name),
               accelerator: 'CmdOrCtrl+H',
               role: 'hide'
             },
@@ -242,11 +240,9 @@ function createAppMenu () {
           checked: false,
           click: function (item, window) {
             if (isFocusMode) {
-              item.checked = false
               isFocusMode = false
               sendIPCToWindow(window, 'exitFocusMode')
             } else {
-              item.checked = true
               isFocusMode = true
               sendIPCToWindow(window, 'enterFocusMode')
             }
@@ -328,8 +324,20 @@ function createAppMenu () {
             }
           },
           {
+            label: l('appMenuAlwaysOnTop'),
+            type: 'checkbox',
+            checked: settings.get('windowAlwaysOnTop') || false,
+            click: function (item, window) {
+              if (mainWindow) {
+                mainWindow.setAlwaysOnTop(item.checked)
+              }
+              settings.set('windowAlwaysOnTop', item.checked)
+            }
+          },
+          {
             type: 'separator'
-          }, {
+          },
+          {
             label: l('appMenuBringToFront'),
             role: 'front'
           }
@@ -366,7 +374,7 @@ function createAppMenu () {
         },
         ...(process.platform !== 'darwin' ? [{type: 'separator'}] : []),
         ...(process.platform !== 'darwin' ? [{
-          label: l('appMenuAbout').replace('%n', appName),
+          label: l('appMenuAbout').replace('%n', app.name),
           click: function (item, window) {
             var info = [
               'Min v' + app.getVersion(),
@@ -374,7 +382,7 @@ function createAppMenu () {
             ]
             electron.dialog.showMessageBox({
               type: 'info',
-              title: l('appMenuAbout').replace('%n', appName),
+              title: l('appMenuAbout').replace('%n', app.name),
               message: info.join('\n'),
               buttons: [l('closeDialog')]
             })

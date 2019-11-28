@@ -175,6 +175,7 @@
         "appMenuWindow": "ウインドウ",
         "appMenuMinimize": "最小化",
         "appMenuClose": "閉じる",
+        "appMenuAlwaysOnTop": "常にトップに",
         "appMenuHelp": "ヘルプ",
         "appMenuKeyboardShortcuts": "キーボードショートカット",
         "appMenuReportBug": "バグを報告",

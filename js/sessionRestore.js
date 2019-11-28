@@ -1,10 +1,13 @@
 var browserUI = require('browserUI.js')
 
 window.sessionRestore = {
-  save: function () {
+  savePath: userDataPath + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
+  previousState: null,
+  save: throttle(function () {
+    var stateString = JSON.stringify(tasks.getStringifyableState())
     var data = {
       version: 2,
-      state: JSON.parse(JSON.stringify(tasks.getStringifyableState())),
+      state: JSON.parse(stateString),
       saveTime: Date.now()
     }
 
@@ -16,10 +19,22 @@ window.sessionRestore = {
       })
     }
 
-    localStorage.setItem('sessionrestoredata', JSON.stringify(data))
-  },
+    if (stateString !== sessionRestore.previousState) {
+      fs.writeFile(sessionRestore.savePath, JSON.stringify(data), function () {})
+      sessionRestore.previousState = stateString
+    }
+  }, 5000),
   restore: function () {
-    var savedStringData = localStorage.getItem('sessionrestoredata')
+    var savedStringData
+    try {
+      savedStringData = fs.readFileSync(sessionRestore.savePath, 'utf-8')
+    } catch (e) {
+      console.warn('failed to read session restore data', e)
+    }
+    if (!savedStringData) {
+      // migrate from previous version
+      savedStringData = localStorage.getItem('sessionrestoredata')
+    }
 
     /* the survey should only be shown after an upgrade from an earlier version */
     var shouldShowSurvey = false
@@ -97,7 +112,7 @@ window.sessionRestore = {
                   enterEditMode: false
                 })
               }
-            }}, 200)
+            } }, 200)
         })
       }
     } catch (e) {
@@ -107,7 +122,7 @@ window.sessionRestore = {
 
       var backupSavePath = require('path').join(remote.app.getPath('userData'), 'sessionRestoreBackup-' + Date.now() + '.json')
 
-      require('fs').writeFileSync(backupSavePath, savedStringData)
+      fs.writeFileSync(backupSavePath, savedStringData)
 
       // destroy any tabs that were created during the restore attempt
       initializeTabState()

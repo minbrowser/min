@@ -199,4 +199,5 @@ const places = {
   }
 }
 
+places.initialize()
 module.exports = places

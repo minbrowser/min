@@ -175,6 +175,7 @@
         "appMenuWindow": "창",
         "appMenuMinimize": "최소화",
         "appMenuClose": "닫기",
+        "appMenuAlwaysOnTop": null, //missing translation
         "appMenuHelp": "도움말",
         "appMenuKeyboardShortcuts": "단축키",
         "appMenuReportBug": "버그 전송",

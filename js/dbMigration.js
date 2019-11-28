@@ -30,7 +30,9 @@ dbLegacy.places.count().then(function (oldCount) {
     ]).then(function () {
       fs.writeFileSync(savePath, JSON.stringify({history: historyItems, readingList: readingListItems}))
       remote.app.relaunch({
-        args: remote.getGlobal('process').argv.slice(1).concat(['--rename-db'])
+        args: remote.getGlobal('process').argv.slice(1).concat(['--rename-db']),
+        // needed for Arch compatibility, see https://github.com/minbrowser/min/issues/854
+        execPath: remote.getGlobal('process').argv[0]
       })
       remote.app.quit()
     })

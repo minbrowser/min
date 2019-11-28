@@ -175,6 +175,7 @@
         "appMenuWindow": "Pencere",
         "appMenuMinimize": "Küçült",
         "appMenuClose": "Kapat",
+        "appMenuAlwaysOnTop": null, //missing translation
         "appMenuHelp": "Yardım",
         "appMenuKeyboardShortcuts": "Klavye Kısayolları",
         "appMenuReportBug": "Hata Bildir",

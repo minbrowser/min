@@ -82,7 +82,6 @@ function parseOptions (input) {
       parseDomains(domainString, output)
       hasValidOptions = true
     } else {
-
       // the option is an element type to skip
       if (option[0] === '~' && elementTypes.indexOf(option.substring(1)) !== -1) {
         output.skipElementType = option.substring(1)
@@ -378,6 +377,18 @@ function indexOfFilter (input, filter, startingPos) {
   return beginIndex
 }
 
+function matchWildcard (input, filter) {
+  let index = 0
+  for (let part of filter.wildcardMatchParts) {
+    let newIndex = indexOfFilter(input, part, index)
+    if (newIndex === -1) {
+      return false
+    }
+    index = newIndex + part.length
+  }
+  return true
+}
+
 // Determines if there's a match based on the options, this doesn't
 // mean that the filter rule shoudl be accepted, just that the filter rule
 // should be considered given the current context.
@@ -430,7 +441,7 @@ function matchOptions (filterOptions, input, contextParams, currentHost) {
 function parse (input, parserData, callback, options = {}) {
   var arrayFilterCategories = ['regex', 'bothAnchored']
   var objectFilterCategories = ['hostAnchored']
-  var trieFilterCategories = ['nonAnchoredString', 'leftAnchored', 'rightAnchored', 'wildcard']
+  var trieFilterCategories = ['nonAnchoredString', 'leftAnchored', 'rightAnchored']
 
   parserData.exceptionFilters = parserData.exceptionFilters || {}
 
@@ -497,6 +508,8 @@ function parse (input, parserData, callback, options = {}) {
           } else {
             object.hostAnchored[ending] = [parsedFilterData]
           }
+        } else if (parsedFilterData.regex) {
+          object.regex.push(parsedFilterData)
         } else if (parsedFilterData.wildcardMatchParts) {
           var wildcardToken = parsedFilterData.wildcardMatchParts[0].split('^')[0].substring(0, 10)
           if (wildcardToken.length < 4) {
@@ -506,12 +519,10 @@ function parse (input, parserData, callback, options = {}) {
             }
           }
           if (wildcardToken) {
-            object.wildcard.add(wildcardToken, parsedFilterData)
+            object.nonAnchoredString.add(wildcardToken, parsedFilterData)
           } else {
-            object.wildcard.add('', parsedFilterData)
+            object.nonAnchoredString.add('', parsedFilterData)
           }
-        } else if (parsedFilterData.regex) {
-          object.regex.push(parsedFilterData)
         } else {
           object.nonAnchoredString.add(parsedFilterData.data.split('^')[0], parsedFilterData)
         }
@@ -629,44 +640,21 @@ function matchesFilters (filters, input, contextParams) {
     var len = nonAnchoredStringMatches.length
 
     for (var i = 0; i < len; i++) {
-      if (indexOfFilter(input, nonAnchoredStringMatches[i].data, 0) !== -1 && matchOptions(nonAnchoredStringMatches[i].options, input, contextParams, currentHost)) {
+      filter = nonAnchoredStringMatches[i]
+      let matches
+      if (filter.wildcardMatchParts) {
+        matches = matchWildcard(input, filter)
+      } else {
+        matches = indexOfFilter(input, filter.data, 0) !== -1
+      }
+      if (matches && matchOptions(nonAnchoredStringMatches[i].options, input, contextParams, currentHost)) {
         // console.log(nonAnchoredStringMatches[i], 5)
         return true
       }
     }
   }
 
-  // check if the string matches a wildcard filter
-
-  var wildcardMatches = filters.wildcard.getSubstringsOf(input)
-
-  if (wildcardMatches.length !== 0) {
-    outer: for (i = 0, len = wildcardMatches.length; i < len; i++) {
-      filter = wildcardMatches[i]
-
-      // most filters won't match on the first part, so there is no point in entering the loop
-      if (indexOfFilter(input, filter.wildcardMatchParts[0], 0) === -1) {
-        continue outer
-      }
-
-      let index = 0
-      for (let part of filter.wildcardMatchParts) {
-        let newIndex = indexOfFilter(input, part, index)
-        if (newIndex === -1) {
-          continue outer
-        }
-        index = newIndex + part.length
-      }
-
-      if (matchOptions(filter.options, input, contextParams, currentHost)) {
-        // console.log(filter, 7)
-        return true
-      }
-    }
-  }
-
   // no filters matched
-
   return false
 }
 
