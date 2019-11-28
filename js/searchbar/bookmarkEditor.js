@@ -19,6 +19,7 @@ const bookmarkEditor = {
           if (el.classList.contains('selected') && options.autoRemove !== false) {
             el.remove()
           } else {
+            el.classList.remove('suggested')
             el.classList.add('selected')
           }
         })
