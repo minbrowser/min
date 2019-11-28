@@ -43,7 +43,9 @@
         "moveToTask": "Mover este separador para uma tarefa",
         "nameTask": "Dar nome a esta tarefa",
         "searchBookmarks": "Pesquisar nos marcadores",
-        "searchHistory": "Pesquisar no histórico",
+        "bookmarksAddTag": null, //missing translation
+		"bookmarksSimilarItems": null, //missing translation
+		"searchHistory": "Pesquisar no histórico",
         "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "Abrir menu", //application menu button on windows

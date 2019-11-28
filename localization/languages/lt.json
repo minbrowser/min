@@ -43,7 +43,9 @@
         "moveToTask": "Perkelti šią kortelę į užduotį",
         "nameTask": null, //missing translation
         "searchBookmarks": "Ieškoti adresyno įrašų",
-        "searchHistory": "Ieškoti istorijos",
+        "bookmarksAddTag": null, //missing translation
+		"bookmarksSimilarItems": null, //missing translation
+		"searchHistory": "Ieškoti istorijos",
         "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "Atverti meniu", //application menu button on windows

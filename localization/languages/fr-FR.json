@@ -43,7 +43,9 @@
         "moveToTask": "Déplacer cette tâche à cet onglet",
         "nameTask": null, //missing translation
         "searchBookmarks": "Rechercher des signets",
-        "searchHistory": "Rechercher dans l'historique",
+        "bookmarksAddTag": null, //missing translation
+		"bookmarksSimilarItems": null, //missing translation
+		"searchHistory": "Rechercher dans l'historique",
         "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "Ouvrir le menu", ///application menu button on windows

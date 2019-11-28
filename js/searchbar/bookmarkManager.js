@@ -129,7 +129,7 @@ function showBookmarks (text, input, event) {
           if (suggestedResults.length === 0) {
             return
           }
-          searchbarPlugins.addHeading('bangs', { text: 'Similar items' })
+          searchbarPlugins.addHeading('bangs', { text: l('bookmarksSimilarItems') })
           suggestedResults.sort(function (a, b) {
         // order by last visit
             return b.lastVisit - a.lastVisit

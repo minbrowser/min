@@ -43,7 +43,9 @@
         "moveToTask": "移動至工作",
         "nameTask": null, //missing translation
         "searchBookmarks": "搜尋書籤",
-        "searchHistory": "搜尋歷史",
+        "bookmarksAddTag": null, //missing translation
+		"bookmarksSimilarItems": null, //missing translation
+		"searchHistory": "搜尋歷史",
         "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "打開選單",

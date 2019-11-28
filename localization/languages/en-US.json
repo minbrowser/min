@@ -43,7 +43,9 @@
         "moveToTask": "Move this tab to a task",
         "nameTask": "Name this task",
         "searchBookmarks": "Search bookmarks",
-        "searchHistory": "Search history",
+        "bookmarksAddTag": "Add tag...", //missing translation
+		"bookmarksSimilarItems": "Similar items", //missing translation
+		"searchHistory": "Search history",
         "exportBookmarks": "Export bookmarks",
         /* navbar */
         "openMenu": "Open menu", //application menu button on windows

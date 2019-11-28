@@ -97,7 +97,7 @@ const bookmarkEditor = {
           // add option for new tag
           var newTagInput = document.createElement('input')
           newTagInput.className = 'tag-input'
-          newTagInput.placeholder = 'Add tag...'
+          newTagInput.placeholder = l('bookmarksAddTag')
           newTagInput.classList.add('mousetrap')
           tagArea.appendChild(newTagInput)
           newTagInput.addEventListener('change', function () {

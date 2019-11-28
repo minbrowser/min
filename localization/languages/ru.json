@@ -43,7 +43,9 @@
         "moveToTask": "Переместить эту вкладку в задачу",
         "nameTask": "Название этой задачи",
         "searchBookmarks": "Искать в закладках",
-        "searchHistory": "Искать в истории",
+        "bookmarksAddTag": null, //missing translation
+		"bookmarksSimilarItems": null, //missing translation
+		"searchHistory": "Искать в истории",
         "exportBookmarks": "Экспортировать закладки",
         /* navbar */
         "openMenu": "Открыть меню",
