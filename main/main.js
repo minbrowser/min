@@ -297,9 +297,5 @@ function registerProtocols () {
   protocol.registerStringProtocol('mailto', function (req, cb) {
     electron.shell.openExternal(req.url)
     return null
-  }, function (error) {
-    if (error) {
-      console.log('Could not register mailto protocol.')
-    }
   })
 }
