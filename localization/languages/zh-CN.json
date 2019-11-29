@@ -42,7 +42,8 @@
         "createTask": "新建标签组",
         "moveToTask": "以当前标签页创建一个新的标签组",
         "nameTask": null, //missing translation
-        "searchBookmarks": "搜索书签内容",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "搜索书签内容",
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": null, //missing translation

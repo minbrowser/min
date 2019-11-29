@@ -42,7 +42,8 @@
         "closeTask": null, //missing translation
         "moveToTask": "انتقال این برگه به یک وظیفه",
         "nameTask": null, //missing translation
-        "searchBookmarks": "جستجوی نشانک ها",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "جستجوی نشانک ها",
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": "جستجوی تاریخچه",

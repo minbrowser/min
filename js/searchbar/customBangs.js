@@ -290,3 +290,17 @@ bangsPlugin.registerCustomBang({
     })
   }
 })
+
+bangsPlugin.registerCustomBang({
+  phrase: "!addbookmark",
+  snippet: l('addBookmark'),
+  fn: function (text) {
+    var url = tabs.get(tabs.getSelected()).url
+    if (url) {
+      places.updateItem(url, {
+        isBookmarked: true,
+        tags: (text ? text.split(",").map(t => t.trim()) : []),
+      })
+    }
+  }
+})

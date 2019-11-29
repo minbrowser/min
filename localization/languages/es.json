@@ -42,7 +42,8 @@
         "closeTask": null, //missing translation
         "moveToTask": "Mover esta pestaña a una tarea",
         "nameTask": null, //missing translation
-        "searchBookmarks": "Buscar marcadores",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "Buscar marcadores",
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": null, //missing translation

@@ -42,7 +42,8 @@
         "closeTask": null, //missing translation
         "moveToTask": "Přesunout tuto kartu do dimenze",
         "nameTask": null, //missing translation
-        "searchBookmarks": "Vyhledávat záložky",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "Vyhledávat záložky",
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": null, //missing translation

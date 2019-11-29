@@ -42,7 +42,8 @@
         "closeTask": "Görevi Kapat",
         "moveToTask": "Bu sekmeyi bir göreve taşı",
         "nameTask": "Bu görevi adlandır",
-        "searchBookmarks": "Yer işaretlerini ara",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "Yer işaretlerini ara",
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": "Arama Geçmişi", 

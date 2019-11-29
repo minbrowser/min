@@ -42,7 +42,8 @@
         "closeTask": "Закрыть задачу",
         "moveToTask": "Переместить эту вкладку в задачу",
         "nameTask": "Название этой задачи",
-        "searchBookmarks": "Искать в закладках",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "Искать в закладках",
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": "Искать в истории",

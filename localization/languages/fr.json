@@ -42,7 +42,8 @@
         "closeTask": "Fermer cette tâche", 
         "moveToTask": "Déplacer cette tâche à cet onglet",
         "nameTask": null, //missing translation
-        "searchBookmarks": "Rechercher des signets",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "Rechercher des signets",
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": "Rechercher dans l'historique",

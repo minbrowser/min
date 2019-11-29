@@ -42,7 +42,8 @@
         "closeTask": null, //missing translation
         "moveToTask": "Verschiebe diesen Tab zu Aufgabe",
         "nameTask": null, //missing translation
-        "searchBookmarks": "Bookmarks durchsuchen",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "Bookmarks durchsuchen",
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": null, //missing translation

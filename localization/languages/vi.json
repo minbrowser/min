@@ -42,7 +42,8 @@
         "closeTask": "Kết thúc quá trình",
         "moveToTask": "Chuyển tab này sang quá trình khác",
         "nameTask": null, //missing translation
-        "searchBookmarks": "Tìm kiếm trong trang web đánh dấu",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "Tìm kiếm trong trang web đánh dấu",
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": "Tìm kiếm trong lịch sử",

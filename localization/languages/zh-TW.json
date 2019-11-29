@@ -42,7 +42,8 @@
         "closeTask": "關閉工作",
         "moveToTask": "移動至工作",
         "nameTask": null, //missing translation
-        "searchBookmarks": "搜尋書籤",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "搜尋書籤",
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": "搜尋歷史",

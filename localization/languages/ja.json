@@ -42,7 +42,8 @@
         "closeTask": "タスクを閉じる",
         "moveToTask": "このタブをタスクに移動",
         "nameTask": "このタスクの名前",
-        "searchBookmarks": "ブックマークを検索",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "ブックマークを検索",
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": "検索履歴",

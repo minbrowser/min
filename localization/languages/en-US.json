@@ -42,7 +42,8 @@
         "closeTask": "Close a Task",
         "moveToTask": "Move this tab to a task",
         "nameTask": "Name this task",
-        "searchBookmarks": "Search bookmarks",
+        "addBookmark": "Add bookmark", //missing translation
+		"searchBookmarks": "Search bookmarks",
         "bookmarksAddTag": "Add tag...", //missing translation
 		"bookmarksSimilarItems": "Similar items", //missing translation
 		"searchHistory": "Search history",

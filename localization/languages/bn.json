@@ -42,7 +42,8 @@
       "closeTask": null, //missing translation
       "moveToTask":"একটি টাস্ক এই ট্যাব সরান",
       "nameTask": null, //missing translation
-      "searchBookmarks":"বুকমার্কগুলি অনুসন্ধান করুন",
+      "addBookmark": null, //missing translation
+		"searchBookmarks":"বুকমার্কগুলি অনুসন্ধান করুন",
       "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory":"অনুসন্ধানের ইতিহাস",

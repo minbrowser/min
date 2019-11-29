@@ -42,7 +42,8 @@
         "closeTask": null, //missing translation
         "moveToTask": "نقل التبويب الى المهام",
         "nameTask": null, //missing translation
-        "searchBookmarks": "البحث عن الإشارات",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "البحث عن الإشارات",
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": "البحث عن السجل",

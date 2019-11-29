@@ -42,7 +42,8 @@
         "closeTask": "Fechar tarefa",
         "moveToTask": "Mover este separador para uma tarefa",
         "nameTask": "Dar nome a esta tarefa",
-        "searchBookmarks": "Pesquisar nos marcadores",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "Pesquisar nos marcadores",
         "bookmarksAddTag": null, //missing translation
 		    "bookmarksSimilarItems": null, //missing translation
 		    "searchHistory": "Pesquisar no histórico",
