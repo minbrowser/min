@@ -36,6 +36,12 @@ var platformOptions = {
     platform: 'win32',
     icon: 'icons/icon256.ico'
   },
+  linux_armhf: {
+    name: 'min',
+    platform: 'linux',
+    arch: 'armv7l',
+    fpm: ['--architecture', 'armhf']
+  },
   linux: {
     name: 'min', // name must be lowercase to run correctly after installation
     platform: 'linux',
