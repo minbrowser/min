@@ -41,7 +41,7 @@
         "createTask": "태스크 생성",
         "closeTask": "태스크 닫기",
         "moveToTask": "태스크로 탭 이동",
-        "nameTask": "태스크의 이름",
+        "nameTask": "태스크 이름",
         "searchBookmarks": "북마크 검색",
         "searchHistory": "기록 검색",
         "exportBookmarks": "북마크 내보내기",
@@ -62,8 +62,8 @@
         "defaultTaskName": "태스크 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
         "taskDeleteWarning": {"unsafeHTML": "태스크를 제거했습니다. <a>되돌릴까요?</a>"},
         "returnToTask": "이전 태스크로 돌아가기",
-        "taskDescriptionTwo": "%t and %t",
-        "taskDescriptionThree": "%t, %t, and %n more",
+        "taskDescriptionTwo": "%t 그리고 %t", //used to describe a task that has two tabs, %t is replaced with the tab title
+        "taskDescriptionThree": "%t, %t, 그리고 %n개의 탭", //used to describe a task that has three or more tabs
         /* find in page toolbar */
         "searchInPage": "페이지 검색", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%t 의 %i 일치", //this and the next label are used to indicate which match is currently highlighted
