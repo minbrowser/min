@@ -52,6 +52,7 @@ In order to build Min from source, follow the installation instructions above, t
 * ```npm run buildMac```
 * ```npm run buildDebian```
 * ```npm run buildRedhat```
+* ```npm run buildRaspbian```
 
 Depending on the platform you are building for, you may need to install additional dependencies:
 * If you are using macOS and building a package for Linux, install [Homebrew](http://brew.sh), then run `brew install fakeroot dpkg` first.
