@@ -41,8 +41,7 @@
     "buildMac": "npm run build && node ./scripts/buildMac.js",
     "buildDebian": "npm run build && node ./scripts/buildDebian.js",
     "buildRedhat": "npm run build && node ./scripts/buildRedhat.js",
-    "buildRaspbian": "npm run build && node ./scripts/buildRaspbian.js",
-    "buildAll": "npm run buildWindows && npm run buildMac && npm run buildDebian && npm run buildRedhat && npm run buildRaspbian",
+    "buildAll": "npm run buildWindows && npm run buildMac && npm run buildDebian && npm run buildRedhat",
     "updateFilters": "node ./ext/filterLists/updateEasylist.js"
   },
   "repository": {
