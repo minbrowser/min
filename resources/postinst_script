@@ -8,6 +8,7 @@ if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ]; then
     case $input in
         [yY][eE][sS]|[yY])
     echo "Yes"
+    xdg-settings set default-web-browser min.desktop
     echo "Please select the path of Min(/usr/bin/min) by selection number."
     update-alternatives --config x-www-browser
     ;;
