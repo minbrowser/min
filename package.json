@@ -15,11 +15,11 @@
     "string_score": "^0.1.22"
   },
   "devDependencies": {
-    "electron": "^7.1.3",
     "archiver": "^3.0.0",
     "browserify": "^16.2.2",
     "chokidar": "^2.0.4",
     "decomment": "^0.9.0",
+    "electron": "^7.1.3",
     "electron-installer-redhat": "^2.0.0",
     "electron-installer-windows": "^1.1.1",
     "electron-packager": "^14.0.4",
