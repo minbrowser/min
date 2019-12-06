@@ -42,8 +42,11 @@
         "closeTask": null, //missing translation
         "moveToTask": "Mover esta aba para uma tarefa",
         "nameTask": null, //missing translation
-        "searchBookmarks": "Buscar nos favoritos",
-        "searchHistory": null, //missing translation
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "Buscar nos favoritos",
+        "bookmarksAddTag": null, //missing translation
+		"bookmarksSimilarItems": null, //missing translation
+		"searchHistory": null, //missing translation
         "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": null, //missing translation

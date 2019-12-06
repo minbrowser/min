@@ -9,7 +9,7 @@ var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var places = require('places/places.js')
 var urlParser = require('util/urlParser.js')
 var {db} = require('util/database.js')
-const formatRelativeDate = require('util/relativeDate.js')
+var formatRelativeDate = require('util/relativeDate.js')
 
 bangsPlugin.registerCustomBang({
   phrase: '!settings',
@@ -202,54 +202,6 @@ bangsPlugin.registerCustomBang({
 })
 
 bangsPlugin.registerCustomBang({
-  phrase: '!bookmarks',
-  snippet: l('searchBookmarks'),
-  isAction: false,
-  showSuggestions: function (text, input, event) {
-    places.searchPlaces(text, function (results) {
-      searchbarPlugins.reset('bangs')
-
-      var lastRelativeDate = '' // used to generate headings
-
-      results.sort(function (a, b) {
-        // order by last visit
-        return b.lastVisit - a.lastVisit
-      }).forEach(function (result, index) {
-        var thisRelativeDate = formatRelativeDate(result.lastVisit)
-        if (thisRelativeDate !== lastRelativeDate) {
-          searchbarPlugins.addHeading('bangs', {text: thisRelativeDate})
-          lastRelativeDate = thisRelativeDate
-        }
-        searchbarPlugins.addResult('bangs', {
-          title: result.title,
-          icon: 'fa-star',
-          secondaryText: urlParser.getSourceURL(result.url),
-          fakeFocus: index === 0 && text,
-          url: result.url,
-          delete: function () {
-            places.deleteHistory(result.url)
-          },
-          showDeleteButton: true
-        })
-      })
-    }, {searchBookmarks: true, limit: (text ? 100 : Infinity)})
-  },
-  fn: function (text) {
-    if (!text) {
-      return
-    }
-    places.searchPlaces(text, function (results) {
-      if (results.length !== 0) {
-        results = results.sort(function (a, b) {
-          return b.lastVisit - a.lastVisit
-        })
-        searchbar.openURL(results[0].url, null)
-      }
-    }, {searchBookmarks: true})
-  }
-})
-
-bangsPlugin.registerCustomBang({
   phrase: '!history',
   snippet: l('searchHistory'),
   isAction: false,
@@ -336,5 +288,19 @@ bangsPlugin.registerCustomBang({
       var savePath = electron.remote.dialog.showSaveDialogSync({defaultPath: 'bookmarks.html'})
       require('fs').writeFileSync(savePath, root.outerHTML)
     })
+  }
+})
+
+bangsPlugin.registerCustomBang({
+  phrase: "!addbookmark",
+  snippet: l('addBookmark'),
+  fn: function (text) {
+    var url = tabs.get(tabs.getSelected()).url
+    if (url) {
+      places.updateItem(url, {
+        isBookmarked: true,
+        tags: (text ? text.split(",").map(t => t.trim()) : []),
+      })
+    }
   }
 })

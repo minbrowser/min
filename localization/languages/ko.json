@@ -42,8 +42,11 @@
         "closeTask": null, //missing translation
         "moveToTask": "태스트로 탭 이동",
         "nameTask": null, //missing translation
-        "searchBookmarks": "북마크 검색",
-        "searchHistory": "기록 검색",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "북마크 검색",
+        "bookmarksAddTag": null, //missing translation
+		"bookmarksSimilarItems": null, //missing translation
+		"searchHistory": "기록 검색",
         "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "메뉴", //application menu button on windows

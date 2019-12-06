@@ -73,7 +73,6 @@
     height: 2em;
     right: 0.45em;
     top: calc(0.16em + 1px);
-    bottom: 0;
     border: none;
     border-radius: 50%;
     outline: none;
@@ -83,10 +82,23 @@
 	transition: 0.05s;
 	color: currentColor;
 }
-.searchbar-item:hover .action-button {
+/* increase button click area
+:before is already used for icon */
+.searchbar-item .action-button:after {
+	content: "";
+    width: 3em;
+    height: 2.5em;
+    top: -0.25em;
+    left: -0.75em;
+    display: block;
+    position: absolute;
+}
+.searchbar-item:hover .action-button,
+.searchbar-item .action-button.always-visible {
     opacity: 0.6;
 }
-.dark-mode .searchbar-item:hover .action-button {
+.dark-mode .searchbar-item:hover .action-button,
+.searchbar-item .action-button.always-visible {
 	opacity: 0.8;
 }
 .searchbar-item .action-button:hover {

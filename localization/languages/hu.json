@@ -42,8 +42,11 @@
         "closeTask": null, //missing translation
         "moveToTask": "Tedd a fület feladatba",
         "nameTask": null, //missing translation
-        "searchBookmarks": "Könyvjelző keresés",
-        "searchHistory": "Keresési előzmények",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "Könyvjelző keresés",
+        "bookmarksAddTag": null, //missing translation
+		"bookmarksSimilarItems": null, //missing translation
+		"searchHistory": "Keresési előzmények",
         "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "Menü megnyitása",

@@ -3,8 +3,10 @@ const places = require('places/places.js')
 
 const bookmarkStar = {
   create: function (tabId) {
-    const star = document.createElement('i')
+    const star = document.createElement('button')
     star.className = 'fa fa-star-o tab-icon bookmarks-button' // alternative icon is fa-bookmark
+    star.setAttribute('title', l('addBookmark'))
+    star.setAttribute('aria-label', l('addBookmark'))
 
     star.addEventListener('click', function (e) {
       bookmarkStar.onClick(tabId, star)

@@ -42,8 +42,11 @@
         "closeTask": "Закрити завдання",
         "moveToTask": "Перемістіть цю вкладку до завдання",
         "nameTask": "Назвіть це завдання",
-        "searchBookmarks": "Пошук закладок",
-        "searchHistory": "Історія пошуку",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "Пошук закладок",
+        "bookmarksAddTag": null, //missing translation
+		"bookmarksSimilarItems": null, //missing translation
+		"searchHistory": "Історія пошуку",
         "exportBookmarks": "Експортувати закладки",
         /* navbar */
         "openMenu": "Відкрити меню", //application menu button on windows
