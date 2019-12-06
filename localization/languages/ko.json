@@ -44,8 +44,8 @@
         "nameTask": "태스크 이름",
     	"addBookmark": "북마크 추가",
         	"searchBookmarks": "북마크 검색",
-    	"bookmarksAddTag": "태그 추가..."
-    		"bookmarksSimilarItems": "비슷한 항목"
+    	"bookmarksAddTag": "태그 추가...",
+    		"bookmarksSimilarItems": "비슷한 항목",
         	"searchHistory": "기록 검색",
         "exportBookmarks": "북마크 내보내기",
         /* navbar */
