@@ -42,8 +42,11 @@
         "closeTask": "Zamknij zadanie",
         "moveToTask": "Przenieś tę kartę do zadania",
         "nameTask": "Nazwij to zadanie",
-        "searchBookmarks": "Zakładki wyszukiwania",
-        "searchHistory": "Historia wyszukiwania",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "Zakładki wyszukiwania",
+        "bookmarksAddTag": null, //missing translation
+		"bookmarksSimilarItems": null, //missing translation
+		"searchHistory": "Historia wyszukiwania",
         "exportBookmarks": "Eksportuj zakładki",
         /* navbar */
         "openMenu": "Otwórz menu", //application menu button on windows

@@ -66,7 +66,7 @@ const places = {
   },
   callbacks: [],
   addWorkerCallback: function (callback) {
-    const callbackId = Date.now()
+    const callbackId = (Date.now() / 1000) + Math.random()
     places.callbacks.push({id: callbackId, fn: callback})
     return callbackId
   },
@@ -119,12 +119,12 @@ const places = {
   onMessage: function (e) { // assumes this is from a search operation
     places.runWorkerCallback(e.data.callbackId, e.data.result)
   },
-  updateBookmarkState: function (url, shouldBeBookmarked) {
+  updateItem: function (url, fields) {
     places.worker.postMessage({
       action: 'updatePlace',
       pageData: {
         url: url,
-        isBookmarked: shouldBeBookmarked
+        ...fields
       }
     })
   },
@@ -133,10 +133,59 @@ const places = {
 
     db.places.where('url').equals(url).first(function (item) {
       if (item && item.isBookmarked) {
-        places.updateBookmarkState(url, false)
+        places.updateItem(url, {isBookmarked: false})
       } else {
-        places.updateBookmarkState(url, true)
+        places.updateItem(url, {isBookmarked: true})
       }
+    })
+  },
+  toggleTag: function (url, tag) {
+    db.places.where('url').equals(url).first(function (item) {
+      if (!item) {
+        return
+      }
+      if (item.tags.includes(tag)) {
+        item.tags = item.tags.filter(t => t !== tag)
+      } else {
+        item.tags.push(tag)
+      }
+      places.worker.postMessage({
+        action: 'updatePlace',
+        pageData: {
+          url: url,
+          tags: item.tags
+        }
+      })
+    })
+  },
+  getSuggestedTags: function (url, callback) {
+    const callbackId = places.addWorkerCallback(callback)
+    places.worker.postMessage({
+      action: 'getSuggestedTags',
+      pageData: {
+        url: url
+      },
+      callbackId: callbackId
+    })
+  },
+  getSuggestedItemsForTags: function (tags, callback) {
+    const callbackId = places.addWorkerCallback(callback)
+    places.worker.postMessage({
+      action: 'getSuggestedItemsForTags',
+      pageData: {
+        tags: tags
+      },
+      callbackId: callbackId
+    })
+  },
+  autocompleteTags: function (tags, callback) {
+    const callbackId = places.addWorkerCallback(callback)
+    places.worker.postMessage({
+      action: 'autocompleteTags',
+      pageData: {
+        tags: tags
+      },
+      callbackId: callbackId
     })
   },
   initialize: function () {
