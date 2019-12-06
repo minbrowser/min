@@ -42,8 +42,11 @@
         "closeTask": "Chiudi un Task",
         "moveToTask": "Sposta questa scheda in un task",
         "nameTask": "Dai un nome a questo task", 
-        "searchBookmarks": "Cerca nei Preferiti",
-        "searchHistory": "Cerca nella cronologia",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "Cerca nei Preferiti",
+        "bookmarksAddTag": null, //missing translation
+		"bookmarksSimilarItems": null, //missing translation
+		"searchHistory": "Cerca nella cronologia",
         "exportBookmarks": "Esporta Preferiti",
         /* navbar */
         "openMenu": "Apri menu", //application menu button on windows

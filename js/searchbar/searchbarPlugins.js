@@ -1,10 +1,8 @@
 var searchbar = document.getElementById('searchbar')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 
-var topAnswerArea = searchbar.querySelector('.top-answer-area')
-
 var plugins = [] // format is {name, container, trigger, showResults}
-var results = {}; // format is {pluginName: [results]}
+var results = {} // format is {pluginName: [results]}
 var URLOpener
 var URLHandlers = [] // format is {trigger, action}
 
@@ -14,9 +12,10 @@ var topAnswer = {
 }
 
 const searchbarPlugins = {
+  topAnswerArea: searchbar.querySelector('.top-answer-area'),
   // empties all containers in the searchbar
   clearAll: function () {
-    empty(topAnswerArea)
+    empty(searchbarPlugins.topAnswerArea)
     topAnswer = {
       plugin: null,
       item: null
@@ -49,17 +48,17 @@ const searchbarPlugins = {
         return null
       }
     } else {
-      return topAnswerArea.firstChild
+      return searchbarPlugins.topAnswerArea.firstChild
     }
   },
 
   setTopAnswer: function (pluginName, data) {
-    empty(topAnswerArea)
+    empty(searchbarPlugins.topAnswerArea)
 
     var item = searchbarUtils.createItem(data)
     item.setAttribute('data-plugin', pluginName)
     item.setAttribute('data-url', data.url)
-    topAnswerArea.appendChild(item)
+    searchbarPlugins.topAnswerArea.appendChild(item)
 
     item.addEventListener('click', function (e) {
       URLOpener(data.url, e)
@@ -132,12 +131,12 @@ const searchbarPlugins = {
   run: function (text, input, event) {
     for (var i = 0; i < plugins.length; i++) {
       try {
-        if ( (!plugins[i].trigger || plugins[i].trigger(text))) {
+        if ((!plugins[i].trigger || plugins[i].trigger(text))) {
           plugins[i].showResults(text, input, event)
         } else {
           searchbarPlugins.reset(plugins[i].name)
         }
-      } catch(e) {
+      } catch (e) {
         console.error('error in searchbar plugin "' + plugins[i].name + '":', e)
       }
     }

@@ -7,6 +7,7 @@ importScripts('../../node_modules/string_score/string_score.min.js')
 importScripts('../util/database.js')
 importScripts('fullTextSearch.js')
 importScripts('placesSearch.js')
+importScripts('tagIndex.js')
 
 const spacesRegex = /[\+\s._/-]/g // things that could be considered spaces
 
@@ -45,6 +46,9 @@ setInterval(cleanupHistoryDatabase, 60 * 60 * 1000)
 let historyInMemoryCache = []
 
 function addToHistoryCache (item) {
+  if (item.isBookmarked) {
+    tagIndex.addPage(item)
+  }
   delete item.pageHTML
   delete item.extractedText
   delete item.searchIndex
@@ -57,18 +61,22 @@ function addOrUpdateHistoryCache (item) {
   delete item.extractedText
   delete item.searchIndex
 
-  let found = false
+  let oldItem
 
   for (let i = 0; i < historyInMemoryCache.length; i++) {
     if (historyInMemoryCache[i].url === item.url) {
+      oldItem = historyInMemoryCache[i]
       historyInMemoryCache[i] = item
-      found = true
       break
     }
   }
 
-  if (!found) {
+  if (!oldItem) {
     historyInMemoryCache.push(item)
+  }
+
+  if (oldItem) {
+    tagIndex.onChange(oldItem, item)
   }
 }
 
@@ -195,6 +203,27 @@ onmessage = function (e) {
       return item.isBookmarked === false
     }).delete().then(function () {
       loadHistoryInMemory()
+    })
+  }
+
+  if (action === 'getSuggestedTags') {
+    postMessage({
+      result: tagIndex.getSuggestedTags(historyInMemoryCache.find(i => i.url === pageData.url)),
+      callbackId: callbackId
+    })
+  }
+
+  if (action === 'getSuggestedItemsForTags') {
+    postMessage({
+      result: tagIndex.getSuggestedItemsForTags(pageData.tags),
+      callbackId: callbackId
+    })
+  }
+
+  if (action === 'autocompleteTags') {
+    postMessage({
+      result: tagIndex.autocompleteTags(pageData.tags),
+      callbackId: callbackId
     })
   }
 

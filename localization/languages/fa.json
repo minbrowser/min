@@ -42,8 +42,11 @@
         "closeTask": null, //missing translation
         "moveToTask": "انتقال این برگه به یک وظیفه",
         "nameTask": null, //missing translation
-        "searchBookmarks": "جستجوی نشانک ها",
-        "searchHistory": "جستجوی تاریخچه",
+        "addBookmark": null, //missing translation
+		"searchBookmarks": "جستجوی نشانک ها",
+        "bookmarksAddTag": null, //missing translation
+		"bookmarksSimilarItems": null, //missing translation
+		"searchHistory": "جستجوی تاریخچه",
         "exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "باز کردن منو", //application menu button on windows
