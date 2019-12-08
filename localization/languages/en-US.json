@@ -47,7 +47,8 @@
         "bookmarksAddTag": "Add tag...", //missing translation
 		"bookmarksSimilarItems": "Similar items", //missing translation
 		"searchHistory": "Search history",
-        "exportBookmarks": "Export bookmarks",
+        "importBookmarks": "Import bookmarks from HTML file",
+		"exportBookmarks": "Export bookmarks",
         /* navbar */
         "openMenu": "Open menu", //application menu button on windows
         "enterReaderView": "Enter reader view",

@@ -47,7 +47,8 @@
         "bookmarksAddTag": null, //missing translation
 		    "bookmarksSimilarItems": null, //missing translation
 		    "searchHistory": "Pesquisar no histórico",
-        "exportBookmarks": "Exportar marcadores",
+        "importBookmarks": null, //missing translation
+		"exportBookmarks": "Exportar marcadores",
         /* navbar */
         "openMenu": "Abrir menu", //application menu button on windows
         "enterReaderView": "Ativar modo de leitura",
