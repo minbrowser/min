@@ -42,16 +42,16 @@
         "closeTask": "Закрити завдання",
         "moveToTask": "Перемістіть цю вкладку до завдання",
         "nameTask": "Назвіть це завдання",
-        "addBookmark": null, //missing translation
-		"searchBookmarks": "Пошук закладок",
-        "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
-		"searchHistory": "Історія пошуку",
-        "importBookmarks": null, //missing translation
+        "addBookmark": "Додати закладку",
+		"searchBookmarks": "Шукати в закладках",
+        "bookmarksAddTag": "Додати мітку...",
+		"bookmarksSimilarItems": "Подібні елементи",
+		"searchHistory": "Шукати в історії",
+        "importBookmarks": "Імпортувати закладки",
 		"exportBookmarks": "Експортувати закладки",
         /* navbar */
         "openMenu": "Відкрити меню", //application menu button on windows
-        "enterReaderView": "Включити режим читання",
+        "enterReaderView": "Перейти в режим читання",
         "exitReaderView": "Вийти з режиму читання",
         "emptyReadingListTitle": "Ваш список читання порожній",
         "emptyReadingListSubtitle": "Статті, які ви відкриваєте у вікні читача, перелічені тут, і зберігаються в автономному режимі протягом 30 днів.",
@@ -189,7 +189,7 @@
         "appMenuHide": "Приховати %n",
         "appMenuHideOthers": "Приховати інші",
         "appMenuShowAll": "Показати все",
-        "appMenuQuit": "Вийти %n",
+        "appMenuQuit": "Вийти з %n",
         "appMenuBringToFront": "Все на передній план",
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "сторінка <input type='text'/> з <span id='total'></span>"},
