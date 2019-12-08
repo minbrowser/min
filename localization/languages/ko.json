@@ -47,6 +47,7 @@
         "bookmarksAddTag": "태그 추가...",
             "bookmarksSimilarItems": "비슷한 항목",
             "searchHistory": "기록 검색",
+        "importBookmarks": null, //missing translation
         "exportBookmarks": "북마크 내보내기",
         /* navbar */
         "openMenu": "메뉴", //application menu button on windows

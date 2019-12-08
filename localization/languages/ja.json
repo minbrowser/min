@@ -47,7 +47,8 @@
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": "検索履歴",
-        "exportBookmarks": "ブックマークをエクスポート",
+        "importBookmarks": null, //missing translation
+		"exportBookmarks": "ブックマークをエクスポート",
         /* navbar */
         "openMenu": "メニューを開く",
         "enterReaderView": "リーダービューを開始",

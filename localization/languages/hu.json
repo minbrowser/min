@@ -47,7 +47,8 @@
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": "Keresési előzmények",
-        "exportBookmarks": null, //missing translation
+        "importBookmarks": null, //missing translation
+		"exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "Menü megnyitása",
         "enterReaderView": "Lépj be az olvasó nézetbe",

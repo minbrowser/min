@@ -47,7 +47,8 @@
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": null, //missing translation
-        "exportBookmarks": null, //missing translation
+        "importBookmarks": null, //missing translation
+		"exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": null, //missing translation
         "enterReaderView": "Leseansicht öffnen",

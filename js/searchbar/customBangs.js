@@ -249,6 +249,53 @@ bangsPlugin.registerCustomBang({
 })
 
 bangsPlugin.registerCustomBang({
+  phrase: '!importbookmarks',
+  snippet: l('importBookmarks'),
+  isAction: true,
+  fn: function () {
+    var filePath = electron.remote.dialog.showOpenDialogSync({
+      filters: [
+        {name: 'HTML files', extensions: ['htm', 'html']}
+      ]
+    })
+    if (!filePath) {
+      return
+    }
+    fs.readFile(filePath[0], 'utf-8', function (err, data) {
+      if (err || !data) {
+        console.warn(err)
+        return
+      }
+      var tree = new DOMParser().parseFromString(data, 'text/html')
+      var bookmarks = Array.from(tree.getElementsByTagName('a'))
+      bookmarks.forEach(function (bookmark) {
+        var url = bookmark.getAttribute('href')
+        if (!url || (!url.startsWith('http:') && !url.startsWith('https:') && !url.startsWith('file:'))) {
+          return
+        }
+
+        var data = {
+          title: bookmark.textContent,
+          isBookmarked: true
+        }
+        try {
+          data.lastVisit = parseInt(bookmark.getAttribute('add_date')) * 1000
+        } catch (e) {}
+        var parent = bookmark.parentElement
+        while (parent != null) {
+          if (parent.children[0] && parent.children[0].tagName === 'H3') {
+            data.tags = [parent.children[0].textContent.replace(/\s/g, '-')]
+            break
+          }
+          parent = parent.parentElement
+        }
+        places.updateItem(url, data)
+      })
+    })
+  }
+})
+
+bangsPlugin.registerCustomBang({
   phrase: '!exportbookmarks',
   snippet: l('exportBookmarks'),
   isAction: true,
@@ -292,14 +339,14 @@ bangsPlugin.registerCustomBang({
 })
 
 bangsPlugin.registerCustomBang({
-  phrase: "!addbookmark",
+  phrase: '!addbookmark',
   snippet: l('addBookmark'),
   fn: function (text) {
     var url = tabs.get(tabs.getSelected()).url
     if (url) {
       places.updateItem(url, {
         isBookmarked: true,
-        tags: (text ? text.split(",").map(t => t.trim()) : []),
+        tags: (text ? text.split(',').map(t => t.trim()) : [])
       })
     }
   }

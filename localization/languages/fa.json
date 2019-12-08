@@ -47,7 +47,8 @@
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": "جستجوی تاریخچه",
-        "exportBookmarks": null, //missing translation
+        "importBookmarks": null, //missing translation
+		"exportBookmarks": null, //missing translation
         /* navbar */
         "openMenu": "باز کردن منو", //application menu button on windows
         "enterReaderView": "ورود به حالت خواندن",
