@@ -192,7 +192,7 @@
         "appMenuQuit": "%n 종료",
         "appMenuBringToFront": "맨 앞으로",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "<span id='total'></span> 의 <input type='text'/> 쪽"},
+        "PDFPageCounter": {"unsafeHTML": "전체 <span id='total'></span> 쪽 중 <input type='text'/> 쪽"},
         /* Download manager */
         "downloadCancel": "취소",
         "downloadStateCompleted": "완료됨",
