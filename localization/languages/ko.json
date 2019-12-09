@@ -33,7 +33,7 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": "더 보기",
         "viewSettings": "설정",
-        "viewReadingList": "읽기 항목",
+        "viewReadingList": "읽기 지원 목록",
         "takeScreenshot": "갈무리",
         "clearHistory": "기록 삭제",
         "clearHistoryConfirmation": "모든 기록 및 통신망 사용 정보를 삭제 하시겠습니까?",
