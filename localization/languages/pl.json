@@ -42,12 +42,12 @@
         "closeTask": "Zamknij zadanie",
         "moveToTask": "Przenieś tę kartę do zadania",
         "nameTask": "Nazwij to zadanie",
-        "addBookmark": null, //missing translation
+        "addBookmark": "Dodaj zakładkę,
 		"searchBookmarks": "Zakładki wyszukiwania",
-        "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
+        "bookmarksAddTag": "Dodaj znacznik...",
+		"bookmarksSimilarItems": "Podobne pozycje",
 		"searchHistory": "Historia wyszukiwania",
-        "importBookmarks": null, //missing translation
+        "importBookmarks": "Importuj zakładki z pliku HTML",
 		"exportBookmarks": "Eksportuj zakładki",
         /* navbar */
         "openMenu": "Otwórz menu", //application menu button on windows
