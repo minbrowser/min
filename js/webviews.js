@@ -153,7 +153,7 @@ const webviews = {
 
     // if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
     // since tab IDs are unique, we can use them as partition names
-    if (tabs.get(tabId).private === true) {
+    if (tabData.private === true) {
       var partition = tabId.toString() // options.tabId is a number, which remote.session.fromPartition won't accept. It must be converted to a string first
     }
 
@@ -185,6 +185,9 @@ const webviews = {
 
     if (tabData.url) {
       ipc.send('loadURLInView', {id: tabData.id, url: urlParser.parse(tabData.url)})
+    } else if (tabData.private) {
+      // workaround for https://github.com/minbrowser/min/issues/872
+      ipc.send('loadURLInView', {id: tabData.id, url: urlParser.parse('min://newtab')})
     }
 
     webviews.tabViewMap[tabId] = view
