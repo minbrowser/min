@@ -42,10 +42,10 @@
         "closeTask": "Close a Task",
         "moveToTask": "Move this tab to a task",
         "nameTask": "Name this task",
-        "addBookmark": "Add bookmark", //missing translation
+        "addBookmark": "Add bookmark",
 		"searchBookmarks": "Search bookmarks",
-        "bookmarksAddTag": "Add tag...", //missing translation
-		"bookmarksSimilarItems": "Similar items", //missing translation
+        "bookmarksAddTag": "Add tag...",
+		"bookmarksSimilarItems": "Similar items",
 		"searchHistory": "Search history",
         "importBookmarks": "Import bookmarks from HTML file",
 		"exportBookmarks": "Export bookmarks",
