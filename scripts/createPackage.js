@@ -40,6 +40,12 @@ var platformOptions = {
     name: 'min', // name must be lowercase to run correctly after installation
     platform: 'linux',
     arch: 'x64'
+  },
+  raspbian: {
+    name: 'min', // name must be lowercase to run correctly after installation
+    platform: 'linux',
+    arch: 'armv7l',
+    fpm: ['--architecture', 'armhf']
   }
 }
 

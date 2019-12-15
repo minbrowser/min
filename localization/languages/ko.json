@@ -5,184 +5,184 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "openInNewTab": "새 탭",
-        "openInNewPrivateTab": "새 개인탭",
-        "viewImage": "이미지 보기",
-        "openImageInNewTab": "새 탭에서 이미지 열기",
-        "openImageInNewPrivateTab": "새 개인탭에서 이미지 열기",
-        "saveImageAs": "이미지를 다른 이름으로 저장",
+        "openInNewTab": "새 작업",
+        "openInNewPrivateTab": "새 개인 작업",
+        "viewImage": "그림 보기",
+        "openImageInNewTab": "새 작업에서 그림 열기",
+        "openImageInNewPrivateTab": "새 개인 작업에서 그림 열기",
+        "saveImageAs": "그림을 다른 이름으로 저장",
         "searchWith": "%s에서 검색", //%s will be replaced with the name of the current search engine
         "copyLink": "주소 복사",
-        "selectAll": null, // Missing Translation
-        "undo": null, // Missing Translation
-        "redo": null, // Missing Translation
-        "cut": null, // Missing Translation
-        "copy": "복사", //this is a verb (as in "copy the currently-selected text")
+        "selectAll": "전체선택",
+        "undo": "되돌리기",
+        "redo": "재실행",
+        "cut": "오리기",
+        "copy": "복사하기", //this is a verb (as in "copy the currently-selected text")
         "paste": "붙여넣기",
         "goBack": "뒤로",
         "goForward": "앞으로",
         "inspectElement": "요소 검사",
         /* searchbar */
         "DDGAnswerSubtitle": "응답", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
-        "suggestedSite": "제안 사이트", //this is used to label suggested websites from the DuckDuckGo API,
-        "resultsFromDDG": "DuckDuckGo 에서의 결과", //this is used as a label to indicate which results come from DuckDuckGo's API
-        "taskN": "태스크 %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "호스트 파일 항목", //this is a label used to indicate that a result is coming from the user's host file
+        "suggestedSite": "제안 누리집", //this is used to label suggested websites from the DuckDuckGo API,
+        "resultsFromDDG": "덕덕고(DuckDuckGo) 검색 결과", //this is used as a label to indicate which results come from DuckDuckGo's API
+        "taskN": "작업 공간 %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "hostsFileEntry": "사용자 항목", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": null, //missing translation
+        "showMoreBangs": "더 보기",
         "viewSettings": "설정",
-        "viewReadingList": "읽기 항목",
-        "takeScreenshot": "스크린샷",
+        "viewReadingList": "읽기 지원 목록",
+        "takeScreenshot": "갈무리",
         "clearHistory": "기록 삭제",
-        "clearHistoryConfirmation": null, //missing translation
-        "switchToTask": "태스크 변경",
-        "createTask": "태스크 생성",
-        "closeTask": null, //missing translation
-        "moveToTask": "태스트로 탭 이동",
-        "nameTask": null, //missing translation
-        "addBookmark": null, //missing translation
-		"searchBookmarks": "북마크 검색",
-        "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
-		"searchHistory": "기록 검색",
-        "importBookmarks": null, //missing translation
-		"exportBookmarks": null, //missing translation
+        "clearHistoryConfirmation": "모든 기록 및 통신망 사용 정보를 삭제 하시겠습니까?",
+        "switchToTask": "작업 공간 변경",
+        "createTask": "작업 공간 생성",
+        "closeTask": "작업 공간 닫기",
+        "moveToTask": "작업 공간으로 작업 이동",
+        "nameTask": "작업 공간 이름",
+        "addBookmark": "즐겨찾기 추가",
+        "searchBookmarks": "즐겨찾기 검색",
+        "bookmarksAddTag": "꼬리표 추가...",
+        "bookmarksSimilarItems": "비슷한 항목",
+        "searchHistory": "기록 검색",
+        "importBookmarks": "즐겨찾기 목록 가져오기",
+        "exportBookmarks": "즐겨찾기 목록 내보내기",
         /* navbar */
-        "openMenu": "메뉴", //application menu button on windows
-        "enterReaderView": "읽기 모드",
-        "exitReaderView": "읽기 모드 종료",
+        "openMenu": "일람표", //application menu button on windows
+        "enterReaderView": "읽기 지원",
+        "exitReaderView": "읽기 지원 종료",
         "emptyReadingListTitle": "읽기 항목이 없습니다",
-        "emptyReadingListSubtitle": "열어본 기사가 나열되며, 오프라인에 30일간 저장됩니다.",
-        "newTabLabel": "새 탭", //this is a noun, used for tabs that don't have a page loaded in them yet
-        "connectionNotSecure": "이 웹 사이트에 대한 연결이 안전하지 않습니다.",
+        "emptyReadingListSubtitle": "열어본 기사가 나열되며, 사용자의 장비에 30일간 저장됩니다.",
+        "newTabLabel": "새 작업", //this is a noun, used for tabs that don't have a page loaded in them yet
+        "connectionNotSecure": "이 누리집에 대한 연결이 안전하지 않습니다.",
         "searchbarPlaceholder": "주소 검색 또는 입력",
-        "privateTab": "개인탭",
-        "newTabAction": "새 탭", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        "privateTab": "개인 작업",
+        "newTabAction": "새 작업", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
-        "viewTasks": "태스크 보기",
-        "newTask": "새 태스크", //"new" is a verb - it is used for a button at the bottom of the task overlay
-        "defaultTaskName": "태스크 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
-        "returnToTask": null, //missing translation
-        "taskDescriptionTwo": null, //missing translation
-        "taskDescriptionThree": null, //missing translation
+        "viewTasks": "작업 공간 보기",
+        "newTask": "새 작업 공간", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": "작업 공간 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        "taskDeleteWarning": {"unsafeHTML": "작업 공간을 제거했습니다. <a>되돌릴까요?</a>"},
+        "returnToTask": "이전 작업 공간으로 돌아가기",
+        "taskDescriptionTwo": "%t 그리고 %t", //used to describe a task that has two tabs, %t is replaced with the tab title
+        "taskDescriptionThree": "%t, %t, 그리고 %n개의 작업", //used to describe a task that has three or more tabs
         /* find in page toolbar */
-        "searchInPage": "페이지 검색", //this is used as the placeholder text for the textbox in the find in page toolbar
+        "searchInPage": "여기서 검색", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%t 의 %i 일치", //this and the next label are used to indicate which match is currently highlighted
         "findMatchesPlural": "%t 의 %i 일치",
         /* Focus mode */
-        "isFocusMode": "포커스 모드입니다.",
-        "closeDialog": "완료", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "포커스 모드에서는 현재 탭을 제외한 모든 탭이 숨겨지고, 새 탭을 만들 수 없습니다.",
-        "focusModeExplanation2": "보기 메뉴에서 \"포커스 모드\"의 선택을 해제하여 종료 할 수 있습니다.",
+        "isFocusMode": "집중 지원 상태입니다.",
+        "closeDialog": "닫기", //used as a label for the button that closes the dialog
+        "focusModeExplanation1": "집중 지원에서는 현재 작업을 제외한 모든 작업이 숨겨지고, 새 작업을 만들 수 없습니다.",
+        "focusModeExplanation2": "보기 일람에서 \"집중 지원\"의 선택을 해제하여 종료할 수 있습니다.",
         /* relative dates */
         "timeRangeJustNow": "방금",
         "timeRangeMinutes": "몇분 전",
         "timeRangeHour": "몇시간 전",
-        "timeRangeToday": null, //missing translation
-        "timeRangeYesterday": null, //missing translation
+        "timeRangeToday": "오늘",
+        "timeRangeYesterday": "어제",
         "timeRangeWeek": "지난 주",
         "timeRangeMonth": "지난 달",
         "timeRangeYear": "작년",
         "timeRangeLongerAgo": "오래전",
         /* pages/error/index.html */
         "crashErrorTitle": "문제가 발생했습니다.",
-        "crashErrorSubtitle": "이 페이지를 표시하는 동안 문제가 발생했습니다.",
+        "crashErrorSubtitle": "이 문서를 표시하는 동안 문제가 발생했습니다.",
         "errorPagePrimaryAction": "다시 시도",
-        "serverNotFoundTitle": "서버를 찾을 수 없습니다",
-        "serverNotFoundSubtitle": "웹 사이트를 찾을 수 없습니다.",
+        "serverNotFoundTitle": "제공되는 연결망을 찾을 수 없습니다",
+        "serverNotFoundSubtitle": "누리집을 찾을 수 없습니다.",
         "archiveSearchAction": "archive.org 에서 검색",
-        "sslErrorTitle": "웹 사이트를 사용할 수 없습니다.",
+        "sslErrorTitle": "누리집을 사용할 수 없습니다.",
         "sslErrorMessage": "안전한 연결을 할 수 없습니다.",
-        "dnsErrorTitle": "웹 사이트를 찾을 수 없습니다.",
-        "dnsErrorMessage": "DNS 에러가 발생했습니다.",
-        "offlineErrorTitle": "오프라인 상태입니다.",
-        "offlineErrorMessage": "인터넷을 재연결후에, 다시 시도해주세요.",
-        "genericConnectionFail": "웹 사이트에 연결할 수 없습니다.",
-        "sslTimeErrorMessage": "안전한 연결을 할 수 없습니다. 시계 설정을 확인해주세요.",
+        "dnsErrorTitle": "누리집을 찾을 수 없습니다.",
+        "dnsErrorMessage": "DNS 오류가 발생했습니다.",
+        "offlineErrorTitle": "통신망에 연결되지 않은 상태입니다.",
+        "offlineErrorMessage": "통신망에 재연결 후에, 다시 시도해주세요.",
+        "genericConnectionFail": "누리집에 연결할 수 없습니다.",
+        "sslTimeErrorMessage": "안전한 연결을 할 수 없습니다. 사용 장비의 시간 설정을 확인해주세요.",
         "addressInvalidTitle": "유효하지 않은 주소입니다.",
-        "genericError": "에러 발생",
+        "genericError": "오류 발생",
         /* pages/phishing/index.html */
-        "phishingErrorTitle": "유해한 사이트입니다.",
-        "phishingErrorMessage": "이 웹 사이트에서는 암호 또는 은행 정보와 같은 개인 정보가 도용될 수 있습니다.",
+        "phishingErrorTitle": "유해한 누리집입니다.",
+        "phishingErrorMessage": "이 누리집에서는 암호 또는 은행 정보와 같은 개인 정보가 도용될 수 있습니다.",
         "phishingErrorVisitAnyway": "(그럼에도 불구하고) 들어가기",
         "phishingErrorLeave": "나가기",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": "에러가 발생했습니다. 다른 창을 종료 후 재실행 해 주세요.",
+        "multipleInstancesErrorMessage": "오류가 발생했습니다. 다른 창을 종료 후 재실행해주세요.",
         /* pages/sessionRestoreError/index.html */
-        "sessionRestoreErrorTitle": "에러 발생",
-        "sessionRestoreErrorExplanation": "저장된 탭을 정상적으로 복원 할 수 없습니다.",
-        "sessionRestoreErrorBackupInfo": "데이터 백업 저장위치: %l.", //%l will be replaced with a path to a file
+        "sessionRestoreErrorTitle": "오류 발생",
+        "sessionRestoreErrorExplanation": "저장된 작업 자료를 정상적으로 복원할 수 없습니다.",
+        "sessionRestoreErrorBackupInfo": "복원용 작업 자료 저장위치: %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
             "unsafeHTML": "오류가 계속 발생하면 <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">문의</a> 바랍니다."
         },
         /* pages/settings/index.html */
         "settingsPreferencesHeading": "환경설정",
-        "settingsRestartRequired": "변경 사항을 적용하려면 다시 시작해야합니다.",
-        "settingsPrivacyHeading": "콘텐츠 차단",
-        "settingsContentBlockingLevel0": null, //missing translation
-        "settingsContentBlockingLevel1": null, //missing translation
-        "settingsContentBlockingLevel2": null, //missing translation
-        "settingsContentBlockingExceptions": null, //missing translation
-        "settingsBlockScriptsToggle": "스크립트 차단",
-        "settingsBlockImagesToggle": "이미지 차단",
+        "settingsRestartRequired": "변경 사항을 적용하려면 다시 시작해야 합니다.",
+        "settingsPrivacyHeading": "내용물 차단",
+        "settingsContentBlockingLevel0": "모든 광고와 추적 허용",
+        "settingsContentBlockingLevel1": "타사 광고와 추적 차단",
+        "settingsContentBlockingLevel2": "모든 광고와 추적 차단",
+        "settingsContentBlockingExceptions": "다음의 누리집에서 광고 허용",
+        "settingsBlockScriptsToggle": "명령(스크립트) 차단",
+        "settingsBlockImagesToggle": "그림 차단",
         "settingsEasyListCredit": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "이지리스트(EasyList)와 이지프라이버시(EasyPrivacy)를 기반으로 합니다. <a target=\"_blank\" href=\"https://easylist.to/\">EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">이용 규약(라이선스) 보기</a>). "
         },
-        "settingsAppearanceHeading": "외모",
-        "settingsDarkModeToggle": "어두운 모드 사용",
-        "settingsSiteThemeToggle": null, //missing translation
+        "settingsAppearanceHeading": "외형",
+        "settingsDarkModeToggle": "어두운 외형 사용",
+        "settingsSiteThemeToggle": "누리집 색상 주제 사용",
         "settingsHistoryButtonToggle": "뒤로 버튼 사용",
         "settingsAdditionalFeaturesHeading": "추가 기능",
-        "settingsUserscriptsToggle": "사용자 스크립트 사용",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "사용자 스크립트를 사용하면 웹 사이트의 행동을 수정할 수 있습니다. - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">더보기</a>."},
-        "settingsUpdateNotificationsToggle": null, //missing translation
-        "settingsSearchEngineHeading": "검색 엔진",
-        "settingsDefaultSearchEngine": "기본 검색 엔진:",
-        "settingsDDGExplanation": "SDuckDuckGo를 기본 검색 엔진으로 설정하여 검색 창에서 바로 검색 해 보세요.",
+        "settingsUserscriptsToggle": "사용자 명령(스크립트) 사용",
+        "settingsUserscriptsExplanation": {"unsafeHTML": "사용자 명령(스크립트)을 사용하면 누리집의 행동을 수정할 수 있습니다. - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">더보기</a>."},
+        "settingsUpdateNotificationsToggle": "판올림 자동 확인",
+        "settingsSearchEngineHeading": "검색 도구",
+        "settingsDefaultSearchEngine": "기본 검색 도구:",
+        "settingsDDGExplanation": "덕덕고(DuckDuckGo)를 기본 검색 도구로 설정하여 검색 창에서 바로 검색해 보세요.",
         "customSearchEngineDescription": "검색어 변경: %s",
         "settingsKeyboardShortcutsHeading": "단축키",
-        "settingsKeyboardShortcutsHelp": "여러개의 단축키는 쉼표로 구분됩니다.",
+        "settingsKeyboardShortcutsHelp": "여러 개의 단축키는 쉼표로 구분됩니다.",
         /* app menu */
-        "appMenuFile": "파일",
-        "appMenuNewTab": "새 탭",
-        "appMenuDuplicateTab": "탭 복제",
-        "appMenuNewPrivateTab": "새 개인탭",
-        "appMenuNewTask": "새 태스크",
-        "appMenuSavePageAs": "페이지를 다른 이름으로 저장",
+        "appMenuFile": "작업",
+        "appMenuNewTab": "새 작업",
+        "appMenuDuplicateTab": "작업 복제",
+        "appMenuNewPrivateTab": "새 개인 작업",
+        "appMenuNewTask": "새 작업 공간",
+        "appMenuSavePageAs": "문서를 다른 이름으로 저장",
         "appMenuPrint": "인쇄",
-        "appMenuEdit": "수정",
-        "appMenuUndo": "취소",
-        "appMenuRedo": "되돌리기",
+        "appMenuEdit": "편집",
+        "appMenuUndo": "되돌리기",
+        "appMenuRedo": "재실행",
         "appMenuCut": "오려두기",
         "appMenuCopy": "복사하기",
         "appMenuPaste": "붙여넣기",
-        "appMenuSelectAll": "전체선택",
+        "appMenuSelectAll": "전체 선택",
         "appMenuFind": "찾기",
         "appMenuView": "보기",
         "appMenuZoomIn": "확대",
         "appMenuZoomOut": "축소",
         "appMenuActualSize": "실제 크기",
-        "appMenuFullScreen": "전체 크기", //on some platforms, this string is replaced with one built-in to the OS
-        "appMenuFocusMode": "포커스 모드",
+        "appMenuFullScreen": "전체 화면", //on some platforms, this string is replaced with one built-in to the OS
+        "appMenuFocusMode": "집중 지원",
         "appMenuReadingList": "읽기 목록",
-        "appMenuBookmarks": "북마크",
+        "appMenuBookmarks": "즐겨찾기",
         "appMenuHistory": "기록",
         "appMenuDeveloper": "개발자",
         "appMenuReloadBrowser": "새로고침",
         "appMenuInspectBrowser": "검사",
-        "appMenuInspectPage": "페이지 검사",
+        "appMenuInspectPage": "문서 검사",
         "appMenuWindow": "창",
         "appMenuMinimize": "최소화",
         "appMenuClose": "닫기",
-        "appMenuAlwaysOnTop": null, //missing translation
+        "appMenuAlwaysOnTop": "상단에 고정",
         "appMenuHelp": "도움말",
         "appMenuKeyboardShortcuts": "단축키",
-        "appMenuReportBug": "버그 전송",
+        "appMenuReportBug": "오류 전송",
         "appMenuTakeTour": "둘러보기",
-        "appMenuViewGithub": "GitHub",
+        "appMenuViewGithub": "깃허브 방문",
         "appMenuAbout": "%n 정보", //%n is replaced with app name
         "appMenuPreferences": "환경설정",
         "appMenuServices": "서비스",
@@ -192,12 +192,12 @@
         "appMenuQuit": "%n 종료",
         "appMenuBringToFront": "맨 앞으로",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "<span id='total'></span> 의 <input type='text'/> 페이지"},
+        "PDFPageCounter": {"unsafeHTML": "전체 <span id='total'></span> 쪽 중 <input type='text'/> 쪽"},
         /* Download manager */
-        "downloadCancel": null, //missing translation
-        "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null, //missing translation
+        "downloadCancel": "취소",
+        "downloadStateCompleted": "완료됨",
+        "downloadStateFailed": "실패함",
         /* Update Notifications */
-        "updateNotificationTitle": null //missing translation
+        "updateNotificationTitle": "새롭게 판올림된 민(Min) 사용 가능"
     }
 }

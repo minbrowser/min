@@ -2,12 +2,13 @@ const debianInstaller = require('electron-installer-debian')
 
 const packageFile = require('./../package.json')
 const version = packageFile.version
+const isRaspbian = process.argv.some(arg => arg === '--raspbian')
 
-require('./createPackage.js')('linux').then(function (appPaths) {
+require('./createPackage.js')((isRaspbian) ? 'raspbian' : 'linux').then(function (appPaths) {
   var installerOptions = {
     src: appPaths[0],
     dest: 'dist/app',
-    arch: 'amd64',
+    arch: (isRaspbian) ? 'armhf' : 'amd64',
     productName: 'Min',
     genericName: 'Web Browser',
     version: version,
@@ -35,7 +36,11 @@ require('./createPackage.js')('linux').then(function (appPaths) {
       'libxtst6',
       'python',
       'xdg-utils'
-    ]
+    ],
+    scripts: {
+      'postinst': 'resources/postinst_script',
+      'prerm': 'resources/prerm_script'
+    }
   }
 
   console.log('Creating package (this may take a while)')
