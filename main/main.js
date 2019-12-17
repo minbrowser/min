@@ -23,8 +23,6 @@ if (process.platform === 'win32') {
   })();
 }
 
-registryInstaller.install()
-
 // workaround for flicker when focusing app (https://github.com/electron/electron/issues/17942)
 app.commandLine.appendSwitch('disable-backgrounding-occluded-windows', 'true')
 
