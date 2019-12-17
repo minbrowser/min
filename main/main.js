@@ -8,9 +8,22 @@ const webContents = electron.webContents
 const session = electron.session
 const ipc = electron.ipcMain
 
-if (process.platform === 'win32' && require('electron-squirrel-startup')) {
-  app.quit()
+if (process.platform === 'win32') {
+  (async function () {
+  var squirrelCommand = process.argv[1];
+  if (squirrelCommand === "--squirrel-install" || squirrelCommand === "--squirrel-updated") {
+    await registryInstaller.install();
+  }
+  if (squirrelCommand == '--squirrel-uninstall') {
+    await registryInstaller.uninstall();
+  }
+  if (require('electron-squirrel-startup')) {
+    app.quit()
+  }
+  })();
 }
+
+registryInstaller.install()
 
 // workaround for flicker when focusing app (https://github.com/electron/electron/issues/17942)
 app.commandLine.appendSwitch('disable-backgrounding-occluded-windows', 'true')
@@ -68,10 +81,18 @@ function handleCommandLineArguments (argv) {
   // the "ready" event must occur before this function can be used
   if (argv) {
     argv.forEach(function (arg) {
-      if (arg && arg.toLowerCase() !== __dirname.toLowerCase() && arg.indexOf('://') !== -1)
-        sendIPCToWindow(mainWindow, 'addTab', {
-          url: arg
-        })
+      if (arg && arg.toLowerCase() !== __dirname.toLowerCase()) {
+        if (arg.indexOf('://') !== -1) {
+          sendIPCToWindow(mainWindow, 'addTab', {
+            url: arg
+          })
+        } else if (/[A-Z]:[/\\].*\.html?$/.test(arg)) {
+          //local files on Windows
+          sendIPCToWindow(mainWindow, 'addTab', {
+            url: "file://" + arg
+          })
+        }
+      }
     })
   }
 }

@@ -12,6 +12,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "mousetrap": "^1.5.3",
     "pdfjs-dist": "2.0.943",
+    "regedit": "^3.0.3",
     "string_score": "^0.1.22"
   },
   "devDependencies": {
