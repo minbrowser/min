@@ -81,10 +81,18 @@ function handleCommandLineArguments (argv) {
   // the "ready" event must occur before this function can be used
   if (argv) {
     argv.forEach(function (arg) {
-      if (arg && arg.toLowerCase() !== __dirname.toLowerCase() && arg.indexOf('://') !== -1)
-        sendIPCToWindow(mainWindow, 'addTab', {
-          url: arg
-        })
+      if (arg && arg.toLowerCase() !== __dirname.toLowerCase()) {
+        if (arg.indexOf('://') !== -1) {
+          sendIPCToWindow(mainWindow, 'addTab', {
+            url: arg
+          })
+        } else if (/[A-Z]:[/\\].*\.html?$/.test(arg)) {
+          //local files on Windows
+          sendIPCToWindow(mainWindow, 'addTab', {
+            url: "file://" + arg
+          })
+        }
+      }
     })
   }
 }
