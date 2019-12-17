@@ -123,6 +123,16 @@ function showBookmarks (text, input, event) {
       container.appendChild(item)
     })
 
+      if (text === '' && results.length < 3) {
+        container.appendChild(searchbarUtils.createItem({
+          title: l('importBookmarks'),
+          icon: 'fa-clone',
+          click: function () {
+            searchbar.openURL('!importbookmarks', null)
+          }
+        }))
+      }
+
       if (parsedText.tags.length > 0) {
         places.getSuggestedItemsForTags(parsedText.tags, function (suggestedResults) {
           suggestedResults = suggestedResults.filter(res => hiddenURLSet.includes(res.url))
