@@ -114,10 +114,26 @@ var registryConfig = {
 
 var registryInstaller = {
   install: function () {
-    regedit.createKey(keysToCreate, function (err) {
-      console.warn('error creating keys', err)
-      regedit.putValue(registryConfig, function (err) {
-        console.warn('error creating registry entries', err)
+    return new Promise(function (resolve, reject) {
+      regedit.createKey(keysToCreate, function (err) {
+        regedit.putValue(registryConfig, function (err) {
+          if (err) {
+            reject()
+          } else {
+            resolve()
+          }
+        })
+      })
+    })
+  },
+  uninstall: function () {
+    return new Promise(function (resolve, reject) {
+      regedit.deleteKey(keysToCreate, function (err) {
+        if (err) {
+          reject()
+        } else {
+          resolve()
+        }
       })
     })
   }

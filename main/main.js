@@ -8,8 +8,19 @@ const webContents = electron.webContents
 const session = electron.session
 const ipc = electron.ipcMain
 
-if (process.platform === 'win32' && require('electron-squirrel-startup')) {
-  app.quit()
+if (process.platform === 'win32') {
+  (async function () {
+  var squirrelCommand = process.argv[1];
+  if (squirrelCommand === "--squirrel-install" || squirrelCommand === "--squirrel-updated") {
+    await registryInstaller.install();
+  }
+  if (squirrelCommand == '--squirrel-uninstall') {
+    await registryInstaller.uninstall();
+  }
+  if (require('electron-squirrel-startup')) {
+    app.quit()
+  }
+  })();
 }
 
 registryInstaller.install()
