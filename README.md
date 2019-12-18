@@ -17,11 +17,11 @@ More information, and prebuilt binaries are available [here](https://minbrowser.
 
 ## Screenshots
 
-![The search bar, showing information from DuckDuckGo](http://minbrowser.github.io/min/tour/img/searchbar_duckduckgo_answers.png)
+<img alt="The search bar, showing information from DuckDuckGo" src="http://minbrowser.github.io/min/tour/img/searchbar_duckduckgo_answers.png" width="700"/>
 
-![The Tasks Overlay](http://minbrowser.github.io/min/tour/img/tasks.png)
+<img alt="The Tasks Overlay" src="http://minbrowser.github.io/min/tour/img/tasks.png" width="700"/>
 
-![Reader View](https://user-images.githubusercontent.com/10314059/53312382-67ca7d80-387a-11e9-9ccc-88ac592c9b1c.png)
+<img alt="Reader View" src="https://user-images.githubusercontent.com/10314059/53312382-67ca7d80-387a-11e9-9ccc-88ac592c9b1c.png" width="700"/>
 
 ## Installing
 
@@ -51,8 +51,8 @@ In order to build Min from source, follow the installation instructions above, t
 * ```npm run buildWindows```
 * ```npm run buildMac```
 * ```npm run buildDebian```
+* ```npm run buildRaspbian``` (for Raspberry Pi)
 * ```npm run buildRedhat```
-* ```npm run buildRaspbian```
 
 Depending on the platform you are building for, you may need to install additional dependencies:
 * If you are using macOS and building a package for Linux, install [Homebrew](http://brew.sh), then run `brew install fakeroot dpkg` first.
