@@ -124,17 +124,16 @@ module.exports = {
         return
       }
 
-      var savePath = remote.dialog.showSaveDialog(remote.getCurrentWindow(), {})
+      var savePath = remote.dialog.showSaveDialogSync(remote.getCurrentWindow(), {})
 
         // savePath will be undefined if the save dialog is canceled
       if (savePath) {
         if (!savePath.endsWith('.html')) {
           savePath = savePath + '.html'
         }
-        webviews.get(currentTab.id).savePage(savePath, 'HTMLComplete', function () {})
+        webviews.get(currentTab.id).savePage(savePath, 'HTMLComplete')
       }
     })
-
 
     ipc.on('addPrivateTab', addPrivateTab)
 

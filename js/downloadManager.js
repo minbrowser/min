@@ -69,11 +69,7 @@ const downloadManager = {
     }
   },
   onItemDragged: function (path) {
-    remote.app.getFileIcon(path, {}, function (err, icon) {
-      if (err) {
-        console.warn(err)
-        return
-      }
+    remote.app.getFileIcon(path, {}).then(function (icon) {
       remote.getCurrentWebContents().startDrag({
         file: path,
         icon: icon
@@ -148,7 +144,7 @@ const downloadManager = {
 
     downloadManager.container.appendChild(container)
     downloadManager.downloadBarElements[downloadItem.path] = {
-    container, title, infoBox, progress, dropdown, openFolder}
+      container, title, infoBox, progress, dropdown, openFolder}
   },
   updateItem: function (downloadItem) {
     let elements = downloadManager.downloadBarElements[downloadItem.path]

@@ -137,7 +137,7 @@ ipc.on('callViewMethod', function (e, data) {
 })
 
 ipc.on('getCapture', function (e, data) {
-  viewMap[data.id].webContents.capturePage(function (img) {
+  viewMap[data.id].webContents.capturePage().then(function (img) {
     var size = img.getSize()
     if (size.width === 0 && size.height === 0) {
       return
