@@ -216,12 +216,31 @@ function processArticle (data) {
 
     // needed for wikipedia.org
 
-    var images = doc.querySelectorAll('img')
+    var images = Array.from(doc.getElementsByTagName('img'))
 
-    for (var i = 0; i < images.length; i++) {
-      if (images[i].src && images[i].srcset) {
-        images[i].srcset = ''
-      }
+    if (articleLocation.hostname.includes('wikipedia.org')) {
+      images.forEach(function (image) {
+        if (image.src && image.srcset) {
+          image.srcset = ''
+        }
+      })
+    }
+
+    if (articleLocation.hostname === 'medium.com') {
+    // medium.com - show high-resolution images
+      var mediumImageRegex = /(?<=https?:\/\/miro.medium.com\/max\/)([0-9]+)(?=\/)/
+      images.forEach(function (image) {
+        if (image.src) {
+          // for gifs
+          image.src = image.src.replace('/freeze/', '/')
+          if (mediumImageRegex.test(image.src)) {
+            image.src = image.src.replace(mediumImageRegex, '2000')
+          }
+        } else {
+          // empty images (for lazy loading) mess up paragraph spacing
+          image.remove()
+        }
+      })
     }
 
     extractAndShowNavigation(doc)
