@@ -16,6 +16,7 @@ in settings because of some setup problems.
 // Holds result of the setup attempt.
 var setupResult = null
 
+// Reference to dialog window.
 var dialogWindow = null
 
 function createSetupDialog(options, callback) {
@@ -53,7 +54,8 @@ function createSetupDialog(options, callback) {
 
 ipc.on('autofill-open', function(event) {
   event.returnValue = {
-    parent: dialogWindow
+    parent: dialogWindow,
+    darkMode: settings.list['darkMode']
   }
 })
 

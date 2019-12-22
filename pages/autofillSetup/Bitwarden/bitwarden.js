@@ -15,6 +15,11 @@ window.addEventListener('load', function() {
   // Get additional options from the window's creator.
   let options = ipcRenderer.sendSync('autofill-open', '')
 
+  // Setup dark mode.
+  if (options.darkMode) {
+    document.body.classList.add('dark-mode')
+  }
+  
   // Add drag-and-drop listener.
   let dragBox = document.getElementsByClassName('drag-and-drop-box')[0]
 

@@ -20,6 +20,7 @@ function handleKeyPress(event) {
 window.addEventListener('load', function() {
   var options = ipcRenderer.sendSync('open-prompt', '')
   var params = JSON.parse(options)
+  if (params.darkMode) { document.body.classList.add('dark-mode') }
   document.getElementById('label').innerHTML = params.label;
   document.getElementById('data').value = params.value;
   document.getElementById('ok').value = params.ok;

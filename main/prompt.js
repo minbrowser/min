@@ -42,6 +42,7 @@ ipc.on('open-prompt', function(event) {
     label: promptOptions.text,
     value: '',
     ok: 'Confirm',
+    darkMode: settings.list['darkMode']
   })
 })
 

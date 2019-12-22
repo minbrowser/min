@@ -232,3 +232,6 @@ ipc.on('password-autofill-match', (event, credentials) => {
   }
 })
 
+ipc.on('password-autofill-shortcut', (event) => {
+  checkInputs(true)
+})

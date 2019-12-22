@@ -45,3 +45,4 @@ settings.listen('darkMode', function (value) {
     }
   }, 10000)
 })
+

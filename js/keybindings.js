@@ -336,9 +336,8 @@ function initialize () {
   defineShortcut('passwordAutofillShortcut', function() {
     webviews.get(tabs.getSelected()).send('password-autofill-shortcut')
   })
-}) // end settings.get
 
-// reload the webview when the F5 key is pressed
+  // reload the webview when the F5 key is pressed
   document.body.addEventListener('keydown', function (e) {
     if (e.keyCode === 116) {
       try {
