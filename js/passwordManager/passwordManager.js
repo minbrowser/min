@@ -209,3 +209,12 @@ webviews.bindIPC('password-autofill', function (webview, tab, args, frameId) {
     })
   })
 })
+
+webviews.bindIPC('password-autofill-check', function (webview, tab, args, frameId) {
+  getActivePasswordManager().then((manager) => {
+    if (manager) {
+      webview.sendToFrame(frameId, 'password-autofill-enabled')
+    }
+  })
+})
+

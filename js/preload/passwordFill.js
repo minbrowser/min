@@ -190,35 +190,51 @@ function checkInputs() {
 // Ref to added unlock button.
 var currentFocusElement = null
 
-function handleFocus(event) {
-  let target = event.target
+// ref to currently focused input.
+var currentFocusInput = null
+
+function addUnlockButton(target) {
   const types = ['text', 'email', 'password']
   const names = ['user', 'email', 'login', 'auth', 'pass', 'password']
 
   // We expect the field to have either 'name', 'formcontrolname' or 'id' attribute
   // that we can use to identify it as a login form input field.
-  if (typeof target.getAttribute === 'function' && 
+  if (typeof target.getAttribute === 'function' &&
+      !target.focused && 
       checkAttribute(target, 'type', types) && 
       (checkAttribute(target, 'name', names) || 
        checkAttribute(target, 'formcontrolname', names) || 
        checkAttribute(target, 'id', names))) {
-    // DANGER. Set the parent's position to relative. Potentially can break layout.
+    // DANGER. Setting parent's position to relative. Potentially can break layouts, but so far I haven't found any bugs.
     target.parentElement.style.position = 'relative'
     let unlockButton = createUnlockButton(target)
     target.parentElement.appendChild(unlockButton)
+    target.focused = true
     
     currentFocusElement = unlockButton
+    currentFocusInput = target
   }
+}
+
+function checkFocus() {
+  if (currentFocusInput != null) {
+    addUnlockButton(currentFocusInput)
+  }
+}
+
+function handleFocus(event) {
+  addUnlockButton(event.target)
 }
 
 function handleBlur(event) {
   if (currentFocusElement !== null && currentFocusElement.parentElement != null) {
     currentFocusElement.parentElement.removeChild(currentFocusElement)
+    currentFocusElement = null
+
+    currentFocusInput.focused = false
+    currentFocusInput = null
   }
 }
-
-window.addEventListener('blur', handleBlur, true)
-window.addEventListener('focus', handleFocus, true)
 
 // Handle credentials fetched from the backend. Credentials are expected to be 
 // an array of { username, password, manager } objects.
@@ -232,6 +248,22 @@ ipc.on('password-autofill-match', (event, credentials) => {
   }
 })
 
+// Trigger autofill check from keyboard shortcut.
 ipc.on('password-autofill-shortcut', (event) => {
   checkInputs(true)
 })
+
+// Autofill enabled event handler. Initializes focus listeners for input fields.
+ipc.on('password-autofill-enabled', (event) => {
+  checkFocus()
+})
+
+// Add default focus event listeners.
+window.addEventListener('blur', handleBlur, true)
+window.addEventListener('focus', handleFocus, true)
+
+// Check if password autofill is configured.
+window.addEventListener('load', function (event) {
+  ipc.send('password-autofill-check')
+})
+
