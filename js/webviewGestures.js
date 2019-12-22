@@ -124,7 +124,7 @@ webviews.bindIPC('wheel-event', function (webview, tabId, e) {
       }  
       return {left, right}
     })()
-    `, false, function (result) {
+    `, false).then(function (result) {
       if (beginningScrollLeft === null || beginningScrollRight === null) {
         beginningScrollLeft = result.left
         beginningScrollRight = result.right
