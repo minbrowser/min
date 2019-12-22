@@ -12,6 +12,8 @@ function checkAutofillSettings() {
     if (manager && !configured) {
       ipc.send('autofill-setup', { manager : manager.name }) 
     }
+  }).catch((err) => {
+    console.error(err)
   })
 }
 

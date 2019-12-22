@@ -1,5 +1,3 @@
-const BrowserWindow = require('electron').remote.BrowserWindow
-
 // Bitwarden password manager. Requires session key to unlock the vault.
 class Bitwarden {
   constructor() {
@@ -11,13 +9,12 @@ class Bitwarden {
   // Async wrapper for settings getter.
   async _getSetting() {
     return new Promise((resolve, reject) => {
-      settings.get('bitwardenPath', function(path) {
-        if (path && path.length > 0) {
-          resolve(path)
-        } else {
-          reject()
-        }
-      })
+      let path = settings.get('bitwardenPath')
+      if (path && path.length > 0) {
+        resolve(path)
+      } else {
+        resolve(null)
+      }
     })
   }
 
@@ -164,14 +161,13 @@ async function getActivePasswordManager() {
       resolve(null)
     }
 
-    settings.get('passwordManager', function(managerSetting) {
-      if (managerSetting == null) {
-        resolve(null)
-      }
+    let managerSetting = settings.get('passwordManager')
+    if (managerSetting == null) {
+      resolve(null)
+    }
 
-      let manager = passwordManagers.find(mgr => mgr.name == managerSetting.name)
-      resolve(manager) 
-    })
+    let manager = passwordManagers.find(mgr => mgr.name == managerSetting.name)
+    resolve(manager)
   })
 }
 
