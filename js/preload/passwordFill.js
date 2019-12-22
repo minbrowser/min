@@ -44,13 +44,27 @@ function createUnlockButton(input) {
 
   // Button.
   button = document.createElement('div')
+
+  // Button style.
   button.style.width = '20px'
   button.style.height = '20px'
+  button.style.opacity = 0.7
   button.innerHTML = keyIcon
+
+  // Button hover.
+  button.addEventListener('mouseenter', (event) => {
+    button.style.opacity = 1.0
+  })
+  button.addEventListener('mouseleave', (event) => {
+    button.style.opacity = 0.7
+  })
+
+  // Click event.
   button.addEventListener('mousedown', (event) => {
     event.preventDefault()
     checkInputs()
   })
+
   unlockDiv.appendChild(button)
 
   return unlockDiv
