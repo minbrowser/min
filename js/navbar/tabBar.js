@@ -38,7 +38,7 @@ window.tabBar = {
       timeout: 1500
     })
   },
-  enterEditMode: function (tabId, editingValue) {
+  enterEditMode: function (tabId, editingValue, showSearchbar) {
     // editingValue: an optional string to show in the searchbar instead of the current URL
 
     webviews.requestPlaceholder('editMode')
@@ -64,10 +64,12 @@ window.tabBar = {
 
     searchbar.show(input)
 
-    if (editingValue) {
-      searchbar.showResults(editingValue, null)
-    } else {
-      searchbar.showResults('', null)
+    if (showSearchbar !== false) {
+      if (editingValue) {
+        searchbar.showResults(editingValue, null)
+      } else {
+        searchbar.showResults('', null)
+      }
     }
 
     tabBar.editingTab = tabId
@@ -155,11 +157,11 @@ window.tabBar = {
 
     tabEl.appendChild(ec)
 
-    var vc = document.createElement('div')
-    vc.className = 'tab-view-contents'
+    var viewContents = document.createElement('div')
+    viewContents.className = 'tab-view-contents'
 
-    vc.appendChild(readerView.getButton(data.id))
-    vc.appendChild(progressBar.create())
+    viewContents.appendChild(readerView.getButton(data.id))
+    viewContents.appendChild(progressBar.create())
 
     // icons
 
@@ -193,7 +195,7 @@ window.tabBar = {
     secIcon.hidden = data.secure !== false
     iconArea.appendChild(secIcon)
 
-    vc.appendChild(iconArea)
+    viewContents.appendChild(iconArea)
 
     // title
 
@@ -201,9 +203,9 @@ window.tabBar = {
     title.className = 'title'
     title.textContent = tabTitle
 
-    vc.appendChild(title)
+    viewContents.appendChild(title)
 
-    tabEl.appendChild(vc)
+    tabEl.appendChild(viewContents)
 
     input.addEventListener('keydown', function (e) {
       if (e.keyCode === 9 || e.keyCode === 40) { // if the tab or arrow down key was pressed
@@ -253,7 +255,7 @@ window.tabBar = {
     })
 
     // click to enter edit mode or switch to a tab
-    tabEl.addEventListener('click', function (e) {
+    viewContents.addEventListener('click', function (e) {
       if (tabs.getSelected() !== data.id) { // else switch to tab if it isn't focused
         browserUI.switchToTab(data.id)
       } else { // the tab is focused, edit tab instead

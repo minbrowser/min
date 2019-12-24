@@ -179,6 +179,10 @@ onmessage = function (e) {
         } else {
           addOrUpdateHistoryCache(item)
         }
+        postMessage({
+          result: null,
+          callbackId: callbackId
+        })
       }).catch(function (err) {
         console.warn('failed to update history.')
         console.warn('page url was: ' + pageData.url)

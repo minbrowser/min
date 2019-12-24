@@ -25,46 +25,52 @@ const bookmarkEditor = {
         })
         return el
       },
-    render: async function (url) {
+    render: async function (url, options = {}) {
         bookmarkEditor.currentInstance = {};
         bookmarkEditor.currentInstance.bookmark = await db.places.where('url').equals(url).first();
   
         var editor = document.createElement('div')
         editor.className = 'bookmark-editor searchbar-item'
+
+        if (options.simplified) {
+          editor.className += " simplified"
+        }
       
-        //title input
-        var title = document.createElement("span")
-        title.className = "title wide";
-        title.textContent = bookmarkEditor.currentInstance.bookmark.title;
-        editor.appendChild(title);
-      
-        //URL
-        var URLSpan = document.createElement("div")
-        URLSpan.className = "bookmark-url";
-        URLSpan.textContent = bookmarkEditor.currentInstance.bookmark.url;
-        editor.appendChild(URLSpan);
-      
-        //save button
-        var saveButton = document.createElement('button')
-        saveButton.className = "fa fa-check action-button always-visible";
-        saveButton.tabIndex = -1
-        editor.appendChild(saveButton);
-        saveButton.addEventListener("click", function() {
-          editor.remove();
-          bookmarkEditor.currentInstance.onClose(bookmarkEditor.currentInstance.bookmark);
-         bookmarkEditor.currentInstance = null;
-        });
-      
-        //delete button
-        var delButton = document.createElement('button')
-        delButton.className = "fa fa-trash action-button always-visible bookmark-delete-button";
-        delButton.tabIndex = -1
-        editor.appendChild(delButton);
-        delButton.addEventListener("click", function() {
-          editor.remove();
-          bookmarkEditor.currentInstance.onClose(null);
+        if (!options.simplified) {
+          //title input
+          var title = document.createElement("span")
+          title.className = "title wide";
+          title.textContent = bookmarkEditor.currentInstance.bookmark.title;
+          editor.appendChild(title);
+        
+          //URL
+          var URLSpan = document.createElement("div")
+          URLSpan.className = "bookmark-url";
+          URLSpan.textContent = bookmarkEditor.currentInstance.bookmark.url;
+          editor.appendChild(URLSpan);
+        
+          //save button
+          var saveButton = document.createElement('button')
+          saveButton.className = "fa fa-check action-button always-visible";
+          saveButton.tabIndex = -1
+          editor.appendChild(saveButton);
+          saveButton.addEventListener("click", function() {
+            editor.remove();
+            bookmarkEditor.currentInstance.onClose(bookmarkEditor.currentInstance.bookmark);
           bookmarkEditor.currentInstance = null;
-        });
+          });
+        
+          //delete button
+          var delButton = document.createElement('button')
+          delButton.className = "fa fa-trash action-button always-visible bookmark-delete-button";
+          delButton.tabIndex = -1
+          editor.appendChild(delButton);
+          delButton.addEventListener("click", function() {
+            editor.remove();
+            bookmarkEditor.currentInstance.onClose(null);
+            bookmarkEditor.currentInstance = null;
+          });
+        }
       
         //tag area
         var tagArea = document.createElement('div')
@@ -114,15 +120,17 @@ const bookmarkEditor = {
       
         return editor;
     },
-    show: function (url, replaceItem, onClose) {
+    show: function (url, replaceItem, onClose, options) {
         if (bookmarkEditor.currentInstance) {
             if (bookmarkEditor.currentInstance.editor.parentNode) {
-                bookmarkEditor.currentInstance.onClose(bookmarkEditor.currentInstance.bookmark);
                 bookmarkEditor.currentInstance.editor.remove();
+                if (bookmark.currentInstance.onClose) {
+                  bookmarkEditor.currentInstance.onClose(bookmarkEditor.currentInstance.bookmark);
+                }
             }
             bookmarkEditor.currentInstance = null;
         }
-        bookmarkEditor.render(url).then(function (editor) {
+        bookmarkEditor.render(url, options).then(function (editor) {
             replaceItem.hidden = true;
             replaceItem.parentNode.insertBefore(editor, replaceItem);
             bookmarkEditor.currentInstance.editor = editor;
