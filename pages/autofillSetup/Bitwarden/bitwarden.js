@@ -19,7 +19,7 @@ window.addEventListener('load', function() {
   if (options.darkMode) {
     document.body.classList.add('dark-mode')
   }
-  
+
   // Add drag-and-drop listener.
   let dragBox = document.getElementsByClassName('drag-and-drop-box')[0]
 
@@ -108,30 +108,32 @@ function install(filePath, callback) {
 
 // Tries to unlock the store with given password. On success, updated the settings
 // and dismisses the dialog. On error, displays the error message.
-function unlockAndSave(dragBox, path, password) {
+async function unlockAndSave(dragBox, path, password) {
   let process = new ProcessSpawner(path, ['unlock', '--raw', password])
-  process.execute().then(key => {
-    return path
-  }).then(targetFilePath => {
-    // We saved the tool, let's update the settings to point to it.
-    settings.set('bitwardenPath', targetFilePath)
+  try {
+    let key = await process.execute()
+    let saved = ipcRenderer.sendSync('autofill-save', { key : 'bitwardenPath', value: path })
+    if (saved) {
+      ipcRenderer.send('autofill-close', true)
+      dragBox.innerHTML = l('bitwardenDone')
 
-    ipcRenderer.send('autofill-close', true)
-    dragBox.innerHTML = l('bitwardenDone')
-    
-    // Visible buttons.
-    let buttons = document.getElementsByTagName('input')
+      // Visible buttons.
+      let buttons = document.getElementsByTagName('input')
 
-    // Disable buttons so user can't overwrite the result in last second.
-    for (button of buttons) {
-      button.hidden = true
+      // Disable buttons so user can't overwrite the result in last second.
+      for (button of buttons) {
+        button.hidden = true
+      }
+
+      // Auto-close the window.
+      window.setTimeout(window.close, 1000)
+    } else {
+      throw { error: null, data: l('bitwardenSettingsError') }
     }
-
-    // Auto-close the window.
-    window.setTimeout(window.close, 1000)
-  }).catch(err => {
+  } catch (err) {
     const { error, data } = err
     const message = data.replace(/\n$/gm, '')
     dragBox.innerHTML = l('bitwardenUnlockError') + message + ' ' + l('bitwardenRetry')
-  })
+  }
 }
+
