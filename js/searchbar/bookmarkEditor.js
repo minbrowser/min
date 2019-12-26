@@ -122,11 +122,11 @@ const bookmarkEditor = {
     },
     show: function (url, replaceItem, onClose, options) {
         if (bookmarkEditor.currentInstance) {
-            if (bookmarkEditor.currentInstance.editor.parentNode) {
+            if (bookmarkEditor.currentInstance.editor && bookmarkEditor.currentInstance.editor.parentNode) {
                 bookmarkEditor.currentInstance.editor.remove();
-                if (bookmark.currentInstance.onClose) {
-                  bookmarkEditor.currentInstance.onClose(bookmarkEditor.currentInstance.bookmark);
-                }
+            }
+            if (bookmarkEditor.currentInstance.onClose) {
+              bookmarkEditor.currentInstance.onClose(bookmarkEditor.currentInstance.bookmark);
             }
             bookmarkEditor.currentInstance = null;
         }
