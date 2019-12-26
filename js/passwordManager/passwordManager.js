@@ -136,7 +136,7 @@ class Bitwarden {
   // Shows a prompt dialog for password store's master password.
   async promptForMasterPassword() {
     return new Promise((resolve, reject) => {
-      let password = ipc.sendSync('prompt', { text: 'Please enter Bitwarden master password to unlock the password store:' })
+      let { data: password } = ipc.sendSync('prompt', { text: 'Please enter Bitwarden master password to unlock the password store:' })
       if (password == null || password == '') {
         reject()
       } else {

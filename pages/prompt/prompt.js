@@ -6,7 +6,15 @@ function cancel() {
 }
 
 function response() {
-  ipcRenderer.send('close-prompt', document.getElementById('data').value)
+  var values = {}
+
+  let inputs = document.getElementsByTagName('input')
+  for (var i = 0; i < inputs.length; i++) {
+    let input = inputs[i]
+    values[input.id] = input.value
+  }
+
+  ipcRenderer.send('close-prompt', values)
   this.close()
 }
 
@@ -20,10 +28,38 @@ function handleKeyPress(event) {
 window.addEventListener('load', function() {
   var options = ipcRenderer.sendSync('open-prompt', '')
   var params = JSON.parse(options)
-  if (params.darkMode) { document.body.classList.add('dark-mode') }
-  document.getElementById('label').innerHTML = params.label;
-  document.getElementById('data').value = params.value;
-  document.getElementById('ok').value = params.ok;
-  document.getElementById('data').focus();
+  const { ok = 'OK', cancel = 'Cancel', darkMode = false, values = [] } = params
+
+  if (values > 0) {
+    let inputContainer = document.getElementById('input-container')
+
+    values.forEach((value, index) => {
+      // Dirty fix for auto-focus. If we're adding ALL inputs programmatically, we can't autofocus on first one.
+      // So instead for the first config value we're re-writing the default input's values.
+      let input = index == 0
+        ? inputContainer.findElementsByTagName('input')[0]
+        : document.createElement('input')
+
+      input.type = value.type
+      input.placeholder = value.placeholder
+      input.id = value.id
+
+      inputContainer.appendChild(input)
+
+      if (index < values.length - 1) {
+        input.style.marginBottom = '0.4em'
+        let br = document.createElement('br')
+        inputContainer.appendChild(br)
+      } else {
+        // Hitting return on last input will trigger submit.
+        input.onkeypress = handleKeyPress
+      }
+    })
+  }
+
+  if (darkMode) { document.body.classList.add('dark-mode') }
+  document.getElementById('label').innerHTML = params.label
+  document.getElementById('ok').value = ok
+  document.getElementById('cancel').value = cancel
 })
 

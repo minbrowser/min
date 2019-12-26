@@ -5,11 +5,11 @@ var promptOptions
 
 function createPrompt(options, callback) {
   promptOptions = options
-  let parent = options['parent']
+  let { parent, width = 360, height = 140 } = options
 
   var promptWindow = new BrowserWindow({
-    width:360, 
-    height: 120, 
+    width: width, 
+    height: height, 
     parent: parent != null ? parent : mainWindow,
     show: false,
     modal: true,
@@ -40,8 +40,9 @@ ipc.on('show-prompt', function(options, callback) {
 ipc.on('open-prompt', function(event) {
   event.returnValue = JSON.stringify({
     label: promptOptions.text,
-    value: '',
-    ok: 'Confirm',
+    ok: promptOptions.ok,
+    values: promptOptions.values,
+    cancel: promptOptions.cancel,
     darkMode: settings.list['darkMode']
   })
 })

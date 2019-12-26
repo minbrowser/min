@@ -9,6 +9,16 @@ html {
   overflow: auto;
 }
 
+html {
+  display: table;
+  margin: auto;
+}
+
+body {
+  display: table-cell;
+  vertical-align: middle;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -19,6 +29,14 @@ p {
 
 input[type='button'] {
   padding: 0.2em;
+}
+
+input[type='text'] {
+  width: 100%;
+}
+
+input[type='password'] {
+  width: 100%;
 }
 
 input:hover[type='button'] {
@@ -39,7 +57,9 @@ input:hover[type='button'] {
 .input-container {
   margin-left: 0.5em;
   margin-right: 1em;
+  padding: 0.4em;
   width: 100%;
+  background: #f8f8f8;
 }
 
 #data {

@@ -49,15 +49,20 @@ window.addEventListener('load', function() {
 
       install(filePath).then(toolPath => {
         // Verify the tool by trying to use it to ulock the password store.
-        let password = ipcRenderer.sendSync('prompt', {
+        let data = ipcRenderer.sendSync('prompt', {
             text: l('bitwardenVerify'),
+            values: [{ placeholder: l('email'), id: 'email', type: 'text' }, { placeholder: l('password'), id: 'password', type: 'password' }],
+            ok: l('bitwardenConfirmButton'),
+            cancel: l('bitwardenSkipButton'),
+            width: 500,
+            height: 240,
             parent: options.parent,
         })
 
-        return { toolPath, password }
+        return { toolPath, data }
       }).then(values => {
-        const { toolPath, password } = values
-        unlockAndSave(dragBox, toolPath, password)
+        const { toolPath, data } = values
+        unlockAndSave(dragBox, toolPath, data)
       })
     } catch (e) {
       alert(l('bitwardenError') + e.message)
@@ -106,10 +111,10 @@ function install(filePath, callback) {
   })
 }
 
-// Tries to unlock the store with given password. On success, updated the settings
+// Tries to unlock the store with given password and email. On success, updated the settings
 // and dismisses the dialog. On error, displays the error message.
-async function unlockAndSave(dragBox, path, password) {
-  let process = new ProcessSpawner(path, ['unlock', '--raw', password])
+async function unlockAndSave(dragBox, path, data) {
+  let process = new ProcessSpawner(path, ['login', '--raw', data.email, data.password])
   try {
     let key = await process.execute()
     let saved = ipcRenderer.sendSync('autofill-save', { key : 'bitwardenPath', value: path })
