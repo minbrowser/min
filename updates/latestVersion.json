@@ -1,7 +1,7 @@
 {
-    "version": "1.11.2",
-    "releaseTime": 1573021033486,
-    "releaseHeadline": "Fixed a security issue",
-    "releaseNotes": "https://github.com/minbrowser/min/releases",
+    "version": "1.12.0",
+    "releaseTime": 1578093864915,
+    "releaseHeadline": "Improved bookmark management",
+    "releaseNotes": "https://minbrowser.github.io/min/releases/",
     "availabilityPercent": 1
 }
