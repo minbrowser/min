@@ -83,6 +83,51 @@ a {
 .title-heading + .title-subheading {
 	margin-top: -1em;
 }
+.center-heading {
+	text-align: center;
+}
+
+.header-container {
+	padding-left: 1em;
+	overflow: auto;
+}
+
+.logo-image {
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	vertical-align: baseline;
+	margin-bottom: -0.1em;
+	margin-right: 0.25em;
+}
+
+.logo-image-floating {
+	margin-top: 0.1em;
+	margin-right: 0.5em;
+}
+
+h1 {
+	font-size: 2.25em;
+	font-weight: 400;
+	margin: 0.5em 0;
+	opacity: 0.8;
+}
+h2 {
+	font-size: 1.75em;
+	font-weight: 400;
+	opacity: 0.8;
+	margin: 0.75em 0 0.5em 0;
+}
+
+@media all and (max-width: 600px) {
+	h1 {
+		font-size: 1.75em;
+	}
+	h2 {
+		font-size: 1.5em;
+	}
+}
+
 
 /* buttons */
 
@@ -177,27 +222,6 @@ button.disabled {
 .section img.column {
 	padding-left: 0;
 	padding-right: 0;
-}
-.section h1 {
-	font-size: 2.25em;
-	font-weight: 400;
-	margin: 0.5em 0;
-	opacity: 0.8;
-}
-.section h2 {
-	font-size: 1.75em;
-	font-weight: 400;
-	opacity: 0.8;
-	margin: 0.5em 0;
-}
-
-@media all and (max-width: 600px) {
-	.section h1 {
-		font-size: 1.75em;
-	}
-	.section h2 {
-		font-size: 1.5em;
-	}
 }
 
 /* dialogs */

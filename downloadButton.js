@@ -1,3 +1,31 @@
+function showMacDialog () {
+  var backdrop = document.createElement('div')
+  backdrop.className = 'backdrop'
+  document.body.appendChild(backdrop)
+
+  var dialog = document.createElement('div')
+  dialog.className = 'dialog centered'
+  dialog.innerHTML = '<h1>How to install Min</h1>\
+  <ul>\
+    <li>Drag Min from your Downloads folder to the Applications folder.</li>\
+    <li>Right click on Min.</li>\
+    <li>Choose "Open".</li>\
+    <li>If a warning dialog is shown, choose "Open".</li>\
+  </ul>'
+
+  var dialogButton = document.createElement('button')
+  dialogButton.className = 'button outlined-button outlined-button-white'
+  dialogButton.setAttribute('style', 'display: block; margin: auto')
+  dialogButton.textContent = 'Done'
+  dialog.appendChild(dialogButton)
+  dialogButton.addEventListener('click', function () {
+    backdrop.parentNode.removeChild(backdrop)
+    dialog.parentNode.removeChild(dialog)
+  })
+
+  document.body.appendChild(dialog)
+}
+
 /* check if Min is available for the user's computer */
 
 var failMessage = "Min isn't supported on your OS"
@@ -47,60 +75,31 @@ function getDownloadLink () {
   return downloadLink
 }
 
-var downloadButtons = document.getElementsByClassName('download-button')
-var subtexts = document.getElementsByClassName('button-subtext')
+function setupDownloadButton (button) {
+  var downloadLink = getDownloadLink()
 
-// convert from a collection to an array, so the list doesn't change as we remove elements
-var subtextArray = []
-
-for (var i = 0; i < subtexts.length; i++) {
-  subtextArray.push(subtexts[i])
-}
-
-var downloadLink = getDownloadLink()
-
-if (downloadLink) {
-  for (var i = 0; i < downloadButtons.length; i++) {
-    downloadButtons[i].parentElement.href = downloadLink
+  if (downloadLink) {
+    button.parentElement.href = downloadLink
 
     // show gatekeeper instruction popup
     if (navigator.platform === 'MacIntel') {
-      downloadButtons[i].addEventListener('click', function () {
-        setTimeout(openDownloadPopup, 500)
+      button.addEventListener('click', function () {
+        setTimeout(showMacDialog, 500)
       }, false)
     }
+  } else {
+    button.classList.add('disabled')
+    button.getElementsByClassName('button-label')[0].textContent = failMessage
+
+    var subtext = document.createElement('span')
+    subtext.className = 'button-subtext'
+    subtext.textContent = 'Download anyway >>'
+    button.appendChild(subtext)
   }
-} else {
-  for (var i = 0; i < downloadButtons.length; i++) {
-    downloadButtons[i].classList.add('disabled')
-    downloadButtons[i].getElementsByClassName('button-label')[0].textContent = failMessage
-  }
-  for (var i = 0; i < subtexts.length; i++) {
-    subtexts[i].textContent = 'Download anyway >>'
-  }
 }
 
-var backdrop = document.getElementsByClassName('backdrop')[0]
-var dialog = document.getElementsByClassName('dialog')[0]
+var downloadButtons = document.getElementsByClassName('download-button')
 
-var dialogCloseButtons = document.getElementsByClassName('dialog-close-button')
-
-function openDownloadPopup () {
-  backdrop.hidden = false
-  dialog.hidden = false
+for (var i = 0; i < downloadButtons.length; i++) {
+  setupDownloadButton(downloadButtons[i])
 }
-
-function closeDownloadPopup () {
-  backdrop.hidden = true
-  dialog.hidden = true
-}
-
-for (var i = 0; i < dialogCloseButtons.length; i++) {
-  dialogCloseButtons[i].addEventListener('click', function (e) {
-    closeDownloadPopup()
-  }, false)
-}
-
-backdrop.addEventListener('click', function () {
-  closeDownloadPopup()
-}, false)

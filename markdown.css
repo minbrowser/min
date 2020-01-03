@@ -1,0 +1,25 @@
+.markdown {
+    max-width: 900px;
+    padding: 1em;
+    margin: auto;
+    font-size: 1.1em;
+    color: #111;
+}
+
+.markdown h1 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.33em;
+}
+
+.markdown img {
+    max-width: 100%;
+}
+
+.markdown p {
+    line-height: 1.5em;
+    margin: 1em 0;
+}
+
+.markdown ul, .markdown ol {
+    line-height: 1.5em;
+}
