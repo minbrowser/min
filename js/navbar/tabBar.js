@@ -223,7 +223,13 @@ window.tabBar = {
 
     input.addEventListener('keypress', function (e) {
       if (e.keyCode === 13) { // return key pressed; update the url
-        searchbar.openURL(this.value, e)
+        if (this.getAttribute('data-autocomplete') && this.getAttribute('data-autocomplete').toLowerCase() === this.value.toLowerCase()) {
+          // special case: if the typed input is capitalized differently from the actual URL that was autocompleted (but is otherwise the same), then we want to open the actual URL instead of what was typed.
+          // see https://github.com/minbrowser/min/issues/314#issuecomment-276678613
+          searchbar.openURL(this.getAttribute('data-autocomplete'), e)
+        } else {
+          searchbar.openURL(this.value, e)
+        }
       } else if (e.keyCode === 9) {
         return
       // tab key, do nothing - in keydown listener
@@ -239,7 +245,7 @@ window.tabBar = {
 
       // on keydown, if the autocomplete result doesn't change, we move the selection instead of regenerating it to avoid race conditions with typing. Adapted from https://github.com/patrickburke/jquery.inlineComplete
 
-      var v = e.key.toLowerCase()
+      var v = e.key
       var sel = this.value.substring(this.selectionStart, this.selectionEnd).indexOf(v)
 
       if (v && sel === 0) {

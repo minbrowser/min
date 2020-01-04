@@ -13,8 +13,9 @@ function autocomplete (input, strings) {
   for (var i = 0; i < strings.length; i++) {
     // check if the item can be autocompleted
     if (strings[i].toLowerCase().indexOf(text.toLowerCase()) === 0) {
-      input.value = strings[i]
+      input.value = text + strings[i].substring(input.selectionStart)
       input.setSelectionRange(text.length, strings[i].length)
+      input.setAttribute('data-autocomplete', strings[i])
 
       return {
         valid: true,
@@ -22,6 +23,7 @@ function autocomplete (input, strings) {
       }
     }
   }
+  input.removeAttribute('data-autocomplete')
   return {
     valid: false
   }
