@@ -114,7 +114,43 @@ function extractAndShowNavigation (doc) {
   }
 }
 
-function startReaderView (article) {
+function extractDate (doc) {
+  var date
+  var dateItem = doc.querySelector('[itemprop*="dateCreated"], [itemprop*="datePublished"], [property="article:published_time"]')
+  if (dateItem) {
+    try {
+      var d = Date.parse(dateItem.getAttribute('content'))
+      if (Number.isNaN(d)) {
+        // for <time> elements
+        d = Date.parse(dateItem.getAttribute('datetime'))
+      }
+      if (Number.isNaN(d)) {
+        // for washington post
+        d = Date.parse(dateItem.textContent)
+      }
+      date = new Intl.DateTimeFormat(navigator.language, {year: 'numeric', month: 'long', day: 'numeric'}).format(new Date(d))
+    } catch (e) {
+      console.warn(e)
+    }
+  } else {
+    try {
+      // look for a url with a yyyy/mm/dd format
+      var urlmatch = articleURL.match(/\/([0-9]{4})\/([0-9]{1,2})\/([0-9]{1,2})/)
+      if (urlmatch) {
+        var d2 = new Date()
+        d2.setYear(parseInt(urlmatch[1]))
+        d2.setMonth(parseInt(urlmatch[2]) - 1)
+        d2.setDate(parseInt(urlmatch[3]))
+        date = new Intl.DateTimeFormat(navigator.language, {year: 'numeric', month: 'long', day: 'numeric'}).format(d2)
+      }
+    } catch (e) {
+      console.warn(e)
+    }
+  }
+  return date
+}
+
+function startReaderView (article, date) {
   var readerContent = "<link rel='stylesheet' href='readerContent.css'>"
 
   if (!article) { // we couln't parse an article
@@ -130,8 +166,8 @@ function startReaderView (article) {
 
     readerContent += "<div class='reader-main' domain='" + readerDomain + "'>" + "<h1 class='article-title'>" + (article.title || '') + '</h1>'
 
-    if (article.byline) {
-      readerContent += "<h2 class='article-authors'>" + article.byline + '</h2>'
+    if (article.byline || date) {
+      readerContent += "<h2 class='article-authors'>" + (article.byline ? article.byline : '') + (date ? ' (' + date + ')' : '') + '</h2>'
     }
 
     readerContent += article.content + '</div>'
@@ -244,10 +280,11 @@ function processArticle (data) {
     }
 
     extractAndShowNavigation(doc)
+    var date = extractDate(doc)
 
     var article = new Readability(doc).parse()
     console.log(article)
-    startReaderView(article)
+    startReaderView(article, date)
 
     if (article) {
       // mark this page as readerable so that auto-redirect can happen faster on future visits

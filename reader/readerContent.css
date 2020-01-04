@@ -78,7 +78,7 @@ h4 {
 .article-authors + .page {
 	padding-top: 0.5rem;
 }
-img {
+img, picture, video {
 	display: block;
 	max-width: 100%;
 	height: auto;
