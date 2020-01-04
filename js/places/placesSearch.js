@@ -1,6 +1,11 @@
-/* global spacesRegex oneWeekAgo performance historyInMemoryCache calculateHistoryScore */
+/* global spacesRegex oneWeekAgo historyInMemoryCache calculateHistoryScore */
 
 /* depends on placesWorker.js */
+
+function processSearchText (text) {
+  // the order of these transformations is important - for example, spacesRegex removes / characters, so protocols must be removed before it runs
+  return text.toLowerCase().split('?')[0].replace('http://', '').replace('https://', '').replace('www.', '').replace(spacesRegex, ' ')
+}
 
 function searchPlaces (searchText, callback, options) {
   function processSearchItem (item) {
@@ -8,7 +13,7 @@ function searchPlaces (searchText, callback, options) {
       return
     }
     let itext
-    let itextURL = item.url.split('?')[0].replace('http://', '').replace('https://', '').replace('www.', '').toLowerCase().replace(spacesRegex, ' ')
+    let itextURL = processSearchText(item.url)
 
     if (item.url === item.title) {
       itext = itextURL
@@ -64,7 +69,7 @@ function searchPlaces (searchText, callback, options) {
   }
 
   const matches = []
-  const st = searchText.replace(spacesRegex, ' ').split('?')[0].replace('http://', '').replace('https://', '').replace('www.', '')
+  const st = processSearchText(searchText)
   const stl = searchText.length
   const searchWords = st.split(' ')
   const swl = searchWords.length
