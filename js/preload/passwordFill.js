@@ -270,11 +270,11 @@ ipc.on('password-autofill-shortcut', (event) => {
 // Autofill enabled event handler. Initializes focus listeners for input fields.
 ipc.on('password-autofill-enabled', (event) => {
   checkFocus()
-})
 
-// Add default focus event listeners.
-window.addEventListener('blur', handleBlur, true)
-window.addEventListener('focus', handleFocus, true)
+  // Add default focus event listeners.
+  window.addEventListener('blur', handleBlur, true)
+  window.addEventListener('focus', handleFocus, true)
+})
 
 // Check if password autofill is configured.
 window.addEventListener('load', function (event) {
