@@ -27,7 +27,6 @@ const legacyModules = [
   'js/passwordManager/passwordManager.js',
   'js/sessionRestore.js',
   'js/util/theme.js',
-  'js/webviewGestures.js',
   'js/autofillSetup.js'
 ]
 
