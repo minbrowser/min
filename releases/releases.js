@@ -28,6 +28,7 @@ window.addEventListener('DOMContentLoaded', function (event) {
          var button = document.createElement('button')
          button.className = 'button outlined-button outlined-button-white'
          var buttonLabel = document.createElement('span')
+         buttonLabel.className = 'button-label'
          buttonLabel.textContent = 'Download'
          button.appendChild(buttonLabel)
          downloadLink.appendChild(button)
