@@ -474,9 +474,5 @@ ipc.on('windowFocus', function () {
   }
 })
 
-ipc.on('dialog-link', function (event, data) {
-  browserUI.navigateInNewTab(data)
-})
-
 
 module.exports = webviews

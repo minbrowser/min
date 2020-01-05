@@ -187,20 +187,6 @@ webviews.bindIPC('close-window', function (webview, tabId, args) {
   closeTab(tabId)
 })
 
-/* Creates a new tab and loads given url */
-function navigateInNewTab(data) {
-  if (tasks.getSelected().tabs.isEmpty()) {
-    navigate(tasks.getSelected().tabs.getSelected(), data.url)
-  } else {
-    var newTab = tasks.getSelected().tabs.add({
-      url: data.url
-    })
-    browserUI.addTab(newTab, {
-      enterEditMode: false
-    })
-  }
-}
-
 module.exports = {
   navigate,
   addTask,
