@@ -88,6 +88,7 @@ function setupDownloadButton (button) {
       }, false)
     }
   } else {
+    button.parentElement.href = 'https://github.com/minbrowser/min/releases/latest'
     button.classList.add('disabled')
     button.getElementsByClassName('button-label')[0].textContent = failMessage
 
