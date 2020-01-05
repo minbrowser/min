@@ -23,5 +23,9 @@ function checkAutofillSettings() {
 // a 'disable' option, allowing user to end this cycle...
 ipc.on('password-autofill-reload', checkAutofillSettings)
 
-// Trigger the check on browser launch.
-checkAutofillSettings()
+settings.listen('passwordManager', function (manager) {
+  if (manager) {
+    // Trigger the check on browser launch and after manager is enabled
+    checkAutofillSettings()
+  }
+})

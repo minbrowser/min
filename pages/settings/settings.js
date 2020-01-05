@@ -370,7 +370,5 @@ passwordManagersDropdown.addEventListener('change', function (e) {
     settings.set('passwordManager', { name: this.value })
     currentPasswordManager = this.value
   }
-
-  showRestartRequiredBanner()
 })
 
