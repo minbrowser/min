@@ -363,7 +363,7 @@ settings.onLoad(function () {
 })
 
 passwordManagersDropdown.addEventListener('change', function (e) {
-  if (this.value === 'None') {
+  if (this.value === 'none') {
     settings.set('passwordManager', null)
     currentPasswordManager = null
   } else {
