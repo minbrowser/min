@@ -66,7 +66,7 @@ class Bitwarden {
   }
 
   // Tries to get a list of credential suggestions for a given domain name.
-  // If password store is locked, the method will try to unlock it by 
+  // If password store is locked, the method will try to unlock it by
   async getSuggestions(domain) {
     if (this.lastCall != null) {
       return this.lastCall
@@ -97,13 +97,15 @@ class Bitwarden {
   // Loads credential suggestions for given domain name.
   async loadSuggestions(command, domain) {
     try {
-      let process = new ProcessSpawner(command, ['list', 'items', '--url', domain, '--session', this.sessionKey])
+      let process = new ProcessSpawner(command, ['list', 'items', '--url', this.sanitize(domain), '--session', this.sessionKey])
       let data = await process.execute()
+
       const matches = JSON.parse(data)
       let credentials = matches.map(match => {
         const { login: { username, password } } = match
         return { username, password, manager: 'Bitwarden' }
       })
+
       return credentials
     } catch (ex) {
       const { error, data } = ex
@@ -119,8 +121,8 @@ class Bitwarden {
     let sessionKey = await this.unlockStore(command, password)
     this.sessionKey = sessionKey
   }
-  
-  // Tries to unlock the password store with given master password. 
+
+  // Tries to unlock the password store with given master password.
   async unlockStore(command, password) {
     try {
       let process = new ProcessSpawner(command, ['unlock', '--raw', password])
@@ -144,9 +146,14 @@ class Bitwarden {
       }
     })
   }
+
+  // Basic domain name cleanup. Removes any non-ASCII symbols.
+  sanitize(domain) {
+    return domain.replace(/[^a-zA-Z0-9.-]/g, '')
+  }
 }
 
-// List of supported password managers. Each password manager is expected to 
+// List of supported password managers. Each password manager is expected to
 // have getSuggestions(domain) method that returns a Promise with credentials
 // suggestions matching given domain name.
 var passwordManagers = [
@@ -154,7 +161,7 @@ var passwordManagers = [
 ]
 
 // Returns an active password manager, which is the one that is selected in app's
-// settings. 
+// settings.
 async function getActivePasswordManager() {
   return new Promise((resolve, reject) => {
     if (passwordManagers.length == 0) {
@@ -202,7 +209,7 @@ webviews.bindIPC('password-autofill', function (webview, tab, args, frameId) {
     if (domain.startsWith('www.')) {
       domain = domain.slice(4)
     }
-      
+
     var self = this
     manager.getSuggestions(domain).then(credentials => {
       if (credentials != null && credentials.length > 0) {
