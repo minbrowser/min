@@ -62,6 +62,10 @@ input:hover[type='button'] {
   background: #f8f8f8;
 }
 
+.dark-mode .input-container {
+  background: rgb(43, 48, 56);
+}
+
 #data {
   width: 100%;
   left: 0;
