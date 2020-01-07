@@ -197,7 +197,7 @@ function addFocusListener (element, credentials) {
 
 function checkInputs () {
   if (getUsernameFields().length + getPasswordFields().length > 0) {
-    ipc.send('password-autofill')
+    ipc.send('password-autofill', document.location.hostname)
   }
 }
 
@@ -253,7 +253,9 @@ function handleBlur (event) {
 // Handle credentials fetched from the backend. Credentials are expected to be
 // an array of { username, password, manager } objects.
 ipc.on('password-autofill-match', (event, credentials) => {
-  if (credentials.length == 1) {
+  if (credentials.length == 0) {
+    // TODO: Show an error?
+  } else if (credentials.length == 1) {
     fillCredentials(credentials[0])
   } else {
     let firstField = getUsernameFields().filter(field => field.type != 'hidden')[0]
