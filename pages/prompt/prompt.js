@@ -30,21 +30,23 @@ window.addEventListener('load', function() {
   var params = JSON.parse(options)
   const { ok = 'OK', cancel = 'Cancel', darkMode = false, values = [] } = params
 
-  if (values > 0) {
+  if (values && values.length > 0) {
     let inputContainer = document.getElementById('input-container')
 
     values.forEach((value, index) => {
       // Dirty fix for auto-focus. If we're adding ALL inputs programmatically, we can't autofocus on first one.
       // So instead for the first config value we're re-writing the default input's values.
-      let input = index == 0
-        ? inputContainer.findElementsByTagName('input')[0]
-        : document.createElement('input')
+      var input = null
+      if (index == 0) {
+        input = inputContainer.getElementsByTagName('input')[0]
+      } else {
+        input = document.createElement('input')
+        inputContainer.appendChild(input)
+      }
 
       input.type = value.type
       input.placeholder = value.placeholder
       input.id = value.id
-
-      inputContainer.appendChild(input)
 
       if (index < values.length - 1) {
         input.style.marginBottom = '0.4em'
