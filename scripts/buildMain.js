@@ -15,7 +15,6 @@ const modules = [
   'main/UASwitcher.js',
   'main/permissionManager.js',
   'main/prompt.js',
-  'main/autofillSetup.js',
 ]
 
 function buildMain () {
