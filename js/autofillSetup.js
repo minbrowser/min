@@ -1,14 +1,13 @@
 var showBitwardenDialog = require('passwordManager/bitwardenSetup.js')
 
 function checkAutofillSettings () {
-  getActivePasswordManager().then((manager) => {
-    if (!manager) {
-      return { manager: null, configured: false }
-    }
+  let manager = getActivePasswordManager()
+  if (!manager) {
+    return
+  }
 
-    return manager.checkIfConfigured().then((configured) => {
-      return { manager, configured }
-    })
+  manager.checkIfConfigured().then((configured) => {
+    return { manager, configured }
   }).then((result) => {
     const { manager, configured } = result
     if (manager && !configured) {

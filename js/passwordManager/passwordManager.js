@@ -6,18 +6,6 @@ class Bitwarden {
     this.name = 'Bitwarden'
   }
 
-  // Async wrapper for settings getter.
-  async _getSetting() {
-    return new Promise((resolve, reject) => {
-      let path = settings.get('bitwardenPath')
-      if (path && path.length > 0) {
-        resolve(path)
-      } else {
-        resolve(null)
-      }
-    })
-  }
-
   // Checks if given command is a valid Bitwarden-CLI command.
   async _checkCommand(command) {
     try {
@@ -36,7 +24,7 @@ class Bitwarden {
   // by checking the settings value. If that is not set or doesn't point
   // to a valid executable, it check the if 'bw' is available globally.
   async _getToolPath() {
-    let localPath = await this._getSetting()
+    let localPath = settings.get('bitwardenPath')
     if (localPath) {
       let local = await this._checkCommand(localPath)
       if (local) {
@@ -162,24 +150,21 @@ var passwordManagers = [
 
 // Returns an active password manager, which is the one that is selected in app's
 // settings.
-async function getActivePasswordManager() {
-  return new Promise((resolve, reject) => {
-    if (passwordManagers.length == 0) {
-      resolve(null)
-    }
+function getActivePasswordManager() {
+  if (passwordManagers.length == 0) {
+    return null
+  }
 
-    let managerSetting = settings.get('passwordManager')
-    if (managerSetting == null) {
-      resolve(null)
-    }
+  let managerSetting = settings.get('passwordManager')
+  if (managerSetting == null) {
+    return null
+  }
 
-    let manager = passwordManagers.find(mgr => mgr.name == managerSetting.name)
-    resolve(manager)
-  })
+  return passwordManagers.find(mgr => mgr.name == managerSetting.name)
 }
 
 async function getConfiguredPasswordManager() {
-  let manager = await getActivePasswordManager()
+  let manager = getActivePasswordManager()
   if (!manager) {
     return null
   }
@@ -222,10 +207,8 @@ webviews.bindIPC('password-autofill', function (webview, tab, args, frameId) {
 })
 
 webviews.bindIPC('password-autofill-check', function (webview, tab, args, frameId) {
-  getActivePasswordManager().then((manager) => {
-    if (manager) {
-      webview.sendToFrame(frameId, 'password-autofill-enabled')
-    }
-  })
+  if (getActivePasswordManager()) {
+    webview.sendToFrame(frameId, 'password-autofill-enabled')
+  }
 })
 
