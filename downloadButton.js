@@ -36,7 +36,8 @@ var platformMatchStrings = {
   // electron no longer supports 32-bit linux (https://electronjs.org/blog/linux-32bit-support), so there's only a 64-bit build available
   // As of 1.9, around 15% of Linux downloads are 32-bit, so hopefully we're just detecting support incorrectly and the 64-bit build will work
   'Linux i686': 'https://github.com/minbrowser/min/releases/download/v1.12.0/min_1.12.0_amd64.deb',
-  'x86_64': 'https://github.com/minbrowser/min/releases/download/v1.12.0/min_1.12.0_amd64.deb'
+  'x86_64': 'https://github.com/minbrowser/min/releases/download/v1.12.0/min_1.12.0_amd64.deb',
+  'Linux aarch64': 'https://github.com/minbrowser/min/releases/download/v1.12.0/min_1.12.0_armhf.deb'
 }
 
 // matches against navigator.userAgent
