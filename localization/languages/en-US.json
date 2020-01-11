@@ -206,13 +206,12 @@
         "bitwardenSetupHeading": "Finish setting up Bitwarden to use Autofill",
         "bitwardenSetupDescription": "We could not detect Bitwarden CLI tool in your system. Please either add it to your PATH environment variable, or follow the instructions below to install it locally for Min.",
         "bitwardenSetupStep1": {
-            "unsafeHTML": "Go to <a href=\"https://help.bitwarden.com/article/cli/#download--install\">bitwarden.com</a> and download and extract Bitwarden CLI binary for your system."
+            "unsafeHTML": "<a id='bitwarden-setup-link'>Download the CLI tool</a> and extract it for your system."
         },
         "bitwardenSetupStep2": "Drag the tool into the box below:",
         "bitwardenDragBox": "Drag the tool here",
         "bitwardenDisableAutofill": "Disable Autofill",
         "bitwardenNotNow": "Not Now",
-        "bitwardenDone": "All good!",
         "bitwardenInstalling": "Installing...",
         "bitwardenError": "Failed to install Bitwarden-CLI: ",
         "bitwardenVerify": "Before we can start using Bitwarden CLI, you need to login to Bitwarden with your email and password. It's a one time thing and we won't store your credentials anywhere inside Min.<br/><br/>Please enter your Bitwarden account credentials below:",

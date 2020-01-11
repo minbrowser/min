@@ -40,3 +40,5 @@ class ProcessSpawner {
     })
   }
 }
+
+module.exports = ProcessSpawner
