@@ -18,13 +18,7 @@ function getBitwardenLink() {
 }
 
 function showBitwardenDialog() {
-  let bitwardenDialog = document.getElementById('bitwarden-setup-dialog')
-
-  if (settings.get('darkMode')) {
-    bitwardenDialog.classList.add('dark-mode')
-  }
-
-  bitwardenDialog.hidden = false
+  document.getElementById('bitwarden-setup-dialog').hidden = false
   webviews.requestPlaceholder('bitwardenSetup')
 }
 
