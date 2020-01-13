@@ -44,12 +44,7 @@ class Bitwarden {
   // obtain a valid Bitwarden-CLI tool path.
   async checkIfConfigured() {
     this.path = await this._getToolPath()
-    if (this.path == null) {
-      return false
-    }
-
-    isCommandValid = await this._checkCommand(this.path)
-    return isCommandValid
+    return this.path != null
   }
 
   // Returns current Bitwarden-CLI status. If we have a session key, then
