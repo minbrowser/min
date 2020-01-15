@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ]; then
+if [ -z "$2" ]; then
     update-alternatives --install /usr/bin/x-www-browser \
         x-www-browser /usr/bin/min 80
     read -r -p "Would you like to set Min as your default web browser? [Y/n]" input
