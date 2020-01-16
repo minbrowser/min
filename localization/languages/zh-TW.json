@@ -31,24 +31,24 @@
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": null, //missing translation
+        "showMoreBangs": "顯示更多",
         "viewSettings": "查看設定",
         "viewReadingList": "查看閱讀清單",
         "takeScreenshot": "螢幕截圖",
         "clearHistory": "清除所有歷史",
-        "clearHistoryConfirmation": null, //missing translation
+        "clearHistoryConfirmation": "是否清除所有歷史？",
         "switchToTask": "切換至工作",
         "createTask": "新增工作",
         "closeTask": "關閉工作",
         "moveToTask": "移動至工作",
-        "nameTask": null, //missing translation
-        "addBookmark": null, //missing translation
+        "nameTask": "命名工作",
+        "addBookmark": "加入書籤",
 		"searchBookmarks": "搜尋書籤",
-        "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
+        "bookmarksAddTag": "新增標籤",
+		"bookmarksSimilarItems": "相似項目",
 		"searchHistory": "搜尋歷史",
-        "importBookmarks": null, //missing translation
-		"exportBookmarks": null, //missing translation
+        "importBookmarks": "自HTML檔案匯入書籤",
+		"exportBookmarks": "匯出書籤",
         /* navbar */
         "openMenu": "打開選單",
         "enterReaderView": "進入閱讀模式",
@@ -64,10 +64,10 @@
         "viewTasks": "查看工作",
         "newTask": "新增工作", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "工作 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
-        "returnToTask": null, //missing translation
-        "taskDescriptionTwo": null, //missing translation
-        "taskDescriptionThree": null, //missing translation
+        "taskDeleteWarning": {"unsafeHTML": "工作已刪除 <a>復原</a>"},
+        "returnToTask": "還原上次的工作",
+        "taskDescriptionTwo": "%t 和 %t",
+        "taskDescriptionThree": "%t，%t，和其他%n個分頁",
         /* find in page toolbar */
         "searchInPage": "在頁面中尋找", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%i / %t", //this and the next label are used to indicate which match is currently highlighted
@@ -133,7 +133,7 @@
         },
         "settingsAppearanceHeading": "外觀",
         "settingsDarkModeToggle": "啟用夜間模式",
-        "settingsSiteThemeToggle": null, //missing translation
+        "settingsSiteThemeToggle": "啟用網站主題",
         "settingsHistoryButtonToggle": "啟用返回鍵",
         "settingsAdditionalFeaturesHeading": "其他功能",
         "settingsUserscriptsToggle": "允許使用者指令",
@@ -177,8 +177,8 @@
         "appMenuWindow": "視窗",
         "appMenuMinimize": "最小化",
         "appMenuClose": "關閉",
-        "appMenuAlwaysOnTop": null, //missing translation
-        "appMenuHelp": "幫助",
+        "appMenuAlwaysOnTop": "顯示在最上方",
+        "appMenuHelp": "說明",
         "appMenuKeyboardShortcuts": "快速鍵",
         "appMenuReportBug": "提交 Bug",
         "appMenuTakeTour": "導覽",
@@ -190,7 +190,7 @@
         "appMenuHideOthers": "隱藏其他",
         "appMenuShowAll": "顯示全部",
         "appMenuQuit": "結束 %n",
-        "appMenuBringToFront": "顯示所有窗口",
+        "appMenuBringToFront": "顯示所有視窗",
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "<input type='text'/> / <span id='total'></span> 頁"},
         /* Download manager */
