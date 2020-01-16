@@ -118,6 +118,18 @@ class Bitwarden {
     let password = await this.promptForMasterPassword()
     let sessionKey = await this.unlockStore(command, password)
     this.sessionKey = sessionKey
+    await this.forceSync(command)
+  }
+
+  async forceSync(command) {
+    try {
+      let process = new ProcessSpawner(command, ['sync', '--session', this.sessionKey])
+      await process.execute()
+    } catch (ex) {
+      const { error, data } = ex
+      console.error('Error accessing Bitwarden CLI. STDOUT: ' + data + '. STDERR: ' + error)
+      throw ex
+    }
   }
 
   // Tries to unlock the password store with given master password.
