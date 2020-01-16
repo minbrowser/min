@@ -6,10 +6,10 @@ class Bitwarden {
     this.name = 'Bitwarden'
   }
 
-  // Checks if given command is a valid Bitwarden-CLI command.
-  async _checkCommand(command) {
+  // Checks if given command runs and produces output.
+  async _checkCommand(command, args) {
     try {
-      let process = new ProcessSpawner(command, ['--version'])
+      let process = new ProcessSpawner(command, args)
       let data = await process.execute()
       if (data.length > 0) {
         return true
@@ -26,13 +26,23 @@ class Bitwarden {
   async _getToolPath() {
     let localPath = settings.get('bitwardenPath')
     if (localPath) {
-      let local = await this._checkCommand(localPath)
+      let local = false;
+      try {
+        await fs.promises.access(localPath, fs.constants.S_IXUSR)
+        local = true;
+      } catch (e) {}
       if (local) {
         return localPath
       }
     }
 
-    let global = await this._checkCommand('bw')
+    let global;
+    if (platformType === "windows") {
+      global = await this._checkCommand('where', ['bw'])
+    } else {
+      global = await this._checkCommand('which', ['bw'])
+    }
+  
     if (global) {
       return 'bw'
     }
