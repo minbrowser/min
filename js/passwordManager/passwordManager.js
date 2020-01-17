@@ -28,7 +28,7 @@ class Bitwarden {
     if (localPath) {
       let local = false;
       try {
-        await fs.promises.access(localPath, fs.constants.S_IXUSR)
+        await fs.promises.access(localPath, fs.constants.X_OK)
         local = true;
       } catch (e) {}
       if (local) {
