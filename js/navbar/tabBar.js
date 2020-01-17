@@ -1,6 +1,7 @@
 var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
+var modalMode = require('modalMode.js')
 var contextMenu = require('contextMenu.js')
 var searchbar = require('searchbar/searchbar.js')
 var urlParser = require('util/urlParser.js')
@@ -39,6 +40,11 @@ window.tabBar = {
     })
   },
   enterEditMode: function (tabId, editingValue) {
+    /* Edit mode is not avialable in modal mode. */
+    if (modalMode.enabled()) {
+      return
+    }
+
     // editingValue: an optional string to show in the searchbar instead of the current URL
 
     webviews.requestPlaceholder('editMode')

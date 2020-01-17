@@ -50,16 +50,19 @@
 		</div>
 	</div>
 
-	<div id="navbar" class="theme-background-color theme-text-color windowDragHandle" tabindex="-1">
-		<button id="menu-button" class="fa fa-ellipsis-v navbar-action-button" data-label="openMenu" tabindex="-1"></i>
-		<button id="back-button" hidden class="fa fa-angle-left navbar-action-button" data-label="goBack" tabindex="-1"></button>
-		<div id="tabs"></div>
-		<button id="add-tab-button" class="fa fa-plus navbar-action-button" data-label="newTabAction" tabindex="-1"></button>
-		<i class="fa fa-bars navbar-action-button invisible"></i>
+	<div id="navbar-container">
+		<div id="navbar" class="theme-background-color theme-text-color windowDragHandle" tabindex="-1">
+			<button id="menu-button" class="fa fa-ellipsis-v navbar-action-button" data-label="openMenu" tabindex="-1"></i>
+			<button id="back-button" hidden class="fa fa-angle-left navbar-action-button" data-label="goBack" tabindex="-1"></button>
+			<div id="tabs"></div>
+			<button id="add-tab-button" class="fa fa-plus navbar-action-button" data-label="newTabAction" tabindex="-1"></button>
+			<i class="fa fa-bars navbar-action-button invisible"></i>
+		</div>
+
+		<button id="switch-task-button" class="fa fa-bars navbar-action-button theme-text-color windowDragHandle" data-label="viewTasks" tabindex="-1"></button>
+
+		<div id="navbar-overlay"></div>
 	</div>
-
-
-	<button id="switch-task-button" class="fa fa-bars navbar-action-button theme-text-color windowDragHandle" data-label="viewTasks" tabindex="-1"></button>
 
 	<div id="searchbar" class="theme-background-color theme-text-color">
 		<div class="top-answer-area"></div>
@@ -123,11 +126,11 @@
 		<div class="spacer"></div><div class="spacer"></div>
 	
 		<div class="buttons">
-		  <input type="button" id="bitwarden-setup-disable" data-value="bitwardenDisableAutofill"/>
-		  <input type="button" id="bitwarden-setup-cancel" data-value="bitwardenNotNow"/>
+			<input type="button" id="bitwarden-setup-disable" data-value="bitwardenDisableAutofill"/>
+			<input type="button" id="bitwarden-setup-cancel" data-value="bitwardenNotNow"/>
 		</div>
 	
-	  </div>
+	</div>
 
 	<!-- add scripts in Gruntfile.js -->
 

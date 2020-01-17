@@ -2,6 +2,7 @@ var webviews = require('webviews.js')
 var settings = require("util/settings/settings.js")
 var browserUI = require("browserUI.js")
 var ProcessSpawner = require("util/process.js")
+var modalMode = require("modalMode.js")
 
 function getBitwardenLink() {
   switch (window.platformType) {
@@ -18,11 +19,13 @@ function getBitwardenLink() {
 }
 
 function showBitwardenDialog() {
+  modalMode.toggle(true)
   document.getElementById('bitwarden-setup-dialog').hidden = false
   webviews.requestPlaceholder('bitwardenSetup')
 }
 
 function hideBitwardenDialog() {
+  modalMode.toggle(false)
   document.getElementById('bitwarden-setup-dialog').hidden = true
   webviews.hidePlaceholder('bitwardenSetup')
 }
@@ -127,7 +130,7 @@ function install(filePath, callback) {
 // Tries to unlock the store with given password and email. On success, updated the settings
 // and dismisses the dialog. On error, displays the error message.
 async function unlockAndSave(dragBox, path, data) {
-  //it's possible to be already logged in before installing the tool,
+  // It's possible to be already logged in before installing the tool
   let logoutProcess = new ProcessSpawner(path, ['logout'])
   try {
     await logoutProcess.execute();
@@ -140,7 +143,6 @@ async function unlockAndSave(dragBox, path, data) {
     settings.set('bitwardenPath', path)
 
     hideBitwardenDialog();
-
   } catch (err) {
     console.log(err);
     const { error, data } = err
