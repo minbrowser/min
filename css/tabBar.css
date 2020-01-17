@@ -1,23 +1,3 @@
-#navbar-container {
-	display: flex;
-}
-
-#navbar-overlay {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	right: 0px;
-	height: 36px;
-	background: #050505;
-	opacity: 0.75;
-	z-index: 10;
-	display: none;
-}
-
-.is-modal-mode #navbar-overlay {
-	display: inline;
-}
-
 #navbar {
 	display: flex;
 	height: 36px;
@@ -257,7 +237,8 @@ body.is-edit-mode #navbar #tabs {
 	display: none;
 }
 
-body.is-edit-mode #overlay {
+body.is-edit-mode #overlay,
+body.is-modal-mode #overlay {
 	display: block;
 	position: fixed;
 	top: 0;
@@ -267,6 +248,11 @@ body.is-edit-mode #overlay {
 	background: rgba(255, 255, 255, 0.5);
 	z-index: 1;
 	pointer-events: none;
+}
+body.is-modal-mode #overlay {
+	/* In modal mode, the tab bar should be disabled */
+	z-index: 999;
+	pointer-events: all;
 }
 body.dark-mode #overlay {
 	background: rgba(0, 0, 0, 0.4);
