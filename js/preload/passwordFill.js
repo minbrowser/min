@@ -143,10 +143,13 @@ function fillCredentials (credentials) {
 // - element: input field to add a listener to
 // - credentials: an array of { username, password } objects
 function addFocusListener (element, credentials) {
+  let inputRect = element.getBoundingClientRect()
   // Creates an options list container.
   function buildContainer () {
     let suggestionsDiv = document.createElement('div')
-    suggestionsDiv.style = 'position: absolute; border: 1px solid #d4d4d4; z-index: 1; border-bottom: none; background: #FFFFFF;'
+    suggestionsDiv.style = 'position: absolute; border: 1px solid #d4d4d4; z-index: 999999; border-bottom: none; background: #FFFFFF;'
+    suggestionsDiv.style.top = (inputRect.y + inputRect.height) + 'px'
+    suggestionsDiv.style.left = (inputRect.x) + 'px'
     suggestionsDiv.id = 'password-autocomplete-list'
     return suggestionsDiv
   }
@@ -175,7 +178,7 @@ function addFocusListener (element, credentials) {
     for (let cred of credentials) {
       addOption(container, cred.username)
     }
-    element.parentNode.insertBefore(container, element.nextSibling)
+    document.body.appendChild(container)
   }
 
   element.addEventListener('focus', showAutocompleteList)
@@ -206,8 +209,6 @@ var currentFocusElement = null
 
 function addUnlockButton (target) {
   if (getUsernameFields().includes(target) || getPasswordFields().includes(target)) {
-    // DANGER. Setting parent's position to relative. Potentially can break layouts, but so far I haven't found any bugs.
-    target.parentElement.style.position = 'relative'
     let unlockButton = createUnlockButton(target)
     target.parentElement.appendChild(unlockButton)
 
