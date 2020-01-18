@@ -204,9 +204,6 @@ function checkInputs () {
 // Ref to added unlock button.
 var currentFocusElement = null
 
-// ref to currently focused input.
-var currentFocusInput = null
-
 function addUnlockButton (target) {
   const types = ['text', 'email', 'password']
   const names = ['user', 'email', 'login', 'auth', 'pass', 'password']
@@ -214,7 +211,6 @@ function addUnlockButton (target) {
   // We expect the field to have either 'name', 'formcontrolname' or 'id' attribute
   // that we can use to identify it as a login form input field.
   if (typeof target.getAttribute === 'function' &&
-      !target.focused &&
       checkAttribute(target, 'type', types) &&
       (checkAttribute(target, 'name', names) ||
        checkAttribute(target, 'formcontrolname', names) ||
@@ -223,16 +219,14 @@ function addUnlockButton (target) {
     target.parentElement.style.position = 'relative'
     let unlockButton = createUnlockButton(target)
     target.parentElement.appendChild(unlockButton)
-    target.focused = true
 
     currentFocusElement = unlockButton
-    currentFocusInput = target
   }
 }
 
-function checkFocus () {
-  if (currentFocusInput != null) {
-    addUnlockButton(currentFocusInput)
+function checkInitialFocus () {
+  if (getUsernameFields().includes(document.activeElement) || getPasswordFields().includes(document.activeElement)) {
+    addUnlockButton(document.activeElement)
   }
 }
 
@@ -244,9 +238,6 @@ function handleBlur (event) {
   if (currentFocusElement !== null && currentFocusElement.parentElement != null) {
     currentFocusElement.parentElement.removeChild(currentFocusElement)
     currentFocusElement = null
-
-    currentFocusInput.focused = false
-    currentFocusInput = null
   }
 }
 
@@ -271,7 +262,7 @@ ipc.on('password-autofill-shortcut', (event) => {
 
 // Autofill enabled event handler. Initializes focus listeners for input fields.
 ipc.on('password-autofill-enabled', (event) => {
-  checkFocus()
+  checkInitialFocus()
 
   // Add default focus event listeners.
   window.addEventListener('blur', handleBlur, true)
