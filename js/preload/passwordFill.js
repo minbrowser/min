@@ -43,7 +43,7 @@ function createUnlockButton (input) {
   unlockDiv.style.top = (input.offsetTop + (input.offsetHeight - 20) / 2.0) + 'px'
 
   // Button.
-  button = document.createElement('div')
+  var button = document.createElement('div')
 
   // Button style.
   button.style.width = '20px'
@@ -75,7 +75,7 @@ function createUnlockButton (input) {
 function checkAttribute (element, attribute, matches) {
   let value = element.getAttribute(attribute)
   if (value == null) { return false }
-  return matches.filter(match => value.toLowerCase().includes(match)).length > 0
+  return matches.some(match => value.toLowerCase().includes(match))
 }
 
 // Gets all input fields on a page that contain at least one of the provided
@@ -172,7 +172,7 @@ function addFocusListener (element, credentials) {
   function showAutocompleteList (e) {
     removeAutocompleteList()
     let container = buildContainer()
-    for (cred of credentials) {
+    for (let cred of credentials) {
       addOption(container, cred.username)
     }
     element.parentNode.insertBefore(container, element.nextSibling)
@@ -183,7 +183,7 @@ function addFocusListener (element, credentials) {
 
   // Hide options overlay when user clicks out of the input field.
   document.addEventListener('click', function (e) {
-    if (e.target != element) {
+    if (e.target !== element) {
       removeAutocompleteList()
     }
   })
@@ -196,7 +196,7 @@ function addFocusListener (element, credentials) {
 }
 
 function checkInputs () {
-  if (getUsernameFields().length + getPasswordFields().length > 0) {
+  if (getUsernameFields().length > 0 || getPasswordFields().length > 0) {
     ipc.send('password-autofill', document.location.hostname)
   }
 }
@@ -205,16 +205,7 @@ function checkInputs () {
 var currentFocusElement = null
 
 function addUnlockButton (target) {
-  const types = ['text', 'email', 'password']
-  const names = ['user', 'email', 'login', 'auth', 'pass', 'password']
-
-  // We expect the field to have either 'name', 'formcontrolname' or 'id' attribute
-  // that we can use to identify it as a login form input field.
-  if (typeof target.getAttribute === 'function' &&
-      checkAttribute(target, 'type', types) &&
-      (checkAttribute(target, 'name', names) ||
-       checkAttribute(target, 'formcontrolname', names) ||
-       checkAttribute(target, 'id', names))) {
+  if (getUsernameFields().includes(target) || getPasswordFields().includes(target)) {
     // DANGER. Setting parent's position to relative. Potentially can break layouts, but so far I haven't found any bugs.
     target.parentElement.style.position = 'relative'
     let unlockButton = createUnlockButton(target)
@@ -244,9 +235,9 @@ function handleBlur (event) {
 // Handle credentials fetched from the backend. Credentials are expected to be
 // an array of { username, password, manager } objects.
 ipc.on('password-autofill-match', (event, credentials) => {
-  if (credentials.length == 0) {
+  if (credentials.length === 0) {
     // TODO: Show an error?
-  } else if (credentials.length == 1) {
+  } else if (credentials.length === 1) {
     fillCredentials(credentials[0])
   } else {
     let firstField = getUsernameFields().filter(field => field.type != 'hidden')[0]
