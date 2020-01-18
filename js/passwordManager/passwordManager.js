@@ -115,8 +115,21 @@ class Bitwarden {
   // Tries to unlock the store by asking for a master password and
   // then passing that to Bitwarden-CLI to get a session key.
   async tryToUnlock(command) {
-    let password = await this.promptForMasterPassword()
-    let sessionKey = await this.unlockStore(command, password)
+    let sessionKey = null
+    while (!sessionKey) {
+      let password
+      try {
+      password = await this.promptForMasterPassword()
+      } catch (e) {
+        //dialog was canceled
+        break
+      }
+      try {
+      sessionKey = await this.unlockStore(command, password)
+      } catch (e) {
+        //incorrect password, prompt again
+      }
+    }
     this.sessionKey = sessionKey
     this.forceSync(command)
   }
