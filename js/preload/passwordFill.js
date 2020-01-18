@@ -25,6 +25,10 @@ wanted to keep it lightweight and not impact browser performace too much.
 
 const keyIcon = '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="key" class="svg-inline--fa fa-key fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M512 176.001C512 273.203 433.202 352 336 352c-11.22 0-22.19-1.062-32.827-3.069l-24.012 27.014A23.999 23.999 0 0 1 261.223 384H224v40c0 13.255-10.745 24-24 24h-40v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24v-78.059c0-6.365 2.529-12.47 7.029-16.971l161.802-161.802C163.108 213.814 160 195.271 160 176 160 78.798 238.797.001 335.999 0 433.488-.001 512 78.511 512 176.001zM336 128c0 26.51 21.49 48 48 48s48-21.49 48-48-21.49-48-48-48-48 21.49-48 48z"></path></svg>'
 
+// Ref to added unlock button.
+var currentUnlockButton = null
+var currentAutocompleteList = null
+
 // Creates an unlock button element.
 //
 // - input: Input element to 'attach' unlock button to.
@@ -113,24 +117,28 @@ function getPasswordFields () {
 
 // Removes credentials list overlay.
 function removeAutocompleteList () {
-  let list = document.getElementById('password-autocomplete-list')
-  if (list != null) {
-    list.parentNode.removeChild(list)
+  if (currentAutocompleteList && currentAutocompleteList.parentNode) {
+    currentAutocompleteList.parentNode.removeChild(currentAutocompleteList)
   }
 }
 
 // Populates username/password fields with provided credentials.
 function fillCredentials (credentials) {
   const { username, password } = credentials
+  const inputEvents = ['keydown', 'keypress', 'keyup', 'input', 'change']
 
   for (let field of getUsernameFields()) {
     field.value = username
-    field.dispatchEvent(new Event('change', { 'bubbles': true }))
+    for (let event of inputEvents) {
+      field.dispatchEvent(new Event(event, { 'bubbles': true }))
+    }
   }
 
   for (let field of getPasswordFields()) {
     field.value = password
-    field.dispatchEvent(new Event('change', { 'bubbles': true }))
+    for (let event of inputEvents) {
+      field.dispatchEvent(new Event(event, { 'bubbles': true }))
+    }
   }
 }
 
@@ -179,6 +187,7 @@ function addFocusListener (element, credentials) {
       addOption(container, cred.username)
     }
     document.body.appendChild(container)
+    currentAutocompleteList = container
   }
 
   element.addEventListener('focus', showAutocompleteList)
@@ -204,15 +213,12 @@ function checkInputs () {
   }
 }
 
-// Ref to added unlock button.
-var currentFocusElement = null
-
 function addUnlockButton (target) {
   if (getUsernameFields().includes(target) || getPasswordFields().includes(target)) {
     let unlockButton = createUnlockButton(target)
     target.parentElement.appendChild(unlockButton)
 
-    currentFocusElement = unlockButton
+    currentUnlockButton = unlockButton
   }
 }
 
@@ -227,9 +233,9 @@ function handleFocus (event) {
 }
 
 function handleBlur (event) {
-  if (currentFocusElement !== null && currentFocusElement.parentElement != null) {
-    currentFocusElement.parentElement.removeChild(currentFocusElement)
-    currentFocusElement = null
+  if (currentUnlockButton !== null && currentUnlockButton.parentElement != null) {
+    currentUnlockButton.parentElement.removeChild(currentUnlockButton)
+    currentUnlockButton = null
   }
 }
 
