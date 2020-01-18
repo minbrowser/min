@@ -2,7 +2,7 @@
 class Bitwarden {
   constructor() {
     this.sessionKey = null
-    this.lastCall = null
+    this.lastCallList = {}
     this.name = 'Bitwarden'
   }
 
@@ -66,8 +66,8 @@ class Bitwarden {
   // Tries to get a list of credential suggestions for a given domain name.
   // If password store is locked, the method will try to unlock it by
   async getSuggestions(domain) {
-    if (this.lastCall != null) {
-      return this.lastCall
+    if (this.lastCallList[domain] != null) {
+      return this.lastCallList[domain]
     }
 
     let command = this.path
@@ -82,14 +82,14 @@ class Bitwarden {
       start = Promise.resolve(this.sessionKey)
     }
 
-    this.lastCall = start.then(() => this.loadSuggestions(command, domain)).then(suggestions => {
-      this.lastCall = null
+    this.lastCallList[domain] = start.then(() => this.loadSuggestions(command, domain)).then(suggestions => {
+      this.lastCallList[domain] = null
       return suggestions
     }).catch(ex => {
-      this.lastCall = null
+      this.lastCallList[domain] = null
     })
 
-    return this.lastCall
+    return this.lastCallList[domain]
   }
 
   // Loads credential suggestions for given domain name.
