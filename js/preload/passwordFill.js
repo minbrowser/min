@@ -103,7 +103,7 @@ function getInputs (names, types) {
 
 // Shortcut to get username fields from a page.
 function getUsernameFields () {
-  return getInputs(['user', 'email', 'login', 'auth'], ['text', 'email'])
+  return getInputs(['user', 'email', 'login', 'auth', 'identifier'], ['text', 'email'])
 }
 
 // Shortcut to get password fields from a page.
@@ -240,7 +240,7 @@ ipc.on('password-autofill-match', (event, credentials) => {
   } else if (credentials.length === 1) {
     fillCredentials(credentials[0])
   } else {
-    let firstField = getUsernameFields().filter(field => field.type != 'hidden')[0]
+    let firstField = getUsernameFields().filter(field => field.type !== 'hidden')[0]
     addFocusListener(firstField, credentials)
     firstField.focus()
   }
