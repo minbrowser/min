@@ -118,7 +118,7 @@ class Bitwarden {
     let password = await this.promptForMasterPassword()
     let sessionKey = await this.unlockStore(command, password)
     this.sessionKey = sessionKey
-    await this.forceSync(command)
+    this.forceSync(command)
   }
 
   async forceSync(command) {
