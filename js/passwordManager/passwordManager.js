@@ -233,7 +233,10 @@ webviews.bindIPC('password-autofill', function (webview, tab, args, frameId) {
     var self = this
     manager.getSuggestions(domain).then(credentials => {
       if (credentials != null && credentials.length > 0) {
-        webview.sendToFrame(frameId, 'password-autofill-match', credentials)
+        webview.sendToFrame(frameId, 'password-autofill-match', {
+          credentials,
+          hostname
+        })
       }
     }).catch(e => {
       console.error('Failed to get password suggestions: ' + e.message)

@@ -241,14 +241,18 @@ function handleBlur (event) {
 
 // Handle credentials fetched from the backend. Credentials are expected to be
 // an array of { username, password, manager } objects.
-ipc.on('password-autofill-match', (event, credentials) => {
-  if (credentials.length === 0) {
+ipc.on('password-autofill-match', (event, data) => {
+  if (data.hostname !== window.location.hostname) {
+    throw new Error('password origin must match current page origin')
+  }
+
+  if (data.credentials.length === 0) {
     // TODO: Show an error?
-  } else if (credentials.length === 1) {
-    fillCredentials(credentials[0])
+  } else if (data.credentials.length === 1) {
+    fillCredentials(data.credentials[0])
   } else {
     let firstField = getUsernameFields().filter(field => field.type !== 'hidden')[0]
-    addFocusListener(firstField, credentials)
+    addFocusListener(firstField, data.credentials)
     firstField.focus()
   }
 })
