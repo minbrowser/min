@@ -73,34 +73,42 @@ dragBox.ondrop = (e) => {
 
   dragBox.innerHTML = l('bitwardenInstalling')
 
-  try {
-    const filePath = e.dataTransfer.files[0].path
+  const filePath = e.dataTransfer.files[0].path
 
-    install(filePath).then(toolPath => {
-      // Verify the tool by trying to use it to ulock the password store.
-      let data = ipcRenderer.sendSync('prompt', {
-        text: l('bitwardenVerify'),
-        values: [{ placeholder: l('email'), id: 'email', type: 'text' }, { placeholder: l('password'), id: 'password', type: 'password' }],
-        ok: l('bitwardenConfirmButton'),
-        cancel: l('bitwardenSkipButton'),
-        width: 500,
-        height: 240,
-      })
+  //try to filter out anything that isn't an executable (note: not 100% accurate)
+  if (e.dataTransfer.files[0].type !== "" && !e.dataTransfer.files[0].name.endsWith(".exe")) {
+    dragBox.innerHTML = l('bitwardenRetry')
+    return;
+  }
 
-      return { toolPath, data }
-    }).then(values => {
-      const { toolPath, data } = values
-      unlockAndSave(dragBox, toolPath, data)
+  install(filePath).then(toolPath => {
+    // Verify the tool by trying to use it to ulock the password store.
+    let data = ipcRenderer.sendSync('prompt', {
+      text: l('bitwardenVerify'),
+      values: [{ placeholder: l('email'), id: 'email', type: 'text' }, { placeholder: l('password'), id: 'password', type: 'password' }],
+      ok: l('bitwardenConfirmButton'),
+      cancel: l('bitwardenSkipButton'),
+      width: 500,
+      height: 240,
     })
-  } catch (e) {
-    alert(l('bitwardenError') + e.message)
 
+    return { toolPath, data }
+  }).then(values => {
+    const { toolPath, data } = values
+    return unlockAndSave(dragBox, toolPath, data)
+  })
+  .catch(function (e) {
     // Cleanup after we failed.
     let targetFilePath = app.getPath('userData') + '/tools/bw'
     if (fs.existsSync(targetFilePath)) {
-      fs.unlinkSync(toolsDir)
+      fs.unlinkSync(targetFilePath)
     }
-  }
+    
+    console.log(e);
+    const message = e.error.replace(/\n$/gm, '')
+    dragBox.innerHTML = l('bitwardenUnlockError') + message + ' ' + l('bitwardenRetry')
+    
+  })
 
   return false
 }
@@ -138,17 +146,11 @@ async function unlockAndSave(dragBox, path, data) {
     console.warn(e);
   }
   let process = new ProcessSpawner(path, ['login', '--raw', data.email, data.password])
-  try {
-    let key = await process.execute()
-    settings.set('bitwardenPath', path)
 
-    hideBitwardenDialog();
-  } catch (err) {
-    console.log(err);
-    const { error, data } = err
-    const message = data.replace(/\n$/gm, '')
-    dragBox.innerHTML = l('bitwardenUnlockError') + message + ' ' + l('bitwardenRetry')
-  }
+  let key = await process.execute()
+  settings.set('bitwardenPath', path)
+
+  hideBitwardenDialog();
 }
 
 module.exports = showBitwardenDialog;
