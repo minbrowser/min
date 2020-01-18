@@ -119,23 +119,29 @@ const places = {
   onMessage: function (e) { // assumes this is from a search operation
     places.runWorkerCallback(e.data.callbackId, e.data.result)
   },
-  updateItem: function (url, fields) {
+  updateItem: function (url, fields, callback) {
+    const callbackId = places.addWorkerCallback(callback)
     places.worker.postMessage({
       action: 'updatePlace',
       pageData: {
         url: url,
         ...fields
-      }
+      },
+      callbackId: callbackId
     })
   },
-  toggleBookmarked: function (tabId) { // Toggles whether a URL is bookmarked or not
+  toggleBookmarked: function (tabId, callback) { // Toggles whether a URL is bookmarked or not
     const url = tabs.get(tabId).url
 
     db.places.where('url').equals(url).first(function (item) {
       if (item && item.isBookmarked) {
-        places.updateItem(url, {isBookmarked: false})
+        places.updateItem(url, {isBookmarked: false}, function () {
+          callback(false)
+        })
       } else {
-        places.updateItem(url, {isBookmarked: true})
+        places.updateItem(url, {isBookmarked: true}, function () {
+          callback(true)
+        })
       }
     })
   },

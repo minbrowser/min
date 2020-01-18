@@ -9,7 +9,7 @@ importScripts('fullTextSearch.js')
 importScripts('placesSearch.js')
 importScripts('tagIndex.js')
 
-const spacesRegex = /[\+\s._/-]/g // things that could be considered spaces
+const spacesRegex = /[\+\s._/-]+/g // things that could be considered spaces
 
 function calculateHistoryScore (item) { // item.boost - how much the score should be multiplied by. Example - 0.05
   let fs = item.lastVisit * (1 + 0.036 * Math.sqrt(item.visitCount))
@@ -179,6 +179,10 @@ onmessage = function (e) {
         } else {
           addOrUpdateHistoryCache(item)
         }
+        postMessage({
+          result: null,
+          callbackId: callbackId
+        })
       }).catch(function (err) {
         console.warn('failed to update history.')
         console.warn('page url was: ' + pageData.url)

@@ -1,9 +1,15 @@
+.bookmark-tag-bar {
+    margin-top: 0.5em;
+}
+
 .bookmark-editor {
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
-    border-radius: 3px;
     background: transparent !important;
 }
-.dark-theme .bookmark-editor {
+.bookmark-editor:not(.simplified) {
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+    border-radius: 3px;
+}
+.dark-theme .bookmark-editor:not(.simplified) {
     box-shadow: 0 0 0 1px rgba(255, 255, 255 ,0.2);
 }
 
@@ -15,12 +21,12 @@
 .bookmark-editor .bookmark-url {
     opacity: 0.66;
     font-size: 0.95em;
+    margin-bottom: 0.55em;
 }
 
 #searchbar .tag {
     display: inline-block;
     padding: 0.33em 0.5em;
-    margin-top: 0.5em;
     border-radius: 3px;
     background-color: rgba(0, 0, 0, 0.075);
     border: 2px transparent solid;
@@ -66,7 +72,6 @@
 .tag-edit-area .tag-input {
     -webkit-appearance: none;
     padding: 0.35em 0.5em;
-    margin-top: 0.5em;
     border-radius: 3px;
     background: transparent;
     color: inherit;

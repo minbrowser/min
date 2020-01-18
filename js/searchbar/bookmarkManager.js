@@ -78,6 +78,7 @@ function showBookmarks (text, input, event) {
       searchbarPlugins.reset('bangs')
 
       var tagBar = document.createElement('div')
+      tagBar.className = 'bookmark-tag-bar'
       container.appendChild(tagBar)
 
       parsedText.tags.forEach(function (tag) {

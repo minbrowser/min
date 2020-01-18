@@ -42,12 +42,12 @@
         "closeTask": "Закрыть задачу",
         "moveToTask": "Переместить эту вкладку в задачу",
         "nameTask": "Название этой задачи",
-        "addBookmark": null, //missing translation
+        "addBookmark": "Добавить закладку",
 		"searchBookmarks": "Искать в закладках",
-        "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
+        "bookmarksAddTag": "Добавить тег",
+		"bookmarksSimilarItems": "Похожие",
 		"searchHistory": "Искать в истории",
-        "importBookmarks": null, //missing translation
+        "importBookmarks": "Импортировать закладки",
 		"exportBookmarks": "Экспортировать закладки",
         /* navbar */
         "openMenu": "Открыть меню",

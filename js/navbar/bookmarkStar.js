@@ -1,5 +1,8 @@
 const db = require('util/database.js').db
 const places = require('places/places.js')
+const bookmarkEditor = require('searchbar/bookmarkEditor.js')
+const searchbar = require('searchbar/searchbar.js')
+const searchbarPlugins = require('searchbar/searchbarPlugins.js')
 
 const bookmarkStar = {
   create: function (tabId) {
@@ -17,10 +20,20 @@ const bookmarkStar = {
     return star
   },
   onClick: function (tabId, star) {
+    searchbarPlugins.clearAll()
+
     star.classList.toggle('fa-star')
     star.classList.toggle('fa-star-o')
 
-    places.toggleBookmarked(tabId)
+    places.toggleBookmarked(tabId, function (isBookmarked) {
+      if (isBookmarked) {
+        var editorInsertionPoint = document.createElement('div')
+        searchbarPlugins.getContainer('simpleBookmarkTagInput').appendChild(editorInsertionPoint)
+        bookmarkEditor.show(tabs.get(tabs.getSelected()).url, editorInsertionPoint, null, {simplified: true})
+      } else {
+        searchbar.showResults('')
+      }
+    })
   },
   update: function (tabId, star) {
     const currentURL = tabs.get(tabId).url
@@ -44,5 +57,9 @@ const bookmarkStar = {
     })
   }
 }
+
+searchbarPlugins.register('simpleBookmarkTagInput', {
+  index: 0
+})
 
 module.exports = bookmarkStar

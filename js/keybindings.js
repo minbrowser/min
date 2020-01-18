@@ -207,7 +207,7 @@ function initialize () {
 
   defineShortcut('addToFavorites', function (e) {
     tabBar.getTab(tabs.getSelected()).querySelector('.bookmarks-button').click()
-    tabBar.enterEditMode(tabs.getSelected()) // we need to show the bookmarks button, which is only visible in edit mode
+    tabBar.enterEditMode(tabs.getSelected(), null, false) // we need to show the bookmarks button, which is only visible in edit mode
   })
 
   // cmd+x should switch to tab x. Cmd+9 should switch to the last tab
