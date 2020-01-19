@@ -1,41 +1,46 @@
 var webviews = require('webviews.js')
-var settings = require("util/settings/settings.js")
-var browserUI = require("browserUI.js")
-var ProcessSpawner = require("util/process.js")
-var modalMode = require("modalMode.js")
+var settings = require('util/settings/settings.js')
+var browserUI = require('browserUI.js')
+var ProcessSpawner = require('util/process.js')
+var modalMode = require('modalMode.js')
+
+var dialog = document.getElementById('bitwarden-setup-dialog')
+
+document.getElementById('bitwarden-setup-heading').textContent = l('passwordManagerSetupHeading').replace('%p', 'Bitwarden')
+document.getElementById('password-manager-setup-link').textContent = l('passwordManagerSetupLink').replace('%p', 'Bitwarden')
 
 function getBitwardenLink() {
   switch (window.platformType) {
-    case "mac":
-      return "https://vault.bitwarden.com/download/?app=cli&platform=macos"
+    case 'mac':
+      return 'https://vault.bitwarden.com/download/?app=cli&platform=macos'
       break;
-    case "windows":
-      return "https://vault.bitwarden.com/download/?app=cli&platform=windows"
+    case 'windows':
+      return 'https://vault.bitwarden.com/download/?app=cli&platform=windows'
       break;
-    case "linux":
-      return "https://vault.bitwarden.com/download/?app=cli&platform=windows"
+    case 'linux':
+      return 'https://vault.bitwarden.com/download/?app=cli&platform=windows'
       break;
   }
 }
 
 function showBitwardenDialog() {
   modalMode.toggle(true)
-  document.getElementById('bitwarden-setup-dialog').hidden = false
+  dialog.hidden = false
   webviews.requestPlaceholder('bitwardenSetup')
 }
 
 function hideBitwardenDialog() {
   modalMode.toggle(false)
-  document.getElementById('bitwarden-setup-dialog').hidden = true
+  dialog.hidden = true
   webviews.hidePlaceholder('bitwardenSetup')
 }
 
-document.getElementById("bitwarden-setup-disable").addEventListener("click", function () {
+document.getElementById('bitwarden-setup-disable').addEventListener('click', function () {
   settings.set('passwordManager', null)
   hideBitwardenDialog();
 })
 
-document.getElementById("bitwarden-setup-cancel").addEventListener("click", function () {
+document.getElementById('bitwarden-setup-cancel').addEventListener('click', function () {
   hideBitwardenDialog();
 })
 
@@ -43,7 +48,7 @@ var fs = require('fs')
 var { ipcRenderer, remote } = require('electron')
 var app = remote.app
 
-document.getElementById('bitwarden-setup-link').addEventListener("click", function () {
+document.getElementById('password-manager-setup-link').addEventListener('click', function () {
   browserUI.addTab(tabs.add({
     url: getBitwardenLink(),
   }), { openInBackground: true })
@@ -71,25 +76,25 @@ dragBox.ondrop = (e) => {
     return
   }
 
-  dragBox.innerHTML = l('bitwardenInstalling')
+  dragBox.innerHTML = l('passwordManagerSetupInstalling')
 
   const filePath = e.dataTransfer.files[0].path
 
   //try to filter out anything that isn't an executable (note: not 100% accurate)
   if (e.dataTransfer.files[0].type !== "" && !e.dataTransfer.files[0].name.endsWith(".exe")) {
-    dragBox.innerHTML = l('bitwardenRetry')
+    dragBox.innerHTML = l('passwordManagerSetupRetry')
     return;
   }
 
   install(filePath).then(toolPath => {
     // Verify the tool by trying to use it to ulock the password store.
     let data = ipcRenderer.sendSync('prompt', {
-      text: l('bitwardenVerify'),
+      text: l('passwordManagerSetupSignIn'),
       values: [{ placeholder: l('email'), id: 'email', type: 'text' }, { placeholder: l('password'), id: 'password', type: 'password' }],
-      ok: l('bitwardenConfirmButton'),
-      cancel: l('bitwardenSkipButton'),
+      ok: l('dialogConfirmButton'),
+      cancel: l('dialogSkipButton'),
       width: 500,
-      height: 240,
+      height: 200,
     })
 
     return { toolPath, data }
@@ -106,7 +111,7 @@ dragBox.ondrop = (e) => {
     
     console.log(e);
     const message = e.error.replace(/\n$/gm, '')
-    dragBox.innerHTML = l('bitwardenUnlockError') + message + ' ' + l('bitwardenRetry')
+    dragBox.innerHTML = l('passwordManagerSetupUnlockError') + message + ' ' + l('passwordManagerSetupRetry')
     
   })
 

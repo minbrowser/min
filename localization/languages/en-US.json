@@ -202,25 +202,23 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Password Auto-Fill",
         "settingsSelectPasswordManager": "Choose one of the supported password managers:",
-        /* Bitwarden-specific strings */
-        "bitwardenSetupHeading": "Finish setting up Bitwarden to use Autofill",
-        "bitwardenSetupDescription": "We could not detect Bitwarden CLI tool in your system. Please either add it to your PATH environment variable, or follow the instructions below to install it locally for Min.",
-        "bitwardenSetupStep1": {
-            "unsafeHTML": "<a id='bitwarden-setup-link'>Download the CLI tool</a> and extract it for your system."
+        /* Password manager setup */
+        "passwordManagerSetupHeading": "Finish setting up %p to use Autofill",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "First, <a id='password-manager-setup-link'></a> and extract it for your system."
         },
-        "bitwardenSetupStep2": "Drag the tool into the box below:",
-        "bitwardenDragBox": "Drag the tool here",
-        "bitwardenDisableAutofill": "Disable Autofill",
-        "bitwardenNotNow": "Not Now",
-        "bitwardenInstalling": "Installing...",
-        "bitwardenError": "Failed to install Bitwarden-CLI: ",
-        "bitwardenVerify": "Before we can start using Bitwarden CLI, you need to login to Bitwarden with your email and password. It's a one time thing and we won't store your credentials anywhere inside Min.<br/><br/>Please enter your Bitwarden account credentials below:",
-        "bitwardenConfirmButton": "Confirm",
-        "bitwardenSkipButton": "Cancel",
-        "bitwardenUnlockError": "Failed to unlock the password store: ",
-        "bitwardenSettingsError": "Failed to save Bitwarden settings.",
-        "bitwardenRetry": "Make sure you're using the right file and entering a correct password. You can retry by dragging the tool here again.",
-        "passwordFillAction": "Fill Login Form",
+        "passwordManagerSetupLink": "download the %p CLI tool",
+        "passwordManagerSetupStep2": "Then drag the tool into the box below:",
+        "passwordManagerSetupDragBox": "Drag the tool here",
+        "passwordManagerSetupInstalling": "Installing...",
+        "passwordManagerSetupSignIn": "Sign in to your password manager to start using autofill. Your credentials won't be stored anywhere inside Min.",
+        "disableAutofill": "Disable Autofill",
+        "autofillNotNow": "Not Now",
+        "passwordManagerSetupUnlockError": "Failed to unlock the password store: ",
+        "passwordManagerSetupRetry": "Make sure you're using the right file and entering a correct password. You can retry by dragging the tool here again.",
+        /* Dialogs */
+        "dialogConfirmButton": "Confirm",
+        "dialogSkipButton": "Cancel",
         "email": "Email",
         "password": "Password"
     }
