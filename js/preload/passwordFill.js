@@ -91,7 +91,8 @@ function getInputs (names, types) {
 
   let matchedFields = []
   for (let field of allFields) {
-    if (!checkAttribute(field, 'type', types)) {
+    // checkAttribute won't work here because type can be a property but not an attribute
+    if (!types.includes(field.type)) {
       continue
     }
 
@@ -109,7 +110,7 @@ function getInputs (names, types) {
 
 // Shortcut to get username fields from a page.
 function getUsernameFields () {
-  return getInputs(['user', 'email', 'login', 'auth', 'identifier'], ['text', 'email'])
+  return getInputs(['user', 'name', 'email', 'login', 'auth', 'identifier'], ['text', 'email'])
 }
 
 // Shortcut to get password fields from a page.
