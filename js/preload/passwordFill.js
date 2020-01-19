@@ -33,6 +33,8 @@ var currentAutocompleteList = null
 //
 // - input: Input element to 'attach' unlock button to.
 function createUnlockButton (input) {
+  var inputRect = input.getBoundingClientRect()
+
   // Container.
   var unlockDiv = document.createElement('div')
 
@@ -43,8 +45,8 @@ function createUnlockButton (input) {
 
   // Position.
   unlockDiv.style.position = 'absolute'
-  unlockDiv.style.left = (input.offsetLeft + input.offsetWidth - 20 - 10) + 'px'
-  unlockDiv.style.top = (input.offsetTop + (input.offsetHeight - 20) / 2.0) + 'px'
+  unlockDiv.style.left = (inputRect.left + inputRect.width - 20 - 10) + 'px'
+  unlockDiv.style.top = (inputRect.top + (inputRect.height - 20) / 2.0) + 'px'
 
   // Button.
   var button = document.createElement('div')
@@ -220,7 +222,7 @@ function checkInputs () {
 function addUnlockButton (target) {
   if (getUsernameFields().includes(target) || getPasswordFields().includes(target)) {
     let unlockButton = createUnlockButton(target)
-    target.parentElement.appendChild(unlockButton)
+    document.body.appendChild(unlockButton)
 
     currentUnlockButton = unlockButton
   }
