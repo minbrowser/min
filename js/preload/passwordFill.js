@@ -155,10 +155,14 @@ function addFocusListener (element, credentials) {
   // Creates an options list container.
   function buildContainer () {
     let suggestionsDiv = document.createElement('div')
-    suggestionsDiv.style = 'position: absolute; border: 1px solid #d4d4d4; z-index: 999999; border-bottom: none; background: #FFFFFF;'
+    suggestionsDiv.style = 'position: absolute; border: 1px solid #d4d4d4; z-index: 999999; border-bottom: none; background: #FFFFFF; transform: scale(0); opacity: 0; transform-origin: top left; transition: 0.15s'
     suggestionsDiv.style.top = (inputRect.y + inputRect.height) + 'px'
     suggestionsDiv.style.left = (inputRect.x) + 'px'
     suggestionsDiv.id = 'password-autocomplete-list'
+    requestAnimationFrame(function () {
+      suggestionsDiv.style.opacity = '1'
+      suggestionsDiv.style.transform = 'scale(1)'
+    })
     return suggestionsDiv
   }
 
