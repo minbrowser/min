@@ -100,6 +100,9 @@ dragBox.ondrop = (e) => {
     return { toolPath, data }
   }).then(values => {
     const { toolPath, data } = values
+    if (!data.email || !data.password) {
+      throw new Error("no credentials entered")
+    }
     return unlockAndSave(dragBox, toolPath, data)
   })
   .catch(function (e) {
@@ -110,7 +113,7 @@ dragBox.ondrop = (e) => {
     }
     
     console.log(e);
-    const message = e.error.replace(/\n$/gm, '')
+    const message = (e.error || '').replace(/\n$/gm, '')
     dragBox.innerHTML = l('passwordManagerSetupUnlockError') + message + ' ' + l('passwordManagerSetupRetry')
     
   })
