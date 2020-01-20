@@ -28,7 +28,7 @@ function handleKeyPress (event) {
 window.addEventListener('load', function () {
   var options = ipcRenderer.sendSync('open-prompt', '')
   var params = JSON.parse(options)
-  const { ok = 'OK', cancel = 'Cancel', darkMode = false, values = [] } = params
+  const { okLabel = 'OK', cancelLabel = 'Cancel', darkMode = false, values = [] } = params
 
   if (values && values.length > 0) {
     let inputContainer = document.getElementById('input-container')
@@ -48,16 +48,29 @@ window.addEventListener('load', function () {
         input.style.marginBottom = '0.4em'
         let br = document.createElement('br')
         inputContainer.appendChild(br)
-      } else {
-        // Hitting return on last input will trigger submit.
-        input.addEventListener('keypress', handleKeyPress)
       }
+
+      input.addEventListener('keydown', function (e) {
+        if (e.keyCode === 27) {
+          // escape key
+          cancel()
+        }
+
+        if (e.keyCode === 13) {
+          if (index < values.length - 1) {
+            // focus next input
+            document.getElementsByTagName('input')[index + 1].focus()
+          } else {
+            response()
+          }
+        }
+      })
     })
   }
 
   if (darkMode) { document.body.classList.add('dark-mode') }
   document.getElementById('label').innerHTML = params.label
-  document.getElementById('ok').value = ok
-  document.getElementById('cancel').value = cancel
+  document.getElementById('ok').value = okLabel
+  document.getElementById('cancel').value = cancelLabel
 })
 
