@@ -39,5 +39,7 @@ function checkReaderStatus () {
   }
 }
 
-document.addEventListener('DOMContentLoaded', checkReaderStatus)
-window.addEventListener('load', checkReaderStatus)
+if (process.isMainFrame) {
+  document.addEventListener('DOMContentLoaded', checkReaderStatus)
+  window.addEventListener('load', checkReaderStatus)
+}

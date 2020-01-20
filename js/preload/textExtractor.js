@@ -204,11 +204,12 @@ function getPageData (cb) {
 }
 
 // send the data when the page loads
-
-window.addEventListener('load', function (e) {
-  setTimeout(function () {
-    getPageData(function (data) {
-      ipc.send('pageData', data)
-    })
-  }, 500)
-})
+if (process.isMainFrame) {
+  window.addEventListener('load', function (e) {
+    setTimeout(function () {
+      getPageData(function (data) {
+        ipc.send('pageData', data)
+      })
+    }, 500)
+  })
+}
