@@ -1,11 +1,11 @@
 const { ipcRenderer } = require('electron')
 
-function cancel() {
+function cancel () {
   ipcRenderer.send('close-prompt', '')
   this.close()
 }
 
-function response() {
+function response () {
   var values = {}
 
   let inputs = document.getElementsByTagName('input')
@@ -18,14 +18,14 @@ function response() {
   this.close()
 }
 
-function handleKeyPress(event) {
+function handleKeyPress (event) {
   var key = event.keyCode || event.which
-  if (key == 13) {
+  if (key === 13) {
     response()
   }
 }
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
   var options = ipcRenderer.sendSync('open-prompt', '')
   var params = JSON.parse(options)
   const { ok = 'OK', cancel = 'Cancel', darkMode = false, values = [] } = params
@@ -34,19 +34,15 @@ window.addEventListener('load', function() {
     let inputContainer = document.getElementById('input-container')
 
     values.forEach((value, index) => {
-      // Dirty fix for auto-focus. If we're adding ALL inputs programmatically, we can't autofocus on first one.
-      // So instead for the first config value we're re-writing the default input's values.
-      var input = null
-      if (index == 0) {
-        input = inputContainer.getElementsByTagName('input')[0]
-      } else {
-        input = document.createElement('input')
-        inputContainer.appendChild(input)
-      }
-
+      var input = document.createElement('input')
       input.type = value.type
       input.placeholder = value.placeholder
       input.id = value.id
+      inputContainer.appendChild(input)
+
+      if (index === 0) {
+        input.focus()
+      }
 
       if (index < values.length - 1) {
         input.style.marginBottom = '0.4em'
@@ -54,7 +50,7 @@ window.addEventListener('load', function() {
         inputContainer.appendChild(br)
       } else {
         // Hitting return on last input will trigger submit.
-        input.onkeypress = handleKeyPress
+        input.addEventListener('keypress', handleKeyPress)
       }
     })
   }
