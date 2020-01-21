@@ -41,10 +41,10 @@ function createUnlockButton (input) {
   // Style.
   unlockDiv.style.width = '20px'
   unlockDiv.style.height = '20px'
-  unlockDiv.style.zIndex = 100
+  unlockDiv.style.zIndex = 999999999999999
 
   // Position.
-  unlockDiv.style.position = 'absolute'
+  unlockDiv.style.position = 'fixed'
   unlockDiv.style.left = (inputRect.left + inputRect.width - 20 - 10) + 'px'
   unlockDiv.style.top = (inputRect.top + (inputRect.height - 20) / 2.0) + 'px'
 
