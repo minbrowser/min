@@ -10,6 +10,20 @@ var enabledFilteringOptions = {
   exceptionDomains: []
 }
 
+// electron uses different names for resource types than ABP
+// electron: https://github.com/electron/electron/blob/34c4c8d5088fa183f56baea28809de6f2a427e02/shell/browser/net/atom_network_delegate.cc#L30
+// abp: https://adblockplus.org/filter-cheatsheet#filter-options
+var electronABPElementTypeMap = {
+  'mainFrame': 'document',
+  'subFrame': 'subdocument',
+  'stylesheet': 'stylesheet',
+  'script': 'script',
+  'image': 'image',
+  'object': 'object',
+  'xhr': 'xmlhttprequest',
+  'other': 'other' // ?
+}
+
 var parser = require('./ext/abp-filter-parser-modified/abp-filter-parser.js')
 var parsedFilterData = {}
 
@@ -81,7 +95,7 @@ function handleRequest (details, callback) {
       // by doing this check second, we can skip checking same-origin requests if only third-party blocking is enabled
       var matchesFilters = parser.matches(parsedFilterData, details.url, {
         domain: domain,
-        elementType: details.resourceType
+        elementType: electronABPElementTypeMap[details.resourceType]
       })
       if (matchesFilters) {
         callback({
