@@ -4,7 +4,7 @@ Bufferizes output from stdout and stderr, waits until the process exits,
 and then resolves the promise with gathered data.
 */
 
-var { spawn } = require('child_process')
+const { spawn } = require('child_process')
 
 class ProcessSpawner {
   constructor(command, args) {
