@@ -43,6 +43,6 @@ makeRequest(easylistOptions, function (easylist) {
 
     data = data.replace(/.*##.+\n/g, '')
 
-    fs.writeFile(filePath, data)
+    fs.writeFileSync(filePath, data)
   })
 })
