@@ -11,12 +11,12 @@
         "openImageInNewTab": "Abrir imagem em uma nova aba",
         "openImageInNewPrivateTab": "Abrir imagem em uma nova aba privada",
         "saveImageAs": "Salvar imagem como",
-        "searchWith": "Pesquisar com %s", //%s will be replaced with the name of the current search engine
+        "searchWith": "Pesquisar no %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copiar link",
-        "selectAll": null, // Missing Translation
-        "undo": null, // Missing Translation
-        "redo": null, // Missing Translation
-        "cut": null, // Missing Translation
+        "selectAll": "Selecionar tudo",
+        "undo": "Desfazer",
+        "redo": "Refazer",
+        "cut": "Cortar",
         "copy": "Copiar", //this is a verb (as in "copy the currently-selected text")
         "paste": "Colar",
         "goBack": "Voltar",
@@ -35,29 +35,29 @@
         "viewSettings": "Ver configurações",
         "viewReadingList": "Ver listas de leitura",
         "takeScreenshot": "Capturar tela",
-        "clearHistory": "Limpar todo o histórico",
+        "clearHistory": "Limpar histórico",
         "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Trocar para a tarefa",
-        "createTask": "Criar uma tarefa",
-        "closeTask": null, //missing translation
+        "createTask": "Criar tarefa",
+        "closeTask": "Fechar tarefa",
         "moveToTask": "Mover esta aba para uma tarefa",
-        "nameTask": null, //missing translation
-        "addBookmark": null, //missing translation
+        "nameTask": " Nomear tarefa",
+        "addBookmark": "Adicionar favorito",
 		"searchBookmarks": "Buscar nos favoritos",
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
-		"searchHistory": null, //missing translation
-        "importBookmarks": null, //missing translation
-		"exportBookmarks": null, //missing translation
+		"searchHistory": "Buscar no histórico",
+        "importBookmarks": "Importar favoritos",
+		"exportBookmarks": "Exportar favoritos",
         /* navbar */
-        "openMenu": null, //missing translation
-        "enterReaderView": "Entrar no modo leitura",
+        "openMenu": "Menu",
+        "enterReaderView": "Modo leitura",
         "exitReaderView": "Sair do modo leitura",
         "emptyReadingListTitle": "Sua lista de leitura está vazia",
         "emptyReadingListSubtitle": "Artigos abertos no modo de leitura são listados aqui, e salvos offline por 30 dias.",
         "newTabLabel": "Nova aba", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "Sua conexão com este site não é segura.",
-        "searchbarPlaceholder": "Busque ou digite um endereço",
+        "searchbarPlaceholder": "Pesquisar...",
         "privateTab": "Aba privada",
         "newTabAction": "Nova aba", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
@@ -168,8 +168,8 @@
         "appMenuFullScreen": "Tela cheia", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Modo concentração",
         "appMenuReadingList": "Lista de leitura",
-        "appMenuBookmarks": null, //missing translation
-        "appMenuHistory": null, //missing translation
+        "appMenuBookmarks": "Favoritos",
+        "appMenuHistory": "Histórico",
         "appMenuDeveloper": "Desenvolvedor",
         "appMenuReloadBrowser": "Recarregar navegador",
         "appMenuInspectBrowser": "Inspecionar navegador",
@@ -180,7 +180,7 @@
         "appMenuAlwaysOnTop": null, //missing translation
         "appMenuHelp": "Ajuda",
         "appMenuKeyboardShortcuts": "Teclas de atalho",
-        "appMenuReportBug": "Reportar um Bug",
+        "appMenuReportBug": "Reportar Bugs",
         "appMenuTakeTour": "Fazer um Tour",
         "appMenuViewGithub": "Ver no GitHub",
         "appMenuAbout": "Sobre %n", //%n is replaced with app name
@@ -194,10 +194,10 @@
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "página <input type='text'/> de <span id='total'></span>"},
         /* Download manager */
-        "downloadCancel": null, //missing translation
-        "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null, //missing translation
+        "downloadCancel": "Download cancelado",
+        "downloadStateCompleted": "Download concluído",
+        "downloadStateFailed": "Download falhou",
         /* Update Notifications */
-        "updateNotificationTitle": null //missing translation
+        "updateNotificationTitle": "Atualizar título da notificação"
     }
 }
