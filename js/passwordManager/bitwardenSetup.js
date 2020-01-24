@@ -1,3 +1,7 @@
+var fs = require('fs')
+var path = require('path')
+var { ipcRenderer, remote } = require('electron')
+
 var webviews = require('webviews.js')
 var settings = require('util/settings/settings.js')
 var browserUI = require('browserUI.js')
@@ -43,10 +47,6 @@ document.getElementById('bitwarden-setup-disable').addEventListener('click', fun
 document.getElementById('bitwarden-setup-cancel').addEventListener('click', function () {
   hideBitwardenDialog();
 })
-
-var fs = require('fs')
-var { ipcRenderer, remote } = require('electron')
-var app = remote.app
 
 document.getElementById('password-manager-setup-link').addEventListener('click', function () {
   browserUI.addTab(tabs.add({
@@ -107,7 +107,7 @@ dragBox.ondrop = (e) => {
   })
   .catch(function (e) {
     // Cleanup after we failed.
-    let targetFilePath = app.getPath('userData') + '/tools/bw'
+    let targetFilePath = path.join(remote.app.getPath('userData'), 'tools', (platformType === 'windows' ? 'bw.exe' : 'bw'))
     if (fs.existsSync(targetFilePath)) {
       fs.unlinkSync(targetFilePath)
     }
@@ -125,12 +125,12 @@ dragBox.ondrop = (e) => {
 function install(filePath, callback) {
   return new Promise((resolve, reject) => {
     try {
-      let toolsDir = app.getPath('userData') + '/tools'
+      let toolsDir = path.join(remote.app.getPath('userData'), 'tools')
       if (!fs.existsSync(toolsDir)) {
         fs.mkdirSync(toolsDir)
       }
 
-      let targetFilePath = toolsDir + '/bw'
+      let targetFilePath = path.join(toolsDir, (platformType === 'windows' ? 'bw.exe' : 'bw'))
       fs.createReadStream(filePath).pipe(fs.createWriteStream(targetFilePath)).on('finish', function () {
         fs.chmodSync(targetFilePath, '755')
         resolve(targetFilePath)
