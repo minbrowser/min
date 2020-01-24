@@ -340,7 +340,7 @@ function initialize () {
     lastReload = time
   })
 
-  defineShortcut('passwordAutofillShortcut', function() {
+  defineShortcut('fillPassword', function() {
     webviews.get(tabs.getSelected()).send('password-autofill-shortcut')
   })
 

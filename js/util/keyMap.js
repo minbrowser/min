@@ -20,7 +20,7 @@ var defaultKeyMap = {
   'reload': 'mod+r',
   'showAndHideMenuBar': 'ctrl+m',
   'followLink': 'mod+enter',
-  'passwordAutofillShortcut': 'mod+a'
+  'fillPassword': 'mod+\\'
 }
 /* Utility function to override default mapping with user settings */
 function userKeyMap (settings) {
