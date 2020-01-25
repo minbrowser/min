@@ -119,7 +119,7 @@
     contain: strict;
   }
   
-  .textLayer > div {
+  .textLayer > span {
     color: transparent;
     position: absolute;
     white-space: pre;
