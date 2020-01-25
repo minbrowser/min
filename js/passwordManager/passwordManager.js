@@ -242,7 +242,7 @@ const PasswordManagers = {
 
         var self = this
         manager.getSuggestions(domain).then(credentials => {
-          if (credentials != null && credentials.length > 0) {
+          if (credentials != null) {
             webview.sendToFrame(frameId, 'password-autofill-match', {
               credentials,
               hostname

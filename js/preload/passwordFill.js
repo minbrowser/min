@@ -44,9 +44,9 @@ function createUnlockButton (input) {
   unlockDiv.style.zIndex = 999999999999999
 
   // Position.
-  unlockDiv.style.position = 'fixed'
-  unlockDiv.style.left = (inputRect.left + inputRect.width - 20 - 10) + 'px'
-  unlockDiv.style.top = (inputRect.top + (inputRect.height - 20) / 2.0) + 'px'
+  unlockDiv.style.position = 'absolute'
+  unlockDiv.style.left = (window.scrollX + (inputRect.left + inputRect.width - 20 - 10)) + 'px'
+  unlockDiv.style.top = (window.scrollY + (inputRect.top + (inputRect.height - 20) / 2.0)) + 'px'
 
   // Button.
   var button = document.createElement('div')
@@ -55,6 +55,8 @@ function createUnlockButton (input) {
   button.style.width = '20px'
   button.style.height = '20px'
   button.style.opacity = 0.7
+  button.style.color = 'black'
+  button.style.transition = '0.1s color'
   button.innerHTML = keyIcon
 
   // Button hover.
@@ -254,7 +256,9 @@ ipc.on('password-autofill-match', (event, data) => {
   }
 
   if (data.credentials.length === 0) {
-    // TODO: Show an error?
+    if (currentUnlockButton && currentUnlockButton.children.length > 0) {
+      currentUnlockButton.children[0].style.color = 'rgb(180, 0, 0)'
+    }
   } else if (data.credentials.length === 1) {
     fillCredentials(data.credentials[0])
   } else {
