@@ -178,7 +178,7 @@ function createItem (data) {
 }
 
 function createHeading (data) {
-  var heading = document.createElement('h2')
+  var heading = document.createElement('h4')
   heading.className = 'searchbar-heading'
   heading.textContent = data.text || ''
   return heading
