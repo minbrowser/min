@@ -55,7 +55,7 @@ function createUnlockButton (input) {
   button.style.width = '20px'
   button.style.height = '20px'
   button.style.opacity = 0.7
-  button.style.color = 'black'
+  button.style.color = input.style.color
   button.style.transition = '0.1s color'
   button.innerHTML = keyIcon
 
