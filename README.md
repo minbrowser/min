@@ -64,7 +64,9 @@ Please feel free to open an issue with any problems you encounter or suggestions
 
 ### Contributing Translations
 
-Thanks for taking the time to translate Min! To add translations for your local language:
+Thanks for taking the time to translate Min! If you have any questions about how to add a translation, please [open an issue](https://github.com/minbrowser/min/issues/new).
+
+#### Adding a new language
 
 * Find the language code that goes with your language from [this list](https://electron.atom.io/docs/api/locales/#locales).
 * In the `localization/languages` directory, create a new file, and name it "[your language code].json".
@@ -73,3 +75,11 @@ Thanks for taking the time to translate Min! To add translations for your local 
 * Inside the file, replace each English string in the right-hand column with the equivalent translation.
 * (Optional) See your translations live by following the [development instructions](#installing) above. Min will display in the same language as your operating system, so make sure your computer is set to the same language that you're translating.
 * That's it! Make a pull request with your changes.
+
+#### Updating an existing language
+
+* Find the language file for your language in the `localization/languages` directory.
+* Look through the file for any items that have a value of "null", or that have a comment saying "missing translation".
+* For each of these items, look for the item with the same name in the `en-US.json` file.
+* Translate the value from the English file, replace "null" with your translation, and remove the "missing translation" comment.
+* Make a pull request with the updated file.
