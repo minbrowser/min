@@ -160,7 +160,7 @@ function addFocusListener (element, credentials) {
   // Creates an options list container.
   function buildContainer () {
     let suggestionsDiv = document.createElement('div')
-    suggestionsDiv.style = 'position: absolute; border: 1px solid #d4d4d4; z-index: 999999; border-bottom: none; background: #FFFFFF; transform: scale(0); opacity: 0; transform-origin: top left; transition: 0.15s'
+    suggestionsDiv.style = 'position: absolute; border: 1px solid #d4d4d4; z-index: 999999; border-bottom: none; background: #FFFFFF; transform: scale(0); opacity: 0; transform-origin: top left; transition: 0.15s; color: #000000;'
     suggestionsDiv.style.top = (inputRect.y + inputRect.height) + 'px'
     suggestionsDiv.style.left = (inputRect.x) + 'px'
     suggestionsDiv.id = 'password-autocomplete-list'
@@ -176,6 +176,14 @@ function addFocusListener (element, credentials) {
     let suggestionItem = document.createElement('div')
     suggestionItem.innerHTML = username
     suggestionItem.style = 'padding: 10px; cursor: pointer; background-color: #fff; border-bottom: 1px solid #d4d4d4;'
+
+    // Hover.
+    suggestionItem.addEventListener('mouseenter', (event) => {
+      suggestionItem.style.backgroundColor  = '#e4e4e4'
+    })
+    suggestionItem.addEventListener('mouseleave', (event) => {
+      suggestionItem.style.backgroundColor = '#fff'
+    })
 
     // When user clicks on the suggestion, we populate the form inputs with selected credentials.
     suggestionItem.addEventListener('click', function (e) {
