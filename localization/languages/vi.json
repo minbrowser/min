@@ -160,7 +160,7 @@
         "appMenuView": "Xem",
         "appMenuZoomIn": "Phóng to",
         "appMenuZoomOut": "Thu nhỏ",
-        "appMenuActualSize": "Cơ thường",
+        "appMenuActualSize": "Cỡ thường",
         "appMenuFullScreen": "Toàn màn hình", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Chế độ tập trung",
         "appMenuReadingList": "Danh sách đọc",
