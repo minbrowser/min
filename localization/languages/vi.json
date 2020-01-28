@@ -41,14 +41,14 @@
         "createTask": "Tạo quá trình",
         "closeTask": "Kết thúc quá trình",
         "moveToTask": "Chuyển tab này sang quá trình khác",
-        "nameTask": null, //missing translation
-        "addBookmark": null, //missing translation
+        "nameTask": "Ghi tên quá trình này",
+        "addBookmark": "Đánh dấu trang này",
 		"searchBookmarks": "Tìm kiếm trong trang web đánh dấu",
-        "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
+        "bookmarksAddTag": "Thêm thẻ",
+		"bookmarksSimilarItems": "Các mục tương tự",
 		"searchHistory": "Tìm kiếm trong lịch sử",
-        "importBookmarks": null, //missing translation
-		"exportBookmarks": null, //missing translation
+        "importBookmarks": "Nhập dấu trang từ tệp HTML",
+		"exportBookmarks": "Xuất dấu trang",
         /* navbar */
         "openMenu": "Mở menu", //application menu button on windows
         "enterReaderView": "Vào chế độ đọc ngôn",
@@ -129,7 +129,7 @@
         },
         "settingsAppearanceHeading": "Giao diện",
         "settingsDarkModeToggle": "Bật chế độ tối",
-        "settingsSiteThemeToggle": null, //missing translation
+        "settingsSiteThemeToggle": "Bật chủ đề trang",
         "settingsHistoryButtonToggle": "Bật nút đi lại trang trước",
         "settingsAdditionalFeaturesHeading": "Đặc tính hơn",
         "settingsUserscriptsToggle": "Bật mã script người dùng",
@@ -160,7 +160,7 @@
         "appMenuView": "Xem",
         "appMenuZoomIn": "Phóng to",
         "appMenuZoomOut": "Thu nhỏ",
-        "appMenuActualSize": "Cơ thường",
+        "appMenuActualSize": "Cỡ thường",
         "appMenuFullScreen": "Toàn màn hình", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Chế độ tập trung",
         "appMenuReadingList": "Danh sách đọc",
@@ -173,7 +173,7 @@
         "appMenuWindow": "Cửa sổ",
         "appMenuMinimize": "Cực tiểu hóa",
         "appMenuClose": "Đóng",
-        "appMenuAlwaysOnTop": null, //missing translation
+        "appMenuAlwaysOnTop": "Luôn hiện trên đầu",
         "appMenuHelp": "Trợ giúp",
         "appMenuKeyboardShortcuts": "Phím tắt",
         "appMenuReportBug": "Báo cáo lỗi",
