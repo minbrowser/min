@@ -13,10 +13,10 @@
         "saveImageAs": "图片另存为",
         "searchWith": "在 %s 中搜索", //%s will be replaced with the name of the current search engine
         "copyLink": "复制链接",
-        "selectAll": null, // Missing Translation
-        "undo": null, // Missing Translation
-        "redo": null, // Missing Translation
-        "cut": null, // Missing Translation
+        "selectAll": "全选",
+        "undo": "撤销",
+        "redo": "重做",
+        "cut": "剪切",
         "copy": "复制", //this is a verb (as in "copy the currently-selected text")
         "paste": "粘贴",
         "goBack": "后退",
@@ -36,21 +36,21 @@
         "viewReadingList": "显示阅读列表",
         "takeScreenshot": "截图",
         "clearHistory": "清除所有历史记录",
-        "clearHistoryConfirmation": null, //missing translation
+        "clearHistoryConfirmation": "是否清除所有历史记录？",
         "switchToTask": "切换到标签组列表",
-        "closeTask": null, //missing translation
+        "closeTask": "关闭标签组",
         "createTask": "新建标签组",
         "moveToTask": "以当前标签页创建一个新的标签组",
-        "nameTask": null, //missing translation
-        "addBookmark": null, //missing translation
+        "nameTask": "命名标签组",
+        "addBookmark": "增加书签",
 		"searchBookmarks": "搜索书签内容",
         "bookmarksAddTag": null, //missing translation
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": null, //missing translation
-        "importBookmarks": null, //missing translation
-		"exportBookmarks": null, //missing translation
+        "importBookmarks": "自HTML文件导入书签",
+		"exportBookmarks": "导出书签",
         /* navbar */
-        "openMenu": null, //missing translation
+        "openMenu": "开启菜单",
         "enterReaderView": "进入阅读模式",
         "exitReaderView": "退出阅读模式",
         "emptyReadingListTitle": "您的阅读列表为空",
@@ -65,9 +65,9 @@
         "newTask": "新建标签组", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "标签组 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
         "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
-        "returnToTask": null, //missing translation
-        "taskDescriptionTwo": null, //missing translation
-        "taskDescriptionThree": null, //missing translation
+        "returnToTask": "返回上一个标签组",
+        "taskDescriptionTwo": "%t 和 %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
+        "taskDescriptionThree": "%t, %t, 以及%n个更多", //used to describe a task that has three or more tabs
         /* find in page toolbar */
         "searchInPage": "搜索当前页", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%i/%t", //this and the next label are used to indicate which match is currently highlighted
@@ -81,8 +81,8 @@
         "timeRangeJustNow": "几秒前",
         "timeRangeMinutes": "几分钟前",
         "timeRangeHour": "几小时前",
-        "timeRangeToday": null, //missing translation
-        "timeRangeYesterday": null, //missing translation
+        "timeRangeToday": "今天",
+        "timeRangeYesterday": "昨天",
         "timeRangeWeek": "几星期前",
         "timeRangeMonth": "几个月前",
         "timeRangeYear": "几年前",
@@ -122,10 +122,10 @@
         "settingsPreferencesHeading": "设置",
         "settingsRestartRequired": "您需要重启以应用这些修改",
         "settingsPrivacyHeading": "隐私设置",
-        "settingsContentBlockingLevel0": null, //missing translation
-        "settingsContentBlockingLevel1": null, //missing translation
-        "settingsContentBlockingLevel2": null, //missing translation
-        "settingsContentBlockingExceptions": null, //missing translation
+        "settingsContentBlockingLevel0": "允许所有广告和追踪者",
+        "settingsContentBlockingLevel1": "禁止第三方广告和追踪者",
+        "settingsContentBlockingLevel2": "禁止所有广告和追踪者",
+        "settingsContentBlockingExceptions": "下列站点的广告将被允许",
         "settingsBlockScriptsToggle": "阻止脚本运行",
         "settingsBlockImagesToggle": "阻止加载图片",
         "settingsEasyListCredit": {
@@ -148,7 +148,7 @@
         /* app menu */
         "appMenuFile": "文件",
         "appMenuNewTab": "新标签页",
-        "appMenuDuplicateTab": null, //missing translation
+        "appMenuDuplicateTab": "复制标签页",
         "appMenuNewPrivateTab": "新的隐私标签页",
         "appMenuNewTask": "新标签组",
         "appMenuSavePageAs": "页面另存为",
@@ -177,7 +177,7 @@
         "appMenuWindow": "窗口",
         "appMenuMinimize": "最小化",
         "appMenuClose": "关闭",
-        "appMenuAlwaysOnTop": null, //missing translation
+        "appMenuAlwaysOnTop": "前置显示",
         "appMenuHelp": "帮助",
         "appMenuKeyboardShortcuts": "快捷键",
         "appMenuReportBug": "报告 Bug",
@@ -194,10 +194,10 @@
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "<input type='text'/> / <span id='total'></span> 页"},
         /* Download manager */
-        "downloadCancel": null, //missing translation
-        "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null, //missing translation
+        "downloadCancel": "取消",
+        "downloadStateCompleted": "已完成",
+        "downloadStateFailed": "失败",
         /* Update Notifications */
-        "updateNotificationTitle": null //missing translation
+        "updateNotificationTitle": "已有新的Min版本"
     }
 }
