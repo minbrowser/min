@@ -31,7 +31,7 @@
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": null, //missing translation
+        "showMoreBangs": "显示更多",
         "viewSettings": "查看设置界面",
         "viewReadingList": "显示阅读列表",
         "takeScreenshot": "截图",
@@ -44,9 +44,9 @@
         "nameTask": "命名标签组",
         "addBookmark": "增加书签",
 		"searchBookmarks": "搜索书签内容",
-        "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
-		"searchHistory": null, //missing translation
+        "bookmarksAddTag": "新增标签",
+		"bookmarksSimilarItems": "近似项目",
+		"searchHistory": "搜索历史",
         "importBookmarks": "自HTML文件导入书签",
 		"exportBookmarks": "导出书签",
         /* navbar */
@@ -64,10 +64,10 @@
         "viewTasks": "查看标签组",
         "newTask": "新建标签组", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "标签组 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
+        "taskDeleteWarning": {"unsafeHTML": "标签组已删除 <a>恢复？</a>"},
         "returnToTask": "返回上一个标签组",
         "taskDescriptionTwo": "%t 和 %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
-        "taskDescriptionThree": "%t, %t, 以及%n个更多", //used to describe a task that has three or more tabs
+        "taskDescriptionThree": "%t, %t, 和其他%n个标签", //used to describe a task that has three or more tabs
         /* find in page toolbar */
         "searchInPage": "搜索当前页", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%i/%t", //this and the next label are used to indicate which match is currently highlighted
@@ -129,22 +129,22 @@
         "settingsBlockScriptsToggle": "阻止脚本运行",
         "settingsBlockImagesToggle": "阻止加载图片",
         "settingsEasyListCredit": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "如果继续发生该错误，请访问<a href=\"https://github.com/minbrowser/min\" target=\"_blank\">页面</a>报告错误."
         },
         "settingsAppearanceHeading": "外观",
         "settingsDarkModeToggle": "启用夜间模式",
-        "settingsSiteThemeToggle": null, //missing translation
+        "settingsSiteThemeToggle": "启用网站主题",
         "settingsHistoryButtonToggle": "启用返回键",
         "settingsAdditionalFeaturesHeading": "其他功能",
         "settingsUserscriptsToggle": "允许使用者指令",
         "settingsUserscriptsExplanation": {"unsafeHTML": "使用者指令允许您改变网站行为 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."},
-        "settingsUpdateNotificationsToggle": null, //missing translation
+        "settingsUpdateNotificationsToggle": "自动检查更新",
         "settingsSearchEngineHeading": "搜索引擎",
         "settingsDefaultSearchEngine": "选择默认的搜索引擎:",
         "settingsDDGExplanation": "将 DuckDuckGo 设为默认的搜索引擎可以直接在搜索栏查看搜索结果。",
-        "customSearchEngineDescription": null, //missing translation
+        "customSearchEngineDescription": "将搜索字符串以 %s 代替"
         "settingsKeyboardShortcutsHeading": "快捷键",
-        "settingsKeyboardShortcutsHelp": null, //missing translation
+        "settingsKeyboardShortcutsHelp": "用逗号分隔多个快捷键"
         /* app menu */
         "appMenuFile": "文件",
         "appMenuNewTab": "新标签页",
