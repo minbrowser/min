@@ -8,7 +8,7 @@
     border-top: 1px solid rgb(214, 214, 214);
     color: black;
     padding: 0 0.5em;
-    z-index: 1;
+    z-index: 9;
 }
 
 .dark-mode #download-bar {

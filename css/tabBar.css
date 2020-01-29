@@ -251,7 +251,7 @@ body.is-modal-mode #overlay {
 }
 body.is-modal-mode #overlay {
 	/* In modal mode, the tab bar should be disabled */
-	z-index: 999;
+	z-index: 5;
 	pointer-events: all;
 }
 body.dark-mode #overlay {

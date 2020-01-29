@@ -15,7 +15,7 @@ body.windows:not(.maximized) .navbar {
 	position: absolute;
 	top: 0;
 	right: 0;
-	z-index: 9;
+	z-index: 2;
 }
 body.windows #switch-task-button {
 	right: 138px;
