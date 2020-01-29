@@ -243,9 +243,19 @@ const PasswordManagers = {
         var self = this
         manager.getSuggestions(domain).then(credentials => {
           if (credentials != null) {
-            webview.sendToFrame(frameId, 'password-autofill-match', {
-              credentials,
-              hostname
+            webviews.callAsync(tab, 'getURL', null, function (err, topLevelURL) {
+              var topLevelDomain = new URL(topLevelURL).hostname
+              if (topLevelDomain.startsWith('www.')) {
+                topLevelDomain = topLevelDomain.slice(4)
+              }
+              if (domain !== topLevelDomain) {
+                console.warn("autofill isn't supported for 3rd-party frames")
+                return;
+              }
+              webview.sendToFrame(frameId, 'password-autofill-match', {
+                credentials,
+                hostname
+              })
             })
           }
         }).catch(e => {
