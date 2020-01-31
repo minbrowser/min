@@ -130,6 +130,8 @@ require('webviewMenu.js').initialize()
 require('menuRenderer.js').initialize()
 require('keybindings.js').initialize()
 require('pdfViewer.js').initialize()
+require('autofillSetup.js').initialize()
+require('passwordManager/passwordManager.js').initialize()
 
 // default searchbar plugins
 

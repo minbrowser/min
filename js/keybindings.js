@@ -11,6 +11,7 @@ const keyMapModule = require('util/keyMap.js')
 var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
+var modalMode = require('modalMode.js')
 var settings = require('util/settings/settings.js')
 
 var keyMap = keyMapModule.userKeyMap(settings.get('keyMap'))
@@ -36,6 +37,12 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
     if (menuBarShortcuts.indexOf(combo) !== -1) {
       return
     }
+
+    // Disable shortcuts for modal mode.
+    if (modalMode.enabled()) {
+      return
+    }
+
     // mod+left and mod+right are also text editing shortcuts, so they should not run when an input field is focused
     // also block single-letter shortcuts when an input field is focused, so that it's still possible to type in an input
     if (/^\w$/.test(combo) || combo === 'mod+left' || combo === 'mod+right') {
@@ -333,7 +340,11 @@ function initialize () {
     lastReload = time
   })
 
-// reload the webview when the F5 key is pressed
+  defineShortcut('fillPassword', function() {
+    webviews.get(tabs.getSelected()).send('password-autofill-shortcut')
+  })
+
+  // reload the webview when the F5 key is pressed
   document.body.addEventListener('keydown', function (e) {
     if (e.keyCode === 116) {
       try {

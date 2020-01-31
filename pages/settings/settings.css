@@ -184,10 +184,11 @@ button.disabled {
 
 #content-blocking-information {
 	padding: 0.5em;
-    margin: 0.75em 0.5em 0.25em 1.08em;
-    background-color: #f8f8f8;
-    border-radius: 3px;
+	margin: 0.75em 0.5em 0.25em 1.08em;
+	background-color: #f8f8f8;
+	border-radius: 3px;
 }
+
 .dark-mode #content-blocking-information {
 	background-color: #141414;
 }

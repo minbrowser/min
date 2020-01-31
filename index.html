@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="css/bookmarkManager.css"/>
 	<link rel="stylesheet" href="css/findinpage.css" />
 	<link rel="stylesheet" href="css/downloadManager.css" />
+	<link rel="stylesheet" href="css/passwordManager.css" />
 	<link rel="stylesheet" href="ext/font-awesome-4.4.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="node_modules/dragula/dist/dragula.min.css" />
 </head>
@@ -49,15 +50,15 @@
 		</div>
 	</div>
 
-	<div id="navbar" class="theme-background-color theme-text-color windowDragHandle" tabindex="-1">
-		<button id="menu-button" class="fa fa-ellipsis-v navbar-action-button" data-label="openMenu" tabindex="-1"></i>
-		<button id="back-button" hidden class="fa fa-angle-left navbar-action-button" data-label="goBack" tabindex="-1"></button>
-		<div id="tabs"></div>
-		<button id="add-tab-button" class="fa fa-plus navbar-action-button" data-label="newTabAction" tabindex="-1"></button>
-		<i class="fa fa-bars navbar-action-button invisible"></i>
-	</div>
+		<div id="navbar" class="theme-background-color theme-text-color windowDragHandle" tabindex="-1">
+			<button id="menu-button" class="fa fa-ellipsis-v navbar-action-button" data-label="openMenu" tabindex="-1"></i>
+			<button id="back-button" hidden class="fa fa-angle-left navbar-action-button" data-label="goBack" tabindex="-1"></button>
+			<div id="tabs"></div>
+			<button id="add-tab-button" class="fa fa-plus navbar-action-button" data-label="newTabAction" tabindex="-1"></button>
+			<i class="fa fa-bars navbar-action-button invisible"></i>
+		</div>
 
-	<button id="switch-task-button" class="fa fa-bars navbar-action-button theme-text-color windowDragHandle" data-label="viewTasks" tabindex="-1"></button>
+		<button id="switch-task-button" class="fa fa-bars navbar-action-button theme-text-color windowDragHandle" data-label="viewTasks" tabindex="-1"></button>
 
 	<div id="searchbar" class="theme-background-color theme-text-color">
 		<div class="top-answer-area"></div>
@@ -104,6 +105,25 @@
 	<div id="download-bar" hidden>
 		<div id="download-container" role="list"></div>
 		<button id="download-close-button" class="fa fa-times"></button>
+	</div>
+
+	<div class="centered" id="bitwarden-setup-dialog" hidden>
+		<h3 id="bitwarden-setup-heading"></h3>
+		<div class="light-fade" data-string="passwordManagerSetupStep1" data-allowHTML></div>
+		<div class="spacer"></div>
+		<div class="light-fade" data-string="passwordManagerSetupStep2" data-allowHTML></div>
+		<div class="spacer"></div>
+		
+		<div class="drag-and-drop-box" data-string="passwordManagerSetupDragBox">
+		</div>
+	
+		<div class="spacer"></div><div class="spacer"></div>
+	
+		<div class="buttons">
+			<input type="button" id="bitwarden-setup-disable" data-value="disableAutofill"/>
+			<input type="button" id="bitwarden-setup-cancel" data-value="autofillNotNow"/>
+		</div>
+	
 	</div>
 
 	<!-- add scripts in Gruntfile.js -->

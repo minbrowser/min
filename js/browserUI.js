@@ -100,6 +100,7 @@ function closeTask (taskId) {
 }
 
 /* destroys a tab, and either switches to the next tab or creates a new one */
+
 function closeTab (tabId) {
   /* disabled in focus mode */
   if (focusMode.enabled()) {

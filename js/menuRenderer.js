@@ -4,11 +4,17 @@ var webviews = require('webviews.js')
 var webviewGestures = require('webviewGestures.js')
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
+var modalMode = require('modalMode.js')
 var findinpage = require('findinpage.js')
 var PDFViewer = require('pdfViewer.js')
 
 function addPrivateTab () {
-    /* new tabs can't be created in focus mode */
+  /* new tabs can't be created in modal mode */
+  if (modalMode.enabled()) {
+    return
+  }
+
+  /* new tabs can't be created in focus mode */
   if (focusMode.enabled()) {
     focusMode.warn()
     return
@@ -50,6 +56,11 @@ module.exports = {
     })
 
     ipc.on('findInPage', function () {
+      /* Page search is not avialable in modal mode. */
+      if (modalMode.enabled()) {
+        return
+      }
+
       findinpage.start()
     })
 
@@ -71,7 +82,12 @@ module.exports = {
     })
 
     ipc.on('duplicateTab', function (e) {
-        /* new tabs can't be created in focus mode */
+      /* new tabs can't be created in modal mode */
+      if (modalMode.enabled()) {
+        return
+      }
+
+      /* new tabs can't be created in focus mode */
       if (focusMode.enabled()) {
         focusMode.warn()
         return
@@ -90,7 +106,12 @@ module.exports = {
     })
 
     ipc.on('addTab', function (e, data) {
-        /* new tabs can't be created in focus mode */
+      /* new tabs can't be created in modal mode */
+      if (modalMode.enabled()) {
+        return
+      }
+
+      /* new tabs can't be created in focus mode */
       if (focusMode.enabled()) {
         focusMode.warn()
         return
@@ -138,7 +159,12 @@ module.exports = {
     ipc.on('addPrivateTab', addPrivateTab)
 
     ipc.on('addTask', function () {
-  /* new tasks can't be created in focus mode */
+      /* new tasks can't be created in modal mode */
+      if (modalMode.enabled()) {
+        return
+      }
+
+      /* new tasks can't be created in focus mode or modal mode */
       if (focusMode.enabled()) {
         focusMode.warn()
         return

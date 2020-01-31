@@ -115,7 +115,7 @@ window.sessionRestore = {
             } }, 200)
         })
       }
-    } catch (e) {
+   } catch (e) {
       // an error occured while restoring the session data
 
       console.error('restoring session failed: ', e)
