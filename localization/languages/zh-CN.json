@@ -142,9 +142,9 @@
         "settingsSearchEngineHeading": "搜索引擎",
         "settingsDefaultSearchEngine": "选择默认的搜索引擎:",
         "settingsDDGExplanation": "将 DuckDuckGo 设为默认的搜索引擎可以直接在搜索栏查看搜索结果。",
-        "customSearchEngineDescription": "将搜索字符串以 %s 代替"
+        "customSearchEngineDescription": "将搜索字符串以 %s 代替",
         "settingsKeyboardShortcutsHeading": "快捷键",
-        "settingsKeyboardShortcutsHelp": "用逗号分隔多个快捷键"
+        "settingsKeyboardShortcutsHelp": "用逗号分隔多个快捷键",
         /* app menu */
         "appMenuFile": "文件",
         "appMenuNewTab": "新标签页",
