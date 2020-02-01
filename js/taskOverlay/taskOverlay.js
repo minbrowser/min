@@ -34,7 +34,18 @@ window.taskOverlay = {
   isShown: false,
   tabDragula: dragula({
     direction: 'vertical',
-    mirrorContainer: document.getElementById('task-overlay')
+    mirrorContainer: document.getElementById('task-overlay'),
+    moves: function (el, source, handle, sibling) {
+      // trying to click buttons can cause them to be dragged by accident, so disable dragging on them
+      var n = handle
+      while (n) {
+        if (n.tagName === 'BUTTON') {
+          return false
+        }
+        n = n.parentElement
+      }
+      return true
+    }
   }),
   taskDragula: dragula({
     direction: 'vertical',
