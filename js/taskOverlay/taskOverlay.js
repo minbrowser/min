@@ -247,11 +247,11 @@ function onMouseMoveWhileDragging (e) {
   clearInterval(draggingScrollInterval)
   if (e.pageY < 100) {
     draggingScrollInterval = setInterval(function () {
-      taskOverlay.overlayElement.scrollBy(0, -5)
+      taskContainer.scrollBy(0, -5)
     }, 16)
   } else if (e.pageY > (window.innerHeight - 125)) {
     draggingScrollInterval = setInterval(function () {
-      taskOverlay.overlayElement.scrollBy(0, 5)
+      taskContainer.scrollBy(0, 5)
     }, 16)
   }
 }
