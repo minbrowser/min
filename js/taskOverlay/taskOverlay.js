@@ -280,35 +280,3 @@ taskOverlay.taskDragula.on('drag', function () {
 taskOverlay.taskDragula.on('dragend', function () {
   endMouseDragRecording()
 })
-
-/* survey */
-
-var taskSurveyBanner = document.getElementById('task-overlay-survey-banner')
-var taskSurveyLink = document.getElementById('task-overlay-survey-link')
-var taskSurveyButton = document.getElementById('task-overlay-survey-close-button')
-
-if (!localStorage.getItem('110tasksurvey')) {
-  fetch('https://minbrowser.github.io/min/survey/tasksSurvey.json')
-    .then(response => response.json())
-    .then(function (data) {
-      if (data.available) {
-        taskSurveyBanner.hidden = false
-        taskSurveyLink.addEventListener('click', function (e) {
-          taskOverlay.hide()
-          browserUI.addTab(tabs.add({
-            url: data.url
-          }), {
-            enterEditMode: false
-          })
-          localStorage.setItem('110tasksurvey', 'true')
-          taskSurveyBanner.hidden = true
-        })
-        taskSurveyButton.addEventListener('click', function (e) {
-          e.stopPropagation()
-          localStorage.setItem('110tasksurvey', 'false')
-          taskSurveyBanner.hidden = true
-        })
-      }
-    })
-    .catch(e => console.error('error getting tasks survey', e))
-}
