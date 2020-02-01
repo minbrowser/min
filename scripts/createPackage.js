@@ -5,7 +5,21 @@ const version = packageFile.version
 const electronVersion = packageFile.electronVersion
 
 const basedir = require('path').join(__dirname, '../')
-const ignoredDirs = ['.DS_Store', 'dist/app', /\.map$/g, /\.md$/g] // directories that will be ignored when building binaries
+
+// directories that will be ignored when building binaries
+const ignoredDirs = [
+  '.DS_Store',
+  'dist/app',
+  /\.map$/g,
+  /\.md$/g,
+  // electron-installer-debian is actually a development module, but it isn't pruned because it's optional
+  'node_modules/electron-installer-debian',
+  'node_modules/electron-installer-common',
+  // this is copied during the build
+  'icon.icns',
+  // localization files are compiled and copied to dist
+  'localization/'
+]
 
 var baseOptions = {
   name: 'Min',
