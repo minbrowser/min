@@ -177,7 +177,7 @@
         "appMenuWindow": "Janela",
         "appMenuMinimize": "Minimizar",
         "appMenuClose": "Fechar",
-        "appMenuAlwaysOnTop": null, //missing translation
+        "appMenuAlwaysOnTop": "Sempre no topo",
         "appMenuHelp": "Ajuda",
         "appMenuKeyboardShortcuts": "Teclas de atalho",
         "appMenuReportBug": "Reportar Bugs",
