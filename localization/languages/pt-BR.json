@@ -31,7 +31,7 @@
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": "Mostrar mais ", //missing translation ->
+        "showMoreBangs": "Mostrar mais...",
         "viewSettings": "Ver configurações",
         "viewReadingList": "Ver listas de leitura",
         "takeScreenshot": "Capturar tela",
@@ -44,7 +44,7 @@
         "nameTask": " Nomear tarefa",
         "addBookmark": "Adicionar favorito",
 		"searchBookmarks": "Buscar nos favoritos",
-        "bookmarksAddTag": null, //missing translation
+        "bookmarksAddTag": "Adicionar tag",
 		"bookmarksSimilarItems": null, //missing translation
 		"searchHistory": "Buscar no histórico",
         "importBookmarks": "Importar favoritos",
