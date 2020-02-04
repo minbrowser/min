@@ -62,7 +62,7 @@
         "newTabAction": "Nova aba", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
         "viewTasks": "Ver tarefas",
-        "newTask": "Nova tarefa", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "newTask": "Nova Tarefa", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Tarefa %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
         "taskDeleteWarning": {"unsafeHTML":"Tarefa deletada! <a>Desfazer?</a>"},
         "returnToTask": "Retornar tarefa",
@@ -89,25 +89,25 @@
         "timeRangeLongerAgo": null, //missing translation
         /* pages/error/index.html */
         "crashErrorTitle": "Ocorreu algo de errado.",
-        "crashErrorSubtitle": "Ocorreu um problema ao tentar mostrar esta página.",
+        "crashErrorSubtitle": "Erro ao carregar página.",
         "errorPagePrimaryAction": "Tentar novamente",
         "serverNotFoundTitle": "Servidor não encontrado",
-        "serverNotFoundSubtitle": "Min não conseguiu achar este site.",
+        "serverNotFoundSubtitle": "Site não localizado.",
         "archiveSearchAction": "Buscar em archive.org",
-        "sslErrorTitle": "Este site não está disponível",
-        "sslErrorMessage": "Min não conseguiu conectar-se de uma maneira segura a este site.",
-        "dnsErrorTitle": "Site não encontrado",
+        "sslErrorTitle": "Site indisponível",
+        "sslErrorMessage": "Min não conseguiu se conectar de uma maneira segura a este site.",
+        "dnsErrorTitle": "Site não localizado",
         "dnsErrorMessage": "Ocorreu um erro de DNS.",
         "offlineErrorTitle": "Você está offline",
         "offlineErrorMessage": "Reconecte-se à Internet e tente novamente.",
-        "genericConnectionFail": "Min não conseguiu conectar-se ao site.",
-        "sslTimeErrorMessage": "Min não conseguiu conectar-se de uma maneira segura a este site. Por favor, verifique se o relógio do computador está correto.",
-        "addressInvalidTitle": "Este endereço é inválido.",
+        "genericConnectionFail": "Min não conseguiu se conectar ao site.",
+        "sslTimeErrorMessage": "Min não conseguiu se conectar de uma maneira segura a este site. Por favor, verifique se o relógio do computador está correto.",
+        "addressInvalidTitle": "Endereço inválido.",
         "genericError": "Ocorreu um erro",
         /* pages/phishing/index.html */
         "phishingErrorTitle": "Este site é perigoso.",
         "phishingErrorMessage": "Este website pode estar tentando roubar suas informações pessoais, como senhas ou detalhes bancários.",
-        "phishingErrorVisitAnyway": "Visitar o site mesmo assim",
+        "phishingErrorVisitAnyway": "Visitar site mesmo assim",
         "phishingErrorLeave": "Sair deste site",
         /* multiple instances alert */
         "multipleInstancesErrorMessage": null, // missing translation
@@ -128,17 +128,14 @@
         "settingsContentBlockingExceptions": null, //missing translation
         "settingsBlockScriptsToggle": "Bloquear scripts",
         "settingsBlockImagesToggle": "Bloquear imagens",
-        "settingsEasyListCredit": {
-            "unsafeHTML": null //missing translation
-        },
+        "settingsEasyListCredit": {"unsafeHTML": "Com base na EasyList e EasyPrivacy, criadas por <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>)."},
         "settingsAppearanceHeading": "Aparência",
         "settingsDarkModeToggle": "Habilitar modo noturno",
-        "settingsSiteThemeToggle": null, //missing translation
+        "settingsSiteThemeToggle": "Habilitar abas coloridas",
         "settingsHistoryButtonToggle": "Habilitar botão voltar",
-        "settingsAdditionalFeaturesHeading": null, //missing translation
-        "settingsUserscriptsToggle": null, //missing translation
-        "settingsUserscriptsExplanation": null, //missing translation
-        "settingsUpdateNotificationsToggle": null, //missing translation
+        "settingsAdditionalFeaturesHeading": "Recursos adicionais",
+        "settingsUserscriptsToggle": "Habilitar scripts do usuário",
+        "settingsUserscriptsExplanation": "Scripts do usuário permitem modificar o comportamento do site - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saiba mais</a>.",      "settingsUpdateNotificationsToggle": "Notificações de atualização",
         "settingsSearchEngineHeading": "Serviço de busca",
         "settingsDefaultSearchEngine": "Escolha o serviço de busca padrão:",
         "settingsDDGExplanation": "Defina DuckDuckGo como o serviço padrão de buscas para ver respostas instantâneas na barra de busca.",
