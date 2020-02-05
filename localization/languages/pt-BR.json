@@ -65,9 +65,9 @@
         "newTask": "Nova Tarefa", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Tarefa %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
         "taskDeleteWarning": {"unsafeHTML":"Tarefa deletada! <a>Desfazer?</a>"},
-        "returnToTask": "Retornar tarefa",
-        "taskDescriptionTwo": null, //missing translation
-        "taskDescriptionThree": null, //missing translation
+        "returnToTask": "Retornar a sua tarefa anterior",
+        "taskDescriptionTwo":"%t e %t",
+        "taskDescriptionThree":"%t e %t, mais %n", 
         /* find in page toolbar */
         "searchInPage": "Buscar na página", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "Ocorrência %i de %t", //this and the next label are used to indicate which match is currently highlighted
