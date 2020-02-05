@@ -20,10 +20,10 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
     var resultCount = 4
   }
 
-  var hasAutocompleted = false
+  // only autocomplete an item if the delete key wasn't pressed
+  var canAutocomplete = event && event.keyCode !== 8
 
   searchFn(text, function (results) {
-
     // prevent responses from returning out of order
     if (responseSent < currentResponseSent) {
       return
@@ -35,23 +35,40 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
 
     results = results.slice(0, resultCount)
 
-    results.forEach(function (result) {
-      // only autocomplete an item if the delete key wasn't pressed, and nothing has been autocompleted already
-      if (event && event.keyCode !== 8 && !hasAutocompleted) {
-        var autocompletionType = searchbarAutocomplete.autocompleteURL(result, input)
+    results.forEach(function (result, index) {
+      var didAutocompleteResult = false
 
-        if (autocompletionType !== -1) {
-          hasAutocompleted = true
-        }
+      var searchQuery
+      if (searchEngine.isSearchURL(result.url)) {
+        searchQuery = searchEngine.getSearch(result.url)
+      }
 
-        if (autocompletionType === 0) { // the domain was autocompleted, show a domain result item
-          var domain = new URL(result.url).hostname
+      if (canAutocomplete) {
+        if (searchQuery && index < 2) {
+          var acResult = searchbarAutocomplete.autocomplete(input, [searchQuery.search])
+          if (acResult.valid) {
+            canAutocomplete = false
+            didAutocompleteResult = true
+          }
+        } else {
+          var autocompletionType = searchbarAutocomplete.autocompleteURL(input, result)
 
-          searchbarPlugins.setTopAnswer(pluginName, {
-            title: domain,
-            url: domain,
-            fakeFocus: true
-          })
+          if (autocompletionType !== -1) {
+            canAutocomplete = false
+          }
+
+          if (autocompletionType === 0) { // the domain was autocompleted, show a domain result item
+            var domain = new URL(result.url).hostname
+
+            searchbarPlugins.setTopAnswer(pluginName, {
+              title: domain,
+              url: domain,
+              fakeFocus: true
+            })
+          }
+          if (autocompletionType === 1) {
+            didAutocompleteResult = true
+          }
         }
       }
 
@@ -62,10 +79,9 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
         }
       }
 
-      if (searchEngine.isSearchURL(result.url)) {
-        var query = searchEngine.getSearch(result.url)
-        data.title = query.search
-        data.secondaryText = query.engine
+      if (searchQuery) {
+        data.title = searchQuery.search
+        data.secondaryText = searchQuery.engine
         data.icon = 'fa-search'
       } else {
         data.title = urlParser.prettyURL(urlParser.getSourceURL(result.url))
@@ -90,13 +106,10 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
         }
       }
 
-      if (autocompletionType === 1) {
-        data.fakeFocus = true
-      }
-
       // create the item
 
-      if (autocompletionType === 1) { // if this exact URL was autocompleted, show the item as the top answer
+      if (didAutocompleteResult) { // if this exact URL was autocompleted, show the item as the top answer
+        data.fakeFocus = true
         searchbarPlugins.setTopAnswer(pluginName, data)
       } else {
         searchbarPlugins.addResult(pluginName, data)

@@ -31,7 +31,7 @@ function autocomplete (input, strings) {
 
 // autocompletes based on a result item
 // returns: 1 - the exact URL was autocompleted, 0 - the domain was autocompleted, -1: nothing was autocompleted
-function autocompleteURL (item, input) {
+function autocompleteURL (input, item) {
   var url = new URL(item.url)
   var hostname = url.hostname
 
