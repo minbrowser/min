@@ -78,15 +78,15 @@
         "focusModeExplanation1": "No modo concentração, todas as abas com exceção da atual ficam escondidas e você não pode criar novas abas.",
         "focusModeExplanation2": "Você pode desativar o modo concentração desmarcando a caixa \"modo concentração\" no menu visualizar.",
         /* relative dates */
-        "timeRangeJustNow": null, //missing translation
-        "timeRangeMinutes": null, //missing translation
-        "timeRangeHour": null, //missing translation
-        "timeRangeToday": null, //missing translation
-        "timeRangeYesterday": null, //missing translation
-        "timeRangeWeek": null, //missing translation
-        "timeRangeMonth": null, //missing translation
-        "timeRangeYear": null, //missing translation
-        "timeRangeLongerAgo": null, //missing translation
+        "timeRangeJustNow":"Agora mesmo",
+        "timeRangeMinutes": "Há alguns minutos atrás",
+        "timeRangeHour":"Na última hora",
+        "timeRangeToday":"Hoje",
+        "timeRangeYesterday":"Ontem",
+        "timeRangeWeek": "Na semana passada",
+        "timeRangeMonth":"No mês passado",
+        "timeRangeYear":"No ano passado",
+        "timeRangeLongerAgo":"Há mais tempo",
         /* pages/error/index.html */
         "crashErrorTitle": "Ocorreu algo de errado.",
         "crashErrorSubtitle": "Erro ao carregar página.",
