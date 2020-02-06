@@ -7,6 +7,8 @@ var formatRelativeDate = require('util/relativeDate.js')
 
 var bookmarkEditor = require('searchbar/bookmarkEditor.js')
 
+const maxTagSuggestions = 12
+
 function parseBookmarkSearch (text) {
   var tags = text.split(/\s/g).filter(function (word) {
     return word.startsWith('#') && word.length > 1
@@ -78,7 +80,7 @@ function showBookmarks (text, input, event) {
       searchbarPlugins.reset('bangs')
 
       var tagBar = document.createElement('div')
-      tagBar.className = 'bookmark-tag-bar'
+      tagBar.id = 'bookmark-tag-bar'
       container.appendChild(tagBar)
 
       parsedText.tags.forEach(function (tag) {
@@ -88,12 +90,24 @@ function showBookmarks (text, input, event) {
       })
       // it doesn't make sense to display tag suggestions if there's a search, since the suggestions are generated without taking the search into account
       if (!parsedText.text) {
-        suggestedTags.slice(0, 12).forEach(function (suggestion) {
-          tagBar.appendChild(bookmarkEditor.getTagElement(suggestion, false, function () {
+        suggestedTags.forEach(function (suggestion, index) {
+          var el = bookmarkEditor.getTagElement(suggestion, false, function () {
             var needsSpace = text.slice(-1) !== ' ' && text.slice(-1) !== ''
             tabBar.enterEditMode(tabs.getSelected(), '!bookmarks ' + text + (needsSpace ? ' #' : '#') + suggestion + ' ')
-          }))
+          })
+          if (index >= maxTagSuggestions) {
+            el.classList.add('overflowing')
+          }
+          tagBar.appendChild(el)
         })
+
+        if (suggestedTags.length > maxTagSuggestions) {
+          var expandEl = bookmarkEditor.getTagElement('\u2026', false, function () {
+            tagBar.classList.add('expanded')
+            expandEl.remove()
+          })
+          tagBar.appendChild(expandEl)
+        }
       }
 
       var lastRelativeDate = '' // used to generate headings

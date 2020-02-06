@@ -1,5 +1,9 @@
-.bookmark-tag-bar {
+#bookmark-tag-bar {
     margin-top: 0.5em;
+}
+
+#bookmark-tag-bar:not(.expanded) .tag.overflowing {
+    display: none;
 }
 
 .bookmark-editor {
