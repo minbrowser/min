@@ -5,11 +5,11 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "openInNewTab": "Abrir em uma nova aba",
-        "openInNewPrivateTab": "Abrir em uma nova aba privada",
+        "openInNewTab": "Abrir em uma nova guia",
+        "openInNewPrivateTab": "Abrir em uma nova guia privada",
         "viewImage": "Ver imagem",
-        "openImageInNewTab": "Abrir imagem em uma nova aba",
-        "openImageInNewPrivateTab": "Abrir imagem em uma nova aba privada",
+        "openImageInNewTab": "Abrir imagem em uma nova guia",
+        "openImageInNewPrivateTab": "Abrir imagem em uma nova guia privada",
         "saveImageAs": "Salvar imagem como",
         "searchWith": "Pesquisar no %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copiar link",
@@ -40,7 +40,7 @@
         "switchToTask": "Trocar para a tarefa",
         "createTask": "Criar tarefa",
         "closeTask": "Fechar tarefa",
-        "moveToTask": "Mover esta aba para uma tarefa",
+        "moveToTask": "Mover esta guia para uma tarefa",
         "nameTask": " Nomear tarefa",
         "addBookmark": "Adicionar favorito",
 		"searchBookmarks": "Buscar nos favoritos",
@@ -55,16 +55,16 @@
         "exitReaderView": "Sair do modo leitura",
         "emptyReadingListTitle": "Sua lista de leitura está vazia",
         "emptyReadingListSubtitle": "Artigos abertos no modo de leitura são listados aqui, e salvos offline por 30 dias.",
-        "newTabLabel": "Nova aba", //this is a noun, used for tabs that don't have a page loaded in them yet
+        "newTabLabel": "Nova guia", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "Sua conexão com este site não é segura.",
-        "searchbarPlaceholder": "Busque ou digite um endereço",
-        "privateTab": "Aba privada",
-        "newTabAction": "Nova aba", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        "searchbarPlaceholder": "Busque ou digite um endereço...",
+        "privateTab": "Guia privada",
+        "newTabAction": "Nova guia", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
         "viewTasks": "Ver tarefas",
         "newTask": "Nova Tarefa", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Tarefa %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML":"Tarefa deletada! <a>Desfazer?</a>"},
+        "taskDeleteWarning": {"unsafeHTML":"Tarefa deletada! <a> desfazer?</a>"},
         "returnToTask": "Retornar a sua tarefa anterior",
         "taskDescriptionTwo":"%t e %t",
         "taskDescriptionThree":"%t e %t, mais %n", 
@@ -75,7 +75,7 @@
         /* Focus mode */
         "isFocusMode": "Você está no modo concentração.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "No modo concentração, todas as abas com exceção da atual ficam escondidas e você não pode criar novas abas.",
+        "focusModeExplanation1": "No modo concentração, todas as guias com exceção da atual ficam escondidas e você não pode criar novas abas.",
         "focusModeExplanation2": "Você pode desativar o modo concentração desmarcando a caixa \"modo concentração\" no menu visualizar.",
         /* relative dates */
         "timeRangeJustNow":"Agora mesmo",
@@ -110,10 +110,10 @@
         "phishingErrorVisitAnyway": "Visitar site mesmo assim",
         "phishingErrorLeave": "Sair deste site",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": null, // missing translation
+        "multipleInstancesErrorMessage":"Um erro foi detectado, por favor, feche todas as instâncias abertas e reinicie o Min",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Ocorreu um erro",
-        "sessionRestoreErrorExplanation": "Suas abas salvas não puderam ser restauradas corretamente.",
+        "sessionRestoreErrorExplanation": "Suas guias salvas não puderam ser restauradas corretamente.",
         "sessionRestoreErrorBackupInfo": "Nós salvamos um backup dos seus dados em: %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
             "unsafeHTML": "Se este erro continuar ocorrendo, por favor, abra um novo chamado <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">aqui</a>."
@@ -122,16 +122,16 @@
         "settingsPreferencesHeading": "Preferências",
         "settingsRestartRequired": "Você precisa reiniciar o navegador para aplicar estas mudanças.",
         "settingsPrivacyHeading": "Bloqueio de Conteúdo",
-        "settingsContentBlockingLevel0": null, //missing translation
-        "settingsContentBlockingLevel1": null, //missing translation
-        "settingsContentBlockingLevel2": null, //missing translation
-        "settingsContentBlockingExceptions": null, //missing translation
+        "settingsContentBlockingLevel0": "Permitir todos os anúncios e rastreadores",
+        "settingsContentBlockingLevel1": "Bloquear anúncios e rastreadores de terceiros",
+        "settingsContentBlockingLevel2": "Bloquear todos os anúncios e rastreadores",
+        "settingsContentBlockingExceptions": "Permitir anúncios nos sites:",
         "settingsBlockScriptsToggle": "Bloquear scripts",
         "settingsBlockImagesToggle": "Bloquear imagens",
         "settingsEasyListCredit": {"unsafeHTML": "Com base na EasyList e EasyPrivacy, criadas por <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>)."},
         "settingsAppearanceHeading": "Aparência",
-        "settingsDarkModeToggle": "Habilitar modo noturno",
-        "settingsSiteThemeToggle": "Habilitar abas coloridas",
+        "settingsDarkModeToggle": "Habilitar modo darck",
+        "settingsSiteThemeToggle": "Habilitar mudanças de cores na barra de endereços",
         "settingsHistoryButtonToggle": "Habilitar botão voltar",
         "settingsAdditionalFeaturesHeading": "Recursos adicionais",
         "settingsUserscriptsToggle": "Habilitar scripts do usuário",
@@ -140,29 +140,29 @@
         "settingsSearchEngineHeading": "Serviço de busca",
         "settingsDefaultSearchEngine": "Escolha o serviço de busca padrão:",
         "settingsDDGExplanation": "Defina DuckDuckGo como o serviço padrão de buscas para ver respostas instantâneas na barra de busca.",
-        "customSearchEngineDescription": null, //missing translation
+        "customSearchEngineDescription":"Substituir o serviço de pesquisa por %s",
         "settingsKeyboardShortcutsHeading": "Teclas de atalho",
-        "settingsKeyboardShortcutsHelp": null, //missing translation
+        "settingsKeyboardShortcutsHelp":"Use vírgulas para separar vários atalhos.",
         /* app menu */
         "appMenuFile": "Arquivo",
-        "appMenuNewTab": "Nova aba",
-        "appMenuDuplicateTab": null, //missing translation
-        "appMenuNewPrivateTab": "Nova aba privada",
+        "appMenuNewTab": "Nova guia",
+        "appMenuDuplicateTab": "Duplicar guia atual",
+        "appMenuNewPrivateTab": "Nova guia privada",
         "appMenuNewTask": "Nova tarefa",
-        "appMenuSavePageAs": "Salvar página como",
-        "appMenuPrint": "Imprimir",
+        "appMenuSavePageAs": "Salvar página como...",
+        "appMenuPrint": "Imprimir...",
         "appMenuEdit": "Editar",
         "appMenuUndo": "Desfazer",
         "appMenuRedo": "Refazer",
         "appMenuCut": "Cortar",
         "appMenuCopy": "Copiar",
         "appMenuPaste": "Colar",
-        "appMenuSelectAll": "Selecionar Tudo",
-        "appMenuFind": "Buscar",
+        "appMenuSelectAll": "Selecionar tudo",
+        "appMenuFind": "Buscar na página...",
         "appMenuView": "Visualizar",
         "appMenuZoomIn": "Ampliar",
         "appMenuZoomOut": "Reduzir",
-        "appMenuActualSize": "Tamanho real",
+        "appMenuActualSize": "Tamanho original",
         "appMenuFullScreen": "Tela cheia", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Modo concentração",
         "appMenuReadingList": "Lista de leitura",
@@ -178,10 +178,10 @@
         "appMenuAlwaysOnTop": "Sempre no topo",
         "appMenuHelp": "Ajuda",
         "appMenuKeyboardShortcuts": "Teclas de atalho",
-        "appMenuReportBug": "Reportar Bugs",
-        "appMenuTakeTour": "Fazer um Tour",
+        "appMenuReportBug": "Informar um problema",
+        "appMenuTakeTour": "Tour pelo Min",
         "appMenuViewGithub": "Ver no GitHub",
-        "appMenuAbout": "Sobre %n", //%n is replaced with app name
+        "appMenuAbout": "Sobre o %n", //%n is replaced with app name
         "appMenuPreferences": "Preferências",
         "appMenuServices": "Serviços",
         "appMenuHide": "Esconder %n",
