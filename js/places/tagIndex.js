@@ -7,9 +7,10 @@ var tagIndex = {
   getPageTokens: function (page) {
     var urlChunk = ''
     try {
-      urlChunk = new URL(page.url).hostname
+      // ignore the TLD, since it doesn't predict tags very well
+      urlChunk = new URL(page.url).hostname.split('.').slice(0, -1).join('.')
     } catch (e) { }
-    var tokens = tokenize(page.title + ' ' + urlChunk.split(/\W/g).join(' '))
+    var tokens = tokenize(page.title + ' ' + urlChunk)
 
     var generic = ['www', 'com', 'net', 'html', 'pdf', 'file']
     tokens = tokens.filter(t => t.length > 2 && !generic.includes(t))
