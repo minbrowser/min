@@ -151,7 +151,11 @@ table {
 }
 
 @media all and (min-width: 600px) {
-	[domain*="wikipedia.org"] table:first-child {
+	/* TODO find a way to simplify this */
+	[domain*="wikipedia.org"] table:first-child,
+	[domain*="wikipedia.org"] table:first-child + table,
+	[domain*="wikipedia.org"] table:first-child + table + table,
+	[domain*="wikipedia.org"] table:first-child + table + table + table {
 		width: 50%;
 		float: right;
 		margin-left: 2em;
@@ -205,6 +209,11 @@ figure figcaption [itemprop=copyrightHolder] {
 
 .mw-editsection {
 	display: none;
+}
+
+summary p,
+summary div {
+	display: inline;
 }
 
 /* wsj.com */

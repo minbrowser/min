@@ -260,6 +260,30 @@ function processArticle (data) {
           image.srcset = ''
         }
       })
+
+      // convert lists that are normally rendered collapsed into <details> elements
+      // example: https://en.wikipedia.org/wiki/Constitution_of_the_United_States
+      var collapsedLists = Array.from(doc.querySelectorAll('.NavFrame.collapsed'))
+      collapsedLists.forEach(function (list) {
+        var innerEl = list.querySelector('.NavContent')
+        if (innerEl) {
+          var det = doc.createElement('details')
+
+          var heading = list.querySelector('.NavHead')
+          if (heading) {
+            var sum = doc.createElement('summary')
+            sum.childNodes = heading.childNodes
+            heading.remove()
+            sum.appendChild(heading)
+            det.appendChild(sum)
+          }
+
+          var root = innerEl.parentNode
+          innerEl.remove()
+          det.appendChild(innerEl)
+          root.appendChild(det)
+        }
+      })
     }
 
     if (articleLocation.hostname === 'medium.com') {
