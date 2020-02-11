@@ -4,6 +4,8 @@ importScripts('../../ext/xregexp/nonLetterRegex.js')
 
 const whitespaceRegex = /\s+/g
 
+const ignoredCharactersRegex = /[']+/g
+
 // stop words list from https://github.com/weixsong/elasticlunr.js/blob/master/lib/stop_word_filter.js
 const stopWords = {
   '': true,
@@ -130,7 +132,7 @@ const stopWords = {
 
 /* this is used in placesWorker.js when a history item is created */
 function tokenize (string) {
-  return string.trim().toLowerCase().replace(nonLetterRegex, ' ').split(whitespaceRegex).filter(function (token) {
+  return string.trim().toLowerCase().replace(ignoredCharactersRegex, '').replace(nonLetterRegex, ' ').split(whitespaceRegex).filter(function (token) {
     return !stopWords[token] && token.length <= 100
   }).slice(0, 20000)
 }
