@@ -11,11 +11,8 @@ function extractPageText (doc, win) {
 
   var ignore = 'link, style, script, noscript, .hidden, [class*="-hidden"], .visually-hidden, .visuallyhidden, [role=presentation], [hidden], [style*="display:none"], [style*="display: none"], .ad, .dialog, .modal, select, svg, details:not([open])'
 
-  while(maybeNodes.length) {
-    var node = maybeNodes[0]
-
-    // remove the node from the list of nodes to check
-    maybeNodes.shift()
+  while (maybeNodes.length) {
+    var node = maybeNodes.shift()
 
     // if the node should be ignored, skip it and all of it's child nodes
     if (node.matches && node.matches(ignore)) {
@@ -37,14 +34,9 @@ function extractPageText (doc, win) {
     var childNodes = node.childNodes
     var cnl = childNodes.length
 
-    for (var i = 0; i < cnl; i++) {
+    for (var i = cnl - 1; i >= 0; i--) {
       var childNode = childNodes[i]
-      // text node
-      if (childNode.nodeType === 3) {
-        textNodes.push(childNode)
-      } else {
-        maybeNodes.unshift(childNode)
-      }
+      maybeNodes.unshift(childNode)
     }
   }
 
