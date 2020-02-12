@@ -194,7 +194,13 @@ var webviewMenu = {
       menu.append(new MenuItem({ type: 'separator' }))
     })
 
-    menu.popup(remote.getCurrentWindow())
+    // Electron's default menu position is sometimes wrong on Windows with a touchscreen
+    // https://github.com/minbrowser/min/issues/903
+    var offset = webviews.getViewBounds()
+    menu.popup({
+      x: data.x + offset.x,
+      y: data.y + offset.y
+    })
   },
   initialize: function () {
     webviews.bindEvent('context-menu', function (webview, tabId, e, data) {
