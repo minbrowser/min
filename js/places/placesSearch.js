@@ -94,5 +94,10 @@ function searchPlaces (searchText, callback, options) {
     return calculateHistoryScore(b) - calculateHistoryScore(a)
   })
 
+  // clean up
+  matches.forEach(function (match) {
+    match.boost = 0
+  })
+
   callback(matches.slice(0, resultsLimit))
 }

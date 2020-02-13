@@ -154,8 +154,17 @@ function getMatchingDocs (prefixes) {
         return a.filter(k => set.has(k))
       })
 
-    // Finally select entire documents from intersection
-    return yield db.places.where('id').anyOf(reduced).limit(100).toArray()
+    /* Finally select entire documents from intersection.
+    To improve perf, we only read the full text of 100 documents for ranking,
+     but this could mean we miss relevant documents. So sort them based on page
+     score (recency + visit count) and then only read the 100 highest-ranking ones,
+     since these are most likely to be in the final results.
+    */
+    const ordered = reduced.map(id => historyInMemoryCache.find(item => item.id === id)).sort(function (a, b) {
+      return calculateHistoryScore(b) - calculateHistoryScore(a)
+    }).map(i => i.id).slice(0, 100)
+
+    return yield db.places.where('id').anyOf(ordered).toArray()
   })
 }
 

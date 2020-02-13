@@ -44,7 +44,7 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
       }
 
       if (canAutocomplete) {
-        if (searchQuery && index < 2) {
+        if (searchQuery && index === 0) {
           var acResult = searchbarAutocomplete.autocomplete(input, [searchQuery.search])
           if (acResult.valid) {
             canAutocomplete = false
