@@ -133,6 +133,7 @@ body.is-edit-mode #navbar #tabs {
 }
 .tab-item .tab-icon {
 	font-size: 0.8em;
+	margin-top: -0.1em;
 	padding: 0.66em;
 	vertical-align: middle;
 	width: 1em;
