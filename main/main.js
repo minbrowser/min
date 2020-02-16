@@ -8,6 +8,10 @@ const webContents = electron.webContents
 const session = electron.session
 const ipc = electron.ipcMain
 
+function clamp(n, min, max) {
+  return Math.max(Math.min(n, max), min);
+}
+
 if (process.platform === 'win32') {
   (async function () {
   var squirrelCommand = process.argv[1];
@@ -108,12 +112,24 @@ function createWindow (cb) {
     }
     if (e || !data || !bounds) { // there was an error, probably because the file doesn't exist
       var size = electron.screen.getPrimaryDisplay().workAreaSize
-      var bounds = {
+      bounds = {
         x: 0,
         y: 0,
         width: size.width,
         height: size.height
       }
+    }
+
+    //make the bounds fit inside a currently-active screen
+    //(since the screen Min was previously open on could have been removed)
+    //see: https://github.com/minbrowser/min/issues/904
+    var containingRect = electron.screen.getDisplayMatching(bounds).workArea;
+
+    bounds = {
+      x: clamp(bounds.x, containingRect.x, (containingRect.x + containingRect.width) - bounds.width),
+      y: clamp(bounds.y, containingRect.y, (containingRect.y + containingRect.height) - bounds.height),
+      width: clamp(bounds.width, 0, containingRect.width),
+      height: clamp(bounds.height, 0, containingRect.height),
     }
 
     // maximizes the window frame in windows 10
