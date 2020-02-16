@@ -198,7 +198,7 @@
         "downloadStateCompleted": "완료됨",
         "downloadStateFailed": "실패함",
         /* Update Notifications */
-        "updateNotificationTitle": "새롭게 판올림된 민(Min) 사용 가능"
+        "updateNotificationTitle": "새롭게 판올림된 민(Min) 사용 가능",
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "비밀번호 자동완성",
         "settingsSelectPasswordManager": "지원하는 비밀번호 관리자 중에서 하나를 선택하세요:",
@@ -207,7 +207,7 @@
         "passwordManagerSetupStep1": {
             "unsafeHTML": "우선, <a id='password-manager-setup-link'></a>를 방문해 시스템에 내려받으세요."
         },
-        "passwordManagerSetupLink": "%p CLI 도구를 내려받으세요."
+        "passwordManagerSetupLink": "%p CLI 도구를 내려받으세요.",
         "passwordManagerSetupStep2": "그 다음 도구를 아래 박스 안에 끌어다 놓습니다:",
         "passwordManagerSetupDragBox": "도구를 여기에 끌어다 놓으세요.",
         "passwordManagerSetupInstalling": "설치하는 중...",
