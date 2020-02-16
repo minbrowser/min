@@ -26,7 +26,7 @@
         "DDGAnswerSubtitle": "응답", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "제안 누리집", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "덕덕고(DuckDuckGo) 검색 결과", //this is used as a label to indicate which results come from DuckDuckGo's API
-        "taskN": "작업 공간 %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+        "taskN": "작업장 %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
         "hostsFileEntry": "사용자 항목", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
@@ -37,11 +37,11 @@
         "takeScreenshot": "갈무리",
         "clearHistory": "기록 삭제",
         "clearHistoryConfirmation": "모든 기록 및 통신망 사용 정보를 삭제 하시겠습니까?",
-        "switchToTask": "작업 공간 변경",
-        "createTask": "작업 공간 생성",
-        "closeTask": "작업 공간 닫기",
-        "moveToTask": "작업 공간으로 작업 이동",
-        "nameTask": "작업 공간 이름",
+        "switchToTask": "작업장 변경",
+        "createTask": "작업장 생성",
+        "closeTask": "작업장 닫기",
+        "moveToTask": "작업장으로 작업 이동",
+        "nameTask": "작업장 이름",
         "addBookmark": "즐겨찾기 추가",
         "searchBookmarks": "즐겨찾기 검색",
         "bookmarksAddTag": "꼬리표 추가...",
@@ -61,11 +61,11 @@
         "privateTab": "개인 작업",
         "newTabAction": "새 작업", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
-        "viewTasks": "작업 공간 보기",
-        "newTask": "새 작업 공간", //"new" is a verb - it is used for a button at the bottom of the task overlay
-        "defaultTaskName": "작업 공간 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "작업 공간을 제거했습니다. <a>되돌릴까요?</a>"},
-        "returnToTask": "이전 작업 공간으로 돌아가기",
+        "viewTasks": "작업장 보기",
+        "newTask": "새 작업장", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "defaultTaskName": "작업장 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+        "taskDeleteWarning": {"unsafeHTML": "작업장을 제거했습니다. <a>되돌릴까요?</a>"},
+        "returnToTask": "이전 작업장으로 돌아가기",
         "taskDescriptionTwo": "%t 그리고 %t", //used to describe a task that has two tabs, %t is replaced with the tab title
         "taskDescriptionThree": "%t, %t, 그리고 %n개의 작업", //used to describe a task that has three or more tabs
         /* find in page toolbar */
@@ -150,7 +150,7 @@
         "appMenuNewTab": "새 작업",
         "appMenuDuplicateTab": "작업 복제",
         "appMenuNewPrivateTab": "새 개인 작업",
-        "appMenuNewTask": "새 작업 공간",
+        "appMenuNewTask": "새 작업장",
         "appMenuSavePageAs": "문서를 다른 이름으로 저장",
         "appMenuPrint": "인쇄",
         "appMenuEdit": "편집",
@@ -199,5 +199,28 @@
         "downloadStateFailed": "실패함",
         /* Update Notifications */
         "updateNotificationTitle": "새롭게 판올림된 민(Min) 사용 가능"
+        /* Autofill settings */
+        "settingsPasswordAutoFillHeadline": "비밀번호 자동완성",
+        "settingsSelectPasswordManager": "지원하는 비밀번호 관리자 중에서 하나를 선택하세요:",
+        /* Password manager setup */
+        "passwordManagerSetupHeading": "자동완성을 사용하려면 %p 설정을 완료하세요.",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "우선, <a id='password-manager-setup-link'></a>를 방문해 시스템에 내려받으세요."
+        },
+        "passwordManagerSetupLink": "%p CLI 도구를 내려받으세요."
+        "passwordManagerSetupStep2": "그 다음 도구를 아래 박스 안에 끌어다 놓습니다:",
+        "passwordManagerSetupDragBox": "도구를 여기에 끌어다 놓으세요.",
+        "passwordManagerSetupInstalling": "설치하는 중...",
+        "passwordManagerSetupSignIn": "자동완성을 사용하려면 비밀번호 관리자에 로그인하세요. 귀하의 자격증명은 민(Min)의 그 어디에도 저장되지 않습니다.",
+        "disableAutofill": "자동완성 비활성화",
+        "autofillNotNow": "나중에",
+        "passwordManagerSetupUnlockError": "비밀번호 저장소를 여는데 실패했습니다: ",
+        "passwordManagerSetupRetry": "올바른 파일과 비밀번호를 사용하세요. 도구를 여기로 다시 끌어다 놓고 재시도할 수 있습니다.",
+        "passwordManagerUnlock": "비밀번호 저장소 사용을 위해 %p 비밀번호를 입력하세요:",
+        /* Dialogs */
+        "dialogConfirmButton": "확인",
+        "dialogSkipButton": "취소",
+        "email": "전자우편 주소(E-Mail)",
+        "password": "비밀번호"
     }
 }
