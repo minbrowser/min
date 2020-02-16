@@ -173,7 +173,14 @@ const webviews = {
         }
       }),
       boundsString: JSON.stringify(webviews.getViewBounds()),
-      events: webviews.events
+      // callbacks can't be sent over IPC, so they need to be removed
+      events: webviews.events.map(function (e) {
+        return {
+          event: e.event,
+          id: e.id,
+          options: e.options
+        }
+      })
     })
 
     let view = lazyRemoteObject(function () {
