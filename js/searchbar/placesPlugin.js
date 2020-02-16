@@ -96,16 +96,6 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
         data.icon = 'fa-align-left'
       }
 
-      // show the metadata for the item
-
-      if (result.metadata) {
-        data.metadata = []
-
-        for (var md in result.metadata) {
-          data.metadata.push(result.metadata[md])
-        }
-      }
-
       // create the item
 
       if (didAutocompleteResult) { // if this exact URL was autocompleted, show the item as the top answer

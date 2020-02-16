@@ -6,7 +6,7 @@ const searchEngine = require('util/searchEngine.js')
 const urlParser = require('util/urlParser.js')
 
 const places = {
-  savePage: function (tabId, extractedText, metadata) {
+  savePage: function (tabId, extractedText) {
     /* this prevents pages that are immediately left from being saved to history, and also gives the page-favicon-updated event time to fire (so the colors saved to history are correct). */
     setTimeout(function () {
       const tab = tabs.get(tabId)
@@ -15,8 +15,7 @@ const places = {
           url: tab.url,
           title: tab.title,
           color: tab.backgroundColor,
-          extractedText: extractedText,
-          metadata: metadata
+          extractedText: extractedText
         }
 
         places.worker.postMessage({
@@ -61,7 +60,7 @@ const places = {
 
     // don't save to history if in private mode, or the page is a browser page (unless it contains the content of a normal page)
     if (tab.private === false && !isNonIndexableInternalPage) {
-      places.savePage(tabId, data.extractedText, data.metadata)
+      places.savePage(tabId, data.extractedText)
     }
   },
   callbacks: [],
