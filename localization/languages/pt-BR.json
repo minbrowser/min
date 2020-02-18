@@ -5,11 +5,11 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "openInNewTab": "Abrir em uma nova guia",
-        "openInNewPrivateTab": "Abrir em uma nova guia privada",
+        "openInNewTab": "Abrir em uma nova aba",
+        "openInNewPrivateTab": "Abrir em uma nova aba privada",
         "viewImage": "Ver imagem",
-        "openImageInNewTab": "Abrir imagem em uma nova guia",
-        "openImageInNewPrivateTab": "Abrir imagem em uma nova guia privada",
+        "openImageInNewTab": "Abrir imagem em uma nova aba",
+        "openImageInNewPrivateTab": "Abrir imagem em uma nova aba privada",
         "saveImageAs": "Salvar imagem como",
         "searchWith": "Pesquisar no %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copiar link",
@@ -40,14 +40,14 @@
         "switchToTask": "Trocar para a tarefa",
         "createTask": "Criar tarefa",
         "closeTask": "Fechar tarefa",
-        "moveToTask": "Mover esta guia para uma tarefa",
+        "moveToTask": "Mover esta aba para uma tarefa",
         "nameTask": " Nomear tarefa",
         "addBookmark": "Adicionar favorito",
 		"searchBookmarks": "Buscar nos favoritos",
         "bookmarksAddTag": "Adicionar tag",
 		"bookmarksSimilarItems": "Itens semelhantes",
 		"searchHistory": "Buscar no histórico",
-        "importBookmarks": "Importar favoritos",
+        "importBookmarks": "Importar favoritos do arquivo HTML",
 		"exportBookmarks": "Exportar favoritos",
         /* navbar */
         "openMenu": "Menu",
@@ -55,11 +55,11 @@
         "exitReaderView": "Sair do modo leitura",
         "emptyReadingListTitle": "Sua lista de leitura está vazia",
         "emptyReadingListSubtitle": "Artigos abertos no modo de leitura são listados aqui, e salvos offline por 30 dias.",
-        "newTabLabel": "Nova guia", //this is a noun, used for tabs that don't have a page loaded in them yet
+        "newTabLabel": "Nova aba", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "Sua conexão com este site não é segura.",
-        "searchbarPlaceholder": "Busque ou digite um endereço...",
-        "privateTab": "Guia privada",
-        "newTabAction": "Nova guia", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        "searchbarPlaceholder": "Busque ou digite um endereço",
+        "privateTab": "Aba privada",
+        "newTabAction": "Nova aba", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
         "viewTasks": "Ver tarefas",
         "newTask": "Nova Tarefa", //"new" is a verb - it is used for a button at the bottom of the task overlay
@@ -75,7 +75,7 @@
         /* Focus mode */
         "isFocusMode": "Você está no modo concentração.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "No modo concentração, todas as guias com exceção da atual ficam escondidas e você não pode criar novas abas.",
+        "focusModeExplanation1": "No modo concentração, todas as abas com exceção da atual ficam escondidas e você não pode criar novas abas.",
         "focusModeExplanation2": "Você pode desativar o modo concentração desmarcando a caixa \"modo concentração\" no menu visualizar.",
         /* relative dates */
         "timeRangeJustNow":"Agora mesmo",
@@ -92,7 +92,7 @@
         "crashErrorSubtitle": "Erro ao carregar página.",
         "errorPagePrimaryAction": "Tentar novamente",
         "serverNotFoundTitle": "Servidor não encontrado",
-        "serverNotFoundSubtitle": "Site não localizado.",
+        "serverNotFoundSubtitle": "Min não conseguiu localizar este site",
         "archiveSearchAction": "Buscar em archive.org",
         "sslErrorTitle": "Site indisponível",
         "sslErrorMessage": "Min não conseguiu se conectar de uma maneira segura a este site.",
@@ -113,7 +113,7 @@
         "multipleInstancesErrorMessage":"Um erro foi detectado, por favor, feche todas as instâncias abertas e reinicie o Min",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Ocorreu um erro",
-        "sessionRestoreErrorExplanation": "Suas guias salvas não puderam ser restauradas corretamente.",
+        "sessionRestoreErrorExplanation": "Suas abas salvas não puderam ser restauradas corretamente.",
         "sessionRestoreErrorBackupInfo": "Nós salvamos um backup dos seus dados em: %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
             "unsafeHTML": "Se este erro continuar ocorrendo, por favor, abra um novo chamado <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">aqui</a>."
@@ -145,9 +145,9 @@
         "settingsKeyboardShortcutsHelp":"Use vírgulas para separar vários atalhos.",
         /* app menu */
         "appMenuFile": "Arquivo",
-        "appMenuNewTab": "Nova guia",
-        "appMenuDuplicateTab": "Duplicar guia atual",
-        "appMenuNewPrivateTab": "Nova guia privada",
+        "appMenuNewTab": "Nova aba",
+        "appMenuDuplicateTab": "Duplicar aba atual",
+        "appMenuNewPrivateTab": "Nova aba privada",
         "appMenuNewTask": "Nova tarefa",
         "appMenuSavePageAs": "Salvar página como...",
         "appMenuPrint": "Imprimir...",
@@ -158,7 +158,7 @@
         "appMenuCopy": "Copiar",
         "appMenuPaste": "Colar",
         "appMenuSelectAll": "Selecionar tudo",
-        "appMenuFind": "Buscar na página...",
+        "appMenuFind": "Buscar na página",
         "appMenuView": "Visualizar",
         "appMenuZoomIn": "Ampliar",
         "appMenuZoomOut": "Reduzir",
@@ -196,6 +196,6 @@
         "downloadStateCompleted": "Download concluído",
         "downloadStateFailed": "Download falhou",
         /* Update Notifications */
-        "updateNotificationTitle": "Atualizar título da notificação"
+        "updateNotificationTitle": "Uma nova versão do Min está disponível"
     }
 }
