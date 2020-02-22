@@ -136,7 +136,7 @@
         "settingsAdditionalFeaturesHeading": "Recursos adicionais",
         "settingsUserscriptsToggle": "Habilitar scripts do usuário",
         "settingsUserscriptsExplanation": {"unsafeHTML":"Scripts do usuário permitem modificar o comportamento do site - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saiba mais</a>."},
-	"settingsUpdateNotificationsToggle": "Notificações de atualização",
+	"settingsUpdateNotificationsToggle": "Verificar atualizações automaticamente",
         "settingsSearchEngineHeading": "Serviço de busca",
         "settingsDefaultSearchEngine": "Escolha o serviço de busca padrão:",
         "settingsDDGExplanation": "Defina DuckDuckGo como o serviço padrão de buscas para ver respostas instantâneas na barra de busca.",
