@@ -147,7 +147,7 @@ window.tabBar = {
 
     tabEl.title = tabTitle
     if (data.private) {
-      tabEl.title += ' (' corresponde ao nome do serviço de pesquisa+ l('privateTab') + ')'
+      tabEl.title += ' (' + l('privateTab') + ')'
     }
 
     var ec = document.createElement('div')
