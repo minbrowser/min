@@ -152,10 +152,11 @@ window.tabBar = {
 
     var ec = document.createElement('div')
     ec.className = 'tab-edit-contents'
-
+    
+    var searchEngine = require('util/searchEngine.js')
     var input = document.createElement('input')
     input.className = 'tab-input mousetrap'
-    input.setAttribute('placeholder', l('searchbarPlaceholder'))
+    input.setAttribute('placeholder', l('searchbarPlaceholder').replace('%eng',searchEngine.getCurrent().name))
     input.value = url
 
     ec.appendChild(input)
