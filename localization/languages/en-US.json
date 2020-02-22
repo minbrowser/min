@@ -57,7 +57,7 @@
         "emptyReadingListSubtitle": "Articles you open in reader view are listed here, and are saved offline for 30 days.",
         "newTabLabel": "New Tab", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "Your connection to this website is not secure.",
-        "searchbarPlaceholder": "Search or enter address",
+        "searchbarPlaceholder": "Search %eng or enter address", // %eng, shows the search engine
         "privateTab": "Private tab",
         "newTabAction": "New Tab", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
