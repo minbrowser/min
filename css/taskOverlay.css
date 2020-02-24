@@ -14,6 +14,12 @@ body.windows:not(.maximized) .simulated-navbar {
 	right: 0;
 	z-index: 4;
 }
+
+#switch-task-button:hover {
+	background-color: rgba(168, 168, 168, 0.3);
+}
+
+
 body.windows #switch-task-button {
 	right: 138px;
 }
