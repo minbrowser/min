@@ -72,11 +72,17 @@ body.windows:not(.maximized) #navbar {
 
 /* navbar buttons */
 
+#add-tab-button:disabled {
+	opacity: 0.2;
+}
+
+#add-tab-button:hover{
+	background-color: rgba(168, 168, 168, 0.3);
+}
+
 #back-button {
-	opacity: 1;
-	transition: none;
-	font-size: 1.5em;
-	padding: 0 0.6em 0 0.4em;
+	font-size: 1.7em;
+   	padding: 0 0.5em 0 0.5em;
 }
 #back-button:disabled {
 	opacity: 0.2;
@@ -86,8 +92,18 @@ body.is-edit-mode #back-button {
 	display: none;
 }
 
+#back-button:hover{
+	background-color: rgba(168, 168, 168, 0.3);
+}
+
 #menu-button {
-	margin-top: 1px;
+	font-size: 1.1em;
+	padding: 0 0.7em 0 0.7em;
+
+}
+
+#menu-button:hover{
+	background-color: rgba(168, 168, 168, 0.3);
 }
 
 body:not(.windows) #menu-button {
@@ -278,7 +294,7 @@ body.dark-mode #overlay {
 	visibility: hidden;
 }
 .navbar-action-button + .navbar-action-button {
-	padding-left: 0.5em;
+	padding-left: 1em;
 }
 
 .tab-item .bookmarks-button {
