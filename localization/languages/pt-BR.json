@@ -57,7 +57,7 @@
         "emptyReadingListSubtitle": "Artigos abertos no modo de leitura são listados aqui, e salvos offline por 30 dias.",
         "newTabLabel": "Nova aba", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "Sua conexão com este site não é segura.",
-        "searchbarPlaceholder": "Busque no %eng ou digite um endereço", //%eng corresponde ao nome do serviço de pesquisa
+        "searchbarPlaceholder": "Busque ou digite um endereço",
         "privateTab": "Aba privada",
         "newTabAction": "Nova aba", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
@@ -192,9 +192,9 @@
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "página <input type='text'/> de <span id='total'></span>"},
         /* Download manager */
-        "downloadCancel": "Download cancelado",
-        "downloadStateCompleted": "Download concluído",
-        "downloadStateFailed": "Download falhou",
+        "downloadCancel": "Cancelar",
+        "downloadStateCompleted": "Concluído",
+        "downloadStateFailed": "Falhou",
         /* Update Notifications */
         "updateNotificationTitle": "Uma nova versão do Min está disponível"
     }
