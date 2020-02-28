@@ -320,10 +320,9 @@ ipc.on('focusMainWebContents', function () {
 
 ipc.on('showSecondaryMenu', function (event, data) {
   if (mainMenu) {
-    mainMenu.popup(mainWindow, {
+    mainMenu.popup({
       x: data.x,
-      y: data.y,
-      async: true
+      y: data.y
     })
   }
 })

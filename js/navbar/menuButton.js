@@ -11,7 +11,6 @@ window.showSecondaryMenu = function () {
 
   ipc.send('showSecondaryMenu', {
     x: Math.round(rect.left),
-    y: Math.round(navbarRect.bottom),
-    async: true
+    y: Math.round(navbarRect.bottom)
   })
 }
