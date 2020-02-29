@@ -17,6 +17,12 @@ function lazyRemoteObject (getObject) {
         cachedItem = getObject()
       }
       return cachedItem[prop]
+    },
+    set: function (obj, prop, value) {
+      if (!cachedItem) {
+        cachedItem = getObject()
+      }
+      cachedItem[prop] = value
     }
   })
 }
