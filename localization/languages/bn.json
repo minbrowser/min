@@ -5,7 +5,8 @@
        /* Context menu items
        these are the items displayed in the menu when you right-click on a page
        */
-      "openInNewTab":"নতুন ট্যাবে খুলুন",
+      "pictureInPicture": null, //missing translation
+        "openInNewTab":"নতুন ট্যাবে খুলুন",
       "openInNewPrivateTab":"নতুন ব্যক্তিগত ট্যাবে খুলুন",
       "viewImage":"ভিউ ইমেজ",
       "openImageInNewTab":"চিত্রটি নতুন ট্যাবে খুলুন",

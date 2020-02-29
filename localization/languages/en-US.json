@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": "Picture in Picture",
         "openInNewTab": "Open in New Tab",
         "openInNewPrivateTab": "Open in New Private Tab",
         "viewImage": "View Image",

@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "Abrir em uma nova aba",
         "openInNewPrivateTab": "Abrir em uma nova aba privada",
         "viewImage": "Ver imagem",

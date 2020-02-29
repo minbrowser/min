@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "Відкрити в новій вкладці",
         "openInNewPrivateTab": "Відкрити в приватній вкладці",
         "viewImage": "Переглянути зображення",
