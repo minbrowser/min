@@ -1,7 +1,4 @@
-function createAppMenu () {
-  var Menu = electron.Menu
-  var MenuItem = electron.MenuItem
-
+function buildAppMenu (options = {}) {
   var tabTaskActions = [
     {
       label: l('appMenuNewTab'),
@@ -66,65 +63,65 @@ function createAppMenu () {
   }
 
   var template = [
-    ...(process.platform === 'win32' ? tabTaskActions : []),
-    ...(process.platform === 'win32' ? [{type: 'separator'}] : []),
-    ...(process.platform === 'win32' ? personalDataItems : []),
-    ...(process.platform === 'win32' ? [{type: 'separator'}] : []),
+    ...(options.secondary ? tabTaskActions : []),
+    ...(options.secondary ? [{type: 'separator'}] : []),
+    ...(options.secondary ? personalDataItems : []),
+    ...(options.secondary ? [{type: 'separator'}] : []),
     ...(process.platform === 'darwin' ?
-      [
-        {
-          label: app.name,
-          submenu: [
-            {
-              label: l('appMenuAbout').replace('%n', app.name),
-              role: 'about'
-            },
-            {
-              type: 'separator'
-            },
-            {
-              label: l('appMenuPreferences'),
-              accelerator: 'CmdOrCtrl+,',
-              click: function (item, window) {
-                sendIPCToWindow(window, 'addTab', {
-                  url: 'file://' + __dirname + '/pages/settings/index.html'
-                })
-              }
-            },
-            {
-              label: 'Services',
-              role: 'services',
-              submenu: []
-            },
-            {
-              type: 'separator'
-            },
-            {
-              label: l('appMenuHide').replace('%n', app.name),
-              accelerator: 'CmdOrCtrl+H',
-              role: 'hide'
-            },
-            {
-              label: l('appMenuHideOthers'),
-              accelerator: 'CmdOrCtrl+Shift+H',
-              role: 'hideothers'
-            },
-            {
-              label: l('appMenuShowAll'),
-              role: 'unhide'
-            },
-            {
-              type: 'separator'
-            },
-            quitAction
-          ]
-        }
-      ] : []),
+    [
+      {
+        label: app.name,
+        submenu: [
+          {
+            label: l('appMenuAbout').replace('%n', app.name),
+            role: 'about'
+          },
+          {
+            type: 'separator'
+          },
+          {
+            label: l('appMenuPreferences'),
+            accelerator: 'CmdOrCtrl+,',
+            click: function (item, window) {
+              sendIPCToWindow(window, 'addTab', {
+                url: 'file://' + __dirname + '/pages/settings/index.html'
+              })
+            }
+          },
+          {
+            label: 'Services',
+            role: 'services',
+            submenu: []
+          },
+          {
+            type: 'separator'
+          },
+          {
+            label: l('appMenuHide').replace('%n', app.name),
+            accelerator: 'CmdOrCtrl+H',
+            role: 'hide'
+          },
+          {
+            label: l('appMenuHideOthers'),
+            accelerator: 'CmdOrCtrl+Shift+H',
+            role: 'hideothers'
+          },
+          {
+            label: l('appMenuShowAll'),
+            role: 'unhide'
+          },
+          {
+            type: 'separator'
+          },
+          quitAction
+        ]
+      }
+    ] : []),
     {
       label: l('appMenuFile'),
       submenu: [
-        ...(process.platform !== 'win32' ? tabTaskActions : []),
-        ...(process.platform !== 'win32' ? [{type: 'separator'}] : []),
+        ...(!options.secondary ? tabTaskActions : []),
+        ...(!options.secondary ? [{type: 'separator'}] : []),
         {
           label: l('appMenuSavePageAs'),
           accelerator: 'CmdOrCtrl+s',
@@ -207,8 +204,8 @@ function createAppMenu () {
     {
       label: l('appMenuView'),
       submenu: [
-        ...(process.platform !== 'win32' ? personalDataItems : []),
-        ...(process.platform !== 'win32' ? [{type: 'separator'}] : []),
+        ...(!options.secondary ? personalDataItems : []),
+        ...(!options.secondary ? [{type: 'separator'}] : []),
         {
           label: l('appMenuZoomIn'),
           accelerator: 'CmdOrCtrl+=',
@@ -391,9 +388,7 @@ function createAppMenu () {
       ]
     }
   ]
-
-  mainMenu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(mainMenu)
+  return Menu.buildFromTemplate(template)
 }
 
 function createDockMenu () {

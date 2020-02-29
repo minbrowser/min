@@ -7,6 +7,8 @@ const BrowserWindow = electron.BrowserWindow // Module to create native browser 
 const webContents = electron.webContents
 const session = electron.session
 const ipc = electron.ipcMain
+const Menu = electron.Menu
+const MenuItem = electron.MenuItem
 
 function clamp(n, min, max) {
   return Math.max(Math.min(n, max), min);
@@ -47,6 +49,7 @@ const browserPage = 'file://' + __dirname + '/index.html'
 
 var mainWindow = null
 var mainMenu = null
+var secondaryMenu = null;
 var isFocusMode = false
 var appIsReady = false
 
@@ -276,7 +279,8 @@ app.on('ready', function () {
     })
   })
 
-  createAppMenu()
+  mainMenu = buildAppMenu();
+  Menu.setApplicationMenu(mainMenu)
   createDockMenu()
   registerProtocols()
 })
@@ -319,12 +323,13 @@ ipc.on('focusMainWebContents', function () {
 })
 
 ipc.on('showSecondaryMenu', function (event, data) {
-  if (mainMenu) {
-    mainMenu.popup({
-      x: data.x,
-      y: data.y
-    })
+  if (!secondaryMenu) {
+    secondaryMenu = buildAppMenu({secondary: true})
   }
+  secondaryMenu.popup({
+    x: data.x,
+    y: data.y
+  })
 })
 
 function registerProtocols () {

@@ -90,8 +90,13 @@ body.is-edit-mode #back-button {
 	margin-top: 1px;
 }
 
-body:not(.windows) #menu-button {
+#menu-button {
 	display: none;
+}
+
+body.windows #menu-button,
+body.linux.menu-bar-hidden #menu-button {
+	display: inline-block;
 }
 
 /* tab layout */

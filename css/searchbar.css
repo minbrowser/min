@@ -22,8 +22,12 @@ body.windows:not(.maximized) #searchbar {
 body.mac:not(.fullscreen) #searchbar {
 	padding-left: 75px;
 }
-body.windows #searchbar {
+/* account for menu button */
+body.windows #searchbar,
+body.linux.menu-bar-hidden #searchbar {
 	padding-left: 36px;
+}
+body.windows #searchbar {
 	padding-right: 220px;
 }
 

@@ -4,6 +4,7 @@ const keybindings = require('keybindings.js')
 function initialize () {
   if (settings.get('menuBarVisible') === false) {
     remote.getCurrentWindow().setMenuBarVisibility(false)
+    document.body.classList.add('menu-bar-hidden')
   } else {
       // menu bar should be visible, do nothing
   }
@@ -16,11 +17,13 @@ function initialize () {
 function showMenuBar () {
   remote.getCurrentWindow().setMenuBarVisibility(true)
   settings.set('menuBarVisible', true)
+  document.body.classList.remove('menu-bar-hidden')
 }
 
 function hideMenuBar () {
   remote.getCurrentWindow().setMenuBarVisibility(false)
   settings.set('menuBarVisible', false)
+  document.body.classList.add('menu-bar-hidden')
 }
 
 function toggleMenuBar () {
