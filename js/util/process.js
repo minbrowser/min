@@ -4,7 +4,7 @@ Bufferizes output from stdout and stderr, waits until the process exits,
 and then resolves the promise with gathered data.
 */
 
-const { spawn } = require('child_process')
+const { spawn, spawnSync } = require('child_process')
 
 class ProcessSpawner {
   constructor(command, args) {
@@ -38,6 +38,11 @@ class ProcessSpawner {
         reject({ error: data })
       })
     })
+  }
+
+  executeSync(input) {
+    const process = spawnSync(this.command, this.args, { input: input, encoding: "utf8" })
+    return process.output[1].slice(0, -1)
   }
 }
 

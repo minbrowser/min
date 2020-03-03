@@ -4,11 +4,14 @@ if (typeof require !== 'undefined') {
 
 var passwordManagers = {
   none: {
-    name: 'none',
+    name: 'none'
   },
   Bitwarden: {
-    name: 'Bitwarden',
+    name: 'Bitwarden'
   },
+  OnePassword: {
+    name: '1Password'
+  }
 }
 
 var currentPasswordManager = null
@@ -20,6 +23,6 @@ settings.get('passwordManager', function (value) {
   }
 })
 
-window.currentPasswordManager = currentPasswordManager 
+window.currentPasswordManager = currentPasswordManager
 
 
