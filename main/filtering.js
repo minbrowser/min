@@ -40,13 +40,9 @@ function initFilterList () {
 }
 
 function requestIsThirdParty (baseDomain, requestURL) {
-  var requestDomain = parser.getUrlHost(requestURL)
-  if (baseDomain.startsWith('www.')) {
-    baseDomain = baseDomain.replace('www.', '')
-  }
-  if (requestDomain.startsWith('www.')) {
-    requestDomain = requestDomain.replace('www.', '')
-  }
+  baseDomain = baseDomain.replace(/^www\./g, '')
+  var requestDomain = parser.getUrlHost(requestURL).replace(/^www\./g, '')
+
   return !(parser.isSameOriginHost(baseDomain, requestDomain) || parser.isSameOriginHost(requestDomain, baseDomain))
 }
 
@@ -130,7 +126,7 @@ function setFilteringSettings (settings) {
 
   enabledFilteringOptions.contentTypes = settings.contentTypes
   enabledFilteringOptions.blockingLevel = settings.blockingLevel
-  enabledFilteringOptions.exceptionDomains = settings.exceptionDomains
+  enabledFilteringOptions.exceptionDomains = settings.exceptionDomains.map(d => d.replace(/^www\./g, ''))
 }
 
 function registerFiltering (ses) {
