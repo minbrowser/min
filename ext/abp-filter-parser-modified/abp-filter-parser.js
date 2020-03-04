@@ -278,7 +278,6 @@ function parseFilter (input, parsedFilterData) {
 
   // Check for a regex
   if (input[beginIndex] === '/' && input[len - 1] === '/' && beginIndex !== len - 1) {
-    parsedFilterData.data = input.slice(beginIndex + 1, -1)
     parsedFilterData.regex = new RegExp(parsedFilterData.data)
     return true
   }
@@ -407,22 +406,20 @@ function matchOptions (filterOptions, input, contextParams, currentHost) {
 
   // Domain option check
   if (contextParams.domain !== undefined) {
-    if (filterOptions.domains || filterOptions.skipDomains || filterOptions.thirdParty || filterOptions.notThirdParty) {
-      if (filterOptions.thirdParty && contextParams.domain === currentHost) {
-        return false
-      }
+    if (filterOptions.thirdParty && contextParams.domain === currentHost) {
+      return false
+    }
 
-      if (filterOptions.notThirdParty && contextParams.domain !== currentHost) {
-        return false
-      }
+    if (filterOptions.notThirdParty && contextParams.domain !== currentHost) {
+      return false
+    }
 
-      if (filterOptions.skipDomains && filterOptions.skipDomains.indexOf(contextParams.domain) !== -1) {
-        return false
-      }
+    if (filterOptions.skipDomains && filterOptions.skipDomains.indexOf(contextParams.domain) !== -1) {
+      return false
+    }
 
-      if (filterOptions.domains && filterOptions.domains.indexOf(contextParams.domain) === -1) {
-        return false
-      }
+    if (filterOptions.domains && filterOptions.domains.indexOf(contextParams.domain) === -1) {
+      return false
     }
   } else if (filterOptions.domains || filterOptions.skipDomains) {
     return false
@@ -493,12 +490,12 @@ function parse (input, parserData, callback, options = {}) {
           /* add the filters to the object based on the last 6 characters of their domain.
             Domains can be just 5 characters long: the TLD is at least 2 characters,
             the . character adds one more character, and the domain name must be at least two
-            characters long. However, slicing the last 6 characters of a 5-character string 
-            will give us the 5 available characters; we can then check for both a 
-            5-character and a 6-character match in matchesFilters. By storing the last 
-            characters in an object, we can skip checking whether every filter's domain 
-            is from the same origin as the URL we are checking. Instead, we can just get 
-            the last characters of the URL to check, get the filters stored in that 
+            characters long. However, slicing the last 6 characters of a 5-character string
+            will give us the 5 available characters; we can then check for both a
+            5-character and a 6-character match in matchesFilters. By storing the last
+            characters in an object, we can skip checking whether every filter's domain
+            is from the same origin as the URL we are checking. Instead, we can just get
+            the last characters of the URL to check, get the filters stored in that
             property of the object, and then check if the complete domains match.
            */
           var ending = parsedFilterData.host.slice(-6)
