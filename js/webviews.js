@@ -170,6 +170,8 @@ const webviews = {
           nodeIntegration: false,
           nodeIntegrationInSubFrames: true,
           scrollBounce: true,
+          safeDialogs: true,
+          safeDialogsMessage: 'Prevent this page from creating additional dialogs',
           preload: __dirname + '/dist/preload.js',
           contextIsolation: true,
           sandbox: true,
