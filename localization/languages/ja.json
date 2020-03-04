@@ -37,6 +37,8 @@
         "viewReadingList": "閲覧リストを見る",
         "takeScreenshot": "スクリーンショットを撮る",
         "clearHistory": "すべての履歴をクリア",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": "履歴をクリアしてもよろしいですか？",
         "switchToTask": "タスクに切り替える",
         "createTask": "タスクを作成",

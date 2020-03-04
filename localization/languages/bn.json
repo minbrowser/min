@@ -37,7 +37,9 @@
       "viewReadingList":"পঠন তালিকা দেখুন",
       "takeScreenshot":"একটি স্ক্রিনশট নিন",
       "clearHistory":"সমস্ত ইতিহাস সাফ করুন",
-      "clearHistoryConfirmation": null, //missing translation
+      "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
+        "clearHistoryConfirmation": null, //missing translation
       "switchToTask":"টাস্কে স্যুইচ করুন",
       "createTask":"একটি টাস্ক তৈরি করুন",
       "closeTask": null, //missing translation

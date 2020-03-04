@@ -37,6 +37,8 @@
         "viewReadingList": null, //missing translation
         "takeScreenshot": "Hacer una captura de pantalla",
         "clearHistory": "Limpiar todo el historial",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Cambiar a la tarea",
         "createTask": "Crear una tarea",

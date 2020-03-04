@@ -37,6 +37,8 @@
         "viewReadingList": "Olvasási lista megtekintése",
         "takeScreenshot": "Képernyőkép készitése",
         "clearHistory": "Összes történet törlés",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Feladat váltása",
         "createTask": "Feladat létrehozás",

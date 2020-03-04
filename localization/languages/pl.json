@@ -37,6 +37,8 @@
         "viewReadingList": "Wyświetl listę czytelnia",
         "takeScreenshot": "Zrób zrzut ekranu",
         "clearHistory": "Wyczyść całą historię",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": "Czy wyczyścić całą historię i dane przeglądania?",
         "switchToTask": "Przełącz na zadanie",
         "createTask": "Utwórz zadanie",

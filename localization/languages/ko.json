@@ -37,6 +37,8 @@
         "viewReadingList": "읽기 지원 목록",
         "takeScreenshot": "갈무리",
         "clearHistory": "기록 삭제",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": "모든 기록 및 통신망 사용 정보를 삭제 하시겠습니까?",
         "switchToTask": "작업장 변경",
         "createTask": "작업장 생성",

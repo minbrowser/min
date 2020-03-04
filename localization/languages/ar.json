@@ -37,6 +37,8 @@
         "viewReadingList": "عرض قائمة القراءة",
         "takeScreenshot": "خذ لقطة شاشة",
         "clearHistory": "مسح السجل",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "تحويل الى مهام",
         "createTask": "انشاء مهمة",

@@ -37,6 +37,8 @@
         "viewReadingList": "显示阅读列表",
         "takeScreenshot": "截图",
         "clearHistory": "清除所有历史记录",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": "是否清除所有历史记录？",
         "switchToTask": "切换到标签组列表",
         "closeTask": "关闭标签组",

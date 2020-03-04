@@ -37,6 +37,8 @@
         "viewReadingList": "Vedi Lista di Lettura",
         "takeScreenshot": "Cattura Screenshot",
         "clearHistory": "Svuota la cronologia",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": "Cancellare tutti i dati di navigazione?", 
         "switchToTask": "Passa a Task",
         "createTask": "Crea un Task",

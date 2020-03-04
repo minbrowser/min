@@ -37,6 +37,8 @@
         "viewReadingList": "Okuma Listesini Görüntüle",
         "takeScreenshot": "Ekran Görüntüsü Al",
         "clearHistory": "Tüm Geçmişi Temizle",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": "Tüm geçmişi ve tarama verilerini silmek istiyor musunuz?",
         "switchToTask": "Göreve Geç",
         "createTask": "Görev Oluştur",

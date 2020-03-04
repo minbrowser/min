@@ -37,6 +37,8 @@
         "viewReadingList": "Посмотреть список чтения",
         "takeScreenshot": "Сделать скриншот",
         "clearHistory": "Очистить историю",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": "Вы действительно хотите очистить историю?",
         "switchToTask": "Переключиться на задачу",
         "createTask": "Создать задачу",

@@ -37,6 +37,8 @@
         "viewReadingList": "View Reading List",
         "takeScreenshot": "Take a Screenshot",
         "clearHistory": "Clear All History",
+        "enableBlocking": "Enable content blocking for this site",
+        "disableBlocking": "Disable content blocking for this site",
         "clearHistoryConfirmation": "Clear all history and browsing data?",
         "switchToTask": "Switch to Task",
         "createTask": "Create a Task",
