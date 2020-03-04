@@ -1,0 +1,13 @@
+.hero {
+    height: 100%;
+}
+
+#popup {
+    box-shadow: 0 0 100px 0 rgba(0,0,0,0.5);
+    border-radius: 3px;
+}
+
+#popup p {
+    font-size: 1.1em;
+    margin-bottom: 1.25em;
+}
