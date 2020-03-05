@@ -13,7 +13,7 @@ body[theme="dark"] {
 
 body[theme="sepia"] {
 	background-color: rgb(245, 237, 220);
-	color: rgba(80, 55, 35, 1);
+	color: rgb(68, 47, 30);
 }
 
 iframe {
@@ -83,6 +83,10 @@ img, picture, video {
 	max-width: 100%;
 	height: auto;
 	margin: auto;
+}
+body[theme="dark"] img,
+body[theme="dark"] picture {
+	filter: brightness(0.95);
 }
 p {
 	line-height: 1.5em;
