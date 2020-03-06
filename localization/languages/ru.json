@@ -5,7 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "pictureInPicture": null, //missing translation
+        "pictureInPicture": "Картинка в Картинке",
         "openInNewTab": "Открыть в новой вкладке",
         "openInNewPrivateTab": "Открыть в приватной вкладке",
         "viewImage": "Показать изображение",
@@ -37,8 +37,8 @@
         "viewReadingList": "Посмотреть список чтения",
         "takeScreenshot": "Сделать скриншот",
         "clearHistory": "Очистить историю",
-        "enableBlocking": null, //missing translation
-        "disableBlocking": null, //missing translation
+        "enableBlocking": "Включить блокировку контента для этого сайта",
+        "disableBlocking": "Отключить блокировку контента для этого сайта",
         "clearHistoryConfirmation": "Вы действительно хотите очистить историю?",
         "switchToTask": "Переключиться на задачу",
         "createTask": "Создать задачу",
