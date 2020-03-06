@@ -201,6 +201,29 @@
         "downloadStateCompleted": "Завершено",
         "downloadStateFailed": "Не удалось",
         /* Update Notifications */
-        "updateNotificationTitle": "Доступна новая версия Min"
+        "updateNotificationTitle": "Доступна новая версия Min",
+	/* Autofill settings */
+	"settingsPasswordAutoFillHeadline": "Автоматическое заполнение пароля",
+	"settingsSelectPasswordManager": "Выберите один из поддерживаемых менеджеров паролей:",
+	/* Password manager setup */
+	"passwordManagerSetupHeading": "Завершить настройку %p для использования автозаполнения",
+	"passwordManagerSetupStep1": {
+		"unsafeHTML": "Во-первых, <a id='password-manager-setup-link'></a> и извлеките его для вашей системы."
+	},
+	"passwordManagerSetupLink": "загрузите инструмент CLI %p",
+        "passwordManagerSetupStep2": "Затем перетащите инструмент в поле ниже:",
+        "passwordManagerSetupDragBox": "Перетащите инструмент сюда",
+        "passwordManagerSetupInstalling": "Установка...",
+        "passwordManagerSetupSignIn": "Войдите в свой менеджер паролей, чтобы начать использовать автозаполнение. Ваши учетные данные не будут храниться где-либо внутри Min.",
+        "disableAutofill": "Отключить автозаполнение",
+        "autofillNotNow": "Не сейчас",
+        "passwordManagerSetupUnlockError": "Не удалось разблокировать хранилище паролей: ",
+        "passwordManagerSetupRetry": "Убедитесь, что вы используете правильный файл и вводите правильный пароль. Вы можете повторить попытку, перетащив инструмент сюда еще раз.",
+        "passwordManagerUnlock": "Введите свой мастер-пароль %p, чтобы разблокировать хранилище паролей:",
+        /* Dialogs */
+        "dialogConfirmButton": "Подтвердить",
+        "dialogSkipButton": "Отмена",
+        "email": "Электронная почта",
+        "password": "Пароль"
     }
 }
