@@ -126,8 +126,8 @@ body.is-edit-mode #navbar #tabs {
 .dark-theme .tab-item:not(.active):hover {
 	background-color: rgba(255, 255, 255, 0.1);
 }
-.theme-background-low-contrast .tab-item:not(.active):hover {
-	background-color: rgba(255, 255, 255, 0.13);
+.dark-theme.theme-background-low-contrast .tab-item:not(.active):hover {
+	background-color: rgba(255, 255, 255, 0.15);
 }
 
 .tab-view-contents {
