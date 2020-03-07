@@ -71,7 +71,11 @@ bangsPlugin.registerCustomBang({
   snippet: l('enableBlocking'),
   isAction: true,
   fn: function (text) {
-    var domain = new URL(tabs.get(tabs.getSelected()).url).hostname
+    var url = tabs.get(tabs.getSelected()).url
+    if (!url) {
+      return
+    }
+    var domain = new URL(url).hostname
 
     var setting = settings.get('filtering')
     if (!setting) {
@@ -91,7 +95,11 @@ bangsPlugin.registerCustomBang({
   snippet: l('disableBlocking'),
   isAction: true,
   fn: function (text) {
-    var domain = new URL(tabs.get(tabs.getSelected()).url).hostname
+    var url = tabs.get(tabs.getSelected()).url
+    if (!url) {
+      return
+    }
+    var domain = new URL(url).hostname
 
     var setting = settings.get('filtering')
     if (!setting) {
