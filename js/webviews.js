@@ -106,16 +106,24 @@ const webviews = {
     error: urlParser.getFileURL(__dirname + '/pages/error/index.html')
   },
   events: [],
-  eventCount: 0,
+  nextEventID: 0,
   IPCEvents: [],
   bindEvent: function (event, fn, options) {
-    webviews.eventCount++
+    webviews.nextEventID++
     webviews.events.push({
       event: event,
       fn: fn,
       options: options,
-      id: webviews.eventCount
+      id: webviews.nextEventID
     })
+  },
+  unbindEvent: function (event, fn) {
+    for (var i = 0; i < webviews.events.length; i++) {
+      if (webviews.events[i].event === event && webviews.events[i].fn === fn) {
+        webviews.events.splice(i, 1)
+        i--
+      }
+    }
   },
   bindIPC: function (name, fn) {
     webviews.IPCEvents.push({
