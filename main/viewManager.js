@@ -24,7 +24,7 @@ function createView (id, webPreferencesString, boundsString, events) {
       id: id,
       name: channel,
       data: data,
-      frameId: e.frameId,
+      frameId: e.frameId
     })
   })
 
@@ -132,7 +132,18 @@ ipc.on('callViewMethod', function (e, data) {
   } catch (e) {
     error = e
   }
-  if (data.callId) {
+  if (result instanceof Promise) {
+    result.then(function (result) {
+      if (data.callId) {
+        mainWindow.webContents.send('async-call-result', {callId: data.callId, error: null, result})
+      }
+    })
+    result.catch(function (error) {
+      if (data.callId) {
+        mainWindow.webContents.send('async-call-result', {callId: data.callId, error, result: null})
+      }
+    })
+  } else if (data.callId) {
     mainWindow.webContents.send('async-call-result', {callId: data.callId, error, result})
   }
 })

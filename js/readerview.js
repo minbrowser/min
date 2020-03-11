@@ -71,7 +71,7 @@ var readerView = {
       throw new Error("attempting to print in a tab that isn't a reader page")
     }
 
-    webviews.get(tabId).executeJavaScript('parentProcessActions.printArticle()', false)
+    webviews.callAsync(tabs.getSelected(), 'executeJavaScript', 'parentProcessActions.printArticle()')
   },
   searchForArticles: function (filterText, cb) {
     var results = []

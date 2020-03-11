@@ -51,7 +51,7 @@ module.exports = {
         readerView.printArticle(tabs.getSelected())
       } else {
       // TODO figure out why webContents.print() doesn't work in Electron 4
-        webviews.get(tabs.getSelected()).executeJavaScript('window.print()')
+        webviews.callAsync(tabs.getSelected(), 'executeJavaScript', 'window.print()')
       }
     })
 
