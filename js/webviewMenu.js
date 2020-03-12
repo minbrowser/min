@@ -139,16 +139,14 @@ var webviewMenu = {
 
     var clipboardActions = []
 
-    if (link || (mediaURL && !mediaURL.startsWith('blob:'))) {
+    if (mediaURL && data.mediaType === 'image') {
       clipboardActions.push(new MenuItem({
-        label: l('copyLink'),
+        label: l('copy'),
         click: function () {
-          clipboard.writeText(link || mediaURL)
+          webviews.callAsync(tabs.getSelected(), 'copyImageAt', [data.x, data.y])
         }
       }))
-    }
-
-    if (selection) {
+    } else if (selection) {
       clipboardActions.push(new MenuItem({
         label: l('copy'),
         click: function () {
@@ -162,6 +160,15 @@ var webviewMenu = {
         label: l('paste'),
         click: function () {
           webviews.get(tabs.getSelected()).paste()
+        }
+      }))
+    }
+
+    if (link || (mediaURL && !mediaURL.startsWith('blob:'))) {
+      clipboardActions.push(new MenuItem({
+        label: l('copyLink'),
+        click: function () {
+          clipboard.writeText(link || mediaURL)
         }
       }))
     }
