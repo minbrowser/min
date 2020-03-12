@@ -87,11 +87,13 @@ const searchbarPlugins = {
       }
     }
     var item = searchbarUtils.createItem(data)
-    item.setAttribute('data-url', data.url)
 
-    item.addEventListener('click', function (e) {
-      URLOpener(data.url, e)
-    })
+    if (data.url) {
+      item.setAttribute('data-url', data.url)
+      item.addEventListener('click', function (e) {
+        URLOpener(data.url, e)
+      })
+    }
 
     searchbarPlugins.getContainer(pluginName).appendChild(item)
 
