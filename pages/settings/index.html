@@ -12,29 +12,29 @@
 </head>
 
 <body>
-	<div class="hero short-hero blue-gradient-background">
-		<div class="container padding">
+	<div class="short-hero blue-gradient-background">
+		<div class="container">
 			<h2 data-string="settingsPreferencesHeading"></h2>
 		</div>
 	</div>
 
-	<div class="spacer"></div>
-	<div class="container padding" id="privacy-settings-container">
+	<div class="settings-container" id="privacy-settings-container">
 		<h3 data-string="settingsPrivacyHeading"></h3>
-		<div class="light-fade" data-string="settingsEasyListCredit" data-allowHTML></div>
-
-		<div class="spacer"></div>
+		<div class="settings-info-subheading container-subheading" data-string="settingsEasyListCredit" data-allowHTML></div>
 
 		<div class="setting-section" id="tracking-level-container">
-			<input type="radio" name="blockingLevel" id="blocking-allow-all" />
-			<label for="blocking-allow-all" data-string="settingsContentBlockingLevel0"></label>
-			<div class="spacer-small"></div>
-			<input type="radio" name="blockingLevel" id="blocking-third-party" />
-			<label for="blocking-third-party" data-string="settingsContentBlockingLevel1"></label>
-			<div class="spacer-small"></div>
-			<input type="radio" name="blockingLevel" id="blocking-block-all" />
-			<label for="blocking-block-all" data-string="settingsContentBlockingLevel2"></label>
-			<div class="spacer-small"></div>
+			<div class="setting-option">
+				<input type="radio" name="blockingLevel" id="blocking-allow-all" />
+				<label for="blocking-allow-all" data-string="settingsContentBlockingLevel0"></label>
+			</div>
+			<div class="setting-option">
+				<input type="radio" name="blockingLevel" id="blocking-third-party" />
+				<label for="blocking-third-party" data-string="settingsContentBlockingLevel1"></label>
+			</div>
+			<div class="setting-option">
+				<input type="radio" name="blockingLevel" id="blocking-block-all" />
+				<label for="blocking-block-all" data-string="settingsContentBlockingLevel2"></label>
+			</div>
 
 			<div id="content-blocking-information" hidden>
 				<div><span data-string="settingsContentBlockingExceptions"></span> &nbsp;
@@ -44,32 +44,30 @@
 		</div>
 	</div>
 
-	<div class="spacer">
-	</div>
-
-	<div class="spacer"></div>
-	<div class="container padding" id="appearance-settings-container">
+	<div class="settings-container" id="appearance-settings-container">
 		<h3 data-string="settingsAppearanceHeading"></h3>
 		<div class="setting-section">
 			<input type="checkbox" id="checkbox-dark-mode" />
 			<label for="checkbox-dark-mode" data-string="settingsDarkModeToggle"></label>
-			<div class="spacer"></div>
+		</div>
+		<div class="setting-section">
 			<input type="checkbox" id="checkbox-site-theme" />
 			<label for="checkbox-site-theme" data-string="settingsSiteThemeToggle"></label>
-			<div class="spacer"></div>
+		</div>
+		<div class="setting-section">
 			<input type="checkbox" id="checkbox-history-button" />
 			<label for="checkbox-history-button" data-string="settingsHistoryButtonToggle"></label>
 		</div>
 	</div>
 
-	<div class="spacer"></div>
-	<div class="container padding" id="additional-settings-container">
+	<div class="settings-container" id="additional-settings-container">
 		<h3 data-string="settingsAdditionalFeaturesHeading"></h3>
 
 		<div class="setting-section">
 			<input type="checkbox" id="checkbox-userscripts" />
 			<label for="checkbox-userscripts" data-string="settingsUserscriptsToggle"></label>
-			<div class="light-fade setting-secondary-label" data-string="settingsUserscriptsExplanation" data-allowHTML></div>
+			<div class="settings-info-subheading setting-secondary-label" data-string="settingsUserscriptsExplanation"
+				data-allowHTML></div>
 		</div>
 
 		<div class="setting-section">
@@ -78,32 +76,27 @@
 		</div>
 	</div>
 
-	<div class="spacer">
-	</div>
-
-	<div class="container padding" id="search-engine-settings-container">
+	<div class="settings-container" id="search-engine-settings-container">
 		<h3 data-string="settingsSearchEngineHeading"></h3>
 
 		<label for="defaultSearchEngine" data-string="settingsDefaultSearchEngine"></label> &nbsp;
 		<select id="default-search-engine" name="defaultSearchEngine" style="min-width: 225px"></select>
-		<input id="custom-search-engine" style="margin-left: 0.5em; min-width: 325px" hidden/>
+		<input id="custom-search-engine" style="margin-left: 0.5em; min-width: 325px" hidden />
 
-		<div class="light-fade" style="padding-top:0.4em" data-string="settingsDDGExplanation"></div>
+		<div class="settings-info-subheading" style="padding-top:0.4em" data-string="settingsDDGExplanation"></div>
 	</div>
 
-	<div class="spacer"></div>
-	<div class="container padding" id="password-autofill-container">
+	<div class="settings-container" id="password-autofill-container">
 		<h3 data-string="settingsPasswordAutoFillHeadline"></h3>
 
 		<label for="selectedPasswordManagers" data-string="settingsSelectPasswordManager"></label> &nbsp;
-                <select id="selected-password-manager" name="selectedPasswordManager" style="min-width: 225px"></select>
+		<select id="selected-password-manager" name="selectedPasswordManager" style="min-width: 225px"></select>
 
 	</div>
 
-	<div class="spacer"></div>
-	<div class="container padding" id="keymap-settings-container">
+	<div class="settings-container" id="keymap-settings-container">
 		<h3 data-string="settingsKeyboardShortcutsHeading"></h3>
-		<div class="light-fade" data-string="settingsKeyboardShortcutsHelp"></div>
+		<div class="settings-info-subheading" data-string="settingsKeyboardShortcutsHelp"></div>
 
 		<div class="setting-section">
 			<ul id="key-map-list" class="setting-section"></ul>
@@ -112,7 +105,7 @@
 
 	<!-- this needs to be placed at the bottom so that sticky positioning works correctly -->
 	<div class="banner yellow-background" id="restart-required-banner" hidden>
-		<div class="container padding">
+		<div class="container">
 			<i class="fa fa-info-circle"></i>
 			<span data-string="settingsRestartRequired"></span>
 		</div>

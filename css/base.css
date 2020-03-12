@@ -30,6 +30,7 @@ html {
 }
 
 body.dark-mode {
+	background-color: rgb(33, 37, 43);
 	color: lightgrey;
 }
 
@@ -72,4 +73,8 @@ h1 + h2 {
 a {
 	color: royalblue;
 	text-decoration: none;
+}
+
+.dark-mode a {
+	color: dodgerblue;
 }
