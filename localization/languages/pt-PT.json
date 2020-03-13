@@ -201,7 +201,7 @@
         "downloadStateCompleted": "Terminada",
         "downloadStateFailed": "Falhada",
         /* Update Notifications */
-        "updateNotificationTitle": "Está disponível uma uma nova versão"
+        "updateNotificationTitle": "Está disponível uma uma nova versão",
 	    /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Preenchimento automático de palavras-passe",
         "settingsSelectPasswordManager": "Escolha uma das seguintes aplicações:",
