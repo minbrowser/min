@@ -4,6 +4,7 @@ var tagIndex = {
   termTags: {},
   tagTagMap: {},
   tagCounts: {},
+  tagUpdateTimes: {},
   getPageTokens: function (page) {
     var urlChunk = ''
     try {
@@ -67,6 +68,12 @@ var tagIndex = {
           tagIndex.tagTagMap[t1][t2]++
         }
       })
+    })
+
+    page.tags.forEach(function (tag) {
+      if (!tagIndex.tagUpdateTimes[tag] || page.lastVisit > tagIndex.tagUpdateTimes[tag]) {
+        tagIndex.tagUpdateTimes[tag] = page.lastVisit
+      }
     })
   },
   removePage: function (page) {
@@ -183,6 +190,10 @@ var tagIndex = {
           score = 0
         }
       })
+
+      // prefer tags with a recently-visited (or created) page
+      score *= Math.max(2 - ((Date.now() - tagIndex.tagUpdateTimes[tag]) / (14 * 24 * 60 * 60 * 1000)), 1)
+
       tagScores.push({tag, score})
     }
 
