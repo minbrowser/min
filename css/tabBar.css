@@ -144,7 +144,6 @@ body.is-edit-mode #navbar #tabs {
 	margin-top: -0.1em;
 	padding: 0.66em;
 	vertical-align: middle;
-	width: 1em;
 	box-sizing: content-box;
 }
 .tab-item.active:not(:only-child) {
@@ -314,6 +313,19 @@ body.dark-mode #overlay {
 }
 .tab-item.active .reader-button.is-reader {
 	display: inline-block;
+}
+
+/* permission request buttons */
+
+.tab-item .tab-icon.permission-request-icon {
+	border: 1px currentColor solid;
+	border-radius: 0.5em;
+}
+.tab-item .tab-icon.permission-request-icon.active {
+	background-color: red;
+}
+.tab-item:not(.active) .permission-request-icon:not(.active) {
+	display: none;
 }
 
 /* when the tab is hovered, hide info buttons and show the close button */
