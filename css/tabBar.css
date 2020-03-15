@@ -318,12 +318,36 @@ body.dark-mode #overlay {
 /* permission request buttons */
 
 .tab-item .tab-icon.permission-request-icon {
-	border: 1px currentColor solid;
-	border-radius: 0.5em;
+	border: 1px rgba(0, 0, 0, 0.3) solid;
+    padding: 0.16em;
+    margin-right: 0.66em;
+    margin-top: -0.2em;
+    border-radius: 0.75em;
+}
+.tab-item .tab-icon.permission-request-icon i {
+	margin: 0 0.15em;
+	vertical-align: bottom;
+}
+.dark-theme .tab-item .tab-icon.permission-request-icon {
+	border-color: rgba(255, 255, 255, 0.5);
+}
+.tab-item .tab-icon.permission-request-icon:hover {
+	background-color: rgba(0, 0, 0, 0.075);
+}
+.dark-theme .tab-item .tab-icon.permission-request-icon:hover {
+	background-color: rgba(255, 255, 255, 0.15);
 }
 .tab-item .tab-icon.permission-request-icon.active {
-	background-color: red;
+	background-color: rgba(0, 0, 0, 0.66);
+	border-color: transparent;
+	color: white;
 }
+.dark-theme .tab-item .tab-icon.permission-request-icon.active {
+	background-color: rgba(255,255,255,0.9);
+	border-color: transparent;
+    color: black;
+}
+
 .tab-item:not(.active) .permission-request-icon:not(.active) {
 	display: none;
 }
