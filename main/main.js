@@ -249,6 +249,23 @@ function createWindowWithBounds (bounds, shouldMaximize) {
   return mainWindow
 }
 
+/* allow for open tabs to be saved before quitting */
+var hasSavedData = false;
+app.on('before-quit', function (e) {
+  if (mainWindow && !hasSavedData) {
+    e.preventDefault();
+    ipc.once("can-quit", function() {
+      app.quit();
+    })
+    sendIPCToWindow(mainWindow, 'before-quit')
+    //force quit if the window isn't responsive
+    setTimeout(function() {
+      app.quit()
+    }, 1000)
+  }
+  hasSavedData = true;
+});
+
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
   // On OS X it is common for applications and their menu bar

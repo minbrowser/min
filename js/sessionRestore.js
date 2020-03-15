@@ -3,7 +3,7 @@ var browserUI = require('browserUI.js')
 window.sessionRestore = {
   savePath: userDataPath + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
   previousState: null,
-  save: throttle(function () {
+  save: function (cb, forceSave) {
     var stateString = JSON.stringify(tasks.getStringifyableState())
     var data = {
       version: 2,
@@ -19,11 +19,17 @@ window.sessionRestore = {
       })
     }
 
-    if (stateString !== sessionRestore.previousState) {
-      fs.writeFile(sessionRestore.savePath, JSON.stringify(data), function () {})
+    if (forceSave === true || stateString !== sessionRestore.previousState) {
+      fs.writeFile(sessionRestore.savePath, JSON.stringify(data), function (err) {
+        if (cb) {
+          cb(err)
+        }
+      })
       sessionRestore.previousState = stateString
+    } else if (cb) {
+      cb()
     }
-  }, 5000),
+  },
   restore: function () {
     var savedStringData
     try {
@@ -143,6 +149,12 @@ window.sessionRestore = {
 
 sessionRestore.restore()
 
-tasks.on('tab-selected', sessionRestore.save)
+setInterval(sessionRestore.save, 30000)
 
-setInterval(sessionRestore.save, 12500)
+ipc.on('before-quit', function () {
+  sessionRestore.save(function (err) {
+    if (!err) {
+      ipc.send('can-quit')
+    }
+  }, true)
+})
