@@ -38,7 +38,7 @@ var webviewGestures = {
     return this.zoomWebviewBy(tabId, -0.2)
   },
   resetWebviewZoom: function (tabId) {
-    webviews.get(tabId).setZoomFactor(1.0)
+    webviews.get(tabId).zoomFactor = 1.0
   }
 }
 
