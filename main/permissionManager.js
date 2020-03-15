@@ -30,12 +30,12 @@ function removePermissionsForContents (contents) {
 Was permission already granted for this tab and URL?
 */
 function isPermissionGrantedForContents (requestContents, requestPermission, requestDetails) {
-  var testOrigin = new URL(requestDetails.requestingUrl).hostname
+  var requestOrigin = new URL(requestDetails.requestingUrl).hostname
 
   for (var i = 0; i < grantedPermissions.length; i++) {
     var grantedOrigin = new URL(grantedPermissions[i].details.requestingUrl).hostname
 
-    if (requestContents === grantedPermissions[i].contents && grantedOrigin === testOrigin) {
+    if (requestContents === grantedPermissions[i].contents && requestOrigin === grantedOrigin) {
       if (requestPermission === 'notifications' && grantedPermissions[i].permission === 'notifications') {
         return true
       }
@@ -47,7 +47,7 @@ function isPermissionGrantedForContents (requestContents, requestPermission, req
           return true
         }
         // type 2: from a permissionRequestHandler
-        // request has a single media type
+        // request has multiple media types
         // TODO existing granted permissions should be merged together (i.e. if there is an existing permission for audio, and another for video, a new request for audio+video should be approved, but it currently won't be)
         if (requestDetails.mediaTypes && requestDetails.mediaTypes.every(type => grantedPermissions[i].details.mediaTypes.includes(type))) {
           return true
@@ -59,14 +59,15 @@ function isPermissionGrantedForContents (requestContents, requestPermission, req
 }
 
 /*
-Is there already a pending request of the given type for this tab+url? */
+Is there already a pending request of the given type for this tab+url?
+ */
 function hasPendingRequestForContents (contents, permission, details) {
-  var testOrigin = new URL(details.requestingUrl).hostname
+  var requestOrigin = new URL(details.requestingUrl).hostname
 
   for (var i = 0; i < pendingPermissions.length; i++) {
     var pendingOrigin = new URL(pendingPermissions[i].details.requestingUrl).hostname
 
-    if (contents === pendingPermissions[i].contents && pendingOrigin === testOrigin && permission === pendingPermissions[i].permission) {
+    if (contents === pendingPermissions[i].contents && requestOrigin === pendingOrigin && permission === pendingPermissions[i].permission) {
       return true
     }
   }
