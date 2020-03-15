@@ -83,6 +83,14 @@ function getView (id) {
   return viewMap[id]
 }
 
+function getViewIDFromWebContents (contents) {
+  for (var id in viewMap) {
+    if (viewMap[id].webContents === contents) {
+      return id
+    }
+  }
+}
+
 ipc.on('createView', function (e, args) {
   createView(args.id, args.webPreferencesString, args.boundsString, args.events)
 })

@@ -8,6 +8,7 @@ var urlParser = require('util/urlParser.js')
 
 var progressBar = require('navbar/progressBar.js')
 var bookmarkStar = require('navbar/bookmarkStar.js')
+var permissionRequests = require('navbar/permissionRequests.js')
 
 var lastTabDeletion = 0 // TODO get rid of this
 
@@ -103,6 +104,7 @@ window.tabBar = {
   },
   rerenderTab: function (tabId) {
     var tabEl = tabBar.getTab(tabId)
+    var vc = tabEl.querySelector('.tab-view-contents')
     var tabData = tabs.get(tabId)
 
     var tabTitle = tabData.title || l('newTabLabel')
@@ -114,6 +116,12 @@ window.tabBar = {
     if (tabData.private) {
       tabEl.title += ' (' + l('privateTab') + ')'
     }
+
+    tabEl.querySelectorAll('.permission-request-icon').forEach(el => el.remove())
+
+    permissionRequests.getButtons(tabId).reverse().forEach(function (button) {
+      vc.insertBefore(button, vc.children[0])
+    })
 
     var secIcon = tabEl.getElementsByClassName('icon-tab-not-secure')[0]
     if (tabData.secure === false) {
@@ -165,6 +173,10 @@ window.tabBar = {
 
     var viewContents = document.createElement('div')
     viewContents.className = 'tab-view-contents'
+
+    permissionRequests.getButtons(data.id).forEach(function (button) {
+      viewContents.appendChild(button)
+    })
 
     viewContents.appendChild(readerView.getButton(data.id))
     viewContents.appendChild(progressBar.create())
@@ -322,7 +334,7 @@ window.tabBar = {
       tabBar.container.removeChild(tabEl)
       delete tabBar.tabElementMap[tabId]
     }
-  },
+  }
 }
 
 // when we click outside the navbar, we leave editing mode
@@ -345,4 +357,8 @@ tasks.on('tab-updated', function (id, key) {
   if (key === 'title' || key === 'secure' || key === 'url') {
     tabBar.rerenderTab(id)
   }
+})
+
+permissionRequests.onChange(function (tabId) {
+  tabBar.rerenderTab(tabId)
 })
