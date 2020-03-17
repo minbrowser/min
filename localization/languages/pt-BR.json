@@ -5,7 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "pictureInPicture": null, //missing translation
+        "pictureInPicture": "Picture in picture", //missing translation
         "openInNewTab": "Abrir em uma nova aba",
         "openInNewPrivateTab": "Abrir em uma nova aba privada",
         "viewImage": "Ver imagem",
@@ -17,7 +17,7 @@
         "selectAll": "Selecionar tudo",
         "undo": "Desfazer",
         "redo": "Refazer",
-        "cut": "Cortar",
+        "cut": "Recortar",
         "copy": "Copiar", //this is a verb (as in "copy the currently-selected text")
         "paste": "Colar",
         "goBack": "Voltar",
@@ -37,8 +37,8 @@
         "viewReadingList": "Ver listas de leitura",
         "takeScreenshot": "Capturar tela",
         "clearHistory": "Limpar histórico",
-        "enableBlocking": null, //missing translation
-        "disableBlocking": null, //missing translation
+        "enableBlocking": "Ativar bloqueio de conteúdo para este site", 
+        "disableBlocking": "Desativar bloqueio de conteúdo para este site",
         "clearHistoryConfirmation": "Limpar todo o histórico e dados de navegação?",
         "switchToTask": "Trocar para a tarefa",
         "createTask": "Criar tarefa",
@@ -157,7 +157,7 @@
         "appMenuEdit": "Editar",
         "appMenuUndo": "Desfazer",
         "appMenuRedo": "Refazer",
-        "appMenuCut": "Cortar",
+        "appMenuCut": "Recortar",
         "appMenuCopy": "Copiar",
         "appMenuPaste": "Colar",
         "appMenuSelectAll": "Selecionar tudo",
@@ -190,7 +190,7 @@
         "appMenuHide": "Esconder %n",
         "appMenuHideOthers": "Esconder o resto",
         "appMenuShowAll": "Mostrar tudo",
-        "appMenuQuit": "Sair de %n",
+        "appMenuQuit": "Sair do %n",
         "appMenuBringToFront": "Trazer tudo para a frente",
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "página <input type='text'/> de <span id='total'></span>"},
@@ -200,5 +200,28 @@
         "downloadStateFailed": "Falhou",
         /* Update Notifications */
         "updateNotificationTitle": "Uma nova versão do Min está disponível"
+	 /* Autofill settings */
+        "settingsPasswordAutoFillHeadline": "Preenchimento automático de senhas",
+        "settingsSelectPasswordManager": "Escolha um dos gerenciadores de senhas suportados:",
+        /* Password manager setup */
+        "passwordManagerSetupHeading": "Conclua a configuração de %p para usar o preenchimento automático",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "Primeiro, <a id='password-manager-setup-link'></a> e extraia-o para o seu sistema."
+        },
+        "passwordManagerSetupLink": "Faça o download %p CLI tool",
+        "passwordManagerSetupStep2": "Em seguida, arraste a ferramenta para a caixa abaixo:",
+        "passwordManagerSetupDragBox": "Arraste a ferramenta aqui",
+        "passwordManagerSetupInstalling": "Instalando ...",
+        "passwordManagerSetupSignIn": "Entre no seu gerenciador de senhas para começar a usar o preenchimento automático. Suas credenciais não serão armazenadas em nenhum lugar do Min.",
+        "disableAutofill": "Desativar preenchimento automático",
+        "autofillNotNow": "Agora não",
+        "passwordManagerSetupUnlockError": "Falha ao desbloquear o armazenamento de senhas:",
+        "passwordManagerSetupRetry": "Verifique se você está usando o arquivo certo e digitando a senha correta. Você pode tentar novamente arrastando a ferramenta aqui.",
+        "passwordManagerUnlock": "Digite sua senha mestra %p para desbloquear o armazenamento de senhas:",
+        /* Dialogs */
+        "dialogConfirmButton": "Confirmar",
+        "dialogSkipButton": "Cancelar",
+        "email": "Email",
+        "password": "Senha"
     }
 }
