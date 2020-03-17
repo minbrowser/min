@@ -9,7 +9,7 @@ var passwordManagers = {
   Bitwarden: {
     name: 'Bitwarden'
   },
-  OnePassword: {
+  '1Password': {
     name: '1Password'
   }
 }

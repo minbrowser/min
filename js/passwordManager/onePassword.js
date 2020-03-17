@@ -28,7 +28,7 @@ class OnePassword {
     // by checking the settings value. If that is not set or doesn't point
     // to a valid executable, it check the if 'bw' is available globally.
     async _getToolPath() {
-      let localPath = settings.get('onePasswordPath')
+      let localPath = settings.get('1PasswordPath')
       if (localPath) {
         let local = false;
         try {
@@ -103,9 +103,14 @@ class OnePassword {
         let data = process.executeSync();
 
         const matches = JSON.parse(data)
+
         let credentials = matches.map(match => match).filter((match) => {
           try {
-          return new URL(match.overview.url).hostname === domain;
+            var matchHost = new URL(match.overview.url).hostname
+            if (matchHost.startsWith('www.')) {
+              matchHost = matchHost.slice(4)
+            }
+            return matchHost === domain;
           } catch (e) {
             return false;
           }
