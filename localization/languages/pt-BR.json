@@ -199,7 +199,7 @@
         "downloadStateCompleted": "Concluído",
         "downloadStateFailed": "Falhou",
         /* Update Notifications */
-        "updateNotificationTitle": "Uma nova versão do Min está disponível"
+        "updateNotificationTitle": "Uma nova versão do Min está disponível",
 	 /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Preenchimento automático de senhas",
         "settingsSelectPasswordManager": "Escolha um dos gerenciadores de senhas suportados:",
