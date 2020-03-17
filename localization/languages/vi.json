@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "Mở trong tab mới",
         "openInNewPrivateTab": "Mở trong tab riêng tư mới",
         "viewImage": "Xem ảnh",
@@ -36,6 +37,8 @@
         "viewReadingList": "Xem danh sách đọc",
         "takeScreenshot": "Chụp màn hình",
         "clearHistory": "Xóa lịch sử",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": "Xóa các lịch sử và dữ liệu duyệt?",
         "switchToTask": "Đổi sang quá trình",
         "createTask": "Tạo quá trình",

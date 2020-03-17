@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "新規タブで開く",
         "openInNewPrivateTab": "新規プライベートタブで開く",
         "viewImage": "画像を表示",
@@ -36,6 +37,8 @@
         "viewReadingList": "閲覧リストを見る",
         "takeScreenshot": "スクリーンショットを撮る",
         "clearHistory": "すべての履歴をクリア",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": "履歴をクリアしてもよろしいですか？",
         "switchToTask": "タスクに切り替える",
         "createTask": "タスクを作成",

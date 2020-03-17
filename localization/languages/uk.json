@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": "Зображення в зображенні",
         "openInNewTab": "Відкрити в новій вкладці",
         "openInNewPrivateTab": "Відкрити в приватній вкладці",
         "viewImage": "Переглянути зображення",
@@ -36,6 +37,8 @@
         "viewReadingList": "Переглянути список читання",
         "takeScreenshot": "Зробити знімок екрану",
         "clearHistory": "Очистити історію",
+        "enableBlocking": "Увімкнути блокування вмісту для цього сайту",
+        "disableBlocking": "Вимкнути блокування вмісту для цього сайту",
         "clearHistoryConfirmation": "Очистити всю історію та дані веб-перегляду?",
         "switchToTask": "Перейти до завдання",
         "createTask": "Створити завдання",
@@ -198,6 +201,29 @@
         "downloadStateCompleted": "Завершено",
         "downloadStateFailed": "Невдача",
         /* Update Notifications */
-        "updateNotificationTitle": "Доступна нова версія Min"
+        "updateNotificationTitle": "Доступна нова версія Min",
+        /* Autofill settings */
+        "settingsPasswordAutoFillHeadline": "Автозаповнення пароля",
+        "settingsSelectPasswordManager": "Виберіть один із підтримуваних менеджерів паролів:",
+        /* Password manager setup */
+        "passwordManagerSetupHeading": "Завершіть налаштування %p щоб використовувати автозаповнення",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "Спочатку <a id='password-manager-setup-link'></a> і розпакуйте його для Вашої системи."
+        },
+        "passwordManagerSetupLink": "завантажте інструмент CLI %p",
+        "passwordManagerSetupStep2": "Потім перетягніть інструмент у поле нижче:",
+        "passwordManagerSetupDragBox": "Перетягніть інструмент сюди",
+        "passwordManagerSetupInstalling": "Встановлення...",
+        "passwordManagerSetupSignIn": "Увійдіть до менеджера паролів, щоб почати використовувати автозаповнення. Ваші облікові дані не зберігатимуться ніде в межах Min.",
+        "disableAutofill": "Вимкнути автозаповнення",
+        "autofillNotNow": "Не зараз",
+        "passwordManagerSetupUnlockError": "Не вдалося розблокувати сховище паролів: ",
+        "passwordManagerSetupRetry": "Переконайтеся, що використовуєте правильний файл та ввели правильний пароль. Ви можете повторити спробу, перетягнувши сюди інструмент ще раз.",
+        "passwordManagerUnlock": "Введіть головний пароль %p, щоб розблокувати сховище паролів:",
+        /* Dialogs */
+        "dialogConfirmButton": "Підтвердити",
+        "dialogSkipButton": "Скасувати",
+        "email": "Електронна пошта",
+        "password": "Пароль"
     }
 }

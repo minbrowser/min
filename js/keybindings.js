@@ -54,9 +54,10 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
         }
       } else {
         // check whether an input is focused in the webview
-        webview.executeJavaScript(`
+        webviews.callAsync(tabs.getSelected(), 'executeJavaScript', `
         document.activeElement.tagName === "INPUT"
         || document.activeElement.tagName === "TEXTAREA"
+        || document.activeElement.tagName === "IFRAME"
         || (function () {
           var n = document.activeElement;
           while (n) {
@@ -67,12 +68,15 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
           }
           return false;
         })()
-        `).then(function (isInputFocused) {
+        `, function (err, isInputFocused) {
+          if (err) {
+            console.warn(err)
+            return
+          }
           if (isInputFocused === false) {
             fn(e, combo)
           }
         })
-        .catch(e => console.log(e))
       }
     } else {
       // other shortcuts can run immediately

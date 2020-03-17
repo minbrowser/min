@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "새 작업",
         "openInNewPrivateTab": "새 개인 작업",
         "viewImage": "그림 보기",
@@ -36,6 +37,8 @@
         "viewReadingList": "읽기 지원 목록",
         "takeScreenshot": "갈무리",
         "clearHistory": "기록 삭제",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": "모든 기록 및 통신망 사용 정보를 삭제 하시겠습니까?",
         "switchToTask": "작업장 변경",
         "createTask": "작업장 생성",

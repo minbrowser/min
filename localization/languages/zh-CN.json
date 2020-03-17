@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "在新标签页打开",
         "openInNewPrivateTab": "在新隐私标签页中打开",
         "viewImage": "查看图片",
@@ -36,6 +37,8 @@
         "viewReadingList": "显示阅读列表",
         "takeScreenshot": "截图",
         "clearHistory": "清除所有历史记录",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": "是否清除所有历史记录？",
         "switchToTask": "切换到标签组列表",
         "closeTask": "关闭标签组",

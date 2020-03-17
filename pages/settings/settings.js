@@ -14,19 +14,19 @@ function showRestartRequiredBanner () {
 /* content blocking settings */
 
 var trackingLevelContainer = document.getElementById('tracking-level-container')
-var trackingLevelOptions = Array.from(document.querySelectorAll('input[name=blockingLevel]'))
+var trackingLevelOptions = Array.from(trackingLevelContainer.querySelectorAll('input[name=blockingLevel]'))
 var blockingExceptionsContainer = document.getElementById('content-blocking-information')
 var blockingExceptionsInput = document.getElementById('content-blocking-exceptions')
 
 function updateBlockingLevelUI (level) {
-  trackingLevelOptions[level].checked = true
+  var radio = trackingLevelOptions[level]
+  radio.checked = true
 
   if (level === 0) {
     blockingExceptionsContainer.hidden = true
   } else {
     blockingExceptionsContainer.hidden = false
-    var insertionPoint = Array.from(trackingLevelContainer.children).indexOf(trackingLevelOptions[level]) + 2
-    trackingLevelContainer.insertBefore(blockingExceptionsContainer, trackingLevelContainer.children[insertionPoint])
+    radio.parentNode.appendChild(blockingExceptionsContainer)
   }
 }
 

@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "باز کردن در برگه جدید",
         "openInNewPrivateTab": "باز کردن در برگه خصوصی جدید",
         "viewImage": "نمایش تصویر",
@@ -36,6 +37,8 @@
         "viewReadingList": "نمایش لیست خواندن",
         "takeScreenshot": "عکس گرفتن از صفحه",
         "clearHistory": "حذف تاریخچه مرورگر",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "تغییر به وظیفه",
         "createTask": "ایجاد وظیفه جدید",

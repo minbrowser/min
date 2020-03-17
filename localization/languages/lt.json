@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "Atverti naujoje kortelėje",
         "openInNewPrivateTab": "Atverti naujoje privačioje kortelėje",
         "viewImage": "Rodyti paveikslą",
@@ -36,6 +37,8 @@
         "viewReadingList": "Rodyti skaitymo sąrašą",
         "takeScreenshot": "Padaryti ekrano kopiją",
         "clearHistory": "Išvalyti visą istoriją",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Perjungti į užduotį",
         "createTask": "Sukurti užduotį",

@@ -51,7 +51,7 @@ module.exports = {
         readerView.printArticle(tabs.getSelected())
       } else {
       // TODO figure out why webContents.print() doesn't work in Electron 4
-        webviews.get(tabs.getSelected()).executeJavaScript('window.print()')
+        webviews.callAsync(tabs.getSelected(), 'executeJavaScript', 'window.print()')
       }
     })
 
@@ -101,6 +101,25 @@ module.exports = {
       const sourceTab = tabs.get(tabs.getSelected())
         // strip tab id so that a new one is generated
       const newTab = tabs.add({...sourceTab, id: undefined})
+
+      // duplicate scroll position as well
+      let scrollPosition = 0
+      webviews.callAsync(sourceTab.id, 'executeJavaScript', '(function() {return window.scrollY})()', function (err, data) {
+        scrollPosition = data
+      })
+
+      const listener = function (webview, tabId, e) {
+        if (tabId === newTab) {
+          // the scrollable content may not be available until some time after the load event, so attempt scrolling several times
+          for (let i = 0; i < 3; i++) {
+            setTimeout(function () {
+              webviews.callAsync(newTab, 'executeJavaScript', `window.scrollTo(0, ${scrollPosition})`)
+            }, 750 * i)
+          }
+          webviews.unbindEvent('did-finish-load', listener)
+        }
+      }
+      webviews.bindEvent('did-finish-load', listener)
 
       browserUI.addTab(newTab, { enterEditMode: false })
     })

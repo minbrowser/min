@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "Otwórz w nowej karcie",
         "openInNewPrivateTab": "Otwórz w nowej karcie prywatnej",
         "viewImage": "Zobacz grafikę",
@@ -36,6 +37,8 @@
         "viewReadingList": "Wyświetl listę czytelnia",
         "takeScreenshot": "Zrób zrzut ekranu",
         "clearHistory": "Wyczyść całą historię",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": "Czy wyczyścić całą historię i dane przeglądania?",
         "switchToTask": "Przełącz na zadanie",
         "createTask": "Utwórz zadanie",

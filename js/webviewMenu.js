@@ -5,7 +5,8 @@ var searchEngine = require('util/searchEngine.js')
 var Menu, MenuItem, clipboard // these are only loaded when the menu is shown
 
 var webviewMenu = {
-  showMenu: function (data) { // data comes from a context-menu event
+  menuData: null,
+  showMenu: function (data, extraData) { // data comes from a context-menu event
     if (!Menu || !MenuItem || !clipboard) {
       Menu = remote.Menu
       MenuItem = remote.MenuItem
@@ -17,6 +18,19 @@ var webviewMenu = {
 
     var menuSections = []
 
+    /* Picture in Picture */
+
+    if (extraData.hasVideo) {
+      menuSections.push([
+        new MenuItem({
+          label: l('pictureInPicture'),
+          click: function () {
+            webviews.callAsync(tabs.getSelected(), 'send', ['enterPictureInPicture', {x: data.x, y: data.y}])
+          }
+        })
+      ])
+    }
+
     /* links */
 
     var link = data.linkURL || data.frameURL
@@ -26,7 +40,7 @@ var webviewMenu = {
       link = null
     }
 
-    var image = data.srcURL
+    var mediaURL = data.srcURL
 
     if (link) {
       var linkActions = [
@@ -53,13 +67,13 @@ var webviewMenu = {
       }))
 
       menuSections.push(linkActions)
-    } else if (image) {
+    } else if (mediaURL && data.mediaType === 'image') {
       /* images */
       /* we don't show the image actions if there are already link actions, because it makes the menu too long and because the image actions typically aren't very useful if the image is a link */
 
       var imageActions = [
         new MenuItem({
-          label: (image.length > 60) ? image.substring(0, 60) + '...' : image,
+          label: (mediaURL.length > 60) ? mediaURL.substring(0, 60) + '...' : mediaURL,
           enabled: false
         })
       ]
@@ -67,7 +81,7 @@ var webviewMenu = {
       imageActions.push(new MenuItem({
         label: l('viewImage'),
         click: function () {
-          browserUI.navigate(tabs.getSelected(), image)
+          browserUI.navigate(tabs.getSelected(), mediaURL)
         }
       }))
 
@@ -75,7 +89,7 @@ var webviewMenu = {
         imageActions.push(new MenuItem({
           label: l('openImageInNewTab'),
           click: function () {
-            browserUI.addTab(tabs.add({ url: image }), { enterEditMode: false })
+            browserUI.addTab(tabs.add({ url: mediaURL }), { enterEditMode: false })
           }
         }))
       }
@@ -83,7 +97,7 @@ var webviewMenu = {
       imageActions.push(new MenuItem({
         label: l('openImageInNewPrivateTab'),
         click: function () {
-          browserUI.addTab(tabs.add({ url: image, private: true }), { enterEditMode: false })
+          browserUI.addTab(tabs.add({ url: mediaURL, private: true }), { enterEditMode: false })
         }
       }))
 
@@ -93,7 +107,7 @@ var webviewMenu = {
         new MenuItem({
           label: l('saveImageAs'),
           click: function () {
-            remote.getCurrentWebContents().downloadURL(image)
+            remote.getCurrentWebContents().downloadURL(mediaURL)
           }
         })
       ])
@@ -125,16 +139,14 @@ var webviewMenu = {
 
     var clipboardActions = []
 
-    if (link || image) {
+    if (mediaURL && data.mediaType === 'image') {
       clipboardActions.push(new MenuItem({
-        label: l('copyLink'),
+        label: l('copy'),
         click: function () {
-          clipboard.writeText(link || image)
+          webviews.callAsync(tabs.getSelected(), 'copyImageAt', [data.x, data.y])
         }
       }))
-    }
-
-    if (selection) {
+    } else if (selection) {
       clipboardActions.push(new MenuItem({
         label: l('copy'),
         click: function () {
@@ -148,6 +160,15 @@ var webviewMenu = {
         label: l('paste'),
         click: function () {
           webviews.get(tabs.getSelected()).paste()
+        }
+      }))
+    }
+
+    if (link || (mediaURL && !mediaURL.startsWith('blob:'))) {
+      clipboardActions.push(new MenuItem({
+        label: l('copyLink'),
+        click: function () {
+          clipboard.writeText(link || mediaURL)
         }
       }))
     }
@@ -204,7 +225,12 @@ var webviewMenu = {
   },
   initialize: function () {
     webviews.bindEvent('context-menu', function (webview, tabId, e, data) {
-      webviewMenu.showMenu(data)
+      webviewMenu.menuData = data
+      webviews.callAsync(tabs.getSelected(), 'send', ['getContextMenuData', {x: data.x, y: data.y}])
+    })
+    webviews.bindIPC('contextMenuData', function (webview, tabId, args) {
+      webviewMenu.showMenu(webviewMenu.menuData, args[0])
+      webview.menuData = null
     })
   }
 }

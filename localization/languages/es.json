@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "Abrir en una nueva pestaña",
         "openInNewPrivateTab": "Abrir en una nueva pestaña privada",
         "viewImage": "Ver imagen",
@@ -36,6 +37,8 @@
         "viewReadingList": null, //missing translation
         "takeScreenshot": "Hacer una captura de pantalla",
         "clearHistory": "Limpiar todo el historial",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Cambiar a la tarea",
         "createTask": "Crear una tarea",

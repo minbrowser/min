@@ -3,7 +3,7 @@ var browserUI = require('browserUI.js')
 window.sessionRestore = {
   savePath: userDataPath + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
   previousState: null,
-  save: throttle(function () {
+  save: function (forceSave, sync) {
     var stateString = JSON.stringify(tasks.getStringifyableState())
     var data = {
       version: 2,
@@ -19,11 +19,19 @@ window.sessionRestore = {
       })
     }
 
-    if (stateString !== sessionRestore.previousState) {
-      fs.writeFile(sessionRestore.savePath, JSON.stringify(data), function () {})
+    if (forceSave === true || stateString !== sessionRestore.previousState) {
+      if (sync === true) {
+        fs.writeFileSync(sessionRestore.savePath, JSON.stringify(data))
+      } else {
+        fs.writeFile(sessionRestore.savePath, JSON.stringify(data), function (err) {
+          if (err) {
+            console.warn(err)
+          }
+        })
+      }
       sessionRestore.previousState = stateString
     }
-  }, 5000),
+  },
   restore: function () {
     var savedStringData
     try {
@@ -115,7 +123,7 @@ window.sessionRestore = {
             } }, 200)
         })
       }
-   } catch (e) {
+    } catch (e) {
       // an error occured while restoring the session data
 
       console.error('restoring session failed: ', e)
@@ -143,6 +151,8 @@ window.sessionRestore = {
 
 sessionRestore.restore()
 
-tasks.on('tab-selected', sessionRestore.save)
+setInterval(sessionRestore.save, 30000)
 
-setInterval(sessionRestore.save, 12500)
+window.onbeforeunload = function (e) {
+  sessionRestore.save(true, true)
+}

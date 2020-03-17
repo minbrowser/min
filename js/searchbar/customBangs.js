@@ -66,6 +66,57 @@ bangsPlugin.registerCustomBang({
   }
 })
 
+bangsPlugin.registerCustomBang({
+  phrase: '!enableblocking',
+  snippet: l('enableBlocking'),
+  isAction: true,
+  fn: function (text) {
+    var url = tabs.get(tabs.getSelected()).url
+    if (!url) {
+      return
+    }
+    var domain = new URL(url).hostname
+
+    var setting = settings.get('filtering')
+    if (!setting) {
+      setting = {}
+    }
+    if (!setting.exceptionDomains) {
+      setting.exceptionDomains = []
+    }
+    setting.exceptionDomains = setting.exceptionDomains.filter(d => d.replace(/^www\./g, '') !== domain.replace(/^www\./g, ''))
+    settings.set('filtering', setting)
+    webviews.callAsync(tabs.getSelected(), 'reload')
+  }
+})
+
+bangsPlugin.registerCustomBang({
+  phrase: '!disableblocking',
+  snippet: l('disableBlocking'),
+  isAction: true,
+  fn: function (text) {
+    var url = tabs.get(tabs.getSelected()).url
+    if (!url) {
+      return
+    }
+    var domain = new URL(url).hostname
+
+    var setting = settings.get('filtering')
+    if (!setting) {
+      setting = {}
+    }
+    if (!setting.exceptionDomains) {
+      setting.exceptionDomains = []
+    }
+    // make sure the domain isn't already an exception
+    if (!setting.exceptionDomains.some(d => d.replace(/^www\./g, '') === domain.replace(/^www\./g, ''))) {
+      setting.exceptionDomains.push(domain)
+    }
+    settings.set('filtering', setting)
+    webviews.callAsync(tabs.getSelected(), 'reload')
+  }
+})
+
 // returns a task with the same name or index ("1" returns the first task, etc.)
 function getTaskByNameOrNumber (text) {
   const textAsNumber = parseInt(text)

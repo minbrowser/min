@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": "Picture in Picture",
         "openInNewTab": "Abrir em novo separador",
         "openInNewPrivateTab": "Abrir em novo separador privado",
         "viewImage": "Ver imagem",
@@ -36,6 +37,8 @@
         "viewReadingList": "Ver lista de leitura",
         "takeScreenshot": "Obter captura de ecrã",
         "clearHistory": "Limpar todo o histórico",
+        "enableBlocking": "Ativar bloqueio de conteúdo para este site",
+        "disableBlocking": "Desativar bloqueio de conteúdo para este site",
         "clearHistoryConfirmation": "Limpar histórico e dados de navegação?",
         "switchToTask": "Trocar para a tarefa",
         "createTask": "Criar tarefa",
@@ -198,6 +201,29 @@
         "downloadStateCompleted": "Terminada",
         "downloadStateFailed": "Falhada",
         /* Update Notifications */
-        "updateNotificationTitle": "Está disponível uma uma nova versão"
+        "updateNotificationTitle": "Está disponível uma uma nova versão",
+	    /* Autofill settings */
+        "settingsPasswordAutoFillHeadline": "Preenchimento automático de palavras-passe",
+        "settingsSelectPasswordManager": "Escolha uma das seguintes aplicações:",
+        /* Password manager setup */
+        "passwordManagerSetupHeading": "Terminar configuração de %p para usar o preenchimento automático",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "Primeiro, <a id='password-manager-setup-link'></a> e extraia para o seu sistema."
+        },
+        "passwordManagerSetupLink": "descarregue a ferramenta CLI %p",
+        "passwordManagerSetupStep2": "Depois, arraste a ferramenta para a caixa abaixo:",
+        "passwordManagerSetupDragBox": "Arraste a ferramenta para aqui",
+        "passwordManagerSetupInstalling": "A instalar...",
+        "passwordManagerSetupSignIn": "Inicie sessão no gestor de palavras-passe para utilizar o preenchimento automático. As suas credenciais não serão guardadas no Min.",
+        "disableAutofill": "Desativar preenchimento automático",
+        "autofillNotNow": "Agora não",
+        "passwordManagerSetupUnlockError": "Falha ao desbloquear: ",
+        "passwordManagerSetupRetry": "Certifique-se de que está a utilizar o ficheiro e a palavra-passe corretas. Pode tentar novamente arrastando a ferramenta para aqui.",
+        "passwordManagerUnlock": "Digite a palavra-passe mestre para %p para desbloquear o armazenamento de palavras-passe:",
+        /* Dialogs */
+        "dialogConfirmButton": "Confirmar",
+        "dialogSkipButton": "Cancelar",
+        "email": "E-mail",
+        "password": "Palavra-passe"
     }
 }

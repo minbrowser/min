@@ -5,7 +5,8 @@
        /* Context menu items
        these are the items displayed in the menu when you right-click on a page
        */
-      "openInNewTab":"নতুন ট্যাবে খুলুন",
+      "pictureInPicture": null, //missing translation
+        "openInNewTab":"নতুন ট্যাবে খুলুন",
       "openInNewPrivateTab":"নতুন ব্যক্তিগত ট্যাবে খুলুন",
       "viewImage":"ভিউ ইমেজ",
       "openImageInNewTab":"চিত্রটি নতুন ট্যাবে খুলুন",
@@ -36,7 +37,9 @@
       "viewReadingList":"পঠন তালিকা দেখুন",
       "takeScreenshot":"একটি স্ক্রিনশট নিন",
       "clearHistory":"সমস্ত ইতিহাস সাফ করুন",
-      "clearHistoryConfirmation": null, //missing translation
+      "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
+        "clearHistoryConfirmation": null, //missing translation
       "switchToTask":"টাস্কে স্যুইচ করুন",
       "createTask":"একটি টাস্ক তৈরি করুন",
       "closeTask": null, //missing translation

@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "Otevřít v nové kartě",
         "openInNewPrivateTab": "Otevřít v nové soukromé kartě",
         "viewImage": "Zobrazit obrázek",
@@ -36,6 +37,8 @@
         "viewReadingList": "Zobrazit seznam čtení",
         "takeScreenshot": "Pořídit snímek obrazovky",
         "clearHistory": "Vymazat celou historii",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Skočit do dimenze",
         "createTask": "Vytvořit dimenzi",

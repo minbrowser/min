@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "在新分頁中開啟",
         "openInNewPrivateTab": "在新無痕頁面中開啟",
         "viewImage": "查看圖片",
@@ -36,6 +37,8 @@
         "viewReadingList": "查看閱讀清單",
         "takeScreenshot": "螢幕截圖",
         "clearHistory": "清除所有歷史",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": "是否清除所有歷史？",
         "switchToTask": "切換至工作",
         "createTask": "新增工作",

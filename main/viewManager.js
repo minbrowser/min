@@ -24,7 +24,7 @@ function createView (id, webPreferencesString, boundsString, events) {
       id: id,
       name: channel,
       data: data,
-      frameId: e.frameId,
+      frameId: e.frameId
     })
   })
 
@@ -67,9 +67,10 @@ function setBounds (id, bounds) {
 
 function focusView (id) {
   // empty views can't be focused because they won't propogate keyboard events correctly, see https://github.com/minbrowser/min/issues/616
-  if (viewMap[id].webContents.getURL() !== '' || viewMap[id].webContents.isLoading()) {
+  // also, make sure the view exists, since it might not if the app is shutting down
+  if (viewMap[id] && (viewMap[id].webContents.getURL() !== '' || viewMap[id].webContents.isLoading())) {
     viewMap[id].webContents.focus()
-  } else {
+  } else if (mainWindow) {
     mainWindow.webContents.focus()
   }
 }
@@ -81,6 +82,14 @@ function hideCurrentView () {
 
 function getView (id) {
   return viewMap[id]
+}
+
+function getViewIDFromWebContents (contents) {
+  for (var id in viewMap) {
+    if (viewMap[id].webContents === contents) {
+      return id
+    }
+  }
 }
 
 ipc.on('createView', function (e, args) {
@@ -132,7 +141,18 @@ ipc.on('callViewMethod', function (e, data) {
   } catch (e) {
     error = e
   }
-  if (data.callId) {
+  if (result instanceof Promise) {
+    result.then(function (result) {
+      if (data.callId) {
+        mainWindow.webContents.send('async-call-result', {callId: data.callId, error: null, result})
+      }
+    })
+    result.catch(function (error) {
+      if (data.callId) {
+        mainWindow.webContents.send('async-call-result', {callId: data.callId, error, result: null})
+      }
+    })
+  } else if (data.callId) {
     mainWindow.webContents.send('async-call-result', {callId: data.callId, error, result})
   }
 })
