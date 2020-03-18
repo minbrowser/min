@@ -56,7 +56,7 @@ module.exports = {
     })
 
     ipc.on('findInPage', function () {
-      /* Page search is not avialable in modal mode. */
+      /* Page search is not available in modal mode. */
       if (modalMode.enabled()) {
         return
       }

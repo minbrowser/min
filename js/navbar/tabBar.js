@@ -2,7 +2,6 @@ var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
 var modalMode = require('modalMode.js')
-var contextMenu = require('contextMenu.js')
 var searchbar = require('searchbar/searchbar.js')
 var urlParser = require('util/urlParser.js')
 
@@ -41,26 +40,24 @@ window.tabBar = {
     })
   },
   enterEditMode: function (tabId, editingValue, showSearchbar) {
-    /* Edit mode is not avialable in modal mode. */
+    // editingValue: an optional string to show in the searchbar instead of the current URL
+
+    /* Edit mode is not available in modal mode. */
     if (modalMode.enabled()) {
       return
     }
 
-    // editingValue: an optional string to show in the searchbar instead of the current URL
-
     webviews.requestPlaceholder('editMode')
-    taskOverlay.hide()
 
     var tabEl = tabBar.getTab(tabId)
-    var webview = webviews.get(tabId)
+
+    document.body.classList.add('is-edit-mode')
+    tabEl.classList.add('selected')
 
     var currentURL = urlParser.getSourceURL(tabs.get(tabId).url)
     if (currentURL === 'min://newtab') {
       currentURL = ''
     }
-
-    document.body.classList.add('is-edit-mode')
-    tabEl.classList.add('selected')
 
     var input = tabBar.getTabInput(tabId)
     input.value = editingValue || currentURL
@@ -103,13 +100,13 @@ window.tabBar = {
     tabBar.editingTab = null
   },
   rerenderTab: function (tabId) {
-    var tabEl = tabBar.getTab(tabId)
-    var vc = tabEl.querySelector('.tab-view-contents')
     var tabData = tabs.get(tabId)
 
-    var tabTitle = tabData.title || l('newTabLabel')
+    var tabEl = tabBar.getTab(tabId)
+    var viewContents = tabEl.querySelector('.tab-view-contents')
 
-    var titleEl = tabEl.querySelector('.tab-view-contents .title')
+    var tabTitle = tabData.title || l('newTabLabel')
+    var titleEl = viewContents.querySelector('.title')
     titleEl.textContent = tabTitle
 
     tabEl.title = tabTitle
@@ -117,13 +114,13 @@ window.tabBar = {
       tabEl.title += ' (' + l('privateTab') + ')'
     }
 
-    tabEl.querySelectorAll('.permission-request-icon').forEach(el => el.remove())
+    viewContents.querySelectorAll('.permission-request-icon').forEach(el => el.remove())
 
     permissionRequests.getButtons(tabId).reverse().forEach(function (button) {
-      vc.insertBefore(button, vc.children[0])
+      viewContents.insertBefore(button, viewContents.children[0])
     })
 
-    var secIcon = tabEl.getElementsByClassName('icon-tab-not-secure')[0]
+    var secIcon = viewContents.getElementsByClassName('icon-tab-not-secure')[0]
     if (tabData.secure === false) {
       secIcon.hidden = false
     } else {
@@ -131,16 +128,18 @@ window.tabBar = {
     }
 
     // update the star to reflect whether the page is bookmarked or not
-    bookmarkStar.update(tabId, tabBar.getTab(tabId).querySelector('.bookmarks-button'))
+    bookmarkStar.update(tabId, tabEl.querySelector('.bookmarks-button'))
   },
   rerenderAll: function () {
     empty(tabBar.container)
     tabBar.tabElementMap = {}
-    for (var i = 0; i < tabs.count(); i++) {
-      var el = tabBar.createElement(tabs.getAtIndex(i))
+
+    tabs.get().forEach(function (tab) {
+      var el = tabBar.createElement(tab)
       tabBar.container.appendChild(el)
-      tabBar.tabElementMap[tabs.getAtIndex(i).id] = el
-    }
+      tabBar.tabElementMap[tab.id] = el
+    })
+
     if (tabs.getSelected()) {
       tabBar.setActiveTab(tabs.getSelected())
     }

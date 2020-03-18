@@ -177,6 +177,10 @@ keybindings.defineShortcut({keys: 'esc'}, function (e) {
   taskOverlay.hide()
 })
 
+keybindings.defineShortcut('enterEditMode', function (e) {
+  taskOverlay.hide()
+})
+
 function getTaskContainer (id) {
   return document.querySelector('.task-container[data-task="{id}"]'.replace('{id}', id))
 }
