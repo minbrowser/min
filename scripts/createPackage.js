@@ -15,6 +15,7 @@ const ignoredDirs = [
   // electron-installer-debian is actually a development module, but it isn't pruned because it's optional
   'node_modules/electron-installer-debian',
   'node_modules/electron-installer-common',
+  'node_modules/electron-installer-redhat',
   // this is copied during the build
   'icon.icns',
   // localization files are compiled and copied to dist
