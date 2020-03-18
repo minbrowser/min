@@ -16,8 +16,6 @@ var settings = require('util/settings/settings.js')
 
 var keyMap = keyMapModule.userKeyMap(settings.get('keyMap'))
 
-var menuBarShortcuts = ['mod+t', 'shift+mod+p', 'mod+n'] // shortcuts that are already used for menu bar items
-
 var shortcutsList = []
 var registeredMousetrapBindings = {}
 
@@ -33,11 +31,6 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
   }
 
   var shortcutCallback = function (e, combo) {
-    // these shortcuts are already used by menu bar items, so also using them here would result in actions happening twice
-    if (menuBarShortcuts.indexOf(combo) !== -1) {
-      return
-    }
-
     // Disable shortcuts for modal mode.
     if (modalMode.enabled()) {
       return
@@ -157,17 +150,49 @@ function initialize () {
     })
   })
 
-  defineShortcut('addPrivateTab', function () {
+  defineShortcut('addTab', function () {
+    /* new tabs can't be created in modal mode */
+    if (modalMode.enabled()) {
+      return
+    }
+
     /* new tabs can't be created in focus mode */
     if (focusMode.enabled()) {
       focusMode.warn()
       return
     }
 
-    var privateTab = tabs.add({
+    browserUI.addTab()
+  })
+
+  defineShortcut('addPrivateTab', function () {
+    /* new tabs can't be created in modal mode */
+    if (modalMode.enabled()) {
+      return
+    }
+
+    /* new tabs can't be created in focus mode */
+    if (focusMode.enabled()) {
+      focusMode.warn()
+      return
+    }
+
+    browserUI.addTab(tabs.add({
       private: true
-    })
-    browserUI.addTab(privateTab)
+    }))
+  })
+
+  defineShortcut('duplicateTab', function () {
+    if (modalMode.enabled()) {
+      return
+    }
+
+    if (focusMode.enabled()) {
+      focusMode.warn()
+      return
+    }
+
+    browserUI.duplicateTab(tabs.getSelected())
   })
 
   defineShortcut('enterEditMode', function (e) {

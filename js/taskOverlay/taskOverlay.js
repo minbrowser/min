@@ -2,6 +2,7 @@ var webviews = require('webviews.js')
 var keybindings = require('keybindings.js')
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
+var modalMode = require('modalMode.js')
 
 const createTaskContainer = require('taskOverlay/taskOverlayBuilder.js')
 
@@ -180,6 +181,29 @@ keybindings.defineShortcut({keys: 'esc'}, function (e) {
 keybindings.defineShortcut('enterEditMode', function (e) {
   taskOverlay.hide()
 })
+
+function addTaskFromMenu () {
+  /* new tasks can't be created in modal mode */
+  if (modalMode.enabled()) {
+    return
+  }
+
+  /* new tasks can't be created in focus mode or modal mode */
+  if (focusMode.enabled()) {
+    focusMode.warn()
+    return
+  }
+
+  browserUI.addTask()
+  taskOverlay.show()
+  setTimeout(function () {
+    taskOverlay.hide()
+    tabBar.enterEditMode(tabs.getSelected())
+  }, 600)
+}
+
+keybindings.defineShortcut('addTask', addTaskFromMenu)
+ipc.on('addTask', addTaskFromMenu) // for menu item
 
 function getTaskContainer (id) {
   return document.querySelector('.task-container[data-task="{id}"]'.replace('{id}', id))

@@ -3,29 +3,38 @@ function buildAppMenu (options = {}) {
     {
       label: l('appMenuNewTab'),
       accelerator: 'CmdOrCtrl+t',
-      click: function (item, window) {
-        sendIPCToWindow(window, 'addTab')
+      click: function (item, window, event) {
+        // keyboard shortcuts for these items are handled in the renderer
+        if (!event.triggeredByAccelerator) {
+          sendIPCToWindow(window, 'addTab')
+        }
       }
     },
     {
       label: l('appMenuDuplicateTab'),
       accelerator: 'shift+CmdOrCtrl+d',
-      click: function (item, window) {
-        sendIPCToWindow(window, 'duplicateTab')
+      click: function (item, window, event) {
+        if (!event.triggeredByAccelerator) {
+          sendIPCToWindow(window, 'duplicateTab')
+        }
       }
     },
     {
       label: l('appMenuNewPrivateTab'),
       accelerator: 'shift+CmdOrCtrl+p',
-      click: function (item, window) {
-        sendIPCToWindow(window, 'addPrivateTab')
+      click: function (item, window, event) {
+        if (!event.triggeredByAccelerator) {
+          sendIPCToWindow(window, 'addPrivateTab')
+        }
       }
     },
     {
       label: l('appMenuNewTask'),
       accelerator: 'CmdOrCtrl+n',
-      click: function (item, window) {
-        sendIPCToWindow(window, 'addTask')
+      click: function (item, window, event) {
+        if (!event.triggeredByAccelerator) {
+          sendIPCToWindow(window, 'addTask')
+        }
       }
     }
   ]

@@ -8,24 +8,6 @@ var modalMode = require('modalMode.js')
 var findinpage = require('findinpage.js')
 var PDFViewer = require('pdfViewer.js')
 
-function addPrivateTab () {
-  /* new tabs can't be created in modal mode */
-  if (modalMode.enabled()) {
-    return
-  }
-
-  /* new tabs can't be created in focus mode */
-  if (focusMode.enabled()) {
-    focusMode.warn()
-    return
-  }
-
-  var privateTab = tabs.add({
-    private: true
-  })
-  browserUI.addTab(privateTab)
-}
-
 module.exports = {
   initialize: function () {
     ipc.on('zoomIn', function () {
@@ -78,46 +60,16 @@ module.exports = {
     })
 
     ipc.on('duplicateTab', function (e) {
-      /* new tabs can't be created in modal mode */
       if (modalMode.enabled()) {
         return
       }
 
-      /* new tabs can't be created in focus mode */
       if (focusMode.enabled()) {
         focusMode.warn()
         return
       }
 
-        // can't duplicate if tabs is empty
-      if (tabs.isEmpty()) {
-        return
-      }
-
-      const sourceTab = tabs.get(tabs.getSelected())
-        // strip tab id so that a new one is generated
-      const newTab = tabs.add({...sourceTab, id: undefined})
-
-      // duplicate scroll position as well
-      let scrollPosition = 0
-      webviews.callAsync(sourceTab.id, 'executeJavaScript', '(function() {return window.scrollY})()', function (err, data) {
-        scrollPosition = data
-      })
-
-      const listener = function (webview, tabId, e) {
-        if (tabId === newTab) {
-          // the scrollable content may not be available until some time after the load event, so attempt scrolling several times
-          for (let i = 0; i < 3; i++) {
-            setTimeout(function () {
-              webviews.callAsync(newTab, 'executeJavaScript', `window.scrollTo(0, ${scrollPosition})`)
-            }, 750 * i)
-          }
-          webviews.unbindEvent('did-finish-load', listener)
-        }
-      }
-      webviews.bindEvent('did-finish-load', listener)
-
-      browserUI.addTab(newTab, { enterEditMode: false })
+      browserUI.duplicateTab(tabs.getSelected())
     })
 
     ipc.on('addTab', function (e, data) {
@@ -166,26 +118,21 @@ module.exports = {
       }
     })
 
-    ipc.on('addPrivateTab', addPrivateTab)
-
-    ipc.on('addTask', function () {
-      /* new tasks can't be created in modal mode */
+    ipc.on('addPrivateTab', function () {
+      /* new tabs can't be created in modal mode */
       if (modalMode.enabled()) {
         return
       }
 
-      /* new tasks can't be created in focus mode or modal mode */
+      /* new tabs can't be created in focus mode */
       if (focusMode.enabled()) {
         focusMode.warn()
         return
       }
 
-      browserUI.addTask()
-      taskOverlay.show()
-      setTimeout(function () {
-        taskOverlay.hide()
-        tabBar.enterEditMode(tabs.getSelected())
-      }, 600)
+      browserUI.addTab(tabs.add({
+        private: true
+      }))
     })
 
     ipc.on('goBack', function () {

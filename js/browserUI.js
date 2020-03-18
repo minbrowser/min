@@ -181,6 +181,33 @@ function switchToTab (id, options) {
   })
 }
 
+function duplicateTab (tabId) {
+  const sourceTab = tabs.get(tabId)
+  // strip tab id so that a new one is generated
+  const newTab = tabs.add({...sourceTab, id: undefined})
+
+      // duplicate scroll position as well
+  let scrollPosition = 0
+  webviews.callAsync(sourceTab.id, 'executeJavaScript', '(function() {return window.scrollY})()', function (err, data) {
+    scrollPosition = data
+  })
+
+  const listener = function (webview, tabId, e) {
+    if (tabId === newTab) {
+          // the scrollable content may not be available until some time after the load event, so attempt scrolling several times
+      for (let i = 0; i < 3; i++) {
+        setTimeout(function () {
+          webviews.callAsync(newTab, 'executeJavaScript', `window.scrollTo(0, ${scrollPosition})`)
+        }, 750 * i)
+      }
+      webviews.unbindEvent('did-finish-load', listener)
+    }
+  }
+  webviews.bindEvent('did-finish-load', listener)
+
+  addTab(newTab, { enterEditMode: false })
+}
+
 webviews.bindEvent('new-window', function (webview, tabId, e, url, frameName, disposition) {
   var newTab = tabs.add({
     url: url,
@@ -206,4 +233,6 @@ module.exports = {
   closeTask,
   closeTab,
   switchToTask,
-  switchToTab}
+  switchToTab,
+  duplicateTab
+}
