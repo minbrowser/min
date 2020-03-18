@@ -36,6 +36,16 @@ options
   options.openInBackground - whether to open the tab without switching to it. Defaults to false.
 */
 function addTab (tabId = tabs.add(), options = {}) {
+  /*
+  adding a new tab should destroy the current one if either:
+  * The current tab is an empty, non-private tab, and the new tab is private
+  * The current tab is empty, and the new tab has a URL
+  */
+
+  if (!options.openInBackground && !tabs.get(tabs.getSelected()).url && ((!tabs.get(tabs.getSelected()).private && tabs.get(tabId).private) || tabs.get(tabId).url)) {
+    destroyTab(tabs.getSelected())
+  }
+
   tabBar.addTab(tabId)
   webviews.add(tabId)
 

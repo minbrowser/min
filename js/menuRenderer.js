@@ -20,10 +20,6 @@ function addPrivateTab () {
     return
   }
 
-  if (!tabs.get(tabs.getSelected()).url && !tabs.get(tabs.getSelected()).private) {
-    browserUI.destroyTab(tabs.getSelected())
-  }
-
   var privateTab = tabs.add({
     private: true
   })
@@ -136,18 +132,13 @@ module.exports = {
         return
       }
 
-        // if opening a URL (instead of adding an empty tab), and the current tab is empty, navigate the current tab rather than creating another one
-      if (!tabs.get(tabs.getSelected()).url && data.url) {
-        browserUI.navigate(tabs.getSelected(), data.url)
-      } else {
-        var newTab = tabs.add({
-          url: data.url || ''
-        })
+      var newTab = tabs.add({
+        url: data.url || ''
+      })
 
-        browserUI.addTab(newTab, {
-          enterEditMode: !data.url // only enter edit mode if the new tab is empty
-        })
-      }
+      browserUI.addTab(newTab, {
+        enterEditMode: !data.url // only enter edit mode if the new tab is empty
+      })
     })
 
     ipc.on('saveCurrentPage', function () {

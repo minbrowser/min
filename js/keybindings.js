@@ -164,10 +164,6 @@ function initialize () {
       return
     }
 
-    if (!tabs.get(tabs.getSelected()).url && !tabs.get(tabs.getSelected()).private) {
-      browserUI.destroyTab(tabs.getSelected())
-    }
-
     var privateTab = tabs.add({
       private: true
     })
@@ -198,10 +194,6 @@ function initialize () {
     // The tab history stack is empty
     if (!restoredTab) {
       return
-    }
-
-    if (tabs.isEmpty()) {
-      browserUI.destroyTab(tabs.getAtIndex(0).id)
     }
 
     browserUI.addTab(tabs.add(restoredTab), {
@@ -344,7 +336,7 @@ function initialize () {
     lastReload = time
   })
 
-  defineShortcut('fillPassword', function() {
+  defineShortcut('fillPassword', function () {
     webviews.get(tabs.getSelected()).send('password-autofill-shortcut')
   })
 
