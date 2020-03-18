@@ -1,5 +1,6 @@
 const settings = require('util/settings/settings.js')
 const webviews = require('webviews.js')
+const keybindings = require('keybindings.js')
 const ProcessSpawner = require('util/process.js')
 
 // Bitwarden password manager. Requires session key to unlock the vault.
@@ -268,6 +269,10 @@ const PasswordManagers = {
       if (PasswordManagers.getActivePasswordManager()) {
         webview.sendToFrame(frameId, 'password-autofill-enabled')
       }
+    })
+
+    keybindings.defineShortcut('fillPassword', function () {
+      webviews.get(tabs.getSelected()).send('password-autofill-shortcut')
     })
   }
 }

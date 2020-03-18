@@ -19,6 +19,49 @@ var keyMap = keyMapModule.userKeyMap(settings.get('keyMap'))
 var shortcutsList = []
 var registeredMousetrapBindings = {}
 
+/*
+Determines whether a shortcut can actually run
+single-letter shortcuts and shortcuts used for text editing can't run when an input is focused
+*/
+function checkShortcutCanRun (combo, cb) {
+  if (/^\w$/.test(combo) || combo === 'mod+left' || combo === 'mod+right') {
+    var webview = webviews.get(tabs.getSelected())
+    if (!tabs.get(tabs.getSelected()).url || !webview.isFocused()) {
+      // check whether an input is focused in the browser UI
+      if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
+        cb(false)
+      } else {
+        cb(true)
+      }
+    } else {
+      // check whether an input is focused in the webview
+      webviews.callAsync(tabs.getSelected(), 'executeJavaScript', `
+      document.activeElement.tagName === "INPUT"
+      || document.activeElement.tagName === "TEXTAREA"
+      || document.activeElement.tagName === "IFRAME"
+      || (function () {
+        var n = document.activeElement;
+        while (n) {
+          if (n.getAttribute && n.getAttribute("contenteditable")) {
+            return true;
+          }
+          n = n.parentElement;
+        }
+        return false;
+      })()
+      `, function (err, isInputFocused) {
+        if (err) {
+          console.warn(err)
+          return
+        }
+        cb(isInputFocused === false)
+      })
+    }
+  } else {
+    cb(true)
+  }
+}
+
 function defineShortcut (keysOrKeyMapName, fn, options = {}) {
   if (keysOrKeyMapName.keys) {
     var binding = keysOrKeyMapName.keys
@@ -36,45 +79,11 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
       return
     }
 
-    // mod+left and mod+right are also text editing shortcuts, so they should not run when an input field is focused
-    // also block single-letter shortcuts when an input field is focused, so that it's still possible to type in an input
-    if (/^\w$/.test(combo) || combo === 'mod+left' || combo === 'mod+right') {
-      var webview = webviews.get(tabs.getSelected())
-      if (!tabs.get(tabs.getSelected()).url || !webview.isFocused()) {
-        // check whether an input is focused in the browser UI
-        if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
-          fn(e, combo)
-        }
-      } else {
-        // check whether an input is focused in the webview
-        webviews.callAsync(tabs.getSelected(), 'executeJavaScript', `
-        document.activeElement.tagName === "INPUT"
-        || document.activeElement.tagName === "TEXTAREA"
-        || document.activeElement.tagName === "IFRAME"
-        || (function () {
-          var n = document.activeElement;
-          while (n) {
-            if (n.getAttribute && n.getAttribute("contenteditable")) {
-              return true;
-            }
-            n = n.parentElement;
-          }
-          return false;
-        })()
-        `, function (err, isInputFocused) {
-          if (err) {
-            console.warn(err)
-            return
-          }
-          if (isInputFocused === false) {
-            fn(e, combo)
-          }
-        })
+    checkShortcutCanRun(combo, function (canRun) {
+      if (canRun) {
+        fn(e, combo)
       }
-    } else {
-      // other shortcuts can run immediately
-      fn(e, combo)
-    }
+    })
   }
 
   binding.forEach(function (keys) {
@@ -359,10 +368,6 @@ function initialize () {
     }
 
     lastReload = time
-  })
-
-  defineShortcut('fillPassword', function () {
-    webviews.get(tabs.getSelected()).send('password-autofill-shortcut')
   })
 
   // reload the webview when the F5 key is pressed
