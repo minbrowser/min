@@ -288,7 +288,9 @@ const webviews = {
     }, 0)
   },
   hidePlaceholder: function (reason) {
-    webviews.placeholderRequests.splice(webviews.placeholderRequests.indexOf(reason), 1)
+    if (webviews.placeholderRequests.includes(reason)) {
+      webviews.placeholderRequests.splice(webviews.placeholderRequests.indexOf(reason), 1)
+    }
 
     if (webviews.placeholderRequests.length === 0) {
       // multiple things can request a placeholder at the same time, but we should only show the view again if nothing requires a placeholder anymore
