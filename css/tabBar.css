@@ -104,12 +104,16 @@ body.linux.menu-bar-hidden #menu-button {
 #navbar #tabs {
 	display: flex;
 	flex: 1;
+	position: relative;
+	overflow: hidden;
+}
+#tabs #tabs-inner {
+	display: flex;
+	flex: 1;
 	overflow-x: auto;
 	overflow-y: hidden;
 }
-body.is-edit-mode #navbar #tabs {
-	overflow: hidden;
-}
+
 .tab-item {
 	flex: 1;
 	min-width: 125px;
@@ -170,38 +174,30 @@ body.is-edit-mode #navbar #tabs {
 
 /* style tab scrollbar */
 
-#navbar #tabs::-webkit-scrollbar {
+#navbar #tabs-inner::-webkit-scrollbar {
 	height: 0.25em;
 }
-#navbar #tabs::-webkit-scrollbar-track {
+.is-edit-mode #navbar #tabs-inner::-webkit-scrollbar {
+	height: 0
+}
+#navbar #tabs-inner::-webkit-scrollbar-track {
 	background-color: rgba(0, 0, 0, 0.05);
 }
-#navbar #tabs::-webkit-scrollbar-thumb {
+#navbar #tabs-inner::-webkit-scrollbar-thumb {
 	background-color: rgba(0, 0, 0, 0.175);
 	border-radius: 0.25em;
 }
-.dark-theme #navbar #tabs::-webkit-scrollbar-track {
+.dark-theme #navbar #tabs-inner::-webkit-scrollbar-track {
 	background-color: rgba(255, 255, 255, 0.25);
 }
-.dark-theme #navbar #tabs::-webkit-scrollbar-thumb {
+.dark-theme #navbar #tabs-inner::-webkit-scrollbar-thumb {
 	background-color: rgba(255, 255, 255, 0.6);
 }
 
 /* when an input is selected, hide other tabs */
 
 .is-edit-mode .tab-item:not(.selected) {
-	min-width: 0;
-	max-width: 0;
-	width: 0;
-	height: 0;
-	padding: 0;
-	overflow: hidden;
-}
-
-/* the background isn't necessary when there is only one tab */
-
-.is-edit-mode .tab-item {
-	background: none !important;
+	opacity: 0;
 }
 
 /* show either the view or edit contents */

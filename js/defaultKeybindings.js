@@ -3,6 +3,7 @@ var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
 var modalMode = require('modalMode.js')
+var tabEditor = require('navbar/tabEditor.js')
 
 const defaultKeybindings = {
   initialize: function () {
@@ -52,12 +53,12 @@ const defaultKeybindings = {
     })
 
     keybindings.defineShortcut('enterEditMode', function (e) {
-      tabBar.enterEditMode(tabs.getSelected())
+      tabEditor.show(tabs.getSelected())
       return false
     })
 
     keybindings.defineShortcut('runShortcut', function (e) {
-      tabBar.enterEditMode(tabs.getSelected(), '!')
+      tabEditor.show(tabs.getSelected(), '!')
     })
 
     keybindings.defineShortcut('closeTab', function (e) {
@@ -83,8 +84,8 @@ const defaultKeybindings = {
     })
 
     keybindings.defineShortcut('addToFavorites', function (e) {
-      tabBar.getTab(tabs.getSelected()).querySelector('.bookmarks-button').click()
-      tabBar.enterEditMode(tabs.getSelected(), null, false) // we need to show the bookmarks button, which is only visible in edit mode
+      tabEditor.show(tabs.getSelected(), null, false) // we need to show the bookmarks button, which is only visible in edit mode
+      tabEditor.container.querySelector('.bookmarks-button').click()
     })
 
     // cmd+x should switch to tab x. Cmd+9 should switch to the last tab
@@ -118,7 +119,7 @@ const defaultKeybindings = {
     })
 
     keybindings.defineShortcut({ keys: 'esc' }, function (e) {
-      tabBar.leaveEditMode()
+      tabEditor.hide()
 
       // exit full screen mode
       webviews.callAsync(tabs.getSelected(), 'executeJavaScript', 'if(document.webkitIsFullScreen){document.webkitExitFullscreen()}')

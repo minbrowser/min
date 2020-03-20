@@ -3,6 +3,8 @@
 var webviews = require('webviews.js')
 var urlParser = require('util/urlParser.js')
 var focusMode = require('focusMode.js')
+var tabEditor = require('navbar/tabEditor.js')
+var searchbar = require('searchbar/searchbar.js')
 
 /* loads a page in a webview */
 
@@ -15,7 +17,7 @@ function navigate (tabId, newURL) {
 
   webviews.update(tabId, newURL)
 
-  tabBar.leaveEditMode()
+  tabEditor.hide()
 }
 
 /* creates a new task */
@@ -54,7 +56,7 @@ function addTab (tabId = tabs.add(), options = {}) {
       focusWebview: options.enterEditMode === false
     })
     if (options.enterEditMode !== false) {
-      tabBar.enterEditMode(tabId)
+      tabEditor.show(tabId)
     }
   } else {
     tabBar.getTab(tabId).scrollIntoView()
@@ -172,7 +174,7 @@ function switchToTab (id, options) {
     return
   }
 
-  tabBar.leaveEditMode()
+  tabEditor.hide()
 
   tabs.setSelected(id)
   tabBar.setActiveTab(id)
@@ -222,6 +224,21 @@ webviews.bindEvent('new-window', function (webview, tabId, e, url, frameName, di
 
 webviews.bindIPC('close-window', function (webview, tabId, args) {
   closeTab(tabId)
+})
+
+searchbar.events.on('url-selected', function (data) {
+  if (data.background) {
+    var newTab = tabs.add({
+      url: data.url,
+      private: tabs.get(tabs.getSelected()).private
+    })
+    addTab(newTab, {
+      enterEditMode: false,
+      openInBackground: true
+    })
+  } else {
+    navigate(tabs.getSelected(), data.url)
+  }
 })
 
 module.exports = {

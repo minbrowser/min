@@ -1,6 +1,7 @@
 var webviews = require('webviews.js')
 var keybindings = require('keybindings.js')
 var browserUI = require('browserUI.js')
+var tabEditor = require('navbar/tabEditor.js')
 var focusMode = require('focusMode.js')
 var modalMode = require('modalMode.js')
 
@@ -76,7 +77,7 @@ window.taskOverlay = {
 
     document.body.classList.add('task-overlay-is-shown')
 
-    tabBar.leaveEditMode()
+    tabEditor.hide()
 
     this.isShown = true
     taskSwitcherButton.classList.add('active')
@@ -198,7 +199,7 @@ function addTaskFromMenu () {
   taskOverlay.show()
   setTimeout(function () {
     taskOverlay.hide()
-    tabBar.enterEditMode(tabs.getSelected())
+    tabEditor.show(tabs.getSelected())
   }, 600)
 }
 

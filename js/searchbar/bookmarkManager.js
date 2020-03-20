@@ -5,6 +5,7 @@ var places = require('places/places.js')
 var urlParser = require('util/urlParser.js')
 var formatRelativeDate = require('util/relativeDate.js')
 
+var tabEditor = require('navbar/tabEditor.js')
 var bookmarkEditor = require('searchbar/bookmarkEditor.js')
 
 const maxTagSuggestions = 12
@@ -85,7 +86,7 @@ function showBookmarks (text, input, event) {
 
       parsedText.tags.forEach(function (tag) {
         tagBar.appendChild(bookmarkEditor.getTagElement(tag, true, function () {
-          tabBar.enterEditMode(tabs.getSelected(), '!bookmarks ' + text.replace('#' + tag, '').trim())
+          tabEditor.show(tabs.getSelected(), '!bookmarks ' + text.replace('#' + tag, '').trim())
         }, {autoRemove: false}))
       })
       // it doesn't make sense to display tag suggestions if there's a search, since the suggestions are generated without taking the search into account
@@ -93,7 +94,7 @@ function showBookmarks (text, input, event) {
         suggestedTags.forEach(function (suggestion, index) {
           var el = bookmarkEditor.getTagElement(suggestion, false, function () {
             var needsSpace = text.slice(-1) !== ' ' && text.slice(-1) !== ''
-            tabBar.enterEditMode(tabs.getSelected(), '!bookmarks ' + text + (needsSpace ? ' #' : '#') + suggestion + ' ')
+            tabEditor.show(tabs.getSelected(), '!bookmarks ' + text + (needsSpace ? ' #' : '#') + suggestion + ' ')
           })
           if (index >= maxTagSuggestions) {
             el.classList.add('overflowing')
