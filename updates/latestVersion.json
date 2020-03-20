@@ -1,7 +1,7 @@
 {
-    "version": "1.13.0",
-    "releaseTime": 1583643092806,
-    "releaseHeadline": "Password autofill and bug fixes",
+    "version": "1.13.2",
+    "releaseTime": 1584737731777,
+    "releaseHeadline": "Camera and audio support",
     "releaseNotes": "https://minbrowser.github.io/min/releases/",
     "availabilityPercent": 1
 }
