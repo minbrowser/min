@@ -117,7 +117,6 @@ body.linux.menu-bar-hidden #menu-button {
 .tab-item {
 	flex: 1;
 	min-width: 125px;
-	transition: .15s min-width, 0.2s transform;
 	line-height: 36px;
 	height: 36px;
 	overflow: hidden;
@@ -159,12 +158,6 @@ body.linux.menu-bar-hidden #menu-button {
 .dark-theme.theme-background-low-contrast .tab-item.active:not(:only-child) {
 	background: rgba(255, 255, 255, 0.25);
 }
-.tab-item.selected {
-	min-width: 100%;
-	/* remove the white transparent-ness */
-	background: none;
-	padding-left: 9px;
-}
 .tab-item.fade {
 	opacity: 0.55;
 }
@@ -194,45 +187,10 @@ body.linux.menu-bar-hidden #menu-button {
 	background-color: rgba(255, 255, 255, 0.6);
 }
 
-/* when an input is selected, hide other tabs */
+/* hide tabs when tab editor is open */
 
-.is-edit-mode .tab-item:not(.selected) {
+.is-edit-mode .tab-item {
 	opacity: 0;
-}
-
-/* show either the view or edit contents */
-
-.tab-item .tab-edit-contents {
-	display: none;
-}
-.tab-item.selected .tab-edit-contents {
-	display: flex;
-	height: 100%;
-	align-items: center;
-}
-.tab-item.selected .tab-view-contents {
-	display: none;
-}
-
-/* tab inputs */
-
-.tab-item .tab-input {
-	line-height: 1.15em;
-	font-size: 1.15em;
-	-webkit-appearance: none;
-	background: none;
-	border: none;
-	color: inherit;
-	flex: 1;
-	height: 1.5em;
-	outline: none;
-	-webkit-user-select: auto;
-	-webkit-app-region: no-drag;
-}
-.tab-item .tab-input::-webkit-input-placeholder {
-	color: inherit;
-	opacity: 0.5;
-	line-height: 1.25em;
 }
 
 /* show the overlay in edit mode */
