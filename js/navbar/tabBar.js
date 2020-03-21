@@ -37,10 +37,9 @@ window.tabBar = {
     var tabData = tabs.get(tabId)
 
     var tabEl = tabBar.getTab(tabId)
-    var viewContents = tabEl.querySelector('.tab-view-contents')
 
     var tabTitle = tabData.title || l('newTabLabel')
-    var titleEl = viewContents.querySelector('.title')
+    var titleEl = tabEl.querySelector('.title')
     titleEl.textContent = tabTitle
 
     tabEl.title = tabTitle
@@ -48,13 +47,13 @@ window.tabBar = {
       tabEl.title += ' (' + l('privateTab') + ')'
     }
 
-    viewContents.querySelectorAll('.permission-request-icon').forEach(el => el.remove())
+    tabEl.querySelectorAll('.permission-request-icon').forEach(el => el.remove())
 
     permissionRequests.getButtons(tabId).reverse().forEach(function (button) {
-      viewContents.insertBefore(button, viewContents.children[0])
+      tabEl.insertBefore(button, tabEl.children[0])
     })
 
-    var secIcon = viewContents.getElementsByClassName('icon-tab-not-secure')[0]
+    var secIcon = tabEl.getElementsByClassName('icon-tab-not-secure')[0]
     if (tabData.secure === false) {
       secIcon.hidden = false
     } else {
@@ -88,15 +87,12 @@ window.tabBar = {
       tabEl.title += ' (' + l('privateTab') + ')'
     }
 
-    var viewContents = document.createElement('div')
-    viewContents.className = 'tab-view-contents'
-
     permissionRequests.getButtons(data.id).forEach(function (button) {
-      viewContents.appendChild(button)
+      tabEl.appendChild(button)
     })
 
-    viewContents.appendChild(readerView.getButton(data.id))
-    viewContents.appendChild(progressBar.create())
+    tabEl.appendChild(readerView.getButton(data.id))
+    tabEl.appendChild(progressBar.create())
 
     // icons
 
@@ -130,7 +126,7 @@ window.tabBar = {
     secIcon.hidden = data.secure !== false
     iconArea.appendChild(secIcon)
 
-    viewContents.appendChild(iconArea)
+    tabEl.appendChild(iconArea)
 
     // title
 
@@ -138,12 +134,10 @@ window.tabBar = {
     title.className = 'title'
     title.textContent = tabTitle
 
-    viewContents.appendChild(title)
-
-    tabEl.appendChild(viewContents)
+    tabEl.appendChild(title)
 
     // click to enter edit mode or switch to a tab
-    viewContents.addEventListener('click', function (e) {
+    tabEl.addEventListener('click', function (e) {
       if (tabs.getSelected() !== data.id) { // else switch to tab if it isn't focused
         browserUI.switchToTab(data.id)
       } else { // the tab is focused, edit tab instead

@@ -123,6 +123,7 @@ body.linux.menu-bar-hidden #menu-button {
 	overflow: hidden;
 	word-break: break-all;
 	position: relative;
+	padding: 0 0.8em;
 }
 .tab-item:not(.active):hover {
 	background-color: rgba(0, 0, 0, 0.03);
@@ -132,10 +133,6 @@ body.linux.menu-bar-hidden #menu-button {
 }
 .dark-theme.theme-background-low-contrast .tab-item:not(.active):hover {
 	background-color: rgba(255, 255, 255, 0.15);
-}
-
-.tab-view-contents {
-	padding: 0 0.8em;
 }
 
 /* icons */
@@ -225,7 +222,7 @@ body.dark-mode #overlay {
 .tab-item:not(.active) .icon-tab-not-secure {
 	display: none;
 }
-.tab-item .tab-view-contents .title {
+.tab-item .title {
 	font-size: 15px;
 }
 
