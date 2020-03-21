@@ -117,6 +117,7 @@ body.linux.menu-bar-hidden #menu-button {
 .tab-item {
 	flex: 1;
 	min-width: 125px;
+	transition: 0.2s transform;
 	line-height: 36px;
 	height: 36px;
 	overflow: hidden;
