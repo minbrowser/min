@@ -95,6 +95,21 @@ function onNavigate (webview, tabId, e, url, httpResponseCode, httpStatusText) {
   onPageURLChange(tabId, url)
 }
 
+function scrollOnLoad (tabId, scrollPosition) {
+  const listener = function (webview, eTabId, e) {
+    if (eTabId === tabId) {
+      // the scrollable content may not be available until some time after the load event, so attempt scrolling several times
+      for (let i = 0; i < 3; i++) {
+        setTimeout(function () {
+          webviews.callAsync(tabId, 'executeJavaScript', `window.scrollTo(0, ${scrollPosition})`)
+        }, 750 * i)
+      }
+      webviews.unbindEvent('did-finish-load', listener)
+    }
+  }
+  webviews.bindEvent('did-finish-load', listener)
+}
+
 const webviews = {
   tabViewMap: {}, // tabId: browserView
   tabContentsMap: {}, // tabId: webContents
@@ -164,6 +179,11 @@ const webviews = {
   },
   add: function (tabId) {
     var tabData = tabs.get(tabId)
+
+    // needs to be called before the view is created to that its listeners can be registered
+    if (tabData.scrollPosition) {
+      scrollOnLoad(tabId, tabData.scrollPosition)
+    }
 
     // if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
     // since tab IDs are unique, we can use them as partition names
@@ -447,6 +467,12 @@ settings.listen(function () {
         }
       }
     })
+  })
+})
+
+webviews.bindIPC('scroll-position-change', function (webview, tabId, args) {
+  tabs.update(tabId, {
+    scrollPosition: args[0]
   })
 })
 

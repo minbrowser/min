@@ -20,6 +20,15 @@ setTimeout(function () {
   document.addEventListener('wheel', function (e) {
     ipc.send('wheel-event', cloneEvent(e))
   }, {passive: true})
+
+  var scrollTimeout = null
+
+  window.addEventListener('scroll', function () {
+    clearTimeout(scrollTimeout)
+    scrollTimeout = setTimeout(function () {
+      ipc.send('scroll-position-change', Math.round(window.scrollY))
+    }, 200)
+  })
 }, 0)
 
 /* Used for picture in picture item in context menu */

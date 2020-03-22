@@ -49,7 +49,11 @@ const defaultKeybindings = {
         return
       }
 
-      browserUI.duplicateTab(tabs.getSelected())
+      const sourceTab = tabs.get(tabs.getSelected())
+      // strip tab id so that a new one is generated
+      const newTab = tabs.add({...sourceTab, id: undefined})
+
+      browserUI.addTab(newTab, { enterEditMode: false })
     })
 
     keybindings.defineShortcut('enterEditMode', function (e) {
