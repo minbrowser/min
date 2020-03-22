@@ -7,6 +7,7 @@ var focusMode = require('focusMode.js')
 var modalMode = require('modalMode.js')
 var findinpage = require('findinpage.js')
 var PDFViewer = require('pdfViewer.js')
+var tabEditor = require('navbar/tabEditor.js')
 
 module.exports = {
   initialize: function () {
@@ -48,15 +49,15 @@ module.exports = {
 
     ipc.on('showReadingList', function () {
         // open the searchbar with "!readinglist " as the input
-      tabBar.enterEditMode(tabs.getSelected(), '!readinglist ')
+      tabEditor.show(tabs.getSelected(), '!readinglist ')
     })
 
     ipc.on('showBookmarks', function () {
-      tabBar.enterEditMode(tabs.getSelected(), '!bookmarks ')
+      tabEditor.show(tabs.getSelected(), '!bookmarks ')
     })
 
     ipc.on('showHistory', function () {
-      tabBar.enterEditMode(tabs.getSelected(), '!history ')
+      tabEditor.show(tabs.getSelected(), '!history ')
     })
 
     ipc.on('duplicateTab', function (e) {

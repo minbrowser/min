@@ -104,21 +104,26 @@ body.linux.menu-bar-hidden #menu-button {
 #navbar #tabs {
 	display: flex;
 	flex: 1;
+	position: relative;
+	overflow: hidden;
+}
+#tabs #tabs-inner {
+	display: flex;
+	flex: 1;
 	overflow-x: auto;
 	overflow-y: hidden;
 }
-body.is-edit-mode #navbar #tabs {
-	overflow: hidden;
-}
+
 .tab-item {
 	flex: 1;
 	min-width: 125px;
-	transition: .15s min-width, 0.2s transform;
+	transition: 0.2s transform;
 	line-height: 36px;
 	height: 36px;
 	overflow: hidden;
 	word-break: break-all;
 	position: relative;
+	padding: 0 0.8em;
 }
 .tab-item:not(.active):hover {
 	background-color: rgba(0, 0, 0, 0.03);
@@ -128,10 +133,6 @@ body.is-edit-mode #navbar #tabs {
 }
 .dark-theme.theme-background-low-contrast .tab-item:not(.active):hover {
 	background-color: rgba(255, 255, 255, 0.15);
-}
-
-.tab-view-contents {
-	padding: 0 0.8em;
 }
 
 /* icons */
@@ -155,12 +156,6 @@ body.is-edit-mode #navbar #tabs {
 .dark-theme.theme-background-low-contrast .tab-item.active:not(:only-child) {
 	background: rgba(255, 255, 255, 0.25);
 }
-.tab-item.selected {
-	min-width: 100%;
-	/* remove the white transparent-ness */
-	background: none;
-	padding-left: 9px;
-}
 .tab-item.fade {
 	opacity: 0.55;
 }
@@ -170,73 +165,30 @@ body.is-edit-mode #navbar #tabs {
 
 /* style tab scrollbar */
 
-#navbar #tabs::-webkit-scrollbar {
+#navbar #tabs-inner::-webkit-scrollbar {
 	height: 0.25em;
 }
-#navbar #tabs::-webkit-scrollbar-track {
+.is-edit-mode #navbar #tabs-inner::-webkit-scrollbar {
+	height: 0
+}
+#navbar #tabs-inner::-webkit-scrollbar-track {
 	background-color: rgba(0, 0, 0, 0.05);
 }
-#navbar #tabs::-webkit-scrollbar-thumb {
+#navbar #tabs-inner::-webkit-scrollbar-thumb {
 	background-color: rgba(0, 0, 0, 0.175);
 	border-radius: 0.25em;
 }
-.dark-theme #navbar #tabs::-webkit-scrollbar-track {
+.dark-theme #navbar #tabs-inner::-webkit-scrollbar-track {
 	background-color: rgba(255, 255, 255, 0.25);
 }
-.dark-theme #navbar #tabs::-webkit-scrollbar-thumb {
+.dark-theme #navbar #tabs-inner::-webkit-scrollbar-thumb {
 	background-color: rgba(255, 255, 255, 0.6);
 }
 
-/* when an input is selected, hide other tabs */
-
-.is-edit-mode .tab-item:not(.selected) {
-	min-width: 0;
-	max-width: 0;
-	width: 0;
-	height: 0;
-	padding: 0;
-	overflow: hidden;
-}
-
-/* the background isn't necessary when there is only one tab */
+/* hide tabs when tab editor is open */
 
 .is-edit-mode .tab-item {
-	background: none !important;
-}
-
-/* show either the view or edit contents */
-
-.tab-item .tab-edit-contents {
-	display: none;
-}
-.tab-item.selected .tab-edit-contents {
-	display: flex;
-	height: 100%;
-	align-items: center;
-}
-.tab-item.selected .tab-view-contents {
-	display: none;
-}
-
-/* tab inputs */
-
-.tab-item .tab-input {
-	line-height: 1.15em;
-	font-size: 1.15em;
-	-webkit-appearance: none;
-	background: none;
-	border: none;
-	color: inherit;
-	flex: 1;
-	height: 1.5em;
-	outline: none;
-	-webkit-user-select: auto;
-	-webkit-app-region: no-drag;
-}
-.tab-item .tab-input::-webkit-input-placeholder {
-	color: inherit;
-	opacity: 0.5;
-	line-height: 1.25em;
+	opacity: 0;
 }
 
 /* show the overlay in edit mode */
@@ -270,7 +222,7 @@ body.dark-mode #overlay {
 .tab-item:not(.active) .icon-tab-not-secure {
 	display: none;
 }
-.tab-item .tab-view-contents .title {
+.tab-item .title {
 	font-size: 15px;
 }
 

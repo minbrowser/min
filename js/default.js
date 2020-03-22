@@ -2,6 +2,7 @@ window.userDataPath = process.argv.filter(a => a.startsWith('--user-data-path=')
 
 window.electron = require('electron')
 window.fs = require('fs')
+window.EventEmitter = require('events')
 window.ipc = electron.ipcRenderer
 window.remote = electron.remote
 window.Dexie = require('dexie')
