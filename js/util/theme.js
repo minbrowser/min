@@ -21,28 +21,35 @@ function disableDarkMode () {
 
 var themeInterval = null
 
-settings.listen('darkMode', function (value) {
-  clearInterval(themeInterval)
+function initialize () {
+  settings.listen('darkMode', function (value) {
+    clearInterval(themeInterval)
 
-  if (value === true) {
-    enableDarkMode()
-    return
-  }
+    if (value === true) {
+      enableDarkMode()
+      return
+    }
 
-  if (shouldEnableDarkMode()) {
-    enableDarkMode()
-  } else {
-    disableDarkMode()
-  }
-
-  themeInterval = setInterval(function () {
     if (shouldEnableDarkMode()) {
-      if (!window.isDarkMode) {
-        enableDarkMode()
-      }
-    } else if (window.isDarkMode) {
+      enableDarkMode()
+    } else {
       disableDarkMode()
     }
-  }, 10000)
-})
 
+    themeInterval = setInterval(function () {
+      if (shouldEnableDarkMode()) {
+        if (!window.isDarkMode) {
+          enableDarkMode()
+        }
+      } else if (window.isDarkMode) {
+        disableDarkMode()
+      }
+    }, 10000)
+  })
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = {initialize}
+} else {
+  initialize()
+}

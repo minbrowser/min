@@ -133,6 +133,7 @@ require('defaultKeybindings.js').initialize()
 require('pdfViewer.js').initialize()
 require('autofillSetup.js').initialize()
 require('passwordManager/passwordManager.js').initialize()
+require('util/theme.js').initialize()
 
 // default searchbar plugins
 
