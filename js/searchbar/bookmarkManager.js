@@ -38,7 +38,10 @@ function itemMatchesTags (item, tags) {
 function showBookmarkEditor (url, item) {
   bookmarkEditor.show(url, item, function (newBookmark) {
     if (newBookmark) {
-      item.parentNode.replaceChild(getBookmarkListItem(newBookmark), item)
+      if (item.parentNode) {
+        // item could be detached from the DOM if the searchbar is closed
+        item.parentNode.replaceChild(getBookmarkListItem(newBookmark), item)
+      }
     } else {
       places.deleteHistory(url)
       item.remove()
