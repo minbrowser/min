@@ -1,6 +1,5 @@
 var webviews = require('webviews.js')
 var keybindings = require('keybindings.js')
-var browserUI = require('browserUI.js')
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var bangsPlugin = require('searchbar/bangsPlugin.js')
@@ -59,12 +58,16 @@ var readerView = {
     }
   },
   enter: function (tabId, url) {
-    browserUI.navigate(tabId, readerView.readerURL + '?url=' + encodeURIComponent(url || tabs.get(tabId).url))
+    var newURL = readerView.readerURL + '?url=' + encodeURIComponent(url || tabs.get(tabId).url)
+    tabs.update(tabId, {url: newURL})
+    webviews.update(tabId, newURL)
   },
   exit: function (tabId) {
+    var src = urlParser.getSourceURL(tabs.get(tabId).url)
     // this page should not be automatically readerable in the future
-    readerDecision.setURLStatus(urlParser.getSourceURL(tabs.get(tabId).url), false)
-    browserUI.navigate(tabId, decodeURIComponent(tabs.get(tabId).url.split('?url=')[1]))
+    readerDecision.setURLStatus(src, false)
+    tabs.update(tabId, {url: src})
+    webviews.update(tabId, src)
   },
   printArticle: function (tabId) {
     if (!readerView.isReader(tabId)) {
@@ -123,65 +126,66 @@ var readerView = {
         searchbarPlugins.addResult('bangs', data)
       })
     })
-  }
-}
-
-window.readerView = readerView
-
-/* typing !readinglist in the searchbar shows the list */
-
-bangsPlugin.registerCustomBang({
-  phrase: '!readinglist',
-  snippet: l('viewReadingList'),
-  isAction: false,
-  showSuggestions: function (text, input, event) {
-    readerView.showReadingList(text)
   },
-  fn: function (text) {
-    readerView.searchForArticles(text, function (articles) {
-      if (articles[0]) {
-        searchbar.openURL(readerView.getReaderURL(articles[0].url))
+  initialize: function () {
+    bangsPlugin.registerCustomBang({
+      phrase: '!readinglist',
+      snippet: l('viewReadingList'),
+      isAction: false,
+      showSuggestions: function (text, input, event) {
+        readerView.showReadingList(text)
+      },
+      fn: function (text) {
+        readerView.searchForArticles(text, function (articles) {
+          if (articles[0]) {
+            searchbar.openURL(readerView.getReaderURL(articles[0].url))
+          }
+        })
+      }
+    })
+
+    // update the reader button on page load
+
+    webviews.bindEvent('did-start-navigation', function (webview, tabId, e, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
+      if (isInPlace) {
+        return
+      }
+      if (readerDecision.shouldRedirect(url) === 1) {
+        // if this URL has previously been marked as readerable, load reader view without waiting for the page to load
+        readerView.enter(tabId, url)
+      } else if (isMainFrame) {
+        tabs.update(tabId, {
+          readerable: false // assume the new page can't be readered, we'll get another message if it can
+        })
+
+        readerView.updateButton(tabId)
+      }
+    })
+
+    webviews.bindIPC('canReader', function (webview, tab) {
+      if (readerDecision.shouldRedirect(tabs.get(tab).url) >= 0) {
+        // if automatic reader mode has been enabled for this domain, and the page is readerable, enter reader mode
+        readerView.enter(tab)
+      }
+
+      tabs.update(tab, {
+        readerable: true
+      })
+      readerView.updateButton(tab)
+    })
+
+    // add a keyboard shortcut to enter reader mode
+
+    keybindings.defineShortcut('toggleReaderView', function () {
+      if (readerView.isReader(tabs.getSelected())) {
+        readerView.exit(tabs.getSelected())
+      } else {
+        readerView.enter(tabs.getSelected())
       }
     })
   }
-})
+}
 
-// update the reader button on page load
+readerView.initialize()
 
-webviews.bindEvent('did-start-navigation', function (webview, tabId, e, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
-  if (isInPlace) {
-    return
-  }
-  if (readerDecision.shouldRedirect(url) === 1) {
-    // if this URL has previously been marked as readerable, load reader view without waiting for the page to load
-    readerView.enter(tabId, url)
-  } else if (isMainFrame) {
-    tabs.update(tabId, {
-      readerable: false // assume the new page can't be readered, we'll get another message if it can
-    })
-
-    readerView.updateButton(tabId)
-  }
-})
-
-webviews.bindIPC('canReader', function (webview, tab) {
-  if (readerDecision.shouldRedirect(tabs.get(tab).url) >= 0) {
-    // if automatic reader mode has been enabled for this domain, and the page is readerable, enter reader mode
-    readerView.enter(tab)
-  }
-
-  tabs.update(tab, {
-    readerable: true
-  })
-  readerView.updateButton(tab)
-})
-
-// add a keyboard shortcut to enter reader mode
-
-keybindings.defineShortcut('toggleReaderView', function () {
-  if (readerView.isReader(tabs.getSelected())) {
-    readerView.exit(tabs.getSelected())
-  } else {
-    readerView.enter(tabs.getSelected())
-  }
-})
+module.exports = readerView

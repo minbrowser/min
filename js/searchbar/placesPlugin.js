@@ -3,6 +3,7 @@ var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 var searchbarAutocomplete = require('searchbar/searchbarAutocomplete.js')
 var urlParser = require('util/urlParser.js')
+var readerView = require('readerView.js')
 
 /* For survey */
 var browserUI = require('browserUI.js')

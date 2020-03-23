@@ -1,6 +1,7 @@
 const webviews = require('webviews.js')
 const focusMode = require('focusMode.js')
 const urlParser = require('util/urlParser.js')
+const readerView = require('readerView.js')
 
 const tabEditor = require('navbar/tabEditor.js')
 const progressBar = require('navbar/progressBar.js')
