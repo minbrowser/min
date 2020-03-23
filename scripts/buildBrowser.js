@@ -18,7 +18,6 @@ const legacyModules = [
   'js/searchbar/customBangs.js',
   'js/searchbar/bookmarkManager.js',
   'js/readerview.js',
-  'js/navbar/tabBar.js',
   'js/taskOverlay/taskOverlay.js',
   'js/navbar/addTabButton.js',
   'js/navbar/menuButton.js',

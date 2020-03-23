@@ -3,6 +3,7 @@ var browserUI = require('browserUI.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 var urlParser = require('util/urlParser.js')
 var searchEngine = require('util/searchEngine.js')
+var tabBar = require('navbar/tabBar.js')
 
 function getTaskRelativeDate (task) {
   var minimumTime = new Date()

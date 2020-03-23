@@ -1,18 +1,18 @@
-var webviews = require('webviews.js')
-var browserUI = require('browserUI.js')
-var focusMode = require('focusMode.js')
-var urlParser = require('util/urlParser.js')
+const webviews = require('webviews.js')
+const focusMode = require('focusMode.js')
+const urlParser = require('util/urlParser.js')
 
-var tabEditor = require('navbar/tabEditor.js')
-var progressBar = require('navbar/progressBar.js')
-var permissionRequests = require('navbar/permissionRequests.js')
+const tabEditor = require('navbar/tabEditor.js')
+const progressBar = require('navbar/progressBar.js')
+const permissionRequests = require('navbar/permissionRequests.js')
 
 var lastTabDeletion = 0 // TODO get rid of this
 
-window.tabBar = {
+const tabBar = {
   container: document.getElementById('tabs'),
   containerInner: document.getElementById('tabs-inner'),
   tabElementMap: {}, // tabId: tab element
+  events: new EventEmitter(),
   getTab: function (tabId) {
     return tabBar.tabElementMap[tabId]
   },
@@ -106,7 +106,7 @@ window.tabBar = {
     closeTabButton.classList.add('fa-times-circle')
 
     closeTabButton.addEventListener('click', function (e) {
-      browserUI.closeTab(data.id)
+      tabBar.events.emit('tab-closed', data.id)
       // prevent the searchbar from being opened
       e.stopPropagation()
     })
@@ -139,7 +139,7 @@ window.tabBar = {
     // click to enter edit mode or switch to a tab
     tabEl.addEventListener('click', function (e) {
       if (tabs.getSelected() !== data.id) { // else switch to tab if it isn't focused
-        browserUI.switchToTab(data.id)
+        tabBar.events.emit('tab-selected', data.id)
       } else { // the tab is focused, edit tab instead
         tabEditor.show(data.id)
       }
@@ -147,7 +147,7 @@ window.tabBar = {
 
     tabEl.addEventListener('auxclick', function (e) {
       if (e.which === 2) { // if mouse middle click -> close tab
-        browserUI.closeTab(data.id)
+        tabBar.events.emit('tab-closed', data.id)
       }
     })
 
@@ -169,7 +169,7 @@ window.tabBar = {
         this.style.transform = 'translateY(-100%)'
 
         setTimeout(function () {
-          browserUI.closeTab(tab)
+          tabBar.events.emit('tab-closed', data.id)
         }, 150) // wait until the animation has completed
       }
     })
@@ -214,3 +214,5 @@ tasks.on('tab-updated', function (id, key) {
 permissionRequests.onChange(function (tabId) {
   tabBar.rerenderTab(tabId)
 })
+
+module.exports = tabBar

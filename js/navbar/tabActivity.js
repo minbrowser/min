@@ -1,5 +1,7 @@
 /* fades out tabs that are inactive */
 
+var tabBar = require('navbar/tabBar.js')
+
 var tabActivity = {
   minFadeAge: 330000,
   refresh: function () {

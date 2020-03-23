@@ -3,6 +3,7 @@
 var webviews = require('webviews.js')
 var urlParser = require('util/urlParser.js')
 var focusMode = require('focusMode.js')
+var tabBar = require('navbar/tabBar.js')
 var tabEditor = require('navbar/tabEditor.js')
 var searchbar = require('searchbar/searchbar.js')
 
@@ -212,6 +213,14 @@ searchbar.events.on('url-selected', function (data) {
   } else {
     navigate(tabs.getSelected(), data.url)
   }
+})
+
+tabBar.events.on('tab-selected', function (id) {
+  switchToTab(id)
+})
+
+tabBar.events.on('tab-closed', function (id) {
+  closeTab(id)
 })
 
 module.exports = {
