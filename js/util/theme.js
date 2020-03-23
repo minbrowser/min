@@ -10,13 +10,17 @@ function shouldEnableDarkMode () {
 function enableDarkMode () {
   document.body.classList.add('dark-mode')
   window.isDarkMode = true
-  window.dispatchEvent(new CustomEvent('themechange'))
+  requestAnimationFrame(function () {
+    window.dispatchEvent(new CustomEvent('themechange'))
+  })
 }
 
 function disableDarkMode () {
   document.body.classList.remove('dark-mode')
   window.isDarkMode = false
-  window.dispatchEvent(new CustomEvent('themechange'))
+  requestAnimationFrame(function () {
+    window.dispatchEvent(new CustomEvent('themechange'))
+  })
 }
 
 var themeInterval = null
