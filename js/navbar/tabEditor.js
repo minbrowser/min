@@ -52,12 +52,12 @@ const tabEditor = {
 
         var finalCoordinates = document.querySelector('#tabs').getBoundingClientRect()
 
-        var translateX = Math.min(Math.round(originCoordinates.x - finalCoordinates.x) * 0.5, window.innerWidth)
+        var translateX = Math.min(Math.round(originCoordinates.x - finalCoordinates.x) * 0.45, window.innerWidth)
 
         tabEditor.container.style.opacity = 0
         tabEditor.container.style.transform = `translateX(${translateX}px)`
         requestAnimationFrame(function () {
-          tabEditor.container.style.transition = '0.15s all'
+          tabEditor.container.style.transition = '0.135s all'
           tabEditor.container.style.opacity = 1
           tabEditor.container.style.transform = ''
         })
