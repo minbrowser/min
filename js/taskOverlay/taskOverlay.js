@@ -83,7 +83,7 @@ window.taskOverlay = {
     this.isShown = true
     taskSwitcherButton.classList.add('active')
 
-    this.tabDragula.containers = []
+    this.tabDragula.containers = [addTaskButton]
     empty(taskContainer)
 
     // show the task elements
@@ -213,14 +213,30 @@ function getTaskContainer (id) {
 
 /* rearrange tabs when they are dropped */
 
+taskOverlay.tabDragula.on('drag', function () {
+  taskOverlay.overlayElement.classList.add('is-dragging-tab')
+})
+
+taskOverlay.tabDragula.on('dragend', function () {
+  taskOverlay.overlayElement.classList.remove('is-dragging-tab')
+})
+
+taskOverlay.tabDragula.on('over', function (el, container, source) {
+  if (container === addTaskButton) {
+    addTaskButton.classList.add('drag-target')
+  }
+})
+
+taskOverlay.tabDragula.on('out', function (el, container, source) {
+  if (container === addTaskButton) {
+    addTaskButton.classList.remove('drag-target')
+  }
+})
+
 taskOverlay.tabDragula.on('drop', function (el, target, source, sibling) { // see https://github.com/bevacqua/dragula#drakeon-events
   var tabId = el.getAttribute('data-tab')
-  if (sibling) {
-    var adjacentTadId = sibling.getAttribute('data-tab')
-  }
 
   var previousTask = tasks.get(source.getAttribute('data-task'))
-  var newTask = tasks.get(target.getAttribute('data-task'))
 
   // remove tab from old task
   var oldTab = previousTask.tabs.splice(previousTask.tabs.getIndex(tabId), 1)[0]
@@ -230,6 +246,20 @@ taskOverlay.tabDragula.on('drop', function (el, target, source, sibling) { // se
   if (previousTask.tabs.count() === 0) {
     browserUI.closeTask(previousTask.id)
     getTaskContainer(previousTask.id).remove()
+  }
+
+  // if dropping on "add task" button, create a new task
+  if (target === addTaskButton) {
+    var newTask = tasks.get(tasks.add())
+    // remove from button, and re-create in overlay
+    el.remove()
+  } else {
+    // otherwise, find a source task to add this tab to
+    var newTask = tasks.get(target.getAttribute('data-task'))
+  }
+
+  if (sibling) {
+    var adjacentTadId = sibling.getAttribute('data-tab')
   }
 
   // find where in the new task the tab should be inserted
@@ -243,8 +273,8 @@ taskOverlay.tabDragula.on('drop', function (el, target, source, sibling) { // se
   // insert the tab at the correct spot
   newTask.tabs.splice(newIdx, 0, oldTab)
 
-  // update the visible tabs
   tabBar.rerenderAll()
+  taskOverlay.show()
 })
 
 /* rearrange tasks when they are dropped */

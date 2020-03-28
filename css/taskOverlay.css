@@ -170,8 +170,38 @@ body.windows:not(.maximized) #switch-task-button {
 	background-color: rgb(245, 245, 245);
 	cursor: pointer;
 }
+/* hide tab element that is being dropped */
+#add-task .task-tab-item {
+	display: none;
+}
+.is-dragging-tab #add-task {
+	background: none;
+	border: 2px dashed rgba(0, 0, 0, 0.3);
+	margin-bottom: -2px;
+	border-radius: 3px;
+}
+.is-dragging-tab #add-task.drag-target {
+	border: none;
+	margin-bottom: 0;
+	background: rgba(0, 0, 0, 0.15)
+}
+
+.dark-mode #add-task {
+	background-color: rgb(33, 37, 43);
+	color: lightgrey;
+}
+.dark-mode .is-dragging-tab #add-task {
+	background: none;
+	border-color: rgba(255, 255, 255, 0.4);
+}
+.dark-mode .is-dragging-tab #add-task.drag-target {
+	background: rgba(255, 255, 255, 0.15)
+}
 #add-task:hover {
 	background-color: rgb(235, 235, 235);
+}
+.dark-mode #add-task:hover {
+	background-color: rgb(44, 49, 56);
 }
 #add-task .fa {
 	opacity: 0.75;
@@ -206,9 +236,4 @@ body.dark-mode #task-overlay{
 
 .dark-mode #switch-task-button {
   color: dodgerblue;
-}
-
-body.dark-mode #task-overlay #add-task {
-	background-color: rgb(33, 37, 43) !important;
-	color: lightgrey;
 }
