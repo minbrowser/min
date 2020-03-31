@@ -10,13 +10,17 @@
 	height: 35px;
 	z-index: 99;
 }
+/* leave room for window controls */
 body.mac:not(.fullscreen) #findinpage-bar {
 	padding-left: 80px;
 }
+/* leave room for window controls and menu button */
 body.windows #findinpage-bar {
+	left: 36px;
 	right: 138px;
-	width: calc(100% - 138px);
+	width: calc(100% - 174px);
 }
+/* leave room for drag area */
 body.windows:not(.maximized) #findinpage-bar {
 	top: 10px;
 }
