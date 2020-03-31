@@ -5,7 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "pictureInPicture": null, //missing translation
+        "pictureInPicture": "Obraz w obrazie",
         "openInNewTab": "Otwórz w nowej karcie",
         "openInNewPrivateTab": "Otwórz w nowej karcie prywatnej",
         "viewImage": "Zobacz grafikę",
@@ -37,8 +37,8 @@
         "viewReadingList": "Wyświetl listę czytelnia",
         "takeScreenshot": "Zrób zrzut ekranu",
         "clearHistory": "Wyczyść całą historię",
-        "enableBlocking": null, //missing translation
-        "disableBlocking": null, //missing translation
+        "enableBlocking": "Włącz blokowanie treści dla tej witryny",
+        "disableBlocking": "Wyłącz blokowanie treści dla tej witryny",
         "clearHistoryConfirmation": "Czy wyczyścić całą historię i dane przeglądania?",
         "switchToTask": "Przełącz na zadanie",
         "createTask": "Utwórz zadanie",
@@ -201,6 +201,29 @@
         "downloadStateCompleted": "Pobieranie zakończone",
         "downloadStateFailed": "Błąd pobierania",
         /* Update Notifications */
-        "updateNotificationTitle": "Dostępna jest nowa wersja Min"
+        "updateNotificationTitle": "Dostępna jest nowa wersja Min",
+	/* Autofill settings */
+        "settingsPasswordAutoFillHeadline": "Autouzupełnianie hasła",
+        "settingsSelectPasswordManager": "Wybierz jeden z obsługiwanych menedżerów haseł:",
+        /* Password manager setup */
+        "passwordManagerSetupHeading": "Zakończ konfigurowanie %p aby korzystać z autouzupełniania",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "Najpierw, <a id='password-manager-setup-link'></a> i wypakuj go dla swojego systemu."
+        },
+        "passwordManagerSetupLink": "pobierz %p narzędzie wiersza poleceń",
+        "passwordManagerSetupStep2": "Następnie przeciągnij narzędzie do pola poniżej:",
+        "passwordManagerSetupDragBox": "Przeciągnij narzędzie tutaj",
+        "passwordManagerSetupInstalling": "Instalowanie...",
+        "passwordManagerSetupSignIn": "Zaloguj się do menedżera haseł, aby rozpocząć korzystanie z autouzupełniania. Twoje dane uwierzytelniające nie będą przechowywane nigdzie w Min.",
+        "disableAutofill": "Wyłącz autouzupełnianie",
+        "autofillNotNow": "Nie teraz",
+        "passwordManagerSetupUnlockError": "nie udało się odblokować przechowalni haseł: ",
+        "passwordManagerSetupRetry": "Upewnij się, że używasz właściwego pliku i wpisujesz poprawne hasło. Możesz spróbować ponownie, przeciągając tutaj narzędzie.",
+        "passwordManagerUnlock": "Wprowadź główne hasło %p, aby odblokować przechowalnię haseł:",
+        /* Dialogs */
+        "dialogConfirmButton": "Potwierdź",
+        "dialogSkipButton": "Anuluj",
+        "email": "Email",
+        "password": "Hasło"
     }
 }
