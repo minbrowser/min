@@ -5,7 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "pictureInPicture": null, //missing translation
+        "pictureInPicture": "Obraz w obrazie",
         "openInNewTab": "Otwórz w nowej karcie",
         "openInNewPrivateTab": "Otwórz w nowej karcie prywatnej",
         "viewImage": "Zobacz grafikę",
@@ -37,8 +37,8 @@
         "viewReadingList": "Wyświetl listę czytelnia",
         "takeScreenshot": "Zrób zrzut ekranu",
         "clearHistory": "Wyczyść całą historię",
-        "enableBlocking": null, //missing translation
-        "disableBlocking": null, //missing translation
+        "enableBlocking": "Włącz blokowanie treści dla tej witryny",
+        "disableBlocking": "Wyłącz blokowanie treści dla tej witryny",
         "clearHistoryConfirmation": "Czy wyczyścić całą historię i dane przeglądania?",
         "switchToTask": "Przełącz na zadanie",
         "createTask": "Utwórz zadanie",
