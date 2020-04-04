@@ -1,52 +1,15 @@
 #navbar {
 	display: flex;
-	height: 36px;
+	height: calc(36px + var(--control-space-top));
 	transition: 0.2s background-color;
 	width: 100%;
 	-webkit-user-select: none;
 	position: relative;
 	outline: none;
 	z-index: 2;
-}
-
-/* window drag regions */
-
-.window-drag-area {
-	display: none;
-}
-
-body.windows:not(.maximized) .window-drag-area {
-	display: block;
-	position: fixed;
-	/* leave an empty space around the edges of the drag area so that the window can be resized */
-	top: 3px;
-	left: 3px;
-	width: calc(100% - 6px);
-	height: 9px;
-	-webkit-app-region: drag;
-}
-
-body.mac .window-drag-area {
-	display: block;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 32px;
-	-webkit-app-region: drag;
-}
-
-/* make room for the window controls */
-body.mac:not(.fullscreen) #navbar {
-	padding-left: 75px;
-}
-
-body.windows #navbar {
-	padding-right: 138px;
-}
-body.windows:not(.maximized) #navbar {
-	padding-top: 10px;
-	height: 46px;
+	padding-top: var(--control-space-top);
+	padding-left: var(--control-space-left);
+	padding-right: var(--control-space-right);
 }
 
 /* when the tab-group is white, we need a line to separate it from the webviews */

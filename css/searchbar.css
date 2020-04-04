@@ -1,36 +1,23 @@
 #searchbar {
 	z-index: 3;
 	position: fixed;
-	top: 36px;
+	top: calc(var(--control-space-top) + 36px);
 	left: 0;
 	width: 100%;
 	background: #fff;
 	color: #000;
-	padding-left: 0;
-	padding-right: 82px;
+	padding-left: var(--control-space-left);
+	padding-right: calc(82px + var(--control-space-right));
 	-webkit-user-select: none;
 	max-height: calc(100% - 125px);
 	overflow-y: auto;
-	will-change: display;
 }
 
-body.windows:not(.maximized) #searchbar {
-	top: 46px;
-}
-
-/* align with window controls */
-body.mac:not(.fullscreen) #searchbar {
-	padding-left: 75px;
-}
 /* account for menu button */
 body.windows #searchbar,
 body.linux.menu-bar-hidden #searchbar {
-	padding-left: 36px;
+	padding-left: calc(36px + var(--control-space-left));
 }
-body.windows #searchbar {
-	padding-right: 220px;
-}
-
 
 .searchbar-heading {
 	font-weight: normal;

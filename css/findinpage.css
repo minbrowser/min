@@ -1,29 +1,20 @@
 #findinpage-bar {
-	width: 100%;
 	display: flex;
-	position: absolute;
-	top: 0;
-	left: 0;
 	align-items: center;
-	padding-left: 0.5em;
-	padding-right: 0.75em;
+	position: absolute;
+	top: var(--control-space-top);
+	left: calc(0.5em + var(--control-space-left));
+	right: calc(0.75em + var(--control-space-right));
 	height: 35px;
 	z-index: 99;
 }
-/* leave room for window controls */
-body.mac:not(.fullscreen) #findinpage-bar {
-	padding-left: 80px;
+
+/* leave room for menu button */
+body.windows #findinpage-bar,
+body.linux.menu-bar-hidden #findinpage-bar {
+	left: calc(36px + var(--control-space-left));
 }
-/* leave room for window controls and menu button */
-body.windows #findinpage-bar {
-	left: 36px;
-	right: 138px;
-	width: calc(100% - 174px);
-}
-/* leave room for drag area */
-body.windows:not(.maximized) #findinpage-bar {
-	top: 10px;
-}
+
 #findinpage-bar #findinpage-input {
 	flex: 1;
 	-webkit-appearance: none;

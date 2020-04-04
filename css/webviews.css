@@ -1,9 +1,6 @@
 #webviews {
-	height: calc(100vh - 36px);
+	height: calc(100vh - 36px - var(--control-space-top));
 	position: relative;
-}
-body.windows:not(.maximized) #webviews {
-	height: calc(100vh - 46px);
 }
 
 /* disabled on linux and windows due to https://github.com/minbrowser/min/issues/807 */

@@ -1,25 +1,18 @@
 .simulated-navbar {
 	width: 100%;
-	height: 36px;
+	height: calc(36px + var(--control-space-top));
 	background-color: inherit;
 	z-index: 1;
 	border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
 }
-body.windows:not(.maximized) .simulated-navbar {
-	height: 46px;
-}
+
 #switch-task-button {
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: var(--control-space-top);
+	right: var(--control-space-right);
 	z-index: 4;
 }
-body.windows #switch-task-button {
-	right: 138px;
-}
-body.windows:not(.maximized) #switch-task-button {
-	top: 10px;
-}
+
 #switch-task-button.active {
 	color: royalblue !important;
 }
