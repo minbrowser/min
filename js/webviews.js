@@ -8,6 +8,7 @@ var settings = require('util/settings/settings.js')
 var placeholderImg = document.getElementById('webview-placeholder')
 
 var windowIsMaximized = false // affects navbar height on Windows
+var windowIsFullscreen = false
 
 function lazyRemoteObject (getObject) {
   var cachedItem = null
@@ -162,7 +163,7 @@ const webviews = {
         height: window.innerHeight
       }
     } else {
-      if (window.platformType === 'windows' && !windowIsMaximized) {
+      if (window.platformType === 'windows' && !windowIsMaximized && !windowIsFullscreen) {
         var navbarHeight = 46
       } else {
         var navbarHeight = 36
@@ -414,6 +415,16 @@ ipc.on('maximize', function () {
 
 ipc.on('unmaximize', function () {
   windowIsMaximized = false
+  webviews.resize()
+})
+
+ipc.on('enter-full-screen', function () {
+  windowIsFullscreen = true
+  webviews.resize()
+})
+
+ipc.on('leave-full-screen', function () {
+  windowIsFullscreen = false
   webviews.resize()
 })
 
