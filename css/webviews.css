@@ -3,9 +3,11 @@
 	position: relative;
 }
 
-/* disabled on linux and windows due to https://github.com/minbrowser/min/issues/807 */
-body.mac.dark-mode #webviews {
-	background-color: rgb(33, 37, 43);
+/* Webpages assume the page background will always be white, but the Electron API to set this is broken on Windows and Linux (https://github.com/electron/electron/issues/20447) - there, the view will always be transparent.
+Therefore, the default app background (which can be white or black) can only be used on mac; on linux and windows, it needs to always be white, since it could become part of the page background. */
+body.windows #webviews,
+body.linux #webviews {
+	background-color: white;
 }
 
 .arrow-indicator {
