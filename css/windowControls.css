@@ -101,3 +101,17 @@ body:not(.task-overlay-is-shown).dark-theme .windows-caption-buttons .element {
 .windows-caption-buttons .element.caption-close:active {
 	background-color: rgba(232, 17, 35, 0.6);
 }
+
+/* Linux buttons */
+
+body.linux {
+	--control-space-right: 70px;
+}
+
+#linux-custom-buttons {
+	position: absolute;
+	top: calc(9px + var(--control-space-top));
+	right: 0;
+	z-index: 9;
+	width: 70px;
+}
