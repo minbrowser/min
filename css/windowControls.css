@@ -105,13 +105,19 @@ body:not(.task-overlay-is-shown).dark-theme .windows-caption-buttons .element {
 /* Linux buttons */
 
 body.linux {
-	--control-space-right: 70px;
+	--control-space-right: 36px;
 }
 
-#linux-custom-buttons {
+body.linux .window-drag-area-left {
+	width: 36px;
+	height: 100%;
+	-webkit-app-region: drag;
+}
+
+#linux-close-button {
 	position: absolute;
 	top: calc(9px + var(--control-space-top));
-	right: 0;
+	right: 9px;
 	z-index: 9;
-	width: 70px;
+	width: 18px;
 }
