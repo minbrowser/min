@@ -15,7 +15,7 @@
 
 /* account for menu button */
 body.windows #searchbar,
-body.linux.menu-bar-hidden #searchbar {
+body.linux:not(.separate-titlebar) #searchbar {
 	padding-left: calc(36px + var(--control-space-left));
 }
 

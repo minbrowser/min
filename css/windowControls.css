@@ -10,13 +10,13 @@ body {
 }
 
 body.windows:not(.maximized):not(.fullscreen),
-body.linux {
+body.linux:not(.separate-titlebar) {
 	--control-space-top: 12px;
 }
 
 /* On Windows, draggable regions aren't clickable, so the drag region is a separate area above the tabstrip */
 body.windows:not(.maximized):not(.fullscreen) .window-drag-area,
-body.linux .window-drag-area {
+body.linux:not(.separate-titlebar) .window-drag-area {
 	display: block;
 	position: fixed;
 	/* leave an empty space around the edges of the drag area so that the window can be resized */
@@ -110,11 +110,11 @@ body:not(.task-overlay-is-shown).dark-theme .windows-caption-buttons .element {
 	display: none;
 }
 
-body.linux {
+body.linux:not(.separate-titlebar) {
 	--control-space-right: 36px;
 }
 
-body.linux #linux-close-button {
+body.linux:not(.separate-titlebar) #linux-close-button {
 	display: block;
 	position: absolute;
 	top: calc(9px + var(--control-space-top));

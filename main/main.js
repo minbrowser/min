@@ -165,7 +165,7 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     minHeight: 350,
     titleBarStyle: 'hiddenInset',
     icon: __dirname + '/icons/icon256.png',
-    frame: process.platform !== 'win32' && process.platform !== 'linux',
+    frame: process.platform === 'darwin' || settings.get('useSeparateTitlebar') === true,
     alwaysOnTop: settings.get('windowAlwaysOnTop'),
     backgroundColor: '#fff', // the value of this is ignored, but setting it seems to work around https://github.com/electron/electron/issues/10559
     webPreferences: {

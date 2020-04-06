@@ -163,7 +163,7 @@ const webviews = {
         height: window.innerHeight
       }
     } else {
-      if (window.platformType === 'windows' && !windowIsMaximized && !windowIsFullscreen) {
+      if (!settings.get('useSeparateTitlebar') && (window.platformType === 'linux' || (window.platformType === 'windows' && !windowIsMaximized && !windowIsFullscreen))) {
         var navbarHeight = 48
       } else {
         var navbarHeight = 36
