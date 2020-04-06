@@ -164,7 +164,7 @@ const webviews = {
       }
     } else {
       if (window.platformType === 'windows' && !windowIsMaximized && !windowIsFullscreen) {
-        var navbarHeight = 46
+        var navbarHeight = 48
       } else {
         var navbarHeight = 36
       }

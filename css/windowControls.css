@@ -11,7 +11,7 @@ body {
 
 body.windows:not(.maximized):not(.fullscreen),
 body.linux {
-	--control-space-top: 10px;
+	--control-space-top: 12px;
 }
 
 /* On Windows, draggable regions aren't clickable, so the drag region is a separate area above the tabstrip */
@@ -23,7 +23,7 @@ body.linux .window-drag-area {
 	top: 3px;
 	left: 3px;
 	width: calc(100% - 6px);
-	height: 9px;
+	height: 12px;
 	-webkit-app-region: drag;
 }
 
