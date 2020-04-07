@@ -120,5 +120,17 @@ body.linux:not(.separate-titlebar) #linux-close-button {
 	top: calc(9px + var(--control-space-top));
 	right: 9px;
 	z-index: 9;
-	width: 18px;
+	width: 19px;
+	height: 19px;
+	overflow: hidden;
+}
+
+#linux-close-button:hover #close-circle {
+	fill: #ce4c17;
+}
+
+#linux-close-button:active #close-circle,
+#linux-close-button:active #close-circle-border {
+	fill: #bd4515;
+	stroke: #bd4515;
 }
