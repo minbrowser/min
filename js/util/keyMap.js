@@ -21,7 +21,8 @@ var defaultKeyMap = {
   'switchToPreviousTask': 'mod+[',
   'closeAllTabs': 'shift+mod+n',
   'reload': 'mod+r',
-  'showAndHideMenuBar': 'ctrl+m',
+  'showAndHideMenuBar': '',
+  'showMenu': 'ctrl+m',
   'followLink': 'mod+enter',
   'fillPassword': 'mod+\\'
 }
