@@ -140,7 +140,8 @@
         "settingsHistoryButtonToggle": "Mostrar botão para recuar",
         "settingsAdditionalFeaturesHeading": "Outras funcionalidades",
         "settingsUserscriptsToggle": "Ativar scripts de utilizador",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."},
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": {"unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."},
         "settingsUpdateNotificationsToggle": "Procurar atualizações automaticamente",
         "settingsSearchEngineHeading": "Motor de pesquisa",
         "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",

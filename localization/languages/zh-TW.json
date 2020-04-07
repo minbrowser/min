@@ -140,7 +140,8 @@
         "settingsHistoryButtonToggle": "啟用返回鍵",
         "settingsAdditionalFeaturesHeading": "其他功能",
         "settingsUserscriptsToggle": "允許使用者指令",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."},
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": {"unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."},
         "settingsUpdateNotificationsToggle": "自動檢查更新",
         "settingsSearchEngineHeading": "搜索引擎",
         "settingsDefaultSearchEngine": "選擇預設的搜索引擎：",

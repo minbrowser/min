@@ -140,7 +140,8 @@
         "settingsHistoryButtonToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsUserscriptsToggle": null, //missing translation
-        "settingsUserscriptsExplanation": null, //missing translation
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Suchmaschine",
         "settingsDefaultSearchEngine": "Suchmaschine auswählen:",

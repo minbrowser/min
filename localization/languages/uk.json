@@ -140,7 +140,8 @@
         "settingsHistoryButtonToggle": "Увімкнути кнопку \"Назад\"",
         "settingsAdditionalFeaturesHeading": "Додаткові можливості",
         "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."},
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": {"unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."},
         "settingsUpdateNotificationsToggle": "Автоматично перевіряти наявність оновлень",
         "settingsSearchEngineHeading": "Пошукова система",
         "settingsDefaultSearchEngine": "Виберіть типову пошукову систему:",

@@ -140,7 +140,8 @@
         "settingsHistoryButtonToggle": "뒤로 버튼 사용",
         "settingsAdditionalFeaturesHeading": "추가 기능",
         "settingsUserscriptsToggle": "사용자 명령(스크립트) 사용",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "사용자 명령(스크립트)을 사용하면 누리집의 행동을 수정할 수 있습니다. - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">더보기</a>."},
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": {"unsafeHTML": "사용자 명령(스크립트)을 사용하면 누리집의 행동을 수정할 수 있습니다. - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">더보기</a>."},
         "settingsUpdateNotificationsToggle": "판올림 자동 확인",
         "settingsSearchEngineHeading": "검색 도구",
         "settingsDefaultSearchEngine": "기본 검색 도구:",
