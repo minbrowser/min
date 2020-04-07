@@ -7,7 +7,7 @@ if (settings.get('useSeparateTitlebar') === true) {
 var windowIsMaximized = false
 var windowIsFullscreen = false
 
-var captionMinimise =
+var captionMinimize =
   document.querySelector('.windows-caption-buttons .caption-minimise, body.linux .titlebar-linux .caption-minimise')
 
 var captionMaximize =
@@ -19,7 +19,9 @@ var captionRestore =
 var captionClose =
   document.querySelector('.windows-caption-buttons .caption-close, body.linux .titlebar-linux .caption-close')
 
-var linuxClose = document.querySelector('#linux-close-button')
+var linuxClose = document.querySelector('#linux-control-buttons #close-button')
+var linuxMinimize = document.querySelector('#linux-control-buttons #minimize-button')
+var linuxMaximize = document.querySelector('#linux-control-buttons #maximize-button')
 
 function updateCaptionButtons () {
   if (window.platformType === 'windows') {
@@ -36,7 +38,7 @@ function updateCaptionButtons () {
 if (window.platformType === 'windows') {
   updateCaptionButtons()
 
-  captionMinimise.addEventListener('click', function (e) {
+  captionMinimize.addEventListener('click', function (e) {
     remote.getCurrentWindow().minimize()
   })
 
@@ -77,5 +79,11 @@ ipc.on('leave-full-screen', function (e) {
 if (window.platformType === 'linux') {
   linuxClose.addEventListener('click', function (e) {
     remote.getCurrentWindow().close()
+  })
+  linuxMaximize.addEventListener('click', function (e) {
+    remote.getCurrentWindow().maximize()
+  })
+  linuxMinimize.addEventListener('click', function (e) {
+    remote.getCurrentWindow().minimize()
   })
 }

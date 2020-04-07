@@ -51,29 +51,57 @@
 		</div>
 	</div>
 
-	<button id="linux-close-button">
-		<svg version="1.1" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
-			<path id="close-circle" fill="#e65a21" d="m0.56231546 9.304365l0 0c0 -4.8270555 3.9131017 -8.740157 8.740158 -8.740157l0 0c2.3180342 0 4.541127 0.92083544 6.1802244 2.559933c1.6390982 1.6390977 2.5599337 3.8621907 2.5599337 6.1802244l0 0c0 4.827056 -3.9131021 8.740158 -8.740158 8.740158l0 0c-4.827056 0 -8.740158 -3.9131021 -8.740158 -8.740158z" fill-rule="evenodd" />
-			<path id="close-circle-border" stroke="#cb4b16" stroke-width="1.0" stroke-linejoin="round" stroke-linecap="butt" d="m0.56231546 9.304365l0 0c0 -4.8270555 3.9131017 -8.740157 8.740158 -8.740157l0 0c2.3180342 0 4.541127 0.92083544 6.1802244 2.559933c1.6390982 1.6390977 2.5599337 3.8621907 2.5599337 6.1802244l0 0c0 4.827056 -3.9131021 8.740158 -8.740158 8.740158l0 0c-4.827056 0 -8.740158 -3.9131021 -8.740158 -8.740158z" fill-rule="evenodd" />
-			<path stroke="white" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="butt" d="m6.5337358 12.046629l5.3858266 -5.480315" fill-rule="evenodd" />
-			<path stroke="white" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="butt" d="m6.5337358 6.5027547l5.543307 5.637795" fill-rule="evenodd" />
-	</svg>	
-</button>
+	<button id="linux-control-buttons" class="theme-text-color">
+		<svg version="1.1" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10"
+			xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+			<g id="minimize-button">
+				<rect width="24" height="24" fill="transparent"></rect>
+				<path class="button-background" stroke="rgba(204,204,204,0.4)" stroke-width="1.0" fill="rgba(243,243,243,0.4)"
+					d="m0.58331287 9.112764l0 0c0 -4.827056 3.9131017 -8.740157 8.740157 -8.740157l0 0c2.3180342 0 4.541127 0.92083544 6.1802244 2.559933c1.6390972 1.6390975 2.5599327 3.8621905 2.5599327 6.1802244l0 0c0 4.827056 -3.9131012 8.740158 -8.740157 8.740158l0 0c-4.8270555 0 -8.740157 -3.9131021 -8.740157 -8.740158z"
+					fill-rule="evenodd" />
+				<path stroke="currentColor" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt"
+					d="m5.3307085 11.92126l6.740158 -0.031496048" fill-rule="evenodd" />
+			</g>
+			<g id="maximize-button">
+				<rect width="24" height="24" x="24" fill="transparent"></rect>
+				<path class="button-background" stroke="rgba(204,204,204,0.4)" stroke-width="1.0" fill="rgba(243,243,243,0.4)"
+					d="m28.635807 9.121951l0 0c0 -4.827056 3.9131012 -8.740158 8.740158 -8.740158l0 0c2.3180313 0 4.5411263 0.9208354 6.1802216 2.5599327c1.6390991 1.6390975 2.5599327 3.862191 2.5599327 6.1802254l0 0c0 4.827055 -3.9131012 8.740157 -8.740154 8.740157l0 0c-4.827057 0 -8.740158 -3.9131021 -8.740158 -8.740157z"
+					fill-rule="evenodd" />
+				<path stroke="currentColor" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt"
+					d="m34.18635 5.954068l6.3622055 0l0 6.2992125l-6.3622055 0z" fill-rule="evenodd" />
+			</g>
+			<g id="close-button">
+				<rect width="24" height="24" x="48" fill="transparent"></rect>
+				<path class="button-background" stroke="#d54e17" stroke-width="1.0" fill="#e7622c"
+					d="m62.62006 9.103578l0 0c0 -4.8270555 3.9130974 -8.740157 8.740154 -8.740157l0 0c2.318039 0 4.54113 0.9208354 6.180229 2.559933c1.6390915 1.6390975 2.559929 3.8621905 2.559929 6.1802244l0 0c0 4.827056 -3.9131012 8.740157 -8.740158 8.740157l0 0c-4.827057 0 -8.740154 -3.9131012 -8.740154 -8.740157z"
+					fill-rule="evenodd" />
+				<path stroke="currentColor" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt"
+					d="m67.95106 5.7166653l6.740158 6.771653" fill-rule="evenodd" />
+				<path stroke="currentColor" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt"
+					d="m74.70696 5.7324133l-6.771652 6.740157" fill-rule="evenodd" />
+			</g>
+		</svg>
 
-		<div id="navbar" class="theme-background-color theme-text-color windowDragHandle" tabindex="-1">
-			<button id="menu-button" class="fa fa-ellipsis-v navbar-action-button" data-label="openMenu" tabindex="-1"></i>
-			<button id="back-button" hidden class="fa fa-angle-left navbar-action-button" data-label="goBack" tabindex="-1"></button>
+
+	</button>
+
+	<div id="navbar" class="theme-background-color theme-text-color windowDragHandle" tabindex="-1">
+		<button id="menu-button" class="fa fa-ellipsis-v navbar-action-button" data-label="openMenu" tabindex="-1"></i>
+			<button id="back-button" hidden class="fa fa-angle-left navbar-action-button" data-label="goBack"
+				tabindex="-1"></button>
 			<div id="tabs">
 				<div id="tab-editor" hidden>
-					<input id="tab-editor-input" class="mousetrap"/>
+					<input id="tab-editor-input" class="mousetrap" />
 				</div>
 				<div id="tabs-inner"></div>
 			</div>
-			<button id="add-tab-button" class="fa fa-plus navbar-action-button" data-label="newTabAction" tabindex="-1"></button>
+			<button id="add-tab-button" class="fa fa-plus navbar-action-button" data-label="newTabAction"
+				tabindex="-1"></button>
 			<i class="fa fa-bars navbar-action-button invisible"></i>
-		</div>
+	</div>
 
-		<button id="switch-task-button" class="fa fa-bars navbar-action-button theme-text-color windowDragHandle" data-label="viewTasks" tabindex="-1"></button>
+	<button id="switch-task-button" class="fa fa-bars navbar-action-button theme-text-color windowDragHandle"
+		data-label="viewTasks" tabindex="-1"></button>
 
 	<div id="searchbar" class="theme-background-color theme-text-color">
 		<div class="top-answer-area"></div>
@@ -86,9 +114,9 @@
 			<i id="leftArrow" class="fa fa-arrow-left arrow"></i>
 		</div>
 		<div id="rightArrowContainer" class="arrow-indicator">
-			<i id= "rightArrow" class="fa fa-arrow-right arrow"></i>
+			<i id="rightArrow" class="fa fa-arrow-right arrow"></i>
 		</div>
-		<img id="webview-placeholder" hidden aria-hidden="true"/>
+		<img id="webview-placeholder" hidden aria-hidden="true" />
 	</div>
 
 	<!-- findinpage ui -->
@@ -124,17 +152,18 @@
 		<div class="spacer"></div>
 		<div class="light-fade" data-string="passwordManagerSetupStep2" data-allowHTML></div>
 		<div class="spacer"></div>
-		
+
 		<div class="drag-and-drop-box" data-string="passwordManagerSetupDragBox">
 		</div>
-	
-		<div class="spacer"></div><div class="spacer"></div>
-	
+
+		<div class="spacer"></div>
+		<div class="spacer"></div>
+
 		<div class="buttons">
-			<input type="button" id="bitwarden-setup-disable" data-value="disableAutofill"/>
-			<input type="button" id="bitwarden-setup-cancel" data-value="autofillNotNow"/>
+			<input type="button" id="bitwarden-setup-disable" data-value="disableAutofill" />
+			<input type="button" id="bitwarden-setup-cancel" data-value="autofillNotNow" />
 		</div>
-	
+
 	</div>
 
 	<!-- add scripts in Gruntfile.js -->

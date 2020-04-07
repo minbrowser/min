@@ -106,31 +106,37 @@ body:not(.task-overlay-is-shown).dark-theme .windows-caption-buttons .element {
 
 /* Linux buttons */
 
-#linux-close-button {
+#linux-control-buttons {
 	display: none;
 }
 
 body.linux:not(.separate-titlebar) {
-	--control-space-right: 36px;
+	--control-space-right: 104px;
 }
 
-body.linux:not(.separate-titlebar) #linux-close-button {
+body.linux:not(.separate-titlebar) #linux-control-buttons {
 	display: block;
 	position: absolute;
 	top: calc(9px + var(--control-space-top));
 	right: 9px;
 	z-index: 9;
-	width: 19px;
-	height: 19px;
-	overflow: hidden;
+	width: 84px;
 }
 
-#linux-close-button:hover #close-circle {
+#linux-control-buttons .button-background {
+	opacity: 0;
+}
+
+#linux-control-buttons g:hover .button-background {
+	opacity: 1;
+}
+
+#linux-control-buttons:hover #close-circle {
 	fill: #ce4c17;
 }
 
-#linux-close-button:active #close-circle,
-#linux-close-button:active #close-circle-border {
+#linux-control-buttons:active #close-circle,
+#linux-control-buttons:active #close-circle-border {
 	fill: #bd4515;
 	stroke: #bd4515;
 }
