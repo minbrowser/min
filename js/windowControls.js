@@ -50,7 +50,7 @@ if (window.platformType === 'windows') {
     if (windowIsFullscreen) {
       remote.getCurrentWindow().setFullScreen(false)
     } else {
-      remote.getCurrentWindow().restore()
+      remote.getCurrentWindow().unmaximize()
     }
   })
 
@@ -81,7 +81,13 @@ if (window.platformType === 'linux') {
     remote.getCurrentWindow().close()
   })
   linuxMaximize.addEventListener('click', function (e) {
-    remote.getCurrentWindow().maximize()
+    if (windowIsFullscreen) {
+      remote.getCurrentWindow().setFullScreen(false)
+    } else if (windowIsMaximized) {
+      remote.getCurrentWindow().unmaximize()
+    } else {
+      remote.getCurrentWindow().maximize()
+    }
   })
   linuxMinimize.addEventListener('click', function (e) {
     remote.getCurrentWindow().minimize()
