@@ -111,7 +111,7 @@ body:not(.task-overlay-is-shown).dark-theme .windows-caption-buttons .element {
 }
 
 body.linux:not(.separate-titlebar) {
-	--control-space-right: 104px;
+	--control-space-right: 96px;
 }
 
 body.linux:not(.separate-titlebar) #linux-control-buttons {
@@ -120,23 +120,33 @@ body.linux:not(.separate-titlebar) #linux-control-buttons {
 	top: calc(9px + var(--control-space-top));
 	right: 9px;
 	z-index: 9;
-	width: 84px;
+	width: 76px;
 }
 
 #linux-control-buttons .button-background {
-	opacity: 0;
+	fill: currentColor;
+	stroke: currentColor;
+	fill-opacity: 0;
+	stroke-opacity: 0;
 }
 
 #linux-control-buttons g:hover .button-background {
-	opacity: 1;
+	fill-opacity: 0.02;
+	stroke-opacity: 0.09;
 }
 
-#linux-control-buttons:hover #close-circle {
-	fill: #ce4c17;
+#linux-control-buttons g:active .button-background {
+	fill-opacity: 0.18;
+	stroke-opacity: 0.24;
 }
 
-#linux-control-buttons:active #close-circle,
-#linux-control-buttons:active #close-circle-border {
-	fill: #bd4515;
-	stroke: #bd4515;
+
+.dark-theme #linux-control-buttons g:hover .button-background {
+	fill-opacity: 0.2;
+	stroke-opacity: 0.35;
+}
+
+.dark-theme #linux-control-buttons g:active .button-background {
+	fill-opacity: 0.45;
+	stroke-opacity: 0.7;
 }
