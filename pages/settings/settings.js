@@ -200,7 +200,7 @@ userscriptsCheckbox.addEventListener('change', function (e) {
 
 /* separate titlebar setting */
 
-if (navigator.platform !== 'MacIntel') {
+if (navigator.platform.includes('Linux')) {
   document.getElementById('section-separate-titlebar').hidden = false
 }
 
