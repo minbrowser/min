@@ -140,7 +140,8 @@
         "settingsHistoryButtonToggle": "فعال کردن دکمه بازگشت",
         "settingsAdditionalFeaturesHeading": "امکانات اضافه",
         "settingsUserscriptsToggle": "فعال کردن اسکریپت های کاربر",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "اسکریپت های کاربر این اجازه را به شما می دهند تا رفتار سایت ها را تغییر دهید - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اطلاعات بیشتر</a>."},
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": {"unsafeHTML": "اسکریپت های کاربر این اجازه را به شما می دهند تا رفتار سایت ها را تغییر دهید - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اطلاعات بیشتر</a>."},
         "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "موتور جستجو",
         "settingsDefaultSearchEngine": "انتخاب موتور جستجوی پیش فرض:",

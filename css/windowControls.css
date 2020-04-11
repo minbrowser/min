@@ -9,19 +9,21 @@ body {
 	display: none;
 }
 
-body.windows:not(.maximized):not(.fullscreen) {
-	--control-space-top: 10px;
+body.windows:not(.maximized):not(.fullscreen),
+body.linux:not(.separate-titlebar) {
+	--control-space-top: 12px;
 }
 
 /* On Windows, draggable regions aren't clickable, so the drag region is a separate area above the tabstrip */
-body.windows:not(.maximized):not(.fullscreen) .window-drag-area {
+body.windows:not(.maximized):not(.fullscreen) .window-drag-area,
+body.linux:not(.separate-titlebar) .window-drag-area {
 	display: block;
 	position: fixed;
 	/* leave an empty space around the edges of the drag area so that the window can be resized */
 	top: 3px;
 	left: 3px;
 	width: calc(100% - 6px);
-	height: 9px;
+	height: 12px;
 	-webkit-app-region: drag;
 }
 
@@ -100,4 +102,51 @@ body:not(.task-overlay-is-shown).dark-theme .windows-caption-buttons .element {
 }
 .windows-caption-buttons .element.caption-close:active {
 	background-color: rgba(232, 17, 35, 0.6);
+}
+
+/* Linux buttons */
+
+#linux-control-buttons {
+	display: none;
+}
+
+body.linux:not(.separate-titlebar) {
+	--control-space-right: 96px;
+}
+
+body.linux:not(.separate-titlebar) #linux-control-buttons {
+	display: block;
+	position: absolute;
+	top: calc(9px + var(--control-space-top));
+	right: 9px;
+	z-index: 9;
+	width: 76px;
+}
+
+#linux-control-buttons .button-background {
+	fill: currentColor;
+	stroke: currentColor;
+	fill-opacity: 0;
+	stroke-opacity: 0;
+}
+
+#linux-control-buttons g:hover .button-background {
+	fill-opacity: 0.02;
+	stroke-opacity: 0.09;
+}
+
+#linux-control-buttons g:active .button-background {
+	fill-opacity: 0.18;
+	stroke-opacity: 0.24;
+}
+
+
+.dark-theme #linux-control-buttons g:hover .button-background {
+	fill-opacity: 0.2;
+	stroke-opacity: 0.35;
+}
+
+.dark-theme #linux-control-buttons g:active .button-background {
+	fill-opacity: 0.45;
+	stroke-opacity: 0.7;
 }

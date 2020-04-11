@@ -6,6 +6,7 @@ var darkModeCheckbox = document.getElementById('checkbox-dark-mode')
 var siteThemeCheckbox = document.getElementById('checkbox-site-theme')
 var historyButtonCheckbox = document.getElementById('checkbox-history-button')
 var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
+var separateTitlebarCheckbox = document.getElementById('checkbox-separate-titlebar')
 
 function showRestartRequiredBanner () {
   banner.hidden = false
@@ -194,6 +195,23 @@ settings.get('userscriptsEnabled', function (value) {
 
 userscriptsCheckbox.addEventListener('change', function (e) {
   settings.set('userscriptsEnabled', this.checked)
+  showRestartRequiredBanner()
+})
+
+/* separate titlebar setting */
+
+if (navigator.platform.includes('Linux')) {
+  document.getElementById('section-separate-titlebar').hidden = false
+}
+
+settings.get('useSeparateTitlebar', function (value) {
+  if (value === true) {
+    separateTitlebarCheckbox.checked = true
+  }
+})
+
+separateTitlebarCheckbox.addEventListener('change', function (e) {
+  settings.set('useSeparateTitlebar', this.checked)
   showRestartRequiredBanner()
 })
 
