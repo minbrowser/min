@@ -17,11 +17,11 @@ class ProcessSpawner {
   async execute() {
     return new Promise((resolve, reject) => {
       const process = spawn(this.command, this.args)
-      
+
       process.stdout.on('data', (data) => {
         this.data += data
       })
-    
+
       process.stderr.on('data', (data) => {
         this.error += data
       })
@@ -33,7 +33,7 @@ class ProcessSpawner {
           resolve(this.data)
         }
       })
-      
+
       process.on('error', (data) => {
         reject({ error: data })
       })
@@ -43,6 +43,26 @@ class ProcessSpawner {
   executeSync(input) {
     const process = spawnSync(this.command, this.args, { input: input, encoding: "utf8" })
     return process.output[1].slice(0, -1)
+  }
+
+  executeSyncInAsyncContext(input) {
+    return new Promise((resolve, reject) => {
+      var worker = new Worker('js/util/processWorker.js');
+      worker.onmessage = function(e) {
+        if (e.data.result) {
+          resolve(e.data.result);
+        }
+        if (e.data.error) {
+          reject(e.data.error)
+        }
+        worker.terminate();
+      }
+      worker.postMessage({
+        command: this.command,
+        args: this.args,
+        input: input
+      })
+    })
   }
 }
 
