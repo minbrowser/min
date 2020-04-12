@@ -119,7 +119,7 @@ function Trie () {
 }
 
 /* adds a string to the trie */
-Trie.prototype.add = function (string, stringData) {
+Trie.prototype.add = function (string, stringData, mergeFn) {
   var data = this.data
 
   for (var i = 0, len = string.length; i < len; i++) {
@@ -132,7 +132,19 @@ Trie.prototype.add = function (string, stringData) {
     data = data[char]
   }
   if (data._d) {
-    data._d.push(stringData)
+    var mergeResult
+    if (mergeFn) {
+      for (var n = 0; n < data._d.length; n++) {
+        mergeResult = mergeFn(data._d[n], stringData)
+        if (mergeResult) {
+          data._d[n] = mergeResult
+          break
+        }
+      }
+    }
+    if (!mergeResult) {
+      data._d.push(stringData)
+    }
   } else {
     data._d = [stringData]
   }
@@ -428,6 +440,20 @@ function matchOptions (filterOptions, input, contextParams, currentHost) {
   return true
 }
 
+// easylist includes many filters with the same data and set of options, but that apply to different domains
+// as long as all the options except the domain list are the same, they can be merged
+// this is currently only used for leftAnchored, since that seems to be the only place where it makes a difference
+// note: must add check here when adding support for new options
+function maybeMergeDuplicateOptions (opt1, opt2) {
+  if (opt1.elementType === opt2.elementType && opt1.skipElementType === opt2.skipElementType && opt1.thirdParty === opt2.thirdParty && opt1.notThirdParty === opt2.notThirdParty) {
+    if (opt1.domains && opt2.domains && !opt1.skipDomains && !opt2.skipDomains) {
+      opt1.domains = opt1.domains.concat(opt2.domains)
+      return opt1
+    }
+  }
+  return null
+}
+
 /**
  * Parses the set of filter rules and fills in parserData
  * @param input filter rules
@@ -482,7 +508,7 @@ function parse (input, parserData, callback, options = {}) {
           if (parsedFilterData.rightAnchored) {
             object.bothAnchored.push(parsedFilterData)
           } else {
-            object.leftAnchored.add(parsedFilterData.data, parsedFilterData.options)
+            object.leftAnchored.add(parsedFilterData.data, parsedFilterData.options, maybeMergeDuplicateOptions)
           }
         } else if (parsedFilterData.rightAnchored) {
           object.rightAnchored.addReverse(parsedFilterData.data, parsedFilterData.options)

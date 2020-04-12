@@ -5,7 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "pictureInPicture": null, //missing translation
+        "pictureInPicture": "ピクチャーインピクチャー",
         "openInNewTab": "新規タブで開く",
         "openInNewPrivateTab": "新規プライベートタブで開く",
         "viewImage": "画像を表示",
@@ -37,20 +37,20 @@
         "viewReadingList": "閲覧リストを見る",
         "takeScreenshot": "スクリーンショットを撮る",
         "clearHistory": "すべての履歴をクリア",
-        "enableBlocking": null, //missing translation
-        "disableBlocking": null, //missing translation
+        "enableBlocking": "このサイトのコンテンツブロックを有効にする",
+        "disableBlocking": "このサイトのコンテンツブロックを無効にする",
         "clearHistoryConfirmation": "履歴をクリアしてもよろしいですか？",
         "switchToTask": "タスクに切り替える",
         "createTask": "タスクを作成",
         "closeTask": "タスクを閉じる",
         "moveToTask": "このタブをタスクに移動",
         "nameTask": "このタスクの名前",
-        "addBookmark": null, //missing translation
+        "addBookmark": "ブックマークを追加",
 		"searchBookmarks": "ブックマークを検索",
-        "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
+        "bookmarksAddTag": "タグを追加...",
+		"bookmarksSimilarItems": "類似アイテム",
 		"searchHistory": "検索履歴",
-        "importBookmarks": null, //missing translation
+        "importBookmarks": "HTMLファイルからブックマークをインポートする",
 		"exportBookmarks": "ブックマークをエクスポート",
         /* navbar */
         "openMenu": "メニューを開く",
@@ -140,7 +140,8 @@
         "settingsHistoryButtonToggle": "戻るボタンを使用",
         "settingsAdditionalFeaturesHeading": "追加機能",
         "settingsUserscriptsToggle": "ユーザースクリプトを有効にする",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "ユーザースクリプトを使用して、Webサイトの動作を変更できます -  <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">詳細</a>。"},
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": {"unsafeHTML": "ユーザースクリプトを使用して、Webサイトの動作を変更できます -  <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">詳細</a>。"},
         "settingsUpdateNotificationsToggle": "アップデートを自動的に確認する",
         "settingsSearchEngineHeading": "検索エンジン",
         "settingsDefaultSearchEngine": "デフォルトの検索エンジン:",
@@ -201,6 +202,29 @@
         "downloadStateCompleted": "完了しました",
         "downloadStateFailed": "フェイル",
         /* Update Notifications */
-        "updateNotificationTitle": "Minの新しいバージョンが利用可能です。"
+        "updateNotificationTitle": "Minの新しいバージョンが利用可能です。",
+	/* Password settings */
+	"settingsPasswordAutoFillHeadline": "パスワードの自動入力",
+	"settingsSelectPasswordManager": "サポートされているパスワードマネージャのいずれかを選択します。",
+	/* Password manager setup */
+        "passwordManagerSetupHeading": "自動入力を使用するための％pの設定を完了してください",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "最初に <a id='password-manager-setup-link'></a> 、システムに展開します。"
+        },
+        "passwordManagerSetupLink": "％p CLIツールをダウンロード",
+        "passwordManagerSetupStep2": "次に、ツールを下のボックスにドラッグします。",
+        "passwordManagerSetupDragBox": "ここにツールをドラッグ",
+        "passwordManagerSetupInstalling": "インストールしています...",
+        "passwordManagerSetupSignIn": "パスワードマネージャーにログインして、自動入力の使用を開始します。 資格情報はMin内のどこにも保存されません。",
+        "disableAutofill": "自動入力を無効にする",
+        "autofillNotNow": "今はやめろ",
+        "passwordManagerSetupUnlockError": "パスワードストアのロック解除に失敗しました： ",
+        "passwordManagerSetupRetry": "正しいファイルを使用し、正しいパスワードを入力していることを確認してください。 ここにツールをもう一度ドラッグすると、再試行できます。",
+        "passwordManagerUnlock": "％pマスターパスワードを入力して、パスワードストアのロックを解除します。",
+        /* Dialogs */
+        "dialogConfirmButton": "確認する",
+        "dialogSkipButton": "キャンセル",
+        "email": "Eメール",
+        "password": "パスワード"
     }
 }

@@ -14,3 +14,8 @@ window.showSecondaryMenu = function () {
     y: Math.round(navbarRect.bottom)
   })
 }
+
+keybindings.defineShortcut('showMenu', function () {
+  if (!settings.get('useSeparateTitlebar') && (window.platformType === 'windows' || window.platformType === 'linux'))
+    showSecondaryMenu()
+})

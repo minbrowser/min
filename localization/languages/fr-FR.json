@@ -140,7 +140,8 @@
         "settingsHistoryButtonToggle": "Activer le bouton navigation",
         "settingsAdditionalFeaturesHeading": "Fonctionnalités supplémentaires",
         "settingsUserscriptsToggle": "Activer les scripts personnalisés",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "Les scripts personnalisés vous permettent de modifier le comportement des pages web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">en savoir plus (en anglais)</a>."},
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": {"unsafeHTML": "Les scripts personnalisés vous permettent de modifier le comportement des pages web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">en savoir plus (en anglais)</a>."},
         "settingsUpdateNotificationsToggle": "Vérifier automatiquement pour des mises à jour",
         "settingsSearchEngineHeading": "Moteur de recherche",
         "settingsDefaultSearchEngine": "Choisir un moteur de recherche par défaut :",

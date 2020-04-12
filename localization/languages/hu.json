@@ -140,7 +140,8 @@
         "settingsHistoryButtonToggle": "Vissza gomb bekapcsolása",
         "settingsAdditionalFeaturesHeading": "További beállítások",
         "settingsUserscriptsToggle": "Felhasználói szkriptek",
-        "settingsUserscriptsExplanation": "Felhasználói szkript magyarázat",
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": "Felhasználói szkript magyarázat",
         "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Keresőmotor",
         "settingsDefaultSearchEngine": "Válasza ki az alap keresőmotort:",

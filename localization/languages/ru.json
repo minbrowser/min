@@ -140,7 +140,8 @@
         "settingsHistoryButtonToggle": "История",
         "settingsAdditionalFeaturesHeading": "Дополнительные возможности",
         "settingsUserscriptsToggle": "Пользовательские скрипты",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "Пользовательские скрипты позволяют изменять поведение сайтов - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">узнать больше</a>."},
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": {"unsafeHTML": "Пользовательские скрипты позволяют изменять поведение сайтов - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">узнать больше</a>."},
         "settingsUpdateNotificationsToggle": "Автоматически проверять наличие обновлений",
         "settingsSearchEngineHeading": "Поиск",
         "settingsDefaultSearchEngine": "Выберите поиск по умолчанию:",

@@ -8,8 +8,9 @@
 	<title>Min</title>
 
 	<link rel="stylesheet" href="css/base.css" />
-	<link rel="stylesheet" href="css/windowsCaptionButtons.css" />
+	<link rel="stylesheet" href="css/windowControls.css" />
 	<link rel="stylesheet" href="css/tabBar.css" />
+	<link rel="stylesheet" href="css/tabEditor.css" />
 	<link rel="stylesheet" href="css/taskOverlay.css" />
 	<link rel="stylesheet" href="css/webviews.css" />
 	<link rel="stylesheet" href="css/searchbar.css" />
@@ -50,15 +51,57 @@
 		</div>
 	</div>
 
-		<div id="navbar" class="theme-background-color theme-text-color windowDragHandle" tabindex="-1">
-			<button id="menu-button" class="fa fa-ellipsis-v navbar-action-button" data-label="openMenu" tabindex="-1"></i>
-			<button id="back-button" hidden class="fa fa-angle-left navbar-action-button" data-label="goBack" tabindex="-1"></button>
-			<div id="tabs"></div>
-			<button id="add-tab-button" class="fa fa-plus navbar-action-button" data-label="newTabAction" tabindex="-1"></button>
-			<i class="fa fa-bars navbar-action-button invisible"></i>
-		</div>
+	<button id="linux-control-buttons" class="theme-text-color">
+		<svg version="1.1" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10"
+			xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+			<g id="minimize-button">
+				<rect width="24" height="24" fill="transparent"></rect>
+				<path class="button-background"
+					d="m0.5826226 9.868774l0 0c0 -5.24453 4.251532 -9.496062 9.496063 -9.496062l0 0c2.5185127 0 4.933873 1.0004752 6.714731 2.7813323c1.7808571 1.7808576 2.781332 4.196218 2.781332 6.7147303l0 0c0 5.2445316 -4.2515326 9.496063 -9.496063 9.496063l0 0c-5.244531 0 -9.496063 -4.2515316 -9.496063 -9.496063z"
+					fill-rule="evenodd" />
+				<path stroke="currentColor" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt"
+					d="m6.7086616 12.519685l6.7401576 -0.031496048" fill-rule="evenodd" />
+			</g>
+			<g id="maximize-button">
+				<rect width="24" height="24" x="24" fill="transparent"></rect>
+				<path class="button-background"
+					d="m27.85034 9.868774l0 0c0 -5.24453 4.2515316 -9.496062 9.496061 -9.496062l0 0c2.5185127 0 4.933876 1.0004752 6.714733 2.7813323c1.7808571 1.7808576 2.78133 4.196218 2.78133 6.7147303l0 0c0 5.2445316 -4.2515297 9.496063 -9.496063 9.496063l0 0c-5.2445297 0 -9.496061 -4.2515316 -9.496061 -9.496063z"
+					fill-rule="evenodd" />
+				<path stroke="currentColor" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt"
+					d="m34.16273 6.717848l6.3622017 0l0 6.2992125l-6.3622017 0z" fill-rule="evenodd" />
+			</g>
+			<g id="close-button">
+				<rect width="24" height="24" x="48" fill="transparent"></rect>
+				<path class="button-background"
+					d="m55.118057 9.496072l0 0c0 -5.244531 4.2515297 -9.496063 9.496063 -9.496063l0 0c2.518509 0 4.9338684 1.0004753 6.7147293 2.7813325c1.7808533 1.7808573 2.781334 4.1962185 2.781334 6.714731l0 0c0 5.2445307 -4.2515335 9.496062 -9.496063 9.496062l0 0c-5.2445335 0 -9.496063 -4.2515316 -9.496063 -9.496062z"
+					fill-rule="evenodd" />
+				<path stroke="currentColor" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt"
+					d="m61.26077 6.1103663l6.740162 6.7716537" fill-rule="evenodd" />
+				<path stroke="currentColor" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt"
+					d="m68.01668 6.1261144l-6.771656 6.7401576" fill-rule="evenodd" />
+			</g>
+		</svg>
 
-		<button id="switch-task-button" class="fa fa-bars navbar-action-button theme-text-color windowDragHandle" data-label="viewTasks" tabindex="-1"></button>
+
+	</button>
+
+	<div id="navbar" class="theme-background-color theme-text-color windowDragHandle" tabindex="-1">
+		<button id="menu-button" class="fa fa-ellipsis-v navbar-action-button" data-label="openMenu" tabindex="-1"></i>
+			<button id="back-button" hidden class="fa fa-angle-left navbar-action-button" data-label="goBack"
+				tabindex="-1"></button>
+			<div id="tabs">
+				<div id="tab-editor" hidden>
+					<input id="tab-editor-input" class="mousetrap" />
+				</div>
+				<div id="tabs-inner"></div>
+			</div>
+			<button id="add-tab-button" class="fa fa-plus navbar-action-button" data-label="newTabAction"
+				tabindex="-1"></button>
+			<i class="fa fa-bars navbar-action-button invisible"></i>
+	</div>
+
+	<button id="switch-task-button" class="fa fa-bars navbar-action-button theme-text-color windowDragHandle"
+		data-label="viewTasks" tabindex="-1"></button>
 
 	<div id="searchbar" class="theme-background-color theme-text-color">
 		<div class="top-answer-area"></div>
@@ -71,9 +114,9 @@
 			<i id="leftArrow" class="fa fa-arrow-left arrow"></i>
 		</div>
 		<div id="rightArrowContainer" class="arrow-indicator">
-			<i id= "rightArrow" class="fa fa-arrow-right arrow"></i>
+			<i id="rightArrow" class="fa fa-arrow-right arrow"></i>
 		</div>
-		<img id="webview-placeholder" hidden aria-hidden="true"/>
+		<img id="webview-placeholder" hidden aria-hidden="true" />
 	</div>
 
 	<!-- findinpage ui -->
@@ -109,17 +152,18 @@
 		<div class="spacer"></div>
 		<div class="light-fade" data-string="passwordManagerSetupStep2" data-allowHTML></div>
 		<div class="spacer"></div>
-		
+
 		<div class="drag-and-drop-box" data-string="passwordManagerSetupDragBox">
 		</div>
-	
-		<div class="spacer"></div><div class="spacer"></div>
-	
+
+		<div class="spacer"></div>
+		<div class="spacer"></div>
+
 		<div class="buttons">
-			<input type="button" id="bitwarden-setup-disable" data-value="disableAutofill"/>
-			<input type="button" id="bitwarden-setup-cancel" data-value="autofillNotNow"/>
+			<input type="button" id="bitwarden-setup-disable" data-value="disableAutofill" />
+			<input type="button" id="bitwarden-setup-cancel" data-value="autofillNotNow" />
 		</div>
-	
+
 	</div>
 
 	<!-- add scripts in Gruntfile.js -->

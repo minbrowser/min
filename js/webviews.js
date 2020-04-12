@@ -7,7 +7,9 @@ var settings = require('util/settings/settings.js')
 
 var placeholderImg = document.getElementById('webview-placeholder')
 
+var hasSeparateTitlebar = settings.get('useSeparateTitlebar')
 var windowIsMaximized = false // affects navbar height on Windows
+var windowIsFullscreen = false
 
 function lazyRemoteObject (getObject) {
   var cachedItem = null
@@ -95,6 +97,21 @@ function onNavigate (webview, tabId, e, url, httpResponseCode, httpStatusText) {
   onPageURLChange(tabId, url)
 }
 
+function scrollOnLoad (tabId, scrollPosition) {
+  const listener = function (webview, eTabId, e) {
+    if (eTabId === tabId) {
+      // the scrollable content may not be available until some time after the load event, so attempt scrolling several times
+      for (let i = 0; i < 3; i++) {
+        setTimeout(function () {
+          webviews.callAsync(tabId, 'executeJavaScript', `window.scrollTo(0, ${scrollPosition})`)
+        }, 750 * i)
+      }
+      webviews.unbindEvent('did-finish-load', listener)
+    }
+  }
+  webviews.bindEvent('did-finish-load', listener)
+}
+
 const webviews = {
   tabViewMap: {}, // tabId: browserView
   tabContentsMap: {}, // tabId: webContents
@@ -147,8 +164,8 @@ const webviews = {
         height: window.innerHeight
       }
     } else {
-      if (window.platformType === 'windows' && !windowIsMaximized) {
-        var navbarHeight = 46
+      if (!hasSeparateTitlebar && (window.platformType === 'linux' || (window.platformType === 'windows' && !windowIsMaximized && !windowIsFullscreen))) {
+        var navbarHeight = 48
       } else {
         var navbarHeight = 36
       }
@@ -164,6 +181,11 @@ const webviews = {
   },
   add: function (tabId) {
     var tabData = tabs.get(tabId)
+
+    // needs to be called before the view is created to that its listeners can be registered
+    if (tabData.scrollPosition) {
+      scrollOnLoad(tabId, tabData.scrollPosition)
+    }
 
     // if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
     // since tab IDs are unique, we can use them as partition names
@@ -288,7 +310,9 @@ const webviews = {
     }, 0)
   },
   hidePlaceholder: function (reason) {
-    webviews.placeholderRequests.splice(webviews.placeholderRequests.indexOf(reason), 1)
+    if (webviews.placeholderRequests.includes(reason)) {
+      webviews.placeholderRequests.splice(webviews.placeholderRequests.indexOf(reason), 1)
+    }
 
     if (webviews.placeholderRequests.length === 0) {
       // multiple things can request a placeholder at the same time, but we should only show the view again if nothing requires a placeholder anymore
@@ -395,6 +419,16 @@ ipc.on('unmaximize', function () {
   webviews.resize()
 })
 
+ipc.on('enter-full-screen', function () {
+  windowIsFullscreen = true
+  webviews.resize()
+})
+
+ipc.on('leave-full-screen', function () {
+  windowIsFullscreen = false
+  webviews.resize()
+})
+
 webviews.bindEvent('did-finish-load', onPageLoad)
 webviews.bindEvent('did-navigate-in-page', onPageLoad)
 webviews.bindEvent('did-navigate', onNavigate)
@@ -445,6 +479,12 @@ settings.listen(function () {
         }
       }
     })
+  })
+})
+
+webviews.bindIPC('scroll-position-change', function (webview, tabId, args) {
+  tabs.update(tabId, {
+    scrollPosition: args[0]
   })
 })
 

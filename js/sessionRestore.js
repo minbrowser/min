@@ -1,4 +1,5 @@
 var browserUI = require('browserUI.js')
+var tabEditor = require('navbar/tabEditor.js')
 
 window.sessionRestore = {
   savePath: userDataPath + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
@@ -88,7 +89,7 @@ window.sessionRestore = {
       if (tasks.getSelected().tabs.isEmpty() || (!data.saveTime || Date.now() - data.saveTime < 30000)) {
         browserUI.switchToTask(data.state.selectedTask)
         if (tasks.getSelected().tabs.isEmpty()) {
-          tabBar.enterEditMode(tasks.getSelected().tabs.getSelected())
+          tabEditor.show(tasks.getSelected().tabs.getSelected())
         }
       } else {
         window.createdNewTaskOnStartup = true
@@ -96,7 +97,7 @@ window.sessionRestore = {
         var lastTask = tasks.byIndex(tasks.getLength() - 1)
         if (lastTask && lastTask.tabs.isEmpty() && !lastTask.name) {
           browserUI.switchToTask(lastTask.id)
-          tabBar.enterEditMode(lastTask.tabs.getSelected())
+          tabEditor.show(lastTask.tabs.getSelected())
         } else {
           browserUI.addTask()
         }

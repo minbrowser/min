@@ -3,6 +3,9 @@
 var webviews = require('webviews.js')
 var urlParser = require('util/urlParser.js')
 var focusMode = require('focusMode.js')
+var tabBar = require('navbar/tabBar.js')
+var tabEditor = require('navbar/tabEditor.js')
+var searchbar = require('searchbar/searchbar.js')
 
 /* loads a page in a webview */
 
@@ -15,7 +18,7 @@ function navigate (tabId, newURL) {
 
   webviews.update(tabId, newURL)
 
-  tabBar.leaveEditMode()
+  tabEditor.hide()
 }
 
 /* creates a new task */
@@ -36,6 +39,16 @@ options
   options.openInBackground - whether to open the tab without switching to it. Defaults to false.
 */
 function addTab (tabId = tabs.add(), options = {}) {
+  /*
+  adding a new tab should destroy the current one if either:
+  * The current tab is an empty, non-private tab, and the new tab is private
+  * The current tab is empty, and the new tab has a URL
+  */
+
+  if (!options.openInBackground && !tabs.get(tabs.getSelected()).url && ((!tabs.get(tabs.getSelected()).private && tabs.get(tabId).private) || tabs.get(tabId).url)) {
+    destroyTab(tabs.getSelected())
+  }
+
   tabBar.addTab(tabId)
   webviews.add(tabId)
 
@@ -44,7 +57,7 @@ function addTab (tabId = tabs.add(), options = {}) {
       focusWebview: options.enterEditMode === false
     })
     if (options.enterEditMode !== false) {
-      tabBar.enterEditMode(tabId)
+      tabEditor.show(tabId)
     }
   } else {
     tabBar.getTab(tabId).scrollIntoView()
@@ -162,7 +175,7 @@ function switchToTab (id, options) {
     return
   }
 
-  tabBar.leaveEditMode()
+  tabEditor.hide()
 
   tabs.setSelected(id)
   tabBar.setActiveTab(id)
@@ -187,6 +200,29 @@ webviews.bindIPC('close-window', function (webview, tabId, args) {
   closeTab(tabId)
 })
 
+searchbar.events.on('url-selected', function (data) {
+  if (data.background) {
+    var newTab = tabs.add({
+      url: data.url,
+      private: tabs.get(tabs.getSelected()).private
+    })
+    addTab(newTab, {
+      enterEditMode: false,
+      openInBackground: true
+    })
+  } else {
+    navigate(tabs.getSelected(), data.url)
+  }
+})
+
+tabBar.events.on('tab-selected', function (id) {
+  switchToTab(id)
+})
+
+tabBar.events.on('tab-closed', function (id) {
+  closeTab(id)
+})
+
 module.exports = {
   navigate,
   addTask,
@@ -196,4 +232,5 @@ module.exports = {
   closeTask,
   closeTab,
   switchToTask,
-  switchToTab}
+  switchToTab
+}

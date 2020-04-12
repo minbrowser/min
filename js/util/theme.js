@@ -10,39 +10,50 @@ function shouldEnableDarkMode () {
 function enableDarkMode () {
   document.body.classList.add('dark-mode')
   window.isDarkMode = true
-  window.dispatchEvent(new CustomEvent('themechange'))
+  requestAnimationFrame(function () {
+    window.dispatchEvent(new CustomEvent('themechange'))
+  })
 }
 
 function disableDarkMode () {
   document.body.classList.remove('dark-mode')
   window.isDarkMode = false
-  window.dispatchEvent(new CustomEvent('themechange'))
+  requestAnimationFrame(function () {
+    window.dispatchEvent(new CustomEvent('themechange'))
+  })
 }
 
 var themeInterval = null
 
-settings.listen('darkMode', function (value) {
-  clearInterval(themeInterval)
+function initialize () {
+  settings.listen('darkMode', function (value) {
+    clearInterval(themeInterval)
 
-  if (value === true) {
-    enableDarkMode()
-    return
-  }
+    if (value === true) {
+      enableDarkMode()
+      return
+    }
 
-  if (shouldEnableDarkMode()) {
-    enableDarkMode()
-  } else {
-    disableDarkMode()
-  }
-
-  themeInterval = setInterval(function () {
     if (shouldEnableDarkMode()) {
-      if (!window.isDarkMode) {
-        enableDarkMode()
-      }
-    } else if (window.isDarkMode) {
+      enableDarkMode()
+    } else {
       disableDarkMode()
     }
-  }, 10000)
-})
 
+    themeInterval = setInterval(function () {
+      if (shouldEnableDarkMode()) {
+        if (!window.isDarkMode) {
+          enableDarkMode()
+        }
+      } else if (window.isDarkMode) {
+        disableDarkMode()
+      }
+    }, 10000)
+  })
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = {initialize}
+} else {
+  initialize()
+}

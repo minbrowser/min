@@ -5,21 +5,21 @@ const searchbar = require('searchbar/searchbar.js')
 const searchbarPlugins = require('searchbar/searchbarPlugins.js')
 
 const bookmarkStar = {
-  create: function (tabId) {
+  create: function () {
     const star = document.createElement('button')
     star.className = 'fa fa-star-o tab-icon bookmarks-button' // alternative icon is fa-bookmark
     star.setAttribute('title', l('addBookmark'))
     star.setAttribute('aria-label', l('addBookmark'))
 
     star.addEventListener('click', function (e) {
-      bookmarkStar.onClick(tabId, star)
+      bookmarkStar.onClick(star)
     })
-
-    bookmarkStar.update(tabId, star)
 
     return star
   },
-  onClick: function (tabId, star) {
+  onClick: function (star) {
+    var tabId = star.getAttribute('data-tab')
+
     searchbarPlugins.clearAll()
 
     star.classList.toggle('fa-star')
@@ -27,15 +27,21 @@ const bookmarkStar = {
 
     places.toggleBookmarked(tabId, function (isBookmarked) {
       if (isBookmarked) {
+        // since the update happens asynchronously, and star.update() could be called after onClick but before the update, it's possible for the classes to get out of sync with the actual bookmark state. Updating them here fixes tis.
+        star.classList.add('fa-star')
+        star.classList.remove('fa-star-o')
         var editorInsertionPoint = document.createElement('div')
         searchbarPlugins.getContainer('simpleBookmarkTagInput').appendChild(editorInsertionPoint)
         bookmarkEditor.show(tabs.get(tabs.getSelected()).url, editorInsertionPoint, null, {simplified: true})
       } else {
+        star.classList.remove('fa-star')
+        star.classList.add('fa-star-o')
         searchbar.showResults('')
       }
     })
   },
   update: function (tabId, star) {
+    star.setAttribute('data-tab', tabId)
     const currentURL = tabs.get(tabId).url
 
     if (!currentURL) { // no url, can't be bookmarked

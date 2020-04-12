@@ -118,7 +118,7 @@ const searchbarPlugins = {
     var container = document.createElement('div')
     container.classList.add('searchbar-plugin-container')
     container.setAttribute('data-plugin', name)
-    searchbar.insertBefore(container, searchbar.childNodes[object.index + 1])
+    searchbar.insertBefore(container, searchbar.childNodes[object.index + 2])
 
     plugins.push({
       name: name,

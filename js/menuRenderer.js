@@ -7,28 +7,8 @@ var focusMode = require('focusMode.js')
 var modalMode = require('modalMode.js')
 var findinpage = require('findinpage.js')
 var PDFViewer = require('pdfViewer.js')
-
-function addPrivateTab () {
-  /* new tabs can't be created in modal mode */
-  if (modalMode.enabled()) {
-    return
-  }
-
-  /* new tabs can't be created in focus mode */
-  if (focusMode.enabled()) {
-    focusMode.warn()
-    return
-  }
-
-  if (!tabs.get(tabs.getSelected()).url && !tabs.get(tabs.getSelected()).private) {
-    browserUI.destroyTab(tabs.getSelected())
-  }
-
-  var privateTab = tabs.add({
-    private: true
-  })
-  browserUI.addTab(privateTab)
-}
+var tabEditor = require('navbar/tabEditor.js')
+var readerView = require('readerView.js')
 
 module.exports = {
   initialize: function () {
@@ -56,7 +36,7 @@ module.exports = {
     })
 
     ipc.on('findInPage', function () {
-      /* Page search is not avialable in modal mode. */
+      /* Page search is not available in modal mode. */
       if (modalMode.enabled()) {
         return
       }
@@ -70,58 +50,28 @@ module.exports = {
 
     ipc.on('showReadingList', function () {
         // open the searchbar with "!readinglist " as the input
-      tabBar.enterEditMode(tabs.getSelected(), '!readinglist ')
+      tabEditor.show(tabs.getSelected(), '!readinglist ')
     })
 
     ipc.on('showBookmarks', function () {
-      tabBar.enterEditMode(tabs.getSelected(), '!bookmarks ')
+      tabEditor.show(tabs.getSelected(), '!bookmarks ')
     })
 
     ipc.on('showHistory', function () {
-      tabBar.enterEditMode(tabs.getSelected(), '!history ')
+      tabEditor.show(tabs.getSelected(), '!history ')
     })
 
     ipc.on('duplicateTab', function (e) {
-      /* new tabs can't be created in modal mode */
       if (modalMode.enabled()) {
         return
       }
 
-      /* new tabs can't be created in focus mode */
       if (focusMode.enabled()) {
         focusMode.warn()
         return
       }
 
-        // can't duplicate if tabs is empty
-      if (tabs.isEmpty()) {
-        return
-      }
-
-      const sourceTab = tabs.get(tabs.getSelected())
-        // strip tab id so that a new one is generated
-      const newTab = tabs.add({...sourceTab, id: undefined})
-
-      // duplicate scroll position as well
-      let scrollPosition = 0
-      webviews.callAsync(sourceTab.id, 'executeJavaScript', '(function() {return window.scrollY})()', function (err, data) {
-        scrollPosition = data
-      })
-
-      const listener = function (webview, tabId, e) {
-        if (tabId === newTab) {
-          // the scrollable content may not be available until some time after the load event, so attempt scrolling several times
-          for (let i = 0; i < 3; i++) {
-            setTimeout(function () {
-              webviews.callAsync(newTab, 'executeJavaScript', `window.scrollTo(0, ${scrollPosition})`)
-            }, 750 * i)
-          }
-          webviews.unbindEvent('did-finish-load', listener)
-        }
-      }
-      webviews.bindEvent('did-finish-load', listener)
-
-      browserUI.addTab(newTab, { enterEditMode: false })
+      browserUI.duplicateTab(tabs.getSelected())
     })
 
     ipc.on('addTab', function (e, data) {
@@ -136,18 +86,13 @@ module.exports = {
         return
       }
 
-        // if opening a URL (instead of adding an empty tab), and the current tab is empty, navigate the current tab rather than creating another one
-      if (!tabs.get(tabs.getSelected()).url && data.url) {
-        browserUI.navigate(tabs.getSelected(), data.url)
-      } else {
-        var newTab = tabs.add({
-          url: data.url || ''
-        })
+      var newTab = tabs.add({
+        url: data.url || ''
+      })
 
-        browserUI.addTab(newTab, {
-          enterEditMode: !data.url // only enter edit mode if the new tab is empty
-        })
-      }
+      browserUI.addTab(newTab, {
+        enterEditMode: !data.url // only enter edit mode if the new tab is empty
+      })
     })
 
     ipc.on('saveCurrentPage', function () {
@@ -175,26 +120,21 @@ module.exports = {
       }
     })
 
-    ipc.on('addPrivateTab', addPrivateTab)
-
-    ipc.on('addTask', function () {
-      /* new tasks can't be created in modal mode */
+    ipc.on('addPrivateTab', function () {
+      /* new tabs can't be created in modal mode */
       if (modalMode.enabled()) {
         return
       }
 
-      /* new tasks can't be created in focus mode or modal mode */
+      /* new tabs can't be created in focus mode */
       if (focusMode.enabled()) {
         focusMode.warn()
         return
       }
 
-      browserUI.addTask()
-      taskOverlay.show()
-      setTimeout(function () {
-        taskOverlay.hide()
-        tabBar.enterEditMode(tabs.getSelected())
-      }, 600)
+      browserUI.addTab(tabs.add({
+        private: true
+      }))
     })
 
     ipc.on('goBack', function () {

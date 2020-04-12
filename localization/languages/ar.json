@@ -140,7 +140,8 @@
         "settingsHistoryButtonToggle": "تمكين زر العودة",
         "settingsAdditionalFeaturesHeading": "مميزات اضافية",
         "settingsUserscriptsToggle": "تمكين سكريبت المستخدم",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "يمكن سكريبت المستخدم من  تغير سلوك المواقع - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">معرفة المزيد</a>."},
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": {"unsafeHTML": "يمكن سكريبت المستخدم من  تغير سلوك المواقع - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">معرفة المزيد</a>."},
         "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "محرك بحث",
         "settingsDefaultSearchEngine": "اختر محرك بحث اساسي",

@@ -2,6 +2,7 @@ window.userDataPath = process.argv.filter(a => a.startsWith('--user-data-path=')
 
 window.electron = require('electron')
 window.fs = require('fs')
+window.EventEmitter = require('events')
 window.ipc = electron.ipcRenderer
 window.remote = electron.remote
 window.Dexie = require('dexie')
@@ -121,17 +122,17 @@ window.addEventListener('load', function () {
 
 require('dbMigration.js')
 
-require('menuBarVisibility.js').initialize()
 require('navbar/tabActivity.js').init()
 require('navbar/tabColor.js').initialize()
 require('navbar/goBackButton.js').initialize()
 require('downloadManager.js').initialize()
 require('webviewMenu.js').initialize()
 require('menuRenderer.js').initialize()
-require('keybindings.js').initialize()
+require('defaultKeybindings.js').initialize()
 require('pdfViewer.js').initialize()
 require('autofillSetup.js').initialize()
 require('passwordManager/passwordManager.js').initialize()
+require('util/theme.js').initialize()
 
 // default searchbar plugins
 
@@ -145,3 +146,4 @@ require('searchbar/hostsSuggestionsPlugin.js').initialize()
 require('searchbar/keywordSuggestionsPlugin.js').initialize()
 require('searchbar/updateNotifications.js').initialize()
 require('searchbar/restoreTaskPlugin.js').initialize()
+require('searchbar/bookmarkManager.js').initialize()

@@ -1,5 +1,8 @@
 var defaultKeyMap = {
+  'addTab': 'mod+t',
   'addPrivateTab': 'shift+mod+p',
+  'duplicateTab': 'shift+mod+d',
+  'addTask': 'mod+n',
   'toggleTasks': 'shift+mod+e',
   'goBack': 'mod+left',
   'goForward': 'mod+right',
@@ -18,7 +21,8 @@ var defaultKeyMap = {
   'switchToPreviousTask': 'mod+[',
   'closeAllTabs': 'shift+mod+n',
   'reload': 'mod+r',
-  'showAndHideMenuBar': 'ctrl+m',
+  'showAndHideMenuBar': '',
+  'showMenu': 'ctrl+m',
   'followLink': 'mod+enter',
   'fillPassword': 'mod+\\'
 }
