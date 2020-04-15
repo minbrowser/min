@@ -22,7 +22,7 @@ function getBitwardenLink() {
       return 'https://vault.bitwarden.com/download/?app=cli&platform=windows'
       break;
     case 'linux':
-      return 'https://vault.bitwarden.com/download/?app=cli&platform=windows'
+      return 'https://vault.bitwarden.com/download/?app=cli&platform=linux'
       break;
   }
 }
