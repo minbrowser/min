@@ -123,6 +123,14 @@ body.linux:not(.separate-titlebar) #linux-control-buttons {
 	width: 76px;
 }
 
+body.task-overlay-is-shown #linux-control-buttons {
+	color: black !important;
+}
+
+body.dark-mode.task-overlay-is-shown #linux-control-buttons {
+	color: white !important;
+}
+
 #linux-control-buttons .button-background {
 	fill: currentColor;
 	stroke: currentColor;
