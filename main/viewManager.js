@@ -34,19 +34,16 @@ function createView (id, webPreferencesString, boundsString, events) {
       return
     }
     event.preventDefault()
-    var loginWindow = new BrowserWindow({
-      show: false,
-      webPreferences: {
-        nodeIntegration: true   // Enabled, so that electron is accesible from index.html
-      }
-    })
-    loginWindow.loadFile('pages/httpBasicAuth/index.html')
-    loginWindow.on('closed', function() {
-      loginWindow = null
-    })
-    ipc.once('loginPromptResponse', function(event, arg) {
-      callback(arg['login'], arg['password'])  // Resend request with login credentials
-    })
+    var title = l('loginPromptTitle').replace('%h', authInfo.host).replace('%r', authInfo.realm);
+    createPrompt({
+      text: title,
+      values: [{ placeholder: l('username'), id: 'username', type: 'text' },
+               { placeholder: l('password'), id: 'password', type: 'password' }],
+      ok: l('dialogConfirmButton'),
+      cancel: l('dialogSkipButton'),
+      width: 400,
+      height: 200,
+    }, function(result){callback(result.username, result.password)}) //resend request with auth credentials
   })
 
   view.setBounds(JSON.parse(boundsString))
