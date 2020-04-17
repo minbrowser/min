@@ -224,6 +224,7 @@
         /* Dialogs */
         "dialogConfirmButton": "Confirm",
         "dialogSkipButton": "Cancel",
+        "login": "Login", //noun (synonym for username)
         "email": "Email",
         "password": "Password"
     }

@@ -28,6 +28,27 @@ function createView (id, webPreferencesString, boundsString, events) {
     })
   })
 
+  // Open a login prompt when site asks for http authentication
+  view.webContents.on("login",  (event, authenticationResponseDetails, authInfo, callback) => {
+    if(authInfo.scheme!='basic'){  // Only for basic auth
+      return
+    }
+    event.preventDefault()
+    var loginWindow = new BrowserWindow({
+      show: false,
+      webPreferences: {
+        nodeIntegration: true   // Enabled, so that electron is accesible from index.html
+      }
+    })
+    loginWindow.loadFile('pages/httpBasicAuth/index.html')
+    loginWindow.on('closed', function() {
+      loginWindow = null
+    })
+    ipc.once('loginPromptResponse', function(event, arg) {
+      callback(arg['login'], arg['password'])  // Resend request with login credentials
+    })
+  })
+
   view.setBounds(JSON.parse(boundsString))
 
   viewMap[id] = view
