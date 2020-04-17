@@ -7,16 +7,6 @@ window.ipc = electron.ipcRenderer
 window.remote = electron.remote
 window.Dexie = require('dexie')
 
-// add a class to the body for fullscreen status
-
-ipc.on('enter-full-screen', function () {
-  document.body.classList.add('fullscreen')
-})
-
-ipc.on('leave-full-screen', function () {
-  document.body.classList.remove('fullscreen')
-})
-
 if (navigator.platform === 'MacIntel') {
   document.body.classList.add('mac')
   window.platformType = 'mac'
@@ -28,15 +18,22 @@ if (navigator.platform === 'MacIntel') {
   window.platformType = 'linux'
 }
 
-if (window.platformType === 'windows') {
-  ipc.on('maximize', function () {
-    document.body.classList.add('maximized')
-  })
+/* add classes so that the window state can be used in CSS */
+ipc.on('enter-full-screen', function () {
+  document.body.classList.add('fullscreen')
+})
 
-  ipc.on('unmaximize', function () {
-    document.body.classList.remove('maximized')
-  })
-}
+ipc.on('leave-full-screen', function () {
+  document.body.classList.remove('fullscreen')
+})
+
+ipc.on('maximize', function () {
+  document.body.classList.add('maximized')
+})
+
+ipc.on('unmaximize', function () {
+  document.body.classList.remove('maximized')
+})
 
 // https://remysharp.com/2010/07/21/throttling-function-calls
 
