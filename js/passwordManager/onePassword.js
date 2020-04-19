@@ -171,11 +171,6 @@ class OnePassword {
       }
     })
   }
-
-  // Basic domain name cleanup. Removes any non-ASCII symbols.
-  sanitize(domain) {
-    return domain.replace(/[^a-zA-Z0-9.-]/g, '')
-  }
 }
 
 module.exports = OnePassword
