@@ -222,7 +222,7 @@
         "passwordManagerSetupRetry": "Make sure you're using the right file and entering a correct password. You can retry by dragging the tool here again.",
         "passwordManagerUnlock": "Enter your %p master password to unlock the password store:",
         /* Dialogs */
-        "loginPromptTitle": "Sign in to %h (%r)" //%h is replaced with host, %r with realm (title of protected part of site)
+        "loginPromptTitle": "Sign in to %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Confirm",
         "dialogSkipButton": "Cancel",
         "username": "Username",

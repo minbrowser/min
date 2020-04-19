@@ -222,8 +222,10 @@
         "passwordManagerSetupRetry": "正しいファイルを使用し、正しいパスワードを入力していることを確認してください。 ここにツールをもう一度ドラッグすると、再試行できます。",
         "passwordManagerUnlock": "％pマスターパスワードを入力して、パスワードストアのロックを解除します。",
         /* Dialogs */
+        "loginPromptTitle": null, //missing translation
         "dialogConfirmButton": "確認する",
         "dialogSkipButton": "キャンセル",
+        "username": null, //missing translation
         "email": "Eメール",
         "password": "パスワード"
     }

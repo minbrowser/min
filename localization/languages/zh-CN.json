@@ -222,8 +222,10 @@
         "passwordManagerSetupRetry": "请确认你使用了正确的文件和密码。你可以再次把工具拖到这里并重试。",
         "passwordManagerUnlock": "输入 %p 主密码来解锁密码存储区：",
         /* Dialogs */
+        "loginPromptTitle": null, //missing translation
         "dialogConfirmButton": "确认",
         "dialogSkipButton": "取消",
+        "username": null, //missing translation
         "email": "邮箱",
         "password": "密码"
     }

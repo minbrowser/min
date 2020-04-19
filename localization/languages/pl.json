@@ -222,8 +222,10 @@
         "passwordManagerSetupRetry": "Upewnij się, że używasz właściwego pliku i wpisujesz poprawne hasło. Możesz spróbować ponownie, przeciągając tutaj narzędzie.",
         "passwordManagerUnlock": "Wprowadź główne hasło %p, aby odblokować przechowalnię haseł:",
         /* Dialogs */
+        "loginPromptTitle": null, //missing translation
         "dialogConfirmButton": "Potwierdź",
         "dialogSkipButton": "Anuluj",
+        "username": null, //missing translation
         "email": "Email",
         "password": "Hasło"
     }
