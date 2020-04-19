@@ -6,6 +6,8 @@ and then resolves the promise with gathered data.
 
 const { spawn, spawnSync } = require('child_process')
 
+const worker = new Worker('js/util/processWorker.js');
+
 class ProcessSpawner {
   constructor(command, args) {
     this.command = command
@@ -47,20 +49,22 @@ class ProcessSpawner {
 
   executeSyncInAsyncContext(input) {
     return new Promise((resolve, reject) => {
-      var worker = new Worker('js/util/processWorker.js');
+      let taskId = Math.random();
       worker.onmessage = function(e) {
-        if (e.data.result) {
-          resolve(e.data.result);
+        if (e.data.taskId === taskId) {
+          if (e.data.result) {
+            resolve(e.data.result);
+          }
+          if (e.data.error) {
+            reject(e.data.error)
+          }
         }
-        if (e.data.error) {
-          reject(e.data.error)
-        }
-        worker.terminate();
       }
       worker.postMessage({
         command: this.command,
         args: this.args,
-        input: input
+        input: input,
+        taskId: taskId,
       })
     })
   }
