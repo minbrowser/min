@@ -9,19 +9,6 @@ class Bitwarden {
       this.name = 'Bitwarden'
     }
   
-    // Checks if given command runs and produces output.
-    async _checkCommand(command, args) {
-      try {
-        let process = new ProcessSpawner(command, args)
-        let data = await process.execute()
-        if (data.length > 0) {
-          return true
-        }
-      } catch (ex) {
-        return false
-      }
-    }
-  
     // Returns a Bitwarden-CLI tool path by checking possible locations.
     // First it checks if the tool was installed for Min specifically by
     // by checking the settings value. If that is not set or doesn't point
@@ -39,12 +26,7 @@ class Bitwarden {
         }
       }
   
-      let global;
-      if (platformType === "windows") {
-        global = await this._checkCommand('where', ['bw'])
-      } else {
-        global = await this._checkCommand('which', ['bw'])
-      }
+      let global = new ProcessSpawner('bw').checkCommandExists()
     
       if (global) {
         return 'bw'

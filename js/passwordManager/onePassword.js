@@ -9,20 +9,6 @@ class OnePassword {
     this.name = '1Password'
   }
 
-  // Checks if given command runs and produces output.
-  async _checkCommand(command, args) {
-    try {
-      let process = new ProcessSpawner(command, args)
-      let data = await process.execute()
-      if (data.length > 0) {
-        return true
-      }
-    } catch (ex) {
-      console.log("error", ex);
-      return false
-    }
-  }
-
   // Returns a 1Password-CLI tool path by checking possible locations.
   // First it checks if the tool was installed for Min specifically by
   // by checking the settings value. If that is not set or doesn't point
@@ -40,12 +26,7 @@ class OnePassword {
       }
     }
 
-    let global;
-    if (platformType === "windows") {
-      global = await this._checkCommand('where', ['op'])
-    } else {
-      global = await this._checkCommand('which', ['op'])
-    }
+    let global = new ProcessSpawner('op').checkCommandExists()
 
     if (global) {
       return 'op'

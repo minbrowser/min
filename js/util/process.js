@@ -27,7 +27,7 @@ class ProcessSpawner {
       })
 
       process.on('close', (code) => {
-        if (code != 0) {
+        if (code !== 0) {
           reject({ error: this.error, data: this.data })
         } else {
           resolve(this.data)
@@ -61,6 +61,28 @@ class ProcessSpawner {
         command: this.command,
         args: this.args,
         input: input
+      })
+    })
+  }
+
+  checkCommandExists() {
+    return new Promise((resolve, reject) => {
+      const checkCommand = (platformType === "windows") ? 'where' : 'which'
+      const process = spawn(checkCommand, [this.command])
+
+      process.stdout.on('data', (data) => {
+        if (data.length > 0) {
+          resolve(true)
+        }
+      })
+
+      process.on('close', (code) => {
+        //if we didn't get any output, the command doesn't exist
+        resolve(false)
+      })
+
+      process.on('error', (data) => {
+        resolve(false)
       })
     })
   }
