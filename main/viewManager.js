@@ -29,12 +29,12 @@ function createView (id, webPreferencesString, boundsString, events) {
   })
 
   // Open a login prompt when site asks for http authentication
-  view.webContents.on("login",  (event, authenticationResponseDetails, authInfo, callback) => {
-    if(authInfo.scheme!='basic'){  // Only for basic auth
+  view.webContents.on('login', (event, authenticationResponseDetails, authInfo, callback) => {
+    if (authInfo.scheme !== 'basic') {  // Only for basic auth
       return
     }
     event.preventDefault()
-    var title = l('loginPromptTitle').replace('%h', authInfo.host).replace('%r', authInfo.realm);
+    var title = l('loginPromptTitle').replace('%h', authInfo.host).replace('%r', authInfo.realm)
     createPrompt({
       text: title,
       values: [{ placeholder: l('username'), id: 'username', type: 'text' },
@@ -42,8 +42,11 @@ function createView (id, webPreferencesString, boundsString, events) {
       ok: l('dialogConfirmButton'),
       cancel: l('dialogSkipButton'),
       width: 400,
-      height: 200,
-    }, function(result){callback(result.username, result.password)}) //resend request with auth credentials
+      height: 200
+    }, function (result) {
+       // resend request with auth credentials
+      callback(result.username, result.password)
+    })
   })
 
   view.setBounds(JSON.parse(boundsString))
