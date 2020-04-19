@@ -60,14 +60,11 @@ class OnePassword {
       return Promise.resolve([])
     }
 
-    let start = null
     if (this.sessionKey == null) {
-      start = this.tryToUnlock(command)
-    } else {
-      start = Promise.resolve(this.sessionKey)
+      throw new Error();
     }
 
-    this.lastCallList[domain] = start.then(() => this.loadSuggestions(command, domain)).then(suggestions => {
+    this.lastCallList[domain] = this.loadSuggestions(command, domain).then(suggestions => {
       this.lastCallList[domain] = null
       return suggestions
     }).catch(ex => {
@@ -119,57 +116,23 @@ class OnePassword {
     }
   }
 
-  // Tries to unlock the store by asking for a master password and
-  // then passing that to 1Password-CLI to get a session key.
-  async tryToUnlock(command) {
-    let sessionKey = null
-    while (!sessionKey) {
-      let password
-      try {
-        password = await this.promptForMasterPassword()
-      } catch (e) {
-        //dialog was canceled
-        break
-      }
-      try {
-        sessionKey = await this.unlockStore(command, password)
-      } catch (e) {
-        //incorrect password, prompt again
-      }
-    }
-    this.sessionKey = sessionKey
-  }
-
   // Tries to unlock the password store with given master password.
-  async unlockStore(command, password) {
+  async unlockStore(password) {
     try {
-      let process = new ProcessSpawner(command, ['signin', '--raw'])
+      let process = new ProcessSpawner(this.path, ['signin', '--raw'])
       let result = await process.executeSyncInAsyncContext(password)
+      //no session key -> invalid password
+      if (!result) {
+        throw new Error();
+      }
 
-      return result
+      this.sessionKey = result;
+      return true
     } catch (ex) {
       const { error, data } = ex
       console.error('Error accessing 1Password CLI. STDOUT: ' + data + '. STDERR: ' + error)
       throw ex
     }
-  }
-
-  // Shows a prompt dialog for password store's master password.
-  async promptForMasterPassword() {
-    return new Promise((resolve, reject) => {
-      let { password } = ipc.sendSync('prompt', {
-        text: l('passwordManagerUnlock').replace("%p", "1Password"),
-        values: [{ placeholder: l('password'), id: 'password', type: 'password' }],
-        ok: l('dialogConfirmButton'),
-        cancel: l('dialogSkipButton'),
-        height: 160,
-      })
-      if (password == null || password == '') {
-        reject()
-      } else {
-        resolve(password)
-      }
-    })
   }
 }
 

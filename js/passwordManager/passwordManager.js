@@ -41,6 +41,41 @@ const PasswordManagers = {
 
     return manager
   },
+  // Shows a prompt dialog for password store's master password.
+  promptForMasterPassword: async function(manager) {
+    return new Promise((resolve, reject) => {
+      let { password } = ipc.sendSync('prompt', {
+        text: l('passwordManagerUnlock').replace("%p", manager.name),
+        values: [{ placeholder: l('password'), id: 'password', type: 'password' }],
+        ok: l('dialogConfirmButton'),
+        cancel: l('dialogSkipButton'),
+        height: 160,
+      })
+      if (password == null || password == '') {
+        reject()
+      } else {
+        resolve(password)
+      }
+    })
+  },
+  unlock: async function (manager) {
+    let success = false
+    while (!success) {
+      let password
+      try {
+        password = await PasswordManagers.promptForMasterPassword(manager)
+      } catch (e) {
+        //dialog was canceled
+        break
+      }
+      try {
+        success = await manager.unlockStore(password)
+      } catch (e) {
+        //incorrect password, prompt again
+      }
+    }
+    return success
+  },
   // Binds IPC events.
   initialize: function () {
     // Called when page preload script detects a form with username and password.
@@ -51,9 +86,13 @@ const PasswordManagers = {
       }
       let hostname = args[0]
 
-      PasswordManagers.getConfiguredPasswordManager().then((manager) => {
+      PasswordManagers.getConfiguredPasswordManager().then(async (manager) => {
         if (!manager) {
           return
+        }
+
+        if (!manager.isUnlocked()) {
+          await PasswordManagers.unlock(manager)
         }
 
         var domain = hostname

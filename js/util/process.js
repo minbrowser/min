@@ -52,11 +52,10 @@ class ProcessSpawner {
       let taskId = Math.random();
       worker.onmessage = function(e) {
         if (e.data.taskId === taskId) {
-          if (e.data.result) {
-            resolve(e.data.result);
-          }
           if (e.data.error) {
             reject(e.data.error)
+          } else {
+            resolve(e.data.result);
           }
         }
       }
