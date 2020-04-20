@@ -26,7 +26,7 @@ class OnePassword {
       }
     }
 
-    let global = new ProcessSpawner('op').checkCommandExists()
+    let global = await new ProcessSpawner('op').checkCommandExists()
 
     if (global) {
       return 'op'

@@ -26,7 +26,7 @@ class Bitwarden {
         }
       }
   
-      let global = new ProcessSpawner('bw').checkCommandExists()
+      let global = await new ProcessSpawner('bw').checkCommandExists()
     
       if (global) {
         return 'bw'
