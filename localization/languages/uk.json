@@ -225,6 +225,7 @@
         "dialogConfirmButton": "Підтвердити",
         "dialogSkipButton": "Скасувати",
         "email": "Електронна пошта",
-        "password": "Пароль"
+        "password": "Пароль",
+        "secretKey": null //missing translation
     }
 }

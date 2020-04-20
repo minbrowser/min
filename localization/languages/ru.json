@@ -225,6 +225,7 @@
         "dialogConfirmButton": "Подтвердить",
         "dialogSkipButton": "Отмена",
         "email": "Электронная почта",
-        "password": "Пароль"
+        "password": "Пароль",
+        "secretKey": null //missing translation
     }
 }

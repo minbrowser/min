@@ -225,6 +225,7 @@
         "dialogConfirmButton": "확인",
         "dialogSkipButton": "취소",
         "email": "전자우편 주소(E-Mail)",
-        "password": "비밀번호"
+        "password": "비밀번호",
+        "secretKey": null //missing translation
     }
 }

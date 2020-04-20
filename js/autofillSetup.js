@@ -12,7 +12,7 @@ const AutofillSetup = {
     manager.checkIfConfigured().then((configured) => {
       if (!configured) {
         if (manager.name === 'Bitwarden') {
-          setupDialog.show()
+          setupDialog.show(manager)
         }
       }
     }).catch((err) => {

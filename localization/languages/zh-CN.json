@@ -225,6 +225,7 @@
         "dialogConfirmButton": "确认",
         "dialogSkipButton": "取消",
         "email": "邮箱",
-        "password": "密码"
+        "password": "密码",
+        "secretKey": null //missing translation
     }
 }

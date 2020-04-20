@@ -225,6 +225,7 @@
         "dialogConfirmButton": "Potwierdź",
         "dialogSkipButton": "Anuluj",
         "email": "Email",
-        "password": "Hasło"
+        "password": "Hasło",
+        "secretKey": null //missing translation
     }
 }

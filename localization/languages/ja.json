@@ -225,6 +225,7 @@
         "dialogConfirmButton": "確認する",
         "dialogSkipButton": "キャンセル",
         "email": "Eメール",
-        "password": "パスワード"
+        "password": "パスワード",
+        "secretKey": null //missing translation
     }
 }

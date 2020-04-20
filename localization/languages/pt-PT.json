@@ -225,6 +225,7 @@
         "dialogConfirmButton": "Confirmar",
         "dialogSkipButton": "Cancelar",
         "email": "E-mail",
-        "password": "Palavra-passe"
+        "password": "Palavra-passe",
+        "secretKey": null //missing translation
     }
 }
