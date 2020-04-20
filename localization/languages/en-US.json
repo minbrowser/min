@@ -226,6 +226,6 @@
         "dialogSkipButton": "Cancel",
         "email": "Email",
         "password": "Password",
-        "secretKey": null //missing translation
+        "secretKey": "Secret key" //missing translation
     }
 }

@@ -9,6 +9,24 @@ class OnePassword {
     this.name = '1Password'
   }
 
+  getDownloadLink() {
+    switch (window.platformType) {
+      case 'mac':
+        return 'https://cache.agilebits.com/dist/1P/op/pkg/v0.10.0/op_darwin_amd64_v0.10.0.pkg'
+        break;
+      case 'windows':
+        return 'https://cache.agilebits.com/dist/1P/op/pkg/v0.10.0/op_windows_amd64_v0.10.0.zip'
+        break;
+      case 'linux':
+        return 'https://cache.agilebits.com/dist/1P/op/pkg/v0.10.0/op_linux_amd64_v0.10.0.zip'
+        break;
+    }
+  }
+  
+  getFileName() {
+    return (platformType === 'windows' ? 'op.exe' : 'op')
+  }
+
   // Returns a 1Password-CLI tool path by checking possible locations.
   // First it checks if the tool was installed for Min specifically by
   // by checking the settings value. If that is not set or doesn't point
@@ -133,6 +151,30 @@ class OnePassword {
       console.error('Error accessing 1Password CLI. STDOUT: ' + data + '. STDERR: ' + error)
       throw ex
     }
+  }
+
+
+  getSignInRequirements() {
+    return ["email", "password", "secretKey"]
+  }
+
+  async signInAndSave(credentials, path) {
+    // It's possible to be already logged in
+    let logoutProcess = new ProcessSpawner(path, ['signout'])
+    try {
+      await logoutProcess.executeSyncInAsyncContext();
+    } catch (e) {
+      console.warn(e);
+    }
+    let process = new ProcessSpawner(path, ['signin', '--raw', 'my.1password.com', credentials.email, credentials.secretKey])
+
+    let key = await process.executeSyncInAsyncContext(credentials.password)
+    if (!key) {
+      throw new Error();
+    }
+
+    settings.set('1PasswordPath', path)
+    return true
   }
 }
 
