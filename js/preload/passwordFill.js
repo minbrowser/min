@@ -112,7 +112,7 @@ function getInputs (names, types) {
 
 // Shortcut to get username fields from a page.
 function getUsernameFields () {
-  return getInputs(['user', 'name', 'email', 'login', 'auth', 'identifier'], ['text', 'email'])
+  return getInputs(['user', 'name', 'mail', 'login', 'auth', 'identifier'], ['text', 'email'])
 }
 
 // Shortcut to get password fields from a page.
