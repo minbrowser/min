@@ -10,13 +10,13 @@ body {
 }
 
 body.windows:not(.maximized):not(.fullscreen),
-body.linux:not(.separate-titlebar) {
+body.linux:not(.maximized):not(.fullscreen):not(.separate-titlebar) {
 	--control-space-top: 12px;
 }
 
 /* On Windows, draggable regions aren't clickable, so the drag region is a separate area above the tabstrip */
 body.windows:not(.maximized):not(.fullscreen) .window-drag-area,
-body.linux:not(.separate-titlebar) .window-drag-area {
+body.linux:not(.maximized):not(.fullscreen):not(.separate-titlebar) .window-drag-area {
 	display: block;
 	position: fixed;
 	/* leave an empty space around the edges of the drag area so that the window can be resized */
@@ -121,6 +121,14 @@ body.linux:not(.separate-titlebar) #linux-control-buttons {
 	right: 9px;
 	z-index: 9;
 	width: 76px;
+}
+
+body.task-overlay-is-shown #linux-control-buttons {
+	color: black !important;
+}
+
+body.dark-mode.task-overlay-is-shown #linux-control-buttons {
+	color: white !important;
 }
 
 #linux-control-buttons .button-background {

@@ -222,8 +222,10 @@
         "passwordManagerSetupRetry": "Verifique se você está usando o arquivo certo e digitando a senha correta. Você pode tentar novamente arrastando a ferramenta aqui.",
         "passwordManagerUnlock": "Digite sua senha mestra %p para desbloquear o armazenamento de senhas:",
         /* Dialogs */
+        "loginPromptTitle": null, //missing translation
         "dialogConfirmButton": "Confirmar",
         "dialogSkipButton": "Cancelar",
+        "username": null, //missing translation
         "email": "Email",
         "password": "Senha",
         "secretKey": null //missing translation

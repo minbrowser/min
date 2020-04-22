@@ -61,7 +61,10 @@ if (!isFirstInstance) {
 
 var saveWindowBounds = function () {
   if (mainWindow) {
-    fs.writeFileSync(path.join(userDataPath, 'windowBounds.json'), JSON.stringify(mainWindow.getBounds()))
+    var bounds = Object.assign(mainWindow.getBounds(), {
+      maximized: mainWindow.isMaximized()
+    })
+    fs.writeFileSync(path.join(userDataPath, 'windowBounds.json'), JSON.stringify(bounds))
   }
 }
 
@@ -119,7 +122,8 @@ function createWindow (cb) {
         x: 0,
         y: 0,
         width: size.width,
-        height: size.height
+        height: size.height,
+        maximized: true,
       }
     }
 
@@ -133,21 +137,10 @@ function createWindow (cb) {
       y: clamp(bounds.y, containingRect.y, (containingRect.y + containingRect.height) - bounds.height),
       width: clamp(bounds.width, 0, containingRect.width),
       height: clamp(bounds.height, 0, containingRect.height),
+      maximized: bounds.maximized
     }
 
-    // maximizes the window frame in windows 10
-    // fixes https://github.com/minbrowser/min/issues/214
-    // should be removed once https://github.com/electron/electron/issues/4045 is fixed
-    if (process.platform === 'win32') {
-      if (bounds.x === 0 || bounds.y === 0 || bounds.x === -8 || bounds.y === -8) {
-        var screenSize = electron.screen.getPrimaryDisplay().workAreaSize
-        if ((screenSize.width === bounds.width || bounds.width - screenSize.width === 16) && (screenSize.height === bounds.height || bounds.height - screenSize.height === 16)) {
-          var shouldMaximize = true
-        }
-      }
-    }
-
-    createWindowWithBounds(bounds, shouldMaximize)
+    createWindowWithBounds(bounds)
 
     if (cb) {
       cb()
@@ -155,7 +148,7 @@ function createWindow (cb) {
   })
 }
 
-function createWindowWithBounds (bounds, shouldMaximize) {
+function createWindowWithBounds (bounds) {
   mainWindow = new BrowserWindow({
     width: bounds.width,
     height: bounds.height,
@@ -178,7 +171,7 @@ function createWindowWithBounds (bounds, shouldMaximize) {
   // and load the index.html of the app.
   mainWindow.loadURL(browserPage)
 
-  if (shouldMaximize) {
+  if (bounds.maximized) {
     mainWindow.maximize()
 
     mainWindow.webContents.on('did-finish-load', function () {

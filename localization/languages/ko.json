@@ -224,8 +224,10 @@
         "passwordManagerSetupRetry": "올바른 파일과 비밀번호를 사용하세요. 도구를 여기로 다시 끌어다 놓고 재시도할 수 있습니다.",
         "passwordManagerUnlock": "비밀번호 저장소 사용을 위해 %p 비밀번호를 입력하세요:",
         /* Dialogs */
+        "loginPromptTitle": null, //missing translation
         "dialogConfirmButton": "확인",
         "dialogSkipButton": "취소",
+        "username": null, //missing translation
         "email": "전자우편 주소(E-Mail)",
         "password": "비밀번호",
         "secretKey": null //missing translation

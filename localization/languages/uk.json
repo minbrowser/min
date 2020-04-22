@@ -224,8 +224,10 @@
         "passwordManagerSetupRetry": "Переконайтеся, що використовуєте правильний файл та ввели правильний пароль. Ви можете повторити спробу, перетягнувши сюди інструмент ще раз.",
         "passwordManagerUnlock": "Введіть головний пароль %p, щоб розблокувати сховище паролів:",
         /* Dialogs */
+        "loginPromptTitle": null, //missing translation
         "dialogConfirmButton": "Підтвердити",
         "dialogSkipButton": "Скасувати",
+        "username": null, //missing translation
         "email": "Електронна пошта",
         "password": "Пароль",
         "secretKey": null //missing translation

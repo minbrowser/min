@@ -224,8 +224,10 @@
         "passwordManagerSetupRetry": "Certifique-se de que está a utilizar o ficheiro e a palavra-passe corretas. Pode tentar novamente arrastando a ferramenta para aqui.",
         "passwordManagerUnlock": "Digite a palavra-passe mestre para %p para desbloquear o armazenamento de palavras-passe:",
         /* Dialogs */
+        "loginPromptTitle": null, //missing translation
         "dialogConfirmButton": "Confirmar",
         "dialogSkipButton": "Cancelar",
+        "username": null, //missing translation
         "email": "E-mail",
         "password": "Palavra-passe",
         "secretKey": null //missing translation
