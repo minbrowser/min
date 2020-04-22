@@ -211,7 +211,9 @@
         "passwordManagerSetupStep1": {
             "unsafeHTML": "首先, 访问 <a id='password-manager-setup-link'></a> 并解压到你的系统中。"
         },
+        "passwordManagerInstallerSetup": null, //missing translation
         "passwordManagerSetupLink": "下载 %p 中的CLI工具",
+        "passwordManagerSetupLinkInstaller": null, //missing translation
         "passwordManagerSetupStep2": "然后把工具拖动到下面的框中：",
         "passwordManagerSetupDragBox": "把工具拖动到这里",
         "passwordManagerSetupInstalling": "安装中...",

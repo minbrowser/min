@@ -153,12 +153,11 @@ class OnePassword {
     }
   }
 
-
   getSignInRequirements() {
     return ["email", "password", "secretKey"]
   }
 
-  async signInAndSave(credentials, path) {
+  async signInAndSave(credentials, path = this.path) {
     // It's possible to be already logged in
     let logoutProcess = new ProcessSpawner(path, ['signout'])
     try {

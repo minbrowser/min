@@ -211,7 +211,9 @@
 	"passwordManagerSetupStep1": {
 		"unsafeHTML": "Во-первых, <a id='password-manager-setup-link'></a> и извлеките его для вашей системы."
 	},
-	"passwordManagerSetupLink": "загрузите инструмент CLI %p",
+	"passwordManagerInstallerSetup": null, //missing translation
+        "passwordManagerSetupLink": "загрузите инструмент CLI %p",
+        "passwordManagerSetupLinkInstaller": null, //missing translation
         "passwordManagerSetupStep2": "Затем перетащите инструмент в поле ниже:",
         "passwordManagerSetupDragBox": "Перетащите инструмент сюда",
         "passwordManagerSetupInstalling": "Установка...",

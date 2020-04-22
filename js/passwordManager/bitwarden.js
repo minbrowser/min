@@ -146,7 +146,7 @@ class Bitwarden {
     return ["email", "password"]
   }
 
-  async signInAndSave(credentials, path) {
+  async signInAndSave(credentials, path = this.path) {
     // It's possible to be already logged in
     let logoutProcess = new ProcessSpawner(path, ['logout'])
     try {

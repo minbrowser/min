@@ -10,8 +10,12 @@ const AutofillSetup = {
     }
 
     manager.checkIfConfigured().then((configured) => {
+      let setupMethod = 'dragdrop'
+      if (platformType === 'mac' && manager.name === '1Password') {
+        setupMethod = 'installer'
+      }
       if (!configured) {
-        setupDialog.show(manager)
+        setupDialog.show(manager, setupMethod)
       }
     }).catch((err) => {
       console.error(err)
