@@ -27,10 +27,14 @@ class Bitwarden {
     return (platformType === 'windows' ? 'bw.exe' : 'bw')
   }
 
+  getSetupMode() {
+    return 'dragdrop'
+  }
+
   // Returns a Bitwarden-CLI tool path by checking possible locations.
-  // First it checks if the tool was installed for Min specifically by
+  // First it checks if the tool was installed for Min specifically
   // by checking the settings value. If that is not set or doesn't point
-  // to a valid executable, it check the if 'bw' is available globally.
+  // to a valid executable, it checks if 'bw' is available globally.
   async _getToolPath() {
     let localPath = settings.get('bitwardenPath')
     if (localPath) {

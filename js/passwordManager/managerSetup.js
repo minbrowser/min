@@ -17,15 +17,15 @@ const setupDialog = {
   manager: null,
   setupMode: null,
   installerCompletionTimeout: null,
-  show: function (manager, setupMode) {
+  show: function (manager) {
     setupDialog.manager = manager
-    setupDialog.setupMode = setupMode
+    setupDialog.setupMode = manager.getSetupMode()
 
     document.getElementById('manager-setup-heading').textContent = l('passwordManagerSetupHeading').replace('%p', manager.name)
     document.getElementById('password-manager-setup-link').textContent = l('passwordManagerSetupLink').replace('%p', manager.name)
     document.getElementById('password-manager-setup-link-installer').textContent = l('passwordManagerSetupLinkInstaller').replace('%p', manager.name)
 
-    if (setupMode === 'installer') {
+    if (manager.getSetupMode() === 'installer') {
       primaryInstructions.hidden = true
       dragBox.hidden = true
       secondaryInstructions.hidden = false
@@ -159,9 +159,12 @@ function afterInstall (toolPath) {
     height: 220
   })
 
-  if (!data.email || !data.password) {
-    throw new Error('no credentials entered')
+  for (let key in data) {
+    if (data[key] === '') {
+      throw new Error('no credentials entered')
+    }
   }
+
   setupDialog.manager.signInAndSave(data, toolPath)
     .then(() => {
       setupDialog.hide()
