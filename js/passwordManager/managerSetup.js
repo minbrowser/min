@@ -6,6 +6,7 @@ var webviews = require('webviews.js')
 var settings = require('util/settings/settings.js')
 var browserUI = require('browserUI.js')
 var modalMode = require('modalMode.js')
+var ProcessSpawner = require('util/process.js')
 
 var dialog = document.getElementById('manager-setup-dialog')
 
@@ -25,15 +26,13 @@ const setupDialog = {
     document.getElementById('password-manager-setup-link').textContent = l('passwordManagerSetupLink').replace('%p', manager.name)
     document.getElementById('password-manager-setup-link-installer').textContent = l('passwordManagerSetupLinkInstaller').replace('%p', manager.name)
 
-    if (manager.getSetupMode() === 'installer') {
+    if (setupDialog.setupMode === 'installer') {
       primaryInstructions.hidden = true
-      dragBox.hidden = true
       secondaryInstructions.hidden = false
 
       setupDialog.installerCompletionTimeout = setTimeout(waitForInstallerComplete, 2000)
     } else {
       primaryInstructions.hidden = false
-      dragBox.hidden = false
       secondaryInstructions.hidden = true
     }
 
@@ -102,7 +101,11 @@ const setupDialog = {
         return
       }
 
-      install(filePath).then(afterInstall)
+      if (setupDialog.setupMode === 'installer') {
+        launchInstaller(filePath, window.platformType)
+      } else {
+        install(filePath).then(afterInstall)
+      }
 
       return false
     }
@@ -140,6 +143,15 @@ function install (filePath, callback) {
       reject(e)
     }
   })
+}
+
+// Launch installer file.
+function launchInstaller (filePath, platform) {
+  if (platform === 'mac') {
+    return new ProcessSpawner('open', [filePath]).execute()
+  } else {
+    return new ProcessSpawner(filePath).execute()
+  }
 }
 
 function afterInstall (toolPath) {

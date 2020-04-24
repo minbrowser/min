@@ -212,7 +212,7 @@
             "unsafeHTML": "First, <a id='password-manager-setup-link'></a> and extract it for your system."
         },
         "passwordManagerInstallerSetup": {
-            "unsafeHTML": "First, download and run <a id='password-manager-setup-link-installer'></a>."
+            "unsafeHTML": "Download <a id='password-manager-setup-link-installer'></a> and drag the file into the box below:"
         },
         "passwordManagerSetupLink": "download the %p CLI tool",
         "passwordManagerSetupLinkInstaller": "the %p CLI installer",
