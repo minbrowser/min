@@ -29,12 +29,12 @@ const setupDialog = {
     if (setupDialog.setupMode === 'installer') {
       primaryInstructions.hidden = true
       secondaryInstructions.hidden = false
+
+      setupDialog.installerCompletionTimeout = setTimeout(waitForInstallerComplete, 2000)
     } else {
       primaryInstructions.hidden = false
       secondaryInstructions.hidden = true
     }
-
-    dragBox.hidden = false
 
     modalMode.toggle(true)
     dialog.hidden = false
@@ -103,7 +103,6 @@ const setupDialog = {
 
       if (setupDialog.setupMode === 'installer') {
         launchInstaller(filePath, window.platformType)
-        setupDialog.installerCompletionTimeout = setTimeout(waitForInstallerComplete, 2000)
       } else {
         install(filePath).then(afterInstall)
       }
