@@ -146,8 +146,8 @@
 		"settingsUserscriptsExplanation": {
 			"unsafeHTML": "Foydalanuvchi skriptlari sahifa ishlashini o'zgartirishga yordam beradi - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">qo'shimcha ma'lumot</a>."
 		},
-		"settingsUserAgentToggle": null, //missing translation
-        "settingsUpdateNotificationsToggle": " Yangilanishlarni avtomatik ravishda tekshirish",
+		"settingsUserAgentToggle": "Maxsus foydalanvuchi agentidan foydalanish",
+		"settingsUpdateNotificationsToggle": " Yangilanishlarni avtomatik ravishda tekshirish",
 		"settingsSearchEngineHeading": "Qidiruv Tizimi",
 		"settingsDefaultSearchEngine": "Standart qidiruv tizimini tanlang:",
 		"settingsDDGExplanation": "Qidiruv panelida tezkor javoblarni ko'rish uchun DuckDuckGo ni standart qidiruv tizimi sifatida o'rnating.",
