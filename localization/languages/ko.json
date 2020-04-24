@@ -5,7 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "pictureInPicture": null, //missing translation
+        "pictureInPicture": "화면 속 화면(Picture in Picture)",
         "openInNewTab": "새 작업",
         "openInNewPrivateTab": "새 개인 작업",
         "viewImage": "그림 보기",
@@ -37,8 +37,8 @@
         "viewReadingList": "읽기 지원 목록",
         "takeScreenshot": "갈무리",
         "clearHistory": "기록 삭제",
-        "enableBlocking": null, //missing translation
-        "disableBlocking": null, //missing translation
+        "enableBlocking": "이 누리집에 콘텐츠 차단 활성",
+        "disableBlocking": "이 누리집에 콘텐츠 차단 비활성",
         "clearHistoryConfirmation": "모든 기록 및 통신망 사용 정보를 삭제 하시겠습니까?",
         "switchToTask": "작업장 변경",
         "createTask": "작업장 생성",
@@ -53,7 +53,7 @@
         "importBookmarks": "즐겨찾기 목록 가져오기",
         "exportBookmarks": "즐겨찾기 목록 내보내기",
         /* navbar */
-        "openMenu": "일람표", //application menu button on windows
+        "openMenu": "도구 일람", //application menu button on windows
         "enterReaderView": "읽기 지원",
         "exitReaderView": "읽기 지원 종료",
         "emptyReadingListTitle": "읽기 항목이 없습니다",
@@ -140,9 +140,9 @@
         "settingsHistoryButtonToggle": "뒤로 버튼 사용",
         "settingsAdditionalFeaturesHeading": "추가 기능",
         "settingsUserscriptsToggle": "사용자 명령(스크립트) 사용",
-        "settingsSeparateTitlebarToggle": null, //missing translation
+        "settingsSeparateTitlebarToggle": "제목 표시줄과 도구 표시줄 사용",
 		"settingsUserscriptsExplanation": {"unsafeHTML": "사용자 명령(스크립트)을 사용하면 누리집의 행동을 수정할 수 있습니다. - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">더보기</a>."},
-        "settingsUserAgentToggle": null, //missing translation
+        "settingsUserAgentToggle": "사용자 정의 에이전트(UserAgent) 사용",
         "settingsUpdateNotificationsToggle": "판올림 자동 확인",
         "settingsSearchEngineHeading": "검색 도구",
         "settingsDefaultSearchEngine": "기본 검색 도구:",
@@ -225,10 +225,10 @@
         "passwordManagerSetupRetry": "올바른 파일과 비밀번호를 사용하세요. 도구를 여기로 다시 끌어다 놓고 재시도할 수 있습니다.",
         "passwordManagerUnlock": "비밀번호 저장소 사용을 위해 %p 비밀번호를 입력하세요:",
         /* Dialogs */
-        "loginPromptTitle": null, //missing translation
+        "loginPromptTitle": "%h (%r)로 로그인",
         "dialogConfirmButton": "확인",
         "dialogSkipButton": "취소",
-        "username": null, //missing translation
+        "username": "사용자 이름",
         "email": "전자우편 주소(E-Mail)",
         "password": "비밀번호",
         "secretKey": null //missing translation
