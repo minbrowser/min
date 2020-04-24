@@ -212,7 +212,11 @@
         "passwordManagerSetupStep1": {
             "unsafeHTML": "First, <a id='password-manager-setup-link'></a> and extract it for your system."
         },
+        "passwordManagerInstallerSetup": {
+            "unsafeHTML": "Download <a id='password-manager-setup-link-installer'></a> and drag the file into the box below:"
+        },
         "passwordManagerSetupLink": "download the %p CLI tool",
+        "passwordManagerSetupLinkInstaller": "the %p CLI installer",
         "passwordManagerSetupStep2": "Then drag the tool into the box below:",
         "passwordManagerSetupDragBox": "Drag the tool here",
         "passwordManagerSetupInstalling": "Installing...",
@@ -228,6 +232,7 @@
         "dialogSkipButton": "Cancel",
         "username": "Username",
         "email": "Email",
-        "password": "Password"
+        "password": "Password",
+        "secretKey": "Secret key" //missing translation
     }
 }

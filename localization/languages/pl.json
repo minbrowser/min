@@ -212,7 +212,9 @@
         "passwordManagerSetupStep1": {
             "unsafeHTML": "Najpierw, <a id='password-manager-setup-link'></a> i wypakuj go dla swojego systemu."
         },
+        "passwordManagerInstallerSetup": null, //missing translation
         "passwordManagerSetupLink": "pobierz %p narzędzie wiersza poleceń",
+        "passwordManagerSetupLinkInstaller": null, //missing translation
         "passwordManagerSetupStep2": "Następnie przeciągnij narzędzie do pola poniżej:",
         "passwordManagerSetupDragBox": "Przeciągnij narzędzie tutaj",
         "passwordManagerSetupInstalling": "Instalowanie...",
@@ -228,6 +230,7 @@
         "dialogSkipButton": "Anuluj",
         "username": null, //missing translation
         "email": "Email",
-        "password": "Hasło"
+        "password": "Hasło",
+        "secretKey": null //missing translation
     }
 }
