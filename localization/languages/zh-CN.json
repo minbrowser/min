@@ -142,6 +142,7 @@
         "settingsUserscriptsToggle": "允许使用者指令",
         "settingsSeparateTitlebarToggle": null, //missing translation
 		"settingsUserscriptsExplanation": {"unsafeHTML": "使用者指令允许您改变网站行为 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."},
+        "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": "自动检查更新",
         "settingsSearchEngineHeading": "搜索引擎",
         "settingsDefaultSearchEngine": "选择默认的搜索引擎:",

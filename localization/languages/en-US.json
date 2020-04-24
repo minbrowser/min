@@ -142,6 +142,7 @@
         "settingsUserscriptsToggle": "Enable user scripts",
         "settingsSeparateTitlebarToggle": "Use separate title bar",
 		"settingsUserscriptsExplanation": {"unsafeHTML": "User scripts allow you to modify the behavior of websites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
+        "settingsUserAgentToggle": "Use a custom user agent",
         "settingsUpdateNotificationsToggle": "Automatically check for updates",
         "settingsSearchEngineHeading": "Search Engine",
         "settingsDefaultSearchEngine": "Choose a default search engine:",

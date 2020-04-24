@@ -142,6 +142,7 @@
         "settingsUserscriptsToggle": "Ativar scripts de utilizador",
         "settingsSeparateTitlebarToggle": null, //missing translation
 		"settingsUserscriptsExplanation": {"unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."},
+        "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": "Procurar atualizações automaticamente",
         "settingsSearchEngineHeading": "Motor de pesquisa",
         "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",

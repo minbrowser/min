@@ -142,6 +142,7 @@
         "settingsUserscriptsToggle": "Felhasználói szkriptek",
         "settingsSeparateTitlebarToggle": null, //missing translation
 		"settingsUserscriptsExplanation": "Felhasználói szkript magyarázat",
+        "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Keresőmotor",
         "settingsDefaultSearchEngine": "Válasza ki az alap keresőmotort:",

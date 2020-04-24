@@ -142,6 +142,7 @@
         "settingsUserscriptsToggle": "تمكين سكريبت المستخدم",
         "settingsSeparateTitlebarToggle": null, //missing translation
 		"settingsUserscriptsExplanation": {"unsafeHTML": "يمكن سكريبت المستخدم من  تغير سلوك المواقع - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">معرفة المزيد</a>."},
+        "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "محرك بحث",
         "settingsDefaultSearchEngine": "اختر محرك بحث اساسي",

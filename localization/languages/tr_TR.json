@@ -142,6 +142,7 @@
         "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",
         "settingsSeparateTitlebarToggle": null, //missing translation
 		"settingsUserscriptsExplanation": {"unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."},
+        "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": "Güncelleştirmeleri otomatik olarak denetle",
         "settingsSearchEngineHeading": "Arama Motoru",
         "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçin:",

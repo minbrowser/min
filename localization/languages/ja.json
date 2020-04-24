@@ -142,6 +142,7 @@
         "settingsUserscriptsToggle": "ユーザースクリプトを有効にする",
         "settingsSeparateTitlebarToggle": null, //missing translation
 		"settingsUserscriptsExplanation": {"unsafeHTML": "ユーザースクリプトを使用して、Webサイトの動作を変更できます -  <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">詳細</a>。"},
+        "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": "アップデートを自動的に確認する",
         "settingsSearchEngineHeading": "検索エンジン",
         "settingsDefaultSearchEngine": "デフォルトの検索エンジン:",

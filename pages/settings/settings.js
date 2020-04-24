@@ -7,6 +7,8 @@ var siteThemeCheckbox = document.getElementById('checkbox-site-theme')
 var historyButtonCheckbox = document.getElementById('checkbox-history-button')
 var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
 var separateTitlebarCheckbox = document.getElementById('checkbox-separate-titlebar')
+var userAgentCheckbox = document.getElementById('checkbox-user-agent')
+var userAgentInput = document.getElementById('input-user-agent')
 
 function showRestartRequiredBanner () {
   banner.hidden = false
@@ -212,6 +214,35 @@ settings.get('useSeparateTitlebar', function (value) {
 
 separateTitlebarCheckbox.addEventListener('change', function (e) {
   settings.set('useSeparateTitlebar', this.checked)
+  showRestartRequiredBanner()
+})
+
+/* user agent settting */
+
+settings.get('customUserAgent', function (value) {
+  if (value) {
+    userAgentCheckbox.checked = true
+    userAgentInput.style.opacity = 1
+    userAgentInput.value = value
+  }
+})
+
+userAgentCheckbox.addEventListener('change', function (e) {
+  if (this.checked) {
+    userAgentInput.style.opacity = 1
+  } else {
+    settings.set('customUserAgent', null)
+    userAgentInput.style.opacity = 0
+    showRestartRequiredBanner()
+  }
+})
+
+userAgentInput.addEventListener('input', function (e) {
+  if (this.value) {
+    settings.set('customUserAgent', this.value)
+  } else {
+    settings.set('customUserAgent', null)
+  }
   showRestartRequiredBanner()
 })
 

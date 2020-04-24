@@ -142,7 +142,8 @@
       "settingsUserscriptsToggle":"ব্যবহারকারী স্ক্রিপ্ট সক্রিয় করুন",
       "settingsSeparateTitlebarToggle": null, //missing translation
 		"settingsUserscriptsExplanation": {"unsafeHTML": "ব্যবহারকারীর স্ক্রিপ্ট আপনাকে ওয়েবসাইটের আচরণ পরিবর্তন করার অনুমতি দেয় - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\"> আরও শিখুন </a>"},
-      "settingsUpdateNotificationsToggle": null, //missing translation
+      "settingsUserAgentToggle": null, //missing translation
+        "settingsUpdateNotificationsToggle": null, //missing translation
       "settingsSearchEngineHeading":"খোঁজ যন্ত্র",
       "settingsDefaultSearchEngine":"একটি ডিফল্ট অনুসন্ধান ইঞ্জিন চয়ন করুন:",
       "settingsDDGExplanation":"Searchbar এ তাত্ক্ষণিক উত্তর দেখতে ডিফল্ট অনুসন্ধান ইঞ্জিন হিসাবে DuckDuckGo সেট করুন।",
