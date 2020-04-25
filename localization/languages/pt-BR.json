@@ -5,7 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "pictureInPicture": "Picture in picture", //missing translation
+        "pictureInPicture": "Picture in picture",
         "openInNewTab": "Abrir em uma nova aba",
         "openInNewPrivateTab": "Abrir em uma nova aba privada",
         "viewImage": "Ver imagem",
@@ -86,25 +86,25 @@
         "timeRangeHour":"Na última hora",
         "timeRangeToday":"Hoje",
         "timeRangeYesterday":"Ontem",
-        "timeRangeWeek": "Na semana passada",
-        "timeRangeMonth":"No mês passado",
-        "timeRangeYear":"No ano passado",
+        "timeRangeWeek": "Semana passada",
+        "timeRangeMonth":"Mês passado",
+        "timeRangeYear":"Ano passado",
         "timeRangeLongerAgo":"Há mais tempo",
         /* pages/error/index.html */
         "crashErrorTitle": "Ocorreu algo de errado.",
-        "crashErrorSubtitle": "Erro ao carregar página.",
+        "crashErrorSubtitle": "Erro ao carregar esta página.",
         "errorPagePrimaryAction": "Tentar novamente",
         "serverNotFoundTitle": "Servidor não encontrado",
-        "serverNotFoundSubtitle": "Min não conseguiu localizar este site",
+        "serverNotFoundSubtitle": "O min não conseguiu localizar este site",
         "archiveSearchAction": "Buscar em archive.org",
         "sslErrorTitle": "Site indisponível",
-        "sslErrorMessage": "Min não conseguiu se conectar de uma maneira segura a este site.",
+        "sslErrorMessage": "O min não conseguiu se conectar de uma maneira segura a este site.",
         "dnsErrorTitle": "Site não localizado",
         "dnsErrorMessage": "Ocorreu um erro de DNS.",
-        "offlineErrorTitle": "Você está offline",
+        "offlineErrorTitle": "Você está off-line",
         "offlineErrorMessage": "Reconecte-se à Internet e tente novamente.",
-        "genericConnectionFail": "Min não conseguiu se conectar ao site.",
-        "sslTimeErrorMessage": "Min não conseguiu se conectar de uma maneira segura a este site. Por favor, verifique se o relógio do computador está correto.",
+        "genericConnectionFail": "O min não conseguiu se conectar ao site.",
+        "sslTimeErrorMessage": "O min não conseguiu se conectar de uma maneira segura a este site. Por favor, verifique se o relógio do computador está correto.",
         "addressInvalidTitle": "Endereço inválido.",
         "genericError": "Ocorreu um erro",
         /* pages/phishing/index.html */
@@ -124,7 +124,7 @@
         /* pages/settings/index.html */
         "settingsPreferencesHeading": "Preferências",
         "settingsRestartRequired": "Você precisa reiniciar o navegador para aplicar estas mudanças.",
-        "settingsPrivacyHeading": "Bloqueio de Conteúdo",
+        "settingsPrivacyHeading": "Bloqueio de conteúdo",
         "settingsContentBlockingLevel0": "Permitir todos os anúncios e rastreadores",
         "settingsContentBlockingLevel1": "Bloquear anúncios e rastreadores de terceiros",
         "settingsContentBlockingLevel2": "Bloquear todos os anúncios e rastreadores",
@@ -138,9 +138,9 @@
         "settingsHistoryButtonToggle": "Habilitar botão voltar",
         "settingsAdditionalFeaturesHeading": "Recursos adicionais",
         "settingsUserscriptsToggle": "Habilitar scripts do usuário",
-        "settingsSeparateTitlebarToggle": null, //missing translation
+        "settingsSeparateTitlebarToggle": "Usar a barra de título separada",
 		"settingsUserscriptsExplanation": {"unsafeHTML":"Scripts do usuário permitem modificar o comportamento do site - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saiba mais</a>."},
-	"settingsUserAgentToggle": null, //missing translation
+	"settingsUserAgentToggle": "Usar agente de usuário personalizado",
         "settingsUpdateNotificationsToggle": "Verificar atualizações automaticamente",
         "settingsSearchEngineHeading": "Serviço de busca",
         "settingsDefaultSearchEngine": "Escolha o serviço de busca padrão:",
@@ -204,7 +204,7 @@
         "updateNotificationTitle": "Uma nova versão do Min está disponível",
 	 /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Preenchimento automático de senhas",
-        "settingsSelectPasswordManager": "Escolha um dos gerenciadores de senhas suportados:",
+        "settingsSelectPasswordManager": "Escolha um gerenciadoror de senhas suportado:",
         /* Password manager setup */
         "passwordManagerSetupHeading": "Conclua a configuração de %p para usar o preenchimento automático",
         "passwordManagerSetupStep1": {
@@ -221,12 +221,12 @@
         "autofillNotNow": "Agora não",
         "passwordManagerSetupUnlockError": "Falha ao desbloquear o armazenamento de senhas:",
         "passwordManagerSetupRetry": "Verifique se você está usando o arquivo certo e digitando a senha correta. Você pode tentar novamente arrastando a ferramenta aqui.",
-        "passwordManagerUnlock": "Digite sua senha mestra %p para desbloquear o armazenamento de senhas:",
+        "passwordManagerUnlock": "Digite sua senha mestre %p para desbloquear o armazenamento de senhas:",
         /* Dialogs */
-        "loginPromptTitle": null, //missing translation
+        "loginPromptTitle": "Fazer login em %h (%r)",
         "dialogConfirmButton": "Confirmar",
         "dialogSkipButton": "Cancelar",
-        "username": null, //missing translation
+        "username": "Nome de usuário",
         "email": "Email",
         "password": "Senha",
         "secretKey": null //missing translation
