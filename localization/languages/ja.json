@@ -212,7 +212,9 @@
         "passwordManagerSetupStep1": {
             "unsafeHTML": "最初に <a id='password-manager-setup-link'></a> 、システムに展開します。"
         },
+        "passwordManagerInstallerSetup": null, //missing translation
         "passwordManagerSetupLink": "％p CLIツールをダウンロード",
+        "passwordManagerSetupLinkInstaller": null, //missing translation
         "passwordManagerSetupStep2": "次に、ツールを下のボックスにドラッグします。",
         "passwordManagerSetupDragBox": "ここにツールをドラッグ",
         "passwordManagerSetupInstalling": "インストールしています...",
@@ -228,6 +230,7 @@
         "dialogSkipButton": "キャンセル",
         "username": null, //missing translation
         "email": "Eメール",
-        "password": "パスワード"
+        "password": "パスワード",
+        "secretKey": null //missing translation
     }
 }

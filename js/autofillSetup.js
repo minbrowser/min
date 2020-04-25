@@ -1,4 +1,4 @@
-const showBitwardenDialog = require('passwordManager/bitwardenSetup.js')
+const setupDialog = require('passwordManager/managerSetup.js')
 const settings = require('util/settings/settings.js')
 const PasswordManagers = require('passwordManager/passwordManager.js')
 
@@ -10,13 +10,8 @@ const AutofillSetup = {
     }
 
     manager.checkIfConfigured().then((configured) => {
-      return { manager, configured }
-    }).then((result) => {
-      const { manager, configured } = result
-      if (manager && !configured) {
-        if (manager.name === 'Bitwarden') {
-          showBitwardenDialog()
-        }
+      if (!configured) {
+        setupDialog.show(manager)
       }
     }).catch((err) => {
       console.error(err)

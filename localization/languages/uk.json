@@ -212,7 +212,9 @@
         "passwordManagerSetupStep1": {
             "unsafeHTML": "Спочатку <a id='password-manager-setup-link'></a> і розпакуйте його для Вашої системи."
         },
+        "passwordManagerInstallerSetup": null, //missing translation
         "passwordManagerSetupLink": "завантажте інструмент CLI %p",
+        "passwordManagerSetupLinkInstaller": null, //missing translation
         "passwordManagerSetupStep2": "Потім перетягніть інструмент у поле нижче:",
         "passwordManagerSetupDragBox": "Перетягніть інструмент сюди",
         "passwordManagerSetupInstalling": "Встановлення...",
@@ -228,6 +230,7 @@
         "dialogSkipButton": "Скасувати",
         "username": null, //missing translation
         "email": "Електронна пошта",
-        "password": "Пароль"
+        "password": "Пароль",
+        "secretKey": null //missing translation
     }
 }
