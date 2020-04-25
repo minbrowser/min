@@ -212,9 +212,11 @@
         "passwordManagerSetupStep1": {
             "unsafeHTML": "우선, <a id='password-manager-setup-link'></a>를 방문해 시스템에 내려받으세요."
         },
-        "passwordManagerInstallerSetup": null, //missing translation
+        "passwordManagerInstallerSetup": {
+            "unsafeHTML": "<a id='password-manager-setup-link-installer'></a> 설치 파일을 내려받고 아래 박스 안에 끌어다 놓습니다:"
+        },
         "passwordManagerSetupLink": "%p CLI 도구를 내려받으세요.",
-        "passwordManagerSetupLinkInstaller": null, //missing translation
+        "passwordManagerSetupLinkInstaller": "%p CLI 설치 프로그램",
         "passwordManagerSetupStep2": "그 다음 도구를 아래 박스 안에 끌어다 놓습니다:",
         "passwordManagerSetupDragBox": "도구를 여기에 끌어다 놓으세요.",
         "passwordManagerSetupInstalling": "설치하는 중...",
@@ -231,6 +233,6 @@
         "username": "사용자 이름",
         "email": "전자우편 주소(E-Mail)",
         "password": "비밀번호",
-        "secretKey": null //missing translation
+        "secretKey": "비밀 보안 키"
     }
 }
