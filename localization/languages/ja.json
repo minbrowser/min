@@ -142,7 +142,7 @@
         "settingsUserscriptsToggle": "ユーザースクリプトを有効にする",
         "settingsSeparateTitlebarToggle": null, //missing translation
 		"settingsUserscriptsExplanation": {"unsafeHTML": "ユーザースクリプトを使用して、Webサイトの動作を変更できます -  <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">詳細</a>。"},
-        "settingsUserAgentToggle": null, //missing translation
+        "settingsUserAgentToggle": "カスタムユーザーエージェントを使用する",
         "settingsUpdateNotificationsToggle": "アップデートを自動的に確認する",
         "settingsSearchEngineHeading": "検索エンジン",
         "settingsDefaultSearchEngine": "デフォルトの検索エンジン:",
@@ -212,9 +212,11 @@
         "passwordManagerSetupStep1": {
             "unsafeHTML": "最初に <a id='password-manager-setup-link'></a> 、システムに展開します。"
         },
-        "passwordManagerInstallerSetup": null, //missing translation
+        "passwordManagerInstallerSetup": {
+		"unsafeHTML": "<a id='password-manager-setup-link-installer'></a>をダウンロードして、ファイルを下のボックスにドラッグします。",
+	}
         "passwordManagerSetupLink": "％p CLIツールをダウンロード",
-        "passwordManagerSetupLinkInstaller": null, //missing translation
+        "passwordManagerSetupLinkInstaller": "％pインストーラーCLI",
         "passwordManagerSetupStep2": "次に、ツールを下のボックスにドラッグします。",
         "passwordManagerSetupDragBox": "ここにツールをドラッグ",
         "passwordManagerSetupInstalling": "インストールしています...",
@@ -225,12 +227,12 @@
         "passwordManagerSetupRetry": "正しいファイルを使用し、正しいパスワードを入力していることを確認してください。 ここにツールをもう一度ドラッグすると、再試行できます。",
         "passwordManagerUnlock": "％pマスターパスワードを入力して、パスワードストアのロックを解除します。",
         /* Dialogs */
-        "loginPromptTitle": null, //missing translation
+        "loginPromptTitle": "％hにサインイン（％r）",
         "dialogConfirmButton": "確認する",
         "dialogSkipButton": "キャンセル",
-        "username": null, //missing translation
+        "username": "ユーザー名",
         "email": "Eメール",
         "password": "パスワード",
-        "secretKey": null //missing translation
+        "secretKey": "秘密鍵"
     }
 }
