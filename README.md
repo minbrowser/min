@@ -11,13 +11,13 @@ Min is a fast, minimal browser that protects your privacy. It includes an interf
 * Tasks (tab groups)
 * Dark theme
 
-More information, and prebuilt binaries are available [here](https://minbrowser.github.io/min/).
+More information, and prebuilt binaries are available [here](https://minbrowser.org/).
 
 ## Screenshots
 
-<img alt="The search bar, showing information from DuckDuckGo" src="http://minbrowser.github.io/min/tour/img/searchbar_duckduckgo_answers.png" width="700"/>
+<img alt="The search bar, showing information from DuckDuckGo" src="http://minbrowser.org/tour/img/searchbar_duckduckgo_answers.png" width="700"/>
 
-<img alt="The Tasks Overlay" src="http://minbrowser.github.io/min/tour/img/tasks.png" width="700"/>
+<img alt="The Tasks Overlay" src="http://minbrowser.org/tour/img/tasks.png" width="700"/>
 
 <img alt="Reader View" src="https://user-images.githubusercontent.com/10314059/53312382-67ca7d80-387a-11e9-9ccc-88ac592c9b1c.png" width="700"/>
 
