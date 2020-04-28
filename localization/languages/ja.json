@@ -213,8 +213,8 @@
             "unsafeHTML": "最初に <a id='password-manager-setup-link'></a> 、システムに展開します。"
         },
         "passwordManagerInstallerSetup": {
-		"unsafeHTML": "<a id='password-manager-setup-link-installer'></a>をダウンロードして、ファイルを下のボックスにドラッグします。",
-	}
+		    "unsafeHTML": "<a id='password-manager-setup-link-installer'></a>をダウンロードして、ファイルを下のボックスにドラッグします。"
+	    },
         "passwordManagerSetupLink": "％p CLIツールをダウンロード",
         "passwordManagerSetupLinkInstaller": "％pインストーラーCLI",
         "passwordManagerSetupStep2": "次に、ツールを下のボックスにドラッグします。",
