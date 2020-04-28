@@ -119,7 +119,7 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
       }
     })
 
-    if (surveyURL && pluginName === 'fullTextPlaces' && results.length > 0) {
+    if (surveyURL && pluginName === 'fullTextPlaces') {
       var feedbackLink = document.createElement('span')
       feedbackLink.className = 'search-feedback-link'
       feedbackLink.textContent = 'Search Feedback'
