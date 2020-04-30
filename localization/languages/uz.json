@@ -234,6 +234,7 @@
 		"dialogSkipButton": "Bekor qilish",
 		"username": "Foydalanuvchi ismi",
 		"email": "Elektron pochta",
-		"password": "Parol"
+		"password": "Parol",
+		"secretKey": "Maxfiy kalit"
 	}
 }
