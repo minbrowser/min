@@ -140,9 +140,9 @@
         "settingsHistoryButtonToggle": "Увімкнути кнопку \"Назад\"",
         "settingsAdditionalFeaturesHeading": "Додаткові можливості",
         "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
-        "settingsSeparateTitlebarToggle": null, //missing translation
+        "settingsSeparateTitlebarToggle": "Використовувати окремий рядок заголовка",
 		"settingsUserscriptsExplanation": {"unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."},
-        "settingsUserAgentToggle": null, //missing translation
+        "settingsUserAgentToggle": "Використовувати власний агент користувача",
         "settingsUpdateNotificationsToggle": "Автоматично перевіряти наявність оновлень",
         "settingsSearchEngineHeading": "Пошукова система",
         "settingsDefaultSearchEngine": "Виберіть типову пошукову систему:",
@@ -212,9 +212,11 @@
         "passwordManagerSetupStep1": {
             "unsafeHTML": "Спочатку <a id='password-manager-setup-link'></a> і розпакуйте його для Вашої системи."
         },
-        "passwordManagerInstallerSetup": null, //missing translation
+        "passwordManagerInstallerSetup": {
+			"unsafeHTML": "Завантажте <a id='password-manager-setup-link-installer'></a> і перетягніть файл у поле нижче:"
+		},
         "passwordManagerSetupLink": "завантажте інструмент CLI %p",
-        "passwordManagerSetupLinkInstaller": null, //missing translation
+        "passwordManagerSetupLinkInstaller": "встановлювач CLI %p",
         "passwordManagerSetupStep2": "Потім перетягніть інструмент у поле нижче:",
         "passwordManagerSetupDragBox": "Перетягніть інструмент сюди",
         "passwordManagerSetupInstalling": "Встановлення...",
@@ -225,12 +227,12 @@
         "passwordManagerSetupRetry": "Переконайтеся, що використовуєте правильний файл та ввели правильний пароль. Ви можете повторити спробу, перетягнувши сюди інструмент ще раз.",
         "passwordManagerUnlock": "Введіть головний пароль %p, щоб розблокувати сховище паролів:",
         /* Dialogs */
-        "loginPromptTitle": null, //missing translation
+        "loginPromptTitle": "Увійти на %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Підтвердити",
         "dialogSkipButton": "Скасувати",
-        "username": null, //missing translation
+        "username": "Ім'я користувача",
         "email": "Електронна пошта",
         "password": "Пароль",
-        "secretKey": null //missing translation
+        "secretKey": "Секретний ключ"
     }
 }
