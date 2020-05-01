@@ -241,6 +241,8 @@ const webviews = {
     return view
   },
   setSelected: function (id, options) { // options.focus - whether to focus the view. Defaults to true.
+    webviews.emitEvent('view-hidden', webviews.selectedId)
+
     webviews.selectedId = id
 
     // create the view if it doesn't already exist
@@ -259,6 +261,7 @@ const webviews = {
       bounds: webviews.getViewBounds(),
       focus: !options || options.focus !== false
     })
+    webviews.emitEvent('view-shown', id)
 
     forceUpdateDragRegions()
   },
@@ -306,6 +309,7 @@ const webviews = {
       // make sure the placeholder was not removed between when the timeout was created and when it occurs
       if (webviews.placeholderRequests.length > 0) {
         ipc.send('hideCurrentView')
+        webviews.emitEvent('view-hidden', webviews.selectedId)
       }
     }, 0)
   },
@@ -322,6 +326,7 @@ const webviews = {
           bounds: webviews.getViewBounds(),
           focus: true
         })
+        webviews.emitEvent('view-shown', webviews.selectedId)
         forceUpdateDragRegions()
       }
       // wait for the view to be visible before removing the placeholder

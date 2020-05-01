@@ -133,6 +133,7 @@ function initialize () {
         if (!(
         key === input.key.toLowerCase() ||
         key === input.code.replace('Digit', '') ||
+        (key === 'esc' && input.key === 'Escape') ||
         (key === 'left' && input.key === 'ArrowLeft') ||
         (key === 'right' && input.key === 'ArrowRight') ||
         (key === 'up' && input.key === 'ArrowUp') ||
