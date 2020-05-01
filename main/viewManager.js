@@ -6,15 +6,23 @@ const BrowserView = electron.BrowserView
 function createView (id, webPreferencesString, boundsString, events) {
   let view = new BrowserView(JSON.parse(webPreferencesString))
 
-  events.forEach(function (ev) {
-    view.webContents.on(ev.event, function (e) {
-      if (ev.options && ev.options.preventDefault) {
+  events.forEach(function (event) {
+    view.webContents.on(event, function (e) {
+      /*
+      new-window is special in two ways:
+      * its arguments contain a webContents object that can't be serialized and needs to be removed.
+      * If it is being handled by the UI process, preventDefault() needs to be called in order not to create a new window.
+      */
+      var args = Array.prototype.slice.call(arguments).slice(1)
+      if (event === 'new-window') {
         e.preventDefault()
+        args = args.slice(0, 3)
       }
+
       mainWindow.webContents.send('view-event', {
         viewId: id,
-        eventId: ev.id,
-        args: Array.prototype.slice.call(arguments).slice(1)
+        event: event,
+        args: args
       })
     })
   })

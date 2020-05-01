@@ -146,7 +146,7 @@ var readerView = {
 
     // update the reader button on page load
 
-    webviews.bindEvent('did-start-navigation', function (webview, tabId, e, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
+    webviews.bindEvent('did-start-navigation', function (webview, tabId, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
       if (isInPlace) {
         return
       }

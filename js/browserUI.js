@@ -184,7 +184,7 @@ function switchToTab (id, options) {
   })
 }
 
-webviews.bindEvent('new-window', function (webview, tabId, e, url, frameName, disposition) {
+webviews.bindEvent('new-window', function (webview, tabId, url, frameName, disposition) {
   var newTab = tabs.add({
     url: url,
     private: tabs.get(tabId).private // inherit private status from the current tab
@@ -194,7 +194,7 @@ webviews.bindEvent('new-window', function (webview, tabId, e, url, frameName, di
     enterEditMode: false,
     openInBackground: disposition === 'background-tab' // possibly open in background based on disposition
   })
-}, {preventDefault: true})
+})
 
 webviews.bindIPC('close-window', function (webview, tabId, args) {
   closeTab(tabId)

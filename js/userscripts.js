@@ -46,7 +46,7 @@ this listener has to be attached immediately so that we can capture events for
 webviews that are created at startup
 */
 
-webviews.bindEvent('dom-ready', function (webview, tabId, e) {
+webviews.bindEvent('dom-ready', function (webview, tabId) {
   if (!userScriptsEnabled) {
     return
   }

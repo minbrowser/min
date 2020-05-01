@@ -198,11 +198,11 @@ const tabBar = {
 
 /* progress bar events */
 
-webviews.bindEvent('did-start-loading', function (webview, tabId, e) {
+webviews.bindEvent('did-start-loading', function (webview, tabId) {
   progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'start')
 })
 
-webviews.bindEvent('did-stop-loading', function (webview, tabId, e) {
+webviews.bindEvent('did-stop-loading', function (webview, tabId) {
   progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'finish')
 })
 
