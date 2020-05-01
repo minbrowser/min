@@ -332,14 +332,6 @@ const webviews = {
       }, 400)
     }
   },
-  getTabFromContents: function (contents) {
-    for (let tabId in webviews.tabContentsMap) {
-      if (webviews.tabContentsMap[tabId] === contents) {
-        return tabId
-      }
-    }
-    return null
-  },
   releaseFocus: function () {
     ipc.send('focusMainWebContents')
   },
@@ -399,13 +391,13 @@ ipc.on('leave-full-screen', function () {
   }
 })
 
-webviews.bindEvent('enter-html-full-screen', function () {
-  webviews.viewFullscreenMap[webviews.getTabFromContents(this)] = true
+webviews.bindEvent('enter-html-full-screen', function (webview, tabId) {
+  webviews.viewFullscreenMap[tabId] = true
   webviews.resize()
 })
 
-webviews.bindEvent('leave-html-full-screen', function () {
-  webviews.viewFullscreenMap[webviews.getTabFromContents(this)] = false
+webviews.bindEvent('leave-html-full-screen', function (webview, tabId) {
+  webviews.viewFullscreenMap[tabId] = false
   webviews.resize()
 })
 
