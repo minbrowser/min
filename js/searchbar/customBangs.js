@@ -62,6 +62,11 @@ bangsPlugin.registerCustomBang({
   fn: function (text) {
     if (confirm(l('clearHistoryConfirmation'))) {
       places.deleteAllHistory()
+      /* It's important not to delete data from file:// here, since that would also remove internal browser data (such as bookmarks) */
+      remote.session.defaultSession.clearStorageData({origin: 'http://'})
+      .then(function () {
+        remote.session.defaultSession.clearStorageData({origin: 'https://'})
+      })
     }
   }
 })
