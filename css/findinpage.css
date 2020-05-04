@@ -11,7 +11,7 @@
 
 /* leave room for menu button */
 body.windows #findinpage-bar,
-body.linux:not(.separate-titlebar) #findinpage-bar {
+body.linux #findinpage-bar {
 	left: calc(36px + var(--control-space-left));
 }
 
