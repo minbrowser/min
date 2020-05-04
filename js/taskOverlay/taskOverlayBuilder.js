@@ -50,18 +50,26 @@ function toggleCollapsed (taskContainer, task) {
   var collapseButton = taskContainer.querySelector('.task-collapse-button')
   collapseButton.classList.toggle('fa-angle-right')
   collapseButton.classList.toggle('fa-angle-down')
+  if (tasks.isCollapsed(task.id)) {
+    collapseButton.setAttribute('aria-expanded', 'false')
+  } else {
+    collapseButton.setAttribute('aria-expanded', 'true')
+  }
 }
 
 var TaskOverlayBuilder = {
   create: {
     task: {
       collapseButton: function (taskContainer, task) {
-        var collapseButton = document.createElement('i')
+        var collapseButton = document.createElement('button')
         collapseButton.className = 'fa task-collapse-button'
+        collapseButton.setAttribute('aria-haspopup', 'true')
         if (tasks.isCollapsed(task.id)) {
           collapseButton.classList.add('fa-angle-right')
+          collapseButton.setAttribute('aria-expanded', 'false')
         } else {
           collapseButton.classList.add('fa-angle-down')
+          collapseButton.setAttribute('aria-expanded', 'true')
         }
         collapseButton.addEventListener('click', function (e) {
           e.stopPropagation()
