@@ -96,7 +96,7 @@ var TaskOverlayBuilder = {
         return input
       },
       deleteButton: function (container, task) {
-        var deleteButton = document.createElement('i')
+        var deleteButton = document.createElement('button')
         deleteButton.className = 'fa fa-trash-o task-delete-button'
 
         deleteButton.addEventListener('click', function (e) {
@@ -267,7 +267,7 @@ var TaskOverlayBuilder = {
       },
 
       container: function (task) {
-        var tabContainer = document.createElement('div')
+        var tabContainer = document.createElement('ul')
         tabContainer.className = 'task-tabs-container'
         tabContainer.setAttribute('data-task', task.id)
 

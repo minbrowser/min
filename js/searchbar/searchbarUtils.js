@@ -106,6 +106,7 @@ function createItem (data) {
     var iconImage = document.createElement('img')
     iconImage.className = 'icon-image'
     iconImage.src = data.iconImage
+    iconImage.setAttribute('aria-hidden', true)
 
     item.insertBefore(iconImage, item.childNodes[0])
   }

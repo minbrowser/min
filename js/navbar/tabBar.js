@@ -25,10 +25,12 @@ const tabBar = {
 
     if (activeTab) {
       activeTab.classList.remove('active')
+      activeTab.removeAttribute('aria-selected')
     }
 
     var el = tabBar.getTab(tabId)
     el.classList.add('active')
+    el.setAttribute('aria-selected', 'true')
 
     requestAnimationFrame(function () {
       el.scrollIntoView()
@@ -82,6 +84,7 @@ const tabBar = {
     var tabEl = document.createElement('div')
     tabEl.className = 'tab-item'
     tabEl.setAttribute('data-tab', data.id)
+    tabEl.setAttribute('role', 'tab')
 
     tabEl.title = tabTitle
     if (data.private) {
