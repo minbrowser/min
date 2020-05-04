@@ -19,8 +19,8 @@ var findinpage = {
 
     /* special case for PDF viewer */
 
-    if (PDFViewer.isPDFViewer(tabs.getSelected())) {
-      PDFViewer.startFindInPage(tabs.getSelected())
+    if (PDFViewer.isPDFViewer(findinpage.activeTab)) {
+      PDFViewer.startFindInPage(findinpage.activeTab)
     }
 
     findinpage.counter.textContent = ''
@@ -42,8 +42,8 @@ var findinpage = {
       webviews.callAsync(findinpage.activeTab, 'stopFindInPage', action)
 
       /* special case for PDF viewer */
-      if (PDFViewer.isPDFViewer(tabs.getSelected())) {
-        PDFViewer.endFindInPage(tabs.getSelected())
+      if (tabs.get(findinpage.activeTab) && PDFViewer.isPDFViewer(findinpage.activeTab)) {
+        PDFViewer.endFindInPage(findinpage.activeTab)
       }
 
       webviews.callAsync(findinpage.activeTab, 'focus')
@@ -52,6 +52,10 @@ var findinpage = {
     findinpage.activeTab = null
   }
 }
+
+findinpage.input.addEventListener('click', function () {
+  webviews.releaseFocus()
+})
 
 findinpage.endButton.addEventListener('click', function () {
   findinpage.end()

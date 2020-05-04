@@ -269,6 +269,8 @@ const webviews = {
     ipc.send('loadURLInView', {id: id, url: urlParser.parse(url)})
   },
   destroy: function (id) {
+    webviews.emitEvent('view-hidden', id)
+
     var w = webviews.tabViewMap[id]
     if (w) {
       ipc.send('destroyView', id)
