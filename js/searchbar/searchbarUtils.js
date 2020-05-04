@@ -199,11 +199,9 @@ function getRealTitle (text) {
     var titleChunks = text.split(char)
 
     if (titleChunks.length >= 2) {
-      titleChunks[0] = titleChunks[0].trim()
-      titleChunks[1] = titleChunks[1].trim()
-
-      if (titleChunks[1].length < 5 || titleChunks[1].length / titleChunks[0].length <= 0.5) {
-        return titleChunks[0]
+      var titleChunksTrimmed = titleChunks.map(c => c.trim())
+      if (titleChunksTrimmed[titleChunksTrimmed.length - 1].length < 5 || titleChunksTrimmed[titleChunksTrimmed.length - 1].length / text.length <= 0.3) {
+        return titleChunks.slice(0, -1).join(char)
       }
     }
   }
