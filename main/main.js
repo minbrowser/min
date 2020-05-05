@@ -231,13 +231,21 @@ function createWindowWithBounds (bounds) {
     sendIPCToWindow(mainWindow, 'leave-html-full-screen')
   })
 
-  mainWindow.on('app-command', function (e, command) {
-    if (command === 'browser-backward') {
-      sendIPCToWindow(mainWindow, 'goBack')
-    } else if (command === 'browser-forward') {
-      sendIPCToWindow(mainWindow, 'goForward')
-    }
-  })
+  /*
+  Handles events from mouse buttons
+  Unsupported on macOS, and on Linux, there is a default handler already,
+  so registering a handler causes events to happen twice.
+  See: https://github.com/electron/electron/issues/18322
+  */
+  if (process.platform === 'win32') {
+    mainWindow.on('app-command', function (e, command) {
+      if (command === 'browser-backward') {
+        sendIPCToWindow(mainWindow, 'goBack')
+      } else if (command === 'browser-forward') {
+        sendIPCToWindow(mainWindow, 'goForward')
+      }
+    })
+  }
 
   // prevent remote pages from being loaded using drag-and-drop, since they would have node access
   mainWindow.webContents.on('will-navigate', function (e, url) {
