@@ -119,7 +119,7 @@
         "sessionRestoreErrorExplanation": "Não foi possível restaurar os separadores guardados.",
         "sessionRestoreErrorBackupInfo": "Criámos um backup dos seus dados em: %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
-            "unsafeHTML": "Se este erro persistir, crie um relatório de erro <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">aqui</a>."
+		"unsafeHTML": "Se este erro persistir, crie um relatório de erro <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">aqui</a>."
         },
         /* pages/settings/index.html */
         "settingsPreferencesHeading": "Preferências",
@@ -132,7 +132,7 @@
         "settingsBlockScriptsToggle": "Bloquear scripts",
         "settingsBlockImagesToggle": "Bloquear imagens",
         "settingsEasyListCredit": {
-            "unsafeHTML": "Baseado em EasyList e EasyPrivacy, criadas por <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">Ver licença</a>)."
+		"unsafeHTML": "Baseado em EasyList e EasyPrivacy, criadas por <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">Ver licença</a>)."
         },
         "settingsAppearanceHeading": "Aparência",
         "settingsDarkModeToggle": "Ativar modo escuro",
@@ -140,9 +140,9 @@
         "settingsHistoryButtonToggle": "Mostrar botão para recuar",
         "settingsAdditionalFeaturesHeading": "Outras funcionalidades",
         "settingsUserscriptsToggle": "Ativar scripts de utilizador",
-        "settingsSeparateTitlebarToggle": null, //missing translation
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."},
-        "settingsUserAgentToggle": null, //missing translation
+        "settingsSeparateTitlebarToggle": "Utilizar barra de título separada",
+                 "settingsUserscriptsExplanation": {"unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."},
+        "settingsUserAgentToggle": "Utilizar agente de utilizador personalizado",
         "settingsUpdateNotificationsToggle": "Procurar atualizações automaticamente",
         "settingsSearchEngineHeading": "Motor de pesquisa",
         "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",
@@ -210,11 +210,12 @@
         /* Password manager setup */
         "passwordManagerSetupHeading": "Terminar configuração de %p para usar o preenchimento automático",
         "passwordManagerSetupStep1": {
-            "unsafeHTML": "Primeiro, <a id='password-manager-setup-link'></a> e extraia para o seu sistema."
+		"unsafeHTML": "Primeiro, <a id='password-manager-setup-link'></a> e extraia para o seu sistema."
         },
-        "passwordManagerInstallerSetup": null, //missing translation
+        "passwordManagerInstallerSetup": {
+		"unsafeHTML": "Descarregue <a id='password-manager-setup-link-installer'></a> e arraste o ficheiro para a caixa abaixo:"
         "passwordManagerSetupLink": "descarregue a ferramenta CLI %p",
-        "passwordManagerSetupLinkInstaller": null, //missing translation
+        "passwordManagerSetupLinkInstaller": "a ferramenta CLI %p",
         "passwordManagerSetupStep2": "Depois, arraste a ferramenta para a caixa abaixo:",
         "passwordManagerSetupDragBox": "Arraste a ferramenta para aqui",
         "passwordManagerSetupInstalling": "A instalar...",
@@ -225,12 +226,12 @@
         "passwordManagerSetupRetry": "Certifique-se de que está a utilizar o ficheiro e a palavra-passe corretas. Pode tentar novamente arrastando a ferramenta para aqui.",
         "passwordManagerUnlock": "Digite a palavra-passe mestre para %p para desbloquear o armazenamento de palavras-passe:",
         /* Dialogs */
-        "loginPromptTitle": null, //missing translation
+        "loginPromptTitle": "Iniciar sessão em %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Confirmar",
         "dialogSkipButton": "Cancelar",
-        "username": null, //missing translation
+        "username": "Nome de utilizador",
         "email": "E-mail",
         "password": "Palavra-passe",
-        "secretKey": null //missing translation
+        "secretKey": "Chave secreta"
     }
 }
