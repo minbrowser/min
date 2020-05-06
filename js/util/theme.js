@@ -4,7 +4,13 @@ if (typeof require !== 'undefined') {
 
 function shouldEnableDarkMode () {
   var hours = new Date().getHours()
-  return hours > 21 || hours < 6
+  let isAuto = false
+settings.listen('autoDarkMode', function (value){
+  if (value !== undefined)
+    isAuto = value
+})
+
+  return (hours > 21 || hours < 6) && isAuto
 }
 
 function enableDarkMode () {

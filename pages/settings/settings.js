@@ -3,6 +3,7 @@ document.title = l('settingsPreferencesHeading') + ' | Min'
 var container = document.getElementById('privacy-settings-container')
 var banner = document.getElementById('restart-required-banner')
 var darkModeCheckbox = document.getElementById('checkbox-dark-mode')
+var autoDarkModeCheckbox = document.getElementById('checkbox-auto-dark-mode')
 var siteThemeCheckbox = document.getElementById('checkbox-site-theme')
 var historyButtonCheckbox = document.getElementById('checkbox-history-button')
 var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
@@ -157,6 +158,14 @@ settings.get('darkMode', function (value) {
 
 darkModeCheckbox.addEventListener('change', function (e) {
   settings.set('darkMode', this.checked)
+})
+
+settings.get('autoDarkMode', function (value){
+  autoDarkModeCheckbox.checked = value;
+})
+
+autoDarkModeCheckbox.addEventListener('change', function (e){
+  settings.set('autoDarkMode', this.checked)
 })
 
 /* site theme setting */
