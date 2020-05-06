@@ -135,8 +135,8 @@
             "unsafeHTML": "Based on EasyList and EasyPrivacy, created by <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>)."
         },
         "settingsAppearanceHeading": "Appearance",
-        "settingsDarkModeToggle": "Enable dark  mode",
-        "settingsAutoDarkToggle": "Scheduled dark mode (22:00 - 6:30)",
+        "settingsDarkModeToggle": "Enable dark mode",
+        "settingsAutoDarkToggle": "Automatic dark mode",
         "settingsSiteThemeToggle": "Enable site theme",
         "settingsHistoryButtonToggle": "Enable back button",
         "settingsAdditionalFeaturesHeading": "Additional Features",
