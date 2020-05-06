@@ -214,6 +214,7 @@
         },
         "passwordManagerInstallerSetup": {
 		"unsafeHTML": "Descarregue <a id='password-manager-setup-link-installer'></a> e arraste o ficheiro para a caixa abaixo:"
+        },
         "passwordManagerSetupLink": "descarregue a ferramenta CLI %p",
         "passwordManagerSetupLinkInstaller": "a ferramenta CLI %p",
         "passwordManagerSetupStep2": "Depois, arraste a ferramenta para a caixa abaixo:",
