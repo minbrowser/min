@@ -48,7 +48,7 @@ bangsPlugin.registerCustomBang({
   isAction: true,
   fn: function (text) {
     setTimeout(function () { // wait so that the view placeholder is hidden
-      webviews.get(tabs.getSelected()).capturePage(function (image) {
+      webviews.get(tabs.getSelected()).capturePage().then(function (image) {
         remote.getCurrentWebContents().downloadURL(image.toDataURL())
       })
     }, 400)
