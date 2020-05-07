@@ -1,65 +1,64 @@
-if (typeof require !== 'undefined') {
-  var settings = require('util/settings/settings.js')
+if (typeof require !== "undefined") {
+  var settings = require("util/settings/settings.js");
 }
 
-function shouldEnableDarkMode () {
-  var hours = new Date().getHours()
-  let isAuto = false
-settings.listen('autoDarkMode', function (value){
-  if (value !== undefined)
-    isAuto = value
-})
+function shouldEnableDarkMode() {
+  var hours = new Date().getHours();
+  let isAuto = false;
+  settings.listen("autoDarkMode", function (value) {
+    if (value !== undefined) isAuto = value;
+  });
 
-  return (hours > 21 || hours < 6) && isAuto
+  return (hours > 21 || hours < 6) && isAuto;
 }
 
-function enableDarkMode () {
-  document.body.classList.add('dark-mode')
-  window.isDarkMode = true
+function enableDarkMode() {
+  document.body.classList.add("dark-mode");
+  window.isDarkMode = true;
   requestAnimationFrame(function () {
-    window.dispatchEvent(new CustomEvent('themechange'))
-  })
+    window.dispatchEvent(new CustomEvent("themechange"));
+  });
 }
 
-function disableDarkMode () {
-  document.body.classList.remove('dark-mode')
-  window.isDarkMode = false
+function disableDarkMode() {
+  document.body.classList.remove("dark-mode");
+  window.isDarkMode = false;
   requestAnimationFrame(function () {
-    window.dispatchEvent(new CustomEvent('themechange'))
-  })
+    window.dispatchEvent(new CustomEvent("themechange"));
+  });
 }
 
-var themeInterval = null
+var themeInterval = null;
 
-function initialize () {
-  settings.listen('darkMode', function (value) {
-    clearInterval(themeInterval)
+function initialize() {
+  settings.listen("darkMode", function (value) {
+    clearInterval(themeInterval);
 
     if (value === true) {
-      enableDarkMode()
-      return
+      enableDarkMode();
+      return;
     }
 
     if (shouldEnableDarkMode()) {
-      enableDarkMode()
+      enableDarkMode();
     } else {
-      disableDarkMode()
+      disableDarkMode();
     }
 
     themeInterval = setInterval(function () {
       if (shouldEnableDarkMode()) {
         if (!window.isDarkMode) {
-          enableDarkMode()
+          enableDarkMode();
         }
       } else if (window.isDarkMode) {
-        disableDarkMode()
+        disableDarkMode();
       }
-    }, 10000)
-  })
+    }, 10000);
+  });
 }
 
-if (typeof module !== 'undefined') {
-  module.exports = {initialize}
+if (typeof module !== "undefined") {
+  module.exports = { initialize };
 } else {
-  initialize()
+  initialize();
 }
