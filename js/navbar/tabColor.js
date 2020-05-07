@@ -126,16 +126,18 @@ function adjustColorForTheme (color) {
   // dim the colors late at night or early in the morning, or when dark mode is enabled
   let colorChange = 1
   let isAuto = false
+
   settings.listen('autoDarkMode', function(value){
-    if (value !== undefined)
-    isAuto = value
+    isAuto = (value !== undefined && value) 
   })
+
   if(isAuto){
-  if (hours > 20) {
-    colorChange = 1.01 / (1 + 0.9 * Math.pow(Math.E, 1.5 * (hours - 22.75)))
- } else if (hours < 6.5) {
-    colorChange = 1.04 / (1 + 0.9 * Math.pow(Math.E, -2 * (hours - 5)))
- }}
+    if (hours > 20) {
+      colorChange = 1.01 / (1 + 0.9 * Math.pow(Math.E, 1.5 * (hours - 22.75)))
+    } else if (hours < 6.5) {
+      colorChange = 1.04 / (1 + 0.9 * Math.pow(Math.E, -2 * (hours - 5)))
+    }
+  }
 
   if (window.isDarkMode) {
     colorChange = Math.min(colorChange, 0.6)
