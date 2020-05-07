@@ -135,7 +135,10 @@
             "unsafeHTML": "<a target=\"_blank\" href=\"https://easylist.to/\"> EasyListの作成者</a>によって作成されたEasyListおよびEasyPrivacyに基づいています（<a target=\"_blank\" href=\"https：//creativecommons.org/licenses/by-sa/3.0/legalcode\">ライセンスを表示</a>)。"
         },
         "settingsAppearanceHeading": "外観",
-        "settingsDarkModeToggle": "ダークモードを使用",
+        "settingsEnableDarkMode": "ダークモードを使用:",
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": "サイトテーマを有効にする",
         "settingsHistoryButtonToggle": "戻るボタンを使用",
         "settingsAdditionalFeaturesHeading": "追加機能",

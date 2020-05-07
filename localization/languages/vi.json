@@ -131,7 +131,10 @@
             "unsafeHTML": "Dựa trên EasyList và EasyPrivacy, tạo bởi <a target=\"_blank\" href=\"https://easylist.to/\">các tác giả EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">xem giấy phép</a>)."
         },
         "settingsAppearanceHeading": "Giao diện",
-        "settingsDarkModeToggle": "Bật chế độ tối",
+        "settingsEnableDarkMode": "Bật chế độ tối:",
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": "Bật chủ đề trang",
         "settingsHistoryButtonToggle": "Bật nút đi lại trang trước",
         "settingsAdditionalFeaturesHeading": "Đặc tính hơn",

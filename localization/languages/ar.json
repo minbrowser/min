@@ -135,7 +135,10 @@
              "unsafeHTML": " استنادا الى EasyList و EasyPrivacy, التي تم انشائها من طرف <a target=\"_blank\" href=\"https://easylist.to/\"> EasyList المؤلفون ل</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">مشاهدة الترخيص</a>)." 
             },
         "settingsAppearanceHeading": "تفضيلات",
-        "settingsDarkModeToggle": "تشغيل الوضع الليلي",
+        "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "تمكين زر العودة",
         "settingsAdditionalFeaturesHeading": "مميزات اضافية",

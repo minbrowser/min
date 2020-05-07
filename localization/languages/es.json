@@ -135,7 +135,10 @@
             "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "Apariencia",
-        "settingsDarkModeToggle": "Habilitar modo oscuro",
+        "settingsEnableDarkMode": "Habilitar modo oscuro:", 
+        "settingsDarkModeNever": "Nunca", // googled
+        "settingsDarkModeNight": "Por la noche", // googled
+        "settingsDarkModeAlways": "Siempre", // googled
         "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Habilitar botón Atrás",
         "settingsAdditionalFeaturesHeading": null, //missing translation

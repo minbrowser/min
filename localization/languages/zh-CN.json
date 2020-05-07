@@ -135,7 +135,10 @@
             "unsafeHTML": "基于 EasyList 和 EasyPrivacy, 由 <a target=\"_blank\" href=\"https://easylist.to/\">EasyList作者</a> 制作（<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">查看许可协议</a>）."
         },
         "settingsAppearanceHeading": "外观",
-        "settingsDarkModeToggle": "启用夜间模式",
+        "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": "启用网站主题",
         "settingsHistoryButtonToggle": "启用返回键",
         "settingsAdditionalFeaturesHeading": "其他功能",

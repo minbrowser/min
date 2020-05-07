@@ -135,7 +135,10 @@
         "unsafeHTML": null //missing translation
       },
       "settingsAppearanceHeading":"চেহারা",
-      "settingsDarkModeToggle":"অন্ধকার মোড সক্রিয় করুন",
+      "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
+      "settingsDarkModeNever": null, //"Never" missing translation
+      "settingsDarkModeNight": null, //"At night" missing translation
+      "settingsDarkModeAlways": null, //"Always" missing translation
       "settingsSiteThemeToggle": null, //missing translation
       "settingsHistoryButtonToggle":"ফিরে বোতাম সক্ষম করুন",
       "settingsAdditionalFeaturesHeading":"অতিরিক্ত বৈশিষ্ট্য",
