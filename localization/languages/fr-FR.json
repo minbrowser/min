@@ -135,7 +135,7 @@
             "unsafeHTML": "Basé sur EasyList et EasyPrivacy, créé par <a target=\"_blank\" href=\"https://easylist.to/\">Les auteurs de Easylist</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">voir la license</a>)."
         },
         "settingsAppearanceHeading": "Apparence",
-        "settingsEnableDarkMode": "Activer le mode nuit":, //"Enable dark mode:" missing translation
+        "settingsEnableDarkMode": "Activer le mode nuit:", //"Enable dark mode:" missing translation
         "settingsDarkModeNever": "Jamais", // googled
         "settingsDarkModeNight": "La nuit", // googled
         "settingsDarkModeAlways": "Toujours", // googled
