@@ -152,9 +152,16 @@ for (var contentType in contentTypes) {
 var darkModeNever = document.getElementById('dark-mode-never')
 var darkModeNight = document.getElementById('dark-mode-night')
 var darkModeAlways = document.getElementById('dark-mode-always')
-var darkMode = settings.get('darkMode')
-var autoDarkMode = settings.get('autoDarkMode')
 
+var darkMode = false
+settings.get('darkMode', function(value) {
+  darkMode = value;
+})
+
+var autoDarkMode = false
+settings.get('autoDarkMode', function(value) {
+  autoDarkMode = value;
+})
   /* Setting up the RB's */
     darkModeNever.checked = !autoDarkMode && !darkMode;
     darkModeNight.checked = !darkMode ? autoDarkMode : false;
