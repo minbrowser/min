@@ -120,7 +120,7 @@
 
 .searchbar-item .secondary-text .md-info {
 	float: left;
-	opacity: 0.8;
+	opacity: 0.75;
 	font-size: inherit;
 }
 .searchbar-item .secondary-text .md-info:first-child {

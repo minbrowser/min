@@ -52,10 +52,6 @@ const places = {
     // full-text data from search results isn't useful
     if (isSearchPage) {
       data.extractedText = ''
-    } else {
-      // include page URL tokens and title in search text
-      // this allows for queries that include both the site name and some text from the page
-      data.extractedText = urlParser.removeProtocol(tab.url).substr(0, 200) + ' ' + tab.title + ' ' + data.extractedText
     }
 
     // don't save to history if in private mode, or the page is a browser page (unless it contains the content of a normal page)
