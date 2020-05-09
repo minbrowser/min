@@ -73,7 +73,7 @@ function getPageData (cb) {
 
     var frames = document.querySelectorAll('iframe')
 
-    for (var x = 0; x < frames.length; frames++) {
+    for (var x = 0; x < frames.length; x++) {
       try {
         text += '. ' + extractPageText(frames[x].contentDocument, frames[x].contentWindow)
       } catch (e) {}
