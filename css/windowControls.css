@@ -1,0 +1,160 @@
+body {
+	--control-space-top: 0px;
+	--control-space-left: 0px;
+	--control-space-right: 0px;
+}
+/* window drag regions */
+
+.window-drag-area {
+	display: none;
+}
+
+body.windows:not(.maximized):not(.fullscreen),
+body.linux:not(.maximized):not(.fullscreen):not(.separate-titlebar) {
+	--control-space-top: 12px;
+}
+
+/* On Windows, draggable regions aren't clickable, so the drag region is a separate area above the tabstrip */
+body.windows:not(.maximized):not(.fullscreen) .window-drag-area,
+body.linux:not(.maximized):not(.fullscreen):not(.separate-titlebar) .window-drag-area {
+	display: block;
+	position: fixed;
+	/* leave an empty space around the edges of the drag area so that the window can be resized */
+	top: 3px;
+	left: 3px;
+	width: calc(100% - 6px);
+	height: 12px;
+	-webkit-app-region: drag;
+}
+
+/* On mac, the entire navbar is draggable, so the drag area is placed behind the navbar */
+body.mac .window-drag-area {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 32px;
+	-webkit-app-region: drag;
+}
+
+/* mac window buttons */
+
+body.mac:not(.fullscreen) {
+	--control-space-left: 75px;
+}
+
+/* Windows caption buttions */
+
+body.windows {
+	--control-space-right: 138px;
+}
+
+.windows-caption-buttons {
+    display: none;
+}
+
+body.windows .windows-caption-buttons {
+	display: flex;
+	position: absolute;
+	top: var(--control-space-top);
+	right: 0;
+	z-index: 10;
+}
+
+.windows-caption-buttons .element {
+	line-height: 36px;
+	width: 36px;
+	stroke: #000;
+	padding: 0 5px;
+	box-sizing: content-box;
+	fill: transparent;
+	text-align: center;
+}
+
+body:not(.task-overlay-is-shown).dark-theme .windows-caption-buttons .element {
+	stroke: #fff;
+}
+
+
+.windows-caption-buttons .element > svg {
+	width: 12px;
+	height: 12px;
+}
+
+.windows-caption-buttons .element {
+	transition: background-color 0.1s linear, color 0.1s linear;
+}
+.windows-caption-buttons .element:hover {
+	background-color: rgba(196, 196, 196, 0.4);
+	transition: none;
+}
+.windows-caption-buttons .element:active {
+	background-color: rgba(168, 168, 168, 0.5);
+}
+.windows-caption-buttons .element.caption-close:hover {
+	background-color: #e81123;
+}
+.windows-caption-buttons .element.caption-close:hover > svg,
+.windows-caption-buttons .element.caption-close:active > svg {
+	stroke: #fff;
+	stroke-width: 1.1px;
+}
+.windows-caption-buttons .element.caption-close:active {
+	background-color: rgba(232, 17, 35, 0.6);
+}
+
+/* Linux buttons */
+
+#linux-control-buttons {
+	display: none;
+}
+
+body.linux:not(.separate-titlebar) {
+	--control-space-right: 96px;
+}
+
+body.linux:not(.separate-titlebar) #linux-control-buttons {
+	display: block;
+	position: absolute;
+	top: calc(9px + var(--control-space-top));
+	right: 9px;
+	z-index: 9;
+	width: 76px;
+}
+
+body.task-overlay-is-shown #linux-control-buttons {
+	color: black !important;
+}
+
+body.dark-mode.task-overlay-is-shown #linux-control-buttons {
+	color: white !important;
+}
+
+#linux-control-buttons .button-background {
+	fill: currentColor;
+	stroke: currentColor;
+	fill-opacity: 0;
+	stroke-opacity: 0;
+}
+
+#linux-control-buttons g:hover .button-background {
+	fill-opacity: 0.02;
+	stroke-opacity: 0.09;
+}
+
+#linux-control-buttons g:active .button-background {
+	fill-opacity: 0.18;
+	stroke-opacity: 0.24;
+}
+
+
+.dark-theme #linux-control-buttons g:hover .button-background {
+	fill-opacity: 0.2;
+	stroke-opacity: 0.35;
+}
+
+.dark-theme #linux-control-buttons g:active .button-background {
+	fill-opacity: 0.45;
+	stroke-opacity: 0.7;
+}

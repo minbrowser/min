@@ -1,0 +1,172 @@
+@media screen {
+  html {
+    padding: 0;
+    margin: 0;
+    font-family: '.SFNSText-Regular', 'BlinkMacSystemFont', 'Helvetica Neue', 'Segoe UI', 'Arial', sans-serif;
+  }
+  body {
+    background-color: rgb(200, 200, 200);
+    margin-top: 25px;
+    padding: 0;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  .viewer-ui {
+    user-select: none;
+    z-index: 9999;
+  }
+  
+  #progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background-color: #555;
+    transition: 0.2s transform;
+    width: 100%;
+    transform: translateX(-100%);
+  }
+  
+  #page-counter {
+    position: fixed;
+    top: 20px;
+    left: 30px;
+    padding: 0.5em 0.75em;
+    background-color: white;
+    border-radius: 1em;
+    transition: 0.2s opacity;
+    box-shadow: 0px 0px 3px 0 rgba(0, 0, 0, 0.1)
+  }
+  
+  #page-counter input {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    padding: 2px 1px;
+    margin: -2px 0;
+    border: none;
+    font: inherit;
+    width: 2.75em;
+    text-align: center;
+    border: 1px #ddd solid;
+  }
+  
+  #page-counter.hidden {
+    opacity: 0;
+  }
+  
+  #download-button {
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    font-size: 1.5em;
+    height: 2.5em;
+    width: 2.5em;
+    line-height: 2.5em;
+    text-align: center;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.2s opacity;
+    box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);
+  }
+  
+  #download-button.hidden {
+    opacity: 0;
+  }
+  
+  .page-container.loading {
+    opacity: 0;
+  }
+  
+  .side-gutter {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    z-index: 999;
+  }
+  #side-gutter-left {
+    left: 0;
+  }
+  #side-gutter-right {
+    right: 0;
+  }
+  
+  .page {
+    position: relative;
+    box-shadow: 0px 0px 15px rgba(50, 50, 50, 0.3);
+    margin: 15px auto;
+    border: 1px solid #ccc;
+    contain: strict;
+  }
+  .canvasWrapper {
+    overflow: hidden;
+  }
+  .textLayer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    color: #000;
+    font-family: sans-serif;
+    overflow: hidden;
+    contain: strict;
+  }
+  
+  .textLayer > span {
+    color: transparent;
+    position: absolute;
+    white-space: pre;
+    cursor: text;
+    transform-origin: top left;
+  }
+  
+  .page-container {
+    position: relative;
+  }
+}
+
+@media print {
+  @page {
+    margin: 0;
+  }
+  body {
+    margin: 0;
+  }
+  .side-gutter, .viewer-ui {
+    display: none;
+  }
+  .page {
+    visibility: visible !important;
+    margin: -16px 0 0 0 0;
+    width: 100% !important;
+    height: auto !important;
+    float: left;
+  }
+  .page > .canvasWrapper {
+    width: 100% !important;
+    height: auto !important;
+    /* don't let whitespace affect the height of the element */
+    font-size: 0;
+    margin-top: -1px;
+  }
+  .page > .canvasWrapper > canvas {
+    width: 100% !important;
+    height: auto !important;
+    page-break-before: always;
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+  .page > .textLayer {
+    display: none !important;
+  }
+  .page > .annotationLayer {
+    display: none !important;
+  }
+}

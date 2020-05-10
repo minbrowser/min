@@ -1,0 +1,93 @@
+#bookmark-tag-bar {
+    margin-top: 0.5em;
+}
+
+#bookmark-tag-bar:not(.expanded) .tag.overflowing {
+    display: none;
+}
+
+.bookmark-editor {
+    background: transparent !important;
+}
+.bookmark-editor:not(.simplified) {
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+    border-radius: 3px;
+}
+.dark-theme .bookmark-editor:not(.simplified) {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255 ,0.2);
+}
+
+.bookmark-editor .bookmark-delete-button {
+    top: auto;
+    bottom: calc(0.16em + 1px);
+}
+
+.bookmark-editor .bookmark-url {
+    opacity: 0.66;
+    font-size: 0.95em;
+    margin-bottom: 0.55em;
+}
+
+#searchbar .tag {
+    display: inline-block;
+    padding: 0.33em 0.5em;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.075);
+    border: 2px transparent solid;
+    opacity: 0.66;
+}
+.dark-theme #searchbar .tag {
+    background-color: rgba(255, 255, 255, 0.075);
+}
+
+#searchbar .tag.suggested {
+    background: transparent;
+    border-style: dotted;
+    border-color: rgba(0, 0, 0, 0.125);
+}
+.dark-theme #searchbar .tag.suggested {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+#searchbar .tag + .tag {
+    margin-left: 0.33em;
+}
+
+#searchbar .tag.selected {
+    opacity: 1;
+}
+
+#searchbar .tag:hover {
+    border-color: transparent;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.dark-theme #searchbar .tag:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#searchbar .tag:focus {
+    border-color: transparent;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+.dark-theme #searchbar .tag:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.tag-edit-area .tag-input {
+    -webkit-appearance: none;
+    padding: 0.35em 0.5em;
+    border-radius: 3px;
+    background: transparent;
+    color: inherit;
+    border: 1px rgba(0,0,0, 0.125) solid;
+    opacity: 0.8;
+}
+.tag-edit-area .tag + .tag-input {
+    margin-left: 0.5em;
+}
+.dark-theme .tag-edit-area .tag-input {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+.dark-theme .tag-edit-area .tag-input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.66);
+}

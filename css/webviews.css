@@ -1,0 +1,62 @@
+#webviews {
+	height: calc(100vh - 36px - var(--control-space-top));
+	position: relative;
+}
+
+/* Webpages assume the page background will always be white, but the Electron API to set this is broken on Windows and Linux (https://github.com/electron/electron/issues/20447) - there, the view will always be transparent.
+Therefore, the default app background (which can be white or black) can only be used on mac; on linux and windows, it needs to always be white, since it could become part of the page background. */
+body.windows #webviews,
+body.linux #webviews {
+	background-color: white;
+}
+
+.arrow-indicator {
+	width: 140px;
+	height: 140px;
+	border-radius: 70px;
+	background: #000;
+	position: fixed;
+	top: 50%;
+	z-index: 1;
+	opacity: 0;
+	visibility: hidden;
+}
+/* use a separate class to avoid an issue where the arrow sometimes appears briefly on startup beginning in Chromium 61 */
+.arrow-indicator.animating {
+	transition: opacity 0.3s, visibility 0.3s;
+}
+.arrow-indicator.shown {
+	opacity: 0.6;
+	visibility: visible;
+}
+#leftArrowContainer {
+	left: -70px;
+}
+#rightArrowContainer {
+	right: -70px;
+}
+
+.arrow {
+	color: white;
+	font-size: 40px !important;
+	margin-top: 50px;
+}
+#leftArrow {
+	float: right;
+	margin-right: 15px;
+}
+#rightArrow {
+	float: left;
+	margin-left: 15px;
+}
+
+#webview-placeholder {
+	width: 100%;
+	height: 100%;
+	/* the built-in blur() function creates white edges around the image, avoid this by using an SVG filter. Source:
+	https://codepen.io/tigt/post/fixing-the-white-glow-in-the-css-blur-filter#comment-id-6373
+	https://jsbin.com/kupaqa/edit?html,css,output
+	*/
+	filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='a' x='0' y='0' width='100%' height='100%' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='6' /%3E%3CfeComponentTransfer%3E%3CfeFuncA type='discrete' tableValues='1 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E %3C/svg%3E#a");
+	background: #fff;
+}

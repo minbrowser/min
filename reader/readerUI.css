@@ -1,0 +1,187 @@
+body, html {
+	height: auto;
+	overflow: auto;
+	min-height: 100vh;
+}
+
+body[theme="dark"] {
+	background-color: rgb(36, 41, 47);
+	color: rgb(180,180,180);
+}
+
+body[theme="sepia"] {
+	background-color: rgb(245, 237, 220);
+	color: rgba(80, 55, 35, 1);
+}
+
+#auto-redirect-banner {
+	max-width: 650px;
+	margin: 1em auto;
+	border: 1px #ddd solid;
+	padding: 0.5em;
+	border-radius: 3px;
+	color: #333;
+}
+
+@media all and (max-width: 800px) {
+	/* make sure there is room for the settings button */
+	#auto-redirect-banner {
+		margin-right: 4em;
+		margin-left: 0.5em;
+	}
+}
+
+body[theme="dark"] #auto-redirect-banner {
+	color: #bbb;
+	border-color: #bbb;
+}
+
+body[theme="dark"] #auto-redirect-button-area button {
+	color: dodgerblue
+}
+
+#auto-redirect-button-area {
+	float: right;
+	padding-right: 0.5em;
+}
+
+#auto-redirect-button-area button {
+	padding: 0.5em;
+	margin-top: -0.5em;
+	color: royalblue;
+}
+
+.dark-mode #auto-redirect-button-area button {
+	color: dodgerblue
+}
+
+#auto-redirect-button-area button:active {
+	background: rgba(0,0,0,0.1);
+}
+
+#backtoarticle {
+	font-size: 1.25em;
+	padding: 2em 0 0 0.25em;
+	color: dodgerblue;
+	max-width: 650px;
+	margin: auto;
+	display: block;
+	box-sizing: border-box;
+	cursor: pointer;
+	font-family: system-ui, ".SFNSText-Regular", sans-serif;
+}
+#auto-redirect-banner:not([hidden]) + #backtoarticle {
+	padding-top: 0.5em;
+}
+#backtoarticle i {
+	vertical-align: text-bottom;
+	margin-right: 0.25em;
+	font-size: 1.275em;
+	/* pre-define the width to avoid the text moving after fontawesome loads */
+	width: 0.36em;
+}
+
+#settings-button {
+	position: absolute;
+	top: 0.66em;
+	right: 0.66em;
+	opacity: 0.5;
+	font-size: 1.5em;
+	/* increase click area */
+	padding: 1em;
+	margin: -1em;
+}
+
+#settings-dropdown {
+	position: absolute;
+	top: 3.166em;
+	right: 1em;
+	background: white;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
+	padding: 0.75em 0.5em;
+	width: 240px;
+	border-radius: 5px;
+}
+body[theme="dark"] #settings-dropdown {
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.75);
+	background: rgb(49, 52, 59);
+}
+
+#settings-dropdown .setting-section {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.setting-section + .setting-section {
+	padding-top: 0.5em;
+}
+
+#settings-dropdown label {
+	padding-left: 0.25em;
+	margin-top: -1px;
+}
+
+#settings-dropdown .theme-circle {
+	display: inline-block;
+	width: 2em;
+	height: 2em;
+	border-radius: 50%;
+	margin: 0.25em;
+	border: 1px #ddd solid;
+	transition: 0.15s border-color;
+}
+
+#settings-dropdown .theme-circle[data-theme="light"] {
+	background: #fff;
+}
+#settings-dropdown .theme-circle[data-theme="sepia"] {
+	background: rgb(245, 237, 220);
+}
+#settings-dropdown .theme-circle[data-theme="dark"] {
+	background: rgb(33, 37, 43);
+}
+#settings-dropdown .theme-circle.selected {
+	border-color: dodgerblue;
+	border-width: 3px;
+}
+
+.temporary-frame {
+	display: none;
+}
+
+.reader-frame {
+	display: block;
+	width: 100%;
+	/* height is set in js */
+	border: 0;
+}
+
+#site-nav-links {
+	padding: 1em 1.5em;
+}
+
+#site-nav-links a {
+	color: inherit;
+	display: inline-block;
+	opacity: 0.55;
+	text-decoration: none;
+	padding: 0 0.5em;
+	font-size: 1.1em;
+	white-space: nowrap;
+	max-width: 15em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#site-nav-links a.selected {
+	opacity: 0.66;
+	font-weight: 600;
+}
+
+body:not([theme="light"]) #site-nav-links a {
+	opacity: 0.65;
+}
+
+body:not([theme="light"]) #site-nav-links a.selected {
+	opacity: 0.75;
+}

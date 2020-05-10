@@ -1,0 +1,31 @@
+#tab-editor {
+    padding: 0 0.55em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+	display: flex;
+	height: 100%;
+    align-items: center;
+    transform-origin: top left;
+	z-index: 1;
+}
+
+#tab-editor-input {
+    background: none;
+	line-height: 1.15em;
+	font-size: 1.15em;
+	-webkit-appearance: none;
+	border: none;
+	color: inherit;
+	flex: 1;
+	height: 1.5em;
+	outline: none;
+	-webkit-user-select: auto;
+	-webkit-app-region: no-drag;
+}
+#tab-editor-input::-webkit-input-placeholder {
+	color: inherit;
+	opacity: 0.5;
+	line-height: 1.25em;
+}

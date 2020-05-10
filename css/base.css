@@ -1,0 +1,80 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-size: 16px;
+	font-family: '.SFNSText-Regular', 'BlinkMacSystemFont', 'Helvetica Neue', 'Segoe UI', 'Arial', sans-serif;
+}
+body.mac * {
+	letter-spacing: 0.3px;
+}
+[hidden] {
+	display: none !important;
+}
+
+/* buttons are styled like normal text by default */
+button {
+	-webkit-appearance: none;
+	background: none;
+	border: none;
+	color: inherit;
+	outline: none;
+}
+body,
+html {
+	background-color: #fff;
+	color: #000;
+	height: 100%;
+	overflow: hidden;
+	-webkit-user-select: none;
+}
+
+body.dark-mode {
+	background-color: rgb(33, 37, 43);
+	color: lightgrey;
+}
+
+h1,
+h2,
+h3 {
+  font-size: 5em;
+  font-weight: 300;
+  opacity: 0.8;
+  font-family: '.SFNSDisplay-Light', 'Helvetica Neue Light', 'Helvetica Neue', sans-serif;
+  margin: 0.5em 0;
+  color: inherit;
+  text-align: center;
+}
+h2 {
+  text-align: left;
+  font-size: 2.75em;
+}
+h3 {
+  text-align: left;
+  font-size: 2em;
+}
+h1 + h2 {
+  margin-top: -1em;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.spacer {
+  height: 1em;
+}
+
+.light-fade {
+	opacity: 0.666;
+}
+
+a {
+	color: royalblue;
+	text-decoration: none;
+}
+
+.dark-mode a {
+	color: dodgerblue;
+}

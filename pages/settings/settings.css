@@ -1,0 +1,102 @@
+body,
+html {
+	overflow: auto;
+}
+
+.settings-info-subheading {
+	opacity: 0.666;
+}
+.settings-info-subheading.container-subheading {
+	padding-bottom: 1em;
+}
+
+.yellow-background {
+	background-color: rgb(250, 188, 43);
+}
+
+.short-hero {
+	position: relative;
+	overflow: hidden;
+	height: 10vh;
+	min-height: 100px;
+}
+.blue-gradient-background {
+	background: linear-gradient(135deg, rgba(80, 122, 196, 1) 43%, rgba(80, 122, 196, 1) 43%, rgba(128, 192, 226, 1) 89%, rgba(128, 192, 226, 1) 89%);
+	color: #fff;
+}
+
+.container {
+	max-width: 1000px;
+	margin: auto;
+	padding: 0 1em;
+}
+
+.settings-container {
+	max-width: 1000px;
+	margin: 2.25em auto;
+	padding: 0 1em;
+}
+.settings-container .setting-option + .setting-option {
+	margin: 0.5em 0;
+}
+
+.setting-section {
+	font-size: 0; /* avoid adding space between inline-block children */
+	padding: 0.5rem 0;
+}
+.setting-section input[type=checkbox] {
+	vertical-align: middle;
+}
+.setting-section input[type=checkbox] + label {
+	vertical-align: middle;
+}
+.setting-section input + label {
+	padding-left: 0.33em;
+}
+.setting-secondary-label {
+	padding-left: 1.18em;
+	padding-top: 0.2em;
+}
+.banner {
+	padding: 1em;
+	position: sticky;
+	bottom: -1px;
+	left: 0;
+	width: 100%;
+	z-index: 9;
+	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2);
+}
+#key-map-list li {
+	list-style-type: none;
+	padding: 0.4em 0;
+}
+#key-map-list li label {
+	padding: 0.2em 0;
+	width: 250px;
+	display: inline-block;
+}
+#key-map-list li input {
+	width: 40%;
+	padding: 0.2em;
+}
+
+#content-blocking-information {
+	padding: 0.5em;
+	margin: 0.75em 0.5em 0.25em 1.08em;
+	background-color: #f8f8f8;
+	border-radius: 3px;
+}
+
+.dark-mode #content-blocking-information {
+	background-color: #141414;
+}
+
+.dark-mode input {
+  background-color: rgb(48, 53, 62);
+  color: white;
+  border-color: transparent;
+}
+
+#restart-required-banner {
+  color: black;
+}

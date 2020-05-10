@@ -1,0 +1,332 @@
+#navbar {
+	display: flex;
+	height: calc(36px + var(--control-space-top));
+	transition: 0.2s background-color;
+	width: 100%;
+	-webkit-user-select: none;
+	position: relative;
+	outline: none;
+	z-index: 2;
+	padding-top: var(--control-space-top);
+	padding-left: var(--control-space-left);
+	padding-right: var(--control-space-right);
+}
+
+/* when the tab-group is white, we need a line to separate it from the webviews */
+
+#navbar:before {
+	content: "";
+	width: 100vw;
+	height: 1px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.075);
+}
+
+/* dark colors don't need to be darkened as much for contrast */
+
+.dark-theme #navbar:before {
+	background: rgba(0, 0, 0, 0.04);
+}
+.dark-theme.is-edit-mode #navbar:before {
+	background: none;
+}
+
+/* navbar buttons */
+
+#back-button {
+	opacity: 1;
+	transition: none;
+	font-size: 1.5em;
+	padding: 0 0.6em 0 0.4em;
+}
+#back-button:disabled {
+	opacity: 0.2;
+}
+
+body.is-edit-mode #back-button {
+	display: none;
+}
+
+#menu-button {
+	margin-top: 1px;
+}
+
+#menu-button {
+	display: none;
+}
+
+body.windows #menu-button,
+body.linux #menu-button {
+	display: inline-block;
+}
+
+/* tab layout */
+
+#navbar #tabs {
+	display: flex;
+	flex: 1;
+	position: relative;
+	overflow: hidden;
+}
+#tabs #tabs-inner {
+	display: flex;
+	flex: 1;
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+.tab-item {
+	flex: 1;
+	min-width: 125px;
+	transition: 0.2s transform;
+	line-height: 36px;
+	height: 36px;
+	overflow: hidden;
+	word-break: break-all;
+	position: relative;
+	padding: 0 0.8em;
+}
+.tab-item:not(.active):hover {
+	background-color: rgba(0, 0, 0, 0.03);
+}
+.dark-theme .tab-item:not(.active):hover {
+	background-color: rgba(255, 255, 255, 0.1);
+}
+.dark-theme.theme-background-low-contrast .tab-item:not(.active):hover {
+	background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* icons */
+
+.tab-item .tab-icon-area {
+	float: right;
+}
+.tab-item .tab-icon {
+	font-size: 0.8em;
+	margin-top: -0.1em;
+	padding: 0.66em;
+	vertical-align: middle;
+	box-sizing: content-box;
+}
+.tab-item.active:not(:only-child) {
+	background: rgba(0, 0, 0, 0.06);
+}
+.dark-theme .tab-item.active:not(:only-child) {
+	background: rgba(255, 255, 255, 0.2);
+}
+.dark-theme.theme-background-low-contrast .tab-item.active:not(:only-child) {
+	background: rgba(255, 255, 255, 0.25);
+}
+.tab-item.fade {
+	opacity: 0.55;
+}
+.tab-item.fade:hover {
+	opacity: 1;
+}
+
+/* style tab scrollbar */
+
+#navbar #tabs-inner::-webkit-scrollbar {
+	height: 0.25em;
+}
+.is-edit-mode #navbar #tabs-inner::-webkit-scrollbar {
+	height: 0
+}
+#navbar #tabs-inner::-webkit-scrollbar-track {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+#navbar #tabs-inner::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0.175);
+	border-radius: 0.25em;
+}
+.dark-theme #navbar #tabs-inner::-webkit-scrollbar-track {
+	background-color: rgba(255, 255, 255, 0.25);
+}
+.dark-theme #navbar #tabs-inner::-webkit-scrollbar-thumb {
+	background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* hide tabs when tab editor is open */
+
+.is-edit-mode .tab-item {
+	opacity: 0;
+}
+
+/* show the overlay in edit mode */
+
+#overlay {
+	display: none;
+}
+
+body.is-edit-mode #overlay,
+body.is-modal-mode #overlay {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(255, 255, 255, 0.5);
+	z-index: 1;
+	pointer-events: none;
+}
+body.is-modal-mode #overlay {
+	/* In modal mode, the tab bar should be disabled */
+	z-index: 5;
+	pointer-events: all;
+}
+body.dark-mode #overlay {
+	background: rgba(0, 0, 0, 0.4);
+}
+/* hide the lock icon unless its the current tab */
+
+.tab-item:not(.active) .icon-tab-not-secure {
+	display: none;
+}
+.tab-item .title {
+	font-size: 15px;
+}
+
+/* buttons */
+
+.navbar-action-button {
+	padding: 0 1em;
+	height: 36px;
+	line-height: 36px !important;
+}
+.navbar-action-button.invisible {
+	visibility: hidden;
+}
+.navbar-action-button + .navbar-action-button {
+	padding-left: 0.5em;
+}
+
+.tab-item .bookmarks-button {
+	font-size: 0.9em;
+}
+
+/* reader button */
+
+.tab-item .reader-button {
+	display: none;
+	margin-left: -0.66em;
+	height: 11px;
+	margin-top: -2px;
+	/* fixes blurry rendering.
+	image-rendering: pixelated should do the same thing, 
+	but it doesn't seem to work.
+	*/
+	transform: scaleX(1.00001);
+}
+.dark-theme .tab-item .reader-button {
+	filter: invert(1);
+}
+.tab-item.active .reader-button.can-reader {
+	display: inline-block;
+}
+.tab-item.active .reader-button.is-reader {
+	display: inline-block;
+}
+
+/* permission request buttons */
+
+.tab-item .tab-icon.permission-request-icon {
+	border: 1px rgba(0, 0, 0, 0.3) solid;
+    padding: 0.16em;
+    margin-right: 0.66em;
+    margin-top: -0.2em;
+    border-radius: 0.75em;
+}
+.tab-item .tab-icon.permission-request-icon i {
+	margin: 0 0.15em;
+	vertical-align: bottom;
+}
+.dark-theme .tab-item .tab-icon.permission-request-icon {
+	border-color: rgba(255, 255, 255, 0.5);
+}
+.tab-item .tab-icon.permission-request-icon:hover {
+	background-color: rgba(0, 0, 0, 0.075);
+}
+.dark-theme .tab-item .tab-icon.permission-request-icon:hover {
+	background-color: rgba(255, 255, 255, 0.15);
+}
+.tab-item .tab-icon.permission-request-icon.active {
+	background-color: rgba(0, 0, 0, 0.66);
+	border-color: transparent;
+	color: white;
+}
+.dark-theme .tab-item .tab-icon.permission-request-icon.active {
+	background-color: rgba(255,255,255,0.9);
+	border-color: transparent;
+    color: black;
+}
+
+.tab-item:not(.active) .permission-request-icon:not(.active) {
+	display: none;
+}
+
+/* when the tab is hovered, hide info buttons and show the close button */
+
+.tab-item:hover .tab-info-icon {
+	display: none;
+}
+.tab-item .tab-close-button {
+	display: none;
+}
+.tab-item:hover .tab-close-button {
+	display: inline-block;
+}
+
+/* hide other tabs in focus mode */
+
+body.is-focus-mode .tab-item:not(.active) {
+	display: none;
+}
+body.is-focus-mode .navbar-action-button:not(#menu-button) {
+	display: none;
+}
+
+/* since only one tab is shown in focus mode, the highlight isn't needed */
+
+body.is-focus-mode .tab-item {
+	background: none !important;
+}
+
+/* progress bar */
+
+
+.progress-bar-container {
+	height: 2px;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0 0.8em;
+	overflow: hidden;
+}
+
+.progress-bar {
+	height: 2px;
+	width: 100%;
+	background-color: currentColor;
+}
+
+body:not(.dark-theme) .progress-bar {
+	opacity: 0.8;
+}
+
+.p0 {
+	transform: translateX(-100%);
+}
+
+.p25 {
+	transform: translateX(-75%);
+	transition: transform 4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.p100 {
+	transform: translateX(0%);
+	transition: transform 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}

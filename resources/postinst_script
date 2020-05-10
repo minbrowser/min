@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ]; then
+    update-alternatives --install /usr/bin/x-www-browser \
+        x-www-browser /usr/bin/min 80
+    echo "Run sudo xdg-settings set default-web-browser min.desktop && sudo update-alternatives --config x-www-browser to set Min as your default browser."
+fi

@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "remove" ] || [ "$1" = "deconfigure" ]; then
+    update-alternatives --remove x-www-browser /usr/bin/min
+    echo "Min has been removed from update-alternatives list."
+    echo "If you set Min to your default in install steps or xdg-settings manually, please set to the other web browser yourself."
+    echo "The following command is:"
+    echo "xdg-settings set default-web-browser browser-name.desktop"
+fi

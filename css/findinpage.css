@@ -1,0 +1,48 @@
+#findinpage-bar {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	top: var(--control-space-top);
+	left: calc(0.5em + var(--control-space-left));
+	right: calc(0.75em + var(--control-space-right));
+	height: 35px;
+	z-index: 99;
+}
+
+/* leave room for menu button */
+body.windows #findinpage-bar,
+body.linux #findinpage-bar {
+	left: calc(36px + var(--control-space-left));
+}
+
+#findinpage-bar #findinpage-input {
+	flex: 1;
+	-webkit-appearance: none;
+	appearance: none;
+	outline: none;
+	border: 0;
+	background: inherit;
+	color: inherit;
+	min-width: 80px;
+}
+#findinpage-bar #findinpage-input::-webkit-input-placeholder {
+	opacity: 0.75;
+	color: inherit;
+}
+#findinpage-bar .divider {
+	height: 100%;
+	width: 1em;
+}
+#findinpage-bar .inline-text {
+	font-size: 0.85em;
+	vertical-align: middle;
+}
+#findinpage-bar .icon {
+	font-size: 1em;
+	padding: 0 0.5em;
+	margin-top: -2px;
+}
+#findinpage-bar .icon.fa-angle-up,
+#findinpage-bar .icon.fa-angle-down {
+	font-size: 1.2em;
+}

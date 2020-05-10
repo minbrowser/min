@@ -1,0 +1,72 @@
+#searchbar {
+	z-index: 3;
+	position: fixed;
+	top: calc(var(--control-space-top) + 36px);
+	left: 0;
+	width: 100%;
+	background: #fff;
+	color: #000;
+	padding-left: var(--control-space-left);
+	padding-right: calc(82px + var(--control-space-right));
+	-webkit-user-select: none;
+	max-height: calc(100% - 125px);
+	overflow-y: auto;
+}
+
+/* account for menu button */
+body.windows #searchbar,
+body.linux #searchbar {
+	padding-left: calc(36px + var(--control-space-left));
+}
+
+.searchbar-heading {
+	font-weight: normal;
+	padding: 0.9em 0.55em 0.33em 0.55em;
+	opacity: 0.7;
+	cursor: default;
+}
+
+/* move the icon when there isn't room to the left of the searchbar */
+
+.fullscreen #searchbar .searchbar-item i,
+body:not(.mac) #searchbar .searchbar-item i,
+.fullscreen #searchbar .searchbar-item .icon-image,
+body:not(.mac) #searchbar .searchbar-item .icon-image {
+	left: auto;
+	right: 1.1em;
+}
+
+/* if an action button is visible, the searchbar icon should disappear (if they occupy the same position) */
+
+.fullscreen #searchbar .searchbar-item.has-action-button:hover i,
+body:not(.mac) #searchbar .searchbar-item.has-action-button:hover i,
+.fullscreen #searchbar .searchbar-item.has-action-button:hover .icon-image,
+body:not(.mac) #searchbar .searchbar-item.has-action-button:hover .icon-image {
+	display: none;
+}
+
+#searchbar .image.color-circle {
+	width: 1.8em;
+	height: 1.8em;
+	border-radius: 50%;
+	float: left;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	padding-right: 0.5em;
+}
+.dark-theme #searchbar .image.color-circle {
+	border-color: rgba(255, 255, 255, 0.2);
+}
+
+.search-feedback-link {
+	display: block;
+	width: 100%;
+	font-size: 0.8em;
+	opacity: 0.75;
+	text-decoration: underline;
+	padding: 0.5em 0.6875em 0.5em 0.6875em;
+}
+
+.search-feedback-link:hover {
+	opacity: 1;
+	cursor: pointer;
+}

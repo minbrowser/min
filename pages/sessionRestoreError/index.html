@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+
+	<title data-string="sessionRestoreErrorTitle"></title>
+	<link rel="stylesheet" href="../pagebase.css" />
+	<link rel="stylesheet" href="../../ext/font-awesome-4.4.0/css/font-awesome.min.css" />
+</head>
+
+<body>
+
+	<div id="page-wrapper">
+		<h1 data-string="sessionRestoreErrorTitle"></h1>
+		<h2 id="error-message">
+			<span data-string="sessionRestoreErrorExplanation"></span>
+			<br>
+			<br>
+			<span id="backup-info"></span>
+			<br>
+			<br>
+			<span id="link-info" data-string="sessionRestoreErrorLinkInfo" data-allowHTML></span>
+		</h2>
+	</div>
+	<script src="../../ext/Dexie.min.js"></script>
+	<script src="../../js/util/database.js"></script>
+	<script src="../../js/util/settings/settingsContent.js"></script>
+	<script src="../../js/util/theme.js"></script>
+	<script src="../../dist/localization.build.js"></script>
+
+	<script>
+		var backupLoc = new URLSearchParams(window.location.search).get("backupLoc");
+
+		var backupInfoEl = document.getElementById("backup-info");
+		backupInfoEl.textContent = l('sessionRestoreErrorBackupInfo').replace("%l", backupLoc);
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,232 @@
+.simulated-navbar {
+	width: 100%;
+	height: calc(36px + var(--control-space-top));
+	background-color: inherit;
+	z-index: 1;
+	border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
+}
+
+#switch-task-button {
+	position: absolute;
+	top: var(--control-space-top);
+	right: var(--control-space-right);
+	z-index: 4;
+}
+
+#switch-task-button.active {
+	color: royalblue !important;
+}
+#task-overlay {
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #fff;
+	white-space: nowrap;
+	overflow: auto;
+	opacity: 1;
+	transform: none;
+	transition: 0.15s all;
+	z-index: 3;
+}
+#task-area {
+	flex: 1;
+	overflow: auto;
+	padding-bottom: 5em;
+}
+#task-overlay[hidden] {
+	display: block !important;
+	transform: scale(1.05);
+	opacity: 0;
+	pointer-events: none;
+}
+.task-container {
+	width: 90%;
+	margin: auto;
+	border-left: 5vw solid transparent;
+	border-right: 5vw solid transparent;
+	transition: 0.5s opacity;
+}
+.task-container.collapsed {
+	opacity: 0.8;
+	cursor: pointer;
+}
+.task-container.collapsed input {
+	cursor: pointer;
+}
+.task-container + .task-container {
+	padding-top: 0.75em;
+}
+
+.task-container.collapsed .task-tabs-container {
+	display: none;
+}
+
+.task-tab-item:not(.fakefocus):focus {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+.dark-mode .task-tab-item:not(.fakefocus):focus {
+	background-color: rgba(255, 255, 255, 0.08);
+}
+
+.task-tab-item .icon-image {
+	opacity: 0.75 !important;
+}
+.dark-mode .task-tab-item .icon-image {
+	opacity: 0.9 !important;
+}
+
+.dark-mode .task-tab-item.dark-favicon .icon-image {
+	box-sizing: content-box;
+	background: rgba(255, 255, 255, 0.7);
+	border: 2px transparent solid;
+	margin: -2px;
+}
+
+/* drag handle */
+
+.task-collapse-button {
+	font-size: 1.25em !important;
+	width: 1.5em;
+	text-align: center;
+	margin-left: -1.5em;
+	padding: 0.5em;
+	margin-top: 0.1rem;
+	transition: 0.2s opacity;
+	opacity: 0.7;
+}
+
+.task-container:not(.collapsed):not(:hover) .task-collapse-button {
+	opacity: 0;
+}
+
+.task-container.selected .task-collapse-button {
+	display: none;
+}
+
+.task-delete-button {
+	padding: 0.66em;
+	margin: -0.66em;
+	transition: 0.1s opacity;
+}
+
+.task-container.collapsed:not(:hover) .task-delete-button {
+	opacity: 0;
+}
+
+.task-container .task-delete-warning {
+	background: rgba(0, 0, 0, 0.05);
+	padding: 1em;
+	text-align: center;
+}
+
+.dark-mode .task-container .task-delete-warning {
+	background: rgba(0, 0, 0, 0.12);
+}
+
+.task-container:not(.deleting) .task-delete-warning {
+	display: none;
+}
+
+.task-container.deleting > *:not(.task-delete-warning) {
+	display: none;
+}
+
+/* inputs */
+
+.task-name {
+	-webkit-appearance: none;
+	appearance: none;
+	flex: 1;
+	font-size: 1.2em;
+	color: inherit;
+	border: 0;
+	background: none;
+	opacity: 0.75;
+	margin: 0.5em;
+}
+.task-name::-webkit-input-placeholder {
+	color: inherit;
+	opacity: 0.8;
+}
+#add-task {
+	position: fixed;
+	bottom: 0;
+	left: 10%;
+	width: 80%;
+	padding: 1.25em;
+	text-align: center;
+	color: inherit;
+	background-color: rgb(245, 245, 245);
+	cursor: pointer;
+}
+/* hide tab element that is being dropped */
+#add-task .task-tab-item {
+	display: none;
+}
+.is-dragging-tab #add-task {
+	background: none;
+	border: 2px dashed rgba(0, 0, 0, 0.3);
+	margin-bottom: -2px;
+	border-radius: 3px;
+}
+.is-dragging-tab #add-task.drag-target {
+	border: none;
+	margin-bottom: 0;
+	background: rgba(0, 0, 0, 0.15)
+}
+
+.dark-mode #add-task {
+	background-color: rgb(33, 37, 43);
+	color: lightgrey;
+}
+.dark-mode .is-dragging-tab #add-task {
+	background: none;
+	border-color: rgba(255, 255, 255, 0.4);
+}
+.dark-mode .is-dragging-tab #add-task.drag-target {
+	background: rgba(255, 255, 255, 0.15)
+}
+#add-task:hover {
+	background-color: rgb(235, 235, 235);
+}
+.dark-mode #add-task:hover {
+	background-color: rgb(44, 49, 56);
+}
+#add-task .fa {
+	opacity: 0.75;
+	margin-right: 0.25em;
+}
+.task-action-container {
+	display: flex;
+	align-items: center;
+	padding-right: 1em;
+}
+.task-info-container {
+	padding: 0 0.6em;
+	overflow: hidden;
+}
+.task-info-container span {
+    font-size: 0.9em;
+    opacity: 0.6;
+    margin: -0.25em 0 0.25em 0;
+}
+.task-info-container span + span:before {
+	content: " - ";
+}
+
+.task-container:not(.collapsed) .task-info-container .task-last-tab-title {
+	display: none;
+}
+
+body.dark-mode #task-overlay{
+	background-color: rgb(40, 44, 52) !important;
+	color: lightgrey;
+}
+
+.dark-mode #switch-task-button {
+  color: dodgerblue;
+}
