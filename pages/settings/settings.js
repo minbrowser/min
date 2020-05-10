@@ -153,36 +153,30 @@ var darkModeNever = document.getElementById('dark-mode-never')
 var darkModeNight = document.getElementById('dark-mode-night')
 var darkModeAlways = document.getElementById('dark-mode-always')
 
-var darkMode = false
+// -1 off ; 0 - auto ; 1 - on
+var darkMode = -1
 settings.get('darkMode', function(value) {
   darkMode = value;
 })
 
-var autoDarkMode = false
-settings.get('autoDarkMode', function(value) {
-  autoDarkMode = value;
-})
   /* Setting up the RB's */
-    darkModeNever.checked = !autoDarkMode && !darkMode;
-    darkModeNight.checked = !darkMode ? autoDarkMode : false;
-    darkModeAlways.checked = darkMode;
+    darkModeNever.checked = (darkMode === -1)
+    darkModeNight.checked = (darkMode === 0)
+    darkModeAlways.checked = (darkMode === 1)
 
 darkModeNever.addEventListener('change', function (e){
   if (this.checked){
-  settings.set('darkMode', false)
-  settings.set('autoDarkMode', false)
+  settings.set('darkMode', -1)
   }
 })
 darkModeNight.addEventListener('change', function (e){
   if (this.checked){
-  settings.set('darkMode', false)
-  settings.set('autoDarkMode', true)
+  settings.set('darkMode', 0)
   }
 })
 darkModeAlways.addEventListener('change', function (e){
   if (this.checked){
-  settings.set('darkMode', true)
-  settings.set('autoDarkMode', false)
+  settings.set('darkMode', 1)
   }
 })
 

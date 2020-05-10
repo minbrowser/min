@@ -127,8 +127,8 @@ function adjustColorForTheme (color) {
   let colorChange = 1
   let isAuto = false
 
-  settings.listen('autoDarkMode', function(value){
-    isAuto = (value !== undefined && value) 
+  settings.listen('darkMode', function(value){
+    isAuto = (value !== undefined && value === 0) 
   })
 
   if(isAuto){
