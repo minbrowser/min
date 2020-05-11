@@ -7,7 +7,7 @@ function shouldEnableDarkMode () {
   let isAuto = false
 
   settings.listen('darkMode', function (value){
-    isAuto = (value !== undefined && value === 0) 
+    isAuto = (value === undefined || value === true || value >= 0)
   })
 
   return (hours > 21 || hours < 6) && isAuto
@@ -34,8 +34,8 @@ var themeInterval = null
 function initialize () {
   settings.listen('darkMode', function (value) {
     clearInterval(themeInterval)
-
-    if (value === 1) {
+    // 
+    if (value === 1 || value === true) {
       enableDarkMode()
       return
     }

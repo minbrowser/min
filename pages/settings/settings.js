@@ -161,8 +161,8 @@ settings.get('darkMode', function(value) {
 
   /* Setting up the RB's */
     darkModeNever.checked = (darkMode === -1)
-    darkModeNight.checked = (darkMode === 0)
-    darkModeAlways.checked = (darkMode === 1)
+    darkModeNight.checked = (darkMode === 0 || darkMode === undefined || darkMode === false) 
+    darkModeAlways.checked = (darkMode === 1 || darkMode === true)
 
 darkModeNever.addEventListener('change', function (e){
   if (this.checked){

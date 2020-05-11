@@ -68,7 +68,7 @@ window.addEventListener('load', function () {
     })
   }
 
-  if (darkMode === 1) { document.body.classList.add('dark-mode') }
+  if (darkMode === 1 || darkMode === true) { document.body.classList.add('dark-mode') }
   document.getElementById('label').innerHTML = params.label
   document.getElementById('ok').value = okLabel
   document.getElementById('cancel').value = cancelLabel
