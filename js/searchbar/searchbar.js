@@ -66,6 +66,8 @@ var searchbar = {
     } else if (allItems[0]) { // no item is focused.
       allItems[0].focus()
     }
+    // Updates the searchbar text with the selected item
+    searchbar.associatedInput.value = currentText;
   },
   openURL: function (url, event) {
     var hasURLHandler = searchbarPlugins.runURLHandlers(url)
