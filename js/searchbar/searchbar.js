@@ -59,7 +59,7 @@ var searchbar = {
   focusItem: function (options) {
     options = options || {} // fallback if options is null
     var previous = options.focusPrevious
-
+    var modify = options.modifyInput
     var allItems = [].slice.call(searchbar.el.querySelectorAll('.searchbar-item:not(.unfocusable)'))
     var currentItem = searchbar.el.querySelector('.searchbar-item:focus, .searchbar-item.fakefocus')
    
@@ -72,12 +72,16 @@ var searchbar = {
       fakefocus.classList.remove('fakefocus')
     }
 
-    if (currentItem && logicalNextItem) { // an item is focused and there is another item after it, move onto the next one
+    if (currentItem && logicalNextItem && modify !== true) { // an item is focused and there is another item after it, move onto the next one
       logicalNextItem.focus()
       inputUpdater.updateInput()
-    } else if (currentItem) { // the last item is focused, focus the searchbar again
-      inputUpdater.restoreInitialInput()
+    } else if (currentItem || modify) { // the last item is focused, focus the searchbar again
       searchbar.associatedInput.focus()
+      if (modify) {
+        searchbar.saveInitialInput()
+      } else {
+        inputUpdater.restoreInitialInput()
+      }
       return
     } else if (allItems[0]) { // no item is focused.
       inputUpdater.saveInitialInput()
@@ -117,6 +121,10 @@ searchbar.el.addEventListener('keydown', function (e) {
     e.preventDefault()
     searchbar.focusItem({
       focusPrevious: true
+    })
+  } else if (e.keyCode === 32) {
+    searchbar.focusItem({
+      modifyInput: true
     })
   }
 })
