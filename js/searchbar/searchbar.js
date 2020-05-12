@@ -12,6 +12,20 @@ function openURLInBackground (url) { // used to open a url in the background, wi
   }
 }
 
+var inputUpdater = {
+  input: null,
+  updateInput: function () {    
+    var currentText = searchbar.el.querySelector('.searchbar-item:focus .title') 
+      searchbar.associatedInput.value = currentText.innerHTML
+  },
+  saveInitialInput: function() {
+     this.input =  searchbar.associatedInput.value
+  },
+  restoreInitialInput: function() {
+    searchbar.associatedInput.value = this.input
+  }
+}
+
 var searchbar = {
   el: document.getElementById('searchbar'),
   associatedInput: null,
@@ -48,7 +62,7 @@ var searchbar = {
 
     var allItems = [].slice.call(searchbar.el.querySelectorAll('.searchbar-item:not(.unfocusable)'))
     var currentItem = searchbar.el.querySelector('.searchbar-item:focus, .searchbar-item.fakefocus')
-
+   
     var index = allItems.indexOf(currentItem)
     var logicalNextItem = allItems[(previous) ? index - 1 : index + 1]
 
@@ -60,14 +74,16 @@ var searchbar = {
 
     if (currentItem && logicalNextItem) { // an item is focused and there is another item after it, move onto the next one
       logicalNextItem.focus()
+      inputUpdater.updateInput()
     } else if (currentItem) { // the last item is focused, focus the searchbar again
+      inputUpdater.restoreInitialInput()
       searchbar.associatedInput.focus()
       return
     } else if (allItems[0]) { // no item is focused.
+      inputUpdater.saveInitialInput()
       allItems[0].focus()
+      inputUpdater.updateInput()
     }
-    // Updates the searchbar text with the selected item
-    searchbar.associatedInput.value = currentText;
   },
   openURL: function (url, event) {
     var hasURLHandler = searchbarPlugins.runURLHandlers(url)
