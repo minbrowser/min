@@ -78,7 +78,7 @@ var searchbar = {
     } else if (currentItem || modify) { // the last item is focused, focus the searchbar again
       searchbar.associatedInput.focus()
       if (modify) {
-        searchbar.saveInitialInput()
+        inputUpdater.saveInitialInput()
       } else {
         inputUpdater.restoreInitialInput()
       }
