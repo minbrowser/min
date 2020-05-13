@@ -10,6 +10,8 @@ const ipc = electron.ipcMain
 const Menu = electron.Menu
 const MenuItem = electron.MenuItem
 
+let isInstallerRunning = false;
+
 function clamp(n, min, max) {
   return Math.max(Math.min(n, max), min);
 }
@@ -18,9 +20,11 @@ if (process.platform === 'win32') {
   (async function () {
   var squirrelCommand = process.argv[1];
   if (squirrelCommand === "--squirrel-install" || squirrelCommand === "--squirrel-updated") {
+    isInstallerRunning = true;
     await registryInstaller.install();
   }
   if (squirrelCommand == '--squirrel-uninstall') {
+    isInstallerRunning = true;
     await registryInstaller.uninstall();
   }
   if (require('electron-squirrel-startup')) {
@@ -270,6 +274,12 @@ app.on('window-all-closed', function () {
 // initialization and is ready to create browser windows.
 app.on('ready', function () {
   appIsReady = true
+
+  /* the installer launches the app to install registry items and shortcuts, 
+  but if that's happening, we shouldn't display anything */
+  if(isInstallerRunning) {
+    return
+  }
 
   createWindow(function () {
     mainWindow.webContents.on('did-finish-load', function () {
