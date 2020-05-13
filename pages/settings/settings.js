@@ -154,25 +154,25 @@ var darkModeNight = document.getElementById('dark-mode-night')
 var darkModeAlways = document.getElementById('dark-mode-always')
 
 // -1 - off ; 0 - auto ; 1 - on
-settings.get('darkMode', function(value) {
-    darkModeNever.checked = (value === -1)
-    darkModeNight.checked = (value === 0 || value === undefined || value === false) 
-    darkModeAlways.checked = (value === 1 || value === true)
+settings.get('darkMode', function (value) {
+  darkModeNever.checked = (value === -1)
+  darkModeNight.checked = (value === 0 || value === undefined || value === false)
+  darkModeAlways.checked = (value === 1 || value === true)
 })
 
-darkModeNever.addEventListener('change', function (e){
-  if (this.checked){
-  settings.set('darkMode', -1)
+darkModeNever.addEventListener('change', function (e) {
+  if (this.checked) {
+    settings.set('darkMode', -1)
   }
 })
-darkModeNight.addEventListener('change', function (e){
-  if (this.checked){
-  settings.set('darkMode', 0)
+darkModeNight.addEventListener('change', function (e) {
+  if (this.checked) {
+    settings.set('darkMode', 0)
   }
 })
-darkModeAlways.addEventListener('change', function (e){
-  if (this.checked){
-  settings.set('darkMode', 1)
+darkModeAlways.addEventListener('change', function (e) {
+  if (this.checked) {
+    settings.set('darkMode', 1)
   }
 })
 
