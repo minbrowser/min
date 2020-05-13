@@ -153,16 +153,12 @@ var darkModeNever = document.getElementById('dark-mode-never')
 var darkModeNight = document.getElementById('dark-mode-night')
 var darkModeAlways = document.getElementById('dark-mode-always')
 
-// -1 off ; 0 - auto ; 1 - on
-var darkMode = -1
+// -1 - off ; 0 - auto ; 1 - on
 settings.get('darkMode', function(value) {
-  darkMode = value;
+    darkModeNever.checked = (value === -1)
+    darkModeNight.checked = (value === 0 || value === undefined || value === false) 
+    darkModeAlways.checked = (value === 1 || value === true)
 })
-
-  /* Setting up the RB's */
-    darkModeNever.checked = (darkMode === -1)
-    darkModeNight.checked = (darkMode === 0 || darkMode === undefined || darkMode === false) 
-    darkModeAlways.checked = (darkMode === 1 || darkMode === true)
 
 darkModeNever.addEventListener('change', function (e){
   if (this.checked){
