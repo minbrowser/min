@@ -138,7 +138,7 @@
         "settingsEnableDarkMode": "Dunkelmodus einschalten:", 
         "settingsDarkModeNever": "Nein", 
         "settingsDarkModeNight": "In der Nacht", 
-        "settingsDarkModeAlways": null, //"Always" missing translation
+        "settingsDarkModeAlways": "Ständig", 
         "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": null, //missing translation
