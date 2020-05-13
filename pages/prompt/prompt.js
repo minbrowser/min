@@ -28,7 +28,7 @@ function handleKeyPress (event) {
 window.addEventListener('load', function () {
   var options = ipcRenderer.sendSync('open-prompt', '')
   var params = JSON.parse(options)
-  const { okLabel = 'OK', cancelLabel = 'Cancel', darkMode = false, values = [] } = params
+  const { okLabel = 'OK', cancelLabel = 'Cancel', darkMode = -1, values = [] } = params
 
   if (values && values.length > 0) {
     let inputContainer = document.getElementById('input-container')
@@ -68,7 +68,7 @@ window.addEventListener('load', function () {
     })
   }
 
-  if (darkMode) { document.body.classList.add('dark-mode') }
+  if (darkMode === 1 || darkMode === true) { document.body.classList.add('dark-mode') }
   document.getElementById('label').innerHTML = params.label
   document.getElementById('ok').value = okLabel
   document.getElementById('cancel').value = cancelLabel

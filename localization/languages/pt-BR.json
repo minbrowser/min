@@ -133,7 +133,10 @@
         "settingsBlockImagesToggle": "Bloquear imagens",
         "settingsEasyListCredit": {"unsafeHTML": "Com base na EasyList e EasyPrivacy, criadas por <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>)."},
         "settingsAppearanceHeading": "Aparência",
-        "settingsDarkModeToggle": "Habilitar modo darck",
+        "settingsEnableDarkMode": "Habilitar modo darck:",
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": "Habilitar mudanças de cores na barra de endereços",
         "settingsHistoryButtonToggle": "Habilitar botão voltar",
         "settingsAdditionalFeaturesHeading": "Recursos adicionais",

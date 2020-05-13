@@ -135,7 +135,10 @@
             "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "Aussehen",
-        "settingsDarkModeToggle": "Dark-Mode einschalten",
+        "settingsEnableDarkMode": "Dunkelmodus einschalten:", 
+        "settingsDarkModeNever": "Nein", 
+        "settingsDarkModeNight": "In der Nacht", 
+        "settingsDarkModeAlways": "Ständig", 
         "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": null, //missing translation

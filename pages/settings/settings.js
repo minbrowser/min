@@ -2,7 +2,6 @@ document.title = l('settingsPreferencesHeading') + ' | Min'
 
 var container = document.getElementById('privacy-settings-container')
 var banner = document.getElementById('restart-required-banner')
-var darkModeCheckbox = document.getElementById('checkbox-dark-mode')
 var siteThemeCheckbox = document.getElementById('checkbox-site-theme')
 var historyButtonCheckbox = document.getElementById('checkbox-history-button')
 var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
@@ -150,13 +149,31 @@ for (var contentType in contentTypes) {
 }
 
 /* dark mode setting */
+var darkModeNever = document.getElementById('dark-mode-never')
+var darkModeNight = document.getElementById('dark-mode-night')
+var darkModeAlways = document.getElementById('dark-mode-always')
 
+// -1 - off ; 0 - auto ; 1 - on
 settings.get('darkMode', function (value) {
-  darkModeCheckbox.checked = value
+  darkModeNever.checked = (value === -1)
+  darkModeNight.checked = (value === 0 || value === undefined || value === false)
+  darkModeAlways.checked = (value === 1 || value === true)
 })
 
-darkModeCheckbox.addEventListener('change', function (e) {
-  settings.set('darkMode', this.checked)
+darkModeNever.addEventListener('change', function (e) {
+  if (this.checked) {
+    settings.set('darkMode', -1)
+  }
+})
+darkModeNight.addEventListener('change', function (e) {
+  if (this.checked) {
+    settings.set('darkMode', 0)
+  }
+})
+darkModeAlways.addEventListener('change', function (e) {
+  if (this.checked) {
+    settings.set('darkMode', 1)
+  }
 })
 
 /* site theme setting */
@@ -420,4 +437,3 @@ passwordManagersDropdown.addEventListener('change', function (e) {
     currentPasswordManager = this.value
   }
 })
-

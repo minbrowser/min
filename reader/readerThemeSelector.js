@@ -38,7 +38,7 @@ function setReaderTheme () {
           setTheme(readerNightTheme)
         } else if (!isNight() && readerDayTheme) {
           setTheme(readerDayTheme)
-        } else if (globalDarkModeEnabled || isNight()) {
+        } else if (globalDarkModeEnabled === 1 || globalDarkModeEnabled === true || isNight()) {
           setTheme('dark')
         } else {
           setTheme('light')

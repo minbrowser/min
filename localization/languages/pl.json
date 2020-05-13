@@ -135,7 +135,10 @@
             "unsafeHTML": "Oparte na EasyList i EasyPrivacy stworzone przez <a target=\"_blank\" href=\"https://easylist.to/\">autorów EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">wyświetl licencję</a>)."
         },
         "settingsAppearanceHeading": "Wygląd",
-        "settingsDarkModeToggle": "Włącz tryb ciemny",
+        "settingsEnableDarkMode": "Włącz tryb ciemny:",
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": "Włącz motyw witryny",
         "settingsHistoryButtonToggle": "Włącz przycisk Wstecz",
         "settingsAdditionalFeaturesHeading": "Dodatkowe funkcje",

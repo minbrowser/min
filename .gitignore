@@ -1,4 +1,5 @@
 /node_modules
+/.vscode
 .npm
 dist
 main.build.js

@@ -135,7 +135,10 @@
             "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "Megjelenés",
-        "settingsDarkModeToggle": "Kapcsolja be a sötét nézetet",
+        "settingsEnableDarkMode": "Kapcsolja be a sötét nézetet:", 
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Vissza gomb bekapcsolása",
         "settingsAdditionalFeaturesHeading": "További beállítások",
