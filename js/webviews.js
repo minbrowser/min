@@ -214,7 +214,8 @@ const webviews = {
           sandbox: true,
           enableRemoteModule: false,
           allowPopups: false,
-          partition: partition
+          partition: partition,
+          enableWebSQL: false
         }
       }),
       boundsString: JSON.stringify(webviews.getViewBounds()),
