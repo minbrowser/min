@@ -1,7 +1,7 @@
 {
-    "version": "1.13.2",
-    "releaseTime": 1584737731777,
-    "releaseHeadline": "Camera and audio support",
-    "releaseNotes": "https://minbrowser.github.io/min/releases/",
+    "version": "1.14.1",
+    "releaseTime": 1589583616947,
+    "releaseHeadline": "Bug fixes and 1Password integration",
+    "releaseNotes": "https://minbrowser.org/releases/",
     "availabilityPercent": 1
 }
