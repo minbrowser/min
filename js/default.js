@@ -1,4 +1,12 @@
-window.userDataPath = process.argv.filter(a => a.startsWith('--user-data-path='))[0].replace('--user-data-path=', '')
+window.globalArgs = {}
+
+process.argv.forEach(function (arg) {
+  if (arg.startsWith('--')) {
+    var key = arg.split('=')[0].replace('--', '')
+    var value = arg.split('=')[1]
+    globalArgs[key] = value
+  }
+})
 
 window.electron = require('electron')
 window.fs = require('fs')

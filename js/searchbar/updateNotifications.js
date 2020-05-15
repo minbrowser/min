@@ -49,7 +49,7 @@ function getAvailableUpdates () {
         .then(function (response) {
           console.info('got response from update check', response)
           if (response.version &&
-            compareVersions(remote.app.getVersion(), response.version) > 0 &&
+            compareVersions(window.globalArgs['app-version'], response.version) > 0 &&
             (!response.availabilityPercent || getUpdateRandomNum() < response.availabilityPercent)) {
             console.info('an update is available')
             localStorage.setItem('availableUpdate', JSON.stringify(response))
@@ -81,7 +81,7 @@ function showUpdateNotification (text, input, event) {
   var update = JSON.parse(localStorage.getItem('availableUpdate'))
   if (update) {
     // was the update already installed?
-    if (compareVersions(remote.app.getVersion(), update.version) <= 0) {
+    if (compareVersions(window.globalArgs['app-version'], update.version) <= 0) {
       return
     }
     var updateAge = Date.now() - update.releaseTime

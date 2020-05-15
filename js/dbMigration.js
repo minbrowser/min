@@ -2,8 +2,8 @@ const fs = require('fs')
 const {db, dbLegacy} = require('util/database.js')
 const places = require('js/places/places.js')
 
-var dbPath = userDataPath + (platformType === 'windows' ? '\\IndexedDB\\file__0.indexeddb.leveldb' : '/IndexedDB/file__0.indexeddb.leveldb')
-var savePath = userDataPath + (platformType === 'windows' ? '\\database-migration' : '/database-migration')
+var dbPath = window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\IndexedDB\\file__0.indexeddb.leveldb' : '/IndexedDB/file__0.indexeddb.leveldb')
+var savePath = window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\database-migration' : '/database-migration')
 
 dbLegacy.places.count().then(function (oldCount) {
   if (oldCount > 0) {

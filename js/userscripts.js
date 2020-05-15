@@ -12,7 +12,7 @@ if (settings.get('userscriptsEnabled') === true) {
     /* get a list of all the files */
 
   var path = require('path')
-  var scriptDir = path.join(remote.app.getPath('userData'), 'userscripts')
+  var scriptDir = path.join(window.globalArgs['user-data-path'], 'userscripts')
 
   fs.readdir(scriptDir, function (err, files) {
     if (err || files.length === 0) {

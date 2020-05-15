@@ -127,7 +127,7 @@ function waitForInstallerComplete () {
 function install (filePath, callback) {
   return new Promise((resolve, reject) => {
     try {
-      let toolsDir = path.join(window.userDataPath, 'tools')
+      let toolsDir = path.join(window.globalArgs['user-data-path'], 'tools')
       if (!fs.existsSync(toolsDir)) {
         fs.mkdirSync(toolsDir)
       }
@@ -188,7 +188,7 @@ function afterInstall (toolPath) {
         afterInstall()
       } else {
         // Cleanup after we failed.
-        let targetFilePath = path.join(window.userDataPath, 'tools', setupDialog.manager.getFileName())
+        let targetFilePath = path.join(window.globalArgs['user-data-path'], 'tools', setupDialog.manager.getFileName())
         if (fs.existsSync(targetFilePath)) {
           fs.unlinkSync(targetFilePath)
         }

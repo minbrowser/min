@@ -125,7 +125,7 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
       feedbackLink.className = 'search-feedback-link'
       feedbackLink.textContent = 'Search Feedback'
       feedbackLink.addEventListener('click', function (e) {
-        var url = surveyURL + '?query=' + encodeURIComponent(text) + '&results=' + encodeURIComponent(results.map(r => r.url).join('\n')) + '&version=' + encodeURIComponent(remote.app.getVersion())
+        var url = surveyURL + '?query=' + encodeURIComponent(text) + '&results=' + encodeURIComponent(results.map(r => r.url).join('\n')) + '&version=' + encodeURIComponent(window.globalArgs['app-version'])
         browserUI.addTab(tabs.add({url: url}), {enterEditMode: false})
       })
       searchbarPlugins.getContainer('fullTextPlaces').appendChild(feedbackLink)

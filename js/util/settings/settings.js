@@ -1,5 +1,5 @@
 var settings = {
-  filePath: userDataPath + (process.platform === 'win32' ? '\\' : '/') + 'settings.json',
+  filePath: (process.type === 'renderer' ? window.globalArgs['user-data-path'] : userDataPath) + (process.platform === 'win32' ? '\\' : '/') + 'settings.json',
   list: {},
   onChangeCallbacks: [],
   save: function (cb) {
