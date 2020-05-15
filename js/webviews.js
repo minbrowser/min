@@ -113,7 +113,7 @@ function scrollOnLoad (tabId, scrollPosition) {
 }
 
 const webviews = {
-  tabViewMap: {}, // tabId: browserView
+  viewList: [], // [tabId]
   tabContentsMap: {}, // tabId: webContents
   viewFullscreenMap: {}, // tabId, isFullscreen
   selectedId: null,
@@ -138,14 +138,14 @@ const webviews = {
       }
     }
   },
-  emitEvent: function (event, view, args) {
-    if (!webviews.tabViewMap[view]) {
+  emitEvent: function (event, viewId, args) {
+    if (!webviews.viewList.includes(viewId)) {
       // the view could have been destroyed between when the event was occured and when it was recieved in the UI process, see https://github.com/minbrowser/min/issues/604#issuecomment-419653437
       return
     }
     webviews.events.forEach(function (ev) {
       if (ev.event === event) {
-        ev.fn.apply(webviews.tabContentsMap[view], [webviews.tabContentsMap[view], view].concat(args))
+        ev.fn.apply(webviews.tabContentsMap[viewId], [webviews.tabContentsMap[viewId], viewId].concat(args))
       }
     })
   },
@@ -237,8 +237,8 @@ const webviews = {
       ipc.send('loadURLInView', {id: tabData.id, url: urlParser.parse('min://newtab')})
     }
 
-    webviews.tabViewMap[tabId] = view
     webviews.tabContentsMap[tabId] = contents
+    webviews.viewList.push(tabId)
     return view
   },
   setSelected: function (id, options) { // options.focus - whether to focus the view. Defaults to true.
@@ -247,7 +247,7 @@ const webviews = {
     webviews.selectedId = id
 
     // create the view if it doesn't already exist
-    if (!webviews.getView(id)) {
+    if (!webviews.viewList.includes(id)) {
       webviews.add(id)
     }
 
@@ -272,19 +272,15 @@ const webviews = {
   destroy: function (id) {
     webviews.emitEvent('view-hidden', id)
 
-    var w = webviews.tabViewMap[id]
-    if (w) {
+    if (webviews.viewList.includes(id)) {
+      webviews.viewList.splice(webviews.viewList.indexOf(id), 1)
       ipc.send('destroyView', id)
     }
-    delete webviews.tabViewMap[id]
     delete webviews.tabContentsMap[id]
     delete webviews.viewFullscreenMap[id]
     if (webviews.selectedId === id) {
       webviews.selectedId = null
     }
-  },
-  getView: function (id) {
-    return webviews.tabViewMap[id]
   },
   get: function (id) {
     return webviews.tabContentsMap[id]
@@ -323,7 +319,7 @@ const webviews = {
 
     if (webviews.placeholderRequests.length === 0) {
       // multiple things can request a placeholder at the same time, but we should only show the view again if nothing requires a placeholder anymore
-      if (webviews.tabViewMap[webviews.selectedId]) {
+      if (webviews.viewList.includes(webviews.selectedId)) {
         ipc.send('setView', {
           id: webviews.selectedId,
           bounds: webviews.getViewBounds(),
@@ -498,7 +494,7 @@ ipc.on('async-call-result', function (e, args) {
 })
 
 ipc.on('view-ipc', function (e, args) {
-  if (!webviews.tabViewMap[args.id]) {
+  if (!webviews.viewList.includes(args.id)) {
     // the view could have been destroyed between when the event was occured and when it was recieved in the UI process, see https://github.com/minbrowser/min/issues/604#issuecomment-419653437
     return
   }
