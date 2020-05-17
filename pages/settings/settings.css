@@ -53,6 +53,10 @@ html {
 .setting-section input + label {
 	padding-left: 0.33em;
 }
+label + input,
+label + select {
+	margin-left: 0.66em;
+}
 .setting-secondary-label {
 	padding-left: 1.18em;
 	padding-top: 0.2em;
