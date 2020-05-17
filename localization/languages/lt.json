@@ -135,7 +135,10 @@
             "unsafeHTML": "Pagrįstas EasyList ir EasyPrivacy, sukurtas <a target=\"_blank\" href=\"https://easylist.to/\">EasyList autorių</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">rodyti licenciją</a>)."
         },
         "settingsAppearanceHeading": "Išvaizda",
-        "settingsDarkModeToggle": "Įjungti tamsią veikseną",
+        "settingsEnableDarkMode": "Įjungti tamsią veikseną: ",
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Įjungti grįžties mygtuką",
         "settingsAdditionalFeaturesHeading": "Papildomos ypatybės",

@@ -87,6 +87,7 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
 
       var data = {
         url: result.url,
+        metadata: result.tags,
         delete: function () {
           places.deleteHistory(result.url)
         }
@@ -119,12 +120,12 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
       }
     })
 
-    if (surveyURL && pluginName === 'fullTextPlaces' && results.length > 0) {
+    if (surveyURL && pluginName === 'fullTextPlaces') {
       var feedbackLink = document.createElement('span')
       feedbackLink.className = 'search-feedback-link'
       feedbackLink.textContent = 'Search Feedback'
       feedbackLink.addEventListener('click', function (e) {
-        var url = surveyURL + '?query=' + encodeURIComponent(text) + '&results=' + encodeURIComponent(results.map(r => r.url).join('\n')) + '&version=' + encodeURIComponent(remote.app.getVersion())
+        var url = surveyURL + '?query=' + encodeURIComponent(text) + '&results=' + encodeURIComponent(results.map(r => r.url).join('\n')) + '&version=' + encodeURIComponent(window.globalArgs['app-version'])
         browserUI.addTab(tabs.add({url: url}), {enterEditMode: false})
       })
       searchbarPlugins.getContainer('fullTextPlaces').appendChild(feedbackLink)

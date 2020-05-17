@@ -43,17 +43,31 @@
 			</div>
 		</div>
 	</div>
-
+	
 	<div class="settings-container" id="appearance-settings-container">
 		<h3 data-string="settingsAppearanceHeading"></h3>
-		<div class="setting-section">
-			<input type="checkbox" id="checkbox-dark-mode" />
-			<label for="checkbox-dark-mode" data-string="settingsDarkModeToggle"></label>
+		
+
+		<label for="dark-mode-container" data-string="settingsEnableDarkMode"></label>
+		<div class="setting-section" id="dark-mode-container">
+			<div class="setting-option">
+				<input type="radio" name="darkMode" id="dark-mode-never" />
+				<label for="dark-mode-never" data-string="settingsDarkModeNever"></label>
+			</div>
+			<div class="setting-option">
+				<input type="radio" name="darkMode" id="dark-mode-night" />
+				<label for="dark-mode-night" data-string="settingsDarkModeNight"></label>
+			</div>
+			<div class="setting-option">
+				<input type="radio" name="darkMode" id="dark-mode-always" />
+				<label for="dark-mode-always" data-string="settingsDarkModeAlways"></label>
+			</div>
 		</div>
+
 		<div class="setting-section">
 			<input type="checkbox" id="checkbox-site-theme" />
 			<label for="checkbox-site-theme" data-string="settingsSiteThemeToggle"></label>
-		</div>
+		</div> 
 		<div class="setting-section">
 			<input type="checkbox" id="checkbox-history-button" />
 			<label for="checkbox-history-button" data-string="settingsHistoryButtonToggle"></label>

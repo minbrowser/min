@@ -135,7 +135,10 @@
             "unsafeHTML": "基于 EasyList 和 EasyPrivacy, 由 <a target=\"_blank\" href=\"https://easylist.to/\">EasyList作者</a> 制作（<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">查看许可协议</a>）."
         },
         "settingsAppearanceHeading": "外观",
-        "settingsDarkModeToggle": "启用夜间模式",
+        "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": "启用网站主题",
         "settingsHistoryButtonToggle": "启用返回键",
         "settingsAdditionalFeaturesHeading": "其他功能",
@@ -212,7 +215,9 @@
         "passwordManagerSetupStep1": {
             "unsafeHTML": "首先, 访问 <a id='password-manager-setup-link'></a> 并解压到你的系统中。"
         },
+        "passwordManagerInstallerSetup": null, //missing translation
         "passwordManagerSetupLink": "下载 %p 中的CLI工具",
+        "passwordManagerSetupLinkInstaller": null, //missing translation
         "passwordManagerSetupStep2": "然后把工具拖动到下面的框中：",
         "passwordManagerSetupDragBox": "把工具拖动到这里",
         "passwordManagerSetupInstalling": "安装中...",
@@ -228,6 +233,7 @@
         "dialogSkipButton": "取消",
         "username": null, //missing translation
         "email": "邮箱",
-        "password": "密码"
+        "password": "密码",
+        "secretKey": null //missing translation
     }
 }

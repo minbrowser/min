@@ -136,7 +136,10 @@
 		"settingsEasyListCredit": {
 			"unsafeHTML": "EasyList va EasyPrivacy asosida, <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList mualliflary</a> tomonidan yaratilgan (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">litsenziyani ko'rish</a>)."
 		},
-		"settingsAppearanceHeading": "Ko'rinish",
+		"settingsEnableDarkMode": "Ko'rinish:",
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
 		"settingsDarkModeToggle": "Qorong'u rejimini yoqish",
 		"settingsSiteThemeToggle": "Sahifa mavzusini yoqish",
 		"settingsHistoryButtonToggle": "Orqaga tugmachasini yoqish",
@@ -146,8 +149,8 @@
 		"settingsUserscriptsExplanation": {
 			"unsafeHTML": "Foydalanuvchi skriptlari sahifa ishlashini o'zgartirishga yordam beradi - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">qo'shimcha ma'lumot</a>."
 		},
-		"settingsUserAgentToggle": null, //missing translation
-        "settingsUpdateNotificationsToggle": " Yangilanishlarni avtomatik ravishda tekshirish",
+		"settingsUserAgentToggle": "Maxsus foydalanvuchi agentidan foydalanish",
+		"settingsUpdateNotificationsToggle": " Yangilanishlarni avtomatik ravishda tekshirish",
 		"settingsSearchEngineHeading": "Qidiruv Tizimi",
 		"settingsDefaultSearchEngine": "Standart qidiruv tizimini tanlang:",
 		"settingsDDGExplanation": "Qidiruv panelida tezkor javoblarni ko'rish uchun DuckDuckGo ni standart qidiruv tizimi sifatida o'rnating.",
@@ -234,6 +237,7 @@
 		"dialogSkipButton": "Bekor qilish",
 		"username": "Foydalanuvchi ismi",
 		"email": "Elektron pochta",
-		"password": "Parol"
+		"password": "Parol",
+		"secretKey": "Maxfiy kalit"
 	}
 }

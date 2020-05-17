@@ -135,17 +135,20 @@
             "unsafeHTML": "На основе EasyList и EasyPrivacy, созданных <a target=\"_blank\" href=\"https://easylist.to/\">авторами EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">просмотреть лицензию</a>)."
         },
         "settingsAppearanceHeading": "Внешний вид",
-        "settingsDarkModeToggle": "Использовать темную тему",
+        "settingsEnableDarkMode": "Использовать темную тему:",
+        "settingsDarkModeNever": "Нет",
+        "settingsDarkModeNight": "Только ночью",
+        "settingsDarkModeAlways": "Всегда",
         "settingsSiteThemeToggle": "Использовать тему сайта",
-        "settingsHistoryButtonToggle": "История",
+        "settingsHistoryButtonToggle": "Кнопка назад",
         "settingsAdditionalFeaturesHeading": "Дополнительные возможности",
         "settingsUserscriptsToggle": "Пользовательские скрипты",
-        "settingsSeparateTitlebarToggle": null, //missing translation
+        "settingsSeparateTitlebarToggle": "Использовать разделитель заголовка",
 		"settingsUserscriptsExplanation": {"unsafeHTML": "Пользовательские скрипты позволяют изменять поведение сайтов - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">узнать больше</a>."},
-        "settingsUserAgentToggle": null, //missing translation
+        "settingsUserAgentToggle": "Использовать пользовательский user agent",
         "settingsUpdateNotificationsToggle": "Автоматически проверять наличие обновлений",
         "settingsSearchEngineHeading": "Поиск",
-        "settingsDefaultSearchEngine": "Выберите поиск по умолчанию:",
+        "settingsDefaultSearchEngine": "Выберите поисковую систему по умолчанию:",
         "settingsDDGExplanation": "Чтобы видеть мгновенные ответы в строке поиска, установите DuckDuckGo поисковиком по умолчанию.",
         "customSearchEngineDescription": "Заменить поисковый термин на %s",
         "settingsKeyboardShortcutsHeading": "Горячие клавиши",
@@ -212,7 +215,11 @@
 	"passwordManagerSetupStep1": {
 		"unsafeHTML": "Во-первых, <a id='password-manager-setup-link'></a> и извлеките его для вашей системы."
 	},
-	"passwordManagerSetupLink": "загрузите инструмент CLI %p",
+	"passwordManagerInstallerSetup": {
+		"unsafeHTML": "Загрузите <a id= 'password-manager-setup-link-installer'>< / a> и перетащите файл в поле ниже:"
+	},
+        "passwordManagerSetupLink": "загрузите инструмент CLI %p",
+        "passwordManagerSetupLinkInstaller": "CLI установщик для %p",
         "passwordManagerSetupStep2": "Затем перетащите инструмент в поле ниже:",
         "passwordManagerSetupDragBox": "Перетащите инструмент сюда",
         "passwordManagerSetupInstalling": "Установка...",
@@ -228,6 +235,7 @@
         "dialogSkipButton": "Отмена",
         "username": "Имя пользователя",
         "email": "Электронная почта",
-        "password": "Пароль"
+        "password": "Пароль",
+        "secretKey": "Секретный ключ"
     }
 }

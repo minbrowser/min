@@ -224,7 +224,7 @@ var webviewMenu = {
     })
   },
   initialize: function () {
-    webviews.bindEvent('context-menu', function (webview, tabId, e, data) {
+    webviews.bindEvent('context-menu', function (webview, tabId, data) {
       webviewMenu.menuData = data
       webviews.callAsync(tabs.getSelected(), 'send', ['getContextMenuData', {x: data.x, y: data.y}])
     })

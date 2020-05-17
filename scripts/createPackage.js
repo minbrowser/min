@@ -16,8 +16,9 @@ const ignoredDirs = [
   'node_modules/electron-installer-debian',
   'node_modules/electron-installer-common',
   'node_modules/electron-installer-redhat',
+  'icons/source',
   // this is copied during the build
-  'icon.icns',
+  'icons/icon.icns',
   // localization files are compiled and copied to dist
   'localization/'
 ]
@@ -37,7 +38,7 @@ var baseOptions = {
 var platformOptions = {
   darwin: {
     platform: 'darwin',
-    icon: 'icon.icns',
+    icon: 'icons/icon.icns',
     darwinDarkModeSupport: true,
     protocols: [{
       name: 'HTTP link',

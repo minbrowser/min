@@ -10,6 +10,8 @@ const ipc = electron.ipcMain
 const Menu = electron.Menu
 const MenuItem = electron.MenuItem
 
+let isInstallerRunning = false;
+
 function clamp(n, min, max) {
   return Math.max(Math.min(n, max), min);
 }
@@ -18,9 +20,11 @@ if (process.platform === 'win32') {
   (async function () {
   var squirrelCommand = process.argv[1];
   if (squirrelCommand === "--squirrel-install" || squirrelCommand === "--squirrel-updated") {
+    isInstallerRunning = true;
     await registryInstaller.install();
   }
   if (squirrelCommand == '--squirrel-uninstall') {
+    isInstallerRunning = true;
     await registryInstaller.uninstall();
   }
   if (require('electron-squirrel-startup')) {
@@ -163,9 +167,16 @@ function createWindowWithBounds (bounds) {
     backgroundColor: '#fff', // the value of this is ignored, but setting it seems to work around https://github.com/electron/electron/issues/10559
     webPreferences: {
       nodeIntegration: true,
-      additionalArguments: ['--user-data-path=' + userDataPath]
+      nodeIntegrationInWorker: true, //used by ProcessSpawner
+      additionalArguments: ['--user-data-path=' + userDataPath, '--app-version=' + app.getVersion()]
     }
   })
+
+  // windows and linux always use a menu button in the upper-left corner instead
+  // if frame: false is set, this won't have any effect, but it does apply on Linux if "use separate titlebar" is enabled
+  if (process.platform !== 'darwin') {
+    mainWindow.setMenuBarVisibility(false);
+  }
 
   // and load the index.html of the app.
   mainWindow.loadURL(browserPage)
@@ -224,13 +235,21 @@ function createWindowWithBounds (bounds) {
     sendIPCToWindow(mainWindow, 'leave-html-full-screen')
   })
 
-  mainWindow.on('app-command', function (e, command) {
-    if (command === 'browser-backward') {
-      sendIPCToWindow(mainWindow, 'goBack')
-    } else if (command === 'browser-forward') {
-      sendIPCToWindow(mainWindow, 'goForward')
-    }
-  })
+  /*
+  Handles events from mouse buttons
+  Unsupported on macOS, and on Linux, there is a default handler already,
+  so registering a handler causes events to happen twice.
+  See: https://github.com/electron/electron/issues/18322
+  */
+  if (process.platform === 'win32') {
+    mainWindow.on('app-command', function (e, command) {
+      if (command === 'browser-backward') {
+        sendIPCToWindow(mainWindow, 'goBack')
+      } else if (command === 'browser-forward') {
+        sendIPCToWindow(mainWindow, 'goForward')
+      }
+    })
+  }
 
   // prevent remote pages from being loaded using drag-and-drop, since they would have node access
   mainWindow.webContents.on('will-navigate', function (e, url) {
@@ -255,6 +274,12 @@ app.on('window-all-closed', function () {
 // initialization and is ready to create browser windows.
 app.on('ready', function () {
   appIsReady = true
+
+  /* the installer launches the app to install registry items and shortcuts, 
+  but if that's happening, we shouldn't display anything */
+  if(isInstallerRunning) {
+    return
+  }
 
   createWindow(function () {
     mainWindow.webContents.on('did-finish-load', function () {

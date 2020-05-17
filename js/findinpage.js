@@ -9,18 +9,18 @@ var findinpage = {
   previous: document.getElementById('findinpage-previous-match'),
   next: document.getElementById('findinpage-next-match'),
   endButton: document.getElementById('findinpage-end'),
-  activeWebview: null,
+  activeTab: null,
   start: function (options) {
     webviews.releaseFocus()
 
     findinpage.input.placeholder = l('searchInPage')
 
-    findinpage.activeWebview = webviews.get(tabs.getSelected())
+    findinpage.activeTab = tabs.getSelected()
 
     /* special case for PDF viewer */
 
-    if (PDFViewer.isPDFViewer(tabs.getSelected())) {
-      PDFViewer.startFindInPage(tabs.getSelected())
+    if (PDFViewer.isPDFViewer(findinpage.activeTab)) {
+      PDFViewer.startFindInPage(findinpage.activeTab)
     }
 
     findinpage.counter.textContent = ''
@@ -29,7 +29,7 @@ var findinpage = {
     findinpage.input.select()
 
     if (findinpage.input.value) {
-      findinpage.activeWebview.findInPage(findinpage.input.value)
+      webviews.callAsync(findinpage.activeTab, 'findInPage', findinpage.input.value)
     }
   },
   end: function (options) {
@@ -38,27 +38,23 @@ var findinpage = {
 
     findinpage.container.hidden = true
 
-    if (findinpage.activeWebview) {
-      findinpage.activeWebview.stopFindInPage(action)
+    if (findinpage.activeTab) {
+      webviews.callAsync(findinpage.activeTab, 'stopFindInPage', action)
 
       /* special case for PDF viewer */
-      if (PDFViewer.isPDFViewer(tabs.getSelected())) {
-        PDFViewer.endFindInPage(tabs.getSelected())
+      if (tabs.get(findinpage.activeTab) && PDFViewer.isPDFViewer(findinpage.activeTab)) {
+        PDFViewer.endFindInPage(findinpage.activeTab)
       }
 
-      if (findinpage.input === document.activeElement) {
-        findinpage.activeWebview.focus()
-      }
+      webviews.callAsync(findinpage.activeTab, 'focus')
     }
 
-    findinpage.activeWebview = null
+    findinpage.activeTab = null
   }
 }
 
-findinpage.input.addEventListener('blur', function (e) {
-  if (!e.relatedTarget || !e.relatedTarget.classList.contains('findinpage-control')) {
-    findinpage.end()
-  }
+findinpage.input.addEventListener('click', function () {
+  webviews.releaseFocus()
 })
 
 findinpage.endButton.addEventListener('click', function () {
@@ -67,36 +63,48 @@ findinpage.endButton.addEventListener('click', function () {
 
 findinpage.input.addEventListener('input', function (e) {
   if (this.value) {
-    findinpage.activeWebview.findInPage(this.value)
+    webviews.callAsync(findinpage.activeTab, 'findInPage', findinpage.input.value)
   }
 })
 
 findinpage.input.addEventListener('keypress', function (e) {
   if (e.keyCode === 13) { // Return/Enter key
-    findinpage.activeWebview.findInPage(findinpage.input.value, {
+    webviews.callAsync(findinpage.activeTab, 'findInPage', [findinpage.input.value, {
       forward: !e.shiftKey, // find previous if Shift is pressed
       findNext: true
-    })
+    }])
   }
 })
 
 findinpage.previous.addEventListener('click', function (e) {
-  findinpage.activeWebview.findInPage(findinpage.input.value, {
+  webviews.callAsync(findinpage.activeTab, 'findInPage', [findinpage.input.value, {
     forward: false,
     findNext: true
-  })
+  }])
   findinpage.input.focus()
 })
 
 findinpage.next.addEventListener('click', function (e) {
-  findinpage.activeWebview.findInPage(findinpage.input.value, {
+  webviews.callAsync(findinpage.activeTab, 'findInPage', [findinpage.input.value, {
     forward: true,
     findNext: true
-  })
+  }])
   findinpage.input.focus()
 })
 
-webviews.bindEvent('found-in-page', function (webview, tabId, e, data) {
+webviews.bindEvent('view-hidden', function (webview, tabId) {
+  if (tabId === findinpage.activeTab) {
+    findinpage.end()
+  }
+})
+
+webviews.bindEvent('did-start-loading', function (webview, tabId) {
+  if (tabId === findinpage.activeTab) {
+    findinpage.end()
+  }
+})
+
+webviews.bindEvent('found-in-page', function (webview, tabId, data) {
   if (data.matches !== undefined) {
     var text
     if (data.matches === 1) {
@@ -111,6 +119,10 @@ webviews.bindEvent('found-in-page', function (webview, tabId, e, data) {
 
 keybindings.defineShortcut('followLink', function () {
   findinpage.end({ action: 'activateSelection' })
+})
+
+keybindings.defineShortcut({ keys: 'esc' }, function (e) {
+  findinpage.end()
 })
 
 module.exports = findinpage

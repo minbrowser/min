@@ -107,7 +107,7 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
 }
 
 function initialize () {
-  webviews.bindEvent('before-input-event', function (webview, tabId, e, input) {
+  webviews.bindEvent('before-input-event', function (webview, tabId, input) {
     var expectedKeys = 1
   // account for additional keys that aren't in the input.key property
     if (input.alt && input.key !== 'Alt') {
@@ -133,6 +133,7 @@ function initialize () {
         if (!(
         key === input.key.toLowerCase() ||
         key === input.code.replace('Digit', '') ||
+        (key === 'esc' && input.key === 'Escape') ||
         (key === 'left' && input.key === 'ArrowLeft') ||
         (key === 'right' && input.key === 'ArrowRight') ||
         (key === 'up' && input.key === 'ArrowUp') ||

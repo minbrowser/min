@@ -132,7 +132,10 @@
             "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "Vzhled",
-        "settingsDarkModeToggle": "Použít tmavý režim",
+        "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Zobrazit tlačítko zpět",
         "settingsAdditionalFeaturesHeading": null, //missing translation

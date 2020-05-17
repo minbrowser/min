@@ -4,7 +4,7 @@ if (typeof require !== 'undefined') {
 
 function shouldEnableDarkMode () {
   var hours = new Date().getHours()
-  return hours > 21 || hours < 6
+  return (hours > 21 || hours < 6)
 }
 
 function enableDarkMode () {
@@ -29,26 +29,37 @@ function initialize () {
   settings.listen('darkMode', function (value) {
     clearInterval(themeInterval)
 
-    if (value === true) {
+    // 1 or true: dark mode is always enabled
+    if (value === 1 || value === true) {
       enableDarkMode()
       return
     }
 
-    if (shouldEnableDarkMode()) {
-      enableDarkMode()
-    } else {
-      disableDarkMode()
-    }
-
-    themeInterval = setInterval(function () {
+    // 0 or undefined: automatic dark mode
+    if (value === undefined || value === 0 || value === false) {
+      // If it is night and darkMode is set to auto/default
       if (shouldEnableDarkMode()) {
-        if (!window.isDarkMode) {
-          enableDarkMode()
-        }
-      } else if (window.isDarkMode) {
+        enableDarkMode()
+      } else {
         disableDarkMode()
       }
-    }, 10000)
+
+      themeInterval = setInterval(function () {
+        if (shouldEnableDarkMode()) {
+          if (!window.isDarkMode) {
+            enableDarkMode()
+          }
+        } else if (window.isDarkMode) {
+          disableDarkMode()
+        }
+      }, 10000)
+    }
+
+    // -1: never enable
+
+    if (value === -1) {
+      disableDarkMode()
+    }
   })
 }
 

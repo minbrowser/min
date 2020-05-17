@@ -1,23 +1,22 @@
 # Min
 
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
-
 Min is a fast, minimal browser that protects your privacy. It includes an interface designed to minimize distractions, and features such as:
 
 * Information from [DuckDuckGo](https://duckduckgo.com) in the search bar.
 * Full-text search for visited pages
-* Automatic ad and tracker blocking
-* Reader view
+* Ad and tracker blocking
+* Automatic reader view
 * Tasks (tab groups)
+* Password manager integration
 * Dark theme
 
-More information, and prebuilt binaries are available [here](https://minbrowser.github.io/min/).
+More information, and prebuilt binaries are available [here](https://minbrowser.org/).
 
 ## Screenshots
 
-<img alt="The search bar, showing information from DuckDuckGo" src="http://minbrowser.github.io/min/tour/img/searchbar_duckduckgo_answers.png" width="700"/>
+<img alt="The search bar, showing information from DuckDuckGo" src="http://minbrowser.org/tour/img/searchbar_duckduckgo_answers.png" width="700"/>
 
-<img alt="The Tasks Overlay" src="http://minbrowser.github.io/min/tour/img/tasks.png" width="700"/>
+<img alt="The Tasks Overlay" src="http://minbrowser.org/tour/img/tasks.png" width="700"/>
 
 <img alt="Reader View" src="https://user-images.githubusercontent.com/10314059/53312382-67ca7d80-387a-11e9-9ccc-88ac592c9b1c.png" width="700"/>
 
@@ -58,11 +57,16 @@ Depending on the platform you are building for, you may need to install addition
 
 ## Contributing to Min
 
-Please feel free to open an issue with any problems you encounter or suggestions you have! Code contributions are also highly appreciated; if you have any questions about how to add something to Min, please open an issue about it.
+Thanks for taking the time to contribute to Min! If you have any questions or run into any problems, please [open an issue](https://github.com/minbrowser/min/issues/new).
+
+### Contributing Code
+
+* Start by following the development instructions listed above.
+* The wiki has an [overview of Min's architecture](https://github.com/minbrowser/min/wiki/Architecture).
+* Min uses the [Standard](https://github.com/feross/standard) code style; [most editors](https://standardjs.com/#are-there-text-editor-plugins) have plugins available to auto-format your code.
+* If you see something that's missing, or run into any problems, please open an issue!
 
 ### Contributing Translations
-
-Thanks for taking the time to translate Min! If you have any questions about how to add a translation, please [open an issue](https://github.com/minbrowser/min/issues/new).
 
 #### Adding a new language
 

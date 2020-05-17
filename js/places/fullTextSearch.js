@@ -139,20 +139,33 @@ function tokenize (string) {
 
 // finds the documents that contain all of the prefixes in their searchIndex
 // code from https://github.com/dfahlander/Dexie.js/issues/281
-function getMatchingDocs (prefixes) {
+function getMatchingDocs (tokens) {
   return db.transaction('r', db.places, function * () {
-    // Parallell search for all prefixes - just select resulting primary keys
-    const results = yield Dexie.Promise.all(prefixes.map(prefix => db.places
+    // Parallell search for all tokens - just select resulting primary keys
+    const tokenMatches = yield Dexie.Promise.all(tokens.map(prefix => db.places
       .where('searchIndex')
       .equals(prefix)
       .primaryKeys()))
 
-    // Intersect result set of primary keys
-    const reduced = results
-      .reduce((a, b) => {
-        const set = new Set(b)
-        return a.filter(k => set.has(k))
-      })
+    var results = []
+
+    /*
+    A document matches if each search token is either 1) contained in the title, URL, or tags,
+    even if it's part of a larger word, or 2) a word in the full-text index.
+     */
+    historyInMemoryCache.forEach(function (item) {
+      var itext = (item.url + ' ' + item.title + ' ' + item.tags.join(' ')).toLowerCase()
+      var matched = true
+      for (var i = 0; i < tokens.length; i++) {
+        if (!tokenMatches[i].includes(item.id) && !itext.includes(tokens[i])) {
+          matched = false
+          break
+        }
+      }
+      if (matched) {
+        results.push(item)
+      }
+    })
 
     /* Finally select entire documents from intersection.
     To improve perf, we only read the full text of 100 documents for ranking,
@@ -160,7 +173,7 @@ function getMatchingDocs (prefixes) {
      score (recency + visit count) and then only read the 100 highest-ranking ones,
      since these are most likely to be in the final results.
     */
-    const ordered = reduced.map(id => historyInMemoryCache.find(item => item.id === id)).sort(function (a, b) {
+    const ordered = results.sort(function (a, b) {
       return calculateHistoryScore(b) - calculateHistoryScore(a)
     }).map(i => i.id).slice(0, 100)
 

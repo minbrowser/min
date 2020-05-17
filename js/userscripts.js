@@ -12,7 +12,7 @@ if (settings.get('userscriptsEnabled') === true) {
     /* get a list of all the files */
 
   var path = require('path')
-  var scriptDir = path.join(remote.app.getPath('userData'), 'userscripts')
+  var scriptDir = path.join(window.globalArgs['user-data-path'], 'userscripts')
 
   fs.readdir(scriptDir, function (err, files) {
     if (err || files.length === 0) {
@@ -46,7 +46,7 @@ this listener has to be attached immediately so that we can capture events for
 webviews that are created at startup
 */
 
-webviews.bindEvent('dom-ready', function (webview, tabId, e) {
+webviews.bindEvent('dom-ready', function (webview, tabId) {
   if (!userScriptsEnabled) {
     return
   }

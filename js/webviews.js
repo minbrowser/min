@@ -75,7 +75,7 @@ function onPageURLChange (tab, url) {
 }
 
 // called whenever the page finishes loading
-function onPageLoad (webview, tabId, e) {
+function onPageLoad (webview, tabId) {
   webviews.callAsync(tabId, 'getURL', null, function (err, url) {
     if (err) {
       return
@@ -93,12 +93,12 @@ function onPageLoad (webview, tabId, e) {
 }
 
 // called whenever a navigation finishes
-function onNavigate (webview, tabId, e, url, httpResponseCode, httpStatusText) {
+function onNavigate (webview, tabId, url, httpResponseCode, httpStatusText) {
   onPageURLChange(tabId, url)
 }
 
 function scrollOnLoad (tabId, scrollPosition) {
-  const listener = function (webview, eTabId, e) {
+  const listener = function (webview, eTabId) {
     if (eTabId === tabId) {
       // the scrollable content may not be available until some time after the load event, so attempt scrolling several times
       for (let i = 0; i < 3; i++) {
@@ -113,7 +113,7 @@ function scrollOnLoad (tabId, scrollPosition) {
 }
 
 const webviews = {
-  tabViewMap: {}, // tabId: browserView
+  viewList: [], // [tabId]
   tabContentsMap: {}, // tabId: webContents
   viewFullscreenMap: {}, // tabId, isFullscreen
   selectedId: null,
@@ -123,15 +123,11 @@ const webviews = {
     error: urlParser.getFileURL(__dirname + '/pages/error/index.html')
   },
   events: [],
-  nextEventID: 0,
   IPCEvents: [],
-  bindEvent: function (event, fn, options) {
-    webviews.nextEventID++
+  bindEvent: function (event, fn) {
     webviews.events.push({
       event: event,
-      fn: fn,
-      options: options,
-      id: webviews.nextEventID
+      fn: fn
     })
   },
   unbindEvent: function (event, fn) {
@@ -141,6 +137,17 @@ const webviews = {
         i--
       }
     }
+  },
+  emitEvent: function (event, viewId, args) {
+    if (!webviews.viewList.includes(viewId)) {
+      // the view could have been destroyed between when the event was occured and when it was recieved in the UI process, see https://github.com/minbrowser/min/issues/604#issuecomment-419653437
+      return
+    }
+    webviews.events.forEach(function (ev) {
+      if (ev.event === event) {
+        ev.fn.apply(webviews.tabContentsMap[viewId], [webviews.tabContentsMap[viewId], viewId].concat(args))
+      }
+    })
   },
   bindIPC: function (name, fn) {
     webviews.IPCEvents.push({
@@ -207,18 +214,12 @@ const webviews = {
           sandbox: true,
           enableRemoteModule: false,
           allowPopups: false,
-          partition: partition
+          partition: partition,
+          enableWebSQL: false
         }
       }),
       boundsString: JSON.stringify(webviews.getViewBounds()),
-      // callbacks can't be sent over IPC, so they need to be removed
-      events: webviews.events.map(function (e) {
-        return {
-          event: e.event,
-          id: e.id,
-          options: e.options
-        }
-      })
+      events: webviews.events.map(e => e.event).filter((i, idx, arr) => arr.indexOf(i) === idx)
     })
 
     let view = lazyRemoteObject(function () {
@@ -236,15 +237,17 @@ const webviews = {
       ipc.send('loadURLInView', {id: tabData.id, url: urlParser.parse('min://newtab')})
     }
 
-    webviews.tabViewMap[tabId] = view
     webviews.tabContentsMap[tabId] = contents
+    webviews.viewList.push(tabId)
     return view
   },
   setSelected: function (id, options) { // options.focus - whether to focus the view. Defaults to true.
+    webviews.emitEvent('view-hidden', webviews.selectedId)
+
     webviews.selectedId = id
 
     // create the view if it doesn't already exist
-    if (!webviews.getView(id)) {
+    if (!webviews.viewList.includes(id)) {
       webviews.add(id)
     }
 
@@ -259,6 +262,7 @@ const webviews = {
       bounds: webviews.getViewBounds(),
       focus: !options || options.focus !== false
     })
+    webviews.emitEvent('view-shown', id)
 
     forceUpdateDragRegions()
   },
@@ -266,19 +270,17 @@ const webviews = {
     ipc.send('loadURLInView', {id: id, url: urlParser.parse(url)})
   },
   destroy: function (id) {
-    var w = webviews.tabViewMap[id]
-    if (w) {
+    webviews.emitEvent('view-hidden', id)
+
+    if (webviews.viewList.includes(id)) {
+      webviews.viewList.splice(webviews.viewList.indexOf(id), 1)
       ipc.send('destroyView', id)
     }
-    delete webviews.tabViewMap[id]
     delete webviews.tabContentsMap[id]
     delete webviews.viewFullscreenMap[id]
     if (webviews.selectedId === id) {
       webviews.selectedId = null
     }
-  },
-  getView: function (id) {
-    return webviews.tabViewMap[id]
   },
   get: function (id) {
     return webviews.tabContentsMap[id]
@@ -306,6 +308,7 @@ const webviews = {
       // make sure the placeholder was not removed between when the timeout was created and when it occurs
       if (webviews.placeholderRequests.length > 0) {
         ipc.send('hideCurrentView')
+        webviews.emitEvent('view-hidden', webviews.selectedId)
       }
     }, 0)
   },
@@ -316,12 +319,13 @@ const webviews = {
 
     if (webviews.placeholderRequests.length === 0) {
       // multiple things can request a placeholder at the same time, but we should only show the view again if nothing requires a placeholder anymore
-      if (webviews.tabViewMap[webviews.selectedId]) {
+      if (webviews.viewList.includes(webviews.selectedId)) {
         ipc.send('setView', {
           id: webviews.selectedId,
           bounds: webviews.getViewBounds(),
           focus: true
         })
+        webviews.emitEvent('view-shown', webviews.selectedId)
         forceUpdateDragRegions()
       }
       // wait for the view to be visible before removing the placeholder
@@ -331,14 +335,6 @@ const webviews = {
         }
       }, 400)
     }
-  },
-  getTabFromContents: function (contents) {
-    for (let tabId in webviews.tabContentsMap) {
-      if (webviews.tabContentsMap[tabId] === contents) {
-        return tabId
-      }
-    }
-    return null
   },
   releaseFocus: function () {
     ipc.send('focusMainWebContents')
@@ -389,7 +385,7 @@ window.addEventListener('resize', throttle(function () {
   webviews.resize()
 }, 75))
 
-//leave HTML fullscreen when leaving window fullscreen
+// leave HTML fullscreen when leaving window fullscreen
 ipc.on('leave-full-screen', function () {
   // electron normally does this automatically (https://github.com/electron/electron/pull/13090/files), but it doesn't work for BrowserViews
   for (var view in webviews.viewFullscreenMap) {
@@ -399,13 +395,13 @@ ipc.on('leave-full-screen', function () {
   }
 })
 
-webviews.bindEvent('enter-html-full-screen', function () {
-  webviews.viewFullscreenMap[webviews.getTabFromContents(this)] = true
+webviews.bindEvent('enter-html-full-screen', function (webview, tabId) {
+  webviews.viewFullscreenMap[tabId] = true
   webviews.resize()
 })
 
-webviews.bindEvent('leave-html-full-screen', function () {
-  webviews.viewFullscreenMap[webviews.getTabFromContents(this)] = false
+webviews.bindEvent('leave-html-full-screen', function (webview, tabId) {
+  webviews.viewFullscreenMap[tabId] = false
   webviews.resize()
 })
 
@@ -433,19 +429,19 @@ webviews.bindEvent('did-finish-load', onPageLoad)
 webviews.bindEvent('did-navigate-in-page', onPageLoad)
 webviews.bindEvent('did-navigate', onNavigate)
 
-webviews.bindEvent('page-title-updated', function (webview, tabId, e, title, explicitSet) {
+webviews.bindEvent('page-title-updated', function (webview, tabId, title, explicitSet) {
   tabs.update(tabId, {
     title: title
   })
 })
 
-webviews.bindEvent('did-fail-load', function (webview, tabId, e, errorCode, errorDesc, validatedURL, isMainFrame) {
+webviews.bindEvent('did-fail-load', function (webview, tabId, errorCode, errorDesc, validatedURL, isMainFrame) {
   if (errorCode && errorCode !== -3 && isMainFrame && validatedURL) {
     webviews.update(tabId, webviews.internalPages.error + '?ec=' + encodeURIComponent(errorCode) + '&url=' + encodeURIComponent(validatedURL))
   }
 })
 
-webviews.bindEvent('crashed', function (webview, tabId, e, isKilled) {
+webviews.bindEvent('crashed', function (webview, tabId, isKilled) {
   var url = tabs.get(tabId).url
 
   tabs.update(tabId, {
@@ -489,15 +485,7 @@ webviews.bindIPC('scroll-position-change', function (webview, tabId, args) {
 })
 
 ipc.on('view-event', function (e, args) {
-  if (!webviews.tabViewMap[args.viewId]) {
-    // the view could have been destroyed between when the event was occured and when it was recieved in the UI process, see https://github.com/minbrowser/min/issues/604#issuecomment-419653437
-    return
-  }
-  webviews.events.forEach(function (ev) {
-    if (ev.id === args.eventId) {
-      ev.fn.apply(webviews.tabContentsMap[args.viewId], [webviews.tabContentsMap[args.viewId], args.viewId, e].concat(args.args))
-    }
-  })
+  webviews.emitEvent(args.event, args.viewId, args.args)
 })
 
 ipc.on('async-call-result', function (e, args) {
@@ -506,7 +494,7 @@ ipc.on('async-call-result', function (e, args) {
 })
 
 ipc.on('view-ipc', function (e, args) {
-  if (!webviews.tabViewMap[args.id]) {
+  if (!webviews.viewList.includes(args.id)) {
     // the view could have been destroyed between when the event was occured and when it was recieved in the UI process, see https://github.com/minbrowser/min/issues/604#issuecomment-419653437
     return
   }

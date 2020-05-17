@@ -12,13 +12,15 @@ function searchPlaces (searchText, callback, options) {
     if (limitToBookmarks && !item.isBookmarked) {
       return
     }
-    let itext
     let itextURL = processSearchText(item.url)
+    let itext = itextURL
 
-    if (item.url === item.title) {
-      itext = itextURL
-    } else {
-      itext = itextURL + ' ' + item.title.toLowerCase().replace(spacesRegex, ' ')
+    if (item.url !== item.title) {
+      itext += ' ' + item.title.toLowerCase().replace(spacesRegex, ' ')
+    }
+
+    if (item.tags) {
+      itext += ' ' + item.tags.join(' ')
     }
 
     const tindex = itext.indexOf(st)

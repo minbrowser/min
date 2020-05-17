@@ -2,7 +2,7 @@ var browserUI = require('browserUI.js')
 var tabEditor = require('navbar/tabEditor.js')
 
 window.sessionRestore = {
-  savePath: userDataPath + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
+  savePath: window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
   previousState: null,
   save: function (forceSave, sync) {
     var stateString = JSON.stringify(tasks.getStringifyableState())
@@ -129,7 +129,7 @@ window.sessionRestore = {
 
       console.error('restoring session failed: ', e)
 
-      var backupSavePath = require('path').join(remote.app.getPath('userData'), 'sessionRestoreBackup-' + Date.now() + '.json')
+      var backupSavePath = require('path').join(window.globalArgs['user-data-path'], 'sessionRestoreBackup-' + Date.now() + '.json')
 
       fs.writeFileSync(backupSavePath, savedStringData)
 

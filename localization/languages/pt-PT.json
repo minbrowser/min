@@ -135,14 +135,17 @@
             "unsafeHTML": "Baseado em EasyList e EasyPrivacy, criadas por <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">Ver licença</a>)."
         },
         "settingsAppearanceHeading": "Aparência",
-        "settingsDarkModeToggle": "Ativar modo escuro",
+        "settingsEnableDarkMode": "Ativar modo escuro:",
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": "Ativar tema do site",
         "settingsHistoryButtonToggle": "Mostrar botão para recuar",
         "settingsAdditionalFeaturesHeading": "Outras funcionalidades",
         "settingsUserscriptsToggle": "Ativar scripts de utilizador",
-        "settingsSeparateTitlebarToggle": null, //missing translation
+        "settingsSeparateTitlebarToggle": "Utilizar barra de título separada",
 		"settingsUserscriptsExplanation": {"unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."},
-        "settingsUserAgentToggle": null, //missing translation
+        "settingsUserAgentToggle": "Utilizar agente de utilizador personalizado",
         "settingsUpdateNotificationsToggle": "Procurar atualizações automaticamente",
         "settingsSearchEngineHeading": "Motor de pesquisa",
         "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",
@@ -212,7 +215,11 @@
         "passwordManagerSetupStep1": {
             "unsafeHTML": "Primeiro, <a id='password-manager-setup-link'></a> e extraia para o seu sistema."
         },
+        "passwordManagerInstallerSetup": {
+            "unsafeHTML": "Descarregue <a id='password-manager-setup-link-installer'></a> e arraste o ficheiro para a caixa abaixo:"
+},
         "passwordManagerSetupLink": "descarregue a ferramenta CLI %p",
+        "passwordManagerSetupLinkInstaller": "o instalador da ferramenta %p CLI",
         "passwordManagerSetupStep2": "Depois, arraste a ferramenta para a caixa abaixo:",
         "passwordManagerSetupDragBox": "Arraste a ferramenta para aqui",
         "passwordManagerSetupInstalling": "A instalar...",
@@ -223,11 +230,12 @@
         "passwordManagerSetupRetry": "Certifique-se de que está a utilizar o ficheiro e a palavra-passe corretas. Pode tentar novamente arrastando a ferramenta para aqui.",
         "passwordManagerUnlock": "Digite a palavra-passe mestre para %p para desbloquear o armazenamento de palavras-passe:",
         /* Dialogs */
-        "loginPromptTitle": null, //missing translation
+        "loginPromptTitle": "Iniciar sessão em %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Confirmar",
         "dialogSkipButton": "Cancelar",
-        "username": null, //missing translation
+        "username": "Nome de utilizador",
         "email": "E-mail",
-        "password": "Palavra-passe"
+        "password": "Palavra-passe",
+        "secretKey": "Chave secreta"
     }
 }
