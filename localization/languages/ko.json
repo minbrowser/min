@@ -136,9 +136,9 @@
         },
         "settingsAppearanceHeading": "외형",
         "settingsEnableDarkMode": "어두운 외형 사용: ",
-        "settingsDarkModeNever": null, //"Never" missing translation
-        "settingsDarkModeNight": null, //"At night" missing translation
-        "settingsDarkModeAlways": null, //"Always" missing translation
+        "settingsDarkModeNever": "사용하지 않음",
+        "settingsDarkModeNight": "밤에만 사용",
+        "settingsDarkModeAlways": "항상 사용",
         "settingsSiteThemeToggle": "누리집 색상 주제 사용",
         "settingsHistoryButtonToggle": "뒤로 버튼 사용",
         "settingsAdditionalFeaturesHeading": "추가 기능",
