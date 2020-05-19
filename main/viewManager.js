@@ -166,7 +166,12 @@ ipc.on('callViewMethod', function (e, data) {
   var error, result
   try {
     var webContents = viewMap[data.id].webContents
-    result = webContents[data.method].apply(webContents, data.args)
+    var methodOrProp = webContents[data.method]
+    if (methodOrProp instanceof Function) {
+      result = methodOrProp.apply(webContents, data.args)
+    } else {
+      result = methodOrProp
+    }
   } catch (e) {
     error = e
   }

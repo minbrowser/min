@@ -222,10 +222,6 @@ const webviews = {
       events: webviews.events.map(e => e.event).filter((i, idx, arr) => arr.indexOf(i) === idx)
     })
 
-    let view = lazyRemoteObject(function () {
-      return getView(tabId)
-    })
-
     let contents = lazyRemoteObject(function () {
       return getView(tabId).webContents
     })
@@ -239,7 +235,6 @@ const webviews = {
 
     webviews.tabContentsMap[tabId] = contents
     webviews.viewList.push(tabId)
-    return view
   },
   setSelected: function (id, options) { // options.focus - whether to focus the view. Defaults to true.
     webviews.emitEvent('view-hidden', webviews.selectedId)
@@ -355,14 +350,20 @@ const webviews = {
     var isInternalURL = urlParser.isInternalURL(url)
     if (isInternalURL) {
       var representedURL = urlParser.getSourceURL(url)
-      // TODO this uses internal Electron API's - figure out a way to do this with the public API
-      var history = webviews.get(id).history.slice(0, webviews.get(id).currentIndex + 1)
-    }
 
-    if (isInternalURL && history.length > 2 && history[history.length - 2] === representedURL) {
-      webviews.get(id).goToOffset(-2)
+      // TODO this uses internal Electron API's - figure out a way to do this with the public API
+      webviews.callAsync(id, 'history', null, function (err, history) {
+        webviews.callAsync(id, 'currentIndex', null, function (err, currentIndex) {
+          var previous = history.slice(0, currentIndex + 1)
+          if (previous.length > 2 && previous[previous.length - 2] === representedURL) {
+            webviews.callAsync(id, 'goToOffset', -2)
+          } else {
+            webviews.callAsync(id, 'goBack')
+          }
+        })
+      })
     } else {
-      webviews.get(id).goBack()
+      webviews.callAsync(id, 'goBack')
     }
   },
   callAsync: function (id, method, args, callback) {
@@ -469,7 +470,7 @@ settings.listen(function () {
     task.tabs.forEach(function (tab) {
       if (tab.url.startsWith('file://')) {
         try {
-          webviews.get(tab.id).send('receiveSettingsData', settings.list)
+          webviews.callAsync(tab.id, 'send', ['receiveSettingsData', settings.list])
         } catch (e) {
           // webview might not actually exist
         }
@@ -524,6 +525,5 @@ ipc.on('windowFocus', function () {
     webviews.focus()
   }
 })
-
 
 module.exports = webviews
