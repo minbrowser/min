@@ -63,8 +63,8 @@ body[theme="dark"] #auto-redirect-button-area button {
 	font-size: 1.25em;
 	padding: 2em 0 0 0.25em;
 	color: dodgerblue;
-	max-width: 650px;
-	margin: auto;
+	max-width: 250px;
+	margin: auto 150px;
 	display: block;
 	box-sizing: border-box;
 	cursor: pointer;
