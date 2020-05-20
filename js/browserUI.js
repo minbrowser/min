@@ -184,7 +184,7 @@ function switchToTab (id, options) {
   })
 }
 
-webviews.bindEvent('new-window', function (webview, tabId, url, frameName, disposition) {
+webviews.bindEvent('new-window', function (tabId, url, frameName, disposition) {
   var newTab = tabs.add({
     url: url,
     private: tabs.get(tabId).private // inherit private status from the current tab
@@ -196,7 +196,7 @@ webviews.bindEvent('new-window', function (webview, tabId, url, frameName, dispo
   })
 })
 
-webviews.bindIPC('close-window', function (webview, tabId, args) {
+webviews.bindIPC('close-window', function (tabId, args) {
   closeTab(tabId)
 })
 

@@ -45,7 +45,7 @@ module.exports = {
     })
 
     ipc.on('inspectPage', function () {
-      webviews.get(tabs.getSelected()).openDevTools()
+      webviews.callAsync(tabs.getSelected(), 'openDevTools')
     })
 
     ipc.on('showReadingList', function () {
@@ -116,7 +116,7 @@ module.exports = {
         if (!savePath.endsWith('.html')) {
           savePath = savePath + '.html'
         }
-        webviews.get(currentTab.id).savePage(savePath, 'HTMLComplete')
+        webviews.callAsync(tabs.getSelected(), 'savePage', [savePath, 'HTMLComplete'])
       }
     })
 
@@ -138,15 +138,11 @@ module.exports = {
     })
 
     ipc.on('goBack', function () {
-      try {
-        webviews.get(tabs.getSelected()).goBack()
-      } catch (e) {}
+      webviews.callAsync(tabs.getSelected(), 'goBack')
     })
 
     ipc.on('goForward', function () {
-      try {
-        webviews.get(tabs.getSelected()).goForward()
-      } catch (e) {}
+      webviews.callAsync(tabs.getSelected(), 'goForward')
     })
   }
 }

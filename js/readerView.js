@@ -146,7 +146,7 @@ var readerView = {
 
     // update the reader button on page load
 
-    webviews.bindEvent('did-start-navigation', function (webview, tabId, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
+    webviews.bindEvent('did-start-navigation', function (tabId, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
       if (isInPlace) {
         return
       }
@@ -162,7 +162,7 @@ var readerView = {
       }
     })
 
-    webviews.bindIPC('canReader', function (webview, tab) {
+    webviews.bindIPC('canReader', function (tab) {
       if (readerDecision.shouldRedirect(tabs.get(tab).url) >= 0) {
         // if automatic reader mode has been enabled for this domain, and the page is readerable, enter reader mode
         readerView.enter(tab)

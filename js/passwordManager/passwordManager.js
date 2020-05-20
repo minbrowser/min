@@ -79,7 +79,7 @@ const PasswordManagers = {
   // Binds IPC events.
   initialize: function () {
     // Called when page preload script detects a form with username and password.
-    webviews.bindIPC('password-autofill', function (webview, tab, args, frameId) {
+    webviews.bindIPC('password-autofill', function (tab, args, frameId) {
       // We expect hostname of the source page/frame as a parameter.
       if (args.length == 0) {
         return
@@ -103,7 +103,7 @@ const PasswordManagers = {
         var self = this
         manager.getSuggestions(domain).then(credentials => {
           if (credentials != null) {
-            webviews.callAsync(tab, 'getURL', null, function (err, topLevelURL) {
+            webviews.callAsync(tab, 'getURL', function (err, topLevelURL) {
               var topLevelDomain = new URL(topLevelURL).hostname
               if (topLevelDomain.startsWith('www.')) {
                 topLevelDomain = topLevelDomain.slice(4)
@@ -112,10 +112,10 @@ const PasswordManagers = {
                 console.warn("autofill isn't supported for 3rd-party frames")
                 return;
               }
-              webview.sendToFrame(frameId, 'password-autofill-match', {
+              webviews.callAsync(tab, 'sendToFrame', [frameId, 'password-autofill-match', {
                 credentials,
                 hostname
-              })
+              }])
             })
           }
         }).catch(e => {
@@ -124,14 +124,14 @@ const PasswordManagers = {
       })
     })
 
-    webviews.bindIPC('password-autofill-check', function (webview, tab, args, frameId) {
+    webviews.bindIPC('password-autofill-check', function (tab, args, frameId) {
       if (PasswordManagers.getActivePasswordManager()) {
-        webview.sendToFrame(frameId, 'password-autofill-enabled')
+        webviews.callAsync(tab, 'sendToFrame', [frameId, 'password-autofill-enabled'])
       }
     })
 
     keybindings.defineShortcut('fillPassword', function () {
-      webviews.get(tabs.getSelected()).send('password-autofill-shortcut')
+      webviews.callAsync(tabs.getSelected(), 'send', ['password-autofill-shortcut'])
     })
   }
 }

@@ -28,11 +28,11 @@ const places = {
       }
     }, 500)
   },
-  receiveHistoryData: function (webview, tabId, args) {
+  receiveHistoryData: function (tabId, args) {
     // called when js/preload/textExtractor.js returns the page's text content
 
-    var tab = tabs.get(tabId),
-      data = args[0]
+    var tab = tabs.get(tabId)
+    var data = args[0]
 
     if (tab.url.startsWith('data:') || tab.url.length > 5000) {
       /*

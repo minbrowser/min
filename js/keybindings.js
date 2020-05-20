@@ -23,30 +23,30 @@ single-letter shortcuts and shortcuts used for text editing can't run when an in
 */
 function checkShortcutCanRun (combo, cb) {
   if (/^\w$/.test(combo) || combo === 'mod+left' || combo === 'mod+right') {
-    var webview = webviews.get(tabs.getSelected())
-    if (!tabs.get(tabs.getSelected()).url || !webview.isFocused()) {
+    webviews.callAsync(tabs.getSelected(), 'isFocused', function (err, isFocused) {
+      if (err || !tabs.get(tabs.getSelected()).url || !isFocused) {
       // check whether an input is focused in the browser UI
-      if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
-        cb(false)
-      } else {
-        cb(true)
-      }
-    } else {
-      // check whether an input is focused in the webview
-      webviews.callAsync(tabs.getSelected(), 'executeJavaScript', `
-      document.activeElement.tagName === "INPUT"
-      || document.activeElement.tagName === "TEXTAREA"
-      || document.activeElement.tagName === "IFRAME"
-      || (function () {
-        var n = document.activeElement;
-        while (n) {
-          if (n.getAttribute && n.getAttribute("contenteditable")) {
-            return true;
-          }
-          n = n.parentElement;
+        if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
+          cb(false)
+        } else {
+          cb(true)
         }
-        return false;
-      })()
+      } else {
+      // check whether an input is focused in the webview
+        webviews.callAsync(tabs.getSelected(), 'executeJavaScript', `
+          document.activeElement.tagName === "INPUT"
+          || document.activeElement.tagName === "TEXTAREA"
+          || document.activeElement.tagName === "IFRAME"
+          || (function () {
+            var n = document.activeElement;
+            while (n) {
+              if (n.getAttribute && n.getAttribute("contenteditable")) {
+                return true;
+              }
+              n = n.parentElement;
+            }
+            return false;
+          })()
       `, function (err, isInputFocused) {
         if (err) {
           console.warn(err)
@@ -54,7 +54,8 @@ function checkShortcutCanRun (combo, cb) {
         }
         cb(isInputFocused === false)
       })
-    }
+      }
+    })
   } else {
     cb(true)
   }
@@ -107,7 +108,7 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
 }
 
 function initialize () {
-  webviews.bindEvent('before-input-event', function (webview, tabId, input) {
+  webviews.bindEvent('before-input-event', function (tabId, input) {
     var expectedKeys = 1
   // account for additional keys that aren't in the input.key property
     if (input.alt && input.key !== 'Alt') {

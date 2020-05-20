@@ -25,9 +25,7 @@ bangsPlugin.registerCustomBang({
   snippet: l('goBack'),
   isAction: true,
   fn: function (text) {
-    try {
-      webviews.get(tabs.getSelected()).goBack()
-    } catch (e) {}
+    webviews.callAsync(tabs.getSelected(), 'goBack')
   }
 })
 
@@ -36,9 +34,7 @@ bangsPlugin.registerCustomBang({
   snippet: l('goForward'),
   isAction: true,
   fn: function (text) {
-    try {
-      webviews.get(tabs.getSelected()).goForward()
-    } catch (e) {}
+    webviews.callAsync(tabs.getSelected(), 'goForward')
   }
 })
 

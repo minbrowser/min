@@ -75,8 +75,8 @@ function onPageURLChange (tab, url) {
 }
 
 // called whenever the page finishes loading
-function onPageLoad (webview, tabId) {
-  webviews.callAsync(tabId, 'getURL', null, function (err, url) {
+function onPageLoad (tabId) {
+  webviews.callAsync(tabId, 'getURL', function (err, url) {
     if (err) {
       return
     }
@@ -93,12 +93,12 @@ function onPageLoad (webview, tabId) {
 }
 
 // called whenever a navigation finishes
-function onNavigate (webview, tabId, url, httpResponseCode, httpStatusText) {
+function onNavigate (tabId, url, httpResponseCode, httpStatusText) {
   onPageURLChange(tabId, url)
 }
 
 function scrollOnLoad (tabId, scrollPosition) {
-  const listener = function (webview, eTabId) {
+  const listener = function (eTabId) {
     if (eTabId === tabId) {
       // the scrollable content may not be available until some time after the load event, so attempt scrolling several times
       for (let i = 0; i < 3; i++) {
@@ -145,7 +145,7 @@ const webviews = {
     }
     webviews.events.forEach(function (ev) {
       if (ev.event === event) {
-        ev.fn.apply(webviews.tabContentsMap[viewId], [webviews.tabContentsMap[viewId], viewId].concat(args))
+        ev.fn.apply(this, [viewId].concat(args))
       }
     })
   },
@@ -352,8 +352,8 @@ const webviews = {
       var representedURL = urlParser.getSourceURL(url)
 
       // TODO this uses internal Electron API's - figure out a way to do this with the public API
-      webviews.callAsync(id, 'history', null, function (err, history) {
-        webviews.callAsync(id, 'currentIndex', null, function (err, currentIndex) {
+      webviews.callAsync(id, 'history', function (err, history) {
+        webviews.callAsync(id, 'currentIndex', function (err, currentIndex) {
           var previous = history.slice(0, currentIndex + 1)
           if (previous.length > 2 && previous[previous.length - 2] === representedURL) {
             webviews.callAsync(id, 'goToOffset', -2)
@@ -366,13 +366,26 @@ const webviews = {
       webviews.callAsync(id, 'goBack')
     }
   },
-  callAsync: function (id, method, args, callback) {
+  /*
+  Can be called as
+  callAsync(id, method, args, callback) -> invokes method with args, runs callback with (err, result)
+  callAsync(id, method, callback) -> invokes method with no args, runs callback with (err, result)
+  callAsync(id, property, value, callback) -> sets property to value
+  callAsync(id, property, callback) -> reads property, runs callback with (err, result)
+   */
+  callAsync: function (id, method, argsOrCallback, callback) {
+    var args = argsOrCallback
+    var cb = callback
+    if (argsOrCallback instanceof Function && !cb) {
+      args = []
+      cb = argsOrCallback
+    }
     if (!(args instanceof Array)) {
       args = [args]
     }
-    if (callback) {
+    if (cb) {
       var callId = Math.random()
-      webviews.asyncCallbacks[callId] = callback
+      webviews.asyncCallbacks[callId] = cb
     }
     ipc.send('callViewMethod', {id: id, callId: callId, method: method, args: args})
   }
@@ -396,12 +409,12 @@ ipc.on('leave-full-screen', function () {
   }
 })
 
-webviews.bindEvent('enter-html-full-screen', function (webview, tabId) {
+webviews.bindEvent('enter-html-full-screen', function (tabId) {
   webviews.viewFullscreenMap[tabId] = true
   webviews.resize()
 })
 
-webviews.bindEvent('leave-html-full-screen', function (webview, tabId) {
+webviews.bindEvent('leave-html-full-screen', function (tabId) {
   webviews.viewFullscreenMap[tabId] = false
   webviews.resize()
 })
@@ -430,19 +443,19 @@ webviews.bindEvent('did-finish-load', onPageLoad)
 webviews.bindEvent('did-navigate-in-page', onPageLoad)
 webviews.bindEvent('did-navigate', onNavigate)
 
-webviews.bindEvent('page-title-updated', function (webview, tabId, title, explicitSet) {
+webviews.bindEvent('page-title-updated', function (tabId, title, explicitSet) {
   tabs.update(tabId, {
     title: title
   })
 })
 
-webviews.bindEvent('did-fail-load', function (webview, tabId, errorCode, errorDesc, validatedURL, isMainFrame) {
+webviews.bindEvent('did-fail-load', function (tabId, errorCode, errorDesc, validatedURL, isMainFrame) {
   if (errorCode && errorCode !== -3 && isMainFrame && validatedURL) {
     webviews.update(tabId, webviews.internalPages.error + '?ec=' + encodeURIComponent(errorCode) + '&url=' + encodeURIComponent(validatedURL))
   }
 })
 
-webviews.bindEvent('crashed', function (webview, tabId, isKilled) {
+webviews.bindEvent('crashed', function (tabId, isKilled) {
   var url = tabs.get(tabId).url
 
   tabs.update(tabId, {
@@ -458,10 +471,10 @@ webviews.bindEvent('crashed', function (webview, tabId, isKilled) {
   }
 })
 
-webviews.bindIPC('getSettingsData', function (webview, tabId, args) {
-  webview.send('receiveSettingsData', settings.list)
+webviews.bindIPC('getSettingsData', function (tabId, args) {
+  webviews.callAsync(tabId, 'send', ['receiveSettingsData', settings.list])
 })
-webviews.bindIPC('setSetting', function (webview, tabId, args) {
+webviews.bindIPC('setSetting', function (tabId, args) {
   settings.set(args[0].key, args[0].value)
 })
 
@@ -479,7 +492,7 @@ settings.listen(function () {
   })
 })
 
-webviews.bindIPC('scroll-position-change', function (webview, tabId, args) {
+webviews.bindIPC('scroll-position-change', function (tabId, args) {
   tabs.update(tabId, {
     scrollPosition: args[0]
   })
@@ -501,7 +514,7 @@ ipc.on('view-ipc', function (e, args) {
   }
   webviews.IPCEvents.forEach(function (item) {
     if (item.name === args.name) {
-      item.fn(webviews.tabContentsMap[args.id], args.id, [args.data], args.frameId)
+      item.fn(args.id, [args.data], args.frameId)
     }
   })
 })

@@ -132,11 +132,11 @@ const defaultKeybindings = {
     })
 
     keybindings.defineShortcut('goBack', function (d) {
-      webviews.get(tabs.getSelected()).goBack()
+      webviews.callAsync(tabs.getSelected(), 'goBack')
     })
 
     keybindings.defineShortcut('goForward', function (d) {
-      webviews.get(tabs.getSelected()).goForward()
+      webviews.callAsync(tabs.getSelected(), 'goForward')
     })
 
     keybindings.defineShortcut('switchToPreviousTab', function (d) {
@@ -211,9 +211,9 @@ const defaultKeybindings = {
       if (time - lastReload < 500) {
         ipc.send('destroyAllViews')
         remote.getCurrentWindow().webContents.reload()
-      } else if (webviews.get(tabs.getSelected()).getURL().startsWith(webviews.internalPages.error)) {
+      } else if (tabs.get(tabs.getSelected()).url.startsWith(webviews.internalPages.error)) {
         // reload the original page rather than show the error page again
-        browserUI.navigate(tabs.getSelected(), new URL(webviews.get(tabs.getSelected()).getURL()).searchParams.get('url'))
+        browserUI.navigate(tabs.getSelected(), new URL(tabs.get(tabs.getSelected()).url).searchParams.get('url'))
       } else {
         // this can't be an error page, use the normal reload method
         webviews.callAsync(tabs.getSelected(), 'reload')
@@ -226,7 +226,7 @@ const defaultKeybindings = {
     document.body.addEventListener('keydown', function (e) {
       if (e.keyCode === 116) {
         try {
-          webviews.get(tabs.getSelected()).reloadIgnoringCache()
+          webviews.callAsync(tabs.getSelected(), 'reloadIgnoringCache')
         } catch (e) { }
       }
     })

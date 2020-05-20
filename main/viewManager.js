@@ -168,8 +168,14 @@ ipc.on('callViewMethod', function (e, data) {
     var webContents = viewMap[data.id].webContents
     var methodOrProp = webContents[data.method]
     if (methodOrProp instanceof Function) {
+      // call function
       result = methodOrProp.apply(webContents, data.args)
     } else {
+      // set property
+      if (data.args && data.args.length > 0) {
+        webContents[data.method] = data.args[0]
+      }
+      // read property
       result = methodOrProp
     }
   } catch (e) {

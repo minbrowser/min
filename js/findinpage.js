@@ -92,19 +92,19 @@ findinpage.next.addEventListener('click', function (e) {
   findinpage.input.focus()
 })
 
-webviews.bindEvent('view-hidden', function (webview, tabId) {
+webviews.bindEvent('view-hidden', function (tabId) {
   if (tabId === findinpage.activeTab) {
     findinpage.end()
   }
 })
 
-webviews.bindEvent('did-start-loading', function (webview, tabId) {
+webviews.bindEvent('did-start-loading', function (tabId) {
   if (tabId === findinpage.activeTab) {
     findinpage.end()
   }
 })
 
-webviews.bindEvent('found-in-page', function (webview, tabId, data) {
+webviews.bindEvent('found-in-page', function (tabId, data) {
   if (data.matches !== undefined) {
     var text
     if (data.matches === 1) {
