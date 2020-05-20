@@ -136,9 +136,9 @@
         },
         "settingsAppearanceHeading": "Aparência",
         "settingsEnableDarkMode": "Ativar modo escuro:",
-        "settingsDarkModeNever": null, //"Never" missing translation
-        "settingsDarkModeNight": null, //"At night" missing translation
-        "settingsDarkModeAlways": null, //"Always" missing translation
+        "settingsDarkModeNever": "Nunca",
+        "settingsDarkModeNight": "De noite",
+        "settingsDarkModeAlways": "Sempre",
         "settingsSiteThemeToggle": "Ativar tema do site",
         "settingsHistoryButtonToggle": "Mostrar botão para recuar",
         "settingsAdditionalFeaturesHeading": "Outras funcionalidades",
