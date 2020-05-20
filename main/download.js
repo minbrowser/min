@@ -12,7 +12,7 @@ function downloadHandler (event, item, webContents) {
     event.preventDefault()
     sendIPCToWindow(mainWindow, 'openPDF', {
       url: itemURL,
-      webContentsId: webContents.id,
+      tabId: getViewIDFromWebContents(webContents),
       event: event,
       item: item // as of electron 0.35.1, this is an empty object
     })
