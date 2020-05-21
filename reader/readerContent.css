@@ -107,12 +107,6 @@ body[theme="dark"] a {
 	color: #1e90ff;
 }
 
-body[theme="sepia"] a {
-	color: burlywood;
-}
-
-
-
 a:hover {
 	background-image: linear-gradient(to bottom, transparent 70%, currentColor 0%);
 	background-size: 1px 3px;
