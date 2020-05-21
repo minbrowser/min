@@ -2,6 +2,7 @@
 <html>
 
 <head>
+	<meta charset="UTF-8" />
 	<meta name="theme-color" id="meta-theme"/>
 	<script src="../ext/readability-master/Readability.js"></script>
 	<link rel="stylesheet" href="../css/base.css"/>
@@ -13,6 +14,7 @@
 
 	<button id="settings-button" class="fa fa-gear" data-label="buttonReaderSettings"></button>
 	<div id="settings-dropdown" hidden>
+		<label data-string="themeReader"></label>
 		<div class="setting-section">
 				<button class="theme-circle selected" data-theme="light" data-label="buttonReaderLightTheme"></button>
 				<button class="theme-circle" data-theme="sepia" data-label="buttonReaderSepiaTheme"></button>
@@ -23,14 +25,17 @@
 		</div>
 	</div>
 	<div id="site-nav-links"></div>
-	<div id="auto-redirect-banner">
+	<div id="auto-redirect-banner" hidden>
 		<label data-string="autoRedirectBannerReader"></label>	
 		<span id="auto-redirect-button-area">
 			<button id="auto-redirect-yes" data-string="buttonReaderRedirectYes"></button>
 			<button id="auto-redirect-no" data-string="buttonReaderRedirectNo"></button>
 		</span>
 	</div>
-	<div id="backtoarticle"><i class="fa fa-angle-left"></i><label class="fa" data-string="articleReaderView"></label></div>
+	<div id="containerbacktoarticle">
+	<div id="backtoarticle"><i class="fa fa-angle-left"><label id="lavelarticlereader" class="fa" data-string="articleReaderView"></label></i></div>
+	</div>
+	
 	<!-- DOM inserted in reader.js -->
 
 	<script src="../ext/Dexie.min.js"></script>
