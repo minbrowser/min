@@ -60,25 +60,35 @@ body[theme="dark"] #auto-redirect-button-area button {
 	background: rgba(0,0,0,0.1);
 }
 
+#containerbacktoarticle{
+    width: 700px;
+    margin: auto;
+
+}
 #backtoarticle {
 	font-size: 1.3em;
 	color: dodgerblue;
-	max-width: 650px;
-	margin: auto 5em;
+	max-width: 170px;
 	display: block;
 	box-sizing: border-box;
 	cursor: pointer;
 	font-family: system-ui, ".SFNSText-Regular", sans-serif;
 }
+
 #auto-redirect-banner:not([hidden]) + #backtoarticle {
 	padding-top: 0.5em;
 }
 #backtoarticle i {
 	vertical-align: text-bottom;
-	margin-right: 0.25em;
 	font-size: 1.275em;
 	/* pre-define the width to avoid the text moving after fontawesome loads */
-	width: 0.36em;
+	width: 6.5em;
+	height: 1.1em;
+}
+
+#lavelarticlereader{
+	cursor: pointer;
+
 }
 
 #settings-button {
@@ -99,7 +109,7 @@ body[theme="dark"] #auto-redirect-button-area button {
 	background: white;
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
 	padding: 0.75em 0.5em;
-	width: 240px;
+	width: 250px;
 	border-radius: 5px;
 }
 body[theme="dark"] #settings-dropdown {
@@ -107,6 +117,10 @@ body[theme="dark"] #settings-dropdown {
 	background: rgb(49, 52, 59);
 }
 
+body[theme="sepia"] #settings-dropdown {
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.75);
+	background: rgb(193, 150, 31);
+}
 #settings-dropdown .setting-section {
 	display: flex;
 	justify-content: space-evenly;
@@ -135,7 +149,7 @@ body[theme="dark"] #settings-dropdown {
 	background: #fff;
 }
 #settings-dropdown .theme-circle[data-theme="sepia"] {
-	background: rgb(169, 139, 63);
+	background: rgb(140,109,25,1);
 }
 #settings-dropdown .theme-circle[data-theme="dark"] {
 	background: rgb(33, 37, 43);
