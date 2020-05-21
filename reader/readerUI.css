@@ -11,7 +11,7 @@ body[theme="dark"] {
 }
 
 body[theme="sepia"] {
-	background-color: rgb(140,109,25,1);
+	background-color: rgb(247, 231, 199);
 	color: rgba(80, 55, 35, 1);
 }
 
@@ -119,7 +119,7 @@ body[theme="dark"] #settings-dropdown {
 
 body[theme="sepia"] #settings-dropdown {
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.75);
-	background: rgb(193, 150, 31);
+	background: rgb(255, 241, 217);
 }
 #settings-dropdown .setting-section {
 	display: flex;
@@ -149,7 +149,7 @@ body[theme="sepia"] #settings-dropdown {
 	background: #fff;
 }
 #settings-dropdown .theme-circle[data-theme="sepia"] {
-	background: rgb(140,109,25,1);
+	background: rgb(247, 231, 199);
 }
 #settings-dropdown .theme-circle[data-theme="dark"] {
 	background: rgb(33, 37, 43);
