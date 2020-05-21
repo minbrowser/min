@@ -4,6 +4,7 @@ html {
 	margin: 0;
 	font-size: 19.5px;
 	color: rgb(15, 15, 15);
+	overflow: hidden;
 }
 
 body[theme="dark"] {
@@ -12,8 +13,8 @@ body[theme="dark"] {
 }
 
 body[theme="sepia"] {
-	background-color: rgb(245, 237, 220);
-	color: rgb(68, 47, 30);
+	background-color: rgb(140,109,25,1); 
+	color: rgb(56, 40, 28);
 }
 
 iframe {
@@ -98,13 +99,20 @@ ol li {
 	line-height: 1.5em;
 }
 a {
-	color: #1b74bb;
+	color: #1e90ff;
 	font-size: 1em;
 	text-decoration: none;
 }
 body[theme="dark"] a {
-	color: #65a9ed;
+	color: #1e90ff;
 }
+
+body[theme="sepia"] a {
+	color: burlywood;
+}
+
+
+
 a:hover {
 	background-image: linear-gradient(to bottom, transparent 70%, currentColor 0%);
 	background-size: 1px 3px;
