@@ -2,6 +2,7 @@ body, html {
 	height: auto;
 	overflow: auto;
 	min-height: 100vh;
+	background-color: transparent;
 }
 
 body[theme="dark"] {
@@ -10,7 +11,7 @@ body[theme="dark"] {
 }
 
 body[theme="sepia"] {
-	background-color: rgb(245, 237, 220);
+	background-color: rgb(140,109,25,1);
 	color: rgba(80, 55, 35, 1);
 }
 
@@ -60,11 +61,10 @@ body[theme="dark"] #auto-redirect-button-area button {
 }
 
 #backtoarticle {
-	font-size: 1.25em;
-	padding: 2em 0 0 0.25em;
+	font-size: 1.3em;
 	color: dodgerblue;
-	max-width: 250px;
-	margin: auto 150px;
+	max-width: 650px;
+	margin: auto 5em;
 	display: block;
 	box-sizing: border-box;
 	cursor: pointer;
@@ -135,7 +135,7 @@ body[theme="dark"] #settings-dropdown {
 	background: #fff;
 }
 #settings-dropdown .theme-circle[data-theme="sepia"] {
-	background: rgb(245, 237, 220);
+	background: rgb(169, 139, 63);
 }
 #settings-dropdown .theme-circle[data-theme="dark"] {
 	background: rgb(33, 37, 43);
