@@ -80,7 +80,6 @@ const bookmarkManager = {
     var parsedText = parseBookmarkSearch(text)
 
     var displayedURLset = []
-    var hiddenURLSet = []
     places.searchPlaces(parsedText.text, function (results) {
       places.autocompleteTags(parsedText.tags, function (suggestedTags) {
         searchbarPlugins.reset('bangs')
@@ -123,7 +122,6 @@ const bookmarkManager = {
             if (itemMatchesTags(result, parsedText.tags)) {
               return true
             } else {
-              hiddenURLSet.push(result.url)
               return false
             }
           })
@@ -156,7 +154,7 @@ const bookmarkManager = {
 
         if (parsedText.tags.length > 0) {
           places.getSuggestedItemsForTags(parsedText.tags, function (suggestedResults) {
-            suggestedResults = suggestedResults.filter(res => hiddenURLSet.includes(res.url))
+            suggestedResults = suggestedResults.filter(res => !displayedURLset.includes(res.url))
             if (suggestedResults.length === 0) {
               return
             }
