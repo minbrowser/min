@@ -99,12 +99,12 @@ ol li {
 	line-height: 1.5em;
 }
 a {
-	color: #1e90ff;
+	color: #1b74bb;
 	font-size: 1em;
 	text-decoration: none;
 }
 body[theme="dark"] a {
-	color: #1e90ff;
+	color: #65a9ed;
 }
 
 a:hover {
