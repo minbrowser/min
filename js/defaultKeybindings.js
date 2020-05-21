@@ -213,7 +213,7 @@ const defaultKeybindings = {
         remote.getCurrentWindow().webContents.reload()
       } else if (tabs.get(tabs.getSelected()).url.startsWith(webviews.internalPages.error)) {
         // reload the original page rather than show the error page again
-        browserUI.navigate(tabs.getSelected(), new URL(tabs.get(tabs.getSelected()).url).searchParams.get('url'))
+        webviews.update(tabs.getSelected(), new URL(tabs.get(tabs.getSelected()).url).searchParams.get('url'))
       } else {
         // this can't be an error page, use the normal reload method
         webviews.callAsync(tabs.getSelected(), 'reload')

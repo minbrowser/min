@@ -16,7 +16,7 @@ bangsPlugin.registerCustomBang({
   snippet: l('viewSettings'),
   isAction: true,
   fn: function (text) {
-    browserUI.navigate(tabs.getSelected(), 'file://' + __dirname + '/pages/settings/index.html')
+    webviews.update(tabs.getSelected(), 'file://' + __dirname + '/pages/settings/index.html')
   }
 })
 

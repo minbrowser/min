@@ -1,25 +1,10 @@
 /* common actions that affect different parts of the UI (webviews, tabstrip, etc) */
 
 var webviews = require('webviews.js')
-var urlParser = require('util/urlParser.js')
 var focusMode = require('focusMode.js')
 var tabBar = require('navbar/tabBar.js')
 var tabEditor = require('navbar/tabEditor.js')
 var searchbar = require('searchbar/searchbar.js')
-
-/* loads a page in a webview */
-
-function navigate (tabId, newURL) {
-  newURL = urlParser.parse(newURL)
-
-  tabs.update(tabId, {
-    url: newURL
-  })
-
-  webviews.update(tabId, newURL)
-
-  tabEditor.hide()
-}
 
 /* creates a new task */
 
@@ -211,7 +196,8 @@ searchbar.events.on('url-selected', function (data) {
       openInBackground: true
     })
   } else {
-    navigate(tabs.getSelected(), data.url)
+    webviews.update(tabs.getSelected(), data.url)
+    tabEditor.hide()
   }
 })
 
@@ -224,7 +210,6 @@ tabBar.events.on('tab-closed', function (id) {
 })
 
 module.exports = {
-  navigate,
   addTask,
   addTab,
   destroyTask,

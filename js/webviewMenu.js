@@ -81,7 +81,7 @@ var webviewMenu = {
       imageActions.push(new MenuItem({
         label: l('viewImage'),
         click: function () {
-          browserUI.navigate(tabs.getSelected(), mediaURL)
+          webviews.update(tabs.getSelected(), mediaURL)
         }
       }))
 

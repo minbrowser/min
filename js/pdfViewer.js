@@ -1,7 +1,6 @@
 /* handles viewing pdf files using pdf.js. Recieves events from main.js will-download */
 
 const webviews = require('webviews.js')
-const browserUI = require('browserUI.js')
 const urlParser = require('util/urlParser.js')
 
 const PDFViewer = {
@@ -42,7 +41,7 @@ const PDFViewer = {
   },
   handlePDFOpenEvent: function (event, data) {
     var PDFurl = PDFViewer.url.base + PDFViewer.url.queryString.replace('%l', encodeURIComponent(data.url))
-    browserUI.navigate(data.tabId, PDFurl)
+    webviews.update(data.tabId, PDFurl)
   },
   initialize: function () {
     ipc.on('openPDF', PDFViewer.handlePDFOpenEvent)

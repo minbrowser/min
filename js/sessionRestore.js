@@ -1,4 +1,5 @@
 var browserUI = require('browserUI.js')
+var webviews = require('webviews.js')
 var tabEditor = require('navbar/tabEditor.js')
 
 window.sessionRestore = {
@@ -112,7 +113,7 @@ window.sessionRestore = {
           setTimeout(function () {
             if (data.available && data.url) {
               if (tasks.getSelected().tabs.isEmpty()) {
-                browserUI.navigate(tasks.getSelected().tabs.getSelected(), data.url)
+                webviews.update(tasks.getSelected().tabs.getSelected(), data.url)
               } else {
                 var surveyTab = tasks.getSelected().tabs.add({
                   url: data.url
