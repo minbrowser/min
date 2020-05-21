@@ -203,9 +203,10 @@
         "PDFPageCounter": {"unsafeHTML": "page <input type='text'/> of <span id='total'></span>"},
 	/* Context Reader */    
 	"buttonReaderSettings": "Reader Settings",
-	"buttonReaderLightTheme": "Light theme",
-	"buttonReaderSepiaTheme": "Sepia theme",
-	"buttonReaderDarkTheme": "Dark theme",
+	"themeReader": "Thema",
+	"buttonReaderLightTheme": "Light",
+	"buttonReaderSepiaTheme": "Sepia",
+	"buttonReaderDarkTheme": "Dark",
 	"openReaderView": "Always open in reader view",
 	"autoRedirectBannerReader": "Always open articles from this site in reader view?",
 	"buttonReaderRedirectYes": "Yes",
