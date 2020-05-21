@@ -5,7 +5,7 @@ var themeSelectors = document.querySelectorAll('.theme-circle')
 var metaThemeValues = {
   light: '#fff',
   dark: 'rgb(36, 41, 47)',
-  sepia: 'rgb(245, 237, 220)'
+  sepia: 'rgb(140,109,25,1)'  
 }
 
 function isNight () {
