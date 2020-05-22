@@ -2,7 +2,6 @@ body, html {
 	height: auto;
 	overflow: auto;
 	min-height: 100vh;
-	background-color: transparent;
 }
 
 body[theme="dark"] {
@@ -97,8 +96,8 @@ body[theme="dark"] #auto-redirect-button-area button {
 	opacity: 0.5;
 	font-size: 1.5em;
 	/* increase click area */
-	padding: 1em;
-	margin: -1em;
+	padding: 0.5em 0.6em 0.5em 0.5em;
+	margin: -0.5em;
 }
 
 #settings-dropdown {
