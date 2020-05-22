@@ -1,6 +1,6 @@
 /* Back button */
 
-var backbutton = document.getElementById('backtoarticle')
+var backbutton = document.getElementById('backtoarticle-link')
 var articleURL = new URLSearchParams(window.location.search).get('url')
 var articleLocation = new URL(articleURL)
 

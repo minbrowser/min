@@ -60,36 +60,34 @@ body[theme="dark"] #auto-redirect-button-area button {
 	background: rgba(0,0,0,0.1);
 }
 
-#containerbacktoarticle{
-    width: 650px;
-    margin: auto;
-
-}
 #backtoarticle {
-	font-size: 1.3em;
+    width: 650px;
+	margin: auto;
+	padding-top: 1.5em;
+}
+#backtoarticle-link {
 	color: dodgerblue;
-	max-width: 170px;
-	display: block;
-	box-sizing: border-box;
 	cursor: pointer;
 	font-family: system-ui, ".SFNSText-Regular", sans-serif;
+	display: inline-block;
+	padding: 1em;
+    margin: -1em;
+}
+
+#backtoarticle-link span {
+	font-size: 1.25em;
+	vertical-align: bottom;
 }
 
 #auto-redirect-banner:not([hidden]) + #backtoarticle {
 	padding-top: 0.5em;
 }
-#backtoarticle i {
+#backtoarticle-link i {
 	vertical-align: text-bottom;
-	font-size: 1.275em;
+	margin-right: 0.125em;
+	font-size: 1.6em;
 	/* pre-define the width to avoid the text moving after fontawesome loads */
-	width: 7em;
-	height: 1.1em;
-}
-
-#lavelarticlereader{
-	cursor: pointer;
-	margin-left: 7px;
-
+	width: 0.36em;
 }
 
 #settings-button {

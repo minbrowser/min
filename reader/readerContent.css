@@ -21,7 +21,7 @@ iframe {
 	display: none;
 }
 .reader-main {
-	padding: 1em;
+	padding: 0.75em 1em;
 	max-width: 650px;
 	display: block;
 	margin: auto;
