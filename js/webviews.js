@@ -101,9 +101,22 @@ function scrollOnLoad (tabId, scrollPosition) {
   const listener = function (eTabId) {
     if (eTabId === tabId) {
       // the scrollable content may not be available until some time after the load event, so attempt scrolling several times
+      // but stop once we've successfully scrolled once so we don't overwrite user scroll attempts that happen later
       for (let i = 0; i < 3; i++) {
+        var done = false
         setTimeout(function () {
-          webviews.callAsync(tabId, 'executeJavaScript', `window.scrollTo(0, ${scrollPosition})`)
+          if (!done) {
+            webviews.callAsync(tabId, 'executeJavaScript', `
+            (function() {
+              window.scrollTo(0, ${scrollPosition})
+              return window.scrollY === ${scrollPosition}
+            })()
+            `, function (err, completed) {
+              if (!err && completed) {
+                done = true
+              }
+            })
+          }
         }, 750 * i)
       }
       webviews.unbindEvent('did-finish-load', listener)
