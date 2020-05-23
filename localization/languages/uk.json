@@ -204,7 +204,6 @@
         "PDFPageCounter": {"unsafeHTML": "сторінка <input type='text'/> з <span id='total'></span>"},
  	/* Context Reader */    
 	"buttonReaderSettings": null, //missing translation "Reader Settings"
-	"themeReader": null,  //missing translation "Theme"
 	"buttonReaderLightTheme": null, //missing translation "Light"
 	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
 	"buttonReaderDarkTheme": null, //missing translation "Dark"

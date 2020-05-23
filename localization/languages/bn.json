@@ -203,7 +203,6 @@
       "PDFPageCounter": {"unsafeHTML": "<span id = 'total'> </ span> এর <input type = 'text' /> পৃষ্ঠা"},
 	 /* Context Reader */    
 	"buttonReaderSettings": null, //missing translation "Reader Settings"
-	"themeReader": null,  //missing translation "Theme"
 	"buttonReaderLightTheme": null, //missing translation "Light"
 	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
 	"buttonReaderDarkTheme": null, //missing translation "Dark"

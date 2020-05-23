@@ -201,7 +201,6 @@
         "PDFPageCounter": {"unsafeHTML": "página <input type='text'/> de <span id='total'></span>"},
 	/* Context Reader */    
 	"buttonReaderSettings": "Configurações do modo leitura",
-	"themeReader": "Tema",
 	"buttonReaderLightTheme": "Claro",
 	"buttonReaderSepiaTheme": "Sepia ",
 	"buttonReaderDarkTheme": "Escuro",
