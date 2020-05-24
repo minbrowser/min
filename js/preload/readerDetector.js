@@ -1,6 +1,10 @@
 /* detects if a page is readerable, and tells the main process if it is */
 
 function pageIsReaderable () {
+  if (document.querySelector('meta[property="og:type"][content="article"]')) {
+    return true
+  }
+
   var paragraphMap = new Map()
 
   var paragraphs = document.querySelectorAll('p')
@@ -26,7 +30,7 @@ function pageIsReaderable () {
     }
   })
 
-  if ((largestValue > 600 && largestValue / totalLength > 0.33) || (largestValue > 400 && document.querySelector('article, meta[property="og:type"][content="article"]'))) {
+  if ((largestValue > 600 && largestValue / totalLength > 0.33) || (largestValue > 400 && document.querySelector('article'))) {
     return true
   } else {
     return false
@@ -39,5 +43,12 @@ function checkReaderStatus () {
   }
 }
 
-document.addEventListener('DOMContentLoaded', checkReaderStatus)
-window.addEventListener('load', checkReaderStatus)
+if (process.isMainFrame) {
+  // unlike DOMContentLoaded, readystatechange doesn't wait for <script defer>, so it happens a bit sooner
+  document.addEventListener('readystatechange', function () {
+    if (document.readyState === 'interactive') {
+      checkReaderStatus()
+    }
+  })
+  window.addEventListener('load', checkReaderStatus)
+}

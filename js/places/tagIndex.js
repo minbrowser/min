@@ -4,12 +4,14 @@ var tagIndex = {
   termTags: {},
   tagTagMap: {},
   tagCounts: {},
+  tagUpdateTimes: {},
   getPageTokens: function (page) {
     var urlChunk = ''
     try {
-      urlChunk = new URL(page.url).hostname
+      // ignore the TLD, since it doesn't predict tags very well
+      urlChunk = new URL(page.url).hostname.split('.').slice(0, -1).join('.')
     } catch (e) { }
-    var tokens = tokenize(page.title + ' ' + urlChunk.split(/\W/g).join(' '))
+    var tokens = tokenize(page.title + ' ' + urlChunk)
 
     var generic = ['www', 'com', 'net', 'html', 'pdf', 'file']
     tokens = tokens.filter(t => t.length > 2 && !generic.includes(t))
@@ -66,6 +68,12 @@ var tagIndex = {
           tagIndex.tagTagMap[t1][t2]++
         }
       })
+    })
+
+    page.tags.forEach(function (tag) {
+      if (!tagIndex.tagUpdateTimes[tag] || page.lastVisit > tagIndex.tagUpdateTimes[tag]) {
+        tagIndex.tagUpdateTimes[tag] = page.lastVisit
+      }
     })
   },
   removePage: function (page) {
@@ -182,6 +190,10 @@ var tagIndex = {
           score = 0
         }
       })
+
+      // prefer tags with a recently-visited (or created) page
+      score *= Math.max(2 - ((Date.now() - tagIndex.tagUpdateTimes[tag]) / (14 * 24 * 60 * 60 * 1000)), 1)
+
       tagScores.push({tag, score})
     }
 

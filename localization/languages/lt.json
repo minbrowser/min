@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "Atverti naujoje kortelėje",
         "openInNewPrivateTab": "Atverti naujoje privačioje kortelėje",
         "viewImage": "Rodyti paveikslą",
@@ -36,6 +37,8 @@
         "viewReadingList": "Rodyti skaitymo sąrašą",
         "takeScreenshot": "Padaryti ekrano kopiją",
         "clearHistory": "Išvalyti visą istoriją",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Perjungti į užduotį",
         "createTask": "Sukurti užduotį",
@@ -132,12 +135,17 @@
             "unsafeHTML": "Pagrįstas EasyList ir EasyPrivacy, sukurtas <a target=\"_blank\" href=\"https://easylist.to/\">EasyList autorių</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">rodyti licenciją</a>)."
         },
         "settingsAppearanceHeading": "Išvaizda",
-        "settingsDarkModeToggle": "Įjungti tamsią veikseną",
+        "settingsEnableDarkMode": "Įjungti tamsią veikseną: ",
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Įjungti grįžties mygtuką",
         "settingsAdditionalFeaturesHeading": "Papildomos ypatybės",
         "settingsUserscriptsToggle": "Įjungti naudotojo scenarijus",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "Naudotojo scenarijai leidžia jums modifikuoti internetinių svetainių elgseną - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">sužinokite daugiau</a>."},
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": {"unsafeHTML": "Naudotojo scenarijai leidžia jums modifikuoti internetinių svetainių elgseną - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">sužinokite daugiau</a>."},
+        "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": "Automatiškai tikrinti ar yra atnaujinimų",
         "settingsSearchEngineHeading": "Paieškos sistema",
         "settingsDefaultSearchEngine": "Pasirinkite numatytąją paieškos sistemą:",

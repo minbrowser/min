@@ -4,22 +4,5 @@ set -e
 if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ]; then
     update-alternatives --install /usr/bin/x-www-browser \
         x-www-browser /usr/bin/min 80
-    read -r -p "Would you like to set Min as your default web browser? [Y/n]" input
-    case $input in
-        [yY][eE][sS]|[yY])
-    echo "Yes"
-    xdg-settings set default-web-browser min.desktop
-    echo "Please select the path of Min(/usr/bin/min) by selection number."
-    update-alternatives --config x-www-browser
-    ;;
-        [nN][oO]|[nN])
-    echo "No"
-    echo "You can set Min as your default web browser anytime with the following command:"
-    echo "sudo update-alternatives --config x-www-browser"
-        ;;
-    *)
-    echo "Invalid input..."
-    ;;
-    esac
+    echo "Run sudo xdg-settings set default-web-browser min.desktop && sudo update-alternatives --config x-www-browser to set Min as your default browser."
 fi
-

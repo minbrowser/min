@@ -119,7 +119,7 @@ function Trie () {
 }
 
 /* adds a string to the trie */
-Trie.prototype.add = function (string, stringData) {
+Trie.prototype.add = function (string, stringData, mergeFn) {
   var data = this.data
 
   for (var i = 0, len = string.length; i < len; i++) {
@@ -132,7 +132,19 @@ Trie.prototype.add = function (string, stringData) {
     data = data[char]
   }
   if (data._d) {
-    data._d.push(stringData)
+    var mergeResult
+    if (mergeFn) {
+      for (var n = 0; n < data._d.length; n++) {
+        mergeResult = mergeFn(data._d[n], stringData)
+        if (mergeResult) {
+          data._d[n] = mergeResult
+          break
+        }
+      }
+    }
+    if (!mergeResult) {
+      data._d.push(stringData)
+    }
   } else {
     data._d = [stringData]
   }
@@ -278,7 +290,6 @@ function parseFilter (input, parsedFilterData) {
 
   // Check for a regex
   if (input[beginIndex] === '/' && input[len - 1] === '/' && beginIndex !== len - 1) {
-    parsedFilterData.data = input.slice(beginIndex + 1, -1)
     parsedFilterData.regex = new RegExp(parsedFilterData.data)
     return true
   }
@@ -407,28 +418,40 @@ function matchOptions (filterOptions, input, contextParams, currentHost) {
 
   // Domain option check
   if (contextParams.domain !== undefined) {
-    if (filterOptions.domains || filterOptions.skipDomains || filterOptions.thirdParty || filterOptions.notThirdParty) {
-      if (filterOptions.thirdParty && contextParams.domain === currentHost) {
-        return false
-      }
+    if (filterOptions.thirdParty && contextParams.domain === currentHost) {
+      return false
+    }
 
-      if (filterOptions.notThirdParty && contextParams.domain !== currentHost) {
-        return false
-      }
+    if (filterOptions.notThirdParty && contextParams.domain !== currentHost) {
+      return false
+    }
 
-      if (filterOptions.skipDomains && filterOptions.skipDomains.indexOf(contextParams.domain) !== -1) {
-        return false
-      }
+    if (filterOptions.skipDomains && filterOptions.skipDomains.indexOf(contextParams.domain) !== -1) {
+      return false
+    }
 
-      if (filterOptions.domains && filterOptions.domains.indexOf(contextParams.domain) === -1) {
-        return false
-      }
+    if (filterOptions.domains && filterOptions.domains.indexOf(contextParams.domain) === -1) {
+      return false
     }
   } else if (filterOptions.domains || filterOptions.skipDomains) {
     return false
   }
 
   return true
+}
+
+// easylist includes many filters with the same data and set of options, but that apply to different domains
+// as long as all the options except the domain list are the same, they can be merged
+// this is currently only used for leftAnchored, since that seems to be the only place where it makes a difference
+// note: must add check here when adding support for new options
+function maybeMergeDuplicateOptions (opt1, opt2) {
+  if (opt1.elementType === opt2.elementType && opt1.skipElementType === opt2.skipElementType && opt1.thirdParty === opt2.thirdParty && opt1.notThirdParty === opt2.notThirdParty) {
+    if (opt1.domains && opt2.domains && !opt1.skipDomains && !opt2.skipDomains) {
+      opt1.domains = opt1.domains.concat(opt2.domains)
+      return opt1
+    }
+  }
+  return null
 }
 
 /**
@@ -485,7 +508,7 @@ function parse (input, parserData, callback, options = {}) {
           if (parsedFilterData.rightAnchored) {
             object.bothAnchored.push(parsedFilterData)
           } else {
-            object.leftAnchored.add(parsedFilterData.data, parsedFilterData.options)
+            object.leftAnchored.add(parsedFilterData.data, parsedFilterData.options, maybeMergeDuplicateOptions)
           }
         } else if (parsedFilterData.rightAnchored) {
           object.rightAnchored.addReverse(parsedFilterData.data, parsedFilterData.options)
@@ -493,12 +516,12 @@ function parse (input, parserData, callback, options = {}) {
           /* add the filters to the object based on the last 6 characters of their domain.
             Domains can be just 5 characters long: the TLD is at least 2 characters,
             the . character adds one more character, and the domain name must be at least two
-            characters long. However, slicing the last 6 characters of a 5-character string 
-            will give us the 5 available characters; we can then check for both a 
-            5-character and a 6-character match in matchesFilters. By storing the last 
-            characters in an object, we can skip checking whether every filter's domain 
-            is from the same origin as the URL we are checking. Instead, we can just get 
-            the last characters of the URL to check, get the filters stored in that 
+            characters long. However, slicing the last 6 characters of a 5-character string
+            will give us the 5 available characters; we can then check for both a
+            5-character and a 6-character match in matchesFilters. By storing the last
+            characters in an object, we can skip checking whether every filter's domain
+            is from the same origin as the URL we are checking. Instead, we can just get
+            the last characters of the URL to check, get the filters stored in that
             property of the object, and then check if the complete domains match.
            */
           var ending = parsedFilterData.host.slice(-6)

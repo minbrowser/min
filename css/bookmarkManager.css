@@ -1,5 +1,9 @@
-.bookmark-tag-bar {
+#bookmark-tag-bar {
     margin-top: 0.5em;
+}
+
+#bookmark-tag-bar:not(.expanded) .tag.overflowing {
+    display: none;
 }
 
 .bookmark-editor {
@@ -39,10 +43,10 @@
 #searchbar .tag.suggested {
     background: transparent;
     border-style: dotted;
-    border-color: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.125);
 }
 .dark-theme #searchbar .tag.suggested {
-    border-color: rgba(255, 255, 255, 0.225);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 #searchbar .tag + .tag {
@@ -75,14 +79,14 @@
     border-radius: 3px;
     background: transparent;
     color: inherit;
-    border: 1px rgba(0,0,0, 0.1) solid;
+    border: 1px rgba(0,0,0, 0.125) solid;
     opacity: 0.8;
 }
 .tag-edit-area .tag + .tag-input {
     margin-left: 0.5em;
 }
 .dark-theme .tag-edit-area .tag-input {
-    border-color: rgba(255, 255, 255, 0.225);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 .dark-theme .tag-edit-area .tag-input::-webkit-input-placeholder {
     color: rgba(255, 255, 255, 0.66);

@@ -7,14 +7,24 @@ const BrowserWindow = electron.BrowserWindow // Module to create native browser 
 const webContents = electron.webContents
 const session = electron.session
 const ipc = electron.ipcMain
+const Menu = electron.Menu
+const MenuItem = electron.MenuItem
+
+let isInstallerRunning = false;
+
+function clamp(n, min, max) {
+  return Math.max(Math.min(n, max), min);
+}
 
 if (process.platform === 'win32') {
   (async function () {
   var squirrelCommand = process.argv[1];
   if (squirrelCommand === "--squirrel-install" || squirrelCommand === "--squirrel-updated") {
+    isInstallerRunning = true;
     await registryInstaller.install();
   }
   if (squirrelCommand == '--squirrel-uninstall') {
+    isInstallerRunning = true;
     await registryInstaller.uninstall();
   }
   if (require('electron-squirrel-startup')) {
@@ -43,6 +53,7 @@ const browserPage = 'file://' + __dirname + '/index.html'
 
 var mainWindow = null
 var mainMenu = null
+var secondaryMenu = null;
 var isFocusMode = false
 var appIsReady = false
 
@@ -54,7 +65,10 @@ if (!isFirstInstance) {
 
 var saveWindowBounds = function () {
   if (mainWindow) {
-    fs.writeFileSync(path.join(userDataPath, 'windowBounds.json'), JSON.stringify(mainWindow.getBounds()))
+    var bounds = Object.assign(mainWindow.getBounds(), {
+      maximized: mainWindow.isMaximized()
+    })
+    fs.writeFileSync(path.join(userDataPath, 'windowBounds.json'), JSON.stringify(bounds))
   }
 }
 
@@ -78,9 +92,15 @@ function openTabInWindow (url) {
 function handleCommandLineArguments (argv) {
   // the "ready" event must occur before this function can be used
   if (argv) {
-    argv.forEach(function (arg) {
+    argv.forEach(function (arg, idx) {
       if (arg && arg.toLowerCase() !== __dirname.toLowerCase()) {
+        //URL
         if (arg.indexOf('://') !== -1) {
+          sendIPCToWindow(mainWindow, 'addTab', {
+            url: arg
+          })
+        } else if (arg.includes(' ') || (idx > 0 && argv[idx - 1] === '-s')) {
+          //search
           sendIPCToWindow(mainWindow, 'addTab', {
             url: arg
           })
@@ -108,27 +128,29 @@ function createWindow (cb) {
     }
     if (e || !data || !bounds) { // there was an error, probably because the file doesn't exist
       var size = electron.screen.getPrimaryDisplay().workAreaSize
-      var bounds = {
+      bounds = {
         x: 0,
         y: 0,
         width: size.width,
-        height: size.height
+        height: size.height,
+        maximized: true,
       }
     }
 
-    // maximizes the window frame in windows 10
-    // fixes https://github.com/minbrowser/min/issues/214
-    // should be removed once https://github.com/electron/electron/issues/4045 is fixed
-    if (process.platform === 'win32') {
-      if (bounds.x === 0 || bounds.y === 0 || bounds.x === -8 || bounds.y === -8) {
-        var screenSize = electron.screen.getPrimaryDisplay().workAreaSize
-        if ((screenSize.width === bounds.width || bounds.width - screenSize.width === 16) && (screenSize.height === bounds.height || bounds.height - screenSize.height === 16)) {
-          var shouldMaximize = true
-        }
-      }
+    //make the bounds fit inside a currently-active screen
+    //(since the screen Min was previously open on could have been removed)
+    //see: https://github.com/minbrowser/min/issues/904
+    var containingRect = electron.screen.getDisplayMatching(bounds).workArea;
+
+    bounds = {
+      x: clamp(bounds.x, containingRect.x, (containingRect.x + containingRect.width) - bounds.width),
+      y: clamp(bounds.y, containingRect.y, (containingRect.y + containingRect.height) - bounds.height),
+      width: clamp(bounds.width, 0, containingRect.width),
+      height: clamp(bounds.height, 0, containingRect.height),
+      maximized: bounds.maximized
     }
 
-    createWindowWithBounds(bounds, shouldMaximize)
+    createWindowWithBounds(bounds)
 
     if (cb) {
       cb()
@@ -136,7 +158,7 @@ function createWindow (cb) {
   })
 }
 
-function createWindowWithBounds (bounds, shouldMaximize) {
+function createWindowWithBounds (bounds) {
   mainWindow = new BrowserWindow({
     width: bounds.width,
     height: bounds.height,
@@ -146,19 +168,26 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     minHeight: 350,
     titleBarStyle: 'hiddenInset',
     icon: __dirname + '/icons/icon256.png',
-    frame: process.platform !== 'win32',
+    frame: process.platform === 'darwin' || settings.get('useSeparateTitlebar') === true,
     alwaysOnTop: settings.get('windowAlwaysOnTop'),
     backgroundColor: '#fff', // the value of this is ignored, but setting it seems to work around https://github.com/electron/electron/issues/10559
     webPreferences: {
       nodeIntegration: true,
-      additionalArguments: ['--user-data-path=' + userDataPath]
+      nodeIntegrationInWorker: true, //used by ProcessSpawner
+      additionalArguments: ['--user-data-path=' + userDataPath, '--app-version=' + app.getVersion()]
     }
   })
+
+  // windows and linux always use a menu button in the upper-left corner instead
+  // if frame: false is set, this won't have any effect, but it does apply on Linux if "use separate titlebar" is enabled
+  if (process.platform !== 'darwin') {
+    mainWindow.setMenuBarVisibility(false);
+  }
 
   // and load the index.html of the app.
   mainWindow.loadURL(browserPage)
 
-  if (shouldMaximize) {
+  if (bounds.maximized) {
     mainWindow.maximize()
 
     mainWindow.webContents.on('did-finish-load', function () {
@@ -212,13 +241,21 @@ function createWindowWithBounds (bounds, shouldMaximize) {
     sendIPCToWindow(mainWindow, 'leave-html-full-screen')
   })
 
-  mainWindow.on('app-command', function (e, command) {
-    if (command === 'browser-backward') {
-      sendIPCToWindow(mainWindow, 'goBack')
-    } else if (command === 'browser-forward') {
-      sendIPCToWindow(mainWindow, 'goForward')
-    }
-  })
+  /*
+  Handles events from mouse buttons
+  Unsupported on macOS, and on Linux, there is a default handler already,
+  so registering a handler causes events to happen twice.
+  See: https://github.com/electron/electron/issues/18322
+  */
+  if (process.platform === 'win32') {
+    mainWindow.on('app-command', function (e, command) {
+      if (command === 'browser-backward') {
+        sendIPCToWindow(mainWindow, 'goBack')
+      } else if (command === 'browser-forward') {
+        sendIPCToWindow(mainWindow, 'goForward')
+      }
+    })
+  }
 
   // prevent remote pages from being loaded using drag-and-drop, since they would have node access
   mainWindow.webContents.on('will-navigate', function (e, url) {
@@ -244,6 +281,12 @@ app.on('window-all-closed', function () {
 app.on('ready', function () {
   appIsReady = true
 
+  /* the installer launches the app to install registry items and shortcuts, 
+  but if that's happening, we shouldn't display anything */
+  if(isInstallerRunning) {
+    return
+  }
+
   createWindow(function () {
     mainWindow.webContents.on('did-finish-load', function () {
       // if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
@@ -260,7 +303,8 @@ app.on('ready', function () {
     })
   })
 
-  createAppMenu()
+  mainMenu = buildAppMenu();
+  Menu.setApplicationMenu(mainMenu)
   createDockMenu()
   registerProtocols()
 })
@@ -303,13 +347,13 @@ ipc.on('focusMainWebContents', function () {
 })
 
 ipc.on('showSecondaryMenu', function (event, data) {
-  if (mainMenu) {
-    mainMenu.popup(mainWindow, {
-      x: data.x,
-      y: data.y,
-      async: true
-    })
+  if (!secondaryMenu) {
+    secondaryMenu = buildAppMenu({secondary: true})
   }
+  secondaryMenu.popup({
+    x: data.x,
+    y: data.y
+  })
 })
 
 function registerProtocols () {

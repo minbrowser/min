@@ -28,10 +28,9 @@ var webviewGestures = {
     }, 900)
   },
   zoomWebviewBy: function (tabId, amt) {
-    var w = webviews.get(tabId)
-    var existingZoom = w.getZoomFactor()
-    var newZoom = Math.min(webviewMaxZoom, Math.max(webviewMinZoom, existingZoom + amt))
-    w.setZoomFactor(newZoom)
+    webviews.callAsync(tabId, 'zoomFactor', function (err, oldFactor) {
+      webviews.callAsync(tabId, 'zoomFactor', Math.min(webviewMaxZoom, Math.max(webviewMinZoom, oldFactor + amt)))
+    })
   },
   zoomWebviewIn: function (tabId) {
     return this.zoomWebviewBy(tabId, 0.2)
@@ -40,7 +39,7 @@ var webviewGestures = {
     return this.zoomWebviewBy(tabId, -0.2)
   },
   resetWebviewZoom: function (tabId) {
-    webviews.get(tabId).setZoomFactor(1.0)
+    webviews.callAsync(tabId, 'zoomFactor', 1.0)
   }
 }
 
@@ -82,7 +81,7 @@ function onSwipeGestureLowVelocity () {
   if (horizontalMouseMove - beginningScrollRight > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 2.5) {
     if (beginningScrollRight < 10) {
       resetCounters()
-      webviews.get(tabs.getSelected()).goForward()
+      webviews.callAsync(tabs.getSelected(), 'goForward')
     }
   }
 
@@ -99,7 +98,7 @@ function onSwipeGestureFinish () {
   resetCounters()
 }
 
-webviews.bindIPC('wheel-event', function (webview, tabId, e) {
+webviews.bindIPC('wheel-event', function (tabId, e) {
   e = JSON.parse(e)
 
   verticalMouseMove += e.deltaY
@@ -109,7 +108,7 @@ webviews.bindIPC('wheel-event', function (webview, tabId, e) {
   var platformSecondaryKey = ((navigator.platform === 'MacIntel') ? e.ctrlKey : false)
 
   if (beginningScrollLeft === null || beginningScrollRight === null) {
-    webviews.get(tabs.getSelected()).executeJavaScript(`
+    webviews.callAsync(tabs.getSelected(), 'executeJavaScript', `
     (function () {
       var left = 0
       var right = 0
@@ -124,7 +123,11 @@ webviews.bindIPC('wheel-event', function (webview, tabId, e) {
       }  
       return {left, right}
     })()
-    `, false).then(function (result) {
+    `, function (err, result) {
+      if (err) {
+        console.warn(err)
+        return
+      }
       if (beginningScrollLeft === null || beginningScrollRight === null) {
         beginningScrollLeft = result.left
         beginningScrollRight = result.right

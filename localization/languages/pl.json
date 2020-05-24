@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": "Obraz w obrazie",
         "openInNewTab": "Otwórz w nowej karcie",
         "openInNewPrivateTab": "Otwórz w nowej karcie prywatnej",
         "viewImage": "Zobacz grafikę",
@@ -36,6 +37,8 @@
         "viewReadingList": "Wyświetl listę czytelnia",
         "takeScreenshot": "Zrób zrzut ekranu",
         "clearHistory": "Wyczyść całą historię",
+        "enableBlocking": "Włącz blokowanie treści dla tej witryny",
+        "disableBlocking": "Wyłącz blokowanie treści dla tej witryny",
         "clearHistoryConfirmation": "Czy wyczyścić całą historię i dane przeglądania?",
         "switchToTask": "Przełącz na zadanie",
         "createTask": "Utwórz zadanie",
@@ -132,12 +135,17 @@
             "unsafeHTML": "Oparte na EasyList i EasyPrivacy stworzone przez <a target=\"_blank\" href=\"https://easylist.to/\">autorów EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">wyświetl licencję</a>)."
         },
         "settingsAppearanceHeading": "Wygląd",
-        "settingsDarkModeToggle": "Włącz tryb ciemny",
+        "settingsEnableDarkMode": "Włącz tryb ciemny:",
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": "Włącz motyw witryny",
         "settingsHistoryButtonToggle": "Włącz przycisk Wstecz",
         "settingsAdditionalFeaturesHeading": "Dodatkowe funkcje",
         "settingsUserscriptsToggle": "Włącz skrypty użytkownika",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": {"unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
+        "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": "Automatycznie sprawdź dostępność aktualizacji",
         "settingsSearchEngineHeading": "Wyszukiwarka",
         "settingsDefaultSearchEngine": "Wybierz domyślną wyszukiwarkę:",
@@ -198,6 +206,34 @@
         "downloadStateCompleted": "Pobieranie zakończone",
         "downloadStateFailed": "Błąd pobierania",
         /* Update Notifications */
-        "updateNotificationTitle": "Dostępna jest nowa wersja Min"
+        "updateNotificationTitle": "Dostępna jest nowa wersja Min",
+	/* Autofill settings */
+        "settingsPasswordAutoFillHeadline": "Autouzupełnianie hasła",
+        "settingsSelectPasswordManager": "Wybierz jeden z obsługiwanych menedżerów haseł:",
+        /* Password manager setup */
+        "passwordManagerSetupHeading": "Zakończ konfigurowanie %p aby korzystać z autouzupełniania",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "Najpierw, <a id='password-manager-setup-link'></a> i wypakuj go dla swojego systemu."
+        },
+        "passwordManagerInstallerSetup": null, //missing translation
+        "passwordManagerSetupLink": "pobierz %p narzędzie wiersza poleceń",
+        "passwordManagerSetupLinkInstaller": null, //missing translation
+        "passwordManagerSetupStep2": "Następnie przeciągnij narzędzie do pola poniżej:",
+        "passwordManagerSetupDragBox": "Przeciągnij narzędzie tutaj",
+        "passwordManagerSetupInstalling": "Instalowanie...",
+        "passwordManagerSetupSignIn": "Zaloguj się do menedżera haseł, aby rozpocząć korzystanie z autouzupełniania. Twoje dane uwierzytelniające nie będą przechowywane nigdzie w Min.",
+        "disableAutofill": "Wyłącz autouzupełnianie",
+        "autofillNotNow": "Nie teraz",
+        "passwordManagerSetupUnlockError": "nie udało się odblokować przechowalni haseł: ",
+        "passwordManagerSetupRetry": "Upewnij się, że używasz właściwego pliku i wpisujesz poprawne hasło. Możesz spróbować ponownie, przeciągając tutaj narzędzie.",
+        "passwordManagerUnlock": "Wprowadź główne hasło %p, aby odblokować przechowalnię haseł:",
+        /* Dialogs */
+        "loginPromptTitle": null, //missing translation
+        "dialogConfirmButton": "Potwierdź",
+        "dialogSkipButton": "Anuluj",
+        "username": null, //missing translation
+        "email": "Email",
+        "password": "Hasło",
+        "secretKey": null //missing translation
     }
 }

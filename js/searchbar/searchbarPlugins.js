@@ -87,11 +87,13 @@ const searchbarPlugins = {
       }
     }
     var item = searchbarUtils.createItem(data)
-    item.setAttribute('data-url', data.url)
 
-    item.addEventListener('click', function (e) {
-      URLOpener(data.url, e)
-    })
+    if (data.url) {
+      item.setAttribute('data-url', data.url)
+      item.addEventListener('click', function (e) {
+        URLOpener(data.url, e)
+      })
+    }
 
     searchbarPlugins.getContainer(pluginName).appendChild(item)
 
@@ -116,7 +118,7 @@ const searchbarPlugins = {
     var container = document.createElement('div')
     container.classList.add('searchbar-plugin-container')
     container.setAttribute('data-plugin', name)
-    searchbar.insertBefore(container, searchbar.childNodes[object.index + 1])
+    searchbar.insertBefore(container, searchbar.childNodes[object.index + 2])
 
     plugins.push({
       name: name,

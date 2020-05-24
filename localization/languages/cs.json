@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "Otevřít v nové kartě",
         "openInNewPrivateTab": "Otevřít v nové soukromé kartě",
         "viewImage": "Zobrazit obrázek",
@@ -36,6 +37,8 @@
         "viewReadingList": "Zobrazit seznam čtení",
         "takeScreenshot": "Pořídit snímek obrazovky",
         "clearHistory": "Vymazat celou historii",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Skočit do dimenze",
         "createTask": "Vytvořit dimenzi",
@@ -129,12 +132,17 @@
             "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "Vzhled",
-        "settingsDarkModeToggle": "Použít tmavý režim",
+        "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Zobrazit tlačítko zpět",
         "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsUserscriptsToggle": null, //missing translation
-        "settingsUserscriptsExplanation": null, //missing translation
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": null, //missing translation
+        "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Vyhledávač",
         "settingsDefaultSearchEngine": "Zvolte si výchozí vyhledávač:",

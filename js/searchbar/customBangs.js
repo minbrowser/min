@@ -16,7 +16,7 @@ bangsPlugin.registerCustomBang({
   snippet: l('viewSettings'),
   isAction: true,
   fn: function (text) {
-    browserUI.navigate(tabs.getSelected(), 'file://' + __dirname + '/pages/settings/index.html')
+    webviews.update(tabs.getSelected(), 'file://' + __dirname + '/pages/settings/index.html')
   }
 })
 
@@ -25,9 +25,7 @@ bangsPlugin.registerCustomBang({
   snippet: l('goBack'),
   isAction: true,
   fn: function (text) {
-    try {
-      webviews.get(tabs.getSelected()).goBack()
-    } catch (e) {}
+    webviews.callAsync(tabs.getSelected(), 'goBack')
   }
 })
 
@@ -36,9 +34,7 @@ bangsPlugin.registerCustomBang({
   snippet: l('goForward'),
   isAction: true,
   fn: function (text) {
-    try {
-      webviews.get(tabs.getSelected()).goForward()
-    } catch (e) {}
+    webviews.callAsync(tabs.getSelected(), 'goForward')
   }
 })
 
@@ -48,7 +44,7 @@ bangsPlugin.registerCustomBang({
   isAction: true,
   fn: function (text) {
     setTimeout(function () { // wait so that the view placeholder is hidden
-      webviews.get(tabs.getSelected()).capturePage(function (image) {
+      webviews.get(tabs.getSelected()).capturePage().then(function (image) {
         remote.getCurrentWebContents().downloadURL(image.toDataURL())
       })
     }, 400)
@@ -62,7 +58,63 @@ bangsPlugin.registerCustomBang({
   fn: function (text) {
     if (confirm(l('clearHistoryConfirmation'))) {
       places.deleteAllHistory()
+      /* It's important not to delete data from file:// here, since that would also remove internal browser data (such as bookmarks) */
+      remote.session.defaultSession.clearStorageData({origin: 'http://'})
+      .then(function () {
+        remote.session.defaultSession.clearStorageData({origin: 'https://'})
+      })
     }
+  }
+})
+
+bangsPlugin.registerCustomBang({
+  phrase: '!enableblocking',
+  snippet: l('enableBlocking'),
+  isAction: true,
+  fn: function (text) {
+    var url = tabs.get(tabs.getSelected()).url
+    if (!url) {
+      return
+    }
+    var domain = new URL(url).hostname
+
+    var setting = settings.get('filtering')
+    if (!setting) {
+      setting = {}
+    }
+    if (!setting.exceptionDomains) {
+      setting.exceptionDomains = []
+    }
+    setting.exceptionDomains = setting.exceptionDomains.filter(d => d.replace(/^www\./g, '') !== domain.replace(/^www\./g, ''))
+    settings.set('filtering', setting)
+    webviews.callAsync(tabs.getSelected(), 'reload')
+  }
+})
+
+bangsPlugin.registerCustomBang({
+  phrase: '!disableblocking',
+  snippet: l('disableBlocking'),
+  isAction: true,
+  fn: function (text) {
+    var url = tabs.get(tabs.getSelected()).url
+    if (!url) {
+      return
+    }
+    var domain = new URL(url).hostname
+
+    var setting = settings.get('filtering')
+    if (!setting) {
+      setting = {}
+    }
+    if (!setting.exceptionDomains) {
+      setting.exceptionDomains = []
+    }
+    // make sure the domain isn't already an exception
+    if (!setting.exceptionDomains.some(d => d.replace(/^www\./g, '') === domain.replace(/^www\./g, ''))) {
+      setting.exceptionDomains.push(domain)
+    }
+    settings.set('filtering', setting)
+    webviews.callAsync(tabs.getSelected(), 'reload')
   }
 })
 

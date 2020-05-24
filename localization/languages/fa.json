@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "باز کردن در برگه جدید",
         "openInNewPrivateTab": "باز کردن در برگه خصوصی جدید",
         "viewImage": "نمایش تصویر",
@@ -36,6 +37,8 @@
         "viewReadingList": "نمایش لیست خواندن",
         "takeScreenshot": "عکس گرفتن از صفحه",
         "clearHistory": "حذف تاریخچه مرورگر",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "تغییر به وظیفه",
         "createTask": "ایجاد وظیفه جدید",
@@ -132,12 +135,17 @@
             "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "ظاهر",
-        "settingsDarkModeToggle": "فعال کردن حالت تاریک",
+        "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "فعال کردن دکمه بازگشت",
         "settingsAdditionalFeaturesHeading": "امکانات اضافه",
         "settingsUserscriptsToggle": "فعال کردن اسکریپت های کاربر",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "اسکریپت های کاربر این اجازه را به شما می دهند تا رفتار سایت ها را تغییر دهید - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اطلاعات بیشتر</a>."},
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": {"unsafeHTML": "اسکریپت های کاربر این اجازه را به شما می دهند تا رفتار سایت ها را تغییر دهید - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اطلاعات بیشتر</a>."},
+        "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "موتور جستجو",
         "settingsDefaultSearchEngine": "انتخاب موتور جستجوی پیش فرض:",

@@ -10,6 +10,20 @@ var enabledFilteringOptions = {
   exceptionDomains: []
 }
 
+// electron uses different names for resource types than ABP
+// electron: https://github.com/electron/electron/blob/34c4c8d5088fa183f56baea28809de6f2a427e02/shell/browser/net/atom_network_delegate.cc#L30
+// abp: https://adblockplus.org/filter-cheatsheet#filter-options
+var electronABPElementTypeMap = {
+  'mainFrame': 'document',
+  'subFrame': 'subdocument',
+  'stylesheet': 'stylesheet',
+  'script': 'script',
+  'image': 'image',
+  'object': 'object',
+  'xhr': 'xmlhttprequest',
+  'other': 'other' // ?
+}
+
 var parser = require('./ext/abp-filter-parser-modified/abp-filter-parser.js')
 var parsedFilterData = {}
 
@@ -26,13 +40,9 @@ function initFilterList () {
 }
 
 function requestIsThirdParty (baseDomain, requestURL) {
-  var requestDomain = parser.getUrlHost(requestURL)
-  if (baseDomain.startsWith('www.')) {
-    baseDomain = baseDomain.replace('www.', '')
-  }
-  if (requestDomain.startsWith('www.')) {
-    requestDomain = requestDomain.replace('www.', '')
-  }
+  baseDomain = baseDomain.replace(/^www\./g, '')
+  var requestDomain = parser.getUrlHost(requestURL).replace(/^www\./g, '')
+
   return !(parser.isSameOriginHost(baseDomain, requestDomain) || parser.isSameOriginHost(requestDomain, baseDomain))
 }
 
@@ -81,7 +91,7 @@ function handleRequest (details, callback) {
       // by doing this check second, we can skip checking same-origin requests if only third-party blocking is enabled
       var matchesFilters = parser.matches(parsedFilterData, details.url, {
         domain: domain,
-        elementType: details.resourceType
+        elementType: electronABPElementTypeMap[details.resourceType]
       })
       if (matchesFilters) {
         callback({
@@ -116,7 +126,7 @@ function setFilteringSettings (settings) {
 
   enabledFilteringOptions.contentTypes = settings.contentTypes
   enabledFilteringOptions.blockingLevel = settings.blockingLevel
-  enabledFilteringOptions.exceptionDomains = settings.exceptionDomains
+  enabledFilteringOptions.exceptionDomains = settings.exceptionDomains.map(d => d.replace(/^www\./g, ''))
 }
 
 function registerFiltering (ses) {

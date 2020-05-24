@@ -116,7 +116,7 @@ Readability.prototype = {
     // NOTE: These two regular expressions are duplicated in
     // Readability-readerable.js. Please keep both copies in sync.
     unlikelyCandidates: /-ad-|ai2html|banner|breadcrumbs|combx|comment|community|cover-wrap|disqus|extra|footer|gdpr|header|legends|menu|related|remark|replies|rss|shoutbox|sidebar|skyscraper|social|sponsor|supplemental|ad-break|agegate|pagination|pager|popup|yom-remote/i,
-    okMaybeItsACandidate: /and|article|body|column|main|shadow/i,
+    okMaybeItsACandidate: /and|article|body|column|content|main|shadow/i,
 
     positive: /article|body|content|entry|hentry|h-entry|main|page|pagination|post|text|blog|story/i,
     negative: /hidden|^hid$| hid$| hid |^hid |banner|combx|comment|com-|contact|foot|footer|footnote|gdpr|masthead|media|meta|outbrain|promo|related|scroll|share|shoutbox|sidebar|skyscraper|sponsor|shopping|tags|tool|widget/i,
@@ -332,11 +332,21 @@ Readability.prototype = {
     this._forEachNode(links, function(link) {
       var href = link.getAttribute("href");
       if (href) {
-        // Replace links with javascript: URIs with text content, since
+        // Remove links with javascript: URIs, since
         // they won't work after scripts have been removed from the page.
         if (href.indexOf("javascript:") === 0) {
-          var text = this._doc.createTextNode(link.textContent);
-          link.parentNode.replaceChild(text, link);
+          // if the link only contains simple text content, it can be converted to a text node
+          if (link.childNodes.length === 1 && link.childNodes[0].nodeType === this.TEXT_NODE) {
+            var text = this._doc.createTextNode(link.textContent);
+            link.parentNode.replaceChild(text, link);
+          } else {
+            // if the link has multiple children, they should all be preserved
+            var container = this._doc.createElement("span");
+            while (link.childNodes.length > 0) {
+              container.appendChild(link.childNodes[0]);
+            }
+            link.parentNode.replaceChild(container, link);
+          }
         } else {
           link.setAttribute("href", toAbsoluteURI(href));
         }
@@ -1786,9 +1796,11 @@ Readability.prototype = {
   },
 
   _isProbablyVisible: function(node) {
+    // Have to null-check node.style and node.className.indexOf to deal with SVG and MathML nodes.
     return (!node.style || node.style.display != "none")
       && !node.hasAttribute("hidden")
-      && (!node.hasAttribute("aria-hidden") || node.getAttribute("aria-hidden") != "true");
+      //check for "fallback-image" so that wikimedia math images are displayed
+      && (!node.hasAttribute("aria-hidden") || node.getAttribute("aria-hidden") != "true" || (node.className && node.className.indexOf && node.className.indexOf("fallback-image") !== -1));
   },
 
   /**

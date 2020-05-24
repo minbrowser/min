@@ -5,7 +5,8 @@
        /* Context menu items
        these are the items displayed in the menu when you right-click on a page
        */
-      "openInNewTab":"নতুন ট্যাবে খুলুন",
+      "pictureInPicture": null, //missing translation
+        "openInNewTab":"নতুন ট্যাবে খুলুন",
       "openInNewPrivateTab":"নতুন ব্যক্তিগত ট্যাবে খুলুন",
       "viewImage":"ভিউ ইমেজ",
       "openImageInNewTab":"চিত্রটি নতুন ট্যাবে খুলুন",
@@ -36,7 +37,9 @@
       "viewReadingList":"পঠন তালিকা দেখুন",
       "takeScreenshot":"একটি স্ক্রিনশট নিন",
       "clearHistory":"সমস্ত ইতিহাস সাফ করুন",
-      "clearHistoryConfirmation": null, //missing translation
+      "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
+        "clearHistoryConfirmation": null, //missing translation
       "switchToTask":"টাস্কে স্যুইচ করুন",
       "createTask":"একটি টাস্ক তৈরি করুন",
       "closeTask": null, //missing translation
@@ -132,13 +135,18 @@
         "unsafeHTML": null //missing translation
       },
       "settingsAppearanceHeading":"চেহারা",
-      "settingsDarkModeToggle":"অন্ধকার মোড সক্রিয় করুন",
+      "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
+      "settingsDarkModeNever": null, //"Never" missing translation
+      "settingsDarkModeNight": null, //"At night" missing translation
+      "settingsDarkModeAlways": null, //"Always" missing translation
       "settingsSiteThemeToggle": null, //missing translation
       "settingsHistoryButtonToggle":"ফিরে বোতাম সক্ষম করুন",
       "settingsAdditionalFeaturesHeading":"অতিরিক্ত বৈশিষ্ট্য",
       "settingsUserscriptsToggle":"ব্যবহারকারী স্ক্রিপ্ট সক্রিয় করুন",
-      "settingsUserscriptsExplanation": {"unsafeHTML": "ব্যবহারকারীর স্ক্রিপ্ট আপনাকে ওয়েবসাইটের আচরণ পরিবর্তন করার অনুমতি দেয় - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\"> আরও শিখুন </a>"},
-      "settingsUpdateNotificationsToggle": null, //missing translation
+      "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": {"unsafeHTML": "ব্যবহারকারীর স্ক্রিপ্ট আপনাকে ওয়েবসাইটের আচরণ পরিবর্তন করার অনুমতি দেয় - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\"> আরও শিখুন </a>"},
+      "settingsUserAgentToggle": null, //missing translation
+        "settingsUpdateNotificationsToggle": null, //missing translation
       "settingsSearchEngineHeading":"খোঁজ যন্ত্র",
       "settingsDefaultSearchEngine":"একটি ডিফল্ট অনুসন্ধান ইঞ্জিন চয়ন করুন:",
       "settingsDDGExplanation":"Searchbar এ তাত্ক্ষণিক উত্তর দেখতে ডিফল্ট অনুসন্ধান ইঞ্জিন হিসাবে DuckDuckGo সেট করুন।",

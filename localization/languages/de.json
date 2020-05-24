@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "Link in neuem Tab öffnen",
         "openInNewPrivateTab": "Link in neuem Inkognito-Tab öffnen",
         "viewImage": "Bild anzeigen",
@@ -36,6 +37,8 @@
         "viewReadingList": null, //missing translation
         "takeScreenshot": "Screenshot erstellen",
         "clearHistory": "Verlauf komplett löschen",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "zu Aufgabe wechseln",
         "createTask": "Aufgabe erstellen",
@@ -132,12 +135,17 @@
             "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "Aussehen",
-        "settingsDarkModeToggle": "Dark-Mode einschalten",
+        "settingsEnableDarkMode": "Dunkelmodus einschalten:", 
+        "settingsDarkModeNever": "Nein", 
+        "settingsDarkModeNight": "In der Nacht", 
+        "settingsDarkModeAlways": "Ständig", 
         "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsUserscriptsToggle": null, //missing translation
-        "settingsUserscriptsExplanation": null, //missing translation
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": null, //missing translation
+        "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Suchmaschine",
         "settingsDefaultSearchEngine": "Suchmaschine auswählen:",

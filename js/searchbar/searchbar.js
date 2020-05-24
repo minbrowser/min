@@ -1,18 +1,10 @@
 var webviews = require('webviews.js')
 var keybindings = require('keybindings.js')
-var browserUI = require('browserUI.js')
 var urlParser = require('util/urlParser.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 
 function openURLInBackground (url) { // used to open a url in the background, without leaving the searchbar
-  var newTab = tabs.add({
-    url: url,
-    private: tabs.get(tabs.getSelected()).private
-  })
-  browserUI.addTab(newTab, {
-    enterEditMode: false,
-    openInBackground: true
-  })
+  searchbar.events.emit('url-selected', {url: url, background: true})
 
   var i = searchbar.el.querySelector('.searchbar-item:focus')
   if (i) { // remove the highlight from an awesomebar result item, if there is one
@@ -23,6 +15,7 @@ function openURLInBackground (url) { // used to open a url in the background, wi
 var searchbar = {
   el: document.getElementById('searchbar'),
   associatedInput: null,
+  events: new EventEmitter(),
   show: function (associatedInput) {
     searchbar.el.hidden = false
     searchbar.associatedInput = associatedInput
@@ -84,7 +77,7 @@ var searchbar = {
       openURLInBackground(url)
       return true
     } else {
-      browserUI.navigate(tabs.getSelected(), url)
+      searchbar.events.emit('url-selected', {url: url, background: false})
       // focus the webview, so that autofocus inputs on the page work
       webviews.focus()
       return false
@@ -115,13 +108,11 @@ keybindings.defineShortcut('completeSearchbar', function () {
   if (searchbar.associatedInput) { // if the searchbar is open
     var value = searchbar.associatedInput.value
 
-    tabBar.leaveEditMode()
-
       // if the text is already a URL, navigate to that page
     if (urlParser.isURLMissingProtocol(value)) {
-      browserUI.navigate(tabs.getSelected(), value)
+      searchbar.events.emit('url-selected', {url: value, background: false})
     } else {
-      browserUI.navigate(tabs.getSelected(), urlParser.parse(value + '.com'))
+      searchbar.events.emit('url-selected', {url: urlParser.parse(value + '.com'), background: false})
     }
   }
 })

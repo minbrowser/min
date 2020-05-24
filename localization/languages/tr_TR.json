@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "Yeni Pencerede Aç",
         "openInNewPrivateTab": "Yeni Özel Sekmede Aç",
         "viewImage": "Resmi Göster",
@@ -36,6 +37,8 @@
         "viewReadingList": "Okuma Listesini Görüntüle",
         "takeScreenshot": "Ekran Görüntüsü Al",
         "clearHistory": "Tüm Geçmişi Temizle",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": "Tüm geçmişi ve tarama verilerini silmek istiyor musunuz?",
         "switchToTask": "Göreve Geç",
         "createTask": "Görev Oluştur",
@@ -132,12 +135,17 @@
             "unsafeHTML": "EasyList ve EasyPrivacy temel alınmıştır, <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList yaratıcıları</a> tarafından oluşturuldu.(<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">lisansı görüntüle</a>)."
         },
         "settingsAppearanceHeading": "Görünüm",
-        "settingsDarkModeToggle": "Koyu modu etkinleştir",
+        "settingsEnableDarkMode": "Koyu modu etkinleştir:",
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": "Site temasını etkinleştir",
         "settingsHistoryButtonToggle": "Geri al düğmesini etkinleştir",
         "settingsAdditionalFeaturesHeading": "Ek Özellikler",
         "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."},
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": {"unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."},
+        "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": "Güncelleştirmeleri otomatik olarak denetle",
         "settingsSearchEngineHeading": "Arama Motoru",
         "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçin:",

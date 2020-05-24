@@ -2,10 +2,12 @@ document.title = l('settingsPreferencesHeading') + ' | Min'
 
 var container = document.getElementById('privacy-settings-container')
 var banner = document.getElementById('restart-required-banner')
-var darkModeCheckbox = document.getElementById('checkbox-dark-mode')
 var siteThemeCheckbox = document.getElementById('checkbox-site-theme')
 var historyButtonCheckbox = document.getElementById('checkbox-history-button')
 var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
+var separateTitlebarCheckbox = document.getElementById('checkbox-separate-titlebar')
+var userAgentCheckbox = document.getElementById('checkbox-user-agent')
+var userAgentInput = document.getElementById('input-user-agent')
 
 function showRestartRequiredBanner () {
   banner.hidden = false
@@ -14,19 +16,19 @@ function showRestartRequiredBanner () {
 /* content blocking settings */
 
 var trackingLevelContainer = document.getElementById('tracking-level-container')
-var trackingLevelOptions = Array.from(document.querySelectorAll('input[name=blockingLevel]'))
+var trackingLevelOptions = Array.from(trackingLevelContainer.querySelectorAll('input[name=blockingLevel]'))
 var blockingExceptionsContainer = document.getElementById('content-blocking-information')
 var blockingExceptionsInput = document.getElementById('content-blocking-exceptions')
 
 function updateBlockingLevelUI (level) {
-  trackingLevelOptions[level].checked = true
+  var radio = trackingLevelOptions[level]
+  radio.checked = true
 
   if (level === 0) {
     blockingExceptionsContainer.hidden = true
   } else {
     blockingExceptionsContainer.hidden = false
-    var insertionPoint = Array.from(trackingLevelContainer.children).indexOf(trackingLevelOptions[level]) + 2
-    trackingLevelContainer.insertBefore(blockingExceptionsContainer, trackingLevelContainer.children[insertionPoint])
+    radio.parentNode.appendChild(blockingExceptionsContainer)
   }
 }
 
@@ -147,13 +149,31 @@ for (var contentType in contentTypes) {
 }
 
 /* dark mode setting */
+var darkModeNever = document.getElementById('dark-mode-never')
+var darkModeNight = document.getElementById('dark-mode-night')
+var darkModeAlways = document.getElementById('dark-mode-always')
 
+// -1 - off ; 0 - auto ; 1 - on
 settings.get('darkMode', function (value) {
-  darkModeCheckbox.checked = value
+  darkModeNever.checked = (value === -1)
+  darkModeNight.checked = (value === 0 || value === undefined || value === false)
+  darkModeAlways.checked = (value === 1 || value === true)
 })
 
-darkModeCheckbox.addEventListener('change', function (e) {
-  settings.set('darkMode', this.checked)
+darkModeNever.addEventListener('change', function (e) {
+  if (this.checked) {
+    settings.set('darkMode', -1)
+  }
+})
+darkModeNight.addEventListener('change', function (e) {
+  if (this.checked) {
+    settings.set('darkMode', 0)
+  }
+})
+darkModeAlways.addEventListener('change', function (e) {
+  if (this.checked) {
+    settings.set('darkMode', 1)
+  }
 })
 
 /* site theme setting */
@@ -194,6 +214,52 @@ settings.get('userscriptsEnabled', function (value) {
 
 userscriptsCheckbox.addEventListener('change', function (e) {
   settings.set('userscriptsEnabled', this.checked)
+  showRestartRequiredBanner()
+})
+
+/* separate titlebar setting */
+
+if (navigator.platform.includes('Linux')) {
+  document.getElementById('section-separate-titlebar').hidden = false
+}
+
+settings.get('useSeparateTitlebar', function (value) {
+  if (value === true) {
+    separateTitlebarCheckbox.checked = true
+  }
+})
+
+separateTitlebarCheckbox.addEventListener('change', function (e) {
+  settings.set('useSeparateTitlebar', this.checked)
+  showRestartRequiredBanner()
+})
+
+/* user agent settting */
+
+settings.get('customUserAgent', function (value) {
+  if (value) {
+    userAgentCheckbox.checked = true
+    userAgentInput.style.opacity = 1
+    userAgentInput.value = value
+  }
+})
+
+userAgentCheckbox.addEventListener('change', function (e) {
+  if (this.checked) {
+    userAgentInput.style.opacity = 1
+  } else {
+    settings.set('customUserAgent', null)
+    userAgentInput.style.opacity = 0
+    showRestartRequiredBanner()
+  }
+})
+
+userAgentInput.addEventListener('input', function (e) {
+  if (this.value) {
+    settings.set('customUserAgent', this.value)
+  } else {
+    settings.set('customUserAgent', null)
+  }
   showRestartRequiredBanner()
 })
 
@@ -344,3 +410,30 @@ function onKeyMapChange (e) {
     })
   })
 }
+
+/* Password auto-fill settings  */
+
+var passwordManagersDropdown = document.getElementById('selected-password-manager')
+
+settings.onLoad(function () {
+  for (var manager in passwordManagers) {
+    var item = document.createElement('option')
+    item.textContent = passwordManagers[manager].name
+
+    if (manager == currentPasswordManager.name) {
+      item.setAttribute('selected', 'true')
+    }
+
+    passwordManagersDropdown.appendChild(item)
+  }
+})
+
+passwordManagersDropdown.addEventListener('change', function (e) {
+  if (this.value === 'none') {
+    settings.set('passwordManager', null)
+    currentPasswordManager = null
+  } else {
+    settings.set('passwordManager', { name: this.value })
+    currentPasswordManager = this.value
+  }
+})

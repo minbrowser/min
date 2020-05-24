@@ -6,7 +6,7 @@ const searchEngine = require('util/searchEngine.js')
 const urlParser = require('util/urlParser.js')
 
 const places = {
-  savePage: function (tabId, extractedText, metadata) {
+  savePage: function (tabId, extractedText) {
     /* this prevents pages that are immediately left from being saved to history, and also gives the page-favicon-updated event time to fire (so the colors saved to history are correct). */
     setTimeout(function () {
       const tab = tabs.get(tabId)
@@ -15,8 +15,7 @@ const places = {
           url: tab.url,
           title: tab.title,
           color: tab.backgroundColor,
-          extractedText: extractedText,
-          metadata: metadata
+          extractedText: extractedText
         }
 
         places.worker.postMessage({
@@ -29,11 +28,11 @@ const places = {
       }
     }, 500)
   },
-  receiveHistoryData: function (webview, tabId, args) {
+  receiveHistoryData: function (tabId, args) {
     // called when js/preload/textExtractor.js returns the page's text content
 
-    var tab = tabs.get(tabId),
-      data = args[0]
+    var tab = tabs.get(tabId)
+    var data = args[0]
 
     if (tab.url.startsWith('data:') || tab.url.length > 5000) {
       /*
@@ -53,15 +52,11 @@ const places = {
     // full-text data from search results isn't useful
     if (isSearchPage) {
       data.extractedText = ''
-    } else {
-      // include page URL tokens and title in search text
-      // this allows for queries that include both the site name and some text from the page
-      data.extractedText = urlParser.removeProtocol(tab.url).substr(0, 200) + ' ' + tab.title + ' ' + data.extractedText
     }
 
     // don't save to history if in private mode, or the page is a browser page (unless it contains the content of a normal page)
     if (tab.private === false && !isNonIndexableInternalPage) {
-      places.savePage(tabId, data.extractedText, data.metadata)
+      places.savePage(tabId, data.extractedText)
     }
   },
   callbacks: [],

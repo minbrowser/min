@@ -14,17 +14,13 @@ const legacyModules = [
   'dist/localization.build.js',
   'js/tabState.js',
   'js/default.js',
-  'js/windowsCaptionButtons.js',
+  'js/windowControls.js',
   'js/searchbar/customBangs.js',
-  'js/searchbar/bookmarkManager.js',
-  'js/readerview.js',
-  'js/navbar/tabBar.js',
   'js/taskOverlay/taskOverlay.js',
   'js/navbar/addTabButton.js',
   'js/navbar/menuButton.js',
   'js/userscripts.js',
-  'js/sessionRestore.js',
-  'js/util/theme.js'
+  'js/sessionRestore.js'
 ]
 
 function buildBrowser () {

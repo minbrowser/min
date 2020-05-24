@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "Ouvrir dans un nouvel onglet",
         "openInNewPrivateTab": "Ouvrir dans un onglet de navigation privée",
         "viewImage": "Voir l'image",
@@ -36,6 +37,8 @@
         "viewReadingList": "Voir la liste de lecture",
         "takeScreenshot": "Prendre une capture d'écran",
         "clearHistory": "Vider l'historique",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Changer de tâche",
         "createTask": "Créer une tâche",
@@ -132,12 +135,17 @@
             "unsafeHTML": "Basé sur EasyList et EasyPrivacy, créé par <a target=\"_blank\" href=\"https://easylist.to/\">Les auteurs de Easylist</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">voir la license</a>)."
         },
         "settingsAppearanceHeading": "Apparence",
-        "settingsDarkModeToggle": "Activer le mode nuit",
+        "settingsEnableDarkMode": "Activer le mode nuit:", //"Enable dark mode:" missing translation
+        "settingsDarkModeNever": "Jamais", // googled
+        "settingsDarkModeNight": "La nuit", // googled
+        "settingsDarkModeAlways": "Toujours", // googled
         "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Activer le bouton navigation",
         "settingsAdditionalFeaturesHeading": "Fonctionnalités supplémentaires",
         "settingsUserscriptsToggle": "Activer les scripts personnalisés",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "Les scripts personnalisés vous permettent de modifier le comportement des pages web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">en savoir plus (en anglais)</a>."},
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": {"unsafeHTML": "Les scripts personnalisés vous permettent de modifier le comportement des pages web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">en savoir plus (en anglais)</a>."},
+        "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": "Vérifier automatiquement pour des mises à jour",
         "settingsSearchEngineHeading": "Moteur de recherche",
         "settingsDefaultSearchEngine": "Choisir un moteur de recherche par défaut :",

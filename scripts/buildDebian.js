@@ -34,7 +34,7 @@ require('./createPackage.js')((isRaspbian) ? 'raspbian' : 'linux').then(function
       'libnss3',
       'libxss1',
       'libxtst6',
-      'python',
+      'python | python3',
       'xdg-utils'
     ],
     scripts: {

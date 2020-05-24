@@ -4,44 +4,67 @@ if (typeof require !== 'undefined') {
 
 function shouldEnableDarkMode () {
   var hours = new Date().getHours()
-  return hours > 21 || hours < 6
+  return (hours > 21 || hours < 6)
 }
 
 function enableDarkMode () {
   document.body.classList.add('dark-mode')
   window.isDarkMode = true
-  window.dispatchEvent(new CustomEvent('themechange'))
+  requestAnimationFrame(function () {
+    window.dispatchEvent(new CustomEvent('themechange'))
+  })
 }
 
 function disableDarkMode () {
   document.body.classList.remove('dark-mode')
   window.isDarkMode = false
-  window.dispatchEvent(new CustomEvent('themechange'))
+  requestAnimationFrame(function () {
+    window.dispatchEvent(new CustomEvent('themechange'))
+  })
 }
 
 var themeInterval = null
 
-settings.listen('darkMode', function (value) {
-  clearInterval(themeInterval)
+function initialize () {
+  settings.listen('darkMode', function (value) {
+    clearInterval(themeInterval)
 
-  if (value === true) {
-    enableDarkMode()
-    return
-  }
+    // 1 or true: dark mode is always enabled
+    if (value === 1 || value === true) {
+      enableDarkMode()
+      return
+    }
 
-  if (shouldEnableDarkMode()) {
-    enableDarkMode()
-  } else {
-    disableDarkMode()
-  }
-
-  themeInterval = setInterval(function () {
-    if (shouldEnableDarkMode()) {
-      if (!window.isDarkMode) {
+    // 0 or undefined: automatic dark mode
+    if (value === undefined || value === 0 || value === false) {
+      // If it is night and darkMode is set to auto/default
+      if (shouldEnableDarkMode()) {
         enableDarkMode()
+      } else {
+        disableDarkMode()
       }
-    } else if (window.isDarkMode) {
+
+      themeInterval = setInterval(function () {
+        if (shouldEnableDarkMode()) {
+          if (!window.isDarkMode) {
+            enableDarkMode()
+          }
+        } else if (window.isDarkMode) {
+          disableDarkMode()
+        }
+      }, 10000)
+    }
+
+    // -1: never enable
+
+    if (value === -1) {
       disableDarkMode()
     }
-  }, 10000)
-})
+  })
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = {initialize}
+} else {
+  initialize()
+}

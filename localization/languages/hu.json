@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": null, //missing translation
         "openInNewTab": "Megnyitás új fülön",
         "openInNewPrivateTab": "Megnyitás új privát fülön",
         "viewImage": "Kép megtekintése",
@@ -36,6 +37,8 @@
         "viewReadingList": "Olvasási lista megtekintése",
         "takeScreenshot": "Képernyőkép készitése",
         "clearHistory": "Összes történet törlés",
+        "enableBlocking": null, //missing translation
+        "disableBlocking": null, //missing translation
         "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Feladat váltása",
         "createTask": "Feladat létrehozás",
@@ -132,12 +135,17 @@
             "unsafeHTML": null //missing translation
         },
         "settingsAppearanceHeading": "Megjelenés",
-        "settingsDarkModeToggle": "Kapcsolja be a sötét nézetet",
+        "settingsEnableDarkMode": "Kapcsolja be a sötét nézetet:", 
+        "settingsDarkModeNever": null, //"Never" missing translation
+        "settingsDarkModeNight": null, //"At night" missing translation
+        "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": null, //missing translation
         "settingsHistoryButtonToggle": "Vissza gomb bekapcsolása",
         "settingsAdditionalFeaturesHeading": "További beállítások",
         "settingsUserscriptsToggle": "Felhasználói szkriptek",
-        "settingsUserscriptsExplanation": "Felhasználói szkript magyarázat",
+        "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsUserscriptsExplanation": "Felhasználói szkript magyarázat",
+        "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Keresőmotor",
         "settingsDefaultSearchEngine": "Válasza ki az alap keresőmotort:",

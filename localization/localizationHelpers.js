@@ -46,6 +46,7 @@ function l (stringId) {
 /* for static HTML pages
 insert a localized string into all elements with a [data-string] attribute
 set the correct attributes for all elements with a [data-label] attribute
+set the value attribute for all elements with a [data-value] attribute
  */
 
 if (typeof document !== 'undefined') {
@@ -66,6 +67,15 @@ if (typeof document !== 'undefined') {
       throw new Error('invalid data-label value: ' + str)
     }
   })
+  document.querySelectorAll('[data-value]').forEach(function (el) {
+    var str = l(el.getAttribute('data-value'))
+    if (typeof str === 'string') {
+      el.setAttribute('value', str)
+    } else {
+      throw new Error('invalid data-value value: ' + str)
+    }
+  })
+
 }
 if (typeof window !== 'undefined') {
   window.l = l

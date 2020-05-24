@@ -13,7 +13,7 @@ body[theme="dark"] {
 
 body[theme="sepia"] {
 	background-color: rgb(245, 237, 220);
-	color: rgba(80, 55, 35, 1);
+	color: rgb(68, 47, 30);
 }
 
 iframe {
@@ -84,6 +84,10 @@ img, picture, video {
 	height: auto;
 	margin: auto;
 }
+body[theme="dark"] img,
+body[theme="dark"] picture {
+	filter: brightness(0.95);
+}
 p {
 	line-height: 1.5em;
 	word-break: break-word;
@@ -151,7 +155,11 @@ table {
 }
 
 @media all and (min-width: 600px) {
-	[domain*="wikipedia.org"] table:first-child {
+	/* TODO find a way to simplify this */
+	[domain*="wikipedia.org"] table:first-child,
+	[domain*="wikipedia.org"] table:first-child + table,
+	[domain*="wikipedia.org"] table:first-child + table + table,
+	[domain*="wikipedia.org"] table:first-child + table + table + table {
 		width: 50%;
 		float: right;
 		margin-left: 2em;
@@ -205,6 +213,11 @@ figure figcaption [itemprop=copyrightHolder] {
 
 .mw-editsection {
 	display: none;
+}
+
+summary p,
+summary div {
+	display: inline;
 }
 
 /* wsj.com */

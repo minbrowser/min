@@ -4,25 +4,11 @@ var webviews = require('webviews.js')
 var webviewGestures = require('webviewGestures.js')
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
+var modalMode = require('modalMode.js')
 var findinpage = require('findinpage.js')
 var PDFViewer = require('pdfViewer.js')
-
-function addPrivateTab () {
-    /* new tabs can't be created in focus mode */
-  if (focusMode.enabled()) {
-    focusMode.warn()
-    return
-  }
-
-  if (!tabs.get(tabs.getSelected()).url && !tabs.get(tabs.getSelected()).private) {
-    browserUI.destroyTab(tabs.getSelected())
-  }
-
-  var privateTab = tabs.add({
-    private: true
-  })
-  browserUI.addTab(privateTab)
-}
+var tabEditor = require('navbar/tabEditor.js')
+var readerView = require('readerView.js')
 
 module.exports = {
   initialize: function () {
@@ -45,69 +31,68 @@ module.exports = {
         readerView.printArticle(tabs.getSelected())
       } else {
       // TODO figure out why webContents.print() doesn't work in Electron 4
-        webviews.get(tabs.getSelected()).executeJavaScript('window.print()')
+        webviews.callAsync(tabs.getSelected(), 'executeJavaScript', 'window.print()')
       }
     })
 
     ipc.on('findInPage', function () {
+      /* Page search is not available in modal mode. */
+      if (modalMode.enabled()) {
+        return
+      }
+
       findinpage.start()
     })
 
     ipc.on('inspectPage', function () {
-      webviews.get(tabs.getSelected()).openDevTools()
+      webviews.callAsync(tabs.getSelected(), 'openDevTools')
     })
 
     ipc.on('showReadingList', function () {
         // open the searchbar with "!readinglist " as the input
-      tabBar.enterEditMode(tabs.getSelected(), '!readinglist ')
+      tabEditor.show(tabs.getSelected(), '!readinglist ')
     })
 
     ipc.on('showBookmarks', function () {
-      tabBar.enterEditMode(tabs.getSelected(), '!bookmarks ')
+      tabEditor.show(tabs.getSelected(), '!bookmarks ')
     })
 
     ipc.on('showHistory', function () {
-      tabBar.enterEditMode(tabs.getSelected(), '!history ')
+      tabEditor.show(tabs.getSelected(), '!history ')
     })
 
     ipc.on('duplicateTab', function (e) {
-        /* new tabs can't be created in focus mode */
+      if (modalMode.enabled()) {
+        return
+      }
+
       if (focusMode.enabled()) {
         focusMode.warn()
         return
       }
 
-        // can't duplicate if tabs is empty
-      if (tabs.isEmpty()) {
-        return
-      }
-
-      const sourceTab = tabs.get(tabs.getSelected())
-        // strip tab id so that a new one is generated
-      const newTab = tabs.add({...sourceTab, id: undefined})
-
-      browserUI.addTab(newTab, { enterEditMode: false })
+      browserUI.duplicateTab(tabs.getSelected())
     })
 
     ipc.on('addTab', function (e, data) {
-        /* new tabs can't be created in focus mode */
+      /* new tabs can't be created in modal mode */
+      if (modalMode.enabled()) {
+        return
+      }
+
+      /* new tabs can't be created in focus mode */
       if (focusMode.enabled()) {
         focusMode.warn()
         return
       }
 
-        // if opening a URL (instead of adding an empty tab), and the current tab is empty, navigate the current tab rather than creating another one
-      if (!tabs.get(tabs.getSelected()).url && data.url) {
-        browserUI.navigate(tabs.getSelected(), data.url)
-      } else {
-        var newTab = tabs.add({
-          url: data.url || ''
-        })
+      var newTab = tabs.add({
+        url: data.url || ''
+      })
 
-        browserUI.addTab(newTab, {
-          enterEditMode: !data.url // only enter edit mode if the new tab is empty
-        })
-      }
+      browserUI.addTab(newTab, {
+        enterEditMode: !data.url // only enter edit mode if the new tab is empty
+      })
     })
 
     ipc.on('saveCurrentPage', function () {
@@ -131,37 +116,33 @@ module.exports = {
         if (!savePath.endsWith('.html')) {
           savePath = savePath + '.html'
         }
-        webviews.get(currentTab.id).savePage(savePath, 'HTMLComplete')
+        webviews.callAsync(tabs.getSelected(), 'savePage', [savePath, 'HTMLComplete'])
       }
     })
 
-    ipc.on('addPrivateTab', addPrivateTab)
+    ipc.on('addPrivateTab', function () {
+      /* new tabs can't be created in modal mode */
+      if (modalMode.enabled()) {
+        return
+      }
 
-    ipc.on('addTask', function () {
-  /* new tasks can't be created in focus mode */
+      /* new tabs can't be created in focus mode */
       if (focusMode.enabled()) {
         focusMode.warn()
         return
       }
 
-      browserUI.addTask()
-      taskOverlay.show()
-      setTimeout(function () {
-        taskOverlay.hide()
-        tabBar.enterEditMode(tabs.getSelected())
-      }, 600)
+      browserUI.addTab(tabs.add({
+        private: true
+      }))
     })
 
     ipc.on('goBack', function () {
-      try {
-        webviews.get(tabs.getSelected()).goBack()
-      } catch (e) {}
+      webviews.callAsync(tabs.getSelected(), 'goBack')
     })
 
     ipc.on('goForward', function () {
-      try {
-        webviews.get(tabs.getSelected()).goForward()
-      } catch (e) {}
+      webviews.callAsync(tabs.getSelected(), 'goForward')
     })
   }
 }

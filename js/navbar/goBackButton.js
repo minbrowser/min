@@ -8,7 +8,7 @@ var goBackButton = {
       goBackButton.element.disabled = true
       return
     }
-    webviews.callAsync(tabs.getSelected(), 'canGoBack', null, function (err, canGoBack) {
+    webviews.callAsync(tabs.getSelected(), 'canGoBack', function (err, canGoBack) {
       goBackButton.element.disabled = !canGoBack
     })
   },

@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": "Зображення в зображенні",
         "openInNewTab": "Відкрити в новій вкладці",
         "openInNewPrivateTab": "Відкрити в приватній вкладці",
         "viewImage": "Переглянути зображення",
@@ -36,6 +37,8 @@
         "viewReadingList": "Переглянути список читання",
         "takeScreenshot": "Зробити знімок екрану",
         "clearHistory": "Очистити історію",
+        "enableBlocking": "Увімкнути блокування вмісту для цього сайту",
+        "disableBlocking": "Вимкнути блокування вмісту для цього сайту",
         "clearHistoryConfirmation": "Очистити всю історію та дані веб-перегляду?",
         "switchToTask": "Перейти до завдання",
         "createTask": "Створити завдання",
@@ -133,11 +136,17 @@
         },
         "settingsAppearanceHeading": "Зовнішній вигляд",
         "settingsDarkModeToggle": "Увімкнути темний режим",
+        "settingsEnableDarkMode": "Увімкнути темний режим: ",
+        "settingsDarkModeNever": "Ніколи", 
+        "settingsDarkModeNight": "Вночі", 
+        "settingsDarkModeAlways": "Завжди", 
         "settingsSiteThemeToggle": "Увімкнути тему сайту",
         "settingsHistoryButtonToggle": "Увімкнути кнопку \"Назад\"",
         "settingsAdditionalFeaturesHeading": "Додаткові можливості",
         "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."},
+        "settingsSeparateTitlebarToggle": "Використовувати окремий рядок заголовка",
+		"settingsUserscriptsExplanation": {"unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."},
+        "settingsUserAgentToggle": "Використовувати власний агент користувача",
         "settingsUpdateNotificationsToggle": "Автоматично перевіряти наявність оновлень",
         "settingsSearchEngineHeading": "Пошукова система",
         "settingsDefaultSearchEngine": "Виберіть типову пошукову систему:",
@@ -198,6 +207,36 @@
         "downloadStateCompleted": "Завершено",
         "downloadStateFailed": "Невдача",
         /* Update Notifications */
-        "updateNotificationTitle": "Доступна нова версія Min"
+        "updateNotificationTitle": "Доступна нова версія Min",
+        /* Autofill settings */
+        "settingsPasswordAutoFillHeadline": "Автозаповнення пароля",
+        "settingsSelectPasswordManager": "Виберіть один із підтримуваних менеджерів паролів:",
+        /* Password manager setup */
+        "passwordManagerSetupHeading": "Завершіть налаштування %p щоб використовувати автозаповнення",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "Спочатку <a id='password-manager-setup-link'></a> і розпакуйте його для Вашої системи."
+        },
+        "passwordManagerInstallerSetup": {
+			"unsafeHTML": "Завантажте <a id='password-manager-setup-link-installer'></a> і перетягніть файл у поле нижче:"
+		},
+        "passwordManagerSetupLink": "завантажте інструмент CLI %p",
+        "passwordManagerSetupLinkInstaller": "встановлювач CLI %p",
+        "passwordManagerSetupStep2": "Потім перетягніть інструмент у поле нижче:",
+        "passwordManagerSetupDragBox": "Перетягніть інструмент сюди",
+        "passwordManagerSetupInstalling": "Встановлення...",
+        "passwordManagerSetupSignIn": "Увійдіть до менеджера паролів, щоб почати використовувати автозаповнення. Ваші облікові дані не зберігатимуться ніде в межах Min.",
+        "disableAutofill": "Вимкнути автозаповнення",
+        "autofillNotNow": "Не зараз",
+        "passwordManagerSetupUnlockError": "Не вдалося розблокувати сховище паролів: ",
+        "passwordManagerSetupRetry": "Переконайтеся, що використовуєте правильний файл та ввели правильний пароль. Ви можете повторити спробу, перетягнувши сюди інструмент ще раз.",
+        "passwordManagerUnlock": "Введіть головний пароль %p, щоб розблокувати сховище паролів:",
+        /* Dialogs */
+        "loginPromptTitle": "Увійти на %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+        "dialogConfirmButton": "Підтвердити",
+        "dialogSkipButton": "Скасувати",
+        "username": "Ім'я користувача",
+        "email": "Електронна пошта",
+        "password": "Пароль",
+        "secretKey": "Секретний ключ"
     }
 }

@@ -1,0 +1,97 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  font-family: '.SFNSText-Regular', 'Helvetica Neue', 'Arial', sans-serif;
+  overflow: auto;
+}
+
+html {
+  display: table;
+  margin: auto;
+}
+
+body {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+p {
+  padding: 0.5em;
+}
+
+input[type='button'] {
+  padding: 0.2em;
+}
+
+input[type='text'] {
+  width: 100%;
+}
+
+input[type='password'] {
+  width: 100%;
+}
+
+input:hover[type='button'] {
+  background-color: '#aaaaaa'
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  width: 100%;
+}
+
+.container.padding {
+  padding: 0 1em;
+  padding-right: 2em;
+}
+
+.input-container {
+  margin-left: 0.5em;
+  margin-right: 1em;
+  padding: 0.4em;
+  width: 100%;
+  background: #f8f8f8;
+}
+
+.dark-mode .input-container {
+  background: rgb(43, 48, 56);
+}
+
+#data {
+  width: 100%;
+  left: 0;
+  right: 0;
+}
+
+.buttons {
+  margin-top: 0.5em;
+  float: right;
+}
+
+.dark-mode {
+  background-color: rgb(33, 37, 43);
+  color: lightgrey;
+}
+
+.dark-mode a {
+  color: dodgerblue;
+}
+
+.dark-mode input {
+  background-color: rgb(40, 44, 52);
+  color: white;
+  border-color: transparent;
+}
+
+.dark-mode input:hover[type='button'] {
+  background-color: rgb(80, 84, 92);
+}

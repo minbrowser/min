@@ -1,9 +1,11 @@
 var browserUI = require('browserUI.js')
+var webviews = require('webviews.js')
+var tabEditor = require('navbar/tabEditor.js')
 
 window.sessionRestore = {
-  savePath: userDataPath + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
+  savePath: window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
   previousState: null,
-  save: throttle(function () {
+  save: function (forceSave, sync) {
     var stateString = JSON.stringify(tasks.getStringifyableState())
     var data = {
       version: 2,
@@ -19,11 +21,19 @@ window.sessionRestore = {
       })
     }
 
-    if (stateString !== sessionRestore.previousState) {
-      fs.writeFile(sessionRestore.savePath, JSON.stringify(data), function () {})
+    if (forceSave === true || stateString !== sessionRestore.previousState) {
+      if (sync === true) {
+        fs.writeFileSync(sessionRestore.savePath, JSON.stringify(data))
+      } else {
+        fs.writeFile(sessionRestore.savePath, JSON.stringify(data), function (err) {
+          if (err) {
+            console.warn(err)
+          }
+        })
+      }
       sessionRestore.previousState = stateString
     }
-  }, 5000),
+  },
   restore: function () {
     var savedStringData
     try {
@@ -80,7 +90,7 @@ window.sessionRestore = {
       if (tasks.getSelected().tabs.isEmpty() || (!data.saveTime || Date.now() - data.saveTime < 30000)) {
         browserUI.switchToTask(data.state.selectedTask)
         if (tasks.getSelected().tabs.isEmpty()) {
-          tabBar.enterEditMode(tasks.getSelected().tabs.getSelected())
+          tabEditor.show(tasks.getSelected().tabs.getSelected())
         }
       } else {
         window.createdNewTaskOnStartup = true
@@ -88,7 +98,7 @@ window.sessionRestore = {
         var lastTask = tasks.byIndex(tasks.getLength() - 1)
         if (lastTask && lastTask.tabs.isEmpty() && !lastTask.name) {
           browserUI.switchToTask(lastTask.id)
-          tabBar.enterEditMode(lastTask.tabs.getSelected())
+          tabEditor.show(lastTask.tabs.getSelected())
         } else {
           browserUI.addTask()
         }
@@ -103,7 +113,7 @@ window.sessionRestore = {
           setTimeout(function () {
             if (data.available && data.url) {
               if (tasks.getSelected().tabs.isEmpty()) {
-                browserUI.navigate(tasks.getSelected().tabs.getSelected(), data.url)
+                webviews.update(tasks.getSelected().tabs.getSelected(), data.url)
               } else {
                 var surveyTab = tasks.getSelected().tabs.add({
                   url: data.url
@@ -120,7 +130,7 @@ window.sessionRestore = {
 
       console.error('restoring session failed: ', e)
 
-      var backupSavePath = require('path').join(remote.app.getPath('userData'), 'sessionRestoreBackup-' + Date.now() + '.json')
+      var backupSavePath = require('path').join(window.globalArgs['user-data-path'], 'sessionRestoreBackup-' + Date.now() + '.json')
 
       fs.writeFileSync(backupSavePath, savedStringData)
 
@@ -143,6 +153,8 @@ window.sessionRestore = {
 
 sessionRestore.restore()
 
-tasks.on('tab-selected', sessionRestore.save)
+setInterval(sessionRestore.save, 30000)
 
-setInterval(sessionRestore.save, 12500)
+window.onbeforeunload = function (e) {
+  sessionRestore.save(true, true)
+}

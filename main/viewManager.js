@@ -6,15 +6,23 @@ const BrowserView = electron.BrowserView
 function createView (id, webPreferencesString, boundsString, events) {
   let view = new BrowserView(JSON.parse(webPreferencesString))
 
-  events.forEach(function (ev) {
-    view.webContents.on(ev.event, function (e) {
-      if (ev.options && ev.options.preventDefault) {
+  events.forEach(function (event) {
+    view.webContents.on(event, function (e) {
+      /*
+      new-window is special in two ways:
+      * its arguments contain a webContents object that can't be serialized and needs to be removed.
+      * If it is being handled by the UI process, preventDefault() needs to be called in order not to create a new window.
+      */
+      var args = Array.prototype.slice.call(arguments).slice(1)
+      if (event === 'new-window') {
         e.preventDefault()
+        args = args.slice(0, 3)
       }
+
       mainWindow.webContents.send('view-event', {
         viewId: id,
-        eventId: ev.id,
-        args: Array.prototype.slice.call(arguments).slice(1)
+        event: event,
+        args: args
       })
     })
   })
@@ -23,7 +31,29 @@ function createView (id, webPreferencesString, boundsString, events) {
     mainWindow.webContents.send('view-ipc', {
       id: id,
       name: channel,
-      data: data
+      data: data,
+      frameId: e.frameId
+    })
+  })
+
+  // Open a login prompt when site asks for http authentication
+  view.webContents.on('login', (event, authenticationResponseDetails, authInfo, callback) => {
+    if (authInfo.scheme !== 'basic') {  // Only for basic auth
+      return
+    }
+    event.preventDefault()
+    var title = l('loginPromptTitle').replace('%h', authInfo.host).replace('%r', authInfo.realm)
+    createPrompt({
+      text: title,
+      values: [{ placeholder: l('username'), id: 'username', type: 'text' },
+               { placeholder: l('password'), id: 'password', type: 'password' }],
+      ok: l('dialogConfirmButton'),
+      cancel: l('dialogSkipButton'),
+      width: 400,
+      height: 200
+    }, function (result) {
+       // resend request with auth credentials
+      callback(result.username, result.password)
     })
   })
 
@@ -66,9 +96,10 @@ function setBounds (id, bounds) {
 
 function focusView (id) {
   // empty views can't be focused because they won't propogate keyboard events correctly, see https://github.com/minbrowser/min/issues/616
-  if (viewMap[id].webContents.getURL() !== '' || viewMap[id].webContents.isLoading()) {
+  // also, make sure the view exists, since it might not if the app is shutting down
+  if (viewMap[id] && (viewMap[id].webContents.getURL() !== '' || viewMap[id].webContents.isLoading())) {
     viewMap[id].webContents.focus()
-  } else {
+  } else if (mainWindow) {
     mainWindow.webContents.focus()
   }
 }
@@ -80,6 +111,14 @@ function hideCurrentView () {
 
 function getView (id) {
   return viewMap[id]
+}
+
+function getViewIDFromWebContents (contents) {
+  for (var id in viewMap) {
+    if (viewMap[id].webContents === contents) {
+      return id
+    }
+  }
 }
 
 ipc.on('createView', function (e, args) {
@@ -127,11 +166,33 @@ ipc.on('callViewMethod', function (e, data) {
   var error, result
   try {
     var webContents = viewMap[data.id].webContents
-    result = webContents[data.method].apply(webContents, data.args)
+    var methodOrProp = webContents[data.method]
+    if (methodOrProp instanceof Function) {
+      // call function
+      result = methodOrProp.apply(webContents, data.args)
+    } else {
+      // set property
+      if (data.args && data.args.length > 0) {
+        webContents[data.method] = data.args[0]
+      }
+      // read property
+      result = methodOrProp
+    }
   } catch (e) {
     error = e
   }
-  if (data.callId) {
+  if (result instanceof Promise) {
+    result.then(function (result) {
+      if (data.callId) {
+        mainWindow.webContents.send('async-call-result', {callId: data.callId, error: null, result})
+      }
+    })
+    result.catch(function (error) {
+      if (data.callId) {
+        mainWindow.webContents.send('async-call-result', {callId: data.callId, error, result: null})
+      }
+    })
+  } else if (data.callId) {
     mainWindow.webContents.send('async-call-result', {callId: data.callId, error, result})
   }
 })

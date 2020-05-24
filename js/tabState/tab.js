@@ -16,6 +16,7 @@ class TabList {
       readerable: tab.readerable || false,
       themeColor: tab.themeColor,
       backgroundColor: tab.backgroundColor,
+      scrollPosition: tab.scrollPosition || 0,
       selected: tab.selected || false
     }
 
@@ -41,6 +42,11 @@ class TabList {
       }
       this.tabs[index][key] = data[key]
       this.parentTaskList.emit('tab-updated', id, key)
+      // changing URL erases scroll position
+      if (key === 'url') {
+        this.tabs[index].scrollPosition = 0
+        this.parentTaskList.emit('tab-updated', id, 'scrollPosition')
+      }
     }
   }
   destroy (id) {

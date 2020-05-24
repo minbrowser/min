@@ -1,22 +1,10 @@
 /* common actions that affect different parts of the UI (webviews, tabstrip, etc) */
 
 var webviews = require('webviews.js')
-var urlParser = require('util/urlParser.js')
 var focusMode = require('focusMode.js')
-
-/* loads a page in a webview */
-
-function navigate (tabId, newURL) {
-  newURL = urlParser.parse(newURL)
-
-  tabs.update(tabId, {
-    url: newURL
-  })
-
-  webviews.update(tabId, newURL)
-
-  tabBar.leaveEditMode()
-}
+var tabBar = require('navbar/tabBar.js')
+var tabEditor = require('navbar/tabEditor.js')
+var searchbar = require('searchbar/searchbar.js')
 
 /* creates a new task */
 
@@ -36,6 +24,16 @@ options
   options.openInBackground - whether to open the tab without switching to it. Defaults to false.
 */
 function addTab (tabId = tabs.add(), options = {}) {
+  /*
+  adding a new tab should destroy the current one if either:
+  * The current tab is an empty, non-private tab, and the new tab is private
+  * The current tab is empty, and the new tab has a URL
+  */
+
+  if (!options.openInBackground && !tabs.get(tabs.getSelected()).url && ((!tabs.get(tabs.getSelected()).private && tabs.get(tabId).private) || tabs.get(tabId).url)) {
+    destroyTab(tabs.getSelected())
+  }
+
   tabBar.addTab(tabId)
   webviews.add(tabId)
 
@@ -44,7 +42,7 @@ function addTab (tabId = tabs.add(), options = {}) {
       focusWebview: options.enterEditMode === false
     })
     if (options.enterEditMode !== false) {
-      tabBar.enterEditMode(tabId)
+      tabEditor.show(tabId)
     }
   } else {
     tabBar.getTab(tabId).scrollIntoView()
@@ -100,6 +98,7 @@ function closeTask (taskId) {
 }
 
 /* destroys a tab, and either switches to the next tab or creates a new one */
+
 function closeTab (tabId) {
   /* disabled in focus mode */
   if (focusMode.enabled()) {
@@ -161,7 +160,7 @@ function switchToTab (id, options) {
     return
   }
 
-  tabBar.leaveEditMode()
+  tabEditor.hide()
 
   tabs.setSelected(id)
   tabBar.setActiveTab(id)
@@ -170,7 +169,7 @@ function switchToTab (id, options) {
   })
 }
 
-webviews.bindEvent('new-window', function (webview, tabId, e, url, frameName, disposition) {
+webviews.bindEvent('new-window', function (tabId, url, frameName, disposition) {
   var newTab = tabs.add({
     url: url,
     private: tabs.get(tabId).private // inherit private status from the current tab
@@ -180,14 +179,37 @@ webviews.bindEvent('new-window', function (webview, tabId, e, url, frameName, di
     enterEditMode: false,
     openInBackground: disposition === 'background-tab' // possibly open in background based on disposition
   })
-}, {preventDefault: true})
+})
 
-webviews.bindIPC('close-window', function (webview, tabId, args) {
+webviews.bindIPC('close-window', function (tabId, args) {
   closeTab(tabId)
 })
 
+searchbar.events.on('url-selected', function (data) {
+  if (data.background) {
+    var newTab = tabs.add({
+      url: data.url,
+      private: tabs.get(tabs.getSelected()).private
+    })
+    addTab(newTab, {
+      enterEditMode: false,
+      openInBackground: true
+    })
+  } else {
+    webviews.update(tabs.getSelected(), data.url)
+    tabEditor.hide()
+  }
+})
+
+tabBar.events.on('tab-selected', function (id) {
+  switchToTab(id)
+})
+
+tabBar.events.on('tab-closed', function (id) {
+  closeTab(id)
+})
+
 module.exports = {
-  navigate,
   addTask,
   addTab,
   destroyTask,
@@ -195,4 +217,5 @@ module.exports = {
   closeTask,
   closeTab,
   switchToTask,
-  switchToTab}
+  switchToTab
+}

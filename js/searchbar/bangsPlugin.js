@@ -1,3 +1,5 @@
+var tabEditor = require('navbar/tabEditor.js')
+
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var searchbarAutocomplete = require('searchbar/searchbarAutocomplete.js')
@@ -195,11 +197,11 @@ function initialize () {
 
       if ((!bang || !bang.isAction) && url.split(' ').length === 1 && !url.endsWith(' ')) {
         // the bang is non-custom or a custom bang that requires search text, so add a space after it
-        tabBar.enterEditMode(tabs.getSelected(), url + ' ')
+        tabEditor.show(tabs.getSelected(), url + ' ')
         return true
       } else if (bang) {
         // there is a custom bang that is an action or has search text, so it can be run
-        tabBar.leaveEditMode()
+        tabEditor.hide()
         bang.fn(url.replace(bang.phrase, '').trimLeft())
         return true // override the default action
       }

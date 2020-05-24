@@ -106,6 +106,7 @@ function createItem (data) {
     var iconImage = document.createElement('img')
     iconImage.className = 'icon-image'
     iconImage.src = data.iconImage
+    iconImage.setAttribute('aria-hidden', true)
 
     item.insertBefore(iconImage, item.childNodes[0])
   }
@@ -178,7 +179,7 @@ function createItem (data) {
 }
 
 function createHeading (data) {
-  var heading = document.createElement('h2')
+  var heading = document.createElement('h4')
   heading.className = 'searchbar-heading'
   heading.textContent = data.text || ''
   return heading
@@ -199,11 +200,9 @@ function getRealTitle (text) {
     var titleChunks = text.split(char)
 
     if (titleChunks.length >= 2) {
-      titleChunks[0] = titleChunks[0].trim()
-      titleChunks[1] = titleChunks[1].trim()
-
-      if (titleChunks[1].length < 5 || titleChunks[1].length / titleChunks[0].length <= 0.5) {
-        return titleChunks[0]
+      var titleChunksTrimmed = titleChunks.map(c => c.trim())
+      if (titleChunksTrimmed[titleChunksTrimmed.length - 1].length < 5 || titleChunksTrimmed[titleChunksTrimmed.length - 1].length / text.length <= 0.3) {
+        return titleChunks.slice(0, -1).join(char)
       }
     }
   }

@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "pictureInPicture": "Picture in Picture",
         "openInNewTab": "Open in New Tab",
         "openInNewPrivateTab": "Open in New Private Tab",
         "viewImage": "View Image",
@@ -13,10 +14,10 @@
         "saveImageAs": "Save Image As",
         "searchWith": "Search with %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copy Link",
-        "selectAll": "Select All", 
-        "undo": "Undo", 
-        "redo": "Redo", 
-        "cut": "Cut", 
+        "selectAll": "Select All",
+        "undo": "Undo",
+        "redo": "Redo",
+        "cut": "Cut",
         "copy": "Copy", //this is a verb (as in "copy the currently-selected text")
         "paste": "Paste",
         "goBack": "Go Back",
@@ -36,6 +37,8 @@
         "viewReadingList": "View Reading List",
         "takeScreenshot": "Take a Screenshot",
         "clearHistory": "Clear All History",
+        "enableBlocking": "Enable content blocking for this site",
+        "disableBlocking": "Disable content blocking for this site",
         "clearHistoryConfirmation": "Clear all history and browsing data?",
         "switchToTask": "Switch to Task",
         "createTask": "Create a Task",
@@ -132,12 +135,17 @@
             "unsafeHTML": "Based on EasyList and EasyPrivacy, created by <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>)."
         },
         "settingsAppearanceHeading": "Appearance",
-        "settingsDarkModeToggle": "Enable dark mode",
+        "settingsEnableDarkMode": "Enable dark mode:",
+        "settingsDarkModeNever": "Never",
+        "settingsDarkModeNight": "At night",
+        "settingsDarkModeAlways": "Always",
         "settingsSiteThemeToggle": "Enable site theme",
         "settingsHistoryButtonToggle": "Enable back button",
         "settingsAdditionalFeaturesHeading": "Additional Features",
         "settingsUserscriptsToggle": "Enable user scripts",
-        "settingsUserscriptsExplanation": {"unsafeHTML": "User scripts allow you to modify the behavior of websites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
+        "settingsSeparateTitlebarToggle": "Use separate title bar",
+		"settingsUserscriptsExplanation": {"unsafeHTML": "User scripts allow you to modify the behavior of websites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
+        "settingsUserAgentToggle": "Use a custom user agent",
         "settingsUpdateNotificationsToggle": "Automatically check for updates",
         "settingsSearchEngineHeading": "Search Engine",
         "settingsDefaultSearchEngine": "Choose a default search engine:",
@@ -198,6 +206,36 @@
         "downloadStateCompleted": "Completed",
         "downloadStateFailed": "Failed",
         /* Update Notifications */
-        "updateNotificationTitle": "A new version of Min is available"
+        "updateNotificationTitle": "A new version of Min is available",
+        /* Autofill settings */
+        "settingsPasswordAutoFillHeadline": "Password Auto-Fill",
+        "settingsSelectPasswordManager": "Choose one of the supported password managers:",
+        /* Password manager setup */
+        "passwordManagerSetupHeading": "Finish setting up %p to use Autofill",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "First, <a id='password-manager-setup-link'></a> and extract it for your system."
+        },
+        "passwordManagerInstallerSetup": {
+            "unsafeHTML": "Download <a id='password-manager-setup-link-installer'></a> and drag the file into the box below:"
+        },
+        "passwordManagerSetupLink": "download the %p CLI tool",
+        "passwordManagerSetupLinkInstaller": "the %p CLI installer",
+        "passwordManagerSetupStep2": "Then drag the tool into the box below:",
+        "passwordManagerSetupDragBox": "Drag the tool here",
+        "passwordManagerSetupInstalling": "Installing...",
+        "passwordManagerSetupSignIn": "Sign in to your password manager to start using autofill. Your credentials won't be stored anywhere inside Min.",
+        "disableAutofill": "Disable Autofill",
+        "autofillNotNow": "Not Now",
+        "passwordManagerSetupUnlockError": "Failed to unlock the password store: ",
+        "passwordManagerSetupRetry": "Make sure you're using the right file and entering a correct password. You can retry by dragging the tool here again.",
+        "passwordManagerUnlock": "Enter your %p master password to unlock the password store:",
+        /* Dialogs */
+        "loginPromptTitle": "Sign in to %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+        "dialogConfirmButton": "Confirm",
+        "dialogSkipButton": "Cancel",
+        "username": "Username",
+        "email": "Email",
+        "password": "Password",
+        "secretKey": "Secret key" //missing translation
     }
 }

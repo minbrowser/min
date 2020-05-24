@@ -1,39 +1,30 @@
-.navbar {
-	position: fixed;
-	top: 0;
-	left: 0;
+.simulated-navbar {
 	width: 100%;
-	height: 36px;
+	height: calc(36px + var(--control-space-top));
 	background-color: inherit;
 	z-index: 1;
 	border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
 }
-body.windows:not(.maximized) .navbar {
-	height: 46px;
-}
+
 #switch-task-button {
 	position: absolute;
-	top: 0;
-	right: 0;
-	z-index: 9;
+	top: var(--control-space-top);
+	right: var(--control-space-right);
+	z-index: 4;
 }
-body.windows #switch-task-button {
-	right: 138px;
-}
-body.windows:not(.maximized) #switch-task-button {
-	top: 10px;
-}
+
 #switch-task-button.active {
 	color: royalblue !important;
 }
 #task-overlay {
+	display: flex;
+	flex-direction: column;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	background-color: #fff;
-	padding: 40px 0 5em 0;
 	white-space: nowrap;
 	overflow: auto;
 	opacity: 1;
@@ -41,8 +32,10 @@ body.windows:not(.maximized) #switch-task-button {
 	transition: 0.15s all;
 	z-index: 3;
 }
-body.windows:not(.maximized) #task-overlay {
-	padding-top: 50px;
+#task-area {
+	flex: 1;
+	overflow: auto;
+	padding-bottom: 5em;
 }
 #task-overlay[hidden] {
 	display: block !important;
@@ -170,8 +163,38 @@ body.windows:not(.maximized) #task-overlay {
 	background-color: rgb(245, 245, 245);
 	cursor: pointer;
 }
+/* hide tab element that is being dropped */
+#add-task .task-tab-item {
+	display: none;
+}
+.is-dragging-tab #add-task {
+	background: none;
+	border: 2px dashed rgba(0, 0, 0, 0.3);
+	margin-bottom: -2px;
+	border-radius: 3px;
+}
+.is-dragging-tab #add-task.drag-target {
+	border: none;
+	margin-bottom: 0;
+	background: rgba(0, 0, 0, 0.15)
+}
+
+.dark-mode #add-task {
+	background-color: rgb(33, 37, 43);
+	color: lightgrey;
+}
+.dark-mode .is-dragging-tab #add-task {
+	background: none;
+	border-color: rgba(255, 255, 255, 0.4);
+}
+.dark-mode .is-dragging-tab #add-task.drag-target {
+	background: rgba(255, 255, 255, 0.15)
+}
 #add-task:hover {
 	background-color: rgb(235, 235, 235);
+}
+.dark-mode #add-task:hover {
+	background-color: rgb(44, 49, 56);
 }
 #add-task .fa {
 	opacity: 0.75;
@@ -206,45 +229,4 @@ body.dark-mode #task-overlay{
 
 .dark-mode #switch-task-button {
   color: dodgerblue;
-}
-
-body.dark-mode #task-overlay #add-task {
-	background-color: rgb(33, 37, 43) !important;
-	color: lightgrey;
-}
-
-/* survey */
-
-#task-overlay-survey-banner {
-	font-size: 10px;
-	max-width: 225px;
-	margin: 0.5em auto;
-	background: rgb(245, 245, 245);
-	padding: 0.25em 0.75em;
-	border-radius: 3px;
-	text-align: center;
-}
-.dark-mode #task-overlay-survey-banner {
-	background: rgb(60, 60, 60);
-}
-
-#task-overlay-survey-link {
-	font-size: 15px;
-	color: rgb(28, 116, 204);
-}
-.dark-mode #task-overlay-survey-link {
-	color: rgb(67, 161, 255);
-}
-
-#task-overlay-survey-close-button {
-	font-size: 16px;
-	margin-left: 0.5em;
-	margin-right: 0.25em;
-	padding: 0.25em;
-	margin-top: -0.25em;
-	opacity: 0.6;
-	color: #333;
-}
-.dark-mode #task-overlay-survey-close-button {
-	color: #fff;
 }

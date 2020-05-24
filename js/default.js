@@ -1,20 +1,19 @@
-window.userDataPath = process.argv.filter(a => a.startsWith('--user-data-path='))[0].replace('--user-data-path=', '')
+window.globalArgs = {}
+
+process.argv.forEach(function (arg) {
+  if (arg.startsWith('--')) {
+    var key = arg.split('=')[0].replace('--', '')
+    var value = arg.split('=')[1]
+    globalArgs[key] = value
+  }
+})
 
 window.electron = require('electron')
 window.fs = require('fs')
+window.EventEmitter = require('events')
 window.ipc = electron.ipcRenderer
 window.remote = electron.remote
 window.Dexie = require('dexie')
-
-// add a class to the body for fullscreen status
-
-ipc.on('enter-full-screen', function () {
-  document.body.classList.add('fullscreen')
-})
-
-ipc.on('leave-full-screen', function () {
-  document.body.classList.remove('fullscreen')
-})
 
 if (navigator.platform === 'MacIntel') {
   document.body.classList.add('mac')
@@ -27,15 +26,22 @@ if (navigator.platform === 'MacIntel') {
   window.platformType = 'linux'
 }
 
-if (window.platformType === 'windows') {
-  ipc.on('maximize', function () {
-    document.body.classList.add('maximized')
-  })
+/* add classes so that the window state can be used in CSS */
+ipc.on('enter-full-screen', function () {
+  document.body.classList.add('fullscreen')
+})
 
-  ipc.on('unmaximize', function () {
-    document.body.classList.remove('maximized')
-  })
-}
+ipc.on('leave-full-screen', function () {
+  document.body.classList.remove('fullscreen')
+})
+
+ipc.on('maximize', function () {
+  document.body.classList.add('maximized')
+})
+
+ipc.on('unmaximize', function () {
+  document.body.classList.remove('maximized')
+})
 
 // https://remysharp.com/2010/07/21/throttling-function-calls
 
@@ -121,15 +127,18 @@ window.addEventListener('load', function () {
 
 require('dbMigration.js')
 
-require('menuBarVisibility.js').initialize()
 require('navbar/tabActivity.js').init()
 require('navbar/tabColor.js').initialize()
 require('navbar/goBackButton.js').initialize()
 require('downloadManager.js').initialize()
 require('webviewMenu.js').initialize()
+require('contextMenu.js').initialize()
 require('menuRenderer.js').initialize()
-require('keybindings.js').initialize()
+require('defaultKeybindings.js').initialize()
 require('pdfViewer.js').initialize()
+require('autofillSetup.js').initialize()
+require('passwordManager/passwordManager.js').initialize()
+require('util/theme.js').initialize()
 
 // default searchbar plugins
 
@@ -140,6 +149,6 @@ require('searchbar/bangsPlugin.js').initialize()
 require('searchbar/searchSuggestionsPlugin.js').initialize()
 require('searchbar/placeSuggestionsPlugin.js').initialize()
 require('searchbar/hostsSuggestionsPlugin.js').initialize()
-require('searchbar/keywordSuggestionsPlugin.js').initialize()
 require('searchbar/updateNotifications.js').initialize()
 require('searchbar/restoreTaskPlugin.js').initialize()
+require('searchbar/bookmarkManager.js').initialize()

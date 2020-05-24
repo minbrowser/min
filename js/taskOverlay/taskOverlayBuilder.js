@@ -3,6 +3,7 @@ var browserUI = require('browserUI.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 var urlParser = require('util/urlParser.js')
 var searchEngine = require('util/searchEngine.js')
+var tabBar = require('navbar/tabBar.js')
 
 function getTaskRelativeDate (task) {
   var minimumTime = new Date()
@@ -49,18 +50,26 @@ function toggleCollapsed (taskContainer, task) {
   var collapseButton = taskContainer.querySelector('.task-collapse-button')
   collapseButton.classList.toggle('fa-angle-right')
   collapseButton.classList.toggle('fa-angle-down')
+  if (tasks.isCollapsed(task.id)) {
+    collapseButton.setAttribute('aria-expanded', 'false')
+  } else {
+    collapseButton.setAttribute('aria-expanded', 'true')
+  }
 }
 
 var TaskOverlayBuilder = {
   create: {
     task: {
       collapseButton: function (taskContainer, task) {
-        var collapseButton = document.createElement('i')
+        var collapseButton = document.createElement('button')
         collapseButton.className = 'fa task-collapse-button'
+        collapseButton.setAttribute('aria-haspopup', 'true')
         if (tasks.isCollapsed(task.id)) {
           collapseButton.classList.add('fa-angle-right')
+          collapseButton.setAttribute('aria-expanded', 'false')
         } else {
           collapseButton.classList.add('fa-angle-down')
+          collapseButton.setAttribute('aria-expanded', 'true')
         }
         collapseButton.addEventListener('click', function (e) {
           e.stopPropagation()
@@ -95,7 +104,7 @@ var TaskOverlayBuilder = {
         return input
       },
       deleteButton: function (container, task) {
-        var deleteButton = document.createElement('i')
+        var deleteButton = document.createElement('button')
         deleteButton.className = 'fa fa-trash-o task-delete-button'
 
         deleteButton.addEventListener('click', function (e) {
@@ -266,7 +275,7 @@ var TaskOverlayBuilder = {
       },
 
       container: function (task) {
-        var tabContainer = document.createElement('div')
+        var tabContainer = document.createElement('ul')
         tabContainer.className = 'task-tabs-container'
         tabContainer.setAttribute('data-task', task.id)
 
