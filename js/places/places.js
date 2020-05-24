@@ -12,7 +12,7 @@ const places = {
       const tab = tabs.get(tabId)
       if (tab) {
         const data = {
-          url: tab.url,
+          url: urlParser.getSourceURL(tab.url), // for PDF viewer and reader mode, save the original page URL and not the viewer URL
           title: tab.title,
           color: tab.backgroundColor,
           extractedText: extractedText

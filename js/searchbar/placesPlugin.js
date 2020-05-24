@@ -3,7 +3,7 @@ var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 var searchbarAutocomplete = require('searchbar/searchbarAutocomplete.js')
 var urlParser = require('util/urlParser.js')
-var readerView = require('readerView.js')
+var readerDecision = require('readerDecision.js')
 
 /* For survey */
 var browserUI = require('browserUI.js')
@@ -105,7 +105,7 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
       // show a star for bookmarked items
       if (result.isBookmarked) {
         data.icon = 'fa-star'
-      } else if (result.url.startsWith(readerView.readerURL)) {
+      } else if (readerDecision.shouldRedirect(result.url) === 1) {
         // show an icon to indicate that this page will open in reader view
         data.icon = 'fa-align-left'
       }
