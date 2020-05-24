@@ -5,7 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "pictureInPicture": null, //missing translation
+        "pictureInPicture": "子母畫面",
         "openInNewTab": "在新分頁中開啟",
         "openInNewPrivateTab": "在新無痕頁面中開啟",
         "viewImage": "查看圖片",
@@ -37,8 +37,8 @@
         "viewReadingList": "查看閱讀清單",
         "takeScreenshot": "螢幕截圖",
         "clearHistory": "清除所有歷史",
-        "enableBlocking": null, //missing translation
-        "disableBlocking": null, //missing translation
+        "enableBlocking": "啟用內容過濾",
+        "disableBlocking": "關閉內容過濾",
         "clearHistoryConfirmation": "是否清除所有歷史？",
         "switchToTask": "切換至工作",
         "createTask": "新增工作",
@@ -135,17 +135,17 @@
             "unsafeHTML": "基於 EasyList 和 EasyPrivacy，由<a target=\"_blank\" href=\"https://easylist.to/\">EasyList 作者</a>創作 （<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">查看憑證</a>）"
         },
         "settingsAppearanceHeading": "外觀",
-        "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
-        "settingsDarkModeNever": null, //"Never" missing translation
-        "settingsDarkModeNight": null, //"At night" missing translation
-        "settingsDarkModeAlways": null, //"Always" missing translation
+        "settingsEnableDarkMode": "啟用深色模式：",
+        "settingsDarkModeNever": "永不",
+        "settingsDarkModeNight": "於晚上開啟",
+        "settingsDarkModeAlways": "永遠",
         "settingsSiteThemeToggle": "啟用網站主題",
         "settingsHistoryButtonToggle": "啟用返回鍵",
         "settingsAdditionalFeaturesHeading": "其他功能",
         "settingsUserscriptsToggle": "允許使用者指令",
-        "settingsSeparateTitlebarToggle": null, //missing translation
+        "settingsSeparateTitlebarToggle": "分割標題列",
 		"settingsUserscriptsExplanation": {"unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."},
-        "settingsUserAgentToggle": null, //missing translation
+        "settingsUserAgentToggle": "使用自訂使用者代理",
         "settingsUpdateNotificationsToggle": "自動檢查更新",
         "settingsSearchEngineHeading": "搜索引擎",
         "settingsDefaultSearchEngine": "選擇預設的搜索引擎：",
