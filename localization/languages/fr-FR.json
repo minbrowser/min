@@ -140,7 +140,6 @@
         "settingsDarkModeNight": "La nuit", // googled
         "settingsDarkModeAlways": "Toujours", // googled
         "settingsSiteThemeToggle": null, //missing translation
-        "settingsHistoryButtonToggle": "Activer le bouton navigation",
         "settingsAdditionalFeaturesHeading": "Fonctionnalités supplémentaires",
         "settingsUserscriptsToggle": "Activer les scripts personnalisés",
         "settingsSeparateTitlebarToggle": null, //missing translation

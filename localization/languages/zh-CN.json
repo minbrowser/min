@@ -140,7 +140,6 @@
         "settingsDarkModeNight": null, //"At night" missing translation
         "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": "启用网站主题",
-        "settingsHistoryButtonToggle": "启用返回键",
         "settingsAdditionalFeaturesHeading": "其他功能",
         "settingsUserscriptsToggle": "允许使用者指令",
         "settingsSeparateTitlebarToggle": null, //missing translation

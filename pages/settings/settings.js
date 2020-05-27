@@ -3,7 +3,6 @@ document.title = l('settingsPreferencesHeading') + ' | Min'
 var container = document.getElementById('privacy-settings-container')
 var banner = document.getElementById('restart-required-banner')
 var siteThemeCheckbox = document.getElementById('checkbox-site-theme')
-var historyButtonCheckbox = document.getElementById('checkbox-history-button')
 var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
 var separateTitlebarCheckbox = document.getElementById('checkbox-separate-titlebar')
 var userAgentCheckbox = document.getElementById('checkbox-user-agent')
@@ -188,20 +187,6 @@ settings.get('siteTheme', function (value) {
 
 siteThemeCheckbox.addEventListener('change', function (e) {
   settings.set('siteTheme', this.checked)
-})
-
-/* history button setting */
-
-settings.get('historyButton', function (value) {
-  if (value === true || value === undefined) {
-    historyButtonCheckbox.checked = true
-  } else {
-    historyButtonCheckbox.checked = false
-  }
-})
-
-historyButtonCheckbox.addEventListener('change', function (e) {
-  settings.set('historyButton', this.checked)
 })
 
 /* userscripts setting */

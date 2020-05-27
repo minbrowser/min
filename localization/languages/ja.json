@@ -140,7 +140,6 @@
         "settingsDarkModeNight": null, //"At night" missing translation
         "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": "サイトテーマを有効にする",
-        "settingsHistoryButtonToggle": "戻るボタンを使用",
         "settingsAdditionalFeaturesHeading": "追加機能",
         "settingsUserscriptsToggle": "ユーザースクリプトを有効にする",
         "settingsSeparateTitlebarToggle": null, //missing translation

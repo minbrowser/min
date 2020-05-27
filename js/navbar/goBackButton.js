@@ -1,5 +1,4 @@
 const webviews = require('webviews.js')
-const settings = require('util/settings/settings.js')
 
 var goBackButton = {
   element: document.getElementById('back-button'),
@@ -17,13 +16,8 @@ var goBackButton = {
       webviews.goBackIgnoringRedirects(tabs.getSelected())
     })
 
-    settings.listen('historyButton', function (value) {
-      if (value === true || value === undefined) {
-        goBackButton.element.hidden = false
-      } else {
-        goBackButton.element.hidden = true
-      }
-    })
+    // hide until initialized to reduce flickering
+    goBackButton.element.hidden = false
 
     tasks.on('tab-selected', this.update)
     webviews.bindEvent('did-navigate', this.update)

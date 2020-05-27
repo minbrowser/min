@@ -140,7 +140,6 @@
         "settingsDarkModeNight": null, //"At night" missing translation
         "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": "Site temasını etkinleştir",
-        "settingsHistoryButtonToggle": "Geri al düğmesini etkinleştir",
         "settingsAdditionalFeaturesHeading": "Ek Özellikler",
         "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",
         "settingsSeparateTitlebarToggle": null, //missing translation
