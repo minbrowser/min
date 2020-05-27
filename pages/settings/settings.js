@@ -72,7 +72,7 @@ trackingLevelOptions.forEach(function (item, idx) {
   })
 })
 
-blockingExceptionsInput.addEventListener('change', function () {
+blockingExceptionsInput.addEventListener('input', function () {
   var newValue = this.value.split(',').map(i => i.trim()).filter(i => !!i)
 
   settings.get('filtering', function (value) {
@@ -321,7 +321,7 @@ searchEngineDropdown.addEventListener('change', function (e) {
   }
 })
 
-searchEngineInput.addEventListener('change', function (e) {
+searchEngineInput.addEventListener('input', function (e) {
   settings.set('searchEngine', {url: this.value})
 })
 
@@ -353,7 +353,7 @@ function createKeyMapListItem (action, keyMap) {
   input.type = 'text'
   input.id = input.name = action
   input.value = formatKeyValue(keyMap[action])
-  input.addEventListener('change', onKeyMapChange)
+  input.addEventListener('input', onKeyMapChange)
 
   li.appendChild(label)
   li.appendChild(input)
