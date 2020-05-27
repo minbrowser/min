@@ -134,7 +134,11 @@ const places = {
           callback(false)
         })
       } else {
-        places.updateItem(url, {isBookmarked: true}, function () {
+        // if this page is open in a private tab, the title may not be saved already, so it needs to be included here
+        places.updateItem(url, {
+          isBookmarked: true,
+          title: tabs.get(tabId).title
+        }, function () {
           callback(true)
         })
       }

@@ -29,3 +29,8 @@
 	opacity: 0.5;
 	line-height: 1.25em;
 }
+
+#tab-editor .bookmarks-button {
+	padding: 0.55em;
+    margin-right: -0.55em;
+}

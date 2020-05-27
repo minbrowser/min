@@ -8,6 +8,7 @@ const bookmarkStar = {
   create: function () {
     const star = document.createElement('button')
     star.className = 'fa fa-star-o tab-icon bookmarks-button' // alternative icon is fa-bookmark
+    star.setAttribute('aria-pressed', false)
     star.setAttribute('title', l('addBookmark'))
     star.setAttribute('aria-label', l('addBookmark'))
 
@@ -30,12 +31,14 @@ const bookmarkStar = {
         // since the update happens asynchronously, and star.update() could be called after onClick but before the update, it's possible for the classes to get out of sync with the actual bookmark state. Updating them here fixes tis.
         star.classList.add('fa-star')
         star.classList.remove('fa-star-o')
+        star.setAttribute('aria-pressed', true)
         var editorInsertionPoint = document.createElement('div')
         searchbarPlugins.getContainer('simpleBookmarkTagInput').appendChild(editorInsertionPoint)
         bookmarkEditor.show(tabs.get(tabs.getSelected()).url, editorInsertionPoint, null, {simplified: true})
       } else {
         star.classList.remove('fa-star')
         star.classList.add('fa-star-o')
+        star.setAttribute('aria-pressed', false)
         searchbar.showResults('')
       }
     })
@@ -56,9 +59,11 @@ const bookmarkStar = {
       if (item && item.isBookmarked) {
         star.classList.remove('fa-star-o')
         star.classList.add('fa-star')
+        star.setAttribute('aria-pressed', true)
       } else {
         star.classList.remove('fa-star')
         star.classList.add('fa-star-o')
+        star.setAttribute('aria-pressed', false)
       }
     })
   }
