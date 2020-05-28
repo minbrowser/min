@@ -60,7 +60,7 @@ body[theme="dark"] #auto-redirect-button-area button {
 }
 
 #backtoarticle {
-    width: 650px;
+    max-width: 650px;
 	margin: auto;
 	padding-top: 1.5em;
 }
