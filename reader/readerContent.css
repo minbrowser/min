@@ -4,7 +4,6 @@ html {
 	margin: 0;
 	font-size: 19.5px;
 	color: rgb(15, 15, 15);
-	overflow: hidden;
 }
 
 body[theme="dark"] {
