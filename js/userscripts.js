@@ -14,11 +14,11 @@ function parseTampermonkeyFeatures (content) {
 
   var isInFeatures = false
   for (var i = 0; i < lines.length; i++) {
-    if (lines[i] === '// ==UserScript==') {
+    if (lines[i].trim() === '// ==UserScript==') {
       isInFeatures = true
       continue
     }
-    if (lines[i] === '// ==/UserScript==') {
+    if (lines[i].trim() === '// ==/UserScript==') {
       isInFeatures = false
       break
     }
@@ -26,7 +26,7 @@ function parseTampermonkeyFeatures (content) {
       foundFeatures = true
       var feature = lines[i].replace('//', '').trim()
       var featureName = feature.split(' ')[0]
-      var featureValue = feature.replace(featureName + ' ', '')
+      var featureValue = feature.replace(featureName + ' ', '').trim()
       featureName = featureName.replace('@', '')
       if (parsedFeatures[featureName]) {
         parsedFeatures[featureName].push(featureValue)
