@@ -2,13 +2,13 @@ const debianInstaller = require('electron-installer-debian')
 
 const packageFile = require('./../package.json')
 const version = packageFile.version
-const isRaspbian = process.argv.some(arg => arg === '--raspbian')
+const isRaspi = process.argv.some(arg => arg === '--raspi')
 
-require('./createPackage.js')((isRaspbian) ? 'raspbian' : 'linux').then(function (appPaths) {
+require('./createPackage.js')((isRaspi) ? 'raspi' : 'linux').then(function (appPaths) {
   var installerOptions = {
     src: appPaths[0],
     dest: 'dist/app',
-    arch: (isRaspbian) ? 'armhf' : 'amd64',
+    arch: (isRaspi) ? 'armhf' : 'amd64',
     productName: 'Min',
     genericName: 'Web Browser',
     version: version,
