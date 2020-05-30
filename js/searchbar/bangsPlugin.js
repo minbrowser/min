@@ -123,7 +123,6 @@ function showBangSearchResults (text, results, input, event, limit = 5) {
 }
 
 function getBangSearchResults (text, input, event) {
-
   // if there is a space in the text, show bang search suggestions (only supported for custom bangs)
 
   if (text.indexOf(' ') !== -1) {
@@ -160,6 +159,12 @@ function getBangSearchResults (text, input, event) {
   }
 
   resultsPromise.then(function (results) {
+    if (text === '!') {
+      // if we're listing all commands, limit the number of site results so that there's space to show more browser commands
+      // but if there's search text, the results are capped elsewhere, and low-ranking results should be included here
+      // in case they end up being sorted to the top based on usage
+      results = results.slice(0, 8)
+    }
     results = results.concat(searchCustomBangs(text))
     if (text === '!') {
       showBangSearchResults(text, results, input, event, 4)
@@ -167,7 +172,7 @@ function getBangSearchResults (text, input, event) {
         title: l('showMoreBangs'),
         icon: 'fa-angle-down',
         click: function () {
-          showBangSearchResults(text, results, input, event, 20)
+          showBangSearchResults(text, results, input, event, Infinity)
         }
       })
     } else {
