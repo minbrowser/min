@@ -28,6 +28,9 @@ var parser = require('./ext/abp-filter-parser-modified/abp-filter-parser.js')
 var parsedFilterData = {}
 
 function initFilterList () {
+  // discard old data if the list is being re-initialized
+  parsedFilterData = {}
+
   var data = require('fs').readFile(__dirname + '/ext/filterLists/easylist+easyprivacy-noelementhiding.txt', 'utf8', function (err, data) {
     if (err) {
       return

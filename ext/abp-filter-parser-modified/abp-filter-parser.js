@@ -445,6 +445,12 @@ function matchOptions (filterOptions, input, contextParams, currentHost) {
 // this is currently only used for leftAnchored, since that seems to be the only place where it makes a difference
 // note: must add check here when adding support for new options
 function maybeMergeDuplicateOptions (opt1, opt2) {
+  if (opt1 === opt2) {
+    return opt1
+  }
+  if (!opt1 || !opt2) {
+    return null
+  }
   if (opt1.elementType === opt2.elementType && opt1.skipElementType === opt2.skipElementType && opt1.thirdParty === opt2.thirdParty && opt1.notThirdParty === opt2.notThirdParty) {
     if (opt1.domains && opt2.domains && !opt1.skipDomains && !opt2.skipDomains) {
       opt1.domains = opt1.domains.concat(opt2.domains)
