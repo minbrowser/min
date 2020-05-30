@@ -205,7 +205,7 @@
 	"buttonReaderLightTheme": "Claro",
 	"buttonReaderSepiaTheme": "Sépia",
 	"buttonReaderDarkTheme": "Escuro",
-	"openReaderView": "Abrir sempre no modo de leitura"
+	"openReaderView": "Abrir sempre no modo de leitura",
 	"autoRedirectBannerReader": "Abrir todo os artigos deste site no modo de leitura?",
 	"buttonReaderRedirectYes": "Sim",
 	"buttonReaderRedirectNo": "Não",
