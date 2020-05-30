@@ -74,27 +74,22 @@ function onPageURLChange (tab, url) {
   }
 }
 
-// called whenever the page finishes loading
-function onPageLoad (tabId) {
-  webviews.callAsync(tabId, 'getURL', function (err, url) {
-    if (err) {
-      return
-    }
-    // capture a preview image if a new page has been loaded
-    if (tabId === tabs.getSelected() && tabs.get(tabId).url !== url) {
-      setTimeout(function () {
-        // sometimes the page isn't visible until a short time after the did-finish-load event occurs
-        captureCurrentTab()
-      }, 100)
-    }
-
+// called whenever a navigation finishes
+function onNavigate (tabId, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
+  if (isMainFrame) {
     onPageURLChange(tabId, url)
-  })
+  }
 }
 
-// called whenever a navigation finishes
-function onNavigate (tabId, url, httpResponseCode, httpStatusText) {
-  onPageURLChange(tabId, url)
+// called whenever the page finishes loading
+function onPageLoad (tabId) {
+  // capture a preview image if a new page has been loaded
+  if (tabId === tabs.getSelected()) {
+    setTimeout(function () {
+      // sometimes the page isn't visible until a short time after the did-finish-load event occurs
+      captureCurrentTab()
+    }, 100)
+  }
 }
 
 function scrollOnLoad (tabId, scrollPosition) {
@@ -452,9 +447,9 @@ ipc.on('leave-full-screen', function () {
   webviews.resize()
 })
 
+webviews.bindEvent('did-start-navigation', onNavigate)
+webviews.bindEvent('will-redirect', onNavigate)
 webviews.bindEvent('did-finish-load', onPageLoad)
-webviews.bindEvent('did-navigate-in-page', onPageLoad)
-webviews.bindEvent('did-navigate', onNavigate)
 
 webviews.bindEvent('page-title-updated', function (tabId, title, explicitSet) {
   tabs.update(tabId, {
