@@ -200,6 +200,16 @@
         "appMenuBringToFront": "Umieść wszystko na wierzchu",
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "strona <input type='text'/> z <span id='total'></span>"},
+ 	/* Context Reader */    
+	"buttonReaderSettings": null, //missing translation "Reader Settings"
+	"buttonReaderLightTheme": null, //missing translation "Light"
+	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
+	"buttonReaderDarkTheme": null, //missing translation "Dark"
+	"openReaderView": null, //missing translation "Always open in reader view"
+	"autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
+	"buttonReaderRedirectYes": null, //missing translation "Yes"
+	"buttonReaderRedirectNo": null, //missing translation "No"
+	"articleReaderView": null, //missing translation "Original Article"
         /* Download manager */
         "downloadCancel": "Anuluj pobieranie",
         "downloadStateCompleted": "Pobieranie zakończone",

@@ -12,15 +12,15 @@ body[theme="dark"] {
 }
 
 body[theme="sepia"] {
-	background-color: rgb(245, 237, 220);
-	color: rgb(68, 47, 30);
+	background-color: rgb(247, 231, 199); 
+	color: rgb(56, 40, 28);
 }
 
 iframe {
 	display: none;
 }
 .reader-main {
-	padding: 1em;
+	padding: 0.75em 1em;
 	max-width: 650px;
 	display: block;
 	margin: auto;
@@ -105,6 +105,7 @@ a {
 body[theme="dark"] a {
 	color: #65a9ed;
 }
+
 a:hover {
 	background-image: linear-gradient(to bottom, transparent 70%, currentColor 0%);
 	background-size: 1px 3px;

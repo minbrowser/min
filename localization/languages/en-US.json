@@ -200,6 +200,16 @@
         "appMenuBringToFront": "Bring All to Front",
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "page <input type='text'/> of <span id='total'></span>"},
+	/* Context Reader */    
+	"buttonReaderSettings": "Reader Settings",
+	"buttonReaderLightTheme": "Light",
+	"buttonReaderSepiaTheme": "Sepia",
+	"buttonReaderDarkTheme": "Dark",
+	"openReaderView": "Always open in reader view",
+	"autoRedirectBannerReader": "Always open articles from this site in reader view?",
+	"buttonReaderRedirectYes": "Yes",
+	"buttonReaderRedirectNo": "No",
+	"articleReaderView": "Original Article",
         /* Download manager */
         "downloadCancel": "Cancel",
         "downloadStateCompleted": "Completed",

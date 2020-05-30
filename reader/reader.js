@@ -1,6 +1,6 @@
 /* Back button */
 
-var backbutton = document.getElementById('backtoarticle')
+var backbutton = document.getElementById('backtoarticle-link')
 var articleURL = new URLSearchParams(window.location.search).get('url')
 var articleLocation = new URL(articleURL)
 
@@ -150,6 +150,13 @@ function extractDate (doc) {
   return date
 }
 
+function setReaderFrameSize () {
+  // it's possible to end up in a loop where resizing creates an extra scrollbar, which increases the height,
+  // and then on the next resize, the frame gets taller, which makes the scrollbar go away, decreasing the height...
+  // adding an extra 1% of space fixes this
+  rframe.height = (rframe.contentDocument.body.querySelector('.reader-main').scrollHeight * 1.01) + 'px'
+}
+
 function startReaderView (article, date) {
   var readerContent = "<link rel='stylesheet' href='readerContent.css'>"
 
@@ -203,11 +210,13 @@ function startReaderView (article, date) {
 
     setReaderTheme()
     requestAnimationFrame(function () {
-      rframe.height = rframe.contentDocument.body.querySelector('.reader-main').scrollHeight + 'px'
+      setReaderFrameSize()
       requestAnimationFrame(function () {
         rframe.focus() // allows spacebar page down and arrow keys to work correctly
       })
     })
+
+    window.addEventListener('resize', setReaderFrameSize)
   }
 
   // save the scroll position at intervals
