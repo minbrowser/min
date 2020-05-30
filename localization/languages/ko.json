@@ -201,15 +201,15 @@
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "전체 <span id='total'></span> 쪽 중 <input type='text'/> 쪽"},
  	/* Context Reader */    
-	"buttonReaderSettings": null, //missing translation "Reader Settings"
-	"buttonReaderLightTheme": null, //missing translation "Light"
-	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
-	"buttonReaderDarkTheme": null, //missing translation "Dark"
-	"openReaderView": null, //missing translation "Always open in reader view"
-	"autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-	"buttonReaderRedirectYes": null, //missing translation "Yes"
-	"buttonReaderRedirectNo": null, //missing translation "No"
-	"articleReaderView": null, //missing translation "Original Article"
+	"buttonReaderSettings": "읽기 지원 설정",
+	"buttonReaderLightTheme": "밝게",
+	"buttonReaderSepiaTheme": "흑갈색",
+	"buttonReaderDarkTheme": "어둡게",
+	"openReaderView": "항상 읽기 지원으로 열기",
+	"autoRedirectBannerReader": "이 누리집의 문서를 항상 읽기 지원으로 여시겠습니까?",
+	"buttonReaderRedirectYes": "네",
+	"buttonReaderRedirectNo": "아니오",
+	"articleReaderView": "원본 문서",
         /* Download manager */
         "downloadCancel": "취소",
         "downloadStateCompleted": "완료됨",
