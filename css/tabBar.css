@@ -275,19 +275,8 @@ body.dark-mode #overlay {
 	display: inline-block;
 }
 
-/* hide other tabs in focus mode */
-
-body.is-focus-mode .tab-item:not(.active) {
-	display: none;
-}
 body.is-focus-mode .navbar-action-button:not(#menu-button) {
 	display: none;
-}
-
-/* since only one tab is shown in focus mode, the highlight isn't needed */
-
-body.is-focus-mode .tab-item {
-	background: none !important;
 }
 
 /* progress bar */

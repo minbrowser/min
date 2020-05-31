@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "Most fókusz módban van.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "Fókusz módban csak a jelenlegi fül jelenik meg, nem tudsz új fület nyitni vagy másik fülre lépni.",
-        "focusModeExplanation2": "Elhagyhatod a \"focus mode\" a megtekintés menü kipipálásával.",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": "Idő intervalum, éppen most",
         "timeRangeMinutes": "Idő intervalum, perc",

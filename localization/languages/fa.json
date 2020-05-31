@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "شما در حالت تمرکز هستید",
         "closeDialog": "تایید", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "در حالت تمرکز تمام برگه ها به جز برگه فعلی مخفی شده و شما قادر به ایجاد برگه جدید نیستید.",
-        "focusModeExplanation2": "شما می توانید با غیرفعال کردن گزینه \"حالت تمرکز\" در منوی نمایش از حالت تمرکز خارج شوید.",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": "همین الان",
         "timeRangeMinutes": "دقایقی پیش",

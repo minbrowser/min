@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "Jesteś w trybie ostrości.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "W trybie ustawiania ostrości wszystkie karty oprócz bieżącego są ukryte i nie można tworzyć nowych kart.",
-        "focusModeExplanation2": "Możesz wyłączyć tryb ostrości, odznaczając \"tryb ostrości\" w menu widoku.",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": "Przed chwilą",
         "timeRangeMinutes": "Kilka minut temu",

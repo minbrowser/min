@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "Odak Modundasınız.",
         "closeDialog": "Tamam", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "Odak modunda, geçerli olan sekme dışındaki tüm sekmeler gizlenir ve yeni sekmeler oluşturamazsınız.",
-        "focusModeExplanation2": "Görüntüleme modunda \"odak modu\" nun işaretini kaldırarak odak modundan çıkabilirsiniz.",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": "Şu anda",
         "timeRangeMinutes": "Birkaç dakika önce",

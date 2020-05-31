@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "Ви в режимі фокусування",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "В режимі фокусування всі вкладки, окрім поточної, приховані, і ви не можете створювати нові вкладки.",
-        "focusModeExplanation2": "Режим фокусування можна залишити, знявши прапорець \"Режим фокусування\" у меню \"Вигляд\".",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": "Зараз",
         "timeRangeMinutes": "Кілька хвилин тому",

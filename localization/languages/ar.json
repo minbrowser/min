@@ -78,8 +78,8 @@
         /* Focus mode */  
         "isFocusMode": "أنت في وضع التركيز.",
         "closeDialog": "تم", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "في وضع التركيز , جميع التبوييات ما عادا المفتوحة الان مخفية , لا يمكنك فتح علامة جديدة",
-        "focusModeExplanation2": "يمكنك الخروج من وضع التركيز عبر الغاء تحديد \"وضع التركيز\" في القائمة",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": "الآن",
         "timeRangeMinutes": "قبل عدة دقائق",

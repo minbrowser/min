@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "Vous êtes en mode Focus.",
         "closeDialog": "D'accord", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "En mode Focus, tous les onglets à l'exception de celui actif sont cachés, et vous pouvez créer de nouveaux onglets.",
-        "focusModeExplanation2": "Vous pouvez quitter le mode focus en choisissant \"Mode Focus\" dans le menu Voir.",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": "À l'instant",
         "timeRangeMinutes": "Il y a quelques minutes",

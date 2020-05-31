@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "Fokus-Mode eingeschaltet.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "Im Fokus-Mode sind alle außer dem aktuellen Tab versteckt und es können keine neuen Tabs geöffnet werden.",
-        "focusModeExplanation2": "Der Fokus-Mode kann im Menü 'Anzeige' durch Klick auf \"fokus-mode\" verlassen werden.",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": null, //missing translation
         "timeRangeMinutes": null, //missing translation

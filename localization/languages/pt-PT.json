@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "Está no modo de foco.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "Neste modo, todos os separadores estão ocultos à exceção do atual e não será possível criar novos separadores.",
-        "focusModeExplanation2": "Pode desativar este modo desmarcando a caixa \"Modo de foco\" no menu Ver.",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": "Agora mesmo",
         "timeRangeMinutes": "Há alguns minutos",

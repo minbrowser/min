@@ -154,12 +154,6 @@ function switchToTask (id) {
 function switchToTab (id, options) {
   options = options || {}
 
-  /* tab switching disabled in focus mode */
-  if (focusMode.enabled()) {
-    focusMode.warn()
-    return
-  }
-
   tabEditor.hide()
 
   tabs.setSelected(id)
@@ -170,6 +164,11 @@ function switchToTab (id, options) {
 }
 
 webviews.bindEvent('new-window', function (tabId, url, frameName, disposition) {
+  /* disabled in focus mode */
+  if (focusMode.enabled()) {
+    focusMode.warn()
+    return
+  }
   var newTab = tabs.add({
     url: url,
     private: tabs.get(tabId).private // inherit private status from the current tab

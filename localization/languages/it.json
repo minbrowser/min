@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "Sei in Modalità Focus.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "In Modalità Focus, tutte le schede eccetto quella corrente vengono nascoste, e non puoi crearne di nuove.",
-        "focusModeExplanation2": "Puoi uscire dalla Modalità Focus deselezionando \"Modalità Focus\" nel menù Vista.",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": "Proprio ora",
         "timeRangeMinutes": "Pochi minuti fa",

@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "当前处于焦点模式",
         "closeDialog": "确定", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "在焦点模式中，隐藏除当前标签页之外的其它所有标签页，且不能新建标签页。",
-        "focusModeExplanation2": "您可以通过菜单\"视图->焦点模式\"退出焦点模式。",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": "几秒前",
         "timeRangeMinutes": "几分钟前",

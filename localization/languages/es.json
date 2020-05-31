@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "Estás en el modo de enfoque.",
         "closeDialog": "Aceptar", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "En el modo de enfoque, todas las pestañas excepto la actual están ocultas, y no puedes crear nuevas pestañas.",
-        "focusModeExplanation2": "Pues salir del modo de enfoque desmarcando \"Modo de enfoque\" en el menú Ver.",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": null, //missing translation
         "timeRangeMinutes": null, //missing translation
