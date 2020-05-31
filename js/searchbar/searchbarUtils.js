@@ -124,7 +124,12 @@ function createItem (data) {
     attrBlock.classList.add('attribution')
 
     attrBlock.textContent = data.attribution
-    item.appendChild(attrBlock)
+    if (data.descriptionBlock) {
+      // used to make the attribution align with the text even if there's an image on the left
+      dBlock.appendChild(attrBlock)
+    } else {
+      item.appendChild(attrBlock)
+    }
   }
 
   if (data.delete) {

@@ -94,10 +94,12 @@
     position: absolute;
 }
 .searchbar-item:hover .action-button,
+.searchbar-item:focus .action-button,
 .searchbar-item .action-button.always-visible {
     opacity: 0.6;
 }
 .dark-mode .searchbar-item:hover .action-button,
+.dark-mode .searchbar-item:focus .action-button,
 .searchbar-item .action-button.always-visible {
 	opacity: 0.8;
 }
@@ -162,17 +164,19 @@
 	overflow: hidden;
 	opacity: 0.666;
 	font-size: 0.85em;
+	margin-top: 0.1em;
+	margin-right: 2.5em;
 }
 /* when a result is selected, we can show more of the description */
 .searchbar-item:focus .description-block {
-	max-height: 6.6em;
+	max-height: none;
 }
 
 .searchbar-item .attribution {
 	display: none;
 	line-height: 1.15em;
-	font-size: 0.85em;
-	opacity: 0.6;
+	font-size: 0.85rem;
+	opacity: 0.9;
 	margin-top: 0.2em;
 }
 .searchbar-item:focus .attribution {
