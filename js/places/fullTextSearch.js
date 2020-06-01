@@ -132,7 +132,13 @@ const stopWords = {
 
 /* this is used in placesWorker.js when a history item is created */
 function tokenize (string) {
-  return string.trim().toLowerCase().replace(ignoredCharactersRegex, '').replace(nonLetterRegex, ' ').split(whitespaceRegex).filter(function (token) {
+  return string.trim().toLowerCase()
+  .replace(ignoredCharactersRegex, '')
+  .replace(nonLetterRegex, ' ')
+  // remove diacritics
+  // https://stackoverflow.com/a/37511463
+  .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  .split(whitespaceRegex).filter(function (token) {
     return !stopWords[token] && token.length <= 100
   }).slice(0, 20000)
 }
