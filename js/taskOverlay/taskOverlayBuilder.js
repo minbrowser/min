@@ -182,6 +182,28 @@ var TaskOverlayBuilder = {
         }
         infoContainer.appendChild(lastTabEl)
 
+        var favicons = []
+
+        task.tabs.get().sort((a, b) => b.lastActivity - a.lastActivity).forEach(function (tab) {
+          if (tab.favicon) {
+            favicons.push(tab.favicon.url)
+          }
+        })
+
+        if (favicons.length > 0) {
+          var faviconsEl = document.createElement('span')
+          faviconsEl.className = 'task-favicons'
+          favicons = favicons.filter((i, idx) => favicons.indexOf(i) === idx)
+
+          favicons.forEach(function (favicon) {
+            var img = document.createElement('img')
+            img.src = favicon
+            faviconsEl.appendChild(img)
+          })
+
+          infoContainer.appendChild(faviconsEl)
+        }
+
         return infoContainer
       },
       container: function (task, taskIndex) {

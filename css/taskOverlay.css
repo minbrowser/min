@@ -222,6 +222,16 @@
 	display: none;
 }
 
+.task-container:not(.collapsed) .task-info-container .task-favicons {
+	display: none;
+}
+.task-favicons img {
+	width: 1em;
+	height: 1em;
+	margin: 0 0.25em;
+	vertical-align: bottom;
+}
+
 body.dark-mode #task-overlay{
 	background-color: rgb(40, 44, 52) !important;
 	color: lightgrey;
