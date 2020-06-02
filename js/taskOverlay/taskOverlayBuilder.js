@@ -5,6 +5,8 @@ var urlParser = require('util/urlParser.js')
 var searchEngine = require('util/searchEngine.js')
 var tabBar = require('navbar/tabBar.js')
 
+const faviconMinimumLuminance = 70 // minimum brightness for a "light" favicon
+
 function getTaskRelativeDate (task) {
   var minimumTime = new Date()
   minimumTime.setHours(0)
@@ -183,21 +185,26 @@ var TaskOverlayBuilder = {
         infoContainer.appendChild(lastTabEl)
 
         var favicons = []
+        var faviconURLs = []
 
         task.tabs.get().sort((a, b) => b.lastActivity - a.lastActivity).forEach(function (tab) {
           if (tab.favicon) {
-            favicons.push(tab.favicon.url)
+            favicons.push(tab.favicon)
+            faviconURLs.push(tab.favicon.url)
           }
         })
 
         if (favicons.length > 0) {
           var faviconsEl = document.createElement('span')
           faviconsEl.className = 'task-favicons'
-          favicons = favicons.filter((i, idx) => favicons.indexOf(i) === idx)
+          favicons = favicons.filter((i, idx) => faviconURLs.indexOf(i.url) === idx)
 
           favicons.forEach(function (favicon) {
             var img = document.createElement('img')
-            img.src = favicon
+            img.src = favicon.url
+            if (favicon.luminance < faviconMinimumLuminance) {
+              img.classList.add('dark-favicon')
+            }
             faviconsEl.appendChild(img)
           })
 
@@ -259,8 +266,8 @@ var TaskOverlayBuilder = {
         } else if (tab.favicon) {
           data.iconImage = tab.favicon.url
 
-          if (tab.favicon.luminance && tab.favicon.luminance < 70) {
-            data.classList.push('dark-favicon')
+          if (tab.favicon.luminance && tab.favicon.luminance < faviconMinimumLuminance) {
+            data.classList.push('has-dark-favicon')
           }
         }
 
