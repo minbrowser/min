@@ -5,8 +5,9 @@ onmessage = function (e) {
   const command = e.data.command
   const args = e.data.args
   const input = e.data.input
+  const customEnv = e.data.customEnv
   try {
-    const process = spawnSync(command, args, {input: input, encoding: 'utf8'})
+    const process = spawnSync(command, args, {input: input, encoding: 'utf8', env: customEnv})
     postMessage({taskId: taskId, result: process.output[1].slice(0, -1)})
   } catch (e) {
     postMessage({taskId: taskId, error: e.toString()})
