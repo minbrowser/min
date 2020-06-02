@@ -136,15 +136,15 @@
         },
         "settingsAppearanceHeading": "Wygląd",
         "settingsEnableDarkMode": "Włącz tryb ciemny:",
-        "settingsDarkModeNever": null, //"Never" missing translation
-        "settingsDarkModeNight": null, //"At night" missing translation
-        "settingsDarkModeAlways": null, //"Always" missing translation
+        "settingsDarkModeNever": "Nigdy",
+        "settingsDarkModeNight": "W nocy",
+        "settingsDarkModeAlways": "Zawsze",
         "settingsSiteThemeToggle": "Włącz motyw witryny",
         "settingsAdditionalFeaturesHeading": "Dodatkowe funkcje",
         "settingsUserscriptsToggle": "Włącz skrypty użytkownika",
-        "settingsSeparateTitlebarToggle": null, //missing translation
+        "settingsSeparateTitlebarToggle": "Użyj osobnego paska tytułu",
 		"settingsUserscriptsExplanation": {"unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
-        "settingsUserAgentToggle": null, //missing translation
+        "settingsUserAgentToggle": "Użyj niestandardowego klienta użytkownika",
         "settingsUpdateNotificationsToggle": "Automatycznie sprawdź dostępność aktualizacji",
         "settingsSearchEngineHeading": "Wyszukiwarka",
         "settingsDefaultSearchEngine": "Wybierz domyślną wyszukiwarkę:",
@@ -201,15 +201,15 @@
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "strona <input type='text'/> z <span id='total'></span>"},
  	/* Context Reader */    
-	"buttonReaderSettings": null, //missing translation "Reader Settings"
-	"buttonReaderLightTheme": null, //missing translation "Light"
-	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
-	"buttonReaderDarkTheme": null, //missing translation "Dark"
-	"openReaderView": null, //missing translation "Always open in reader view"
-	"autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-	"buttonReaderRedirectYes": null, //missing translation "Yes"
-	"buttonReaderRedirectNo": null, //missing translation "No"
-	"articleReaderView": null, //missing translation "Original Article"
+	"buttonReaderSettings": "Ustawienia czytnika",
+	"buttonReaderLightTheme": "Jasny",
+	"buttonReaderSepiaTheme": "Sepia",
+	"buttonReaderDarkTheme": "Ciemny",
+	"openReaderView": "Zawsze otwieraj w widoku czytnika",
+	"autoRedirectBannerReader": "Czy zawsze otwierać artykuły z tej witryny w widoku czytelnika?",
+	"buttonReaderRedirectYes": "Tak",
+	"buttonReaderRedirectNo": "Nie",
+	"articleReaderView": "Oryginalny artykuł",
         /* Download manager */
         "downloadCancel": "Anuluj pobieranie",
         "downloadStateCompleted": "Pobieranie zakończone",
@@ -224,9 +224,11 @@
         "passwordManagerSetupStep1": {
             "unsafeHTML": "Najpierw, <a id='password-manager-setup-link'></a> i wypakuj go dla swojego systemu."
         },
-        "passwordManagerInstallerSetup": null, //missing translation
+        "passwordManagerInstallerSetup": {
+            "unsafeHTML": "Pobierz <a id='password-manager-setup-link-installer'></a> i przeciągnij plik do pola poniżej:"
+        },
         "passwordManagerSetupLink": "pobierz %p narzędzie wiersza poleceń",
-        "passwordManagerSetupLinkInstaller": null, //missing translation
+        "passwordManagerSetupLinkInstaller": "instalator wiersza poleceń %p",
         "passwordManagerSetupStep2": "Następnie przeciągnij narzędzie do pola poniżej:",
         "passwordManagerSetupDragBox": "Przeciągnij narzędzie tutaj",
         "passwordManagerSetupInstalling": "Instalowanie...",
@@ -237,12 +239,12 @@
         "passwordManagerSetupRetry": "Upewnij się, że używasz właściwego pliku i wpisujesz poprawne hasło. Możesz spróbować ponownie, przeciągając tutaj narzędzie.",
         "passwordManagerUnlock": "Wprowadź główne hasło %p, aby odblokować przechowalnię haseł:",
         /* Dialogs */
-        "loginPromptTitle": null, //missing translation
+        "loginPromptTitle": "Zaloguj się do %h (%r)",
         "dialogConfirmButton": "Potwierdź",
         "dialogSkipButton": "Anuluj",
-        "username": null, //missing translation
+        "username": "Nazwa Użytkownika",
         "email": "Email",
         "password": "Hasło",
-        "secretKey": null //missing translation
+        "secretKey": "Sekretny klucz"
     }
 }
