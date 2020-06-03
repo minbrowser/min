@@ -116,6 +116,10 @@ const bookmarkEditor = {
             }
             this.value = ''
           })
+
+          if (options.autoFocus) {
+            newTagInput.focus();
+          }
         })
       
         return editor;

@@ -34,7 +34,7 @@ const bookmarkStar = {
         star.setAttribute('aria-pressed', true)
         var editorInsertionPoint = document.createElement('div')
         searchbarPlugins.getContainer('simpleBookmarkTagInput').appendChild(editorInsertionPoint)
-        bookmarkEditor.show(tabs.get(tabs.getSelected()).url, editorInsertionPoint, null, {simplified: true})
+        bookmarkEditor.show(tabs.get(tabs.getSelected()).url, editorInsertionPoint, null, {simplified: true, autoFocus: true})
       } else {
         star.classList.remove('fa-star')
         star.classList.add('fa-star-o')
