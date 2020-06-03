@@ -52,6 +52,7 @@
 		"searchHistory": "Historia wyszukiwania",
         "importBookmarks": "Importuj zakładki z pliku HTML",
 		"exportBookmarks": "Eksportuj zakładki",
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "Otwórz menu", //application menu button on windows
         "enterReaderView": "Otwórz widok czytnika",

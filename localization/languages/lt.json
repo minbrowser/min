@@ -52,6 +52,7 @@
 		"searchHistory": "Ieškoti istorijos",
         "importBookmarks": null, //missing translation
 		"exportBookmarks": null, //missing translation
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "Atverti meniu", //application menu button on windows
         "enterReaderView": "Įeiti į skaitymo rodinį",

@@ -2,6 +2,9 @@
 
 var webviews = require('webviews.js')
 var settings = require('util/settings/settings.js')
+var bangsPlugin = require('searchbar/bangsPlugin.js')
+var tabEditor = require('navbar/tabEditor.js')
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 
 function parseTampermonkeyFeatures (content) {
   var parsedFeatures = {}
@@ -25,6 +28,11 @@ function parseTampermonkeyFeatures (content) {
       var featureName = feature.split(' ')[0]
       var featureValue = feature.replace(featureName + ' ', '').trim()
       featureName = featureName.replace('@', '')
+
+      // special case: find the localized name for the current locale
+      if (featureName.startsWith('name:') && featureName.split(':')[1].substring(0, 2) === navigator.language.substring(0, 2)) {
+        featureName = 'name:local'
+      }
       if (parsedFeatures[featureName]) {
         parsedFeatures[featureName].push(featureValue)
       } else {
@@ -84,7 +92,13 @@ const userscripts = {
 
             var tampermonkeyFeatures = parseTampermonkeyFeatures(file)
             if (tampermonkeyFeatures) {
-              userscripts.scripts.push({ options: tampermonkeyFeatures, content: file })
+              var scriptName = tampermonkeyFeatures['name:local'] || tampermonkeyFeatures['name']
+              if (scriptName) {
+                scriptName = scriptName[0]
+              } else {
+                scriptName = filename
+              }
+              userscripts.scripts.push({ options: tampermonkeyFeatures, content: file, name: scriptName })
             } else {
               // legacy script
               if (domain === 'global') {
@@ -92,14 +106,16 @@ const userscripts = {
                   options: {
                     match: ['*']
                   },
-                  content: file
+                  content: file,
+                  name: filename
                 })
               } else {
                 userscripts.scripts.push({
                   options: {
                     match: ['*://' + domain]
                   },
-                  content: file
+                  content: file,
+                  name: filename
                 })
               }
             }
@@ -107,6 +123,9 @@ const userscripts = {
         }
       })
     })
+  },
+  runScript: function (tabId, script) {
+    webviews.callAsync(tabId, 'executeJavaScript', [script.content, false, null])
   },
   onPageLoad: function (tabId) {
     if (userscripts.scripts.length === 0) {
@@ -118,7 +137,7 @@ const userscripts = {
     userscripts.scripts.forEach(function (script) {
       if ((script.options.match && script.options.match.some(pattern => urlMatchesPattern(src, pattern))) || (script.options.include && script.options.include.some(pattern => urlMatchesPattern(src, pattern)))) {
         if (!script.options.exclude || !script.options.exclude.some(pattern => urlMatchesPattern(src, pattern))) {
-          webviews.callAsync(tabId, 'executeJavaScript', [script.content, false, null])
+          userscripts.runScript(tabId, script)
         }
       }
     })
@@ -132,6 +151,39 @@ const userscripts = {
       }
     })
     webviews.bindEvent('dom-ready', userscripts.onPageLoad)
+
+    bangsPlugin.registerCustomBang({
+      phrase: '!run',
+      snippet: l('runUserscript'),
+      isAction: false,
+      showSuggestions: function (text, input, event) {
+        searchbarPlugins.reset('bangs')
+
+        var isFirst = true
+        userscripts.scripts.forEach(function (script) {
+          if (script.name.toLowerCase().startsWith(text.toLowerCase())) {
+            searchbarPlugins.addResult('bangs', {
+              title: script.name,
+              fakeFocus: isFirst && text,
+              click: function () {
+                tabEditor.hide()
+                userscripts.runScript(tabs.getSelected(), script)
+              }
+            })
+            isFirst = false
+          }
+        })
+      },
+      fn: function (text) {
+        if (!text) {
+          return
+        }
+        var matchingScript = userscripts.scripts.find(script => script.name.toLowerCase().startsWith(text.toLowerCase()))
+        if (matchingScript) {
+          userscripts.runScript(tabs.getSelected(), matchingScript)
+        }
+      }
+    })
   }
 }
 

@@ -52,6 +52,7 @@
 		"searchHistory": null, //missing translation
         "importBookmarks": null, //missing translation
 		"exportBookmarks": null, //missing translation
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": null, //missing translation
         "enterReaderView": "Otevřít režim čtení",

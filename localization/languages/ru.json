@@ -52,6 +52,7 @@
 		"searchHistory": "Искать в истории",
         "importBookmarks": "Импортировать закладки",
 		"exportBookmarks": "Экспортировать закладки",
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "Открыть меню",
         "enterReaderView": "Включить режим чтения",

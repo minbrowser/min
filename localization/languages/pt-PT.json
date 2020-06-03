@@ -52,6 +52,7 @@
 	"searchHistory": "Pesquisar no histórico",
 	"importBookmarks": "Importar marcadores de ficheiro HTML",
 	"exportBookmarks": "Exportar marcadores",
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "Abrir menu", //application menu button on windows
         "enterReaderView": "Ativar modo de leitura",

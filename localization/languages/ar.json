@@ -52,6 +52,7 @@
 		"searchHistory": "البحث عن السجل",
         "importBookmarks": null, //missing translation
 		"exportBookmarks": null, //missing translation
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "فتح القائمة", //application menu button on windows
         "enterReaderView": "دخول وضع القراءة",

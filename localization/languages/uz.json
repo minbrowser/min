@@ -52,7 +52,8 @@
 		"searchHistory": "Tarixdan qidirish",
 		"importBookmarks": "Xatcho'plarni HTML fayldan import qilish",
 		"exportBookmarks": "Xatcho'plarni export qilish",
-		/* navbar */
+		"runUserscript": null, //missing translation
+        /* navbar */
 		"openMenu": "Menyuni ochish", //application menu button on windows
 		"enterReaderView": "O'quvchi ko'rinishiga kirish",
 		"exitReaderView": "O'quvchi ko'rinishidan chiqish",

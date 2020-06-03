@@ -52,6 +52,7 @@
 		"searchHistory": "搜尋歷史",
         "importBookmarks": "自HTML檔案匯入書籤",
 		"exportBookmarks": "匯出書籤",
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "打開選單",
         "enterReaderView": "進入閱讀模式",

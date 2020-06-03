@@ -52,6 +52,7 @@
 		"searchHistory": "Шукати в історії",
         "importBookmarks": "Імпортувати закладки",
 		"exportBookmarks": "Експортувати закладки",
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "Відкрити меню", //application menu button on windows
         "enterReaderView": "Перейти в режим читання",

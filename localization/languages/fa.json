@@ -52,6 +52,7 @@
 		"searchHistory": "جستجوی تاریخچه",
         "importBookmarks": null, //missing translation
 		"exportBookmarks": null, //missing translation
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "باز کردن منو", //application menu button on windows
         "enterReaderView": "ورود به حالت خواندن",

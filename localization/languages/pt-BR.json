@@ -52,6 +52,7 @@
 		"searchHistory": "Buscar no histórico",
         "importBookmarks": "Importar favoritos do arquivo HTML",
 		"exportBookmarks": "Exportar favoritos",
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "Menu",
         "enterReaderView": "Modo leitura",

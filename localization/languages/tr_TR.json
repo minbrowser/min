@@ -52,6 +52,7 @@
 		"searchHistory": "Arama Geçmişi", 
         "importBookmarks": null, //missing translation
 		"exportBookmarks": null, //missing translation
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "Menüyü Aç",
         "enterReaderView": "Okuyucu görünümüne girin",

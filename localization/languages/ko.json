@@ -52,6 +52,7 @@
         "searchHistory": "기록 검색",
         "importBookmarks": "즐겨찾기 목록 가져오기",
         "exportBookmarks": "즐겨찾기 목록 내보내기",
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "도구 일람", //application menu button on windows
         "enterReaderView": "읽기 지원",

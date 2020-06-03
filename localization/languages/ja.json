@@ -52,6 +52,7 @@
 		"searchHistory": "検索履歴",
         "importBookmarks": "HTMLファイルからブックマークをインポートする",
 		"exportBookmarks": "ブックマークをエクスポート",
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "メニューを開く",
         "enterReaderView": "リーダービューを開始",

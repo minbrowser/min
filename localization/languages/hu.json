@@ -52,6 +52,7 @@
 		"searchHistory": "Keresési előzmények",
         "importBookmarks": null, //missing translation
 		"exportBookmarks": null, //missing translation
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "Menü megnyitása",
         "enterReaderView": "Lépj be az olvasó nézetbe",
