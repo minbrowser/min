@@ -127,7 +127,7 @@ window.addEventListener('load', function () {
 
 require('dbMigration.js')
 
-require('navbar/tabActivity.js').init()
+require('navbar/tabActivity.js').initialize()
 require('navbar/tabColor.js').initialize()
 require('navbar/goBackButton.js').initialize()
 require('downloadManager.js').initialize()
@@ -139,6 +139,7 @@ require('pdfViewer.js').initialize()
 require('autofillSetup.js').initialize()
 require('passwordManager/passwordManager.js').initialize()
 require('util/theme.js').initialize()
+require('userscripts.js').initialize()
 
 // default searchbar plugins
 

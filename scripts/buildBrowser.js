@@ -19,7 +19,6 @@ const legacyModules = [
   'js/taskOverlay/taskOverlay.js',
   'js/navbar/addTabButton.js',
   'js/navbar/menuButton.js',
-  'js/userscripts.js',
   'js/sessionRestore.js'
 ]
 

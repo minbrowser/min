@@ -199,7 +199,6 @@ settings.get('userscriptsEnabled', function (value) {
 
 userscriptsCheckbox.addEventListener('change', function (e) {
   settings.set('userscriptsEnabled', this.checked)
-  showRestartRequiredBanner()
 })
 
 /* separate titlebar setting */
