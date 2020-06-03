@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "已進入專心模式",
         "closeDialog": "確定", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "在專心模式，只會顯示正在瀏覽的分頁，且不能新增分頁。",
-        "focusModeExplanation2": "您可以取消勾選 \"選單 > 檢視 > 專心模式\" 退出專心模式。",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": "剛剛", 
         "timeRangeMinutes": "幾分鐘前",

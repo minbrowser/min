@@ -78,7 +78,7 @@
         /* Focus mode */
         "isFocusMode": "You're in Focus Mode.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "In focus mode, all tabs except the current one are hidden, and you can't create new tabs.",
+        "focusModeExplanation1": "In focus mode, you can't create new tabs or switch tasks.",
         "focusModeExplanation2": "You can leave focus mode by unchecking \"focus mode\" in the view menu.",
         /* relative dates */
         "timeRangeJustNow": "Just now",

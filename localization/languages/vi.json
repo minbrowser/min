@@ -74,8 +74,8 @@
         /* Focus mode */
         "isFocusMode": "Bạn trong chế độ tập trung.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "Trong chế độ tập trung, các tab trừ tab hiện tại sẽ bị ẩn, và bạn không có thể mở tab mới.",
-        "focusModeExplanation2": "Bạn có thể thoát chế độ tập trung bởi cách bỏ chọn \"Chế độ tập trung\" trong menu Xem.",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": "Vừa nãy",
         "timeRangeMinutes": "Vài phút trước",

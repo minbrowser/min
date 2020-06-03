@@ -80,8 +80,8 @@
 		/* Focus mode */
 		"isFocusMode": "Siz Fokus Rejimidasiz",
 		"closeDialog": "OK", //used as a label for the button that closes the dialog
-		"focusModeExplanation1": "Fokus Rejimida, barcha varaqlar bunisidan tashqari, yashirib qo'yilgan va yangi varaqlar yarata olmaysiz.",
-		"focusModeExplanation2": "Siz Fokus Rejimidan ko'rinish menyusidagi \"focus mode\" dan belgini olib tashlab chiqib ketishingiz mumkin.",
+		"focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+		"focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
 		/* relative dates */
 		"timeRangeJustNow": "Hozirgina",
 		"timeRangeMinutes": "Bir necha daqiqa oldin",

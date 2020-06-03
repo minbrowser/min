@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "フォーカスモード中です",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "フォーカスモード中は、現在選択中のタブを除くすべてのタブが非表示になり、新規タブの作成もできなくなります。",
-        "focusModeExplanation2": "\"表示\"メニューから\"フォーカスモード\"のチェックを外すことで、フォーカスモードを終了できます。",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": "ちょうど今",
         "timeRangeMinutes": "数分前に",

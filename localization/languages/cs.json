@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "Jste v režimu zaměření.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "V režimu zaměření jsou všechny karty kromě aktuální skryté a nelze vytvářet nové karty.",
-        "focusModeExplanation2": "Můžete opustit režim zaměření odškrtnutím \"Režim zaměření\" v nabídce zobrazení.",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": null, //missing translation
         "timeRangeMinutes": null, //missing translation
