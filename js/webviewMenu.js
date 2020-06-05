@@ -1,19 +1,12 @@
-var webviews = require('webviews.js')
-var browserUI = require('browserUI.js')
-var searchEngine = require('util/searchEngine.js')
+const webviews = require('webviews.js')
+const browserUI = require('browserUI.js')
+const searchEngine = require('util/searchEngine.js')
 
-var Menu, MenuItem, clipboard // these are only loaded when the menu is shown
+const remoteMenu = require('remoteMenuRenderer.js')
 
-var webviewMenu = {
+const webviewMenu = {
   menuData: null,
   showMenu: function (data, extraData) { // data comes from a context-menu event
-    if (!Menu || !MenuItem || !clipboard) {
-      Menu = remote.Menu
-      MenuItem = remote.MenuItem
-      clipboard = remote.clipboard
-    }
-
-    var menu = new Menu()
     var currentTab = tabs.get(tabs.getSelected())
 
     var menuSections = []
@@ -22,12 +15,12 @@ var webviewMenu = {
 
     if (extraData.hasVideo) {
       menuSections.push([
-        new MenuItem({
+        {
           label: l('pictureInPicture'),
           click: function () {
             webviews.callAsync(tabs.getSelected(), 'send', ['enterPictureInPicture', {x: data.x, y: data.y}])
           }
-        })
+        }
       ])
     }
 
@@ -44,27 +37,27 @@ var webviewMenu = {
 
     if (link) {
       var linkActions = [
-        new MenuItem({
+        {
           label: (link.length > 60) ? link.substring(0, 60) + '...' : link,
           enabled: false
-        })
+        }
       ]
 
       if (!currentTab.private) {
-        linkActions.push(new MenuItem({
+        linkActions.push({
           label: l('openInNewTab'),
           click: function () {
             browserUI.addTab(tabs.add({ url: link }), { enterEditMode: false })
           }
-        }))
+        })
       }
 
-      linkActions.push(new MenuItem({
+      linkActions.push({
         label: l('openInNewPrivateTab'),
         click: function () {
           browserUI.addTab(tabs.add({ url: link, private: true }), { enterEditMode: false })
         }
-      }))
+      })
 
       menuSections.push(linkActions)
     } else if (mediaURL && data.mediaType === 'image') {
@@ -72,44 +65,44 @@ var webviewMenu = {
       /* we don't show the image actions if there are already link actions, because it makes the menu too long and because the image actions typically aren't very useful if the image is a link */
 
       var imageActions = [
-        new MenuItem({
+        {
           label: (mediaURL.length > 60) ? mediaURL.substring(0, 60) + '...' : mediaURL,
           enabled: false
-        })
+        }
       ]
 
-      imageActions.push(new MenuItem({
+      imageActions.push({
         label: l('viewImage'),
         click: function () {
           webviews.update(tabs.getSelected(), mediaURL)
         }
-      }))
+      })
 
       if (!currentTab.private) {
-        imageActions.push(new MenuItem({
+        imageActions.push({
           label: l('openImageInNewTab'),
           click: function () {
             browserUI.addTab(tabs.add({ url: mediaURL }), { enterEditMode: false })
           }
-        }))
+        })
       }
 
-      imageActions.push(new MenuItem({
+      imageActions.push({
         label: l('openImageInNewPrivateTab'),
         click: function () {
           browserUI.addTab(tabs.add({ url: mediaURL, private: true }), { enterEditMode: false })
         }
-      }))
+      })
 
       menuSections.push(imageActions)
 
       menuSections.push([
-        new MenuItem({
+        {
           label: l('saveImageAs'),
           click: function () {
             remote.getCurrentWebContents().downloadURL(mediaURL)
           }
-        })
+        }
       ])
     }
 
@@ -119,7 +112,7 @@ var webviewMenu = {
 
     if (selection) {
       var textActions = [
-        new MenuItem({
+        {
           label: l('searchWith').replace('%s', searchEngine.getCurrent().name),
           click: function () {
             var newTab = tabs.add({
@@ -132,7 +125,7 @@ var webviewMenu = {
 
             webviews.get(newTab).focus()
           }
-        })
+        }
       ]
       menuSections.push(textActions)
     }
@@ -140,37 +133,37 @@ var webviewMenu = {
     var clipboardActions = []
 
     if (mediaURL && data.mediaType === 'image') {
-      clipboardActions.push(new MenuItem({
+      clipboardActions.push({
         label: l('copy'),
         click: function () {
           webviews.callAsync(tabs.getSelected(), 'copyImageAt', [data.x, data.y])
         }
-      }))
+      })
     } else if (selection) {
-      clipboardActions.push(new MenuItem({
+      clipboardActions.push({
         label: l('copy'),
         click: function () {
           clipboard.writeText(selection)
         }
-      }))
+      })
     }
 
     if (data.editFlags && data.editFlags.canPaste) {
-      clipboardActions.push(new MenuItem({
+      clipboardActions.push({
         label: l('paste'),
         click: function () {
           webviews.get(tabs.getSelected()).paste()
         }
-      }))
+      })
     }
 
     if (link || (mediaURL && !mediaURL.startsWith('blob:'))) {
-      clipboardActions.push(new MenuItem({
+      clipboardActions.push({
         label: l('copyLink'),
         click: function () {
           clipboard.writeText(link || mediaURL)
         }
-      }))
+      })
     }
 
     if (clipboardActions.length !== 0) {
@@ -178,50 +171,40 @@ var webviewMenu = {
     }
 
     var navigationActions = [
-      new MenuItem({
+      {
         label: l('goBack'),
         click: function () {
           try {
             webviews.goBackIgnoringRedirects(tabs.getSelected())
           } catch (e) {}
         }
-      }),
-      new MenuItem({
+      },
+      {
         label: l('goForward'),
         click: function () {
           try {
             webviews.get(tabs.getSelected()).goForward()
           } catch (e) {}
         }
-      })
+      }
     ]
 
     menuSections.push(navigationActions)
 
     /* inspect element */
     menuSections.push([
-      new MenuItem({
+      {
         label: l('inspectElement'),
         click: function () {
           webviews.get(tabs.getSelected()).inspectElement(data.x || 0, data.y || 0)
         }
-      })
+      }
     ])
-
-    menuSections.forEach(function (section) {
-      section.forEach(function (item) {
-        menu.append(item)
-      })
-      menu.append(new MenuItem({ type: 'separator' }))
-    })
 
     // Electron's default menu position is sometimes wrong on Windows with a touchscreen
     // https://github.com/minbrowser/min/issues/903
     var offset = webviews.getViewBounds()
-    menu.popup({
-      x: data.x + offset.x,
-      y: data.y + offset.y
-    })
+    remoteMenu.open(menuSections, data.x + offset.x, data.y + offset.y)
   },
   initialize: function () {
     webviews.bindEvent('context-menu', function (tabId, data) {
