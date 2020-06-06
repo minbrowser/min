@@ -1,6 +1,7 @@
 const webviews = require('webviews.js')
 const browserUI = require('browserUI.js')
 const searchEngine = require('util/searchEngine.js')
+const userscripts = require('userscripts.js')
 
 const remoteMenu = require('remoteMenuRenderer.js')
 
@@ -200,6 +201,32 @@ const webviewMenu = {
         }
       }
     ])
+
+    /* Userscripts */
+
+    var contextMenuScripts = userscripts.scripts.filter(function (script) {
+      if (script.options['run-at'] && script.options['run-at'].includes('context-menu')) {
+        return true
+      }
+    })
+
+    if (contextMenuScripts.length > 0) {
+      var scriptActions = [
+        {
+          label: l('runUserscript'),
+          enabled: false
+        }
+      ]
+      contextMenuScripts.forEach(function (script) {
+        scriptActions.push({
+          label: script.name,
+          click: function () {
+            userscripts.runScript(tabs.getSelected(), script)
+          }
+        })
+      })
+      menuSections.push(scriptActions)
+    }
 
     // Electron's default menu position is sometimes wrong on Windows with a touchscreen
     // https://github.com/minbrowser/min/issues/903

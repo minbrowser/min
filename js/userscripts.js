@@ -135,9 +135,12 @@ const userscripts = {
     var src = tabs.get(tabId).url
 
     userscripts.scripts.forEach(function (script) {
-      if ((script.options.match && script.options.match.some(pattern => urlMatchesPattern(src, pattern))) || (script.options.include && script.options.include.some(pattern => urlMatchesPattern(src, pattern)))) {
-        if (!script.options.exclude || !script.options.exclude.some(pattern => urlMatchesPattern(src, pattern))) {
-          userscripts.runScript(tabId, script)
+      // TODO run different types of scripts at the correct time
+      if (!script.options['run-at'] || script.options['run-at'].some(i => ['document-start', 'document-body', 'document-end', 'document-idle'].includes(i))) {
+        if ((script.options.match && script.options.match.some(pattern => urlMatchesPattern(src, pattern))) || (script.options.include && script.options.include.some(pattern => urlMatchesPattern(src, pattern)))) {
+          if (!script.options.exclude || !script.options.exclude.some(pattern => urlMatchesPattern(src, pattern))) {
+            userscripts.runScript(tabId, script)
+          }
         }
       }
     })
