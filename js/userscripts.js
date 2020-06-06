@@ -5,6 +5,7 @@ var settings = require('util/settings/settings.js')
 var bangsPlugin = require('searchbar/bangsPlugin.js')
 var tabEditor = require('navbar/tabEditor.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var urlParser = require('util/urlParser.js')
 
 function parseTampermonkeyFeatures (content) {
   var parsedFeatures = {}
@@ -125,6 +126,9 @@ const userscripts = {
     })
   },
   runScript: function (tabId, script) {
+    if (urlParser.isInternalURL(tabs.get(tabId).url)) {
+      return
+    }
     webviews.callAsync(tabId, 'executeJavaScript', [script.content, false, null])
   },
   onPageLoad: function (tabId) {
