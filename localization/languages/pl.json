@@ -52,7 +52,7 @@
 		"searchHistory": "Historia wyszukiwania",
         "importBookmarks": "Importuj zakładki z pliku HTML",
 		"exportBookmarks": "Eksportuj zakładki",
-        "runUserscript": null, //missing translation
+        "runUserscript": "Uruchom skrypt użytkownika",
         /* navbar */
         "openMenu": "Otwórz menu", //application menu button on windows
         "enterReaderView": "Otwórz widok czytnika",
@@ -79,8 +79,8 @@
         /* Focus mode */
         "isFocusMode": "Jesteś w trybie ostrości.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+        "focusModeExplanation1": "W trybie ustawiania ostrości nie można tworzyć nowych kart ani przełączać zadań.",
+        "focusModeExplanation2": "Możesz wyjść z trybu ustawiania ostrości, usuwając zaznaczenie \"tryb ustawiania ostrości\" w menu widoku.",
         /* relative dates */
         "timeRangeJustNow": "Przed chwilą",
         "timeRangeMinutes": "Kilka minut temu",
