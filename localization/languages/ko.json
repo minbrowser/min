@@ -136,7 +136,7 @@
             "unsafeHTML": "이지리스트(EasyList)와 이지프라이버시(EasyPrivacy)를 기반으로 합니다. <a target=\"_blank\" href=\"https://easylist.to/\">EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">이용 규약(라이선스) 보기</a>)."
         },
         "settingsAppearanceHeading": "외형",
-        "settingsEnableDarkMode": "어두운 외형(Dark Mode) 사용: ",
+        "settingsEnableDarkMode": "어두운 외형(Dark Mode) 사용:",
         "settingsDarkModeNever": "사용하지 않음",
         "settingsDarkModeNight": "밤에만 사용",
         "settingsDarkModeAlways": "항상 사용",
