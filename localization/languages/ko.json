@@ -52,7 +52,7 @@
         "searchHistory": "기록 검색",
         "importBookmarks": "즐겨찾기 목록 가져오기",
         "exportBookmarks": "즐겨찾기 목록 내보내기",
-        "runUserscript": null, //missing translation
+        "runUserscript": "사용자 명령(스크립트) 실행",
         /* navbar */
         "openMenu": "도구 일람", //application menu button on windows
         "enterReaderView": "읽기 지원",
@@ -79,8 +79,8 @@
         /* Focus mode */
         "isFocusMode": "집중 지원 상태입니다.",
         "closeDialog": "닫기", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+        "focusModeExplanation1": "집중 지원 상태에서는 새 작업을 열거나 다른 작업으로 전환할 수 없습니다.",
+        "focusModeExplanation2": "보기 범주에서 \"집중 지원\"을 선택 해제하여 집중 지원을 종료할 수 있습니다.",
         /* relative dates */
         "timeRangeJustNow": "방금",
         "timeRangeMinutes": "몇분 전",
@@ -133,10 +133,10 @@
         "settingsBlockScriptsToggle": "명령(스크립트) 차단",
         "settingsBlockImagesToggle": "그림 차단",
         "settingsEasyListCredit": {
-            "unsafeHTML": "이지리스트(EasyList)와 이지프라이버시(EasyPrivacy)를 기반으로 합니다. <a target=\"_blank\" href=\"https://easylist.to/\">EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">이용 규약(라이선스) 보기</a>). "
+            "unsafeHTML": "이지리스트(EasyList)와 이지프라이버시(EasyPrivacy)를 기반으로 합니다. <a target=\"_blank\" href=\"https://easylist.to/\">EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">이용 규약(라이선스) 보기</a>)."
         },
         "settingsAppearanceHeading": "외형",
-        "settingsEnableDarkMode": "어두운 외형(Dark Mode) 사용: ",
+        "settingsEnableDarkMode": "어두운 외형(Dark Mode) 사용:",
         "settingsDarkModeNever": "사용하지 않음",
         "settingsDarkModeNight": "밤에만 사용",
         "settingsDarkModeAlways": "항상 사용",
