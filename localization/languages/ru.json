@@ -52,7 +52,7 @@
 		"searchHistory": "Искать в истории",
         "importBookmarks": "Импортировать закладки",
 		"exportBookmarks": "Экспортировать закладки",
-        "runUserscript": null, //missing translation
+        "runUserscript": "Запустить пользовательский скрипт",
         /* navbar */
         "openMenu": "Открыть меню",
         "enterReaderView": "Включить режим чтения",
@@ -79,8 +79,8 @@
         /* Focus mode */
         "isFocusMode": "Вы в режиме фокусировки",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+        "focusModeExplanation1": "В режиме фокусировки вы не можете создавать новые вкладки или переключать задачи.",
+        "focusModeExplanation2": "Вы можете выйти из режима фокусировки, сняв флажок с \"режим фокусировки\" в меню просмотра.",
         /* relative dates */
         "timeRangeJustNow": "Только что",
         "timeRangeMinutes": "Несколько минут назад",
@@ -202,15 +202,15 @@
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "страница <input type='text'/> из <span id='total'></span>"},
  	/* Context Reader */    
-	"buttonReaderSettings": null, //missing translation "Reader Settings"
-	"buttonReaderLightTheme": null, //missing translation "Light"
-	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
-	"buttonReaderDarkTheme": null, //missing translation "Dark"
-	"openReaderView": null, //missing translation "Always open in reader view"
-	"autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-	"buttonReaderRedirectYes": null, //missing translation "Yes"
-	"buttonReaderRedirectNo": null, //missing translation "No"
-	"articleReaderView": null, //missing translation "Original Article"
+	"buttonReaderSettings": "Настройки режима чтения",
+	"buttonReaderLightTheme": "Светлый",
+	"buttonReaderSepiaTheme": "Сепия",
+	"buttonReaderDarkTheme": "Темный",
+	"openReaderView": "Всегда открывать в режиме чтения",
+	"autoRedirectBannerReader": "Всегда открывать статьи с этого сайта в режиме чтения?",
+	"buttonReaderRedirectYes": "Да",
+	"buttonReaderRedirectNo": "Нет",
+	"articleReaderView": "Оригинальная статья",
         /* Download manager */
         "downloadCancel": "Отменить",
         "downloadStateCompleted": "Завершено",
