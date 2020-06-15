@@ -8,6 +8,16 @@ const { spawn, spawnSync } = require('child_process')
 
 const worker = new Worker('js/util/processWorker.js');
 
+let processPath = process.env.PATH
+
+// we need to locate the op binary in this directory on macOS - see https://github.com/minbrowser/min/issues/1028
+// normally, it is present in the path when running in development, but not when the app is launched after being packaged
+if (platformType === "mac" && !processPath.includes("/usr/local/bin")) {
+  processPath += ':/usr/local/bin'
+}
+
+const customEnv = {PATH: processPath}
+
 class ProcessSpawner {
   constructor(command, args) {
     this.command = command
@@ -18,7 +28,7 @@ class ProcessSpawner {
 
   async execute() {
     return new Promise((resolve, reject) => {
-      const process = spawn(this.command, this.args)
+      const process = spawn(this.command, this.args, { env: customEnv })
 
       process.stdout.on('data', (data) => {
         this.data += data
@@ -43,14 +53,14 @@ class ProcessSpawner {
   }
 
   executeSync(input) {
-    const process = spawnSync(this.command, this.args, { input: input, encoding: "utf8" })
+    const process = spawnSync(this.command, this.args, { input: input, encoding: "utf8", env: customEnv })
     return process.output[1].slice(0, -1)
   }
 
   executeSyncInAsyncContext(input) {
     return new Promise((resolve, reject) => {
       let taskId = Math.random();
-      worker.onmessage = function(e) {
+      worker.onmessage = function (e) {
         if (e.data.taskId === taskId) {
           if (e.data.error) {
             reject(e.data.error)
@@ -63,6 +73,7 @@ class ProcessSpawner {
         command: this.command,
         args: this.args,
         input: input,
+        customEnv: customEnv,
         taskId: taskId,
       })
     })
@@ -71,7 +82,7 @@ class ProcessSpawner {
   checkCommandExists() {
     return new Promise((resolve, reject) => {
       const checkCommand = (platformType === "windows") ? 'where' : 'which'
-      const process = spawn(checkCommand, [this.command])
+      const process = spawn(checkCommand, [this.command], { env: customEnv })
 
       process.stdout.on('data', (data) => {
         if (data.length > 0) {
