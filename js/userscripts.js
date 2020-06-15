@@ -127,7 +127,10 @@ const userscripts = {
   },
   getMatchingScripts: function (src) {
     return userscripts.scripts.filter(function (script) {
-      if ((script.options.match && script.options.match.some(pattern => urlMatchesPattern(src, pattern))) || (script.options.include && script.options.include.some(pattern => urlMatchesPattern(src, pattern)))) {
+      if (
+        (!script.options.match && !script.options.include) ||
+        (script.options.match && script.options.match.some(pattern => urlMatchesPattern(src, pattern))) ||
+        (script.options.include && script.options.include.some(pattern => urlMatchesPattern(src, pattern)))) {
         if (!script.options.exclude || !script.options.exclude.some(pattern => urlMatchesPattern(src, pattern))) {
           return true
         }
