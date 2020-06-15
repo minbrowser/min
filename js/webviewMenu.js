@@ -1,3 +1,5 @@
+const clipboard = remote.clipboard
+
 const webviews = require('webviews.js')
 const browserUI = require('browserUI.js')
 const searchEngine = require('util/searchEngine.js')
