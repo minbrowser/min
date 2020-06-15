@@ -206,7 +206,7 @@ const webviewMenu = {
 
     /* Userscripts */
 
-    var contextMenuScripts = userscripts.scripts.filter(function (script) {
+    var contextMenuScripts = userscripts.getMatchingScripts(tabs.get(tabs.getSelected()).url).filter(function (script) {
       if (script.options['run-at'] && script.options['run-at'].includes('context-menu')) {
         return true
       }
