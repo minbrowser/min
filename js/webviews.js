@@ -542,7 +542,7 @@ ipc.on('captureData', function (e, data) {
 /* focus the view when the window is focused */
 
 ipc.on('windowFocus', function () {
-  if (document.activeElement === document.body) {
+  if (webviews.placeholderRequests.length === 0 && document.activeElement.tagName !== 'INPUT') {
     webviews.focus()
   }
 })
