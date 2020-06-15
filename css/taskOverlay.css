@@ -79,7 +79,7 @@
 	opacity: 0.9 !important;
 }
 
-.dark-mode .task-tab-item.dark-favicon .icon-image {
+.dark-mode .task-tab-item.has-dark-favicon .icon-image {
 	box-sizing: content-box;
 	background: rgba(255, 255, 255, 0.7);
 	border: 2px transparent solid;
@@ -220,6 +220,25 @@
 
 .task-container:not(.collapsed) .task-info-container .task-last-tab-title {
 	display: none;
+}
+
+.task-container:not(.collapsed) .task-info-container .task-favicons {
+	display: none;
+}
+.task-favicons {
+	opacity: 0.8 !important;
+}
+.task-favicons img {
+	width: 1em;
+	height: 1em;
+	margin: 0 0.25em;
+	vertical-align: bottom;
+}
+.dark-mode .task-favicons .dark-favicon {
+	box-sizing: content-box;
+	background: rgba(255, 255, 255, 0.85);
+	border: 2px transparent solid;
+	margin: -2px calc(0.25em - 2px) -2px calc(0.25em - 2px)
 }
 
 body.dark-mode #task-overlay{
