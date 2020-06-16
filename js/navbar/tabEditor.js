@@ -85,6 +85,8 @@ const tabEditor = {
       if (e.keyCode === 9 || e.keyCode === 40) { // if the tab or arrow down key was pressed
         searchbar.focusItem()
         e.preventDefault()
+      } else if (e.keyCode === 38) { // arrow up key
+        searchbar.focusItem({focusPrevious: true})
       }
     })
 

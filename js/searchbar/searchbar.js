@@ -64,7 +64,11 @@ var searchbar = {
       searchbar.associatedInput.focus()
       return
     } else if (allItems[0]) { // no item is focused.
-      allItems[0].focus()
+      if (previous) {
+        allItems[allItems.length - 1].focus()
+      } else {
+        allItems[0].focus()
+      }
     }
   },
   openURL: function (url, event) {
