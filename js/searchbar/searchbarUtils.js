@@ -148,6 +148,13 @@ function createItem (data) {
         }, 200)
       }
     })
+
+    item.addEventListener('auxclick', function (e) {
+      if (e.which === 2) { // middle mouse click
+        data.delete(item)
+        item.parentNode.removeChild(item)
+      }
+    })
   }
 
   // delete button is just a pre-defined action button
