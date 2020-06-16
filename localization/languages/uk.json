@@ -52,7 +52,7 @@
 		"searchHistory": "Шукати в історії",
         "importBookmarks": "Імпортувати закладки",
 		"exportBookmarks": "Експортувати закладки",
-        "runUserscript": null, //missing translation
+        "runUserscript": "Запустити скрипт користувача",
         /* navbar */
         "openMenu": "Відкрити меню", //application menu button on windows
         "enterReaderView": "Перейти в режим читання",
@@ -79,8 +79,8 @@
         /* Focus mode */
         "isFocusMode": "Ви в режимі фокусування",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+        "focusModeExplanation1": "У режимі фокусування не можна створювати нові вкладки або перемикати завдання.",
+        "focusModeExplanation2": "Ви можете залишити режим фокусування, знявши позначку \"режим фокусування\" в меню перегляду.",
         /* relative dates */
         "timeRangeJustNow": "Зараз",
         "timeRangeMinutes": "Кілька хвилин тому",
@@ -138,9 +138,9 @@
         "settingsAppearanceHeading": "Зовнішній вигляд",
         "settingsDarkModeToggle": "Увімкнути темний режим",
         "settingsEnableDarkMode": "Увімкнути темний режим: ",
-        "settingsDarkModeNever": "Ніколи", 
-        "settingsDarkModeNight": "Вночі", 
-        "settingsDarkModeAlways": "Завжди", 
+        "settingsDarkModeNever": "Ніколи",
+        "settingsDarkModeNight": "Вночі",
+        "settingsDarkModeAlways": "Завжди",
         "settingsSiteThemeToggle": "Увімкнути тему сайту",
         "settingsAdditionalFeaturesHeading": "Додаткові можливості",
         "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
@@ -202,16 +202,16 @@
         "appMenuBringToFront": "Все на передній план",
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "сторінка <input type='text'/> з <span id='total'></span>"},
- 	/* Context Reader */    
-	"buttonReaderSettings": null, //missing translation "Reader Settings"
-	"buttonReaderLightTheme": null, //missing translation "Light"
-	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
-	"buttonReaderDarkTheme": null, //missing translation "Dark"
-	"openReaderView": null, //missing translation "Always open in reader view"
-	"autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-	"buttonReaderRedirectYes": null, //missing translation "Yes"
-	"buttonReaderRedirectNo": null, //missing translation "No"
-	"articleReaderView": null, //missing translation "Original Article"
+        /* Context Reader */
+        "buttonReaderSettings": "Налаштування режиму читання",
+        "buttonReaderLightTheme": "Світлий",
+        "buttonReaderSepiaTheme": "Сепія",
+        "buttonReaderDarkTheme": "Темний",
+        "openReaderView": "Завжди відкривати в режимі читання",
+        "autoRedirectBannerReader": "Завжди відкривати статті з цього сайту в режимі читання?",
+        "buttonReaderRedirectYes": "Так",
+        "buttonReaderRedirectNo": "Ні",
+        "articleReaderView": "Оригінальна стаття",
         /* Download manager */
         "downloadCancel": "Скасувати",
         "downloadStateCompleted": "Завершено",
