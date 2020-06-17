@@ -48,10 +48,10 @@ window.sessionRestore = {
 
     /* the survey should only be shown after an upgrade from an earlier version */
     var shouldShowSurvey = false
-    if (savedStringData && !localStorage.getItem('1.8survey')) {
+    if (savedStringData && !localStorage.getItem('1.15survey')) {
       shouldShowSurvey = true
     }
-    localStorage.setItem('1.8survey', 'true')
+    localStorage.setItem('1.15survey', 'true')
 
     try {
       // first run, show the tour
@@ -107,13 +107,14 @@ window.sessionRestore = {
       // if this isn't the first run, and the survey popup hasn't been shown yet, show it
 
       if (shouldShowSurvey) {
-        fetch('https://minbrowser.github.io/min/survey/survey.json').then(function (response) {
+        fetch('https://minbrowser.org/survey/survey15.json').then(function (response) {
           return response.json()
         }).then(function (data) {
           setTimeout(function () {
             if (data.available && data.url) {
               if (tasks.getSelected().tabs.isEmpty()) {
                 webviews.update(tasks.getSelected().tabs.getSelected(), data.url)
+                tabEditor.hide()
               } else {
                 var surveyTab = tasks.getSelected().tabs.add({
                   url: data.url
