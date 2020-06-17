@@ -16,12 +16,16 @@ scriptsToRun.push(`
   }
 `)
 
-if (window.location.hostname === 'google.com' || window.location.hostname.endsWith('.google.com')) {
+if ((window.location.hostname === 'google.com' || window.location.hostname.endsWith('.google.com')) && window.location.hostname !== 'hangouts.google.com') {
   /* define window.chrome
      this is necessary because some websites (such as the Google Drive file viewer, see issue #378) check for a
      Chrome user agent, and then do things like if(chrome.<module>) {}
      so we need to create a chrome object to prevent errors
      (https://github.com/electron/electron/issues/16587)
+
+     However, if window.chrome exists, hangouts will attempt to connect to an extension and break
+     (https://github.com/minbrowser/min/issues/1051)
+     so don't enable it there
      */
 
   scriptsToRun.push(`
