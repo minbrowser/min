@@ -1,5 +1,6 @@
 const settings = require('util/settings/settings.js')
 const ProcessSpawner = require('util/process.js')
+const path = require('path')
 
 // Bitwarden password manager. Requires session key to unlock the vault.
 class Bitwarden {
@@ -22,9 +23,9 @@ class Bitwarden {
         break;
     }
   }
-  
-  getFileName() {
-    return (platformType === 'windows' ? 'bw.exe' : 'bw')
+
+  getLocalPath() {
+    return path.join(window.globalArgs['user-data-path'], 'tools', (platformType === 'windows' ? 'bw.exe' : 'bw'))
   }
 
   getSetupMode() {
@@ -36,7 +37,7 @@ class Bitwarden {
   // by checking the settings value. If that is not set or doesn't point
   // to a valid executable, it checks if 'bw' is available globally.
   async _getToolPath() {
-    let localPath = settings.get('bitwardenPath')
+    let localPath = this.getLocalPath()
     if (localPath) {
       let local = false;
       try {
@@ -161,8 +162,7 @@ class Bitwarden {
     let process = new ProcessSpawner(path, ['login', '--raw', credentials.email, credentials.password])
 
     await process.execute()
-
-    settings.set('bitwardenPath', path)
+    
     return true
   }
 

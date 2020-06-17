@@ -1,5 +1,6 @@
 const settings = require('util/settings/settings.js')
 const ProcessSpawner = require('util/process.js')
+const path = require('path')
 
 // 1Password password manager. Requires session key to unlock the vault.
 class OnePassword {
@@ -22,9 +23,9 @@ class OnePassword {
         break;
     }
   }
-  
-  getFileName() {
-    return (platformType === 'windows' ? 'op.exe' : 'op')
+
+  getLocalPath() {
+    return path.join(window.globalArgs['user-data-path'], 'tools', (platformType === 'windows' ? 'op.exe' : 'op'))
   }
 
   getSetupMode() {
@@ -36,7 +37,7 @@ class OnePassword {
   // by checking the settings value. If that is not set or doesn't point
   // to a valid executable, it checks if 'op' is available globally.
   async _getToolPath() {
-    let localPath = settings.get('1PasswordPath')
+    let localPath = this.getLocalPath()
     if (localPath) {
       let local = false;
       try {
@@ -176,7 +177,6 @@ class OnePassword {
       throw new Error();
     }
 
-    settings.set('1PasswordPath', path)
     return true
   }
 }
