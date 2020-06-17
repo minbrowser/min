@@ -16,7 +16,7 @@ if (platformType === "mac" && !processPath.includes("/usr/local/bin")) {
   processPath += ':/usr/local/bin'
 }
 
-const customEnv = {PATH: processPath}
+const customEnv = Object.assign({}, process.env, {PATH: processPath})
 
 class ProcessSpawner {
   constructor(command, args) {
