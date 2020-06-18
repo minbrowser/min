@@ -480,9 +480,15 @@ webviews.bindEvent('crashed', function (tabId, isKilled) {
 })
 
 webviews.bindIPC('getSettingsData', function (tabId, args) {
+  if (!urlParser.isInternalURL(tabs.get(tabId).url)) {
+    throw new Error()
+  }
   webviews.callAsync(tabId, 'send', ['receiveSettingsData', settings.list])
 })
 webviews.bindIPC('setSetting', function (tabId, args) {
+  if (!urlParser.isInternalURL(tabs.get(tabId).url)) {
+    throw new Error()
+  }
   settings.set(args[0].key, args[0].value)
 })
 
