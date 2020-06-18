@@ -176,7 +176,7 @@ webviews.bindEvent('new-window', function (tabId, url, frameName, disposition) {
 
   addTab(newTab, {
     enterEditMode: false,
-    openInBackground: false
+    openInBackground: disposition === 'background-tab' && !settings.get('openTabsInForeground')
   })
 })
 
