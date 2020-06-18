@@ -219,6 +219,8 @@ separateTitlebarCheckbox.addEventListener('change', function (e) {
   showRestartRequiredBanner()
 })
 
+/* tabs in foreground setting */
+
 settings.get('openTabsInForeground', function (value) {
   if (value === true) {
     openTabsInForegroundCheckbox.checked = true
