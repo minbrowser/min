@@ -100,10 +100,13 @@ class OnePassword {
   // Loads credential suggestions for given domain name.
   async loadSuggestions(command, domain) {
     try {
+      console.log("loadSuggestions")
       let process = new ProcessSpawner(command, ['list', 'items', '--session=' + this.sessionKey])
       let data = await process.executeSyncInAsyncContext();
+      console.log("got data of length ", data.length);
 
       const matches = JSON.parse(data)
+      console.log("got matches of length", matches.length)
 
       let credentials = matches.map(match => match).filter((match) => {
         try {
@@ -120,10 +123,13 @@ class OnePassword {
       var expandedCredentials = [];
 
       for (var i = 0; i < credentials.length; i++) {
+        console.log("looking up credential, index ", i);
         let item = credentials[i]
         let process = new ProcessSpawner(command, ["get", "item", item.uuid, "--session=" + this.sessionKey])
         let output = await process.executeSyncInAsyncContext()
+        console.log("got credential output of length ", output.length);
         let credential = JSON.parse(output)
+        console.log("credential username: ", credential.details.fields.filter(f => f.name == "username")[0].value)
         expandedCredentials.push({
           username: credential.details.fields.filter(f => f.name == "username")[0].value,
           password: credential.details.fields.filter(f => f.name == "password")[0].value,
