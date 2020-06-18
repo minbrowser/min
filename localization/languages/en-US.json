@@ -144,6 +144,7 @@
         "settingsAdditionalFeaturesHeading": "Additional Features",
         "settingsUserscriptsToggle": "Enable user scripts",
         "settingsSeparateTitlebarToggle": "Use separate title bar",
+        "settingsOpenTabsInForegroundToggle": "Open new tabs in the foreground",
 		"settingsUserscriptsExplanation": {"unsafeHTML": "User scripts allow you to modify the behavior of websites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
         "settingsUserAgentToggle": "Use a custom user agent",
         "settingsUpdateNotificationsToggle": "Automatically check for updates",
