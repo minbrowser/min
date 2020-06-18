@@ -1,5 +1,6 @@
 /* common actions that affect different parts of the UI (webviews, tabstrip, etc) */
 
+var settings = require('util/settings/settings.js')
 var webviews = require('webviews.js')
 var focusMode = require('focusMode.js')
 var tabBar = require('navbar/tabBar.js')
