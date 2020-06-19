@@ -229,7 +229,6 @@ settings.get('openTabsInForeground', function (value) {
 
 openTabsInForegroundCheckbox.addEventListener('change', function (e) {
   settings.set('openTabsInForeground', this.checked)
-  //showRestartRequiredBanner()
 })
 
 
