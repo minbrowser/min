@@ -142,6 +142,7 @@
         "settingsAdditionalFeaturesHeading": "Recursos adicionais",
         "settingsUserscriptsToggle": "Habilitar scripts do usuário",
         "settingsSeparateTitlebarToggle": "Usar a barra de título separada",
+		"settingsOpenTabsInForegroundToggle": null, //missing translation
 		"settingsUserscriptsExplanation": {"unsafeHTML":"Scripts do usuário permitem modificar o comportamento do site - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saiba mais</a>."},
 	"settingsUserAgentToggle": "Usar agente de usuário personalizado",
         "settingsUpdateNotificationsToggle": "Verificar atualizações automaticamente",

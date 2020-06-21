@@ -1,5 +1,6 @@
 /* common actions that affect different parts of the UI (webviews, tabstrip, etc) */
 
+var settings = require('util/settings/settings.js')
 var webviews = require('webviews.js')
 var focusMode = require('focusMode.js')
 var tabBar = require('navbar/tabBar.js')
@@ -176,7 +177,7 @@ webviews.bindEvent('new-window', function (tabId, url, frameName, disposition) {
 
   addTab(newTab, {
     enterEditMode: false,
-    openInBackground: disposition === 'background-tab' // possibly open in background based on disposition
+    openInBackground: disposition === 'background-tab' && !settings.get('openTabsInForeground')
   })
 })
 

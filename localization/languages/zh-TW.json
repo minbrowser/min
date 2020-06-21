@@ -144,6 +144,7 @@
         "settingsAdditionalFeaturesHeading": "其他功能",
         "settingsUserscriptsToggle": "允許使用者指令",
         "settingsSeparateTitlebarToggle": "分割標題列",
+		"settingsOpenTabsInForegroundToggle": null, //missing translation
 		"settingsUserscriptsExplanation": {"unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."},
         "settingsUserAgentToggle": "使用自訂使用者代理",
         "settingsUpdateNotificationsToggle": "自動檢查更新",

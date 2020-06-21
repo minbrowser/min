@@ -145,6 +145,7 @@
         "settingsAdditionalFeaturesHeading": "Додаткові можливості",
         "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
         "settingsSeparateTitlebarToggle": "Використовувати окремий рядок заголовка",
+		"settingsOpenTabsInForegroundToggle": null, //missing translation
 		"settingsUserscriptsExplanation": {"unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."},
         "settingsUserAgentToggle": "Використовувати власний агент користувача",
         "settingsUpdateNotificationsToggle": "Автоматично перевіряти наявність оновлень",

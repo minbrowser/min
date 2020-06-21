@@ -144,6 +144,7 @@
         "settingsAdditionalFeaturesHeading": "Funzionalità aggiuntive",
         "settingsUserscriptsToggle": "Abilita script definiti dall'utente",
         "settingsSeparateTitlebarToggle": null, //missing translation
+		"settingsOpenTabsInForegroundToggle": null, //missing translation
 		"settingsUserscriptsExplanation": {"unsafeHTML": "Gli script definiti dall'utente ti permettono di modificare il comportamento dei siti - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">scopri di più</a>."},
         "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": "Controlla automaticamente la presenza di aggiornamenti", 
