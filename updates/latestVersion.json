@@ -1,7 +1,7 @@
 {
-    "version": "1.14.1",
-    "releaseTime": 1589583616947,
-    "releaseHeadline": "Bug fixes and 1Password integration",
+    "version": "1.15.0",
+    "releaseTime": 1592713127585,
+    "releaseHeadline": "Improved scripting support and bug fixes",
     "releaseNotes": "https://minbrowser.org/releases/",
     "availabilityPercent": 1
 }
