@@ -51,7 +51,7 @@
 		"searchHistory": "検索履歴",
         "importBookmarks": "HTMLファイルからブックマークをインポートする",
 		"exportBookmarks": "ブックマークをエクスポート",
-        "runUserscript": null, //missing translation
+        "runUserscript": "ユーザースクリプトを実行",
         /* navbar */
         "openMenu": "メニューを開く",
         "enterReaderView": "リーダービューを開始",
@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "フォーカスモード中です",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+        "focusModeExplanation1": "フォーカスモードでは、新しいタブを作成したり、タスクを切り替えたりすることはできません。",
+        "focusModeExplanation2": "表示メニューの「フォーカスモード」のチェックを外すと、フォーカスモードを終了できます。",
         /* relative dates */
         "timeRangeJustNow": "ちょうど今",
         "timeRangeMinutes": "数分前に",
@@ -136,14 +136,14 @@
         },
         "settingsAppearanceHeading": "外観",
         "settingsEnableDarkMode": "ダークモードを使用:",
-        "settingsDarkModeNever": null, //"Never" missing translation
-        "settingsDarkModeNight": null, //"At night" missing translation
-        "settingsDarkModeAlways": null, //"Always" missing translation
+        "settingsDarkModeNever": "決して",
+        "settingsDarkModeNight": "夜に",
+        "settingsDarkModeAlways": "常に",
         "settingsSiteThemeToggle": "サイトテーマを有効にする",
         "settingsAdditionalFeaturesHeading": "追加機能",
         "settingsUserscriptsToggle": "ユーザースクリプトを有効にする",
-        "settingsSeparateTitlebarToggle": null, //missing translation
-		"settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsSeparateTitlebarToggle": "別のタイトルバーを使用する",
+		"settingsOpenTabsInForegroundToggle": "フォアグラウンドで新しいタブを開く",
 		"settingsUserscriptsExplanation": {"unsafeHTML": "ユーザースクリプトを使用して、Webサイトの動作を変更できます -  <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">詳細</a>。"},
         "settingsUserAgentToggle": "カスタムユーザーエージェントを使用する",
         "settingsUpdateNotificationsToggle": "アップデートを自動的に確認する",
@@ -202,15 +202,15 @@
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "<span id='total'></span> ページ中 <input type='text'/> ページ目"},
  	/* Context Reader */    
-	"buttonReaderSettings": null, //missing translation "Reader Settings"
-	"buttonReaderLightTheme": null, //missing translation "Light"
-	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
-	"buttonReaderDarkTheme": null, //missing translation "Dark"
-	"openReaderView": null, //missing translation "Always open in reader view"
-	"autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-	"buttonReaderRedirectYes": null, //missing translation "Yes"
-	"buttonReaderRedirectNo": null, //missing translation "No"
-	"articleReaderView": null, //missing translation "Original Article"
+	"buttonReaderSettings": "読み取りモードの設定",
+	"buttonReaderLightTheme": "光",
+	"buttonReaderSepiaTheme": "セピア",
+	"buttonReaderDarkTheme": "闇",
+	"openReaderView": "常にリーダーモードで開く",
+	"autoRedirectBannerReader": "このサイトの記事を常にリーダーモードで開きますか？",
+	"buttonReaderRedirectYes": "はい",
+	"buttonReaderRedirectNo": "いいえ",
+	"articleReaderView": "原著",
         /* Download manager */
         "downloadCancel": "キャンセル",
         "downloadStateCompleted": "完了しました",
