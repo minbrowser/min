@@ -28,7 +28,6 @@
         "suggestedSite": "제안 누리집", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "덕덕고(DuckDuckGo) 검색 결과", //this is used as a label to indicate which results come from DuckDuckGo's API
         "taskN": "작업장 %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "사용자 항목", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
