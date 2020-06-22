@@ -32,11 +32,16 @@ function l (stringId) {
     userLanguage = getCurrentLanguage()
   }
 
+  var userBaseLanguage = userLanguage.split('-')[0] // examples: es-419 -> es, nl-BE -> nl
+
   // get the translated string for the given ID
 
-  // try to use the string for the user's language
+  // try an exact match for the user language
   if (languages[userLanguage] && languages[userLanguage].translations[stringId] && languages[userLanguage].translations[stringId].unsafeHTML !== null) {
     return languages[userLanguage].translations[stringId]
+    // try a match for the base language, if the language code is for a particular region
+  } else if (languages[userBaseLanguage] && languages[userBaseLanguage].translations[stringId] && languages[userBaseLanguage].translations[stringId].unsafeHTML !== null) {
+    return languages[userBaseLanguage].translations[stringId]
   } else {
     // fallback to en-US
     return languages['en-US'].translations[stringId]
