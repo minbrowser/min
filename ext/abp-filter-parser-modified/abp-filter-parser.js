@@ -2,6 +2,26 @@
 
 var elementTypes = ['script', 'image', 'stylesheet', 'object', 'xmlhttprequest', 'object-subrequest', 'subdocument', 'ping', 'websocket', 'webrtc', 'document', 'elemhide', 'generichide', 'genericblock', 'popup', 'other']
 
+var elementTypesSet = {
+  'script': 1,
+  'image': 2,
+  'stylesheet': 4,
+  'object': 8,
+  'xmlhttprequest': 16,
+  'object-subrequest': 32,
+  'subdocument': 64,
+  'ping': 128,
+  'websocket': 256,
+  'webrtc': 512,
+  'document': 1024,
+  'elemhide': 2048,
+  'generichide': 4096,
+  'genericblock': 8192,
+  'popup': 16384,
+  'other': 32768
+}
+var allElementTypes = 65535
+
 var separatorCharacters = ':?/=^'
 
 /**
@@ -82,14 +102,24 @@ function parseOptions (input) {
       parseDomains(domainString, output)
       hasValidOptions = true
     } else {
+      /*
+      Element types are stored as an int, where each bit is a type (see elementTypesSet)
+      1 -> the filter should match for this element type
+      If the filter defines a type to skip, then all other types should implicitly match
+      If it defines types to match, all other types should implicitly not match
+      */
+
       // the option is an element type to skip
       if (option[0] === '~' && elementTypes.indexOf(option.substring(1)) !== -1) {
-        output.skipElementType = option.substring(1)
+        if (output.elementTypes === undefined) {
+          output.elementTypes = allElementTypes
+        }
+        output.elementTypes = output.elementTypes & (~elementTypesSet[option.substring(1)])
         hasValidOptions = true
 
       // the option is an element type to match
       } else if (elementTypes.indexOf(option) !== -1) {
-        output.elementType = option
+        output.elementTypes = (output.elementTypes || 0) | elementTypesSet[option]
         hasValidOptions = true
       }
 
@@ -409,10 +439,8 @@ function matchOptions (filterOptions, input, contextParams, currentHost) {
   if (!filterOptions) {
     return true
   }
-  if (filterOptions.elementType !== contextParams.elementType && filterOptions.elementType !== undefined) {
-    return false
-  }
-  if (filterOptions.skipElementType === contextParams.elementType && filterOptions.skipElementType !== undefined) {
+
+  if (filterOptions.elementTypes && (filterOptions.elementTypes & elementTypesSet[contextParams.elementType]) === 0) {
     return false
   }
 
@@ -451,7 +479,7 @@ function maybeMergeDuplicateOptions (opt1, opt2) {
   if (!opt1 || !opt2) {
     return null
   }
-  if (opt1.elementType === opt2.elementType && opt1.skipElementType === opt2.skipElementType && opt1.thirdParty === opt2.thirdParty && opt1.notThirdParty === opt2.notThirdParty) {
+  if (opt1.elementTypes === opt2.elementTypes && opt1.thirdParty === opt2.thirdParty && opt1.notThirdParty === opt2.notThirdParty) {
     if (opt1.domains && opt2.domains && !opt1.skipDomains && !opt2.skipDomains) {
       opt1.domains = opt1.domains.concat(opt2.domains)
       return opt1
