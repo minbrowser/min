@@ -290,7 +290,7 @@ function parseFilter (input, parsedFilterData) {
 
   // Check for a regex
   if (input[beginIndex] === '/' && input[len - 1] === '/' && beginIndex !== len - 1) {
-    parsedFilterData.regex = new RegExp(parsedFilterData.data)
+    parsedFilterData.regex = new RegExp(input.substring(1, input.length - 1))
     return true
   }
 
