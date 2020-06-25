@@ -553,7 +553,7 @@ function parse (input, parserData, callback, options = {}) {
             object.nonAnchoredString.add('', parsedFilterData)
           }
         } else {
-          object.nonAnchoredString.add(parsedFilterData.data.split('^')[0], parsedFilterData)
+          object.nonAnchoredString.add(parsedFilterData.data.split('^')[0].substring(0, 10), parsedFilterData)
         }
       }
     }
