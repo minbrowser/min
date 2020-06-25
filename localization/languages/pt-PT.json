@@ -51,7 +51,7 @@
 	"searchHistory": "Pesquisar no histórico",
 	"importBookmarks": "Importar marcadores de ficheiro HTML",
 	"exportBookmarks": "Exportar marcadores",
-        "runUserscript": null, //missing translation
+        "runUserscript": "Executar script",
         /* navbar */
         "openMenu": "Abrir menu", //application menu button on windows
         "enterReaderView": "Ativar modo de leitura",
@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "Está no modo de foco.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+        "focusModeExplanation1": "No modo de foco, não é possível abrir novos separadores nem trocar de tarefas.",
+        "focusModeExplanation2": "Pode sair do modo de foco desmarcando a opção "Modo de foco" existente no menu Ver".",
         /* relative dates */
         "timeRangeJustNow": "Agora mesmo",
         "timeRangeMinutes": "Há alguns minutos",
@@ -143,7 +143,7 @@
         "settingsAdditionalFeaturesHeading": "Outras funcionalidades",
         "settingsUserscriptsToggle": "Ativar scripts de utilizador",
         "settingsSeparateTitlebarToggle": "Utilizar barra de título separada",
-		"settingsOpenTabsInForegroundToggle": null, //missing translation
+		"settingsOpenTabsInForegroundToggle": "Abrir novos separadores em primeiro plano",
 		"settingsUserscriptsExplanation": {"unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."},
         "settingsUserAgentToggle": "Utilizar agente de utilizador personalizado",
         "settingsUpdateNotificationsToggle": "Procurar atualizações automaticamente",
