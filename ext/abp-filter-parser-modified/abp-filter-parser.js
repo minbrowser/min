@@ -246,7 +246,7 @@ Trie.prototype.getEndingSubstringsOfReversed = function (string) {
 }
 
 function parseFilter (input, parsedFilterData) {
-  input = input.trim()
+  input = input.trim().toLowerCase()
 
   var len = input.length
 
@@ -691,7 +691,7 @@ function matches (filters, input, contextParams) {
   if (!filters.initialized) {
     return false
   }
-  if (matchesFilters(filters, input, contextParams) && !matchesFilters(filters.exceptionFilters, input, contextParams)) {
+  if (matchesFilters(filters, input.toLowerCase(), contextParams) && !matchesFilters(filters.exceptionFilters, input.toLowerCase(), contextParams)) {
     return true
   }
   return false
