@@ -143,7 +143,7 @@
         "settingsAdditionalFeaturesHeading": "Dodatkowe funkcje",
         "settingsUserscriptsToggle": "Włącz skrypty użytkownika",
         "settingsSeparateTitlebarToggle": "Użyj osobnego paska tytułu",
-		"settingsOpenTabsInForegroundToggle": null, //missing translation
+		"settingsOpenTabsInForegroundToggle": "Otwórz nowe karty na pierwszym planie",
 		"settingsUserscriptsExplanation": {"unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
         "settingsUserAgentToggle": "Użyj niestandardowego klienta użytkownika",
         "settingsUpdateNotificationsToggle": "Automatycznie sprawdź dostępność aktualizacji",
