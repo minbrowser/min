@@ -231,6 +231,8 @@ function createWindowWithBounds (bounds) {
 
   mainWindow.on('leave-full-screen', function () {
     sendIPCToWindow(mainWindow, 'leave-full-screen')
+    // https://github.com/minbrowser/min/issues/1093
+    mainWindow.setMenuBarVisibility(false)
   })
 
   mainWindow.on('enter-html-full-screen', function () {
