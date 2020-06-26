@@ -79,7 +79,7 @@
         "isFocusMode": "Está no modo de foco.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
         "focusModeExplanation1": "No modo de foco, não é possível abrir novos separadores nem trocar de tarefas.",
-        "focusModeExplanation2": "Pode sair do modo de foco desmarcando a opção "Modo de foco" existente no menu Ver".",
+        "focusModeExplanation2": "Pode sair do modo de foco desmarcando a opção \"Modo de foco\" existente no menu Ver.",
         /* relative dates */
         "timeRangeJustNow": "Agora mesmo",
         "timeRangeMinutes": "Há alguns minutos",
