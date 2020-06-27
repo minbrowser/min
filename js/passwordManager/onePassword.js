@@ -123,18 +123,21 @@ class OnePassword {
       var expandedCredentials = [];
 
       for (var i = 0; i < credentials.length; i++) {
-        console.log("looking up credential, index ", i);
         let item = credentials[i]
         let process = new ProcessSpawner(command, ["get", "item", item.uuid, "--session=" + this.sessionKey])
         let output = await process.executeSyncInAsyncContext()
-        console.log("got credential output of length ", output.length);
         let credential = JSON.parse(output)
-        console.log("credential username: ", credential.details.fields.filter(f => f.name == "username")[0].value)
-        expandedCredentials.push({
-          username: credential.details.fields.filter(f => f.name == "username")[0].value,
-          password: credential.details.fields.filter(f => f.name == "password")[0].value,
-          manager: "1Password"
-        })
+
+        var usernameFields = credential.details.fields.filter(f => f.name == "username")
+        var passwordFields = credential.details.fields.filter(f => f.name == "password")
+
+        if (usernameFields.length > 0 && passwordFields.length > 0) {
+          expandedCredentials.push({
+            username: usernameFields[0].value,
+            password: passwordFields[0].value,
+            manager: "1Password"
+          })
+        }
       }
 
       return expandedCredentials

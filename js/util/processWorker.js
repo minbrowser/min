@@ -6,8 +6,10 @@ onmessage = function (e) {
   const args = e.data.args
   const input = e.data.input
   const customEnv = e.data.customEnv
+  const maxBuffer = e.data.maxBuffer
+
   try {
-    const process = spawnSync(command, args, {input: input, encoding: 'utf8', env: customEnv})
+    const process = spawnSync(command, args, {input: input, encoding: 'utf8', env: customEnv, maxBuffer: maxBuffer})
     postMessage({taskId: taskId, result: process.output[1].slice(0, -1)})
   } catch (e) {
     postMessage({taskId: taskId, error: e.toString()})

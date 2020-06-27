@@ -18,6 +18,9 @@ if (platformType === "mac" && !processPath.includes("/usr/local/bin")) {
 
 const customEnv = Object.assign({}, process.env, {PATH: processPath})
 
+//see https://github.com/minbrowser/min/issues/1028#issuecomment-647235653
+const maxBufferSize = 25 * 1024 * 1024
+
 class ProcessSpawner {
   constructor(command, args) {
     this.command = command
@@ -28,7 +31,7 @@ class ProcessSpawner {
 
   async execute() {
     return new Promise((resolve, reject) => {
-      const process = spawn(this.command, this.args, { env: customEnv })
+      const process = spawn(this.command, this.args, { env: customEnv, maxBuffer: maxBufferSize })
 
       process.stdout.on('data', (data) => {
         this.data += data
@@ -53,7 +56,7 @@ class ProcessSpawner {
   }
 
   executeSync(input) {
-    const process = spawnSync(this.command, this.args, { input: input, encoding: "utf8", env: customEnv })
+    const process = spawnSync(this.command, this.args, { input: input, encoding: "utf8", env: customEnv, maxBuffer: maxBufferSize })
     return process.output[1].slice(0, -1)
   }
 
@@ -74,6 +77,7 @@ class ProcessSpawner {
         args: this.args,
         input: input,
         customEnv: customEnv,
+        maxBuffer: maxBufferSize,
         taskId: taskId,
       })
     })
