@@ -30,7 +30,10 @@
 	line-height: 1.25em;
 }
 
-#tab-editor .bookmarks-button {
-	padding: 0.55em;
-    margin-right: -0.55em;
+#tab-editor .tab-editor-button {
+	padding: 0.5em;
+}
+
+#tab-editor .tab-editor-button:not([hidden]) + .tab-editor-button:not([hidden]) {
+	margin-left: 0.25em;
 }

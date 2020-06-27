@@ -7,7 +7,7 @@ const searchbarPlugins = require('searchbar/searchbarPlugins.js')
 const bookmarkStar = {
   create: function () {
     const star = document.createElement('button')
-    star.className = 'fa fa-star-o tab-icon bookmarks-button' // alternative icon is fa-bookmark
+    star.className = 'fa fa-star-o tab-editor-button bookmarks-button' // alternative icon is fa-bookmark
     star.setAttribute('aria-pressed', false)
     star.setAttribute('title', l('addBookmark'))
     star.setAttribute('aria-label', l('addBookmark'))
