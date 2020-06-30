@@ -99,7 +99,7 @@ function handleCommandLineArguments (argv) {
           sendIPCToWindow(mainWindow, 'addTab', {
             url: arg
           })
-        } else if (arg.includes(' ') || (idx > 0 && argv[idx - 1] === '-s')) {
+        } else if (idx > 0 && argv[idx - 1] === '-s') {
           //search
           sendIPCToWindow(mainWindow, 'addTab', {
             url: arg
