@@ -65,13 +65,6 @@
 	display: none;
 }
 
-.task-tab-item:not(.fakefocus):focus {
-	background-color: rgba(0, 0, 0, 0.05);
-}
-.dark-mode .task-tab-item:not(.fakefocus):focus {
-	background-color: rgba(255, 255, 255, 0.08);
-}
-
 .task-tab-item .icon-image {
 	opacity: 0.75 !important;
 }
@@ -110,11 +103,21 @@
 .task-delete-button {
 	padding: 0.66em;
 	margin: -0.66em;
+	border-radius: 50%;
+    height: 2.33em;
+    width: 2.33em;
 	transition: 0.1s opacity;
 }
 
 .task-container.collapsed:not(:hover) .task-delete-button {
 	opacity: 0;
+}
+
+.task-delete-button:focus {
+    background: rgba(0, 0, 0, 0.125);
+}
+.dark-mode .task-delete-button:focus {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .task-container .task-delete-warning {

@@ -5,6 +5,7 @@ var tabBar = require('navbar/tabBar.js')
 var tabEditor = require('navbar/tabEditor.js')
 var focusMode = require('focusMode.js')
 var modalMode = require('modalMode.js')
+var keyboardNavigationHelper = require('util/keyboardNavigationHelper.js')
 
 const createTaskContainer = require('taskOverlay/taskOverlayBuilder.js')
 
@@ -155,6 +156,8 @@ window.taskOverlay = {
     }
   }
 }
+
+keyboardNavigationHelper.addToGroup('taskOverlay', taskOverlay.overlayElement)
 
 // swipe down on the tabstrip to show the task overlay
 document.getElementById('navbar').addEventListener('wheel', function (e) {

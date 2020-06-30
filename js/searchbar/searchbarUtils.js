@@ -172,6 +172,7 @@ function createItem (data) {
     var button = document.createElement('button')
     button.classList.add('action-button')
     button.classList.add('fa')
+    button.classList.add('ignores-keyboard-focus') // for keyboardNavigationHelper
     button.classList.add(data.button.icon)
     button.tabIndex = -1
 
@@ -186,6 +187,13 @@ function createItem (data) {
   if (data.click) {
     item.addEventListener('click', data.click)
   }
+
+  // return should act like click
+  item.addEventListener('keydown', function (e) {
+    if (e.keyCode === 13) {
+      item.click()
+    }
+  })
 
   return item
 }
