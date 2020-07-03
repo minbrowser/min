@@ -5,8 +5,20 @@
 	font-size: 16px;
 	font-family: '.SFNSText-Regular', 'BlinkMacSystemFont', 'Helvetica Neue', 'Segoe UI', 'Arial', sans-serif;
 }
+/* TODO figure out why the default focus color in Electron is orange */
+*:focus {
+	outline-color: rgb(0, 117, 255);
+}
+.dark-mode *:focus {
+	outline-color: transparent;
+}
 body.mac * {
 	letter-spacing: 0.4px;
+}
+/* workaround for https://pspdfkit.com/blog/2020/text-selection-bug-chrome-83/ */
+::selection {
+	color: currentColor;
+	background-color: highlight;
 }
 [hidden] {
 	display: none !important;

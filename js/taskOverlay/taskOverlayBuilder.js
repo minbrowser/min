@@ -88,6 +88,7 @@ var TaskOverlayBuilder = {
 
         input.placeholder = taskName
         input.value = task.name || taskName
+        input.spellcheck = false
 
         input.addEventListener('keyup', function (e) {
           if (e.keyCode === 13) {
