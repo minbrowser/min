@@ -29,7 +29,12 @@ const webviewMenu = {
 
     /* links */
 
-    var link = data.linkURL || data.frameURL
+    var link = data.linkURL
+
+    // show link items for embedded frames, but not the top-level page (which will also be listed as a frameURL)
+    if (!link && data.frameURL && data.frameURL !== currentTab.url) {
+      link = data.frameURL
+    }
 
     if (link === 'about:srcdoc') {
       /* srcdoc is used in reader view, but it can't actually be opened anywhere outside of the reader page */
