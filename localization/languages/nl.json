@@ -28,7 +28,6 @@
         "suggestedSite": "Voorgestelde website", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Resultaten van DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
         "taskN": "Taak %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "Uit hosts bestand", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
@@ -80,7 +79,7 @@
         "isFocusMode": "U bent in focusmodus.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
         "focusModeExplanation1": "In de focusmodus kan u geen nieuwe tabbladen openen of van taak wisselen.",
-        "focusModeExplanation2": "U kan de focusmodus weer uitschakelen in het menu 'beeld'. ,
+        "focusModeExplanation2": "U kan de focusmodus weer uitschakelen in het menu 'beeld'.",
         /* relative dates */
         "timeRangeJustNow": "Daarnet",
         "timeRangeMinutes": "Enkele minuten geleden",
@@ -144,7 +143,8 @@
         "settingsAdditionalFeaturesHeading": "Aanvullende opties",
         "settingsUserscriptsToggle": "Gebruikerscripts inschakelen",
         "settingsSeparateTitlebarToggle": "Toon de titelbalk",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Gebruikerscripts maken het mogelijk het gedrag van websites aan te passen - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">meer informatie</a>."},
+        "settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsUserscriptsExplanation": {"unsafeHTML": "Gebruikerscripts maken het mogelijk het gedrag van websites aan te passen - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">meer informatie</a>."},
         "settingsUserAgentToggle": "Aangepaste user agent gebruiken",
         "settingsUpdateNotificationsToggle": "Automatisch controleren op updates",
         "settingsSearchEngineHeading": "Zoekmachine",
