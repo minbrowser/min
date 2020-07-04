@@ -86,10 +86,14 @@
 	</button>
 
 	<div id="navbar" class="theme-background-color theme-text-color windowDragHandle" tabindex="-1">
-		<button id="menu-button" class="fa fa-ellipsis-v navbar-action-button" data-label="openMenu"
-			tabindex="-1"></button>
-		<button id="back-button" hidden class="fa fa-angle-left navbar-action-button" data-label="goBack"
-			tabindex="-1"></button>
+		<button id="menu-button" class="navbar-action-button" data-label="openMenu"
+			tabindex="-1">
+			<i class="fa fa-ellipsis-v" id="icon-menu-button"></i>
+		</button>
+		<button id="back-button" hidden class="navbar-action-button" data-label="goBack"
+			tabindex="-1">
+			<i class="fa fa-angle-left" id="icon-back-button"></i>
+		</button>
 		<div id="tabs">
 			<div id="tab-editor" hidden>
 				<input id="tab-editor-input" class="mousetrap" spellcheck="false"/>
