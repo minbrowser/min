@@ -45,13 +45,13 @@
         "moveToTask": "Mover esta aba para uma tarefa",
         "nameTask": " Nomear tarefa",
         "addBookmark": "Adicionar favorito",
-		"searchBookmarks": "Buscar nos favoritos",
+	"searchBookmarks": "Buscar nos favoritos",
         "bookmarksAddTag": "Adicionar tag",
-		"bookmarksSimilarItems": "Itens semelhantes",
-		"searchHistory": "Buscar no histórico",
+	"bookmarksSimilarItems": "Itens semelhantes",
+	"searchHistory": "Buscar no histórico",
         "importBookmarks": "Importar favoritos do arquivo HTML",
-		"exportBookmarks": "Exportar favoritos",
-        "runUserscript": null, //missing translation
+	"exportBookmarks": "Exportar favoritos",
+        "runUserscript": "Executar script do usuário",
         /* navbar */
         "openMenu": "Menu",
         "enterReaderView": "Modo leitura",
@@ -78,8 +78,8 @@
         /* Focus mode */
         "isFocusMode": "Você está no modo concentração.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+        "focusModeExplanation1":"No modo concentração, você não pode criar novas guias ou alternar tarefas.", 
+        "focusModeExplanation2": "Você pode sair do modo concentração desmarcando \"Modo concentração\" no menu - Visualizar .",
         /* relative dates */
         "timeRangeJustNow":"Agora mesmo",
         "timeRangeMinutes": "Há alguns minutos atrás",
@@ -89,7 +89,7 @@
         "timeRangeWeek": "Semana passada",
         "timeRangeMonth":"Mês passado",
         "timeRangeYear":"Ano passado",
-        "timeRangeLongerAgo":"Há mais tempo",
+        "timeRangeLongerAgo":"Há mais de um ano",
         /* pages/error/index.html */
         "crashErrorTitle": "Ocorreu algo de errado.",
         "crashErrorSubtitle": "Erro ao carregar esta página.",
@@ -141,8 +141,8 @@
         "settingsAdditionalFeaturesHeading": "Recursos adicionais",
         "settingsUserscriptsToggle": "Habilitar scripts do usuário",
         "settingsSeparateTitlebarToggle": "Usar a barra de título separada",
-		"settingsOpenTabsInForegroundToggle": null, //missing translation
-		"settingsUserscriptsExplanation": {"unsafeHTML":"Scripts do usuário permitem modificar o comportamento do site - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saiba mais</a>."},
+	"settingsOpenTabsInForegroundToggle": "Abrir novas guias em primeiro plano",
+	"settingsUserscriptsExplanation": {"unsafeHTML":"Scripts do usuário permitem modificar o comportamento do site - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saiba mais</a>."},
 	"settingsUserAgentToggle": "Usar agente de usuário personalizado",
         "settingsUpdateNotificationsToggle": "Verificar atualizações automaticamente",
         "settingsSearchEngineHeading": "Serviço de busca",
