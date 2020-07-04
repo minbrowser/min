@@ -26,6 +26,10 @@ if (navigator.platform === 'MacIntel') {
   window.platformType = 'linux'
 }
 
+if (navigator.maxTouchPoints > 0) {
+  document.body.classList.add('touch')
+}
+
 /* add classes so that the window state can be used in CSS */
 ipc.on('enter-full-screen', function () {
   document.body.classList.add('fullscreen')

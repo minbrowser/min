@@ -95,12 +95,14 @@
 }
 .searchbar-item:hover .action-button,
 .searchbar-item:focus .action-button,
-.searchbar-item .action-button.always-visible {
+.searchbar-item .action-button.always-visible,
+body.touch .searchbar-item .action-button {
     opacity: 0.6;
 }
 .dark-mode .searchbar-item:hover .action-button,
 .dark-mode .searchbar-item:focus .action-button,
-.searchbar-item .action-button.always-visible {
+.searchbar-item .action-button.always-visible,
+body.dark-mode.touch .searchbar-item .action-button {
 	opacity: 0.8;
 }
 .searchbar-item .action-button:hover {

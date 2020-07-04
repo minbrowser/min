@@ -265,13 +265,13 @@ body.dark-mode #overlay {
 
 /* when the tab is hovered, hide info buttons and show the close button */
 
-.tab-item:hover .tab-info-icon {
+body:not(.touch) .tab-item:hover .tab-info-icon {
 	display: none;
 }
-.tab-item .tab-close-button {
+body:not(.touch) .tab-item .tab-close-button {
 	display: none;
 }
-.tab-item:hover .tab-close-button {
+body:not(.touch) .tab-item:hover .tab-close-button {
 	display: inline-block;
 }
 

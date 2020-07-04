@@ -92,7 +92,7 @@
 	opacity: 0.7;
 }
 
-.task-container:not(.collapsed):not(:hover) .task-collapse-button {
+body:not(.touch) .task-container:not(.collapsed):not(:hover) .task-collapse-button {
 	opacity: 0;
 }
 

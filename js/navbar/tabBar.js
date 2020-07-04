@@ -103,6 +103,19 @@ const tabBar = {
     var iconArea = document.createElement('span')
     iconArea.className = 'tab-icon-area'
 
+    if (data.private) {
+      var pbIcon = document.createElement('i')
+      pbIcon.className = 'fa fa-eye-slash icon-tab-is-private tab-icon tab-info-icon'
+      iconArea.appendChild(pbIcon)
+    }
+
+    var secIcon = document.createElement('i')
+    secIcon.className = 'fa fa-unlock icon-tab-not-secure tab-icon tab-info-icon'
+    secIcon.title = l('connectionNotSecure')
+
+    secIcon.hidden = data.secure !== false
+    iconArea.appendChild(secIcon)
+
     var closeTabButton = document.createElement('i')
     closeTabButton.classList.add('tab-icon')
     closeTabButton.classList.add('tab-close-button')
@@ -116,19 +129,6 @@ const tabBar = {
     })
 
     iconArea.appendChild(closeTabButton)
-
-    if (data.private) {
-      var pbIcon = document.createElement('i')
-      pbIcon.className = 'fa fa-eye-slash icon-tab-is-private tab-icon tab-info-icon'
-      iconArea.appendChild(pbIcon)
-    }
-
-    var secIcon = document.createElement('i')
-    secIcon.className = 'fa fa-unlock icon-tab-not-secure tab-icon tab-info-icon'
-    secIcon.title = l('connectionNotSecure')
-
-    secIcon.hidden = data.secure !== false
-    iconArea.appendChild(secIcon)
 
     tabEl.appendChild(iconArea)
 
