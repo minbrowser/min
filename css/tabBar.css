@@ -39,9 +39,17 @@
 	opacity: 1;
 	transition: none;
 	font-size: 1.5em;
-    	margin-top: 5px;
+	margin-top: 5px;
 }
-#icon-back-button:disabled {
+/* The mac window controls add additional space, so the button doesn't need as much space */
+body.mac:not(.fullscreen) #back-button {
+	margin-left: -4px;
+}
+/* Try to align the back button better vertically with the window controls */
+body.mac #icon-back-button {
+	margin-top: 6px;
+}
+#back-button:disabled {
 	opacity: 0.2;
 }
 
@@ -54,9 +62,9 @@ body.is-edit-mode #back-button {
 	margin: 0;
 }
 
-#icon-menu-button{
+#icon-menu-button {
 	margin-top: 11px;
-    	font-size: 1.1em;
+	font-size: 1.1em;
 }
 
 body.windows #menu-button,
