@@ -45,7 +45,7 @@ module.exports = {
     })
 
     ipc.on('inspectPage', function () {
-      webviews.callAsync(tabs.getSelected(), 'openDevTools')
+      webviews.callAsync(tabs.getSelected(), 'toggleDevTools')
     })
 
     ipc.on('showReadingList', function () {
