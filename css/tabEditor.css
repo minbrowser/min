@@ -30,10 +30,10 @@
 	line-height: 1.25em;
 }
 
-#tab-editor .tab-editor-button {
-	padding: 0.5em;
+#tab-editor .navbar-action-button {
+	margin-left: 7px;
 }
 
-#tab-editor .tab-editor-button:not([hidden]) + .tab-editor-button:not([hidden]) {
+#tab-editor .navbar-action-button:not([hidden])+.navbar-action-button:not([hidden]) {
 	margin-left: 0.25em;
 }
