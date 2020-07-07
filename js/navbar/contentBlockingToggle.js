@@ -53,7 +53,7 @@ const contentBlockingToggle = {
   create: function () {
     const button = document.createElement('button')
 
-    button.className = 'fa fa-shield tab-editor-button'
+    button.className = 'fa fa-shield navbar-action-button'
 
     button.addEventListener('click', function (e) {
       contentBlockingToggle.showMenu(button)
