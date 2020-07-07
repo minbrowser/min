@@ -35,5 +35,5 @@
 }
 
 #tab-editor .navbar-action-button:not([hidden])+.navbar-action-button:not([hidden]) {
-	margin-left: 0.25em;
+	margin: 0 -0.3em 0 0.3em;
 }
