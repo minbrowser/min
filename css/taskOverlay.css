@@ -6,16 +6,6 @@
 	border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
 }
 
-#switch-task-button {
-	position: absolute;
-	top: var(--control-space-top);
-	right: var(--control-space-right);
-	z-index: 4;
-}
-
-#switch-task-button.active {
-	color: royalblue !important;
-}
 #task-overlay {
 	display: flex;
 	flex-direction: column;
