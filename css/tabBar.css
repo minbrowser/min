@@ -1,5 +1,6 @@
 #navbar {
 	display: flex;
+	align-items: center;
 	height: calc(36px + var(--control-space-top));
 	transition: 0.2s background-color;
 	width: 100%;
@@ -9,7 +10,7 @@
 	z-index: 2;
 	padding-top: var(--control-space-top);
 	padding-left: var(--control-space-left);
-	padding-right: var(--control-space-right);
+	padding-right: calc(29px + var(--control-space-right));  /* placeholder for the minimize, maximize, close and task buttons*/
 }
 
 /* when the tab-group is white, we need a line to separate it from the webviews */
@@ -39,8 +40,10 @@
 	opacity: 1;
 	transition: none;
 	font-size: 1.5em;
-	padding: 0 0.6em 0 0.4em;
+	padding: 0 0.1em 0.2em 0;
+	line-height: 18px;  /* corrects unexpected vertical movement*/
 }
+
 #back-button:disabled {
 	opacity: 0.2;
 }
@@ -50,16 +53,24 @@ body.is-edit-mode #back-button {
 }
 
 #menu-button {
-	margin-top: 1px;
-}
-
-#menu-button {
-	display: none;
+	font-size: 1.1em;
+	padding: 0.2em 0 0 0.05em;
 }
 
 body.windows #menu-button,
 body.linux #menu-button {
 	display: inline-block;
+}
+
+#switch-task-button {
+	position: absolute;
+	top: calc(6px + var(--control-space-top));
+	right: var(--control-space-right);
+	z-index: 4;
+}
+
+#switch-task-button.active {
+	color: royalblue !important;
 }
 
 /* tab layout */
@@ -192,15 +203,21 @@ body.dark-mode #overlay {
 /* buttons */
 
 .navbar-action-button {
-	padding: 0 1em;
-	height: 36px;
-	line-height: 36px !important;
+	height: 24px;
+	width: 24px;
+	margin-left: 2px;
 }
+
+.navbar-action-button:hover {
+	border-width: 1px;
+	border-color: rgba(255, 255, 255, 0.15);
+	border-style: solid;
+	border-radius: 100%;
+	background-color: rgba(255, 255, 255, 0.15);
+}
+
 .navbar-action-button.invisible {
 	visibility: hidden;
-}
-.navbar-action-button + .navbar-action-button {
-	padding-left: 0.5em;
 }
 
 /* reader button */
