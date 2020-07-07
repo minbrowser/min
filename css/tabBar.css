@@ -40,7 +40,7 @@
 	opacity: 1;
 	transition: none;
 	font-size: 1.5em;
-	padding: 0 0.1em 0.2em 0;
+	padding: 0 0.1em 0.1em 0;
 	line-height: 18px;  /* corrects unexpected vertical movement*/
 }
 
@@ -65,7 +65,7 @@ body.linux #menu-button {
 #switch-task-button {
 	position: absolute;
 	top: calc(6px + var(--control-space-top));
-	right: var(--control-space-right);
+	right: calc(-4px + var(--control-space-right));
 	z-index: 4;
 }
 
@@ -97,7 +97,7 @@ body.linux #menu-button {
 	overflow: hidden;
 	word-break: break-all;
 	position: relative;
-	padding: 0 0.8em;
+	padding: 0.05em 0.8em;
 }
 .tab-item:not(.active):hover {
 	background-color: rgba(0, 0, 0, 0.03);
