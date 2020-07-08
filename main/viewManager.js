@@ -76,6 +76,10 @@ function createView (id, webPreferencesString, boundsString, events) {
 }
 
 function destroyView (id) {
+  if (!viewMap[id]) {
+    return
+  }
+
   // destroy an associated partition
 
   var partition = viewMap[id].webContents.getWebPreferences().partition
@@ -101,7 +105,9 @@ function setView (id) {
 }
 
 function setBounds (id, bounds) {
-  viewMap[id].setBounds(bounds)
+  if (viewMap[id]) {
+    viewMap[id].setBounds(bounds)
+  }
 }
 
 function focusView (id) {
