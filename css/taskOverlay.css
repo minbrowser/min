@@ -79,7 +79,7 @@
 	margin: -2px;
 }
 
-/* drag handle */
+/* task buttons */
 
 .task-collapse-button {
 	font-size: 1.25em !important;
@@ -92,7 +92,7 @@
 	opacity: 0.7;
 }
 
-body:not(.touch) .task-container:not(.collapsed):not(:hover) .task-collapse-button {
+body:not(.touch) .task-container:not(.collapsed):not(:hover) .task-collapse-button:not(:focus) {
 	opacity: 0;
 }
 
@@ -109,14 +109,14 @@ body:not(.touch) .task-container:not(.collapsed):not(:hover) .task-collapse-butt
 	transition: 0.1s opacity;
 }
 
-.task-container.collapsed:not(:hover) .task-delete-button {
+.task-container.collapsed:not(:hover) .task-delete-button:not(:focus) {
 	opacity: 0;
 }
 
-.task-delete-button:focus {
+.task-action-container button:focus {
     background: rgba(0, 0, 0, 0.125);
 }
-.dark-mode .task-delete-button:focus {
+.dark-mode .task-action-container button:focus {
     background: rgba(255, 255, 255, 0.2);
 }
 

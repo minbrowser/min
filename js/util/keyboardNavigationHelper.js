@@ -29,15 +29,29 @@ const keyboardNavigationHelper = {
     }
 
     currentItem.classList.remove('fakefocus')
-    var index = items.indexOf(currentItem)
 
-    if (items[index + direction]) {
-      items[index + direction].focus()
-    } else if (index === 0 && direction === -1) {
-      items[items.length - 1].focus()
-    } else if (index === items.length - 1 && direction === 1) {
-      items[0].focus()
+    while (items.length > 1) {
+      var index = items.indexOf(currentItem)
+
+      var nextItem
+      if (items[index + direction]) {
+        nextItem = index + direction
+      } else if (index === 0 && direction === -1) {
+        nextItem = items.length - 1
+      } else if (index === items.length - 1 && direction === 1) {
+        nextItem = 0
+      }
+      items[nextItem].focus()
+
+      if (document.activeElement !== items[nextItem]) {
+        // this item isn't focusable, try again
+        items.splice(nextItem, 1)
+      } else {
+        // done
+        break
+      }
     }
+
   },
   handleKeypress: function (group, e) {
     if (e.keyCode === 9 && e.shiftKey) { // shift+tab

@@ -65,6 +65,8 @@ var TaskOverlayBuilder = {
       collapseButton: function (taskContainer, task) {
         var collapseButton = document.createElement('button')
         collapseButton.className = 'fa task-collapse-button'
+        collapseButton.setAttribute('tabindex', '-1')
+
         collapseButton.setAttribute('aria-haspopup', 'true')
         if (tasks.isCollapsed(task.id)) {
           collapseButton.classList.add('fa-angle-right')
