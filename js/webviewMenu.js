@@ -27,6 +27,34 @@ const webviewMenu = {
       ])
     }
 
+    /* Spellcheck */
+
+    if (data.misspelledWord) {
+      var suggestionEntries = data.dictionarySuggestions.slice(0, 3).map(function (suggestion) {
+        return {
+          label: suggestion,
+          click: function () {
+            webviews.callAsync(tabs.getSelected(), 'replaceMisspelling', suggestion)
+          }
+        }
+      })
+
+      // https://www.electronjs.org/docs/api/session#sesaddwordtospellcheckerdictionaryword
+      // "This API will not work on non-persistent (in-memory) sessions"
+      if (!currentTab.private) {
+        suggestionEntries.push({
+          label: l('addToDictionary'),
+          click: function () {
+            remote.session.defaultSession.addWordToSpellCheckerDictionary(data.misspelledWord)
+          }
+        })
+      }
+
+      if (suggestionEntries.length > 0) {
+        menuSections.push(suggestionEntries)
+      }
+    }
+
     /* links */
 
     var link = data.linkURL

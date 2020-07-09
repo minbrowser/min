@@ -5,7 +5,8 @@
 		/* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-		"pictureInPicture": "Rasmda rasm",
+		"addToDictionary": null, //missing translation
+        "pictureInPicture": "Rasmda rasm",
 		"openInNewTab": "Havolani yangi varaqda ochish",
 		"openInNewPrivateTab": "Havolani yangi maxfiy oynada ochish",
 		"viewImage": "Rasmni ko'rish",

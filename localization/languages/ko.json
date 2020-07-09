@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "addToDictionary": null, //missing translation
         "pictureInPicture": "화면 속 화면(Picture in Picture)",
         "openInNewTab": "새 작업",
         "openInNewPrivateTab": "새 개인 작업",

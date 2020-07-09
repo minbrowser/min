@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "addToDictionary": null, //missing translation
         "pictureInPicture": null, //missing translation
         "openInNewTab": "Yeni Pencerede Aç",
         "openInNewPrivateTab": "Yeni Özel Sekmede Aç",

@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "addToDictionary": null, //missing translation
         "pictureInPicture": "ピクチャーインピクチャー",
         "openInNewTab": "新規タブで開く",
         "openInNewPrivateTab": "新規プライベートタブで開く",

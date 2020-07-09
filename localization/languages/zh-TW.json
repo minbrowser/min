@@ -5,6 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "addToDictionary": null, //missing translation
         "pictureInPicture": "子母畫面",
         "openInNewTab": "在新分頁中開啟",
         "openInNewPrivateTab": "在新無痕頁面中開啟",
