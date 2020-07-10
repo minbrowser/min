@@ -16,15 +16,15 @@
     "string_score": "^0.1.22"
   },
   "devDependencies": {
-    "archiver": "^3.0.0",
-    "browserify": "^16.2.2",
-    "chokidar": "^2.0.4",
+    "archiver": "^4.0.1",
+    "browserify": "^16.5.1",
+    "chokidar": "^3.4.0",
     "decomment": "^0.9.0",
     "electron": "^8.3.2",
-    "electron-installer-windows": "^1.1.1",
-    "electron-packager": "^14.0.4",
+    "electron-installer-windows": "^3.0.0",
+    "electron-packager": "^15.0.0",
     "electron-renderify": "0.0.2",
-    "standard": "^7.1.0"
+    "standard": "^14.3.4"
   },
   "optionalDependencies": {
     "electron-installer-redhat": "^2.0.0",
