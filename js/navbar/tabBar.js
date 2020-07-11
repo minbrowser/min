@@ -1,6 +1,5 @@
 const webviews = require('webviews.js')
 const focusMode = require('focusMode.js')
-const urlParser = require('util/urlParser.js')
 const readerView = require('readerView.js')
 const tabAudio = require('tabAudio.js')
 const dragula = require('dragula')
@@ -13,6 +12,7 @@ const permissionRequests = require('navbar/permissionRequests.js')
 var lastTabDeletion = 0 // TODO get rid of this
 
 const tabBar = {
+  navBar: document.getElementById('navbar'),
   container: document.getElementById('tabs'),
   containerInner: document.getElementById('tabs-inner'),
   tabElementMap: {}, // tabId: tab element
@@ -188,8 +188,19 @@ const tabBar = {
       tabBar.containerInner.removeChild(tabEl)
       delete tabBar.tabElementMap[tabId]
     }
+  },
+  handleDividerPreference: function (dividerPreference) {
+    if (dividerPreference === true) {
+      tabBar.navBar.classList.add('show-dividers')
+    } else {
+      tabBar.navBar.classList.remove('show-dividers')
+    }
   }
 }
+
+settings.listen('showDividerBetweenTabs', function (dividerPreference) {
+  tabBar.handleDividerPreference(dividerPreference)
+})
 
 /* progress bar events */
 
