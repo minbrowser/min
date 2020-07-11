@@ -49,7 +49,7 @@ module.exports = {
     })
 
     ipc.on('showReadingList', function () {
-        // open the searchbar with "!readinglist " as the input
+      // open the searchbar with "!readinglist " as the input
       tabEditor.show(tabs.getSelected(), '!readinglist ')
     })
 
@@ -98,20 +98,22 @@ module.exports = {
     ipc.on('saveCurrentPage', function () {
       var currentTab = tabs.get(tabs.getSelected())
 
-        // new tabs cannot be saved
+      // new tabs cannot be saved
       if (!currentTab.url) {
         return
       }
 
-        // if the current tab is a PDF, let the PDF viewer handle saving the document
+      // if the current tab is a PDF, let the PDF viewer handle saving the document
       if (PDFViewer.isPDFViewer(tabs.getSelected())) {
         PDFViewer.savePDF(tabs.getSelected())
         return
       }
 
-      var savePath = remote.dialog.showSaveDialogSync(remote.getCurrentWindow(), {})
+      var savePath = remote.dialog.showSaveDialogSync(remote.getCurrentWindow(), {
+        defaultPath: currentTab.title.replace(/[/\\]/g, '_')
+      })
 
-        // savePath will be undefined if the save dialog is canceled
+      // savePath will be undefined if the save dialog is canceled
       if (savePath) {
         if (!savePath.endsWith('.html')) {
           savePath = savePath + '.html'
