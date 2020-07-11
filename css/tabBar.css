@@ -92,9 +92,15 @@ body.linux #menu-button {
 	top: var(--control-space-top) !important;
 	background: rgba(255, 255, 255, 0.8) !important;
 }
-.tab-item:not(:last-child) {
-	border-right: 1px solid rgba(255, 255, 255, 0.4);
+
+#navbar.show-dividers .tab-item:not(:last-child) {
+	border-right: 1px solid rgba(182, 182, 182, 0.5);
 }
+
+#navbar.show-dividers:before {
+	background: rgba(182, 182, 182, 0.5);
+}
+
 .tab-item:not(.active):hover {
 	background-color: rgba(0, 0, 0, 0.03);
 }
