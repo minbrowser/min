@@ -18,7 +18,7 @@
         "copyLink": "Копіювати посилання",
         "copyEmailAddress": "Копіювати адресу електронної пошти",
         "selectAll": "Вибрати все",
-        "undo": "Скасувати",
+        "undo": "   ",
         "redo": "Повторити",
         "cut": "Вирізати",
         "copy": "Копіювати", //this is a verb (as in "copy the currently-selected text")
@@ -150,6 +150,7 @@
         "settingsSiteThemeToggle": "Увімкнути тему сайту",
         "settingsAdditionalFeaturesHeading": "Додаткові можливості",
         "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
+        "settingsShowDividerToggle": "Показати роздільник між вкладками",
         "settingsSeparateTitlebarToggle": "Використовувати окремий рядок заголовка",
         "settingsOpenTabsInForegroundToggle": "Відкриватии нові вкладки на передньому плані",
         "settingsUserscriptsExplanation": {

@@ -149,6 +149,7 @@
         "settingsSiteThemeToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsUserscriptsToggle": null, //missing translation
+        "settingsShowDividerToggle": "Mostrar divisor entre pestañas",
         "settingsSeparateTitlebarToggle": null, //missing translation
         "settingsOpenTabsInForegroundToggle": null, //missing translation
         "settingsUserscriptsExplanation": null, //missing translation
