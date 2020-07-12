@@ -5,7 +5,7 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "addToDictionary": null, //missing translation
+        "addToDictionary": "Добавить в словарь",
         "pictureInPicture": "Картинка в Картинке",
         "openInNewTab": "Открыть в новой вкладке",
         "openInNewPrivateTab": "Открыть в приватной вкладке",
