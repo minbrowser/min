@@ -1,4 +1,5 @@
 var webviews = require('webviews.js')
+const createIcon = require('./util/createIcon')
 
 function getFileSizeString (bytes) {
   let prefixes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
@@ -103,12 +104,14 @@ const downloadManager = {
     progress.className = 'download-progress'
     container.appendChild(progress)
 
-    let dropdown = document.createElement('i')
-    dropdown.className = 'download-action-button fa fa-angle-down'
+    let dropdown = document.createElement('div') 
+    dropdown.appendChild(createIcon('carbon:chevron-down'))
+    dropdown.className = 'download-action-button'
     container.appendChild(dropdown)
 
-    let openFolder = document.createElement('i')
-    openFolder.className = 'download-action-button fa fa-folder-o'
+    let openFolder = document.createElement('div') 
+    openFolder.appendChild(createIcon('carbon:folder'))
+    openFolder.className = 'download-action-button'
     openFolder.hidden = true
     container.appendChild(openFolder)
 

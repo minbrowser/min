@@ -19,8 +19,10 @@
 	<link rel="stylesheet" href="css/findinpage.css" />
 	<link rel="stylesheet" href="css/downloadManager.css" />
 	<link rel="stylesheet" href="css/passwordManager.css" />
-	<link rel="stylesheet" href="ext/font-awesome-4.4.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="node_modules/dragula/dist/dragula.min.css" />
+
+	<script src="ext/iconify/iconify.without-api.min.js"></script>
+	<script src="ext/iconify/loadIcons.js"></script>
 </head>
 
 <body>
@@ -86,23 +88,31 @@
 	</button>
 
 	<div id="navbar" class="theme-background-color theme-text-color windowDragHandle" tabindex="-1">
-		<button id="menu-button" class="fa fa-ellipsis-v navbar-action-button" data-label="openMenu"
-			tabindex="-1"></button>
-		<button id="back-button" hidden class="fa fa-angle-left navbar-action-button" data-label="goBack"
-			tabindex="-1"></button>
+		<button id="menu-button" class="navbar-action-button" data-label="openMenu"
+			tabindex="-1">
+			<span class="iconify" data-icon="carbon:overflow-menu-vertical" data-inline="false"></span>
+		</button>
+		<button id="back-button" hidden class="navbar-action-button" data-label="goBack"
+			tabindex="-1">
+			<span class="iconify" data-icon="carbon:chevron-left" data-inline="false"></span>
+		</button>
 		<div id="tabs">
 			<div id="tab-editor" hidden>
 				<input id="tab-editor-input" class="mousetrap" spellcheck="false"/>
 			</div>
 			<div id="tabs-inner" role="tablist"></div>
 		</div>
-		<button id="add-tab-button" class="fa fa-plus navbar-action-button" data-label="newTabAction"
-			tabindex="-1"></button>
-		<i class="fa fa-bars navbar-action-button invisible"></i>
+		<div class="navbar-right-actions">
+			<button id="add-tab-button" class="navbar-action-button" data-label="newTabAction" tabindex="-1">
+				<span class="iconify" data-icon="carbon:add" data-inline="false"></span>
+			</button>
+		</div>
 	</div>
 
-	<button id="switch-task-button" class="fa fa-bars navbar-action-button theme-text-color windowDragHandle"
-		data-label="viewTasks" tabindex="-1"></button>
+	<button id="switch-task-button" class="navbar-action-button theme-text-color windowDragHandle"
+		data-label="viewTasks" tabindex="-1">
+		<span class="iconify" data-icon="carbon:chevron-down" data-inline="false"></span>
+	</button>
 
 	<div id="searchbar" class="theme-background-color theme-text-color">
 		<div class="top-answer-area"></div>
@@ -112,10 +122,10 @@
 
 	<div id="webviews">
 		<div id="leftArrowContainer" class="arrow-indicator">
-			<i id="leftArrow" class="fa fa-arrow-left arrow"></i>
+			<span class="iconify" data-icon="carbon:chevron-left" data-inline="false"></span>
 		</div>
 		<div id="rightArrowContainer" class="arrow-indicator">
-			<i id="rightArrow" class="fa fa-arrow-right arrow"></i>
+			<span class="iconify" data-icon="carbon:chevron-right" data-inline="false"></span>
 		</div>
 		<img id="webview-placeholder" hidden aria-hidden="true" />
 	</div>
@@ -126,10 +136,16 @@
 		<input id="findinpage-input" class="mousetrap" />
 		<span id="findinpage-count" class="inline-text"></span>
 		<div class="divider"></div>
-		<i id="findinpage-previous-match" class="icon fa fa-angle-up" tabindex="-1"></i>
-		<i id="findinpage-next-match" class="icon fa fa-angle-down" tabindex="-1"></i>
+		<button id="findinpage-previous-match">
+			<span class="iconify" data-icon="carbon:chevron-up" data-inline="false"></span>
+		</button>
+		<button id="findinpage-next-match">
+			<span class="iconify" data-icon="carbon:chevron-down" data-inline="false"></span>
+		</button>
 		<div class="divider"></div>
-		<i id="findinpage-end" class="icon fa fa-close"></i>
+		<button id="findinpage-end">
+			<span class="iconify" data-icon="carbon:close" data-inline="false"></span>
+		</button>
 	</div>
 
 	<div id="task-overlay" class="" hidden>
@@ -137,14 +153,16 @@
 		</div>
 		<div id="task-area"></div>
 		<button id="add-task">
-			<i class="fa fa-pencil-square-o"></i>
+			<span class="iconify" data-icon="carbon:new-tab" data-inline="false"></span>
 			<span></span>
-		</div>
+		</button>
 	</div>
 
 	<div id="download-bar" hidden>
 		<div id="download-container" role="list"></div>
-		<button id="download-close-button" class="fa fa-times"></button>
+		<button id="download-close-button">
+			<span class="iconify" data-icon="carbon:close" data-inline="false"></span>
+		</button>
 	</div>
 
 	<div class="centered" id="manager-setup-dialog" hidden>
@@ -177,7 +195,6 @@
 	<!-- add scripts in Gruntfile.js -->
 
 	<script src="dist/bundle.js"></script>
-
 </body>
 
 </html>

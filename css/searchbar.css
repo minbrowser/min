@@ -11,6 +11,7 @@
 	-webkit-user-select: none;
 	max-height: calc(100% - 125px);
 	overflow-y: auto;
+	padding-bottom: 0.5em;
 }
 
 /* account for menu button */

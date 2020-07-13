@@ -4,6 +4,7 @@ var searchbarUtils = require('searchbar/searchbarUtils.js')
 var urlParser = require('util/urlParser.js')
 var searchEngine = require('util/searchEngine.js')
 var tabBar = require('navbar/tabBar.js')
+const createIcon = require('util/createIcon')
 
 const faviconMinimumLuminance = 70 // minimum brightness for a "light" favicon
 
@@ -50,11 +51,12 @@ function toggleCollapsed (taskContainer, task) {
   taskContainer.classList.toggle('collapsed')
 
   var collapseButton = taskContainer.querySelector('.task-collapse-button')
-  collapseButton.classList.toggle('fa-angle-right')
-  collapseButton.classList.toggle('fa-angle-down')
+  collapseButton.innerHTML = ''
   if (tasks.isCollapsed(task.id)) {
+    collapseButton.appendChild(createIcon('carbon:chevron-right'))
     collapseButton.setAttribute('aria-expanded', 'false')
   } else {
+    collapseButton.appendChild(createIcon('carbon:chevron-down'))
     collapseButton.setAttribute('aria-expanded', 'true')
   }
 }
@@ -64,15 +66,15 @@ var TaskOverlayBuilder = {
     task: {
       collapseButton: function (taskContainer, task) {
         var collapseButton = document.createElement('button')
-        collapseButton.className = 'fa task-collapse-button'
+        collapseButton.className = 'task-collapse-button'
         collapseButton.setAttribute('tabindex', '-1')
 
         collapseButton.setAttribute('aria-haspopup', 'true')
         if (tasks.isCollapsed(task.id)) {
-          collapseButton.classList.add('fa-angle-right')
+          collapseButton.append(createIcon('carbon:chevron-right'))
           collapseButton.setAttribute('aria-expanded', 'false')
         } else {
-          collapseButton.classList.add('fa-angle-down')
+          collapseButton.append(createIcon('carbon:chevron-down'))
           collapseButton.setAttribute('aria-expanded', 'true')
         }
         collapseButton.addEventListener('click', function (e) {
@@ -111,8 +113,9 @@ var TaskOverlayBuilder = {
       },
       deleteButton: function (container, task) {
         var deleteButton = document.createElement('button')
-        deleteButton.className = 'fa fa-trash-o task-delete-button'
+        deleteButton.className = 'task-delete-button'
         deleteButton.tabIndex = -1 // needed for keyboardNavigationHelper
+        deleteButton.append(createIcon('carbon:close-outline'))
 
         deleteButton.addEventListener('click', function (e) {
           if (task.tabs.isEmpty()) {
@@ -267,7 +270,7 @@ var TaskOverlayBuilder = {
         }
 
         if (tab.private) {
-          data.icon = 'fa-eye-slash'
+          data.icon = 'carbon:view-off'
         } else if (tab.favicon) {
           data.iconImage = tab.favicon.url
 

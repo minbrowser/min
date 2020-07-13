@@ -43,20 +43,18 @@
 }
 
 .searchbar-item i,
+.searchbar-item > svg:first-child,
 .searchbar-item .icon-image
  {
 	position: absolute;
-	top: 0.9em;
+	top: 0.7em;
 	left: -1.4em;
 	opacity: 0.25;
-	font-size: 0.9em;
+	font-size: 1em;
 	width: 1em;
 	height: 1em;
 }
-.searchbar-item i.fa-align-left {
-	/* this icon isn't aligned with the rest of the icon set, so add an additional margin for it */
-	margin-top: 0.1em;
-}
+
 .dark-theme .theme-background-color .searchbar-item i {
 	opacity: 0.33;
 }
@@ -68,17 +66,17 @@
 /* buttons */
 
 .searchbar-item .action-button {
-    position: absolute;
-    width: 2em;
-    height: 2em;
-    right: 0.45em;
-    top: calc(0.16em + 1px);
-    border: none;
-    border-radius: 50%;
-    outline: none;
-    cursor: pointer;
-    opacity: 0;
-    background: transparent;
+	position: absolute;
+	width: 2em;
+	height: 2em;
+	right: 0.45em;
+	top: calc(0.16em + 1px);
+	border: none;
+	border-radius: 50%;
+	outline: none;
+	cursor: pointer;
+	opacity: 0;
+	background: transparent;
 	transition: 0.05s;
 	color: currentColor;
 }
@@ -86,12 +84,12 @@
 :before is already used for icon */
 .searchbar-item .action-button:after {
 	content: "";
-    width: 3em;
-    height: 2.5em;
-    top: -0.25em;
-    left: -0.75em;
-    display: block;
-    position: absolute;
+	width: 3em;
+	height: 2.5em;
+	top: -0.25em;
+	left: -0.75em;
+	display: block;
+	position: absolute;
 }
 .searchbar-item:hover .action-button,
 .searchbar-item:focus .action-button,
@@ -107,11 +105,9 @@ body.dark-mode.touch .searchbar-item .action-button {
 }
 .searchbar-item .action-button:hover {
     opacity: 1;
-    background: rgba(0, 0, 0, 0.05);
 }
 .dark-mode .searchbar-item .action-button:hover {
     opacity: 1;
-    background: rgba(0, 0, 0, 0.15);
 }
 .searchbar-item .action-button:active {
     background: rgba(0, 0, 0, 0.175);

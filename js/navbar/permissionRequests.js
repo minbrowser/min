@@ -1,4 +1,5 @@
 const webviews = require('webviews.js')
+const createIcon = require('../util/createIcon')
 
 const permissionRequests = {
   requests: [],
@@ -12,11 +13,11 @@ const permissionRequests = {
   },
   getIcons: function (request) {
     if (request.permission === 'notifications') {
-      return ['fa-comments-o']
+      return ['carbon:chat']
     } else if (request.permission === 'media') {
       var mediaIcons = {
-        video: 'fa-video-camera',
-        audio: 'fa-microphone'
+        video: 'carbon:video',
+        audio: 'carbon:microphone'
       }
       return request.details.mediaTypes.map(t => mediaIcons[t])
     }
@@ -31,9 +32,7 @@ const permissionRequests = {
           button.classList.add('active')
         }
         permissionRequests.getIcons(request).forEach(function (icon) {
-          var i = document.createElement('i')
-          i.className = 'fa ' + icon
-          button.appendChild(i)
+          button.appendChild(createIcon(icon))
         })
         button.addEventListener('click', function (e) {
           e.stopPropagation()

@@ -6,6 +6,7 @@ const readerView = require('readerView.js')
 const tabEditor = require('navbar/tabEditor.js')
 const progressBar = require('navbar/progressBar.js')
 const permissionRequests = require('navbar/permissionRequests.js')
+const createIcon = require('../util/createIcon')
 
 var lastTabDeletion = 0 // TODO get rid of this
 
@@ -104,8 +105,8 @@ const tabBar = {
     iconArea.className = 'tab-icon-area'
 
     if (data.private) {
-      var pbIcon = document.createElement('i')
-      pbIcon.className = 'fa fa-eye-slash icon-tab-is-private tab-icon tab-info-icon'
+      var pbIcon = createIcon('carbon:view-off')
+      pbIcon.className = 'iconify icon-tab-is-private tab-icon tab-info-icon'
       iconArea.appendChild(pbIcon)
     }
 
@@ -116,11 +117,10 @@ const tabBar = {
     secIcon.hidden = data.secure !== false
     iconArea.appendChild(secIcon)
 
-    var closeTabButton = document.createElement('i')
+    var closeTabButton = document.createElement('button')
     closeTabButton.classList.add('tab-icon')
     closeTabButton.classList.add('tab-close-button')
-    closeTabButton.classList.add('fa')
-    closeTabButton.classList.add('fa-times-circle')
+    closeTabButton.appendChild(createIcon('carbon:close'))
 
     closeTabButton.addEventListener('click', function (e) {
       tabBar.events.emit('tab-closed', data.id)

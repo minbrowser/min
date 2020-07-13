@@ -1,6 +1,7 @@
 const webviews = require('webviews.js')
 const settings = require('util/settings/settings.js')
 const remoteMenu = require('remoteMenuRenderer.js')
+const createIcon = require('../util/createIcon')
 
 const contentBlockingToggle = {
   enableBlocking: function (url) {
@@ -53,7 +54,8 @@ const contentBlockingToggle = {
   create: function () {
     const button = document.createElement('button')
 
-    button.className = 'fa fa-shield tab-editor-button'
+    button.className = 'tab-editor-button'
+    button.appendChild(createIcon('carbon:manage-protection'))
 
     button.addEventListener('click', function (e) {
       contentBlockingToggle.showMenu(button)
@@ -106,7 +108,7 @@ const contentBlockingToggle = {
     if (contentBlockingToggle.isBlockingEnabled(tabs.get(tabId).url)) {
       button.style.opacity = 1
     } else {
-      button.style.opacity = 0.5
+      button.style.opacity = 0.4
     }
   }
 }

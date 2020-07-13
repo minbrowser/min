@@ -3,11 +3,12 @@ const places = require('places/places.js')
 const bookmarkEditor = require('searchbar/bookmarkEditor.js')
 const searchbar = require('searchbar/searchbar.js')
 const searchbarPlugins = require('searchbar/searchbarPlugins.js')
+const createIcon = require('../util/createIcon')
 
 const bookmarkStar = {
   create: function () {
     const star = document.createElement('button')
-    star.className = 'fa fa-star-o tab-editor-button bookmarks-button' // alternative icon is fa-bookmark
+    star.className = 'tab-editor-button bookmarks-button'
     star.setAttribute('aria-pressed', false)
     star.setAttribute('title', l('addBookmark'))
     star.setAttribute('aria-label', l('addBookmark'))
@@ -16,6 +17,8 @@ const bookmarkStar = {
       bookmarkStar.onClick(star)
     })
 
+    star.appendChild(createIcon('carbon:star'))
+
     return star
   },
   onClick: function (star) {
@@ -23,21 +26,18 @@ const bookmarkStar = {
 
     searchbarPlugins.clearAll()
 
-    star.classList.toggle('fa-star')
-    star.classList.toggle('fa-star-o')
-
     places.toggleBookmarked(tabId, function (isBookmarked) {
+      star.textContent = ''
+
       if (isBookmarked) {
+        star.appendChild(createIcon('carbon:star-filled'))
         // since the update happens asynchronously, and star.update() could be called after onClick but before the update, it's possible for the classes to get out of sync with the actual bookmark state. Updating them here fixes tis.
-        star.classList.add('fa-star')
-        star.classList.remove('fa-star-o')
         star.setAttribute('aria-pressed', true)
         var editorInsertionPoint = document.createElement('div')
         searchbarPlugins.getContainer('simpleBookmarkTagInput').appendChild(editorInsertionPoint)
         bookmarkEditor.show(tabs.get(tabs.getSelected()).url, editorInsertionPoint, null, {simplified: true, autoFocus: true})
       } else {
-        star.classList.remove('fa-star')
-        star.classList.add('fa-star-o')
+        star.appendChild(createIcon('carbon:star'))
         star.setAttribute('aria-pressed', false)
         searchbar.showResults('')
       }
@@ -56,13 +56,13 @@ const bookmarkStar = {
     // check if the page is bookmarked or not, and update the star to match
 
     db.places.where('url').equals(currentURL).first(function (item) {
+      star.textContent = ''
+
       if (item && item.isBookmarked) {
-        star.classList.remove('fa-star-o')
-        star.classList.add('fa-star')
+        star.appendChild(createIcon('carbon:star-filled'))
         star.setAttribute('aria-pressed', true)
       } else {
-        star.classList.remove('fa-star')
-        star.classList.add('fa-star-o')
+        star.appendChild(createIcon('carbon:star'))
         star.setAttribute('aria-pressed', false)
       }
     })

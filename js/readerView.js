@@ -7,6 +7,7 @@ var urlParser = require('util/urlParser.js')
 var {db} = require('util/database.js')
 
 var readerDecision = require('readerDecision.js')
+const createIcon = require('./util/createIcon')
 
 var readerView = {
   readerURL: urlParser.getFileURL(__dirname + '/reader/index.html'),
@@ -18,9 +19,9 @@ var readerView = {
   },
   getButton: function (tabId) {
     // TODO better icon
-    var button = document.createElement('img')
+    var button = document.createElement('button')
     button.className = 'reader-button tab-icon'
-    button.src = 'images/readerIcon.svg'
+    button.appendChild(createIcon('carbon:notebook'))
 
     button.setAttribute('data-tab', tabId)
     button.setAttribute('role', 'button')
