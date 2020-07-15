@@ -51,12 +51,12 @@ function toggleCollapsed (taskContainer, task) {
   taskContainer.classList.toggle('collapsed')
 
   var collapseButton = taskContainer.querySelector('.task-collapse-button')
-  collapseButton.innerHTML = ''
+  collapseButton.classList.toggle('carbon:chevron-right')
+  collapseButton.classList.toggle('carbon:chevron-left')
+
   if (tasks.isCollapsed(task.id)) {
-    collapseButton.appendChild(createIcon('carbon:chevron-right'))
     collapseButton.setAttribute('aria-expanded', 'false')
   } else {
-    collapseButton.appendChild(createIcon('carbon:chevron-down'))
     collapseButton.setAttribute('aria-expanded', 'true')
   }
 }
@@ -66,15 +66,15 @@ var TaskOverlayBuilder = {
     task: {
       collapseButton: function (taskContainer, task) {
         var collapseButton = document.createElement('button')
-        collapseButton.className = 'task-collapse-button'
+        collapseButton.className = 'task-collapse-button i'
         collapseButton.setAttribute('tabindex', '-1')
 
         collapseButton.setAttribute('aria-haspopup', 'true')
         if (tasks.isCollapsed(task.id)) {
-          collapseButton.append(createIcon('carbon:chevron-right'))
+          collapseButton.classList.add('carbon:chevron-right')
           collapseButton.setAttribute('aria-expanded', 'false')
         } else {
-          collapseButton.append(createIcon('carbon:chevron-down'))
+          collapseButton.classList.add('carbon:chevron-down')
           collapseButton.setAttribute('aria-expanded', 'true')
         }
         collapseButton.addEventListener('click', function (e) {

@@ -52,9 +52,8 @@ const bookmarkEditor = {
         
           //save button
           var saveButton = document.createElement('button')
-          saveButton.className = "action-button always-visible";
+          saveButton.className = "action-button always-visible i carbon:checkmark";
           saveButton.tabIndex = -1
-          saveButton.appendChild(createIcon('carbon:checkmark'))
           editor.appendChild(saveButton);
           saveButton.addEventListener("click", function() {
             editor.remove();
@@ -64,9 +63,8 @@ const bookmarkEditor = {
         
           //delete button
           var delButton = document.createElement('button')
-          delButton.className = "action-button always-visible bookmark-delete-button";
+          delButton.className = "action-button always-visible bookmark-delete-button i carbon:delete";
           delButton.tabIndex = -1
-          delButton.appendChild(createIcon('carbon:delete'))
           editor.appendChild(delButton);
           delButton.addEventListener("click", function() {
             editor.remove();

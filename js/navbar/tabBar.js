@@ -105,22 +105,19 @@ const tabBar = {
     iconArea.className = 'tab-icon-area'
 
     if (data.private) {
-      var pbIcon = createIcon('carbon:view-off')
-      pbIcon.className = 'iconify icon-tab-is-private tab-icon tab-info-icon'
+      var pbIcon = document.createElement('i')
+      pbIcon.className = 'icon-tab-is-private tab-icon tab-info-icon i carbon:view-off'
       iconArea.appendChild(pbIcon)
     }
 
     var secIcon = document.createElement('i')
-    secIcon.className = 'fa fa-unlock icon-tab-not-secure tab-icon tab-info-icon'
+    secIcon.className = 'icon-tab-not-secure tab-icon tab-info-icon i carbon:unlocked'
     secIcon.title = l('connectionNotSecure')
-
     secIcon.hidden = data.secure !== false
     iconArea.appendChild(secIcon)
 
     var closeTabButton = document.createElement('button')
-    closeTabButton.classList.add('tab-icon')
-    closeTabButton.classList.add('tab-close-button')
-    closeTabButton.appendChild(createIcon('carbon:close'))
+    closeTabButton.className = 'tab-icon tab-close-button i carbon:close'
 
     closeTabButton.addEventListener('click', function (e) {
       tabBar.events.emit('tab-closed', data.id)

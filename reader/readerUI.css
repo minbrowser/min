@@ -82,7 +82,7 @@ body[theme="dark"] #auto-redirect-button-area button {
 	padding-top: 0.5em;
 }
 
-#backtoarticle-link svg {
+#backtoarticle-link .i {
 	vertical-align: middle;
 	margin-left: 0.125em;
 	margin-right: -0.2em;
@@ -101,7 +101,7 @@ body[theme="dark"] #auto-redirect-button-area button {
 	margin: -0.5em;
 }
 
-#settings-button svg {
+#settings-button .i {
 	pointer-events: none;
 }
 

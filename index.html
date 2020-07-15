@@ -20,9 +20,7 @@
 	<link rel="stylesheet" href="css/downloadManager.css" />
 	<link rel="stylesheet" href="css/passwordManager.css" />
 	<link rel="stylesheet" href="node_modules/dragula/dist/dragula.min.css" />
-
-	<script src="ext/iconify/iconify.without-api.min.js"></script>
-	<script src="ext/iconify/loadIcons.js"></script>
+	<link rel="stylesheet" href="ext/icons/iconfont.css" />
 </head>
 
 <body>
@@ -88,13 +86,11 @@
 	</button>
 
 	<div id="navbar" class="theme-background-color theme-text-color windowDragHandle" tabindex="-1">
-		<button id="menu-button" class="navbar-action-button" data-label="openMenu"
+		<button id="menu-button" class="navbar-action-button i carbon:overflow-menu-vertical" data-label="openMenu"
 			tabindex="-1">
-			<span class="iconify" data-icon="carbon:overflow-menu-vertical" data-inline="false"></span>
 		</button>
-		<button id="back-button" hidden class="navbar-action-button" data-label="goBack"
+		<button id="back-button" hidden class="navbar-action-button i carbon:chevron-left" data-label="goBack"
 			tabindex="-1">
-			<span class="iconify" data-icon="carbon:chevron-left" data-inline="false"></span>
 		</button>
 		<div id="tabs">
 			<div id="tab-editor" hidden>
@@ -103,15 +99,13 @@
 			<div id="tabs-inner" role="tablist"></div>
 		</div>
 		<div class="navbar-right-actions">
-			<button id="add-tab-button" class="navbar-action-button" data-label="newTabAction" tabindex="-1">
-				<span class="iconify" data-icon="carbon:add" data-inline="false"></span>
+			<button id="add-tab-button" class="navbar-action-button i carbon:add" data-label="newTabAction" tabindex="-1">
 			</button>
 		</div>
 	</div>
 
-	<button id="switch-task-button" class="navbar-action-button theme-text-color windowDragHandle"
+	<button id="switch-task-button" class="navbar-action-button theme-text-color windowDragHandle i carbon:chevron-down"
 		data-label="viewTasks" tabindex="-1">
-		<span class="iconify" data-icon="carbon:chevron-down" data-inline="false"></span>
 	</button>
 
 	<div id="searchbar" class="theme-background-color theme-text-color">
@@ -122,10 +116,10 @@
 
 	<div id="webviews">
 		<div id="leftArrowContainer" class="arrow-indicator">
-			<span class="iconify" data-icon="carbon:chevron-left" data-inline="false"></span>
+			<i class="i carbon:chevron-left"></i>
 		</div>
 		<div id="rightArrowContainer" class="arrow-indicator">
-			<span class="iconify" data-icon="carbon:chevron-right" data-inline="false"></span>
+			<i class="i carbon:chevron-right"></i>
 		</div>
 		<img id="webview-placeholder" hidden aria-hidden="true" />
 	</div>
@@ -137,14 +131,14 @@
 		<span id="findinpage-count" class="inline-text"></span>
 		<div class="divider"></div>
 		<button id="findinpage-previous-match">
-			<span class="iconify" data-icon="carbon:chevron-up" data-inline="false"></span>
+			<i class="i carbon:chevron-up"></i>
 		</button>
 		<button id="findinpage-next-match">
-			<span class="iconify" data-icon="carbon:chevron-down" data-inline="false"></span>
+			<i class="i carbon:chevron-down"></i>
 		</button>
 		<div class="divider"></div>
 		<button id="findinpage-end">
-			<span class="iconify" data-icon="carbon:close" data-inline="false"></span>
+			<i class="i carbon:close"></i>
 		</button>
 	</div>
 
@@ -153,16 +147,14 @@
 		</div>
 		<div id="task-area"></div>
 		<button id="add-task">
-			<span class="iconify" data-icon="carbon:new-tab" data-inline="false"></span>
+			<i class="i carbon:new-tab"></i>
 			<span></span>
 		</button>
 	</div>
 
 	<div id="download-bar" hidden>
 		<div id="download-container" role="list"></div>
-		<button id="download-close-button">
-			<span class="iconify" data-icon="carbon:close" data-inline="false"></span>
-		</button>
+		<button id="download-close-button" class="i carbon:close"></button>
 	</div>
 
 	<div class="centered" id="manager-setup-dialog" hidden>

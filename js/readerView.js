@@ -20,8 +20,7 @@ var readerView = {
   getButton: function (tabId) {
     // TODO better icon
     var button = document.createElement('button')
-    button.className = 'reader-button tab-icon'
-    button.appendChild(createIcon('carbon:notebook'))
+    button.className = 'reader-button tab-icon i carbon:notebook'
 
     button.setAttribute('data-tab', tabId)
     button.setAttribute('role', 'button')

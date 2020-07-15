@@ -57,10 +57,10 @@ function createItem (data) {
 
   if (data.icon) {
     if (data.icon.startsWith('fa')) {
-    var i = document.createElement('i')
-    i.className = 'fa' + ' ' + data.icon
+      var i = document.createElement('i')
+      i.className = 'i  ' + data.icon
 
-    item.appendChild(i)
+      item.appendChild(i)
     }
     else {
       item.appendChild(createIcon(data.icon))
@@ -179,7 +179,8 @@ function createItem (data) {
     button.classList.add('action-button')
     button.classList.add('ignores-keyboard-focus') // for keyboardNavigationHelper
     button.tabIndex = -1
-    button.appendChild(createIcon(data.button.icon))
+    button.classList.add('i')
+    button.classList.add(data.button.icon)
 
     button.addEventListener('click', function (e) {
       e.stopPropagation()

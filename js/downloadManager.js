@@ -104,14 +104,12 @@ const downloadManager = {
     progress.className = 'download-progress'
     container.appendChild(progress)
 
-    let dropdown = document.createElement('div') 
-    dropdown.appendChild(createIcon('carbon:chevron-down'))
-    dropdown.className = 'download-action-button'
+    let dropdown = document.createElement('button') 
+    dropdown.className = 'download-action-button i carbon:chevron-down'
     container.appendChild(dropdown)
 
-    let openFolder = document.createElement('div') 
-    openFolder.appendChild(createIcon('carbon:folder'))
-    openFolder.className = 'download-action-button'
+    let openFolder = document.createElement('button') 
+    openFolder.className = 'download-action-button i carbon:folder'
     openFolder.hidden = true
     container.appendChild(openFolder)
 

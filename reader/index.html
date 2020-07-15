@@ -7,14 +7,11 @@
 	<script src="../ext/readability-master/Readability.js"></script>
 	<link rel="stylesheet" href="../css/base.css"/>
 	<link rel="stylesheet" href="readerUI.css" />
-
-	<script src="../ext/iconify/iconify.without-api.min.js"></script>
-	<script src="../ext/iconify/loadIcons.js"></script>
+	<link rel="stylesheet" href="../ext/icons/iconfont.css" />
 </head>
 
 <body>
-	<button id="settings-button" data-label="buttonReaderSettings">
-		<span class="iconify" data-icon="carbon:settings-adjust" data-inline="false"></span>
+	<button id="settings-button i carbon:settings-adjust" data-label="buttonReaderSettings">
 	</button>
 	<div id="settings-dropdown" hidden>
 		<div class="setting-section">
@@ -36,7 +33,7 @@
 	</div>
 	<div id="backtoarticle">
 		<a id="backtoarticle-link">
-			<span class="iconify" data-icon="carbon:chevron-left" data-inline="false"></span>
+			<i class="i carbon:chevron-left"></i>
 			<span data-string="articleReaderView"></span>
 		</a>
 	</div>

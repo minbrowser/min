@@ -108,9 +108,10 @@ body:not(.touch) .task-container:not(.collapsed):not(:hover) .task-collapse-butt
 	padding: 0.66em;
 	margin: -0.66em;
 	border-radius: 50%;
-    height: 2.33em;
-    width: 2.33em;
+	height: 2.33em;
+	width: 2.33em;
 	transition: 0.1s opacity;
+	opacity: 0.4;
 }
 
 .task-container.collapsed:not(:hover) .task-delete-button:not(:focus) {
@@ -203,8 +204,9 @@ body:not(.touch) .task-container:not(.collapsed):not(:hover) .task-collapse-butt
 .dark-mode #add-task:hover {
 	background-color: rgb(44, 49, 56);
 }
-#add-task .fa {
+#add-task .i {
 	opacity: 0.75;
+	vertical-align: middle;
 	margin-right: 0.25em;
 }
 .task-action-container {

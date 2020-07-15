@@ -43,7 +43,7 @@
 }
 
 .searchbar-item i,
-.searchbar-item > svg:first-child,
+.searchbar-item > .i:first-child,
 .searchbar-item .icon-image
  {
 	position: absolute;
@@ -67,8 +67,8 @@
 
 .searchbar-item .action-button {
 	position: absolute;
-	width: 2em;
-	height: 2em;
+	width: 1.5em;
+	height: 1.5em;
 	right: 0.45em;
 	top: calc(0.16em + 1px);
 	border: none;

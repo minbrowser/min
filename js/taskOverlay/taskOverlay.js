@@ -6,7 +6,6 @@ var tabEditor = require('navbar/tabEditor.js')
 var focusMode = require('focusMode.js')
 var modalMode = require('modalMode.js')
 var keyboardNavigationHelper = require('util/keyboardNavigationHelper.js')
-const createIcon = require('util/createIcon')
 
 const createTaskContainer = require('taskOverlay/taskOverlayBuilder.js')
 
@@ -84,9 +83,8 @@ window.taskOverlay = {
 
     this.isShown = true
     taskSwitcherButton.classList.add('active')
-    taskSwitcherButton.textContent = ''
-    taskSwitcherButton.appendChild(createIcon('carbon:chevron-up'))
-
+    taskSwitcherButton.classList.add('carbon:chevron-up')
+    taskSwitcherButton.classList.remove('carbon:chevron-down')
 
     this.tabDragula.containers = [addTaskButton]
     empty(taskContainer)
@@ -149,8 +147,8 @@ window.taskOverlay = {
       }
 
       taskSwitcherButton.classList.remove('active')
-      taskSwitcherButton.textContent = ''
-      taskSwitcherButton.appendChild(createIcon('carbon:chevron-down'))
+      taskSwitcherButton.classList.remove('carbon:chevron-up')
+      taskSwitcherButton.classList.add('carbon:chevron-down')
     }
   },
 

@@ -53,9 +53,7 @@ const contentBlockingToggle = {
   },
   create: function () {
     const button = document.createElement('button')
-
-    button.className = 'tab-editor-button'
-    button.appendChild(createIcon('carbon:manage-protection'))
+    button.className = 'tab-editor-button i carbon:manage-protection'
 
     button.addEventListener('click', function (e) {
       contentBlockingToggle.showMenu(button)

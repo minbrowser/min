@@ -107,7 +107,6 @@ body.linux #menu-button {
 	margin-top: -2px;
 	font-size: 1em;
 	padding: 0.66em 0.5em;
-	vertical-align: middle;
 	box-sizing: content-box;
 }
 .tab-item.active:not(:only-child) {
@@ -198,6 +197,7 @@ body.dark-mode #overlay {
 	padding: 0 0.5em;
 	height: 36px;
 	margin-right: 0.5em;
+	margin-top: -1px;
 }
 .navbar-action-button.invisible {
 	visibility: hidden;
@@ -228,15 +228,14 @@ body.dark-mode #overlay {
 
 .tab-item .tab-icon.permission-request-icon {
 	border: 1px rgba(0, 0, 0, 0.3) solid;
-	padding: 0.16em;
+	padding: 0.15em 0.17em;
 	margin-right: 0.66em;
 	margin-top: -0.2em;
 	margin-left: -0.3em;
 	border-radius: 0.75em;
 }
-.tab-item .tab-icon.permission-request-icon i {
-	margin: 0 0.15em;
-	vertical-align: bottom;
+.tab-item .tab-icon.permission-request-icon .i {
+	vertical-align: middle;
 }
 .dark-theme .tab-item .tab-icon.permission-request-icon {
 	border-color: rgba(255, 255, 255, 0.5);
