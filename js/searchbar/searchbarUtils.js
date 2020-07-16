@@ -1,7 +1,6 @@
 var urlParser = require('util/urlParser.js')
 
 var searchbar = require('searchbar/searchbar.js')
-const createIcon = require('../util/createIcon')
 
 var lastItemDeletion = Date.now() // TODO get rid of this
 
@@ -56,15 +55,9 @@ function createItem (data) {
   }
 
   if (data.icon) {
-    if (data.icon.startsWith('fa')) {
-      var i = document.createElement('i')
-      i.className = 'i  ' + data.icon
-
-      item.appendChild(i)
-    }
-    else {
-      item.appendChild(createIcon(data.icon))
-    }
+    var el = document.createElement('span')
+    el.className = 'i ' + data.icon
+    item.appendChild(el)
   }
 
   if (data.title) {

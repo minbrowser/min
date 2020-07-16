@@ -4,7 +4,6 @@ var searchbarUtils = require('searchbar/searchbarUtils.js')
 var urlParser = require('util/urlParser.js')
 var searchEngine = require('util/searchEngine.js')
 var tabBar = require('navbar/tabBar.js')
-const createIcon = require('util/createIcon')
 
 const faviconMinimumLuminance = 70 // minimum brightness for a "light" favicon
 
@@ -113,9 +112,8 @@ var TaskOverlayBuilder = {
       },
       deleteButton: function (container, task) {
         var deleteButton = document.createElement('button')
-        deleteButton.className = 'task-delete-button'
+        deleteButton.className = 'task-delete-button i carbon:close-outline'
         deleteButton.tabIndex = -1 // needed for keyboardNavigationHelper
-        deleteButton.append(createIcon('carbon:close-outline'))
 
         deleteButton.addEventListener('click', function (e) {
           if (task.tabs.isEmpty()) {

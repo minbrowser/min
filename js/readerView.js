@@ -7,7 +7,6 @@ var urlParser = require('util/urlParser.js')
 var {db} = require('util/database.js')
 
 var readerDecision = require('readerDecision.js')
-const createIcon = require('./util/createIcon')
 
 var readerView = {
   readerURL: urlParser.getFileURL(__dirname + '/reader/index.html'),

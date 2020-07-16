@@ -6,7 +6,6 @@ const readerView = require('readerView.js')
 const tabEditor = require('navbar/tabEditor.js')
 const progressBar = require('navbar/progressBar.js')
 const permissionRequests = require('navbar/permissionRequests.js')
-const createIcon = require('../util/createIcon')
 
 var lastTabDeletion = 0 // TODO get rid of this
 

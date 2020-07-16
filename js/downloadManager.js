@@ -1,5 +1,4 @@
 var webviews = require('webviews.js')
-const createIcon = require('./util/createIcon')
 
 function getFileSizeString (bytes) {
   let prefixes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']

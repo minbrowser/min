@@ -1,6 +1,5 @@
 var { db } = require('util/database.js')
 var places = require('places/places.js')
-const createIcon = require('../util/createIcon')
 
 const bookmarkEditor = {
     currentInstance: null,

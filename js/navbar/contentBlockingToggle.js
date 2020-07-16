@@ -1,7 +1,6 @@
 const webviews = require('webviews.js')
 const settings = require('util/settings/settings.js')
 const remoteMenu = require('remoteMenuRenderer.js')
-const createIcon = require('../util/createIcon')
 
 const contentBlockingToggle = {
   enableBlocking: function (url) {

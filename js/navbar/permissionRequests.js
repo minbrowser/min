@@ -1,5 +1,4 @@
 const webviews = require('webviews.js')
-const createIcon = require('../util/createIcon')
 
 const permissionRequests = {
   requests: [],
@@ -32,7 +31,9 @@ const permissionRequests = {
           button.classList.add('active')
         }
         permissionRequests.getIcons(request).forEach(function (icon) {
-          button.appendChild(createIcon(icon))
+          var el = document.createElement('span')
+          el.className = 'i ' + icon
+          button.appendChild(el)
         })
         button.addEventListener('click', function (e) {
           e.stopPropagation()
