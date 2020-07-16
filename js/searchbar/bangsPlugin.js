@@ -170,7 +170,7 @@ function getBangSearchResults (text, input, event) {
       showBangSearchResults(text, results, input, event, 4)
       searchbarPlugins.addResult('bangs', {
         title: l('showMoreBangs'),
-        icon: 'carbon:chervon-down',
+        icon: 'carbon:chevron-down',
         click: function () {
           showBangSearchResults(text, results, input, event, Infinity)
         }
