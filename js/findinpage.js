@@ -98,8 +98,8 @@ webviews.bindEvent('view-hidden', function (tabId) {
   }
 })
 
-webviews.bindEvent('did-start-loading', function (tabId) {
-  if (tabId === findinpage.activeTab) {
+webviews.bindEvent('did-start-navigation', function (tabId, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
+  if (!isInPlace && tabId === findinpage.activeTab) {
     findinpage.end()
   }
 })
