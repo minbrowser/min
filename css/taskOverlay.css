@@ -1,13 +1,9 @@
 .simulated-navbar {
-	display: flex;
 	width: 100%;
 	height: calc(36px + var(--control-space-top));
 	background-color: inherit;
 	z-index: 1;
-}
-
-.simulated-navbar .spacer {
-	flex: auto;
+	border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
 }
 
 #switch-task-button {

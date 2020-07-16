@@ -43,7 +43,6 @@
 }
 
 .searchbar-item i,
-.searchbar-item > .i:first-child,
 .searchbar-item .icon-image
  {
 	position: absolute;
@@ -104,10 +103,12 @@ body.dark-mode.touch .searchbar-item .action-button {
 	opacity: 0.8;
 }
 .searchbar-item .action-button:hover {
-    opacity: 1;
+		opacity: 1;
+		background: rgba(0, 0, 0, 0.05);
 }
 .dark-mode .searchbar-item .action-button:hover {
-    opacity: 1;
+		opacity: 1;
+		background: rgba(0, 0, 0, 0.15);
 }
 .searchbar-item .action-button:active {
     background: rgba(0, 0, 0, 0.175);

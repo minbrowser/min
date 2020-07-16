@@ -124,9 +124,6 @@ body.linux #menu-button {
 .tab-item.fade:hover {
 	opacity: 1;
 }
-.tab-item .title {
-	text-overflow: ellipsis;
-}
 
 /* style tab scrollbar */
 
@@ -286,6 +283,7 @@ body.is-focus-mode .navbar-action-button:not(#menu-button) {
 	position: absolute;
 	top: 0;
 	left: 0;
+	margin: 0 0.8em;
 	overflow: hidden;
 }
 
