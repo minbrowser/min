@@ -223,7 +223,8 @@ const webviews = {
           enableRemoteModule: false,
           allowPopups: false,
           partition: partition,
-          enableWebSQL: false
+          enableWebSQL: false,
+          autoplayPolicy: settings.get('autoplayPolicy'),
         }
       }),
       boundsString: JSON.stringify(webviews.getViewBounds()),

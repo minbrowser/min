@@ -143,6 +143,7 @@
         "settingsUserscriptsToggle": "Habilitar scripts do usuário",
         "settingsSeparateTitlebarToggle": "Usar a barra de título separada",
 	"settingsOpenTabsInForegroundToggle": "Abrir novas guias em primeiro plano",
+    "settingsAutoplayPolicyToggle": null, //missing translation
 	"settingsUserscriptsExplanation": {"unsafeHTML":"Scripts do usuário permitem modificar o comportamento do site - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saiba mais</a>."},
 	"settingsUserAgentToggle": "Usar agente de usuário personalizado",
         "settingsUpdateNotificationsToggle": "Verificar atualizações automaticamente",

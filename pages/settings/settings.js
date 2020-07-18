@@ -6,6 +6,7 @@ var siteThemeCheckbox = document.getElementById('checkbox-site-theme')
 var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
 var separateTitlebarCheckbox = document.getElementById('checkbox-separate-titlebar')
 var openTabsInForegroundCheckbox = document.getElementById('checkbox-open-tabs-in-foreground')
+var autoplayPolicyCheckbox = document.getElementById('checkbox-autoplay-policy')
 var userAgentCheckbox = document.getElementById('checkbox-user-agent')
 var userAgentInput = document.getElementById('input-user-agent')
 
@@ -231,6 +232,17 @@ openTabsInForegroundCheckbox.addEventListener('change', function (e) {
   settings.set('openTabsInForeground', this.checked)
 })
 
+/* media autoplay setting */
+
+settings.get('autoplayPolicy', function (value) {
+  if (value === 'user-gesture-required') {
+    autoplayPolicyCheckbox.checked = true
+  }
+})
+
+autoplayPolicyCheckbox.addEventListener('change', function (e) {
+  settings.set('autoplayPolicy', this.checked ? 'user-gesture-required' : 'no-user-gesture-required')
+})
 
 /* user agent settting */
 

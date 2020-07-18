@@ -145,6 +145,7 @@
         "settingsUserscriptsToggle": null, //missing translation
         "settingsSeparateTitlebarToggle": null, //missing translation
 		"settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsAutoplayPolicyToggle": null, //missing translation
 		"settingsUserscriptsExplanation": null, //missing translation
         "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation

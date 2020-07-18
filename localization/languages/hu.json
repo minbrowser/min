@@ -145,6 +145,7 @@
         "settingsUserscriptsToggle": "Felhasználói szkriptek",
         "settingsSeparateTitlebarToggle": null, //missing translation
 		"settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsAutoplayPolicyToggle": null, //missing translation
 		"settingsUserscriptsExplanation": "Felhasználói szkript magyarázat",
         "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation
