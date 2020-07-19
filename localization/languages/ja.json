@@ -9,6 +9,7 @@
         "pictureInPicture": "ピクチャーインピクチャー",
         "openInNewTab": "新規タブで開く",
         "openInNewPrivateTab": "新規プライベートタブで開く",
+        "saveLinkAs": null, //missing translation
         "viewImage": "画像を表示",
         "openImageInNewTab": "画像を新規タブで開く",
         "openImageInNewPrivateTab": "画像を新規プライベートタブで開く",

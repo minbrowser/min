@@ -9,6 +9,7 @@
         "pictureInPicture": "子母畫面",
         "openInNewTab": "在新分頁中開啟",
         "openInNewPrivateTab": "在新無痕頁面中開啟",
+        "saveLinkAs": null, //missing translation
         "viewImage": "查看圖片",
         "openImageInNewTab": "在新分頁中開啟圖片",
         "openImageInNewPrivateTab": "在新無痕頁面中開啟圖片",

@@ -9,6 +9,7 @@
         "pictureInPicture": "Picture in picture",
         "openInNewTab": "Abrir em uma nova aba",
         "openInNewPrivateTab": "Abrir em uma nova aba privada",
+        "saveLinkAs": null, //missing translation
         "viewImage": "Ver imagem",
         "openImageInNewTab": "Abrir imagem em uma nova aba",
         "openImageInNewPrivateTab": "Abrir imagem em uma nova aba privada",
