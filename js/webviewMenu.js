@@ -95,6 +95,13 @@ const webviewMenu = {
         }
       })
 
+      linkActions.push({
+        label: l('saveLinkAs'),
+        click: function () {
+          remote.getCurrentWebContents().downloadURL(link)
+        }
+      })
+
       menuSections.push(linkActions)
     } else if (mediaURL && data.mediaType === 'image') {
       /* images */

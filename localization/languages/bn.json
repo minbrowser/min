@@ -9,6 +9,7 @@
         "pictureInPicture": null, //missing translation
         "openInNewTab":"নতুন ট্যাবে খুলুন",
       "openInNewPrivateTab":"নতুন ব্যক্তিগত ট্যাবে খুলুন",
+      "saveLinkAs": null, //missing translation
       "viewImage":"ভিউ ইমেজ",
       "openImageInNewTab":"চিত্রটি নতুন ট্যাবে খুলুন",
       "openImageInNewPrivateTab":"নতুন ব্যক্তিগত ট্যাবে চিত্র খুলুন",

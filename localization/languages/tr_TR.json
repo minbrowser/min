@@ -9,6 +9,7 @@
         "pictureInPicture": null, //missing translation
         "openInNewTab": "Yeni Pencerede Aç",
         "openInNewPrivateTab": "Yeni Özel Sekmede Aç",
+        "saveLinkAs": null, //missing translation
         "viewImage": "Resmi Göster",
         "openImageInNewTab": "Resmi Yeni Sekmede Aç",
         "openImageInNewPrivateTab": "Resmi Yeni Özel Sekmede Aç",

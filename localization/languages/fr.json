@@ -9,6 +9,7 @@
         "pictureInPicture": null, //missing translation
         "openInNewTab": "Ouvrir dans un nouvel onglet",
         "openInNewPrivateTab": "Ouvrir dans un onglet de navigation privée",
+        "saveLinkAs": null, //missing translation
         "viewImage": "Voir l'image",
         "openImageInNewTab": "Ouvrir l'image dans un nouvel onglet",
         "openImageInNewPrivateTab": "Ouvrir l'image dans un onglet de navigation privée",
