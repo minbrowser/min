@@ -113,7 +113,7 @@ function showSearchbarInstantAnswers (text, input, event) {
           title: entityName,
           descriptionBlock: desc,
           url: url
-        }, {allowDuplicates: true})
+        }, { allowDuplicates: true })
       })
     }
 
@@ -122,7 +122,7 @@ function showSearchbarInstantAnswers (text, input, event) {
       if (res.Answer) {
         searchbarPlugins.setTopAnswer('instantAnswers', data)
       } else {
-        searchbarPlugins.addResult('instantAnswers', data, {allowDuplicates: true})
+        searchbarPlugins.addResult('instantAnswers', data, { allowDuplicates: true })
       }
     }
 
@@ -159,7 +159,7 @@ function showSearchbarInstantAnswers (text, input, event) {
 
 function initialize () {
   searchbarPlugins.register('instantAnswers', {
-    index: 3,
+    index: 4,
     trigger: function (text) {
       return text.length > 3 && !urlParser.isURLMissingProtocol(text) && !tabs.get(tabs.getSelected()).private
     },
@@ -167,4 +167,4 @@ function initialize () {
   })
 }
 
-module.exports = {initialize}
+module.exports = { initialize }
