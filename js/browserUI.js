@@ -22,9 +22,12 @@ function addTask () {
 /*
 options
   options.enterEditMode - whether to enter editing mode when the tab is created. Defaults to true.
-  options.openInBackground - whether to open the tab without switching to it. Defaults to false.
+  options.openInBackground - whether to open the tab without switching to it. Defaults to !openTabsInForeground setting.
 */
 function addTab (tabId = tabs.add(), options = {}) {
+  if (options.openInBackground === undefined && tabs.get(tabId).url) {
+    options.openInBackground = !settings.get('openTabsInForeground')
+  }
   /*
   adding a new tab should destroy the current one if either:
   * The current tab is an empty, non-private tab, and the new tab is private

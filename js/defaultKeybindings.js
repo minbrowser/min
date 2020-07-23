@@ -84,7 +84,8 @@ const defaultKeybindings = {
       }
 
       browserUI.addTab(tabs.add(restoredTab), {
-        enterEditMode: false
+        enterEditMode: false,
+        openInBackground: false
       })
     })
 
