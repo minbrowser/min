@@ -52,6 +52,7 @@ if (process.argv.some(item => item.includes('rename-db'))) {
 const browserPage = 'file://' + __dirname + '/index.html'
 
 var mainWindow = null
+var mainWindowIsMinimized = false // workaround for https://github.com/minbrowser/min/issues/1074
 var mainMenu = null
 var secondaryMenu = null
 var isFocusMode = false
@@ -207,14 +208,22 @@ function createWindowWithBounds (bounds) {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
+    mainWindowIsMinimized = false
   })
 
   mainWindow.on('focus', function () {
-    sendIPCToWindow(mainWindow, 'windowFocus')
+    if (!mainWindowIsMinimized) {
+      sendIPCToWindow(mainWindow, 'windowFocus')
+    }
   })
 
   mainWindow.on('minimize', function () {
     sendIPCToWindow(mainWindow, 'minimize')
+    mainWindowIsMinimized = true
+  })
+
+  mainWindow.on('restore', function () {
+    mainWindowIsMinimized = false
   })
 
   mainWindow.on('maximize', function () {
