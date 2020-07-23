@@ -10,27 +10,27 @@ const ipc = electron.ipcMain
 const Menu = electron.Menu
 const MenuItem = electron.MenuItem
 
-let isInstallerRunning = false;
+let isInstallerRunning = false
 
-function clamp(n, min, max) {
-  return Math.max(Math.min(n, max), min);
+function clamp (n, min, max) {
+  return Math.max(Math.min(n, max), min)
 }
 
 if (process.platform === 'win32') {
   (async function () {
-  var squirrelCommand = process.argv[1];
-  if (squirrelCommand === "--squirrel-install" || squirrelCommand === "--squirrel-updated") {
-    isInstallerRunning = true;
-    await registryInstaller.install();
+    var squirrelCommand = process.argv[1]
+  if (squirrelCommand === '--squirrel-install' || squirrelCommand === '--squirrel-updated') {
+      isInstallerRunning = true
+    await registryInstaller.install()
   }
-  if (squirrelCommand == '--squirrel-uninstall') {
-    isInstallerRunning = true;
-    await registryInstaller.uninstall();
+    if (squirrelCommand == '--squirrel-uninstall') {
+      isInstallerRunning = true
+    await registryInstaller.uninstall()
   }
-  if (require('electron-squirrel-startup')) {
-    app.quit()
-  }
-  })();
+    if (require('electron-squirrel-startup')) {
+      app.quit()
+    }
+  })()
 }
 
 // workaround for flicker when focusing app (https://github.com/electron/electron/issues/17942)
@@ -53,7 +53,7 @@ const browserPage = 'file://' + __dirname + '/index.html'
 
 var mainWindow = null
 var mainMenu = null
-var secondaryMenu = null;
+var secondaryMenu = null
 var isFocusMode = false
 var appIsReady = false
 
@@ -94,20 +94,20 @@ function handleCommandLineArguments (argv) {
   if (argv) {
     argv.forEach(function (arg, idx) {
       if (arg && arg.toLowerCase() !== __dirname.toLowerCase()) {
-        //URL
+        // URL
         if (arg.indexOf('://') !== -1) {
           sendIPCToWindow(mainWindow, 'addTab', {
             url: arg
           })
         } else if (idx > 0 && argv[idx - 1] === '-s') {
-          //search
+          // search
           sendIPCToWindow(mainWindow, 'addTab', {
             url: arg
           })
         } else if (/[A-Z]:[/\\].*\.html?$/.test(arg)) {
-          //local files on Windows
+          // local files on Windows
           sendIPCToWindow(mainWindow, 'addTab', {
-            url: "file://" + arg
+            url: 'file://' + arg
           })
         }
       }
@@ -133,14 +133,14 @@ function createWindow (cb) {
         y: 0,
         width: size.width,
         height: size.height,
-        maximized: true,
+        maximized: true
       }
     }
 
-    //make the bounds fit inside a currently-active screen
-    //(since the screen Min was previously open on could have been removed)
-    //see: https://github.com/minbrowser/min/issues/904
-    var containingRect = electron.screen.getDisplayMatching(bounds).workArea;
+    // make the bounds fit inside a currently-active screen
+    // (since the screen Min was previously open on could have been removed)
+    // see: https://github.com/minbrowser/min/issues/904
+    var containingRect = electron.screen.getDisplayMatching(bounds).workArea
 
     bounds = {
       x: clamp(bounds.x, containingRect.x, (containingRect.x + containingRect.width) - bounds.width),
@@ -173,7 +173,7 @@ function createWindowWithBounds (bounds) {
     backgroundColor: '#fff', // the value of this is ignored, but setting it seems to work around https://github.com/electron/electron/issues/10559
     webPreferences: {
       nodeIntegration: true,
-      nodeIntegrationInWorker: true, //used by ProcessSpawner
+      nodeIntegrationInWorker: true, // used by ProcessSpawner
       additionalArguments: ['--user-data-path=' + userDataPath, '--app-version=' + app.getVersion()]
     }
   })
@@ -181,7 +181,7 @@ function createWindowWithBounds (bounds) {
   // windows and linux always use a menu button in the upper-left corner instead
   // if frame: false is set, this won't have any effect, but it does apply on Linux if "use separate titlebar" is enabled
   if (process.platform !== 'darwin') {
-    mainWindow.setMenuBarVisibility(false);
+    mainWindow.setMenuBarVisibility(false)
   }
 
   // and load the index.html of the app.
@@ -283,9 +283,9 @@ app.on('window-all-closed', function () {
 app.on('ready', function () {
   appIsReady = true
 
-  /* the installer launches the app to install registry items and shortcuts, 
+  /* the installer launches the app to install registry items and shortcuts,
   but if that's happening, we shouldn't display anything */
-  if(isInstallerRunning) {
+  if (isInstallerRunning) {
     return
   }
 
@@ -305,7 +305,7 @@ app.on('ready', function () {
     })
   })
 
-  mainMenu = buildAppMenu();
+  mainMenu = buildAppMenu()
   Menu.setApplicationMenu(mainMenu)
   createDockMenu()
   registerProtocols()
@@ -350,7 +350,7 @@ ipc.on('focusMainWebContents', function () {
 
 ipc.on('showSecondaryMenu', function (event, data) {
   if (!secondaryMenu) {
-    secondaryMenu = buildAppMenu({secondary: true})
+    secondaryMenu = buildAppMenu({ secondary: true })
   }
   secondaryMenu.popup({
     x: data.x,
