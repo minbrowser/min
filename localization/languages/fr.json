@@ -16,6 +16,7 @@
         "saveImageAs": "Enregistrer l'image sous",
         "searchWith": "Rechercher avec %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copier le lien",
+        "copyEmailAddress": null, //missing translation
         "selectAll": "Tout sélectionner",
         "undo": "Annuler",
         "redo": "Rétablir",

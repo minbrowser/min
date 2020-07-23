@@ -16,6 +16,7 @@
         "saveImageAs": "ذخیره تصویر",
         "searchWith": "جستجو با %s", //%s will be replaced with the name of the current search engine
         "copyLink": "کپی لینک",
+        "copyEmailAddress": null, //missing translation
         "selectAll": null, // Missing Translation
         "undo": null, // Missing Translation
         "redo": null, // Missing Translation

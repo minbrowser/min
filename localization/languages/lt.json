@@ -16,6 +16,7 @@
         "saveImageAs": "Įrašyti paveikslą kaip",
         "searchWith": "Ieškoti naudojant %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Kopijuoti nuorodą",
+        "copyEmailAddress": null, //missing translation
         "selectAll": null, // Missing Translation
         "undo": null, // Missing Translation
         "redo": null, // Missing Translation

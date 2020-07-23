@@ -16,6 +16,7 @@
         "saveImageAs": "그림을 다른 이름으로 저장",
         "searchWith": "%s에서 검색", //%s will be replaced with the name of the current search engine
         "copyLink": "주소 복사",
+        "copyEmailAddress": null, //missing translation
         "selectAll": "전체선택",
         "undo": "되돌리기",
         "redo": "재실행",

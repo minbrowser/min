@@ -16,6 +16,7 @@
         "saveImageAs": "Zapisz grafikę jako",
         "searchWith": "Szukaj %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Kopiuj link",
+        "copyEmailAddress": null, //missing translation
         "selectAll": "Zaznacz wszystko",
         "undo": "Cofnij",
         "redo": "Przywróć",

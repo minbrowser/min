@@ -16,6 +16,7 @@
         "saveImageAs": "Uložit obrázek jako",
         "searchWith": "Vyhledávat pomocí %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Kopírovat odkaz",
+        "copyEmailAddress": null, //missing translation
         "selectAll": null, // Missing Translation
         "undo": null, // Missing Translation
         "redo": null, // Missing Translation

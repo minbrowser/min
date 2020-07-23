@@ -16,6 +16,7 @@
         "saveImageAs": "图片另存为",
         "searchWith": "在 %s 中搜索", //%s will be replaced with the name of the current search engine
         "copyLink": "复制链接",
+        "copyEmailAddress": null, //missing translation
         "selectAll": "全选",
         "undo": "撤销",
         "redo": "重做",

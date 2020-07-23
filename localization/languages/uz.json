@@ -16,6 +16,7 @@
 		"saveImageAs": "Rasmni saqlash",
 		"searchWith": "%s bilan izlash", //%s will be replaced with the name of the current search engine
 		"copyLink": "Havoladan nusxa olish",
+        "copyEmailAddress": null, //missing translation
 		"selectAll": "Barchasini tanlash",
 		"undo": "Bekor qilish",
 		"redo": "Qayta qilish",

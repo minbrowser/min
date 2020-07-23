@@ -16,6 +16,7 @@
         "saveImageAs": "画像を別名で保存",
         "searchWith": "%s で検索", //%s will be replaced with the name of the current search engine
         "copyLink": "リンクをコピー",
+        "copyEmailAddress": null, //missing translation
         "selectAll": "すべて表示する",
         "undo": "アンドゥ",
         "redo": "やり直し",

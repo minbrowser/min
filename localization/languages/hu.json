@@ -16,6 +16,7 @@
         "saveImageAs": "Kép mentése másként",
         "searchWith": "Keresés %s keresővel", //%s will be replaced with the name of the current search engine
         "copyLink": "Hivatkozás másolás",
+        "copyEmailAddress": null, //missing translation
         "selectAll": null, // Missing Translation
         "undo": null, // Missing Translation
         "redo": null, // Missing Translation

@@ -16,6 +16,7 @@
         "saveImageAs": "Сохранить изображение как...",
         "searchWith": "Искать в %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Копировать ссылку",
+        "copyEmailAddress": "Копировать адрес электронной почты",
         "selectAll": "Выделить все",
         "undo": "Отменить",
         "redo": "Повторить",

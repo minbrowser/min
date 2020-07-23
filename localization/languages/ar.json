@@ -16,6 +16,7 @@
         "saveImageAs": "حفظ الصورة باسم",
         "searchWith": "%s بحث مع", //%s will be replaced with the name of the current search engine
         "copyLink": "نسخ الرابط",
+        "copyEmailAddress": null, //missing translation
         "selectAll": null, // Missing Translation
         "undo": null, // Missing Translation
         "redo": null, // Missing Translation
