@@ -9,12 +9,14 @@
         "pictureInPicture": null, //missing translation
         "openInNewTab": "在新标签页打开",
         "openInNewPrivateTab": "在新隐私标签页中打开",
+        "saveLinkAs": null, //missing translation
         "viewImage": "查看图片",
         "openImageInNewTab": "在新标签页中打开图片",
         "openImageInNewPrivateTab": "在新的隐私标签页中打开图片",
         "saveImageAs": "图片另存为",
         "searchWith": "在 %s 中搜索", //%s will be replaced with the name of the current search engine
         "copyLink": "复制链接",
+        "copyEmailAddress": null, //missing translation
         "selectAll": "全选",
         "undo": "撤销",
         "redo": "重做",

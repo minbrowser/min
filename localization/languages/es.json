@@ -9,12 +9,14 @@
         "pictureInPicture": null, //missing translation
         "openInNewTab": "Abrir en una nueva pestaña",
         "openInNewPrivateTab": "Abrir en una nueva pestaña privada",
+        "saveLinkAs": null, //missing translation
         "viewImage": "Ver imagen",
         "openImageInNewTab": "Abrir imagen en una nueva pestaña",
         "openImageInNewPrivateTab": "Abrir imagen en una nueva pestaña privada",
         "saveImageAs": "Guardar imagen como",
         "searchWith": "Buscar con %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copiar enlace",
+        "copyEmailAddress": null, //missing translation
         "selectAll": null, // Missing Translation
         "undo": null, // Missing Translation
         "redo": null, // Missing Translation

@@ -5,16 +5,18 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "addToDictionary": null, //missing translation
+        "addToDictionary": "辞書に追加",
         "pictureInPicture": "ピクチャーインピクチャー",
         "openInNewTab": "新規タブで開く",
         "openInNewPrivateTab": "新規プライベートタブで開く",
+        "saveLinkAs": "リンクを名前を付けて保存...",
         "viewImage": "画像を表示",
         "openImageInNewTab": "画像を新規タブで開く",
         "openImageInNewPrivateTab": "画像を新規プライベートタブで開く",
         "saveImageAs": "画像を別名で保存",
         "searchWith": "%s で検索", //%s will be replaced with the name of the current search engine
         "copyLink": "リンクをコピー",
+        "copyEmailAddress": "メールアドレスをコピー",
         "selectAll": "すべて表示する",
         "undo": "アンドゥ",
         "redo": "やり直し",

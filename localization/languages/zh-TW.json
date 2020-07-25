@@ -9,12 +9,14 @@
         "pictureInPicture": "子母畫面",
         "openInNewTab": "在新分頁中開啟",
         "openInNewPrivateTab": "在新無痕頁面中開啟",
+        "saveLinkAs": null, //missing translation
         "viewImage": "查看圖片",
         "openImageInNewTab": "在新分頁中開啟圖片",
         "openImageInNewPrivateTab": "在新無痕頁面中開啟圖片",
         "saveImageAs": "儲存圖片",
         "searchWith": "以 %s 搜尋", //%s will be replaced with the name of the current search engine
         "copyLink": "複製連結",
+        "copyEmailAddress": null, //missing translation
         "selectAll": "全選",
         "undo": "復原",
         "redo": "重做",

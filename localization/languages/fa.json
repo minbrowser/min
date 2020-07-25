@@ -9,12 +9,14 @@
         "pictureInPicture": null, //missing translation
         "openInNewTab": "باز کردن در برگه جدید",
         "openInNewPrivateTab": "باز کردن در برگه خصوصی جدید",
+        "saveLinkAs": null, //missing translation
         "viewImage": "نمایش تصویر",
         "openImageInNewTab": "باز کردن تصویر در برگه جدید",
         "openImageInNewPrivateTab": "باز کردن تصویر در برگه خصوصی جدید",
         "saveImageAs": "ذخیره تصویر",
         "searchWith": "جستجو با %s", //%s will be replaced with the name of the current search engine
         "copyLink": "کپی لینک",
+        "copyEmailAddress": null, //missing translation
         "selectAll": null, // Missing Translation
         "undo": null, // Missing Translation
         "redo": null, // Missing Translation

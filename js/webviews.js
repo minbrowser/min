@@ -223,22 +223,23 @@ const webviews = {
           enableRemoteModule: false,
           allowPopups: false,
           partition: partition,
-          enableWebSQL: false
+          enableWebSQL: false,
+          autoplayPolicy: 'user-gesture-required'
         }
       }),
       boundsString: JSON.stringify(webviews.getViewBounds()),
       events: webviews.events.map(e => e.event).filter((i, idx, arr) => arr.indexOf(i) === idx)
     })
 
-    let contents = lazyRemoteObject(function () {
+    const contents = lazyRemoteObject(function () {
       return getView(tabId).webContents
     })
 
     if (tabData.url) {
-      ipc.send('loadURLInView', {id: tabData.id, url: urlParser.parse(tabData.url)})
+      ipc.send('loadURLInView', { id: tabData.id, url: urlParser.parse(tabData.url) })
     } else if (tabData.private) {
       // workaround for https://github.com/minbrowser/min/issues/872
-      ipc.send('loadURLInView', {id: tabData.id, url: urlParser.parse('min://newtab')})
+      ipc.send('loadURLInView', { id: tabData.id, url: urlParser.parse('min://newtab') })
     }
 
     webviews.tabContentsMap[tabId] = contents
@@ -270,7 +271,7 @@ const webviews = {
     forceUpdateDragRegions()
   },
   update: function (id, url) {
-    ipc.send('loadURLInView', {id: id, url: urlParser.parse(url)})
+    ipc.send('loadURLInView', { id: id, url: urlParser.parse(url) })
   },
   destroy: function (id) {
     webviews.emitEvent('view-hidden', id)
@@ -301,7 +302,7 @@ const webviews = {
         placeholderImg.src = img
         placeholderImg.hidden = false
       } else if (associatedTab && associatedTab.url) {
-        captureCurrentTab({forceCapture: true})
+        captureCurrentTab({ forceCapture: true })
       } else {
         placeholderImg.hidden = true
       }
@@ -348,7 +349,7 @@ const webviews = {
     }
   },
   resize: function () {
-    ipc.send('setBounds', {id: webviews.selectedId, bounds: webviews.getViewBounds()})
+    ipc.send('setBounds', { id: webviews.selectedId, bounds: webviews.getViewBounds() })
   },
   goBackIgnoringRedirects: function (id) {
     // special case: the current page is an internal page representing a regular webpage, and the previous page in history is that page (which likely means a redirect happened from the original page to the internal page)
@@ -395,7 +396,7 @@ const webviews = {
       var callId = Math.random()
       webviews.asyncCallbacks[callId] = cb
     }
-    ipc.send('callViewMethod', {id: id, callId: callId, method: method, args: args})
+    ipc.send('callViewMethod', { id: id, callId: callId, method: method, args: args })
   }
 }
 

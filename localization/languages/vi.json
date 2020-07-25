@@ -9,12 +9,14 @@
         "pictureInPicture": null, //missing translation
         "openInNewTab": "Mở trong tab mới",
         "openInNewPrivateTab": "Mở trong tab riêng tư mới",
+        "saveLinkAs": null, //missing translation
         "viewImage": "Xem ảnh",
         "openImageInNewTab": "Mở ảnh trong tab mới",
         "openImageInNewPrivateTab": "Mở ảnh trong tab riêng tư mới",
         "saveImageAs": "Lưu ảnh thành",
         "searchWith": "Tìm kiếm với %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Chép liên kết",
+        "copyEmailAddress": null, //missing translation
         "selectAll": "Chọn tất cả", 
         "undo": "Hoàn tác", 
         "redo": "Làm lại", 

@@ -5,16 +5,18 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "addToDictionary": null, //missing translation
+        "addToDictionary": "Adicionar ao dicionário",
         "pictureInPicture": "Picture in Picture",
         "openInNewTab": "Abrir em novo separador",
         "openInNewPrivateTab": "Abrir em novo separador privado",
+        "saveLinkAs": null, //missing translation
         "viewImage": "Ver imagem",
         "openImageInNewTab": "Abrir imagem em novo separador",
         "openImageInNewPrivateTab": "Abrir imagem em novo separador privado",
         "saveImageAs": "Guardar imagem como",
         "searchWith": "Pesquisar com %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copiar ligação",
+        "copyEmailAddress": null, //missing translation
         "selectAll": "Selecionar tudo",
         "undo": "Desfazer",
         "redo": "Refazer",

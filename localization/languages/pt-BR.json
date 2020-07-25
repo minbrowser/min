@@ -5,16 +5,18 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "addToDictionary": null, //missing translation
+        "addToDictionary": "Adicionar ao dicionário",
         "pictureInPicture": "Picture in picture",
         "openInNewTab": "Abrir em uma nova aba",
         "openInNewPrivateTab": "Abrir em uma nova aba privada",
+        "saveLinkAs": "Salvar link como...",
         "viewImage": "Ver imagem",
         "openImageInNewTab": "Abrir imagem em uma nova aba",
         "openImageInNewPrivateTab": "Abrir imagem em uma nova aba privada",
         "saveImageAs": "Salvar imagem como",
         "searchWith": "Pesquisar no %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copiar link",
+        "copyEmailAddress": "Copiar endereço de email",
         "selectAll": "Selecionar tudo",
         "undo": "Desfazer",
         "redo": "Refazer",
@@ -44,7 +46,7 @@
         "createTask": "Criar tarefa",
         "closeTask": "Fechar tarefa",
         "moveToTask": "Mover esta aba para uma tarefa",
-        "nameTask": " Nomear tarefa",
+        "nameTask": "Nomear tarefa",
         "addBookmark": "Adicionar favorito",
 	"searchBookmarks": "Buscar nos favoritos",
         "bookmarksAddTag": "Adicionar tag",

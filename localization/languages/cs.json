@@ -9,12 +9,14 @@
         "pictureInPicture": null, //missing translation
         "openInNewTab": "Otevřít v nové kartě",
         "openInNewPrivateTab": "Otevřít v nové soukromé kartě",
+        "saveLinkAs": null, //missing translation
         "viewImage": "Zobrazit obrázek",
         "openImageInNewTab": "Otevřít obrázek v nové kartě",
         "openImageInNewPrivateTab": "Otevřít obrázek v nové soukromé kartě",
         "saveImageAs": "Uložit obrázek jako",
         "searchWith": "Vyhledávat pomocí %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Kopírovat odkaz",
+        "copyEmailAddress": null, //missing translation
         "selectAll": null, // Missing Translation
         "undo": null, // Missing Translation
         "redo": null, // Missing Translation

@@ -9,12 +9,14 @@
         "pictureInPicture": null, //missing translation
         "openInNewTab": "Yeni Pencerede Aç",
         "openInNewPrivateTab": "Yeni Özel Sekmede Aç",
+        "saveLinkAs": null, //missing translation
         "viewImage": "Resmi Göster",
         "openImageInNewTab": "Resmi Yeni Sekmede Aç",
         "openImageInNewPrivateTab": "Resmi Yeni Özel Sekmede Aç",
         "saveImageAs": "Resmi Farklı Kaydet",
         "searchWith": "%s ile ara", //%s will be replaced with the name of the current search engine
         "copyLink": "Linki Kopyala",
+        "copyEmailAddress": null, //missing translation
         "selectAll": "Hepsini Seç",
         "undo": "Geri",
         "redo": "İleri",

@@ -95,6 +95,13 @@ const webviewMenu = {
         }
       })
 
+      linkActions.push({
+        label: l('saveLinkAs'),
+        click: function () {
+          remote.getCurrentWebContents().downloadURL(link)
+        }
+      })
+
       menuSections.push(linkActions)
     } else if (mediaURL && data.mediaType === 'image') {
       /* images */
@@ -194,12 +201,24 @@ const webviewMenu = {
     }
 
     if (link || (mediaURL && !mediaURL.startsWith('blob:'))) {
-      clipboardActions.push({
-        label: l('copyLink'),
-        click: function () {
-          clipboard.writeText(link || mediaURL)
+      if (link.startsWith('mailto:')) {
+        var ematch = link.match(/(?<=mailto:)[^\?]+/)
+        if (ematch) {
+          clipboardActions.push({
+            label: l('copyEmailAddress'),
+            click: function () {
+                clipboard.writeText(ematch[0])
+            }
+          })
         }
-      })
+      } else {
+        clipboardActions.push({
+          label: l('copyLink'),
+          click: function () {
+            clipboard.writeText(link || mediaURL)
+          }
+        })
+      }
     }
 
     if (clipboardActions.length !== 0) {

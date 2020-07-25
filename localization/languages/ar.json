@@ -9,12 +9,14 @@
         "pictureInPicture": null, //missing translation
         "openInNewTab": "فتح الرابط في علامة تبويب جديدة",
         "openInNewPrivateTab": "فتح الرابط في التصفح المتخفي",
+        "saveLinkAs": null, //missing translation
         "viewImage": "مشاهدة الصورة",
         "openImageInNewTab": "فتح الصورة في علامة تبويب جديدة",
         "openImageInNewPrivateTab": "فتح الصورة في التصفح المتخفي",
         "saveImageAs": "حفظ الصورة باسم",
         "searchWith": "%s بحث مع", //%s will be replaced with the name of the current search engine
         "copyLink": "نسخ الرابط",
+        "copyEmailAddress": null, //missing translation
         "selectAll": null, // Missing Translation
         "undo": null, // Missing Translation
         "redo": null, // Missing Translation

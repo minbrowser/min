@@ -9,12 +9,14 @@
         "pictureInPicture": null, //missing translation
         "openInNewTab":"নতুন ট্যাবে খুলুন",
       "openInNewPrivateTab":"নতুন ব্যক্তিগত ট্যাবে খুলুন",
+      "saveLinkAs": null, //missing translation
       "viewImage":"ভিউ ইমেজ",
       "openImageInNewTab":"চিত্রটি নতুন ট্যাবে খুলুন",
       "openImageInNewPrivateTab":"নতুন ব্যক্তিগত ট্যাবে চিত্র খুলুন",
       "saveImageAs":"ইমেজ সেভ করুন এভাবে",
       "searchWith":"%s এর সাথে অনুসন্ধান করুন", //%s will be replaced with the name of the current search engine
       "copyLink":"লিংক কপি করুন",
+      "copyEmailAddress": null, //missing translation
       "selectAll": null, // Missing Translation
       "undo": null, // Missing Translation
       "redo": null, // Missing Translation
