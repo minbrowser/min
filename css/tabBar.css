@@ -211,8 +211,9 @@ body.dark-mode #overlay {
 
 .tab-item .reader-button {
 	display: none;
-	margin-left: -0.66em;
-	font-size: 1em;
+	vertical-align: text-bottom;
+	padding: 0 0.5em 0 0;
+	font-size: 1.1em !important;
 }
 .tab-item.active .reader-button.can-reader {
 	display: inline-block;
