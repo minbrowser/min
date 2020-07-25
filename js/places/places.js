@@ -62,7 +62,7 @@ const places = {
   callbacks: [],
   addWorkerCallback: function (callback) {
     const callbackId = (Date.now() / 1000) + Math.random()
-    places.callbacks.push({id: callbackId, fn: callback})
+    places.callbacks.push({ id: callbackId, fn: callback })
     return callbackId
   },
   runWorkerCallback: function (id, data) {
@@ -130,7 +130,7 @@ const places = {
 
     db.places.where('url').equals(url).first(function (item) {
       if (item && item.isBookmarked) {
-        places.updateItem(url, {isBookmarked: false}, function () {
+        places.updateItem(url, { isBookmarked: false }, function () {
           callback(false)
         })
       } else {
@@ -167,6 +167,16 @@ const places = {
     const callbackId = places.addWorkerCallback(callback)
     places.worker.postMessage({
       action: 'getSuggestedTags',
+      pageData: {
+        url: url
+      },
+      callbackId: callbackId
+    })
+  },
+  getAllTagsRanked: function (url, callback) {
+    const callbackId = places.addWorkerCallback(callback)
+    places.worker.postMessage({
+      action: 'getAllTagsRanked',
       pageData: {
         url: url
       },

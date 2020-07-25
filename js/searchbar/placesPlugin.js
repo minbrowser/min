@@ -1,7 +1,7 @@
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
-var searchbarAutocomplete = require('searchbar/searchbarAutocomplete.js')
+var searchbarAutocomplete = require('util/autocomplete.js')
 var urlParser = require('util/urlParser.js')
 var readerDecision = require('readerDecision.js')
 
@@ -64,7 +64,7 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
             didAutocompleteResult = true
           }
         } else {
-          var autocompletionType = searchbarAutocomplete.autocompleteURL(input, result)
+          var autocompletionType = searchbarAutocomplete.autocompleteURL(input, result.url)
 
           if (autocompletionType !== -1) {
             canAutocomplete = false
@@ -126,7 +126,7 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
       feedbackLink.textContent = 'Search Feedback'
       feedbackLink.addEventListener('click', function (e) {
         var url = surveyURL + '?query=' + encodeURIComponent(text) + '&results=' + encodeURIComponent(results.map(r => r.url).join('\n')) + '&version=' + encodeURIComponent(window.globalArgs['app-version'])
-        browserUI.addTab(tabs.add({url: url}), {enterEditMode: false})
+        browserUI.addTab(tabs.add({ url: url }), { enterEditMode: false })
       })
       searchbarPlugins.getContainer('fullTextPlaces').appendChild(feedbackLink)
     }
@@ -158,4 +158,4 @@ function initialize () {
   })
 }
 
-module.exports = {initialize}
+module.exports = { initialize }

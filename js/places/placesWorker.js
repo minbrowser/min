@@ -26,11 +26,11 @@ function calculateHistoryScore (item) { // item.boost - how much the score shoul
   return fs
 }
 
-let oneDayInMS = 24 * 60 * 60 * 1000 // one day in milliseconds
-let oneWeekAgo = Date.now() - (oneDayInMS * 7)
+const oneDayInMS = 24 * 60 * 60 * 1000 // one day in milliseconds
+const oneWeekAgo = Date.now() - (oneDayInMS * 7)
 
 // the oldest an item can be to remain in the database
-let maxItemAge = oneDayInMS * 42
+const maxItemAge = oneDayInMS * 42
 
 function cleanupHistoryDatabase () { // removes old history entries
   db.places.where('lastVisit').below(Date.now() - maxItemAge).and(function (item) {
@@ -123,7 +123,7 @@ onmessage = function (e) {
             metadata: {}
           }
         }
-        for (let key in pageData) {
+        for (const key in pageData) {
           if (key === 'extractedText') {
             item.searchIndex = tokenize(pageData.extractedText)
           } else {
@@ -176,6 +176,13 @@ onmessage = function (e) {
   if (action === 'getSuggestedTags') {
     postMessage({
       result: tagIndex.getSuggestedTags(historyInMemoryCache.find(i => i.url === pageData.url)),
+      callbackId: callbackId
+    })
+  }
+
+  if (action === 'getAllTagsRanked') {
+    postMessage({
+      result: tagIndex.getAllTagsRanked(historyInMemoryCache.find(i => i.url === pageData.url)),
       callbackId: callbackId
     })
   }
