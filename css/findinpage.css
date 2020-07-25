@@ -39,4 +39,9 @@ body.linux #findinpage-bar {
 }
 #findinpage-bar button {
 	padding: 0 0.25em;
+	margin-top: 2px;
+}
+#findinpage-bar .navbar-action-button {
+	padding: 0;
+	margin: 0;
 }
