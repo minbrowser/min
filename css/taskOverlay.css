@@ -101,13 +101,13 @@ body:not(.touch) .task-container:not(.collapsed):not(:hover) .task-collapse-butt
 }
 
 .task-delete-button {
-	padding: 0.66em;
-	margin: -0.66em;
+	margin: auto -0.82em;
 	border-radius: 50%;
 	height: 2.33em;
 	width: 2.33em;
 	transition: 0.1s opacity;
 	opacity: 0.4;
+	font-size: 1.2em !important;
 }
 
 .task-container.collapsed:not(:hover) .task-delete-button:not(:focus) {
