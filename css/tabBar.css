@@ -104,8 +104,8 @@ body.linux #menu-button {
 	margin-right: -0.7em;
 }
 .tab-item .tab-icon {
-	font-size: 1em;
-	padding: 0.65em 0.5em;
+	font-size: 0.875em;
+	padding: 0.7125em 0.5em;
 	box-sizing: content-box;
 }
 .tab-item.active:not(:only-child) {

@@ -12,6 +12,8 @@
 }
 
 #tab-editor-input {
+	font-size: 1.1em;
+	line-height: 2em;
 	background: none;
 	-webkit-appearance: none;
 	border: none;
