@@ -55,7 +55,7 @@ function createItem (data) {
   }
 
   if (data.icon) {
-    var el = document.createElement('span')
+    var el = document.createElement('i')
     el.className = 'i ' + data.icon
     item.appendChild(el)
   }

@@ -104,9 +104,8 @@ body.linux #menu-button {
 	margin-right: -0.7em;
 }
 .tab-item .tab-icon {
-	margin-top: -2px;
 	font-size: 1em;
-	padding: 0.66em 0.5em;
+	padding: 0.65em 0.5em;
 	box-sizing: content-box;
 }
 .tab-item.active:not(:only-child) {
@@ -194,7 +193,7 @@ body.dark-mode #overlay {
 	padding: 0 0.5em;
 	height: 36px;
 	margin-right: 0.5em;
-	margin-top: -1px;
+	font-size: 1.1em !important;
 }
 .navbar-action-button.invisible {
 	visibility: hidden;

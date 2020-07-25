@@ -31,7 +31,7 @@ const permissionRequests = {
           button.classList.add('active')
         }
         permissionRequests.getIcons(request).forEach(function (icon) {
-          var el = document.createElement('span')
+          var el = document.createElement('i')
           el.className = 'i ' + icon
           button.appendChild(el)
         })
