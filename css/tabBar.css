@@ -233,6 +233,8 @@ body.dark-mode #overlay {
 }
 .tab-item .tab-icon.permission-request-icon .i {
 	vertical-align: middle;
+	margin-top: -3px;
+	display: inline-block;
 }
 .dark-theme .tab-item .tab-icon.permission-request-icon {
 	border-color: rgba(255, 255, 255, 0.5);
