@@ -193,7 +193,8 @@ body.dark-mode #overlay {
 	padding: 0 0.5em;
 	height: 36px;
 	margin-right: 0.5em;
-	font-size: 1.1em !important;
+	margin-top: -0.5px;
+	font-size: 1.3em !important;
 }
 .navbar-action-button.invisible {
 	visibility: hidden;
@@ -255,6 +256,12 @@ body.dark-mode #overlay {
 
 .tab-item:not(.active) .permission-request-icon:not(.active) {
 	display: none;
+}
+
+/* in Carbon, close icon is a bit smaller than other icons, enlarge it in order to match with other icons */
+.tab-item .tab-close-button {
+	font-size: 1.2em;
+	padding: 0.45em 0.5em;
 }
 
 /* when the tab is hovered, hide info buttons and show the close button */
