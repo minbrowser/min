@@ -84,10 +84,8 @@ body[theme="dark"] #auto-redirect-button-area button {
 
 #backtoarticle-link .i {
 	vertical-align: middle;
-	margin-left: 0.125em;
-	margin-right: -0.2em;
-	margin-bottom: 0.1em;
-	font-size: 1.2em;
+	font-size: 1.4em;
+	margin: 0 -0.2em;
 }
 
 #settings-button {
@@ -99,6 +97,10 @@ body[theme="dark"] #auto-redirect-button-area button {
 	/* increase click area */
 	padding: 0.5em 0.7em 0.5em 0.5em;
 	margin: -0.5em;
+}
+
+#settings-button:hover {
+	opacity: 1;
 }
 
 #settings-button .i {
