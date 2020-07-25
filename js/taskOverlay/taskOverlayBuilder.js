@@ -112,7 +112,7 @@ var TaskOverlayBuilder = {
       },
       deleteButton: function (container, task) {
         var deleteButton = document.createElement('button')
-        deleteButton.className = 'task-delete-button i carbon:close-outline'
+        deleteButton.className = 'task-delete-button i carbon:trash-can'
         deleteButton.tabIndex = -1 // needed for keyboardNavigationHelper
 
         deleteButton.addEventListener('click', function (e) {
