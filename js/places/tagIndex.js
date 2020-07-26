@@ -122,7 +122,7 @@ var tagIndex = {
     tagIndex.removePage(oldPage)
     tagIndex.addPage(newPage)
   },
-  getSuggestedTags: function (page) {
+  getAllTagsRanked: function (page) {
     var tokens = tagIndex.getPageTokens(page)
     // get term frequency
     var terms = {}
@@ -154,15 +154,18 @@ var tagIndex = {
       }
     }
 
-    var probsArr = Object.keys(probs).map(key => { return {tag: key, value: probs[key]} })
+    var probsArr = Object.keys(tagIndex.tagCounts).map(key => { return { tag: key, value: probs[key] || 0 } })
 
     probsArr = probsArr.sort((a, b) => { return b.value - a.value })
 
-    return probsArr.filter(p => p.value > 0.2).map(p => p.tag)
+    return probsArr
+  },
+  getSuggestedTags: function (page) {
+    return tagIndex.getAllTagsRanked(page).filter(p => p.value > 0.2).map(p => p.tag)
   },
   getSuggestedItemsForTags: function (tags) {
     var set = historyInMemoryCache.filter(i => i.isBookmarked).map(p => {
-      return {page: p, tags: tagIndex.getSuggestedTags(p)}
+      return { page: p, tags: tagIndex.getSuggestedTags(p) }
     })
 
     set = set.filter(function (result) {
@@ -194,7 +197,7 @@ var tagIndex = {
       // prefer tags with a recently-visited (or created) page
       score *= Math.max(2 - ((Date.now() - tagIndex.tagUpdateTimes[tag]) / (14 * 24 * 60 * 60 * 1000)), 1)
 
-      tagScores.push({tag, score})
+      tagScores.push({ tag, score })
     }
 
     return tagScores.filter(t => t.score > 0).sort((a, b) => b.score - a.score).map(i => i.tag)
