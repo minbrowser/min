@@ -62,6 +62,12 @@ var platformOptions = {
     platform: 'linux',
     arch: 'armv7l',
     fpm: ['--architecture', 'armhf']
+  },
+  arm64: {
+    name: 'min', // name must be lowercase to run correctly after installation
+    platform: 'linux',
+    arch: 'armv64',
+    fpm: ['--architecture', 'aarch64']
   }
 }
 
