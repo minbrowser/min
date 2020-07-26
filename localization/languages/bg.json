@@ -11,16 +11,16 @@
         "openInNewPrivateTab": "Отваряне в нов поверителен раздел",
         "saveLinkAs": "Запазване на препратка като...",
         "viewImage": "Преглед на изображението",
-        "openImageInNewTab": "Отваряне на изображение в нов раздел",
-        "openImageInNewPrivateTab": "Отваряне на изображение в нов поверителен раздел",
-        "saveImageAs": "Запазване на изображение като",
+        "openImageInNewTab": "Отваряне на изображението в нов раздел",
+        "openImageInNewPrivateTab": "Отваряне на изображението в нов поверителен раздел",
+        "saveImageAs": "Запазване на изображението като",
         "searchWith": "Търсене с %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Копиране на препратка",
-        "copyEmailAddress": "Копиране на електронния адрес",
+        "copyEmailAddress": "Копиране на имейл адрес",
         "selectAll": "Избиране на всичко",
-        "undo": "Отмяна",
-        "redo": "Redo",
-        "cut": "Изтрязване",
+        "undo": "Връщане обратно",
+        "redo": "Отиване напред",
+        "cut": "Изрязване",
         "copy": "Копиране", //this is a verb (as in "copy the currently-selected text")
         "paste": "Поставяне",
         "goBack": "Връщане една страница назад",
@@ -39,19 +39,19 @@
         "viewReadingList": "Преглед на лист за четене",
         "takeScreenshot": "Правене на екранна снимка",
         "clearHistory": "Изчистване на цялата история",
-        "enableBlocking": "Активиране на блокиране на съдържание на този сайт",
-        "disableBlocking": "Деактивиране на блокиране на съдържание на този сайт",
+        "enableBlocking": "Активиране на блокиране на съдържание за този сайт",
+        "disableBlocking": "Деактивиране на блокиране на съдържание за този сайт",
         "clearHistoryConfirmation": "Изчистване на цялата история и данни за сърфиране?",
         "switchToTask": "Превключване към задача",
         "createTask": "Създай задача",
         "closeTask": "Затвори задача",
-        "moveToTask": "Премсети този раздел в задача",
+        "moveToTask": "Премести този раздел в задача",
         "nameTask": "Наименувай тази задача",
         "addBookmark": "Отмятане на страница",
 		"searchBookmarks": "Търсене на отметки",
         "bookmarksAddTag": "Добавяне на таг...",
 		"bookmarksSimilarItems": "Подобни елементи",
-		"searchHistory": "Исторя на търсенията",
+		"searchHistory": "История на търсенията",
         "importBookmarks": "Внасяне на отметки от HTML файл",
 		"exportBookmarks": "Изнасяне на отметки",
         "runUserscript": "Изпълняване на потребителски скрипт",
@@ -62,7 +62,7 @@
         "emptyReadingListTitle": "Вашият лист за четене е празен",
         "emptyReadingListSubtitle": "Статии, които отворите в изглед на четене се изброяват тук и се запазват офлайн за 30 дена.",
         "newTabLabel": "Нов раздел", //this is a noun, used for tabs that don't have a page loaded in them yet
-        "connectionNotSecure": "Връзката Ви с този уебсайт не е защитена.",
+        "connectionNotSecure": "Връзката Ви с този уеб сайт не е защитена.",
         "searchbarPlaceholder": "Потърсете или въведете адрес",
         "privateTab": "Поверителен раздел",
         "newTabAction": "Отваряне на нов раздел", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
@@ -70,7 +70,7 @@
         "viewTasks": "Преглеждане на задачи",
         "newTask": "Отваряне на нова задача", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Задача %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Задачата е изтрита. <a>Undo?</a>"},
+        "taskDeleteWarning": {"unsafeHTML": "Задачата е изтрита. <a>Върни обратно?</a>"},
         "returnToTask": "Връщане към предишната задача",
         "taskDescriptionTwo": "%t и %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
         "taskDescriptionThree": "%t, %t, и още %n", //used to describe a task that has three or more tabs
@@ -79,7 +79,7 @@
         "findMatchesSingular": "%i от %t съвпадение", //this and the next label are used to indicate which match is currently highlighted
         "findMatchesPlural": "%i от %t съвпадения",
         /* Focus mode */
-        "isFocusMode": "Вие сте във режим на фокусиране.",
+        "isFocusMode": "Вие сте в режим на фокусиране.",
         "closeDialog": "Добре", //used as a label for the button that closes the dialog
         "focusModeExplanation1": "В режим на фокусиране не може да създавате нови раздели или да превключвате задачи.",
         "focusModeExplanation2": "Може да излезете от режим на фокусиране, като премахнете отметката на \"режим фокусиране\" в менюто за изглед.",
@@ -89,7 +89,7 @@
         "timeRangeHour": "През изминалия час",
         "timeRangeToday": "Днес",
         "timeRangeYesterday": "Вчера",
-        "timeRangeWeek": "През изминалта седмица",
+        "timeRangeWeek": "През изминалата седмица",
         "timeRangeMonth": "През изминалия месец",
         "timeRangeYear": "През изминалата година",
         "timeRangeLongerAgo": "Много отдавна",
@@ -98,21 +98,21 @@
         "crashErrorSubtitle": "Възникна проблем при показването на тази страница.",
         "errorPagePrimaryAction": "Опитайте отново",
         "serverNotFoundTitle": "Сървърът не е намерен",
-        "serverNotFoundSubtitle": "Min не успя да намери този уебсайт.",
+        "serverNotFoundSubtitle": "Min не успя да намери този уеб сайт.",
         "archiveSearchAction": "Търсене в archive.org",
-        "sslErrorTitle": "Този уебсайт не е наличен",
-        "sslErrorMessage": "Min не успя да се свърже сигурно с този уебсайт.",
-        "dnsErrorTitle": "Уебсайтът не е намерен",
+        "sslErrorTitle": "Този уеб сайт не е наличен",
+        "sslErrorMessage": "Min не успя да се свърже сигурно с този уеб сайт.",
+        "dnsErrorTitle": "Уеб сайтът не е намерен",
         "dnsErrorMessage": "Възникна DNS грешка.",
         "offlineErrorTitle": "Вие сте офлайн",
         "offlineErrorMessage": "Свържете се отново с интернет и опитайте пак.",
-        "genericConnectionFail": "Min не успя да се свърже към уебсайта.",
-        "sslTimeErrorMessage": "Min не успя да се свърже сигурно с този уебсайт. Моля уверете се, че часовникът на вашия компютър е настроен правилно.",
+        "genericConnectionFail": "Min не успя да се свърже към уеб сайта.",
+        "sslTimeErrorMessage": "Min не успя да се свърже сигурно с този уеб сайт. Моля уверете се, че часовникът на Вашият компютър е настроен правилно.",
         "addressInvalidTitle": "Този адрес е невалиден.",
         "genericError": "Възникна грешка",
         /* pages/phishing/index.html */
-        "phishingErrorTitle": "Този сайт може да ви навреди.",
-        "phishingErrorMessage": "Този уебсайт може да се опитва да открадне вашата личната информация, като пароли или банкова информация.",
+        "phishingErrorTitle": "Този сайт може да Ви навреди.",
+        "phishingErrorMessage": "Този уеб сайт може да се опитва да открадне Вашата личната информация, като пароли или банкова информация.",
         "phishingErrorVisitAnyway": "Продължаване въпреки риска",
         "phishingErrorLeave": "Напускане на сайта",
         /* multiple instances alert */
@@ -120,7 +120,7 @@
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Възникна грешка",
         "sessionRestoreErrorExplanation": "Вашите запазени раздели не можаха да бъдат възстановени правилно.",
-        "sessionRestoreErrorBackupInfo": "Запазили сме резервно копие на вашите данни на това място: %l.", //%l will be replaced with a path to a file
+        "sessionRestoreErrorBackupInfo": "Запазили сме резервно копие на Вашите данни на това място: %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
             "unsafeHTML": "Ако тази грешка продължи да се появява, моля отворете нов проблем <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">тук</a>."
         },
@@ -129,25 +129,25 @@
         "settingsRestartRequired": "Трябва да рестартирате браузъра, за да бъдат приложени промените.",
         "settingsPrivacyHeading": "Блокиране на съдържание",
         "settingsContentBlockingLevel0": "Разрешаване на всички реклами и преследвачи",
-        "settingsContentBlockingLevel1": "Блокиране на реклами и преследвачи от трета страна",
+        "settingsContentBlockingLevel1": "Блокиране на реклами и преследвачи от трети лица",
         "settingsContentBlockingLevel2": "Блокиране на всички реклами и преследвачи",
-        "settingsContentBlockingExceptions": "Реклами ще бъдат позволени на тези уебсайтове:",
+        "settingsContentBlockingExceptions": "Реклами ще бъдат позволени на тези уеб сайтове:",
         "settingsBlockScriptsToggle": "Блокиране на скриптове",
         "settingsBlockImagesToggle": "Блокиране на изображения",
         "settingsEasyListCredit": {
             "unsafeHTML": "Базирано на EasyList и EasyPrivacy, създадено от <a target=\"_blank\" href=\"https://easylist.to/\">EasyList авторите</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">вижте лиценз</a>)."
         },
         "settingsAppearanceHeading": "Изглед",
-        "settingsEnableDarkMode": "Артивиране на тъмен режим:",
+        "settingsEnableDarkMode": "Активиране на тъмен режим:",
         "settingsDarkModeNever": "Никога",
         "settingsDarkModeNight": "През нощта",
         "settingsDarkModeAlways": "Винаги",
         "settingsSiteThemeToggle": "Активиране на теми на сайтове",
         "settingsAdditionalFeaturesHeading": "Допълнителни функции",
-        "settingsUserscriptsToggle": "Активиране на потрбителски скриптове",
+        "settingsUserscriptsToggle": "Активиране на потребителски скриптове",
         "settingsSeparateTitlebarToggle": "Използване на отделна лента със заглавието",
-        "settingsOpenTabsInForegroundToggle": "Отвареня на нови раздели на преден план",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Потребителските скриптове ви позволяват да промените поведението на уебсайтове - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">научете повече</a>."},
+        "settingsOpenTabsInForegroundToggle": "Отваряне на нови раздели на преден план",
+		"settingsUserscriptsExplanation": {"unsafeHTML": "Потребителските скриптове Ви позволяват да промените поведението на уеб сайтове - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">научете повече</a>."},
         "settingsUserAgentToggle": "Използване на персонализиран потребителски агент",
         "settingsUpdateNotificationsToggle": "Автоматично проверяване за актуализации",
         "settingsSearchEngineHeading": "Търсачки",
@@ -162,11 +162,11 @@
         "appMenuDuplicateTab": "Дупликиране на раздела",
         "appMenuNewPrivateTab": "Нов поверителен раздел",
         "appMenuNewTask": "Нова задача",
-        "appMenuSavePageAs": "Запазване на страница като",
+        "appMenuSavePageAs": "Запазване на страницата като",
         "appMenuPrint": "Отпечатване",
         "appMenuEdit": "Редактиране",
-        "appMenuUndo": "Undo",
-        "appMenuRedo": "Redo",
+        "appMenuUndo": "Връщане обратно",
+        "appMenuRedo": "Отиване напред",
         "appMenuCut": "Изрязване",
         "appMenuCopy": "Копиране",
         "appMenuPaste": "Поставяне",
@@ -184,7 +184,7 @@
         "appMenuDeveloper": "Разработчик",
         "appMenuReloadBrowser": "Презареди браузър",
         "appMenuInspectBrowser": "Изследване на браузър",
-        "appMenuInspectPage": "Изслеване на страница",
+        "appMenuInspectPage": "Изследване на страница",
         "appMenuWindow": "Прозорец",
         "appMenuMinimize": "Минимизиране",
         "appMenuClose": "Затваряне",
@@ -205,7 +205,7 @@
         /* PDF Viewer */
         "PDFPageCounter": {"unsafeHTML": "страница <input type='text'/> от <span id='total'></span>"},
 	/* Context Reader */    
-	"buttonReaderSettings": "Настройки за изобразяване",
+	"buttonReaderSettings": "Настройки на четец",
 	"buttonReaderLightTheme": "Светла",
 	"buttonReaderSepiaTheme": "Сепия",
 	"buttonReaderDarkTheme": "Тъмна",
@@ -226,7 +226,7 @@
         /* Password manager setup */
         "passwordManagerSetupHeading": "Завършете настройване на %p да попълва пароли",
         "passwordManagerSetupStep1": {
-            "unsafeHTML": "Първо, <a id='password-manager-setup-link'></a> и го извлечете за вашата система."
+            "unsafeHTML": "Първо, <a id='password-manager-setup-link'></a> и го извлечете за Вашата система."
         },
         "passwordManagerInstallerSetup": {
             "unsafeHTML": "Изтеглете <a id='password-manager-setup-link-installer'></a> и плъзнете файла в полето отдолу:"
@@ -236,12 +236,12 @@
         "passwordManagerSetupStep2": "След това плъзнете уреда в полето отдолу:",
         "passwordManagerSetupDragBox": "Плъзнете уреда тук",
         "passwordManagerSetupInstalling": "Инсталиране...",
-        "passwordManagerSetupSignIn": "Впишете се във вашия мениджър на пароли, за да започнете употребата на автоматично попълване. Вашите пълномощия няма да се съхраняват никъде в Min.",
+        "passwordManagerSetupSignIn": "Впишете се във Вашия мениджър на пароли, за да започнете употребата на автоматично попълване. Вашите пълномощия няма да се съхраняват никъде в Min.",
         "disableAutofill": "Деактивиране на автоматично попълване на пароли",
         "autofillNotNow": "Не сега",
-        "passwordManagerSetupUnlockError": "Неуспешно отключване на хранилището за пароли:) ",
+        "passwordManagerSetupUnlockError": "Неуспешно отключване на хранилището за пароли: ",
         "passwordManagerSetupRetry": "Уверете се, че използвате правилния файл и въвеждате правилна парола. Може да пробвате отново, като пак плъзнете уреда тук.",
-        "passwordManagerUnlock": "Въведете вашата %p главна парола, за да отключите хранилището за пароли:",
+        "passwordManagerUnlock": "Въведете Вашата %p главна парола, за да отключите хранилището за пароли:",
         /* Dialogs */
         "loginPromptTitle": "Впишете се в %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Потвърждаване",
