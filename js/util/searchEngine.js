@@ -46,6 +46,11 @@ var searchEngines = {
     searchURL: 'https://www.ecosia.org/search?q=%s',
     queryParam: 'q'
   },
+  Qwant: {
+    name: 'Qwant',
+    searchURL: 'https://www.qwant.com/?q=%s',
+    queryParam: 'q'
+  },
   Wikipedia: {
     name: 'Wikipedia',
     searchURL: 'https://wikipedia.org/w/index.php?search=%s',
