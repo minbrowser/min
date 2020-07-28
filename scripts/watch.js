@@ -9,11 +9,6 @@ const buildMain = require('./buildMain.js')
 const buildBrowser = require('./buildBrowser.js')
 const buildPreload = require('./buildPreload.js')
 
-// rebuild everything on startup
-buildMain()
-buildBrowser()
-buildPreload()
-
 chokidar.watch(mainDir).on('change', function () {
   console.log('rebuilding main')
   buildMain()
