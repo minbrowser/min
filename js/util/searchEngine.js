@@ -67,10 +67,16 @@ var searchEngines = {
   }
 }
 
+for (const e in searchEngines) {
+  try {
+    searchEngines[e].urlObj = new URL(searchEngines[e].searchURL)
+  } catch (e) {}
+}
+
 settings.listen('searchEngine', function (value) {
   if (typeof value === 'string') {
     // migrate from legacy format
-    value = {name: value}
+    value = { name: value }
     settings.set('searchEngine', value)
   }
 
@@ -91,14 +97,6 @@ var searchEngine = {
   getCurrent: function () {
     return currentSearchEngine
   },
-  isSearchURL: function (url) {
-    if (!currentSearchEngine.name || currentSearchEngine.name === 'none') {
-      return false
-    } else {
-      let searchFragment = currentSearchEngine.searchURL.split('%s')[0]
-      return url.startsWith(searchFragment)
-    }
-  },
   getSearch: function (url) {
     var urlObj
     try {
@@ -107,11 +105,10 @@ var searchEngine = {
       return null
     }
     for (var e in searchEngines) {
-      if (!searchEngines[e].queryParam) {
+      if (!searchEngines[e].urlObj) {
         continue
       }
-      var engineURL = new URL(searchEngines[e].searchURL)
-      if (engineURL.hostname === urlObj.hostname && engineURL.pathname === urlObj.pathname) {
+      if (searchEngines[e].urlObj.hostname === urlObj.hostname && searchEngines[e].urlObj.pathname === urlObj.pathname) {
         if (urlObj.searchParams.get(searchEngines[e].queryParam)) {
           return {
             engine: searchEngines[e].name,

@@ -51,13 +51,11 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
     results.forEach(function (result, index) {
       var didAutocompleteResult = false
 
-      var searchQuery
-      if (searchEngine.isSearchURL(result.url)) {
-        searchQuery = searchEngine.getSearch(result.url)
-      }
+      var searchQuery = searchEngine.getSearch(result.url)
 
       if (canAutocomplete) {
-        if (searchQuery && index === 0) {
+        // if the query is autocompleted, pressing enter will search for the result using the current search engine, so only pages from the current engine should be autocompleted
+        if (searchQuery && searchQuery.engine === searchEngine.getCurrent().name && index === 0) {
           var acResult = searchbarAutocomplete.autocomplete(input, [searchQuery.search])
           if (acResult.valid) {
             canAutocomplete = false
