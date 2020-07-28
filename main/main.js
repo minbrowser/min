@@ -11,6 +11,7 @@ const Menu = electron.Menu
 const MenuItem = electron.MenuItem
 
 let isInstallerRunning = false
+const isDevelopmentMode = process.argv.some(arg => arg === '--development-mode')
 
 function clamp (n, min, max) {
   return Math.max(Math.min(n, max), min)
@@ -19,18 +20,22 @@ function clamp (n, min, max) {
 if (process.platform === 'win32') {
   (async function () {
     var squirrelCommand = process.argv[1]
-  if (squirrelCommand === '--squirrel-install' || squirrelCommand === '--squirrel-updated') {
+    if (squirrelCommand === '--squirrel-install' || squirrelCommand === '--squirrel-updated') {
       isInstallerRunning = true
-    await registryInstaller.install()
-  }
-    if (squirrelCommand == '--squirrel-uninstall') {
+      await registryInstaller.install()
+    }
+    if (squirrelCommand === '--squirrel-uninstall') {
       isInstallerRunning = true
-    await registryInstaller.uninstall()
-  }
+      await registryInstaller.uninstall()
+    }
     if (require('electron-squirrel-startup')) {
       app.quit()
     }
   })()
+}
+
+if (isDevelopmentMode) {
+  app.setPath('userData', app.getPath('userData') + '-development')
 }
 
 // workaround for flicker when focusing app (https://github.com/electron/electron/issues/17942)
@@ -117,7 +122,7 @@ function handleCommandLineArguments (argv) {
 }
 
 function createWindow (cb) {
-  var savedBounds = fs.readFile(path.join(userDataPath, 'windowBounds.json'), 'utf-8', function (e, data) {
+  fs.readFile(path.join(userDataPath, 'windowBounds.json'), 'utf-8', function (e, data) {
     var bounds
 
     if (data) {
@@ -175,7 +180,11 @@ function createWindowWithBounds (bounds) {
     webPreferences: {
       nodeIntegration: true,
       nodeIntegrationInWorker: true, // used by ProcessSpawner
-      additionalArguments: ['--user-data-path=' + userDataPath, '--app-version=' + app.getVersion()]
+      additionalArguments: [
+        '--user-data-path=' + userDataPath,
+        '--app-version=' + app.getVersion(),
+        ...((isDevelopmentMode ? ['--development-mode'] : []))
+      ]
     }
   })
 
