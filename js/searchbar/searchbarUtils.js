@@ -69,7 +69,7 @@ function createItem (data) {
       title.classList.add('wide')
     }
 
-    title.textContent = data.title
+    title.textContent = data.title.substring(0, 1000)
 
     item.appendChild(title)
   }
@@ -78,7 +78,7 @@ function createItem (data) {
     var secondaryText = document.createElement('span')
     secondaryText.classList.add('secondary-text')
 
-    secondaryText.textContent = data.secondaryText
+    secondaryText.textContent = data.secondaryText.substring(0, 1000)
 
     item.appendChild(secondaryText)
 

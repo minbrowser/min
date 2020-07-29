@@ -41,7 +41,7 @@ const tabBar = {
 
     var tabEl = tabBar.getTab(tabId)
 
-    var tabTitle = tabData.title || l('newTabLabel')
+    var tabTitle = (tabData.title || l('newTabLabel')).substring(0, 500)
     var titleEl = tabEl.querySelector('.title')
     titleEl.textContent = tabTitle
 
@@ -79,7 +79,7 @@ const tabBar = {
   },
   createElement: function (data) {
     var url = urlParser.parse(data.url)
-    var tabTitle = data.title || l('newTabLabel')
+    var tabTitle = (data.title || l('newTabLabel')).substring(0, 500)
 
     var tabEl = document.createElement('div')
     tabEl.className = 'tab-item'
