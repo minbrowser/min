@@ -16,6 +16,14 @@
 #switch-task-button.active {
 	color: royalblue !important;
 }
+
+#switch-task-button svg {
+	width: 1em;
+	height: 1em;
+	font-size: 0.8rem;
+	display: block;
+    margin-top: 2px;
+}
 #task-overlay {
 	display: flex;
 	flex-direction: column;

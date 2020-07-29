@@ -83,8 +83,6 @@ window.taskOverlay = {
 
     this.isShown = true
     taskSwitcherButton.classList.add('active')
-    taskSwitcherButton.classList.add('carbon:chevron-up')
-    taskSwitcherButton.classList.remove('carbon:chevron-down')
 
     this.tabDragula.containers = [addTaskButton]
     empty(taskContainer)
@@ -147,8 +145,6 @@ window.taskOverlay = {
       }
 
       taskSwitcherButton.classList.remove('active')
-      taskSwitcherButton.classList.remove('carbon:chevron-up')
-      taskSwitcherButton.classList.add('carbon:chevron-down')
     }
   },
 

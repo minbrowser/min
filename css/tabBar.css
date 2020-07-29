@@ -38,7 +38,7 @@
 #back-button {
 	opacity: 1;
 	transition: none;
-	padding: 0 0.6em 0 0.4em;
+	padding: 0 0.6rem 0 0.4rem;
 }
 #back-button:disabled {
 	opacity: 0.2;
@@ -190,11 +190,10 @@ body.dark-mode #overlay {
 /* buttons */
 
 .navbar-action-button {
-	padding: 0 0.5em;
+	padding: 0 1rem;
 	height: 36px;
-	margin-right: 0.5em;
 	margin-top: -0.5px;
-	font-size: 1.3em !important;
+	font-size: 1.4em !important;
 }
 .navbar-action-button.invisible {
 	visibility: hidden;
@@ -205,6 +204,10 @@ body.dark-mode #overlay {
 .navbar-right-actions {
 	margin-left: 0.5em;
 	margin-right: 2em;
+}
+
+.navbar-right-actions #add-tab-button {
+	font-size: 1.6em !important;
 }
 
 /* reader button */
