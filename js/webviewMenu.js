@@ -4,6 +4,7 @@ const webviews = require('webviews.js')
 const browserUI = require('browserUI.js')
 const searchEngine = require('util/searchEngine.js')
 const userscripts = require('userscripts.js')
+const settings = require('util/settings/settings.js')
 
 const remoteMenu = require('remoteMenuRenderer.js')
 
@@ -13,6 +14,8 @@ const webviewMenu = {
     var currentTab = tabs.get(tabs.getSelected())
 
     var menuSections = []
+
+    const openInBackground = !settings.get('openTabsInForeground')
 
     /* Picture in Picture */
 
@@ -83,7 +86,7 @@ const webviewMenu = {
         linkActions.push({
           label: l('openInNewTab'),
           click: function () {
-            browserUI.addTab(tabs.add({ url: link }), { enterEditMode: false })
+            browserUI.addTab(tabs.add({ url: link }), { enterEditMode: false, openInBackground: openInBackground })
           }
         })
       }
@@ -91,7 +94,7 @@ const webviewMenu = {
       linkActions.push({
         label: l('openInNewPrivateTab'),
         click: function () {
-          browserUI.addTab(tabs.add({ url: link, private: true }), { enterEditMode: false })
+          browserUI.addTab(tabs.add({ url: link, private: true }), { enterEditMode: false, openInBackground: openInBackground })
         }
       })
 
@@ -125,7 +128,7 @@ const webviewMenu = {
         imageActions.push({
           label: l('openImageInNewTab'),
           click: function () {
-            browserUI.addTab(tabs.add({ url: mediaURL }), { enterEditMode: false })
+            browserUI.addTab(tabs.add({ url: mediaURL }), { enterEditMode: false, openInBackground: openInBackground })
           }
         })
       }
@@ -133,7 +136,7 @@ const webviewMenu = {
       imageActions.push({
         label: l('openImageInNewPrivateTab'),
         click: function () {
-          browserUI.addTab(tabs.add({ url: mediaURL, private: true }), { enterEditMode: false })
+          browserUI.addTab(tabs.add({ url: mediaURL, private: true }), { enterEditMode: false, openInBackground: openInBackground })
         }
       })
 
@@ -163,7 +166,8 @@ const webviewMenu = {
               private: currentTab.private
             })
             browserUI.addTab(newTab, {
-              enterEditMode: false
+              enterEditMode: false,
+              openInBackground: openInBackground
             })
 
             webviews.get(newTab).focus()
