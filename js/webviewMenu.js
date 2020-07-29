@@ -186,7 +186,7 @@ const webviewMenu = {
       clipboardActions.push({
         label: l('copy'),
         click: function () {
-          clipboard.writeText(selection)
+          webviews.callAsync(tabs.getSelected(), 'copy')
         }
       })
     }
