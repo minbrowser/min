@@ -27,6 +27,7 @@
         "goForward": "Előre lépés",
         "inspectElement": "Részletek megtekintése",
         /* searchbar */
+        "pasteAndGo": null, //missing translation
         "DDGAnswerSubtitle": "Válasz", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Ajánlott oldal", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Válaszok a DuckDuckGo-ról", //this is used as a label to indicate which results come from DuckDuckGo's API

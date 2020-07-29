@@ -27,6 +27,7 @@
         "goForward": "前进",
         "inspectElement": "查看元素",
         /* searchbar */
+        "pasteAndGo": null, //missing translation
         "DDGAnswerSubtitle": "搜索结果", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "建议站点", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "DuckDuckGo 返回的结果", //this is used as a label to indicate which results come from DuckDuckGo's API
