@@ -12,7 +12,7 @@ data:
 title: string - the title of the item
 metadata: array - a list of strings to include (separated by hyphens) in front of the secondary text
 secondaryText: string - the item's secondary text
-icon: string - the name of a font awesome icon.
+icon: string - the name of a carbon icon.
 image: string - the URL of an image to show
 iconImage: string - the URL of an image to show as an icon
 descriptionBlock: string - the text in the description block,
