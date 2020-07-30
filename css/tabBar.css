@@ -202,11 +202,11 @@ body.dark-mode #overlay {
 	padding-left: 0.5em;
 }
 .navbar-right-actions {
-	margin-left: 0.5em;
 	margin-right: 2em;
 }
 
 .navbar-right-actions #add-tab-button {
+	padding: 0 0.9rem;
 	font-size: 1.6em !important;
 }
 
