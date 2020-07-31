@@ -61,7 +61,7 @@ const downloadManager = {
   },
   onItemClicked: function (path) {
     if (downloadManager.downloadItems[path].status === 'completed') {
-      electron.shell.openItem(path)
+      electron.shell.openPath(path)
       // provide a bit of time for the file to open before the download bar disappears
       setTimeout(function () {
         downloadManager.removeItem(path)
