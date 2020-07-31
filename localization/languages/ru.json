@@ -27,6 +27,7 @@
         "goForward": "Вперёд",
         "inspectElement": "Инспектировать элемент",
         /* searchbar */
+        "pasteAndGo": "Вставить и перейти",
         "DDGAnswerSubtitle": "Ответ", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Предложенный сайт", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Результаты из DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API

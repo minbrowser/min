@@ -27,6 +27,7 @@
         "goForward": "앞으로",
         "inspectElement": "요소 검사",
         /* searchbar */
+        "pasteAndGo": null, //missing translation
         "DDGAnswerSubtitle": "응답", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "제안 누리집", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "덕덕고(DuckDuckGo) 검색 결과", //this is used as a label to indicate which results come from DuckDuckGo's API

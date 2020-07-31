@@ -27,6 +27,7 @@
         "goForward": "Avançar",
         "inspectElement": "Inspecionar elemento",
         /* searchbar */
+        "pasteAndGo": null, //missing translation
         "DDGAnswerSubtitle": "Resposta", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Site sugerido", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Resultados em DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API

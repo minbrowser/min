@@ -27,6 +27,7 @@
       "goForward":"সামনে আগান",
       "inspectElement":"এলিমেন্ট পরিদর্শন করুন",
       /* searchbar */
+      "pasteAndGo": null, //missing translation
       "DDGAnswerSubtitle":"উত্তর", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
       "suggestedSite":"প্রস্তাবিত সাইট", //this is used to label suggested websites from the DuckDuckGo API,
       "resultsFromDDG":"ডকডকলহ থেকে ফলাফল", //this is used as a label to indicate which results come from DuckDuckGo's API
