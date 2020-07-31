@@ -3,6 +3,7 @@ class TabList {
     this.tabs = tabs || []
     this.parentTaskList = parentTaskList
   }
+
   add (tab = {}, options = {}) {
     var tabId = String(tab.id || Math.round(Math.random() * 100000000000000000)) // you can pass an id that will be used, or a random one will be generated.
 
@@ -30,6 +31,7 @@ class TabList {
 
     return tabId
   }
+
   update (id, data) {
     if (!this.has(id)) {
       throw new ReferenceError('Attempted to update a tab that does not exist.')
@@ -49,6 +51,7 @@ class TabList {
       }
     }
   }
+
   destroy (id) {
     const index = this.getIndex(id)
     if (index < 0) return false
@@ -60,26 +63,29 @@ class TabList {
 
     return index
   }
+
   destroyAll () {
     // this = [] doesn't work, so set the length of the array to 0 to remove all of the itemss
     this.tabs.length = 0
   }
+
   get (id) {
     if (!id) { // no id provided, return an array of all tabs
-      // it is important to deep-copy the tab objects when returning them. Otherwise, the original tab objects get modified when the returned tabs are modified (such as when processing a url).
+      // it is important to copy the tab objects when returning them. Otherwise, the original tab objects get modified when the returned tabs are modified (such as when processing a url).
       var tabsToReturn = []
       for (var i = 0; i < this.tabs.length; i++) {
-        tabsToReturn.push(JSON.parse(JSON.stringify(this.tabs[i])))
+        tabsToReturn.push(Object.assign({}, this.tabs[i]))
       }
       return tabsToReturn
     }
     for (var i = 0; i < this.tabs.length; i++) {
       if (this.tabs[i].id === id) {
-        return JSON.parse(JSON.stringify(this.tabs[i]))
+        return Object.assign({}, this.tabs[i])
       }
     }
     return undefined
   }
+
   has (id) {
     return this.getIndex(id) > -1
   }
@@ -92,6 +98,7 @@ class TabList {
     }
     return -1
   }
+
   getSelected () {
     for (var i = 0; i < this.tabs.length; i++) {
       if (this.tabs[i].selected) {
@@ -100,6 +107,7 @@ class TabList {
     }
     return null
   }
+
   getSelectedIndex () {
     for (var i = 0; i < this.tabs.length; i++) {
       if (this.tabs[i].selected) {
@@ -108,9 +116,11 @@ class TabList {
     }
     return null
   }
+
   getAtIndex (index) {
     return this.tabs[index] || undefined
   }
+
   setSelected (id) {
     if (!this.has(id)) {
       throw new ReferenceError('Attempted to select a tab that does not exist.')
@@ -126,9 +136,11 @@ class TabList {
     }
     this.parentTaskList.emit('tab-selected', id)
   }
+
   count () {
     return this.tabs.length
   }
+
   isEmpty () {
     if (!this.tabs || this.tabs.length === 0) {
       return true
@@ -140,12 +152,15 @@ class TabList {
 
     return false
   }
+
   forEach (fun) {
     return this.tabs.forEach(fun)
   }
+
   splice (...args) {
     return this.tabs.splice.apply(this.tabs, args)
   }
+
   getStringifyableState () {
     return this.tabs
   }
