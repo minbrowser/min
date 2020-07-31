@@ -55,8 +55,8 @@ function initialize () {
     trigger: function (text) {
       return !!text && text.indexOf('!') !== 0 && !tabs.get(tabs.getSelected()).private
     },
-    showResults: debounce(showSearchSuggestions, 100)
+    showResults: debounce(showSearchSuggestions, 50)
   })
 }
 
-module.exports = {initialize}
+module.exports = { initialize }
