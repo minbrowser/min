@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval'" />
 
-    <script src="../../node_modules/pdfjs-dist/build/pdf.min.js"></script>
     <link rel="stylesheet" href="viewer.css" />
-    <link rel="stylesheet" href="../../ext/font-awesome-4.4.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../ext/icons/iconfont.css" />
+    <script src="../../node_modules/pdfjs-dist/build/pdf.min.js"></script>
 </head>
 
 <body>
@@ -17,14 +17,13 @@
         <div id="page-counter" class="viewer-ui hidden" data-string="PDFPageCounter" data-allowHTML></div>
     </div>
     <div class="side-gutter" id="side-gutter-right">
-        <button id="download-button" class="viewer-ui hidden">
-            <i class="fa fa-download"></i>
+        <button id="download-button" class="i carbon:download viewer-ui hidden">
         </button>
     </div>
 
     <script src="../../dist/localization.build.js"></script>
     <script src="viewer.js"></script>
-    <script src="../..//node_modules/pdfjs-dist/web/pdf_viewer.js"></script>
+    <script src="../../node_modules/pdfjs-dist/web/pdf_viewer.js"></script>
 </body>
 
 </html>

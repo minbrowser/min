@@ -38,9 +38,9 @@ function showSearchSuggestions (text, input, event) {
           }
 
           if (urlParser.isURL(result.phrase) || urlParser.isURLMissingProtocol(result.phrase)) { // website suggestions
-            data.icon = 'fa-globe'
+            data.icon = 'carbon:earth-filled'
           } else { // regular search results
-            data.icon = 'fa-search'
+            data.icon = 'carbon:search'
           }
 
           var item = searchbarPlugins.addResult('searchSuggestions', data)

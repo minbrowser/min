@@ -12,11 +12,11 @@ const permissionRequests = {
   },
   getIcons: function (request) {
     if (request.permission === 'notifications') {
-      return ['fa-comments-o']
+      return ['carbon:chat']
     } else if (request.permission === 'media') {
       var mediaIcons = {
-        video: 'fa-video-camera',
-        audio: 'fa-microphone'
+        video: 'carbon:video',
+        audio: 'carbon:microphone'
       }
       return request.details.mediaTypes.map(t => mediaIcons[t])
     }
@@ -31,9 +31,9 @@ const permissionRequests = {
           button.classList.add('active')
         }
         permissionRequests.getIcons(request).forEach(function (icon) {
-          var i = document.createElement('i')
-          i.className = 'fa ' + icon
-          button.appendChild(i)
+          var el = document.createElement('i')
+          el.className = 'i ' + icon
+          button.appendChild(el)
         })
         button.addEventListener('click', function (e) {
           e.stopPropagation()

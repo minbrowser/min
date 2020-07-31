@@ -172,7 +172,8 @@ function createWindowWithBounds (bounds) {
     y: bounds.y,
     minWidth: (process.platform === 'win32' ? 400 : 320), // controls take up more horizontal space on Windows
     minHeight: 350,
-    titleBarStyle: 'hiddenInset',
+    titleBarStyle: 'hidden',
+    trafficLightPosition: { x: 12, y: 19 },
     icon: __dirname + '/icons/icon256.png',
     frame: process.platform === 'darwin' || settings.get('useSeparateTitlebar') === true,
     alwaysOnTop: settings.get('windowAlwaysOnTop'),

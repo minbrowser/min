@@ -12,7 +12,7 @@ data:
 title: string - the title of the item
 metadata: array - a list of strings to include (separated by hyphens) in front of the secondary text
 secondaryText: string - the item's secondary text
-icon: string - the name of a font awesome icon.
+icon: string - the name of a carbon icon.
 image: string - the URL of an image to show
 iconImage: string - the URL of an image to show as an icon
 descriptionBlock: string - the text in the description block,
@@ -55,10 +55,9 @@ function createItem (data) {
   }
 
   if (data.icon) {
-    var i = document.createElement('i')
-    i.className = 'fa' + ' ' + data.icon
-
-    item.appendChild(i)
+    var el = document.createElement('i')
+    el.className = 'i ' + data.icon
+    item.appendChild(el)
   }
 
   if (data.title) {
@@ -160,7 +159,7 @@ function createItem (data) {
   // delete button is just a pre-defined action button
   if (data.showDeleteButton) {
     data.button = {
-      icon: 'fa-close',
+      icon: 'carbon:close',
       fn: function () {
         data.delete(item)
         item.parentNode.removeChild(item)
@@ -171,10 +170,10 @@ function createItem (data) {
   if (data.button) {
     var button = document.createElement('button')
     button.classList.add('action-button')
-    button.classList.add('fa')
     button.classList.add('ignores-keyboard-focus') // for keyboardNavigationHelper
-    button.classList.add(data.button.icon)
     button.tabIndex = -1
+    button.classList.add('i')
+    button.classList.add(data.button.icon)
 
     button.addEventListener('click', function (e) {
       e.stopPropagation()

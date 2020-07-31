@@ -36,9 +36,9 @@
     left: 30px;
     padding: 0.5em 0.75em;
     background-color: white;
-    border-radius: 1em;
+    border-radius: 5px;
     transition: 0.2s opacity;
-    box-shadow: 0px 0px 3px 0 rgba(0, 0, 0, 0.1)
+    box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.15);
   }
   
   #page-counter input {

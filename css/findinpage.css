@@ -37,12 +37,11 @@ body.linux #findinpage-bar {
 	font-size: 0.85em;
 	vertical-align: middle;
 }
-#findinpage-bar .icon {
-	font-size: 1em;
-	padding: 0 0.5em;
-	margin-top: -2px;
+#findinpage-bar button {
+	padding: 0 0.25em;
+	margin-top: 2px;
 }
-#findinpage-bar .icon.fa-angle-up,
-#findinpage-bar .icon.fa-angle-down {
-	font-size: 1.2em;
+#findinpage-bar .navbar-action-button {
+	padding: 0;
+	margin: 0;
 }

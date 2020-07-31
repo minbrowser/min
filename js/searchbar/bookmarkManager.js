@@ -53,7 +53,7 @@ function showBookmarkEditor (url, item) {
 function getBookmarkListItem (result, focus) {
   var item = searchbarUtils.createItem({
     title: result.title,
-    icon: 'fa-star',
+    icon: 'carbon:star-filled',
     secondaryText: urlParser.getSourceURL(result.url),
     fakeFocus: focus,
     click: function (e) {
@@ -64,7 +64,7 @@ function getBookmarkListItem (result, focus) {
       places.deleteHistory(result.url)
     },
     button: {
-      icon: 'fa-pencil',
+      icon: 'carbon:edit',
       fn: function (el) {
         showBookmarkEditor(result.url, item)
       }
@@ -145,7 +145,7 @@ const bookmarkManager = {
         if (text === '' && results.length < 3) {
           container.appendChild(searchbarUtils.createItem({
             title: l('importBookmarks'),
-            icon: 'fa-clone',
+            icon: 'carbon:upload',
             click: function () {
               searchbar.openURL('!importbookmarks', null)
             }

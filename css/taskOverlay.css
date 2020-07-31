@@ -16,6 +16,14 @@
 #switch-task-button.active {
 	color: royalblue !important;
 }
+
+#switch-task-button svg {
+	width: 1em;
+	height: 1em;
+	font-size: 0.8rem;
+	display: block;
+    margin-top: 2px;
+}
 #task-overlay {
 	display: flex;
 	flex-direction: column;
@@ -86,7 +94,7 @@
 	width: 1.5em;
 	text-align: center;
 	margin-left: -1.5em;
-	padding: 0.5em;
+	padding: 0.5em 0;
 	margin-top: 0.1rem;
 	transition: 0.2s opacity;
 	opacity: 0.7;
@@ -101,12 +109,13 @@ body:not(.touch) .task-container:not(.collapsed):not(:hover) .task-collapse-butt
 }
 
 .task-delete-button {
-	padding: 0.66em;
-	margin: -0.66em;
+	margin: auto -0.82em;
 	border-radius: 50%;
-    height: 2.33em;
-    width: 2.33em;
+	height: 2.33em;
+	width: 2.33em;
 	transition: 0.1s opacity;
+	opacity: 0.75;
+	font-size: 1.2em !important;
 }
 
 .task-container.collapsed:not(:hover) .task-delete-button:not(:focus) {
@@ -199,8 +208,9 @@ body:not(.touch) .task-container:not(.collapsed):not(:hover) .task-collapse-butt
 .dark-mode #add-task:hover {
 	background-color: rgb(44, 49, 56);
 }
-#add-task .fa {
+#add-task .i {
 	opacity: 0.75;
+	vertical-align: middle;
 	margin-right: 0.25em;
 }
 .task-action-container {

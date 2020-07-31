@@ -94,7 +94,7 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
       if (searchQuery) {
         data.title = searchQuery.search
         data.secondaryText = searchQuery.engine
-        data.icon = 'fa-search'
+        data.icon = 'carbon:search'
       } else {
         data.title = urlParser.prettyURL(urlParser.getSourceURL(result.url))
         data.secondaryText = searchbarUtils.getRealTitle(result.title)
@@ -102,10 +102,10 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
 
       // show a star for bookmarked items
       if (result.isBookmarked) {
-        data.icon = 'fa-star'
+        data.icon = 'carbon:star-filled'
       } else if (readerDecision.shouldRedirect(result.url) === 1) {
         // show an icon to indicate that this page will open in reader view
-        data.icon = 'fa-align-left'
+        data.icon = 'carbon:notebook'
       }
 
       // create the item

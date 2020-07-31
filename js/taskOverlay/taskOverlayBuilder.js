@@ -50,8 +50,9 @@ function toggleCollapsed (taskContainer, task) {
   taskContainer.classList.toggle('collapsed')
 
   var collapseButton = taskContainer.querySelector('.task-collapse-button')
-  collapseButton.classList.toggle('fa-angle-right')
-  collapseButton.classList.toggle('fa-angle-down')
+  collapseButton.classList.toggle('carbon:chevron-right')
+  collapseButton.classList.toggle('carbon:chevron-left')
+
   if (tasks.isCollapsed(task.id)) {
     collapseButton.setAttribute('aria-expanded', 'false')
   } else {
@@ -64,15 +65,15 @@ var TaskOverlayBuilder = {
     task: {
       collapseButton: function (taskContainer, task) {
         var collapseButton = document.createElement('button')
-        collapseButton.className = 'fa task-collapse-button'
+        collapseButton.className = 'task-collapse-button i'
         collapseButton.setAttribute('tabindex', '-1')
 
         collapseButton.setAttribute('aria-haspopup', 'true')
         if (tasks.isCollapsed(task.id)) {
-          collapseButton.classList.add('fa-angle-right')
+          collapseButton.classList.add('carbon:chevron-right')
           collapseButton.setAttribute('aria-expanded', 'false')
         } else {
-          collapseButton.classList.add('fa-angle-down')
+          collapseButton.classList.add('carbon:chevron-down')
           collapseButton.setAttribute('aria-expanded', 'true')
         }
         collapseButton.addEventListener('click', function (e) {
@@ -111,7 +112,7 @@ var TaskOverlayBuilder = {
       },
       deleteButton: function (container, task) {
         var deleteButton = document.createElement('button')
-        deleteButton.className = 'fa fa-trash-o task-delete-button'
+        deleteButton.className = 'task-delete-button i carbon:trash-can'
         deleteButton.tabIndex = -1 // needed for keyboardNavigationHelper
 
         deleteButton.addEventListener('click', function (e) {
@@ -267,7 +268,7 @@ var TaskOverlayBuilder = {
         }
 
         if (tab.private) {
-          data.icon = 'fa-eye-slash'
+          data.icon = 'carbon:view-off'
         } else if (tab.favicon) {
           data.iconImage = tab.favicon.url
 

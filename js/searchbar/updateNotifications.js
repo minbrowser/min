@@ -74,7 +74,7 @@ function showUpdateNotification (text, input, event) {
       title: l('updateNotificationTitle'),
       descriptionBlock: update.releaseHeadline || 'View release notes',
       url: update.releaseNotes,
-      icon: 'fa-bell'
+      icon: 'carbon:renew'
     }, {allowDuplicates: true})
   }
   // is there an update?

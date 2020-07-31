@@ -81,12 +81,11 @@ body[theme="dark"] #auto-redirect-button-area button {
 #auto-redirect-banner:not([hidden]) + #backtoarticle {
 	padding-top: 0.5em;
 }
-#backtoarticle-link i {
-	vertical-align: text-bottom;
-	margin-right: 0.125em;
-	font-size: 1.6em;
-	/* pre-define the width to avoid the text moving after fontawesome loads */
-	width: 0.36em;
+
+#backtoarticle-link .i {
+	vertical-align: middle;
+	font-size: 1.4em;
+	margin: 0 -0.2em;
 }
 
 #settings-button {
@@ -99,6 +98,15 @@ body[theme="dark"] #auto-redirect-button-area button {
 	padding: 0.5em 0.7em 0.5em 0.5em;
 	margin: -0.5em;
 }
+
+#settings-button:hover {
+	opacity: 1;
+}
+
+#settings-button .i {
+	pointer-events: none;
+}
+
 
 #settings-dropdown {
 	position: absolute;

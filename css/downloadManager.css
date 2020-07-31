@@ -97,18 +97,17 @@
 
 .download-action-button {
     position: absolute;
-    right: 1em;
-    top: calc(50% - 0.5em);
-    font-size: 1.2em;
+    right: 0.7em;
     opacity: 0.7;
-    padding: 0.5em;
-    margin: -0.5em;
+    margin: auto;
 }
 
 #download-close-button {
-    padding: 11px;
     margin-top: -1px;
     opacity: 0.66;
+    font-size: 1.2em;
+    margin: auto;
+    margin-right: 0.3em;
 }
 
 .dark-mode #download-close-button {

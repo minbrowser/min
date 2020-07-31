@@ -19,8 +19,8 @@
 	<link rel="stylesheet" href="css/findinpage.css" />
 	<link rel="stylesheet" href="css/downloadManager.css" />
 	<link rel="stylesheet" href="css/passwordManager.css" />
-	<link rel="stylesheet" href="ext/font-awesome-4.4.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="node_modules/dragula/dist/dragula.min.css" />
+	<link rel="stylesheet" href="ext/icons/iconfont.css" />
 </head>
 
 <body>
@@ -86,23 +86,35 @@
 	</button>
 
 	<div id="navbar" class="theme-background-color theme-text-color windowDragHandle" tabindex="-1">
-		<button id="menu-button" class="fa fa-ellipsis-v navbar-action-button" data-label="openMenu"
-			tabindex="-1"></button>
-		<button id="back-button" hidden class="fa fa-angle-left navbar-action-button" data-label="goBack"
-			tabindex="-1"></button>
+		<button id="menu-button" class="navbar-action-button i carbon:overflow-menu-vertical" data-label="openMenu"
+			tabindex="-1">
+		</button>
+		<button id="back-button" hidden class="navbar-action-button i carbon:chevron-left" data-label="goBack"
+			tabindex="-1">
+		</button>
 		<div id="tabs">
 			<div id="tab-editor" hidden>
 				<input id="tab-editor-input" class="mousetrap" spellcheck="false"/>
 			</div>
 			<div id="tabs-inner" role="tablist"></div>
 		</div>
-		<button id="add-tab-button" class="fa fa-plus navbar-action-button" data-label="newTabAction"
-			tabindex="-1"></button>
-		<i class="fa fa-bars navbar-action-button invisible"></i>
+		<div class="navbar-right-actions">
+			<button id="add-tab-button" class="navbar-action-button i carbon:add" data-label="newTabAction" tabindex="-1">
+			</button>
+		</div>
 	</div>
 
-	<button id="switch-task-button" class="fa fa-bars navbar-action-button theme-text-color windowDragHandle"
-		data-label="viewTasks" tabindex="-1"></button>
+	<button id="switch-task-button" class="navbar-action-button theme-text-color windowDragHandle i"
+		data-label="viewTasks" tabindex="-1">
+		<svg version="1.1" viewBox="0.0 0.0 32.0 32.0" fill="none" stroke="none" stroke-linecap="square"
+			stroke-miterlimit="10" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+			<g clip-path="url(#p.0)">
+				<path fill="currentColor" d="m0 0l32 0l0 5l-32 0z" fill-rule="evenodd" />
+				<path fill="currentColor" d="m0 13l32 0l0 5l-32 0z" fill-rule="evenodd" />
+				<path fill="currentColor" d="m0 26l32 0l0 5l-32 0z" fill-rule="evenodd" />
+			</g>
+		</svg>
+	</button>
 
 	<div id="searchbar" class="theme-background-color theme-text-color">
 		<div class="top-answer-area"></div>
@@ -112,10 +124,10 @@
 
 	<div id="webviews">
 		<div id="leftArrowContainer" class="arrow-indicator">
-			<i id="leftArrow" class="fa fa-arrow-left arrow"></i>
+			<i id="leftArrow" class="i carbon:chevron-left"></i>
 		</div>
 		<div id="rightArrowContainer" class="arrow-indicator">
-			<i id="rightArrow" class="fa fa-arrow-right arrow"></i>
+			<i id="rightArrow" class="i carbon:chevron-right"></i>
 		</div>
 		<img id="webview-placeholder" hidden aria-hidden="true" />
 	</div>
@@ -126,10 +138,16 @@
 		<input id="findinpage-input" class="mousetrap" />
 		<span id="findinpage-count" class="inline-text"></span>
 		<div class="divider"></div>
-		<i id="findinpage-previous-match" class="icon fa fa-angle-up" tabindex="-1"></i>
-		<i id="findinpage-next-match" class="icon fa fa-angle-down" tabindex="-1"></i>
+		<button id="findinpage-previous-match">
+			<i class="i carbon:chevron-up navbar-action-button"></i>
+		</button>
+		<button id="findinpage-next-match">
+			<i class="i carbon:chevron-down navbar-action-button"></i>
+		</button>
 		<div class="divider"></div>
-		<i id="findinpage-end" class="icon fa fa-close"></i>
+		<button id="findinpage-end">
+			<i class="i carbon:close navbar-action-button"></i>
+		</button>
 	</div>
 
 	<div id="task-overlay" class="" hidden>
@@ -137,14 +155,14 @@
 		</div>
 		<div id="task-area"></div>
 		<button id="add-task">
-			<i class="fa fa-pencil-square-o"></i>
+			<i class="i carbon:new-tab"></i>
 			<span></span>
-		</div>
+		</button>
 	</div>
 
 	<div id="download-bar" hidden>
 		<div id="download-container" role="list"></div>
-		<button id="download-close-button" class="fa fa-times"></button>
+		<button id="download-close-button" class="i carbon:close"></button>
 	</div>
 
 	<div class="centered" id="manager-setup-dialog" hidden>
@@ -177,7 +195,6 @@
 	<!-- add scripts in Gruntfile.js -->
 
 	<script src="dist/bundle.js"></script>
-
 </body>
 
 </html>

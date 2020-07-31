@@ -50,7 +50,7 @@ var searchOpenTabs = function (text, input, event) {
 
   finalMatches.forEach(function (match) {
     var data = {
-      icon: 'fa-external-link-square',
+      icon: 'carbon:arrow-up-right',
       title: match.tab.title,
       secondaryText: urlParser.basicURL(match.tab.url)
     }
