@@ -3,7 +3,7 @@ const rpmInstaller = require('electron-installer-redhat')
 const packageFile = require('./../package.json')
 const version = packageFile.version
 
-require('./createPackage.js')('linux').then(function (appPaths) {
+require('./createPackage.js')('linuxAmd64').then(function (appPaths) {
   var installerOptions = {
     src: appPaths[0],
     dest: 'dist/app',

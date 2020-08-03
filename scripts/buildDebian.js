@@ -2,20 +2,23 @@ const debianInstaller = require('electron-installer-debian')
 
 const packageFile = require('./../package.json')
 const version = packageFile.version
-const platform = process.argv.find(arg => arg.match("platform")).split("=")[1]
-function toTarget(platform){
-    switch (platform){
-    case "amd64":
-        return 'linux';
-    case "armhf":
-        return 'raspi';
+const platform = process.argv.find(arg => arg.match('platform')).split('=')[1]
+
+function toTarget (platform) {
+  switch (platform) {
+    case 'amd64':
+      return 'linuxAmd64'
+    case 'armhf':
+      return 'raspi'
+    case 'arm64':
+      return 'linuxArm64'
     default:
-        return platform;
-    }
+      return platform
+  }
 }
 
 require('./createPackage.js')(toTarget(platform)).then(function (appPaths) {
-    var installerOptions = {
+  var installerOptions = {
     src: appPaths[0],
     dest: 'dist/app',
     arch: platform,
@@ -48,8 +51,8 @@ require('./createPackage.js')(toTarget(platform)).then(function (appPaths) {
       'xdg-utils'
     ],
     scripts: {
-      'postinst': 'resources/postinst_script',
-      'prerm': 'resources/prerm_script'
+      postinst: 'resources/postinst_script',
+      prerm: 'resources/prerm_script'
     }
   }
 
