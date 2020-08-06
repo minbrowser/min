@@ -137,7 +137,7 @@
         "settingsBlockImagesToggle": "Bloquear imagens",
         "settingsEasyListCredit": {"unsafeHTML": "Com base na EasyList e EasyPrivacy, criadas por <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>)."},
         "settingsAppearanceHeading": "Aparência",
-        "settingsEnableDarkMode": "Habilitar modo darck:",
+        "settingsEnableDarkMode": "Habilitar modo dark:",
         "settingsDarkModeNever": "Nunca", 
         "settingsDarkModeNight": "À noite",
         "settingsDarkModeAlways": "Sempre",
