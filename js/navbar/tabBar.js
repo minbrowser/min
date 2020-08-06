@@ -156,7 +156,7 @@ const tabBar = {
         // https://github.com/minbrowser/min/issues/698
         return
       }
-      if (e.deltaY > 65 && e.deltaX < 10 && Date.now() - lastTabDeletion > 650) { // swipe up to delete tabs
+      if (e.deltaY > 65 && e.deltaX < 10 && Date.now() - lastTabDeletion > 900) { // swipe up to delete tabs
         lastTabDeletion = Date.now()
 
         /* tab deletion is disabled in focus mode */
