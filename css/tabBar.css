@@ -87,6 +87,10 @@ body.linux #menu-button {
 	position: relative;
 	padding: 0 0.8em;
 }
+.tab-item.gu-mirror {
+	top: var(--control-space-top) !important;
+	background: rgba(255, 255, 255, 0.8) !important;
+}
 .tab-item:not(.active):hover {
 	background-color: rgba(0, 0, 0, 0.03);
 }

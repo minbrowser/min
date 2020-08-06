@@ -2,6 +2,7 @@ const webviews = require('webviews.js')
 const focusMode = require('focusMode.js')
 const urlParser = require('util/urlParser.js')
 const readerView = require('readerView.js')
+const dragula = require('dragula')
 
 const tabEditor = require('navbar/tabEditor.js')
 const progressBar = require('navbar/progressBar.js')
@@ -14,6 +15,9 @@ const tabBar = {
   containerInner: document.getElementById('tabs-inner'),
   tabElementMap: {}, // tabId: tab element
   events: new EventEmitter(),
+  dragulaInstance: dragula([document.getElementById('tabs-inner')], {
+    direction: 'horizontal'
+  }),
   getTab: function (tabId) {
     return tabBar.tabElementMap[tabId]
   },
@@ -198,6 +202,23 @@ tasks.on('tab-updated', function (id, key) {
 
 permissionRequests.onChange(function (tabId) {
   tabBar.updateTab(tabId)
+})
+
+tabBar.dragulaInstance.on('drop', function (el, target, source, sibling) {
+  var tabId = el.getAttribute('data-tab')
+  if (sibling) {
+    var adjacentTabId = sibling.getAttribute('data-tab')
+  }
+
+  var oldTab = tabs.splice(tabs.getIndex(tabId), 1)[0]
+
+  if (adjacentTabId) {
+    var newIdx = tabs.getIndex(adjacentTabId)
+  } else {
+    // tab was inserted at end
+    var newIdx = tabs.count()
+  }
+  tabs.splice(newIdx, 0, oldTab)
 })
 
 module.exports = tabBar
