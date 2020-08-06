@@ -49,7 +49,8 @@ body.is-edit-mode #back-button {
 }
 
 #menu-button {
-	margin-top: 1px;
+	width: 36px;
+	padding: 0;
 }
 
 #menu-button {

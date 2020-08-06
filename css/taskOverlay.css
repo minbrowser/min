@@ -18,9 +18,8 @@
 }
 
 #switch-task-button svg {
-	width: 1em;
-	height: 1em;
-	font-size: 0.8rem;
+	width: 0.8em;
+	height: 0.8em;
 	display: block;
     margin-top: 2px;
 }
