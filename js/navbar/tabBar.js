@@ -36,64 +36,11 @@ const tabBar = {
       el.scrollIntoView()
     })
   },
-  rerenderTab: function (tabId) {
-    var tabData = tabs.get(tabId)
-
-    var tabEl = tabBar.getTab(tabId)
-
-    var tabTitle = (tabData.title || l('newTabLabel')).substring(0, 500)
-    var titleEl = tabEl.querySelector('.title')
-    titleEl.textContent = tabTitle
-
-    tabEl.title = tabTitle
-    if (tabData.private) {
-      tabEl.title += ' (' + l('privateTab') + ')'
-    }
-
-    tabEl.querySelectorAll('.permission-request-icon').forEach(el => el.remove())
-
-    permissionRequests.getButtons(tabId).reverse().forEach(function (button) {
-      tabEl.insertBefore(button, tabEl.children[0])
-    })
-
-    var secIcon = tabEl.getElementsByClassName('icon-tab-not-secure')[0]
-    if (tabData.secure === false) {
-      secIcon.hidden = false
-    } else {
-      secIcon.hidden = true
-    }
-  },
-  rerenderAll: function () {
-    empty(tabBar.containerInner)
-    tabBar.tabElementMap = {}
-
-    tabs.get().forEach(function (tab) {
-      var el = tabBar.createElement(tab)
-      tabBar.containerInner.appendChild(el)
-      tabBar.tabElementMap[tab.id] = el
-    })
-
-    if (tabs.getSelected()) {
-      tabBar.setActiveTab(tabs.getSelected())
-    }
-  },
-  createElement: function (data) {
-    var url = urlParser.parse(data.url)
-    var tabTitle = (data.title || l('newTabLabel')).substring(0, 500)
-
+  createTab: function (data) {
     var tabEl = document.createElement('div')
     tabEl.className = 'tab-item'
     tabEl.setAttribute('data-tab', data.id)
     tabEl.setAttribute('role', 'tab')
-
-    tabEl.title = tabTitle
-    if (data.private) {
-      tabEl.title += ' (' + l('privateTab') + ')'
-    }
-
-    permissionRequests.getButtons(data.id).forEach(function (button) {
-      tabEl.appendChild(button)
-    })
 
     tabEl.appendChild(readerView.getButton(data.id))
     tabEl.appendChild(progressBar.create())
@@ -112,7 +59,6 @@ const tabBar = {
     var secIcon = document.createElement('i')
     secIcon.className = 'icon-tab-not-secure tab-icon tab-info-icon i carbon:unlocked'
     secIcon.title = l('connectionNotSecure')
-    secIcon.hidden = data.secure !== false
     iconArea.appendChild(secIcon)
 
     var closeTabButton = document.createElement('button')
@@ -132,7 +78,6 @@ const tabBar = {
 
     var title = document.createElement('span')
     title.className = 'title'
-    title.textContent = tabTitle
 
     tabEl.appendChild(title)
 
@@ -165,7 +110,6 @@ const tabBar = {
           return
         }
 
-        var tab = this.getAttribute('data-tab')
         this.style.transform = 'translateY(-100%)'
 
         setTimeout(function () {
@@ -174,13 +118,54 @@ const tabBar = {
       }
     })
 
+    tabBar.updateTab(data.id, tabEl)
+
     return tabEl
+  },
+  updateTab: function (tabId, tabEl = tabBar.getTab(tabId)) {
+    var tabData = tabs.get(tabId)
+
+    var tabTitle = (tabData.title || l('newTabLabel')).substring(0, 500)
+    var titleEl = tabEl.querySelector('.title')
+    titleEl.textContent = tabTitle
+
+    tabEl.title = tabTitle
+    if (tabData.private) {
+      tabEl.title += ' (' + l('privateTab') + ')'
+    }
+
+    tabEl.querySelectorAll('.permission-request-icon').forEach(el => el.remove())
+
+    permissionRequests.getButtons(tabId).reverse().forEach(function (button) {
+      tabEl.insertBefore(button, tabEl.children[0])
+    })
+
+    var secIcon = tabEl.getElementsByClassName('icon-tab-not-secure')[0]
+    if (tabData.secure === false) {
+      secIcon.hidden = false
+    } else {
+      secIcon.hidden = true
+    }
+  },
+  updateAll: function () {
+    empty(tabBar.containerInner)
+    tabBar.tabElementMap = {}
+
+    tabs.get().forEach(function (tab) {
+      var el = tabBar.createTab(tab)
+      tabBar.containerInner.appendChild(el)
+      tabBar.tabElementMap[tab.id] = el
+    })
+
+    if (tabs.getSelected()) {
+      tabBar.setActiveTab(tabs.getSelected())
+    }
   },
   addTab: function (tabId) {
     var tab = tabs.get(tabId)
     var index = tabs.getIndex(tabId)
 
-    var tabEl = tabBar.createElement(tab)
+    var tabEl = tabBar.createTab(tab)
     tabBar.containerInner.insertBefore(tabEl, tabBar.containerInner.childNodes[index])
     tabBar.tabElementMap[tabId] = tabEl
   },
@@ -207,12 +192,12 @@ webviews.bindEvent('did-stop-loading', function (tabId) {
 
 tasks.on('tab-updated', function (id, key) {
   if (key === 'title' || key === 'secure' || key === 'url') {
-    tabBar.rerenderTab(id)
+    tabBar.updateTab(id)
   }
 })
 
 permissionRequests.onChange(function (tabId) {
-  tabBar.rerenderTab(tabId)
+  tabBar.updateTab(tabId)
 })
 
 module.exports = tabBar
