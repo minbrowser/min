@@ -204,21 +204,25 @@ permissionRequests.onChange(function (tabId) {
   tabBar.updateTab(tabId)
 })
 
-tabBar.dragulaInstance.on('drop', function (el, target, source, sibling) {
-  var tabId = el.getAttribute('data-tab')
-  if (sibling) {
-    var adjacentTabId = sibling.getAttribute('data-tab')
-  }
+if (window.platformType === 'mac') {
+  tabBar.dragulaInstance.containers = []
+} else {
+  tabBar.dragulaInstance.on('drop', function (el, target, source, sibling) {
+    var tabId = el.getAttribute('data-tab')
+    if (sibling) {
+      var adjacentTabId = sibling.getAttribute('data-tab')
+    }
 
-  var oldTab = tabs.splice(tabs.getIndex(tabId), 1)[0]
+    var oldTab = tabs.splice(tabs.getIndex(tabId), 1)[0]
 
-  if (adjacentTabId) {
-    var newIdx = tabs.getIndex(adjacentTabId)
-  } else {
+    if (adjacentTabId) {
+      var newIdx = tabs.getIndex(adjacentTabId)
+    } else {
     // tab was inserted at end
-    var newIdx = tabs.count()
-  }
-  tabs.splice(newIdx, 0, oldTab)
-})
+      var newIdx = tabs.count()
+    }
+    tabs.splice(newIdx, 0, oldTab)
+  })
+}
 
 module.exports = tabBar
