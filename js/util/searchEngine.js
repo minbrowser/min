@@ -83,8 +83,12 @@ settings.listen('searchEngine', function (value) {
   if (value && value.name) {
     currentSearchEngine = searchEngines[value.name]
   } else if (value && value.url) {
+    var searchDomain
+    try {
+      searchDomain = new URL(value.url).hostname.replace('www.', '')
+    } catch (e) {}
     currentSearchEngine = {
-      name: 'custom',
+      name: searchDomain || 'custom',
       searchURL: value.url,
       custom: true
     }
