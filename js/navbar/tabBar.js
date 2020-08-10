@@ -3,6 +3,7 @@ const focusMode = require('focusMode.js')
 const urlParser = require('util/urlParser.js')
 const readerView = require('readerView.js')
 const dragula = require('dragula')
+const settings = require('util/settings/settings.js')
 
 const tabEditor = require('navbar/tabEditor.js')
 const progressBar = require('navbar/progressBar.js')
@@ -224,5 +225,16 @@ if (window.platformType === 'mac') {
     tabs.splice(newIdx, 0, oldTab)
   })
 }
+
+tabBar.container.addEventListener('dragover', e => e.preventDefault())
+
+tabBar.container.addEventListener('drop', e => {
+  e.preventDefault()
+  var data = e.dataTransfer
+  require('browserUI.js').addTab(tabs.add({
+    url: data.files[0] ? 'file://' + data.files[0].path : data.getData('text'),
+    private: tabs.get(tabs.getSelected()).private
+  }), { enterEditMode: false, openInBackground: !settings.get('openTabsInForeground') })
+})
 
 module.exports = tabBar
