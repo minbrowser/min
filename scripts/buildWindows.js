@@ -5,7 +5,6 @@ const packageFile = require('./../package.json')
 const version = packageFile.version
 
 require('./createPackage.js')('win32').then(function (appPaths) {
-
   /* create zip files */
 
   appPaths.forEach(function (packagePath) {
@@ -24,7 +23,7 @@ require('./createPackage.js')('win32').then(function (appPaths) {
   const options = {
     src: appPaths.filter(p => p.includes('x64'))[0],
     dest: 'dist/app/min-installer-x64',
-    icon: 'icons/icon256.ico',
+    icon: 'icons/icon.ico',
     animation: 'icons/windows-installer.gif',
     licenseUrl: 'https://github.com/minbrowser/min/blob/master/LICENSE.txt',
     noMsi: true
