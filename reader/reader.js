@@ -65,7 +65,7 @@ function extractAndShowNavigation (doc) {
   try {
     // URL parsing can fail, but this shouldn't prevent the article from displaying
 
-    let currentDir = articleLocation.pathname.split('/').slice(0, -1).join('/')
+    const currentDir = articleLocation.pathname.split('/').slice(0, -1).join('/')
 
     var items = Array.from(doc.querySelectorAll('[class*="menu"] a, [class*="navigation"] a, header li a, [role=tabpanel] a, nav a'))
       .filter(el => {
@@ -81,8 +81,8 @@ function extractAndShowNavigation (doc) {
       .filter(el => el.getAttribute('href') && !el.getAttribute('href').startsWith('#') && !el.getAttribute('href').startsWith('javascript:'))
       .filter(el => {
         // we want links that go to different sections of the site, so links to the same directory as the current article should be excluded
-        let url = new URL(el.href)
-        let dir = url.pathname.split('/').slice(0, -1).join('/')
+        const url = new URL(el.href)
+        const dir = url.pathname.split('/').slice(0, -1).join('/')
         return dir !== currentDir
       })
       .filter(el => el.textContent.trim() && el.textContent.trim().replace(/\s+/g, ' ').length < 65)
@@ -128,7 +128,7 @@ function extractDate (doc) {
         // for washington post
         d = Date.parse(dateItem.textContent)
       }
-      date = new Intl.DateTimeFormat(navigator.language, {year: 'numeric', month: 'long', day: 'numeric'}).format(new Date(d))
+      date = new Intl.DateTimeFormat(navigator.language, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(d))
     } catch (e) {
       console.warn(e)
     }
@@ -141,7 +141,7 @@ function extractDate (doc) {
         d2.setYear(parseInt(urlmatch[1]))
         d2.setMonth(parseInt(urlmatch[2]) - 1)
         d2.setDate(parseInt(urlmatch[3]))
-        date = new Intl.DateTimeFormat(navigator.language, {year: 'numeric', month: 'long', day: 'numeric'}).format(d2)
+        date = new Intl.DateTimeFormat(navigator.language, { year: 'numeric', month: 'long', day: 'numeric' }).format(d2)
       }
     } catch (e) {
       console.warn(e)
@@ -197,7 +197,7 @@ function startReaderView (article, date) {
       for (var i = 0; i < links.length; i++) {
         // if the link is to the same page, it needs to be handled differently
         try {
-          let href = new URL(links[i].href)
+          const href = new URL(links[i].href)
           if (href.hostname === articleLocation.hostname && href.pathname === articleLocation.pathname && href.search === articleLocation.search) {
             links[i].addEventListener('click', function (e) {
               e.preventDefault()
@@ -338,7 +338,27 @@ fetch(articleURL, {
   cache: 'force-cache'
 })
   .then(function (response) {
-    return response.text()
+    /*
+    response.text() assumes the response is always UTF-8
+    (https://schneide.blog/2018/08/08/decoding-non-utf8-server-responses-using-the-fetch-api/)
+    But sometimes it's not - example https://github.com/minbrowser/min/issues/1197
+    So manually parse the content-type header and then decode based on that
+     */
+    var charset = 'utf-8'
+    for (var header of response.headers.entries()) {
+      if (header[0].toLowerCase() === 'content-type') {
+        var charsetMatch = header[1].match(/charset=([a-zA-Z0-9-]+)/)
+        if (charsetMatch) {
+          charset = charsetMatch[1]
+        }
+      }
+    }
+
+    return response.arrayBuffer().then(function (buffer) {
+      const decoder = new TextDecoder(charset)
+      const text = decoder.decode(buffer)
+      return text
+    })
   })
   .then(processArticle)
   .catch(function (data) {
