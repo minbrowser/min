@@ -9,6 +9,9 @@
     margin-top: 25px;
     padding: 0;
   }
+  body.dark-mode {
+    background-color: rgb(33, 37, 43);
+  }
   
   * {
     box-sizing: border-box;
@@ -35,6 +38,10 @@
     width: 100%;
     transform: translateX(-100%);
   }
+
+  .dark-mode #progress-bar {
+    background-color: #999;
+  }
   
   #page-counter {
     position: fixed;
@@ -46,15 +53,22 @@
     transition: 0.2s opacity;
     box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.15);
   }
+
+  .dark-mode #page-counter {
+    background-color: rgb(85, 85, 85);
+    color: white;
+  }
   
   #page-counter input {
     -webkit-appearance: none;
     appearance: none;
+    background: transparent;
     margin: 0;
     padding: 2px 1px;
     margin: -2px 0;
     border: none;
     font: inherit;
+    color: inherit;
     width: 2.75em;
     text-align: center;
     border: 1px #ddd solid;
@@ -80,6 +94,11 @@
     border-radius: 50%;
     transition: 0.2s opacity;
     box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  .dark-mode #download-button {
+    background-color: rgb(85, 85, 85);
+    color: white;
   }
   
   #download-button.hidden {
