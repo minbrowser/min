@@ -20,7 +20,12 @@ const ignoredDirs = [
   // this is copied during the build
   'icons/icon.icns',
   // localization files are compiled and copied to dist
-  'localization/'
+  'localization/',
+  // parts of modules that aren't needed
+  'node_modules/@types/',
+  'node_modules/pdfjs-dist/es5',
+  'node_modules/pdfjs-dist/lib',
+  /node_modules\/[^/\n]+\/test\//g
 ]
 
 var baseOptions = {
