@@ -450,6 +450,10 @@ ipc.on('leave-full-screen', function () {
 
 webviews.bindEvent('did-start-navigation', onNavigate)
 webviews.bindEvent('will-redirect', onNavigate)
+webviews.bindEvent('did-navigate', function (tabId, url, httpResponseCode, httpStatusText) {
+  onPageURLChange(tabId, url)
+})
+
 webviews.bindEvent('did-finish-load', onPageLoad)
 
 webviews.bindEvent('page-title-updated', function (tabId, title, explicitSet) {
