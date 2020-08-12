@@ -75,7 +75,7 @@
 
 .download-progress {
     width: calc(100% - 1em);
-    height: 3px;
+    height: 4px;
     margin-top: 0.33em;
     background: rgb(22, 122, 224);
     border-radius: 2px;
@@ -87,7 +87,7 @@
 }
 
 .dark-mode .download-progress {
-    background: rgb(28, 160, 255);
+    background: lightskyblue;
 }
 
 .download-progress[hidden] {
