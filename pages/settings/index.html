@@ -37,7 +37,7 @@
 			</div>
 
 			<div id="content-blocking-information" hidden>
-				<div><span data-string="settingsContentBlockingExceptions"></span> &nbsp;
+				<div><label for="content-blocking-exceptions" data-string="settingsContentBlockingExceptions"></label> &nbsp;
 					<input type="text" id="content-blocking-exceptions" style="width: 100%; max-width: 500px">
 				</div>
 			</div>
@@ -93,7 +93,7 @@
 		<div class="setting-section" id='section-user-agent'>
 			<input type="checkbox" id="checkbox-user-agent" />
 			<label for="checkbox-user-agent" data-string="settingsUserAgentToggle"></label>
-			<input type="text" id="input-user-agent" style="vertical-align: middle; margin-left: 1em; width: 375px; max-width: 80vw; opacity: 0"/>
+			<input type="text" id="input-user-agent" style="vertical-align: middle; margin-left: 1em; width: 375px; max-width: 80vw; visibility: hidden;"/>
 		</div>
 
 		<div class="setting-section">
@@ -130,7 +130,7 @@
 	</div>
 
 	<!-- this needs to be placed at the bottom so that sticky positioning works correctly -->
-	<div class="banner yellow-background" id="restart-required-banner" hidden>
+	<div class="banner yellow-background" id="restart-required-banner" role="alert" hidden>
 		<div class="container">
 			<i class="i carbon:information"></i>
 			<span data-string="settingsRestartRequired"></span>

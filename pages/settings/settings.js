@@ -88,14 +88,14 @@ blockingExceptionsInput.addEventListener('input', function () {
 
 var contentTypes = {
   // humanReadableName: contentType
-  'scripts': 'script',
-  'images': 'image'
+  scripts: 'script',
+  images: 'image'
 }
 
 // used for showing localized strings
 var contentTypeSettingNames = {
-  'scripts': 'settingsBlockScriptsToggle',
-  'images': 'settingsBlockImagesToggle'
+  scripts: 'settingsBlockScriptsToggle',
+  images: 'settingsBlockImagesToggle'
 }
 
 for (var contentType in contentTypes) {
@@ -231,23 +231,22 @@ openTabsInForegroundCheckbox.addEventListener('change', function (e) {
   settings.set('openTabsInForeground', this.checked)
 })
 
-
 /* user agent settting */
 
 settings.get('customUserAgent', function (value) {
   if (value) {
     userAgentCheckbox.checked = true
-    userAgentInput.style.opacity = 1
+    userAgentInput.style.visibility = 'visible'
     userAgentInput.value = value
   }
 })
 
 userAgentCheckbox.addEventListener('change', function (e) {
   if (this.checked) {
-    userAgentInput.style.opacity = 1
+    userAgentInput.style.visibility = 'visible'
   } else {
     settings.set('customUserAgent', null)
-    userAgentInput.style.opacity = 0
+    userAgentInput.style.visibility = 'hidden'
     showRestartRequiredBanner()
   }
 })
@@ -315,12 +314,12 @@ searchEngineDropdown.addEventListener('change', function (e) {
     searchEngineInput.hidden = false
   } else {
     searchEngineInput.hidden = true
-    settings.set('searchEngine', {name: this.value})
+    settings.set('searchEngine', { name: this.value })
   }
 })
 
 searchEngineInput.addEventListener('input', function (e) {
-  settings.set('searchEngine', {url: this.value})
+  settings.set('searchEngine', { url: this.value })
 })
 
 /* key map settings */

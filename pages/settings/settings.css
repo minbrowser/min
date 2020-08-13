@@ -66,18 +66,41 @@ html {
 	z-index: 9;
 	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2);
 }
+
+#key-map-list {
+	column-count: 2;
+	column-gap: 2.5%;
+}
+
 #key-map-list li {
 	list-style-type: none;
 	padding: 0.4em 0;
 }
 #key-map-list li label {
 	padding: 0.2em 0;
-	width: 250px;
+	width: 43%;
 	display: inline-block;
 }
 #key-map-list li input {
-	width: 40%;
+	width: 57%;
 	padding: 0.2em;
+}
+
+@media all and (max-width: 800px) {
+	#key-map-list {
+		column-count: 1;
+	}
+
+	#key-map-list li label {
+		max-width: 200px;
+	}
+}
+
+@media all and (max-width: 400px) {
+	#key-map-list label, #key-map-list input {
+		display: block;
+		width: 100% !important;
+	}
 }
 
 #content-blocking-information {
