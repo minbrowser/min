@@ -42,11 +42,11 @@
     border-right-color: rgb(80, 80, 80);
 }
 
-.download-item:active {
+.download-item.completed:active {
     background-color: rgb(238, 238, 238);
 }
 
-.dark-mode .download-item:active {
+.dark-mode .download-item.completed:active {
     background-color: rgb(50, 55, 65);
 }
 
