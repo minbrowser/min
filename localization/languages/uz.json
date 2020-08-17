@@ -161,6 +161,12 @@
 		"customSearchEngineDescription": "Qidiruv so'zini %s bilan almashtirish",
 		"settingsKeyboardShortcutsHeading": "Klaviatura yorliqlari",
 		"settingsKeyboardShortcutsHelp": "Yorliqlarni vergul bilan ajrating.",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
 		/* app menu */
 		"appMenuFile": "Fayl",
 		"appMenuNewTab": "Yangi varaq",

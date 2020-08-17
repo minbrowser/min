@@ -157,6 +157,12 @@
         "customSearchEngineDescription": "Заменить поисковый термин на %s",
         "settingsKeyboardShortcutsHeading": "Горячие клавиши",
         "settingsKeyboardShortcutsHelp": "Используйте запятые для разделения нескольких горячих клавиш.",
+        "settingsProxyHeading": "Прокси",
+        "settingsNoProxy": "Без прокси",
+        "settingsManualProxy": "Ручная настройка",
+        "settingsAutomaticProxy": "Автоматическая настройка",
+        "settingsProxyBypassRules": "Не использовать прокси для:",
+        "settingsProxyConfigurationURL": "URL конфигурации",
         /* app menu */
         "appMenuFile": "Файл",
         "appMenuNewTab": "Новая вкладка",

@@ -157,6 +157,12 @@
         "customSearchEngineDescription": null, //missing translation
         "settingsKeyboardShortcutsHeading": "Billentyű kombinációk",
         "settingsKeyboardShortcutsHelp": "Használj több kombináció megadásához.",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "Fájl",
         "appMenuNewTab": "Új fül",

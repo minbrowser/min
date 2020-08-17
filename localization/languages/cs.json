@@ -154,6 +154,12 @@
         "customSearchEngineDescription": null, //missing translation
         "settingsKeyboardShortcutsHeading": "Klávesové zkratky",
         "settingsKeyboardShortcutsHelp": "Používejte čárky pro oddělení klávesových zkratek.",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "Soubor",
         "appMenuNewTab": "Nová karta",
