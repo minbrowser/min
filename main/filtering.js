@@ -45,7 +45,7 @@ function initFilterList () {
   // discard old data if the list is being re-initialized
   parsedFilterData = {}
 
-  var data = require('fs').readFile(__dirname + '/ext/filterLists/easylist+easyprivacy-noelementhiding.txt', 'utf8', function (err, data) {
+  fs.readFile(__dirname + '/ext/filterLists/easylist+easyprivacy-noelementhiding.txt', 'utf8', function (err, data) {
     if (err) {
       return
     }
@@ -53,6 +53,12 @@ function initFilterList () {
     // data = data.replace(/.*##.+\n/g, '') // remove element hiding rules
 
     parser.parse(data, parsedFilterData)
+  })
+
+  fs.readFile(app.getPath('userData') + '/customFilters.txt', 'utf8', function (err, data) {
+    if (!err && data) {
+      parser.parse(data, parsedFilterData)
+    }
   })
 }
 
