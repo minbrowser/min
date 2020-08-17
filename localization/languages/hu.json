@@ -135,9 +135,10 @@
         "settingsContentBlockingExceptions": null, //missing translation
         "settingsBlockScriptsToggle": "Szkriptek tiltása",
         "settingsBlockImagesToggle": "Képek tiltása",
-        "settingsEasyListCredit": {
+        "settingsBlockedRequestCount": {
             "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "Megjelenés",
         "settingsEnableDarkMode": "Kapcsolja be a sötét nézetet:", 
         "settingsDarkModeNever": null, //"Never" missing translation

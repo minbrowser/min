@@ -135,9 +135,10 @@
         "settingsContentBlockingExceptions": "これらのウェブサイトでは広告は引き続き許可されます:",
         "settingsBlockScriptsToggle": "スクリプトをブロック",
         "settingsBlockImagesToggle": "画像をブロック",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "<a target=\"_blank\" href=\"https://easylist.to/\"> EasyListの作成者</a>によって作成されたEasyListおよびEasyPrivacyに基づいています（<a target=\"_blank\" href=\"https：//creativecommons.org/licenses/by-sa/3.0/legalcode\">ライセンスを表示</a>)。"
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "外観",
         "settingsEnableDarkMode": "ダークモードを使用:",
         "settingsDarkModeNever": "決して",

@@ -135,9 +135,10 @@
         "settingsContentBlockingExceptions": "Реклама по-прежнему будет разрешена на этих сайтах:",
         "settingsBlockScriptsToggle": "Блокировать скрипты",
         "settingsBlockImagesToggle": "Блокировать изображения",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "На основе EasyList и EasyPrivacy, созданных <a target=\"_blank\" href=\"https://easylist.to/\">авторами EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">просмотреть лицензию</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "Внешний вид",
         "settingsEnableDarkMode": "Использовать темную тему:",
         "settingsDarkModeNever": "Нет",

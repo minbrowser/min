@@ -135,9 +135,10 @@
         "settingsContentBlockingExceptions": "Ads will still be allowed on these websites:",
         "settingsBlockScriptsToggle": "Block scripts",
         "settingsBlockImagesToggle": "Block images",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "Based on EasyList and EasyPrivacy, created by <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": "So far, Min has blocked <strong></strong> ads and trackers."
         },
+        "settingsCustomizeFiltersLink": "Customize filters",
         "settingsAppearanceHeading": "Appearance",
         "settingsEnableDarkMode": "Enable dark mode:",
         "settingsDarkModeNever": "Never",

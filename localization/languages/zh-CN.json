@@ -135,9 +135,10 @@
         "settingsContentBlockingExceptions": "下列站点的广告将被允许",
         "settingsBlockScriptsToggle": "阻止脚本运行",
         "settingsBlockImagesToggle": "阻止加载图片",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "基于 EasyList 和 EasyPrivacy, 由 <a target=\"_blank\" href=\"https://easylist.to/\">EasyList作者</a> 制作（<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">查看许可协议</a>）."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "外观",
         "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
         "settingsDarkModeNever": null, //"Never" missing translation

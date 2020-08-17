@@ -135,9 +135,10 @@
         "settingsContentBlockingExceptions": "다음의 누리집에서 광고 허용",
         "settingsBlockScriptsToggle": "명령(스크립트) 차단",
         "settingsBlockImagesToggle": "그림 차단",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "이지리스트(EasyList)와 이지프라이버시(EasyPrivacy)를 기반으로 합니다. <a target=\"_blank\" href=\"https://easylist.to/\">EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">이용 규약(라이선스) 보기</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "외형",
         "settingsEnableDarkMode": "어두운 외형(Dark Mode) 사용:",
         "settingsDarkModeNever": "사용하지 않음",

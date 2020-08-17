@@ -1,6 +1,6 @@
 document.title = l('settingsPreferencesHeading') + ' | Min'
 
-var container = document.getElementById('privacy-settings-container')
+var contentTypeBlockingContainer = document.getElementById('content-type-blocking')
 var banner = document.getElementById('restart-required-banner')
 var siteThemeCheckbox = document.getElementById('checkbox-site-theme')
 var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
@@ -19,6 +19,18 @@ var trackingLevelContainer = document.getElementById('tracking-level-container')
 var trackingLevelOptions = Array.from(trackingLevelContainer.querySelectorAll('input[name=blockingLevel]'))
 var blockingExceptionsContainer = document.getElementById('content-blocking-information')
 var blockingExceptionsInput = document.getElementById('content-blocking-exceptions')
+var blockedRequestCount = document.querySelector('#content-blocking-blocked-requests strong')
+
+settings.listen('filteringBlockedCount', function (value) {
+  var count = value || 0
+  var valueStr
+  if (count > 50000) {
+    valueStr = new Intl.NumberFormat(navigator.locale, { notation: 'compact', maximumSignificantDigits: 4 }).format(count)
+  } else {
+    valueStr = new Intl.NumberFormat().format(count)
+  }
+  blockedRequestCount.textContent = valueStr
+})
 
 function updateBlockingLevelUI (level) {
   var radio = trackingLevelOptions[level]
@@ -30,6 +42,11 @@ function updateBlockingLevelUI (level) {
     blockingExceptionsContainer.hidden = false
     radio.parentNode.appendChild(blockingExceptionsContainer)
   }
+
+  if (document.querySelector('#tracking-level-container .setting-option.selected')) {
+    document.querySelector('#tracking-level-container .setting-option.selected').classList.remove('selected')
+  }
+  radio.parentNode.classList.add('selected')
 }
 
 function changeBlockingLevelSetting (level) {
@@ -123,7 +140,7 @@ for (var contentType in contentTypes) {
       section.appendChild(checkbox)
       section.appendChild(label)
 
-      container.appendChild(section)
+      contentTypeBlockingContainer.appendChild(section)
 
       checkbox.addEventListener('change', function (e) {
         settings.get('filtering', function (value) {

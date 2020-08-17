@@ -135,9 +135,10 @@
         "settingsContentBlockingExceptions": "Bu websitelerinde reklamlara izin verildi",
         "settingsBlockScriptsToggle": "Scriptleri engelle",
         "settingsBlockImagesToggle": "Resimleri engelle",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "EasyList ve EasyPrivacy temel alınmıştır, <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList yaratıcıları</a> tarafından oluşturuldu.(<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">lisansı görüntüle</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "Görünüm",
         "settingsEnableDarkMode": "Koyu modu etkinleştir:",
         "settingsDarkModeNever": null, //"Never" missing translation

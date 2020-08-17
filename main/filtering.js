@@ -10,18 +10,32 @@ var enabledFilteringOptions = {
   exceptionDomains: []
 }
 
+// for tracking the number of blocked requests
+var unsavedBlockedRequests = 0
+
+setInterval(function () {
+  if (unsavedBlockedRequests > 0) {
+    var current = settings.get('filteringBlockedCount')
+    if (!current) {
+      current = 0
+    }
+    settings.set('filteringBlockedCount', current + unsavedBlockedRequests)
+    unsavedBlockedRequests = 0
+  }
+}, 60000)
+
 // electron uses different names for resource types than ABP
 // electron: https://github.com/electron/electron/blob/34c4c8d5088fa183f56baea28809de6f2a427e02/shell/browser/net/atom_network_delegate.cc#L30
 // abp: https://adblockplus.org/filter-cheatsheet#filter-options
 var electronABPElementTypeMap = {
-  'mainFrame': 'document',
-  'subFrame': 'subdocument',
-  'stylesheet': 'stylesheet',
-  'script': 'script',
-  'image': 'image',
-  'object': 'object',
-  'xhr': 'xmlhttprequest',
-  'other': 'other' // ?
+  mainFrame: 'document',
+  subFrame: 'subdocument',
+  stylesheet: 'stylesheet',
+  script: 'script',
+  image: 'image',
+  object: 'object',
+  xhr: 'xmlhttprequest',
+  other: 'other' // ?
 }
 
 var parser = require('./ext/abp-filter-parser-modified/abp-filter-parser.js')
@@ -88,8 +102,8 @@ function handleRequest (details, callback) {
 
   if (enabledFilteringOptions.blockingLevel > 0 && !(domain && requestDomainIsException(domain))) {
     if (
-      (enabledFilteringOptions.blockingLevel === 1 && (!domain || requestIsThirdParty(domain, details.url)))
-      || (enabledFilteringOptions.blockingLevel === 2)
+      (enabledFilteringOptions.blockingLevel === 1 && (!domain || requestIsThirdParty(domain, details.url))) ||
+      (enabledFilteringOptions.blockingLevel === 2)
     ) {
       // by doing this check second, we can skip checking same-origin requests if only third-party blocking is enabled
       var matchesFilters = parser.matches(parsedFilterData, details.url, {
@@ -97,6 +111,8 @@ function handleRequest (details, callback) {
         elementType: electronABPElementTypeMap[details.resourceType]
       })
       if (matchesFilters) {
+        unsavedBlockedRequests++
+
         callback({
           cancel: true,
           requestHeaders: details.requestHeaders
