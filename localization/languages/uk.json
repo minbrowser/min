@@ -136,9 +136,9 @@
         "settingsBlockScriptsToggle": "Блокувати скрипти",
         "settingsBlockImagesToggle": "Блокувати зображення",
         "settingsBlockedRequestCount": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "Наразі Min заблокував <strong></strong> реклам і трекерів."
         },
-        "settingsCustomizeFiltersLink": null, //missing translation
+        "settingsCustomizeFiltersLink": "Налаштувати фільтри",
         "settingsAppearanceHeading": "Зовнішній вигляд",
         "settingsDarkModeToggle": "Увімкнути темний режим",
         "settingsEnableDarkMode": "Увімкнути темний режим: ",
