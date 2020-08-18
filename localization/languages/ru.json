@@ -136,9 +136,9 @@
         "settingsBlockScriptsToggle": "Блокировать скрипты",
         "settingsBlockImagesToggle": "Блокировать изображения",
         "settingsBlockedRequestCount": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "На данный момент Min заблокировал <strong></strong> объявлений и трекеров"
         },
-        "settingsCustomizeFiltersLink": null, //missing translation
+        "settingsCustomizeFiltersLink": "Настроить фильтры",
         "settingsAppearanceHeading": "Внешний вид",
         "settingsEnableDarkMode": "Использовать темную тему:",
         "settingsDarkModeNever": "Нет",
