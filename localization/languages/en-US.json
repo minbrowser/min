@@ -161,6 +161,7 @@
         "settingsNoProxy": "No Proxy",
         "settingsManualProxy": "Manual Configuration",
         "settingsAutomaticProxy": "Automatic Configuration",
+        "settingsProxyRules": "Proxy rules:",
         "settingsProxyBypassRules": "No proxy for:",
         "settingsProxyConfigurationURL": "Configuration URL",
         /* app menu */

@@ -131,32 +131,15 @@
 			</select>
 		</div>
 
-		<div class="setting-section" id="proxy-grid">
+		<div class="setting-section" id="manual-proxy-section">
 			<div class="setting-option">
-				<label for="http-proxy-host-input">HTTP</label>
-				<input id="http-proxy-host-input" type="text" name="httpHost" placeholder="proxy.example.com" />
-				<input type="number" id="http-proxy-port-input" name="httpPort" min="0" placeholder="8080" />
-			</div>
-			<div class="setting-option">
-				<label for="https-proxy-host-input">HTTPS</label>
-				<input id="https-proxy-host-input" type="text" name="httpsHost" placeholder="proxy.example.com" />
-				<input type="number" id="https-proxy-port-input" name="httpsPort" min="0" placeholder="8080" />
-			</div>
-			<div class="setting-option">
-				<label for="socks-proxy-host-input">SOCKS</label>
-				<input id="socks-proxy-host-input" type="text" name="socksHost" placeholder="proxy.example.com" />
-				<input type="number" id="socks-proxy-port-input" name="socksPort" min="0" placeholder="8080" />
-			</div>
-			<div class="setting-option">
-				<input id="socks4-input" type="radio" value="socks4" name="socksVersion" />
-				<label for="socks4-input">SOCKS v4</label>
-				<input id="socks5-input" type="radio" value="socks5" name="socksVersion" />
-				<label for="socks4-input">SOCKS v5</label>
+				<label for="proxy-rules-input" data-string="settingsProxyRules"></label>
+				<input id="proxy-rules-input" type="text" name="proxyRules" placeholder="proxy.example.com:8080" />
 			</div>
 
 			<div class="setting-option">
-				<label for="proxy-bypass-rules" data-string="settingsProxyBypassRules"></label>
-				<input name="proxyBypassRules" id="proxy-bypass-rules" placeholder="localhost, 127.0.0.1/8, ::1" />
+				<label for="proxy-bypass-rules-input" data-string="settingsProxyBypassRules"></label>
+				<input name="proxyBypassRules" id="proxy-bypass-rules-input" placeholder="localhost, 127.0.0.1/8, ::1" />
 			</div>
 		</div>
 

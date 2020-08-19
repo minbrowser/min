@@ -120,18 +120,7 @@ html {
   border-color: transparent;
 }
 
-#proxy-settings-container label {
-	display: inline-block;
-	min-width: 4em;
-	text-align: left;
-}
-#proxy-settings-container input[type="text"] {
-	width: 40%;
-}
-#proxy-settings-container input[type="radio"]:first-child {
-	margin-left: 4em;
-}
-#proxy-bypass-rules {
+#proxy-settings-container input {
 	width: 100%;
 	max-width: 34em;
 }

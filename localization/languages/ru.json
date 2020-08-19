@@ -161,6 +161,7 @@
         "settingsNoProxy": "Без прокси",
         "settingsManualProxy": "Ручная настройка",
         "settingsAutomaticProxy": "Автоматическая настройка",
+        "settingsProxyRules": "Правила прокси:",
         "settingsProxyBypassRules": "Не использовать прокси для:",
         "settingsProxyConfigurationURL": "URL конфигурации",
         /* app menu */

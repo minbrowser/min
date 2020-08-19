@@ -438,46 +438,25 @@ passwordManagersDropdown.addEventListener('change', function (e) {
 /* proxy settings */
 
 const proxyTypeInput = document.getElementById('selected-proxy-type')
-const proxyInput = Array.from(document.querySelectorAll('#proxy-grid input'))
-const pacInput = document.getElementById('pac-url-input')
-const proxyBypassInput = document.getElementById('proxy-bypass-rules')
+const proxyInputs = Array.from(document.querySelectorAll('#proxy-settings-container input'))
 
 const toggleProxyOptions = proxyType => {
-  document.getElementById('proxy-grid').hidden = proxyType != 1
+  document.getElementById('manual-proxy-section').hidden = proxyType != 1
   document.getElementById('pac-option').hidden = proxyType != 2
 }
 
 const setProxy = (key, value) => {
   settings.get('proxy', (proxy = {}) => {
-    if (key == 'proxies') {
-      proxy.proxies = { ...proxy.proxies, ...value }
-    } else {
       proxy[key] = value
-    }
     settings.set('proxy', proxy)
   })
 }
 
 settings.get('proxy', (proxy = {}) => {
-  proxy = {
-    type: proxy.type || 0,
-    proxies: proxy.proxies || {},
-    proxyBypassRules: proxy.proxyBypassRules || '',
-    pacScript: proxy.pacScript || ''
-  }
-
   toggleProxyOptions(proxy.type)
 
-  proxyTypeInput.options.selectedIndex = proxy.type
-  proxyInput.forEach(item => {
-    if (item.name != 'socksVersion') {
-      item.value = proxy.proxies[item.name] || null
-    } else {
-      item.checked = item.value == proxy.proxies[item.name] ? proxy.proxies[item.name] : 'socks5'
-    }
-  })
-  proxyBypassInput.value = proxy.proxyBypassRules
-  pacInput.value = proxy.pacScript
+  proxyTypeInput.options.selectedIndex = proxy.type || 0
+  proxyInputs.forEach(item => item.value = proxy[item.name] || '')
 })
 
 proxyTypeInput.addEventListener('change', e => {
@@ -485,6 +464,5 @@ proxyTypeInput.addEventListener('change', e => {
   setProxy('type', proxyType)
   toggleProxyOptions(proxyType)
 })
-proxyInput.forEach(item => item.addEventListener('change', e => setProxy('proxies', { [e.target.name]: e.target.value })))
-proxyBypassInput.addEventListener('change', e => setProxy('proxyBypassRules', e.target.value))
-pacInput.addEventListener('change', () => setProxy('pacScript', pacInput.value))
+
+proxyInputs.forEach(item => item.addEventListener('change', e => setProxy(e.target.name, e.target.value)))
