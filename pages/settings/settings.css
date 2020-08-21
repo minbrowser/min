@@ -16,8 +16,6 @@ html {
 .short-hero {
 	position: relative;
 	overflow: hidden;
-	height: 10vh;
-	min-height: 100px;
 }
 .blue-gradient-background {
 	background: linear-gradient(135deg, rgba(80, 122, 196, 1) 43%, rgba(80, 122, 196, 1) 43%, rgba(128, 192, 226, 1) 89%, rgba(128, 192, 226, 1) 89%);
