@@ -137,9 +137,10 @@
 		"settingsContentBlockingExceptions": "Reklamalar ushbu sahifalarda ruxsat beriladi:",
 		"settingsBlockScriptsToggle": "Skriptlarni bloklash",
 		"settingsBlockImagesToggle": "Rasmlarni bloklash",
-		"settingsEasyListCredit": {
-			"unsafeHTML": "EasyList va EasyPrivacy asosida, <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList mualliflary</a> tomonidan yaratilgan (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">litsenziyani ko'rish</a>)."
-		},
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": null //missing translation
+        },
+        "settingsCustomizeFiltersLink": null, //missing translation
 		"settingsEnableDarkMode": "Ko'rinish:",
         "settingsDarkModeNever": null, //"Never" missing translation
         "settingsDarkModeNight": null, //"At night" missing translation

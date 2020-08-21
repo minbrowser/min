@@ -5,9 +5,8 @@ html {
 
 .settings-info-subheading {
 	opacity: 0.666;
-}
-.settings-info-subheading.container-subheading {
-	padding-bottom: 1em;
+	margin-top: -0.1em;
+	margin-bottom: 1em;
 }
 
 .yellow-background {
@@ -103,15 +102,29 @@ html {
 	}
 }
 
-#content-blocking-information {
-	padding: 0.5em;
-	margin: 0.75em 0.5em 0.25em 1.08em;
-	background-color: #f8f8f8;
-	border-radius: 3px;
+#content-blocking-statistics i {
+	font-size: 1.1em;
+    vertical-align: text-bottom;
+    margin-right: 0.15em;
 }
 
-.dark-mode #content-blocking-information {
-	background-color: #141414;
+#tracking-level-container .setting-option.selected:not(:first-child) {
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	padding: 0.5em 0.5em;
+	margin-left: -0.5em;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+#content-blocking-information {
+	margin: 0.75em 0.5em 0 1.58em;
+}
+
+#customize-filters-link {
+	display: block;
+	margin-top: 0.66em;
+	opacity: 0.8;
 }
 
 .dark-mode input {

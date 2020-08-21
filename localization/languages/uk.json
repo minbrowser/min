@@ -135,9 +135,10 @@
         "settingsContentBlockingExceptions": "Дозволити рекламу на цих сайтах:",
         "settingsBlockScriptsToggle": "Блокувати скрипти",
         "settingsBlockImagesToggle": "Блокувати зображення",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "На основі EasyList і EasyPrivacy, створених <a target=\"_blank\" href=\"https://easylist.to/\">авторами EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">переглянути ліцензію</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": "Наразі Min заблокував <strong></strong> реклам і трекерів."
         },
+        "settingsCustomizeFiltersLink": "Налаштувати фільтри",
         "settingsAppearanceHeading": "Зовнішній вигляд",
         "settingsDarkModeToggle": "Увімкнути темний режим",
         "settingsEnableDarkMode": "Увімкнути темний режим: ",

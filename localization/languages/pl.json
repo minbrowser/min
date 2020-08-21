@@ -135,9 +135,10 @@
         "settingsContentBlockingExceptions": "Zezwalaj na reklamy w tych witrynach:",
         "settingsBlockScriptsToggle": "Zablokuj skrypty",
         "settingsBlockImagesToggle": "Zablokuj obrazy",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "Oparte na EasyList i EasyPrivacy stworzone przez <a target=\"_blank\" href=\"https://easylist.to/\">autorów EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">wyświetl licencję</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "Wygląd",
         "settingsEnableDarkMode": "Włącz tryb ciemny:",
         "settingsDarkModeNever": "Nigdy",

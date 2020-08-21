@@ -131,9 +131,10 @@
         "settingsContentBlockingExceptions": "Quảng cáo vẫn còn cho phép trên trang web này:",
         "settingsBlockScriptsToggle": "Chận mã script",
         "settingsBlockImagesToggle": "Chận ảnh",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "Dựa trên EasyList và EasyPrivacy, tạo bởi <a target=\"_blank\" href=\"https://easylist.to/\">các tác giả EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">xem giấy phép</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "Giao diện",
         "settingsEnableDarkMode": "Bật chế độ tối:",
         "settingsDarkModeNever": null, //"Never" missing translation

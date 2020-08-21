@@ -135,9 +135,10 @@
         "settingsContentBlockingExceptions": "Reklamos vis dar bus leidžiamos šiose svetainėse:",
         "settingsBlockScriptsToggle": "Blokuoti scenarijus",
         "settingsBlockImagesToggle": "Blokuoti paveikslus",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "Pagrįstas EasyList ir EasyPrivacy, sukurtas <a target=\"_blank\" href=\"https://easylist.to/\">EasyList autorių</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">rodyti licenciją</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "Išvaizda",
         "settingsEnableDarkMode": "Įjungti tamsią veikseną: ",
         "settingsDarkModeNever": null, //"Never" missing translation

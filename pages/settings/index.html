@@ -20,7 +20,12 @@
 
 	<div class="settings-container" id="privacy-settings-container">
 		<h3 data-string="settingsPrivacyHeading"></h3>
-		<div class="settings-info-subheading container-subheading" data-string="settingsEasyListCredit" data-allowHTML></div>
+
+		<div class="settings-info-subheading" id="content-blocking-statistics">
+			<i class="i carbon:manage-protection"></i>
+			<span data-string="settingsBlockedRequestCount" data-allowHTML id="content-blocking-blocked-requests">
+			</span>
+		</div>
 
 		<div class="setting-section" id="tracking-level-container">
 			<div class="setting-option">
@@ -40,8 +45,11 @@
 				<div><label for="content-blocking-exceptions" data-string="settingsContentBlockingExceptions"></label> &nbsp;
 					<input type="text" id="content-blocking-exceptions" style="width: 100%; max-width: 500px">
 				</div>
+				<a id="customize-filters-link" href="https://github.com/minbrowser/min/wiki/Content-blocking-settings">Customize filters</a>
 			</div>
 		</div>
+
+		<div id="content-type-blocking"></div>
 	</div>
 	
 	<div class="settings-container" id="appearance-settings-container">
@@ -125,7 +133,7 @@
 		<div class="settings-info-subheading" data-string="settingsKeyboardShortcutsHelp"></div>
 
 		<div class="setting-section">
-			<ul id="key-map-list" class="setting-section"></ul>
+			<ul id="key-map-list"></ul>
 		</div>
 	</div>
 

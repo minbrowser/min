@@ -135,9 +135,10 @@
         "settingsContentBlockingExceptions": "Реклами ще бъдат позволени на тези уеб сайтове:",
         "settingsBlockScriptsToggle": "Блокиране на скриптове",
         "settingsBlockImagesToggle": "Блокиране на изображения",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "Базирано на EasyList и EasyPrivacy, създадено от <a target=\"_blank\" href=\"https://easylist.to/\">EasyList авторите</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">вижте лиценз</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "Изглед",
         "settingsEnableDarkMode": "Активиране на тъмен режим:",
         "settingsDarkModeNever": "Никога",

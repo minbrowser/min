@@ -135,9 +135,10 @@
         "settingsContentBlockingExceptions": null, //missing translation
         "settingsBlockScriptsToggle": "Bloquear scripts",
         "settingsBlockImagesToggle": "Bloquear imágenes",
-        "settingsEasyListCredit": {
+        "settingsBlockedRequestCount": {
             "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "Apariencia",
         "settingsEnableDarkMode": "Habilitar modo oscuro:", 
         "settingsDarkModeNever": "Nunca", // googled
