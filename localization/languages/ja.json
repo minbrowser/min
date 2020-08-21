@@ -136,9 +136,9 @@
         "settingsBlockScriptsToggle": "スクリプトをブロック",
         "settingsBlockImagesToggle": "画像をブロック",
         "settingsBlockedRequestCount": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "これまでのところ、Minは<strong></strong>の広告とトラッカーをブロックしています。"
         },
-        "settingsCustomizeFiltersLink": null, //missing translation
+        "settingsCustomizeFiltersLink": "フィルターをカスタマイズする",
         "settingsAppearanceHeading": "外観",
         "settingsEnableDarkMode": "ダークモードを使用:",
         "settingsDarkModeNever": "決して",
