@@ -158,6 +158,13 @@
         "customSearchEngineDescription": "%s غير كلمة البحث ب",
         "settingsKeyboardShortcutsHeading": "اختصار لوحة مفاتيح",
         "settingsKeyboardShortcutsHelp": "اسعمل الفاصلة للفصل بين الاختصارات",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "ملف",
         "appMenuNewTab": "تبويب جديد",

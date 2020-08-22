@@ -158,6 +158,13 @@
       "customSearchEngineDescription":"অনুসন্ধানটি%s এর সাথে প্রতিস্থাপন করুন",
       "settingsKeyboardShortcutsHeading":"কীবোর্ড শর্টকাটগুলি",
       "settingsKeyboardShortcutsHelp":"একাধিক শর্টকাট পৃথক করার জন্য কমা ব্যবহার করুন।",
+      "settingsProxyHeading": null, //missing translation
+      "settingsNoProxy": null, //missing translation
+      "settingsManualProxy": null, //missing translation
+      "settingsAutomaticProxy": null, //missing translation
+      "settingsProxyRules": null, //missing translation
+      "settingsProxyBypassRules": null, //missing translation
+      "settingsProxyConfigurationURL": null, //missing translation
       /* app menu */
       "appMenuFile":"ফাইল",
       "appMenuNewTab":"নতুন ট্যাব",

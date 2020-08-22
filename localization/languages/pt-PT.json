@@ -158,6 +158,13 @@
         "customSearchEngineDescription": "Substituir termo de pesquisa por %s",
         "settingsKeyboardShortcutsHeading": "Teclas de atalho",
         "settingsKeyboardShortcutsHelp": "Utilize vírgulas para separar os diversos atalhos",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "Ficheiro",
         "appMenuNewTab": "Novo separador",

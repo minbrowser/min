@@ -158,6 +158,13 @@
         "customSearchEngineDescription": "Pakeiskite paieškos žodį į %s",
         "settingsKeyboardShortcutsHeading": "Spartieji klavišai",
         "settingsKeyboardShortcutsHelp": "Naudokite kablelius, norėdami atskirti kelis sparčiuosius klavišus.",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "Failas",
         "appMenuNewTab": "Nauja kortelė",

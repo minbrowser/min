@@ -158,6 +158,13 @@
         "customSearchEngineDescription": "將搜尋字串以 %s 取代",
         "settingsKeyboardShortcutsHeading": "快速鍵",
         "settingsKeyboardShortcutsHelp": "以逗號分割多個快速鍵",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "檔案",
         "appMenuNewTab": "新分頁",

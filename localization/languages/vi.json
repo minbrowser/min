@@ -154,6 +154,13 @@
         "customSearchEngineDescription": "Thay thế thuật ngữ tìm kiếm bằngwith %s",
         "settingsKeyboardShortcutsHeading": "Phím tắt",
         "settingsKeyboardShortcutsHelp": "Sử dụng dấu phẩy để phân tách phím tắt khác nhau.",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "Tệp",
         "appMenuNewTab": "Tab Mới",

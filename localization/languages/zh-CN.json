@@ -158,6 +158,13 @@
         "customSearchEngineDescription": "将搜索字符串以 %s 代替",
         "settingsKeyboardShortcutsHeading": "快捷键",
         "settingsKeyboardShortcutsHelp": "用逗号分隔多个快捷键",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "文件",
         "appMenuNewTab": "新标签页",

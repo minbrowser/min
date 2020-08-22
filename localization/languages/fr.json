@@ -158,6 +158,13 @@
         "customSearchEngineDescription": "Remplacer la recherche par %s",
         "settingsKeyboardShortcutsHeading": "Raccourcis clavier",
         "settingsKeyboardShortcutsHelp": "Séparer les raccourcis claviers multiples par une virgule.",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "Fichier",
         "appMenuNewTab": "Nouvel onglet",

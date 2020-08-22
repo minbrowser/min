@@ -131,6 +131,11 @@ html {
   border-color: transparent;
 }
 
+#proxy-settings-container input {
+	width: 100%;
+	max-width: 34em;
+}
+
 #restart-required-banner {
   color: black;
 }

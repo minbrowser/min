@@ -158,6 +158,13 @@
         "customSearchEngineDescription": "Sostituisci il termine di ricerca con %s",
         "settingsKeyboardShortcutsHeading": "Scorciatoie da tastiera",
         "settingsKeyboardShortcutsHelp": "Utilizza una virgola per separare scorciatoie multiple.",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "File",
         "appMenuNewTab": "Nuova scheda",

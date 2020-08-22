@@ -128,6 +128,35 @@
 
 	</div>
 
+	<div class="settings-container" id="proxy-settings-container">
+		<h3 data-string="settingsProxyHeading"></h3>
+
+		<div class="setting-section" id="proxy-type-container">
+			<select id="selected-proxy-type" style="min-width: 225px">
+				<option data-string="settingsNoProxy"></option>
+				<option data-string="settingsManualProxy"></option>
+				<option data-string="settingsAutomaticProxy"></option>
+			</select>
+		</div>
+
+		<div class="setting-section" id="manual-proxy-section">
+			<div class="setting-option">
+				<label for="proxy-rules-input" data-string="settingsProxyRules"></label>
+				<input id="proxy-rules-input" type="text" name="proxyRules" placeholder="proxy.example.com:8080" />
+			</div>
+
+			<div class="setting-option">
+				<label for="proxy-bypass-rules-input" data-string="settingsProxyBypassRules"></label>
+				<input name="proxyBypassRules" id="proxy-bypass-rules-input" placeholder="localhost, 127.0.0.1/8, ::1" />
+			</div>
+		</div>
+
+		<div class="setting-option" id="pac-option">
+			<label for="pac-url-input" data-string="settingsProxyConfigurationURL"></label>
+			<input type="text" id="pac-url-input" placeholder="https://example.com/proxy.pac" />
+		</div>
+	</div>
+
 	<div class="settings-container" id="keymap-settings-container">
 		<h3 data-string="settingsKeyboardShortcutsHeading"></h3>
 		<div class="settings-info-subheading" data-string="settingsKeyboardShortcutsHelp"></div>

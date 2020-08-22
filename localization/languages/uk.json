@@ -159,6 +159,13 @@
         "customSearchEngineDescription": "Замініть пошуковий запит на %s",
         "settingsKeyboardShortcutsHeading": "Сполучення клавіш",
         "settingsKeyboardShortcutsHelp": "Використовуйте коми, щоб розділити декілька сполучень клавіш.",
+        "settingsProxyHeading": "Проксі",
+        "settingsNoProxy": "Без проксі",
+        "settingsManualProxy": "Ручна конфігурація",
+        "settingsAutomaticProxy": "Автоматична конфігурація",
+        "settingsProxyRules": "Правила проксі:",
+        "settingsProxyBypassRules": "Не використовувати проксі для:",
+        "settingsProxyConfigurationURL": "URL конфігурації",
         /* app menu */
         "appMenuFile": "Файл",
         "appMenuNewTab": "Нова вкладка",

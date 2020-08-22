@@ -158,6 +158,13 @@
         "customSearchEngineDescription": "تعویض عبارت جستجو شده با %s",
         "settingsKeyboardShortcutsHeading": "میانبرهای صفحه کلید",
         "settingsKeyboardShortcutsHelp": "از ویرگول جهت جدا کردن میانبرها استفاده کنید.",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "پرونده",
         "appMenuNewTab": "برگه جدید",

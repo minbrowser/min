@@ -451,3 +451,35 @@ passwordManagersDropdown.addEventListener('change', function (e) {
     currentPasswordManager = this.value
   }
 })
+
+/* proxy settings */
+
+const proxyTypeInput = document.getElementById('selected-proxy-type')
+const proxyInputs = Array.from(document.querySelectorAll('#proxy-settings-container input'))
+
+const toggleProxyOptions = proxyType => {
+  document.getElementById('manual-proxy-section').hidden = proxyType != 1
+  document.getElementById('pac-option').hidden = proxyType != 2
+}
+
+const setProxy = (key, value) => {
+  settings.get('proxy', (proxy = {}) => {
+      proxy[key] = value
+    settings.set('proxy', proxy)
+  })
+}
+
+settings.get('proxy', (proxy = {}) => {
+  toggleProxyOptions(proxy.type)
+
+  proxyTypeInput.options.selectedIndex = proxy.type || 0
+  proxyInputs.forEach(item => item.value = proxy[item.name] || '')
+})
+
+proxyTypeInput.addEventListener('change', e => {
+  const proxyType = e.target.options.selectedIndex
+  setProxy('type', proxyType)
+  toggleProxyOptions(proxyType)
+})
+
+proxyInputs.forEach(item => item.addEventListener('change', e => setProxy(e.target.name, e.target.value)))

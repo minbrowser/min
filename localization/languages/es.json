@@ -158,6 +158,13 @@
         "customSearchEngineDescription": null, //missing translation
         "settingsKeyboardShortcutsHeading": "Atajos de teclado",
         "settingsKeyboardShortcutsHelp": null, //missing translation
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "Archivo",
         "appMenuNewTab": "Nueva pestaña",

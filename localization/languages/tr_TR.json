@@ -158,6 +158,13 @@
         "customSearchEngineDescription": "Arama terimini %s ile değiştir",
         "settingsKeyboardShortcutsHeading": "Klavye Kısayolları",
         "settingsKeyboardShortcutsHelp": "Birden çok kısayolu ayırmak için virgül kullanın.",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "Dosya",
         "appMenuNewTab": "Yeni Sekme",

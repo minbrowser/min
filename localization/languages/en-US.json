@@ -158,6 +158,13 @@
         "customSearchEngineDescription": "Replace the search term with %s",
         "settingsKeyboardShortcutsHeading": "Keyboard Shortcuts",
         "settingsKeyboardShortcutsHelp": "Use commas to separate multiple shortcuts.",
+        "settingsProxyHeading": "Proxy",
+        "settingsNoProxy": "No Proxy",
+        "settingsManualProxy": "Manual Configuration",
+        "settingsAutomaticProxy": "Automatic Configuration",
+        "settingsProxyRules": "Proxy rules:",
+        "settingsProxyBypassRules": "No proxy for:",
+        "settingsProxyConfigurationURL": "Configuration URL",
         /* app menu */
         "appMenuFile": "File",
         "appMenuNewTab": "New Tab",
