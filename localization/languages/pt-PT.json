@@ -136,9 +136,9 @@
         "settingsBlockScriptsToggle": "Bloquear scripts",
         "settingsBlockImagesToggle": "Bloquear imagens",
         "settingsBlockedRequestCount": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "Até agora, Min bloqueou <strong></strong> anúncios e rastreadores."
         },
-        "settingsCustomizeFiltersLink": null, //missing translation
+        "settingsCustomizeFiltersLink": "Personalizar filtros",
         "settingsAppearanceHeading": "Aparência",
         "settingsEnableDarkMode": "Ativar modo escuro:",
         "settingsDarkModeNever": "Nunca",
