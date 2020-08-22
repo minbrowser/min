@@ -39,7 +39,12 @@ html {
 
 .setting-section {
 	font-size: 0; /* avoid adding space between inline-block children */
+}
+.setting-section:not(:only-of-type) {
 	padding: 0.5rem 0;
+}
+.setting-section select {
+	min-width: 225px;
 }
 .setting-section input[type=checkbox] {
 	vertical-align: middle;
@@ -49,6 +54,10 @@ html {
 }
 .setting-section input + label {
 	padding-left: 0.33em;
+}
+.setting-section label + input,
+.setting-section label + select {
+	margin-left: 0.66em;
 }
 .setting-secondary-label {
 	padding-left: 1.18em;
@@ -81,6 +90,7 @@ html {
 #key-map-list li input {
 	width: 57%;
 	padding: 0.2em;
+	margin-left: 0;
 }
 
 @media all and (max-width: 800px) {

@@ -42,7 +42,7 @@
 			</div>
 
 			<div id="content-blocking-information" hidden>
-				<div><label for="content-blocking-exceptions" data-string="settingsContentBlockingExceptions"></label> &nbsp;
+				<div><label for="content-blocking-exceptions" data-string="settingsContentBlockingExceptions"></label>
 					<input type="text" id="content-blocking-exceptions" style="width: 100%; max-width: 500px">
 				</div>
 				<a id="customize-filters-link" href="https://github.com/minbrowser/min/wiki/Content-blocking-settings">Customize filters</a>
@@ -113,18 +113,22 @@
 	<div class="settings-container" id="search-engine-settings-container">
 		<h3 data-string="settingsSearchEngineHeading"></h3>
 
-		<label for="defaultSearchEngine" data-string="settingsDefaultSearchEngine"></label> &nbsp;
-		<select id="default-search-engine" name="defaultSearchEngine" style="min-width: 225px"></select>
-		<input id="custom-search-engine" style="margin-left: 0.5em; min-width: 325px" hidden />
+		<div class="setting-section">
+			<label for="defaultSearchEngine" data-string="settingsDefaultSearchEngine"></label>
+			<select id="default-search-engine" name="defaultSearchEngine"></select>
+			<input id="custom-search-engine" style="margin-left: 0.5em; min-width: 325px" hidden />
 
-		<div class="settings-info-subheading" style="padding-top:0.4em" data-string="settingsDDGExplanation"></div>
+			<div class="settings-info-subheading" style="padding-top:0.4em" data-string="settingsDDGExplanation"></div>
+		</div>
 	</div>
 
 	<div class="settings-container" id="password-autofill-container">
 		<h3 data-string="settingsPasswordAutoFillHeadline"></h3>
 
-		<label for="selectedPasswordManagers" data-string="settingsSelectPasswordManager"></label> &nbsp;
-		<select id="selected-password-manager" name="selectedPasswordManager" style="min-width: 225px"></select>
+		<div class="setting-section">
+			<label for="selectedPasswordManagers" data-string="settingsSelectPasswordManager"></label>
+			<select id="selected-password-manager" name="selectedPasswordManager"></select>
+		</div>
 
 	</div>
 
@@ -132,7 +136,7 @@
 		<h3 data-string="settingsProxyHeading"></h3>
 
 		<div class="setting-section" id="proxy-type-container">
-			<select id="selected-proxy-type" style="min-width: 225px">
+			<select id="selected-proxy-type">
 				<option data-string="settingsNoProxy"></option>
 				<option data-string="settingsManualProxy"></option>
 				<option data-string="settingsAutomaticProxy"></option>
