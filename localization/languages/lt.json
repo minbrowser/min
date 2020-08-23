@@ -49,12 +49,12 @@
         "moveToTask": "Perkelti šią kortelę į užduotį",
         "nameTask": null, //missing translation
         "addBookmark": null, //missing translation
-		"searchBookmarks": "Ieškoti adresyno įrašų",
+        "searchBookmarks": "Ieškoti adresyno įrašų",
         "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
-		"searchHistory": "Ieškoti istorijos",
+        "bookmarksSimilarItems": null, //missing translation
+        "searchHistory": "Ieškoti istorijos",
         "importBookmarks": null, //missing translation
-		"exportBookmarks": null, //missing translation
+        "exportBookmarks": null, //missing translation
         "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "Atverti meniu", //application menu button on windows
@@ -71,7 +71,9 @@
         "viewTasks": "Rodyti užduotis",
         "newTask": "Nauja užduotis", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Užduotis %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
+        "taskDeleteWarning": {
+            "unsafeHTML": null //missing translation
+        },
         "returnToTask": null, //missing translation
         "taskDescriptionTwo": null, //missing translation
         "taskDescriptionThree": null, //missing translation
@@ -148,8 +150,10 @@
         "settingsAdditionalFeaturesHeading": "Papildomos ypatybės",
         "settingsUserscriptsToggle": "Įjungti naudotojo scenarijus",
         "settingsSeparateTitlebarToggle": null, //missing translation
-		"settingsOpenTabsInForegroundToggle": null, //missing translation
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Naudotojo scenarijai leidžia jums modifikuoti internetinių svetainių elgseną - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">sužinokite daugiau</a>."},
+        "settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Naudotojo scenarijai leidžia jums modifikuoti internetinių svetainių elgseną - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">sužinokite daugiau</a>."
+        },
         "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": "Automatiškai tikrinti ar yra atnaujinimų",
         "settingsSearchEngineHeading": "Paieškos sistema",
@@ -212,17 +216,19 @@
         "appMenuQuit": "Išeiti iš %n",
         "appMenuBringToFront": "Perkelti visus į priekį",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "puslapis <input type='text'/> iš <span id='total'></span>"},
- 	/* Context Reader */    
-	"buttonReaderSettings": null, //missing translation "Reader Settings"
-	"buttonReaderLightTheme": null, //missing translation "Light"
-	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
-	"buttonReaderDarkTheme": null, //missing translation "Dark"
-	"openReaderView": null, //missing translation "Always open in reader view"
-	"autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-	"buttonReaderRedirectYes": null, //missing translation "Yes"
-	"buttonReaderRedirectNo": null, //missing translation "No"
-	"articleReaderView": null, //missing translation "Original Article"
+        "PDFPageCounter": {
+            "unsafeHTML": "puslapis <input type='text'/> iš <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": null, //missing translation "Reader Settings"
+        "buttonReaderLightTheme": null, //missing translation "Light"
+        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
+        "buttonReaderDarkTheme": null, //missing translation "Dark"
+        "openReaderView": null, //missing translation "Always open in reader view"
+        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
+        "buttonReaderRedirectYes": null, //missing translation "Yes"
+        "buttonReaderRedirectNo": null, //missing translation "No"
+        "articleReaderView": null, //missing translation "Original Article"
         /* Download manager */
         "downloadCancel": "Atsisakyti",
         "downloadStateCompleted": "Užbaigtas",

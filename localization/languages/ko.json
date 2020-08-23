@@ -71,7 +71,9 @@
         "viewTasks": "작업장 보기",
         "newTask": "새 작업장", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "작업장 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "작업장을 제거했습니다. <a>되돌릴까요?</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "작업장을 제거했습니다. <a>되돌릴까요?</a>"
+        },
         "returnToTask": "이전 작업장으로 돌아가기",
         "taskDescriptionTwo": "%t 그리고 %t", //used to describe a task that has two tabs, %t is replaced with the tab title
         "taskDescriptionThree": "%t, %t, 그리고 %n개의 작업", //used to describe a task that has three or more tabs
@@ -148,8 +150,10 @@
         "settingsAdditionalFeaturesHeading": "추가 기능",
         "settingsUserscriptsToggle": "사용자 명령(스크립트) 사용",
         "settingsSeparateTitlebarToggle": "제목 표시줄과 도구 표시줄 사용",
-		"settingsOpenTabsInForegroundToggle": "작업을 열 때 전면(Foreground)으로 열기",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "사용자 명령(스크립트)을 사용하면 누리집의 행동을 수정할 수 있습니다. - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">더보기</a>."},
+        "settingsOpenTabsInForegroundToggle": "작업을 열 때 전면(Foreground)으로 열기",
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "사용자 명령(스크립트)을 사용하면 누리집의 행동을 수정할 수 있습니다. - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">더보기</a>."
+        },
         "settingsUserAgentToggle": "사용자 정의 에이전트(UserAgent) 사용",
         "settingsUpdateNotificationsToggle": "판올림 자동 확인",
         "settingsSearchEngineHeading": "검색 도구",
@@ -212,17 +216,19 @@
         "appMenuQuit": "%n 종료",
         "appMenuBringToFront": "맨 앞으로",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "전체 <span id='total'></span> 쪽 중 <input type='text'/> 쪽"},
- 	/* Context Reader */    
-	"buttonReaderSettings": "읽기 지원 설정",
-	"buttonReaderLightTheme": "밝게",
-	"buttonReaderSepiaTheme": "흑갈색",
-	"buttonReaderDarkTheme": "어둡게",
-	"openReaderView": "항상 읽기 지원으로 열기",
-	"autoRedirectBannerReader": "이 누리집의 문서를 항상 읽기 지원으로 여시겠습니까?",
-	"buttonReaderRedirectYes": "네",
-	"buttonReaderRedirectNo": "아니오",
-	"articleReaderView": "원본 문서",
+        "PDFPageCounter": {
+            "unsafeHTML": "전체 <span id='total'></span> 쪽 중 <input type='text'/> 쪽"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": "읽기 지원 설정",
+        "buttonReaderLightTheme": "밝게",
+        "buttonReaderSepiaTheme": "흑갈색",
+        "buttonReaderDarkTheme": "어둡게",
+        "openReaderView": "항상 읽기 지원으로 열기",
+        "autoRedirectBannerReader": "이 누리집의 문서를 항상 읽기 지원으로 여시겠습니까?",
+        "buttonReaderRedirectYes": "네",
+        "buttonReaderRedirectNo": "아니오",
+        "articleReaderView": "원본 문서",
         /* Download manager */
         "downloadCancel": "취소",
         "downloadStateCompleted": "완료됨",

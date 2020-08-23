@@ -49,12 +49,12 @@
         "moveToTask": "Перемістіть цю вкладку до завдання",
         "nameTask": "Назвіть це завдання",
         "addBookmark": "Додати закладку",
-		"searchBookmarks": "Шукати в закладках",
+        "searchBookmarks": "Шукати в закладках",
         "bookmarksAddTag": "Додати мітку...",
-		"bookmarksSimilarItems": "Подібні елементи",
-		"searchHistory": "Шукати в історії",
+        "bookmarksSimilarItems": "Подібні елементи",
+        "searchHistory": "Шукати в історії",
         "importBookmarks": "Імпортувати закладки",
-		"exportBookmarks": "Експортувати закладки",
+        "exportBookmarks": "Експортувати закладки",
         "runUserscript": "Запустити скрипт користувача",
         /* navbar */
         "openMenu": "Відкрити меню", //application menu button on windows
@@ -71,7 +71,9 @@
         "viewTasks": "Переглянути завдання",
         "newTask": "Нове завдання", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Завдання %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Завдання видалено. <a>Скасувати?</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "Завдання видалено. <a>Скасувати?</a>"
+        },
         "returnToTask": "Повернутися до попереднього завдання",
         "taskDescriptionTwo": "%t і %t",
         "taskDescriptionThree": "%t, %t, і ще %n",
@@ -149,8 +151,10 @@
         "settingsAdditionalFeaturesHeading": "Додаткові можливості",
         "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
         "settingsSeparateTitlebarToggle": "Використовувати окремий рядок заголовка",
-		"settingsOpenTabsInForegroundToggle": "Відкриватии нові вкладки на передньому плані",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."},
+        "settingsOpenTabsInForegroundToggle": "Відкриватии нові вкладки на передньому плані",
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."
+        },
         "settingsUserAgentToggle": "Використовувати власний агент користувача",
         "settingsUpdateNotificationsToggle": "Автоматично перевіряти наявність оновлень",
         "settingsSearchEngineHeading": "Пошукова система",
@@ -213,7 +217,9 @@
         "appMenuQuit": "Вийти з %n",
         "appMenuBringToFront": "Все на передній план",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "сторінка <input type='text'/> з <span id='total'></span>"},
+        "PDFPageCounter": {
+            "unsafeHTML": "сторінка <input type='text'/> з <span id='total'></span>"
+        },
         /* Context Reader */
         "buttonReaderSettings": "Налаштування режиму читання",
         "buttonReaderLightTheme": "Світлий",
@@ -239,8 +245,8 @@
             "unsafeHTML": "Спочатку <a id='password-manager-setup-link'></a> і розпакуйте його для Вашої системи."
         },
         "passwordManagerInstallerSetup": {
-			"unsafeHTML": "Завантажте <a id='password-manager-setup-link-installer'></a> і перетягніть файл у поле нижче:"
-		},
+            "unsafeHTML": "Завантажте <a id='password-manager-setup-link-installer'></a> і перетягніть файл у поле нижче:"
+        },
         "passwordManagerSetupLink": "завантажте інструмент CLI %p",
         "passwordManagerSetupLinkInstaller": "встановлювач CLI %p",
         "passwordManagerSetupStep2": "Потім перетягніть інструмент у поле нижче:",

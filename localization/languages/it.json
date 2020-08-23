@@ -18,9 +18,9 @@
         "copyLink": "Copia Link",
         "copyEmailAddress": null, //missing translation
         "selectAll": "Seleziona Tutto",
-        "undo": "Annulla", 
-        "redo": "Ripeti", 
-        "cut": "Taglia", 
+        "undo": "Annulla",
+        "redo": "Ripeti",
+        "cut": "Taglia",
         "copy": "Copia", //this is a verb (as in "copy the currently-selected text")
         "paste": "Incolla",
         "goBack": "Indietro",
@@ -35,26 +35,26 @@
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": "Mostra di più", 
+        "showMoreBangs": "Mostra di più",
         "viewSettings": "Vedi Impostazioni",
         "viewReadingList": "Vedi Lista di Lettura",
         "takeScreenshot": "Cattura Screenshot",
         "clearHistory": "Svuota la cronologia",
         "enableBlocking": null, //missing translation
         "disableBlocking": null, //missing translation
-        "clearHistoryConfirmation": "Cancellare tutti i dati di navigazione?", 
+        "clearHistoryConfirmation": "Cancellare tutti i dati di navigazione?",
         "switchToTask": "Passa a Task",
         "createTask": "Crea un Task",
         "closeTask": "Chiudi un Task",
         "moveToTask": "Sposta questa scheda in un task",
-        "nameTask": "Dai un nome a questo task", 
+        "nameTask": "Dai un nome a questo task",
         "addBookmark": null, //missing translation
-		"searchBookmarks": "Cerca nei Preferiti",
+        "searchBookmarks": "Cerca nei Preferiti",
         "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
-		"searchHistory": "Cerca nella cronologia",
+        "bookmarksSimilarItems": null, //missing translation
+        "searchHistory": "Cerca nella cronologia",
         "importBookmarks": null, //missing translation
-		"exportBookmarks": "Esporta Preferiti",
+        "exportBookmarks": "Esporta Preferiti",
         "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "Apri menu", //application menu button on windows
@@ -71,10 +71,12 @@
         "viewTasks": "Mostra Task",
         "newTask": "Nuovo Task", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Task %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Task eliminato. <a>Annullare?</a>"}, 
-        "returnToTask": "Torna al task precedente", 
-        "taskDescriptionTwo": "%t , %t", 
-        "taskDescriptionThree": "%t, %t, e altri %n", 
+        "taskDeleteWarning": {
+            "unsafeHTML": "Task eliminato. <a>Annullare?</a>"
+        },
+        "returnToTask": "Torna al task precedente",
+        "taskDescriptionTwo": "%t , %t",
+        "taskDescriptionThree": "%t, %t, e altri %n",
         /* find in page toolbar */
         "searchInPage": "Cerca nella pagina", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%i su %t risultato", //this and the next label are used to indicate which match is currently highlighted
@@ -88,8 +90,8 @@
         "timeRangeJustNow": "Proprio ora",
         "timeRangeMinutes": "Pochi minuti fa",
         "timeRangeHour": "Quest'ora",
-        "timeRangeToday": "Oggi", 
-        "timeRangeYesterday": "Ieri", 
+        "timeRangeToday": "Oggi",
+        "timeRangeYesterday": "Ieri",
         "timeRangeWeek": "Questa settimana",
         "timeRangeMonth": "Questo mese",
         "timeRangeYear": "Quest'anno",
@@ -131,8 +133,8 @@
         "settingsPrivacyHeading": "Blocco contenuti",
         "settingsContentBlockingLevel0": "Autorizza Pubblicità e tracker",
         "settingsContentBlockingLevel1": "Blocca Pubblicità e tracker di terze parti",
-        "settingsContentBlockingLevel2": "Blocca tutte le pubblicità e i tracker", 
-        "settingsContentBlockingExceptions": "Consenti pubblicità sui seguenti siti:", 
+        "settingsContentBlockingLevel2": "Blocca tutte le pubblicità e i tracker",
+        "settingsContentBlockingExceptions": "Consenti pubblicità sui seguenti siti:",
         "settingsBlockScriptsToggle": "Blocca script",
         "settingsBlockImagesToggle": "Blocca immagini",
         "settingsBlockedRequestCount": {
@@ -140,7 +142,7 @@
         },
         "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "Aspetto",
-        "settingsEnableDarkMode": "Abilita dark mode:", 
+        "settingsEnableDarkMode": "Abilita dark mode:",
         "settingsDarkModeNever": null, //"Never" missing translation
         "settingsDarkModeNight": null, //"At night" missing translation
         "settingsDarkModeAlways": null, //"Always" missing translation
@@ -148,10 +150,12 @@
         "settingsAdditionalFeaturesHeading": "Funzionalità aggiuntive",
         "settingsUserscriptsToggle": "Abilita script definiti dall'utente",
         "settingsSeparateTitlebarToggle": null, //missing translation
-		"settingsOpenTabsInForegroundToggle": null, //missing translation
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Gli script definiti dall'utente ti permettono di modificare il comportamento dei siti - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">scopri di più</a>."},
+        "settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Gli script definiti dall'utente ti permettono di modificare il comportamento dei siti - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">scopri di più</a>."
+        },
         "settingsUserAgentToggle": null, //missing translation
-        "settingsUpdateNotificationsToggle": "Controlla automaticamente la presenza di aggiornamenti", 
+        "settingsUpdateNotificationsToggle": "Controlla automaticamente la presenza di aggiornamenti",
         "settingsSearchEngineHeading": "Motore di ricerca",
         "settingsDefaultSearchEngine": "Scegli un motore di ricerca predefinito:",
         "settingsDDGExplanation": "Imposta DuckDuckGo come motore di ricerca predefinito per vedere risposte istantanee nella barra di ricerca.",
@@ -212,22 +216,24 @@
         "appMenuQuit": "Esci da %n",
         "appMenuBringToFront": "Porta avanti",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "pagina <input type='text'/> su <span id='total'></span>"},
- 	/* Context Reader */    
-	"buttonReaderSettings": null, //missing translation "Reader Settings"
-	"buttonReaderLightTheme": null, //missing translation "Light"
-	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
-	"buttonReaderDarkTheme": null, //missing translation "Dark"
-	"openReaderView": null, //missing translation "Always open in reader view"
-	"autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-	"buttonReaderRedirectYes": null, //missing translation "Yes"
-	"buttonReaderRedirectNo": null, //missing translation "No"
-	"articleReaderView": null, //missing translation "Original Article"
+        "PDFPageCounter": {
+            "unsafeHTML": "pagina <input type='text'/> su <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": null, //missing translation "Reader Settings"
+        "buttonReaderLightTheme": null, //missing translation "Light"
+        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
+        "buttonReaderDarkTheme": null, //missing translation "Dark"
+        "openReaderView": null, //missing translation "Always open in reader view"
+        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
+        "buttonReaderRedirectYes": null, //missing translation "Yes"
+        "buttonReaderRedirectNo": null, //missing translation "No"
+        "articleReaderView": null, //missing translation "Original Article"
         /* Download manager */
-        "downloadCancel": "Annulla", 
+        "downloadCancel": "Annulla",
         "downloadStateCompleted": "Completato",
         "downloadStateFailed": "Fallito",
         /* Update Notifications */
-        "updateNotificationTitle": "Una nuova versione di Min è disponibile" 
+        "updateNotificationTitle": "Una nuova versione di Min è disponibile"
     }
 }

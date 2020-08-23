@@ -49,12 +49,12 @@
         "moveToTask": "نقل التبويب الى المهام",
         "nameTask": null, //missing translation
         "addBookmark": null, //missing translation
-		"searchBookmarks": "البحث عن الإشارات",
+        "searchBookmarks": "البحث عن الإشارات",
         "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
-		"searchHistory": "البحث عن السجل",
+        "bookmarksSimilarItems": null, //missing translation
+        "searchHistory": "البحث عن السجل",
         "importBookmarks": null, //missing translation
-		"exportBookmarks": null, //missing translation
+        "exportBookmarks": null, //missing translation
         "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "فتح القائمة", //application menu button on windows
@@ -71,7 +71,9 @@
         "viewTasks": "عرض المهام",
         "newTask": "مهمة جديدة", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": " %n مهمة رقم", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
+        "taskDeleteWarning": {
+            "unsafeHTML": null //missing translation
+        },
         "returnToTask": null, //missing translation
         "taskDescriptionTwo": null, //missing translation
         "taskDescriptionThree": null, //missing translation
@@ -79,7 +81,7 @@
         "searchInPage": "ابحث في الصفحة", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "مطابق %t من i%", //this and the next label are used to indicate which match is currently highlighted
         "findMatchesPlural": "مطابق %t من i%",
-        /* Focus mode */  
+        /* Focus mode */
         "isFocusMode": "أنت في وضع التركيز.",
         "closeDialog": "تم", //used as a label for the button that closes the dialog
         "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
@@ -148,8 +150,10 @@
         "settingsAdditionalFeaturesHeading": "مميزات اضافية",
         "settingsUserscriptsToggle": "تمكين سكريبت المستخدم",
         "settingsSeparateTitlebarToggle": null, //missing translation
-		"settingsOpenTabsInForegroundToggle": null, //missing translation
-		"settingsUserscriptsExplanation": {"unsafeHTML": "يمكن سكريبت المستخدم من  تغير سلوك المواقع - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">معرفة المزيد</a>."},
+        "settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "يمكن سكريبت المستخدم من  تغير سلوك المواقع - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">معرفة المزيد</a>."
+        },
         "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "محرك بحث",
@@ -212,17 +216,19 @@
         "appMenuQuit": "%n انهاء",
         "appMenuBringToFront": "جلب الكل الى المقدمة",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "page <input type='text'/> of <span id='total'></span>"},
-	 /* Context Reader */    
-	"buttonReaderSettings": null, //missing translation "Reader Settings"
-	"buttonReaderLightTheme": null, //missing translation "Light"
-	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
-	"buttonReaderDarkTheme": null, //missing translation "Dark"
-	"openReaderView": null, //missing translation "Always open in reader view"
-	"autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-	"buttonReaderRedirectYes": null, //missing translation "Yes"
-	"buttonReaderRedirectNo": null, //missing translation "No"
-	"articleReaderView": null, //missing translation "Original Article"
+        "PDFPageCounter": {
+            "unsafeHTML": "page <input type='text'/> of <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": null, //missing translation "Reader Settings"
+        "buttonReaderLightTheme": null, //missing translation "Light"
+        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
+        "buttonReaderDarkTheme": null, //missing translation "Dark"
+        "openReaderView": null, //missing translation "Always open in reader view"
+        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
+        "buttonReaderRedirectYes": null, //missing translation "Yes"
+        "buttonReaderRedirectNo": null, //missing translation "No"
+        "articleReaderView": null, //missing translation "Original Article"
         /* Download manager */
         "downloadCancel": "الغاء",
         "downloadStateCompleted": "تم بنجاح",

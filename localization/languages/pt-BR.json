@@ -40,7 +40,7 @@
         "viewReadingList": "Ver listas de leitura",
         "takeScreenshot": "Capturar tela",
         "clearHistory": "Limpar histórico",
-        "enableBlocking": "Ativar bloqueio de conteúdo para este site", 
+        "enableBlocking": "Ativar bloqueio de conteúdo para este site",
         "disableBlocking": "Desativar bloqueio de conteúdo para este site",
         "clearHistoryConfirmation": "Limpar todo o histórico e dados de navegação?",
         "switchToTask": "Trocar para a tarefa",
@@ -49,12 +49,12 @@
         "moveToTask": "Mover esta aba para uma tarefa",
         "nameTask": "Nomear tarefa",
         "addBookmark": "Adicionar favorito",
-	"searchBookmarks": "Buscar nos favoritos",
+        "searchBookmarks": "Buscar nos favoritos",
         "bookmarksAddTag": "Adicionar tag",
-	"bookmarksSimilarItems": "Itens semelhantes",
-	"searchHistory": "Buscar no histórico",
+        "bookmarksSimilarItems": "Itens semelhantes",
+        "searchHistory": "Buscar no histórico",
         "importBookmarks": "Importar favoritos do arquivo HTML",
-	"exportBookmarks": "Exportar favoritos",
+        "exportBookmarks": "Exportar favoritos",
         "runUserscript": "Executar script do usuário",
         /* navbar */
         "openMenu": "Menu",
@@ -71,10 +71,12 @@
         "viewTasks": "Ver tarefas",
         "newTask": "Nova Tarefa", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Tarefa %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML":"Tarefa deletada! <a> desfazer?</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "Tarefa deletada! <a> desfazer?</a>"
+        },
         "returnToTask": "Retornar a sua tarefa anterior",
-        "taskDescriptionTwo":"%t e %t",
-        "taskDescriptionThree":"%t e %t, mais %n", 
+        "taskDescriptionTwo": "%t e %t",
+        "taskDescriptionThree": "%t e %t, mais %n",
         /* find in page toolbar */
         "searchInPage": "Buscar na página", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "Ocorrência %i de %t", //this and the next label are used to indicate which match is currently highlighted
@@ -82,18 +84,18 @@
         /* Focus mode */
         "isFocusMode": "Você está no modo concentração.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1":"No modo concentração, você não pode criar novas guias ou alternar tarefas.", 
+        "focusModeExplanation1": "No modo concentração, você não pode criar novas guias ou alternar tarefas.",
         "focusModeExplanation2": "Você pode sair do modo concentração desmarcando \"Modo concentração\" no menu - Visualizar .",
         /* relative dates */
-        "timeRangeJustNow":"Agora mesmo",
+        "timeRangeJustNow": "Agora mesmo",
         "timeRangeMinutes": "Há alguns minutos atrás",
-        "timeRangeHour":"Na última hora",
-        "timeRangeToday":"Hoje",
-        "timeRangeYesterday":"Ontem",
+        "timeRangeHour": "Na última hora",
+        "timeRangeToday": "Hoje",
+        "timeRangeYesterday": "Ontem",
         "timeRangeWeek": "Semana passada",
-        "timeRangeMonth":"Mês passado",
-        "timeRangeYear":"Ano passado",
-        "timeRangeLongerAgo":"Há mais de um ano",
+        "timeRangeMonth": "Mês passado",
+        "timeRangeYear": "Ano passado",
+        "timeRangeLongerAgo": "Há mais de um ano",
         /* pages/error/index.html */
         "crashErrorTitle": "Ocorreu algo de errado.",
         "crashErrorSubtitle": "Erro ao carregar esta página.",
@@ -117,7 +119,7 @@
         "phishingErrorVisitAnyway": "Visitar site mesmo assim",
         "phishingErrorLeave": "Sair deste site",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage":"Um erro foi detectado, por favor, feche todas as instâncias abertas e reinicie o Min",
+        "multipleInstancesErrorMessage": "Um erro foi detectado, por favor, feche todas as instâncias abertas e reinicie o Min",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Ocorreu um erro",
         "sessionRestoreErrorExplanation": "Suas abas salvas não puderam ser restauradas corretamente.",
@@ -141,23 +143,25 @@
         "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "Aparência",
         "settingsEnableDarkMode": "Habilitar modo dark:",
-        "settingsDarkModeNever": "Nunca", 
+        "settingsDarkModeNever": "Nunca",
         "settingsDarkModeNight": "À noite",
         "settingsDarkModeAlways": "Sempre",
         "settingsSiteThemeToggle": "Habilitar mudanças de cores na barra de endereços",
         "settingsAdditionalFeaturesHeading": "Recursos adicionais",
         "settingsUserscriptsToggle": "Habilitar scripts do usuário",
         "settingsSeparateTitlebarToggle": "Usar a barra de título separada",
-	"settingsOpenTabsInForegroundToggle": "Abrir novas guias em primeiro plano",
-	"settingsUserscriptsExplanation": {"unsafeHTML":"Scripts do usuário permitem modificar o comportamento do site - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saiba mais</a>."},
-	"settingsUserAgentToggle": "Usar agente de usuário personalizado",
+        "settingsOpenTabsInForegroundToggle": "Abrir novas guias em primeiro plano",
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Scripts do usuário permitem modificar o comportamento do site - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saiba mais</a>."
+        },
+        "settingsUserAgentToggle": "Usar agente de usuário personalizado",
         "settingsUpdateNotificationsToggle": "Verificar atualizações automaticamente",
         "settingsSearchEngineHeading": "Serviço de busca",
         "settingsDefaultSearchEngine": "Escolha o serviço de busca padrão:",
         "settingsDDGExplanation": "Defina DuckDuckGo como o serviço padrão de buscas para ver respostas instantâneas na barra de busca.",
-        "customSearchEngineDescription":"Substituir o serviço de pesquisa por %s",
+        "customSearchEngineDescription": "Substituir o serviço de pesquisa por %s",
         "settingsKeyboardShortcutsHeading": "Teclas de atalho",
-        "settingsKeyboardShortcutsHelp":"Use vírgulas para separar vários atalhos.",
+        "settingsKeyboardShortcutsHelp": "Use vírgulas para separar vários atalhos.",
         "settingsProxyHeading": null, //missing translation
         "settingsNoProxy": null, //missing translation
         "settingsManualProxy": null, //missing translation
@@ -212,24 +216,26 @@
         "appMenuQuit": "Sair do %n",
         "appMenuBringToFront": "Trazer tudo para a frente",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "página <input type='text'/> de <span id='total'></span>"},
-	/* Context Reader */    
-	"buttonReaderSettings": "Configurações do modo leitura",
-	"buttonReaderLightTheme": "Claro",
-	"buttonReaderSepiaTheme": "Sepia ",
-	"buttonReaderDarkTheme": "Escuro",
-	"openReaderView": "Sempre abrir em modo leitura",
-	"autoRedirectBannerReader": "Sempre abrir artigos deste site em modo leitura?",
-	"buttonReaderRedirectYes": "Sim",
-	"buttonReaderRedirectNo": "Não",
-	"articleReaderView": "Artigo original",
+        "PDFPageCounter": {
+            "unsafeHTML": "página <input type='text'/> de <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": "Configurações do modo leitura",
+        "buttonReaderLightTheme": "Claro",
+        "buttonReaderSepiaTheme": "Sepia ",
+        "buttonReaderDarkTheme": "Escuro",
+        "openReaderView": "Sempre abrir em modo leitura",
+        "autoRedirectBannerReader": "Sempre abrir artigos deste site em modo leitura?",
+        "buttonReaderRedirectYes": "Sim",
+        "buttonReaderRedirectNo": "Não",
+        "articleReaderView": "Artigo original",
         /* Download manager */
         "downloadCancel": "Cancelar",
         "downloadStateCompleted": "Concluído",
         "downloadStateFailed": "Falhou",
         /* Update Notifications */
         "updateNotificationTitle": "Uma nova versão do Min está disponível",
-	 /* Autofill settings */
+        /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Preenchimento automático de senhas",
         "settingsSelectPasswordManager": "Escolha um gerenciadoror de senhas suportado:",
         /* Password manager setup */

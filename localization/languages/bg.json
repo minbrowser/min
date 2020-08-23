@@ -49,12 +49,12 @@
         "moveToTask": "Премести този раздел в задача",
         "nameTask": "Наименувай тази задача",
         "addBookmark": "Отмятане на страница",
-		"searchBookmarks": "Търсене на отметки",
+        "searchBookmarks": "Търсене на отметки",
         "bookmarksAddTag": "Добавяне на таг...",
-		"bookmarksSimilarItems": "Подобни елементи",
-		"searchHistory": "История на търсенията",
+        "bookmarksSimilarItems": "Подобни елементи",
+        "searchHistory": "История на търсенията",
         "importBookmarks": "Внасяне на отметки от HTML файл",
-		"exportBookmarks": "Изнасяне на отметки",
+        "exportBookmarks": "Изнасяне на отметки",
         "runUserscript": "Изпълняване на потребителски скрипт",
         /* navbar */
         "openMenu": "Отваряне на меню", //application menu button on windows
@@ -71,7 +71,9 @@
         "viewTasks": "Преглеждане на задачи",
         "newTask": "Отваряне на нова задача", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Задача %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Задачата е изтрита. <a>Върни обратно?</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "Задачата е изтрита. <a>Върни обратно?</a>"
+        },
         "returnToTask": "Връщане към предишната задача",
         "taskDescriptionTwo": "%t и %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
         "taskDescriptionThree": "%t, %t, и още %n", //used to describe a task that has three or more tabs
@@ -149,7 +151,9 @@
         "settingsUserscriptsToggle": "Активиране на потребителски скриптове",
         "settingsSeparateTitlebarToggle": "Използване на отделна лента със заглавието",
         "settingsOpenTabsInForegroundToggle": "Отваряне на нови раздели на преден план",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Потребителските скриптове Ви позволяват да промените поведението на уеб сайтове - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">научете повече</a>."},
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Потребителските скриптове Ви позволяват да промените поведението на уеб сайтове - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">научете повече</a>."
+        },
         "settingsUserAgentToggle": "Използване на персонализиран потребителски агент",
         "settingsUpdateNotificationsToggle": "Автоматично проверяване за актуализации",
         "settingsSearchEngineHeading": "Търсачки",
@@ -212,17 +216,19 @@
         "appMenuQuit": "Излизане от %n",
         "appMenuBringToFront": "Извеждане на всички отпред",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "страница <input type='text'/> от <span id='total'></span>"},
-	/* Context Reader */    
-	"buttonReaderSettings": "Настройки на четец",
-	"buttonReaderLightTheme": "Светла",
-	"buttonReaderSepiaTheme": "Сепия",
-	"buttonReaderDarkTheme": "Тъмна",
-	"openReaderView": "Винаги отваряй в режим на четене",
-	"autoRedirectBannerReader": "Винаги отваряй статии от този сайт в режим на четене?",
-	"buttonReaderRedirectYes": "Да",
-	"buttonReaderRedirectNo": "Не",
-	"articleReaderView": "Оригинална статия",
+        "PDFPageCounter": {
+            "unsafeHTML": "страница <input type='text'/> от <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": "Настройки на четец",
+        "buttonReaderLightTheme": "Светла",
+        "buttonReaderSepiaTheme": "Сепия",
+        "buttonReaderDarkTheme": "Тъмна",
+        "openReaderView": "Винаги отваряй в режим на четене",
+        "autoRedirectBannerReader": "Винаги отваряй статии от този сайт в режим на четене?",
+        "buttonReaderRedirectYes": "Да",
+        "buttonReaderRedirectNo": "Не",
+        "articleReaderView": "Оригинална статия",
         /* Download manager */
         "downloadCancel": "Отказ",
         "downloadStateCompleted": "Завършено",

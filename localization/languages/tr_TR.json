@@ -49,12 +49,12 @@
         "moveToTask": "Bu sekmeyi bir göreve taşı",
         "nameTask": "Bu görevi adlandır",
         "addBookmark": null, //missing translation
-		"searchBookmarks": "Yer işaretlerini ara",
+        "searchBookmarks": "Yer işaretlerini ara",
         "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
-		"searchHistory": "Arama Geçmişi", 
+        "bookmarksSimilarItems": null, //missing translation
+        "searchHistory": "Arama Geçmişi",
         "importBookmarks": null, //missing translation
-		"exportBookmarks": null, //missing translation
+        "exportBookmarks": null, //missing translation
         "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "Menüyü Aç",
@@ -71,7 +71,9 @@
         "viewTasks": "Görevleri Görüntüle",
         "newTask": "Yeni Görev", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Görev %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Görev silindi. <a>Geri?</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "Görev silindi. <a>Geri?</a>"
+        },
         "returnToTask": "Önceki göreve geri dön",
         "taskDescriptionTwo": "%t ve %t",
         "taskDescriptionThree": "%t, %t ve %n fazlası",
@@ -148,8 +150,10 @@
         "settingsAdditionalFeaturesHeading": "Ek Özellikler",
         "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",
         "settingsSeparateTitlebarToggle": null, //missing translation
-		"settingsOpenTabsInForegroundToggle": null, //missing translation
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."},
+        "settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."
+        },
         "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": "Güncelleştirmeleri otomatik olarak denetle",
         "settingsSearchEngineHeading": "Arama Motoru",
@@ -212,17 +216,19 @@
         "appMenuQuit": "%n Çıkış",
         "appMenuBringToFront": "Tümünü Öne Getir",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "<span id='total'></span> sayfanın <input type='text'/> i"},
- 	/* Context Reader */    
-	"buttonReaderSettings": null, //missing translation "Reader Settings"
-	"buttonReaderLightTheme": null, //missing translation "Light"
-	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
-	"buttonReaderDarkTheme": null, //missing translation "Dark"
-	"openReaderView": null, //missing translation "Always open in reader view"
-	"autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-	"buttonReaderRedirectYes": null, //missing translation "Yes"
-	"buttonReaderRedirectNo": null, //missing translation "No"
-	"articleReaderView": null, //missing translation "Original Article"
+        "PDFPageCounter": {
+            "unsafeHTML": "<span id='total'></span> sayfanın <input type='text'/> i"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": null, //missing translation "Reader Settings"
+        "buttonReaderLightTheme": null, //missing translation "Light"
+        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
+        "buttonReaderDarkTheme": null, //missing translation "Dark"
+        "openReaderView": null, //missing translation "Always open in reader view"
+        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
+        "buttonReaderRedirectYes": null, //missing translation "Yes"
+        "buttonReaderRedirectNo": null, //missing translation "No"
+        "articleReaderView": null, //missing translation "Original Article"
         /* Download manager */
         "downloadCancel": "İptal",
         "downloadStateCompleted": "Tamamlandı",
