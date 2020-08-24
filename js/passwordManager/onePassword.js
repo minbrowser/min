@@ -128,8 +128,8 @@ class OnePassword {
         let output = await process.executeSyncInAsyncContext()
         let credential = JSON.parse(output)
 
-        var usernameFields = credential.details.fields.filter(f => f.name == "username")
-        var passwordFields = credential.details.fields.filter(f => f.name == "password")
+        var usernameFields = credential.details.fields.filter(f => f.designation === "username")
+        var passwordFields = credential.details.fields.filter(f => f.designation === "password")
 
         if (usernameFields.length > 0 && passwordFields.length > 0) {
           expandedCredentials.push({
