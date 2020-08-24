@@ -49,12 +49,12 @@
         "moveToTask": "移動至工作",
         "nameTask": "命名工作",
         "addBookmark": "加入書籤",
-		"searchBookmarks": "搜尋書籤",
+        "searchBookmarks": "搜尋書籤",
         "bookmarksAddTag": "新增標籤",
-		"bookmarksSimilarItems": "相似項目",
-		"searchHistory": "搜尋歷史",
+        "bookmarksSimilarItems": "相似項目",
+        "searchHistory": "搜尋歷史",
         "importBookmarks": "自HTML檔案匯入書籤",
-		"exportBookmarks": "匯出書籤",
+        "exportBookmarks": "匯出書籤",
         "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "打開選單",
@@ -71,7 +71,9 @@
         "viewTasks": "查看工作",
         "newTask": "新增工作", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "工作 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "工作已刪除 <a>復原</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "工作已刪除 <a>復原</a>"
+        },
         "returnToTask": "還原上次的工作",
         "taskDescriptionTwo": "%t 和 %t",
         "taskDescriptionThree": "%t，%t，和其他%n個分頁",
@@ -85,12 +87,12 @@
         "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
         "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
-        "timeRangeJustNow": "剛剛", 
+        "timeRangeJustNow": "剛剛",
         "timeRangeMinutes": "幾分鐘前",
         "timeRangeHour": "幾小時前",
         "timeRangeToday": "今天",
         "timeRangeYesterday": "昨天",
-        "timeRangeWeek": "幾星期前", 
+        "timeRangeWeek": "幾星期前",
         "timeRangeMonth": "幾個月前",
         "timeRangeYear": "幾年前",
         "timeRangeLongerAgo": "很久以前",
@@ -117,7 +119,7 @@
         "phishingErrorVisitAnyway": "還是繼續",
         "phishingErrorLeave": "離開",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": "發生了一些問題，請關閉其他分頁然後重新啟動 Min", 
+        "multipleInstancesErrorMessage": "發生了一些問題，請關閉其他分頁然後重新啟動 Min",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "發生錯誤",
         "sessionRestoreErrorExplanation": "上次瀏覽的分頁無法回復",
@@ -148,8 +150,10 @@
         "settingsAdditionalFeaturesHeading": "其他功能",
         "settingsUserscriptsToggle": "允許使用者指令",
         "settingsSeparateTitlebarToggle": "分割標題列",
-		"settingsOpenTabsInForegroundToggle": null, //missing translation
-		"settingsUserscriptsExplanation": {"unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."},
+        "settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
+        },
         "settingsUserAgentToggle": "使用自訂使用者代理",
         "settingsUpdateNotificationsToggle": "自動檢查更新",
         "settingsSearchEngineHeading": "搜索引擎",
@@ -212,17 +216,19 @@
         "appMenuQuit": "結束 %n",
         "appMenuBringToFront": "顯示所有視窗",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "<input type='text'/> / <span id='total'></span> 頁"},
- 	/* Context Reader */    
-	"buttonReaderSettings": null, //missing translation "Reader Settings"
-	"buttonReaderLightTheme": null, //missing translation "Light"
-	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
-	"buttonReaderDarkTheme": null, //missing translation "Dark"
-	"openReaderView": null, //missing translation "Always open in reader view"
-	"autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-	"buttonReaderRedirectYes": null, //missing translation "Yes"
-	"buttonReaderRedirectNo": null, //missing translation "No"
-	"articleReaderView": null, //missing translation "Original Article"
+        "PDFPageCounter": {
+            "unsafeHTML": "<input type='text'/> / <span id='total'></span> 頁"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": null, //missing translation "Reader Settings"
+        "buttonReaderLightTheme": null, //missing translation "Light"
+        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
+        "buttonReaderDarkTheme": null, //missing translation "Dark"
+        "openReaderView": null, //missing translation "Always open in reader view"
+        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
+        "buttonReaderRedirectYes": null, //missing translation "Yes"
+        "buttonReaderRedirectNo": null, //missing translation "No"
+        "articleReaderView": null, //missing translation "Original Article"
         /* Download manager */
         "downloadCancel": "取消",
         "downloadStateCompleted": "已完成",

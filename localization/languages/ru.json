@@ -49,12 +49,12 @@
         "moveToTask": "Переместить эту вкладку в задачу",
         "nameTask": "Название этой задачи",
         "addBookmark": "Добавить закладку",
-		"searchBookmarks": "Искать в закладках",
+        "searchBookmarks": "Искать в закладках",
         "bookmarksAddTag": "Добавить тег",
-		"bookmarksSimilarItems": "Похожие",
-		"searchHistory": "Искать в истории",
+        "bookmarksSimilarItems": "Похожие",
+        "searchHistory": "Искать в истории",
         "importBookmarks": "Импортировать закладки",
-		"exportBookmarks": "Экспортировать закладки",
+        "exportBookmarks": "Экспортировать закладки",
         "runUserscript": "Запустить пользовательский скрипт",
         /* navbar */
         "openMenu": "Открыть меню",
@@ -71,7 +71,9 @@
         "viewTasks": "Показать задачи",
         "newTask": "Новая задача", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Задача %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Задача удалена. <a>Отменить?</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "Задача удалена. <a>Отменить?</a>"
+        },
         "returnToTask": "Вернуться к предыдущей задаче",
         "taskDescriptionTwo": "%t и %t",
         "taskDescriptionThree": "%t, %t, и %n больше",
@@ -148,8 +150,10 @@
         "settingsAdditionalFeaturesHeading": "Дополнительные возможности",
         "settingsUserscriptsToggle": "Пользовательские скрипты",
         "settingsSeparateTitlebarToggle": "Использовать разделитель заголовка",
-		"settingsOpenTabsInForegroundToggle": "Открывать новые вкладки на переднем плане",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Пользовательские скрипты позволяют изменять поведение сайтов - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">узнать больше</a>."},
+        "settingsOpenTabsInForegroundToggle": "Открывать новые вкладки на переднем плане",
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Пользовательские скрипты позволяют изменять поведение сайтов - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">узнать больше</a>."
+        },
         "settingsUserAgentToggle": "Использовать пользовательский user agent",
         "settingsUpdateNotificationsToggle": "Автоматически проверять наличие обновлений",
         "settingsSearchEngineHeading": "Поиск",
@@ -212,34 +216,36 @@
         "appMenuQuit": "Выйти из %n",
         "appMenuBringToFront": "Переместить всё на передний план",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "страница <input type='text'/> из <span id='total'></span>"},
- 	/* Context Reader */    
-	"buttonReaderSettings": "Настройки режима чтения",
-	"buttonReaderLightTheme": "Светлый",
-	"buttonReaderSepiaTheme": "Сепия",
-	"buttonReaderDarkTheme": "Темный",
-	"openReaderView": "Всегда открывать в режиме чтения",
-	"autoRedirectBannerReader": "Всегда открывать статьи с этого сайта в режиме чтения?",
-	"buttonReaderRedirectYes": "Да",
-	"buttonReaderRedirectNo": "Нет",
-	"articleReaderView": "Оригинальная статья",
+        "PDFPageCounter": {
+            "unsafeHTML": "страница <input type='text'/> из <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": "Настройки режима чтения",
+        "buttonReaderLightTheme": "Светлый",
+        "buttonReaderSepiaTheme": "Сепия",
+        "buttonReaderDarkTheme": "Темный",
+        "openReaderView": "Всегда открывать в режиме чтения",
+        "autoRedirectBannerReader": "Всегда открывать статьи с этого сайта в режиме чтения?",
+        "buttonReaderRedirectYes": "Да",
+        "buttonReaderRedirectNo": "Нет",
+        "articleReaderView": "Оригинальная статья",
         /* Download manager */
         "downloadCancel": "Отменить",
         "downloadStateCompleted": "Завершено",
         "downloadStateFailed": "Не удалось",
         /* Update Notifications */
         "updateNotificationTitle": "Доступна новая версия Min",
-	/* Autofill settings */
-	"settingsPasswordAutoFillHeadline": "Автоматическое заполнение пароля",
-	"settingsSelectPasswordManager": "Выберите один из поддерживаемых менеджеров паролей:",
-	/* Password manager setup */
-	"passwordManagerSetupHeading": "Завершить настройку %p для использования автозаполнения",
-	"passwordManagerSetupStep1": {
-		"unsafeHTML": "Во-первых, <a id='password-manager-setup-link'></a> и извлеките его для вашей системы."
-	},
-	"passwordManagerInstallerSetup": {
-		"unsafeHTML": "Загрузите <a id= 'password-manager-setup-link-installer'>< / a> и перетащите файл в поле ниже:"
-	},
+        /* Autofill settings */
+        "settingsPasswordAutoFillHeadline": "Автоматическое заполнение пароля",
+        "settingsSelectPasswordManager": "Выберите один из поддерживаемых менеджеров паролей:",
+        /* Password manager setup */
+        "passwordManagerSetupHeading": "Завершить настройку %p для использования автозаполнения",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "Во-первых, <a id='password-manager-setup-link'></a> и извлеките его для вашей системы."
+        },
+        "passwordManagerInstallerSetup": {
+            "unsafeHTML": "Загрузите <a id= 'password-manager-setup-link-installer'>< / a> и перетащите файл в поле ниже:"
+        },
         "passwordManagerSetupLink": "загрузите инструмент CLI %p",
         "passwordManagerSetupLinkInstaller": "CLI установщик для %p",
         "passwordManagerSetupStep2": "Затем перетащите инструмент в поле ниже:",

@@ -48,13 +48,13 @@
         "closeTask": "Fechar tarefa",
         "moveToTask": "Mover este separador para uma tarefa",
         "nameTask": "Dar nome a esta tarefa",
-	"addBookmark": "Adicionar marcador",
-	"searchBookmarks": "Pesquisar nos marcadores",
-	"bookmarksAddTag": "Adicionar etiqueta",
-	"bookmarksSimilarItems": "Itens semelhantes",
-	"searchHistory": "Pesquisar no histórico",
-	"importBookmarks": "Importar marcadores de ficheiro HTML",
-	"exportBookmarks": "Exportar marcadores",
+        "addBookmark": "Adicionar marcador",
+        "searchBookmarks": "Pesquisar nos marcadores",
+        "bookmarksAddTag": "Adicionar etiqueta",
+        "bookmarksSimilarItems": "Itens semelhantes",
+        "searchHistory": "Pesquisar no histórico",
+        "importBookmarks": "Importar marcadores de ficheiro HTML",
+        "exportBookmarks": "Exportar marcadores",
         "runUserscript": "Executar script",
         /* navbar */
         "openMenu": "Abrir menu", //application menu button on windows
@@ -71,7 +71,9 @@
         "viewTasks": "Ver tarefas",
         "newTask": "Nova tarefa", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Tarefa %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Tarefa eliminada. <a>Desfazer</a>?"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "Tarefa eliminada. <a>Desfazer</a>?"
+        },
         "returnToTask": "Retornar à tarefa anterior",
         "taskDescriptionTwo": "%t e %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
         "taskDescriptionThree": "%t, %t e %n mais", //used to describe a task that has three or more tabs
@@ -148,8 +150,10 @@
         "settingsAdditionalFeaturesHeading": "Outras funcionalidades",
         "settingsUserscriptsToggle": "Ativar scripts de utilizador",
         "settingsSeparateTitlebarToggle": "Utilizar barra de título separada",
-		"settingsOpenTabsInForegroundToggle": "Abrir novos separadores em primeiro plano",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."},
+        "settingsOpenTabsInForegroundToggle": "Abrir novos separadores em primeiro plano",
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."
+        },
         "settingsUserAgentToggle": "Utilizar agente de utilizador personalizado",
         "settingsUpdateNotificationsToggle": "Procurar atualizações automaticamente",
         "settingsSearchEngineHeading": "Motor de pesquisa",
@@ -212,24 +216,26 @@
         "appMenuQuit": "Sair de %n",
         "appMenuBringToFront": "Trazer tudo para a frente",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "página <input type='text'/> de <span id='total'></span>"},
- 	/* Context Reader */    
-	"buttonReaderSettings": "Definições do leitor",
-	"buttonReaderLightTheme": "Claro",
-	"buttonReaderSepiaTheme": "Sépia",
-	"buttonReaderDarkTheme": "Escuro",
-	"openReaderView": "Abrir sempre no modo de leitura",
-	"autoRedirectBannerReader": "Abrir todo os artigos deste site no modo de leitura?",
-	"buttonReaderRedirectYes": "Sim",
-	"buttonReaderRedirectNo": "Não",
-	"articleReaderView": "Artigo original",
+        "PDFPageCounter": {
+            "unsafeHTML": "página <input type='text'/> de <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": "Definições do leitor",
+        "buttonReaderLightTheme": "Claro",
+        "buttonReaderSepiaTheme": "Sépia",
+        "buttonReaderDarkTheme": "Escuro",
+        "openReaderView": "Abrir sempre no modo de leitura",
+        "autoRedirectBannerReader": "Abrir todo os artigos deste site no modo de leitura?",
+        "buttonReaderRedirectYes": "Sim",
+        "buttonReaderRedirectNo": "Não",
+        "articleReaderView": "Artigo original",
         /* Download manager */
         "downloadCancel": "Cancelar",
         "downloadStateCompleted": "Terminada",
         "downloadStateFailed": "Falhada",
         /* Update Notifications */
         "updateNotificationTitle": "Está disponível uma uma nova versão",
-	    /* Autofill settings */
+        /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Preenchimento automático de palavras-passe",
         "settingsSelectPasswordManager": "Escolha uma das seguintes aplicações:",
         /* Password manager setup */
@@ -239,7 +245,7 @@
         },
         "passwordManagerInstallerSetup": {
             "unsafeHTML": "Descarregue <a id='password-manager-setup-link-installer'></a> e arraste o ficheiro para a caixa abaixo:"
-},
+        },
         "passwordManagerSetupLink": "descarregue a ferramenta CLI %p",
         "passwordManagerSetupLinkInstaller": "o instalador da ferramenta %p CLI",
         "passwordManagerSetupStep2": "Depois, arraste a ferramenta para a caixa abaixo:",

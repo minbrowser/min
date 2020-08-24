@@ -49,12 +49,12 @@
         "moveToTask": "Move this tab to a task",
         "nameTask": "Name this task",
         "addBookmark": "Add bookmark",
-		"searchBookmarks": "Search bookmarks",
+        "searchBookmarks": "Search bookmarks",
         "bookmarksAddTag": "Add tag...",
-		"bookmarksSimilarItems": "Similar items",
-		"searchHistory": "Search history",
+        "bookmarksSimilarItems": "Similar items",
+        "searchHistory": "Search history",
         "importBookmarks": "Import bookmarks from HTML file",
-		"exportBookmarks": "Export bookmarks",
+        "exportBookmarks": "Export bookmarks",
         "runUserscript": "Run userscript",
         /* navbar */
         "openMenu": "Open menu", //application menu button on windows
@@ -71,7 +71,9 @@
         "viewTasks": "View Tasks",
         "newTask": "New Task", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Task %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Task deleted. <a>Undo?</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "Task deleted. <a>Undo?</a>"
+        },
         "returnToTask": "Return to your previous task",
         "taskDescriptionTwo": "%t and %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
         "taskDescriptionThree": "%t, %t, and %n more", //used to describe a task that has three or more tabs
@@ -149,7 +151,9 @@
         "settingsUserscriptsToggle": "Enable user scripts",
         "settingsSeparateTitlebarToggle": "Use separate title bar",
         "settingsOpenTabsInForegroundToggle": "Open new tabs in the foreground",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "User scripts allow you to modify the behavior of websites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "User scripts allow you to modify the behavior of websites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."
+        },
         "settingsUserAgentToggle": "Use a custom user agent",
         "settingsUpdateNotificationsToggle": "Automatically check for updates",
         "settingsSearchEngineHeading": "Search Engine",
@@ -212,17 +216,19 @@
         "appMenuQuit": "Quit %n",
         "appMenuBringToFront": "Bring All to Front",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "page <input type='text'/> of <span id='total'></span>"},
-	/* Context Reader */    
-	"buttonReaderSettings": "Reader Settings",
-	"buttonReaderLightTheme": "Light",
-	"buttonReaderSepiaTheme": "Sepia",
-	"buttonReaderDarkTheme": "Dark",
-	"openReaderView": "Always open in reader view",
-	"autoRedirectBannerReader": "Always open articles from this site in reader view?",
-	"buttonReaderRedirectYes": "Yes",
-	"buttonReaderRedirectNo": "No",
-	"articleReaderView": "Original Article",
+        "PDFPageCounter": {
+            "unsafeHTML": "page <input type='text'/> of <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": "Reader Settings",
+        "buttonReaderLightTheme": "Light",
+        "buttonReaderSepiaTheme": "Sepia",
+        "buttonReaderDarkTheme": "Dark",
+        "openReaderView": "Always open in reader view",
+        "autoRedirectBannerReader": "Always open articles from this site in reader view?",
+        "buttonReaderRedirectYes": "Yes",
+        "buttonReaderRedirectNo": "No",
+        "articleReaderView": "Original Article",
         /* Download manager */
         "downloadCancel": "Cancel",
         "downloadStateCompleted": "Completed",

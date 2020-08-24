@@ -49,12 +49,12 @@
         "moveToTask": "Przenieś tę kartę do zadania",
         "nameTask": "Nazwij to zadanie",
         "addBookmark": "Dodaj zakładkę",
-		"searchBookmarks": "Zakładki wyszukiwania",
+        "searchBookmarks": "Zakładki wyszukiwania",
         "bookmarksAddTag": "Dodaj znacznik...",
-		"bookmarksSimilarItems": "Podobne pozycje",
-		"searchHistory": "Historia wyszukiwania",
+        "bookmarksSimilarItems": "Podobne pozycje",
+        "searchHistory": "Historia wyszukiwania",
         "importBookmarks": "Importuj zakładki z pliku HTML",
-		"exportBookmarks": "Eksportuj zakładki",
+        "exportBookmarks": "Eksportuj zakładki",
         "runUserscript": "Uruchom skrypt użytkownika",
         /* navbar */
         "openMenu": "Otwórz menu", //application menu button on windows
@@ -71,7 +71,9 @@
         "viewTasks": "Wyświetl zadania",
         "newTask": "Nowe zadanie", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Zadanie %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Zadanie usunięte. <a>Cofnąć?</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "Zadanie usunięte. <a>Cofnąć?</a>"
+        },
         "returnToTask": "Wróć do poprzedniego zadania",
         "taskDescriptionTwo": "%t i %t",
         "taskDescriptionThree": "%t, %t i %n więcej",
@@ -123,7 +125,7 @@
         "sessionRestoreErrorExplanation": "Nie można przywrócić poprawnie zapisanych kart.",
         "sessionRestoreErrorBackupInfo": "W tej lokalizacji zapisaliśmy kopię zapasową danych: %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
-          "unsafeHTML": "Jeśli błąd nadal występuje, otwórz nowy problem <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">tutaj</a>."
+            "unsafeHTML": "Jeśli błąd nadal występuje, otwórz nowy problem <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">tutaj</a>."
         },
         /* pages/settings/index.html */
         "settingsPreferencesHeading": "Preferencje",
@@ -148,8 +150,10 @@
         "settingsAdditionalFeaturesHeading": "Dodatkowe funkcje",
         "settingsUserscriptsToggle": "Włącz skrypty użytkownika",
         "settingsSeparateTitlebarToggle": "Użyj osobnego paska tytułu",
-		"settingsOpenTabsInForegroundToggle": "Otwórz nowe karty na pierwszym planie",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
+        "settingsOpenTabsInForegroundToggle": "Otwórz nowe karty na pierwszym planie",
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."
+        },
         "settingsUserAgentToggle": "Użyj niestandardowego klienta użytkownika",
         "settingsUpdateNotificationsToggle": "Automatycznie sprawdź dostępność aktualizacji",
         "settingsSearchEngineHeading": "Wyszukiwarka",
@@ -212,24 +216,26 @@
         "appMenuQuit": "Zamknij %n",
         "appMenuBringToFront": "Umieść wszystko na wierzchu",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "strona <input type='text'/> z <span id='total'></span>"},
- 	/* Context Reader */    
-	"buttonReaderSettings": "Ustawienia czytnika",
-	"buttonReaderLightTheme": "Jasny",
-	"buttonReaderSepiaTheme": "Sepia",
-	"buttonReaderDarkTheme": "Ciemny",
-	"openReaderView": "Zawsze otwieraj w widoku czytnika",
-	"autoRedirectBannerReader": "Czy zawsze otwierać artykuły z tej witryny w widoku czytelnika?",
-	"buttonReaderRedirectYes": "Tak",
-	"buttonReaderRedirectNo": "Nie",
-	"articleReaderView": "Oryginalny artykuł",
+        "PDFPageCounter": {
+            "unsafeHTML": "strona <input type='text'/> z <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": "Ustawienia czytnika",
+        "buttonReaderLightTheme": "Jasny",
+        "buttonReaderSepiaTheme": "Sepia",
+        "buttonReaderDarkTheme": "Ciemny",
+        "openReaderView": "Zawsze otwieraj w widoku czytnika",
+        "autoRedirectBannerReader": "Czy zawsze otwierać artykuły z tej witryny w widoku czytelnika?",
+        "buttonReaderRedirectYes": "Tak",
+        "buttonReaderRedirectNo": "Nie",
+        "articleReaderView": "Oryginalny artykuł",
         /* Download manager */
         "downloadCancel": "Anuluj pobieranie",
         "downloadStateCompleted": "Pobieranie zakończone",
         "downloadStateFailed": "Błąd pobierania",
         /* Update Notifications */
         "updateNotificationTitle": "Dostępna jest nowa wersja Min",
-	/* Autofill settings */
+        /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Autouzupełnianie hasła",
         "settingsSelectPasswordManager": "Wybierz jeden z obsługiwanych menedżerów haseł:",
         /* Password manager setup */

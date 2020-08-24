@@ -17,10 +17,10 @@
         "searchWith": "Tìm kiếm với %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Chép liên kết",
         "copyEmailAddress": null, //missing translation
-        "selectAll": "Chọn tất cả", 
-        "undo": "Hoàn tác", 
-        "redo": "Làm lại", 
-        "cut": "Cắt", 
+        "selectAll": "Chọn tất cả",
+        "undo": "Hoàn tác",
+        "redo": "Làm lại",
+        "cut": "Cắt",
         "copy": "Chép", //this is a verb (as in "copy the currently-selected text")
         "paste": "Dán",
         "goBack": "Đi lại trang trước",
@@ -49,12 +49,12 @@
         "moveToTask": "Chuyển tab này sang quá trình khác",
         "nameTask": "Ghi tên quá trình này",
         "addBookmark": "Đánh dấu trang này",
-		"searchBookmarks": "Tìm kiếm trong trang web đánh dấu",
+        "searchBookmarks": "Tìm kiếm trong trang web đánh dấu",
         "bookmarksAddTag": "Thêm thẻ",
-		"bookmarksSimilarItems": "Các mục tương tự",
-		"searchHistory": "Tìm kiếm trong lịch sử",
+        "bookmarksSimilarItems": "Các mục tương tự",
+        "searchHistory": "Tìm kiếm trong lịch sử",
         "importBookmarks": "Nhập dấu trang từ tệp HTML",
-		"exportBookmarks": "Xuất dấu trang",
+        "exportBookmarks": "Xuất dấu trang",
         "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "Mở menu", //application menu button on windows
@@ -144,8 +144,10 @@
         "settingsAdditionalFeaturesHeading": "Đặc tính hơn",
         "settingsUserscriptsToggle": "Bật mã script người dùng",
         "settingsSeparateTitlebarToggle": null, //missing translation
-		"settingsOpenTabsInForegroundToggle": null, //missing translation
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Mã script người dùng có thể cho bạn thay đổi hành vi trang web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">biết thêm</a>."},
+        "settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Mã script người dùng có thể cho bạn thay đổi hành vi trang web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">biết thêm</a>."
+        },
         "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": "Tự động kiểm tra cập nhật",
         "settingsSearchEngineHeading": "Công cụ tìm kiếm",
@@ -208,17 +210,19 @@
         "appMenuQuit": "Thoát %n",
         "appMenuBringToFront": "Đưa tất cả trên trước",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "trang <input type='text'/> của <span id='total'></span>"},
- 	/* Context Reader */    
-	"buttonReaderSettings": null, //missing translation "Reader Settings"
-	"buttonReaderLightTheme": null, //missing translation "Light"
-	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
-	"buttonReaderDarkTheme": null, //missing translation "Dark"
-	"openReaderView": null, //missing translation "Always open in reader view"
-	"autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-	"buttonReaderRedirectYes": null, //missing translation "Yes"
-	"buttonReaderRedirectNo": null, //missing translation "No"
-	"articleReaderView": null, //missing translation "Original Article"
+        "PDFPageCounter": {
+            "unsafeHTML": "trang <input type='text'/> của <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": null, //missing translation "Reader Settings"
+        "buttonReaderLightTheme": null, //missing translation "Light"
+        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
+        "buttonReaderDarkTheme": null, //missing translation "Dark"
+        "openReaderView": null, //missing translation "Always open in reader view"
+        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
+        "buttonReaderRedirectYes": null, //missing translation "Yes"
+        "buttonReaderRedirectNo": null, //missing translation "No"
+        "articleReaderView": null, //missing translation "Original Article"
         /* Download manager */
         "downloadCancel": "Hủy",
         "downloadStateCompleted": "Hoàn tất",
