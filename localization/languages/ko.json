@@ -138,9 +138,9 @@
         "settingsBlockScriptsToggle": "명령(스크립트) 차단",
         "settingsBlockImagesToggle": "그림 차단",
         "settingsBlockedRequestCount": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "지금까지 민(Min)은 <strong></strong> 광고 및 추적기를 차단했습니다."
         },
-        "settingsCustomizeFiltersLink": null, //missing translation
+        "settingsCustomizeFiltersLink": "사용자 정의 필터",
         "settingsAppearanceHeading": "외형",
         "settingsEnableDarkMode": "어두운 외형(Dark Mode) 사용:",
         "settingsDarkModeNever": "사용하지 않음",
@@ -162,13 +162,13 @@
         "customSearchEngineDescription": "검색어 변경: %s",
         "settingsKeyboardShortcutsHeading": "단축키",
         "settingsKeyboardShortcutsHelp": "여러 개의 단축키는 쉼표로 구분됩니다.",
-        "settingsProxyHeading": null, //missing translation
-        "settingsNoProxy": null, //missing translation
-        "settingsManualProxy": null, //missing translation
-        "settingsAutomaticProxy": null, //missing translation
-        "settingsProxyRules": null, //missing translation
-        "settingsProxyBypassRules": null, //missing translation
-        "settingsProxyConfigurationURL": null, //missing translation
+        "settingsProxyHeading": "프록시",
+        "settingsNoProxy": "사용하지 않음",
+        "settingsManualProxy": "수동 설정",
+        "settingsAutomaticProxy": "자동 설정",
+        "settingsProxyRules": "프록시 규칙:",
+        "settingsProxyBypassRules": "다음에서 프록시를 사용하지 않음:",
+        "settingsProxyConfigurationURL": "URL 설정",
         /* app menu */
         "appMenuFile": "작업",
         "appMenuNewTab": "새 작업",
@@ -262,7 +262,7 @@
         "dialogConfirmButton": "확인",
         "dialogSkipButton": "취소",
         "username": "사용자 이름",
-        "email": "전자우편 주소(E-Mail)",
+        "email": "전자우편주소(E-Mail)",
         "password": "비밀번호",
         "secretKey": "비밀 보안 키"
     }
