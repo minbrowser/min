@@ -57,7 +57,7 @@ var platformOptions = {
     platform: 'win32',
     icon: 'icons/icon256.ico'
   },
-  linux: {
+  linuxAmd64: {
     name: 'min', // name must be lowercase to run correctly after installation
     platform: 'linux',
     arch: 'x64'
@@ -67,6 +67,12 @@ var platformOptions = {
     platform: 'linux',
     arch: 'armv7l',
     fpm: ['--architecture', 'armhf']
+  },
+  linuxArm64: {
+    name: 'min', // name must be lowercase to run correctly after installation
+    platform: 'linux',
+    arch: 'arm64',
+    fpm: ['--architecture', 'aarch64']
   }
 }
 

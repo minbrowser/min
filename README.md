@@ -45,6 +45,7 @@ In order to build Min from source, follow the installation instructions above, t
 * ```npm run buildMac```
 * ```npm run buildDebian```
 * ```npm run buildRaspi``` (for Raspberry Pi, Raspberry Pi OS)
+* ```npm run buildLinuxArm64```
 * ```npm run buildRedhat```
 
 Depending on the platform you are building for, you may need to install additional dependencies:
