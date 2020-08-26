@@ -138,9 +138,9 @@
         "settingsBlockScriptsToggle": "Zablokuj skrypty",
         "settingsBlockImagesToggle": "Zablokuj obrazy",
         "settingsBlockedRequestCount": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "Jak dotąd Min zablokował reklamy i moduły śledzące w ilości: <strong></strong>."
         },
-        "settingsCustomizeFiltersLink": null, //missing translation
+        "settingsCustomizeFiltersLink": "Dostosuj filtry",
         "settingsAppearanceHeading": "Wygląd",
         "settingsEnableDarkMode": "Włącz tryb ciemny:",
         "settingsDarkModeNever": "Nigdy",
@@ -162,13 +162,13 @@
         "customSearchEngineDescription": "Zamień wyszukiwane hasło na %s",
         "settingsKeyboardShortcutsHeading": "Skróty klawiszowe",
         "settingsKeyboardShortcutsHelp": "Użyj przecinków, aby oddzielić wiele skrótów.",
-        "settingsProxyHeading": null, //missing translation
-        "settingsNoProxy": null, //missing translation
-        "settingsManualProxy": null, //missing translation
-        "settingsAutomaticProxy": null, //missing translation
-        "settingsProxyRules": null, //missing translation
-        "settingsProxyBypassRules": null, //missing translation
-        "settingsProxyConfigurationURL": null, //missing translation
+        "settingsProxyHeading": "Serwer proxy",
+        "settingsNoProxy": "Brak serwera proxy",
+        "settingsManualProxy": "Konfiguracja ręczna",
+        "settingsAutomaticProxy": "Konfiguracja automatyczna",
+        "settingsProxyRules": "Zasady serwera proxy:",
+        "settingsProxyBypassRules": "Brak serwera proxy dla:",
+        "settingsProxyConfigurationURL": "Adres URL konfiguracji",
         /* app menu */
         "appMenuFile": "Plik",
         "appMenuNewTab": "Nowa karta",
