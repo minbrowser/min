@@ -1,7 +1,7 @@
 {
-    "version": "1.15.0",
-    "releaseTime": 1592713127585,
-    "releaseHeadline": "Improved scripting support and bug fixes",
+    "version": "1.16.0",
+    "releaseTime": 1598559207455,
+    "releaseHeadline": "UI improvements and new features",
     "releaseNotes": "https://minbrowser.org/releases/",
     "availabilityPercent": 1
 }
