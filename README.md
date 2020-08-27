@@ -10,15 +10,24 @@ Min is a fast, minimal browser that protects your privacy. It includes an interf
 * Password manager integration
 * Dark theme
 
-More information, and prebuilt binaries are available [here](https://minbrowser.org/).
+Download Min from the [releases page](https://github.com/minbrowser/min/releases), or learn more on the [website](https://minbrowser.org/).
+
+
+Min is made possible by these sponsors:
+
+|[<img src="https://avatars1.githubusercontent.com/u/22417494?s=460&v=4" width="40">](https://github.com/shalva97)|   |
+|---|---|
+|[@shalva97](https://github.com/shalva97)|   |
+
+[Become a sponsor](https://github.com/sponsors/PalmerAL)
 
 ## Screenshots
 
-<img alt="The search bar, showing information from DuckDuckGo" src="http://minbrowser.org/tour/img/searchbar_duckduckgo_answers.png" width="700"/>
+<img alt="The search bar, showing information from DuckDuckGo" src="http://minbrowser.org/tour/img/searchbar_duckduckgo_answers.png" width="650"/>
 
-<img alt="The Tasks Overlay" src="http://minbrowser.org/tour/img/tasks.png" width="700"/>
+<img alt="The Tasks Overlay" src="http://minbrowser.org/tour/img/tasks.png" width="650"/>
 
-<img alt="Reader View" src="https://user-images.githubusercontent.com/10314059/53312382-67ca7d80-387a-11e9-9ccc-88ac592c9b1c.png" width="700"/>
+<img alt="Reader View" src="https://user-images.githubusercontent.com/10314059/53312382-67ca7d80-387a-11e9-9ccc-88ac592c9b1c.png" width="650"/>
 
 ## Installing
 
