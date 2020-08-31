@@ -62,6 +62,23 @@ autoReaderCheckbox.addEventListener('change', function () {
 var navLinksContainer = document.getElementById('site-nav-links')
 
 function extractAndShowNavigation (doc) {
+  // show a site icon
+
+  var siteIconLink = document.createElement('a')
+  siteIconLink.className = 'site-icon-link'
+  siteIconLink.href = articleLocation.protocol + '//' + articleLocation.host
+
+  var siteIcon = document.createElement('img')
+  siteIcon.className = 'site-icon'
+  siteIcon.src = articleLocation.protocol + '//' + articleLocation.host + '/favicon.ico'
+  siteIconLink.appendChild(siteIcon)
+  navLinksContainer.appendChild(siteIconLink)
+
+  siteIcon.style.opacity = 0
+  siteIcon.addEventListener('load', function () {
+    siteIcon.style.opacity = 1
+  })
+
   try {
     // URL parsing can fail, but this shouldn't prevent the article from displaying
 
@@ -80,10 +97,20 @@ function extractAndShowNavigation (doc) {
       })
       .filter(el => el.getAttribute('href') && !el.getAttribute('href').startsWith('#') && !el.getAttribute('href').startsWith('javascript:'))
       .filter(el => {
-        // we want links that go to different sections of the site, so links to the same directory as the current article should be excluded
         const url = new URL(el.href)
         const dir = url.pathname.split('/').slice(0, -1).join('/')
-        return dir !== currentDir
+
+        // we want links that go to different sections of the site, so links to the same directory as the current article should be excluded
+        if (dir === currentDir) {
+          return false
+        }
+
+        // links that go to different domains probably aren't relevant
+        if (url.hostname.replace('www.', '') !== articleLocation.hostname.replace('www.', '')) {
+          return false
+        }
+
+        return true
       })
       .filter(el => el.textContent.trim() && el.textContent.trim().replace(/\s+/g, ' ').length < 65)
 
@@ -91,9 +118,17 @@ function extractAndShowNavigation (doc) {
     var itemURLSet = items.map(item => new URL(item.href).toString())
     items = items.filter((item, idx) => itemURLSet.indexOf(new URL(item.href).toString()) === idx)
 
-    // show a maximum of 7 links
+    // show links up to a character limit (so they all mostly fit in one line)
     // TODO maybe have a way to show more links (dropdown menu?)
-    items.slice(0, 7).forEach(function (item) {
+
+    var accumulatedLength = 0
+
+    items.forEach(function (item) {
+      accumulatedLength += item.textContent.length + 2
+      if (accumulatedLength > 125) {
+        return
+      }
+
       // need to use articleURL as base URL to parse relative links correctly
       var realURL = new URL(item.getAttribute('href'), articleURL)
 

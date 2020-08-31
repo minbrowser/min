@@ -120,7 +120,7 @@ body[theme="dark"] #auto-redirect-button-area button {
 }
 body[theme="dark"] #settings-dropdown {
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.75);
-	background: rgb(49, 52, 59);
+	background: rgb(54, 57, 65);
 }
 
 body[theme="sepia"] #settings-dropdown {
@@ -178,6 +178,20 @@ body[theme="sepia"] #settings-dropdown {
 
 #site-nav-links {
 	padding: 1em 1.5em;
+}
+
+#site-nav-links .site-icon-link {
+	opacity: 0.9 !important;
+}
+
+#site-nav-links .site-icon {
+	width: 22px;
+	height: 22px;
+	vertical-align: text-bottom;
+}
+
+body[theme="dark"] .site-icon {
+	background: rgba(255, 255, 255, 0.8);
 }
 
 #site-nav-links a {
