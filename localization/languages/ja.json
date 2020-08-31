@@ -162,13 +162,13 @@
         "customSearchEngineDescription": "検索語を％sに置き換えます",
         "settingsKeyboardShortcutsHeading": "キーボードショートカット",
         "settingsKeyboardShortcutsHelp": "カンマ区切りで複数のショートカットを登録できます。",
-        "settingsProxyHeading": null, //missing translation
-        "settingsNoProxy": null, //missing translation
-        "settingsManualProxy": null, //missing translation
-        "settingsAutomaticProxy": null, //missing translation
-        "settingsProxyRules": null, //missing translation
-        "settingsProxyBypassRules": null, //missing translation
-        "settingsProxyConfigurationURL": null, //missing translation
+        "settingsProxyHeading": "プロキシ",
+        "settingsNoProxy": "プロキシなし",
+        "settingsManualProxy": "手動設定",
+        "settingsAutomaticProxy": "自動構成",
+        "settingsProxyRules": "プロキシルール：",
+        "settingsProxyBypassRules": "プロキシなし：",
+        "settingsProxyConfigurationURL": "構成URL",
         /* app menu */
         "appMenuFile": "ファイル",
         "appMenuNewTab": "新規タブ",
