@@ -124,7 +124,6 @@ class Bitwarden {
     } catch (ex) {
       const { error, data } = ex
       console.error('Error accessing Bitwarden CLI. STDOUT: ' + data + '. STDERR: ' + error)
-      throw ex
     }
   }
 
@@ -139,6 +138,8 @@ class Bitwarden {
       }
 
       this.sessionKey = result;
+      await this.forceSync(this.path)
+
       return true
     } catch (ex) {
       const { error, data } = ex
