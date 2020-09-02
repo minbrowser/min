@@ -8,6 +8,8 @@
     background-color: rgb(200, 200, 200);
     margin-top: 25px;
     padding: 0;
+    /* disables scroll anchoring to prevent https://github.com/minbrowser/min/issues/1209 */
+    overflow-anchor: none;
   }
   body.dark-mode {
     background-color: rgb(33, 37, 43);
