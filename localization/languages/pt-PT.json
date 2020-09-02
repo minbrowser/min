@@ -162,13 +162,13 @@
         "customSearchEngineDescription": "Substituir termo de pesquisa por %s",
         "settingsKeyboardShortcutsHeading": "Teclas de atalho",
         "settingsKeyboardShortcutsHelp": "Utilize vírgulas para separar os diversos atalhos",
-        "settingsProxyHeading": null, //missing translation
-        "settingsNoProxy": null, //missing translation
-        "settingsManualProxy": null, //missing translation
-        "settingsAutomaticProxy": null, //missing translation
-        "settingsProxyRules": null, //missing translation
-        "settingsProxyBypassRules": null, //missing translation
-        "settingsProxyConfigurationURL": null, //missing translation
+        "settingsProxyHeading": "Proxy",
+        "settingsNoProxy": "Sem proxy",
+        "settingsManualProxy": "Configuração manual",
+        "settingsAutomaticProxy": "Configuração automática",
+        "settingsProxyRules": "Regras do proxy:",
+        "settingsProxyBypassRules": "Não usar proxy para:",
+        "settingsProxyConfigurationURL": "URL de configuração",
         /* app menu */
         "appMenuFile": "Ficheiro",
         "appMenuNewTab": "Novo separador",
