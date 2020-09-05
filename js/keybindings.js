@@ -18,7 +18,7 @@ var shortcutsList = []
 var registeredMousetrapBindings = {}
 
 /*
-Determines whether a shortcut can actually ru
+Determines whether a shortcut can actually run
 single-letter shortcuts and shortcuts used for text editing can't run when an input is focused
 */
 function checkShortcutCanRun (combo, cb) {
@@ -162,4 +162,4 @@ function initialize () {
 
 initialize()
 
-module.exports = {defineShortcut}n
+module.exports = {defineShortcut}
