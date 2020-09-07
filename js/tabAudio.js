@@ -8,10 +8,6 @@ var tabAudio = {
     volumeIcon: "carbon:volume-up-filled",
     setWebViewMuted: function(tabId, muted) {
         webviews.callAsync(tabId, "setAudioMuted", muted)
-        // const webView = getView(tabId)
-        // if (webView) {
-        //     webView.webContents.setAudioMuted(muted)
-        // }
     },
     getButton: function(tabId) {
         var button = document.createElement('button')
@@ -38,31 +34,33 @@ var tabAudio = {
         var volumeIcon = tabAudio.volumeIcon
 
         if (tab.muted) {
+            button.classList.remove("hidden")
             button.classList.remove(volumeIcon)
             button.classList.add(muteIcon)
         } else if (tab.hasAudio) {
+            button.classList.remove("hidden")
             button.classList.add(volumeIcon)
             button.classList.remove(muteIcon)
         } else {
-            button.classList.remove(volumeIcon)
-            button.classList.remove(muteIcon)
+            button.classList.add("hidden")
         }
     },
     toggleAudio: function(tabId) {
         var tab = tabs.get(tabId)
-        tabAudio.setWebViewMuted(tabId, !tab.muted)
-        tabs.update(tabId, {muted: !tab.muted})
+        // can be muted if has audio, can be unmuted if muted
+        if (tab.hasAudio || tab.muted) {
+            tabAudio.setWebViewMuted(tabId, !tab.muted)
+            tabs.update(tabId, {muted: !tab.muted})
+        }
     },
     initialize: function() {
         keybindings.defineShortcut('toggleTabAudio', function() {
             tabAudio.toggleAudio(tabs.getSelected())
         })
         webviews.bindEvent('media-started-playing', function (tabId) {
-            console.log('started playing', tabId)
             tabs.update(tabId, {hasAudio: true})
         })
         webviews.bindEvent('media-paused', function (tabId) {
-            console.log('media paused', tabId)
             tabs.update(tabId, {hasAudio: false})
         })
     }
