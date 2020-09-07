@@ -20,7 +20,7 @@ class TabList {
       scrollPosition: tab.scrollPosition || 0,
       selected: tab.selected || false,
       muted: tab.muted || false,
-      hasAudio: tab.hasAudio || false
+      hasAudio: false
     }
 
     if (options.atEnd) {

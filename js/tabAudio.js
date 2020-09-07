@@ -31,9 +31,6 @@ var tabAudio = {
         return button
     },
     updateButton: function(tabId, button) {
-        // make sure tab data is synced with webview muted
-        tabAudio.setWebViewMuted(tabId, tabs.get(tabId).muted)
-
         var button = button || document.querySelector('.tab-audio-button[data-tab="{id}"]'.replace('{id}', tabId))
         var tab = tabs.get(tabId)
 
