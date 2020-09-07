@@ -7,10 +7,11 @@ var tabAudio = {
     muteIcon: "carbon:volume-mute-filled",
     volumeIcon: "carbon:volume-up-filled",
     setWebViewMuted: function(tabId, muted) {
-        const webView = getView(tabId)
-        if (webView) {
-            webView.webContents.setAudioMuted(muted)
-        }
+        webviews.callAsync(tabId, "setAudioMuted", muted)
+        // const webView = getView(tabId)
+        // if (webView) {
+        //     webView.webContents.setAudioMuted(muted)
+        // }
     },
     getButton: function(tabId) {
         var button = document.createElement('button')
