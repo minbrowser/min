@@ -27,7 +27,7 @@
         "goForward": "Avançar",
         "inspectElement": "Inspecionar elemento",
         /* searchbar */
-        "pasteAndGo": null, //missing translation
+        "pasteAndGo": "Colar e ir",  //context menu item
         "DDGAnswerSubtitle": "Resposta", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Site sugerido", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Resultados do DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -138,9 +138,9 @@
         "settingsBlockScriptsToggle": "Bloquear scripts",
         "settingsBlockImagesToggle": "Bloquear imagens",
         "settingsBlockedRequestCount": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "Até agora, o Min bloqueou <strong> </strong> anúncios e rastreadores."
         },
-        "settingsCustomizeFiltersLink": null, //missing translation
+        "settingsCustomizeFiltersLink": "Personalizar filtros",
         "settingsAppearanceHeading": "Aparência",
         "settingsEnableDarkMode": "Habilitar modo dark:",
         "settingsDarkModeNever": "Nunca",
@@ -162,13 +162,13 @@
         "customSearchEngineDescription": "Substituir o serviço de pesquisa por %s",
         "settingsKeyboardShortcutsHeading": "Teclas de atalho",
         "settingsKeyboardShortcutsHelp": "Use vírgulas para separar vários atalhos.",
-        "settingsProxyHeading": null, //missing translation
-        "settingsNoProxy": null, //missing translation
-        "settingsManualProxy": null, //missing translation
-        "settingsAutomaticProxy": null, //missing translation
-        "settingsProxyRules": null, //missing translation
-        "settingsProxyBypassRules": null, //missing translation
-        "settingsProxyConfigurationURL": null, //missing translation
+        "settingsProxyHeading": "Proxy",
+        "settingsNoProxy": "Não usar Proxy",
+        "settingsManualProxy": "Configuração Manual", 
+        "settingsAutomaticProxy": "Configuração Automática",
+        "settingsProxyRules": "Regras de proxy:",
+        "settingsProxyBypassRules": "Sem proxy para:",
+        "settingsProxyConfigurationURL": "Configuração de URL", 
         /* app menu */
         "appMenuFile": "Arquivo",
         "appMenuNewTab": "Nova aba",
