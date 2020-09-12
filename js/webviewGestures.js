@@ -162,12 +162,12 @@ webviews.bindIPC('wheel-event', function (tabId, e) {
   /* cmd-key while scrolling should zoom in and out */
 
   if (platformZoomKey && initialZoomKeyState) {
-    if (verticalMouseMove > 55) {
+    if (verticalMouseMove > 50) {
       verticalMouseMove = -10
       webviewGestures.zoomWebviewOut(tabs.getSelected())
     }
 
-    if (verticalMouseMove < -55) {
+    if (verticalMouseMove < -50) {
       verticalMouseMove = -10
       webviewGestures.zoomWebviewIn(tabs.getSelected())
     }
