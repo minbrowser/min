@@ -18,7 +18,7 @@
         "copyLink": "Копіювати посилання",
         "copyEmailAddress": "Копіювати адресу електронної пошти",
         "selectAll": "Вибрати все",
-        "undo": "   ",
+        "undo": "Скасувати",
         "redo": "Повторити",
         "cut": "Вирізати",
         "copy": "Копіювати", //this is a verb (as in "copy the currently-selected text")
