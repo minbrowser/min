@@ -143,7 +143,7 @@
         "settingsSiteThemeToggle": "Bật chủ đề trang",
         "settingsAdditionalFeaturesHeading": "Đặc tính hơn",
         "settingsUserscriptsToggle": "Bật mã script người dùng",
-        "settingsShowDividerToggle": "Hiển thị dải phân cách giữa các tab",
+        "settingsShowDividerToggle": null, // Missing translation
         "settingsSeparateTitlebarToggle": null, //missing translation
         "settingsOpenTabsInForegroundToggle": null, //missing translation
         "settingsUserscriptsExplanation": {

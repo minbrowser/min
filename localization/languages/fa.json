@@ -149,7 +149,7 @@
         "settingsSiteThemeToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": "امکانات اضافه",
         "settingsUserscriptsToggle": "فعال کردن اسکریپت های کاربر",
-        "settingsShowDividerToggle": "تقسیم بین برگه ها را نشان دهید",
+        "settingsShowDividerToggle": null, // Missing translation
         "settingsSeparateTitlebarToggle": null, //missing translation
         "settingsOpenTabsInForegroundToggle": null, //missing translation
         "settingsUserscriptsExplanation": {

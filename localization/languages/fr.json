@@ -149,7 +149,7 @@
         "settingsSiteThemeToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": "Fonctionnalités supplémentaires",
         "settingsUserscriptsToggle": "Activer les scripts personnalisés",
-        "settingsShowDividerToggle": "Afficher le séparateur entre les onglets",
+        "settingsShowDividerToggle": null, // Missing translation
         "settingsSeparateTitlebarToggle": null, //missing translation
         "settingsOpenTabsInForegroundToggle": null, //missing translation
         "settingsUserscriptsExplanation": {

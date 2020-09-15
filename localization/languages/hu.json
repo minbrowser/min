@@ -149,7 +149,7 @@
         "settingsSiteThemeToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": "További beállítások",
         "settingsUserscriptsToggle": "Felhasználói szkriptek",
-        "settingsShowDividerToggle": "Az elválasztó megjelenítése a fülek között",
+        "settingsShowDividerToggle": null, // Missing translation
         "settingsSeparateTitlebarToggle": null, //missing translation
         "settingsOpenTabsInForegroundToggle": null, //missing translation
         "settingsUserscriptsExplanation": "Felhasználói szkript magyarázat",

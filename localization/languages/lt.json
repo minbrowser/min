@@ -149,7 +149,7 @@
         "settingsSiteThemeToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": "Papildomos ypatybės",
         "settingsUserscriptsToggle": "Įjungti naudotojo scenarijus",
-        "settingsShowDividerToggle": "Rodyti skirtuką tarp skirtukų",
+        "settingsShowDividerToggle": null, // Missing translation
         "settingsSeparateTitlebarToggle": null, //missing translation
         "settingsOpenTabsInForegroundToggle": null, //missing translation
         "settingsUserscriptsExplanation": {

@@ -147,7 +147,7 @@
         "settingsDarkModeNight": null, //"At night" missing translation
         "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": null, //missing translation
-        "settingsShowDividerToggle": "إظهار الحاجز بين علامات التبويب",
+        "settingsShowDividerToggle": null, // Missing translation
         "settingsAdditionalFeaturesHeading": "مميزات اضافية",
         "settingsUserscriptsToggle": "تمكين سكريبت المستخدم",
         "settingsSeparateTitlebarToggle": null, //missing translation
