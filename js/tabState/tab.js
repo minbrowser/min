@@ -18,7 +18,9 @@ class TabList {
       themeColor: tab.themeColor,
       backgroundColor: tab.backgroundColor,
       scrollPosition: tab.scrollPosition || 0,
-      selected: tab.selected || false
+      selected: tab.selected || false,
+      muted: tab.muted || false,
+      hasAudio: false
     }
 
     if (options.atEnd) {

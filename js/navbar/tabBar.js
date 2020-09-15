@@ -2,6 +2,7 @@ const webviews = require('webviews.js')
 const focusMode = require('focusMode.js')
 const urlParser = require('util/urlParser.js')
 const readerView = require('readerView.js')
+const tabAudio = require('tabAudio.js')
 const dragula = require('dragula')
 const settings = require('util/settings/settings.js')
 
@@ -48,6 +49,7 @@ const tabBar = {
     tabEl.setAttribute('role', 'tab')
 
     tabEl.appendChild(readerView.getButton(data.id))
+    tabEl.appendChild(tabAudio.getButton(data.id))
     tabEl.appendChild(progressBar.create())
 
     // icons
@@ -139,6 +141,10 @@ const tabBar = {
       tabEl.title += ' (' + l('privateTab') + ')'
     }
 
+    // update tab audio icon
+    var audioButton = tabEl.querySelector('.tab-audio-button')
+    tabAudio.updateButton(tabId, audioButton)
+
     tabEl.querySelectorAll('.permission-request-icon').forEach(el => el.remove())
 
     permissionRequests.getButtons(tabId).reverse().forEach(function (button) {
@@ -196,7 +202,8 @@ webviews.bindEvent('did-stop-loading', function (tabId) {
 })
 
 tasks.on('tab-updated', function (id, key) {
-  if (key === 'title' || key === 'secure' || key === 'url') {
+  var updateKeys = ['title', 'secure', 'url', 'muted', 'hasAudio']
+  if (updateKeys.includes(key)) {
     tabBar.updateTab(id)
   }
 })
