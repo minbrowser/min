@@ -1,13 +1,9 @@
 var webviews = require('webviews.js')
 var keybindings = require('keybindings.js')
-var getView = remote.getGlobal('getView')
 
 var tabAudio = {
   muteIcon: 'carbon:volume-mute-filled',
   volumeIcon: 'carbon:volume-up-filled',
-  setWebViewMuted: function (tabId, muted) {
-    webviews.callAsync(tabId, 'setAudioMuted', muted)
-  },
   getButton: function (tabId) {
     var button = document.createElement('button')
     button.className = 'tab-icon tab-audio-button i'
@@ -47,7 +43,7 @@ var tabAudio = {
     var tab = tabs.get(tabId)
     // can be muted if has audio, can be unmuted if muted
     if (tab.hasAudio || tab.muted) {
-      tabAudio.setWebViewMuted(tabId, !tab.muted)
+      webviews.callAsync(tabId, 'setAudioMuted', !tab.muted)
       tabs.update(tabId, { muted: !tab.muted })
     }
   },
@@ -55,6 +51,7 @@ var tabAudio = {
     keybindings.defineShortcut('toggleTabAudio', function () {
       tabAudio.toggleAudio(tabs.getSelected())
     })
+
     webviews.bindEvent('media-started-playing', function (tabId) {
       tabs.update(tabId, { hasAudio: true })
     })
