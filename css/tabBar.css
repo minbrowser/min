@@ -94,7 +94,10 @@ body.linux #menu-button {
 }
 
 #navbar.show-dividers .tab-item:not(:last-child) {
-	border-right: 1px solid rgba(182, 182, 182, 0.5);
+	border-right: 1px solid rgba(0, 0, 0, 0.15);
+}
+.dark-theme #navbar.show-dividers .tab-item:not(:last-child) {
+	border-right-color: rgba(255, 255, 255, 0.4);
 }
 
 #navbar.show-dividers:before {
