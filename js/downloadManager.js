@@ -99,6 +99,10 @@ const downloadManager = {
     infoBox.className = 'download-info'
     container.appendChild(infoBox)
 
+    const detailedInfoBox = document.createElement('div')
+    detailedInfoBox.className = 'download-info detailed'
+    container.appendChild(detailedInfoBox)
+
     const progress = document.createElement('div')
     progress.className = 'download-progress'
     container.appendChild(progress)
@@ -143,7 +147,7 @@ const downloadManager = {
     })
 
     downloadManager.container.appendChild(container)
-    downloadManager.downloadBarElements[downloadItem.path] = { container, title, infoBox, progress, dropdown, openFolder }
+    downloadManager.downloadBarElements[downloadItem.path] = { container, title, infoBox, detailedInfoBox, progress, dropdown, openFolder }
   },
   updateItem: function (downloadItem) {
     const elements = downloadManager.downloadBarElements[downloadItem.path]
@@ -155,6 +159,7 @@ const downloadManager = {
       elements.dropdown.hidden = true
       elements.openFolder.hidden = false
       elements.infoBox.textContent = l('downloadStateCompleted')
+      elements.detailedInfoBox.textContent = l('downloadStateCompleted')
     } else if (downloadItem.status === 'interrupted') {
       elements.container.classList.remove('loading')
       elements.container.classList.remove('completed')
@@ -162,6 +167,7 @@ const downloadManager = {
       elements.dropdown.hidden = true
       elements.openFolder.hidden = true
       elements.infoBox.textContent = l('downloadStateFailed')
+      elements.detailedInfoBox.textContent = l('downloadStateFailed')
     } else {
       elements.container.classList.add('loading')
       elements.container.classList.remove('completed')
@@ -169,19 +175,11 @@ const downloadManager = {
       elements.dropdown.hidden = false
       elements.openFolder.hidden = true
       elements.infoBox.textContent = getFileSizeString(downloadItem.size.total)
+      elements.detailedInfoBox.textContent = getFileSizeString(downloadItem.size.received) + ' / ' + getFileSizeString(downloadItem.size.total)
 
       // the progress bar has a minimum width so that it's visible even if there's 0 download progress
       const adjustedProgress = 0.025 + ((downloadItem.size.received / downloadItem.size.total) * 0.975)
       elements.progress.style.transform = 'scaleX(' + adjustedProgress + ')'
-    }
-
-    // progress tooltip
-    if (downloadItem.status === 'completed') {
-      elements.container.title = l('downloadStateCompleted')
-    } else if (downloadItem.status === 'interrupted') {
-      elements.container.title = l('downloadStateFailed')
-    } else {
-      elements.container.title = getFileSizeString(downloadItem.size.received) + ' / ' + getFileSizeString(downloadItem.size.total)
     }
   },
   initialize: function () {

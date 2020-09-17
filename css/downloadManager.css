@@ -66,6 +66,17 @@
     opacity: 0.7;
     white-space: nowrap;
 }
+.download-item:hover .download-info {
+    display: none;
+}
+
+.download-info.detailed {
+    display: none;
+}
+
+.download-item:hover .download-info.detailed {
+    display: inline-block;
+}
 
 .download-item.loading .download-info,
 .download-item.completed .download-info {
