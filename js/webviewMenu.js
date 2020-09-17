@@ -24,7 +24,7 @@ const webviewMenu = {
         {
           label: l('pictureInPicture'),
           click: function () {
-            webviews.callAsync(tabs.getSelected(), 'send', ['enterPictureInPicture', {x: data.x, y: data.y}])
+            webviews.callAsync(tabs.getSelected(), 'send', ['enterPictureInPicture', { x: data.x, y: data.y }])
           }
         }
       ])
@@ -205,13 +205,13 @@ const webviewMenu = {
     }
 
     if (link || (mediaURL && !mediaURL.startsWith('blob:'))) {
-      if (link.startsWith('mailto:')) {
+      if (link && link.startsWith('mailto:')) {
         var ematch = link.match(/(?<=mailto:)[^\?]+/)
         if (ematch) {
           clipboardActions.push({
             label: l('copyEmailAddress'),
             click: function () {
-                clipboard.writeText(ematch[0])
+              clipboard.writeText(ematch[0])
             }
           })
         }
@@ -294,7 +294,7 @@ const webviewMenu = {
   initialize: function () {
     webviews.bindEvent('context-menu', function (tabId, data) {
       webviewMenu.menuData = data
-      webviews.callAsync(tabs.getSelected(), 'send', ['getContextMenuData', {x: data.x, y: data.y}])
+      webviews.callAsync(tabs.getSelected(), 'send', ['getContextMenuData', { x: data.x, y: data.y }])
     })
     webviews.bindIPC('contextMenuData', function (tabId, args) {
       webviewMenu.showMenu(webviewMenu.menuData, args[0])
