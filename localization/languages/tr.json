@@ -149,8 +149,8 @@
         "settingsSiteThemeToggle": "Site temasını etkinleştir",
         "settingsAdditionalFeaturesHeading": "Ek Özellikler",
         "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",
-        "settingsSeparateTitlebarToggle": "Ayrılmış başlık çubuğu kullan"
-        "settingsOpenTabsInForegroundToggle": "Bir bağlantıyı yeni sekmede açtığımda hemen o sekmeye geç"
+        "settingsSeparateTitlebarToggle": "Ayrılmış başlık çubuğu kullan",
+        "settingsOpenTabsInForegroundToggle": "Yeni sekmeleri önplanda aç",
         "settingsUserscriptsExplanation": {
             "unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."
         },
