@@ -149,7 +149,7 @@
         "settingsSiteThemeToggle": "Site temasını etkinleştir",
         "settingsAdditionalFeaturesHeading": "Ek Özellikler",
         "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",
-        "settingsShowDividerToggle": "Sekmeler arasındaki ayırıcıyı göster",
+        "settingsShowDividerToggle": null, //missing translation
         "settingsSeparateTitlebarToggle": "Ayrılmış başlık çubuğu kullan",
         "settingsOpenTabsInForegroundToggle": "Yeni sekmeleri önplanda aç",
         "settingsUserscriptsExplanation": {
