@@ -155,7 +155,7 @@
         "settingsUserscriptsExplanation": {
             "unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."
         },
-        "settingsUserAgentToggle": "Özel kullanıcı aracısı kullan"
+        "settingsUserAgentToggle": "Özel kullanıcı aracısı kullan",
         "settingsUpdateNotificationsToggle": "Güncelleştirmeleri otomatik olarak denetle",
         "settingsSearchEngineHeading": "Arama Motoru",
         "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçin:",
@@ -235,7 +235,7 @@
         "downloadStateCompleted": "Tamamlandı",
         "downloadStateFailed": "Başarısız oldu",
         /* Update Notifications */
-        "updateNotificationTitle": "Min'in yeni bir sürümü mevcut"
+        "updateNotificationTitle": "Min'in yeni bir sürümü mevcut",
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Parola Otomatik Doldurma",
         "settingsSelectPasswordManager": "Desteklenen parola yöneticilerinden birini seçin:",
