@@ -1,22 +1,22 @@
 {
     "name": "Turkish (Turkey)",
-    "identifier": "tr-TR",
+    "identifier": "tr",
     "translations": {
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "addToDictionary": null, //missing translation
-        "pictureInPicture": null, //missing translation
+        "addToDictionary": "Sözlüğe Ekle",
+        "pictureInPicture": "Resim İçinde Resim",
         "openInNewTab": "Yeni Pencerede Aç",
         "openInNewPrivateTab": "Yeni Özel Sekmede Aç",
-        "saveLinkAs": null, //missing translation
+        "saveLinkAs": "Linki Farklı Kaydet",
         "viewImage": "Resmi Göster",
         "openImageInNewTab": "Resmi Yeni Sekmede Aç",
         "openImageInNewPrivateTab": "Resmi Yeni Özel Sekmede Aç",
         "saveImageAs": "Resmi Farklı Kaydet",
         "searchWith": "%s ile ara", //%s will be replaced with the name of the current search engine
         "copyLink": "Linki Kopyala",
-        "copyEmailAddress": null, //missing translation
+        "copyEmailAddress": "E-Posta Adresini Kopyala",
         "selectAll": "Hepsini Seç",
         "undo": "Geri",
         "redo": "İleri",
@@ -27,7 +27,7 @@
         "goForward": "İleri Git",
         "inspectElement": "Öğeyi İncele",
         /* searchbar */
-        "pasteAndGo": null, //missing translation
+        "pasteAndGo": "Yapıştır ve Git",
         "DDGAnswerSubtitle": "Cevap", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Önerilen site", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "DuckDuckGo'dan sonuçlar", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -40,22 +40,22 @@
         "viewReadingList": "Okuma Listesini Görüntüle",
         "takeScreenshot": "Ekran Görüntüsü Al",
         "clearHistory": "Tüm Geçmişi Temizle",
-        "enableBlocking": null, //missing translation
-        "disableBlocking": null, //missing translation
+        "enableBlocking": "Bu site için içerik engellemeyi etkinleştir",
+        "disableBlocking": "Bu site için içerik engellemeyi devre dışı bırak",
         "clearHistoryConfirmation": "Tüm geçmişi ve tarama verilerini silmek istiyor musunuz?",
         "switchToTask": "Göreve Geç",
         "createTask": "Görev Oluştur",
         "closeTask": "Görevi Kapat",
         "moveToTask": "Bu sekmeyi bir göreve taşı",
         "nameTask": "Bu görevi adlandır",
-        "addBookmark": null, //missing translation
-        "searchBookmarks": "Yer işaretlerini ara",
-        "bookmarksAddTag": null, //missing translation
-        "bookmarksSimilarItems": null, //missing translation
+        "addBookmark": "Yer imlerine Ekle",
+        "searchBookmarks": "Yer imlerini ara",
+        "bookmarksAddTag": "Etiket Ekle",
+        "bookmarksSimilarItems": "Benzer Olanlar",
         "searchHistory": "Arama Geçmişi",
-        "importBookmarks": null, //missing translation
-        "exportBookmarks": null, //missing translation
-        "runUserscript": null, //missing translation
+        "importBookmarks": "Yer imlerini HTML dosyasından içe aktar",
+        "exportBookmarks": "Yer imlerini dışa aktar",
+        "runUserscript": "Kullanıcı betiklerini çalıştır",
         /* navbar */
         "openMenu": "Menüyü Aç",
         "enterReaderView": "Okuyucu görünümüne girin",
@@ -84,8 +84,8 @@
         /* Focus mode */
         "isFocusMode": "Odak Modundasınız.",
         "closeDialog": "Tamam", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+        "focusModeExplanation1": "Odak modunda yeni sekme açamaz ya da görevler arasında geçiş yapamazsınız.",
+        "focusModeExplanation2": "Odak modundan çıkmak için görünüm menüsünden \"odak modu\" tikini kaldırabilirsiniz.",
         /* relative dates */
         "timeRangeJustNow": "Şu anda",
         "timeRangeMinutes": "Birkaç dakika önce",
@@ -119,7 +119,7 @@
         "phishingErrorVisitAnyway": "Siteyi yine de ziyaret et",
         "phishingErrorLeave": "Bu siteden ayrıl",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": "Bir hata oluştu. Lütfen açık olan tüm Min'leri kapatıp yeniden başlatın.", // missing translation
+        "multipleInstancesErrorMessage": "Bir hata oluştu. Lütfen açık olan tüm Min'leri kapatıp yeniden başlatın.",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Bir hata oluştu",
         "sessionRestoreErrorExplanation": "Kaydedilen sekmeleriniz doğru bir şekilde geri yüklenemedi.",
@@ -138,23 +138,23 @@
         "settingsBlockScriptsToggle": "Scriptleri engelle",
         "settingsBlockImagesToggle": "Resimleri engelle",
         "settingsBlockedRequestCount": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "Min şimdiye kadar, <strong></strong> reklam ve takipçi engelledi."
         },
-        "settingsCustomizeFiltersLink": null, //missing translation
+        "settingsCustomizeFiltersLink": "Filtreleri özelleştir",
         "settingsAppearanceHeading": "Görünüm",
         "settingsEnableDarkMode": "Koyu modu etkinleştir:",
-        "settingsDarkModeNever": null, //"Never" missing translation
-        "settingsDarkModeNight": null, //"At night" missing translation
-        "settingsDarkModeAlways": null, //"Always" missing translation
+        "settingsDarkModeNever": "Asla",
+        "settingsDarkModeNight": "Geceleyin",
+        "settingsDarkModeAlways": "Her zaman",
         "settingsSiteThemeToggle": "Site temasını etkinleştir",
         "settingsAdditionalFeaturesHeading": "Ek Özellikler",
         "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",
-        "settingsSeparateTitlebarToggle": null, //missing translation
-        "settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsSeparateTitlebarToggle": "Ayrılmış başlık çubuğu kullan",
+        "settingsOpenTabsInForegroundToggle": "Yeni sekmeleri önplanda aç",
         "settingsUserscriptsExplanation": {
             "unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."
         },
-        "settingsUserAgentToggle": null, //missing translation
+        "settingsUserAgentToggle": "Özel kullanıcı aracısı kullan"
         "settingsUpdateNotificationsToggle": "Güncelleştirmeleri otomatik olarak denetle",
         "settingsSearchEngineHeading": "Arama Motoru",
         "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçin:",
@@ -162,13 +162,13 @@
         "customSearchEngineDescription": "Arama terimini %s ile değiştir",
         "settingsKeyboardShortcutsHeading": "Klavye Kısayolları",
         "settingsKeyboardShortcutsHelp": "Birden çok kısayolu ayırmak için virgül kullanın.",
-        "settingsProxyHeading": null, //missing translation
-        "settingsNoProxy": null, //missing translation
-        "settingsManualProxy": null, //missing translation
-        "settingsAutomaticProxy": null, //missing translation
-        "settingsProxyRules": null, //missing translation
-        "settingsProxyBypassRules": null, //missing translation
-        "settingsProxyConfigurationURL": null, //missing translation
+        "settingsProxyHeading": "Vekil Sunucu",
+        "settingsNoProxy": "Vekil Sunucu Yok",
+        "settingsManualProxy": "Elle Vekil Sunucu",
+        "settingsAutomaticProxy": "Otomatik Konfigürasyon",
+        "settingsProxyRules": "Vekil sunucu kuralları:",
+        "settingsProxyBypassRules": "Vekil sunucu kullanılmasın:",
+        "settingsProxyConfigurationURL": "Konfigürasyon Adresi",
         /* app menu */
         "appMenuFile": "Dosya",
         "appMenuNewTab": "Yeni Sekme",
@@ -201,7 +201,7 @@
         "appMenuWindow": "Pencere",
         "appMenuMinimize": "Küçült",
         "appMenuClose": "Kapat",
-        "appMenuAlwaysOnTop": null, //missing translation
+        "appMenuAlwaysOnTop": "Her Zaman Üstte",
         "appMenuHelp": "Yardım",
         "appMenuKeyboardShortcuts": "Klavye Kısayolları",
         "appMenuReportBug": "Hata Bildir",
@@ -220,20 +220,50 @@
             "unsafeHTML": "<span id='total'></span> sayfanın <input type='text'/> i"
         },
         /* Context Reader */
-        "buttonReaderSettings": null, //missing translation "Reader Settings"
-        "buttonReaderLightTheme": null, //missing translation "Light"
-        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
-        "buttonReaderDarkTheme": null, //missing translation "Dark"
-        "openReaderView": null, //missing translation "Always open in reader view"
-        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-        "buttonReaderRedirectYes": null, //missing translation "Yes"
-        "buttonReaderRedirectNo": null, //missing translation "No"
-        "articleReaderView": null, //missing translation "Original Article"
+        "buttonReaderSettings": "Okuyucu Ayarları",
+        "buttonReaderLightTheme": "Açık",
+        "buttonReaderSepiaTheme": "Sepya",
+        "buttonReaderDarkTheme": "Koyu",
+        "openReaderView": "Her zaman okuyucu görünümünde aç",
+        "autoRedirectBannerReader": "Bu sitedeki makaleler her zaman okuyucu görünümünde açılsın mı?",
+        "buttonReaderRedirectYes": "Evet",
+        "buttonReaderRedirectNo": "Hayır",
+        "articleReaderView": "Orjinal Makale",
         /* Download manager */
         "downloadCancel": "İptal",
         "downloadStateCompleted": "Tamamlandı",
         "downloadStateFailed": "Başarısız oldu",
         /* Update Notifications */
         "updateNotificationTitle": "Min'in yeni bir sürümü mevcut"
+        /* Autofill settings */
+        "settingsPasswordAutoFillHeadline": "Parola Otomatik Doldurma",
+        "settingsSelectPasswordManager": "Desteklenen parola yöneticilerinden birini seçin:",
+        /* Password manager setup */
+        "passwordManagerSetupHeading": "Otomatik Doldur kullanabilmek için %p kurulumunu tamamlayın",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "İlk olarak, <a id='password-manager-setup-link'></a> ve ve arşivden çıkartın."
+        },
+        "passwordManagerInstallerSetup": {
+            "unsafeHTML": "<a id='password-manager-setup-link-installer'></a> indirin ve dosyayı aşağıdaki kutucuğa sürükleyip bırakın:"
+        },
+        "passwordManagerSetupLink": "%p CLI aracını indir ",
+        "passwordManagerSetupLinkInstaller": "%p CLI yükleyicisi",
+        "passwordManagerSetupStep2": "Ardından aracı aşağıdaki kutucuğa sürükleyip bırakın:",
+        "passwordManagerSetupDragBox": "Aracı buraya sürükleyin",
+        "passwordManagerSetupInstalling": "Yükleniyor...",
+        "passwordManagerSetupSignIn": "Otomatik dolduru kullanabilmek için parola yöneticinize giriş yapın. Kimlik bilgileriniz Min içerisinde bir yere kaydedilmeyecektir.",
+        "disableAutofill": "Otomatik Dolduru Devre Dışı Bırak",
+        "autofillNotNow": "Şimdi Değil",
+        "passwordManagerSetupUnlockError": "Parola kayıtlarının kilidi açılamadı: ",
+        "passwordManagerSetupRetry": "Doğru dosyayı kullandığınızdan ve geçerli parolayı girdiğinizden emin olun. Dosyayı buraya sürükleyerek tekrar deneyebilirsniz.",
+        "passwordManagerUnlock": "Parola kayıtlarınızın kilidini açmak için %p ana parolasını girin:",
+        /* Dialogs */
+        "loginPromptTitle": "Giriş yapın %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+        "dialogConfirmButton": "Onayla",
+        "dialogSkipButton": "İptal",
+        "username": "Kullanıcı Adı",
+        "email": "E-Posta",
+        "password": "Parola",
+        "secretKey": "Gizli anahtar"
     }
 }
