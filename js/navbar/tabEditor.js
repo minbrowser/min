@@ -2,7 +2,9 @@ var searchbar = require('searchbar/searchbar.js')
 var webviews = require('webviews.js')
 var modalMode = require('modalMode.js')
 var urlParser = require('util/urlParser.js')
+var keyboardNavigationHelper = require('util/keyboardNavigationHelper.js')
 var bookmarkStar = require('navbar/bookmarkStar.js')
+var contentBlockingToggle = require('navbar/contentBlockingToggle.js')
 
 const tabEditor = {
   container: document.getElementById('tab-editor'),
@@ -17,6 +19,7 @@ const tabEditor = {
     tabEditor.container.hidden = false
 
     bookmarkStar.update(tabId, tabEditor.star)
+    contentBlockingToggle.update(tabId, tabEditor.contentBlockingToggle)
 
     webviews.requestPlaceholder('editMode')
 
@@ -81,12 +84,10 @@ const tabEditor = {
     tabEditor.star = bookmarkStar.create()
     tabEditor.container.appendChild(tabEditor.star)
 
-    tabEditor.input.addEventListener('keydown', function (e) {
-      if (e.keyCode === 9 || e.keyCode === 40) { // if the tab or arrow down key was pressed
-        searchbar.focusItem()
-        e.preventDefault()
-      }
-    })
+    tabEditor.contentBlockingToggle = contentBlockingToggle.create()
+    tabEditor.container.appendChild(tabEditor.contentBlockingToggle)
+
+    keyboardNavigationHelper.addToGroup('searchbar', tabEditor.container)
 
     // keypress doesn't fire on delete key - use keyup instead
     tabEditor.input.addEventListener('keyup', function (e) {

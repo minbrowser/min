@@ -5,15 +5,18 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "addToDictionary": null, //missing translation
         "pictureInPicture": null, //missing translation
         "openInNewTab": "Megnyitás új fülön",
         "openInNewPrivateTab": "Megnyitás új privát fülön",
+        "saveLinkAs": null, //missing translation
         "viewImage": "Kép megtekintése",
         "openImageInNewTab": "Kép megnyitása új fülön",
         "openImageInNewPrivateTab": "Kép megnyitása új privát fülön",
         "saveImageAs": "Kép mentése másként",
         "searchWith": "Keresés %s keresővel", //%s will be replaced with the name of the current search engine
         "copyLink": "Hivatkozás másolás",
+        "copyEmailAddress": null, //missing translation
         "selectAll": null, // Missing Translation
         "undo": null, // Missing Translation
         "redo": null, // Missing Translation
@@ -24,11 +27,11 @@
         "goForward": "Előre lépés",
         "inspectElement": "Részletek megtekintése",
         /* searchbar */
+        "pasteAndGo": null, //missing translation
         "DDGAnswerSubtitle": "Válasz", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Ajánlott oldal", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Válaszok a DuckDuckGo-ról", //this is used as a label to indicate which results come from DuckDuckGo's API
         "taskN": "Feladat %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "Host Fajl tartalma", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
@@ -46,12 +49,13 @@
         "moveToTask": "Tedd a fület feladatba",
         "nameTask": null, //missing translation
         "addBookmark": null, //missing translation
-		"searchBookmarks": "Könyvjelző keresés",
+        "searchBookmarks": "Könyvjelző keresés",
         "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
-		"searchHistory": "Keresési előzmények",
+        "bookmarksSimilarItems": null, //missing translation
+        "searchHistory": "Keresési előzmények",
         "importBookmarks": null, //missing translation
-		"exportBookmarks": null, //missing translation
+        "exportBookmarks": null, //missing translation
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "Menü megnyitása",
         "enterReaderView": "Lépj be az olvasó nézetbe",
@@ -67,7 +71,9 @@
         "viewTasks": "Feladat megtekintése",
         "newTask": "Új feladat", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Feladat %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
+        "taskDeleteWarning": {
+            "unsafeHTML": null //missing translation
+        },
         "returnToTask": null, //missing translation
         "taskDescriptionTwo": null, //missing translation
         "taskDescriptionThree": null, //missing translation
@@ -78,8 +84,8 @@
         /* Focus mode */
         "isFocusMode": "Most fókusz módban van.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "Fókusz módban csak a jelenlegi fül jelenik meg, nem tudsz új fület nyitni vagy másik fülre lépni.",
-        "focusModeExplanation2": "Elhagyhatod a \"focus mode\" a megtekintés menü kipipálásával.",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": "Idő intervalum, éppen most",
         "timeRangeMinutes": "Idő intervalum, perc",
@@ -131,20 +137,21 @@
         "settingsContentBlockingExceptions": null, //missing translation
         "settingsBlockScriptsToggle": "Szkriptek tiltása",
         "settingsBlockImagesToggle": "Képek tiltása",
-        "settingsEasyListCredit": {
+        "settingsBlockedRequestCount": {
             "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "Megjelenés",
-        "settingsEnableDarkMode": "Kapcsolja be a sötét nézetet:", 
+        "settingsEnableDarkMode": "Kapcsolja be a sötét nézetet:",
         "settingsDarkModeNever": null, //"Never" missing translation
         "settingsDarkModeNight": null, //"At night" missing translation
         "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": null, //missing translation
-        "settingsHistoryButtonToggle": "Vissza gomb bekapcsolása",
         "settingsAdditionalFeaturesHeading": "További beállítások",
         "settingsUserscriptsToggle": "Felhasználói szkriptek",
         "settingsSeparateTitlebarToggle": null, //missing translation
-		"settingsUserscriptsExplanation": "Felhasználói szkript magyarázat",
+        "settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsUserscriptsExplanation": "Felhasználói szkript magyarázat",
         "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Keresőmotor",
@@ -153,6 +160,13 @@
         "customSearchEngineDescription": null, //missing translation
         "settingsKeyboardShortcutsHeading": "Billentyű kombinációk",
         "settingsKeyboardShortcutsHelp": "Használj több kombináció megadásához.",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "Fájl",
         "appMenuNewTab": "Új fül",
@@ -200,7 +214,19 @@
         "appMenuQuit": "Kilépés %n",
         "appMenuBringToFront": "Mindent előtérbe hoz",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "oldal <input type='text'/> ből <span id='total'></span>"},
+        "PDFPageCounter": {
+            "unsafeHTML": "oldal <input type='text'/> ből <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": null, //missing translation "Reader Settings"
+        "buttonReaderLightTheme": null, //missing translation "Light"
+        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
+        "buttonReaderDarkTheme": null, //missing translation "Dark"
+        "openReaderView": null, //missing translation "Always open in reader view"
+        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
+        "buttonReaderRedirectYes": null, //missing translation "Yes"
+        "buttonReaderRedirectNo": null, //missing translation "No"
+        "articleReaderView": null, //missing translation "Original Article"
         /* Download manager */
         "downloadCancel": "Mégsem",
         "downloadStateCompleted": "Letöltés sikeresen befejeződött",

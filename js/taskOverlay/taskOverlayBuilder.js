@@ -5,6 +5,8 @@ var urlParser = require('util/urlParser.js')
 var searchEngine = require('util/searchEngine.js')
 var tabBar = require('navbar/tabBar.js')
 
+const faviconMinimumLuminance = 70 // minimum brightness for a "light" favicon
+
 function getTaskRelativeDate (task) {
   var minimumTime = new Date()
   minimumTime.setHours(0)
@@ -32,7 +34,7 @@ function removeTabFromOverlay (tabId, task) {
   task.tabs.destroy(tabId)
   webviews.destroy(tabId)
 
-  tabBar.rerenderAll()
+  tabBar.updateAll()
 
   // if there are no tabs left, remove the task
   if (task.tabs.count() === 0) {
@@ -48,8 +50,9 @@ function toggleCollapsed (taskContainer, task) {
   taskContainer.classList.toggle('collapsed')
 
   var collapseButton = taskContainer.querySelector('.task-collapse-button')
-  collapseButton.classList.toggle('fa-angle-right')
-  collapseButton.classList.toggle('fa-angle-down')
+  collapseButton.classList.toggle('carbon:chevron-right')
+  collapseButton.classList.toggle('carbon:chevron-left')
+
   if (tasks.isCollapsed(task.id)) {
     collapseButton.setAttribute('aria-expanded', 'false')
   } else {
@@ -62,13 +65,15 @@ var TaskOverlayBuilder = {
     task: {
       collapseButton: function (taskContainer, task) {
         var collapseButton = document.createElement('button')
-        collapseButton.className = 'fa task-collapse-button'
+        collapseButton.className = 'task-collapse-button i'
+        collapseButton.setAttribute('tabindex', '-1')
+
         collapseButton.setAttribute('aria-haspopup', 'true')
         if (tasks.isCollapsed(task.id)) {
-          collapseButton.classList.add('fa-angle-right')
+          collapseButton.classList.add('carbon:chevron-right')
           collapseButton.setAttribute('aria-expanded', 'false')
         } else {
-          collapseButton.classList.add('fa-angle-down')
+          collapseButton.classList.add('carbon:chevron-down')
           collapseButton.setAttribute('aria-expanded', 'true')
         }
         collapseButton.addEventListener('click', function (e) {
@@ -80,11 +85,13 @@ var TaskOverlayBuilder = {
       nameInputField: function (task, taskIndex) {
         var input = document.createElement('input')
         input.classList.add('task-name')
+        input.classList.add('mousetrap')
 
         var taskName = l('defaultTaskName').replace('%n', taskIndex + 1)
 
         input.placeholder = taskName
         input.value = task.name || taskName
+        input.spellcheck = false
 
         input.addEventListener('keyup', function (e) {
           if (e.keyCode === 13) {
@@ -105,7 +112,8 @@ var TaskOverlayBuilder = {
       },
       deleteButton: function (container, task) {
         var deleteButton = document.createElement('button')
-        deleteButton.className = 'fa fa-trash-o task-delete-button'
+        deleteButton.className = 'task-delete-button i carbon:trash-can'
+        deleteButton.tabIndex = -1 // needed for keyboardNavigationHelper
 
         deleteButton.addEventListener('click', function (e) {
           if (task.tabs.isEmpty()) {
@@ -182,6 +190,33 @@ var TaskOverlayBuilder = {
         }
         infoContainer.appendChild(lastTabEl)
 
+        var favicons = []
+        var faviconURLs = []
+
+        task.tabs.get().sort((a, b) => b.lastActivity - a.lastActivity).forEach(function (tab) {
+          if (tab.favicon) {
+            favicons.push(tab.favicon)
+            faviconURLs.push(tab.favicon.url)
+          }
+        })
+
+        if (favicons.length > 0) {
+          var faviconsEl = document.createElement('span')
+          faviconsEl.className = 'task-favicons'
+          favicons = favicons.filter((i, idx) => faviconURLs.indexOf(i.url) === idx)
+
+          favicons.forEach(function (favicon) {
+            var img = document.createElement('img')
+            img.src = favicon.url
+            if (favicon.luminance < faviconMinimumLuminance) {
+              img.classList.add('dark-favicon')
+            }
+            faviconsEl.appendChild(img)
+          })
+
+          infoContainer.appendChild(faviconsEl)
+        }
+
         return infoContainer
       },
       container: function (task, taskIndex) {
@@ -233,12 +268,12 @@ var TaskOverlayBuilder = {
         }
 
         if (tab.private) {
-          data.icon = 'fa-eye-slash'
+          data.icon = 'carbon:view-off'
         } else if (tab.favicon) {
           data.iconImage = tab.favicon.url
 
-          if (tab.favicon.luminance && tab.favicon.luminance < 70) {
-            data.classList.push('dark-favicon')
+          if (tab.favicon.luminance && tab.favicon.luminance < faviconMinimumLuminance) {
+            data.classList.push('has-dark-favicon')
           }
         }
 
@@ -255,15 +290,7 @@ var TaskOverlayBuilder = {
 
         var el = searchbarUtils.createItem(data)
 
-        el.tabIndex = 0
         el.setAttribute('data-tab', tab.id)
-
-        // return or space should act like click
-        el.addEventListener('keydown', function (e) {
-          if (e.keyCode === 13 || e.keyCode === 32) {
-            el.click()
-          }
-        })
 
         el.addEventListener('click', function (e) {
           browserUI.switchToTask(this.parentNode.getAttribute('data-task'))

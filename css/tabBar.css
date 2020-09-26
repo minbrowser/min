@@ -38,8 +38,7 @@
 #back-button {
 	opacity: 1;
 	transition: none;
-	font-size: 1.5em;
-	padding: 0 0.6em 0 0.4em;
+	padding: 0 0.6rem 0 0.4rem;
 }
 #back-button:disabled {
 	opacity: 0.2;
@@ -50,7 +49,8 @@ body.is-edit-mode #back-button {
 }
 
 #menu-button {
-	margin-top: 1px;
+	width: 36px;
+	padding: 0;
 }
 
 #menu-button {
@@ -88,6 +88,10 @@ body.linux #menu-button {
 	position: relative;
 	padding: 0 0.8em;
 }
+.tab-item.gu-mirror {
+	top: var(--control-space-top) !important;
+	background: rgba(255, 255, 255, 0.8) !important;
+}
 .tab-item:not(.active):hover {
 	background-color: rgba(0, 0, 0, 0.03);
 }
@@ -102,12 +106,11 @@ body.linux #menu-button {
 
 .tab-item .tab-icon-area {
 	float: right;
+	margin-right: -0.7em;
 }
 .tab-item .tab-icon {
-	font-size: 0.8em;
-	margin-top: -0.1em;
-	padding: 0.66em;
-	vertical-align: middle;
+	font-size: 0.875em;
+	padding: 0.7125em 0.5em;
 	box-sizing: content-box;
 }
 .tab-item.active:not(:only-child) {
@@ -192,9 +195,10 @@ body.dark-mode #overlay {
 /* buttons */
 
 .navbar-action-button {
-	padding: 0 1em;
+	padding: 0 1rem;
 	height: 36px;
-	line-height: 36px !important;
+	margin-top: -0.5px;
+	font-size: 1.4em !important;
 }
 .navbar-action-button.invisible {
 	visibility: hidden;
@@ -202,26 +206,29 @@ body.dark-mode #overlay {
 .navbar-action-button + .navbar-action-button {
 	padding-left: 0.5em;
 }
+.navbar-right-actions {
+	margin-right: 2em;
+}
 
-.tab-item .bookmarks-button {
-	font-size: 0.9em;
+.navbar-right-actions #add-tab-button {
+	padding: 0 0.9rem;
+	font-size: 1.6em !important;
+}
+
+/* audio button */
+.tab-item .tab-audio-button {
+	vertical-align: text-bottom;
+	padding: 0 0.5em 0 0;
+	font-size: 1.1em !important;
 }
 
 /* reader button */
 
 .tab-item .reader-button {
 	display: none;
-	margin-left: -0.66em;
-	height: 11px;
-	margin-top: -2px;
-	/* fixes blurry rendering.
-	image-rendering: pixelated should do the same thing, 
-	but it doesn't seem to work.
-	*/
-	transform: scaleX(1.00001);
-}
-.dark-theme .tab-item .reader-button {
-	filter: invert(1);
+	vertical-align: text-bottom;
+	padding: 0 0.5em 0 0;
+	font-size: 1.1em !important;
 }
 .tab-item.active .reader-button.can-reader {
 	display: inline-block;
@@ -234,14 +241,16 @@ body.dark-mode #overlay {
 
 .tab-item .tab-icon.permission-request-icon {
 	border: 1px rgba(0, 0, 0, 0.3) solid;
-    padding: 0.16em;
-    margin-right: 0.66em;
-    margin-top: -0.2em;
-    border-radius: 0.75em;
+	padding: 0.15em 0.17em;
+	margin-right: 0.66em;
+	margin-top: -0.2em;
+	margin-left: -0.3em;
+	border-radius: 0.75em;
 }
-.tab-item .tab-icon.permission-request-icon i {
-	margin: 0 0.15em;
-	vertical-align: bottom;
+.tab-item .tab-icon.permission-request-icon .i {
+	vertical-align: middle;
+	margin-top: -3px;
+	display: inline-block;
 }
 .dark-theme .tab-item .tab-icon.permission-request-icon {
 	border-color: rgba(255, 255, 255, 0.5);
@@ -267,31 +276,26 @@ body.dark-mode #overlay {
 	display: none;
 }
 
+/* in Carbon, close icon is a bit smaller than other icons, enlarge it in order to match with other icons */
+.tab-item .tab-close-button {
+	font-size: 1.2em;
+	padding: 0.45em 0.5em;
+}
+
 /* when the tab is hovered, hide info buttons and show the close button */
 
-.tab-item:hover .tab-info-icon {
+body:not(.touch) .tab-item:hover .tab-info-icon {
 	display: none;
 }
-.tab-item .tab-close-button {
+body:not(.touch) .tab-item .tab-close-button {
 	display: none;
 }
-.tab-item:hover .tab-close-button {
+body:not(.touch) .tab-item:hover .tab-close-button {
 	display: inline-block;
 }
 
-/* hide other tabs in focus mode */
-
-body.is-focus-mode .tab-item:not(.active) {
-	display: none;
-}
 body.is-focus-mode .navbar-action-button:not(#menu-button) {
 	display: none;
-}
-
-/* since only one tab is shown in focus mode, the highlight isn't needed */
-
-body.is-focus-mode .tab-item {
-	background: none !important;
 }
 
 /* progress bar */

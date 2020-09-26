@@ -2,6 +2,9 @@ const webviews = require('webviews.js')
 const focusMode = require('focusMode.js')
 const urlParser = require('util/urlParser.js')
 const readerView = require('readerView.js')
+const tabAudio = require('tabAudio.js')
+const dragula = require('dragula')
+const settings = require('util/settings/settings.js')
 
 const tabEditor = require('navbar/tabEditor.js')
 const progressBar = require('navbar/progressBar.js')
@@ -14,6 +17,9 @@ const tabBar = {
   containerInner: document.getElementById('tabs-inner'),
   tabElementMap: {}, // tabId: tab element
   events: new EventEmitter(),
+  dragulaInstance: dragula([document.getElementById('tabs-inner')], {
+    direction: 'horizontal'
+  }),
   getTab: function (tabId) {
     return tabBar.tabElementMap[tabId]
   },
@@ -36,66 +42,14 @@ const tabBar = {
       el.scrollIntoView()
     })
   },
-  rerenderTab: function (tabId) {
-    var tabData = tabs.get(tabId)
-
-    var tabEl = tabBar.getTab(tabId)
-
-    var tabTitle = tabData.title || l('newTabLabel')
-    var titleEl = tabEl.querySelector('.title')
-    titleEl.textContent = tabTitle
-
-    tabEl.title = tabTitle
-    if (tabData.private) {
-      tabEl.title += ' (' + l('privateTab') + ')'
-    }
-
-    tabEl.querySelectorAll('.permission-request-icon').forEach(el => el.remove())
-
-    permissionRequests.getButtons(tabId).reverse().forEach(function (button) {
-      tabEl.insertBefore(button, tabEl.children[0])
-    })
-
-    var secIcon = tabEl.getElementsByClassName('icon-tab-not-secure')[0]
-    if (tabData.secure === false) {
-      secIcon.hidden = false
-    } else {
-      secIcon.hidden = true
-    }
-  },
-  rerenderAll: function () {
-    empty(tabBar.containerInner)
-    tabBar.tabElementMap = {}
-
-    tabs.get().forEach(function (tab) {
-      var el = tabBar.createElement(tab)
-      tabBar.containerInner.appendChild(el)
-      tabBar.tabElementMap[tab.id] = el
-    })
-
-    if (tabs.getSelected()) {
-      tabBar.setActiveTab(tabs.getSelected())
-    }
-  },
-  createElement: function (data) {
-    var url = urlParser.parse(data.url)
-    var tabTitle = data.title || l('newTabLabel')
-
+  createTab: function (data) {
     var tabEl = document.createElement('div')
     tabEl.className = 'tab-item'
     tabEl.setAttribute('data-tab', data.id)
     tabEl.setAttribute('role', 'tab')
 
-    tabEl.title = tabTitle
-    if (data.private) {
-      tabEl.title += ' (' + l('privateTab') + ')'
-    }
-
-    permissionRequests.getButtons(data.id).forEach(function (button) {
-      tabEl.appendChild(button)
-    })
-
     tabEl.appendChild(readerView.getButton(data.id))
+    tabEl.appendChild(tabAudio.getButton(data.id))
     tabEl.appendChild(progressBar.create())
 
     // icons
@@ -103,11 +57,19 @@ const tabBar = {
     var iconArea = document.createElement('span')
     iconArea.className = 'tab-icon-area'
 
-    var closeTabButton = document.createElement('i')
-    closeTabButton.classList.add('tab-icon')
-    closeTabButton.classList.add('tab-close-button')
-    closeTabButton.classList.add('fa')
-    closeTabButton.classList.add('fa-times-circle')
+    if (data.private) {
+      var pbIcon = document.createElement('i')
+      pbIcon.className = 'icon-tab-is-private tab-icon tab-info-icon i carbon:view-off'
+      iconArea.appendChild(pbIcon)
+    }
+
+    var secIcon = document.createElement('i')
+    secIcon.className = 'icon-tab-not-secure tab-icon tab-info-icon i carbon:unlocked'
+    secIcon.title = l('connectionNotSecure')
+    iconArea.appendChild(secIcon)
+
+    var closeTabButton = document.createElement('button')
+    closeTabButton.className = 'tab-icon tab-close-button i carbon:close'
 
     closeTabButton.addEventListener('click', function (e) {
       tabBar.events.emit('tab-closed', data.id)
@@ -117,26 +79,12 @@ const tabBar = {
 
     iconArea.appendChild(closeTabButton)
 
-    if (data.private) {
-      var pbIcon = document.createElement('i')
-      pbIcon.className = 'fa fa-eye-slash icon-tab-is-private tab-icon tab-info-icon'
-      iconArea.appendChild(pbIcon)
-    }
-
-    var secIcon = document.createElement('i')
-    secIcon.className = 'fa fa-unlock icon-tab-not-secure tab-icon tab-info-icon'
-    secIcon.title = l('connectionNotSecure')
-
-    secIcon.hidden = data.secure !== false
-    iconArea.appendChild(secIcon)
-
     tabEl.appendChild(iconArea)
 
     // title
 
     var title = document.createElement('span')
     title.className = 'title'
-    title.textContent = tabTitle
 
     tabEl.appendChild(title)
 
@@ -160,7 +108,7 @@ const tabBar = {
         // https://github.com/minbrowser/min/issues/698
         return
       }
-      if (e.deltaY > 65 && e.deltaX < 10 && Date.now() - lastTabDeletion > 650) { // swipe up to delete tabs
+      if (e.deltaY > 65 && e.deltaX < 10 && Date.now() - lastTabDeletion > 900) { // swipe up to delete tabs
         lastTabDeletion = Date.now()
 
         /* tab deletion is disabled in focus mode */
@@ -169,7 +117,6 @@ const tabBar = {
           return
         }
 
-        var tab = this.getAttribute('data-tab')
         this.style.transform = 'translateY(-100%)'
 
         setTimeout(function () {
@@ -178,13 +125,58 @@ const tabBar = {
       }
     })
 
+    tabBar.updateTab(data.id, tabEl)
+
     return tabEl
+  },
+  updateTab: function (tabId, tabEl = tabBar.getTab(tabId)) {
+    var tabData = tabs.get(tabId)
+
+    var tabTitle = (tabData.title || l('newTabLabel')).substring(0, 500)
+    var titleEl = tabEl.querySelector('.title')
+    titleEl.textContent = tabTitle
+
+    tabEl.title = tabTitle
+    if (tabData.private) {
+      tabEl.title += ' (' + l('privateTab') + ')'
+    }
+
+    // update tab audio icon
+    var audioButton = tabEl.querySelector('.tab-audio-button')
+    tabAudio.updateButton(tabId, audioButton)
+
+    tabEl.querySelectorAll('.permission-request-icon').forEach(el => el.remove())
+
+    permissionRequests.getButtons(tabId).reverse().forEach(function (button) {
+      tabEl.insertBefore(button, tabEl.children[0])
+    })
+
+    var secIcon = tabEl.getElementsByClassName('icon-tab-not-secure')[0]
+    if (tabData.secure === false) {
+      secIcon.hidden = false
+    } else {
+      secIcon.hidden = true
+    }
+  },
+  updateAll: function () {
+    empty(tabBar.containerInner)
+    tabBar.tabElementMap = {}
+
+    tabs.get().forEach(function (tab) {
+      var el = tabBar.createTab(tab)
+      tabBar.containerInner.appendChild(el)
+      tabBar.tabElementMap[tab.id] = el
+    })
+
+    if (tabs.getSelected()) {
+      tabBar.setActiveTab(tabs.getSelected())
+    }
   },
   addTab: function (tabId) {
     var tab = tabs.get(tabId)
     var index = tabs.getIndex(tabId)
 
-    var tabEl = tabBar.createElement(tab)
+    var tabEl = tabBar.createTab(tab)
     tabBar.containerInner.insertBefore(tabEl, tabBar.containerInner.childNodes[index])
     tabBar.tabElementMap[tabId] = tabEl
   },
@@ -210,13 +202,46 @@ webviews.bindEvent('did-stop-loading', function (tabId) {
 })
 
 tasks.on('tab-updated', function (id, key) {
-  if (key === 'title' || key === 'secure' || key === 'url') {
-    tabBar.rerenderTab(id)
+  var updateKeys = ['title', 'secure', 'url', 'muted', 'hasAudio']
+  if (updateKeys.includes(key)) {
+    tabBar.updateTab(id)
   }
 })
 
 permissionRequests.onChange(function (tabId) {
-  tabBar.rerenderTab(tabId)
+  tabBar.updateTab(tabId)
+})
+
+if (window.platformType === 'mac') {
+  tabBar.dragulaInstance.containers = []
+} else {
+  tabBar.dragulaInstance.on('drop', function (el, target, source, sibling) {
+    var tabId = el.getAttribute('data-tab')
+    if (sibling) {
+      var adjacentTabId = sibling.getAttribute('data-tab')
+    }
+
+    var oldTab = tabs.splice(tabs.getIndex(tabId), 1)[0]
+
+    if (adjacentTabId) {
+      var newIdx = tabs.getIndex(adjacentTabId)
+    } else {
+    // tab was inserted at end
+      var newIdx = tabs.count()
+    }
+    tabs.splice(newIdx, 0, oldTab)
+  })
+}
+
+tabBar.container.addEventListener('dragover', e => e.preventDefault())
+
+tabBar.container.addEventListener('drop', e => {
+  e.preventDefault()
+  var data = e.dataTransfer
+  require('browserUI.js').addTab(tabs.add({
+    url: data.files[0] ? 'file://' + data.files[0].path : data.getData('text'),
+    private: tabs.get(tabs.getSelected()).private
+  }), { enterEditMode: false, openInBackground: !settings.get('openTabsInForeground') })
 })
 
 module.exports = tabBar

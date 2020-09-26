@@ -23,7 +23,8 @@ var defaultKeyMap = {
   'reload': 'mod+r',
   'showMenu': 'ctrl+m',
   'followLink': 'mod+enter',
-  'fillPassword': 'mod+\\'
+  'fillPassword': 'mod+\\',
+  'toggleTabAudio': 'shift+mod+m'
 }
 /* Utility function to override default mapping with user settings */
 function userKeyMap (settings) {

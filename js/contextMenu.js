@@ -1,49 +1,58 @@
+const remoteMenu = require('remoteMenuRenderer.js')
+const searchbar = require('searchbar/searchbar.js')
+
 module.exports = {
   initialize: function () {
     document.addEventListener('contextmenu', (e) => {
       e.preventDefault()
       e.stopPropagation()
 
-      var Menu = remote.Menu
-
-      var InputMenu = Menu.buildFromTemplate([
-        {
-          label: l('undo'),
-          role: 'undo'
-        },
-        {
-          label: l('redo'),
-          role: 'redo'
-        },
-        {
-          type: 'separator'
-        },
-        {
-          label: l('cut'),
-          role: 'cut'
-        },
-        {
-          label: l('copy'),
-          role: 'copy'
-        },
-        {
-          label: l('paste'),
-          role: 'paste'
-        },
-        {
-          type: 'separator'
-        },
-        {
-          label: l('selectAll'),
-          role: 'selectall'
-        }
-      ])
+      var inputMenu = [
+        [
+          {
+            label: l('undo'),
+            role: 'undo'
+          },
+          {
+            label: l('redo'),
+            role: 'redo'
+          }
+        ],
+        [
+          {
+            label: l('cut'),
+            role: 'cut'
+          },
+          {
+            label: l('copy'),
+            role: 'copy'
+          },
+          {
+            label: l('paste'),
+            role: 'paste'
+          }
+        ],
+        [
+          {
+            label: l('selectAll'),
+            role: 'selectall'
+          }
+        ]
+      ]
 
       let node = e.target
 
       while (node) {
         if (node.nodeName.match(/^(input|textarea)$/i) || node.isContentEditable) {
-          InputMenu.popup(remote.getCurrentWindow())
+          if (node.id == 'tab-editor-input') {
+            inputMenu[1].push({
+              label: l('pasteAndGo'),
+              click: function() {
+                searchbar.openURL(remote.clipboard.readText())
+              }
+            })
+          }
+          remoteMenu.open(inputMenu)
           break
         }
         node = node.parentNode

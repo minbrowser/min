@@ -8,6 +8,13 @@ html {
 	font-family: ".SFNSText-Regular", 'Helvetica Neue', 'Arial', sans-serif;
 	background-color: #eee;
 }
+/* TODO figure out why the default focus color in Electron is orange */
+*:focus {
+	outline-color: rgb(0, 117, 255);
+}
+.dark-mode *:focus {
+	outline-color: transparent;
+}
 
 body.dark-mode {
 	background-color: rgb(33, 37, 43);

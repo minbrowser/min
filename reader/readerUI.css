@@ -10,7 +10,7 @@ body[theme="dark"] {
 }
 
 body[theme="sepia"] {
-	background-color: rgb(245, 237, 220);
+	background-color: rgb(247, 231, 199);
 	color: rgba(80, 55, 35, 1);
 }
 
@@ -60,25 +60,32 @@ body[theme="dark"] #auto-redirect-button-area button {
 }
 
 #backtoarticle {
-	font-size: 1.25em;
-	padding: 2em 0 0 0.25em;
-	color: dodgerblue;
-	max-width: 650px;
+    max-width: 650px;
 	margin: auto;
-	display: block;
-	box-sizing: border-box;
+	padding-top: 1.5em;
+}
+#backtoarticle-link {
+	color: dodgerblue;
 	cursor: pointer;
 	font-family: system-ui, ".SFNSText-Regular", sans-serif;
+	display: inline-block;
+	padding: 1em;
+    margin: -1em;
 }
+
+#backtoarticle-link span {
+	font-size: 1.25em;
+	vertical-align: bottom;
+}
+
 #auto-redirect-banner:not([hidden]) + #backtoarticle {
 	padding-top: 0.5em;
 }
-#backtoarticle i {
-	vertical-align: text-bottom;
-	margin-right: 0.25em;
-	font-size: 1.275em;
-	/* pre-define the width to avoid the text moving after fontawesome loads */
-	width: 0.36em;
+
+#backtoarticle-link .i {
+	vertical-align: middle;
+	font-size: 1.4em;
+	margin: 0 -0.2em;
 }
 
 #settings-button {
@@ -88,9 +95,18 @@ body[theme="dark"] #auto-redirect-button-area button {
 	opacity: 0.5;
 	font-size: 1.5em;
 	/* increase click area */
-	padding: 1em;
-	margin: -1em;
+	padding: 0.5em 0.7em 0.5em 0.5em;
+	margin: -0.5em;
 }
+
+#settings-button:hover {
+	opacity: 1;
+}
+
+#settings-button .i {
+	pointer-events: none;
+}
+
 
 #settings-dropdown {
 	position: absolute;
@@ -99,14 +115,18 @@ body[theme="dark"] #auto-redirect-button-area button {
 	background: white;
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
 	padding: 0.75em 0.5em;
-	width: 240px;
+	width: 250px;
 	border-radius: 5px;
 }
 body[theme="dark"] #settings-dropdown {
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.75);
-	background: rgb(49, 52, 59);
+	background: rgb(54, 57, 65);
 }
 
+body[theme="sepia"] #settings-dropdown {
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.75);
+	background: rgb(255, 241, 217);
+}
 #settings-dropdown .setting-section {
 	display: flex;
 	justify-content: space-evenly;
@@ -135,7 +155,7 @@ body[theme="dark"] #settings-dropdown {
 	background: #fff;
 }
 #settings-dropdown .theme-circle[data-theme="sepia"] {
-	background: rgb(245, 237, 220);
+	background: rgb(247, 231, 199);
 }
 #settings-dropdown .theme-circle[data-theme="dark"] {
 	background: rgb(33, 37, 43);
@@ -158,6 +178,20 @@ body[theme="dark"] #settings-dropdown {
 
 #site-nav-links {
 	padding: 1em 1.5em;
+}
+
+#site-nav-links .site-icon-link {
+	opacity: 0.9 !important;
+}
+
+#site-nav-links .site-icon {
+	width: 22px;
+	height: 22px;
+	vertical-align: text-bottom;
+}
+
+body[theme="dark"] .site-icon {
+	background: rgba(255, 255, 255, 0.8);
 }
 
 #site-nav-links a {

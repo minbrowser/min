@@ -5,15 +5,18 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "addToDictionary": "Додати до словника",
         "pictureInPicture": "Зображення в зображенні",
         "openInNewTab": "Відкрити в новій вкладці",
         "openInNewPrivateTab": "Відкрити в приватній вкладці",
+        "saveLinkAs": "Зберегти посилання як...",
         "viewImage": "Переглянути зображення",
         "openImageInNewTab": "Відкрити зображення в новій вкладці",
         "openImageInNewPrivateTab": "Відкрити зображення в приватній вкладці",
         "saveImageAs": "Зберегти зображення як...",
         "searchWith": "Шукати з %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Копіювати посилання",
+        "copyEmailAddress": "Копіювати адресу електронної пошти",
         "selectAll": "Вибрати все",
         "undo": "Скасувати",
         "redo": "Повторити",
@@ -24,11 +27,11 @@
         "goForward": "Вперед",
         "inspectElement": "Дослідити елемент",
         /* searchbar */
+        "pasteAndGo": "Вставити та перейти",
         "DDGAnswerSubtitle": "Відповідь", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Запропонований сайт", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Результати із DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
         "taskN": "Завдання %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "Запис із файлу hosts", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
@@ -46,12 +49,13 @@
         "moveToTask": "Перемістіть цю вкладку до завдання",
         "nameTask": "Назвіть це завдання",
         "addBookmark": "Додати закладку",
-		"searchBookmarks": "Шукати в закладках",
+        "searchBookmarks": "Шукати в закладках",
         "bookmarksAddTag": "Додати мітку...",
-		"bookmarksSimilarItems": "Подібні елементи",
-		"searchHistory": "Шукати в історії",
+        "bookmarksSimilarItems": "Подібні елементи",
+        "searchHistory": "Шукати в історії",
         "importBookmarks": "Імпортувати закладки",
-		"exportBookmarks": "Експортувати закладки",
+        "exportBookmarks": "Експортувати закладки",
+        "runUserscript": "Запустити скрипт користувача",
         /* navbar */
         "openMenu": "Відкрити меню", //application menu button on windows
         "enterReaderView": "Перейти в режим читання",
@@ -67,7 +71,9 @@
         "viewTasks": "Переглянути завдання",
         "newTask": "Нове завдання", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Завдання %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Завдання видалено. <a>Скасувати?</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "Завдання видалено. <a>Скасувати?</a>"
+        },
         "returnToTask": "Повернутися до попереднього завдання",
         "taskDescriptionTwo": "%t і %t",
         "taskDescriptionThree": "%t, %t, і ще %n",
@@ -78,8 +84,8 @@
         /* Focus mode */
         "isFocusMode": "Ви в режимі фокусування",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "В режимі фокусування всі вкладки, окрім поточної, приховані, і ви не можете створювати нові вкладки.",
-        "focusModeExplanation2": "Режим фокусування можна залишити, знявши прапорець \"Режим фокусування\" у меню \"Вигляд\".",
+        "focusModeExplanation1": "У режимі фокусування не можна створювати нові вкладки або перемикати завдання.",
+        "focusModeExplanation2": "Ви можете залишити режим фокусування, знявши позначку \"режим фокусування\" в меню перегляду.",
         /* relative dates */
         "timeRangeJustNow": "Зараз",
         "timeRangeMinutes": "Кілька хвилин тому",
@@ -131,21 +137,24 @@
         "settingsContentBlockingExceptions": "Дозволити рекламу на цих сайтах:",
         "settingsBlockScriptsToggle": "Блокувати скрипти",
         "settingsBlockImagesToggle": "Блокувати зображення",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "На основі EasyList і EasyPrivacy, створених <a target=\"_blank\" href=\"https://easylist.to/\">авторами EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">переглянути ліцензію</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": "Наразі Min заблокував <strong></strong> реклам і трекерів."
         },
+        "settingsCustomizeFiltersLink": "Налаштувати фільтри",
         "settingsAppearanceHeading": "Зовнішній вигляд",
         "settingsDarkModeToggle": "Увімкнути темний режим",
         "settingsEnableDarkMode": "Увімкнути темний режим: ",
-        "settingsDarkModeNever": "Ніколи", 
-        "settingsDarkModeNight": "Вночі", 
-        "settingsDarkModeAlways": "Завжди", 
+        "settingsDarkModeNever": "Ніколи",
+        "settingsDarkModeNight": "Вночі",
+        "settingsDarkModeAlways": "Завжди",
         "settingsSiteThemeToggle": "Увімкнути тему сайту",
-        "settingsHistoryButtonToggle": "Увімкнути кнопку \"Назад\"",
         "settingsAdditionalFeaturesHeading": "Додаткові можливості",
         "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
         "settingsSeparateTitlebarToggle": "Використовувати окремий рядок заголовка",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."},
+        "settingsOpenTabsInForegroundToggle": "Відкриватии нові вкладки на передньому плані",
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."
+        },
         "settingsUserAgentToggle": "Використовувати власний агент користувача",
         "settingsUpdateNotificationsToggle": "Автоматично перевіряти наявність оновлень",
         "settingsSearchEngineHeading": "Пошукова система",
@@ -154,6 +163,13 @@
         "customSearchEngineDescription": "Замініть пошуковий запит на %s",
         "settingsKeyboardShortcutsHeading": "Сполучення клавіш",
         "settingsKeyboardShortcutsHelp": "Використовуйте коми, щоб розділити декілька сполучень клавіш.",
+        "settingsProxyHeading": "Проксі",
+        "settingsNoProxy": "Без проксі",
+        "settingsManualProxy": "Ручна конфігурація",
+        "settingsAutomaticProxy": "Автоматична конфігурація",
+        "settingsProxyRules": "Правила проксі:",
+        "settingsProxyBypassRules": "Не використовувати проксі для:",
+        "settingsProxyConfigurationURL": "URL конфігурації",
         /* app menu */
         "appMenuFile": "Файл",
         "appMenuNewTab": "Нова вкладка",
@@ -201,7 +217,19 @@
         "appMenuQuit": "Вийти з %n",
         "appMenuBringToFront": "Все на передній план",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "сторінка <input type='text'/> з <span id='total'></span>"},
+        "PDFPageCounter": {
+            "unsafeHTML": "сторінка <input type='text'/> з <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": "Налаштування режиму читання",
+        "buttonReaderLightTheme": "Світлий",
+        "buttonReaderSepiaTheme": "Сепія",
+        "buttonReaderDarkTheme": "Темний",
+        "openReaderView": "Завжди відкривати в режимі читання",
+        "autoRedirectBannerReader": "Завжди відкривати статті з цього сайту в режимі читання?",
+        "buttonReaderRedirectYes": "Так",
+        "buttonReaderRedirectNo": "Ні",
+        "articleReaderView": "Оригінальна стаття",
         /* Download manager */
         "downloadCancel": "Скасувати",
         "downloadStateCompleted": "Завершено",
@@ -217,8 +245,8 @@
             "unsafeHTML": "Спочатку <a id='password-manager-setup-link'></a> і розпакуйте його для Вашої системи."
         },
         "passwordManagerInstallerSetup": {
-			"unsafeHTML": "Завантажте <a id='password-manager-setup-link-installer'></a> і перетягніть файл у поле нижче:"
-		},
+            "unsafeHTML": "Завантажте <a id='password-manager-setup-link-installer'></a> і перетягніть файл у поле нижче:"
+        },
         "passwordManagerSetupLink": "завантажте інструмент CLI %p",
         "passwordManagerSetupLinkInstaller": "встановлювач CLI %p",
         "passwordManagerSetupStep2": "Потім перетягніть інструмент у поле нижче:",

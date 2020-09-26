@@ -12,7 +12,7 @@ data:
 title: string - the title of the item
 metadata: array - a list of strings to include (separated by hyphens) in front of the secondary text
 secondaryText: string - the item's secondary text
-icon: string - the name of a font awesome icon.
+icon: string - the name of a carbon icon.
 image: string - the URL of an image to show
 iconImage: string - the URL of an image to show as an icon
 descriptionBlock: string - the text in the description block,
@@ -55,10 +55,9 @@ function createItem (data) {
   }
 
   if (data.icon) {
-    var i = document.createElement('i')
-    i.className = 'fa' + ' ' + data.icon
-
-    item.appendChild(i)
+    var el = document.createElement('i')
+    el.className = 'i ' + data.icon
+    item.appendChild(el)
   }
 
   if (data.title) {
@@ -69,7 +68,7 @@ function createItem (data) {
       title.classList.add('wide')
     }
 
-    title.textContent = data.title
+    title.textContent = data.title.substring(0, 1000)
 
     item.appendChild(title)
   }
@@ -78,7 +77,7 @@ function createItem (data) {
     var secondaryText = document.createElement('span')
     secondaryText.classList.add('secondary-text')
 
-    secondaryText.textContent = data.secondaryText
+    secondaryText.textContent = data.secondaryText.substring(0, 1000)
 
     item.appendChild(secondaryText)
 
@@ -124,7 +123,12 @@ function createItem (data) {
     attrBlock.classList.add('attribution')
 
     attrBlock.textContent = data.attribution
-    item.appendChild(attrBlock)
+    if (data.descriptionBlock) {
+      // used to make the attribution align with the text even if there's an image on the left
+      dBlock.appendChild(attrBlock)
+    } else {
+      item.appendChild(attrBlock)
+    }
   }
 
   if (data.delete) {
@@ -143,12 +147,19 @@ function createItem (data) {
         }, 200)
       }
     })
+
+    item.addEventListener('auxclick', function (e) {
+      if (e.which === 2) { // middle mouse click
+        data.delete(item)
+        item.parentNode.removeChild(item)
+      }
+    })
   }
 
   // delete button is just a pre-defined action button
   if (data.showDeleteButton) {
     data.button = {
-      icon: 'fa-close',
+      icon: 'carbon:close',
       fn: function () {
         data.delete(item)
         item.parentNode.removeChild(item)
@@ -159,9 +170,10 @@ function createItem (data) {
   if (data.button) {
     var button = document.createElement('button')
     button.classList.add('action-button')
-    button.classList.add('fa')
-    button.classList.add(data.button.icon)
+    button.classList.add('ignores-keyboard-focus') // for keyboardNavigationHelper
     button.tabIndex = -1
+    button.classList.add('i')
+    button.classList.add(data.button.icon)
 
     button.addEventListener('click', function (e) {
       e.stopPropagation()
@@ -174,6 +186,13 @@ function createItem (data) {
   if (data.click) {
     item.addEventListener('click', data.click)
   }
+
+  // return should act like click
+  item.addEventListener('keydown', function (e) {
+    if (e.keyCode === 13) {
+      item.click()
+    }
+  })
 
   return item
 }

@@ -10,6 +10,7 @@ var places = require('places/places.js')
 var urlParser = require('util/urlParser.js')
 var {db} = require('util/database.js')
 var formatRelativeDate = require('util/relativeDate.js')
+var contentBlockingToggle = require('navbar/contentBlockingToggle.js')
 
 bangsPlugin.registerCustomBang({
   phrase: '!settings',
@@ -72,22 +73,7 @@ bangsPlugin.registerCustomBang({
   snippet: l('enableBlocking'),
   isAction: true,
   fn: function (text) {
-    var url = tabs.get(tabs.getSelected()).url
-    if (!url) {
-      return
-    }
-    var domain = new URL(url).hostname
-
-    var setting = settings.get('filtering')
-    if (!setting) {
-      setting = {}
-    }
-    if (!setting.exceptionDomains) {
-      setting.exceptionDomains = []
-    }
-    setting.exceptionDomains = setting.exceptionDomains.filter(d => d.replace(/^www\./g, '') !== domain.replace(/^www\./g, ''))
-    settings.set('filtering', setting)
-    webviews.callAsync(tabs.getSelected(), 'reload')
+    contentBlockingToggle.enableBlocking(tabs.get(tabs.getSelected()).url)
   }
 })
 
@@ -96,25 +82,7 @@ bangsPlugin.registerCustomBang({
   snippet: l('disableBlocking'),
   isAction: true,
   fn: function (text) {
-    var url = tabs.get(tabs.getSelected()).url
-    if (!url) {
-      return
-    }
-    var domain = new URL(url).hostname
-
-    var setting = settings.get('filtering')
-    if (!setting) {
-      setting = {}
-    }
-    if (!setting.exceptionDomains) {
-      setting.exceptionDomains = []
-    }
-    // make sure the domain isn't already an exception
-    if (!setting.exceptionDomains.some(d => d.replace(/^www\./g, '') === domain.replace(/^www\./g, ''))) {
-      setting.exceptionDomains.push(domain)
-    }
-    settings.set('filtering', setting)
-    webviews.callAsync(tabs.getSelected(), 'reload')
+    contentBlockingToggle.disableBlocking(tabs.get(tabs.getSelected()).url)
   }
 })
 

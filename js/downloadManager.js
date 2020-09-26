@@ -1,13 +1,13 @@
 var webviews = require('webviews.js')
 
 function getFileSizeString (bytes) {
-  let prefixes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
+  const prefixes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
 
   let size = bytes
   let prefixIndex = 0
 
   while (size > 900) { // prefer "0.9 KB" to "949 bytes"
-    size /= 1000
+    size /= 1024
     prefixIndex++
   }
 
@@ -37,7 +37,7 @@ const downloadManager = {
       webviews.adjustMargin([0, 0, downloadManager.height * -1, 0])
 
       // remove all completed items
-      for (let item in downloadManager.downloadItems) {
+      for (const item in downloadManager.downloadItems) {
         if (downloadManager.downloadItems[item].status === 'completed') {
           downloadManager.removeItem(item)
         }
@@ -61,7 +61,7 @@ const downloadManager = {
   },
   onItemClicked: function (path) {
     if (downloadManager.downloadItems[path].status === 'completed') {
-      electron.shell.openItem(path)
+      electron.shell.openPath(path)
       // provide a bit of time for the file to open before the download bar disappears
       setTimeout(function () {
         downloadManager.removeItem(path)
@@ -85,30 +85,34 @@ const downloadManager = {
     }, 120 * 1000)
   },
   createItem: function (downloadItem) {
-    let container = document.createElement('div')
+    const container = document.createElement('div')
     container.className = 'download-item'
     container.setAttribute('role', 'listitem')
     container.setAttribute('draggable', 'true')
 
-    let title = document.createElement('div')
+    const title = document.createElement('div')
     title.className = 'download-title'
     title.textContent = downloadItem.name
     container.appendChild(title)
 
-    let infoBox = document.createElement('div')
+    const infoBox = document.createElement('div')
     infoBox.className = 'download-info'
     container.appendChild(infoBox)
 
-    let progress = document.createElement('div')
+    const detailedInfoBox = document.createElement('div')
+    detailedInfoBox.className = 'download-info detailed'
+    container.appendChild(detailedInfoBox)
+
+    const progress = document.createElement('div')
     progress.className = 'download-progress'
     container.appendChild(progress)
 
-    let dropdown = document.createElement('i')
-    dropdown.className = 'download-action-button fa fa-angle-down'
+    const dropdown = document.createElement('button')
+    dropdown.className = 'download-action-button i carbon:chevron-down'
     container.appendChild(dropdown)
 
-    let openFolder = document.createElement('i')
-    openFolder.className = 'download-action-button fa fa-folder-o'
+    const openFolder = document.createElement('button')
+    openFolder.className = 'download-action-button i carbon:folder'
     openFolder.hidden = true
     container.appendChild(openFolder)
 
@@ -122,7 +126,7 @@ const downloadManager = {
 
     dropdown.addEventListener('click', function (e) {
       e.stopPropagation()
-      let menu = new remote.Menu()
+      const menu = new remote.Menu()
       menu.append(new remote.MenuItem({
         label: l('downloadCancel'),
         click: function () {
@@ -143,11 +147,10 @@ const downloadManager = {
     })
 
     downloadManager.container.appendChild(container)
-    downloadManager.downloadBarElements[downloadItem.path] = {
-      container, title, infoBox, progress, dropdown, openFolder}
+    downloadManager.downloadBarElements[downloadItem.path] = { container, title, infoBox, detailedInfoBox, progress, dropdown, openFolder }
   },
   updateItem: function (downloadItem) {
-    let elements = downloadManager.downloadBarElements[downloadItem.path]
+    const elements = downloadManager.downloadBarElements[downloadItem.path]
 
     if (downloadItem.status === 'completed') {
       elements.container.classList.remove('loading')
@@ -156,6 +159,7 @@ const downloadManager = {
       elements.dropdown.hidden = true
       elements.openFolder.hidden = false
       elements.infoBox.textContent = l('downloadStateCompleted')
+      elements.detailedInfoBox.textContent = l('downloadStateCompleted')
     } else if (downloadItem.status === 'interrupted') {
       elements.container.classList.remove('loading')
       elements.container.classList.remove('completed')
@@ -163,6 +167,7 @@ const downloadManager = {
       elements.dropdown.hidden = true
       elements.openFolder.hidden = true
       elements.infoBox.textContent = l('downloadStateFailed')
+      elements.detailedInfoBox.textContent = l('downloadStateFailed')
     } else {
       elements.container.classList.add('loading')
       elements.container.classList.remove('completed')
@@ -170,7 +175,11 @@ const downloadManager = {
       elements.dropdown.hidden = false
       elements.openFolder.hidden = true
       elements.infoBox.textContent = getFileSizeString(downloadItem.size.total)
-      elements.progress.style.transform = 'scaleX(' + (downloadItem.size.received / downloadItem.size.total) + ')'
+      elements.detailedInfoBox.textContent = getFileSizeString(downloadItem.size.received) + ' / ' + getFileSizeString(downloadItem.size.total)
+
+      // the progress bar has a minimum width so that it's visible even if there's 0 download progress
+      const adjustedProgress = 0.025 + ((downloadItem.size.received / downloadItem.size.total) * 0.975)
+      elements.progress.style.transform = 'scaleX(' + adjustedProgress + ')'
     }
   },
   initialize: function () {

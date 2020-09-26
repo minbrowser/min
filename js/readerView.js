@@ -18,9 +18,8 @@ var readerView = {
   },
   getButton: function (tabId) {
     // TODO better icon
-    var button = document.createElement('img')
-    button.className = 'reader-button tab-icon'
-    button.src = 'images/readerIcon.svg'
+    var button = document.createElement('button')
+    button.className = 'reader-button tab-icon i carbon:notebook'
 
     button.setAttribute('data-tab', tabId)
     button.setAttribute('role', 'button')
@@ -116,7 +115,8 @@ var readerView = {
           fakeFocus: filterText && idx === 0,
           delete: function (el) {
             db.readingList.where('url').equals(article.url).delete()
-          }
+          },
+          showDeleteButton: true
         }
 
         if (article.visitCount > 5 || (article.extraData.scrollPosition > 0 && article.extraData.articleScrollLength - article.extraData.scrollPosition < 1000)) { // the article has been visited frequently, or the scroll position is at the bottom

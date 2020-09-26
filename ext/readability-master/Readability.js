@@ -36,6 +36,7 @@ function Readability(doc, options) {
   options = options || {};
 
   this._doc = doc;
+  this._docJSDOMParser = this._doc.firstChild.__JSDOMParser__;
   this._articleTitle = null;
   this._articleByline = null;
   this._articleDir = null;
@@ -49,6 +50,10 @@ function Readability(doc, options) {
   this._charThreshold = options.charThreshold || this.DEFAULT_CHAR_THRESHOLD;
   this._classesToPreserve = this.CLASSES_TO_PRESERVE.concat(options.classesToPreserve || []);
   this._keepClasses = !!options.keepClasses;
+  this._serializer = options.serializer || function(el) {
+    return el.innerHTML;
+  };
+  this._disableJSONLD = !!options.disableJSONLD;
 
   // Start with all flags set
   this._flags = this.FLAG_STRIP_UNLIKELYS |
@@ -130,7 +135,13 @@ Readability.prototype = {
     prevLink: /(prev|earl|old|new|<|«)/i,
     whitespace: /^\s*$/,
     hasContent: /\S$/,
+    srcsetUrl: /(\S+)(\s+[\d.]+[xw])?(\s*(?:,|$))/g,
+    b64DataUrl: /^data:\s*([^\s;,]+)\s*;\s*base64\s*,/i,
+    // See: https://schema.org/Article
+    jsonLdArticleTypes: /^Article|AdvertiserContentArticle|NewsArticle|AnalysisNewsArticle|AskPublicNewsArticle|BackgroundNewsArticle|OpinionNewsArticle|ReportageNewsArticle|ReviewNewsArticle|Report|SatiricalArticle|ScholarlyArticle|MedicalScholarlyArticle|SocialMediaPosting|BlogPosting|LiveBlogPosting|DiscussionForumPosting|TechArticle|APIReference$/
   },
+
+  UNLIKELY_ROLES: [ "menu", "menubar", "complementary", "navigation", "alert", "alertdialog", "dialog" ],
 
   DIV_TO_P_ELEMS: [ "A", "BLOCKQUOTE", "DL", "DIV", "IMG", "OL", "P", "PRE", "TABLE", "UL", "SELECT" ],
 
@@ -154,6 +165,15 @@ Readability.prototype = {
   // These are the classes that readability sets itself.
   CLASSES_TO_PRESERVE: [ "page" ],
 
+  // These are the list of HTML entities that need to be escaped.
+  HTML_ESCAPE_MAP: {
+    "lt": "<",
+    "gt": ">",
+    "amp": "&",
+    "quot": '"',
+    "apos": "'",
+  },
+
   /**
    * Run any post-process modifications to article content as necessary.
    *
@@ -163,6 +183,8 @@ Readability.prototype = {
   _postProcessContent: function(articleContent) {
     // Readability cannot open relative uris so we convert them to absolute uris.
     this._fixRelativeUris(articleContent);
+
+    this._simplifyNestedElements(articleContent);
 
     if (!this._keepClasses) {
       // Remove classes.
@@ -181,6 +203,10 @@ Readability.prototype = {
    * @return void
    */
   _removeNodes: function(nodeList, filterFn) {
+    // Avoid ever operating on live node lists.
+    if (this._docJSDOMParser && nodeList._isLiveNodeList) {
+      throw new Error("Do not pass live node lists to _removeNodes");
+    }
     for (var i = nodeList.length - 1; i >= 0; i--) {
       var node = nodeList[i];
       var parentNode = node.parentNode;
@@ -200,6 +226,10 @@ Readability.prototype = {
    * @return void
    */
   _replaceNodeTags: function(nodeList, newTagName) {
+    // Avoid ever operating on live node lists.
+    if (this._docJSDOMParser && nodeList._isLiveNodeList) {
+      throw new Error("Do not pass live node lists to _replaceNodeTags");
+    }
     for (var i = nodeList.length - 1; i >= 0; i--) {
       var node = nodeList[i];
       this._setNodeTag(node, newTagName);
@@ -219,6 +249,21 @@ Readability.prototype = {
    */
   _forEachNode: function(nodeList, fn) {
     Array.prototype.forEach.call(nodeList, fn, this);
+  },
+
+  /**
+   * Iterate over a NodeList, and return the first node that passes
+   * the supplied test function
+   *
+   * For convenience, the current object context is applied to the provided
+   * test function.
+   *
+   * @param  NodeList nodeList The NodeList.
+   * @param  Function fn       The test function.
+   * @return void
+   */
+  _findNode: function(nodeList, fn) {
+    return Array.prototype.find.call(nodeList, fn, this);
   },
 
   /**
@@ -319,6 +364,7 @@ Readability.prototype = {
       if (baseURI == documentURI && uri.charAt(0) == "#") {
         return uri;
       }
+
       // Otherwise, resolve against base URI:
       try {
         return new URL(uri, baseURI).href;
@@ -353,13 +399,54 @@ Readability.prototype = {
       }
     });
 
-    var imgs = this._getAllNodesWithTag(articleContent, ["img"]);
-    this._forEachNode(imgs, function(img) {
-      var src = img.getAttribute("src");
+    var medias = this._getAllNodesWithTag(articleContent, [
+      "img", "picture", "figure", "video", "audio", "source"
+    ]);
+
+    this._forEachNode(medias, function(media) {
+      var src = media.getAttribute("src");
+      var poster = media.getAttribute("poster");
+      var srcset = media.getAttribute("srcset");
+
       if (src) {
-        img.setAttribute("src", toAbsoluteURI(src));
+        media.setAttribute("src", toAbsoluteURI(src));
+      }
+
+      if (poster) {
+        media.setAttribute("poster", toAbsoluteURI(poster));
+      }
+
+      if (srcset) {
+        var newSrcset = srcset.replace(this.REGEXPS.srcsetUrl, function(_, p1, p2, p3) {
+          return toAbsoluteURI(p1) + (p2 || "") + p3;
+        });
+
+        media.setAttribute("srcset", newSrcset);
       }
     });
+  },
+
+  _simplifyNestedElements: function(articleContent) {
+    var node = articleContent;
+
+    while (node) {
+      if (node.parentNode && ["DIV", "SECTION"].includes(node.tagName) && !(node.id && node.id.startsWith("readability"))) {
+        if (this._isElementWithoutContent(node)) {
+          node = this._removeAndGetNext(node);
+          continue;
+        } else if (this._hasSingleTagInsideElement(node, "DIV") || this._hasSingleTagInsideElement(node, "SECTION")) {
+          var child = node.children[0];
+          for (var i = 0; i < node.attributes.length; i++) {
+            child.setAttribute(node.attributes[i].name, node.attributes[i].value);
+          }
+          node.parentNode.replaceChild(child, node);
+          node = child;
+          continue;
+        }
+      }
+
+      node = this._getNextNode(node);
+    }
   },
 
   /**
@@ -451,13 +538,13 @@ Readability.prototype = {
     var doc = this._doc;
 
     // Remove all style tags in head
-    this._removeNodes(doc.getElementsByTagName("style"));
+    this._removeNodes(this._getAllNodesWithTag(doc, ["style"]));
 
     if (doc.body) {
       this._replaceBrs(doc.body);
     }
 
-    this._replaceNodeTags(doc.getElementsByTagName("font"), "SPAN");
+    this._replaceNodeTags(this._getAllNodesWithTag(doc, ["font"]), "SPAN");
   },
 
   /**
@@ -537,7 +624,7 @@ Readability.prototype = {
 
   _setNodeTag: function (node, tag) {
     this.log("_setNodeTag", node, tag);
-    if (node.__JSDOMParser__) {
+    if (this._docJSDOMParser) {
       node.localName = tag.toLowerCase();
       node.tagName = tag.toUpperCase();
       return node;
@@ -637,7 +724,7 @@ Readability.prototype = {
     this._cleanConditionally(articleContent, "div");
 
     // Remove extra paragraphs
-    this._removeNodes(articleContent.getElementsByTagName("p"), function (paragraph) {
+    this._removeNodes(this._getAllNodesWithTag(articleContent, ["p"]), function (paragraph) {
       var imgCount = paragraph.getElementsByTagName("img").length;
       var embedCount = paragraph.getElementsByTagName("embed").length;
       var objectCount = paragraph.getElementsByTagName("object").length;
@@ -831,6 +918,12 @@ Readability.prototype = {
             node = this._removeAndGetNext(node);
             continue;
           }
+
+          if (this.UNLIKELY_ROLES.includes(node.getAttribute("role"))) {
+            this.log("Removing content with role " + node.getAttribute("role") + " - " + matchString);
+            node = this._removeAndGetNext(node);
+            continue;
+          }
         }
 
         // Remove DIV, SECTION, and HEADER nodes without any content(e.g. text, image, video, or iframe).
@@ -904,7 +997,7 @@ Readability.prototype = {
           return;
 
         // Exclude nodes with no ancestor.
-        var ancestors = this._getNodeAncestors(elementToScore, 3);
+        var ancestors = this._getNodeAncestors(elementToScore, 5);
         if (ancestors.length === 0)
           return;
 
@@ -1225,11 +1318,110 @@ Readability.prototype = {
   },
 
   /**
+   * Converts some of the common HTML entities in string to their corresponding characters.
+   *
+   * @param str {string} - a string to unescape.
+   * @return string without HTML entity.
+   */
+  _unescapeHtmlEntities: function(str) {
+    if (!str) {
+      return str;
+    }
+
+    var htmlEscapeMap = this.HTML_ESCAPE_MAP;
+    return str.replace(/&(quot|amp|apos|lt|gt);/g, function(_, tag) {
+      return htmlEscapeMap[tag];
+    }).replace(/&#(?:x([0-9a-z]{1,4})|([0-9]{1,4}));/gi, function(_, hex, numStr) {
+      var num = parseInt(hex || numStr, hex ? 16 : 10);
+      return String.fromCharCode(num);
+    });
+  },
+
+  /**
+   * Try to extract metadata from JSON-LD object.
+   * For now, only Schema.org objects of type Article or its subtypes are supported.
+   * @return Object with any metadata that could be extracted (possibly none)
+   */
+  _getJSONLD: function (doc) {
+    var scripts = this._getAllNodesWithTag(doc, ["script"]);
+
+    var jsonLdElement = this._findNode(scripts, function(el) {
+      return el.getAttribute("type") === "application/ld+json";
+    });
+
+    if (jsonLdElement) {
+      try {
+        // Strip CDATA markers if present
+        var content = jsonLdElement.textContent.replace(/^\s*<!\[CDATA\[|\]\]>\s*$/g, "");
+        var parsed = JSON.parse(content);
+        var metadata = {};
+        if (
+          !parsed["@context"] ||
+          !parsed["@context"].match(/^https?\:\/\/schema\.org$/)
+        ) {
+          return metadata;
+        }
+
+        if (!parsed["@type"] && Array.isArray(parsed["@graph"])) {
+          parsed = parsed["@graph"].find(function(it) {
+            return (it["@type"] || "").match(
+              this.REGEXPS.jsonLdArticleTypes
+            );
+          });
+        }
+
+        if (
+          !parsed ||
+          !parsed["@type"] ||
+          !parsed["@type"].match(this.REGEXPS.jsonLdArticleTypes)
+        ) {
+          return metadata;
+        }
+        if (typeof parsed.name === "string") {
+          metadata.title = parsed.name.trim();
+        } else if (typeof parsed.headline === "string") {
+          metadata.title = parsed.headline.trim();
+        }
+        if (parsed.author) {
+          if (typeof parsed.author.name === "string") {
+            metadata.byline = parsed.author.name.trim();
+          } else if (Array.isArray(parsed.author) && parsed.author[0] && typeof parsed.author[0].name === "string") {
+            metadata.byline = parsed.author
+              .filter(function(author) {
+                return author && typeof author.name === "string";
+              })
+              .map(function(author) {
+                return author.name.trim();
+              })
+              .join(", ");
+          }
+        }
+        if (typeof parsed.description === "string") {
+          metadata.excerpt = parsed.description.trim();
+        }
+        if (
+          parsed.publisher &&
+          typeof parsed.publisher.name === "string"
+        ) {
+          metadata.siteName = parsed.publisher.name.trim();
+        }
+        return metadata;
+      } catch (err) {
+        this.log(err.message);
+      }
+    }
+    return {};
+  },
+
+  /**
    * Attempts to get excerpt and byline metadata for the article.
+   *
+   * @param {Object} jsonld — object containing any metadata that
+   * could be extracted from JSON-LD object.
    *
    * @return Object with optional "excerpt" and "byline" properties
    */
-  _getArticleMetadata: function() {
+  _getArticleMetadata: function(jsonld) {
     var metadata = {};
     var values = {};
     var metaElements = this._doc.getElementsByTagName("meta");
@@ -1275,7 +1467,8 @@ Readability.prototype = {
     });
 
     // get title
-    metadata.title = values["dc:title"] ||
+    metadata.title = jsonld.title ||
+                     values["dc:title"] ||
                      values["dcterm:title"] ||
                      values["og:title"] ||
                      values["weibo:article:title"] ||
@@ -1288,12 +1481,14 @@ Readability.prototype = {
     }
 
     // get author
-    metadata.byline = values["dc:creator"] ||
+    metadata.byline = jsonld.byline ||
+                      values["dc:creator"] ||
                       values["dcterm:creator"] ||
                       values["author"];
 
     // get description
-    metadata.excerpt = values["dc:description"] ||
+    metadata.excerpt = jsonld.excerpt ||
+                       values["dc:description"] ||
                        values["dcterm:description"] ||
                        values["og:description"] ||
                        values["weibo:article:description"] ||
@@ -1302,9 +1497,112 @@ Readability.prototype = {
                        values["twitter:description"];
 
     // get site name
-    metadata.siteName = values["og:site_name"];
+    metadata.siteName = jsonld.siteName ||
+                        values["og:site_name"];
+
+    // in many sites the meta value is escaped with HTML entities,
+    // so here we need to unescape it
+    metadata.title = this._unescapeHtmlEntities(metadata.title);
+    metadata.byline = this._unescapeHtmlEntities(metadata.byline);
+    metadata.excerpt = this._unescapeHtmlEntities(metadata.excerpt);
+    metadata.siteName = this._unescapeHtmlEntities(metadata.siteName);
 
     return metadata;
+  },
+
+  /**
+   * Check if node is image, or if node contains exactly only one image
+   * whether as a direct child or as its descendants.
+   *
+   * @param Element
+  **/
+  _isSingleImage: function(node) {
+    if (node.tagName === "IMG") {
+      return true;
+    }
+
+    if (node.children.length !== 1 || node.textContent.trim() !== "") {
+      return false;
+    }
+
+    return this._isSingleImage(node.children[0]);
+  },
+
+  /**
+   * Find all <noscript> that are located after <img> nodes, and which contain only one
+   * <img> element. Replace the first image with the image from inside the <noscript> tag,
+   * and remove the <noscript> tag. This improves the quality of the images we use on
+   * some sites (e.g. Medium).
+   *
+   * @param Element
+  **/
+  _unwrapNoscriptImages: function(doc) {
+    // Find img without source or attributes that might contains image, and remove it.
+    // This is done to prevent a placeholder img is replaced by img from noscript in next step.
+    var imgs = Array.from(doc.getElementsByTagName("img"));
+    this._forEachNode(imgs, function(img) {
+      for (var i = 0; i < img.attributes.length; i++) {
+        var attr = img.attributes[i];
+        switch (attr.name) {
+          case "src":
+          case "srcset":
+          case "data-src":
+          case "data-srcset":
+            return;
+        }
+
+        if (/\.(jpg|jpeg|png|webp)/i.test(attr.value)) {
+          return;
+        }
+      }
+
+      img.parentNode.removeChild(img);
+    });
+
+    // Next find noscript and try to extract its image
+    var noscripts = Array.from(doc.getElementsByTagName("noscript"));
+    this._forEachNode(noscripts, function(noscript) {
+      // Parse content of noscript and make sure it only contains image
+      var tmp = doc.createElement("div");
+      tmp.innerHTML = noscript.innerHTML;
+      if (!this._isSingleImage(tmp)) {
+        return;
+      }
+
+      // If noscript has previous sibling and it only contains image,
+      // replace it with noscript content. However we also keep old
+      // attributes that might contains image.
+      var prevElement = noscript.previousElementSibling;
+      if (prevElement && this._isSingleImage(prevElement)) {
+        var prevImg = prevElement;
+        if (prevImg.tagName !== "IMG") {
+          prevImg = prevElement.getElementsByTagName("img")[0];
+        }
+
+        var newImg = tmp.getElementsByTagName("img")[0];
+        for (var i = 0; i < prevImg.attributes.length; i++) {
+          var attr = prevImg.attributes[i];
+          if (attr.value === "") {
+            continue;
+          }
+
+          if (attr.name === "src" || attr.name === "srcset" || /\.(jpg|jpeg|png|webp)/i.test(attr.value)) {
+            if (newImg.getAttribute(attr.name) === attr.value) {
+              continue;
+            }
+
+            var attrName = attr.name;
+            if (newImg.hasAttribute(attrName)) {
+              attrName = "data-old-" + attrName;
+            }
+
+            newImg.setAttribute(attrName, attr.value);
+          }
+        }
+
+        noscript.parentNode.replaceChild(tmp.firstElementChild, prevElement);
+      }
+    });
   },
 
   /**
@@ -1313,12 +1611,12 @@ Readability.prototype = {
    * @param Element
   **/
   _removeScripts: function(doc) {
-    this._removeNodes(doc.getElementsByTagName("script"), function(scriptNode) {
+    this._removeNodes(this._getAllNodesWithTag(doc, ["script"]), function(scriptNode) {
       scriptNode.nodeValue = "";
       scriptNode.removeAttribute("src");
       return true;
     });
-    this._removeNodes(doc.getElementsByTagName("noscript"));
+    this._removeNodes(this._getAllNodesWithTag(doc, ["noscript"]));
   },
 
   /**
@@ -1501,7 +1799,7 @@ Readability.prototype = {
   _clean: function(e, tag) {
     var isEmbed = ["object", "embed", "iframe"].indexOf(tag) !== -1;
 
-    this._removeNodes(e.getElementsByTagName(tag), function(element) {
+    this._removeNodes(this._getAllNodesWithTag(e, [tag]), function(element) {
       // Allow youtube and vimeo videos through as people usually want to see those.
       if (isEmbed) {
         // First, check the elements attributes to see if any of them contain youtube or vimeo
@@ -1635,30 +1933,67 @@ Readability.prototype = {
   /* convert images and figures that have properties like data-src into images that can be loaded without JS */
   _fixLazyImages: function (root) {
     this._forEachNode(this._getAllNodesWithTag(root, ["img", "picture", "figure"]), function (elem) {
-      // also check for "null" to work around https://github.com/jsdom/jsdom/issues/2580
-      if ((!elem.src && (!elem.srcset || elem.srcset == "null")) || elem.className.toLowerCase().indexOf("lazy") !== -1) {
+      // In some sites (e.g. Kotaku), they put 1px square image as base64 data uri in the src attribute.
+      // So, here we check if the data uri is too short, just might as well remove it.
+      if (elem.src && this.REGEXPS.b64DataUrl.test(elem.src)) {
+        // Make sure it's not SVG, because SVG can have a meaningful image in under 133 bytes.
+        var parts = this.REGEXPS.b64DataUrl.exec(elem.src);
+        if (parts[1] === "image/svg+xml") {
+          return;
+        }
+
+        // Make sure this element has other attributes which contains image.
+        // If it doesn't, then this src is important and shouldn't be removed.
+        var srcCouldBeRemoved = false;
         for (var i = 0; i < elem.attributes.length; i++) {
           var attr = elem.attributes[i];
-          if (attr.name === "src" || attr.name === "srcset") {
+          if (attr.name === "src") {
             continue;
           }
-          var copyTo = null;
-          if (/\.(jpg|jpeg|png|webp)\s+\d/.test(attr.value)) {
-            copyTo = "srcset";
-          } else if (/^\s*\S+\.(jpg|jpeg|png|webp)\S*\s*$/.test(attr.value)) {
-            copyTo = "src";
+
+          if (/\.(jpg|jpeg|png|webp)/i.test(attr.value)) {
+            srcCouldBeRemoved = true;
+            break;
           }
-          if (copyTo) {
-            //if this is an img or picture, set the attribute directly
-            if (elem.tagName === "IMG" || elem.tagName === "PICTURE") {
-              elem.setAttribute(copyTo, attr.value);
-            } else if (elem.tagName === "FIGURE" && !this._getAllNodesWithTag(elem, ["img", "picture"]).length) {
-              //if the item is a <figure> that does not contain an image or picture, create one and place it inside the figure
-              //see the nytimes-3 testcase for an example
-              var img = this._doc.createElement("img");
-              img.setAttribute(copyTo, attr.value);
-              elem.appendChild(img);
-            }
+        }
+
+        // Here we assume if image is less than 100 bytes (or 133B after encoded to base64)
+        // it will be too small, therefore it might be placeholder image.
+        if (srcCouldBeRemoved) {
+          var b64starts = elem.src.search(/base64\s*/i) + 7;
+          var b64length = elem.src.length - b64starts;
+          if (b64length < 133) {
+            elem.removeAttribute("src");
+          }
+        }
+      }
+
+      // also check for "null" to work around https://github.com/jsdom/jsdom/issues/2580
+      if ((elem.src || (elem.srcset && elem.srcset != "null")) && elem.className.toLowerCase().indexOf("lazy") === -1) {
+        return;
+      }
+
+      for (var j = 0; j < elem.attributes.length; j++) {
+        attr = elem.attributes[j];
+        if (attr.name === "src" || attr.name === "srcset") {
+          continue;
+        }
+        var copyTo = null;
+        if (/\.(jpg|jpeg|png|webp)\s+\d/.test(attr.value)) {
+          copyTo = "srcset";
+        } else if (/^\s*\S+\.(jpg|jpeg|png|webp)\S*\s*$/.test(attr.value)) {
+          copyTo = "src";
+        }
+        if (copyTo) {
+          //if this is an img or picture, set the attribute directly
+          if (elem.tagName === "IMG" || elem.tagName === "PICTURE") {
+            elem.setAttribute(copyTo, attr.value);
+          } else if (elem.tagName === "FIGURE" && !this._getAllNodesWithTag(elem, ["img", "picture"]).length) {
+            //if the item is a <figure> that does not contain an image or picture, create one and place it inside the figure
+            //see the nytimes-3 testcase for an example
+            var img = this._doc.createElement("img");
+            img.setAttribute(copyTo, attr.value);
+            elem.appendChild(img);
           }
         }
       }
@@ -1682,7 +2017,7 @@ Readability.prototype = {
     // without effecting the traversal.
     //
     // TODO: Consider taking into account original contentScore here.
-    this._removeNodes(e.getElementsByTagName(tag), function(node) {
+    this._removeNodes(this._getAllNodesWithTag(e, [tag]), function(node) {
       // First check if this node IS data table, in which case don't remove it.
       var isDataTable = function(t) {
         return t._readabilityDataTable;
@@ -1716,10 +2051,7 @@ Readability.prototype = {
         var input = node.getElementsByTagName("input").length;
 
         var embedCount = 0;
-        var embeds = this._concatNodeLists(
-          node.getElementsByTagName("object"),
-          node.getElementsByTagName("embed"),
-          node.getElementsByTagName("iframe"));
+        var embeds = this._getAllNodesWithTag(node, ["object", "embed", "iframe"]);
 
         for (var i = 0; i < embeds.length; i++) {
           // If this embed has attribute that matches video regex, don't delete it.
@@ -1780,11 +2112,9 @@ Readability.prototype = {
    * @return void
   **/
   _cleanHeaders: function(e) {
-    for (var headerIndex = 1; headerIndex < 3; headerIndex += 1) {
-      this._removeNodes(e.getElementsByTagName("h" + headerIndex), function (header) {
-        return this._getClassWeight(header) < 0;
-      });
-    }
+    this._removeNodes(this._getAllNodesWithTag(e, ["h1", "h2"]), function (header) {
+      return this._getClassWeight(header) < 0;
+    });
   },
 
   _flagIsActive: function(flag) {
@@ -1824,12 +2154,18 @@ Readability.prototype = {
       }
     }
 
+    // Unwrap image from noscript
+    this._unwrapNoscriptImages(this._doc);
+
+    // Extract JSON-LD metadata before removing scripts
+    var jsonLd = this._disableJSONLD ? {} : this._getJSONLD(this._doc);
+
     // Remove script tags from the document.
     this._removeScripts(this._doc);
 
     this._prepDocument();
 
-    var metadata = this._getArticleMetadata();
+    var metadata = this._getArticleMetadata(jsonLd);
     this._articleTitle = metadata.title;
 
     var articleContent = this._grabArticle();
@@ -1855,7 +2191,7 @@ Readability.prototype = {
       title: this._articleTitle,
       byline: metadata.byline || this._articleByline,
       dir: this._articleDir,
-      content: articleContent.innerHTML,
+      content: this._serializer(articleContent),
       textContent: textContent,
       length: textContent.length,
       excerpt: metadata.excerpt,

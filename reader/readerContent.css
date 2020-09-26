@@ -12,15 +12,15 @@ body[theme="dark"] {
 }
 
 body[theme="sepia"] {
-	background-color: rgb(245, 237, 220);
-	color: rgb(68, 47, 30);
+	background-color: rgb(247, 231, 199); 
+	color: rgb(56, 40, 28);
 }
 
 iframe {
 	display: none;
 }
 .reader-main {
-	padding: 1em;
+	padding: 0.75em 1em;
 	max-width: 650px;
 	display: block;
 	margin: auto;
@@ -84,6 +84,14 @@ img, picture, video {
 	height: auto;
 	margin: auto;
 }
+/*
+needed to fix wikipedia math rendering
+and probably generally reasonable to assume that an image inside a span should be inline
+*/
+span > img, span > picture, span > video {
+	display: inline-block;
+	vertical-align: middle;
+}
 body[theme="dark"] img,
 body[theme="dark"] picture {
 	filter: brightness(0.95);
@@ -105,6 +113,7 @@ a {
 body[theme="dark"] a {
 	color: #65a9ed;
 }
+
 a:hover {
 	background-image: linear-gradient(to bottom, transparent 70%, currentColor 0%);
 	background-size: 1px 3px;

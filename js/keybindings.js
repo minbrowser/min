@@ -22,7 +22,7 @@ Determines whether a shortcut can actually run
 single-letter shortcuts and shortcuts used for text editing can't run when an input is focused
 */
 function checkShortcutCanRun (combo, cb) {
-  if (/^\w$/.test(combo) || combo === 'mod+left' || combo === 'mod+right') {
+  if (/^(shift)?\+?\w$/.test(combo) || combo === 'mod+left' || combo === 'mod+right') {
     webviews.callAsync(tabs.getSelected(), 'isFocused', function (err, isFocused) {
       if (err || !tabs.get(tabs.getSelected()).url || !isFocused) {
       // check whether an input is focused in the browser UI

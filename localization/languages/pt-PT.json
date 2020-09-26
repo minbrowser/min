@@ -5,15 +5,18 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "addToDictionary": "Adicionar ao dicionário",
         "pictureInPicture": "Picture in Picture",
         "openInNewTab": "Abrir em novo separador",
         "openInNewPrivateTab": "Abrir em novo separador privado",
+        "saveLinkAs": "Guardar ligação como",
         "viewImage": "Ver imagem",
         "openImageInNewTab": "Abrir imagem em novo separador",
         "openImageInNewPrivateTab": "Abrir imagem em novo separador privado",
         "saveImageAs": "Guardar imagem como",
         "searchWith": "Pesquisar com %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copiar ligação",
+        "copyEmailAddress": "Copiar endereço de e-mail",
         "selectAll": "Selecionar tudo",
         "undo": "Desfazer",
         "redo": "Refazer",
@@ -24,11 +27,11 @@
         "goForward": "Avançar",
         "inspectElement": "Inspecionar elemento",
         /* searchbar */
+        "pasteAndGo": "Colar e ir",
         "DDGAnswerSubtitle": "Resposta", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Site sugerido", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Resultados em DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
         "taskN": "Tarefa %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "Entrada do ficheiro 'hosts'", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
@@ -45,13 +48,14 @@
         "closeTask": "Fechar tarefa",
         "moveToTask": "Mover este separador para uma tarefa",
         "nameTask": "Dar nome a esta tarefa",
-	"addBookmark": "Adicionar marcador",
-	"searchBookmarks": "Pesquisar nos marcadores",
-	"bookmarksAddTag": "Adicionar etiqueta",
-	"bookmarksSimilarItems": "Itens semelhantes",
-	"searchHistory": "Pesquisar no histórico",
-	"importBookmarks": "Importar marcadores de ficheiro HTML",
-	"exportBookmarks": "Exportar marcadores",
+        "addBookmark": "Adicionar marcador",
+        "searchBookmarks": "Pesquisar nos marcadores",
+        "bookmarksAddTag": "Adicionar etiqueta",
+        "bookmarksSimilarItems": "Itens semelhantes",
+        "searchHistory": "Pesquisar no histórico",
+        "importBookmarks": "Importar marcadores de ficheiro HTML",
+        "exportBookmarks": "Exportar marcadores",
+        "runUserscript": "Executar script",
         /* navbar */
         "openMenu": "Abrir menu", //application menu button on windows
         "enterReaderView": "Ativar modo de leitura",
@@ -67,7 +71,9 @@
         "viewTasks": "Ver tarefas",
         "newTask": "Nova tarefa", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Tarefa %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Tarefa eliminada. <a>Desfazer</a>?"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "Tarefa eliminada. <a>Desfazer</a>?"
+        },
         "returnToTask": "Retornar à tarefa anterior",
         "taskDescriptionTwo": "%t e %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
         "taskDescriptionThree": "%t, %t e %n mais", //used to describe a task that has three or more tabs
@@ -78,8 +84,8 @@
         /* Focus mode */
         "isFocusMode": "Está no modo de foco.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "Neste modo, todos os separadores estão ocultos à exceção do atual e não será possível criar novos separadores.",
-        "focusModeExplanation2": "Pode desativar este modo desmarcando a caixa \"Modo de foco\" no menu Ver.",
+        "focusModeExplanation1": "No modo de foco, não é possível abrir novos separadores nem trocar de tarefas.",
+        "focusModeExplanation2": "Pode sair do modo de foco desmarcando a opção \"Modo de foco\" existente no menu Ver.",
         /* relative dates */
         "timeRangeJustNow": "Agora mesmo",
         "timeRangeMinutes": "Há alguns minutos",
@@ -131,20 +137,23 @@
         "settingsContentBlockingExceptions": "Permitir anúncios nestes sites:",
         "settingsBlockScriptsToggle": "Bloquear scripts",
         "settingsBlockImagesToggle": "Bloquear imagens",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "Baseado em EasyList e EasyPrivacy, criadas por <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">Ver licença</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": "Até agora, Min bloqueou <strong></strong> anúncios e rastreadores."
         },
+        "settingsCustomizeFiltersLink": "Personalizar filtros",
         "settingsAppearanceHeading": "Aparência",
         "settingsEnableDarkMode": "Ativar modo escuro:",
         "settingsDarkModeNever": "Nunca",
         "settingsDarkModeNight": "De noite",
         "settingsDarkModeAlways": "Sempre",
         "settingsSiteThemeToggle": "Ativar tema do site",
-        "settingsHistoryButtonToggle": "Mostrar botão para recuar",
         "settingsAdditionalFeaturesHeading": "Outras funcionalidades",
         "settingsUserscriptsToggle": "Ativar scripts de utilizador",
         "settingsSeparateTitlebarToggle": "Utilizar barra de título separada",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."},
+        "settingsOpenTabsInForegroundToggle": "Abrir novos separadores em primeiro plano",
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."
+        },
         "settingsUserAgentToggle": "Utilizar agente de utilizador personalizado",
         "settingsUpdateNotificationsToggle": "Procurar atualizações automaticamente",
         "settingsSearchEngineHeading": "Motor de pesquisa",
@@ -153,6 +162,13 @@
         "customSearchEngineDescription": "Substituir termo de pesquisa por %s",
         "settingsKeyboardShortcutsHeading": "Teclas de atalho",
         "settingsKeyboardShortcutsHelp": "Utilize vírgulas para separar os diversos atalhos",
+        "settingsProxyHeading": "Proxy",
+        "settingsNoProxy": "Sem proxy",
+        "settingsManualProxy": "Configuração manual",
+        "settingsAutomaticProxy": "Configuração automática",
+        "settingsProxyRules": "Regras do proxy:",
+        "settingsProxyBypassRules": "Não usar proxy para:",
+        "settingsProxyConfigurationURL": "URL de configuração",
         /* app menu */
         "appMenuFile": "Ficheiro",
         "appMenuNewTab": "Novo separador",
@@ -200,14 +216,26 @@
         "appMenuQuit": "Sair de %n",
         "appMenuBringToFront": "Trazer tudo para a frente",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "página <input type='text'/> de <span id='total'></span>"},
+        "PDFPageCounter": {
+            "unsafeHTML": "página <input type='text'/> de <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": "Definições do leitor",
+        "buttonReaderLightTheme": "Claro",
+        "buttonReaderSepiaTheme": "Sépia",
+        "buttonReaderDarkTheme": "Escuro",
+        "openReaderView": "Abrir sempre no modo de leitura",
+        "autoRedirectBannerReader": "Abrir todo os artigos deste site no modo de leitura?",
+        "buttonReaderRedirectYes": "Sim",
+        "buttonReaderRedirectNo": "Não",
+        "articleReaderView": "Artigo original",
         /* Download manager */
         "downloadCancel": "Cancelar",
         "downloadStateCompleted": "Terminada",
         "downloadStateFailed": "Falhada",
         /* Update Notifications */
         "updateNotificationTitle": "Está disponível uma uma nova versão",
-	    /* Autofill settings */
+        /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Preenchimento automático de palavras-passe",
         "settingsSelectPasswordManager": "Escolha uma das seguintes aplicações:",
         /* Password manager setup */
@@ -217,7 +245,7 @@
         },
         "passwordManagerInstallerSetup": {
             "unsafeHTML": "Descarregue <a id='password-manager-setup-link-installer'></a> e arraste o ficheiro para a caixa abaixo:"
-},
+        },
         "passwordManagerSetupLink": "descarregue a ferramenta CLI %p",
         "passwordManagerSetupLinkInstaller": "o instalador da ferramenta %p CLI",
         "passwordManagerSetupStep2": "Depois, arraste a ferramenta para a caixa abaixo:",

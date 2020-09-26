@@ -18,25 +18,24 @@ const readerDecision = {
 
     try {
       var urlObj = new URL(url)
-      if (readerDecision.info.domainStatus[urlObj.hostname] === true) {
+
+      if (readerDecision.info.URLStatus[url]) {
+        // we have data collected from a previous visit to this page
+        if (readerDecision.info.URLStatus[url].isReaderable === true) {
+          // we know it will be readable, redirect without waiting
+          return 1
+        } else if (readerDecision.info.URLStatus[url].isReaderable === false) {
+          // we know it won't be readerable (or reader mode might be broken for the page), never redirect to it
+          return -1
+        }
+      } else if (readerDecision.info.domainStatus[urlObj.hostname] === true) {
         // this domain has been set to auto reader mode
-        if (readerDecision.info.URLStatus[url]) {
-          // we have data collected from a previous visit to this page
-          if (readerDecision.info.URLStatus[url].isReaderable === true) {
-            // we know it will be readable, redirect without waiting
-            return 1
-          } else if (readerDecision.info.URLStatus[url].isReaderable === false) {
-            // we know it won't be readerable (or reader mode might be broken for the page), never redirect to it
-            return -1
-          }
-        } else {
-          // we don't know anything about the content of the page
-          if (urlObj.pathname === '/') {
+        // we don't know anything about the content of the page
+        if (urlObj.pathname === '/') {
             // sometimes the domain homepage will have a lot of text and look like an article (examples: gutenberg.org, nytimes.com), but it almost never is, so we shouldn't redirect to reader view unless the page has been explicitly marked as readerable (in which case URLStatus will handle it above)
-            return -1
-          } else {
-            return 0
-          }
+          return -1
+        } else {
+          return 0
         }
       }
     } catch (e) {

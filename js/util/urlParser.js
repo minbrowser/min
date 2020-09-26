@@ -87,7 +87,7 @@ var urlParser = {
       var representedURL
       try {
         representedURL = new URLSearchParams(new URL(url).search).get('url')
-      } catch(e) {}
+      } catch (e) {}
       if (representedURL) {
         return representedURL
       } else {
@@ -110,12 +110,12 @@ var urlParser = {
 
       // UNC path?
       if (path.startsWith('//')) {
-        return 'file:' + path
+        return encodeURI('file:' + path)
       } else {
-        return 'file:///' + path
+        return encodeURI('file:///' + path)
       }
     } else {
-      return 'file://' + path
+      return encodeURI('file://' + path)
     }
   }
 }

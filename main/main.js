@@ -10,27 +10,32 @@ const ipc = electron.ipcMain
 const Menu = electron.Menu
 const MenuItem = electron.MenuItem
 
-let isInstallerRunning = false;
+let isInstallerRunning = false
+const isDevelopmentMode = process.argv.some(arg => arg === '--development-mode')
 
-function clamp(n, min, max) {
-  return Math.max(Math.min(n, max), min);
+function clamp (n, min, max) {
+  return Math.max(Math.min(n, max), min)
 }
 
 if (process.platform === 'win32') {
   (async function () {
-  var squirrelCommand = process.argv[1];
-  if (squirrelCommand === "--squirrel-install" || squirrelCommand === "--squirrel-updated") {
-    isInstallerRunning = true;
-    await registryInstaller.install();
-  }
-  if (squirrelCommand == '--squirrel-uninstall') {
-    isInstallerRunning = true;
-    await registryInstaller.uninstall();
-  }
-  if (require('electron-squirrel-startup')) {
-    app.quit()
-  }
-  })();
+    var squirrelCommand = process.argv[1]
+    if (squirrelCommand === '--squirrel-install' || squirrelCommand === '--squirrel-updated') {
+      isInstallerRunning = true
+      await registryInstaller.install()
+    }
+    if (squirrelCommand === '--squirrel-uninstall') {
+      isInstallerRunning = true
+      await registryInstaller.uninstall()
+    }
+    if (require('electron-squirrel-startup')) {
+      app.quit()
+    }
+  })()
+}
+
+if (isDevelopmentMode) {
+  app.setPath('userData', app.getPath('userData') + '-development')
 }
 
 // workaround for flicker when focusing app (https://github.com/electron/electron/issues/17942)
@@ -52,8 +57,9 @@ if (process.argv.some(item => item.includes('rename-db'))) {
 const browserPage = 'file://' + __dirname + '/index.html'
 
 var mainWindow = null
+var mainWindowIsMinimized = false // workaround for https://github.com/minbrowser/min/issues/1074
 var mainMenu = null
-var secondaryMenu = null;
+var secondaryMenu = null
 var isFocusMode = false
 var appIsReady = false
 
@@ -94,20 +100,20 @@ function handleCommandLineArguments (argv) {
   if (argv) {
     argv.forEach(function (arg, idx) {
       if (arg && arg.toLowerCase() !== __dirname.toLowerCase()) {
-        //URL
+        // URL
         if (arg.indexOf('://') !== -1) {
           sendIPCToWindow(mainWindow, 'addTab', {
             url: arg
           })
-        } else if (arg.includes(' ') || (idx > 0 && argv[idx - 1] === '-s')) {
-          //search
+        } else if (idx > 0 && argv[idx - 1] === '-s') {
+          // search
           sendIPCToWindow(mainWindow, 'addTab', {
             url: arg
           })
         } else if (/[A-Z]:[/\\].*\.html?$/.test(arg)) {
-          //local files on Windows
+          // local files on Windows
           sendIPCToWindow(mainWindow, 'addTab', {
-            url: "file://" + arg
+            url: 'file://' + arg
           })
         }
       }
@@ -116,7 +122,7 @@ function handleCommandLineArguments (argv) {
 }
 
 function createWindow (cb) {
-  var savedBounds = fs.readFile(path.join(userDataPath, 'windowBounds.json'), 'utf-8', function (e, data) {
+  fs.readFile(path.join(userDataPath, 'windowBounds.json'), 'utf-8', function (e, data) {
     var bounds
 
     if (data) {
@@ -133,14 +139,14 @@ function createWindow (cb) {
         y: 0,
         width: size.width,
         height: size.height,
-        maximized: true,
+        maximized: true
       }
     }
 
-    //make the bounds fit inside a currently-active screen
-    //(since the screen Min was previously open on could have been removed)
-    //see: https://github.com/minbrowser/min/issues/904
-    var containingRect = electron.screen.getDisplayMatching(bounds).workArea;
+    // make the bounds fit inside a currently-active screen
+    // (since the screen Min was previously open on could have been removed)
+    // see: https://github.com/minbrowser/min/issues/904
+    var containingRect = electron.screen.getDisplayMatching(bounds).workArea
 
     bounds = {
       x: clamp(bounds.x, containingRect.x, (containingRect.x + containingRect.width) - bounds.width),
@@ -166,22 +172,27 @@ function createWindowWithBounds (bounds) {
     y: bounds.y,
     minWidth: (process.platform === 'win32' ? 400 : 320), // controls take up more horizontal space on Windows
     minHeight: 350,
-    titleBarStyle: 'hiddenInset',
+    titleBarStyle: 'hidden',
+    trafficLightPosition: { x: 12, y: 19 },
     icon: __dirname + '/icons/icon256.png',
     frame: process.platform === 'darwin' || settings.get('useSeparateTitlebar') === true,
     alwaysOnTop: settings.get('windowAlwaysOnTop'),
     backgroundColor: '#fff', // the value of this is ignored, but setting it seems to work around https://github.com/electron/electron/issues/10559
     webPreferences: {
       nodeIntegration: true,
-      nodeIntegrationInWorker: true, //used by ProcessSpawner
-      additionalArguments: ['--user-data-path=' + userDataPath, '--app-version=' + app.getVersion()]
+      nodeIntegrationInWorker: true, // used by ProcessSpawner
+      additionalArguments: [
+        '--user-data-path=' + userDataPath,
+        '--app-version=' + app.getVersion(),
+        ...((isDevelopmentMode ? ['--development-mode'] : []))
+      ]
     }
   })
 
   // windows and linux always use a menu button in the upper-left corner instead
   // if frame: false is set, this won't have any effect, but it does apply on Linux if "use separate titlebar" is enabled
   if (process.platform !== 'darwin') {
-    mainWindow.setMenuBarVisibility(false);
+    mainWindow.setMenuBarVisibility(false)
   }
 
   // and load the index.html of the app.
@@ -207,14 +218,22 @@ function createWindowWithBounds (bounds) {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
+    mainWindowIsMinimized = false
   })
 
   mainWindow.on('focus', function () {
-    sendIPCToWindow(mainWindow, 'windowFocus')
+    if (!mainWindowIsMinimized) {
+      sendIPCToWindow(mainWindow, 'windowFocus')
+    }
   })
 
   mainWindow.on('minimize', function () {
     sendIPCToWindow(mainWindow, 'minimize')
+    mainWindowIsMinimized = true
+  })
+
+  mainWindow.on('restore', function () {
+    mainWindowIsMinimized = false
   })
 
   mainWindow.on('maximize', function () {
@@ -231,6 +250,8 @@ function createWindowWithBounds (bounds) {
 
   mainWindow.on('leave-full-screen', function () {
     sendIPCToWindow(mainWindow, 'leave-full-screen')
+    // https://github.com/minbrowser/min/issues/1093
+    mainWindow.setMenuBarVisibility(false)
   })
 
   mainWindow.on('enter-html-full-screen', function () {
@@ -281,9 +302,9 @@ app.on('window-all-closed', function () {
 app.on('ready', function () {
   appIsReady = true
 
-  /* the installer launches the app to install registry items and shortcuts, 
+  /* the installer launches the app to install registry items and shortcuts,
   but if that's happening, we shouldn't display anything */
-  if(isInstallerRunning) {
+  if (isInstallerRunning) {
     return
   }
 
@@ -303,7 +324,7 @@ app.on('ready', function () {
     })
   })
 
-  mainMenu = buildAppMenu();
+  mainMenu = buildAppMenu()
   Menu.setApplicationMenu(mainMenu)
   createDockMenu()
   registerProtocols()
@@ -348,7 +369,7 @@ ipc.on('focusMainWebContents', function () {
 
 ipc.on('showSecondaryMenu', function (event, data) {
   if (!secondaryMenu) {
-    secondaryMenu = buildAppMenu({secondary: true})
+    secondaryMenu = buildAppMenu({ secondary: true })
   }
   secondaryMenu.popup({
     x: data.x,

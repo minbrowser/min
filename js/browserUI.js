@@ -1,5 +1,6 @@
 /* common actions that affect different parts of the UI (webviews, tabstrip, etc) */
 
+var settings = require('util/settings/settings.js')
 var webviews = require('webviews.js')
 var focusMode = require('focusMode.js')
 var tabBar = require('navbar/tabBar.js')
@@ -12,7 +13,7 @@ function addTask () {
   tasks.setSelected(tasks.add())
   taskOverlay.hide()
 
-  tabBar.rerenderAll()
+  tabBar.updateAll()
   addTab()
 }
 
@@ -128,7 +129,7 @@ function closeTab (tabId) {
 function switchToTask (id) {
   tasks.setSelected(id)
 
-  tabBar.rerenderAll()
+  tabBar.updateAll()
 
   var taskData = tasks.get(id)
 
@@ -154,12 +155,6 @@ function switchToTask (id) {
 function switchToTab (id, options) {
   options = options || {}
 
-  /* tab switching disabled in focus mode */
-  if (focusMode.enabled()) {
-    focusMode.warn()
-    return
-  }
-
   tabEditor.hide()
 
   tabs.setSelected(id)
@@ -170,6 +165,11 @@ function switchToTab (id, options) {
 }
 
 webviews.bindEvent('new-window', function (tabId, url, frameName, disposition) {
+  /* disabled in focus mode */
+  if (focusMode.enabled()) {
+    focusMode.warn()
+    return
+  }
   var newTab = tabs.add({
     url: url,
     private: tabs.get(tabId).private // inherit private status from the current tab
@@ -177,7 +177,7 @@ webviews.bindEvent('new-window', function (tabId, url, frameName, disposition) {
 
   addTab(newTab, {
     enterEditMode: false,
-    openInBackground: disposition === 'background-tab' // possibly open in background based on disposition
+    openInBackground: disposition === 'background-tab' && !settings.get('openTabsInForeground')
   })
 })
 

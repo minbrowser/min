@@ -20,7 +20,12 @@ const ignoredDirs = [
   // this is copied during the build
   'icons/icon.icns',
   // localization files are compiled and copied to dist
-  'localization/'
+  'localization/',
+  // parts of modules that aren't needed
+  'node_modules/@types/',
+  'node_modules/pdfjs-dist/es5',
+  'node_modules/pdfjs-dist/lib',
+  /node_modules\/[^/\n]+\/test\//g
 ]
 
 var baseOptions = {
@@ -52,16 +57,22 @@ var platformOptions = {
     platform: 'win32',
     icon: 'icons/icon256.ico'
   },
-  linux: {
+  linuxAmd64: {
     name: 'min', // name must be lowercase to run correctly after installation
     platform: 'linux',
     arch: 'x64'
   },
-  raspbian: {
+  raspi: {
     name: 'min', // name must be lowercase to run correctly after installation
     platform: 'linux',
     arch: 'armv7l',
     fpm: ['--architecture', 'armhf']
+  },
+  linuxArm64: {
+    name: 'min', // name must be lowercase to run correctly after installation
+    platform: 'linux',
+    arch: 'arm64',
+    fpm: ['--architecture', 'aarch64']
   }
 }
 

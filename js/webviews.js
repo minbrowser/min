@@ -74,27 +74,22 @@ function onPageURLChange (tab, url) {
   }
 }
 
-// called whenever the page finishes loading
-function onPageLoad (tabId) {
-  webviews.callAsync(tabId, 'getURL', function (err, url) {
-    if (err) {
-      return
-    }
-    // capture a preview image if a new page has been loaded
-    if (tabId === tabs.getSelected() && tabs.get(tabId).url !== url) {
-      setTimeout(function () {
-        // sometimes the page isn't visible until a short time after the did-finish-load event occurs
-        captureCurrentTab()
-      }, 100)
-    }
-
+// called whenever a navigation finishes
+function onNavigate (tabId, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
+  if (isMainFrame) {
     onPageURLChange(tabId, url)
-  })
+  }
 }
 
-// called whenever a navigation finishes
-function onNavigate (tabId, url, httpResponseCode, httpStatusText) {
-  onPageURLChange(tabId, url)
+// called whenever the page finishes loading
+function onPageLoad (tabId) {
+  // capture a preview image if a new page has been loaded
+  if (tabId === tabs.getSelected()) {
+    setTimeout(function () {
+      // sometimes the page isn't visible until a short time after the did-finish-load event occurs
+      captureCurrentTab()
+    }, 100)
+  }
 }
 
 function scrollOnLoad (tabId, scrollPosition) {
@@ -228,22 +223,23 @@ const webviews = {
           enableRemoteModule: false,
           allowPopups: false,
           partition: partition,
-          enableWebSQL: false
+          enableWebSQL: false,
+          autoplayPolicy: 'user-gesture-required'
         }
       }),
       boundsString: JSON.stringify(webviews.getViewBounds()),
       events: webviews.events.map(e => e.event).filter((i, idx, arr) => arr.indexOf(i) === idx)
     })
 
-    let contents = lazyRemoteObject(function () {
+    const contents = lazyRemoteObject(function () {
       return getView(tabId).webContents
     })
 
     if (tabData.url) {
-      ipc.send('loadURLInView', {id: tabData.id, url: urlParser.parse(tabData.url)})
+      ipc.send('loadURLInView', { id: tabData.id, url: urlParser.parse(tabData.url) })
     } else if (tabData.private) {
       // workaround for https://github.com/minbrowser/min/issues/872
-      ipc.send('loadURLInView', {id: tabData.id, url: urlParser.parse('min://newtab')})
+      ipc.send('loadURLInView', { id: tabData.id, url: urlParser.parse('min://newtab') })
     }
 
     webviews.tabContentsMap[tabId] = contents
@@ -275,7 +271,7 @@ const webviews = {
     forceUpdateDragRegions()
   },
   update: function (id, url) {
-    ipc.send('loadURLInView', {id: id, url: urlParser.parse(url)})
+    ipc.send('loadURLInView', { id: id, url: urlParser.parse(url) })
   },
   destroy: function (id) {
     webviews.emitEvent('view-hidden', id)
@@ -306,7 +302,7 @@ const webviews = {
         placeholderImg.src = img
         placeholderImg.hidden = false
       } else if (associatedTab && associatedTab.url) {
-        captureCurrentTab({forceCapture: true})
+        captureCurrentTab({ forceCapture: true })
       } else {
         placeholderImg.hidden = true
       }
@@ -353,7 +349,7 @@ const webviews = {
     }
   },
   resize: function () {
-    ipc.send('setBounds', {id: webviews.selectedId, bounds: webviews.getViewBounds()})
+    ipc.send('setBounds', { id: webviews.selectedId, bounds: webviews.getViewBounds() })
   },
   goBackIgnoringRedirects: function (id) {
     // special case: the current page is an internal page representing a regular webpage, and the previous page in history is that page (which likely means a redirect happened from the original page to the internal page)
@@ -400,7 +396,7 @@ const webviews = {
       var callId = Math.random()
       webviews.asyncCallbacks[callId] = cb
     }
-    ipc.send('callViewMethod', {id: id, callId: callId, method: method, args: args})
+    ipc.send('callViewMethod', { id: id, callId: callId, method: method, args: args })
   }
 }
 
@@ -452,9 +448,13 @@ ipc.on('leave-full-screen', function () {
   webviews.resize()
 })
 
+webviews.bindEvent('did-start-navigation', onNavigate)
+webviews.bindEvent('will-redirect', onNavigate)
+webviews.bindEvent('did-navigate', function (tabId, url, httpResponseCode, httpStatusText) {
+  onPageURLChange(tabId, url)
+})
+
 webviews.bindEvent('did-finish-load', onPageLoad)
-webviews.bindEvent('did-navigate-in-page', onPageLoad)
-webviews.bindEvent('did-navigate', onNavigate)
 
 webviews.bindEvent('page-title-updated', function (tabId, title, explicitSet) {
   tabs.update(tabId, {
@@ -485,9 +485,15 @@ webviews.bindEvent('crashed', function (tabId, isKilled) {
 })
 
 webviews.bindIPC('getSettingsData', function (tabId, args) {
+  if (!urlParser.isInternalURL(tabs.get(tabId).url)) {
+    throw new Error()
+  }
   webviews.callAsync(tabId, 'send', ['receiveSettingsData', settings.list])
 })
 webviews.bindIPC('setSetting', function (tabId, args) {
+  if (!urlParser.isInternalURL(tabs.get(tabId).url)) {
+    throw new Error()
+  }
   settings.set(args[0].key, args[0].value)
 })
 
@@ -547,7 +553,7 @@ ipc.on('captureData', function (e, data) {
 /* focus the view when the window is focused */
 
 ipc.on('windowFocus', function () {
-  if (document.activeElement === document.body) {
+  if (webviews.placeholderRequests.length === 0 && document.activeElement.tagName !== 'INPUT') {
     webviews.focus()
   }
 })

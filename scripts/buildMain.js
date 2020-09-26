@@ -15,10 +15,11 @@ const modules = [
   'main/UASwitcher.js',
   'main/permissionManager.js',
   'main/prompt.js',
+  'main/remoteMenu.js',
+  'js/util/proxy.js'
 ]
 
 function buildMain () {
-
   // build localization support first, since it is included in the bundle
   require('./buildLocalization.js')()
 

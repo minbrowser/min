@@ -132,7 +132,7 @@ function install (filePath, callback) {
         fs.mkdirSync(toolsDir)
       }
 
-      let targetFilePath = path.join(toolsDir, setupDialog.manager.getFileName())
+      let targetFilePath = setupDialog.manager.getLocalPath()
       fs.createReadStream(filePath).pipe(fs.createWriteStream(targetFilePath)).on('finish', function () {
         fs.chmodSync(targetFilePath, '755')
         resolve(targetFilePath)
@@ -188,7 +188,7 @@ function afterInstall (toolPath) {
         afterInstall()
       } else {
         // Cleanup after we failed.
-        let targetFilePath = path.join(window.globalArgs['user-data-path'], 'tools', setupDialog.manager.getFileName())
+        let targetFilePath = setupDialog.manager.getLocalPath()
         if (fs.existsSync(targetFilePath)) {
           fs.unlinkSync(targetFilePath)
         }

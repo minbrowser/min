@@ -5,15 +5,18 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
+        "addToDictionary": null, //missing translation
         "pictureInPicture": null, //missing translation
         "openInNewTab": "باز کردن در برگه جدید",
         "openInNewPrivateTab": "باز کردن در برگه خصوصی جدید",
+        "saveLinkAs": null, //missing translation
         "viewImage": "نمایش تصویر",
         "openImageInNewTab": "باز کردن تصویر در برگه جدید",
         "openImageInNewPrivateTab": "باز کردن تصویر در برگه خصوصی جدید",
         "saveImageAs": "ذخیره تصویر",
         "searchWith": "جستجو با %s", //%s will be replaced with the name of the current search engine
         "copyLink": "کپی لینک",
+        "copyEmailAddress": null, //missing translation
         "selectAll": null, // Missing Translation
         "undo": null, // Missing Translation
         "redo": null, // Missing Translation
@@ -24,11 +27,11 @@
         "goForward": "جلو",
         "inspectElement": "وارسی",
         /* searchbar */
+        "pasteAndGo": null, //missing translation
         "DDGAnswerSubtitle": "پاسخ", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "سایت پیشنهادی", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "نتایج از DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
         "taskN": "وظیفه %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        "hostsFileEntry": "نتایج از فایل Hosts", //this is a label used to indicate that a result is coming from the user's host file
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
@@ -46,12 +49,13 @@
         "moveToTask": "انتقال این برگه به یک وظیفه",
         "nameTask": null, //missing translation
         "addBookmark": null, //missing translation
-		"searchBookmarks": "جستجوی نشانک ها",
+        "searchBookmarks": "جستجوی نشانک ها",
         "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
-		"searchHistory": "جستجوی تاریخچه",
+        "bookmarksSimilarItems": null, //missing translation
+        "searchHistory": "جستجوی تاریخچه",
         "importBookmarks": null, //missing translation
-		"exportBookmarks": null, //missing translation
+        "exportBookmarks": null, //missing translation
+        "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "باز کردن منو", //application menu button on windows
         "enterReaderView": "ورود به حالت خواندن",
@@ -67,7 +71,9 @@
         "viewTasks": "نمایش وظایف",
         "newTask": "وظیفه جدید", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "وظیفه %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
+        "taskDeleteWarning": {
+            "unsafeHTML": null //missing translation
+        },
         "returnToTask": null, //missing translation
         "taskDescriptionTwo": null, //missing translation
         "taskDescriptionThree": null, //missing translation
@@ -78,8 +84,8 @@
         /* Focus mode */
         "isFocusMode": "شما در حالت تمرکز هستید",
         "closeDialog": "تایید", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "در حالت تمرکز تمام برگه ها به جز برگه فعلی مخفی شده و شما قادر به ایجاد برگه جدید نیستید.",
-        "focusModeExplanation2": "شما می توانید با غیرفعال کردن گزینه \"حالت تمرکز\" در منوی نمایش از حالت تمرکز خارج شوید.",
+        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
         "timeRangeJustNow": "همین الان",
         "timeRangeMinutes": "دقایقی پیش",
@@ -131,20 +137,23 @@
         "settingsContentBlockingExceptions": null, //missing translation
         "settingsBlockScriptsToggle": "مسدود کردن اسکریپت ها",
         "settingsBlockImagesToggle": "مسدود کردن تصاویر",
-        "settingsEasyListCredit": {
+        "settingsBlockedRequestCount": {
             "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "ظاهر",
         "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
         "settingsDarkModeNever": null, //"Never" missing translation
         "settingsDarkModeNight": null, //"At night" missing translation
         "settingsDarkModeAlways": null, //"Always" missing translation
         "settingsSiteThemeToggle": null, //missing translation
-        "settingsHistoryButtonToggle": "فعال کردن دکمه بازگشت",
         "settingsAdditionalFeaturesHeading": "امکانات اضافه",
         "settingsUserscriptsToggle": "فعال کردن اسکریپت های کاربر",
         "settingsSeparateTitlebarToggle": null, //missing translation
-		"settingsUserscriptsExplanation": {"unsafeHTML": "اسکریپت های کاربر این اجازه را به شما می دهند تا رفتار سایت ها را تغییر دهید - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اطلاعات بیشتر</a>."},
+        "settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "اسکریپت های کاربر این اجازه را به شما می دهند تا رفتار سایت ها را تغییر دهید - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اطلاعات بیشتر</a>."
+        },
         "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "موتور جستجو",
@@ -153,6 +162,13 @@
         "customSearchEngineDescription": "تعویض عبارت جستجو شده با %s",
         "settingsKeyboardShortcutsHeading": "میانبرهای صفحه کلید",
         "settingsKeyboardShortcutsHelp": "از ویرگول جهت جدا کردن میانبرها استفاده کنید.",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "پرونده",
         "appMenuNewTab": "برگه جدید",
@@ -200,7 +216,19 @@
         "appMenuQuit": "خروج از %n",
         "appMenuBringToFront": "نمایش همه",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "صفحه <input type='text'/> از <span id='total'></span>"},
+        "PDFPageCounter": {
+            "unsafeHTML": "صفحه <input type='text'/> از <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": null, //missing translation "Reader Settings"
+        "buttonReaderLightTheme": null, //missing translation "Light"
+        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
+        "buttonReaderDarkTheme": null, //missing translation "Dark"
+        "openReaderView": null, //missing translation "Always open in reader view"
+        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
+        "buttonReaderRedirectYes": null, //missing translation "Yes"
+        "buttonReaderRedirectNo": null, //missing translation "No"
+        "articleReaderView": null, //missing translation "Original Article"
         /* Download manager */
         "downloadCancel": null, //missing translation
         "downloadStateCompleted": null, //missing translation

@@ -180,18 +180,40 @@ const tabColor = {
   useSiteTheme: true,
   initialize: function () {
     webviews.bindEvent('page-favicon-updated', function (tabId, favicons) {
-      tabColor.updateFromImage(favicons, tabId)
+      tabColor.updateFromImage(favicons, tabId, function () {
+        if (tabId === tabs.getSelected()) {
+          tabColor.updateColors()
+        }
+      })
     })
 
     webviews.bindEvent('did-change-theme-color', function (tabId, color) {
       tabColor.updateFromThemeColor(color, tabId)
+      if (tabId === tabs.getSelected()) {
+        tabColor.updateColors()
+      }
     })
 
-    webviews.bindEvent('did-navigate', function (tabId) {
-      tabs.update(tabId, {
-        themeColor: null,
-        backgroundColor: null
-      })
+    /*
+    Reset the icon color when the page changes, so that if the new page has no icon it won't inherit the old one
+    But don't actually render anything here because the new icon won't have been received yet
+    and we want to go from old color > new color, rather than old color > default > new color
+     */
+    webviews.bindEvent('did-start-navigation', function (tabId, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
+      if (isMainFrame) {
+        tabs.update(tabId, {
+          backgroundColor: null,
+          favicon: null
+        })
+      }
+    })
+
+    /*
+    Always rerender once the page has finished loading
+    this is needed to go back to default colors in case this page doesn't specify one
+     */
+    webviews.bindEvent('did-finish-load', function (tabId) {
+      tabColor.updateColors()
     })
 
     // theme changes can affect the tab colors
@@ -225,11 +247,8 @@ const tabColor = {
         isLowContrast: isLowContrast(rgbAdjusted)
       }
     })
-    if (tabId === tabs.getSelected()) {
-      tabColor.updateColors()
-    }
   },
-  updateFromImage: function (favicons, tabId) {
+  updateFromImage: function (favicons, tabId, callback) {
     // private tabs always use a special color, we don't need to get the icon
     if (tabs.get(tabId).private === true) {
       return
@@ -252,8 +271,8 @@ const tabColor = {
           }
         })
 
-        if (tabId === tabs.getSelected()) {
-          tabColor.updateColors()
+        if (callback) {
+          callback()
         }
       }
       colorExtractorImage.src = favicons[0]

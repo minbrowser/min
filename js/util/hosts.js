@@ -18,7 +18,7 @@ fs.readFile(HOSTS_FILE, 'utf8', function (err, data) {
 
   var hostsMap = {} // this is used to deduplicate the list
 
-  const lines = truncatedHostsFileLines(data, Math.pow(1024, 2))
+  const lines = truncatedHostsFileLines(data, 128 * 1024)
 
   lines.forEach(function (line) {
     if (line.startsWith('#')) {

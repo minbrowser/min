@@ -1,11 +1,11 @@
 document.title = l('settingsPreferencesHeading') + ' | Min'
 
-var container = document.getElementById('privacy-settings-container')
+var contentTypeBlockingContainer = document.getElementById('content-type-blocking')
 var banner = document.getElementById('restart-required-banner')
 var siteThemeCheckbox = document.getElementById('checkbox-site-theme')
-var historyButtonCheckbox = document.getElementById('checkbox-history-button')
 var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
 var separateTitlebarCheckbox = document.getElementById('checkbox-separate-titlebar')
+var openTabsInForegroundCheckbox = document.getElementById('checkbox-open-tabs-in-foreground')
 var userAgentCheckbox = document.getElementById('checkbox-user-agent')
 var userAgentInput = document.getElementById('input-user-agent')
 
@@ -19,6 +19,18 @@ var trackingLevelContainer = document.getElementById('tracking-level-container')
 var trackingLevelOptions = Array.from(trackingLevelContainer.querySelectorAll('input[name=blockingLevel]'))
 var blockingExceptionsContainer = document.getElementById('content-blocking-information')
 var blockingExceptionsInput = document.getElementById('content-blocking-exceptions')
+var blockedRequestCount = document.querySelector('#content-blocking-blocked-requests strong')
+
+settings.listen('filteringBlockedCount', function (value) {
+  var count = value || 0
+  var valueStr
+  if (count > 50000) {
+    valueStr = new Intl.NumberFormat(navigator.locale, { notation: 'compact', maximumSignificantDigits: 4 }).format(count)
+  } else {
+    valueStr = new Intl.NumberFormat().format(count)
+  }
+  blockedRequestCount.textContent = valueStr
+})
 
 function updateBlockingLevelUI (level) {
   var radio = trackingLevelOptions[level]
@@ -30,6 +42,11 @@ function updateBlockingLevelUI (level) {
     blockingExceptionsContainer.hidden = false
     radio.parentNode.appendChild(blockingExceptionsContainer)
   }
+
+  if (document.querySelector('#tracking-level-container .setting-option.selected')) {
+    document.querySelector('#tracking-level-container .setting-option.selected').classList.remove('selected')
+  }
+  radio.parentNode.classList.add('selected')
 }
 
 function changeBlockingLevelSetting (level) {
@@ -72,7 +89,7 @@ trackingLevelOptions.forEach(function (item, idx) {
   })
 })
 
-blockingExceptionsInput.addEventListener('change', function () {
+blockingExceptionsInput.addEventListener('input', function () {
   var newValue = this.value.split(',').map(i => i.trim()).filter(i => !!i)
 
   settings.get('filtering', function (value) {
@@ -88,14 +105,14 @@ blockingExceptionsInput.addEventListener('change', function () {
 
 var contentTypes = {
   // humanReadableName: contentType
-  'scripts': 'script',
-  'images': 'image'
+  scripts: 'script',
+  images: 'image'
 }
 
 // used for showing localized strings
 var contentTypeSettingNames = {
-  'scripts': 'settingsBlockScriptsToggle',
-  'images': 'settingsBlockImagesToggle'
+  scripts: 'settingsBlockScriptsToggle',
+  images: 'settingsBlockImagesToggle'
 }
 
 for (var contentType in contentTypes) {
@@ -123,7 +140,7 @@ for (var contentType in contentTypes) {
       section.appendChild(checkbox)
       section.appendChild(label)
 
-      container.appendChild(section)
+      contentTypeBlockingContainer.appendChild(section)
 
       checkbox.addEventListener('change', function (e) {
         settings.get('filtering', function (value) {
@@ -190,20 +207,6 @@ siteThemeCheckbox.addEventListener('change', function (e) {
   settings.set('siteTheme', this.checked)
 })
 
-/* history button setting */
-
-settings.get('historyButton', function (value) {
-  if (value === true || value === undefined) {
-    historyButtonCheckbox.checked = true
-  } else {
-    historyButtonCheckbox.checked = false
-  }
-})
-
-historyButtonCheckbox.addEventListener('change', function (e) {
-  settings.set('historyButton', this.checked)
-})
-
 /* userscripts setting */
 
 settings.get('userscriptsEnabled', function (value) {
@@ -214,7 +217,6 @@ settings.get('userscriptsEnabled', function (value) {
 
 userscriptsCheckbox.addEventListener('change', function (e) {
   settings.set('userscriptsEnabled', this.checked)
-  showRestartRequiredBanner()
 })
 
 /* separate titlebar setting */
@@ -234,22 +236,34 @@ separateTitlebarCheckbox.addEventListener('change', function (e) {
   showRestartRequiredBanner()
 })
 
+/* tabs in foreground setting */
+
+settings.get('openTabsInForeground', function (value) {
+  if (value === true) {
+    openTabsInForegroundCheckbox.checked = true
+  }
+})
+
+openTabsInForegroundCheckbox.addEventListener('change', function (e) {
+  settings.set('openTabsInForeground', this.checked)
+})
+
 /* user agent settting */
 
 settings.get('customUserAgent', function (value) {
   if (value) {
     userAgentCheckbox.checked = true
-    userAgentInput.style.opacity = 1
+    userAgentInput.style.visibility = 'visible'
     userAgentInput.value = value
   }
 })
 
 userAgentCheckbox.addEventListener('change', function (e) {
   if (this.checked) {
-    userAgentInput.style.opacity = 1
+    userAgentInput.style.visibility = 'visible'
   } else {
     settings.set('customUserAgent', null)
-    userAgentInput.style.opacity = 0
+    userAgentInput.style.visibility = 'hidden'
     showRestartRequiredBanner()
   }
 })
@@ -317,12 +331,12 @@ searchEngineDropdown.addEventListener('change', function (e) {
     searchEngineInput.hidden = false
   } else {
     searchEngineInput.hidden = true
-    settings.set('searchEngine', {name: this.value})
+    settings.set('searchEngine', { name: this.value })
   }
 })
 
-searchEngineInput.addEventListener('change', function (e) {
-  settings.set('searchEngine', {url: this.value})
+searchEngineInput.addEventListener('input', function (e) {
+  settings.set('searchEngine', { url: this.value })
 })
 
 /* key map settings */
@@ -353,7 +367,7 @@ function createKeyMapListItem (action, keyMap) {
   input.type = 'text'
   input.id = input.name = action
   input.value = formatKeyValue(keyMap[action])
-  input.addEventListener('change', onKeyMapChange)
+  input.addEventListener('input', onKeyMapChange)
 
   li.appendChild(label)
   li.appendChild(input)
@@ -437,3 +451,35 @@ passwordManagersDropdown.addEventListener('change', function (e) {
     currentPasswordManager = this.value
   }
 })
+
+/* proxy settings */
+
+const proxyTypeInput = document.getElementById('selected-proxy-type')
+const proxyInputs = Array.from(document.querySelectorAll('#proxy-settings-container input'))
+
+const toggleProxyOptions = proxyType => {
+  document.getElementById('manual-proxy-section').hidden = proxyType != 1
+  document.getElementById('pac-option').hidden = proxyType != 2
+}
+
+const setProxy = (key, value) => {
+  settings.get('proxy', (proxy = {}) => {
+      proxy[key] = value
+    settings.set('proxy', proxy)
+  })
+}
+
+settings.get('proxy', (proxy = {}) => {
+  toggleProxyOptions(proxy.type)
+
+  proxyTypeInput.options.selectedIndex = proxy.type || 0
+  proxyInputs.forEach(item => item.value = proxy[item.name] || '')
+})
+
+proxyTypeInput.addEventListener('change', e => {
+  const proxyType = e.target.options.selectedIndex
+  setProxy('type', proxyType)
+  toggleProxyOptions(proxyType)
+})
+
+proxyInputs.forEach(item => item.addEventListener('change', e => setProxy(e.target.name, e.target.value)))

@@ -217,7 +217,7 @@ function buildAppMenu (options = {}) {
         ...(!options.secondary ? [{type: 'separator'}] : []),
         {
           label: l('appMenuZoomIn'),
-          accelerator: 'CmdOrCtrl+=',
+          accelerator: 'CmdOrCtrl+Plus',
           click: function (item, window) {
             sendIPCToWindow(window, 'zoomIn')
           }

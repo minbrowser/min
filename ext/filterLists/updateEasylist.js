@@ -41,7 +41,13 @@ makeRequest(easylistOptions, function (easylist) {
   makeRequest(easyprivacyOptions, function (easyprivacy) {
     var data = easylist + easyprivacy
 
-    data = data.replace(/.*##.+\n/g, '')
+    data = data.split('\n').filter(function (line) {
+      return (
+        !line.includes('##') && // element hiding rules
+        !line.includes('#@') && // element hiding exceptions
+        !line.trim().startsWith('!') // comments
+      )
+    }).join('\n')
 
     fs.writeFileSync(filePath, data)
   })

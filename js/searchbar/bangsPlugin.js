@@ -2,7 +2,7 @@ var tabEditor = require('navbar/tabEditor.js')
 
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
-var searchbarAutocomplete = require('searchbar/searchbarAutocomplete.js')
+var searchbarAutocomplete = require('util/autocomplete.js')
 
 var searchEngine = require('util/searchEngine.js')
 
@@ -17,7 +17,7 @@ function registerCustomBang (data) {
     phrase: data.phrase,
     snippet: data.snippet,
     score: data.score || 256000,
-    icon: data.icon || 'fa-terminal',
+    icon: data.icon || 'carbon:terminal',
     showSuggestions: data.showSuggestions,
     fn: data.fn,
     isCustom: true,
@@ -87,7 +87,6 @@ function showBangSearchResults (text, results, input, event, limit = 5) {
   })
 
   results.slice(0, limit).forEach(function (result, idx) {
-
     // autocomplete the bang, but allow the user to keep typing
 
     var data = {
@@ -123,7 +122,6 @@ function showBangSearchResults (text, results, input, event, limit = 5) {
 }
 
 function getBangSearchResults (text, input, event) {
-
   // if there is a space in the text, show bang search suggestions (only supported for custom bangs)
 
   if (text.indexOf(' ') !== -1) {
@@ -160,14 +158,20 @@ function getBangSearchResults (text, input, event) {
   }
 
   resultsPromise.then(function (results) {
+    if (text === '!') {
+      // if we're listing all commands, limit the number of site results so that there's space to show more browser commands
+      // but if there's search text, the results are capped elsewhere, and low-ranking results should be included here
+      // in case they end up being sorted to the top based on usage
+      results = results.slice(0, 8)
+    }
     results = results.concat(searchCustomBangs(text))
     if (text === '!') {
       showBangSearchResults(text, results, input, event, 4)
       searchbarPlugins.addResult('bangs', {
         title: l('showMoreBangs'),
-        icon: 'fa-angle-down',
+        icon: 'carbon:chevron-down',
         click: function () {
-          showBangSearchResults(text, results, input, event, 20)
+          showBangSearchResults(text, results, input, event, Infinity)
         }
       })
     } else {
@@ -209,4 +213,4 @@ function initialize () {
   })
 }
 
-module.exports = {initialize, registerCustomBang}
+module.exports = { initialize, registerCustomBang }

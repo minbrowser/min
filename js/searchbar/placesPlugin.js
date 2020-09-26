@@ -1,9 +1,9 @@
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
-var searchbarAutocomplete = require('searchbar/searchbarAutocomplete.js')
+var searchbarAutocomplete = require('util/autocomplete.js')
 var urlParser = require('util/urlParser.js')
-var readerView = require('readerView.js')
+var readerDecision = require('readerDecision.js')
 
 /* For survey */
 var browserUI = require('browserUI.js')
@@ -51,20 +51,18 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
     results.forEach(function (result, index) {
       var didAutocompleteResult = false
 
-      var searchQuery
-      if (searchEngine.isSearchURL(result.url)) {
-        searchQuery = searchEngine.getSearch(result.url)
-      }
+      var searchQuery = searchEngine.getSearch(result.url)
 
       if (canAutocomplete) {
-        if (searchQuery && index === 0) {
+        // if the query is autocompleted, pressing enter will search for the result using the current search engine, so only pages from the current engine should be autocompleted
+        if (searchQuery && searchQuery.engine === searchEngine.getCurrent().name && index === 0) {
           var acResult = searchbarAutocomplete.autocomplete(input, [searchQuery.search])
           if (acResult.valid) {
             canAutocomplete = false
             didAutocompleteResult = true
           }
         } else {
-          var autocompletionType = searchbarAutocomplete.autocompleteURL(input, result)
+          var autocompletionType = searchbarAutocomplete.autocompleteURL(input, result.url)
 
           if (autocompletionType !== -1) {
             canAutocomplete = false
@@ -96,7 +94,7 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
       if (searchQuery) {
         data.title = searchQuery.search
         data.secondaryText = searchQuery.engine
-        data.icon = 'fa-search'
+        data.icon = 'carbon:search'
       } else {
         data.title = urlParser.prettyURL(urlParser.getSourceURL(result.url))
         data.secondaryText = searchbarUtils.getRealTitle(result.title)
@@ -104,10 +102,10 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
 
       // show a star for bookmarked items
       if (result.isBookmarked) {
-        data.icon = 'fa-star'
-      } else if (result.url.startsWith(readerView.readerURL)) {
+        data.icon = 'carbon:star-filled'
+      } else if (readerDecision.shouldRedirect(result.url) === 1) {
         // show an icon to indicate that this page will open in reader view
-        data.icon = 'fa-align-left'
+        data.icon = 'carbon:notebook'
       }
 
       // create the item
@@ -126,7 +124,7 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
       feedbackLink.textContent = 'Search Feedback'
       feedbackLink.addEventListener('click', function (e) {
         var url = surveyURL + '?query=' + encodeURIComponent(text) + '&results=' + encodeURIComponent(results.map(r => r.url).join('\n')) + '&version=' + encodeURIComponent(window.globalArgs['app-version'])
-        browserUI.addTab(tabs.add({url: url}), {enterEditMode: false})
+        browserUI.addTab(tabs.add({ url: url }), { enterEditMode: false })
       })
       searchbarPlugins.getContainer('fullTextPlaces').appendChild(feedbackLink)
     }
@@ -158,4 +156,4 @@ function initialize () {
   })
 }
 
-module.exports = {initialize}
+module.exports = { initialize }

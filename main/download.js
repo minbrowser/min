@@ -1,4 +1,4 @@
-let currrentDownloadItems = {}
+const currrentDownloadItems = {}
 
 ipc.on('cancelDownload', function (e, path) {
   if (currrentDownloadItems[path]) {
@@ -22,7 +22,7 @@ function downloadHandler (event, item, webContents) {
       path: item.getSavePath(),
       name: item.getFilename(),
       status: 'progressing',
-      size: {received: 0, total: item.getTotalBytes()}
+      size: { received: 0, total: item.getTotalBytes() }
     })
 
     item.on('updated', function (e, state) {
@@ -33,7 +33,7 @@ function downloadHandler (event, item, webContents) {
         path: item.getSavePath(),
         name: item.getFilename(),
         status: state,
-        size: {received: item.getReceivedBytes(), total: item.getTotalBytes()}
+        size: { received: item.getReceivedBytes(), total: item.getTotalBytes() }
       })
     })
 
@@ -43,17 +43,38 @@ function downloadHandler (event, item, webContents) {
         path: item.getSavePath(),
         name: item.getFilename(),
         status: state,
-        size: {received: item.getTotalBytes(), total: item.getTotalBytes()}
+        size: { received: item.getTotalBytes(), total: item.getTotalBytes() }
       })
     })
   }
   return true
 }
 
+// workaround for https://github.com/electron/electron/issues/24334
+function listenForPDFDownload (ses) {
+  ses.webRequest.onHeadersReceived(function (details, callback) {
+    if (details.resourceType === 'mainFrame' && details.responseHeaders) {
+      var typeHeader = details.responseHeaders[Object.keys(details.responseHeaders).filter(k => k.toLowerCase() === 'content-type')]
+      if (typeHeader instanceof Array && typeHeader.filter(t => t.includes('application/pdf')).length > 0 && details.url.indexOf('#pdfjs.action=download') === -1) {
+      // open in PDF viewer instead
+        callback({ cancel: true })
+        sendIPCToWindow(mainWindow, 'openPDF', {
+          url: details.url,
+          tabId: null
+        })
+        return
+      }
+    }
+    callback({ cancel: false })
+  })
+}
+
 app.once('ready', function () {
   session.defaultSession.on('will-download', downloadHandler)
+  listenForPDFDownload(session.defaultSession)
 })
 
 app.on('session-created', function (session) {
   session.on('will-download', downloadHandler)
+  listenForPDFDownload(session)
 })

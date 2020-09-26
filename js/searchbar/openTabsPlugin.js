@@ -50,7 +50,7 @@ var searchOpenTabs = function (text, input, event) {
 
   finalMatches.forEach(function (match) {
     var data = {
-      icon: 'fa-external-link-square',
+      icon: 'carbon:arrow-up-right',
       title: match.tab.title,
       secondaryText: urlParser.basicURL(match.tab.url)
     }
@@ -80,7 +80,7 @@ var searchOpenTabs = function (text, input, event) {
 
 function initialize () {
   searchbarPlugins.register('openTabs', {
-    index: 4,
+    index: 3,
     trigger: function (text) {
       return text.length > 2
     },
@@ -88,4 +88,4 @@ function initialize () {
   })
 }
 
-module.exports = {initialize}
+module.exports = { initialize }

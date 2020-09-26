@@ -23,7 +23,7 @@ var tabActivity = {
       })
     })
   },
-  init: function () {
+  initialize: function () {
     setInterval(tabActivity.refresh, 7500)
 
     tasks.on('tab-selected', this.refresh)

@@ -12,7 +12,7 @@ const places = {
       const tab = tabs.get(tabId)
       if (tab) {
         const data = {
-          url: tab.url,
+          url: urlParser.getSourceURL(tab.url), // for PDF viewer and reader mode, save the original page URL and not the viewer URL
           title: tab.title,
           color: tab.backgroundColor,
           extractedText: extractedText
@@ -47,7 +47,7 @@ const places = {
     /* if the page is an internal page, it normally shouldn't be saved,
      unless the page represents another page (such as the PDF viewer or reader view) */
     var isNonIndexableInternalPage = urlParser.isInternalURL(tab.url) && urlParser.getSourceURL(tab.url) === tab.url
-    var isSearchPage = searchEngine.isSearchURL(tab.url)
+    var isSearchPage = !!(searchEngine.getSearch(tab.url))
 
     // full-text data from search results isn't useful
     if (isSearchPage) {
@@ -62,7 +62,7 @@ const places = {
   callbacks: [],
   addWorkerCallback: function (callback) {
     const callbackId = (Date.now() / 1000) + Math.random()
-    places.callbacks.push({id: callbackId, fn: callback})
+    places.callbacks.push({ id: callbackId, fn: callback })
     return callbackId
   },
   runWorkerCallback: function (id, data) {
@@ -130,11 +130,15 @@ const places = {
 
     db.places.where('url').equals(url).first(function (item) {
       if (item && item.isBookmarked) {
-        places.updateItem(url, {isBookmarked: false}, function () {
+        places.updateItem(url, { isBookmarked: false }, function () {
           callback(false)
         })
       } else {
-        places.updateItem(url, {isBookmarked: true}, function () {
+        // if this page is open in a private tab, the title may not be saved already, so it needs to be included here
+        places.updateItem(url, {
+          isBookmarked: true,
+          title: tabs.get(tabId).title
+        }, function () {
           callback(true)
         })
       }
@@ -163,6 +167,16 @@ const places = {
     const callbackId = places.addWorkerCallback(callback)
     places.worker.postMessage({
       action: 'getSuggestedTags',
+      pageData: {
+        url: url
+      },
+      callbackId: callbackId
+    })
+  },
+  getAllTagsRanked: function (url, callback) {
+    const callbackId = places.addWorkerCallback(callback)
+    places.worker.postMessage({
+      action: 'getAllTagsRanked',
       pageData: {
         url: url
       },
