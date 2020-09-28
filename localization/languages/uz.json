@@ -149,6 +149,7 @@
         "settingsSiteThemeToggle": "Sahifa mavzusini yoqish",
         "settingsAdditionalFeaturesHeading": "Qo'shimcha xususiyatlar",
         "settingsUserscriptsToggle": "Foydalanuvchi skriptlarini yoqish",
+        "settingsShowDividerToggle": null, //missing translation
         "settingsSeparateTitlebarToggle": "Alohida sarlavha paneli ishlatish",
         "settingsOpenTabsInForegroundToggle": null, //missing translation
         "settingsUserscriptsExplanation": {

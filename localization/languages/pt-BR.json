@@ -149,6 +149,7 @@
         "settingsSiteThemeToggle": "Habilitar mudanças de cores na barra de endereços",
         "settingsAdditionalFeaturesHeading": "Recursos adicionais",
         "settingsUserscriptsToggle": "Habilitar scripts do usuário",
+        "settingsShowDividerToggle": null, // Missing translation
         "settingsSeparateTitlebarToggle": "Usar a barra de título separada",
         "settingsOpenTabsInForegroundToggle": "Abrir novas guias em primeiro plano",
         "settingsUserscriptsExplanation": {

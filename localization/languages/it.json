@@ -149,6 +149,7 @@
         "settingsSiteThemeToggle": "Abilita tema adattivo (si adatta al sito)",
         "settingsAdditionalFeaturesHeading": "Funzionalità aggiuntive",
         "settingsUserscriptsToggle": "Abilita script definiti dall'utente",
+        "settingsShowDividerToggle": null, // Missing translation
         "settingsSeparateTitlebarToggle": null, //missing translation
         "settingsOpenTabsInForegroundToggle": null, //missing translation
         "settingsUserscriptsExplanation": {

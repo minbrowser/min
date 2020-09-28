@@ -149,6 +149,7 @@
         "settingsSiteThemeToggle": "啟用網站主題",
         "settingsAdditionalFeaturesHeading": "其他功能",
         "settingsUserscriptsToggle": "允許使用者指令",
+        "settingsShowDividerToggle": null, // Missing translation
         "settingsSeparateTitlebarToggle": "分割標題列",
         "settingsOpenTabsInForegroundToggle": null, //missing translation
         "settingsUserscriptsExplanation": {
