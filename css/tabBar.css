@@ -121,9 +121,24 @@ body.linux #menu-button {
 	margin-right: -0.7em;
 }
 .tab-item .tab-icon {
+	position: relative;
 	font-size: 0.875em;
 	padding: 0.7125em 0.5em;
 	box-sizing: content-box;
+}
+.tab-item .tab-icon:hover:after {
+	content: "";
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(0,0, 0, 0.075);
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    z-index: -1;
+}
+.dark-theme .tab-item .tab-icon:hover:after {
+	background: rgba(255, 255, 255, 0.15);
 }
 .tab-item.active:not(:only-child) {
 	background: rgba(0, 0, 0, 0.06);
@@ -290,8 +305,13 @@ body.dark-mode #overlay {
 
 /* in Carbon, close icon is a bit smaller than other icons, enlarge it in order to match with other icons */
 .tab-item .tab-close-button {
-	font-size: 1.2em;
-	padding: 0.45em 0.5em;
+	font-size: 1.25em;
+	padding: 0.45em 0.45em;
+}
+.tab-item .tab-close-button:hover:after {
+	top: 7px;
+    left: 7px;
+    font-size: 0.9em;
 }
 
 /* when the tab is hovered, hide info buttons and show the close button */

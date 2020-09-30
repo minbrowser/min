@@ -2,8 +2,8 @@ var webviews = require('webviews.js')
 var keybindings = require('keybindings.js')
 
 var tabAudio = {
-  muteIcon: 'carbon:volume-mute-filled',
-  volumeIcon: 'carbon:volume-up-filled',
+  muteIcon: 'carbon:volume-mute',
+  volumeIcon: 'carbon:volume-up',
   getButton: function (tabId) {
     var button = document.createElement('button')
     button.className = 'tab-icon tab-audio-button i'

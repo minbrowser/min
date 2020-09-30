@@ -80,10 +80,9 @@ window.sessionRestore = {
       // add the saved tasks
 
       data.state.tasks.forEach(function (task) {
-        // reset tab hasAudio and muted
-        task.tabs.forEach(function(tab) {
-            tab.hasAudio = false
-            tab.muted = false
+        // reset tab hasAudio
+        task.tabs.forEach(function (tab) {
+          tab.hasAudio = false
         })
         // restore the task item
         tasks.add(task)
@@ -128,7 +127,8 @@ window.sessionRestore = {
                   enterEditMode: false
                 })
               }
-            } }, 200)
+            }
+          }, 200)
         })
       }
     } catch (e) {
