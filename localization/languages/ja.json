@@ -27,7 +27,7 @@
         "goForward": "進む",
         "inspectElement": "要素を検証",
         /* searchbar */
-        "pasteAndGo": null, //missing translation
+        "pasteAndGo": "貼り付けて移動",
         "DDGAnswerSubtitle": "インスタントアンサー", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "おすすめサイト", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "DuckDuckGoからの結果", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -149,7 +149,7 @@
         "settingsSiteThemeToggle": "サイトテーマを有効にする",
         "settingsAdditionalFeaturesHeading": "追加機能",
         "settingsUserscriptsToggle": "ユーザースクリプトを有効にする",
-        "settingsShowDividerToggle": null, // Missing translation
+        "settingsShowDividerToggle": "タブ間の仕切りを表示",
         "settingsSeparateTitlebarToggle": "別のタイトルバーを使用する",
         "settingsOpenTabsInForegroundToggle": "フォアグラウンドで新しいタブを開く",
         "settingsUserscriptsExplanation": {
