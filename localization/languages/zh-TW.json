@@ -206,7 +206,7 @@
         "appMenuKeyboardShortcuts": "快速鍵",
         "appMenuReportBug": "提交 Bug",
         "appMenuTakeTour": "導覽",
-        "appMenuViewGithub": "去 GitHub 查看 Min",
+        "appMenuViewGithub": "查看 GitHub",
         "appMenuAbout": "關於 %n", //%n is replaced with app name
         "appMenuPreferences": "設定",
         "appMenuServices": "服務",
