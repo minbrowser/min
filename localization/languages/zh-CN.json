@@ -149,6 +149,7 @@
         "settingsSiteThemeToggle": "启用网站主题",
         "settingsAdditionalFeaturesHeading": "其他功能",
         "settingsUserscriptsToggle": "允许使用者指令",
+        "settingsShowDividerToggle": null, // Missing translation
         "settingsSeparateTitlebarToggle": null, //missing translation
         "settingsOpenTabsInForegroundToggle": null, //missing translation
         "settingsUserscriptsExplanation": {

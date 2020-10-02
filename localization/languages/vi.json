@@ -143,6 +143,7 @@
         "settingsSiteThemeToggle": "Bật chủ đề trang",
         "settingsAdditionalFeaturesHeading": "Đặc tính hơn",
         "settingsUserscriptsToggle": "Bật mã script người dùng",
+        "settingsShowDividerToggle": null, // Missing translation
         "settingsSeparateTitlebarToggle": null, //missing translation
         "settingsOpenTabsInForegroundToggle": null, //missing translation
         "settingsUserscriptsExplanation": {

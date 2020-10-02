@@ -149,6 +149,7 @@
         "settingsSiteThemeToggle": "Włącz motyw witryny",
         "settingsAdditionalFeaturesHeading": "Dodatkowe funkcje",
         "settingsUserscriptsToggle": "Włącz skrypty użytkownika",
+        "settingsShowDividerToggle": null, // Missing translation
         "settingsSeparateTitlebarToggle": "Użyj osobnego paska tytułu",
         "settingsOpenTabsInForegroundToggle": "Otwórz nowe karty na pierwszym planie",
         "settingsUserscriptsExplanation": {

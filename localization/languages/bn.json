@@ -149,6 +149,7 @@
         "settingsSiteThemeToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": "অতিরিক্ত বৈশিষ্ট্য",
         "settingsUserscriptsToggle": "ব্যবহারকারী স্ক্রিপ্ট সক্রিয় করুন",
+        "settingsShowDividerToggle": null, //missing translation
         "settingsSeparateTitlebarToggle": null, //missing translation
         "settingsOpenTabsInForegroundToggle": null, //missing translation
         "settingsUserscriptsExplanation": {

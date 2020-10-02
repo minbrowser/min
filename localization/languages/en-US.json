@@ -149,6 +149,7 @@
         "settingsSiteThemeToggle": "Enable site theme",
         "settingsAdditionalFeaturesHeading": "Additional Features",
         "settingsUserscriptsToggle": "Enable user scripts",
+        "settingsShowDividerToggle": "Show divider between tabs",
         "settingsSeparateTitlebarToggle": "Use separate title bar",
         "settingsOpenTabsInForegroundToggle": "Open new tabs in the foreground",
         "settingsUserscriptsExplanation": {

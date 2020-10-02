@@ -120,6 +120,14 @@ function scrollOnLoad (tabId, scrollPosition) {
   webviews.bindEvent('did-finish-load', listener)
 }
 
+function setAudioMutedOnCreate (tabId, muted) {
+  const listener = function () {
+    webviews.callAsync(tabId, 'setAudioMuted', muted)
+    webviews.unbindEvent('did-navigate', listener)
+  }
+  webviews.bindEvent('did-navigate', listener)
+}
+
 const webviews = {
   viewList: [], // [tabId]
   tabContentsMap: {}, // tabId: webContents
@@ -200,6 +208,10 @@ const webviews = {
     // needs to be called before the view is created to that its listeners can be registered
     if (tabData.scrollPosition) {
       scrollOnLoad(tabId, tabData.scrollPosition)
+    }
+
+    if (tabData.muted) {
+      setAudioMutedOnCreate(tabId, tabData.muted)
     }
 
     // if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
