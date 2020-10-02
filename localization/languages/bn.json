@@ -47,19 +47,14 @@
         "createTask": "একটি টাস্ক তৈরি করুন",
         "closeTask":"একটি কাজ বন্ধ করুন",
         "moveToTask": "একটি টাস্ক এই ট্যাব সরান",
-        "nameTask": 
-"এই কার্যটির নাম দিন",
-        "addBookmark": 
-"বুকমার্কে সংযুক্তকরন",
+        "nameTask": "এই কার্যটির নাম দিন",
+        "addBookmark": "বুকমার্কে সংযুক্তকরন",
         "searchBookmarks": "বুকমার্কগুলি অনুসন্ধান করুন",
         "bookmarksAddTag":"ট্যাগ যুক্ত করুন ...",
-        "bookmarksSimilarItems": 
-"অনুরূপ আইটেম",
+        "bookmarksSimilarItems": "অনুরূপ আইটেম",
         "searchHistory": "অনুসন্ধানের ইতিহাস",
-        "importBookmarks": 
-"এইচটিএমএল ফাইল থেকে বুকমার্কগুলি আমদানি করুন",
-        "exportBookmarks": 
-"রপ্তানি বুকমার্ক",
+        "importBookmarks": "এইচটিএমএল ফাইল থেকে বুকমার্কগুলি আমদানি করুন",
+        "exportBookmarks": "রপ্তানি বুকমার্ক",
         "openMenu": "খুলুন মেনু", //application menu button on windows
         "runUserscript":"ইউজার স্ক্রিপ্ট চালান", //missing translation
         /* navbar */
