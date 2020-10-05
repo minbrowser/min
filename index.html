@@ -19,6 +19,7 @@
 	<link rel="stylesheet" href="css/findinpage.css" />
 	<link rel="stylesheet" href="css/downloadManager.css" />
 	<link rel="stylesheet" href="css/passwordManager.css" />
+	<link rel="stylesheet" href="css/passwordCapture.css" />
 	<link rel="stylesheet" href="node_modules/dragula/dist/dragula.min.css" />
 	<link rel="stylesheet" href="ext/icons/iconfont.css" />
 </head>
@@ -190,6 +191,13 @@
 			<input type="button" id="manager-setup-cancel" data-value="autofillNotNow" />
 		</div>
 
+	</div>
+
+	<div id="password-capture-bar" hidden>
+		<span id="password-capture-description">Save password for this site?</span>
+		<input id="password-capture-username" type="text" required/>
+		<input id="password-capture-password" type="password" required/>
+		<button id="password-capture-save">Save</button>
 	</div>
 
 	<!-- add scripts in Gruntfile.js -->

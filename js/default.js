@@ -56,7 +56,7 @@ window.throttle = function (fn, threshhold, scope) {
   return function () {
     var context = scope || this
 
-    var now = +new Date
+    var now = +new Date()
     var args = arguments
     if (last && now < last + threshhold) {
       // hold on to it
@@ -142,6 +142,7 @@ require('defaultKeybindings.js').initialize()
 require('pdfViewer.js').initialize()
 require('autofillSetup.js').initialize()
 require('passwordManager/passwordManager.js').initialize()
+require('passwordManager/passwordCapture.js').initialize()
 require('util/theme.js').initialize()
 require('userscripts.js').initialize()
 

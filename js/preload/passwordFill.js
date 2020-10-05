@@ -295,3 +295,14 @@ ipc.on('password-autofill-enabled', (event) => {
 window.addEventListener('load', function (event) {
   ipc.send('password-autofill-check')
 })
+
+// send passwords back to the main process so they can be saved to storage
+
+window.addEventListener('submit', function () {
+  var usernameValues = getUsernameFields().map(f => f.value)
+  var passwordValues = getPasswordFields().map(f => f.value)
+
+  if (usernameValues.length > 0 || passwordValues.length > 0) {
+    ipc.send('password-form-filled', [window.location.hostname, usernameValues, passwordValues])
+  }
+})

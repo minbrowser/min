@@ -38,6 +38,10 @@ class Keychain {
   getSignInRequirements () {
     return []
   }
+
+  saveCredential (domain, username, password) {
+    ipc.invoke('keychainSetPassword', domain, username, password)
+  }
 }
 
 module.exports = Keychain
