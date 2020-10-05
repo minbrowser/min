@@ -82,7 +82,7 @@ function createUnlockButton (input) {
 // Tries to find if an element has a specific attribute value that contains at
 // least one of the values from 'matches' array.
 function checkAttribute (element, attribute, matches) {
-  let value = element.getAttribute(attribute)
+  const value = element.getAttribute(attribute)
   if (value == null) { return false }
   return matches.some(match => value.toLowerCase().includes(match))
 }
@@ -90,10 +90,10 @@ function checkAttribute (element, attribute, matches) {
 // Gets all input fields on a page that contain at least one of the provided
 // strings in their name attribute.
 function getInputs (names, types) {
-  let allFields = document.getElementsByTagName('input')
+  const allFields = document.getElementsByTagName('input')
 
-  let matchedFields = []
-  for (let field of allFields) {
+  const matchedFields = []
+  for (const field of allFields) {
     // checkAttribute won't work here because type can be a property but not an attribute
     if (!types.includes(field.type)) {
       continue
@@ -133,17 +133,17 @@ function fillCredentials (credentials) {
   const { username, password } = credentials
   const inputEvents = ['keydown', 'keypress', 'keyup', 'input', 'change']
 
-  for (let field of getUsernameFields()) {
+  for (const field of getUsernameFields()) {
     field.value = username
-    for (let event of inputEvents) {
-      field.dispatchEvent(new Event(event, { 'bubbles': true }))
+    for (const event of inputEvents) {
+      field.dispatchEvent(new Event(event, { bubbles: true }))
     }
   }
 
-  for (let field of getPasswordFields()) {
+  for (const field of getPasswordFields()) {
     field.value = password
-    for (let event of inputEvents) {
-      field.dispatchEvent(new Event(event, { 'bubbles': true }))
+    for (const event of inputEvents) {
+      field.dispatchEvent(new Event(event, { bubbles: true }))
     }
   }
 }
@@ -157,10 +157,10 @@ function fillCredentials (credentials) {
 // - element: input field to add a listener to
 // - credentials: an array of { username, password } objects
 function addFocusListener (element, credentials) {
-  let inputRect = element.getBoundingClientRect()
+  const inputRect = element.getBoundingClientRect()
   // Creates an options list container.
   function buildContainer () {
-    let suggestionsDiv = document.createElement('div')
+    const suggestionsDiv = document.createElement('div')
     suggestionsDiv.style = 'position: absolute; border: 1px solid #d4d4d4; z-index: 999999; border-bottom: none; background: #FFFFFF; transform: scale(0); opacity: 0; transform-origin: top left; transition: 0.15s; color: #000000;'
     suggestionsDiv.style.top = (inputRect.y + inputRect.height) + 'px'
     suggestionsDiv.style.left = (inputRect.x) + 'px'
@@ -174,13 +174,13 @@ function addFocusListener (element, credentials) {
 
   // Adds an option row to the list container.
   function addOption (parent, username) {
-    let suggestionItem = document.createElement('div')
+    const suggestionItem = document.createElement('div')
     suggestionItem.innerHTML = username
     suggestionItem.style = 'padding: 10px; cursor: pointer; background-color: #fff; border-bottom: 1px solid #d4d4d4;'
 
     // Hover.
     suggestionItem.addEventListener('mouseenter', (event) => {
-      suggestionItem.style.backgroundColor  = '#e4e4e4'
+      suggestionItem.style.backgroundColor = '#e4e4e4'
     })
     suggestionItem.addEventListener('mouseleave', (event) => {
       suggestionItem.style.backgroundColor = '#fff'
@@ -188,7 +188,7 @@ function addFocusListener (element, credentials) {
 
     // When user clicks on the suggestion, we populate the form inputs with selected credentials.
     suggestionItem.addEventListener('click', function (e) {
-      let selectedCredentials = credentials.filter(el => { return el.username === username })[0]
+      const selectedCredentials = credentials.filter(el => { return el.username === username })[0]
       fillCredentials(selectedCredentials)
       removeAutocompleteList()
       element.focus()
@@ -200,8 +200,8 @@ function addFocusListener (element, credentials) {
   // Creates autocomplete list and adds it below the activated field.
   function showAutocompleteList (e) {
     removeAutocompleteList()
-    let container = buildContainer()
-    for (let cred of credentials) {
+    const container = buildContainer()
+    for (const cred of credentials) {
       addOption(container, cred.username)
     }
     document.body.appendChild(container)
@@ -233,7 +233,7 @@ function checkInputs () {
 
 function addUnlockButton (target) {
   if (getUsernameFields().includes(target) || getPasswordFields().includes(target)) {
-    let unlockButton = createUnlockButton(target)
+    const unlockButton = createUnlockButton(target)
     document.body.appendChild(unlockButton)
 
     currentUnlockButton = unlockButton
@@ -271,7 +271,7 @@ ipc.on('password-autofill-match', (event, data) => {
   } else if (data.credentials.length === 1) {
     fillCredentials(data.credentials[0])
   } else {
-    let firstField = getUsernameFields().filter(field => field.type !== 'hidden')[0]
+    const firstField = getUsernameFields().filter(field => field.type !== 'hidden')[0]
     addFocusListener(firstField, data.credentials)
     firstField.focus()
   }
@@ -295,4 +295,3 @@ ipc.on('password-autofill-enabled', (event) => {
 window.addEventListener('load', function (event) {
   ipc.send('password-autofill-check')
 })
-

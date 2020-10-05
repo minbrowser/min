@@ -11,6 +11,9 @@ var passwordManagers = {
   },
   '1Password': {
     name: '1Password'
+  },
+  Keychain: {
+    name: 'Built-in password manager'
   }
 }
 
@@ -19,10 +22,8 @@ settings.get('passwordManager', function (value) {
   if (value && value.name) {
     currentPasswordManager = value
   } else {
-    currentPasswordManager = passwordManagers['none']
+    currentPasswordManager = passwordManagers.none
   }
 })
 
 window.currentPasswordManager = currentPasswordManager
-
-
