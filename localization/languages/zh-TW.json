@@ -5,18 +5,18 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "addToDictionary": null, //missing translation
+        "addToDictionary": "加入字典",
         "pictureInPicture": "子母畫面",
         "openInNewTab": "在新分頁中開啟",
         "openInNewPrivateTab": "在新無痕頁面中開啟",
-        "saveLinkAs": null, //missing translation
+        "saveLinkAs": "另存連結為...",
         "viewImage": "查看圖片",
         "openImageInNewTab": "在新分頁中開啟圖片",
         "openImageInNewPrivateTab": "在新無痕頁面中開啟圖片",
         "saveImageAs": "儲存圖片",
         "searchWith": "以 %s 搜尋", //%s will be replaced with the name of the current search engine
         "copyLink": "複製連結",
-        "copyEmailAddress": null, //missing translation
+        "copyEmailAddress": "複製電子郵件地址",
         "selectAll": "全選",
         "undo": "復原",
         "redo": "重做",
@@ -27,7 +27,7 @@
         "goForward": "下一頁",
         "inspectElement": "檢查元素",
         /* searchbar */
-        "pasteAndGo": null, //missing translation
+        "pasteAndGo": "貼上並前往",
         "DDGAnswerSubtitle": "搜尋結果", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "建議網站", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "來自 DuckDuckGo 的結果", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -53,9 +53,9 @@
         "bookmarksAddTag": "新增標籤",
         "bookmarksSimilarItems": "相似項目",
         "searchHistory": "搜尋歷史",
-        "importBookmarks": "自HTML檔案匯入書籤",
+        "importBookmarks": "自 HTML 檔案匯入書籤",
         "exportBookmarks": "匯出書籤",
-        "runUserscript": null, //missing translation
+        "runUserscript": "執行使用者指令",
         /* navbar */
         "openMenu": "打開選單",
         "enterReaderView": "進入閱讀模式",
@@ -63,7 +63,7 @@
         "emptyReadingListTitle": "您的閱讀列表是空的",
         "emptyReadingListSubtitle": "您的閱讀清單會顯示於此，並保留30天",
         "newTabLabel": "新分頁", //this is a noun, used for tabs that don't have a page loaded in them yet
-        "connectionNotSecure": "此網頁不安全",
+        "connectionNotSecure": "此網站不安全",
         "searchbarPlaceholder": "搜尋或輸入網址",
         "privateTab": "無痕分頁",
         "newTabAction": "新增分頁", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
@@ -84,8 +84,8 @@
         /* Focus mode */
         "isFocusMode": "已進入專心模式",
         "closeDialog": "確定", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+        "focusModeExplanation1": "在專注模式，你將無法新增分頁或切換工作。",
+        "focusModeExplanation2": "您可以取消勾選「選單 > 檢視 > 專心模式」退出專心模式。",
         /* relative dates */
         "timeRangeJustNow": "剛剛",
         "timeRangeMinutes": "幾分鐘前",
@@ -135,12 +135,12 @@
         "settingsContentBlockingLevel1": "阻止第三方廣告與追蹤器",
         "settingsContentBlockingLevel2": "阻止所有廣告與追蹤器",
         "settingsContentBlockingExceptions": "不要在這些網站阻擋廣告：",
-        "settingsBlockScriptsToggle": "阻擋 Javascript 腳本運行",
+        "settingsBlockScriptsToggle": "阻擋 JavaScript 腳本運行",
         "settingsBlockImagesToggle": "阻擋圖片",
         "settingsBlockedRequestCount": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "到目前為止，Min 已經封鎖了 <strong></strong> 個廣告和追蹤器"
         },
-        "settingsCustomizeFiltersLink": null, //missing translation
+        "settingsCustomizeFiltersLink": "自訂過濾器",
         "settingsAppearanceHeading": "外觀",
         "settingsEnableDarkMode": "啟用深色模式：",
         "settingsDarkModeNever": "永不",
@@ -151,7 +151,7 @@
         "settingsUserscriptsToggle": "允許使用者指令",
         "settingsShowDividerToggle": null, // Missing translation
         "settingsSeparateTitlebarToggle": "分割標題列",
-        "settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsOpenTabsInForegroundToggle": "在前景開啟新分頁",
         "settingsUserscriptsExplanation": {
             "unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
         },
@@ -163,13 +163,13 @@
         "customSearchEngineDescription": "將搜尋字串以 %s 取代",
         "settingsKeyboardShortcutsHeading": "快速鍵",
         "settingsKeyboardShortcutsHelp": "以逗號分割多個快速鍵",
-        "settingsProxyHeading": null, //missing translation
-        "settingsNoProxy": null, //missing translation
-        "settingsManualProxy": null, //missing translation
-        "settingsAutomaticProxy": null, //missing translation
-        "settingsProxyRules": null, //missing translation
-        "settingsProxyBypassRules": null, //missing translation
-        "settingsProxyConfigurationURL": null, //missing translation
+        "settingsProxyHeading": "Proxy",
+        "settingsNoProxy": "無",
+        "settingsManualProxy": "手動設定",
+        "settingsAutomaticProxy": "自動設定",
+        "settingsProxyRules": "位址：",
+        "settingsProxyBypassRules": "不要在以下位址使用 Proxy，以逗號隔開：",
+        "settingsProxyConfigurationURL": "Proxy 設置位址：",
         /* app menu */
         "appMenuFile": "檔案",
         "appMenuNewTab": "新分頁",
@@ -207,7 +207,7 @@
         "appMenuKeyboardShortcuts": "快速鍵",
         "appMenuReportBug": "提交 Bug",
         "appMenuTakeTour": "導覽",
-        "appMenuViewGithub": "在 GitHub 上查看",
+        "appMenuViewGithub": "查看 GitHub",
         "appMenuAbout": "關於 %n", //%n is replaced with app name
         "appMenuPreferences": "設定",
         "appMenuServices": "服務",
@@ -221,20 +221,50 @@
             "unsafeHTML": "<input type='text'/> / <span id='total'></span> 頁"
         },
         /* Context Reader */
-        "buttonReaderSettings": null, //missing translation "Reader Settings"
-        "buttonReaderLightTheme": null, //missing translation "Light"
-        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
-        "buttonReaderDarkTheme": null, //missing translation "Dark"
-        "openReaderView": null, //missing translation "Always open in reader view"
-        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-        "buttonReaderRedirectYes": null, //missing translation "Yes"
-        "buttonReaderRedirectNo": null, //missing translation "No"
-        "articleReaderView": null, //missing translation "Original Article"
+        "buttonReaderSettings": "閱讀器設定",
+        "buttonReaderLightTheme": "亮色",
+        "buttonReaderSepiaTheme": "棕褐色",
+        "buttonReaderDarkTheme": "深色",
+        "openReaderView": "永遠在閱讀器中開啟",
+        "autoRedirectBannerReader": "自動在此網站的文章開啟閱讀器？",
+        "buttonReaderRedirectYes": "是",
+        "buttonReaderRedirectNo": "否",
+        "articleReaderView": "原始文章",
         /* Download manager */
         "downloadCancel": "取消",
         "downloadStateCompleted": "已完成",
         "downloadStateFailed": "失敗",
         /* Update Notifications */
-        "updateNotificationTitle": "已有新版本"
+        "updateNotificationTitle": "已有新版本",
+        /* Autofill settings */
+        "settingsPasswordAutoFillHeadline": "自動填入密碼",
+        "settingsSelectPasswordManager": "選擇支援的密碼管理器：",
+        /* Password manager setup */
+        "passwordManagerSetupHeading": "設定 %p",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "請先<a id='password-manager-setup-link'></a> 並解壓縮。"
+        },
+        "passwordManagerInstallerSetup": {
+            "unsafeHTML": "下載 <a id='password-manager-setup-link-installer'></a> 並將檔案拖曳至下方："
+        },
+        "passwordManagerSetupLink": "下載 %p CLI Tool",
+        "passwordManagerSetupLinkInstaller": "the %p CLI Installer",
+        "passwordManagerSetupStep2": "然後將檔案拖曳至下方：",
+        "passwordManagerSetupDragBox": "將檔案拖至此處",
+        "passwordManagerSetupInstalling": "正在安裝...",
+        "passwordManagerSetupSignIn": "登入你的密碼管理器並開始使用自動填入。您的資訊不會被存入 Min。",
+        "disableAutofill": "取消",
+        "autofillNotNow": "稍等",
+        "passwordManagerSetupUnlockError": "無法登入密碼儲存庫。",
+        "passwordManagerSetupRetry": "請確認您拖入正確的檔案並輸入正確的密碼。您可以將檔案拖入以重試。",
+        "passwordManagerUnlock": "輸入你的 %p 主密碼以解鎖密碼庫：",
+        /* Dialogs */
+        "loginPromptTitle": "登入 %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+        "dialogConfirmButton": "確認",
+        "dialogSkipButton": "取消",
+        "username": "使用者名稱",
+        "email": "Email",
+        "password": "密碼",
+        "secretKey": "Secret key"
     }
 }
