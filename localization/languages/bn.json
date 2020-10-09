@@ -9,7 +9,7 @@
         "pictureInPicture": "ছবিতে ছবি",
         "openInNewTab": "নতুন ট্যাবে খুলুন",
         "openInNewPrivateTab": "নতুন ব্যক্তিগত ট্যাবে খুলুন",
-        "saveLinkAs": "লিঙ্ক সঞ্চিত করুন..."
+        "saveLinkAs": "লিঙ্ক সঞ্চিত করুন...",
         "viewImage": "ভিউ ইমেজ",
         "openImageInNewTab": "চিত্রটি নতুন ট্যাবে খুলুন",
         "openImageInNewPrivateTab": "নতুন ব্যক্তিগত ট্যাবে চিত্র খুলুন",
@@ -72,7 +72,7 @@
         "newTask": "ত্যে", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "টাস্ক%n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
         "taskDeleteWarning": {
-            "unsafeHTML": "কার্য মোছা হয়েছে <a>Undo?</a>",
+            "unsafeHTML": "কার্য মোছা হয়েছে <a>Undo?</a>"
         },
         "returnToTask": "আপনার আগের কাজে ফিরে যান",
         "taskDescriptionTwo": "%t এবং %t", 
@@ -235,6 +235,6 @@
         "downloadStateCompleted":"সমাপ্ত",
         "downloadStateFailed": "ব্যর্থ হয়েছে",
         /* Update Notifications */
-        "updateNotificationTitle": "নূন্যতম একটি নতুন সংস্করণ উপলব্ধ",
+        "updateNotificationTitle": "নূন্যতম একটি নতুন সংস্করণ উপলব্ধ"
     }
 }
