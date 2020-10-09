@@ -149,7 +149,7 @@
         "settingsSiteThemeToggle": "Использовать тему сайта",
         "settingsAdditionalFeaturesHeading": "Дополнительные возможности",
         "settingsUserscriptsToggle": "Пользовательские скрипты",
-        "settingsShowDividerToggle": null, // Missing translation
+        "settingsShowDividerToggle": "Показывать разделитель между вкладками",
         "settingsSeparateTitlebarToggle": "Использовать разделитель заголовка",
         "settingsOpenTabsInForegroundToggle": "Открывать новые вкладки на переднем плане",
         "settingsUserscriptsExplanation": {
