@@ -5,29 +5,29 @@
         /* Context menu items
        these are the items displayed in the menu when you right-click on a page
        */
-        "addToDictionary": null, //missing translation
-        "pictureInPicture": null, //missing translation
+        "addToDictionary":"অভিধানে যুক্ত করুন",
+        "pictureInPicture": "ছবিতে ছবি",
         "openInNewTab": "নতুন ট্যাবে খুলুন",
         "openInNewPrivateTab": "নতুন ব্যক্তিগত ট্যাবে খুলুন",
-        "saveLinkAs": null, //missing translation
+        "saveLinkAs": "লিঙ্ক সঞ্চিত করুন..."
         "viewImage": "ভিউ ইমেজ",
         "openImageInNewTab": "চিত্রটি নতুন ট্যাবে খুলুন",
         "openImageInNewPrivateTab": "নতুন ব্যক্তিগত ট্যাবে চিত্র খুলুন",
         "saveImageAs": "ইমেজ সেভ করুন এভাবে",
         "searchWith": "%s এর সাথে অনুসন্ধান করুন", //%s will be replaced with the name of the current search engine
         "copyLink": "লিংক কপি করুন",
-        "copyEmailAddress": null, //missing translation
-        "selectAll": null, // Missing Translation
-        "undo": null, // Missing Translation
-        "redo": null, // Missing Translation
-        "cut": null, // Missing Translation
+        "copyEmailAddress": "ইমেল ঠিকানা অনুলিপি করুন",
+        "selectAll": "সমস্ত নির্বাচন করুন",
+        "undo": "পূর্বাবস্থায় ফেরা", 
+        "redo": "আবার করুন", 
+        "cut": "কাট", 
         "copy": "কপি", //this is a verb (as in "copy the currently-selected text")
         "paste": "প্রতিলেপন",
         "goBack": "ফিরে যাও",
         "goForward": "সামনে আগান",
         "inspectElement": "এলিমেন্ট পরিদর্শন করুন",
         /* searchbar */
-        "pasteAndGo": null, //missing translation
+        "pasteAndGo": "পেস্ট করুন এবং যান",
         "DDGAnswerSubtitle": "উত্তর", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "প্রস্তাবিত সাইট", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "ডকডকলহ থেকে ফলাফল", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -35,28 +35,28 @@
         /* custom !bangs
       these are some of the items that show up when you press ! in the searchbar.
       Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": null, //missing translation
+        "showMoreBangs": "আরো দেখুন", 
         "viewSettings": "সেটিংস দেখুন",
         "viewReadingList": "পঠন তালিকা দেখুন",
         "takeScreenshot": "একটি স্ক্রিনশট নিন",
         "clearHistory": "সমস্ত ইতিহাস সাফ করুন",
-        "enableBlocking": null, //missing translation
-        "disableBlocking": null, //missing translation
-        "clearHistoryConfirmation": null, //missing translation
+        "enableBlocking":"এই সাইটের জন্য সামগ্রী ব্লকিং সক্ষম করুন",
+        "disableBlocking": "এই সাইটের জন্য সামগ্রী ব্লকিং অক্ষম করুন",
+        "clearHistoryConfirmation":"সমস্ত ইতিহাস এবং ব্রাউজিং ডেটা সাফ করবেন?",
         "switchToTask": "টাস্কে স্যুইচ করুন",
         "createTask": "একটি টাস্ক তৈরি করুন",
-        "closeTask": null, //missing translation
+        "closeTask":"একটি কাজ বন্ধ করুন",
         "moveToTask": "একটি টাস্ক এই ট্যাব সরান",
-        "nameTask": null, //missing translation
-        "addBookmark": null, //missing translation
+        "nameTask": "এই কার্যটির নাম দিন",
+        "addBookmark": "বুকমার্কে সংযুক্তকরন",
         "searchBookmarks": "বুকমার্কগুলি অনুসন্ধান করুন",
-        "bookmarksAddTag": null, //missing translation
-        "bookmarksSimilarItems": null, //missing translation
+        "bookmarksAddTag":"ট্যাগ যুক্ত করুন ...",
+        "bookmarksSimilarItems": "অনুরূপ আইটেম",
         "searchHistory": "অনুসন্ধানের ইতিহাস",
-        "importBookmarks": null, //missing translation
-        "exportBookmarks": null, //missing translation
+        "importBookmarks": "এইচটিএমএল ফাইল থেকে বুকমার্কগুলি আমদানি করুন",
+        "exportBookmarks": "রপ্তানি বুকমার্ক",
         "openMenu": "খুলুন মেনু", //application menu button on windows
-        "runUserscript": null, //missing translation
+        "runUserscript":"ইউজার স্ক্রিপ্ট চালান", //missing translation
         /* navbar */
         "enterReaderView": "রিডার ভিউ লিখুন",
         "exitReaderView": "রিডার ভিউ প্রস্থান করুন",
@@ -72,11 +72,11 @@
         "newTask": "ত্যে", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "টাস্ক%n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
         "taskDeleteWarning": {
-            "unsafeHTML": null
-        }, //missing translation
-        "returnToTask": null, //missing translation
-        "taskDescriptionTwo": null, //missing translation
-        "taskDescriptionThree": null, //missing translation
+            "unsafeHTML": "কার্য মোছা হয়েছে <a>Undo?</a>",
+        },
+        "returnToTask": "আপনার আগের কাজে ফিরে যান",
+        "taskDescriptionTwo": "%t এবং %t", 
+        "taskDescriptionThree": "%t, %t, and %n আরও", 
         /* find in page toolbar */
         "searchInPage": "পৃষ্ঠা অনুসন্ধান করুন",
         "findMatchesSingular": "%i এর %t টি মিল",
@@ -90,8 +90,8 @@
         "timeRangeJustNow": "এক্ষুনি",
         "timeRangeMinutes": "কিছু মিনিট আগে",
         "timeRangeHour": "অতীত ঘন্টার মধ্যে",
-        "timeRangeToday": null, //missing translation
-        "timeRangeYesterday": null, //missing translation
+        "timeRangeToday":"আজ",
+        "timeRangeYesterday":"গতকাল",
         "timeRangeWeek": "গত সপ্তাহে",
         "timeRangeMonth": "গত মাসে",
         "timeRangeYear": "গত বছর",
@@ -131,49 +131,49 @@
         "settingsPreferencesHeading": "পছন্দসমূহ",
         "settingsRestartRequired": "আপনি এই পরিবর্তনগুলি প্রয়োগ করতে পুনরায় শুরু করতে হবে।",
         "settingsPrivacyHeading": "সামগ্রী ব্লকিং",
-        "settingsContentBlockingLevel0": null, //missing translation
-        "settingsContentBlockingLevel1": null, //missing translation
-        "settingsContentBlockingLevel2": null, //missing translation
-        "settingsContentBlockingExceptions": null, //missing translation
+        "settingsContentBlockingLevel0": "সমস্ত বিজ্ঞাপন এবং ট্র্যাকারকে মঞ্জুরি দিন",
+        "settingsContentBlockingLevel1": "তৃতীয় পক্ষের বিজ্ঞাপন এবং ট্র্যাকারদের ব্লক করুন",
+        "settingsContentBlockingLevel2": "সমস্ত বিজ্ঞাপন এবং ট্র্যাকারদের ব্লক করুন",
+        "settingsContentBlockingExceptions": "এই ওয়েবসাইটগুলিতে এখনও বিজ্ঞাপনের অনুমতি দেওয়া হবে:",
         "settingsBlockScriptsToggle": "স্ক্রিপ্ট ব্লক করুন",
         "settingsBlockImagesToggle": "ইমেজ ব্লক করুন",
         "settingsBlockedRequestCount": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "এখনও অবধি, Min <strong></strong> বিজ্ঞাপন এবং ট্র্যাকারদের অবরুদ্ধ করেছে"
         },
-        "settingsCustomizeFiltersLink": null, //missing translation
+        "settingsCustomizeFiltersLink": "ফিল্টারগুলি কাস্টমাইজ করুন",
         "settingsAppearanceHeading": "চেহারা",
-        "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
-        "settingsDarkModeNever": null, //"Never" missing translation
-        "settingsDarkModeNight": null, //"At night" missing translation
-        "settingsDarkModeAlways": null, //"Always" missing translation
-        "settingsSiteThemeToggle": null, //missing translation
+        "settingsEnableDarkMode":"ডার্কমোড সক্ষম করুন:",
+        "settingsDarkModeNever": "কখনই",
+        "settingsDarkModeNight": "রাতে",
+        "settingsDarkModeAlways": "সর্বদা",
+        "settingsSiteThemeToggle": "সাইটের থিম সক্ষম করুন",
         "settingsAdditionalFeaturesHeading": "অতিরিক্ত বৈশিষ্ট্য",
         "settingsUserscriptsToggle": "ব্যবহারকারী স্ক্রিপ্ট সক্রিয় করুন",
-        "settingsShowDividerToggle": null, //missing translation
-        "settingsSeparateTitlebarToggle": null, //missing translation
-        "settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsShowDividerToggle": "ট্যাবগুলির মধ্যে বিভাজক দেখান",
+        "settingsSeparateTitlebarToggle": "পৃথক শিরোনাম বার ব্যবহার করুন",
+        "settingsOpenTabsInForegroundToggle": "অগ্রভাগে নতুন ট্যাবগুলি খুলুন",
         "settingsUserscriptsExplanation": {
             "unsafeHTML": "ব্যবহারকারীর স্ক্রিপ্ট আপনাকে ওয়েবসাইটের আচরণ পরিবর্তন করার অনুমতি দেয় - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\"> আরও শিখুন </a>"
         },
-        "settingsUserAgentToggle": null, //missing translation
-        "settingsUpdateNotificationsToggle": null, //missing translation
+        "settingsUserAgentToggle": "একটি কাস্টম ব্যবহারকারী এজেন্ট ব্যবহার করুন",
+        "settingsUpdateNotificationsToggle": "স্বয়ংক্রিয়ভাবে আপডেটগুলির জন্য পরীক্ষা করুন",
         "settingsSearchEngineHeading": "খোঁজ যন্ত্র",
         "settingsDefaultSearchEngine": "একটি ডিফল্ট অনুসন্ধান ইঞ্জিন চয়ন করুন:",
         "settingsDDGExplanation": "Searchbar এ তাত্ক্ষণিক উত্তর দেখতে ডিফল্ট অনুসন্ধান ইঞ্জিন হিসাবে DuckDuckGo সেট করুন।",
         "customSearchEngineDescription": "অনুসন্ধানটি%s এর সাথে প্রতিস্থাপন করুন",
         "settingsKeyboardShortcutsHeading": "কীবোর্ড শর্টকাটগুলি",
         "settingsKeyboardShortcutsHelp": "একাধিক শর্টকাট পৃথক করার জন্য কমা ব্যবহার করুন।",
-        "settingsProxyHeading": null, //missing translation
-        "settingsNoProxy": null, //missing translation
-        "settingsManualProxy": null, //missing translation
-        "settingsAutomaticProxy": null, //missing translation
-        "settingsProxyRules": null, //missing translation
-        "settingsProxyBypassRules": null, //missing translation
-        "settingsProxyConfigurationURL": null, //missing translation
+        "settingsProxyHeading": "প্রক্সি",
+        "settingsNoProxy": "প্রক্সি না",
+        "settingsManualProxy": "ম্যানুয়াল কনফিগারেশন",
+        "settingsAutomaticProxy": "স্বয়ংক্রিয় কনফিগারেশন",
+        "settingsProxyRules": "প্রক্সি বিধি:",
+        "settingsProxyBypassRules": "এর জন্য কোনও প্রক্সি নেই:",
+        "settingsProxyConfigurationURL": "কনফিগারেশন ইউআরএল",
         /* app menu */
         "appMenuFile": "ফাইল",
         "appMenuNewTab": "নতুন ট্যাব",
-        "appMenuDuplicateTab": null, //missing translation
+        "appMenuDuplicateTab": "ডুপ্লিকেট ট্যাব",
         "appMenuNewPrivateTab": "নতুন ব্যক্তিগত ট্যাব",
         "appMenuNewTask": "ত্যে",
         "appMenuSavePageAs": "যেমন পৃষ্ঠা সংরক্ষণ",
@@ -202,7 +202,7 @@
         "appMenuWindow": "জানলা",
         "appMenuMinimize": "কমান",
         "appMenuClose": "ঘনিষ্ঠ",
-        "appMenuAlwaysOnTop": null, //missing translation
+        "appMenuAlwaysOnTop": "সর্বদা শীর্ষে",
         "appMenuHelp": "সাহায্য করুন",
         "appMenuKeyboardShortcuts": "কীবোর্ড শর্টকাটগুলি",
         "appMenuReportBug": "একটি বাগ রিপোর্ট করুন",
@@ -221,20 +221,20 @@
             "unsafeHTML": "<span id = 'total'> </ span> এর <input type = 'text' /> পৃষ্ঠা"
         },
         /* Context Reader */
-        "buttonReaderSettings": null, //missing translation "Reader Settings"
-        "buttonReaderLightTheme": null, //missing translation "Light"
-        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
-        "buttonReaderDarkTheme": null, //missing translation "Dark"
-        "openReaderView": null, //missing translation "Always open in reader view"
-        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-        "buttonReaderRedirectYes": null, //missing translation "Yes"
-        "buttonReaderRedirectNo": null, //missing translation "No"
-        "articleReaderView": null, //missing translation "Original Article"
+        "buttonReaderSettings": "পাঠক সেটিংস",
+        "buttonReaderLightTheme": "আলো",
+        "buttonReaderSepiaTheme": "সেপিয়া",
+        "buttonReaderDarkTheme": "অন্ধকার",
+        "openReaderView": "সর্বদা পাঠক দর্শনে খোলা",
+        "autoRedirectBannerReader": "পাঠক দর্শনে সর্বদা এই সাইট থেকে নিবন্ধগুলি খুলবেন?",
+        "buttonReaderRedirectYes": "হ্যাঁ",
+        "buttonReaderRedirectNo": "না",
+        "articleReaderView": "মূল নিবন্ধ",
         /* Download manager */
-        "downloadCancel": null, //missing translation
-        "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null, //missing translation
+        "downloadCancel": "বাতিল",
+        "downloadStateCompleted":"সমাপ্ত",
+        "downloadStateFailed": "ব্যর্থ হয়েছে",
         /* Update Notifications */
-        "updateNotificationTitle": null //missing translation
+        "updateNotificationTitle": "নূন্যতম একটি নতুন সংস্করণ উপলব্ধ",
     }
 }
