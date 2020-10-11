@@ -155,7 +155,7 @@ body:not(.touch) .task-container:not(.collapsed):not(:hover) .task-collapse-butt
 	font-size: 1.2em;
 	color: inherit;
 	border: 0;
-	background: none;
+	background-color: transparent !important;
 	opacity: 0.75;
 	margin: 0.5em;
 }

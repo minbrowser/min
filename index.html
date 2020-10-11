@@ -194,10 +194,16 @@
 	</div>
 
 	<div id="password-capture-bar" hidden>
-		<span id="password-capture-description">Save password for this site?</span>
+		<span id="password-capture-description"></span>
 		<input id="password-capture-username" type="text" required/>
-		<input id="password-capture-password" type="password" required/>
-		<button id="password-capture-save">Save</button>
+		<span class="password-capture-section">
+			<input id="password-capture-password" type="password" required/>
+			<button id="password-capture-reveal-password" class="i carbon:view"></button>
+		</span>
+		<span class="password-capture-section">
+			<button id="password-capture-save">Save</button>
+			<button id="password-capture-ignore">Don't save</button>
+		</span>
 	</div>
 
 	<!-- add scripts in Gruntfile.js -->

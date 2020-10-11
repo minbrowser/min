@@ -3,22 +3,46 @@ const PasswordManagers = require('passwordManager/passwordManager.js')
 
 const passwordCapture = {
   bar: document.getElementById('password-capture-bar'),
+  description: document.getElementById('password-capture-description'),
   usernameInput: document.getElementById('password-capture-username'),
   passwordInput: document.getElementById('password-capture-password'),
+  revealButton: document.getElementById('password-capture-reveal-password'),
   saveButton: document.getElementById('password-capture-save'),
+  closeButton: document.getElementById('password-capture-ignore'),
   currentDomain: null,
+  barHeight: 0,
   showCaptureBar: function (username, password) {
+    passwordCapture.description.textContent = 'Save password for %s?'.replace('%s', passwordCapture.currentDomain)
     passwordCapture.bar.hidden = false
+
+    passwordCapture.passwordInput.type = 'password'
+    passwordCapture.revealButton.classList.add('carbon:view')
+    passwordCapture.revealButton.classList.remove('carbon:view-off')
+
     passwordCapture.usernameInput.value = username || ''
     passwordCapture.passwordInput.value = password || ''
-    webviews.adjustMargin([36, 0, 0, 0])
+
+    passwordCapture.barHeight = passwordCapture.bar.getBoundingClientRect().height
+    webviews.adjustMargin([passwordCapture.barHeight, 0, 0, 0])
   },
   hideCaptureBar: function () {
+    webviews.adjustMargin([passwordCapture.barHeight * -1, 0, 0, 0])
+
     passwordCapture.bar.hidden = true
     passwordCapture.usernameInput.value = ''
     passwordCapture.passwordInput.value = ''
     passwordCapture.currentDomain = null
-    webviews.adjustMargin([-36, 0, 0, 0])
+  },
+  togglePasswordVisibility: function () {
+    if (passwordCapture.passwordInput.type === 'password') {
+      passwordCapture.passwordInput.type = 'text'
+      passwordCapture.revealButton.classList.remove('carbon:view')
+      passwordCapture.revealButton.classList.add('carbon:view-off')
+    } else {
+      passwordCapture.passwordInput.type = 'password'
+      passwordCapture.revealButton.classList.add('carbon:view')
+      passwordCapture.revealButton.classList.remove('carbon:view-off')
+    }
   },
   handleRecieveCredentials: function (tab, args, frameId) {
     var domain = args[0][0]
@@ -46,6 +70,9 @@ const passwordCapture = {
     })
   },
   initialize: function () {
+    passwordCapture.usernameInput.placeholder = 'Username'
+    passwordCapture.passwordInput.placeholder = 'Password'
+
     webviews.bindIPC('password-form-filled', passwordCapture.handleRecieveCredentials)
 
     passwordCapture.saveButton.addEventListener('click', function () {
@@ -55,6 +82,18 @@ const passwordCapture = {
 
           passwordCapture.hideCaptureBar()
         })
+      }
+    })
+
+    passwordCapture.closeButton.addEventListener('click', passwordCapture.hideCaptureBar)
+    passwordCapture.revealButton.addEventListener('click', passwordCapture.togglePasswordVisibility)
+
+    // the bar can change height when the window is resized, so the webview needs to be resized in response
+    window.addEventListener('resize', function () {
+      if (!passwordCapture.bar.hidden) {
+        var oldHeight = passwordCapture.barHeight
+        passwordCapture.barHeight = passwordCapture.bar.getBoundingClientRect().height
+        webviews.adjustMargin([passwordCapture.barHeight - oldHeight, 0, 0, 0])
       }
     })
   }
