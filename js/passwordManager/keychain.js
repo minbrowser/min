@@ -1,6 +1,14 @@
+/*
+A note about the keychain storage format:
+keytar saves entries as (service, account, password), but only supports listing all entries given a particular service
+We need a way to find all passwords created by Min, so we use "min saved password" as the service name,
+and then store both the account domain and username in the "account" field as a JS object
+*/
+
 class Keychain {
   constructor () {
     this.name = 'Built-in password manager'
+    this.keychainServiceName = 'Min saved password'
   }
 
   getDownloadLink () {
@@ -24,14 +32,22 @@ class Keychain {
   }
 
   async getSuggestions (domain) {
-    return ipc.invoke('keychainFindCredentials', domain).then(function (results) {
-      return results.map(function (result) {
-        return {
-          username: result.account,
-          password: result.password,
-          manager: 'Keychain'
-        }
-      })
+    return ipc.invoke('keychainFindCredentials', this.keychainServiceName).then(function (results) {
+      return results
+        .filter(function (result) {
+          try {
+            return JSON.parse(result.account).domain === domain
+          } catch (e) {
+            return false
+          }
+        })
+        .map(function (result) {
+          return {
+            username: JSON.parse(result.account).username,
+            password: result.password,
+            manager: 'Keychain'
+          }
+        })
     })
   }
 
@@ -40,7 +56,7 @@ class Keychain {
   }
 
   saveCredential (domain, username, password) {
-    ipc.invoke('keychainSetPassword', domain, username, password)
+    ipc.invoke('keychainSetPassword', this.keychainServiceName, JSON.stringify({ domain: domain, username: username }), password)
   }
 }
 
