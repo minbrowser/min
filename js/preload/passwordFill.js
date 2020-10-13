@@ -302,7 +302,7 @@ window.addEventListener('submit', function () {
   var usernameValues = getUsernameFields().map(f => f.value)
   var passwordValues = getPasswordFields().map(f => f.value)
 
-  if (usernameValues.length > 0 || passwordValues.length > 0) {
+  if (usernameValues.some(v => v.length > 0) || passwordValues.some(v => v.length > 0)) {
     ipc.send('password-form-filled', [window.location.hostname, usernameValues, passwordValues])
   }
 })
