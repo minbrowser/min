@@ -297,12 +297,27 @@ window.addEventListener('load', function (event) {
 })
 
 // send passwords back to the main process so they can be saved to storage
-
-window.addEventListener('submit', function () {
+function handleFormSubmit () {
   var usernameValues = getUsernameFields().map(f => f.value)
   var passwordValues = getPasswordFields().map(f => f.value)
 
   if (usernameValues.some(v => v.length > 0) || passwordValues.some(v => v.length > 0)) {
     ipc.send('password-form-filled', [window.location.hostname, usernameValues, passwordValues])
+  }
+}
+
+window.addEventListener('submit', handleFormSubmit)
+
+electron.webFrame.executeJavaScript(`
+var origSubmit = HTMLFormElement.prototype.submit;
+HTMLFormElement.prototype.submit = function () {
+  window.postMessage({message: 'formSubmit'})
+  origSubmit.apply(this, arguments)
+}
+`)
+
+window.addEventListener('message', function (e) {
+  if (e.data && e.data.message && e.data.message === 'formSubmit') {
+    handleFormSubmit()
   }
 })
