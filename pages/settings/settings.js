@@ -465,6 +465,16 @@ passwordManagersDropdown.addEventListener('change', function (e) {
   }
 })
 
+var keychainViewLink = document.getElementById('keychain-view-link')
+
+keychainViewLink.addEventListener('click', function () {
+  postMessage({ message: 'showCredentialList' })
+})
+
+settings.listen('passwordManager', function (value) {
+  keychainViewLink.hidden = !(value && value.name === 'Built-in password manager')
+})
+
 /* proxy settings */
 
 const proxyTypeInput = document.getElementById('selected-proxy-type')
@@ -477,7 +487,7 @@ const toggleProxyOptions = proxyType => {
 
 const setProxy = (key, value) => {
   settings.get('proxy', (proxy = {}) => {
-      proxy[key] = value
+    proxy[key] = value
     settings.set('proxy', proxy)
   })
 }

@@ -58,6 +58,23 @@ class Keychain {
   saveCredential (domain, username, password) {
     ipc.invoke('keychainSetPassword', this.keychainServiceName, JSON.stringify({ domain: domain, username: username }), password)
   }
+
+  deleteCredential (domain, username) {
+    ipc.invoke('keychainDeletePassword', this.keychainServiceName, JSON.stringify({ domain: domain, username: username }))
+  }
+
+  getAllCredentials () {
+    return ipc.invoke('keychainFindCredentials', this.keychainServiceName).then(function (results) {
+      return results.map(function (result) {
+        return {
+          domain: JSON.parse(result.account).domain,
+          username: JSON.parse(result.account).username,
+          password: result.password,
+          manager: 'Keychain'
+        }
+      })
+    })
+  }
 }
 
 module.exports = Keychain

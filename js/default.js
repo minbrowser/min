@@ -143,6 +143,7 @@ require('pdfViewer.js').initialize()
 require('autofillSetup.js').initialize()
 require('passwordManager/passwordManager.js').initialize()
 require('passwordManager/passwordCapture.js').initialize()
+require('passwordManager/passwordViewer.js').initialize()
 require('util/theme.js').initialize()
 require('userscripts.js').initialize()
 

@@ -19,7 +19,7 @@ setTimeout(function () {
   /* Used for swipe gestures */
   document.addEventListener('wheel', function (e) {
     ipc.send('wheel-event', cloneEvent(e))
-  }, {passive: true})
+  }, { passive: true })
 
   var scrollTimeout = null
 
@@ -35,12 +35,22 @@ setTimeout(function () {
 ipc.on('getContextMenuData', function (event, data) {
   // check for video element to show picture-in-picture menu
   var hasVideo = Array.from(document.elementsFromPoint(data.x, data.y)).some(el => el.tagName === 'VIDEO')
-  ipc.send('contextMenuData', {hasVideo})
+  ipc.send('contextMenuData', { hasVideo })
 })
 
 ipc.on('enterPictureInPicture', function (event, data) {
   var videos = Array.from(document.elementsFromPoint(data.x, data.y)).filter(el => el.tagName === 'VIDEO')
   if (videos[0]) {
     videos[0].requestPictureInPicture()
+  }
+})
+
+window.addEventListener('message', function (e) {
+  if (!e.origin.startsWith('file://')) {
+    return
+  }
+
+  if (e.data && e.data.message && e.data.message === 'showCredentialList') {
+    ipc.send('showCredentialList')
   }
 })

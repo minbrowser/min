@@ -20,6 +20,7 @@
 	<link rel="stylesheet" href="css/downloadManager.css" />
 	<link rel="stylesheet" href="css/passwordManager.css" />
 	<link rel="stylesheet" href="css/passwordCapture.css" />
+	<link rel="stylesheet" href="css/passwordViewer.css" />
 	<link rel="stylesheet" href="node_modules/dragula/dist/dragula.min.css" />
 	<link rel="stylesheet" href="ext/icons/iconfont.css" />
 </head>
@@ -204,6 +205,11 @@
 			<button id="password-capture-save">Save</button>
 			<button id="password-capture-ignore">Don't save</button>
 		</span>
+	</div>
+
+	<div id="password-viewer" hidden>
+		<button class="close-button i carbon:close"></button>
+		<div id="password-viewer-list"></div>
 	</div>
 
 	<!-- add scripts in Gruntfile.js -->
