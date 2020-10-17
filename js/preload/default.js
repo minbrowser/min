@@ -17,9 +17,9 @@ function cloneEvent (e) {
 // workaround for Electron bug
 setTimeout(function () {
   /* Used for swipe gestures */
-  document.addEventListener('wheel', function (e) {
+  window.addEventListener('wheel', function (e) {
     ipc.send('wheel-event', cloneEvent(e))
-  }, {passive: true})
+  })
 
   var scrollTimeout = null
 
@@ -35,7 +35,7 @@ setTimeout(function () {
 ipc.on('getContextMenuData', function (event, data) {
   // check for video element to show picture-in-picture menu
   var hasVideo = Array.from(document.elementsFromPoint(data.x, data.y)).some(el => el.tagName === 'VIDEO')
-  ipc.send('contextMenuData', {hasVideo})
+  ipc.send('contextMenuData', { hasVideo })
 })
 
 ipc.on('enterPictureInPicture', function (event, data) {

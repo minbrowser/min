@@ -101,6 +101,10 @@ function onSwipeGestureFinish () {
 webviews.bindIPC('wheel-event', function (tabId, e) {
   e = JSON.parse(e)
 
+  if (e.defaultPrevented) {
+    return
+  }
+
   verticalMouseMove += e.deltaY
   horizontalMouseMove += e.deltaX
 
