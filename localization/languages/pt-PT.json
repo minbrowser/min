@@ -149,7 +149,7 @@
         "settingsSiteThemeToggle": "Ativar tema do site",
         "settingsAdditionalFeaturesHeading": "Outras funcionalidades",
         "settingsUserscriptsToggle": "Ativar scripts de utilizador",
-        "settingsShowDividerToggle": null, // Missing translation
+        "settingsShowDividerToggle": "Mostrar divisor entre os separadores",
         "settingsSeparateTitlebarToggle": "Utilizar barra de título separada",
         "settingsOpenTabsInForegroundToggle": "Abrir novos separadores em primeiro plano",
         "settingsUserscriptsExplanation": {
