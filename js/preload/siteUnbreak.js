@@ -85,6 +85,13 @@ if (window.location.hostname === 'news.google.com') {
   `)
 }
 
+/* calendar.google.com - fixes clicking on URLs in event descriptions */
+if (window.location.hostname === 'calendar.google.com') {
+  scriptsToRun.push(`
+    window.open = null
+  `)
+}
+
 if (scriptsToRun.length > 0) {
   setTimeout(function () {
     electron.webFrame.executeJavaScript(scriptsToRun.join(';'))

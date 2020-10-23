@@ -17,9 +17,9 @@ function cloneEvent (e) {
 // workaround for Electron bug
 setTimeout(function () {
   /* Used for swipe gestures */
-  document.addEventListener('wheel', function (e) {
+  window.addEventListener('wheel', function (e) {
     ipc.send('wheel-event', cloneEvent(e))
-  }, { passive: true })
+  })
 
   var scrollTimeout = null
 

@@ -150,9 +150,9 @@
         "settingsSiteThemeToggle": "Увімкнути тему сайту",
         "settingsAdditionalFeaturesHeading": "Додаткові можливості",
         "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
-        "settingsShowDividerToggle": null, // Missing translation
+        "settingsShowDividerToggle": "Показувати роздільник між вкладками",
         "settingsSeparateTitlebarToggle": "Використовувати окремий рядок заголовка",
-        "settingsOpenTabsInForegroundToggle": "Відкриватии нові вкладки на передньому плані",
+        "settingsOpenTabsInForegroundToggle": "Відкривати нові вкладки на передньому плані",
         "settingsUserscriptsExplanation": {
             "unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."
         },

@@ -129,8 +129,6 @@ window.addEventListener('load', function () {
   }, true)
 })
 
-require('dbMigration.js')
-
 require('navbar/tabActivity.js').initialize()
 require('navbar/tabColor.js').initialize()
 require('navbar/goBackButton.js').initialize()
