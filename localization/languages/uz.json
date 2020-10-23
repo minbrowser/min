@@ -250,7 +250,6 @@
         "passwordManagerSetupInstalling": "O'rnatilmoqda...",
         "passwordManagerSetupSignIn": "Avtomatik to'ldirishni ishlatish uchun parol menejeringiz tizimiga kiring. Sizning ma'lumotlaringiz Minni hech qanday joyida saqlanmaydi.",
         "disableAutofill": "Avtomatik to'ldirishni o'chirish",
-        "autofillNotNow": "Hozir emas",
         "passwordManagerSetupUnlockError": "Parollar do'konini ochish muvaffaqiyatsiz bo'ldi: ",
         "passwordManagerSetupRetry": "To'g'ri fayl va parol kiritayotganingizga ishonch hosil qiling. Qayta urinib ko'rish uchun vositani bu yerga torting.",
         "passwordManagerUnlock": "Parol do'konini ochish uchun usta parolni kiriting:",

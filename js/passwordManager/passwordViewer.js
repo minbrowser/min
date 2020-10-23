@@ -5,7 +5,7 @@ const modalMode = require('modalMode.js')
 const passwordViewer = {
   container: document.getElementById('password-viewer'),
   listContainer: document.getElementById('password-viewer-list'),
-  closeButton: document.querySelector('#password-viewer .close-button'),
+  closeButton: document.querySelector('#password-viewer .modal-close-button'),
   createCredentialListElement: function (credential) {
     var container = document.createElement('div')
 

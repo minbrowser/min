@@ -254,7 +254,6 @@
         "passwordManagerSetupInstalling": "설치하는 중...",
         "passwordManagerSetupSignIn": "자동완성을 사용하려면 비밀번호 관리자에 로그인하세요. 귀하의 자격증명은 민(Min)의 그 어디에도 저장되지 않습니다.",
         "disableAutofill": "자동완성 비활성화",
-        "autofillNotNow": "나중에",
         "passwordManagerSetupUnlockError": "비밀번호 저장소를 여는데 실패했습니다: ",
         "passwordManagerSetupRetry": "올바른 파일과 비밀번호를 사용하세요. 도구를 여기로 다시 끌어다 놓고 재시도할 수 있습니다.",
         "passwordManagerUnlock": "비밀번호 저장소 사용을 위해 %p 비밀번호를 입력하세요:",

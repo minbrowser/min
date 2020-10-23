@@ -254,7 +254,6 @@
         "passwordManagerSetupInstalling": "Yükleniyor...",
         "passwordManagerSetupSignIn": "Otomatik dolduru kullanabilmek için parola yöneticinize giriş yapın. Kimlik bilgileriniz Min içerisinde bir yere kaydedilmeyecektir.",
         "disableAutofill": "Otomatik Dolduru Devre Dışı Bırak",
-        "autofillNotNow": "Şimdi Değil",
         "passwordManagerSetupUnlockError": "Parola kayıtlarının kilidi açılamadı: ",
         "passwordManagerSetupRetry": "Doğru dosyayı kullandığınızdan ve geçerli parolayı girdiğinizden emin olun. Dosyayı buraya sürükleyerek tekrar deneyebilirsniz.",
         "passwordManagerUnlock": "Parola kayıtlarınızın kilidini açmak için %p ana parolasını girin:",

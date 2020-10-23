@@ -254,7 +254,6 @@
         "passwordManagerSetupInstalling": "インストールしています...",
         "passwordManagerSetupSignIn": "パスワードマネージャーにログインして、自動入力の使用を開始します。 資格情報はMin内のどこにも保存されません。",
         "disableAutofill": "自動入力を無効にする",
-        "autofillNotNow": "今はやめろ",
         "passwordManagerSetupUnlockError": "パスワードストアのロック解除に失敗しました： ",
         "passwordManagerSetupRetry": "正しいファイルを使用し、正しいパスワードを入力していることを確認してください。 ここにツールをもう一度ドラッグすると、再試行できます。",
         "passwordManagerUnlock": "％pマスターパスワードを入力して、パスワードストアのロックを解除します。",

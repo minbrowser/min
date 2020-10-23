@@ -254,7 +254,6 @@
         "passwordManagerSetupInstalling": "Probíhá instalace...",
         "passwordManagerSetupSignIn": "Přihlaste se do vašeho správce hesel, abyste mohli začít používat automatické vkládání. Vaše přihlašovací údaje nebudou v prohlížeči Min nikde uchovány.",
         "disableAutofill": "Vypnout automatické vkládání",
-        "autofillNotNow": "Teď ne",
         "passwordManagerSetupUnlockError": "Selhalo odemčení úložiště hesel: ",
         "passwordManagerSetupRetry": "Ujistěte se, že používáte správný soubor a zadáváte heslo správně. Můžete postup opakovat přetažením nástroje sem.",
         "passwordManagerUnlock": "Zadejte %p hlavní heslo pro odemčení úložiště hesel:",

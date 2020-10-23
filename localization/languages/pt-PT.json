@@ -254,7 +254,6 @@
         "passwordManagerSetupInstalling": "A instalar...",
         "passwordManagerSetupSignIn": "Inicie sessão no gestor de palavras-passe para utilizar o preenchimento automático. As suas credenciais não serão guardadas no Min.",
         "disableAutofill": "Desativar preenchimento automático",
-        "autofillNotNow": "Agora não",
         "passwordManagerSetupUnlockError": "Falha ao desbloquear: ",
         "passwordManagerSetupRetry": "Certifique-se de que está a utilizar o ficheiro e a palavra-passe corretas. Pode tentar novamente arrastando a ferramenta para aqui.",
         "passwordManagerUnlock": "Digite a palavra-passe mestre para %p para desbloquear o armazenamento de palavras-passe:",

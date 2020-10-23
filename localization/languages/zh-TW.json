@@ -254,7 +254,6 @@
         "passwordManagerSetupInstalling": "正在安裝...",
         "passwordManagerSetupSignIn": "登入你的密碼管理器並開始使用自動填入。您的資訊不會被存入 Min。",
         "disableAutofill": "取消",
-        "autofillNotNow": "稍等",
         "passwordManagerSetupUnlockError": "無法登入密碼儲存庫。",
         "passwordManagerSetupRetry": "請確認您拖入正確的檔案並輸入正確的密碼。您可以將檔案拖入以重試。",
         "passwordManagerUnlock": "輸入你的 %p 主密碼以解鎖密碼庫：",

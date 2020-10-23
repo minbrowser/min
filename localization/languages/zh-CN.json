@@ -252,7 +252,6 @@
         "passwordManagerSetupInstalling": "安装中...",
         "passwordManagerSetupSignIn": "登录密码管理器以使用自动填充。你的凭证不会在Min内存储。",
         "disableAutofill": "关闭自动填充",
-        "autofillNotNow": "现在不用",
         "passwordManagerSetupUnlockError": "解锁密码存储区失败：",
         "passwordManagerSetupRetry": "请确认你使用了正确的文件和密码。你可以再次把工具拖到这里并重试。",
         "passwordManagerUnlock": "输入 %p 主密码来解锁密码存储区：",

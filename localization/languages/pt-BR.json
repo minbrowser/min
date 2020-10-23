@@ -254,7 +254,6 @@
         "passwordManagerSetupInstalling": "Instalando ...",
         "passwordManagerSetupSignIn": "Entre no seu gerenciador de senhas para começar a usar o preenchimento automático. Suas credenciais não serão armazenadas em nenhum lugar do Min.",
         "disableAutofill": "Desativar preenchimento automático",
-        "autofillNotNow": "Agora não",
         "passwordManagerSetupUnlockError": "Falha ao desbloquear o armazenamento de senhas:",
         "passwordManagerSetupRetry": "Verifique se você está usando o arquivo certo e digitando a senha correta. Você pode tentar novamente arrastando a ferramenta aqui.",
         "passwordManagerUnlock": "Digite sua senha mestre %p para desbloquear o armazenamento de senhas:",

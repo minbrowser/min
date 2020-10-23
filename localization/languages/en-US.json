@@ -254,7 +254,6 @@
         "passwordManagerSetupInstalling": "Installing...",
         "passwordManagerSetupSignIn": "Sign in to your password manager to start using autofill. Your credentials won't be stored anywhere inside Min.",
         "disableAutofill": "Disable Autofill",
-        "autofillNotNow": "Not Now",
         "passwordManagerSetupUnlockError": "Failed to unlock the password store: ",
         "passwordManagerSetupRetry": "Make sure you're using the right file and entering a correct password. You can retry by dragging the tool here again.",
         "passwordManagerUnlock": "Enter your %p master password to unlock the password store:",

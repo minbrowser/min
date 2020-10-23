@@ -254,7 +254,6 @@
         "passwordManagerSetupInstalling": "Instalowanie...",
         "passwordManagerSetupSignIn": "Zaloguj się do menedżera haseł, aby rozpocząć korzystanie z autouzupełniania. Twoje dane uwierzytelniające nie będą przechowywane nigdzie w Min.",
         "disableAutofill": "Wyłącz autouzupełnianie",
-        "autofillNotNow": "Nie teraz",
         "passwordManagerSetupUnlockError": "nie udało się odblokować przechowalni haseł: ",
         "passwordManagerSetupRetry": "Upewnij się, że używasz właściwego pliku i wpisujesz poprawne hasło. Możesz spróbować ponownie, przeciągając tutaj narzędzie.",
         "passwordManagerUnlock": "Wprowadź główne hasło %p, aby odblokować przechowalnię haseł:",
