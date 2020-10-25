@@ -63,7 +63,9 @@ const passwordViewer = {
 
       manager.getAllCredentials().then(function (credentials) {
         webviews.requestPlaceholder('passwordViewer')
-        modalMode.toggle(true)
+        modalMode.toggle(true, {
+          onDismiss: passwordViewer.hide
+        })
         passwordViewer.container.hidden = false
 
         credentials.forEach(function (cred) {

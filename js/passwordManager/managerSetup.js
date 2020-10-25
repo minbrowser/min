@@ -36,7 +36,13 @@ const setupDialog = {
       secondaryInstructions.hidden = true
     }
 
-    modalMode.toggle(true)
+    modalMode.toggle(true, {
+      onDismiss: function () {
+        settings.set('passwordManager', null)
+        setupDialog.hide()
+      }
+    })
+
     dialog.hidden = false
     webviews.requestPlaceholder('managerSetup')
   },

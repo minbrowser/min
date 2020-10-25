@@ -36,6 +36,17 @@ body.dark-mode #overlay {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
     background: #fff;
+    animation: modal-appear 0.2s;
+}
+
+@keyframes modal-appear {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.85);
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .dark-mode .modal {
