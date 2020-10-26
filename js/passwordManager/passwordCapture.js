@@ -63,6 +63,10 @@ const passwordCapture = {
       manager.getSuggestions(domain).then(function (credentials) {
         var alreadyExists = credentials.some(cred => cred.username === username && cred.password === password)
         if (!alreadyExists) {
+          if (!passwordCapture.bar.hidden) {
+            passwordCapture.hideCaptureBar()
+          }
+
           passwordCapture.currentDomain = domain
           passwordCapture.showCaptureBar(username, password)
         }
