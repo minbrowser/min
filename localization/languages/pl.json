@@ -239,7 +239,8 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Autouzupełnianie hasła",
         "settingsSelectPasswordManager": "Wybierz jeden z obsługiwanych menedżerów haseł:",
-        /* Password manager setup */
+        "keychainViewPasswords": null, //missing translation
+       /* Password manager setup */
         "passwordManagerSetupHeading": "Zakończ konfigurowanie %p aby korzystać z autouzupełniania",
         "passwordManagerSetupStep1": {
             "unsafeHTML": "Najpierw, <a id='password-manager-setup-link'></a> i wypakuj go dla swojego systemu."
@@ -257,6 +258,13 @@
         "passwordManagerSetupUnlockError": "nie udało się odblokować przechowalni haseł: ",
         "passwordManagerSetupRetry": "Upewnij się, że używasz właściwego pliku i wpisujesz poprawne hasło. Możesz spróbować ponownie, przeciągając tutaj narzędzie.",
         "passwordManagerUnlock": "Wprowadź główne hasło %p, aby odblokować przechowalnię haseł:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "Zaloguj się do %h (%r)",
         "dialogConfirmButton": "Potwierdź",

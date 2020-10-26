@@ -238,6 +238,7 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Автоматично попълване на пароли",
         "settingsSelectPasswordManager": "Изберете един от поддържаните мениджъри на пароли:",
+        "keychainViewPasswords": null, //missing translation
         /* Password manager setup */
         "passwordManagerSetupHeading": "Завършете настройване на %p да попълва пароли",
         "passwordManagerSetupStep1": {
@@ -256,6 +257,13 @@
         "passwordManagerSetupUnlockError": "Неуспешно отключване на хранилището за пароли: ",
         "passwordManagerSetupRetry": "Уверете се, че използвате правилния файл и въвеждате правилна парола. Може да пробвате отново, като пак плъзнете уреда тук.",
         "passwordManagerUnlock": "Въведете Вашата %p главна парола, за да отключите хранилището за пароли:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "Впишете се в %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Потвърждаване",

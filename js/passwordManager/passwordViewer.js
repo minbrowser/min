@@ -5,6 +5,7 @@ const modalMode = require('modalMode.js')
 const passwordViewer = {
   container: document.getElementById('password-viewer'),
   listContainer: document.getElementById('password-viewer-list'),
+  emptyHeading: document.getElementById('password-viewer-empty'),
   closeButton: document.querySelector('#password-viewer .modal-close-button'),
   createCredentialListElement: function (credential) {
     var container = document.createElement('div')
@@ -71,7 +72,8 @@ const passwordViewer = {
         credentials.forEach(function (cred) {
           passwordViewer.listContainer.appendChild(passwordViewer.createCredentialListElement(cred))
         })
-        // TODO add empty state
+
+        passwordViewer.emptyHeading.hidden = (credentials.length !== 0)
       })
     })
   },

@@ -239,7 +239,8 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "비밀번호 자동완성",
         "settingsSelectPasswordManager": "지원하는 비밀번호 관리자 중에서 하나를 선택하세요:",
-        /* Password manager setup */
+        "keychainViewPasswords": null, //missing translation
+       /* Password manager setup */
         "passwordManagerSetupHeading": "자동완성을 사용하려면 %p 설정을 완료하세요.",
         "passwordManagerSetupStep1": {
             "unsafeHTML": "우선, <a id='password-manager-setup-link'></a>를 방문해 시스템에 내려받으세요."
@@ -257,6 +258,13 @@
         "passwordManagerSetupUnlockError": "비밀번호 저장소를 여는데 실패했습니다: ",
         "passwordManagerSetupRetry": "올바른 파일과 비밀번호를 사용하세요. 도구를 여기로 다시 끌어다 놓고 재시도할 수 있습니다.",
         "passwordManagerUnlock": "비밀번호 저장소 사용을 위해 %p 비밀번호를 입력하세요:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "%h (%r)로 로그인",
         "dialogConfirmButton": "확인",

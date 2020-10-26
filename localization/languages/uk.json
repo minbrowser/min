@@ -240,7 +240,8 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Автозаповнення пароля",
         "settingsSelectPasswordManager": "Виберіть один із підтримуваних менеджерів паролів:",
-        /* Password manager setup */
+        "keychainViewPasswords": null, //missing translation
+       /* Password manager setup */
         "passwordManagerSetupHeading": "Завершіть налаштування %p щоб використовувати автозаповнення",
         "passwordManagerSetupStep1": {
             "unsafeHTML": "Спочатку <a id='password-manager-setup-link'></a> і розпакуйте його для Вашої системи."
@@ -258,6 +259,13 @@
         "passwordManagerSetupUnlockError": "Не вдалося розблокувати сховище паролів: ",
         "passwordManagerSetupRetry": "Переконайтеся, що використовуєте правильний файл та ввели правильний пароль. Ви можете повторити спробу, перетягнувши сюди інструмент ще раз.",
         "passwordManagerUnlock": "Введіть головний пароль %p, щоб розблокувати сховище паролів:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "Увійти на %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Підтвердити",

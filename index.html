@@ -204,14 +204,15 @@
 			<button id="password-capture-reveal-password" class="i carbon:view"></button>
 		</span>
 		<span class="password-capture-section">
-			<button id="password-capture-save">Save</button>
-			<button id="password-capture-ignore">Don't save</button>
+			<button id="password-capture-save" data-string="passwordCaptureSave"></button>
+			<button id="password-capture-ignore" data-string="passwordCaptureDontSave"></button>
 		</span>
 	</div>
 
 	<div id="password-viewer" class="modal" hidden>
-		<h2 class="modal-title">Saved passwords</h2>
+		<h2 class="modal-title" data-string="savedPasswordsHeading"></h2>
 		<button class="modal-close-button i carbon:close"></button>
+		<div id="password-viewer-empty" data-string="savedPasswordsEmpty" hidden></div>
 		<div id="password-viewer-list"></div>
 	</div>
 

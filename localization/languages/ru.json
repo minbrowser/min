@@ -239,7 +239,8 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Автоматическое заполнение пароля",
         "settingsSelectPasswordManager": "Выберите один из поддерживаемых менеджеров паролей:",
-        /* Password manager setup */
+        "keychainViewPasswords": null, //missing translation
+       /* Password manager setup */
         "passwordManagerSetupHeading": "Завершить настройку %p для использования автозаполнения",
         "passwordManagerSetupStep1": {
             "unsafeHTML": "Во-первых, <a id='password-manager-setup-link'></a> и извлеките его для вашей системы."
@@ -257,6 +258,13 @@
         "passwordManagerSetupUnlockError": "Не удалось разблокировать хранилище паролей: ",
         "passwordManagerSetupRetry": "Убедитесь, что вы используете правильный файл и вводите правильный пароль. Вы можете повторить попытку, перетащив инструмент сюда еще раз.",
         "passwordManagerUnlock": "Введите свой мастер-пароль %p, чтобы разблокировать хранилище паролей:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "Войти на %s (%h)",
         "dialogConfirmButton": "Подтвердить",

@@ -239,7 +239,8 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Preenchimento automático de palavras-passe",
         "settingsSelectPasswordManager": "Escolha uma das seguintes aplicações:",
-        /* Password manager setup */
+        "keychainViewPasswords": null, //missing translation
+       /* Password manager setup */
         "passwordManagerSetupHeading": "Terminar configuração de %p para usar o preenchimento automático",
         "passwordManagerSetupStep1": {
             "unsafeHTML": "Primeiro, <a id='password-manager-setup-link'></a> e extraia para o seu sistema."
@@ -257,6 +258,13 @@
         "passwordManagerSetupUnlockError": "Falha ao desbloquear: ",
         "passwordManagerSetupRetry": "Certifique-se de que está a utilizar o ficheiro e a palavra-passe corretas. Pode tentar novamente arrastando a ferramenta para aqui.",
         "passwordManagerUnlock": "Digite a palavra-passe mestre para %p para desbloquear o armazenamento de palavras-passe:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "Iniciar sessão em %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Confirmar",
