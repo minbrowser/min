@@ -263,6 +263,7 @@
         /* Password viewer */
         "savedPasswordsHeading": null, //missing translation
         "savedPasswordsEmpty": null, //missing translation
+        "deletePassword": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": null, //missing translation
         "dialogConfirmButton": "确认",

@@ -265,6 +265,7 @@
         /* Password viewer */
         "savedPasswordsHeading": null, //missing translation
         "savedPasswordsEmpty": null, //missing translation
+        "deletePassword": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "登入 %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "確認",

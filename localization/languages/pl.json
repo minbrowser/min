@@ -265,6 +265,7 @@
         /* Password viewer */
         "savedPasswordsHeading": null, //missing translation
         "savedPasswordsEmpty": null, //missing translation
+        "deletePassword": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "Zaloguj się do %h (%r)",
         "dialogConfirmButton": "Potwierdź",

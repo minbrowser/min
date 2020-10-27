@@ -46,7 +46,7 @@ const passwordViewer = {
     container.appendChild(deleteButton)
 
     deleteButton.addEventListener('click', function () {
-      if (confirm('Delete password for ' + credential.domain + '?')) {
+      if (confirm(l('deletePassword').replace('%s', credential.domain))) {
         PasswordManagers.getConfiguredPasswordManager().then(function (manager) {
           manager.deleteCredential(credential.domain, credential.username)
           container.remove()

@@ -265,6 +265,7 @@
         /* Password viewer */
         "savedPasswordsHeading": null, //missing translation
         "savedPasswordsEmpty": null, //missing translation
+        "deletePassword": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "%h (%r)로 로그인",
         "dialogConfirmButton": "확인",
