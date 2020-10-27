@@ -19,7 +19,7 @@ const PasswordManagers = {
   // Returns an active password manager, which is the one that is selected in app's
   // settings.
   getActivePasswordManager: function () {
-    if (PasswordManagers.managers.length == 0) {
+    if (PasswordManagers.managers.length === 0) {
       return null
     }
 
@@ -28,7 +28,7 @@ const PasswordManagers = {
       return null
     }
 
-    return PasswordManagers.managers.find(mgr => mgr.name == managerSetting.name)
+    return PasswordManagers.managers.find(mgr => mgr.name === managerSetting.name)
   },
   getConfiguredPasswordManager: async function () {
     const manager = PasswordManagers.getActivePasswordManager()
@@ -53,7 +53,7 @@ const PasswordManagers = {
         cancel: l('dialogSkipButton'),
         height: 160
       })
-      if (password == null || password == '') {
+      if (password === null || password === '') {
         reject()
       } else {
         resolve(password)
@@ -102,10 +102,13 @@ const PasswordManagers = {
           domain = domain.slice(4)
         }
 
-        var self = this
         manager.getSuggestions(domain).then(credentials => {
           if (credentials != null) {
             webviews.callAsync(tab, 'getURL', function (err, topLevelURL) {
+              if (err) {
+                console.warn(err)
+                return
+              }
               var topLevelDomain = new URL(topLevelURL).hostname
               if (topLevelDomain.startsWith('www.')) {
                 topLevelDomain = topLevelDomain.slice(4)

@@ -18,7 +18,7 @@ var passwordManagers = {
 }
 
 var currentPasswordManager = null
-settings.get('passwordManager', function (value) {
+settings.listen('passwordManager', function (value) {
   if (value && value.name) {
     currentPasswordManager = value
   } else {

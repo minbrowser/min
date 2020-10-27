@@ -441,27 +441,21 @@ function onKeyMapChange (e) {
 /* Password auto-fill settings  */
 
 var passwordManagersDropdown = document.getElementById('selected-password-manager')
+for (var manager in passwordManagers) {
+  var item = document.createElement('option')
+  item.textContent = passwordManagers[manager].name
+  passwordManagersDropdown.appendChild(item)
+}
 
-settings.onLoad(function () {
-  for (var manager in passwordManagers) {
-    var item = document.createElement('option')
-    item.textContent = passwordManagers[manager].name
-
-    if (manager == currentPasswordManager.name) {
-      item.setAttribute('selected', 'true')
-    }
-
-    passwordManagersDropdown.appendChild(item)
-  }
+settings.listen('passwordManager', function (value) {
+  passwordManagersDropdown.value = currentPasswordManager.name
 })
 
 passwordManagersDropdown.addEventListener('change', function (e) {
   if (this.value === 'none') {
     settings.set('passwordManager', null)
-    currentPasswordManager = null
   } else {
     settings.set('passwordManager', { name: this.value })
-    currentPasswordManager = this.value
   }
 })
 
