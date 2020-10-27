@@ -25,7 +25,7 @@ const PasswordManagers = {
 
     const managerSetting = settings.get('passwordManager')
     if (managerSetting == null) {
-      return null
+      return PasswordManagers.managers.find(mgr => mgr.name === 'Built-in password manager')
     }
 
     return PasswordManagers.managers.find(mgr => mgr.name === managerSetting.name)

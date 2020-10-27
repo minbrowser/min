@@ -22,7 +22,7 @@ settings.listen('passwordManager', function (value) {
   if (value && value.name) {
     currentPasswordManager = value
   } else {
-    currentPasswordManager = passwordManagers.none
+    currentPasswordManager = passwordManagers['Built-in password manager']
   }
 })
 
