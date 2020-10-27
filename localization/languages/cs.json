@@ -239,7 +239,8 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Automatické vkládání hesla",
         "settingsSelectPasswordManager": "Vyberte jeden z podporovaných správců hesel:",
-        /* Password manager setup */
+        "keychainViewPasswords": null, //missing translation
+       /* Password manager setup */
         "passwordManagerSetupHeading": "Dokončete nastavení %p pro použití automatického vkládání",
         "passwordManagerSetupStep1": {
             "unsafeHTML": "Nejprve <a id='password-manager-setup-link'></a> a rozbalte archiv pro váš systém."
@@ -254,10 +255,17 @@
         "passwordManagerSetupInstalling": "Probíhá instalace...",
         "passwordManagerSetupSignIn": "Přihlaste se do vašeho správce hesel, abyste mohli začít používat automatické vkládání. Vaše přihlašovací údaje nebudou v prohlížeči Min nikde uchovány.",
         "disableAutofill": "Vypnout automatické vkládání",
-        "autofillNotNow": "Teď ne",
         "passwordManagerSetupUnlockError": "Selhalo odemčení úložiště hesel: ",
         "passwordManagerSetupRetry": "Ujistěte se, že používáte správný soubor a zadáváte heslo správně. Můžete postup opakovat přetažením nástroje sem.",
         "passwordManagerUnlock": "Zadejte %p hlavní heslo pro odemčení úložiště hesel:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
+        "deletePassword": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "Přihlášení do %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Potvrdit",

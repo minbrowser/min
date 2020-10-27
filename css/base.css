@@ -89,3 +89,9 @@ a {
 .dark-mode a {
 	color: dodgerblue;
 }
+
+.dark-mode input {
+	background-color: rgb(52, 58, 68);
+	color: white;
+	border-color: transparent;
+}

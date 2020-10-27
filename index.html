@@ -9,6 +9,7 @@
 
 	<link rel="stylesheet" href="css/base.css" />
 	<link rel="stylesheet" href="css/windowControls.css" />
+	<link rel="stylesheet" href="css/modal.css"/>
 	<link rel="stylesheet" href="css/tabBar.css" />
 	<link rel="stylesheet" href="css/tabEditor.css" />
 	<link rel="stylesheet" href="css/taskOverlay.css" />
@@ -19,6 +20,8 @@
 	<link rel="stylesheet" href="css/findinpage.css" />
 	<link rel="stylesheet" href="css/downloadManager.css" />
 	<link rel="stylesheet" href="css/passwordManager.css" />
+	<link rel="stylesheet" href="css/passwordCapture.css" />
+	<link rel="stylesheet" href="css/passwordViewer.css" />
 	<link rel="stylesheet" href="node_modules/dragula/dist/dragula.min.css" />
 	<link rel="stylesheet" href="ext/icons/iconfont.css" />
 </head>
@@ -165,8 +168,10 @@
 		<button id="download-close-button" class="i carbon:close"></button>
 	</div>
 
-	<div class="centered" id="manager-setup-dialog" hidden>
-		<h3 id="manager-setup-heading"></h3>
+	<div class="modal" id="manager-setup-dialog" hidden>
+		<h3 class="modal-title" id="manager-setup-heading"></h3>
+		<button id="manager-setup-close" class="modal-close-button i carbon:close"></button>
+
 		<div id="manager-setup-instructions-primary">
 			<div class="light-fade" data-string="passwordManagerSetupStep1" data-allowHTML></div>
 			<div class="spacer"></div>
@@ -187,9 +192,28 @@
 
 		<div class="buttons">
 			<input type="button" id="manager-setup-disable" data-value="disableAutofill" />
-			<input type="button" id="manager-setup-cancel" data-value="autofillNotNow" />
 		</div>
 
+	</div>
+
+	<div id="password-capture-bar" hidden>
+		<span id="password-capture-description"></span>
+		<input id="password-capture-username" type="text" required/>
+		<span class="password-capture-section">
+			<input id="password-capture-password" type="password" required/>
+			<button id="password-capture-reveal-password" class="i carbon:view"></button>
+		</span>
+		<span class="password-capture-section">
+			<button id="password-capture-save" data-string="passwordCaptureSave"></button>
+			<button id="password-capture-ignore" data-string="passwordCaptureDontSave"></button>
+		</span>
+	</div>
+
+	<div id="password-viewer" class="modal" hidden>
+		<h2 class="modal-title" data-string="savedPasswordsHeading"></h2>
+		<button class="modal-close-button i carbon:close"></button>
+		<div id="password-viewer-empty" data-string="savedPasswordsEmpty" hidden></div>
+		<div id="password-viewer-list"></div>
 	</div>
 
 	<!-- add scripts in Gruntfile.js -->

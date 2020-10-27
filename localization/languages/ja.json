@@ -239,7 +239,8 @@
         /* Password settings */
         "settingsPasswordAutoFillHeadline": "パスワードの自動入力",
         "settingsSelectPasswordManager": "サポートされているパスワードマネージャのいずれかを選択します。",
-        /* Password manager setup */
+        "keychainViewPasswords": null, //missing translation
+       /* Password manager setup */
         "passwordManagerSetupHeading": "自動入力を使用するための％pの設定を完了してください",
         "passwordManagerSetupStep1": {
             "unsafeHTML": "最初に <a id='password-manager-setup-link'></a> 、システムに展開します。"
@@ -254,10 +255,17 @@
         "passwordManagerSetupInstalling": "インストールしています...",
         "passwordManagerSetupSignIn": "パスワードマネージャーにログインして、自動入力の使用を開始します。 資格情報はMin内のどこにも保存されません。",
         "disableAutofill": "自動入力を無効にする",
-        "autofillNotNow": "今はやめろ",
         "passwordManagerSetupUnlockError": "パスワードストアのロック解除に失敗しました： ",
         "passwordManagerSetupRetry": "正しいファイルを使用し、正しいパスワードを入力していることを確認してください。 ここにツールをもう一度ドラッグすると、再試行できます。",
         "passwordManagerUnlock": "％pマスターパスワードを入力して、パスワードストアのロックを解除します。",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
+        "deletePassword": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "％hにサインイン（％r）",
         "dialogConfirmButton": "確認する",

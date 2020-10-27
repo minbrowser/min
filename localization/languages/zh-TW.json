@@ -239,7 +239,8 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "自動填入密碼",
         "settingsSelectPasswordManager": "選擇支援的密碼管理器：",
-        /* Password manager setup */
+        "keychainViewPasswords": null, //missing translation
+       /* Password manager setup */
         "passwordManagerSetupHeading": "設定 %p",
         "passwordManagerSetupStep1": {
             "unsafeHTML": "請先<a id='password-manager-setup-link'></a> 並解壓縮。"
@@ -254,10 +255,17 @@
         "passwordManagerSetupInstalling": "正在安裝...",
         "passwordManagerSetupSignIn": "登入你的密碼管理器並開始使用自動填入。您的資訊不會被存入 Min。",
         "disableAutofill": "取消",
-        "autofillNotNow": "稍等",
         "passwordManagerSetupUnlockError": "無法登入密碼儲存庫。",
         "passwordManagerSetupRetry": "請確認您拖入正確的檔案並輸入正確的密碼。您可以將檔案拖入以重試。",
         "passwordManagerUnlock": "輸入你的 %p 主密碼以解鎖密碼庫：",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
+        "deletePassword": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "登入 %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "確認",

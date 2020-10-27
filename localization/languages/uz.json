@@ -239,7 +239,8 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Parolni avtomatik to'ldirish",
         "settingsSelectPasswordManager": "Parol menejerlardan birini tanlang:",
-        /* Password manager setup */
+        "keychainViewPasswords": null, //missing translation
+       /* Password manager setup */
         "passwordManagerSetupHeading": "Avtomatik to'ldirishni ishlatish uchun %p ni sozlashni tugating",
         "passwordManagerSetupStep1": {
             "unsafeHTML": " Birinchi, <a id='password-manager-setup-link'></a> va o'z tizimingizga chiqarib oling."
@@ -250,10 +251,17 @@
         "passwordManagerSetupInstalling": "O'rnatilmoqda...",
         "passwordManagerSetupSignIn": "Avtomatik to'ldirishni ishlatish uchun parol menejeringiz tizimiga kiring. Sizning ma'lumotlaringiz Minni hech qanday joyida saqlanmaydi.",
         "disableAutofill": "Avtomatik to'ldirishni o'chirish",
-        "autofillNotNow": "Hozir emas",
         "passwordManagerSetupUnlockError": "Parollar do'konini ochish muvaffaqiyatsiz bo'ldi: ",
         "passwordManagerSetupRetry": "To'g'ri fayl va parol kiritayotganingizga ishonch hosil qiling. Qayta urinib ko'rish uchun vositani bu yerga torting.",
         "passwordManagerUnlock": "Parol do'konini ochish uchun usta parolni kiriting:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
+        "deletePassword": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "%h (%r) tizimiga kirish", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Tasdiqlash",

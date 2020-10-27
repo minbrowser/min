@@ -44,3 +44,13 @@ ipc.on('enterPictureInPicture', function (event, data) {
     videos[0].requestPictureInPicture()
   }
 })
+
+window.addEventListener('message', function (e) {
+  if (!e.origin.startsWith('file://')) {
+    return
+  }
+
+  if (e.data && e.data.message && e.data.message === 'showCredentialList') {
+    ipc.send('showCredentialList')
+  }
+})

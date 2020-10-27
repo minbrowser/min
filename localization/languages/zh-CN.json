@@ -239,7 +239,8 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "密码自动填充",
         "settingsSelectPasswordManager": "选择一个支持的密码管理器：",
-        /* Password manager setup */
+        "keychainViewPasswords": null, //missing translation
+       /* Password manager setup */
         "passwordManagerSetupHeading": "完成 %p 中的设置以使用自动填充",
         "passwordManagerSetupStep1": {
             "unsafeHTML": "首先, 访问 <a id='password-manager-setup-link'></a> 并解压到你的系统中。"
@@ -252,10 +253,17 @@
         "passwordManagerSetupInstalling": "安装中...",
         "passwordManagerSetupSignIn": "登录密码管理器以使用自动填充。你的凭证不会在Min内存储。",
         "disableAutofill": "关闭自动填充",
-        "autofillNotNow": "现在不用",
         "passwordManagerSetupUnlockError": "解锁密码存储区失败：",
         "passwordManagerSetupRetry": "请确认你使用了正确的文件和密码。你可以再次把工具拖到这里并重试。",
         "passwordManagerUnlock": "输入 %p 主密码来解锁密码存储区：",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
+        "deletePassword": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": null, //missing translation
         "dialogConfirmButton": "确认",

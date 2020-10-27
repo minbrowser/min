@@ -195,10 +195,10 @@ const webviews = {
 
       const viewMargins = webviews.viewMargins
       return {
-        x: 0 + viewMargins[3],
-        y: 0 + viewMargins[0] + navbarHeight,
-        width: window.innerWidth - (viewMargins[1] + viewMargins[3]),
-        height: window.innerHeight - (viewMargins[0] + viewMargins[2]) - navbarHeight
+        x: 0 + Math.round(viewMargins[3]),
+        y: 0 + Math.round(viewMargins[0]) + navbarHeight,
+        width: window.innerWidth - Math.round(viewMargins[1] + viewMargins[3]),
+        height: window.innerHeight - Math.round(viewMargins[0] + viewMargins[2]) - navbarHeight
       }
     }
   },

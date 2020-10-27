@@ -239,6 +239,7 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Password Auto-Fill",
         "settingsSelectPasswordManager": "Choose one of the supported password managers:",
+        "keychainViewPasswords": "View saved passwords",
         /* Password manager setup */
         "passwordManagerSetupHeading": "Finish setting up %p to use Autofill",
         "passwordManagerSetupStep1": {
@@ -254,10 +255,17 @@
         "passwordManagerSetupInstalling": "Installing...",
         "passwordManagerSetupSignIn": "Sign in to your password manager to start using autofill. Your credentials won't be stored anywhere inside Min.",
         "disableAutofill": "Disable Autofill",
-        "autofillNotNow": "Not Now",
         "passwordManagerSetupUnlockError": "Failed to unlock the password store: ",
         "passwordManagerSetupRetry": "Make sure you're using the right file and entering a correct password. You can retry by dragging the tool here again.",
         "passwordManagerUnlock": "Enter your %p master password to unlock the password store:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": "Save password for %s?",
+        "passwordCaptureSave": "Save",
+        "passwordCaptureDontSave": "Don't save",
+        /* Password viewer */
+        "savedPasswordsHeading": "Saved passwords",
+        "savedPasswordsEmpty": "No saved passwords.",
+        "deletePassword": "Delete password for %s?",
         /* Dialogs */
         "loginPromptTitle": "Sign in to %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Confirm",

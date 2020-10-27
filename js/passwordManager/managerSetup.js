@@ -36,7 +36,13 @@ const setupDialog = {
       secondaryInstructions.hidden = true
     }
 
-    modalMode.toggle(true)
+    modalMode.toggle(true, {
+      onDismiss: function () {
+        settings.set('passwordManager', null)
+        setupDialog.hide()
+      }
+    })
+
     dialog.hidden = false
     webviews.requestPlaceholder('managerSetup')
   },
@@ -56,7 +62,8 @@ const setupDialog = {
       setupDialog.hide()
     })
 
-    document.getElementById('manager-setup-cancel').addEventListener('click', function () {
+    document.getElementById('manager-setup-close').addEventListener('click', function () {
+      settings.set('passwordManager', null)
       setupDialog.hide()
     })
 
@@ -127,12 +134,12 @@ function waitForInstallerComplete () {
 function install (filePath, callback) {
   return new Promise((resolve, reject) => {
     try {
-      let toolsDir = path.join(window.globalArgs['user-data-path'], 'tools')
+      const toolsDir = path.join(window.globalArgs['user-data-path'], 'tools')
       if (!fs.existsSync(toolsDir)) {
         fs.mkdirSync(toolsDir)
       }
 
-      let targetFilePath = setupDialog.manager.getLocalPath()
+      const targetFilePath = setupDialog.manager.getLocalPath()
       fs.createReadStream(filePath).pipe(fs.createWriteStream(targetFilePath)).on('finish', function () {
         fs.chmodSync(targetFilePath, '755')
         resolve(targetFilePath)
@@ -156,13 +163,13 @@ function launchInstaller (filePath, platform) {
 
 function afterInstall (toolPath) {
   var signInFields = [
-        { placeholder: l('email'), id: 'email', type: 'text' },
-        { placeholder: l('password'), id: 'password', type: 'password' },
-        { placeholder: l('secretKey'), id: 'secretKey', type: 'password' }
+    { placeholder: l('email'), id: 'email', type: 'text' },
+    { placeholder: l('password'), id: 'password', type: 'password' },
+    { placeholder: l('secretKey'), id: 'secretKey', type: 'password' }
   ].filter(f => setupDialog.manager.getSignInRequirements().includes(f.id))
 
-    // Verify the tool by trying to use it to unlock the password store.
-  let data = ipcRenderer.sendSync('prompt', {
+  // Verify the tool by trying to use it to unlock the password store.
+  const data = ipcRenderer.sendSync('prompt', {
     text: l('passwordManagerSetupSignIn'),
     values: signInFields,
     ok: l('dialogConfirmButton'),
@@ -171,7 +178,7 @@ function afterInstall (toolPath) {
     height: 220
   })
 
-  for (let key in data) {
+  for (const key in data) {
     if (data[key] === '') {
       throw new Error('no credentials entered')
     }
@@ -188,7 +195,7 @@ function afterInstall (toolPath) {
         afterInstall()
       } else {
         // Cleanup after we failed.
-        let targetFilePath = setupDialog.manager.getLocalPath()
+        const targetFilePath = setupDialog.manager.getLocalPath()
         if (fs.existsSync(targetFilePath)) {
           fs.unlinkSync(targetFilePath)
         }

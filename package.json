@@ -10,6 +10,7 @@
     "dexie": "^1.2.0",
     "dragula": "^3.6.2",
     "electron-squirrel-startup": "^1.0.0",
+    "keytar": "^6.0.1",
     "mousetrap": "^1.5.3",
     "pdfjs-dist": "2.4.456",
     "regedit": "^3.0.3",

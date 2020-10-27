@@ -441,28 +441,32 @@ function onKeyMapChange (e) {
 /* Password auto-fill settings  */
 
 var passwordManagersDropdown = document.getElementById('selected-password-manager')
+for (var manager in passwordManagers) {
+  var item = document.createElement('option')
+  item.textContent = passwordManagers[manager].name
+  passwordManagersDropdown.appendChild(item)
+}
 
-settings.onLoad(function () {
-  for (var manager in passwordManagers) {
-    var item = document.createElement('option')
-    item.textContent = passwordManagers[manager].name
-
-    if (manager == currentPasswordManager.name) {
-      item.setAttribute('selected', 'true')
-    }
-
-    passwordManagersDropdown.appendChild(item)
-  }
+settings.listen('passwordManager', function (value) {
+  passwordManagersDropdown.value = currentPasswordManager.name
 })
 
 passwordManagersDropdown.addEventListener('change', function (e) {
   if (this.value === 'none') {
     settings.set('passwordManager', null)
-    currentPasswordManager = null
   } else {
     settings.set('passwordManager', { name: this.value })
-    currentPasswordManager = this.value
   }
+})
+
+var keychainViewLink = document.getElementById('keychain-view-link')
+
+keychainViewLink.addEventListener('click', function () {
+  postMessage({ message: 'showCredentialList' })
+})
+
+settings.listen('passwordManager', function (value) {
+  keychainViewLink.hidden = !(currentPasswordManager.name === 'Built-in password manager')
 })
 
 /* proxy settings */
@@ -477,7 +481,7 @@ const toggleProxyOptions = proxyType => {
 
 const setProxy = (key, value) => {
   settings.get('proxy', (proxy = {}) => {
-      proxy[key] = value
+    proxy[key] = value
     settings.set('proxy', proxy)
   })
 }
