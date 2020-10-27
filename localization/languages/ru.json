@@ -239,7 +239,7 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Автоматическое заполнение пароля",
         "settingsSelectPasswordManager": "Выберите один из поддерживаемых менеджеров паролей:",
-        "keychainViewPasswords": null, //missing translation
+        "keychainViewPasswords": "Просмотр сохраненных паролей",
        /* Password manager setup */
         "passwordManagerSetupHeading": "Завершить настройку %p для использования автозаполнения",
         "passwordManagerSetupStep1": {
