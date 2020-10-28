@@ -239,6 +239,7 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Passwort Automatisch Ausfüllen",
         "settingsSelectPasswordManager": "Wähle eines der unterstützten Passwortmanager:",
+        "keychainViewPasswords": null, //missing translation
         /* Password manager setup */
         "passwordManagerSetupHeading": "Beende die Konfiguration von %p um die automatische Ausfüll Funktion zu nutzen",
         "passwordManagerSetupStep1": {
@@ -254,10 +255,16 @@
         "passwordManagerSetupInstalling": "Installiere...",
         "passwordManagerSetupSignIn": "Melde dich in dein Passwortmanager ein um die automatische Ausfüll Funktion zu nutzen. Deine Zugangsdaten werden nirgendwo in Min gepspeichert.",
         "disableAutofill": "Automatische Ausfüll Funktion deaktivieren",
-        "autofillNotNow": "Nicht jetzt",
         "passwordManagerSetupUnlockError": "Beim Entsperren des Passwortmanagers ist ein Fehler aufgetreten:",
         "passwordManagerSetupRetry": "Stelle sicher, dass die richtige Datei genutzt und das richtige Passwort eingegeben wurde. Ziehe das Programm wieder hierher, um es noch mal zu versuchen.",
         "passwordManagerUnlock": "Gebe dein %p Hauptkennwort ein, um dein Passwortmanager zu entsperren:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "Bei %h (%r) anmelden", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Bestätigen",
