@@ -140,7 +140,7 @@
         "settingsBlockedRequestCount": {
             "unsafeHTML": "Bis jetzt hat Min <strong></strong> Werbeanzeigen und Aktivitätsverfolgungen blockiert." 
         },
-        "settingsCustomizeFiltersLink": "Benutzerdefinierte Filter", 
+        "settingsCustomizeFiltersLink": "Filter anpassen", 
         "settingsAppearanceHeading": "Aussehen",
         "settingsEnableDarkMode": "Dunkelmodus einschalten:",
         "settingsDarkModeNever": "Nie",
