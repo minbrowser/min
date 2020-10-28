@@ -119,7 +119,7 @@
         "phishingErrorVisitAnyway": "Seite trotzdem besuchen",
         "phishingErrorLeave": "Seite verlassen",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": "Ein Fehler ist aufgetreten. Bitte schließe alle anderen offenen Instanzen und starte Min neu.", // missing translation
+        "multipleInstancesErrorMessage": "Ein Fehler ist aufgetreten. Bitte schließe alle anderen offenen Instanzen und starte Min neu.",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Es trat ein Fehler auf",
         "sessionRestoreErrorExplanation": "Die gespeicherten Tabs konnten nicht wiederhergestellt werden.",
@@ -149,7 +149,7 @@
         "settingsSiteThemeToggle": "Seitenabhängiges Aussehen aktivieren", 
         "settingsAdditionalFeaturesHeading": "Zusätzliche Funktionen", 
         "settingsUserscriptsToggle": "Benutzerdefinierte Skripte aktivieren", 
-        "settingsShowDividerToggle": "Trennwand zwischen Tabs anzeigen", // Missing translation
+        "settingsShowDividerToggle": "Trennwand zwischen Tabs anzeigen",
         "settingsSeparateTitlebarToggle": "Seperate Titelleiste nutzen", 
         "settingsOpenTabsInForegroundToggle": "Neue Tabs im Vordergrund öffnen", 
         "settingsUserscriptsExplanation": {
@@ -239,7 +239,7 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Passwort Automatisch Ausfüllen",
         "settingsSelectPasswordManager": "Wähle eines der unterstützten Passwortmanager:",
-        "keychainViewPasswords": null, //missing translation
+        "keychainViewPasswords": "Gespeicherte Passwörter anzeigen",
         /* Password manager setup */
         "passwordManagerSetupHeading": "Beende die Konfiguration von %p um die automatische Ausfüll Funktion zu nutzen",
         "passwordManagerSetupStep1": {
@@ -259,12 +259,12 @@
         "passwordManagerSetupRetry": "Stelle sicher, dass die richtige Datei genutzt und das richtige Passwort eingegeben wurde. Ziehe das Programm wieder hierher, um es noch mal zu versuchen.",
         "passwordManagerUnlock": "Gebe dein %p Hauptkennwort ein, um dein Passwortmanager zu entsperren:",
         /* Password save bar */
-        "passwordCaptureSavePassword": null, //missing translation
-        "passwordCaptureSave": null, //missing translation
-        "passwordCaptureDontSave": null, //missing translation
+        "passwordCaptureSavePassword": "Zugangsdaten für %s speichern?",
+        "passwordCaptureSave": "Speichern",
+        "passwordCaptureDontSave": "Nicht speichern",
         /* Password viewer */
-        "savedPasswordsHeading": null, //missing translation
-        "savedPasswordsEmpty": null, //missing translation
+        "savedPasswordsHeading": "Gespeicherte Passwörter",
+        "savedPasswordsEmpty": "Keine gespeicherte Passwörter",
         /* Dialogs */
         "loginPromptTitle": "Bei %h (%r) anmelden", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Bestätigen",
