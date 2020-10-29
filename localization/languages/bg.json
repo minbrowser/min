@@ -145,6 +145,7 @@
         "settingsSiteThemeToggle": "Активиране на теми на сайтове",
         "settingsAdditionalFeaturesHeading": "Допълнителни функции",
         "settingsUserscriptsToggle": "Активиране на потребителски скриптове",
+        "settingsShowDividerToggle": "Показване на разделител между раздели",	
         "settingsSeparateTitlebarToggle": "Използване на отделна лента със заглавието",
         "settingsOpenTabsInForegroundToggle": "Отваряне на нови раздели на преден план",
 		"settingsUserscriptsExplanation": {"unsafeHTML": "Потребителските скриптове Ви позволяват да промените поведението на уеб сайтове - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">научете повече</a>."},
