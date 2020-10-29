@@ -9,14 +9,14 @@
         "pictureInPicture": "Obraz w obrazie",
         "openInNewTab": "Otwórz w nowej karcie",
         "openInNewPrivateTab": "Otwórz w nowej karcie prywatnej",
-        "saveLinkAs": null, //missing translation
+        "saveLinkAs": "Zapisz link jako...",
         "viewImage": "Zobacz grafikę",
         "openImageInNewTab": "Otwórz grafikę w nowej karcie",
         "openImageInNewPrivateTab": "Otwórz grafikę w nowej karcie prywatnej",
         "saveImageAs": "Zapisz grafikę jako",
         "searchWith": "Szukaj %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Kopiuj link",
-        "copyEmailAddress": null, //missing translation
+        "copyEmailAddress": "Skopiuj adres e-mail",
         "selectAll": "Zaznacz wszystko",
         "undo": "Cofnij",
         "redo": "Przywróć",
@@ -27,6 +27,7 @@
         "goForward": "Dalej",
         "inspectElement": "Sprawdź element",
         /* searchbar */
+        "pasteAndGo": "Wklej i idź",
         "DDGAnswerSubtitle": "Odpowiedź", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Sugerowana strona", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Wyniki z DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -48,12 +49,12 @@
         "moveToTask": "Przenieś tę kartę do zadania",
         "nameTask": "Nazwij to zadanie",
         "addBookmark": "Dodaj zakładkę",
-		"searchBookmarks": "Zakładki wyszukiwania",
+        "searchBookmarks": "Zakładki wyszukiwania",
         "bookmarksAddTag": "Dodaj znacznik...",
-		"bookmarksSimilarItems": "Podobne pozycje",
-		"searchHistory": "Historia wyszukiwania",
+        "bookmarksSimilarItems": "Podobne pozycje",
+        "searchHistory": "Historia wyszukiwania",
         "importBookmarks": "Importuj zakładki z pliku HTML",
-		"exportBookmarks": "Eksportuj zakładki",
+        "exportBookmarks": "Eksportuj zakładki",
         "runUserscript": "Uruchom skrypt użytkownika",
         /* navbar */
         "openMenu": "Otwórz menu", //application menu button on windows
@@ -70,7 +71,9 @@
         "viewTasks": "Wyświetl zadania",
         "newTask": "Nowe zadanie", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Zadanie %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Zadanie usunięte. <a>Cofnąć?</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "Zadanie usunięte. <a>Cofnąć?</a>"
+        },
         "returnToTask": "Wróć do poprzedniego zadania",
         "taskDescriptionTwo": "%t i %t",
         "taskDescriptionThree": "%t, %t i %n więcej",
@@ -122,7 +125,7 @@
         "sessionRestoreErrorExplanation": "Nie można przywrócić poprawnie zapisanych kart.",
         "sessionRestoreErrorBackupInfo": "W tej lokalizacji zapisaliśmy kopię zapasową danych: %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
-          "unsafeHTML": "Jeśli błąd nadal występuje, otwórz nowy problem <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">tutaj</a>."
+            "unsafeHTML": "Jeśli błąd nadal występuje, otwórz nowy problem <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">tutaj</a>."
         },
         /* pages/settings/index.html */
         "settingsPreferencesHeading": "Preferencje",
@@ -134,9 +137,10 @@
         "settingsContentBlockingExceptions": "Zezwalaj na reklamy w tych witrynach:",
         "settingsBlockScriptsToggle": "Zablokuj skrypty",
         "settingsBlockImagesToggle": "Zablokuj obrazy",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "Oparte na EasyList i EasyPrivacy stworzone przez <a target=\"_blank\" href=\"https://easylist.to/\">autorów EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">wyświetl licencję</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": "Jak dotąd Min zablokował reklamy i moduły śledzące w ilości: <strong></strong>."
         },
+        "settingsCustomizeFiltersLink": "Dostosuj filtry",
         "settingsAppearanceHeading": "Wygląd",
         "settingsEnableDarkMode": "Włącz tryb ciemny:",
         "settingsDarkModeNever": "Nigdy",
@@ -145,9 +149,12 @@
         "settingsSiteThemeToggle": "Włącz motyw witryny",
         "settingsAdditionalFeaturesHeading": "Dodatkowe funkcje",
         "settingsUserscriptsToggle": "Włącz skrypty użytkownika",
+        "settingsShowDividerToggle": null, // Missing translation
         "settingsSeparateTitlebarToggle": "Użyj osobnego paska tytułu",
-		"settingsOpenTabsInForegroundToggle": "Otwórz nowe karty na pierwszym planie",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
+        "settingsOpenTabsInForegroundToggle": "Otwórz nowe karty na pierwszym planie",
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."
+        },
         "settingsUserAgentToggle": "Użyj niestandardowego klienta użytkownika",
         "settingsUpdateNotificationsToggle": "Automatycznie sprawdź dostępność aktualizacji",
         "settingsSearchEngineHeading": "Wyszukiwarka",
@@ -156,6 +163,13 @@
         "customSearchEngineDescription": "Zamień wyszukiwane hasło na %s",
         "settingsKeyboardShortcutsHeading": "Skróty klawiszowe",
         "settingsKeyboardShortcutsHelp": "Użyj przecinków, aby oddzielić wiele skrótów.",
+        "settingsProxyHeading": "Serwer proxy",
+        "settingsNoProxy": "Brak serwera proxy",
+        "settingsManualProxy": "Konfiguracja ręczna",
+        "settingsAutomaticProxy": "Konfiguracja automatyczna",
+        "settingsProxyRules": "Zasady serwera proxy:",
+        "settingsProxyBypassRules": "Brak serwera proxy dla:",
+        "settingsProxyConfigurationURL": "Adres URL konfiguracji",
         /* app menu */
         "appMenuFile": "Plik",
         "appMenuNewTab": "Nowa karta",
@@ -203,27 +217,30 @@
         "appMenuQuit": "Zamknij %n",
         "appMenuBringToFront": "Umieść wszystko na wierzchu",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "strona <input type='text'/> z <span id='total'></span>"},
- 	/* Context Reader */    
-	"buttonReaderSettings": "Ustawienia czytnika",
-	"buttonReaderLightTheme": "Jasny",
-	"buttonReaderSepiaTheme": "Sepia",
-	"buttonReaderDarkTheme": "Ciemny",
-	"openReaderView": "Zawsze otwieraj w widoku czytnika",
-	"autoRedirectBannerReader": "Czy zawsze otwierać artykuły z tej witryny w widoku czytelnika?",
-	"buttonReaderRedirectYes": "Tak",
-	"buttonReaderRedirectNo": "Nie",
-	"articleReaderView": "Oryginalny artykuł",
+        "PDFPageCounter": {
+            "unsafeHTML": "strona <input type='text'/> z <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": "Ustawienia czytnika",
+        "buttonReaderLightTheme": "Jasny",
+        "buttonReaderSepiaTheme": "Sepia",
+        "buttonReaderDarkTheme": "Ciemny",
+        "openReaderView": "Zawsze otwieraj w widoku czytnika",
+        "autoRedirectBannerReader": "Czy zawsze otwierać artykuły z tej witryny w widoku czytelnika?",
+        "buttonReaderRedirectYes": "Tak",
+        "buttonReaderRedirectNo": "Nie",
+        "articleReaderView": "Oryginalny artykuł",
         /* Download manager */
         "downloadCancel": "Anuluj pobieranie",
         "downloadStateCompleted": "Pobieranie zakończone",
         "downloadStateFailed": "Błąd pobierania",
         /* Update Notifications */
         "updateNotificationTitle": "Dostępna jest nowa wersja Min",
-	/* Autofill settings */
+        /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Autouzupełnianie hasła",
         "settingsSelectPasswordManager": "Wybierz jeden z obsługiwanych menedżerów haseł:",
-        /* Password manager setup */
+        "keychainViewPasswords": null, //missing translation
+       /* Password manager setup */
         "passwordManagerSetupHeading": "Zakończ konfigurowanie %p aby korzystać z autouzupełniania",
         "passwordManagerSetupStep1": {
             "unsafeHTML": "Najpierw, <a id='password-manager-setup-link'></a> i wypakuj go dla swojego systemu."
@@ -238,10 +255,17 @@
         "passwordManagerSetupInstalling": "Instalowanie...",
         "passwordManagerSetupSignIn": "Zaloguj się do menedżera haseł, aby rozpocząć korzystanie z autouzupełniania. Twoje dane uwierzytelniające nie będą przechowywane nigdzie w Min.",
         "disableAutofill": "Wyłącz autouzupełnianie",
-        "autofillNotNow": "Nie teraz",
         "passwordManagerSetupUnlockError": "nie udało się odblokować przechowalni haseł: ",
         "passwordManagerSetupRetry": "Upewnij się, że używasz właściwego pliku i wpisujesz poprawne hasło. Możesz spróbować ponownie, przeciągając tutaj narzędzie.",
         "passwordManagerUnlock": "Wprowadź główne hasło %p, aby odblokować przechowalnię haseł:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
+        "deletePassword": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "Zaloguj się do %h (%r)",
         "dialogConfirmButton": "Potwierdź",

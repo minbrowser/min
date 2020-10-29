@@ -120,6 +120,14 @@ function scrollOnLoad (tabId, scrollPosition) {
   webviews.bindEvent('did-finish-load', listener)
 }
 
+function setAudioMutedOnCreate (tabId, muted) {
+  const listener = function () {
+    webviews.callAsync(tabId, 'setAudioMuted', muted)
+    webviews.unbindEvent('did-navigate', listener)
+  }
+  webviews.bindEvent('did-navigate', listener)
+}
+
 const webviews = {
   viewList: [], // [tabId]
   tabContentsMap: {}, // tabId: webContents
@@ -187,10 +195,10 @@ const webviews = {
 
       const viewMargins = webviews.viewMargins
       return {
-        x: 0 + viewMargins[3],
-        y: 0 + viewMargins[0] + navbarHeight,
-        width: window.innerWidth - (viewMargins[1] + viewMargins[3]),
-        height: window.innerHeight - (viewMargins[0] + viewMargins[2]) - navbarHeight
+        x: 0 + Math.round(viewMargins[3]),
+        y: 0 + Math.round(viewMargins[0]) + navbarHeight,
+        width: window.innerWidth - Math.round(viewMargins[1] + viewMargins[3]),
+        height: window.innerHeight - Math.round(viewMargins[0] + viewMargins[2]) - navbarHeight
       }
     }
   },
@@ -200,6 +208,10 @@ const webviews = {
     // needs to be called before the view is created to that its listeners can be registered
     if (tabData.scrollPosition) {
       scrollOnLoad(tabId, tabData.scrollPosition)
+    }
+
+    if (tabData.muted) {
+      setAudioMutedOnCreate(tabId, tabData.muted)
     }
 
     // if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition
@@ -450,6 +462,10 @@ ipc.on('leave-full-screen', function () {
 
 webviews.bindEvent('did-start-navigation', onNavigate)
 webviews.bindEvent('will-redirect', onNavigate)
+webviews.bindEvent('did-navigate', function (tabId, url, httpResponseCode, httpStatusText) {
+  onPageURLChange(tabId, url)
+})
+
 webviews.bindEvent('did-finish-load', onPageLoad)
 
 webviews.bindEvent('page-title-updated', function (tabId, title, explicitSet) {

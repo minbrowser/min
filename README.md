@@ -10,15 +10,24 @@ Min is a fast, minimal browser that protects your privacy. It includes an interf
 * Password manager integration
 * Dark theme
 
-More information, and prebuilt binaries are available [here](https://minbrowser.org/).
+Download Min from the [releases page](https://github.com/minbrowser/min/releases), or learn more on the [website](https://minbrowser.org/).
+
+
+Min is made possible by these sponsors:
+
+|[<img src="https://avatars1.githubusercontent.com/u/22417494?s=460&v=4" width="40">](https://github.com/shalva97)|[<img src="https://avatars3.githubusercontent.com/u/17785839?s=400&v=4" width="40">](https://github.com/ritterob)|   |
+|---|---|---|
+|[@shalva97](https://github.com/shalva97)|[@ritterob](https://github.com/ritterob)|   |
+
+[Become a sponsor](https://github.com/sponsors/PalmerAL)
 
 ## Screenshots
 
-<img alt="The search bar, showing information from DuckDuckGo" src="http://minbrowser.org/tour/img/searchbar_duckduckgo_answers.png" width="700"/>
+<img alt="The search bar, showing information from DuckDuckGo" src="http://minbrowser.org/tour/img/searchbar_duckduckgo_answers.png" width="650"/>
 
-<img alt="The Tasks Overlay" src="http://minbrowser.org/tour/img/tasks.png" width="700"/>
+<img alt="The Tasks Overlay" src="http://minbrowser.org/tour/img/tasks.png" width="650"/>
 
-<img alt="Reader View" src="https://user-images.githubusercontent.com/10314059/53312382-67ca7d80-387a-11e9-9ccc-88ac592c9b1c.png" width="700"/>
+<img alt="Reader View" src="https://user-images.githubusercontent.com/10314059/53312382-67ca7d80-387a-11e9-9ccc-88ac592c9b1c.png" width="650"/>
 
 ## Installing
 
@@ -35,12 +44,8 @@ If you want to develop Min:
 
 * Install [Node](https://nodejs.org).
 * Run `npm install` to install dependencies.
-* Build the translation files and a copy of the JS by running `npm run build`.
-  * You can also watch for changes and automatically rebuild by running `npm run watch`.
-* Start Min by running `node_modules/.bin/electron .`.<sup>1</sup>
+* Start Min in development mode by running `npm run start`.
 * After you make changes, you can press `ctrl+r` (or `cmd+r` on Mac) twice to restart the browser.
-
-<sup>1</sup>: _Make sure no `Min` instance is already running before starting the development version of `Min`._<br>
 
 ### Building binaries
 
@@ -49,6 +54,7 @@ In order to build Min from source, follow the installation instructions above, t
 * ```npm run buildMac```
 * ```npm run buildDebian```
 * ```npm run buildRaspi``` (for Raspberry Pi, Raspberry Pi OS)
+* ```npm run buildLinuxArm64```
 * ```npm run buildRedhat```
 
 Depending on the platform you are building for, you may need to install additional dependencies:
@@ -57,7 +63,7 @@ Depending on the platform you are building for, you may need to install addition
 
 ## Contributing to Min
 
-Thanks for taking the time to contribute to Min! If you have any questions or run into any problems, please [open an issue](https://github.com/minbrowser/min/issues/new).
+Thanks for taking the time to contribute to Min! If you have any questions or run into any problems, please [open an issue](https://github.com/minbrowser/min/issues/new). We also have a [Discord server](https://discord.gg/bRpqjJ4) where you can ask questions or talk about what you're working on.
 
 ### Contributing Code
 

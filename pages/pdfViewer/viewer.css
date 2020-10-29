@@ -8,10 +8,21 @@
     background-color: rgb(200, 200, 200);
     margin-top: 25px;
     padding: 0;
+    /* disables scroll anchoring to prevent https://github.com/minbrowser/min/issues/1209 */
+    overflow-anchor: none;
+  }
+  body.dark-mode {
+    background-color: rgb(33, 37, 43);
   }
   
   * {
     box-sizing: border-box;
+  }
+
+  /* workaround for https://pspdfkit.com/blog/2020/text-selection-bug-chrome-83/ */
+  ::selection {
+    color: currentColor;
+    background-color: highlight;
   }
   
   .viewer-ui {
@@ -29,6 +40,10 @@
     width: 100%;
     transform: translateX(-100%);
   }
+
+  .dark-mode #progress-bar {
+    background-color: #999;
+  }
   
   #page-counter {
     position: fixed;
@@ -36,19 +51,26 @@
     left: 30px;
     padding: 0.5em 0.75em;
     background-color: white;
-    border-radius: 1em;
+    border-radius: 5px;
     transition: 0.2s opacity;
-    box-shadow: 0px 0px 3px 0 rgba(0, 0, 0, 0.1)
+    box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  .dark-mode #page-counter {
+    background-color: rgb(85, 85, 85);
+    color: white;
   }
   
   #page-counter input {
     -webkit-appearance: none;
     appearance: none;
+    background: transparent;
     margin: 0;
     padding: 2px 1px;
     margin: -2px 0;
     border: none;
     font: inherit;
+    color: inherit;
     width: 2.75em;
     text-align: center;
     border: 1px #ddd solid;
@@ -74,6 +96,11 @@
     border-radius: 50%;
     transition: 0.2s opacity;
     box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  .dark-mode #download-button {
+    background-color: rgb(85, 85, 85);
+    color: white;
   }
   
   #download-button.hidden {

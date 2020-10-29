@@ -11,18 +11,19 @@ var passwordManagers = {
   },
   '1Password': {
     name: '1Password'
+  },
+  'Built-in password manager': {
+    name: 'Built-in password manager'
   }
 }
 
 var currentPasswordManager = null
-settings.get('passwordManager', function (value) {
+settings.listen('passwordManager', function (value) {
   if (value && value.name) {
     currentPasswordManager = value
   } else {
-    currentPasswordManager = passwordManagers['none']
+    currentPasswordManager = passwordManagers['Built-in password manager']
   }
 })
 
 window.currentPasswordManager = currentPasswordManager
-
-

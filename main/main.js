@@ -11,6 +11,7 @@ const Menu = electron.Menu
 const MenuItem = electron.MenuItem
 
 let isInstallerRunning = false
+const isDevelopmentMode = process.argv.some(arg => arg === '--development-mode')
 
 function clamp (n, min, max) {
   return Math.max(Math.min(n, max), min)
@@ -19,35 +20,28 @@ function clamp (n, min, max) {
 if (process.platform === 'win32') {
   (async function () {
     var squirrelCommand = process.argv[1]
-  if (squirrelCommand === '--squirrel-install' || squirrelCommand === '--squirrel-updated') {
+    if (squirrelCommand === '--squirrel-install' || squirrelCommand === '--squirrel-updated') {
       isInstallerRunning = true
-    await registryInstaller.install()
-  }
-    if (squirrelCommand == '--squirrel-uninstall') {
+      await registryInstaller.install()
+    }
+    if (squirrelCommand === '--squirrel-uninstall') {
       isInstallerRunning = true
-    await registryInstaller.uninstall()
-  }
+      await registryInstaller.uninstall()
+    }
     if (require('electron-squirrel-startup')) {
       app.quit()
     }
   })()
 }
 
+if (isDevelopmentMode) {
+  app.setPath('userData', app.getPath('userData') + '-development')
+}
+
 // workaround for flicker when focusing app (https://github.com/electron/electron/issues/17942)
 app.commandLine.appendSwitch('disable-backgrounding-occluded-windows', 'true')
 
 var userDataPath = app.getPath('userData')
-
-var dbPath = userDataPath + (process.platform === 'win32' ? '\\IndexedDB\\file__0.indexeddb.leveldb' : '/IndexedDB/file__0.indexeddb.leveldb')
-
-if (process.argv.some(item => item.includes('rename-db'))) {
-  try {
-    fs.renameSync(dbPath, dbPath + '-' + Date.now() + '.recovery')
-  } catch (e) {
-    console.warn('renaming database failed', e)
-    app.quit()
-  }
-}
 
 const browserPage = 'file://' + __dirname + '/index.html'
 
@@ -117,7 +111,7 @@ function handleCommandLineArguments (argv) {
 }
 
 function createWindow (cb) {
-  var savedBounds = fs.readFile(path.join(userDataPath, 'windowBounds.json'), 'utf-8', function (e, data) {
+  fs.readFile(path.join(userDataPath, 'windowBounds.json'), 'utf-8', function (e, data) {
     var bounds
 
     if (data) {
@@ -167,7 +161,8 @@ function createWindowWithBounds (bounds) {
     y: bounds.y,
     minWidth: (process.platform === 'win32' ? 400 : 320), // controls take up more horizontal space on Windows
     minHeight: 350,
-    titleBarStyle: 'hiddenInset',
+    titleBarStyle: 'hidden',
+    trafficLightPosition: { x: 12, y: 19 },
     icon: __dirname + '/icons/icon256.png',
     frame: process.platform === 'darwin' || settings.get('useSeparateTitlebar') === true,
     alwaysOnTop: settings.get('windowAlwaysOnTop'),
@@ -175,7 +170,11 @@ function createWindowWithBounds (bounds) {
     webPreferences: {
       nodeIntegration: true,
       nodeIntegrationInWorker: true, // used by ProcessSpawner
-      additionalArguments: ['--user-data-path=' + userDataPath, '--app-version=' + app.getVersion()]
+      additionalArguments: [
+        '--user-data-path=' + userDataPath,
+        '--app-version=' + app.getVersion(),
+        ...((isDevelopmentMode ? ['--development-mode'] : []))
+      ]
     }
   })
 

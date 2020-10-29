@@ -16,7 +16,7 @@
         "saveImageAs": "그림을 다른 이름으로 저장",
         "searchWith": "%s에서 검색", //%s will be replaced with the name of the current search engine
         "copyLink": "주소 복사",
-        "copyEmailAddress": "전자우편 주소 복사",
+        "copyEmailAddress": "전자우편주소 복사",
         "selectAll": "전체선택",
         "undo": "되돌리기",
         "redo": "재실행",
@@ -27,6 +27,7 @@
         "goForward": "앞으로",
         "inspectElement": "요소 검사",
         /* searchbar */
+        "pasteAndGo": "붙여넣기 및 이동",
         "DDGAnswerSubtitle": "응답", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "제안 누리집", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "덕덕고(DuckDuckGo) 검색 결과", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -70,7 +71,9 @@
         "viewTasks": "작업장 보기",
         "newTask": "새 작업장", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "작업장 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "작업장을 제거했습니다. <a>되돌릴까요?</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "작업장을 제거했습니다. <a>되돌릴까요?</a>"
+        },
         "returnToTask": "이전 작업장으로 돌아가기",
         "taskDescriptionTwo": "%t 그리고 %t", //used to describe a task that has two tabs, %t is replaced with the tab title
         "taskDescriptionThree": "%t, %t, 그리고 %n개의 작업", //used to describe a task that has three or more tabs
@@ -134,9 +137,10 @@
         "settingsContentBlockingExceptions": "다음의 누리집에서 광고 허용",
         "settingsBlockScriptsToggle": "명령(스크립트) 차단",
         "settingsBlockImagesToggle": "그림 차단",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "이지리스트(EasyList)와 이지프라이버시(EasyPrivacy)를 기반으로 합니다. <a target=\"_blank\" href=\"https://easylist.to/\">EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">이용 규약(라이선스) 보기</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": "지금까지 민(Min)은 <strong></strong> 광고 및 추적기를 차단했습니다."
         },
+        "settingsCustomizeFiltersLink": "사용자 정의 필터",
         "settingsAppearanceHeading": "외형",
         "settingsEnableDarkMode": "어두운 외형(Dark Mode) 사용:",
         "settingsDarkModeNever": "사용하지 않음",
@@ -145,9 +149,12 @@
         "settingsSiteThemeToggle": "누리집 색상 주제 사용",
         "settingsAdditionalFeaturesHeading": "추가 기능",
         "settingsUserscriptsToggle": "사용자 명령(스크립트) 사용",
+        "settingsShowDividerToggle": "작업 사이에 구분선 표시",
         "settingsSeparateTitlebarToggle": "제목 표시줄과 도구 표시줄 사용",
-		"settingsOpenTabsInForegroundToggle": "작업을 열 때 전면(Foreground)으로 열기",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "사용자 명령(스크립트)을 사용하면 누리집의 행동을 수정할 수 있습니다. - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">더보기</a>."},
+        "settingsOpenTabsInForegroundToggle": "작업을 열 때 전면(Foreground)으로 열기",
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "사용자 명령(스크립트)을 사용하면 누리집의 행동을 수정할 수 있습니다. - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">더보기</a>."
+        },
         "settingsUserAgentToggle": "사용자 정의 에이전트(UserAgent) 사용",
         "settingsUpdateNotificationsToggle": "판올림 자동 확인",
         "settingsSearchEngineHeading": "검색 도구",
@@ -156,6 +163,13 @@
         "customSearchEngineDescription": "검색어 변경: %s",
         "settingsKeyboardShortcutsHeading": "단축키",
         "settingsKeyboardShortcutsHelp": "여러 개의 단축키는 쉼표로 구분됩니다.",
+        "settingsProxyHeading": "프록시",
+        "settingsNoProxy": "사용하지 않음",
+        "settingsManualProxy": "수동 설정",
+        "settingsAutomaticProxy": "자동 설정",
+        "settingsProxyRules": "프록시 규칙:",
+        "settingsProxyBypassRules": "다음에서 프록시를 사용하지 않음:",
+        "settingsProxyConfigurationURL": "URL 설정",
         /* app menu */
         "appMenuFile": "작업",
         "appMenuNewTab": "새 작업",
@@ -203,17 +217,19 @@
         "appMenuQuit": "%n 종료",
         "appMenuBringToFront": "맨 앞으로",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "전체 <span id='total'></span> 쪽 중 <input type='text'/> 쪽"},
- 	/* Context Reader */    
-	"buttonReaderSettings": "읽기 지원 설정",
-	"buttonReaderLightTheme": "밝게",
-	"buttonReaderSepiaTheme": "흑갈색",
-	"buttonReaderDarkTheme": "어둡게",
-	"openReaderView": "항상 읽기 지원으로 열기",
-	"autoRedirectBannerReader": "이 누리집의 문서를 항상 읽기 지원으로 여시겠습니까?",
-	"buttonReaderRedirectYes": "네",
-	"buttonReaderRedirectNo": "아니오",
-	"articleReaderView": "원본 문서",
+        "PDFPageCounter": {
+            "unsafeHTML": "전체 <span id='total'></span> 쪽 중 <input type='text'/> 쪽"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": "읽기 지원 설정",
+        "buttonReaderLightTheme": "밝게",
+        "buttonReaderSepiaTheme": "흑갈색",
+        "buttonReaderDarkTheme": "어둡게",
+        "openReaderView": "항상 읽기 지원으로 열기",
+        "autoRedirectBannerReader": "이 누리집의 문서를 항상 읽기 지원으로 여시겠습니까?",
+        "buttonReaderRedirectYes": "네",
+        "buttonReaderRedirectNo": "아니오",
+        "articleReaderView": "원본 문서",
         /* Download manager */
         "downloadCancel": "취소",
         "downloadStateCompleted": "완료됨",
@@ -223,7 +239,8 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "비밀번호 자동완성",
         "settingsSelectPasswordManager": "지원하는 비밀번호 관리자 중에서 하나를 선택하세요:",
-        /* Password manager setup */
+        "keychainViewPasswords": null, //missing translation
+       /* Password manager setup */
         "passwordManagerSetupHeading": "자동완성을 사용하려면 %p 설정을 완료하세요.",
         "passwordManagerSetupStep1": {
             "unsafeHTML": "우선, <a id='password-manager-setup-link'></a>를 방문해 시스템에 내려받으세요."
@@ -238,16 +255,23 @@
         "passwordManagerSetupInstalling": "설치하는 중...",
         "passwordManagerSetupSignIn": "자동완성을 사용하려면 비밀번호 관리자에 로그인하세요. 귀하의 자격증명은 민(Min)의 그 어디에도 저장되지 않습니다.",
         "disableAutofill": "자동완성 비활성화",
-        "autofillNotNow": "나중에",
         "passwordManagerSetupUnlockError": "비밀번호 저장소를 여는데 실패했습니다: ",
         "passwordManagerSetupRetry": "올바른 파일과 비밀번호를 사용하세요. 도구를 여기로 다시 끌어다 놓고 재시도할 수 있습니다.",
         "passwordManagerUnlock": "비밀번호 저장소 사용을 위해 %p 비밀번호를 입력하세요:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
+        "deletePassword": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "%h (%r)로 로그인",
         "dialogConfirmButton": "확인",
         "dialogSkipButton": "취소",
         "username": "사용자 이름",
-        "email": "전자우편 주소(E-Mail)",
+        "email": "전자우편주소(E-Mail)",
         "password": "비밀번호",
         "secretKey": "비밀 보안 키"
     }

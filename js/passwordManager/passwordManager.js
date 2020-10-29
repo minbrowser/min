@@ -5,6 +5,7 @@ const ProcessSpawner = require('util/process.js')
 
 const Bitwarden = require('js/passwordManager/bitwarden.js')
 const OnePassword = require('js/passwordManager/onePassword.js')
+const Keychain = require('js/passwordManager/keychain.js')
 
 const PasswordManagers = {
   // List of supported password managers. Each password manager is expected to
@@ -12,29 +13,30 @@ const PasswordManagers = {
   // suggestions matching given domain name.
   managers: [
     new Bitwarden(),
-    new OnePassword()
+    new OnePassword(),
+    new Keychain()
   ],
   // Returns an active password manager, which is the one that is selected in app's
   // settings.
   getActivePasswordManager: function () {
-    if (PasswordManagers.managers.length == 0) {
+    if (PasswordManagers.managers.length === 0) {
       return null
     }
 
-    let managerSetting = settings.get('passwordManager')
+    const managerSetting = settings.get('passwordManager')
     if (managerSetting == null) {
-      return null
+      return PasswordManagers.managers.find(mgr => mgr.name === 'Built-in password manager')
     }
 
-    return PasswordManagers.managers.find(mgr => mgr.name == managerSetting.name)
+    return PasswordManagers.managers.find(mgr => mgr.name === managerSetting.name)
   },
   getConfiguredPasswordManager: async function () {
-    let manager = PasswordManagers.getActivePasswordManager()
+    const manager = PasswordManagers.getActivePasswordManager()
     if (!manager) {
       return null
     }
 
-    let configured = await manager.checkIfConfigured()
+    const configured = await manager.checkIfConfigured()
     if (!configured) {
       return null
     }
@@ -42,16 +44,16 @@ const PasswordManagers = {
     return manager
   },
   // Shows a prompt dialog for password store's master password.
-  promptForMasterPassword: async function(manager) {
+  promptForMasterPassword: async function (manager) {
     return new Promise((resolve, reject) => {
-      let { password } = ipc.sendSync('prompt', {
-        text: l('passwordManagerUnlock').replace("%p", manager.name),
+      const { password } = ipc.sendSync('prompt', {
+        text: l('passwordManagerUnlock').replace('%p', manager.name),
         values: [{ placeholder: l('password'), id: 'password', type: 'password' }],
         ok: l('dialogConfirmButton'),
         cancel: l('dialogSkipButton'),
-        height: 160,
+        height: 160
       })
-      if (password == null || password == '') {
+      if (password === null || password === '') {
         reject()
       } else {
         resolve(password)
@@ -65,13 +67,13 @@ const PasswordManagers = {
       try {
         password = await PasswordManagers.promptForMasterPassword(manager)
       } catch (e) {
-        //dialog was canceled
+        // dialog was canceled
         break
       }
       try {
         success = await manager.unlockStore(password)
       } catch (e) {
-        //incorrect password, prompt again
+        // incorrect password, prompt again
       }
     }
     return success
@@ -84,7 +86,7 @@ const PasswordManagers = {
       if (args.length == 0) {
         return
       }
-      let hostname = args[0]
+      const hostname = args[0]
 
       PasswordManagers.getConfiguredPasswordManager().then(async (manager) => {
         if (!manager) {
@@ -100,17 +102,20 @@ const PasswordManagers = {
           domain = domain.slice(4)
         }
 
-        var self = this
         manager.getSuggestions(domain).then(credentials => {
           if (credentials != null) {
             webviews.callAsync(tab, 'getURL', function (err, topLevelURL) {
+              if (err) {
+                console.warn(err)
+                return
+              }
               var topLevelDomain = new URL(topLevelURL).hostname
               if (topLevelDomain.startsWith('www.')) {
                 topLevelDomain = topLevelDomain.slice(4)
               }
               if (domain !== topLevelDomain) {
                 console.warn("autofill isn't supported for 3rd-party frames")
-                return;
+                return
               }
               webviews.callAsync(tab, 'sendToFrame', [frameId, 'password-autofill-match', {
                 credentials,

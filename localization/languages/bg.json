@@ -27,6 +27,7 @@
         "goForward": "Отиване една страница напред",
         "inspectElement": "Изследване на елемента",
         /* searchbar */
+        "pasteAndGo": null, //missing translation
         "DDGAnswerSubtitle": "Отговор", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Предложен сайт", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Резултати от DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -48,12 +49,12 @@
         "moveToTask": "Премести този раздел в задача",
         "nameTask": "Наименувай тази задача",
         "addBookmark": "Отмятане на страница",
-		"searchBookmarks": "Търсене на отметки",
+        "searchBookmarks": "Търсене на отметки",
         "bookmarksAddTag": "Добавяне на таг...",
-		"bookmarksSimilarItems": "Подобни елементи",
-		"searchHistory": "История на търсенията",
+        "bookmarksSimilarItems": "Подобни елементи",
+        "searchHistory": "История на търсенията",
         "importBookmarks": "Внасяне на отметки от HTML файл",
-		"exportBookmarks": "Изнасяне на отметки",
+        "exportBookmarks": "Изнасяне на отметки",
         "runUserscript": "Изпълняване на потребителски скрипт",
         /* navbar */
         "openMenu": "Отваряне на меню", //application menu button on windows
@@ -70,7 +71,9 @@
         "viewTasks": "Преглеждане на задачи",
         "newTask": "Отваряне на нова задача", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Задача %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Задачата е изтрита. <a>Върни обратно?</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "Задачата е изтрита. <a>Върни обратно?</a>"
+        },
         "returnToTask": "Връщане към предишната задача",
         "taskDescriptionTwo": "%t и %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
         "taskDescriptionThree": "%t, %t, и още %n", //used to describe a task that has three or more tabs
@@ -134,9 +137,10 @@
         "settingsContentBlockingExceptions": "Реклами ще бъдат позволени на тези уеб сайтове:",
         "settingsBlockScriptsToggle": "Блокиране на скриптове",
         "settingsBlockImagesToggle": "Блокиране на изображения",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "Базирано на EasyList и EasyPrivacy, създадено от <a target=\"_blank\" href=\"https://easylist.to/\">EasyList авторите</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">вижте лиценз</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "Изглед",
         "settingsEnableDarkMode": "Активиране на тъмен режим:",
         "settingsDarkModeNever": "Никога",
@@ -145,10 +149,11 @@
         "settingsSiteThemeToggle": "Активиране на теми на сайтове",
         "settingsAdditionalFeaturesHeading": "Допълнителни функции",
         "settingsUserscriptsToggle": "Активиране на потребителски скриптове",
-        "settingsShowDividerToggle": "Показване на разделител между раздели",	
         "settingsSeparateTitlebarToggle": "Използване на отделна лента със заглавието",
         "settingsOpenTabsInForegroundToggle": "Отваряне на нови раздели на преден план",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Потребителските скриптове Ви позволяват да промените поведението на уеб сайтове - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">научете повече</a>."},
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Потребителските скриптове Ви позволяват да промените поведението на уеб сайтове - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">научете повече</a>."
+        },
         "settingsUserAgentToggle": "Използване на персонализиран потребителски агент",
         "settingsUpdateNotificationsToggle": "Автоматично проверяване за актуализации",
         "settingsSearchEngineHeading": "Търсачки",
@@ -157,6 +162,13 @@
         "customSearchEngineDescription": "Заменете думата за търсене със %s",
         "settingsKeyboardShortcutsHeading": "Комбинации от клавиши",
         "settingsKeyboardShortcutsHelp": "Използвайте запетаи, за да разделите множество комбинации за клавиши.",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "Файл",
         "appMenuNewTab": "Нов раздел",
@@ -204,17 +216,19 @@
         "appMenuQuit": "Излизане от %n",
         "appMenuBringToFront": "Извеждане на всички отпред",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "страница <input type='text'/> от <span id='total'></span>"},
-	/* Context Reader */    
-	"buttonReaderSettings": "Настройки на четец",
-	"buttonReaderLightTheme": "Светла",
-	"buttonReaderSepiaTheme": "Сепия",
-	"buttonReaderDarkTheme": "Тъмна",
-	"openReaderView": "Винаги отваряй в режим на четене",
-	"autoRedirectBannerReader": "Винаги отваряй статии от този сайт в режим на четене?",
-	"buttonReaderRedirectYes": "Да",
-	"buttonReaderRedirectNo": "Не",
-	"articleReaderView": "Оригинална статия",
+        "PDFPageCounter": {
+            "unsafeHTML": "страница <input type='text'/> от <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": "Настройки на четец",
+        "buttonReaderLightTheme": "Светла",
+        "buttonReaderSepiaTheme": "Сепия",
+        "buttonReaderDarkTheme": "Тъмна",
+        "openReaderView": "Винаги отваряй в режим на четене",
+        "autoRedirectBannerReader": "Винаги отваряй статии от този сайт в режим на четене?",
+        "buttonReaderRedirectYes": "Да",
+        "buttonReaderRedirectNo": "Не",
+        "articleReaderView": "Оригинална статия",
         /* Download manager */
         "downloadCancel": "Отказ",
         "downloadStateCompleted": "Завършено",
@@ -224,6 +238,7 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Автоматично попълване на пароли",
         "settingsSelectPasswordManager": "Изберете един от поддържаните мениджъри на пароли:",
+        "keychainViewPasswords": null, //missing translation
         /* Password manager setup */
         "passwordManagerSetupHeading": "Завършете настройване на %p да попълва пароли",
         "passwordManagerSetupStep1": {
@@ -239,10 +254,17 @@
         "passwordManagerSetupInstalling": "Инсталиране...",
         "passwordManagerSetupSignIn": "Впишете се във Вашия мениджър на пароли, за да започнете употребата на автоматично попълване. Вашите пълномощия няма да се съхраняват никъде в Min.",
         "disableAutofill": "Деактивиране на автоматично попълване на пароли",
-        "autofillNotNow": "Не сега",
         "passwordManagerSetupUnlockError": "Неуспешно отключване на хранилището за пароли: ",
         "passwordManagerSetupRetry": "Уверете се, че използвате правилния файл и въвеждате правилна парола. Може да пробвате отново, като пак плъзнете уреда тук.",
         "passwordManagerUnlock": "Въведете Вашата %p главна парола, за да отключите хранилището за пароли:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
+        "deletePassword": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "Впишете се в %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Потвърждаване",

@@ -131,7 +131,7 @@ function showSearchbarInstantAnswers (text, input, event) {
       var url = res.Results[0].FirstURL
 
       searchbarPlugins.addResult('instantAnswers', {
-        icon: 'fa-globe',
+        icon: 'carbon:earth-filled',
         title: urlParser.basicURL(url),
         secondaryText: l('suggestedSite'),
         url: url,
@@ -145,7 +145,7 @@ function showSearchbarInstantAnswers (text, input, event) {
 
     if (entitiesWithLocations.indexOf(res.Entity) !== -1) {
       searchbarPlugins.addResult('instantAnswers', {
-        icon: 'fa-search',
+        icon: 'carbon:search',
         title: res.Heading,
         secondaryText: l('searchWith').replace('%s', 'OpenStreetMap'),
         classList: ['ddg-answer'],

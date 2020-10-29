@@ -52,7 +52,7 @@ const defaultKeybindings = {
 
       const sourceTab = tabs.get(tabs.getSelected())
       // strip tab id so that a new one is generated
-      const newTab = tabs.add({...sourceTab, id: undefined})
+      const newTab = tabs.add({ ...sourceTab, id: undefined })
 
       browserUI.addTab(newTab, { enterEditMode: false })
     })
@@ -125,6 +125,11 @@ const defaultKeybindings = {
 
     keybindings.defineShortcut({ keys: 'esc' }, function (e) {
       tabEditor.hide()
+
+      if (modalMode.enabled() && modalMode.onDismiss) {
+        modalMode.onDismiss()
+        modalMode.onDismiss = null
+      }
 
       // exit full screen mode
       webviews.callAsync(tabs.getSelected(), 'executeJavaScript', 'if(document.webkitIsFullScreen){document.webkitExitFullscreen()}')
@@ -223,7 +228,7 @@ const defaultKeybindings = {
       lastReload = time
     })
 
-    keybindings.defineShortcut({keys: 'mod+='}, function () {
+    keybindings.defineShortcut({ keys: 'mod+=' }, function () {
       webviewGestures.zoomWebviewIn(tabs.getSelected())
     })
 

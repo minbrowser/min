@@ -27,6 +27,7 @@
         "goForward": "進む",
         "inspectElement": "要素を検証",
         /* searchbar */
+        "pasteAndGo": "貼り付けて移動",
         "DDGAnswerSubtitle": "インスタントアンサー", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "おすすめサイト", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "DuckDuckGoからの結果", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -34,7 +35,7 @@
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": "すべて表示する", 
+        "showMoreBangs": "すべて表示する",
         "viewSettings": "設定を表示",
         "viewReadingList": "閲覧リストを見る",
         "takeScreenshot": "スクリーンショットを撮る",
@@ -48,12 +49,12 @@
         "moveToTask": "このタブをタスクに移動",
         "nameTask": "このタスクの名前",
         "addBookmark": "ブックマークを追加",
-		"searchBookmarks": "ブックマークを検索",
+        "searchBookmarks": "ブックマークを検索",
         "bookmarksAddTag": "タグを追加...",
-		"bookmarksSimilarItems": "類似アイテム",
-		"searchHistory": "検索履歴",
+        "bookmarksSimilarItems": "類似アイテム",
+        "searchHistory": "検索履歴",
         "importBookmarks": "HTMLファイルからブックマークをインポートする",
-		"exportBookmarks": "ブックマークをエクスポート",
+        "exportBookmarks": "ブックマークをエクスポート",
         "runUserscript": "ユーザースクリプトを実行",
         /* navbar */
         "openMenu": "メニューを開く",
@@ -70,7 +71,9 @@
         "viewTasks": "タスクを表示",
         "newTask": "新規タスク", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "タスク %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "タスクは削除されます。 <a>キャンセル?</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "タスクは削除されます。 <a>キャンセル?</a>"
+        },
         "returnToTask": "前のタスクに戻る",
         "taskDescriptionTwo": "％tと％t",
         "taskDescriptionThree": "％t, ％t, ％n以上",
@@ -134,9 +137,10 @@
         "settingsContentBlockingExceptions": "これらのウェブサイトでは広告は引き続き許可されます:",
         "settingsBlockScriptsToggle": "スクリプトをブロック",
         "settingsBlockImagesToggle": "画像をブロック",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "<a target=\"_blank\" href=\"https://easylist.to/\"> EasyListの作成者</a>によって作成されたEasyListおよびEasyPrivacyに基づいています（<a target=\"_blank\" href=\"https：//creativecommons.org/licenses/by-sa/3.0/legalcode\">ライセンスを表示</a>)。"
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": "これまでのところ、Minは<strong></strong>の広告とトラッカーをブロックしています。"
         },
+        "settingsCustomizeFiltersLink": "フィルターをカスタマイズする",
         "settingsAppearanceHeading": "外観",
         "settingsEnableDarkMode": "ダークモードを使用:",
         "settingsDarkModeNever": "決して",
@@ -145,9 +149,12 @@
         "settingsSiteThemeToggle": "サイトテーマを有効にする",
         "settingsAdditionalFeaturesHeading": "追加機能",
         "settingsUserscriptsToggle": "ユーザースクリプトを有効にする",
+        "settingsShowDividerToggle": "タブ間の仕切りを表示",
         "settingsSeparateTitlebarToggle": "別のタイトルバーを使用する",
-		"settingsOpenTabsInForegroundToggle": "フォアグラウンドで新しいタブを開く",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "ユーザースクリプトを使用して、Webサイトの動作を変更できます -  <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">詳細</a>。"},
+        "settingsOpenTabsInForegroundToggle": "フォアグラウンドで新しいタブを開く",
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "ユーザースクリプトを使用して、Webサイトの動作を変更できます -  <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">詳細</a>。"
+        },
         "settingsUserAgentToggle": "カスタムユーザーエージェントを使用する",
         "settingsUpdateNotificationsToggle": "アップデートを自動的に確認する",
         "settingsSearchEngineHeading": "検索エンジン",
@@ -156,6 +163,13 @@
         "customSearchEngineDescription": "検索語を％sに置き換えます",
         "settingsKeyboardShortcutsHeading": "キーボードショートカット",
         "settingsKeyboardShortcutsHelp": "カンマ区切りで複数のショートカットを登録できます。",
+        "settingsProxyHeading": "プロキシ",
+        "settingsNoProxy": "プロキシなし",
+        "settingsManualProxy": "手動設定",
+        "settingsAutomaticProxy": "自動構成",
+        "settingsProxyRules": "プロキシルール：",
+        "settingsProxyBypassRules": "プロキシなし：",
+        "settingsProxyConfigurationURL": "構成URL",
         /* app menu */
         "appMenuFile": "ファイル",
         "appMenuNewTab": "新規タブ",
@@ -203,34 +217,37 @@
         "appMenuQuit": "%nを終了",
         "appMenuBringToFront": "すべてを最前面に移動",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "<span id='total'></span> ページ中 <input type='text'/> ページ目"},
- 	/* Context Reader */    
-	"buttonReaderSettings": "読み取りモードの設定",
-	"buttonReaderLightTheme": "光",
-	"buttonReaderSepiaTheme": "セピア",
-	"buttonReaderDarkTheme": "闇",
-	"openReaderView": "常にリーダーモードで開く",
-	"autoRedirectBannerReader": "このサイトの記事を常にリーダーモードで開きますか？",
-	"buttonReaderRedirectYes": "はい",
-	"buttonReaderRedirectNo": "いいえ",
-	"articleReaderView": "原著",
+        "PDFPageCounter": {
+            "unsafeHTML": "<span id='total'></span> ページ中 <input type='text'/> ページ目"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": "読み取りモードの設定",
+        "buttonReaderLightTheme": "光",
+        "buttonReaderSepiaTheme": "セピア",
+        "buttonReaderDarkTheme": "闇",
+        "openReaderView": "常にリーダーモードで開く",
+        "autoRedirectBannerReader": "このサイトの記事を常にリーダーモードで開きますか？",
+        "buttonReaderRedirectYes": "はい",
+        "buttonReaderRedirectNo": "いいえ",
+        "articleReaderView": "原著",
         /* Download manager */
         "downloadCancel": "キャンセル",
         "downloadStateCompleted": "完了しました",
         "downloadStateFailed": "フェイル",
         /* Update Notifications */
         "updateNotificationTitle": "Minの新しいバージョンが利用可能です。",
-	/* Password settings */
-	"settingsPasswordAutoFillHeadline": "パスワードの自動入力",
-	"settingsSelectPasswordManager": "サポートされているパスワードマネージャのいずれかを選択します。",
-	/* Password manager setup */
+        /* Password settings */
+        "settingsPasswordAutoFillHeadline": "パスワードの自動入力",
+        "settingsSelectPasswordManager": "サポートされているパスワードマネージャのいずれかを選択します。",
+        "keychainViewPasswords": null, //missing translation
+       /* Password manager setup */
         "passwordManagerSetupHeading": "自動入力を使用するための％pの設定を完了してください",
         "passwordManagerSetupStep1": {
             "unsafeHTML": "最初に <a id='password-manager-setup-link'></a> 、システムに展開します。"
         },
         "passwordManagerInstallerSetup": {
-		    "unsafeHTML": "<a id='password-manager-setup-link-installer'></a>をダウンロードして、ファイルを下のボックスにドラッグします。"
-	    },
+            "unsafeHTML": "<a id='password-manager-setup-link-installer'></a>をダウンロードして、ファイルを下のボックスにドラッグします。"
+        },
         "passwordManagerSetupLink": "％p CLIツールをダウンロード",
         "passwordManagerSetupLinkInstaller": "％pインストーラーCLI",
         "passwordManagerSetupStep2": "次に、ツールを下のボックスにドラッグします。",
@@ -238,10 +255,17 @@
         "passwordManagerSetupInstalling": "インストールしています...",
         "passwordManagerSetupSignIn": "パスワードマネージャーにログインして、自動入力の使用を開始します。 資格情報はMin内のどこにも保存されません。",
         "disableAutofill": "自動入力を無効にする",
-        "autofillNotNow": "今はやめろ",
         "passwordManagerSetupUnlockError": "パスワードストアのロック解除に失敗しました： ",
         "passwordManagerSetupRetry": "正しいファイルを使用し、正しいパスワードを入力していることを確認してください。 ここにツールをもう一度ドラッグすると、再試行できます。",
         "passwordManagerUnlock": "％pマスターパスワードを入力して、パスワードストアのロックを解除します。",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
+        "deletePassword": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "％hにサインイン（％r）",
         "dialogConfirmButton": "確認する",

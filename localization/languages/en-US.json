@@ -27,6 +27,7 @@
         "goForward": "Go Forward",
         "inspectElement": "Inspect Element",
         /* searchbar */
+        "pasteAndGo": "Paste and Go", //context menu item
         "DDGAnswerSubtitle": "Answer", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Suggested site", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Results from DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -48,12 +49,12 @@
         "moveToTask": "Move this tab to a task",
         "nameTask": "Name this task",
         "addBookmark": "Add bookmark",
-		"searchBookmarks": "Search bookmarks",
+        "searchBookmarks": "Search bookmarks",
         "bookmarksAddTag": "Add tag...",
-		"bookmarksSimilarItems": "Similar items",
-		"searchHistory": "Search history",
+        "bookmarksSimilarItems": "Similar items",
+        "searchHistory": "Search history",
         "importBookmarks": "Import bookmarks from HTML file",
-		"exportBookmarks": "Export bookmarks",
+        "exportBookmarks": "Export bookmarks",
         "runUserscript": "Run userscript",
         /* navbar */
         "openMenu": "Open menu", //application menu button on windows
@@ -70,7 +71,9 @@
         "viewTasks": "View Tasks",
         "newTask": "New Task", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Task %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Task deleted. <a>Undo?</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "Task deleted. <a>Undo?</a>"
+        },
         "returnToTask": "Return to your previous task",
         "taskDescriptionTwo": "%t and %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
         "taskDescriptionThree": "%t, %t, and %n more", //used to describe a task that has three or more tabs
@@ -134,9 +137,10 @@
         "settingsContentBlockingExceptions": "Ads will still be allowed on these websites:",
         "settingsBlockScriptsToggle": "Block scripts",
         "settingsBlockImagesToggle": "Block images",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "Based on EasyList and EasyPrivacy, created by <a target=\"_blank\" href=\"https://easylist.to/\">The EasyList authors</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">view license</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": "So far, Min has blocked <strong></strong> ads and trackers."
         },
+        "settingsCustomizeFiltersLink": "Customize filters",
         "settingsAppearanceHeading": "Appearance",
         "settingsEnableDarkMode": "Enable dark mode:",
         "settingsDarkModeNever": "Never",
@@ -145,9 +149,12 @@
         "settingsSiteThemeToggle": "Enable site theme",
         "settingsAdditionalFeaturesHeading": "Additional Features",
         "settingsUserscriptsToggle": "Enable user scripts",
+        "settingsShowDividerToggle": "Show divider between tabs",
         "settingsSeparateTitlebarToggle": "Use separate title bar",
         "settingsOpenTabsInForegroundToggle": "Open new tabs in the foreground",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "User scripts allow you to modify the behavior of websites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."},
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "User scripts allow you to modify the behavior of websites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."
+        },
         "settingsUserAgentToggle": "Use a custom user agent",
         "settingsUpdateNotificationsToggle": "Automatically check for updates",
         "settingsSearchEngineHeading": "Search Engine",
@@ -156,6 +163,13 @@
         "customSearchEngineDescription": "Replace the search term with %s",
         "settingsKeyboardShortcutsHeading": "Keyboard Shortcuts",
         "settingsKeyboardShortcutsHelp": "Use commas to separate multiple shortcuts.",
+        "settingsProxyHeading": "Proxy",
+        "settingsNoProxy": "No Proxy",
+        "settingsManualProxy": "Manual Configuration",
+        "settingsAutomaticProxy": "Automatic Configuration",
+        "settingsProxyRules": "Proxy rules:",
+        "settingsProxyBypassRules": "No proxy for:",
+        "settingsProxyConfigurationURL": "Configuration URL",
         /* app menu */
         "appMenuFile": "File",
         "appMenuNewTab": "New Tab",
@@ -203,17 +217,19 @@
         "appMenuQuit": "Quit %n",
         "appMenuBringToFront": "Bring All to Front",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "page <input type='text'/> of <span id='total'></span>"},
-	/* Context Reader */    
-	"buttonReaderSettings": "Reader Settings",
-	"buttonReaderLightTheme": "Light",
-	"buttonReaderSepiaTheme": "Sepia",
-	"buttonReaderDarkTheme": "Dark",
-	"openReaderView": "Always open in reader view",
-	"autoRedirectBannerReader": "Always open articles from this site in reader view?",
-	"buttonReaderRedirectYes": "Yes",
-	"buttonReaderRedirectNo": "No",
-	"articleReaderView": "Original Article",
+        "PDFPageCounter": {
+            "unsafeHTML": "page <input type='text'/> of <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": "Reader Settings",
+        "buttonReaderLightTheme": "Light",
+        "buttonReaderSepiaTheme": "Sepia",
+        "buttonReaderDarkTheme": "Dark",
+        "openReaderView": "Always open in reader view",
+        "autoRedirectBannerReader": "Always open articles from this site in reader view?",
+        "buttonReaderRedirectYes": "Yes",
+        "buttonReaderRedirectNo": "No",
+        "articleReaderView": "Original Article",
         /* Download manager */
         "downloadCancel": "Cancel",
         "downloadStateCompleted": "Completed",
@@ -223,6 +239,7 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Password Auto-Fill",
         "settingsSelectPasswordManager": "Choose one of the supported password managers:",
+        "keychainViewPasswords": "View saved passwords",
         /* Password manager setup */
         "passwordManagerSetupHeading": "Finish setting up %p to use Autofill",
         "passwordManagerSetupStep1": {
@@ -238,10 +255,17 @@
         "passwordManagerSetupInstalling": "Installing...",
         "passwordManagerSetupSignIn": "Sign in to your password manager to start using autofill. Your credentials won't be stored anywhere inside Min.",
         "disableAutofill": "Disable Autofill",
-        "autofillNotNow": "Not Now",
         "passwordManagerSetupUnlockError": "Failed to unlock the password store: ",
         "passwordManagerSetupRetry": "Make sure you're using the right file and entering a correct password. You can retry by dragging the tool here again.",
         "passwordManagerUnlock": "Enter your %p master password to unlock the password store:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": "Save password for %s?",
+        "passwordCaptureSave": "Save",
+        "passwordCaptureDontSave": "Don't save",
+        /* Password viewer */
+        "savedPasswordsHeading": "Saved passwords",
+        "savedPasswordsEmpty": "No saved passwords.",
+        "deletePassword": "Delete password for %s?",
         /* Dialogs */
         "loginPromptTitle": "Sign in to %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Confirm",

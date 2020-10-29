@@ -12,9 +12,9 @@
 }
 
 #tab-editor-input {
-    background: none;
-	line-height: 1.15em;
-	font-size: 1.15em;
+	font-size: 1.1em;
+	line-height: 2em;
+	background: none;
 	-webkit-appearance: none;
 	border: none;
 	color: inherit;
@@ -31,7 +31,7 @@
 }
 
 #tab-editor .tab-editor-button {
-	padding: 0.5em;
+	padding: 0.5em 0.3em;
 }
 
 #tab-editor .tab-editor-button:not([hidden]) + .tab-editor-button:not([hidden]) {

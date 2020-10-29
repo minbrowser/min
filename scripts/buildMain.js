@@ -15,7 +15,9 @@ const modules = [
   'main/UASwitcher.js',
   'main/permissionManager.js',
   'main/prompt.js',
-  'main/remoteMenu.js'
+  'main/remoteMenu.js',
+  'main/keychainService.js',
+  'js/util/proxy.js'
 ]
 
 function buildMain () {

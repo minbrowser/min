@@ -84,6 +84,14 @@ img, picture, video {
 	height: auto;
 	margin: auto;
 }
+/*
+needed to fix wikipedia math rendering
+and probably generally reasonable to assume that an image inside a span should be inline
+*/
+span > img, span > picture, span > video {
+	display: inline-block;
+	vertical-align: middle;
+}
 body[theme="dark"] img,
 body[theme="dark"] picture {
 	filter: brightness(0.95);

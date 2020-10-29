@@ -27,6 +27,7 @@
         "goForward": "Avancer",
         "inspectElement": "Inspecter l'élément",
         /* searchbar */
+        "pasteAndGo": null, //missing translation
         "DDGAnswerSubtitle": "Réponse", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Site suggéré", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Résultats de DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -44,16 +45,16 @@
         "clearHistoryConfirmation": null, //missing translation
         "switchToTask": "Changer de tâche",
         "createTask": "Créer une tâche",
-        "closeTask": "Fermer cette tâche", 
+        "closeTask": "Fermer cette tâche",
         "moveToTask": "Déplacer cette tâche à cet onglet",
         "nameTask": null, //missing translation
         "addBookmark": null, //missing translation
-		"searchBookmarks": "Rechercher des signets",
+        "searchBookmarks": "Rechercher des signets",
         "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
-		"searchHistory": "Rechercher dans l'historique",
+        "bookmarksSimilarItems": null, //missing translation
+        "searchHistory": "Rechercher dans l'historique",
         "importBookmarks": null, //missing translation
-		"exportBookmarks": null, //missing translation
+        "exportBookmarks": null, //missing translation
         "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": "Ouvrir le menu", ///application menu button on windows
@@ -70,7 +71,9 @@
         "viewTasks": "Voir les tâches",
         "newTask": "Nouvelle tâche", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Tâche %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
+        "taskDeleteWarning": {
+            "unsafeHTML": null //missing translation
+        },
         "returnToTask": null, //missing translation
         "taskDescriptionTwo": null, //missing translation
         "taskDescriptionThree": null, //missing translation
@@ -87,8 +90,8 @@
         "timeRangeJustNow": "À l'instant",
         "timeRangeMinutes": "Il y a quelques minutes",
         "timeRangeHour": "Il y a quelques heures",
-        "timeRangeToday": "Aujourd'hui", 
-        "timeRangeYesterday": "Hier", 
+        "timeRangeToday": "Aujourd'hui",
+        "timeRangeYesterday": "Hier",
         "timeRangeWeek": "Cette semaine",
         "timeRangeMonth": "Ce mois-ci",
         "timeRangeYear": "Cette année",
@@ -134,9 +137,10 @@
         "settingsContentBlockingExceptions": "Les publicités resteront activées sur les sites suivants :",
         "settingsBlockScriptsToggle": "Scripts bloqués",
         "settingsBlockImagesToggle": "Images bloquées",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "Basé sur EasyList et EasyPrivacy, créé par <a target=\"_blank\" href=\"https://easylist.to/\">Les auteurs de Easylist</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">voir la license</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "Apparence",
         "settingsEnableDarkMode": "Activer le mode nuit:", //"Enable dark mode:" missing translation
         "settingsDarkModeNever": "Jamais", // googled
@@ -145,9 +149,12 @@
         "settingsSiteThemeToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": "Fonctionnalités supplémentaires",
         "settingsUserscriptsToggle": "Activer les scripts personnalisés",
+        "settingsShowDividerToggle": null, // Missing translation
         "settingsSeparateTitlebarToggle": null, //missing translation
-		"settingsOpenTabsInForegroundToggle": null, //missing translation
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Les scripts personnalisés vous permettent de modifier le comportement des pages web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">en savoir plus (en anglais)</a>."},
+        "settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Les scripts personnalisés vous permettent de modifier le comportement des pages web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">en savoir plus (en anglais)</a>."
+        },
         "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": "Vérifier automatiquement pour des mises à jour",
         "settingsSearchEngineHeading": "Moteur de recherche",
@@ -156,6 +163,13 @@
         "customSearchEngineDescription": "Remplacer la recherche par %s",
         "settingsKeyboardShortcutsHeading": "Raccourcis clavier",
         "settingsKeyboardShortcutsHelp": "Séparer les raccourcis claviers multiples par une virgule.",
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "Fichier",
         "appMenuNewTab": "Nouvel onglet",
@@ -203,22 +217,24 @@
         "appMenuQuit": "Quitter %n",
         "appMenuBringToFront": "Tout mettre à l'avant",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "page <input type='text'/> sur <span id='total'></span>"},
- 	/* Context Reader */    
-	"buttonReaderSettings": null, //missing translation "Reader Settings"
-	"buttonReaderLightTheme": null, //missing translation "Light"
-	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
-	"buttonReaderDarkTheme": null, //missing translation "Dark"
-	"openReaderView": null, //missing translation "Always open in reader view"
-	"autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-	"buttonReaderRedirectYes": null, //missing translation "Yes"
-	"buttonReaderRedirectNo": null, //missing translation "No"
-	"articleReaderView": null, //missing translation "Original Article"
+        "PDFPageCounter": {
+            "unsafeHTML": "page <input type='text'/> sur <span id='total'></span>"
+        },
+        /* Context Reader */
+        "buttonReaderSettings": null, //missing translation "Reader Settings"
+        "buttonReaderLightTheme": null, //missing translation "Light"
+        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
+        "buttonReaderDarkTheme": null, //missing translation "Dark"
+        "openReaderView": null, //missing translation "Always open in reader view"
+        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
+        "buttonReaderRedirectYes": null, //missing translation "Yes"
+        "buttonReaderRedirectNo": null, //missing translation "No"
+        "articleReaderView": null, //missing translation "Original Article"
         /* Download manager */
-        "downloadCancel": "Annuler", 
-        "downloadStateCompleted": "Complété", 
-        "downloadStateFailed": "Échoué", 
+        "downloadCancel": "Annuler",
+        "downloadStateCompleted": "Complété",
+        "downloadStateFailed": "Échoué",
         /* Update Notifications */
-        "updateNotificationTitle": "Une nouvelle version de Min est disponible" 
+        "updateNotificationTitle": "Une nouvelle version de Min est disponible"
     }
 }

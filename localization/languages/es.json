@@ -27,6 +27,7 @@
         "goForward": "Ir adelante",
         "inspectElement": "Inspeccionar elemento",
         /* searchbar */
+        "pasteAndGo": null, //missing translation
         "DDGAnswerSubtitle": "Respuesta", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Sitio sugerido", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Resultados de DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -48,12 +49,12 @@
         "moveToTask": "Mover esta pestaña a una tarea",
         "nameTask": null, //missing translation
         "addBookmark": null, //missing translation
-		"searchBookmarks": "Buscar marcadores",
+        "searchBookmarks": "Buscar marcadores",
         "bookmarksAddTag": null, //missing translation
-		"bookmarksSimilarItems": null, //missing translation
-		"searchHistory": null, //missing translation
+        "bookmarksSimilarItems": null, //missing translation
+        "searchHistory": null, //missing translation
         "importBookmarks": null, //missing translation
-		"exportBookmarks": null, //missing translation
+        "exportBookmarks": null, //missing translation
         "runUserscript": null, //missing translation
         /* navbar */
         "openMenu": null, //missing translation
@@ -70,7 +71,9 @@
         "viewTasks": "Ver tareas",
         "newTask": "Nueva tarea", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Tarea %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": null}, //missing translation
+        "taskDeleteWarning": {
+            "unsafeHTML": null //missing translation
+        },
         "returnToTask": null, //missing translation
         "taskDescriptionTwo": null, //missing translation
         "taskDescriptionThree": null, //missing translation
@@ -134,20 +137,22 @@
         "settingsContentBlockingExceptions": null, //missing translation
         "settingsBlockScriptsToggle": "Bloquear scripts",
         "settingsBlockImagesToggle": "Bloquear imágenes",
-        "settingsEasyListCredit": {
+        "settingsBlockedRequestCount": {
             "unsafeHTML": null //missing translation
         },
+        "settingsCustomizeFiltersLink": null, //missing translation
         "settingsAppearanceHeading": "Apariencia",
-        "settingsEnableDarkMode": "Habilitar modo oscuro:", 
+        "settingsEnableDarkMode": "Habilitar modo oscuro:",
         "settingsDarkModeNever": "Nunca", // googled
         "settingsDarkModeNight": "Por la noche", // googled
         "settingsDarkModeAlways": "Siempre", // googled
         "settingsSiteThemeToggle": null, //missing translation
         "settingsAdditionalFeaturesHeading": null, //missing translation
         "settingsUserscriptsToggle": null, //missing translation
+        "settingsShowDividerToggle": null, // Missing translation
         "settingsSeparateTitlebarToggle": null, //missing translation
-		"settingsOpenTabsInForegroundToggle": null, //missing translation
-		"settingsUserscriptsExplanation": null, //missing translation
+        "settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsUserscriptsExplanation": null, //missing translation
         "settingsUserAgentToggle": null, //missing translation
         "settingsUpdateNotificationsToggle": null, //missing translation
         "settingsSearchEngineHeading": "Motor de búsqueda",
@@ -156,6 +161,13 @@
         "customSearchEngineDescription": null, //missing translation
         "settingsKeyboardShortcutsHeading": "Atajos de teclado",
         "settingsKeyboardShortcutsHelp": null, //missing translation
+        "settingsProxyHeading": null, //missing translation
+        "settingsNoProxy": null, //missing translation
+        "settingsManualProxy": null, //missing translation
+        "settingsAutomaticProxy": null, //missing translation
+        "settingsProxyRules": null, //missing translation
+        "settingsProxyBypassRules": null, //missing translation
+        "settingsProxyConfigurationURL": null, //missing translation
         /* app menu */
         "appMenuFile": "Archivo",
         "appMenuNewTab": "Nueva pestaña",
@@ -204,21 +216,21 @@
         "appMenuBringToFront": "Traer todo al frente",
         /* PDF Viewer */
         "PDFPageCounter": null, //missing translation
- 	/* Context Reader */    
-	"buttonReaderSettings": null, //missing translation "Reader Settings"
-	"buttonReaderLightTheme": null, //missing translation "Light"
-	"buttonReaderSepiaTheme": null, //missing translation "Sepia"
-	"buttonReaderDarkTheme": null, //missing translation "Dark"
-	"openReaderView": null, //missing translation "Always open in reader view"
-	"autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-	"buttonReaderRedirectYes": null, //missing translation "Yes"
-	"buttonReaderRedirectNo": null, //missing translation "No"
-	"articleReaderView": null, //missing translation "Original Article"
+        /* Context Reader */
+        "buttonReaderSettings": null, //missing translation "Reader Settings"
+        "buttonReaderLightTheme": null, //missing translation "Light"
+        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
+        "buttonReaderDarkTheme": null, //missing translation "Dark"
+        "openReaderView": null, //missing translation "Always open in reader view"
+        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
+        "buttonReaderRedirectYes": null, //missing translation "Yes"
+        "buttonReaderRedirectNo": null, //missing translation "No"
+        "articleReaderView": null, //missing translation "Original Article"
         /* Download manager */
         "downloadCancel": null, //missing translation
         "downloadStateCompleted": null, //missing translation
         "downloadStateFailed": null, //missing translation
         /* Update Notifications */
         "updateNotificationTitle": null //missing translation
-        }
+    }
 }

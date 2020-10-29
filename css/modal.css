@@ -1,0 +1,80 @@
+#overlay {
+	display: none;
+}
+
+/* show the overlay when the searchbar is open or a dialog is visible */
+body.is-edit-mode #overlay,
+body.is-modal-mode #overlay {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(255, 255, 255, 0.5);
+	z-index: 1;
+	pointer-events: none;
+}
+body.is-modal-mode #overlay {
+	/* In modal mode, the tab bar should be disabled */
+	z-index: 5;
+	pointer-events: all;
+}
+body.dark-mode #overlay {
+	background: rgba(0, 0, 0, 0.4);
+}
+
+.modal {
+    width: 100vw;
+    max-width: 700px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 9;
+    transform: translate(-50%, -50%);
+    padding: 1em 1.25em;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    background: #fff;
+    animation: modal-appear 0.2s;
+}
+
+@keyframes modal-appear {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.85);
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.dark-mode .modal {
+    background-color: rgb(33, 37, 43);
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 0.66em;
+    right: 0.66em;
+    font-size: 1.66em !important;
+    opacity: 0.75;
+    border-radius: 50%;
+    padding: 0.05em;
+}
+
+.modal-close-button:hover {
+    opacity: 1;
+    background: rgba(0,0, 0, 0.075);
+}
+
+.dark-mode .modal-close-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.modal-title {
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 1em;
+    max-width: 90%;
+}

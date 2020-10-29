@@ -2,13 +2,26 @@ const debianInstaller = require('electron-installer-debian')
 
 const packageFile = require('./../package.json')
 const version = packageFile.version
-const isRaspi = process.argv.some(arg => arg === '--raspi')
+const platform = process.argv.find(arg => arg.match('platform')).split('=')[1]
 
-require('./createPackage.js')((isRaspi) ? 'raspi' : 'linux').then(function (appPaths) {
+function toTarget (platform) {
+  switch (platform) {
+    case 'amd64':
+      return 'linuxAmd64'
+    case 'armhf':
+      return 'raspi'
+    case 'arm64':
+      return 'linuxArm64'
+    default:
+      return platform
+  }
+}
+
+require('./createPackage.js')(toTarget(platform)).then(function (appPaths) {
   var installerOptions = {
     src: appPaths[0],
     dest: 'dist/app',
-    arch: (isRaspi) ? 'armhf' : 'amd64',
+    arch: platform,
     productName: 'Min',
     genericName: 'Web Browser',
     version: version,
@@ -38,8 +51,8 @@ require('./createPackage.js')((isRaspi) ? 'raspi' : 'linux').then(function (appP
       'xdg-utils'
     ],
     scripts: {
-      'postinst': 'resources/postinst_script',
-      'prerm': 'resources/prerm_script'
+      postinst: 'resources/postinst_script',
+      prerm: 'resources/prerm_script'
     }
   }
 

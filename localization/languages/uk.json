@@ -27,6 +27,7 @@
         "goForward": "Вперед",
         "inspectElement": "Дослідити елемент",
         /* searchbar */
+        "pasteAndGo": "Вставити та перейти",
         "DDGAnswerSubtitle": "Відповідь", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Запропонований сайт", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Результати із DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -48,12 +49,12 @@
         "moveToTask": "Перемістіть цю вкладку до завдання",
         "nameTask": "Назвіть це завдання",
         "addBookmark": "Додати закладку",
-		"searchBookmarks": "Шукати в закладках",
+        "searchBookmarks": "Шукати в закладках",
         "bookmarksAddTag": "Додати мітку...",
-		"bookmarksSimilarItems": "Подібні елементи",
-		"searchHistory": "Шукати в історії",
+        "bookmarksSimilarItems": "Подібні елементи",
+        "searchHistory": "Шукати в історії",
         "importBookmarks": "Імпортувати закладки",
-		"exportBookmarks": "Експортувати закладки",
+        "exportBookmarks": "Експортувати закладки",
         "runUserscript": "Запустити скрипт користувача",
         /* navbar */
         "openMenu": "Відкрити меню", //application menu button on windows
@@ -70,7 +71,9 @@
         "viewTasks": "Переглянути завдання",
         "newTask": "Нове завдання", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Завдання %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {"unsafeHTML": "Завдання видалено. <a>Скасувати?</a>"},
+        "taskDeleteWarning": {
+            "unsafeHTML": "Завдання видалено. <a>Скасувати?</a>"
+        },
         "returnToTask": "Повернутися до попереднього завдання",
         "taskDescriptionTwo": "%t і %t",
         "taskDescriptionThree": "%t, %t, і ще %n",
@@ -134,9 +137,10 @@
         "settingsContentBlockingExceptions": "Дозволити рекламу на цих сайтах:",
         "settingsBlockScriptsToggle": "Блокувати скрипти",
         "settingsBlockImagesToggle": "Блокувати зображення",
-        "settingsEasyListCredit": {
-            "unsafeHTML": "На основі EasyList і EasyPrivacy, створених <a target=\"_blank\" href=\"https://easylist.to/\">авторами EasyList</a> (<a target=\"_blank\" href=\"https://creativecommons.org/licenses/by-sa/3.0/legalcode\">переглянути ліцензію</a>)."
+        "settingsBlockedRequestCount": {
+            "unsafeHTML": "Наразі Min заблокував <strong></strong> реклам і трекерів."
         },
+        "settingsCustomizeFiltersLink": "Налаштувати фільтри",
         "settingsAppearanceHeading": "Зовнішній вигляд",
         "settingsDarkModeToggle": "Увімкнути темний режим",
         "settingsEnableDarkMode": "Увімкнути темний режим: ",
@@ -146,9 +150,12 @@
         "settingsSiteThemeToggle": "Увімкнути тему сайту",
         "settingsAdditionalFeaturesHeading": "Додаткові можливості",
         "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
+        "settingsShowDividerToggle": "Показувати роздільник між вкладками",
         "settingsSeparateTitlebarToggle": "Використовувати окремий рядок заголовка",
-		"settingsOpenTabsInForegroundToggle": "Відкриватии нові вкладки на передньому плані",
-		"settingsUserscriptsExplanation": {"unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."},
+        "settingsOpenTabsInForegroundToggle": "Відкривати нові вкладки на передньому плані",
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."
+        },
         "settingsUserAgentToggle": "Використовувати власний агент користувача",
         "settingsUpdateNotificationsToggle": "Автоматично перевіряти наявність оновлень",
         "settingsSearchEngineHeading": "Пошукова система",
@@ -157,6 +164,13 @@
         "customSearchEngineDescription": "Замініть пошуковий запит на %s",
         "settingsKeyboardShortcutsHeading": "Сполучення клавіш",
         "settingsKeyboardShortcutsHelp": "Використовуйте коми, щоб розділити декілька сполучень клавіш.",
+        "settingsProxyHeading": "Проксі",
+        "settingsNoProxy": "Без проксі",
+        "settingsManualProxy": "Ручна конфігурація",
+        "settingsAutomaticProxy": "Автоматична конфігурація",
+        "settingsProxyRules": "Правила проксі:",
+        "settingsProxyBypassRules": "Не використовувати проксі для:",
+        "settingsProxyConfigurationURL": "URL конфігурації",
         /* app menu */
         "appMenuFile": "Файл",
         "appMenuNewTab": "Нова вкладка",
@@ -204,7 +218,9 @@
         "appMenuQuit": "Вийти з %n",
         "appMenuBringToFront": "Все на передній план",
         /* PDF Viewer */
-        "PDFPageCounter": {"unsafeHTML": "сторінка <input type='text'/> з <span id='total'></span>"},
+        "PDFPageCounter": {
+            "unsafeHTML": "сторінка <input type='text'/> з <span id='total'></span>"
+        },
         /* Context Reader */
         "buttonReaderSettings": "Налаштування режиму читання",
         "buttonReaderLightTheme": "Світлий",
@@ -224,14 +240,15 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Автозаповнення пароля",
         "settingsSelectPasswordManager": "Виберіть один із підтримуваних менеджерів паролів:",
-        /* Password manager setup */
+        "keychainViewPasswords": null, //missing translation
+       /* Password manager setup */
         "passwordManagerSetupHeading": "Завершіть налаштування %p щоб використовувати автозаповнення",
         "passwordManagerSetupStep1": {
             "unsafeHTML": "Спочатку <a id='password-manager-setup-link'></a> і розпакуйте його для Вашої системи."
         },
         "passwordManagerInstallerSetup": {
-			"unsafeHTML": "Завантажте <a id='password-manager-setup-link-installer'></a> і перетягніть файл у поле нижче:"
-		},
+            "unsafeHTML": "Завантажте <a id='password-manager-setup-link-installer'></a> і перетягніть файл у поле нижче:"
+        },
         "passwordManagerSetupLink": "завантажте інструмент CLI %p",
         "passwordManagerSetupLinkInstaller": "встановлювач CLI %p",
         "passwordManagerSetupStep2": "Потім перетягніть інструмент у поле нижче:",
@@ -239,10 +256,17 @@
         "passwordManagerSetupInstalling": "Встановлення...",
         "passwordManagerSetupSignIn": "Увійдіть до менеджера паролів, щоб почати використовувати автозаповнення. Ваші облікові дані не зберігатимуться ніде в межах Min.",
         "disableAutofill": "Вимкнути автозаповнення",
-        "autofillNotNow": "Не зараз",
         "passwordManagerSetupUnlockError": "Не вдалося розблокувати сховище паролів: ",
         "passwordManagerSetupRetry": "Переконайтеся, що використовуєте правильний файл та ввели правильний пароль. Ви можете повторити спробу, перетягнувши сюди інструмент ще раз.",
         "passwordManagerUnlock": "Введіть головний пароль %p, щоб розблокувати сховище паролів:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": null, //missing translation
+        "passwordCaptureSave": null, //missing translation
+        "passwordCaptureDontSave": null, //missing translation
+        /* Password viewer */
+        "savedPasswordsHeading": null, //missing translation
+        "savedPasswordsEmpty": null, //missing translation
+        "deletePassword": null, //missing translation
         /* Dialogs */
         "loginPromptTitle": "Увійти на %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Підтвердити",

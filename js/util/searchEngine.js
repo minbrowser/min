@@ -46,6 +46,11 @@ var searchEngines = {
     searchURL: 'https://www.ecosia.org/search?q=%s',
     queryParam: 'q'
   },
+  Qwant: {
+    name: 'Qwant',
+    searchURL: 'https://www.qwant.com/?q=%s',
+    queryParam: 'q'
+  },
   Wikipedia: {
     name: 'Wikipedia',
     searchURL: 'https://wikipedia.org/w/index.php?search=%s',
@@ -62,18 +67,28 @@ var searchEngines = {
   }
 }
 
+for (const e in searchEngines) {
+  try {
+    searchEngines[e].urlObj = new URL(searchEngines[e].searchURL)
+  } catch (e) {}
+}
+
 settings.listen('searchEngine', function (value) {
   if (typeof value === 'string') {
     // migrate from legacy format
-    value = {name: value}
+    value = { name: value }
     settings.set('searchEngine', value)
   }
 
   if (value && value.name) {
     currentSearchEngine = searchEngines[value.name]
   } else if (value && value.url) {
+    var searchDomain
+    try {
+      searchDomain = new URL(value.url).hostname.replace('www.', '')
+    } catch (e) {}
     currentSearchEngine = {
-      name: 'custom',
+      name: searchDomain || 'custom',
       searchURL: value.url,
       custom: true
     }
@@ -86,14 +101,6 @@ var searchEngine = {
   getCurrent: function () {
     return currentSearchEngine
   },
-  isSearchURL: function (url) {
-    if (!currentSearchEngine.name || currentSearchEngine.name === 'none') {
-      return false
-    } else {
-      let searchFragment = currentSearchEngine.searchURL.split('%s')[0]
-      return url.startsWith(searchFragment)
-    }
-  },
   getSearch: function (url) {
     var urlObj
     try {
@@ -102,11 +109,10 @@ var searchEngine = {
       return null
     }
     for (var e in searchEngines) {
-      if (!searchEngines[e].queryParam) {
+      if (!searchEngines[e].urlObj) {
         continue
       }
-      var engineURL = new URL(searchEngines[e].searchURL)
-      if (engineURL.hostname === urlObj.hostname && engineURL.pathname === urlObj.pathname) {
+      if (searchEngines[e].urlObj.hostname === urlObj.hostname && searchEngines[e].urlObj.pathname === urlObj.pathname) {
         if (urlObj.searchParams.get(searchEngines[e].queryParam)) {
           return {
             engine: searchEngines[e].name,

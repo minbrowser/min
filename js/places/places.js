@@ -47,7 +47,7 @@ const places = {
     /* if the page is an internal page, it normally shouldn't be saved,
      unless the page represents another page (such as the PDF viewer or reader view) */
     var isNonIndexableInternalPage = urlParser.isInternalURL(tab.url) && urlParser.getSourceURL(tab.url) === tab.url
-    var isSearchPage = searchEngine.isSearchURL(tab.url)
+    var isSearchPage = !!(searchEngine.getSearch(tab.url))
 
     // full-text data from search results isn't useful
     if (isSearchPage) {

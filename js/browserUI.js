@@ -13,7 +13,7 @@ function addTask () {
   tasks.setSelected(tasks.add())
   taskOverlay.hide()
 
-  tabBar.rerenderAll()
+  tabBar.updateAll()
   addTab()
 }
 
@@ -129,7 +129,7 @@ function closeTab (tabId) {
 function switchToTask (id) {
   tasks.setSelected(id)
 
-  tabBar.rerenderAll()
+  tabBar.updateAll()
 
   var taskData = tasks.get(id)
 

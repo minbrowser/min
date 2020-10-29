@@ -4,6 +4,7 @@ const webviews = require('webviews.js')
 const browserUI = require('browserUI.js')
 const searchEngine = require('util/searchEngine.js')
 const userscripts = require('userscripts.js')
+const settings = require('util/settings/settings.js')
 
 const remoteMenu = require('remoteMenuRenderer.js')
 
@@ -14,6 +15,8 @@ const webviewMenu = {
 
     var menuSections = []
 
+    const openInBackground = !settings.get('openTabsInForeground')
+
     /* Picture in Picture */
 
     if (extraData.hasVideo) {
@@ -21,7 +24,7 @@ const webviewMenu = {
         {
           label: l('pictureInPicture'),
           click: function () {
-            webviews.callAsync(tabs.getSelected(), 'send', ['enterPictureInPicture', {x: data.x, y: data.y}])
+            webviews.callAsync(tabs.getSelected(), 'send', ['enterPictureInPicture', { x: data.x, y: data.y }])
           }
         }
       ])
@@ -83,7 +86,7 @@ const webviewMenu = {
         linkActions.push({
           label: l('openInNewTab'),
           click: function () {
-            browserUI.addTab(tabs.add({ url: link }), { enterEditMode: false })
+            browserUI.addTab(tabs.add({ url: link }), { enterEditMode: false, openInBackground: openInBackground })
           }
         })
       }
@@ -91,7 +94,7 @@ const webviewMenu = {
       linkActions.push({
         label: l('openInNewPrivateTab'),
         click: function () {
-          browserUI.addTab(tabs.add({ url: link, private: true }), { enterEditMode: false })
+          browserUI.addTab(tabs.add({ url: link, private: true }), { enterEditMode: false, openInBackground: openInBackground })
         }
       })
 
@@ -125,7 +128,7 @@ const webviewMenu = {
         imageActions.push({
           label: l('openImageInNewTab'),
           click: function () {
-            browserUI.addTab(tabs.add({ url: mediaURL }), { enterEditMode: false })
+            browserUI.addTab(tabs.add({ url: mediaURL }), { enterEditMode: false, openInBackground: openInBackground })
           }
         })
       }
@@ -133,7 +136,7 @@ const webviewMenu = {
       imageActions.push({
         label: l('openImageInNewPrivateTab'),
         click: function () {
-          browserUI.addTab(tabs.add({ url: mediaURL, private: true }), { enterEditMode: false })
+          browserUI.addTab(tabs.add({ url: mediaURL, private: true }), { enterEditMode: false, openInBackground: openInBackground })
         }
       })
 
@@ -163,7 +166,8 @@ const webviewMenu = {
               private: currentTab.private
             })
             browserUI.addTab(newTab, {
-              enterEditMode: false
+              enterEditMode: false,
+              openInBackground: openInBackground
             })
 
             webviews.get(newTab).focus()
@@ -186,7 +190,7 @@ const webviewMenu = {
       clipboardActions.push({
         label: l('copy'),
         click: function () {
-          clipboard.writeText(selection)
+          webviews.callAsync(tabs.getSelected(), 'copy')
         }
       })
     }
@@ -201,13 +205,13 @@ const webviewMenu = {
     }
 
     if (link || (mediaURL && !mediaURL.startsWith('blob:'))) {
-      if (link.startsWith('mailto:')) {
+      if (link && link.startsWith('mailto:')) {
         var ematch = link.match(/(?<=mailto:)[^\?]+/)
         if (ematch) {
           clipboardActions.push({
             label: l('copyEmailAddress'),
             click: function () {
-                clipboard.writeText(ematch[0])
+              clipboard.writeText(ematch[0])
             }
           })
         }
@@ -290,7 +294,7 @@ const webviewMenu = {
   initialize: function () {
     webviews.bindEvent('context-menu', function (tabId, data) {
       webviewMenu.menuData = data
-      webviews.callAsync(tabs.getSelected(), 'send', ['getContextMenuData', {x: data.x, y: data.y}])
+      webviews.callAsync(tabs.getSelected(), 'send', ['getContextMenuData', { x: data.x, y: data.y }])
     })
     webviews.bindIPC('contextMenuData', function (tabId, args) {
       webviewMenu.showMenu(webviewMenu.menuData, args[0])

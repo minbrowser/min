@@ -17,7 +17,7 @@ function registerCustomBang (data) {
     phrase: data.phrase,
     snippet: data.snippet,
     score: data.score || 256000,
-    icon: data.icon || 'fa-terminal',
+    icon: data.icon || 'carbon:terminal',
     showSuggestions: data.showSuggestions,
     fn: data.fn,
     isCustom: true,
@@ -169,7 +169,7 @@ function getBangSearchResults (text, input, event) {
       showBangSearchResults(text, results, input, event, 4)
       searchbarPlugins.addResult('bangs', {
         title: l('showMoreBangs'),
-        icon: 'fa-angle-down',
+        icon: 'carbon:chevron-down',
         click: function () {
           showBangSearchResults(text, results, input, event, Infinity)
         }
