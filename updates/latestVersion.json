@@ -1,7 +1,7 @@
 {
-    "version": "1.16.0",
-    "releaseTime": 1598559207455,
-    "releaseHeadline": "UI improvements and new features",
+    "version": "1.16.1",
+    "releaseTime": 1604185649394,
+    "releaseHeadline": "Security fixes",
     "releaseNotes": "https://minbrowser.org/releases/",
     "availabilityPercent": 1
 }
