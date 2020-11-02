@@ -169,6 +169,8 @@ function createWindowWithBounds (bounds) {
     backgroundColor: '#fff', // the value of this is ignored, but setting it seems to work around https://github.com/electron/electron/issues/10559
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
       nodeIntegrationInWorker: true, // used by ProcessSpawner
       additionalArguments: [
         '--user-data-path=' + userDataPath,

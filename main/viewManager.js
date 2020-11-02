@@ -4,7 +4,7 @@ var viewStateMap = {} // id: view state
 const BrowserView = electron.BrowserView
 
 function createView (id, webPreferencesString, boundsString, events) {
-  let view = new BrowserView(JSON.parse(webPreferencesString))
+  const view = new BrowserView(JSON.parse(webPreferencesString))
 
   events.forEach(function (event) {
     view.webContents.on(event, function (e) {
@@ -13,6 +13,7 @@ function createView (id, webPreferencesString, boundsString, events) {
       */
       var args = Array.prototype.slice.call(arguments).slice(1)
       if (event === 'new-window') {
+        e.preventDefault()
         args = args.slice(0, 3)
       }
 
@@ -48,7 +49,7 @@ function createView (id, webPreferencesString, boundsString, events) {
 
   // Open a login prompt when site asks for http authentication
   view.webContents.on('login', (event, authenticationResponseDetails, authInfo, callback) => {
-    if (authInfo.scheme !== 'basic') {  // Only for basic auth
+    if (authInfo.scheme !== 'basic') { // Only for basic auth
       return
     }
     event.preventDefault()
@@ -56,13 +57,13 @@ function createView (id, webPreferencesString, boundsString, events) {
     createPrompt({
       text: title,
       values: [{ placeholder: l('username'), id: 'username', type: 'text' },
-               { placeholder: l('password'), id: 'password', type: 'password' }],
+        { placeholder: l('password'), id: 'password', type: 'password' }],
       ok: l('dialogConfirmButton'),
       cancel: l('dialogSkipButton'),
       width: 400,
       height: 200
     }, function (result) {
-       // resend request with auth credentials
+      // resend request with auth credentials
       callback(result.username, result.password)
     })
   })
@@ -70,7 +71,7 @@ function createView (id, webPreferencesString, boundsString, events) {
   view.setBounds(JSON.parse(boundsString))
 
   viewMap[id] = view
-  viewStateMap[id] = {loadedInitialURL: false}
+  viewStateMap[id] = { loadedInitialURL: false }
 
   return view
 }
@@ -80,22 +81,17 @@ function destroyView (id) {
     return
   }
 
-  // destroy an associated partition
-
-  var partition = viewMap[id].webContents.getWebPreferences().partition
-  if (partition) {
-    session.fromPartition(partition).destroy()
-  }
   if (viewMap[id] === mainWindow.getBrowserView()) {
     mainWindow.setBrowserView(null)
   }
-  viewMap[id].destroy()
+  viewMap[id].webContents.destroy()
+
   delete viewMap[id]
   delete viewStateMap[id]
 }
 
 function destroyAllViews () {
-  for (let id in viewMap) {
+  for (const id in viewMap) {
     destroyView(id)
   }
 }
@@ -200,16 +196,16 @@ ipc.on('callViewMethod', function (e, data) {
   if (result instanceof Promise) {
     result.then(function (result) {
       if (data.callId) {
-        mainWindow.webContents.send('async-call-result', {callId: data.callId, error: null, result})
+        mainWindow.webContents.send('async-call-result', { callId: data.callId, error: null, result })
       }
     })
     result.catch(function (error) {
       if (data.callId) {
-        mainWindow.webContents.send('async-call-result', {callId: data.callId, error, result: null})
+        mainWindow.webContents.send('async-call-result', { callId: data.callId, error, result: null })
       }
     })
   } else if (data.callId) {
-    mainWindow.webContents.send('async-call-result', {callId: data.callId, error, result})
+    mainWindow.webContents.send('async-call-result', { callId: data.callId, error, result })
   }
 })
 
@@ -225,8 +221,8 @@ ipc.on('getCapture', function (e, data) {
     if (size.width === 0 && size.height === 0) {
       return
     }
-    img = img.resize({width: data.width, height: data.height})
-    mainWindow.webContents.send('captureData', {id: data.id, url: img.toDataURL()})
+    img = img.resize({ width: data.width, height: data.height })
+    mainWindow.webContents.send('captureData', { id: data.id, url: img.toDataURL() })
   })
 })
 
