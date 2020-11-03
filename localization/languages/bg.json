@@ -27,7 +27,7 @@
         "goForward": "Отиване една страница напред",
         "inspectElement": "Изследване на елемента",
         /* searchbar */
-        "pasteAndGo": null, //missing translation
+        "pasteAndGo": "Поставяне и посещаване",
         "DDGAnswerSubtitle": "Отговор", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Предложен сайт", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Резултати от DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -138,9 +138,9 @@
         "settingsBlockScriptsToggle": "Блокиране на скриптове",
         "settingsBlockImagesToggle": "Блокиране на изображения",
         "settingsBlockedRequestCount": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "Досега Min е блокирал <strong></strong> реклами и тракери."
         },
-        "settingsCustomizeFiltersLink": null, //missing translation
+        "settingsCustomizeFiltersLink": "Персонализирайте филтрите",
         "settingsAppearanceHeading": "Изглед",
         "settingsEnableDarkMode": "Активиране на тъмен режим:",
         "settingsDarkModeNever": "Никога",
@@ -162,13 +162,13 @@
         "customSearchEngineDescription": "Заменете думата за търсене със %s",
         "settingsKeyboardShortcutsHeading": "Комбинации от клавиши",
         "settingsKeyboardShortcutsHelp": "Използвайте запетаи, за да разделите множество комбинации за клавиши.",
-        "settingsProxyHeading": null, //missing translation
-        "settingsNoProxy": null, //missing translation
-        "settingsManualProxy": null, //missing translation
-        "settingsAutomaticProxy": null, //missing translation
-        "settingsProxyRules": null, //missing translation
-        "settingsProxyBypassRules": null, //missing translation
-        "settingsProxyConfigurationURL": null, //missing translation
+        "settingsProxyHeading": "Мрежов посредник",
+        "settingsNoProxy": "Без мрежов посредник",
+        "settingsManualProxy": "Ръчна настройка",
+        "settingsAutomaticProxy": "Автоматична настройка",
+        "settingsProxyRules": "Правила на мрежовия посредник:",
+        "settingsProxyBypassRules": "Без мрежов посредник за:",
+        "settingsProxyConfigurationURL": "Адрес за конфигурация",
         /* app menu */
         "appMenuFile": "Файл",
         "appMenuNewTab": "Нов раздел",
@@ -238,7 +238,7 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Автоматично попълване на пароли",
         "settingsSelectPasswordManager": "Изберете един от поддържаните мениджъри на пароли:",
-        "keychainViewPasswords": null, //missing translation
+        "keychainViewPasswords": "Виж запазени пароли",
         /* Password manager setup */
         "passwordManagerSetupHeading": "Завършете настройване на %p да попълва пароли",
         "passwordManagerSetupStep1": {
@@ -258,13 +258,13 @@
         "passwordManagerSetupRetry": "Уверете се, че използвате правилния файл и въвеждате правилна парола. Може да пробвате отново, като пак плъзнете уреда тук.",
         "passwordManagerUnlock": "Въведете Вашата %p главна парола, за да отключите хранилището за пароли:",
         /* Password save bar */
-        "passwordCaptureSavePassword": null, //missing translation
-        "passwordCaptureSave": null, //missing translation
-        "passwordCaptureDontSave": null, //missing translation
+        "passwordCaptureSavePassword": "Запази парола за %s?",
+        "passwordCaptureSave": "Запази",
+        "passwordCaptureDontSave": "Не запазвай",
         /* Password viewer */
-        "savedPasswordsHeading": null, //missing translation
-        "savedPasswordsEmpty": null, //missing translation
-        "deletePassword": null, //missing translation
+        "savedPasswordsHeading": "Запазени пароли",
+        "savedPasswordsEmpty": "Няма запазени пароли.",
+        "deletePassword": "Изтрий парола за %s?",
         /* Dialogs */
         "loginPromptTitle": "Впишете се в %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Потвърждаване",
