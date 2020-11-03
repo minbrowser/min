@@ -5,29 +5,29 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "addToDictionary": null, //missing translation
-        "pictureInPicture": null, //missing translation
+        "addToDictionary": "Ins Wörterbuch hinzufügen", 
+        "pictureInPicture": "Bild in Bild", 
         "openInNewTab": "Link in neuem Tab öffnen",
         "openInNewPrivateTab": "Link in neuem Inkognito-Tab öffnen",
-        "saveLinkAs": null, //missing translation
+        "saveLinkAs": "Link speichern als...", 
         "viewImage": "Bild anzeigen",
         "openImageInNewTab": "Bild in neuem Tab öffnen",
         "openImageInNewPrivateTab": "Bild in neuem Inkognito-Tab öffnen",
         "saveImageAs": "Bild speichern als",
         "searchWith": "Suche mit %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Link kopieren",
-        "copyEmailAddress": null, //missing translation
-        "selectAll": null, // Missing Translation
-        "undo": null, // Missing Translation
-        "redo": null, // Missing Translation
-        "cut": null, // Missing Translation
+        "copyEmailAddress": "E-Mail-Adresse kopieren", 
+        "selectAll": "Alles auswählen", 
+        "undo": "Rückgängig machen", 
+        "redo": "Wiederherstellen", 
+        "cut": "Ausschneiden", 
         "copy": "Kopieren", //this is a verb (as in "copy the currently-selected text")
         "paste": "Einfügen",
         "goBack": "Gehe zurück",
         "goForward": "Gehe vorwärts",
         "inspectElement": "Element untersuchen",
         /* searchbar */
-        "pasteAndGo": null, //missing translation
+        "pasteAndGo": "Einfügen und los", 
         "DDGAnswerSubtitle": "Antwort", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Vorgeschlagene Seite", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Ergebnisse von DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -35,67 +35,67 @@
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": null, //missing translation
+        "showMoreBangs": "Mehr anzeigen", 
         "viewSettings": "Einstellungen anzeigen",
-        "viewReadingList": null, //missing translation
+        "viewReadingList": "Leseliste anzeigen", 
         "takeScreenshot": "Screenshot erstellen",
         "clearHistory": "Verlauf komplett löschen",
-        "enableBlocking": null, //missing translation
-        "disableBlocking": null, //missing translation
-        "clearHistoryConfirmation": null, //missing translation
-        "switchToTask": "zu Aufgabe wechseln",
+        "enableBlocking": "Blockierung von Seitenelemente auf dieser Seite aktivieren", 
+        "disableBlocking": "Blockierung von Seitenelemente auf dieser Seite aufheben", 
+        "clearHistoryConfirmation": "Verlauf und Browsingdaten komplett löschen?" , 
+        "switchToTask": "Aufgabe wechseln",
         "createTask": "Aufgabe erstellen",
-        "closeTask": null, //missing translation
-        "moveToTask": "Verschiebe diesen Tab zu Aufgabe",
-        "nameTask": null, //missing translation
-        "addBookmark": null, //missing translation
-        "searchBookmarks": "Bookmarks durchsuchen",
-        "bookmarksAddTag": null, //missing translation
-        "bookmarksSimilarItems": null, //missing translation
-        "searchHistory": null, //missing translation
-        "importBookmarks": null, //missing translation
-        "exportBookmarks": null, //missing translation
-        "runUserscript": null, //missing translation
+        "closeTask": "Aufgabe schließen", 
+        "moveToTask": "Verschiebe diesen Tab zu einer Aufgabe",
+        "nameTask": "Benenne diese Aufgabe", 
+        "addBookmark": "Zu Lesezeichen hinzufügen", 
+        "searchBookmarks": "Lesezeichen durchsuchen",
+        "bookmarksAddTag": "Schlagwort hinzufügen...", 
+        "bookmarksSimilarItems": "Ähnliche Einträge", 
+        "searchHistory": "Verlauf durchsuchen", 
+        "importBookmarks": "Lesezeichen von HTML Datei importieren", 
+        "exportBookmarks": "Lesezeichen exportieren", 
+        "runUserscript": "Nutzerskript ausführen", 
         /* navbar */
-        "openMenu": null, //missing translation
+        "openMenu": "Menü öffnen", 
         "enterReaderView": "Leseansicht öffnen",
         "exitReaderView": "Leseansicht verlassen",
-        "emptyReadingListTitle": "Die Leseansicht ist leer",
-        "emptyReadingListSubtitle": "Artikel, die in der Leseansicht geöffnet sind, werden hier aufgelistet und für 30 Tage gespeichert.",
+        "emptyReadingListTitle": "Die Leseliste ist leer",
+        "emptyReadingListSubtitle": "Artikel, die in der Leseansicht geöffnet werden, werden hier aufgelistet und für 30 Tage offline gespeichert.",
         "newTabLabel": "Neuer Tab", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "Die Verbindung zu dieser Webseite ist nicht sicher.",
-        "searchbarPlaceholder": "Suche oder Adresse eingeben",
-        "privateTab": "Inkognito-Tab",
-        "newTabAction": "Neuer Tab", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+        "searchbarPlaceholder": "Suchen oder Adresse eingeben",
+        "privateTab": "Privater Tab",
+        "newTabAction": "Neuen Tab öffnen", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
         "viewTasks": "Aufgaben anzeigen",
         "newTask": "Neue Aufgabe", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Aufgabe %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
         "taskDeleteWarning": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "Aufgabe gelöscht. <a>Rückgängig machen?</a>" 
         },
-        "returnToTask": null, //missing translation
-        "taskDescriptionTwo": null, //missing translation
-        "taskDescriptionThree": null, //missing translation
+        "returnToTask": "Zur vorherigen Aufgabe zurückkehren", 
+        "taskDescriptionTwo": "%t und %t", 
+        "taskDescriptionThree": "%t, %t, und %n mehr", 
         /* find in page toolbar */
-        "searchInPage": "Suche auf der Seite", //this is used as the placeholder text for the textbox in the find in page toolbar
+        "searchInPage": "In Seite suchen", //this is used as the placeholder text for the textbox in the find in page toolbar
         "findMatchesSingular": "%i von %t Übereinstimmung", //this and the next label are used to indicate which match is currently highlighted
         "findMatchesPlural": "%i von %t Übereinstimmungen",
         /* Focus mode */
-        "isFocusMode": "Fokus-Mode eingeschaltet.",
+        "isFocusMode": "Fokus-Modus ist eingeschaltet.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+        "focusModeExplanation1": "Im Fokus-Modus kann man keine neuen Tabs erstellen oder die Aufgabe wechseln.",  "In focus mode, you can't create new tabs or switch tasks."
+        "focusModeExplanation2": "Man kann den Fokus-Modus verlassen, indem man \"Fokus-Modus\" in der Menü Ansicht auswählt.",  "You can leave focus mode by unchecking \"focus mode\" in the view menu."
         /* relative dates */
-        "timeRangeJustNow": null, //missing translation
-        "timeRangeMinutes": null, //missing translation
-        "timeRangeHour": null, //missing translation
-        "timeRangeToday": null, //missing translation
-        "timeRangeYesterday": null, //missing translation
-        "timeRangeWeek": null, //missing translation
-        "timeRangeMonth": null, //missing translation
-        "timeRangeYear": null, //missing translation
-        "timeRangeLongerAgo": null, //missing translation
+        "timeRangeJustNow": "Gerade eben", 
+        "timeRangeMinutes": "Vor einigen Minuten", 
+        "timeRangeHour": "Vor einer Stunde", 
+        "timeRangeToday": "Heute", 
+        "timeRangeYesterday": "Gestern", 
+        "timeRangeWeek": "Letzte Woche", 
+        "timeRangeMonth": "Letzten Monat", 
+        "timeRangeYear": "Letztes Jahr", 
+        "timeRangeLongerAgo": "Vor langer Zeit", 
         /* pages/error/index.html */
         "crashErrorTitle": "Etwas ging schief.",
         "crashErrorSubtitle": "Bei der Anzeige der Seite trat ein Problem auf.",
@@ -119,7 +119,7 @@
         "phishingErrorVisitAnyway": "Seite trotzdem besuchen",
         "phishingErrorLeave": "Seite verlassen",
         /* multiple instances alert */
-        "multipleInstancesErrorMessage": null, // missing translation
+        "multipleInstancesErrorMessage": "Ein Fehler ist aufgetreten. Bitte schließe alle anderen offenen Instanzen und starte Min neu.",
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Es trat ein Fehler auf",
         "sessionRestoreErrorExplanation": "Die gespeicherten Tabs konnten nicht wiederhergestellt werden.",
@@ -130,51 +130,53 @@
         /* pages/settings/index.html */
         "settingsPreferencesHeading": "Einstellungen",
         "settingsRestartRequired": "Ein Neustart ist erforderlich um die Änderungen zu übernehmen.",
-        "settingsPrivacyHeading": "Inhalte blockieren",
-        "settingsContentBlockingLevel0": null, //missing translation
-        "settingsContentBlockingLevel1": null, //missing translation
-        "settingsContentBlockingLevel2": null, //missing translation
-        "settingsContentBlockingExceptions": null, //missing translation
+        "settingsPrivacyHeading": "Blockierung von Seitenelementen",
+        "settingsContentBlockingLevel0": "Alle Werbeanzeigen und Aktivitätsverfolgungen erlauben", 
+        "settingsContentBlockingLevel1": "Werbeanzeigen und Aktivitätsverfolgungen von Drittanbietern blockieren", 
+        "settingsContentBlockingLevel2": "Alle Werbeanzeigen und Aktivitätsverfolgungen blockieren", 
+        "settingsContentBlockingExceptions": "Werbeanzeigen werden auf diesen Webseiten weiterhin erlaubt:", 
         "settingsBlockScriptsToggle": "Scripte blockieren",
         "settingsBlockImagesToggle": "Bilder blockieren",
         "settingsBlockedRequestCount": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "Bis jetzt hat Min <strong></strong> Werbeanzeigen und Aktivitätsverfolgungen blockiert." 
         },
-        "settingsCustomizeFiltersLink": null, //missing translation
+        "settingsCustomizeFiltersLink": "Filter anpassen", 
         "settingsAppearanceHeading": "Aussehen",
         "settingsEnableDarkMode": "Dunkelmodus einschalten:",
-        "settingsDarkModeNever": "Nein",
+        "settingsDarkModeNever": "Nie",
         "settingsDarkModeNight": "In der Nacht",
-        "settingsDarkModeAlways": "Ständig",
-        "settingsSiteThemeToggle": null, //missing translation
-        "settingsAdditionalFeaturesHeading": null, //missing translation
-        "settingsUserscriptsToggle": null, //missing translation
-        "settingsShowDividerToggle": null, // Missing translation
-        "settingsSeparateTitlebarToggle": null, //missing translation
-        "settingsOpenTabsInForegroundToggle": null, //missing translation
-        "settingsUserscriptsExplanation": null, //missing translation
-        "settingsUserAgentToggle": null, //missing translation
-        "settingsUpdateNotificationsToggle": null, //missing translation
+        "settingsDarkModeAlways": "Immer",
+        "settingsSiteThemeToggle": "Seitenabhängiges Aussehen aktivieren", 
+        "settingsAdditionalFeaturesHeading": "Zusätzliche Funktionen", 
+        "settingsUserscriptsToggle": "Benutzerdefinierte Skripte aktivieren", 
+        "settingsShowDividerToggle": "Trennwand zwischen Tabs anzeigen",
+        "settingsSeparateTitlebarToggle": "Seperate Titelleiste nutzen", 
+        "settingsOpenTabsInForegroundToggle": "Neue Tabs im Vordergrund öffnen", 
+        "settingsUserscriptsExplanation": {
+            "unsafeHTML": "Benutzerdefinierte Skripte erlauben es das Verhalten von Webseiten zu modifizieren - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\"> mehr dazu.</a>."
+        },
+        "settingsUserAgentToggle": "Benutzerdefiniertes Benutzer-Agent nutzen", 
+        "settingsUpdateNotificationsToggle": "Automatisch nach Aktualisierungen überprüfen", 
         "settingsSearchEngineHeading": "Suchmaschine",
-        "settingsDefaultSearchEngine": "Suchmaschine auswählen:",
-        "settingsDDGExplanation": "DuckDuckGo als Standard-Suchmaschine einstellen, um sofort Vorschläge in der Suchleiste zu erhalten.",
-        "customSearchEngineDescription": null, //missing translation
+        "settingsDefaultSearchEngine": "Standardsuchmaschine auswählen:",
+        "settingsDDGExplanation": "DuckDuckGo als Standardsuchmaschine einstellen, um sofort Vorschläge in der Suchleiste zu erhalten.",
+        "customSearchEngineDescription": "Ersetze den Suchbegriff mit %s", 
         "settingsKeyboardShortcutsHeading": "Tastaturkürzel",
-        "settingsKeyboardShortcutsHelp": null, //missing translation
-        "settingsProxyHeading": null, //missing translation
-        "settingsNoProxy": null, //missing translation
-        "settingsManualProxy": null, //missing translation
-        "settingsAutomaticProxy": null, //missing translation
-        "settingsProxyRules": null, //missing translation
-        "settingsProxyBypassRules": null, //missing translation
-        "settingsProxyConfigurationURL": null, //missing translation
+        "settingsKeyboardShortcutsHelp": "Nutze Kommata um mehrere Kürzel zu setzen.", 
+        "settingsProxyHeading": "Proxy", 
+        "settingsNoProxy": "Kein Proxy", 
+        "settingsManualProxy": "Manuelle Konfiguration", 
+        "settingsAutomaticProxy": "Automatisch Konfigurieren lassen", 
+        "settingsProxyRules": "Proxy-Regeln:", 
+        "settingsProxyBypassRules": "Kein Proxy nutzen für:", 
+        "settingsProxyConfigurationURL": "Konfigurations Adresse", 
         /* app menu */
         "appMenuFile": "Datei",
         "appMenuNewTab": "Neuer Tab",
-        "appMenuDuplicateTab": null, //missing translation
-        "appMenuNewPrivateTab": "Neuer Inkognito-Tab",
+        "appMenuDuplicateTab": "Tab duplizieren", 
+        "appMenuNewPrivateTab": "Neuer privater Tab",
         "appMenuNewTask": "Neue Aufgabe",
-        "appMenuSavePageAs": "Seite sichern als",
+        "appMenuSavePageAs": "Seite speichern als",
         "appMenuPrint": "Drucken",
         "appMenuEdit": "Ändern",
         "appMenuUndo": "Rückgängig",
@@ -188,11 +190,11 @@
         "appMenuZoomIn": "Hinein zoomen",
         "appMenuZoomOut": "Heraus zoomen",
         "appMenuActualSize": "Tatsächliche Größe",
-        "appMenuFullScreen": "Ganzer Bildschirm", //on some platforms, this string is replaced with one built-in to the OS
-        "appMenuFocusMode": "Fokus-Mode",
-        "appMenuReadingList": "Leseansicht",
-        "appMenuBookmarks": null, //missing translation
-        "appMenuHistory": null, //missing translation
+        "appMenuFullScreen": "Vollbild", //on some platforms, this string is replaced with one built-in to the OS
+        "appMenuFocusMode": "Fokus-Modus",
+        "appMenuReadingList": "Leseliste",
+        "appMenuBookmarks": "Lesezeichen",
+        "appMenuHistory": "Verlauf",
         "appMenuDeveloper": "Entwickler",
         "appMenuReloadBrowser": "Browser neu laden",
         "appMenuInspectBrowser": "Browser überprüfen",
@@ -200,7 +202,7 @@
         "appMenuWindow": "Fenster",
         "appMenuMinimize": "Minimieren",
         "appMenuClose": "Schließen",
-        "appMenuAlwaysOnTop": null, //missing translation
+        "appMenuAlwaysOnTop": "Immer im Vordergrund",
         "appMenuHelp": "Hilfe",
         "appMenuKeyboardShortcuts": "Tastaturkürzel",
         "appMenuReportBug": "Fehler melden",
@@ -211,26 +213,65 @@
         "appMenuServices": "Dienste",
         "appMenuHide": "Verstecke %n",
         "appMenuHideOthers": "Andere verstecken",
-        "appMenuShowAll": "Zeige alle",
+        "appMenuShowAll": "Alle anzeigen",
         "appMenuQuit": "Beende %n",
         "appMenuBringToFront": "Alle nach vorne bringen",
         /* PDF Viewer */
-        "PDFPageCounter": null, //missing translation
+        "PDFPageCounter": {
+            "unsafeHTML": "Seite <input type='text'/> von <span id='total'></span>"
+        },
         /* Context Reader */
-        "buttonReaderSettings": null, //missing translation "Reader Settings"
-        "buttonReaderLightTheme": null, //missing translation "Light"
-        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
-        "buttonReaderDarkTheme": null, //missing translation "Dark"
-        "openReaderView": null, //missing translation "Always open in reader view"
-        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-        "buttonReaderRedirectYes": null, //missing translation "Yes"
-        "buttonReaderRedirectNo": null, //missing translation "No"
-        "articleReaderView": null, //missing translation "Original Article"
+        "buttonReaderSettings": "Leseeinstellungen",
+        "buttonReaderLightTheme": "Hell",
+        "buttonReaderSepiaTheme": "Sepia",
+        "buttonReaderDarkTheme": "Dunkel",
+        "openReaderView": "Immer in Leseransicht öffnen",
+        "autoRedirectBannerReader": "Artikel von dieser Seite immer in Leseransicht öffnen?",
+        "buttonReaderRedirectYes": "Ja",
+        "buttonReaderRedirectNo": "Nein",
+        "articleReaderView": "Ursprünglicher Artikel",
         /* Download manager */
-        "downloadCancel": null, //missing translation
-        "downloadStateCompleted": null, //missing translation
-        "downloadStateFailed": null, //missing translation
+        "downloadCancel": "Abbrechen",
+        "downloadStateCompleted": "Abgeschlossen",
+        "downloadStateFailed": "Fehlgeschlagen",
         /* Update Notifications */
-        "updateNotificationTitle": null //missing translation
+        "updateNotificationTitle": "Eine neue Version von Min ist verfügbar",
+        /* Autofill settings */
+        "settingsPasswordAutoFillHeadline": "Passwort Automatisch Ausfüllen",
+        "settingsSelectPasswordManager": "Wähle eines der unterstützten Passwortmanager:",
+        "keychainViewPasswords": "Gespeicherte Passwörter anzeigen",
+        /* Password manager setup */
+        "passwordManagerSetupHeading": "Beende die Konfiguration von %p um die automatische Ausfüll Funktion zu nutzen",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "Als erstes, <a id='password-manager-setup-link'></a> und extrahiere es auf dein System."
+        },
+        "passwordManagerInstallerSetup": {
+            "unsafeHTML": "Lade <a id='password-manager-setup-link-installer'></a> herunter und ziehe die Datei unten in die Box:"
+        },
+        "passwordManagerSetupLink": "Lade die %p Befehlszeilenschnittstelle herunter",
+        "passwordManagerSetupLinkInstaller": "Die %p Befehlzeilenschnittstelle Installationsprogramm",
+        "passwordManagerSetupStep2": "Ziehe danach das Programm in die untere Box:",
+        "passwordManagerSetupDragBox": "Ziehe das Programm hierher",
+        "passwordManagerSetupInstalling": "Installiere...",
+        "passwordManagerSetupSignIn": "Melde dich in dein Passwortmanager ein um die automatische Ausfüll Funktion zu nutzen. Deine Zugangsdaten werden nirgendwo in Min gepspeichert.",
+        "disableAutofill": "Automatische Ausfüll Funktion deaktivieren",
+        "passwordManagerSetupUnlockError": "Beim Entsperren des Passwortmanagers ist ein Fehler aufgetreten:",
+        "passwordManagerSetupRetry": "Stelle sicher, dass die richtige Datei genutzt und das richtige Passwort eingegeben wurde. Ziehe das Programm wieder hierher, um es noch mal zu versuchen.",
+        "passwordManagerUnlock": "Gebe dein %p Hauptkennwort ein, um dein Passwortmanager zu entsperren:",
+        /* Password save bar */
+        "passwordCaptureSavePassword": "Zugangsdaten für %s speichern?",
+        "passwordCaptureSave": "Speichern",
+        "passwordCaptureDontSave": "Nicht speichern",
+        /* Password viewer */
+        "savedPasswordsHeading": "Gespeicherte Passwörter",
+        "savedPasswordsEmpty": "Keine gespeicherte Passwörter",
+        /* Dialogs */
+        "loginPromptTitle": "Bei %h (%r) anmelden", //%h is replaced with host, %r with realm (title of protected part of site)
+        "dialogConfirmButton": "Bestätigen",
+        "dialogSkipButton": "Abbrechen",
+        "username": "Benutzername",
+        "email": "E-Mail",
+        "password": "Passwort",
+        "secretKey": "Geheimschlüssel"
     }
 }
