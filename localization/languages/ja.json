@@ -239,7 +239,7 @@
         /* Password settings */
         "settingsPasswordAutoFillHeadline": "パスワードの自動入力",
         "settingsSelectPasswordManager": "サポートされているパスワードマネージャのいずれかを選択します。",
-        "keychainViewPasswords": null, //missing translation
+        "keychainViewPasswords": "保存したパスワードを表示する",
        /* Password manager setup */
         "passwordManagerSetupHeading": "自動入力を使用するための％pの設定を完了してください",
         "passwordManagerSetupStep1": {
@@ -259,13 +259,13 @@
         "passwordManagerSetupRetry": "正しいファイルを使用し、正しいパスワードを入力していることを確認してください。 ここにツールをもう一度ドラッグすると、再試行できます。",
         "passwordManagerUnlock": "％pマスターパスワードを入力して、パスワードストアのロックを解除します。",
         /* Password save bar */
-        "passwordCaptureSavePassword": null, //missing translation
-        "passwordCaptureSave": null, //missing translation
-        "passwordCaptureDontSave": null, //missing translation
+        "passwordCaptureSavePassword": "％sのパスワードを保存しますか？",
+        "passwordCaptureSave": "保存する",
+        "passwordCaptureDontSave": "保存しないで",
         /* Password viewer */
-        "savedPasswordsHeading": null, //missing translation
-        "savedPasswordsEmpty": null, //missing translation
-        "deletePassword": null, //missing translation
+        "savedPasswordsHeading": "保存されたパスワード",
+        "savedPasswordsEmpty": "保存されたパスワードはありません。",
+        "deletePassword": "％sのパスワードを削除しますか？",
         /* Dialogs */
         "loginPromptTitle": "％hにサインイン（％r）",
         "dialogConfirmButton": "確認する",
