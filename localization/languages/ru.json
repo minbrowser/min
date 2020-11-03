@@ -239,7 +239,7 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Автоматическое заполнение пароля",
         "settingsSelectPasswordManager": "Выберите один из поддерживаемых менеджеров паролей:",
-        "keychainViewPasswords": null, //missing translation
+        "keychainViewPasswords": "Просмотр сохраненных паролей",
        /* Password manager setup */
         "passwordManagerSetupHeading": "Завершить настройку %p для использования автозаполнения",
         "passwordManagerSetupStep1": {
@@ -259,13 +259,13 @@
         "passwordManagerSetupRetry": "Убедитесь, что вы используете правильный файл и вводите правильный пароль. Вы можете повторить попытку, перетащив инструмент сюда еще раз.",
         "passwordManagerUnlock": "Введите свой мастер-пароль %p, чтобы разблокировать хранилище паролей:",
         /* Password save bar */
-        "passwordCaptureSavePassword": null, //missing translation
-        "passwordCaptureSave": null, //missing translation
-        "passwordCaptureDontSave": null, //missing translation
+        "passwordCaptureSavePassword": "Сохранить пароль для %s?",
+        "passwordCaptureSave": "Сохранить",
+        "passwordCaptureDontSave": "Не сохранять",
         /* Password viewer */
-        "savedPasswordsHeading": null, //missing translation
-        "savedPasswordsEmpty": null, //missing translation
-        "deletePassword": null, //missing translation
+        "savedPasswordsHeading": "Сохраненные пароли",
+        "savedPasswordsEmpty": "Нет сохраненных паролей.",
+        "deletePassword": "Удалить пароль для %s?",
         /* Dialogs */
         "loginPromptTitle": "Войти на %s (%h)",
         "dialogConfirmButton": "Подтвердить",
