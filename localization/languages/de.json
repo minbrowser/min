@@ -84,8 +84,8 @@
         /* Focus mode */
         "isFocusMode": "Fokus-Modus ist eingeschaltet.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "Im Fokus-Modus kann man keine neuen Tabs erstellen oder die Aufgabe wechseln.",  "In focus mode, you can't create new tabs or switch tasks."
-        "focusModeExplanation2": "Man kann den Fokus-Modus verlassen, indem man \"Fokus-Modus\" in der Menü Ansicht auswählt.",  "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+        "focusModeExplanation1": "Im Fokus-Modus kann man keine neuen Tabs erstellen oder die Aufgabe wechseln.",
+        "focusModeExplanation2": "Man kann den Fokus-Modus verlassen, indem man \"Fokus-Modus\" in der Menü Ansicht auswählt.",
         /* relative dates */
         "timeRangeJustNow": "Gerade eben", 
         "timeRangeMinutes": "Vor einigen Minuten", 
