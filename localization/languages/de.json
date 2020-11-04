@@ -239,7 +239,7 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Passwort Automatisch Ausfüllen",
         "settingsSelectPasswordManager": "Wähle eines der unterstützten Passwortmanager:",
-        "keychainViewPasswords": "Gespeicherte Passwörter anzeigen",
+        "keychainViewPasswords": "Gespeicherte Zugangsdaten anzeigen",
         /* Password manager setup */
         "passwordManagerSetupHeading": "Beende die Konfiguration von %p um die automatische Ausfüll Funktion zu nutzen",
         "passwordManagerSetupStep1": {
@@ -265,6 +265,7 @@
         /* Password viewer */
         "savedPasswordsHeading": "Gespeicherte Passwörter",
         "savedPasswordsEmpty": "Keine gespeicherte Passwörter",
+        "deletePassword": "Zugangsdaten für %s löschen?",
         /* Dialogs */
         "loginPromptTitle": "Bei %h (%r) anmelden", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Bestätigen",
