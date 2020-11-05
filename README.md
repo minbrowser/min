@@ -63,7 +63,13 @@ Depending on the platform you are building for, you may need to install addition
 
 ## Contributing to Min
 
-Thanks for taking the time to contribute to Min! If you have any questions or run into any problems, please [open an issue](https://github.com/minbrowser/min/issues/new). We also have a [Discord server](https://discord.gg/bRpqjJ4) where you can ask questions or talk about what you're working on.
+Thanks for taking the time to contribute to Min!
+
+### Getting Help
+
+If you're experiencing a bug or have a suggestion for how to improve Min, please open a [new issue](https://github.com/minbrowser/min/issues/new/choose).
+
+If you have questions about using Min, need help getting started with development, or want to talk about what we're working on, join our [Discord server](https://discord.gg/bRpqjJ4).
 
 ### Contributing Code
 
