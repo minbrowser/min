@@ -1,22 +1,24 @@
-let proxyConfig = {}
+let proxyConfig = {};
 
-settings.listen('proxy', (proxy = {}) => {
+settings.listen("proxy", (proxy = {}) => {
   switch (proxy.type) {
     case 1:
       proxyConfig = {
-        pacScript: '',
+        pacScript: "",
         proxyRules: proxy.proxyRules,
-        proxyBypassRules: proxy.proxyBypassRules
-      }
-      break
+        proxyBypassRules: proxy.proxyBypassRules,
+      };
+      break;
     case 2:
-      proxyConfig.pacScript = proxy.pacScript
-      break
+      proxyConfig.pacScript = proxy.pacScript;
+      break;
     default:
-      proxyConfig = {}
+      proxyConfig = {};
   }
 
-  webContents.getAllWebContents().forEach(wc => wc.session && wc.session.setProxy(proxyConfig))
-})
+  webContents
+    .getAllWebContents()
+    .forEach((wc) => wc.session && wc.session.setProxy(proxyConfig));
+});
 
-app.on('session-created', session => session.setProxy(proxyConfig))
+app.on("session-created", (session) => session.setProxy(proxyConfig));

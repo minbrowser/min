@@ -1,36 +1,42 @@
-var hosts = []
+var hosts = [];
 
-var HOSTS_FILE = process.platform === 'win32'
-  ? 'C:/Windows/System32/drivers/etc/hosts'
-  : '/etc/hosts'
+var HOSTS_FILE =
+  process.platform === "win32"
+    ? "C:/Windows/System32/drivers/etc/hosts"
+    : "/etc/hosts";
 
-function truncatedHostsFileLines (data, limit) {
+function truncatedHostsFileLines(data, limit) {
   return data.length > limit
-    ? data.substring(0, limit).split('\n').slice(0, -1)
-    : data.split('\n')
+    ? data.substring(0, limit).split("\n").slice(0, -1)
+    : data.split("\n");
 }
 
-fs.readFile(HOSTS_FILE, 'utf8', function (err, data) {
+fs.readFile(HOSTS_FILE, "utf8", function (err, data) {
   if (err) {
-    console.warn('error retrieving hosts file', err)
-    return
+    console.warn("error retrieving hosts file", err);
+    return;
   }
 
-  var hostsMap = {} // this is used to deduplicate the list
+  var hostsMap = {}; // this is used to deduplicate the list
 
-  const lines = truncatedHostsFileLines(data, 128 * 1024)
+  const lines = truncatedHostsFileLines(data, 128 * 1024);
 
   lines.forEach(function (line) {
-    if (line.startsWith('#')) {
-      return
+    if (line.startsWith("#")) {
+      return;
     }
     line.split(/\s/g).forEach(function (host) {
-      if (host.length > 0 && host !== '255.255.255.255' && host !== 'broadcasthost' && !hostsMap[host]) {
-        hosts.push(host)
-        hostsMap[host] = true
+      if (
+        host.length > 0 &&
+        host !== "255.255.255.255" &&
+        host !== "broadcasthost" &&
+        !hostsMap[host]
+      ) {
+        hosts.push(host);
+        hostsMap[host] = true;
       }
-    })
-  })
-})
+    });
+  });
+});
 
-module.exports = hosts
+module.exports = hosts;

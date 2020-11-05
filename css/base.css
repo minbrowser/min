@@ -1,49 +1,50 @@
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-size: 16px;
-	font-family: '.SFNSText-Regular', 'BlinkMacSystemFont', 'Helvetica Neue', 'Segoe UI', 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-family: ".SFNSText-Regular", "BlinkMacSystemFont", "Helvetica Neue",
+    "Segoe UI", "Arial", sans-serif;
 }
 /* TODO figure out why the default focus color in Electron is orange */
 *:focus {
-	outline-color: rgb(0, 117, 255);
+  outline-color: rgb(0, 117, 255);
 }
 .dark-mode *:focus {
-	outline-color: transparent;
+  outline-color: transparent;
 }
 body.mac * {
-	letter-spacing: 0.4px;
+  letter-spacing: 0.4px;
 }
 /* workaround for https://pspdfkit.com/blog/2020/text-selection-bug-chrome-83/ */
 ::selection {
-	color: currentColor;
-	background-color: highlight;
+  color: currentColor;
+  background-color: highlight;
 }
 [hidden] {
-	display: none !important;
+  display: none !important;
 }
 
 /* buttons are styled like normal text by default */
 button {
-	-webkit-appearance: none;
-	background: none;
-	border: none;
-	color: inherit;
-	outline: none;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  color: inherit;
+  outline: none;
 }
 body,
 html {
-	background-color: #fff;
-	color: #000;
-	height: 100%;
-	overflow: hidden;
-	-webkit-user-select: none;
+  background-color: #fff;
+  color: #000;
+  height: 100%;
+  overflow: hidden;
+  -webkit-user-select: none;
 }
 
 body.dark-mode {
-	background-color: rgb(33, 37, 43);
-	color: lightgrey;
+  background-color: rgb(33, 37, 43);
+  color: lightgrey;
 }
 
 h1,
@@ -78,20 +79,20 @@ h1 + h2 {
 }
 
 .light-fade {
-	opacity: 0.666;
+  opacity: 0.666;
 }
 
 a {
-	color: royalblue;
-	text-decoration: none;
+  color: royalblue;
+  text-decoration: none;
 }
 
 .dark-mode a {
-	color: dodgerblue;
+  color: dodgerblue;
 }
 
 .dark-mode input {
-	background-color: rgb(52, 58, 68);
-	color: white;
-	border-color: transparent;
+  background-color: rgb(52, 58, 68);
+  color: white;
+  border-color: transparent;
 }

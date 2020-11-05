@@ -29,10 +29,16 @@ var REGEXPS = {
 
 function isNodeVisible(node) {
   // Have to null-check node.style and node.className.indexOf to deal with SVG and MathML nodes.
-  return (!node.style || node.style.display != "none")
-    && !node.hasAttribute("hidden")
+  return (
+    (!node.style || node.style.display != "none") &&
+    !node.hasAttribute("hidden") &&
     //check for "fallback-image" so that wikimedia math images are displayed
-    && (!node.hasAttribute("aria-hidden") || node.getAttribute("aria-hidden") != "true" || (node.className && node.className.indexOf && node.className.indexOf("fallback-image") !== -1));
+    (!node.hasAttribute("aria-hidden") ||
+      node.getAttribute("aria-hidden") != "true" ||
+      (node.className &&
+        node.className.indexOf &&
+        node.className.indexOf("fallback-image") !== -1))
+  );
 }
 
 /**
@@ -57,7 +63,7 @@ function isProbablyReaderable(doc, isVisible) {
   var brNodes = doc.querySelectorAll("div > br");
   if (brNodes.length) {
     var set = new Set(nodes);
-    [].forEach.call(brNodes, function(node) {
+    [].forEach.call(brNodes, function (node) {
       set.add(node.parentNode);
     });
     nodes = Array.from(set);
@@ -66,13 +72,14 @@ function isProbablyReaderable(doc, isVisible) {
   var score = 0;
   // This is a little cheeky, we use the accumulator 'score' to decide what to return from
   // this callback:
-  return [].some.call(nodes, function(node) {
-    if (!isVisible(node))
-      return false;
+  return [].some.call(nodes, function (node) {
+    if (!isVisible(node)) return false;
 
     var matchString = node.className + " " + node.id;
-    if (REGEXPS.unlikelyCandidates.test(matchString) &&
-        !REGEXPS.okMaybeItsACandidate.test(matchString)) {
+    if (
+      REGEXPS.unlikelyCandidates.test(matchString) &&
+      !REGEXPS.okMaybeItsACandidate.test(matchString)
+    ) {
       return false;
     }
 

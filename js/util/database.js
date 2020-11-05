@@ -1,14 +1,14 @@
 // defines schema for the browsingData database
 // requires Dexie.min.js
 
-if (typeof Dexie === 'undefined' && typeof require !== 'undefined') {
-  var Dexie = require('dexie')
+if (typeof Dexie === "undefined" && typeof require !== "undefined") {
+  var Dexie = require("dexie");
 }
 
-var dbErrorMessage = 'Internal error opening backing store for indexedDB.open'
-var dbErrorAlertShown = false
+var dbErrorMessage = "Internal error opening backing store for indexedDB.open";
+var dbErrorAlertShown = false;
 
-var db = new Dexie('browsingData2')
+var db = new Dexie("browsingData2");
 
 db.version(1).stores({
   /*
@@ -19,21 +19,26 @@ db.version(1).stores({
   isBookmarked - whether the page is a bookmark
   extraData - other metadata about the page
   */
-  places: '++id, &url, title, color, visitCount, lastVisit, pageHTML, extractedText, *searchIndex, isBookmarked, *tags, metadata',
-  readingList: 'url, time, visitCount, pageHTML, article, extraData' // article is the object from readability, pageHTML is unused (TODO remove this)
-})
+  places:
+    "++id, &url, title, color, visitCount, lastVisit, pageHTML, extractedText, *searchIndex, isBookmarked, *tags, metadata",
+  readingList: "url, time, visitCount, pageHTML, article, extraData", // article is the object from readability, pageHTML is unused (TODO remove this)
+});
 
-db.open().then(function () {
-  console.log('database opened ', performance.now())
-}).catch(function (error) {
-  if (error.message.indexOf(dbErrorMessage) !== -1 && !dbErrorAlertShown) {
-    window && window.alert && window.alert(l('multipleInstancesErrorMessage'))
-    remote.app.quit()
+db.open()
+  .then(function () {
+    console.log("database opened ", performance.now());
+  })
+  .catch(function (error) {
+    if (error.message.indexOf(dbErrorMessage) !== -1 && !dbErrorAlertShown) {
+      window &&
+        window.alert &&
+        window.alert(l("multipleInstancesErrorMessage"));
+      remote.app.quit();
 
-    dbErrorAlertShown = true
-  }
-})
+      dbErrorAlertShown = true;
+    }
+  });
 
-if (typeof module !== 'undefined') {
-  module.exports = { db }
+if (typeof module !== "undefined") {
+  module.exports = { db };
 }

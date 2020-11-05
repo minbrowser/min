@@ -1,7 +1,7 @@
-var browserUI = require('browserUI.js')
+var browserUI = require("browserUI.js");
 
-var addTabButton = document.getElementById('add-tab-button')
+var addTabButton = document.getElementById("add-tab-button");
 
-addTabButton.addEventListener('click', function (e) {
-  browserUI.addTab()
-})
+addTabButton.addEventListener("click", function (e) {
+  browserUI.addTab();
+});

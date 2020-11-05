@@ -1,81 +1,84 @@
-const packager = require('electron-packager')
+const packager = require("electron-packager");
 
-const packageFile = require('./../package.json')
-const version = packageFile.version
-const electronVersion = packageFile.electronVersion
+const packageFile = require("./../package.json");
+const version = packageFile.version;
+const electronVersion = packageFile.electronVersion;
 
-const basedir = require('path').join(__dirname, '../')
+const basedir = require("path").join(__dirname, "../");
 
 // directories that will be ignored when building binaries
 const ignoredDirs = [
-  '.DS_Store',
-  'dist/app',
+  ".DS_Store",
+  "dist/app",
   /\.map$/g,
   /\.md$/g,
   // electron-installer-debian is actually a development module, but it isn't pruned because it's optional
-  'node_modules/electron-installer-debian',
-  'node_modules/electron-installer-common',
-  'node_modules/electron-installer-redhat',
-  'icons/source',
+  "node_modules/electron-installer-debian",
+  "node_modules/electron-installer-common",
+  "node_modules/electron-installer-redhat",
+  "icons/source",
   // this is copied during the build
-  'icons/icon.icns',
+  "icons/icon.icns",
   // localization files are compiled and copied to dist
-  'localization/',
+  "localization/",
   // parts of modules that aren't needed
-  'node_modules/@types/',
-  'node_modules/pdfjs-dist/es5',
-  'node_modules/pdfjs-dist/lib',
-  /node_modules\/[^/\n]+\/test\//g
-]
+  "node_modules/@types/",
+  "node_modules/pdfjs-dist/es5",
+  "node_modules/pdfjs-dist/lib",
+  /node_modules\/[^/\n]+\/test\//g,
+];
 
 var baseOptions = {
-  name: 'Min',
+  name: "Min",
   dir: basedir,
-  out: 'dist/app',
+  out: "dist/app",
   electronVersion: electronVersion,
   appVersion: version,
-  arch: 'all',
+  arch: "all",
   ignore: ignoredDirs,
   prune: true,
-  overwrite: true
-}
+  overwrite: true,
+};
 
 var platformOptions = {
   darwin: {
-    platform: 'darwin',
-    icon: 'icons/icon.icns',
+    platform: "darwin",
+    icon: "icons/icon.icns",
     darwinDarkModeSupport: true,
-    protocols: [{
-      name: 'HTTP link',
-      schemes: ['http', 'https']
-    }, {
-      name: 'File',
-      schemes: ['file']
-    }]
+    protocols: [
+      {
+        name: "HTTP link",
+        schemes: ["http", "https"],
+      },
+      {
+        name: "File",
+        schemes: ["file"],
+      },
+    ],
   },
   win32: {
-    platform: 'win32',
-    icon: 'icons/icon256.ico'
+    platform: "win32",
+    icon: "icons/icon256.ico",
   },
   linuxAmd64: {
-    name: 'min', // name must be lowercase to run correctly after installation
-    platform: 'linux',
-    arch: 'x64'
+    name: "min", // name must be lowercase to run correctly after installation
+    platform: "linux",
+    arch: "x64",
   },
   raspi: {
-    name: 'min', // name must be lowercase to run correctly after installation
-    platform: 'linux',
-    arch: 'armv7l',
-    fpm: ['--architecture', 'armhf']
+    name: "min", // name must be lowercase to run correctly after installation
+    platform: "linux",
+    arch: "armv7l",
+    fpm: ["--architecture", "armhf"],
   },
   linuxArm64: {
-    name: 'min', // name must be lowercase to run correctly after installation
-    platform: 'linux',
-    arch: 'arm64',
-    fpm: ['--architecture', 'aarch64']
-  }
-}
+    name: "min", // name must be lowercase to run correctly after installation
+    platform: "linux",
+    arch: "arm64",
+    fpm: ["--architecture", "aarch64"],
+  },
+};
 
 module.exports = function (platform) {
-  return packager(Object.assign({}, baseOptions, platformOptions[platform]))
-}
+  return packager(Object.assign({}, baseOptions, platformOptions[platform]));
+};

@@ -4,29 +4,29 @@
   "author": "PalmerAL",
   "version": "1.16.0",
   "description": "A fast, minimal browser that protects your privacy",
-  "electronVersion": "11.0.0-beta.18",
+  "electronVersion": "11.0.0-beta.19",
   "main": "main.build.js",
   "dependencies": {
-    "dexie": "^1.2.0",
-    "dragula": "^3.6.2",
+    "dexie": "3.0.3-rc.4",
+    "dragula": "3.7.3",
     "electron-squirrel-startup": "^1.0.0",
-    "keytar": "^6.0.1",
-    "mousetrap": "^1.5.3",
-    "pdfjs-dist": "2.4.456",
+    "keytar": "7.0.0",
+    "mousetrap": "1.6.5",
+    "pdfjs-dist": "2.6.347",
     "regedit": "^3.0.3",
     "string_score": "^0.1.22"
   },
   "devDependencies": {
-    "archiver": "^4.0.1",
-    "browserify": "^16.5.1",
-    "chokidar": "^3.4.0",
-    "concurrently": "^5.2.0",
-    "decomment": "^0.9.0",
-    "electron": "^11.0.0-beta.18",
+    "archiver": "5.0.2",
+    "browserify": "17.0.0",
+    "chokidar": "3.4.3",
+    "concurrently": "5.3.0",
+    "decomment": "0.9.3",
+    "electron": "^11.0.0-beta.19",
     "electron-installer-windows": "^3.0.0",
-    "electron-packager": "^15.0.0",
+    "electron-packager": "15.1.0",
     "electron-renderify": "0.0.2",
-    "standard": "^14.3.4"
+    "prettier": "^2.1.2"
   },
   "optionalDependencies": {
     "electron-installer-debian": "^3.1.0",
@@ -49,7 +49,8 @@
     "buildLinuxArm64": "npm run build && node ./scripts/buildDebian.js --platform=arm64",
     "buildRedhat": "npm run build && node ./scripts/buildRedhat.js",
     "buildAll": "npm run buildWindows && npm run buildMac && npm run buildDebian && npm run buildRedhat && npm run buildRaspi && npm run buildLinuxArm64",
-    "updateFilters": "node ./ext/filterLists/updateEasylist.js"
+    "updateFilters": "node ./ext/filterLists/updateEasylist.js",
+    "lint": "prettier --write ."
   },
   "repository": {
     "type": "git",

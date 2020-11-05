@@ -1,62 +1,65 @@
-const remoteMenu = require('remoteMenuRenderer.js')
-const searchbar = require('searchbar/searchbar.js')
+const remoteMenu = require("remoteMenuRenderer.js");
+const searchbar = require("searchbar/searchbar.js");
 
 module.exports = {
   initialize: function () {
-    document.addEventListener('contextmenu', (e) => {
-      e.preventDefault()
-      e.stopPropagation()
+    document.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
 
       var inputMenu = [
         [
           {
-            label: l('undo'),
-            role: 'undo'
+            label: l("undo"),
+            role: "undo",
           },
           {
-            label: l('redo'),
-            role: 'redo'
-          }
+            label: l("redo"),
+            role: "redo",
+          },
         ],
         [
           {
-            label: l('cut'),
-            role: 'cut'
+            label: l("cut"),
+            role: "cut",
           },
           {
-            label: l('copy'),
-            role: 'copy'
+            label: l("copy"),
+            role: "copy",
           },
           {
-            label: l('paste'),
-            role: 'paste'
-          }
+            label: l("paste"),
+            role: "paste",
+          },
         ],
         [
           {
-            label: l('selectAll'),
-            role: 'selectall'
-          }
-        ]
-      ]
+            label: l("selectAll"),
+            role: "selectall",
+          },
+        ],
+      ];
 
-      let node = e.target
+      let node = e.target;
 
       while (node) {
-        if (node.nodeName.match(/^(input|textarea)$/i) || node.isContentEditable) {
-          if (node.id == 'tab-editor-input') {
+        if (
+          node.nodeName.match(/^(input|textarea)$/i) ||
+          node.isContentEditable
+        ) {
+          if (node.id == "tab-editor-input") {
             inputMenu[1].push({
-              label: l('pasteAndGo'),
-              click: function() {
-                searchbar.openURL(remote.clipboard.readText())
-              }
-            })
+              label: l("pasteAndGo"),
+              click: function () {
+                searchbar.openURL(remote.clipboard.readText());
+              },
+            });
           }
-          remoteMenu.open(inputMenu)
-          break
+          remoteMenu.open(inputMenu);
+          break;
         }
-        node = node.parentNode
+        node = node.parentNode;
       }
-    })
-  }
-}
+    });
+  },
+};

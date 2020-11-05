@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-	<meta charset="UTF-8"/>
+    <title data-string="phishingErrorTitle"></title>
+    <link rel="stylesheet" href="../pagebase.css" />
+    <link rel="stylesheet" href="phishingError.css" />
+    <!-- hack to turn the browser tabs red -->
+    <link rel="icon" href="redFavicon.png" />
+  </head>
 
-	<title data-string="phishingErrorTitle"></title>
-	<link rel="stylesheet" href="../pagebase.css" />
-	<link rel="stylesheet" href="phishingError.css" />
-	<!-- hack to turn the browser tabs red -->
-	<link rel="icon" href="redFavicon.png" />
-</head>
+  <body>
+    <div id="page-wrapper">
+      <h1 data-string="phishingErrorTitle"></h1>
+      <h2 data-string="phishingErrorMessage"></h2>
 
-<body>
+      <button
+        class="secondary-button"
+        id="ignore-button"
+        data-string="phishingErrorVisitAnyway"
+      ></button>
+      <button
+        class="primary-button"
+        id="continue-button"
+        data-string="phishingErrorLeave"
+      ></button>
 
-	<div id="page-wrapper">
-
-		<h1 data-string="phishingErrorTitle"></h1>
-		<h2 data-string="phishingErrorMessage"></h2>
-
-		<button class="secondary-button" id="ignore-button" data-string="phishingErrorVisitAnyway"></button>
-		<button class="primary-button" id="continue-button" data-string="phishingErrorLeave"></button>
-
-		<script src="../../ext/Dexie.min.js"></script>
-		<script src="../../js/util/database.js"></script>
-		<script src="../../js/util/settings/settingsContent.js"></script>
-		<script src="../../dist/localization.build.js"></script>
-		<script src="phishingError.js"></script>
-
-	</div>
-
-</body>
-
+      <script src="../../ext/Dexie.min.js"></script>
+      <script src="../../js/util/database.js"></script>
+      <script src="../../js/util/settings/settingsContent.js"></script>
+      <script src="../../dist/localization.build.js"></script>
+      <script src="phishingError.js"></script>
+    </div>
+  </body>
 </html>

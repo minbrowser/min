@@ -1,224 +1,335 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'" />
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="Content-Security-Policy" content="script-src 'self'" />
+    <title>Min</title>
 
-	<title>Min</title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/windowControls.css" />
+    <link rel="stylesheet" href="css/modal.css" />
+    <link rel="stylesheet" href="css/tabBar.css" />
+    <link rel="stylesheet" href="css/tabEditor.css" />
+    <link rel="stylesheet" href="css/taskOverlay.css" />
+    <link rel="stylesheet" href="css/webviews.css" />
+    <link rel="stylesheet" href="css/searchbar.css" />
+    <link rel="stylesheet" href="css/listItem.css" />
+    <link rel="stylesheet" href="css/bookmarkManager.css" />
+    <link rel="stylesheet" href="css/findinpage.css" />
+    <link rel="stylesheet" href="css/downloadManager.css" />
+    <link rel="stylesheet" href="css/passwordManager.css" />
+    <link rel="stylesheet" href="css/passwordCapture.css" />
+    <link rel="stylesheet" href="css/passwordViewer.css" />
+    <link rel="stylesheet" href="node_modules/dragula/dist/dragula.min.css" />
+    <link rel="stylesheet" href="ext/icons/iconfont.css" />
+  </head>
 
-	<link rel="stylesheet" href="css/base.css" />
-	<link rel="stylesheet" href="css/windowControls.css" />
-	<link rel="stylesheet" href="css/modal.css"/>
-	<link rel="stylesheet" href="css/tabBar.css" />
-	<link rel="stylesheet" href="css/tabEditor.css" />
-	<link rel="stylesheet" href="css/taskOverlay.css" />
-	<link rel="stylesheet" href="css/webviews.css" />
-	<link rel="stylesheet" href="css/searchbar.css" />
-	<link rel="stylesheet" href="css/listItem.css" />
-	<link rel="stylesheet" href="css/bookmarkManager.css"/>
-	<link rel="stylesheet" href="css/findinpage.css" />
-	<link rel="stylesheet" href="css/downloadManager.css" />
-	<link rel="stylesheet" href="css/passwordManager.css" />
-	<link rel="stylesheet" href="css/passwordCapture.css" />
-	<link rel="stylesheet" href="css/passwordViewer.css" />
-	<link rel="stylesheet" href="node_modules/dragula/dist/dragula.min.css" />
-	<link rel="stylesheet" href="ext/icons/iconfont.css" />
-</head>
+  <body>
+    <div class="window-drag-area"></div>
 
-<body>
+    <div class="windows-caption-buttons">
+      <div class="element caption-minimise">
+        <svg>
+          <line x1="1" y1="5.5" x2="11" y2="5.5" />
+        </svg>
+      </div>
+      <div class="element caption-maximize">
+        <svg>
+          <rect x="1.5" y="1.5" width="9" height="9" />
+        </svg>
+      </div>
+      <div class="element caption-restore">
+        <svg>
+          <rect x="1.5" y="3.5" width="7" height="7" />
+          <polyline points="3.5,3.5 3.5,1.5 10.5,1.5 10.5,8.5 8.5,8.5" />
+        </svg>
+      </div>
+      <div class="element caption-close">
+        <svg>
+          <path d="M1,1 l 10,10 M1,11 l 10,-10" />
+        </svg>
+      </div>
+    </div>
 
-	<div class="window-drag-area"></div>
+    <button id="linux-control-buttons" class="theme-text-color">
+      <svg
+        version="1.1"
+        fill="none"
+        stroke="none"
+        stroke-linecap="square"
+        stroke-miterlimit="10"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g id="minimize-button">
+          <rect width="24" height="24" fill="transparent"></rect>
+          <path
+            class="button-background"
+            d="m0.5826226 9.868774l0 0c0 -5.24453 4.251532 -9.496062 9.496063 -9.496062l0 0c2.5185127 0 4.933873 1.0004752 6.714731 2.7813323c1.7808571 1.7808576 2.781332 4.196218 2.781332 6.7147303l0 0c0 5.2445316 -4.2515326 9.496063 -9.496063 9.496063l0 0c-5.244531 0 -9.496063 -4.2515316 -9.496063 -9.496063z"
+            fill-rule="evenodd"
+          />
+          <path
+            stroke="currentColor"
+            stroke-width="2.0"
+            stroke-linejoin="round"
+            stroke-linecap="butt"
+            d="m6.7086616 12.519685l6.7401576 -0.031496048"
+            fill-rule="evenodd"
+          />
+        </g>
+        <g id="maximize-button">
+          <rect width="24" height="24" x="24" fill="transparent"></rect>
+          <path
+            class="button-background"
+            d="m27.85034 9.868774l0 0c0 -5.24453 4.2515316 -9.496062 9.496061 -9.496062l0 0c2.5185127 0 4.933876 1.0004752 6.714733 2.7813323c1.7808571 1.7808576 2.78133 4.196218 2.78133 6.7147303l0 0c0 5.2445316 -4.2515297 9.496063 -9.496063 9.496063l0 0c-5.2445297 0 -9.496061 -4.2515316 -9.496061 -9.496063z"
+            fill-rule="evenodd"
+          />
+          <path
+            stroke="currentColor"
+            stroke-width="2.0"
+            stroke-linejoin="round"
+            stroke-linecap="butt"
+            d="m34.16273 6.717848l6.3622017 0l0 6.2992125l-6.3622017 0z"
+            fill-rule="evenodd"
+          />
+        </g>
+        <g id="close-button">
+          <rect width="24" height="24" x="48" fill="transparent"></rect>
+          <path
+            class="button-background"
+            d="m55.118057 9.496072l0 0c0 -5.244531 4.2515297 -9.496063 9.496063 -9.496063l0 0c2.518509 0 4.9338684 1.0004753 6.7147293 2.7813325c1.7808533 1.7808573 2.781334 4.1962185 2.781334 6.714731l0 0c0 5.2445307 -4.2515335 9.496062 -9.496063 9.496062l0 0c-5.2445335 0 -9.496063 -4.2515316 -9.496063 -9.496062z"
+            fill-rule="evenodd"
+          />
+          <path
+            stroke="currentColor"
+            stroke-width="2.0"
+            stroke-linejoin="round"
+            stroke-linecap="butt"
+            d="m61.26077 6.1103663l6.740162 6.7716537"
+            fill-rule="evenodd"
+          />
+          <path
+            stroke="currentColor"
+            stroke-width="2.0"
+            stroke-linejoin="round"
+            stroke-linecap="butt"
+            d="m68.01668 6.1261144l-6.771656 6.7401576"
+            fill-rule="evenodd"
+          />
+        </g>
+      </svg>
+    </button>
 
-	<div class="windows-caption-buttons">
-		<div class="element caption-minimise">
-			<svg>
-				<line x1="1" y1="5.5" x2="11" y2="5.5" />
-			</svg>
-		</div>
-		<div class="element caption-maximize">
-			<svg>
-				<rect x="1.5" y="1.5" width="9" height="9" />
-			</svg>
-		</div>
-		<div class="element caption-restore">
-			<svg>
-				<rect x="1.5" y="3.5" width="7" height="7" />
-				<polyline points="3.5,3.5 3.5,1.5 10.5,1.5 10.5,8.5 8.5,8.5" />
-			</svg>
-		</div>
-		<div class="element caption-close">
-			<svg>
-				<path d="M1,1 l 10,10 M1,11 l 10,-10" />
-			</svg>
-		</div>
-	</div>
+    <div
+      id="navbar"
+      class="theme-background-color theme-text-color windowDragHandle"
+      tabindex="-1"
+    >
+      <button
+        id="menu-button"
+        class="navbar-action-button i carbon:overflow-menu-vertical"
+        data-label="openMenu"
+        tabindex="-1"
+      ></button>
+      <button
+        id="back-button"
+        hidden
+        class="navbar-action-button i carbon:chevron-left"
+        data-label="goBack"
+        tabindex="-1"
+      ></button>
+      <div id="tabs">
+        <div id="tab-editor" hidden>
+          <input id="tab-editor-input" class="mousetrap" spellcheck="false" />
+        </div>
+        <div id="tabs-inner" role="tablist"></div>
+      </div>
+      <div class="navbar-right-actions">
+        <button
+          id="add-tab-button"
+          class="navbar-action-button i carbon:add"
+          data-label="newTabAction"
+          tabindex="-1"
+        ></button>
+      </div>
+    </div>
 
-	<button id="linux-control-buttons" class="theme-text-color">
-		<svg version="1.1" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10"
-			xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
-			<g id="minimize-button">
-				<rect width="24" height="24" fill="transparent"></rect>
-				<path class="button-background"
-					d="m0.5826226 9.868774l0 0c0 -5.24453 4.251532 -9.496062 9.496063 -9.496062l0 0c2.5185127 0 4.933873 1.0004752 6.714731 2.7813323c1.7808571 1.7808576 2.781332 4.196218 2.781332 6.7147303l0 0c0 5.2445316 -4.2515326 9.496063 -9.496063 9.496063l0 0c-5.244531 0 -9.496063 -4.2515316 -9.496063 -9.496063z"
-					fill-rule="evenodd" />
-				<path stroke="currentColor" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt"
-					d="m6.7086616 12.519685l6.7401576 -0.031496048" fill-rule="evenodd" />
-			</g>
-			<g id="maximize-button">
-				<rect width="24" height="24" x="24" fill="transparent"></rect>
-				<path class="button-background"
-					d="m27.85034 9.868774l0 0c0 -5.24453 4.2515316 -9.496062 9.496061 -9.496062l0 0c2.5185127 0 4.933876 1.0004752 6.714733 2.7813323c1.7808571 1.7808576 2.78133 4.196218 2.78133 6.7147303l0 0c0 5.2445316 -4.2515297 9.496063 -9.496063 9.496063l0 0c-5.2445297 0 -9.496061 -4.2515316 -9.496061 -9.496063z"
-					fill-rule="evenodd" />
-				<path stroke="currentColor" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt"
-					d="m34.16273 6.717848l6.3622017 0l0 6.2992125l-6.3622017 0z" fill-rule="evenodd" />
-			</g>
-			<g id="close-button">
-				<rect width="24" height="24" x="48" fill="transparent"></rect>
-				<path class="button-background"
-					d="m55.118057 9.496072l0 0c0 -5.244531 4.2515297 -9.496063 9.496063 -9.496063l0 0c2.518509 0 4.9338684 1.0004753 6.7147293 2.7813325c1.7808533 1.7808573 2.781334 4.1962185 2.781334 6.714731l0 0c0 5.2445307 -4.2515335 9.496062 -9.496063 9.496062l0 0c-5.2445335 0 -9.496063 -4.2515316 -9.496063 -9.496062z"
-					fill-rule="evenodd" />
-				<path stroke="currentColor" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt"
-					d="m61.26077 6.1103663l6.740162 6.7716537" fill-rule="evenodd" />
-				<path stroke="currentColor" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="butt"
-					d="m68.01668 6.1261144l-6.771656 6.7401576" fill-rule="evenodd" />
-			</g>
-		</svg>
+    <button
+      id="switch-task-button"
+      class="navbar-action-button theme-text-color windowDragHandle i"
+      data-label="viewTasks"
+      tabindex="-1"
+    >
+      <svg
+        version="1.1"
+        viewBox="0.0 0.0 26.0 26.0"
+        fill="none"
+        stroke="none"
+        stroke-linecap="square"
+        stroke-miterlimit="10"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g clip-path="url(#p.0)">
+          <path
+            fill="currentColor"
+            d="m0 0l32 0l0 4l-32 0z"
+            fill-rule="evenodd"
+          />
+          <path
+            fill="currentColor"
+            d="m0 11l32 0l0 4l-32 0z"
+            fill-rule="evenodd"
+          />
+          <path
+            fill="currentColor"
+            d="m0 22l32 0l0 4l-32 0z"
+            fill-rule="evenodd"
+          />
+        </g>
+      </svg>
+    </button>
 
+    <div id="searchbar" class="theme-background-color theme-text-color">
+      <div class="top-answer-area"></div>
+    </div>
 
-	</button>
+    <div id="overlay"></div>
 
-	<div id="navbar" class="theme-background-color theme-text-color windowDragHandle" tabindex="-1">
-		<button id="menu-button" class="navbar-action-button i carbon:overflow-menu-vertical" data-label="openMenu"
-			tabindex="-1">
-		</button>
-		<button id="back-button" hidden class="navbar-action-button i carbon:chevron-left" data-label="goBack"
-			tabindex="-1">
-		</button>
-		<div id="tabs">
-			<div id="tab-editor" hidden>
-				<input id="tab-editor-input" class="mousetrap" spellcheck="false"/>
-			</div>
-			<div id="tabs-inner" role="tablist"></div>
-		</div>
-		<div class="navbar-right-actions">
-			<button id="add-tab-button" class="navbar-action-button i carbon:add" data-label="newTabAction" tabindex="-1">
-			</button>
-		</div>
-	</div>
+    <div id="webviews">
+      <div id="leftArrowContainer" class="arrow-indicator">
+        <i id="leftArrow" class="i carbon:chevron-left"></i>
+      </div>
+      <div id="rightArrowContainer" class="arrow-indicator">
+        <i id="rightArrow" class="i carbon:chevron-right"></i>
+      </div>
+      <img id="webview-placeholder" hidden aria-hidden="true" />
+    </div>
 
-	<button id="switch-task-button" class="navbar-action-button theme-text-color windowDragHandle i"
-		data-label="viewTasks" tabindex="-1">
-		<svg version="1.1" viewBox="0.0 0.0 26.0 26.0" fill="none" stroke="none" stroke-linecap="square"
-			stroke-miterlimit="10" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
-			<g clip-path="url(#p.0)">
-				<path fill="currentColor" d="m0 0l32 0l0 4l-32 0z" fill-rule="evenodd" />
-				<path fill="currentColor" d="m0 11l32 0l0 4l-32 0z" fill-rule="evenodd" />
-				<path fill="currentColor" d="m0 22l32 0l0 4l-32 0z" fill-rule="evenodd" />
-			</g>
-		</svg>
-	</button>
+    <!-- findinpage ui -->
 
-	<div id="searchbar" class="theme-background-color theme-text-color">
-		<div class="top-answer-area"></div>
-	</div>
+    <div
+      id="findinpage-bar"
+      hidden
+      class="theme-background-color theme-text-color"
+    >
+      <input id="findinpage-input" class="mousetrap" />
+      <span id="findinpage-count" class="inline-text"></span>
+      <div class="divider"></div>
+      <button id="findinpage-previous-match">
+        <i class="i carbon:chevron-up navbar-action-button"></i>
+      </button>
+      <button id="findinpage-next-match">
+        <i class="i carbon:chevron-down navbar-action-button"></i>
+      </button>
+      <div class="divider"></div>
+      <button id="findinpage-end">
+        <i class="i carbon:close navbar-action-button"></i>
+      </button>
+    </div>
 
-	<div id="overlay"></div>
+    <div id="task-overlay" class="" hidden>
+      <div
+        class="simulated-navbar windowDragHandle"
+        id="task-overlay-navbar"
+      ></div>
+      <div id="task-area"></div>
+      <button id="add-task">
+        <i class="i carbon:new-tab"></i>
+        <span></span>
+      </button>
+    </div>
 
-	<div id="webviews">
-		<div id="leftArrowContainer" class="arrow-indicator">
-			<i id="leftArrow" class="i carbon:chevron-left"></i>
-		</div>
-		<div id="rightArrowContainer" class="arrow-indicator">
-			<i id="rightArrow" class="i carbon:chevron-right"></i>
-		</div>
-		<img id="webview-placeholder" hidden aria-hidden="true" />
-	</div>
+    <div id="download-bar" hidden>
+      <div id="download-container" role="list"></div>
+      <button id="download-close-button" class="i carbon:close"></button>
+    </div>
 
-	<!-- findinpage ui -->
+    <div class="modal" id="manager-setup-dialog" hidden>
+      <h3 class="modal-title" id="manager-setup-heading"></h3>
+      <button
+        id="manager-setup-close"
+        class="modal-close-button i carbon:close"
+      ></button>
 
-	<div id="findinpage-bar" hidden class="theme-background-color theme-text-color">
-		<input id="findinpage-input" class="mousetrap" />
-		<span id="findinpage-count" class="inline-text"></span>
-		<div class="divider"></div>
-		<button id="findinpage-previous-match">
-			<i class="i carbon:chevron-up navbar-action-button"></i>
-		</button>
-		<button id="findinpage-next-match">
-			<i class="i carbon:chevron-down navbar-action-button"></i>
-		</button>
-		<div class="divider"></div>
-		<button id="findinpage-end">
-			<i class="i carbon:close navbar-action-button"></i>
-		</button>
-	</div>
+      <div id="manager-setup-instructions-primary">
+        <div
+          class="light-fade"
+          data-string="passwordManagerSetupStep1"
+          data-allowHTML
+        ></div>
+        <div class="spacer"></div>
+        <div
+          class="light-fade"
+          data-string="passwordManagerSetupStep2"
+          data-allowHTML
+        ></div>
+      </div>
 
-	<div id="task-overlay" class="" hidden>
-		<div class="simulated-navbar windowDragHandle" id="task-overlay-navbar">
-		</div>
-		<div id="task-area"></div>
-		<button id="add-task">
-			<i class="i carbon:new-tab"></i>
-			<span></span>
-		</button>
-	</div>
+      <div id="manager-setup-instructions-secondary">
+        <div
+          class="light-fade"
+          data-string="passwordManagerInstallerSetup"
+          data-allowHTML
+        ></div>
+      </div>
 
-	<div id="download-bar" hidden>
-		<div id="download-container" role="list"></div>
-		<button id="download-close-button" class="i carbon:close"></button>
-	</div>
+      <div class="spacer"></div>
 
-	<div class="modal" id="manager-setup-dialog" hidden>
-		<h3 class="modal-title" id="manager-setup-heading"></h3>
-		<button id="manager-setup-close" class="modal-close-button i carbon:close"></button>
+      <div
+        id="manager-setup-drop-box"
+        class="drag-and-drop-box"
+        data-string="passwordManagerSetupDragBox"
+      ></div>
 
-		<div id="manager-setup-instructions-primary">
-			<div class="light-fade" data-string="passwordManagerSetupStep1" data-allowHTML></div>
-			<div class="spacer"></div>
-			<div class="light-fade" data-string="passwordManagerSetupStep2" data-allowHTML></div>
-		</div>
+      <div class="spacer"></div>
+      <div class="spacer"></div>
 
-		<div id="manager-setup-instructions-secondary">
-			<div class="light-fade" data-string="passwordManagerInstallerSetup" data-allowHTML></div>
-		</div>
-		
-		<div class="spacer"></div>
+      <div class="buttons">
+        <input
+          type="button"
+          id="manager-setup-disable"
+          data-value="disableAutofill"
+        />
+      </div>
+    </div>
 
-		<div id="manager-setup-drop-box" class="drag-and-drop-box" data-string="passwordManagerSetupDragBox">
-		</div>
+    <div id="password-capture-bar" hidden>
+      <span id="password-capture-description"></span>
+      <input id="password-capture-username" type="text" required />
+      <span class="password-capture-section">
+        <input id="password-capture-password" type="password" required />
+        <button
+          id="password-capture-reveal-password"
+          class="i carbon:view"
+        ></button>
+      </span>
+      <span class="password-capture-section">
+        <button
+          id="password-capture-save"
+          data-string="passwordCaptureSave"
+        ></button>
+        <button
+          id="password-capture-ignore"
+          data-string="passwordCaptureDontSave"
+        ></button>
+      </span>
+    </div>
 
-		<div class="spacer"></div>
-		<div class="spacer"></div>
+    <div id="password-viewer" class="modal" hidden>
+      <h2 class="modal-title" data-string="savedPasswordsHeading"></h2>
+      <button class="modal-close-button i carbon:close"></button>
+      <div
+        id="password-viewer-empty"
+        data-string="savedPasswordsEmpty"
+        hidden
+      ></div>
+      <div id="password-viewer-list"></div>
+    </div>
 
-		<div class="buttons">
-			<input type="button" id="manager-setup-disable" data-value="disableAutofill" />
-		</div>
+    <!-- add scripts in Gruntfile.js -->
 
-	</div>
-
-	<div id="password-capture-bar" hidden>
-		<span id="password-capture-description"></span>
-		<input id="password-capture-username" type="text" required/>
-		<span class="password-capture-section">
-			<input id="password-capture-password" type="password" required/>
-			<button id="password-capture-reveal-password" class="i carbon:view"></button>
-		</span>
-		<span class="password-capture-section">
-			<button id="password-capture-save" data-string="passwordCaptureSave"></button>
-			<button id="password-capture-ignore" data-string="passwordCaptureDontSave"></button>
-		</span>
-	</div>
-
-	<div id="password-viewer" class="modal" hidden>
-		<h2 class="modal-title" data-string="savedPasswordsHeading"></h2>
-		<button class="modal-close-button i carbon:close"></button>
-		<div id="password-viewer-empty" data-string="savedPasswordsEmpty" hidden></div>
-		<div id="password-viewer-list"></div>
-	</div>
-
-	<!-- add scripts in Gruntfile.js -->
-
-	<script src="dist/bundle.js"></script>
-</body>
-
+    <script src="dist/bundle.js"></script>
+  </body>
 </html>

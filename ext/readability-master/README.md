@@ -12,12 +12,12 @@ var article = new Readability(document).parse();
 
 This `article` object will contain the following properties:
 
-* `title`: article title
-* `content`: HTML string of processed article content
-* `length`: length of an article, in characters
-* `excerpt`: article description, or short excerpt from the content
-* `byline`: author metadata
-* `dir`: content direction
+- `title`: article title
+- `content`: HTML string of processed article content
+- `length`: length of an article, in characters
+- `excerpt`: article description, or short excerpt from the content
+- `byline`: author metadata
+- `dir`: content direction
 
 If you're using Readability on the web, you will likely be able to use a `document` reference
 from elsewhere (e.g. fetched via XMLHttpRequest, in a same-origin `<iframe>` you have access to, etc.).
@@ -28,7 +28,7 @@ Readability's `parse()` works by modifying the DOM. This removes some elements i
 You could avoid this by passing the clone of the `document` object while creating a `Readability` object.
 
 ```
-var documentClone = document.cloneNode(true); 
+var documentClone = document.cloneNode(true);
 var article = new Readability(documentClone).parse();
 ```
 
@@ -52,10 +52,10 @@ property of the `options` object you pass the `JSDOM` constructor.
 ### Example:
 
 ```js
-var { Readability } = require('@mozilla/readability');
-var JSDOM = require('jsdom').JSDOM;
+var { Readability } = require("@mozilla/readability");
+var JSDOM = require("jsdom").JSDOM;
 var doc = new JSDOM("<body>Here's a bunch of text</body>", {
-  url: "https://www.example.com/the-page-i-got-the-source-from"
+  url: "https://www.example.com/the-page-i-got-the-source-from",
 });
 let reader = new Readability(doc.window.document);
 let article = reader.parse();

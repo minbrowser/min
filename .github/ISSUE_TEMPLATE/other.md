@@ -1,10 +1,7 @@
 ---
 name: Other
 about: Something else
-title: ''
-labels: ''
-assignees: ''
-
+title: ""
+labels: ""
+assignees: ""
 ---
-
-

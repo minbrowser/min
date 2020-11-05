@@ -1,432 +1,441 @@
-function buildAppMenu (options = {}) {
+function buildAppMenu(options = {}) {
   var tabTaskActions = [
     {
-      label: l('appMenuNewTab'),
-      accelerator: 'CmdOrCtrl+t',
+      label: l("appMenuNewTab"),
+      accelerator: "CmdOrCtrl+t",
       click: function (item, window, event) {
         // keyboard shortcuts for these items are handled in the renderer
         if (!event.triggeredByAccelerator) {
-          sendIPCToWindow(window, 'addTab')
+          sendIPCToWindow(window, "addTab");
         }
-      }
+      },
     },
     {
-      label: l('appMenuDuplicateTab'),
-      accelerator: 'shift+CmdOrCtrl+d',
+      label: l("appMenuDuplicateTab"),
+      accelerator: "shift+CmdOrCtrl+d",
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
-          sendIPCToWindow(window, 'duplicateTab')
+          sendIPCToWindow(window, "duplicateTab");
         }
-      }
+      },
     },
     {
-      label: l('appMenuNewPrivateTab'),
-      accelerator: 'shift+CmdOrCtrl+p',
+      label: l("appMenuNewPrivateTab"),
+      accelerator: "shift+CmdOrCtrl+p",
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
-          sendIPCToWindow(window, 'addPrivateTab')
+          sendIPCToWindow(window, "addPrivateTab");
         }
-      }
+      },
     },
     {
-      label: l('appMenuNewTask'),
-      accelerator: 'CmdOrCtrl+n',
+      label: l("appMenuNewTask"),
+      accelerator: "CmdOrCtrl+n",
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
-          sendIPCToWindow(window, 'addTask')
+          sendIPCToWindow(window, "addTask");
         }
-      }
-    }
-  ]
+      },
+    },
+  ];
 
   var personalDataItems = [
     {
-      label: l('appMenuBookmarks'),
+      label: l("appMenuBookmarks"),
       accelerator: undefined,
       click: function (item, window) {
-        sendIPCToWindow(window, 'showBookmarks')
-      }
+        sendIPCToWindow(window, "showBookmarks");
+      },
     },
     {
-      label: l('appMenuHistory'),
+      label: l("appMenuHistory"),
       accelerator: undefined,
       click: function (item, window) {
-        sendIPCToWindow(window, 'showHistory')
-      }
+        sendIPCToWindow(window, "showHistory");
+      },
     },
     {
-      label: l('appMenuReadingList'),
+      label: l("appMenuReadingList"),
       accelerator: undefined,
       click: function (item, window) {
-        sendIPCToWindow(window, 'showReadingList')
-      }
-    }
-  ]
+        sendIPCToWindow(window, "showReadingList");
+      },
+    },
+  ];
 
   var quitAction = {
-    label: l('appMenuQuit').replace('%n', app.name),
-    accelerator: 'CmdOrCtrl+Q',
+    label: l("appMenuQuit").replace("%n", app.name),
+    accelerator: "CmdOrCtrl+Q",
     click: function () {
-      app.quit()
-    }
-  }
+      app.quit();
+    },
+  };
 
   var template = [
     ...(options.secondary ? tabTaskActions : []),
-    ...(options.secondary ? [{type: 'separator'}] : []),
+    ...(options.secondary ? [{ type: "separator" }] : []),
     ...(options.secondary ? personalDataItems : []),
-    ...(options.secondary ? [{type: 'separator'}] : []),
-    ...(process.platform === 'darwin' ?
-    [
-      {
-        label: app.name,
-        submenu: [
+    ...(options.secondary ? [{ type: "separator" }] : []),
+    ...(process.platform === "darwin"
+      ? [
           {
-            label: l('appMenuAbout').replace('%n', app.name),
-            role: 'about'
+            label: app.name,
+            submenu: [
+              {
+                label: l("appMenuAbout").replace("%n", app.name),
+                role: "about",
+              },
+              {
+                type: "separator",
+              },
+              {
+                label: l("appMenuPreferences"),
+                accelerator: "CmdOrCtrl+,",
+                click: function (item, window) {
+                  sendIPCToWindow(window, "addTab", {
+                    url: "file://" + __dirname + "/pages/settings/index.html",
+                  });
+                },
+              },
+              {
+                label: "Services",
+                role: "services",
+                submenu: [],
+              },
+              {
+                type: "separator",
+              },
+              {
+                label: l("appMenuHide").replace("%n", app.name),
+                accelerator: "CmdOrCtrl+H",
+                role: "hide",
+              },
+              {
+                label: l("appMenuHideOthers"),
+                accelerator: "CmdOrCtrl+Shift+H",
+                role: "hideothers",
+              },
+              {
+                label: l("appMenuShowAll"),
+                role: "unhide",
+              },
+              {
+                type: "separator",
+              },
+              quitAction,
+            ],
           },
-          {
-            type: 'separator'
-          },
-          {
-            label: l('appMenuPreferences'),
-            accelerator: 'CmdOrCtrl+,',
-            click: function (item, window) {
-              sendIPCToWindow(window, 'addTab', {
-                url: 'file://' + __dirname + '/pages/settings/index.html'
-              })
-            }
-          },
-          {
-            label: 'Services',
-            role: 'services',
-            submenu: []
-          },
-          {
-            type: 'separator'
-          },
-          {
-            label: l('appMenuHide').replace('%n', app.name),
-            accelerator: 'CmdOrCtrl+H',
-            role: 'hide'
-          },
-          {
-            label: l('appMenuHideOthers'),
-            accelerator: 'CmdOrCtrl+Shift+H',
-            role: 'hideothers'
-          },
-          {
-            label: l('appMenuShowAll'),
-            role: 'unhide'
-          },
-          {
-            type: 'separator'
-          },
-          quitAction
         ]
-      }
-    ] : []),
+      : []),
     {
-      label: l('appMenuFile'),
+      label: l("appMenuFile"),
       submenu: [
         ...(!options.secondary ? tabTaskActions : []),
-        ...(!options.secondary ? [{type: 'separator'}] : []),
+        ...(!options.secondary ? [{ type: "separator" }] : []),
         {
-          label: l('appMenuSavePageAs'),
-          accelerator: 'CmdOrCtrl+s',
+          label: l("appMenuSavePageAs"),
+          accelerator: "CmdOrCtrl+s",
           click: function (item, window) {
-            sendIPCToWindow(window, 'saveCurrentPage')
-          }
+            sendIPCToWindow(window, "saveCurrentPage");
+          },
         },
         {
-          type: 'separator'
+          type: "separator",
         },
         {
-          label: l('appMenuPrint'),
-          accelerator: 'CmdOrCtrl+p',
+          label: l("appMenuPrint"),
+          accelerator: "CmdOrCtrl+p",
           click: function (item, window) {
-            sendIPCToWindow(window, 'print')
-          }
+            sendIPCToWindow(window, "print");
+          },
         },
-        ...(process.platform === 'linux' ? [{type: 'separator'}] : []),
-        ...(process.platform === 'linux' ? [quitAction] : [])
-      ]
+        ...(process.platform === "linux" ? [{ type: "separator" }] : []),
+        ...(process.platform === "linux" ? [quitAction] : []),
+      ],
     },
     {
-      label: l('appMenuEdit'),
+      label: l("appMenuEdit"),
       submenu: [
         {
-          label: l('appMenuUndo'),
-          accelerator: 'CmdOrCtrl+Z',
-          role: 'undo'
+          label: l("appMenuUndo"),
+          accelerator: "CmdOrCtrl+Z",
+          role: "undo",
         },
         {
-          label: l('appMenuRedo'),
-          accelerator: 'Shift+CmdOrCtrl+Z',
-          role: 'redo'
+          label: l("appMenuRedo"),
+          accelerator: "Shift+CmdOrCtrl+Z",
+          role: "redo",
         },
         {
-          type: 'separator'
+          type: "separator",
         },
         {
-          label: l('appMenuCut'),
-          accelerator: 'CmdOrCtrl+X',
-          role: 'cut'
+          label: l("appMenuCut"),
+          accelerator: "CmdOrCtrl+X",
+          role: "cut",
         },
         {
-          label: l('appMenuCopy'),
-          accelerator: 'CmdOrCtrl+C',
-          role: 'copy'
+          label: l("appMenuCopy"),
+          accelerator: "CmdOrCtrl+C",
+          role: "copy",
         },
         {
-          label: l('appMenuPaste'),
-          accelerator: 'CmdOrCtrl+V',
-          role: 'paste'
+          label: l("appMenuPaste"),
+          accelerator: "CmdOrCtrl+V",
+          role: "paste",
         },
         {
-          label: l('appMenuSelectAll'),
-          accelerator: 'CmdOrCtrl+A',
-          role: 'selectall'
+          label: l("appMenuSelectAll"),
+          accelerator: "CmdOrCtrl+A",
+          role: "selectall",
         },
         {
-          type: 'separator'
+          type: "separator",
         },
         {
-          label: l('appMenuFind'),
-          accelerator: 'CmdOrCtrl+F',
+          label: l("appMenuFind"),
+          accelerator: "CmdOrCtrl+F",
           click: function (item, window) {
-            sendIPCToWindow(window, 'findInPage')
-          }
+            sendIPCToWindow(window, "findInPage");
+          },
         },
-        ...(process.platform !== 'darwin' ? [{type: 'separator'}] : []),
-        ...(process.platform !== 'darwin' ? [{
-          label: l('appMenuPreferences'),
-          accelerator: 'CmdOrCtrl+,',
-          click: function (item, window) {
-            sendIPCToWindow(window, 'addTab', {
-              url: 'file://' + __dirname + '/pages/settings/index.html'
-            })
-          }
-        }] : [])
-      ]
+        ...(process.platform !== "darwin" ? [{ type: "separator" }] : []),
+        ...(process.platform !== "darwin"
+          ? [
+              {
+                label: l("appMenuPreferences"),
+                accelerator: "CmdOrCtrl+,",
+                click: function (item, window) {
+                  sendIPCToWindow(window, "addTab", {
+                    url: "file://" + __dirname + "/pages/settings/index.html",
+                  });
+                },
+              },
+            ]
+          : []),
+      ],
     },
     {
-      label: l('appMenuView'),
+      label: l("appMenuView"),
       submenu: [
         ...(!options.secondary ? personalDataItems : []),
-        ...(!options.secondary ? [{type: 'separator'}] : []),
+        ...(!options.secondary ? [{ type: "separator" }] : []),
         {
-          label: l('appMenuZoomIn'),
-          accelerator: 'CmdOrCtrl+Plus',
+          label: l("appMenuZoomIn"),
+          accelerator: "CmdOrCtrl+Plus",
           click: function (item, window) {
-            sendIPCToWindow(window, 'zoomIn')
-          }
+            sendIPCToWindow(window, "zoomIn");
+          },
         },
         {
-          label: l('appMenuZoomOut'),
-          accelerator: 'CmdOrCtrl+-',
+          label: l("appMenuZoomOut"),
+          accelerator: "CmdOrCtrl+-",
           click: function (item, window) {
-            sendIPCToWindow(window, 'zoomOut')
-          }
+            sendIPCToWindow(window, "zoomOut");
+          },
         },
         {
-          label: l('appMenuActualSize'),
-          accelerator: 'CmdOrCtrl+0',
+          label: l("appMenuActualSize"),
+          accelerator: "CmdOrCtrl+0",
           click: function (item, window) {
-            sendIPCToWindow(window, 'zoomReset')
-          }
+            sendIPCToWindow(window, "zoomReset");
+          },
         },
         {
-          type: 'separator'
+          type: "separator",
         },
         {
-          label: l('appMenuFocusMode'),
+          label: l("appMenuFocusMode"),
           accelerator: undefined,
-          type: 'checkbox',
+          type: "checkbox",
           checked: false,
           click: function (item, window) {
             if (isFocusMode) {
-              isFocusMode = false
-              sendIPCToWindow(window, 'exitFocusMode')
+              isFocusMode = false;
+              sendIPCToWindow(window, "exitFocusMode");
             } else {
-              isFocusMode = true
-              sendIPCToWindow(window, 'enterFocusMode')
+              isFocusMode = true;
+              sendIPCToWindow(window, "enterFocusMode");
             }
-          }
+          },
         },
         {
-          label: l('appMenuFullScreen'),
+          label: l("appMenuFullScreen"),
           accelerator: (function () {
-            if (process.platform == 'darwin')
-              return 'Ctrl+Command+F'
-            else
-              return 'F11'
+            if (process.platform == "darwin") return "Ctrl+Command+F";
+            else return "F11";
           })(),
-          role: 'togglefullscreen'
-        }
-      ]
+          role: "togglefullscreen",
+        },
+      ],
     },
     {
-      label: l('appMenuDeveloper'),
+      label: l("appMenuDeveloper"),
       submenu: [
         {
-          label: l('appMenuInspectPage'),
+          label: l("appMenuInspectPage"),
           accelerator: (function () {
-            if (process.platform == 'darwin')
-              return 'Cmd+Alt+I'
-            else
-              return 'Ctrl+Shift+I'
+            if (process.platform == "darwin") return "Cmd+Alt+I";
+            else return "Ctrl+Shift+I";
           })(),
           click: function (item, window) {
-            sendIPCToWindow(window, 'inspectPage')
-          }
+            sendIPCToWindow(window, "inspectPage");
+          },
         },
         {
-          type: 'separator'
+          type: "separator",
         },
         {
-          label: l('appMenuReloadBrowser'),
+          label: l("appMenuReloadBrowser"),
           accelerator: undefined,
           click: function (item, focusedWindow) {
             if (focusedWindow) {
-              destroyAllViews()
-              focusedWindow.reload()
+              destroyAllViews();
+              focusedWindow.reload();
             }
-          }
+          },
         },
         {
-          label: l('appMenuInspectBrowser'),
+          label: l("appMenuInspectBrowser"),
           click: function (item, focusedWindow) {
-            if (focusedWindow) focusedWindow.toggleDevTools()
-          }
-        }
-      ]
+            if (focusedWindow) focusedWindow.toggleDevTools();
+          },
+        },
+      ],
     },
-    ...(process.platform === 'darwin' ? [
-      {
-        label: l('appMenuWindow'),
-        role: 'window',
-        submenu: [
+    ...(process.platform === "darwin"
+      ? [
           {
-            label: l('appMenuMinimize'),
-            accelerator: 'CmdOrCtrl+M',
-            role: 'minimize'
-          },
-          {
-            label: l('appMenuClose'),
-            accelerator: 'CmdOrCtrl+W',
-            click: function (item, window) {
-              if (mainWindow && !mainWindow.isFocused()) {
-                // a devtools window is focused, close it
-                var contents = webContents.getAllWebContents()
-                for (var i = 0; i < contents.length; i++) {
-                  if (contents[i].isDevToolsFocused()) {
-                    contents[i].closeDevTools()
-                    return
+            label: l("appMenuWindow"),
+            role: "window",
+            submenu: [
+              {
+                label: l("appMenuMinimize"),
+                accelerator: "CmdOrCtrl+M",
+                role: "minimize",
+              },
+              {
+                label: l("appMenuClose"),
+                accelerator: "CmdOrCtrl+W",
+                click: function (item, window) {
+                  if (mainWindow && !mainWindow.isFocused()) {
+                    // a devtools window is focused, close it
+                    var contents = webContents.getAllWebContents();
+                    for (var i = 0; i < contents.length; i++) {
+                      if (contents[i].isDevToolsFocused()) {
+                        contents[i].closeDevTools();
+                        return;
+                      }
+                    }
                   }
-                }
-              }
-            // otherwise, this event will be handled in the main window
-            }
+                  // otherwise, this event will be handled in the main window
+                },
+              },
+              {
+                label: l("appMenuAlwaysOnTop"),
+                type: "checkbox",
+                checked: settings.get("windowAlwaysOnTop") || false,
+                click: function (item, window) {
+                  if (mainWindow) {
+                    mainWindow.setAlwaysOnTop(item.checked);
+                  }
+                  settings.set("windowAlwaysOnTop", item.checked);
+                },
+              },
+              {
+                type: "separator",
+              },
+              {
+                label: l("appMenuBringToFront"),
+                role: "front",
+              },
+            ],
           },
-          {
-            label: l('appMenuAlwaysOnTop'),
-            type: 'checkbox',
-            checked: settings.get('windowAlwaysOnTop') || false,
-            click: function (item, window) {
-              if (mainWindow) {
-                mainWindow.setAlwaysOnTop(item.checked)
-              }
-              settings.set('windowAlwaysOnTop', item.checked)
-            }
-          },
-          {
-            type: 'separator'
-          },
-          {
-            label: l('appMenuBringToFront'),
-            role: 'front'
-          }
         ]
-      }
-    ] : []),
+      : []),
     {
-      label: l('appMenuHelp'),
-      role: 'help',
+      label: l("appMenuHelp"),
+      role: "help",
       submenu: [
         {
-          label: l('appMenuKeyboardShortcuts'),
+          label: l("appMenuKeyboardShortcuts"),
           click: function () {
-            openTabInWindow('https://github.com/minbrowser/min/wiki#keyboard-shortcuts')
-          }
+            openTabInWindow(
+              "https://github.com/minbrowser/min/wiki#keyboard-shortcuts"
+            );
+          },
         },
         {
-          label: l('appMenuReportBug'),
+          label: l("appMenuReportBug"),
           click: function () {
-            openTabInWindow('https://github.com/minbrowser/min/issues/new')
-          }
+            openTabInWindow("https://github.com/minbrowser/min/issues/new");
+          },
         },
         {
-          label: l('appMenuTakeTour'),
+          label: l("appMenuTakeTour"),
           click: function () {
-            openTabInWindow('https://minbrowser.github.io/min/tour/')
-          }
+            openTabInWindow("https://minbrowser.github.io/min/tour/");
+          },
         },
         {
-          label: l('appMenuViewGithub'),
+          label: l("appMenuViewGithub"),
           click: function () {
-            openTabInWindow('https://github.com/minbrowser/min')
-          }
+            openTabInWindow("https://github.com/minbrowser/min");
+          },
         },
-        ...(process.platform !== 'darwin' ? [{type: 'separator'}] : []),
-        ...(process.platform !== 'darwin' ? [{
-          label: l('appMenuAbout').replace('%n', app.name),
-          click: function (item, window) {
-            var info = [
-              'Min v' + app.getVersion(),
-              'Chromium v' + process.versions.chrome
+        ...(process.platform !== "darwin" ? [{ type: "separator" }] : []),
+        ...(process.platform !== "darwin"
+          ? [
+              {
+                label: l("appMenuAbout").replace("%n", app.name),
+                click: function (item, window) {
+                  var info = [
+                    "Min v" + app.getVersion(),
+                    "Chromium v" + process.versions.chrome,
+                  ];
+                  electron.dialog.showMessageBox({
+                    type: "info",
+                    title: l("appMenuAbout").replace("%n", app.name),
+                    message: info.join("\n"),
+                    buttons: [l("closeDialog")],
+                  });
+                },
+              },
             ]
-            electron.dialog.showMessageBox({
-              type: 'info',
-              title: l('appMenuAbout').replace('%n', app.name),
-              message: info.join('\n'),
-              buttons: [l('closeDialog')]
-            })
-          }
-        }] : [])
-      ]
-    }
-  ]
-  return Menu.buildFromTemplate(template)
+          : []),
+      ],
+    },
+  ];
+  return Menu.buildFromTemplate(template);
 }
 
-function createDockMenu () {
+function createDockMenu() {
   // create the menu. based on example from https://github.com/electron/electron/blob/master/docs/tutorial/desktop-environment-integration.md#custom-dock-menu-macos
-  if (process.platform === 'darwin') {
-    var Menu = electron.Menu
+  if (process.platform === "darwin") {
+    var Menu = electron.Menu;
 
     var template = [
       {
-        label: l('appMenuNewTab'),
+        label: l("appMenuNewTab"),
         click: function (item, window) {
-          sendIPCToWindow(window, 'addTab')
-        }
+          sendIPCToWindow(window, "addTab");
+        },
       },
       {
-        label: l('appMenuNewPrivateTab'),
+        label: l("appMenuNewPrivateTab"),
         click: function (item, window) {
-          sendIPCToWindow(window, 'addPrivateTab')
-        }
+          sendIPCToWindow(window, "addPrivateTab");
+        },
       },
       {
-        label: l('appMenuNewTask'),
+        label: l("appMenuNewTask"),
         click: function (item, window) {
-          sendIPCToWindow(window, 'addTask')
-        }
-      }
-    ]
+          sendIPCToWindow(window, "addTask");
+        },
+      },
+    ];
 
-    var dockMenu = Menu.buildFromTemplate(template)
-    app.dock.setMenu(dockMenu)
+    var dockMenu = Menu.buildFromTemplate(template);
+    app.dock.setMenu(dockMenu);
   }
 }

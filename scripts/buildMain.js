@@ -1,40 +1,40 @@
-const path = require('path')
-const fs = require('fs')
+const path = require("path");
+const fs = require("fs");
 
-const outFile = path.resolve(__dirname, '../main.build.js')
+const outFile = path.resolve(__dirname, "../main.build.js");
 
 const modules = [
-  'dist/localization.build.js',
-  'main/menu.js',
-  'main/registryConfig.js',
-  'main/main.js',
-  'js/util/settings/settings.js',
-  'main/filtering.js',
-  'main/viewManager.js',
-  'main/download.js',
-  'main/UASwitcher.js',
-  'main/permissionManager.js',
-  'main/prompt.js',
-  'main/remoteMenu.js',
-  'main/keychainService.js',
-  'js/util/proxy.js'
-]
+  "dist/localization.build.js",
+  "main/menu.js",
+  "main/registryConfig.js",
+  "main/main.js",
+  "js/util/settings/settings.js",
+  "main/filtering.js",
+  "main/viewManager.js",
+  "main/download.js",
+  "main/UASwitcher.js",
+  "main/permissionManager.js",
+  "main/prompt.js",
+  "main/remoteMenu.js",
+  "main/keychainService.js",
+  "js/util/proxy.js",
+];
 
-function buildMain () {
+function buildMain() {
   // build localization support first, since it is included in the bundle
-  require('./buildLocalization.js')()
+  require("./buildLocalization.js")();
 
   /* concatenate modules */
-  let output = ''
+  let output = "";
   modules.forEach(function (script) {
-    output += fs.readFileSync(path.resolve(__dirname, '../', script)) + ';\n'
-  })
+    output += fs.readFileSync(path.resolve(__dirname, "../", script)) + ";\n";
+  });
 
-  fs.writeFileSync(outFile, output, 'utf-8')
+  fs.writeFileSync(outFile, output, "utf-8");
 }
 
 if (module.parent) {
-  module.exports = buildMain
+  module.exports = buildMain;
 } else {
-  buildMain()
+  buildMain();
 }
