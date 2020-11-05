@@ -36,7 +36,6 @@ require('./createPackage.js')(toTarget(platform)).then(function (appPaths) {
     depends: [
       'gconf2',
       'gconf-service',
-      'gvfs-bin',
       'libasound2',
       'libc6',
       'libcap2',
