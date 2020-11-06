@@ -24,7 +24,7 @@
     "decomment": "^0.9.0",
     "electron": "^11.0.0-beta.18",
     "electron-installer-windows": "^3.0.0",
-    "electron-packager": "^15.0.0",
+    "electron-packager": "^15.1.0",
     "electron-renderify": "0.0.2",
     "standard": "^14.3.4"
   },
