@@ -279,12 +279,13 @@ body.linux #menu-button {
 
 /* in Carbon, close icon is a bit smaller than other icons, enlarge it in order to match with other icons */
 .tab-item .tab-close-button {
-	font-size: 1.25em;
-	padding: 0.45em 0.45em;
+    font-size: 1.25em;
+    padding: 0.3em 0.45em;
+    margin-top: 0.15em;
 }
 .tab-item .tab-close-button:hover:after {
-	top: 7px;
-    left: 7px;
+    top: 4px !important;
+    left: 7px !important;
     font-size: 0.9em;
 }
 
