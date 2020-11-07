@@ -149,7 +149,7 @@
         "settingsSiteThemeToggle": "Site temasını etkinleştir",
         "settingsAdditionalFeaturesHeading": "Ek Özellikler",
         "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",
-        "settingsShowDividerToggle": null, //missing translation
+        "settingsShowDividerToggle": "Sekmeler arasında ayırıcı göster",
         "settingsSeparateTitlebarToggle": "Ayrılmış başlık çubuğu kullan",
         "settingsOpenTabsInForegroundToggle": "Yeni sekmeleri önplanda aç",
         "settingsUserscriptsExplanation": {
@@ -239,7 +239,7 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Parola Otomatik Doldurma",
         "settingsSelectPasswordManager": "Desteklenen parola yöneticilerinden birini seçin:",
-        "keychainViewPasswords": null, //missing translation
+        "keychainViewPasswords": "Kayıtlı parolaları pöster,
        /* Password manager setup */
         "passwordManagerSetupHeading": "Otomatik Doldur kullanabilmek için %p kurulumunu tamamlayın",
         "passwordManagerSetupStep1": {
@@ -259,13 +259,13 @@
         "passwordManagerSetupRetry": "Doğru dosyayı kullandığınızdan ve geçerli parolayı girdiğinizden emin olun. Dosyayı buraya sürükleyerek tekrar deneyebilirsniz.",
         "passwordManagerUnlock": "Parola kayıtlarınızın kilidini açmak için %p ana parolasını girin:",
         /* Password save bar */
-        "passwordCaptureSavePassword": null, //missing translation
-        "passwordCaptureSave": null, //missing translation
-        "passwordCaptureDontSave": null, //missing translation
+        "passwordCaptureSavePassword": "% için parola kaydedilsin mi?,
+        "passwordCaptureSave": "Kaydet,
+        "passwordCaptureDontSave": "Kaydetme",
         /* Password viewer */
-        "savedPasswordsHeading": null, //missing translation
-        "savedPasswordsEmpty": null, //missing translation
-        "deletePassword": null, //missing translation
+        "savedPasswordsHeading": "Kaıtlı Parolalar,
+        "savedPasswordsEmpty": "Kaydedilmiş parola yok.",
+        "deletePassword": "% için parola silinsin mi?,
         /* Dialogs */
         "loginPromptTitle": "Giriş yapın %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Onayla",
