@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": "Daha fazla göster",
         "viewSettings": "Görünüm Ayarları",
-        "viewReadingList": "Okuma Listesini Görüntüle",
         "takeScreenshot": "Ekran Görüntüsü Al",
         "clearHistory": "Tüm Geçmişi Temizle",
         "enableBlocking": "Bu site için içerik engellemeyi etkinleştir",
@@ -60,8 +59,6 @@
         "openMenu": "Menüyü Aç",
         "enterReaderView": "Okuyucu görünümüne girin",
         "exitReaderView": "Okuyucu görünümünden çıkın",
-        "emptyReadingListTitle": "Okuma listeniz boş",
-        "emptyReadingListSubtitle": "Okuyucu görünümünde açtığınız makaleler burada listelenir ve çevrimdışı olarak 30 gün boyunca saklanır.",
         "newTabLabel": "Yeni Sekme", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "Bu web sitesine yapmış olduğunuz bağlantı güvenli değil.",
         "searchbarPlaceholder": "Arayın veya adres girin",
@@ -192,7 +189,6 @@
         "appMenuActualSize": "Gerçek Boyut",
         "appMenuFullScreen": "Tam Ekran", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Odak Modu",
-        "appMenuReadingList": "Okuma Listesi",
         "appMenuBookmarks": "Yer İmleri",
         "appMenuHistory": "Geçmiş",
         "appMenuDeveloper": "Geliştirici",

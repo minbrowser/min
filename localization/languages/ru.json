@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": "Показать больше",
         "viewSettings": "Открыть настройки",
-        "viewReadingList": "Посмотреть список чтения",
         "takeScreenshot": "Сделать скриншот",
         "clearHistory": "Очистить историю",
         "enableBlocking": "Включить блокировку контента для этого сайта",
@@ -60,8 +59,6 @@
         "openMenu": "Открыть меню",
         "enterReaderView": "Включить режим чтения",
         "exitReaderView": "Выключить режим чтения",
-        "emptyReadingListTitle": "Ваш список для чтения пуст",
-        "emptyReadingListSubtitle": "Статьи, которые вы открываете в режиме чтения, попадают в этот список и остаются доступными офлайн еще 30 дней.",
         "newTabLabel": "Новая вкладка", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "Соединение с этим сайтом небезопасно.",
         "searchbarPlaceholder": "Использовать поиск или ввести адрес",
@@ -192,7 +189,6 @@
         "appMenuActualSize": "Масштаб 100%",
         "appMenuFullScreen": "Полноэкранный режим", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Режим фокусировки",
-        "appMenuReadingList": "Список для чтения",
         "appMenuBookmarks": "Закладки",
         "appMenuHistory": "История",
         "appMenuDeveloper": "Разработка",

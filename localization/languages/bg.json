@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": "Показване на повече",
         "viewSettings": "Преглед на настройките",
-        "viewReadingList": "Преглед на лист за четене",
         "takeScreenshot": "Правене на екранна снимка",
         "clearHistory": "Изчистване на цялата история",
         "enableBlocking": "Активиране на блокиране на съдържание за този сайт",
@@ -60,8 +59,6 @@
         "openMenu": "Отваряне на меню", //application menu button on windows
         "enterReaderView": "Влизане в изглед на четене",
         "exitReaderView": "Излизане от изглед на четене",
-        "emptyReadingListTitle": "Вашият лист за четене е празен",
-        "emptyReadingListSubtitle": "Статии, които отворите в изглед на четене се изброяват тук и се запазват офлайн за 30 дена.",
         "newTabLabel": "Нов раздел", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "Връзката Ви с този уеб сайт не е защитена.",
         "searchbarPlaceholder": "Потърсете или въведете адрес",
@@ -191,7 +188,6 @@
         "appMenuActualSize": "Нулиране на мащабирането",
         "appMenuFullScreen": "Цял екран", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Режим на фокусиране",
-        "appMenuReadingList": "Лист за четене",
         "appMenuBookmarks": "Отметки",
         "appMenuHistory": "История",
         "appMenuDeveloper": "Разработчик",

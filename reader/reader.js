@@ -253,16 +253,6 @@ function startReaderView (article, date) {
 
     window.addEventListener('resize', setReaderFrameSize)
   }
-
-  // save the scroll position at intervals
-
-  setInterval(function () {
-    updateExtraData(articleURL, {
-      scrollPosition: window.pageYOffset,
-      articleScrollLength: rframe.contentDocument.body.scrollHeight
-    })
-  }, 10000)
-
   document.body.appendChild(rframe)
 }
 
@@ -360,11 +350,6 @@ function processArticle (data) {
     }
 
     document.body.removeChild(parserframe)
-
-    saveArticle(articleURL, article, {
-      scrollPosition: 0,
-      articleScrollLength: null
-    })
   }
 }
 
@@ -399,15 +384,8 @@ fetch(articleURL, {
   .catch(function (data) {
     console.warn('request failed with error', data)
 
-    getArticle(articleURL, function (item) {
-      if (item) {
-        console.log('offline article found, displaying')
-        startReaderView(item.article)
-      } else {
-        startReaderView({
-          content: '<em>Failed to load article.</em>'
-        })
-      }
+    startReaderView({
+      content: '<em>Failed to load article.</em>'
     })
   })
 

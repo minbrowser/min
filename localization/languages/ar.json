@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": null, //missing translation
         "viewSettings": "عرض الاعدادات",
-        "viewReadingList": "عرض قائمة القراءة",
         "takeScreenshot": "خذ لقطة شاشة",
         "clearHistory": "مسح السجل",
         "enableBlocking": null, //missing translation
@@ -60,8 +59,6 @@
         "openMenu": "فتح القائمة", //application menu button on windows
         "enterReaderView": "دخول وضع القراءة",
         "exitReaderView": "خروج وضع القراءة",
-        "emptyReadingListTitle": "قائمة القراءة فارغة ",
-        "emptyReadingListSubtitle": "يتم سرد المقالات التي تفتحها في عرض القارئ هنا ، ويتم حفظها لمدة 30 يومًا",
         "newTabLabel": "تبويب جديدة", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "اتصالك مع هدا الموقع غير محمي.",
         "searchbarPlaceholder": "ابحث او ادخل الرابط",
@@ -192,7 +189,6 @@
         "appMenuActualSize": "حجم حقيقي",
         "appMenuFullScreen": "ملء الشاشة", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "وضع التركيز",
-        "appMenuReadingList": "قائمة القراءة",
         "appMenuBookmarks": "اشارة",
         "appMenuHistory": "سجل",
         "appMenuDeveloper": "مطور",

@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": "Показати більше",
         "viewSettings": "Показати налаштування",
-        "viewReadingList": "Переглянути список читання",
         "takeScreenshot": "Зробити знімок екрану",
         "clearHistory": "Очистити історію",
         "enableBlocking": "Увімкнути блокування вмісту для цього сайту",
@@ -60,8 +59,6 @@
         "openMenu": "Відкрити меню", //application menu button on windows
         "enterReaderView": "Перейти в режим читання",
         "exitReaderView": "Вийти з режиму читання",
-        "emptyReadingListTitle": "Ваш список читання порожній",
-        "emptyReadingListSubtitle": "Статті, які ви відкриваєте у вікні читача, перелічені тут, і зберігаються в автономному режимі протягом 30 днів.",
         "newTabLabel": "Нова вкладка", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "Ваше з'єднання з цим веб-сайтом не захищене.",
         "searchbarPlaceholder": "Пошуковий запит чи адреса",
@@ -193,7 +190,6 @@
         "appMenuActualSize": "Реальний розмір",
         "appMenuFullScreen": "Повноекранний режим", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Режим фокусування",
-        "appMenuReadingList": "Список читання",
         "appMenuBookmarks": "Закладки",
         "appMenuHistory": "Історія",
         "appMenuDeveloper": "Розробник",

@@ -4,7 +4,7 @@ var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var bangsPlugin = require('searchbar/bangsPlugin.js')
 var urlParser = require('util/urlParser.js')
-var {db} = require('util/database.js')
+var { db } = require('util/database.js')
 
 var readerDecision = require('readerDecision.js')
 
@@ -58,14 +58,14 @@ var readerView = {
   },
   enter: function (tabId, url) {
     var newURL = readerView.readerURL + '?url=' + encodeURIComponent(url || tabs.get(tabId).url)
-    tabs.update(tabId, {url: newURL})
+    tabs.update(tabId, { url: newURL })
     webviews.update(tabId, newURL)
   },
   exit: function (tabId) {
     var src = urlParser.getSourceURL(tabs.get(tabId).url)
     // this page should not be automatically readerable in the future
     readerDecision.setURLStatus(src, false)
-    tabs.update(tabId, {url: src})
+    tabs.update(tabId, { url: src })
     webviews.update(tabId, src)
   },
   printArticle: function (tabId) {
@@ -75,75 +75,7 @@ var readerView = {
 
     webviews.callAsync(tabs.getSelected(), 'executeJavaScript', 'parentProcessActions.printArticle()')
   },
-  searchForArticles: function (filterText, cb) {
-    var results = []
-    db.readingList.orderBy('time').reverse().each(function (article) {
-      if (!article.article) {
-        return
-      }
-
-      if (filterText) {
-        var normalizedFilterText = filterText.trim().toLowerCase().replace(/\s+/g, ' ').replace(/\W+/g, '')
-        var normalizedArticleText = (article.url + article.article.title + article.article.excerpt).trim().toLowerCase().replace(/\s+/g, ' ').replace(/\W+/g, '')
-        if (normalizedArticleText.indexOf(normalizedFilterText) !== -1) {
-          results.push(article)
-        }
-      } else {
-        results.push(article)
-      }
-    }).then(function () {
-      cb(results)
-    })
-  },
-  showReadingList: function (filterText) {
-    readerView.searchForArticles(filterText, function (articles) {
-      searchbarPlugins.reset('bangs')
-
-      if (articles.length === 0) {
-        searchbarPlugins.addResult('bangs', {
-          title: l('emptyReadingListTitle'),
-          descriptionBlock: l('emptyReadingListSubtitle')
-        })
-        return
-      }
-
-      articles.forEach(function (article, idx) {
-        var data = {
-          title: article.article.title,
-          descriptionBlock: article.article.excerpt,
-          url: readerView.getReaderURL(article.url),
-          fakeFocus: filterText && idx === 0,
-          delete: function (el) {
-            db.readingList.where('url').equals(article.url).delete()
-          },
-          showDeleteButton: true
-        }
-
-        if (article.visitCount > 5 || (article.extraData.scrollPosition > 0 && article.extraData.articleScrollLength - article.extraData.scrollPosition < 1000)) { // the article has been visited frequently, or the scroll position is at the bottom
-          data.opacity = 0.65
-        }
-
-        searchbarPlugins.addResult('bangs', data)
-      })
-    })
-  },
   initialize: function () {
-    bangsPlugin.registerCustomBang({
-      phrase: '!readinglist',
-      snippet: l('viewReadingList'),
-      isAction: false,
-      showSuggestions: function (text, input, event) {
-        readerView.showReadingList(text)
-      },
-      fn: function (text) {
-        readerView.searchForArticles(text, function (articles) {
-          if (articles[0]) {
-            searchbar.openURL(readerView.getReaderURL(articles[0].url))
-          }
-        })
-      }
-    })
-
     // update the reader button on page load
 
     webviews.bindEvent('did-start-navigation', function (tabId, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {

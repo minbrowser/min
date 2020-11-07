@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": "显示更多",
         "viewSettings": "查看设置界面",
-        "viewReadingList": "显示阅读列表",
         "takeScreenshot": "截图",
         "clearHistory": "清除所有历史记录",
         "enableBlocking": null, //missing translation
@@ -60,8 +59,6 @@
         "openMenu": "开启菜单",
         "enterReaderView": "进入阅读模式",
         "exitReaderView": "退出阅读模式",
-        "emptyReadingListTitle": "您的阅读列表为空",
-        "emptyReadingListSubtitle": "您在阅读器模式下打开过的文章，将显示在此处，并离线保存 30 天。",
         "newTabLabel": "新标签页", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "你与此站点建立的连接并不安全。",
         "searchbarPlaceholder": "输入搜索内容或网站地址",
@@ -192,7 +189,6 @@
         "appMenuActualSize": "实际大小",
         "appMenuFullScreen": "全屏", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "焦点模式",
-        "appMenuReadingList": "阅读列表",
         "appMenuBookmarks": "书签",
         "appMenuHistory": "历史",
         "appMenuDeveloper": "开发",

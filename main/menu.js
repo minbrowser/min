@@ -53,13 +53,6 @@ function buildAppMenu (options = {}) {
       click: function (item, window) {
         sendIPCToWindow(window, 'showHistory')
       }
-    },
-    {
-      label: l('appMenuReadingList'),
-      accelerator: undefined,
-      click: function (item, window) {
-        sendIPCToWindow(window, 'showReadingList')
-      }
     }
   ]
 
@@ -73,64 +66,64 @@ function buildAppMenu (options = {}) {
 
   var template = [
     ...(options.secondary ? tabTaskActions : []),
-    ...(options.secondary ? [{type: 'separator'}] : []),
+    ...(options.secondary ? [{ type: 'separator' }] : []),
     ...(options.secondary ? personalDataItems : []),
-    ...(options.secondary ? [{type: 'separator'}] : []),
-    ...(process.platform === 'darwin' ?
-    [
-      {
-        label: app.name,
-        submenu: [
-          {
-            label: l('appMenuAbout').replace('%n', app.name),
-            role: 'about'
-          },
-          {
-            type: 'separator'
-          },
-          {
-            label: l('appMenuPreferences'),
-            accelerator: 'CmdOrCtrl+,',
-            click: function (item, window) {
-              sendIPCToWindow(window, 'addTab', {
-                url: 'file://' + __dirname + '/pages/settings/index.html'
-              })
-            }
-          },
-          {
-            label: 'Services',
-            role: 'services',
-            submenu: []
-          },
-          {
-            type: 'separator'
-          },
-          {
-            label: l('appMenuHide').replace('%n', app.name),
-            accelerator: 'CmdOrCtrl+H',
-            role: 'hide'
-          },
-          {
-            label: l('appMenuHideOthers'),
-            accelerator: 'CmdOrCtrl+Shift+H',
-            role: 'hideothers'
-          },
-          {
-            label: l('appMenuShowAll'),
-            role: 'unhide'
-          },
-          {
-            type: 'separator'
-          },
-          quitAction
-        ]
-      }
-    ] : []),
+    ...(options.secondary ? [{ type: 'separator' }] : []),
+    ...(process.platform === 'darwin'
+    ? [
+        {
+          label: app.name,
+          submenu: [
+            {
+              label: l('appMenuAbout').replace('%n', app.name),
+              role: 'about'
+            },
+            {
+              type: 'separator'
+            },
+            {
+              label: l('appMenuPreferences'),
+              accelerator: 'CmdOrCtrl+,',
+              click: function (item, window) {
+                sendIPCToWindow(window, 'addTab', {
+                  url: 'file://' + __dirname + '/pages/settings/index.html'
+                })
+              }
+            },
+            {
+              label: 'Services',
+              role: 'services',
+              submenu: []
+            },
+            {
+              type: 'separator'
+            },
+            {
+              label: l('appMenuHide').replace('%n', app.name),
+              accelerator: 'CmdOrCtrl+H',
+              role: 'hide'
+            },
+            {
+              label: l('appMenuHideOthers'),
+              accelerator: 'CmdOrCtrl+Shift+H',
+              role: 'hideothers'
+            },
+            {
+              label: l('appMenuShowAll'),
+              role: 'unhide'
+            },
+            {
+              type: 'separator'
+            },
+            quitAction
+          ]
+        }
+      ] : []),
     {
       label: l('appMenuFile'),
       submenu: [
         ...(!options.secondary ? tabTaskActions : []),
-        ...(!options.secondary ? [{type: 'separator'}] : []),
+        ...(!options.secondary ? [{ type: 'separator' }] : []),
         {
           label: l('appMenuSavePageAs'),
           accelerator: 'CmdOrCtrl+s',
@@ -148,7 +141,7 @@ function buildAppMenu (options = {}) {
             sendIPCToWindow(window, 'print')
           }
         },
-        ...(process.platform === 'linux' ? [{type: 'separator'}] : []),
+        ...(process.platform === 'linux' ? [{ type: 'separator' }] : []),
         ...(process.platform === 'linux' ? [quitAction] : [])
       ]
     },
@@ -198,7 +191,7 @@ function buildAppMenu (options = {}) {
             sendIPCToWindow(window, 'findInPage')
           }
         },
-        ...(process.platform !== 'darwin' ? [{type: 'separator'}] : []),
+        ...(process.platform !== 'darwin' ? [{ type: 'separator' }] : []),
         ...(process.platform !== 'darwin' ? [{
           label: l('appMenuPreferences'),
           accelerator: 'CmdOrCtrl+,',
@@ -214,7 +207,7 @@ function buildAppMenu (options = {}) {
       label: l('appMenuView'),
       submenu: [
         ...(!options.secondary ? personalDataItems : []),
-        ...(!options.secondary ? [{type: 'separator'}] : []),
+        ...(!options.secondary ? [{ type: 'separator' }] : []),
         {
           label: l('appMenuZoomIn'),
           accelerator: 'CmdOrCtrl+Plus',
@@ -258,9 +251,9 @@ function buildAppMenu (options = {}) {
           label: l('appMenuFullScreen'),
           accelerator: (function () {
             if (process.platform == 'darwin')
-              return 'Ctrl+Command+F'
+              {return 'Ctrl+Command+F'}
             else
-              return 'F11'
+              {return 'F11'}
           })(),
           role: 'togglefullscreen'
         }
@@ -273,9 +266,9 @@ function buildAppMenu (options = {}) {
           label: l('appMenuInspectPage'),
           accelerator: (function () {
             if (process.platform == 'darwin')
-              return 'Cmd+Alt+I'
+              {return 'Cmd+Alt+I'}
             else
-              return 'Ctrl+Shift+I'
+              {return 'Ctrl+Shift+I'}
           })(),
           click: function (item, window) {
             sendIPCToWindow(window, 'inspectPage')
@@ -378,7 +371,7 @@ function buildAppMenu (options = {}) {
             openTabInWindow('https://github.com/minbrowser/min')
           }
         },
-        ...(process.platform !== 'darwin' ? [{type: 'separator'}] : []),
+        ...(process.platform !== 'darwin' ? [{ type: 'separator' }] : []),
         ...(process.platform !== 'darwin' ? [{
           label: l('appMenuAbout').replace('%n', app.name),
           click: function (item, window) {
