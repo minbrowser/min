@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": "すべて表示する",
         "viewSettings": "設定を表示",
-        "viewReadingList": "閲覧リストを見る",
         "takeScreenshot": "スクリーンショットを撮る",
         "clearHistory": "すべての履歴をクリア",
         "enableBlocking": "このサイトのコンテンツブロックを有効にする",
@@ -60,8 +59,6 @@
         "openMenu": "メニューを開く",
         "enterReaderView": "リーダービューを開始",
         "exitReaderView": "リーダービューを終了",
-        "emptyReadingListTitle": "リーディングリストは空です",
-        "emptyReadingListSubtitle": "リーダービューで表示した記事がここに30日間オフラインで保存されます。",
         "newTabLabel": "新しいタブ", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "このウェブサイトへの接続は保護されていません。",
         "searchbarPlaceholder": "検索ワードまたはアドレスを入力",
@@ -192,7 +189,6 @@
         "appMenuActualSize": "実際のサイズ",
         "appMenuFullScreen": "フルスクリーン", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "フォーカスモード",
-        "appMenuReadingList": "リーディングリスト",
         "appMenuBookmarks": "ブックマーク",
         "appMenuHistory": "歴史",
         "appMenuDeveloper": "開発",

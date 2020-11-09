@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": "더 보기",
         "viewSettings": "설정",
-        "viewReadingList": "읽기 지원 목록",
         "takeScreenshot": "갈무리",
         "clearHistory": "기록 삭제",
         "enableBlocking": "이 누리집에 콘텐츠 차단 활성",
@@ -60,8 +59,6 @@
         "openMenu": "도구 일람", //application menu button on windows
         "enterReaderView": "읽기 지원",
         "exitReaderView": "읽기 지원 종료",
-        "emptyReadingListTitle": "읽기 항목이 없습니다",
-        "emptyReadingListSubtitle": "열어본 기사가 나열되며, 사용자의 장비에 30일간 저장됩니다.",
         "newTabLabel": "새 작업", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "이 누리집에 대한 연결이 안전하지 않습니다.",
         "searchbarPlaceholder": "주소 검색 또는 입력",
@@ -192,7 +189,6 @@
         "appMenuActualSize": "실제 크기",
         "appMenuFullScreen": "전체 화면", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "집중 지원",
-        "appMenuReadingList": "읽기 목록",
         "appMenuBookmarks": "즐겨찾기",
         "appMenuHistory": "기록",
         "appMenuDeveloper": "개발자",

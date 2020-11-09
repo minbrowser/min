@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": null, //missing translation
         "viewSettings": "Rodyti nustatymus",
-        "viewReadingList": "Rodyti skaitymo sąrašą",
         "takeScreenshot": "Padaryti ekrano kopiją",
         "clearHistory": "Išvalyti visą istoriją",
         "enableBlocking": null, //missing translation
@@ -60,8 +59,6 @@
         "openMenu": "Atverti meniu", //application menu button on windows
         "enterReaderView": "Įeiti į skaitymo rodinį",
         "exitReaderView": "Išeiti iš skaitymo rodinio",
-        "emptyReadingListTitle": "Jūsų skaitymo sąrašas tuščias",
-        "emptyReadingListSubtitle": "Čia yra išvardijami skaitymo rodinyje atverti straipsniai, kurie saugomi autonominiam naudojimui 30 dienų.",
         "newTabLabel": "Nauja kortelė", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "Jūsų ryšys su šia svetaine nėra saugus.",
         "searchbarPlaceholder": "Atlikite paiešką arba įveskite adresą",
@@ -192,7 +189,6 @@
         "appMenuActualSize": "Faktinis dydis",
         "appMenuFullScreen": "Visas ekranas", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Susitelkimo veiksena",
-        "appMenuReadingList": "Skaitymo sąrašas",
         "appMenuBookmarks": "Adresynas",
         "appMenuHistory": "Istorija",
         "appMenuDeveloper": "Kūrėjas",
