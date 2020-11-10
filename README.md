@@ -12,6 +12,8 @@ Min is a fast, minimal browser that protects your privacy. It includes an interf
 
 Download Min from the [releases page](https://github.com/minbrowser/min/releases), or learn more on the [website](https://minbrowser.org/).
 
+[![Downloads](https://img.shields.io/github/downloads/minbrowser/min/total.svg?style=flat-square)](https://github.com/minbrowser/min/releases)
+
 
 Min is made possible by these sponsors:
 
