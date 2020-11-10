@@ -37,7 +37,6 @@
       Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": "আরো দেখুন", 
         "viewSettings": "সেটিংস দেখুন",
-        "viewReadingList": "পঠন তালিকা দেখুন",
         "takeScreenshot": "একটি স্ক্রিনশট নিন",
         "clearHistory": "সমস্ত ইতিহাস সাফ করুন",
         "enableBlocking":"এই সাইটের জন্য সামগ্রী ব্লকিং সক্ষম করুন",
@@ -60,8 +59,6 @@
         /* navbar */
         "enterReaderView": "রিডার ভিউ লিখুন",
         "exitReaderView": "রিডার ভিউ প্রস্থান করুন",
-        "emptyReadingListTitle": "আপনার পড়া তালিকা খালি",
-        "emptyReadingListSubtitle": "রিডার ভিউতে আপনার খোলা নিবন্ধগুলি এখানে তালিকাভুক্ত করা হয়েছে এবং 30 দিনের জন্য অফলাইনে সংরক্ষণ করা হয়েছে।",
         "newTabLabel": "নতুন ট্যাব", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "এই ওয়েবসাইটে আপনার সংযোগ নিরাপদ নয়।",
         "searchbarPlaceholder": "অনুসন্ধান করুন বা ঠিকানা লিখুন",
@@ -192,7 +189,6 @@
         "appMenuActualSize": "সঠিক আকার",
         "appMenuFullScreen": "পূর্ণ পর্দা", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "ফোকাস মোড",
-        "appMenuReadingList": "পড়ার তালিকা",
         "appMenuBookmarks": "বুকমার্ক",
         "appMenuHistory": "ইতিহাস",
         "appMenuDeveloper": "বিকাশকারী",

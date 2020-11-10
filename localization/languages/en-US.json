@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": "Show more",
         "viewSettings": "View Settings",
-        "viewReadingList": "View Reading List",
         "takeScreenshot": "Take a Screenshot",
         "clearHistory": "Clear All History",
         "enableBlocking": "Enable content blocking for this site",
@@ -60,8 +59,6 @@
         "openMenu": "Open menu", //application menu button on windows
         "enterReaderView": "Enter reader view",
         "exitReaderView": "Exit reader view",
-        "emptyReadingListTitle": "Your reading list is empty",
-        "emptyReadingListSubtitle": "Articles you open in reader view are listed here, and are saved offline for 30 days.",
         "newTabLabel": "New Tab", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "Your connection to this website is not secure.",
         "searchbarPlaceholder": "Search or enter address",
@@ -192,7 +189,6 @@
         "appMenuActualSize": "Actual Size",
         "appMenuFullScreen": "Full Screen", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Focus Mode",
-        "appMenuReadingList": "Reading List",
         "appMenuBookmarks": "Bookmarks",
         "appMenuHistory": "History",
         "appMenuDeveloper": "Developer",

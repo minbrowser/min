@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": "Xem hơn",
         "viewSettings": "Xem cài đặt",
-        "viewReadingList": "Xem danh sách đọc",
         "takeScreenshot": "Chụp màn hình",
         "clearHistory": "Xóa lịch sử",
         "enableBlocking": null, //missing translation
@@ -60,8 +59,6 @@
         "openMenu": "Mở menu", //application menu button on windows
         "enterReaderView": "Vào chế độ đọc ngôn",
         "exitReaderView": "Thoát chế độ đọc ngôn",
-        "emptyReadingListTitle": "Danh sách đọc của bạn trống",
-        "emptyReadingListSubtitle": "Bài đọc bản đã mở trong chế độ đọc ngôn sẽ hiện đây, và bị lưu ngoại tuyến cho 30 ngày.",
         "newTabLabel": "Tab mới", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "Kết nối đến trang web này không có an toàn.",
         "searchbarPlaceholder": "Tìm kiếm hoặc nhập địa chỉ",
@@ -186,7 +183,6 @@
         "appMenuActualSize": "Cỡ thường",
         "appMenuFullScreen": "Toàn màn hình", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Chế độ tập trung",
-        "appMenuReadingList": "Danh sách đọc",
         "appMenuBookmarks": "Trang đã đánh dấu",
         "appMenuHistory": "Lịch sử",
         "appMenuDeveloper": "Phát triển",

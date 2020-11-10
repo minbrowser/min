@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": "Ko'proq ko'rsatish",
         "viewSettings": "Sozlamarni ko'rish",
-        "viewReadingList": "O'qilayotgan ro'yxatni ko'rish",
         "takeScreenshot": "Skrinshot olish",
         "clearHistory": "Barcha tarixni o'chirish",
         "enableBlocking": "Ushbu sahifaga kontent bloklashni yoqish",
@@ -60,8 +59,6 @@
         "openMenu": "Menyuni ochish", //application menu button on windows
         "enterReaderView": "O'quvchi ko'rinishiga kirish",
         "exitReaderView": "O'quvchi ko'rinishidan chiqish",
-        "emptyReadingListTitle": "Sizning o'quv ro'yxatingiz bo'sh",
-        "emptyReadingListSubtitle": "Siz ochgan maqolar shulardan iborat va 30 kungacha oflayn tarzida saqlanadi",
         "newTabLabel": "Yangi varaq", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "Bu sahifa bilan aloqa xavfsiz emas",
         "searchbarPlaceholder": "Qidirin yoki manzilni kiriting",
@@ -192,7 +189,6 @@
         "appMenuActualSize": "Haqiqiy hajmi",
         "appMenuFullScreen": "To'liq ekran", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Fokus Rejimi",
-        "appMenuReadingList": "O'qish ro'yxati",
         "appMenuBookmarks": "Xatcho'plar",
         "appMenuHistory": "Tarix",
         "appMenuDeveloper": "Dasturchi",

@@ -368,6 +368,10 @@ const webviews = {
     // probably either an error page (after  a redirect from the original page) or reader view
     var url = tabs.get(id).url
 
+    webviews.callAsync(id, 'goBack')
+
+    // TODO not working in Electron 11
+    /*
     var isInternalURL = urlParser.isInternalURL(url)
     if (isInternalURL) {
       var representedURL = urlParser.getSourceURL(url)
@@ -385,7 +389,7 @@ const webviews = {
       })
     } else {
       webviews.callAsync(id, 'goBack')
-    }
+    } */
   },
   /*
   Can be called as

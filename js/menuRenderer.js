@@ -48,11 +48,6 @@ module.exports = {
       webviews.callAsync(tabs.getSelected(), 'toggleDevTools')
     })
 
-    ipc.on('showReadingList', function () {
-      // open the searchbar with "!readinglist " as the input
-      tabEditor.show(tabs.getSelected(), '!readinglist ')
-    })
-
     ipc.on('showBookmarks', function () {
       tabEditor.show(tabs.getSelected(), '!bookmarks ')
     })

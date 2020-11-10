@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": "Zobrazit více",
         "viewSettings": "Zobrazit nastavení",
-        "viewReadingList": "Zobrazit seznam čtení",
         "takeScreenshot": "Pořídit snímek obrazovky",
         "clearHistory": "Vymazat celou historii",
         "enableBlocking": "Zapnout blokování obsahu pro tuto stránku",
@@ -60,8 +59,6 @@
         "openMenu": "Otevřít menu", //application menu button on windows
         "enterReaderView": "Otevřít režim čtení",
         "exitReaderView": "Zavřít režim čtení",
-        "emptyReadingListTitle": "Váš seznam čtení je prázdný",
-        "emptyReadingListSubtitle": "Stránky otevřené v režimu čtení zde budou uloženy pro offline zobrazení po dobu 30 dnů.",
         "newTabLabel": "Nová karta", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "Vaše připojení k této stránce není zabezpečené.",
         "searchbarPlaceholder": "Vyhledávejte nebo zadejte adresu",
@@ -192,7 +189,6 @@
         "appMenuActualSize": "Skutečná velikost",
         "appMenuFullScreen": "Celá obrazovka", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Režim zaměření",
-        "appMenuReadingList": "Seznam čtení",
         "appMenuBookmarks": "Záložky",
         "appMenuHistory": "Historie",
         "appMenuDeveloper": "Nástroje pro vývojáře",

@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": null, //missing translation
         "viewSettings": "Beállítások megtekintése",
-        "viewReadingList": "Olvasási lista megtekintése",
         "takeScreenshot": "Képernyőkép készitése",
         "clearHistory": "Összes történet törlés",
         "enableBlocking": null, //missing translation
@@ -60,8 +59,6 @@
         "openMenu": "Menü megnyitása",
         "enterReaderView": "Lépj be az olvasó nézetbe",
         "exitReaderView": "Kilépés az olvasó nézetből",
-        "emptyReadingListTitle": "Az olvasó listád üres",
-        "emptyReadingListSubtitle": "Cikkek amiket az olvaső nézetbe megnyitott, 30 napig helyileg tároljuk",
         "newTabLabel": "Új fül", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "A kapcsolat ezzel az oldalal nem biztonságos.",
         "searchbarPlaceholder": "Keresés vagy írja be a címet",
@@ -190,7 +187,6 @@
         "appMenuActualSize": "Eredeti méret",
         "appMenuFullScreen": "Teljes képernyő", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Fókusz mód",
-        "appMenuReadingList": "Olvasó lista",
         "appMenuBookmarks": "Könyvjelzők",
         "appMenuHistory": "Régebben látogatott oldalak",
         "appMenuDeveloper": "Fejlesztő",

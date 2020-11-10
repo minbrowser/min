@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": null, //missing translation
         "viewSettings": "نمایش تنظیمات",
-        "viewReadingList": "نمایش لیست خواندن",
         "takeScreenshot": "عکس گرفتن از صفحه",
         "clearHistory": "حذف تاریخچه مرورگر",
         "enableBlocking": null, //missing translation
@@ -60,8 +59,6 @@
         "openMenu": "باز کردن منو", //application menu button on windows
         "enterReaderView": "ورود به حالت خواندن",
         "exitReaderView": "خروج از حالت خواندن",
-        "emptyReadingListTitle": "لیست خواندن شما خالی است",
-        "emptyReadingListSubtitle": "مقالاتی که شما در حالت خواندن باز می کنید در اینجا لیست می شوند و به مدت سی روز به آنها دسترسی آفلاین دارید.",
         "newTabLabel": "برگه جدید", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "ارتباط شما با این سایت امن نیست.",
         "searchbarPlaceholder": "جستجو کنید یا آدرس سایت را وارد کنید",
@@ -192,7 +189,6 @@
         "appMenuActualSize": "اندازه واقعی",
         "appMenuFullScreen": "تمام صفحه", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "حالت تمرکز",
-        "appMenuReadingList": "فهرست خواندن",
         "appMenuBookmarks": "نشانک ها",
         "appMenuHistory": "تاریخچه",
         "appMenuDeveloper": "توسعه دهنده",

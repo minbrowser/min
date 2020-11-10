@@ -37,7 +37,6 @@
         Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": "Mostra di più",
         "viewSettings": "Vedi Impostazioni",
-        "viewReadingList": "Vedi Lista di Lettura",
         "takeScreenshot": "Cattura Screenshot",
         "clearHistory": "Svuota la cronologia",
         "enableBlocking": null, //missing translation
@@ -60,8 +59,6 @@
         "openMenu": "Apri menu", //application menu button on windows
         "enterReaderView": "Entra in Modalità Lettura",
         "exitReaderView": "Esci dalla Modalità Lettura",
-        "emptyReadingListTitle": "La tua Lista di Lettura è vuota",
-        "emptyReadingListSubtitle": "Gli articoli che apri in Modalità Lettura sono elencati qui. Rimangono salvati online per 30 giorni.",
         "newTabLabel": "Nuova scheda", //this is a noun, used for tabs that don't have a page loaded in them yet
         "connectionNotSecure": "La tua connessione a questo sito non è sicura..",
         "searchbarPlaceholder": "Cerca o inserisci indirizzo",
@@ -192,7 +189,6 @@
         "appMenuActualSize": "Dimensioni reali",
         "appMenuFullScreen": "Schermo Intero", //on some platforms, this string is replaced with one built-in to the OS
         "appMenuFocusMode": "Modalità Focus",
-        "appMenuReadingList": "Lista di Lettura",
         "appMenuBookmarks": "Preferiti",
         "appMenuHistory": "Cronologia",
         "appMenuDeveloper": "Sviluppo",

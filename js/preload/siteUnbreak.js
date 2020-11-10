@@ -10,11 +10,15 @@ window.addEventListener('message', function (e) {
   }
 })
 
-scriptsToRun.push(`
+if (process.isMainFrame) {
+  // window.close() isn't implemented in electron by default
+  // only enable for main frame, so that calling window.close() from an iframe doesn't close the entire tab
+  scriptsToRun.push(`
   window.close = function () {
     postMessage('close-window', '*')
   }
 `)
+}
 
 if ((window.location.hostname === 'google.com' || window.location.hostname.endsWith('.google.com')) && window.location.hostname !== 'hangouts.google.com') {
   /* define window.chrome

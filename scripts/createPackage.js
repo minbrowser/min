@@ -1,4 +1,5 @@
 const packager = require('electron-packager')
+const rebuild = require('electron-rebuild').default
 
 const packageFile = require('./../package.json')
 const version = packageFile.version
@@ -37,12 +38,18 @@ var baseOptions = {
   arch: 'all',
   ignore: ignoredDirs,
   prune: true,
-  overwrite: true
+  overwrite: true,
+  afterCopy: [(buildPath, electronVersion, platform, arch, callback) => {
+    rebuild({ buildPath, electronVersion, arch })
+      .then(() => callback())
+      .catch((error) => callback(error))
+  }]
 }
 
 var platformOptions = {
   darwin: {
     platform: 'darwin',
+    arch: 'x64', // TODO enable ARM build
     icon: 'icons/icon.icns',
     darwinDarkModeSupport: true,
     protocols: [{
