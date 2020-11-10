@@ -10,6 +10,12 @@ const ipc = electron.ipcMain
 const Menu = electron.Menu
 const MenuItem = electron.MenuItem
 
+if (process.argv.some(arg => arg === '-v' || arg === '--version')) {
+  console.log('Min: ' + app.getVersion())
+  console.log('Chromium: ' + process.versions.chrome)
+  process.exit()
+}
+
 let isInstallerRunning = false
 const isDevelopmentMode = process.argv.some(arg => arg === '--development-mode')
 
