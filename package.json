@@ -10,7 +10,7 @@
     "dexie": "^1.2.0",
     "dragula": "^3.6.2",
     "electron-squirrel-startup": "^1.0.0",
-    "keytar": "^6.0.1",
+    "keytar": "^7.0.0",
     "mousetrap": "^1.5.3",
     "pdfjs-dist": "2.4.456",
     "regedit": "^3.0.3",
@@ -25,6 +25,7 @@
     "electron": "^11.0.0-beta.18",
     "electron-installer-windows": "^3.0.0",
     "electron-packager": "^15.1.0",
+    "electron-rebuild": "^2.3.2",
     "electron-renderify": "0.0.2",
     "standard": "^14.3.4"
   },
