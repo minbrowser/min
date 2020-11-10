@@ -51,7 +51,7 @@ function toggleCollapsed (taskContainer, task) {
 
   var collapseButton = taskContainer.querySelector('.task-collapse-button')
   collapseButton.classList.toggle('carbon:chevron-right')
-  collapseButton.classList.toggle('carbon:chevron-left')
+  collapseButton.classList.toggle('carbon:chevron-down')
 
   if (tasks.isCollapsed(task.id)) {
     collapseButton.setAttribute('aria-expanded', 'false')
