@@ -35,10 +35,10 @@
   },
   "license": "Apache-2.0",
   "scripts": {
-    "test": "node_modules/.bin/standard --verbose js/**/*.js main/*.js",
+    "test": "standard --verbose js/**/*.js main/*.js",
     "watch": "node ./scripts/watch.js",
-    "startElectron": "./node_modules/.bin/electron . --development-mode",
-    "start": "npm run build && \"./node_modules/.bin/concurrently\" \"npm run watch\" \"npm run startElectron\"",
+    "startElectron": "electron . --development-mode",
+    "start": "npm run build && \"concurrently\" \"npm run watch\" \"npm run startElectron\"",
     "buildMain": "node ./scripts/buildMain.js",
     "buildBrowser": "node ./scripts/buildBrowser.js",
     "buildPreload": "node ./scripts/buildPreload.js",
