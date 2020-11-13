@@ -1,5 +1,10 @@
 /* Determines whether a page should redirect to reader view based on visit history */
 
+if (typeof require !== 'undefined') {
+  // running in UI process
+  var settings = require('util/settings/settings.js')
+}
+
 const readerDecision = {
   trimURL: function (url) {
     var loc = new URL(url)
@@ -32,7 +37,7 @@ const readerDecision = {
         // this domain has been set to auto reader mode
         // we don't know anything about the content of the page
         if (urlObj.pathname === '/') {
-            // sometimes the domain homepage will have a lot of text and look like an article (examples: gutenberg.org, nytimes.com), but it almost never is, so we shouldn't redirect to reader view unless the page has been explicitly marked as readerable (in which case URLStatus will handle it above)
+          // sometimes the domain homepage will have a lot of text and look like an article (examples: gutenberg.org, nytimes.com), but it almost never is, so we shouldn't redirect to reader view unless the page has been explicitly marked as readerable (in which case URLStatus will handle it above)
           return -1
         } else {
           return 0
@@ -54,7 +59,7 @@ const readerDecision = {
   setURLStatus (url, isReaderable) {
     url = readerDecision.trimURL(url)
 
-    readerDecision.info.URLStatus[url] = {lastVisit: Date.now(), isReaderable}
+    readerDecision.info.URLStatus[url] = { lastVisit: Date.now(), isReaderable }
     saveData()
   },
   getURLStatus: function (url) {
@@ -76,9 +81,17 @@ const readerDecision = {
   }
 }
 
-function loadData () {
+function loadData (data) {
   try {
-    readerDecision.info = JSON.parse(localStorage.getItem('readerData')).data
+    if (!data) {
+      data = localStorage.getItem('readerData')
+      if (data) {
+        // migrate from old format
+        settings.set('readerData', data)
+        localStorage.removeItem('readerData')
+      }
+    }
+    readerDecision.info = JSON.parse(data).data
   } catch (e) {}
 
   if (!readerDecision.info) {
@@ -90,7 +103,7 @@ function loadData () {
 }
 
 function saveData () {
-  localStorage.setItem('readerData', JSON.stringify({version: 1, data: readerDecision.info}))
+  settings.set('readerData', JSON.stringify({ version: 1, data: readerDecision.info }))
 }
 
 function cleanupData () {
@@ -104,14 +117,10 @@ function cleanupData () {
   return removedEntries
 }
 
-loadData()
-if (cleanupData()) {
-  saveData()
-}
-
-window.addEventListener('storage', function (e) {
-  if (e.key === 'readerData') {
-    loadData()
+settings.listen('readerData', function (data) {
+  loadData(data)
+  if (cleanupData()) {
+    saveData()
   }
 })
 
