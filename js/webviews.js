@@ -234,7 +234,7 @@ const webviews = {
           sandbox: true,
           enableRemoteModule: false,
           allowPopups: false,
-          partition: partition,
+          partition: partition || (settings.get('disableIsolatedSession') ? null : 'persist:webcontent'), // TODO remove preference
           enableWebSQL: false,
           autoplayPolicy: 'user-gesture-required'
         }
