@@ -61,6 +61,7 @@ var platformOptions = {
     }]
   },
   win32: {
+    arch: 'x64',
     platform: 'win32',
     icon: 'icons/icon256.ico'
   },
