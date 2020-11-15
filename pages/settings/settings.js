@@ -448,7 +448,7 @@ for (var manager in passwordManagers) {
 }
 
 settings.listen('passwordManager', function (value) {
-  passwordManagersDropdown.value = currentPasswordManager.name
+  passwordManagersDropdown.value = value ? value.name : 'none'
 })
 
 passwordManagersDropdown.addEventListener('change', function (e) {
