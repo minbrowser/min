@@ -38,7 +38,7 @@
     "test": "standard --verbose js/**/*.js main/*.js",
     "watch": "node ./scripts/watch.js",
     "startElectron": "electron . --development-mode",
-    "start": "npm run build && \"concurrently\" \"npm run watch\" \"npm run startElectron\"",
+    "start": "npm run build && concurrently \"npm run watch\" \"npm run startElectron\"",
     "buildMain": "node ./scripts/buildMain.js",
     "buildBrowser": "node ./scripts/buildBrowser.js",
     "buildPreload": "node ./scripts/buildPreload.js",
