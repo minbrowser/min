@@ -146,7 +146,7 @@
         "settingsSiteThemeToggle": "Povolit motiv webu",
         "settingsAdditionalFeaturesHeading": "Další funkce",
         "settingsUserscriptsToggle": "Povolit uživatelské skripty",
-        "settingsShowDividerToggle": null, //missing translation
+        "settingsShowDividerToggle": "Zobrazit ohraničení otevřených karet",
         "settingsSeparateTitlebarToggle": "Použít systémové záhlaví okna",
         "settingsOpenTabsInForegroundToggle": "Ihned přepínat na nově otevřené karty",
         "settingsUserscriptsExplanation": {
@@ -174,7 +174,7 @@
         "appMenuNewPrivateTab": "Nová soukromá karta",
         "appMenuNewTask": "Nová dimenze",
         "appMenuSavePageAs": "Uložit stránku jako",
-        "appMenuPrint": "Tiska",
+        "appMenuPrint": "Tisk",
         "appMenuEdit": "Úpravy",
         "appMenuUndo": "Krok zpět",
         "appMenuRedo": "Krok vpřed",
@@ -235,7 +235,7 @@
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Automatické vkládání hesla",
         "settingsSelectPasswordManager": "Vyberte jeden z podporovaných správců hesel:",
-        "keychainViewPasswords": null, //missing translation
+        "keychainViewPasswords": "Zobrazit uložená hesla",
        /* Password manager setup */
         "passwordManagerSetupHeading": "Dokončete nastavení %p pro použití automatického vkládání",
         "passwordManagerSetupStep1": {
@@ -255,13 +255,13 @@
         "passwordManagerSetupRetry": "Ujistěte se, že používáte správný soubor a zadáváte heslo správně. Můžete postup opakovat přetažením nástroje sem.",
         "passwordManagerUnlock": "Zadejte %p hlavní heslo pro odemčení úložiště hesel:",
         /* Password save bar */
-        "passwordCaptureSavePassword": null, //missing translation
-        "passwordCaptureSave": null, //missing translation
-        "passwordCaptureDontSave": null, //missing translation
+        "passwordCaptureSavePassword": "Uložit heslo pro %s?",
+        "passwordCaptureSave": "Uložit",
+        "passwordCaptureDontSave": "Neukládat",
         /* Password viewer */
-        "savedPasswordsHeading": null, //missing translation
-        "savedPasswordsEmpty": null, //missing translation
-        "deletePassword": null, //missing translation
+        "savedPasswordsHeading": "Uložená hesla",
+        "savedPasswordsEmpty": "Žádná uložená hesla",
+        "deletePassword": "Odstranit heslo pro %s?",
         /* Dialogs */
         "loginPromptTitle": "Přihlášení do %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
         "dialogConfirmButton": "Potvrdit",
