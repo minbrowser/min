@@ -226,28 +226,29 @@ function addFocusListener (element, credentials) {
 }
 
 function checkInputs () {
-  if (getUsernameFields().length > 0 || getPasswordFields().length > 0) {
+  if (getUsernameFields().length > 0 && getPasswordFields().length > 0) {
     ipc.send('password-autofill', document.location.hostname)
   }
 }
 
-function addUnlockButton (target) {
-  if (getUsernameFields().includes(target) || getPasswordFields().includes(target)) {
-    const unlockButton = createUnlockButton(target)
-    document.body.appendChild(unlockButton)
+function maybeAddUnlockButton (target) {
+  // require both a username and a password field to reduce the false-positive rate
+  if (getUsernameFields().length > 0 && getPasswordFields().length > 0) {
+    if (getUsernameFields().includes(target) || getPasswordFields().includes(target)) {
+      const unlockButton = createUnlockButton(target)
+      document.body.appendChild(unlockButton)
 
-    currentUnlockButton = unlockButton
+      currentUnlockButton = unlockButton
+    }
   }
 }
 
 function checkInitialFocus () {
-  if (getUsernameFields().includes(document.activeElement) || getPasswordFields().includes(document.activeElement)) {
-    addUnlockButton(document.activeElement)
-  }
+  maybeAddUnlockButton(document.activeElement)
 }
 
 function handleFocus (event) {
-  addUnlockButton(event.target)
+  maybeAddUnlockButton(event.target)
 }
 
 function handleBlur (event) {
