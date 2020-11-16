@@ -89,6 +89,10 @@ function showSearchbarInstantAnswers (text, input, event) {
 
       if (res.Image && !res.ImageIsLogo) {
         data.image = res.Image
+        if (data.image.startsWith('/')) {
+          // starting 11/2020, the DDG API returns relative URLs rather than absolute ones
+          data.image = 'https://duckduckgo.com' + data.image
+        }
       }
 
     // show a disambiguation
