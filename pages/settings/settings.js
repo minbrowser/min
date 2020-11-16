@@ -453,7 +453,7 @@ settings.listen('passwordManager', function (value) {
 
 passwordManagersDropdown.addEventListener('change', function (e) {
   if (this.value === 'none') {
-    settings.set('passwordManager', null)
+    settings.set('passwordManager', { name: 'none' })
   } else {
     settings.set('passwordManager', { name: this.value })
   }
