@@ -84,7 +84,7 @@ function createUnlockButton (input) {
 function checkAttribute (element, attribute, matches) {
   const value = element.getAttribute(attribute)
   if (value == null) { return false }
-  return matches.some(match => value.toLowerCase().includes(match))
+  return matches.includes(value.toLowerCase())
 }
 
 // Gets all input fields on a page that contain at least one of the provided
@@ -118,7 +118,7 @@ function getUsernameFields () {
 
 // Shortcut to get password fields from a page.
 function getPasswordFields () {
-  return getInputs(['pass'], ['password'])
+  return getInputs(['pass', 'password'], ['password'])
 }
 
 // Removes credentials list overlay.
