@@ -1,7 +1,7 @@
 {
-    "version": "1.16.1",
-    "releaseTime": 1604185649394,
-    "releaseHeadline": "Security fixes",
+    "version": "1.17.1",
+    "releaseTime": 1605675716581,
+    "releaseHeadline": "Improved password management, tab audio controls, and bug fixes",
     "releaseNotes": "https://minbrowser.org/releases/",
     "availabilityPercent": 1
 }
