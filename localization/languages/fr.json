@@ -6,7 +6,7 @@
         these are the items displayed in the menu when you right-click on a page
         */
         "addToDictionary": "Ajouter au dictionnaire",
-        "pictureInPicture": null, //missing translation // What is this ?
+        "pictureInPicture": "Mini leccteur",
         "openInNewTab": "Ouvrir dans un nouvel onglet",
         "openInNewPrivateTab": "Ouvrir dans un onglet de navigation privée",
         "saveLinkAs": "Enregistrer le lien sous",
