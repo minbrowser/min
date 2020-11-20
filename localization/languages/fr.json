@@ -76,13 +76,13 @@
         "taskDescriptionThree": "%t, %t, et %n",
         /* find in page toolbar */
         "searchInPage": "Rechercher dans la page", //this is used as the placeholder text for the textbox in the find in page toolbar
-        "findMatchesSingular": "%i de %t match", //this and the next label are used to indicate which match is currently highlighted
-        "findMatchesPlural": "%i de %t matches",
+        "findMatchesSingular": "Occurence %i parmi %t correspondance", //this and the next label are used to indicate which match is currently highlighted
+        "findMatchesPlural": "Occurence %i parmi %t correspondances",
         /* Focus mode */
         "isFocusMode": "Vous êtes en mode Focus.",
         "closeDialog": "D'accord", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "En mode focus vous ne pouvez créer de nouvel onglet ni changer de tâche", //missing translation "In focus mode, you can't create new tabs or switch tasks."
-        "focusModeExplanation2": "Vous pouvez quitter le mode Focus en décochant \"Mode Focus\" dans le menu", //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+        "focusModeExplanation1": "En mode focus vous ne pouvez créer de nouvel onglet ni changer de tâche",
+        "focusModeExplanation2": "Vous pouvez quitter le mode Focus en décochant \"Mode Focus\" dans le menu",
         /* relative dates */
         "timeRangeJustNow": "À l'instant",
         "timeRangeMinutes": "Il y a quelques minutes",
@@ -135,7 +135,7 @@
         "settingsBlockScriptsToggle": "Scripts bloqués",
         "settingsBlockImagesToggle": "Images bloquées",
         "settingsBlockedRequestCount": {
-            "unsafeHTML": "À ce jour, Min a bloqué <strong></strong> publicités et pisteurs" //missing translation
+            "unsafeHTML": "À ce jour, Min a bloqué <strong></strong> publicités et pisteurs"
         },
         "settingsCustomizeFiltersLink": "Paramétrer les filtres",
         "settingsAppearanceHeading": "Apparence",
@@ -222,7 +222,7 @@
         "buttonReaderSepiaTheme": "Sepia", 
         "buttonReaderDarkTheme": "Sombre",
         "openReaderView": "Toujours ouvrir en mode lecture",
-        "autoRedirectBannerReader": "Toujours ouvrir les articles de ce site en mode leccture ?",
+        "autoRedirectBannerReader": "Toujours ouvrir les articles de ce site en mode lecture ?",
         "buttonReaderRedirectYes": "Oui",
         "buttonReaderRedirectNo": "Non",
         "articleReaderView": "Article original",
@@ -232,5 +232,43 @@
         "downloadStateFailed": "Échoué",
         /* Update Notifications */
         "updateNotificationTitle": "Une nouvelle version de Min est disponible"
+        /* Autofill settings */
+        "settingsPasswordAutoFillHeadline": "Remplissage automatique des mots de passe",
+        "settingsSelectPasswordManager": "Choisissez l'un des gestionnaires de mots de passe acceptés :",
+        "keychainViewPasswords": "Voir les mots de passe enregistrés",
+        /* Password manager setup */
+        "passwordManagerSetupHeading": "Finir de régler %p pour utiliser le remplissage automatique",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "Premièrement, <a id='password-manager-setup-link'></a> puis l'extraire pour votre système."
+        },
+        "passwordManagerInstallerSetup": {
+            "unsafeHTML": "Télécharger <a id='password-manager-setup-link-installer'></a> puis glisser le fichier dans le cadre ci-dessous :"
+        },
+        "passwordManagerSetupLink": "Télécharger l'outil d'interface en ligne de commande (CLI) de %p",
+        "passwordManagerSetupLinkInstaller": "L'installateur de CLI %p",
+        "passwordManagerSetupStep2": "Puis cliquer-glisser l'outil dans le cadre ci-dessous :",
+        "passwordManagerSetupDragBox": "Déposer l'outil ici",
+        "passwordManagerSetupInstalling": "En cours d'installation...",
+        "passwordManagerSetupSignIn": "Connectez-vous à votre gestionnaire de mots de pass pour commencer à utiliser le remplissage automatique. Vos informations de connexion ne seront jamais stockées par Min.",
+        "disableAutofill": "Désactiver le remplissage automatique",
+        "passwordManagerSetupUnlockError": "Échec d'ouverture de la bibliothèque de mots passe : ",
+        "passwordManagerSetupRetry": "Assurez-vous d'utiliser le bon fichier et d'entrer le bon mot de passe. Vous pouvez réessayer en déposant à nouveau l'outil ici.",
+        "passwordManagerUnlock": "Entrez votre mot de passe maître %p pour débloquer la bibliothèque de mots de passe :",
+        /* Password save bar */
+        "passwordCaptureSavePassword": "Enregistrer le mot de passe pour %s?",
+        "passwordCaptureSave": "Enregistrer",
+        "passwordCaptureDontSave": "Ne pas enregistrer",
+        /* Password viewer */
+        "savedPasswordsHeading": "Mots de passe enregistrés",
+        "savedPasswordsEmpty": "Pas de mots de passe enregistrés.",
+        "deletePassword": "Supprimer le mot de passe pour %s?",
+        /* Dialogs */
+        "loginPromptTitle": "Connectez-vous à %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+        "dialogConfirmButton": "Confirmer",
+        "dialogSkipButton": "Annuler",
+        "username": "Nom d'utilisateur",
+        "email": "Adresse mail",
+        "password": "Mot de passe",
+        "secretKey": "Clé privée"
     }
 }
