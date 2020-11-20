@@ -48,6 +48,10 @@ module.exports = {
       webviews.callAsync(tabs.getSelected(), 'toggleDevTools')
     })
 
+    ipc.on('openEditor', function () {
+      tabEditor.show(tabs.getSelected())
+    })
+
     ipc.on('showBookmarks', function () {
       tabEditor.show(tabs.getSelected(), '!bookmarks ')
     })
@@ -132,6 +136,10 @@ module.exports = {
       browserUI.addTab(tabs.add({
         private: true
       }))
+    })
+
+    ipc.on('toggleTaskOverlay', function () {
+      taskOverlay.toggle()
     })
 
     ipc.on('goBack', function () {
