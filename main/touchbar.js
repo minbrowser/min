@@ -3,6 +3,10 @@ const nativeImage = require('electron').nativeImage
 const { TouchBarLabel, TouchBarButton, TouchBarSpacer } = TouchBar
 
 function buildTouchBar () {
+  if (process.platform !== 'darwin') {
+    return null
+  }
+
   return new TouchBar({
     items: [
       new TouchBarButton({
