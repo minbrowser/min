@@ -231,7 +231,7 @@
         "downloadStateCompleted": "Complété",
         "downloadStateFailed": "Échoué",
         /* Update Notifications */
-        "updateNotificationTitle": "Une nouvelle version de Min est disponible"
+        "updateNotificationTitle": "Une nouvelle version de Min est disponible",
         /* Autofill settings */
         "settingsPasswordAutoFillHeadline": "Remplissage automatique des mots de passe",
         "settingsSelectPasswordManager": "Choisissez l'un des gestionnaires de mots de passe acceptés :",
