@@ -1,4 +1,4 @@
-const clipboard = remote.clipboard
+const clipboard = electron.clipboard
 
 const webviews = require('webviews.js')
 const browserUI = require('browserUI.js')
@@ -169,8 +169,6 @@ const webviewMenu = {
               enterEditMode: false,
               openInBackground: openInBackground
             })
-
-            webviews.get(newTab).focus()
           }
         }
       ]
@@ -199,7 +197,7 @@ const webviewMenu = {
       clipboardActions.push({
         label: l('paste'),
         click: function () {
-          webviews.get(tabs.getSelected()).paste()
+          webviews.callAsync(tabs.getSelected(), 'paste')
         }
       })
     }
@@ -242,7 +240,7 @@ const webviewMenu = {
         label: l('goForward'),
         click: function () {
           try {
-            webviews.get(tabs.getSelected()).goForward()
+            webviews.callAsync(tabs.getSelected(), 'goForward')
           } catch (e) {}
         }
       }
@@ -255,7 +253,7 @@ const webviewMenu = {
       {
         label: l('inspectElement'),
         click: function () {
-          webviews.get(tabs.getSelected()).inspectElement(data.x || 0, data.y || 0)
+          webviews.callAsync(tabs.getSelected(), 'inspectElement', [data.x || 0, data.y || 0])
         }
       }
     ])

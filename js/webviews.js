@@ -1,5 +1,4 @@
 const previewCache = require('previewCache.js')
-var getView = remote.getGlobal('getView')
 var urlParser = require('util/urlParser.js')
 var settings = require('util/settings/settings.js')
 
@@ -10,24 +9,6 @@ var placeholderImg = document.getElementById('webview-placeholder')
 var hasSeparateTitlebar = settings.get('useSeparateTitlebar')
 var windowIsMaximized = false // affects navbar height on Windows
 var windowIsFullscreen = false
-
-function lazyRemoteObject (getObject) {
-  var cachedItem = null
-  return new Proxy({}, {
-    get: function (obj, prop) {
-      if (!cachedItem) {
-        cachedItem = getObject()
-      }
-      return cachedItem[prop]
-    },
-    set: function (obj, prop, value) {
-      if (!cachedItem) {
-        cachedItem = getObject()
-      }
-      cachedItem[prop] = value
-    }
-  })
-}
 
 function forceUpdateDragRegions () {
   setTimeout(function () {
@@ -130,7 +111,6 @@ function setAudioMutedOnCreate (tabId, muted) {
 
 const webviews = {
   viewList: [], // [tabId]
-  tabContentsMap: {}, // tabId: webContents
   viewFullscreenMap: {}, // tabId, isFullscreen
   selectedId: null,
   placeholderRequests: [],
@@ -243,10 +223,6 @@ const webviews = {
       events: webviews.events.map(e => e.event).filter((i, idx, arr) => arr.indexOf(i) === idx)
     })
 
-    const contents = lazyRemoteObject(function () {
-      return getView(tabId).webContents
-    })
-
     if (tabData.url) {
       ipc.send('loadURLInView', { id: tabData.id, url: urlParser.parse(tabData.url) })
     } else if (tabData.private) {
@@ -254,7 +230,6 @@ const webviews = {
       ipc.send('loadURLInView', { id: tabData.id, url: urlParser.parse('min://newtab') })
     }
 
-    webviews.tabContentsMap[tabId] = contents
     webviews.viewList.push(tabId)
   },
   setSelected: function (id, options) { // options.focus - whether to focus the view. Defaults to true.
@@ -292,14 +267,10 @@ const webviews = {
       webviews.viewList.splice(webviews.viewList.indexOf(id), 1)
       ipc.send('destroyView', id)
     }
-    delete webviews.tabContentsMap[id]
     delete webviews.viewFullscreenMap[id]
     if (webviews.selectedId === id) {
       webviews.selectedId = null
     }
-  },
-  get: function (id) {
-    return webviews.tabContentsMap[id]
   },
   requestPlaceholder: function (reason) {
     if (reason && !webviews.placeholderRequests.includes(reason)) {

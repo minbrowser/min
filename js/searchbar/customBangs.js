@@ -8,7 +8,7 @@ var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var places = require('places/places.js')
 var urlParser = require('util/urlParser.js')
-var {db} = require('util/database.js')
+var { db } = require('util/database.js')
 var formatRelativeDate = require('util/relativeDate.js')
 var contentBlockingToggle = require('navbar/contentBlockingToggle.js')
 
@@ -45,9 +45,7 @@ bangsPlugin.registerCustomBang({
   isAction: true,
   fn: function (text) {
     setTimeout(function () { // wait so that the view placeholder is hidden
-      webviews.get(tabs.getSelected()).capturePage().then(function (image) {
-        remote.getCurrentWebContents().downloadURL(image.toDataURL())
-      })
+      ipc.send('saveViewCapture', { id: tabs.getSelected() })
     }, 400)
   }
 })
@@ -60,10 +58,10 @@ bangsPlugin.registerCustomBang({
     if (confirm(l('clearHistoryConfirmation'))) {
       places.deleteAllHistory()
       /* It's important not to delete data from file:// here, since that would also remove internal browser data (such as bookmarks) */
-      remote.session.defaultSession.clearStorageData({origin: 'http://'})
-      .then(function () {
-        remote.session.defaultSession.clearStorageData({origin: 'https://'})
-      })
+      remote.session.defaultSession.clearStorageData({ origin: 'http://' })
+        .then(function () {
+          remote.session.defaultSession.clearStorageData({ origin: 'https://' })
+        })
     }
   }
 })
@@ -167,7 +165,7 @@ bangsPlugin.registerCustomBang({
     var newTask = getTaskByNameOrNumber(text)
 
     if (newTask) {
-      newTask.tabs.add(currentTab, {atEnd: true})
+      newTask.tabs.add(currentTab, { atEnd: true })
     } else {
       // create a new task with the given name
       var newTask = tasks.get(tasks.add(undefined, tasks.getIndex(tasks.getSelected().id) + 1))
@@ -237,7 +235,7 @@ bangsPlugin.registerCustomBang({
       }).slice(0, 250).forEach(function (result, index) {
         var thisRelativeDate = formatRelativeDate(result.lastVisit)
         if (thisRelativeDate !== lastRelativeDate) {
-          searchbarPlugins.addHeading('bangs', {text: thisRelativeDate})
+          searchbarPlugins.addHeading('bangs', { text: thisRelativeDate })
           lastRelativeDate = thisRelativeDate
         }
         searchbarPlugins.addResult('bangs', {
@@ -251,7 +249,7 @@ bangsPlugin.registerCustomBang({
           showDeleteButton: true
         })
       })
-    }, {limit: Infinity})
+    }, { limit: Infinity })
   },
   fn: function (text) {
     if (!text) {
@@ -264,7 +262,7 @@ bangsPlugin.registerCustomBang({
         })
         searchbar.openURL(results[0].url, null)
       }
-    }, {limit: Infinity})
+    }, { limit: Infinity })
   }
 })
 
@@ -275,7 +273,7 @@ bangsPlugin.registerCustomBang({
   fn: function () {
     var filePath = electron.remote.dialog.showOpenDialogSync({
       filters: [
-        {name: 'HTML files', extensions: ['htm', 'html']}
+        { name: 'HTML files', extensions: ['htm', 'html'] }
       ]
     })
     if (!filePath) {
@@ -352,7 +350,7 @@ bangsPlugin.registerCustomBang({
       }
     }).then(function () {
       // save the result
-      var savePath = electron.remote.dialog.showSaveDialogSync({defaultPath: 'bookmarks.html'})
+      var savePath = electron.remote.dialog.showSaveDialogSync({ defaultPath: 'bookmarks.html' })
       require('fs').writeFileSync(savePath, root.outerHTML)
     })
   }

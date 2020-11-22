@@ -226,4 +226,15 @@ ipc.on('getCapture', function (e, data) {
   })
 })
 
+ipc.on('saveViewCapture', function (e, data) {
+  var view = viewMap[data.id]
+  if (!view) {
+    // view could have been destroyed
+  }
+
+  view.webContents.capturePage().then(function (image) {
+    view.webContents.downloadURL(image.toDataURL())
+  })
+})
+
 global.getView = getView
