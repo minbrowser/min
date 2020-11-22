@@ -5,18 +5,18 @@
         /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "addToDictionary": null, //missing translation
-        "pictureInPicture": null, //missing translation
+        "addToDictionary": "Ajouter au dictionnaire",
+        "pictureInPicture": "Mini lecteur",
         "openInNewTab": "Ouvrir dans un nouvel onglet",
         "openInNewPrivateTab": "Ouvrir dans un onglet de navigation privée",
-        "saveLinkAs": null, //missing translation
+        "saveLinkAs": "Enregistrer le lien sous",
         "viewImage": "Voir l'image",
         "openImageInNewTab": "Ouvrir l'image dans un nouvel onglet",
         "openImageInNewPrivateTab": "Ouvrir l'image dans un onglet de navigation privée",
         "saveImageAs": "Enregistrer l'image sous",
         "searchWith": "Rechercher avec %s", //%s will be replaced with the name of the current search engine
         "copyLink": "Copier le lien",
-        "copyEmailAddress": null, //missing translation
+        "copyEmailAddress": "Copier l'adresse e-mail",
         "selectAll": "Tout sélectionner",
         "undo": "Annuler",
         "redo": "Rétablir",
@@ -27,7 +27,7 @@
         "goForward": "Avancer",
         "inspectElement": "Inspecter l'élément",
         /* searchbar */
-        "pasteAndGo": null, //missing translation
+        "pasteAndGo": "Coller et suivre",
         "DDGAnswerSubtitle": "Réponse", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
         "suggestedSite": "Site suggéré", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Résultats de DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -35,28 +35,28 @@
         /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": null, //missing translation
+        "showMoreBangs": "Afficher plus de bangs",
         "viewSettings": "Voir les réglages",
         "takeScreenshot": "Prendre une capture d'écran",
         "clearHistory": "Vider l'historique",
-        "enableBlocking": null, //missing translation
-        "disableBlocking": null, //missing translation
-        "clearHistoryConfirmation": null, //missing translation
+        "enableBlocking": "Activer le blocage", 
+        "disableBlocking": "Désactiver le blocage",
+        "clearHistoryConfirmation": "Effacer toutes les données d'historique et de navigation ?",
         "switchToTask": "Changer de tâche",
         "createTask": "Créer une tâche",
         "closeTask": "Fermer cette tâche",
         "moveToTask": "Déplacer cette tâche à cet onglet",
-        "nameTask": null, //missing translation
-        "addBookmark": null, //missing translation
+        "nameTask": "Nommer la tâche",
+        "addBookmark": "Ajouter un marque-page",
         "searchBookmarks": "Rechercher des signets",
-        "bookmarksAddTag": null, //missing translation
-        "bookmarksSimilarItems": null, //missing translation
+        "bookmarksAddTag": "Ajouter une étiquette de marque-page",
+        "bookmarksSimilarItems": "Éléments similaires",
         "searchHistory": "Rechercher dans l'historique",
-        "importBookmarks": null, //missing translation
-        "exportBookmarks": null, //missing translation
-        "runUserscript": null, //missing translation
+        "importBookmarks": "Importer les marque-pages", 
+        "exportBookmarks": "Exporter les marque-pages", 
+        "runUserscript": "Exécuter un script d'utilisateur",
         /* navbar */
-        "openMenu": "Ouvrir le menu", ///application menu button on windows
+        "openMenu": "Ouvrir le menu", //application menu button on windows
         "enterReaderView": "Entrer en mode lecteur",
         "exitReaderView": "Sortir du mode lecteur",
         "newTabLabel": "Nouvel onglet", //this is a noun, used for tabs that don't have a page loaded in them yet
@@ -66,23 +66,23 @@
         "newTabAction": "Ajouter un onglet", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
         /* task overlay */
         "viewTasks": "Voir les tâches",
-        "newTask": "Nouvelle tâche", //"new" is a verb - it is used for a button at the bottom of the task overlay
+        "newTask": "Ouvrir une nouvelle tâche", //"new" is a verb - it is used for a button at the bottom of the task overlay
         "defaultTaskName": "Tâche %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
         "taskDeleteWarning": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "Tâche supprimée. <a>Annuler ?</a>"
         },
-        "returnToTask": null, //missing translation
-        "taskDescriptionTwo": null, //missing translation
-        "taskDescriptionThree": null, //missing translation
+        "returnToTask": "Revenir à la tâche précédente",
+        "taskDescriptionTwo": "%t et %t",
+        "taskDescriptionThree": "%t, %t, et %n",
         /* find in page toolbar */
         "searchInPage": "Rechercher dans la page", //this is used as the placeholder text for the textbox in the find in page toolbar
-        "findMatchesSingular": "%i de %t match", //this and the next label are used to indicate which match is currently highlighted
-        "findMatchesPlural": "%i de %t matches",
+        "findMatchesSingular": "Occurence %i parmi %t correspondance", //this and the next label are used to indicate which match is currently highlighted
+        "findMatchesPlural": "Occurence %i parmi %t correspondances",
         /* Focus mode */
         "isFocusMode": "Vous êtes en mode Focus.",
         "closeDialog": "D'accord", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+        "focusModeExplanation1": "En mode focus vous ne pouvez créer de nouvel onglet ni changer de tâche",
+        "focusModeExplanation2": "Vous pouvez quitter le mode Focus en décochant \"Mode Focus\" dans le menu",
         /* relative dates */
         "timeRangeJustNow": "À l'instant",
         "timeRangeMinutes": "Il y a quelques minutes",
@@ -120,7 +120,7 @@
         /* pages/sessionRestoreError/index.html */
         "sessionRestoreErrorTitle": "Il y a eu une erreur",
         "sessionRestoreErrorExplanation": "Vos onglets sauvegardés n'ont pas pu être restaurés correctement.",
-        "sessionRestoreErrorBackupInfo": "Nous avons enregistrés une sauvegarde de vos données à cette localisation : %l.", //%l will be replaced with a path to a file
+        "sessionRestoreErrorBackupInfo": "Nous avons enregistrés une sauvegarde de vos données à cette endroit : %l.", //%l will be replaced with a path to a file
         "sessionRestoreErrorLinkInfo": {
             "unsafeHTML": "Si cette erreur continue à se produire, merci d'ouvrir un ticket : <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">ici</a>."
         },
@@ -135,24 +135,24 @@
         "settingsBlockScriptsToggle": "Scripts bloqués",
         "settingsBlockImagesToggle": "Images bloquées",
         "settingsBlockedRequestCount": {
-            "unsafeHTML": null //missing translation
+            "unsafeHTML": "À ce jour, Min a bloqué <strong></strong> publicités et pisteurs"
         },
-        "settingsCustomizeFiltersLink": null, //missing translation
+        "settingsCustomizeFiltersLink": "Paramétrer les filtres",
         "settingsAppearanceHeading": "Apparence",
-        "settingsEnableDarkMode": "Activer le mode nuit:", //"Enable dark mode:" missing translation
-        "settingsDarkModeNever": "Jamais", // googled
-        "settingsDarkModeNight": "La nuit", // googled
-        "settingsDarkModeAlways": "Toujours", // googled
-        "settingsSiteThemeToggle": null, //missing translation
+        "settingsEnableDarkMode": "Activer le mode nuit:",
+        "settingsDarkModeNever": "Jamais",
+        "settingsDarkModeNight": "La nuit",
+        "settingsDarkModeAlways": "Toujours",
+        "settingsSiteThemeToggle": "Activer le thème du site",
         "settingsAdditionalFeaturesHeading": "Fonctionnalités supplémentaires",
         "settingsUserscriptsToggle": "Activer les scripts personnalisés",
-        "settingsShowDividerToggle": null, // Missing translation
-        "settingsSeparateTitlebarToggle": null, //missing translation
-        "settingsOpenTabsInForegroundToggle": null, //missing translation
+        "settingsShowDividerToggle": "Afficher un séparateur entre les onglets",
+        "settingsSeparateTitlebarToggle": "Afficher une barre de titre séparée",
+        "settingsOpenTabsInForegroundToggle": "Ouvrir les nouveaux onglets en arrière-plan",
         "settingsUserscriptsExplanation": {
             "unsafeHTML": "Les scripts personnalisés vous permettent de modifier le comportement des pages web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">en savoir plus (en anglais)</a>."
         },
-        "settingsUserAgentToggle": null, //missing translation
+        "settingsUserAgentToggle": "Utiliser un user-agent particulier",
         "settingsUpdateNotificationsToggle": "Vérifier automatiquement pour des mises à jour",
         "settingsSearchEngineHeading": "Moteur de recherche",
         "settingsDefaultSearchEngine": "Choisir un moteur de recherche par défaut :",
@@ -160,13 +160,13 @@
         "customSearchEngineDescription": "Remplacer la recherche par %s",
         "settingsKeyboardShortcutsHeading": "Raccourcis clavier",
         "settingsKeyboardShortcutsHelp": "Séparer les raccourcis claviers multiples par une virgule.",
-        "settingsProxyHeading": null, //missing translation
-        "settingsNoProxy": null, //missing translation
-        "settingsManualProxy": null, //missing translation
-        "settingsAutomaticProxy": null, //missing translation
-        "settingsProxyRules": null, //missing translation
-        "settingsProxyBypassRules": null, //missing translation
-        "settingsProxyConfigurationURL": null, //missing translation
+        "settingsProxyHeading": "Proxy",
+        "settingsNoProxy": "Pas de proxy",
+        "settingsManualProxy": "Configuration manuelle",
+        "settingsAutomaticProxy": "Configuration automatique",
+        "settingsProxyRules": "Règles de proxy",
+        "settingsProxyBypassRules": "Pas de proxy pour :",
+        "settingsProxyConfigurationURL": "URL de configuration",
         /* app menu */
         "appMenuFile": "Fichier",
         "appMenuNewTab": "Nouvel onglet",
@@ -198,7 +198,7 @@
         "appMenuWindow": "Fenêtre",
         "appMenuMinimize": "Réduire",
         "appMenuClose": "Fermer",
-        "appMenuAlwaysOnTop": null, //missing translation
+        "appMenuAlwaysOnTop": "Toujours en premier",
         "appMenuHelp": "Aide",
         "appMenuKeyboardShortcuts": "Raccourcis claviers",
         "appMenuReportBug": "Reporter un problème",
@@ -217,20 +217,58 @@
             "unsafeHTML": "page <input type='text'/> sur <span id='total'></span>"
         },
         /* Context Reader */
-        "buttonReaderSettings": null, //missing translation "Reader Settings"
-        "buttonReaderLightTheme": null, //missing translation "Light"
-        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
-        "buttonReaderDarkTheme": null, //missing translation "Dark"
-        "openReaderView": null, //missing translation "Always open in reader view"
-        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-        "buttonReaderRedirectYes": null, //missing translation "Yes"
-        "buttonReaderRedirectNo": null, //missing translation "No"
-        "articleReaderView": null, //missing translation "Original Article"
+        "buttonReaderSettings": "Réglages de lecture",
+        "buttonReaderLightTheme": "Clair", 
+        "buttonReaderSepiaTheme": "Sepia", 
+        "buttonReaderDarkTheme": "Sombre",
+        "openReaderView": "Toujours ouvrir en mode lecture",
+        "autoRedirectBannerReader": "Toujours ouvrir les articles de ce site en mode lecture ?",
+        "buttonReaderRedirectYes": "Oui",
+        "buttonReaderRedirectNo": "Non",
+        "articleReaderView": "Article original",
         /* Download manager */
         "downloadCancel": "Annuler",
         "downloadStateCompleted": "Complété",
         "downloadStateFailed": "Échoué",
         /* Update Notifications */
         "updateNotificationTitle": "Une nouvelle version de Min est disponible"
+        /* Autofill settings */
+        "settingsPasswordAutoFillHeadline": "Remplissage automatique des mots de passe",
+        "settingsSelectPasswordManager": "Choisissez l'un des gestionnaires de mots de passe acceptés :",
+        "keychainViewPasswords": "Voir les mots de passe enregistrés",
+        /* Password manager setup */
+        "passwordManagerSetupHeading": "Finir de régler %p pour utiliser le remplissage automatique",
+        "passwordManagerSetupStep1": {
+            "unsafeHTML": "Premièrement, <a id='password-manager-setup-link'></a> puis l'extraire pour votre système."
+        },
+        "passwordManagerInstallerSetup": {
+            "unsafeHTML": "Télécharger <a id='password-manager-setup-link-installer'></a> puis glisser le fichier dans le cadre ci-dessous :"
+        },
+        "passwordManagerSetupLink": "Télécharger l'outil d'interface en ligne de commande (CLI) de %p",
+        "passwordManagerSetupLinkInstaller": "L'installateur de CLI %p",
+        "passwordManagerSetupStep2": "Puis cliquer-glisser l'outil dans le cadre ci-dessous :",
+        "passwordManagerSetupDragBox": "Déposer l'outil ici",
+        "passwordManagerSetupInstalling": "En cours d'installation...",
+        "passwordManagerSetupSignIn": "Connectez-vous à votre gestionnaire de mots de pass pour commencer à utiliser le remplissage automatique. Vos informations de connexion ne seront jamais stockées par Min.",
+        "disableAutofill": "Désactiver le remplissage automatique",
+        "passwordManagerSetupUnlockError": "Échec d'ouverture de la bibliothèque de mots passe : ",
+        "passwordManagerSetupRetry": "Assurez-vous d'utiliser le bon fichier et d'entrer le bon mot de passe. Vous pouvez réessayer en déposant à nouveau l'outil ici.",
+        "passwordManagerUnlock": "Entrez votre mot de passe maître %p pour débloquer la bibliothèque de mots de passe :",
+        /* Password save bar */
+        "passwordCaptureSavePassword": "Enregistrer le mot de passe pour %s?",
+        "passwordCaptureSave": "Enregistrer",
+        "passwordCaptureDontSave": "Ne pas enregistrer",
+        /* Password viewer */
+        "savedPasswordsHeading": "Mots de passe enregistrés",
+        "savedPasswordsEmpty": "Pas de mots de passe enregistrés.",
+        "deletePassword": "Supprimer le mot de passe pour %s?",
+        /* Dialogs */
+        "loginPromptTitle": "Connectez-vous à %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+        "dialogConfirmButton": "Confirmer",
+        "dialogSkipButton": "Annuler",
+        "username": "Nom d'utilisateur",
+        "email": "Adresse mail",
+        "password": "Mot de passe",
+        "secretKey": "Clé privée"
     }
 }
