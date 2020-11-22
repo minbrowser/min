@@ -42,7 +42,7 @@
 #task-area {
 	flex: 1;
 	overflow: auto;
-	padding-bottom: 5em;
+	padding-bottom: 1.5em;
 }
 #task-overlay[hidden] {
 	display: block !important;
@@ -164,10 +164,8 @@ body:not(.touch) .task-container:not(.collapsed):not(:hover) .task-collapse-butt
 	opacity: 0.8;
 }
 #add-task {
-	position: fixed;
-	bottom: 0;
-	left: 10%;
 	width: 80%;
+	margin-left: 10%;
 	padding: 1.25em;
 	text-align: center;
 	color: inherit;
