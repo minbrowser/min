@@ -282,6 +282,8 @@ function createWindowWithBounds (bounds) {
     }
   })
 
+  mainWindow.setTouchBar(buildTouchBar())
+
   return mainWindow
 }
 
