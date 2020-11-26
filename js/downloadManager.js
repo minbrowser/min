@@ -36,9 +36,9 @@ const downloadManager = {
       downloadManager.bar.hidden = true
       webviews.adjustMargin([0, 0, downloadManager.height * -1, 0])
 
-      // remove all completed items
+      // remove all completed or failed items
       for (const item in downloadManager.downloadItems) {
-        if (downloadManager.downloadItems[item].status === 'completed') {
+        if (downloadManager.downloadItems[item].status !== 'progressing') {
           downloadManager.removeItem(item)
         }
       }
