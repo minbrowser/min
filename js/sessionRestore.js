@@ -86,6 +86,13 @@ window.sessionRestore = {
         })
         // restore the task item
         tasks.add(task)
+
+        /*
+        If the task contained only private tabs, none of the tabs will be contained in the session restore data, but tasks must always have at least 1 tab, so create a new empty tab if the task doesn't have any.
+        */
+        if (task.tabs.length === 0) {
+          tasks.get(task.id).tabs.add()
+        }
       })
       tasks.setSelected(data.state.selectedTask)
 
