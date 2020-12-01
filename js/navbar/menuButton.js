@@ -16,6 +16,5 @@ window.showSecondaryMenu = function () {
 }
 
 keybindings.defineShortcut('showMenu', function () {
-  if (!settings.get('useSeparateTitlebar') && (window.platformType === 'windows' || window.platformType === 'linux'))
-    showSecondaryMenu()
+  if (!settings.get('useSeparateTitlebar') && (window.platformType === 'windows' || window.platformType === 'linux')) { showSecondaryMenu() }
 })

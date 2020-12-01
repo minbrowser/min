@@ -80,7 +80,6 @@ if (typeof document !== 'undefined') {
       throw new Error('invalid data-value value: ' + str)
     }
   })
-
 }
 if (typeof window !== 'undefined') {
   window.l = l

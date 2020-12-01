@@ -1,221 +1,221 @@
-body, html {
-	height: auto;
-	overflow: auto;
-	min-height: 100vh;
+body,
+html {
+  height: auto;
+  overflow: auto;
+  min-height: 100vh;
 }
 
 body[theme="dark"] {
-	background-color: rgb(36, 41, 47);
-	color: rgb(180,180,180);
+  background-color: rgb(36, 41, 47);
+  color: rgb(180, 180, 180);
 }
 
 body[theme="sepia"] {
-	background-color: rgb(247, 231, 199);
-	color: rgba(80, 55, 35, 1);
+  background-color: rgb(247, 231, 199);
+  color: rgba(80, 55, 35, 1);
 }
 
 #auto-redirect-banner {
-	max-width: 650px;
-	margin: 1em auto;
-	border: 1px #ddd solid;
-	padding: 0.5em;
-	border-radius: 3px;
-	color: #333;
+  max-width: 650px;
+  margin: 1em auto;
+  border: 1px #ddd solid;
+  padding: 0.5em;
+  border-radius: 3px;
+  color: #333;
 }
 
 @media all and (max-width: 800px) {
-	/* make sure there is room for the settings button */
-	#auto-redirect-banner {
-		margin-right: 4em;
-		margin-left: 0.5em;
-	}
+  /* make sure there is room for the settings button */
+  #auto-redirect-banner {
+    margin-right: 4em;
+    margin-left: 0.5em;
+  }
 }
 
 body[theme="dark"] #auto-redirect-banner {
-	color: #bbb;
-	border-color: #bbb;
+  color: #bbb;
+  border-color: #bbb;
 }
 
 body[theme="dark"] #auto-redirect-button-area button {
-	color: dodgerblue
+  color: dodgerblue;
 }
 
 #auto-redirect-button-area {
-	float: right;
-	padding-right: 0.5em;
+  float: right;
+  padding-right: 0.5em;
 }
 
 #auto-redirect-button-area button {
-	padding: 0.5em;
-	margin-top: -0.5em;
-	color: royalblue;
+  padding: 0.5em;
+  margin-top: -0.5em;
+  color: royalblue;
 }
 
 .dark-mode #auto-redirect-button-area button {
-	color: dodgerblue
+  color: dodgerblue;
 }
 
 #auto-redirect-button-area button:active {
-	background: rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 #backtoarticle {
-    max-width: 650px;
-	margin: auto;
-	padding-top: 1.5em;
+  max-width: 650px;
+  margin: auto;
+  padding-top: 1.5em;
 }
 #backtoarticle-link {
-	color: dodgerblue;
-	cursor: pointer;
-	font-family: system-ui, ".SFNSText-Regular", sans-serif;
-	display: inline-block;
-	padding: 1em;
-    margin: -1em;
+  color: dodgerblue;
+  cursor: pointer;
+  font-family: system-ui, ".SFNSText-Regular", sans-serif;
+  display: inline-block;
+  padding: 1em;
+  margin: -1em;
 }
 
 #backtoarticle-link span {
-	font-size: 1.25em;
-	vertical-align: bottom;
+  font-size: 1.25em;
+  vertical-align: bottom;
 }
 
 #auto-redirect-banner:not([hidden]) + #backtoarticle {
-	padding-top: 0.5em;
+  padding-top: 0.5em;
 }
 
 #backtoarticle-link .i {
-	vertical-align: middle;
-	font-size: 1.4em;
-	margin: 0 -0.2em;
+  vertical-align: middle;
+  font-size: 1.4em;
+  margin: 0 -0.2em;
 }
 
 #settings-button {
-	position: absolute;
-	top: 0.66em;
-	right: 0.66em;
-	opacity: 0.5;
-	font-size: 1.5em;
-	/* increase click area */
-	padding: 0.5em 0.7em 0.5em 0.5em;
-	margin: -0.5em;
+  position: absolute;
+  top: 0.66em;
+  right: 0.66em;
+  opacity: 0.5;
+  font-size: 1.5em;
+  /* increase click area */
+  padding: 0.5em 0.7em 0.5em 0.5em;
+  margin: -0.5em;
 }
 
 #settings-button:hover {
-	opacity: 1;
+  opacity: 1;
 }
 
 #settings-button .i {
-	pointer-events: none;
+  pointer-events: none;
 }
-
 
 #settings-dropdown {
-	position: absolute;
-	top: 3.166em;
-	right: 1em;
-	background: white;
-	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
-	padding: 0.75em 0.5em;
-	width: 250px;
-	border-radius: 5px;
+  position: absolute;
+  top: 3.166em;
+  right: 1em;
+  background: white;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.25);
+  padding: 0.75em 0.5em;
+  width: 250px;
+  border-radius: 5px;
 }
 body[theme="dark"] #settings-dropdown {
-	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.75);
-	background: rgb(54, 57, 65);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.75);
+  background: rgb(54, 57, 65);
 }
 
 body[theme="sepia"] #settings-dropdown {
-	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.75);
-	background: rgb(255, 241, 217);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.75);
+  background: rgb(255, 241, 217);
 }
 #settings-dropdown .setting-section {
-	display: flex;
-	justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .setting-section + .setting-section {
-	padding-top: 0.5em;
+  padding-top: 0.5em;
 }
 
 #settings-dropdown label {
-	padding-left: 0.25em;
-	margin-top: -1px;
+  padding-left: 0.25em;
+  margin-top: -1px;
 }
 
 #settings-dropdown .theme-circle {
-	display: inline-block;
-	width: 2em;
-	height: 2em;
-	border-radius: 50%;
-	margin: 0.25em;
-	border: 1px #ddd solid;
-	transition: 0.15s border-color;
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  margin: 0.25em;
+  border: 1px #ddd solid;
+  transition: 0.15s border-color;
 }
 
 #settings-dropdown .theme-circle[data-theme="light"] {
-	background: #fff;
+  background: #fff;
 }
 #settings-dropdown .theme-circle[data-theme="sepia"] {
-	background: rgb(247, 231, 199);
+  background: rgb(247, 231, 199);
 }
 #settings-dropdown .theme-circle[data-theme="dark"] {
-	background: rgb(33, 37, 43);
+  background: rgb(33, 37, 43);
 }
 #settings-dropdown .theme-circle.selected {
-	border-color: dodgerblue;
-	border-width: 3px;
+  border-color: dodgerblue;
+  border-width: 3px;
 }
 
 .temporary-frame {
-	display: none;
+  display: none;
 }
 
 .reader-frame {
-	display: block;
-	width: 100%;
-	/* height is set in js */
-	border: 0;
+  display: block;
+  width: 100%;
+  /* height is set in js */
+  border: 0;
 }
 
 #site-nav-links {
-	padding: 1em 1.5em;
+  padding: 1em 1.5em;
 }
 
 #site-nav-links .site-icon-link {
-	opacity: 0.9 !important;
+  opacity: 0.9 !important;
 }
 
 #site-nav-links .site-icon {
-	width: 22px;
-	height: 22px;
-	vertical-align: text-bottom;
+  width: 22px;
+  height: 22px;
+  vertical-align: text-bottom;
 }
 
 body[theme="dark"] .site-icon {
-	background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.8);
 }
 
 #site-nav-links a {
-	color: inherit;
-	display: inline-block;
-	opacity: 0.55;
-	text-decoration: none;
-	padding: 0 0.5em;
-	font-size: 1.1em;
-	white-space: nowrap;
-	max-width: 15em;
-	overflow: hidden;
-	text-overflow: ellipsis;
+  color: inherit;
+  display: inline-block;
+  opacity: 0.55;
+  text-decoration: none;
+  padding: 0 0.5em;
+  font-size: 1.1em;
+  white-space: nowrap;
+  max-width: 15em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #site-nav-links a.selected {
-	opacity: 0.66;
-	font-weight: 600;
+  opacity: 0.66;
+  font-weight: 600;
 }
 
 body:not([theme="light"]) #site-nav-links a {
-	opacity: 0.65;
+  opacity: 0.65;
 }
 
 body:not([theme="light"]) #site-nav-links a.selected {
-	opacity: 0.75;
+  opacity: 0.75;
 }

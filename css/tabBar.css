@@ -1,343 +1,342 @@
 #navbar {
-	display: flex;
-	height: calc(36px + var(--control-space-top));
-	transition: 0.2s background-color;
-	width: 100%;
-	-webkit-user-select: none;
-	position: relative;
-	outline: none;
-	z-index: 2;
-	padding-top: var(--control-space-top);
-	padding-left: var(--control-space-left);
-	padding-right: var(--control-space-right);
+  display: flex;
+  height: calc(36px + var(--control-space-top));
+  transition: 0.2s background-color;
+  width: 100%;
+  -webkit-user-select: none;
+  position: relative;
+  outline: none;
+  z-index: 2;
+  padding-top: var(--control-space-top);
+  padding-left: var(--control-space-left);
+  padding-right: var(--control-space-right);
 }
 
 /* when the tab-group is white, we need a line to separate it from the webviews */
 
 #navbar:before {
-	content: "";
-	width: 100vw;
-	height: 1px;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	background: rgba(0, 0, 0, 0.075);
+  content: "";
+  width: 100vw;
+  height: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.075);
 }
 
 /* dark colors don't need to be darkened as much for contrast */
 
 .dark-theme #navbar:before {
-	background: rgba(0, 0, 0, 0.04);
+  background: rgba(0, 0, 0, 0.04);
 }
 .dark-theme.is-edit-mode #navbar:before {
-	background: none;
+  background: none;
 }
 
 /* navbar buttons */
 
 #back-button {
-	opacity: 1;
-	transition: none;
-	padding: 0 0.6rem 0 0.4rem;
+  opacity: 1;
+  transition: none;
+  padding: 0 0.6rem 0 0.4rem;
 }
 #back-button:disabled {
-	opacity: 0.2;
+  opacity: 0.2;
 }
 
 body.is-edit-mode #back-button {
-	display: none;
+  display: none;
 }
 
 #menu-button {
-	width: 36px;
-	padding: 0;
+  width: 36px;
+  padding: 0;
 }
 
 #menu-button {
-	display: none;
+  display: none;
 }
 
 body.windows #menu-button,
 body.linux #menu-button {
-	display: inline-block;
+  display: inline-block;
 }
 
 /* tab layout */
 
 #navbar #tabs {
-	display: flex;
-	flex: 1;
-	position: relative;
-	overflow: hidden;
+  display: flex;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
 }
 #tabs #tabs-inner {
-	display: flex;
-	flex: 1;
-	overflow-x: auto;
-	overflow-y: hidden;
+  display: flex;
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .tab-item {
-	flex: 1;
-	min-width: 125px;
-	transition: 0.2s transform;
-	line-height: 36px;
-	height: 36px;
-	overflow: hidden;
-	word-break: break-all;
-	position: relative;
-	padding: 0 0.8em;
+  flex: 1;
+  min-width: 125px;
+  transition: 0.2s transform;
+  line-height: 36px;
+  height: 36px;
+  overflow: hidden;
+  word-break: break-all;
+  position: relative;
+  padding: 0 0.8em;
 }
 .tab-item.gu-mirror {
-	top: var(--control-space-top) !important;
-	background: rgba(255, 255, 255, 0.8) !important;
+  top: var(--control-space-top) !important;
+  background: rgba(255, 255, 255, 0.8) !important;
 }
 
 #navbar.show-dividers .tab-item:not(:last-child) {
-	border-right: 1px solid rgba(0, 0, 0, 0.15);
+  border-right: 1px solid rgba(0, 0, 0, 0.15);
 }
 .dark-theme #navbar.show-dividers .tab-item:not(:last-child) {
-	border-right-color: rgba(255, 255, 255, 0.4);
+  border-right-color: rgba(255, 255, 255, 0.4);
 }
 
 #navbar.show-dividers:before {
-	background: rgba(182, 182, 182, 0.5);
+  background: rgba(182, 182, 182, 0.5);
 }
 
 .tab-item:not(.active):hover {
-	background-color: rgba(0, 0, 0, 0.03);
+  background-color: rgba(0, 0, 0, 0.03);
 }
 .dark-theme .tab-item:not(.active):hover {
-	background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .dark-theme.theme-background-low-contrast .tab-item:not(.active):hover {
-	background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 /* icons */
 
 .tab-item .tab-icon-area {
-	float: right;
-	margin-right: -0.7em;
+  float: right;
+  margin-right: -0.7em;
 }
 .tab-item .tab-icon {
-	position: relative;
-	font-size: 0.875em;
-	padding: 0.7125em 0.5em;
-	box-sizing: content-box;
+  position: relative;
+  font-size: 0.875em;
+  padding: 0.7125em 0.5em;
+  box-sizing: content-box;
 }
 .tab-item .tab-icon:not(.permission-request-icon):hover:after {
-	content: "";
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: rgba(0,0, 0, 0.075);
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    z-index: -1;
+  content: "";
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.075);
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  z-index: -1;
 }
 .dark-theme .tab-item .tab-icon:hover:after {
-	background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.15);
 }
 .tab-item.active:not(:only-child) {
-	background: rgba(0, 0, 0, 0.06);
+  background: rgba(0, 0, 0, 0.06);
 }
 .dark-theme .tab-item.active:not(:only-child) {
-	background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.2);
 }
 .dark-theme.theme-background-low-contrast .tab-item.active:not(:only-child) {
-	background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.25);
 }
 .tab-item.fade {
-	opacity: 0.55;
+  opacity: 0.55;
 }
 .tab-item.fade:hover {
-	opacity: 1;
+  opacity: 1;
 }
 
 /* style tab scrollbar */
 
 #navbar #tabs-inner::-webkit-scrollbar {
-	height: 0.25em;
+  height: 0.25em;
 }
 .is-edit-mode #navbar #tabs-inner::-webkit-scrollbar {
-	height: 0
+  height: 0;
 }
 #navbar #tabs-inner::-webkit-scrollbar-track {
-	background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 #navbar #tabs-inner::-webkit-scrollbar-thumb {
-	background-color: rgba(0, 0, 0, 0.175);
-	border-radius: 0.25em;
+  background-color: rgba(0, 0, 0, 0.175);
+  border-radius: 0.25em;
 }
 .dark-theme #navbar #tabs-inner::-webkit-scrollbar-track {
-	background-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.25);
 }
 .dark-theme #navbar #tabs-inner::-webkit-scrollbar-thumb {
-	background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 /* hide tabs when tab editor is open */
 
 .is-edit-mode .tab-item {
-	opacity: 0;
+  opacity: 0;
 }
 
 /* hide the lock icon unless its the current tab */
 
 .tab-item:not(.active) .icon-tab-not-secure {
-	display: none;
+  display: none;
 }
 .tab-item .title {
-	font-size: 15px;
+  font-size: 15px;
 }
 
 /* buttons */
 
 .navbar-action-button {
-	padding: 0 1rem;
-	height: 36px;
-	margin-top: -0.5px;
-	font-size: 1.4em !important;
+  padding: 0 1rem;
+  height: 36px;
+  margin-top: -0.5px;
+  font-size: 1.4em !important;
 }
 .navbar-action-button.invisible {
-	visibility: hidden;
+  visibility: hidden;
 }
 .navbar-action-button + .navbar-action-button {
-	padding-left: 0.5em;
+  padding-left: 0.5em;
 }
 .navbar-right-actions {
-	margin-right: 2em;
+  margin-right: 2em;
 }
 
 .navbar-right-actions #add-tab-button {
-	padding: 0 0.9rem;
-	font-size: 1.6em !important;
+  padding: 0 0.9rem;
+  font-size: 1.6em !important;
 }
 
 /* audio button */
 .tab-item .tab-audio-button {
-	vertical-align: text-bottom;
-	padding: 0 0.5em 0 0;
-	font-size: 1.1em !important;
+  vertical-align: text-bottom;
+  padding: 0 0.5em 0 0;
+  font-size: 1.1em !important;
 }
 
 /* reader button */
 
 .tab-item .reader-button {
-	display: none;
-	vertical-align: text-bottom;
-	padding: 0 0.5em 0 0;
-	font-size: 1.1em !important;
+  display: none;
+  vertical-align: text-bottom;
+  padding: 0 0.5em 0 0;
+  font-size: 1.1em !important;
 }
 .tab-item.active .reader-button.can-reader {
-	display: inline-block;
+  display: inline-block;
 }
 .tab-item.active .reader-button.is-reader {
-	display: inline-block;
+  display: inline-block;
 }
 
 /* permission request buttons */
 
 .tab-item .tab-icon.permission-request-icon {
-	border: 1px rgba(0, 0, 0, 0.3) solid;
-	padding: 0.15em 0.17em;
-	margin-right: 0.66em;
-	margin-top: -0.2em;
-	margin-left: -0.3em;
-	border-radius: 0.75em;
+  border: 1px rgba(0, 0, 0, 0.3) solid;
+  padding: 0.15em 0.17em;
+  margin-right: 0.66em;
+  margin-top: -0.2em;
+  margin-left: -0.3em;
+  border-radius: 0.75em;
 }
 .tab-item .tab-icon.permission-request-icon .i {
-	vertical-align: middle;
-	margin-top: -3px;
-	display: inline-block;
+  vertical-align: middle;
+  margin-top: -3px;
+  display: inline-block;
 }
 .dark-theme .tab-item .tab-icon.permission-request-icon {
-	border-color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 .tab-item .tab-icon.permission-request-icon:hover {
-	background-color: rgba(0, 0, 0, 0.075);
+  background-color: rgba(0, 0, 0, 0.075);
 }
 .dark-theme .tab-item .tab-icon.permission-request-icon:hover {
-	background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 .tab-item .tab-icon.permission-request-icon.active {
-	background-color: rgba(0, 0, 0, 0.66);
-	border-color: transparent;
-	color: white;
+  background-color: rgba(0, 0, 0, 0.66);
+  border-color: transparent;
+  color: white;
 }
 .dark-theme .tab-item .tab-icon.permission-request-icon.active {
-	background-color: rgba(255,255,255,0.9);
-	border-color: transparent;
-    color: black;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-color: transparent;
+  color: black;
 }
 
 .tab-item:not(.active) .permission-request-icon:not(.active) {
-	display: none;
+  display: none;
 }
 
 /* in Carbon, close icon is a bit smaller than other icons, enlarge it in order to match with other icons */
 .tab-item .tab-close-button {
-    font-size: 1.25em;
-    padding: 0.3em 0.45em;
-    margin-top: 0.15em;
+  font-size: 1.25em;
+  padding: 0.3em 0.45em;
+  margin-top: 0.15em;
 }
 .tab-item .tab-close-button:hover:after {
-    top: 4px !important;
-    left: 7px !important;
-    font-size: 0.9em;
+  top: 4px !important;
+  left: 7px !important;
+  font-size: 0.9em;
 }
 
 /* when the tab is hovered, hide info buttons and show the close button */
 
 body:not(.touch) .tab-item:hover .tab-info-icon {
-	display: none;
+  display: none;
 }
 body:not(.touch) .tab-item .tab-close-button {
-	display: none;
+  display: none;
 }
 body:not(.touch) .tab-item:hover .tab-close-button {
-	display: inline-block;
+  display: inline-block;
 }
 
 body.is-focus-mode .navbar-action-button:not(#menu-button) {
-	display: none;
+  display: none;
 }
 
 /* progress bar */
 
-
 .progress-bar-container {
-	height: 2px;
-	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	margin: 0 0.8em;
-	overflow: hidden;
+  height: 2px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0 0.8em;
+  overflow: hidden;
 }
 
 .progress-bar {
-	height: 2px;
-	width: 100%;
-	background-color: currentColor;
+  height: 2px;
+  width: 100%;
+  background-color: currentColor;
 }
 
 body:not(.dark-theme) .progress-bar {
-	opacity: 0.8;
+  opacity: 0.8;
 }
 
 .p0 {
-	transform: translateX(-100%);
+  transform: translateX(-100%);
 }
 
 .p25 {
-	transform: translateX(-75%);
-	transition: transform 4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateX(-75%);
+  transition: transform 4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .p100 {
-	transform: translateX(0%);
-	transition: transform 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateX(0%);
+  transition: transform 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }

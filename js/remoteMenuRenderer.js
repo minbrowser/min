@@ -44,4 +44,3 @@ ipc.on('context-menu-will-close', function (e, data) {
 })
 
 module.exports = { open }
-

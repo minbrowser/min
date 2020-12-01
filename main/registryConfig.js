@@ -17,51 +17,51 @@ var keysToCreate = [
 
 var registryConfig = {
   'HKCU\\Software\\RegisteredApplications': {
-    'Min': {
+    Min: {
       value: 'Software\\Clients\\StartMenuInternet\\Min\\Capabilities',
       type: 'REG_SZ'
     }
   },
   'HKCU\\Software\\Classes\\Min': {
-    'default': {
+    default: {
       value: 'Min Browser Document',
       type: 'REG_DEFAULT'
     }
   },
   'HKCU\\Software\\Classes\\Min\\Application': {
-    'ApplicationIcon': {
+    ApplicationIcon: {
       value: installPath + ',0',
       type: 'REG_SZ'
     },
-    'ApplicationName': {
+    ApplicationName: {
       value: 'Min',
       type: 'REG_SZ'
     },
-    'AppUserModelId': {
+    AppUserModelId: {
       value: 'Min',
       type: 'REG_SZ'
     }
   },
   'HKCU\\Software\\Classes\\Min\\DefaulIcon': {
-    'ApplicationIcon': {
+    ApplicationIcon: {
       value: installPath + ',0',
       type: 'REG_SZ'
     }
   },
   'HKCU\\Software\\Classes\\Min\\shell\\open\\command': {
-    'default': {
+    default: {
       value: '"' + installPath + '" "%1"',
       type: 'REG_DEFAULT'
     }
   },
   'HKCU\\Software\\Classes\\.htm\\OpenWithProgIds': {
-    'Min': {
+    Min: {
       value: 'Empty',
       type: 'REG_SZ'
     }
   },
   'HKCU\\Software\\Classes\\.html\\OpenWithProgIds': {
-    'Min': {
+    Min: {
       value: 'Empty',
       type: 'REG_SZ'
     }
@@ -77,35 +77,35 @@ var registryConfig = {
     }
   },
   'HKCU\\Software\\Clients\\StartMenuInternet\\Min\\Capabilities\\StartMenu': {
-    'StartMenuInternet': {
+    StartMenuInternet: {
       value: 'Min',
       type: 'REG_SZ'
     }
   },
   'HKCU\\Software\\Clients\\StartMenuInternet\\Min\\Capabilities\\URLAssociations': {
-    'http': {
+    http: {
       value: 'Min',
       type: 'REG_SZ'
     },
-    'https': {
+    https: {
       value: 'Min',
       type: 'REG_SZ'
     }
   },
   'HKCU\\Software\\Clients\\StartMenuInternet\\Min\\DefaultIcon': {
-    'default': {
+    default: {
       value: installPath + ',0',
       type: 'REG_DEFAULT'
     }
   },
   'HKCU\\Software\\Clients\\StartMenuInternet\\Min\\InstallInfo': {
-    'IconsVisible': {
+    IconsVisible: {
       value: 1,
       type: 'REG_DWORD'
     }
   },
   'HKCU\\Software\\Clients\\StartMenuInternet\\Min\\shell\\open\\command': {
-    'default': {
+    default: {
       value: installPath,
       type: 'REG_DEFAULT'
     }

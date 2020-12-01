@@ -3,22 +3,22 @@
 var elementTypes = ['script', 'image', 'stylesheet', 'object', 'xmlhttprequest', 'object-subrequest', 'subdocument', 'ping', 'websocket', 'webrtc', 'document', 'elemhide', 'generichide', 'genericblock', 'popup', 'other']
 
 var elementTypesSet = {
-  'script': 1,
-  'image': 2,
-  'stylesheet': 4,
-  'object': 8,
-  'xmlhttprequest': 16,
+  script: 1,
+  image: 2,
+  stylesheet: 4,
+  object: 8,
+  xmlhttprequest: 16,
   'object-subrequest': 32,
-  'subdocument': 64,
-  'ping': 128,
-  'websocket': 256,
-  'webrtc': 512,
-  'document': 1024,
-  'elemhide': 2048,
-  'generichide': 4096,
-  'genericblock': 8192,
-  'popup': 16384,
-  'other': 32768
+  subdocument: 64,
+  ping: 128,
+  websocket: 256,
+  webrtc: 512,
+  document: 1024,
+  elemhide: 2048,
+  generichide: 4096,
+  genericblock: 8192,
+  popup: 16384,
+  other: 32768
 }
 var allElementTypes = 65535
 
@@ -376,9 +376,9 @@ function indexOfFilter (input, filter, startingPos) {
     var filterParts = filter.split('^')
     filterArrCache[filter] = filterParts
   }
-  var index = startingPos,
-    beginIndex = -1,
-    prefixedSeparatorChar = false
+  var index = startingPos
+  var beginIndex = -1
+  var prefixedSeparatorChar = false
 
   var f = 0
   var part
@@ -420,8 +420,8 @@ function indexOfFilter (input, filter, startingPos) {
 
 function matchWildcard (input, filter) {
   let index = 0
-  for (let part of filter.wildcardMatchParts) {
-    let newIndex = indexOfFilter(input, part, index)
+  for (const part of filter.wildcardMatchParts) {
+    const newIndex = indexOfFilter(input, part, index)
     if (newIndex === -1) {
       return false
     }

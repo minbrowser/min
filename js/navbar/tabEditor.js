@@ -49,7 +49,6 @@ const tabEditor = {
     /* animation */
     if (tabs.count() > 1) {
       requestAnimationFrame(function () {
-
         var item = document.querySelector(`.tab-item[data-tab="${tabId}"]`)
         var originCoordinates = item.getBoundingClientRect()
 

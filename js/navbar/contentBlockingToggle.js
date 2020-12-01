@@ -33,7 +33,7 @@ const contentBlockingToggle = {
     if (!setting.exceptionDomains) {
       setting.exceptionDomains = []
     }
-      // make sure the domain isn't already an exception
+    // make sure the domain isn't already an exception
     if (!setting.exceptionDomains.some(d => d.replace(/^www\./g, '') === domain.replace(/^www\./g, ''))) {
       setting.exceptionDomains.push(domain)
     }
@@ -82,8 +82,8 @@ const contentBlockingToggle = {
         {
           label: l('appMenuReportBug'),
           click: function () {
-            var newTab = tabs.add({url: 'https://github.com/minbrowser/min/issues/new?title=Content%20blocking%20issue%20on%20' + encodeURIComponent(url)})
-            require('browserUI.js').addTab(newTab, {enterEditMode: false})
+            var newTab = tabs.add({ url: 'https://github.com/minbrowser/min/issues/new?title=Content%20blocking%20issue%20on%20' + encodeURIComponent(url) })
+            require('browserUI.js').addTab(newTab, { enterEditMode: false })
           }
         }
       ]

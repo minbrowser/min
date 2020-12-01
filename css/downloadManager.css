@@ -1,126 +1,126 @@
 #download-bar {
-    display: flex;
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    background: rgb(250, 250, 250);
-    width: 100%;
-    border-top: 1px solid rgb(214, 214, 214);
-    color: black;
-    padding: 0 0.5em;
-    z-index: 9;
+  display: flex;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background: rgb(250, 250, 250);
+  width: 100%;
+  border-top: 1px solid rgb(214, 214, 214);
+  color: black;
+  padding: 0 0.5em;
+  z-index: 9;
 }
 
 .dark-mode #download-bar {
-    background: rgb(41, 44, 52);
-    color: white;
-    border-top-color: rgb(80, 80, 80);
+  background: rgb(41, 44, 52);
+  color: white;
+  border-top-color: rgb(80, 80, 80);
 }
 
 #download-container {
-    display: flex;
-    flex: 1;
-    overflow-x: auto;
+  display: flex;
+  flex: 1;
+  overflow-x: auto;
 }
 
 .download-item {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.66em 0.75em;
-    height: 39px;
-    width: 30%;
-    min-width: 175px;
-    max-width: 300px;
-    line-height: 39px;
-    overflow: hidden;
-    border-right: 1px rgb(230, 230, 230) solid;
-    position: relative;
-    transition: 0.05s background-color;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.66em 0.75em;
+  height: 39px;
+  width: 30%;
+  min-width: 175px;
+  max-width: 300px;
+  line-height: 39px;
+  overflow: hidden;
+  border-right: 1px rgb(230, 230, 230) solid;
+  position: relative;
+  transition: 0.05s background-color;
 }
 
 .dark-mode .download-item {
-    border-right-color: rgb(80, 80, 80);
+  border-right-color: rgb(80, 80, 80);
 }
 
 .download-item.completed:active {
-    background-color: rgb(238, 238, 238);
+  background-color: rgb(238, 238, 238);
 }
 
 .dark-mode .download-item.completed:active {
-    background-color: rgb(50, 55, 65);
+  background-color: rgb(50, 55, 65);
 }
 
 .download-title {
-    font-size: 0.9em;
-    opacity: 0.9;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  font-size: 0.9em;
+  opacity: 0.9;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .download-info {
-    display: inline-block;
-    margin-top: 0.1em;
-    padding-left: 0.75em;
-    font-size: 0.75em;
-    opacity: 0.7;
-    white-space: nowrap;
+  display: inline-block;
+  margin-top: 0.1em;
+  padding-left: 0.75em;
+  font-size: 0.75em;
+  opacity: 0.7;
+  white-space: nowrap;
 }
 .download-item:hover .download-info {
-    display: none;
+  display: none;
 }
 
 .download-info.detailed {
-    display: none;
+  display: none;
 }
 
 .download-item:hover .download-info.detailed {
-    display: inline-block;
+  display: inline-block;
 }
 
 .download-item.loading .download-info,
 .download-item.completed .download-info {
-    /* leave room for the action buttons */
-    padding-right: 32px;
+  /* leave room for the action buttons */
+  padding-right: 32px;
 }
 
 .download-progress {
-    width: calc(100% - 1em);
-    height: 4px;
-    margin-top: 0.33em;
-    background: rgb(22, 122, 224);
-    border-radius: 2px;
-    position: absolute;
-    top: calc(-0.5em + 2px);
-    transform: scaleX(0.56);
-    transform-origin: top left;
-    transition: 1s transform, 0.2s opacity;
+  width: calc(100% - 1em);
+  height: 4px;
+  margin-top: 0.33em;
+  background: rgb(22, 122, 224);
+  border-radius: 2px;
+  position: absolute;
+  top: calc(-0.5em + 2px);
+  transform: scaleX(0.56);
+  transform-origin: top left;
+  transition: 1s transform, 0.2s opacity;
 }
 
 .dark-mode .download-progress {
-    background: lightskyblue;
+  background: lightskyblue;
 }
 
 .download-progress[hidden] {
-    display: block !important;
-    opacity: 0;
+  display: block !important;
+  opacity: 0;
 }
 
 .download-action-button {
-    position: absolute;
-    right: 0.7em;
-    opacity: 0.7;
-    margin: auto;
+  position: absolute;
+  right: 0.7em;
+  opacity: 0.7;
+  margin: auto;
 }
 
 #download-close-button {
-    margin-top: -1px;
-    opacity: 0.66;
-    font-size: 1.2em;
-    margin: auto;
-    margin-right: 0.3em;
+  margin-top: -1px;
+  opacity: 0.66;
+  font-size: 1.2em;
+  margin: auto;
+  margin-right: 0.3em;
 }
 
 .dark-mode #download-close-button {
-    opacity: 0.9;
+  opacity: 0.9;
 }

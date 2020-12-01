@@ -12,7 +12,7 @@ ipc.on('open-context-menu', function (e, data) {
     menu.append(new MenuItem({ type: 'separator' }))
   })
   menu.on('menu-will-close', function () {
-    e.sender.send('context-menu-will-close', {menuId: data.id})
+    e.sender.send('context-menu-will-close', { menuId: data.id })
   })
   menu.popup({ x: data.x, y: data.y })
 })

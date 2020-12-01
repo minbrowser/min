@@ -1,255 +1,266 @@
 body,
 html {
-	padding: 0;
-	margin: 0;
-	font-size: 19.5px;
-	color: rgb(15, 15, 15);
+  padding: 0;
+  margin: 0;
+  font-size: 19.5px;
+  color: rgb(15, 15, 15);
 }
 
 body[theme="dark"] {
-	background-color: rgb(36, 41, 47);
-	color: rgb(180,180,180);
+  background-color: rgb(36, 41, 47);
+  color: rgb(180, 180, 180);
 }
 
 body[theme="sepia"] {
-	background-color: rgb(247, 231, 199); 
-	color: rgb(56, 40, 28);
+  background-color: rgb(247, 231, 199);
+  color: rgb(56, 40, 28);
 }
 
 iframe {
-	display: none;
+  display: none;
 }
 .reader-main {
-	padding: 0.75em 1em;
-	max-width: 650px;
-	display: block;
-	margin: auto;
+  padding: 0.75em 1em;
+  max-width: 650px;
+  display: block;
+  margin: auto;
 }
 
 * {
-	font-family: "Charter", "Georgia", serif;
+  font-family: "Charter", "Georgia", serif;
 }
 
 .visually-hidden {
-	display: none;
+  display: none;
 }
 h1.article-title {
-	padding-bottom: 0.5rem;
-	margin-top: 1rem;
-	margin: 0;
-	font-size: 2em;
-	font-weight: 500;
+  padding-bottom: 0.5rem;
+  margin-top: 1rem;
+  margin: 0;
+  font-size: 2em;
+  font-weight: 500;
 }
 h2.article-authors {
-	padding: 0;
-	font-size: 1.2em;
-	font-weight: 400;
-	margin: 0;
-	font-style: italic;
+  padding: 0;
+  font-size: 1.2em;
+  font-weight: 400;
+  margin: 0;
+  font-style: italic;
 }
 
 /* small windows */
 
 @media all and (max-width: 600px) {
-	h1.article-title {
-		font-size: 1.5em;
-	}
-	h2.article-authors {
-		font-size: 1.1em;
-	}
+  h1.article-title {
+    font-size: 1.5em;
+  }
+  h2.article-authors {
+    font-size: 1.1em;
+  }
 }
 h1,
 h2 {
-	font-weight: inherit;
+  font-weight: inherit;
 }
 h3,
 h4 {
-	margin: 1em 0 0.5em 0;
-    font-size: 1.3em;
-    font-weight: 500;
+  margin: 1em 0 0.5em 0;
+  font-size: 1.3em;
+  font-weight: 500;
 }
 h4 {
-	font-size: 1.25em;
-	font-weight: 600;
+  font-size: 1.25em;
+  font-weight: 600;
 }
 .page {
-	padding-bottom: 2.25rem;
+  padding-bottom: 2.25rem;
 }
 .article-authors + .page {
-	padding-top: 0.5rem;
+  padding-top: 0.5rem;
 }
-img, picture, video {
-	display: block;
-	max-width: 100%;
-	height: auto;
-	margin: auto;
+img,
+picture,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: auto;
 }
 /*
 needed to fix wikipedia math rendering
 and probably generally reasonable to assume that an image inside a span should be inline
 */
-span > img, span > picture, span > video {
-	display: inline-block;
-	vertical-align: middle;
+span > img,
+span > picture,
+span > video {
+  display: inline-block;
+  vertical-align: middle;
 }
 body[theme="dark"] img,
 body[theme="dark"] picture {
-	filter: brightness(0.95);
+  filter: brightness(0.95);
 }
 p {
-	line-height: 1.5em;
-	word-break: break-word;
+  line-height: 1.5em;
+  word-break: break-word;
 }
 ul li,
 ol li {
-	margin: 0.25rem 0;
-	line-height: 1.5em;
+  margin: 0.25rem 0;
+  line-height: 1.5em;
 }
 a {
-	color: #1b74bb;
-	font-size: 1em;
-	text-decoration: none;
+  color: #1b74bb;
+  font-size: 1em;
+  text-decoration: none;
 }
 body[theme="dark"] a {
-	color: #65a9ed;
+  color: #65a9ed;
 }
 
 a:hover {
-	background-image: linear-gradient(to bottom, transparent 70%, currentColor 0%);
-	background-size: 1px 3px;
-	background-position: 0px 1.03em;
-	background-repeat: repeat-x;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 70%,
+    currentColor 0%
+  );
+  background-size: 1px 3px;
+  background-position: 0px 1.03em;
+  background-repeat: repeat-x;
 }
 figure {
-	max-width: 100%;
-	margin: 1em 0;
+  max-width: 100%;
+  margin: 1em 0;
 }
 
 figure figcaption {
-	font-size: 0.8em;
-	margin-top: 1em;
-	opacity: 0.75;
+  font-size: 0.8em;
+  margin-top: 1em;
+  opacity: 0.75;
 }
-figure figcaption, figure figcaption * {
-	font-family: sans-serif;
+figure figcaption,
+figure figcaption * {
+  font-family: sans-serif;
 }
 pre,
 pre *,
 code,
 code * {
-	font-family: monospace;
+  font-family: monospace;
 }
 pre {
-	display: block;
-	overflow: auto;
-	padding: 0.5em;
-	background: rgba(0, 0, 0, 0.025);
+  display: block;
+  overflow: auto;
+  padding: 0.5em;
+  background: rgba(0, 0, 0, 0.025);
 }
 body[theme="dark"] pre {
-	background: rgba(0, 0, 0, 0.33)
+  background: rgba(0, 0, 0, 0.33);
 }
 
 q,
 blockquote {
-	display: block;
-	border-left: 1px currentColor solid;
-	padding-left: 0.5em;
-	font-size: 1.15em;
-	line-height: 1.5em;
-	margin: 1.5em 0;
+  display: block;
+  border-left: 1px currentColor solid;
+  padding-left: 0.5em;
+  font-size: 1.15em;
+  line-height: 1.5em;
+  margin: 1.5em 0;
 }
 
 table {
-	border-collapse: collapse;
+  border-collapse: collapse;
 }
 
 @media all and (min-width: 600px) {
-	/* TODO find a way to simplify this */
-	[domain*="wikipedia.org"] table:first-child,
-	[domain*="wikipedia.org"] table:first-child + table,
-	[domain*="wikipedia.org"] table:first-child + table + table,
-	[domain*="wikipedia.org"] table:first-child + table + table + table {
-		width: 50%;
-		float: right;
-		margin-left: 2em;
-		margin-bottom: 0.5em;
-	}
+  /* TODO find a way to simplify this */
+  [domain*="wikipedia.org"] table:first-child,
+  [domain*="wikipedia.org"] table:first-child + table,
+  [domain*="wikipedia.org"] table:first-child + table + table,
+  [domain*="wikipedia.org"] table:first-child + table + table + table {
+    width: 50%;
+    float: right;
+    margin-left: 2em;
+    margin-bottom: 0.5em;
+  }
 }
 
-td, th {
-	padding: 0.25em;
-	border: 1px #ddd solid;
-	text-align: center;
+td,
+th {
+  padding: 0.25em;
+  border: 1px #ddd solid;
+  text-align: center;
 }
 
-body[theme="dark"] td, body[theme="dark"] th {
-	border-color: #444;
+body[theme="dark"] td,
+body[theme="dark"] th {
+  border-color: #444;
 }
 
-td li, th li {
-	text-align: left;
+td li,
+th li {
+  text-align: left;
 }
 
 sup {
-	font-size: 0.75em;
+  font-size: 0.75em;
 }
 
 /* printing */
 
 @media print {
-	body {
-		color: #000 !important;
-		font-size: 16px !important;
-	}
+  body {
+    color: #000 !important;
+    font-size: 16px !important;
+  }
 }
 
 /* site-specific styles */
 
-
 /* nytimes.com */
 
 .lede-container {
-	display: none;
+  display: none;
 }
 figure figcaption .credit,
-figure figcaption [itemprop=copyrightHolder] {
-	display: block;
-	font-style: italic;
-	margin-top: 0.25em;
+figure figcaption [itemprop="copyrightHolder"] {
+  display: block;
+  font-style: italic;
+  margin-top: 0.25em;
 }
 
 /* wikipedia (and others?) */
 
 .mw-editsection {
-	display: none;
+  display: none;
 }
 
 summary p,
 summary div {
-	display: inline;
+  display: inline;
 }
 
 /* wsj.com */
 
 dd {
-	display: block;
-	padding: 1em 0;
+  display: block;
+  padding: 1em 0;
 }
 
 /* arstechnica.com */
 
 #masthead > #primary {
-	display: none;
+  display: none;
 }
 
 /* bbc.com */
 
 .off-screen {
-	display: none;
+  display: none;
 }
 
 /* lifehacker.com (and possibly others */
 
 svg {
-	display: none;
+  display: none;
 }
