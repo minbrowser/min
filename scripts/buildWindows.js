@@ -5,7 +5,6 @@ const packageFile = require('./../package.json')
 const version = packageFile.version
 
 require('./createPackage.js')('win32').then(function (appPaths) {
-
   /* create zip files */
 
   appPaths.forEach(function (packagePath) {

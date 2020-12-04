@@ -22,7 +22,7 @@ function getTaskRelativeDate (task) {
   if (time > minimumTime) {
     return null
   } else {
-    return new Intl.DateTimeFormat(navigator.language, {month: 'long', day: 'numeric', year: 'numeric'}).format(d)
+    return new Intl.DateTimeFormat(navigator.language, { month: 'long', day: 'numeric', year: 'numeric' }).format(d)
   }
 }
 

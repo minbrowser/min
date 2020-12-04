@@ -3,7 +3,7 @@ var settings = {
   list: {},
   onLoadCallbacks: [],
   onChangeCallbacks: [],
-  runChangeCallacks() {
+  runChangeCallacks () {
     settings.onChangeCallbacks.forEach(function (listener) {
       if (listener.key) {
         listener.cb(settings.list[listener.key])
@@ -28,22 +28,22 @@ var settings = {
   listen: function (key, cb) {
     if (key && cb) {
       settings.get(key, cb)
-      settings.onChangeCallbacks.push({key, cb})
+      settings.onChangeCallbacks.push({ key, cb })
     } else if (key) {
       // global listener
-      settings.onChangeCallbacks.push({cb: key})
+      settings.onChangeCallbacks.push({ cb: key })
     }
   },
   set: function (key, value, cb) {
     settings.list[key] = value
-    postMessage({message: 'setSetting', key, value})
+    postMessage({ message: 'setSetting', key, value })
     if (cb) {
       cb()
     }
     settings.runChangeCallacks()
   },
   load: function () {
-    postMessage({message: 'getSettingsData'})
+    postMessage({ message: 'getSettingsData' })
   },
   onLoad: function (cb) {
     if (settings.loaded) {

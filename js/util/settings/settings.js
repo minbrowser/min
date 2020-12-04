@@ -29,10 +29,10 @@ var settings = {
   listen: function (key, cb) {
     if (key && cb) {
       cb(settings.get(key))
-      settings.onChangeCallbacks.push({key, cb})
+      settings.onChangeCallbacks.push({ key, cb })
     } else if (key) {
       // global listener
-      settings.onChangeCallbacks.push({cb: key})
+      settings.onChangeCallbacks.push({ cb: key })
     }
   },
   set: function (key, value, cb) {

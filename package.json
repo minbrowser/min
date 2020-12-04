@@ -27,6 +27,7 @@
     "electron-packager": "^15.1.0",
     "electron-rebuild": "^2.3.2",
     "electron-renderify": "0.0.2",
+    "prettier": "^2.2.1",
     "standard": "^14.3.4"
   },
   "optionalDependencies": {
@@ -50,7 +51,8 @@
     "buildLinuxArm64": "npm run build && node ./scripts/buildDebian.js --platform=arm64",
     "buildRedhat": "npm run build && node ./scripts/buildRedhat.js",
     "buildAll": "npm run buildWindows && npm run buildMac && npm run buildDebian && npm run buildRedhat && npm run buildRaspi && npm run buildLinuxArm64",
-    "updateFilters": "node ./ext/filterLists/updateEasylist.js"
+    "updateFilters": "node ./ext/filterLists/updateEasylist.js",
+    "lint": "prettier --write **/**/*.css && standard --fix js/**/*.js main/*.js"
   },
   "repository": {
     "type": "git",

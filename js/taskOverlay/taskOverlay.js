@@ -179,7 +179,7 @@ keybindings.defineShortcut('toggleTasks', function () {
   }
 })
 
-keybindings.defineShortcut({keys: 'esc'}, function (e) {
+keybindings.defineShortcut({ keys: 'esc' }, function (e) {
   taskOverlay.hide()
 })
 

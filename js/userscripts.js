@@ -93,7 +93,7 @@ const userscripts = {
 
             var tampermonkeyFeatures = parseTampermonkeyFeatures(file)
             if (tampermonkeyFeatures) {
-              var scriptName = tampermonkeyFeatures['name:local'] || tampermonkeyFeatures['name']
+              var scriptName = tampermonkeyFeatures['name:local'] || tampermonkeyFeatures.name
               if (scriptName) {
                 scriptName = scriptName[0]
               } else {

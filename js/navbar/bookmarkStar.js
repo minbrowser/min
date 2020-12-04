@@ -34,7 +34,7 @@ const bookmarkStar = {
         star.setAttribute('aria-pressed', true)
         var editorInsertionPoint = document.createElement('div')
         searchbarPlugins.getContainer('simpleBookmarkTagInput').appendChild(editorInsertionPoint)
-        bookmarkEditor.show(tabs.get(tabs.getSelected()).url, editorInsertionPoint, null, {simplified: true, autoFocus: true})
+        bookmarkEditor.show(tabs.get(tabs.getSelected()).url, editorInsertionPoint, null, { simplified: true, autoFocus: true })
       } else {
         star.classList.add('carbon:star')
         star.classList.remove('carbon:star-filled')
@@ -56,7 +56,6 @@ const bookmarkStar = {
     // check if the page is bookmarked or not, and update the star to match
 
     db.places.where('url').equals(currentURL).first(function (item) {
-
       if (item && item.isBookmarked) {
         star.classList.remove('carbon:star')
         star.classList.add('carbon:star-filled')

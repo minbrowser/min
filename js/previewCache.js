@@ -13,7 +13,7 @@ var previewCache = {
 setInterval(function () {
   // discard any images for tabs that don't exist any more or that haven't been active recently
   for (var tab in previewCache.images) {
-    let containingTask = tasks.getTaskContainingTab(tab)
+    const containingTask = tasks.getTaskContainingTab(tab)
     if (!containingTask || Date.now() - containingTask.tabs.get(tab).lastActivity > (3 * 24 * 60 * 60 * 1000)) {
       delete previewCache.images[tab]
     }

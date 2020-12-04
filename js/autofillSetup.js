@@ -4,7 +4,7 @@ const PasswordManagers = require('passwordManager/passwordManager.js')
 
 const AutofillSetup = {
   checkSettings: function () {
-    let manager = PasswordManagers.getActivePasswordManager()
+    const manager = PasswordManagers.getActivePasswordManager()
     if (!manager) {
       return
     }

@@ -5,7 +5,7 @@ var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var keyboardNavigationHelper = require('util/keyboardNavigationHelper.js')
 
 function openURLInBackground (url) { // used to open a url in the background, without leaving the searchbar
-  searchbar.events.emit('url-selected', {url: url, background: true})
+  searchbar.events.emit('url-selected', { url: url, background: true })
 
   var i = searchbar.el.querySelector('.searchbar-item:focus')
   if (i) { // remove the highlight from an awesomebar result item, if there is one
@@ -53,7 +53,7 @@ var searchbar = {
       openURLInBackground(url)
       return true
     } else {
-      searchbar.events.emit('url-selected', {url: url, background: false})
+      searchbar.events.emit('url-selected', { url: url, background: false })
       // focus the webview, so that autofocus inputs on the page work
       webviews.focus()
       return false
@@ -63,16 +63,16 @@ var searchbar = {
 
 keyboardNavigationHelper.addToGroup('searchbar', searchbar.el)
 
-  // mod+enter navigates to searchbar URL + ".com"
+// mod+enter navigates to searchbar URL + ".com"
 keybindings.defineShortcut('completeSearchbar', function () {
   if (searchbar.associatedInput) { // if the searchbar is open
     var value = searchbar.associatedInput.value
 
-      // if the text is already a URL, navigate to that page
+    // if the text is already a URL, navigate to that page
     if (urlParser.isURLMissingProtocol(value)) {
-      searchbar.events.emit('url-selected', {url: value, background: false})
+      searchbar.events.emit('url-selected', { url: value, background: false })
     } else {
-      searchbar.events.emit('url-selected', {url: urlParser.parse(value + '.com'), background: false})
+      searchbar.events.emit('url-selected', { url: urlParser.parse(value + '.com'), background: false })
     }
   }
 })

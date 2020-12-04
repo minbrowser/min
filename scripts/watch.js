@@ -14,7 +14,7 @@ chokidar.watch(mainDir).on('change', function () {
   buildMain()
 })
 
-chokidar.watch(jsDir, {ignored: preloadDir}).on('change', function () {
+chokidar.watch(jsDir, { ignored: preloadDir }).on('change', function () {
   console.log('rebuilding browser')
   buildBrowser()
 })

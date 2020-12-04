@@ -44,7 +44,7 @@ var offlineError = {
 
 // list: https://code.google.com/p/chromium/codesearch#chromium/src/net/base/net_error_list.h&sq=package:chromium&type=cs
 const errorCodes = {
-  'crash': {
+  crash: {
     name: l('crashErrorTitle'),
     message: l('crashErrorSubtitle')
   },

@@ -45,23 +45,23 @@ function getAvailableUpdates () {
     fetch(UPDATE_URL, {
       cache: 'no-cache'
     })
-        .then(res => res.json())
-        .then(function (response) {
-          console.info('got response from update check', response)
-          if (response.version &&
+      .then(res => res.json())
+      .then(function (response) {
+        console.info('got response from update check', response)
+        if (response.version &&
             compareVersions(window.globalArgs['app-version'], response.version) > 0 &&
             (!response.availabilityPercent || getUpdateRandomNum() < response.availabilityPercent)) {
-            console.info('an update is available')
-            localStorage.setItem('availableUpdate', JSON.stringify(response))
-          } else {
-            console.info('update is not available')
-            /* this can happen if either the update is no longer being offered, or the update has already been installed */
-            localStorage.removeItem('availableUpdate')
-          }
-        })
-        .catch(function (e) {
-          console.info('failed to get update info', e)
-        })
+          console.info('an update is available')
+          localStorage.setItem('availableUpdate', JSON.stringify(response))
+        } else {
+          console.info('update is not available')
+          /* this can happen if either the update is no longer being offered, or the update has already been installed */
+          localStorage.removeItem('availableUpdate')
+        }
+      })
+      .catch(function (e) {
+        console.info('failed to get update info', e)
+      })
   } else {
     console.info('update checking is disabled')
   }
@@ -75,7 +75,7 @@ function showUpdateNotification (text, input, event) {
       descriptionBlock: update.releaseHeadline || 'View release notes',
       url: update.releaseNotes,
       icon: 'carbon:renew'
-    }, {allowDuplicates: true})
+    }, { allowDuplicates: true })
   }
   // is there an update?
   var update = JSON.parse(localStorage.getItem('availableUpdate'))
@@ -112,4 +112,4 @@ function initialize () {
   })
 }
 
-module.exports = {initialize}
+module.exports = { initialize }

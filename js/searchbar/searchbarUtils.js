@@ -231,4 +231,4 @@ function getRealTitle (text) {
   return text
 }
 
-module.exports = {createItem, createHeading, getRealTitle}
+module.exports = { createItem, createHeading, getRealTitle }

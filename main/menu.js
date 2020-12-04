@@ -70,7 +70,7 @@ function buildAppMenu (options = {}) {
     ...(options.secondary ? personalDataItems : []),
     ...(options.secondary ? [{ type: 'separator' }] : []),
     ...(process.platform === 'darwin'
-    ? [
+      ? [
         {
           label: app.name,
           submenu: [
@@ -250,10 +250,7 @@ function buildAppMenu (options = {}) {
         {
           label: l('appMenuFullScreen'),
           accelerator: (function () {
-            if (process.platform == 'darwin')
-              {return 'Ctrl+Command+F'}
-            else
-              {return 'F11'}
+            if (process.platform == 'darwin') { return 'Ctrl+Command+F' } else { return 'F11' }
           })(),
           role: 'togglefullscreen'
         }
@@ -265,10 +262,7 @@ function buildAppMenu (options = {}) {
         {
           label: l('appMenuInspectPage'),
           accelerator: (function () {
-            if (process.platform == 'darwin')
-              {return 'Cmd+Alt+I'}
-            else
-              {return 'Ctrl+Shift+I'}
+            if (process.platform == 'darwin') { return 'Cmd+Alt+I' } else { return 'Ctrl+Shift+I' }
           })(),
           click: function (item, window) {
             sendIPCToWindow(window, 'inspectPage')

@@ -23,7 +23,6 @@ const legacyModules = [
 ]
 
 function buildBrowser () {
-
   // build localization support first, since it is included in the browser bundle
   require('./buildLocalization.js')()
 
@@ -35,7 +34,7 @@ function buildBrowser () {
 
   fs.writeFileSync(intermediateOutput, output, 'utf-8')
 
-  let instance = browserify(intermediateOutput, {
+  const instance = browserify(intermediateOutput, {
     paths: [rootDir, jsDir],
     ignoreMissing: false,
     node: true,
@@ -43,7 +42,7 @@ function buildBrowser () {
   })
 
   instance.transform(renderify)
-  let stream = fs.createWriteStream(outFile, {encoding: 'utf-8'})
+  const stream = fs.createWriteStream(outFile, { encoding: 'utf-8' })
   instance.bundle()
     .on('error', function (e) {
       console.warn('\x1b[31m' + 'Error while building: ' + e.message + '\x1b[30m')

@@ -12,7 +12,7 @@ function searchPlaces (searchText, callback, options) {
     if (limitToBookmarks && !item.isBookmarked) {
       return
     }
-    let itextURL = processSearchText(item.url)
+    const itextURL = processSearchText(item.url)
     let itext = itextURL
 
     if (item.url !== item.title) {

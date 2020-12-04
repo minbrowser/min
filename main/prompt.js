@@ -5,7 +5,7 @@ var promptOptions
 
 function createPrompt (options, callback) {
   promptOptions = options
-  let { parent, width = 360, height = 140 } = options
+  const { parent, width = 360, height = 140 } = options
 
   var promptWindow = new BrowserWindow({
     width: width,
@@ -13,8 +13,8 @@ function createPrompt (options, callback) {
     parent: parent != null ? parent : mainWindow,
     show: false,
     modal: true,
-    alwaysOnTop : true,
-    title : options.title,
+    alwaysOnTop: true,
+    title: options.title,
     autoHideMenuBar: true,
     frame: false,
     webPreferences: {

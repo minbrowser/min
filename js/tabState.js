@@ -1,4 +1,4 @@
-const TaskList  = require("tabState/task.js")
+const TaskList = require('tabState/task.js')
 
 function initializeTabState () {
   window.tasks = new TaskList()
