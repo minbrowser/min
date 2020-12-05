@@ -48,7 +48,7 @@ const webviewMenu = {
         suggestionEntries.push({
           label: l('addToDictionary'),
           click: function () {
-            remote.session.defaultSession.addWordToSpellCheckerDictionary(data.misspelledWord)
+            remote.session.fromPartition('persist:webcontent').addWordToSpellCheckerDictionary(data.misspelledWord)
           }
         })
       }
