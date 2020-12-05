@@ -168,6 +168,11 @@ const defaultKeybindings = {
     })
 
     keybindings.defineShortcut('switchToNextTask', function (d) {
+      if (focusMode.enabled()) {
+        focusMode.warn()
+        return
+      }
+
       const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id))
 
       const currentTaskIdx = taskSwitchList.findIndex(t => t.id === tasks.getSelected().id)
@@ -177,6 +182,11 @@ const defaultKeybindings = {
     })
 
     keybindings.defineShortcut('switchToPreviousTask', function (d) {
+      if (focusMode.enabled()) {
+        focusMode.warn()
+        return
+      }
+
       const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id))
 
       const currentTaskIdx = taskSwitchList.findIndex(t => t.id === tasks.getSelected().id)
@@ -186,11 +196,16 @@ const defaultKeybindings = {
       browserUI.switchToTask(previousTask.id)
     })
 
-    // option+cmd+x should switch to task x
+    // shift+option+cmd+x should switch to task x
 
     for (var i = 1; i < 10; i++) {
       (function (i) {
         keybindings.defineShortcut({ keys: 'shift+option+mod+' + i }, function (e) {
+          if (focusMode.enabled()) {
+            focusMode.warn()
+            return
+          }
+
           const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id))
           if (taskSwitchList[i - 1]) {
             browserUI.switchToTask(taskSwitchList[i - 1].id)
@@ -200,6 +215,11 @@ const defaultKeybindings = {
     }
 
     keybindings.defineShortcut('closeAllTabs', function (d) { // destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
+      if (focusMode.enabled()) {
+        focusMode.warn()
+        return
+      }
+
       var tset = tabs.get()
       for (var i = 0; i < tset.length; i++) {
         browserUI.destroyTab(tset[i].id)
