@@ -1,51 +1,72 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="theme-color" id="meta-theme" />
+    <script src="../ext/readability-master/Readability.js"></script>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="readerUI.css" />
+    <link rel="stylesheet" href="../ext/icons/iconfont.css" />
+  </head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="theme-color" id="meta-theme"/>
-	<script src="../ext/readability-master/Readability.js"></script>
-	<link rel="stylesheet" href="../css/base.css"/>
-	<link rel="stylesheet" href="readerUI.css" />
-	<link rel="stylesheet" href="../ext/icons/iconfont.css" />
-</head>
+  <body>
+    <button
+      id="settings-button"
+      class="i carbon:settings-adjust"
+      data-label="buttonReaderSettings"
+    ></button>
+    <div id="settings-dropdown" hidden>
+      <div class="setting-section">
+        <button
+          class="theme-circle selected"
+          data-theme="light"
+          data-label="buttonReaderLightTheme"
+        ></button>
+        <button
+          class="theme-circle"
+          data-theme="sepia"
+          data-label="buttonReaderSepiaTheme"
+        ></button>
+        <button
+          class="theme-circle"
+          data-theme="dark"
+          data-label="buttonReaderDarkTheme"
+        ></button>
+      </div>
+      <div class="setting-section">
+        <input type="checkbox" id="auto-reader-checkbox" /><label
+          for="auto-reader-checkbox"
+          data-string="openReaderView"
+        ></label>
+      </div>
+    </div>
+    <div id="site-nav-links"></div>
+    <div id="auto-redirect-banner" hidden>
+      <label data-string="autoRedirectBannerReader"></label>
+      <span id="auto-redirect-button-area">
+        <button
+          id="auto-redirect-yes"
+          data-string="buttonReaderRedirectYes"
+        ></button>
+        <button
+          id="auto-redirect-no"
+          data-string="buttonReaderRedirectNo"
+        ></button>
+      </span>
+    </div>
+    <div id="backtoarticle">
+      <a id="backtoarticle-link">
+        <i class="i carbon:chevron-left"></i>
+        <span data-string="articleReaderView"></span>
+      </a>
+    </div>
 
-<body>
-	<button id="settings-button" class="i carbon:settings-adjust" data-label="buttonReaderSettings">
-	</button>
-	<div id="settings-dropdown" hidden>
-		<div class="setting-section">
-				<button class="theme-circle selected" data-theme="light" data-label="buttonReaderLightTheme"></button>
-				<button class="theme-circle" data-theme="sepia" data-label="buttonReaderSepiaTheme"></button>
-				<button class="theme-circle" data-theme="dark" data-label="buttonReaderDarkTheme"></button>
-			</div>
-		<div class="setting-section">
-			<input type="checkbox" id="auto-reader-checkbox"/><label for="auto-reader-checkbox" data-string="openReaderView"></label>
-		</div>
-	</div>
-	<div id="site-nav-links"></div>
-	<div id="auto-redirect-banner" hidden>
-		<label data-string="autoRedirectBannerReader"></label>	
-		<span id="auto-redirect-button-area">
-			<button id="auto-redirect-yes" data-string="buttonReaderRedirectYes"></button>
-			<button id="auto-redirect-no" data-string="buttonReaderRedirectNo"></button>
-		</span>
-	</div>
-	<div id="backtoarticle">
-		<a id="backtoarticle-link">
-			<i class="i carbon:chevron-left"></i>
-			<span data-string="articleReaderView"></span>
-		</a>
-	</div>
-	
-	<!-- DOM inserted in reader.js -->
+    <!-- DOM inserted in reader.js -->
 
-	<script src="../js/util/settings/settingsContent.js"></script>
- 	<script src="../dist/localization.build.js"></script>
-	<script src="../js/readerDecision.js"></script>
-	<script src="reader.js"></script>
-	<script src="readerThemeSelector.js"></script>
-</body>
-	
-
+    <script src="../js/util/settings/settingsContent.js"></script>
+    <script src="../dist/localization.build.js"></script>
+    <script src="../js/readerDecision.js"></script>
+    <script src="reader.js"></script>
+    <script src="readerThemeSelector.js"></script>
+  </body>
 </html>

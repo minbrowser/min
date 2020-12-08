@@ -1,201 +1,315 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-	<meta charset="UTF-8" />
+    <!-- title is set in JS -->
 
-	<!-- title is set in JS -->
+    <link rel="stylesheet" href="../../css/base.css" />
+    <link rel="stylesheet" href="settings.css" />
+    <link rel="stylesheet" href="../../ext/icons/iconfont.css" />
+  </head>
 
-	<link rel="stylesheet" href="../../css/base.css" />
-	<link rel="stylesheet" href="settings.css" />
-	<link rel="stylesheet" href="../../ext/icons/iconfont.css" />
-</head>
+  <body>
+    <div class="short-hero blue-gradient-background">
+      <div class="container">
+        <h2 data-string="settingsPreferencesHeading"></h2>
+      </div>
+    </div>
 
-<body>
-	<div class="short-hero blue-gradient-background">
-		<div class="container">
-			<h2 data-string="settingsPreferencesHeading"></h2>
-		</div>
-	</div>
+    <div class="settings-container" id="privacy-settings-container">
+      <h3 data-string="settingsPrivacyHeading"></h3>
 
-	<div class="settings-container" id="privacy-settings-container">
-		<h3 data-string="settingsPrivacyHeading"></h3>
+      <div class="settings-info-subheading" id="content-blocking-statistics">
+        <i class="i carbon:manage-protection"></i>
+        <span
+          data-string="settingsBlockedRequestCount"
+          data-allowHTML
+          id="content-blocking-blocked-requests"
+        >
+        </span>
+      </div>
 
-		<div class="settings-info-subheading" id="content-blocking-statistics">
-			<i class="i carbon:manage-protection"></i>
-			<span data-string="settingsBlockedRequestCount" data-allowHTML id="content-blocking-blocked-requests">
-			</span>
-		</div>
+      <div class="setting-section" id="tracking-level-container">
+        <div class="setting-option">
+          <input type="radio" name="blockingLevel" id="blocking-allow-all" />
+          <label
+            for="blocking-allow-all"
+            data-string="settingsContentBlockingLevel0"
+          ></label>
+        </div>
+        <div class="setting-option">
+          <input type="radio" name="blockingLevel" id="blocking-third-party" />
+          <label
+            for="blocking-third-party"
+            data-string="settingsContentBlockingLevel1"
+          ></label>
+        </div>
+        <div class="setting-option">
+          <input type="radio" name="blockingLevel" id="blocking-block-all" />
+          <label
+            for="blocking-block-all"
+            data-string="settingsContentBlockingLevel2"
+          ></label>
+        </div>
 
-		<div class="setting-section" id="tracking-level-container">
-			<div class="setting-option">
-				<input type="radio" name="blockingLevel" id="blocking-allow-all" />
-				<label for="blocking-allow-all" data-string="settingsContentBlockingLevel0"></label>
-			</div>
-			<div class="setting-option">
-				<input type="radio" name="blockingLevel" id="blocking-third-party" />
-				<label for="blocking-third-party" data-string="settingsContentBlockingLevel1"></label>
-			</div>
-			<div class="setting-option">
-				<input type="radio" name="blockingLevel" id="blocking-block-all" />
-				<label for="blocking-block-all" data-string="settingsContentBlockingLevel2"></label>
-			</div>
+        <div id="content-blocking-information" hidden>
+          <div>
+            <label
+              for="content-blocking-exceptions"
+              data-string="settingsContentBlockingExceptions"
+            ></label>
+            <input
+              type="text"
+              id="content-blocking-exceptions"
+              style="width: 100%; max-width: 500px"
+            />
+          </div>
+          <a
+            id="customize-filters-link"
+            href="https://github.com/minbrowser/min/wiki/Content-blocking-settings"
+            data-string="settingsCustomizeFiltersLink"
+          ></a>
+        </div>
+      </div>
 
-			<div id="content-blocking-information" hidden>
-				<div><label for="content-blocking-exceptions" data-string="settingsContentBlockingExceptions"></label>
-					<input type="text" id="content-blocking-exceptions" style="width: 100%; max-width: 500px">
-				</div>
-				<a id="customize-filters-link" href="https://github.com/minbrowser/min/wiki/Content-blocking-settings" data-string="settingsCustomizeFiltersLink"></a>
-			</div>
-		</div>
+      <div id="content-type-blocking"></div>
+    </div>
 
-		<div id="content-type-blocking"></div>
-	</div>
-	
-	<div class="settings-container" id="appearance-settings-container">
-		<h3 data-string="settingsAppearanceHeading"></h3>
-		
+    <div class="settings-container" id="appearance-settings-container">
+      <h3 data-string="settingsAppearanceHeading"></h3>
 
-		<label for="dark-mode-container" data-string="settingsEnableDarkMode"></label>
-		<div class="setting-section" id="dark-mode-container">
-			<div class="setting-option">
-				<input type="radio" name="darkMode" id="dark-mode-never" />
-				<label for="dark-mode-never" data-string="settingsDarkModeNever"></label>
-			</div>
-			<div class="setting-option">
-				<input type="radio" name="darkMode" id="dark-mode-night" />
-				<label for="dark-mode-night" data-string="settingsDarkModeNight"></label>
-			</div>
-			<div class="setting-option">
-				<input type="radio" name="darkMode" id="dark-mode-always" />
-				<label for="dark-mode-always" data-string="settingsDarkModeAlways"></label>
-			</div>
-		</div>
+      <label
+        for="dark-mode-container"
+        data-string="settingsEnableDarkMode"
+      ></label>
+      <div class="setting-section" id="dark-mode-container">
+        <div class="setting-option">
+          <input type="radio" name="darkMode" id="dark-mode-never" />
+          <label
+            for="dark-mode-never"
+            data-string="settingsDarkModeNever"
+          ></label>
+        </div>
+        <div class="setting-option">
+          <input type="radio" name="darkMode" id="dark-mode-night" />
+          <label
+            for="dark-mode-night"
+            data-string="settingsDarkModeNight"
+          ></label>
+        </div>
+        <div class="setting-option">
+          <input type="radio" name="darkMode" id="dark-mode-always" />
+          <label
+            for="dark-mode-always"
+            data-string="settingsDarkModeAlways"
+          ></label>
+        </div>
+      </div>
 
-		<div class="setting-section">
-			<input type="checkbox" id="checkbox-site-theme" />
-			<label for="checkbox-site-theme" data-string="settingsSiteThemeToggle"></label>
-		</div>
+      <div class="setting-section">
+        <input type="checkbox" id="checkbox-site-theme" />
+        <label
+          for="checkbox-site-theme"
+          data-string="settingsSiteThemeToggle"
+        ></label>
+      </div>
 
-		<div class="setting-section">
-			<input type="checkbox" id="checkbox-show-divider" />
-			<label for="checkbox-show-divider" data-string="settingsShowDividerToggle"></label>
-		</div>
-	</div>
+      <div class="setting-section">
+        <input type="checkbox" id="checkbox-show-divider" />
+        <label
+          for="checkbox-show-divider"
+          data-string="settingsShowDividerToggle"
+        ></label>
+      </div>
+    </div>
 
-	<div class="settings-container" id="additional-settings-container">
-		<h3 data-string="settingsAdditionalFeaturesHeading"></h3>
+    <div class="settings-container" id="additional-settings-container">
+      <h3 data-string="settingsAdditionalFeaturesHeading"></h3>
 
-		<div class="setting-section">
-			<input type="checkbox" id="checkbox-userscripts" />
-			<label for="checkbox-userscripts" data-string="settingsUserscriptsToggle"></label>
-			<div class="settings-info-subheading setting-secondary-label" data-string="settingsUserscriptsExplanation"
-				data-allowHTML></div>
-		</div>
+      <div class="setting-section">
+        <input type="checkbox" id="checkbox-userscripts" />
+        <label
+          for="checkbox-userscripts"
+          data-string="settingsUserscriptsToggle"
+        ></label>
+        <div
+          class="settings-info-subheading setting-secondary-label"
+          data-string="settingsUserscriptsExplanation"
+          data-allowHTML
+        ></div>
+      </div>
 
-		<div class="setting-section" hidden id='section-separate-titlebar'>
-			<input type="checkbox" id="checkbox-separate-titlebar" />
-			<label for="checkbox-separate-titlebar" data-string="settingsSeparateTitlebarToggle"></label>
-		</div>
+      <div class="setting-section" hidden id="section-separate-titlebar">
+        <input type="checkbox" id="checkbox-separate-titlebar" />
+        <label
+          for="checkbox-separate-titlebar"
+          data-string="settingsSeparateTitlebarToggle"
+        ></label>
+      </div>
 
-		<div class="setting-section" id='section-open-tabs-in-foreground'>
-			<input type="checkbox" id="checkbox-open-tabs-in-foreground" />
-			<label for="checkbox-open-tabs-in-foreground" data-string="settingsOpenTabsInForegroundToggle"></label>
-		</div>
+      <div class="setting-section" id="section-open-tabs-in-foreground">
+        <input type="checkbox" id="checkbox-open-tabs-in-foreground" />
+        <label
+          for="checkbox-open-tabs-in-foreground"
+          data-string="settingsOpenTabsInForegroundToggle"
+        ></label>
+      </div>
 
-		<div class="setting-section" id='section-user-agent'>
-			<input type="checkbox" id="checkbox-user-agent" />
-			<label for="checkbox-user-agent" data-string="settingsUserAgentToggle"></label>
-			<input type="text" id="input-user-agent" style="vertical-align: middle; margin-left: 1em; width: 375px; max-width: 80vw; visibility: hidden;"/>
-		</div>
+      <div class="setting-section" id="section-user-agent">
+        <input type="checkbox" id="checkbox-user-agent" />
+        <label
+          for="checkbox-user-agent"
+          data-string="settingsUserAgentToggle"
+        ></label>
+        <input
+          type="text"
+          id="input-user-agent"
+          style="
+            vertical-align: middle;
+            margin-left: 1em;
+            width: 375px;
+            max-width: 80vw;
+            visibility: hidden;
+          "
+        />
+      </div>
 
-		<div class="setting-section">
-			<input type="checkbox" id="checkbox-update-notifications">
-			<label for="checkbox-update-notifications" data-string="settingsUpdateNotificationsToggle"></label>
-		</div>
-	</div>
+      <div class="setting-section">
+        <input type="checkbox" id="checkbox-update-notifications" />
+        <label
+          for="checkbox-update-notifications"
+          data-string="settingsUpdateNotificationsToggle"
+        ></label>
+      </div>
+    </div>
 
-	<div class="settings-container" id="search-engine-settings-container">
-		<h3 data-string="settingsSearchEngineHeading"></h3>
+    <div class="settings-container" id="search-engine-settings-container">
+      <h3 data-string="settingsSearchEngineHeading"></h3>
 
-		<div class="setting-section">
-			<label for="defaultSearchEngine" data-string="settingsDefaultSearchEngine"></label>
-			<select id="default-search-engine" name="defaultSearchEngine"></select>
-			<input id="custom-search-engine" style="margin-left: 0.5em; min-width: 325px" hidden />
+      <div class="setting-section">
+        <label
+          for="defaultSearchEngine"
+          data-string="settingsDefaultSearchEngine"
+        ></label>
+        <select id="default-search-engine" name="defaultSearchEngine"></select>
+        <input
+          id="custom-search-engine"
+          style="margin-left: 0.5em; min-width: 325px"
+          hidden
+        />
 
-			<div class="settings-info-subheading" style="padding-top:0.4em" data-string="settingsDDGExplanation"></div>
-		</div>
-	</div>
+        <div
+          class="settings-info-subheading"
+          style="padding-top: 0.4em"
+          data-string="settingsDDGExplanation"
+        ></div>
+      </div>
+    </div>
 
-	<div class="settings-container" id="password-autofill-container">
-		<h3 data-string="settingsPasswordAutoFillHeadline"></h3>
+    <div class="settings-container" id="password-autofill-container">
+      <h3 data-string="settingsPasswordAutoFillHeadline"></h3>
 
-		<div class="setting-section">
-			<label for="selectedPasswordManagers" data-string="settingsSelectPasswordManager"></label>
-			<select id="selected-password-manager" name="selectedPasswordManager"></select>
-		</div>
+      <div class="setting-section">
+        <label
+          for="selectedPasswordManagers"
+          data-string="settingsSelectPasswordManager"
+        ></label>
+        <select
+          id="selected-password-manager"
+          name="selectedPasswordManager"
+        ></select>
+      </div>
 
-		<div class="setting-section" id="keychain-view-link" hidden>
-			<a data-string="keychainViewPasswords"></a>
-		</div>
+      <div class="setting-section" id="keychain-view-link" hidden>
+        <a data-string="keychainViewPasswords"></a>
+      </div>
+    </div>
 
-	</div>
+    <div class="settings-container" id="proxy-settings-container">
+      <h3 data-string="settingsProxyHeading"></h3>
 
-	<div class="settings-container" id="proxy-settings-container">
-		<h3 data-string="settingsProxyHeading"></h3>
+      <div class="setting-section" id="proxy-type-container">
+        <select id="selected-proxy-type">
+          <option data-string="settingsNoProxy"></option>
+          <option data-string="settingsManualProxy"></option>
+          <option data-string="settingsAutomaticProxy"></option>
+        </select>
+      </div>
 
-		<div class="setting-section" id="proxy-type-container">
-			<select id="selected-proxy-type">
-				<option data-string="settingsNoProxy"></option>
-				<option data-string="settingsManualProxy"></option>
-				<option data-string="settingsAutomaticProxy"></option>
-			</select>
-		</div>
+      <div class="setting-section" id="manual-proxy-section">
+        <div class="setting-option">
+          <label
+            for="proxy-rules-input"
+            data-string="settingsProxyRules"
+          ></label>
+          <input
+            id="proxy-rules-input"
+            type="text"
+            name="proxyRules"
+            placeholder="proxy.example.com:8080"
+          />
+        </div>
 
-		<div class="setting-section" id="manual-proxy-section">
-			<div class="setting-option">
-				<label for="proxy-rules-input" data-string="settingsProxyRules"></label>
-				<input id="proxy-rules-input" type="text" name="proxyRules" placeholder="proxy.example.com:8080" />
-			</div>
+        <div class="setting-option">
+          <label
+            for="proxy-bypass-rules-input"
+            data-string="settingsProxyBypassRules"
+          ></label>
+          <input
+            name="proxyBypassRules"
+            id="proxy-bypass-rules-input"
+            placeholder="localhost, 127.0.0.1/8, ::1"
+          />
+        </div>
+      </div>
 
-			<div class="setting-option">
-				<label for="proxy-bypass-rules-input" data-string="settingsProxyBypassRules"></label>
-				<input name="proxyBypassRules" id="proxy-bypass-rules-input" placeholder="localhost, 127.0.0.1/8, ::1" />
-			</div>
-		</div>
+      <div class="setting-option" id="pac-option">
+        <label
+          for="pac-url-input"
+          data-string="settingsProxyConfigurationURL"
+        ></label>
+        <input
+          type="text"
+          id="pac-url-input"
+          placeholder="https://example.com/proxy.pac"
+        />
+      </div>
+    </div>
 
-		<div class="setting-option" id="pac-option">
-			<label for="pac-url-input" data-string="settingsProxyConfigurationURL"></label>
-			<input type="text" id="pac-url-input" placeholder="https://example.com/proxy.pac" />
-		</div>
-	</div>
+    <div class="settings-container" id="keymap-settings-container">
+      <h3 data-string="settingsKeyboardShortcutsHeading"></h3>
+      <div
+        class="settings-info-subheading"
+        data-string="settingsKeyboardShortcutsHelp"
+      ></div>
 
-	<div class="settings-container" id="keymap-settings-container">
-		<h3 data-string="settingsKeyboardShortcutsHeading"></h3>
-		<div class="settings-info-subheading" data-string="settingsKeyboardShortcutsHelp"></div>
+      <div class="setting-section">
+        <ul id="key-map-list"></ul>
+      </div>
+    </div>
 
-		<div class="setting-section">
-			<ul id="key-map-list"></ul>
-		</div>
-	</div>
+    <!-- this needs to be placed at the bottom so that sticky positioning works correctly -->
+    <div
+      class="banner yellow-background"
+      id="restart-required-banner"
+      role="alert"
+      hidden
+    >
+      <div class="container">
+        <i class="i carbon:information"></i>
+        <span data-string="settingsRestartRequired"></span>
+      </div>
+    </div>
 
-	<!-- this needs to be placed at the bottom so that sticky positioning works correctly -->
-	<div class="banner yellow-background" id="restart-required-banner" role="alert" hidden>
-		<div class="container">
-			<i class="i carbon:information"></i>
-			<span data-string="settingsRestartRequired"></span>
-		</div>
-	</div>
-
-	<script src="../../ext/Dexie.min.js"></script>
-	<script src="../../js/util/database.js"></script>
-	<script src="../../js/util/keyMap.js"></script>
-	<script src="../../js/util/settings/settingsContent.js"></script>
-	<script src="../../js/util/searchEngine.js"></script>
-	<script src="../../js/util/theme.js"></script>
-	<script src="../../js/util/passwordManager.js"></script>
-	<script src="../../dist/localization.build.js"></script>
-	<script src="settings.js"></script>
-</body>
-
+    <script src="../../ext/Dexie.min.js"></script>
+    <script src="../../js/util/database.js"></script>
+    <script src="../../js/util/keyMap.js"></script>
+    <script src="../../js/util/settings/settingsContent.js"></script>
+    <script src="../../js/util/searchEngine.js"></script>
+    <script src="../../js/util/theme.js"></script>
+    <script src="../../js/util/passwordManager.js"></script>
+    <script src="../../dist/localization.build.js"></script>
+    <script src="settings.js"></script>
+  </body>
 </html>
