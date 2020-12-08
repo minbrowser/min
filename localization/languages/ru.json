@@ -1,274 +1,274 @@
 {
-    "name": "Русский",
-    "identifier": "ru",
-    "translations": {
-        /* Context menu items
+  "name": "Русский",
+  "identifier": "ru",
+  "translations": {
+    /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "addToDictionary": "Добавить в словарь",
-        "pictureInPicture": "Картинка в Картинке",
-        "openInNewTab": "Открыть в новой вкладке",
-        "openInNewPrivateTab": "Открыть в приватной вкладке",
-        "saveLinkAs": "Сохранить ссылку как...",
-        "viewImage": "Показать изображение",
-        "openImageInNewTab": "Открыть изображение в новой вкладке",
-        "openImageInNewPrivateTab": "Открыть изображение в приватной вкладке",
-        "saveImageAs": "Сохранить изображение как...",
-        "searchWith": "Искать в %s", //%s will be replaced with the name of the current search engine
-        "copyLink": "Копировать ссылку",
-        "copyEmailAddress": "Копировать адрес электронной почты",
-        "selectAll": "Выделить все",
-        "undo": "Отменить",
-        "redo": "Повторить",
-        "cut": "Вырезать",
-        "copy": "Копировать", //this is a verb (as in "copy the currently-selected text")
-        "paste": "Вставить",
-        "goBack": "Назад",
-        "goForward": "Вперёд",
-        "inspectElement": "Инспектировать элемент",
-        /* searchbar */
-        "pasteAndGo": "Вставить и перейти",
-        "DDGAnswerSubtitle": "Ответ", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
-        "suggestedSite": "Предложенный сайт", //this is used to label suggested websites from the DuckDuckGo API,
-        "resultsFromDDG": "Результаты из DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
-        "taskN": "Задача %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        /* custom !bangs
+    "addToDictionary": "Добавить в словарь",
+    "pictureInPicture": "Картинка в Картинке",
+    "openInNewTab": "Открыть в новой вкладке",
+    "openInNewPrivateTab": "Открыть в приватной вкладке",
+    "saveLinkAs": "Сохранить ссылку как...",
+    "viewImage": "Показать изображение",
+    "openImageInNewTab": "Открыть изображение в новой вкладке",
+    "openImageInNewPrivateTab": "Открыть изображение в приватной вкладке",
+    "saveImageAs": "Сохранить изображение как...",
+    "searchWith": "Искать в %s", //%s will be replaced with the name of the current search engine
+    "copyLink": "Копировать ссылку",
+    "copyEmailAddress": "Копировать адрес электронной почты",
+    "selectAll": "Выделить все",
+    "undo": "Отменить",
+    "redo": "Повторить",
+    "cut": "Вырезать",
+    "copy": "Копировать", //this is a verb (as in "copy the currently-selected text")
+    "paste": "Вставить",
+    "goBack": "Назад",
+    "goForward": "Вперёд",
+    "inspectElement": "Инспектировать элемент",
+    /* searchbar */
+    "pasteAndGo": "Вставить и перейти",
+    "DDGAnswerSubtitle": "Ответ", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+    "suggestedSite": "Предложенный сайт", //this is used to label suggested websites from the DuckDuckGo API,
+    "resultsFromDDG": "Результаты из DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+    "taskN": "Задача %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+    /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": "Показать больше",
-        "viewSettings": "Открыть настройки",
-        "takeScreenshot": "Сделать скриншот",
-        "clearHistory": "Очистить историю",
-        "enableBlocking": "Включить блокировку контента для этого сайта",
-        "disableBlocking": "Отключить блокировку контента для этого сайта",
-        "clearHistoryConfirmation": "Вы действительно хотите очистить историю?",
-        "switchToTask": "Переключиться на задачу",
-        "createTask": "Создать задачу",
-        "closeTask": "Закрыть задачу",
-        "moveToTask": "Переместить эту вкладку в задачу",
-        "nameTask": "Название этой задачи",
-        "addBookmark": "Добавить закладку",
-        "searchBookmarks": "Искать в закладках",
-        "bookmarksAddTag": "Добавить тег",
-        "bookmarksSimilarItems": "Похожие",
-        "searchHistory": "Искать в истории",
-        "importBookmarks": "Импортировать закладки",
-        "exportBookmarks": "Экспортировать закладки",
-        "runUserscript": "Запустить пользовательский скрипт",
-        /* navbar */
-        "openMenu": "Открыть меню",
-        "enterReaderView": "Включить режим чтения",
-        "exitReaderView": "Выключить режим чтения",
-        "newTabLabel": "Новая вкладка", //this is a noun, used for tabs that don't have a page loaded in them yet
-        "connectionNotSecure": "Соединение с этим сайтом небезопасно.",
-        "searchbarPlaceholder": "Использовать поиск или ввести адрес",
-        "privateTab": "Приватная вкладка",
-        "newTabAction": "Новая вкладка", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
-        /* task overlay */
-        "viewTasks": "Показать задачи",
-        "newTask": "Новая задача", //"new" is a verb - it is used for a button at the bottom of the task overlay
-        "defaultTaskName": "Задача %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {
-            "unsafeHTML": "Задача удалена. <a>Отменить?</a>"
-        },
-        "returnToTask": "Вернуться к предыдущей задаче",
-        "taskDescriptionTwo": "%t и %t",
-        "taskDescriptionThree": "%t, %t, и %n больше",
-        /* find in page toolbar */
-        "searchInPage": "Найти на странице", //this is used as the placeholder text for the textbox in the find in page toolbar
-        "findMatchesSingular": "%i из %t", //this and the next label are used to indicate which match is currently highlighted
-        "findMatchesPlural": "%i из %t",
-        /* Focus mode */
-        "isFocusMode": "Вы в режиме фокусировки",
-        "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "В режиме фокусировки вы не можете создавать новые вкладки или переключать задачи.",
-        "focusModeExplanation2": "Вы можете выйти из режима фокусировки, сняв флажок с \"режим фокусировки\" в меню просмотра.",
-        /* relative dates */
-        "timeRangeJustNow": "Только что",
-        "timeRangeMinutes": "Несколько минут назад",
-        "timeRangeHour": "Час назад",
-        "timeRangeToday": "Сегодня",
-        "timeRangeYesterday": "Вчера",
-        "timeRangeWeek": "На прошлой неделе",
-        "timeRangeMonth": "В прошлом месяце",
-        "timeRangeYear": "В прошлом году",
-        "timeRangeLongerAgo": "Давно",
-        /* pages/error/index.html */
-        "crashErrorTitle": "Что-то пошло не так.",
-        "crashErrorSubtitle": "При попытке отобразить эту страницу возникла ошибка.",
-        "errorPagePrimaryAction": "Попробовать снова",
-        "serverNotFoundTitle": "Сервер не найден",
-        "serverNotFoundSubtitle": "Min не смог найти этот сайт.",
-        "archiveSearchAction": "Искать в archive.org",
-        "sslErrorTitle": "Сайт недоступен",
-        "sslErrorMessage": "Min не смог безопасно соединиться с этим сайтом.",
-        "dnsErrorTitle": "Сайт не найден",
-        "dnsErrorMessage": "Произошла ошибка DNS.",
-        "offlineErrorTitle": "Отсутствует соединение с Интернетом",
-        "offlineErrorMessage": "Восстановите соединение и попробуйте снова.",
-        "genericConnectionFail": "Min не смог соединиться с сайтом.",
-        "sslTimeErrorMessage": "Min не смог безопасно соединиться с этим сайтом. Убедитесь, что ваши системные часы настроены правильно.",
-        "addressInvalidTitle": "Некорректный адрес.",
-        "genericError": "Произошла ошибка",
-        /* pages/phishing/index.html */
-        "phishingErrorTitle": "Этот сайт может вам навредить.",
-        "phishingErrorMessage": "Этот сайт может попытаться украсть ваши личные данные, такие как пароли и банковские данные.",
-        "phishingErrorVisitAnyway": "Все равно посетить сайт",
-        "phishingErrorLeave": "Уйти с сайта",
-        /* multiple instances alert */
-        "multipleInstancesErrorMessage": "Произошла ошибка. Пожалуйста, закройте все другие открытые экземпляры и перезапустите Min.",
-        /* pages/sessionRestoreError/index.html */
-        "sessionRestoreErrorTitle": "Произошла ошибка",
-        "sessionRestoreErrorExplanation": "Ваши сохранённые вкладки не могут быть корректно восстановлены.",
-        "sessionRestoreErrorBackupInfo": "Мы сохранили резервную копию ваших данных по этому адресу: %l.", //%l will be replaced with a path to a file
-        "sessionRestoreErrorLinkInfo": {
-            "unsafeHTML": "Если эта ошибка продолжает появляться, пожалуйста, сообщите о ней <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">сюда</a>."
-        },
-        /* pages/settings/index.html */
-        "settingsPreferencesHeading": "Настройки",
-        "settingsRestartRequired": "Для применения этих изменений необходимо перезапустить браузер.",
-        "settingsPrivacyHeading": "Блокирование содержимого",
-        "settingsContentBlockingLevel0": "Разрешить всю рекламу и трекеры",
-        "settingsContentBlockingLevel1": "Блокировать стороннюю рекламу и трекеры",
-        "settingsContentBlockingLevel2": "Блокировать всю рекламу и трекеры",
-        "settingsContentBlockingExceptions": "Реклама по-прежнему будет разрешена на этих сайтах:",
-        "settingsBlockScriptsToggle": "Блокировать скрипты",
-        "settingsBlockImagesToggle": "Блокировать изображения",
-        "settingsBlockedRequestCount": {
-            "unsafeHTML": "На данный момент Min заблокировал <strong></strong> объявлений и трекеров"
-        },
-        "settingsCustomizeFiltersLink": "Настроить фильтры",
-        "settingsAppearanceHeading": "Внешний вид",
-        "settingsEnableDarkMode": "Использовать темную тему:",
-        "settingsDarkModeNever": "Нет",
-        "settingsDarkModeNight": "Только ночью",
-        "settingsDarkModeAlways": "Всегда",
-        "settingsSiteThemeToggle": "Использовать тему сайта",
-        "settingsAdditionalFeaturesHeading": "Дополнительные возможности",
-        "settingsUserscriptsToggle": "Пользовательские скрипты",
-        "settingsShowDividerToggle": "Показывать разделитель между вкладками",
-        "settingsSeparateTitlebarToggle": "Использовать разделитель заголовка",
-        "settingsOpenTabsInForegroundToggle": "Открывать новые вкладки на переднем плане",
-        "settingsUserscriptsExplanation": {
-            "unsafeHTML": "Пользовательские скрипты позволяют изменять поведение сайтов - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">узнать больше</a>."
-        },
-        "settingsUserAgentToggle": "Использовать пользовательский user agent",
-        "settingsUpdateNotificationsToggle": "Автоматически проверять наличие обновлений",
-        "settingsSearchEngineHeading": "Поиск",
-        "settingsDefaultSearchEngine": "Выберите поисковую систему по умолчанию:",
-        "settingsDDGExplanation": "Чтобы видеть мгновенные ответы в строке поиска, установите DuckDuckGo поисковиком по умолчанию.",
-        "customSearchEngineDescription": "Заменить поисковый термин на %s",
-        "settingsKeyboardShortcutsHeading": "Горячие клавиши",
-        "settingsKeyboardShortcutsHelp": "Используйте запятые для разделения нескольких горячих клавиш.",
-        "settingsProxyHeading": "Прокси",
-        "settingsNoProxy": "Без прокси",
-        "settingsManualProxy": "Ручная настройка",
-        "settingsAutomaticProxy": "Автоматическая настройка",
-        "settingsProxyRules": "Правила прокси:",
-        "settingsProxyBypassRules": "Не использовать прокси для:",
-        "settingsProxyConfigurationURL": "URL конфигурации",
-        /* app menu */
-        "appMenuFile": "Файл",
-        "appMenuNewTab": "Новая вкладка",
-        "appMenuDuplicateTab": "Дублировать",
-        "appMenuNewPrivateTab": "Новая приватная вкладка",
-        "appMenuNewTask": "Новая задача",
-        "appMenuSavePageAs": "Сохранить страницу как...",
-        "appMenuPrint": "Печать",
-        "appMenuEdit": "Правка",
-        "appMenuUndo": "Отменить",
-        "appMenuRedo": "Повторить",
-        "appMenuCut": "Вырезать",
-        "appMenuCopy": "Копировать",
-        "appMenuPaste": "Вставить",
-        "appMenuSelectAll": "Выделить всё",
-        "appMenuFind": "Найти",
-        "appMenuView": "Вид",
-        "appMenuZoomIn": "Увеличить масштаб",
-        "appMenuZoomOut": "Уменьшить масштаб",
-        "appMenuActualSize": "Масштаб 100%",
-        "appMenuFullScreen": "Полноэкранный режим", //on some platforms, this string is replaced with one built-in to the OS
-        "appMenuFocusMode": "Режим фокусировки",
-        "appMenuBookmarks": "Закладки",
-        "appMenuHistory": "История",
-        "appMenuDeveloper": "Разработка",
-        "appMenuReloadBrowser": "Перезагрузить браузер",
-        "appMenuInspectBrowser": "Инспектировать браузер",
-        "appMenuInspectPage": "Инспектировать страницу",
-        "appMenuWindow": "Окно",
-        "appMenuMinimize": "Свернуть",
-        "appMenuClose": "Закрыть",
-        "appMenuAlwaysOnTop": "Всегда поверх всех окон",
-        "appMenuHelp": "Помощь",
-        "appMenuKeyboardShortcuts": "Горячие клавиши",
-        "appMenuReportBug": "Сообщить об ошибке",
-        "appMenuTakeTour": "Экскурсия по браузеру",
-        "appMenuViewGithub": "Мы на GitHub",
-        "appMenuAbout": "О %n", //%n is replaced with app name
-        "appMenuPreferences": "Настройки",
-        "appMenuServices": "Услуги",
-        "appMenuHide": "Скрыть %n",
-        "appMenuHideOthers": "Скрыть остальное",
-        "appMenuShowAll": "Показать всё",
-        "appMenuQuit": "Выйти из %n",
-        "appMenuBringToFront": "Переместить всё на передний план",
-        /* PDF Viewer */
-        "PDFPageCounter": {
-            "unsafeHTML": "страница <input type='text'/> из <span id='total'></span>"
-        },
-        /* Context Reader */
-        "buttonReaderSettings": "Настройки режима чтения",
-        "buttonReaderLightTheme": "Светлый",
-        "buttonReaderSepiaTheme": "Сепия",
-        "buttonReaderDarkTheme": "Темный",
-        "openReaderView": "Всегда открывать в режиме чтения",
-        "autoRedirectBannerReader": "Всегда открывать статьи с этого сайта в режиме чтения?",
-        "buttonReaderRedirectYes": "Да",
-        "buttonReaderRedirectNo": "Нет",
-        "articleReaderView": "Оригинальная статья",
-        /* Download manager */
-        "downloadCancel": "Отменить",
-        "downloadStateCompleted": "Завершено",
-        "downloadStateFailed": "Не удалось",
-        /* Update Notifications */
-        "updateNotificationTitle": "Доступна новая версия Min",
-        /* Autofill settings */
-        "settingsPasswordAutoFillHeadline": "Автоматическое заполнение пароля",
-        "settingsSelectPasswordManager": "Выберите один из поддерживаемых менеджеров паролей:",
-        "keychainViewPasswords": "Просмотр сохраненных паролей",
-       /* Password manager setup */
-        "passwordManagerSetupHeading": "Завершить настройку %p для использования автозаполнения",
-        "passwordManagerSetupStep1": {
-            "unsafeHTML": "Во-первых, <a id='password-manager-setup-link'></a> и извлеките его для вашей системы."
-        },
-        "passwordManagerInstallerSetup": {
-            "unsafeHTML": "Загрузите <a id= 'password-manager-setup-link-installer'>< / a> и перетащите файл в поле ниже:"
-        },
-        "passwordManagerSetupLink": "загрузите инструмент CLI %p",
-        "passwordManagerSetupLinkInstaller": "CLI установщик для %p",
-        "passwordManagerSetupStep2": "Затем перетащите инструмент в поле ниже:",
-        "passwordManagerSetupDragBox": "Перетащите инструмент сюда",
-        "passwordManagerSetupInstalling": "Установка...",
-        "passwordManagerSetupSignIn": "Войдите в свой менеджер паролей, чтобы начать использовать автозаполнение. Ваши учетные данные не будут храниться где-либо внутри Min.",
-        "disableAutofill": "Отключить автозаполнение",
-        "passwordManagerSetupUnlockError": "Не удалось разблокировать хранилище паролей: ",
-        "passwordManagerSetupRetry": "Убедитесь, что вы используете правильный файл и вводите правильный пароль. Вы можете повторить попытку, перетащив инструмент сюда еще раз.",
-        "passwordManagerUnlock": "Введите свой мастер-пароль %p, чтобы разблокировать хранилище паролей:",
-        /* Password save bar */
-        "passwordCaptureSavePassword": "Сохранить пароль для %s?",
-        "passwordCaptureSave": "Сохранить",
-        "passwordCaptureDontSave": "Не сохранять",
-        /* Password viewer */
-        "savedPasswordsHeading": "Сохраненные пароли",
-        "savedPasswordsEmpty": "Нет сохраненных паролей.",
-        "deletePassword": "Удалить пароль для %s?",
-        /* Dialogs */
-        "loginPromptTitle": "Войти на %s (%h)",
-        "dialogConfirmButton": "Подтвердить",
-        "dialogSkipButton": "Отмена",
-        "username": "Имя пользователя",
-        "email": "Электронная почта",
-        "password": "Пароль",
-        "secretKey": "Секретный ключ"
-    }
+    "showMoreBangs": "Показать больше",
+    "viewSettings": "Открыть настройки",
+    "takeScreenshot": "Сделать скриншот",
+    "clearHistory": "Очистить историю",
+    "enableBlocking": "Включить блокировку контента для этого сайта",
+    "disableBlocking": "Отключить блокировку контента для этого сайта",
+    "clearHistoryConfirmation": "Вы действительно хотите очистить историю?",
+    "switchToTask": "Переключиться на задачу",
+    "createTask": "Создать задачу",
+    "closeTask": "Закрыть задачу",
+    "moveToTask": "Переместить эту вкладку в задачу",
+    "nameTask": "Название этой задачи",
+    "addBookmark": "Добавить закладку",
+    "searchBookmarks": "Искать в закладках",
+    "bookmarksAddTag": "Добавить тег",
+    "bookmarksSimilarItems": "Похожие",
+    "searchHistory": "Искать в истории",
+    "importBookmarks": "Импортировать закладки",
+    "exportBookmarks": "Экспортировать закладки",
+    "runUserscript": "Запустить пользовательский скрипт",
+    /* navbar */
+    "openMenu": "Открыть меню",
+    "enterReaderView": "Включить режим чтения",
+    "exitReaderView": "Выключить режим чтения",
+    "newTabLabel": "Новая вкладка", //this is a noun, used for tabs that don't have a page loaded in them yet
+    "connectionNotSecure": "Соединение с этим сайтом небезопасно.",
+    "searchbarPlaceholder": "Использовать поиск или ввести адрес",
+    "privateTab": "Приватная вкладка",
+    "newTabAction": "Новая вкладка", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+    /* task overlay */
+    "viewTasks": "Показать задачи",
+    "newTask": "Новая задача", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "defaultTaskName": "Задача %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+    "taskDeleteWarning": {
+      "unsafeHTML": "Задача удалена. <a>Отменить?</a>"
+    },
+    "returnToTask": "Вернуться к предыдущей задаче",
+    "taskDescriptionTwo": "%t и %t",
+    "taskDescriptionThree": "%t, %t, и %n больше",
+    /* find in page toolbar */
+    "searchInPage": "Найти на странице", //this is used as the placeholder text for the textbox in the find in page toolbar
+    "findMatchesSingular": "%i из %t", //this and the next label are used to indicate which match is currently highlighted
+    "findMatchesPlural": "%i из %t",
+    /* Focus mode */
+    "isFocusMode": "Вы в режиме фокусировки",
+    "closeDialog": "OK", //used as a label for the button that closes the dialog
+    "focusModeExplanation1": "В режиме фокусировки вы не можете создавать новые вкладки или переключать задачи.",
+    "focusModeExplanation2": "Вы можете выйти из режима фокусировки, сняв флажок с \"режим фокусировки\" в меню просмотра.",
+    /* relative dates */
+    "timeRangeJustNow": "Только что",
+    "timeRangeMinutes": "Несколько минут назад",
+    "timeRangeHour": "Час назад",
+    "timeRangeToday": "Сегодня",
+    "timeRangeYesterday": "Вчера",
+    "timeRangeWeek": "На прошлой неделе",
+    "timeRangeMonth": "В прошлом месяце",
+    "timeRangeYear": "В прошлом году",
+    "timeRangeLongerAgo": "Давно",
+    /* pages/error/index.html */
+    "crashErrorTitle": "Что-то пошло не так.",
+    "crashErrorSubtitle": "При попытке отобразить эту страницу возникла ошибка.",
+    "errorPagePrimaryAction": "Попробовать снова",
+    "serverNotFoundTitle": "Сервер не найден",
+    "serverNotFoundSubtitle": "Min не смог найти этот сайт.",
+    "archiveSearchAction": "Искать в archive.org",
+    "sslErrorTitle": "Сайт недоступен",
+    "sslErrorMessage": "Min не смог безопасно соединиться с этим сайтом.",
+    "dnsErrorTitle": "Сайт не найден",
+    "dnsErrorMessage": "Произошла ошибка DNS.",
+    "offlineErrorTitle": "Отсутствует соединение с Интернетом",
+    "offlineErrorMessage": "Восстановите соединение и попробуйте снова.",
+    "genericConnectionFail": "Min не смог соединиться с сайтом.",
+    "sslTimeErrorMessage": "Min не смог безопасно соединиться с этим сайтом. Убедитесь, что ваши системные часы настроены правильно.",
+    "addressInvalidTitle": "Некорректный адрес.",
+    "genericError": "Произошла ошибка",
+    /* pages/phishing/index.html */
+    "phishingErrorTitle": "Этот сайт может вам навредить.",
+    "phishingErrorMessage": "Этот сайт может попытаться украсть ваши личные данные, такие как пароли и банковские данные.",
+    "phishingErrorVisitAnyway": "Все равно посетить сайт",
+    "phishingErrorLeave": "Уйти с сайта",
+    /* multiple instances alert */
+    "multipleInstancesErrorMessage": "Произошла ошибка. Пожалуйста, закройте все другие открытые экземпляры и перезапустите Min.",
+    /* pages/sessionRestoreError/index.html */
+    "sessionRestoreErrorTitle": "Произошла ошибка",
+    "sessionRestoreErrorExplanation": "Ваши сохранённые вкладки не могут быть корректно восстановлены.",
+    "sessionRestoreErrorBackupInfo": "Мы сохранили резервную копию ваших данных по этому адресу: %l.", //%l will be replaced with a path to a file
+    "sessionRestoreErrorLinkInfo": {
+      "unsafeHTML": "Если эта ошибка продолжает появляться, пожалуйста, сообщите о ней <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">сюда</a>."
+    },
+    /* pages/settings/index.html */
+    "settingsPreferencesHeading": "Настройки",
+    "settingsRestartRequired": "Для применения этих изменений необходимо перезапустить браузер.",
+    "settingsPrivacyHeading": "Блокирование содержимого",
+    "settingsContentBlockingLevel0": "Разрешить всю рекламу и трекеры",
+    "settingsContentBlockingLevel1": "Блокировать стороннюю рекламу и трекеры",
+    "settingsContentBlockingLevel2": "Блокировать всю рекламу и трекеры",
+    "settingsContentBlockingExceptions": "Реклама по-прежнему будет разрешена на этих сайтах:",
+    "settingsBlockScriptsToggle": "Блокировать скрипты",
+    "settingsBlockImagesToggle": "Блокировать изображения",
+    "settingsBlockedRequestCount": {
+      "unsafeHTML": "На данный момент Min заблокировал <strong></strong> объявлений и трекеров"
+    },
+    "settingsCustomizeFiltersLink": "Настроить фильтры",
+    "settingsAppearanceHeading": "Внешний вид",
+    "settingsEnableDarkMode": "Использовать темную тему:",
+    "settingsDarkModeNever": "Нет",
+    "settingsDarkModeNight": "Только ночью",
+    "settingsDarkModeAlways": "Всегда",
+    "settingsSiteThemeToggle": "Использовать тему сайта",
+    "settingsAdditionalFeaturesHeading": "Дополнительные возможности",
+    "settingsUserscriptsToggle": "Пользовательские скрипты",
+    "settingsShowDividerToggle": "Показывать разделитель между вкладками",
+    "settingsSeparateTitlebarToggle": "Использовать разделитель заголовка",
+    "settingsOpenTabsInForegroundToggle": "Открывать новые вкладки на переднем плане",
+    "settingsUserscriptsExplanation": {
+      "unsafeHTML": "Пользовательские скрипты позволяют изменять поведение сайтов - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">узнать больше</a>."
+    },
+    "settingsUserAgentToggle": "Использовать пользовательский user agent",
+    "settingsUpdateNotificationsToggle": "Автоматически проверять наличие обновлений",
+    "settingsSearchEngineHeading": "Поиск",
+    "settingsDefaultSearchEngine": "Выберите поисковую систему по умолчанию:",
+    "settingsDDGExplanation": "Чтобы видеть мгновенные ответы в строке поиска, установите DuckDuckGo поисковиком по умолчанию.",
+    "customSearchEngineDescription": "Заменить поисковый термин на %s",
+    "settingsKeyboardShortcutsHeading": "Горячие клавиши",
+    "settingsKeyboardShortcutsHelp": "Используйте запятые для разделения нескольких горячих клавиш.",
+    "settingsProxyHeading": "Прокси",
+    "settingsNoProxy": "Без прокси",
+    "settingsManualProxy": "Ручная настройка",
+    "settingsAutomaticProxy": "Автоматическая настройка",
+    "settingsProxyRules": "Правила прокси:",
+    "settingsProxyBypassRules": "Не использовать прокси для:",
+    "settingsProxyConfigurationURL": "URL конфигурации",
+    /* app menu */
+    "appMenuFile": "Файл",
+    "appMenuNewTab": "Новая вкладка",
+    "appMenuDuplicateTab": "Дублировать",
+    "appMenuNewPrivateTab": "Новая приватная вкладка",
+    "appMenuNewTask": "Новая задача",
+    "appMenuSavePageAs": "Сохранить страницу как...",
+    "appMenuPrint": "Печать",
+    "appMenuEdit": "Правка",
+    "appMenuUndo": "Отменить",
+    "appMenuRedo": "Повторить",
+    "appMenuCut": "Вырезать",
+    "appMenuCopy": "Копировать",
+    "appMenuPaste": "Вставить",
+    "appMenuSelectAll": "Выделить всё",
+    "appMenuFind": "Найти",
+    "appMenuView": "Вид",
+    "appMenuZoomIn": "Увеличить масштаб",
+    "appMenuZoomOut": "Уменьшить масштаб",
+    "appMenuActualSize": "Масштаб 100%",
+    "appMenuFullScreen": "Полноэкранный режим", //on some platforms, this string is replaced with one built-in to the OS
+    "appMenuFocusMode": "Режим фокусировки",
+    "appMenuBookmarks": "Закладки",
+    "appMenuHistory": "История",
+    "appMenuDeveloper": "Разработка",
+    "appMenuReloadBrowser": "Перезагрузить браузер",
+    "appMenuInspectBrowser": "Инспектировать браузер",
+    "appMenuInspectPage": "Инспектировать страницу",
+    "appMenuWindow": "Окно",
+    "appMenuMinimize": "Свернуть",
+    "appMenuClose": "Закрыть",
+    "appMenuAlwaysOnTop": "Всегда поверх всех окон",
+    "appMenuHelp": "Помощь",
+    "appMenuKeyboardShortcuts": "Горячие клавиши",
+    "appMenuReportBug": "Сообщить об ошибке",
+    "appMenuTakeTour": "Экскурсия по браузеру",
+    "appMenuViewGithub": "Мы на GitHub",
+    "appMenuAbout": "О %n", //%n is replaced with app name
+    "appMenuPreferences": "Настройки",
+    "appMenuServices": "Услуги",
+    "appMenuHide": "Скрыть %n",
+    "appMenuHideOthers": "Скрыть остальное",
+    "appMenuShowAll": "Показать всё",
+    "appMenuQuit": "Выйти из %n",
+    "appMenuBringToFront": "Переместить всё на передний план",
+    /* PDF Viewer */
+    "PDFPageCounter": {
+      "unsafeHTML": "страница <input type='text'/> из <span id='total'></span>"
+    },
+    /* Context Reader */
+    "buttonReaderSettings": "Настройки режима чтения",
+    "buttonReaderLightTheme": "Светлый",
+    "buttonReaderSepiaTheme": "Сепия",
+    "buttonReaderDarkTheme": "Темный",
+    "openReaderView": "Всегда открывать в режиме чтения",
+    "autoRedirectBannerReader": "Всегда открывать статьи с этого сайта в режиме чтения?",
+    "buttonReaderRedirectYes": "Да",
+    "buttonReaderRedirectNo": "Нет",
+    "articleReaderView": "Оригинальная статья",
+    /* Download manager */
+    "downloadCancel": "Отменить",
+    "downloadStateCompleted": "Завершено",
+    "downloadStateFailed": "Не удалось",
+    /* Update Notifications */
+    "updateNotificationTitle": "Доступна новая версия Min",
+    /* Autofill settings */
+    "settingsPasswordAutoFillHeadline": "Автоматическое заполнение пароля",
+    "settingsSelectPasswordManager": "Выберите один из поддерживаемых менеджеров паролей:",
+    "keychainViewPasswords": "Просмотр сохраненных паролей",
+    /* Password manager setup */
+    "passwordManagerSetupHeading": "Завершить настройку %p для использования автозаполнения",
+    "passwordManagerSetupStep1": {
+      "unsafeHTML": "Во-первых, <a id='password-manager-setup-link'></a> и извлеките его для вашей системы."
+    },
+    "passwordManagerInstallerSetup": {
+      "unsafeHTML": "Загрузите <a id= 'password-manager-setup-link-installer'>< / a> и перетащите файл в поле ниже:"
+    },
+    "passwordManagerSetupLink": "загрузите инструмент CLI %p",
+    "passwordManagerSetupLinkInstaller": "CLI установщик для %p",
+    "passwordManagerSetupStep2": "Затем перетащите инструмент в поле ниже:",
+    "passwordManagerSetupDragBox": "Перетащите инструмент сюда",
+    "passwordManagerSetupInstalling": "Установка...",
+    "passwordManagerSetupSignIn": "Войдите в свой менеджер паролей, чтобы начать использовать автозаполнение. Ваши учетные данные не будут храниться где-либо внутри Min.",
+    "disableAutofill": "Отключить автозаполнение",
+    "passwordManagerSetupUnlockError": "Не удалось разблокировать хранилище паролей: ",
+    "passwordManagerSetupRetry": "Убедитесь, что вы используете правильный файл и вводите правильный пароль. Вы можете повторить попытку, перетащив инструмент сюда еще раз.",
+    "passwordManagerUnlock": "Введите свой мастер-пароль %p, чтобы разблокировать хранилище паролей:",
+    /* Password save bar */
+    "passwordCaptureSavePassword": "Сохранить пароль для %s?",
+    "passwordCaptureSave": "Сохранить",
+    "passwordCaptureDontSave": "Не сохранять",
+    /* Password viewer */
+    "savedPasswordsHeading": "Сохраненные пароли",
+    "savedPasswordsEmpty": "Нет сохраненных паролей.",
+    "deletePassword": "Удалить пароль для %s?",
+    /* Dialogs */
+    "loginPromptTitle": "Войти на %s (%h)",
+    "dialogConfirmButton": "Подтвердить",
+    "dialogSkipButton": "Отмена",
+    "username": "Имя пользователя",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "secretKey": "Секретный ключ"
+  }
 }

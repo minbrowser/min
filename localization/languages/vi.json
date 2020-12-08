@@ -1,230 +1,230 @@
 {
-    "name": "Tiếng Việt",
-    "identifier": "vi",
-    "translations": {
-        /* Context menu items
+  "name": "Tiếng Việt",
+  "identifier": "vi",
+  "translations": {
+    /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "addToDictionary": null, //missing translation
-        "pictureInPicture": null, //missing translation
-        "openInNewTab": "Mở trong tab mới",
-        "openInNewPrivateTab": "Mở trong tab riêng tư mới",
-        "saveLinkAs": null, //missing translation
-        "viewImage": "Xem ảnh",
-        "openImageInNewTab": "Mở ảnh trong tab mới",
-        "openImageInNewPrivateTab": "Mở ảnh trong tab riêng tư mới",
-        "saveImageAs": "Lưu ảnh thành",
-        "searchWith": "Tìm kiếm với %s", //%s will be replaced with the name of the current search engine
-        "copyLink": "Chép liên kết",
-        "copyEmailAddress": null, //missing translation
-        "selectAll": "Chọn tất cả",
-        "undo": "Hoàn tác",
-        "redo": "Làm lại",
-        "cut": "Cắt",
-        "copy": "Chép", //this is a verb (as in "copy the currently-selected text")
-        "paste": "Dán",
-        "goBack": "Đi lại trang trước",
-        "goForward": "Đi tiếp trang sau",
-        "inspectElement": "Kiểm tra thành phần",
-        /* searchbar */
-        "pasteAndGo": null, //missing translation
-        "DDGAnswerSubtitle": "Câu trả lời", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
-        "suggestedSite": "Trang web đề xuất", //this is used to label suggested websites from the DuckDuckGo API,
-        "resultsFromDDG": "Kết quả từ DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
-        "taskN": "Quá trình %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        /* custom !bangs
+    "addToDictionary": null, //missing translation
+    "pictureInPicture": null, //missing translation
+    "openInNewTab": "Mở trong tab mới",
+    "openInNewPrivateTab": "Mở trong tab riêng tư mới",
+    "saveLinkAs": null, //missing translation
+    "viewImage": "Xem ảnh",
+    "openImageInNewTab": "Mở ảnh trong tab mới",
+    "openImageInNewPrivateTab": "Mở ảnh trong tab riêng tư mới",
+    "saveImageAs": "Lưu ảnh thành",
+    "searchWith": "Tìm kiếm với %s", //%s will be replaced with the name of the current search engine
+    "copyLink": "Chép liên kết",
+    "copyEmailAddress": null, //missing translation
+    "selectAll": "Chọn tất cả",
+    "undo": "Hoàn tác",
+    "redo": "Làm lại",
+    "cut": "Cắt",
+    "copy": "Chép", //this is a verb (as in "copy the currently-selected text")
+    "paste": "Dán",
+    "goBack": "Đi lại trang trước",
+    "goForward": "Đi tiếp trang sau",
+    "inspectElement": "Kiểm tra thành phần",
+    /* searchbar */
+    "pasteAndGo": null, //missing translation
+    "DDGAnswerSubtitle": "Câu trả lời", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+    "suggestedSite": "Trang web đề xuất", //this is used to label suggested websites from the DuckDuckGo API,
+    "resultsFromDDG": "Kết quả từ DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+    "taskN": "Quá trình %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+    /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": "Xem hơn",
-        "viewSettings": "Xem cài đặt",
-        "takeScreenshot": "Chụp màn hình",
-        "clearHistory": "Xóa lịch sử",
-        "enableBlocking": null, //missing translation
-        "disableBlocking": null, //missing translation
-        "clearHistoryConfirmation": "Xóa các lịch sử và dữ liệu duyệt?",
-        "switchToTask": "Đổi sang quá trình",
-        "createTask": "Tạo quá trình",
-        "closeTask": "Kết thúc quá trình",
-        "moveToTask": "Chuyển tab này sang quá trình khác",
-        "nameTask": "Ghi tên quá trình này",
-        "addBookmark": "Đánh dấu trang này",
-        "searchBookmarks": "Tìm kiếm trong trang web đánh dấu",
-        "bookmarksAddTag": "Thêm thẻ",
-        "bookmarksSimilarItems": "Các mục tương tự",
-        "searchHistory": "Tìm kiếm trong lịch sử",
-        "importBookmarks": "Nhập dấu trang từ tệp HTML",
-        "exportBookmarks": "Xuất dấu trang",
-        "runUserscript": null, //missing translation
-        /* navbar */
-        "openMenu": "Mở menu", //application menu button on windows
-        "enterReaderView": "Vào chế độ đọc ngôn",
-        "exitReaderView": "Thoát chế độ đọc ngôn",
-        "newTabLabel": "Tab mới", //this is a noun, used for tabs that don't have a page loaded in them yet
-        "connectionNotSecure": "Kết nối đến trang web này không có an toàn.",
-        "searchbarPlaceholder": "Tìm kiếm hoặc nhập địa chỉ",
-        "privateTab": "Tab riêng tư",
-        "newTabAction": "Mở tab mới", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
-        /* task overlay */
-        "viewTasks": "Xem quá trình",
-        "newTask": "Tao quá trình", //"new" is a verb - it is used for a button at the bottom of the task overlay
-        "defaultTaskName": "Quá trình %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        /* find in page toolbar */
-        "searchInPage": "Tìm kiếm trong trang", //this is used as the placeholder text for the textbox in the find in page toolbar
-        "findMatchesSingular": "%i của %t", //this and the next label are used to indicate which match is currently highlighted
-        "findMatchesPlural": "%i của %t",
-        /* Focus mode */
-        "isFocusMode": "Bạn trong chế độ tập trung.",
-        "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-        "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
-        /* relative dates */
-        "timeRangeJustNow": "Vừa nãy",
-        "timeRangeMinutes": "Vài phút trước",
-        "timeRangeHour": "Trong giờ trước",
-        "timeRangeToday": "Hôm nay",
-        "timeRangeYesterday": "Hôm qua",
-        "timeRangeWeek": "Trong tuần trước",
-        "timeRangeMonth": "Trong tháng trước",
-        "timeRangeYear": "Trong năm trước",
-        "timeRangeLongerAgo": "Lâu hơn",
-        /* pages/error/index.html */
-        "crashErrorTitle": "Có gì không ổn.",
-        "crashErrorSubtitle": "Đã xảy ra sự cố khi hiển thị trang web này.",
-        "errorPagePrimaryAction": "Thử lại",
-        "serverNotFoundTitle": "Không tìm thấy máy chủ",
-        "serverNotFoundSubtitle": "Min không có thể tìm trang web này.",
-        "archiveSearchAction": "Tìm kiếm trên archive.org",
-        "sslErrorTitle": "Trang web này không có sẵn",
-        "sslErrorMessage": "Min không có thể kết nối an toàn đến trang web này.",
-        "dnsErrorTitle": "Không tìm thấy trang web",
-        "dnsErrorMessage": "Đã xảy ra lỗi DNS.",
-        "offlineErrorTitle": "Bạn đang ngoại tuyến",
-        "offlineErrorMessage": "Kết nối lại với internet và thử lại.",
-        "genericConnectionFail": "Min không có thể kết nối với trang web.",
-        "sslTimeErrorMessage": "Min không có thể kết nối an toàn đến trang web này. Hãy kiểm tra đồng hồ máy tính của bạn bị đật đúng.",
-        "addressInvalidTitle": "Địa chỉ này không hợp lệ.",
-        "genericError": "Đã xảy ra lỗi",
-        /* pages/phishing/index.html */
-        "phishingErrorTitle": "Trang web này có thể bị nguy hiểm.",
-        "phishingErrorMessage": "Trang web này có thể cố gắng ăn cắp thông tin cá nhân của bạn, ví dụ: mật khẩu hoặc thông tin ngân hàng.",
-        "phishingErrorVisitAnyway": "Vẫn truy cập",
-        "phishingErrorLeave": "Rời trang web này",
-        /* multiple instances alert */
-        "multipleInstancesErrorMessage": "Đã xảy ra lỗi. Hãy thoát trường hợp khác đang mở và khởi chạy Min lại.",
-        /* pages/sessionRestoreError/index.html */
-        "sessionRestoreErrorTitle": "Đã xảy ra lỗi",
-        "sessionRestoreErrorExplanation": "Tab bạn đã lưu không thể khôi phục được.",
-        "sessionRestoreErrorBackupInfo": "Chúng tôi sao lưu một bản sao dữ liệu của bạn tại đây: %l.", //%l will be replaced with a path to a file
-        "sessionRestoreErrorLinkInfo": {
-            "unsafeHTML": "Nếu lỗi này vẫn còn xảy ra, hãy tạo báo cáo về lỗi mới <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">tại đây</a>."
-        },
-        /* pages/settings/index.html */
-        "settingsPreferencesHeading": "Cài đặt",
-        "settingsRestartRequired": "Bạn cần khởi chạy lại để áp dụng các thay đổi.",
-        "settingsPrivacyHeading": "Lời chận nội dung",
-        "settingsContentBlockingLevel0": "Cho phép các quảng cáo và bộ theo dõi",
-        "settingsContentBlockingLevel1": "Chận các quảng cáo và bộ theo dõi bên thứ ba",
-        "settingsContentBlockingLevel2": "Chận các quảng cáo và bộ theo dõi",
-        "settingsContentBlockingExceptions": "Quảng cáo vẫn còn cho phép trên trang web này:",
-        "settingsBlockScriptsToggle": "Chận mã script",
-        "settingsBlockImagesToggle": "Chận ảnh",
-        "settingsBlockedRequestCount": {
-            "unsafeHTML": null //missing translation
-        },
-        "settingsCustomizeFiltersLink": null, //missing translation
-        "settingsAppearanceHeading": "Giao diện",
-        "settingsEnableDarkMode": "Bật chế độ tối:",
-        "settingsDarkModeNever": null, //"Never" missing translation
-        "settingsDarkModeNight": null, //"At night" missing translation
-        "settingsDarkModeAlways": null, //"Always" missing translation
-        "settingsSiteThemeToggle": "Bật chủ đề trang",
-        "settingsAdditionalFeaturesHeading": "Đặc tính hơn",
-        "settingsUserscriptsToggle": "Bật mã script người dùng",
-        "settingsShowDividerToggle": null, // Missing translation
-        "settingsSeparateTitlebarToggle": null, //missing translation
-        "settingsOpenTabsInForegroundToggle": null, //missing translation
-        "settingsUserscriptsExplanation": {
-            "unsafeHTML": "Mã script người dùng có thể cho bạn thay đổi hành vi trang web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">biết thêm</a>."
-        },
-        "settingsUserAgentToggle": null, //missing translation
-        "settingsUpdateNotificationsToggle": "Tự động kiểm tra cập nhật",
-        "settingsSearchEngineHeading": "Công cụ tìm kiếm",
-        "settingsDefaultSearchEngine": "Chọn công cụ tìm kiếm mặc định:",
-        "settingsDDGExplanation": "Đặt DuckDuckGo thành công cụ tìm kiếm mặc định để xem câu trả lời ngay trong thanh tìm kiếm.",
-        "customSearchEngineDescription": "Thay thế thuật ngữ tìm kiếm bằngwith %s",
-        "settingsKeyboardShortcutsHeading": "Phím tắt",
-        "settingsKeyboardShortcutsHelp": "Sử dụng dấu phẩy để phân tách phím tắt khác nhau.",
-        "settingsProxyHeading": null, //missing translation
-        "settingsNoProxy": null, //missing translation
-        "settingsManualProxy": null, //missing translation
-        "settingsAutomaticProxy": null, //missing translation
-        "settingsProxyRules": null, //missing translation
-        "settingsProxyBypassRules": null, //missing translation
-        "settingsProxyConfigurationURL": null, //missing translation
-        /* app menu */
-        "appMenuFile": "Tệp",
-        "appMenuNewTab": "Tab Mới",
-        "appMenuDuplicateTab": "Nhân bản Tab",
-        "appMenuNewPrivateTab": "Tab riêng tư mới",
-        "appMenuNewTask": "Quá trình mới",
-        "appMenuSavePageAs": "Lưu trang thành",
-        "appMenuPrint": "In",
-        "appMenuEdit": "Sửa",
-        "appMenuUndo": "Hoàn tác",
-        "appMenuRedo": "Làm lại",
-        "appMenuCut": "Cắt",
-        "appMenuCopy": "Chép",
-        "appMenuPaste": "Dán",
-        "appMenuSelectAll": "Chọn tất cả",
-        "appMenuFind": "Tìm kiếm trong trang",
-        "appMenuView": "Xem",
-        "appMenuZoomIn": "Phóng to",
-        "appMenuZoomOut": "Thu nhỏ",
-        "appMenuActualSize": "Cỡ thường",
-        "appMenuFullScreen": "Toàn màn hình", //on some platforms, this string is replaced with one built-in to the OS
-        "appMenuFocusMode": "Chế độ tập trung",
-        "appMenuBookmarks": "Trang đã đánh dấu",
-        "appMenuHistory": "Lịch sử",
-        "appMenuDeveloper": "Phát triển",
-        "appMenuReloadBrowser": "Tải lại bộ duyệt",
-        "appMenuInspectBrowser": "Mở bộ kiểm tra cho bộ duyệt",
-        "appMenuInspectPage": "Mở bộ kiểm tra cho trang",
-        "appMenuWindow": "Cửa sổ",
-        "appMenuMinimize": "Cực tiểu hóa",
-        "appMenuClose": "Đóng",
-        "appMenuAlwaysOnTop": "Luôn hiện trên đầu",
-        "appMenuHelp": "Trợ giúp",
-        "appMenuKeyboardShortcuts": "Phím tắt",
-        "appMenuReportBug": "Báo cáo lỗi",
-        "appMenuTakeTour": "Đi tham quan",
-        "appMenuViewGithub": "Xem trên GitHub",
-        "appMenuAbout": "Giới thiệu về %n", //%n is replaced with app name
-        "appMenuPreferences": "Cài đặt",
-        "appMenuServices": "Dịch vụ",
-        "appMenuHide": "Ẩn %n",
-        "appMenuHideOthers": "Ẩn các mục khác",
-        "appMenuShowAll": "Hiển thị tất cả",
-        "appMenuQuit": "Thoát %n",
-        "appMenuBringToFront": "Đưa tất cả trên trước",
-        /* PDF Viewer */
-        "PDFPageCounter": {
-            "unsafeHTML": "trang <input type='text'/> của <span id='total'></span>"
-        },
-        /* Context Reader */
-        "buttonReaderSettings": null, //missing translation "Reader Settings"
-        "buttonReaderLightTheme": null, //missing translation "Light"
-        "buttonReaderSepiaTheme": null, //missing translation "Sepia"
-        "buttonReaderDarkTheme": null, //missing translation "Dark"
-        "openReaderView": null, //missing translation "Always open in reader view"
-        "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-        "buttonReaderRedirectYes": null, //missing translation "Yes"
-        "buttonReaderRedirectNo": null, //missing translation "No"
-        "articleReaderView": null, //missing translation "Original Article"
-        /* Download manager */
-        "downloadCancel": "Hủy",
-        "downloadStateCompleted": "Hoàn tất",
-        "downloadStateFailed": "Thất bại",
-        /* Update Notifications */
-        "updateNotificationTitle": "Phiên bản mới cho Min có sẵn"
-    }
+    "showMoreBangs": "Xem hơn",
+    "viewSettings": "Xem cài đặt",
+    "takeScreenshot": "Chụp màn hình",
+    "clearHistory": "Xóa lịch sử",
+    "enableBlocking": null, //missing translation
+    "disableBlocking": null, //missing translation
+    "clearHistoryConfirmation": "Xóa các lịch sử và dữ liệu duyệt?",
+    "switchToTask": "Đổi sang quá trình",
+    "createTask": "Tạo quá trình",
+    "closeTask": "Kết thúc quá trình",
+    "moveToTask": "Chuyển tab này sang quá trình khác",
+    "nameTask": "Ghi tên quá trình này",
+    "addBookmark": "Đánh dấu trang này",
+    "searchBookmarks": "Tìm kiếm trong trang web đánh dấu",
+    "bookmarksAddTag": "Thêm thẻ",
+    "bookmarksSimilarItems": "Các mục tương tự",
+    "searchHistory": "Tìm kiếm trong lịch sử",
+    "importBookmarks": "Nhập dấu trang từ tệp HTML",
+    "exportBookmarks": "Xuất dấu trang",
+    "runUserscript": null, //missing translation
+    /* navbar */
+    "openMenu": "Mở menu", //application menu button on windows
+    "enterReaderView": "Vào chế độ đọc ngôn",
+    "exitReaderView": "Thoát chế độ đọc ngôn",
+    "newTabLabel": "Tab mới", //this is a noun, used for tabs that don't have a page loaded in them yet
+    "connectionNotSecure": "Kết nối đến trang web này không có an toàn.",
+    "searchbarPlaceholder": "Tìm kiếm hoặc nhập địa chỉ",
+    "privateTab": "Tab riêng tư",
+    "newTabAction": "Mở tab mới", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+    /* task overlay */
+    "viewTasks": "Xem quá trình",
+    "newTask": "Tao quá trình", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "defaultTaskName": "Quá trình %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+    /* find in page toolbar */
+    "searchInPage": "Tìm kiếm trong trang", //this is used as the placeholder text for the textbox in the find in page toolbar
+    "findMatchesSingular": "%i của %t", //this and the next label are used to indicate which match is currently highlighted
+    "findMatchesPlural": "%i của %t",
+    /* Focus mode */
+    "isFocusMode": "Bạn trong chế độ tập trung.",
+    "closeDialog": "OK", //used as a label for the button that closes the dialog
+    "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
+    "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+    /* relative dates */
+    "timeRangeJustNow": "Vừa nãy",
+    "timeRangeMinutes": "Vài phút trước",
+    "timeRangeHour": "Trong giờ trước",
+    "timeRangeToday": "Hôm nay",
+    "timeRangeYesterday": "Hôm qua",
+    "timeRangeWeek": "Trong tuần trước",
+    "timeRangeMonth": "Trong tháng trước",
+    "timeRangeYear": "Trong năm trước",
+    "timeRangeLongerAgo": "Lâu hơn",
+    /* pages/error/index.html */
+    "crashErrorTitle": "Có gì không ổn.",
+    "crashErrorSubtitle": "Đã xảy ra sự cố khi hiển thị trang web này.",
+    "errorPagePrimaryAction": "Thử lại",
+    "serverNotFoundTitle": "Không tìm thấy máy chủ",
+    "serverNotFoundSubtitle": "Min không có thể tìm trang web này.",
+    "archiveSearchAction": "Tìm kiếm trên archive.org",
+    "sslErrorTitle": "Trang web này không có sẵn",
+    "sslErrorMessage": "Min không có thể kết nối an toàn đến trang web này.",
+    "dnsErrorTitle": "Không tìm thấy trang web",
+    "dnsErrorMessage": "Đã xảy ra lỗi DNS.",
+    "offlineErrorTitle": "Bạn đang ngoại tuyến",
+    "offlineErrorMessage": "Kết nối lại với internet và thử lại.",
+    "genericConnectionFail": "Min không có thể kết nối với trang web.",
+    "sslTimeErrorMessage": "Min không có thể kết nối an toàn đến trang web này. Hãy kiểm tra đồng hồ máy tính của bạn bị đật đúng.",
+    "addressInvalidTitle": "Địa chỉ này không hợp lệ.",
+    "genericError": "Đã xảy ra lỗi",
+    /* pages/phishing/index.html */
+    "phishingErrorTitle": "Trang web này có thể bị nguy hiểm.",
+    "phishingErrorMessage": "Trang web này có thể cố gắng ăn cắp thông tin cá nhân của bạn, ví dụ: mật khẩu hoặc thông tin ngân hàng.",
+    "phishingErrorVisitAnyway": "Vẫn truy cập",
+    "phishingErrorLeave": "Rời trang web này",
+    /* multiple instances alert */
+    "multipleInstancesErrorMessage": "Đã xảy ra lỗi. Hãy thoát trường hợp khác đang mở và khởi chạy Min lại.",
+    /* pages/sessionRestoreError/index.html */
+    "sessionRestoreErrorTitle": "Đã xảy ra lỗi",
+    "sessionRestoreErrorExplanation": "Tab bạn đã lưu không thể khôi phục được.",
+    "sessionRestoreErrorBackupInfo": "Chúng tôi sao lưu một bản sao dữ liệu của bạn tại đây: %l.", //%l will be replaced with a path to a file
+    "sessionRestoreErrorLinkInfo": {
+      "unsafeHTML": "Nếu lỗi này vẫn còn xảy ra, hãy tạo báo cáo về lỗi mới <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">tại đây</a>."
+    },
+    /* pages/settings/index.html */
+    "settingsPreferencesHeading": "Cài đặt",
+    "settingsRestartRequired": "Bạn cần khởi chạy lại để áp dụng các thay đổi.",
+    "settingsPrivacyHeading": "Lời chận nội dung",
+    "settingsContentBlockingLevel0": "Cho phép các quảng cáo và bộ theo dõi",
+    "settingsContentBlockingLevel1": "Chận các quảng cáo và bộ theo dõi bên thứ ba",
+    "settingsContentBlockingLevel2": "Chận các quảng cáo và bộ theo dõi",
+    "settingsContentBlockingExceptions": "Quảng cáo vẫn còn cho phép trên trang web này:",
+    "settingsBlockScriptsToggle": "Chận mã script",
+    "settingsBlockImagesToggle": "Chận ảnh",
+    "settingsBlockedRequestCount": {
+      "unsafeHTML": null //missing translation
+    },
+    "settingsCustomizeFiltersLink": null, //missing translation
+    "settingsAppearanceHeading": "Giao diện",
+    "settingsEnableDarkMode": "Bật chế độ tối:",
+    "settingsDarkModeNever": null, //"Never" missing translation
+    "settingsDarkModeNight": null, //"At night" missing translation
+    "settingsDarkModeAlways": null, //"Always" missing translation
+    "settingsSiteThemeToggle": "Bật chủ đề trang",
+    "settingsAdditionalFeaturesHeading": "Đặc tính hơn",
+    "settingsUserscriptsToggle": "Bật mã script người dùng",
+    "settingsShowDividerToggle": null, // Missing translation
+    "settingsSeparateTitlebarToggle": null, //missing translation
+    "settingsOpenTabsInForegroundToggle": null, //missing translation
+    "settingsUserscriptsExplanation": {
+      "unsafeHTML": "Mã script người dùng có thể cho bạn thay đổi hành vi trang web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">biết thêm</a>."
+    },
+    "settingsUserAgentToggle": null, //missing translation
+    "settingsUpdateNotificationsToggle": "Tự động kiểm tra cập nhật",
+    "settingsSearchEngineHeading": "Công cụ tìm kiếm",
+    "settingsDefaultSearchEngine": "Chọn công cụ tìm kiếm mặc định:",
+    "settingsDDGExplanation": "Đặt DuckDuckGo thành công cụ tìm kiếm mặc định để xem câu trả lời ngay trong thanh tìm kiếm.",
+    "customSearchEngineDescription": "Thay thế thuật ngữ tìm kiếm bằngwith %s",
+    "settingsKeyboardShortcutsHeading": "Phím tắt",
+    "settingsKeyboardShortcutsHelp": "Sử dụng dấu phẩy để phân tách phím tắt khác nhau.",
+    "settingsProxyHeading": null, //missing translation
+    "settingsNoProxy": null, //missing translation
+    "settingsManualProxy": null, //missing translation
+    "settingsAutomaticProxy": null, //missing translation
+    "settingsProxyRules": null, //missing translation
+    "settingsProxyBypassRules": null, //missing translation
+    "settingsProxyConfigurationURL": null, //missing translation
+    /* app menu */
+    "appMenuFile": "Tệp",
+    "appMenuNewTab": "Tab Mới",
+    "appMenuDuplicateTab": "Nhân bản Tab",
+    "appMenuNewPrivateTab": "Tab riêng tư mới",
+    "appMenuNewTask": "Quá trình mới",
+    "appMenuSavePageAs": "Lưu trang thành",
+    "appMenuPrint": "In",
+    "appMenuEdit": "Sửa",
+    "appMenuUndo": "Hoàn tác",
+    "appMenuRedo": "Làm lại",
+    "appMenuCut": "Cắt",
+    "appMenuCopy": "Chép",
+    "appMenuPaste": "Dán",
+    "appMenuSelectAll": "Chọn tất cả",
+    "appMenuFind": "Tìm kiếm trong trang",
+    "appMenuView": "Xem",
+    "appMenuZoomIn": "Phóng to",
+    "appMenuZoomOut": "Thu nhỏ",
+    "appMenuActualSize": "Cỡ thường",
+    "appMenuFullScreen": "Toàn màn hình", //on some platforms, this string is replaced with one built-in to the OS
+    "appMenuFocusMode": "Chế độ tập trung",
+    "appMenuBookmarks": "Trang đã đánh dấu",
+    "appMenuHistory": "Lịch sử",
+    "appMenuDeveloper": "Phát triển",
+    "appMenuReloadBrowser": "Tải lại bộ duyệt",
+    "appMenuInspectBrowser": "Mở bộ kiểm tra cho bộ duyệt",
+    "appMenuInspectPage": "Mở bộ kiểm tra cho trang",
+    "appMenuWindow": "Cửa sổ",
+    "appMenuMinimize": "Cực tiểu hóa",
+    "appMenuClose": "Đóng",
+    "appMenuAlwaysOnTop": "Luôn hiện trên đầu",
+    "appMenuHelp": "Trợ giúp",
+    "appMenuKeyboardShortcuts": "Phím tắt",
+    "appMenuReportBug": "Báo cáo lỗi",
+    "appMenuTakeTour": "Đi tham quan",
+    "appMenuViewGithub": "Xem trên GitHub",
+    "appMenuAbout": "Giới thiệu về %n", //%n is replaced with app name
+    "appMenuPreferences": "Cài đặt",
+    "appMenuServices": "Dịch vụ",
+    "appMenuHide": "Ẩn %n",
+    "appMenuHideOthers": "Ẩn các mục khác",
+    "appMenuShowAll": "Hiển thị tất cả",
+    "appMenuQuit": "Thoát %n",
+    "appMenuBringToFront": "Đưa tất cả trên trước",
+    /* PDF Viewer */
+    "PDFPageCounter": {
+      "unsafeHTML": "trang <input type='text'/> của <span id='total'></span>"
+    },
+    /* Context Reader */
+    "buttonReaderSettings": null, //missing translation "Reader Settings"
+    "buttonReaderLightTheme": null, //missing translation "Light"
+    "buttonReaderSepiaTheme": null, //missing translation "Sepia"
+    "buttonReaderDarkTheme": null, //missing translation "Dark"
+    "openReaderView": null, //missing translation "Always open in reader view"
+    "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
+    "buttonReaderRedirectYes": null, //missing translation "Yes"
+    "buttonReaderRedirectNo": null, //missing translation "No"
+    "articleReaderView": null, //missing translation "Original Article"
+    /* Download manager */
+    "downloadCancel": "Hủy",
+    "downloadStateCompleted": "Hoàn tất",
+    "downloadStateFailed": "Thất bại",
+    /* Update Notifications */
+    "updateNotificationTitle": "Phiên bản mới cho Min có sẵn"
+  }
 }

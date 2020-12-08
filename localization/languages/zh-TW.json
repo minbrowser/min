@@ -1,274 +1,274 @@
 {
-    "name": "中文 (繁體中文)",
-    "identifier": "zh-TW",
-    "translations": {
-        /* Context menu items
+  "name": "中文 (繁體中文)",
+  "identifier": "zh-TW",
+  "translations": {
+    /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "addToDictionary": "加入字典",
-        "pictureInPicture": "子母畫面",
-        "openInNewTab": "在新分頁中開啟",
-        "openInNewPrivateTab": "在新無痕頁面中開啟",
-        "saveLinkAs": "另存連結為...",
-        "viewImage": "查看圖片",
-        "openImageInNewTab": "在新分頁中開啟圖片",
-        "openImageInNewPrivateTab": "在新無痕頁面中開啟圖片",
-        "saveImageAs": "儲存圖片",
-        "searchWith": "以 %s 搜尋", //%s will be replaced with the name of the current search engine
-        "copyLink": "複製連結",
-        "copyEmailAddress": "複製電子郵件地址",
-        "selectAll": "全選",
-        "undo": "復原",
-        "redo": "重做",
-        "cut": "剪下",
-        "copy": "複製", //this is a verb (as in "copy the currently-selected text")
-        "paste": "貼上",
-        "goBack": "上一頁",
-        "goForward": "下一頁",
-        "inspectElement": "檢查元素",
-        /* searchbar */
-        "pasteAndGo": "貼上並前往",
-        "DDGAnswerSubtitle": "搜尋結果", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
-        "suggestedSite": "建議網站", //this is used to label suggested websites from the DuckDuckGo API,
-        "resultsFromDDG": "來自 DuckDuckGo 的結果", //this is used as a label to indicate which results come from DuckDuckGo's API
-        "taskN": "工作 %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        /* custom !bangs
+    "addToDictionary": "加入字典",
+    "pictureInPicture": "子母畫面",
+    "openInNewTab": "在新分頁中開啟",
+    "openInNewPrivateTab": "在新無痕頁面中開啟",
+    "saveLinkAs": "另存連結為...",
+    "viewImage": "查看圖片",
+    "openImageInNewTab": "在新分頁中開啟圖片",
+    "openImageInNewPrivateTab": "在新無痕頁面中開啟圖片",
+    "saveImageAs": "儲存圖片",
+    "searchWith": "以 %s 搜尋", //%s will be replaced with the name of the current search engine
+    "copyLink": "複製連結",
+    "copyEmailAddress": "複製電子郵件地址",
+    "selectAll": "全選",
+    "undo": "復原",
+    "redo": "重做",
+    "cut": "剪下",
+    "copy": "複製", //this is a verb (as in "copy the currently-selected text")
+    "paste": "貼上",
+    "goBack": "上一頁",
+    "goForward": "下一頁",
+    "inspectElement": "檢查元素",
+    /* searchbar */
+    "pasteAndGo": "貼上並前往",
+    "DDGAnswerSubtitle": "搜尋結果", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+    "suggestedSite": "建議網站", //this is used to label suggested websites from the DuckDuckGo API,
+    "resultsFromDDG": "來自 DuckDuckGo 的結果", //this is used as a label to indicate which results come from DuckDuckGo's API
+    "taskN": "工作 %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+    /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": "顯示更多",
-        "viewSettings": "查看設定",
-        "takeScreenshot": "螢幕截圖",
-        "clearHistory": "清除所有歷史",
-        "enableBlocking": "啟用內容過濾",
-        "disableBlocking": "關閉內容過濾",
-        "clearHistoryConfirmation": "是否清除所有歷史？",
-        "switchToTask": "切換至工作",
-        "createTask": "新增工作",
-        "closeTask": "關閉工作",
-        "moveToTask": "移動至工作",
-        "nameTask": "命名工作",
-        "addBookmark": "加入書籤",
-        "searchBookmarks": "搜尋書籤",
-        "bookmarksAddTag": "新增標籤",
-        "bookmarksSimilarItems": "相似項目",
-        "searchHistory": "搜尋歷史",
-        "importBookmarks": "自 HTML 檔案匯入書籤",
-        "exportBookmarks": "匯出書籤",
-        "runUserscript": "執行使用者指令",
-        /* navbar */
-        "openMenu": "打開選單",
-        "enterReaderView": "進入閱讀模式",
-        "exitReaderView": "退出閱讀模式",
-        "newTabLabel": "新分頁", //this is a noun, used for tabs that don't have a page loaded in them yet
-        "connectionNotSecure": "此網站不安全",
-        "searchbarPlaceholder": "搜尋或輸入網址",
-        "privateTab": "無痕分頁",
-        "newTabAction": "新增分頁", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
-        /* task overlay */
-        "viewTasks": "查看工作",
-        "newTask": "新增工作", //"new" is a verb - it is used for a button at the bottom of the task overlay
-        "defaultTaskName": "工作 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {
-            "unsafeHTML": "工作已刪除 <a>復原</a>"
-        },
-        "returnToTask": "還原上次的工作",
-        "taskDescriptionTwo": "%t 和 %t",
-        "taskDescriptionThree": "%t，%t，和其他%n個分頁",
-        /* find in page toolbar */
-        "searchInPage": "在頁面中尋找", //this is used as the placeholder text for the textbox in the find in page toolbar
-        "findMatchesSingular": "%i / %t", //this and the next label are used to indicate which match is currently highlighted
-        "findMatchesPlural": "%i / %t",
-        /* Focus mode */
-        "isFocusMode": "已進入專心模式",
-        "closeDialog": "確定", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "在專注模式，你將無法新增分頁或切換工作。",
-        "focusModeExplanation2": "您可以取消勾選「選單 > 檢視 > 專心模式」退出專心模式。",
-        /* relative dates */
-        "timeRangeJustNow": "剛剛",
-        "timeRangeMinutes": "幾分鐘前",
-        "timeRangeHour": "幾小時前",
-        "timeRangeToday": "今天",
-        "timeRangeYesterday": "昨天",
-        "timeRangeWeek": "幾星期前",
-        "timeRangeMonth": "幾個月前",
-        "timeRangeYear": "幾年前",
-        "timeRangeLongerAgo": "很久以前",
-        /* pages/error/index.html */
-        "crashErrorTitle": "出了一些問題",
-        "crashErrorSubtitle": "顯示此頁面時發生了一些問題",
-        "errorPagePrimaryAction": "重試",
-        "serverNotFoundTitle": "找不到伺服器",
-        "serverNotFoundSubtitle": "Min 找不到這個網站",
-        "archiveSearchAction": "在 archive.org 上搜尋",
-        "sslErrorTitle": "這個網站不存在",
-        "sslErrorMessage": "Min 無法與此網站建立安全連線",
-        "dnsErrorTitle": "找不到這個網站",
-        "dnsErrorMessage": "發生 DNS 錯誤",
-        "offlineErrorTitle": "沒有網際網路連線",
-        "offlineErrorMessage": "重新連線至網路再試一次",
-        "genericConnectionFail": "Min 無法連線至這個網站",
-        "sslTimeErrorMessage": "Min 無法安全地連線到此網站，請確認時間是否設定正確",
-        "addressInvalidTitle": "網址錯誤",
-        "genericError": "發生了一些問題",
-        /* pages/phishing/index.html */
-        "phishingErrorTitle": "這個網站可能有危險",
-        "phishingErrorMessage": "這個網站可能會駭取你的個人資料，像是密碼和銀行資訊",
-        "phishingErrorVisitAnyway": "還是繼續",
-        "phishingErrorLeave": "離開",
-        /* multiple instances alert */
-        "multipleInstancesErrorMessage": "發生了一些問題，請關閉其他分頁然後重新啟動 Min",
-        /* pages/sessionRestoreError/index.html */
-        "sessionRestoreErrorTitle": "發生錯誤",
-        "sessionRestoreErrorExplanation": "上次瀏覽的分頁無法回復",
-        "sessionRestoreErrorBackupInfo": "我們將您的資料備份儲存在：%l.", //%l will be replaced with a path to a file
-        "sessionRestoreErrorLinkInfo": {
-            "unsafeHTML": "如果持續發生此錯誤，請至<a href=\"https://github.com/minbrowser/min\" target=\"_blank\">此頁面</a>報告錯誤"
-        },
-        /* pages/settings/index.html */
-        "settingsPreferencesHeading": "設定",
-        "settingsRestartRequired": "重新啟動以套用變更",
-        "settingsPrivacyHeading": "隱私設定",
-        "settingsContentBlockingLevel0": "允許所有廣告與追蹤器",
-        "settingsContentBlockingLevel1": "阻止第三方廣告與追蹤器",
-        "settingsContentBlockingLevel2": "阻止所有廣告與追蹤器",
-        "settingsContentBlockingExceptions": "不要在這些網站阻擋廣告：",
-        "settingsBlockScriptsToggle": "阻擋 JavaScript 腳本運行",
-        "settingsBlockImagesToggle": "阻擋圖片",
-        "settingsBlockedRequestCount": {
-            "unsafeHTML": "到目前為止，Min 已經封鎖了 <strong></strong> 個廣告和追蹤器"
-        },
-        "settingsCustomizeFiltersLink": "自訂過濾器",
-        "settingsAppearanceHeading": "外觀",
-        "settingsEnableDarkMode": "啟用深色模式：",
-        "settingsDarkModeNever": "永不",
-        "settingsDarkModeNight": "於晚上開啟",
-        "settingsDarkModeAlways": "永遠",
-        "settingsSiteThemeToggle": "啟用網站主題",
-        "settingsAdditionalFeaturesHeading": "其他功能",
-        "settingsUserscriptsToggle": "允許使用者指令",
-        "settingsShowDividerToggle": null, // Missing translation
-        "settingsSeparateTitlebarToggle": "分割標題列",
-        "settingsOpenTabsInForegroundToggle": "在前景開啟新分頁",
-        "settingsUserscriptsExplanation": {
-            "unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
-        },
-        "settingsUserAgentToggle": "使用自訂使用者代理",
-        "settingsUpdateNotificationsToggle": "自動檢查更新",
-        "settingsSearchEngineHeading": "搜索引擎",
-        "settingsDefaultSearchEngine": "選擇預設的搜索引擎：",
-        "settingsDDGExplanation": "將 DuckDuckGo 設為預設的搜索引擎可以直接在網址欄查看搜尋結果",
-        "customSearchEngineDescription": "將搜尋字串以 %s 取代",
-        "settingsKeyboardShortcutsHeading": "快速鍵",
-        "settingsKeyboardShortcutsHelp": "以逗號分割多個快速鍵",
-        "settingsProxyHeading": "Proxy",
-        "settingsNoProxy": "無",
-        "settingsManualProxy": "手動設定",
-        "settingsAutomaticProxy": "自動設定",
-        "settingsProxyRules": "位址：",
-        "settingsProxyBypassRules": "不要在以下位址使用 Proxy，以逗號隔開：",
-        "settingsProxyConfigurationURL": "Proxy 設置位址：",
-        /* app menu */
-        "appMenuFile": "檔案",
-        "appMenuNewTab": "新分頁",
-        "appMenuDuplicateTab": "複製分頁",
-        "appMenuNewPrivateTab": "新無痕分頁",
-        "appMenuNewTask": "新工作",
-        "appMenuSavePageAs": "另存網頁",
-        "appMenuPrint": "列印",
-        "appMenuEdit": "編輯",
-        "appMenuUndo": "復原",
-        "appMenuRedo": "重做",
-        "appMenuCut": "剪下",
-        "appMenuCopy": "複製",
-        "appMenuPaste": "貼上",
-        "appMenuSelectAll": "全選",
-        "appMenuFind": "尋找",
-        "appMenuView": "檢視",
-        "appMenuZoomIn": "放大",
-        "appMenuZoomOut": "縮小",
-        "appMenuActualSize": "原始大小",
-        "appMenuFullScreen": "全螢幕", //on some platforms, this string is replaced with one built-in to the OS
-        "appMenuFocusMode": "專心模式",
-        "appMenuBookmarks": "書籤",
-        "appMenuHistory": "歷史",
-        "appMenuDeveloper": "偵錯",
-        "appMenuReloadBrowser": "重新載入瀏覽器",
-        "appMenuInspectBrowser": "切換開發人員工具",
-        "appMenuInspectPage": "檢查網頁元素",
-        "appMenuWindow": "視窗",
-        "appMenuMinimize": "最小化",
-        "appMenuClose": "關閉",
-        "appMenuAlwaysOnTop": "顯示在最上方",
-        "appMenuHelp": "說明",
-        "appMenuKeyboardShortcuts": "快速鍵",
-        "appMenuReportBug": "提交 Bug",
-        "appMenuTakeTour": "導覽",
-        "appMenuViewGithub": "查看 GitHub",
-        "appMenuAbout": "關於 %n", //%n is replaced with app name
-        "appMenuPreferences": "設定",
-        "appMenuServices": "服務",
-        "appMenuHide": "隱藏 %n",
-        "appMenuHideOthers": "隱藏其他",
-        "appMenuShowAll": "顯示全部",
-        "appMenuQuit": "結束 %n",
-        "appMenuBringToFront": "顯示所有視窗",
-        /* PDF Viewer */
-        "PDFPageCounter": {
-            "unsafeHTML": "<input type='text'/> / <span id='total'></span> 頁"
-        },
-        /* Context Reader */
-        "buttonReaderSettings": "閱讀器設定",
-        "buttonReaderLightTheme": "亮色",
-        "buttonReaderSepiaTheme": "棕褐色",
-        "buttonReaderDarkTheme": "深色",
-        "openReaderView": "永遠在閱讀器中開啟",
-        "autoRedirectBannerReader": "自動在此網站的文章開啟閱讀器？",
-        "buttonReaderRedirectYes": "是",
-        "buttonReaderRedirectNo": "否",
-        "articleReaderView": "原始文章",
-        /* Download manager */
-        "downloadCancel": "取消",
-        "downloadStateCompleted": "已完成",
-        "downloadStateFailed": "失敗",
-        /* Update Notifications */
-        "updateNotificationTitle": "已有新版本",
-        /* Autofill settings */
-        "settingsPasswordAutoFillHeadline": "自動填入密碼",
-        "settingsSelectPasswordManager": "選擇支援的密碼管理器：",
-        "keychainViewPasswords": null, //missing translation
-       /* Password manager setup */
-        "passwordManagerSetupHeading": "設定 %p",
-        "passwordManagerSetupStep1": {
-            "unsafeHTML": "請先<a id='password-manager-setup-link'></a> 並解壓縮。"
-        },
-        "passwordManagerInstallerSetup": {
-            "unsafeHTML": "下載 <a id='password-manager-setup-link-installer'></a> 並將檔案拖曳至下方："
-        },
-        "passwordManagerSetupLink": "下載 %p CLI Tool",
-        "passwordManagerSetupLinkInstaller": "the %p CLI Installer",
-        "passwordManagerSetupStep2": "然後將檔案拖曳至下方：",
-        "passwordManagerSetupDragBox": "將檔案拖至此處",
-        "passwordManagerSetupInstalling": "正在安裝...",
-        "passwordManagerSetupSignIn": "登入你的密碼管理器並開始使用自動填入。您的資訊不會被存入 Min。",
-        "disableAutofill": "取消",
-        "passwordManagerSetupUnlockError": "無法登入密碼儲存庫。",
-        "passwordManagerSetupRetry": "請確認您拖入正確的檔案並輸入正確的密碼。您可以將檔案拖入以重試。",
-        "passwordManagerUnlock": "輸入你的 %p 主密碼以解鎖密碼庫：",
-        /* Password save bar */
-        "passwordCaptureSavePassword": null, //missing translation
-        "passwordCaptureSave": null, //missing translation
-        "passwordCaptureDontSave": null, //missing translation
-        /* Password viewer */
-        "savedPasswordsHeading": null, //missing translation
-        "savedPasswordsEmpty": null, //missing translation
-        "deletePassword": null, //missing translation
-        /* Dialogs */
-        "loginPromptTitle": "登入 %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
-        "dialogConfirmButton": "確認",
-        "dialogSkipButton": "取消",
-        "username": "使用者名稱",
-        "email": "Email",
-        "password": "密碼",
-        "secretKey": "Secret key"
-    }
+    "showMoreBangs": "顯示更多",
+    "viewSettings": "查看設定",
+    "takeScreenshot": "螢幕截圖",
+    "clearHistory": "清除所有歷史",
+    "enableBlocking": "啟用內容過濾",
+    "disableBlocking": "關閉內容過濾",
+    "clearHistoryConfirmation": "是否清除所有歷史？",
+    "switchToTask": "切換至工作",
+    "createTask": "新增工作",
+    "closeTask": "關閉工作",
+    "moveToTask": "移動至工作",
+    "nameTask": "命名工作",
+    "addBookmark": "加入書籤",
+    "searchBookmarks": "搜尋書籤",
+    "bookmarksAddTag": "新增標籤",
+    "bookmarksSimilarItems": "相似項目",
+    "searchHistory": "搜尋歷史",
+    "importBookmarks": "自 HTML 檔案匯入書籤",
+    "exportBookmarks": "匯出書籤",
+    "runUserscript": "執行使用者指令",
+    /* navbar */
+    "openMenu": "打開選單",
+    "enterReaderView": "進入閱讀模式",
+    "exitReaderView": "退出閱讀模式",
+    "newTabLabel": "新分頁", //this is a noun, used for tabs that don't have a page loaded in them yet
+    "connectionNotSecure": "此網站不安全",
+    "searchbarPlaceholder": "搜尋或輸入網址",
+    "privateTab": "無痕分頁",
+    "newTabAction": "新增分頁", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+    /* task overlay */
+    "viewTasks": "查看工作",
+    "newTask": "新增工作", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "defaultTaskName": "工作 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+    "taskDeleteWarning": {
+      "unsafeHTML": "工作已刪除 <a>復原</a>"
+    },
+    "returnToTask": "還原上次的工作",
+    "taskDescriptionTwo": "%t 和 %t",
+    "taskDescriptionThree": "%t，%t，和其他%n個分頁",
+    /* find in page toolbar */
+    "searchInPage": "在頁面中尋找", //this is used as the placeholder text for the textbox in the find in page toolbar
+    "findMatchesSingular": "%i / %t", //this and the next label are used to indicate which match is currently highlighted
+    "findMatchesPlural": "%i / %t",
+    /* Focus mode */
+    "isFocusMode": "已進入專心模式",
+    "closeDialog": "確定", //used as a label for the button that closes the dialog
+    "focusModeExplanation1": "在專注模式，你將無法新增分頁或切換工作。",
+    "focusModeExplanation2": "您可以取消勾選「選單 > 檢視 > 專心模式」退出專心模式。",
+    /* relative dates */
+    "timeRangeJustNow": "剛剛",
+    "timeRangeMinutes": "幾分鐘前",
+    "timeRangeHour": "幾小時前",
+    "timeRangeToday": "今天",
+    "timeRangeYesterday": "昨天",
+    "timeRangeWeek": "幾星期前",
+    "timeRangeMonth": "幾個月前",
+    "timeRangeYear": "幾年前",
+    "timeRangeLongerAgo": "很久以前",
+    /* pages/error/index.html */
+    "crashErrorTitle": "出了一些問題",
+    "crashErrorSubtitle": "顯示此頁面時發生了一些問題",
+    "errorPagePrimaryAction": "重試",
+    "serverNotFoundTitle": "找不到伺服器",
+    "serverNotFoundSubtitle": "Min 找不到這個網站",
+    "archiveSearchAction": "在 archive.org 上搜尋",
+    "sslErrorTitle": "這個網站不存在",
+    "sslErrorMessage": "Min 無法與此網站建立安全連線",
+    "dnsErrorTitle": "找不到這個網站",
+    "dnsErrorMessage": "發生 DNS 錯誤",
+    "offlineErrorTitle": "沒有網際網路連線",
+    "offlineErrorMessage": "重新連線至網路再試一次",
+    "genericConnectionFail": "Min 無法連線至這個網站",
+    "sslTimeErrorMessage": "Min 無法安全地連線到此網站，請確認時間是否設定正確",
+    "addressInvalidTitle": "網址錯誤",
+    "genericError": "發生了一些問題",
+    /* pages/phishing/index.html */
+    "phishingErrorTitle": "這個網站可能有危險",
+    "phishingErrorMessage": "這個網站可能會駭取你的個人資料，像是密碼和銀行資訊",
+    "phishingErrorVisitAnyway": "還是繼續",
+    "phishingErrorLeave": "離開",
+    /* multiple instances alert */
+    "multipleInstancesErrorMessage": "發生了一些問題，請關閉其他分頁然後重新啟動 Min",
+    /* pages/sessionRestoreError/index.html */
+    "sessionRestoreErrorTitle": "發生錯誤",
+    "sessionRestoreErrorExplanation": "上次瀏覽的分頁無法回復",
+    "sessionRestoreErrorBackupInfo": "我們將您的資料備份儲存在：%l.", //%l will be replaced with a path to a file
+    "sessionRestoreErrorLinkInfo": {
+      "unsafeHTML": "如果持續發生此錯誤，請至<a href=\"https://github.com/minbrowser/min\" target=\"_blank\">此頁面</a>報告錯誤"
+    },
+    /* pages/settings/index.html */
+    "settingsPreferencesHeading": "設定",
+    "settingsRestartRequired": "重新啟動以套用變更",
+    "settingsPrivacyHeading": "隱私設定",
+    "settingsContentBlockingLevel0": "允許所有廣告與追蹤器",
+    "settingsContentBlockingLevel1": "阻止第三方廣告與追蹤器",
+    "settingsContentBlockingLevel2": "阻止所有廣告與追蹤器",
+    "settingsContentBlockingExceptions": "不要在這些網站阻擋廣告：",
+    "settingsBlockScriptsToggle": "阻擋 JavaScript 腳本運行",
+    "settingsBlockImagesToggle": "阻擋圖片",
+    "settingsBlockedRequestCount": {
+      "unsafeHTML": "到目前為止，Min 已經封鎖了 <strong></strong> 個廣告和追蹤器"
+    },
+    "settingsCustomizeFiltersLink": "自訂過濾器",
+    "settingsAppearanceHeading": "外觀",
+    "settingsEnableDarkMode": "啟用深色模式：",
+    "settingsDarkModeNever": "永不",
+    "settingsDarkModeNight": "於晚上開啟",
+    "settingsDarkModeAlways": "永遠",
+    "settingsSiteThemeToggle": "啟用網站主題",
+    "settingsAdditionalFeaturesHeading": "其他功能",
+    "settingsUserscriptsToggle": "允許使用者指令",
+    "settingsShowDividerToggle": null, // Missing translation
+    "settingsSeparateTitlebarToggle": "分割標題列",
+    "settingsOpenTabsInForegroundToggle": "在前景開啟新分頁",
+    "settingsUserscriptsExplanation": {
+      "unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
+    },
+    "settingsUserAgentToggle": "使用自訂使用者代理",
+    "settingsUpdateNotificationsToggle": "自動檢查更新",
+    "settingsSearchEngineHeading": "搜索引擎",
+    "settingsDefaultSearchEngine": "選擇預設的搜索引擎：",
+    "settingsDDGExplanation": "將 DuckDuckGo 設為預設的搜索引擎可以直接在網址欄查看搜尋結果",
+    "customSearchEngineDescription": "將搜尋字串以 %s 取代",
+    "settingsKeyboardShortcutsHeading": "快速鍵",
+    "settingsKeyboardShortcutsHelp": "以逗號分割多個快速鍵",
+    "settingsProxyHeading": "Proxy",
+    "settingsNoProxy": "無",
+    "settingsManualProxy": "手動設定",
+    "settingsAutomaticProxy": "自動設定",
+    "settingsProxyRules": "位址：",
+    "settingsProxyBypassRules": "不要在以下位址使用 Proxy，以逗號隔開：",
+    "settingsProxyConfigurationURL": "Proxy 設置位址：",
+    /* app menu */
+    "appMenuFile": "檔案",
+    "appMenuNewTab": "新分頁",
+    "appMenuDuplicateTab": "複製分頁",
+    "appMenuNewPrivateTab": "新無痕分頁",
+    "appMenuNewTask": "新工作",
+    "appMenuSavePageAs": "另存網頁",
+    "appMenuPrint": "列印",
+    "appMenuEdit": "編輯",
+    "appMenuUndo": "復原",
+    "appMenuRedo": "重做",
+    "appMenuCut": "剪下",
+    "appMenuCopy": "複製",
+    "appMenuPaste": "貼上",
+    "appMenuSelectAll": "全選",
+    "appMenuFind": "尋找",
+    "appMenuView": "檢視",
+    "appMenuZoomIn": "放大",
+    "appMenuZoomOut": "縮小",
+    "appMenuActualSize": "原始大小",
+    "appMenuFullScreen": "全螢幕", //on some platforms, this string is replaced with one built-in to the OS
+    "appMenuFocusMode": "專心模式",
+    "appMenuBookmarks": "書籤",
+    "appMenuHistory": "歷史",
+    "appMenuDeveloper": "偵錯",
+    "appMenuReloadBrowser": "重新載入瀏覽器",
+    "appMenuInspectBrowser": "切換開發人員工具",
+    "appMenuInspectPage": "檢查網頁元素",
+    "appMenuWindow": "視窗",
+    "appMenuMinimize": "最小化",
+    "appMenuClose": "關閉",
+    "appMenuAlwaysOnTop": "顯示在最上方",
+    "appMenuHelp": "說明",
+    "appMenuKeyboardShortcuts": "快速鍵",
+    "appMenuReportBug": "提交 Bug",
+    "appMenuTakeTour": "導覽",
+    "appMenuViewGithub": "查看 GitHub",
+    "appMenuAbout": "關於 %n", //%n is replaced with app name
+    "appMenuPreferences": "設定",
+    "appMenuServices": "服務",
+    "appMenuHide": "隱藏 %n",
+    "appMenuHideOthers": "隱藏其他",
+    "appMenuShowAll": "顯示全部",
+    "appMenuQuit": "結束 %n",
+    "appMenuBringToFront": "顯示所有視窗",
+    /* PDF Viewer */
+    "PDFPageCounter": {
+      "unsafeHTML": "<input type='text'/> / <span id='total'></span> 頁"
+    },
+    /* Context Reader */
+    "buttonReaderSettings": "閱讀器設定",
+    "buttonReaderLightTheme": "亮色",
+    "buttonReaderSepiaTheme": "棕褐色",
+    "buttonReaderDarkTheme": "深色",
+    "openReaderView": "永遠在閱讀器中開啟",
+    "autoRedirectBannerReader": "自動在此網站的文章開啟閱讀器？",
+    "buttonReaderRedirectYes": "是",
+    "buttonReaderRedirectNo": "否",
+    "articleReaderView": "原始文章",
+    /* Download manager */
+    "downloadCancel": "取消",
+    "downloadStateCompleted": "已完成",
+    "downloadStateFailed": "失敗",
+    /* Update Notifications */
+    "updateNotificationTitle": "已有新版本",
+    /* Autofill settings */
+    "settingsPasswordAutoFillHeadline": "自動填入密碼",
+    "settingsSelectPasswordManager": "選擇支援的密碼管理器：",
+    "keychainViewPasswords": null, //missing translation
+    /* Password manager setup */
+    "passwordManagerSetupHeading": "設定 %p",
+    "passwordManagerSetupStep1": {
+      "unsafeHTML": "請先<a id='password-manager-setup-link'></a> 並解壓縮。"
+    },
+    "passwordManagerInstallerSetup": {
+      "unsafeHTML": "下載 <a id='password-manager-setup-link-installer'></a> 並將檔案拖曳至下方："
+    },
+    "passwordManagerSetupLink": "下載 %p CLI Tool",
+    "passwordManagerSetupLinkInstaller": "the %p CLI Installer",
+    "passwordManagerSetupStep2": "然後將檔案拖曳至下方：",
+    "passwordManagerSetupDragBox": "將檔案拖至此處",
+    "passwordManagerSetupInstalling": "正在安裝...",
+    "passwordManagerSetupSignIn": "登入你的密碼管理器並開始使用自動填入。您的資訊不會被存入 Min。",
+    "disableAutofill": "取消",
+    "passwordManagerSetupUnlockError": "無法登入密碼儲存庫。",
+    "passwordManagerSetupRetry": "請確認您拖入正確的檔案並輸入正確的密碼。您可以將檔案拖入以重試。",
+    "passwordManagerUnlock": "輸入你的 %p 主密碼以解鎖密碼庫：",
+    /* Password save bar */
+    "passwordCaptureSavePassword": null, //missing translation
+    "passwordCaptureSave": null, //missing translation
+    "passwordCaptureDontSave": null, //missing translation
+    /* Password viewer */
+    "savedPasswordsHeading": null, //missing translation
+    "savedPasswordsEmpty": null, //missing translation
+    "deletePassword": null, //missing translation
+    /* Dialogs */
+    "loginPromptTitle": "登入 %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "dialogConfirmButton": "確認",
+    "dialogSkipButton": "取消",
+    "username": "使用者名稱",
+    "email": "Email",
+    "password": "密碼",
+    "secretKey": "Secret key"
+  }
 }
