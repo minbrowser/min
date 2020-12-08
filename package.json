@@ -52,7 +52,7 @@
     "buildRedhat": "npm run build && node ./scripts/buildRedhat.js",
     "buildAll": "npm run buildWindows && npm run buildMac && npm run buildDebian && npm run buildRedhat && npm run buildRaspi && npm run buildLinuxArm64",
     "updateFilters": "node ./ext/filterLists/updateEasylist.js",
-    "lint": "prettier --write **/**/*.css && standard --fix js/**/*.js main/*.js"
+    "lint": "prettier --write **/**/*.css **/**/*.md **/**/*.html **/**/*.json && standard --fix js/**/*.js main/*.js"
   },
   "repository": {
     "type": "git",

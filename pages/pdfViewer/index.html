@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval'" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-eval'"
+    />
 
     <link rel="stylesheet" href="viewer.css" />
     <link rel="stylesheet" href="../../ext/icons/iconfont.css" />
     <script src="../../node_modules/pdfjs-dist/build/pdf.min.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="progress-bar" class="viewer-ui"></div>
 
     <div class="side-gutter" id="side-gutter-left">
-        <div id="page-counter" class="viewer-ui hidden" data-string="PDFPageCounter" data-allowHTML></div>
+      <div
+        id="page-counter"
+        class="viewer-ui hidden"
+        data-string="PDFPageCounter"
+        data-allowHTML
+      ></div>
     </div>
     <div class="side-gutter" id="side-gutter-right">
-        <button id="download-button" class="i carbon:download viewer-ui hidden">
-        </button>
+      <button
+        id="download-button"
+        class="i carbon:download viewer-ui hidden"
+      ></button>
     </div>
 
     <script src="../../dist/localization.build.js"></script>
     <script src="../../js/util/database.js"></script>
     <script src="../../js/util/settings/settingsContent.js"></script>
-	<script src="../../js/util/theme.js"></script>
+    <script src="../../js/util/theme.js"></script>
     <script src="../../node_modules/pdfjs-dist/web/pdf_viewer.js"></script>
     <script src="viewer.js"></script>
-</body>
-
+  </body>
 </html>

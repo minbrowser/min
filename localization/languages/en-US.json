@@ -1,274 +1,274 @@
 {
-    "name": "English (United States)",
-    "identifier": "en-US",
-    "translations": {
-        /* Context menu items
+  "name": "English (United States)",
+  "identifier": "en-US",
+  "translations": {
+    /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "addToDictionary": "Add to Dictionary",
-        "pictureInPicture": "Picture in Picture",
-        "openInNewTab": "Open in New Tab",
-        "openInNewPrivateTab": "Open in New Private Tab",
-        "saveLinkAs": "Save Link As...",
-        "viewImage": "View Image",
-        "openImageInNewTab": "Open Image in New Tab",
-        "openImageInNewPrivateTab": "Open Image in New Private Tab",
-        "saveImageAs": "Save Image As",
-        "searchWith": "Search with %s", //%s will be replaced with the name of the current search engine
-        "copyLink": "Copy Link",
-        "copyEmailAddress": "Copy Email Address",
-        "selectAll": "Select All",
-        "undo": "Undo",
-        "redo": "Redo",
-        "cut": "Cut",
-        "copy": "Copy", //this is a verb (as in "copy the currently-selected text")
-        "paste": "Paste",
-        "goBack": "Go Back",
-        "goForward": "Go Forward",
-        "inspectElement": "Inspect Element",
-        /* searchbar */
-        "pasteAndGo": "Paste and Go", //context menu item
-        "DDGAnswerSubtitle": "Answer", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
-        "suggestedSite": "Suggested site", //this is used to label suggested websites from the DuckDuckGo API,
-        "resultsFromDDG": "Results from DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
-        "taskN": "Task %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        /* custom !bangs
+    "addToDictionary": "Add to Dictionary",
+    "pictureInPicture": "Picture in Picture",
+    "openInNewTab": "Open in New Tab",
+    "openInNewPrivateTab": "Open in New Private Tab",
+    "saveLinkAs": "Save Link As...",
+    "viewImage": "View Image",
+    "openImageInNewTab": "Open Image in New Tab",
+    "openImageInNewPrivateTab": "Open Image in New Private Tab",
+    "saveImageAs": "Save Image As",
+    "searchWith": "Search with %s", //%s will be replaced with the name of the current search engine
+    "copyLink": "Copy Link",
+    "copyEmailAddress": "Copy Email Address",
+    "selectAll": "Select All",
+    "undo": "Undo",
+    "redo": "Redo",
+    "cut": "Cut",
+    "copy": "Copy", //this is a verb (as in "copy the currently-selected text")
+    "paste": "Paste",
+    "goBack": "Go Back",
+    "goForward": "Go Forward",
+    "inspectElement": "Inspect Element",
+    /* searchbar */
+    "pasteAndGo": "Paste and Go", //context menu item
+    "DDGAnswerSubtitle": "Answer", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+    "suggestedSite": "Suggested site", //this is used to label suggested websites from the DuckDuckGo API,
+    "resultsFromDDG": "Results from DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+    "taskN": "Task %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+    /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": "Show more",
-        "viewSettings": "View Settings",
-        "takeScreenshot": "Take a Screenshot",
-        "clearHistory": "Clear All History",
-        "enableBlocking": "Enable content blocking for this site",
-        "disableBlocking": "Disable content blocking for this site",
-        "clearHistoryConfirmation": "Clear all history and browsing data?",
-        "switchToTask": "Switch to Task",
-        "createTask": "Create a Task",
-        "closeTask": "Close a Task",
-        "moveToTask": "Move this tab to a task",
-        "nameTask": "Name this task",
-        "addBookmark": "Add bookmark",
-        "searchBookmarks": "Search bookmarks",
-        "bookmarksAddTag": "Add tag...",
-        "bookmarksSimilarItems": "Similar items",
-        "searchHistory": "Search history",
-        "importBookmarks": "Import bookmarks from HTML file",
-        "exportBookmarks": "Export bookmarks",
-        "runUserscript": "Run userscript",
-        /* navbar */
-        "openMenu": "Open menu", //application menu button on windows
-        "enterReaderView": "Enter reader view",
-        "exitReaderView": "Exit reader view",
-        "newTabLabel": "New Tab", //this is a noun, used for tabs that don't have a page loaded in them yet
-        "connectionNotSecure": "Your connection to this website is not secure.",
-        "searchbarPlaceholder": "Search or enter address",
-        "privateTab": "Private tab",
-        "newTabAction": "New Tab", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
-        /* task overlay */
-        "viewTasks": "View Tasks",
-        "newTask": "New Task", //"new" is a verb - it is used for a button at the bottom of the task overlay
-        "defaultTaskName": "Task %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {
-            "unsafeHTML": "Task deleted. <a>Undo?</a>"
-        },
-        "returnToTask": "Return to your previous task",
-        "taskDescriptionTwo": "%t and %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
-        "taskDescriptionThree": "%t, %t, and %n more", //used to describe a task that has three or more tabs
-        /* find in page toolbar */
-        "searchInPage": "Search in Page", //this is used as the placeholder text for the textbox in the find in page toolbar
-        "findMatchesSingular": "%i of %t match", //this and the next label are used to indicate which match is currently highlighted
-        "findMatchesPlural": "%i of %t matches",
-        /* Focus mode */
-        "isFocusMode": "You're in Focus Mode.",
-        "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "In focus mode, you can't create new tabs or switch tasks.",
-        "focusModeExplanation2": "You can leave focus mode by unchecking \"focus mode\" in the view menu.",
-        /* relative dates */
-        "timeRangeJustNow": "Just now",
-        "timeRangeMinutes": "A few minutes ago",
-        "timeRangeHour": "In the past hour",
-        "timeRangeToday": "Today",
-        "timeRangeYesterday": "Yesterday",
-        "timeRangeWeek": "In the past week",
-        "timeRangeMonth": "In the past month",
-        "timeRangeYear": "In the past year",
-        "timeRangeLongerAgo": "Longer ago",
-        /* pages/error/index.html */
-        "crashErrorTitle": "Something went wrong.",
-        "crashErrorSubtitle": "A problem has occurred while displaying this page.",
-        "errorPagePrimaryAction": "Try again",
-        "serverNotFoundTitle": "Server not found",
-        "serverNotFoundSubtitle": "Min couldn't find this website.",
-        "archiveSearchAction": "Search on archive.org",
-        "sslErrorTitle": "This website is not available",
-        "sslErrorMessage": "Min couldn't connect securely to this website.",
-        "dnsErrorTitle": "Website not found",
-        "dnsErrorMessage": "A DNS error occurred.",
-        "offlineErrorTitle": "You are offline",
-        "offlineErrorMessage": "Reconnect to the internet and try again.",
-        "genericConnectionFail": "Min couldn't connect to the website.",
-        "sslTimeErrorMessage": "Min couldn't connect securely to this website. Please make sure your computer's clock is set correctly.",
-        "addressInvalidTitle": "This address is invalid.",
-        "genericError": "An error occurred",
-        /* pages/phishing/index.html */
-        "phishingErrorTitle": "This site could harm you.",
-        "phishingErrorMessage": "This website could be trying to steal your personal information, such as passwords or banking information.",
-        "phishingErrorVisitAnyway": "Visit site anyway",
-        "phishingErrorLeave": "Leave this site",
-        /* multiple instances alert */
-        "multipleInstancesErrorMessage": "An error occurred. Please close any other open instances and restart Min.",
-        /* pages/sessionRestoreError/index.html */
-        "sessionRestoreErrorTitle": "An error occurred",
-        "sessionRestoreErrorExplanation": "Your saved tabs couldn't be restored correctly.",
-        "sessionRestoreErrorBackupInfo": "We've saved a backup of your data at this location: %l.", //%l will be replaced with a path to a file
-        "sessionRestoreErrorLinkInfo": {
-            "unsafeHTML": "If this error continues to occur, please open a new issue <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">here</a>."
-        },
-        /* pages/settings/index.html */
-        "settingsPreferencesHeading": "Preferences",
-        "settingsRestartRequired": "You need to restart to apply these changes.",
-        "settingsPrivacyHeading": "Content Blocking",
-        "settingsContentBlockingLevel0": "Allow all ads and trackers",
-        "settingsContentBlockingLevel1": "Block third-party ads and trackers",
-        "settingsContentBlockingLevel2": "Block all ads and trackers",
-        "settingsContentBlockingExceptions": "Ads will still be allowed on these websites:",
-        "settingsBlockScriptsToggle": "Block scripts",
-        "settingsBlockImagesToggle": "Block images",
-        "settingsBlockedRequestCount": {
-            "unsafeHTML": "So far, Min has blocked <strong></strong> ads and trackers."
-        },
-        "settingsCustomizeFiltersLink": "Customize filters",
-        "settingsAppearanceHeading": "Appearance",
-        "settingsEnableDarkMode": "Enable dark mode:",
-        "settingsDarkModeNever": "Never",
-        "settingsDarkModeNight": "At night",
-        "settingsDarkModeAlways": "Always",
-        "settingsSiteThemeToggle": "Enable site theme",
-        "settingsAdditionalFeaturesHeading": "Additional Features",
-        "settingsUserscriptsToggle": "Enable user scripts",
-        "settingsShowDividerToggle": "Show divider between tabs",
-        "settingsSeparateTitlebarToggle": "Use separate title bar",
-        "settingsOpenTabsInForegroundToggle": "Open new tabs in the foreground",
-        "settingsUserscriptsExplanation": {
-            "unsafeHTML": "User scripts allow you to modify the behavior of websites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."
-        },
-        "settingsUserAgentToggle": "Use a custom user agent",
-        "settingsUpdateNotificationsToggle": "Automatically check for updates",
-        "settingsSearchEngineHeading": "Search Engine",
-        "settingsDefaultSearchEngine": "Choose a default search engine:",
-        "settingsDDGExplanation": "Set DuckDuckGo as the default search engine to see instant answers in the searchbar.",
-        "customSearchEngineDescription": "Replace the search term with %s",
-        "settingsKeyboardShortcutsHeading": "Keyboard Shortcuts",
-        "settingsKeyboardShortcutsHelp": "Use commas to separate multiple shortcuts.",
-        "settingsProxyHeading": "Proxy",
-        "settingsNoProxy": "No Proxy",
-        "settingsManualProxy": "Manual Configuration",
-        "settingsAutomaticProxy": "Automatic Configuration",
-        "settingsProxyRules": "Proxy rules:",
-        "settingsProxyBypassRules": "No proxy for:",
-        "settingsProxyConfigurationURL": "Configuration URL",
-        /* app menu */
-        "appMenuFile": "File",
-        "appMenuNewTab": "New Tab",
-        "appMenuDuplicateTab": "Duplicate Tab",
-        "appMenuNewPrivateTab": "New Private Tab",
-        "appMenuNewTask": "New Task",
-        "appMenuSavePageAs": "Save Page As",
-        "appMenuPrint": "Print",
-        "appMenuEdit": "Edit",
-        "appMenuUndo": "Undo",
-        "appMenuRedo": "Redo",
-        "appMenuCut": "Cut",
-        "appMenuCopy": "Copy",
-        "appMenuPaste": "Paste",
-        "appMenuSelectAll": "Select All",
-        "appMenuFind": "Find",
-        "appMenuView": "View",
-        "appMenuZoomIn": "Zoom In",
-        "appMenuZoomOut": "Zoom Out",
-        "appMenuActualSize": "Actual Size",
-        "appMenuFullScreen": "Full Screen", //on some platforms, this string is replaced with one built-in to the OS
-        "appMenuFocusMode": "Focus Mode",
-        "appMenuBookmarks": "Bookmarks",
-        "appMenuHistory": "History",
-        "appMenuDeveloper": "Developer",
-        "appMenuReloadBrowser": "Reload Browser",
-        "appMenuInspectBrowser": "Inspect Browser",
-        "appMenuInspectPage": "Inspect Page",
-        "appMenuWindow": "Window",
-        "appMenuMinimize": "Minimize",
-        "appMenuClose": "Close",
-        "appMenuAlwaysOnTop": "Always on Top",
-        "appMenuHelp": "Help",
-        "appMenuKeyboardShortcuts": "Keyboard Shortcuts",
-        "appMenuReportBug": "Report a Bug",
-        "appMenuTakeTour": "Take a Tour",
-        "appMenuViewGithub": "View on GitHub",
-        "appMenuAbout": "About %n", //%n is replaced with app name
-        "appMenuPreferences": "Preferences",
-        "appMenuServices": "Services",
-        "appMenuHide": "Hide %n",
-        "appMenuHideOthers": "Hide Others",
-        "appMenuShowAll": "Show All",
-        "appMenuQuit": "Quit %n",
-        "appMenuBringToFront": "Bring All to Front",
-        /* PDF Viewer */
-        "PDFPageCounter": {
-            "unsafeHTML": "page <input type='text'/> of <span id='total'></span>"
-        },
-        /* Context Reader */
-        "buttonReaderSettings": "Reader Settings",
-        "buttonReaderLightTheme": "Light",
-        "buttonReaderSepiaTheme": "Sepia",
-        "buttonReaderDarkTheme": "Dark",
-        "openReaderView": "Always open in reader view",
-        "autoRedirectBannerReader": "Always open articles from this site in reader view?",
-        "buttonReaderRedirectYes": "Yes",
-        "buttonReaderRedirectNo": "No",
-        "articleReaderView": "Original Article",
-        /* Download manager */
-        "downloadCancel": "Cancel",
-        "downloadStateCompleted": "Completed",
-        "downloadStateFailed": "Failed",
-        /* Update Notifications */
-        "updateNotificationTitle": "A new version of Min is available",
-        /* Autofill settings */
-        "settingsPasswordAutoFillHeadline": "Password Auto-Fill",
-        "settingsSelectPasswordManager": "Choose one of the supported password managers:",
-        "keychainViewPasswords": "View saved passwords",
-        /* Password manager setup */
-        "passwordManagerSetupHeading": "Finish setting up %p to use Autofill",
-        "passwordManagerSetupStep1": {
-            "unsafeHTML": "First, <a id='password-manager-setup-link'></a> and extract it for your system."
-        },
-        "passwordManagerInstallerSetup": {
-            "unsafeHTML": "Download <a id='password-manager-setup-link-installer'></a> and drag the file into the box below:"
-        },
-        "passwordManagerSetupLink": "download the %p CLI tool",
-        "passwordManagerSetupLinkInstaller": "the %p CLI installer",
-        "passwordManagerSetupStep2": "Then drag the tool into the box below:",
-        "passwordManagerSetupDragBox": "Drag the tool here",
-        "passwordManagerSetupInstalling": "Installing...",
-        "passwordManagerSetupSignIn": "Sign in to your password manager to start using autofill. Your credentials won't be stored anywhere inside Min.",
-        "disableAutofill": "Disable Autofill",
-        "passwordManagerSetupUnlockError": "Failed to unlock the password store: ",
-        "passwordManagerSetupRetry": "Make sure you're using the right file and entering a correct password. You can retry by dragging the tool here again.",
-        "passwordManagerUnlock": "Enter your %p master password to unlock the password store:",
-        /* Password save bar */
-        "passwordCaptureSavePassword": "Save password for %s?",
-        "passwordCaptureSave": "Save",
-        "passwordCaptureDontSave": "Don't save",
-        /* Password viewer */
-        "savedPasswordsHeading": "Saved passwords",
-        "savedPasswordsEmpty": "No saved passwords.",
-        "deletePassword": "Delete password for %s?",
-        /* Dialogs */
-        "loginPromptTitle": "Sign in to %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
-        "dialogConfirmButton": "Confirm",
-        "dialogSkipButton": "Cancel",
-        "username": "Username",
-        "email": "Email",
-        "password": "Password",
-        "secretKey": "Secret key"
-    }
+    "showMoreBangs": "Show more",
+    "viewSettings": "View Settings",
+    "takeScreenshot": "Take a Screenshot",
+    "clearHistory": "Clear All History",
+    "enableBlocking": "Enable content blocking for this site",
+    "disableBlocking": "Disable content blocking for this site",
+    "clearHistoryConfirmation": "Clear all history and browsing data?",
+    "switchToTask": "Switch to Task",
+    "createTask": "Create a Task",
+    "closeTask": "Close a Task",
+    "moveToTask": "Move this tab to a task",
+    "nameTask": "Name this task",
+    "addBookmark": "Add bookmark",
+    "searchBookmarks": "Search bookmarks",
+    "bookmarksAddTag": "Add tag...",
+    "bookmarksSimilarItems": "Similar items",
+    "searchHistory": "Search history",
+    "importBookmarks": "Import bookmarks from HTML file",
+    "exportBookmarks": "Export bookmarks",
+    "runUserscript": "Run userscript",
+    /* navbar */
+    "openMenu": "Open menu", //application menu button on windows
+    "enterReaderView": "Enter reader view",
+    "exitReaderView": "Exit reader view",
+    "newTabLabel": "New Tab", //this is a noun, used for tabs that don't have a page loaded in them yet
+    "connectionNotSecure": "Your connection to this website is not secure.",
+    "searchbarPlaceholder": "Search or enter address",
+    "privateTab": "Private tab",
+    "newTabAction": "New Tab", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+    /* task overlay */
+    "viewTasks": "View Tasks",
+    "newTask": "New Task", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "defaultTaskName": "Task %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+    "taskDeleteWarning": {
+      "unsafeHTML": "Task deleted. <a>Undo?</a>"
+    },
+    "returnToTask": "Return to your previous task",
+    "taskDescriptionTwo": "%t and %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
+    "taskDescriptionThree": "%t, %t, and %n more", //used to describe a task that has three or more tabs
+    /* find in page toolbar */
+    "searchInPage": "Search in Page", //this is used as the placeholder text for the textbox in the find in page toolbar
+    "findMatchesSingular": "%i of %t match", //this and the next label are used to indicate which match is currently highlighted
+    "findMatchesPlural": "%i of %t matches",
+    /* Focus mode */
+    "isFocusMode": "You're in Focus Mode.",
+    "closeDialog": "OK", //used as a label for the button that closes the dialog
+    "focusModeExplanation1": "In focus mode, you can't create new tabs or switch tasks.",
+    "focusModeExplanation2": "You can leave focus mode by unchecking \"focus mode\" in the view menu.",
+    /* relative dates */
+    "timeRangeJustNow": "Just now",
+    "timeRangeMinutes": "A few minutes ago",
+    "timeRangeHour": "In the past hour",
+    "timeRangeToday": "Today",
+    "timeRangeYesterday": "Yesterday",
+    "timeRangeWeek": "In the past week",
+    "timeRangeMonth": "In the past month",
+    "timeRangeYear": "In the past year",
+    "timeRangeLongerAgo": "Longer ago",
+    /* pages/error/index.html */
+    "crashErrorTitle": "Something went wrong.",
+    "crashErrorSubtitle": "A problem has occurred while displaying this page.",
+    "errorPagePrimaryAction": "Try again",
+    "serverNotFoundTitle": "Server not found",
+    "serverNotFoundSubtitle": "Min couldn't find this website.",
+    "archiveSearchAction": "Search on archive.org",
+    "sslErrorTitle": "This website is not available",
+    "sslErrorMessage": "Min couldn't connect securely to this website.",
+    "dnsErrorTitle": "Website not found",
+    "dnsErrorMessage": "A DNS error occurred.",
+    "offlineErrorTitle": "You are offline",
+    "offlineErrorMessage": "Reconnect to the internet and try again.",
+    "genericConnectionFail": "Min couldn't connect to the website.",
+    "sslTimeErrorMessage": "Min couldn't connect securely to this website. Please make sure your computer's clock is set correctly.",
+    "addressInvalidTitle": "This address is invalid.",
+    "genericError": "An error occurred",
+    /* pages/phishing/index.html */
+    "phishingErrorTitle": "This site could harm you.",
+    "phishingErrorMessage": "This website could be trying to steal your personal information, such as passwords or banking information.",
+    "phishingErrorVisitAnyway": "Visit site anyway",
+    "phishingErrorLeave": "Leave this site",
+    /* multiple instances alert */
+    "multipleInstancesErrorMessage": "An error occurred. Please close any other open instances and restart Min.",
+    /* pages/sessionRestoreError/index.html */
+    "sessionRestoreErrorTitle": "An error occurred",
+    "sessionRestoreErrorExplanation": "Your saved tabs couldn't be restored correctly.",
+    "sessionRestoreErrorBackupInfo": "We've saved a backup of your data at this location: %l.", //%l will be replaced with a path to a file
+    "sessionRestoreErrorLinkInfo": {
+      "unsafeHTML": "If this error continues to occur, please open a new issue <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">here</a>."
+    },
+    /* pages/settings/index.html */
+    "settingsPreferencesHeading": "Preferences",
+    "settingsRestartRequired": "You need to restart to apply these changes.",
+    "settingsPrivacyHeading": "Content Blocking",
+    "settingsContentBlockingLevel0": "Allow all ads and trackers",
+    "settingsContentBlockingLevel1": "Block third-party ads and trackers",
+    "settingsContentBlockingLevel2": "Block all ads and trackers",
+    "settingsContentBlockingExceptions": "Ads will still be allowed on these websites:",
+    "settingsBlockScriptsToggle": "Block scripts",
+    "settingsBlockImagesToggle": "Block images",
+    "settingsBlockedRequestCount": {
+      "unsafeHTML": "So far, Min has blocked <strong></strong> ads and trackers."
+    },
+    "settingsCustomizeFiltersLink": "Customize filters",
+    "settingsAppearanceHeading": "Appearance",
+    "settingsEnableDarkMode": "Enable dark mode:",
+    "settingsDarkModeNever": "Never",
+    "settingsDarkModeNight": "At night",
+    "settingsDarkModeAlways": "Always",
+    "settingsSiteThemeToggle": "Enable site theme",
+    "settingsAdditionalFeaturesHeading": "Additional Features",
+    "settingsUserscriptsToggle": "Enable user scripts",
+    "settingsShowDividerToggle": "Show divider between tabs",
+    "settingsSeparateTitlebarToggle": "Use separate title bar",
+    "settingsOpenTabsInForegroundToggle": "Open new tabs in the foreground",
+    "settingsUserscriptsExplanation": {
+      "unsafeHTML": "User scripts allow you to modify the behavior of websites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."
+    },
+    "settingsUserAgentToggle": "Use a custom user agent",
+    "settingsUpdateNotificationsToggle": "Automatically check for updates",
+    "settingsSearchEngineHeading": "Search Engine",
+    "settingsDefaultSearchEngine": "Choose a default search engine:",
+    "settingsDDGExplanation": "Set DuckDuckGo as the default search engine to see instant answers in the searchbar.",
+    "customSearchEngineDescription": "Replace the search term with %s",
+    "settingsKeyboardShortcutsHeading": "Keyboard Shortcuts",
+    "settingsKeyboardShortcutsHelp": "Use commas to separate multiple shortcuts.",
+    "settingsProxyHeading": "Proxy",
+    "settingsNoProxy": "No Proxy",
+    "settingsManualProxy": "Manual Configuration",
+    "settingsAutomaticProxy": "Automatic Configuration",
+    "settingsProxyRules": "Proxy rules:",
+    "settingsProxyBypassRules": "No proxy for:",
+    "settingsProxyConfigurationURL": "Configuration URL",
+    /* app menu */
+    "appMenuFile": "File",
+    "appMenuNewTab": "New Tab",
+    "appMenuDuplicateTab": "Duplicate Tab",
+    "appMenuNewPrivateTab": "New Private Tab",
+    "appMenuNewTask": "New Task",
+    "appMenuSavePageAs": "Save Page As",
+    "appMenuPrint": "Print",
+    "appMenuEdit": "Edit",
+    "appMenuUndo": "Undo",
+    "appMenuRedo": "Redo",
+    "appMenuCut": "Cut",
+    "appMenuCopy": "Copy",
+    "appMenuPaste": "Paste",
+    "appMenuSelectAll": "Select All",
+    "appMenuFind": "Find",
+    "appMenuView": "View",
+    "appMenuZoomIn": "Zoom In",
+    "appMenuZoomOut": "Zoom Out",
+    "appMenuActualSize": "Actual Size",
+    "appMenuFullScreen": "Full Screen", //on some platforms, this string is replaced with one built-in to the OS
+    "appMenuFocusMode": "Focus Mode",
+    "appMenuBookmarks": "Bookmarks",
+    "appMenuHistory": "History",
+    "appMenuDeveloper": "Developer",
+    "appMenuReloadBrowser": "Reload Browser",
+    "appMenuInspectBrowser": "Inspect Browser",
+    "appMenuInspectPage": "Inspect Page",
+    "appMenuWindow": "Window",
+    "appMenuMinimize": "Minimize",
+    "appMenuClose": "Close",
+    "appMenuAlwaysOnTop": "Always on Top",
+    "appMenuHelp": "Help",
+    "appMenuKeyboardShortcuts": "Keyboard Shortcuts",
+    "appMenuReportBug": "Report a Bug",
+    "appMenuTakeTour": "Take a Tour",
+    "appMenuViewGithub": "View on GitHub",
+    "appMenuAbout": "About %n", //%n is replaced with app name
+    "appMenuPreferences": "Preferences",
+    "appMenuServices": "Services",
+    "appMenuHide": "Hide %n",
+    "appMenuHideOthers": "Hide Others",
+    "appMenuShowAll": "Show All",
+    "appMenuQuit": "Quit %n",
+    "appMenuBringToFront": "Bring All to Front",
+    /* PDF Viewer */
+    "PDFPageCounter": {
+      "unsafeHTML": "page <input type='text'/> of <span id='total'></span>"
+    },
+    /* Context Reader */
+    "buttonReaderSettings": "Reader Settings",
+    "buttonReaderLightTheme": "Light",
+    "buttonReaderSepiaTheme": "Sepia",
+    "buttonReaderDarkTheme": "Dark",
+    "openReaderView": "Always open in reader view",
+    "autoRedirectBannerReader": "Always open articles from this site in reader view?",
+    "buttonReaderRedirectYes": "Yes",
+    "buttonReaderRedirectNo": "No",
+    "articleReaderView": "Original Article",
+    /* Download manager */
+    "downloadCancel": "Cancel",
+    "downloadStateCompleted": "Completed",
+    "downloadStateFailed": "Failed",
+    /* Update Notifications */
+    "updateNotificationTitle": "A new version of Min is available",
+    /* Autofill settings */
+    "settingsPasswordAutoFillHeadline": "Password Auto-Fill",
+    "settingsSelectPasswordManager": "Choose one of the supported password managers:",
+    "keychainViewPasswords": "View saved passwords",
+    /* Password manager setup */
+    "passwordManagerSetupHeading": "Finish setting up %p to use Autofill",
+    "passwordManagerSetupStep1": {
+      "unsafeHTML": "First, <a id='password-manager-setup-link'></a> and extract it for your system."
+    },
+    "passwordManagerInstallerSetup": {
+      "unsafeHTML": "Download <a id='password-manager-setup-link-installer'></a> and drag the file into the box below:"
+    },
+    "passwordManagerSetupLink": "download the %p CLI tool",
+    "passwordManagerSetupLinkInstaller": "the %p CLI installer",
+    "passwordManagerSetupStep2": "Then drag the tool into the box below:",
+    "passwordManagerSetupDragBox": "Drag the tool here",
+    "passwordManagerSetupInstalling": "Installing...",
+    "passwordManagerSetupSignIn": "Sign in to your password manager to start using autofill. Your credentials won't be stored anywhere inside Min.",
+    "disableAutofill": "Disable Autofill",
+    "passwordManagerSetupUnlockError": "Failed to unlock the password store: ",
+    "passwordManagerSetupRetry": "Make sure you're using the right file and entering a correct password. You can retry by dragging the tool here again.",
+    "passwordManagerUnlock": "Enter your %p master password to unlock the password store:",
+    /* Password save bar */
+    "passwordCaptureSavePassword": "Save password for %s?",
+    "passwordCaptureSave": "Save",
+    "passwordCaptureDontSave": "Don't save",
+    /* Password viewer */
+    "savedPasswordsHeading": "Saved passwords",
+    "savedPasswordsEmpty": "No saved passwords.",
+    "deletePassword": "Delete password for %s?",
+    /* Dialogs */
+    "loginPromptTitle": "Sign in to %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "dialogConfirmButton": "Confirm",
+    "dialogSkipButton": "Cancel",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "secretKey": "Secret key"
+  }
 }

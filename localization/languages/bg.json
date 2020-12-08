@@ -1,273 +1,273 @@
 {
-    "name": "Bulgarian",
-    "identifier": "bg",
-    "translations": {
-        /* Context menu items
+  "name": "Bulgarian",
+  "identifier": "bg",
+  "translations": {
+    /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-        "addToDictionary": "Добави към Речник",
-        "pictureInPicture": "Картина в картина",
-        "openInNewTab": "Отваряне в нов раздел",
-        "openInNewPrivateTab": "Отваряне в нов поверителен раздел",
-        "saveLinkAs": "Запазване на препратка като...",
-        "viewImage": "Преглед на изображението",
-        "openImageInNewTab": "Отваряне на изображението в нов раздел",
-        "openImageInNewPrivateTab": "Отваряне на изображението в нов поверителен раздел",
-        "saveImageAs": "Запазване на изображението като",
-        "searchWith": "Търсене с %s", //%s will be replaced with the name of the current search engine
-        "copyLink": "Копиране на препратка",
-        "copyEmailAddress": "Копиране на имейл адрес",
-        "selectAll": "Избиране на всичко",
-        "undo": "Връщане обратно",
-        "redo": "Отиване напред",
-        "cut": "Изрязване",
-        "copy": "Копиране", //this is a verb (as in "copy the currently-selected text")
-        "paste": "Поставяне",
-        "goBack": "Връщане една страница назад",
-        "goForward": "Отиване една страница напред",
-        "inspectElement": "Изследване на елемента",
-        /* searchbar */
-        "pasteAndGo": "Поставяне и посещаване",
-        "DDGAnswerSubtitle": "Отговор", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
-        "suggestedSite": "Предложен сайт", //this is used to label suggested websites from the DuckDuckGo API,
-        "resultsFromDDG": "Резултати от DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
-        "taskN": "Задача %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        /* custom !bangs
+    "addToDictionary": "Добави към Речник",
+    "pictureInPicture": "Картина в картина",
+    "openInNewTab": "Отваряне в нов раздел",
+    "openInNewPrivateTab": "Отваряне в нов поверителен раздел",
+    "saveLinkAs": "Запазване на препратка като...",
+    "viewImage": "Преглед на изображението",
+    "openImageInNewTab": "Отваряне на изображението в нов раздел",
+    "openImageInNewPrivateTab": "Отваряне на изображението в нов поверителен раздел",
+    "saveImageAs": "Запазване на изображението като",
+    "searchWith": "Търсене с %s", //%s will be replaced with the name of the current search engine
+    "copyLink": "Копиране на препратка",
+    "copyEmailAddress": "Копиране на имейл адрес",
+    "selectAll": "Избиране на всичко",
+    "undo": "Връщане обратно",
+    "redo": "Отиване напред",
+    "cut": "Изрязване",
+    "copy": "Копиране", //this is a verb (as in "copy the currently-selected text")
+    "paste": "Поставяне",
+    "goBack": "Връщане една страница назад",
+    "goForward": "Отиване една страница напред",
+    "inspectElement": "Изследване на елемента",
+    /* searchbar */
+    "pasteAndGo": "Поставяне и посещаване",
+    "DDGAnswerSubtitle": "Отговор", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+    "suggestedSite": "Предложен сайт", //this is used to label suggested websites from the DuckDuckGo API,
+    "resultsFromDDG": "Резултати от DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+    "taskN": "Задача %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+    /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-        "showMoreBangs": "Показване на повече",
-        "viewSettings": "Преглед на настройките",
-        "takeScreenshot": "Правене на екранна снимка",
-        "clearHistory": "Изчистване на цялата история",
-        "enableBlocking": "Активиране на блокиране на съдържание за този сайт",
-        "disableBlocking": "Деактивиране на блокиране на съдържание за този сайт",
-        "clearHistoryConfirmation": "Изчистване на цялата история и данни за сърфиране?",
-        "switchToTask": "Превключване към задача",
-        "createTask": "Създай задача",
-        "closeTask": "Затвори задача",
-        "moveToTask": "Премести този раздел в задача",
-        "nameTask": "Наименувай тази задача",
-        "addBookmark": "Отмятане на страница",
-        "searchBookmarks": "Търсене на отметки",
-        "bookmarksAddTag": "Добавяне на таг...",
-        "bookmarksSimilarItems": "Подобни елементи",
-        "searchHistory": "История на търсенията",
-        "importBookmarks": "Внасяне на отметки от HTML файл",
-        "exportBookmarks": "Изнасяне на отметки",
-        "runUserscript": "Изпълняване на потребителски скрипт",
-        /* navbar */
-        "openMenu": "Отваряне на меню", //application menu button on windows
-        "enterReaderView": "Влизане в изглед на четене",
-        "exitReaderView": "Излизане от изглед на четене",
-        "newTabLabel": "Нов раздел", //this is a noun, used for tabs that don't have a page loaded in them yet
-        "connectionNotSecure": "Връзката Ви с този уеб сайт не е защитена.",
-        "searchbarPlaceholder": "Потърсете или въведете адрес",
-        "privateTab": "Поверителен раздел",
-        "newTabAction": "Отваряне на нов раздел", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
-        /* task overlay */
-        "viewTasks": "Преглеждане на задачи",
-        "newTask": "Отваряне на нова задача", //"new" is a verb - it is used for a button at the bottom of the task overlay
-        "defaultTaskName": "Задача %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
-        "taskDeleteWarning": {
-            "unsafeHTML": "Задачата е изтрита. <a>Върни обратно?</a>"
-        },
-        "returnToTask": "Връщане към предишната задача",
-        "taskDescriptionTwo": "%t и %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
-        "taskDescriptionThree": "%t, %t, и още %n", //used to describe a task that has three or more tabs
-        /* find in page toolbar */
-        "searchInPage": "Търсене във страницата", //this is used as the placeholder text for the textbox in the find in page toolbar
-        "findMatchesSingular": "%i от %t съвпадение", //this and the next label are used to indicate which match is currently highlighted
-        "findMatchesPlural": "%i от %t съвпадения",
-        /* Focus mode */
-        "isFocusMode": "Вие сте в режим на фокусиране.",
-        "closeDialog": "Добре", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "В режим на фокусиране не може да създавате нови раздели или да превключвате задачи.",
-        "focusModeExplanation2": "Може да излезете от режим на фокусиране, като премахнете отметката на \"режим фокусиране\" в менюто за изглед.",
-        /* relative dates */
-        "timeRangeJustNow": "Току що",
-        "timeRangeMinutes": "Преди няколко минути",
-        "timeRangeHour": "През изминалия час",
-        "timeRangeToday": "Днес",
-        "timeRangeYesterday": "Вчера",
-        "timeRangeWeek": "През изминалата седмица",
-        "timeRangeMonth": "През изминалия месец",
-        "timeRangeYear": "През изминалата година",
-        "timeRangeLongerAgo": "Много отдавна",
-        /* pages/error/index.html */
-        "crashErrorTitle": "Нещо се обърка.",
-        "crashErrorSubtitle": "Възникна проблем при показването на тази страница.",
-        "errorPagePrimaryAction": "Опитайте отново",
-        "serverNotFoundTitle": "Сървърът не е намерен",
-        "serverNotFoundSubtitle": "Min не успя да намери този уеб сайт.",
-        "archiveSearchAction": "Търсене в archive.org",
-        "sslErrorTitle": "Този уеб сайт не е наличен",
-        "sslErrorMessage": "Min не успя да се свърже сигурно с този уеб сайт.",
-        "dnsErrorTitle": "Уеб сайтът не е намерен",
-        "dnsErrorMessage": "Възникна DNS грешка.",
-        "offlineErrorTitle": "Вие сте офлайн",
-        "offlineErrorMessage": "Свържете се отново с интернет и опитайте пак.",
-        "genericConnectionFail": "Min не успя да се свърже към уеб сайта.",
-        "sslTimeErrorMessage": "Min не успя да се свърже сигурно с този уеб сайт. Моля уверете се, че часовникът на Вашият компютър е настроен правилно.",
-        "addressInvalidTitle": "Този адрес е невалиден.",
-        "genericError": "Възникна грешка",
-        /* pages/phishing/index.html */
-        "phishingErrorTitle": "Този сайт може да Ви навреди.",
-        "phishingErrorMessage": "Този уеб сайт може да се опитва да открадне Вашата личната информация, като пароли или банкова информация.",
-        "phishingErrorVisitAnyway": "Продължаване въпреки риска",
-        "phishingErrorLeave": "Напускане на сайта",
-        /* multiple instances alert */
-        "multipleInstancesErrorMessage": "Възникна грешка. Моля затворете всякакви други инстанции и рестартирайте Min.",
-        /* pages/sessionRestoreError/index.html */
-        "sessionRestoreErrorTitle": "Възникна грешка",
-        "sessionRestoreErrorExplanation": "Вашите запазени раздели не можаха да бъдат възстановени правилно.",
-        "sessionRestoreErrorBackupInfo": "Запазили сме резервно копие на Вашите данни на това място: %l.", //%l will be replaced with a path to a file
-        "sessionRestoreErrorLinkInfo": {
-            "unsafeHTML": "Ако тази грешка продължи да се появява, моля отворете нов проблем <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">тук</a>."
-        },
-        /* pages/settings/index.html */
-        "settingsPreferencesHeading": "Предпочитания",
-        "settingsRestartRequired": "Трябва да рестартирате браузъра, за да бъдат приложени промените.",
-        "settingsPrivacyHeading": "Блокиране на съдържание",
-        "settingsContentBlockingLevel0": "Разрешаване на всички реклами и преследвачи",
-        "settingsContentBlockingLevel1": "Блокиране на реклами и преследвачи от трети лица",
-        "settingsContentBlockingLevel2": "Блокиране на всички реклами и преследвачи",
-        "settingsContentBlockingExceptions": "Реклами ще бъдат позволени на тези уеб сайтове:",
-        "settingsBlockScriptsToggle": "Блокиране на скриптове",
-        "settingsBlockImagesToggle": "Блокиране на изображения",
-        "settingsBlockedRequestCount": {
-            "unsafeHTML": "Досега Min е блокирал <strong></strong> реклами и тракери."
-        },
-        "settingsCustomizeFiltersLink": "Персонализирайте филтрите",
-        "settingsAppearanceHeading": "Изглед",
-        "settingsEnableDarkMode": "Активиране на тъмен режим:",
-        "settingsDarkModeNever": "Никога",
-        "settingsDarkModeNight": "През нощта",
-        "settingsDarkModeAlways": "Винаги",
-        "settingsSiteThemeToggle": "Активиране на теми на сайтове",
-        "settingsAdditionalFeaturesHeading": "Допълнителни функции",
-        "settingsUserscriptsToggle": "Активиране на потребителски скриптове",
-        "settingsSeparateTitlebarToggle": "Използване на отделна лента със заглавието",
-        "settingsOpenTabsInForegroundToggle": "Отваряне на нови раздели на преден план",
-        "settingsUserscriptsExplanation": {
-            "unsafeHTML": "Потребителските скриптове Ви позволяват да промените поведението на уеб сайтове - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">научете повече</a>."
-        },
-        "settingsUserAgentToggle": "Използване на персонализиран потребителски агент",
-        "settingsUpdateNotificationsToggle": "Автоматично проверяване за актуализации",
-        "settingsSearchEngineHeading": "Търсачки",
-        "settingsDefaultSearchEngine": "Изберете търсачка по подразбиране:",
-        "settingsDDGExplanation": "Поставете DuckDuckGo като търсачка по подразбиране, за да получавате моментални отговори в лентата за търсене.",
-        "customSearchEngineDescription": "Заменете думата за търсене със %s",
-        "settingsKeyboardShortcutsHeading": "Комбинации от клавиши",
-        "settingsKeyboardShortcutsHelp": "Използвайте запетаи, за да разделите множество комбинации за клавиши.",
-        "settingsProxyHeading": "Мрежов посредник",
-        "settingsNoProxy": "Без мрежов посредник",
-        "settingsManualProxy": "Ръчна настройка",
-        "settingsAutomaticProxy": "Автоматична настройка",
-        "settingsProxyRules": "Правила на мрежовия посредник:",
-        "settingsProxyBypassRules": "Без мрежов посредник за:",
-        "settingsProxyConfigurationURL": "Адрес за конфигурация",
-        /* app menu */
-        "appMenuFile": "Файл",
-        "appMenuNewTab": "Нов раздел",
-        "appMenuDuplicateTab": "Дупликиране на раздела",
-        "appMenuNewPrivateTab": "Нов поверителен раздел",
-        "appMenuNewTask": "Нова задача",
-        "appMenuSavePageAs": "Запазване на страницата като",
-        "appMenuPrint": "Отпечатване",
-        "appMenuEdit": "Редактиране",
-        "appMenuUndo": "Връщане обратно",
-        "appMenuRedo": "Отиване напред",
-        "appMenuCut": "Изрязване",
-        "appMenuCopy": "Копиране",
-        "appMenuPaste": "Поставяне",
-        "appMenuSelectAll": "Избиране на всичко",
-        "appMenuFind": "Търсене",
-        "appMenuView": "Изглед",
-        "appMenuZoomIn": "Увеличаване на мащаб",
-        "appMenuZoomOut": "Намаляване на мащаб",
-        "appMenuActualSize": "Нулиране на мащабирането",
-        "appMenuFullScreen": "Цял екран", //on some platforms, this string is replaced with one built-in to the OS
-        "appMenuFocusMode": "Режим на фокусиране",
-        "appMenuBookmarks": "Отметки",
-        "appMenuHistory": "История",
-        "appMenuDeveloper": "Разработчик",
-        "appMenuReloadBrowser": "Презареди браузър",
-        "appMenuInspectBrowser": "Изследване на браузър",
-        "appMenuInspectPage": "Изследване на страница",
-        "appMenuWindow": "Прозорец",
-        "appMenuMinimize": "Минимизиране",
-        "appMenuClose": "Затваряне",
-        "appMenuAlwaysOnTop": "Винаги най-отгоре",
-        "appMenuHelp": "Помощ",
-        "appMenuKeyboardShortcuts": "Комбинации за клавиши",
-        "appMenuReportBug": "Докладване на проблем",
-        "appMenuTakeTour": "Направете обиколка",
-        "appMenuViewGithub": "Вижте в GitHub",
-        "appMenuAbout": "Относно %n", //%n is replaced with app name
-        "appMenuPreferences": "Предпочитания",
-        "appMenuServices": "Услуги",
-        "appMenuHide": "Скрий %n",
-        "appMenuHideOthers": "Скрий други",
-        "appMenuShowAll": "Покажи всички",
-        "appMenuQuit": "Излизане от %n",
-        "appMenuBringToFront": "Извеждане на всички отпред",
-        /* PDF Viewer */
-        "PDFPageCounter": {
-            "unsafeHTML": "страница <input type='text'/> от <span id='total'></span>"
-        },
-        /* Context Reader */
-        "buttonReaderSettings": "Настройки на четец",
-        "buttonReaderLightTheme": "Светла",
-        "buttonReaderSepiaTheme": "Сепия",
-        "buttonReaderDarkTheme": "Тъмна",
-        "openReaderView": "Винаги отваряй в режим на четене",
-        "autoRedirectBannerReader": "Винаги отваряй статии от този сайт в режим на четене?",
-        "buttonReaderRedirectYes": "Да",
-        "buttonReaderRedirectNo": "Не",
-        "articleReaderView": "Оригинална статия",
-        /* Download manager */
-        "downloadCancel": "Отказ",
-        "downloadStateCompleted": "Завършено",
-        "downloadStateFailed": "Провалено",
-        /* Update Notifications */
-        "updateNotificationTitle": "Налична е нова версия на Min",
-        /* Autofill settings */
-        "settingsPasswordAutoFillHeadline": "Автоматично попълване на пароли",
-        "settingsSelectPasswordManager": "Изберете един от поддържаните мениджъри на пароли:",
-        "keychainViewPasswords": "Виж запазени пароли",
-        /* Password manager setup */
-        "passwordManagerSetupHeading": "Завършете настройване на %p да попълва пароли",
-        "passwordManagerSetupStep1": {
-            "unsafeHTML": "Първо, <a id='password-manager-setup-link'></a> и го извлечете за Вашата система."
-        },
-        "passwordManagerInstallerSetup": {
-            "unsafeHTML": "Изтеглете <a id='password-manager-setup-link-installer'></a> и плъзнете файла в полето отдолу:"
-        },
-        "passwordManagerSetupLink": "изтеглете %p CLI инструмента",
-        "passwordManagerSetupLinkInstaller": "%p CLI инсталатор",
-        "passwordManagerSetupStep2": "След това плъзнете уреда в полето отдолу:",
-        "passwordManagerSetupDragBox": "Плъзнете уреда тук",
-        "passwordManagerSetupInstalling": "Инсталиране...",
-        "passwordManagerSetupSignIn": "Впишете се във Вашия мениджър на пароли, за да започнете употребата на автоматично попълване. Вашите пълномощия няма да се съхраняват никъде в Min.",
-        "disableAutofill": "Деактивиране на автоматично попълване на пароли",
-        "passwordManagerSetupUnlockError": "Неуспешно отключване на хранилището за пароли: ",
-        "passwordManagerSetupRetry": "Уверете се, че използвате правилния файл и въвеждате правилна парола. Може да пробвате отново, като пак плъзнете уреда тук.",
-        "passwordManagerUnlock": "Въведете Вашата %p главна парола, за да отключите хранилището за пароли:",
-        /* Password save bar */
-        "passwordCaptureSavePassword": "Запази парола за %s?",
-        "passwordCaptureSave": "Запази",
-        "passwordCaptureDontSave": "Не запазвай",
-        /* Password viewer */
-        "savedPasswordsHeading": "Запазени пароли",
-        "savedPasswordsEmpty": "Няма запазени пароли.",
-        "deletePassword": "Изтрий парола за %s?",
-        /* Dialogs */
-        "loginPromptTitle": "Впишете се в %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
-        "dialogConfirmButton": "Потвърждаване",
-        "dialogSkipButton": "Отказване",
-        "username": "Потребителско име",
-        "email": "Имейл",
-        "password": "Парола",
-        "secretKey": "Таен ключ"
-    }
+    "showMoreBangs": "Показване на повече",
+    "viewSettings": "Преглед на настройките",
+    "takeScreenshot": "Правене на екранна снимка",
+    "clearHistory": "Изчистване на цялата история",
+    "enableBlocking": "Активиране на блокиране на съдържание за този сайт",
+    "disableBlocking": "Деактивиране на блокиране на съдържание за този сайт",
+    "clearHistoryConfirmation": "Изчистване на цялата история и данни за сърфиране?",
+    "switchToTask": "Превключване към задача",
+    "createTask": "Създай задача",
+    "closeTask": "Затвори задача",
+    "moveToTask": "Премести този раздел в задача",
+    "nameTask": "Наименувай тази задача",
+    "addBookmark": "Отмятане на страница",
+    "searchBookmarks": "Търсене на отметки",
+    "bookmarksAddTag": "Добавяне на таг...",
+    "bookmarksSimilarItems": "Подобни елементи",
+    "searchHistory": "История на търсенията",
+    "importBookmarks": "Внасяне на отметки от HTML файл",
+    "exportBookmarks": "Изнасяне на отметки",
+    "runUserscript": "Изпълняване на потребителски скрипт",
+    /* navbar */
+    "openMenu": "Отваряне на меню", //application menu button on windows
+    "enterReaderView": "Влизане в изглед на четене",
+    "exitReaderView": "Излизане от изглед на четене",
+    "newTabLabel": "Нов раздел", //this is a noun, used for tabs that don't have a page loaded in them yet
+    "connectionNotSecure": "Връзката Ви с този уеб сайт не е защитена.",
+    "searchbarPlaceholder": "Потърсете или въведете адрес",
+    "privateTab": "Поверителен раздел",
+    "newTabAction": "Отваряне на нов раздел", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+    /* task overlay */
+    "viewTasks": "Преглеждане на задачи",
+    "newTask": "Отваряне на нова задача", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "defaultTaskName": "Задача %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+    "taskDeleteWarning": {
+      "unsafeHTML": "Задачата е изтрита. <a>Върни обратно?</a>"
+    },
+    "returnToTask": "Връщане към предишната задача",
+    "taskDescriptionTwo": "%t и %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
+    "taskDescriptionThree": "%t, %t, и още %n", //used to describe a task that has three or more tabs
+    /* find in page toolbar */
+    "searchInPage": "Търсене във страницата", //this is used as the placeholder text for the textbox in the find in page toolbar
+    "findMatchesSingular": "%i от %t съвпадение", //this and the next label are used to indicate which match is currently highlighted
+    "findMatchesPlural": "%i от %t съвпадения",
+    /* Focus mode */
+    "isFocusMode": "Вие сте в режим на фокусиране.",
+    "closeDialog": "Добре", //used as a label for the button that closes the dialog
+    "focusModeExplanation1": "В режим на фокусиране не може да създавате нови раздели или да превключвате задачи.",
+    "focusModeExplanation2": "Може да излезете от режим на фокусиране, като премахнете отметката на \"режим фокусиране\" в менюто за изглед.",
+    /* relative dates */
+    "timeRangeJustNow": "Току що",
+    "timeRangeMinutes": "Преди няколко минути",
+    "timeRangeHour": "През изминалия час",
+    "timeRangeToday": "Днес",
+    "timeRangeYesterday": "Вчера",
+    "timeRangeWeek": "През изминалата седмица",
+    "timeRangeMonth": "През изминалия месец",
+    "timeRangeYear": "През изминалата година",
+    "timeRangeLongerAgo": "Много отдавна",
+    /* pages/error/index.html */
+    "crashErrorTitle": "Нещо се обърка.",
+    "crashErrorSubtitle": "Възникна проблем при показването на тази страница.",
+    "errorPagePrimaryAction": "Опитайте отново",
+    "serverNotFoundTitle": "Сървърът не е намерен",
+    "serverNotFoundSubtitle": "Min не успя да намери този уеб сайт.",
+    "archiveSearchAction": "Търсене в archive.org",
+    "sslErrorTitle": "Този уеб сайт не е наличен",
+    "sslErrorMessage": "Min не успя да се свърже сигурно с този уеб сайт.",
+    "dnsErrorTitle": "Уеб сайтът не е намерен",
+    "dnsErrorMessage": "Възникна DNS грешка.",
+    "offlineErrorTitle": "Вие сте офлайн",
+    "offlineErrorMessage": "Свържете се отново с интернет и опитайте пак.",
+    "genericConnectionFail": "Min не успя да се свърже към уеб сайта.",
+    "sslTimeErrorMessage": "Min не успя да се свърже сигурно с този уеб сайт. Моля уверете се, че часовникът на Вашият компютър е настроен правилно.",
+    "addressInvalidTitle": "Този адрес е невалиден.",
+    "genericError": "Възникна грешка",
+    /* pages/phishing/index.html */
+    "phishingErrorTitle": "Този сайт може да Ви навреди.",
+    "phishingErrorMessage": "Този уеб сайт може да се опитва да открадне Вашата личната информация, като пароли или банкова информация.",
+    "phishingErrorVisitAnyway": "Продължаване въпреки риска",
+    "phishingErrorLeave": "Напускане на сайта",
+    /* multiple instances alert */
+    "multipleInstancesErrorMessage": "Възникна грешка. Моля затворете всякакви други инстанции и рестартирайте Min.",
+    /* pages/sessionRestoreError/index.html */
+    "sessionRestoreErrorTitle": "Възникна грешка",
+    "sessionRestoreErrorExplanation": "Вашите запазени раздели не можаха да бъдат възстановени правилно.",
+    "sessionRestoreErrorBackupInfo": "Запазили сме резервно копие на Вашите данни на това място: %l.", //%l will be replaced with a path to a file
+    "sessionRestoreErrorLinkInfo": {
+      "unsafeHTML": "Ако тази грешка продължи да се появява, моля отворете нов проблем <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">тук</a>."
+    },
+    /* pages/settings/index.html */
+    "settingsPreferencesHeading": "Предпочитания",
+    "settingsRestartRequired": "Трябва да рестартирате браузъра, за да бъдат приложени промените.",
+    "settingsPrivacyHeading": "Блокиране на съдържание",
+    "settingsContentBlockingLevel0": "Разрешаване на всички реклами и преследвачи",
+    "settingsContentBlockingLevel1": "Блокиране на реклами и преследвачи от трети лица",
+    "settingsContentBlockingLevel2": "Блокиране на всички реклами и преследвачи",
+    "settingsContentBlockingExceptions": "Реклами ще бъдат позволени на тези уеб сайтове:",
+    "settingsBlockScriptsToggle": "Блокиране на скриптове",
+    "settingsBlockImagesToggle": "Блокиране на изображения",
+    "settingsBlockedRequestCount": {
+      "unsafeHTML": "Досега Min е блокирал <strong></strong> реклами и тракери."
+    },
+    "settingsCustomizeFiltersLink": "Персонализирайте филтрите",
+    "settingsAppearanceHeading": "Изглед",
+    "settingsEnableDarkMode": "Активиране на тъмен режим:",
+    "settingsDarkModeNever": "Никога",
+    "settingsDarkModeNight": "През нощта",
+    "settingsDarkModeAlways": "Винаги",
+    "settingsSiteThemeToggle": "Активиране на теми на сайтове",
+    "settingsAdditionalFeaturesHeading": "Допълнителни функции",
+    "settingsUserscriptsToggle": "Активиране на потребителски скриптове",
+    "settingsSeparateTitlebarToggle": "Използване на отделна лента със заглавието",
+    "settingsOpenTabsInForegroundToggle": "Отваряне на нови раздели на преден план",
+    "settingsUserscriptsExplanation": {
+      "unsafeHTML": "Потребителските скриптове Ви позволяват да промените поведението на уеб сайтове - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">научете повече</a>."
+    },
+    "settingsUserAgentToggle": "Използване на персонализиран потребителски агент",
+    "settingsUpdateNotificationsToggle": "Автоматично проверяване за актуализации",
+    "settingsSearchEngineHeading": "Търсачки",
+    "settingsDefaultSearchEngine": "Изберете търсачка по подразбиране:",
+    "settingsDDGExplanation": "Поставете DuckDuckGo като търсачка по подразбиране, за да получавате моментални отговори в лентата за търсене.",
+    "customSearchEngineDescription": "Заменете думата за търсене със %s",
+    "settingsKeyboardShortcutsHeading": "Комбинации от клавиши",
+    "settingsKeyboardShortcutsHelp": "Използвайте запетаи, за да разделите множество комбинации за клавиши.",
+    "settingsProxyHeading": "Мрежов посредник",
+    "settingsNoProxy": "Без мрежов посредник",
+    "settingsManualProxy": "Ръчна настройка",
+    "settingsAutomaticProxy": "Автоматична настройка",
+    "settingsProxyRules": "Правила на мрежовия посредник:",
+    "settingsProxyBypassRules": "Без мрежов посредник за:",
+    "settingsProxyConfigurationURL": "Адрес за конфигурация",
+    /* app menu */
+    "appMenuFile": "Файл",
+    "appMenuNewTab": "Нов раздел",
+    "appMenuDuplicateTab": "Дупликиране на раздела",
+    "appMenuNewPrivateTab": "Нов поверителен раздел",
+    "appMenuNewTask": "Нова задача",
+    "appMenuSavePageAs": "Запазване на страницата като",
+    "appMenuPrint": "Отпечатване",
+    "appMenuEdit": "Редактиране",
+    "appMenuUndo": "Връщане обратно",
+    "appMenuRedo": "Отиване напред",
+    "appMenuCut": "Изрязване",
+    "appMenuCopy": "Копиране",
+    "appMenuPaste": "Поставяне",
+    "appMenuSelectAll": "Избиране на всичко",
+    "appMenuFind": "Търсене",
+    "appMenuView": "Изглед",
+    "appMenuZoomIn": "Увеличаване на мащаб",
+    "appMenuZoomOut": "Намаляване на мащаб",
+    "appMenuActualSize": "Нулиране на мащабирането",
+    "appMenuFullScreen": "Цял екран", //on some platforms, this string is replaced with one built-in to the OS
+    "appMenuFocusMode": "Режим на фокусиране",
+    "appMenuBookmarks": "Отметки",
+    "appMenuHistory": "История",
+    "appMenuDeveloper": "Разработчик",
+    "appMenuReloadBrowser": "Презареди браузър",
+    "appMenuInspectBrowser": "Изследване на браузър",
+    "appMenuInspectPage": "Изследване на страница",
+    "appMenuWindow": "Прозорец",
+    "appMenuMinimize": "Минимизиране",
+    "appMenuClose": "Затваряне",
+    "appMenuAlwaysOnTop": "Винаги най-отгоре",
+    "appMenuHelp": "Помощ",
+    "appMenuKeyboardShortcuts": "Комбинации за клавиши",
+    "appMenuReportBug": "Докладване на проблем",
+    "appMenuTakeTour": "Направете обиколка",
+    "appMenuViewGithub": "Вижте в GitHub",
+    "appMenuAbout": "Относно %n", //%n is replaced with app name
+    "appMenuPreferences": "Предпочитания",
+    "appMenuServices": "Услуги",
+    "appMenuHide": "Скрий %n",
+    "appMenuHideOthers": "Скрий други",
+    "appMenuShowAll": "Покажи всички",
+    "appMenuQuit": "Излизане от %n",
+    "appMenuBringToFront": "Извеждане на всички отпред",
+    /* PDF Viewer */
+    "PDFPageCounter": {
+      "unsafeHTML": "страница <input type='text'/> от <span id='total'></span>"
+    },
+    /* Context Reader */
+    "buttonReaderSettings": "Настройки на четец",
+    "buttonReaderLightTheme": "Светла",
+    "buttonReaderSepiaTheme": "Сепия",
+    "buttonReaderDarkTheme": "Тъмна",
+    "openReaderView": "Винаги отваряй в режим на четене",
+    "autoRedirectBannerReader": "Винаги отваряй статии от този сайт в режим на четене?",
+    "buttonReaderRedirectYes": "Да",
+    "buttonReaderRedirectNo": "Не",
+    "articleReaderView": "Оригинална статия",
+    /* Download manager */
+    "downloadCancel": "Отказ",
+    "downloadStateCompleted": "Завършено",
+    "downloadStateFailed": "Провалено",
+    /* Update Notifications */
+    "updateNotificationTitle": "Налична е нова версия на Min",
+    /* Autofill settings */
+    "settingsPasswordAutoFillHeadline": "Автоматично попълване на пароли",
+    "settingsSelectPasswordManager": "Изберете един от поддържаните мениджъри на пароли:",
+    "keychainViewPasswords": "Виж запазени пароли",
+    /* Password manager setup */
+    "passwordManagerSetupHeading": "Завършете настройване на %p да попълва пароли",
+    "passwordManagerSetupStep1": {
+      "unsafeHTML": "Първо, <a id='password-manager-setup-link'></a> и го извлечете за Вашата система."
+    },
+    "passwordManagerInstallerSetup": {
+      "unsafeHTML": "Изтеглете <a id='password-manager-setup-link-installer'></a> и плъзнете файла в полето отдолу:"
+    },
+    "passwordManagerSetupLink": "изтеглете %p CLI инструмента",
+    "passwordManagerSetupLinkInstaller": "%p CLI инсталатор",
+    "passwordManagerSetupStep2": "След това плъзнете уреда в полето отдолу:",
+    "passwordManagerSetupDragBox": "Плъзнете уреда тук",
+    "passwordManagerSetupInstalling": "Инсталиране...",
+    "passwordManagerSetupSignIn": "Впишете се във Вашия мениджър на пароли, за да започнете употребата на автоматично попълване. Вашите пълномощия няма да се съхраняват никъде в Min.",
+    "disableAutofill": "Деактивиране на автоматично попълване на пароли",
+    "passwordManagerSetupUnlockError": "Неуспешно отключване на хранилището за пароли: ",
+    "passwordManagerSetupRetry": "Уверете се, че използвате правилния файл и въвеждате правилна парола. Може да пробвате отново, като пак плъзнете уреда тук.",
+    "passwordManagerUnlock": "Въведете Вашата %p главна парола, за да отключите хранилището за пароли:",
+    /* Password save bar */
+    "passwordCaptureSavePassword": "Запази парола за %s?",
+    "passwordCaptureSave": "Запази",
+    "passwordCaptureDontSave": "Не запазвай",
+    /* Password viewer */
+    "savedPasswordsHeading": "Запазени пароли",
+    "savedPasswordsEmpty": "Няма запазени пароли.",
+    "deletePassword": "Изтрий парола за %s?",
+    /* Dialogs */
+    "loginPromptTitle": "Впишете се в %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "dialogConfirmButton": "Потвърждаване",
+    "dialogSkipButton": "Отказване",
+    "username": "Потребителско име",
+    "email": "Имейл",
+    "password": "Парола",
+    "secretKey": "Таен ключ"
+  }
 }
