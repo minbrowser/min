@@ -1,15 +1,15 @@
-var searchbarPlugins = require('searchbar/searchbarPlugins.js')
-var searchbarUtils = require('searchbar/searchbarUtils.js')
-var urlParser = require('util/urlParser.js')
+const searchbarPlugins = require('searchbar/searchbarPlugins.js')
+const searchbarUtils = require('searchbar/searchbarUtils.js')
+const urlParser = require('util/urlParser.js')
 
-var places = require('places/places.js')
+const places = require('places/places.js')
 
 function showPlaceSuggestions (text, input, event) {
   // use the current tab's url for history suggestions, or the previous tab if the current tab is empty
-  var url = tabs.get(tabs.getSelected()).url
+  let url = tabs.get(tabs.getSelected()).url
 
   if (!url) {
-    var previousTab = tabs.getAtIndex(tabs.getIndex(tabs.getSelected()) - 1)
+    const previousTab = tabs.getAtIndex(tabs.getIndex(tabs.getSelected()) - 1)
     if (previousTab) {
       url = previousTab.url
     }
@@ -18,7 +18,7 @@ function showPlaceSuggestions (text, input, event) {
   places.getPlaceSuggestions(url, function (results) {
     searchbarPlugins.reset('placeSuggestions')
 
-    var tabList = tabs.get().map(function (tab) {
+    const tabList = tabs.get().map(function (tab) {
       return tab.url
     })
 

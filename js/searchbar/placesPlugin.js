@@ -1,17 +1,17 @@
-var searchbar = require('searchbar/searchbar.js')
-var searchbarPlugins = require('searchbar/searchbarPlugins.js')
-var searchbarUtils = require('searchbar/searchbarUtils.js')
-var searchbarAutocomplete = require('util/autocomplete.js')
-var urlParser = require('util/urlParser.js')
-var readerDecision = require('readerDecision.js')
+const searchbar = require('searchbar/searchbar.js')
+const searchbarPlugins = require('searchbar/searchbarPlugins.js')
+const searchbarUtils = require('searchbar/searchbarUtils.js')
+const searchbarAutocomplete = require('util/autocomplete.js')
+const urlParser = require('util/urlParser.js')
+const readerDecision = require('readerDecision.js')
 
-var places = require('places/places.js')
-var searchEngine = require('util/searchEngine.js')
+const places = require('places/places.js')
+const searchEngine = require('util/searchEngine.js')
 
-var currentResponseSent = 0
+let currentResponseSent = 0
 
 function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
-  var responseSent = Date.now()
+  const responseSent = Date.now()
 
   if (pluginName === 'fullTextPlaces') {
     var searchFn = places.searchPlacesFullText
@@ -22,7 +22,7 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
   }
 
   // only autocomplete an item if the delete key wasn't pressed
-  var canAutocomplete = event && event.keyCode !== 8
+  let canAutocomplete = event && event.keyCode !== 8
 
   searchFn(text, function (results) {
     // prevent responses from returning out of order
@@ -37,27 +37,27 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
     results = results.slice(0, resultCount)
 
     results.forEach(function (result, index) {
-      var didAutocompleteResult = false
+      let didAutocompleteResult = false
 
-      var searchQuery = searchEngine.getSearch(result.url)
+      const searchQuery = searchEngine.getSearch(result.url)
 
       if (canAutocomplete) {
         // if the query is autocompleted, pressing enter will search for the result using the current search engine, so only pages from the current engine should be autocompleted
         if (searchQuery && searchQuery.engine === searchEngine.getCurrent().name && index === 0) {
-          var acResult = searchbarAutocomplete.autocomplete(input, [searchQuery.search])
+          const acResult = searchbarAutocomplete.autocomplete(input, [searchQuery.search])
           if (acResult.valid) {
             canAutocomplete = false
             didAutocompleteResult = true
           }
         } else {
-          var autocompletionType = searchbarAutocomplete.autocompleteURL(input, result.url)
+          const autocompletionType = searchbarAutocomplete.autocompleteURL(input, result.url)
 
           if (autocompletionType !== -1) {
             canAutocomplete = false
           }
 
           if (autocompletionType === 0) { // the domain was autocompleted, show a domain result item
-            var domain = new URL(result.url).hostname
+            const domain = new URL(result.url).hostname
 
             searchbarPlugins.setTopAnswer(pluginName, {
               title: domain,
@@ -71,7 +71,7 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
         }
       }
 
-      var data = {
+      const data = {
         url: result.url,
         metadata: result.tags,
         delete: function () {

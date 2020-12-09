@@ -41,7 +41,7 @@ var settings = {
     settings.runChangeCallacks()
   },
   initialize: function () {
-    var fileData
+    let fileData
     try {
       fileData = fs.readFileSync(settings.filePath, 'utf-8')
     } catch (e) {

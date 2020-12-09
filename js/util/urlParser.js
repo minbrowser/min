@@ -13,7 +13,7 @@ var urlParser = {
       return url
     }
 
-    var withoutProtocol = url.replace('http://', '').replace('https://', '').replace('file://', '') // chrome:, about:, data: protocols intentionally not removed
+    const withoutProtocol = url.replace('http://', '').replace('https://', '').replace('file://', '') // chrome:, about:, data: protocols intentionally not removed
 
     if (withoutProtocol.indexOf('www.') === 0) {
       return withoutProtocol.replace('www.', '')
@@ -27,7 +27,7 @@ var urlParser = {
       return true
     }
     // a host from the hosts file is also a URL
-    var hostPart = url.replace(/(:|\/).+/, '')
+    const hostPart = url.replace(/(:|\/).+/, '')
     return hosts.indexOf(hostPart) > -1
   },
   parse: function (url) {
@@ -38,7 +38,7 @@ var urlParser = {
     }
 
     if (url.indexOf('view-source:') === 0) {
-      var realURL = url.replace('view-source:', '')
+      const realURL = url.replace('view-source:', '')
 
       return 'view-source:' + urlParser.parse(realURL)
     }
@@ -46,8 +46,8 @@ var urlParser = {
     // if the URL is an internal URL, convert it to the correct file:// url
     if (url.startsWith('min:')) {
       try {
-        var urlObj = new URL(url)
-        var path = urlObj.pathname.replace('//', '')
+        const urlObj = new URL(url)
+        const path = urlObj.pathname.replace('//', '')
         if (/^[a-zA-Z]+$/.test(path)) {
           // only paths with letters are allowed
           return urlParser.getFileURL(__dirname + '/pages/' + path + '/index.html' + urlObj.search)
@@ -72,7 +72,7 @@ var urlParser = {
   },
   prettyURL: function (url) {
     try {
-      var urlOBJ = new URL(url)
+      const urlOBJ = new URL(url)
       return (urlOBJ.hostname + urlOBJ.pathname).replace(urlParser.startingWWWRegex, '$1').replace(urlParser.trailingSlashRegex, '')
     } catch (e) { // URL constructor will throw an error on malformed URLs
       return url
@@ -84,7 +84,7 @@ var urlParser = {
   getSourceURL: function (url) {
     // converts internal URLs (like the PDF viewer or the reader view) to the URL of the page they are displaying
     if (urlParser.isInternalURL(url)) {
-      var representedURL
+      let representedURL
       try {
         representedURL = new URLSearchParams(new URL(url).search).get('url')
       } catch (e) {}
@@ -92,8 +92,8 @@ var urlParser = {
         return representedURL
       } else {
         try {
-          var pageName = url.match(/\/pages\/([a-zA-Z]+)\//)
-          var urlObj = new URL(url)
+          const pageName = url.match(/\/pages\/([a-zA-Z]+)\//)
+          const urlObj = new URL(url)
           if (pageName) {
             return 'min://' + pageName[1] + urlObj.search
           }

@@ -1,9 +1,9 @@
 ipc.on('open-context-menu', function (e, data) {
-  var menu = new Menu()
+  const menu = new Menu()
 
   data.template.forEach(function (section) {
     section.forEach(function (item) {
-      var id = item.click
+      const id = item.click
       item.click = function () {
         e.sender.send('context-menu-item-selected', { menuId: data.id, itemId: id })
       }
