@@ -1,8 +1,8 @@
-var searchbar = require('searchbar/searchbar.js')
-var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+const searchbar = require('searchbar/searchbar.js')
+const searchbarPlugins = require('searchbar/searchbarPlugins.js')
 
-var urlParser = require('util/urlParser.js')
-var searchEngine = require('util/searchEngine.js')
+const urlParser = require('util/urlParser.js')
+const searchEngine = require('util/searchEngine.js')
 
 function showSearchSuggestions (text, input, event) {
   // TODO support search suggestions for other search engines
@@ -32,7 +32,7 @@ function showSearchSuggestions (text, input, event) {
       if (results) {
         results = results.slice(0, 3)
         results.forEach(function (result) {
-          var data = {
+          const data = {
             title: result.phrase,
             url: result.phrase
           }
@@ -43,7 +43,7 @@ function showSearchSuggestions (text, input, event) {
             data.icon = 'carbon:search'
           }
 
-          var item = searchbarPlugins.addResult('searchSuggestions', data)
+          const item = searchbarPlugins.addResult('searchSuggestions', data)
         })
       }
     })

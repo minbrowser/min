@@ -1,8 +1,8 @@
-var regedit = require('regedit')
+const regedit = require('regedit')
 
-var installPath = process.execPath
+const installPath = process.execPath
 
-var keysToCreate = [
+const keysToCreate = [
   'HKCU\\Software\\Classes\\Min',
   'HKCU\\Software\\Classes\\Min\\Application',
   'HKCU\\Software\\Classes\\Min\\DefaulIcon',
@@ -15,7 +15,7 @@ var keysToCreate = [
   'HKCU\\Software\\Clients\\StartMenuInternet\\Min\\shell\\open\\command'
 ]
 
-var registryConfig = {
+const registryConfig = {
   'HKCU\\Software\\RegisteredApplications': {
     Min: {
       value: 'Software\\Clients\\StartMenuInternet\\Min\\Capabilities',
@@ -112,7 +112,7 @@ var registryConfig = {
   }
 }
 
-var registryInstaller = {
+const registryInstaller = {
   install: function () {
     return new Promise(function (resolve, reject) {
       regedit.createKey(keysToCreate, function (err) {

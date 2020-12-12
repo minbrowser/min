@@ -8,25 +8,25 @@ const passwordViewer = {
   emptyHeading: document.getElementById('password-viewer-empty'),
   closeButton: document.querySelector('#password-viewer .modal-close-button'),
   createCredentialListElement: function (credential) {
-    var container = document.createElement('div')
+    const container = document.createElement('div')
 
-    var domainEl = document.createElement('span')
+    const domainEl = document.createElement('span')
     domainEl.className = 'domain-name'
     domainEl.textContent = credential.domain
     container.appendChild(domainEl)
 
-    var usernameEl = document.createElement('input')
+    const usernameEl = document.createElement('input')
     usernameEl.value = credential.username
     usernameEl.disabled = true
     container.appendChild(usernameEl)
 
-    var passwordEl = document.createElement('input')
+    const passwordEl = document.createElement('input')
     passwordEl.type = 'password'
     passwordEl.value = credential.password
     passwordEl.disabled = true
     container.appendChild(passwordEl)
 
-    var revealButton = document.createElement('button')
+    const revealButton = document.createElement('button')
     revealButton.className = 'i carbon:view'
     revealButton.addEventListener('click', function () {
       if (passwordEl.type === 'password') {
@@ -41,7 +41,7 @@ const passwordViewer = {
     })
     container.appendChild(revealButton)
 
-    var deleteButton = document.createElement('button')
+    const deleteButton = document.createElement('button')
     deleteButton.className = 'i carbon:trash-can'
     container.appendChild(deleteButton)
 

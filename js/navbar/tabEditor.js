@@ -1,10 +1,10 @@
-var searchbar = require('searchbar/searchbar.js')
-var webviews = require('webviews.js')
-var modalMode = require('modalMode.js')
-var urlParser = require('util/urlParser.js')
-var keyboardNavigationHelper = require('util/keyboardNavigationHelper.js')
-var bookmarkStar = require('navbar/bookmarkStar.js')
-var contentBlockingToggle = require('navbar/contentBlockingToggle.js')
+const searchbar = require('searchbar/searchbar.js')
+const webviews = require('webviews.js')
+const modalMode = require('modalMode.js')
+const urlParser = require('util/urlParser.js')
+const keyboardNavigationHelper = require('util/keyboardNavigationHelper.js')
+const bookmarkStar = require('navbar/bookmarkStar.js')
+const contentBlockingToggle = require('navbar/contentBlockingToggle.js')
 
 const tabEditor = {
   container: document.getElementById('tab-editor'),
@@ -25,7 +25,7 @@ const tabEditor = {
 
     document.body.classList.add('is-edit-mode')
 
-    var currentURL = urlParser.getSourceURL(tabs.get(tabId).url)
+    let currentURL = urlParser.getSourceURL(tabs.get(tabId).url)
     if (currentURL === 'min://newtab') {
       currentURL = ''
     }
@@ -49,12 +49,12 @@ const tabEditor = {
     /* animation */
     if (tabs.count() > 1) {
       requestAnimationFrame(function () {
-        var item = document.querySelector(`.tab-item[data-tab="${tabId}"]`)
-        var originCoordinates = item.getBoundingClientRect()
+        const item = document.querySelector(`.tab-item[data-tab="${tabId}"]`)
+        const originCoordinates = item.getBoundingClientRect()
 
-        var finalCoordinates = document.querySelector('#tabs').getBoundingClientRect()
+        const finalCoordinates = document.querySelector('#tabs').getBoundingClientRect()
 
-        var translateX = Math.min(Math.round(originCoordinates.x - finalCoordinates.x) * 0.45, window.innerWidth)
+        const translateX = Math.min(Math.round(originCoordinates.x - finalCoordinates.x) * 0.45, window.innerWidth)
 
         tabEditor.container.style.opacity = 0
         tabEditor.container.style.transform = `translateX(${translateX}px)`
@@ -119,8 +119,8 @@ const tabEditor = {
 
       // on keydown, if the autocomplete result doesn't change, we move the selection instead of regenerating it to avoid race conditions with typing. Adapted from https://github.com/patrickburke/jquery.inlineComplete
 
-      var v = e.key
-      var sel = this.value.substring(this.selectionStart, this.selectionEnd).indexOf(v)
+      const v = e.key
+      const sel = this.value.substring(this.selectionStart, this.selectionEnd).indexOf(v)
 
       if (v && sel === 0) {
         this.selectionStart += 1

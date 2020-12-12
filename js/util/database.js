@@ -5,10 +5,10 @@ if (typeof Dexie === 'undefined' && typeof require !== 'undefined') {
   var Dexie = require('dexie')
 }
 
-var dbErrorMessage = 'Internal error opening backing store for indexedDB.open'
-var dbErrorAlertShown = false
+const dbErrorMessage = 'Internal error opening backing store for indexedDB.open'
+let dbErrorAlertShown = false
 
-var db = new Dexie('browsingData2')
+const db = new Dexie('browsingData2')
 
 db.version(1).stores({
   /*

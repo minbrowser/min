@@ -1,6 +1,6 @@
-var pendingPermissions = []
-var grantedPermissions = []
-var nextPermissionId = 1
+let pendingPermissions = []
+let grantedPermissions = []
+let nextPermissionId = 1
 
 /*
 All permission requests are given to the renderer on each change,
@@ -30,10 +30,10 @@ function removePermissionsForContents (contents) {
 Was permission already granted for this tab and URL?
 */
 function isPermissionGrantedForContents (requestContents, requestPermission, requestDetails) {
-  var requestOrigin = new URL(requestDetails.requestingUrl).hostname
+  const requestOrigin = new URL(requestDetails.requestingUrl).hostname
 
   for (var i = 0; i < grantedPermissions.length; i++) {
-    var grantedOrigin = new URL(grantedPermissions[i].details.requestingUrl).hostname
+    const grantedOrigin = new URL(grantedPermissions[i].details.requestingUrl).hostname
 
     if (requestContents === grantedPermissions[i].contents && requestOrigin === grantedOrigin) {
       if (requestPermission === 'notifications' && grantedPermissions[i].permission === 'notifications') {
@@ -62,10 +62,10 @@ function isPermissionGrantedForContents (requestContents, requestPermission, req
 Is there already a pending request of the given type for this tab+url?
  */
 function hasPendingRequestForContents (contents, permission, details) {
-  var requestOrigin = new URL(details.requestingUrl).hostname
+  const requestOrigin = new URL(details.requestingUrl).hostname
 
-  for (var i = 0; i < pendingPermissions.length; i++) {
-    var pendingOrigin = new URL(pendingPermissions[i].details.requestingUrl).hostname
+  for (let i = 0; i < pendingPermissions.length; i++) {
+    const pendingOrigin = new URL(pendingPermissions[i].details.requestingUrl).hostname
 
     if (contents === pendingPermissions[i].contents && requestOrigin === pendingOrigin && permission === pendingPermissions[i].permission) {
       return true
@@ -155,7 +155,7 @@ app.on('session-created', function (session) {
 })
 
 ipc.on('permissionGranted', function (e, permissionId) {
-  for (var i = 0; i < pendingPermissions.length; i++) {
+  for (let i = 0; i < pendingPermissions.length; i++) {
     if (permissionId && pendingPermissions[i].permissionId === permissionId) {
       pendingPermissions[i].granted = true
       pendingPermissions[i].callback(true)

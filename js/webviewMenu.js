@@ -11,9 +11,9 @@ const remoteMenu = require('remoteMenuRenderer.js')
 const webviewMenu = {
   menuData: null,
   showMenu: function (data, extraData) { // data comes from a context-menu event
-    var currentTab = tabs.get(tabs.getSelected())
+    const currentTab = tabs.get(tabs.getSelected())
 
-    var menuSections = []
+    const menuSections = []
 
     const openInBackground = !settings.get('openTabsInForeground')
 
@@ -33,7 +33,7 @@ const webviewMenu = {
     /* Spellcheck */
 
     if (data.misspelledWord) {
-      var suggestionEntries = data.dictionarySuggestions.slice(0, 3).map(function (suggestion) {
+      const suggestionEntries = data.dictionarySuggestions.slice(0, 3).map(function (suggestion) {
         return {
           label: suggestion,
           click: function () {
@@ -60,7 +60,7 @@ const webviewMenu = {
 
     /* links */
 
-    var link = data.linkURL
+    let link = data.linkURL
 
     // show link items for embedded frames, but not the top-level page (which will also be listed as a frameURL)
     if (!link && data.frameURL && data.frameURL !== currentTab.url) {
@@ -72,10 +72,10 @@ const webviewMenu = {
       link = null
     }
 
-    var mediaURL = data.srcURL
+    const mediaURL = data.srcURL
 
     if (link) {
-      var linkActions = [
+      const linkActions = [
         {
           label: (link.length > 60) ? link.substring(0, 60) + '...' : link,
           enabled: false
@@ -110,7 +110,7 @@ const webviewMenu = {
       /* images */
       /* we don't show the image actions if there are already link actions, because it makes the menu too long and because the image actions typically aren't very useful if the image is a link */
 
-      var imageActions = [
+      const imageActions = [
         {
           label: (mediaURL.length > 60) ? mediaURL.substring(0, 60) + '...' : mediaURL,
           enabled: false
@@ -154,14 +154,14 @@ const webviewMenu = {
 
     /* selected text */
 
-    var selection = data.selectionText
+    const selection = data.selectionText
 
     if (selection) {
-      var textActions = [
+      const textActions = [
         {
           label: l('searchWith').replace('%s', searchEngine.getCurrent().name),
           click: function () {
-            var newTab = tabs.add({
+            const newTab = tabs.add({
               url: searchEngine.getCurrent().searchURL.replace('%s', encodeURIComponent(selection)),
               private: currentTab.private
             })
@@ -175,7 +175,7 @@ const webviewMenu = {
       menuSections.push(textActions)
     }
 
-    var clipboardActions = []
+    const clipboardActions = []
 
     if (mediaURL && data.mediaType === 'image') {
       clipboardActions.push({
@@ -204,7 +204,7 @@ const webviewMenu = {
 
     if (link || (mediaURL && !mediaURL.startsWith('blob:'))) {
       if (link && link.startsWith('mailto:')) {
-        var ematch = link.match(/(?<=mailto:)[^\?]+/)
+        const ematch = link.match(/(?<=mailto:)[^\?]+/)
         if (ematch) {
           clipboardActions.push({
             label: l('copyEmailAddress'),
@@ -227,7 +227,7 @@ const webviewMenu = {
       menuSections.push(clipboardActions)
     }
 
-    var navigationActions = [
+    const navigationActions = [
       {
         label: l('goBack'),
         click: function () {
@@ -260,14 +260,14 @@ const webviewMenu = {
 
     /* Userscripts */
 
-    var contextMenuScripts = userscripts.getMatchingScripts(tabs.get(tabs.getSelected()).url).filter(function (script) {
+    const contextMenuScripts = userscripts.getMatchingScripts(tabs.get(tabs.getSelected()).url).filter(function (script) {
       if (script.options['run-at'] && script.options['run-at'].includes('context-menu')) {
         return true
       }
     })
 
     if (contextMenuScripts.length > 0) {
-      var scriptActions = [
+      const scriptActions = [
         {
           label: l('runUserscript'),
           enabled: false
@@ -286,7 +286,7 @@ const webviewMenu = {
 
     // Electron's default menu position is sometimes wrong on Windows with a touchscreen
     // https://github.com/minbrowser/min/issues/903
-    var offset = webviews.getViewBounds()
+    const offset = webviews.getViewBounds()
     remoteMenu.open(menuSections, data.x + offset.x, data.y + offset.y)
   },
   initialize: function () {

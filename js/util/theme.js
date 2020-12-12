@@ -3,7 +3,7 @@ if (typeof require !== 'undefined') {
 }
 
 function shouldEnableDarkMode () {
-  var hours = new Date().getHours()
+  const hours = new Date().getHours()
   return (hours > 21 || hours < 6)
 }
 
@@ -23,7 +23,7 @@ function disableDarkMode () {
   })
 }
 
-var themeInterval = null
+let themeInterval = null
 
 function initialize () {
   settings.listen('darkMode', function (value) {

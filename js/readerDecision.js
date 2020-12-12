@@ -7,7 +7,7 @@ if (typeof require !== 'undefined') {
 
 const readerDecision = {
   trimURL: function (url) {
-    var loc = new URL(url)
+    const loc = new URL(url)
     loc.hash = ''
     return loc.toString()
   },
@@ -22,7 +22,7 @@ const readerDecision = {
     url = readerDecision.trimURL(url)
 
     try {
-      var urlObj = new URL(url)
+      const urlObj = new URL(url)
 
       if (readerDecision.info.URLStatus[url]) {
         // we have data collected from a previous visit to this page
@@ -68,8 +68,8 @@ const readerDecision = {
     return readerDecision.info.URLStatus[url].isReaderable
   },
   getSameDomainStatuses: function (url) {
-    var results = []
-    for (var itemURL in readerDecision.info.URLStatus) {
+    const results = []
+    for (const itemURL in readerDecision.info.URLStatus) {
       try {
         if (new URL(itemURL).hostname === new URL(url).hostname && itemURL !== url) {
           results.push(readerDecision.info.URLStatus[itemURL])
@@ -107,8 +107,8 @@ function saveData () {
 }
 
 function cleanupData () {
-  var removedEntries = false
-  for (var url in readerDecision.info.URLStatus) {
+  let removedEntries = false
+  for (const url in readerDecision.info.URLStatus) {
     if (Date.now() - readerDecision.info.URLStatus[url].lastVisit > 6 * 7 * 24 * 60 * 60 * 1000) {
       delete readerDecision.info.URLStatus[url]
       removedEntries = true

@@ -97,7 +97,7 @@ const PasswordManagers = {
           await PasswordManagers.unlock(manager)
         }
 
-        var domain = hostname
+        let domain = hostname
         if (domain.startsWith('www.')) {
           domain = domain.slice(4)
         }
@@ -109,7 +109,7 @@ const PasswordManagers = {
                 console.warn(err)
                 return
               }
-              var topLevelDomain = new URL(topLevelURL).hostname
+              let topLevelDomain = new URL(topLevelURL).hostname
               if (topLevelDomain.startsWith('www.')) {
                 topLevelDomain = topLevelDomain.slice(4)
               }

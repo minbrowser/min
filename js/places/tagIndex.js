@@ -6,14 +6,14 @@ var tagIndex = {
   tagCounts: {},
   tagUpdateTimes: {},
   getPageTokens: function (page) {
-    var urlChunk = ''
+    let urlChunk = ''
     try {
       // ignore the TLD, since it doesn't predict tags very well
       urlChunk = new URL(page.url).hostname.split('.').slice(0, -1).join('.')
     } catch (e) { }
-    var tokens = tokenize(page.title + ' ' + urlChunk)
+    let tokens = tokenize(page.title + ' ' + urlChunk)
 
-    var generic = ['www', 'com', 'net', 'html', 'pdf', 'file']
+    const generic = ['www', 'com', 'net', 'html', 'pdf', 'file']
     tokens = tokens.filter(t => t.length > 2 && !generic.includes(t))
 
     return tokens
@@ -25,7 +25,7 @@ var tagIndex = {
 
     tagIndex.totalDocs++
 
-    var tokens = tagIndex.getPageTokens(page)
+    const tokens = tagIndex.getPageTokens(page)
 
     tokens.filter((t, i) => tokens.indexOf(t) === i).forEach(function (token) {
       if (!tagIndex.termDocCounts[token]) {
@@ -83,7 +83,7 @@ var tagIndex = {
 
     tagIndex.totalDocs--
 
-    var tokens = tagIndex.getPageTokens(page)
+    const tokens = tagIndex.getPageTokens(page)
 
     tokens.filter((t, i) => tokens.indexOf(t) === i).forEach(function (token) {
       if (tagIndex.termDocCounts[token]) {
@@ -123,9 +123,9 @@ var tagIndex = {
     tagIndex.addPage(newPage)
   },
   getAllTagsRanked: function (page) {
-    var tokens = tagIndex.getPageTokens(page)
+    const tokens = tagIndex.getPageTokens(page)
     // get term frequency
-    var terms = {}
+    const terms = {}
     tokens.forEach(function (t) {
       if (!terms[t]) {
         terms[t] = 1
@@ -134,15 +134,15 @@ var tagIndex = {
       }
     })
 
-    var probs = {}
+    const probs = {}
 
-    for (var term in terms) {
-      var tf = terms[term] / tokens.length
-      var idf = Math.log(tagIndex.totalDocs / (tagIndex.termDocCounts[term] || 1))
-      var tfidf = tf * idf
+    for (const term in terms) {
+      const tf = terms[term] / tokens.length
+      const idf = Math.log(tagIndex.totalDocs / (tagIndex.termDocCounts[term] || 1))
+      const tfidf = tf * idf
 
       if (tagIndex.termTags[term]) {
-        for (var tag in tagIndex.termTags[term]) {
+        for (const tag in tagIndex.termTags[term]) {
           if (tagIndex.tagCounts[tag] < 2) {
             continue
           }
@@ -154,7 +154,7 @@ var tagIndex = {
       }
     }
 
-    var probsArr = Object.keys(tagIndex.tagCounts).map(key => { return { tag: key, value: probs[key] || 0 } })
+    let probsArr = Object.keys(tagIndex.tagCounts).map(key => { return { tag: key, value: probs[key] || 0 } })
 
     probsArr = probsArr.sort((a, b) => { return b.value - a.value })
 
@@ -164,12 +164,12 @@ var tagIndex = {
     return tagIndex.getAllTagsRanked(page).filter(p => p.value > 0.2).map(p => p.tag)
   },
   getSuggestedItemsForTags: function (tags) {
-    var set = historyInMemoryCache.filter(i => i.isBookmarked).map(p => {
+    let set = historyInMemoryCache.filter(i => i.isBookmarked).map(p => {
       return { page: p, tags: tagIndex.getSuggestedTags(p) }
     })
 
     set = set.filter(function (result) {
-      for (var i = 0; i < tags.length; i++) {
+      for (let i = 0; i < tags.length; i++) {
         if (!result.tags.includes(tags[i])) {
           return false
         }
@@ -181,7 +181,7 @@ var tagIndex = {
   },
   autocompleteTags: function (searchTags) {
     // find which tags are most frequently associated with the searched tags
-    var tagScores = []
+    const tagScores = []
 
     for (var tag in tagIndex.tagCounts) {
       var score = tagIndex.tagCounts[tag]
