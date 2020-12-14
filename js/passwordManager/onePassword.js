@@ -5,6 +5,10 @@ const path = require('path')
 class OnePassword {
   constructor () {
     this.sessionKey = null
+    this.sessionKeyCreated = 0
+    // https://support.1password.com/command-line/
+    // "Sessions automatically expire after 30 minutes of inactivity"
+    this.sessionKeyLifetime = 30 * 60 * 1000
     this.lastCallList = {}
     this.name = '1Password'
   }
@@ -67,11 +71,10 @@ class OnePassword {
   // Returns current 1Password-CLI status. If we have a session key, then
   // password store is considered unlocked.
   isUnlocked () {
-    return this.sessionKey != null
+    return this.sessionKey !== null && (Date.now() - this.sessionKeyCreated) < this.sessionKeyLifetime
   }
 
   // Tries to get a list of credential suggestions for a given domain name.
-  // If password store is locked, the method will try to unlock it by
   async getSuggestions (domain) {
     if (this.lastCallList[domain] != null) {
       return this.lastCallList[domain]
@@ -82,7 +85,7 @@ class OnePassword {
       return Promise.resolve([])
     }
 
-    if (this.sessionKey == null) {
+    if (!this.isUnlocked()) {
       throw new Error()
     }
 
@@ -99,13 +102,10 @@ class OnePassword {
   // Loads credential suggestions for given domain name.
   async loadSuggestions (command, domain) {
     try {
-      console.log('loadSuggestions')
       const process = new ProcessSpawner(command, ['list', 'items', '--session=' + this.sessionKey])
       const data = await process.executeSyncInAsyncContext()
-      console.log('got data of length ', data.length)
 
       const matches = JSON.parse(data)
-      console.log('got matches of length', matches.length)
 
       const credentials = matches.map(match => match).filter((match) => {
         try {
@@ -158,6 +158,7 @@ class OnePassword {
       }
 
       this.sessionKey = result
+      this.sessionKeyCreated = Date.now()
       return true
     } catch (ex) {
       const { error, data } = ex

@@ -71,7 +71,6 @@ class Bitwarden {
   }
 
   // Tries to get a list of credential suggestions for a given domain name.
-  // If password store is locked, the method will try to unlock it by
   async getSuggestions (domain) {
     if (this.lastCallList[domain] != null) {
       return this.lastCallList[domain]
@@ -82,7 +81,7 @@ class Bitwarden {
       return Promise.resolve([])
     }
 
-    if (this.sessionKey == null) {
+    if (!this.isUnlocked()) {
       throw new Error()
     }
 
