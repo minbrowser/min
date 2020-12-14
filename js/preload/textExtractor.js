@@ -6,13 +6,13 @@ function isVisible (el) {
 }
 
 function extractPageText (doc, win) {
-  const maybeNodes = [].slice.call(doc.body.childNodes)
-  const textNodes = []
+  var maybeNodes = [].slice.call(doc.body.childNodes)
+  var textNodes = []
 
-  const ignore = 'link, style, script, noscript, .hidden, [class*="-hidden"], .visually-hidden, .visuallyhidden, [role=presentation], [hidden], [style*="display:none"], [style*="display: none"], .ad, .dialog, .modal, select, svg, details:not([open])'
+  var ignore = 'link, style, script, noscript, .hidden, [class*="-hidden"], .visually-hidden, .visuallyhidden, [role=presentation], [hidden], [style*="display:none"], [style*="display: none"], .ad, .dialog, .modal, select, svg, details:not([open])'
 
   while (maybeNodes.length) {
-    const node = maybeNodes.shift()
+    var node = maybeNodes.shift()
 
     // if the node should be ignored, skip it and all of it's child nodes
     if (node.matches && node.matches(ignore)) {
@@ -31,18 +31,18 @@ function extractPageText (doc, win) {
     }
 
     // otherwise, add the node's text nodes to the list of text, and the other child nodes to the list of nodes to check
-    const childNodes = node.childNodes
-    const cnl = childNodes.length
+    var childNodes = node.childNodes
+    var cnl = childNodes.length
 
     for (var i = cnl - 1; i >= 0; i--) {
-      const childNode = childNodes[i]
+      var childNode = childNodes[i]
       maybeNodes.unshift(childNode)
     }
   }
 
-  let text = ''
+  var text = ''
 
-  const tnl = textNodes.length
+  var tnl = textNodes.length
 
   // combine the text of all of the accepted text nodes together
   for (var i = 0; i < tnl; i++) {
@@ -51,7 +51,7 @@ function extractPageText (doc, win) {
 
   // special meta tags
 
-  const mt = doc.head.querySelector('meta[name=description]')
+  var mt = doc.head.querySelector('meta[name=description]')
 
   if (mt) {
     text += ' ' + mt.content
@@ -67,13 +67,13 @@ function extractPageText (doc, win) {
 
 function getPageData (cb) {
   requestAnimationFrame(function () {
-    let text = extractPageText(document, window)
+    var text = extractPageText(document, window)
 
     // try to also extract text for same-origin iframes (such as the reader mode frame)
 
-    const frames = document.querySelectorAll('iframe')
+    var frames = document.querySelectorAll('iframe')
 
-    for (let x = 0; x < frames.length; x++) {
+    for (var x = 0; x < frames.length; x++) {
       try {
         text += '. ' + extractPageText(frames[x].contentDocument, frames[x].contentWindow)
       } catch (e) {}

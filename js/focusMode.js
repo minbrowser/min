@@ -1,4 +1,4 @@
-let isFocusMode = false
+var isFocusMode = false
 
 ipc.on('enterFocusMode', function () {
   isFocusMode = true

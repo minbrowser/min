@@ -1,16 +1,16 @@
-const tabEditor = require('navbar/tabEditor.js')
+var tabEditor = require('navbar/tabEditor.js')
 
-const searchbar = require('searchbar/searchbar.js')
-const searchbarPlugins = require('searchbar/searchbarPlugins.js')
-const searchbarAutocomplete = require('util/autocomplete.js')
+var searchbar = require('searchbar/searchbar.js')
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var searchbarAutocomplete = require('util/autocomplete.js')
 
-const searchEngine = require('util/searchEngine.js')
+var searchEngine = require('util/searchEngine.js')
 
 // format is {phrase, snippet, score, icon, fn, isCustom, isAction} to match https://ac.duckduckgo.com/ac?q=!
 
 // isAction describes whether the !bang is an action (like "open preferences"), or a place to search (like "search reading list items")
 
-const customBangs = []
+var customBangs = []
 
 function registerCustomBang (data) {
   customBangs.push({
@@ -32,16 +32,16 @@ function searchCustomBangs (text) {
 }
 
 function getCustomBang (text) {
-  const bang = text.split(' ')[0]
+  var bang = text.split(' ')[0]
   return customBangs.filter(function (item) {
     return item.phrase === bang
   })[0]
 }
 
 // format is {bang: count}
-const bangUseCounts = JSON.parse(localStorage.getItem('bangUseCounts') || '{}')
+var bangUseCounts = JSON.parse(localStorage.getItem('bangUseCounts') || '{}')
 
-const saveBangUseCounts = debounce(function () {
+var saveBangUseCounts = debounce(function () {
   localStorage.setItem('bangUseCounts', JSON.stringify(bangUseCounts))
 }, 10000)
 
@@ -74,8 +74,8 @@ function showBangSearchResults (text, results, input, event, limit = 5) {
   searchbarPlugins.reset('bangs')
 
   results.sort(function (a, b) {
-    let aScore = a.score || 1
-    let bScore = b.score || 1
+    var aScore = a.score || 1
+    var bScore = b.score || 1
     if (bangUseCounts[a.phrase]) {
       aScore *= bangUseCounts[a.phrase]
     }
@@ -89,7 +89,7 @@ function showBangSearchResults (text, results, input, event, limit = 5) {
   results.slice(0, limit).forEach(function (result, idx) {
     // autocomplete the bang, but allow the user to keep typing
 
-    const data = {
+    var data = {
       icon: result.icon,
       iconImage: result.image,
       title: result.snippet,
@@ -125,7 +125,7 @@ function getBangSearchResults (text, input, event) {
   // if there is a space in the text, show bang search suggestions (only supported for custom bangs)
 
   if (text.indexOf(' ') !== -1) {
-    const bang = getCustomBang(text)
+    var bang = getCustomBang(text)
 
     if (bang && bang.showSuggestions) {
       bang.showSuggestions(text.replace(bang.phrase, '').trimLeft(), input, event)
@@ -138,7 +138,7 @@ function getBangSearchResults (text, input, event) {
 
   // otherwise search for bangs
 
-  let resultsPromise
+  var resultsPromise
 
   // get results from DuckDuckGo if it is a search engine, and the current tab is not a private tab
   if (searchEngine.getCurrent().name === 'DuckDuckGo' && !tabs.get(tabs.getSelected()).private) {
@@ -197,7 +197,7 @@ function initialize () {
     if (url.indexOf('!') === 0) {
       incrementBangCount(url.split(' ')[0])
 
-      const bang = getCustomBang(url)
+      var bang = getCustomBang(url)
 
       if ((!bang || !bang.isAction) && url.split(' ').length === 1 && !url.endsWith(' ')) {
         // the bang is non-custom or a custom bang that requires search text, so add a space after it

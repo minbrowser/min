@@ -2,7 +2,7 @@ if (typeof require !== 'undefined') {
   var settings = require('util/settings.js')
 }
 
-const passwordManagers = {
+var passwordManagers = {
   none: {
     name: 'none'
   },
@@ -17,7 +17,7 @@ const passwordManagers = {
   }
 }
 
-let currentPasswordManager = null
+var currentPasswordManager = null
 settings.listen('passwordManager', function (value) {
   if (value && value.name) {
     currentPasswordManager = value

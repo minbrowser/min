@@ -1,6 +1,6 @@
-const webviews = require('webviews.js')
-const keybindings = require('keybindings.js')
-const PDFViewer = require('pdfViewer.js')
+var webviews = require('webviews.js')
+var keybindings = require('keybindings.js')
+var PDFViewer = require('pdfViewer.js')
 
 var findinpage = {
   container: document.getElementById('findinpage-bar'),
@@ -34,7 +34,7 @@ var findinpage = {
   },
   end: function (options) {
     options = options || {}
-    const action = options.action || 'keepSelection'
+    var action = options.action || 'keepSelection'
 
     findinpage.container.hidden = true
 
@@ -106,7 +106,7 @@ webviews.bindEvent('did-start-navigation', function (tabId, url, isInPlace, isMa
 
 webviews.bindEvent('found-in-page', function (tabId, data) {
   if (data.matches !== undefined) {
-    let text
+    var text
     if (data.matches === 1) {
       text = l('findMatchesSingular')
     } else {

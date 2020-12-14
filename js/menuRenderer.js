@@ -1,14 +1,14 @@
 /* Handles messages that get sent from the menu bar in the main process */
 
-const webviews = require('webviews.js')
-const webviewGestures = require('webviewGestures.js')
-const browserUI = require('browserUI.js')
-const focusMode = require('focusMode.js')
-const modalMode = require('modalMode.js')
-const findinpage = require('findinpage.js')
-const PDFViewer = require('pdfViewer.js')
-const tabEditor = require('navbar/tabEditor.js')
-const readerView = require('readerView.js')
+var webviews = require('webviews.js')
+var webviewGestures = require('webviewGestures.js')
+var browserUI = require('browserUI.js')
+var focusMode = require('focusMode.js')
+var modalMode = require('modalMode.js')
+var findinpage = require('findinpage.js')
+var PDFViewer = require('pdfViewer.js')
+var tabEditor = require('navbar/tabEditor.js')
+var readerView = require('readerView.js')
 
 module.exports = {
   initialize: function () {
@@ -85,7 +85,7 @@ module.exports = {
         return
       }
 
-      const newTab = tabs.add({
+      var newTab = tabs.add({
         url: data.url || ''
       })
 
@@ -95,7 +95,7 @@ module.exports = {
     })
 
     ipc.on('saveCurrentPage', function () {
-      const currentTab = tabs.get(tabs.getSelected())
+      var currentTab = tabs.get(tabs.getSelected())
 
       // new tabs cannot be saved
       if (!currentTab.url) {
@@ -108,7 +108,7 @@ module.exports = {
         return
       }
 
-      let savePath = remote.dialog.showSaveDialogSync(remote.getCurrentWindow(), {
+      var savePath = remote.dialog.showSaveDialogSync(remote.getCurrentWindow(), {
         defaultPath: currentTab.title.replace(/[/\\]/g, '_')
       })
 

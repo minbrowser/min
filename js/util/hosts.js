@@ -1,6 +1,6 @@
-const hosts = []
+var hosts = []
 
-const HOSTS_FILE = process.platform === 'win32'
+var HOSTS_FILE = process.platform === 'win32'
   ? 'C:/Windows/System32/drivers/etc/hosts'
   : '/etc/hosts'
 
@@ -16,7 +16,7 @@ fs.readFile(HOSTS_FILE, 'utf8', function (err, data) {
     return
   }
 
-  const hostsMap = {} // this is used to deduplicate the list
+  var hostsMap = {} // this is used to deduplicate the list
 
   const lines = truncatedHostsFileLines(data, 128 * 1024)
 

@@ -1,4 +1,4 @@
-const defaultKeyMap = {
+var defaultKeyMap = {
   addTab: 'mod+t',
   addPrivateTab: 'shift+mod+p',
   duplicateTab: 'shift+mod+d',
@@ -28,7 +28,7 @@ const defaultKeyMap = {
 }
 /* Utility function to override default mapping with user settings */
 function userKeyMap (settings) {
-  const keyMapCopy = Object.assign({}, defaultKeyMap)
+  var keyMapCopy = Object.assign({}, defaultKeyMap)
   if (settings) {
     // override the default keymap by the user defined ones
     Object.keys(keyMapCopy).forEach(function (key) {

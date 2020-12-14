@@ -1,12 +1,12 @@
-const webviews = require('webviews.js')
-const keybindings = require('keybindings.js')
-const searchbar = require('searchbar/searchbar.js')
-const searchbarPlugins = require('searchbar/searchbarPlugins.js')
-const bangsPlugin = require('searchbar/bangsPlugin.js')
-const urlParser = require('util/urlParser.js')
-const { db } = require('util/database.js')
+var webviews = require('webviews.js')
+var keybindings = require('keybindings.js')
+var searchbar = require('searchbar/searchbar.js')
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var bangsPlugin = require('searchbar/bangsPlugin.js')
+var urlParser = require('util/urlParser.js')
+var { db } = require('util/database.js')
 
-const readerDecision = require('readerDecision.js')
+var readerDecision = require('readerDecision.js')
 
 var readerView = {
   readerURL: urlParser.getFileURL(__dirname + '/reader/index.html'),
@@ -18,7 +18,7 @@ var readerView = {
   },
   getButton: function (tabId) {
     // TODO better icon
-    const button = document.createElement('button')
+    var button = document.createElement('button')
     button.className = 'reader-button tab-icon i carbon:notebook'
 
     button.setAttribute('data-tab', tabId)
@@ -40,7 +40,7 @@ var readerView = {
   },
   updateButton: function (tabId, button) {
     var button = button || document.querySelector('.reader-button[data-tab="{id}"]'.replace('{id}', tabId))
-    const tab = tabs.get(tabId)
+    var tab = tabs.get(tabId)
 
     if (readerView.isReader(tabId)) {
       button.classList.add('is-reader')
@@ -57,12 +57,12 @@ var readerView = {
     }
   },
   enter: function (tabId, url) {
-    const newURL = readerView.readerURL + '?url=' + encodeURIComponent(url || tabs.get(tabId).url)
+    var newURL = readerView.readerURL + '?url=' + encodeURIComponent(url || tabs.get(tabId).url)
     tabs.update(tabId, { url: newURL })
     webviews.update(tabId, newURL)
   },
   exit: function (tabId) {
-    const src = urlParser.getSourceURL(tabs.get(tabId).url)
+    var src = urlParser.getSourceURL(tabs.get(tabId).url)
     // this page should not be automatically readerable in the future
     readerDecision.setURLStatus(src, false)
     tabs.update(tabId, { url: src })

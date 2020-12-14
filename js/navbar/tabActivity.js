@@ -1,14 +1,14 @@
 /* fades out tabs that are inactive */
 
-const tabBar = require('navbar/tabBar.js')
+var tabBar = require('navbar/tabBar.js')
 
 var tabActivity = {
   minFadeAge: 330000,
   refresh: function () {
     requestAnimationFrame(function () {
-      const tabSet = tabs.get()
-      const selected = tabs.getSelected()
-      const time = Date.now()
+      var tabSet = tabs.get()
+      var selected = tabs.getSelected()
+      var time = Date.now()
 
       tabSet.forEach(function (tab) {
         if (selected === tab.id) { // never fade the current tab

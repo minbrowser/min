@@ -1,8 +1,8 @@
-const urlParser = require('util/urlParser.js')
+var urlParser = require('util/urlParser.js')
 
-const searchbar = require('searchbar/searchbar.js')
+var searchbar = require('searchbar/searchbar.js')
 
-let lastItemDeletion = Date.now() // TODO get rid of this
+var lastItemDeletion = Date.now() // TODO get rid of this
 
 // creates a result item
 
@@ -27,13 +27,13 @@ opacity - number - the opacity of the item
 */
 
 function createItem (data) {
-  const item = document.createElement('div')
+  var item = document.createElement('div')
   item.classList.add('searchbar-item')
 
   item.setAttribute('tabindex', '-1')
 
   if (data.classList) {
-    for (let i = 0; i < data.classList.length; i++) {
+    for (var i = 0; i < data.classList.length; i++) {
       item.classList.add(data.classList[i])
     }
   }
@@ -47,7 +47,7 @@ function createItem (data) {
   }
 
   if (data.colorCircle) {
-    const colorCircle = document.createElement('div')
+    var colorCircle = document.createElement('div')
     colorCircle.className = 'image color-circle'
     colorCircle.style.backgroundColor = data.colorCircle
 
@@ -55,13 +55,13 @@ function createItem (data) {
   }
 
   if (data.icon) {
-    const el = document.createElement('i')
+    var el = document.createElement('i')
     el.className = 'i ' + data.icon
     item.appendChild(el)
   }
 
   if (data.title) {
-    const title = document.createElement('span')
+    var title = document.createElement('span')
     title.classList.add('title')
 
     if (!data.secondaryText) {
@@ -74,7 +74,7 @@ function createItem (data) {
   }
 
   if (data.secondaryText) {
-    const secondaryText = document.createElement('span')
+    var secondaryText = document.createElement('span')
     secondaryText.classList.add('secondary-text')
 
     secondaryText.textContent = data.secondaryText.substring(0, 1000)
@@ -83,7 +83,7 @@ function createItem (data) {
 
     if (data.metadata) {
       data.metadata.forEach(function (str) {
-        const metadataElement = document.createElement('span')
+        var metadataElement = document.createElement('span')
         metadataElement.className = 'md-info'
 
         metadataElement.textContent = str
@@ -94,7 +94,7 @@ function createItem (data) {
   }
 
   if (data.image) {
-    const image = document.createElement('img')
+    var image = document.createElement('img')
     image.className = 'image'
     image.src = data.image
 
@@ -102,7 +102,7 @@ function createItem (data) {
   }
 
   if (data.iconImage) {
-    const iconImage = document.createElement('img')
+    var iconImage = document.createElement('img')
     iconImage.className = 'icon-image'
     iconImage.src = data.iconImage
     iconImage.setAttribute('aria-hidden', true)
@@ -119,7 +119,7 @@ function createItem (data) {
   }
 
   if (data.attribution) {
-    const attrBlock = document.createElement('span')
+    var attrBlock = document.createElement('span')
     attrBlock.classList.add('attribution')
 
     attrBlock.textContent = data.attribution
@@ -133,7 +133,7 @@ function createItem (data) {
 
   if (data.delete) {
     item.addEventListener('mousewheel', function (e) {
-      const self = this
+      var self = this
       if (e.deltaX > 50 && e.deltaY < 3 && Date.now() - lastItemDeletion > 700) {
         lastItemDeletion = Date.now()
 
@@ -168,7 +168,7 @@ function createItem (data) {
   }
 
   if (data.button) {
-    const button = document.createElement('button')
+    var button = document.createElement('button')
     button.classList.add('action-button')
     button.classList.add('ignores-keyboard-focus') // for keyboardNavigationHelper
     button.tabIndex = -1
@@ -198,7 +198,7 @@ function createItem (data) {
 }
 
 function createHeading (data) {
-  const heading = document.createElement('h4')
+  var heading = document.createElement('h4')
   heading.className = 'searchbar-heading'
   heading.textContent = data.text || ''
   return heading
@@ -211,15 +211,15 @@ function getRealTitle (text) {
     return text
   }
 
-  const possibleCharacters = ['|', ':', ' - ', ' — ']
+  var possibleCharacters = ['|', ':', ' - ', ' — ']
 
-  for (let i = 0; i < possibleCharacters.length; i++) {
-    const char = possibleCharacters[i]
+  for (var i = 0; i < possibleCharacters.length; i++) {
+    var char = possibleCharacters[i]
     // match url's of pattern: title | website name
-    const titleChunks = text.split(char)
+    var titleChunks = text.split(char)
 
     if (titleChunks.length >= 2) {
-      const titleChunksTrimmed = titleChunks.map(c => c.trim())
+      var titleChunksTrimmed = titleChunks.map(c => c.trim())
       if (titleChunksTrimmed[titleChunksTrimmed.length - 1].length < 5 || titleChunksTrimmed[titleChunksTrimmed.length - 1].length / text.length <= 0.3) {
         return titleChunks.slice(0, -1).join(char)
       }

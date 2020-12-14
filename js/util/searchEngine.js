@@ -3,14 +3,14 @@ if (typeof require !== 'undefined') {
 }
 // otherwise, assume window.settings exists already
 
-let currentSearchEngine = {
+var currentSearchEngine = {
   name: '',
   searchURL: '%s'
 }
 
-const defaultSearchEngine = 'DuckDuckGo'
+var defaultSearchEngine = 'DuckDuckGo'
 
-const searchEngines = {
+var searchEngines = {
   DuckDuckGo: {
     name: 'DuckDuckGo',
     searchURL: 'https://duckduckgo.com/?q=%s&t=min',
@@ -83,7 +83,7 @@ settings.listen('searchEngine', function (value) {
   if (value && value.name) {
     currentSearchEngine = searchEngines[value.name]
   } else if (value && value.url) {
-    let searchDomain
+    var searchDomain
     try {
       searchDomain = new URL(value.url).hostname.replace('www.', '')
     } catch (e) {}
@@ -97,18 +97,18 @@ settings.listen('searchEngine', function (value) {
   }
 })
 
-const searchEngine = {
+var searchEngine = {
   getCurrent: function () {
     return currentSearchEngine
   },
   getSearch: function (url) {
-    let urlObj
+    var urlObj
     try {
       urlObj = new URL(url)
     } catch (e) {
       return null
     }
-    for (const e in searchEngines) {
+    for (var e in searchEngines) {
       if (!searchEngines[e].urlObj) {
         continue
       }

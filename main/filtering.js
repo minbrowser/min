@@ -1,21 +1,21 @@
-const defaultFilteringSettings = {
+var defaultFilteringSettings = {
   blockingLevel: 1,
   contentTypes: [],
   exceptionDomains: []
 }
 
-const enabledFilteringOptions = {
+var enabledFilteringOptions = {
   blockingLevel: 0,
   contentTypes: [], // script, image
   exceptionDomains: []
 }
 
 // for tracking the number of blocked requests
-let unsavedBlockedRequests = 0
+var unsavedBlockedRequests = 0
 
 setInterval(function () {
   if (unsavedBlockedRequests > 0) {
-    let current = settings.get('filteringBlockedCount')
+    var current = settings.get('filteringBlockedCount')
     if (!current) {
       current = 0
     }
@@ -27,7 +27,7 @@ setInterval(function () {
 // electron uses different names for resource types than ABP
 // electron: https://github.com/electron/electron/blob/34c4c8d5088fa183f56baea28809de6f2a427e02/shell/browser/net/atom_network_delegate.cc#L30
 // abp: https://adblockplus.org/filter-cheatsheet#filter-options
-const electronABPElementTypeMap = {
+var electronABPElementTypeMap = {
   mainFrame: 'document',
   subFrame: 'subdocument',
   stylesheet: 'stylesheet',
@@ -38,8 +38,8 @@ const electronABPElementTypeMap = {
   other: 'other' // ?
 }
 
-const parser = require('./ext/abp-filter-parser-modified/abp-filter-parser.js')
-let parsedFilterData = {}
+var parser = require('./ext/abp-filter-parser-modified/abp-filter-parser.js')
+var parsedFilterData = {}
 
 function initFilterList () {
   // discard old data if the list is being re-initialized
@@ -64,7 +64,7 @@ function initFilterList () {
 
 function requestIsThirdParty (baseDomain, requestURL) {
   baseDomain = baseDomain.replace(/^www\./g, '')
-  const requestDomain = parser.getUrlHost(requestURL).replace(/^www\./g, '')
+  var requestDomain = parser.getUrlHost(requestURL).replace(/^www\./g, '')
 
   return !(parser.isSameOriginHost(baseDomain, requestDomain) || parser.isSameOriginHost(requestDomain, baseDomain))
 }
@@ -88,7 +88,7 @@ function handleRequest (details, callback) {
   // block javascript and images if needed
 
   if (enabledFilteringOptions.contentTypes.length > 0) {
-    for (let i = 0; i < enabledFilteringOptions.contentTypes.length; i++) {
+    for (var i = 0; i < enabledFilteringOptions.contentTypes.length; i++) {
       if (details.resourceType === enabledFilteringOptions.contentTypes[i]) {
         callback({
           cancel: true,
@@ -112,7 +112,7 @@ function handleRequest (details, callback) {
       (enabledFilteringOptions.blockingLevel === 2)
     ) {
       // by doing this check second, we can skip checking same-origin requests if only third-party blocking is enabled
-      const matchesFilters = parser.matches(parsedFilterData, details.url, {
+      var matchesFilters = parser.matches(parsedFilterData, details.url, {
         domain: domain,
         elementType: electronABPElementTypeMap[details.resourceType]
       })
@@ -139,7 +139,7 @@ function setFilteringSettings (settings) {
     settings = {}
   }
 
-  for (const key in defaultFilteringSettings) {
+  for (var key in defaultFilteringSettings) {
     if (settings[key] === undefined) {
       settings[key] = defaultFilteringSettings[key]
     }

@@ -1,5 +1,5 @@
-const viewMap = {} // id: view
-const viewStateMap = {} // id: view state
+var viewMap = {} // id: view
+var viewStateMap = {} // id: view state
 
 const BrowserView = electron.BrowserView
 
@@ -11,7 +11,7 @@ function createView (id, webPreferencesString, boundsString, events) {
       /*
       new-window is special because its arguments contain a webContents object that can't be serialized and needs to be removed.
       */
-      let args = Array.prototype.slice.call(arguments).slice(1)
+      var args = Array.prototype.slice.call(arguments).slice(1)
       if (event === 'new-window') {
         e.preventDefault()
         args = args.slice(0, 3)
@@ -53,7 +53,7 @@ function createView (id, webPreferencesString, boundsString, events) {
       return
     }
     event.preventDefault()
-    const title = l('loginPromptTitle').replace('%h', authInfo.host).replace('%r', authInfo.realm)
+    var title = l('loginPromptTitle').replace('%h', authInfo.host).replace('%r', authInfo.realm)
     createPrompt({
       text: title,
       values: [{ placeholder: l('username'), id: 'username', type: 'text' },
@@ -126,7 +126,7 @@ function getView (id) {
 }
 
 function getViewIDFromWebContents (contents) {
-  for (const id in viewMap) {
+  for (var id in viewMap) {
     if (viewMap[id].webContents === contents) {
       return id
     }
@@ -175,10 +175,10 @@ ipc.on('loadURLInView', function (e, args) {
 })
 
 ipc.on('callViewMethod', function (e, data) {
-  let error, result
+  var error, result
   try {
-    const webContents = viewMap[data.id].webContents
-    const methodOrProp = webContents[data.method]
+    var webContents = viewMap[data.id].webContents
+    var methodOrProp = webContents[data.method]
     if (methodOrProp instanceof Function) {
       // call function
       result = methodOrProp.apply(webContents, data.args)
@@ -210,14 +210,14 @@ ipc.on('callViewMethod', function (e, data) {
 })
 
 ipc.on('getCapture', function (e, data) {
-  const view = viewMap[data.id]
+  var view = viewMap[data.id]
   if (!view) {
     // view could have been destroyed
     return
   }
 
   view.webContents.capturePage().then(function (img) {
-    const size = img.getSize()
+    var size = img.getSize()
     if (size.width === 0 && size.height === 0) {
       return
     }
@@ -227,7 +227,7 @@ ipc.on('getCapture', function (e, data) {
 })
 
 ipc.on('saveViewCapture', function (e, data) {
-  const view = viewMap[data.id]
+  var view = viewMap[data.id]
   if (!view) {
     // view could have been destroyed
   }

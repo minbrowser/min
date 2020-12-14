@@ -1,4 +1,4 @@
-const scriptsToRun = []
+var scriptsToRun = []
 
 /* a collection of various hacks to unbreak sites, mainly due to missing window.open() support */
 

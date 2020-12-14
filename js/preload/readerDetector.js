@@ -1,24 +1,24 @@
 /* detects if a page is readerable, and tells the main process if it is */
 
 function pageIsReaderable () {
-  const paragraphMap = new Map()
+  var paragraphMap = new Map()
 
-  const paragraphs = document.querySelectorAll('p')
-  let totalLength = 0
+  var paragraphs = document.querySelectorAll('p')
+  var totalLength = 0
 
   if (!paragraphs) {
     return false
   }
 
-  for (let i = 0; i < paragraphs.length; i++) {
-    const pLength = Math.max(paragraphs[i].textContent.replace(/\s+/g, ' ').length - 100, -30)
+  for (var i = 0; i < paragraphs.length; i++) {
+    var pLength = Math.max(paragraphs[i].textContent.replace(/\s+/g, ' ').length - 100, -30)
     totalLength += pLength
 
-    const prev = paragraphMap.get(paragraphs[i].parentNode) || 0
+    var prev = paragraphMap.get(paragraphs[i].parentNode) || 0
     paragraphMap.set(paragraphs[i].parentNode, prev + pLength)
   }
 
-  let largestValue = 0
+  var largestValue = 0
 
   paragraphMap.forEach(function (value, key) {
     if (value > largestValue) {

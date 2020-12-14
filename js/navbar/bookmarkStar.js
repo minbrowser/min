@@ -19,7 +19,7 @@ const bookmarkStar = {
     return star
   },
   onClick: function (star) {
-    const tabId = star.getAttribute('data-tab')
+    var tabId = star.getAttribute('data-tab')
 
     searchbarPlugins.clearAll()
 
@@ -32,7 +32,7 @@ const bookmarkStar = {
         star.classList.add('carbon:star-filled')
         // since the update happens asynchronously, and star.update() could be called after onClick but before the update, it's possible for the classes to get out of sync with the actual bookmark state. Updating them here fixes tis.
         star.setAttribute('aria-pressed', true)
-        const editorInsertionPoint = document.createElement('div')
+        var editorInsertionPoint = document.createElement('div')
         searchbarPlugins.getContainer('simpleBookmarkTagInput').appendChild(editorInsertionPoint)
         bookmarkEditor.show(tabs.get(tabs.getSelected()).url, editorInsertionPoint, null, { simplified: true, autoFocus: true })
       } else {

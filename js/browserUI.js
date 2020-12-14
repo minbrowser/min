@@ -1,11 +1,11 @@
 /* common actions that affect different parts of the UI (webviews, tabstrip, etc) */
 
-const settings = require('util/settings/settings.js')
-const webviews = require('webviews.js')
-const focusMode = require('focusMode.js')
-const tabBar = require('navbar/tabBar.js')
-const tabEditor = require('navbar/tabEditor.js')
-const searchbar = require('searchbar/searchbar.js')
+var settings = require('util/settings/settings.js')
+var webviews = require('webviews.js')
+var focusMode = require('focusMode.js')
+var tabBar = require('navbar/tabBar.js')
+var tabEditor = require('navbar/tabEditor.js')
+var searchbar = require('searchbar/searchbar.js')
 
 /* creates a new task */
 
@@ -53,7 +53,7 @@ function addTab (tabId = tabs.add(), options = {}) {
 /* destroys a task object and the associated webviews */
 
 function destroyTask (id) {
-  const task = tasks.get(id)
+  var task = tasks.get(id)
 
   task.tabs.forEach(function (tab) {
     webviews.destroy(tab.id)
@@ -72,7 +72,7 @@ function destroyTab (id) {
 /* destroys a task, and either switches to the next most-recent task or creates a new one */
 
 function closeTask (taskId) {
-  const previousCurrentTask = tasks.getSelected().id
+  var previousCurrentTask = tasks.getSelected().id
 
   destroyTask(taskId)
 
@@ -85,7 +85,7 @@ function closeTask (taskId) {
     } else {
       // switch to the most-recent task
 
-      const recentTaskList = tasks.map(function (task) {
+      var recentTaskList = tasks.map(function (task) {
         return { id: task.id, lastActivity: tasks.getLastActivity(task.id) }
       })
 
@@ -108,8 +108,8 @@ function closeTab (tabId) {
   }
 
   if (tabId === tabs.getSelected()) {
-    const currentIndex = tabs.getIndex(tabs.getSelected())
-    const nextTab =
+    var currentIndex = tabs.getIndex(tabs.getSelected())
+    var nextTab =
     tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1)
 
     destroyTab(tabId)
@@ -131,10 +131,10 @@ function switchToTask (id) {
 
   tabBar.updateAll()
 
-  const taskData = tasks.get(id)
+  var taskData = tasks.get(id)
 
   if (taskData.tabs.count() > 0) {
-    let selectedTab = taskData.tabs.getSelected()
+    var selectedTab = taskData.tabs.getSelected()
 
     // if the task has no tab that is selected, switch to the most recent one
 
@@ -170,7 +170,7 @@ webviews.bindEvent('new-window', function (tabId, url, frameName, disposition) {
     focusMode.warn()
     return
   }
-  const newTab = tabs.add({
+  var newTab = tabs.add({
     url: url,
     private: tabs.get(tabId).private // inherit private status from the current tab
   })
@@ -187,7 +187,7 @@ webviews.bindIPC('close-window', function (tabId, args) {
 
 searchbar.events.on('url-selected', function (data) {
   if (data.background) {
-    const newTab = tabs.add({
+    var newTab = tabs.add({
       url: data.url,
       private: tabs.get(tabs.getSelected()).private
     })

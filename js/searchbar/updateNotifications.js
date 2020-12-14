@@ -1,8 +1,8 @@
 const UPDATE_URL = 'https://minbrowser.github.io/min/updates/latestVersion.json'
 
-const settings = require('util/settings/settings.js')
+var settings = require('util/settings/settings.js')
 
-const searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 
 function compareVersions (v1, v2) {
   /*
@@ -17,7 +17,7 @@ function compareVersions (v1, v2) {
     throw new Error()
   }
 
-  for (let i = 0; i < v1.length; i++) {
+  for (var i = 0; i < v1.length; i++) {
     if (v2[i] > v1[i]) {
       return 1
     }
@@ -84,7 +84,7 @@ function showUpdateNotification (text, input, event) {
     if (compareVersions(window.globalArgs['app-version'], update.version) <= 0) {
       return
     }
-    const updateAge = Date.now() - update.releaseTime
+    var updateAge = Date.now() - update.releaseTime
     /* initially, only show an update notification when no tabs are open, in order to minimize disruption */
     if (updateAge < (3 * 7 * 24 * 60 * 60 * 1000)) {
       if (tabs.isEmpty()) {

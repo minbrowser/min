@@ -8,14 +8,14 @@ There are three possible ways that keybindings can be handled.
 const Mousetrap = require('mousetrap')
 const keyMapModule = require('util/keyMap.js')
 
-const webviews = require('webviews.js')
-const modalMode = require('modalMode.js')
-const settings = require('util/settings/settings.js')
+var webviews = require('webviews.js')
+var modalMode = require('modalMode.js')
+var settings = require('util/settings/settings.js')
 
-const keyMap = keyMapModule.userKeyMap(settings.get('keyMap'))
+var keyMap = keyMapModule.userKeyMap(settings.get('keyMap'))
 
-const shortcutsList = []
-const registeredMousetrapBindings = {}
+var shortcutsList = []
+var registeredMousetrapBindings = {}
 
 /*
 Determines whether a shortcut can actually run
@@ -72,7 +72,7 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
     binding = [binding]
   }
 
-  const shortcutCallback = function (e, combo) {
+  var shortcutCallback = function (e, combo) {
     // Disable shortcuts for modal mode, unless this is the combo to close the modal
     if (modalMode.enabled() && combo !== 'esc') {
       return
@@ -109,7 +109,7 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
 
 function initialize () {
   webviews.bindEvent('before-input-event', function (tabId, input) {
-    let expectedKeys = 1
+    var expectedKeys = 1
     // account for additional keys that aren't in the input.key property
     if (input.alt && input.key !== 'Alt') {
       expectedKeys++
@@ -128,8 +128,8 @@ function initialize () {
       if ((shortcut.keyUp && input.type !== 'keyUp') || (!shortcut.keyUp && input.type !== 'keyDown')) {
         return
       }
-      let matches = true
-      let matchedKeys = 0
+      var matches = true
+      var matchedKeys = 0
       shortcut.keys.forEach(function (key) {
         if (!(
           key === input.key.toLowerCase() ||

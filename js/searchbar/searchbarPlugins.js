@@ -1,12 +1,12 @@
-const searchbar = document.getElementById('searchbar')
-const searchbarUtils = require('searchbar/searchbarUtils.js')
+var searchbar = document.getElementById('searchbar')
+var searchbarUtils = require('searchbar/searchbarUtils.js')
 
-const plugins = [] // format is {name, container, trigger, showResults}
-const results = {} // format is {pluginName: [results]}
-let URLOpener
-const URLHandlers = [] // format is {trigger, action}
+var plugins = [] // format is {name, container, trigger, showResults}
+var results = {} // format is {pluginName: [results]}
+var URLOpener
+var URLHandlers = [] // format is {trigger, action}
 
-let topAnswer = {
+var topAnswer = {
   plugin: null,
   item: null
 }
@@ -20,7 +20,7 @@ const searchbarPlugins = {
       plugin: null,
       item: null
     }
-    for (let i = 0; i < plugins.length; i++) {
+    for (var i = 0; i < plugins.length; i++) {
       empty(plugins[i].container)
     }
   },
@@ -28,7 +28,7 @@ const searchbarPlugins = {
   reset: function (pluginName) {
     empty(searchbarPlugins.getContainer(pluginName))
 
-    const ta = searchbarPlugins.getTopAnswer(pluginName)
+    var ta = searchbarPlugins.getTopAnswer(pluginName)
     if (ta) {
       ta.remove()
       topAnswer = {
@@ -55,7 +55,7 @@ const searchbarPlugins = {
   setTopAnswer: function (pluginName, data) {
     empty(searchbarPlugins.topAnswerArea)
 
-    const item = searchbarUtils.createItem(data)
+    var item = searchbarUtils.createItem(data)
     item.setAttribute('data-plugin', pluginName)
     item.setAttribute('data-url', data.url)
     searchbarPlugins.topAnswerArea.appendChild(item)
@@ -78,15 +78,15 @@ const searchbarPlugins = {
     }
     if (data.url && !data.allowDuplicates) {
       // skip duplicates
-      for (const plugin in results) {
-        for (let i = 0; i < results[plugin].length; i++) {
+      for (var plugin in results) {
+        for (var i = 0; i < results[plugin].length; i++) {
           if (results[plugin][i].url === data.url && !results[plugin][i].allowDuplicates) {
             return
           }
         }
       }
     }
-    const item = searchbarUtils.createItem(data)
+    var item = searchbarUtils.createItem(data)
 
     if (data.url) {
       item.setAttribute('data-url', data.url)
@@ -105,7 +105,7 @@ const searchbarPlugins = {
   },
 
   getContainer: function (pluginName) {
-    for (let i = 0; i < plugins.length; i++) {
+    for (var i = 0; i < plugins.length; i++) {
       if (plugins[i].name === pluginName) {
         return plugins[i].container
       }
@@ -115,7 +115,7 @@ const searchbarPlugins = {
 
   register: function (name, object) {
     // add the container
-    const container = document.createElement('div')
+    var container = document.createElement('div')
     container.classList.add('searchbar-plugin-container')
     container.setAttribute('data-plugin', name)
     searchbar.insertBefore(container, searchbar.childNodes[object.index + 2])
@@ -131,7 +131,7 @@ const searchbarPlugins = {
   },
 
   run: function (text, input, event) {
-    for (let i = 0; i < plugins.length; i++) {
+    for (var i = 0; i < plugins.length; i++) {
       try {
         if (plugins[i].showResults && (!plugins[i].trigger || plugins[i].trigger(text))) {
           plugins[i].showResults(text, input, event)
@@ -149,7 +149,7 @@ const searchbarPlugins = {
   },
 
   runURLHandlers: function (text) {
-    for (let i = 0; i < URLHandlers.length; i++) {
+    for (var i = 0; i < URLHandlers.length; i++) {
       if (URLHandlers[i](text)) {
         return true
       }
@@ -161,8 +161,8 @@ const searchbarPlugins = {
     if (pluginName) {
       return results[pluginName].length
     } else {
-      let resultCount = 0
-      for (const plugin in results) {
+      var resultCount = 0
+      for (var plugin in results) {
         resultCount += results[plugin].length
       }
       return resultCount

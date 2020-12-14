@@ -1,10 +1,10 @@
-const searchbar = require('searchbar/searchbar.js')
-const searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var searchbar = require('searchbar/searchbar.js')
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 
-const urlParser = require('util/urlParser.js')
-const searchEngine = require('util/searchEngine.js')
+var urlParser = require('util/urlParser.js')
+var searchEngine = require('util/searchEngine.js')
 
-const ddgAttribution = l('resultsFromDDG')
+var ddgAttribution = l('resultsFromDDG')
 
 function removeTags (text) {
   return text.replace(/<.*?>/g, '')
@@ -12,15 +12,15 @@ function removeTags (text) {
 
 // custom instant answers
 
-const instantAnswers = {
+var instantAnswers = {
   color_code: function (searchText, answer) {
-    const data = {
+    var data = {
       title: searchText,
       descriptionBlock: answer.replace(/\n/g, ' · ').replace(/\s~\s/g, ' · '),
       attribution: ddgAttribution
     }
 
-    const rgb = answer.split(' ~ ').filter(function (format) {
+    var rgb = answer.split(' ~ ').filter(function (format) {
       return format.startsWith('RGBA')
     })
 
@@ -31,12 +31,12 @@ const instantAnswers = {
     return data
   },
   currency_in: function (searchText, answer) {
-    let title = ''
+    var title = ''
     if (typeof answer === 'string') { // there is only one currency
       title = answer
     } else { // multiple currencies
-      const currencyArr = []
-      for (const countryCode in answer) {
+      var currencyArr = []
+      for (var countryCode in answer) {
         currencyArr.push(answer[countryCode] + ' (' + countryCode + ')')
       }
 
@@ -99,13 +99,13 @@ function showSearchbarInstantAnswers (text, input, event) {
     } else if (res.RelatedTopics) {
       res.RelatedTopics.slice(0, 3).forEach(function (item) {
         // the DDG api returns the entity name inside an <a> tag
-        const entityName = item.Result.replace(/.*>(.+?)<.*/g, '$1')
+        var entityName = item.Result.replace(/.*>(.+?)<.*/g, '$1')
 
         // the text starts with the entity name, remove it
-        const desc = item.Text.replace(entityName, '')
+        var desc = item.Text.replace(entityName, '')
 
         // try to convert the given url to a wikipedia link
-        const entityNameRegex = /https:\/\/duckduckgo.com\/(.*?)\/?$/
+        var entityNameRegex = /https:\/\/duckduckgo.com\/(.*?)\/?$/
 
         if (entityNameRegex.test(item.FirstURL)) {
           var url = 'https://wikipedia.org/wiki/' + entityNameRegex.exec(item.FirstURL)[1]
@@ -132,7 +132,7 @@ function showSearchbarInstantAnswers (text, input, event) {
 
     // suggested site links
     if (searchbarPlugins.getResultCount() < 4 && res.Results && res.Results[0] && res.Results[0].FirstURL) {
-      const url = res.Results[0].FirstURL
+      var url = res.Results[0].FirstURL
 
       searchbarPlugins.addResult('instantAnswers', {
         icon: 'carbon:earth-filled',
@@ -145,7 +145,7 @@ function showSearchbarInstantAnswers (text, input, event) {
 
     // if we're showing a location, show a "Search on OpenStreetMap" link
 
-    const entitiesWithLocations = ['location', 'country', 'u.s. state', 'protected area']
+    var entitiesWithLocations = ['location', 'country', 'u.s. state', 'protected area']
 
     if (entitiesWithLocations.indexOf(res.Entity) !== -1) {
       searchbarPlugins.addResult('instantAnswers', {

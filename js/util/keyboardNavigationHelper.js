@@ -5,9 +5,9 @@ Creates a group if items that can be navigated through using arrow keys or the t
 const keyboardNavigationHelper = {
   groups: {}, // name: [containers]
   moveFocus: function (group, direction) { // 1: forward, -1: backward
-    let items = []
-    let realFocusItem
-    let fakeFocusItem
+    var items = []
+    var realFocusItem
+    var fakeFocusItem
     keyboardNavigationHelper.groups[group].forEach(function (container) {
       items = items.concat(Array.from(container.querySelectorAll('input:not(.ignores-keyboard-focus), [tabindex="-1"]:not(.ignores-keyboard-focus)')))
       if (!realFocusItem) {
@@ -18,7 +18,7 @@ const keyboardNavigationHelper = {
       }
     })
 
-    const currentItem = fakeFocusItem || realFocusItem
+    var currentItem = fakeFocusItem || realFocusItem
 
     if (!items) {
       return
@@ -31,7 +31,7 @@ const keyboardNavigationHelper = {
     currentItem.classList.remove('fakefocus')
 
     while (items.length > 1) {
-      const index = items.indexOf(currentItem)
+      var index = items.indexOf(currentItem)
 
       var nextItem
       if (items[index + direction]) {
@@ -70,7 +70,7 @@ const keyboardNavigationHelper = {
     }
 
     // insert the containers so that they are ordered based on DOM position
-    let pos = 0
+    var pos = 0
     // compareDocumentPosition is a bit of an unusual API
     while (pos <= keyboardNavigationHelper.groups[group].length - 1 && keyboardNavigationHelper.groups[group][pos].compareDocumentPosition(container) & Node.DOCUMENT_POSITION_FOLLOWING) {
       pos++

@@ -1,5 +1,5 @@
-const webviews = require('webviews.js')
-const settings = require('util/settings/settings.js')
+var webviews = require('webviews.js')
+var settings = require('util/settings/settings.js')
 
 const colorExtractorImage = document.createElement('img')
 const colorExtractorCanvas = document.createElement('canvas')

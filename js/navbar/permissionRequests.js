@@ -14,7 +14,7 @@ const permissionRequests = {
     if (request.permission === 'notifications') {
       return ['carbon:chat']
     } else if (request.permission === 'media') {
-      const mediaIcons = {
+      var mediaIcons = {
         video: 'carbon:video',
         audio: 'carbon:microphone'
       }
@@ -22,16 +22,16 @@ const permissionRequests = {
     }
   },
   getButtons: function (tabId) {
-    const buttons = []
+    var buttons = []
     permissionRequests.requests.forEach(function (request) {
       if (request.tabId === tabId) {
-        const button = document.createElement('button')
+        var button = document.createElement('button')
         button.className = 'tab-icon permission-request-icon'
         if (request.granted) {
           button.classList.add('active')
         }
         permissionRequests.getIcons(request).forEach(function (icon) {
-          const el = document.createElement('i')
+          var el = document.createElement('i')
           el.className = 'i ' + icon
           button.appendChild(el)
         })
@@ -54,7 +54,7 @@ const permissionRequests = {
   },
   initialize: function () {
     ipc.on('updatePermissions', function (e, data) {
-      const oldData = permissionRequests.requests
+      var oldData = permissionRequests.requests
       permissionRequests.requests = data
       oldData.forEach(function (req) {
         permissionRequests.listeners.forEach(listener => listener(req.tabId))

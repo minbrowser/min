@@ -1,22 +1,22 @@
-const searchbar = require('searchbar/searchbar.js')
-const searchbarPlugins = require('searchbar/searchbarPlugins.js')
-const searchbarUtils = require('searchbar/searchbarUtils.js')
-const bangsPlugin = require('searchbar/bangsPlugin.js')
-const places = require('places/places.js')
-const urlParser = require('util/urlParser.js')
-const formatRelativeDate = require('util/relativeDate.js')
+var searchbar = require('searchbar/searchbar.js')
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var searchbarUtils = require('searchbar/searchbarUtils.js')
+var bangsPlugin = require('searchbar/bangsPlugin.js')
+var places = require('places/places.js')
+var urlParser = require('util/urlParser.js')
+var formatRelativeDate = require('util/relativeDate.js')
 
-const tabEditor = require('navbar/tabEditor.js')
-const bookmarkEditor = require('searchbar/bookmarkEditor.js')
+var tabEditor = require('navbar/tabEditor.js')
+var bookmarkEditor = require('searchbar/bookmarkEditor.js')
 
 const maxTagSuggestions = 12
 
 function parseBookmarkSearch (text) {
-  const tags = text.split(/\s/g).filter(function (word) {
+  var tags = text.split(/\s/g).filter(function (word) {
     return word.startsWith('#') && word.length > 1
   }).map(t => t.substring(1))
 
-  let newText = text
+  var newText = text
   tags.forEach(function (word) {
     newText = newText.replace('#' + word, '')
   })
@@ -75,16 +75,16 @@ function getBookmarkListItem (result, focus) {
 
 const bookmarkManager = {
   showBookmarks: function (text, input, event) {
-    const container = searchbarPlugins.getContainer('bangs')
+    var container = searchbarPlugins.getContainer('bangs')
 
-    const parsedText = parseBookmarkSearch(text)
+    var parsedText = parseBookmarkSearch(text)
 
-    const displayedURLset = []
+    var displayedURLset = []
     places.searchPlaces(parsedText.text, function (results) {
       places.autocompleteTags(parsedText.tags, function (suggestedTags) {
         searchbarPlugins.reset('bangs')
 
-        const tagBar = document.createElement('div')
+        var tagBar = document.createElement('div')
         tagBar.id = 'bookmark-tag-bar'
         container.appendChild(tagBar)
 
@@ -96,8 +96,8 @@ const bookmarkManager = {
         // it doesn't make sense to display tag suggestions if there's a search, since the suggestions are generated without taking the search into account
         if (!parsedText.text) {
           suggestedTags.forEach(function (suggestion, index) {
-            const el = bookmarkEditor.getTagElement(suggestion, false, function () {
-              const needsSpace = text.slice(-1) !== ' ' && text.slice(-1) !== ''
+            var el = bookmarkEditor.getTagElement(suggestion, false, function () {
+              var needsSpace = text.slice(-1) !== ' ' && text.slice(-1) !== ''
               tabEditor.show(tabs.getSelected(), '!bookmarks ' + text + (needsSpace ? ' #' : '#') + suggestion + ' ')
             })
             if (index >= maxTagSuggestions) {
@@ -115,7 +115,7 @@ const bookmarkManager = {
           }
         }
 
-        let lastRelativeDate = '' // used to generate headings
+        var lastRelativeDate = '' // used to generate headings
 
         results
           .filter(function (result) {
@@ -133,12 +133,12 @@ const bookmarkManager = {
           .forEach(function (result, index) {
             displayedURLset.push(result.url)
 
-            const thisRelativeDate = formatRelativeDate(result.lastVisit)
+            var thisRelativeDate = formatRelativeDate(result.lastVisit)
             if (thisRelativeDate !== lastRelativeDate) {
               searchbarPlugins.addHeading('bangs', { text: thisRelativeDate })
               lastRelativeDate = thisRelativeDate
             }
-            const item = getBookmarkListItem(result, index === 0 && parsedText.text)
+            var item = getBookmarkListItem(result, index === 0 && parsedText.text)
             container.appendChild(item)
           })
 
@@ -163,7 +163,7 @@ const bookmarkManager = {
               // order by last visit
               return b.lastVisit - a.lastVisit
             }).forEach(function (result, index) {
-              const item = getBookmarkListItem(result, false)
+              var item = getBookmarkListItem(result, false)
               container.appendChild(item)
             })
           })
@@ -181,7 +181,7 @@ const bookmarkManager = {
       isAction: false,
       showSuggestions: bookmarkManager.showBookmarks,
       fn: function (text) {
-        const parsedText = parseBookmarkSearch(text)
+        var parsedText = parseBookmarkSearch(text)
         if (!parsedText.text) {
           return
         }

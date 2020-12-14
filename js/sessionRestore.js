@@ -1,13 +1,13 @@
-const browserUI = require('browserUI.js')
-const webviews = require('webviews.js')
-const tabEditor = require('navbar/tabEditor.js')
+var browserUI = require('browserUI.js')
+var webviews = require('webviews.js')
+var tabEditor = require('navbar/tabEditor.js')
 
 window.sessionRestore = {
   savePath: window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
   previousState: null,
   save: function (forceSave, sync) {
-    const stateString = JSON.stringify(tasks.getStringifyableState())
-    const data = {
+    var stateString = JSON.stringify(tasks.getStringifyableState())
+    var data = {
       version: 2,
       state: JSON.parse(stateString),
       saveTime: Date.now()
@@ -15,7 +15,7 @@ window.sessionRestore = {
 
     // save all tabs that aren't private
 
-    for (let i = 0; i < data.state.tasks.length; i++) {
+    for (var i = 0; i < data.state.tasks.length; i++) {
       data.state.tasks[i].tabs = data.state.tasks[i].tabs.filter(function (tab) {
         return !tab.private
       })
@@ -35,7 +35,7 @@ window.sessionRestore = {
     }
   },
   restore: function () {
-    let savedStringData
+    var savedStringData
     try {
       savedStringData = fs.readFileSync(sessionRestore.savePath, 'utf-8')
     } catch (e) {
@@ -47,7 +47,7 @@ window.sessionRestore = {
     }
 
     /* the survey should only be shown after an upgrade from an earlier version */
-    let shouldShowSurvey = false
+    var shouldShowSurvey = false
     if (savedStringData && !localStorage.getItem('1.15survey')) {
       shouldShowSurvey = true
     }
@@ -58,7 +58,7 @@ window.sessionRestore = {
       if (!savedStringData) {
         tasks.setSelected(tasks.add()) // create a new task
 
-        const newTab = tasks.getSelected().tabs.add({
+        var newTab = tasks.getSelected().tabs.add({
           url: 'https://minbrowser.github.io/min/tour'
         })
         browserUI.addTab(newTab, {
@@ -67,7 +67,7 @@ window.sessionRestore = {
         return
       }
 
-      const data = JSON.parse(savedStringData)
+      var data = JSON.parse(savedStringData)
 
       // the data isn't restorable
       if ((data.version && data.version !== 2) || (data.state && data.state.tasks && data.state.tasks.length === 0)) {
@@ -106,7 +106,7 @@ window.sessionRestore = {
       } else {
         window.createdNewTaskOnStartup = true
         // try to reuse a previous empty task
-        const lastTask = tasks.byIndex(tasks.getLength() - 1)
+        var lastTask = tasks.byIndex(tasks.getLength() - 1)
         if (lastTask && lastTask.tabs.isEmpty() && !lastTask.name) {
           browserUI.switchToTask(lastTask.id)
           tabEditor.show(lastTask.tabs.getSelected())
@@ -127,7 +127,7 @@ window.sessionRestore = {
                 webviews.update(tasks.getSelected().tabs.getSelected(), data.url)
                 tabEditor.hide()
               } else {
-                const surveyTab = tasks.getSelected().tabs.add({
+                var surveyTab = tasks.getSelected().tabs.add({
                   url: data.url
                 })
                 browserUI.addTab(surveyTab, {
@@ -143,7 +143,7 @@ window.sessionRestore = {
 
       console.error('restoring session failed: ', e)
 
-      const backupSavePath = require('path').join(window.globalArgs['user-data-path'], 'sessionRestoreBackup-' + Date.now() + '.json')
+      var backupSavePath = require('path').join(window.globalArgs['user-data-path'], 'sessionRestoreBackup-' + Date.now() + '.json')
 
       fs.writeFileSync(backupSavePath, savedStringData)
 
@@ -151,8 +151,8 @@ window.sessionRestore = {
       initializeTabState()
 
       // create a new tab with an explanation of what happened
-      const newTask = tasks.add()
-      const newSessionErrorTab = tasks.get(newTask).tabs.add({
+      var newTask = tasks.add()
+      var newSessionErrorTab = tasks.get(newTask).tabs.add({
         url: 'file://' + __dirname + '/pages/sessionRestoreError/index.html?backupLoc=' + encodeURIComponent(backupSavePath)
       })
 

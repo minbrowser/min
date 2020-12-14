@@ -28,7 +28,7 @@
     "electron-rebuild": "^2.3.2",
     "electron-renderify": "0.0.2",
     "prettier": "^2.2.1",
-    "standard": "^16.0.3"
+    "standard": "^14.3.4"
   },
   "optionalDependencies": {
     "electron-installer-debian": "^3.1.0",

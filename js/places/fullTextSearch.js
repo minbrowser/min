@@ -153,16 +153,16 @@ function getMatchingDocs (tokens) {
       .equals(prefix)
       .primaryKeys()))
 
-    const results = []
+    var results = []
 
     /*
     A document matches if each search token is either 1) contained in the title, URL, or tags,
     even if it's part of a larger word, or 2) a word in the full-text index.
      */
     historyInMemoryCache.forEach(function (item) {
-      const itext = (item.url + ' ' + item.title + ' ' + item.tags.join(' ')).toLowerCase()
-      let matched = true
-      for (let i = 0; i < tokens.length; i++) {
+      var itext = (item.url + ' ' + item.title + ' ' + item.tags.join(' ')).toLowerCase()
+      var matched = true
+      for (var i = 0; i < tokens.length; i++) {
         if (!tokenMatches[i].includes(item.id) && !itext.includes(tokens[i])) {
           matched = false
           break

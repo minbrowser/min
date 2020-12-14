@@ -25,7 +25,7 @@ function clamp (n, min, max) {
 
 if (process.platform === 'win32') {
   (async function () {
-    const squirrelCommand = process.argv[1]
+    var squirrelCommand = process.argv[1]
     if (squirrelCommand === '--squirrel-install' || squirrelCommand === '--squirrel-updated') {
       isInstallerRunning = true
       await registryInstaller.install()
@@ -47,16 +47,16 @@ if (isDevelopmentMode) {
 // workaround for flicker when focusing app (https://github.com/electron/electron/issues/17942)
 app.commandLine.appendSwitch('disable-backgrounding-occluded-windows', 'true')
 
-const userDataPath = app.getPath('userData')
+var userDataPath = app.getPath('userData')
 
 const browserPage = 'file://' + __dirname + '/index.html'
 
-let mainWindow = null
-let mainWindowIsMinimized = false // workaround for https://github.com/minbrowser/min/issues/1074
-let mainMenu = null
-let secondaryMenu = null
-const isFocusMode = false
-let appIsReady = false
+var mainWindow = null
+var mainWindowIsMinimized = false // workaround for https://github.com/minbrowser/min/issues/1074
+var mainMenu = null
+var secondaryMenu = null
+var isFocusMode = false
+var appIsReady = false
 
 const isFirstInstance = app.requestSingleInstanceLock()
 
@@ -64,9 +64,9 @@ if (!isFirstInstance) {
   app.quit()
 }
 
-const saveWindowBounds = function () {
+var saveWindowBounds = function () {
   if (mainWindow) {
-    const bounds = Object.assign(mainWindow.getBounds(), {
+    var bounds = Object.assign(mainWindow.getBounds(), {
       maximized: mainWindow.isMaximized()
     })
     fs.writeFileSync(path.join(userDataPath, 'windowBounds.json'), JSON.stringify(bounds))
@@ -118,7 +118,7 @@ function handleCommandLineArguments (argv) {
 
 function createWindow (cb) {
   fs.readFile(path.join(userDataPath, 'windowBounds.json'), 'utf-8', function (e, data) {
-    let bounds
+    var bounds
 
     if (data) {
       try {
@@ -128,7 +128,7 @@ function createWindow (cb) {
       }
     }
     if (e || !data || !bounds) { // there was an error, probably because the file doesn't exist
-      const size = electron.screen.getPrimaryDisplay().workAreaSize
+      var size = electron.screen.getPrimaryDisplay().workAreaSize
       bounds = {
         x: 0,
         y: 0,
@@ -141,7 +141,7 @@ function createWindow (cb) {
     // make the bounds fit inside a currently-active screen
     // (since the screen Min was previously open on could have been removed)
     // see: https://github.com/minbrowser/min/issues/904
-    const containingRect = electron.screen.getDisplayMatching(bounds).workArea
+    var containingRect = electron.screen.getDisplayMatching(bounds).workArea
 
     bounds = {
       x: clamp(bounds.x, containingRect.x, (containingRect.x + containingRect.width) - bounds.width),

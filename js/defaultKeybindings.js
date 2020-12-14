@@ -1,10 +1,10 @@
 const keybindings = require('keybindings.js')
-const webviews = require('webviews.js')
-const webviewGestures = require('webviewGestures.js')
-const browserUI = require('browserUI.js')
-const focusMode = require('focusMode.js')
-const modalMode = require('modalMode.js')
-const tabEditor = require('navbar/tabEditor.js')
+var webviews = require('webviews.js')
+var webviewGestures = require('webviewGestures.js')
+var browserUI = require('browserUI.js')
+var focusMode = require('focusMode.js')
+var modalMode = require('modalMode.js')
+var tabEditor = require('navbar/tabEditor.js')
 
 const defaultKeybindings = {
   initialize: function () {
@@ -76,7 +76,7 @@ const defaultKeybindings = {
         return
       }
 
-      const restoredTab = tasks.getSelected().tabHistory.pop()
+      var restoredTab = tasks.getSelected().tabHistory.pop()
 
       // The tab history stack is empty
       if (!restoredTab) {
@@ -98,16 +98,16 @@ const defaultKeybindings = {
     for (var i = 1; i < 9; i++) {
       (function (i) {
         keybindings.defineShortcut({ keys: 'mod+' + i }, function (e) {
-          const currentIndex = tabs.getIndex(tabs.getSelected())
-          const newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i)
+          var currentIndex = tabs.getIndex(tabs.getSelected())
+          var newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i)
           if (newTab) {
             browserUI.switchToTab(newTab.id)
           }
         })
 
         keybindings.defineShortcut({ keys: 'shift+mod+' + i }, function (e) {
-          const currentIndex = tabs.getIndex(tabs.getSelected())
-          const newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i)
+          var currentIndex = tabs.getIndex(tabs.getSelected())
+          var newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i)
           if (newTab) {
             browserUI.switchToTab(newTab.id)
           }
@@ -146,8 +146,8 @@ const defaultKeybindings = {
     })
 
     keybindings.defineShortcut('switchToPreviousTab', function (d) {
-      const currentIndex = tabs.getIndex(tabs.getSelected())
-      const previousTab = tabs.getAtIndex(currentIndex - 1)
+      var currentIndex = tabs.getIndex(tabs.getSelected())
+      var previousTab = tabs.getAtIndex(currentIndex - 1)
 
       if (previousTab) {
         browserUI.switchToTab(previousTab.id)
@@ -157,8 +157,8 @@ const defaultKeybindings = {
     })
 
     keybindings.defineShortcut('switchToNextTab', function (d) {
-      const currentIndex = tabs.getIndex(tabs.getSelected())
-      const nextTab = tabs.getAtIndex(currentIndex + 1)
+      var currentIndex = tabs.getIndex(tabs.getSelected())
+      var nextTab = tabs.getAtIndex(currentIndex + 1)
 
       if (nextTab) {
         browserUI.switchToTab(nextTab.id)
@@ -220,18 +220,18 @@ const defaultKeybindings = {
         return
       }
 
-      const tset = tabs.get()
-      for (let i = 0; i < tset.length; i++) {
+      var tset = tabs.get()
+      for (var i = 0; i < tset.length; i++) {
         browserUI.destroyTab(tset[i].id)
       }
 
       browserUI.addTab() // create a new, blank tab
     })
 
-    let lastReload = 0
+    var lastReload = 0
 
     keybindings.defineShortcut('reload', function () {
-      const time = Date.now()
+      var time = Date.now()
 
       // pressing mod+r twice in a row reloads the whole browser
       if (time - lastReload < 500) {

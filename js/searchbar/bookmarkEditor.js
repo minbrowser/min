@@ -1,11 +1,11 @@
-const { db } = require('util/database.js')
-const places = require('places/places.js')
-const autocomplete = require('util/autocomplete.js')
+var { db } = require('util/database.js')
+var places = require('places/places.js')
+var autocomplete = require('util/autocomplete.js')
 
 const bookmarkEditor = {
   currentInstance: null,
   getTagElement: function (tag, selected, onClick, options = {}) {
-    const el = document.createElement('button')
+    var el = document.createElement('button')
     el.className = 'tag'
     el.textContent = tag
     if (selected) {
@@ -30,7 +30,7 @@ const bookmarkEditor = {
     bookmarkEditor.currentInstance = {}
     bookmarkEditor.currentInstance.bookmark = await db.places.where('url').equals(url).first()
 
-    const editor = document.createElement('div')
+    var editor = document.createElement('div')
     editor.className = 'bookmark-editor searchbar-item'
 
     if (options.simplified) {
@@ -39,19 +39,19 @@ const bookmarkEditor = {
 
     if (!options.simplified) {
       // title input
-      const title = document.createElement('span')
+      var title = document.createElement('span')
       title.className = 'title wide'
       title.textContent = bookmarkEditor.currentInstance.bookmark.title
       editor.appendChild(title)
 
       // URL
-      const URLSpan = document.createElement('div')
+      var URLSpan = document.createElement('div')
       URLSpan.className = 'bookmark-url'
       URLSpan.textContent = bookmarkEditor.currentInstance.bookmark.url
       editor.appendChild(URLSpan)
 
       // save button
-      const saveButton = document.createElement('button')
+      var saveButton = document.createElement('button')
       saveButton.className = 'action-button always-visible i carbon:checkmark'
       saveButton.tabIndex = -1
       editor.appendChild(saveButton)
@@ -62,7 +62,7 @@ const bookmarkEditor = {
       })
 
       // delete button
-      const delButton = document.createElement('button')
+      var delButton = document.createElement('button')
       delButton.className = 'action-button always-visible bookmark-delete-button i carbon:delete'
       delButton.tabIndex = -1
       editor.appendChild(delButton)
@@ -74,11 +74,11 @@ const bookmarkEditor = {
     }
 
     // tag area
-    const tagArea = document.createElement('div')
+    var tagArea = document.createElement('div')
     tagArea.className = 'tag-edit-area'
     editor.appendChild(tagArea)
 
-    const tags = {
+    var tags = {
       selected: [],
       suggested: []
     }
@@ -102,7 +102,7 @@ const bookmarkEditor = {
         }))
       })
       // add option for new tag
-      const newTagInput = document.createElement('input')
+      var newTagInput = document.createElement('input')
       newTagInput.className = 'tag-input'
       newTagInput.placeholder = l('bookmarksAddTag')
       newTagInput.classList.add('mousetrap')
@@ -118,7 +118,7 @@ const bookmarkEditor = {
       })
 
       newTagInput.addEventListener('change', function () {
-        const val = this.value
+        var val = this.value
         if (!tags.selected.includes(val)) {
           places.toggleTag(bookmarkEditor.currentInstance.bookmark.url, val)
           tagArea.insertBefore(bookmarkEditor.getTagElement(val, true, function () {

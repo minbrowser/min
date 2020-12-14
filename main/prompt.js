@@ -1,13 +1,13 @@
 /* Simple input prompt. */
 
-let promptAnswer
-let promptOptions
+var promptAnswer
+var promptOptions
 
 function createPrompt (options, callback) {
   promptOptions = options
   const { parent, width = 360, height = 140 } = options
 
-  let promptWindow = new BrowserWindow({
+  var promptWindow = new BrowserWindow({
     width: width,
     height: height,
     parent: parent != null ? parent : mainWindow,

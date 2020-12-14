@@ -1,13 +1,13 @@
-const webviews = require('webviews.js')
-const keybindings = require('keybindings.js')
-const urlParser = require('util/urlParser.js')
-const searchbarPlugins = require('searchbar/searchbarPlugins.js')
-const keyboardNavigationHelper = require('util/keyboardNavigationHelper.js')
+var webviews = require('webviews.js')
+var keybindings = require('keybindings.js')
+var urlParser = require('util/urlParser.js')
+var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var keyboardNavigationHelper = require('util/keyboardNavigationHelper.js')
 
 function openURLInBackground (url) { // used to open a url in the background, without leaving the searchbar
   searchbar.events.emit('url-selected', { url: url, background: true })
 
-  const i = searchbar.el.querySelector('.searchbar-item:focus')
+  var i = searchbar.el.querySelector('.searchbar-item:focus')
   if (i) { // remove the highlight from an awesomebar result item, if there is one
     i.blur()
   }
@@ -28,7 +28,7 @@ var searchbar = {
     searchbarPlugins.clearAll()
   },
   getValue: function () {
-    const text = searchbar.associatedInput.value
+    var text = searchbar.associatedInput.value
     return text.replace(text.substring(searchbar.associatedInput.selectionStart, searchbar.associatedInput.selectionEnd), '')
   },
   showResults: function (text, event) {
@@ -44,7 +44,7 @@ var searchbar = {
     searchbarPlugins.run(realText, searchbar.associatedInput, event)
   },
   openURL: function (url, event) {
-    const hasURLHandler = searchbarPlugins.runURLHandlers(url)
+    var hasURLHandler = searchbarPlugins.runURLHandlers(url)
     if (hasURLHandler) {
       return
     }
@@ -66,7 +66,7 @@ keyboardNavigationHelper.addToGroup('searchbar', searchbar.el)
 // mod+enter navigates to searchbar URL + ".com"
 keybindings.defineShortcut('completeSearchbar', function () {
   if (searchbar.associatedInput) { // if the searchbar is open
-    const value = searchbar.associatedInput.value
+    var value = searchbar.associatedInput.value
 
     // if the text is already a URL, navigate to that page
     if (urlParser.isURLMissingProtocol(value)) {

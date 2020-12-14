@@ -1,11 +1,11 @@
-const webviews = require('webviews.js')
-const keybindings = require('keybindings.js')
+var webviews = require('webviews.js')
+var keybindings = require('keybindings.js')
 
 var tabAudio = {
   muteIcon: 'carbon:volume-mute',
   volumeIcon: 'carbon:volume-up',
   getButton: function (tabId) {
-    const button = document.createElement('button')
+    var button = document.createElement('button')
     button.className = 'tab-icon tab-audio-button i'
 
     button.setAttribute('data-tab', tabId)
@@ -22,10 +22,10 @@ var tabAudio = {
   },
   updateButton: function (tabId, button) {
     var button = button || document.querySelector('.tab-audio-button[data-tab="{id}"]'.replace('{id}', tabId))
-    const tab = tabs.get(tabId)
+    var tab = tabs.get(tabId)
 
-    const muteIcon = tabAudio.muteIcon
-    const volumeIcon = tabAudio.volumeIcon
+    var muteIcon = tabAudio.muteIcon
+    var volumeIcon = tabAudio.volumeIcon
 
     if (tab.muted) {
       button.hidden = false
@@ -40,7 +40,7 @@ var tabAudio = {
     }
   },
   toggleAudio: function (tabId) {
-    const tab = tabs.get(tabId)
+    var tab = tabs.get(tabId)
     // can be muted if has audio, can be unmuted if muted
     if (tab.hasAudio || tab.muted) {
       webviews.callAsync(tabId, 'setAudioMuted', !tab.muted)

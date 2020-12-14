@@ -7,7 +7,7 @@ module.exports = {
       e.preventDefault()
       e.stopPropagation()
 
-      const inputMenu = [
+      var inputMenu = [
         [
           {
             label: l('undo'),

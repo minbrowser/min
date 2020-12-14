@@ -3,14 +3,14 @@ Passes a context menu template to the main process (where the menu is created)
 and listens for click events on it.
 */
 
-const menuCallbacks = {}
+var menuCallbacks = {}
 
-let nextMenuId = 0
+var nextMenuId = 0
 
 function open (menuTemplate, x, y) {
   nextMenuId++
   menuCallbacks[nextMenuId] = {}
-  let nextItemId = 0
+  var nextItemId = 0
   function prepareToSend (menuPart) {
     if (menuPart instanceof Array) {
       return menuPart.map(item => prepareToSend(item))

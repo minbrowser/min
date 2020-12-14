@@ -5,9 +5,9 @@ class TabList {
   }
 
   add (tab = {}, options = {}) {
-    const tabId = String(tab.id || Math.round(Math.random() * 100000000000000000)) // you can pass an id that will be used, or a random one will be generated.
+    var tabId = String(tab.id || Math.round(Math.random() * 100000000000000000)) // you can pass an id that will be used, or a random one will be generated.
 
-    const newTab = {
+    var newTab = {
       url: tab.url || '',
       title: tab.title || '',
       id: tabId,
@@ -40,7 +40,7 @@ class TabList {
     }
     const index = this.getIndex(id)
 
-    for (const key in data) {
+    for (var key in data) {
       if (data[key] === undefined) {
         throw new ReferenceError('Key ' + key + ' is undefined.')
       }
@@ -74,7 +74,7 @@ class TabList {
   get (id) {
     if (!id) { // no id provided, return an array of all tabs
       // it is important to copy the tab objects when returning them. Otherwise, the original tab objects get modified when the returned tabs are modified (such as when processing a url).
-      const tabsToReturn = []
+      var tabsToReturn = []
       for (var i = 0; i < this.tabs.length; i++) {
         tabsToReturn.push(Object.assign({}, this.tabs[i]))
       }
@@ -93,7 +93,7 @@ class TabList {
   }
 
   getIndex (id) {
-    for (let i = 0; i < this.tabs.length; i++) {
+    for (var i = 0; i < this.tabs.length; i++) {
       if (this.tabs[i].id === id) {
         return i
       }
@@ -102,7 +102,7 @@ class TabList {
   }
 
   getSelected () {
-    for (let i = 0; i < this.tabs.length; i++) {
+    for (var i = 0; i < this.tabs.length; i++) {
       if (this.tabs[i].selected) {
         return this.tabs[i].id
       }
@@ -111,7 +111,7 @@ class TabList {
   }
 
   getSelectedIndex () {
-    for (let i = 0; i < this.tabs.length; i++) {
+    for (var i = 0; i < this.tabs.length; i++) {
       if (this.tabs[i].selected) {
         return i
       }
@@ -127,7 +127,7 @@ class TabList {
     if (!this.has(id)) {
       throw new ReferenceError('Attempted to select a tab that does not exist.')
     }
-    for (let i = 0; i < this.tabs.length; i++) {
+    for (var i = 0; i < this.tabs.length; i++) {
       if (this.tabs[i].id === id) {
         this.tabs[i].selected = true
         this.tabs[i].lastActivity = Date.now()

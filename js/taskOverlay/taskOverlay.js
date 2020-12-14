@@ -1,19 +1,19 @@
-const webviews = require('webviews.js')
-const keybindings = require('keybindings.js')
-const browserUI = require('browserUI.js')
-const tabBar = require('navbar/tabBar.js')
-const tabEditor = require('navbar/tabEditor.js')
-const focusMode = require('focusMode.js')
-const modalMode = require('modalMode.js')
-const keyboardNavigationHelper = require('util/keyboardNavigationHelper.js')
+var webviews = require('webviews.js')
+var keybindings = require('keybindings.js')
+var browserUI = require('browserUI.js')
+var tabBar = require('navbar/tabBar.js')
+var tabEditor = require('navbar/tabEditor.js')
+var focusMode = require('focusMode.js')
+var modalMode = require('modalMode.js')
+var keyboardNavigationHelper = require('util/keyboardNavigationHelper.js')
 
 const createTaskContainer = require('taskOverlay/taskOverlayBuilder.js')
 
-const taskContainer = document.getElementById('task-area')
-const taskSwitcherButton = document.getElementById('switch-task-button')
-const addTaskButton = document.getElementById('add-task')
-const addTaskLabel = addTaskButton.querySelector('span')
-const taskOverlayNavbar = document.getElementById('task-overlay-navbar')
+var taskContainer = document.getElementById('task-area')
+var taskSwitcherButton = document.getElementById('switch-task-button')
+var addTaskButton = document.getElementById('add-task')
+var addTaskLabel = addTaskButton.querySelector('span')
+var taskOverlayNavbar = document.getElementById('task-overlay-navbar')
 
 taskSwitcherButton.title = l('viewTasks')
 addTaskLabel.textContent = l('newTask')
@@ -31,7 +31,7 @@ taskOverlayNavbar.addEventListener('click', function () {
   taskOverlay.hide()
 })
 
-const dragula = require('dragula')
+var dragula = require('dragula')
 
 window.taskOverlay = {
   overlayElement: document.getElementById('task-overlay'),
@@ -41,7 +41,7 @@ window.taskOverlay = {
     mirrorContainer: document.getElementById('task-overlay'),
     moves: function (el, source, handle, sibling) {
       // trying to click buttons can cause them to be dragged by accident, so disable dragging on them
-      let n = handle
+      var n = handle
       while (n) {
         if (n.tagName === 'BUTTON') {
           return false
@@ -58,7 +58,7 @@ window.taskOverlay = {
     moves: function (el, source, handle, sibling) {
       // ignore drag events that come from a tab element, since they will be handled by the other dragula instance
       // also ignore inputs, since using them as drag handles breaks text selection
-      let n = handle
+      var n = handle
       while (n) {
         if (n.classList.contains('task-tab-item') || n.tagName === 'INPUT') {
           return false
@@ -97,7 +97,7 @@ window.taskOverlay = {
 
     // scroll to the selected element and focus it
 
-    const currentTabElement = document.querySelector('.task-tab-item[data-tab="{id}"]'.replace('{id}', tasks.getSelected().tabs.getSelected()))
+    var currentTabElement = document.querySelector('.task-tab-item[data-tab="{id}"]'.replace('{id}', tasks.getSelected().tabs.getSelected()))
 
     // un-hide the overlay
     this.overlayElement.hidden = false
@@ -127,15 +127,15 @@ window.taskOverlay = {
 
       // close any tasks that are pending deletion
 
-      const pendingDeleteTasks = document.body.querySelectorAll('.task-container.deleting')
-      for (let i = 0; i < pendingDeleteTasks.length; i++) {
+      var pendingDeleteTasks = document.body.querySelectorAll('.task-container.deleting')
+      for (var i = 0; i < pendingDeleteTasks.length; i++) {
         browserUI.closeTask(pendingDeleteTasks[i].getAttribute('data-task'))
       }
 
       // if the current tab has been deleted, switch to the most recent one
 
       if (!tabs.getSelected()) {
-        const mostRecentTab = tabs.get().sort(function (a, b) {
+        var mostRecentTab = tabs.get().sort(function (a, b) {
           return b.lastActivity - a.lastActivity
         })[0]
 
@@ -237,12 +237,12 @@ taskOverlay.tabDragula.on('out', function (el, container, source) {
 })
 
 taskOverlay.tabDragula.on('drop', function (el, target, source, sibling) { // see https://github.com/bevacqua/dragula#drakeon-events
-  const tabId = el.getAttribute('data-tab')
+  var tabId = el.getAttribute('data-tab')
 
-  const previousTask = tasks.get(source.getAttribute('data-task'))
+  var previousTask = tasks.get(source.getAttribute('data-task'))
 
   // remove tab from old task
-  const oldTab = previousTask.tabs.splice(previousTask.tabs.getIndex(tabId), 1)[0]
+  var oldTab = previousTask.tabs.splice(previousTask.tabs.getIndex(tabId), 1)[0]
 
   // if the old task has no tabs left in it, destroy it
 
@@ -283,13 +283,13 @@ taskOverlay.tabDragula.on('drop', function (el, target, source, sibling) { // se
 /* rearrange tasks when they are dropped */
 
 taskOverlay.taskDragula.on('drop', function (el, target, source, sibling) {
-  const droppedTaskId = el.getAttribute('data-task')
+  var droppedTaskId = el.getAttribute('data-task')
   if (sibling) {
     var adjacentTaskId = sibling.getAttribute('data-task')
   }
 
   // remove the task from the tasks list
-  const droppedTask = tasks.splice(tasks.getIndex(droppedTaskId), 1)[0]
+  var droppedTask = tasks.splice(tasks.getIndex(droppedTaskId), 1)[0]
 
   // find where it should be inserted
   if (adjacentTaskId) {
@@ -304,7 +304,7 @@ taskOverlay.taskDragula.on('drop', function (el, target, source, sibling) {
 
 /* auto-scroll the container when the item is dragged to the edge of the screen */
 
-let draggingScrollInterval = null
+var draggingScrollInterval = null
 
 function onMouseMoveWhileDragging (e) {
   clearInterval(draggingScrollInterval)

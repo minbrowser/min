@@ -1,18 +1,18 @@
-const { ipcRenderer } = require('electron')
-const fs = require('fs')
-const path = require('path')
+var { ipcRenderer } = require('electron')
+var fs = require('fs')
+var path = require('path')
 
-const webviews = require('webviews.js')
-const settings = require('util/settings/settings.js')
-const browserUI = require('browserUI.js')
-const modalMode = require('modalMode.js')
-const ProcessSpawner = require('util/process.js')
+var webviews = require('webviews.js')
+var settings = require('util/settings/settings.js')
+var browserUI = require('browserUI.js')
+var modalMode = require('modalMode.js')
+var ProcessSpawner = require('util/process.js')
 
-const dialog = document.getElementById('manager-setup-dialog')
+var dialog = document.getElementById('manager-setup-dialog')
 
-const primaryInstructions = document.getElementById('manager-setup-instructions-primary')
-const secondaryInstructions = document.getElementById('manager-setup-instructions-secondary')
-const dragBox = document.getElementById('manager-setup-drop-box')
+var primaryInstructions = document.getElementById('manager-setup-instructions-primary')
+var secondaryInstructions = document.getElementById('manager-setup-instructions-secondary')
+var dragBox = document.getElementById('manager-setup-drop-box')
 
 const setupDialog = {
   manager: null,
@@ -162,7 +162,7 @@ function launchInstaller (filePath, platform) {
 }
 
 function afterInstall (toolPath) {
-  const signInFields = [
+  var signInFields = [
     { placeholder: l('email'), id: 'email', type: 'text' },
     { placeholder: l('password'), id: 'password', type: 'password' },
     { placeholder: l('secretKey'), id: 'secretKey', type: 'password' }

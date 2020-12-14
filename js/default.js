@@ -2,8 +2,8 @@ window.globalArgs = {}
 
 process.argv.forEach(function (arg) {
   if (arg.startsWith('--')) {
-    const key = arg.split('=')[0].replace('--', '')
-    const value = arg.split('=')[1]
+    var key = arg.split('=')[0].replace('--', '')
+    var value = arg.split('=')[1]
     globalArgs[key] = value
   }
 })
@@ -51,13 +51,13 @@ ipc.on('unmaximize', function () {
 
 window.throttle = function (fn, threshhold, scope) {
   threshhold || (threshhold = 250)
-  let last,
+  var last,
     deferTimer
   return function () {
-    const context = scope || this
+    var context = scope || this
 
-    const now = +new Date()
-    const args = arguments
+    var now = +new Date()
+    var args = arguments
     if (last && now < last + threshhold) {
       // hold on to it
       clearTimeout(deferTimer)
@@ -75,10 +75,10 @@ window.throttle = function (fn, threshhold, scope) {
 // https://remysharp.com/2010/07/21/throttling-function-calls
 
 window.debounce = function (fn, delay) {
-  let timer = null
+  var timer = null
   return function () {
-    const context = this
-    const args = arguments
+    var context = this
+    var args = arguments
     clearTimeout(timer)
     timer = setTimeout(function () {
       fn.apply(context, args)
@@ -87,7 +87,7 @@ window.debounce = function (fn, delay) {
 }
 
 window.empty = function (node) {
-  let n
+  var n
   while (n = node.firstElementChild) {
     node.removeChild(n)
   }
@@ -96,9 +96,9 @@ window.empty = function (node) {
 /* prevent a click event from firing after dragging the window */
 
 window.addEventListener('load', function () {
-  let isMouseDown = false
-  let isDragging = false
-  let distance = 0
+  var isMouseDown = false
+  var isDragging = false
+  var distance = 0
 
   document.body.addEventListener('mousedown', function () {
     isMouseDown = true
@@ -110,9 +110,9 @@ window.addEventListener('load', function () {
     isMouseDown = false
   })
 
-  const dragHandles = document.getElementsByClassName('windowDragHandle')
+  var dragHandles = document.getElementsByClassName('windowDragHandle')
 
-  for (let i = 0; i < dragHandles.length; i++) {
+  for (var i = 0; i < dragHandles.length; i++) {
     dragHandles[i].addEventListener('mousemove', function (e) {
       if (isMouseDown) {
         isDragging = true

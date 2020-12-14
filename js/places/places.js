@@ -1,6 +1,6 @@
 /* global Worker tabs */
 
-const webviews = require('webviews.js')
+var webviews = require('webviews.js')
 const db = require('util/database.js').db
 const searchEngine = require('util/searchEngine.js')
 const urlParser = require('util/urlParser.js')
@@ -31,8 +31,8 @@ const places = {
   receiveHistoryData: function (tabId, args) {
     // called when js/preload/textExtractor.js returns the page's text content
 
-    const tab = tabs.get(tabId)
-    const data = args[0]
+    var tab = tabs.get(tabId)
+    var data = args[0]
 
     if (tab.url.startsWith('data:') || tab.url.length > 5000) {
       /*
@@ -46,8 +46,8 @@ const places = {
 
     /* if the page is an internal page, it normally shouldn't be saved,
      unless the page represents another page (such as the PDF viewer or reader view) */
-    const isNonIndexableInternalPage = urlParser.isInternalURL(tab.url) && urlParser.getSourceURL(tab.url) === tab.url
-    const isSearchPage = !!(searchEngine.getSearch(tab.url))
+    var isNonIndexableInternalPage = urlParser.isInternalURL(tab.url) && urlParser.getSourceURL(tab.url) === tab.url
+    var isSearchPage = !!(searchEngine.getSearch(tab.url))
 
     // full-text data from search results isn't useful
     if (isSearchPage) {
@@ -66,7 +66,7 @@ const places = {
     return callbackId
   },
   runWorkerCallback: function (id, data) {
-    for (let i = 0; i < places.callbacks.length; i++) {
+    for (var i = 0; i < places.callbacks.length; i++) {
       if (places.callbacks[i].id === id) {
         places.callbacks[i].fn(data)
         places.callbacks.splice(i, 1)
