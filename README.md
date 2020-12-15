@@ -53,7 +53,8 @@ If you want to develop Min:
 In order to build Min from source, follow the installation instructions above, then use one of the following commands to create binaries:
 
 - `npm run buildWindows`
-- `npm run buildMac`
+- `npm run buildMacIntel`
+- `npm run buildMacArm`
 - `npm run buildDebian`
 - `npm run buildRaspi` (for Raspberry Pi, Raspberry Pi OS)
 - `npm run buildLinuxArm64`
@@ -63,6 +64,7 @@ Depending on the platform you are building for, you may need to install addition
 
 - If you are using macOS and building a package for Linux, install [Homebrew](http://brew.sh), then run `brew install fakeroot dpkg` first.
 - If you are using macOS or Linux and building a package for Windows, you will need to install [Mono](https://www.mono-project.com/) and [Wine](https://www.winehq.org/).
+- If you are building a macOS package, you'll need to install Xcode and the associated command-line tools. You may also need to set your default SDK to macOS 11.0 or higher, which you can do by running `export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk`. The exact command will depend on where Xcode is installed and which SDK version you're using.
 
 ## Contributing to Min
 
