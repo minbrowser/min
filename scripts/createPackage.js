@@ -74,7 +74,7 @@ var platformOptions = {
     }]
   },
   win32: {
-    arch: 'x64',
+    arch: 'all',
     platform: 'win32',
     icon: 'icons/icon256.ico'
   },
@@ -97,6 +97,6 @@ var platformOptions = {
   }
 }
 
-module.exports = function (platform) {
-  return packager(Object.assign({}, baseOptions, platformOptions[platform]))
+module.exports = function (platform, extraOptions) {
+  return packager(Object.assign({}, baseOptions, platformOptions[platform], extraOptions || {}))
 }
