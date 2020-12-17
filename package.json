@@ -4,7 +4,7 @@
   "author": "PalmerAL",
   "version": "1.17.2",
   "description": "A fast, minimal browser that protects your privacy",
-  "electronVersion": "11.0.4",
+  "electronVersion": "11.1.0",
   "main": "main.build.js",
   "dependencies": {
     "dexie": "^1.2.0",
@@ -22,7 +22,7 @@
     "chokidar": "^3.4.0",
     "concurrently": "^5.2.0",
     "decomment": "^0.9.0",
-    "electron": "^11.0.4",
+    "electron": "^11.1.0",
     "electron-installer-windows": "^3.0.0",
     "electron-packager": "^15.1.0",
     "electron-rebuild": "^2.3.2",
