@@ -51,7 +51,7 @@
     "buildRaspi": "npm run build && node ./scripts/buildDebian.js --platform=armhf",
     "buildLinuxArm64": "npm run build && node ./scripts/buildDebian.js --platform=arm64",
     "buildRedhat": "npm run build && node ./scripts/buildRedhat.js",
-    "buildAll": "npm run buildWindows && npm run buildMac && npm run buildDebian && npm run buildRedhat && npm run buildRaspi && npm run buildLinuxArm64",
+    "buildAll": "npm run buildWindows && npm run buildMacIntel && npm run buildMacArm && npm run buildDebian && npm run buildRedhat && npm run buildRaspi && npm run buildLinuxArm64",
     "updateFilters": "node ./ext/filterLists/updateEasylist.js",
     "lint": "prettier --write **/**/*.css **/**/*.md **/**/*.html **/**/*.json && standard --fix js/**/*.js main/*.js"
   },
