@@ -4,8 +4,18 @@ const archiver = require('archiver')
 
 const packageFile = require('./../package.json')
 const version = packageFile.version
+const platform = process.argv.find(arg => arg.match('platform')).split('=')[1]
 
-require('./createPackage.js')('darwin').then(function (appPaths) {
+function toTarget (platform) {
+  switch (platform) {
+    case 'x86':
+      return 'darwinIntel'
+    case 'arm64':
+      return 'darwinArm'
+  }
+}
+
+require('./createPackage.js')(toTarget(platform)).then(function (appPaths) {
   appPaths.forEach(function (packagePath) {
     /* create zip file */
 

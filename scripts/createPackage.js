@@ -47,9 +47,22 @@ var baseOptions = {
 }
 
 var platformOptions = {
-  darwin: {
+  darwinIntel: {
     platform: 'darwin',
-    arch: 'x64', // TODO enable ARM build
+    arch: 'x64',
+    icon: 'icons/icon.icns',
+    darwinDarkModeSupport: true,
+    protocols: [{
+      name: 'HTTP link',
+      schemes: ['http', 'https']
+    }, {
+      name: 'File',
+      schemes: ['file']
+    }]
+  },
+  darwinArm: {
+    platform: 'darwin',
+    arch: 'arm64',
     icon: 'icons/icon.icns',
     darwinDarkModeSupport: true,
     protocols: [{
