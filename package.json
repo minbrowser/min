@@ -28,6 +28,7 @@
     "electron-rebuild": "^2.3.2",
     "electron-renderify": "0.0.2",
     "prettier": "^2.2.1",
+    "snazzy": "^9.0.0",
     "standard": "^14.3.4"
   },
   "optionalDependencies": {
@@ -53,7 +54,7 @@
     "buildRedhat": "npm run build && node ./scripts/buildRedhat.js",
     "buildAll": "npm run buildWindows && npm run buildMacIntel && npm run buildMacArm && npm run buildDebian && npm run buildRedhat && npm run buildRaspi && npm run buildLinuxArm64",
     "updateFilters": "node ./ext/filterLists/updateEasylist.js",
-    "lint": "prettier --write **/**/*.css **/**/*.md **/**/*.html **/**/*.json && standard --fix js/**/*.js main/*.js"
+    "lint": "prettier --write **/**/*.css **/**/*.md **/**/*.html **/**/*.json && standard --fix js/**/*.js main/*.js | snazzy"
   },
   "repository": {
     "type": "git",
