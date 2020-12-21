@@ -3,22 +3,22 @@
 var elementTypes = ['script', 'image', 'stylesheet', 'object', 'xmlhttprequest', 'object-subrequest', 'subdocument', 'ping', 'websocket', 'webrtc', 'document', 'elemhide', 'generichide', 'genericblock', 'popup', 'other']
 
 var elementTypesSet = {
-  'script': 1,
-  'image': 2,
-  'stylesheet': 4,
-  'object': 8,
-  'xmlhttprequest': 16,
+  script: 1,
+  image: 2,
+  stylesheet: 4,
+  object: 8,
+  xmlhttprequest: 16,
   'object-subrequest': 32,
-  'subdocument': 64,
-  'ping': 128,
-  'websocket': 256,
-  'webrtc': 512,
-  'document': 1024,
-  'elemhide': 2048,
-  'generichide': 4096,
-  'genericblock': 8192,
-  'popup': 16384,
-  'other': 32768
+  subdocument: 64,
+  ping: 128,
+  websocket: 256,
+  webrtc: 512,
+  document: 1024,
+  elemhide: 2048,
+  generichide: 4096,
+  genericblock: 8192,
+  popup: 16384,
+  other: 32768
 }
 var allElementTypes = 65535
 
@@ -57,6 +57,11 @@ function getUrlHost (input) {
 }
 
 function isSameOriginHost (baseContextHost, testHost) {
+  /*
+  TODO only the base domain should be considered (so 'www.example.com' and 'a.example.com' should be same origin)
+  But enforcing this reduces performance too much, so we only perform a simpler check that doesn't handle this case instead.
+  */
+
   if (testHost.slice(-baseContextHost.length) === baseContextHost) {
     var c = testHost[testHost.length - baseContextHost.length - 1]
     return c === '.' || c === undefined
@@ -376,9 +381,9 @@ function indexOfFilter (input, filter, startingPos) {
     var filterParts = filter.split('^')
     filterArrCache[filter] = filterParts
   }
-  var index = startingPos,
-    beginIndex = -1,
-    prefixedSeparatorChar = false
+  var index = startingPos
+  var beginIndex = -1
+  var prefixedSeparatorChar = false
 
   var f = 0
   var part
@@ -420,8 +425,8 @@ function indexOfFilter (input, filter, startingPos) {
 
 function matchWildcard (input, filter) {
   let index = 0
-  for (let part of filter.wildcardMatchParts) {
-    let newIndex = indexOfFilter(input, part, index)
+  for (const part of filter.wildcardMatchParts) {
+    const newIndex = indexOfFilter(input, part, index)
     if (newIndex === -1) {
       return false
     }
@@ -446,19 +451,24 @@ function matchOptions (filterOptions, input, contextParams, currentHost) {
 
   // Domain option check
   if (contextParams.domain !== undefined) {
-    if (filterOptions.thirdParty && contextParams.domain === currentHost) {
+    /*
+    subdomains are also considered "same origin hosts" for the purposes of thirdParty and domain list checks
+    see https://adblockplus.org/filter-cheatsheet#options:
+    "The page loading it comes from example.com domain (for example example.com itself or subdomain.example.com) but not from foo.example.com or its subdomains"
+    */
+    if (filterOptions.thirdParty && isSameOriginHost(contextParams.domain, currentHost)) {
       return false
     }
 
-    if (filterOptions.notThirdParty && contextParams.domain !== currentHost) {
+    if (filterOptions.notThirdParty && !isSameOriginHost(contextParams.domain, currentHost)) {
       return false
     }
 
-    if (filterOptions.skipDomains && filterOptions.skipDomains.indexOf(contextParams.domain) !== -1) {
+    if (filterOptions.skipDomains && filterOptions.skipDomains.some(skipDomain => isSameOriginHost(skipDomain, contextParams.domain))) {
       return false
     }
 
-    if (filterOptions.domains && filterOptions.domains.indexOf(contextParams.domain) === -1) {
+    if (filterOptions.domains && !filterOptions.domains.some(domain => isSameOriginHost(domain, contextParams.domain))) {
       return false
     }
   } else if (filterOptions.domains || filterOptions.skipDomains) {
