@@ -64,10 +64,22 @@ function buildAppMenu (options = {}) {
     }
   }
 
+  var preferencesAction = {
+    label: l('appMenuPreferences'),
+    accelerator: 'CmdOrCtrl+,',
+    click: function (item, window) {
+      sendIPCToWindow(window, 'addTab', {
+        url: 'file://' + __dirname + '/pages/settings/index.html'
+      })
+    }
+  }
+
   var template = [
     ...(options.secondary ? tabTaskActions : []),
     ...(options.secondary ? [{ type: 'separator' }] : []),
     ...(options.secondary ? personalDataItems : []),
+    ...(options.secondary ? [{ type: 'separator' }] : []),
+    ...(options.secondary ? [preferencesAction] : []),
     ...(options.secondary ? [{ type: 'separator' }] : []),
     ...(process.platform === 'darwin'
       ? [
@@ -81,15 +93,7 @@ function buildAppMenu (options = {}) {
             {
               type: 'separator'
             },
-            {
-              label: l('appMenuPreferences'),
-              accelerator: 'CmdOrCtrl+,',
-              click: function (item, window) {
-                sendIPCToWindow(window, 'addTab', {
-                  url: 'file://' + __dirname + '/pages/settings/index.html'
-                })
-              }
-            },
+            preferencesAction,
             {
               label: 'Services',
               role: 'services',
@@ -141,8 +145,8 @@ function buildAppMenu (options = {}) {
             sendIPCToWindow(window, 'print')
           }
         },
-        ...(process.platform === 'linux' ? [{ type: 'separator' }] : []),
-        ...(process.platform === 'linux' ? [quitAction] : [])
+        ...(!options.secondary && process.platform === 'linux' ? [{ type: 'separator' }] : []),
+        ...(!options.secondary && process.platform === 'linux' ? [quitAction] : [])
       ]
     },
     {
@@ -191,16 +195,8 @@ function buildAppMenu (options = {}) {
             sendIPCToWindow(window, 'findInPage')
           }
         },
-        ...(process.platform !== 'darwin' ? [{ type: 'separator' }] : []),
-        ...(process.platform !== 'darwin' ? [{
-          label: l('appMenuPreferences'),
-          accelerator: 'CmdOrCtrl+,',
-          click: function (item, window) {
-            sendIPCToWindow(window, 'addTab', {
-              url: 'file://' + __dirname + '/pages/settings/index.html'
-            })
-          }
-        }] : [])
+        ...(!options.secondary && process.platform !== 'darwin' ? [{ type: 'separator' }] : []),
+        ...(!options.secondary && process.platform !== 'darwin' ? [preferencesAction] : [])
       ]
     },
     {
@@ -382,7 +378,9 @@ function buildAppMenu (options = {}) {
           }
         }] : [])
       ]
-    }
+    },
+    ...(options.secondary && process.platform !== 'darwin' ? [{ type: 'separator' }] : []),
+    ...(options.secondary && process.platform !== 'darwin' ? [quitAction] : [])
   ]
   return Menu.buildFromTemplate(template)
 }
