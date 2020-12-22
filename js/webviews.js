@@ -1,4 +1,3 @@
-const previewCache = require('previewCache.js')
 var urlParser = require('util/urlParser.js')
 var settings = require('util/settings/settings.js')
 
@@ -69,7 +68,7 @@ function onPageLoad (tabId) {
     setTimeout(function () {
       // sometimes the page isn't visible until a short time after the did-finish-load event occurs
       captureCurrentTab()
-    }, 100)
+    }, 250)
   }
 }
 
@@ -279,8 +278,8 @@ const webviews = {
     if (webviews.placeholderRequests.length >= 1) {
       // create a new placeholder
 
-      var img = previewCache.get(webviews.selectedId)
       var associatedTab = tabs.get(webviews.selectedId)
+      var img = associatedTab.previewImage
       if (img) {
         placeholderImg.src = img
         placeholderImg.hidden = false
@@ -527,10 +526,10 @@ ipc.on('view-ipc', function (e, args) {
 
 setInterval(function () {
   captureCurrentTab()
-}, 30000)
+}, 15000)
 
 ipc.on('captureData', function (e, data) {
-  previewCache.set(data.id, data.url)
+  tabs.update(data.id, { previewImage: data.url })
   if (data.id === webviews.selectedId && webviews.placeholderRequests.length > 0) {
     placeholderImg.src = data.url
     placeholderImg.hidden = false
