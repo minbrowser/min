@@ -1,3 +1,6 @@
+// creating formatters is slow, so we we reuse the same one for every call
+const formatterInstance = new Intl.DateTimeFormat(navigator.language, { year: 'numeric', month: 'long' })
+
 function formatRelativeDate (date) {
   var currentTime = Date.now()
   var startOfToday = new Date()
@@ -14,9 +17,7 @@ function formatRelativeDate (date) {
     [3600000, timeElapsedToday, l('timeRangeToday')],
     [timeElapsedToday, timeElapsedToday + msPerDay, l('timeRangeYesterday')],
     [timeElapsedToday + msPerDay, 604800000, l('timeRangeWeek')],
-    [604800000, 2592000000, l('timeRangeMonth')],
-    [2592000000, 31104000000, l('timeRangeYear')],
-    [31104000000, Infinity, l('timeRangeLongerAgo')]
+    [604800000, 2592000000, l('timeRangeMonth')]
   ]
 
   var diff = Date.now() - date
@@ -25,7 +26,7 @@ function formatRelativeDate (date) {
       return relativeDateRanges[i][2]
     }
   }
-  return null
+  return formatterInstance.format(new Date(date))
 }
 
 module.exports = formatRelativeDate

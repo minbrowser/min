@@ -161,7 +161,7 @@ var tagIndex = {
     return probsArr
   },
   getSuggestedTags: function (page) {
-    return tagIndex.getAllTagsRanked(page).filter(p => p.value > 0.2).map(p => p.tag)
+    return tagIndex.getAllTagsRanked(page).filter(p => p.value > 0.25).map(p => p.tag)
   },
   getSuggestedItemsForTags: function (tags) {
     var set = historyInMemoryCache.filter(i => i.isBookmarked).map(p => {
