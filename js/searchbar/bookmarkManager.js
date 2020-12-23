@@ -41,7 +41,7 @@ function showBookmarkEditor (url, item) {
     if (newBookmark) {
       if (item.parentNode) {
         // item could be detached from the DOM if the searchbar is closed
-        item.parentNode.replaceChild(getBookmarkListItem(newBookmark), item)
+        item.parentNode.replaceChild(searchbarUtils.createItem(getBookmarkListItemData(newBookmark)), item)
       }
     } else {
       places.deleteHistory(url)
@@ -50,10 +50,9 @@ function showBookmarkEditor (url, item) {
   })
 }
 
-function getBookmarkListItem (result, focus) {
-  var item = searchbarUtils.createItem({
+function getBookmarkListItemData (result, focus) {
+  return {
     title: result.title,
-    icon: 'carbon:star-filled',
     secondaryText: urlParser.getSourceURL(result.url),
     fakeFocus: focus,
     click: function (e) {
@@ -66,16 +65,17 @@ function getBookmarkListItem (result, focus) {
     button: {
       icon: 'carbon:edit',
       fn: function (el) {
-        showBookmarkEditor(result.url, item)
+        showBookmarkEditor(result.url, el.parentNode)
       }
     }
-  })
-  return item
+  }
 }
 
 const bookmarkManager = {
   showBookmarks: function (text, input, event) {
     var container = searchbarPlugins.getContainer('bangs')
+
+    var lazyList = searchbarUtils.createLazyList(container.parentNode)
 
     var parsedText = parseBookmarkSearch(text)
 
@@ -129,7 +129,6 @@ const bookmarkManager = {
             // order by last visit
             return b.lastVisit - a.lastVisit
           })
-          .slice(0, 100)
           .forEach(function (result, index) {
             displayedURLset.push(result.url)
 
@@ -138,8 +137,11 @@ const bookmarkManager = {
               searchbarPlugins.addHeading('bangs', { text: thisRelativeDate })
               lastRelativeDate = thisRelativeDate
             }
-            var item = getBookmarkListItem(result, index === 0 && parsedText.text)
-            container.appendChild(item)
+
+            var itemData = getBookmarkListItemData(result, index === 0 && parsedText.text)
+            var placeholder = lazyList.createPlaceholder()
+            container.appendChild(placeholder)
+            lazyList.lazyRenderItem(placeholder, itemData)
           })
 
         if (text === '' && results.length < 3) {
@@ -163,7 +165,7 @@ const bookmarkManager = {
               // order by last visit
               return b.lastVisit - a.lastVisit
             }).forEach(function (result, index) {
-              var item = getBookmarkListItem(result, false)
+              var item = searchbarUtils.createItem(getBookmarkListItemData(result, false))
               container.appendChild(item)
             })
           })
