@@ -7,7 +7,7 @@
   "electronVersion": "11.1.0",
   "main": "main.build.js",
   "dependencies": {
-    "dexie": "^1.2.0",
+    "dexie": "^3.0.3",
     "dragula": "^3.6.2",
     "electron-squirrel-startup": "^1.0.0",
     "keytar": "^7.0.0",
