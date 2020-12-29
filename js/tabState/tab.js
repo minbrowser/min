@@ -4,6 +4,10 @@ class TabList {
     this.parentTaskList = parentTaskList
   }
 
+  //tab properties that shouldn't be saved to disk
+
+  static temporaryProperties = ['hasAudio', 'previewImage']
+
   add (tab = {}, options = {}) {
     var tabId = String(tab.id || Math.round(Math.random() * 100000000000000000)) // you can pass an id that will be used, or a random one will be generated.
 
@@ -20,7 +24,8 @@ class TabList {
       scrollPosition: tab.scrollPosition || 0,
       selected: tab.selected || false,
       muted: tab.muted || false,
-      hasAudio: false
+      hasAudio: false,
+      previewImage: ''
     }
 
     if (options.atEnd) {
@@ -58,7 +63,7 @@ class TabList {
     const index = this.getIndex(id)
     if (index < 0) return false
 
-    tasks.getTaskContainingTab(id).tabHistory.push(this.tabs[index])
+    tasks.getTaskContainingTab(id).tabHistory.push(this.toPermanentState(this.tabs[index]))
     this.tabs.splice(index, 1)
 
     this.parentTaskList.emit('tab-destroyed', id)
@@ -163,8 +168,19 @@ class TabList {
     return this.tabs.splice.apply(this.tabs, args)
   }
 
+  toPermanentState (tab) {
+    //removes temporary properties of the tab that are lost on page reload
+
+    let result = {}
+      Object.keys(tab)
+      .filter(key => !TabList.temporaryProperties.includes(key))
+      .forEach(key => result[key] = tab[key])
+      
+      return result
+  }
+
   getStringifyableState () {
-    return this.tabs
+    return this.tabs.map(tab => this.toPermanentState(tab))
   }
 }
 

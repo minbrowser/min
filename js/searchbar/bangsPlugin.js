@@ -166,7 +166,7 @@ function getBangSearchResults (text, input, event) {
     }
     results = results.concat(searchCustomBangs(text))
     if (text === '!') {
-      showBangSearchResults(text, results, input, event, 4)
+      showBangSearchResults(text, results, input, event)
       searchbarPlugins.addResult('bangs', {
         title: l('showMoreBangs'),
         icon: 'carbon:chevron-down',

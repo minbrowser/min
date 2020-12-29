@@ -6,6 +6,7 @@ var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var searchbarUtils = require('searchbar/searchbarUtils.js')
 var places = require('places/places.js')
 var urlParser = require('util/urlParser.js')
 var { db } = require('util/database.js')
@@ -227,18 +228,21 @@ bangsPlugin.registerCustomBang({
     places.searchPlaces(text, function (results) {
       searchbarPlugins.reset('bangs')
 
+      var container = searchbarPlugins.getContainer('bangs')
+      var lazyList = searchbarUtils.createLazyList(container.parentNode)
+
       var lastRelativeDate = '' // used to generate headings
 
       results.sort(function (a, b) {
         // order by last visit
         return b.lastVisit - a.lastVisit
-      }).slice(0, 250).forEach(function (result, index) {
+      }).slice(0, 1000).forEach(function (result, index) {
         var thisRelativeDate = formatRelativeDate(result.lastVisit)
         if (thisRelativeDate !== lastRelativeDate) {
           searchbarPlugins.addHeading('bangs', { text: thisRelativeDate })
           lastRelativeDate = thisRelativeDate
         }
-        searchbarPlugins.addResult('bangs', {
+        var data = {
           title: result.title,
           secondaryText: urlParser.getSourceURL(result.url),
           fakeFocus: index === 0 && text,
@@ -247,7 +251,10 @@ bangsPlugin.registerCustomBang({
             places.deleteHistory(result.url)
           },
           showDeleteButton: true
-        })
+        }
+        var placeholder = lazyList.createPlaceholder()
+        container.appendChild(placeholder)
+        lazyList.lazyRenderItem(placeholder, data)
       })
     }, { limit: Infinity })
   },

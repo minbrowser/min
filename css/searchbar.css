@@ -13,6 +13,10 @@
   overflow-y: auto;
 }
 
+#searchbar:not(.is-new-tab) {
+  box-shadow:rgba(0, 0, 0, 0.25) 0px 3px 4px -2px;
+}
+
 /* account for menu button */
 body.windows #searchbar,
 body.linux #searchbar {
@@ -69,4 +73,33 @@ body:not(.mac) #searchbar .searchbar-item.has-action-button:hover .icon-image {
 .search-feedback-link:hover {
   opacity: 1;
   cursor: pointer;
+}
+
+.searchbar-shortcut {
+  font-size: 1.05em !important;
+  padding: 0.5em 0.66em;
+  margin: 0.175em 0.4em 0.5em 0.4em;
+  border-radius: 5px;
+  border: 1px rgba(0, 0, 0, 0.15) solid;
+}
+.dark-theme .searchbar-shortcut {
+  border-color: rgba(255, 255, 255, 0.4)
+}
+
+.searchbar-shortcut:hover,
+.searchbar-shortcut:focus {
+  background: rgba(0, 0, 0, 0.075)
+}
+
+.dark-theme .searchbar-shortcut:hover,
+.dark-theme .searchbar-shortcut:focus {
+  background: rgba(255, 255, 255, 0.075)
+}
+
+.searchbar-shortcut:active {
+  background: rgba(0, 0, 0, 0.125)
+}
+
+.dark-theme .searchbar-shortcut:active {
+  background: rgba(255, 255, 255, 0.125)
 }

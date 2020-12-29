@@ -6,6 +6,9 @@
   cursor: pointer;
   transition: 0.2s transform, 0.2s opacity;
 }
+.searchbar-item.placeholder {
+  height: 36px;
+}
 .searchbar-item:after {
   content: "";
   clear: both;
