@@ -14,7 +14,7 @@
 }
 
 #searchbar:not(.is-new-tab) {
-  box-shadow:rgba(0, 0, 0, 0.25) 0px 3px 4px -2px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 3px 4px -2px;
 }
 
 /* account for menu button */
@@ -83,23 +83,23 @@ body:not(.mac) #searchbar .searchbar-item.has-action-button:hover .icon-image {
   border: 1px rgba(0, 0, 0, 0.15) solid;
 }
 .dark-theme .searchbar-shortcut {
-  border-color: rgba(255, 255, 255, 0.4)
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .searchbar-shortcut:hover,
 .searchbar-shortcut:focus {
-  background: rgba(0, 0, 0, 0.075)
+  background: rgba(0, 0, 0, 0.075);
 }
 
 .dark-theme .searchbar-shortcut:hover,
 .dark-theme .searchbar-shortcut:focus {
-  background: rgba(255, 255, 255, 0.075)
+  background: rgba(255, 255, 255, 0.075);
 }
 
 .searchbar-shortcut:active {
-  background: rgba(0, 0, 0, 0.125)
+  background: rgba(0, 0, 0, 0.125);
 }
 
 .dark-theme .searchbar-shortcut:active {
-  background: rgba(255, 255, 255, 0.125)
+  background: rgba(255, 255, 255, 0.125);
 }
