@@ -9,6 +9,12 @@ const session = electron.session
 const ipc = electron.ipcMain
 const Menu = electron.Menu
 const MenuItem = electron.MenuItem
+const crashReporter = electron.crashReporter
+
+crashReporter.start({
+  submitURL: 'https://minbrowser.org/',
+  uploadToServer: false
+})
 
 if (process.argv.some(arg => arg === '-v' || arg === '--version')) {
   console.log('Min: ' + app.getVersion())

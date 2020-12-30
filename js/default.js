@@ -15,6 +15,11 @@ window.ipc = electron.ipcRenderer
 window.remote = electron.remote
 window.Dexie = require('dexie')
 
+electron.crashReporter.start({
+  submitURL: 'https://minbrowser.org/',
+  uploadToServer: false
+})
+
 if (navigator.platform === 'MacIntel') {
   document.body.classList.add('mac')
   window.platformType = 'mac'
