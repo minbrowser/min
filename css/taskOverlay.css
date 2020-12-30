@@ -181,7 +181,7 @@ body:not(.touch)
 .is-dragging-tab #add-task {
   background: none;
   border: 2px dashed rgba(0, 0, 0, 0.3);
-  margin-bottom: -2px;
+  border-bottom-width: 0;
   border-radius: 3px;
 }
 .is-dragging-tab #add-task.drag-target {
