@@ -2,13 +2,13 @@
 // requires Dexie.min.js
 
 if (typeof Dexie === 'undefined' && typeof require !== 'undefined') {
-  var Dexie = require('dexie')
+  var Dexie = require('dexie');
 }
 
-var dbErrorMessage = 'Internal error opening backing store for indexedDB.open'
-var dbErrorAlertShown = false
+const dbErrorMessage = 'Internal error opening backing store for indexedDB.open';
+let dbErrorAlertShown = false;
 
-var db = new Dexie('browsingData2')
+const db = new Dexie('browsingData2');
 
 db.version(1).stores({
   /*
@@ -21,19 +21,19 @@ db.version(1).stores({
   */
   places: '++id, &url, title, color, visitCount, lastVisit, pageHTML, extractedText, *searchIndex, isBookmarked, *tags, metadata',
   readingList: 'url, time, visitCount, pageHTML, article, extraData' // TODO remove this (reading list is no longer used)
-})
+});
 
 db.open().then(function () {
-  console.log('database opened ', performance.now())
+  console.log('database opened ', performance.now());
 }).catch(function (error) {
   if (error.message.indexOf(dbErrorMessage) !== -1 && !dbErrorAlertShown) {
-    window && window.alert && window.alert(l('multipleInstancesErrorMessage'))
-    remote.app.quit()
+    window && window.alert && window.alert(l('multipleInstancesErrorMessage'));
+    remote.app.quit();
 
-    dbErrorAlertShown = true
+    dbErrorAlertShown = true;
   }
-})
+});
 
 if (typeof module !== 'undefined') {
-  module.exports = { db }
+  module.exports = { db };
 }

@@ -1,165 +1,165 @@
-window.globalArgs = {}
+window.globalArgs = {};
 
 process.argv.forEach(function (arg) {
   if (arg.startsWith('--')) {
-    var key = arg.split('=')[0].replace('--', '')
-    var value = arg.split('=')[1]
-    globalArgs[key] = value
+    const key = arg.split('=')[0].replace('--', '');
+    const value = arg.split('=')[1];
+    globalArgs[key] = value;
   }
-})
+});
 
-window.electron = require('electron')
-window.fs = require('fs')
-window.EventEmitter = require('events')
-window.ipc = electron.ipcRenderer
-window.remote = electron.remote
-window.Dexie = require('dexie')
+window.electron = require('electron');
+window.fs = require('fs');
+window.EventEmitter = require('events');
+window.ipc = electron.ipcRenderer;
+window.remote = electron.remote;
+window.Dexie = require('dexie');
 
 electron.crashReporter.start({
   submitURL: 'https://minbrowser.org/',
   uploadToServer: false
-})
+});
 
 if (navigator.platform === 'MacIntel') {
-  document.body.classList.add('mac')
-  window.platformType = 'mac'
+  document.body.classList.add('mac');
+  window.platformType = 'mac';
 } else if (navigator.platform === 'Win32') {
-  document.body.classList.add('windows')
-  window.platformType = 'windows'
+  document.body.classList.add('windows');
+  window.platformType = 'windows';
 } else {
-  document.body.classList.add('linux')
-  window.platformType = 'linux'
+  document.body.classList.add('linux');
+  window.platformType = 'linux';
 }
 
 if (navigator.maxTouchPoints > 0) {
-  document.body.classList.add('touch')
+  document.body.classList.add('touch');
 }
 
 /* add classes so that the window state can be used in CSS */
 ipc.on('enter-full-screen', function () {
-  document.body.classList.add('fullscreen')
-})
+  document.body.classList.add('fullscreen');
+});
 
 ipc.on('leave-full-screen', function () {
-  document.body.classList.remove('fullscreen')
-})
+  document.body.classList.remove('fullscreen');
+});
 
 ipc.on('maximize', function () {
-  document.body.classList.add('maximized')
-})
+  document.body.classList.add('maximized');
+});
 
 ipc.on('unmaximize', function () {
-  document.body.classList.remove('maximized')
-})
+  document.body.classList.remove('maximized');
+});
 
 // https://remysharp.com/2010/07/21/throttling-function-calls
 
 window.throttle = function (fn, threshhold, scope) {
-  threshhold || (threshhold = 250)
-  var last,
-    deferTimer
+  threshhold || (threshhold = 250);
+  let last,
+    deferTimer;
   return function () {
-    var context = scope || this
+    const context = scope || this;
 
-    var now = +new Date()
-    var args = arguments
+    const now = +new Date();
+    const args = arguments;
     if (last && now < last + threshhold) {
       // hold on to it
-      clearTimeout(deferTimer)
+      clearTimeout(deferTimer);
       deferTimer = setTimeout(function () {
-        last = now
-        fn.apply(context, args)
-      }, threshhold)
+        last = now;
+        fn.apply(context, args);
+      }, threshhold);
     } else {
-      last = now
-      fn.apply(context, args)
+      last = now;
+      fn.apply(context, args);
     }
-  }
-}
+  };
+};
 
 // https://remysharp.com/2010/07/21/throttling-function-calls
 
 window.debounce = function (fn, delay) {
-  var timer = null
+  let timer = null;
   return function () {
-    var context = this
-    var args = arguments
-    clearTimeout(timer)
+    const context = this;
+    const args = arguments;
+    clearTimeout(timer);
     timer = setTimeout(function () {
-      fn.apply(context, args)
-    }, delay)
-  }
-}
+      fn.apply(context, args);
+    }, delay);
+  };
+};
 
 window.empty = function (node) {
-  var n
+  let n;
   while (n = node.firstElementChild) {
-    node.removeChild(n)
+    node.removeChild(n);
   }
-}
+};
 
 /* prevent a click event from firing after dragging the window */
 
 window.addEventListener('load', function () {
-  var isMouseDown = false
-  var isDragging = false
-  var distance = 0
+  let isMouseDown = false;
+  let isDragging = false;
+  let distance = 0;
 
   document.body.addEventListener('mousedown', function () {
-    isMouseDown = true
-    isDragging = false
-    distance = 0
-  })
+    isMouseDown = true;
+    isDragging = false;
+    distance = 0;
+  });
 
   document.body.addEventListener('mouseup', function () {
-    isMouseDown = false
-  })
+    isMouseDown = false;
+  });
 
-  var dragHandles = document.getElementsByClassName('windowDragHandle')
+  const dragHandles = document.getElementsByClassName('windowDragHandle');
 
-  for (var i = 0; i < dragHandles.length; i++) {
+  for (let i = 0; i < dragHandles.length; i++) {
     dragHandles[i].addEventListener('mousemove', function (e) {
       if (isMouseDown) {
-        isDragging = true
-        distance += Math.abs(e.movementX) + Math.abs(e.movementY)
+        isDragging = true;
+        distance += Math.abs(e.movementX) + Math.abs(e.movementY);
       }
-    })
+    });
   }
 
   document.body.addEventListener('click', function (e) {
     if (isDragging && distance >= 10.0) {
-      e.stopImmediatePropagation()
-      isDragging = false
+      e.stopImmediatePropagation();
+      isDragging = false;
     }
-  }, true)
-})
+  }, true);
+});
 
-require('navbar/tabActivity.js').initialize()
-require('navbar/tabColor.js').initialize()
-require('navbar/goBackButton.js').initialize()
-require('downloadManager.js').initialize()
-require('webviewMenu.js').initialize()
-require('contextMenu.js').initialize()
-require('menuRenderer.js').initialize()
-require('defaultKeybindings.js').initialize()
-require('pdfViewer.js').initialize()
-require('autofillSetup.js').initialize()
-require('passwordManager/passwordManager.js').initialize()
-require('passwordManager/passwordCapture.js').initialize()
-require('passwordManager/passwordViewer.js').initialize()
-require('util/theme.js').initialize()
-require('userscripts.js').initialize()
+require('navbar/tabActivity.js').initialize();
+require('navbar/tabColor.js').initialize();
+require('navbar/goBackButton.js').initialize();
+require('downloadManager.js').initialize();
+require('webviewMenu.js').initialize();
+require('contextMenu.js').initialize();
+require('menuRenderer.js').initialize();
+require('defaultKeybindings.js').initialize();
+require('pdfViewer.js').initialize();
+require('autofillSetup.js').initialize();
+require('passwordManager/passwordManager.js').initialize();
+require('passwordManager/passwordCapture.js').initialize();
+require('passwordManager/passwordViewer.js').initialize();
+require('util/theme.js').initialize();
+require('userscripts.js').initialize();
 
 // default searchbar plugins
 
-require('searchbar/placesPlugin.js').initialize()
-require('searchbar/instantAnswerPlugin.js').initialize()
-require('searchbar/openTabsPlugin.js').initialize()
-require('searchbar/bangsPlugin.js').initialize()
-require('searchbar/searchSuggestionsPlugin.js').initialize()
-require('searchbar/placeSuggestionsPlugin.js').initialize()
-require('searchbar/updateNotifications.js').initialize()
-require('searchbar/restoreTaskPlugin.js').initialize()
-require('searchbar/bookmarkManager.js').initialize()
-require('searchbar/developmentModeNotification.js').initialize()
-require('searchbar/shortcutButtons.js').initialize()
+require('searchbar/placesPlugin.js').initialize();
+require('searchbar/instantAnswerPlugin.js').initialize();
+require('searchbar/openTabsPlugin.js').initialize();
+require('searchbar/bangsPlugin.js').initialize();
+require('searchbar/searchSuggestionsPlugin.js').initialize();
+require('searchbar/placeSuggestionsPlugin.js').initialize();
+require('searchbar/updateNotifications.js').initialize();
+require('searchbar/restoreTaskPlugin.js').initialize();
+require('searchbar/bookmarkManager.js').initialize();
+require('searchbar/developmentModeNotification.js').initialize();
+require('searchbar/shortcutButtons.js').initialize();

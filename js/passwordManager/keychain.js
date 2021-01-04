@@ -7,28 +7,28 @@ and then store both the account domain and username in the "account" field as a 
 
 class Keychain {
   constructor () {
-    this.name = 'Built-in password manager'
-    this.keychainServiceName = 'Min saved password'
+    this.name = 'Built-in password manager';
+    this.keychainServiceName = 'Min saved password';
   }
 
   getDownloadLink () {
-    return null
+    return null;
   }
 
   getLocalPath () {
-    return null
+    return null;
   }
 
   getSetupMode () {
-    return null
+    return null;
   }
 
   async checkIfConfigured () {
-    return true
+    return true;
   }
 
   isUnlocked () {
-    return true
+    return true;
   }
 
   async getSuggestions (domain) {
@@ -36,9 +36,9 @@ class Keychain {
       return results
         .filter(function (result) {
           try {
-            return JSON.parse(result.account).domain === domain
+            return JSON.parse(result.account).domain === domain;
           } catch (e) {
-            return false
+            return false;
           }
         })
         .map(function (result) {
@@ -46,21 +46,21 @@ class Keychain {
             username: JSON.parse(result.account).username,
             password: result.password,
             manager: 'Keychain'
-          }
-        })
-    })
+          };
+        });
+    });
   }
 
   getSignInRequirements () {
-    return []
+    return [];
   }
 
   saveCredential (domain, username, password) {
-    ipc.invoke('keychainSetPassword', this.keychainServiceName, JSON.stringify({ domain: domain, username: username }), password)
+    ipc.invoke('keychainSetPassword', this.keychainServiceName, JSON.stringify({ domain: domain, username: username }), password);
   }
 
   deleteCredential (domain, username) {
-    ipc.invoke('keychainDeletePassword', this.keychainServiceName, JSON.stringify({ domain: domain, username: username }))
+    ipc.invoke('keychainDeletePassword', this.keychainServiceName, JSON.stringify({ domain: domain, username: username }));
   }
 
   getAllCredentials () {
@@ -71,10 +71,10 @@ class Keychain {
           username: JSON.parse(result.account).username,
           password: result.password,
           manager: 'Keychain'
-        }
-      })
-    })
+        };
+      });
+    });
   }
 }
 
-module.exports = Keychain
+module.exports = Keychain;

@@ -1,10 +1,10 @@
 function TabStack (tabStack) {
-  this.depth = 15
+  this.depth = 15;
 
   if (tabStack) {
-    this.stack = tabStack.stack
+    this.stack = tabStack.stack;
   } else {
-    this.stack = []
+    this.stack = [];
   }
 }
 
@@ -12,18 +12,18 @@ TabStack.prototype.push = function (closedTab) {
   // Do not store private tabs or blank tabs
   if (closedTab.private ||
     closedTab.url === '') {
-    return
+    return;
   }
 
   if (this.stack.length >= this.depth) {
-    this.stack.shift()
+    this.stack.shift();
   }
 
-  this.stack.push(closedTab)
-}
+  this.stack.push(closedTab);
+};
 
 TabStack.prototype.pop = function () {
-  return this.stack.pop()
-}
+  return this.stack.pop();
+};
 
-module.exports = TabStack
+module.exports = TabStack;

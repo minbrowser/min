@@ -1,8 +1,8 @@
-var isFocusMode = false
+let isFocusMode = false;
 
 ipc.on('enterFocusMode', function () {
-  isFocusMode = true
-  document.body.classList.add('is-focus-mode')
+  isFocusMode = true;
+  document.body.classList.add('is-focus-mode');
 
   setTimeout(function () { // wait to show the message until the tabs have been hidden, to make the message less confusing
     electron.remote.dialog.showMessageBox({
@@ -10,18 +10,18 @@ ipc.on('enterFocusMode', function () {
       buttons: [l('closeDialog')],
       message: l('isFocusMode'),
       detail: l('focusModeExplanation1') + ' ' + l('focusModeExplanation2')
-    })
-  }, 16)
-})
+    });
+  }, 16);
+});
 
 ipc.on('exitFocusMode', function () {
-  isFocusMode = false
-  document.body.classList.remove('is-focus-mode')
-})
+  isFocusMode = false;
+  document.body.classList.remove('is-focus-mode');
+});
 
 module.exports = {
   enabled: function () {
-    return isFocusMode
+    return isFocusMode;
   },
   warn: function () {
     electron.remote.dialog.showMessageBox({
@@ -29,6 +29,6 @@ module.exports = {
       buttons: [l('closeDialog')],
       message: l('isFocusMode'),
       detail: l('focusModeExplanation2')
-    })
+    });
   }
-}
+};

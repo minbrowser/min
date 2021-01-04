@@ -1,42 +1,42 @@
-var viewMap = {} // id: view
-var viewStateMap = {} // id: view state
+const viewMap = {}; // id: view
+const viewStateMap = {}; // id: view state
 
-const BrowserView = electron.BrowserView
+const BrowserView = electron.BrowserView;
 
 function createView (id, webPreferencesString, boundsString, events) {
-  const view = new BrowserView(JSON.parse(webPreferencesString))
+  const view = new BrowserView(JSON.parse(webPreferencesString));
 
   events.forEach(function (event) {
     view.webContents.on(event, function (e) {
       /*
       new-window is special because its arguments contain a webContents object that can't be serialized and needs to be removed.
       */
-      var args = Array.prototype.slice.call(arguments).slice(1)
+      let args = Array.prototype.slice.call(arguments).slice(1);
       if (event === 'new-window') {
-        e.preventDefault()
-        args = args.slice(0, 3)
+        e.preventDefault();
+        args = args.slice(0, 3);
       }
 
       mainWindow.webContents.send('view-event', {
         viewId: id,
         event: event,
         args: args
-      })
-    })
-  })
+      });
+    });
+  });
 
   /*
   Workaround for crashes when calling preventDefault() on the new-window event (https://github.com/electron/electron/issues/23859#issuecomment-650270680)
   Calling preventDefault also prevents the new-window event from occurring, so create a new event here instead
   */
   view.webContents.on('-will-add-new-contents', function (e, url) {
-    e.preventDefault()
+    e.preventDefault();
     mainWindow.webContents.send('view-event', {
       viewId: id,
       event: 'new-window',
       args: [url, '', 'new-window']
-    })
-  })
+    });
+  });
 
   view.webContents.on('ipc-message', function (e, channel, data) {
     mainWindow.webContents.send('view-ipc', {
@@ -44,16 +44,16 @@ function createView (id, webPreferencesString, boundsString, events) {
       name: channel,
       data: data,
       frameId: e.frameId
-    })
-  })
+    });
+  });
 
   // Open a login prompt when site asks for http authentication
   view.webContents.on('login', (event, authenticationResponseDetails, authInfo, callback) => {
     if (authInfo.scheme !== 'basic') { // Only for basic auth
-      return
+      return;
     }
-    event.preventDefault()
-    var title = l('loginPromptTitle').replace('%h', authInfo.host).replace('%r', authInfo.realm)
+    event.preventDefault();
+    const title = l('loginPromptTitle').replace('%h', authInfo.host).replace('%r', authInfo.realm);
     createPrompt({
       text: title,
       values: [{ placeholder: l('username'), id: 'username', type: 'text' },
@@ -64,45 +64,45 @@ function createView (id, webPreferencesString, boundsString, events) {
       height: 200
     }, function (result) {
       // resend request with auth credentials
-      callback(result.username, result.password)
-    })
-  })
+      callback(result.username, result.password);
+    });
+  });
 
-  view.setBounds(JSON.parse(boundsString))
+  view.setBounds(JSON.parse(boundsString));
 
-  viewMap[id] = view
-  viewStateMap[id] = { loadedInitialURL: false }
+  viewMap[id] = view;
+  viewStateMap[id] = { loadedInitialURL: false };
 
-  return view
+  return view;
 }
 
 function destroyView (id) {
   if (!viewMap[id]) {
-    return
+    return;
   }
 
   if (viewMap[id] === mainWindow.getBrowserView()) {
-    mainWindow.setBrowserView(null)
+    mainWindow.setBrowserView(null);
   }
-  viewMap[id].webContents.destroy()
+  viewMap[id].webContents.destroy();
 
-  delete viewMap[id]
-  delete viewStateMap[id]
+  delete viewMap[id];
+  delete viewStateMap[id];
 }
 
 function destroyAllViews () {
   for (const id in viewMap) {
-    destroyView(id)
+    destroyView(id);
   }
 }
 
 function setView (id) {
-  mainWindow.setBrowserView(viewMap[id])
+  mainWindow.setBrowserView(viewMap[id]);
 }
 
 function setBounds (id, bounds) {
   if (viewMap[id]) {
-    viewMap[id].setBounds(bounds)
+    viewMap[id].setBounds(bounds);
   }
 }
 
@@ -110,131 +110,131 @@ function focusView (id) {
   // empty views can't be focused because they won't propogate keyboard events correctly, see https://github.com/minbrowser/min/issues/616
   // also, make sure the view exists, since it might not if the app is shutting down
   if (viewMap[id] && (viewMap[id].webContents.getURL() !== '' || viewMap[id].webContents.isLoading())) {
-    viewMap[id].webContents.focus()
+    viewMap[id].webContents.focus();
   } else if (mainWindow) {
-    mainWindow.webContents.focus()
+    mainWindow.webContents.focus();
   }
 }
 
 function hideCurrentView () {
-  mainWindow.setBrowserView(null)
-  mainWindow.webContents.focus()
+  mainWindow.setBrowserView(null);
+  mainWindow.webContents.focus();
 }
 
 function getView (id) {
-  return viewMap[id]
+  return viewMap[id];
 }
 
 function getViewIDFromWebContents (contents) {
-  for (var id in viewMap) {
+  for (const id in viewMap) {
     if (viewMap[id].webContents === contents) {
-      return id
+      return id;
     }
   }
 }
 
 ipc.on('createView', function (e, args) {
-  createView(args.id, args.webPreferencesString, args.boundsString, args.events)
-})
+  createView(args.id, args.webPreferencesString, args.boundsString, args.events);
+});
 
 ipc.on('destroyView', function (e, id) {
-  destroyView(id)
-})
+  destroyView(id);
+});
 
 ipc.on('destroyAllViews', function () {
-  destroyAllViews()
-})
+  destroyAllViews();
+});
 
 ipc.on('setView', function (e, args) {
-  setView(args.id)
-  setBounds(args.id, args.bounds)
+  setView(args.id);
+  setBounds(args.id, args.bounds);
   if (args.focus) {
-    focusView(args.id)
+    focusView(args.id);
   }
-})
+});
 
 ipc.on('setBounds', function (e, args) {
-  setBounds(args.id, args.bounds)
-})
+  setBounds(args.id, args.bounds);
+});
 
 ipc.on('focusView', function (e, id) {
-  focusView(id)
-})
+  focusView(id);
+});
 
 ipc.on('hideCurrentView', function (e) {
-  hideCurrentView()
-})
+  hideCurrentView();
+});
 
 ipc.on('loadURLInView', function (e, args) {
   // wait until the first URL is loaded to set the background color so that new tabs can use a custom background
   if (!viewStateMap[args.id].loadedInitialURL) {
-    viewMap[args.id].setBackgroundColor('#fff')
+    viewMap[args.id].setBackgroundColor('#fff');
   }
-  viewMap[args.id].webContents.loadURL(args.url)
-  viewStateMap[args.id].loadedInitialURL = true
-})
+  viewMap[args.id].webContents.loadURL(args.url);
+  viewStateMap[args.id].loadedInitialURL = true;
+});
 
 ipc.on('callViewMethod', function (e, data) {
-  var error, result
+  let error, result;
   try {
-    var webContents = viewMap[data.id].webContents
-    var methodOrProp = webContents[data.method]
+    const webContents = viewMap[data.id].webContents;
+    const methodOrProp = webContents[data.method];
     if (methodOrProp instanceof Function) {
       // call function
-      result = methodOrProp.apply(webContents, data.args)
+      result = methodOrProp.apply(webContents, data.args);
     } else {
       // set property
       if (data.args && data.args.length > 0) {
-        webContents[data.method] = data.args[0]
+        webContents[data.method] = data.args[0];
       }
       // read property
-      result = methodOrProp
+      result = methodOrProp;
     }
   } catch (e) {
-    error = e
+    error = e;
   }
   if (result instanceof Promise) {
     result.then(function (result) {
       if (data.callId) {
-        mainWindow.webContents.send('async-call-result', { callId: data.callId, error: null, result })
+        mainWindow.webContents.send('async-call-result', { callId: data.callId, error: null, result });
       }
-    })
+    });
     result.catch(function (error) {
       if (data.callId) {
-        mainWindow.webContents.send('async-call-result', { callId: data.callId, error, result: null })
+        mainWindow.webContents.send('async-call-result', { callId: data.callId, error, result: null });
       }
-    })
+    });
   } else if (data.callId) {
-    mainWindow.webContents.send('async-call-result', { callId: data.callId, error, result })
+    mainWindow.webContents.send('async-call-result', { callId: data.callId, error, result });
   }
-})
+});
 
 ipc.on('getCapture', function (e, data) {
-  var view = viewMap[data.id]
+  const view = viewMap[data.id];
   if (!view) {
     // view could have been destroyed
-    return
+    return;
   }
 
   view.webContents.capturePage().then(function (img) {
-    var size = img.getSize()
+    const size = img.getSize();
     if (size.width === 0 && size.height === 0) {
-      return
+      return;
     }
-    img = img.resize({ width: data.width, height: data.height })
-    mainWindow.webContents.send('captureData', { id: data.id, url: img.toDataURL() })
-  })
-})
+    img = img.resize({ width: data.width, height: data.height });
+    mainWindow.webContents.send('captureData', { id: data.id, url: img.toDataURL() });
+  });
+});
 
 ipc.on('saveViewCapture', function (e, data) {
-  var view = viewMap[data.id]
+  const view = viewMap[data.id];
   if (!view) {
     // view could have been destroyed
   }
 
   view.webContents.capturePage().then(function (image) {
-    view.webContents.downloadURL(image.toDataURL())
-  })
-})
+    view.webContents.downloadURL(image.toDataURL());
+  });
+});
 
-global.getView = getView
+global.getView = getView;

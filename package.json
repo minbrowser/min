@@ -14,6 +14,7 @@
     "mousetrap": "^1.5.3",
     "pdfjs-dist": "2.4.456",
     "regedit": "^3.0.3",
+    "semistandard": "^16.0.0",
     "string_score": "^0.1.22"
   },
   "devDependencies": {
@@ -28,8 +29,7 @@
     "electron-rebuild": "^2.3.2",
     "electron-renderify": "0.0.2",
     "prettier": "^2.2.1",
-    "snazzy": "^9.0.0",
-    "standard": "^14.3.4"
+    "snazzy": "^9.0.0"
   },
   "optionalDependencies": {
     "electron-installer-debian": "^3.1.0",
@@ -37,7 +37,7 @@
   },
   "license": "Apache-2.0",
   "scripts": {
-    "test": "standard --verbose js/**/*.js main/*.js",
+    "test": "semistandard --verbose js/**/*.js main/*.js",
     "watch": "node ./scripts/watch.js",
     "startElectron": "electron . --development-mode",
     "start": "npm run build && concurrently \"npm run watch\" \"npm run startElectron\"",
@@ -54,7 +54,7 @@
     "buildRedhat": "npm run build && node ./scripts/buildRedhat.js",
     "buildAll": "npm run buildWindows && npm run buildMacIntel && npm run buildMacArm && npm run buildDebian && npm run buildRedhat && npm run buildRaspi && npm run buildLinuxArm64",
     "updateFilters": "node ./ext/filterLists/updateEasylist.js",
-    "lint": "prettier --write **/**/*.css **/**/*.md **/**/*.html **/**/*.json && standard --fix js/**/*.js main/*.js | snazzy"
+    "lint": "prettier --write **/**/*.css **/**/*.md **/**/*.html **/**/*.json && semistandard --fix js/**/*.js main/*.js | snazzy"
   },
   "repository": {
     "type": "git",

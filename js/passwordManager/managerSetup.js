@@ -1,172 +1,172 @@
-var { ipcRenderer } = require('electron')
-var fs = require('fs')
-var path = require('path')
+const { ipcRenderer } = require('electron');
+const fs = require('fs');
+const path = require('path');
 
-var webviews = require('webviews.js')
-var settings = require('util/settings/settings.js')
-var browserUI = require('browserUI.js')
-var modalMode = require('modalMode.js')
-var ProcessSpawner = require('util/process.js')
+const webviews = require('webviews.js');
+const settings = require('util/settings/settings.js');
+const browserUI = require('browserUI.js');
+const modalMode = require('modalMode.js');
+const ProcessSpawner = require('util/process.js');
 
-var dialog = document.getElementById('manager-setup-dialog')
+const dialog = document.getElementById('manager-setup-dialog');
 
-var primaryInstructions = document.getElementById('manager-setup-instructions-primary')
-var secondaryInstructions = document.getElementById('manager-setup-instructions-secondary')
-var dragBox = document.getElementById('manager-setup-drop-box')
+const primaryInstructions = document.getElementById('manager-setup-instructions-primary');
+const secondaryInstructions = document.getElementById('manager-setup-instructions-secondary');
+const dragBox = document.getElementById('manager-setup-drop-box');
 
 const setupDialog = {
   manager: null,
   setupMode: null,
   installerCompletionTimeout: null,
   show: function (manager) {
-    setupDialog.manager = manager
-    setupDialog.setupMode = manager.getSetupMode()
+    setupDialog.manager = manager;
+    setupDialog.setupMode = manager.getSetupMode();
 
-    document.getElementById('manager-setup-heading').textContent = l('passwordManagerSetupHeading').replace('%p', manager.name)
-    document.getElementById('password-manager-setup-link').textContent = l('passwordManagerSetupLink').replace('%p', manager.name)
-    document.getElementById('password-manager-setup-link-installer').textContent = l('passwordManagerSetupLinkInstaller').replace('%p', manager.name)
+    document.getElementById('manager-setup-heading').textContent = l('passwordManagerSetupHeading').replace('%p', manager.name);
+    document.getElementById('password-manager-setup-link').textContent = l('passwordManagerSetupLink').replace('%p', manager.name);
+    document.getElementById('password-manager-setup-link-installer').textContent = l('passwordManagerSetupLinkInstaller').replace('%p', manager.name);
 
     if (setupDialog.setupMode === 'installer') {
-      primaryInstructions.hidden = true
-      secondaryInstructions.hidden = false
+      primaryInstructions.hidden = true;
+      secondaryInstructions.hidden = false;
 
-      setupDialog.installerCompletionTimeout = setTimeout(waitForInstallerComplete, 2000)
+      setupDialog.installerCompletionTimeout = setTimeout(waitForInstallerComplete, 2000);
     } else {
-      primaryInstructions.hidden = false
-      secondaryInstructions.hidden = true
+      primaryInstructions.hidden = false;
+      secondaryInstructions.hidden = true;
     }
 
     modalMode.toggle(true, {
       onDismiss: function () {
-        settings.set('passwordManager', null)
-        setupDialog.hide()
+        settings.set('passwordManager', null);
+        setupDialog.hide();
       }
-    })
+    });
 
-    dialog.hidden = false
-    webviews.requestPlaceholder('managerSetup')
+    dialog.hidden = false;
+    webviews.requestPlaceholder('managerSetup');
   },
   hide: function () {
-    setupDialog.manager = null
-    setupDialog.setupMode = null
-    clearTimeout(setupDialog.installerCompletionTimeout)
-    setupDialog.installerCompletionTimeout = null
+    setupDialog.manager = null;
+    setupDialog.setupMode = null;
+    clearTimeout(setupDialog.installerCompletionTimeout);
+    setupDialog.installerCompletionTimeout = null;
 
-    modalMode.toggle(false)
-    dialog.hidden = true
-    webviews.hidePlaceholder('managerSetup')
+    modalMode.toggle(false);
+    dialog.hidden = true;
+    webviews.hidePlaceholder('managerSetup');
   },
   initialize: function () {
     document.getElementById('manager-setup-disable').addEventListener('click', function () {
-      settings.set('passwordManager', null)
-      setupDialog.hide()
-    })
+      settings.set('passwordManager', null);
+      setupDialog.hide();
+    });
 
     document.getElementById('manager-setup-close').addEventListener('click', function () {
-      settings.set('passwordManager', null)
-      setupDialog.hide()
-    })
+      settings.set('passwordManager', null);
+      setupDialog.hide();
+    });
 
     document.getElementById('password-manager-setup-link').addEventListener('click', function () {
       browserUI.addTab(tabs.add({
         url: setupDialog.manager.getDownloadLink()
-      }), { openInBackground: true })
-    })
+      }), { openInBackground: true });
+    });
 
     document.getElementById('password-manager-setup-link-installer').addEventListener('click', function () {
       browserUI.addTab(tabs.add({
         url: setupDialog.manager.getDownloadLink()
-      }), { openInBackground: true })
-    })
+      }), { openInBackground: true });
+    });
 
     dragBox.ondragover = () => {
-      return false
-    }
+      return false;
+    };
 
     dragBox.ondragleave = () => {
-      return false
-    }
+      return false;
+    };
 
     dragBox.ondragend = () => {
-      return false
-    }
+      return false;
+    };
 
     dragBox.ondrop = (e) => {
-      e.preventDefault()
+      e.preventDefault();
 
       if (e.dataTransfer.files.length === 0) {
-        return
+        return;
       }
 
-      dragBox.innerHTML = l('passwordManagerSetupInstalling')
+      dragBox.innerHTML = l('passwordManagerSetupInstalling');
 
-      const filePath = e.dataTransfer.files[0].path
+      const filePath = e.dataTransfer.files[0].path;
 
       // try to filter out anything that isn't an executable (note: not 100% accurate)
       if (e.dataTransfer.files[0].type !== '' && !e.dataTransfer.files[0].name.endsWith('.exe')) {
-        dragBox.innerHTML = l('passwordManagerSetupRetry')
-        return
+        dragBox.innerHTML = l('passwordManagerSetupRetry');
+        return;
       }
 
       if (setupDialog.setupMode === 'installer') {
-        launchInstaller(filePath, window.platformType)
+        launchInstaller(filePath, window.platformType);
       } else {
-        install(filePath).then(afterInstall)
+        install(filePath).then(afterInstall);
       }
 
-      return false
-    }
+      return false;
+    };
   }
-}
+};
 
 function waitForInstallerComplete () {
   setupDialog.manager.checkIfConfigured().then(function (configured) {
     if (configured) {
-      afterInstall()
-      setupDialog.installerCompletionTimeout = null
+      afterInstall();
+      setupDialog.installerCompletionTimeout = null;
     } else {
-      setupDialog.installerCompletionTimeout = setTimeout(waitForInstallerComplete, 2000)
+      setupDialog.installerCompletionTimeout = setTimeout(waitForInstallerComplete, 2000);
     }
-  })
+  });
 }
 
 // Install the tool into the Min user folder.
 function install (filePath, callback) {
   return new Promise((resolve, reject) => {
     try {
-      const toolsDir = path.join(window.globalArgs['user-data-path'], 'tools')
+      const toolsDir = path.join(window.globalArgs['user-data-path'], 'tools');
       if (!fs.existsSync(toolsDir)) {
-        fs.mkdirSync(toolsDir)
+        fs.mkdirSync(toolsDir);
       }
 
-      const targetFilePath = setupDialog.manager.getLocalPath()
+      const targetFilePath = setupDialog.manager.getLocalPath();
       fs.createReadStream(filePath).pipe(fs.createWriteStream(targetFilePath)).on('finish', function () {
-        fs.chmodSync(targetFilePath, '755')
-        resolve(targetFilePath)
+        fs.chmodSync(targetFilePath, '755');
+        resolve(targetFilePath);
       }).on('error', function (error) {
-        reject(error)
-      })
+        reject(error);
+      });
     } catch (e) {
-      reject(e)
+      reject(e);
     }
-  })
+  });
 }
 
 // Launch installer file.
 function launchInstaller (filePath, platform) {
   if (platform === 'mac') {
-    return new ProcessSpawner('open', [filePath]).execute()
+    return new ProcessSpawner('open', [filePath]).execute();
   } else {
-    return new ProcessSpawner(filePath).execute()
+    return new ProcessSpawner(filePath).execute();
   }
 }
 
 function afterInstall (toolPath) {
-  var signInFields = [
+  const signInFields = [
     { placeholder: l('email'), id: 'email', type: 'text' },
     { placeholder: l('password'), id: 'password', type: 'password' },
     { placeholder: l('secretKey'), id: 'secretKey', type: 'password' }
-  ].filter(f => setupDialog.manager.getSignInRequirements().includes(f.id))
+  ].filter(f => setupDialog.manager.getSignInRequirements().includes(f.id));
 
   // Verify the tool by trying to use it to unlock the password store.
   const data = ipcRenderer.sendSync('prompt', {
@@ -176,36 +176,36 @@ function afterInstall (toolPath) {
     cancel: l('dialogSkipButton'),
     width: 500,
     height: 220
-  })
+  });
 
   for (const key in data) {
     if (data[key] === '') {
-      throw new Error('no credentials entered')
+      throw new Error('no credentials entered');
     }
   }
 
   setupDialog.manager.signInAndSave(data, toolPath)
     .then(() => {
-      setupDialog.hide()
+      setupDialog.hide();
     })
     .catch(function (e) {
-      console.warn(e)
+      console.warn(e);
       if (setupDialog.setupMode === 'installer') {
         // show the dialog again
-        afterInstall()
+        afterInstall();
       } else {
         // Cleanup after we failed.
-        const targetFilePath = setupDialog.manager.getLocalPath()
+        const targetFilePath = setupDialog.manager.getLocalPath();
         if (fs.existsSync(targetFilePath)) {
-          fs.unlinkSync(targetFilePath)
+          fs.unlinkSync(targetFilePath);
         }
 
-        const message = (e.error || '').replace(/\n$/gm, '')
-        dragBox.innerHTML = l('passwordManagerSetupUnlockError') + message + ' ' + l('passwordManagerSetupRetry')
+        const message = (e.error || '').replace(/\n$/gm, '');
+        dragBox.innerHTML = l('passwordManagerSetupUnlockError') + message + ' ' + l('passwordManagerSetupRetry');
       }
-    })
+    });
 }
 
-setupDialog.initialize()
+setupDialog.initialize();
 
-module.exports = setupDialog
+module.exports = setupDialog;

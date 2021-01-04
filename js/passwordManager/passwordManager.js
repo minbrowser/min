@@ -1,11 +1,11 @@
-const settings = require('util/settings/settings.js')
-const webviews = require('webviews.js')
-const keybindings = require('keybindings.js')
-const ProcessSpawner = require('util/process.js')
+const settings = require('util/settings/settings.js');
+const webviews = require('webviews.js');
+const keybindings = require('keybindings.js');
+const ProcessSpawner = require('util/process.js');
 
-const Bitwarden = require('js/passwordManager/bitwarden.js')
-const OnePassword = require('js/passwordManager/onePassword.js')
-const Keychain = require('js/passwordManager/keychain.js')
+const Bitwarden = require('js/passwordManager/bitwarden.js');
+const OnePassword = require('js/passwordManager/onePassword.js');
+const Keychain = require('js/passwordManager/keychain.js');
 
 const PasswordManagers = {
   // List of supported password managers. Each password manager is expected to
@@ -20,28 +20,28 @@ const PasswordManagers = {
   // settings.
   getActivePasswordManager: function () {
     if (PasswordManagers.managers.length === 0) {
-      return null
+      return null;
     }
 
-    const managerSetting = settings.get('passwordManager')
+    const managerSetting = settings.get('passwordManager');
     if (managerSetting == null) {
-      return PasswordManagers.managers.find(mgr => mgr.name === 'Built-in password manager')
+      return PasswordManagers.managers.find(mgr => mgr.name === 'Built-in password manager');
     }
 
-    return PasswordManagers.managers.find(mgr => mgr.name === managerSetting.name)
+    return PasswordManagers.managers.find(mgr => mgr.name === managerSetting.name);
   },
   getConfiguredPasswordManager: async function () {
-    const manager = PasswordManagers.getActivePasswordManager()
+    const manager = PasswordManagers.getActivePasswordManager();
     if (!manager) {
-      return null
+      return null;
     }
 
-    const configured = await manager.checkIfConfigured()
+    const configured = await manager.checkIfConfigured();
     if (!configured) {
-      return null
+      return null;
     }
 
-    return manager
+    return manager;
   },
   // Shows a prompt dialog for password store's master password.
   promptForMasterPassword: async function (manager) {
@@ -52,31 +52,31 @@ const PasswordManagers = {
         ok: l('dialogConfirmButton'),
         cancel: l('dialogSkipButton'),
         height: 160
-      })
+      });
       if (password === null || password === '') {
-        reject()
+        reject();
       } else {
-        resolve(password)
+        resolve(password);
       }
-    })
+    });
   },
   unlock: async function (manager) {
-    let success = false
+    let success = false;
     while (!success) {
-      let password
+      let password;
       try {
-        password = await PasswordManagers.promptForMasterPassword(manager)
+        password = await PasswordManagers.promptForMasterPassword(manager);
       } catch (e) {
         // dialog was canceled
-        break
+        break;
       }
       try {
-        success = await manager.unlockStore(password)
+        success = await manager.unlockStore(password);
       } catch (e) {
         // incorrect password, prompt again
       }
     }
-    return success
+    return success;
   },
   // Binds IPC events.
   initialize: function () {
@@ -84,61 +84,61 @@ const PasswordManagers = {
     webviews.bindIPC('password-autofill', function (tab, args, frameId) {
       // We expect hostname of the source page/frame as a parameter.
       if (args.length == 0) {
-        return
+        return;
       }
-      const hostname = args[0]
+      const hostname = args[0];
 
       PasswordManagers.getConfiguredPasswordManager().then(async (manager) => {
         if (!manager) {
-          return
+          return;
         }
 
         if (!manager.isUnlocked()) {
-          await PasswordManagers.unlock(manager)
+          await PasswordManagers.unlock(manager);
         }
 
-        var domain = hostname
+        let domain = hostname;
         if (domain.startsWith('www.')) {
-          domain = domain.slice(4)
+          domain = domain.slice(4);
         }
 
         manager.getSuggestions(domain).then(credentials => {
           if (credentials != null) {
             webviews.callAsync(tab, 'getURL', function (err, topLevelURL) {
               if (err) {
-                console.warn(err)
-                return
+                console.warn(err);
+                return;
               }
-              var topLevelDomain = new URL(topLevelURL).hostname
+              let topLevelDomain = new URL(topLevelURL).hostname;
               if (topLevelDomain.startsWith('www.')) {
-                topLevelDomain = topLevelDomain.slice(4)
+                topLevelDomain = topLevelDomain.slice(4);
               }
               if (domain !== topLevelDomain) {
-                console.warn("autofill isn't supported for 3rd-party frames")
-                return
+                console.warn("autofill isn't supported for 3rd-party frames");
+                return;
               }
               webviews.callAsync(tab, 'sendToFrame', [frameId, 'password-autofill-match', {
                 credentials,
                 hostname
-              }])
-            })
+              }]);
+            });
           }
         }).catch(e => {
-          console.error('Failed to get password suggestions: ' + e.message)
-        })
-      })
-    })
+          console.error('Failed to get password suggestions: ' + e.message);
+        });
+      });
+    });
 
     webviews.bindIPC('password-autofill-check', function (tab, args, frameId) {
       if (PasswordManagers.getActivePasswordManager()) {
-        webviews.callAsync(tab, 'sendToFrame', [frameId, 'password-autofill-enabled'])
+        webviews.callAsync(tab, 'sendToFrame', [frameId, 'password-autofill-enabled']);
       }
-    })
+    });
 
     keybindings.defineShortcut('fillPassword', function () {
-      webviews.callAsync(tabs.getSelected(), 'send', ['password-autofill-shortcut'])
-    })
+      webviews.callAsync(tabs.getSelected(), 'send', ['password-autofill-shortcut']);
+    });
   }
-}
+};
 
-module.exports = PasswordManagers
+module.exports = PasswordManagers;

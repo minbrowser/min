@@ -1,16 +1,16 @@
 if (typeof require !== 'undefined') {
-  var settings = require('util/settings/settings.js')
+  var settings = require('util/settings/settings.js');
 }
 // otherwise, assume window.settings exists already
 
-var currentSearchEngine = {
+let currentSearchEngine = {
   name: '',
   searchURL: '%s'
-}
+};
 
-var defaultSearchEngine = 'DuckDuckGo'
+const defaultSearchEngine = 'DuckDuckGo';
 
-var searchEngines = {
+const searchEngines = {
   DuckDuckGo: {
     name: 'DuckDuckGo',
     searchURL: 'https://duckduckgo.com/?q=%s&t=min',
@@ -65,68 +65,68 @@ var searchEngines = {
     name: 'none',
     searchURL: 'http://%s'
   }
-}
+};
 
 for (const e in searchEngines) {
   try {
-    searchEngines[e].urlObj = new URL(searchEngines[e].searchURL)
+    searchEngines[e].urlObj = new URL(searchEngines[e].searchURL);
   } catch (e) {}
 }
 
 settings.listen('searchEngine', function (value) {
   if (typeof value === 'string') {
     // migrate from legacy format
-    value = { name: value }
-    settings.set('searchEngine', value)
+    value = { name: value };
+    settings.set('searchEngine', value);
   }
 
   if (value && value.name) {
-    currentSearchEngine = searchEngines[value.name]
+    currentSearchEngine = searchEngines[value.name];
   } else if (value && value.url) {
-    var searchDomain
+    let searchDomain;
     try {
-      searchDomain = new URL(value.url).hostname.replace('www.', '')
+      searchDomain = new URL(value.url).hostname.replace('www.', '');
     } catch (e) {}
     currentSearchEngine = {
       name: searchDomain || 'custom',
       searchURL: value.url,
       custom: true
-    }
+    };
   } else {
-    currentSearchEngine = searchEngines[defaultSearchEngine]
+    currentSearchEngine = searchEngines[defaultSearchEngine];
   }
-})
+});
 
-var searchEngine = {
+const searchEngine = {
   getCurrent: function () {
-    return currentSearchEngine
+    return currentSearchEngine;
   },
   getSearch: function (url) {
-    var urlObj
+    let urlObj;
     try {
-      urlObj = new URL(url)
+      urlObj = new URL(url);
     } catch (e) {
-      return null
+      return null;
     }
-    for (var e in searchEngines) {
+    for (const e in searchEngines) {
       if (!searchEngines[e].urlObj) {
-        continue
+        continue;
       }
       if (searchEngines[e].urlObj.hostname === urlObj.hostname && searchEngines[e].urlObj.pathname === urlObj.pathname) {
         if (urlObj.searchParams.get(searchEngines[e].queryParam)) {
           return {
             engine: searchEngines[e].name,
             search: urlObj.searchParams.get(searchEngines[e].queryParam)
-          }
+          };
         }
       }
     }
-    return null
+    return null;
   }
-}
+};
 
 if (typeof module === 'undefined') {
-  window.currentSearchEngine = currentSearchEngine
+  window.currentSearchEngine = currentSearchEngine;
 } else {
-  module.exports = searchEngine
+  module.exports = searchEngine;
 }

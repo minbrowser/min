@@ -1,12 +1,12 @@
 function buildAppMenu (options = {}) {
-  var tabTaskActions = [
+  const tabTaskActions = [
     {
       label: l('appMenuNewTab'),
       accelerator: 'CmdOrCtrl+t',
       click: function (item, window, event) {
         // keyboard shortcuts for these items are handled in the renderer
         if (!event.triggeredByAccelerator) {
-          sendIPCToWindow(window, 'addTab')
+          sendIPCToWindow(window, 'addTab');
         }
       }
     },
@@ -15,7 +15,7 @@ function buildAppMenu (options = {}) {
       accelerator: 'shift+CmdOrCtrl+d',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
-          sendIPCToWindow(window, 'duplicateTab')
+          sendIPCToWindow(window, 'duplicateTab');
         }
       }
     },
@@ -24,7 +24,7 @@ function buildAppMenu (options = {}) {
       accelerator: 'shift+CmdOrCtrl+p',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
-          sendIPCToWindow(window, 'addPrivateTab')
+          sendIPCToWindow(window, 'addPrivateTab');
         }
       }
     },
@@ -33,48 +33,48 @@ function buildAppMenu (options = {}) {
       accelerator: 'CmdOrCtrl+n',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
-          sendIPCToWindow(window, 'addTask')
+          sendIPCToWindow(window, 'addTask');
         }
       }
     }
-  ]
+  ];
 
-  var personalDataItems = [
+  const personalDataItems = [
     {
       label: l('appMenuBookmarks'),
       accelerator: undefined,
       click: function (item, window) {
-        sendIPCToWindow(window, 'showBookmarks')
+        sendIPCToWindow(window, 'showBookmarks');
       }
     },
     {
       label: l('appMenuHistory'),
       accelerator: undefined,
       click: function (item, window) {
-        sendIPCToWindow(window, 'showHistory')
+        sendIPCToWindow(window, 'showHistory');
       }
     }
-  ]
+  ];
 
-  var quitAction = {
+  const quitAction = {
     label: l('appMenuQuit').replace('%n', app.name),
     accelerator: 'CmdOrCtrl+Q',
     click: function () {
-      app.quit()
+      app.quit();
     }
-  }
+  };
 
-  var preferencesAction = {
+  const preferencesAction = {
     label: l('appMenuPreferences'),
     accelerator: 'CmdOrCtrl+,',
     click: function (item, window) {
       sendIPCToWindow(window, 'addTab', {
         url: 'file://' + __dirname + '/pages/settings/index.html'
-      })
+      });
     }
-  }
+  };
 
-  var template = [
+  const template = [
     ...(options.secondary ? tabTaskActions : []),
     ...(options.secondary ? [{ type: 'separator' }] : []),
     ...(options.secondary ? personalDataItems : []),
@@ -83,46 +83,46 @@ function buildAppMenu (options = {}) {
     ...(options.secondary ? [{ type: 'separator' }] : []),
     ...(process.platform === 'darwin'
       ? [
-        {
-          label: app.name,
-          submenu: [
-            {
-              label: l('appMenuAbout').replace('%n', app.name),
-              role: 'about'
-            },
-            {
-              type: 'separator'
-            },
-            preferencesAction,
-            {
-              label: 'Services',
-              role: 'services',
-              submenu: []
-            },
-            {
-              type: 'separator'
-            },
-            {
-              label: l('appMenuHide').replace('%n', app.name),
-              accelerator: 'CmdOrCtrl+H',
-              role: 'hide'
-            },
-            {
-              label: l('appMenuHideOthers'),
-              accelerator: 'CmdOrCtrl+Shift+H',
-              role: 'hideothers'
-            },
-            {
-              label: l('appMenuShowAll'),
-              role: 'unhide'
-            },
-            {
-              type: 'separator'
-            },
-            quitAction
-          ]
-        }
-      ] : []),
+          {
+            label: app.name,
+            submenu: [
+              {
+                label: l('appMenuAbout').replace('%n', app.name),
+                role: 'about'
+              },
+              {
+                type: 'separator'
+              },
+              preferencesAction,
+              {
+                label: 'Services',
+                role: 'services',
+                submenu: []
+              },
+              {
+                type: 'separator'
+              },
+              {
+                label: l('appMenuHide').replace('%n', app.name),
+                accelerator: 'CmdOrCtrl+H',
+                role: 'hide'
+              },
+              {
+                label: l('appMenuHideOthers'),
+                accelerator: 'CmdOrCtrl+Shift+H',
+                role: 'hideothers'
+              },
+              {
+                label: l('appMenuShowAll'),
+                role: 'unhide'
+              },
+              {
+                type: 'separator'
+              },
+              quitAction
+            ]
+          }
+        ] : []),
     {
       label: l('appMenuFile'),
       submenu: [
@@ -132,7 +132,7 @@ function buildAppMenu (options = {}) {
           label: l('appMenuSavePageAs'),
           accelerator: 'CmdOrCtrl+s',
           click: function (item, window) {
-            sendIPCToWindow(window, 'saveCurrentPage')
+            sendIPCToWindow(window, 'saveCurrentPage');
           }
         },
         {
@@ -142,7 +142,7 @@ function buildAppMenu (options = {}) {
           label: l('appMenuPrint'),
           accelerator: 'CmdOrCtrl+p',
           click: function (item, window) {
-            sendIPCToWindow(window, 'print')
+            sendIPCToWindow(window, 'print');
           }
         },
         ...(!options.secondary && process.platform === 'linux' ? [{ type: 'separator' }] : []),
@@ -192,7 +192,7 @@ function buildAppMenu (options = {}) {
           label: l('appMenuFind'),
           accelerator: 'CmdOrCtrl+F',
           click: function (item, window) {
-            sendIPCToWindow(window, 'findInPage')
+            sendIPCToWindow(window, 'findInPage');
           }
         },
         ...(!options.secondary && process.platform !== 'darwin' ? [{ type: 'separator' }] : []),
@@ -208,21 +208,21 @@ function buildAppMenu (options = {}) {
           label: l('appMenuZoomIn'),
           accelerator: 'CmdOrCtrl+Plus',
           click: function (item, window) {
-            sendIPCToWindow(window, 'zoomIn')
+            sendIPCToWindow(window, 'zoomIn');
           }
         },
         {
           label: l('appMenuZoomOut'),
           accelerator: 'CmdOrCtrl+-',
           click: function (item, window) {
-            sendIPCToWindow(window, 'zoomOut')
+            sendIPCToWindow(window, 'zoomOut');
           }
         },
         {
           label: l('appMenuActualSize'),
           accelerator: 'CmdOrCtrl+0',
           click: function (item, window) {
-            sendIPCToWindow(window, 'zoomReset')
+            sendIPCToWindow(window, 'zoomReset');
           }
         },
         {
@@ -235,18 +235,18 @@ function buildAppMenu (options = {}) {
           checked: false,
           click: function (item, window) {
             if (isFocusMode) {
-              isFocusMode = false
-              sendIPCToWindow(window, 'exitFocusMode')
+              isFocusMode = false;
+              sendIPCToWindow(window, 'exitFocusMode');
             } else {
-              isFocusMode = true
-              sendIPCToWindow(window, 'enterFocusMode')
+              isFocusMode = true;
+              sendIPCToWindow(window, 'enterFocusMode');
             }
           }
         },
         {
           label: l('appMenuFullScreen'),
           accelerator: (function () {
-            if (process.platform == 'darwin') { return 'Ctrl+Command+F' } else { return 'F11' }
+            if (process.platform == 'darwin') { return 'Ctrl+Command+F'; } else { return 'F11'; }
           })(),
           role: 'togglefullscreen'
         }
@@ -258,10 +258,10 @@ function buildAppMenu (options = {}) {
         {
           label: l('appMenuInspectPage'),
           accelerator: (function () {
-            if (process.platform == 'darwin') { return 'Cmd+Alt+I' } else { return 'Ctrl+Shift+I' }
+            if (process.platform == 'darwin') { return 'Cmd+Alt+I'; } else { return 'Ctrl+Shift+I'; }
           })(),
           click: function (item, window) {
-            sendIPCToWindow(window, 'inspectPage')
+            sendIPCToWindow(window, 'inspectPage');
           }
         },
         {
@@ -272,15 +272,15 @@ function buildAppMenu (options = {}) {
           accelerator: undefined,
           click: function (item, focusedWindow) {
             if (focusedWindow) {
-              destroyAllViews()
-              focusedWindow.reload()
+              destroyAllViews();
+              focusedWindow.reload();
             }
           }
         },
         {
           label: l('appMenuInspectBrowser'),
           click: function (item, focusedWindow) {
-            if (focusedWindow) focusedWindow.toggleDevTools()
+            if (focusedWindow) focusedWindow.toggleDevTools();
           }
         }
       ]
@@ -301,11 +301,11 @@ function buildAppMenu (options = {}) {
             click: function (item, window) {
               if (mainWindow && !mainWindow.isFocused()) {
                 // a devtools window is focused, close it
-                var contents = webContents.getAllWebContents()
-                for (var i = 0; i < contents.length; i++) {
+                const contents = webContents.getAllWebContents();
+                for (let i = 0; i < contents.length; i++) {
                   if (contents[i].isDevToolsFocused()) {
-                    contents[i].closeDevTools()
-                    return
+                    contents[i].closeDevTools();
+                    return;
                   }
                 }
               }
@@ -318,9 +318,9 @@ function buildAppMenu (options = {}) {
             checked: settings.get('windowAlwaysOnTop') || false,
             click: function (item, window) {
               if (mainWindow) {
-                mainWindow.setAlwaysOnTop(item.checked)
+                mainWindow.setAlwaysOnTop(item.checked);
               }
-              settings.set('windowAlwaysOnTop', item.checked)
+              settings.set('windowAlwaysOnTop', item.checked);
             }
           },
           {
@@ -340,78 +340,78 @@ function buildAppMenu (options = {}) {
         {
           label: l('appMenuKeyboardShortcuts'),
           click: function () {
-            openTabInWindow('https://github.com/minbrowser/min/wiki#keyboard-shortcuts')
+            openTabInWindow('https://github.com/minbrowser/min/wiki#keyboard-shortcuts');
           }
         },
         {
           label: l('appMenuReportBug'),
           click: function () {
-            openTabInWindow('https://github.com/minbrowser/min/issues/new')
+            openTabInWindow('https://github.com/minbrowser/min/issues/new');
           }
         },
         {
           label: l('appMenuTakeTour'),
           click: function () {
-            openTabInWindow('https://minbrowser.github.io/min/tour/')
+            openTabInWindow('https://minbrowser.github.io/min/tour/');
           }
         },
         {
           label: l('appMenuViewGithub'),
           click: function () {
-            openTabInWindow('https://github.com/minbrowser/min')
+            openTabInWindow('https://github.com/minbrowser/min');
           }
         },
         ...(process.platform !== 'darwin' ? [{ type: 'separator' }] : []),
         ...(process.platform !== 'darwin' ? [{
           label: l('appMenuAbout').replace('%n', app.name),
           click: function (item, window) {
-            var info = [
+            const info = [
               'Min v' + app.getVersion(),
               'Chromium v' + process.versions.chrome
-            ]
+            ];
             electron.dialog.showMessageBox({
               type: 'info',
               title: l('appMenuAbout').replace('%n', app.name),
               message: info.join('\n'),
               buttons: [l('closeDialog')]
-            })
+            });
           }
         }] : [])
       ]
     },
     ...(options.secondary && process.platform !== 'darwin' ? [{ type: 'separator' }] : []),
     ...(options.secondary && process.platform !== 'darwin' ? [quitAction] : [])
-  ]
-  return Menu.buildFromTemplate(template)
+  ];
+  return Menu.buildFromTemplate(template);
 }
 
 function createDockMenu () {
   // create the menu. based on example from https://github.com/electron/electron/blob/master/docs/tutorial/desktop-environment-integration.md#custom-dock-menu-macos
   if (process.platform === 'darwin') {
-    var Menu = electron.Menu
+    const Menu = electron.Menu;
 
-    var template = [
+    const template = [
       {
         label: l('appMenuNewTab'),
         click: function (item, window) {
-          sendIPCToWindow(window, 'addTab')
+          sendIPCToWindow(window, 'addTab');
         }
       },
       {
         label: l('appMenuNewPrivateTab'),
         click: function (item, window) {
-          sendIPCToWindow(window, 'addPrivateTab')
+          sendIPCToWindow(window, 'addPrivateTab');
         }
       },
       {
         label: l('appMenuNewTask'),
         click: function (item, window) {
-          sendIPCToWindow(window, 'addTask')
+          sendIPCToWindow(window, 'addTask');
         }
       }
-    ]
+    ];
 
-    var dockMenu = Menu.buildFromTemplate(template)
-    app.dock.setMenu(dockMenu)
+    const dockMenu = Menu.buildFromTemplate(template);
+    app.dock.setMenu(dockMenu);
   }
 }

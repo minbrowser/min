@@ -1,10 +1,10 @@
 /* global db Dexie */
 
-importScripts('../../ext/xregexp/nonLetterRegex.js')
+importScripts('../../ext/xregexp/nonLetterRegex.js');
 
-const whitespaceRegex = /\s+/g
+const whitespaceRegex = /\s+/g;
 
-const ignoredCharactersRegex = /[']+/g
+const ignoredCharactersRegex = /[']+/g;
 
 // stop words list from https://github.com/weixsong/elasticlunr.js/blob/master/lib/stop_word_filter.js
 const stopWords = {
@@ -128,7 +128,7 @@ const stopWords = {
   yet: true,
   you: true,
   your: true
-}
+};
 
 /* this is used in placesWorker.js when a history item is created */
 function tokenize (string) {
@@ -139,8 +139,8 @@ function tokenize (string) {
   // https://stackoverflow.com/a/37511463
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .split(whitespaceRegex).filter(function (token) {
-      return !stopWords[token] && token.length <= 100
-    }).slice(0, 20000)
+      return !stopWords[token] && token.length <= 100;
+    }).slice(0, 20000);
 }
 
 // finds the documents that contain all of the prefixes in their searchIndex
@@ -151,27 +151,27 @@ function getMatchingDocs (tokens) {
     const tokenMatches = yield Dexie.Promise.all(tokens.map(prefix => db.places
       .where('searchIndex')
       .equals(prefix)
-      .primaryKeys()))
+      .primaryKeys()));
 
-    var results = []
+    const results = [];
 
     /*
     A document matches if each search token is either 1) contained in the title, URL, or tags,
     even if it's part of a larger word, or 2) a word in the full-text index.
      */
     historyInMemoryCache.forEach(function (item) {
-      var itext = (item.url + ' ' + item.title + ' ' + item.tags.join(' ')).toLowerCase()
-      var matched = true
-      for (var i = 0; i < tokens.length; i++) {
+      const itext = (item.url + ' ' + item.title + ' ' + item.tags.join(' ')).toLowerCase();
+      let matched = true;
+      for (let i = 0; i < tokens.length; i++) {
         if (!tokenMatches[i].includes(item.id) && !itext.includes(tokens[i])) {
-          matched = false
-          break
+          matched = false;
+          break;
         }
       }
       if (matched) {
-        results.push(item)
+        results.push(item);
       }
-    })
+    });
 
     /* Finally select entire documents from intersection.
     To improve perf, we only read the full text of 100 documents for ranking,
@@ -180,99 +180,99 @@ function getMatchingDocs (tokens) {
      since these are most likely to be in the final results.
     */
     const ordered = results.sort(function (a, b) {
-      return calculateHistoryScore(b) - calculateHistoryScore(a)
-    }).map(i => i.id).slice(0, 100)
+      return calculateHistoryScore(b) - calculateHistoryScore(a);
+    }).map(i => i.id).slice(0, 100);
 
-    return yield db.places.where('id').anyOf(ordered).toArray()
-  })
+    return yield db.places.where('id').anyOf(ordered).toArray();
+  });
 }
 
 function fullTextPlacesSearch (searchText, callback) {
-  const searchWords = tokenize(searchText)
-  const sl = searchWords.length
+  const searchWords = tokenize(searchText);
+  const sl = searchWords.length;
 
   if (searchWords.length === 0) {
-    callback([])
-    return
+    callback([]);
+    return;
   }
 
   getMatchingDocs(searchWords).then(function (docs) {
-    const totalCounts = {}
+    const totalCounts = {};
     for (let i = 0; i < sl; i++) {
-      totalCounts[searchWords[i]] = 0
+      totalCounts[searchWords[i]] = 0;
     }
 
-    const docTermCounts = {}
-    const docIndexes = {}
-    let totalIndexLength = 0
+    const docTermCounts = {};
+    const docIndexes = {};
+    let totalIndexLength = 0;
 
     // find the number and position of the search terms in each document
     docs.forEach(function (doc) {
-      const termCount = {}
-      const index = doc.searchIndex
-      const indexList = []
+      const termCount = {};
+      const index = doc.searchIndex;
+      const indexList = [];
 
       for (let i = 0; i < sl; i++) {
-        let count = 0
-        const token = searchWords[i]
+        let count = 0;
+        const token = searchWords[i];
 
-        let idx = doc.searchIndex.indexOf(token)
+        let idx = doc.searchIndex.indexOf(token);
 
         while (idx !== -1) {
-          count++
-          indexList.push(idx)
-          idx = doc.searchIndex.indexOf(token, idx + 1)
+          count++;
+          indexList.push(idx);
+          idx = doc.searchIndex.indexOf(token, idx + 1);
         }
 
-        termCount[searchWords[i]] = count
-        totalCounts[searchWords[i]] += count
+        termCount[searchWords[i]] = count;
+        totalCounts[searchWords[i]] += count;
       }
 
-      docTermCounts[doc.url] = termCount
-      docIndexes[doc.url] = indexList.sort((a, b) => a - b)
-      totalIndexLength += index.length
-    })
+      docTermCounts[doc.url] = termCount;
+      docIndexes[doc.url] = indexList.sort((a, b) => a - b);
+      totalIndexLength += index.length;
+    });
 
-    const dl = docs.length
+    const dl = docs.length;
 
     for (let i = 0; i < dl; i++) {
-      const doc = docs[i]
-      const indexLen = doc.searchIndex.length
-      const termCounts = docTermCounts[doc.url]
+      const doc = docs[i];
+      const indexLen = doc.searchIndex.length;
+      const termCounts = docTermCounts[doc.url];
 
       if (!doc.boost) {
-        doc.boost = 0
+        doc.boost = 0;
       }
 
       // add boost when search terms appear more frequently than in other documents
       for (let x = 0; x < sl; x++) {
-        doc.boost += Math.min(((termCounts[searchWords[x]] / indexLen) / (totalCounts[searchWords[x]] / totalIndexLength)) * 0.33, 1)
+        doc.boost += Math.min(((termCounts[searchWords[x]] / indexLen) / (totalCounts[searchWords[x]] / totalIndexLength)) * 0.33, 1);
       }
 
       // add boost when search terms appear close to each other
 
-      const indexList = docIndexes[doc.url]
-      let totalWordDistanceBoost = 0
+      const indexList = docIndexes[doc.url];
+      let totalWordDistanceBoost = 0;
 
       for (let n = 1; n < indexList.length; n++) {
-        const distance = indexList[n] - indexList[n - 1]
+        const distance = indexList[n] - indexList[n - 1];
         if (distance < 50) {
-          totalWordDistanceBoost += Math.pow(50 - distance, 2) * 0.00005
+          totalWordDistanceBoost += Math.pow(50 - distance, 2) * 0.00005;
         }
         if (distance === 1) {
-          totalWordDistanceBoost += 0.04
+          totalWordDistanceBoost += 0.04;
         }
       }
 
-      doc.boost += Math.min(totalWordDistanceBoost, 5)
+      doc.boost += Math.min(totalWordDistanceBoost, 5);
 
       // these properties are never used, and sending them from the worker takes a long time
 
-      delete doc.pageHTML
-      delete doc.extractedText
-      delete doc.searchIndex
+      delete doc.pageHTML;
+      delete doc.extractedText;
+      delete doc.searchIndex;
     }
 
-    callback(docs)
-  })
+    callback(docs);
+  });
 }

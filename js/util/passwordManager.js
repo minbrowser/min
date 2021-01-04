@@ -1,8 +1,8 @@
 if (typeof require !== 'undefined') {
-  var settings = require('util/settings.js')
+  var settings = require('util/settings.js');
 }
 
-var passwordManagers = {
+const passwordManagers = {
   none: {
     name: 'none'
   },
@@ -15,15 +15,15 @@ var passwordManagers = {
   'Built-in password manager': {
     name: 'Built-in password manager'
   }
-}
+};
 
-var currentPasswordManager = null
+let currentPasswordManager = null;
 settings.listen('passwordManager', function (value) {
   if (value && value.name) {
-    currentPasswordManager = value
+    currentPasswordManager = value;
   } else {
-    currentPasswordManager = passwordManagers['Built-in password manager']
+    currentPasswordManager = passwordManagers['Built-in password manager'];
   }
-})
+});
 
-window.currentPasswordManager = currentPasswordManager
+window.currentPasswordManager = currentPasswordManager;

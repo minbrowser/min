@@ -1,78 +1,78 @@
 /* implements userscript support */
 
-var webviews = require('webviews.js')
-var settings = require('util/settings/settings.js')
-var bangsPlugin = require('searchbar/bangsPlugin.js')
-var tabEditor = require('navbar/tabEditor.js')
-var searchbarPlugins = require('searchbar/searchbarPlugins.js')
-var urlParser = require('util/urlParser.js')
+const webviews = require('webviews.js');
+const settings = require('util/settings/settings.js');
+const bangsPlugin = require('searchbar/bangsPlugin.js');
+const tabEditor = require('navbar/tabEditor.js');
+const searchbarPlugins = require('searchbar/searchbarPlugins.js');
+const urlParser = require('util/urlParser.js');
 
 function parseTampermonkeyFeatures (content) {
-  var parsedFeatures = {}
-  var foundFeatures = false
+  const parsedFeatures = {};
+  let foundFeatures = false;
 
-  var lines = content.split('\n')
+  const lines = content.split('\n');
 
-  var isInFeatures = false
-  for (var i = 0; i < lines.length; i++) {
+  let isInFeatures = false;
+  for (let i = 0; i < lines.length; i++) {
     if (lines[i].trim() === '// ==UserScript==') {
-      isInFeatures = true
-      continue
+      isInFeatures = true;
+      continue;
     }
     if (lines[i].trim() === '// ==/UserScript==') {
-      isInFeatures = false
-      break
+      isInFeatures = false;
+      break;
     }
     if (isInFeatures && lines[i].startsWith('//')) {
-      foundFeatures = true
-      var feature = lines[i].replace('//', '').trim()
-      var featureName = feature.split(' ')[0]
-      var featureValue = feature.replace(featureName + ' ', '').trim()
-      featureName = featureName.replace('@', '')
+      foundFeatures = true;
+      const feature = lines[i].replace('//', '').trim();
+      let featureName = feature.split(' ')[0];
+      const featureValue = feature.replace(featureName + ' ', '').trim();
+      featureName = featureName.replace('@', '');
 
       // special case: find the localized name for the current locale
       if (featureName.startsWith('name:') && featureName.split(':')[1].substring(0, 2) === navigator.language.substring(0, 2)) {
-        featureName = 'name:local'
+        featureName = 'name:local';
       }
       if (parsedFeatures[featureName]) {
-        parsedFeatures[featureName].push(featureValue)
+        parsedFeatures[featureName].push(featureValue);
       } else {
-        parsedFeatures[featureName] = [featureValue]
+        parsedFeatures[featureName] = [featureValue];
       }
     }
   }
   if (foundFeatures) {
-    return parsedFeatures
+    return parsedFeatures;
   } else {
-    return null
+    return null;
   }
 }
 
 // checks if a URL matches a wildcard pattern
 function urlMatchesPattern (url, pattern) {
-  var idx = -1
-  var parts = pattern.split('*')
-  for (var i = 0; i < parts.length; i++) {
-    idx = url.indexOf(parts[i], idx)
+  let idx = -1;
+  const parts = pattern.split('*');
+  for (let i = 0; i < parts.length; i++) {
+    idx = url.indexOf(parts[i], idx);
     if (idx === -1) {
-      return false
+      return false;
     }
-    idx += parts[i].length
+    idx += parts[i].length;
   }
-  return idx !== -1
+  return idx !== -1;
 }
 
 const userscripts = {
   scripts: [], // {options: {}, content}
   loadScripts: function () {
-    userscripts.scripts = []
+    userscripts.scripts = [];
 
-    var path = require('path')
-    var scriptDir = path.join(window.globalArgs['user-data-path'], 'userscripts')
+    const path = require('path');
+    const scriptDir = path.join(window.globalArgs['user-data-path'], 'userscripts');
 
     fs.readdir(scriptDir, function (err, files) {
       if (err || files.length === 0) {
-        return
+        return;
       }
 
       // store the scripts in memory
@@ -80,26 +80,26 @@ const userscripts = {
         if (filename.endsWith('.js')) {
           fs.readFile(path.join(scriptDir, filename), 'utf-8', function (err, file) {
             if (err || !file) {
-              return
+              return;
             }
 
-            var domain = filename.slice(0, -3)
+            let domain = filename.slice(0, -3);
             if (domain.startsWith('www.')) {
-              domain = domain.slice(4)
+              domain = domain.slice(4);
             }
             if (!domain) {
-              return
+              return;
             }
 
-            var tampermonkeyFeatures = parseTampermonkeyFeatures(file)
+            const tampermonkeyFeatures = parseTampermonkeyFeatures(file);
             if (tampermonkeyFeatures) {
-              var scriptName = tampermonkeyFeatures['name:local'] || tampermonkeyFeatures.name
+              let scriptName = tampermonkeyFeatures['name:local'] || tampermonkeyFeatures.name;
               if (scriptName) {
-                scriptName = scriptName[0]
+                scriptName = scriptName[0];
               } else {
-                scriptName = filename
+                scriptName = filename;
               }
-              userscripts.scripts.push({ options: tampermonkeyFeatures, content: file, name: scriptName })
+              userscripts.scripts.push({ options: tampermonkeyFeatures, content: file, name: scriptName });
             } else {
               // legacy script
               if (domain === 'global') {
@@ -109,7 +109,7 @@ const userscripts = {
                   },
                   content: file,
                   name: filename
-                })
+                });
               } else {
                 userscripts.scripts.push({
                   options: {
@@ -117,13 +117,13 @@ const userscripts = {
                   },
                   content: file,
                   name: filename
-                })
+                });
               }
             }
-          })
+          });
         }
-      })
-    })
+      });
+    });
   },
   getMatchingScripts: function (src) {
     return userscripts.scripts.filter(function (script) {
@@ -132,74 +132,74 @@ const userscripts = {
         (script.options.match && script.options.match.some(pattern => urlMatchesPattern(src, pattern))) ||
         (script.options.include && script.options.include.some(pattern => urlMatchesPattern(src, pattern)))) {
         if (!script.options.exclude || !script.options.exclude.some(pattern => urlMatchesPattern(src, pattern))) {
-          return true
+          return true;
         }
       }
-    })
+    });
   },
   runScript: function (tabId, script) {
     if (urlParser.isInternalURL(tabs.get(tabId).url)) {
-      return
+      return;
     }
-    webviews.callAsync(tabId, 'executeJavaScript', [script.content, false, null])
+    webviews.callAsync(tabId, 'executeJavaScript', [script.content, false, null]);
   },
   onPageLoad: function (tabId) {
     if (userscripts.scripts.length === 0) {
-      return
+      return;
     }
 
-    var src = tabs.get(tabId).url
+    const src = tabs.get(tabId).url;
 
     userscripts.getMatchingScripts(src).forEach(function (script) {
       // TODO run different types of scripts at the correct time
       if (!script.options['run-at'] || script.options['run-at'].some(i => ['document-start', 'document-body', 'document-end', 'document-idle'].includes(i))) {
-        userscripts.runScript(tabId, script)
+        userscripts.runScript(tabId, script);
       }
-    })
+    });
   },
   initialize: function () {
     settings.listen('userscriptsEnabled', function (value) {
       if (value === true) {
-        userscripts.loadScripts()
+        userscripts.loadScripts();
       } else {
-        userscripts.scripts = []
+        userscripts.scripts = [];
       }
-    })
-    webviews.bindEvent('dom-ready', userscripts.onPageLoad)
+    });
+    webviews.bindEvent('dom-ready', userscripts.onPageLoad);
 
     bangsPlugin.registerCustomBang({
       phrase: '!run',
       snippet: l('runUserscript'),
       isAction: false,
       showSuggestions: function (text, input, event) {
-        searchbarPlugins.reset('bangs')
+        searchbarPlugins.reset('bangs');
 
-        var isFirst = true
+        let isFirst = true;
         userscripts.scripts.forEach(function (script) {
           if (script.name.toLowerCase().startsWith(text.toLowerCase())) {
             searchbarPlugins.addResult('bangs', {
               title: script.name,
               fakeFocus: isFirst && text,
               click: function () {
-                tabEditor.hide()
-                userscripts.runScript(tabs.getSelected(), script)
+                tabEditor.hide();
+                userscripts.runScript(tabs.getSelected(), script);
               }
-            })
-            isFirst = false
+            });
+            isFirst = false;
           }
-        })
+        });
       },
       fn: function (text) {
         if (!text) {
-          return
+          return;
         }
-        var matchingScript = userscripts.scripts.find(script => script.name.toLowerCase().startsWith(text.toLowerCase()))
+        const matchingScript = userscripts.scripts.find(script => script.name.toLowerCase().startsWith(text.toLowerCase()));
         if (matchingScript) {
-          userscripts.runScript(tabs.getSelected(), matchingScript)
+          userscripts.runScript(tabs.getSelected(), matchingScript);
         }
       }
-    })
+    });
   }
-}
+};
 
-module.exports = userscripts
+module.exports = userscripts;

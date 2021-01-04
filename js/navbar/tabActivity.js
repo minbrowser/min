@@ -1,33 +1,33 @@
 /* fades out tabs that are inactive */
 
-var tabBar = require('navbar/tabBar.js')
+const tabBar = require('navbar/tabBar.js');
 
 var tabActivity = {
   minFadeAge: 330000,
   refresh: function () {
     requestAnimationFrame(function () {
-      var tabSet = tabs.get()
-      var selected = tabs.getSelected()
-      var time = Date.now()
+      const tabSet = tabs.get();
+      const selected = tabs.getSelected();
+      const time = Date.now();
 
       tabSet.forEach(function (tab) {
         if (selected === tab.id) { // never fade the current tab
-          tabBar.getTab(tab.id).classList.remove('fade')
-          return
+          tabBar.getTab(tab.id).classList.remove('fade');
+          return;
         }
         if (time - tab.lastActivity > tabActivity.minFadeAge) { // the tab has been inactive for greater than minActivity, and it is not currently selected
-          tabBar.getTab(tab.id).classList.add('fade')
+          tabBar.getTab(tab.id).classList.add('fade');
         } else {
-          tabBar.getTab(tab.id).classList.remove('fade')
+          tabBar.getTab(tab.id).classList.remove('fade');
         }
-      })
-    })
+      });
+    });
   },
   initialize: function () {
-    setInterval(tabActivity.refresh, 7500)
+    setInterval(tabActivity.refresh, 7500);
 
-    tasks.on('tab-selected', this.refresh)
+    tasks.on('tab-selected', this.refresh);
   }
-}
+};
 
-module.exports = tabActivity
+module.exports = tabActivity;
