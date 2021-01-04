@@ -500,3 +500,82 @@ proxyTypeInput.addEventListener('change', e => {
 })
 
 proxyInputs.forEach(item => item.addEventListener('change', e => setProxy(e.target.name, e.target.value)))
+
+settings.get('customBangs', (value) => {
+    const bangslist = document.getElementById('custom-bangs');
+    console.log(value);
+    value.forEach(function(bang) {
+        bangslist.appendChild(createBang(bang.phrase, bang.snippet, bang.redirect))
+        bangslist.appendChild(document.createElement('br'));
+    })
+})
+
+
+document.getElementById('add-custom-bang').onclick = function() {
+    const bangslist = document.getElementById('custom-bangs');
+    bangslist.appendChild(createBang());
+    bangslist.appendChild(document.createElement('br'));
+} 
+function createBang (bang, snippet, redirect) {
+    var li = document.createElement('li')
+    var bangInput = document.createElement('input')
+    var snippetInput = document.createElement('input')
+    var redirectInput = document.createElement('input');
+    var xButton = document.createElement('input');
+    var current = { phrase: '', snippet: '', redirect: '' };
+    bangInput.type = 'text';
+    snippetInput.type = 'text';
+    redirectInput.type = 'text';
+    xButton.type = 'button';
+    bangInput.value = bang ?? '';
+    snippetInput.value = snippet ?? '';
+    redirectInput.value = redirect ?? '';
+    xButton.value = 'X';
+
+    xButton.addEventListener('click', function() {
+        li.style.display = 'none';
+        settings.get('customBangs', (d) => {
+            settings.set('customBangs', d.filter((bang) => bang.phrase != bangInput.value))
+        });
+        xButton.removeEventListener('click', xButton);
+        bangInput.removeEventListener('change', bangInput);
+        snippetInput.removeEventListener('change', snippetInput);
+        redirectInput.removeEventListener('change', redirectInput);
+    });
+
+    bangInput.addEventListener('change', function () {
+        settings.get('customBangs', function(d) {
+            const filtered = d.filter((bang) => bang.phrase != current.phrase);
+            console.log(filtered);
+            filtered.push({ phrase: bangInput.value, snippet: snippetInput.value, redirect: redirectInput.value });
+            console.log(filtered);
+            settings.set('customBangs', filtered);
+            current.phrase = bangInput.value;
+        })
+    })
+    snippetInput.addEventListener('change', function () {
+        console.log('hi');
+        settings.get('customBangs', function(d) {
+            const filtered = d.filter((bang) => bang.snippet != current.snippet);
+            filtered.push({ phrase: bangInput.value, snippet: snippetInput.value, redirect: redirectInput.value });
+            settings.set('customBangs', filtered);
+            current.phrase = bangInput.value;
+        })
+    })
+    redirectInput.addEventListener('change', function () {
+        settings.get('customBangs', function(d) {
+            const filtered = d.filter((bang) => bang.redirect != current.redirect);
+            filtered.push({ phrase: bangInput.value, snippet: snippetInput.value, redirect: redirectInput.value });
+            settings.set('customBangs', filtered);
+            current.phrase = bangInput.value;
+        })
+    })
+
+
+    li.appendChild(bangInput);
+    li.appendChild(snippetInput);
+    li.appendChild(redirectInput);
+    li.appendChild(xButton);
+  
+    return li
+  }

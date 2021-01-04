@@ -150,3 +150,11 @@ html {
 #restart-required-banner {
   color: black;
 }
+
+#custom-bangs {
+    list-style: none;
+}
+
+#add-custom-bang:hover {
+    cursor: pointer;
+}

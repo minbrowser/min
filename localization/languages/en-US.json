@@ -138,6 +138,7 @@
       "unsafeHTML": "So far, Min has blocked <strong></strong> ads and trackers."
     },
     "settingsCustomBangs": "Custom bangs",
+    "settingsCustomBangsAdd": "Add custom bang", 
     "settingsCustomizeFiltersLink": "Customize filters",
     "settingsAppearanceHeading": "Appearance",
     "settingsEnableDarkMode": "Enable dark mode:",

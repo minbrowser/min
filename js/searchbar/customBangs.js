@@ -380,8 +380,7 @@ bangsPlugin.registerCustomBang({
 
     settings.get('customBangs', function(data) {
         data.forEach((bang) => {
-            
-    process.stdout.write(bang);
+        
         console.log(bang);
         bangsPlugin.registerCustomBang({
             phrase: `!${bang.phrase}`,
