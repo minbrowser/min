@@ -137,6 +137,7 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "So far, Min has blocked <strong></strong> ads and trackers."
     },
+    "settingsCustomBangs": "Custom bangs",
     "settingsCustomizeFiltersLink": "Customize filters",
     "settingsAppearanceHeading": "Appearance",
     "settingsEnableDarkMode": "Enable dark mode:",

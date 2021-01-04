@@ -12,6 +12,7 @@ var urlParser = require('util/urlParser.js')
 var { db } = require('util/database.js')
 var formatRelativeDate = require('util/relativeDate.js')
 var contentBlockingToggle = require('navbar/contentBlockingToggle.js')
+const settings_ = require('util/settings/settings.js');
 
 bangsPlugin.registerCustomBang({
   phrase: '!settings',
@@ -376,3 +377,18 @@ bangsPlugin.registerCustomBang({
     }
   }
 })
+
+    settings.get('customBangs', function(data) {
+        data.forEach((bang) => {
+            
+    process.stdout.write(bang);
+        console.log(bang);
+        bangsPlugin.registerCustomBang({
+            phrase: `!${bang.phrase}`,
+            snippet: `${bang.snippet}`,
+            fn: function() {
+                webviews.update(tabs.getSelected(), bang.redirect)
+            }
+        })
+    })
+    });
