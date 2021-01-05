@@ -25,11 +25,19 @@ const statistics = {
     setTimeout(statistics.upload, 10000)
     setInterval(statistics.upload, 24 * 60 * 60 * 1000)
 
-    if (!settings.get('clientID')) {
-      settings.set('clientID', Math.random().toString().slice(2))
-    }
+    settings.listen('collectUsageStats', function (value) {
+      if (value === false) {
+        // disabling stats collection should reset client ID
+        settings.set('clientID', undefined)
+      } else if (!settings.get('clientID')) {
+        settings.set('clientID', Math.random().toString().slice(2))
+      }
+    })
+
     if (!settings.get('installTime')) {
-      settings.set('installTime', Date.now())
+      // round install time to nearest hour to reduce uniqueness
+      const roundingFactor = 60 * 60 * 1000
+      settings.set('installTime', Math.floor(Date.now() / roundingFactor) * roundingFactor)
     }
   }
 }
