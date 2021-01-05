@@ -379,7 +379,7 @@ bangsPlugin.registerCustomBang({
 })
 
     const data = settings.get('customBangs')
-    console.log(data);
+    if(data) {
     data.forEach((bang) => {
         if(!bang.phrase || !bang.snippet ||!bang.redirect) return;
         bangsPlugin.registerCustomBang({
@@ -390,3 +390,4 @@ bangsPlugin.registerCustomBang({
             }
         })
     });
+}

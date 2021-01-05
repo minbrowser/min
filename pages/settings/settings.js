@@ -503,11 +503,12 @@ proxyInputs.forEach(item => item.addEventListener('change', e => setProxy(e.targ
 
 settings.get('customBangs', (value) => {
     const bangslist = document.getElementById('custom-bangs');
-    console.log(value);
-    value.forEach(function(bang) {
+    
+    if(value) { value.forEach(function(bang) {
         bangslist.appendChild(createBang(bang.phrase, bang.snippet, bang.redirect))
         bangslist.appendChild(document.createElement('br'));
     })
+}
 })
 
 
@@ -548,7 +549,7 @@ function createBang (bang, snippet, redirect) {
 
     bangInput.addEventListener('change', function () {
         settings.get('customBangs', function(d) {
-            const filtered = d.filter((bang) => bang.phrase != current.phrase);
+            const filtered = d ? d.filter((bang) => bang.phrase != current.phrase) : [];
             console.log(filtered);
             filtered.push({ phrase: bangInput.value, snippet: snippetInput.value, redirect: redirectInput.value });
             console.log(filtered);
@@ -559,7 +560,7 @@ function createBang (bang, snippet, redirect) {
     })
     snippetInput.addEventListener('change', function () {
         settings.get('customBangs', function(d) {
-            const filtered = d.filter((bang) => bang.snippet != current.snippet);
+            const filtered = d ? d.filter((bang) => bang.phrase != current.phrase) : [];
             filtered.push({ phrase: bangInput.value, snippet: snippetInput.value, redirect: redirectInput.value });
             settings.set('customBangs', filtered);
             current.phrase = bangInput.value;
@@ -568,7 +569,7 @@ function createBang (bang, snippet, redirect) {
     })
     redirectInput.addEventListener('change', function () {
         settings.get('customBangs', function(d) {
-            const filtered = d.filter((bang) => bang.redirect != current.redirect);
+            const filtered = d ? d.filter((bang) => bang.phrase != current.phrase) : [];
             filtered.push({ phrase: bangInput.value, snippet: snippetInput.value, redirect: redirectInput.value });
             settings.set('customBangs', filtered);
             current.phrase = bangInput.value;
