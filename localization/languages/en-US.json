@@ -154,6 +154,9 @@
     },
     "settingsUserAgentToggle": "Use a custom user agent",
     "settingsUpdateNotificationsToggle": "Automatically check for updates",
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "Send usage statistics (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">More info</a>)"
+     },
     "settingsSearchEngineHeading": "Search Engine",
     "settingsDefaultSearchEngine": "Choose a default search engine:",
     "settingsDDGExplanation": "Set DuckDuckGo as the default search engine to see instant answers in the searchbar.",

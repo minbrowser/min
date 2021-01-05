@@ -155,6 +155,7 @@
     },
     "settingsUserAgentToggle": "Використовувати власний агент користувача",
     "settingsUpdateNotificationsToggle": "Автоматично перевіряти наявність оновлень",
+    "settingsUsageStatisticsToggle": null, //missing translation
     "settingsSearchEngineHeading": "Пошукова система",
     "settingsDefaultSearchEngine": "Виберіть типову пошукову систему:",
     "settingsDDGExplanation": "Встановіть DuckDuckGo як типову пошукову систему, щоб побачити миттєві відповіді на панелі пошуку.",

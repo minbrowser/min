@@ -154,6 +154,7 @@
     },
     "settingsUserAgentToggle": "Benutzerdefiniertes Benutzer-Agent nutzen",
     "settingsUpdateNotificationsToggle": "Automatisch nach Aktualisierungen überprüfen",
+    "settingsUsageStatisticsToggle": null, //missing translation
     "settingsSearchEngineHeading": "Suchmaschine",
     "settingsDefaultSearchEngine": "Standardsuchmaschine auswählen:",
     "settingsDDGExplanation": "DuckDuckGo als Standardsuchmaschine einstellen, um sofort Vorschläge in der Suchleiste zu erhalten.",

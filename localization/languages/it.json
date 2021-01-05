@@ -154,6 +154,7 @@
     },
     "settingsUserAgentToggle": null, //missing translation
     "settingsUpdateNotificationsToggle": "Controlla automaticamente la presenza di aggiornamenti",
+    "settingsUsageStatisticsToggle": null, //missing translation
     "settingsSearchEngineHeading": "Motore di ricerca",
     "settingsDefaultSearchEngine": "Scegli un motore di ricerca predefinito:",
     "settingsDDGExplanation": "Imposta DuckDuckGo come motore di ricerca predefinito per vedere risposte istantanee nella barra di ricerca.",

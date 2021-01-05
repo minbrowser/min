@@ -154,6 +154,7 @@
     },
     "settingsUserAgentToggle": "Usar agente de usuário personalizado",
     "settingsUpdateNotificationsToggle": "Verificar atualizações automaticamente",
+    "settingsUsageStatisticsToggle": null, //missing translation
     "settingsSearchEngineHeading": "Serviço de busca",
     "settingsDefaultSearchEngine": "Escolha o serviço de busca padrão:",
     "settingsDDGExplanation": "Defina DuckDuckGo como o serviço padrão de buscas para ver respostas instantâneas na barra de busca.",

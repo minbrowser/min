@@ -306,6 +306,22 @@ updateNotificationsCheckbox.addEventListener('change', function (e) {
   settings.set('updateNotificationsEnabled', this.checked)
 })
 
+/* usage statistics setting */
+
+var usageStatisticsCheckbox = document.getElementById('checkbox-usage-statistics')
+
+settings.get('collectUsageStats', function (value) {
+  if (value === false) {
+    usageStatisticsCheckbox.checked = false
+  } else {
+    usageStatisticsCheckbox.checked = true
+  }
+})
+
+usageStatisticsCheckbox.addEventListener('change', function (e) {
+  settings.set('collectUsageStats', this.checked)
+})
+
 /* default search engine setting */
 
 var searchEngineDropdown = document.getElementById('default-search-engine')

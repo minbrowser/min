@@ -154,6 +154,7 @@
     },
     "settingsUserAgentToggle": "Použít vlastní user agent",
     "settingsUpdateNotificationsToggle": "Automaticky kontrolovat aktualizace",
+    "settingsUsageStatisticsToggle": null, //missing translation
     "settingsSearchEngineHeading": "Vyhledávač",
     "settingsDefaultSearchEngine": "Zvolte si výchozí vyhledávač:",
     "settingsDDGExplanation": "Nastavte DuckDuckGo jako výchozí vyhledávač pro zobrazování okamžitých odpovědí ve vyhledávacím panelu.",

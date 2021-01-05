@@ -154,6 +154,7 @@
     },
     "settingsUserAgentToggle": "Maxsus foydalanvuchi agentidan foydalanish",
     "settingsUpdateNotificationsToggle": " Yangilanishlarni avtomatik ravishda tekshirish",
+    "settingsUsageStatisticsToggle": null, //missing translation
     "settingsSearchEngineHeading": "Qidiruv Tizimi",
     "settingsDefaultSearchEngine": "Standart qidiruv tizimini tanlang:",
     "settingsDDGExplanation": "Qidiruv panelida tezkor javoblarni ko'rish uchun DuckDuckGo ni standart qidiruv tizimi sifatida o'rnating.",

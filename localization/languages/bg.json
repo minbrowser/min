@@ -153,6 +153,7 @@
     },
     "settingsUserAgentToggle": "Използване на персонализиран потребителски агент",
     "settingsUpdateNotificationsToggle": "Автоматично проверяване за актуализации",
+    "settingsUsageStatisticsToggle": null, //missing translation
     "settingsSearchEngineHeading": "Търсачки",
     "settingsDefaultSearchEngine": "Изберете търсачка по подразбиране:",
     "settingsDDGExplanation": "Поставете DuckDuckGo като търсачка по подразбиране, за да получавате моментални отговори в лентата за търсене.",

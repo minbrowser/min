@@ -154,6 +154,7 @@
     },
     "settingsUserAgentToggle": "カスタムユーザーエージェントを使用する",
     "settingsUpdateNotificationsToggle": "アップデートを自動的に確認する",
+    "settingsUsageStatisticsToggle": null, //missing translation
     "settingsSearchEngineHeading": "検索エンジン",
     "settingsDefaultSearchEngine": "デフォルトの検索エンジン:",
     "settingsDDGExplanation": "検索バーにインスタントアンサーを表示するには、DuckDuckGoをデフォルトの検索エンジンに設定してください。",

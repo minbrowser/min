@@ -148,6 +148,7 @@
     },
     "settingsUserAgentToggle": null, //missing translation
     "settingsUpdateNotificationsToggle": "Tự động kiểm tra cập nhật",
+    "settingsUsageStatisticsToggle": null, //missing translation
     "settingsSearchEngineHeading": "Công cụ tìm kiếm",
     "settingsDefaultSearchEngine": "Chọn công cụ tìm kiếm mặc định:",
     "settingsDDGExplanation": "Đặt DuckDuckGo thành công cụ tìm kiếm mặc định để xem câu trả lời ngay trong thanh tìm kiếm.",

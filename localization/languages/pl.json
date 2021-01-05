@@ -154,6 +154,7 @@
     },
     "settingsUserAgentToggle": "Użyj niestandardowego klienta użytkownika",
     "settingsUpdateNotificationsToggle": "Automatycznie sprawdź dostępność aktualizacji",
+    "settingsUsageStatisticsToggle": null, //missing translation
     "settingsSearchEngineHeading": "Wyszukiwarka",
     "settingsDefaultSearchEngine": "Wybierz domyślną wyszukiwarkę:",
     "settingsDDGExplanation": "Ustaw DuckDuckGo jako domyślną wyszukiwarkę, aby zobaczyć błyskawiczne odpowiedzi na pasku wyszukiwania.",
