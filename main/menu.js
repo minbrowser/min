@@ -279,6 +279,9 @@ function buildAppMenu (options = {}) {
         },
         {
           label: l('appMenuInspectBrowser'),
+          accelerator: (function () {
+            if (process.platform === 'darwin') { return 'Shift+Cmd+Alt+I' } else { return 'Ctrl+Shift+Alt+I' }
+          })(),
           click: function (item, focusedWindow) {
             if (focusedWindow) focusedWindow.toggleDevTools()
           }
