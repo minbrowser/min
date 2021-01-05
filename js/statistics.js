@@ -15,7 +15,8 @@ const statistics = {
         clientID: settings.get('clientID'),
         installTime: settings.get('installTime'),
         os: process.platform,
-        lang: navigator.language
+        lang: navigator.language,
+        appVersion: window.globalArgs['app-version']
       })
     })
       .catch(e => console.warn('failed to send usage statistics', e))
