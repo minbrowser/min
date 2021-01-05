@@ -522,7 +522,7 @@ function createBang (bang, snippet, redirect) {
     var snippetInput = document.createElement('input')
     var redirectInput = document.createElement('input');
     var xButton = document.createElement('input');
-    var current = { phrase: '', snippet: '', redirect: '' };
+    var current = { phrase: bang ?? '', snippet: snippet ?? '', redirect: redirect ?? '' };
     bangInput.type = 'text';
     snippetInput.type = 'text';
     redirectInput.type = 'text';
@@ -555,6 +555,7 @@ function createBang (bang, snippet, redirect) {
             settings.set('customBangs', filtered);
             current.phrase = bangInput.value;
         })
+        showRestartRequiredBanner()
     })
     snippetInput.addEventListener('change', function () {
         settings.get('customBangs', function(d) {
@@ -563,6 +564,7 @@ function createBang (bang, snippet, redirect) {
             settings.set('customBangs', filtered);
             current.phrase = bangInput.value;
         })
+        showRestartRequiredBanner()
     })
     redirectInput.addEventListener('change', function () {
         settings.get('customBangs', function(d) {
@@ -570,7 +572,8 @@ function createBang (bang, snippet, redirect) {
             filtered.push({ phrase: bangInput.value, snippet: snippetInput.value, redirect: redirectInput.value });
             settings.set('customBangs', filtered);
             current.phrase = bangInput.value;
-        })
+        });
+        showRestartRequiredBanner()
     })
 
 
