@@ -379,8 +379,9 @@ bangsPlugin.registerCustomBang({
 })
 
     const data = settings.get('customBangs')
+    console.log(data);
     data.forEach((bang) => {
-        if(!bang.phrase || !bang.snippet ||!bang.redirect)
+        if(!bang.phrase || !bang.snippet ||!bang.redirect) return;
         bangsPlugin.registerCustomBang({
             phrase: `!${bang.phrase}`,
             snippet: `${bang.snippet}`,
