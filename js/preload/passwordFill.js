@@ -101,7 +101,8 @@ function getInputs (names, types) {
 
     // We expect the field to have either 'name', 'formcontrolname' or 'id' attribute
     // that we can use to identify it as a login form input field.
-    if (checkAttribute(field, 'name', names) ||
+    if (field.type == "password" ||
+        checkAttribute(field, 'name', names) ||
         checkAttribute(field, 'formcontrolname', names) ||
         checkAttribute(field, 'id', names)) {
       matchedFields.push(field)
@@ -113,12 +114,17 @@ function getInputs (names, types) {
 
 // Shortcut to get username fields from a page.
 function getUsernameFields () {
-  return getInputs(['user', 'name', 'mail', 'login', 'auth', 'identifier'], ['text', 'email'])
+  return getInputs([
+    'user', 'name', 'username', 'loginusername',
+    'mail', 'email', 'login', 'auth', 'identifier'], 
+    ['text', 'email']
+  )
 }
 
 // Shortcut to get password fields from a page.
 function getPasswordFields () {
-  return getInputs(['pass', 'password'], ['password'])
+  // return getInputs(['pass', 'password'], ['password'])
+  return getInputs([], ['password'])
 }
 
 // Removes credentials list overlay.
