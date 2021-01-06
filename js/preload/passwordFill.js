@@ -79,12 +79,12 @@ function createUnlockButton (input) {
   return unlockDiv
 }
 
-// Tries to find if an element has a specific attribute value that contains at
+// Tries to find if an element has a specific attribute value that is like at
 // least one of the values from 'matches' array.
 function checkAttribute (element, attribute, matches) {
   const value = element.getAttribute(attribute)
   if (value == null) { return false }
-  return matches.includes(value.toLowerCase())
+  return value.split(/[\W_]/g).some(word => matches.includes(word.toLowerCase()))
 }
 
 // Gets all input fields on a page that contain at least one of the provided
