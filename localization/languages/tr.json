@@ -154,6 +154,7 @@
     },
     "settingsUserAgentToggle": "Özel kullanıcı aracısı kullan",
     "settingsUpdateNotificationsToggle": "Güncelleştirmeleri otomatik olarak denetle",
+    "settingsUsageStatisticsToggle": null, //missing translation
     "settingsSearchEngineHeading": "Arama Motoru",
     "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçin:",
     "settingsDDGExplanation": "Arama çubuğundaki anlık yanıtları görmek için DuckDuckGo’yu varsayılan arama motoru olarak ayarlayın.",

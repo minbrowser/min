@@ -154,6 +154,7 @@
     },
     "settingsUserAgentToggle": "사용자 정의 에이전트(UserAgent) 사용",
     "settingsUpdateNotificationsToggle": "판올림 자동 확인",
+    "settingsUsageStatisticsToggle": null, //missing translation
     "settingsSearchEngineHeading": "검색 도구",
     "settingsDefaultSearchEngine": "기본 검색 도구:",
     "settingsDDGExplanation": "덕덕고(DuckDuckGo)를 기본 검색 도구로 설정하여 검색 창에서 바로 검색해 보세요.",

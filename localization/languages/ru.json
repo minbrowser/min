@@ -154,6 +154,7 @@
     },
     "settingsUserAgentToggle": "Использовать пользовательский user agent",
     "settingsUpdateNotificationsToggle": "Автоматически проверять наличие обновлений",
+    "settingsUsageStatisticsToggle": null, //missing translation
     "settingsSearchEngineHeading": "Поиск",
     "settingsDefaultSearchEngine": "Выберите поисковую систему по умолчанию:",
     "settingsDDGExplanation": "Чтобы видеть мгновенные ответы в строке поиска, установите DuckDuckGo поисковиком по умолчанию.",

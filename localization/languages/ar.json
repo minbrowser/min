@@ -154,6 +154,7 @@
     },
     "settingsUserAgentToggle": null, //missing translation
     "settingsUpdateNotificationsToggle": null, //missing translation
+    "settingsUsageStatisticsToggle": null, //missing translation
     "settingsSearchEngineHeading": "محرك بحث",
     "settingsDefaultSearchEngine": "اختر محرك بحث اساسي",
     "settingsDDGExplanation": "كمحرك بحث اساسي لرؤية النتائج الآنية في مربع البحث DuckDuckGo ",

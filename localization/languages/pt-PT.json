@@ -154,6 +154,7 @@
     },
     "settingsUserAgentToggle": "Utilizar agente de utilizador personalizado",
     "settingsUpdateNotificationsToggle": "Procurar atualizações automaticamente",
+    "settingsUsageStatisticsToggle": null, //missing translation
     "settingsSearchEngineHeading": "Motor de pesquisa",
     "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",
     "settingsDDGExplanation": "Defina DuckDuckGo como motor de pesquisa padrão para poder obter sugestões imediatas na barra de pesquisa.",
