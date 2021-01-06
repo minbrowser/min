@@ -9,18 +9,6 @@ var hasSeparateTitlebar = settings.get('useSeparateTitlebar')
 var windowIsMaximized = false // affects navbar height on Windows
 var windowIsFullscreen = false
 
-function forceUpdateDragRegions () {
-  setTimeout(function () {
-    // manually force the drag regions to update to work around https://github.com/electron/electron/issues/14038
-    var d = document.createElement('div')
-    d.setAttribute('style', '-webkit-app-region:drag; width: 1px; height: 1px;')
-    document.body.appendChild(d)
-    setTimeout(function () {
-      document.body.removeChild(d)
-    }, 100)
-  }, 100)
-}
-
 function captureCurrentTab (options) {
   if (tabs.get(tabs.getSelected()).private) {
     // don't capture placeholders for private tabs
@@ -253,8 +241,6 @@ const webviews = {
       focus: !options || options.focus !== false
     })
     webviews.emitEvent('view-shown', id)
-
-    forceUpdateDragRegions()
   },
   update: function (id, url) {
     ipc.send('loadURLInView', { id: id, url: urlParser.parse(url) })
@@ -312,7 +298,6 @@ const webviews = {
           focus: true
         })
         webviews.emitEvent('view-shown', webviews.selectedId)
-        forceUpdateDragRegions()
       }
       // wait for the view to be visible before removing the placeholder
       setTimeout(function () {
