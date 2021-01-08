@@ -12,7 +12,6 @@ var urlParser = require('util/urlParser.js')
 var { db } = require('util/database.js')
 var formatRelativeDate = require('util/relativeDate.js')
 var contentBlockingToggle = require('navbar/contentBlockingToggle.js')
-const settings_ = require('util/settings/settings.js');
 
 bangsPlugin.registerCustomBang({
   phrase: '!settings',
