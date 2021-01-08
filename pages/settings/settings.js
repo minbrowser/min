@@ -511,11 +511,11 @@ settings.get('customBangs', (value) => {
 })
 
 
-document.getElementById('add-custom-bang').onclick = function() {
+document.getElementById('add-custom-bang').addEventListener('click', function(){
     const bangslist = document.getElementById('custom-bangs');
     bangslist.appendChild(createBang());
     bangslist.appendChild(document.createElement('br'));
-} 
+});
 
 function createBang (bang, snippet, redirect) {
     var li = document.createElement('li')
@@ -542,7 +542,7 @@ function createBang (bang, snippet, redirect) {
     snippetInput.value = snippet ?? '';
     redirectInput.value = redirect ?? '';
     xButton.value = 'X';
-    
+
     bangInput.placeholder = l('settingsCustomBangsPhrase');
     snippetInput.placeholder = l('settingsCustomBangsSnippet');
     redirectInput.placeholder = l('settingsCustomBangsRedirect');
@@ -572,6 +572,6 @@ function createBang (bang, snippet, redirect) {
     li.appendChild(snippetInput);
     li.appendChild(redirectInput);
     li.appendChild(xButton);
-    
+
     return li
   }
