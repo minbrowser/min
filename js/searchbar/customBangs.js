@@ -380,10 +380,10 @@ bangsPlugin.registerCustomBang({
     const data = settings.get('customBangs')
     if(data) {
     data.forEach((bang) => {
-        if(!bang.phrase || !bang.snippet ||!bang.redirect) return;
+        if(!bang.phrase ||!bang.redirect) return;
         bangsPlugin.registerCustomBang({
             phrase: `!${bang.phrase}`,
-            snippet: `${bang.snippet}`,
+            snippet: `${bang.snippet}` ?? '',
             fn: function() {
                 webviews.update(tabs.getSelected(), bang.redirect)
             }
