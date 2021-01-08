@@ -13,11 +13,11 @@ Min is a fast, minimal browser that protects your privacy. It includes an interf
 Download Min from the [releases page](https://github.com/minbrowser/min/releases), or learn more on the [website](https://minbrowser.org/).
 
 [![Downloads](https://img.shields.io/github/downloads/minbrowser/min/total.svg?style=flat-square)](https://github.com/minbrowser/min/releases)
-<img src="https://img.shields.io/discord/764269005195968512.svg?style=flat-square" width="40">
+[<img src="https://img.shields.io/discord/764269005195968512.svg?style=flat-square">](https://discord.gg/bRpqjJ4)
 
 Min is made possible by these sponsors:
 
-| [<img src="https://avatars1.githubusercontent.com/u/22417494?s=460&v=4">](https://github.com/shalva97) | [<img src="https://avatars3.githubusercontent.com/u/17785839?s=400&v=4" width="40">](https://github.com/ritterob) |     |
+| [<img src="https://avatars1.githubusercontent.com/u/22417494?s=460&v=4" width="40">](https://github.com/shalva97) | [<img src="https://avatars3.githubusercontent.com/u/17785839?s=400&v=4" width="40">](https://github.com/ritterob) |     |
 | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | --- |
 | [@shalva97](https://github.com/shalva97)                                                                          | [@ritterob](https://github.com/ritterob)                                                                          |     |
 
