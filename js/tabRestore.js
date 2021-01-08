@@ -1,5 +1,5 @@
 function TabStack (tabStack) {
-  this.depth = 15
+  this.depth = 10
 
   if (tabStack) {
     this.stack = tabStack.stack
