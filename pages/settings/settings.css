@@ -165,4 +165,7 @@ html {
 .xbutton {
     margin-left: 0.25em;
     background: transparent;
+    font-size: 1.5em !important;
+    vertical-align: middle;
+    margin-bottom: 0.2em;
 }
