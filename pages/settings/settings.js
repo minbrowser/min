@@ -514,7 +514,6 @@ settings.get('customBangs', (value) => {
 document.getElementById('add-custom-bang').addEventListener('click', function(){
     const bangslist = document.getElementById('custom-bangs');
     bangslist.appendChild(createBang());
-    bangslist.appendChild(document.createElement('br'));
 });
 
 function createBang (bang, snippet, redirect) {
@@ -541,7 +540,7 @@ function createBang (bang, snippet, redirect) {
     bangInput.value = bang ?? '';
     snippetInput.value = snippet ?? '';
     redirectInput.value = redirect ?? '';
-    xButton.value = 'X';
+    xButton.className = 'carbon:close'
 
     bangInput.placeholder = l('settingsCustomBangsPhrase');
     snippetInput.placeholder = l('settingsCustomBangsSnippet');
