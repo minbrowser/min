@@ -377,16 +377,16 @@ bangsPlugin.registerCustomBang({
   }
 })
 
-    const data = settings.get('customBangs')
-    if(data) {
-    data.forEach((bang) => {
-        if(!bang.phrase ||!bang.redirect) return;
-        bangsPlugin.registerCustomBang({
-            phrase: `!${bang.phrase}`,
-            snippet: `${bang.snippet}` ?? '',
-            fn: function() {
-                webviews.update(tabs.getSelected(), bang.redirect)
-            }
-        })
-    });
+const data = settings.get('customBangs')
+if (data) {
+  data.forEach((bang) => {
+    if (!bang.phrase || !bang.redirect) return
+    bangsPlugin.registerCustomBang({
+      phrase: `!${bang.phrase}`,
+      snippet: `${bang.snippet}` ?? '',
+      fn: function () {
+        webviews.update(tabs.getSelected(), bang.redirect)
+      }
+    })
+  })
 }

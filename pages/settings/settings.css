@@ -152,20 +152,20 @@ html {
 }
 
 #custom-bangs {
-    list-style: none;
+  list-style: none;
 }
 
 #custom-bangs input {
-    border: transparent;
+  border: transparent;
 }
 
 #add-custom-bang:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 .xbutton {
-    margin-left: 0.25em;
-    background: transparent;
-    font-size: 1.5em !important;
-    vertical-align: middle;
-    margin-bottom: 0.2em;
+  margin-left: 0.25em;
+  background: transparent;
+  font-size: 1.5em !important;
+  vertical-align: middle;
+  margin-bottom: 0.2em;
 }

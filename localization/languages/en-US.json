@@ -138,7 +138,7 @@
       "unsafeHTML": "So far, Min has blocked <strong></strong> ads and trackers."
     },
     "settingsCustomBangs": "Custom bangs",
-    "settingsCustomBangsAdd": "Add custom bang", 
+    "settingsCustomBangsAdd": "Add custom bang",
     "settingsCustomBangsPhrase": "Phrase (Required)",
     "settingsCustomBangsSnippet": "Snippet (Optional)",
     "settingsCustomBangsRedirect": "Redirect URL (Required)",
