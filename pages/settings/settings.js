@@ -521,7 +521,7 @@ function createBang (bang, snippet, redirect) {
     var bangInput = document.createElement('input')
     var snippetInput = document.createElement('input')
     var redirectInput = document.createElement('input');
-    var xButton = document.createElement('input');
+    var xButton = document.createElement('button');
     var current = { phrase: bang ?? '', snippet: snippet ?? '', redirect: redirect ?? '' };
     function update(key, input) {
         settings.get('customBangs', function(d) {
@@ -532,15 +532,16 @@ function createBang (bang, snippet, redirect) {
             settings.set('customBangs', filtered);
             current[key] = input.value;
         });
-    }
+    };
+    
     bangInput.type = 'text';
     snippetInput.type = 'text';
     redirectInput.type = 'text';
-    xButton.type = 'button';
     bangInput.value = bang ?? '';
     snippetInput.value = snippet ?? '';
     redirectInput.value = redirect ?? '';
-    xButton.className = 'carbon:close'
+    xButton.className = 'i carbon:close xbutton';
+    
 
     bangInput.placeholder = l('settingsCustomBangsPhrase');
     snippetInput.placeholder = l('settingsCustomBangsSnippet');
