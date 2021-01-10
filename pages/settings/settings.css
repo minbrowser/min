@@ -162,9 +162,7 @@ html {
 }
 
 #add-custom-bang {
-  border: 1px rgb(128, 128, 128) solid;
   padding: 0.1em 0.25em;
-  border-radius: 3px;
 }
 
 #add-custom-bang:hover {
