@@ -246,7 +246,9 @@ bangsPlugin.registerCustomBang({
           title: result.title,
           secondaryText: urlParser.getSourceURL(result.url),
           fakeFocus: index === 0 && text,
-          url: result.url,
+          click: function (e) {
+            searchbar.openURL(result.url, e)
+          },
           delete: function () {
             places.deleteHistory(result.url)
           },
