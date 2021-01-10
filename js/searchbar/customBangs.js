@@ -384,8 +384,8 @@ if (data) {
     bangsPlugin.registerCustomBang({
       phrase: `!${bang.phrase}`,
       snippet: `${bang.snippet}` ?? '',
-      fn: function () {
-        webviews.update(tabs.getSelected(), bang.redirect)
+      fn: function (text) {
+        webviews.update(tabs.getSelected(), bang.redirect.replace('%s', encodeURIComponent(text)))
       }
     })
   })
