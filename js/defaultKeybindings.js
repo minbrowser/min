@@ -8,6 +8,10 @@ var tabEditor = require('navbar/tabEditor.js')
 
 const defaultKeybindings = {
   initialize: function () {
+    keybindings.defineShortcut('quitMin', function () {
+      ipc.send('quit')
+    })
+
     keybindings.defineShortcut('addTab', function () {
       /* new tabs can't be created in modal mode */
       if (modalMode.enabled()) {

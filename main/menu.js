@@ -59,8 +59,10 @@ function buildAppMenu (options = {}) {
   var quitAction = {
     label: l('appMenuQuit').replace('%n', app.name),
     accelerator: 'CmdOrCtrl+Q',
-    click: function () {
-      app.quit()
+    click: function (item, window, event) {
+      if (!event.triggeredByAccelerator) {
+        app.quit()
+      }
     }
   }
 

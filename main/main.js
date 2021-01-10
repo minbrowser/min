@@ -382,6 +382,10 @@ ipc.on('showSecondaryMenu', function (event, data) {
   })
 })
 
+ipc.on('quit', function () {
+  app.quit()
+})
+
 function registerProtocols () {
   protocol.registerStringProtocol('mailto', function (req, cb) {
     electron.shell.openExternal(req.url)
