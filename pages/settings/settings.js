@@ -525,12 +525,12 @@ function createBang (bang, snippet, redirect) {
   var current = { phrase: bang ?? '', snippet: snippet ?? '', redirect: redirect ?? '' }
   function update (key, input) {
     settings.get('customBangs', function (d) {
-      const filtered = d ? d.filter((bang) => bang[key] !== current[key]) : []
+      const filtered = d ? d.filter((bang) => bang.phrase !== current.phrase) : []
       filtered.push({ phrase: bangInput.value, snippet: snippetInput.value, redirect: redirectInput.value })
       settings.set('customBangs', filtered)
       current[key] = input.value
     })
-  };
+  }
 
   bangInput.type = 'text'
   snippetInput.type = 'text'
