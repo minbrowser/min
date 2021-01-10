@@ -74,12 +74,6 @@ for (const e in searchEngines) {
 }
 
 settings.listen('searchEngine', function (value) {
-  if (typeof value === 'string') {
-    // migrate from legacy format
-    value = { name: value }
-    settings.set('searchEngine', value)
-  }
-
   if (value && value.name) {
     currentSearchEngine = searchEngines[value.name]
   } else if (value && value.url) {
