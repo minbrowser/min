@@ -140,7 +140,7 @@
     "settingsCustomBangs": "Custom bangs",
     "settingsCustomBangsAdd": "Add custom bang",
     "settingsCustomBangsPhrase": "Phrase (Required)",
-    "settingsCustomBangsSnippet": "Snippet (Optional)",
+    "settingsCustomBangsSnippet": "Description (Optional)",
     "settingsCustomBangsRedirect": "Redirect URL (Required)",
     "settingsCustomizeFiltersLink": "Customize filters",
     "settingsAppearanceHeading": "Appearance",
