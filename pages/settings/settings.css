@@ -156,15 +156,21 @@ html {
 }
 
 #custom-bangs input {
-  border: transparent;
+  margin-right: 0.5em;
+  width: 28%;
+  max-width: 225px;
+}
+
+#add-custom-bang {
+  border: 1px rgb(128, 128, 128) solid;
+  padding: 0.1em 0.25em;
+  border-radius: 3px;
 }
 
 #add-custom-bang:hover {
   cursor: pointer;
 }
-.xbutton {
-  margin-left: 0.25em;
-  background: transparent;
+.custom-bang-delete-button {
   font-size: 1.5em !important;
   vertical-align: middle;
   margin-bottom: 0.2em;
