@@ -122,8 +122,7 @@ function getUsernameFields () {
 
 // Shortcut to get password fields from a page.
 function getPasswordFields () {
-  // return getInputs(['pass', 'password'], ['password'])
-  return document.querySelectorAll('input[type=password]')
+  return Array.from(document.querySelectorAll('input[type=password]'))
 }
 
 // Removes credentials list overlay.
