@@ -552,6 +552,9 @@ function createBang (bang, snippet, redirect) {
   })
 
   bangInput.addEventListener('change', function () {
+    if (this.value.startsWith('!')) {
+      this.value = this.value.slice(1)
+    }
     update('phrase', bangInput)
     showRestartRequiredBanner()
   })
