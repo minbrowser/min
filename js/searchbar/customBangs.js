@@ -303,7 +303,8 @@ bangsPlugin.registerCustomBang({
 
         var data = {
           title: bookmark.textContent,
-          isBookmarked: true
+          isBookmarked: true,
+          tags: []
         }
         try {
           data.lastVisit = parseInt(bookmark.getAttribute('add_date')) * 1000
@@ -311,10 +312,13 @@ bangsPlugin.registerCustomBang({
         var parent = bookmark.parentElement
         while (parent != null) {
           if (parent.children[0] && parent.children[0].tagName === 'H3') {
-            data.tags = [parent.children[0].textContent.replace(/\s/g, '-')]
+            data.tags.push(parent.children[0].textContent.replace(/\s/g, '-'))
             break
           }
           parent = parent.parentElement
+        }
+        if (bookmark.getAttribute('tags')) {
+          data.tags = data.tags.concat(bookmark.getAttribute('tags').split(','))
         }
         places.updateItem(url, data)
       })
@@ -337,9 +341,9 @@ bangsPlugin.registerCustomBang({
 
     var folderRoot = document.createElement('dt')
     innerRoot.appendChild(folderRoot)
-    var folderHeading = document.createElement('h3')
-    folderHeading.textContent = 'Min Bookmarks'
-    folderRoot.appendChild(folderHeading)
+    // var folderHeading = document.createElement('h3')
+    // folderHeading.textContent = 'Min Bookmarks'
+    // folderRoot.appendChild(folderHeading)
     var folderBookmarksList = document.createElement('dl')
     folderRoot.appendChild(folderBookmarksList)
 
@@ -352,6 +356,9 @@ bangsPlugin.registerCustomBang({
 
         a.href = urlParser.getSourceURL(item.url)
         a.setAttribute('add_date', Math.round(item.lastVisit / 1000))
+        if (item.tags.length > 0) {
+          a.setAttribute('tags', item.tags.join(','))
+        }
         a.textContent = item.title
         // Chrome will only parse the file if it contains newlines after each bookmark
         var textSpan = document.createTextNode('\n')

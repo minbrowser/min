@@ -129,6 +129,9 @@ onmessage = function (e) {
         for (const key in pageData) {
           if (key === 'extractedText') {
             item.searchIndex = tokenize(pageData.extractedText)
+          } else if (key === 'tags') {
+            // ensure tags are never saved with spaces in them
+            item.tags = pageData.tags.map(t => t.replace(/\s/g, '-'))
           } else {
             item[key] = pageData[key]
           }
