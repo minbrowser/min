@@ -385,3 +385,17 @@ bangsPlugin.registerCustomBang({
     }
   }
 })
+
+const data = settings.get('customBangs')
+if (data) {
+  data.forEach((bang) => {
+    if (!bang.phrase || !bang.redirect) return
+    bangsPlugin.registerCustomBang({
+      phrase: `!${bang.phrase}`,
+      snippet: `${bang.snippet}` ?? '',
+      fn: function (text) {
+        webviews.update(tabs.getSelected(), bang.redirect.replace('%s', encodeURIComponent(text)))
+      }
+    })
+  })
+}

@@ -150,3 +150,26 @@ html {
 #restart-required-banner {
   color: black;
 }
+
+#custom-bangs {
+  list-style: none;
+}
+
+#custom-bangs input {
+  margin-right: 0.5em;
+  width: 28%;
+  max-width: 225px;
+}
+
+#add-custom-bang {
+  padding: 0.1em 0.25em;
+}
+
+#add-custom-bang:hover {
+  cursor: pointer;
+}
+.custom-bang-delete-button {
+  font-size: 1.5em !important;
+  vertical-align: middle;
+  margin-bottom: 0.2em;
+}
