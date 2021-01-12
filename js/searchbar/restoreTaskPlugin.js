@@ -3,6 +3,15 @@ var searchbarUtils = require('searchbar/searchbarUtils.js')
 
 var browserUI = require('browserUI.js')
 
+function getFormattedTitle (tab) {
+  if (tab.title) {
+    var title = searchbarUtils.getRealTitle(tab.title)
+    return '"' + (title.length > 45 ? title.substring(0, 45).trim() + '...' : title) + '"'
+  } else {
+    return l('newTabLabel')
+  }
+}
+
 function showRestoreTask () {
   searchbarPlugins.reset('restoreTask')
 
@@ -11,17 +20,19 @@ function showRestoreTask () {
   })[1]
   var recentTabs = lastTask.tabs.get().sort((a, b) => b.lastActivity - a.lastActivity).slice(0, 3)
 
+  var taskDescription
   if (recentTabs.length === 1) {
-    var title = searchbarUtils.getRealTitle(recentTabs[0].title) || l('newTabLabel')
+    taskDescription = getFormattedTitle(recentTabs[0])
   } else if (recentTabs.length === 2) {
-    var title = l('taskDescriptionTwo').replace('%t', searchbarUtils.getRealTitle(recentTabs[0].title) || l('newTabLabel')).replace('%t', searchbarUtils.getRealTitle(recentTabs[1].title) || l('newTabLabel'))
+    taskDescription = l('taskDescriptionTwo').replace('%t', getFormattedTitle(recentTabs[0])).replace('%t', getFormattedTitle(recentTabs[1]))
   } else {
-    var title = l('taskDescriptionThree').replace('%t', searchbarUtils.getRealTitle(recentTabs[0].title) || l('newTabLabel')).replace('%t', searchbarUtils.getRealTitle(recentTabs[1].title) || l('newTabLabel')).replace('%n', (lastTask.tabs.count() - 2))
+    taskDescription = l('taskDescriptionThree').replace('%t', getFormattedTitle(recentTabs[0])).replace('%t', getFormattedTitle(recentTabs[1])).replace('%n', (lastTask.tabs.count() - 2))
   }
 
   searchbarPlugins.addResult('restoreTask', {
-    title: title,
-    descriptionBlock: l('returnToTask'),
+    title: l('returnToTask'),
+    descriptionBlock: taskDescription,
+    icon: 'carbon:redo',
     click: function (e) {
       var thisTask = tasks.getSelected().id
       browserUI.switchToTask(lastTask.id)
@@ -34,7 +45,7 @@ function initialize () {
   searchbarPlugins.register('restoreTask', {
     index: 0,
     trigger: function (text) {
-      return !text && performance.now() < 5000 && tasks.getSelected().tabs.isEmpty() && window.createdNewTaskOnStartup
+      return !text && performance.now() < 15000 && tasks.getSelected().tabs.isEmpty() && window.createdNewTaskOnStartup
     },
     showResults: showRestoreTask
   })
