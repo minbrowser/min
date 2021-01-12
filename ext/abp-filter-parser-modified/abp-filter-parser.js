@@ -455,12 +455,15 @@ function matchOptions (filterOptions, input, contextParams, currentHost) {
     subdomains are also considered "same origin hosts" for the purposes of thirdParty and domain list checks
     see https://adblockplus.org/filter-cheatsheet#options:
     "The page loading it comes from example.com domain (for example example.com itself or subdomain.example.com) but not from foo.example.com or its subdomains"
+
+    Additionally, subdomain matches are bidrectional, i.e. a request for "a.b.com" on "b.com" and a request for "b.com" on "a.b.com" are both first-party
     */
-    if (filterOptions.thirdParty && isSameOriginHost(contextParams.domain, currentHost)) {
+
+    if (filterOptions.thirdParty && (isSameOriginHost(contextParams.domain, currentHost) || isSameOriginHost(currentHost, contextParams.domain))) {
       return false
     }
 
-    if (filterOptions.notThirdParty && !isSameOriginHost(contextParams.domain, currentHost)) {
+    if (filterOptions.notThirdParty && !(isSameOriginHost(contextParams.domain, currentHost) || isSameOriginHost(currentHost, contextParams.domain))) {
       return false
     }
 
