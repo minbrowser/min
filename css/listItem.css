@@ -40,6 +40,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  line-height: 1.1em;
 }
 .searchbar-item .title.wide {
   max-width: 70%;
@@ -148,6 +149,7 @@ body.dark-mode.touch .searchbar-item .action-button {
   white-space: nowrap;
   text-overflow: ellipsis;
   max-height: 2em;
+  line-height: 1.2em;
 }
 
 .searchbar-item .image {
