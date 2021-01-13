@@ -154,7 +154,9 @@
     },
     "settingsUserAgentToggle": "Użyj niestandardowego klienta użytkownika",
     "settingsUpdateNotificationsToggle": "Automatycznie sprawdź dostępność aktualizacji",
-    "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "Wysyłaj statystyki użytkowania (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Więcej informacji</a>)"
+     },
     "settingsSearchEngineHeading": "Wyszukiwarka",
     "settingsDefaultSearchEngine": "Wybierz domyślną wyszukiwarkę:",
     "settingsDDGExplanation": "Ustaw DuckDuckGo jako domyślną wyszukiwarkę, aby zobaczyć błyskawiczne odpowiedzi na pasku wyszukiwania.",
