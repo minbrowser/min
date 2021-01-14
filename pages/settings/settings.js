@@ -91,7 +91,8 @@ trackingLevelOptions.forEach(function (item, idx) {
 })
 
 blockingExceptionsInput.addEventListener('input', function () {
-  var newValue = this.value.split(',').map(i => i.trim()).filter(i => !!i)
+  // remove protocols because of https://github.com/minbrowser/min/issues/1428
+  var newValue = this.value.split(',').map(i => i.trim().replace('http://', '').replace('https://', '')).filter(i => !!i)
 
   settings.get('filtering', function (value) {
     if (!value) {
