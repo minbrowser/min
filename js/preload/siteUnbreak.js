@@ -96,6 +96,45 @@ if (window.location.hostname === 'calendar.google.com') {
   `)
 }
 
+if (window.location.hostname === 'www.oui.sncf') {
+  scriptsToRun.push(`
+    var realWindowOpen = window.open
+
+    window.open = function (url) {
+      if (url) {
+        return realWindowOpen(url)
+      }
+      return {
+        document: new Proxy({}, {
+          get: function () {
+            console.log('get', arguments)
+            return function () {
+              return document.createElement('div')
+            }
+          },
+          set: function () {
+            console.warn('unpatched set', arguments)}
+        }
+        ),
+        location: {
+          replace: function (location) {
+            realWindowOpen(location)
+          }
+        },
+        moveTo: function() {
+          console.log(arguments)
+        },
+        focus: function() {
+          console.log(arguments)
+        },
+        blur: function() {
+          console.log(arguments)
+        }
+      }
+    }
+  `)
+}
+
 if (scriptsToRun.length > 0) {
   setTimeout(function () {
     electron.webFrame.executeJavaScript(scriptsToRun.join(';'))
