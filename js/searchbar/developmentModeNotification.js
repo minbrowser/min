@@ -1,4 +1,4 @@
-var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+const searchbarPlugins = require('searchbar/searchbarPlugins.js')
 
 function initialize () {
   searchbarPlugins.register('developmentModeNotification', {

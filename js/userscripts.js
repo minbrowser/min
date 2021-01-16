@@ -1,20 +1,20 @@
 /* implements userscript support */
 
-var webviews = require('webviews.js')
-var settings = require('util/settings/settings.js')
-var bangsPlugin = require('searchbar/bangsPlugin.js')
-var tabEditor = require('navbar/tabEditor.js')
-var searchbarPlugins = require('searchbar/searchbarPlugins.js')
-var urlParser = require('util/urlParser.js')
+const webviews = require('webviews.js')
+const settings = require('util/settings/settings.js')
+const bangsPlugin = require('searchbar/bangsPlugin.js')
+const tabEditor = require('navbar/tabEditor.js')
+const searchbarPlugins = require('searchbar/searchbarPlugins.js')
+const urlParser = require('util/urlParser.js')
 
 function parseTampermonkeyFeatures (content) {
-  var parsedFeatures = {}
-  var foundFeatures = false
+  const parsedFeatures = {}
+  let foundFeatures = false
 
-  var lines = content.split('\n')
+  const lines = content.split('\n')
 
-  var isInFeatures = false
-  for (var i = 0; i < lines.length; i++) {
+  let isInFeatures = false
+  for (let i = 0; i < lines.length; i++) {
     if (lines[i].trim() === '// ==UserScript==') {
       isInFeatures = true
       continue
@@ -25,9 +25,9 @@ function parseTampermonkeyFeatures (content) {
     }
     if (isInFeatures && lines[i].startsWith('//')) {
       foundFeatures = true
-      var feature = lines[i].replace('//', '').trim()
-      var featureName = feature.split(' ')[0]
-      var featureValue = feature.replace(featureName + ' ', '').trim()
+      const feature = lines[i].replace('//', '').trim()
+      let featureName = feature.split(' ')[0]
+      const featureValue = feature.replace(featureName + ' ', '').trim()
       featureName = featureName.replace('@', '')
 
       // special case: find the localized name for the current locale
@@ -50,9 +50,9 @@ function parseTampermonkeyFeatures (content) {
 
 // checks if a URL matches a wildcard pattern
 function urlMatchesPattern (url, pattern) {
-  var idx = -1
-  var parts = pattern.split('*')
-  for (var i = 0; i < parts.length; i++) {
+  let idx = -1
+  const parts = pattern.split('*')
+  for (let i = 0; i < parts.length; i++) {
     idx = url.indexOf(parts[i], idx)
     if (idx === -1) {
       return false
@@ -67,8 +67,8 @@ const userscripts = {
   loadScripts: function () {
     userscripts.scripts = []
 
-    var path = require('path')
-    var scriptDir = path.join(window.globalArgs['user-data-path'], 'userscripts')
+    const path = require('path')
+    const scriptDir = path.join(window.globalArgs['user-data-path'], 'userscripts')
 
     fs.readdir(scriptDir, function (err, files) {
       if (err || files.length === 0) {
@@ -83,7 +83,7 @@ const userscripts = {
               return
             }
 
-            var domain = filename.slice(0, -3)
+            let domain = filename.slice(0, -3)
             if (domain.startsWith('www.')) {
               domain = domain.slice(4)
             }
@@ -91,9 +91,9 @@ const userscripts = {
               return
             }
 
-            var tampermonkeyFeatures = parseTampermonkeyFeatures(file)
+            const tampermonkeyFeatures = parseTampermonkeyFeatures(file)
             if (tampermonkeyFeatures) {
-              var scriptName = tampermonkeyFeatures['name:local'] || tampermonkeyFeatures.name
+              let scriptName = tampermonkeyFeatures['name:local'] || tampermonkeyFeatures.name
               if (scriptName) {
                 scriptName = scriptName[0]
               } else {
@@ -148,7 +148,7 @@ const userscripts = {
       return
     }
 
-    var src = tabs.get(tabId).url
+    const src = tabs.get(tabId).url
 
     userscripts.getMatchingScripts(src).forEach(function (script) {
       // TODO run different types of scripts at the correct time
@@ -174,7 +174,7 @@ const userscripts = {
       showSuggestions: function (text, input, event) {
         searchbarPlugins.reset('bangs')
 
-        var isFirst = true
+        let isFirst = true
         userscripts.scripts.forEach(function (script) {
           if (script.name.toLowerCase().startsWith(text.toLowerCase())) {
             searchbarPlugins.addResult('bangs', {
@@ -193,7 +193,7 @@ const userscripts = {
         if (!text) {
           return
         }
-        var matchingScript = userscripts.scripts.find(script => script.name.toLowerCase().startsWith(text.toLowerCase()))
+        const matchingScript = userscripts.scripts.find(script => script.name.toLowerCase().startsWith(text.toLowerCase()))
         if (matchingScript) {
           userscripts.runScript(tabs.getSelected(), matchingScript)
         }

@@ -1,14 +1,14 @@
 /* imports common modules */
 
-var electron = require('electron')
-var ipc = electron.ipcRenderer
+const electron = require('electron')
+const ipc = electron.ipcRenderer
 
-var propertiesToClone = ['deltaX', 'deltaY', 'metaKey', 'ctrlKey', 'defaultPrevented', 'clientX', 'clientY']
+const propertiesToClone = ['deltaX', 'deltaY', 'metaKey', 'ctrlKey', 'defaultPrevented', 'clientX', 'clientY']
 
 function cloneEvent (e) {
-  var obj = {}
+  const obj = {}
 
-  for (var i = 0; i < propertiesToClone.length; i++) {
+  for (let i = 0; i < propertiesToClone.length; i++) {
     obj[propertiesToClone[i]] = e[propertiesToClone[i]]
   }
   return JSON.stringify(obj)
@@ -21,7 +21,7 @@ setTimeout(function () {
     ipc.send('wheel-event', cloneEvent(e))
   })
 
-  var scrollTimeout = null
+  let scrollTimeout = null
 
   window.addEventListener('scroll', function () {
     clearTimeout(scrollTimeout)
@@ -34,12 +34,12 @@ setTimeout(function () {
 /* Used for picture in picture item in context menu */
 ipc.on('getContextMenuData', function (event, data) {
   // check for video element to show picture-in-picture menu
-  var hasVideo = Array.from(document.elementsFromPoint(data.x, data.y)).some(el => el.tagName === 'VIDEO')
+  const hasVideo = Array.from(document.elementsFromPoint(data.x, data.y)).some(el => el.tagName === 'VIDEO')
   ipc.send('contextMenuData', { hasVideo })
 })
 
 ipc.on('enterPictureInPicture', function (event, data) {
-  var videos = Array.from(document.elementsFromPoint(data.x, data.y)).filter(el => el.tagName === 'VIDEO')
+  const videos = Array.from(document.elementsFromPoint(data.x, data.y)).filter(el => el.tagName === 'VIDEO')
   if (videos[0]) {
     videos[0].requestPictureInPicture()
   }

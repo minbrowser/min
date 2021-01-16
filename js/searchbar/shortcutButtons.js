@@ -17,12 +17,12 @@ const shortcuts = [
 ]
 
 function showShortcutButtons (text, input, event) {
-  var container = searchbarPlugins.getContainer('shortcutButtons')
+  const container = searchbarPlugins.getContainer('shortcutButtons')
 
   searchbarPlugins.reset('shortcutButtons')
 
   shortcuts.forEach(function (shortcut) {
-    var el = document.createElement('button')
+    const el = document.createElement('button')
     el.className = 'searchbar-shortcut i carbon:' + shortcut.icon
     el.title = shortcut.text
     el.tabIndex = -1

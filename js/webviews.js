@@ -1,13 +1,13 @@
-var urlParser = require('util/urlParser.js')
-var settings = require('util/settings/settings.js')
+const urlParser = require('util/urlParser.js')
+const settings = require('util/settings/settings.js')
 
 /* implements selecting webviews, switching between them, and creating new ones. */
 
-var placeholderImg = document.getElementById('webview-placeholder')
+const placeholderImg = document.getElementById('webview-placeholder')
 
-var hasSeparateTitlebar = settings.get('useSeparateTitlebar')
-var windowIsMaximized = false // affects navbar height on Windows
-var windowIsFullscreen = false
+const hasSeparateTitlebar = settings.get('useSeparateTitlebar')
+let windowIsMaximized = false // affects navbar height on Windows
+let windowIsFullscreen = false
 
 function captureCurrentTab (options) {
   if (tabs.get(tabs.getSelected()).private) {
@@ -114,7 +114,7 @@ const webviews = {
     })
   },
   unbindEvent: function (event, fn) {
-    for (var i = 0; i < webviews.events.length; i++) {
+    for (let i = 0; i < webviews.events.length; i++) {
       if (webviews.events[i].event === event && webviews.events[i].fn === fn) {
         webviews.events.splice(i, 1)
         i--
@@ -140,7 +140,7 @@ const webviews = {
   },
   viewMargins: [0, 0, 0, 0], // top, right, bottom, left
   adjustMargin: function (margins) {
-    for (var i = 0; i < margins.length; i++) {
+    for (let i = 0; i < margins.length; i++) {
       webviews.viewMargins[i] += margins[i]
     }
     webviews.resize()
@@ -170,7 +170,7 @@ const webviews = {
     }
   },
   add: function (tabId) {
-    var tabData = tabs.get(tabId)
+    const tabData = tabs.get(tabId)
 
     // needs to be called before the view is created to that its listeners can be registered
     if (tabData.scrollPosition) {
@@ -264,8 +264,8 @@ const webviews = {
     if (webviews.placeholderRequests.length >= 1) {
       // create a new placeholder
 
-      var associatedTab = tabs.get(webviews.selectedId)
-      var img = associatedTab.previewImage
+      const associatedTab = tabs.get(webviews.selectedId)
+      const img = associatedTab.previewImage
       if (img) {
         placeholderImg.src = img
         placeholderImg.hidden = false
@@ -321,7 +321,7 @@ const webviews = {
   goBackIgnoringRedirects: function (id) {
     // special case: the current page is an internal page representing a regular webpage, and the previous page in history is that page (which likely means a redirect happened from the original page to the internal page)
     // probably either an error page (after  a redirect from the original page) or reader view
-    var url = tabs.get(id).url
+    const url = tabs.get(id).url
 
     webviews.callAsync(id, 'goBack')
 
@@ -354,8 +354,8 @@ const webviews = {
   callAsync(id, property, callback) -> reads property, runs callback with (err, result)
    */
   callAsync: function (id, method, argsOrCallback, callback) {
-    var args = argsOrCallback
-    var cb = callback
+    let args = argsOrCallback
+    let cb = callback
     if (argsOrCallback instanceof Function && !cb) {
       args = []
       cb = argsOrCallback
@@ -382,7 +382,7 @@ window.addEventListener('resize', throttle(function () {
 // leave HTML fullscreen when leaving window fullscreen
 ipc.on('leave-full-screen', function () {
   // electron normally does this automatically (https://github.com/electron/electron/pull/13090/files), but it doesn't work for BrowserViews
-  for (var view in webviews.viewFullscreenMap) {
+  for (const view in webviews.viewFullscreenMap) {
     if (webviews.viewFullscreenMap[view]) {
       webviews.callAsync(view, 'executeJavaScript', 'document.exitFullscreen()')
     }
@@ -440,7 +440,7 @@ webviews.bindEvent('did-fail-load', function (tabId, errorCode, errorDesc, valid
 })
 
 webviews.bindEvent('crashed', function (tabId, isKilled) {
-  var url = tabs.get(tabId).url
+  const url = tabs.get(tabId).url
 
   tabs.update(tabId, {
     url: webviews.internalPages.error + '?ec=crash&url=' + encodeURIComponent(url)

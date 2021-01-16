@@ -156,7 +156,7 @@
     "settingsUpdateNotificationsToggle": "Güncelleştirmeleri otomatik olarak denetle",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Kullanım Bilgilerini Gönder (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Daha Fazla Bilgi</a>)"
-     },
+    },
     "settingsSearchEngineHeading": "Arama Motoru",
     "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçin:",
     "settingsDDGExplanation": "Arama çubuğundaki anlık yanıtları görmek için DuckDuckGo’yu varsayılan arama motoru olarak ayarlayın.",

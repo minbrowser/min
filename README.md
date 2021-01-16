@@ -12,8 +12,8 @@ Min is a fast, minimal browser that protects your privacy. It includes an interf
 
 Download Min from the [releases page](https://github.com/minbrowser/min/releases), or learn more on the [website](https://minbrowser.org/).
 
-[![Downloads][DownloadsBadge]][DownloadsUrl]
-[![Discord][DiscordBadge]][DiscordUrl]
+[![Downloads][downloadsbadge]][downloadsurl]
+[![Discord][discordbadge]][discordurl]
 
 Min is made possible by these sponsors:
 
@@ -105,7 +105,7 @@ If you have questions about using Min, need help getting started with developmen
 - Translate the value from the English file, replace "null" with your translation, and remove the "missing translation" comment.
 - Make a pull request with the updated file.
 
-[DiscordBadge]: https://img.shields.io/discord/764269005195968512.svg?label=Discord&logo=discord&logoColor=white
-[DiscordUrl]: https://discord.gg/bRpqjJ4
-[DownloadsBadge]: https://img.shields.io/github/downloads/minbrowser/min/total.svg
-[DownloadsUrl]: https://github.com/minbrowser/min/releases
+[discordbadge]: https://img.shields.io/discord/764269005195968512.svg?label=Discord&logo=discord&logoColor=white
+[discordurl]: https://discord.gg/bRpqjJ4
+[downloadsbadge]: https://img.shields.io/github/downloads/minbrowser/min/total.svg
+[downloadsurl]: https://github.com/minbrowser/min/releases

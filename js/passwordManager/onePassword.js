@@ -109,7 +109,7 @@ class OnePassword {
 
       const credentials = matches.map(match => match).filter((match) => {
         try {
-          var matchHost = new URL(match.overview.url).hostname
+          let matchHost = new URL(match.overview.url).hostname
           if (matchHost.startsWith('www.')) {
             matchHost = matchHost.slice(4)
           }
@@ -119,16 +119,16 @@ class OnePassword {
         }
       })
 
-      var expandedCredentials = []
+      const expandedCredentials = []
 
-      for (var i = 0; i < credentials.length; i++) {
+      for (let i = 0; i < credentials.length; i++) {
         const item = credentials[i]
         const process = new ProcessSpawner(command, ['get', 'item', item.uuid, '--session=' + this.sessionKey])
         const output = await process.executeSyncInAsyncContext()
         const credential = JSON.parse(output)
 
-        var usernameFields = credential.details.fields.filter(f => f.designation === 'username')
-        var passwordFields = credential.details.fields.filter(f => f.designation === 'password')
+        const usernameFields = credential.details.fields.filter(f => f.designation === 'username')
+        const passwordFields = credential.details.fields.filter(f => f.designation === 'password')
 
         if (usernameFields.length > 0 && passwordFields.length > 0) {
           expandedCredentials.push({

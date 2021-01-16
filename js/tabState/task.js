@@ -110,10 +110,10 @@ class TaskList {
   }
 
   getLastActivity (id) {
-    var tabs = this.get(id).tabs
-    var lastActivity = 0
+    const tabs = this.get(id).tabs
+    let lastActivity = 0
 
-    for (var i = 0; i < tabs.count(); i++) {
+    for (let i = 0; i < tabs.count(); i++) {
       if (tabs.getAtIndex(i).lastActivity > lastActivity) {
         lastActivity = tabs.getAtIndex(i).lastActivity
       }
@@ -123,7 +123,7 @@ class TaskList {
   }
 
   isCollapsed (id) {
-    var task = this.get(id)
+    const task = this.get(id)
     return task.collapsed || (task.collapsed === undefined && Date.now() - tasks.getLastActivity(task.id) > (7 * 24 * 60 * 60 * 1000))
   }
 
@@ -144,7 +144,7 @@ class TaskList {
   filter (...args) { return this.tasks.filter.apply(this.tasks, args) }
 
   find (filter) {
-    for (var i = 0, len = this.tasks.length; i < len; i++) {
+    for (let i = 0, len = this.tasks.length; i < len; i++) {
       if (filter(this.tasks[i], i, this.tasks)) {
         return this.tasks[i]
       }

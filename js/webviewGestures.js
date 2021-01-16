@@ -1,10 +1,10 @@
-var webviews = require('webviews.js')
+const webviews = require('webviews.js')
 
-var webviewGestures = {
+const webviewGestures = {
   showBackArrow: function () {
     // this is temporarily disabled until we find a way to make it work with BrowserViews
     return
-    var backArrow = document.getElementById('leftArrowContainer')
+    const backArrow = document.getElementById('leftArrowContainer')
     backArrow.classList.toggle('shown')
     backArrow.classList.toggle('animating')
     setTimeout(function () {
@@ -17,7 +17,7 @@ var webviewGestures = {
   showForwardArrow: function () {
     // this is temporarily disabled until we find a way to make it work with BrowserViews
     return
-    var forwardArrow = document.getElementById('rightArrowContainer')
+    const forwardArrow = document.getElementById('rightArrowContainer')
     forwardArrow.classList.toggle('shown')
     forwardArrow.classList.toggle('animating')
     setTimeout(function () {
@@ -43,21 +43,21 @@ var webviewGestures = {
   }
 }
 
-var swipeGestureTimeout = -1
-var swipeGestureLowVelocityTimeout = -1
-var swipeGestureDelay = 100 // delay before gesture is complete
-var swipeGestureVelocityDelay = 70 // the time (in ms) that can elapse without a minimum amount of movement before the gesture is considered almost completed
+let swipeGestureTimeout = -1
+let swipeGestureLowVelocityTimeout = -1
+const swipeGestureDelay = 100 // delay before gesture is complete
+const swipeGestureVelocityDelay = 70 // the time (in ms) that can elapse without a minimum amount of movement before the gesture is considered almost completed
 
-var horizontalMouseMove = 0
-var verticalMouseMove = 0
+let horizontalMouseMove = 0
+let verticalMouseMove = 0
 
-var beginningScrollLeft = null
-var beginningScrollRight = null
+let beginningScrollLeft = null
+let beginningScrollRight = null
 
-var hasShownSwipeArrow = false
+let hasShownSwipeArrow = false
 
-var initialZoomKeyState = null
-var initialSecondaryKeyState = null
+let initialZoomKeyState = null
+let initialSecondaryKeyState = null
 
 var webviewMinZoom = 0.5
 var webviewMaxZoom = 3.0
@@ -108,8 +108,8 @@ webviews.bindIPC('wheel-event', function (tabId, e) {
   verticalMouseMove += e.deltaY
   horizontalMouseMove += e.deltaX
 
-  var platformZoomKey = ((navigator.platform === 'MacIntel') ? e.metaKey : e.ctrlKey)
-  var platformSecondaryKey = ((navigator.platform === 'MacIntel') ? e.ctrlKey : false)
+  const platformZoomKey = ((navigator.platform === 'MacIntel') ? e.metaKey : e.ctrlKey)
+  const platformSecondaryKey = ((navigator.platform === 'MacIntel') ? e.ctrlKey : false)
 
   if (beginningScrollLeft === null || beginningScrollRight === null) {
     webviews.callAsync(tabs.getSelected(), 'executeJavaScript', `

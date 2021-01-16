@@ -1,4 +1,4 @@
-var urlParser = require('util/urlParser.js')
+const urlParser = require('util/urlParser.js')
 
 function autocomplete (input, strings) {
   // if there is text after the selection, we can never autocomplete
@@ -8,9 +8,9 @@ function autocomplete (input, strings) {
     }
   }
 
-  var text = input.value.substring(0, input.selectionStart)
+  const text = input.value.substring(0, input.selectionStart)
 
-  for (var i = 0; i < strings.length; i++) {
+  for (let i = 0; i < strings.length; i++) {
     // check if the item can be autocompleted
     if (strings[i].toLowerCase().indexOf(text.toLowerCase()) === 0) {
       input.value = text + strings[i].substring(input.selectionStart)
@@ -32,11 +32,11 @@ function autocomplete (input, strings) {
 // autocompletes based on a result item
 // returns: 1 - the exact URL was autocompleted, 0 - the domain was autocompleted, -1: nothing was autocompleted
 function autocompleteURL (input, url) {
-  var urlObj = new URL(url)
-  var hostname = urlObj.hostname
+  const urlObj = new URL(url)
+  const hostname = urlObj.hostname
 
   // the different variations of the URL we can autocomplete
-  var possibleAutocompletions = [
+  const possibleAutocompletions = [
     // we start with the domain, including any non-standard ports (such as localhost:8080)
     hostname + (urlObj.port ? ':' + urlObj.port : ''),
     // if that doesn't match, try the hostname without the www instead. The regex requires a slash at the end, so we add one, run the regex, and then remove it
@@ -49,7 +49,7 @@ function autocompleteURL (input, url) {
     url
   ]
 
-  var autocompleteResult = autocomplete(input, possibleAutocompletions)
+  const autocompleteResult = autocomplete(input, possibleAutocompletions)
 
   if (!autocompleteResult.valid) {
     return -1

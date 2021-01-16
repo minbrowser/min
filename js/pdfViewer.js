@@ -41,7 +41,7 @@ const PDFViewer = {
   },
   handlePDFOpenEvent: function (event, data) {
     if (!data.tabId) {
-      var matchingTabs = tabs.get().filter(t => t.url === data.url).sort((a, b) => { return b.lastActivity - a.lastActivity })
+      const matchingTabs = tabs.get().filter(t => t.url === data.url).sort((a, b) => { return b.lastActivity - a.lastActivity })
       if (matchingTabs[0]) {
         data.tabId = matchingTabs[0].id
       }
@@ -50,7 +50,7 @@ const PDFViewer = {
       console.warn('missing tab ID for PDF', data.url, tabs.get().map(t => t.url))
       return
     }
-    var PDFurl = PDFViewer.url.base + PDFViewer.url.queryString.replace('%l', encodeURIComponent(data.url))
+    const PDFurl = PDFViewer.url.base + PDFViewer.url.queryString.replace('%l', encodeURIComponent(data.url))
     webviews.update(data.tabId, PDFurl)
   },
   initialize: function () {

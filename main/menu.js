@@ -1,5 +1,5 @@
 function buildAppMenu (options = {}) {
-  var tabTaskActions = [
+  const tabTaskActions = [
     {
       label: l('appMenuNewTab'),
       accelerator: 'CmdOrCtrl+t',
@@ -39,7 +39,7 @@ function buildAppMenu (options = {}) {
     }
   ]
 
-  var personalDataItems = [
+  const personalDataItems = [
     {
       label: l('appMenuBookmarks'),
       accelerator: undefined,
@@ -56,7 +56,7 @@ function buildAppMenu (options = {}) {
     }
   ]
 
-  var quitAction = {
+  const quitAction = {
     label: l('appMenuQuit').replace('%n', app.name),
     accelerator: 'CmdOrCtrl+Q',
     click: function (item, window, event) {
@@ -66,7 +66,7 @@ function buildAppMenu (options = {}) {
     }
   }
 
-  var preferencesAction = {
+  const preferencesAction = {
     label: l('appMenuPreferences'),
     accelerator: 'CmdOrCtrl+,',
     click: function (item, window) {
@@ -76,7 +76,7 @@ function buildAppMenu (options = {}) {
     }
   }
 
-  var template = [
+  const template = [
     ...(options.secondary ? tabTaskActions : []),
     ...(options.secondary ? [{ type: 'separator' }] : []),
     ...(options.secondary ? personalDataItems : []),
@@ -85,46 +85,46 @@ function buildAppMenu (options = {}) {
     ...(options.secondary ? [{ type: 'separator' }] : []),
     ...(process.platform === 'darwin'
       ? [
-        {
-          label: app.name,
-          submenu: [
-            {
-              label: l('appMenuAbout').replace('%n', app.name),
-              role: 'about'
-            },
-            {
-              type: 'separator'
-            },
-            preferencesAction,
-            {
-              label: 'Services',
-              role: 'services',
-              submenu: []
-            },
-            {
-              type: 'separator'
-            },
-            {
-              label: l('appMenuHide').replace('%n', app.name),
-              accelerator: 'CmdOrCtrl+H',
-              role: 'hide'
-            },
-            {
-              label: l('appMenuHideOthers'),
-              accelerator: 'CmdOrCtrl+Shift+H',
-              role: 'hideothers'
-            },
-            {
-              label: l('appMenuShowAll'),
-              role: 'unhide'
-            },
-            {
-              type: 'separator'
-            },
-            quitAction
-          ]
-        }
-      ] : []),
+          {
+            label: app.name,
+            submenu: [
+              {
+                label: l('appMenuAbout').replace('%n', app.name),
+                role: 'about'
+              },
+              {
+                type: 'separator'
+              },
+              preferencesAction,
+              {
+                label: 'Services',
+                role: 'services',
+                submenu: []
+              },
+              {
+                type: 'separator'
+              },
+              {
+                label: l('appMenuHide').replace('%n', app.name),
+                accelerator: 'CmdOrCtrl+H',
+                role: 'hide'
+              },
+              {
+                label: l('appMenuHideOthers'),
+                accelerator: 'CmdOrCtrl+Shift+H',
+                role: 'hideothers'
+              },
+              {
+                label: l('appMenuShowAll'),
+                role: 'unhide'
+              },
+              {
+                type: 'separator'
+              },
+              quitAction
+            ]
+          }
+        ] : []),
     {
       label: l('appMenuFile'),
       submenu: [
@@ -306,8 +306,8 @@ function buildAppMenu (options = {}) {
             click: function (item, window) {
               if (mainWindow && !mainWindow.isFocused()) {
                 // a devtools window is focused, close it
-                var contents = webContents.getAllWebContents()
-                for (var i = 0; i < contents.length; i++) {
+                const contents = webContents.getAllWebContents()
+                for (let i = 0; i < contents.length; i++) {
                   if (contents[i].isDevToolsFocused()) {
                     contents[i].closeDevTools()
                     return
@@ -370,7 +370,7 @@ function buildAppMenu (options = {}) {
         ...(process.platform !== 'darwin' ? [{
           label: l('appMenuAbout').replace('%n', app.name),
           click: function (item, window) {
-            var info = [
+            const info = [
               'Min v' + app.getVersion(),
               'Chromium v' + process.versions.chrome
             ]
@@ -393,9 +393,9 @@ function buildAppMenu (options = {}) {
 function createDockMenu () {
   // create the menu. based on example from https://github.com/electron/electron/blob/master/docs/tutorial/desktop-environment-integration.md#custom-dock-menu-macos
   if (process.platform === 'darwin') {
-    var Menu = electron.Menu
+    const Menu = electron.Menu
 
-    var template = [
+    const template = [
       {
         label: l('appMenuNewTab'),
         click: function (item, window) {
@@ -416,7 +416,7 @@ function createDockMenu () {
       }
     ]
 
-    var dockMenu = Menu.buildFromTemplate(template)
+    const dockMenu = Menu.buildFromTemplate(template)
     app.dock.setMenu(dockMenu)
   }
 }

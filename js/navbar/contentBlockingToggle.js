@@ -7,9 +7,9 @@ const contentBlockingToggle = {
     if (!url) {
       return
     }
-    var domain = new URL(url).hostname
+    const domain = new URL(url).hostname
 
-    var setting = settings.get('filtering')
+    let setting = settings.get('filtering')
     if (!setting) {
       setting = {}
     }
@@ -24,9 +24,9 @@ const contentBlockingToggle = {
     if (!url) {
       return
     }
-    var domain = new URL(url).hostname
+    const domain = new URL(url).hostname
 
-    var setting = settings.get('filtering')
+    let setting = settings.get('filtering')
     if (!setting) {
       setting = {}
     }
@@ -47,7 +47,7 @@ const contentBlockingToggle = {
       return false
     }
 
-    var setting = settings.get('filtering')
+    const setting = settings.get('filtering')
     return !setting || !setting.exceptionDomains || !setting.exceptionDomains.some(d => d.replace(/^www\./g, '') === domain.replace(/^www\./g, ''))
   },
   create: function () {
@@ -61,8 +61,8 @@ const contentBlockingToggle = {
     return button
   },
   showMenu: function (button) {
-    var url = tabs.get(tabs.getSelected()).url
-    var menu = [
+    const url = tabs.get(tabs.getSelected()).url
+    const menu = [
       [
         {
           type: 'checkbox',
@@ -82,7 +82,7 @@ const contentBlockingToggle = {
         {
           label: l('appMenuReportBug'),
           click: function () {
-            var newTab = tabs.add({ url: 'https://github.com/minbrowser/min/issues/new?title=Content%20blocking%20issue%20on%20' + encodeURIComponent(url) })
+            const newTab = tabs.add({ url: 'https://github.com/minbrowser/min/issues/new?title=Content%20blocking%20issue%20on%20' + encodeURIComponent(url) })
             require('browserUI.js').addTab(newTab, { enterEditMode: false })
           }
         }

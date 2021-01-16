@@ -1,11 +1,11 @@
-var searchbarPlugins = require('searchbar/searchbarPlugins.js')
-var searchbarUtils = require('searchbar/searchbarUtils.js')
+const searchbarPlugins = require('searchbar/searchbarPlugins.js')
+const searchbarUtils = require('searchbar/searchbarUtils.js')
 
-var browserUI = require('browserUI.js')
+const browserUI = require('browserUI.js')
 
 function getFormattedTitle (tab) {
   if (tab.title) {
-    var title = searchbarUtils.getRealTitle(tab.title)
+    const title = searchbarUtils.getRealTitle(tab.title)
     return '"' + (title.length > 45 ? title.substring(0, 45).trim() + '...' : title) + '"'
   } else {
     return l('newTabLabel')
@@ -15,12 +15,12 @@ function getFormattedTitle (tab) {
 function showRestoreTask () {
   searchbarPlugins.reset('restoreTask')
 
-  var lastTask = tasks.slice().sort((a, b) => {
+  const lastTask = tasks.slice().sort((a, b) => {
     return tasks.getLastActivity(b.id) - tasks.getLastActivity(a.id)
   })[1]
-  var recentTabs = lastTask.tabs.get().sort((a, b) => b.lastActivity - a.lastActivity).slice(0, 3)
+  const recentTabs = lastTask.tabs.get().sort((a, b) => b.lastActivity - a.lastActivity).slice(0, 3)
 
-  var taskDescription
+  let taskDescription
   if (recentTabs.length === 1) {
     taskDescription = getFormattedTitle(recentTabs[0])
   } else if (recentTabs.length === 2) {
@@ -34,7 +34,7 @@ function showRestoreTask () {
     descriptionBlock: taskDescription,
     icon: 'carbon:redo',
     click: function (e) {
-      var thisTask = tasks.getSelected().id
+      const thisTask = tasks.getSelected().id
       browserUI.switchToTask(lastTask.id)
       browserUI.closeTask(thisTask)
     }
