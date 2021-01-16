@@ -137,6 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Наразі Min заблокував <strong></strong> реклам і трекерів."
     },
+    "settingsCustomBangs": "Власні bangs",
+    "settingsCustomBangsAdd": "Додати власний bang",
+    "settingsCustomBangsPhrase": "Фраза (обов'язково)",
+    "settingsCustomBangsSnippet": "Опис (необов'язково)",
+    "settingsCustomBangsRedirect": "URL перенаправлення (обов'язково)",
     "settingsCustomizeFiltersLink": "Налаштувати фільтри",
     "settingsAppearanceHeading": "Зовнішній вигляд",
     "settingsDarkModeToggle": "Увімкнути темний режим",
@@ -155,7 +160,9 @@
     },
     "settingsUserAgentToggle": "Використовувати власний агент користувача",
     "settingsUpdateNotificationsToggle": "Автоматично перевіряти наявність оновлень",
-    "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "Надсилати статистику використання (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Детальніше</a>)"
+    },
     "settingsSearchEngineHeading": "Пошукова система",
     "settingsDefaultSearchEngine": "Виберіть типову пошукову систему:",
     "settingsDDGExplanation": "Встановіть DuckDuckGo як типову пошукову систему, щоб побачити миттєві відповіді на панелі пошуку.",

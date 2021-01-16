@@ -137,6 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "На данный момент Min заблокировал <strong></strong> объявлений и трекеров"
     },
+    "settingsCustomBangs": "Пользовательские bangs",
+    "settingsCustomBangsAdd": "Добавить собственный bang",
+    "settingsCustomBangsPhrase": "Фраза (обязательно)",
+    "settingsCustomBangsSnippet": "Описание (необязательно)",
+    "settingsCustomBangsRedirect": "URL перенаправления (обязательно)",
     "settingsCustomizeFiltersLink": "Настроить фильтры",
     "settingsAppearanceHeading": "Внешний вид",
     "settingsEnableDarkMode": "Использовать темную тему:",
@@ -154,7 +159,9 @@
     },
     "settingsUserAgentToggle": "Использовать пользовательский user agent",
     "settingsUpdateNotificationsToggle": "Автоматически проверять наличие обновлений",
-    "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "Отправлять статистику использования (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Подробнее</a>)"
+    },
     "settingsSearchEngineHeading": "Поиск",
     "settingsDefaultSearchEngine": "Выберите поисковую систему по умолчанию:",
     "settingsDDGExplanation": "Чтобы видеть мгновенные ответы в строке поиска, установите DuckDuckGo поисковиком по умолчанию.",
