@@ -8,7 +8,7 @@
   "main": "main.build.js",
   "dependencies": {
     "dexie": "^3.0.3",
-    "dragula": "^3.6.2",
+    "dragula": "^3.7.3",
     "electron-squirrel-startup": "^1.0.0",
     "keytar": "^7.0.0",
     "mousetrap": "^1.5.3",
