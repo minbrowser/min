@@ -9,27 +9,29 @@
   "dependencies": {
     "dexie": "^3.0.3",
     "dragula": "^3.6.2",
+    "electron-installer-debian": "^3.1.0",
+    "electron-installer-redhat": "^3.2.0",
     "electron-squirrel-startup": "^1.0.0",
     "keytar": "^7.0.0",
     "mousetrap": "^1.5.3",
-    "pdfjs-dist": "2.4.456",
+    "pdfjs-dist": "^2.5.207",
     "regedit": "^3.0.3",
     "string_score": "^0.1.22"
   },
   "devDependencies": {
-    "archiver": "^4.0.1",
-    "browserify": "^16.5.1",
-    "chokidar": "^3.4.0",
+    "archiver": "^5.2.0",
+    "browserify": "^17.0.0",
+    "chokidar": "^3.5.1",
     "concurrently": "^5.2.0",
     "decomment": "^0.9.0",
-    "electron": "^11.1.0",
+    "electron": "^11.2.0",
     "electron-installer-windows": "^3.0.0",
     "electron-packager": "^15.1.0",
     "electron-rebuild": "^2.3.2",
     "electron-renderify": "0.0.2",
     "prettier": "^2.2.1",
     "snazzy": "^9.0.0",
-    "standard": "^14.3.4"
+    "standard": "^16.0.3"
   },
   "optionalDependencies": {
     "electron-installer-debian": "^3.1.0",
