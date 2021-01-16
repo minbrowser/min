@@ -137,6 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "На данный момент Min заблокировал <strong></strong> объявлений и трекеров"
     },
+    "settingsCustomBangs": "Пользовательские bangs",
+    "settingsCustomBangsAdd": "Добавить собственный bang",
+    "settingsCustomBangsPhrase": "Фраза (обязательно)",
+    "settingsCustomBangsSnippet": "Описание (необязательно)",
+    "settingsCustomBangsRedirect": "URL перенаправления (обязательно)",
     "settingsCustomizeFiltersLink": "Настроить фильтры",
     "settingsAppearanceHeading": "Внешний вид",
     "settingsEnableDarkMode": "Использовать темную тему:",

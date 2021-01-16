@@ -137,6 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Наразі Min заблокував <strong></strong> реклам і трекерів."
     },
+    "settingsCustomBangs": "Власні bangs",
+    "settingsCustomBangsAdd": "Додати власний bang",
+    "settingsCustomBangsPhrase": "Фраза (обов'язково)",
+    "settingsCustomBangsSnippet": "Опис (необов'язково)",
+    "settingsCustomBangsRedirect": "URL перенаправлення (обов'язково)",
     "settingsCustomizeFiltersLink": "Налаштувати фільтри",
     "settingsAppearanceHeading": "Зовнішній вигляд",
     "settingsDarkModeToggle": "Увімкнути темний режим",
