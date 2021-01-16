@@ -8,7 +8,7 @@
   "main": "main.build.js",
   "dependencies": {
     "dexie": "^3.0.3",
-    "dragula": "^3.6.2",
+    "dragula": "^3.7.3",
     "electron-installer-debian": "^3.1.0",
     "electron-installer-redhat": "^3.2.0",
     "electron-squirrel-startup": "^1.0.0",

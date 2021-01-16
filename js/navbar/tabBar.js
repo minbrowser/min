@@ -18,7 +18,8 @@ const tabBar = {
   tabElementMap: {}, // tabId: tab element
   events: new EventEmitter(),
   dragulaInstance: dragula([document.getElementById('tabs-inner')], {
-    direction: 'horizontal'
+    direction: 'horizontal',
+    slideFactorX: 25
   }),
   getTab: function (tabId) {
     return tabBar.tabElementMap[tabId]
