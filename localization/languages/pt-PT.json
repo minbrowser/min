@@ -137,13 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Até agora, Min bloqueou <strong></strong> anúncios e rastreadores."
       },
-    
     "settingsCustomBangs": "Bangs personalizados",
     "settingsCustomBangsAdd": "Adicionar bang",
     "settingsCustomBangsPhrase": "Texto (obrigatório)",
     "settingsCustomBangsSnippet": "Descrição (opcional)",
     "settingsCustomBangsRedirect": "URL de encaminhamento (obrigatório)",  
-  
     "settingsCustomizeFiltersLink": "Personalizar filtros",
     "settingsAppearanceHeading": "Aparência",
     "settingsEnableDarkMode": "Ativar modo escuro:",
