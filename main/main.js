@@ -111,10 +111,10 @@ function handleCommandLineArguments (argv) {
           sendIPCToWindow(mainWindow, 'addTab', {
             url: arg
           })
-        } else if (/[A-Z]:[/\\].*\.html?$/.test(arg)) {
-          // local files on Windows
+        } else if (/\.(m?ht(ml)?|pdf)$/.test(arg) && fs.existsSync(arg)) {
+          // local files (.html, .mht, mhtml, .pdf)
           sendIPCToWindow(mainWindow, 'addTab', {
-            url: 'file://' + arg
+            url: 'file://' + path.resolve(arg)
           })
         }
       }
