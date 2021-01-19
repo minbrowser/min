@@ -1,4 +1,5 @@
 var tabEditor = require('navbar/tabEditor.js')
+var settings = require('util/settings/settings.js')
 
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
@@ -211,6 +212,20 @@ function initialize () {
       }
     }
   })
+
+  const savedBangs = settings.get('customBangs')
+  if (savedBangs) {
+    savedBangs.forEach((bang) => {
+      if (!bang.phrase || !bang.redirect) return
+      registerCustomBang({
+        phrase: `!${bang.phrase}`,
+        snippet: `${bang.snippet}` ?? '',
+        fn: function (text) {
+          searchbar.openURL(bang.redirect.replace('%s', encodeURIComponent(text)))
+        }
+      })
+    })
+  }
 }
 
 module.exports = { initialize, registerCustomBang }
