@@ -11,7 +11,6 @@ var searchbar = require('searchbar/searchbar.js')
 
 function addTask () {
   tasks.setSelected(tasks.add())
-  taskOverlay.hide()
 
   tabBar.updateAll()
   addTab()

@@ -1,3 +1,5 @@
+var keybindings = require('keybindings.js')
+
 var menuButton = document.getElementById('menu-button')
 
 menuButton.addEventListener('click', function (e) {
