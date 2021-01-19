@@ -1,3 +1,5 @@
+const EventEmitter = require('events')
+
 const webviews = require('webviews.js')
 const focusMode = require('focusMode.js')
 const readerView = require('readerView.js')
@@ -235,12 +237,14 @@ if (window.platformType === 'mac') {
 
     var oldTab = tabs.splice(tabs.getIndex(tabId), 1)[0]
 
+    var newIdx
     if (adjacentTabId) {
-      var newIdx = tabs.getIndex(adjacentTabId)
+      newIdx = tabs.getIndex(adjacentTabId)
     } else {
     // tab was inserted at end
-      var newIdx = tabs.count()
+      newIdx = tabs.count()
     }
+
     tabs.splice(newIdx, 0, oldTab)
   })
 }

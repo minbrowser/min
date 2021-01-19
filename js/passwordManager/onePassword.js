@@ -1,5 +1,6 @@
 const ProcessSpawner = require('util/process.js')
 const path = require('path')
+const fs = require('fs')
 
 // 1Password password manager. Requires session key to unlock the vault.
 class OnePassword {
@@ -17,13 +18,10 @@ class OnePassword {
     switch (window.platformType) {
       case 'mac':
         return 'https://cache.agilebits.com/dist/1P/op/pkg/v0.10.0/op_darwin_amd64_v0.10.0.pkg'
-        break
       case 'windows':
         return 'https://cache.agilebits.com/dist/1P/op/pkg/v0.10.0/op_windows_amd64_v0.10.0.zip'
-        break
       case 'linux':
         return 'https://cache.agilebits.com/dist/1P/op/pkg/v0.10.0/op_linux_amd64_v0.10.0.zip'
-        break
     }
   }
 

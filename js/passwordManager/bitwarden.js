@@ -1,5 +1,6 @@
 const ProcessSpawner = require('util/process.js')
 const path = require('path')
+const fs = require('fs')
 
 // Bitwarden password manager. Requires session key to unlock the vault.
 class Bitwarden {
@@ -13,13 +14,10 @@ class Bitwarden {
     switch (window.platformType) {
       case 'mac':
         return 'https://vault.bitwarden.com/download/?app=cli&platform=macos'
-        break
       case 'windows':
         return 'https://vault.bitwarden.com/download/?app=cli&platform=windows'
-        break
       case 'linux':
         return 'https://vault.bitwarden.com/download/?app=cli&platform=linux'
-        break
     }
   }
 

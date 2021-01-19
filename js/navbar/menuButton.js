@@ -1,4 +1,5 @@
 var keybindings = require('keybindings.js')
+var settings = require('util/settings/settings.js')
 
 var menuButton = document.getElementById('menu-button')
 

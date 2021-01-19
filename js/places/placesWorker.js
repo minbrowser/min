@@ -9,7 +9,7 @@ importScripts('fullTextSearch.js')
 importScripts('placesSearch.js')
 importScripts('tagIndex.js')
 
-const spacesRegex = /[\+\s._/-]+/g // things that could be considered spaces
+const spacesRegex = /[+\s._/-]+/g // things that could be considered spaces
 
 function calculateHistoryScore (item) { // item.boost - how much the score should be multiplied by. Example - 0.05
   let fs = item.lastVisit * (1 + 0.036 * Math.sqrt(item.visitCount))
@@ -44,7 +44,7 @@ setInterval(cleanupHistoryDatabase, 60 * 60 * 1000)
 // cache history in memory for faster searching. This actually takes up very little space, so we can cache everything.
 
 let historyInMemoryCache = []
-const doneLoadingHistoryCache = false
+let doneLoadingHistoryCache = false
 
 function addToHistoryCache (item) {
   if (item.isBookmarked) {
