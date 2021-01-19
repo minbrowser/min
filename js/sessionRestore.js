@@ -2,7 +2,7 @@ var browserUI = require('browserUI.js')
 var webviews = require('webviews.js')
 var tabEditor = require('navbar/tabEditor.js')
 
-window.sessionRestore = {
+const sessionRestore = {
   savePath: window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
   previousState: null,
   save: function (forceSave, sync) {
@@ -155,15 +155,14 @@ window.sessionRestore = {
       browserUI.switchToTask(newTask)
       browserUI.switchToTab(newSessionErrorTab)
     }
+  },
+  initialize: function () {
+    setInterval(sessionRestore.save, 30000)
+
+    window.onbeforeunload = function (e) {
+      sessionRestore.save(true, true)
+    }
   }
 }
 
-// TODO make this a preference
-
-sessionRestore.restore()
-
-setInterval(sessionRestore.save, 30000)
-
-window.onbeforeunload = function (e) {
-  sessionRestore.save(true, true)
-}
+module.exports = sessionRestore

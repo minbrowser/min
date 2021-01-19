@@ -135,7 +135,10 @@ window.addEventListener('load', function () {
 })
 
 require('tabState.js').initialize()
+require('windowControls.js').initialize()
+require('navbar/menuButton.js').initialize()
 
+require('navbar/addTabButton.js').initialize()
 require('navbar/tabActivity.js').initialize()
 require('navbar/tabColor.js').initialize()
 require('navbar/goBackButton.js').initialize()
@@ -153,6 +156,7 @@ require('util/theme.js').initialize()
 require('userscripts.js').initialize()
 require('statistics.js').initialize()
 require('taskOverlay/taskOverlay.js').initialize()
+require('sessionRestore.js').initialize()
 
 // default searchbar plugins
 
@@ -169,3 +173,6 @@ require('searchbar/bookmarkManager.js').initialize()
 require('searchbar/historyViewer.js').initialize()
 require('searchbar/developmentModeNotification.js').initialize()
 require('searchbar/shortcutButtons.js').initialize()
+
+// once everything's loaded, start the session
+require('sessionRestore.js').restore()

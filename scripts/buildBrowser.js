@@ -9,14 +9,9 @@ const jsDir = path.resolve(__dirname, '../js')
 const intermediateOutput = path.resolve(__dirname, '../dist/build.js')
 const outFile = path.resolve(__dirname, '../dist/bundle.js')
 
-/* avoid adding modules to this list, require() them from the correct place instead */
-const legacyModules = [
+const fileList = [
   'dist/localization.build.js',
-  'js/default.js',
-  'js/windowControls.js',
-  'js/navbar/addTabButton.js',
-  'js/navbar/menuButton.js',
-  'js/sessionRestore.js'
+  'js/default.js'
 ]
 
 function buildBrowser () {
@@ -25,7 +20,7 @@ function buildBrowser () {
 
   /* concatenate legacy modules */
   let output = ''
-  legacyModules.forEach(function (script) {
+  fileList.forEach(function (script) {
     output += fs.readFileSync(path.resolve(__dirname, '../', script)) + ';\n'
   })
 
