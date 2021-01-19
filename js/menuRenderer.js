@@ -9,6 +9,7 @@ var findinpage = require('findinpage.js')
 var PDFViewer = require('pdfViewer.js')
 var tabEditor = require('navbar/tabEditor.js')
 var readerView = require('readerView.js')
+var taskOverlay = require('taskOverlay/taskOverlay.js')
 
 module.exports = {
   initialize: function () {

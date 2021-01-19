@@ -150,6 +150,7 @@ require('passwordManager/passwordViewer.js').initialize()
 require('util/theme.js').initialize()
 require('userscripts.js').initialize()
 require('statistics.js').initialize()
+require('taskOverlay/taskOverlay.js').initialize()
 
 // default searchbar plugins
 
