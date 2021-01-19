@@ -134,6 +134,8 @@ window.addEventListener('load', function () {
   }, true)
 })
 
+require('tabState.js').initialize()
+
 require('navbar/tabActivity.js').initialize()
 require('navbar/tabColor.js').initialize()
 require('navbar/goBackButton.js').initialize()

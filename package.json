@@ -6,6 +6,9 @@
   "description": "A fast, minimal browser that protects your privacy",
   "electronVersion": "11.1.0",
   "main": "main.build.js",
+  "standard": {
+    "globals": ["l", "tabs"]
+  },
   "dependencies": {
     "dexie": "^3.0.3",
     "dragula": "^3.7.3",

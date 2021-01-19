@@ -12,7 +12,6 @@ const outFile = path.resolve(__dirname, '../dist/bundle.js')
 /* avoid adding modules to this list, require() them from the correct place instead */
 const legacyModules = [
   'dist/localization.build.js',
-  'js/tabState.js',
   'js/default.js',
   'js/windowControls.js',
   'js/navbar/addTabButton.js',
