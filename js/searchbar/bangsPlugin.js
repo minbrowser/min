@@ -58,11 +58,11 @@ function incrementBangCount (bang) {
   // prevent the data from getting too big
 
   if (bangUseCounts[bang] > 100) {
-    for (var bang in bangUseCounts) {
-      bangUseCounts[bang] = Math.floor(bangUseCounts[bang] * 0.8)
+    for (var key in bangUseCounts) {
+      bangUseCounts[key] = Math.floor(bangUseCounts[key] * 0.8)
 
-      if (bangUseCounts[bang] < 2) {
-        delete bangUseCounts[bang]
+      if (bangUseCounts[key] < 2) {
+        delete bangUseCounts[key]
       }
     }
   }

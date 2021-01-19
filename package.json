@@ -7,7 +7,7 @@
   "electronVersion": "11.1.0",
   "main": "main.build.js",
   "standard": {
-    "globals": ["l", "tabs"]
+    "globals": ["l", "tabs", "tasks", "throttle", "debounce", "empty", "alert", "confirm", "requestAnimationFrame", "requestIdleCallback", "fetch", "localStorage", "performance", "IntersectionObserver", "Node"]
   },
   "dependencies": {
     "dexie": "^3.0.3",

@@ -167,7 +167,7 @@ function initialize () {
         newTask.tabs.add(currentTab, { atEnd: true })
       } else {
       // create a new task with the given name
-        var newTask = tasks.get(tasks.add(undefined, tasks.getIndex(tasks.getSelected().id) + 1))
+        newTask = tasks.get(tasks.add(undefined, tasks.getIndex(tasks.getSelected().id) + 1))
         newTask.name = text
 
         newTask.tabs.add(currentTab)

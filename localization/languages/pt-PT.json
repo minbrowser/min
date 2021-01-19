@@ -136,12 +136,12 @@
     "settingsBlockImagesToggle": "Bloquear imagens",
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Até agora, Min bloqueou <strong></strong> anúncios e rastreadores."
-      },
+    },
     "settingsCustomBangs": "Bangs personalizados",
     "settingsCustomBangsAdd": "Adicionar bang",
     "settingsCustomBangsPhrase": "Texto (obrigatório)",
     "settingsCustomBangsSnippet": "Descrição (opcional)",
-    "settingsCustomBangsRedirect": "URL de encaminhamento (obrigatório)",  
+    "settingsCustomBangsRedirect": "URL de encaminhamento (obrigatório)",
     "settingsCustomizeFiltersLink": "Personalizar filtros",
     "settingsAppearanceHeading": "Aparência",
     "settingsEnableDarkMode": "Ativar modo escuro:",
@@ -156,12 +156,12 @@
     "settingsOpenTabsInForegroundToggle": "Abrir novos separadores em primeiro plano",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."
-     },
+    },
     "settingsUserAgentToggle": "Utilizar agente de utilizador personalizado",
     "settingsUpdateNotificationsToggle": "Procurar atualizações automaticamente",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Enviar estatísticas de utilização (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Mais informação</a>)"
-     },
+    },
     "settingsSearchEngineHeading": "Motor de pesquisa",
     "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",
     "settingsDDGExplanation": "Defina DuckDuckGo como motor de pesquisa padrão para poder obter sugestões imediatas na barra de pesquisa.",
