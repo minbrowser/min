@@ -136,6 +136,10 @@ html {
   margin: 0.75em 0.5em 0 1.58em;
 }
 
+#content-blocking-information textarea {
+  resize: vertical;
+}
+
 #customize-filters-link {
   display: block;
   margin-top: 0.66em;
