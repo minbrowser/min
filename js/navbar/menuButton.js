@@ -1,6 +1,4 @@
-const menuButton = document.getElementById('menu-button')
-
-var menuButton = document.getElementById('menu-button')
+const menuButton = document.getElementById('menu-button');
 
 window.showSecondaryMenu = function () {
   const navbar = document.getElementById('navbar')
