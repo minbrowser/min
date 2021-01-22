@@ -127,7 +127,7 @@ var taskOverlay = {
           taskOverlay.hide()
         },
         tabDelete: function (item) {
-          var tabId = item.getAttribute('data-tab')
+          const tabId = item.getAttribute('data-tab')
 
           browserUI.destroyTab(tabId)
 
@@ -263,96 +263,97 @@ var taskOverlay = {
     })
 
     taskOverlay.tabDragula.on('drop', function (el, target, source, sibling) { // see https://github.com/bevacqua/dragula#drakeon-events
-      var tabId = el.getAttribute('data-tab')
+      const tabId = el.getAttribute('data-tab')
 
-      var previousTask = tasks.get(source.getAttribute('data-task'))
+      const previousTask = tasks.get(source.getAttribute('data-task'))
 
       // remove tab from old task
-      var oldTab = previousTask.tabs.splice(previousTask.tabs.getIndex(tabId), 1)[0]
+      const oldTab = previousTask.tabs.splice(previousTask.tabs.getIndex(tabId), 1)[0]
 
       // if the old task has no tabs left in it, destroy it
 
-taskOverlay.tabDragula.on('drop', function (el, target, source, sibling) { // see https://github.com/bevacqua/dragula#drakeon-events
-  const tabId = el.getAttribute('data-tab')
+      taskOverlay.tabDragula.on('drop', function (el, target, source, sibling) { // see https://github.com/bevacqua/dragula#drakeon-events
+        const tabId = el.getAttribute('data-tab')
 
-  const previousTask = tasks.get(source.getAttribute('data-task'))
+        const previousTask = tasks.get(source.getAttribute('data-task'))
 
-  // remove tab from old task
-  const oldTab = previousTask.tabs.splice(previousTask.tabs.getIndex(tabId), 1)[0]
+        // remove tab from old task
+        const oldTab = previousTask.tabs.splice(previousTask.tabs.getIndex(tabId), 1)[0]
 
-      // find where in the new task the tab should be inserted
-      if (adjacentTadId) {
-        var newIdx = newTask.tabs.getIndex(adjacentTadId)
-      } else {
+        // find where in the new task the tab should be inserted
+        if (adjacentTadId) {
+          var newIdx = newTask.tabs.getIndex(adjacentTadId)
+        } else {
         // tab was inserted at end
-        var newIdx = newTask.tabs.count()
-      }
+          var newIdx = newTask.tabs.count()
+        }
 
-      // insert the tab at the correct spot
-      newTask.tabs.splice(newIdx, 0, oldTab)
+        // insert the tab at the correct spot
+        newTask.tabs.splice(newIdx, 0, oldTab)
 
-      tabBar.updateAll()
-      taskOverlay.show()
-    })
+        tabBar.updateAll()
+        taskOverlay.show()
+      })
 
-    /* rearrange tasks when they are dropped */
+      /* rearrange tasks when they are dropped */
 
-    taskOverlay.taskDragula.on('drop', function (el, target, source, sibling) {
-      var droppedTaskId = el.getAttribute('data-task')
-      if (sibling) {
-        var adjacentTaskId = sibling.getAttribute('data-task')
-      }
+      taskOverlay.taskDragula.on('drop', function (el, target, source, sibling) {
+        const droppedTaskId = el.getAttribute('data-task')
+        if (sibling) {
+          var adjacentTaskId = sibling.getAttribute('data-task')
+        }
 
-      // remove the task from the tasks list
-      var droppedTask = tasks.splice(tasks.getIndex(droppedTaskId), 1)[0]
+        // remove the task from the tasks list
+        const droppedTask = tasks.splice(tasks.getIndex(droppedTaskId), 1)[0]
 
-      // find where it should be inserted
-      if (adjacentTaskId) {
-        var newIdx = tasks.getIndex(adjacentTaskId)
-      } else {
-        var newIdx = tasks.getLength()
-      }
+        // find where it should be inserted
+        if (adjacentTaskId) {
+          var newIdx = tasks.getIndex(adjacentTaskId)
+        } else {
+          var newIdx = tasks.getLength()
+        }
 
-      // reinsert the task
-      tasks.splice(newIdx, 0, droppedTask)
-    })
+        // reinsert the task
+        tasks.splice(newIdx, 0, droppedTask)
+      })
 
-taskOverlay.taskDragula.on('drop', function (el, target, source, sibling) {
-  const droppedTaskId = el.getAttribute('data-task')
-  if (sibling) {
-    var adjacentTaskId = sibling.getAttribute('data-task')
-  }
+      taskOverlay.taskDragula.on('drop', function (el, target, source, sibling) {
+        const droppedTaskId = el.getAttribute('data-task')
+        if (sibling) {
+          const adjacentTaskId = sibling.getAttribute('data-task')
+        }
 
-  // remove the task from the tasks list
-  const droppedTask = tasks.splice(tasks.getIndex(droppedTaskId), 1)[0]
+        // remove the task from the tasks list
+        const droppedTask = tasks.splice(tasks.getIndex(droppedTaskId), 1)[0]
 
-    taskOverlay.tabDragula.on('dragend', function () {
-      endMouseDragRecording()
-    })
+        taskOverlay.tabDragula.on('dragend', function () {
+          endMouseDragRecording()
+        })
 
-    taskOverlay.taskDragula.on('drag', function () {
-      startMouseDragRecording()
-    })
+        taskOverlay.taskDragula.on('drag', function () {
+          startMouseDragRecording()
+        })
 
-    taskOverlay.taskDragula.on('dragend', function () {
-      endMouseDragRecording()
-    })
+        taskOverlay.taskDragula.on('dragend', function () {
+          endMouseDragRecording()
+        })
 
-let draggingScrollInterval = null
+        const draggingScrollInterval = null
 
-    taskSwitcherButton.addEventListener('click', function () {
-      taskOverlay.toggle()
-    })
+        taskSwitcherButton.addEventListener('click', function () {
+          taskOverlay.toggle()
+        })
 
-    addTaskButton.addEventListener('click', function (e) {
-      browserUI.switchToTask(tasks.add())
-      taskOverlay.hide()
-    })
+        addTaskButton.addEventListener('click', function (e) {
+          browserUI.switchToTask(tasks.add())
+          taskOverlay.hide()
+        })
 
-    taskOverlayNavbar.addEventListener('click', function () {
-      taskOverlay.hide()
+        taskOverlayNavbar.addEventListener('click', function () {
+          taskOverlay.hide()
+        })
+      })
     })
   }
 }
-
 module.exports = taskOverlay
