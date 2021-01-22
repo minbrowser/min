@@ -78,9 +78,7 @@ const contentBlockingToggle = require('navbar/contentBlockingToggle.js')
 
     const task = getTaskByNameOrNumber(text)
 
-    return tasks.find((task, index) => (task.name && task.name.toLowerCase() === text) || index + 1 === textAsNumber
-    )
-  }
+    return tasks.find((task, index) => (task.name && task.name.toLowerCase() === text) || index + 1 === textAsNumber)
 
   bangsPlugin.registerCustomBang({
     phrase: '!task',
