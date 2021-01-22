@@ -1,7 +1,6 @@
 const settings = require('util/settings/settings.js')
 const webviews = require('webviews.js')
 const keybindings = require('keybindings.js')
-const ProcessSpawner = require('util/process.js')
 
 const Bitwarden = require('js/passwordManager/bitwarden.js')
 const OnePassword = require('js/passwordManager/onePassword.js')
@@ -54,7 +53,7 @@ const PasswordManagers = {
         height: 160
       })
       if (password === null || password === '') {
-        reject()
+        reject(new Error('No password provided'))
       } else {
         resolve(password)
       }
@@ -83,7 +82,7 @@ const PasswordManagers = {
     // Called when page preload script detects a form with username and password.
     webviews.bindIPC('password-autofill', function (tab, args, frameId) {
       // We expect hostname of the source page/frame as a parameter.
-      if (args.length == 0) {
+      if (args.length === 0) {
         return
       }
       const hostname = args[0]

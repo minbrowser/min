@@ -1,8 +1,8 @@
 const TaskList = require('tabState/task.js')
 
-function initializeTabState () {
+function initialize () {
   window.tasks = new TaskList()
   window.tabs = undefined
 }
 
-initializeTabState()
+module.exports = { initialize }

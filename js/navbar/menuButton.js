@@ -1,8 +1,6 @@
 const menuButton = document.getElementById('menu-button')
 
-menuButton.addEventListener('click', function (e) {
-  showSecondaryMenu()
-})
+var menuButton = document.getElementById('menu-button')
 
 window.showSecondaryMenu = function () {
   const navbar = document.getElementById('navbar')
@@ -15,6 +13,14 @@ window.showSecondaryMenu = function () {
   })
 }
 
-keybindings.defineShortcut('showMenu', function () {
-  if (!settings.get('useSeparateTitlebar') && (window.platformType === 'windows' || window.platformType === 'linux')) { showSecondaryMenu() }
-})
+function initialize () {
+  menuButton.addEventListener('click', function (e) {
+    showSecondaryMenu()
+  })
+
+  keybindings.defineShortcut('showMenu', function () {
+    if (!settings.get('useSeparateTitlebar') && (window.platformType === 'windows' || window.platformType === 'linux')) { showSecondaryMenu() }
+  })
+}
+
+module.exports = { initialize, showSecondaryMenu }

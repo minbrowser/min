@@ -6,6 +6,9 @@
   "description": "A fast, minimal browser that protects your privacy",
   "electronVersion": "11.1.0",
   "main": "main.build.js",
+  "standard": {
+    "globals": ["l", "tabs", "tasks", "globalArgs", "platformType", "throttle", "debounce", "empty", "alert", "confirm", "requestAnimationFrame", "requestIdleCallback", "fetch", "localStorage", "performance", "IntersectionObserver", "Node", "Event"]
+  },
   "dependencies": {
     "dexie": "^3.0.3",
     "dragula": "^3.7.3",

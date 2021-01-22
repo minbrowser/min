@@ -59,7 +59,7 @@ class TaskList {
   }
 
   get (id) {
-    return this.find(task => task.id == id) || null
+    return this.find(task => task.id === id) || null
   }
 
   getSelected () {
@@ -75,7 +75,7 @@ class TaskList {
   }
 
   getIndex (id) {
-    return this.tasks.findIndex(task => task.id == id)
+    return this.tasks.findIndex(task => task.id === id)
   }
 
   setSelected (id) {
