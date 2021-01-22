@@ -1,10 +1,10 @@
-var searchbar = require('searchbar/searchbar.js')
-var searchbarPlugins = require('searchbar/searchbarPlugins.js')
-var searchbarUtils = require('searchbar/searchbarUtils.js')
-var bangsPlugin = require('searchbar/bangsPlugin.js')
-var places = require('places/places.js')
-var urlParser = require('util/urlParser.js')
-var formatRelativeDate = require('util/relativeDate.js')
+const searchbar = require('searchbar/searchbar.js')
+const searchbarPlugins = require('searchbar/searchbarPlugins.js')
+const searchbarUtils = require('searchbar/searchbarUtils.js')
+const bangsPlugin = require('searchbar/bangsPlugin.js')
+const places = require('places/places.js')
+const urlParser = require('util/urlParser.js')
+const formatRelativeDate = require('util/relativeDate.js')
 
 module.exports = {
   initialize: function () {
@@ -16,21 +16,21 @@ module.exports = {
         places.searchPlaces(text, function (results) {
           searchbarPlugins.reset('bangs')
 
-          var container = searchbarPlugins.getContainer('bangs')
-          var lazyList = searchbarUtils.createLazyList(container.parentNode)
+          const container = searchbarPlugins.getContainer('bangs')
+          const lazyList = searchbarUtils.createLazyList(container.parentNode)
 
-          var lastRelativeDate = '' // used to generate headings
+          let lastRelativeDate = '' // used to generate headings
 
           results.sort(function (a, b) {
             // order by last visit
             return b.lastVisit - a.lastVisit
           }).slice(0, 1000).forEach(function (result, index) {
-            var thisRelativeDate = formatRelativeDate(result.lastVisit)
+            const thisRelativeDate = formatRelativeDate(result.lastVisit)
             if (thisRelativeDate !== lastRelativeDate) {
               searchbarPlugins.addHeading('bangs', { text: thisRelativeDate })
               lastRelativeDate = thisRelativeDate
             }
-            var data = {
+            const data = {
               title: result.title,
               secondaryText: urlParser.getSourceURL(result.url),
               fakeFocus: index === 0 && text,
@@ -42,7 +42,7 @@ module.exports = {
               },
               showDeleteButton: true
             }
-            var placeholder = lazyList.createPlaceholder()
+            const placeholder = lazyList.createPlaceholder()
             container.appendChild(placeholder)
             lazyList.lazyRenderItem(placeholder, data)
           })

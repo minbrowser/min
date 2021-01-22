@@ -237,7 +237,7 @@ if (window.platformType === 'mac') {
 
     const oldTab = tabs.splice(tabs.getIndex(tabId), 1)[0]
 
-    var newIdx
+    let newIdx
     if (adjacentTabId) {
       newIdx = tabs.getIndex(adjacentTabId)
     } else {

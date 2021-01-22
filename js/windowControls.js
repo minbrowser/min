@@ -5,24 +5,24 @@ function initialize () {
     document.body.classList.add('separate-titlebar')
   }
 
-let windowIsMaximized = false
-let windowIsFullscreen = false
+  let windowIsMaximized = false
+  let windowIsFullscreen = false
 
-const captionMinimize =
+  const captionMinimize =
   document.querySelector('.windows-caption-buttons .caption-minimise, body.linux .titlebar-linux .caption-minimise')
 
-const captionMaximize =
+  const captionMaximize =
   document.querySelector('.windows-caption-buttons .caption-maximize, body.linux .titlebar-linux .caption-maximize')
 
-const captionRestore =
+  const captionRestore =
   document.querySelector('.windows-caption-buttons .caption-restore, body.linux .titlebar-linux .caption-restore')
 
-const captionClose =
+  const captionClose =
   document.querySelector('.windows-caption-buttons .caption-close, body.linux .titlebar-linux .caption-close')
 
-const linuxClose = document.querySelector('#linux-control-buttons #close-button')
-const linuxMinimize = document.querySelector('#linux-control-buttons #minimize-button')
-const linuxMaximize = document.querySelector('#linux-control-buttons #maximize-button')
+  const linuxClose = document.querySelector('#linux-control-buttons #close-button')
+  const linuxMinimize = document.querySelector('#linux-control-buttons #minimize-button')
+  const linuxMaximize = document.querySelector('#linux-control-buttons #maximize-button')
 
   function updateCaptionButtons () {
     if (window.platformType === 'windows') {
