@@ -186,22 +186,22 @@ bangsPlugin.registerCustomBang({
     } else {
       taskToClose = tasks.getSelected()
     }
-  })
+  }
+})
 
   bangsPlugin.registerCustomBang({
     phrase: '!closetask',
     snippet: l('closeTask'),
     isAction: false,
     fn: function (text) {
-      var currentTask = tasks.getSelected()
-      var taskToClose
-
-      if (text) {
-        taskToClose = getTaskByNameOrNumber(text)
-      } else {
-        taskToClose = tasks.getSelected()
-      }
-    }
+        var currentTask = tasks.getSelected()
+        var taskToClose
+  
+        if (text) {
+          taskToClose = getTaskByNameOrNumber(text)
+        } else {
+          taskToClose = tasks.getSelected()
+        }
   }
 })
 
@@ -269,6 +269,7 @@ bangsPlugin.registerCustomBang({
   }
 })
 
+
 bangsPlugin.registerCustomBang({
   phrase: '!importbookmarks',
   snippet: l('importBookmarks'),
@@ -282,6 +283,7 @@ bangsPlugin.registerCustomBang({
     if (!filePath) {
       return
     }
+}
   })
 
   bangsPlugin.registerCustomBang({
@@ -335,8 +337,7 @@ bangsPlugin.registerCustomBang({
         }
         places.updateItem(url, data)
       })
-    })
-  }
+    }
 })
 
 bangsPlugin.registerCustomBang({
@@ -396,6 +397,7 @@ bangsPlugin.registerCustomBang({
         tags: (text ? text.split(/\s/g).map(t => t.replace('#', '').trim()) : [])
       })
     }
+}
   })
 
   bangsPlugin.registerCustomBang({
@@ -411,6 +413,5 @@ bangsPlugin.registerCustomBang({
       }
     }
   })
-}
 
 module.exports = { initialize }
