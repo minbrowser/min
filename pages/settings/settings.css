@@ -62,6 +62,7 @@ html {
   padding-left: 0.33em;
 }
 .setting-section label + input,
+.setting-section label + textarea,
 .setting-section label + select {
   margin-left: 0.66em;
 }
@@ -134,6 +135,11 @@ html {
 
 #content-blocking-information {
   margin: 0.75em 0.5em 0 1.58em;
+}
+
+#content-blocking-information textarea {
+  vertical-align: text-bottom;
+  resize: vertical;
 }
 
 #customize-filters-link {
