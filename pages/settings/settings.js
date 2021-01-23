@@ -61,6 +61,10 @@ function changeBlockingLevelSetting (level) {
   })
 }
 
+function setExceptionInputSize () {
+  blockingExceptionsInput.style.height = (blockingExceptionsInput.scrollHeight + 2) + 'px'
+}
+
 settings.get('filtering', function (value) {
   // migrate from old settings (<v1.9.0)
   if (value && typeof value.trackers === 'boolean') {
@@ -81,6 +85,7 @@ settings.get('filtering', function (value) {
 
   if (value && value.exceptionDomains && value.exceptionDomains.length > 0) {
     blockingExceptionsInput.value = value.exceptionDomains.join(', ') + ', '
+    setExceptionInputSize()
   }
 })
 
@@ -91,6 +96,8 @@ trackingLevelOptions.forEach(function (item, idx) {
 })
 
 blockingExceptionsInput.addEventListener('input', function () {
+  setExceptionInputSize()
+
   // remove protocols because of https://github.com/minbrowser/min/issues/1428
   var newValue = this.value.split(',').map(i => i.trim().replace('http://', '').replace('https://', '')).filter(i => !!i)
 

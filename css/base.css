@@ -91,7 +91,8 @@ a {
   color: dodgerblue;
 }
 
-.dark-mode input {
+.dark-mode input,
+.dark-mode textarea {
   background-color: rgb(52, 58, 68);
   color: white;
   border-color: transparent;
