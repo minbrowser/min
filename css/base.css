@@ -97,3 +97,22 @@ a {
   color: white;
   border-color: transparent;
 }
+
+/* styled scrollbars */
+
+.has-thin-scrollbar::-webkit-scrollbar {
+  height: 0.25em;
+}
+.has-thin-scrollbar::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.has-thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.175);
+  border-radius: 0.25em;
+}
+.dark-theme .has-thin-scrollbar::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+.dark-theme .has-thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.6);
+}

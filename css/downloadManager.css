@@ -21,13 +21,14 @@
   display: flex;
   flex: 1;
   overflow-x: auto;
+  height: 39px;
 }
 
 .download-item {
   display: inline-flex;
   align-items: center;
   padding: 0.66em 0.75em;
-  height: 39px;
+  height: 100%;
   width: 30%;
   min-width: 175px;
   max-width: 300px;

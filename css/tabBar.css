@@ -156,26 +156,8 @@ body.linux #menu-button {
   opacity: 1;
 }
 
-/* style tab scrollbar */
-
-#navbar #tabs-inner::-webkit-scrollbar {
-  height: 0.25em;
-}
 .is-edit-mode #navbar #tabs-inner::-webkit-scrollbar {
   height: 0;
-}
-#navbar #tabs-inner::-webkit-scrollbar-track {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-#navbar #tabs-inner::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.175);
-  border-radius: 0.25em;
-}
-.dark-theme #navbar #tabs-inner::-webkit-scrollbar-track {
-  background-color: rgba(255, 255, 255, 0.25);
-}
-.dark-theme #navbar #tabs-inner::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.6);
 }
 
 /* hide tabs when tab editor is open */
