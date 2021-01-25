@@ -137,6 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "到目前為止，Min 已經封鎖了 <strong></strong> 個廣告和追蹤器"
     },
+    "settingsCustomBangs": null, // missing translation
+    "settingsCustomBangsAdd": null, // missing translation
+    "settingsCustomBangsPhrase": null, // missing translation
+    "settingsCustomBangsSnippet": null, // missing translation
+    "settingsCustomBangsRedirect": null, // missing translation
     "settingsCustomizeFiltersLink": "自訂過濾器",
     "settingsAppearanceHeading": "外觀",
     "settingsEnableDarkMode": "啟用深色模式：",

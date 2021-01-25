@@ -137,6 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "এখনও অবধি, Min <strong></strong> বিজ্ঞাপন এবং ট্র্যাকারদের অবরুদ্ধ করেছে"
     },
+    "settingsCustomBangs": null, // missing translation
+    "settingsCustomBangsAdd": null, // missing translation
+    "settingsCustomBangsPhrase": null, // missing translation
+    "settingsCustomBangsSnippet": null, // missing translation
+    "settingsCustomBangsRedirect": null, // missing translation
     "settingsCustomizeFiltersLink": "ফিল্টারগুলি কাস্টমাইজ করুন",
     "settingsAppearanceHeading": "চেহারা",
     "settingsEnableDarkMode": "ডার্কমোড সক্ষম করুন:",

@@ -137,6 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "これまでのところ、Minは<strong></strong>の広告とトラッカーをブロックしています。"
     },
+    "settingsCustomBangs": null, // missing translation
+    "settingsCustomBangsAdd": null, // missing translation
+    "settingsCustomBangsPhrase": null, // missing translation
+    "settingsCustomBangsSnippet": null, // missing translation
+    "settingsCustomBangsRedirect": null, // missing translation
     "settingsCustomizeFiltersLink": "フィルターをカスタマイズする",
     "settingsAppearanceHeading": "外観",
     "settingsEnableDarkMode": "ダークモードを使用:",

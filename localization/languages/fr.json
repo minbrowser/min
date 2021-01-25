@@ -137,6 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "À ce jour, Min a bloqué <strong></strong> publicités et pisteurs"
     },
+    "settingsCustomBangs": null, // missing translation
+    "settingsCustomBangsAdd": null, // missing translation
+    "settingsCustomBangsPhrase": null, // missing translation
+    "settingsCustomBangsSnippet": null, // missing translation
+    "settingsCustomBangsRedirect": null, // missing translation
     "settingsCustomizeFiltersLink": "Paramétrer les filtres",
     "settingsAppearanceHeading": "Apparence",
     "settingsEnableDarkMode": "Activer le mode nuit:",

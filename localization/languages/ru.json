@@ -142,6 +142,11 @@
     "settingsCustomBangsPhrase": "Фраза (обязательно)",
     "settingsCustomBangsSnippet": "Описание (необязательно)",
     "settingsCustomBangsRedirect": "URL перенаправления (обязательно)",
+    "settingsCustomBangs": null, // missing translation
+    "settingsCustomBangsAdd": null, // missing translation
+    "settingsCustomBangsPhrase": null, // missing translation
+    "settingsCustomBangsSnippet": null, // missing translation
+    "settingsCustomBangsRedirect": null, // missing translation
     "settingsCustomizeFiltersLink": "Настроить фильтры",
     "settingsAppearanceHeading": "Внешний вид",
     "settingsEnableDarkMode": "Использовать темную тему:",

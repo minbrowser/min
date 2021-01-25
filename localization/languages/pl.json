@@ -137,6 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Jak dotąd Min zablokował reklamy i moduły śledzące w ilości: <strong></strong>."
     },
+    "settingsCustomBangs": null, // missing translation
+    "settingsCustomBangsAdd": null, // missing translation
+    "settingsCustomBangsPhrase": null, // missing translation
+    "settingsCustomBangsSnippet": null, // missing translation
+    "settingsCustomBangsRedirect": null, // missing translation
     "settingsCustomizeFiltersLink": "Dostosuj filtry",
     "settingsAppearanceHeading": "Wygląd",
     "settingsEnableDarkMode": "Włącz tryb ciemny:",

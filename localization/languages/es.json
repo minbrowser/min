@@ -137,6 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": null //missing translation
     },
+    "settingsCustomBangs": null, // missing translation
+    "settingsCustomBangsAdd": null, // missing translation
+    "settingsCustomBangsPhrase": null, // missing translation
+    "settingsCustomBangsSnippet": null, // missing translation
+    "settingsCustomBangsRedirect": null, // missing translation
     "settingsCustomizeFiltersLink": null, //missing translation
     "settingsAppearanceHeading": "Apariencia",
     "settingsEnableDarkMode": "Habilitar modo oscuro:",

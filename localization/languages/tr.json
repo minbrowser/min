@@ -137,6 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Min şimdiye kadar, <strong></strong> reklam ve takipçi engelledi."
     },
+    "settingsCustomBangs": null, // missing translation
+    "settingsCustomBangsAdd": null, // missing translation
+    "settingsCustomBangsPhrase": null, // missing translation
+    "settingsCustomBangsSnippet": null, // missing translation
+    "settingsCustomBangsRedirect": null, // missing translation
     "settingsCustomizeFiltersLink": "Filtreleri özelleştir",
     "settingsAppearanceHeading": "Görünüm",
     "settingsEnableDarkMode": "Koyu modu etkinleştir:",

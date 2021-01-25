@@ -137,6 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Até agora, o Min bloqueou <strong> </strong> anúncios e rastreadores."
     },
+    "settingsCustomBangs": null, // missing translation
+    "settingsCustomBangsAdd": null, // missing translation
+    "settingsCustomBangsPhrase": null, // missing translation
+    "settingsCustomBangsSnippet": null, // missing translation
+    "settingsCustomBangsRedirect": null, // missing translation
     "settingsCustomizeFiltersLink": "Personalizar filtros",
     "settingsAppearanceHeading": "Aparência",
     "settingsEnableDarkMode": "Habilitar modo dark:",
