@@ -142,11 +142,6 @@
     "settingsCustomBangsPhrase": "Texto (obrigatório)",
     "settingsCustomBangsSnippet": "Descrição (opcional)",
     "settingsCustomBangsRedirect": "URL de encaminhamento (obrigatório)",
-    "settingsCustomBangs": null, // missing translation
-    "settingsCustomBangsAdd": null, // missing translation
-    "settingsCustomBangsPhrase": null, // missing translation
-    "settingsCustomBangsSnippet": null, // missing translation
-    "settingsCustomBangsRedirect": null, // missing translation
     "settingsCustomizeFiltersLink": "Personalizar filtros",
     "settingsAppearanceHeading": "Aparência",
     "settingsEnableDarkMode": "Ativar modo escuro:",
