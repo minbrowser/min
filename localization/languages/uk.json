@@ -142,11 +142,6 @@
     "settingsCustomBangsPhrase": "Фраза (обов'язково)",
     "settingsCustomBangsSnippet": "Опис (необов'язково)",
     "settingsCustomBangsRedirect": "URL перенаправлення (обов'язково)",
-    "settingsCustomBangs": null, // missing translation
-    "settingsCustomBangsAdd": null, // missing translation
-    "settingsCustomBangsPhrase": null, // missing translation
-    "settingsCustomBangsSnippet": null, // missing translation
-    "settingsCustomBangsRedirect": null, // missing translation
     "settingsCustomizeFiltersLink": "Налаштувати фільтри",
     "settingsAppearanceHeading": "Зовнішній вигляд",
     "settingsDarkModeToggle": "Увімкнути темний режим",
