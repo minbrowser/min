@@ -10,6 +10,9 @@ Min is a fast, minimal browser that protects your privacy. It includes an interf
 - Password manager integration
 - Dark theme
 
+*Is something missing? Make a discussion [here](https://github.com/minbrowser/min/discussions) with the Ideas tag.*
+
+
 Download Min from the [releases page](https://github.com/minbrowser/min/releases), or learn more on the [website](https://minbrowser.org/).
 
 [![Downloads][DownloadsBadge]][DownloadsUrl]
