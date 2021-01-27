@@ -42,14 +42,14 @@ function buildAppMenu (options = {}) {
   var personalDataItems = [
     {
       label: l('appMenuBookmarks'),
-      accelerator: undefined,
+      accelerator: 'CmdOrCtrl+b',
       click: function (item, window) {
         sendIPCToWindow(window, 'showBookmarks')
       }
     },
     {
       label: l('appMenuHistory'),
-      accelerator: undefined,
+      accelerator: 'CmdOrCtrl+h',
       click: function (item, window) {
         sendIPCToWindow(window, 'showHistory')
       }
