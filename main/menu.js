@@ -49,7 +49,7 @@ function buildAppMenu (options = {}) {
     },
     {
       label: l('appMenuHistory'),
-      accelerator: 'CmdOrCtrl+h',
+      accelerator: 'Shift+CmdOrCtrl+h',
       click: function (item, window) {
         sendIPCToWindow(window, 'showHistory')
       }
