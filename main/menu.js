@@ -43,15 +43,19 @@ function buildAppMenu (options = {}) {
     {
       label: l('appMenuBookmarks'),
       accelerator: 'CmdOrCtrl+b',
-      click: function (item, window) {
-        sendIPCToWindow(window, 'showBookmarks')
+      click: function (item, window, event) {
+        if (!event.triggeredByAccelerator) {
+            sendIPCToWindow(window, 'showBookmarks')
+        }
       }
     },
     {
       label: l('appMenuHistory'),
       accelerator: 'Shift+CmdOrCtrl+h',
-      click: function (item, window) {
-        sendIPCToWindow(window, 'showHistory')
+      click: function (item, window, event) {
+        if (!event.triggeredByAccelerator) {
+            sendIPCToWindow(window, 'showHistory')
+        }
       }
     }
   ]

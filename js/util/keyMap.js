@@ -15,6 +15,7 @@ var defaultKeyMap = {
   gotoFirstTab: 'shift+mod+9',
   gotoLastTab: 'mod+9',
   addToFavorites: 'mod+d',
+  showBookmarks: 'mod+b',
   toggleReaderView: 'shift+mod+r',
   switchToNextTab: ['option+mod+right', 'ctrl+tab', 'shift+mod+pagedown'],
   switchToPreviousTab: ['option+mod+left', 'shift+ctrl+tab', 'shift+mod+pageup'],
@@ -25,7 +26,8 @@ var defaultKeyMap = {
   showMenu: 'ctrl+m',
   followLink: 'mod+enter',
   fillPassword: 'mod+\\',
-  toggleTabAudio: 'shift+mod+m'
+  toggleTabAudio: 'shift+mod+m',
+  showHistory: 'shift+mod+h'
 }
 /* Utility function to override default mapping with user settings */
 function userKeyMap (settings) {
