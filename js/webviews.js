@@ -264,7 +264,7 @@ const webviews = {
     if (webviews.placeholderRequests.length >= 1) {
       // create a new placeholder
 
-      var associatedTab = tabs.get(webviews.selectedId)
+      var associatedTab = tasks.getTaskContainingTab(webviews.selectedId).tabs.get(webviews.selectedId)
       var img = associatedTab.previewImage
       if (img) {
         placeholderImg.src = img

@@ -195,6 +195,10 @@ var taskOverlay = {
         }
       }
 
+      // force the UI to rerender
+      browserUI.switchToTask(tasks.getSelected().id)
+      browserUI.switchToTab(tabs.getSelected().id)
+
       taskSwitcherButton.classList.remove('active')
     }
   },
@@ -270,6 +274,19 @@ var taskOverlay = {
 
       // remove tab from old task
       var oldTab = previousTask.tabs.splice(previousTask.tabs.getIndex(tabId), 1)[0]
+
+      if (oldTab.selected) {
+        // find a new tab in the old task to become the current one
+        var mostRecentTab = previousTask.tabs.get().sort(function (a, b) {
+          return b.lastActivity - a.lastActivity
+        })[0]
+        if (mostRecentTab) {
+          previousTask.tabs.setSelected(mostRecentTab.id)
+        }
+
+        // shouldn't become selected in the new task
+        oldTab.selected = false
+      }
 
       // if the old task has no tabs left in it, destroy it
 
