@@ -5,18 +5,18 @@
     /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-    "addToDictionary": null, //missing translation
-    "pictureInPicture": null, //missing translation
+    "addToDictionary": "加入词典",
+    "pictureInPicture": "画中画",
     "openInNewTab": "在新标签页打开",
     "openInNewPrivateTab": "在新隐私标签页中打开",
-    "saveLinkAs": null, //missing translation
+    "saveLinkAs": "链接另存为",
     "viewImage": "查看图片",
     "openImageInNewTab": "在新标签页中打开图片",
     "openImageInNewPrivateTab": "在新的隐私标签页中打开图片",
     "saveImageAs": "图片另存为",
     "searchWith": "在 %s 中搜索", //%s will be replaced with the name of the current search engine
     "copyLink": "复制链接",
-    "copyEmailAddress": null, //missing translation
+    "copyEmailAddress": "复制邮件地址",
     "selectAll": "全选",
     "undo": "撤销",
     "redo": "重做",
@@ -27,7 +27,7 @@
     "goForward": "前进",
     "inspectElement": "查看元素",
     /* searchbar */
-    "pasteAndGo": null, //missing translation
+    "pasteAndGo": "粘贴并前往",
     "DDGAnswerSubtitle": "搜索结果", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
     "suggestedSite": "建议站点", //this is used to label suggested websites from the DuckDuckGo API,
     "resultsFromDDG": "DuckDuckGo 返回的结果", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -39,8 +39,8 @@
     "viewSettings": "查看设置界面",
     "takeScreenshot": "截图",
     "clearHistory": "清除所有历史记录",
-    "enableBlocking": null, //missing translation
-    "disableBlocking": null, //missing translation
+    "enableBlocking": "启用内容过滤",
+    "disableBlocking": "关闭内容过滤",
     "clearHistoryConfirmation": "是否清除所有历史记录？",
     "switchToTask": "切换到标签组列表",
     "closeTask": "关闭标签组",
@@ -54,7 +54,7 @@
     "searchHistory": "搜索历史",
     "importBookmarks": "自HTML文件导入书签",
     "exportBookmarks": "导出书签",
-    "runUserscript": null, //missing translation
+    "runUserscript": "执行自定义脚本",
     /* navbar */
     "openMenu": "开启菜单",
     "enterReaderView": "进入阅读模式",
@@ -79,10 +79,10 @@
     "findMatchesSingular": "%i/%t", //this and the next label are used to indicate which match is currently highlighted
     "findMatchesPlural": "%i/%t",
     /* Focus mode */
-    "isFocusMode": "当前处于焦点模式",
+    "isFocusMode": "当前处于专注模式",
     "closeDialog": "确定", //used as a label for the button that closes the dialog
-    "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-    "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+    "focusModeExplanation1": "进入专注模式后，您将无法创建新标签页以及切换标签组。",
+    "focusModeExplanation2": "您可以通过在【查看】中取消勾选【专注模式】来退出专注模式。",
     /* relative dates */
     "timeRangeJustNow": "几秒前",
     "timeRangeMinutes": "几分钟前",
@@ -128,51 +128,53 @@
     "settingsPreferencesHeading": "设置",
     "settingsRestartRequired": "您需要重启以应用这些修改",
     "settingsPrivacyHeading": "隐私设置",
-    "settingsContentBlockingLevel0": "允许所有广告和追踪者",
-    "settingsContentBlockingLevel1": "禁止第三方广告和追踪者",
-    "settingsContentBlockingLevel2": "禁止所有广告和追踪者",
+    "settingsContentBlockingLevel0": "允许所有广告和追踪程序",
+    "settingsContentBlockingLevel1": "禁止第三方广告和追踪程序",
+    "settingsContentBlockingLevel2": "禁止所有广告和追踪程序",
     "settingsContentBlockingExceptions": "下列站点的广告将被允许",
-    "settingsBlockScriptsToggle": "阻止脚本运行",
-    "settingsBlockImagesToggle": "阻止加载图片",
+    "settingsBlockScriptsToggle": "禁止运行脚本",
+    "settingsBlockImagesToggle": "禁止加载图片",
     "settingsBlockedRequestCount": {
-      "unsafeHTML": null //missing translation
+      "unsafeHTML": "到目前为止，Min已经过滤了<strong></strong>个广告和追踪程序。"
     },
-    "settingsCustomBangs": null, // missing translation
-    "settingsCustomBangsAdd": null, // missing translation
-    "settingsCustomBangsPhrase": null, // missing translation
-    "settingsCustomBangsSnippet": null, // missing translation
-    "settingsCustomBangsRedirect": null, // missing translation
-    "settingsCustomizeFiltersLink": null, //missing translation
+    "settingsCustomBangs": "自定义Bangs",
+    "settingsCustomBangsAdd": "添加自定义bang",
+    "settingsCustomBangsPhrase": "命令(必填)",
+    "settingsCustomBangsSnippet": "描述(可选)",
+    "settingsCustomBangsRedirect": "将命令发送至(必填)",
+    "settingsCustomizeFiltersLink": "查看如何自定义过滤设置", 
     "settingsAppearanceHeading": "外观",
-    "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
-    "settingsDarkModeNever": null, //"Never" missing translation
-    "settingsDarkModeNight": null, //"At night" missing translation
-    "settingsDarkModeAlways": null, //"Always" missing translation
+    "settingsEnableDarkMode": "深色模式",
+    "settingsDarkModeNever": "禁用", 
+    "settingsDarkModeNight": "只在夜晚开启",
+    "settingsDarkModeAlways": "一直开启",
     "settingsSiteThemeToggle": "启用网站主题",
     "settingsAdditionalFeaturesHeading": "其他功能",
-    "settingsUserscriptsToggle": "允许使用者指令",
-    "settingsShowDividerToggle": null, // Missing translation
-    "settingsSeparateTitlebarToggle": null, //missing translation
-    "settingsOpenTabsInForegroundToggle": null, //missing translation
+    "settingsUserscriptsToggle": "允许自定义脚本",
+    "settingsShowDividerToggle": "显示标签页边界",
+    "settingsSeparateTitlebarToggle": "显示浏览器标题栏",
+    "settingsOpenTabsInForegroundToggle": "在前台打开新标签页", 
     "settingsUserscriptsExplanation": {
-      "unsafeHTML": "使用者指令允许您改变网站行为 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
+      "unsafeHTML": "自定义脚本允许您改变网站行为 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
     },
-    "settingsUserAgentToggle": null, //missing translation
+    "settingsUserAgentToggle": "自定义浏览器User-Agent",
     "settingsUpdateNotificationsToggle": "自动检查更新",
-    "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "发送使用情况统计信息 (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">更多说明</a>)"
+    },
     "settingsSearchEngineHeading": "搜索引擎",
     "settingsDefaultSearchEngine": "选择默认的搜索引擎:",
     "settingsDDGExplanation": "将 DuckDuckGo 设为默认的搜索引擎可以直接在搜索栏查看搜索结果。",
     "customSearchEngineDescription": "将搜索字符串以 %s 代替",
     "settingsKeyboardShortcutsHeading": "快捷键",
     "settingsKeyboardShortcutsHelp": "用逗号分隔多个快捷键",
-    "settingsProxyHeading": null, //missing translation
-    "settingsNoProxy": null, //missing translation
-    "settingsManualProxy": null, //missing translation
-    "settingsAutomaticProxy": null, //missing translation
-    "settingsProxyRules": null, //missing translation
-    "settingsProxyBypassRules": null, //missing translation
-    "settingsProxyConfigurationURL": null, //missing translation
+    "settingsProxyHeading": "代理设置",
+    "settingsNoProxy": "不使用代理",
+    "settingsManualProxy": "手动设置代理", 
+    "settingsAutomaticProxy": "启用预设代理",
+    "settingsProxyRules": "代理服务器地址",
+    "settingsProxyBypassRules": "不使用代理服务器访问以下地址（以逗号分隔多个地址）",
+    "settingsProxyConfigurationURL": "PAC文件地址",
     /* app menu */
     "appMenuFile": "文件",
     "appMenuNewTab": "新标签页",
@@ -194,7 +196,7 @@
     "appMenuZoomOut": "缩小",
     "appMenuActualSize": "实际大小",
     "appMenuFullScreen": "全屏", //on some platforms, this string is replaced with one built-in to the OS
-    "appMenuFocusMode": "焦点模式",
+    "appMenuFocusMode": "专注模式",
     "appMenuBookmarks": "书签",
     "appMenuHistory": "历史",
     "appMenuDeveloper": "开发",
@@ -223,15 +225,15 @@
       "unsafeHTML": "<input type='text'/> / <span id='total'></span> 页"
     },
     /* Context Reader */
-    "buttonReaderSettings": null, //missing translation "Reader Settings"
-    "buttonReaderLightTheme": null, //missing translation "Light"
-    "buttonReaderSepiaTheme": null, //missing translation "Sepia"
-    "buttonReaderDarkTheme": null, //missing translation "Dark"
-    "openReaderView": null, //missing translation "Always open in reader view"
-    "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-    "buttonReaderRedirectYes": null, //missing translation "Yes"
-    "buttonReaderRedirectNo": null, //missing translation "No"
-    "articleReaderView": null, //missing translation "Original Article"
+    "buttonReaderSettings": "阅读器设置",
+    "buttonReaderLightTheme": "浅色",
+    "buttonReaderSepiaTheme": "褐色",
+    "buttonReaderDarkTheme": "深色",
+    "openReaderView": "总是以阅读器视图显示",
+    "autoRedirectBannerReader": "总是以阅读器视图显示此站点的内容？",
+    "buttonReaderRedirectYes": "是",
+    "buttonReaderRedirectNo": "否",
+    "articleReaderView": "显示原文",
     /* Download manager */
     "downloadCancel": "取消",
     "downloadStateCompleted": "已完成",
@@ -241,15 +243,17 @@
     /* Autofill settings */
     "settingsPasswordAutoFillHeadline": "密码自动填充",
     "settingsSelectPasswordManager": "选择一个支持的密码管理器：",
-    "keychainViewPasswords": null, //missing translation
+    "keychainViewPasswords": "检查密码",
     /* Password manager setup */
     "passwordManagerSetupHeading": "完成 %p 中的设置以使用自动填充",
     "passwordManagerSetupStep1": {
       "unsafeHTML": "首先, 访问 <a id='password-manager-setup-link'></a> 并解压到你的系统中。"
     },
-    "passwordManagerInstallerSetup": null, //missing translation
+    "passwordManagerInstallerSetup": {
+      "unsafeHTML": "下载 <a id='password-manager-setup-link-installer'></a>，完成后将文件拖拽至下方。"
+    },
     "passwordManagerSetupLink": "下载 %p 中的CLI工具",
-    "passwordManagerSetupLinkInstaller": null, //missing translation
+    "passwordManagerSetupLinkInstaller": " %p CLI安装程序",
     "passwordManagerSetupStep2": "然后把工具拖动到下面的框中：",
     "passwordManagerSetupDragBox": "把工具拖动到这里",
     "passwordManagerSetupInstalling": "安装中...",
@@ -259,20 +263,20 @@
     "passwordManagerSetupRetry": "请确认你使用了正确的文件和密码。你可以再次把工具拖到这里并重试。",
     "passwordManagerUnlock": "输入 %p 主密码来解锁密码存储区：",
     /* Password save bar */
-    "passwordCaptureSavePassword": null, //missing translation
-    "passwordCaptureSave": null, //missing translation
-    "passwordCaptureDontSave": null, //missing translation
+    "passwordCaptureSavePassword": "是否保存%s的密码？",
+    "passwordCaptureSave": "保存", 
+    "passwordCaptureDontSave": "不保存",
     /* Password viewer */
-    "savedPasswordsHeading": null, //missing translation
-    "savedPasswordsEmpty": null, //missing translation
-    "deletePassword": null, //missing translation
+    "savedPasswordsHeading": "已保存密码",
+    "savedPasswordsEmpty": "当前未保存任何密码",
+    "deletePassword": "删除保存的%s密码？",
     /* Dialogs */
-    "loginPromptTitle": null, //missing translation
+    "loginPromptTitle": "登录 %h (%r)",
     "dialogConfirmButton": "确认",
     "dialogSkipButton": "取消",
-    "username": null, //missing translation
+    "username": "用户名",
     "email": "邮箱",
     "password": "密码",
-    "secretKey": null //missing translation
+    "secretKey": "密钥"
   }
 }
