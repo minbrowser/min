@@ -54,7 +54,7 @@
     "searchHistory": "搜索历史",
     "importBookmarks": "自HTML文件导入书签",
     "exportBookmarks": "导出书签",
-    "runUserscript": "执行用户脚本",
+    "runUserscript": "执行自定义脚本",
     /* navbar */
     "openMenu": "开启菜单",
     "enterReaderView": "进入阅读模式",
@@ -132,7 +132,7 @@
     "settingsContentBlockingLevel1": "禁止第三方广告和追踪程序",
     "settingsContentBlockingLevel2": "禁止所有广告和追踪程序",
     "settingsContentBlockingExceptions": "下列站点的广告将被允许",
-    "settingsBlockScriptsToggle": "禁止脚本运行",
+    "settingsBlockScriptsToggle": "禁止运行脚本",
     "settingsBlockImagesToggle": "禁止加载图片",
     "settingsBlockedRequestCount": {
       "unsafeHTML": "到目前为止，Min已经过滤了<strong></strong>个广告和追踪程序。"
@@ -150,12 +150,12 @@
     "settingsDarkModeAlways": "一直开启",
     "settingsSiteThemeToggle": "启用网站主题",
     "settingsAdditionalFeaturesHeading": "其他功能",
-    "settingsUserscriptsToggle": "允许使用者指令",
+    "settingsUserscriptsToggle": "允许自定义脚本",
     "settingsShowDividerToggle": "显示标签页边界",
     "settingsSeparateTitlebarToggle": "显示浏览器标题栏",
     "settingsOpenTabsInForegroundToggle": "在前台打开新标签页", 
     "settingsUserscriptsExplanation": {
-      "unsafeHTML": "使用者指令允许您改变网站行为 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
+      "unsafeHTML": "自定义脚本允许您改变网站行为 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
     },
     "settingsUserAgentToggle": "自定义浏览器User-Agent",
     "settingsUpdateNotificationsToggle": "自动检查更新",
