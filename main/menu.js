@@ -42,16 +42,20 @@ function buildAppMenu (options = {}) {
   var personalDataItems = [
     {
       label: l('appMenuBookmarks'),
-      accelerator: undefined,
-      click: function (item, window) {
-        sendIPCToWindow(window, 'showBookmarks')
+      accelerator: 'CmdOrCtrl+b',
+      click: function (item, window, event) {
+        if (!event.triggeredByAccelerator) {
+            sendIPCToWindow(window, 'showBookmarks')
+        }
       }
     },
     {
       label: l('appMenuHistory'),
-      accelerator: undefined,
-      click: function (item, window) {
-        sendIPCToWindow(window, 'showHistory')
+      accelerator: 'Shift+CmdOrCtrl+h',
+      click: function (item, window, event) {
+        if (!event.triggeredByAccelerator) {
+            sendIPCToWindow(window, 'showHistory')
+        }
       }
     }
   ]

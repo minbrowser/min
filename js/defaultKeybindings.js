@@ -97,6 +97,10 @@ const defaultKeybindings = {
       tabEditor.container.querySelector('.bookmarks-button').click()
     })
 
+    keybindings.defineShortcut('showBookmarks', function () {
+      tabEditor.show(tabs.getSelected(), '!bookmarks ')
+    })
+
     // cmd+x should switch to tab x. Cmd+9 should switch to the last tab
 
     for (var i = 1; i < 9; i++) {
@@ -254,6 +258,10 @@ const defaultKeybindings = {
 
     keybindings.defineShortcut({ keys: 'mod+=' }, function () {
       webviewGestures.zoomWebviewIn(tabs.getSelected())
+    })
+
+    keybindings.defineShortcut('showHistory', function () {
+      tabEditor.show(tabs.getSelected(), '!history ')
     })
 
     // reload the webview when the F5 key is pressed
