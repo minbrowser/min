@@ -13,7 +13,8 @@ const crashReporter = electron.crashReporter
 
 crashReporter.start({
   submitURL: 'https://minbrowser.org/',
-  uploadToServer: false
+  uploadToServer: false,
+  compress: true
 })
 
 if (process.argv.some(arg => arg === '-v' || arg === '--version')) {
