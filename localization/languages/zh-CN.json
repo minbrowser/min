@@ -79,10 +79,10 @@
     "findMatchesSingular": "%i/%t", //this and the next label are used to indicate which match is currently highlighted
     "findMatchesPlural": "%i/%t",
     /* Focus mode */
-    "isFocusMode": "当前处于焦点模式",
+    "isFocusMode": "当前处于专注模式",
     "closeDialog": "确定", //used as a label for the button that closes the dialog
-    "focusModeExplanation1": "进入焦点模式后，您将无法创建新标签页以及切换标签组。",
-    "focusModeExplanation2": "您可以通过在【查看】中取消勾选【焦点模式】来退出焦点模式。",
+    "focusModeExplanation1": "进入专注模式后，您将无法创建新标签页以及切换标签组。",
+    "focusModeExplanation2": "您可以通过在【查看】中取消勾选【专注模式】来退出专注模式。",
     /* relative dates */
     "timeRangeJustNow": "几秒前",
     "timeRangeMinutes": "几分钟前",
@@ -196,7 +196,7 @@
     "appMenuZoomOut": "缩小",
     "appMenuActualSize": "实际大小",
     "appMenuFullScreen": "全屏", //on some platforms, this string is replaced with one built-in to the OS
-    "appMenuFocusMode": "焦点模式",
+    "appMenuFocusMode": "专注模式",
     "appMenuBookmarks": "书签",
     "appMenuHistory": "历史",
     "appMenuDeveloper": "开发",
