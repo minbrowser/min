@@ -10,7 +10,6 @@ const ipc = electron.ipcMain
 const Menu = electron.Menu
 const MenuItem = electron.MenuItem
 const crashReporter = electron.crashReporter
-
 crashReporter.start({
   submitURL: 'https://minbrowser.org/',
   uploadToServer: false,
@@ -306,6 +305,7 @@ app.on('window-all-closed', function () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function () {
+  settings.set('restartNow', false)
   appIsReady = true
 
   /* the installer launches the app to install registry items and shortcuts,
