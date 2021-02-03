@@ -197,7 +197,7 @@ var taskOverlay = {
 
       // force the UI to rerender
       browserUI.switchToTask(tasks.getSelected().id)
-      browserUI.switchToTab(tabs.getSelected().id)
+      browserUI.switchToTab(tabs.getSelected())
 
       taskSwitcherButton.classList.remove('active')
     }
