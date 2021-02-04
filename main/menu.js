@@ -12,7 +12,7 @@ function buildAppMenu (options = {}) {
     },
     {
       label: l('appMenuDuplicateTab'),
-      accelerator: 'shift+CmdOrCtrl+d',
+      accelerator: settings.list?.keyMap?.duplicateTab?.replace('mod', 'CmdOrCtrl') || 'shift+CmdOrCtrl+d',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
           sendIPCToWindow(window, 'duplicateTab')
@@ -21,7 +21,7 @@ function buildAppMenu (options = {}) {
     },
     {
       label: l('appMenuNewPrivateTab'),
-      accelerator: 'shift+CmdOrCtrl+p',
+      accelerator: settings.list?.keyMap?.newPrivateTab?.replace('mod', 'CmdOrCtrl') || 'shift+CmdOrCtrl+p',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
           sendIPCToWindow(window, 'addPrivateTab')
@@ -30,7 +30,7 @@ function buildAppMenu (options = {}) {
     },
     {
       label: l('appMenuNewTask'),
-      accelerator: 'CmdOrCtrl+n',
+      accelerator: settings.list?.keyMap?.newTask?.replace('mod', 'CmdOrCtrl') || 'CmdOrCtrl+n',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
           sendIPCToWindow(window, 'addTask')
@@ -42,7 +42,7 @@ function buildAppMenu (options = {}) {
   var personalDataItems = [
     {
       label: l('appMenuBookmarks'),
-      accelerator: 'CmdOrCtrl+b',
+      accelerator: settings.list?.keyMap?.showBookmarks?.replace('mod', 'CmdOrCtrl') || 'CmdOrCtrl+b',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
             sendIPCToWindow(window, 'showBookmarks')
@@ -51,7 +51,7 @@ function buildAppMenu (options = {}) {
     },
     {
       label: l('appMenuHistory'),
-      accelerator: 'Shift+CmdOrCtrl+h',
+      accelerator: settings.list?.keyMap?.showHistory?.replace('mod', 'CmdOrCtrl') || 'Shift+CmdOrCtrl+h',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
             sendIPCToWindow(window, 'showHistory')
@@ -62,7 +62,7 @@ function buildAppMenu (options = {}) {
 
   var quitAction = {
     label: l('appMenuQuit').replace('%n', app.name),
-    accelerator: 'CmdOrCtrl+Q',
+    accelerator: settings.list?.keyMap?.quitMin?.replace('mod', 'CmdOrCtrl') || 'CmdOrCtrl+Q',
     click: function (item, window, event) {
       if (!event.triggeredByAccelerator) {
         app.quit()
