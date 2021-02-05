@@ -11,11 +11,13 @@ var userAgentCheckbox = document.getElementById('checkbox-user-agent')
 var userAgentInput = document.getElementById('input-user-agent')
 
 function showRestartRequiredBanner () {
-  banner.hidden = false;
+  banner.hidden = false
   settings.set('restartNow', true)
 }
 settings.get('restartNow', (value) => {
-    if(value && value == true) showRestartRequiredBanner();
+    if(value === true) {
+        showRestartRequiredBanner()
+    }
 })
 
 /* content blocking settings */
