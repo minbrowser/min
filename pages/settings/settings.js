@@ -12,7 +12,13 @@ var userAgentInput = document.getElementById('input-user-agent')
 
 function showRestartRequiredBanner () {
   banner.hidden = false
+  settings.set('restartNow', true)
 }
+settings.get('restartNow', (value) => {
+    if(value === true) {
+        showRestartRequiredBanner()
+    }
+})
 
 /* content blocking settings */
 
