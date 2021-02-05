@@ -1,3 +1,5 @@
+const EventEmitter = require('events')
+
 var webviews = require('webviews.js')
 var keybindings = require('keybindings.js')
 var urlParser = require('util/urlParser.js')
@@ -40,10 +42,11 @@ var searchbar = {
     // find the real input value, accounting for highlighted suggestions and the key that was just pressed
     // delete key doesn't behave like the others, String.fromCharCode returns an unprintable character (which has a length of one)
 
+    var realText
     if (event && event.keyCode !== 8) {
-      var realText = text.substring(0, searchbar.associatedInput.selectionStart) + event.key + text.substring(searchbar.associatedInput.selectionEnd, text.length)
+      realText = text.substring(0, searchbar.associatedInput.selectionStart) + event.key + text.substring(searchbar.associatedInput.selectionEnd, text.length)
     } else {
-      var realText = text
+      realText = text
     }
 
     searchbarPlugins.run(realText, searchbar.associatedInput, event)

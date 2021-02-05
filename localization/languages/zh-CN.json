@@ -142,10 +142,10 @@
     "settingsCustomBangsPhrase": "命令(必填)",
     "settingsCustomBangsSnippet": "描述(可选)",
     "settingsCustomBangsRedirect": "将命令发送至(必填)",
-    "settingsCustomizeFiltersLink": "查看如何自定义过滤设置", 
+    "settingsCustomizeFiltersLink": "查看如何自定义过滤设置",
     "settingsAppearanceHeading": "外观",
     "settingsEnableDarkMode": "深色模式",
-    "settingsDarkModeNever": "禁用", 
+    "settingsDarkModeNever": "禁用",
     "settingsDarkModeNight": "只在夜晚开启",
     "settingsDarkModeAlways": "一直开启",
     "settingsSiteThemeToggle": "启用网站主题",
@@ -153,7 +153,7 @@
     "settingsUserscriptsToggle": "允许自定义脚本",
     "settingsShowDividerToggle": "显示标签页边界",
     "settingsSeparateTitlebarToggle": "显示浏览器标题栏",
-    "settingsOpenTabsInForegroundToggle": "在前台打开新标签页", 
+    "settingsOpenTabsInForegroundToggle": "在前台打开新标签页",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "自定义脚本允许您改变网站行为 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
     },
@@ -170,7 +170,7 @@
     "settingsKeyboardShortcutsHelp": "用逗号分隔多个快捷键",
     "settingsProxyHeading": "代理设置",
     "settingsNoProxy": "不使用代理",
-    "settingsManualProxy": "手动设置代理", 
+    "settingsManualProxy": "手动设置代理",
     "settingsAutomaticProxy": "启用预设代理",
     "settingsProxyRules": "代理服务器地址",
     "settingsProxyBypassRules": "不使用代理服务器访问以下地址（以逗号分隔多个地址）",
@@ -264,7 +264,7 @@
     "passwordManagerUnlock": "输入 %p 主密码来解锁密码存储区：",
     /* Password save bar */
     "passwordCaptureSavePassword": "是否保存%s的密码？",
-    "passwordCaptureSave": "保存", 
+    "passwordCaptureSave": "保存",
     "passwordCaptureDontSave": "不保存",
     /* Password viewer */
     "savedPasswordsHeading": "已保存密码",

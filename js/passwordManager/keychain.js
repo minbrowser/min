@@ -5,6 +5,8 @@ We need a way to find all passwords created by Min, so we use "min saved passwor
 and then store both the account domain and username in the "account" field as a JS object
 */
 
+const { ipcRenderer } = require('electron')
+
 class Keychain {
   constructor () {
     this.name = 'Built-in password manager'
@@ -32,7 +34,7 @@ class Keychain {
   }
 
   async getSuggestions (domain) {
-    return ipc.invoke('keychainFindCredentials', this.keychainServiceName).then(function (results) {
+    return ipcRenderer.invoke('keychainFindCredentials', this.keychainServiceName).then(function (results) {
       return results
         .filter(function (result) {
           try {
@@ -56,15 +58,15 @@ class Keychain {
   }
 
   saveCredential (domain, username, password) {
-    ipc.invoke('keychainSetPassword', this.keychainServiceName, JSON.stringify({ domain: domain, username: username }), password)
+    ipcRenderer.invoke('keychainSetPassword', this.keychainServiceName, JSON.stringify({ domain: domain, username: username }), password)
   }
 
   deleteCredential (domain, username) {
-    ipc.invoke('keychainDeletePassword', this.keychainServiceName, JSON.stringify({ domain: domain, username: username }))
+    ipcRenderer.invoke('keychainDeletePassword', this.keychainServiceName, JSON.stringify({ domain: domain, username: username }))
   }
 
   getAllCredentials () {
-    return ipc.invoke('keychainFindCredentials', this.keychainServiceName).then(function (results) {
+    return ipcRenderer.invoke('keychainFindCredentials', this.keychainServiceName).then(function (results) {
       return results.map(function (result) {
         return {
           domain: JSON.parse(result.account).domain,

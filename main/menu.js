@@ -45,7 +45,7 @@ function buildAppMenu (options = {}) {
       accelerator: 'CmdOrCtrl+b',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
-            sendIPCToWindow(window, 'showBookmarks')
+          sendIPCToWindow(window, 'showBookmarks')
         }
       }
     },
@@ -54,7 +54,7 @@ function buildAppMenu (options = {}) {
       accelerator: 'Shift+CmdOrCtrl+h',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
-            sendIPCToWindow(window, 'showHistory')
+          sendIPCToWindow(window, 'showHistory')
         }
       }
     }

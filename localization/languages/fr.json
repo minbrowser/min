@@ -137,11 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "À ce jour, Min a bloqué <strong></strong> publicités et pisteurs"
     },
-    "settingsCustomBangs": "Bangs personnalisés", 
-    "settingsCustomBangsAdd": "Ajouter un bang personnalisé", 
-    "settingsCustomBangsPhrase": "Phrase (obligatoire)", 
-    "settingsCustomBangsSnippet": "Description (optionnelle)", 
-    "settingsCustomBangsRedirect": "URL associée (obligatoire)", 
+    "settingsCustomBangs": "Bangs personnalisés",
+    "settingsCustomBangsAdd": "Ajouter un bang personnalisé",
+    "settingsCustomBangsPhrase": "Phrase (obligatoire)",
+    "settingsCustomBangsSnippet": "Description (optionnelle)",
+    "settingsCustomBangsRedirect": "URL associée (obligatoire)",
     "settingsCustomizeFiltersLink": "Paramétrer les filtres",
     "settingsAppearanceHeading": "Apparence",
     "settingsEnableDarkMode": "Activer le mode nuit:",

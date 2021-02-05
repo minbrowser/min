@@ -13,12 +13,13 @@ var currentResponseSent = 0
 function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
   var responseSent = Date.now()
 
+  var searchFn, resultCount
   if (pluginName === 'fullTextPlaces') {
-    var searchFn = places.searchPlacesFullText
-    var resultCount = 4 - searchbarPlugins.getResultCount('places')
+    searchFn = places.searchPlacesFullText
+    resultCount = 4 - searchbarPlugins.getResultCount('places')
   } else {
-    var searchFn = places.searchPlaces
-    var resultCount = 4
+    searchFn = places.searchPlaces
+    resultCount = 4
   }
 
   // only autocomplete an item if the delete key wasn't pressed

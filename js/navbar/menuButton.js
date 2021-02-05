@@ -1,3 +1,5 @@
+const { ipcRenderer } = require('electron')
+
 var keybindings = require('keybindings.js')
 var settings = require('util/settings/settings.js')
 
@@ -8,7 +10,7 @@ function showSecondaryMenu () {
   var rect = menuButton.getBoundingClientRect()
   var navbarRect = navbar.getBoundingClientRect()
 
-  ipc.send('showSecondaryMenu', {
+  ipcRenderer.send('showSecondaryMenu', {
     x: Math.round(rect.left),
     y: Math.round(navbarRect.bottom)
   })

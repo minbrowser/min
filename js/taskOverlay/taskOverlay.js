@@ -1,3 +1,5 @@
+const { ipcRenderer } = require('electron')
+
 var webviews = require('webviews.js')
 var keybindings = require('keybindings.js')
 var browserUI = require('browserUI.js')
@@ -243,7 +245,7 @@ var taskOverlay = {
     })
 
     keybindings.defineShortcut('addTask', addTaskFromMenu)
-    ipc.on('addTask', addTaskFromMenu) // for menu item
+    ipcRenderer.on('addTask', addTaskFromMenu) // for menu item
 
     /* rearrange tabs when they are dropped */
 
@@ -295,26 +297,28 @@ var taskOverlay = {
         getTaskContainer(previousTask.id).remove()
       }
 
+      var newTask
       // if dropping on "add task" button, create a new task
       if (target === addTaskButton) {
-        var newTask = tasks.get(tasks.add())
+        newTask = tasks.get(tasks.add())
         // remove from button, and re-create in overlay
         el.remove()
       } else {
         // otherwise, find a source task to add this tab to
-        var newTask = tasks.get(target.getAttribute('data-task'))
+        newTask = tasks.get(target.getAttribute('data-task'))
       }
 
       if (sibling) {
         var adjacentTadId = sibling.getAttribute('data-tab')
       }
 
+      var newIdx
       // find where in the new task the tab should be inserted
       if (adjacentTadId) {
-        var newIdx = newTask.tabs.getIndex(adjacentTadId)
+        newIdx = newTask.tabs.getIndex(adjacentTadId)
       } else {
         // tab was inserted at end
-        var newIdx = newTask.tabs.count()
+        newIdx = newTask.tabs.count()
       }
 
       // insert the tab at the correct spot

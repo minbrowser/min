@@ -1,5 +1,8 @@
 /* list of the available custom !bangs */
 
+const { ipcRenderer, remote } = require('electron')
+const fs = require('fs')
+
 var bangsPlugin = require('searchbar/bangsPlugin.js')
 
 var webviews = require('webviews.js')
@@ -16,7 +19,7 @@ function initialize () {
     snippet: l('viewSettings'),
     isAction: true,
     fn: function (text) {
-      webviews.update(tabs.getSelected(), 'file://' + __dirname + '/pages/settings/index.html')
+      webviews.update(tabs.getSelected(), 'min://settings')
     }
   })
 
@@ -44,7 +47,7 @@ function initialize () {
     isAction: true,
     fn: function (text) {
       setTimeout(function () { // wait so that the view placeholder is hidden
-        ipc.send('saveViewCapture', { id: tabs.getSelected() })
+        ipcRenderer.send('saveViewCapture', { id: tabs.getSelected() })
       }, 400)
     }
   })

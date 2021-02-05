@@ -43,10 +43,11 @@ var instantAnswers = {
       title = currencyArr.join(', ')
     }
 
+    var descriptionBlock
     if (answer.data) {
-      var descriptionBlock = answer.data.title
+      descriptionBlock = answer.data.title
     } else {
-      var descriptionBlock = l('DDGAnswerSubtitle')
+      descriptionBlock = l('DDGAnswerSubtitle')
     }
 
     return {
@@ -74,13 +75,15 @@ function showSearchbarInstantAnswers (text, input, event) {
   }).then(function (res) {
     searchbarPlugins.reset('instantAnswers')
 
+    var data
+
     // if there is a custom format for the answer, use that
     if (instantAnswers[res.AnswerType]) {
-      var data = instantAnswers[res.AnswerType](text, res.Answer)
+      data = instantAnswers[res.AnswerType](text, res.Answer)
 
     // use the default format
     } else if (res.Abstract || (res.Answer && typeof res.Answer === 'string')) {
-      var data = {
+      data = {
         title: (typeof res.Answer === 'string' && removeTags(res.Answer)) || removeTags(res.Heading),
         descriptionBlock: res.Abstract || l('DDGAnswerSubtitle'),
         attribution: ddgAttribution,
@@ -107,10 +110,11 @@ function showSearchbarInstantAnswers (text, input, event) {
         // try to convert the given url to a wikipedia link
         var entityNameRegex = /https:\/\/duckduckgo.com\/(.*?)\/?$/
 
+        var url
         if (entityNameRegex.test(item.FirstURL)) {
-          var url = 'https://wikipedia.org/wiki/' + entityNameRegex.exec(item.FirstURL)[1]
+          url = 'https://wikipedia.org/wiki/' + entityNameRegex.exec(item.FirstURL)[1]
         } else {
-          var url = item.FirstURL
+          url = item.FirstURL
         }
 
         searchbarPlugins.addResult('instantAnswers', {
