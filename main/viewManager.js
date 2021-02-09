@@ -31,6 +31,12 @@ function createView (id, webPreferencesString, boundsString, events) {
   */
   view.webContents.on('-will-add-new-contents', function (e, url) {
     e.preventDefault()
+
+    // https://github.com/minbrowser/min/issues/1455
+    if (url === 'about:blank#blocked') {
+      return
+    }
+
     mainWindow.webContents.send('view-event', {
       viewId: id,
       event: 'new-window',
