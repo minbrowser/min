@@ -132,7 +132,10 @@ var taskOverlay = {
         tabDelete: function (item) {
           var tabId = item.getAttribute('data-tab')
 
-          browserUI.destroyTab(tabId)
+          tasks.get(task.id).tabs.destroy(tabId)
+          webviews.destroy(tabId)
+
+          tabBar.updateAll()
 
           // if there are no tabs left, remove the task
           if (task.tabs.count() === 0) {
