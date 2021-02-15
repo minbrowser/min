@@ -109,6 +109,13 @@ module.exports = {
         return
       }
 
+      // https://github.com/minbrowser/min/issues/1480
+      // TODO include more extensions here, or come up with a better way of detecting this
+      if (['jpg', 'jpeg', 'png', 'webp', 'webm', 'mp4', 'ogg', 'mp3'].some(ext => tabs.get(tabs.getSelected()).url.endsWith('.' + ext))) {
+        webviews.callAsync(tabs.getSelected(), 'downloadURL', [tabs.get(tabs.getSelected()).url])
+        return
+      }
+
       var savePath = remote.dialog.showSaveDialogSync(remote.getCurrentWindow(), {
         defaultPath: currentTab.title.replace(/[/\\]/g, '_')
       })
