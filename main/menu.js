@@ -2,7 +2,7 @@ function buildAppMenu (options = {}) {
   var tabTaskActions = [
     {
       label: l('appMenuNewTab'),
-      accelerator: 'CmdOrCtrl+t',
+      accelerator: settings.get('keyMap')?.addTab?.replace('mod', 'CmdOrCtrl') || 'CmdOrCtrl+t',
       click: function (item, window, event) {
         // keyboard shortcuts for these items are handled in the renderer
         if (!event.triggeredByAccelerator) {
@@ -12,7 +12,7 @@ function buildAppMenu (options = {}) {
     },
     {
       label: l('appMenuDuplicateTab'),
-      accelerator: 'shift+CmdOrCtrl+d',
+      accelerator: settings.get('keyMap')?.duplicateTab?.replace('mod', 'CmdOrCtrl') || 'shift+CmdOrCtrl+d',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
           sendIPCToWindow(window, 'duplicateTab')
@@ -21,7 +21,7 @@ function buildAppMenu (options = {}) {
     },
     {
       label: l('appMenuNewPrivateTab'),
-      accelerator: 'shift+CmdOrCtrl+p',
+      accelerator: settings.get('keyMap')?.newPrivateTab?.replace('mod', 'CmdOrCtrl') || 'shift+CmdOrCtrl+p',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
           sendIPCToWindow(window, 'addPrivateTab')
@@ -30,7 +30,7 @@ function buildAppMenu (options = {}) {
     },
     {
       label: l('appMenuNewTask'),
-      accelerator: 'CmdOrCtrl+n',
+      accelerator: settings.get('keyMap')?.newTask?.replace('mod', 'CmdOrCtrl') || 'CmdOrCtrl+n',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
           sendIPCToWindow(window, 'addTask')
@@ -42,7 +42,7 @@ function buildAppMenu (options = {}) {
   var personalDataItems = [
     {
       label: l('appMenuBookmarks'),
-      accelerator: 'CmdOrCtrl+b',
+      accelerator: settings.get('keyMap')?.showBookmarks?.replace('mod', 'CmdOrCtrl') || 'CmdOrCtrl+b',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
           sendIPCToWindow(window, 'showBookmarks')
@@ -51,7 +51,7 @@ function buildAppMenu (options = {}) {
     },
     {
       label: l('appMenuHistory'),
-      accelerator: 'Shift+CmdOrCtrl+h',
+      accelerator: settings.get('keyMap')?.showHistory?.replace('mod', 'CmdOrCtrl') || 'Shift+CmdOrCtrl+h',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
           sendIPCToWindow(window, 'showHistory')
@@ -62,7 +62,7 @@ function buildAppMenu (options = {}) {
 
   var quitAction = {
     label: l('appMenuQuit').replace('%n', app.name),
-    accelerator: 'CmdOrCtrl+Q',
+    accelerator: settings.get('keyMap')?.quitMin?.replace('mod', 'CmdOrCtrl') || 'CmdOrCtrl+Q',
     click: function (item, window, event) {
       if (!event.triggeredByAccelerator) {
         app.quit()
