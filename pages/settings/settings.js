@@ -6,6 +6,7 @@ var siteThemeCheckbox = document.getElementById('checkbox-site-theme')
 var showDividerCheckbox = document.getElementById('checkbox-show-divider')
 var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
 var separateTitlebarCheckbox = document.getElementById('checkbox-separate-titlebar')
+var singleTabCheckbox = document.getElementById('checkbox-single-tab')
 var openTabsInForegroundCheckbox = document.getElementById('checkbox-open-tabs-in-foreground')
 var userAgentCheckbox = document.getElementById('checkbox-user-agent')
 var userAgentInput = document.getElementById('input-user-agent')
@@ -244,6 +245,23 @@ settings.get('showDividerBetweenTabs', function (value) {
 
 showDividerCheckbox.addEventListener('change', function (e) {
   settings.set('showDividerBetweenTabs', this.checked)
+})
+
+/* single tab setting */
+
+if (navigator.platform.includes('Linux')) {
+  document.getElementById('section-single-tab').hidden = false
+}
+
+settings.get('useSingleTab', function (value) {
+  if (value === true) {
+    singleTabCheckbox.checked = true
+  }
+})
+
+singleTabCheckbox.addEventListener('change', function (e) {
+  settings.set('useSingleTab', this.checked)
+  // showRestartRequiredBanner()
 })
 
 /* separate titlebar setting */

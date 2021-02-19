@@ -1,5 +1,6 @@
 /* Handles messages that get sent from the menu bar in the main process */
 
+var settings = require('util/settings/settings.js')
 var webviews = require('webviews.js')
 var webviewGestures = require('webviewGestures.js')
 var browserUI = require('browserUI.js')
@@ -86,13 +87,19 @@ module.exports = {
         return
       }
 
-      var newTab = tabs.add({
-        url: data.url || ''
-      })
+      let useSingleTab = settings.get('useSingleTab')
+      if (useSingleTab === false || tabs.count == 0) {
+        var newTab = tabs.add({
+          url: data.url || ''
+        })
 
-      browserUI.addTab(newTab, {
-        enterEditMode: !data.url // only enter edit mode if the new tab is empty
-      })
+        browserUI.addTab(newTab, {
+          enterEditMode: !data.url // only enter edit mode if the new tab is empty
+        })
+      }
+      else {
+        webviews.update(tabs.getSelected(), data.url)
+      }
     })
 
     ipc.on('saveCurrentPage', function () {

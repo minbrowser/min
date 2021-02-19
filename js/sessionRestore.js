@@ -1,6 +1,7 @@
 var browserUI = require('browserUI.js')
 var webviews = require('webviews.js')
 var tabEditor = require('navbar/tabEditor.js')
+var settings = require('util/settings/settings.js')
 
 const sessionRestore = {
   savePath: window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
@@ -14,11 +15,16 @@ const sessionRestore = {
     }
 
     // save all tabs that aren't private
-
-    for (var i = 0; i < data.state.tasks.length; i++) {
-      data.state.tasks[i].tabs = data.state.tasks[i].tabs.filter(function (tab) {
-        return !tab.private
-      })
+    if (settings.get('useSingleTab') === false) {
+      for (var i = 0; i < data.state.tasks.length; i++) {
+        data.state.tasks[i].tabs = data.state.tasks[i].tabs.filter(function (tab) {
+          return !tab.private
+        })
+      }
+    }
+    else {
+        while (data.state.tasks.count() >1)
+            data.state.tasks.pop()
     }
 
     if (forceSave === true || stateString !== sessionRestore.previousState) {

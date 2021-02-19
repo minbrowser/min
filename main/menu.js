@@ -1,43 +1,46 @@
 function buildAppMenu (options = {}) {
-  var tabTaskActions = [
-    {
-      label: l('appMenuNewTab'),
-      accelerator: settings.get('keyMap')?.addTab?.replace('mod', 'CmdOrCtrl') || 'CmdOrCtrl+t',
-      click: function (item, window, event) {
-        // keyboard shortcuts for these items are handled in the renderer
-        if (!event.triggeredByAccelerator) {
-          sendIPCToWindow(window, 'addTab')
+  var tabTaskActions = []
+  if (settings.get('useSingleTab') === false) {
+    tabTaskActions = [
+      {
+        label: l('appMenuNewTab'),
+        accelerator: settings.get('keyMap')?.addTab?.replace('mod', 'CmdOrCtrl') || 'CmdOrCtrl+t',
+        click: function (item, window, event) {
+          // keyboard shortcuts for these items are handled in the renderer
+          if (!event.triggeredByAccelerator) {
+            sendIPCToWindow(window, 'addTab')
+          }
+        }
+      },
+      {
+        label: l('appMenuDuplicateTab'),
+        accelerator: settings.get('keyMap')?.duplicateTab?.replace('mod', 'CmdOrCtrl') || 'shift+CmdOrCtrl+d',
+        click: function (item, window, event) {
+          if (!event.triggeredByAccelerator) {
+            sendIPCToWindow(window, 'duplicateTab')
+          }
+        }
+      },
+      {
+        label: l('appMenuNewPrivateTab'),
+        accelerator: settings.get('keyMap')?.newPrivateTab?.replace('mod', 'CmdOrCtrl') || 'shift+CmdOrCtrl+p',
+        click: function (item, window, event) {
+          if (!event.triggeredByAccelerator) {
+            sendIPCToWindow(window, 'addPrivateTab')
+          }
+        }
+      },
+      {
+        label: l('appMenuNewTask'),
+        accelerator: settings.get('keyMap')?.newTask?.replace('mod', 'CmdOrCtrl') || 'CmdOrCtrl+n',
+        click: function (item, window, event) {
+          if (!event.triggeredByAccelerator) {
+            sendIPCToWindow(window, 'addTask')
+          }
         }
       }
-    },
-    {
-      label: l('appMenuDuplicateTab'),
-      accelerator: settings.get('keyMap')?.duplicateTab?.replace('mod', 'CmdOrCtrl') || 'shift+CmdOrCtrl+d',
-      click: function (item, window, event) {
-        if (!event.triggeredByAccelerator) {
-          sendIPCToWindow(window, 'duplicateTab')
-        }
-      }
-    },
-    {
-      label: l('appMenuNewPrivateTab'),
-      accelerator: settings.get('keyMap')?.newPrivateTab?.replace('mod', 'CmdOrCtrl') || 'shift+CmdOrCtrl+p',
-      click: function (item, window, event) {
-        if (!event.triggeredByAccelerator) {
-          sendIPCToWindow(window, 'addPrivateTab')
-        }
-      }
-    },
-    {
-      label: l('appMenuNewTask'),
-      accelerator: settings.get('keyMap')?.newTask?.replace('mod', 'CmdOrCtrl') || 'CmdOrCtrl+n',
-      click: function (item, window, event) {
-        if (!event.triggeredByAccelerator) {
-          sendIPCToWindow(window, 'addTask')
-        }
-      }
-    }
-  ]
+    ]
+  }
 
   var personalDataItems = [
     {
@@ -82,7 +85,7 @@ function buildAppMenu (options = {}) {
 
   var template = [
     ...(options.secondary ? tabTaskActions : []),
-    ...(options.secondary ? [{ type: 'separator' }] : []),
+    ...(options.secondary && tabTaskActions != [] ? [{ type: 'separator' }] : []),
     ...(options.secondary ? personalDataItems : []),
     ...(options.secondary ? [{ type: 'separator' }] : []),
     ...(options.secondary ? [preferencesAction] : []),
@@ -133,7 +136,7 @@ function buildAppMenu (options = {}) {
       label: l('appMenuFile'),
       submenu: [
         ...(!options.secondary ? tabTaskActions : []),
-        ...(!options.secondary ? [{ type: 'separator' }] : []),
+        ...(options.secondary && tabTaskActions != [] ? [{ type: 'separator' }] : []),
         {
           label: l('appMenuSavePageAs'),
           accelerator: 'CmdOrCtrl+s',

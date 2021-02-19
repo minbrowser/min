@@ -4,6 +4,9 @@ function initialize () {
   if (settings.get('useSeparateTitlebar') === true) {
     document.body.classList.add('separate-titlebar')
   }
+  if (settings.get('useSingleTab') === true) {
+    document.querySelector('#add-tab-button').hidden = true
+  }
 
   var windowIsMaximized = false
   var windowIsFullscreen = false

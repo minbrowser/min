@@ -71,16 +71,18 @@ const tabBar = {
     secIcon.title = l('connectionNotSecure')
     iconArea.appendChild(secIcon)
 
-    var closeTabButton = document.createElement('button')
-    closeTabButton.className = 'tab-icon tab-close-button i carbon:close'
+    if (settings.get('useSingleTab') === false) {
+      var closeTabButton = document.createElement('button')
+      closeTabButton.className = 'tab-icon tab-close-button i carbon:close'
 
-    closeTabButton.addEventListener('click', function (e) {
-      tabBar.events.emit('tab-closed', data.id)
-      // prevent the searchbar from being opened
-      e.stopPropagation()
-    })
+      closeTabButton.addEventListener('click', function (e) {
+        tabBar.events.emit('tab-closed', data.id)
+        // prevent the searchbar from being opened
+        e.stopPropagation()
+      })
 
-    iconArea.appendChild(closeTabButton)
+      iconArea.appendChild(closeTabButton)
+    }
 
     tabEl.appendChild(iconArea)
 

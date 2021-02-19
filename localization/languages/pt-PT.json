@@ -153,6 +153,7 @@
     "settingsUserscriptsToggle": "Ativar scripts de utilizador",
     "settingsShowDividerToggle": "Mostrar divisor entre os separadores",
     "settingsSeparateTitlebarToggle": "Utilizar barra de título separada",
+    "settingsSingleTabToggle": "Guia única",
     "settingsOpenTabsInForegroundToggle": "Abrir novos separadores em primeiro plano",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."

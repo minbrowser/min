@@ -169,15 +169,21 @@ webviews.bindEvent('new-window', function (tabId, url, frameName, disposition) {
     focusMode.warn()
     return
   }
-  var newTab = tabs.add({
-    url: url,
-    private: tabs.get(tabId).private // inherit private status from the current tab
-  })
+  let useSingleTab = settings.get('useSingleTab')
+  if (useSingleTab === false || tabs.count() == 0) {
+    var newTab = tabs.add({
+      url: url,
+      private: tabs.get(tabId).private // inherit private status from the current tab
+    })
 
-  addTab(newTab, {
-    enterEditMode: false,
-    openInBackground: disposition === 'background-tab' && !settings.get('openTabsInForeground')
-  })
+    addTab(newTab, {
+      enterEditMode: false,
+      openInBackground: disposition === 'background-tab' && !settings.get('openTabsInForeground')
+    })
+  } else {
+    webviews.update(tabs.getSelected(), url)
+    tabEditor.hide()
+  }
 })
 
 webviews.bindIPC('close-window', function (tabId, args) {
