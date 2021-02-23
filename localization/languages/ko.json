@@ -137,11 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "지금까지 민(Min)은 <strong></strong> 광고 및 추적기를 차단했습니다."
     },
-    "settingsCustomBangs": null, // missing translation
-    "settingsCustomBangsAdd": null, // missing translation
-    "settingsCustomBangsPhrase": null, // missing translation
-    "settingsCustomBangsSnippet": null, // missing translation
-    "settingsCustomBangsRedirect": null, // missing translation
+    "settingsCustomBangs": "사용자 정의 연결 명령",
+    "settingsCustomBangsAdd": "사용자 정의 연결 명령 추가",
+    "settingsCustomBangsPhrase": "명령어 (필수)",
+    "settingsCustomBangsSnippet": "설명 (선택)",
+    "settingsCustomBangsRedirect": "연결할 URL (필수)",
     "settingsCustomizeFiltersLink": "사용자 정의 필터",
     "settingsAppearanceHeading": "외형",
     "settingsEnableDarkMode": "어두운 외형(Dark Mode) 사용:",
