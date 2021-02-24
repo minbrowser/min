@@ -151,6 +151,7 @@ require('util/theme.js').initialize()
 require('userscripts.js').initialize()
 require('statistics.js').initialize()
 require('taskOverlay/taskOverlay.js').initialize()
+require('pageHighlighting.js').initialize()
 require('sessionRestore.js').initialize()
 
 // default searchbar plugins

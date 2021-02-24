@@ -123,7 +123,8 @@ onmessage = function (e) {
             searchIndex: [],
             isBookmarked: false,
             tags: [],
-            metadata: {}
+            metadata: {},
+            annotations: []
           }
         }
         for (const key in pageData) {

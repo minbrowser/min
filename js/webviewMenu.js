@@ -4,6 +4,7 @@ const webviews = require('webviews.js')
 const browserUI = require('browserUI.js')
 const searchEngine = require('util/searchEngine.js')
 const userscripts = require('userscripts.js')
+const pageHighlighting = require('pageHighlighting.js')
 const settings = require('util/settings/settings.js')
 
 const remoteMenu = require('remoteMenuRenderer.js')
@@ -158,6 +159,12 @@ const webviewMenu = {
 
     if (selection) {
       var textActions = [
+        {
+          label: 'Add highlight',
+          click: function () {
+            pageHighlighting.createHighlight()
+          }
+        },
         {
           label: l('searchWith').replace('%s', searchEngine.getCurrent().name),
           click: function () {

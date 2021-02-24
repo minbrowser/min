@@ -9,7 +9,10 @@ const modules = [
   'js/preload/readerDetector.js',
   'js/preload/siteUnbreak.js',
   'js/util/settings/settingsPreload.js',
-  'js/preload/passwordFill.js'
+  'js/preload/passwordFill.js',
+  'ext/text-fragments-polyfill/text-fragment-utils.js',
+  'ext/text-fragments-polyfill/fragment-generation-utils.js',
+  'js/preload/highlighting.js'
 ]
 
 function buildPreload () {
