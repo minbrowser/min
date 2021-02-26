@@ -1,7 +1,37 @@
-textFragmentGenerationUtils.setTimeout(2000)
+var injected = false
+function injectStyles () {
+  if (injected) {
+    return
+  }
+  injected = true
+
+  var el = document.createElement('style')
+  el.textContent = `
+    mark {
+      background-color: #ffeb00;
+      box-shadow: 0 0 0 0.1em #ffeb00;
+    }
+  `
+  document.head.appendChild(el)
+}
+
+textFragmentGenerationUtils.setTimeout(3000)
+
+var highlightElementMap = []
 
 function addHighlights (highlights) {
   const processedFragmentDirectives = textFragmentUtils.processFragmentDirectives({ text: highlights })
+
+  processedFragmentDirectives.text.forEach(function (item, i) {
+    highlightElementMap.push({
+      highlight: highlights[i],
+      elements: item
+    })
+  })
+
+  injectStyles()
+
+  console.log(highlightElementMap)
 }
 
 ipc.on('createHighlight', function () {
@@ -10,7 +40,9 @@ ipc.on('createHighlight', function () {
 
   console.log(highlight)
 
-  addHighlights([highlight.fragment])
+  if (highlight.status === 0) {
+    addHighlights([highlight.fragment])
+  }
 })
 
 ipc.on('setAnnotations', function (e, annotations) {

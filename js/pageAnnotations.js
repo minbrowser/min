@@ -3,7 +3,7 @@ const places = require('places/places.js')
 const db = require('util/database.js').db
 const urlParser = require('util/urlParser.js')
 
-const pageHighlighting = {
+const pageAnnotations = {
   createHighlight: function () {
     webviews.callAsync(tabs.getSelected(), 'send', ['createHighlight'])
   },
@@ -36,8 +36,8 @@ const pageHighlighting = {
       })
     })
 
-    webviews.bindEvent('did-finish-load', pageHighlighting.onPageLoad)
+    webviews.bindEvent('did-finish-load', pageAnnotations.onPageLoad)
   }
 }
 
-module.exports = pageHighlighting
+module.exports = pageAnnotations
