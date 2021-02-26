@@ -7,9 +7,21 @@ function injectStyles () {
 
   var el = document.createElement('style')
   el.textContent = `
-    mark {
+  @keyframes min-browser-user-highlight-fadein {
+    0% {
+      background-color: transparent;
+      box-shadow: 0 0 0 0.1em transparent;
+    }
+    100% {
       background-color: #ffeb00;
       box-shadow: 0 0 0 0.1em #ffeb00;
+    }
+  }
+    mark.min-browser-user-highlight {
+      color: currentColor;
+      background-color: #ffeb00;
+      box-shadow: 0 0 0 0.1em #ffeb00;
+      animation: min-browser-user-highlight-fadein 0.15s;
     }
   `
   document.head.appendChild(el)
@@ -22,10 +34,14 @@ var highlightElementMap = []
 function addHighlights (highlights) {
   const processedFragmentDirectives = textFragmentUtils.processFragmentDirectives({ text: highlights })
 
-  processedFragmentDirectives.text.forEach(function (item, i) {
+  processedFragmentDirectives.text.forEach(function (els, i) {
+    els.forEach(function (el) {
+      el.className = 'min-browser-user-highlight'
+    })
+
     highlightElementMap.push({
       highlight: highlights[i],
-      elements: item
+      elements: els
     })
   })
 
