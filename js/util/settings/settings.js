@@ -1,17 +1,44 @@
 var settings = {
   filePath: (process.type === 'renderer' ? window.globalArgs['user-data-path'] : userDataPath) + (process.platform === 'win32' ? '\\' : '/') + 'settings.json',
+  fileWritePromise: null,
   list: {},
   onChangeCallbacks: [],
   save: function (cb) {
-    fs.writeFile(settings.filePath, JSON.stringify(settings.list), function (e) {
+    /*
+    Writing to the settings file from multiple places simultaneously causes data corruption, so to avoid that:
+    * We forward data from the renderer process to the main process, and only write from there
+    * In the main process, we put multiple save requests in a queue (by chaining them to a promise) so they execute individually
+    * https://github.com/minbrowser/min/issues/1520
+    */
+
+    if (process.type === 'renderer') {
+      ipc.send('receiveSettingsData', settings.list)
       if (cb) {
         cb()
       }
-    })
-    if (process.type === 'renderer') {
-      ipc.send('receiveSettingsData', settings.list)
-    } else if (process.type === 'browser' && mainWindow) {
-      mainWindow.webContents.send('receiveSettingsData', settings.list)
+    }
+
+    if (process.type === 'browser') {
+      /* eslint-disable no-inner-declarations */
+      function writeFileInner () {
+        settings.fileWritePromise = fs.promises.writeFile(settings.filePath, JSON.stringify(settings.list)).then(function (e) {
+          settings.fileWritePromise = null
+          if (cb) {
+            cb()
+          }
+        })
+      }
+      /* eslint-enable no-inner-declarations */
+
+      if (settings.fileWritePromise) {
+        settings.fileWritePromise.then(writeFileInner)
+      } else {
+        writeFileInner()
+      }
+
+      if (mainWindow) {
+        mainWindow.webContents.send('receiveSettingsData', settings.list)
+      }
     }
   },
   runChangeCallacks () {
@@ -56,6 +83,10 @@ var settings = {
     ipc.on('receiveSettingsData', function (e, data) {
       settings.list = data
       settings.runChangeCallacks()
+
+      if (process.type === 'browser') {
+        settings.save()
+      }
     })
   }
 }
