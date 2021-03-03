@@ -20,21 +20,22 @@ var settings = {
 
     if (process.type === 'browser') {
       /* eslint-disable no-inner-declarations */
-      function writeFileInner () {
-        settings.fileWritePromise = fs.promises.writeFile(settings.filePath, JSON.stringify(settings.list)).then(function (e) {
-          settings.fileWritePromise = null
+      /* eslint-disable no-inner-declarations */
+      function newFileWrite () {
+        return fs.promises.writeFile(settings.filePath, JSON.stringify(settings.list)).then(function (e) {
           if (cb) {
             cb()
           }
         })
       }
+
+      function ongoingFileWrite () {
+        return settings.fileWritePromise || Promise.resolve()
+      }
       /* eslint-enable no-inner-declarations */
 
-      if (settings.fileWritePromise) {
-        settings.fileWritePromise.then(writeFileInner)
-      } else {
-        writeFileInner()
-      }
+      // eslint-disable-next-line no-return-assign
+      settings.fileWritePromise = ongoingFileWrite().then(newFileWrite).then(() => settings.fileWritePromise = null)
 
       if (mainWindow) {
         mainWindow.webContents.send('receiveSettingsData', settings.list)
