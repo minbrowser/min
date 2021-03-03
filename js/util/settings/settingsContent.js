@@ -34,12 +34,9 @@ var settings = {
       settings.onChangeCallbacks.push({ cb: key })
     }
   },
-  set: function (key, value, cb) {
+  set: function (key, value) {
     settings.list[key] = value
     postMessage({ message: 'setSetting', key, value })
-    if (cb) {
-      cb()
-    }
     settings.runChangeCallacks()
   },
   load: function () {

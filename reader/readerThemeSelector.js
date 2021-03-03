@@ -56,9 +56,10 @@ themeSelectors.forEach(function (el) {
   el.addEventListener('click', function () {
     var theme = this.getAttribute('data-theme')
     if (isNight()) {
-      settings.set('readerNightTheme', theme, setReaderTheme)
+      settings.set('readerNightTheme', theme)
     } else {
-      settings.set('readerDayTheme', theme, setReaderTheme)
+      settings.set('readerDayTheme', theme)
     }
+    setReaderTheme()
   })
 })
