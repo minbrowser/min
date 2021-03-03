@@ -15,9 +15,9 @@ function showRestartRequiredBanner () {
   settings.set('restartNow', true)
 }
 settings.get('restartNow', (value) => {
-    if(value === true) {
-        showRestartRequiredBanner()
-    }
+  if (value === true) {
+    showRestartRequiredBanner()
+  }
 })
 
 /* content blocking settings */
@@ -462,9 +462,8 @@ function onKeyMapChange (e) {
     }
 
     keyMapSettings[action] = parseKeyInput(newValue)
-    settings.set('keyMap', keyMapSettings, function () {
-      showRestartRequiredBanner()
-    })
+    settings.set('keyMap', keyMapSettings)
+    showRestartRequiredBanner()
   })
 }
 

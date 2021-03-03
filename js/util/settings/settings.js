@@ -3,7 +3,7 @@ var settings = {
   fileWritePromise: null,
   list: {},
   onChangeCallbacks: [],
-  save: function (cb) {
+  save: function () {
     /*
     Writing to the settings file from multiple places simultaneously causes data corruption, so to avoid that:
     * We forward data from the renderer process to the main process, and only write from there
@@ -13,9 +13,6 @@ var settings = {
 
     if (process.type === 'renderer') {
       ipc.send('receiveSettingsData', settings.list)
-      if (cb) {
-        cb()
-      }
     }
 
     if (process.type === 'browser') {
@@ -63,9 +60,9 @@ var settings = {
       settings.onChangeCallbacks.push({ cb: key })
     }
   },
-  set: function (key, value, cb) {
+  set: function (key, value) {
     settings.list[key] = value
-    settings.save(cb)
+    settings.save()
     settings.runChangeCallacks()
   },
   initialize: function () {
