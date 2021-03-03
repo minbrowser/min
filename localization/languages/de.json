@@ -137,11 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Bis jetzt hat Min <strong></strong> Werbeanzeigen und Aktivitätsverfolgungen blockiert."
     },
-    "settingsCustomBangs": null, // missing translation
-    "settingsCustomBangsAdd": null, // missing translation
-    "settingsCustomBangsPhrase": null, // missing translation
-    "settingsCustomBangsSnippet": null, // missing translation
-    "settingsCustomBangsRedirect": null, // missing translation
+    "settingsCustomBangs": "Benutzerdefinierte Bangs",
+    "settingsCustomBangsAdd": "Bang hinzufügen",
+    "settingsCustomBangsPhrase": "Ausdruck (zwingend)",
+    "settingsCustomBangsSnippet": "Beschreibung (optional)",
+    "settingsCustomBangsRedirect": "URL-Weiterleitung (zwingend)",
     "settingsCustomizeFiltersLink": "Filter anpassen",
     "settingsAppearanceHeading": "Aussehen",
     "settingsEnableDarkMode": "Dunkelmodus einschalten:",
@@ -159,7 +159,9 @@
     },
     "settingsUserAgentToggle": "Benutzerdefiniertes Benutzer-Agent nutzen",
     "settingsUpdateNotificationsToggle": "Automatisch nach Aktualisierungen überprüfen",
-    "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "Sende anonyme Nutzungsstatistiken (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Mehr Infos</a>)"
+    },
     "settingsSearchEngineHeading": "Suchmaschine",
     "settingsDefaultSearchEngine": "Standardsuchmaschine auswählen:",
     "settingsDDGExplanation": "DuckDuckGo als Standardsuchmaschine einstellen, um sofort Vorschläge in der Suchleiste zu erhalten.",
