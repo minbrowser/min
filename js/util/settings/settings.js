@@ -19,11 +19,7 @@ var settings = {
       /* eslint-disable no-inner-declarations */
       /* eslint-disable no-inner-declarations */
       function newFileWrite () {
-        return fs.promises.writeFile(settings.filePath, JSON.stringify(settings.list)).then(function (e) {
-          if (cb) {
-            cb()
-          }
-        })
+        return fs.promises.writeFile(settings.filePath, JSON.stringify(settings.list))
       }
 
       function ongoingFileWrite () {
