@@ -269,7 +269,7 @@
     /* Password viewer */
     "savedPasswordsHeading": "Senhas salvas",
     "savedPasswordsEmpty": "Nenhuma senha salva",
-    "deletePassword": "Excluir senha de %s?", //missing translation
+    "deletePassword": "Excluir senha de %s?",
     /* Dialogs */
     "loginPromptTitle": "Fazer login em %h (%r)",
     "dialogConfirmButton": "Confirmar",
