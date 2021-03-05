@@ -137,11 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Até agora, o Min bloqueou <strong> </strong> anúncios e rastreadores."
     },
-    "settingsCustomBangs": null, // missing translation
-    "settingsCustomBangsAdd": null, // missing translation
-    "settingsCustomBangsPhrase": null, // missing translation
-    "settingsCustomBangsSnippet": null, // missing translation
-    "settingsCustomBangsRedirect": null, // missing translation
+    "settingsCustomBangs": "Bangs personalizados",
+    "settingsCustomBangsAdd": "Adicionar um bang personalizado",
+    "settingsCustomBangsPhrase": "Comando (obrigatório)",
+    "settingsCustomBangsSnippet": "Descrição (opcional)",
+    "settingsCustomBangsRedirect": "URL de redirecionamento (obrigatório)",
     "settingsCustomizeFiltersLink": "Personalizar filtros",
     "settingsAppearanceHeading": "Aparência",
     "settingsEnableDarkMode": "Habilitar modo dark:",
@@ -159,7 +159,9 @@
     },
     "settingsUserAgentToggle": "Usar agente de usuário personalizado",
     "settingsUpdateNotificationsToggle": "Verificar atualizações automaticamente",
-    "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "Enviar estatísticas de uso (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Mais informações</a>)"
+    },
     "settingsSearchEngineHeading": "Serviço de busca",
     "settingsDefaultSearchEngine": "Escolha o serviço de busca padrão:",
     "settingsDDGExplanation": "Defina DuckDuckGo como o serviço padrão de buscas para ver respostas instantâneas na barra de busca.",
@@ -241,7 +243,7 @@
     /* Autofill settings */
     "settingsPasswordAutoFillHeadline": "Preenchimento automático de senhas",
     "settingsSelectPasswordManager": "Escolha um gerenciadoror de senhas suportado:",
-    "keychainViewPasswords": null, //missing translation
+    "keychainViewPasswords": "Ver senhas salvas",
     /* Password manager setup */
     "passwordManagerSetupHeading": "Conclua a configuração de %p para usar o preenchimento automático",
     "passwordManagerSetupStep1": {
@@ -261,13 +263,13 @@
     "passwordManagerSetupRetry": "Verifique se você está usando o arquivo certo e digitando a senha correta. Você pode tentar novamente arrastando a ferramenta aqui.",
     "passwordManagerUnlock": "Digite sua senha mestre %p para desbloquear o armazenamento de senhas:",
     /* Password save bar */
-    "passwordCaptureSavePassword": null, //missing translation
-    "passwordCaptureSave": null, //missing translation
-    "passwordCaptureDontSave": null, //missing translation
+    "passwordCaptureSavePassword": "Salvar senha para %s?",
+    "passwordCaptureSave": "Salvar",
+    "passwordCaptureDontSave": "Não salvar",
     /* Password viewer */
-    "savedPasswordsHeading": null, //missing translation
-    "savedPasswordsEmpty": null, //missing translation
-    "deletePassword": null, //missing translation
+    "savedPasswordsHeading": "Senhas salvas",
+    "savedPasswordsEmpty": "Nenhuma senha salva",
+    "deletePassword": "Excluir senha de %s?",
     /* Dialogs */
     "loginPromptTitle": "Fazer login em %h (%r)",
     "dialogConfirmButton": "Confirmar",
