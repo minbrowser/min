@@ -248,10 +248,6 @@ showDividerCheckbox.addEventListener('change', function (e) {
 
 /* separate titlebar setting */
 
-if (navigator.platform.includes('Linux')) {
-  document.getElementById('section-separate-titlebar').hidden = false
-}
-
 settings.get('useSeparateTitlebar', function (value) {
   if (value === true) {
     separateTitlebarCheckbox.checked = true

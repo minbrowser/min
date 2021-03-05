@@ -9,15 +9,14 @@ body {
   display: none;
 }
 
-body.windows:not(.maximized):not(.fullscreen),
+body.windows:not(.maximized):not(.fullscreen):not(.separate-titlebar),
 body.linux:not(.maximized):not(.fullscreen):not(.separate-titlebar) {
   --control-space-top: 12px;
 }
 
 /* On Windows, draggable regions aren't clickable, so the drag region is a separate area above the tabstrip */
-body.windows:not(.maximized):not(.fullscreen) .window-drag-area,
-body.linux:not(.maximized):not(.fullscreen):not(.separate-titlebar)
-  .window-drag-area {
+body.windows:not(.maximized):not(.fullscreen):not(.separate-titlebar) .window-drag-area,
+body.linux:not(.maximized):not(.fullscreen):not(.separate-titlebar) .window-drag-area {
   display: block;
   position: fixed;
   /* leave an empty space around the edges of the drag area so that the window can be resized */
@@ -29,7 +28,7 @@ body.linux:not(.maximized):not(.fullscreen):not(.separate-titlebar)
 }
 
 /* On mac, the entire navbar is draggable, so the drag area is placed behind the navbar */
-body.mac .window-drag-area {
+body.mac:not(.separate-titlebar) .window-drag-area {
   display: block;
   position: fixed;
   top: 0;
@@ -41,13 +40,13 @@ body.mac .window-drag-area {
 
 /* mac window buttons */
 
-body.mac:not(.fullscreen) {
+body.mac:not(.fullscreen):not(.separate-titlebar) {
   --control-space-left: 75px;
 }
 
 /* Windows caption buttions */
 
-body.windows {
+body.windows:not(.separate-titlebar) {
   --control-space-right: 138px;
 }
 
@@ -55,7 +54,7 @@ body.windows {
   display: none;
 }
 
-body.windows .windows-caption-buttons {
+body.windows:not(.separate-titlebar) .windows-caption-buttons {
   display: flex;
   position: absolute;
   top: var(--control-space-top);
