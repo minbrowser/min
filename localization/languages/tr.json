@@ -267,7 +267,7 @@
     "passwordCaptureSave": "Kaydet",
     "passwordCaptureDontSave": "Kaydetme",
     /* Password viewer */
-    "savedPasswordsHeading": "Kaıtlı Parolalar",
+    "savedPasswordsHeading": "Kayıtlı Parolalar",
     "savedPasswordsEmpty": "Kaydedilmiş parola yok.",
     "deletePassword": "% için parola silinsin mi?",
     /* Dialogs */
