@@ -277,6 +277,7 @@
     "username": "ユーザー名",
     "email": "Eメール",
     "password": "パスワード",
-    "secretKey": "秘密鍵"
+    "secretKey": "秘密鍵",
+    "openExternalApp": null //missing translation
   }
 }

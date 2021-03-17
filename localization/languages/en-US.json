@@ -277,6 +277,7 @@
     "username": "Username",
     "email": "Email",
     "password": "Password",
-    "secretKey": "Secret key"
+    "secretKey": "Secret key",
+    "openExternalApp": "Open in \\\"%s\\\"?" // %s is the name of an app
   }
 }

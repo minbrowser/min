@@ -275,6 +275,7 @@
     "username": "Uživatelské jméno",
     "email": "E-mail",
     "password": "Heslo",
-    "secretKey": "Tajný klíč"
+    "secretKey": "Tajný klíč",
+    "openExternalApp": null //missing translation
   }
 }

@@ -274,6 +274,7 @@
     "username": "Потребителско име",
     "email": "Имейл",
     "password": "Парола",
-    "secretKey": "Таен ключ"
+    "secretKey": "Таен ключ",
+    "openExternalApp": null //missing translation
   }
 }

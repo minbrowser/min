@@ -77,7 +77,7 @@ function createView (id, webPreferencesString, boundsString, events) {
         // TODO find a better way to do this
         // (the reason to use executeJS instead of the Electron dialog API is so we get the "prevent this page from creating additional dialogs" checkbox)
         var sanitizedName = externalApp.replace(/[^a-zA-Z0-9.]/g, '')
-        view.webContents.executeJavaScript('confirm("Open in \\"' + sanitizedName + '\\"?")').then(function (result) {
+        view.webContents.executeJavaScript('confirm("' + l('openExternalApp').replace('%s', sanitizedName) + '")').then(function (result) {
           if (result === true) {
             electron.shell.openExternal(url)
           }
