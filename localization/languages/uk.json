@@ -278,6 +278,7 @@
     "username": "Ім'я користувача",
     "email": "Електронна пошта",
     "password": "Пароль",
-    "secretKey": "Секретний ключ"
+    "secretKey": "Секретний ключ",
+    "openExternalApp": null //missing translation
   }
 }

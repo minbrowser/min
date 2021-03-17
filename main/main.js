@@ -333,7 +333,6 @@ app.on('ready', function () {
   mainMenu = buildAppMenu()
   Menu.setApplicationMenu(mainMenu)
   createDockMenu()
-  registerProtocols()
 })
 
 app.on('open-url', function (e, url) {
@@ -386,10 +385,3 @@ ipc.on('showSecondaryMenu', function (event, data) {
 ipc.on('quit', function () {
   app.quit()
 })
-
-function registerProtocols () {
-  protocol.registerStringProtocol('mailto', function (req, cb) {
-    electron.shell.openExternal(req.url)
-    return null
-  })
-}

@@ -68,6 +68,24 @@ function createView (id, webPreferencesString, boundsString, events) {
     })
   })
 
+  // handle external protocols
+  view.webContents.on('did-start-navigation', function (e, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
+    var knownProtocols = ['http', 'https', 'file', 'min', 'about', 'data', 'javascript', 'chrome'] // TODO anything else?
+    if (!knownProtocols.includes(url.split(':')[0])) {
+      var externalApp = app.getApplicationNameForProtocol(url)
+      if (externalApp) {
+        // TODO find a better way to do this
+        // (the reason to use executeJS instead of the Electron dialog API is so we get the "prevent this page from creating additional dialogs" checkbox)
+        var sanitizedName = externalApp.replace(/[^a-zA-Z0-9.]/g, '')
+        view.webContents.executeJavaScript('confirm("' + l('openExternalApp').replace('%s', sanitizedName) + '")').then(function (result) {
+          if (result === true) {
+            electron.shell.openExternal(url)
+          }
+        })
+      }
+    }
+  })
+
   view.setBounds(JSON.parse(boundsString))
 
   viewMap[id] = view

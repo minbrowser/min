@@ -275,6 +275,7 @@
     "username": "使用者名稱",
     "email": "Email",
     "password": "密碼",
-    "secretKey": "Secret key"
+    "secretKey": "Secret key",
+    "openExternalApp": null //missing translation
   }
 }

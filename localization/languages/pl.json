@@ -277,6 +277,7 @@
     "username": "Nazwa Użytkownika",
     "email": "Email",
     "password": "Hasło",
-    "secretKey": "Sekretny klucz"
+    "secretKey": "Sekretny klucz",
+    "openExternalApp": null //missing translation
   }
 }

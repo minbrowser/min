@@ -277,6 +277,7 @@
     "username": "사용자 이름",
     "email": "전자우편주소(E-Mail)",
     "password": "비밀번호",
-    "secretKey": "비밀 보안 키"
+    "secretKey": "비밀 보안 키",
+    "openExternalApp": null //missing translation
   }
 }
