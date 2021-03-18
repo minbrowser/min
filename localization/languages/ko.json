@@ -278,6 +278,6 @@
     "email": "전자우편주소(E-Mail)",
     "password": "비밀번호",
     "secretKey": "비밀 보안 키",
-    "openExternalApp": null //missing translation
+    "openExternalApp": "\\\"%s\\\"에서 열까요?"
   }
 }
