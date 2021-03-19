@@ -4,10 +4,29 @@
   "author": "PalmerAL",
   "version": "1.18.1",
   "description": "A fast, minimal browser that protects your privacy",
-  "electronVersion": "11.2.3",
+  "electronVersion": "12.0.1",
   "main": "main.build.js",
   "standard": {
-    "globals": ["l", "tabs", "tasks", "globalArgs", "platformType", "throttle", "debounce", "empty", "alert", "confirm", "requestAnimationFrame", "requestIdleCallback", "fetch", "localStorage", "performance", "IntersectionObserver", "Node", "Event"]
+    "globals": [
+      "l",
+      "tabs",
+      "tasks",
+      "globalArgs",
+      "platformType",
+      "throttle",
+      "debounce",
+      "empty",
+      "alert",
+      "confirm",
+      "requestAnimationFrame",
+      "requestIdleCallback",
+      "fetch",
+      "localStorage",
+      "performance",
+      "IntersectionObserver",
+      "Node",
+      "Event"
+    ]
   },
   "dependencies": {
     "dexie": "^3.0.3",
@@ -25,7 +44,7 @@
     "chokidar": "^3.4.0",
     "concurrently": "^5.2.0",
     "decomment": "^0.9.0",
-    "electron": "^11.2.3",
+    "electron": "^12.0.1",
     "electron-installer-windows": "^3.0.0",
     "electron-packager": "^15.1.0",
     "electron-rebuild": "^2.3.2",

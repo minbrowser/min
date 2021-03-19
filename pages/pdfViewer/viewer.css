@@ -20,12 +20,6 @@
     box-sizing: border-box;
   }
 
-  /* workaround for https://pspdfkit.com/blog/2020/text-selection-bug-chrome-83/ */
-  ::selection {
-    color: currentColor;
-    background-color: highlight;
-  }
-
   .viewer-ui {
     user-select: none;
     z-index: 9999;

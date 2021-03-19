@@ -19,7 +19,8 @@ function createPrompt (options, callback) {
     frame: false,
     webPreferences: {
       nodeIntegration: true,
-      sandbox: false
+      sandbox: false,
+      contextIsolation: false
     }
   })
 
