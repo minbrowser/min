@@ -54,7 +54,7 @@
     "searchHistory": "Historial de búsqueda",  //noun?
     "importBookmarks": "Importar marcadores",
     "exportBookmarks": "Exportar marcadores",
-    "runUserscript": "Correr userscript", //userscript doesn't have a Spanish translation, afaik
+    "runUserscript": "Correr userscript", //userscript doesn't have a Spanish translation, afaik maybe "script de usuario"
     /* navbar */
     "openMenu": "Abrir menú",
     "enterReaderView": "Entrar en la vista de lectura",
@@ -150,10 +150,10 @@
     "settingsDarkModeAlways": "Siempre", // googled
     "settingsSiteThemeToggle": "Habilitar tema del sitio",
     "settingsAdditionalFeaturesHeading": "Características adicionales",
-    "settingsUserscriptsToggle": "Habilitar userscripts", //userscript doesn't have a Spanish translation, afaik
+    "settingsUserscriptsToggle": "Habilitar userscripts", //userscript doesn't have a Spanish translation, afaik maybe "script de usuario"
     "settingsShowDividerToggle": "Mostrar divisor de pestañas",
-    "settingsSeparateTitlebarToggle": null, //missing translation
-    "settingsOpenTabsInForegroundToggle": null, //missing translation
+    "settingsSeparateTitlebarToggle": "Separar barra de título", //"Usar barra de título separada"
+    "settingsOpenTabsInForegroundToggle": "Abrir nuevas pestañas en primer plano",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Los userscripts te permiten modificar el comportamiento de los sitios web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Más información</a>."
     }, //"learn more" was translated to "más información" (more info)
@@ -259,9 +259,9 @@
     "passwordManagerSetupInstalling": "Instalando...",
     "passwordManagerSetupSignIn": "Inicia sesión en tu gestor de contraseñas para empezar a usar el Auto-llenado. Tus credenciales no serán almacenadas en ningún lugar dentro de Min.",
     "disableAutofill": "Desactivar Auto-llenado",
-    "passwordManagerSetupUnlockError": null, //missing translation
+    "passwordManagerSetupUnlockError": "No se pudo desbloquear el almacén de contraseñas:",
     "passwordManagerSetupRetry": "Asegúrate de estar usando el archivo correcto e ingresando una contraseña correcta. Puedes reintentar arrastrando nuevamente la herramienta hasta aquí.",
-    "passwordManagerUnlock": null, //missing translation
+    "passwordManagerUnlock": "Ingresa tu contraseña maestra %p para desbloquear el almacén de contraseñas:",
     /* Password save bar */
     "passwordCaptureSavePassword": "¿Guardar contraseña para %s?",
     "passwordCaptureSave": "Guardar",
@@ -277,6 +277,7 @@
     "username": "Nombre de usuario",
     "email": "Direccion de correo",
     "password": "Contraseña",
-    "secretKey": null, //missing translation
+    "secretKey": "Clave secreta",
+    "openExternalApp": "Abrir en \\\"%s\\\"?" // %s is the name of an app
   }
 }
