@@ -278,6 +278,6 @@
     "email": "Eメール",
     "password": "パスワード",
     "secretKey": "秘密鍵",
-    "openExternalApp": null //missing translation
+    "openExternalApp": "\\\"%s\\\"で開きますか？"
   }
 }
