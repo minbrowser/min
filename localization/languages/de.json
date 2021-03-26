@@ -153,6 +153,7 @@
     "settingsUserscriptsToggle": "Benutzerdefinierte Skripte aktivieren",
     "settingsShowDividerToggle": "Trennwand zwischen Tabs anzeigen",
     "settingsSeparateTitlebarToggle": "Seperate Titelleiste nutzen",
+    "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": "Neue Tabs im Vordergrund öffnen",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Benutzerdefinierte Skripte erlauben es das Verhalten von Webseiten zu modifizieren - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\"> mehr dazu.</a>."

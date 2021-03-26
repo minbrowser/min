@@ -147,6 +147,7 @@
     "settingsUserscriptsToggle": "Bật mã script người dùng",
     "settingsShowDividerToggle": null, // Missing translation
     "settingsSeparateTitlebarToggle": null, //missing translation
+    "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": null, //missing translation
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Mã script người dùng có thể cho bạn thay đổi hành vi trang web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">biết thêm</a>."

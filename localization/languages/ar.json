@@ -153,6 +153,7 @@
     "settingsAdditionalFeaturesHeading": "مميزات اضافية",
     "settingsUserscriptsToggle": "تمكين سكريبت المستخدم",
     "settingsSeparateTitlebarToggle": null, //missing translation
+    "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": null, //missing translation
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "يمكن سكريبت المستخدم من  تغير سلوك المواقع - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">معرفة المزيد</a>."

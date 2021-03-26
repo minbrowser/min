@@ -153,6 +153,7 @@
     "settingsUserscriptsToggle": "Habilitar scripts do usuário",
     "settingsShowDividerToggle": "Mostrar divisória entre as guias",
     "settingsSeparateTitlebarToggle": "Usar a barra de título separada",
+    "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": "Abrir novas guias em primeiro plano",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Scripts do usuário permitem modificar o comportamento do site - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saiba mais</a>."

@@ -153,6 +153,7 @@
     "settingsUserscriptsToggle": "ব্যবহারকারী স্ক্রিপ্ট সক্রিয় করুন",
     "settingsShowDividerToggle": "ট্যাবগুলির মধ্যে বিভাজক দেখান",
     "settingsSeparateTitlebarToggle": "পৃথক শিরোনাম বার ব্যবহার করুন",
+    "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": "অগ্রভাগে নতুন ট্যাবগুলি খুলুন",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "ব্যবহারকারীর স্ক্রিপ্ট আপনাকে ওয়েবসাইটের আচরণ পরিবর্তন করার অনুমতি দেয় - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\"> আরও শিখুন </a>"

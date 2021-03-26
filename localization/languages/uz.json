@@ -153,6 +153,7 @@
     "settingsUserscriptsToggle": "Foydalanuvchi skriptlarini yoqish",
     "settingsShowDividerToggle": null, //missing translation
     "settingsSeparateTitlebarToggle": "Alohida sarlavha paneli ishlatish",
+    "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": null, //missing translation
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Foydalanuvchi skriptlari sahifa ishlashini o'zgartirishga yordam beradi - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">qo'shimcha ma'lumot</a>."

@@ -153,6 +153,7 @@
     "settingsUserscriptsToggle": "فعال کردن اسکریپت های کاربر",
     "settingsShowDividerToggle": null, // Missing translation
     "settingsSeparateTitlebarToggle": null, //missing translation
+    "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": null, //missing translation
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "اسکریپت های کاربر این اجازه را به شما می دهند تا رفتار سایت ها را تغییر دهید - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اطلاعات بیشتر</a>."

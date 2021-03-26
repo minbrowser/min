@@ -203,7 +203,7 @@ const webviews = {
           allowPopups: false,
           partition: partition || 'persist:webcontent',
           enableWebSQL: false,
-          autoplayPolicy: 'user-gesture-required'
+          autoplayPolicy: (settings.get('enableAutoplay') ? 'no-user-gesture-required' : 'user-gesture-required')
         }
       }),
       boundsString: JSON.stringify(webviews.getViewBounds()),

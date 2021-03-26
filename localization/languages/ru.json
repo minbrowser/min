@@ -153,6 +153,7 @@
     "settingsUserscriptsToggle": "Пользовательские скрипты",
     "settingsShowDividerToggle": "Показывать разделитель между вкладками",
     "settingsSeparateTitlebarToggle": "Использовать разделитель заголовка",
+    "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": "Открывать новые вкладки на переднем плане",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Пользовательские скрипты позволяют изменять поведение сайтов - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">узнать больше</a>."
