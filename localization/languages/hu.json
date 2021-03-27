@@ -153,6 +153,7 @@
     "settingsUserscriptsToggle": "Felhasználói szkriptek",
     "settingsShowDividerToggle": null, // Missing translation
     "settingsSeparateTitlebarToggle": null, //missing translation
+    "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": null, //missing translation
     "settingsUserscriptsExplanation": "Felhasználói szkript magyarázat",
     "settingsUserAgentToggle": null, //missing translation

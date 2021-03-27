@@ -7,6 +7,7 @@ var showDividerCheckbox = document.getElementById('checkbox-show-divider')
 var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
 var separateTitlebarCheckbox = document.getElementById('checkbox-separate-titlebar')
 var openTabsInForegroundCheckbox = document.getElementById('checkbox-open-tabs-in-foreground')
+var autoPlayCheckbox = document.getElementById('checkbox-enable-autoplay')
 var userAgentCheckbox = document.getElementById('checkbox-user-agent')
 var userAgentInput = document.getElementById('input-user-agent')
 
@@ -269,6 +270,16 @@ settings.get('openTabsInForeground', function (value) {
 
 openTabsInForegroundCheckbox.addEventListener('change', function (e) {
   settings.set('openTabsInForeground', this.checked)
+})
+
+/* media autoplay setting */
+
+settings.get('enableAutoplay', function (value) {
+  autoPlayCheckbox.checked = value
+})
+
+autoPlayCheckbox.addEventListener('change', function (e) {
+  settings.set('enableAutoplay', this.checked)
 })
 
 /* user agent settting */

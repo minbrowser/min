@@ -153,6 +153,7 @@
     "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",
     "settingsShowDividerToggle": "Sekmeler arasında ayırıcı göster",
     "settingsSeparateTitlebarToggle": "Ayrılmış başlık çubuğu kullan",
+    "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": "Yeni sekmeleri önplanda aç",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."

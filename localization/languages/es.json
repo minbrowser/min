@@ -153,6 +153,7 @@
     "settingsUserscriptsToggle": null, //missing translation
     "settingsShowDividerToggle": "Mostrar divisor de pestañas",
     "settingsSeparateTitlebarToggle": null, //missing translation
+    "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": null, //missing translation
     "settingsUserscriptsExplanation": null, //missing translation
     "settingsUserAgentToggle": null, //missing translation

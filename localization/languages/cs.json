@@ -153,6 +153,7 @@
     "settingsUserscriptsToggle": "Povolit uživatelské skripty",
     "settingsShowDividerToggle": "Zobrazit ohraničení otevřených karet",
     "settingsSeparateTitlebarToggle": "Použít systémové záhlaví okna",
+    "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": "Ihned přepínat na nově otevřené karty",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Uživatelské skripty umožňují upravit chování webových stránek - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">více informací</a>."
