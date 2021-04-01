@@ -153,6 +153,7 @@
     "settingsUserscriptsToggle": "Enable user scripts",
     "settingsShowDividerToggle": "Show divider between tabs",
     "settingsSeparateTitlebarToggle": "Use separate title bar",
+    "settingsAutoplayToggle": "Enable Autoplay",
     "settingsOpenTabsInForegroundToggle": "Open new tabs in the foreground",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "User scripts allow you to modify the behavior of websites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."
@@ -277,6 +278,7 @@
     "username": "Username",
     "email": "Email",
     "password": "Password",
-    "secretKey": "Secret key"
+    "secretKey": "Secret key",
+    "openExternalApp": "Open in \\\"%s\\\"?" // %s is the name of an app
   }
 }

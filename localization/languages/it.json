@@ -153,6 +153,7 @@
     "settingsUserscriptsToggle": "Abilita script definiti dall'utente",
     "settingsShowDividerToggle": null, // Missing translation
     "settingsSeparateTitlebarToggle": null, //missing translation
+    "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": null, //missing translation
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Gli script definiti dall'utente ti permettono di modificare il comportamento dei siti - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">scopri di più</a>."
@@ -237,6 +238,41 @@
     "downloadStateCompleted": "Completato",
     "downloadStateFailed": "Fallito",
     /* Update Notifications */
-    "updateNotificationTitle": "Una nuova versione di Min è disponibile"
+    "updateNotificationTitle": "Una nuova versione di Min è disponibile",
+    /* Autofill settings */
+    "settingsPasswordAutoFillHeadline": null, //missing translation
+    "settingsSelectPasswordManager": null, //missing translation
+    "keychainViewPasswords": null, //missing translation
+    /* Password manager setup */
+    "passwordManagerSetupHeading": null, //missing translation
+    "passwordManagerSetupStep1": null, //missing translation
+    "passwordManagerInstallerSetup": null, //missing translation
+    "passwordManagerSetupLink": null, //missing translation
+    "passwordManagerSetupLinkInstaller": null, //missing translation
+    "passwordManagerSetupStep2": null, //missing translation
+    "passwordManagerSetupDragBox": null, //missing translation
+    "passwordManagerSetupInstalling": null, //missing translation
+    "passwordManagerSetupSignIn": null, //missing translation
+    "disableAutofill": null, //missing translation
+    "passwordManagerSetupUnlockError": null, //missing translation
+    "passwordManagerSetupRetry": null, //missing translation
+    "passwordManagerUnlock": null, //missing translation
+    /* Password save bar */
+    "passwordCaptureSavePassword": null, //missing translation
+    "passwordCaptureSave": null, //missing translation
+    "passwordCaptureDontSave": null, //missing translation
+    /* Password viewer */
+    "savedPasswordsHeading": null, //missing translation
+    "savedPasswordsEmpty": null, //missing translation
+    "deletePassword": null, //missing translation
+    /* Dialogs */
+    "loginPromptTitle": null, //missing translation
+    "dialogConfirmButton": null, //missing translation
+    "dialogSkipButton": null, //missing translation
+    "username": null, //missing translation
+    "email": null, //missing translation
+    "password": null, //missing translation
+    "secretKey": null, //missing translation
+    "openExternalApp": null //missing translation
   }
 }

@@ -154,6 +154,7 @@
     "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
     "settingsShowDividerToggle": "Показувати роздільник між вкладками",
     "settingsSeparateTitlebarToggle": "Використовувати окремий рядок заголовка",
+    "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": "Відкривати нові вкладки на передньому плані",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."
@@ -278,6 +279,7 @@
     "username": "Ім'я користувача",
     "email": "Електронна пошта",
     "password": "Пароль",
-    "secretKey": "Секретний ключ"
+    "secretKey": "Секретний ключ",
+    "openExternalApp": null //missing translation
   }
 }
