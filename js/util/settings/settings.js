@@ -35,7 +35,7 @@ var settings = {
       }
     }
   },
-  runChangeCallacks () {
+  runChangeCallbacks () {
     settings.onChangeCallbacks.forEach(function (listener) {
       if (listener.key) {
         listener.cb(settings.list[listener.key])
@@ -59,7 +59,6 @@ var settings = {
   set: function (key, value) {
     settings.list[key] = value
     settings.save()
-    settings.runChangeCallacks()
   },
   initialize: function () {
     var fileData
@@ -76,7 +75,7 @@ var settings = {
 
     ipc.on('receiveSettingsData', function (e, data) {
       settings.list = data
-      settings.runChangeCallacks()
+      settings.runChangeCallbacks()
 
       if (process.type === 'browser') {
         settings.save()
