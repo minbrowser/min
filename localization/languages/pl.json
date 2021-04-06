@@ -137,11 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Jak dotąd Min zablokował reklamy i moduły śledzące w ilości: <strong></strong>."
     },
-    "settingsCustomBangs": null, // missing translation
-    "settingsCustomBangsAdd": null, // missing translation
-    "settingsCustomBangsPhrase": null, // missing translation
-    "settingsCustomBangsSnippet": null, // missing translation
-    "settingsCustomBangsRedirect": null, // missing translation
+    "settingsCustomBangs": "Niestandardowe bangs",
+    "settingsCustomBangsAdd": "Dodaj niestandardowy bang",
+    "settingsCustomBangsPhrase": "Wyrażenie (wymagane)",
+    "settingsCustomBangsSnippet": "Opis (opcjonalnie)",
+    "settingsCustomBangsRedirect": "Adres URL przekierowania (wymagane)",
     "settingsCustomizeFiltersLink": "Dostosuj filtry",
     "settingsAppearanceHeading": "Wygląd",
     "settingsEnableDarkMode": "Włącz tryb ciemny:",
@@ -153,7 +153,7 @@
     "settingsUserscriptsToggle": "Włącz skrypty użytkownika",
     "settingsShowDividerToggle": "Pokaż linię rozdzielającą między zakładkami",
     "settingsSeparateTitlebarToggle": "Użyj osobnego paska tytułu",
-    "settingsAutoplayToggle": null, //missing translation 
+    "settingsAutoplayToggle": "Włącz autoodtwarzanie",
     "settingsOpenTabsInForegroundToggle": "Otwórz nowe karty na pierwszym planie",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">dowiedz się więcej</a>."
@@ -279,6 +279,6 @@
     "email": "Email",
     "password": "Hasło",
     "secretKey": "Sekretny klucz",
-    "openExternalApp": null //missing translation
+    "openExternalApp": "Otworzyć w \\\"%s\\\"?"
   }
 }
