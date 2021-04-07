@@ -103,7 +103,8 @@ function getInputs (names, types) {
     // that we can use to identify it as a login form input field.
     if (checkAttribute(field, 'name', names) ||
         checkAttribute(field, 'formcontrolname', names) ||
-        checkAttribute(field, 'id', names)) {
+        checkAttribute(field, 'id', names) ||
+        checkAttribute(field, 'placeholder', names)) {
       matchedFields.push(field)
     }
   }
@@ -271,16 +272,22 @@ ipc.on('password-autofill-match', (event, data) => {
     }
   } else if (data.credentials.length === 1) {
     fillCredentials(data.credentials[0])
+    const firstPasswordField = getPasswordFields().filter(field => field.type !== 'hidden')[0]
+    if (firstPasswordField) {
+      firstPasswordField.focus()
+    }
   } else {
     const firstField = getUsernameFields().filter(field => field.type !== 'hidden')[0]
-    addFocusListener(firstField, data.credentials)
-    firstField.focus()
+    if (firstField) {
+      addFocusListener(firstField, data.credentials)
+      firstField.focus()
+    }
   }
 })
 
 // Trigger autofill check from keyboard shortcut.
 ipc.on('password-autofill-shortcut', (event) => {
-  checkInputs(true)
+  checkInputs()
 })
 
 // Autofill enabled event handler. Initializes focus listeners for input fields.

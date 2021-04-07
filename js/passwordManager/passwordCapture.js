@@ -53,6 +53,11 @@ const passwordCapture = {
     var username = args[0][1][0] || ''
     var password = args[0][2][0] || ''
 
+    // if there's nothing to save, this probably isn't really a login form
+    if (!username && !password) {
+      return
+    }
+
     PasswordManagers.getConfiguredPasswordManager().then(function (manager) {
       if (!manager || !manager.saveCredential) {
         // the password can't be saved
