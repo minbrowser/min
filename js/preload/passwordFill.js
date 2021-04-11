@@ -81,18 +81,26 @@ function createUnlockButton (input) {
 
 // Tries to find if an element has a specific attribute value that contains at
 // least one of the values from 'matches' array.
-function checkAttribute (element, attribute, matches) {
-  const value = element.getAttribute(attribute)
-  if (value == null) { return false }
-  return matches.some(match => value.toLowerCase().includes(match))
+function checkAttributes (element, attributes, matches) {
+  for (const attribute of attributes) {
+    const value = element.getAttribute(attribute)
+    if (value == null) { return false }
+    if (matches.some(match => value.toLowerCase().includes(match))) {
+      return true
+    }
+  }
+  return false
 }
 
 // Gets all input fields on a page that contain at least one of the provided
 // strings in their name attribute.
-function getInputs (names, types) {
-  const allFields = document.getElementsByTagName('input')
+function getBestInput (names, exclusionNames, types) {
+  const allFields = [
+    ...(document.querySelectorAll('form input') || []),
+    ...(document.querySelectorAll('input') || [])
+  ]
+  // this list includes duplicates, but we only use the first one we find that matches, so there's no need to dedupe
 
-  const matchedFields = []
   for (const field of allFields) {
     // checkAttribute won't work here because type can be a property but not an attribute
     if (!types.includes(field.type)) {
@@ -101,27 +109,23 @@ function getInputs (names, types) {
 
     // We expect the field to have either 'name', 'formcontrolname' or 'id' attribute
     // that we can use to identify it as a login form input field.
-    if (checkAttribute(field, 'name', names) ||
-        checkAttribute(field, 'formcontrolname', names) ||
-        checkAttribute(field, 'id', names) ||
-        checkAttribute(field, 'placeholder', names)) {
-      if (field.type !== 'hidden') {
-        matchedFields.push(field)
+    if (names.length === 0 || checkAttributes(field, ['name', 'formcontrolname', 'id', 'placholder'], names)) {
+      if (!checkAttributes(field, ['name', 'formcontrolname', 'id', 'placeholder'], exclusionNames) && field.type !== 'hidden') {
+        return field
       }
     }
   }
-
-  return matchedFields[0]
+  return null
 }
 
 // Shortcut to get username fields from a page.
 function getBestUsernameField () {
-  return getInputs(['user', 'name', 'mail', 'login', 'auth', 'identifier'], ['text', 'email'])
+  return getBestInput(['user', 'name', 'mail', 'login', 'auth', 'identifier'], ['confirm'], ['text', 'email'])
 }
 
 // Shortcut to get password fields from a page.
 function getBestPasswordField () {
-  return getInputs(['pass'], ['password'])
+  return getBestInput([], [], ['password'])
 }
 
 // Removes credentials list overlay.
