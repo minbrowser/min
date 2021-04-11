@@ -71,7 +71,7 @@ function createUnlockButton (input) {
   // Click event.
   button.addEventListener('mousedown', (event) => {
     event.preventDefault()
-    checkInputs()
+    requestAutofill()
   })
 
   unlockDiv.appendChild(button)
@@ -138,9 +138,9 @@ function fillCredentials (credentials) {
 
   const usernameField = getBestUsernameField()
   if (usernameField) {
-    username.value = username
+    usernameField.value = username
     for (const event of inputEvents) {
-      username.dispatchEvent(new Event(event, { bubbles: true }))
+      usernameField.dispatchEvent(new Event(event, { bubbles: true }))
     }
   }
 
@@ -230,7 +230,7 @@ function addFocusListener (element, credentials) {
   }
 }
 
-function checkInputs () {
+function requestAutofill () {
   if (getBestUsernameField() && getBestPasswordField()) {
     ipc.send('password-autofill', document.location.hostname)
   }
@@ -238,7 +238,7 @@ function checkInputs () {
 
 function maybeAddUnlockButton (target) {
   // require both a username and a password field to reduce the false-positive rate
-  if (getBestUsernameField() && getBestPasswordField()) {
+  if (target instanceof Node && getBestUsernameField() && getBestPasswordField()) {
     if (getBestUsernameField().isSameNode(target) || getBestPasswordField().isSameNode(target)) {
       const unlockButton = createUnlockButton(target)
       document.body.appendChild(unlockButton)
@@ -291,7 +291,7 @@ ipc.on('password-autofill-match', (event, data) => {
 
 // Trigger autofill check from keyboard shortcut.
 ipc.on('password-autofill-shortcut', (event) => {
-  checkInputs()
+  requestAutofill()
 })
 
 // Autofill enabled event handler. Initializes focus listeners for input fields.
