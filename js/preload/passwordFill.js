@@ -105,20 +105,22 @@ function getInputs (names, types) {
         checkAttribute(field, 'formcontrolname', names) ||
         checkAttribute(field, 'id', names) ||
         checkAttribute(field, 'placeholder', names)) {
-      matchedFields.push(field)
+      if (field.type !== 'hidden') {
+        matchedFields.push(field)
+      }
     }
   }
 
-  return matchedFields
+  return matchedFields[0]
 }
 
 // Shortcut to get username fields from a page.
-function getUsernameFields () {
+function getBestUsernameField () {
   return getInputs(['user', 'name', 'mail', 'login', 'auth', 'identifier'], ['text', 'email'])
 }
 
 // Shortcut to get password fields from a page.
-function getPasswordFields () {
+function getBestPasswordField () {
   return getInputs(['pass'], ['password'])
 }
 
@@ -134,17 +136,19 @@ function fillCredentials (credentials) {
   const { username, password } = credentials
   const inputEvents = ['keydown', 'keypress', 'keyup', 'input', 'change']
 
-  for (const field of getUsernameFields()) {
-    field.value = username
+  const usernameField = getBestUsernameField()
+  if (usernameField) {
+    username.value = username
     for (const event of inputEvents) {
-      field.dispatchEvent(new Event(event, { bubbles: true }))
+      username.dispatchEvent(new Event(event, { bubbles: true }))
     }
   }
 
-  for (const field of getPasswordFields()) {
-    field.value = password
+  const passwordField = getBestPasswordField()
+  if (passwordField) {
+    passwordField.value = password
     for (const event of inputEvents) {
-      field.dispatchEvent(new Event(event, { bubbles: true }))
+      passwordField.dispatchEvent(new Event(event, { bubbles: true }))
     }
   }
 }
@@ -227,15 +231,15 @@ function addFocusListener (element, credentials) {
 }
 
 function checkInputs () {
-  if (getUsernameFields().length > 0 && getPasswordFields().length > 0) {
+  if (getBestUsernameField() && getBestPasswordField()) {
     ipc.send('password-autofill', document.location.hostname)
   }
 }
 
 function maybeAddUnlockButton (target) {
   // require both a username and a password field to reduce the false-positive rate
-  if (getUsernameFields().length > 0 && getPasswordFields().length > 0) {
-    if (getUsernameFields().includes(target) || getPasswordFields().includes(target)) {
+  if (getBestUsernameField() && getBestPasswordField()) {
+    if (getBestUsernameField().isSameNode(target) || getBestPasswordField().isSameNode(target)) {
       const unlockButton = createUnlockButton(target)
       document.body.appendChild(unlockButton)
 
@@ -272,12 +276,12 @@ ipc.on('password-autofill-match', (event, data) => {
     }
   } else if (data.credentials.length === 1) {
     fillCredentials(data.credentials[0])
-    const firstPasswordField = getPasswordFields().filter(field => field.type !== 'hidden')[0]
+    const firstPasswordField = getBestPasswordField()
     if (firstPasswordField) {
       firstPasswordField.focus()
     }
   } else {
-    const firstField = getUsernameFields().filter(field => field.type !== 'hidden')[0]
+    const firstField = getBestUsernameField()
     if (firstField) {
       addFocusListener(firstField, data.credentials)
       firstField.focus()
@@ -306,11 +310,11 @@ window.addEventListener('load', function (event) {
 
 // send passwords back to the main process so they can be saved to storage
 function handleFormSubmit () {
-  var usernameValues = getUsernameFields().map(f => f.value)
-  var passwordValues = getPasswordFields().map(f => f.value)
+  var usernameValue = getBestUsernameField()?.value
+  var passwordValue = getBestPasswordField()?.value
 
-  if (usernameValues.some(v => v.length > 0) || passwordValues.some(v => v.length > 0)) {
-    ipc.send('password-form-filled', [window.location.hostname, usernameValues, passwordValues])
+  if ((usernameValue && usernameValue.length > 0) || (passwordValue && passwordValue.length > 0)) {
+    ipc.send('password-form-filled', [window.location.hostname, usernameValue, passwordValue])
   }
 }
 
