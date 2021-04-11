@@ -84,7 +84,7 @@ function createUnlockButton (input) {
 function checkAttributes (element, attributes, matches) {
   for (const attribute of attributes) {
     const value = element.getAttribute(attribute)
-    if (value == null) { return false }
+    if (value == null) { continue }
     if (matches.some(match => value.toLowerCase().includes(match))) {
       return true
     }
