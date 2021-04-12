@@ -153,7 +153,7 @@
     "settingsUserscriptsToggle": "사용자 명령(스크립트) 사용",
     "settingsShowDividerToggle": "작업 사이에 구분선 표시",
     "settingsSeparateTitlebarToggle": "제목 표시줄과 도구 표시줄 사용",
-    "settingsAutoplayToggle": null, //missing translation 
+    "settingsAutoplayToggle": "자동재생 활성화",
     "settingsOpenTabsInForegroundToggle": "작업을 열 때 전면(Foreground)으로 열기",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "사용자 명령(스크립트)을 사용하면 누리집의 행동을 수정할 수 있습니다. - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">더보기</a>."
