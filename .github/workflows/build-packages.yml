@@ -29,8 +29,8 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         path: |
-        dist/app/*.zip
-        dist/app/*.exe
+          dist/app/*.zip
+          dist/app/*.exe
   buildLinux:
     runs-on: ubuntu-latest
     steps:
@@ -44,5 +44,5 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         path: |
-        dist/app/*.deb
-        dist/app/*.rpm
+          dist/app/*.deb
+          dist/app/*.rpm
