@@ -6,7 +6,7 @@
         these are the items displayed in the menu when you right-click on a page
         */
     "addToDictionary": "Agregar al Diccionario",
-    "pictureInPicture": null, //missing translation
+    "pictureInPicture": null, //using original English name for the feature
     "openInNewTab": "Abrir en una nueva pestaña",
     "openInNewPrivateTab": "Abrir en una nueva pestaña privada",
     "saveLinkAs": "Guardar enlace como...",
@@ -16,7 +16,7 @@
     "saveImageAs": "Guardar imagen como",
     "searchWith": "Buscar con %s", //%s will be replaced with the name of the current search engine
     "copyLink": "Copiar enlace",
-    "copyEmailAddress": null, //missing translation
+    "copyEmailAddress": "Copiar dirección de correo",
     "selectAll": "Seleccionar todo",
     "undo": "Deshacer",
     "redo": "Rehacer",
@@ -27,7 +27,7 @@
     "goForward": "Ir adelante",
     "inspectElement": "Inspeccionar elemento",
     /* searchbar */
-    "pasteAndGo": null, //missing translation
+    "pasteAndGo": null, //using original English name for the feature. "Pegar e ir/buscar" doesn't sound quite right
     "DDGAnswerSubtitle": "Respuesta", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
     "suggestedSite": "Sitio sugerido", //this is used to label suggested websites from the DuckDuckGo API,
     "resultsFromDDG": "Resultados de DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -41,7 +41,7 @@
     "clearHistory": "Limpiar todo el historial",
     "enableBlocking": "Activar bloqueo de contenido",
     "disableBlocking": "Desactivar bloqueo de contenido",
-    "clearHistoryConfirmation": null, //missing translation
+    "clearHistoryConfirmation": "¿Borrar todo el historial y los datos de navegación?", 
     "switchToTask": "Cambiar a la tarea",
     "createTask": "Crear una tarea",
     "closeTask": "Cerrar una tarea",
@@ -54,7 +54,7 @@
     "searchHistory": "Historial de búsqueda",  //noun?
     "importBookmarks": "Importar marcadores",
     "exportBookmarks": "Exportar marcadores",
-    "runUserscript": null, //missing translation
+    "runUserscript": "Correr userscript", //userscript doesn't have a Spanish translation, afaik maybe "script de usuario"
     /* navbar */
     "openMenu": "Abrir menú",
     "enterReaderView": "Entrar en la vista de lectura",
@@ -73,7 +73,7 @@
     },
     "returnToTask": "Volver a su tarea anterior",
     "taskDescriptionTwo": "%t y %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
-    "taskDescriptionThree": null, //missing translation
+    "taskDescriptionThree": "%t, %t, y %n más", //used to describe a task that has three or more tabs
     /* find in page toolbar */
     "searchInPage": "Buscar en la página", //this is used as the placeholder text for the textbox in the find in page toolbar
     "findMatchesSingular": "%i de %t coincidencia", //this and the next label are used to indicate which match is currently highlighted
@@ -137,41 +137,44 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Hasta ahora, Min ha bloqueado <strong></strong> anuncios y rastreadores."
     },
-    "settingsCustomBangs": null, // missing translation
-    "settingsCustomBangsAdd": null, // missing translation
-    "settingsCustomBangsPhrase": null, // missing translation
-    "settingsCustomBangsSnippet": null, // missing translation
-    "settingsCustomBangsRedirect": null, // missing translation
-    "settingsCustomizeFiltersLink": null, //missing translation
+    "settingsCustomBangs": "Bangs personalizados",
+    "settingsCustomBangsAdd": "Agregar bang personalizado",
+    "settingsCustomBangsPhrase": "Frase (Requerido)",
+    "settingsCustomBangsSnippet": "Descripción (Opcional)",
+    "settingsCustomBangsRedirect": "URL de redirección (Requerido)",
+    "settingsCustomizeFiltersLink": "Personalizar filtros",
     "settingsAppearanceHeading": "Apariencia",
     "settingsEnableDarkMode": "Habilitar modo oscuro:",
     "settingsDarkModeNever": "Nunca", // googled
     "settingsDarkModeNight": "Por la noche", // googled
     "settingsDarkModeAlways": "Siempre", // googled
-    "settingsSiteThemeToggle": null, //missing translation
-    "settingsAdditionalFeaturesHeading": null, //missing translation
-    "settingsUserscriptsToggle": null, //missing translation
+    "settingsSiteThemeToggle": "Habilitar tema del sitio",
+    "settingsAdditionalFeaturesHeading": "Características adicionales",
+    "settingsUserscriptsToggle": "Habilitar userscripts", //userscript doesn't have a Spanish translation, afaik maybe "script de usuario"
     "settingsShowDividerToggle": "Mostrar divisor de pestañas",
-    "settingsSeparateTitlebarToggle": null, //missing translation
-    "settingsAutoplayToggle": null, //missing translation 
-    "settingsOpenTabsInForegroundToggle": null, //missing translation
-    "settingsUserscriptsExplanation": null, //missing translation
-    "settingsUserAgentToggle": null, //missing translation
-    "settingsUpdateNotificationsToggle": null, //missing translation
-    "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsSeparateTitlebarToggle": "Separar barra de título", //"Usar barra de título separada"
+    "settingsOpenTabsInForegroundToggle": "Abrir nuevas pestañas en primer plano",
+    "settingsUserscriptsExplanation": {
+      "unsafeHTML": "Los userscripts te permiten modificar el comportamiento de los sitios web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Más información</a>."
+    }, //"learn more" was translated to "más información" (more info)
+    "settingsUserAgentToggle": "usar Agente de usuario personalizado",
+    "settingsUpdateNotificationsToggle": "Buscar actualizaciones automáticamente",
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "Enviar estadísticas de uso (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Más información</a>)"
+    },
     "settingsSearchEngineHeading": "Motor de búsqueda",
     "settingsDefaultSearchEngine": "Elija un motor de búsqueda predeterminado:",
     "settingsDDGExplanation": "Establezca DuckDuckGo como motor de búsqueda predeterminado para ver respuestas instantáneas en la barra de búsqueda.",
-    "customSearchEngineDescription": null, //missing translation
+    "customSearchEngineDescription": "Reemplazar el término de búsqueda por %s",
     "settingsKeyboardShortcutsHeading": "Atajos de teclado",
     "settingsKeyboardShortcutsHelp": "Use comas para separar múltiples atajos.",
-    "settingsProxyHeading": null, //missing translation
-    "settingsNoProxy": null, //missing translation
+    "settingsProxyHeading": "Proxy",
+    "settingsNoProxy": "Sin proxy", //or "Ningún proxy"
     "settingsManualProxy": "Configuración manual",
     "settingsAutomaticProxy": "Configuración automática",
-    "settingsProxyRules": null, //missing translation
-    "settingsProxyBypassRules": null, //missing translation
-    "settingsProxyConfigurationURL": null, //missing translation
+    "settingsProxyRules": "Reglas proxy:",
+    "settingsProxyBypassRules": "Sin proxy para:",
+    "settingsProxyConfigurationURL": "URL de configuración:",
     /* app menu */
     "appMenuFile": "Archivo",
     "appMenuNewTab": "Nueva pestaña",
@@ -203,7 +206,7 @@
     "appMenuWindow": "Ventana",
     "appMenuMinimize": "Minimizar",
     "appMenuClose": "Cerrar",
-    "appMenuAlwaysOnTop": null, //missing translation
+    "appMenuAlwaysOnTop": "Siempre encima",
     "appMenuHelp": "Ayuda",
     "appMenuKeyboardShortcuts": "Atajos de teclado",
     "appMenuReportBug": "Reportar un error",
@@ -222,20 +225,59 @@
       "unsafeHTML": "página <input type='text'/> de <span id='total'></span>"
     },
     /* Context Reader */
-    "buttonReaderSettings": null, //missing translation "Reader Settings"
-    "buttonReaderLightTheme": null, //missing translation "Light"
-    "buttonReaderSepiaTheme": null, //missing translation "Sepia"
-    "buttonReaderDarkTheme": null, //missing translation "Dark"
-    "openReaderView": null, //missing translation "Always open in reader view"
-    "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-    "buttonReaderRedirectYes": null, //missing translation "Yes"
-    "buttonReaderRedirectNo": null, //missing translation "No"
-    "articleReaderView": null, //missing translation "Original Article"
+    "buttonReaderSettings": "Configuración del Lector",
+    "buttonReaderLightTheme": "Claro",
+    "buttonReaderSepiaTheme": "Sepia",
+    "buttonReaderDarkTheme": "Oscuro",
+    "openReaderView": "Abrir siempre en modo lector",
+    "autoRedirectBannerReader": "¿Abrir siempre los articulos de este sitio en modo lector?",
+    "buttonReaderRedirectYes": "Sí",
+    "buttonReaderRedirectNo": "No",
+    "articleReaderView": "Artículo original",
     /* Download manager */
     "downloadCancel": "Cancelar",
     "downloadStateCompleted": "Completado",
     "downloadStateFailed": "Fallido",
     /* Update Notifications */
-    "updateNotificationTitle": "Una nueva versión de Min se encuentra disponible."
+    "updateNotificationTitle": "Una nueva versión de Min se encuentra disponible.",
+    /* Autofill settings */
+    "settingsPasswordAutoFillHeadline": "Auto-llenado de contraseña", //Autofill is not the same as autocomplete (autocompletar)
+    "settingsSelectPasswordManager": "Elije uno de los gestores de contraseñas soportados:",
+    "keychainViewPasswords": "Ver contraseñas guardadas",
+    /* Password manager setup */
+    "passwordManagerSetupHeading": "Termine de configurar %p para usar el Auto-llenado",
+    "passwordManagerSetupStep1": {
+      "unsafeHTML": "Primero, <a id='password-manager-setup-link'></a> y extráelo para tu sistema."
+    },
+    "passwordManagerInstallerSetup": {
+      "unsafeHTML": "Descarga <a id='password-manager-setup-link-installer'></a> y arrastra el archivo en el cuadro de abajo:"
+    },
+    "passwordManagerSetupLink": "descarga la herramienta CLI de %p",
+    "passwordManagerSetupLinkInstaller": "el instalador de CLI de %p",
+    "passwordManagerSetupStep2": "Luego arrastra la herramienta hasta el cuadro de abajo:",
+    "passwordManagerSetupDragBox": "Arrastra la herramienta hasta aquí",
+    "passwordManagerSetupInstalling": "Instalando...",
+    "passwordManagerSetupSignIn": "Inicia sesión en tu gestor de contraseñas para empezar a usar el Auto-llenado. Tus credenciales no serán almacenadas en ningún lugar dentro de Min.",
+    "disableAutofill": "Desactivar Auto-llenado",
+    "passwordManagerSetupUnlockError": "No se pudo desbloquear el almacén de contraseñas:",
+    "passwordManagerSetupRetry": "Asegúrate de estar usando el archivo correcto e ingresando una contraseña correcta. Puedes reintentar arrastrando nuevamente la herramienta hasta aquí.",
+    "passwordManagerUnlock": "Ingresa tu contraseña maestra %p para desbloquear el almacén de contraseñas:",
+    /* Password save bar */
+    "passwordCaptureSavePassword": "¿Guardar contraseña para %s?",
+    "passwordCaptureSave": "Guardar",
+    "passwordCaptureDontSave": "No guardar",
+    /* Password viewer */
+    "savedPasswordsHeading": "Contraseñas guardadas",
+    "savedPasswordsEmpty": "No hay contraseñas guardadas.",
+    "deletePassword": "¿Borrar contraseña para %s?",
+    /* Dialogs */
+    "loginPromptTitle": "Inicia sesión en %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "dialogConfirmButton": "Confirmar",
+    "dialogSkipButton": "Cancelar",
+    "username": "Nombre de usuario",
+    "email": "Direccion de correo",
+    "password": "Contraseña",
+    "secretKey": "Clave secreta",
+    "openExternalApp": "Abrir en \\\"%s\\\"?" // %s is the name of an app
   }
 }
