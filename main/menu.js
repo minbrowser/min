@@ -1,8 +1,23 @@
 function buildAppMenu (options = {}) {
+  function getFormattedKeyMapEntry (keybinding) {
+    const value = settings.get('keyMap')?.[keybinding]
+
+    if (value) {
+      if (Array.isArray(value)) {
+        // value is array if multiple entries are set
+        return value[0].replace('mod', 'CmdOrCtrl')
+      } else {
+        return value.replace('mod', 'CmdOrCtrl')
+      }
+    }
+
+    return null
+  }
+
   var tabTaskActions = [
     {
       label: l('appMenuNewTab'),
-      accelerator: settings.get('keyMap')?.addTab?.replace('mod', 'CmdOrCtrl') || 'CmdOrCtrl+t',
+      accelerator: getFormattedKeyMapEntry('addTab') || 'CmdOrCtrl+t',
       click: function (item, window, event) {
         // keyboard shortcuts for these items are handled in the renderer
         if (!event.triggeredByAccelerator) {
@@ -12,7 +27,7 @@ function buildAppMenu (options = {}) {
     },
     {
       label: l('appMenuDuplicateTab'),
-      accelerator: settings.get('keyMap')?.duplicateTab?.replace('mod', 'CmdOrCtrl') || 'shift+CmdOrCtrl+d',
+      accelerator: getFormattedKeyMapEntry('duplicateTab') || 'shift+CmdOrCtrl+d',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
           sendIPCToWindow(window, 'duplicateTab')
@@ -21,7 +36,7 @@ function buildAppMenu (options = {}) {
     },
     {
       label: l('appMenuNewPrivateTab'),
-      accelerator: settings.get('keyMap')?.newPrivateTab?.replace('mod', 'CmdOrCtrl') || 'shift+CmdOrCtrl+p',
+      accelerator: getFormattedKeyMapEntry('addPrivateTab') || 'shift+CmdOrCtrl+p',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
           sendIPCToWindow(window, 'addPrivateTab')
@@ -30,7 +45,7 @@ function buildAppMenu (options = {}) {
     },
     {
       label: l('appMenuNewTask'),
-      accelerator: settings.get('keyMap')?.newTask?.replace('mod', 'CmdOrCtrl') || 'CmdOrCtrl+n',
+      accelerator: getFormattedKeyMapEntry('addTask') || 'CmdOrCtrl+n',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
           sendIPCToWindow(window, 'addTask')
@@ -42,7 +57,7 @@ function buildAppMenu (options = {}) {
   var personalDataItems = [
     {
       label: l('appMenuBookmarks'),
-      accelerator: settings.get('keyMap')?.showBookmarks?.replace('mod', 'CmdOrCtrl') || 'CmdOrCtrl+b',
+      accelerator: getFormattedKeyMapEntry('showBookmarks') || 'CmdOrCtrl+b',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
           sendIPCToWindow(window, 'showBookmarks')
@@ -51,7 +66,7 @@ function buildAppMenu (options = {}) {
     },
     {
       label: l('appMenuHistory'),
-      accelerator: settings.get('keyMap')?.showHistory?.replace('mod', 'CmdOrCtrl') || 'Shift+CmdOrCtrl+h',
+      accelerator: getFormattedKeyMapEntry('showHistory') || 'Shift+CmdOrCtrl+h',
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
           sendIPCToWindow(window, 'showHistory')
@@ -62,7 +77,7 @@ function buildAppMenu (options = {}) {
 
   var quitAction = {
     label: l('appMenuQuit').replace('%n', app.name),
-    accelerator: settings.get('keyMap')?.quitMin?.replace('mod', 'CmdOrCtrl') || 'CmdOrCtrl+Q',
+    accelerator: getFormattedKeyMapEntry('quitMin') || 'CmdOrCtrl+Q',
     click: function (item, window, event) {
       if (!event.triggeredByAccelerator) {
         app.quit()
