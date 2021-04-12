@@ -3,6 +3,8 @@ on: [push]
 jobs:
   buildMac:
     runs-on: macos-latest
+    env:
+      SDKROOT: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
@@ -13,7 +15,7 @@ jobs:
         npm run buildMacIntel && npm run buildMacArm
     - uses: actions/upload-artifact@v2
       with:
-        path: dist/app/*
+        path: dist/app/*.zip
   buildWindows:
     runs-on: windows-latest
     steps:
@@ -26,7 +28,9 @@ jobs:
         npm run buildWindows
     - uses: actions/upload-artifact@v2
       with:
-        path: dist/app/*
+        path: |
+        dist/app/*.zip
+        dist/app/*.exe
   buildLinux:
     runs-on: ubuntu-latest
     steps:
@@ -39,4 +43,6 @@ jobs:
         npm run buildDebian && npm run buildRedhat && npm run buildLinuxArm64
     - uses: actions/upload-artifact@v2
       with:
-        path: dist/app/*
+        path: |
+        dist/app/*.deb
+        dist/app/*.rpm
