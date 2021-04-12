@@ -1,5 +1,5 @@
 name: Build Package
-on: workflow_dispatch
+on: [push]
 jobs:
   buildMac:
     runs-on: macos-latest
