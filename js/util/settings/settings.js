@@ -31,12 +31,19 @@ var settings = {
     settings.runChangeCallbacks(key)
   },
   initialize: function () {
-    ipc.on('setInitialSettings', function (e, data) {
-      settings.list = data
-      settings.runChangeCallbacks()
-    })
+    var fileData
+    try {
+      fileData = fs.readFileSync(settings.filePath, 'utf-8')
+    } catch (e) {
+      if (e.code !== 'ENOENT') {
+        console.warn(e)
+      }
+    }
+    if (fileData) {
+      settings.list = JSON.parse(fileData)
+    }
 
-    ipc.send('getInitialSettings')
+    settings.runChangeCallbacks()
 
     ipc.on('settingChanged', function (e, key, value) {
       settings.list[key] = value

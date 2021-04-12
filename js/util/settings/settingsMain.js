@@ -69,12 +69,6 @@ var settings = {
       settings.list = JSON.parse(fileData)
     }
 
-    ipc.on('getInitialSettings', function (e) {
-      if (mainWindow) {
-        mainWindow.webContents.send('setInitialSettings', settings.list)
-      }
-    })
-
     ipc.on('settingChanged', function (e, key, value) {
       settings.list[key] = value
       settings.writeFile()
