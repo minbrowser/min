@@ -1,46 +1,15 @@
 var settings = {
-  filePath: (process.type === 'renderer' ? window.globalArgs['user-data-path'] : userDataPath) + (process.platform === 'win32' ? '\\' : '/') + 'settings.json',
-  fileWritePromise: null,
+  filePath: window.globalArgs['user-data-path'] + (process.platform === 'win32' ? '\\' : '/') + 'settings.json',
   list: {},
   onChangeCallbacks: [],
-  save: function () {
-    /*
-    Writing to the settings file from multiple places simultaneously causes data corruption, so to avoid that:
-    * We forward data from the renderer process to the main process, and only write from there
-    * In the main process, we put multiple save requests in a queue (by chaining them to a promise) so they execute individually
-    * https://github.com/minbrowser/min/issues/1520
-    */
-
-    if (process.type === 'renderer') {
-      ipc.send('receiveSettingsData', settings.list)
-    }
-
-    if (process.type === 'browser') {
-      /* eslint-disable no-inner-declarations */
-      /* eslint-disable no-inner-declarations */
-      function newFileWrite () {
-        return fs.promises.writeFile(settings.filePath, JSON.stringify(settings.list))
-      }
-
-      function ongoingFileWrite () {
-        return settings.fileWritePromise || Promise.resolve()
-      }
-      /* eslint-enable no-inner-declarations */
-
-      // eslint-disable-next-line no-return-assign
-      settings.fileWritePromise = ongoingFileWrite().then(newFileWrite).then(() => settings.fileWritePromise = null)
-
-      if (mainWindow) {
-        mainWindow.webContents.send('receiveSettingsData', settings.list)
-      }
-    }
-  },
-  runChangeCallbacks () {
+  runChangeCallbacks (key) {
     settings.onChangeCallbacks.forEach(function (listener) {
-      if (listener.key) {
-        listener.cb(settings.list[listener.key])
-      } else {
-        listener.cb()
+      if (!key || !listener.key || listener.key === key) {
+        if (listener.key) {
+          listener.cb(settings.list[listener.key])
+        } else {
+          listener.cb(key)
+        }
       }
     })
   },
@@ -58,28 +27,20 @@ var settings = {
   },
   set: function (key, value) {
     settings.list[key] = value
-    settings.save()
+    ipc.send('settingChanged', key, value)
+    settings.runChangeCallbacks(key)
   },
   initialize: function () {
-    var fileData
-    try {
-      fileData = fs.readFileSync(settings.filePath, 'utf-8')
-    } catch (e) {
-      if (e.code !== 'ENOENT') {
-        console.warn(e)
-      }
-    }
-    if (fileData) {
-      settings.list = JSON.parse(fileData)
-    }
-
-    ipc.on('receiveSettingsData', function (e, data) {
+    ipc.on('setInitialSettings', function (e, data) {
       settings.list = data
       settings.runChangeCallbacks()
+    })
 
-      if (process.type === 'browser') {
-        settings.save()
-      }
+    ipc.send('getInitialSettings')
+
+    ipc.on('settingChanged', function (e, key, value) {
+      settings.list[key] = value
+      settings.runChangeCallbacks(key)
     })
   }
 }

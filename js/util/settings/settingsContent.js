@@ -3,12 +3,14 @@ var settings = {
   list: {},
   onLoadCallbacks: [],
   onChangeCallbacks: [],
-  runChangeCallacks () {
+  runChangeCallbacks (key) {
     settings.onChangeCallbacks.forEach(function (listener) {
-      if (listener.key) {
-        listener.cb(settings.list[listener.key])
-      } else {
-        listener.cb()
+      if (!key || !listener.key || listener.key === key) {
+        if (listener.key) {
+          listener.cb(settings.list[listener.key])
+        } else {
+          listener.cb(key)
+        }
       }
     })
   },
@@ -37,7 +39,7 @@ var settings = {
   set: function (key, value) {
     settings.list[key] = value
     postMessage({ message: 'setSetting', key, value })
-    settings.runChangeCallacks()
+    settings.runChangeCallbacks(key)
   },
   load: function () {
     postMessage({ message: 'getSettingsData' })
@@ -66,7 +68,7 @@ window.addEventListener('message', function (e) {
     }
 
     settings.loaded = true
-    settings.runChangeCallacks()
+    settings.runChangeCallbacks()
   }
 })
 
