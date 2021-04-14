@@ -153,7 +153,7 @@
     "settingsUserscriptsToggle": "ユーザースクリプトを有効にする",
     "settingsShowDividerToggle": "タブ間の仕切りを表示",
     "settingsSeparateTitlebarToggle": "別のタイトルバーを使用する",
-    "settingsAutoplayToggle": null, //missing translation 
+    "settingsAutoplayToggle": "自動再生を有効にする",
     "settingsOpenTabsInForegroundToggle": "フォアグラウンドで新しいタブを開く",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "ユーザースクリプトを使用して、Webサイトの動作を変更できます -  <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">詳細</a>。"
