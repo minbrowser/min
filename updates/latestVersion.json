@@ -1,7 +1,7 @@
 {
-    "version": "1.19.1",
+    "version": "1.19.2",
     "releaseTime": 1617133011521,
-    "releaseHeadline": "Bug fixes and other improvements",
+    "releaseHeadline": "Fixes a security issue",
     "releaseNotes": "https://minbrowser.org/releases/",
     "availabilityPercent": 1
 }
