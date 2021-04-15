@@ -5,25 +5,25 @@
     /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-    "addToDictionary": null, //missing translation
+    "addToDictionary": "افزودن به دیکشنری",
     "pictureInPicture": null, //missing translation
     "openInNewTab": "باز کردن در برگه جدید",
     "openInNewPrivateTab": "باز کردن در برگه خصوصی جدید",
-    "saveLinkAs": null, //missing translation
+    "saveLinkAs": "ذخیره لینک به عنوان",
     "viewImage": "نمایش تصویر",
-    "openImageInNewTab": "باز کردن تصویر در برگه جدید",
-    "openImageInNewPrivateTab": "باز کردن تصویر در برگه خصوصی جدید",
-    "saveImageAs": "ذخیره تصویر",
+    "openImageInNewTab": "نمایش تصویر در برگه جدید",
+    "openImageInNewPrivateTab": "نمایش تصویر در برگه خصوصی جدید",
+    "saveImageAs": "ذخیره تصویر به عنوان",
     "searchWith": "جستجو با %s", //%s will be replaced with the name of the current search engine
-    "copyLink": "کپی لینک",
-    "copyEmailAddress": null, //missing translation
-    "selectAll": null, // Missing Translation
-    "undo": null, // Missing Translation
+    "copyLink": "کپی پیوند",
+    "copyEmailAddress": "کپی رایانامه",
+    "selectAll": "انتخاب همه", // this is farsi, but in persian we say گزینش همه
+    "undo": "برگرداندن", // Or واگشت || بازگشت || برگشت
     "redo": null, // Missing Translation
-    "cut": null, // Missing Translation
+    "cut": "برش",
     "copy": "کپی", //this is a verb (as in "copy the currently-selected text")
     "paste": "چسباندن",
-    "goBack": "عقب",
+    "goBack": "پیشین",
     "goForward": "جلو",
     "inspectElement": "وارسی",
     /* searchbar */
@@ -87,8 +87,8 @@
     "timeRangeJustNow": "همین الان",
     "timeRangeMinutes": "دقایقی پیش",
     "timeRangeHour": "ساعتی پیش",
-    "timeRangeToday": null, //missing translation
-    "timeRangeYesterday": null, //missing translation
+    "timeRangeToday": "امروز",
+    "timeRangeYesterday": "دیروز", // or یک روز پیش
     "timeRangeWeek": "هفته پیش",
     "timeRangeMonth": "ماه پیش",
     "timeRangeYear": "سال پیش",
@@ -144,16 +144,18 @@
     "settingsCustomBangsRedirect": null, // missing translation
     "settingsCustomizeFiltersLink": null, //missing translation
     "settingsAppearanceHeading": "ظاهر",
-    "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
-    "settingsDarkModeNever": null, //"Never" missing translation
+    "settingsEnableDarkMode": "پوسته تاریک روشن", //"Enable dark mode:" missing translation
+    "settingsDarkModeNever": "پوسته تاریک هرگز", //"Never" missing translation
     "settingsDarkModeNight": null, //"At night" missing translation
-    "settingsDarkModeAlways": null, //"Always" missing translation
-    "settingsSiteThemeToggle": null, //missing translation
+    "settingsDarkModeAlways": "پوسته تاریک برای همیشه", //"Always" missing translation
+    "settingsSiteThemeToggle": "تغییر پوسته", //missing translation
     "settingsAdditionalFeaturesHeading": "امکانات اضافه",
     "settingsUserscriptsToggle": "فعال کردن اسکریپت های کاربر",
-    "settingsShowDividerToggle": null, // Missing translation
-    "settingsSeparateTitlebarToggle": null, //missing translation
-    "settingsAutoplayToggle": null, //missing translation 
+    // both Divider and Separater is same in persian => جداساز
+    // but i didn't know use for which one,
+    "settingsShowDividerToggle": null, // Missing translation, may نمایش جداساز
+    "settingsSeparateTitlebarToggle": null, //missing translation, may جداساز تیتر
+    "settingsAutoplayToggle": "پخش خودکار",
     "settingsOpenTabsInForegroundToggle": null, //missing translation
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "اسکریپت های کاربر این اجازه را به شما می دهند تا رفتار سایت ها را تغییر دهید - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اطلاعات بیشتر</a>."
@@ -168,9 +170,9 @@
     "settingsKeyboardShortcutsHeading": "میانبرهای صفحه کلید",
     "settingsKeyboardShortcutsHelp": "از ویرگول جهت جدا کردن میانبرها استفاده کنید.",
     "settingsProxyHeading": null, //missing translation
-    "settingsNoProxy": null, //missing translation
-    "settingsManualProxy": null, //missing translation
-    "settingsAutomaticProxy": null, //missing translation
+    "settingsNoProxy": "بدون پروکسی",
+    "settingsManualProxy": "پروکسی دستی",
+    "settingsAutomaticProxy": "پروکسی خودکار",
     "settingsProxyRules": null, //missing translation
     "settingsProxyBypassRules": null, //missing translation
     "settingsProxyConfigurationURL": null, //missing translation
@@ -203,9 +205,9 @@
     "appMenuInspectBrowser": "وارسی مرورگر",
     "appMenuInspectPage": "وارسی صفحه",
     "appMenuWindow": "پنجره",
-    "appMenuMinimize": "کوچک نمایی",
+    "appMenuMinimize": "کوچک نمایی", // in persian we say کمینه but this also true
     "appMenuClose": "بستن",
-    "appMenuAlwaysOnTop": null, //missing translation
+    "appMenuAlwaysOnTop": "قرار دادن در بالا", //missing translation
     "appMenuHelp": "راهنما",
     "appMenuKeyboardShortcuts": "میانبرهای صفحه کلید",
     "appMenuReportBug": "گزارش اشکالات نرم افزاری",
@@ -264,15 +266,15 @@
     /* Password viewer */
     "savedPasswordsHeading": null, //missing translation
     "savedPasswordsEmpty": null, //missing translation
-    "deletePassword": null, //missing translation
+    "deletePassword": "حذف گذرواژه", //missing translation
     /* Dialogs */
-    "loginPromptTitle": null, //missing translation
+    "loginPromptTitle": "ورود",
     "dialogConfirmButton": null, //missing translation
     "dialogSkipButton": null, //missing translation
-    "username": null, //missing translation
-    "email": null, //missing translation
-    "password": null, //missing translation
-    "secretKey": null, //missing translation
+    "username": "نام کاربری",
+    "email": "رایانامه", 
+    "password": "گذرواژه",
+    "secretKey": "کلید امنیتی",
     "openExternalApp": null //missing translation
   }
 }
