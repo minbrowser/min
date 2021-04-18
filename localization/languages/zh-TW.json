@@ -137,11 +137,11 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "到目前為止，Min 已經封鎖了 <strong></strong> 個廣告和追蹤器"
     },
-    "settingsCustomBangs": null, // missing translation
-    "settingsCustomBangsAdd": null, // missing translation
-    "settingsCustomBangsPhrase": null, // missing translation
-    "settingsCustomBangsSnippet": null, // missing translation
-    "settingsCustomBangsRedirect": null, // missing translation
+    "settingsCustomBangs": "自訂 Bang",
+    "settingsCustomBangsAdd": "新增自訂 Bang",
+    "settingsCustomBangsPhrase": "指令 (必填)",
+    "settingsCustomBangsSnippet": "描述 (可選)",
+    "settingsCustomBangsRedirect": "網址 (必填)",
     "settingsCustomizeFiltersLink": "自訂過濾器",
     "settingsAppearanceHeading": "外觀",
     "settingsEnableDarkMode": "啟用深色模式：",
@@ -151,17 +151,19 @@
     "settingsSiteThemeToggle": "啟用網站主題",
     "settingsAdditionalFeaturesHeading": "其他功能",
     "settingsUserscriptsToggle": "允許使用者指令",
-    "settingsShowDividerToggle": null, // Missing translation
+    "settingsShowDividerToggle": "顯示分頁分割線",
     "settingsSeparateTitlebarToggle": "分割標題列",
-    "settingsAutoplayToggle": null, //missing translation 
+    "settingsAutoplayToggle": "自動播放媒體",
     "settingsOpenTabsInForegroundToggle": "在前景開啟新分頁",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
     },
     "settingsUserAgentToggle": "使用自訂使用者代理",
     "settingsUpdateNotificationsToggle": "自動檢查更新",
-    "settingsUsageStatisticsToggle": null, //missing translation
-    "settingsSearchEngineHeading": "搜索引擎",
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "傳送使用統計資料 (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">更多資訊</a>)"
+    },
+    "settingsSearchEngineHeading": "搜尋引擎",
     "settingsDefaultSearchEngine": "選擇預設的搜索引擎：",
     "settingsDDGExplanation": "將 DuckDuckGo 設為預設的搜索引擎可以直接在網址欄查看搜尋結果",
     "customSearchEngineDescription": "將搜尋字串以 %s 取代",
@@ -172,7 +174,7 @@
     "settingsManualProxy": "手動設定",
     "settingsAutomaticProxy": "自動設定",
     "settingsProxyRules": "位址：",
-    "settingsProxyBypassRules": "不要在以下位址使用 Proxy，以逗號隔開：",
+    "settingsProxyBypassRules": "不要在以下位址使用 Proxy (以逗號隔開)：",
     "settingsProxyConfigurationURL": "Proxy 設置位址：",
     /* app menu */
     "appMenuFile": "檔案",
@@ -242,7 +244,7 @@
     /* Autofill settings */
     "settingsPasswordAutoFillHeadline": "自動填入密碼",
     "settingsSelectPasswordManager": "選擇支援的密碼管理器：",
-    "keychainViewPasswords": null, //missing translation
+    "keychainViewPasswords": "檢視已儲存的密碼",
     /* Password manager setup */
     "passwordManagerSetupHeading": "設定 %p",
     "passwordManagerSetupStep1": {
@@ -262,15 +264,15 @@
     "passwordManagerSetupRetry": "請確認您拖入正確的檔案並輸入正確的密碼。您可以將檔案拖入以重試。",
     "passwordManagerUnlock": "輸入你的 %p 主密碼以解鎖密碼庫：",
     /* Password save bar */
-    "passwordCaptureSavePassword": null, //missing translation
-    "passwordCaptureSave": null, //missing translation
-    "passwordCaptureDontSave": null, //missing translation
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureSavePassword": "儲存 %s 的密碼?",
+    "passwordCaptureSave": "儲存",
+    "passwordCaptureDontSave": "不要",
+    "passwordCaptureNeverSave": "一律不要",
     /* Password viewer */
-    "savedPasswordsHeading": null, //missing translation
-    "savedPasswordsEmpty": null, //missing translation
-    "savedPasswordsNeverSavedLabel": null, //missing translation
-    "deletePassword": null, //missing translation
+    "savedPasswordsHeading": "已儲存的密碼",
+    "savedPasswordsEmpty": "沒有已儲存的密碼",
+    "savedPasswordsNeverSavedLabel": "永不儲存",
+    "deletePassword": "刪除 %s 的密碼?",
     /* Dialogs */
     "loginPromptTitle": "登入 %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "確認",
@@ -279,6 +281,6 @@
     "email": "Email",
     "password": "密碼",
     "secretKey": "Secret key",
-    "openExternalApp": null //missing translation
+    "openExternalApp": "以「%s」開啟?"
   }
 }
