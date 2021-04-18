@@ -267,11 +267,11 @@
     "passwordCaptureSavePassword": "Zapisać hasło dla %s?",
     "passwordCaptureSave": "Zapisz",
     "passwordCaptureDontSave": "Nie zapisuj",
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureNeverSave": "Nigdy nie zapisuj",
     /* Password viewer */
     "savedPasswordsHeading": "Zapisane hasła",
     "savedPasswordsEmpty": "Brak zapisanych haseł.",
-    "savedPasswordsNeverSavedLabel": null, //missing translation
+    "savedPasswordsNeverSavedLabel": "Nigdy nie zapisano",
     "deletePassword": "Usunąć hasło dla %s?",
     /* Dialogs */
     "loginPromptTitle": "Zaloguj się do %h (%r)",
