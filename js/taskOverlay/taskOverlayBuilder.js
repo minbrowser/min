@@ -1,9 +1,7 @@
-var webviews = require('webviews.js')
 var browserUI = require('browserUI.js')
 var searchbarUtils = require('searchbar/searchbarUtils.js')
 var urlParser = require('util/urlParser.js')
 var searchEngine = require('util/searchEngine.js')
-var tabBar = require('navbar/tabBar.js')
 
 const faviconMinimumLuminance = 70 // minimum brightness for a "light" favicon
 
@@ -22,26 +20,7 @@ function getTaskRelativeDate (task) {
   if (time > minimumTime) {
     return null
   } else {
-    return new Intl.DateTimeFormat(navigator.language, {month: 'long', day: 'numeric', year: 'numeric'}).format(d)
-  }
-}
-
-function getTaskContainer (id) {
-  return document.querySelector('.task-container[data-task="{id}"]'.replace('{id}', id))
-}
-
-function removeTabFromOverlay (tabId, task) {
-  task.tabs.destroy(tabId)
-  webviews.destroy(tabId)
-
-  tabBar.updateAll()
-
-  // if there are no tabs left, remove the task
-  if (task.tabs.count() === 0) {
-    // remove the task element from the overlay
-    getTaskContainer(task.id).remove()
-    // close the task
-    browserUI.closeTask(task.id)
+    return new Intl.DateTimeFormat(navigator.language, { month: 'long', day: 'numeric', year: 'numeric' }).format(d)
   }
 }
 
@@ -51,7 +30,7 @@ function toggleCollapsed (taskContainer, task) {
 
   var collapseButton = taskContainer.querySelector('.task-collapse-button')
   collapseButton.classList.toggle('carbon:chevron-right')
-  collapseButton.classList.toggle('carbon:chevron-left')
+  collapseButton.classList.toggle('carbon:chevron-down')
 
   if (tasks.isCollapsed(task.id)) {
     collapseButton.setAttribute('aria-expanded', 'false')
@@ -219,7 +198,7 @@ var TaskOverlayBuilder = {
 
         return infoContainer
       },
-      container: function (task, taskIndex) {
+      container: function (task, taskIndex, events) {
         var container = document.createElement('div')
         container.className = 'task-container'
 
@@ -250,7 +229,7 @@ var TaskOverlayBuilder = {
         var deleteWarning = this.deleteWarning(container, task)
         container.appendChild(deleteWarning)
 
-        var tabContainer = TaskOverlayBuilder.create.tab.container(task)
+        var tabContainer = TaskOverlayBuilder.create.tab.container(task, events)
         container.appendChild(tabContainer)
 
         return container
@@ -258,12 +237,10 @@ var TaskOverlayBuilder = {
     },
 
     tab: {
-      element: function (tabContainer, task, tab) {
+      element: function (tabContainer, task, tab, events) {
         var data = {
           classList: ['task-tab-item'],
-          delete: function () {
-            removeTabFromOverlay(tab.id, task)
-          },
+          delete: events.tabDelete,
           showDeleteButton: true
         }
 
@@ -292,23 +269,18 @@ var TaskOverlayBuilder = {
 
         el.setAttribute('data-tab', tab.id)
 
-        el.addEventListener('click', function (e) {
-          browserUI.switchToTask(this.parentNode.getAttribute('data-task'))
-          browserUI.switchToTab(this.getAttribute('data-tab'))
-
-          taskOverlay.hide()
-        })
+        el.addEventListener('click', events.tabSelect)
         return el
       },
 
-      container: function (task) {
+      container: function (task, events) {
         var tabContainer = document.createElement('ul')
         tabContainer.className = 'task-tabs-container'
         tabContainer.setAttribute('data-task', task.id)
 
         if (task.tabs) {
           for (var i = 0; i < task.tabs.count(); i++) {
-            var el = this.element(tabContainer, task, task.tabs.getAtIndex(i))
+            var el = this.element(tabContainer, task, task.tabs.getAtIndex(i), events)
             tabContainer.appendChild(el)
           }
         }
@@ -320,6 +292,6 @@ var TaskOverlayBuilder = {
 // extend with other helper functions?
 }
 
-module.exports = function createTaskContainer (task, index) {
-  return TaskOverlayBuilder.create.task.container(task, index)
+module.exports = function createTaskContainer (task, index, events) {
+  return TaskOverlayBuilder.create.task.container(task, index, events)
 }

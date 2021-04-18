@@ -16,9 +16,11 @@ var autoRedirectBanner = document.getElementById('auto-redirect-banner')
 var autoRedirectYes = document.getElementById('auto-redirect-yes')
 var autoRedirectNo = document.getElementById('auto-redirect-no')
 
-if (readerDecision.getDomainStatus(articleURL) === undefined) {
-  autoRedirectBanner.hidden = false
-}
+settings.listen('readerData', function () {
+  if (readerDecision.getDomainStatus(articleURL) === undefined) {
+    autoRedirectBanner.hidden = false
+  }
+})
 
 autoRedirectYes.addEventListener('click', function () {
   readerDecision.setDomainStatus(articleURL, true)
@@ -53,10 +55,13 @@ document.addEventListener('click', function (e) {
 })
 
 var autoReaderCheckbox = document.getElementById('auto-reader-checkbox')
-autoReaderCheckbox.checked = (readerDecision.getDomainStatus(articleURL) === true)
+
 autoReaderCheckbox.addEventListener('change', function () {
   readerDecision.setDomainStatus(articleURL, this.checked)
   autoRedirectBanner.hidden = true
+})
+settings.listen('readerData', function () {
+  autoReaderCheckbox.checked = (readerDecision.getDomainStatus(articleURL) === true)
 })
 
 var navLinksContainer = document.getElementById('site-nav-links')
@@ -253,16 +258,6 @@ function startReaderView (article, date) {
 
     window.addEventListener('resize', setReaderFrameSize)
   }
-
-  // save the scroll position at intervals
-
-  setInterval(function () {
-    updateExtraData(articleURL, {
-      scrollPosition: window.pageYOffset,
-      articleScrollLength: rframe.contentDocument.body.scrollHeight
-    })
-  }, 10000)
-
   document.body.appendChild(rframe)
 }
 
@@ -360,11 +355,6 @@ function processArticle (data) {
     }
 
     document.body.removeChild(parserframe)
-
-    saveArticle(articleURL, article, {
-      scrollPosition: 0,
-      articleScrollLength: null
-    })
   }
 }
 
@@ -399,15 +389,8 @@ fetch(articleURL, {
   .catch(function (data) {
     console.warn('request failed with error', data)
 
-    getArticle(articleURL, function (item) {
-      if (item) {
-        console.log('offline article found, displaying')
-        startReaderView(item.article)
-      } else {
-        startReaderView({
-          content: '<em>Failed to load article.</em>'
-        })
-      }
+    startReaderView({
+      content: '<em>Failed to load article.</em>'
     })
   })
 

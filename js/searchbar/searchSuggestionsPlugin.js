@@ -1,4 +1,3 @@
-var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 
 var urlParser = require('util/urlParser.js')
@@ -43,7 +42,7 @@ function showSearchSuggestions (text, input, event) {
             data.icon = 'carbon:search'
           }
 
-          var item = searchbarPlugins.addResult('searchSuggestions', data)
+          searchbarPlugins.addResult('searchSuggestions', data)
         })
       }
     })

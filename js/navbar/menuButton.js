@@ -1,21 +1,29 @@
+const { ipcRenderer } = require('electron')
+
+var keybindings = require('keybindings.js')
+var settings = require('util/settings/settings.js')
+
 var menuButton = document.getElementById('menu-button')
 
-menuButton.addEventListener('click', function (e) {
-  showSecondaryMenu()
-})
-
-window.showSecondaryMenu = function () {
+function showSecondaryMenu () {
   var navbar = document.getElementById('navbar')
   var rect = menuButton.getBoundingClientRect()
   var navbarRect = navbar.getBoundingClientRect()
 
-  ipc.send('showSecondaryMenu', {
+  ipcRenderer.send('showSecondaryMenu', {
     x: Math.round(rect.left),
     y: Math.round(navbarRect.bottom)
   })
 }
 
-keybindings.defineShortcut('showMenu', function () {
-  if (!settings.get('useSeparateTitlebar') && (window.platformType === 'windows' || window.platformType === 'linux'))
+function initialize () {
+  menuButton.addEventListener('click', function (e) {
     showSecondaryMenu()
-})
+  })
+
+  keybindings.defineShortcut('showMenu', function () {
+    if (!settings.get('useSeparateTitlebar') && (window.platformType === 'windows' || window.platformType === 'linux')) { showSecondaryMenu() }
+  })
+}
+
+module.exports = { initialize, showSecondaryMenu }

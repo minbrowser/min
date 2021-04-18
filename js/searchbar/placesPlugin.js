@@ -5,18 +5,6 @@ var searchbarAutocomplete = require('util/autocomplete.js')
 var urlParser = require('util/urlParser.js')
 var readerDecision = require('readerDecision.js')
 
-/* For survey */
-var browserUI = require('browserUI.js')
-
-var surveyURL
-fetch('https://minbrowser.github.io/min/searchSurvey/searchSurvey.json').then(function (response) {
-  return response.json()
-}).then(function (data) {
-  if (data.available && data.url) {
-    surveyURL = data.url
-  }
-})
-
 var places = require('places/places.js')
 var searchEngine = require('util/searchEngine.js')
 
@@ -25,12 +13,13 @@ var currentResponseSent = 0
 function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
   var responseSent = Date.now()
 
+  var searchFn, resultCount
   if (pluginName === 'fullTextPlaces') {
-    var searchFn = places.searchPlacesFullText
-    var resultCount = 4 - searchbarPlugins.getResultCount('places')
+    searchFn = places.searchPlacesFullText
+    resultCount = 4 - searchbarPlugins.getResultCount('places')
   } else {
-    var searchFn = places.searchPlaces
-    var resultCount = 4
+    searchFn = places.searchPlaces
+    resultCount = 4
   }
 
   // only autocomplete an item if the delete key wasn't pressed
@@ -117,17 +106,6 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
         searchbarPlugins.addResult(pluginName, data)
       }
     })
-
-    if (surveyURL && pluginName === 'fullTextPlaces') {
-      var feedbackLink = document.createElement('span')
-      feedbackLink.className = 'search-feedback-link'
-      feedbackLink.textContent = 'Search Feedback'
-      feedbackLink.addEventListener('click', function (e) {
-        var url = surveyURL + '?query=' + encodeURIComponent(text) + '&results=' + encodeURIComponent(results.map(r => r.url).join('\n')) + '&version=' + encodeURIComponent(window.globalArgs['app-version'])
-        browserUI.addTab(tabs.add({ url: url }), { enterEditMode: false })
-      })
-      searchbarPlugins.getContainer('fullTextPlaces').appendChild(feedbackLink)
-    }
   })
 }
 

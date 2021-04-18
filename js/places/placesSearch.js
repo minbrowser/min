@@ -12,7 +12,7 @@ function searchPlaces (searchText, callback, options) {
     if (limitToBookmarks && !item.isBookmarked) {
       return
     }
-    let itextURL = processSearchText(item.url)
+    const itextURL = processSearchText(item.url)
     let itext = itextURL
 
     if (item.url !== item.title) {
@@ -79,7 +79,7 @@ function searchPlaces (searchText, callback, options) {
   const itemStartBoost = Math.min(2.5 * stl, 10)
   const exactMatchBoost = 0.4 + (0.075 * stl)
   const limitToBookmarks = options && options.searchBookmarks
-  const resultsLimit = options && options.limit || 100
+  const resultsLimit = (options && options.limit) || 100
 
   if (searchText.indexOf(' ') !== -1) {
     substringSearchEnabled = true

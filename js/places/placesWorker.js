@@ -9,7 +9,7 @@ importScripts('fullTextSearch.js')
 importScripts('placesSearch.js')
 importScripts('tagIndex.js')
 
-const spacesRegex = /[\+\s._/-]+/g // things that could be considered spaces
+const spacesRegex = /[+\s._/-]+/g // things that could be considered spaces
 
 function calculateHistoryScore (item) { // item.boost - how much the score should be multiplied by. Example - 0.05
   let fs = item.lastVisit * (1 + 0.036 * Math.sqrt(item.visitCount))
@@ -44,6 +44,7 @@ setInterval(cleanupHistoryDatabase, 60 * 60 * 1000)
 // cache history in memory for faster searching. This actually takes up very little space, so we can cache everything.
 
 let historyInMemoryCache = []
+let doneLoadingHistoryCache = false
 
 function addToHistoryCache (item) {
   if (item.isBookmarked) {
@@ -90,6 +91,8 @@ function loadHistoryInMemory () {
     historyInMemoryCache.sort(function (a, b) {
       return calculateHistoryScore(b) - calculateHistoryScore(a)
     })
+
+    doneLoadingHistoryCache = true
   })
 }
 
@@ -126,6 +129,9 @@ onmessage = function (e) {
         for (const key in pageData) {
           if (key === 'extractedText') {
             item.searchIndex = tokenize(pageData.extractedText)
+          } else if (key === 'tags') {
+            // ensure tags are never saved with spaces in them
+            item.tags = pageData.tags.map(t => t.replace(/\s/g, '-'))
           } else {
             item[key] = pageData[key]
           }
@@ -224,42 +230,29 @@ onmessage = function (e) {
   }
 
   if (action === 'getPlaceSuggestions') {
-    // get the history item for the provided url
+    function returnSuggestionResults () {
+      const cTime = Date.now()
 
-    let baseItem = null
+      let results = historyInMemoryCache.slice().filter(i => cTime - i.lastVisit < 604800000)
 
-    for (let i = 0; i < historyInMemoryCache.length; i++) {
-      if (historyInMemoryCache[i].url === searchText) {
-        baseItem = historyInMemoryCache[i]
-        break
+      for (let i = 0; i < results.length; i++) {
+        results[i].hScore = calculateHistoryScore(results[i])
       }
+
+      results = results.sort(function (a, b) {
+        return b.hScore - a.hScore
+      })
+
+      postMessage({
+        result: results.slice(0, 100),
+        callbackId: callbackId
+      })
     }
 
-    // use a default item. This could occur if the given url is for a page that has never finished loading
-    if (!baseItem) {
-      baseItem = {
-        url: '',
-        title: '',
-        lastVisit: Date.now(),
-        visitCount: 1
-      }
+    if (historyInMemoryCache.length > 10 || doneLoadingHistoryCache) {
+      returnSuggestionResults()
+    } else {
+      setTimeout(returnSuggestionResults, 100)
     }
-
-    const cTime = Date.now()
-
-    let results = historyInMemoryCache.slice().filter(i => cTime - i.lastVisit < 604800000)
-
-    for (let i = 0; i < results.length; i++) {
-      results[i].hScore = calculateHistoryScore(results[i])
-    }
-
-    results = results.sort(function (a, b) {
-      return b.hScore - a.hScore
-    })
-
-    postMessage({
-      result: results.slice(0, 100),
-      callbackId: callbackId
-    })
   }
 }

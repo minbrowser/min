@@ -8,9 +8,9 @@ function cancel () {
 function response () {
   var values = {}
 
-  let inputs = document.getElementsByTagName('input')
+  const inputs = document.getElementsByTagName('input')
   for (var i = 0; i < inputs.length; i++) {
-    let input = inputs[i]
+    const input = inputs[i]
     values[input.id] = input.value
   }
 
@@ -31,7 +31,7 @@ window.addEventListener('load', function () {
   const { okLabel = 'OK', cancelLabel = 'Cancel', darkMode = -1, values = [] } = params
 
   if (values && values.length > 0) {
-    let inputContainer = document.getElementById('input-container')
+    const inputContainer = document.getElementById('input-container')
 
     values.forEach((value, index) => {
       var input = document.createElement('input')
@@ -46,7 +46,7 @@ window.addEventListener('load', function () {
 
       if (index < values.length - 1) {
         input.style.marginBottom = '0.4em'
-        let br = document.createElement('br')
+        const br = document.createElement('br')
         inputContainer.appendChild(br)
       }
 
@@ -73,4 +73,3 @@ window.addEventListener('load', function () {
   document.getElementById('ok').value = okLabel
   document.getElementById('cancel').value = cancelLabel
 })
-

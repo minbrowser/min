@@ -1,0 +1,54 @@
+name: Build Package
+on: [workflow_dispatch]
+jobs:
+  buildMac:
+    runs-on: macos-latest
+    env:
+      SDKROOT: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
+    - run: npm install
+    - name: build package
+      run: npm run buildMacIntel && npm run buildMacArm
+    - name: upload package
+      uses: actions/upload-artifact@v2
+      with:
+        name: mac-package
+        path: dist/app/*.zip
+  buildWindows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
+    - run: npm install
+    - name: build package
+      run: npm run buildWindows
+    - name: upload package
+      uses: actions/upload-artifact@v2
+      with:
+        name: windows-package
+        path: |
+          dist/app/*.zip
+          dist/app/*.exe
+  buildLinux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
+    - run: npm install
+    - name: build package
+      run: npm run buildDebian && npm run buildRedhat && npm run buildLinuxArm64
+    - name: upload package
+      uses: actions/upload-artifact@v2
+      with:
+        name: linux-package
+        path: |
+          dist/app/*.deb
+          dist/app/*.rpm

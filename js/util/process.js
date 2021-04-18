@@ -6,30 +6,30 @@ and then resolves the promise with gathered data.
 
 const { spawn, spawnSync } = require('child_process')
 
-const worker = new Worker('js/util/processWorker.js');
+const worker = new Worker('js/util/processWorker.js')
 
 let processPath = process.env.PATH
 
 // we need to locate the op binary in this directory on macOS - see https://github.com/minbrowser/min/issues/1028
 // normally, it is present in the path when running in development, but not when the app is launched after being packaged
-if (platformType === "mac" && !processPath.includes("/usr/local/bin")) {
+if (platformType === 'mac' && !processPath.includes('/usr/local/bin')) {
   processPath += ':/usr/local/bin'
 }
 
-const customEnv = Object.assign({}, process.env, {PATH: processPath})
+const customEnv = Object.assign({}, process.env, { PATH: processPath })
 
-//see https://github.com/minbrowser/min/issues/1028#issuecomment-647235653
+// see https://github.com/minbrowser/min/issues/1028#issuecomment-647235653
 const maxBufferSize = 25 * 1024 * 1024
 
 class ProcessSpawner {
-  constructor(command, args) {
+  constructor (command, args) {
     this.command = command
     this.args = args
-    this.data = ""
-    this.error = ""
+    this.data = ''
+    this.error = ''
   }
 
-  async execute() {
+  async execute () {
     return new Promise((resolve, reject) => {
       const process = spawn(this.command, this.args, { env: customEnv, maxBuffer: maxBufferSize })
 
@@ -55,20 +55,20 @@ class ProcessSpawner {
     })
   }
 
-  executeSync(input) {
-    const process = spawnSync(this.command, this.args, { input: input, encoding: "utf8", env: customEnv, maxBuffer: maxBufferSize })
+  executeSync (input) {
+    const process = spawnSync(this.command, this.args, { input: input, encoding: 'utf8', env: customEnv, maxBuffer: maxBufferSize })
     return process.output[1].slice(0, -1)
   }
 
-  executeSyncInAsyncContext(input) {
+  executeSyncInAsyncContext (input) {
     return new Promise((resolve, reject) => {
-      let taskId = Math.random();
+      const taskId = Math.random()
       worker.onmessage = function (e) {
         if (e.data.taskId === taskId) {
           if (e.data.error) {
             reject(e.data.error)
           } else {
-            resolve(e.data.result);
+            resolve(e.data.result)
           }
         }
       }
@@ -78,14 +78,14 @@ class ProcessSpawner {
         input: input,
         customEnv: customEnv,
         maxBuffer: maxBufferSize,
-        taskId: taskId,
+        taskId: taskId
       })
     })
   }
 
-  checkCommandExists() {
+  checkCommandExists () {
     return new Promise((resolve, reject) => {
-      const checkCommand = (platformType === "windows") ? 'where' : 'which'
+      const checkCommand = (platformType === 'windows') ? 'where' : 'which'
       const process = spawn(checkCommand, [this.command], { env: customEnv })
 
       process.stdout.on('data', (data) => {
@@ -95,7 +95,7 @@ class ProcessSpawner {
       })
 
       process.on('close', (code) => {
-        //if we didn't get any output, the command doesn't exist
+        // if we didn't get any output, the command doesn't exist
         resolve(false)
       })
 

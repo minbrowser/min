@@ -11,7 +11,7 @@ class TaskList {
   }
 
   on (name, fn) {
-    this.events.push({name, fn})
+    this.events.push({ name, fn })
   }
 
   emit (name, ...data) {
@@ -31,7 +31,7 @@ class TaskList {
     })
   }
 
-  add (task = {} , index) {
+  add (task = {}, index) {
     const newTask = {
       name: task.name || null,
       tabs: new TabList(task.tabs, this),
@@ -53,13 +53,13 @@ class TaskList {
 
   getStringifyableState () {
     return {
-      tasks: this.tasks.map(task => Object.assign({}, task, {tabs: task.tabs.getStringifyableState()})),
+      tasks: this.tasks.map(task => Object.assign({}, task, { tabs: task.tabs.getStringifyableState() })),
       selectedTask: this.selected
     }
   }
 
   get (id) {
-    return this.find(task => task.id == id) || null
+    return this.find(task => task.id === id) || null
   }
 
   getSelected () {
@@ -75,7 +75,7 @@ class TaskList {
   }
 
   getIndex (id) {
-    return this.tasks.findIndex(task => task.id == id)
+    return this.tasks.findIndex(task => task.id === id)
   }
 
   setSelected (id) {

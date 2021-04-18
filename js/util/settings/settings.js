@@ -1,25 +1,15 @@
 var settings = {
-  filePath: (process.type === 'renderer' ? window.globalArgs['user-data-path'] : userDataPath) + (process.platform === 'win32' ? '\\' : '/') + 'settings.json',
+  filePath: window.globalArgs['user-data-path'] + (process.platform === 'win32' ? '\\' : '/') + 'settings.json',
   list: {},
   onChangeCallbacks: [],
-  save: function (cb) {
-    fs.writeFile(settings.filePath, JSON.stringify(settings.list), function (e) {
-      if (cb) {
-        cb()
-      }
-    })
-    if (process.type === 'renderer') {
-      ipc.send('receiveSettingsData', settings.list)
-    } else if (process.type === 'browser' && mainWindow) {
-      mainWindow.webContents.send('receiveSettingsData', settings.list)
-    }
-  },
-  runChangeCallacks () {
+  runChangeCallbacks (key) {
     settings.onChangeCallbacks.forEach(function (listener) {
-      if (listener.key) {
-        listener.cb(settings.list[listener.key])
-      } else {
-        listener.cb()
+      if (!key || !listener.key || listener.key === key) {
+        if (listener.key) {
+          listener.cb(settings.list[listener.key])
+        } else {
+          listener.cb(key)
+        }
       }
     })
   },
@@ -29,31 +19,35 @@ var settings = {
   listen: function (key, cb) {
     if (key && cb) {
       cb(settings.get(key))
-      settings.onChangeCallbacks.push({key, cb})
+      settings.onChangeCallbacks.push({ key, cb })
     } else if (key) {
       // global listener
-      settings.onChangeCallbacks.push({cb: key})
+      settings.onChangeCallbacks.push({ cb: key })
     }
   },
-  set: function (key, value, cb) {
+  set: function (key, value) {
     settings.list[key] = value
-    settings.save(cb)
-    settings.runChangeCallacks()
+    ipc.send('settingChanged', key, value)
+    settings.runChangeCallbacks(key)
   },
   initialize: function () {
     var fileData
     try {
       fileData = fs.readFileSync(settings.filePath, 'utf-8')
     } catch (e) {
-      console.warn(e)
+      if (e.code !== 'ENOENT') {
+        console.warn(e)
+      }
     }
     if (fileData) {
       settings.list = JSON.parse(fileData)
     }
 
-    ipc.on('receiveSettingsData', function (e, data) {
-      settings.list = data
-      settings.runChangeCallacks()
+    settings.runChangeCallbacks()
+
+    ipc.on('settingChanged', function (e, key, value) {
+      settings.list[key] = value
+      settings.runChangeCallbacks(key)
     })
   }
 }

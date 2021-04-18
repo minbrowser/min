@@ -2,7 +2,7 @@ var ignoreButton = document.getElementById('ignore-button')
 var continueButton = document.getElementById('continue-button')
 
 ignoreButton.addEventListener('click', function () {
-    // add the domain to the exception list
+  // add the domain to the exception list
 
   settings.get('phishingWhitelist', function (value) {
     if (!value) {
@@ -23,7 +23,7 @@ ignoreButton.addEventListener('click', function () {
 
     settings.set('phishingWhitelist', value)
 
-        // redirect back to the original page
+    // redirect back to the original page
 
     window.location = url
   })

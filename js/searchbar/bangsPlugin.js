@@ -1,4 +1,5 @@
 var tabEditor = require('navbar/tabEditor.js')
+var settings = require('util/settings/settings.js')
 
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
@@ -57,11 +58,11 @@ function incrementBangCount (bang) {
   // prevent the data from getting too big
 
   if (bangUseCounts[bang] > 100) {
-    for (var bang in bangUseCounts) {
-      bangUseCounts[bang] = Math.floor(bangUseCounts[bang] * 0.8)
+    for (var key in bangUseCounts) {
+      bangUseCounts[key] = Math.floor(bangUseCounts[key] * 0.8)
 
-      if (bangUseCounts[bang] < 2) {
-        delete bangUseCounts[bang]
+      if (bangUseCounts[key] < 2) {
+        delete bangUseCounts[key]
       }
     }
   }
@@ -166,7 +167,7 @@ function getBangSearchResults (text, input, event) {
     }
     results = results.concat(searchCustomBangs(text))
     if (text === '!') {
-      showBangSearchResults(text, results, input, event, 4)
+      showBangSearchResults(text, results, input, event)
       searchbarPlugins.addResult('bangs', {
         title: l('showMoreBangs'),
         icon: 'carbon:chevron-down',
@@ -211,6 +212,20 @@ function initialize () {
       }
     }
   })
+
+  const savedBangs = settings.get('customBangs')
+  if (savedBangs) {
+    savedBangs.forEach((bang) => {
+      if (!bang.phrase || !bang.redirect) return
+      registerCustomBang({
+        phrase: `!${bang.phrase}`,
+        snippet: `${bang.snippet}` ?? '',
+        fn: function (text) {
+          searchbar.openURL(bang.redirect.replace('%s', encodeURIComponent(text)))
+        }
+      })
+    })
+  }
 }
 
 module.exports = { initialize, registerCustomBang }

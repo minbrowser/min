@@ -1,5 +1,5 @@
 function TabStack (tabStack) {
-  this.depth = 15
+  this.depth = 10
 
   if (tabStack) {
     this.stack = tabStack.stack
@@ -10,8 +10,8 @@ function TabStack (tabStack) {
 
 TabStack.prototype.push = function (closedTab) {
   // Do not store private tabs or blank tabs
-  if (closedTab.private
-    || closedTab.url === '') {
+  if (closedTab.private ||
+    closedTab.url === '') {
     return
   }
 

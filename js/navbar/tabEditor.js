@@ -35,6 +35,8 @@ const tabEditor = {
     if (!editingValue) {
       tabEditor.input.select()
     }
+    // https://github.com/minbrowser/min/discussions/1506
+    tabEditor.input.scrollLeft = 0
 
     searchbar.show(tabEditor.input)
 
@@ -49,7 +51,6 @@ const tabEditor = {
     /* animation */
     if (tabs.count() > 1) {
       requestAnimationFrame(function () {
-
         var item = document.querySelector(`.tab-item[data-tab="${tabId}"]`)
         var originCoordinates = item.getBoundingClientRect()
 

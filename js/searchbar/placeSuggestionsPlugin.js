@@ -49,5 +49,4 @@ function initialize () {
   })
 }
 
-module.exports = {initialize}
-
+module.exports = { initialize }

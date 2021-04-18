@@ -1,4 +1,5 @@
 const packager = require('electron-packager')
+const rebuild = require('electron-rebuild').default
 
 const packageFile = require('./../package.json')
 const version = packageFile.version
@@ -37,12 +38,31 @@ var baseOptions = {
   arch: 'all',
   ignore: ignoredDirs,
   prune: true,
-  overwrite: true
+  overwrite: true,
+  afterCopy: [(buildPath, electronVersion, platform, arch, callback) => {
+    rebuild({ buildPath, electronVersion, arch })
+      .then(() => callback())
+      .catch((error) => callback(error))
+  }]
 }
 
 var platformOptions = {
-  darwin: {
+  darwinIntel: {
     platform: 'darwin',
+    arch: 'x64',
+    icon: 'icons/icon.icns',
+    darwinDarkModeSupport: true,
+    protocols: [{
+      name: 'HTTP link',
+      schemes: ['http', 'https']
+    }, {
+      name: 'File',
+      schemes: ['file']
+    }]
+  },
+  darwinArm: {
+    platform: 'darwin',
+    arch: 'arm64',
     icon: 'icons/icon.icns',
     darwinDarkModeSupport: true,
     protocols: [{
@@ -54,6 +74,7 @@ var platformOptions = {
     }]
   },
   win32: {
+    arch: 'all',
     platform: 'win32',
     icon: 'icons/icon256.ico'
   },
@@ -76,6 +97,6 @@ var platformOptions = {
   }
 }
 
-module.exports = function (platform) {
-  return packager(Object.assign({}, baseOptions, platformOptions[platform]))
+module.exports = function (platform, extraOptions) {
+  return packager(Object.assign({}, baseOptions, platformOptions[platform], extraOptions || {}))
 }

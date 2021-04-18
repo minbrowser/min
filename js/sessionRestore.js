@@ -2,7 +2,7 @@ var browserUI = require('browserUI.js')
 var webviews = require('webviews.js')
 var tabEditor = require('navbar/tabEditor.js')
 
-window.sessionRestore = {
+const sessionRestore = {
   savePath: window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
   previousState: null,
   save: function (forceSave, sync) {
@@ -80,12 +80,15 @@ window.sessionRestore = {
       // add the saved tasks
 
       data.state.tasks.forEach(function (task) {
-        // reset tab hasAudio
-        task.tabs.forEach(function (tab) {
-          tab.hasAudio = false
-        })
         // restore the task item
         tasks.add(task)
+
+        /*
+        If the task contained only private tabs, none of the tabs will be contained in the session restore data, but tasks must always have at least 1 tab, so create a new empty tab if the task doesn't have any.
+        */
+        if (task.tabs.length === 0) {
+          tasks.get(task.id).tabs.add()
+        }
       })
       tasks.setSelected(data.state.selectedTask)
 
@@ -152,15 +155,14 @@ window.sessionRestore = {
       browserUI.switchToTask(newTask)
       browserUI.switchToTab(newSessionErrorTab)
     }
+  },
+  initialize: function () {
+    setInterval(sessionRestore.save, 30000)
+
+    window.onbeforeunload = function (e) {
+      sessionRestore.save(true, true)
+    }
   }
 }
 
-// TODO make this a preference
-
-sessionRestore.restore()
-
-setInterval(sessionRestore.save, 30000)
-
-window.onbeforeunload = function (e) {
-  sessionRestore.save(true, true)
-}
+module.exports = sessionRestore

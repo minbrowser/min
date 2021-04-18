@@ -37,7 +37,7 @@ function getColorFromImage (image) {
 
   const data = colorExtractorContext.getImageData(0, 0, w, h).data
 
-  let pixels = {}
+  const pixels = {}
 
   let d, add, sum
 
@@ -71,7 +71,7 @@ function getColorFromImage (image) {
   let largestPixelSet = null
   let ct = 0
 
-  for (let k in pixels) {
+  for (const k in pixels) {
     if (k === '255,255,255' || k === '0,0,0') {
       pixels[k] *= 0.05
     }
@@ -81,7 +81,7 @@ function getColorFromImage (image) {
     }
   }
 
-  let res = largestPixelSet.split(',')
+  const res = largestPixelSet.split(',')
 
   for (let i = 0; i < res.length; i++) {
     res[i] = parseInt(res[i])
@@ -94,7 +94,7 @@ function getColorFromString (str) {
   colorExtractorContext.clearRect(0, 0, 1, 1)
   colorExtractorContext.fillStyle = str
   colorExtractorContext.fillRect(0, 0, 1, 1)
-  let rgb = Array.from(colorExtractorContext.getImageData(0, 0, 1, 1).data).slice(0, 3)
+  const rgb = Array.from(colorExtractorContext.getImageData(0, 0, 1, 1).data).slice(0, 3)
 
   return rgb
 }

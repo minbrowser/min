@@ -44,11 +44,11 @@ module.exports = {
 
       while (node) {
         if (node.nodeName.match(/^(input|textarea)$/i) || node.isContentEditable) {
-          if (node.id == 'tab-editor-input') {
+          if (node.id === 'tab-editor-input') {
             inputMenu[1].push({
               label: l('pasteAndGo'),
-              click: function() {
-                searchbar.openURL(remote.clipboard.readText())
+              click: function () {
+                searchbar.openURL(electron.clipboard.readText())
               }
             })
           }

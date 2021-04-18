@@ -71,7 +71,7 @@ function createUnlockButton (input) {
   // Click event.
   button.addEventListener('mousedown', (event) => {
     event.preventDefault()
-    checkInputs()
+    requestAutofill()
   })
 
   unlockDiv.appendChild(button)
@@ -81,19 +81,27 @@ function createUnlockButton (input) {
 
 // Tries to find if an element has a specific attribute value that contains at
 // least one of the values from 'matches' array.
-function checkAttribute (element, attribute, matches) {
-  let value = element.getAttribute(attribute)
-  if (value == null) { return false }
-  return matches.some(match => value.toLowerCase().includes(match))
+function checkAttributes (element, attributes, matches) {
+  for (const attribute of attributes) {
+    const value = element.getAttribute(attribute)
+    if (value == null) { continue }
+    if (matches.some(match => value.toLowerCase().includes(match))) {
+      return true
+    }
+  }
+  return false
 }
 
 // Gets all input fields on a page that contain at least one of the provided
 // strings in their name attribute.
-function getInputs (names, types) {
-  let allFields = document.getElementsByTagName('input')
+function getBestInput (names, exclusionNames, types) {
+  const allFields = [
+    ...(document.querySelectorAll('form input') || []),
+    ...(document.querySelectorAll('input') || [])
+  ]
+  // this list includes duplicates, but we only use the first one we find that matches, so there's no need to dedupe
 
-  let matchedFields = []
-  for (let field of allFields) {
+  for (const field of allFields) {
     // checkAttribute won't work here because type can be a property but not an attribute
     if (!types.includes(field.type)) {
       continue
@@ -101,24 +109,23 @@ function getInputs (names, types) {
 
     // We expect the field to have either 'name', 'formcontrolname' or 'id' attribute
     // that we can use to identify it as a login form input field.
-    if (checkAttribute(field, 'name', names) ||
-        checkAttribute(field, 'formcontrolname', names) ||
-        checkAttribute(field, 'id', names)) {
-      matchedFields.push(field)
+    if (names.length === 0 || checkAttributes(field, ['name', 'formcontrolname', 'id', 'placholder'], names)) {
+      if (!checkAttributes(field, ['name', 'formcontrolname', 'id', 'placeholder'], exclusionNames) && field.type !== 'hidden') {
+        return field
+      }
     }
   }
-
-  return matchedFields
+  return null
 }
 
 // Shortcut to get username fields from a page.
-function getUsernameFields () {
-  return getInputs(['user', 'name', 'mail', 'login', 'auth', 'identifier'], ['text', 'email'])
+function getBestUsernameField () {
+  return getBestInput(['user', 'name', 'mail', 'login', 'auth', 'identifier'], ['confirm'], ['text', 'email'])
 }
 
 // Shortcut to get password fields from a page.
-function getPasswordFields () {
-  return getInputs(['pass'], ['password'])
+function getBestPasswordField () {
+  return getBestInput([], [], ['password'])
 }
 
 // Removes credentials list overlay.
@@ -133,17 +140,19 @@ function fillCredentials (credentials) {
   const { username, password } = credentials
   const inputEvents = ['keydown', 'keypress', 'keyup', 'input', 'change']
 
-  for (let field of getUsernameFields()) {
-    field.value = username
-    for (let event of inputEvents) {
-      field.dispatchEvent(new Event(event, { 'bubbles': true }))
+  const usernameField = getBestUsernameField()
+  if (usernameField) {
+    usernameField.value = username
+    for (const event of inputEvents) {
+      usernameField.dispatchEvent(new Event(event, { bubbles: true }))
     }
   }
 
-  for (let field of getPasswordFields()) {
-    field.value = password
-    for (let event of inputEvents) {
-      field.dispatchEvent(new Event(event, { 'bubbles': true }))
+  const passwordField = getBestPasswordField()
+  if (passwordField) {
+    passwordField.value = password
+    for (const event of inputEvents) {
+      passwordField.dispatchEvent(new Event(event, { bubbles: true }))
     }
   }
 }
@@ -157,10 +166,10 @@ function fillCredentials (credentials) {
 // - element: input field to add a listener to
 // - credentials: an array of { username, password } objects
 function addFocusListener (element, credentials) {
-  let inputRect = element.getBoundingClientRect()
+  const inputRect = element.getBoundingClientRect()
   // Creates an options list container.
   function buildContainer () {
-    let suggestionsDiv = document.createElement('div')
+    const suggestionsDiv = document.createElement('div')
     suggestionsDiv.style = 'position: absolute; border: 1px solid #d4d4d4; z-index: 999999; border-bottom: none; background: #FFFFFF; transform: scale(0); opacity: 0; transform-origin: top left; transition: 0.15s; color: #000000;'
     suggestionsDiv.style.top = (inputRect.y + inputRect.height) + 'px'
     suggestionsDiv.style.left = (inputRect.x) + 'px'
@@ -174,13 +183,13 @@ function addFocusListener (element, credentials) {
 
   // Adds an option row to the list container.
   function addOption (parent, username) {
-    let suggestionItem = document.createElement('div')
+    const suggestionItem = document.createElement('div')
     suggestionItem.innerHTML = username
     suggestionItem.style = 'padding: 10px; cursor: pointer; background-color: #fff; border-bottom: 1px solid #d4d4d4;'
 
     // Hover.
     suggestionItem.addEventListener('mouseenter', (event) => {
-      suggestionItem.style.backgroundColor  = '#e4e4e4'
+      suggestionItem.style.backgroundColor = '#e4e4e4'
     })
     suggestionItem.addEventListener('mouseleave', (event) => {
       suggestionItem.style.backgroundColor = '#fff'
@@ -188,7 +197,7 @@ function addFocusListener (element, credentials) {
 
     // When user clicks on the suggestion, we populate the form inputs with selected credentials.
     suggestionItem.addEventListener('click', function (e) {
-      let selectedCredentials = credentials.filter(el => { return el.username === username })[0]
+      const selectedCredentials = credentials.filter(el => { return el.username === username })[0]
       fillCredentials(selectedCredentials)
       removeAutocompleteList()
       element.focus()
@@ -200,8 +209,8 @@ function addFocusListener (element, credentials) {
   // Creates autocomplete list and adds it below the activated field.
   function showAutocompleteList (e) {
     removeAutocompleteList()
-    let container = buildContainer()
-    for (let cred of credentials) {
+    const container = buildContainer()
+    for (const cred of credentials) {
       addOption(container, cred.username)
     }
     document.body.appendChild(container)
@@ -225,29 +234,30 @@ function addFocusListener (element, credentials) {
   }
 }
 
-function checkInputs () {
-  if (getUsernameFields().length > 0 || getPasswordFields().length > 0) {
+function requestAutofill () {
+  if (getBestUsernameField() && getBestPasswordField()) {
     ipc.send('password-autofill', document.location.hostname)
   }
 }
 
-function addUnlockButton (target) {
-  if (getUsernameFields().includes(target) || getPasswordFields().includes(target)) {
-    let unlockButton = createUnlockButton(target)
-    document.body.appendChild(unlockButton)
+function maybeAddUnlockButton (target) {
+  // require both a username and a password field to reduce the false-positive rate
+  if (target instanceof Node && getBestUsernameField() && getBestPasswordField()) {
+    if (getBestUsernameField().isSameNode(target) || getBestPasswordField().isSameNode(target)) {
+      const unlockButton = createUnlockButton(target)
+      document.body.appendChild(unlockButton)
 
-    currentUnlockButton = unlockButton
+      currentUnlockButton = unlockButton
+    }
   }
 }
 
 function checkInitialFocus () {
-  if (getUsernameFields().includes(document.activeElement) || getPasswordFields().includes(document.activeElement)) {
-    addUnlockButton(document.activeElement)
-  }
+  maybeAddUnlockButton(document.activeElement)
 }
 
 function handleFocus (event) {
-  addUnlockButton(event.target)
+  maybeAddUnlockButton(event.target)
 }
 
 function handleBlur (event) {
@@ -270,16 +280,22 @@ ipc.on('password-autofill-match', (event, data) => {
     }
   } else if (data.credentials.length === 1) {
     fillCredentials(data.credentials[0])
+    const firstPasswordField = getBestPasswordField()
+    if (firstPasswordField) {
+      firstPasswordField.focus()
+    }
   } else {
-    let firstField = getUsernameFields().filter(field => field.type !== 'hidden')[0]
-    addFocusListener(firstField, data.credentials)
-    firstField.focus()
+    const firstField = getBestUsernameField()
+    if (firstField) {
+      addFocusListener(firstField, data.credentials)
+      firstField.focus()
+    }
   }
 })
 
 // Trigger autofill check from keyboard shortcut.
 ipc.on('password-autofill-shortcut', (event) => {
-  checkInputs(true)
+  requestAutofill()
 })
 
 // Autofill enabled event handler. Initializes focus listeners for input fields.
@@ -296,3 +312,28 @@ window.addEventListener('load', function (event) {
   ipc.send('password-autofill-check')
 })
 
+// send passwords back to the main process so they can be saved to storage
+function handleFormSubmit () {
+  var usernameValue = getBestUsernameField()?.value
+  var passwordValue = getBestPasswordField()?.value
+
+  if ((usernameValue && usernameValue.length > 0) || (passwordValue && passwordValue.length > 0)) {
+    ipc.send('password-form-filled', [window.location.hostname, usernameValue, passwordValue])
+  }
+}
+
+window.addEventListener('submit', handleFormSubmit)
+
+electron.webFrame.executeJavaScript(`
+var origSubmit = HTMLFormElement.prototype.submit;
+HTMLFormElement.prototype.submit = function () {
+  window.postMessage({message: 'formSubmit'})
+  origSubmit.apply(this, arguments)
+}
+`)
+
+window.addEventListener('message', function (e) {
+  if (e.data && e.data.message && e.data.message === 'formSubmit') {
+    handleFormSubmit()
+  }
+})

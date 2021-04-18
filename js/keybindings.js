@@ -48,12 +48,12 @@ function checkShortcutCanRun (combo, cb) {
             return false;
           })()
       `, function (err, isInputFocused) {
-        if (err) {
-          console.warn(err)
-          return
-        }
-        cb(isInputFocused === false)
-      })
+          if (err) {
+            console.warn(err)
+            return
+          }
+          cb(isInputFocused === false)
+        })
       }
     })
   } else {
@@ -73,8 +73,8 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
   }
 
   var shortcutCallback = function (e, combo) {
-    // Disable shortcuts for modal mode.
-    if (modalMode.enabled()) {
+    // Disable shortcuts for modal mode, unless this is the combo to close the modal
+    if (modalMode.enabled() && combo !== 'esc') {
       return
     }
 
@@ -110,7 +110,7 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
 function initialize () {
   webviews.bindEvent('before-input-event', function (tabId, input) {
     var expectedKeys = 1
-  // account for additional keys that aren't in the input.key property
+    // account for additional keys that aren't in the input.key property
     if (input.alt && input.key !== 'Alt') {
       expectedKeys++
     }
@@ -132,7 +132,7 @@ function initialize () {
       var matchedKeys = 0
       shortcut.keys.forEach(function (key) {
         if (!(
-        key === input.key.toLowerCase() ||
+          key === input.key.toLowerCase() ||
         key === input.code.replace('Digit', '') ||
         (key === 'esc' && input.key === 'Escape') ||
         (key === 'left' && input.key === 'ArrowLeft') ||
@@ -146,7 +146,7 @@ function initialize () {
         (key === 'mod' && window.platformType === 'mac' && (input.meta || input.key === 'Meta')) ||
         (key === 'mod' && window.platformType !== 'mac' && (input.control || input.key === 'Control'))
         )
-      ) {
+        ) {
           matches = false
         } else {
           matchedKeys++
@@ -162,4 +162,4 @@ function initialize () {
 
 initialize()
 
-module.exports = {defineShortcut}
+module.exports = { defineShortcut }

@@ -51,7 +51,6 @@ const keyboardNavigationHelper = {
         break
       }
     }
-
   },
   handleKeypress: function (group, e) {
     if (e.keyCode === 9 && e.shiftKey) { // shift+tab

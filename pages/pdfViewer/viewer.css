@@ -2,7 +2,8 @@
   html {
     padding: 0;
     margin: 0;
-    font-family: '.SFNSText-Regular', 'BlinkMacSystemFont', 'Helvetica Neue', 'Segoe UI', 'Arial', sans-serif;
+    font-family: ".SFNSText-Regular", "BlinkMacSystemFont", "Helvetica Neue",
+      "Segoe UI", "Arial", sans-serif;
   }
   body {
     background-color: rgb(200, 200, 200);
@@ -14,22 +15,16 @@
   body.dark-mode {
     background-color: rgb(33, 37, 43);
   }
-  
+
   * {
     box-sizing: border-box;
   }
 
-  /* workaround for https://pspdfkit.com/blog/2020/text-selection-bug-chrome-83/ */
-  ::selection {
-    color: currentColor;
-    background-color: highlight;
-  }
-  
   .viewer-ui {
     user-select: none;
     z-index: 9999;
   }
-  
+
   #progress-bar {
     position: fixed;
     top: 0;
@@ -44,7 +39,7 @@
   .dark-mode #progress-bar {
     background-color: #999;
   }
-  
+
   #page-counter {
     position: fixed;
     top: 20px;
@@ -60,7 +55,7 @@
     background-color: rgb(85, 85, 85);
     color: white;
   }
-  
+
   #page-counter input {
     -webkit-appearance: none;
     appearance: none;
@@ -75,11 +70,11 @@
     text-align: center;
     border: 1px #ddd solid;
   }
-  
+
   #page-counter.hidden {
     opacity: 0;
   }
-  
+
   #download-button {
     -webkit-appearance: none;
     appearance: none;
@@ -102,15 +97,15 @@
     background-color: rgb(85, 85, 85);
     color: white;
   }
-  
+
   #download-button.hidden {
     opacity: 0;
   }
-  
+
   .page-container.loading {
     opacity: 0;
   }
-  
+
   .side-gutter {
     position: fixed;
     top: 0;
@@ -123,7 +118,7 @@
   #side-gutter-right {
     right: 0;
   }
-  
+
   .page {
     position: relative;
     box-shadow: 0px 0px 15px rgba(50, 50, 50, 0.3);
@@ -145,7 +140,7 @@
     overflow: hidden;
     contain: strict;
   }
-  
+
   .textLayer > span {
     color: transparent;
     position: absolute;
@@ -153,7 +148,7 @@
     cursor: text;
     transform-origin: top left;
   }
-  
+
   .page-container {
     position: relative;
   }
@@ -166,7 +161,8 @@
   body {
     margin: 0;
   }
-  .side-gutter, .viewer-ui {
+  .side-gutter,
+  .viewer-ui {
     display: none;
   }
   .page {

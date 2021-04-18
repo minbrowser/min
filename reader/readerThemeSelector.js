@@ -5,7 +5,7 @@ var themeSelectors = document.querySelectorAll('.theme-circle')
 var metaThemeValues = {
   light: '#fff',
   dark: 'rgb(36, 41, 47)',
-  sepia: 'rgb(247, 231, 199)'  
+  sepia: 'rgb(247, 231, 199)'
 }
 
 function isNight () {
@@ -56,9 +56,10 @@ themeSelectors.forEach(function (el) {
   el.addEventListener('click', function () {
     var theme = this.getAttribute('data-theme')
     if (isNight()) {
-      settings.set('readerNightTheme', theme, setReaderTheme)
+      settings.set('readerNightTheme', theme)
     } else {
-      settings.set('readerDayTheme', theme, setReaderTheme)
+      settings.set('readerDayTheme', theme)
     }
+    setReaderTheme()
   })
 })

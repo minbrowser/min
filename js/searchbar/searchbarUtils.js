@@ -1,7 +1,5 @@
 var urlParser = require('util/urlParser.js')
 
-var searchbar = require('searchbar/searchbar.js')
-
 var lastItemDeletion = Date.now() // TODO get rid of this
 
 // creates a result item
@@ -231,4 +229,43 @@ function getRealTitle (text) {
   return text
 }
 
-module.exports = {createItem, createHeading, getRealTitle}
+function createLazyList (scrollRoot) {
+  const observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        const itemIndex = parseInt(entry.target.getAttribute('data-index'))
+        entry.target.parentNode.replaceChild(createItem(dataEntries[itemIndex]), entry.target)
+      }
+    })
+  }, {
+    root: scrollRoot,
+    threshold: 0,
+    rootMargin: '750px'
+  })
+
+  let itemCount = 0
+  const dataEntries = []
+
+  return {
+    createPlaceholder: function () {
+      const el = document.createElement('div')
+      el.className = 'searchbar-item placeholder'
+      el.setAttribute('data-index', itemCount)
+      itemCount++
+      return el
+    },
+    lazyRenderItem: function (placeholder, data) {
+      dataEntries.push(data)
+      const itemIndex = parseInt(placeholder.getAttribute('data-index'))
+      // the intersection observer renders items asynchronously, which causes flickering when the items first appear
+      // to avoid this, the first 25 items (roughly ~1 screen) are rendered immediately
+      if (itemIndex < 25) {
+        placeholder.parentNode.replaceChild(createItem(dataEntries[itemIndex]), placeholder)
+      } else {
+        observer.observe(placeholder)
+      }
+    }
+  }
+}
+
+module.exports = { createItem, createLazyList, createHeading, getRealTitle }

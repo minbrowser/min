@@ -8,6 +8,10 @@ var tabEditor = require('navbar/tabEditor.js')
 
 const defaultKeybindings = {
   initialize: function () {
+    keybindings.defineShortcut('quitMin', function () {
+      ipc.send('quit')
+    })
+
     keybindings.defineShortcut('addTab', function () {
       /* new tabs can't be created in modal mode */
       if (modalMode.enabled()) {
@@ -52,7 +56,7 @@ const defaultKeybindings = {
 
       const sourceTab = tabs.get(tabs.getSelected())
       // strip tab id so that a new one is generated
-      const newTab = tabs.add({...sourceTab, id: undefined})
+      const newTab = tabs.add({ ...sourceTab, id: undefined })
 
       browserUI.addTab(newTab, { enterEditMode: false })
     })
@@ -93,6 +97,10 @@ const defaultKeybindings = {
       tabEditor.container.querySelector('.bookmarks-button').click()
     })
 
+    keybindings.defineShortcut('showBookmarks', function () {
+      tabEditor.show(tabs.getSelected(), '!bookmarks ')
+    })
+
     // cmd+x should switch to tab x. Cmd+9 should switch to the last tab
 
     for (var i = 1; i < 9; i++) {
@@ -125,6 +133,11 @@ const defaultKeybindings = {
 
     keybindings.defineShortcut({ keys: 'esc' }, function (e) {
       tabEditor.hide()
+
+      if (modalMode.enabled() && modalMode.onDismiss) {
+        modalMode.onDismiss()
+        modalMode.onDismiss = null
+      }
 
       // exit full screen mode
       webviews.callAsync(tabs.getSelected(), 'executeJavaScript', 'if(document.webkitIsFullScreen){document.webkitExitFullscreen()}')
@@ -163,6 +176,11 @@ const defaultKeybindings = {
     })
 
     keybindings.defineShortcut('switchToNextTask', function (d) {
+      if (focusMode.enabled()) {
+        focusMode.warn()
+        return
+      }
+
       const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id))
 
       const currentTaskIdx = taskSwitchList.findIndex(t => t.id === tasks.getSelected().id)
@@ -172,6 +190,11 @@ const defaultKeybindings = {
     })
 
     keybindings.defineShortcut('switchToPreviousTask', function (d) {
+      if (focusMode.enabled()) {
+        focusMode.warn()
+        return
+      }
+
       const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id))
 
       const currentTaskIdx = taskSwitchList.findIndex(t => t.id === tasks.getSelected().id)
@@ -181,11 +204,16 @@ const defaultKeybindings = {
       browserUI.switchToTask(previousTask.id)
     })
 
-    // option+cmd+x should switch to task x
+    // shift+option+cmd+x should switch to task x
 
     for (var i = 1; i < 10; i++) {
       (function (i) {
         keybindings.defineShortcut({ keys: 'shift+option+mod+' + i }, function (e) {
+          if (focusMode.enabled()) {
+            focusMode.warn()
+            return
+          }
+
           const taskSwitchList = tasks.filter(t => !tasks.isCollapsed(t.id))
           if (taskSwitchList[i - 1]) {
             browserUI.switchToTask(taskSwitchList[i - 1].id)
@@ -195,6 +223,11 @@ const defaultKeybindings = {
     }
 
     keybindings.defineShortcut('closeAllTabs', function (d) { // destroys all current tabs, and creates a new, empty tab. Kind of like creating a new window, except the old window disappears.
+      if (focusMode.enabled()) {
+        focusMode.warn()
+        return
+      }
+
       var tset = tabs.get()
       for (var i = 0; i < tset.length; i++) {
         browserUI.destroyTab(tset[i].id)
@@ -223,8 +256,12 @@ const defaultKeybindings = {
       lastReload = time
     })
 
-    keybindings.defineShortcut({keys: 'mod+='}, function () {
+    keybindings.defineShortcut({ keys: 'mod+=' }, function () {
       webviewGestures.zoomWebviewIn(tabs.getSelected())
+    })
+
+    keybindings.defineShortcut('showHistory', function () {
+      tabEditor.show(tabs.getSelected(), '!history ')
     })
 
     // reload the webview when the F5 key is pressed
