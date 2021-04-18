@@ -261,9 +261,11 @@
     "passwordCaptureSavePassword": null, //missing translation
     "passwordCaptureSave": null, //missing translation
     "passwordCaptureDontSave": null, //missing translation
+    "passwordCaptureNeverSave": null, //missing translation
     /* Password viewer */
     "savedPasswordsHeading": null, //missing translation
     "savedPasswordsEmpty": null, //missing translation
+    "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": null, //missing translation
     /* Dialogs */
     "loginPromptTitle": null, //missing translation

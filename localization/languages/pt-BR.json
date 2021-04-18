@@ -267,9 +267,11 @@
     "passwordCaptureSavePassword": "Salvar senha para %s?",
     "passwordCaptureSave": "Salvar",
     "passwordCaptureDontSave": "Não salvar",
+    "passwordCaptureNeverSave": null, //missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Senhas salvas",
     "savedPasswordsEmpty": "Nenhuma senha salva",
+    "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "Excluir senha de %s?",
     /* Dialogs */
     "loginPromptTitle": "Fazer login em %h (%r)",

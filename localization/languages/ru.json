@@ -267,9 +267,11 @@
     "passwordCaptureSavePassword": "Сохранить пароль для %s?",
     "passwordCaptureSave": "Сохранить",
     "passwordCaptureDontSave": "Не сохранять",
+    "passwordCaptureNeverSave": null, //missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Сохраненные пароли",
     "savedPasswordsEmpty": "Нет сохраненных паролей.",
+    "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "Удалить пароль для %s?",
     /* Dialogs */
     "loginPromptTitle": "Войти на %s (%h)",

@@ -267,9 +267,11 @@
     "passwordCaptureSavePassword": "Guardar palavras passe para %s?",
     "passwordCaptureSave": "Sim",
     "passwordCaptureDontSave": "Não",
+    "passwordCaptureNeverSave": null, //missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Palavras-passe guardadas",
     "savedPasswordsEmpty": "Não há palavras-passe guardadas",
+    "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "Eliminar palavra-passe para %s?",
     /* Dialogs */
     "loginPromptTitle": "Iniciar sessão em %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)

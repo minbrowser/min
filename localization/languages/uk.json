@@ -268,9 +268,11 @@
     "passwordCaptureSavePassword": "Зберегти пароль для %s?",
     "passwordCaptureSave": "Зберегти",
     "passwordCaptureDontSave": "Не зберігати",
+    "passwordCaptureNeverSave": null, //missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Збережені паролі",
     "savedPasswordsEmpty": "Немає збережених паролів.",
+    "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "Видалити пароль для %s?",
     /* Dialogs */
     "loginPromptTitle": "Увійти на %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)

@@ -264,9 +264,11 @@
     "passwordCaptureSavePassword": "Запази парола за %s?",
     "passwordCaptureSave": "Запази",
     "passwordCaptureDontSave": "Не запазвай",
+    "passwordCaptureNeverSave": null, //missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Запазени пароли",
     "savedPasswordsEmpty": "Няма запазени пароли.",
+    "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "Изтрий парола за %s?",
     /* Dialogs */
     "loginPromptTitle": "Впишете се в %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)

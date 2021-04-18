@@ -265,9 +265,11 @@
     "passwordCaptureSavePassword": "Uložit heslo pro %s?",
     "passwordCaptureSave": "Uložit",
     "passwordCaptureDontSave": "Neukládat",
+    "passwordCaptureNeverSave": null, //missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Uložená hesla",
     "savedPasswordsEmpty": "Žádná uložená hesla",
+    "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "Odstranit heslo pro %s?",
     /* Dialogs */
     "loginPromptTitle": "Přihlášení do %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)

@@ -267,9 +267,11 @@
     "passwordCaptureSavePassword": "是否保存%s的密码？",
     "passwordCaptureSave": "保存",
     "passwordCaptureDontSave": "不保存",
+    "passwordCaptureNeverSave": null, //missing translation
     /* Password viewer */
     "savedPasswordsHeading": "已保存密码",
     "savedPasswordsEmpty": "当前未保存任何密码",
+    "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "删除保存的%s密码？",
     /* Dialogs */
     "loginPromptTitle": "登录 %h (%r)",
