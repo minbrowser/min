@@ -154,7 +154,7 @@
     "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
     "settingsShowDividerToggle": "Показувати роздільник між вкладками",
     "settingsSeparateTitlebarToggle": "Використовувати окремий рядок заголовка",
-    "settingsAutoplayToggle": null, //missing translation 
+    "settingsAutoplayToggle": "Увімкнути автовідтворення",
     "settingsOpenTabsInForegroundToggle": "Відкривати нові вкладки на передньому плані",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."
@@ -268,11 +268,11 @@
     "passwordCaptureSavePassword": "Зберегти пароль для %s?",
     "passwordCaptureSave": "Зберегти",
     "passwordCaptureDontSave": "Не зберігати",
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureNeverSave": "Ніколи не зберігати",
     /* Password viewer */
     "savedPasswordsHeading": "Збережені паролі",
     "savedPasswordsEmpty": "Немає збережених паролів.",
-    "savedPasswordsNeverSavedLabel": null, //missing translation
+    "savedPasswordsNeverSavedLabel": "Ніколи не зберігаються",
     "deletePassword": "Видалити пароль для %s?",
     /* Dialogs */
     "loginPromptTitle": "Увійти на %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
@@ -282,6 +282,6 @@
     "email": "Електронна пошта",
     "password": "Пароль",
     "secretKey": "Секретний ключ",
-    "openExternalApp": null //missing translation
+    "openExternalApp": "Відкрити в \\\"%s\\\"?"
   }
 }
