@@ -1,15 +1,18 @@
 const electron = require('electron')
 const fs = require('fs')
 const path = require('path')
-const app = electron.app // Module to control application life.
-const protocol = electron.protocol // Module to control protocol handling
-const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
-const webContents = electron.webContents
-const session = electron.session
-const ipc = electron.ipcMain
-const Menu = electron.Menu
-const MenuItem = electron.MenuItem
-const crashReporter = electron.crashReporter
+
+const {
+  app, // Module to control application life.
+  protocol, // Module to control protocol handling
+  BrowserWindow, // Module to create native browser window.
+  webContents,
+  session,
+  ipcMain: ipc,
+  Menu, MenuItem,
+  crashReporter
+} = electron;
+
 crashReporter.start({
   submitURL: 'https://minbrowser.org/',
   uploadToServer: false,
