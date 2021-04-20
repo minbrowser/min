@@ -13,20 +13,6 @@ const {
   crashReporter
 } = electron;
 
-/**
- * IF YOU WANT SAVE OR REMOVE
- * const app = electron.app // Module to control application life.
- * const protocol = electron.protocol // Module to control protocol handling
- * const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
- * const webContents = electron.webContents
- * const session = electron.session
- * const ipc = electron.ipcMain
- * const Menu = electron.Menu
- * const MenuItem = electron.MenuItem
- * const crashReporter = electron.crashReporter
- */
-
-
 crashReporter.start({
   submitURL: 'https://minbrowser.org/',
   uploadToServer: false,
