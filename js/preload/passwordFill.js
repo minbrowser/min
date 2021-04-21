@@ -120,7 +120,7 @@ function getBestInput (names, exclusionNames, types) {
 
 // Shortcut to get username fields from a page.
 function getBestUsernameField () {
-  return getBestInput(['user', 'name', 'mail', 'login', 'auth', 'identifier'], ['confirm'], ['text', 'email'])
+  return getBestInput(['user', 'name', 'mail', 'login', 'auth', 'identifier'], ['confirm', 'filename'], ['text', 'email'])
 }
 
 // Shortcut to get password fields from a page.
