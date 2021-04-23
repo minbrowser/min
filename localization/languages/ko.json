@@ -267,11 +267,11 @@
     "passwordCaptureSavePassword": "%s 비밀번호를 저장할까요?",
     "passwordCaptureSave": "저장",
     "passwordCaptureDontSave": "저장하지 않음",
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureNeverSave": "절대 저장하지 않음",
     /* Password viewer */
     "savedPasswordsHeading": "저장된 비밀번호",
     "savedPasswordsEmpty": "저장된 비밀번호 없음",
-    "savedPasswordsNeverSavedLabel": null, //missing translation
+    "savedPasswordsNeverSavedLabel": "저장하지 않았음",
     "deletePassword": "%s 비밀번호를 삭제할까요?",
     /* Dialogs */
     "loginPromptTitle": "%h (%r)로 로그인",
