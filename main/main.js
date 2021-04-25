@@ -1,6 +1,8 @@
-const electron = require('electron')
-const fs = require('fs')
-const path = require('path')
+const [electron, fs, path] = [
+  require('electron'),
+  require('fs'),
+  require('path'),
+];
 
 const {
   app, // Module to control application life.
