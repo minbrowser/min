@@ -1,12 +1,12 @@
-const { ipcRenderer } = require('electron')
-
-const settings = require('util/settings/settings.js')
-const webviews = require('webviews.js')
-const keybindings = require('keybindings.js')
-
-const Bitwarden = require('js/passwordManager/bitwarden.js')
-const OnePassword = require('js/passwordManager/onePassword.js')
-const Keychain = require('js/passwordManager/keychain.js')
+const [{ ipcRenderer }, settings, webviews, keybindings, Bitwarden, OnePassword, Keychain ] = [
+  require('electron'),
+  require('util/settings/settings.js'), // why not only use require('util/settings') ! for this you should rename `settings.js` to `index.js`
+  require('webviews.js'),
+  require('keybindings.js'),
+  require('js/passwordManager/bitwarden.js'),
+  require('js/passwordManager/onePassword.js'),
+  require('js/passwordManager/keychain.js')
+]; 
 
 const PasswordManagers = {
   // List of supported password managers. Each password manager is expected to
