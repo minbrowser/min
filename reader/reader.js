@@ -1,6 +1,7 @@
 /* Back button */
 
-var backbutton = document.getElementById('backtoarticle-link')
+// ES6, const instead of var is better for not changable variables
+const backbutton = document.getElementById('backtoarticle-link')
 var articleURL = new URLSearchParams(window.location.search).get('url')
 var articleLocation = new URL(articleURL)
 
@@ -155,7 +156,7 @@ function extractAndShowNavigation (doc) {
 }
 
 function extractDate (doc) {
-  var date
+  var date; // may should change to `let`
   var dateItem = doc.querySelector('[itemprop*="dateCreated"], [itemprop*="datePublished"], [property="article:published_time"]')
   if (dateItem) {
     try {
@@ -177,7 +178,7 @@ function extractDate (doc) {
       // look for a url with a yyyy/mm/dd format
       var urlmatch = articleURL.match(/\/([0-9]{4})\/([0-9]{1,2})\/([0-9]{1,2})/)
       if (urlmatch) {
-        var d2 = new Date()
+        let d2 = new Date()
         d2.setYear(parseInt(urlmatch[1]))
         d2.setMonth(parseInt(urlmatch[2]) - 1)
         d2.setDate(parseInt(urlmatch[3]))
