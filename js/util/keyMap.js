@@ -1,4 +1,4 @@
-var defaultKeyMap = {
+const defaultKeyMap = {
   quitMin: 'mod+q',
   addTab: 'mod+t',
   addPrivateTab: 'shift+mod+p',
