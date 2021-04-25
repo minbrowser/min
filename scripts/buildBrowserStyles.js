@@ -1,7 +1,5 @@
-const path = require('path')
-const fs = require('fs')
-
-const outFile = path.resolve(__dirname, '../dist/bundle.css')
+const [path, fs] = [require('path'), require('fs')],
+      outFile = path.resolve(__dirname, '../dist/bundle.css');
 
 const modules = [
   'css/base.css',
