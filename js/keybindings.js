@@ -5,12 +5,13 @@ There are three possible ways that keybindings can be handled.
   - If a BrowserView is focused, shortcuts are handled by the before-input-event listener.
   */
 
-const Mousetrap = require('mousetrap')
-const keyMapModule = require('util/keyMap.js')
-
-var webviews = require('webviews.js')
-var modalMode = require('modalMode.js')
-var settings = require('util/settings/settings.js')
+const [Mousetrap, keyMapModule, webviews, modalMode, settings] = [
+ require('mousetrap'),
+ require('util/keyMap.js'),
+ require('webviews.js'),
+ require('modalMode.js'),
+ require('util/settings/settings.js'),
+];
 
 var keyMap = keyMapModule.userKeyMap(settings.get('keyMap'))
 
