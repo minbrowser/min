@@ -146,7 +146,7 @@ const webviewMenu = {
         {
           label: l('saveImageAs'),
           click: function () {
-            remote.getCurrentWebContents().downloadURL(mediaURL)
+            ipc.invoke('downloadURL', mediaURL)
           }
         }
       ])
