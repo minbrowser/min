@@ -48,7 +48,7 @@ const webviewMenu = {
         suggestionEntries.push({
           label: l('addToDictionary'),
           click: function () {
-            remote.session.fromPartition('persist:webcontent').addWordToSpellCheckerDictionary(data.misspelledWord)
+            ipc.invoke('addWordToSpellCheckerDictionary', data.misspelledWord)
           }
         })
       }
@@ -101,7 +101,7 @@ const webviewMenu = {
       linkActions.push({
         label: l('saveLinkAs'),
         click: function () {
-          remote.getCurrentWebContents().downloadURL(link)
+          ipc.invoke('downloadURL', link)
         }
       })
 

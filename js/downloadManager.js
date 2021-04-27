@@ -69,12 +69,7 @@ const downloadManager = {
     }
   },
   onItemDragged: function (path) {
-    remote.app.getFileIcon(path, {}).then(function (icon) {
-      remote.getCurrentWebContents().startDrag({
-        file: path,
-        icon: icon
-      })
-    })
+    ipc.invoke('startFileDrag', path)
   },
   onDownloadCompleted: function () {
     downloadManager.lastDownloadCompleted = Date.now()

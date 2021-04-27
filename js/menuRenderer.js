@@ -95,7 +95,7 @@ module.exports = {
       })
     })
 
-    ipc.on('saveCurrentPage', function () {
+    ipc.on('saveCurrentPage', async function () {
       var currentTab = tabs.get(tabs.getSelected())
 
       // new tabs cannot be saved
@@ -116,7 +116,7 @@ module.exports = {
         return
       }
 
-      var savePath = remote.dialog.showSaveDialogSync(remote.getCurrentWindow(), {
+      var savePath = await ipc.invoke('showSaveDialog', {
         defaultPath: currentTab.title.replace(/[/\\]/g, '_')
       })
 

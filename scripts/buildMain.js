@@ -17,6 +17,7 @@ const modules = [
   'main/permissionManager.js',
   'main/prompt.js',
   'main/remoteMenu.js',
+  'main/remoteActions.js',
   'main/keychainService.js',
   'js/util/proxy.js'
 ]

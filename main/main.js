@@ -10,8 +10,9 @@ const {
   session,
   ipcMain: ipc,
   Menu, MenuItem,
-  crashReporter
-} = electron;
+  crashReporter,
+  dialog
+} = electron
 
 crashReporter.start({
   submitURL: 'https://minbrowser.org/',

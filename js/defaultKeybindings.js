@@ -244,7 +244,7 @@ const defaultKeybindings = {
       // pressing mod+r twice in a row reloads the whole browser
       if (time - lastReload < 500) {
         ipc.send('destroyAllViews')
-        remote.getCurrentWindow().webContents.reload()
+        ipc.invoke('reloadWindow')
       } else if (tabs.get(tabs.getSelected()).url.startsWith(webviews.internalPages.error)) {
         // reload the original page rather than show the error page again
         webviews.update(tabs.getSelected(), new URL(tabs.get(tabs.getSelected()).url).searchParams.get('url'))
