@@ -40,23 +40,23 @@ function initialize () {
     updateCaptionButtons()
 
     captionMinimize.addEventListener('click', function (e) {
-      remote.getCurrentWindow().minimize()
+      ipc.invoke('minimize')
     })
 
     captionMaximize.addEventListener('click', function (e) {
-      remote.getCurrentWindow().maximize()
+      ipc.invoke('maximize')
     })
 
     captionRestore.addEventListener('click', function (e) {
       if (windowIsFullscreen) {
-        remote.getCurrentWindow().setFullScreen(false)
+        ipc.invoke('setFullScreen', false)
       } else {
-        remote.getCurrentWindow().unmaximize()
+        ipc.invoke('unmaximize')
       }
     })
 
     captionClose.addEventListener('click', function (e) {
-      remote.getCurrentWindow().close()
+      ipc.invoke('close')
     })
   }
 
@@ -79,19 +79,19 @@ function initialize () {
 
   if (window.platformType === 'linux') {
     linuxClose.addEventListener('click', function (e) {
-      remote.getCurrentWindow().close()
+      ipc.invoke('close')
     })
     linuxMaximize.addEventListener('click', function (e) {
       if (windowIsFullscreen) {
-        remote.getCurrentWindow().setFullScreen(false)
+        ipc.invoke('setFullScreen', false)
       } else if (windowIsMaximized) {
-        remote.getCurrentWindow().unmaximize()
+        ipc.invoke('unmaximize')
       } else {
-        remote.getCurrentWindow().maximize()
+        ipc.invoke('maximize')
       }
     })
     linuxMinimize.addEventListener('click', function (e) {
-      remote.getCurrentWindow().minimize()
+      ipc.invoke('minimize')
     })
   }
 }

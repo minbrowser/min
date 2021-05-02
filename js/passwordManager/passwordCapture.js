@@ -1,4 +1,5 @@
 const webviews = require('webviews.js')
+const settings = require('util/settings/settings.js')
 const PasswordManagers = require('passwordManager/passwordManager.js')
 
 const passwordCapture = {
@@ -8,6 +9,7 @@ const passwordCapture = {
   passwordInput: document.getElementById('password-capture-password'),
   revealButton: document.getElementById('password-capture-reveal-password'),
   saveButton: document.getElementById('password-capture-save'),
+  neverSaveButton: document.getElementById('password-capture-never-save'),
   closeButton: document.getElementById('password-capture-ignore'),
   currentDomain: null,
   barHeight: 0,
@@ -50,6 +52,10 @@ const passwordCapture = {
       domain = domain.slice(4)
     }
 
+    if (settings.get('passwordsNeverSaveDomains') && settings.get('passwordsNeverSaveDomains').includes(domain)) {
+      return
+    }
+
     var username = args[0][1] || ''
     var password = args[0][2] || ''
 
@@ -87,6 +93,11 @@ const passwordCapture = {
           passwordCapture.hideCaptureBar()
         })
       }
+    })
+
+    passwordCapture.neverSaveButton.addEventListener('click', function () {
+      settings.set('passwordsNeverSaveDomains', (settings.get('passwordsNeverSaveDomains') || []).concat([passwordCapture.currentDomain]))
+      passwordCapture.hideCaptureBar()
     })
 
     passwordCapture.closeButton.addEventListener('click', passwordCapture.hideCaptureBar)

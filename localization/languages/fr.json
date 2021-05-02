@@ -267,9 +267,11 @@
     "passwordCaptureSavePassword": "Enregistrer le mot de passe pour %s?",
     "passwordCaptureSave": "Enregistrer",
     "passwordCaptureDontSave": "Ne pas enregistrer",
+    "passwordCaptureNeverSave": null, //missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Mots de passe enregistrés",
     "savedPasswordsEmpty": "Pas de mots de passe enregistrés.",
+    "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "Supprimer le mot de passe pour %s?",
     /* Dialogs */
     "loginPromptTitle": "Connectez-vous à %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)

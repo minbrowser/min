@@ -267,9 +267,11 @@
     "passwordCaptureSavePassword": "% için parola kaydedilsin mi?",
     "passwordCaptureSave": "Kaydet",
     "passwordCaptureDontSave": "Kaydetme",
+    "passwordCaptureNeverSave": null, //missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Kayıtlı Parolalar",
     "savedPasswordsEmpty": "Kaydedilmiş parola yok.",
+    "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "% için parola silinsin mi?",
     /* Dialogs */
     "loginPromptTitle": "Giriş yapın %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)

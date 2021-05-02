@@ -59,11 +59,7 @@ function initialize () {
     fn: function (text) {
       if (confirm(l('clearHistoryConfirmation'))) {
         places.deleteAllHistory()
-        /* It's important not to delete data from file:// here, since that would also remove internal browser data (such as bookmarks) */
-        remote.session.fromPartition('persist:webcontent').clearStorageData({ origin: 'http://' })
-          .then(function () {
-            remote.session.fromPartition('persist:webcontent').clearStorageData({ origin: 'https://' })
-          })
+        ipc.invoke('clearStorageData')
       }
     }
   })
@@ -225,12 +221,13 @@ function initialize () {
     phrase: '!importbookmarks',
     snippet: l('importBookmarks'),
     isAction: true,
-    fn: function () {
-      var filePath = electron.remote.dialog.showOpenDialogSync({
+    fn: async function () {
+      var filePath = await ipc.invoke('showOpenDialog', {
         filters: [
           { name: 'HTML files', extensions: ['htm', 'html'] }
         ]
       })
+
       if (!filePath) {
         return
       }
@@ -248,12 +245,11 @@ function initialize () {
     phrase: '!exportbookmarks',
     snippet: l('exportBookmarks'),
     isAction: true,
-    fn: function () {
-      bookmarkConverter.exportAll().then(function (data) {
+    fn: async function () {
+      var data = await bookmarkConverter.exportAll()
       // save the result
-        var savePath = electron.remote.dialog.showSaveDialogSync({ defaultPath: 'bookmarks.html' })
-        require('fs').writeFileSync(savePath, data)
-      })
+      var savePath = await ipc.invoke('showSaveDialog', { defaultPath: 'bookmarks.html' })
+      require('fs').writeFileSync(savePath, data)
     }
   })
 

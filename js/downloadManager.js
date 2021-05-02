@@ -1,4 +1,5 @@
 var webviews = require('webviews.js')
+const remoteMenu = require('remoteMenuRenderer.js')
 
 function getFileSizeString (bytes) {
   const prefixes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
@@ -69,12 +70,7 @@ const downloadManager = {
     }
   },
   onItemDragged: function (path) {
-    remote.app.getFileIcon(path, {}).then(function (icon) {
-      remote.getCurrentWebContents().startDrag({
-        file: path,
-        icon: icon
-      })
-    })
+    ipc.invoke('startFileDrag', path)
   },
   onDownloadCompleted: function () {
     downloadManager.lastDownloadCompleted = Date.now()
@@ -126,18 +122,19 @@ const downloadManager = {
 
     dropdown.addEventListener('click', function (e) {
       e.stopPropagation()
-      const menu = new remote.Menu()
-      menu.append(new remote.MenuItem({
-        label: l('downloadCancel'),
-        click: function () {
-          ipc.send('cancelDownload', downloadItem.path)
-          downloadManager.removeItem(downloadItem.path)
-        }
-      }))
-      menu.popup({
-        x: Math.round(dropdown.getBoundingClientRect().left),
-        y: Math.round(dropdown.getBoundingClientRect().top - 15)
-      })
+      var template = [
+        [
+          {
+            label: l('downloadCancel'),
+            click: function () {
+              ipc.send('cancelDownload', downloadItem.path)
+              downloadManager.removeItem(downloadItem.path)
+            }
+          }
+        ]
+      ]
+
+      remoteMenu.open(template, Math.round(dropdown.getBoundingClientRect().left), Math.round(dropdown.getBoundingClientRect().top - 15))
     })
 
     openFolder.addEventListener('click', function (e) {

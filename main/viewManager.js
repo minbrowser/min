@@ -68,8 +68,9 @@ function createView (id, webPreferencesString, boundsString, events) {
     })
   })
 
-  // handle external protocols
-  view.webContents.on('did-start-navigation', function (e, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
+  // show an "open in app" prompt for external protocols
+
+  function handleExternalProtocol (e, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
     var knownProtocols = ['http', 'https', 'file', 'min', 'about', 'data', 'javascript', 'chrome'] // TODO anything else?
     if (!knownProtocols.includes(url.split(':')[0])) {
       var externalApp = app.getApplicationNameForProtocol(url)
@@ -84,7 +85,15 @@ function createView (id, webPreferencesString, boundsString, events) {
         })
       }
     }
-  })
+  }
+
+  view.webContents.on('did-start-navigation', handleExternalProtocol)
+  /*
+  It's possible for an HTTP request to redirect to an external app link
+  (primary use case for this is OAuth from desktop app > browser > back to app)
+  and did-start-navigation isn't (always?) emitted for redirects, so we need this handler as well
+  */
+  view.webContents.on('will-redirect', handleExternalProtocol)
 
   view.setBounds(JSON.parse(boundsString))
 

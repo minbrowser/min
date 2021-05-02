@@ -267,9 +267,11 @@
     "passwordCaptureSavePassword": "Zugangsdaten für %s speichern?",
     "passwordCaptureSave": "Speichern",
     "passwordCaptureDontSave": "Nicht speichern",
+    "passwordCaptureNeverSave": null, //missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Gespeicherte Passwörter",
     "savedPasswordsEmpty": "Keine gespeicherte Passwörter",
+    "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "Zugangsdaten für %s löschen?",
     /* Dialogs */
     "loginPromptTitle": "Bei %h (%r) anmelden", //%h is replaced with host, %r with realm (title of protected part of site)
