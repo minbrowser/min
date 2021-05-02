@@ -17,6 +17,31 @@ module.exports = {
           searchbarPlugins.reset('bangs')
 
           var container = searchbarPlugins.getContainer('bangs')
+
+          // show clear button
+
+          if (text === '' && results.length > 0) {
+            var clearButton = document.createElement('button')
+            clearButton.className = 'searchbar-floating-button'
+            clearButton.textContent = l('clearHistory')
+            container.appendChild(clearButton)
+
+            clearButton.addEventListener('click', function () {
+              if (confirm(l('clearHistoryConfirmation'))) {
+                places.deleteAllHistory()
+                ipc.invoke('clearStorageData')
+
+                // hacky way to refresh the list
+                // TODO make a better api for this
+                setTimeout(function () {
+                  searchbarPlugins.run('!history ' + text, input, null)
+                }, 200)
+              }
+            })
+          }
+
+          // show results
+
           var lazyList = searchbarUtils.createLazyList(container.parentNode)
 
           var lastRelativeDate = '' // used to generate headings
@@ -34,6 +59,7 @@ module.exports = {
               title: result.title,
               secondaryText: urlParser.getSourceURL(result.url),
               fakeFocus: index === 0 && text,
+              icon: (result.isBookmarked ? 'carbon:star' : ''),
               click: function (e) {
                 searchbar.openURL(result.url, e)
               },

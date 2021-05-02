@@ -23,11 +23,37 @@ body.linux #searchbar {
   padding-left: calc(36px + var(--control-space-left));
 }
 
+.searchbar-plugin-container {
+  position: relative;
+}
+
 .searchbar-heading {
   font-weight: normal;
   padding: 0.9em 0.55em 0.33em 0.55em;
   opacity: 0.7;
   cursor: default;
+}
+
+.searchbar-floating-button {
+  position: absolute;
+  right: 0;
+  top: 0.5em;
+  border: 1px #ccc solid;
+  padding: 0.33em 0.5em;
+  border-radius: 3px;
+  opacity: 0.66;
+  z-index: 9;
+}
+
+.searchbar-floating-button:hover {
+  background-color: rgba(0, 0, 0, 0.05)
+}
+
+.dark-theme .searchbar-floating-button {
+  border-color: white;
+}
+.dark-theme .searchbar-floating-button:hover {
+  background-color: rgba(255, 255, 255, 0.075)
 }
 
 /* move the icon when there isn't room to the left of the searchbar */
