@@ -153,7 +153,7 @@
     "settingsUserscriptsToggle": "Ativar scripts de utilizador",
     "settingsShowDividerToggle": "Mostrar divisor entre os separadores",
     "settingsSeparateTitlebarToggle": "Utilizar barra de título separada",
-    "settingsAutoplayToggle": null, //missing translation 
+    "settingsAutoplayToggle": "Ativar reprodução automática",
     "settingsOpenTabsInForegroundToggle": "Abrir novos separadores em primeiro plano",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."
@@ -267,11 +267,11 @@
     "passwordCaptureSavePassword": "Guardar palavras passe para %s?",
     "passwordCaptureSave": "Sim",
     "passwordCaptureDontSave": "Não",
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureNeverSave": "Nunca",
     /* Password viewer */
     "savedPasswordsHeading": "Palavras-passe guardadas",
     "savedPasswordsEmpty": "Não há palavras-passe guardadas",
-    "savedPasswordsNeverSavedLabel": null, //missing translation
+    "savedPasswordsNeverSavedLabel": "Nunca guardadas",
     "deletePassword": "Eliminar palavra-passe para %s?",
     /* Dialogs */
     "loginPromptTitle": "Iniciar sessão em %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
@@ -281,6 +281,6 @@
     "email": "E-mail",
     "password": "Palavra-passe",
     "secretKey": "Chave secreta",
-    "openExternalApp": null //missing translation
+    "openExternalApp": "Abrir em \\\"%s\\\"?" // %s is the name of an app
   }
 }
