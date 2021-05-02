@@ -5,30 +5,30 @@
     /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-    "addToDictionary": null, //missing translation
-    "pictureInPicture": null, //missing translation
+    "addToDictionary": "افزودن به دیکشنری",
+    "pictureInPicture": "نما در نما",
     "openInNewTab": "باز کردن در برگه جدید",
     "openInNewPrivateTab": "باز کردن در برگه خصوصی جدید",
-    "saveLinkAs": null, //missing translation
+    "saveLinkAs": "ذخیره پیوند به عنوان",
     "viewImage": "نمایش تصویر",
-    "openImageInNewTab": "باز کردن تصویر در برگه جدید",
-    "openImageInNewPrivateTab": "باز کردن تصویر در برگه خصوصی جدید",
-    "saveImageAs": "ذخیره تصویر",
+    "openImageInNewTab": "نمایش تصویر در برگه جدید",
+    "openImageInNewPrivateTab": "نمایش تصویر در برگه خصوصی جدید",
+    "saveImageAs": "ذخیره تصویر به عنوان",
     "searchWith": "جستجو با %s", //%s will be replaced with the name of the current search engine
-    "copyLink": "کپی لینک",
-    "copyEmailAddress": null, //missing translation
-    "selectAll": null, // Missing Translation
-    "undo": null, // Missing Translation
-    "redo": null, // Missing Translation
-    "cut": null, // Missing Translation
+    "copyLink": "کپی پیوند",
+    "copyEmailAddress": "کپی رایانامه",
+    "selectAll": "برگزیدن همه",
+    "undo": "بازگشت",
+    "redo": "واگشت",
+    "cut": "برش",
     "copy": "کپی", //this is a verb (as in "copy the currently-selected text")
     "paste": "چسباندن",
-    "goBack": "عقب",
+    "goBack": "برگشت",
     "goForward": "جلو",
     "inspectElement": "وارسی",
     /* searchbar */
-    "pasteAndGo": null, //missing translation
-    "DDGAnswerSubtitle": "پاسخ", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+    "pasteAndGo": "رفتن به",
+    "DDGAnswerSubtitle": "یافته شده از DuckDuckGo",
     "suggestedSite": "سایت پیشنهادی", //this is used to label suggested websites from the DuckDuckGo API,
     "resultsFromDDG": "نتایج از DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
     "taskN": "وظیفه %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
@@ -38,7 +38,7 @@
     "showMoreBangs": null, //missing translation
     "viewSettings": "نمایش تنظیمات",
     "takeScreenshot": "عکس گرفتن از صفحه",
-    "clearHistory": "حذف تاریخچه مرورگر",
+    "clearHistory": "پاک کردن تاریخچه مرورگر",
     "enableBlocking": null, //missing translation
     "disableBlocking": null, //missing translation
     "clearHistoryConfirmation": null, //missing translation
@@ -57,16 +57,16 @@
     "runUserscript": null, //missing translation
     /* navbar */
     "openMenu": "باز کردن منو", //application menu button on windows
-    "enterReaderView": "ورود به حالت خواندن",
-    "exitReaderView": "خروج از حالت خواندن",
+    "enterReaderView": "حالت خواندنی روشن",
+    "exitReaderView": "حالت خواندنی خاموش",
     "newTabLabel": "برگه جدید", //this is a noun, used for tabs that don't have a page loaded in them yet
     "connectionNotSecure": "ارتباط شما با این سایت امن نیست.",
     "searchbarPlaceholder": "جستجو کنید یا آدرس سایت را وارد کنید",
-    "privateTab": "برگه خصوصی",
+    "privateTab": "برگه پنهان",
     "newTabAction": "برگه جدید", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
     /* task overlay */
     "viewTasks": "نمایش وظایف",
-    "newTask": "وظیفه جدید", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "newTask": "وظیفه جدید",
     "defaultTaskName": "وظیفه %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
     "taskDeleteWarning": {
       "unsafeHTML": null //missing translation
@@ -81,14 +81,14 @@
     /* Focus mode */
     "isFocusMode": "شما در حالت تمرکز هستید",
     "closeDialog": "تایید", //used as a label for the button that closes the dialog
-    "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-    "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+    "focusModeExplanation1": "شما در حالت تمرکز تا زمانی که خارج شود، امکان ساخت برگه جدید و یا حرکت بین برگه ها را ندارید!",
+    "focusModeExplanation2": "برای خارج شدن از حالت تمرکز، باید تیک «حالت تمرکز» از قسمت منو ها بردارید",
     /* relative dates */
-    "timeRangeJustNow": "همین الان",
+    "timeRangeJustNow": "اکنون",
     "timeRangeMinutes": "دقایقی پیش",
     "timeRangeHour": "ساعتی پیش",
-    "timeRangeToday": null, //missing translation
-    "timeRangeYesterday": null, //missing translation
+    "timeRangeToday": "امروز",
+    "timeRangeYesterday": "دیروز",
     "timeRangeWeek": "هفته پیش",
     "timeRangeMonth": "ماه پیش",
     "timeRangeYear": "سال پیش",
@@ -143,17 +143,17 @@
     "settingsCustomBangsSnippet": null, // missing translation
     "settingsCustomBangsRedirect": null, // missing translation
     "settingsCustomizeFiltersLink": null, //missing translation
-    "settingsAppearanceHeading": "ظاهر",
-    "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
-    "settingsDarkModeNever": null, //"Never" missing translation
+    "settingsAppearanceHeading": "پوسته",
+    "settingsEnableDarkMode": "پوسته تاریک روشن",
+    "settingsDarkModeNever": "پوسته تاریک خاموش",
     "settingsDarkModeNight": null, //"At night" missing translation
-    "settingsDarkModeAlways": null, //"Always" missing translation
-    "settingsSiteThemeToggle": null, //missing translation
-    "settingsAdditionalFeaturesHeading": "امکانات اضافه",
+    "settingsDarkModeAlways": "پوسته تاریک برای همیشه",
+    "settingsSiteThemeToggle": "تغییر پوسته",
+    "settingsAdditionalFeaturesHeading": "امکانات افزوده",
     "settingsUserscriptsToggle": "فعال کردن اسکریپت های کاربر",
-    "settingsShowDividerToggle": null, // Missing translation
-    "settingsSeparateTitlebarToggle": null, //missing translation
-    "settingsAutoplayToggle": null, //missing translation 
+    "settingsShowDividerToggle": "نمایش جداکننده",
+    "settingsSeparateTitlebarToggle": "نمایش نوار عنوان",
+    "settingsAutoplayToggle": "پخش خودکار",
     "settingsOpenTabsInForegroundToggle": null, //missing translation
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "اسکریپت های کاربر این اجازه را به شما می دهند تا رفتار سایت ها را تغییر دهید - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اطلاعات بیشتر</a>."
@@ -168,17 +168,17 @@
     "settingsKeyboardShortcutsHeading": "میانبرهای صفحه کلید",
     "settingsKeyboardShortcutsHelp": "از ویرگول جهت جدا کردن میانبرها استفاده کنید.",
     "settingsProxyHeading": null, //missing translation
-    "settingsNoProxy": null, //missing translation
-    "settingsManualProxy": null, //missing translation
-    "settingsAutomaticProxy": null, //missing translation
-    "settingsProxyRules": null, //missing translation
+    "settingsNoProxy": "بدون پروکسی",
+    "settingsManualProxy": "پروکسی دستی",
+    "settingsAutomaticProxy": "پروکسی خودکار",
+    "settingsProxyRules": "قوانین پروکسی",
     "settingsProxyBypassRules": null, //missing translation
     "settingsProxyConfigurationURL": null, //missing translation
     /* app menu */
     "appMenuFile": "پرونده",
     "appMenuNewTab": "برگه جدید",
-    "appMenuDuplicateTab": "برگه تکراری",
-    "appMenuNewPrivateTab": "برگه خصوصی جدید",
+    "appMenuDuplicateTab": "تکرار برگه",
+    "appMenuNewPrivateTab": "ساخت برگه پنهان",
     "appMenuNewTask": "وظیفه جدید",
     "appMenuSavePageAs": "ذخیره صفحه",
     "appMenuPrint": "جاپ",
@@ -194,21 +194,21 @@
     "appMenuZoomIn": "بزرگ نمایی",
     "appMenuZoomOut": "کوچک نمایی",
     "appMenuActualSize": "اندازه واقعی",
-    "appMenuFullScreen": "تمام صفحه", //on some platforms, this string is replaced with one built-in to the OS
+    "appMenuFullScreen": "تمام صفحه",
     "appMenuFocusMode": "حالت تمرکز",
     "appMenuBookmarks": "نشانک ها",
     "appMenuHistory": "تاریخچه",
     "appMenuDeveloper": "توسعه دهنده",
     "appMenuReloadBrowser": "بازنگری مرورگر",
     "appMenuInspectBrowser": "وارسی مرورگر",
-    "appMenuInspectPage": "وارسی صفحه",
+    "appMenuInspectPage": "وارسی برگه",
     "appMenuWindow": "پنجره",
-    "appMenuMinimize": "کوچک نمایی",
+    "appMenuMinimize": "کیمنه",
     "appMenuClose": "بستن",
-    "appMenuAlwaysOnTop": null, //missing translation
+    "appMenuAlwaysOnTop": "نمایش همیشگی",
     "appMenuHelp": "راهنما",
     "appMenuKeyboardShortcuts": "میانبرهای صفحه کلید",
-    "appMenuReportBug": "گزارش اشکالات نرم افزاری",
+    "appMenuReportBug": "گزارش خرابی های نرم افزاری",
     "appMenuTakeTour": "تور آموزشی",
     "appMenuViewGithub": "نمایش در گیت هاب",
     "appMenuAbout": "درباره %n", //%n is replaced with app name
@@ -224,21 +224,21 @@
       "unsafeHTML": "صفحه <input type='text'/> از <span id='total'></span>"
     },
     /* Context Reader */
-    "buttonReaderSettings": null, //missing translation "Reader Settings"
-    "buttonReaderLightTheme": null, //missing translation "Light"
-    "buttonReaderSepiaTheme": null, //missing translation "Sepia"
-    "buttonReaderDarkTheme": null, //missing translation "Dark"
-    "openReaderView": null, //missing translation "Always open in reader view"
-    "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-    "buttonReaderRedirectYes": null, //missing translation "Yes"
-    "buttonReaderRedirectNo": null, //missing translation "No"
-    "articleReaderView": null, //missing translation "Original Article"
+    "buttonReaderSettings": "تنظیمات حالت خاندن",
+    "buttonReaderLightTheme": "پوسته روشن",
+    "buttonReaderSepiaTheme": "پوسته ویژه شب",
+    "buttonReaderDarkTheme": "پوسته تاریک",
+    "openReaderView": "بازکردن در حالت خواندن",
+    "autoRedirectBannerReader": "آیا همیشه مقالات از این تارنما در حالت خواندن نمایش داده شود؟",
+    "buttonReaderRedirectYes": "نمایش بده", // below comment
+    "buttonReaderRedirectNo": "نه ممنون", // No = نَه (Nah) but it isn't user-friendly
+    "articleReaderView": "حالت خواندن خاموش",
     /* Download manager */
-    "downloadCancel": null, //missing translation
-    "downloadStateCompleted": null, //missing translation
-    "downloadStateFailed": null, //missing translation
+    "downloadCancel": "لغو بارگیری",
+    "downloadStateCompleted": "بارگیری پایان یافت",
+    "downloadStateFailed": "بارگیری انجام نشد",
     /* Update Notifications */
-    "updateNotificationTitle": null, //missing translation
+    "updateNotificationTitle": "بروز رسانی",
     /* Autofill settings */
     "settingsPasswordAutoFillHeadline": null, //missing translation
     "settingsSelectPasswordManager": null, //missing translation
@@ -264,17 +264,17 @@
     "passwordCaptureNeverSave": null, //missing translation
     /* Password viewer */
     "savedPasswordsHeading": null, //missing translation
-    "savedPasswordsEmpty": null, //missing translation
+    "savedPasswordsEmpty": null,  //missing translation
     "savedPasswordsNeverSavedLabel": null, //missing translation
-    "deletePassword": null, //missing translation
+    "deletePassword": "حذف گذرواژه",
     /* Dialogs */
-    "loginPromptTitle": null, //missing translation
+    "loginPromptTitle": "ورود",
     "dialogConfirmButton": null, //missing translation
     "dialogSkipButton": null, //missing translation
-    "username": null, //missing translation
-    "email": null, //missing translation
-    "password": null, //missing translation
-    "secretKey": null, //missing translation
+    "username": "نام کاربری",
+    "email": "رایانامه", 
+    "password": "گذرواژه",
+    "secretKey": "کلید امنیتی",
     "openExternalApp": null //missing translation
   }
 }
