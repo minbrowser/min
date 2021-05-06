@@ -71,7 +71,7 @@ findinpage.input.addEventListener('keypress', function (e) {
   if (e.keyCode === 13) { // Return/Enter key
     webviews.callAsync(findinpage.activeTab, 'findInPage', [findinpage.input.value, {
       forward: !e.shiftKey, // find previous if Shift is pressed
-      findNext: true
+      findNext: false
     }])
   }
 })
@@ -79,7 +79,7 @@ findinpage.input.addEventListener('keypress', function (e) {
 findinpage.previous.addEventListener('click', function (e) {
   webviews.callAsync(findinpage.activeTab, 'findInPage', [findinpage.input.value, {
     forward: false,
-    findNext: true
+    findNext: false
   }])
   findinpage.input.focus()
 })
@@ -87,7 +87,7 @@ findinpage.previous.addEventListener('click', function (e) {
 findinpage.next.addEventListener('click', function (e) {
   webviews.callAsync(findinpage.activeTab, 'findInPage', [findinpage.input.value, {
     forward: true,
-    findNext: true
+    findNext: false
   }])
   findinpage.input.focus()
 })
