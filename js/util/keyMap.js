@@ -23,6 +23,7 @@ var defaultKeyMap = {
   switchToPreviousTask: 'mod+[',
   closeAllTabs: 'shift+mod+n',
   reload: 'mod+r',
+  reloadIgnoringCache: 'mod+f5',
   showMenu: 'ctrl+m',
   followLink: 'mod+enter',
   fillPassword: 'mod+\\',
