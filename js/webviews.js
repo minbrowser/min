@@ -169,7 +169,7 @@ const webviews = {
       }
     }
   },
-  add: function (tabId) {
+  add: function (tabId, existingViewId) {
     var tabData = tabs.get(tabId)
 
     // needs to be called before the view is created to that its listeners can be registered
@@ -188,23 +188,10 @@ const webviews = {
     }
 
     ipc.send('createView', {
+      existingViewId,
       id: tabId,
       webPreferencesString: JSON.stringify({
-        webPreferences: {
-          nodeIntegration: false,
-          nodeIntegrationInSubFrames: true,
-          scrollBounce: true,
-          safeDialogs: true,
-          safeDialogsMessage: 'Prevent this page from creating additional dialogs',
-          preload: __dirname + '/dist/preload.js',
-          contextIsolation: true,
-          sandbox: true,
-          enableRemoteModule: false,
-          allowPopups: false,
-          partition: partition || 'persist:webcontent',
-          enableWebSQL: false,
-          autoplayPolicy: (settings.get('enableAutoplay') ? 'no-user-gesture-required' : 'user-gesture-required')
-        }
+        partition: partition || 'persist:webcontent'
       }),
       boundsString: JSON.stringify(webviews.getViewBounds()),
       events: webviews.events.map(e => e.event).filter((i, idx, arr) => arr.indexOf(i) === idx)

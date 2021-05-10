@@ -1,10 +1,34 @@
+const BrowserView = electron.BrowserView
+
 var viewMap = {} // id: view
 var viewStateMap = {} // id: view state
 
-const BrowserView = electron.BrowserView
+var temporaryPopupViews = {} // id: view
 
-function createView (id, webPreferencesString, boundsString, events) {
-  const view = new BrowserView(JSON.parse(webPreferencesString))
+const defaultViewWebPreferences = {
+  nodeIntegration: false,
+  nodeIntegrationInSubFrames: true,
+  scrollBounce: true,
+  safeDialogs: true,
+  safeDialogsMessage: 'Prevent this page from creating additional dialogs',
+  preload: __dirname + '/dist/preload.js',
+  contextIsolation: true,
+  sandbox: true,
+  enableRemoteModule: false,
+  allowPopups: false,
+  // partition: partition || 'persist:webcontent',
+  enableWebSQL: false,
+  autoplayPolicy: (settings.get('enableAutoplay') ? 'no-user-gesture-required' : 'user-gesture-required')
+}
+
+function createView (existingViewId, id, webPreferencesString, boundsString, events) {
+  console.log(existingViewId)
+  let view
+  if (existingViewId) {
+    view = temporaryPopupViews[existingViewId]
+  } else {
+    view = new BrowserView({ webPreferences: Object.assign({}, defaultViewWebPreferences, JSON.parse(webPreferencesString)) })
+  }
 
   events.forEach(function (event) {
     view.webContents.on(event, function (e) {
@@ -29,12 +53,37 @@ function createView (id, webPreferencesString, boundsString, events) {
   Workaround for crashes when calling preventDefault() on the new-window event (https://github.com/electron/electron/issues/23859#issuecomment-650270680)
   Calling preventDefault also prevents the new-window event from occurring, so create a new event here instead
   */
+  /*
   view.webContents.on('-will-add-new-contents', function (e, url) {
     e.preventDefault()
     mainWindow.webContents.send('view-event', {
       viewId: id,
       event: 'new-window',
       args: [url, '', 'new-window']
+    })
+  })
+  */
+
+  view.webContents.removeAllListeners('-add-new-contents')
+
+  view.webContents.on('-add-new-contents', function (e, webContents, disposition, _userGesture, _left, _top, _width, _height, url, frameName, referrer, rawFeatures, postData) {
+    console.log(arguments)
+    var view = new BrowserView({ webPreferences: defaultViewWebPreferences, webContents: webContents })
+
+    view.setBounds({
+      x: 0,
+      y: 0,
+      width: 500,
+      height: 500
+    })
+
+    var popupId = Math.random().toString()
+    temporaryPopupViews[popupId] = view
+
+    mainWindow.webContents.send('view-event', {
+      viewId: id,
+      event: 'did-create-popup',
+      args: [popupId]
     })
   })
 
@@ -161,7 +210,7 @@ function getViewIDFromWebContents (contents) {
 }
 
 ipc.on('createView', function (e, args) {
-  createView(args.id, args.webPreferencesString, args.boundsString, args.events)
+  createView(args.existingViewId, args.id, args.webPreferencesString, args.boundsString, args.events)
 })
 
 ipc.on('destroyView', function (e, id) {

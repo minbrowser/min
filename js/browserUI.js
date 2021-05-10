@@ -167,8 +167,8 @@ function switchToTab (id, options) {
   })
 }
 
+/*
 webviews.bindEvent('new-window', function (tabId, url, frameName, disposition) {
-  /* disabled in focus mode */
   if (focusMode.enabled()) {
     focusMode.warn()
     return
@@ -182,6 +182,14 @@ webviews.bindEvent('new-window', function (tabId, url, frameName, disposition) {
     enterEditMode: false,
     openInBackground: disposition === 'background-tab' && !settings.get('openTabsInForeground')
   })
+})
+*/
+
+webviews.bindEvent('did-create-popup', function (tabId, popupId) {
+  var popupTab = tabs.add()
+  tabBar.addTab(popupTab)
+  webviews.add(popupTab, popupId)
+  switchToTab(popupTab)
 })
 
 webviews.bindIPC('close-window', function (tabId, args) {
