@@ -72,6 +72,7 @@ const isFirstInstance = app.requestSingleInstanceLock()
 
 if (!isFirstInstance) {
   app.quit()
+  return
 }
 
 var saveWindowBounds = function () {
