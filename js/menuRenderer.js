@@ -30,7 +30,7 @@ module.exports = {
         PDFViewer.printPDF(tabs.getSelected())
       } else if (readerView.isReader(tabs.getSelected())) {
         readerView.printArticle(tabs.getSelected())
-      } else {
+      } else if (webviews.placeholderRequests.length === 0) {
       // TODO figure out why webContents.print() doesn't work in Electron 4
         webviews.callAsync(tabs.getSelected(), 'executeJavaScript', 'window.print()')
       }
