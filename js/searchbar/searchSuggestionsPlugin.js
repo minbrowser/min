@@ -4,8 +4,9 @@ var urlParser = require('util/urlParser.js')
 var searchEngine = require('util/searchEngine.js')
 
 function showSearchSuggestions (text, input, event) {
-  // TODO support search suggestions for other search engines
-  if (searchEngine.getCurrent().name !== 'DuckDuckGo') {
+    const suggestionsURL = searchEngine.getCurrent().suggestionsURL
+
+  if (!suggestionsURL) {
     searchbarPlugins.reset('searchSuggestions')
     return
   }
@@ -15,7 +16,7 @@ function showSearchSuggestions (text, input, event) {
     return
   }
 
-  fetch('https://ac.duckduckgo.com/ac/?t=min&q=' + encodeURIComponent(text), {
+  fetch(suggestionsURL.replace('%s', encodeURIComponent(text)), {
     cache: 'force-cache'
   })
     .then(function (response) {
@@ -29,14 +30,14 @@ function showSearchSuggestions (text, input, event) {
       }
 
       if (results) {
-        results = results.slice(0, 3)
+        results = results[1].slice(0, 3)
         results.forEach(function (result) {
           var data = {
-            title: result.phrase,
-            url: result.phrase
+            title: result,
+            url: result
           }
 
-          if (urlParser.isURL(result.phrase) || urlParser.isURLMissingProtocol(result.phrase)) { // website suggestions
+          if (urlParser.isURL(result) || urlParser.isURLMissingProtocol(result)) { // website suggestions
             data.icon = 'carbon:earth-filled'
           } else { // regular search results
             data.icon = 'carbon:search'
