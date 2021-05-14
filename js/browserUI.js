@@ -186,7 +186,9 @@ webviews.bindEvent('new-window', function (tabId, url, frameName, disposition) {
 */
 
 webviews.bindEvent('did-create-popup', function (tabId, popupId) {
-  var popupTab = tabs.add()
+  var popupTab = tabs.add({
+    private: tabs.get(tabId).private
+  })
   tabBar.addTab(popupTab)
   webviews.add(popupTab, popupId)
   switchToTab(popupTab)
