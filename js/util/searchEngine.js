@@ -14,7 +14,7 @@ var searchEngines = {
   DuckDuckGo: {
     name: 'DuckDuckGo',
     searchURL: 'https://duckduckgo.com/?q=%s&t=min',
-    suggestionsURL: 'https://ac.duckduckgo.com/ac/?q=%s&type=list',
+    suggestionsURL: 'https://ac.duckduckgo.com/ac/?q=%s&type=list&t=min',
     queryParam: 'q'
   },
   Google: {
