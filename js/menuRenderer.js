@@ -30,8 +30,9 @@ module.exports = {
         PDFViewer.printPDF(tabs.getSelected())
       } else if (readerView.isReader(tabs.getSelected())) {
         readerView.printArticle(tabs.getSelected())
-      } else {
-      // TODO figure out why webContents.print() doesn't work in Electron 4
+      } else if (webviews.placeholderRequests.length === 0) {
+        // work around #1281 - calling print() when the view is hidden crashes on Linux in Electron 12
+        // TODO figure out why webContents.print() doesn't work in Electron 4
         webviews.callAsync(tabs.getSelected(), 'executeJavaScript', 'window.print()')
       }
     })
