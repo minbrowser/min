@@ -317,7 +317,7 @@ function handleFormSubmit () {
   var usernameValue = getBestUsernameField()?.value
   var passwordValue = getBestPasswordField()?.value
 
-  if ((usernameValue && usernameValue.length > 0) || (passwordValue && passwordValue.length > 0)) {
+  if ((usernameValue && usernameValue.length > 0) && (passwordValue && passwordValue.length > 0)) {
     ipc.send('password-form-filled', [window.location.hostname, usernameValue, passwordValue])
   }
 }
