@@ -20,7 +20,6 @@ var searchEngines = {
   Google: {
     name: 'Google',
     searchURL: 'https://www.google.com/search?q=%s',
-    suggestionsURL: 'https://www.google.com/complete/search?client=chrome&q=%s',
     queryParam: 'q'
   },
   Bing: {
