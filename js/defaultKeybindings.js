@@ -256,21 +256,16 @@ const defaultKeybindings = {
       lastReload = time
     })
 
+    keybindings.defineShortcut('reloadIgnoringCache', function () {
+        webviews.callAsync(tabs.getSelected(), 'reloadIgnoringCache')
+    })
+
     keybindings.defineShortcut({ keys: 'mod+=' }, function () {
       webviewGestures.zoomWebviewIn(tabs.getSelected())
     })
 
     keybindings.defineShortcut('showHistory', function () {
       tabEditor.show(tabs.getSelected(), '!history ')
-    })
-
-    // reload the webview when the F5 key is pressed
-    document.body.addEventListener('keydown', function (e) {
-      if (e.keyCode === 116) {
-        try {
-          webviews.callAsync(tabs.getSelected(), 'reloadIgnoringCache')
-        } catch (e) { }
-      }
     })
   }
 }
