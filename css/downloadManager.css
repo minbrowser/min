@@ -115,11 +115,10 @@
 }
 
 #download-close-button {
-  margin-top: -1px;
   opacity: 0.66;
   font-size: 1.2em;
   margin: auto;
-  margin-right: 0.3em;
+  margin-left: 0.4em;
 }
 
 .dark-mode #download-close-button {
