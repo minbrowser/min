@@ -153,7 +153,7 @@
     "settingsUserscriptsToggle": "Benutzerdefinierte Skripte aktivieren",
     "settingsShowDividerToggle": "Trennwand zwischen Tabs anzeigen",
     "settingsSeparateTitlebarToggle": "Seperate Titelleiste nutzen",
-    "settingsAutoplayToggle": null, //missing translation 
+    "settingsAutoplayToggle": "Automatische Wiedergabe erlauben", 
     "settingsOpenTabsInForegroundToggle": "Neue Tabs im Vordergrund öffnen",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Benutzerdefinierte Skripte erlauben es das Verhalten von Webseiten zu modifizieren - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\"> mehr dazu.</a>."
@@ -267,11 +267,11 @@
     "passwordCaptureSavePassword": "Zugangsdaten für %s speichern?",
     "passwordCaptureSave": "Speichern",
     "passwordCaptureDontSave": "Nicht speichern",
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureNeverSave": "Niemals speichern",
     /* Password viewer */
     "savedPasswordsHeading": "Gespeicherte Passwörter",
-    "savedPasswordsEmpty": "Keine gespeicherte Passwörter",
-    "savedPasswordsNeverSavedLabel": null, //missing translation
+    "savedPasswordsEmpty": "Keine gespeicherten Passwörter",
+    "savedPasswordsNeverSavedLabel": "keine Passwortspeicherung",
     "deletePassword": "Zugangsdaten für %s löschen?",
     /* Dialogs */
     "loginPromptTitle": "Bei %h (%r) anmelden", //%h is replaced with host, %r with realm (title of protected part of site)
@@ -281,6 +281,6 @@
     "email": "E-Mail",
     "password": "Passwort",
     "secretKey": "Geheimschlüssel",
-    "openExternalApp": null //missing translation
+    "openExternalApp": "Öffnen in \\\"%s\\\"?" // %s is the name of an app
   }
 }

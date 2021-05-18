@@ -81,6 +81,11 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
     return
   }
 
+  if (!details.requestingUrl) {
+    callback(false)
+    return
+  }
+
   if (permission === 'fullscreen') {
     callback(true)
     return
@@ -138,6 +143,10 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
 
 function pagePermissionCheckHandler (webContents, permission, requestingOrigin, details) {
   if (!details.isMainFrame) {
+    return false
+  }
+  // starting in Electron 13, this will sometimes be called with no URL. TODO figure out why
+  if (!details.requestingUrl) {
     return false
   }
 

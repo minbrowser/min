@@ -5,8 +5,9 @@ const hosts = require('./hosts.js')
 var urlParser = {
   startingWWWRegex: /www\.(.+\..+\/)/g,
   trailingSlashRegex: /\/$/g,
+  protocolRegex: /^[a-z]+:\/\//,
   isURL: function (url) {
-    return url.indexOf('http://') === 0 || url.indexOf('https://') === 0 || url.indexOf('file://') === 0 || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('data:') === 0
+    return urlParser.protocolRegex.test(url) || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('data:') === 0
   },
   removeProtocol: function (url) {
     if (!urlParser.isURL(url)) {
