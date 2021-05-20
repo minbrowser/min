@@ -266,15 +266,15 @@
     "savedPasswordsHeading": "Password salvate",
     "savedPasswordsEmpty": "Nessuna password salvata",
     "savedPasswordsNeverSavedLabel": "Mai salvata",
-    "deletePassword": "Eliminare la password per %s?"
+    "deletePassword": "Eliminare la password per %s?",
     /* Dialogs */
     "loginPromptTitle": "Entra in %h (%r)",
     "dialogConfirmButton": "Conferma",
-    "dialogSkipButton": "Annulla", //missing translation
-    "username": "Nome utente", //missing translation
-    "email": "Email", //missing translation
-    "password": "Password", //missing translation
-    "secretKey": "Chiave segreta", //missing translation
+    "dialogSkipButton": "Annulla",
+    "username": "Nome utente", 
+    "email": "Email", //
+    "password": "Password",
+    "secretKey": "Chiave segreta",
     "openExternalApp": "Apri in \\\"s\\\"?" 
-    }
+     }
 }
