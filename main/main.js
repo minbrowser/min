@@ -187,7 +187,6 @@ function createWindowWithBounds (bounds) {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      enableRemoteModule: true,
       nodeIntegrationInWorker: true, // used by ProcessSpawner
       additionalArguments: [
         '--user-data-path=' + userDataPath,

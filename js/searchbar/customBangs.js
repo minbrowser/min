@@ -1,6 +1,6 @@
 /* list of the available custom !bangs */
 
-const { ipcRenderer, remote } = require('electron')
+const { ipcRenderer } = require('electron')
 const fs = require('fs')
 
 var bangsPlugin = require('searchbar/bangsPlugin.js')

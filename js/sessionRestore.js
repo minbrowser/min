@@ -1,6 +1,7 @@
 var browserUI = require('browserUI.js')
 var webviews = require('webviews.js')
 var tabEditor = require('navbar/tabEditor.js')
+var tabState = require('tabState.js')
 
 const sessionRestore = {
   savePath: window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
@@ -41,17 +42,16 @@ const sessionRestore = {
     } catch (e) {
       console.warn('failed to read session restore data', e)
     }
-    if (!savedStringData) {
-      // migrate from previous version
-      savedStringData = localStorage.getItem('sessionrestoredata')
-    }
 
-    /* the survey should only be shown after an upgrade from an earlier version */
+    /*
+    Disabled - show a user survey on startup
+    // the survey should only be shown after an upgrade from an earlier version
     var shouldShowSurvey = false
     if (savedStringData && !localStorage.getItem('1.15survey')) {
       shouldShowSurvey = true
     }
     localStorage.setItem('1.15survey', 'true')
+    */
 
     try {
       // first run, show the tour
@@ -111,8 +111,8 @@ const sessionRestore = {
         }
       }
 
+      /* Disabled - show user survey
       // if this isn't the first run, and the survey popup hasn't been shown yet, show it
-
       if (shouldShowSurvey) {
         fetch('https://minbrowser.org/survey/survey15.json').then(function (response) {
           return response.json()
@@ -134,6 +134,7 @@ const sessionRestore = {
           }, 200)
         })
       }
+      */
     } catch (e) {
       // an error occured while restoring the session data
 
@@ -144,7 +145,7 @@ const sessionRestore = {
       fs.writeFileSync(backupSavePath, savedStringData)
 
       // destroy any tabs that were created during the restore attempt
-      initializeTabState()
+      tabState.initialize()
 
       // create a new tab with an explanation of what happened
       var newTask = tasks.add()
