@@ -187,7 +187,6 @@ function createWindowWithBounds (bounds) {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      enableRemoteModule: true,
       nodeIntegrationInWorker: true, // used by ProcessSpawner
       additionalArguments: [
         '--user-data-path=' + userDataPath,
@@ -268,6 +267,8 @@ function createWindowWithBounds (bounds) {
 
   mainWindow.on('leave-html-full-screen', function () {
     sendIPCToWindow(mainWindow, 'leave-html-full-screen')
+    // https://github.com/minbrowser/min/issues/952
+    mainWindow.setMenuBarVisibility(false)
   })
 
   /*
