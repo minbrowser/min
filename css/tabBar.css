@@ -196,11 +196,12 @@ body.linux #menu-button {
   padding-left: 0.5em;
 }
 .navbar-right-actions {
-  margin-right: 2.8em;
+  margin-right: 2.5em;
 }
 
 .navbar-right-actions #add-tab-button {
-  padding: 0 0.7rem;
+  padding: 0;
+  width: 36px;
   font-size: 1.6em !important;
 }
 
