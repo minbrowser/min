@@ -272,7 +272,7 @@
     "dialogConfirmButton": "Conferma",
     "dialogSkipButton": "Annulla",
     "username": "Nome utente", 
-    "email": "Email", //
+    "email": "Email",
     "password": "Password",
     "secretKey": "Chiave segreta",
     "openExternalApp": "Apri in \\\"s\\\"?" 
