@@ -65,6 +65,19 @@ function destroyTask (id) {
   tasks.destroy(id)
 }
 
+/* Destroys all tasks */
+function destroyAllTasks () {
+    tasks.forEach( function(task) {
+        task.tabs.forEach(function (tab) {
+          webviews.destroy(tab.id)
+        })
+      }
+    )
+
+    tasks.destroyAll();
+    return addTask();
+}
+
 /* destroys the webview and tab element for a tab */
 function destroyTab (id) {
   tabBar.removeTab(id)
@@ -225,5 +238,6 @@ module.exports = {
   closeTask,
   closeTab,
   switchToTask,
-  switchToTab
+  switchToTab,
+  destroyAllTasks
 }

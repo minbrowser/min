@@ -166,7 +166,8 @@ body:not(.touch)
   opacity: 0.8;
 }
 #add-task {
-  width: 80%;
+  display:inline-block;
+  width: 40%;
   margin-left: 10%;
   padding: 1.25em;
   text-align: center;
@@ -260,4 +261,30 @@ body.dark-mode #task-overlay {
 
 .dark-mode #switch-task-button {
   color: dodgerblue;
+}
+
+#destroy-all-tasks {
+  display:inline-block;
+  width: 40%;
+  margin-left: 0%;
+  padding: 1.25em;
+  text-align: center;
+  color: inherit;
+  background-color: rgb(245, 245, 245);
+  cursor: pointer;
+}
+.dark-mode #destroy-all-tasks {
+  background-color: rgb(33, 37, 43);
+  color: lightgrey;
+}
+#destroy-all-tasks:hover {
+  background-color: rgb(235, 235, 235);
+}
+.dark-mode #destroy-all-tasks:hover {
+  background-color: rgb(44, 49, 56);
+}
+#destroy-all-tasks .i {
+  opacity: 0.75;
+  vertical-align: middle;
+  margin-right: 0.25em;
 }

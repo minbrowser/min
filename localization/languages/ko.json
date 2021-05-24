@@ -67,6 +67,7 @@
     /* task overlay */
     "viewTasks": "작업장 보기",
     "newTask": "새 작업장", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "destroyAllTasks":null, // "clear" is a verb - it is used on the button that clears all tasks at the bottom of the task overlay
     "defaultTaskName": "작업장 %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
     "taskDeleteWarning": {
       "unsafeHTML": "작업장을 제거했습니다. <a>되돌릴까요?</a>"
