@@ -63,7 +63,7 @@ var urlParser = {
 
     // if the url doesn't have a space and has a ., or is a host from hosts file, assume it is a url without a protocol
     if (urlParser.isURLMissingProtocol(url)) {
-      return 'http://' + url
+      return 'https://' + url
     }
     // else, do a search
     return searchEngine.getCurrent().searchURL.replace('%s', encodeURIComponent(url))
