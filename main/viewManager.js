@@ -23,9 +23,16 @@ const defaultViewWebPreferences = {
 
 function createView (existingViewId, id, webPreferencesString, boundsString, events) {
   console.log(existingViewId)
+
+  viewStateMap[id] = { loadedInitialURL: false }
+
   let view
   if (existingViewId) {
     view = temporaryPopupViews[existingViewId]
+
+    // the initial URL has already been loaded, so set the background color
+    view.setBackgroundColor('#fff')
+    viewStateMap[id].loadedInitialURL = true
   } else {
     view = new BrowserView({ webPreferences: Object.assign({}, defaultViewWebPreferences, JSON.parse(webPreferencesString)) })
   }
@@ -174,7 +181,6 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
   view.setBounds(JSON.parse(boundsString))
 
   viewMap[id] = view
-  viewStateMap[id] = { loadedInitialURL: false }
 
   return view
 }
