@@ -22,13 +22,12 @@ const defaultViewWebPreferences = {
 }
 
 function createView (existingViewId, id, webPreferencesString, boundsString, events) {
-  console.log(existingViewId)
-
   viewStateMap[id] = { loadedInitialURL: false }
 
   let view
   if (existingViewId) {
     view = temporaryPopupViews[existingViewId]
+    delete temporaryPopupViews[existingViewId]
 
     // the initial URL has already been loaded, so set the background color
     view.setBackgroundColor('#fff')
@@ -39,9 +38,6 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
 
   events.forEach(function (event) {
     view.webContents.on(event, function (e) {
-      /*
-      new-window is special because its arguments contain a webContents object that can't be serialized and needs to be removed.
-      */
       var args = Array.prototype.slice.call(arguments).slice(1)
 
       mainWindow.webContents.send('view-event', {
@@ -51,21 +47,6 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
       })
     })
   })
-
-  /*
-  Workaround for crashes when calling preventDefault() on the new-window event (https://github.com/electron/electron/issues/23859#issuecomment-650270680)
-  Calling preventDefault also prevents the new-window event from occurring, so create a new event here instead
-  */
-  /*
-  view.webContents.on('-will-add-new-contents', function (e, url) {
-    e.preventDefault()
-    mainWindow.webContents.send('view-event', {
-      viewId: id,
-      event: 'new-window',
-      args: [url, '', 'new-window']
-    })
-  })
-  */
 
   view.webContents.setWindowOpenHandler(function (details) {
     if (details.disposition === 'background-tab') {
@@ -87,7 +68,6 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
   view.webContents.removeAllListeners('-add-new-contents')
 
   view.webContents.on('-add-new-contents', function (e, webContents, disposition, _userGesture, _left, _top, _width, _height, url, frameName, referrer, rawFeatures, postData) {
-    console.log(arguments)
     var view = new BrowserView({ webPreferences: defaultViewWebPreferences, webContents: webContents })
 
     view.setBounds({

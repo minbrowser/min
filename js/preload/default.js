@@ -18,7 +18,6 @@ function cloneEvent (e) {
 setTimeout(function () {
   /* Used for swipe gestures */
   window.addEventListener('wheel', function (e) {
-    console.log(e)
     ipc.send('wheel-event', cloneEvent(e))
   })
 
