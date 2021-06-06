@@ -435,7 +435,11 @@ webviews.bindEvent('page-title-updated', function (tabId, title, explicitSet) {
 
 webviews.bindEvent('did-fail-load', function (tabId, errorCode, errorDesc, validatedURL, isMainFrame) {
   if (errorCode && errorCode !== -3 && isMainFrame && validatedURL) {
-    webviews.update(tabId, webviews.internalPages.error + '?ec=' + encodeURIComponent(errorCode) + '&url=' + encodeURIComponent(validatedURL))
+    if (validatedURL.indexOf("https://") === 0) {
+      webviews.update(tabId, validatedURL.replace(/^https/, 'http'))
+    } else {
+      webviews.update(tabId, webviews.internalPages.error + '?ec=' + encodeURIComponent(errorCode) + '&url=' + encodeURIComponent(validatedURL))
+    }
   }
 })
 
