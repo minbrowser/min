@@ -5,18 +5,18 @@
     /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-    "addToDictionary": null, //missing translation
-    "pictureInPicture": null, //missing translation
+    "addToDictionary": "Aggiungi al dizionario",
+    "pictureInPicture": "Picture in Picture",
     "openInNewTab": "Apri in nuova scheda",
     "openInNewPrivateTab": "Apri in nuova scheda privata",
-    "saveLinkAs": null, //missing translation
+    "saveLinkAs": "Salva link come...",
     "viewImage": "Visualizza immagine",
     "openImageInNewTab": "Apri immagine in nuova scheda",
     "openImageInNewPrivateTab": "Apri immagine in nuova scheda privata",
     "saveImageAs": "Salva immagine con nome",
     "searchWith": "Cerca con %s", //%s will be replaced with the name of the current search engine
     "copyLink": "Copia Link",
-    "copyEmailAddress": null, //missing translation
+    "copyEmailAddress": "Copia indirizzo email",
     "selectAll": "Seleziona Tutto",
     "undo": "Annulla",
     "redo": "Ripeti",
@@ -27,7 +27,7 @@
     "goForward": "Avanti",
     "inspectElement": "Ispeziona elemento",
     /* searchbar */
-    "pasteAndGo": null, //missing translation
+    "pasteAndGo": "Incolla e Vai",
     "DDGAnswerSubtitle": "Risposta", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
     "suggestedSite": "Sito suggerito", //this is used to label suggested websites from the DuckDuckGo API,
     "resultsFromDDG": "Risultati di DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -39,22 +39,22 @@
     "viewSettings": "Vedi Impostazioni",
     "takeScreenshot": "Cattura Screenshot",
     "clearHistory": "Svuota la cronologia",
-    "enableBlocking": null, //missing translation
-    "disableBlocking": null, //missing translation
+    "enableBlocking": "Abilita blocco dei contenuti per questo sito",
+    "disableBlocking": "Disabilita blocco dei contenuti per questo sito",
     "clearHistoryConfirmation": "Cancellare tutti i dati di navigazione?",
     "switchToTask": "Passa a Task",
     "createTask": "Crea un Task",
     "closeTask": "Chiudi un Task",
     "moveToTask": "Sposta questa scheda in un task",
     "nameTask": "Dai un nome a questo task",
-    "addBookmark": null, //missing translation
+    "addBookmark": "Aggiungi preferiti",
     "searchBookmarks": "Cerca nei Preferiti",
-    "bookmarksAddTag": null, //missing translation
-    "bookmarksSimilarItems": null, //missing translation
+    "bookmarksAddTag": "Aggiungi tag...",
+    "bookmarksSimilarItems": "Oggetti simili",
     "searchHistory": "Cerca nella cronologia",
-    "importBookmarks": null, //missing translation
+    "importBookmarks": "Importa preferiti da file HTML",
     "exportBookmarks": "Esporta Preferiti",
-    "runUserscript": null, //missing translation
+    "runUserscript": "Avvia userscript",
     /* navbar */
     "openMenu": "Apri menu", //application menu button on windows
     "enterReaderView": "Entra in Modalità Lettura",
@@ -81,8 +81,8 @@
     /* Focus mode */
     "isFocusMode": "Sei in Modalità Focus.",
     "closeDialog": "OK", //used as a label for the button that closes the dialog
-    "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-    "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+    "focusModeExplanation1": "Nella modalità focus, non puoi creare nuovi schede o passare tra le attività",
+    "focusModeExplanation2": "Puoi abbandonare la modalità focus deselezionando \"modalità focus\" nel menu visualizza.",
     /* relative dates */
     "timeRangeJustNow": "Proprio ora",
     "timeRangeMinutes": "Pochi minuti fa",
@@ -92,7 +92,7 @@
     "timeRangeWeek": "Questa settimana",
     "timeRangeMonth": "Questo mese",
     "timeRangeYear": "Quest'anno",
-    "timeRangeLongerAgo": "Longer ago",
+    "timeRangeLongerAgo": "Tempo fa",
     /* pages/error/index.html */
     "crashErrorTitle": "Qualcosa non ha funzionato.",
     "crashErrorSubtitle": "Si è verificato un errore nella visualizzazione di questa pagina.",
@@ -135,45 +135,45 @@
     "settingsBlockScriptsToggle": "Blocca script",
     "settingsBlockImagesToggle": "Blocca immagini",
     "settingsBlockedRequestCount": {
-      "unsafeHTML": null //missing translation
+      "unsafeHTML": "Fino ad ora, Min ha bloccato <strong></strong> pubblicità e tracciatori"
     },
-    "settingsCustomBangs": null, // missing translation
-    "settingsCustomBangsAdd": null, // missing translation
-    "settingsCustomBangsPhrase": null, // missing translation
-    "settingsCustomBangsSnippet": null, // missing translation
-    "settingsCustomBangsRedirect": null, // missing translation
-    "settingsCustomizeFiltersLink": null, //missing translation
+    "settingsCustomBangs": "Bang personalizzati",
+    "settingsCustomBangsAdd": "Aggiungi bang personalizzato",
+    "settingsCustomBangsPhrase": "Frase (Richiesto)",
+    "settingsCustomBangsSnippet": "Descrizione (Opzionale)",
+    "settingsCustomBangsRedirect": "URL Reindirizzamento (Richiesto)",
+    "settingsCustomizeFiltersLink": "Personalizza filtri",
     "settingsAppearanceHeading": "Aspetto",
     "settingsEnableDarkMode": "Abilita dark mode:",
-    "settingsDarkModeNever": null, //"Never" missing translation
-    "settingsDarkModeNight": null, //"At night" missing translation
-    "settingsDarkModeAlways": null, //"Always" missing translation
+    "settingsDarkModeNever": "Mai",
+    "settingsDarkModeNight": "Di notte",
+    "settingsDarkModeAlways": "Sempre",
     "settingsSiteThemeToggle": "Abilita tema adattivo (si adatta al sito)",
     "settingsAdditionalFeaturesHeading": "Funzionalità aggiuntive",
     "settingsUserscriptsToggle": "Abilita script definiti dall'utente",
-    "settingsShowDividerToggle": null, // Missing translation
-    "settingsSeparateTitlebarToggle": null, //missing translation
-    "settingsAutoplayToggle": null, //missing translation 
-    "settingsOpenTabsInForegroundToggle": null, //missing translation
+    "settingsShowDividerToggle": "Mostra divisore tra i schede",
+    "settingsSeparateTitlebarToggle": "Usa barra del titolo separata",
+    "settingsAutoplayToggle": "Abilita Autoplay", 
+    "settingsOpenTabsInForegroundToggle": "Apri nuove schede in primo piano",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Gli script definiti dall'utente ti permettono di modificare il comportamento dei siti - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">scopri di più</a>."
     },
-    "settingsUserAgentToggle": null, //missing translation
+    "settingsUserAgentToggle": "Utilizza un user agent personalizzato",
     "settingsUpdateNotificationsToggle": "Controlla automaticamente la presenza di aggiornamenti",
-    "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsUsageStatisticsToggle": "Invia statistiche di utilizzo (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Maggiori informazioni</a>)",
     "settingsSearchEngineHeading": "Motore di ricerca",
     "settingsDefaultSearchEngine": "Scegli un motore di ricerca predefinito:",
     "settingsDDGExplanation": "Imposta DuckDuckGo come motore di ricerca predefinito per vedere risposte istantanee nella barra di ricerca.",
     "customSearchEngineDescription": "Sostituisci il termine di ricerca con %s",
     "settingsKeyboardShortcutsHeading": "Scorciatoie da tastiera",
     "settingsKeyboardShortcutsHelp": "Utilizza una virgola per separare scorciatoie multiple.",
-    "settingsProxyHeading": null, //missing translation
-    "settingsNoProxy": null, //missing translation
-    "settingsManualProxy": null, //missing translation
-    "settingsAutomaticProxy": null, //missing translation
-    "settingsProxyRules": null, //missing translation
-    "settingsProxyBypassRules": null, //missing translation
-    "settingsProxyConfigurationURL": null, //missing translation
+    "settingsProxyHeading": "Proxy",
+    "settingsNoProxy": "Nessun proxy",
+    "settingsManualProxy": "Configurazione manuale",
+    "settingsAutomaticProxy": "Configurazione automatica",
+    "settingsProxyRules": "Regole proxy:",
+    "settingsProxyBypassRules": "Nessun proxy per:",
+    "settingsProxyConfigurationURL": "URL configurazione",
     /* app menu */
     "appMenuFile": "File",
     "appMenuNewTab": "Nuova scheda",
@@ -205,7 +205,7 @@
     "appMenuWindow": "Finestra",
     "appMenuMinimize": "Minimizza",
     "appMenuClose": "Chiudi",
-    "appMenuAlwaysOnTop": null, //missing translation
+    "appMenuAlwaysOnTop": "Sempre in cima",
     "appMenuHelp": "Aiuto",
     "appMenuKeyboardShortcuts": "Scorciatoie da tastiera",
     "appMenuReportBug": "Segnala un bug",
@@ -224,15 +224,15 @@
       "unsafeHTML": "pagina <input type='text'/> su <span id='total'></span>"
     },
     /* Context Reader */
-    "buttonReaderSettings": null, //missing translation "Reader Settings"
-    "buttonReaderLightTheme": null, //missing translation "Light"
-    "buttonReaderSepiaTheme": null, //missing translation "Sepia"
-    "buttonReaderDarkTheme": null, //missing translation "Dark"
-    "openReaderView": null, //missing translation "Always open in reader view"
-    "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-    "buttonReaderRedirectYes": null, //missing translation "Yes"
-    "buttonReaderRedirectNo": null, //missing translation "No"
-    "articleReaderView": null, //missing translation "Original Article"
+    "buttonReaderSettings": "Impostazioni lettura",
+    "buttonReaderLightTheme": "Chiaro",
+    "buttonReaderSepiaTheme": "Seppia",
+    "buttonReaderDarkTheme": "Scuro",
+    "openReaderView": "Apri sempre in modalità lettura",
+    "autoRedirectBannerReader": "Aprire sempre gli articoli di questo sito in modalità lettura?",
+    "buttonReaderRedirectYes": "Si",
+    "buttonReaderRedirectNo": "NO",
+    "articleReaderView": "Articolo originale",
     /* Download manager */
     "downloadCancel": "Annulla",
     "downloadStateCompleted": "Completato",
@@ -240,41 +240,41 @@
     /* Update Notifications */
     "updateNotificationTitle": "Una nuova versione di Min è disponibile",
     /* Autofill settings */
-    "settingsPasswordAutoFillHeadline": null, //missing translation
-    "settingsSelectPasswordManager": null, //missing translation
-    "keychainViewPasswords": null, //missing translation
+    "settingsPasswordAutoFillHeadline": "Completamento automatico password",
+    "settingsSelectPasswordManager": "Seleziona uno dei gestori di password supportati:",
+    "keychainViewPasswords": "Mostra password salvate",
     /* Password manager setup */
-    "passwordManagerSetupHeading": null, //missing translation
-    "passwordManagerSetupStep1": null, //missing translation
-    "passwordManagerInstallerSetup": null, //missing translation
-    "passwordManagerSetupLink": null, //missing translation
-    "passwordManagerSetupLinkInstaller": null, //missing translation
-    "passwordManagerSetupStep2": null, //missing translation
-    "passwordManagerSetupDragBox": null, //missing translation
-    "passwordManagerSetupInstalling": null, //missing translation
-    "passwordManagerSetupSignIn": null, //missing translation
-    "disableAutofill": null, //missing translation
-    "passwordManagerSetupUnlockError": null, //missing translation
-    "passwordManagerSetupRetry": null, //missing translation
-    "passwordManagerUnlock": null, //missing translation
+    "passwordManagerSetupHeading": "Imposta %p per utilizzare l'autocompletamento",
+    "passwordManagerSetupStep1": "Prima, <a id='password-manager-setup-link'></a> ed estrailo per il tuo sistema.",
+    "passwordManagerInstallerSetup": "Scarica <a id='password-manager-setup-link-installer'></a> e sposta il file nel box qui sotto:",
+    "passwordManagerSetupLink": "scarica il tool CLI di %p",
+    "passwordManagerSetupLinkInstaller": "l'install CLI di %p",
+    "passwordManagerSetupStep2": "Quindi trascina il tool nel box qui sotto:",
+    "passwordManagerSetupDragBox": "Trascina il tool qui",
+    "passwordManagerSetupInstalling": "Installazione...",
+    "passwordManagerSetupSignIn": "Entra nel tuo gestore di password per iniziare ad usare l'autocompletamento. Le tue credenziali non saranno salvate da nessuna parte in Min.",
+    "disableAutofill": "Disabilita autocompletamento",
+    "passwordManagerSetupUnlockError": "Impossibile sbloccare le password: ",
+    "passwordManagerSetupRetry": "Assicurati di star usando il file corretto e la password corretta. Puoi riprovare a trascinare il tool di nuovo qui.",
+    "passwordManagerUnlock": "Inserisci la master password di %p per sbloccare le password:",
     /* Password save bar */
-    "passwordCaptureSavePassword": null, //missing translation
-    "passwordCaptureSave": null, //missing translation
-    "passwordCaptureDontSave": null, //missing translation
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureSavePassword": "Salvare la password per %s?",
+    "passwordCaptureSave": "Salva",
+    "passwordCaptureDontSave": "Non salvare",
+    "passwordCaptureNeverSave": "Non salvare mai",
     /* Password viewer */
-    "savedPasswordsHeading": null, //missing translation
-    "savedPasswordsEmpty": null, //missing translation
-    "savedPasswordsNeverSavedLabel": null, //missing translation
-    "deletePassword": null, //missing translation
+    "savedPasswordsHeading": "Password salvate",
+    "savedPasswordsEmpty": "Nessuna password salvata",
+    "savedPasswordsNeverSavedLabel": "Mai salvata",
+    "deletePassword": "Eliminare la password per %s?",
     /* Dialogs */
-    "loginPromptTitle": null, //missing translation
-    "dialogConfirmButton": null, //missing translation
-    "dialogSkipButton": null, //missing translation
-    "username": null, //missing translation
-    "email": null, //missing translation
-    "password": null, //missing translation
-    "secretKey": null, //missing translation
-    "openExternalApp": null //missing translation
+    "loginPromptTitle": "Entra in %h (%r)",
+    "dialogConfirmButton": "Conferma",
+    "dialogSkipButton": "Annulla",
+    "username": "Nome utente", 
+    "email": "Email",
+    "password": "Password",
+    "secretKey": "Chiave segreta",
+    "openExternalApp": "Apri in \\\"%s\\\"?" 
   }
 }
