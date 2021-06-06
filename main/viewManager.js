@@ -36,10 +36,6 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
       new-window is special because its arguments contain a webContents object that can't be serialized and needs to be removed.
       */
       var args = Array.prototype.slice.call(arguments).slice(1)
-      if (event === 'new-window') {
-        e.preventDefault()
-        args = args.slice(0, 3)
-      }
 
       mainWindow.webContents.send('view-event', {
         viewId: id,
@@ -63,6 +59,23 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
     })
   })
   */
+
+  view.webContents.setWindowOpenHandler(function (details) {
+    if (details.disposition === 'background-tab') {
+      mainWindow.webContents.send('view-event', {
+        viewId: id,
+        event: 'new-tab',
+        args: [details.url]
+      })
+      return {
+        action: 'deny'
+      }
+    }
+
+    return {
+      action: 'allow'
+    }
+  })
 
   view.webContents.removeAllListeners('-add-new-contents')
 

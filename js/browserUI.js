@@ -194,6 +194,18 @@ webviews.bindEvent('did-create-popup', function (tabId, popupId) {
   switchToTab(popupTab)
 })
 
+webviews.bindEvent('new-tab', function (tabId, url) {
+  var newTab = tabs.add({
+    url: url,
+    private: tabs.get(tabId).private // inherit private status from the current tab
+  })
+
+  addTab(newTab, {
+    enterEditMode: false,
+    openInBackground: !settings.get('openTabsInForeground')
+  })
+})
+
 webviews.bindIPC('close-window', function (tabId, args) {
   closeTab(tabId)
 })
