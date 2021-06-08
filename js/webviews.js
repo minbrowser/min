@@ -434,8 +434,10 @@ webviews.bindEvent('page-title-updated', function (tabId, title, explicitSet) {
 })
 
 webviews.bindEvent('did-fail-load', function (tabId, errorCode, errorDesc, validatedURL, isMainFrame) {
+  tab = tabs.get(tabId)
+
   if (errorCode && errorCode !== -3 && isMainFrame && validatedURL) {
-    if (validatedURL.indexOf("https://") === 0) {
+    if (tab.selected && validatedURL.indexOf("https://") === 0 && errorCode === -102) { // ERR_CONNECTION_REFUSED
       webviews.update(tabId, validatedURL.replace(/^https/, 'http'))
     } else {
       webviews.update(tabId, webviews.internalPages.error + '?ec=' + encodeURIComponent(errorCode) + '&url=' + encodeURIComponent(validatedURL))
