@@ -132,6 +132,8 @@ const defaultKeybindings = {
     })
 
     keybindings.defineShortcut({ keys: 'esc' }, function (e) {
+      !e && webviews.callAsync(tabs.getSelected(), 'stop')
+
       tabEditor.hide()
 
       if (modalMode.enabled() && modalMode.onDismiss) {
