@@ -11,6 +11,10 @@
   z-index: 9;
 }
 
+#task-overlay:not([hidden]) + #download-bar {
+  z-index: 1;
+}
+
 .dark-mode #download-bar {
   background: rgb(41, 44, 52);
   color: white;
