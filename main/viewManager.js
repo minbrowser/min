@@ -1,21 +1,44 @@
+const BrowserView = electron.BrowserView
+
 var viewMap = {} // id: view
 var viewStateMap = {} // id: view state
 
-const BrowserView = electron.BrowserView
+var temporaryPopupViews = {} // id: view
 
-function createView (id, webPreferencesString, boundsString, events) {
-  const view = new BrowserView(JSON.parse(webPreferencesString))
+const defaultViewWebPreferences = {
+  nodeIntegration: false,
+  nodeIntegrationInSubFrames: true,
+  scrollBounce: true,
+  safeDialogs: true,
+  safeDialogsMessage: 'Prevent this page from creating additional dialogs',
+  preload: __dirname + '/dist/preload.js',
+  contextIsolation: true,
+  sandbox: true,
+  enableRemoteModule: false,
+  allowPopups: false,
+  // partition: partition || 'persist:webcontent',
+  enableWebSQL: false,
+  autoplayPolicy: (settings.get('enableAutoplay') ? 'no-user-gesture-required' : 'user-gesture-required')
+}
+
+function createView (existingViewId, id, webPreferencesString, boundsString, events) {
+  viewStateMap[id] = { loadedInitialURL: false }
+
+  let view
+  if (existingViewId) {
+    view = temporaryPopupViews[existingViewId]
+    delete temporaryPopupViews[existingViewId]
+
+    // the initial URL has already been loaded, so set the background color
+    view.setBackgroundColor('#fff')
+    viewStateMap[id].loadedInitialURL = true
+  } else {
+    view = new BrowserView({ webPreferences: Object.assign({}, defaultViewWebPreferences, JSON.parse(webPreferencesString)) })
+  }
 
   events.forEach(function (event) {
     view.webContents.on(event, function (e) {
-      /*
-      new-window is special because its arguments contain a webContents object that can't be serialized and needs to be removed.
-      */
       var args = Array.prototype.slice.call(arguments).slice(1)
-      if (event === 'new-window') {
-        e.preventDefault()
-        args = args.slice(0, 3)
-      }
 
       mainWindow.webContents.send('view-event', {
         viewId: id,
@@ -25,16 +48,35 @@ function createView (id, webPreferencesString, boundsString, events) {
     })
   })
 
-  /*
-  Workaround for crashes when calling preventDefault() on the new-window event (https://github.com/electron/electron/issues/23859#issuecomment-650270680)
-  Calling preventDefault also prevents the new-window event from occurring, so create a new event here instead
-  */
-  view.webContents.on('-will-add-new-contents', function (e, url) {
-    e.preventDefault()
+  view.webContents.setWindowOpenHandler(function (details) {
+    if (details.disposition === 'background-tab') {
+      mainWindow.webContents.send('view-event', {
+        viewId: id,
+        event: 'new-tab',
+        args: [details.url]
+      })
+      return {
+        action: 'deny'
+      }
+    }
+
+    return {
+      action: 'allow'
+    }
+  })
+
+  view.webContents.removeAllListeners('-add-new-contents')
+
+  view.webContents.on('-add-new-contents', function (e, webContents, disposition, _userGesture, _left, _top, _width, _height, url, frameName, referrer, rawFeatures, postData) {
+    var view = new BrowserView({ webPreferences: defaultViewWebPreferences, webContents: webContents })
+
+    var popupId = Math.random().toString()
+    temporaryPopupViews[popupId] = view
+
     mainWindow.webContents.send('view-event', {
       viewId: id,
-      event: 'new-window',
-      args: [url, '', 'new-window']
+      event: 'did-create-popup',
+      args: [popupId]
     })
   })
 
@@ -112,7 +154,6 @@ function createView (id, webPreferencesString, boundsString, events) {
   view.setBounds(JSON.parse(boundsString))
 
   viewMap[id] = view
-  viewStateMap[id] = { loadedInitialURL: false }
 
   return view
 }
@@ -175,7 +216,7 @@ function getViewIDFromWebContents (contents) {
 }
 
 ipc.on('createView', function (e, args) {
-  createView(args.id, args.webPreferencesString, args.boundsString, args.events)
+  createView(args.existingViewId, args.id, args.webPreferencesString, args.boundsString, args.events)
 })
 
 ipc.on('destroyView', function (e, id) {
