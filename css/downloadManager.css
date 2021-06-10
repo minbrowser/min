@@ -131,6 +131,7 @@
   font-size: 1.2em;
   margin: auto;
   margin-left: 0.4em;
+  border-radius: 50%;
 }
 
 .dark-mode #download-close-button {
