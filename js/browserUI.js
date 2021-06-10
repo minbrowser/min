@@ -167,24 +167,6 @@ function switchToTab (id, options) {
   })
 }
 
-/*
-webviews.bindEvent('new-window', function (tabId, url, frameName, disposition) {
-  if (focusMode.enabled()) {
-    focusMode.warn()
-    return
-  }
-  var newTab = tabs.add({
-    url: url,
-    private: tabs.get(tabId).private // inherit private status from the current tab
-  })
-
-  addTab(newTab, {
-    enterEditMode: false,
-    openInBackground: disposition === 'background-tab' && !settings.get('openTabsInForeground')
-  })
-})
-*/
-
 webviews.bindEvent('did-create-popup', function (tabId, popupId) {
   var popupTab = tabs.add({
     private: tabs.get(tabId).private

@@ -70,13 +70,6 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
   view.webContents.on('-add-new-contents', function (e, webContents, disposition, _userGesture, _left, _top, _width, _height, url, frameName, referrer, rawFeatures, postData) {
     var view = new BrowserView({ webPreferences: defaultViewWebPreferences, webContents: webContents })
 
-    view.setBounds({
-      x: 0,
-      y: 0,
-      width: 500,
-      height: 500
-    })
-
     var popupId = Math.random().toString()
     temporaryPopupViews[popupId] = view
 
