@@ -197,11 +197,13 @@ const webviews = {
       events: webviews.events.map(e => e.event).filter((i, idx, arr) => arr.indexOf(i) === idx)
     })
 
-    if (tabData.url) {
-      ipc.send('loadURLInView', { id: tabData.id, url: urlParser.parse(tabData.url) })
-    } else if (tabData.private) {
-      // workaround for https://github.com/minbrowser/min/issues/872
-      ipc.send('loadURLInView', { id: tabData.id, url: urlParser.parse('min://newtab') })
+    if (!existingViewId) {
+      if (tabData.url) {
+        ipc.send('loadURLInView', { id: tabData.id, url: urlParser.parse(tabData.url) })
+      } else if (tabData.private) {
+        // workaround for https://github.com/minbrowser/min/issues/872
+        ipc.send('loadURLInView', { id: tabData.id, url: urlParser.parse('min://newtab') })
+      }
     }
 
     webviews.viewList.push(tabId)
