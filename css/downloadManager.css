@@ -11,7 +11,7 @@
   z-index: 9;
 }
 
-#task-overlay:not([hidden]) + #download-bar {
+body.task-overlay-is-shown #download-bar {
   z-index: 1;
 }
 
