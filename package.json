@@ -2,9 +2,9 @@
   "name": "min",
   "productName": "Min",
   "author": "PalmerAL",
-  "version": "1.19.2",
+  "version": "1.20.0-beta",
   "description": "A fast, minimal browser that protects your privacy",
-  "electronVersion": "13.1.1",
+  "electronVersion": "13.1.2",
   "main": "main.build.js",
   "standard": {
     "globals": [
@@ -44,7 +44,7 @@
     "chokidar": "^3.4.0",
     "concurrently": "^5.2.0",
     "decomment": "^0.9.0",
-    "electron": "^13.1.1",
+    "electron": "^13.1.2",
     "electron-installer-windows": "^3.0.0",
     "electron-packager": "^15.1.0",
     "electron-rebuild": "^2.3.2",
