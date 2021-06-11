@@ -32,7 +32,7 @@
     "dexie": "^3.0.3",
     "dragula": "^3.7.3",
     "electron-squirrel-startup": "^1.0.0",
-    "keytar": "^7.0.0",
+    "keytar": "7.6.0",
     "mousetrap": "^1.5.3",
     "node-abi": "2.30.0",
     "pdfjs-dist": "2.4.456",
