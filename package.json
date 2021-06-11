@@ -34,6 +34,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "keytar": "^7.0.0",
     "mousetrap": "^1.5.3",
+    "node-abi": "^2.30.0",
     "pdfjs-dist": "2.4.456",
     "regedit": "^3.0.3",
     "string_score": "^0.1.22"
