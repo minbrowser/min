@@ -135,7 +135,11 @@ const tabBar = {
   updateTab: function (tabId, tabEl = tabBar.getTab(tabId)) {
     var tabData = tabs.get(tabId)
 
-    var tabTitle = (tabData.title || l('newTabLabel')).substring(0, 500)
+    // update tab title
+    var tabTitle = l('newTabLabel')
+    if (tabData.url != "") {
+      tabTitle = (tabData.title || tabData.url).substring(0, 500)
+    }
     var titleEl = tabEl.querySelector('.title')
     titleEl.textContent = tabTitle
 
