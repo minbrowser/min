@@ -44,4 +44,5 @@ body.linux #findinpage-bar {
 #findinpage-bar .navbar-action-button {
   padding: 0;
   margin: 0;
+  border-radius: 50%;
 }
