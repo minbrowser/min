@@ -132,7 +132,9 @@ const defaultKeybindings = {
     })
 
     keybindings.defineShortcut({ keys: 'esc' }, function (e) {
-      !e && webviews.callAsync(tabs.getSelected(), 'stop')
+      if (webviews.placeholderRequests.length === 0 && document.activeElement.tagName !== 'INPUT') {
+        webviews.callAsync(tabs.getSelected(), 'stop')
+      }
 
       tabEditor.hide()
 
