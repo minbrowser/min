@@ -49,7 +49,14 @@ const bookmarkEditor = {
       URLSpan.className = 'bookmark-url'
       URLSpan.textContent = bookmarkEditor.currentInstance.bookmark.url
       editor.appendChild(URLSpan)
+    }
 
+    // tag area
+    var tagArea = document.createElement('div')
+    tagArea.className = 'tag-edit-area'
+    editor.appendChild(tagArea)
+
+    if (!options.simplified) {
       // save button
       var saveButton = document.createElement('button')
       saveButton.className = 'action-button always-visible i carbon:checkmark'
@@ -60,23 +67,18 @@ const bookmarkEditor = {
         bookmarkEditor.currentInstance.onClose(bookmarkEditor.currentInstance.bookmark)
         bookmarkEditor.currentInstance = null
       })
-
-      // delete button
-      var delButton = document.createElement('button')
-      delButton.className = 'action-button always-visible bookmark-delete-button i carbon:delete'
-      delButton.tabIndex = -1
-      editor.appendChild(delButton)
-      delButton.addEventListener('click', function () {
-        editor.remove()
-        bookmarkEditor.currentInstance.onClose(null)
-        bookmarkEditor.currentInstance = null
-      })
     }
 
-    // tag area
-    var tagArea = document.createElement('div')
-    tagArea.className = 'tag-edit-area'
-    editor.appendChild(tagArea)
+    // delete button
+    var delButton = document.createElement('button')
+    delButton.className = 'action-button always-visible bookmark-delete-button i carbon:delete'
+    delButton.tabIndex = -1
+    editor.appendChild(delButton)
+    delButton.addEventListener('click', function () {
+      editor.remove()
+      bookmarkEditor.currentInstance.onClose(null)
+      bookmarkEditor.currentInstance = null
+    })
 
     var tags = {
       selected: [],

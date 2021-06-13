@@ -106,6 +106,26 @@ onmessage = function (e) {
   const callbackId = e.data.callbackId
   const options = e.data.options
 
+  if (action === 'getPlace') {
+    let found = false
+    for (let i = 0; i < historyInMemoryCache.length; i++) {
+      if (historyInMemoryCache[i].url === pageData.url) {
+        postMessage({
+          result: historyInMemoryCache[i],
+          callbackId: callbackId
+        })
+        found = true
+        break
+      }
+    }
+    if (!found) {
+      postMessage({
+        result: null,
+        callbackId: callbackId
+      })
+    }
+  }
+
   if (action === 'updatePlace') {
     db.transaction('rw', db.places, function () {
       db.places.where('url').equals(pageData.url).first(function (item) {
