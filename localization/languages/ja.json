@@ -267,11 +267,11 @@
     "passwordCaptureSavePassword": "％sのパスワードを保存しますか？",
     "passwordCaptureSave": "保存する",
     "passwordCaptureDontSave": "保存しないで",
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureNeverSave": "保存しない",
     /* Password viewer */
     "savedPasswordsHeading": "保存されたパスワード",
     "savedPasswordsEmpty": "保存されたパスワードはありません。",
-    "savedPasswordsNeverSavedLabel": null, //missing translation
+    "savedPasswordsNeverSavedLabel": "保存されなかった",
     "deletePassword": "％sのパスワードを削除しますか？",
     /* Dialogs */
     "loginPromptTitle": "％hにサインイン（％r）",
