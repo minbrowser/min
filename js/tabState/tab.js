@@ -25,7 +25,8 @@ class TabList {
       selected: tab.selected || false,
       muted: tab.muted || false,
       hasAudio: false,
-      previewImage: ''
+      previewImage: '',
+      loaded: false
     }
 
     if (options.atEnd) {

@@ -137,7 +137,7 @@ const tabBar = {
 
     // update tab title
     var tabTitle = l('newTabLabel')
-    if (tabData.url != "") {
+    if (tabData.url != "" && tabData.loaded) {
       tabTitle = (tabData.title || tabData.url).substring(0, 500)
     }
     var titleEl = tabEl.querySelector('.title')
@@ -209,14 +209,16 @@ settings.listen('showDividerBetweenTabs', function (dividerPreference) {
   tabBar.handleDividerPreference(dividerPreference)
 })
 
-/* progress bar events */
-
+/* tab loading and progress bar status*/
 webviews.bindEvent('did-start-loading', function (tabId) {
   progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'start')
+  tabs.update(tabId,{ loaded: false })
 })
 
 webviews.bindEvent('did-stop-loading', function (tabId) {
   progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'finish')
+  tabs.update(tabId,{ loaded: true })
+  tabBar.updateTab(tabId)
 })
 
 tasks.on('tab-updated', function (id, key) {
