@@ -15,6 +15,14 @@ var goBackButton = {
     goBackButton.element.classList.remove('carbon:chevron-' + (!this.forward ? 'right' : 'left'))
     goBackButton.element.classList.add('carbon:chevron-' + (!this.forward ? 'left' : 'right'))
 
+    // update button localization
+    let dataLabel = (!this.forward ? 'goBack' :  'goForward')
+    goBackButton.element.setAttribute('data-label', dataLabel)
+    for(a of ['aria-label', 'title']){
+      if (goBackButton.element.hasAttribute(a))
+        goBackButton.element.setAttribute(a, l(dataLabel))
+    }
+
     if (!tabs.get(tabs.getSelected()).url) {
       goBackButton.element.disabled = true
       return
