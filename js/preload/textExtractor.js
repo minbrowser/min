@@ -98,4 +98,31 @@ if (process.isMainFrame) {
       })
     }, 500)
   })
+
+  setTimeout(function () {
+    // https://stackoverflow.com/a/52809105
+    electron.webFrame.executeJavaScript(`
+      history.pushState = ( f => function pushState(){
+        var ret = f.apply(this, arguments);
+        window.postMessage('_minInternalLocationChange', '*')
+        return ret;
+    })(history.pushState);
+    
+    history.replaceState = ( f => function replaceState(){
+        var ret = f.apply(this, arguments);
+        window.postMessage('_minInternalLocationChange', '*')
+        return ret;
+    })(history.replaceState);
+  `)
+  }, 0)
+
+  window.addEventListener('message', function (e) {
+    if (e.data === '_minInternalLocationChange') {
+      setTimeout(function () {
+        getPageData(function (data) {
+          ipc.send('pageData', data)
+        })
+      }, 500)
+    }
+  })
 }

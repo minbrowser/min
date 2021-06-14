@@ -6,9 +6,15 @@ ipc.on('cancelDownload', function (e, path) {
   }
 })
 
+function isAttachment(header) {
+  return /^\s*attache*?ment/i.test(header)
+}
+
 function downloadHandler (event, item, webContents) {
   var itemURL = item.getURL()
-  if (item.getMimeType() === 'application/pdf' && itemURL.indexOf('blob:') !== 0 && itemURL.indexOf('#pdfjs.action=download') === -1) { // clicking the download button in the viewer opens a blob url, so we don't want to open those in the viewer (since that would make it impossible to download a PDF)
+  var attachment = isAttachment(item.getContentDisposition())
+
+  if (item.getMimeType() === 'application/pdf' && itemURL.indexOf('blob:') !== 0 && itemURL.indexOf('#pdfjs.action=download') === -1 && !attachment) { // clicking the download button in the viewer opens a blob url, so we don't want to open those in the viewer (since that would make it impossible to download a PDF)
     event.preventDefault()
 
     sendIPCToWindow(mainWindow, 'openPDF', {
@@ -54,7 +60,9 @@ function listenForPDFDownload (ses) {
   ses.webRequest.onHeadersReceived(function (details, callback) {
     if (details.resourceType === 'mainFrame' && details.responseHeaders) {
       var typeHeader = details.responseHeaders[Object.keys(details.responseHeaders).filter(k => k.toLowerCase() === 'content-type')]
-      if (typeHeader instanceof Array && typeHeader.filter(t => t.includes('application/pdf')).length > 0 && details.url.indexOf('#pdfjs.action=download') === -1) {
+      var attachment = isAttachment(details.responseHeaders[Object.keys(details.responseHeaders).filter(k => k.toLowerCase() === 'content-disposition')])
+
+      if (typeHeader instanceof Array && typeHeader.filter(t => t.includes('application/pdf')).length > 0 && details.url.indexOf('#pdfjs.action=download') === -1 && !attachment) {
       // open in PDF viewer instead
         callback({ cancel: true })
         sendIPCToWindow(mainWindow, 'openPDF', {
