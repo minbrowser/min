@@ -106,11 +106,13 @@ body.touch .searchbar-item .action-button {
 body.dark-mode.touch .searchbar-item .action-button {
   opacity: 0.8;
 }
-.searchbar-item .action-button:hover {
+.searchbar-item .action-button:hover,
+.searchbar-item .action-button:focus {
   opacity: 1;
   background: rgba(0, 0, 0, 0.05);
 }
-.dark-mode .searchbar-item .action-button:hover {
+.dark-mode .searchbar-item .action-button:hover,
+.dark-mode .searchbar-item .action-button:focus {
   opacity: 1;
   background: rgba(0, 0, 0, 0.15);
 }

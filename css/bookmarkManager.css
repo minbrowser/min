@@ -17,9 +17,18 @@
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
+.bookmark-editor .tag-edit-area {
+  display: inline-block;
+}
+
 .bookmark-editor .bookmark-delete-button {
   top: auto;
   bottom: calc(0.16em + 1px);
+}
+.bookmark-editor.simplified .bookmark-delete-button {
+  position: static;
+  margin-left: 0.75em;
+  transform: translateY(0.1875em);
 }
 
 .bookmark-editor .bookmark-url {
