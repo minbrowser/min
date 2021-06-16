@@ -1,26 +1,42 @@
 const webviews = require('webviews.js')
 
 var goBackButton = {
-  element: document.getElementById('back-button'),
+  container: document.getElementById('toolbar-navigation-buttons'),
+  backButton: document.getElementById('back-button'),
+  forwardButton: document.getElementById('forward-button'),
   update: function () {
     if (!tabs.get(tabs.getSelected()).url) {
-      goBackButton.element.disabled = true
+      goBackButton.backButton.disabled = true
+      goBackButton.forwardButton.disabled = true
       return
     }
     webviews.callAsync(tabs.getSelected(), 'canGoBack', function (err, canGoBack) {
       if (err) {
         return
       }
-      goBackButton.element.disabled = !canGoBack
+      goBackButton.backButton.disabled = !canGoBack
+    })
+    webviews.callAsync(tabs.getSelected(), 'canGoForward', function (err, canGoForward) {
+      console.log(arguments)
+      if (err) {
+        return
+      }
+      goBackButton.forwardButton.disabled = !canGoForward
+      if (canGoForward) {
+        goBackButton.container.classList.add('can-go-forward')
+      } else {
+        goBackButton.container.classList.remove('can-go-forward')
+      }
     })
   },
   initialize: function () {
-    goBackButton.element.addEventListener('click', function (e) {
+    goBackButton.backButton.addEventListener('click', function (e) {
       webviews.goBackIgnoringRedirects(tabs.getSelected())
     })
 
-    // hide until initialized to reduce flickering
-    goBackButton.element.hidden = false
+    goBackButton.forwardButton.addEventListener('click', function () {
+      webviews.callAsync(tabs.getSelected(), 'goForward')
+    })
 
     tasks.on('tab-selected', this.update)
     webviews.bindEvent('did-navigate', this.update)

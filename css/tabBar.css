@@ -35,17 +35,36 @@
 
 /* navbar buttons */
 
-#back-button {
+#toolbar-navigation-buttons {
+  width: 3.375rem;
+  transition: 0.1s width;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#toolbar-navigation-buttons.can-go-forward:hover {
+  width: 5rem;
+}
+
+body.is-edit-mode #toolbar-navigation-buttons {
+  display: none;
+}
+
+#back-button. #forward-button {
   opacity: 1;
   transition: none;
   padding: 0 0.6rem 0 0.4rem;
 }
-#back-button:disabled {
+#back-button:disabled, #forward-button:disabled {
   opacity: 0.2;
 }
 
-body.is-edit-mode #back-button {
+body.is-edit-mode #back-button, body.is-edit-mode #forward-button {
   display: none;
+}
+
+#forward-button {
+  margin-left: -0.75em;
 }
 
 #menu-button {
