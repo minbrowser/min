@@ -6,6 +6,7 @@ const readerView = require('readerView.js')
 const tabAudio = require('tabAudio.js')
 const dragula = require('dragula')
 const settings = require('util/settings/settings.js')
+const urlParser = require('util/urlParser.js')
 
 const tabEditor = require('navbar/tabEditor.js')
 const progressBar = require('navbar/progressBar.js')
@@ -136,10 +137,19 @@ const tabBar = {
     var tabData = tabs.get(tabId)
 
     // update tab title
-    var tabTitle = l('newTabLabel')
-    if (tabData.url != "" && tabData.loaded) {
-      tabTitle = (tabData.title || tabData.url).substring(0, 500)
+    var tabTitle
+
+    const isNewTab = tabData.url === '' || tabData.url === urlParser.parse('min://newtab')
+    if (isNewTab) {
+      tabTitle = l('newTabLabel')
+    } else if (tabData.title) {
+      tabTitle = tabData.title
+    } else if (tabData.loaded) {
+      tabTitle = tabData.url
     }
+
+    tabTitle = (tabTitle || l('newTabLabel')).substring(0, 500)
+
     var titleEl = tabEl.querySelector('.title')
     titleEl.textContent = tabTitle
 
