@@ -6,7 +6,7 @@ class TabList {
 
   //tab properties that shouldn't be saved to disk
 
-  static temporaryProperties = ['hasAudio', 'previewImage']
+  static temporaryProperties = ['hasAudio', 'previewImage', 'loaded']
 
   add (tab = {}, options = {}) {
     var tabId = String(tab.id || Math.round(Math.random() * 100000000000000000)) // you can pass an id that will be used, or a random one will be generated.
