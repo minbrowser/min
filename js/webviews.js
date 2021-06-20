@@ -308,32 +308,23 @@ const webviews = {
     ipc.send('setBounds', { id: webviews.selectedId, bounds: webviews.getViewBounds() })
   },
   goBackIgnoringRedirects: function (id) {
-    // special case: the current page is an internal page representing a regular webpage, and the previous page in history is that page (which likely means a redirect happened from the original page to the internal page)
-    // probably either an error page (after  a redirect from the original page) or reader view
+    /* If the current page is an error page, we actually want to go back 2 pages, since the last page would otherwise send us back to the error page
+    TODO we want to do the same thing for reader mode as well, but only if the last page was redirected to reader mode (since it could also be an unrelated page)
+    */
+
     var url = tabs.get(id).url
 
-    webviews.callAsync(id, 'goBack')
-
-    // TODO not working in Electron 11
-    /*
-    var isInternalURL = urlParser.isInternalURL(url)
-    if (isInternalURL) {
-      var representedURL = urlParser.getSourceURL(url)
-
-      // TODO this uses internal Electron API's - figure out a way to do this with the public API
-      webviews.callAsync(id, 'history', function (err, history) {
-        webviews.callAsync(id, 'currentIndex', function (err, currentIndex) {
-          var previous = history.slice(0, currentIndex + 1)
-          if (previous.length > 2 && previous[previous.length - 2] === representedURL) {
-            webviews.callAsync(id, 'goToOffset', -2)
-          } else {
-            webviews.callAsync(id, 'goBack')
-          }
-        })
+    if (url.startsWith(urlParser.parse('min://error'))) {
+      webviews.callAsync(id, 'canGoToOffset', -2, function (err, result) {
+        if (!err && result === true) {
+          webviews.callAsync(id, 'goToOffset', -2)
+        } else {
+          webviews.callAsync(id, 'goBack')
+        }
       })
     } else {
       webviews.callAsync(id, 'goBack')
-    } */
+    }
   },
   /*
   Can be called as
