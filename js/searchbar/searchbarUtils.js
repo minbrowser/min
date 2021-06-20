@@ -190,13 +190,6 @@ function createItem (data) {
     if (e.keyCode === 13) {
       item.click()
     }
-
-    // right arrow should autocomplete with selected item if it's a search suggestion
-    if (e.keyCode === 39 && data.url) {
-      let input = document.getElementById('tab-editor-input')
-      input.value = data.url
-      input.focus()
-    }
   })
 
   return item
