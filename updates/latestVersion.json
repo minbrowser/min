@@ -1,7 +1,7 @@
 {
     "version": "1.19.2",
-    "releaseTime": 1617133011521,
-    "releaseHeadline": "Fixes a security issue",
+    "releaseTime": 1624218257031,
+    "releaseHeadline": "Improved site compatibility and password management",
     "releaseNotes": "https://minbrowser.org/releases/",
     "availabilityPercent": 1
 }
