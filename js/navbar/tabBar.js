@@ -6,6 +6,7 @@ const readerView = require('readerView.js')
 const tabAudio = require('tabAudio.js')
 const dragula = require('dragula')
 const settings = require('util/settings/settings.js')
+const urlParser = require('util/urlParser.js')
 
 const tabEditor = require('navbar/tabEditor.js')
 const progressBar = require('navbar/progressBar.js')
@@ -135,7 +136,20 @@ const tabBar = {
   updateTab: function (tabId, tabEl = tabBar.getTab(tabId)) {
     var tabData = tabs.get(tabId)
 
-    var tabTitle = (tabData.title || l('newTabLabel')).substring(0, 500)
+    // update tab title
+    var tabTitle
+
+    const isNewTab = tabData.url === '' || tabData.url === urlParser.parse('min://newtab')
+    if (isNewTab) {
+      tabTitle = l('newTabLabel')
+    } else if (tabData.title) {
+      tabTitle = tabData.title
+    } else if (tabData.loaded) {
+      tabTitle = tabData.url
+    }
+
+    tabTitle = (tabTitle || l('newTabLabel')).substring(0, 500)
+
     var titleEl = tabEl.querySelector('.title')
     titleEl.textContent = tabTitle
 
@@ -205,14 +219,16 @@ settings.listen('showDividerBetweenTabs', function (dividerPreference) {
   tabBar.handleDividerPreference(dividerPreference)
 })
 
-/* progress bar events */
-
+/* tab loading and progress bar status*/
 webviews.bindEvent('did-start-loading', function (tabId) {
   progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'start')
+  tabs.update(tabId,{ loaded: false })
 })
 
 webviews.bindEvent('did-stop-loading', function (tabId) {
   progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'finish')
+  tabs.update(tabId,{ loaded: true })
+  tabBar.updateTab(tabId)
 })
 
 tasks.on('tab-updated', function (id, key) {
