@@ -185,8 +185,8 @@ function createItem (data) {
     item.addEventListener('click', data.click)
   }
 
-  // return should act like click
   item.addEventListener('keydown', function (e) {
+    // return should act like click
     if (e.keyCode === 13) {
       item.click()
     }

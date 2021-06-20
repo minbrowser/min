@@ -93,6 +93,16 @@ const searchbarPlugins = {
       item.addEventListener('click', function (e) {
         URLOpener(data.url, e)
       })
+
+      item.addEventListener('keyup', function(e) {
+        /*  right arrow or space should autocomplete with selected item if it's
+            a search suggestion */
+        if (e.keyCode === 39 || e.keyCode === 32) {
+          let input = document.getElementById('tab-editor-input')
+          input.value = data.url
+          input.focus()
+        }
+      })
     }
 
     searchbarPlugins.getContainer(pluginName).appendChild(item)
