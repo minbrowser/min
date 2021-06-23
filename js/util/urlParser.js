@@ -59,7 +59,7 @@ var urlParser = {
     // if the url starts with a (supported) protocol, do nothing
     if (urlParser.isURL(url)) {
 
-      if (!urlParser.isInternalURL(url)) {
+      if (!urlParser.isInternalURL(url) && url.startsWith('http://')) {
         // prefer HTTPS over HTTP
         let noProtoURL = urlParser.removeProtocol(url)
 
