@@ -1,6 +1,6 @@
 const searchEngine = require('util/searchEngine.js')
-
 const hosts = require('./hosts.js')
+const httpsTopSites = require('../../ext/httpsUpgrade/httpsTopSites.json')
 
 var urlParser = {
   startingWWWRegex: /www\.(.+\..+\/)/g,
@@ -58,11 +58,23 @@ var urlParser = {
 
     // if the url starts with a (supported) protocol, do nothing
     if (urlParser.isURL(url)) {
+
+      if (!urlParser.isInternalURL(url)) {
+        // prefer HTTPS over HTTP
+        let noProtoURL = urlParser.removeProtocol(url)
+
+        if (urlParser.isHTTPSUpgreadable(url)) {
+          return 'https://' + noProtoURL
+        }
+      }
       return url
     }
 
     // if the url doesn't have a space and has a ., or is a host from hosts file, assume it is a url without a protocol
     if (urlParser.isURLMissingProtocol(url)) {
+      if (urlParser.isHTTPSUpgreadable(url)) { // check if it is HTTPS-able
+        return 'https://' + url
+      }
       return 'http://' + url
     }
     // else, do a search
@@ -118,6 +130,11 @@ var urlParser = {
     } else {
       return encodeURI('file://' + path)
     }
+  },
+  isHTTPSUpgreadable: function (url) {
+    let domain = /^([^\/$]+)/.exec(urlParser.removeProtocol(url))
+
+    return httpsTopSites.includes(domain[0])
   }
 }
 
