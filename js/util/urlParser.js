@@ -14,13 +14,11 @@ var urlParser = {
       return url
     }
 
-    var withoutProtocol = url.replace('http://', '').replace('https://', '').replace('file://', '') // chrome:, about:, data: protocols intentionally not removed
-
-    if (withoutProtocol.indexOf('www.') === 0) {
-      return withoutProtocol.replace('www.', '')
-    } else {
-      return withoutProtocol
-    }
+    /*
+    Protocols removed: http:/https:/file:
+    chrome:, about:, data: protocols intentionally not removed
+    */
+    return url.replace(/^(https?|file):\/\//i, '')
   },
   isURLMissingProtocol: function (url) {
     // assume anything with no spaces and a . is a URL
