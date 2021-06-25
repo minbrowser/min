@@ -130,9 +130,12 @@ var urlParser = {
     }
   },
   isHTTPSUpgreadable: function (url) {
-    let domain = /^([^\/$]+)/.exec(urlParser.removeProtocol(url))
+    let domain = /^([^\/]+)/.exec(urlParser.removeProtocol(url))[0]
 
-    return httpsTopSites.includes(domain[0])
+    // TODO: parse and remove all subdomains, only leaving parent domain and tld
+    if (domain.indexOf('www.') === 0) // list has no subdomains
+      domain = domain.replace('www.', '')
+    return httpsTopSites.includes(domain)
   }
 }
 
