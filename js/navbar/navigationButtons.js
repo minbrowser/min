@@ -1,40 +1,42 @@
 const webviews = require('webviews.js')
 
-var goBackButton = {
+var navigationButtons = {
   container: document.getElementById('toolbar-navigation-buttons'),
   backButton: document.getElementById('back-button'),
   forwardButton: document.getElementById('forward-button'),
   update: function () {
     if (!tabs.get(tabs.getSelected()).url) {
-      goBackButton.backButton.disabled = true
-      goBackButton.forwardButton.disabled = true
+      navigationButtons.backButton.disabled = true
+      navigationButtons.forwardButton.disabled = true
       return
     }
     webviews.callAsync(tabs.getSelected(), 'canGoBack', function (err, canGoBack) {
       if (err) {
         return
       }
-      goBackButton.backButton.disabled = !canGoBack
+      navigationButtons.backButton.disabled = !canGoBack
     })
     webviews.callAsync(tabs.getSelected(), 'canGoForward', function (err, canGoForward) {
       console.log(arguments)
       if (err) {
         return
       }
-      goBackButton.forwardButton.disabled = !canGoForward
+      navigationButtons.forwardButton.disabled = !canGoForward
       if (canGoForward) {
-        goBackButton.container.classList.add('can-go-forward')
+        navigationButtons.container.classList.add('can-go-forward')
       } else {
-        goBackButton.container.classList.remove('can-go-forward')
+        navigationButtons.container.classList.remove('can-go-forward')
       }
     })
   },
   initialize: function () {
-    goBackButton.backButton.addEventListener('click', function (e) {
+    navigationButtons.container.hidden = false
+
+    navigationButtons.backButton.addEventListener('click', function (e) {
       webviews.goBackIgnoringRedirects(tabs.getSelected())
     })
 
-    goBackButton.forwardButton.addEventListener('click', function () {
+    navigationButtons.forwardButton.addEventListener('click', function () {
       webviews.callAsync(tabs.getSelected(), 'goForward')
     })
 
@@ -44,4 +46,4 @@ var goBackButton = {
   }
 }
 
-module.exports = goBackButton
+module.exports = navigationButtons
