@@ -17,11 +17,15 @@ const bookmarkConverter = {
       var data = {
         title: bookmark.textContent,
         isBookmarked: true,
-        tags: []
+        tags: [],
+        lastVisit: Date.now()
       }
       try {
-        data.lastVisit = parseInt(bookmark.getAttribute('add_date')) * 1000
+        let last = parseInt(bookmark.getAttribute('add_date')) * 1000
+        if (!isNaN(last))
+          data.lastVisit = last
       } catch (e) {}
+
       var parent = bookmark.parentElement
       while (parent != null) {
         if (parent.children[0] && parent.children[0].tagName === 'H3') {
@@ -33,7 +37,7 @@ const bookmarkConverter = {
       if (bookmark.getAttribute('tags')) {
         data.tags = data.tags.concat(bookmark.getAttribute('tags').split(','))
       }
-      places.updateItem(url, data)
+      places.updateItem(url, data, ()=>{})
     })
   },
   exportAll: function () {
