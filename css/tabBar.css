@@ -94,6 +94,10 @@ body.linux #menu-button {
   overflow-y: hidden;
 }
 
+#tabs #tabs-inner.disable-scroll {
+  overflow-x: hidden;
+}
+
 .tab-item {
   flex: 1;
   min-width: 125px;
