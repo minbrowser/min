@@ -78,6 +78,7 @@
     "buildRedhat": "npm run build && node ./scripts/buildRedhat.js",
     "buildAll": "npm run buildWindows && npm run buildMacIntel && npm run buildMacArm && npm run buildDebian && npm run buildRedhat && npm run buildRaspi && npm run buildLinuxArm64",
     "updateFilters": "node ./ext/filterLists/updateEasylist.js",
+    "updateHttpsList": "node ./ext/httpsUpgrade/updateHttpsList.js",
     "lint": "prettier --write **/**/*.css **/**/*.md **/**/*.html **/**/*.json && standard --fix js/**/*.js main/*.js | snazzy"
   },
   "repository": {
