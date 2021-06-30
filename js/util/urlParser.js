@@ -82,6 +82,7 @@ var urlParser = {
   },
   basicURL: function (url) {
     return urlParser.removeProtocol(url).replace(urlParser.trailingSlashRegex, '')
+      .replace('www.', '')
   },
   prettyURL: function (url) {
     try {
