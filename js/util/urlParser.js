@@ -1,3 +1,5 @@
+const punycode = require('punycode')
+
 const searchEngine = require('util/searchEngine.js')
 const hosts = require('./hosts.js')
 const httpsTopSites = require('../../ext/httpsUpgrade/httpsTopSites.json')
@@ -54,9 +56,8 @@ var urlParser = {
       } catch (e) {}
     }
 
-    // if the url starts with a (supported) protocol, do nothing
+    // if the url starts with a (supported) protocol
     if (urlParser.isURL(url)) {
-
       if (!urlParser.isInternalURL(url) && url.startsWith('http://')) {
         // prefer HTTPS over HTTP
         let noProtoURL = urlParser.removeProtocol(url)
@@ -68,19 +69,19 @@ var urlParser = {
       return url
     }
 
-    // if the url doesn't have a space and has a ., or is a host from hosts file, assume it is a url without a protocol
-    if (urlParser.isURLMissingProtocol(url)) {
+    // if the url doesn't have any protocol and it's a valid domain
+    if (urlParser.isURLMissingProtocol(url) && urlParser.validateDomain(urlParser.getDomain(url))) {
       if (urlParser.isHTTPSUpgreadable(url)) { // check if it is HTTPS-able
         return 'https://' + url
       }
       return 'http://' + url
     }
+
     // else, do a search
     return searchEngine.getCurrent().searchURL.replace('%s', encodeURIComponent(url))
   },
   basicURL: function (url) {
     return urlParser.removeProtocol(url).replace(urlParser.trailingSlashRegex, '')
-      .replace('www.', '')
   },
   prettyURL: function (url) {
     try {
@@ -130,8 +131,31 @@ var urlParser = {
       return encodeURI('file://' + path)
     }
   },
+  getDomain: function (url) {
+    return /^([^\/]+)/.exec(urlParser.removeProtocol(url))[0].toLowerCase()
+  },
+  validateDomain: function(domain) {
+    // primitive domain validation based on RFC1034
+    domain = punycode.toASCII(domain)
+
+    /*
+      Tests:
+        google.com              = true
+        google.com.br           = true
+        -google.com             = false
+        google-is-bad.com.ar    = true
+        google.com.             = true
+        google.com-             = false
+        admin:1234@google.com   = true (ignores user:pass)
+        xn--bcher-kva.example   = true
+    */
+    return (/^(?!-)(?:.*@)*?([a-z0-9-\._]+[a-z0-9\.])$/.test(domain) && domain.length <= 255)
+  },
   isHTTPSUpgreadable: function (url) {
-    let domain = /^([^\/]+)/.exec(urlParser.removeProtocol(url))[0]
+    let domain = urlParser.getDomain(url)
+
+    if (urlParser.validateDomain(domain) === false)
+      return false
 
     // TODO: parse and remove all subdomains, only leaving parent domain and tld
     if (domain.indexOf('www.') === 0) // list has no subdomains
