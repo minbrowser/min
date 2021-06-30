@@ -35,17 +35,34 @@
 
 /* navbar buttons */
 
-#back-button {
-  opacity: 1;
-  transition: none;
-  padding: 0 0.6rem 0 0.4rem;
-}
-#back-button:disabled {
-  opacity: 0.2;
+#toolbar-navigation-buttons {
+  width: 2.375rem;
+  transition: 0.1s width;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-body.is-edit-mode #back-button {
+#toolbar-navigation-buttons.can-go-forward:hover {
+  width: 4.25rem;
+}
+
+body.is-edit-mode #toolbar-navigation-buttons {
   display: none;
+}
+
+#back-button, #forward-button {
+  opacity: 1;
+  transition: none;
+  padding: 0 0.6rem;
+}
+#back-button {
+  padding-left: 0.4rem;
+}
+#forward-button {
+  margin-left: -0.75em;
+}
+#back-button:disabled, #forward-button:disabled {
+  opacity: 0.2;
 }
 
 #menu-button {
@@ -75,6 +92,10 @@ body.linux #menu-button {
   flex: 1;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+#tabs #tabs-inner.disable-scroll {
+  overflow-x: hidden;
 }
 
 .tab-item {
