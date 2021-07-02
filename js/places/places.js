@@ -114,6 +114,16 @@ const places = {
   onMessage: function (e) { // assumes this is from a search operation
     places.runWorkerCallback(e.data.callbackId, e.data.result)
   },
+  getItem: function (url, callback) {
+    const callbackId = places.addWorkerCallback(callback)
+    places.worker.postMessage({
+      action: 'getPlace',
+      pageData: {
+        url: url
+      },
+      callbackId: callbackId
+    })
+  },
   updateItem: function (url, fields, callback) {
     const callbackId = places.addWorkerCallback(callback)
     places.worker.postMessage({
@@ -123,25 +133,6 @@ const places = {
         ...fields
       },
       callbackId: callbackId
-    })
-  },
-  toggleBookmarked: function (tabId, callback) { // Toggles whether a URL is bookmarked or not
-    const url = tabs.get(tabId).url
-
-    db.places.where('url').equals(url).first(function (item) {
-      if (item && item.isBookmarked) {
-        places.updateItem(url, { isBookmarked: false }, function () {
-          callback(false)
-        })
-      } else {
-        // if this page is open in a private tab, the title may not be saved already, so it needs to be included here
-        places.updateItem(url, {
-          isBookmarked: true,
-          title: tabs.get(tabId).title
-        }, function () {
-          callback(true)
-        })
-      }
     })
   },
   toggleTag: function (url, tag) {

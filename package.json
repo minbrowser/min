@@ -2,9 +2,9 @@
   "name": "min",
   "productName": "Min",
   "author": "PalmerAL",
-  "version": "1.19.2",
+  "version": "1.20.0",
   "description": "A fast, minimal browser that protects your privacy",
-  "electronVersion": "13.0.0-beta.27",
+  "electronVersion": "13.1.2",
   "main": "main.build.js",
   "standard": {
     "globals": [
@@ -32,8 +32,9 @@
     "dexie": "^3.0.3",
     "dragula": "^3.7.3",
     "electron-squirrel-startup": "^1.0.0",
-    "keytar": "^7.0.0",
+    "keytar": "7.6.0",
     "mousetrap": "^1.5.3",
+    "node-abi": "2.30.0",
     "pdfjs-dist": "2.4.456",
     "regedit": "^3.0.3",
     "string_score": "^0.1.22"
@@ -44,7 +45,7 @@
     "chokidar": "^3.4.0",
     "concurrently": "^5.2.0",
     "decomment": "^0.9.0",
-    "electron": "^13.0.0-beta.27",
+    "electron": "^13.1.2",
     "electron-installer-windows": "^3.0.0",
     "electron-packager": "^15.1.0",
     "electron-rebuild": "^2.3.2",
@@ -77,6 +78,7 @@
     "buildRedhat": "npm run build && node ./scripts/buildRedhat.js",
     "buildAll": "npm run buildWindows && npm run buildMacIntel && npm run buildMacArm && npm run buildDebian && npm run buildRedhat && npm run buildRaspi && npm run buildLinuxArm64",
     "updateFilters": "node ./ext/filterLists/updateEasylist.js",
+    "updateHttpsList": "node ./ext/httpsUpgrade/updateHttpsList.js",
     "lint": "prettier --write **/**/*.css **/**/*.md **/**/*.html **/**/*.json && standard --fix js/**/*.js main/*.js | snazzy"
   },
   "repository": {

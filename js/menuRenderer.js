@@ -112,7 +112,7 @@ module.exports = {
 
       // https://github.com/minbrowser/min/issues/1480
       // TODO include more extensions here, or come up with a better way of detecting this
-      if (['jpg', 'jpeg', 'png', 'webp', 'webm', 'mp4', 'ogg', 'mp3'].some(ext => tabs.get(tabs.getSelected()).url.endsWith('.' + ext))) {
+      if (['apng', 'avif', 'gif', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png', 'svg', 'webp', 'bmp', 'ico', 'tiff', 'webm', 'mp4', 'ogg', 'mp3'].some(ext => tabs.get(tabs.getSelected()).url.endsWith('.' + ext))) {
         webviews.callAsync(tabs.getSelected(), 'downloadURL', [tabs.get(tabs.getSelected()).url])
         return
       }

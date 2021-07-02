@@ -1,6 +1,6 @@
 const searchEngine = require('util/searchEngine.js')
-
 const hosts = require('./hosts.js')
+const httpsTopSites = require('../../ext/httpsUpgrade/httpsTopSites.json')
 
 var urlParser = {
   startingWWWRegex: /www\.(.+\..+\/)/g,
@@ -14,13 +14,11 @@ var urlParser = {
       return url
     }
 
-    var withoutProtocol = url.replace('http://', '').replace('https://', '').replace('file://', '') // chrome:, about:, data: protocols intentionally not removed
-
-    if (withoutProtocol.indexOf('www.') === 0) {
-      return withoutProtocol.replace('www.', '')
-    } else {
-      return withoutProtocol
-    }
+    /*
+    Protocols removed: http:/https:/file:
+    chrome:, about:, data: protocols intentionally not removed
+    */
+    return url.replace(/^(https?|file):\/\//i, '')
   },
   isURLMissingProtocol: function (url) {
     // assume anything with no spaces and a . is a URL
@@ -58,11 +56,23 @@ var urlParser = {
 
     // if the url starts with a (supported) protocol, do nothing
     if (urlParser.isURL(url)) {
+
+      if (!urlParser.isInternalURL(url) && url.startsWith('http://')) {
+        // prefer HTTPS over HTTP
+        let noProtoURL = urlParser.removeProtocol(url)
+
+        if (urlParser.isHTTPSUpgreadable(url)) {
+          return 'https://' + noProtoURL
+        }
+      }
       return url
     }
 
     // if the url doesn't have a space and has a ., or is a host from hosts file, assume it is a url without a protocol
     if (urlParser.isURLMissingProtocol(url)) {
+      if (urlParser.isHTTPSUpgreadable(url)) { // check if it is HTTPS-able
+        return 'https://' + url
+      }
       return 'http://' + url
     }
     // else, do a search
@@ -70,6 +80,7 @@ var urlParser = {
   },
   basicURL: function (url) {
     return urlParser.removeProtocol(url).replace(urlParser.trailingSlashRegex, '')
+      .replace('www.', '')
   },
   prettyURL: function (url) {
     try {
@@ -118,6 +129,14 @@ var urlParser = {
     } else {
       return encodeURI('file://' + path)
     }
+  },
+  isHTTPSUpgreadable: function (url) {
+    let domain = /^([^\/]+)/.exec(urlParser.removeProtocol(url))[0]
+
+    // TODO: parse and remove all subdomains, only leaving parent domain and tld
+    if (domain.indexOf('www.') === 0) // list has no subdomains
+      domain = domain.replace('www.', '')
+    return httpsTopSites.includes(domain)
   }
 }
 

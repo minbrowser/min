@@ -12,7 +12,6 @@ window.electron = require('electron')
 window.fs = require('fs')
 window.EventEmitter = require('events')
 window.ipc = electron.ipcRenderer
-window.remote = electron.remote
 window.Dexie = require('dexie')
 
 if (navigator.platform === 'MacIntel') {
@@ -136,7 +135,7 @@ require('navbar/menuButton.js').initialize()
 require('navbar/addTabButton.js').initialize()
 require('navbar/tabActivity.js').initialize()
 require('navbar/tabColor.js').initialize()
-require('navbar/goBackButton.js').initialize()
+require('navbar/navigationButtons.js').initialize()
 require('downloadManager.js').initialize()
 require('webviewMenu.js').initialize()
 require('contextMenu.js').initialize()
