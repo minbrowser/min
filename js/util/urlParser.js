@@ -3,11 +3,12 @@ const punycode = require('punycode')
 const searchEngine = require('util/searchEngine.js')
 const hosts = require('./hosts.js')
 const httpsTopSites = require('../../ext/httpsUpgrade/httpsTopSites.json')
+const publicSuffixes = require('../../ext/publicSuffixes/public_suffix_list.json')
 
 var urlParser = {
   startingWWWRegex: /www\.(.+\..+\/)/g,
   trailingSlashRegex: /\/$/g,
-  protocolRegex: /^[a-z]+:\/\//,
+  protocolRegex: /^[a-z0-9]+:\/\//, // URI schemes can be alphanum
   isURL: function (url) {
     return urlParser.protocolRegex.test(url) || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('data:') === 0
   },
@@ -27,9 +28,8 @@ var urlParser = {
     if (url.indexOf(' ') === -1 && url.indexOf('.') > 0) {
       return true
     }
-    // a host from the hosts file is also a URL
-    var hostPart = url.replace(/(:|\/).+/, '')
-    return hosts.indexOf(hostPart) > -1
+
+    return !urlParser.protocolRegex.test(url)
   },
   parse: function (url) {
     url = url.trim() // remove whitespace common on copy-pasted url's
@@ -133,14 +133,15 @@ var urlParser = {
     }
   },
   getDomain: function (url) {
-    return /^([^\/]+)/.exec(urlParser.removeProtocol(url))[0].toLowerCase()
+    return /^([^:\/]+)/.exec(urlParser.removeProtocol(url))[0].toLowerCase()
   },
   validateDomain: function(domain) {
     // primitive domain validation based on RFC1034
     domain = punycode.toASCII(domain)
 
     /*
-      Tests:
+      Tests for regex:
+      ^^^^^^^^^^^^^^^
         google.com              = true
         google.com.br           = true
         -google.com             = false
@@ -149,8 +150,40 @@ var urlParser = {
         google.com-             = false
         admin:1234@google.com   = true (ignores user:pass)
         xn--bcher-kva.example   = true
+        127.0.0.1               = true
+        169.254.169.254:8080    = true
+        google.com..            = false
+        [:::1]:8080             = true
+        [2001:0db8::0001:0000]  = true
+        [invalid]               = false
+        localhost               = true
     */
-    return (/^(?!-)(?:.*@)*?([a-z0-9-\._]+[a-z0-9\.])$/.test(domain) && domain.length <= 255)
+    if (!(/^(?!-)(?:.*@)*?([a-z0-9-\._]+[a-z0-9]|\[[\:a-f0-9]+\])(?:\:[0-9]*|\.{1}){0,1}$/i.test(domain) || domain.length > 255)) {
+      return false
+    }
+    let clean_domain = RegExp.$1
+
+    // is domain an ip? then set as valid  - TODO: get a better ipv4-6 regex
+    if (/^((?:[0-9]{1,3}\.){3}[0-9]{1,3}|\[[:a-f0-9]+\])$/i.test(clean_domain))
+      return true
+
+    // known local hostnames
+    if (domain === "localhost" || domain.endsWith('.localhost'))
+      return true
+
+    for (suffix of publicSuffixes) {
+      if (suffix.startsWith('!')) // not supported
+        continue
+      if (suffix.startsWith('*.')) // not supported, simplifying wildcards
+        suffix = suffix.substr(2)
+      if(suffix[0] !== '.')
+        suffix = '.' + suffix
+
+      if (clean_domain.endsWith(suffix))
+        return true
+    }
+
+    return false
   },
   isHTTPSUpgreadable: function (url) {
     let domain = urlParser.getDomain(url)
