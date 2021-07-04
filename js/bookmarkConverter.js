@@ -21,10 +21,11 @@ const bookmarkConverter = {
         lastVisit: Date.now()
       }
       try {
-        let last = parseInt(bookmark.getAttribute('add_date')) * 1000
-        if (!isNaN(last))
+        const last = parseInt(bookmark.getAttribute('add_date')) * 1000
+        if (!isNaN(last)) {
           data.lastVisit = last
-      } catch (e) {}
+        }
+      } catch (e) { }
 
       var parent = bookmark.parentElement
       while (parent != null) {
@@ -37,7 +38,7 @@ const bookmarkConverter = {
       if (bookmark.getAttribute('tags')) {
         data.tags = data.tags.concat(bookmark.getAttribute('tags').split(','))
       }
-      places.updateItem(url, data, ()=>{})
+      places.updateItem(url, data, () => { })
     })
   },
   exportAll: function () {
