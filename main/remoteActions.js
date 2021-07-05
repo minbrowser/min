@@ -65,14 +65,20 @@ ipc.handle('clearStorageData', function () {
 
 ipc.handle('minimize', function (e) {
   mainWindow.minimize()
+  // workaround for https://github.com/minbrowser/min/issues/1662
+  mainWindow.webContents.send('minimize')
 })
 
 ipc.handle('maximize', function (e) {
   mainWindow.maximize()
+  // workaround for https://github.com/minbrowser/min/issues/1662
+  mainWindow.webContents.send('maximize')
 })
 
 ipc.handle('unmaximize', function (e) {
   mainWindow.unmaximize()
+  // workaround for https://github.com/minbrowser/min/issues/1662
+  mainWindow.webContents.send('unmaximize')
 })
 
 ipc.handle('close', function (e) {
