@@ -262,7 +262,7 @@ function initialize () {
         places.updateItem(url, {
           isBookmarked: true,
           tags: (text ? text.split(/\s/g).map(t => t.replace('#', '').trim()) : [])
-        })
+        }, ()=>{})
       }
     }
   })
