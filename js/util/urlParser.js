@@ -5,9 +5,27 @@ const hosts = require('./hosts.js')
 const httpsTopSites = require('../../ext/httpsUpgrade/httpsTopSites.json')
 const publicSuffixes = require('../../ext/publicSuffixes/public_suffix_list.json')
 
+// fletcher32 checksum
+function checksum (str) {
+  var s1 = 0
+  var s2 = 0
+  for (var i = 0; i < str.length; ++i) {
+    s1 = (s1 + str.charCodeAt(i)) % 0xffffff
+    s2 = (s1 + s1) % 0xffffff
+  }
+  return ((s2 << 16) | s1)
+}
+
+function removeWWW (domain) {
+  return domain.replace(/^www\./i, '')
+}
+
 var urlParser = {
-  startingWWWRegex: /www\.(.+\..+\/)/g,
+  validDomains: [], // valid domains checksum cache
+  validIP4Regex: /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i,
+  validDomainRegex: /^(?!-)(?:.*@)*?([a-z0-9-._]+[a-z0-9]|\[[:a-f0-9]+\])(?::[0-9]*|\.{1}){0,1}$/i,
   trailingSlashRegex: /\/$/g,
+  removeProtocolRegex: /^(https?|file):\/\//i,
   protocolRegex: /^[a-z0-9]+:\/\//, // URI schemes can be alphanum
   isURL: function (url) {
     return urlParser.protocolRegex.test(url) || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('data:') === 0
@@ -21,14 +39,9 @@ var urlParser = {
     Protocols removed: http:/https:/file:
     chrome:, about:, data: protocols intentionally not removed
     */
-    return url.replace(/^(https?|file):\/\//i, '')
+    return url.replace(urlParser.removeProtocolRegex, '')
   },
   isURLMissingProtocol: function (url) {
-    // assume anything with no spaces and a . is a URL
-    if (url.indexOf(' ') === -1 && url.indexOf('.') > 0) {
-      return true
-    }
-
     return !urlParser.protocolRegex.test(url)
   },
   parse: function (url) {
@@ -60,9 +73,9 @@ var urlParser = {
     if (urlParser.isURL(url)) {
       if (!urlParser.isInternalURL(url) && url.startsWith('http://')) {
         // prefer HTTPS over HTTP
-        let noProtoURL = urlParser.removeProtocol(url)
+        const noProtoURL = urlParser.removeProtocol(url)
 
-        if (urlParser.isHTTPSUpgreadable(url)) {
+        if (urlParser.isHTTPSUpgreadable(noProtoURL)) {
           return 'https://' + noProtoURL
         }
       }
@@ -81,13 +94,12 @@ var urlParser = {
     return searchEngine.getCurrent().searchURL.replace('%s', encodeURIComponent(url))
   },
   basicURL: function (url) {
-    return urlParser.removeProtocol(url).replace(urlParser.trailingSlashRegex, '')
-      .replace('www.', '')
+    return removeWWW(urlParser.removeProtocol(url).replace(urlParser.trailingSlashRegex, ''))
   },
   prettyURL: function (url) {
     try {
       var urlOBJ = new URL(url)
-      return (urlOBJ.hostname + urlOBJ.pathname).replace(urlParser.startingWWWRegex, '$1').replace(urlParser.trailingSlashRegex, '')
+      return removeWWW((urlOBJ.hostname + urlOBJ.pathname)).replace(urlParser.trailingSlashRegex, '')
     } catch (e) { // URL constructor will throw an error on malformed URLs
       return url
     }
@@ -133,11 +145,14 @@ var urlParser = {
     }
   },
   getDomain: function (url) {
-    return /^([^:\/]+)/.exec(urlParser.removeProtocol(url))[0].toLowerCase()
+    const trail = url.indexOf('/')
+    return url.substr(0, trail > 0 ? trail : url.length).toLowerCase()
   },
-  validateDomain: function(domain) {
-    // primitive domain validation based on RFC1034
-    domain = punycode.toASCII(domain)
+  // primitive domain validation based on RFC1034
+  validateDomain: function (domain) {
+    domain = /[^\u0000-\u00ff]/.test(domain)
+      ? punycode.toASCII(domain)
+      : domain // only call punycode if necesary
 
     /*
       Tests for regex:
@@ -158,42 +173,30 @@ var urlParser = {
         [invalid]               = false
         localhost               = true
     */
-    if (!(/^(?!-)(?:.*@)*?([a-z0-9-\._]+[a-z0-9]|\[[\:a-f0-9]+\])(?:\:[0-9]*|\.{1}){0,1}$/i.test(domain) || domain.length > 255)) {
+    if (!(urlParser.validDomainRegex.test(domain) || domain.length > 255)) {
       return false
     }
-    let clean_domain = RegExp.$1
+    const cleanDomain = RegExp.$1
+    const domainChecksum = checksum(cleanDomain)
 
-    // is domain an ip? then set as valid  - TODO: get a better ipv4-6 regex
-    if (/^((?:[0-9]{1,3}\.){3}[0-9]{1,3}|\[[:a-f0-9]+\])$/i.test(clean_domain))
+    if (urlParser.validDomains.length > 0 && urlParser.validDomains.includes(domainChecksum)) { // already validated
       return true
+    }
 
-    // known local hostnames
-    if (domain === "localhost" || domain.endsWith('.localhost'))
+    // is domain an ipv4/6, a known hostname or has a public suffix?
+    if (((cleanDomain.split('.').length === 4 && urlParser.validIP4Regex.test(cleanDomain)) || (cleanDomain.startsWith('[') && cleanDomain.endsWith(']'))) ||
+        hosts.includes(cleanDomain) ||
+        publicSuffixes.find(suffix => cleanDomain.endsWith(suffix)) !== undefined) {
+      urlParser.validDomains.push(domainChecksum)
       return true
-
-    for (suffix of publicSuffixes) {
-      if (suffix.startsWith('!')) // not supported
-        continue
-      if (suffix.startsWith('*.')) // not supported, simplifying wildcards
-        suffix = suffix.substr(2)
-      if(suffix[0] !== '.')
-        suffix = '.' + suffix
-
-      if (clean_domain.endsWith(suffix))
-        return true
     }
 
     return false
   },
   isHTTPSUpgreadable: function (url) {
-    let domain = urlParser.getDomain(url)
-
-    if (urlParser.validateDomain(domain) === false)
-      return false
-
     // TODO: parse and remove all subdomains, only leaving parent domain and tld
-    if (domain.indexOf('www.') === 0) // list has no subdomains
-      domain = domain.replace('www.', '')
+    const domain = removeWWW(urlParser.getDomain(url)) // list has no subdomains
+
     return httpsTopSites.includes(domain)
   }
 }

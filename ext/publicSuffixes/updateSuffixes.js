@@ -1,4 +1,5 @@
 /* downloads public list of suffixes maintained by Mozilla and community */
+const punycode = require('punycode')
 const https = require('https')
 const fs = require('fs')
 
@@ -16,11 +17,15 @@ https.get(listURL, function(r){
   r.on('end', () => {
     cleanData = []
     for(line of listData.split('\n').sort()) {
-      if(line.length === 0 || line.startsWith('//'))
+      if(line.length === 0 || line.startsWith('//') || line.startsWith('!'))
         continue
-      cleanData.push(line)
+      if(line.substr(0,2) === '*.')
+        line = line.substr(2)
+      line = punycode.toASCII(line)
+      cleanData.push(`.${line}`)
     }
 
-    fs.writeFileSync(filePath, JSON.stringify(cleanData, null, 2))
+    fs.writeFileSync(filePath, JSON.stringify(
+      cleanData.sort((a,b) => a.length - b.length),null, 2) + '\n')
   })
 })
