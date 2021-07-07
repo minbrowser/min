@@ -10,6 +10,43 @@ var enabledFilteringOptions = {
   exceptionDomains: []
 }
 
+const globalParamsToRemove = [
+  // microsoft
+  'msclkid',
+  // google
+  'gclid',
+  'dclid',
+  // facebook
+  'fbclid',
+  // yandex
+  'yclid',
+  '_openstat',
+  // adobe
+  'icid',
+  // instagram
+  'igshid',
+  // mailchimp
+  'mc_eid'
+]
+const siteParamsToRemove = {
+  'www.amazon.com': [
+    '_ref',
+    'ref_',
+    'pd_rd_r',
+    'pd_rd_w',
+    'pf_rd_i',
+    'pf_rd_m',
+    'pf_rd_p',
+    'pf_rd_r',
+    'pf_rd_s',
+    'pf_rd_t',
+    'pd_rd_wg'
+  ],
+  'www.ebay.com': [
+    '_trkparms'
+  ]
+}
+
 // for tracking the number of blocked requests
 var unsavedBlockedRequests = 0
 
@@ -77,35 +114,6 @@ function requestDomainIsException (domain) {
 }
 
 function removeTrackingParams (url) {
-  const globalParamsToRemove = [
-    // microsoft
-    'msclkid',
-    // google
-    'gclid',
-    'dclid',
-    // facebook
-    'fbclid',
-    // yandex
-    'yclid'
-  ]
-  const siteParamsToRemove = {
-    'www.amazon.com': [
-      '_ref',
-      'ref_',
-      'pd_rd_r',
-      'pd_rd_w',
-      'pf_rd_i',
-      'pf_rd_m',
-      'pf_rd_p',
-      'pf_rd_r',
-      'pf_rd_s',
-      'pf_rd_t',
-      'pd_rd_wg'
-    ],
-    'www.ebay.com': [
-      '_trkparms'
-    ]
-  }
   try {
     var urlObj = new URL(url)
     for (const param of urlObj.searchParams) {
