@@ -49,9 +49,6 @@ function initFilterList () {
     if (err) {
       return
     }
-
-    // data = data.replace(/.*##.+\n/g, '') // remove element hiding rules
-
     parser.parse(data, parsedFilterData)
   })
 
@@ -62,18 +59,41 @@ function initFilterList () {
   })
 }
 
+function removeWWW (domain) {
+  return domain.replace(/^www\./i, '')
+}
+
 function requestIsThirdParty (baseDomain, requestURL) {
-  baseDomain = baseDomain.replace(/^www\./g, '')
-  var requestDomain = parser.getUrlHost(requestURL).replace(/^www\./g, '')
+  baseDomain = removeWWW(baseDomain)
+  var requestDomain = removeWWW(parser.getUrlHost(requestURL))
 
   return !(parser.isSameOriginHost(baseDomain, requestDomain) || parser.isSameOriginHost(requestDomain, baseDomain))
 }
 
 function requestDomainIsException (domain) {
-  if (domain.startsWith('www.')) {
-    domain = domain.replace('www.', '')
+  return enabledFilteringOptions.exceptionDomains.includes(removeWWW(domain))
+}
+
+function filterPopups (url) {
+  if (!/^https?:\/\//i.test(url)) {
+    return true
   }
-  return enabledFilteringOptions.exceptionDomains.includes(domain)
+
+  const domain = parser.getUrlHost(url)
+
+  if (enabledFilteringOptions.blockingLevel > 0 && !requestDomainIsException(domain)) {
+    if (
+      (enabledFilteringOptions.blockingLevel === 1 && requestIsThirdParty(domain, url)) ||
+      (enabledFilteringOptions.blockingLevel === 2)
+    ) {
+      if (parser.matches(parsedFilterData, url, { domain: domain, elementType: 'popup' })) {
+        unsavedBlockedRequests++
+        return false
+      }
+    }
+  }
+
+  return true
 }
 
 function handleRequest (details, callback) {
