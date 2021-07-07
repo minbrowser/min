@@ -67,6 +67,7 @@
     /* task overlay */
     "viewTasks": "Ver tareas",
     "newTask": "Nueva tarea", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "destroyAllTasks":null, // "clear" is a verb - it is used on the button that clears all tasks at the bottom of the task overlay
     "defaultTaskName": "Tarea %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
     "taskDeleteWarning": {
       "unsafeHTML": "Tarea eliminada. <a>¿Deshacer?</a>"

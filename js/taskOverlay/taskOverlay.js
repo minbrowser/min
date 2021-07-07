@@ -16,6 +16,8 @@ var taskContainer = document.getElementById('task-area')
 var taskSwitcherButton = document.getElementById('switch-task-button')
 var addTaskButton = document.getElementById('add-task')
 var addTaskLabel = addTaskButton.querySelector('span')
+var destroyAllTasksButton = document.getElementById('destroy-all-tasks')
+var destroyAllTasksLabel = destroyAllTasksButton.querySelector('span')
 var taskOverlayNavbar = document.getElementById('task-overlay-navbar')
 
 function addTaskFromMenu () {
@@ -374,12 +376,19 @@ var taskOverlay = {
     taskSwitcherButton.title = l('viewTasks')
     addTaskLabel.textContent = l('newTask')
 
+    destroyAllTasksLabel.textContent = l('destroyAllTasks')
+
     taskSwitcherButton.addEventListener('click', function () {
       taskOverlay.toggle()
     })
 
     addTaskButton.addEventListener('click', function (e) {
       browserUI.switchToTask(tasks.add())
+      taskOverlay.hide()
+    })
+
+    destroyAllTasksButton.addEventListener('click', function(e) {
+      browserUI.destroyAllTasks()
       taskOverlay.hide()
     })
 
