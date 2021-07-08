@@ -6,9 +6,8 @@ function buildAppMenu (options = {}) {
       if (Array.isArray(value)) {
         // value is array if multiple entries are set
         return value[0].replace('mod', 'CmdOrCtrl')
-      } else {
-        return value.replace('mod', 'CmdOrCtrl')
       }
+      return value.replace('mod', 'CmdOrCtrl')
     }
 
     return null
