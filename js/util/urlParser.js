@@ -5,30 +5,33 @@ const hosts = require('./hosts.js')
 const httpsTopSites = require('../../ext/httpsUpgrade/httpsTopSites.json')
 const publicSuffixes = require('../../ext/publicSuffixes/public_suffix_list.json')
 
-// fletcher32 checksum
-function checksum (str) {
-  var s1 = 0
-  var s2 = 0
-  for (var i = 0; i < str.length; ++i) {
-    s1 = (s1 + str.charCodeAt(i)) % 0xffffff
-    s2 = (s1 + s1) % 0xffffff
-  }
-  return ((s2 << 16) | s1)
-}
-
 function removeWWW (domain) {
-  return domain.replace(/^www\./i, '')
+  return (domain.startsWith('www.') ? domain.slice(4) : domain)
+}
+function removeTrailingSlash (url) {
+  return (url.endsWith('/') ? url.slice(0, -1) : url)
 }
 
 var urlParser = {
-  validDomains: [], // valid domains checksum cache
+  validSuffixes: [], // valid domains checksum cache
   validIP4Regex: /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i,
-  validDomainRegex: /^(?!-)(?:.*@)*?([a-z0-9-._]+[a-z0-9]|\[[:a-f0-9]+\])(?::[0-9]*|\.{1}){0,1}$/i,
-  trailingSlashRegex: /\/$/g,
+  validDomainRegex: /^(?!-)(?:.*@)*?([a-z0-9-._]+[a-z0-9]|\[[:a-f0-9]+\])/i,
   removeProtocolRegex: /^(https?|file):\/\//i,
   protocolRegex: /^[a-z0-9]+:\/\//, // URI schemes can be alphanum
   isURL: function (url) {
     return urlParser.protocolRegex.test(url) || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('data:') === 0
+  },
+  isPossibleURL: function (url) {
+    if (urlParser.isURL(url)) {
+      return true
+    } else {
+      if (url.indexOf(' ') >= 0) {
+        return false
+      }
+    }
+
+    const domain = urlParser.getDomain(url)
+    return hosts.includes(domain)
   },
   removeProtocol: function (url) {
     if (!urlParser.isURL(url)) {
@@ -94,12 +97,12 @@ var urlParser = {
     return searchEngine.getCurrent().searchURL.replace('%s', encodeURIComponent(url))
   },
   basicURL: function (url) {
-    return removeWWW(urlParser.removeProtocol(url).replace(urlParser.trailingSlashRegex, ''))
+    return removeWWW(urlParser.removeProtocol(removeTrailingSlash(url)))
   },
   prettyURL: function (url) {
     try {
       var urlOBJ = new URL(url)
-      return removeWWW((urlOBJ.hostname + urlOBJ.pathname)).replace(urlParser.trailingSlashRegex, '')
+      return removeWWW(removeTrailingSlash(urlOBJ.hostname + urlOBJ.pathname))
     } catch (e) { // URL constructor will throw an error on malformed URLs
       return url
     }
@@ -145,8 +148,8 @@ var urlParser = {
     }
   },
   getDomain: function (url) {
-    const trail = url.indexOf('/')
-    return url.substr(0, trail > 0 ? trail : url.length).toLowerCase()
+    url = urlParser.removeProtocol(url)
+    return url.split(/[/:]/)[0].toLowerCase()
   },
   // primitive domain validation based on RFC1034
   validateDomain: function (domain) {
@@ -173,22 +176,25 @@ var urlParser = {
         [invalid]               = false
         localhost               = true
     */
-    if (!(urlParser.validDomainRegex.test(domain) || domain.length > 255)) {
+    if (!urlParser.validDomainRegex.test(domain) || domain.length > 255) {
       return false
     }
     const cleanDomain = RegExp.$1
-    const domainChecksum = checksum(cleanDomain)
 
-    if (urlParser.validDomains.length > 0 && urlParser.validDomains.includes(domainChecksum)) { // already validated
+    if (urlParser.validSuffixes.length > 0 && urlParser.validSuffixes.find(s => cleanDomain.endsWith(s)) !== undefined) { // check if suffix already validated
       return true
     }
 
     // is domain an ipv4/6, a known hostname or has a public suffix?
     if (((cleanDomain.split('.').length === 4 && urlParser.validIP4Regex.test(cleanDomain)) || (cleanDomain.startsWith('[') && cleanDomain.endsWith(']'))) ||
-        hosts.includes(cleanDomain) ||
-        publicSuffixes.find(suffix => cleanDomain.endsWith(suffix)) !== undefined) {
-      urlParser.validDomains.push(domainChecksum)
+        hosts.includes(cleanDomain)) {
       return true
+    } else {
+      const suffix = publicSuffixes.find(s => cleanDomain.endsWith(s))
+      if (suffix !== undefined) {
+        urlParser.validSuffixes.push(suffix)
+        return true
+      }
     }
 
     return false
