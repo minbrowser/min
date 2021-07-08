@@ -12,7 +12,31 @@ const {
   Menu, MenuItem,
   crashReporter,
   dialog
-} = electron
+} = electron;
+
+// TODO : this constant and other should be in other files
+// [?] OR -> PLATFORM_WIN32
+const PLATFORM_WIN = 'win32';
+/**
+ * and, we can use unformal constants as like
+ * ```js
+ * // assign
+ * PLATFORM = { WIN: 'win32' };
+ * // usage
+ * PLATFORM.WIN
+ * ```
+ */
+// OTHER WAY IS:
+/**
+ * use function check, be like :
+ * `isPlatform('win32')` or `isWin32()`
+ * or `isPlatformWin()`
+ */
+const PLATFORM_DARWIN = 'darwin';
+
+function isPlatform(pf){
+  return process.platform === pf;
+}
 
 crashReporter.start({
   submitURL: 'https://minbrowser.org/',
@@ -21,11 +45,12 @@ crashReporter.start({
 })
 
 if (process.argv.some(arg => arg === '-v' || arg === '--version')) {
-  console.log('Min: ' + app.getVersion())
-  console.log('Chromium: ' + process.versions.chrome)
+  console.log(`Min: ${app.getVersion()}`)
+  console.log(`Chromium: ${process.versions.chrome}`)
   process.exit()
 }
 
+// arg === '--development-mode' -> arg === CMD_DEV_MODE
 let isInstallerRunning = false
 const isDevelopmentMode = process.argv.some(arg => arg === '--development-mode')
 
@@ -33,9 +58,10 @@ function clamp (n, min, max) {
   return Math.max(Math.min(n, max), min)
 }
 
-if (process.platform === 'win32') {
+if (process.platform === PLATFORM_WIN) {
   (async function () {
     var squirrelCommand = process.argv[1]
+    // squirrelCommand === '--...' -> squirrelCommand === CMD_SQUIRREL_INSTALL [this is clean and readable]
     if (squirrelCommand === '--squirrel-install' || squirrelCommand === '--squirrel-updated') {
       isInstallerRunning = true
       await registryInstaller.install()
@@ -51,7 +77,7 @@ if (process.platform === 'win32') {
 }
 
 if (isDevelopmentMode) {
-  app.setPath('userData', app.getPath('userData') + '-development')
+  app.setPath('userData', `${app.getPath('userData')}-development`)
 }
 
 // workaround for flicker when focusing app (https://github.com/electron/electron/issues/17942)
@@ -59,7 +85,7 @@ app.commandLine.appendSwitch('disable-backgrounding-occluded-windows', 'true')
 
 var userDataPath = app.getPath('userData')
 
-const browserPage = 'file://' + __dirname + '/index.html'
+const browserPage = `file://${__dirname}/index.html`;
 
 var mainWindow = null
 var mainWindowIsMinimized = false // workaround for https://github.com/minbrowser/min/issues/1074
@@ -176,7 +202,7 @@ function createWindowWithBounds (bounds) {
     height: bounds.height,
     x: bounds.x,
     y: bounds.y,
-    minWidth: (process.platform === 'win32' ? 400 : 320), // controls take up more horizontal space on Windows
+    minWidth: (process.platform === PLATFORM_WIN ? 400 : 320), // controls take up more horizontal space on Windows
     minHeight: 350,
     titleBarStyle: settings.get('useSeparateTitlebar') ? 'default' : 'hidden',
     trafficLightPosition: { x: 12, y: 10 },
@@ -189,8 +215,8 @@ function createWindowWithBounds (bounds) {
       contextIsolation: false,
       nodeIntegrationInWorker: true, // used by ProcessSpawner
       additionalArguments: [
-        '--user-data-path=' + userDataPath,
-        '--app-version=' + app.getVersion(),
+        `--user-data-path=${userDataPath}`,
+        `--app-version=${app.getVersion()}`,
         ...((isDevelopmentMode ? ['--development-mode'] : []))
       ]
     }
@@ -198,7 +224,7 @@ function createWindowWithBounds (bounds) {
 
   // windows and linux always use a menu button in the upper-left corner instead
   // if frame: false is set, this won't have any effect, but it does apply on Linux if "use separate titlebar" is enabled
-  if (process.platform !== 'darwin') {
+  if (process.platform !== PLATFORM_DARWIN) {
     mainWindow.setMenuBarVisibility(false)
   }
 
@@ -277,7 +303,7 @@ function createWindowWithBounds (bounds) {
   so registering a handler causes events to happen twice.
   See: https://github.com/electron/electron/issues/18322
   */
-  if (process.platform === 'win32') {
+  if (isPlatform('win32')) {
     mainWindow.on('app-command', function (e, command) {
       if (command === 'browser-backward') {
         sendIPCToWindow(mainWindow, 'goBack')
@@ -303,7 +329,7 @@ function createWindowWithBounds (bounds) {
 app.on('window-all-closed', function () {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
+  if (!isPlatform('darwin')) {
     app.quit()
   }
 })
