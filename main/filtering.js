@@ -45,7 +45,8 @@ function initFilterList () {
   // discard old data if the list is being re-initialized
   parsedFilterData = {}
 
-  fs.readFile(__dirname + '/ext/filterLists/easylist+easyprivacy-noelementhiding.txt', 'utf8', function (err, data) {
+  // use : `path.join(__dirname, '/ext/filterLists/easylist+easyprivacy-noelementhiding.txt')`, or
+  fs.readFile(`${__dirname}/ext/filterLists/easylist+easyprivacy-noelementhiding.txt`, 'utf8', function (err, data) {
     if (err) {
       return
     }
@@ -55,7 +56,7 @@ function initFilterList () {
     parser.parse(data, parsedFilterData)
   })
 
-  fs.readFile(app.getPath('userData') + '/customFilters.txt', 'utf8', function (err, data) {
+  fs.readFile(`${app.getPath('userData')}/customFilters.txt`, 'utf8', function (err, data) {
     if (!err && data) {
       parser.parse(data, parsedFilterData)
     }
@@ -77,7 +78,11 @@ function requestDomainIsException (domain) {
 }
 
 function handleRequest (details, callback) {
-  if (!(details.url.startsWith('http://') || details.url.startsWith('https://')) || details.resourceType === 'mainFrame') {
+  if (
+    !(details.url.startsWith('http://') ||
+    details.url.startsWith('https://')) ||
+    details.resourceType === 'mainFrame'
+  ) {
     callback({
       cancel: false,
       requestHeaders: details.requestHeaders
@@ -88,6 +93,7 @@ function handleRequest (details, callback) {
   // block javascript and images if needed
 
   if (enabledFilteringOptions.contentTypes.length > 0) {
+    // why not using `map` || `forEach`
     for (var i = 0; i < enabledFilteringOptions.contentTypes.length; i++) {
       if (details.resourceType === enabledFilteringOptions.contentTypes[i]) {
         callback({
