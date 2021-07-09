@@ -13,6 +13,8 @@ var enabledFilteringOptions = {
 // for tracking the number of blocked requests
 var unsavedBlockedRequests = 0
 
+const filterProtocols = { urls: ['https://*/*', 'http://*/*'] }
+
 setInterval(function () {
   if (unsavedBlockedRequests > 0) {
     var current = settings.get('filteringBlockedCount')
@@ -63,6 +65,10 @@ function removeWWW (domain) {
   return domain.replace(/^www\./i, '')
 }
 
+function isHTTP (url) {
+  return (url.startsWith('http://') || url.startsWith('https://'))
+}
+
 function requestIsThirdParty (baseDomain, requestURL) {
   baseDomain = removeWWW(baseDomain)
   var requestDomain = removeWWW(parser.getUrlHost(requestURL))
@@ -75,7 +81,7 @@ function requestDomainIsException (domain) {
 }
 
 function filterPopups (url) {
-  if (!/^https?:\/\//i.test(url)) {
+  if (!isHTTP(url)) {
     return true
   }
 
@@ -96,8 +102,28 @@ function filterPopups (url) {
   return true
 }
 
+// block third party cookies
+function filterCookies (details, callback) {
+  var headers = { cancel: false }
+
+  if (enabledFilteringOptions.blockingLevel === 0 || !('set-cookie' in details.responseHeaders)) {
+    callback(headers)
+    return
+  }
+
+  const originalDomain = removeWWW(parser.getUrlHost(
+    webContents.fromId(details.webContentsId).getURL()
+  ))
+
+  if (requestIsThirdParty(originalDomain, details.url)) {
+    headers.responseHeaders = details.responseHeaders
+    delete headers.responseHeaders['set-cookie']
+  }
+  callback(headers)
+}
+
 function handleRequest (details, callback) {
-  if (!(details.url.startsWith('http://') || details.url.startsWith('https://')) || details.resourceType === 'mainFrame') {
+  if (details.resourceType === 'mainFrame') {
     callback({
       cancel: false,
       requestHeaders: details.requestHeaders
@@ -106,7 +132,6 @@ function handleRequest (details, callback) {
   }
 
   // block javascript and images if needed
-
   if (enabledFilteringOptions.contentTypes.length > 0) {
     for (var i = 0; i < enabledFilteringOptions.contentTypes.length; i++) {
       if (details.resourceType === enabledFilteringOptions.contentTypes[i]) {
@@ -175,7 +200,16 @@ function setFilteringSettings (settings) {
 }
 
 function registerFiltering (ses) {
-  ses.webRequest.onBeforeRequest(handleRequest)
+  // check responses in search of third-party cookies
+  ses.webRequest.onResponseStarted(filterProtocols,
+    (d) => {
+      if (d.webContentsId) {
+        const s = webContents.fromId(d.webContentsId).session
+        s.webRequest.onHeadersReceived(filterCookies)
+      }
+    })
+
+  ses.webRequest.onBeforeRequest(filterProtocols, handleRequest)
 }
 
 app.once('ready', function () {
