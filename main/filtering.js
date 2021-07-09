@@ -171,7 +171,7 @@ function setFilteringSettings (settings) {
 
   enabledFilteringOptions.contentTypes = settings.contentTypes
   enabledFilteringOptions.blockingLevel = settings.blockingLevel
-  enabledFilteringOptions.exceptionDomains = settings.exceptionDomains.map(d => d.replace(/^www\./g, ''))
+  enabledFilteringOptions.exceptionDomains = settings.exceptionDomains.map(d => removeWWW(d))
 }
 
 function registerFiltering (ses) {
