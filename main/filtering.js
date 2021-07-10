@@ -133,11 +133,10 @@ function removeTrackingParams (url) {
 function handleRequest (details, callback) {
   /* eslint-disable standard/no-callback-literal */
 
+  // webContentsId may not exist if this request is a mainFrame or subframe
   let domain
   if (details.webContentsId) {
     domain = parser.getUrlHost(webContents.fromId(details.webContentsId).getURL())
-  } else {
-    // webContentsId may not exist if this request is for the main document of a subframe
   }
 
   const isExceptionDomain = domain && requestDomainIsException(domain)
