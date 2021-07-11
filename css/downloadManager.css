@@ -135,6 +135,7 @@ body.task-overlay-is-shown #download-bar {
   font-size: 1.2em;
   margin: auto;
   margin-left: 0.4em;
+  padding: 0.2em;
   border-radius: 50%;
 }
 

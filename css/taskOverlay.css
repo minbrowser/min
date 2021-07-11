@@ -111,10 +111,10 @@ body:not(.touch)
 }
 
 .task-delete-button {
-  margin: auto -0.82em;
+  margin: auto -0.5em;
   border-radius: 50%;
-  height: 2.33em;
-  width: 2.33em;
+  height: 2em;
+  width: 2em;
   transition: 0.1s opacity;
   opacity: 0.75;
   font-size: 1.2em !important;
@@ -171,7 +171,7 @@ body:not(.touch)
   border: 0;
   background-color: transparent !important;
   opacity: 0.75;
-  margin: 0.5em;
+  margin: 0.5em 0.75em 0.5em 0.5em;
 }
 .task-name::-webkit-input-placeholder {
   color: inherit;
