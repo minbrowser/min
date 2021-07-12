@@ -124,14 +124,6 @@ body:not(.touch)
   opacity: 0;
 }
 
-.task-container:hover {
-  opacity: 1;
-  background: rgba(0, 0, 0, 0.028);
-}
-.dark-mode .task-container:hover {
-  background: rgba(255, 255, 255, 0.028);
-}
-
 .task-action-container button:hover,
 .task-action-container button:focus {
   opacity: 1;
