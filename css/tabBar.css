@@ -43,7 +43,7 @@
 }
 
 #toolbar-navigation-buttons.can-go-forward:hover {
-  width: 4.8rem;
+  width: 4.25rem;
 }
 
 body.is-edit-mode #toolbar-navigation-buttons {
@@ -59,7 +59,7 @@ body.is-edit-mode #toolbar-navigation-buttons {
   padding-left: 0.4rem;
 }
 #forward-button {
-  margin-left: -0.2em;
+  margin-left: -0.75em;
 }
 #back-button:disabled, #forward-button:disabled {
   opacity: 0.2;
