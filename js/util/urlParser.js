@@ -1,4 +1,5 @@
 const punycode = require('punycode')
+const path = require('path')
 
 const searchEngine = require('util/searchEngine.js')
 const hosts = require('./hosts.js')
@@ -13,9 +14,9 @@ function removeTrailingSlash (url) {
 }
 
 var urlParser = {
-  validSuffixes: [], // valid domains checksum cache
   validIP4Regex: /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i,
   validDomainRegex: /^(?!-)(?:.*@)*?([a-z0-9-._]+[a-z0-9]|\[[:a-f0-9]+\])/i,
+  unicodeRegex: /[^\u0000-\u00ff]/,
   removeProtocolRegex: /^(https?|file):\/\//i,
   protocolRegex: /^[a-z0-9]+:\/\//, // URI schemes can be alphanum
   isURL: function (url) {
@@ -64,10 +65,12 @@ var urlParser = {
     if (url.startsWith('min:')) {
       try {
         var urlObj = new URL(url)
-        var path = urlObj.pathname.replace('//', '')
-        if (/^[a-zA-Z]+$/.test(path)) {
+        var pathname = urlObj.pathname.replace('//', '')
+        if (/^[a-zA-Z]+$/.test(pathname)) {
           // only paths with letters are allowed
-          return urlParser.getFileURL(__dirname + '/pages/' + path + '/index.html' + urlObj.search)
+          return urlParser.getFileURL(
+            path.join(__dirname, 'pages', pathname, 'index.html') + urlObj.search
+          )
         }
       } catch (e) {}
     }
@@ -153,51 +156,25 @@ var urlParser = {
   },
   // primitive domain validation based on RFC1034
   validateDomain: function (domain) {
-    domain = /[^\u0000-\u00ff]/.test(domain)
+    domain = urlParser.unicodeRegex.test(domain)
       ? punycode.toASCII(domain)
-      : domain // only call punycode if necesary
+      : domain
 
-    /*
-      Tests for regex:
-      ^^^^^^^^^^^^^^^
-        google.com              = true
-        google.com.br           = true
-        -google.com             = false
-        google-is-bad.com.ar    = true
-        google.com.             = true
-        google.com-             = false
-        admin:1234@google.com   = true (ignores user:pass)
-        xn--bcher-kva.example   = true
-        127.0.0.1               = true
-        169.254.169.254:8080    = true
-        google.com..            = false
-        [:::1]:8080             = true
-        [2001:0db8::0001:0000]  = true
-        [invalid]               = false
-        localhost               = true
-    */
-    if (!urlParser.validDomainRegex.test(domain) || domain.length > 255) {
+    if (!urlParser.validDomainRegex.test(domain)) {
       return false
     }
     const cleanDomain = RegExp.$1
-
-    if (urlParser.validSuffixes.length > 0 && urlParser.validSuffixes.find(s => cleanDomain.endsWith(s)) !== undefined) { // check if suffix already validated
-      return true
+    if (cleanDomain.length > 255) {
+      return false
     }
 
-    // is domain an ipv4/6, a known hostname or has a public suffix?
-    if (((cleanDomain.split('.').length === 4 && urlParser.validIP4Regex.test(cleanDomain)) || (cleanDomain.startsWith('[') && cleanDomain.endsWith(']'))) ||
+    // is domain an ipv4/6 or known hostname?
+    if ((urlParser.validIP4Regex.test(cleanDomain) || (cleanDomain.startsWith('[') && cleanDomain.endsWith(']'))) ||
         hosts.includes(cleanDomain)) {
       return true
-    } else {
-      const suffix = publicSuffixes.find(s => cleanDomain.endsWith(s))
-      if (suffix !== undefined) {
-        urlParser.validSuffixes.push(suffix)
-        return true
-      }
     }
-
-    return false
+    // it has a public suffix?
+    return publicSuffixes.find(s => cleanDomain.endsWith(s)) !== undefined
   },
   isHTTPSUpgreadable: function (url) {
     // TODO: parse and remove all subdomains, only leaving parent domain and tld
