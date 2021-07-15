@@ -169,7 +169,7 @@ function initialize () {
   searchbarPlugins.register('instantAnswers', {
     index: 4,
     trigger: function (text) {
-      return text.length > 3 && !urlParser.isURLMissingProtocol(text) && !tabs.get(tabs.getSelected()).private
+      return text.length > 3 && !urlParser.isPossibleURL(text) && !tabs.get(tabs.getSelected()).private
     },
     showResults: debounce(showSearchbarInstantAnswers, 200)
   })

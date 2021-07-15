@@ -37,7 +37,7 @@ function showSearchSuggestions (text, input, event) {
             url: result
           }
 
-          if (urlParser.isURL(result) || urlParser.isURLMissingProtocol(result)) { // website suggestions
+          if (urlParser.isPossibleURL(result)) { // website suggestions
             data.icon = 'carbon:earth-filled'
           } else { // regular search results
             data.icon = 'carbon:search'
