@@ -18,9 +18,12 @@ https.get(listURL, function (r) {
     var cleanData = []
     for (var line of listData.split('\n')) {
       if (line.length === 0 || line.startsWith('//') || line.startsWith('!') ||
-        line.split('.').length > 2 || line.substr(0, 2) === '*.'
+        line.split('.').length > 2
       ) {
         continue
+      }
+      if (line.startsWith('*.')) {
+        line = line.slice(2)
       }
       line = punycode.toASCII(line)
       cleanData.push(`.${line}`)
