@@ -77,7 +77,7 @@ keybindings.defineShortcut('completeSearchbar', function () {
     var value = searchbar.associatedInput.value
 
     // if the text is already a URL, navigate to that page
-    if (urlParser.isURLMissingProtocol(value)) {
+    if (urlParser.isPossibleURL(value)) {
       searchbar.events.emit('url-selected', { url: value, background: false })
     } else {
       searchbar.events.emit('url-selected', { url: urlParser.parse(value + '.com'), background: false })
