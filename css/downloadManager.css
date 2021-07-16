@@ -21,6 +21,15 @@ body.task-overlay-is-shown #download-bar {
   border-top-color: rgb(80, 80, 80);
 }
 
+#download-bar button:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.dark-mode #download-bar button:hover {
+  background-color: rgba(255, 255, 255, 0.075);
+}
+
 #download-container {
   display: flex;
   flex: 1;
@@ -47,10 +56,12 @@ body.task-overlay-is-shown #download-bar {
   border-right-color: rgb(80, 80, 80);
 }
 
+.download-item:hover,
 .download-item.completed:active {
   background-color: rgb(238, 238, 238);
 }
 
+.dark-mode .download-item:hover,
 .dark-mode .download-item.completed:active {
   background-color: rgb(50, 55, 65);
 }
@@ -116,6 +127,7 @@ body.task-overlay-is-shown #download-bar {
   right: 0.7em;
   opacity: 0.7;
   margin: auto;
+  padding: 0.2em;
 }
 
 #download-close-button {
@@ -123,6 +135,8 @@ body.task-overlay-is-shown #download-bar {
   font-size: 1.2em;
   margin: auto;
   margin-left: 0.4em;
+  padding: 0.2em;
+  border-radius: 50%;
 }
 
 .dark-mode #download-close-button {
