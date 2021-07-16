@@ -1,13 +1,38 @@
+const punycode = require('punycode')
+const path = require('path')
+
 const searchEngine = require('util/searchEngine.js')
 const hosts = require('./hosts.js')
 const httpsTopSites = require('../../ext/httpsUpgrade/httpsTopSites.json')
+const publicSuffixes = require('../../ext/publicSuffixes/public_suffix_list.json')
+
+function removeWWW (domain) {
+  return (domain.startsWith('www.') ? domain.slice(4) : domain)
+}
+function removeTrailingSlash (url) {
+  return (url.endsWith('/') ? url.slice(0, -1) : url)
+}
 
 var urlParser = {
-  startingWWWRegex: /www\.(.+\..+\/)/g,
-  trailingSlashRegex: /\/$/g,
-  protocolRegex: /^[a-z]+:\/\//,
+  validIP4Regex: /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/i,
+  validDomainRegex: /^(?!-)(?:.*@)*?([a-z0-9-._]+[a-z0-9]|\[[:a-f0-9]+\])/i,
+  unicodeRegex: /[^\u0000-\u00ff]/,
+  removeProtocolRegex: /^(https?|file):\/\//i,
+  protocolRegex: /^[a-z0-9]+:\/\//, // URI schemes can be alphanum
   isURL: function (url) {
     return urlParser.protocolRegex.test(url) || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('data:') === 0
+  },
+  isPossibleURL: function (url) {
+    if (urlParser.isURL(url)) {
+      return true
+    } else {
+      if (url.indexOf(' ') >= 0) {
+        return false
+      }
+    }
+
+    const domain = urlParser.getDomain(url)
+    return hosts.includes(domain)
   },
   removeProtocol: function (url) {
     if (!urlParser.isURL(url)) {
@@ -18,16 +43,10 @@ var urlParser = {
     Protocols removed: http:/https:/file:
     chrome:, about:, data: protocols intentionally not removed
     */
-    return url.replace(/^(https?|file):\/\//i, '')
+    return url.replace(urlParser.removeProtocolRegex, '')
   },
   isURLMissingProtocol: function (url) {
-    // assume anything with no spaces and a . is a URL
-    if (url.indexOf(' ') === -1 && url.indexOf('.') > 0) {
-      return true
-    }
-    // a host from the hosts file is also a URL
-    var hostPart = url.replace(/(:|\/).+/, '')
-    return hosts.indexOf(hostPart) > -1
+    return !urlParser.protocolRegex.test(url)
   },
   parse: function (url) {
     url = url.trim() // remove whitespace common on copy-pasted url's
@@ -46,46 +65,47 @@ var urlParser = {
     if (url.startsWith('min:')) {
       try {
         var urlObj = new URL(url)
-        var path = urlObj.pathname.replace('//', '')
-        if (/^[a-zA-Z]+$/.test(path)) {
+        var pathname = urlObj.pathname.replace('//', '')
+        if (/^[a-zA-Z]+$/.test(pathname)) {
           // only paths with letters are allowed
-          return urlParser.getFileURL(__dirname + '/pages/' + path + '/index.html' + urlObj.search)
+          return urlParser.getFileURL(
+            path.join(__dirname, 'pages', pathname, 'index.html') + urlObj.search
+          )
         }
       } catch (e) {}
     }
 
-    // if the url starts with a (supported) protocol, do nothing
+    // if the url starts with a (supported) protocol
     if (urlParser.isURL(url)) {
-
       if (!urlParser.isInternalURL(url) && url.startsWith('http://')) {
         // prefer HTTPS over HTTP
-        let noProtoURL = urlParser.removeProtocol(url)
+        const noProtoURL = urlParser.removeProtocol(url)
 
-        if (urlParser.isHTTPSUpgreadable(url)) {
+        if (urlParser.isHTTPSUpgreadable(noProtoURL)) {
           return 'https://' + noProtoURL
         }
       }
       return url
     }
 
-    // if the url doesn't have a space and has a ., or is a host from hosts file, assume it is a url without a protocol
-    if (urlParser.isURLMissingProtocol(url)) {
+    // if the url doesn't have any protocol and it's a valid domain
+    if (urlParser.isURLMissingProtocol(url) && urlParser.validateDomain(urlParser.getDomain(url))) {
       if (urlParser.isHTTPSUpgreadable(url)) { // check if it is HTTPS-able
         return 'https://' + url
       }
       return 'http://' + url
     }
+
     // else, do a search
     return searchEngine.getCurrent().searchURL.replace('%s', encodeURIComponent(url))
   },
   basicURL: function (url) {
-    return urlParser.removeProtocol(url).replace(urlParser.trailingSlashRegex, '')
-      .replace('www.', '')
+    return removeWWW(urlParser.removeProtocol(removeTrailingSlash(url)))
   },
   prettyURL: function (url) {
     try {
       var urlOBJ = new URL(url)
-      return (urlOBJ.hostname + urlOBJ.pathname).replace(urlParser.startingWWWRegex, '$1').replace(urlParser.trailingSlashRegex, '')
+      return removeWWW(removeTrailingSlash(urlOBJ.hostname + urlOBJ.pathname))
     } catch (e) { // URL constructor will throw an error on malformed URLs
       return url
     }
@@ -130,12 +150,36 @@ var urlParser = {
       return encodeURI('file://' + path)
     }
   },
-  isHTTPSUpgreadable: function (url) {
-    let domain = /^([^\/]+)/.exec(urlParser.removeProtocol(url))[0]
+  getDomain: function (url) {
+    url = urlParser.removeProtocol(url)
+    return url.split(/[/:]/)[0].toLowerCase()
+  },
+  // primitive domain validation based on RFC1034
+  validateDomain: function (domain) {
+    domain = urlParser.unicodeRegex.test(domain)
+      ? punycode.toASCII(domain)
+      : domain
 
+    if (!urlParser.validDomainRegex.test(domain)) {
+      return false
+    }
+    const cleanDomain = RegExp.$1
+    if (cleanDomain.length > 255) {
+      return false
+    }
+
+    // is domain an ipv4/6 or known hostname?
+    if ((urlParser.validIP4Regex.test(cleanDomain) || (cleanDomain.startsWith('[') && cleanDomain.endsWith(']'))) ||
+        hosts.includes(cleanDomain)) {
+      return true
+    }
+    // it has a public suffix?
+    return publicSuffixes.find(s => cleanDomain.endsWith(s)) !== undefined
+  },
+  isHTTPSUpgreadable: function (url) {
     // TODO: parse and remove all subdomains, only leaving parent domain and tld
-    if (domain.indexOf('www.') === 0) // list has no subdomains
-      domain = domain.replace('www.', '')
+    const domain = removeWWW(urlParser.getDomain(url)) // list has no subdomains
+
     return httpsTopSites.includes(domain)
   }
 }
