@@ -82,18 +82,21 @@ function initFilterList () {
   // discard old data if the list is being re-initialized
   parsedFilterData = {}
 
-  fs.readFile(__dirname + '/ext/filterLists/easylist+easyprivacy-noelementhiding.txt', 'utf8', function (err, data) {
-    if (err) {
-      return
-    }
-    parser.parse(data, parsedFilterData)
-  })
-
-  fs.readFile(app.getPath('userData') + '/customFilters.txt', 'utf8', function (err, data) {
-    if (!err && data) {
+  fs.readFile(path.join(__dirname, 'ext/filterLists/easylist+easyprivacy-noelementhiding.txt'),
+    'utf8', function (err, data) {
+      if (err) {
+        return
+      }
       parser.parse(data, parsedFilterData)
     }
-  })
+  )
+
+  fs.readFile(path.join(app.getPath('userData'), 'customFilters.txt'),
+    'utf8', function (err, data) {
+      if (!err && data) {
+        parser.parse(data, parsedFilterData)
+      }
+    })
 }
 
 function removeWWW (domain) {
@@ -117,11 +120,10 @@ function filterPopups (url) {
   }
 
   const domain = parser.getUrlHost(url)
-
   if (enabledFilteringOptions.blockingLevel > 0 && !requestDomainIsException(domain)) {
     if (
-      (enabledFilteringOptions.blockingLevel === 1 && requestIsThirdParty(domain, url)) ||
-      (enabledFilteringOptions.blockingLevel === 2)
+      enabledFilteringOptions.blockingLevel === 2 ||
+      (enabledFilteringOptions.blockingLevel === 1 && requestIsThirdParty(domain, url))
     ) {
       if (parser.matches(parsedFilterData, url, { domain: domain, elementType: 'popup' })) {
         unsavedBlockedRequests++
