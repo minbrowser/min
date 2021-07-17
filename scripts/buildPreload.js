@@ -9,10 +9,11 @@ const modules = [
   'js/preload/readerDetector.js',
   'js/preload/siteUnbreak.js',
   'js/util/settings/settingsPreload.js',
-  'js/preload/passwordFill.js'
+  'js/preload/passwordFill.js',
+  'js/preload/translate.js',
 ]
 
-function buildPreload () {
+function buildPreload() {
   /* concatenate modules */
   let output = ''
   modules.forEach(function (script) {
