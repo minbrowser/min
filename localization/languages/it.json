@@ -153,14 +153,16 @@
     "settingsUserscriptsToggle": "Abilita script definiti dall'utente",
     "settingsShowDividerToggle": "Mostra divisore tra i schede",
     "settingsSeparateTitlebarToggle": "Usa barra del titolo separata",
-    "settingsAutoplayToggle": "Abilita Autoplay", 
+    "settingsAutoplayToggle": "Abilita Autoplay",
     "settingsOpenTabsInForegroundToggle": "Apri nuove schede in primo piano",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Gli script definiti dall'utente ti permettono di modificare il comportamento dei siti - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">scopri di più</a>."
     },
     "settingsUserAgentToggle": "Utilizza un user agent personalizzato",
     "settingsUpdateNotificationsToggle": "Controlla automaticamente la presenza di aggiornamenti",
-    "settingsUsageStatisticsToggle": "Invia statistiche di utilizzo (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Maggiori informazioni</a>)",
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "Invia statistiche di utilizzo (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Maggiori informazioni</a>)"
+    },
     "settingsSearchEngineHeading": "Motore di ricerca",
     "settingsDefaultSearchEngine": "Scegli un motore di ricerca predefinito:",
     "settingsDDGExplanation": "Imposta DuckDuckGo come motore di ricerca predefinito per vedere risposte istantanee nella barra di ricerca.",
@@ -245,8 +247,12 @@
     "keychainViewPasswords": "Mostra password salvate",
     /* Password manager setup */
     "passwordManagerSetupHeading": "Imposta %p per utilizzare l'autocompletamento",
-    "passwordManagerSetupStep1": "Prima, <a id='password-manager-setup-link'></a> ed estrailo per il tuo sistema.",
-    "passwordManagerInstallerSetup": "Scarica <a id='password-manager-setup-link-installer'></a> e sposta il file nel box qui sotto:",
+    "passwordManagerSetupStep1": {
+      "unsafeHTML": "Prima, <a id='password-manager-setup-link'></a> ed estrailo per il tuo sistema."
+    },
+    "passwordManagerInstallerSetup": {
+      "unsafeHTML": "Scarica <a id='password-manager-setup-link-installer'></a> e sposta il file nel box qui sotto:"
+    },
     "passwordManagerSetupLink": "scarica il tool CLI di %p",
     "passwordManagerSetupLinkInstaller": "l'install CLI di %p",
     "passwordManagerSetupStep2": "Quindi trascina il tool nel box qui sotto:",
@@ -271,10 +277,10 @@
     "loginPromptTitle": "Entra in %h (%r)",
     "dialogConfirmButton": "Conferma",
     "dialogSkipButton": "Annulla",
-    "username": "Nome utente", 
+    "username": "Nome utente",
     "email": "Email",
     "password": "Password",
     "secretKey": "Chiave segreta",
-    "openExternalApp": "Apri in \\\"%s\\\"?" 
+    "openExternalApp": "Apri in \\\"%s\\\"?"
   }
 }
