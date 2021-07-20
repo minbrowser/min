@@ -125,7 +125,7 @@ function filterPopups (url) {
       enabledFilteringOptions.blockingLevel === 2 ||
       (enabledFilteringOptions.blockingLevel === 1 && requestIsThirdParty(domain, url))
     ) {
-      if (parser.matches(parsedFilterData, url, { domain: domain, elementType: 'popup' })) {
+      if (parser.matches(parsedFilterData, url, { domain: domain, elementType: 'popup', strictType: true })) {
         unsavedBlockedRequests++
         return false
       }
