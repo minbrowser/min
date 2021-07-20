@@ -5,14 +5,28 @@
 
 const { clipboard } = require('electron')
 const searchbarPlugins = require('searchbar/searchbarPlugins.js')
-const math = require('mathjs')
+const { create, all } = require('mathjs')
+
+const math = create(all)
+const mathEval = math.evaluate
+const disabledFunc = () => { }
+const disabledFuncs = {
+  import: disabledFunc,
+  createUnit: disabledFunc,
+  evaluate: disabledFunc,
+  parse: disabledFunc,
+  simplify: disabledFunc,
+  derivative: disabledFunc
+}
+
+math.import(disabledFuncs, { override: true })
 
 function doMath (text, input, event) {
   searchbarPlugins.reset('calculatorPlugin')
 
   var result
   try {
-    result = math.evaluate(text)
+    result = mathEval(text)
   } catch (e) { return }
 
   searchbarPlugins.addResult('calculatorPlugin', {
@@ -40,6 +54,12 @@ function initialize () {
         return false
       }
 
+      // avoid returning disable functions
+      for (const fn of Object.keys(disabledFuncs)) {
+        if (text.indexOf(fn) !== -1) {
+          return false
+        }
+      }
       try { math.parse(text) } catch (e) { return false }
       return true
     },
