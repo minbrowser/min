@@ -9,25 +9,24 @@
     "pictureInPicture": null, //missing translation
     "openInNewTab": "فتح الرابط في علامة تبويب جديدة",
     "openInNewPrivateTab": "فتح الرابط في التصفح المتخفي",
-    "saveLinkAs": null, //missing translation
+    "saveLinkAs": "حفظ الرابط باسم",
     "viewImage": "مشاهدة الصورة",
     "openImageInNewTab": "فتح الصورة في علامة تبويب جديدة",
     "openImageInNewPrivateTab": "فتح الصورة في التصفح المتخفي",
     "saveImageAs": "حفظ الصورة باسم",
     "searchWith": "%s بحث مع", //%s will be replaced with the name of the current search engine
     "copyLink": "نسخ الرابط",
-    "copyEmailAddress": null, //missing translation
-    "selectAll": null, // Missing Translation
-    "undo": null, // Missing Translation
-    "redo": null, // Missing Translation
-    "cut": null, // Missing Translation
+    "copyEmailAddress": "نسخ عنوان البريد الإلكتروني",
+    "undo": "تراجع", 
+    "redo": "إعادة", 
+    "cut": "قص", 
     "copy": "نسخ", //this is a verb (as in "copy the currently-selected text")
     "paste": "لصق",
     "goBack": "الرجوع الى الوراء",
     "goForward": "تقدم للامام",
-    "inspectElement": "تدقيق العنصر",
+    "inspectElement": "فحص العنصر",
     /* searchbar */
-    "pasteAndGo": null, //missing translation
+    "pasteAndGo": "ألصق و انتقل",
     "DDGAnswerSubtitle": "جواب", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
     "suggestedSite": "الموقع المقترح", //this is used to label suggested websites from the DuckDuckGo API,
     "resultsFromDDG": "DuckDuckGo نتائج من", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -35,60 +34,60 @@
     /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-    "showMoreBangs": null, //missing translation
+    "showMoreBangs": "عرض المزيد من الإختصارات", 
     "viewSettings": "عرض الاعدادات",
     "takeScreenshot": "خذ لقطة شاشة",
     "clearHistory": "مسح السجل",
-    "enableBlocking": null, //missing translation
-    "disableBlocking": null, //missing translation
-    "clearHistoryConfirmation": null, //missing translation
+    "enableBlocking": "تفعيل منع المحتوى لهذا الموقع",
+    "disableBlocking": "إلغاء منع المحتوى لهذا الموقع", 
+    "clearHistoryConfirmation": "إمسح كل السجل و بيانات التصفح",
     "switchToTask": "تحويل الى مهام",
     "createTask": "انشاء مهمة",
-    "closeTask": null, //missing translation
+    "closeTask": "غلق مهمة ", 
     "moveToTask": "نقل التبويب الى المهام",
-    "nameTask": null, //missing translation
-    "addBookmark": null, //missing translation
+    "nameTask": "سمّ المهمة", 
+    "addBookmark": "أضف إشارة", 
     "searchBookmarks": "البحث عن الإشارات",
-    "bookmarksAddTag": null, //missing translation
-    "bookmarksSimilarItems": null, //missing translation
-    "searchHistory": "البحث عن السجل",
-    "importBookmarks": null, //missing translation
-    "exportBookmarks": null, //missing translation
-    "runUserscript": null, //missing translation
+    "bookmarksAddTag": "أضف علامة",
+    "bookmarksSimilarItems": "عناصرة مشابهة", 
+    "searchHistory": "البحث في السجل",
+    "importBookmarks": "إسترد إشارات", 
+    "exportBookmarks": "صدّر إشارات", 
+    "runUserscript": "شغّل سكريبت من طرف المستخدم",
     /* navbar */
     "openMenu": "فتح القائمة", //application menu button on windows
     "enterReaderView": "دخول وضع القراءة",
     "exitReaderView": "خروج وضع القراءة",
-    "newTabLabel": "تبويب جديدة", //this is a noun, used for tabs that don't have a page loaded in them yet
+    "newTabLabel": "تبويب جديد", //this is a noun, used for tabs that don't have a page loaded in them yet
     "connectionNotSecure": "اتصالك مع هدا الموقع غير محمي.",
     "searchbarPlaceholder": "ابحث او ادخل الرابط",
     "privateTab": "تبويب متخفي",
-    "newTabAction": "تبويب جديدة", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+    "newTabAction": "تبويب جديد", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
     /* task overlay */
     "viewTasks": "عرض المهام",
     "newTask": "مهمة جديدة", //"new" is a verb - it is used for a button at the bottom of the task overlay
     "defaultTaskName": " %n مهمة رقم", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
     "taskDeleteWarning": {
-      "unsafeHTML": null //missing translation
+      "unsafeHTML": "<a>تراجع؟</a> .تم حذف المهمة"
     },
-    "returnToTask": null, //missing translation
-    "taskDescriptionTwo": null, //missing translation
-    "taskDescriptionThree": null, //missing translation
+    "returnToTask": "عد إلى المهمة السابقة", 
+    "taskDescriptionTwo": "%t و %t", 
+    "taskDescriptionThree": "أخرى %n و %t ,%t",
     /* find in page toolbar */
     "searchInPage": "ابحث في الصفحة", //this is used as the placeholder text for the textbox in the find in page toolbar
-    "findMatchesSingular": "مطابق %t من i%", //this and the next label are used to indicate which match is currently highlighted
-    "findMatchesPlural": "مطابق %t من i%",
+    "findMatchesSingular": "مطابق %i من %t", //this and the next label are used to indicate which match is currently highlighted
+    "findMatchesPlural": "مطابق %i من %t",
     /* Focus mode */
     "isFocusMode": "أنت في وضع التركيز.",
     "closeDialog": "تم", //used as a label for the button that closes the dialog
-    "focusModeExplanation1": null, //missing translation "In focus mode, you can't create new tabs or switch tasks."
-    "focusModeExplanation2": null, //missing translation "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+    "focusModeExplanation1": "في وضع التركيز لا يمكنك فتح تبويب جديد أو تغيير المهمة ", 
+    "focusModeExplanation2": "يمكنك مغادرة وضع التركيز عن طريق الضغط على  وضع التركيز في قائمة المشاهدة",
     /* relative dates */
     "timeRangeJustNow": "الآن",
     "timeRangeMinutes": "قبل عدة دقائق",
     "timeRangeHour": "قبل عدة ساعات",
-    "timeRangeToday": null, //missing translation
-    "timeRangeYesterday": null, //missing translation
+    "timeRangeToday": "اليوم",
+    "timeRangeYesterday": "الأمس", 
     "timeRangeWeek": "في الاسبوع الماضي",
     "timeRangeMonth": "في الشهر الماضي",
     "timeRangeYear": "في السنة الماضية",
@@ -98,7 +97,7 @@
     "crashErrorSubtitle": "حدثت مشكلة أثناء عرض هذه الصفحة.",
     "errorPagePrimaryAction": "اعد المحاولة",
     "serverNotFoundTitle": "الخادم غير موجود",
-    "serverNotFoundSubtitle": "لم يستطيع الحصول على هذا الموقع Min",
+    "serverNotFoundSubtitle": "لم يستطع الحصول على هذا الموقع Min",
     "archiveSearchAction": "archive.org البحث في",
     "sslErrorTitle": "هذا الموقع لا يوجد ",
     "sslErrorMessage": "لا يستطيع الاتصال الامن مع هذا الموقع Min",
@@ -129,55 +128,57 @@
     "settingsRestartRequired": "قم بأعادة تشغيل المتصفح لتطبيق هده التغيرات",
     "settingsPrivacyHeading": "منع المحتوى",
     "settingsContentBlockingLevel0": "السماح لجميع الاعلانات و المتعقبين",
-    "settingsContentBlockingLevel1": "حظر اعلانات الطرف التالت و المتعقبين",
+    "settingsContentBlockingLevel1": "حظر اعلانات الطرف الثالت و المتعقبين",
     "settingsContentBlockingLevel2": "حظر جميع الاعلانات و المتعقبين",
     "settingsContentBlockingExceptions": "سيظل مسموحًا بعرض الاعلانات على هده المواقع",
     "settingsBlockScriptsToggle": "منع السكريبت",
     "settingsBlockImagesToggle": "منع الصور",
     "settingsBlockedRequestCount": {
-      "unsafeHTML": null //missing translation
+      "unsafeHTML": "قام المتصفح بحظر <strong></strong> إعلان و متعقب"
     },
-    "settingsCustomBangs": null, // missing translation
-    "settingsCustomBangsAdd": null, // missing translation
-    "settingsCustomBangsPhrase": null, // missing translation
-    "settingsCustomBangsSnippet": null, // missing translation
-    "settingsCustomBangsRedirect": null, // missing translation
-    "settingsCustomizeFiltersLink": null, //missing translation
+    "settingsCustomBangs": "إختصارات bangs",
+    "settingsCustomBangsAdd": "أضف إختصار", 
+    "settingsCustomBangsPhrase": "جملة (ضرورية)", 
+    "settingsCustomBangsSnippet": "وصف (إختياري)",
+    "settingsCustomBangsRedirect": "الرابط (ضروري)", 
+    "settingsCustomizeFiltersLink": "تعديل المرشحات", 
     "settingsAppearanceHeading": "تفضيلات",
-    "settingsEnableDarkMode": null, //"Enable dark mode:" missing translation
-    "settingsDarkModeNever": null, //"Never" missing translation
-    "settingsDarkModeNight": null, //"At night" missing translation
-    "settingsDarkModeAlways": null, //"Always" missing translation
-    "settingsSiteThemeToggle": null, //missing translation
-    "settingsShowDividerToggle": null, // Missing translation
+    "settingsEnableDarkMode": "تفعيل الوضع الداكن", 
+    "settingsDarkModeNever": "لا", 
+    "settingsDarkModeNight": "في الليل", 
+    "settingsDarkModeAlways": "دائما", 
+    "settingsSiteThemeToggle": "تفعيل سمة الموقع", 
+    "settingsShowDividerToggle": "عرض الفاصل بين علامات التبويب",
     "settingsAdditionalFeaturesHeading": "مميزات اضافية",
     "settingsUserscriptsToggle": "تمكين سكريبت المستخدم",
-    "settingsSeparateTitlebarToggle": null, //missing translation
-    "settingsAutoplayToggle": null, //missing translation 
-    "settingsOpenTabsInForegroundToggle": null, //missing translation
+    "settingsSeparateTitlebarToggle": "إستعمل شريط عنوان منفصل", 
+    "settingsAutoplayToggle": "تفعيل التشغيل التلقائي", 
+    "settingsOpenTabsInForegroundToggle": "الإنتقال إلى  التبويب الجديد عند فتحه", 
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "يمكن سكريبت المستخدم من  تغير سلوك المواقع - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">معرفة المزيد</a>."
     },
-    "settingsUserAgentToggle": null, //missing translation
-    "settingsUpdateNotificationsToggle": null, //missing translation
-    "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsUserAgentToggle": "خاص user-agent إستخدم", 
+    "settingsUpdateNotificationsToggle": "إبحث تلقائيا عن التحديثات", 
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML":"إرسال إحصائيات المستخدم - <a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">معرفة المزيد</a>"
+    },
     "settingsSearchEngineHeading": "محرك بحث",
     "settingsDefaultSearchEngine": "اختر محرك بحث اساسي",
     "settingsDDGExplanation": "كمحرك بحث اساسي لرؤية النتائج الآنية في مربع البحث DuckDuckGo ",
     "customSearchEngineDescription": "%s غير كلمة البحث ب",
     "settingsKeyboardShortcutsHeading": "اختصار لوحة مفاتيح",
     "settingsKeyboardShortcutsHelp": "اسعمل الفاصلة للفصل بين الاختصارات",
-    "settingsProxyHeading": null, //missing translation
-    "settingsNoProxy": null, //missing translation
-    "settingsManualProxy": null, //missing translation
-    "settingsAutomaticProxy": null, //missing translation
-    "settingsProxyRules": null, //missing translation
-    "settingsProxyBypassRules": null, //missing translation
-    "settingsProxyConfigurationURL": null, //missing translation
+    "settingsProxyHeading": "وسيط", 
+    "settingsNoProxy": "غير مستعمل", 
+    "settingsManualProxy": "إعداد الوسيط يدويا", 
+    "settingsAutomaticProxy": "تعرف تلقائيا على إعدادات الوسيط", 
+    "settingsProxyRules": "إعدادات الوسيط", 
+    "settingsProxyBypassRules": "لا وسيط ل",
+    "settingsProxyConfigurationURL": "رابط الوسيط",
     /* app menu */
     "appMenuFile": "ملف",
     "appMenuNewTab": "تبويب جديد",
-    "appMenuDuplicateTab": "تبويب مكررة",
+    "appMenuDuplicateTab": "تكرير التبويب",
     "appMenuNewPrivateTab": "التصفح الخفي",
     "appMenuNewTask": "مهمة جديدة",
     "appMenuSavePageAs": "حفظ الصفحة باسم",
@@ -205,7 +206,7 @@
     "appMenuWindow": "نافذة",
     "appMenuMinimize": "تصغير",
     "appMenuClose": "اغلاق",
-    "appMenuAlwaysOnTop": null, //missing translation
+    "appMenuAlwaysOnTop": "دائما في الفوق",
     "appMenuHelp": "مساعدة",
     "appMenuKeyboardShortcuts": "اختصار لوحة مفاتيح",
     "appMenuReportBug": "الابلاغ عن الخطأ",
@@ -221,28 +222,28 @@
     "appMenuBringToFront": "جلب الكل الى المقدمة",
     /* PDF Viewer */
     "PDFPageCounter": {
-      "unsafeHTML": "page <input type='text'/> of <span id='total'></span>"
+      "unsafeHTML": "<span id='total'></span> صفخة <input type='text'/> من"
     },
     /* Context Reader */
-    "buttonReaderSettings": null, //missing translation "Reader Settings"
-    "buttonReaderLightTheme": null, //missing translation "Light"
-    "buttonReaderSepiaTheme": null, //missing translation "Sepia"
-    "buttonReaderDarkTheme": null, //missing translation "Dark"
-    "openReaderView": null, //missing translation "Always open in reader view"
-    "autoRedirectBannerReader": null, //missing translation "Always open articles from this site in reader view?"
-    "buttonReaderRedirectYes": null, //missing translation "Yes"
-    "buttonReaderRedirectNo": null, //missing translation "No"
-    "articleReaderView": null, //missing translation "Original Article"
+    "buttonReaderSettings": "إعدادات القارئ",
+    "buttonReaderLightTheme": "فاتح", 
+    "buttonReaderSepiaTheme": "بني داكن", 
+    "buttonReaderDarkTheme": "داكن", 
+    "openReaderView": "دائما إفتح  في وضع القارئ",
+    "autoRedirectBannerReader": "دائما إفتح مقالات هذا الموقع في وضع القارئ", 
+    "buttonReaderRedirectYes": "نعم",
+    "buttonReaderRedirectNo": "لا", 
+    "articleReaderView": "المقال الأصلي", 
     /* Download manager */
     "downloadCancel": "الغاء",
     "downloadStateCompleted": "تم بنجاح",
     "downloadStateFailed": "فشل",
     /* Update Notifications */
-    "updateNotificationTitle": null, //missing translation
+    "updateNotificationTitle": "نسخة جديدة من المتصفح متوفرة", 
     /* Autofill settings */
-    "settingsPasswordAutoFillHeadline": null, //missing translation
-    "settingsSelectPasswordManager": null, //missing translation
-    "keychainViewPasswords": null, //missing translation
+    "settingsPasswordAutoFillHeadline": "ملء تلقائي لكلمة المرور",
+    "settingsSelectPasswordManager": "إختر واحد من مسيري كلمات المرور", 
+    "keychainViewPasswords": "عرض كلمات المرور المحفوظة", 
     /* Password manager setup */
     "passwordManagerSetupHeading": null, //missing translation
     "passwordManagerSetupStep1": null, //missing translation
@@ -258,23 +259,24 @@
     "passwordManagerSetupRetry": null, //missing translation
     "passwordManagerUnlock": null, //missing translation
     /* Password save bar */
-    "passwordCaptureSavePassword": null, //missing translation
-    "passwordCaptureSave": null, //missing translation
-    "passwordCaptureDontSave": null, //missing translation
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureSavePassword": "؟%s حقظ كلمة المرور ل", 
+    "passwordCaptureSave": " حفظ",
+    "passwordCaptureDontSave": "لا تحفظ", 
+    "passwordCaptureNeverSave": "لا تحفظ أبدا ", 
     /* Password viewer */
-    "savedPasswordsHeading": null, //missing translation
-    "savedPasswordsEmpty": null, //missing translation
-    "savedPasswordsNeverSavedLabel": null, //missing translation
-    "deletePassword": null, //missing translation
+    "savedPasswordsHeading": "كلمات المرور المحفوظة", 
+    "savedPasswordsEmpty": "لا توجد كلمات مرور محفوظة",
+    "savedPasswordsNeverSavedLabel": "لم يتم حفطها",
+    "deletePassword": "؟%s حذف كلمة المرور ل", 
+    
     /* Dialogs */
-    "loginPromptTitle": null, //missing translation
-    "dialogConfirmButton": null, //missing translation
-    "dialogSkipButton": null, //missing translation
-    "username": null, //missing translation
-    "email": null, //missing translation
-    "password": null, //missing translation
-    "secretKey": null, //missing translation
-    "openExternalApp": null //missing translation
+    "loginPromptTitle": "(%r) %h تسجيل الدخول إلى",
+    "dialogConfirmButton": "موافقة", 
+    "dialogSkipButton": "إلغاء",
+    "username": "إسم المستخدم", 
+    "email": "البريد الإلكتروني", 
+    "password": "كلمة المرور", 
+    "secretKey": "المفتاح السري", 
+    "openExternalApp": " ؟\\\"%s\\\" إفتح في "
   }
 }
