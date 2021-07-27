@@ -55,12 +55,12 @@ const pageTranslations = {
       code: 'es'
     }
   ],
-  translateInto(tabId, language) {
+  translateInto (tabId, language) {
     webviews.callAsync(tabId, 'send', ['translate-page', language])
   },
   makeTranslationRequest: async function (tab, data) {
     console.log(data)
-    const res = await fetch('https://libretranslate.de/translate', {
+    const res = await fetch('http://143.198.178.22:5000/translate', {
       method: 'POST',
       body: JSON.stringify({
         q: data[0].query,

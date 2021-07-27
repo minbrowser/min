@@ -1,5 +1,5 @@
-const maxNodesToTranslate = 192
-const chunkSize = 32
+const maxNodesToTranslate = 240
+const chunkSize = 15
 
 function isVisible (el) {
   // https://github.com/jquery/jquery/blob/305f193aa57014dc7d8fa0739a3fefd47166cd44/src/css/hiddenVisibleSelectors.js
@@ -11,6 +11,8 @@ function getNodes (doc, win) {
   var textNodes = []
 
   var ignore = 'link, style, script, noscript, .hidden, [class*="-hidden"], .visually-hidden, .visuallyhidden, [role=presentation], [hidden], [style*="display:none"], [style*="display: none"], .ad, .dialog, .modal, select, svg, details:not([open])'
+
+  ignore += ', pre, code'
 
   while (maybeNodes.length) {
     var node = maybeNodes.shift()
@@ -84,7 +86,7 @@ async function translate (lang) {
       })
 
       if (data.range[1] < maxNodesToTranslate && data.range[1] < nodes.length) {
-        handleChunk(data.range[1] + 1, data.range[1] + 1 + chunkSize)
+        handleChunk(data.range[1], data.range[1] + chunkSize)
       }
     })
   }
