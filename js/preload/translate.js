@@ -1,5 +1,4 @@
-const maxNodesToTranslate = 240
-const chunkSize = 15
+const maxCharsToTranslate = 12000
 
 function isVisible (el) {
   // https://github.com/jquery/jquery/blob/305f193aa57014dc7d8fa0739a3fefd47166cd44/src/css/hiddenVisibleSelectors.js
@@ -59,21 +58,54 @@ async function translate (lang) {
     } catch (e) { }
   }
 
-  nodes = nodes.filter(n => n.textContent.replace(/\s+/g, '').length > 2)
+  var nodesSet = nodes.filter(n => n.textContent.replace(/[\s0-9]+/g, '').length > 2).map(n => ({ node: n, translated: false, originalLength: n.textContent.length }))
 
-  function handleChunk (start, end) {
-    console.log(start, end)
-    var query = nodes.slice(start, end).map(node => node.textContent)
+  function handleChunk () {
+    // rescore the nodes
+
+    var selectionParent
+    try {
+      selectionParent = window.getSelection().getRangeAt(0).commonAncestorContainer
+    } catch (e) {
+    }
+
+    var sortedNodes = nodesSet.map(item => {
+      item.score = 0
+      if (selectionParent && selectionParent.contains(item.node)) {
+        item.score += 2
+      }
+      try {
+        var rect = item.node.parentNode.getBoundingClientRect()
+        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+          item.score += 1
+        }
+      } catch (e) {}
+      return item
+    }).sort((a, b) => b.score - a.score)
+
+    // select up to 1k chars from the untranslated set
+
+    var nodesInQuery = []
+    var charsSelected = 0
+    sortedNodes.forEach(function (item) {
+      if (charsSelected < 500 && !item.translated) {
+        nodesInQuery.push(item.node)
+        charsSelected += item.node.textContent.length
+      }
+    })
+
+    var query = nodesInQuery.map(node => node.textContent)
+
+    console.log(nodesSet, nodesInQuery, query)
 
     ipc.send('translation-request', {
       query,
-      range: [start, end],
       lang
     })
 
     ipc.once('translation-response', function (e, data) {
       data.response.translatedText.forEach(function (text, i) {
-        var idx = data.range[0] + i
+        var rootNodeIndex = nodesSet.findIndex(item => item.node === nodesInQuery[i])
 
         if (query[i].startsWith(' ')) {
           text = ' ' + text
@@ -82,16 +114,18 @@ async function translate (lang) {
           text += ' '
         }
 
-        nodes[idx].textContent = text
+        nodesSet[rootNodeIndex].node.textContent = text
+        nodesSet[rootNodeIndex].translated = true
       })
 
-      if (data.range[1] < maxNodesToTranslate && data.range[1] < nodes.length) {
-        handleChunk(data.range[1], data.range[1] + chunkSize)
+      console.log('translated ', nodesSet.filter(item => item.translated).map(item => item.originalLength).reduce((a, b) => a + b), 'chars')
+      if (nodesSet.filter(item => item.translated).map(item => item.originalLength).reduce((a, b) => a + b) < maxCharsToTranslate && nodesSet.some(item => !item.translated)) {
+        handleChunk()
       }
     })
   }
 
-  handleChunk(0, chunkSize)
+  handleChunk()
 }
 
 ipc.on('translate-page', function (e, lang) {

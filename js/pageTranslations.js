@@ -75,8 +75,7 @@ const pageTranslations = {
     console.log(result)
 
     webviews.callAsync(tab, 'send', ['translation-response', {
-      response: result,
-      range: data[0].range
+      response: result
     }])
   },
   initialize: function () {
