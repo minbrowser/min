@@ -60,7 +60,7 @@ const pageTranslations = {
   },
   makeTranslationRequest: async function (tab, data) {
     console.log(data)
-    const res = await fetch('http://143.198.178.22:5000/translate', {
+    const res = await fetch('https://translate-api.minbrowser.org/translate', {
       method: 'POST',
       body: JSON.stringify({
         q: data[0].query,

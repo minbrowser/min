@@ -1,4 +1,4 @@
-const maxCharsToTranslate = 12000
+const maxCharsToTranslate = 15000
 
 function isVisible (el) {
   // https://github.com/jquery/jquery/blob/305f193aa57014dc7d8fa0739a3fefd47166cd44/src/css/hiddenVisibleSelectors.js
@@ -45,8 +45,13 @@ function getNodes (doc, win) {
   return textNodes
 }
 
-async function translate (lang) {
+async function translate (destLang) {
   var nodes = getNodes(document, window)
+
+  var titleElement = document.querySelector('title')
+  if (titleElement && titleElement.childNodes && titleElement.childNodes[0]) {
+    nodes.unshift(titleElement.childNodes[0])
+  }
 
   // try to also extract text for same-origin iframes (such as the reader mode frame)
 
@@ -96,11 +101,9 @@ async function translate (lang) {
 
     var query = nodesInQuery.map(node => node.textContent)
 
-    console.log(nodesSet, nodesInQuery, query)
-
     ipc.send('translation-request', {
       query,
-      lang
+      lang: destLang
     })
 
     ipc.once('translation-response', function (e, data) {
@@ -112,6 +115,17 @@ async function translate (lang) {
         }
         if (query[i].endsWith(' ')) {
           text += ' '
+        }
+
+        /*
+        The English model frequently produces translations in lowercase.
+        As a workaround, capitalize the first character if the original was uppercase
+        */
+        if (destLang === 'en') {
+          var originalFirstChar = nodesSet[rootNodeIndex].node.textContent[0]
+          if (originalFirstChar && originalFirstChar.toUpperCase() === originalFirstChar) {
+            text = text[0].toUpperCase() + text.substring(1)
+          }
         }
 
         nodesSet[rootNodeIndex].node.textContent = text
