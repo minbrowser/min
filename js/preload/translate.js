@@ -100,13 +100,15 @@ async function translate (destLang) {
     })
 
     var query = nodesInQuery.map(node => node.textContent)
+    var requestId = Math.random()
 
     ipc.send('translation-request', {
       query,
-      lang: destLang
+      lang: destLang,
+      requestId
     })
 
-    ipc.once('translation-response', function (e, data) {
+    ipc.once('translation-response-' + requestId, function (e, data) {
       data.response.translatedText.forEach(function (text, i) {
         var rootNodeIndex = nodesSet.findIndex(item => item.node === nodesInQuery[i])
 
@@ -118,11 +120,20 @@ async function translate (destLang) {
         }
 
         /*
+        When the Libretranslate model encounters unknown vocabulary (or the language auto-detect is wrong),
+        it sometimes produces very long, nonsensical output. Try to detect that and skip the translation.
+        */
+        if (query[i].length > 2 && (text.length / query[i].length > 20)) {
+          console.warn('skipping possibly invalid translation: ', query[i], ' -> ', text)
+          return
+        }
+
+        /*
         The English model frequently produces translations in lowercase.
         As a workaround, capitalize the first character if the original was uppercase
         */
         if (destLang === 'en') {
-          var originalFirstChar = nodesSet[rootNodeIndex].node.textContent[0]
+          var originalFirstChar = query[i][0]
           if (originalFirstChar && originalFirstChar.toUpperCase() === originalFirstChar) {
             text = text[0].toUpperCase() + text.substring(1)
           }

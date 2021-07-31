@@ -287,13 +287,31 @@ const webviewMenu = {
 
     var translateMenu = {
       label: 'Translate Page (Beta)',
-      submenu: pageTranslations.languages.map(function (language) {
-        return {
+      submenu: []
+    }
+
+    const translateLangList = pageTranslations.getLanguageList()
+
+    translateLangList[0].forEach(function (language) {
+      translateMenu.submenu.push({
+        label: language.name,
+        click: function () {
+          pageTranslations.translateInto(tabs.getSelected(), language.code)
+        }
+      })
+    })
+
+    if (translateLangList[1].length > 0) {
+      translateMenu.submenu.push({
+        type: 'separator'
+      })
+      translateLangList[1].forEach(function (language) {
+        translateMenu.submenu.push({
           label: language.name,
           click: function () {
             pageTranslations.translateInto(tabs.getSelected(), language.code)
           }
-        }
+        })
       })
     }
 
