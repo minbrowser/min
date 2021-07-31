@@ -44,6 +44,11 @@ body.mac:not(.fullscreen):not(.separate-titlebar) {
   --control-space-left: 75px;
 }
 
+body.rtl.mac:not(.fullscreen):not(.separate-titlebar) {
+  --control-space-left: 0px;
+  --control-space-right: 75px;
+}
+
 /* Windows caption buttions */
 
 body.windows:not(.separate-titlebar) {

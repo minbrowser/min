@@ -55,6 +55,10 @@ set the value attribute for all elements with a [data-value] attribute
  */
 
 if (typeof document !== 'undefined') {
+  if (languages[getCurrentLanguage()] && languages[getCurrentLanguage()].rtl) {
+    document.body.classList.add('rtl')
+  }
+
   document.querySelectorAll('[data-string]').forEach(function (el) {
     var str = l(el.getAttribute('data-string'))
     if (typeof str === 'string') {
