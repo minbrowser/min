@@ -315,6 +315,17 @@ const webviewMenu = {
       })
     }
 
+    translateMenu.submenu.push({
+      type: 'separator'
+    })
+
+    translateMenu.submenu.push({
+      label: 'Send Feedback',
+      click: function () {
+        browserUI.addTab(tabs.add({ url: 'https://github.com/minbrowser/min/issues/new?title=Translation%20feedback%20for%20' + encodeURIComponent(tabs.get(tabs.getSelected()).url) }), { enterEditMode: false, openInBackground: false })
+      }
+    })
+
     menuSections.push([translateMenu])
 
     // Electron's default menu position is sometimes wrong on Windows with a touchscreen

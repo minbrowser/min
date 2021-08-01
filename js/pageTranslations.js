@@ -1,7 +1,10 @@
 const webviews = require('webviews.js')
+const statistics = require('js/statistics.js')
+const settings = require('util/settings/settings.js')
 
 const pageTranslations = {
   apiURL: 'https://translate-api.minbrowser.org/translate',
+  translatePrivacyInfo: 'When you translate a page, the page contents are sent to Min\'s servers. We don\'t save your translations or use them to identify you.',
   languages: [
     {
       name: 'English',
@@ -68,6 +71,16 @@ const pageTranslations = {
     return [topLangs, otherLangs]
   },
   translateInto (tabId, language) {
+    statistics.incrementValue('translatePage.' + language)
+
+    if (!settings.get('translatePrivacyPrompt')) {
+      const accepted = confirm(pageTranslations.translatePrivacyInfo)
+      if (accepted) {
+        settings.set('translatePrivacyPrompt', true)
+      } else {
+        return
+      }
+    }
     webviews.callAsync(tabId, 'send', ['translate-page', language])
   },
   makeTranslationRequest: async function (tab, data) {
