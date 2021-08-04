@@ -204,10 +204,10 @@ body.linux #menu-button {
   margin-top: -0.5px;
   font-size: 1.4em !important;
 }
-.navbar-action-button:not(:disabled):hover {
+body.windows .navbar-action-button:not(:disabled):hover {
   background-color: rgba(0, 0, 0, 0.075);
 }
-.dark-theme .navbar-action-button:not(:disabled):hover {
+body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
   background: rgba(255, 255, 255, 0.075);
 }
 .navbar-action-button.invisible {
