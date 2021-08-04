@@ -4,7 +4,7 @@
   position: absolute;
   top: var(--control-space-top);
   left: calc(0.5em + var(--control-space-left));
-  right: calc(0.75em + var(--control-space-right));
+  right: var(--control-space-right);
   height: 35px;
   z-index: 99;
 }
@@ -44,4 +44,5 @@ body.linux #findinpage-bar {
 #findinpage-bar .navbar-action-button {
   padding: 0;
   margin: 0;
+  border-radius: 50%;
 }

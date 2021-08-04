@@ -1,7 +1,7 @@
 body {
   --control-space-top: 0px;
-  --control-space-left: 0px;
-  --control-space-right: 0px;
+  --control-space-left: 0.3em;
+  --control-space-right: 0.3em;
 }
 /* window drag regions */
 
