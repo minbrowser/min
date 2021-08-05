@@ -15,6 +15,9 @@ function open (menuTemplate, x, y) {
     if (menuPart instanceof Array) {
       return menuPart.map(item => prepareToSend(item))
     } else {
+      if (menuPart.submenu) {
+        menuPart.submenu = prepareToSend(menuPart.submenu)
+      }
       if (typeof menuPart.click === 'function') {
         menuCallbacks[nextMenuId][nextItemId] = menuPart.click
         menuPart.click = nextItemId
