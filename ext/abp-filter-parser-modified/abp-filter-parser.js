@@ -21,6 +21,11 @@ var elementTypesSet = {
   other: 32768
 }
 var allElementTypes = 65535
+/*
+https://help.eyeo.com/en/adblockplus/how-to-write-filters#options
+"Filters will not block pop-ups by default, only if the $popup type option is specified."
+*/
+const defaultElementTypes = allElementTypes & (~elementTypesSet.popup)
 
 var separatorCharacters = ':?/=^'
 
@@ -117,7 +122,7 @@ function parseOptions (input) {
       // the option is an element type to skip
       if (option[0] === '~' && elementTypes.indexOf(option.substring(1)) !== -1) {
         if (output.elementTypes === undefined) {
-          output.elementTypes = allElementTypes
+          output.elementTypes = defaultElementTypes
         }
         output.elementTypes = output.elementTypes & (~elementTypesSet[option.substring(1)])
         hasValidOptions = true
@@ -436,17 +441,17 @@ function matchWildcard (input, filter) {
 }
 
 // Determines if there's a match based on the options, this doesn't
-// mean that the filter rule should be accepted, just that the filter rule
+// mean that the filter rule shoudl be accepted, just that the filter rule
 // should be considered given the current context.
 // By specifying context params, you can filter out the number of rules which are
 // considered.
 function matchOptions (filterOptions, input, contextParams, currentHost) {
-  if (!filterOptions) { // cannot match if no filter supplied
+  if ((((filterOptions && filterOptions.elementTypes) || defaultElementTypes) & elementTypesSet[contextParams.elementType]) === 0) {
     return false
   }
 
-  if (filterOptions.elementTypes && (filterOptions.elementTypes & elementTypesSet[contextParams.elementType]) === 0) {
-    return false
+  if (!filterOptions) {
+    return true
   }
 
   // Domain option check
@@ -638,45 +643,40 @@ function parse (input, parserData, callback, options = {}) {
 }
 
 function matchesFilters (filters, input, contextParams) {
-  const currentHost = getUrlHost(input)
+  var currentHost = getUrlHost(input)
 
-  // contextParams.strictType let's us enforce matching if we want to filter by
-  // an specific elementType (ie. 'popup')
-  if (contextParams.strictType === undefined) {
-    contextParams.strictType = false
-  }
+  var i, len, filter
 
   // check if the string matches a left anchored filter
-  const leftAnchoredMatches = filters.leftAnchored.getStartingSubstringsOf(input)
+
+  var leftAnchoredMatches = filters.leftAnchored.getStartingSubstringsOf(input)
   if (leftAnchoredMatches.length !== 0) {
-    for (const lMatch of leftAnchoredMatches) {
-      if (!lMatch) {
-        return !contextParams.strictType
-      }
-      if (matchOptions(lMatch, input, contextParams, currentHost)) {
+    var len = leftAnchoredMatches.length
+    for (i = 0; i < len; i++) {
+      if (matchOptions(leftAnchoredMatches[i], input, contextParams, currentHost)) {
         return true
       }
     }
   }
 
   // check if the string matches a right anchored filter
-  const rightAnchoredMatches = filters.rightAnchored.getEndingSubstringsOfReversed(input)
+
+  var rightAnchoredMatches = filters.rightAnchored.getEndingSubstringsOfReversed(input)
   if (rightAnchoredMatches.length !== 0) {
-    for (const rMatch of rightAnchoredMatches) {
-      if (!rMatch) {
-        return !contextParams.strictType
-      }
-      if (matchOptions(rMatch, input, contextParams, currentHost)) {
+    var len = rightAnchoredMatches.length
+    for (i = 0; i < len; i++) {
+      if (matchOptions(rightAnchoredMatches[i], input, contextParams, currentHost)) {
         return true
       }
     }
   }
 
   // check if the string matches a filter with both anchors
-  for (const bothAnchored of filters.bothAnchored) {
-    if (bothAnchored && bothAnchored.data === input &&
-      matchOptions(bothAnchored, input, contextParams, currentHost)
-    ) {
+
+  for (i = 0, len = filters.bothAnchored.length; i < len; i++) {
+    if (filters.bothAnchored[i].data === input && matchOptions(filters.bothAnchored[i].options, input, contextParams, currentHost)) {
+      // console.log(filter, 3)
+
       return true
     }
   }
@@ -695,33 +695,36 @@ function matchesFilters (filters, input, contextParams) {
 
   if (hostFiltersToCheck) {
     // check if the string matches a domain name anchored filter
-    for (const hostFilter of hostFiltersToCheck) {
-      if (
-        isSameOriginHost(hostFilter.host, currentHost) &&
-        indexOfFilter(input, hostFilter.data) !== -1 &&
-        matchOptions(hostFilter.options, input, contextParams, currentHost)
-      ) {
+
+    for (i = 0, len = hostFiltersToCheck.length; i < len; i++) {
+      filter = hostFiltersToCheck[i]
+
+      if (isSameOriginHost(filter.host, currentHost) && indexOfFilter(input, filter.data) !== -1 && matchOptions(filter.options, input, contextParams, currentHost)) {
+        // console.log(filter, 4)
+
         return true
       }
     }
   }
 
   // check if the string matches a string filter
+
   var nonAnchoredStringMatches = filters.nonAnchoredString.getSubstringsOf(input)
 
   if (nonAnchoredStringMatches.length !== 0) {
-    for (const stringMatches of nonAnchoredStringMatches) {
+    var len = nonAnchoredStringMatches.length
+
+    for (var i = 0; i < len; i++) {
+      filter = nonAnchoredStringMatches[i]
       let matches
-      if (stringMatches.wildcardMatchParts) {
-        matches = matchWildcard(input, stringMatches)
+      if (filter.wildcardMatchParts) {
+        matches = matchWildcard(input, filter)
       } else {
-        matches = indexOfFilter(input, stringMatches.data, 0) !== -1
+        matches = indexOfFilter(input, filter.data, 0) !== -1
       }
-      if (matches) {
-        if (contextParams && stringMatches.options) {
-          return matchOptions(stringMatches.options, input, contextParams, currentHost)
-        }
-        return !contextParams.strictType
+      if (matches && matchOptions(nonAnchoredStringMatches[i].options, input, contextParams, currentHost)) {
+        // console.log(nonAnchoredStringMatches[i], 5)
+        return true
       }
     }
   }
