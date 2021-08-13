@@ -275,6 +275,7 @@
     "email": "رایانامه", 
     "password": "گذرواژه",
     "secretKey": "کلید امنیتی",
-    "openExternalApp": null //missing translation
+    "openExternalApp": null, //missing translation
+    "clickToCopy": null //missing translation
   }
 }

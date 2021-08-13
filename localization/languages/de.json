@@ -281,6 +281,7 @@
     "email": "E-Mail",
     "password": "Passwort",
     "secretKey": "Geheimschlüssel",
-    "openExternalApp": "Öffnen in \\\"%s\\\"?" // %s is the name of an app
+    "openExternalApp": "Öffnen in \\\"%s\\\"?", // %s is the name of an app
+    "clickToCopy": null //missing translation
   }
 }

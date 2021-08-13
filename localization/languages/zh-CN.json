@@ -281,6 +281,7 @@
     "email": "邮箱",
     "password": "密码",
     "secretKey": "密钥",
-    "openExternalApp": null //missing translation
+    "openExternalApp": null, //missing translation
+    "clickToCopy": null //missing translation
   }
 }

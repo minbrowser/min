@@ -281,6 +281,7 @@
     "email": "Adresse mail",
     "password": "Mot de passe",
     "secretKey": "Clé privée",
-    "openExternalApp": null //missing translation
+    "openExternalApp": null, //missing translation
+    "clickToCopy": null //missing translation
   }
 }

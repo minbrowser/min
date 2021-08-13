@@ -281,6 +281,7 @@
     "email": "E-Posta",
     "password": "Parola",
     "secretKey": "Gizli anahtar",
-    "openExternalApp": null //missing translation
+    "openExternalApp": null, //missing translation
+    "clickToCopy": null //missing translation
   }
 }
