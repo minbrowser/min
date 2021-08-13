@@ -76,6 +76,7 @@
   border: none;
   border-radius: 50%;
   outline: none;
+  overflow: hidden;
   cursor: pointer;
   opacity: 0;
   background: transparent;

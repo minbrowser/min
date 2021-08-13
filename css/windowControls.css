@@ -1,7 +1,7 @@
 body {
   --control-space-top: 0px;
-  --control-space-left: 0px;
-  --control-space-right: 0px;
+  --control-space-left: 0.3em;
+  --control-space-right: 0.3em;
 }
 /* window drag regions */
 
@@ -42,6 +42,11 @@ body.mac:not(.separate-titlebar) .window-drag-area {
 
 body.mac:not(.fullscreen):not(.separate-titlebar) {
   --control-space-left: 75px;
+}
+
+body.rtl.mac:not(.fullscreen):not(.separate-titlebar) {
+  --control-space-left: 0px;
+  --control-space-right: 75px;
 }
 
 /* Windows caption buttions */
