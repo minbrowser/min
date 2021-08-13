@@ -30,8 +30,8 @@ function doMath (text, input, event) {
   } catch (e) { return }
 
   searchbarPlugins.addResult('calculatorPlugin', {
-    title: '∑',
-    secondaryText: ` = ${result.toString()}`
+    icon: 'carbon:calculator',
+    title: `${result.toString()}`
   })
 
   const container = searchbarPlugins.getContainer('calculatorPlugin')
@@ -40,8 +40,7 @@ function doMath (text, input, event) {
     const item = container.childNodes[0]
     item.setAttribute('title', l('clickToCopy'))
     item.addEventListener('click', (e) => {
-      const text = e.target.innerText
-      clipboard.writeText(text.slice(text.indexOf('=') + 2))
+      clipboard.writeText(e.target.innerText)
     })
   }
 }
@@ -50,7 +49,7 @@ function initialize () {
   searchbarPlugins.register('calculatorPlugin', {
     index: 1,
     trigger: function (text) {
-      if (text.length <= 2) {
+      if (text.length < 3 || /^[\d\s.]+$/.test(text)) {
         return false
       }
 
