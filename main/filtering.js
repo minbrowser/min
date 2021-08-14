@@ -82,35 +82,57 @@ function initFilterList () {
   // discard old data if the list is being re-initialized
   parsedFilterData = {}
 
-  fs.readFile(__dirname + '/ext/filterLists/easylist+easyprivacy-noelementhiding.txt', 'utf8', function (err, data) {
-    if (err) {
-      return
-    }
-
-    // data = data.replace(/.*##.+\n/g, '') // remove element hiding rules
-
-    parser.parse(data, parsedFilterData)
-  })
-
-  fs.readFile(app.getPath('userData') + '/customFilters.txt', 'utf8', function (err, data) {
-    if (!err && data) {
+  fs.readFile(path.join(__dirname, 'ext/filterLists/easylist+easyprivacy-noelementhiding.txt'),
+    'utf8', function (err, data) {
+      if (err) {
+        return
+      }
       parser.parse(data, parsedFilterData)
     }
-  })
+  )
+
+  fs.readFile(path.join(app.getPath('userData'), 'customFilters.txt'),
+    'utf8', function (err, data) {
+      if (!err && data) {
+        parser.parse(data, parsedFilterData)
+      }
+    })
+}
+
+function removeWWW (domain) {
+  return domain.replace(/^www\./i, '')
 }
 
 function requestIsThirdParty (baseDomain, requestURL) {
-  baseDomain = baseDomain.replace(/^www\./g, '')
-  var requestDomain = parser.getUrlHost(requestURL).replace(/^www\./g, '')
+  baseDomain = removeWWW(baseDomain)
+  var requestDomain = removeWWW(parser.getUrlHost(requestURL))
 
   return !(parser.isSameOriginHost(baseDomain, requestDomain) || parser.isSameOriginHost(requestDomain, baseDomain))
 }
 
 function requestDomainIsException (domain) {
-  if (domain.startsWith('www.')) {
-    domain = domain.replace('www.', '')
+  return enabledFilteringOptions.exceptionDomains.includes(removeWWW(domain))
+}
+
+function filterPopups (url) {
+  if (!/^https?:\/\//i.test(url)) {
+    return true
   }
-  return enabledFilteringOptions.exceptionDomains.includes(domain)
+
+  const domain = parser.getUrlHost(url)
+  if (enabledFilteringOptions.blockingLevel > 0 && !requestDomainIsException(domain)) {
+    if (
+      enabledFilteringOptions.blockingLevel === 2 ||
+      (enabledFilteringOptions.blockingLevel === 1 && requestIsThirdParty(domain, url))
+    ) {
+      if (parser.matches(parsedFilterData, url, { domain: domain, elementType: 'popup' })) {
+        unsavedBlockedRequests++
+        return false
+      }
+    }
+  }
+
+  return true
 }
 
 function removeTrackingParams (url) {
@@ -213,7 +235,7 @@ function setFilteringSettings (settings) {
 
   enabledFilteringOptions.contentTypes = settings.contentTypes
   enabledFilteringOptions.blockingLevel = settings.blockingLevel
-  enabledFilteringOptions.exceptionDomains = settings.exceptionDomains.map(d => d.replace(/^www\./g, ''))
+  enabledFilteringOptions.exceptionDomains = settings.exceptionDomains.map(d => removeWWW(d))
 }
 
 function registerFiltering (ses) {
