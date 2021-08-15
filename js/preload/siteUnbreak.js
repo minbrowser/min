@@ -96,6 +96,29 @@ if (window.location.hostname === 'calendar.google.com') {
   `)
 }
 
+/* Gmail - required for loading standard version (otherwise redirects to basic HTML) */
+
+if (window.location.hostname === 'mail.google.com') {
+  const chromiumVersion = process.versions.chrome.split('.')[0]
+  scriptsToRun.push(`
+    (function() {
+      const simulatedUAData = {
+        brands: [
+          {brand: "Chromium", version: "${chromiumVersion}"},
+          {brand: "Not A;Brand", version: "99"}
+        ],
+        mobile: false,
+        getHighEntropyValues: function() {
+          console.warn('getHighEntropyValues is unimplemented', arguments)
+          return null
+        }
+      }
+
+      Object.defineProperty(navigator, 'userAgentData', {get: () => simulatedUAData})
+    })()
+  `)
+}
+
 if (scriptsToRun.length > 0) {
   setTimeout(function () {
     electron.webFrame.executeJavaScript(scriptsToRun.join(';'))

@@ -26,6 +26,11 @@ function enableGoogleUASwitcher (ses) {
         details.requestHeaders['User-Agent'] = newUserAgent + ' Edg/' + process.versions.chrome
       }
     }
+
+    const chromiumVersion = process.versions.chrome.split('.')[0]
+    details.requestHeaders['SEC-CH-UA'] = `"Chromium";v="${chromiumVersion}", " Not A;Brand";v="99"`
+    details.requestHeaders['SEC-CH-UA-MOBILE'] = '?0'
+
     callback({ cancel: false, requestHeaders: details.requestHeaders })
   })
 }
