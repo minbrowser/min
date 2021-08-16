@@ -1,32 +1,19 @@
 /*
-  this plugin will provide the ability to perform simple calculations or to
-  convert to different types of units (ie. 12 lbs to kg = 5.44310844 kg)
+  this plugin will provide the ability to perform simple calculations
 */
 
 const { clipboard } = require('electron')
 const searchbarPlugins = require('searchbar/searchbarPlugins.js')
-const { create, all } = require('mathjs')
+const Parser = require('expr-eval').Parser
 
-const math = create(all)
-const mathEval = math.evaluate
-const disabledFunc = () => { }
-const disabledFuncs = {
-  import: disabledFunc,
-  createUnit: disabledFunc,
-  evaluate: disabledFunc,
-  parse: disabledFunc,
-  simplify: disabledFunc,
-  derivative: disabledFunc
-}
-
-math.import(disabledFuncs, { override: true })
+const math = new Parser()
 
 function doMath (text, input, event) {
   searchbarPlugins.reset('calculatorPlugin')
-
   var result
+
   try {
-    result = mathEval(text)
+    result = math.evaluate(text)
   } catch (e) { return }
 
   searchbarPlugins.addResult('calculatorPlugin', {
@@ -53,12 +40,6 @@ function initialize () {
         return false
       }
 
-      // avoid returning disable functions
-      for (const fn of Object.keys(disabledFuncs)) {
-        if (text.indexOf(fn) !== -1) {
-          return false
-        }
-      }
       try { math.parse(text) } catch (e) { return false }
       return true
     },
