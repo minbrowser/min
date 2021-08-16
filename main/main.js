@@ -191,7 +191,8 @@ function createWindowWithBounds (bounds) {
       additionalArguments: [
         '--user-data-path=' + userDataPath,
         '--app-version=' + app.getVersion(),
-        ...((isDevelopmentMode ? ['--development-mode'] : []))
+        '--app-name=' + app.getName(),
+        ...((isDevelopmentMode ? ['--development-mode'] : [])),
       ]
     }
   })

@@ -53,6 +53,7 @@ const statistics = {
         os: process.platform,
         lang: navigator.language,
         appVersion: window.globalArgs['app-version'],
+        appName: window.globalArgs['app-name'],
         isDev: 'development-mode' in window.globalArgs,
         usageData: usageData
       })
@@ -95,6 +96,10 @@ const statistics = {
       const roundingFactor = 60 * 60 * 1000
       settings.set('installTime', Math.floor(Date.now() / roundingFactor) * roundingFactor)
     }
+
+    statistics.registerGetter('contentTypeFilters', function () {
+      return (settings.get('filtering') || {}).contentTypes
+    })
   }
 }
 
