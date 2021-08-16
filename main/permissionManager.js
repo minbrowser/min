@@ -86,7 +86,7 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
     return
   }
 
-  if (permission === 'fullscreen') {
+  if (permission === 'fullscreen' || permission === 'clipboard-sanitized-write') {
     callback(true)
     return
   }
@@ -148,6 +148,10 @@ function pagePermissionCheckHandler (webContents, permission, requestingOrigin, 
   // starting in Electron 13, this will sometimes be called with no URL. TODO figure out why
   if (!details.requestingUrl) {
     return false
+  }
+
+  if (permission === 'clipboard-sanitized-write') {
+    return true
   }
 
   return isPermissionGrantedForContents(webContents, permission, details)
