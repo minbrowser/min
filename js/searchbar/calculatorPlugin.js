@@ -7,21 +7,40 @@ const searchbarPlugins = require('searchbar/searchbarPlugins.js')
 const Parser = require('expr-eval').Parser
 
 const math = new Parser()
+// get all expr-eval tokens (operators, constants, etc.)
+const mathOps = {
+  get all () {
+    var ops = []
+    for (const op of Object.keys(math)) {
+      ops = ops.concat(Object.keys(math[op]))
+    }
+    return ops
+  }
+}
 
 /* avoid processing input that is only numbers and spaces */
-const invalidInputRegex = /^[\d\s.]+$/
+const validRegex = new RegExp(
+  `^([ 0-9()[\\],;.]+|${
+      mathOps.all.join('|')
+        .replace(/([+*[\]/?^$])/g, '\\$1')
+        .replace('||||', '|\\|\\||')
+  })+$`
+)
 
 function doMath (text, input, event) {
   searchbarPlugins.reset('calculatorPlugin')
   var result
 
   try {
-    result = math.evaluate(text)
+    result = math.evaluate(text).toString()
+    if (result.includes('NaN')) {
+      return
+    }
   } catch (e) { return }
 
   searchbarPlugins.addResult('calculatorPlugin', {
     icon: 'carbon:calculator',
-    title: `${result.toString()}`,
+    title: result,
     descriptionBlock: l('clickToCopy')
   })
 
@@ -43,11 +62,19 @@ function initialize () {
   searchbarPlugins.register('calculatorPlugin', {
     index: 1,
     trigger: function (text) {
-      if (text.length < 3 || invalidInputRegex.test(text)) {
+      if (text.length < 3 || (
+        !/__proto__|prototype|constructor/i.test(text) && // dangerous keywords
+        !validRegex.test(text) // valid tokens
+      )) {
         return false
       }
 
-      try { math.parse(text) } catch (e) { return false }
+      try {
+        const expression = math.parse(text)
+        if (expression.tokens.length <= 1) {
+          return false
+        }
+      } catch (e) { return false }
       return true
     },
     showResults: debounce(doMath, 200)
