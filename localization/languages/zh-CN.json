@@ -282,6 +282,7 @@
     "password": "密码",
     "secretKey": "密钥",
     "openExternalApp": null, //missing translation
-    "clickToCopy": null //missing translation
+    "clickToCopy": null, //missing translation
+    "copied": null //missing translation
   }
 }

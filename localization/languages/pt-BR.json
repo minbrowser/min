@@ -282,6 +282,7 @@
     "password": "Senha",
     "secretKey": "Chave secreta",
     "openExternalApp": null, //missing translation
-    "clickToCopy": "Clique para copiar"
+    "clickToCopy": "Clique para copiar",
+    "copied": "Copiado"
   }
 }

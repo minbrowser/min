@@ -279,6 +279,7 @@
     "password": "كلمة المرور",
     "secretKey": "المفتاح السري",
     "openExternalApp": " ؟\\\"%s\\\" إفتح في ",
-    "clickToCopy": null //missing translation
+    "clickToCopy": null, //missing translation
+    "copied": null //missing translation
   }
 }

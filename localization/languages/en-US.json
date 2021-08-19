@@ -282,6 +282,7 @@
     "password": "Password",
     "secretKey": "Secret key",
     "openExternalApp": "Open in \\\"%s\\\"?", // %s is the name of an app
-    "clickToCopy": "Click to copy"
+    "clickToCopy": "Click to copy",
+    "copied": "Copied"
   }
 }

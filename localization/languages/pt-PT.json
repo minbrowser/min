@@ -282,6 +282,7 @@
     "password": "Palavra-passe",
     "secretKey": "Chave secreta",
     "openExternalApp": "Abrir em \\\"%s\\\"?", // %s is the name of an app
-    "clickToCopy": null //missing translation
+    "clickToCopy": null, //missing translation
+    "copied": null //missing translation
   }
 }

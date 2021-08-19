@@ -282,6 +282,7 @@
     "password": "Password",
     "secretKey": "Chiave segreta",
     "openExternalApp": "Apri in \\\"%s\\\"?",
-    "clickToCopy": "Clicca per copiare"
+    "clickToCopy": "Clicca per copiare",
+    "copied": "Copiato"
   }
 }

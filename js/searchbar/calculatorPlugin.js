@@ -8,6 +8,9 @@ const Parser = require('expr-eval').Parser
 
 const math = new Parser()
 
+/* avoid processing input that is only numbers and spaces */
+const invalidInputRegex = /^[\d\s.]+$/
+
 function doMath (text, input, event) {
   searchbarPlugins.reset('calculatorPlugin')
   var result
@@ -18,16 +21,20 @@ function doMath (text, input, event) {
 
   searchbarPlugins.addResult('calculatorPlugin', {
     icon: 'carbon:calculator',
-    title: `${result.toString()}`
+    title: `${result.toString()}`,
+    descriptionBlock: l('clickToCopy')
   })
 
   const container = searchbarPlugins.getContainer('calculatorPlugin')
 
   if (container.childNodes.length === 1) {
     const item = container.childNodes[0]
-    item.setAttribute('title', l('clickToCopy'))
     item.addEventListener('click', (e) => {
-      clipboard.writeText(e.target.innerText)
+      const titleEl = item.querySelector('.title')
+      const descriptionBlockEl = item.querySelector('.description-block')
+
+      clipboard.writeText(titleEl.innerText)
+      descriptionBlockEl.innerText = `${l('copied')}!`
     })
   }
 }
@@ -36,7 +43,7 @@ function initialize () {
   searchbarPlugins.register('calculatorPlugin', {
     index: 1,
     trigger: function (text) {
-      if (text.length < 3 || /^[\d\s.]+$/.test(text)) {
+      if (text.length < 3 || invalidInputRegex.test(text)) {
         return false
       }
 

@@ -274,6 +274,7 @@
     "password": null, //missing translation
     "secretKey": null, //missing translation
     "openExternalApp": null, //missing translation
-    "clickToCopy": null //missing translation
+    "clickToCopy": null, //missing translation
+    "copied": null //missing translation
   }
 }

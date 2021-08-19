@@ -277,6 +277,7 @@
     "password": "گذرواژه",
     "secretKey": "کلید امنیتی",
     "openExternalApp": null, //missing translation
-    "clickToCopy": null //missing translation
+    "clickToCopy": null, //missing translation
+    "copied": null //missing translation
   }
 }

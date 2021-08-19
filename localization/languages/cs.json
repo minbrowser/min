@@ -280,6 +280,7 @@
     "password": "Heslo",
     "secretKey": "Tajný klíč",
     "openExternalApp": null, //missing translation
-    "clickToCopy": null //missing translation
+    "clickToCopy": null, //missing translation
+    "copied": null //missing translation
   }
 }

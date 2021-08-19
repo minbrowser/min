@@ -281,6 +281,7 @@
     "password": "Contraseña",
     "secretKey": "Clave secreta",
     "openExternalApp": "Abrir en \\\"%s\\\"?", // %s is the name of an app
-    "clickToCopy": "Haz clic para copiar"
+    "clickToCopy": "Haz clic para copiar",
+    "copied": "Copiado"
   }
 }
