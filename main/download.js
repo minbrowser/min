@@ -31,12 +31,19 @@ function downloadHandler (event, item, webContents) {
     })
 
     item.on('updated', function (e, state) {
+      var filename = item.getFilename()
+      const savePathFilename = path.basename(item.getSavePath())
+
+      if (filename !== savePathFilename) {
+        filename = savePathFilename
+      }
+
       if (item.getSavePath()) {
         currrentDownloadItems[item.getSavePath()] = item
       }
       sendIPCToWindow(mainWindow, 'download-info', {
         path: item.getSavePath(),
-        name: item.getFilename(),
+        name: filename,
         status: state,
         size: { received: item.getReceivedBytes(), total: item.getTotalBytes() }
       })
