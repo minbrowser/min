@@ -7,6 +7,9 @@ const searchbarPlugins = require('searchbar/searchbarPlugins.js')
 const Parser = require('expr-eval').Parser
 
 const math = new Parser()
+math.consts.pi = Math.PI
+math.consts.e = Math.E
+
 // get all expr-eval tokens (operators, constants, etc.)
 const mathOps = {
   get all () {
@@ -62,7 +65,7 @@ function initialize () {
   searchbarPlugins.register('calculatorPlugin', {
     index: 1,
     trigger: function (text) {
-      if (text.length < 3 || (
+      if (text.length < 3 || text.length > 100 || (
         !/__proto__|prototype|constructor/i.test(text) && // dangerous keywords
         !validRegex.test(text) // valid tokens
       )) {
