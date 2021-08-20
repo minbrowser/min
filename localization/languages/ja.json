@@ -281,6 +281,8 @@
     "email": "Eメール",
     "password": "パスワード",
     "secretKey": "秘密鍵",
-    "openExternalApp": "\\\"%s\\\"で開きますか？"
+    "openExternalApp": "\\\"%s\\\"で開きますか？",
+    "clickToCopy": null, //missing translation
+    "copied": null //missing translation
   }
 }

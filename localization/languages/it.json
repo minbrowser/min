@@ -281,6 +281,8 @@
     "email": "Email",
     "password": "Password",
     "secretKey": "Chiave segreta",
-    "openExternalApp": "Apri in \\\"%s\\\"?"
+    "openExternalApp": "Apri in \\\"%s\\\"?",
+    "clickToCopy": "Clicca per copiare",
+    "copied": "Copiato"
   }
 }

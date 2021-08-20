@@ -280,6 +280,8 @@
     "email": "Direccion de correo",
     "password": "Contraseña",
     "secretKey": "Clave secreta",
-    "openExternalApp": "Abrir en \\\"%s\\\"?" // %s is the name of an app
+    "openExternalApp": "Abrir en \\\"%s\\\"?", // %s is the name of an app
+    "clickToCopy": "Haz clic para copiar",
+    "copied": "Copiado"
   }
 }

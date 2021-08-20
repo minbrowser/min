@@ -281,6 +281,8 @@
     "email": "Email",
     "password": "密碼",
     "secretKey": "Secret key",
-    "openExternalApp": "以「%s」開啟?"
+    "openExternalApp": "以「%s」開啟?",
+    "clickToCopy": null, //missing translation
+    "copied": null //missing translation
   }
 }

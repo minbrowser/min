@@ -168,6 +168,7 @@ require('searchbar/bookmarkManager.js').initialize()
 require('searchbar/historyViewer.js').initialize()
 require('searchbar/developmentModeNotification.js').initialize()
 require('searchbar/shortcutButtons.js').initialize()
+require('searchbar/calculatorPlugin.js').initialize()
 
 // once everything's loaded, start the session
 require('sessionRestore.js').restore()

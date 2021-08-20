@@ -281,6 +281,8 @@
     "email": "전자우편주소(E-Mail)",
     "password": "비밀번호",
     "secretKey": "비밀 보안 키",
-    "openExternalApp": "\\\"%s\\\"에서 열까요?"
+    "openExternalApp": "\\\"%s\\\"에서 열까요?",
+    "clickToCopy": null, //missing translation
+    "copied": null //missing translation
   }
 }

@@ -18,9 +18,9 @@
     "searchWith": "%s بحث مع", //%s will be replaced with the name of the current search engine
     "copyLink": "نسخ الرابط",
     "copyEmailAddress": "نسخ عنوان البريد الإلكتروني",
-    "undo": "تراجع", 
-    "redo": "إعادة", 
-    "cut": "قص", 
+    "undo": "تراجع",
+    "redo": "إعادة",
+    "cut": "قص",
     "copy": "نسخ", //this is a verb (as in "copy the currently-selected text")
     "paste": "لصق",
     "goBack": "الرجوع الى الوراء",
@@ -35,25 +35,25 @@
     /* custom !bangs
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
-    "showMoreBangs": "عرض المزيد من الإختصارات", 
+    "showMoreBangs": "عرض المزيد من الإختصارات",
     "viewSettings": "عرض الاعدادات",
     "takeScreenshot": "خذ لقطة شاشة",
     "clearHistory": "مسح السجل",
     "enableBlocking": "تفعيل منع المحتوى لهذا الموقع",
-    "disableBlocking": "إلغاء منع المحتوى لهذا الموقع", 
+    "disableBlocking": "إلغاء منع المحتوى لهذا الموقع",
     "clearHistoryConfirmation": "إمسح كل السجل و بيانات التصفح",
     "switchToTask": "تحويل الى مهام",
     "createTask": "انشاء مهمة",
-    "closeTask": "غلق مهمة ", 
+    "closeTask": "غلق مهمة ",
     "moveToTask": "نقل التبويب الى المهام",
-    "nameTask": "سمّ المهمة", 
-    "addBookmark": "أضف إشارة", 
+    "nameTask": "سمّ المهمة",
+    "addBookmark": "أضف إشارة",
     "searchBookmarks": "البحث عن الإشارات",
     "bookmarksAddTag": "أضف علامة",
-    "bookmarksSimilarItems": "عناصرة مشابهة", 
+    "bookmarksSimilarItems": "عناصرة مشابهة",
     "searchHistory": "البحث في السجل",
-    "importBookmarks": "إسترد إشارات", 
-    "exportBookmarks": "صدّر إشارات", 
+    "importBookmarks": "إسترد إشارات",
+    "exportBookmarks": "صدّر إشارات",
     "runUserscript": "شغّل سكريبت من طرف المستخدم",
     /* navbar */
     "openMenu": "فتح القائمة", //application menu button on windows
@@ -71,8 +71,8 @@
     "taskDeleteWarning": {
       "unsafeHTML": "<a>تراجع؟</a> .تم حذف المهمة"
     },
-    "returnToTask": "عد إلى المهمة السابقة", 
-    "taskDescriptionTwo": "%t و %t", 
+    "returnToTask": "عد إلى المهمة السابقة",
+    "taskDescriptionTwo": "%t و %t",
     "taskDescriptionThree": "أخرى %n و %t ,%t",
     /* find in page toolbar */
     "searchInPage": "ابحث في الصفحة", //this is used as the placeholder text for the textbox in the find in page toolbar
@@ -81,14 +81,14 @@
     /* Focus mode */
     "isFocusMode": "أنت في وضع التركيز.",
     "closeDialog": "تم", //used as a label for the button that closes the dialog
-    "focusModeExplanation1": "في وضع التركيز لا يمكنك فتح تبويب جديد أو تغيير المهمة ", 
+    "focusModeExplanation1": "في وضع التركيز لا يمكنك فتح تبويب جديد أو تغيير المهمة ",
     "focusModeExplanation2": "يمكنك مغادرة وضع التركيز عن طريق الضغط على  وضع التركيز في قائمة المشاهدة",
     /* relative dates */
     "timeRangeJustNow": "الآن",
     "timeRangeMinutes": "قبل عدة دقائق",
     "timeRangeHour": "قبل عدة ساعات",
     "timeRangeToday": "اليوم",
-    "timeRangeYesterday": "الأمس", 
+    "timeRangeYesterday": "الأمس",
     "timeRangeWeek": "في الاسبوع الماضي",
     "timeRangeMonth": "في الشهر الماضي",
     "timeRangeYear": "في السنة الماضية",
@@ -138,28 +138,28 @@
       "unsafeHTML": "قام المتصفح بحظر <strong></strong> إعلان و متعقب"
     },
     "settingsCustomBangs": "إختصارات bangs",
-    "settingsCustomBangsAdd": "أضف إختصار", 
-    "settingsCustomBangsPhrase": "جملة (ضرورية)", 
+    "settingsCustomBangsAdd": "أضف إختصار",
+    "settingsCustomBangsPhrase": "جملة (ضرورية)",
     "settingsCustomBangsSnippet": "وصف (إختياري)",
-    "settingsCustomBangsRedirect": "الرابط (ضروري)", 
-    "settingsCustomizeFiltersLink": "تعديل المرشحات", 
+    "settingsCustomBangsRedirect": "الرابط (ضروري)",
+    "settingsCustomizeFiltersLink": "تعديل المرشحات",
     "settingsAppearanceHeading": "تفضيلات",
-    "settingsEnableDarkMode": "تفعيل الوضع الداكن", 
-    "settingsDarkModeNever": "لا", 
-    "settingsDarkModeNight": "في الليل", 
-    "settingsDarkModeAlways": "دائما", 
-    "settingsSiteThemeToggle": "تفعيل سمة الموقع", 
+    "settingsEnableDarkMode": "تفعيل الوضع الداكن",
+    "settingsDarkModeNever": "لا",
+    "settingsDarkModeNight": "في الليل",
+    "settingsDarkModeAlways": "دائما",
+    "settingsSiteThemeToggle": "تفعيل سمة الموقع",
     "settingsShowDividerToggle": "عرض الفاصل بين علامات التبويب",
     "settingsAdditionalFeaturesHeading": "مميزات اضافية",
     "settingsUserscriptsToggle": "تمكين سكريبت المستخدم",
-    "settingsSeparateTitlebarToggle": "إستعمل شريط عنوان منفصل", 
-    "settingsAutoplayToggle": "تفعيل التشغيل التلقائي", 
-    "settingsOpenTabsInForegroundToggle": "الإنتقال إلى  التبويب الجديد عند فتحه", 
+    "settingsSeparateTitlebarToggle": "إستعمل شريط عنوان منفصل",
+    "settingsAutoplayToggle": "تفعيل التشغيل التلقائي",
+    "settingsOpenTabsInForegroundToggle": "الإنتقال إلى  التبويب الجديد عند فتحه",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "يمكن سكريبت المستخدم من  تغير سلوك المواقع - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">معرفة المزيد</a>."
     },
-    "settingsUserAgentToggle": "خاص user-agent إستخدم", 
-    "settingsUpdateNotificationsToggle": "إبحث تلقائيا عن التحديثات", 
+    "settingsUserAgentToggle": "خاص user-agent إستخدم",
+    "settingsUpdateNotificationsToggle": "إبحث تلقائيا عن التحديثات",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML":"إرسال إحصائيات المستخدم - <a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">معرفة المزيد</a>"
     },
@@ -169,11 +169,11 @@
     "customSearchEngineDescription": "%s غير كلمة البحث ب",
     "settingsKeyboardShortcutsHeading": "اختصار لوحة مفاتيح",
     "settingsKeyboardShortcutsHelp": "اسعمل الفاصلة للفصل بين الاختصارات",
-    "settingsProxyHeading": "وسيط", 
-    "settingsNoProxy": "غير مستعمل", 
-    "settingsManualProxy": "إعداد الوسيط يدويا", 
-    "settingsAutomaticProxy": "تعرف تلقائيا على إعدادات الوسيط", 
-    "settingsProxyRules": "إعدادات الوسيط", 
+    "settingsProxyHeading": "وسيط",
+    "settingsNoProxy": "غير مستعمل",
+    "settingsManualProxy": "إعداد الوسيط يدويا",
+    "settingsAutomaticProxy": "تعرف تلقائيا على إعدادات الوسيط",
+    "settingsProxyRules": "إعدادات الوسيط",
     "settingsProxyBypassRules": "لا وسيط ل",
     "settingsProxyConfigurationURL": "رابط الوسيط",
     /* app menu */
@@ -227,24 +227,24 @@
     },
     /* Context Reader */
     "buttonReaderSettings": "إعدادات القارئ",
-    "buttonReaderLightTheme": "فاتح", 
-    "buttonReaderSepiaTheme": "بني داكن", 
-    "buttonReaderDarkTheme": "داكن", 
+    "buttonReaderLightTheme": "فاتح",
+    "buttonReaderSepiaTheme": "بني داكن",
+    "buttonReaderDarkTheme": "داكن",
     "openReaderView": "دائما إفتح  في وضع القارئ",
-    "autoRedirectBannerReader": "دائما إفتح مقالات هذا الموقع في وضع القارئ", 
+    "autoRedirectBannerReader": "دائما إفتح مقالات هذا الموقع في وضع القارئ",
     "buttonReaderRedirectYes": "نعم",
-    "buttonReaderRedirectNo": "لا", 
-    "articleReaderView": "المقال الأصلي", 
+    "buttonReaderRedirectNo": "لا",
+    "articleReaderView": "المقال الأصلي",
     /* Download manager */
     "downloadCancel": "الغاء",
     "downloadStateCompleted": "تم بنجاح",
     "downloadStateFailed": "فشل",
     /* Update Notifications */
-    "updateNotificationTitle": "نسخة جديدة من المتصفح متوفرة", 
+    "updateNotificationTitle": "نسخة جديدة من المتصفح متوفرة",
     /* Autofill settings */
     "settingsPasswordAutoFillHeadline": "ملء تلقائي لكلمة المرور",
-    "settingsSelectPasswordManager": "إختر واحد من مسيري كلمات المرور", 
-    "keychainViewPasswords": "عرض كلمات المرور المحفوظة", 
+    "settingsSelectPasswordManager": "إختر واحد من مسيري كلمات المرور",
+    "keychainViewPasswords": "عرض كلمات المرور المحفوظة",
     /* Password manager setup */
     "passwordManagerSetupHeading": null, //missing translation
     "passwordManagerSetupStep1": null, //missing translation
@@ -260,24 +260,26 @@
     "passwordManagerSetupRetry": null, //missing translation
     "passwordManagerUnlock": null, //missing translation
     /* Password save bar */
-    "passwordCaptureSavePassword": "؟%s حقظ كلمة المرور ل", 
+    "passwordCaptureSavePassword": "؟%s حقظ كلمة المرور ل",
     "passwordCaptureSave": " حفظ",
-    "passwordCaptureDontSave": "لا تحفظ", 
-    "passwordCaptureNeverSave": "لا تحفظ أبدا ", 
+    "passwordCaptureDontSave": "لا تحفظ",
+    "passwordCaptureNeverSave": "لا تحفظ أبدا ",
     /* Password viewer */
-    "savedPasswordsHeading": "كلمات المرور المحفوظة", 
+    "savedPasswordsHeading": "كلمات المرور المحفوظة",
     "savedPasswordsEmpty": "لا توجد كلمات مرور محفوظة",
     "savedPasswordsNeverSavedLabel": "لم يتم حفطها",
-    "deletePassword": "؟%s حذف كلمة المرور ل", 
-    
+    "deletePassword": "؟%s حذف كلمة المرور ل",
+
     /* Dialogs */
     "loginPromptTitle": "(%r) %h تسجيل الدخول إلى",
-    "dialogConfirmButton": "موافقة", 
+    "dialogConfirmButton": "موافقة",
     "dialogSkipButton": "إلغاء",
-    "username": "إسم المستخدم", 
-    "email": "البريد الإلكتروني", 
-    "password": "كلمة المرور", 
-    "secretKey": "المفتاح السري", 
-    "openExternalApp": " ؟\\\"%s\\\" إفتح في "
+    "username": "إسم المستخدم",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "secretKey": "المفتاح السري",
+    "openExternalApp": " ؟\\\"%s\\\" إفتح في ",
+    "clickToCopy": null, //missing translation
+    "copied": null //missing translation
   }
 }
