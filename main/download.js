@@ -22,6 +22,8 @@ function downloadHandler (event, item, webContents) {
       tabId: getViewIDFromWebContents(webContents)
     })
   } else {
+    var savePathFilename
+
     // send info to download manager
     sendIPCToWindow(mainWindow, 'download-info', {
       path: item.getSavePath(),
@@ -31,19 +33,17 @@ function downloadHandler (event, item, webContents) {
     })
 
     item.on('updated', function (e, state) {
-      var filename = item.getFilename()
-      const savePathFilename = path.basename(item.getSavePath())
-
-      if (filename !== savePathFilename) {
-        filename = savePathFilename
+      if (!savePathFilename) {
+        savePathFilename = path.basename(item.getSavePath())
       }
 
       if (item.getSavePath()) {
         currrentDownloadItems[item.getSavePath()] = item
       }
+
       sendIPCToWindow(mainWindow, 'download-info', {
         path: item.getSavePath(),
-        name: filename,
+        name: savePathFilename,
         status: state,
         size: { received: item.getReceivedBytes(), total: item.getTotalBytes() }
       })
@@ -53,7 +53,7 @@ function downloadHandler (event, item, webContents) {
       delete currrentDownloadItems[item.getSavePath()]
       sendIPCToWindow(mainWindow, 'download-info', {
         path: item.getSavePath(),
-        name: item.getFilename(),
+        name: savePathFilename,
         status: state,
         size: { received: item.getTotalBytes(), total: item.getTotalBytes() }
       })
