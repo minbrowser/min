@@ -282,7 +282,7 @@
     "password": "Hasło",
     "secretKey": "Sekretny klucz",
     "openExternalApp": "Otworzyć w \\\"%s\\\"?",
-    "clickToCopy": null, //missing translation
-    "copied": null //missing translation
+    "clickToCopy": "Kliknij, aby skopiować",
+    "copied": "Skopiowane"
   }
 }
