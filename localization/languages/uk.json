@@ -283,7 +283,7 @@
     "password": "Пароль",
     "secretKey": "Секретний ключ",
     "openExternalApp": "Відкрити в \\\"%s\\\"?",
-    "clickToCopy": null, //missing translation
-    "copied": null //missing translation
+    "clickToCopy": "Натисніть, щоб скопіювати",
+    "copied": "Скопійовано"
   }
 }
