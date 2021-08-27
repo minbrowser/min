@@ -282,7 +282,7 @@
     "password": "Пароль",
     "secretKey": "Секретный ключ",
     "openExternalApp": "Открыть в \\\"%s\\\"?",
-    "clickToCopy": null, //missing translation
-    "copied": null //missing translation
+    "clickToCopy": "Нажмите, чтобы скопировать",
+    "copied": "Скопировано"
   }
 }
