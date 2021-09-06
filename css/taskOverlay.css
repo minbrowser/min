@@ -7,11 +7,14 @@
 }
 
 #switch-task-button {
-  position: absolute;
-  top: var(--control-space-top);
-  right: var(--control-space-right);
   z-index: 4;
   padding: 0.5em;
+}
+
+.task-overlay-is-shown #switch-task-button {
+  position: absolute;
+  top: var(--control-space-top);
+  left: var(--control-space-left);
 }
 
 #switch-task-button.active {
@@ -30,7 +33,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 25%;
   height: 100%;
   background-color: #fff;
   white-space: nowrap;
@@ -47,15 +50,15 @@
 }
 #task-overlay[hidden] {
   display: block !important;
-  transform: scale(1.05);
+  transform: translateX(-10%);
   opacity: 0;
   pointer-events: none;
 }
 .task-container {
-  width: 90%;
+  width: 100%;
   margin: auto;
-  border-left: 5vw solid transparent;
-  border-right: 5vw solid transparent;
+  border-left: 3vw solid transparent;
+  border-right: 3vw solid transparent;
   transition: 0.5s opacity;
 }
 .task-container.collapsed {
