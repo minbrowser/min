@@ -26,7 +26,8 @@ class TabList {
       muted: tab.muted || false,
       loaded: tab.loaded || false,
       hasAudio: false,
-      previewImage: ''
+      previewImage: '',
+      isFileView: false,
     }
 
     if (options.atEnd) {
