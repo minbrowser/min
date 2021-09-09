@@ -192,6 +192,14 @@ webviews.bindIPC('close-window', function (tabId, args) {
   closeTab(tabId)
 })
 
+ipc.on('set-file-view', function (e, data) {
+  tabs.get().forEach(function (tab) {
+    if (tab.url === data.url) {
+      tabs.update(tab.id, { isFileView: data.isFileView })
+    }
+  })
+})
+
 searchbar.events.on('url-selected', function (data) {
   var searchbarQuery = searchEngine.getSearch(urlParser.parse(data.url))
   if (searchbarQuery) {
