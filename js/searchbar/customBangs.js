@@ -209,6 +209,20 @@ function initialize () {
   })
 
   bangsPlugin.registerCustomBang({
+    phrase: '!destroyalltasks',
+    snippet: l('destroyAllTasks'),
+    isAction: false,
+    fn: function () {
+      browserUI.destroyAllTasks();
+      
+      taskOverlay.show()
+      setTimeout(function () {
+          taskOverlay.hide()
+        }, 600)
+      }
+  })
+
+  bangsPlugin.registerCustomBang({
     phrase: '!nametask',
     snippet: l('nameTask'),
     isAction: false,

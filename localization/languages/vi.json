@@ -67,6 +67,7 @@
     /* task overlay */
     "viewTasks": "Xem quá trình",
     "newTask": "Tao quá trình", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "destroyAllTasks":null, // "clear" is a verb - it is used on the button that clears all tasks at the bottom of the task overlay
     "defaultTaskName": "Quá trình %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
     /* find in page toolbar */
     "searchInPage": "Tìm kiếm trong trang", //this is used as the placeholder text for the textbox in the find in page toolbar
