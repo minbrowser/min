@@ -267,7 +267,7 @@
     "passwordCaptureSavePassword": "% için parola kaydedilsin mi?",
     "passwordCaptureSave": "Kaydet",
     "passwordCaptureDontSave": "Kaydetme",
-    "passwordCaptureNeverSave": "% için parolaları asla kaydetme", 
+    "passwordCaptureNeverSave": "Asla kaydetme", 
     /* Password viewer */
     "savedPasswordsHeading": "Kayıtlı Parolalar",
     "savedPasswordsEmpty": "Kaydedilmiş parola yok.",
