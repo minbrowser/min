@@ -179,6 +179,7 @@
     "settingsHistoryEraseNow": "Clear browsing history now",
     "settingsHistoryHeading": "Privacy and history",
     "settingsDeleteHistory": "Are you sure you want to delete all browsing history?",
+    "settingsDeleteHistoryOnClose": "Erase browsing history when closing the browser",
     /* app menu */
     "appMenuFile": "File",
     "appMenuNewTab": "New Tab",
