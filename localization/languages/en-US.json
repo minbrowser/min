@@ -176,6 +176,9 @@
     "settingsProxyRules": "Proxy rules:",
     "settingsProxyBypassRules": "No proxy for:",
     "settingsProxyConfigurationURL": "Configuration URL",
+    "settingsHistoryEraseNow": "Clear browsing history now",
+    "settingsHistoryHeading": "Privacy and history",
+    "settingsDeleteHistory": "Are you sure you want to delete all browsing history?",
     /* app menu */
     "appMenuFile": "File",
     "appMenuNewTab": "New Tab",
