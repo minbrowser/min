@@ -7,7 +7,7 @@
         */
     "addToDictionary": "Sözlüğe Ekle",
     "pictureInPicture": "Resim İçinde Resim",
-    "openInNewTab": "Yeni Pencerede Aç",
+    "openInNewTab": "Yeni Sekmede Aç",
     "openInNewPrivateTab": "Yeni Özel Sekmede Aç",
     "saveLinkAs": "Linki Farklı Kaydet",
     "viewImage": "Resmi Göster",
@@ -139,9 +139,9 @@
     },
     "settingsCustomBangs": null, // missing translation
     "settingsCustomBangsAdd": null, // missing translation
-    "settingsCustomBangsPhrase": null, // missing translation
-    "settingsCustomBangsSnippet": null, // missing translation
-    "settingsCustomBangsRedirect": null, // missing translation
+    "settingsCustomBangsPhrase": "Cümle (Gerekli)",
+    "settingsCustomBangsSnippet": "Açıklama (İsteğe Bağlı)",
+    "settingsCustomBangsRedirect": "Yönlendirme URL'si (Gerekli)",
     "settingsCustomizeFiltersLink": "Filtreleri özelleştir",
     "settingsAppearanceHeading": "Görünüm",
     "settingsEnableDarkMode": "Koyu modu etkinleştir:",
@@ -153,7 +153,7 @@
     "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",
     "settingsShowDividerToggle": "Sekmeler arasında ayırıcı göster",
     "settingsSeparateTitlebarToggle": "Ayrılmış başlık çubuğu kullan",
-    "settingsAutoplayToggle": null, //missing translation 
+    "settingsAutoplayToggle": "Otomatik oynatmayı etkinleştir",
     "settingsOpenTabsInForegroundToggle": "Yeni sekmeleri önplanda aç",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."
@@ -267,11 +267,11 @@
     "passwordCaptureSavePassword": "% için parola kaydedilsin mi?",
     "passwordCaptureSave": "Kaydet",
     "passwordCaptureDontSave": "Kaydetme",
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureNeverSave": "Asla kaydetme", 
     /* Password viewer */
     "savedPasswordsHeading": "Kayıtlı Parolalar",
     "savedPasswordsEmpty": "Kaydedilmiş parola yok.",
-    "savedPasswordsNeverSavedLabel": null, //missing translation
+    "savedPasswordsNeverSavedLabel": "Daha önce kaydedilmedi", 
     "deletePassword": "% için parola silinsin mi?",
     /* Dialogs */
     "loginPromptTitle": "Giriş yapın %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
@@ -281,8 +281,7 @@
     "email": "E-Posta",
     "password": "Parola",
     "secretKey": "Gizli anahtar",
-    "openExternalApp": null, //missing translation
-    "clickToCopy": null, //missing translation
-    "copied": null //missing translation
-  }
+    "openExternalApp": "Harici uygulamayı aç", 
+    "clickToCopy": "Tıkla ve kopyala", 
+    "copied": "Kopyalandı" 
 }
