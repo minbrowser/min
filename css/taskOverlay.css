@@ -11,7 +11,6 @@
   top: var(--control-space-top);
   right: var(--control-space-right);
   z-index: 4;
-  padding: 0.5em;
 }
 
 #switch-task-button.active {
@@ -111,10 +110,10 @@ body:not(.touch)
 }
 
 .task-delete-button {
-  margin: auto -0.5em;
+  margin: auto -0.82em;
   border-radius: 50%;
-  height: 2em;
-  width: 2em;
+  height: 2.33em;
+  width: 2.33em;
   transition: 0.1s opacity;
   opacity: 0.75;
   font-size: 1.2em !important;
@@ -124,12 +123,9 @@ body:not(.touch)
   opacity: 0;
 }
 
-.task-action-container button:hover,
 .task-action-container button:focus {
-  opacity: 1;
   background: rgba(0, 0, 0, 0.125);
 }
-.dark-mode .task-action-container button:hover,
 .dark-mode .task-action-container button:focus {
   background: rgba(255, 255, 255, 0.2);
 }
@@ -163,7 +159,7 @@ body:not(.touch)
   border: 0;
   background-color: transparent !important;
   opacity: 0.75;
-  margin: 0.5em 0.75em 0.5em 0.5em;
+  margin: 0.5em;
 }
 .task-name::-webkit-input-placeholder {
   color: inherit;
