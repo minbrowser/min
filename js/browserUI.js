@@ -167,8 +167,10 @@ function switchToTab (id, options) {
   })
 }
 
-webviews.bindEvent('did-create-popup', function (tabId, popupId) {
+webviews.bindEvent('did-create-popup', function (tabId, popupId, initialURL) {
   var popupTab = tabs.add({
+    // in most cases, initialURL will be overwritten once the popup loads, but if the URL is a downloaded file, it will remain the same
+    url: initialURL,
     private: tabs.get(tabId).private
   })
   tabBar.addTab(popupTab)
