@@ -204,12 +204,6 @@ body.linux #menu-button {
   margin-top: -0.5px;
   font-size: 1.4em !important;
 }
-body.windows .navbar-action-button:not(:disabled):hover {
-  background-color: rgba(0, 0, 0, 0.075);
-}
-body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
-  background: rgba(255, 255, 255, 0.075);
-}
 .navbar-action-button.invisible {
   visibility: hidden;
 }
@@ -217,12 +211,11 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
   padding-left: 0.5em;
 }
 .navbar-right-actions {
-  margin-right: 2.3em;
+  margin-right: 2em;
 }
 
 .navbar-right-actions #add-tab-button {
-  padding: 0;
-  width: 36px;
+  padding: 0 0.9rem;
   font-size: 1.6em !important;
 }
 
