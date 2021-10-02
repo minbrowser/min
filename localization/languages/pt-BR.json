@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Tarefa deletada! <a> desfazer?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "Retornar a sua tarefa anterior",
     "taskDescriptionTwo": "%t e %t",
     "taskDescriptionThree": "%t e %t, mais %n",

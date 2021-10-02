@@ -222,7 +222,20 @@ var taskOverlay = {
     var container = document.querySelector('.task-search-input-container')
     var input = document.getElementById('task-search-input')
 
+    input.placeholder = l('tasksSearchTabs') + ' (T)'
+
     container.addEventListener('click', e => { e.stopPropagation(); input.focus() })
+
+    taskOverlay.overlayElement.addEventListener('keyup', function (e) {
+      if (e.key.toLowerCase() === 't' && document.activeElement.tagName !== 'INPUT') {
+        input.focus()
+      }
+    })
+
+    input.addEventListener('blur', function () {
+      input.value = ''
+      taskOverlay.show()
+    })
 
     input.addEventListener('input', function (e) {
       var search = input.value.toLowerCase().trim()

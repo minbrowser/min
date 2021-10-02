@@ -72,6 +72,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": null //missing translation
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": null, //missing translation
     "taskDescriptionTwo": null, //missing translation
     "taskDescriptionThree": null, //missing translation

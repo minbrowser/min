@@ -10,7 +10,7 @@
 }
 
 .task-search-input-container {
-  width: 400px;
+  width: 450px;
   max-width: 60vw;
   position: relative;
   padding: 0.25em 3em;
@@ -24,7 +24,7 @@
   width: 100%;
   border: none;
   background: rgba(0, 0, 0, 0.075);
-  padding: 0.25em 0.25em 0.25em 1.75em;
+  padding: 0.2em 0.25em 0.2em 1.75em;
   border-radius: 4px;
 }
 
@@ -104,7 +104,7 @@
 .task-container.collapsed input {
   cursor: pointer;
 }
-.task-container + .task-container {
+.task-container:not([hidden]) + .task-container {
   padding-top: 0.75em;
 }
 

@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Задачата е изтрита. <a>Върни обратно?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "Връщане към предишната задача",
     "taskDescriptionTwo": "%t и %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
     "taskDescriptionThree": "%t, %t, и още %n", //used to describe a task that has three or more tabs

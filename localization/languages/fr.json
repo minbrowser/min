@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Tâche supprimée. <a>Annuler ?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "Revenir à la tâche précédente",
     "taskDescriptionTwo": "%t et %t",
     "taskDescriptionThree": "%t, %t, et %n",
