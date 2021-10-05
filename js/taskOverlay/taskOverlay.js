@@ -254,9 +254,10 @@ var taskOverlay = {
         task.tabs.forEach(function (tab) {
           var tabContainer = document.querySelector(`.task-tab-item[data-tab="${tab.id}"]`)
 
-          var searchText = (tab.title + ' ' + tab.url).toLowerCase()
+          var searchText = (task.name + ' ' + tab.title + ' ' + tab.url).toLowerCase()
 
-          if (searchText.includes(search)) {
+          const searchMatches = search.split(' ').every(word => searchText.includes(word))
+          if (searchMatches) {
             tabContainer.hidden = false
             tabMatches++
           } else {
