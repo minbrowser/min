@@ -119,6 +119,20 @@ var taskOverlay = {
     this.isShown = true
     taskSwitcherButton.classList.add('active')
 
+    taskOverlay.render()
+
+    // un-hide the overlay
+    this.overlayElement.hidden = false
+
+    // scroll to the selected element and focus it
+    var currentTabElement = document.querySelector('.task-tab-item[data-tab="{id}"]'.replace('{id}', tasks.getSelected().tabs.getSelected()))
+
+    if (currentTabElement) {
+      currentTabElement.classList.add('fakefocus')
+      currentTabElement.focus()
+    }
+  },
+  render: function () {
     this.tabDragula.containers = [addTaskButton]
     empty(taskContainer)
 
@@ -152,18 +166,6 @@ var taskOverlay = {
       taskContainer.appendChild(el)
       taskOverlay.tabDragula.containers.push(el.getElementsByClassName('task-tabs-container')[0])
     })
-
-    // scroll to the selected element and focus it
-
-    var currentTabElement = document.querySelector('.task-tab-item[data-tab="{id}"]'.replace('{id}', tasks.getSelected().tabs.getSelected()))
-
-    // un-hide the overlay
-    this.overlayElement.hidden = false
-
-    if (currentTabElement) {
-      currentTabElement.classList.add('fakefocus')
-      currentTabElement.focus()
-    }
   },
 
   hide: function () {
@@ -234,7 +236,7 @@ var taskOverlay = {
 
     input.addEventListener('blur', function () {
       input.value = ''
-      taskOverlay.show()
+      taskOverlay.render()
     })
 
     input.addEventListener('input', function (e) {
@@ -242,15 +244,17 @@ var taskOverlay = {
 
       if (!search) {
         // reset the overlay
-        taskOverlay.show()
+        taskOverlay.render()
         input.focus()
         return
       }
 
+      var totalTabMatches = 0
+
       tasks.forEach(function (task) {
         var taskContainer = document.querySelector(`.task-container[data-task="${task.id}"]`)
 
-        var tabMatches = 0
+        var taskTabMatches = 0
         task.tabs.forEach(function (tab) {
           var tabContainer = document.querySelector(`.task-tab-item[data-tab="${tab.id}"]`)
 
@@ -259,13 +263,21 @@ var taskOverlay = {
           const searchMatches = search.split(' ').every(word => searchText.includes(word))
           if (searchMatches) {
             tabContainer.hidden = false
-            tabMatches++
+            taskTabMatches++
+            totalTabMatches++
+
+            if (totalTabMatches === 1) {
+              // first match
+              tabContainer.classList.add('fakefocus')
+            } else {
+              tabContainer.classList.remove('fakefocus')
+            }
           } else {
             tabContainer.hidden = true
           }
         })
 
-        if (tabMatches === 0) {
+        if (taskTabMatches === 0) {
           taskContainer.hidden = true
         } else {
           taskContainer.hidden = false
