@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "কার্য মোছা হয়েছে <a>Undo?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "আপনার আগের কাজে ফিরে যান",
     "taskDescriptionTwo": "%t এবং %t",
     "taskDescriptionThree": "%t, %t, and %n আরও",

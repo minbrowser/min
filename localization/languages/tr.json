@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Görev silindi. <a>Geri?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "Önceki göreve geri dön",
     "taskDescriptionTwo": "%t ve %t",
     "taskDescriptionThree": "%t, %t ve %n fazlası",

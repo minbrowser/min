@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "标签组已删除 <a>恢复？</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "返回上一个标签组",
     "taskDescriptionTwo": "%t 和 %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
     "taskDescriptionThree": "%t, %t, 和其他%n个标签", //used to describe a task that has three or more tabs

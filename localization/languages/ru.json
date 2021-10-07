@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Задача удалена. <a>Отменить?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "Вернуться к предыдущей задаче",
     "taskDescriptionTwo": "%t и %t",
     "taskDescriptionThree": "%t, %t, и %n больше",

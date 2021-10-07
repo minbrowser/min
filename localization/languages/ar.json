@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "<a>تراجع؟</a> .تم حذف المهمة"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "عد إلى المهمة السابقة",
     "taskDescriptionTwo": "%t و %t",
     "taskDescriptionThree": "أخرى %n و %t ,%t",

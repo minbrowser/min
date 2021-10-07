@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "工作已刪除 <a>復原</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "還原上次的工作",
     "taskDescriptionTwo": "%t 和 %t",
     "taskDescriptionThree": "%t，%t，和其他%n個分頁",

@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Tarea eliminada. <a>¿Deshacer?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "Volver a su tarea anterior",
     "taskDescriptionTwo": "%t y %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
     "taskDescriptionThree": "%t, %t, y %n más", //used to describe a task that has three or more tabs

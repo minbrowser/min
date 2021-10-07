@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Zadanie usunięte. <a>Cofnąć?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "Wróć do poprzedniego zadania",
     "taskDescriptionTwo": "%t i %t",
     "taskDescriptionThree": "%t, %t i %n więcej",

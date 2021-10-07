@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Dimenze uzavřena. <a>Zpět?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "Vrátit se do předchozí dimenze",
     "taskDescriptionTwo": "%t a %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
     "taskDescriptionThree": "%t, %t, a více (%n)", //used to describe a task that has three or more tabs

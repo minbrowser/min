@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Tarefa eliminada. <a>Desfazer</a>?"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "Retornar à tarefa anterior",
     "taskDescriptionTwo": "%t e %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
     "taskDescriptionThree": "%t, %t e %n mais", //used to describe a task that has three or more tabs

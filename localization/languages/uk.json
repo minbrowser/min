@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Завдання видалено. <a>Скасувати?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "Повернутися до попереднього завдання",
     "taskDescriptionTwo": "%t і %t",
     "taskDescriptionThree": "%t, %t, і ще %n",

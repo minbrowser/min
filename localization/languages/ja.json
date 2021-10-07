@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "タスクは削除されます。 <a>キャンセル?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "前のタスクに戻る",
     "taskDescriptionTwo": "％tと％t",
     "taskDescriptionThree": "％t, ％t, ％n以上",
