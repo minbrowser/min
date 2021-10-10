@@ -152,6 +152,7 @@ require('statistics.js').initialize()
 require('taskOverlay/taskOverlay.js').initialize()
 require('pageTranslations.js').initialize()
 require('sessionRestore.js').initialize()
+require('bookmarkConverter.js').initialize()
 
 // default searchbar plugins
 
