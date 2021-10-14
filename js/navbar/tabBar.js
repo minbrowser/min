@@ -212,6 +212,12 @@ const tabBar = {
     } else {
       tabBar.navBar.classList.remove('show-dividers')
     }
+  },
+  moveTabLeft: function (tabId) {
+    tabs.moveBy(tabId, -1)
+  },
+  moveTabRight: function (tabId) {
+    tabs.moveBy(tabId, 1)
   }
 }
 

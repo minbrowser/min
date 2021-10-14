@@ -74,6 +74,14 @@ const defaultKeybindings = {
       browserUI.closeTab(tabs.getSelected())
     })
 
+    keybindings.defineShortcut('moveTabLeft', function (e) {
+      browserUI.moveTabLeft(tabs.getSelected())
+    })
+
+    keybindings.defineShortcut('moveTabRight', function (e) {
+      browserUI.moveTabRight(tabs.getSelected())
+    })
+
     keybindings.defineShortcut('restoreTab', function (e) {
       if (focusMode.enabled()) {
         focusMode.warn()
