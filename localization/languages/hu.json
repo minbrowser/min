@@ -149,6 +149,7 @@
     "settingsDarkModeNever": null, //"Never" missing translation
     "settingsDarkModeNight": null, //"At night" missing translation
     "settingsDarkModeAlways": null, //"Always" missing translation
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": null, //missing translation
     "settingsAdditionalFeaturesHeading": "További beállítások",
     "settingsUserscriptsToggle": "Felhasználói szkriptek",

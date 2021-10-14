@@ -149,6 +149,7 @@
     "settingsDarkModeNever": "禁用",
     "settingsDarkModeNight": "只在夜晚开启",
     "settingsDarkModeAlways": "一直开启",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "启用网站主题",
     "settingsAdditionalFeaturesHeading": "其他功能",
     "settingsUserscriptsToggle": "允许自定义脚本",

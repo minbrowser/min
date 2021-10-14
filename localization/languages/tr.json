@@ -149,6 +149,7 @@
     "settingsDarkModeNever": "Asla",
     "settingsDarkModeNight": "Geceleyin",
     "settingsDarkModeAlways": "Her zaman",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "Site temasını etkinleştir",
     "settingsAdditionalFeaturesHeading": "Ek Özellikler",
     "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",

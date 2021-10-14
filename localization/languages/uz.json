@@ -148,6 +148,7 @@
     "settingsDarkModeNever": null, //"Never" missing translation
     "settingsDarkModeNight": null, //"At night" missing translation
     "settingsDarkModeAlways": null, //"Always" missing translation
+    "settingsDarkModeSystem": null,
     "settingsDarkModeToggle": "Qorong'u rejimini yoqish",
     "settingsSiteThemeToggle": "Sahifa mavzusini yoqish",
     "settingsAdditionalFeaturesHeading": "Qo'shimcha xususiyatlar",

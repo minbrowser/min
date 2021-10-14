@@ -149,6 +149,7 @@
     "settingsDarkModeNever": "Nunca",
     "settingsDarkModeNight": "De noite",
     "settingsDarkModeAlways": "Sempre",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "Ativar tema do site",
     "settingsAdditionalFeaturesHeading": "Outras funcionalidades",
     "settingsUserscriptsToggle": "Ativar scripts de utilizador",

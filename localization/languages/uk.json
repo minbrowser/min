@@ -150,6 +150,7 @@
     "settingsDarkModeNever": "Ніколи",
     "settingsDarkModeNight": "Вночі",
     "settingsDarkModeAlways": "Завжди",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "Увімкнути тему сайту",
     "settingsAdditionalFeaturesHeading": "Додаткові можливості",
     "settingsUserscriptsToggle": "Увімкнути скрипти користувача",

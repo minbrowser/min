@@ -149,6 +149,7 @@
     "settingsDarkModeNever": "لا",
     "settingsDarkModeNight": "في الليل",
     "settingsDarkModeAlways": "دائما",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "تفعيل سمة الموقع",
     "settingsShowDividerToggle": "عرض الفاصل بين علامات التبويب",
     "settingsAdditionalFeaturesHeading": "مميزات اضافية",
