@@ -394,6 +394,12 @@ ipc.on('quit', function () {
   app.quit()
 })
 
-nativeTheme.on('updated', function () {
-  settings.set('systemShouldUseDarkColors', electron.nativeTheme.shouldUseDarkColors)
+app.on('ready', function() {
+  nativeTheme.on('updated', function () {
+    settings.set('systemShouldUseDarkColors', electron.nativeTheme.shouldUseDarkColors)
+  })
+
+  if (electron.nativeTheme.shouldUseDarkColors !== settings.get('systemShouldUseDarkColors')) {
+    settings.set('systemShouldUseDarkColors', electron.nativeTheme.shouldUseDarkColors)
+  }
 })
