@@ -149,6 +149,7 @@
     "settingsDarkModeNever": "Nikdy",
     "settingsDarkModeNight": "Pouze v noci",
     "settingsDarkModeAlways": "Vždy",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "Povolit motiv webu",
     "settingsAdditionalFeaturesHeading": "Další funkce",
     "settingsUserscriptsToggle": "Povolit uživatelské skripty",

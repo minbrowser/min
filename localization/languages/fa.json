@@ -150,6 +150,7 @@
     "settingsDarkModeNever": "پوسته تاریک خاموش",
     "settingsDarkModeNight": null, //"At night" missing translation
     "settingsDarkModeAlways": "پوسته تاریک برای همیشه",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "تغییر پوسته",
     "settingsAdditionalFeaturesHeading": "امکانات افزوده",
     "settingsUserscriptsToggle": "فعال کردن اسکریپت های کاربر",

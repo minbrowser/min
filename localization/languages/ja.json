@@ -149,6 +149,7 @@
     "settingsDarkModeNever": "決して",
     "settingsDarkModeNight": "夜に",
     "settingsDarkModeAlways": "常に",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "サイトテーマを有効にする",
     "settingsAdditionalFeaturesHeading": "追加機能",
     "settingsUserscriptsToggle": "ユーザースクリプトを有効にする",

@@ -185,12 +185,14 @@ for (var contentType in contentTypes) {
 var darkModeNever = document.getElementById('dark-mode-never')
 var darkModeNight = document.getElementById('dark-mode-night')
 var darkModeAlways = document.getElementById('dark-mode-always')
+var darkModeSystem = document.getElementById('dark-mode-system')
 
 // -1 - off ; 0 - auto ; 1 - on
 settings.get('darkMode', function (value) {
   darkModeNever.checked = (value === -1)
-  darkModeNight.checked = (value === 0 || value === undefined || value === false)
+  darkModeNight.checked = (value === 0)
   darkModeAlways.checked = (value === 1 || value === true)
+  darkModeSystem.checked = (value === 2 || value === undefined || value === false)
 })
 
 darkModeNever.addEventListener('change', function (e) {
@@ -206,6 +208,11 @@ darkModeNight.addEventListener('change', function (e) {
 darkModeAlways.addEventListener('change', function (e) {
   if (this.checked) {
     settings.set('darkMode', 1)
+  }
+})
+darkModeSystem.addEventListener('change', function (e) {
+  if (this.checked) {
+    settings.set('darkMode', 2)
   }
 })
 

@@ -149,6 +149,7 @@
     "settingsDarkModeNever": "Nunca", // googled
     "settingsDarkModeNight": "Por la noche", // googled
     "settingsDarkModeAlways": "Siempre", // googled
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "Habilitar tema del sitio",
     "settingsAdditionalFeaturesHeading": "Características adicionales",
     "settingsUserscriptsToggle": "Habilitar userscripts", //userscript doesn't have a Spanish translation, afaik maybe "script de usuario"

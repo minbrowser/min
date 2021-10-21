@@ -149,6 +149,7 @@
     "settingsDarkModeNever": "কখনই",
     "settingsDarkModeNight": "রাতে",
     "settingsDarkModeAlways": "সর্বদা",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "সাইটের থিম সক্ষম করুন",
     "settingsAdditionalFeaturesHeading": "অতিরিক্ত বৈশিষ্ট্য",
     "settingsUserscriptsToggle": "ব্যবহারকারী স্ক্রিপ্ট সক্রিয় করুন",

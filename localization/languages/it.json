@@ -149,6 +149,7 @@
     "settingsDarkModeNever": "Mai",
     "settingsDarkModeNight": "Di notte",
     "settingsDarkModeAlways": "Sempre",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "Abilita tema adattivo (si adatta al sito)",
     "settingsAdditionalFeaturesHeading": "Funzionalità aggiuntive",
     "settingsUserscriptsToggle": "Abilita script definiti dall'utente",

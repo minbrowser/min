@@ -149,6 +149,7 @@
     "settingsDarkModeNever": "Nunca",
     "settingsDarkModeNight": "À noite",
     "settingsDarkModeAlways": "Sempre",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "Habilitar mudanças de cores na barra de endereços",
     "settingsAdditionalFeaturesHeading": "Recursos adicionais",
     "settingsUserscriptsToggle": "Habilitar scripts do usuário",

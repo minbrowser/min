@@ -149,6 +149,7 @@
     "settingsDarkModeNever": "Nie",
     "settingsDarkModeNight": "In der Nacht",
     "settingsDarkModeAlways": "Immer",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "Seitenabhängiges Aussehen aktivieren",
     "settingsAdditionalFeaturesHeading": "Zusätzliche Funktionen",
     "settingsUserscriptsToggle": "Benutzerdefinierte Skripte aktivieren",

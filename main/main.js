@@ -11,7 +11,8 @@ const {
   ipcMain: ipc,
   Menu, MenuItem,
   crashReporter,
-  dialog
+  dialog,
+  nativeTheme
 } = electron
 
 crashReporter.start({
@@ -391,4 +392,14 @@ ipc.on('showSecondaryMenu', function (event, data) {
 
 ipc.on('quit', function () {
   app.quit()
+})
+
+app.on('ready', function() {
+  nativeTheme.on('updated', function () {
+    settings.set('systemShouldUseDarkColors', electron.nativeTheme.shouldUseDarkColors)
+  })
+
+  if (electron.nativeTheme.shouldUseDarkColors !== settings.get('systemShouldUseDarkColors')) {
+    settings.set('systemShouldUseDarkColors', electron.nativeTheme.shouldUseDarkColors)
+  }
 })
