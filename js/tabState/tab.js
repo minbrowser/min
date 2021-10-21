@@ -146,6 +146,17 @@ class TabList {
     this.parentTaskList.emit('tab-selected', id)
   }
 
+  moveBy (id, offset) {
+    var currentIndex = this.getIndex(id)
+    var newIndex = currentIndex + offset
+    var newIndexTab = this.getAtIndex(newIndex)
+    if (newIndexTab) {
+      var currentTab = this.getAtIndex(currentIndex)
+      this.splice(currentIndex, 1, newIndexTab)
+      this.splice(newIndex, 1, currentTab)
+    }
+  }
+
   count () {
     return this.tabs.length
   }
