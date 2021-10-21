@@ -71,7 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "작업장을 제거했습니다. <a>되돌릴까요?</a>"
     },
-    "tasksSearchTabs": null, //missing translation
+    "tasksSearchTabs": "작업장 검색",
     "returnToTask": "이전 작업장으로 돌아가기",
     "taskDescriptionTwo": "%t 그리고 %t", //used to describe a task that has two tabs, %t is replaced with the tab title
     "taskDescriptionThree": "%t, %t, 그리고 %n개의 작업", //used to describe a task that has three or more tabs
