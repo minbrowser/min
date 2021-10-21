@@ -54,12 +54,12 @@ function addTab (tabId = tabs.add(), options = {}) {
 }
 
 function moveTabLeft (tabId = tabs.getSelected()) {
-  tabBar.moveTabLeft(tabId)
+  tabs.moveBy(tabId, -1)
   tabBar.updateAll()
 }
 
 function moveTabRight (tabId = tabs.getSelected()) {
-  tabBar.moveTabRight(tabId)
+  tabs.moveBy(tabId, 1)
   tabBar.updateAll()
 }
 

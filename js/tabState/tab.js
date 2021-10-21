@@ -146,7 +146,7 @@ class TabList {
     this.parentTaskList.emit('tab-selected', id)
   }
 
-  moveBy(id, offset) {
+  moveBy (id, offset) {
     var currentIndex = this.getIndex(id)
     var newIndex = currentIndex + offset
     var newIndexTab = this.getAtIndex(newIndex)
