@@ -19,6 +19,10 @@ const pageTranslations = {
       code: 'zh'
     },
     {
+      name: 'Dutch',
+      code: 'nl'
+    },
+    {
       name: 'French',
       code: 'fr'
     },
@@ -29,6 +33,10 @@ const pageTranslations = {
     {
       name: 'Hindi',
       code: 'hi'
+    },
+    {
+      name: 'Indonesian',
+      code: 'id'
     },
     {
       name: 'Irish',
@@ -47,6 +55,10 @@ const pageTranslations = {
       code: 'ko'
     },
     {
+      name: 'Polish',
+      code: 'pl'
+    },
+    {
       name: 'Portuguese',
       code: 'pt'
     },
@@ -57,6 +69,18 @@ const pageTranslations = {
     {
       name: 'Spanish',
       code: 'es'
+    },
+    {
+      name: 'Turkish',
+      code: 'tr'
+    },
+    {
+      name: 'Ukranian',
+      code: 'uk'
+    },
+    {
+      name: 'Vietnamese',
+      code: 'vi'
     }
   ],
   getLanguageList: function () {

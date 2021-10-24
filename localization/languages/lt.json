@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": null //missing translation
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": null, //missing translation
     "taskDescriptionTwo": null, //missing translation
     "taskDescriptionThree": null, //missing translation
@@ -148,6 +149,7 @@
     "settingsDarkModeNever": null, //"Never" missing translation
     "settingsDarkModeNight": null, //"At night" missing translation
     "settingsDarkModeAlways": null, //"Always" missing translation
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": null, //missing translation
     "settingsAdditionalFeaturesHeading": "Papildomos ypatybės",
     "settingsUserscriptsToggle": "Įjungti naudotojo scenarijus",

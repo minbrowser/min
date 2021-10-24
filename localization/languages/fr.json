@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Tâche supprimée. <a>Annuler ?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "Revenir à la tâche précédente",
     "taskDescriptionTwo": "%t et %t",
     "taskDescriptionThree": "%t, %t, et %n",
@@ -148,6 +149,7 @@
     "settingsDarkModeNever": "Jamais",
     "settingsDarkModeNight": "La nuit",
     "settingsDarkModeAlways": "Toujours",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "Activer le thème du site",
     "settingsAdditionalFeaturesHeading": "Fonctionnalités supplémentaires",
     "settingsUserscriptsToggle": "Activer les scripts personnalisés",

@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Vazifa o'chirildi. <a>Bekor qilasizmi?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "Oldingi vazifaga qaytish",
     "taskDescriptionTwo": "%t va %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
     "taskDescriptionThree": "%t, %t, va yana %n", //used to describe a task that has three or more tabs
@@ -147,6 +148,7 @@
     "settingsDarkModeNever": null, //"Never" missing translation
     "settingsDarkModeNight": null, //"At night" missing translation
     "settingsDarkModeAlways": null, //"Always" missing translation
+    "settingsDarkModeSystem": null,
     "settingsDarkModeToggle": "Qorong'u rejimini yoqish",
     "settingsSiteThemeToggle": "Sahifa mavzusini yoqish",
     "settingsAdditionalFeaturesHeading": "Qo'shimcha xususiyatlar",

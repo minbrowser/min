@@ -142,6 +142,7 @@
     "settingsDarkModeNever": null, //"Never" missing translation
     "settingsDarkModeNight": null, //"At night" missing translation
     "settingsDarkModeAlways": null, //"Always" missing translation
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "Bật chủ đề trang",
     "settingsAdditionalFeaturesHeading": "Đặc tính hơn",
     "settingsUserscriptsToggle": "Bật mã script người dùng",

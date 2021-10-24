@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Завдання видалено. <a>Скасувати?</a>"
     },
+    "tasksSearchTabs": "Шукати вкладки",
     "returnToTask": "Повернутися до попереднього завдання",
     "taskDescriptionTwo": "%t і %t",
     "taskDescriptionThree": "%t, %t, і ще %n",
@@ -149,6 +150,7 @@
     "settingsDarkModeNever": "Ніколи",
     "settingsDarkModeNight": "Вночі",
     "settingsDarkModeAlways": "Завжди",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "Увімкнути тему сайту",
     "settingsAdditionalFeaturesHeading": "Додаткові можливості",
     "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
@@ -283,7 +285,7 @@
     "password": "Пароль",
     "secretKey": "Секретний ключ",
     "openExternalApp": "Відкрити в \\\"%s\\\"?",
-    "clickToCopy": null, //missing translation
-    "copied": null //missing translation
+    "clickToCopy": "Натисніть, щоб скопіювати",
+    "copied": "Скопійовано"
   }
 }

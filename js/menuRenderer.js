@@ -110,23 +110,20 @@ module.exports = {
         return
       }
 
-      // https://github.com/minbrowser/min/issues/1480
-      // TODO include more extensions here, or come up with a better way of detecting this
-      if (['apng', 'avif', 'gif', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png', 'svg', 'webp', 'bmp', 'ico', 'tiff', 'webm', 'mp4', 'ogg', 'mp3'].some(ext => tabs.get(tabs.getSelected()).url.endsWith('.' + ext))) {
+      if (tabs.get(tabs.getSelected()).isFileView) {
         webviews.callAsync(tabs.getSelected(), 'downloadURL', [tabs.get(tabs.getSelected()).url])
-        return
-      }
+      } else {
+        var savePath = await ipc.invoke('showSaveDialog', {
+          defaultPath: currentTab.title.replace(/[/\\]/g, '_')
+        })
 
-      var savePath = await ipc.invoke('showSaveDialog', {
-        defaultPath: currentTab.title.replace(/[/\\]/g, '_')
-      })
-
-      // savePath will be undefined if the save dialog is canceled
-      if (savePath) {
-        if (!savePath.endsWith('.html')) {
-          savePath = savePath + '.html'
+        // savePath will be undefined if the save dialog is canceled
+        if (savePath) {
+          if (!savePath.endsWith('.html')) {
+            savePath = savePath + '.html'
+          }
+          webviews.callAsync(tabs.getSelected(), 'savePage', [savePath, 'HTMLComplete'])
         }
-        webviews.callAsync(tabs.getSelected(), 'savePage', [savePath, 'HTMLComplete'])
       }
     })
 

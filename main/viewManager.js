@@ -80,7 +80,7 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
     mainWindow.webContents.send('view-event', {
       viewId: id,
       event: 'did-create-popup',
-      args: [popupId]
+      args: [popupId, url]
     })
   })
 

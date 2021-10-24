@@ -4,6 +4,45 @@
   background-color: inherit;
   z-index: 1;
   border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-search-input-container {
+  width: 450px;
+  max-width: 60vw;
+  position: relative;
+  padding: 0.25em 3em;
+}
+.task-search-input-container i {
+  position: absolute;
+  top: 0.55em;
+  left: 3.33em;
+}
+.task-search-input-container input {
+  width: 100%;
+  border: none;
+  background: rgba(0, 0, 0, 0.075);
+  padding: 0.2em 0.25em 0.2em 1.75em;
+  border-radius: 4px;
+}
+
+.dark-mode .task-search-input-container input {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media all and (max-width: 600px) {
+  .task-search-input-container {
+    max-width: 350px;
+    margin-left: var(--control-space-left);
+    margin-right: calc(var(--control-space-right) + 40px);
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  .task-search-input-container i {
+    left: 1.33em;
+  }
 }
 
 #switch-task-button {
@@ -65,7 +104,7 @@
 .task-container.collapsed input {
   cursor: pointer;
 }
-.task-container + .task-container {
+.task-container:not([hidden]) + .task-container {
   padding-top: 0.75em;
 }
 

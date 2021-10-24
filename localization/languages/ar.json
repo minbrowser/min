@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "<a>تراجع؟</a> .تم حذف المهمة"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "عد إلى المهمة السابقة",
     "taskDescriptionTwo": "%t و %t",
     "taskDescriptionThree": "أخرى %n و %t ,%t",
@@ -148,6 +149,7 @@
     "settingsDarkModeNever": "لا",
     "settingsDarkModeNight": "في الليل",
     "settingsDarkModeAlways": "دائما",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "تفعيل سمة الموقع",
     "settingsShowDividerToggle": "عرض الفاصل بين علامات التبويب",
     "settingsAdditionalFeaturesHeading": "مميزات اضافية",

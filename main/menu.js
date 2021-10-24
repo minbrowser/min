@@ -130,7 +130,7 @@ function buildAppMenu (options = {}) {
             },
             {
               label: l('appMenuHideOthers'),
-              accelerator: 'CmdOrCtrl+Shift+H',
+              accelerator: 'CmdOrCtrl+Alt+H',
               role: 'hideothers'
             },
             {

@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "작업장을 제거했습니다. <a>되돌릴까요?</a>"
     },
+    "tasksSearchTabs": "작업장 검색",
     "returnToTask": "이전 작업장으로 돌아가기",
     "taskDescriptionTwo": "%t 그리고 %t", //used to describe a task that has two tabs, %t is replaced with the tab title
     "taskDescriptionThree": "%t, %t, 그리고 %n개의 작업", //used to describe a task that has three or more tabs
@@ -148,6 +149,7 @@
     "settingsDarkModeNever": "사용하지 않음",
     "settingsDarkModeNight": "밤에만 사용",
     "settingsDarkModeAlways": "항상 사용",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "누리집 색상 주제 사용",
     "settingsAdditionalFeaturesHeading": "추가 기능",
     "settingsUserscriptsToggle": "사용자 명령(스크립트) 사용",
@@ -282,7 +284,7 @@
     "password": "비밀번호",
     "secretKey": "비밀 보안 키",
     "openExternalApp": "\\\"%s\\\"에서 열까요?",
-    "clickToCopy": null, //missing translation
-    "copied": null //missing translation
+    "clickToCopy": "클릭하여 복사",
+    "copied": "복사됨"
   }
 }

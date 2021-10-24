@@ -22,13 +22,25 @@ function buildLocalization () {
     const data = fs.readFileSync(path.join(languageFileDir, file), 'utf-8')
 
     let obj
+    let decommented = null
+
     try {
-      obj = JSON.parse(decomment(data))
+      decommented = decomment(data)
+      obj = JSON.parse(decommented)
     } catch (e) {
       console.error('parsing language file "' + file + '" failed.')
       console.error(e.toString())
-      const loc = parseInt(/at position (\d+)/g.exec(e)[1])
-      console.info('"' + decomment(data).substring(loc - 40, loc + 40) + '"')
+
+      if (decommented !== null) {
+        const msg = e.message
+        const match = msg.match(/at position (\d+)/)
+
+        if (match !== null) {
+          const loc = parseInt(match[1])
+          console.info('"' + decommented.substring(loc - 40, loc + 40) + '"')
+        }
+      }
+
       process.exit()
     }
 
