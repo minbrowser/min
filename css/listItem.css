@@ -152,7 +152,7 @@ body.dark-mode.touch .searchbar-item .action-button {
   white-space: nowrap;
   text-overflow: ellipsis;
   max-height: 2em;
-  line-height: 1.2em;
+  line-height: 1em;
 }
 
 .searchbar-item .image {
