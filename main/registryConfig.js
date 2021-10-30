@@ -11,8 +11,12 @@ var keysToCreate = [
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities\\StartMenu',
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities\\URLAssociations',
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\DefaultIcon',
-  'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\InstallInfo',
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\shell\\open\\command'
+]
+
+var keysToDelete = [
+  'HKCR\\Min',
+  'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min'
 ]
 
 var registryConfig = {
@@ -112,12 +116,6 @@ var registryConfig = {
       type: 'REG_DEFAULT'
     }
   },
-  'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\InstallInfo': {
-    IconsVisible: {
-      value: 1,
-      type: 'REG_DWORD'
-    }
-  },
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\shell\\open\\command': {
     default: {
       value: installPath,
@@ -142,7 +140,7 @@ var registryInstaller = {
   },
   uninstall: function () {
     return new Promise(function (resolve, reject) {
-      regedit.deleteKey(keysToCreate, function (err) {
+      regedit.deleteKey(keysToDelete, function (err) {
         if (err) {
           reject()
         } else {
