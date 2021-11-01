@@ -145,11 +145,11 @@
     "settingsCustomBangsRedirect": "URL-Weiterleitung (zwingend)",
     "settingsCustomizeFiltersLink": "Filter anpassen",
     "settingsAppearanceHeading": "Aussehen",
-    "settingsEnableDarkMode": "Dunkelmodus einschalten:",
+    "settingsEnableDarkMode": "Nachtmodus einschalten:",
     "settingsDarkModeNever": "Nie",
     "settingsDarkModeNight": "In der Nacht",
     "settingsDarkModeAlways": "Immer",
-    "settingsDarkModeSystem": null,
+    "settingsDarkModeSystem": "Nutze System-Farben",
     "settingsSiteThemeToggle": "Seitenabhängiges Aussehen aktivieren",
     "settingsAdditionalFeaturesHeading": "Zusätzliche Funktionen",
     "settingsUserscriptsToggle": "Benutzerdefinierte Skripte aktivieren",
@@ -160,14 +160,14 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Benutzerdefinierte Skripte erlauben es das Verhalten von Webseiten zu modifizieren - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\"> mehr dazu.</a>."
     },
-    "settingsUserAgentToggle": "Benutzerdefiniertes Benutzer-Agent nutzen",
+    "settingsUserAgentToggle": "Benutzerdefinierten Benutzer-Agent nutzen",
     "settingsUpdateNotificationsToggle": "Automatisch nach Aktualisierungen überprüfen",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Sende anonyme Nutzungsstatistiken (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Mehr Infos</a>)"
     },
     "settingsSearchEngineHeading": "Suchmaschine",
     "settingsDefaultSearchEngine": "Standardsuchmaschine auswählen:",
-    "settingsDDGExplanation": "DuckDuckGo als Standardsuchmaschine einstellen, um sofort Vorschläge in der Suchleiste zu erhalten.",
+    "settingsDDGExplanation": "DuckDuckGo als Standardsuchmaschine einstellen, um Vorschläge sofort in der Suchleiste zu erhalten.",
     "customSearchEngineDescription": "Ersetze den Suchbegriff mit %s",
     "settingsKeyboardShortcutsHeading": "Tastaturkürzel",
     "settingsKeyboardShortcutsHelp": "Nutze Kommata um mehrere Kürzel zu setzen.",
@@ -232,8 +232,8 @@
     "buttonReaderLightTheme": "Hell",
     "buttonReaderSepiaTheme": "Sepia",
     "buttonReaderDarkTheme": "Dunkel",
-    "openReaderView": "Immer in Leseransicht öffnen",
-    "autoRedirectBannerReader": "Artikel von dieser Seite immer in Leseransicht öffnen?",
+    "openReaderView": "Immer in Leseansicht öffnen",
+    "autoRedirectBannerReader": "Artikel von dieser Seite immer in Leseansicht öffnen?",
     "buttonReaderRedirectYes": "Ja",
     "buttonReaderRedirectNo": "Nein",
     "articleReaderView": "Ursprünglicher Artikel",
@@ -244,8 +244,8 @@
     /* Update Notifications */
     "updateNotificationTitle": "Eine neue Version von Min ist verfügbar",
     /* Autofill settings */
-    "settingsPasswordAutoFillHeadline": "Passwort Automatisch Ausfüllen",
-    "settingsSelectPasswordManager": "Wähle eines der unterstützten Passwortmanager:",
+    "settingsPasswordAutoFillHeadline": "Passwörter automatisch Ausfüllen",
+    "settingsSelectPasswordManager": "Wähle einen der unterstützten Passwortmanager:",
     "keychainViewPasswords": "Gespeicherte Zugangsdaten anzeigen",
     /* Password manager setup */
     "passwordManagerSetupHeading": "Beende die Konfiguration von %p um die automatische Ausfüll Funktion zu nutzen",
@@ -260,11 +260,11 @@
     "passwordManagerSetupStep2": "Ziehe danach das Programm in die untere Box:",
     "passwordManagerSetupDragBox": "Ziehe das Programm hierher",
     "passwordManagerSetupInstalling": "Installiere...",
-    "passwordManagerSetupSignIn": "Melde dich in dein Passwortmanager ein um die automatische Ausfüll Funktion zu nutzen. Deine Zugangsdaten werden nirgendwo in Min gepspeichert.",
+    "passwordManagerSetupSignIn": "Melde dich in deinem Passwortmanager an, um die automatische Ausfüll Funktion zu nutzen. Deine Zugangsdaten werden nirgendwo in Min gespeichert.",
     "disableAutofill": "Automatische Ausfüll Funktion deaktivieren",
     "passwordManagerSetupUnlockError": "Beim Entsperren des Passwortmanagers ist ein Fehler aufgetreten:",
     "passwordManagerSetupRetry": "Stelle sicher, dass die richtige Datei genutzt und das richtige Passwort eingegeben wurde. Ziehe das Programm wieder hierher, um es noch mal zu versuchen.",
-    "passwordManagerUnlock": "Gebe dein %p Hauptkennwort ein, um dein Passwortmanager zu entsperren:",
+    "passwordManagerUnlock": "Gib dein %p Masterpasswort ein, um deinen Passwortmanager zu entsperren:",
     /* Password save bar */
     "passwordCaptureSavePassword": "Zugangsdaten für %s speichern?",
     "passwordCaptureSave": "Speichern",
@@ -284,7 +284,7 @@
     "password": "Passwort",
     "secretKey": "Geheimschlüssel",
     "openExternalApp": "Öffnen in \\\"%s\\\"?", // %s is the name of an app
-    "clickToCopy": null, //missing translation
-    "copied": null //missing translation
+    "clickToCopy": "Klicke zum kopieren",
+    "copied": "Kopiert"
   }
 }
