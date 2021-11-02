@@ -37,12 +37,14 @@ ipc.handle('showFocusModeDialog2', function () {
   })
 })
 
-ipc.handle('showOpenDialog', function (e, options) {
-  return dialog.showOpenDialogSync(mainWindow, options)
+ipc.handle('showOpenDialog', async function (e, options) {
+  const result = await dialog.showOpenDialog(mainWindow, options)
+  return result.filePaths
 })
 
-ipc.handle('showSaveDialog', function (e, options) {
-  return dialog.showSaveDialogSync(mainWindow, options)
+ipc.handle('showSaveDialog', async function (e, options) {
+  const result = await dialog.showSaveDialog(mainWindow, options)
+  return result.filePath
 })
 
 ipc.handle('addWordToSpellCheckerDictionary', function (e, word) {
