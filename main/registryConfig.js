@@ -13,60 +13,84 @@ var keysToCreate = [
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\shell\\open\\command'
 ]
 
-var registryConfig = {
+var valuesToPut = {
   'HKLM\\SOFTWARE\\RegisteredApplications': {
-    Min: {
+    'Min': {
       value: 'SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities',
       type: 'REG_SZ'
     }
   },
   'HKCR\\Min': {
-    default: {
+    'default': {
       value: 'Min Browser Document',
       type: 'REG_DEFAULT'
     }
   },
   'HKCR\\Min\\Application': {
-    ApplicationIcon: {
+    'ApplicationDescription': {
+      value: 'Access the Internet',
+      type: 'REG_SZ'
+    },
+    'ApplicationIcon': {
       value: `${installPath},0`,
       type: 'REG_SZ'
     },
-    ApplicationName: {
+    'ApplicationName': {
       value: 'Min',
       type: 'REG_SZ'
     },
-    AppUserModelId: {
+    'AppUserModelId': {
       value: 'Min',
       type: 'REG_SZ'
     }
   },
   'HKCR\\Min\\DefaultIcon': {
-    ApplicationIcon: {
+    'default': {
       value: `${installPath},0`,
-      type: 'REG_SZ'
+      type: 'REG_DEFAULT'
     }
   },
   'HKCR\\Min\\shell\\open\\command': {
-    default: {
-      value: `${installPath} --single-argument %1`,
+    'default': {
+      value: `"${installPath}" --single-argument %1`,
       type: 'REG_DEFAULT'
     }
   },
   'HKCR\\.htm\\OpenWithProgIds': {
-    Min: {
+    'Min': {
       value: '',
       type: 'REG_SZ'
     }
   },
   'HKCR\\.html\\OpenWithProgIds': {
-    Min: {
+    'Min': {
       value: '',
       type: 'REG_SZ'
     }
   },
   'HKCR\\.pdf\\OpenWithProgIds': {
-    Min: {
+    'Min': {
       value: '',
+      type: 'REG_SZ'
+    }
+  },
+  'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min': {
+    'default': {
+      value: 'Min',
+      type: 'REG_DEFAULT'
+    }
+  },
+  'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities': {
+    'ApplicationDescription': {
+      value: 'A fast, minimal browser that protects your privacy',
+      type: 'REG_SZ'
+    },
+    'ApplicationIcon': {
+      value: `${installPath},0`,
+      type: 'REG_SZ'
+    },
+    'ApplicationName': {
+      value: 'Min',
       type: 'REG_SZ'
     }
   },
@@ -85,34 +109,30 @@ var registryConfig = {
     }
   },
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities\\StartMenu': {
-    StartMenuInternet: {
+    'StartMenuInternet': {
       value: 'Min',
       type: 'REG_SZ'
     }
   },
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities\\URLAssociations': {
-    http: {
+    'http': {
       value: 'Min',
       type: 'REG_SZ'
     },
-    https: {
-      value: 'Min',
-      type: 'REG_SZ'
-    },
-    urn: {
+    'https': {
       value: 'Min',
       type: 'REG_SZ'
     }
   },
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\DefaultIcon': {
-    default: {
+    'default': {
       value: `${installPath},0`,
       type: 'REG_DEFAULT'
     }
   },
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\shell\\open\\command': {
-    default: {
-      value: installPath,
+    'default': {
+      value: `"${installPath}"`,
       type: 'REG_DEFAULT'
     }
   }
@@ -147,7 +167,7 @@ var registryInstaller = {
   install: function () {
     return new Promise(function (resolve, reject) {
       regedit.createKey(keysToCreate, function (err) {
-        regedit.putValue(registryConfig, function (err) {
+        regedit.putValue(valuesToPut, function (err) {
           if (err) {
             reject()
           } else {
