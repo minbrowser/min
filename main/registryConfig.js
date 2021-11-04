@@ -3,20 +3,14 @@ var regedit = require('regedit')
 var installPath = process.execPath
 
 var keysToCreate = [
-  'HKCR\\Min',
   'HKCR\\Min\\Application',
-  'HKCR\\Min\\DefaulIcon',
+  'HKCR\\Min\\DefaultIcon',
   'HKCR\\Min\\shell\\open\\command',
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities\\FileAssociations',
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities\\StartMenu',
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities\\URLAssociations',
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\DefaultIcon',
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\shell\\open\\command'
-]
-
-var keysToDelete = [
-  'HKCR\\Min',
-  'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min'
 ]
 
 var registryConfig = {
@@ -34,7 +28,7 @@ var registryConfig = {
   },
   'HKCR\\Min\\Application': {
     ApplicationIcon: {
-      value: installPath + ',0',
+      value: `${installPath},0`,
       type: 'REG_SZ'
     },
     ApplicationName: {
@@ -46,33 +40,33 @@ var registryConfig = {
       type: 'REG_SZ'
     }
   },
-  'HKCR\\Min\\DefaulIcon': {
+  'HKCR\\Min\\DefaultIcon': {
     ApplicationIcon: {
-      value: installPath + ',0',
+      value: `${installPath},0`,
       type: 'REG_SZ'
     }
   },
   'HKCR\\Min\\shell\\open\\command': {
     default: {
-      value: '"' + installPath + '" "%1"',
+      value: `${installPath} --single-argument %1`,
       type: 'REG_DEFAULT'
     }
   },
   'HKCR\\.htm\\OpenWithProgIds': {
     Min: {
-      value: 'Empty',
+      value: '',
       type: 'REG_SZ'
     }
   },
   'HKCR\\.html\\OpenWithProgIds': {
     Min: {
-      value: 'Empty',
+      value: '',
       type: 'REG_SZ'
     }
   },
   'HKCR\\.pdf\\OpenWithProgIds': {
     Min: {
-      value: 'Empty',
+      value: '',
       type: 'REG_SZ'
     }
   },
@@ -112,7 +106,7 @@ var registryConfig = {
   },
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\DefaultIcon': {
     default: {
-      value: installPath + ',0',
+      value: `${installPath},0`,
       type: 'REG_DEFAULT'
     }
   },
@@ -123,6 +117,31 @@ var registryConfig = {
     }
   }
 }
+
+var keysToDelete = [
+  'HKCR\\Min',
+  'HKCR\\Min\\Application',
+  'HKCR\\Min\\DefaultIcon',
+  'HKCR\\Min\\shell',
+  'HKCR\\Min\\shell\\open',
+  'HKCR\\Min\\shell\\open\\command',
+  'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min',
+  'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities',
+  'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities\\FileAssociations',
+  'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities\\StartMenu',
+  'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities\\URLAssociations',
+  'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\DefaultIcon',
+  'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\shell',
+  'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\shell\\open',
+  'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\shell\\open\\command'
+]
+
+var valuesToDelete = [
+  'HKLM\\SOFTWARE\\RegisteredApplications\\Min',
+  'HKCR\\.htm\\OpenWithProgIds\\Min',
+  'HKCR\\.html\\OpenWithProgIds\\Min',
+  'HKCR\\.pdf\\OpenWithProgIds\\Min'
+]
 
 var registryInstaller = {
   install: function () {
@@ -141,11 +160,13 @@ var registryInstaller = {
   uninstall: function () {
     return new Promise(function (resolve, reject) {
       regedit.deleteKey(keysToDelete, function (err) {
-        if (err) {
-          reject()
-        } else {
-          resolve()
-        }
+        regedit.deleteValue(valuesToDelete, function (err) {
+          if (err) {
+            reject()
+          } else {
+            resolve()
+          }
+        })
       })
     })
   }
