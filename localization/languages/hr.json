@@ -272,7 +272,7 @@
     "passwordCaptureNeverSave": "Nikad ne spremaj",
     /* Password viewer */
     "savedPasswordsHeading": "Spremljene lozinke",
-    "savedPasswordsEmpty": "No saved passwords.",
+    "savedPasswordsEmpty": "Nema spremljenih lozinki.",
     "savedPasswordsNeverSavedLabel": "Nikad spremljeno",
     "deletePassword": "Izbriši lozinku za %s?",
     /* Dialogs */
