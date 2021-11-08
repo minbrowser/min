@@ -99,16 +99,16 @@
     "crashErrorSubtitle": "Došlo je do problema prilikom prikazivanja ove stranice.",
     "errorPagePrimaryAction": "Pokušajte ponovo",
     "serverNotFoundTitle": "Poslužitelj nije pronađen",
-    "serverNotFoundSubtitle": "Brela nisu mogla pronaći ovo web mjesto.",
+    "serverNotFoundSubtitle": "Min nije mogao pronaći ovo web mjesto.",
     "archiveSearchAction": "Pretražite na archive.org",
     "sslErrorTitle": "Ova web stranica nije dostupna",
-    "sslErrorMessage": "Brela se nisu mogla sigurno povezati s ovom web stranicom.",
+    "sslErrorMessage": "Min se nije mogao sigurno povezati s ovom web stranicom.",
     "dnsErrorTitle": "Web stranica nije pronađena",
     "dnsErrorMessage": "Dogodila se DNS pogreška.",
     "offlineErrorTitle": "Niste na mreži",
     "offlineErrorMessage": "Ponovno se povežite s internetom i pokušajte ponovo.",
-    "genericConnectionFail": "Brela se nisu mogla povezati s web stranicom.",
-    "sslTimeErrorMessage": "Brela se nije mogla sigurno povezati s ovom web stranicom. Molimo provjerite je li sat vašeg računala pravilno postavljen.",
+    "genericConnectionFail": "Min se nije mogao povezati s web stranicom.",
+    "sslTimeErrorMessage": "Min se nije mogao sigurno povezati s ovom web stranicom. Molimo provjerite je li sat vašeg računala pravilno postavljen.",
     "addressInvalidTitle": "Ova adresa nije valjana.",
     "genericError": "Dogodila se pogreška",
     /* pages/phishing/index.html */
@@ -117,7 +117,7 @@
     "phishingErrorVisitAnyway": "Posjetite stranicu u svakom slučaju",
     "phishingErrorLeave": "Napusti ovu stranicu",
     /* multiple instances alert */
-    "multipleInstancesErrorMessage": "Dogodila se pogreška. Zatvorite sve otvorene instance i ponovo pokrenite Brela.",
+    "multipleInstancesErrorMessage": "Dogodila se pogreška. Zatvorite sve otvorene instance i ponovo pokrenite Min.",
     /* pages/sessionRestoreError/index.html */
     "sessionRestoreErrorTitle": "Dogodila se pogreška",
     "sessionRestoreErrorExplanation": "Spremljene kartice nisu se mogle ispravno vratiti.",
@@ -136,7 +136,7 @@
     "settingsBlockScriptsToggle": "Blokiraj skripte",
     "settingsBlockImagesToggle": "Blokiraj slike",
     "settingsBlockedRequestCount": {
-      "unsafeHTML": "Do sada su Brela blokirala <strong></strong> oglasa i praćenja."
+      "unsafeHTML": "Do sada je Min blokirao <strong></strong> oglasa i praćenja."
     },
     "settingsCustomBangs": "Prilagođeni bangovi",
     "settingsCustomBangsAdd": "Dodajte prilagođeni bang",
@@ -242,7 +242,7 @@
     "downloadStateCompleted": "Dovršeno",
     "downloadStateFailed": "Neuspješno",
     /* Update Notifications */
-    "updateNotificationTitle": "Dostupna je nova verzija Brela",
+    "updateNotificationTitle": "Dostupna je nova verzija Min_a",
     /* Autofill settings */
     "settingsPasswordAutoFillHeadline": "Automatsko popunjavanje lozinke",
     "settingsSelectPasswordManager": "Odaberite jednog od podržanih upravitelja lozinki:",
@@ -260,7 +260,7 @@
     "passwordManagerSetupStep2": "Zatim povucite alat u donji okvir:",
     "passwordManagerSetupDragBox": "Povucite alat ovdje",
     "passwordManagerSetupInstalling": "Instaliranje...",
-    "passwordManagerSetupSignIn": "Prijavite se na upravitelj lozinki da biste počeli koristiti automatsko popunjavanje. Vjerodajnice se neće pohraniti nigdje u Brela.",
+    "passwordManagerSetupSignIn": "Prijavite se na upravitelj lozinki da biste počeli koristiti automatsko popunjavanje. Vjerodajnice se neće pohraniti nigdje u Min.",
     "disableAutofill": "Onemogući automatsko popunjavanje",
     "passwordManagerSetupUnlockError": "Otključavanje spremišta lozinki nije uspjelo: ",
     "passwordManagerSetupRetry": "Obavezno koristite ispravnu datoteku i unesite ispravnu lozinku. Možete pokušati ponovnim povlačenjem alata ovdje.",
