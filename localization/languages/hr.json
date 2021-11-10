@@ -71,7 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Zadatak izbrisan. <a>Poništi?</a>"
     },
-    "tasksSearchTabs": "Search tabs",
+    "tasksSearchTabs": "Pretraži kartice",
     "returnToTask": "Vratite se na svoj prethodni zadatak",
     "taskDescriptionTwo": "%t i %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
     "taskDescriptionThree": "%t, %t, i %n više", //used to describe a task that has three or more tabs
