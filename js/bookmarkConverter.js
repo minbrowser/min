@@ -3,6 +3,9 @@
 var places = require('places/places.js')
 var urlParser = require('util/urlParser.js')
 var { db } = require('util/database.js')
+var settings = require('util/settings/settings.js')
+var path = require('path')
+var fs = require('fs')
 
 const bookmarkConverter = {
   import: function (data) {
@@ -81,6 +84,33 @@ const bookmarkConverter = {
       })
         .catch(reject)
     })
+  },
+  initialize: function () {
+    // how often to create a new backup file
+    const interval = (3 * 24 * 60 * 60 * 1000)
+    // min size in bytes for a backup
+    // This is necessary because after the database is destroyed, the browser will launch with no bookmarks
+    // and the bookmarks backup shouldn't be overwritten in that case
+    const minSize = 512
+
+    const checkAndExport = function () {
+      if (!settings.get('lastBookmarksBackup') || (Date.now() - settings.get('lastBookmarksBackup')) > interval) {
+        bookmarkConverter.exportAll().then(function (res) {
+          if (res.length > minSize) {
+            fs.writeFile(path.join(window.globalArgs['user-data-path'], 'bookmarksBackup.html'), res, { encoding: 'utf-8' }, function (err) {
+              if (err) {
+                console.warn(err)
+              }
+            })
+            settings.set('lastBookmarksBackup', Date.now())
+          }
+        })
+          .catch(e => console.warn('error generating bookmarks backup', e))
+      }
+    }
+
+    setTimeout(checkAndExport, 10000)
+    setInterval(checkAndExport, interval / 3)
   }
 }
 

@@ -37,12 +37,14 @@ ipc.handle('showFocusModeDialog2', function () {
   })
 })
 
-ipc.handle('showOpenDialog', function (e, options) {
-  return dialog.showOpenDialogSync(mainWindow, options)
+ipc.handle('showOpenDialog', async function (e, options) {
+  const result = await dialog.showOpenDialog(mainWindow, options)
+  return result.filePaths
 })
 
-ipc.handle('showSaveDialog', function (e, options) {
-  return dialog.showSaveDialogSync(mainWindow, options)
+ipc.handle('showSaveDialog', async function (e, options) {
+  const result = await dialog.showSaveDialog(mainWindow, options)
+  return result.filePath
 })
 
 ipc.handle('addWordToSpellCheckerDictionary', function (e, word) {
@@ -54,10 +56,31 @@ ipc.handle('downloadURL', function (e, url) {
 })
 
 ipc.handle('clearStorageData', function () {
-  /* It's important not to delete data from file:// here, since that would also remove internal browser data (such as bookmarks) */
-  return session.fromPartition('persist:webcontent').clearStorageData({ origin: 'http://' })
+  return session.fromPartition('persist:webcontent').clearStorageData()
+  /* It's important not to delete data from file:// from the default partition, since that would also remove internal browser data (such as bookmarks). However, HTTP data does need to be cleared, as there can be leftover data from loading external resources in the browser UI */
     .then(function () {
-      session.fromPartition('persist:webcontent').clearStorageData({ origin: 'https://' })
+      return session.defaultSession.clearStorageData({ origin: 'http://' })
+    })
+    .then(function () {
+      return session.defaultSession.clearStorageData({ origin: 'https://' })
+    })
+    .then(function () {
+      return session.fromPartition('persist:webcontent').clearCache()
+    })
+    .then(function () {
+      return session.fromPartition('persist:webcontent').clearHostResolverCache()
+    })
+    .then(function () {
+      return session.fromPartition('persist:webcontent').clearAuthCache()
+    })
+    .then(function () {
+      return session.defaultSession.clearCache()
+    })
+    .then(function () {
+      return session.defaultSession.clearHostResolverCache()
+    })
+    .then(function () {
+      return session.defaultSession.clearAuthCache()
     })
 })
 

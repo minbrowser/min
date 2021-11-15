@@ -154,7 +154,7 @@
     "settingsAdditionalFeaturesHeading": "Дополнительные возможности",
     "settingsUserscriptsToggle": "Пользовательские скрипты",
     "settingsShowDividerToggle": "Показывать разделитель между вкладками",
-    "settingsSeparateTitlebarToggle": "Использовать разделитель заголовка",
+    "settingsSeparateTitlebarToggle": "Использовать системный заголовок окна",
     "settingsAutoplayToggle": "Включить автоматическое воспроизведение",
     "settingsOpenTabsInForegroundToggle": "Открывать новые вкладки на переднем плане",
     "settingsUserscriptsExplanation": {
