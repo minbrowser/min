@@ -77,7 +77,8 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
         metadata: result.tags,
         delete: function () {
           places.deleteHistory(result.url)
-        }
+        },
+        icon: 'carbon:wikis'
       }
 
       if (searchQuery) {

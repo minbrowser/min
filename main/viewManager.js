@@ -68,6 +68,10 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
   view.webContents.removeAllListeners('-add-new-contents')
 
   view.webContents.on('-add-new-contents', function (e, webContents, disposition, _userGesture, _left, _top, _width, _height, url, frameName, referrer, rawFeatures, postData) {
+    if (!filterPopups(url)) {
+      return
+    }
+
     var view = new BrowserView({ webPreferences: defaultViewWebPreferences, webContents: webContents })
 
     var popupId = Math.random().toString()
@@ -76,7 +80,7 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
     mainWindow.webContents.send('view-event', {
       viewId: id,
       event: 'did-create-popup',
-      args: [popupId]
+      args: [popupId, url]
     })
   })
 

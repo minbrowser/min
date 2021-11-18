@@ -114,9 +114,25 @@ var taskOverlay = {
 
     tabEditor.hide()
 
+    document.getElementById('task-search-input').value = ''
+
     this.isShown = true
     taskSwitcherButton.classList.add('active')
 
+    taskOverlay.render()
+
+    // un-hide the overlay
+    this.overlayElement.hidden = false
+
+    // scroll to the selected element and focus it
+    var currentTabElement = document.querySelector('.task-tab-item[data-tab="{id}"]'.replace('{id}', tasks.getSelected().tabs.getSelected()))
+
+    if (currentTabElement) {
+      currentTabElement.classList.add('fakefocus')
+      currentTabElement.focus()
+    }
+  },
+  render: function () {
     this.tabDragula.containers = [addTaskButton]
     empty(taskContainer)
 
@@ -150,18 +166,6 @@ var taskOverlay = {
       taskContainer.appendChild(el)
       taskOverlay.tabDragula.containers.push(el.getElementsByClassName('task-tabs-container')[0])
     })
-
-    // scroll to the selected element and focus it
-
-    var currentTabElement = document.querySelector('.task-tab-item[data-tab="{id}"]'.replace('{id}', tasks.getSelected().tabs.getSelected()))
-
-    // un-hide the overlay
-    this.overlayElement.hidden = false
-
-    if (currentTabElement) {
-      currentTabElement.classList.add('fakefocus')
-      currentTabElement.focus()
-    }
   },
 
   hide: function () {
@@ -216,7 +220,84 @@ var taskOverlay = {
     }
   },
 
+  initializeSearch: function () {
+    var container = document.querySelector('.task-search-input-container')
+    var input = document.getElementById('task-search-input')
+
+    input.placeholder = l('tasksSearchTabs') + ' (T)'
+
+    container.addEventListener('click', e => { e.stopPropagation(); input.focus() })
+
+    taskOverlay.overlayElement.addEventListener('keyup', function (e) {
+      if (e.key.toLowerCase() === 't' && document.activeElement.tagName !== 'INPUT') {
+        input.focus()
+      }
+    })
+
+    input.addEventListener('blur', function () {
+      input.value = ''
+      taskOverlay.render()
+    })
+
+    input.addEventListener('input', function (e) {
+      var search = input.value.toLowerCase().trim()
+
+      if (!search) {
+        // reset the overlay
+        taskOverlay.render()
+        input.focus()
+        return
+      }
+
+      var totalTabMatches = 0
+
+      tasks.forEach(function (task) {
+        var taskContainer = document.querySelector(`.task-container[data-task="${task.id}"]`)
+
+        var taskTabMatches = 0
+        task.tabs.forEach(function (tab) {
+          var tabContainer = document.querySelector(`.task-tab-item[data-tab="${tab.id}"]`)
+
+          var searchText = (task.name + ' ' + tab.title + ' ' + tab.url).toLowerCase()
+
+          const searchMatches = search.split(' ').every(word => searchText.includes(word))
+          if (searchMatches) {
+            tabContainer.hidden = false
+            taskTabMatches++
+            totalTabMatches++
+
+            if (totalTabMatches === 1) {
+              // first match
+              tabContainer.classList.add('fakefocus')
+            } else {
+              tabContainer.classList.remove('fakefocus')
+            }
+          } else {
+            tabContainer.hidden = true
+          }
+        })
+
+        if (taskTabMatches === 0) {
+          taskContainer.hidden = true
+        } else {
+          taskContainer.hidden = false
+          taskContainer.classList.remove('collapsed')
+        }
+      })
+    })
+
+    input.addEventListener('keypress', function (e) {
+      if (e.keyCode === 13) {
+        var firstTab = taskOverlay.overlayElement.querySelector('.task-tab-item:not([hidden])')
+        if (firstTab) {
+          firstTab.click()
+        }
+      }
+    })
+  },
   initialize: function () {
+    this.initializeSearch()
+
     keyboardNavigationHelper.addToGroup('taskOverlay', taskOverlay.overlayElement)
 
     // swipe down on the tabstrip to show the task overlay

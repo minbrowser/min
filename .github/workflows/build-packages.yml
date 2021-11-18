@@ -2,9 +2,9 @@ name: Build Package
 on: [workflow_dispatch]
 jobs:
   buildMac:
-    runs-on: macos-latest
+    runs-on: macos-11
     env:
-      SDKROOT: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk
+      SDKROOT: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2

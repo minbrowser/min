@@ -8,6 +8,7 @@
 
 .bookmark-editor {
   background: transparent !important;
+  margin-bottom: 3px;
 }
 .bookmark-editor:not(.simplified) {
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);

@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Задача удалена. <a>Отменить?</a>"
     },
+    "tasksSearchTabs": "Поиск по вкладкам",
     "returnToTask": "Вернуться к предыдущей задаче",
     "taskDescriptionTwo": "%t и %t",
     "taskDescriptionThree": "%t, %t, и %n больше",
@@ -148,11 +149,12 @@
     "settingsDarkModeNever": "Нет",
     "settingsDarkModeNight": "Только ночью",
     "settingsDarkModeAlways": "Всегда",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "Использовать тему сайта",
     "settingsAdditionalFeaturesHeading": "Дополнительные возможности",
     "settingsUserscriptsToggle": "Пользовательские скрипты",
     "settingsShowDividerToggle": "Показывать разделитель между вкладками",
-    "settingsSeparateTitlebarToggle": "Использовать разделитель заголовка",
+    "settingsSeparateTitlebarToggle": "Использовать системный заголовок окна",
     "settingsAutoplayToggle": "Включить автоматическое воспроизведение",
     "settingsOpenTabsInForegroundToggle": "Открывать новые вкладки на переднем плане",
     "settingsUserscriptsExplanation": {
@@ -281,6 +283,8 @@
     "email": "Электронная почта",
     "password": "Пароль",
     "secretKey": "Секретный ключ",
-    "openExternalApp": "Открыть в \\\"%s\\\"?"
+    "openExternalApp": "Открыть в \\\"%s\\\"?",
+    "clickToCopy": "Нажмите, чтобы скопировать",
+    "copied": "Скопировано"
   }
 }

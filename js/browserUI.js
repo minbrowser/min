@@ -53,6 +53,16 @@ function addTab (tabId = tabs.add(), options = {}) {
   }
 }
 
+function moveTabLeft (tabId = tabs.getSelected()) {
+  tabs.moveBy(tabId, -1)
+  tabBar.updateAll()
+}
+
+function moveTabRight (tabId = tabs.getSelected()) {
+  tabs.moveBy(tabId, 1)
+  tabBar.updateAll()
+}
+
 /* destroys a task object and the associated webviews */
 
 function destroyTask (id) {
@@ -167,8 +177,10 @@ function switchToTab (id, options) {
   })
 }
 
-webviews.bindEvent('did-create-popup', function (tabId, popupId) {
+webviews.bindEvent('did-create-popup', function (tabId, popupId, initialURL) {
   var popupTab = tabs.add({
+    // in most cases, initialURL will be overwritten once the popup loads, but if the URL is a downloaded file, it will remain the same
+    url: initialURL,
     private: tabs.get(tabId).private
   })
   tabBar.addTab(popupTab)
@@ -190,6 +202,14 @@ webviews.bindEvent('new-tab', function (tabId, url) {
 
 webviews.bindIPC('close-window', function (tabId, args) {
   closeTab(tabId)
+})
+
+ipc.on('set-file-view', function (e, data) {
+  tabs.get().forEach(function (tab) {
+    if (tab.url === data.url) {
+      tabs.update(tab.id, { isFileView: data.isFileView })
+    }
+  })
 })
 
 searchbar.events.on('url-selected', function (data) {
@@ -229,5 +249,7 @@ module.exports = {
   closeTask,
   closeTab,
   switchToTask,
-  switchToTab
+  switchToTab,
+  moveTabLeft,
+  moveTabRight
 }

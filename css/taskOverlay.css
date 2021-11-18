@@ -4,6 +4,45 @@
   background-color: inherit;
   z-index: 1;
   border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-search-input-container {
+  width: 450px;
+  max-width: 60vw;
+  position: relative;
+  padding: 0.25em 3em;
+}
+.task-search-input-container i {
+  position: absolute;
+  top: 0.55em;
+  left: 3.33em;
+}
+.task-search-input-container input {
+  width: 100%;
+  border: none;
+  background: rgba(0, 0, 0, 0.075);
+  padding: 0.2em 0.25em 0.2em 1.75em;
+  border-radius: 4px;
+}
+
+.dark-mode .task-search-input-container input {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media all and (max-width: 600px) {
+  .task-search-input-container {
+    max-width: 350px;
+    margin-left: var(--control-space-left);
+    margin-right: calc(var(--control-space-right) + 40px);
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  .task-search-input-container i {
+    left: 1.33em;
+  }
 }
 
 #switch-task-button {
@@ -11,6 +50,7 @@
   top: var(--control-space-top);
   right: var(--control-space-right);
   z-index: 4;
+  padding: 0.5em;
 }
 
 #switch-task-button.active {
@@ -64,7 +104,7 @@
 .task-container.collapsed input {
   cursor: pointer;
 }
-.task-container + .task-container {
+.task-container:not([hidden]) + .task-container {
   padding-top: 0.75em;
 }
 
@@ -110,10 +150,10 @@ body:not(.touch)
 }
 
 .task-delete-button {
-  margin: auto -0.82em;
+  margin: auto -0.5em;
   border-radius: 50%;
-  height: 2.33em;
-  width: 2.33em;
+  height: 2em;
+  width: 2em;
   transition: 0.1s opacity;
   opacity: 0.75;
   font-size: 1.2em !important;
@@ -123,9 +163,12 @@ body:not(.touch)
   opacity: 0;
 }
 
+.task-action-container button:hover,
 .task-action-container button:focus {
+  opacity: 1;
   background: rgba(0, 0, 0, 0.125);
 }
+.dark-mode .task-action-container button:hover,
 .dark-mode .task-action-container button:focus {
   background: rgba(255, 255, 255, 0.2);
 }
@@ -159,7 +202,7 @@ body:not(.touch)
   border: 0;
   background-color: transparent !important;
   opacity: 0.75;
-  margin: 0.5em;
+  margin: 0.5em 0.75em 0.5em 0.5em;
 }
 .task-name::-webkit-input-placeholder {
   color: inherit;

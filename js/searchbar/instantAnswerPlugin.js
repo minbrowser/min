@@ -77,6 +77,8 @@ function showSearchbarInstantAnswers (text, input, event) {
 
     var data
 
+    const hasAnswer = instantAnswers[res.AnswerType] || (res.Answer && typeof res.Answer === 'string')
+
     // if there is a custom format for the answer, use that
     if (instantAnswers[res.AnswerType]) {
       data = instantAnswers[res.AnswerType](text, res.Answer)
@@ -127,7 +129,7 @@ function showSearchbarInstantAnswers (text, input, event) {
 
     if (data) {
       // answers are more relevant, they should be displayed at the top
-      if (res.Answer) {
+      if (hasAnswer) {
         searchbarPlugins.setTopAnswer('instantAnswers', data)
       } else {
         searchbarPlugins.addResult('instantAnswers', data, { allowDuplicates: true })

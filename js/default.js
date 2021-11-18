@@ -150,7 +150,9 @@ require('util/theme.js').initialize()
 require('userscripts.js').initialize()
 require('statistics.js').initialize()
 require('taskOverlay/taskOverlay.js').initialize()
+require('pageTranslations.js').initialize()
 require('sessionRestore.js').initialize()
+require('bookmarkConverter.js').initialize()
 
 // default searchbar plugins
 
@@ -167,6 +169,7 @@ require('searchbar/bookmarkManager.js').initialize()
 require('searchbar/historyViewer.js').initialize()
 require('searchbar/developmentModeNotification.js').initialize()
 require('searchbar/shortcutButtons.js').initialize()
+require('searchbar/calculatorPlugin.js').initialize()
 
 // once everything's loaded, start the session
 require('sessionRestore.js').restore()

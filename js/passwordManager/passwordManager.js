@@ -3,6 +3,7 @@ const { ipcRenderer } = require('electron')
 const settings = require('util/settings/settings.js')
 const webviews = require('webviews.js')
 const keybindings = require('keybindings.js')
+const statistics = require('js/statistics.js')
 
 const Bitwarden = require('js/passwordManager/bitwarden.js')
 const OnePassword = require('js/passwordManager/onePassword.js')
@@ -138,6 +139,10 @@ const PasswordManagers = {
 
     keybindings.defineShortcut('fillPassword', function () {
       webviews.callAsync(tabs.getSelected(), 'send', ['password-autofill-shortcut'])
+    })
+
+    statistics.registerGetter('passwordManager', function () {
+      return PasswordManagers.getActivePasswordManager().name
     })
   }
 }

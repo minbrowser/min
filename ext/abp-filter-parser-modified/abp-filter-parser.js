@@ -21,6 +21,11 @@ var elementTypesSet = {
   other: 32768
 }
 var allElementTypes = 65535
+/*
+https://help.eyeo.com/en/adblockplus/how-to-write-filters#options
+"Filters will not block pop-ups by default, only if the $popup type option is specified."
+*/
+const defaultElementTypes = allElementTypes & (~elementTypesSet.popup)
 
 var separatorCharacters = ':?/=^'
 
@@ -117,7 +122,7 @@ function parseOptions (input) {
       // the option is an element type to skip
       if (option[0] === '~' && elementTypes.indexOf(option.substring(1)) !== -1) {
         if (output.elementTypes === undefined) {
-          output.elementTypes = allElementTypes
+          output.elementTypes = defaultElementTypes
         }
         output.elementTypes = output.elementTypes & (~elementTypesSet[option.substring(1)])
         hasValidOptions = true
@@ -441,12 +446,12 @@ function matchWildcard (input, filter) {
 // By specifying context params, you can filter out the number of rules which are
 // considered.
 function matchOptions (filterOptions, input, contextParams, currentHost) {
-  if (!filterOptions) {
-    return true
+  if ((((filterOptions && filterOptions.elementTypes) || defaultElementTypes) & elementTypesSet[contextParams.elementType]) === 0) {
+    return false
   }
 
-  if (filterOptions.elementTypes && (filterOptions.elementTypes & elementTypesSet[contextParams.elementType]) === 0) {
-    return false
+  if (!filterOptions) {
+    return true
   }
 
   // Domain option check

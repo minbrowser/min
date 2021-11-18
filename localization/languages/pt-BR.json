@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Tarefa deletada! <a> desfazer?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "Retornar a sua tarefa anterior",
     "taskDescriptionTwo": "%t e %t",
     "taskDescriptionThree": "%t e %t, mais %n",
@@ -148,6 +149,7 @@
     "settingsDarkModeNever": "Nunca",
     "settingsDarkModeNight": "À noite",
     "settingsDarkModeAlways": "Sempre",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "Habilitar mudanças de cores na barra de endereços",
     "settingsAdditionalFeaturesHeading": "Recursos adicionais",
     "settingsUserscriptsToggle": "Habilitar scripts do usuário",
@@ -281,6 +283,8 @@
     "email": "Email",
     "password": "Senha",
     "secretKey": "Chave secreta",
-    "openExternalApp": null //missing translation
+    "openExternalApp": null, //missing translation
+    "clickToCopy": "Clique para copiar",
+    "copied": "Copiado"
   }
 }

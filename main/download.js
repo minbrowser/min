@@ -6,7 +6,7 @@ ipc.on('cancelDownload', function (e, path) {
   }
 })
 
-function isAttachment(header) {
+function isAttachment (header) {
   return /^\s*attache*?ment/i.test(header)
 }
 
@@ -22,6 +22,8 @@ function downloadHandler (event, item, webContents) {
       tabId: getViewIDFromWebContents(webContents)
     })
   } else {
+    var savePathFilename
+
     // send info to download manager
     sendIPCToWindow(mainWindow, 'download-info', {
       path: item.getSavePath(),
@@ -31,12 +33,17 @@ function downloadHandler (event, item, webContents) {
     })
 
     item.on('updated', function (e, state) {
+      if (!savePathFilename) {
+        savePathFilename = path.basename(item.getSavePath())
+      }
+
       if (item.getSavePath()) {
         currrentDownloadItems[item.getSavePath()] = item
       }
+
       sendIPCToWindow(mainWindow, 'download-info', {
         path: item.getSavePath(),
-        name: item.getFilename(),
+        name: savePathFilename,
         status: state,
         size: { received: item.getReceivedBytes(), total: item.getTotalBytes() }
       })
@@ -46,7 +53,7 @@ function downloadHandler (event, item, webContents) {
       delete currrentDownloadItems[item.getSavePath()]
       sendIPCToWindow(mainWindow, 'download-info', {
         path: item.getSavePath(),
-        name: item.getFilename(),
+        name: savePathFilename,
         status: state,
         size: { received: item.getTotalBytes(), total: item.getTotalBytes() }
       })
@@ -55,10 +62,10 @@ function downloadHandler (event, item, webContents) {
   return true
 }
 
-// workaround for https://github.com/electron/electron/issues/24334
-function listenForPDFDownload (ses) {
+function listenForDownloadHeaders (ses) {
   ses.webRequest.onHeadersReceived(function (details, callback) {
     if (details.resourceType === 'mainFrame' && details.responseHeaders) {
+      // workaround for https://github.com/electron/electron/issues/24334
       var typeHeader = details.responseHeaders[Object.keys(details.responseHeaders).filter(k => k.toLowerCase() === 'content-type')]
       var attachment = isAttachment(details.responseHeaders[Object.keys(details.responseHeaders).filter(k => k.toLowerCase() === 'content-disposition')])
 
@@ -71,6 +78,16 @@ function listenForPDFDownload (ses) {
         })
         return
       }
+
+      // whether this is a file being viewed in-browser or a page
+      // Needed to save files correctly: https://github.com/minbrowser/min/issues/1717
+      // It doesn't make much sense to have this here, but only one onHeadersReceived instance can be created per session
+      const isFileView = typeHeader instanceof Array && !typeHeader.some(t => t.includes('text/html'))
+
+      sendIPCToWindow(mainWindow, 'set-file-view', {
+        url: details.url,
+        isFileView
+      })
     }
     callback({ cancel: false })
   })
@@ -78,10 +95,10 @@ function listenForPDFDownload (ses) {
 
 app.once('ready', function () {
   session.defaultSession.on('will-download', downloadHandler)
-  listenForPDFDownload(session.defaultSession)
+  listenForDownloadHeaders(session.defaultSession)
 })
 
 app.on('session-created', function (session) {
   session.on('will-download', downloadHandler)
-  listenForPDFDownload(session)
+  listenForDownloadHeaders(session)
 })

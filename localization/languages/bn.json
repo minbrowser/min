@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "কার্য মোছা হয়েছে <a>Undo?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "আপনার আগের কাজে ফিরে যান",
     "taskDescriptionTwo": "%t এবং %t",
     "taskDescriptionThree": "%t, %t, and %n আরও",
@@ -148,6 +149,7 @@
     "settingsDarkModeNever": "কখনই",
     "settingsDarkModeNight": "রাতে",
     "settingsDarkModeAlways": "সর্বদা",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "সাইটের থিম সক্ষম করুন",
     "settingsAdditionalFeaturesHeading": "অতিরিক্ত বৈশিষ্ট্য",
     "settingsUserscriptsToggle": "ব্যবহারকারী স্ক্রিপ্ট সক্রিয় করুন",
@@ -275,6 +277,8 @@
     "email": null, //missing translation
     "password": null, //missing translation
     "secretKey": null, //missing translation
-    "openExternalApp": null //missing translation
+    "openExternalApp": null, //missing translation
+    "clickToCopy": null, //missing translation
+    "copied": null //missing translation
   }
 }

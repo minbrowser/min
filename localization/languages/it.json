@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Task eliminato. <a>Annullare?</a>"
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": "Torna al task precedente",
     "taskDescriptionTwo": "%t , %t",
     "taskDescriptionThree": "%t, %t, e altri %n",
@@ -148,6 +149,7 @@
     "settingsDarkModeNever": "Mai",
     "settingsDarkModeNight": "Di notte",
     "settingsDarkModeAlways": "Sempre",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "Abilita tema adattivo (si adatta al sito)",
     "settingsAdditionalFeaturesHeading": "Funzionalità aggiuntive",
     "settingsUserscriptsToggle": "Abilita script definiti dall'utente",
@@ -281,6 +283,8 @@
     "email": "Email",
     "password": "Password",
     "secretKey": "Chiave segreta",
-    "openExternalApp": "Apri in \\\"%s\\\"?"
+    "openExternalApp": "Apri in \\\"%s\\\"?",
+    "clickToCopy": "Clicca per copiare",
+    "copied": "Copiato"
   }
 }

@@ -71,6 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": null //missing translation
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": null, //missing translation
     "taskDescriptionTwo": null, //missing translation
     "taskDescriptionThree": null, //missing translation
@@ -148,6 +149,7 @@
     "settingsDarkModeNever": null, //"Never" missing translation
     "settingsDarkModeNight": null, //"At night" missing translation
     "settingsDarkModeAlways": null, //"Always" missing translation
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": null, //missing translation
     "settingsAdditionalFeaturesHeading": "További beállítások",
     "settingsUserscriptsToggle": "Felhasználói szkriptek",
@@ -273,6 +275,8 @@
     "email": null, //missing translation
     "password": null, //missing translation
     "secretKey": null, //missing translation
-    "openExternalApp": null //missing translation
+    "openExternalApp": null, //missing translation
+    "clickToCopy": null, //missing translation
+    "copied": null //missing translation
   }
 }

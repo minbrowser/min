@@ -142,6 +142,7 @@
     "settingsDarkModeNever": null, //"Never" missing translation
     "settingsDarkModeNight": null, //"At night" missing translation
     "settingsDarkModeAlways": null, //"Always" missing translation
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "Bật chủ đề trang",
     "settingsAdditionalFeaturesHeading": "Đặc tính hơn",
     "settingsUserscriptsToggle": "Bật mã script người dùng",
@@ -269,6 +270,8 @@
     "email": null, //missing translation
     "password": null, //missing translation
     "secretKey": null, //missing translation
-    "openExternalApp": null //missing translation
+    "openExternalApp": null, //missing translation
+    "clickToCopy": null, //missing translation
+    "copied": null //missing translation
   }
 }

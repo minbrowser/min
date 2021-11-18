@@ -1,6 +1,7 @@
 {
   "name": "Persian",
   "identifier": "fa",
+  "rtl": true,
   "translations": {
     /* Context menu items
         these are the items displayed in the menu when you right-click on a page
@@ -71,6 +72,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": null //missing translation
     },
+    "tasksSearchTabs": null, //missing translation
     "returnToTask": null, //missing translation
     "taskDescriptionTwo": null, //missing translation
     "taskDescriptionThree": null, //missing translation
@@ -148,6 +150,7 @@
     "settingsDarkModeNever": "پوسته تاریک خاموش",
     "settingsDarkModeNight": null, //"At night" missing translation
     "settingsDarkModeAlways": "پوسته تاریک برای همیشه",
+    "settingsDarkModeSystem": null,
     "settingsSiteThemeToggle": "تغییر پوسته",
     "settingsAdditionalFeaturesHeading": "امکانات افزوده",
     "settingsUserscriptsToggle": "فعال کردن اسکریپت های کاربر",
@@ -275,6 +278,8 @@
     "email": "رایانامه", 
     "password": "گذرواژه",
     "secretKey": "کلید امنیتی",
-    "openExternalApp": null //missing translation
+    "openExternalApp": null, //missing translation
+    "clickToCopy": null, //missing translation
+    "copied": null //missing translation
   }
 }
