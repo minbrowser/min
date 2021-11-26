@@ -25,6 +25,7 @@ function readSavedPasswordFile () {
   } catch (e) {
     if (e.code !== 'ENOENT') {
       console.warn(e)
+      throw new Error(e)
     }
   }
   if (file) {
