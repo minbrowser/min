@@ -140,6 +140,12 @@ class Bitwarden {
       return true
     } catch (ex) {
       const { error, data } = ex
+
+      if (error.includes('not logged in')) {
+        await this.signInAndSave()
+        return await this.unlockStore(password)
+      }
+
       console.error('Error accessing Bitwarden CLI. STDOUT: ' + data + '. STDERR: ' + error)
       throw ex
     }
