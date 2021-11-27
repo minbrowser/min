@@ -324,6 +324,15 @@ function handleFormSubmit () {
 
 window.addEventListener('submit', handleFormSubmit)
 
+// watch for clicks on button[type=submit]
+window.addEventListener('click', function (e) {
+  e.path.forEach(function (el) {
+    if (el.tagName === 'BUTTON' && el.getAttribute('type') === 'submit' && !el.disabled) {
+      handleFormSubmit()
+    }
+  })
+}, true)
+
 electron.webFrame.executeJavaScript(`
 var origSubmit = HTMLFormElement.prototype.submit;
 HTMLFormElement.prototype.submit = function () {
