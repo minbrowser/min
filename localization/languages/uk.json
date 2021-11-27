@@ -261,6 +261,7 @@
     "passwordManagerSetupStep2": "Потім перетягніть інструмент у поле нижче:",
     "passwordManagerSetupDragBox": "Перетягніть інструмент сюди",
     "passwordManagerSetupInstalling": "Встановлення...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "Увійдіть до менеджера паролів, щоб почати використовувати автозаповнення. Ваші облікові дані не зберігатимуться ніде в межах Min.",
     "disableAutofill": "Вимкнути автозаповнення",
     "passwordManagerSetupUnlockError": "Не вдалося розблокувати сховище паролів: ",

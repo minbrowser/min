@@ -260,6 +260,7 @@
     "passwordManagerSetupStep2": "Ardından aracı aşağıdaki kutucuğa sürükleyip bırakın:",
     "passwordManagerSetupDragBox": "Aracı buraya sürükleyin",
     "passwordManagerSetupInstalling": "Yükleniyor...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "Otomatik dolduru kullanabilmek için parola yöneticinize giriş yapın. Kimlik bilgileriniz Min içerisinde bir yere kaydedilmeyecektir.",
     "disableAutofill": "Otomatik Dolduru Devre Dışı Bırak",
     "passwordManagerSetupUnlockError": "Parola kayıtlarının kilidi açılamadı: ",

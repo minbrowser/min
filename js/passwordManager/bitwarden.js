@@ -145,7 +145,11 @@ class Bitwarden {
   }
 
   getSignInRequirements () {
-    return ['email', 'password']
+    return ['clientID', 'clientSecret']
+  }
+
+  getSignInInstructions () {
+    return l('passwordManagerBitwardenSignIn')
   }
 
   async signInAndSave (credentials, path = this.path) {
@@ -156,7 +160,10 @@ class Bitwarden {
     } catch (e) {
       console.warn(e)
     }
-    const process = new ProcessSpawner(path, ['login', '--raw', credentials.email, credentials.password])
+    const process = new ProcessSpawner(path, ['login', '--apikey'], {
+      BW_CLIENTID: credentials.clientID.trim(),
+      BW_CLIENTSECRET: credentials.clientSecret.trim()
+    })
 
     await process.execute()
 

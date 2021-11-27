@@ -260,6 +260,7 @@
     "passwordManagerSetupStep2": "然后把工具拖动到下面的框中：",
     "passwordManagerSetupDragBox": "把工具拖动到这里",
     "passwordManagerSetupInstalling": "安装中...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "登录密码管理器以使用自动填充。你的凭证不会在Min内存储。",
     "disableAutofill": "关闭自动填充",
     "passwordManagerSetupUnlockError": "解锁密码存储区失败：",

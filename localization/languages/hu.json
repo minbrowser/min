@@ -252,6 +252,7 @@
     "passwordManagerSetupStep2": null, //missing translation
     "passwordManagerSetupDragBox": null, //missing translation
     "passwordManagerSetupInstalling": null, //missing translation
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": null, //missing translation
     "disableAutofill": null, //missing translation
     "passwordManagerSetupUnlockError": null, //missing translation

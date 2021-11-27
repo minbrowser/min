@@ -260,6 +260,7 @@
     "passwordManagerSetupStep2": "Quindi trascina il tool nel box qui sotto:",
     "passwordManagerSetupDragBox": "Trascina il tool qui",
     "passwordManagerSetupInstalling": "Installazione...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "Entra nel tuo gestore di password per iniziare ad usare l'autocompletamento. Le tue credenziali non saranno salvate da nessuna parte in Min.",
     "disableAutofill": "Disabilita autocompletamento",
     "passwordManagerSetupUnlockError": "Impossibile sbloccare le password: ",

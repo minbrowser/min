@@ -260,6 +260,7 @@
     "passwordManagerSetupStep2": "Then drag the tool into the box below:",
     "passwordManagerSetupDragBox": "Drag the tool here",
     "passwordManagerSetupInstalling": "Installing...",
+    "passwordManagerBitwardenSignIn": "To connect your Bitwarden account, go to vault.bitwarden.com/#/settings/account, scroll to the bottom, and choose \"View API Key\". Then paste the values into the fields below.",
     "passwordManagerSetupSignIn": "Sign in to your password manager to start using autofill. Your credentials won't be stored anywhere inside Min.",
     "disableAutofill": "Disable Autofill",
     "passwordManagerSetupUnlockError": "Failed to unlock the password store: ",

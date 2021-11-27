@@ -257,6 +257,7 @@
     "passwordManagerSetupStep2": "След това плъзнете уреда в полето отдолу:",
     "passwordManagerSetupDragBox": "Плъзнете уреда тук",
     "passwordManagerSetupInstalling": "Инсталиране...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "Впишете се във Вашия мениджър на пароли, за да започнете употребата на автоматично попълване. Вашите пълномощия няма да се съхраняват никъде в Min.",
     "disableAutofill": "Деактивиране на автоматично попълване на пароли",
     "passwordManagerSetupUnlockError": "Неуспешно отключване на хранилището за пароли: ",

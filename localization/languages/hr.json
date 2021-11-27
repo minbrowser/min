@@ -260,6 +260,7 @@
     "passwordManagerSetupStep2": "Zatim povucite alat u donji okvir:",
     "passwordManagerSetupDragBox": "Povucite alat ovdje",
     "passwordManagerSetupInstalling": "Instaliranje...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "Prijavite se na upravitelj lozinki da biste počeli koristiti automatsko popunjavanje. Vjerodajnice se neće pohraniti nigdje u Min.",
     "disableAutofill": "Onemogući automatsko popunjavanje",
     "passwordManagerSetupUnlockError": "Otključavanje spremišta lozinki nije uspjelo: ",
