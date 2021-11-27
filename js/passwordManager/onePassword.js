@@ -1,6 +1,7 @@
 const ProcessSpawner = require('util/process.js')
 const path = require('path')
 const fs = require('fs')
+var { ipcRenderer } = require('electron')
 
 // 1Password password manager. Requires session key to unlock the vault.
 class OnePassword {
@@ -165,11 +166,7 @@ class OnePassword {
     }
   }
 
-  getSignInRequirements () {
-    return ['email', 'password', 'secretKey']
-  }
-
-  async signInAndSave (credentials, path = this.path) {
+  async signInAndSave (path = this.path) {
     // It's possible to be already logged in
     const logoutProcess = new ProcessSpawner(path, ['signout'])
     try {
@@ -177,6 +174,30 @@ class OnePassword {
     } catch (e) {
       console.warn(e)
     }
+
+    // show credentials dialog
+    var signInFields = [
+      { placeholder: l('email'), id: 'email', type: 'text' },
+      { placeholder: l('password'), id: 'password', type: 'password' },
+      { placeholder: l('secretKey'), id: 'secretKey', type: 'password' }
+    ]
+
+    // Verify the tool by trying to use it to unlock the password store.
+    const credentials = ipcRenderer.sendSync('prompt', {
+      text: l('passwordManagerSetupSignIn'),
+      values: signInFields,
+      ok: l('dialogConfirmButton'),
+      cancel: l('dialogSkipButton'),
+      width: 500,
+      height: 220
+    })
+
+    for (const key in credentials) {
+      if (credentials[key] === '') {
+        throw new Error('no credentials entered')
+      }
+    }
+
     const process = new ProcessSpawner(path, ['signin', '--raw', 'my.1password.com', credentials.email, credentials.secretKey])
 
     const key = await process.executeSyncInAsyncContext(credentials.password)

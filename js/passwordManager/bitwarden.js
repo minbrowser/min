@@ -1,6 +1,7 @@
 const ProcessSpawner = require('util/process.js')
 const path = require('path')
 const fs = require('fs')
+var { ipcRenderer } = require('electron')
 
 // Bitwarden password manager. Requires session key to unlock the vault.
 class Bitwarden {
@@ -144,15 +145,7 @@ class Bitwarden {
     }
   }
 
-  getSignInRequirements () {
-    return ['clientID', 'clientSecret']
-  }
-
-  getSignInInstructions () {
-    return l('passwordManagerBitwardenSignIn')
-  }
-
-  async signInAndSave (credentials, path = this.path) {
+  async signInAndSave (path = this.path) {
     // It's possible to be already logged in
     const logoutProcess = new ProcessSpawner(path, ['logout'])
     try {
@@ -160,6 +153,29 @@ class Bitwarden {
     } catch (e) {
       console.warn(e)
     }
+
+    // show credentials dialog
+
+    var signInFields = [
+      { placeholder: 'Client ID', id: 'clientID', type: 'password' },
+      { placeholder: 'Client Secret', id: 'clientSecret', type: 'password' }
+    ]
+
+    const credentials = ipcRenderer.sendSync('prompt', {
+      text: l('passwordManagerBitwardenSignIn'),
+      values: signInFields,
+      ok: l('dialogConfirmButton'),
+      cancel: l('dialogSkipButton'),
+      width: 500,
+      height: 240
+    })
+
+    for (const key in credentials) {
+      if (credentials[key] === '') {
+        throw new Error('no credentials entered')
+      }
+    }
+
     const process = new ProcessSpawner(path, ['login', '--apikey'], {
       BW_CLIENTID: credentials.clientID.trim(),
       BW_CLIENTSECRET: credentials.clientSecret.trim()
