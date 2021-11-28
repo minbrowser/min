@@ -15,81 +15,81 @@ var keysToCreate = [
 
 var valuesToPut = {
   'HKLM\\SOFTWARE\\RegisteredApplications': {
-    'Min': {
+    Min: {
       value: 'SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities',
       type: 'REG_SZ'
     }
   },
   'HKCR\\Min': {
-    'default': {
+    default: {
       value: 'Min Browser Document',
       type: 'REG_DEFAULT'
     }
   },
   'HKCR\\Min\\Application': {
-    'ApplicationDescription': {
+    ApplicationDescription: {
       value: 'Access the Internet',
       type: 'REG_SZ'
     },
-    'ApplicationIcon': {
+    ApplicationIcon: {
       value: `${installPath},0`,
       type: 'REG_SZ'
     },
-    'ApplicationName': {
+    ApplicationName: {
       value: 'Min',
       type: 'REG_SZ'
     },
-    'AppUserModelId': {
+    AppUserModelId: {
       value: 'Min',
       type: 'REG_SZ'
     }
   },
   'HKCR\\Min\\DefaultIcon': {
-    'default': {
+    default: {
       value: `${installPath},0`,
       type: 'REG_DEFAULT'
     }
   },
   'HKCR\\Min\\shell\\open\\command': {
-    'default': {
+    default: {
       value: `"${installPath}" --single-argument %1`,
       type: 'REG_DEFAULT'
     }
   },
   'HKCR\\.htm\\OpenWithProgIds': {
-    'Min': {
+    Min: {
       value: '',
       type: 'REG_SZ'
     }
   },
   'HKCR\\.html\\OpenWithProgIds': {
-    'Min': {
+    Min: {
       value: '',
       type: 'REG_SZ'
     }
   },
   'HKCR\\.pdf\\OpenWithProgIds': {
-    'Min': {
+    Min: {
       value: '',
       type: 'REG_SZ'
     }
   },
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min': {
-    'default': {
+    default: {
       value: 'Min',
       type: 'REG_DEFAULT'
     }
   },
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities': {
-    'ApplicationDescription': {
+    ApplicationDescription: {
       value: 'A fast, minimal browser that protects your privacy',
       type: 'REG_SZ'
     },
-    'ApplicationIcon': {
+    ApplicationIcon: {
       value: `${installPath},0`,
       type: 'REG_SZ'
     },
-    'ApplicationName': {
+    ApplicationName: {
       value: 'Min',
       type: 'REG_SZ'
     }
@@ -109,29 +109,29 @@ var valuesToPut = {
     }
   },
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities\\StartMenu': {
-    'StartMenuInternet': {
+    StartMenuInternet: {
       value: 'Min',
       type: 'REG_SZ'
     }
   },
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\Capabilities\\URLAssociations': {
-    'http': {
+    http: {
       value: 'Min',
       type: 'REG_SZ'
     },
-    'https': {
+    https: {
       value: 'Min',
       type: 'REG_SZ'
     }
   },
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\DefaultIcon': {
-    'default': {
+    default: {
       value: `${installPath},0`,
       type: 'REG_DEFAULT'
     }
   },
   'HKLM\\SOFTWARE\\Clients\\StartMenuInternet\\Min\\shell\\open\\command': {
-    'default': {
+    default: {
       value: `"${installPath}"`,
       type: 'REG_DEFAULT'
     }
@@ -167,9 +167,12 @@ var registryInstaller = {
   install: function () {
     return new Promise(function (resolve, reject) {
       regedit.createKey(keysToCreate, function (err) {
+        if (err) {
+          reject(err)
+        }
         regedit.putValue(valuesToPut, function (err) {
           if (err) {
-            reject()
+            reject(err)
           } else {
             resolve()
           }
@@ -180,9 +183,12 @@ var registryInstaller = {
   uninstall: function () {
     return new Promise(function (resolve, reject) {
       regedit.deleteKey(keysToDelete, function (err) {
+        if (err) {
+          reject(err)
+        }
         regedit.deleteValue(valuesToDelete, function (err) {
           if (err) {
-            reject()
+            reject(err)
           } else {
             resolve()
           }
@@ -190,4 +196,15 @@ var registryInstaller = {
       })
     })
   }
-}
+};
+
+(async function () {
+  if (process.argv.some(arg => arg === '--install')) {
+    await registryInstaller.install()
+    process.exit()
+  }
+  if (process.argv.some(arg => arg === '--uninstall')) {
+    await registryInstaller.install()
+    process.exit()
+  }
+})()
