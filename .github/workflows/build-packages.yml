@@ -44,7 +44,7 @@ jobs:
         node-version: '14.x'
     - run: npm install
     - name: build package
-      run: npm run buildDebian && npm run buildRedhat && npm run buildLinuxArm64
+      run: npm run buildDebian && npm run buildRedhat && npm run buildLinuxArm64 && npm run buildRaspi
     - name: upload package
       uses: actions/upload-artifact@v2
       with:
