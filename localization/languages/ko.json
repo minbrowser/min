@@ -260,6 +260,7 @@
     "passwordManagerSetupStep2": "그 다음 도구를 아래 박스 안에 끌어다 놓습니다:",
     "passwordManagerSetupDragBox": "도구를 여기에 끌어다 놓으세요.",
     "passwordManagerSetupInstalling": "설치하는 중...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "자동완성을 사용하려면 비밀번호 관리자에 로그인하세요. 귀하의 자격증명은 민(Min)의 그 어디에도 저장되지 않습니다.",
     "disableAutofill": "자동완성 비활성화",
     "passwordManagerSetupUnlockError": "비밀번호 저장소를 여는데 실패했습니다: ",

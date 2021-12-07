@@ -260,6 +260,7 @@
     "passwordManagerSetupStep2": "然後將檔案拖曳至下方：",
     "passwordManagerSetupDragBox": "將檔案拖至此處",
     "passwordManagerSetupInstalling": "正在安裝...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "登入你的密碼管理器並開始使用自動填入。您的資訊不會被存入 Min。",
     "disableAutofill": "取消",
     "passwordManagerSetupUnlockError": "無法登入密碼儲存庫。",

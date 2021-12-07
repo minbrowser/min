@@ -40,10 +40,6 @@ class Keychain {
     })
   }
 
-  getSignInRequirements () {
-    return []
-  }
-
   saveCredential (domain, username, password) {
     ipcRenderer.invoke('credentialStoreSetPassword', { domain, username, password })
   }

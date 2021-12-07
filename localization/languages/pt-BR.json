@@ -260,6 +260,7 @@
     "passwordManagerSetupStep2": "Em seguida, arraste a ferramenta para a caixa abaixo:",
     "passwordManagerSetupDragBox": "Arraste a ferramenta aqui",
     "passwordManagerSetupInstalling": "Instalando ...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "Entre no seu gerenciador de senhas para começar a usar o preenchimento automático. Suas credenciais não serão armazenadas em nenhum lugar do Min.",
     "disableAutofill": "Desativar preenchimento automático",
     "passwordManagerSetupUnlockError": "Falha ao desbloquear o armazenamento de senhas:",

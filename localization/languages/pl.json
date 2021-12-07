@@ -260,6 +260,7 @@
     "passwordManagerSetupStep2": "Następnie przeciągnij narzędzie do pola poniżej:",
     "passwordManagerSetupDragBox": "Przeciągnij narzędzie tutaj",
     "passwordManagerSetupInstalling": "Instalowanie...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "Zaloguj się do menedżera haseł, aby rozpocząć korzystanie z autouzupełniania. Twoje dane uwierzytelniające nie będą przechowywane nigdzie w Min.",
     "disableAutofill": "Wyłącz autouzupełnianie",
     "passwordManagerSetupUnlockError": "nie udało się odblokować przechowalni haseł: ",

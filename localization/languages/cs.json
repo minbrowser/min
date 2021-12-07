@@ -258,6 +258,7 @@
     "passwordManagerSetupStep2": "Pak přetáhněte nástroj do pole níže:",
     "passwordManagerSetupDragBox": "Přetáhněte nástroj sem",
     "passwordManagerSetupInstalling": "Probíhá instalace...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "Přihlaste se do vašeho správce hesel, abyste mohli začít používat automatické vkládání. Vaše přihlašovací údaje nebudou v prohlížeči Min nikde uchovány.",
     "disableAutofill": "Vypnout automatické vkládání",
     "passwordManagerSetupUnlockError": "Selhalo odemčení úložiště hesel: ",

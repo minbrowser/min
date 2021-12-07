@@ -26,6 +26,8 @@ const setupDialog = {
     document.getElementById('password-manager-setup-link').textContent = l('passwordManagerSetupLink').replace('%p', manager.name)
     document.getElementById('password-manager-setup-link-installer').textContent = l('passwordManagerSetupLinkInstaller').replace('%p', manager.name)
 
+    dragBox.textContent = l('passwordManagerSetupDragBox')
+
     if (setupDialog.setupMode === 'installer') {
       primaryInstructions.hidden = true
       secondaryInstructions.hidden = false
@@ -162,29 +164,7 @@ function launchInstaller (filePath, platform) {
 }
 
 function afterInstall (toolPath) {
-  var signInFields = [
-    { placeholder: l('email'), id: 'email', type: 'text' },
-    { placeholder: l('password'), id: 'password', type: 'password' },
-    { placeholder: l('secretKey'), id: 'secretKey', type: 'password' }
-  ].filter(f => setupDialog.manager.getSignInRequirements().includes(f.id))
-
-  // Verify the tool by trying to use it to unlock the password store.
-  const data = ipcRenderer.sendSync('prompt', {
-    text: l('passwordManagerSetupSignIn'),
-    values: signInFields,
-    ok: l('dialogConfirmButton'),
-    cancel: l('dialogSkipButton'),
-    width: 500,
-    height: 220
-  })
-
-  for (const key in data) {
-    if (data[key] === '') {
-      throw new Error('no credentials entered')
-    }
-  }
-
-  setupDialog.manager.signInAndSave(data, toolPath)
+  setupDialog.manager.signInAndSave(toolPath)
     .then(() => {
       setupDialog.hide()
     })
