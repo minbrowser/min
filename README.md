@@ -40,6 +40,9 @@ You can find prebuilt binaries for Min [here](https://github.com/minbrowser/min/
 - To install the .deb file, use `sudo dpkg -i /path/to/download`
 - To install the RPM build, use `sudo rpm -i /path/to/download --ignoreos`
 
+[![badge](https://github.com/Botspot/pi-apps/blob/master/icons/badge.png?raw=true)](https://github.com/Botspot/pi-apps)  
+
+
 ## Developing
 
 If you want to develop Min:
