@@ -24,6 +24,9 @@ const tabEditor = {
     webviews.requestPlaceholder('editMode')
 
     document.body.classList.add('is-edit-mode')
+    if (!tabs.get(tabId).url) {
+      document.body.classList.add('is-ntp')
+    }
 
     var currentURL = urlParser.getSourceURL(tabs.get(tabId).url)
     if (currentURL === 'min://newtab') {
@@ -76,6 +79,7 @@ const tabEditor = {
     searchbar.hide()
 
     document.body.classList.remove('is-edit-mode')
+    document.body.classList.remove('is-ntp')
 
     webviews.hidePlaceholder('editMode')
   },

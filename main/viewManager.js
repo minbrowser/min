@@ -155,7 +155,7 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
   */
   view.webContents.on('will-redirect', handleExternalProtocol)
 
-  view.setBounds(JSON.parse(boundsString))
+  // view.setBounds(JSON.parse(boundsString))
 
   viewMap[id] = view
 
@@ -187,6 +187,10 @@ function setView (id) {
 }
 
 function setBounds (id, bounds) {
+  if (!viewStateMap[id].loadedInitialURL) {
+    viewMap[id].setBounds({ x: 0, y: 0, width: 0, height: 0 })
+    return
+  }
   if (viewMap[id]) {
     viewMap[id].setBounds(bounds)
   }
