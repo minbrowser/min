@@ -2,11 +2,31 @@ const path = require('path')
 
 const newTabPage = {
   background: document.getElementById('ntp-background'),
+  hasBackground: false,
   picker: document.getElementById('ntp-image-picker'),
+  deleteBackground: document.getElementById('ntp-image-remove'),
   imagePath: path.join(window.globalArgs['user-data-path'], 'newTabBackground'),
+  reloadBackground: function () {
+    newTabPage.background.src = newTabPage.imagePath + '?t=' + Date.now()
+    function onLoad () {
+      newTabPage.background.hidden = false
+      newTabPage.hasBackground = true
+      newTabPage.background.removeEventListener('load', onLoad)
+
+      newTabPage.deleteBackground.hidden = false
+    }
+    function onError () {
+      newTabPage.background.hidden = true
+      newTabPage.hasBackground = false
+      newTabPage.background.removeEventListener('error', onError)
+
+      newTabPage.deleteBackground.hidden = true
+    }
+    newTabPage.background.addEventListener('load', onLoad)
+    newTabPage.background.addEventListener('error', onError)
+  },
   initialize: function () {
-    newTabPage.background.src = newTabPage.imagePath
-    newTabPage.background.hidden = false
+    newTabPage.reloadBackground()
 
     newTabPage.picker.addEventListener('click', async function () {
       var filePath = await ipc.invoke('showOpenDialog', {
@@ -20,10 +40,16 @@ const newTabPage = {
       }
 
       await fs.promises.copyFile(filePath[0], newTabPage.imagePath)
+      newTabPage.reloadBackground()
+    })
 
-      newTabPage.background.src = newTabPage.imagePath + '?t=' + Date.now()
+    newTabPage.deleteBackground.addEventListener('click', async function () {
+      await fs.promises.unlink(newTabPage.imagePath)
+      newTabPage.reloadBackground()
     })
   }
 }
+
+window.ntp = newTabPage
 
 module.exports = newTabPage
