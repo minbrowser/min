@@ -266,6 +266,39 @@ function fullTextPlacesSearch (searchText, callback) {
 
       doc.boost += Math.min(totalWordDistanceBoost, 5)
 
+      var snippetIndex = doc.extractedText.split(/\s+/g)
+
+      var mappedArr = snippetIndex.map(w => searchWords.includes(w.toLowerCase().replace(/\W/g, '')) ? 1 : 0)
+
+      var indexBegin = -10
+      var indexEnd = 0
+      var currentScore = 0
+      var maxScore = 0
+      var maxBegin = -10
+      var maxEnd = 0
+      for (let i2 = 0; i2 < mappedArr.length; i2++) {
+        if (indexBegin >= 0) {
+          currentScore -= mappedArr[indexBegin]
+        }
+        currentScore += mappedArr[indexEnd]
+        if (currentScore > maxScore || (currentScore === maxScore && (indexBegin - maxBegin <= 1))) {
+          maxBegin = indexBegin
+          maxEnd = indexEnd
+          maxScore = currentScore
+        }
+        indexBegin++
+        indexEnd++
+      }
+
+      for (var bound = maxBegin; bound >= maxBegin - 10 && bound > 0; bound--) {
+        if (snippetIndex[bound].endsWith('.')) {
+          maxBegin = bound + 1
+          break
+        }
+      }
+
+      doc.searchSnippet = snippetIndex.slice(maxBegin, maxEnd + 5).join(' ') + '...'
+
       // these properties are never used, and sending them from the worker takes a long time
 
       delete doc.pageHTML
@@ -275,4 +308,5 @@ function fullTextPlacesSearch (searchText, callback) {
 
     callback(docs)
   })
+    .catch(e => console.error(e))
 }
