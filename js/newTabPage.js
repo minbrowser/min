@@ -1,4 +1,5 @@
 const path = require('path')
+const statistics = require('js/statistics.js')
 
 const newTabPage = {
   background: document.getElementById('ntp-background'),
@@ -46,6 +47,10 @@ const newTabPage = {
     newTabPage.deleteBackground.addEventListener('click', async function () {
       await fs.promises.unlink(newTabPage.imagePath)
       newTabPage.reloadBackground()
+    })
+
+    statistics.registerGetter('ntpHasBackground', function () {
+      return newTabPage.hasBackground
     })
   }
 }
