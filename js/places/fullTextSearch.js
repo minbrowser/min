@@ -266,16 +266,20 @@ function fullTextPlacesSearch (searchText, callback) {
 
       doc.boost += Math.min(totalWordDistanceBoost, 5)
 
-      var snippetIndex = doc.extractedText.split(/\s+/g)
+      // generate a search snippet for the document
 
-      var mappedArr = snippetIndex.map(w => searchWords.includes(w.toLowerCase().replace(/\W/g, '')) ? 1 : 0)
+      const snippetIndex = doc.extractedText ? doc.extractedText.split(/\s+/g) : []
 
-      var indexBegin = -10
-      var indexEnd = 0
-      var currentScore = 0
-      var maxScore = 0
-      var maxBegin = -10
-      var maxEnd = 0
+      // array of 0 or 1 - 1 indicates this item in the snippetIndex is a search word
+      const mappedArr = snippetIndex.map(w => searchWords.includes(w.toLowerCase().replace(nonLetterRegex, '')) ? 1 : 0)
+
+      // find the bounds of the max subarray within mappedArr
+      let indexBegin = -10
+      let indexEnd = 0
+      let currentScore = 0
+      let maxScore = 0
+      let maxBegin = -10
+      let maxEnd = 0
       for (let i2 = 0; i2 < mappedArr.length; i2++) {
         if (indexBegin >= 0) {
           currentScore -= mappedArr[indexBegin]
@@ -290,8 +294,12 @@ function fullTextPlacesSearch (searchText, callback) {
         indexEnd++
       }
 
-      for (var bound = maxBegin; bound >= maxBegin - 10 && bound > 0; bound--) {
-        if (snippetIndex[bound].endsWith('.')) {
+      // include a few words before the start of the match
+      maxBegin = maxBegin - 2
+
+      // shift a few words farther back if doing so makes the snippet start at the beginning of a phrase or sentence
+      for (let bound = maxBegin; bound >= maxBegin - 10 && bound > 0; bound--) {
+        if (snippetIndex[bound].endsWith('.') || snippetIndex[bound].endsWith(',')) {
           maxBegin = bound + 1
           break
         }
@@ -300,7 +308,6 @@ function fullTextPlacesSearch (searchText, callback) {
       doc.searchSnippet = snippetIndex.slice(maxBegin, maxEnd + 5).join(' ') + '...'
 
       // these properties are never used, and sending them from the worker takes a long time
-
       delete doc.pageHTML
       delete doc.extractedText
       delete doc.searchIndex
