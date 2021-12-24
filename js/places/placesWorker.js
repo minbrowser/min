@@ -51,7 +51,6 @@ function addToHistoryCache (item) {
     tagIndex.addPage(item)
   }
   delete item.pageHTML
-  delete item.extractedText
   delete item.searchIndex
 
   historyInMemoryCache.push(item)
@@ -59,7 +58,6 @@ function addToHistoryCache (item) {
 
 function addOrUpdateHistoryCache (item) {
   delete item.pageHTML
-  delete item.extractedText
   delete item.searchIndex
 
   let oldItem
@@ -139,7 +137,7 @@ onmessage = function (e) {
             visitCount: 0,
             lastVisit: Date.now(),
             pageHTML: '',
-            extractedText: '',
+            extractedText: pageData.extractedText,
             searchIndex: [],
             isBookmarked: false,
             tags: [],
@@ -149,6 +147,7 @@ onmessage = function (e) {
         for (const key in pageData) {
           if (key === 'extractedText') {
             item.searchIndex = tokenize(pageData.extractedText)
+            item.extractedText = pageData.extractedText
           } else if (key === 'tags') {
             // ensure tags are never saved with spaces in them
             item.tags = pageData.tags.map(t => t.replace(/\s/g, '-'))
