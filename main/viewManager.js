@@ -48,6 +48,11 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
     })
   })
 
+  view.webContents.on('select-bluetooth-device', function (event, deviceList, callback) {
+    event.preventDefault()
+    callback('')
+  })
+
   view.webContents.setWindowOpenHandler(function (details) {
     if (details.disposition === 'background-tab') {
       mainWindow.webContents.send('view-event', {
