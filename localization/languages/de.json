@@ -260,6 +260,7 @@
     "passwordManagerSetupStep2": "Ziehe danach das Programm in die untere Box:",
     "passwordManagerSetupDragBox": "Ziehe das Programm hierher",
     "passwordManagerSetupInstalling": "Installiere...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "Melde dich in deinem Passwortmanager an, um die automatische Ausfüll Funktion zu nutzen. Deine Zugangsdaten werden nirgendwo in Min gespeichert.",
     "disableAutofill": "Automatische Ausfüll Funktion deaktivieren",
     "passwordManagerSetupUnlockError": "Beim Entsperren des Passwortmanagers ist ein Fehler aufgetreten:",

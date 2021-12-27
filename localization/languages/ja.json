@@ -260,6 +260,7 @@
     "passwordManagerSetupStep2": "次に、ツールを下のボックスにドラッグします。",
     "passwordManagerSetupDragBox": "ここにツールをドラッグ",
     "passwordManagerSetupInstalling": "インストールしています...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "パスワードマネージャーにログインして、自動入力の使用を開始します。 資格情報はMin内のどこにも保存されません。",
     "disableAutofill": "自動入力を無効にする",
     "passwordManagerSetupUnlockError": "パスワードストアのロック解除に失敗しました： ",

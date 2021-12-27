@@ -259,6 +259,7 @@
     "passwordManagerSetupStep2": "Luego arrastra la herramienta hasta el cuadro de abajo:",
     "passwordManagerSetupDragBox": "Arrastra la herramienta hasta aquí",
     "passwordManagerSetupInstalling": "Instalando...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "Inicia sesión en tu gestor de contraseñas para empezar a usar el Auto-llenado. Tus credenciales no serán almacenadas en ningún lugar dentro de Min.",
     "disableAutofill": "Desactivar Auto-llenado",
     "passwordManagerSetupUnlockError": "No se pudo desbloquear el almacén de contraseñas:",

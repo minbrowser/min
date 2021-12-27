@@ -17,9 +17,9 @@ Download Min from the [releases page](https://github.com/minbrowser/min/releases
 
 Min is made possible by these sponsors:
 
-| [<img src="https://avatars1.githubusercontent.com/u/22417494?s=460&v=4" width="40">](https://github.com/shalva97) | [<img src="https://avatars3.githubusercontent.com/u/17785839?s=400&v=4" width="40">](https://github.com/ritterob) | [<img src="https://avatars.githubusercontent.com/u/6592155?s=460&v=4" width="40">](https://github.com/blackgwe) | [<img src="https://avatars.githubusercontent.com/u/33535850?v=4" width="40">](https://github.com/jonathanhuston) | [<img src="https://avatars.githubusercontent.com/u/74563788?v=4" width="40">](https://github.com/JackGFuller) |     |
-| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |  --- |
-| [@shalva97](https://github.com/shalva97)                                                                          | [@ritterob](https://github.com/ritterob)                                                                          | [@blackgwe](https://github.com/blackgwe)                                                                        | [@jonathanhuston](https://github.com/jonathanhuston)                                                                        | [@JackGFuller](https://github.com/JackGFuller)                                                                              ||
+| [<img src="https://avatars3.githubusercontent.com/u/17785839?s=400&v=4" width="40">](https://github.com/ritterob) | [<img src="https://avatars.githubusercontent.com/u/6592155?s=460&v=4" width="40">](https://github.com/blackgwe) | [<img src="https://avatars.githubusercontent.com/u/33535850?v=4" width="40">](https://github.com/jonathanhuston) | [<img src="https://avatars.githubusercontent.com/u/74563788?v=4" width="40">](https://github.com/JackGFuller) |     |
+| ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |  --- |
+| [@ritterob](https://github.com/ritterob)                                                                          | [@blackgwe](https://github.com/blackgwe)                                                                        | [@jonathanhuston](https://github.com/jonathanhuston)                                                                        | [@JackGFuller](https://github.com/JackGFuller)                                                                              ||
 
 [Become a sponsor](https://github.com/sponsors/PalmerAL)
 
@@ -39,6 +39,7 @@ You can find prebuilt binaries for Min [here](https://github.com/minbrowser/min/
 
 - To install the .deb file, use `sudo dpkg -i /path/to/download`
 - To install the RPM build, use `sudo rpm -i /path/to/download --ignoreos`
+- On Raspberry Pi, you can install Min from [Pi-Apps](https://github.com/Botspot/pi-apps).
 
 ## Developing
 

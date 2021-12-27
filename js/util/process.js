@@ -22,16 +22,17 @@ const customEnv = Object.assign({}, process.env, { PATH: processPath })
 const maxBufferSize = 25 * 1024 * 1024
 
 class ProcessSpawner {
-  constructor (command, args) {
+  constructor (command, args, env = {}) {
     this.command = command
     this.args = args
     this.data = ''
     this.error = ''
+    this.env = Object.assign({}, customEnv, env)
   }
 
   async execute () {
     return new Promise((resolve, reject) => {
-      const process = spawn(this.command, this.args, { env: customEnv, maxBuffer: maxBufferSize })
+      const process = spawn(this.command, this.args, { env: this.env, maxBuffer: maxBufferSize })
 
       process.stdout.on('data', (data) => {
         this.data += data
@@ -56,7 +57,7 @@ class ProcessSpawner {
   }
 
   executeSync (input) {
-    const process = spawnSync(this.command, this.args, { input: input, encoding: 'utf8', env: customEnv, maxBuffer: maxBufferSize })
+    const process = spawnSync(this.command, this.args, { input: input, encoding: 'utf8', env: this.env, maxBuffer: maxBufferSize })
     return process.output[1].slice(0, -1)
   }
 
@@ -76,7 +77,7 @@ class ProcessSpawner {
         command: this.command,
         args: this.args,
         input: input,
-        customEnv: customEnv,
+        customEnv: this.env,
         maxBuffer: maxBufferSize,
         taskId: taskId
       })
@@ -86,7 +87,7 @@ class ProcessSpawner {
   checkCommandExists () {
     return new Promise((resolve, reject) => {
       const checkCommand = (platformType === 'windows') ? 'where' : 'which'
-      const process = spawn(checkCommand, [this.command], { env: customEnv })
+      const process = spawn(checkCommand, [this.command], { env: this.env })
 
       process.stdout.on('data', (data) => {
         if (data.length > 0) {

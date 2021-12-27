@@ -1,5 +1,6 @@
 var searchbar = require('searchbar/searchbar.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
+var searchbarAutocomplete = require('util/autocomplete.js')
 
 var urlParser = require('util/urlParser.js')
 var searchEngine = require('util/searchEngine.js')
@@ -137,16 +138,29 @@ function showSearchbarInstantAnswers (text, input, event) {
     }
 
     // suggested site links
-    if (searchbarPlugins.getResultCount() < 4 && res.Results && res.Results[0] && res.Results[0].FirstURL) {
+    if (searchbarPlugins.getResultCount('places') < 4 && res.Results && res.Results[0] && res.Results[0].FirstURL) {
       var url = res.Results[0].FirstURL
 
-      searchbarPlugins.addResult('instantAnswers', {
+      const suggestedSiteData = {
         icon: 'carbon:earth-filled',
         title: urlParser.basicURL(url),
-        secondaryText: l('suggestedSite'),
         url: url,
         classList: ['ddg-answer']
-      })
+      }
+
+      if (searchbarPlugins.getTopAnswer()) {
+        searchbarPlugins.addResult('instantAnswers', suggestedSiteData)
+      } else {
+        if (event && event.keyCode !== 8) {
+          // don't autocomplete if delete key pressed
+          const autocompletionType = searchbarAutocomplete.autocompleteURL(input, url)
+
+          if (autocompletionType !== -1) {
+            suggestedSiteData.fakeFocus = true
+          }
+        }
+        searchbarPlugins.setTopAnswer('instantAnswers', suggestedSiteData)
+      }
     }
 
     // if we're showing a location, show a "Search on OpenStreetMap" link
@@ -173,7 +187,7 @@ function initialize () {
     trigger: function (text) {
       return text.length > 3 && !urlParser.isPossibleURL(text) && !tabs.get(tabs.getSelected()).private
     },
-    showResults: debounce(showSearchbarInstantAnswers, 200)
+    showResults: debounce(showSearchbarInstantAnswers, 150)
   })
 }
 

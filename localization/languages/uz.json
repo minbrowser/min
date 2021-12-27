@@ -254,6 +254,7 @@
     "passwordManagerSetupStep2": "Keyin vositani quyidagi maydonchaga torting:",
     "passwordManagerSetupDragBox": "Vositani bu yerga torting",
     "passwordManagerSetupInstalling": "O'rnatilmoqda...",
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": "Avtomatik to'ldirishni ishlatish uchun parol menejeringiz tizimiga kiring. Sizning ma'lumotlaringiz Minni hech qanday joyida saqlanmaydi.",
     "disableAutofill": "Avtomatik to'ldirishni o'chirish",
     "passwordManagerSetupUnlockError": "Parollar do'konini ochish muvaffaqiyatsiz bo'ldi: ",

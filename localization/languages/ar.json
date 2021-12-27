@@ -6,8 +6,8 @@
     /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-    "addToDictionary": null, //missing translation
-    "pictureInPicture": null, //missing translation
+    "addToDictionary": "أضف إلى القاموس", 
+    "pictureInPicture": "صورة داخل صورة", 
     "openInNewTab": "فتح الرابط في علامة تبويب جديدة",
     "openInNewPrivateTab": "فتح الرابط في التصفح المتخفي",
     "saveLinkAs": "حفظ الرابط باسم",
@@ -256,6 +256,7 @@
     "passwordManagerSetupStep2": null, //missing translation
     "passwordManagerSetupDragBox": null, //missing translation
     "passwordManagerSetupInstalling": null, //missing translation
+    "passwordManagerBitwardenSignIn": null, //missing translation
     "passwordManagerSetupSignIn": null, //missing translation
     "disableAutofill": null, //missing translation
     "passwordManagerSetupUnlockError": null, //missing translation
@@ -281,7 +282,7 @@
     "password": "كلمة المرور",
     "secretKey": "المفتاح السري",
     "openExternalApp": " ؟\\\"%s\\\" إفتح في ",
-    "clickToCopy": null, //missing translation
-    "copied": null //missing translation
+    "clickToCopy": "إنسخ", 
+    "copied": "تم النسخ" 
   }
 }
