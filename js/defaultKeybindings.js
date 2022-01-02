@@ -269,11 +269,7 @@ const defaultKeybindings = {
     })
 
     keybindings.defineShortcut('reloadIgnoringCache', function () {
-        webviews.callAsync(tabs.getSelected(), 'reloadIgnoringCache')
-    })
-
-    keybindings.defineShortcut({ keys: 'mod+=' }, function () {
-      webviewGestures.zoomWebviewIn(tabs.getSelected())
+      webviews.callAsync(tabs.getSelected(), 'reloadIgnoringCache')
     })
 
     keybindings.defineShortcut('showHistory', function () {
