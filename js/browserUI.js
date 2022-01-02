@@ -188,7 +188,7 @@ webviews.bindEvent('did-create-popup', function (tabId, popupId, initialURL) {
   switchToTab(popupTab)
 })
 
-webviews.bindEvent('new-tab', function (tabId, url) {
+webviews.bindEvent('new-tab', function (tabId, url, openInForeground) {
   var newTab = tabs.add({
     url: url,
     private: tabs.get(tabId).private // inherit private status from the current tab
@@ -196,7 +196,7 @@ webviews.bindEvent('new-tab', function (tabId, url) {
 
   addTab(newTab, {
     enterEditMode: false,
-    openInBackground: !settings.get('openTabsInForeground')
+    openInBackground: !settings.get('openTabsInForeground') && !openInForeground
   })
 })
 

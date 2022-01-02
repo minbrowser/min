@@ -54,11 +54,18 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
   })
 
   view.webContents.setWindowOpenHandler(function (details) {
-    if (details.disposition === 'background-tab') {
+    /*
+      Opening a popup with window.open() generally requires features to be set
+      So if there are no features, the event is most likely from clicking on a link, which should open a new tab.
+      Clicking a link can still have a "new-window" or "foreground-tab" disposition depending on which keys are pressed
+      when it is clicked.
+      (https://github.com/minbrowser/min/issues/1835)
+    */
+    if (!details.features) {
       mainWindow.webContents.send('view-event', {
         viewId: id,
         event: 'new-tab',
-        args: [details.url]
+        args: [details.url, !(details.disposition === 'background-tab')]
       })
       return {
         action: 'deny'
