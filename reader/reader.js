@@ -8,7 +8,14 @@ backbutton.addEventListener('click', function (e) {
   // there's likely a problem with reader view on this page, so don't auto-redirect to it in the future
   readerDecision.setURLStatus(articleURL, false)
 
-  window.location = articleURL
+  /*
+  setURLStatus eventually calls settings.update asynchronously, and it's possible for the navigation to the original URL
+  to start before the settings data has finished updating, which makes the original URL redirect back to reader view.
+  Adding a small delay before loading the original URL avoids this.
+  */
+  setTimeout(function () {
+    window.location = articleURL
+  }, 50)
 })
 
 /* Auto redirect banner */
