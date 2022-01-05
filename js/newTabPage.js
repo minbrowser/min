@@ -12,6 +12,7 @@ const newTabPage = {
     function onLoad () {
       newTabPage.background.hidden = false
       newTabPage.hasBackground = true
+      document.body.classList.add('ntp-has-background')
       newTabPage.background.removeEventListener('load', onLoad)
 
       newTabPage.deleteBackground.hidden = false
@@ -19,6 +20,7 @@ const newTabPage = {
     function onError () {
       newTabPage.background.hidden = true
       newTabPage.hasBackground = false
+      document.body.classList.remove('ntp-has-background')
       newTabPage.background.removeEventListener('error', onError)
 
       newTabPage.deleteBackground.hidden = true

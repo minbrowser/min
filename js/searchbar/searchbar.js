@@ -22,11 +22,6 @@ var searchbar = {
   show: function (associatedInput) {
     searchbar.el.hidden = false
     searchbar.associatedInput = associatedInput
-    if (tabs.get(tabs.getSelected()).url) {
-      searchbar.el.classList.remove('is-new-tab')
-    } else {
-      searchbar.el.classList.add('is-new-tab')
-    }
   },
   hide: function () {
     searchbar.associatedInput = null

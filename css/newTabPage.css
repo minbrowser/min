@@ -4,10 +4,10 @@
     position: relative;
     opacity: 1;
     transition: 0.15s opacity;
+    overflow: hidden;
 }
 
-#ntp-content[hidden] {
-    display: block !important;
+body:not(.is-ntp) #ntp-content {
     opacity: 0;
 }
 

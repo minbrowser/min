@@ -4,7 +4,6 @@ var settings = require('util/settings/settings.js')
 /* implements selecting webviews, switching between them, and creating new ones. */
 
 var placeholderImg = document.getElementById('webview-placeholder')
-var ntpContent = document.getElementById('ntp-content')
 
 var hasSeparateTitlebar = settings.get('useSeparateTitlebar')
 var windowIsMaximized = false // affects navbar height on Windows
@@ -231,8 +230,6 @@ const webviews = {
       focus: !options || options.focus !== false
     })
     webviews.emitEvent('view-shown', id)
-
-    ntpContent.hidden = !!(tabs.get(id).url)
   },
   update: function (id, url) {
     ipc.send('loadURLInView', { id: id, url: urlParser.parse(url) })
