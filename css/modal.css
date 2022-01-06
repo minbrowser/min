@@ -15,6 +15,10 @@ body.is-modal-mode #overlay {
   z-index: 1;
   pointer-events: none;
 }
+body.is-edit-mode.is-ntp.ntp-has-background #overlay {
+  opacity: 0.33;
+}
+
 body.is-modal-mode #overlay {
   /* In modal mode, the tab bar should be disabled */
   z-index: 5;

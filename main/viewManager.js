@@ -2,6 +2,7 @@ const BrowserView = electron.BrowserView
 
 var viewMap = {} // id: view
 var viewStateMap = {} // id: view state
+var selectedView = null
 
 var temporaryPopupViews = {} // id: view
 
@@ -181,6 +182,7 @@ function destroyView (id) {
 
   if (viewMap[id] === mainWindow.getBrowserView()) {
     mainWindow.setBrowserView(null)
+    selectedView = null
   }
   viewMap[id].webContents.destroy()
 
@@ -195,7 +197,12 @@ function destroyAllViews () {
 }
 
 function setView (id) {
-  mainWindow.setBrowserView(viewMap[id])
+  if (viewStateMap[id].loadedInitialURL) {
+    mainWindow.setBrowserView(viewMap[id])
+  } else {
+    mainWindow.setBrowserView(null)
+  }
+  selectedView = id
 }
 
 function setBounds (id, bounds) {
@@ -216,6 +223,7 @@ function focusView (id) {
 
 function hideCurrentView () {
   mainWindow.setBrowserView(null)
+  selectedView = null
   mainWindow.webContents.focus()
 }
 
@@ -267,6 +275,10 @@ ipc.on('loadURLInView', function (e, args) {
   // wait until the first URL is loaded to set the background color so that new tabs can use a custom background
   if (!viewStateMap[args.id].loadedInitialURL) {
     viewMap[args.id].setBackgroundColor('#fff')
+    // If the view has no URL, it won't be attached yet
+    if (args.id === selectedView) {
+      mainWindow.setBrowserView(viewMap[args.id])
+    }
   }
   viewMap[args.id].webContents.loadURL(args.url)
   viewStateMap[args.id].loadedInitialURL = true

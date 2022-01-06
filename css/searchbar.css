@@ -13,7 +13,8 @@
   overflow-y: auto;
 }
 
-#searchbar:not(.is-new-tab) {
+body:not(.is-ntp) #searchbar,
+body.ntp-has-background #searchbar {
   box-shadow: rgba(0, 0, 0, 0.25) 0px 3px 4px -2px;
 }
 
