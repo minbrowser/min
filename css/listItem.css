@@ -2,7 +2,7 @@
   width: 100%;
   display: block;
   position: relative;
-  padding: 0.55em 0.55em 0.55em 9px;
+  padding: 8px 9px 9px 9px;
   cursor: pointer;
   transition: 0.2s transform, 0.2s opacity;
 }
@@ -40,7 +40,6 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  line-height: 1.1em;
 }
 .searchbar-item .title.wide {
   max-width: 70%;
@@ -152,7 +151,6 @@ body.dark-mode.touch .searchbar-item .action-button {
   white-space: nowrap;
   text-overflow: ellipsis;
   max-height: 2em;
-  line-height: 1em;
 }
 
 .searchbar-item .image {
