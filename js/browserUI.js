@@ -123,7 +123,7 @@ function closeTab (tabId) {
   if (tabId === tabs.getSelected()) {
     var currentIndex = tabs.getIndex(tabs.getSelected())
     var nextTab =
-    tabs.getAtIndex(currentIndex - 1) || tabs.getAtIndex(currentIndex + 1)
+    tabs.getAtIndex(currentIndex + 1) || tabs.getAtIndex(currentIndex - 1) // prefer to select right
 
     destroyTab(tabId)
 
