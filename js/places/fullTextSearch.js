@@ -285,7 +285,7 @@ function fullTextPlacesSearch (searchText, callback) {
           currentScore -= mappedArr[indexBegin]
         }
         currentScore += mappedArr[indexEnd]
-        if (currentScore > maxScore || (currentScore === maxScore && (indexBegin - maxBegin <= 1))) {
+        if (currentScore > maxScore || (currentScore > 0 && currentScore === maxScore && (indexBegin - maxBegin <= 1))) {
           maxBegin = indexBegin
           maxEnd = indexEnd
           maxScore = currentScore
@@ -305,7 +305,10 @@ function fullTextPlacesSearch (searchText, callback) {
         }
       }
 
-      doc.searchSnippet = snippetIndex.slice(maxBegin, maxEnd + 5).join(' ') + '...'
+      const snippet = snippetIndex.slice(maxBegin, maxEnd + 5).join(' ')
+      if (snippet) {
+        doc.searchSnippet = snippet + '...'
+      }
 
       // these properties are never used, and sending them from the worker takes a long time
       delete doc.pageHTML
