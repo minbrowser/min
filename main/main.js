@@ -36,15 +36,25 @@ function clamp (n, min, max) {
 
 if (process.platform === 'win32') {
   (async function () {
-    var squirrelCommand = process.argv[1]
+    var squirrelCommand = process.argv.find(arg => arg.startsWith('--squirrel'))
     if (squirrelCommand === '--squirrel-install' || squirrelCommand === '--squirrel-updated') {
       isInstallerRunning = true
-      await registryInstaller.install()
+
+      await new Promise(function(resolve, reject) {
+        require('sudo-prompt').exec(process.execPath + " " + process.cwd() + "\\main\\registryConfig.js" + " --install", {ELECTRON_RUN_AS_NODE: 1, name: "Min"}, function() {
+	          resolve()
+        })
+      })
     }
     if (squirrelCommand === '--squirrel-uninstall') {
       isInstallerRunning = true
-      await registryInstaller.uninstall()
+      await new Promise(function(resolve, reject) {
+          require('sudo-prompt').exec(process.execPath + " " + process.cwd() + "\\main\\registryConfig.js" + " --uninstall", {ELECTRON_RUN_AS_NODE: 1, name: "Min"}, function() {
+              resolve()
+        })
+      })
     }
+    
     if (require('electron-squirrel-startup')) {
       app.quit()
     }

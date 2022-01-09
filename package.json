@@ -38,7 +38,8 @@
     "node-abi": "^3.2.0",
     "pdfjs-dist": "2.4.456",
     "regedit": "^3.0.3",
-    "string_score": "^0.1.22"
+    "string_score": "^0.1.22",
+    "sudo-prompt": "^9.2.1"
   },
   "devDependencies": {
     "archiver": "^4.0.1",
