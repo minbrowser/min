@@ -168,7 +168,7 @@ const webviewMenu = {
             })
             browserUI.addTab(newTab, {
               enterEditMode: false,
-              openInBackground: openInBackground
+              openInBackground: false
             })
           }
         }
