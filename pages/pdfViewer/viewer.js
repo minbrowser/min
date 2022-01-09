@@ -166,7 +166,12 @@ function setupPageDom (pageView) {
     }
     textLayer = pageView.textLayerFactory.createTextLayerBuilder(textLayerDiv, pageView.id - 1, pageView.viewport, pageView.enhanceTextSelection)
   }
+  if (pageView.annotationLayerFactory) {
+    var annotationLayer = pageView.annotationLayerFactory.createAnnotationLayerBuilder(div, pdfPage, null, null, false, pageView.l10n, null, null, null, null, null)
+  }
   pageView.textLayer = textLayer
+  pageView.annotationLayer = annotationLayer
+  setupPageNavigation(pageView)
 }
 
 function DefaultTextLayerFactory () { }
@@ -213,6 +218,18 @@ const updateCachedPages = throttle(function () {
 }, 500)
 
 var pageCount
+
+function setupPageNavigation (pageView) {
+  pageView.annotationLayer.linkService.navigateTo = function (loc) {
+    // TODO support more types of links
+    if (loc.startsWith('p')) {
+      var pageNumber = parseInt(loc.replace('p', ''))
+      pageViews[pageNumber].div.scrollIntoView()
+    } else {
+      console.warn('unsupported link : ' + loc)
+    }
+  }
+}
 
 pdfjsLib.getDocument({ url: url, withCredentials: true }).promise.then(async function (pdf) {
   window.pdf = pdf
@@ -275,18 +292,6 @@ pdfjsLib.getDocument({ url: url, withCredentials: true }).promise.then(async fun
         updateGutterWidths()
       }
 
-      function setupPageNavigation (pageView) {
-        pageView.annotationLayer.linkService.navigateTo = function (loc) {
-          // TODO support more types of links
-          if (loc.startsWith('p')) {
-            var pageNumber = parseInt(loc.replace('p', ''))
-            pageViews[pageNumber].div.scrollIntoView()
-          } else {
-            console.warn('unsupported link : ' + loc)
-          }
-        }
-      }
-
       (function (pageNumber, pdfPageView) {
         setTimeout(function () {
           if (pageNumber < pageBuffer || (currentPage && Math.abs(currentPage - pageNumber) < pageBuffer)) {
@@ -309,6 +314,7 @@ pdfjsLib.getDocument({ url: url, withCredentials: true }).promise.then(async fun
               pdfPageView.pdfPage.getTextContent({ normalizeWhitespace: true }).then(function (text) {
                 pdfPageView.textLayer.setTextContent(text)
                 pdfPageView.textLayer.render(0)
+                pdfPageView.annotationLayer.render(pdfPageView.viewport, 'display')
               })
             }, { timeout: 10000 })
           }
