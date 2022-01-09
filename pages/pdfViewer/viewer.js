@@ -171,7 +171,7 @@ function setupPageDom (pageView) {
   }
   pageView.textLayer = textLayer
   pageView.annotationLayer = annotationLayer
-  setupPageNavigation(pageView)
+  setUpPageAnnotationLayer(pageView)
 }
 
 function DefaultTextLayerFactory () { }
@@ -219,15 +219,26 @@ const updateCachedPages = throttle(function () {
 
 var pageCount
 
-function setupPageNavigation (pageView) {
-  pageView.annotationLayer.linkService.navigateTo = function (loc) {
-    // TODO support more types of links
-    if (loc.startsWith('p')) {
-      var pageNumber = parseInt(loc.replace('p', ''))
-      pageViews[pageNumber].div.scrollIntoView()
+function setUpPageAnnotationLayer (pageView) {
+  pageView.annotationLayer.linkService.goToDestination = async function (dest) {
+    // Adapted from https://github.com/mozilla/pdf.js/blob/8ac0ccc2277a7c0c85d6fec41c0f3fc3d1a2d232/web/pdf_link_service.js#L238
+    let explicitDest
+    if (typeof dest === 'string') {
+      explicitDest = pdf.getDestination(dest)
     } else {
-      console.warn('unsupported link : ' + loc)
+      explicitDest = await dest
     }
+
+    const destRef = explicitDest[0]
+    let pageNumber
+
+    if (typeof destRef === 'object' && destRef !== null) {
+      pageNumber = await pdf.getPageIndex(destRef)
+    } else if (Number.isInteger(destRef)) {
+      pageNumber = destRef + 1
+    }
+
+    pageViews[pageNumber].div.scrollIntoView()
   }
 }
 
@@ -296,7 +307,7 @@ pdfjsLib.getDocument({ url: url, withCredentials: true }).promise.then(async fun
         setTimeout(function () {
           if (pageNumber < pageBuffer || (currentPage && Math.abs(currentPage - pageNumber) < pageBuffer)) {
             pageContainer.classList.add('loading')
-            pdfPageView.draw().then(function () { setupPageNavigation(pdfPageView) }).then(function () {
+            pdfPageView.draw().then(function () { setUpPageAnnotationLayer(pdfPageView) }).then(function () {
               pageContainer.classList.remove('loading')
               if (pageNumber === 1) {
                 showViewerUI()

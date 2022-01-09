@@ -150,7 +150,8 @@
   }
 
   .annotationLayer img,
-  .annotationLayer .popupAnnotation {
+  .annotationLayer .popupAnnotation,
+  .annotationLayer .popupWrapper {
     display: none;
   }
 
