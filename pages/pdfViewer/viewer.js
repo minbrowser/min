@@ -224,7 +224,7 @@ function setUpPageAnnotationLayer (pageView) {
     // Adapted from https://github.com/mozilla/pdf.js/blob/8ac0ccc2277a7c0c85d6fec41c0f3fc3d1a2d232/web/pdf_link_service.js#L238
     let explicitDest
     if (typeof dest === 'string') {
-      explicitDest = pdf.getDestination(dest)
+      explicitDest = await pdf.getDestination(dest)
     } else {
       explicitDest = await dest
     }
