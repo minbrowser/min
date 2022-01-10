@@ -36,7 +36,7 @@
     "keytar": "7.6.0",
     "mousetrap": "^1.5.3",
     "node-abi": "^3.2.0",
-    "pdfjs-dist": "2.4.456",
+    "pdfjs-dist": "2.12.313",
     "regedit": "^3.0.3",
     "string_score": "^0.1.22"
   },
