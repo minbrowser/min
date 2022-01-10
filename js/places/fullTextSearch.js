@@ -1,5 +1,6 @@
 /* global db Dexie */
 
+const stemmer = require('stemmer')
 importScripts('../../ext/xregexp/nonLetterRegex.js')
 
 const whitespaceRegex = /\s+/g
@@ -140,7 +141,9 @@ function tokenize (string) {
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .split(whitespaceRegex).filter(function (token) {
       return !stopWords[token] && token.length <= 100
-    }).slice(0, 20000)
+    })
+    .map(token => stemmer(token))
+    .slice(0, 20000)
 }
 
 // finds the documents that contain all of the prefixes in their searchIndex
@@ -271,7 +274,7 @@ function fullTextPlacesSearch (searchText, callback) {
       const snippetIndex = doc.extractedText ? doc.extractedText.split(/\s+/g) : []
 
       // array of 0 or 1 - 1 indicates this item in the snippetIndex is a search word
-      const mappedArr = snippetIndex.map(w => searchWords.includes(w.toLowerCase().replace(nonLetterRegex, '')) ? 1 : 0)
+      const mappedArr = snippetIndex.map(w => searchWords.includes(stemmer(w.toLowerCase().replace(nonLetterRegex, ''))) ? 1 : 0)
 
       // find the bounds of the max subarray within mappedArr
       let indexBegin = -10
