@@ -12,6 +12,7 @@ function sendPermissionsToRenderer () {
     return {
       permissionId: p.permissionId,
       tabId: p.tabId,
+      origin: p.origin,
       permission: p.permission,
       details: p.details,
       granted: p.granted
@@ -27,15 +28,11 @@ function removePermissionsForContents (contents) {
 }
 
 /*
-Was permission already granted for this tab and URL?
+Was permission already granted for this origin?
 */
-function isPermissionGrantedForContents (requestContents, requestPermission, requestDetails) {
-  var requestOrigin = new URL(requestDetails.requestingUrl).hostname
-
+function isPermissionGrantedForOrigin (requestOrigin, requestPermission, requestDetails) {
   for (var i = 0; i < grantedPermissions.length; i++) {
-    var grantedOrigin = new URL(grantedPermissions[i].details.requestingUrl).hostname
-
-    if (requestContents === grantedPermissions[i].contents && requestOrigin === grantedOrigin) {
+    if (requestOrigin === grantedPermissions[i].origin) {
       if (requestPermission === 'notifications' && grantedPermissions[i].permission === 'notifications') {
         return true
       }
@@ -59,15 +56,11 @@ function isPermissionGrantedForContents (requestContents, requestPermission, req
 }
 
 /*
-Is there already a pending request of the given type for this tab+url?
+Is there already a pending request of the given type for this origin?
  */
-function hasPendingRequestForContents (contents, permission, details) {
-  var requestOrigin = new URL(details.requestingUrl).hostname
-
+function hasPendingRequestForOrigin (requestOrigin, permission, details) {
   for (var i = 0; i < pendingPermissions.length; i++) {
-    var pendingOrigin = new URL(pendingPermissions[i].details.requestingUrl).hostname
-
-    if (contents === pendingPermissions[i].contents && requestOrigin === pendingOrigin && permission === pendingPermissions[i].permission) {
+    if (requestOrigin === pendingPermissions[i].origin && permission === pendingPermissions[i].permission) {
       return true
     }
   }
@@ -91,17 +84,34 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
     return
   }
 
+  const requestOrigin = new URL(details.requestingUrl).hostname
+
   /*
   Geolocation requires a Google API key (https://www.electronjs.org/docs/api/environment-variables#google_api_key), so it is disabled.
   Other permissions aren't supported for now to simplify the UI
   */
   if (['media', 'notifications'].includes(permission)) {
     /*
-    If permission was previously granted for this page, new requests should be allowed
+    If permission was previously granted for this origin in a different tab, new requests should be allowed
     */
-    if (isPermissionGrantedForContents(webContents, permission, details)) {
+    if (isPermissionGrantedForOrigin(requestOrigin, permission, details)) {
       callback(true)
-    } else if (permission === 'notifications' && hasPendingRequestForContents(webContents, permission, details)) {
+
+      if (!grantedPermissions.some(grant => grant.contents === webContents && grant.permission === permission)) {
+        grantedPermissions.push({
+          permissionId: nextPermissionId,
+          tabId: getViewIDFromWebContents(webContents),
+          contents: webContents,
+          origin: requestOrigin,
+          permission: permission,
+          details: details,
+          granted: true
+        })
+
+        sendPermissionsToRenderer()
+        nextPermissionId++
+      }
+    } else if (permission === 'notifications' && hasPendingRequestForOrigin(requestOrigin, permission, details)) {
       /*
       Sites sometimes make a new request for each notification, which can generate multiple requests if the first one wasn't approved.
       TODO this isn't entirely correct (some requests will be rejected when they should be pending) - correct solution is to show a single button to approve all requests in the UI.
@@ -112,13 +122,13 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
         permissionId: nextPermissionId,
         tabId: getViewIDFromWebContents(webContents),
         contents: webContents,
+        origin: requestOrigin,
         permission: permission,
         details: details,
         callback: callback
       })
 
       sendPermissionsToRenderer()
-
       nextPermissionId++
     }
 
@@ -142,11 +152,7 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
 }
 
 function pagePermissionCheckHandler (webContents, permission, requestingOrigin, details) {
-  if (!details.isMainFrame) {
-    return false
-  }
-  // starting in Electron 13, this will sometimes be called with no URL. TODO figure out why
-  if (!details.requestingUrl) {
+  if (!details.isMainFrame && requestingOrigin !== details.embeddingOrigin) {
     return false
   }
 
@@ -154,7 +160,7 @@ function pagePermissionCheckHandler (webContents, permission, requestingOrigin, 
     return true
   }
 
-  return isPermissionGrantedForContents(webContents, permission, details)
+  return isPermissionGrantedForOrigin(new URL(requestingOrigin).hostname, permission, details)
 }
 
 app.once('ready', function () {
