@@ -148,7 +148,7 @@ function tokenize (string) {
 
 // finds the documents that contain all of the prefixes in their searchIndex
 // code from https://github.com/dfahlander/Dexie.js/issues/281
-function getMatchingDocs (tokens) {
+function fullTextQuery (tokens) {
   return db.transaction('r', db.places, function * () {
     // Parallell search for all tokens - just select resulting primary keys
     const tokenMatches = yield Dexie.Promise.all(tokens.map(prefix => db.places
@@ -156,7 +156,14 @@ function getMatchingDocs (tokens) {
       .equals(prefix)
       .primaryKeys()))
 
-    var results = []
+    // count of the number of documents containing each token, used for tf-idf calculation
+
+    var tokenMatchCounts = {}
+    for (var i = 0; i < tokens.length; i++) {
+      tokenMatchCounts[tokens[i]] = tokenMatches[i].length
+    }
+
+    var docResults = []
 
     /*
     A document matches if each search token is either 1) contained in the title, URL, or tags,
@@ -172,7 +179,7 @@ function getMatchingDocs (tokens) {
         }
       }
       if (matched) {
-        results.push(item)
+        docResults.push(item)
       }
     })
 
@@ -182,11 +189,14 @@ function getMatchingDocs (tokens) {
      score (recency + visit count) and then only read the 100 highest-ranking ones,
      since these are most likely to be in the final results.
     */
-    const ordered = results.sort(function (a, b) {
+    const ordered = docResults.sort(function (a, b) {
       return calculateHistoryScore(b) - calculateHistoryScore(a)
     }).map(i => i.id).slice(0, 100)
 
-    return yield db.places.where('id').anyOf(ordered).toArray()
+    return {
+      documents: yield db.places.where('id').anyOf(ordered).toArray(),
+      tokenMatchCounts
+    }
   })
 }
 
@@ -199,7 +209,9 @@ function fullTextPlacesSearch (searchText, callback) {
     return
   }
 
-  getMatchingDocs(searchWords).then(function (docs) {
+  fullTextQuery(searchWords).then(function (queryResults) {
+    const docs = queryResults.documents
+
     const totalCounts = {}
     for (let i = 0; i < sl; i++) {
       totalCounts[searchWords[i]] = 0
@@ -207,24 +219,23 @@ function fullTextPlacesSearch (searchText, callback) {
 
     const docTermCounts = {}
     const docIndexes = {}
-    let totalIndexLength = 0
 
     // find the number and position of the search terms in each document
     docs.forEach(function (doc) {
       const termCount = {}
-      const index = doc.searchIndex
+      const index = doc.searchIndex.concat(tokenize(doc.title))
       const indexList = []
 
       for (let i = 0; i < sl; i++) {
         let count = 0
         const token = searchWords[i]
 
-        let idx = doc.searchIndex.indexOf(token)
+        let idx = index.indexOf(token)
 
         while (idx !== -1) {
           count++
           indexList.push(idx)
-          idx = doc.searchIndex.indexOf(token, idx + 1)
+          idx = index.indexOf(token, idx + 1)
         }
 
         termCount[searchWords[i]] = count
@@ -233,7 +244,6 @@ function fullTextPlacesSearch (searchText, callback) {
 
       docTermCounts[doc.url] = termCount
       docIndexes[doc.url] = indexList.sort((a, b) => a - b)
-      totalIndexLength += index.length
     })
 
     const dl = docs.length
@@ -247,11 +257,6 @@ function fullTextPlacesSearch (searchText, callback) {
         doc.boost = 0
       }
 
-      // add boost when search terms appear more frequently than in other documents
-      for (let x = 0; x < sl; x++) {
-        doc.boost += Math.min(((termCounts[searchWords[x]] / indexLen) / (totalCounts[searchWords[x]] / totalIndexLength)) * 0.33, 1)
-      }
-
       // add boost when search terms appear close to each other
 
       const indexList = docIndexes[doc.url]
@@ -260,14 +265,33 @@ function fullTextPlacesSearch (searchText, callback) {
       for (let n = 1; n < indexList.length; n++) {
         const distance = indexList[n] - indexList[n - 1]
         if (distance < 50) {
-          totalWordDistanceBoost += Math.pow(50 - distance, 2) * 0.00005
+          totalWordDistanceBoost += Math.pow(50 - distance, 2) * 0.000075
         }
         if (distance === 1) {
-          totalWordDistanceBoost += 0.04
+          totalWordDistanceBoost += 0.05
         }
       }
 
-      doc.boost += Math.min(totalWordDistanceBoost, 5)
+      doc.boost += Math.min(totalWordDistanceBoost, 7.5)
+
+      // calculate bm25 score
+      // https://en.wikipedia.org/wiki/Okapi_BM25
+
+      const k1 = 1.5
+      const b = 0.75
+
+      let bm25 = 0
+      for (let x = 0; x < sl; x++) {
+        const nqi = queryResults.tokenMatchCounts[searchWords[x]]
+        const bmIdf = Math.log(((historyInMemoryCache.length - nqi + 0.5) / (nqi + 0.5)) + 1)
+
+        const tf = termCounts[searchWords[x]]
+        const scorePart2 = (tf * (k1 + 1)) / (tf + (k1 * (1 - b + (b * (indexLen / 500))))) // 500 is estimated average page length
+
+        bm25 += bmIdf * scorePart2
+      }
+
+      doc.boost += bm25
 
       // generate a search snippet for the document
 
