@@ -75,8 +75,8 @@
         /* Focus mode */
         "isFocusMode": "Bạn trong chế độ tập trung.",
         "closeDialog": "OK", //used as a label for the button that closes the dialog
-        "focusModeExplanation1": "Khi bật, bạn sẽ không thể tạo tab mới hoặc chuyển tác vụ", "In focus mode, you can't create new tabs or switch tasks."
-        "focusModeExplanation2": "Bạn có thể tắt bằng cách bỏ chọn \"focus mode\" trong menu", "You can leave focus mode by unchecking \"focus mode\" in the view menu."
+        "focusModeExplanation1": "Khi bật, bạn sẽ không thể tạo tab mới hoặc chuyển tác vụ", 
+        "focusModeExplanation2": "Bạn có thể tắt bằng cách bỏ chọn \"focus mode\" trong menu",
         /* relative dates */
         "timeRangeJustNow": "Vừa nãy",
         "timeRangeMinutes": "Vài phút trước",
@@ -131,7 +131,7 @@
         "settingsBlockedRequestCount": {
             "unsafeHTML": "Đến hiện tại, Min đã chặn <strong></strong> quảng cáo và bộ theo dõi"
         },
-        "settingsCustomBangs": null, // Missing translation
+        "settingsCustomBangs": "Lệnh tùy chỉnh",
         "settingsCustomBangsAdd": "Thêm mới",
         "settingsCustomBangsPhrase": "Cú pháp (Bắt buộc)",
         "settingsCustomBangsSnippet": "Mô tả (Tùy chọn)",
@@ -222,14 +222,14 @@
         },
         /* Context Reader */
         "buttonReaderSettings": "Cài đặt chế độ đọc",
-        "buttonReaderLightTheme": "Sáng", "Light"
-        "buttonReaderSepiaTheme": "Sepia", "Sepia"
-        "buttonReaderDarkTheme": "Tối", "Dark"
-        "openReaderView": "Luôn mở trong chế độ đọc", "Always open in reader view"
-        "autoRedirectBannerReader": "Luôn mở nội dung trong trang này ở chế độ đọc?", "Always open articles from this site in reader view?"
-        "buttonReaderRedirectYes": "Xác nhận", "Yes"
-        "buttonReaderRedirectNo": "Không", "No"
-        "articleReaderView": "Nội dung gốc", "Original Article"
+        "buttonReaderLightTheme": "Sáng",
+        "buttonReaderSepiaTheme": "Sepia",
+        "buttonReaderDarkTheme": "Tối",
+        "openReaderView": "Luôn mở trong chế độ đọc",
+        "autoRedirectBannerReader": "Luôn mở nội dung trong trang này ở chế độ đọc?",
+        "buttonReaderRedirectYes": "Xác nhận",
+        "buttonReaderRedirectNo": "Không",
+        "articleReaderView": "Nội dung gốc",
         /* Download manager */
         "downloadCancel": "Hủy",
         "downloadStateCompleted": "Hoàn tất",
