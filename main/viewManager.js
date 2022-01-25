@@ -19,7 +19,9 @@ const defaultViewWebPreferences = {
   allowPopups: false,
   // partition: partition || 'persist:webcontent',
   enableWebSQL: false,
-  autoplayPolicy: (settings.get('enableAutoplay') ? 'no-user-gesture-required' : 'user-gesture-required')
+  autoplayPolicy: (settings.get('enableAutoplay') ? 'no-user-gesture-required' : 'user-gesture-required'),
+  // match Chrome's default for anti-fingerprinting purposes (Electron defaults to 0)
+  minimumFontSize: 6
 }
 
 function createView (existingViewId, id, webPreferencesString, boundsString, events) {
