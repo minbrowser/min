@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const { execSync } = require('child_process')
 const archiver = require('archiver')
 
 const packageFile = require('./../package.json')
@@ -17,6 +18,10 @@ function toTarget (platform) {
 
 require('./createPackage.js')(toTarget(platform)).then(function (appPaths) {
   appPaths.forEach(function (packagePath) {
+    if (platform === 'arm64') {
+      execSync('codesign -s - -a arm64 -f --deep ' + packagePath + '/Min.app')
+    }
+
     /* create zip file */
 
     var output = fs.createWriteStream(packagePath.replace('Min-', 'Min-v' + version + '-') + '.zip')
