@@ -1,7 +1,7 @@
 {
-    "version": "1.22.2",
-    "releaseTime": 1639118114908,
-    "releaseHeadline": "Bug fixes",
+    "version": "1.23.0",
+    "releaseTime": 1643176800000,
+    "releaseHeadline": "Custom new tab page backgrounds and bug fixes",
     "releaseNotes": "https://minbrowser.org/releases/",
     "availabilityPercent": 1
 }
