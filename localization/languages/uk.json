@@ -261,7 +261,7 @@
     "passwordManagerSetupStep2": "Потім перетягніть інструмент у поле нижче:",
     "passwordManagerSetupDragBox": "Перетягніть інструмент сюди",
     "passwordManagerSetupInstalling": "Встановлення...",
-    "passwordManagerBitwardenSignIn": null, //missing translation
+    "passwordManagerBitwardenSignIn": "Щоб підключити свій обліковий запис Bitwarden, перейдіть на сторінку vault.bitwarden.com/#/settings/account, прокрутіть униз і виберіть \"Переглянути ключ API\". Потім вставте значення в поля нижче.",
     "passwordManagerSetupSignIn": "Увійдіть до менеджера паролів, щоб почати використовувати автозаповнення. Ваші облікові дані не зберігатимуться ніде в межах Min.",
     "disableAutofill": "Вимкнути автозаповнення",
     "passwordManagerSetupUnlockError": "Не вдалося розблокувати сховище паролів: ",
