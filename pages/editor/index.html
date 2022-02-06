@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="../../ext/prosemirror/prosemirror.js"></script>
+        <link rel="stylesheet" href="../../ext/prosemirror/prosemirror.css"/>
+    </head>
+    <body>
+        <div id="editor"></div>
+        <div style="display: none" id="content">
+        </div>
+
+        <script src="editor.js"></script>
+
+        <style>
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-size: 16px;
+            font-family: ".SFNSText-Regular", "BlinkMacSystemFont", "Helvetica Neue",
+                "Segoe UI", "Arial", sans-serif;
+            }
+            /* TODO figure out why the default focus color in Electron is orange */
+            *:focus {
+            outline-color: rgb(0, 117, 255);
+            }
+            .dark-mode *:focus {
+            outline-color: transparent;
+            }
+            body.mac * {
+            letter-spacing: 0.4px;
+            }
+            [hidden] {
+            display: none !important;
+            }
+            #editor {
+                height: 100vh;
+                margin: 0 auto;
+                max-width: 1000px;
+                border: none;
+            }
+            .ProseMirror-menuitem {
+                margin: 8px 3px 5px 4px;
+            }
+        </style>
+    </body>
+</html>

@@ -191,6 +191,7 @@ function createWindowWithBounds (bounds) {
       nodeIntegrationInWorker: true, // used by ProcessSpawner
       additionalArguments: [
         '--user-data-path=' + userDataPath,
+        '--user-documents-path=' + app.getPath('documents'),
         '--app-version=' + app.getVersion(),
         '--app-name=' + app.getName(),
         ...((isDevelopmentMode ? ['--development-mode'] : [])),

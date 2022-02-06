@@ -53,4 +53,16 @@ window.addEventListener('message', function (e) {
   if (e.data && e.data.message && e.data.message === 'showCredentialList') {
     ipc.send('showCredentialList')
   }
+
+  if (e.data && e.data.message && e.data.message === 'editorContentUpdate') {
+    ipc.send('editorContentUpdate', e.data)
+  }
+
+  if (e.data && e.data.message && e.data.message === 'editorGetContent') {
+    ipc.send('editorGetContent', e.data)
+  }
+})
+
+ipc.on('receiveEditorContent', function (event, data) {
+  window.postMessage({ message: 'receiveEditorContent', content: data })
 })

@@ -448,6 +448,25 @@ webviews.bindIPC('setSetting', function (tabId, args) {
   settings.set(args[0].key, args[0].value)
 })
 
+webviews.bindIPC('editorContentUpdate', function (tabId, args) {
+  if (!urlParser.isInternalURL(tabs.get(tabId).url)) {
+    throw new Error()
+  }
+  const path = new URL(tabs.get(tabId).url).searchParams.get('path')
+  fs.writeFile(path, args[0].content, () => {})
+})
+
+webviews.bindIPC('editorGetContent', function (tabId, args) {
+  if (!urlParser.isInternalURL(tabs.get(tabId).url)) {
+    throw new Error()
+  }
+  const path = new URL(tabs.get(tabId).url).searchParams.get('path')
+  fs.readFile(path, 'utf-8', function (err, data) {
+    console.log(err)
+    webviews.callAsync(tabId, 'send', ['receiveEditorContent', data])
+  })
+})
+
 settings.listen(function () {
   tasks.forEach(function (task) {
     task.tabs.forEach(function (tab) {

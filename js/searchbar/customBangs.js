@@ -262,8 +262,17 @@ function initialize () {
         places.updateItem(url, {
           isBookmarked: true,
           tags: (text ? text.split(/\s/g).map(t => t.replace('#', '').trim()) : [])
-        }, ()=>{})
+        }, () => {})
       }
+    }
+  })
+
+  bangsPlugin.registerCustomBang({
+    phrase: '!file',
+    snippet: 'Edit file',
+    fn: function (text) {
+      const url = 'min:editor?path=' + require('path').join(window.globalArgs['user-documents-path'], text)
+      browserUI.addTab(tabs.add({ url }), { enterEditMode: false })
     }
   })
 }
