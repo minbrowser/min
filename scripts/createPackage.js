@@ -58,7 +58,16 @@ var platformOptions = {
     }, {
       name: 'File',
       schemes: ['file']
-    }]
+    }],
+    osxSign: {
+      identity: 'Min Code Signing Certificate',
+      'identity-validation': false,
+      'gatekeeper-assess': false,
+      'hardened-runtime': true,
+      entitlements: 'resources/entitlements.plist',
+      'entitlements-inherit': 'resources/entitlements.plist',
+      'signature-flags': 'library'
+    }
   },
   darwinArm: {
     platform: 'darwin',

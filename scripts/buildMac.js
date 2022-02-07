@@ -21,6 +21,9 @@ require('./createPackage.js')(toTarget(platform)).then(function (appPaths) {
     if (platform === 'arm64') {
       execSync('codesign -s - -a arm64 -f --deep ' + packagePath + '/Min.app')
     }
+    /*   } else if (platform === 'x86') {
+      execSync('codesign -s - -a x86_64 -f --deep ' + packagePath + '/Min.app')
+    } */
 
     /* create zip file */
 
