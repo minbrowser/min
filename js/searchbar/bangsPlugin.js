@@ -220,6 +220,8 @@ function initialize () {
       registerCustomBang({
         phrase: `!${bang.phrase}`,
         snippet: `${bang.snippet}` ?? '',
+        // isAction: true - skip search text entry if the bang does not include a search parameter
+        isAction: !bang.redirect.includes('%s'),
         fn: function (text) {
           searchbar.openURL(bang.redirect.replace('%s', encodeURIComponent(text)))
         }

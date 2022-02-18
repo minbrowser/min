@@ -2,7 +2,7 @@ body,
 html {
   padding: 0;
   margin: 0;
-  font-size: 19.5px;
+  font-size: 19px;
   color: rgb(15, 15, 15);
 }
 
@@ -202,8 +202,16 @@ th li {
   text-align: left;
 }
 
-sup {
+/* https://css-tricks.com/snippets/css/prevent-superscripts-and-subscripts-from-affecting-line-height/ */
+sup, sub {
   font-size: 0.75em;
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+
+sub { 
+  top: 0.4em; 
 }
 
 /* printing */

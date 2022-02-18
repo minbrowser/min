@@ -14,14 +14,9 @@ body:not(.is-ntp) #ntp-content {
 #ntp-background {
     /*max-height: max(100%, 72vw);*/
     width: 100%;
-    min-width: 150vh;
-    max-width: 100vw;
-    position: absolute;
-    top: -99999px;
-    left: -99999px;
-    right: -99999px;
-    bottom: -99999px;
+    height: 100%;
     margin: auto;
+    object-fit: cover;
 }
 
 #ntp-background-controls {

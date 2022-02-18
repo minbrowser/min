@@ -20,7 +20,7 @@ if (process.isMainFrame) {
 `)
 }
 
-if ((window.location.hostname === 'google.com' || window.location.hostname.endsWith('.google.com')) && window.location.hostname !== 'hangouts.google.com') {
+if ((window.location.hostname === 'google.com' || window.location.hostname.endsWith('.google.com')) && window.location.hostname !== 'hangouts.google.com' && window.location.hostname !== 'drive.google.com') {
   /* define window.chrome
      this is necessary because some websites (such as the Google Drive file viewer, see issue #378) check for a
      Chrome user agent, and then do things like if(chrome.<module>) {}
@@ -30,6 +30,8 @@ if ((window.location.hostname === 'google.com' || window.location.hostname.endsW
      However, if window.chrome exists, hangouts will attempt to connect to an extension and break
      (https://github.com/minbrowser/min/issues/1051)
      so don't enable it there
+
+     As of 2/7/22, this also breaks drive, so disable it there also
      */
 
   scriptsToRun.push(`
