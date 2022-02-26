@@ -1,4 +1,3 @@
-var { db } = require('util/database.js')
 var places = require('places/places.js')
 var autocomplete = require('util/autocomplete.js')
 
@@ -28,7 +27,10 @@ const bookmarkEditor = {
   },
   render: async function (url, options = {}) {
     bookmarkEditor.currentInstance = {}
-    bookmarkEditor.currentInstance.bookmark = await db.places.where('url').equals(url).first()
+    // TODO make places API return a promise
+    bookmarkEditor.currentInstance.bookmark = (await new Promise(function (resolve, reject) {
+      places.getItem(url, item => resolve(item))
+    }))
 
     var editor = document.createElement('div')
     editor.className = 'bookmark-editor searchbar-item'

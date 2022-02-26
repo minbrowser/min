@@ -124,6 +124,13 @@ onmessage = function (e) {
     }
   }
 
+  if (action === 'getAllPlaces') {
+    postMessage({
+      result: historyInMemoryCache,
+      callbackId: callbackId
+    })
+  }
+
   if (action === 'updatePlace') {
     db.transaction('rw', db.places, function () {
       db.places.where('url').equals(pageData.url).first(function (item) {

@@ -1,7 +1,6 @@
 /* global Worker tabs */
 
 var webviews = require('webviews.js')
-const db = require('util/database.js').db
 const searchEngine = require('util/searchEngine.js')
 const urlParser = require('util/urlParser.js')
 
@@ -124,6 +123,13 @@ const places = {
       callbackId: callbackId
     })
   },
+  getAllItems: function (callback) {
+    const callbackId = places.addWorkerCallback(callback)
+    places.worker.postMessage({
+      action: 'getAllPlaces',
+      callbackId: callbackId
+    })
+  },
   updateItem: function (url, fields, callback) {
     const callbackId = places.addWorkerCallback(callback)
     places.worker.postMessage({
@@ -136,7 +142,7 @@ const places = {
     })
   },
   toggleTag: function (url, tag) {
-    db.places.where('url').equals(url).first(function (item) {
+    places.getItem(url, function (item) {
       if (!item) {
         return
       }

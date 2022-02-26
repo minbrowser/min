@@ -2,7 +2,6 @@
 
 var places = require('places/places.js')
 var urlParser = require('util/urlParser.js')
-var { db } = require('util/database.js')
 var settings = require('util/settings/settings.js')
 var path = require('path')
 var fs = require('fs')
@@ -62,27 +61,28 @@ const bookmarkConverter = {
       var folderBookmarksList = document.createElement('dl')
       folderRoot.appendChild(folderBookmarksList)
 
-      db.places.each(function (item) {
-        if (item.isBookmarked) {
-          var itemRoot = document.createElement('dt')
-          var a = document.createElement('a')
-          itemRoot.appendChild(a)
-          folderBookmarksList.appendChild(itemRoot)
+      places.getAllItems(function (items) {
+        items.forEach(function (item) {
+          if (item.isBookmarked) {
+            var itemRoot = document.createElement('dt')
+            var a = document.createElement('a')
+            itemRoot.appendChild(a)
+            folderBookmarksList.appendChild(itemRoot)
 
-          a.href = urlParser.getSourceURL(item.url)
-          a.setAttribute('add_date', Math.round(item.lastVisit / 1000))
-          if (item.tags.length > 0) {
-            a.setAttribute('tags', item.tags.join(','))
+            a.href = urlParser.getSourceURL(item.url)
+            a.setAttribute('add_date', Math.round(item.lastVisit / 1000))
+            if (item.tags.length > 0) {
+              a.setAttribute('tags', item.tags.join(','))
+            }
+            a.textContent = item.title
+            // Chrome will only parse the file if it contains newlines after each bookmark
+            var textSpan = document.createTextNode('\n')
+            folderBookmarksList.appendChild(textSpan)
           }
-          a.textContent = item.title
-          // Chrome will only parse the file if it contains newlines after each bookmark
-          var textSpan = document.createTextNode('\n')
-          folderBookmarksList.appendChild(textSpan)
-        }
-      }).then(function () {
+        })
+
         resolve(root.outerHTML)
       })
-        .catch(reject)
     })
   },
   initialize: function () {

@@ -1,4 +1,3 @@
-const db = require('util/database.js').db
 const places = require('places/places.js')
 const bookmarkEditor = require('searchbar/bookmarkEditor.js')
 const searchbar = require('searchbar/searchbar.js')
