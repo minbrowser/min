@@ -12,7 +12,6 @@ window.electron = require('electron')
 window.fs = require('fs')
 window.EventEmitter = require('events')
 window.ipc = electron.ipcRenderer
-window.Dexie = require('dexie')
 
 if (navigator.platform === 'MacIntel') {
   document.body.classList.add('mac')
