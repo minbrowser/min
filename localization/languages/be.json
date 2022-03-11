@@ -1,0 +1,291 @@
+{
+    "name": "Беларуская",
+    "identifier": "be",
+    "translations": {
+      /* Context menu items
+          these are the items displayed in the menu when you right-click on a page
+          */
+      "addToDictionary": "Дадаць у слоўнік",
+      "pictureInPicture": "Малюнак у малюнку",
+      "openInNewTab": "Адкрыць у новай ўкладцы",
+      "openInNewPrivateTab": "Адкрыць у прыватнай ўкладцы",
+      "saveLinkAs": "Захаваць спасылку як...",
+      "viewImage": "Прагляд малюнка",
+      "openImageInNewTab": "Адкрыць малюнак у новай ўкладцы",
+      "openImageInNewPrivateTab": "Адкрыць малюнак у прыватнай ўкладцы",
+      "saveImageAs": "Захаваць малюнак як",
+      "searchWith": "Шукаць у %s", //%s will be replaced with the name of the current search engine
+      "copyLink": "Скапіяваць спасылку",
+      "copyEmailAddress": "Скапіяваць адрас электроннай пошты",
+      "selectAll": "Выбраць усё",
+      "undo": "Адмяніць",
+      "redo": "Паўтарыць",
+      "cut": "Выразаць",
+      "copy": "Капіяваць", //this is a verb (as in "copy the currently-selected text")
+      "paste": "Уставіць",
+      "goBack": "Назад",
+      "goForward": "Наперад",
+      "inspectElement": "Праверыць элемент",
+      /* searchbar */
+      "pasteAndGo": "Уставіць і перайсці", //context menu item
+      "DDGAnswerSubtitle": "Адказ", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+      "suggestedSite": "Рэкамендуемы сайт", //this is used to label suggested websites from the DuckDuckGo API,
+      "resultsFromDDG": "Вынікі з DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+      "taskN": "Задача %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+      /* custom !bangs
+          these are some of the items that show up when you press ! in the searchbar.
+          Each one of these strings describes what the command will do when you run it. */
+      "showMoreBangs": "Паказаць больш",
+      "viewSettings": "Адкрыць налады",
+      "takeScreenshot": "Зрабіць скрыншот",
+      "clearHistory": "Ачысціць гісторыю",
+      "enableBlocking": "Уключыць блакаванне кантэнту для гэтага сайта",
+      "disableBlocking": "Адключыць блакаванне кантэнту для гэтага сайта",
+      "clearHistoryConfirmation": "Ачысціць ўсю гісторыю і дадзеныя аб праглядзе?",
+      "switchToTask": "Перайсці да задачы",
+      "createTask": "Стварыць задачу",
+      "closeTask": "Закрыць задачу",
+      "moveToTask": "Перамясціць гэтую ўкладку ў задачу",
+      "nameTask": "Назваць гэтую задачу",
+      "addBookmark": "Дадаць закладку",
+      "searchBookmarks": "Шукаць у закладках",
+      "bookmarksAddTag": "Дадаць тэг...",
+      "bookmarksSimilarItems": "Падобныя",
+      "searchHistory": "Шукаць у гісторыі",
+      "importBookmarks": "Імпартаваць закладкі з HTML-файлаў",
+      "exportBookmarks": "Экспартаваць закладкі",
+      "runUserscript": "Запусціць карыстацкі скрыпт",
+      /* navbar */
+      "openMenu": "Адкрыць меню", //application menu button on windows
+      "enterReaderView": "Перайсці ў рэжым чытання",
+      "exitReaderView": "Выйсці з рэжыма чытання",
+      "newTabLabel": "Новая ўкладка", //this is a noun, used for tabs that don't have a page loaded in them yet
+      "connectionNotSecure": "Злучэнне з гэтым сайтам небяспечна.",
+      "searchbarPlaceholder": "Выкарыстаць пошук або ўвесці адрас",
+      "privateTab": "Прыватная ўкладка",
+      "newTabAction": "Новая ўкладка", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+      /* task overlay */
+      "viewTasks": "Паказаць задачы",
+      "newTask": "Новая задача", //"new" is a verb - it is used for a button at the bottom of the task overlay
+      "defaultTaskName": "Задача %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+      "taskDeleteWarning": {
+        "unsafeHTML": "Задача выдаленая. <a>Адмяніць?</a>"
+      },
+      "tasksSearchTabs": "Шукаць укладкі",
+      "returnToTask": "Вярнуцца да папярэдняй задачы",
+      "taskDescriptionTwo": "%t і %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
+      "taskDescriptionThree": "%t, %t, і яшчэ %n", //used to describe a task that has three or more tabs
+      /* find in page toolbar */
+      "searchInPage": "Знайсці на старонцы", //this is used as the placeholder text for the textbox in the find in page toolbar
+      "findMatchesSingular": "%i з %t", //this and the next label are used to indicate which match is currently highlighted
+      "findMatchesPlural": "%i з %t",
+      /* Focus mode */
+      "isFocusMode": "Вы ў рэжыме факусоўкі.",
+      "closeDialog": "OK", //used as a label for the button that closes the dialog
+      "focusModeExplanation1": "У рэжыме факусоўкі вы не можаце ствараць новыя ўкладкі або перамыкаць задачы.",
+      "focusModeExplanation2": "Вы можаце выйсці з рэжыму факусоўкі, зняўшы сцяжок з \"рэжым факусоўкі\" у меню прагляду.",
+      /* relative dates */
+      "timeRangeJustNow": "Зараз",
+      "timeRangeMinutes": "Некалькі хвілін таму",
+      "timeRangeHour": "Гадзіну назад",
+      "timeRangeToday": "Сёння",
+      "timeRangeYesterday": "Учора",
+      "timeRangeWeek": "На мінулым тыдні",
+      "timeRangeMonth": "У мінулым месяцы",
+      "timeRangeYear": "Летась",
+      "timeRangeLongerAgo": "Даўно",
+      /* pages/error/index.html */
+      "crashErrorTitle": "Нешта пайшло не так.",
+      "crashErrorSubtitle": "Пры адлюстраванні гэтай старонкі паўстала праблема.",
+      "errorPagePrimaryAction": "Паспрабаваць зноў",
+      "serverNotFoundTitle": "Сервер не знойдзены",
+      "serverNotFoundSubtitle": "Min не змог знайсці гэты сайт.",
+      "archiveSearchAction": "Шукаць на archive.org",
+      "sslErrorTitle": "Сайт недаступны",
+      "sslErrorMessage": "Min не змог бяспечна злучыцца з гэтым сайтам.",
+      "dnsErrorTitle": "Сайт не знойдзены",
+      "dnsErrorMessage": "Адбылася памылка DNS.",
+      "offlineErrorTitle": "Адсутнічае злучэнне з Інтэрнэтам",
+      "offlineErrorMessage": "Адновіце інтэрнэт злучэнне і паспрабуйце зноў.",
+      "genericConnectionFail": "Min не змог злучыцца з гэтым сайтам.",
+      "sslTimeErrorMessage": "Min не змог бяспечна злучыцца з гэтым сайтам. Пераканайцеся, што вашы сістэмныя гадзіны настроены правільна.",
+      "addressInvalidTitle": "Некарэктны адрас.",
+      "genericError": "Адбылася памылка",
+      /* pages/phishing/index.html */
+      "phishingErrorTitle": "Гэты сайт можа вам нашкодзіць.",
+      "phishingErrorMessage": "Гэты сайт можа паспрабаваць скрасці вашыя асабістыя дадзеныя, такія як паролі і банкаўскія дадзеныя.",
+      "phishingErrorVisitAnyway": "Усё роўна наведаць сайт",
+      "phishingErrorLeave": "Сысці з сайта",
+      /* multiple instances alert */
+      "multipleInstancesErrorMessage": "Адбылася памылка. Калі ласка, зачыніце ўсе іншыя адкрытыя асобнікі і перазапусціце Min.",
+      /* pages/sessionRestoreError/index.html */
+      "sessionRestoreErrorTitle": "Адбылася памылка",
+      "sessionRestoreErrorExplanation": "Вашы захаваныя ўкладкі не могуць быць карэктна адноўлены.",
+      "sessionRestoreErrorBackupInfo": "Мы захавалі рэзервовую копію вашых дадзеных па гэтым адрасе: %l.", //%l will be replaced with a path to a file
+      "sessionRestoreErrorLinkInfo": {
+        "unsafeHTML": "Калі гэтая памылка працягвае з'яўляцца, калі ласка, паведаміце аб ёй <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">сюды</a>."
+      },
+      /* pages/settings/index.html */
+      "settingsPreferencesHeading": "Налады",
+      "settingsRestartRequired": "Для прымянення гэтых змяненняў неабходна перазапусціць браўзэр.",
+      "settingsPrivacyHeading": "Блакаванне змесціва",
+      "settingsContentBlockingLevel0": "Дазволіць усю рэкламу і трэкеры",
+      "settingsContentBlockingLevel1": "Блакаваць іншую рэкламу і трэкеры",
+      "settingsContentBlockingLevel2": "Блакаваць усю рэкламу і трэкеры",
+      "settingsContentBlockingExceptions": "Рэклама па-ранейшаму будзе дазволена на гэтых сайтах:",
+      "settingsBlockScriptsToggle": "Блакаваць скрыпты",
+      "settingsBlockImagesToggle": "Блакаваць малюнкі",
+      "settingsBlockedRequestCount": {
+        "unsafeHTML": "На дадзены момант Min заблакаваў <strong></strong> аб'яў і трэкераў."
+      },
+      "settingsCustomBangs": "Карыстацкія bangs",
+      "settingsCustomBangsAdd": "Дадаць уласны bang",
+      "settingsCustomBangsPhrase": "Фраза (Абавязкова)",
+      "settingsCustomBangsSnippet": "Апісанне (Неабавязкова)",
+      "settingsCustomBangsRedirect": "URL перанакіравання (Абавязкова)",
+      "settingsCustomizeFiltersLink": "Настроить фильтры",
+      "settingsAppearanceHeading": "Знешні выгляд",
+      "settingsEnableDarkMode": "Выкарыстаць цёмную тэму:",
+      "settingsDarkModeNever": "Ніколі",
+      "settingsDarkModeNight": "Толькі ноччу",
+      "settingsDarkModeAlways": "Заўсёды",
+      "settingsDarkModeSystem": "Выкарыстаць сістэмную тэму",
+      "settingsSiteThemeToggle": "Выкарыстаць тэму сайта",
+      "settingsAdditionalFeaturesHeading": "Дадатковыя магчымасці",
+      "settingsUserscriptsToggle": "Карыстальнiцкiя скрыпты",
+      "settingsShowDividerToggle": "Паказваць падзельнік паміж укладкамі",
+      "settingsSeparateTitlebarToggle": "Выкарыстоўваць сістэмны загаловак акна",
+      "settingsAutoplayToggle": "Уключыць аўтаматычнае прайграванне",
+      "settingsOpenTabsInForegroundToggle": "Адкрываць новыя ўкладкі на пярэднім плане",
+      "settingsUserscriptsExplanation": {
+        "unsafeHTML": "Карыстальнiцкiя скрыпты дазваляюць змяняць паводзіны сайтаў - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">даведацца больш</a>."
+      },
+      "settingsUserAgentToggle": "Выкарыстоўваць карыстацкі user agent",
+      "settingsUpdateNotificationsToggle": "Аўтаматычна правяраць наяўнасць абнаўленняў",
+      "settingsUsageStatisticsToggle": {
+        "unsafeHTML": "Адпраўляць статыстыку выкарыстання (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Больш інфармацыі</a>)"
+      },
+      "settingsSearchEngineHeading": "Пошукавік",
+      "settingsDefaultSearchEngine": "Выберыце пошукавую сістэму па змаўчанні:",
+      "settingsDDGExplanation": "Каб бачыць імгненныя адказы ў радку пошуку, усталюйце DuckDuckGo пошукавікам па змаўчанні.",
+      "customSearchEngineDescription": "Замяніць пошукавы тэрмін на %s",
+      "settingsKeyboardShortcutsHeading": "Спалучэння клавіш",
+      "settingsKeyboardShortcutsHelp": "Выкарыстоўвайце коскі для падзелу некалькіх гарачых клавіш.",
+      "settingsProxyHeading": "Проксі",
+      "settingsNoProxy": "Без проксі",
+      "settingsManualProxy": "Ручная налада",
+      "settingsAutomaticProxy": "Аўтаматычная налада",
+      "settingsProxyRules": "Правілы проксі:",
+      "settingsProxyBypassRules": "Не выкарыстоўваць проксі для:",
+      "settingsProxyConfigurationURL": "URL канфігурацыі",
+      /* app menu */
+      "appMenuFile": "Файл",
+      "appMenuNewTab": "Новая ўкладка",
+      "appMenuDuplicateTab": "Дубляваць укладку",
+      "appMenuNewPrivateTab": "Новая прыватная ўкладка",
+      "appMenuNewTask": "Новая задача",
+      "appMenuSavePageAs": "Захаваць старонку як",
+      "appMenuPrint": "Друк",
+      "appMenuEdit": "Праўка",
+      "appMenuUndo": "Адмяніць",
+      "appMenuRedo": "Паўтарыць",
+      "appMenuCut": "Выразаць",
+      "appMenuCopy": "Капіяваць",
+      "appMenuPaste": "Уставіць",
+      "appMenuSelectAll": "Выбраць усё",
+      "appMenuFind": "Знайсці",
+      "appMenuView": "Выгляд",
+      "appMenuZoomIn": "Павялічыць",
+      "appMenuZoomOut": "Паменшыць",
+      "appMenuActualSize": "Сапраўдны памер",
+      "appMenuFullScreen": "Поўнаэкранны рэжым", //on some platforms, this string is replaced with one built-in to the OS
+      "appMenuFocusMode": "Рэжым факусоўкі",
+      "appMenuBookmarks": "Закладкі",
+      "appMenuHistory": "Гісторыя",
+      "appMenuDeveloper": "Распрацоўшчык",
+      "appMenuReloadBrowser": "Перазагрузіць браўзэр",
+      "appMenuInspectBrowser": "Праверыць браўзэр",
+      "appMenuInspectPage": "Праверыць старонку",
+      "appMenuWindow": "Акно",
+      "appMenuMinimize": "Мінімалізаваць",
+      "appMenuClose": "Закрыць",
+      "appMenuAlwaysOnTop": "Заўсёды па-над ўсіх вокнаў",
+      "appMenuHelp": "Дапамога",
+      "appMenuKeyboardShortcuts": "Спалучэння клавіш",
+      "appMenuReportBug": "Паведаміць пра памылку",
+      "appMenuTakeTour": "Знаёмства з Min",
+      "appMenuViewGithub": "Мы на GitHub",
+      "appMenuAbout": "Аб %n", //%n is replaced with app name
+      "appMenuPreferences": "Налады",
+      "appMenuServices": "Паслугі",
+      "appMenuHide": "Схаваць %n",
+      "appMenuHideOthers": "Схаваць іншае",
+      "appMenuShowAll": "Паказаць усё",
+      "appMenuQuit": "Выйсці з %n",
+      "appMenuBringToFront": "Перамясціць усё на пярэдні план",
+      /* PDF Viewer */
+      "PDFPageCounter": {
+        "unsafeHTML": "старонка <input type='text'/> з <span id='total'></span>"
+      },
+      /* Context Reader */
+      "buttonReaderSettings": "Налады рэжыму чытання",
+      "buttonReaderLightTheme": "Светлы",
+      "buttonReaderSepiaTheme": "Сэпія",
+      "buttonReaderDarkTheme": "Цёмны",
+      "openReaderView": "Заўсёды адкрываць у рэжыме чытання",
+      "autoRedirectBannerReader": "Заўсёды адкрываць артыкулы з гэтага сайта ў рэжыме чытання?",
+      "buttonReaderRedirectYes": "Так",
+      "buttonReaderRedirectNo": "Не",
+      "articleReaderView": "Арыгінальны артыкул",
+      /* Download manager */
+      "downloadCancel": "Адмяніць",
+      "downloadStateCompleted": "Завершана",
+      "downloadStateFailed": "Не атрымалася",
+      /* Update Notifications */
+      "updateNotificationTitle": "Даступная новая версія Min",
+      /* Autofill settings */
+      "settingsPasswordAutoFillHeadline": "Аўтазапаўненне пароля",
+      "settingsSelectPasswordManager": "Выбераце адзін з падтрымоўваных мэнэджараў пароляў:",
+      "keychainViewPasswords": "Прагляд захаваных пароляў",
+      /* Password manager setup */
+      "passwordManagerSetupHeading": "Завяршыць наладу %p для выкарыстання аўтазапаўнення",
+      "passwordManagerSetupStep1": {
+        "unsafeHTML": "Спачатку, <a id='password-manager-setup-link'></a> і выміце яго для вашай сістэмы."
+      },
+      "passwordManagerInstallerSetup": {
+        "unsafeHTML": "Загрузіце <a id='password-manager-setup-link-installer'></a> і перацягніце файл у поле ніжэй:"
+      },
+      "passwordManagerSetupLink": "Cпампаваць CLI інструмент %p",
+      "passwordManagerSetupLinkInstaller": "CLI усталёўшчык для %p",
+      "passwordManagerSetupStep2": "Затым перацягніце інструмент у поле ніжэй:",
+      "passwordManagerSetupDragBox": "Перацягніце інструмент сюды",
+      "passwordManagerSetupInstalling": "Устаноўка...",
+      "passwordManagerBitwardenSignIn": "Каб падключыць свой уліковы запіс Bitwarden, перайдзіце на старонку vault.bitwarden.com/#/settings/account, пракруціць ўніз і выберыце \"View API Key\". Затым устаўце значэння ў палі ніжэй.",
+      "passwordManagerSetupSignIn": "Ўвайдзіце ў свой мэнэджэр пароляў, каб пачаць выкарыстоўваць аўтазапаўненне. Вашы ўліковыя дадзеныя не будуць захоўвацца дзе-небудзь ўнутры Min.",
+      "disableAutofill": "Адключыць аўтазапаўненне",
+      "passwordManagerSetupUnlockError": "Немагчыма разблакаваць сховішча пароляў: ",
+      "passwordManagerSetupRetry": "Пераканайцеся, што вы выкарыстоўваеце правільны файл і ўводзіце правільны пароль. Вы можаце паўтарыць спробу, перацягнуўшы інструмент сюды яшчэ раз.",
+      "passwordManagerUnlock": "Калі ласка, увядзіце свой майстар-пароль %p, каб разблакаваць сховішча пароляў:",
+      /* Password save bar */
+      "passwordCaptureSavePassword": "Захаваць пароль для %s?",
+      "passwordCaptureSave": "Захаваць",
+      "passwordCaptureDontSave": "Не захоўваць",
+      "passwordCaptureNeverSave": "Ніколі не захоўваць",
+      /* Password viewer */
+      "savedPasswordsHeading": "Захаваныя паролі",
+      "savedPasswordsEmpty": "Няма захаваных пароляў.",
+      "savedPasswordsNeverSavedLabel": "Ніколі не захоўваюцца",
+      "deletePassword": "Выдаліць пароль для %s?",
+      /* Dialogs */
+      "loginPromptTitle": "Увайсці на %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+      "dialogConfirmButton": "Пацвердзіць",
+      "dialogSkipButton": "Адмена",
+      "username": "Імя карыстальніка",
+      "email": "Электронная пошта",
+      "password": "Пароль",
+      "secretKey": "Сакрэтны ключ",
+      "openExternalApp": "Адкрыць у \\\"%s\\\"?", // %s is the name of an app
+      "clickToCopy": "Націсніце, каб скапіяваць",
+      "copied": "Скапіявана"
+    }
+  }
