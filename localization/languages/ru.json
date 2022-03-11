@@ -149,7 +149,7 @@
     "settingsDarkModeNever": "Нет",
     "settingsDarkModeNight": "Только ночью",
     "settingsDarkModeAlways": "Всегда",
-    "settingsDarkModeSystem": null,
+    "settingsDarkModeSystem": "Использовать системную тему",
     "settingsSiteThemeToggle": "Использовать тему сайта",
     "settingsAdditionalFeaturesHeading": "Дополнительные возможности",
     "settingsUserscriptsToggle": "Пользовательские скрипты",
