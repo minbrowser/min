@@ -7,6 +7,7 @@ const tabAudio = require('tabAudio.js')
 const dragula = require('dragula')
 const settings = require('util/settings/settings.js')
 const urlParser = require('util/urlParser.js')
+const keybindings = require('keybindings.js')
 
 const tabEditor = require('navbar/tabEditor.js')
 const progressBar = require('navbar/progressBar.js')
@@ -20,10 +21,7 @@ const tabBar = {
   containerInner: document.getElementById('tabs-inner'),
   tabElementMap: {}, // tabId: tab element
   events: new EventEmitter(),
-  dragulaInstance: dragula([document.getElementById('tabs-inner')], {
-    direction: 'horizontal',
-    slideFactorX: 25
-  }),
+  dragulaInstance: null,
   getTab: function (tabId) {
     return tabBar.tabElementMap[tabId]
   },
@@ -212,6 +210,37 @@ const tabBar = {
     } else {
       tabBar.navBar.classList.remove('show-dividers')
     }
+  },
+  initializeTabDragging: function () {
+    tabBar.dragulaInstance = dragula([], {
+      direction: 'horizontal',
+      slideFactorX: 25
+    })
+
+    tabBar.dragulaInstance.on('drop', function (el, target, source, sibling) {
+      var tabId = el.getAttribute('data-tab')
+      if (sibling) {
+        var adjacentTabId = sibling.getAttribute('data-tab')
+      }
+
+      var oldTab = tabs.splice(tabs.getIndex(tabId), 1)[0]
+
+      var newIdx
+      if (adjacentTabId) {
+        newIdx = tabs.getIndex(adjacentTabId)
+      } else {
+        // tab was inserted at end
+        newIdx = tabs.count()
+      }
+
+      tabs.splice(newIdx, 0, oldTab)
+    })
+  },
+  enableTabDragging: function () {
+    tabBar.dragulaInstance.containers = [document.getElementById('tabs-inner')]
+  },
+  disableTabDragging: function () {
+    tabBar.dragulaInstance.containers = []
   }
 }
 
@@ -219,15 +248,15 @@ settings.listen('showDividerBetweenTabs', function (dividerPreference) {
   tabBar.handleDividerPreference(dividerPreference)
 })
 
-/* tab loading and progress bar status*/
+/* tab loading and progress bar status */
 webviews.bindEvent('did-start-loading', function (tabId) {
   progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'start')
-  tabs.update(tabId,{ loaded: false })
+  tabs.update(tabId, { loaded: false })
 })
 
 webviews.bindEvent('did-stop-loading', function (tabId) {
   progressBar.update(tabBar.getTab(tabId).querySelector('.progress-bar'), 'finish')
-  tabs.update(tabId,{ loaded: true })
+  tabs.update(tabId, { loaded: true })
   tabBar.updateTab(tabId)
 })
 
@@ -242,27 +271,24 @@ permissionRequests.onChange(function (tabId) {
   tabBar.updateTab(tabId)
 })
 
+tabBar.initializeTabDragging()
+
+/*
+On macOS, dragging the tab bar moves the window, and cmd+drag moves tabs
+On all other platforms, the window drag area is a separate region, so tabs are draggable always
+*/
 if (window.platformType === 'mac') {
-  tabBar.dragulaInstance.containers = []
-} else {
-  tabBar.dragulaInstance.on('drop', function (el, target, source, sibling) {
-    var tabId = el.getAttribute('data-tab')
-    if (sibling) {
-      var adjacentTabId = sibling.getAttribute('data-tab')
-    }
-
-    var oldTab = tabs.splice(tabs.getIndex(tabId), 1)[0]
-
-    var newIdx
-    if (adjacentTabId) {
-      newIdx = tabs.getIndex(adjacentTabId)
-    } else {
-    // tab was inserted at end
-      newIdx = tabs.count()
-    }
-
-    tabs.splice(newIdx, 0, oldTab)
+  keybindings.defineShortcut({ keys: 'mod' }, function () {
+    tabBar.enableTabDragging()
+    document.body.classList.add('disable-window-drag')
   })
+
+  keybindings.defineShortcut({ keys: 'mod' }, function () {
+    tabBar.disableTabDragging()
+    document.body.classList.remove('disable-window-drag')
+  }, { keyUp: true })
+} else {
+  tabBar.enableTabDragging()
 }
 
 tabBar.container.addEventListener('dragover', e => e.preventDefault())
