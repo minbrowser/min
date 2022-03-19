@@ -84,7 +84,15 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
     return
   }
 
-  const requestOrigin = new URL(details.requestingUrl).hostname
+  let requestOrigin
+  try {
+    requestOrigin = new URL(details.requestingUrl).hostname
+  } catch (e) {
+    // invalid URL
+    console.warn(e, details.requestingUrl)
+    callback(false)
+    return
+  }
 
   /*
   Geolocation requires a Google API key (https://www.electronjs.org/docs/api/environment-variables#google_api_key), so it is disabled.
@@ -160,7 +168,16 @@ function pagePermissionCheckHandler (webContents, permission, requestingOrigin, 
     return true
   }
 
-  return isPermissionGrantedForOrigin(new URL(requestingOrigin).hostname, permission, details)
+  let requestHostname
+  try {
+    requestHostname = new URL(requestingOrigin).hostname
+  } catch (e) {
+    // invalid URL
+    console.warn(e, requestingOrigin)
+    return false
+  }
+
+  return isPermissionGrantedForOrigin(requestHostname, permission, details)
 }
 
 app.once('ready', function () {
