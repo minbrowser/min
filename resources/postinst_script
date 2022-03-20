@@ -3,8 +3,8 @@ set -e
 
 if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ]; then
     update-alternatives --install /usr/bin/x-www-browser \
-        x-www-browser /usr/bin/min 80
-    chown root /usr/lib/min/chrome-sandbox
-    chmod 4755 /usr/lib/min/chrome-sandbox
+        x-www-browser /opt/Min/min 80
+    chown root /opt/Min/chrome-sandbox
+    chmod 4755 /opt/Min/chrome-sandbox
     echo "Run sudo xdg-settings set default-web-browser min.desktop && sudo update-alternatives --config x-www-browser to set Min as your default browser."
 fi
