@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "dexie": "^3.0.3",
-    "dragula": "^3.7.3",
+    "dragula": "github:minbrowser/dragula",
     "electron-squirrel-startup": "^1.0.0",
     "expr-eval": "^2.0.2",
     "keytar": "7.6.0",

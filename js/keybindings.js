@@ -90,19 +90,19 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
       combo: keys,
       keys: keys.split('+'),
       fn: shortcutCallback,
-      keyUp: options.keyUp
+      keyUp: options.keyUp || false
     })
-    if (!registeredMousetrapBindings[keys]) {
-      // mousetrap only allows one listener for each key combination
+    if (!registeredMousetrapBindings[keys + (options.keyUp ? '-keyup' : '')]) {
+      // mousetrap only allows one listener for each key combination (+keyup variant)
       // so register a single listener, and have it call all the other listeners that we have
       Mousetrap.bind(keys, function (e, combo) {
         shortcutsList.forEach(function (shortcut) {
-          if (shortcut.combo === combo) {
+          if (shortcut.combo === combo && (e.type === 'keyup') === shortcut.keyUp) {
             shortcut.fn(e, combo)
           }
         })
       }, (options.keyUp ? 'keyup' : null))
-      registeredMousetrapBindings[keys] = true
+      registeredMousetrapBindings[keys + (options.keyUp ? '-keyup' : '')] = true
     }
   })
 }
