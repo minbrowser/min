@@ -51,7 +51,6 @@ app.on('ready', function () {
   settings.listen('darkMode', themeSettingsChanged)
 
   nativeTheme.on('updated', function () {
-    console.log('updated')
     settings.set('darkThemeIsActive', nativeTheme.shouldUseDarkColors)
   })
 })
