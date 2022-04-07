@@ -71,7 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Aufgabe gelöscht. <a>Rückgängig machen?</a>"
     },
-    "tasksSearchTabs": null, //missing translation
+    "tasksSearchTabs": "Such Tabs",
     "returnToTask": "Zur vorherigen Aufgabe zurückkehren",
     "taskDescriptionTwo": "%t und %t",
     "taskDescriptionThree": "%t, %t, und %n mehr",
@@ -105,10 +105,10 @@
     "sslErrorMessage": "Min konnte keine sichere Verbindung mit dieser Webseite aufbauen.",
     "dnsErrorTitle": "Webseite nicht gefunden",
     "dnsErrorMessage": "Es trat ein DNS-Fehler auf.",
-    "offlineErrorTitle": "Sie sind offline",
+    "offlineErrorTitle": "Du bist offline",
     "offlineErrorMessage": "Wieder mit dem Internet verbinden und erneut versuchen.",
     "genericConnectionFail": "Min konnte sich nicht mit dieser Webseite verbinden.",
-    "sslTimeErrorMessage": "Min konnte keine sichere Verbindung mit dieser Webseite aufbauen. Bitte stellen Sie sicher, dass Ihre Computeruhr korrekt eingestellt ist.",
+    "sslTimeErrorMessage": "Min konnte keine sichere Verbindung mit dieser Webseite aufbauen. Bitte stelle sicher, dass deine Computeruhr korrekt eingestellt ist.",
     "addressInvalidTitle": "Diese Adresse ist ungültig.",
     "genericError": "Es trat ein Fehler auf",
     /* pages/phishing/index.html */
@@ -121,7 +121,7 @@
     /* pages/sessionRestoreError/index.html */
     "sessionRestoreErrorTitle": "Es trat ein Fehler auf",
     "sessionRestoreErrorExplanation": "Die gespeicherten Tabs konnten nicht wiederhergestellt werden.",
-    "sessionRestoreErrorBackupInfo": "Wir haben ein Backup Ihrer Daten hier gespeichert: %l.", //%l will be replaced with a path to a file
+    "sessionRestoreErrorBackupInfo": "Wir haben ein Backup deiner Daten hier gespeichert: %l.", //%l will be replaced with a path to a file
     "sessionRestoreErrorLinkInfo": {
       "unsafeHTML": "Falls dieser Fehler wiederholt auftritt, bitte <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">hier</a> eine neue Fehlermeldung eröffnen."
     },
@@ -244,11 +244,11 @@
     /* Update Notifications */
     "updateNotificationTitle": "Eine neue Version von Min ist verfügbar",
     /* Autofill settings */
-    "settingsPasswordAutoFillHeadline": "Passwörter automatisch Ausfüllen",
+    "settingsPasswordAutoFillHeadline": "Passwörter automatisch ausfüllen",
     "settingsSelectPasswordManager": "Wähle einen der unterstützten Passwortmanager:",
     "keychainViewPasswords": "Gespeicherte Zugangsdaten anzeigen",
     /* Password manager setup */
-    "passwordManagerSetupHeading": "Beende die Konfiguration von %p um die automatische Ausfüll Funktion zu nutzen",
+    "passwordManagerSetupHeading": "Beende die Konfiguration von %p um die automatische Ausfüllfunktion zu nutzen",
     "passwordManagerSetupStep1": {
       "unsafeHTML": "Als erstes, <a id='password-manager-setup-link'></a> und extrahiere es auf dein System."
     },
@@ -256,15 +256,15 @@
       "unsafeHTML": "Lade <a id='password-manager-setup-link-installer'></a> herunter und ziehe die Datei unten in die Box:"
     },
     "passwordManagerSetupLink": "Lade die %p Befehlszeilenschnittstelle herunter",
-    "passwordManagerSetupLinkInstaller": "Die %p Befehlzeilenschnittstelle Installationsprogramm",
+    "passwordManagerSetupLinkInstaller": "Das %p Befehlszeilenschnittstelle Installationsprogramm",
     "passwordManagerSetupStep2": "Ziehe danach das Programm in die untere Box:",
     "passwordManagerSetupDragBox": "Ziehe das Programm hierher",
     "passwordManagerSetupInstalling": "Installiere...",
-    "passwordManagerBitwardenSignIn": null, //missing translation
-    "passwordManagerSetupSignIn": "Melde dich in deinem Passwortmanager an, um die automatische Ausfüll Funktion zu nutzen. Deine Zugangsdaten werden nirgendwo in Min gespeichert.",
-    "disableAutofill": "Automatische Ausfüll Funktion deaktivieren",
+    "passwordManagerBitwardenSignIn": "Um dein Bitwarden Konto zu verbinden, gehe zu vault.bitwarden.com/#/settings/account, scrolle bis zum Ende und wähle \"View API Key\". Dann kopiere die Werte in die derunterliegenden Felder.",
+    "passwordManagerSetupSignIn": "Melde dich in deinem Passwortmanager an, um die automatische Ausfüllfunktion zu nutzen. Deine Zugangsdaten werden nirgendwo in Min gespeichert.",
+    "disableAutofill": "Automatische Ausfüllfunktion deaktivieren",
     "passwordManagerSetupUnlockError": "Beim Entsperren des Passwortmanagers ist ein Fehler aufgetreten:",
-    "passwordManagerSetupRetry": "Stelle sicher, dass die richtige Datei genutzt und das richtige Passwort eingegeben wurde. Ziehe das Programm wieder hierher, um es noch mal zu versuchen.",
+    "passwordManagerSetupRetry": "Stelle sicher, dass die richtige Datei genutzt und das richtige Passwort eingegeben wurde. Ziehe das Programm wieder hierher, um es nochmal zu versuchen.",
     "passwordManagerUnlock": "Gib dein %p Masterpasswort ein, um deinen Passwortmanager zu entsperren:",
     /* Password save bar */
     "passwordCaptureSavePassword": "Zugangsdaten für %s speichern?",
@@ -274,7 +274,7 @@
     /* Password viewer */
     "savedPasswordsHeading": "Gespeicherte Passwörter",
     "savedPasswordsEmpty": "Keine gespeicherten Passwörter",
-    "savedPasswordsNeverSavedLabel": "keine Passwortspeicherung",
+    "savedPasswordsNeverSavedLabel": "Keine Passwortspeicherung",
     "deletePassword": "Zugangsdaten für %s löschen?",
     /* Dialogs */
     "loginPromptTitle": "Bei %h (%r) anmelden", //%h is replaced with host, %r with realm (title of protected part of site)
