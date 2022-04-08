@@ -1,6 +1,5 @@
 const keybindings = require('keybindings.js')
 var webviews = require('webviews.js')
-var webviewGestures = require('webviewGestures.js')
 var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
 var modalMode = require('modalMode.js')
