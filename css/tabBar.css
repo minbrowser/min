@@ -111,7 +111,22 @@ body.linux #menu-button {
 }
 .tab-item.gu-mirror {
   top: var(--control-space-top) !important;
-  background: rgba(255, 255, 255, 0.8) !important;
+  background: rgba(255, 255, 255, 1) !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  margin-top: 2px !important;
+  opacity: 0.9;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+}
+.dark-mode .tab-item.gu-mirror {
+  background: rgb(84, 91, 100) !important;
+  color: white !important;
+}
+.tab-item.gu-transit {
+  opacity: 0 !important;
+}
+.tab-item.gu-mirror .tab-icon-area {
+  display: none;
 }
 
 #navbar.show-dividers .tab-item:not(:last-child) {

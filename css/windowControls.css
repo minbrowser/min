@@ -15,8 +15,8 @@ body.linux:not(.maximized):not(.fullscreen):not(.separate-titlebar) {
 }
 
 /* On Windows, draggable regions aren't clickable, so the drag region is a separate area above the tabstrip */
-body.windows:not(.maximized):not(.fullscreen):not(.separate-titlebar) .window-drag-area,
-body.linux:not(.maximized):not(.fullscreen):not(.separate-titlebar) .window-drag-area {
+body.windows:not(.maximized):not(.fullscreen):not(.separate-titlebar):not(.disable-window-drag) .window-drag-area,
+body.linux:not(.maximized):not(.fullscreen):not(.separate-titlebar):not(.disable-window-drag) .window-drag-area {
   display: block;
   position: fixed;
   /* leave an empty space around the edges of the drag area so that the window can be resized */
@@ -28,7 +28,7 @@ body.linux:not(.maximized):not(.fullscreen):not(.separate-titlebar) .window-drag
 }
 
 /* On mac, the entire navbar is draggable, so the drag area is placed behind the navbar */
-body.mac:not(.separate-titlebar) .window-drag-area {
+body.mac:not(.separate-titlebar):not(.disable-window-drag) .window-drag-area {
   display: block;
   position: fixed;
   top: 0;
