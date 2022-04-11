@@ -141,12 +141,17 @@
     contain: strict;
   }
 
-  .textLayer > span {
+  .textLayer span {
     color: transparent;
     position: absolute;
     white-space: pre;
     cursor: text;
     transform-origin: top left;
+  }
+
+  .textLayer span.markedContent {
+    top: 0;
+    height: 0;
   }
 
   .annotationLayer img,
