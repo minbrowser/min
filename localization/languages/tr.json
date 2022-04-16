@@ -71,7 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Görev silindi. <a>Geri?</a>"
     },
-    "tasksSearchTabs": null, //missing translation
+    "tasksSearchTabs": "Arama sekmeleri",
     "returnToTask": "Önceki göreve geri dön",
     "taskDescriptionTwo": "%t ve %t",
     "taskDescriptionThree": "%t, %t ve %n fazlası",
@@ -138,8 +138,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Min şimdiye kadar, <strong></strong> reklam ve takipçi engelledi."
     },
-    "settingsCustomBangs": null, // missing translation
-    "settingsCustomBangsAdd": null, // missing translation
+    "settingsCustomBangs": "Özel bangs",
+    "settingsCustomBangsAdd": "Özel bang ekle",
     "settingsCustomBangsPhrase": "Cümle (Gerekli)",
     "settingsCustomBangsSnippet": "Açıklama (İsteğe Bağlı)",
     "settingsCustomBangsRedirect": "Yönlendirme URL'si (Gerekli)",
@@ -149,7 +149,7 @@
     "settingsDarkModeNever": "Asla",
     "settingsDarkModeNight": "Geceleyin",
     "settingsDarkModeAlways": "Her zaman",
-    "settingsDarkModeSystem": null,
+    "settingsDarkModeSystem": "Sistem temasını kullan",
     "settingsSiteThemeToggle": "Site temasını etkinleştir",
     "settingsAdditionalFeaturesHeading": "Ek Özellikler",
     "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",
@@ -260,7 +260,7 @@
     "passwordManagerSetupStep2": "Ardından aracı aşağıdaki kutucuğa sürükleyip bırakın:",
     "passwordManagerSetupDragBox": "Aracı buraya sürükleyin",
     "passwordManagerSetupInstalling": "Yükleniyor...",
-    "passwordManagerBitwardenSignIn": null, //missing translation
+    "passwordManagerBitwardenSignIn": "Bitwarden hesabınızı bağlamak için vault.bitwarden.com/#/settings/account adresine gidin, aşağı kaydırın ve \"View API Key\"yi seçin. Ardından değerleri aşağıdaki alanlara yapıştırın.",
     "passwordManagerSetupSignIn": "Otomatik dolduru kullanabilmek için parola yöneticinize giriş yapın. Kimlik bilgileriniz Min içerisinde bir yere kaydedilmeyecektir.",
     "disableAutofill": "Otomatik Dolduru Devre Dışı Bırak",
     "passwordManagerSetupUnlockError": "Parola kayıtlarının kilidi açılamadı: ",
