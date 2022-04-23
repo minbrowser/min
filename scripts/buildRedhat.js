@@ -4,7 +4,7 @@ const builder = require('electron-builder')
 const Platform = builder.Platform
 const Arch = builder.Arch
 
-function toArch(platform) {
+function toArch (platform) {
   switch (platform) {
     case 'amd64':
       return Arch.x64
@@ -16,9 +16,9 @@ function toArch(platform) {
       return Arch.universal
   }
 }
-require('./createPackage.js')("linux", {arch: Arch.x64}).then(function (path) {
+require('./createPackage.js')('linux', {arch: Arch.x64}).then(function (path) {
   var installerOptions = {
-    artifactName: "Min-${version}-${arch}.rpm",
+    artifactName: 'Min-${version}-${arch}.rpm',
     packageName: 'Min',
     icon: 'icons/icon256.png',
     category: 'Network',
@@ -32,23 +32,23 @@ require('./createPackage.js')("linux", {arch: Arch.x64}).then(function (path) {
   console.log('Creating package (this may take a while)')
 
   const options = {
-		linux: {
-      target: ["rpm"]
+    linux: {
+      target: ['rpm']
     },
     directories: {
-      output: "dist/app/"
+      output: 'dist/app/'
     },
     rpm: installerOptions
   }
 
-	builder.build({
+  builder.build({
     prepackaged: path,
-    targets: Platform.LINUX.createTarget(["rpm"], Arch.x64),
+    targets: Platform.LINUX.createTarget(['rpm'], Arch.x64),
     config: options
   })
-  .then(() => console.log('Successfully created package.'))
-  .catch(err => {
-    console.error(err, err.stack)
-    process.exit(1)
-  })
+    .then(() => console.log('Successfully created package.'))
+    .catch(err => {
+      console.error(err, err.stack)
+      process.exit(1)
+    })
 })

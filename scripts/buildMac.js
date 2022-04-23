@@ -18,20 +18,20 @@ function toArch (platform) {
   }
 }
 
-require('./createPackage.js')("mac", { arch: toArch(platform) }).then(function (packagePath) {
+require('./createPackage.js')('mac', { arch: toArch(platform) }).then(function (packagePath) {
   if (platform === 'arm64') {
     execSync('codesign -s - -a arm64 -f --deep ' + packagePath + '/Min.app')
   }
 
   /* create output directory if it doesn't exist */
 
-  if (!fs.existsSync('dist/app')){
-    fs.mkdirSync('dist/app');
+  if (!fs.existsSync('dist/app')) {
+    fs.mkdirSync('dist/app')
   }
 
   /* create zip file */
 
-  var output = fs.createWriteStream(('dist/app/Min' + platform  + '.app').replace('Min', 'Min-v' + version + '-') + '.zip')
+  var output = fs.createWriteStream(('dist/app/Min' + platform + '.app').replace('Min', 'Min-v' + version + '-') + '.zip')
   var archive = archiver('zip', {
     zlib: { level: 9 }
   })

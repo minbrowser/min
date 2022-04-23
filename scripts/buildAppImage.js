@@ -4,10 +4,10 @@ const version = packageFile.version
 const Platform = builder.Platform
 const Arch = builder.Arch
 
-require('./createPackage.js')("linux", {arch: Arch.x64}).then(function (path) {
+require('./createPackage.js')('linux', {arch: Arch.x64}).then(function (path) {
   const options = {
     linux: {
-      target: ["AppImage"],
+      target: ['AppImage'],
       icon: 'icons/icon256.png',
       category: 'Network',
       packageCategory: 'Network',
@@ -17,13 +17,13 @@ require('./createPackage.js')("linux", {arch: Arch.x64}).then(function (path) {
       maintainer: 'Min Developers <280953907a@zoho.com>',
     },
     directories: {
-      output: "dist/app/"
+      output: 'dist/app/'
     },
   }
 
   builder.build({
     prepackaged: path,
-    targets: Platform.LINUX.createTarget(["AppImage"], Arch.x64),
+    targets: Platform.LINUX.createTarget(['AppImage'], Arch.x64),
     config: options
   })
 })

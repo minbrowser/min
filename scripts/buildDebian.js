@@ -5,7 +5,7 @@ const builder = require('electron-builder')
 const Platform = builder.Platform
 const Arch = builder.Arch
 
-function toArch(platform) {
+function toArch (platform) {
   switch (platform) {
     case 'amd64':
       return Arch.x64
@@ -18,7 +18,7 @@ function toArch(platform) {
   }
 }
 
-function toFpm(platform) {
+function toFpm (platform) {
   switch (platform) {
     case 'armhf':
       return ['--architecture', 'armhf']
@@ -29,9 +29,9 @@ function toFpm(platform) {
   }
 }
 
-require('./createPackage.js')("linux", {arch: toArch(platform)}).then(function (path) {
+require('./createPackage.js')('linux', {arch: toArch(platform)}).then(function (path) {
   var installerOptions = {
-    artifactName: "Min-${version}-${arch}.deb",
+    artifactName: 'Min-${version}-${arch}.deb',
     packageName: 'min',
     icon: 'icons/icon256.png',
     category: 'Network;WebBrowser',
@@ -61,28 +61,28 @@ require('./createPackage.js')("linux", {arch: toArch(platform)}).then(function (
     afterRemove: 'resources/prerm_script',
     fpm: toFpm(platform),
   }
-  
+
   console.log('Creating package (this may take a while)')
-  
+
   const options = {
     linux: {
-      target: ["deb"]
+      target: ['deb']
     },
     directories: {
-      buildResources: "resources",
-      output: "dist/app/"
+      buildResources: 'resources',
+      output: 'dist/app/'
     },
     deb: installerOptions
   }
-  
+
   builder.build({
     prepackaged: path,
-    targets: Platform.LINUX.createTarget(["deb"], toArch(platform)),
+    targets: Platform.LINUX.createTarget(['deb'], toArch(platform)),
     config: options
   })
-  .then(() => console.log('Successfully created package.'))
-  .catch(err => {
-    console.error(err, err.stack)
-    process.exit(1)
-  })
+    .then(() => console.log('Successfully created package.'))
+    .catch(err => {
+      console.error(err, err.stack)
+      process.exit(1)
+    })
 })

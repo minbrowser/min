@@ -10,8 +10,8 @@ const createPackage = require('./createPackage.js')
 
 async function afterPackageBuilt (packagePath) {
   /* create output directory if it doesn't exist */
-  if (!fs.existsSync('dist/app')){
-    fs.mkdirSync('dist/app');
+  if (!fs.existsSync('dist/app')) {
+    fs.mkdirSync('dist/app')
   }
 
   /* create zip files */
@@ -38,7 +38,7 @@ async function afterPackageBuilt (packagePath) {
 
     console.log('Creating package (this may take a while)')
 
-    fs.copyFileSync("LICENSE.txt", packagePath + "/LICENSE")
+    fs.copyFileSync('LICENSE.txt', packagePath + '/LICENSE')
 
     await installer(options)
       .then(function () {
