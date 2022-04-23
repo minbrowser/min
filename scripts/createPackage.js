@@ -81,7 +81,21 @@ module.exports = function (platform, extraOptions) {
       icon: "icons/icon.icns",
       target: "dir",
       darkModeSupport: true,
-      extendInfo: "scripts/macInfo.plist"
+      extendInfo: {
+        NSHumanReadableCopyright: null,
+        CFBundleDocumentTypes: [
+          {
+            CFBundleTypeName: "HTML document",
+            CFBundleTypeRole: "Viewer",
+            LSItemContentTypes: ["public.html"]
+          },
+          {
+            CFBundleTypeName: "XHTML document",
+            CFBundleTypeRole: "Viewer",
+            LSItemContentTypes: ["public.xhtml"]
+          }
+        ]
+      }
     },
     directories: {
       output: "dist/app",
