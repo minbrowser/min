@@ -38,12 +38,12 @@ function moveToTask(text) {
       browserUI.switchToTask(newTask.id)
       browserUI.switchToTab(currentTab.id)
 
-      // disabled this for faster animations
-      // taskOverlay.show()
+      
+      taskOverlay.show()
 
-      // setTimeout(function () {
-      //   taskOverlay.hide()
-      // }, 600)
+      setTimeout(function () {
+        taskOverlay.hide()
+      }, 600)
 }
 
 function switchToTask (text) {

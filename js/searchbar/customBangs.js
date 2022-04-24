@@ -90,33 +90,6 @@ function initialize () {
     )
   }
 
-  // bangsPlugin.registerCustomBang({
-  //   phrase: '!task',
-  //   snippet: l('switchToTask'),
-  //   isAction: false,
-  //   fn: function (text) {
-  //   /* disabled in focus mode */
-  //     if (focusMode.enabled()) {
-  //       focusMode.warn()
-  //       return
-  //     }
-
-  //     text = text.toLowerCase()
-
-  //     // no task was specified, show all of the tasks
-  //     if (!text) {
-  //       taskOverlay.show()
-  //       return
-  //     }
-
-  //     var task = getTaskByNameOrNumber(text)
-
-  //     if (task) {
-  //       browserUI.switchToTask(task.id)
-  //     }
-  //   }
-  // })
-
   bangsPlugin.registerCustomBang({
     phrase: '!newtask',
     snippet: l('createTask'),
@@ -138,49 +111,6 @@ function initialize () {
       }, 600)
     }
   })
-
-  // bangsPlugin.registerCustomBang({
-  //   phrase: '!movetotask',
-  //   snippet: l('moveToTask'),
-  //   isAction: false,
-  //   fn: function (text) {
-  //   /* disabled in focus mode */
-  //     if (focusMode.enabled()) {
-  //       focusMode.warn()
-  //       return
-  //     }
-
-  //     // remove the tab from the current task
-
-  //     var currentTab = tabs.get(tabs.getSelected())
-  //     tabs.destroy(currentTab.id)
-
-  //     // make sure the task has at least one tab in it
-  //     if (tabs.count() === 0) {
-  //       tabs.add()
-  //     }
-
-  //     var newTask = getTaskByNameOrNumber(text)
-
-  //     if (newTask) {
-  //       newTask.tabs.add(currentTab, { atEnd: true })
-  //     } else {
-  //     // create a new task with the given name
-  //       newTask = tasks.get(tasks.add(undefined, tasks.getIndex(tasks.getSelected().id) + 1))
-  //       newTask.name = text
-
-  //       newTask.tabs.add(currentTab)
-  //     }
-
-  //     browserUI.switchToTask(newTask.id)
-  //     browserUI.switchToTab(currentTab.id)
-  //     taskOverlay.show()
-
-  //     setTimeout(function () {
-  //       taskOverlay.hide()
-  //     }, 600)
-  //   }
-  // })
 
   bangsPlugin.registerCustomBang({
     phrase: '!closetask',
