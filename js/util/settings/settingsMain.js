@@ -52,9 +52,7 @@ var settings = {
     settings.writeFile()
     settings.runChangeCallbacks(key)
 
-    if (mainWindow) {
-      mainWindow.webContents.send('settingChanged', key, value)
-    }
+    activeWindows.forEach(winObj => winObj.win.webContents.send('settingChanged', key, value))
   },
   initialize: function () {
     var fileData

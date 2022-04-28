@@ -332,7 +332,7 @@ function buildAppMenu (options = {}) {
             label: l('appMenuClose'),
             accelerator: 'CmdOrCtrl+W',
             click: function (item, window) {
-              if (mainWindow && !mainWindow.isFocused()) {
+              if (getFocusedWindow() && !getFocusedWindow().isFocused()) {
                 // a devtools window is focused, close it
                 var contents = webContents.getAllWebContents()
                 for (var i = 0; i < contents.length; i++) {
@@ -350,8 +350,8 @@ function buildAppMenu (options = {}) {
             type: 'checkbox',
             checked: settings.get('windowAlwaysOnTop') || false,
             click: function (item, window) {
-              if (mainWindow) {
-                mainWindow.setAlwaysOnTop(item.checked)
+              if (getFocusedWindow()) {
+                getFocusedWindow().setAlwaysOnTop(item.checked)
               }
               settings.set('windowAlwaysOnTop', item.checked)
             }
@@ -428,6 +428,13 @@ function createDockMenu () {
         label: l('appMenuNewTab'),
         click: function (item, window) {
           sendIPCToWindow(window, 'addTab')
+        }
+      },
+      {
+        label: 'New Window',
+        accelerator: 'shift+cmd+k',
+        click: function (item, window) {
+          createWindow()
         }
       },
       {

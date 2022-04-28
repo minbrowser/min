@@ -8,16 +8,18 @@ it will figure out what updates to make
 */
 function sendPermissionsToRenderer () {
   // remove properties that can't be serialized over IPC
-  sendIPCToWindow(mainWindow, 'updatePermissions', pendingPermissions.concat(grantedPermissions).map(p => {
-    return {
-      permissionId: p.permissionId,
-      tabId: p.tabId,
-      origin: p.origin,
-      permission: p.permission,
-      details: p.details,
-      granted: p.granted
-    }
-  }))
+  activeWindows.forEach(function (winObj) {
+    sendIPCToWindow(winObj.win, 'updatePermissions', pendingPermissions.concat(grantedPermissions).map(p => {
+      return {
+        permissionId: p.permissionId,
+        tabId: p.tabId,
+        origin: p.origin,
+        permission: p.permission,
+        details: p.details,
+        granted: p.granted
+      }
+    }))
+  })
 }
 
 function removePermissionsForContents (contents) {
@@ -150,7 +152,7 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
     })
     webContents.once('destroyed', function () {
       // check whether the app is shutting down to avoid an electron crash (TODO remove this)
-      if (mainWindow) {
+      if (activeWindows.length > 0) {
         removePermissionsForContents(webContents)
       }
     })

@@ -198,12 +198,18 @@ function destroyAllViews () {
   }
 }
 
-function setView (id) {
+function setView (id, winObj) {
   if (viewStateMap[id].loadedInitialURL) {
-    mainWindow.setBrowserView(viewMap[id])
+    winObj.win.setBrowserView(viewMap[id])
   } else {
-    mainWindow.setBrowserView(null)
+    winObj.win.setBrowserView(null)
   }
+  for (var oId in viewStateMap) {
+    if (viewStateMap[oId].attachedTo === winObj.id) {
+      viewStateMap[oId].attachedTo = null
+    }
+  }
+  viewStateMap[id].attachedTo = winObj.id
   selectedView = id
 }
 
@@ -254,7 +260,7 @@ ipc.on('destroyAllViews', function () {
 })
 
 ipc.on('setView', function (e, args) {
-  setView(args.id)
+  setView(args.id, getWindowObj(BrowserWindow.fromWebContents(e.sender)))
   setBounds(args.id, args.bounds)
   if (args.focus) {
     focusView(args.id)
@@ -270,7 +276,7 @@ ipc.on('focusView', function (e, id) {
 })
 
 ipc.on('hideCurrentView', function (e) {
-  hideCurrentView()
+  hideCurrentView(getWindowObj(BrowserWindow.fromWebContents(e.sender)))
 })
 
 ipc.on('loadURLInView', function (e, args) {
@@ -334,7 +340,7 @@ ipc.on('getCapture', function (e, data) {
       return
     }
     img = img.resize({ width: data.width, height: data.height })
-    mainWindow.webContents.send('captureData', { id: data.id, url: img.toDataURL() })
+    e.sender.send('captureData', { id: data.id, url: img.toDataURL() })
   })
 })
 
