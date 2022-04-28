@@ -260,7 +260,7 @@
     "passwordManagerSetupStep2": "Em seguida, arraste a ferramenta para a caixa abaixo:",
     "passwordManagerSetupDragBox": "Arraste a ferramenta aqui",
     "passwordManagerSetupInstalling": "Instalando ...",
-    "passwordManagerBitwardenSignIn": "Para conectar com sua conta do Bitwarden, acesse vault.bitwarden.com/#/settings/account, vá na parte inferior da página, clique em \"View API Key\". E cole os valores nos campos abaixo.", //missing translation
+    "passwordManagerBitwardenSignIn": "Para conectar com sua conta do Bitwarden, acesse vault.bitwarden.com/#/settings/account, vá na parte inferior da página, clique em \"View API Key\". E cole os valores nos campos abaixo.",
     "passwordManagerSetupSignIn": "Entre no seu gerenciador de senhas para começar a usar o preenchimento automático. Suas credenciais não serão armazenadas em nenhum lugar do Min.",
     "disableAutofill": "Desativar preenchimento automático",
     "passwordManagerSetupUnlockError": "Falha ao desbloquear o armazenamento de senhas:",
