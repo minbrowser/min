@@ -71,7 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Tarefa deletada! <a> desfazer?</a>"
     },
-    "tasksSearchTabs": null, //missing translation
+    "tasksSearchTabs": "Buscar abas",
     "returnToTask": "Retornar a sua tarefa anterior",
     "taskDescriptionTwo": "%t e %t",
     "taskDescriptionThree": "%t e %t, mais %n",
@@ -149,13 +149,13 @@
     "settingsDarkModeNever": "Nunca",
     "settingsDarkModeNight": "À noite",
     "settingsDarkModeAlways": "Sempre",
-    "settingsDarkModeSystem": null,
+    "settingsDarkModeSystem": "Tema do sistema",
     "settingsSiteThemeToggle": "Habilitar mudanças de cores na barra de endereços",
     "settingsAdditionalFeaturesHeading": "Recursos adicionais",
     "settingsUserscriptsToggle": "Habilitar scripts do usuário",
     "settingsShowDividerToggle": "Mostrar divisória entre as guias",
     "settingsSeparateTitlebarToggle": "Usar a barra de título separada",
-    "settingsAutoplayToggle": null, //missing translation 
+    "settingsAutoplayToggle": "Habilitar reprodução automática", 
     "settingsOpenTabsInForegroundToggle": "Abrir novas guias em primeiro plano",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Scripts do usuário permitem modificar o comportamento do site - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saiba mais</a>."
@@ -260,7 +260,7 @@
     "passwordManagerSetupStep2": "Em seguida, arraste a ferramenta para a caixa abaixo:",
     "passwordManagerSetupDragBox": "Arraste a ferramenta aqui",
     "passwordManagerSetupInstalling": "Instalando ...",
-    "passwordManagerBitwardenSignIn": null, //missing translation
+    "passwordManagerBitwardenSignIn": "Para conectar com sua conta do Bitwarden, acesse vault.bitwarden.com/#/settings/account, vá na parte inferior da página, clique em \"View API Key\". E cole os valores nos campos abaixo.",
     "passwordManagerSetupSignIn": "Entre no seu gerenciador de senhas para começar a usar o preenchimento automático. Suas credenciais não serão armazenadas em nenhum lugar do Min.",
     "disableAutofill": "Desativar preenchimento automático",
     "passwordManagerSetupUnlockError": "Falha ao desbloquear o armazenamento de senhas:",
@@ -270,11 +270,11 @@
     "passwordCaptureSavePassword": "Salvar senha para %s?",
     "passwordCaptureSave": "Salvar",
     "passwordCaptureDontSave": "Não salvar",
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureNeverSave": "Nunca salvar",
     /* Password viewer */
     "savedPasswordsHeading": "Senhas salvas",
     "savedPasswordsEmpty": "Nenhuma senha salva",
-    "savedPasswordsNeverSavedLabel": null, //missing translation
+    "savedPasswordsNeverSavedLabel": "Nunca salvo",
     "deletePassword": "Excluir senha de %s?",
     /* Dialogs */
     "loginPromptTitle": "Fazer login em %h (%r)",
@@ -284,7 +284,7 @@
     "email": "Email",
     "password": "Senha",
     "secretKey": "Chave secreta",
-    "openExternalApp": null, //missing translation
+    "openExternalApp": "Abrir em \\\"%s\\\"?", //%s is the name of an app
     "clickToCopy": "Clique para copiar",
     "copied": "Copiado"
   }
