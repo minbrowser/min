@@ -199,12 +199,16 @@ function destroyAllViews () {
 }
 
 function setView (id) {
-  if (viewStateMap[id].loadedInitialURL) {
-    mainWindow.setBrowserView(viewMap[id])
-  } else {
-    mainWindow.setBrowserView(null)
+  // setBrowserView causes flickering, so we only want to call it if the view is actually changing
+  // see https://github.com/minbrowser/min/issues/1966
+  if (mainWindow.getBrowserView() !== viewMap[id]) {
+    if (viewStateMap[id].loadedInitialURL) {
+      mainWindow.setBrowserView(viewMap[id])
+    } else {
+      mainWindow.setBrowserView(null)
+    }
+    selectedView = id
   }
-  selectedView = id
 }
 
 function setBounds (id, bounds) {
