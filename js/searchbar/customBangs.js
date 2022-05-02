@@ -167,7 +167,7 @@ function initialize () {
       var isFirst = true
       
       var sortLastActivity = tasks.map(t => Object.assign({}, {task: t}, {lastActivity: tasks.getLastActivity(t.id)}))
-      console.log(sortLastActivity)
+      
       sortLastActivity = sortLastActivity.sort(function (a, b) {
         return b.lastActivity - a.lastActivity
       })
