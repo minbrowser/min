@@ -220,7 +220,7 @@ bangsPlugin.registerCustomBang({
           fakeFocus: isFirst && text,
           click: function () {
             tabEditor.hide()
-            moveToTask('%n'.replace('%n', tasks.getIndex(task.id) + 1))
+            switchToTask('%n'.replace('%n', tasks.getIndex(task.id) + 1))
           }
         })
         isFirst = false
