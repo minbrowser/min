@@ -18,46 +18,46 @@ var formatRelativeDate = require('util/relativeDate.js')
 
 function moveToTask(text) {
   /* disabled in focus mode */
-    if (focusMode.enabled()) {
-      focusMode.warn()
-      return
-    }
+  if (focusMode.enabled()) {
+    focusMode.warn()
+    return
+  }
 
-    // remove the tab from the current task
+  // remove the tab from the current task
 
-    var currentTab = tabs.get(tabs.getSelected())
-    tabs.destroy(currentTab.id)
+  var currentTab = tabs.get(tabs.getSelected())
+  tabs.destroy(currentTab.id)
 
-    // make sure the task has at least one tab in it
-    if (tabs.count() === 0) {
-      tabs.add()
-    }
+  // make sure the task has at least one tab in it
+  if (tabs.count() === 0) {
+    tabs.add()
+  }
 
-    var newTask = getTaskByNameOrNumber(text.toLowerCase())
+  var newTask = getTaskByNameOrNumber(text.toLowerCase())
 
-    if (newTask) {
-      newTask.tabs.add(currentTab, { atEnd: true })
-    } else {
+  if (newTask) {
+    newTask.tabs.add(currentTab, { atEnd: true })
+  } else {
     // create a new task with the given name
-      newTask = tasks.get(tasks.add(undefined, tasks.getIndex(tasks.getSelected().id) + 1))
-      newTask.name = text
+    newTask = tasks.get(tasks.add(undefined, tasks.getIndex(tasks.getSelected().id) + 1))
+    newTask.name = text
 
-      newTask.tabs.add(currentTab)
-    }
+    newTask.tabs.add(currentTab)
+  }
 
-    browserUI.switchToTask(newTask.id)
-    browserUI.switchToTab(currentTab.id)
+  browserUI.switchToTask(newTask.id)
+  browserUI.switchToTab(currentTab.id)
 
-    
-    taskOverlay.show()
 
-    setTimeout(function () {
-      taskOverlay.hide()
-    }, 600)
+  taskOverlay.show()
+
+  setTimeout(function () {
+    taskOverlay.hide()
+  }, 600)
 }
 
-function switchToTask (text) {
-/* disabled in focus mode */
+function switchToTask(text) {
+  /* disabled in focus mode */
   if (focusMode.enabled()) {
     focusMode.warn()
     return
@@ -80,7 +80,7 @@ function switchToTask (text) {
 
 // returns a task with the same name or index ("1" returns the first task, etc.)
 // In future PR move this to task.js
-function getTaskByNameOrNumber (text) {
+function getTaskByNameOrNumber(text) {
   const textAsNumber = parseInt(text)
 
   return tasks.find((task, index) => (task.name && task.name.toLowerCase() === text) || index + 1 === textAsNumber
@@ -88,7 +88,7 @@ function getTaskByNameOrNumber (text) {
 }
 
 
-function initialize () {
+function initialize() {
   bangsPlugin.registerCustomBang({
     phrase: '!settings',
     snippet: l('viewSettings'),
@@ -165,9 +165,9 @@ function initialize () {
       searchbarPlugins.reset('bangs')
 
       var isFirst = true
-      
-      var sortLastActivity = tasks.map(t => Object.assign({}, {task: t}, {lastActivity: tasks.getLastActivity(t.id)}))
-      
+
+      var sortLastActivity = tasks.map(t => Object.assign({}, { task: t }, { lastActivity: tasks.getLastActivity(t.id) }))
+
       sortLastActivity = sortLastActivity.sort(function (a, b) {
         return b.lastActivity - a.lastActivity
       })
@@ -175,67 +175,75 @@ function initialize () {
 
         var task = t.task
         var lastActivity = t.lastActivity
-        
-        var taskName = (task.name ? task.name : l('defaultTaskName').replace('%n', tasks.getIndex(task.id) + 1))
-        searchbarPlugins.addResult('bangs', {
-          title: taskName,
-          secondaryText: formatRelativeDate(lastActivity),
-          fakeFocus: isFirst && text,
-          click: function () {
-            tabEditor.hide()
-            moveToTask('%n'.replace('%n', tasks.getIndex(task.id) + 1))
-          }
-        })
-        isFirst = false
+
+        if (task.id != tasks.getSelected().id) {
+          var taskName = (task.name ? task.name : l('defaultTaskName').replace('%n', tasks.getIndex(task.id) + 1))
+          searchbarPlugins.addResult('bangs', {
+            title: taskName,
+            secondaryText: formatRelativeDate(lastActivity),
+            fakeFocus: isFirst && text,
+            click: function () {
+              tabEditor.hide()
+              moveToTask('%n'.replace('%n', tasks.getIndex(task.id) + 1))
+            }
+          })
+          isFirst = false
+
+        }
       })
     },
-    
+
     fn: moveToTask
-    
-})
 
-bangsPlugin.registerCustomBang({
-  phrase: '!task',
-  snippet: l('switchToTask'),
-  isAction: false,
-  showSuggestions: function (text, input, event) {
-    searchbarPlugins.reset('bangs')
+  })
 
-    var isFirst = true
-    
-    var sortLastActivity = tasks.map(t => Object.assign({}, {task: t}, {lastActivity: tasks.getLastActivity(t.id)}))
-    
-    sortLastActivity = sortLastActivity.sort(function (a, b) {
-      return b.lastActivity - a.lastActivity
-    })
+  bangsPlugin.registerCustomBang({
+    phrase: '!task',
+    snippet: l('switchToTask'),
+    isAction: false,
+    showSuggestions: function (text, input, event) {
+      searchbarPlugins.reset('bangs')
 
-    sortLastActivity.forEach(function (t) {
+      var isFirst = true
+
+      var sortLastActivity = tasks.map(t => Object.assign({}, { task: t }, { lastActivity: tasks.getLastActivity(t.id) }))
+
+      sortLastActivity = sortLastActivity.sort(function (a, b) {
+        return b.lastActivity - a.lastActivity
+      })
+
+      sortLastActivity.forEach(function (t) {
+        
         var task = t.task
         var lastActivity = t.lastActivity
-        
-        var taskName = (task.name ? task.name : l('defaultTaskName').replace('%n', tasks.getIndex(task.id) + 1))
-        searchbarPlugins.addResult('bangs', {
-          title: taskName,
-          secondaryText: formatRelativeDate(lastActivity),
-          fakeFocus: isFirst && text,
-          click: function () {
-            tabEditor.hide()
-            switchToTask('%n'.replace('%n', tasks.getIndex(task.id) + 1))
-          }
-        })
-        isFirst = false
+
+        if (task.id != tasks.getSelected().id) {
+
+          var taskName = (task.name ? task.name : l('defaultTaskName').replace('%n', tasks.getIndex(task.id) + 1))
+          searchbarPlugins.addResult('bangs', {
+            title: taskName,
+            secondaryText: formatRelativeDate(lastActivity),
+            fakeFocus: isFirst && text,
+            click: function () {
+              tabEditor.hide()
+              switchToTask('%n'.replace('%n', tasks.getIndex(task.id) + 1))
+            }
+          })
+          isFirst = false
+
+        }
       })
     },
-  
-  fn: switchToTask
-  
-})
+
+    fn: switchToTask
+
+  })
   bangsPlugin.registerCustomBang({
     phrase: '!newtask',
     snippet: l('createTask'),
     isAction: true,
     fn: function (text) {
-    /* disabled in focus mode */
+      /* disabled in focus mode */
       if (focusMode.enabled()) {
         focusMode.warn()
         return
@@ -332,7 +340,7 @@ bangsPlugin.registerCustomBang({
         places.updateItem(url, {
           isBookmarked: true,
           tags: (text ? text.split(/\s/g).map(t => t.replace('#', '').trim()) : [])
-        }, ()=>{})
+        }, () => { })
       }
     }
   })
