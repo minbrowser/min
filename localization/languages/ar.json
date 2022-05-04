@@ -71,7 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "<a>تراجع؟</a> .تم حذف المهمة"
     },
-    "tasksSearchTabs": null, //missing translation
+    "tasksSearchTabs": "البحث في التبويبات",
     "returnToTask": "عد إلى المهمة السابقة",
     "taskDescriptionTwo": "%t و %t",
     "taskDescriptionThree": "أخرى %n و %t ,%t",
@@ -248,20 +248,24 @@
     "settingsSelectPasswordManager": "إختر واحد من مسيري كلمات المرور",
     "keychainViewPasswords": "عرض كلمات المرور المحفوظة",
     /* Password manager setup */
-    "passwordManagerSetupHeading": null, //missing translation
-    "passwordManagerSetupStep1": null, //missing translation
-    "passwordManagerInstallerSetup": null, //missing translation
-    "passwordManagerSetupLink": null, //missing translation
-    "passwordManagerSetupLinkInstaller": null, //missing translation
-    "passwordManagerSetupStep2": null, //missing translation
-    "passwordManagerSetupDragBox": null, //missing translation
-    "passwordManagerSetupInstalling": null, //missing translation
-    "passwordManagerBitwardenSignIn": null, //missing translation
-    "passwordManagerSetupSignIn": null, //missing translation
-    "disableAutofill": null, //missing translation
-    "passwordManagerSetupUnlockError": null, //missing translation
-    "passwordManagerSetupRetry": null, //missing translation
-    "passwordManagerUnlock": null, //missing translation
+    "passwordManagerSetupHeading": "تم الإنتهاء من %p لاستخدام الملء التلقائي",
+    "passwordManagerSetupStep1": {
+      "unsafeHTML": "أولاً، <a id='password-manager-setup-link'></a> وقم باستخراجه إلى نظامك الحالي"
+    },
+    "passwordManagerInstallerSetup": {
+      "unsafeHTML": "حمل <a id='password-manager-setup-link-installer'></a> ثم قم بجر الملف للصندوق بالأسفل:"
+    },
+    "passwordManagerSetupLink": "حمل أداة الطرفية %p",
+    "passwordManagerSetupLinkInstaller":  "ملف تثبيت الطرفية %p",
+    "passwordManagerSetupStep2": "ثم قم بجر الأداة للصندوق بالأسفل", 
+    "passwordManagerSetupDragBox": "جر الأداة هنا", 
+    "passwordManagerSetupInstalling": "يتم التثبيت", 
+    "passwordManagerBitwardenSignIn": "لتوصيل حساب Bitwarden الخاص بك إذهب إلى vault.bitwarden.com/#/settings/account، ثم اذهب الى اسفل الصفحة، واختر \"View API Key\" بعدها ألصقه في الحقل بالأسفل.", 
+    "passwordManagerSetupSignIn": "قم بتسجيل الدخول إلى مدير كلمات المرور الخاص بك لإستخدم الملء التلقائي، معلومات الدخول لن يتم تخزينها في اي مكان داخل Min", 
+    "disableAutofill": "إلغاء تفعيل الملء التلقائي", 
+    "passwordManagerSetupUnlockError": "فشل في فتح مخزن كلمات المرور: ", 
+    "passwordManagerSetupRetry": "تأكد من إستخدامك الملف الصحيح وإدخال كلمة مرور صحيحة. يمكنك المحاولة عن طريق جر الأداة هنا مجدداً.", 
+    "passwordManagerUnlock": "أدخل كلمة المرور الرئيسية الخاصة بـ %p لفتح مخزن كلمات المرور:", 
     /* Password save bar */
     "passwordCaptureSavePassword": "؟%s حقظ كلمة المرور ل",
     "passwordCaptureSave": " حفظ",
