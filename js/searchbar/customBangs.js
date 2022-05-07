@@ -124,8 +124,6 @@ function searchAndSortTasks(text) {
 
     sortLastActivity = matches.map(t => t.task)
 
-    selected = sortLastActivity[0]
-
   }
 
   return sortLastActivity
