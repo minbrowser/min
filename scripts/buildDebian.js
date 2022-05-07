@@ -1,38 +1,45 @@
-const debianInstaller = require('electron-installer-debian')
-
 const packageFile = require('./../package.json')
 const version = packageFile.version
 const platform = process.argv.find(arg => arg.match('platform')).split('=')[1]
+const builder = require('electron-builder')
+const Platform = builder.Platform
+const Arch = builder.Arch
 
-function toTarget (platform) {
+function toArch (platform) {
   switch (platform) {
     case 'amd64':
-      return 'linuxAmd64'
+      return Arch.x64
     case 'armhf':
-      return 'raspi'
+      return Arch.armv7l
     case 'arm64':
-      return 'linuxArm64'
+      return Arch.arm64
     default:
-      return platform
+      return Arch.universal
   }
 }
 
-require('./createPackage.js')(toTarget(platform)).then(function (appPaths) {
+function toFpm (platform) {
+  switch (platform) {
+    case 'armhf':
+      return ['--architecture', 'armhf']
+    case 'arm64':
+      return ['--architecture', 'aarch64']
+    default:
+      return null
+  }
+}
+
+require('./createPackage.js')('linux', {arch: toArch(platform)}).then(function (path) {
   var installerOptions = {
-    src: appPaths[0],
-    dest: 'dist/app',
-    arch: platform,
-    productName: 'Min',
-    genericName: 'Web Browser',
-    version: version,
-    section: 'web',
-    homepage: 'https://minbrowser.github.io/min/',
+    artifactName: 'Min-${version}-${arch}.deb',
+    packageName: 'min',
     icon: 'icons/icon256.png',
-    categories: ['Network', 'WebBrowser'],
-    mimeType: ['x-scheme-handler/http', 'x-scheme-handler/https', 'text/html'],
+    category: 'Network;WebBrowser',
+    packageCategory: 'Network',
+    mimeTypes: ['x-scheme-handler/http', 'x-scheme-handler/https', 'text/html'],
     maintainer: 'Min Developers <280953907a@zoho.com>',
     description: 'Min is a fast, minimal browser that protects your privacy.',
-    productDescription: 'A web browser with smarter search, improved tab management, and built-in ad blocking. Includes full-text history search, instant answers from DuckDuckGo, the ability to split tabs into groups, and more.',
+    synopsis: 'A web browser with smarter search, improved tab management, and built-in ad blocking. Includes full-text history search, instant answers from DuckDuckGo, the ability to split tabs into groups, and more.',
     depends: [
       'libsecret-1-dev',
       'gconf2',
@@ -50,15 +57,29 @@ require('./createPackage.js')(toTarget(platform)).then(function (appPaths) {
       'python | python3',
       'xdg-utils'
     ],
-    scripts: {
-      postinst: 'resources/postinst_script',
-      prerm: 'resources/prerm_script'
-    }
+    afterInstall: 'resources/postinst_script',
+    afterRemove: 'resources/prerm_script',
+    fpm: toFpm(platform),
   }
 
   console.log('Creating package (this may take a while)')
 
-  debianInstaller(installerOptions)
+  const options = {
+    linux: {
+      target: ['deb']
+    },
+    directories: {
+      buildResources: 'resources',
+      output: 'dist/app/'
+    },
+    deb: installerOptions
+  }
+
+  builder.build({
+    prepackaged: path,
+    targets: Platform.LINUX.createTarget(['deb'], toArch(platform)),
+    config: options
+  })
     .then(() => console.log('Successfully created package.'))
     .catch(err => {
       console.error(err, err.stack)

@@ -2,36 +2,42 @@ const fs = require('fs')
 const path = require('path')
 const { execSync } = require('child_process')
 const archiver = require('archiver')
+const builder = require('electron-builder')
+const Arch = builder.Arch
 
 const packageFile = require('./../package.json')
 const version = packageFile.version
 const platform = process.argv.find(arg => arg.match('platform')).split('=')[1]
 
-function toTarget (platform) {
+function toArch (platform) {
   switch (platform) {
     case 'x86':
-      return 'darwinIntel'
+      return Arch.x64
     case 'arm64':
-      return 'darwinArm'
+      return Arch.arm64
   }
 }
 
-require('./createPackage.js')(toTarget(platform)).then(function (appPaths) {
-  appPaths.forEach(function (packagePath) {
-    if (platform === 'arm64') {
-      execSync('codesign -s - -a arm64 -f --deep ' + packagePath + '/Min.app')
-    }
+require('./createPackage.js')('mac', { arch: toArch(platform) }).then(function (packagePath) {
+  if (platform === 'arm64') {
+    execSync('codesign -s - -a arm64 -f --deep ' + packagePath + '/Min.app')
+  }
 
-    /* create zip file */
+  /* create output directory if it doesn't exist */
 
-    var output = fs.createWriteStream(packagePath.replace('Min-', 'Min-v' + version + '-') + '.zip')
-    var archive = archiver('zip', {
-      zlib: { level: 9 }
-    })
+  if (!fs.existsSync('dist/app')) {
+    fs.mkdirSync('dist/app')
+  }
 
-    archive.directory(path.resolve(packagePath, 'Min.app'), 'Min.app')
+  /* create zip file */
 
-    archive.pipe(output)
-    archive.finalize()
+  var output = fs.createWriteStream(('dist/app/Min' + platform + '.app').replace('Min', 'Min-v' + version + '-') + '.zip')
+  var archive = archiver('zip', {
+    zlib: { level: 9 }
   })
+
+  archive.directory(path.resolve(packagePath, 'Min.app'), 'Min.app')
+
+  archive.pipe(output)
+  archive.finalize()
 })
