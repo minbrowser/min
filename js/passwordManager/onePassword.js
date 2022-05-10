@@ -2,6 +2,7 @@ const ProcessSpawner = require('util/process.js')
 const path = require('path')
 const fs = require('fs')
 var { ipcRenderer } = require('electron')
+const compareVersions = require('util/compareVersions.js')
 
 // 1Password password manager. Requires session key to unlock the vault.
 class OnePassword {
@@ -60,11 +61,18 @@ class OnePassword {
     return null
   }
 
+  async _checkVersion () {
+    const process = new ProcessSpawner('op', ['--version'])
+    const data = await process.executeSyncInAsyncContext()
+
+    return compareVersions('2.2.0', data) >= 0
+  }
+
   // Checks if 1Password integration is configured properly by trying to
   // obtain a valid 1Password-CLI tool path.
   async checkIfConfigured () {
     this.path = await this._getToolPath()
-    return this.path != null
+    return this.path != null && (await this._checkVersion())
   }
 
   // Returns current 1Password-CLI status. If we have a session key, then
