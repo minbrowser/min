@@ -19,11 +19,11 @@ class OnePassword {
   getDownloadLink () {
     switch (window.platformType) {
       case 'mac':
-        return 'https://cache.agilebits.com/dist/1P/op/pkg/v0.10.0/op_darwin_amd64_v0.10.0.pkg'
+        return 'https://cache.agilebits.com/dist/1P/op2/pkg/v2.2.0/op_apple_universal_v2.2.0.pkg'
       case 'windows':
-        return 'https://cache.agilebits.com/dist/1P/op/pkg/v0.10.0/op_windows_amd64_v0.10.0.zip'
+        return 'https://cache.agilebits.com/dist/1P/op2/pkg/v2.2.0/op_windows_amd64_v2.2.0.zip'
       case 'linux':
-        return 'https://cache.agilebits.com/dist/1P/op/pkg/v0.10.0/op_linux_amd64_v0.10.0.zip'
+        return 'https://cache.agilebits.com/dist/1P/op2/pkg/v2.2.0/op_linux_amd64_v2.2.0.zip'
     }
   }
 
@@ -109,14 +109,14 @@ class OnePassword {
   // Loads credential suggestions for given domain name.
   async loadSuggestions (command, domain) {
     try {
-      const process = new ProcessSpawner(command, ['list', 'items', '--session=' + this.sessionKey])
+      const process = new ProcessSpawner(command, ['item', 'list', '--categories', 'login', '--session=' + this.sessionKey, '--format=json'])
       const data = await process.executeSyncInAsyncContext()
 
       const matches = JSON.parse(data)
 
-      const credentials = matches.map(match => match).filter((match) => {
+      const credentials = matches.filter((match) => {
         try {
-          var matchHost = new URL(match.overview.url).hostname
+          var matchHost = new URL(match.urls.find(url => url.primary).href).hostname
           if (matchHost.startsWith('www.')) {
             matchHost = matchHost.slice(4)
           }
@@ -130,12 +130,12 @@ class OnePassword {
 
       for (var i = 0; i < credentials.length; i++) {
         const item = credentials[i]
-        const process = new ProcessSpawner(command, ['get', 'item', item.uuid, '--session=' + this.sessionKey])
+        const process = new ProcessSpawner(command, ['item', 'get', item.id, '--session=' + this.sessionKey, '--format=json'])
         const output = await process.executeSyncInAsyncContext()
         const credential = JSON.parse(output)
 
-        var usernameFields = credential.details.fields.filter(f => f.designation === 'username')
-        var passwordFields = credential.details.fields.filter(f => f.designation === 'password')
+        var usernameFields = credential.fields.filter(f => f.label === 'username')
+        var passwordFields = credential.fields.filter(f => f.label === 'password')
 
         if (usernameFields.length > 0 && passwordFields.length > 0) {
           expandedCredentials.push({
@@ -157,7 +157,7 @@ class OnePassword {
   // Tries to unlock the password store with given master password.
   async unlockStore (password) {
     try {
-      const process = new ProcessSpawner(this.path, ['signin', '--raw'])
+      const process = new ProcessSpawner(this.path, ['signin', '--raw', '--account', 'min-autofill'])
       const result = await process.executeSyncInAsyncContext(password)
       // no session key -> invalid password
       if (!result) {
@@ -206,7 +206,7 @@ class OnePassword {
       }
     }
 
-    const process = new ProcessSpawner(path, ['signin', '--raw', 'my.1password.com', credentials.email, credentials.secretKey])
+    const process = new ProcessSpawner(path, ['account', 'add', '--address', 'my.1password.com', '--email', credentials.email, '--secret-key', credentials.secretKey, '--shorthand', 'min-autofill', '--signin', '--raw'])
 
     const key = await process.executeSyncInAsyncContext(credentials.password)
     if (!key) {

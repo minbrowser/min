@@ -15,7 +15,12 @@ onmessage = function (e) {
       throw new Error('Process terminated: ' + process.stderr + ', ' + process.signal + ', ' + process.error)
     }
 
-    postMessage({ taskId: taskId, result: process.output[1].slice(0, -1) })
+    let output = process.output[1]
+    if (output.slice(-1) === '\n') {
+      output = output.slice(0, -1)
+    }
+
+    postMessage({ taskId: taskId, result: output })
   } catch (e) {
     postMessage({ taskId: taskId, error: e.toString() })
   }
