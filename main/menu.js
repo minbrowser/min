@@ -1,5 +1,5 @@
-function buildAppMenu(options = {}) {
-  function getFormattedKeyMapEntry(keybinding) {
+function buildAppMenu (options = {}) {
+  function getFormattedKeyMapEntry (keybinding) {
     const value = settings.get('keyMap')?.[keybinding]
 
     if (value) {
@@ -434,7 +434,7 @@ function buildAppMenu(options = {}) {
   return Menu.buildFromTemplate(template)
 }
 
-function createDockMenu() {
+function createDockMenu () {
   // create the menu. based on example from https://github.com/electron/electron/blob/master/docs/tutorial/desktop-environment-integration.md#custom-dock-menu-macos
   if (process.platform === 'darwin') {
     var Menu = electron.Menu
