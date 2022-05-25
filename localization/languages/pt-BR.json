@@ -72,7 +72,7 @@
       "unsafeHTML": "Tarefa deletada! <a> desfazer?</a>"
     },
     "tasksSearchTabs": "Buscar abas",
-    "returnToTask": "Retornar a sua tarefa anterior",
+    "returnToTask": "Retornar à sua tarefa anterior",
     "taskDescriptionTwo": "%t e %t",
     "taskDescriptionThree": "%t e %t, mais %n",
     /* find in page toolbar */
@@ -82,7 +82,7 @@
     /* Focus mode */
     "isFocusMode": "Você está no modo concentração.",
     "closeDialog": "OK", //used as a label for the button that closes the dialog
-    "focusModeExplanation1": "No modo concentração, você não pode criar novas guias ou alternar tarefas.",
+    "focusModeExplanation1": "No modo concentração, você não pode criar novas abas ou alternar tarefas.",
     "focusModeExplanation2": "Você pode sair do modo concentração desmarcando \"Modo concentração\" no menu - Visualizar .",
     /* relative dates */
     "timeRangeJustNow": "Agora mesmo",
@@ -153,10 +153,10 @@
     "settingsSiteThemeToggle": "Habilitar mudanças de cores na barra de endereços",
     "settingsAdditionalFeaturesHeading": "Recursos adicionais",
     "settingsUserscriptsToggle": "Habilitar scripts do usuário",
-    "settingsShowDividerToggle": "Mostrar divisória entre as guias",
+    "settingsShowDividerToggle": "Mostrar divisória entre as abas",
     "settingsSeparateTitlebarToggle": "Usar a barra de título separada",
     "settingsAutoplayToggle": "Habilitar reprodução automática", 
-    "settingsOpenTabsInForegroundToggle": "Abrir novas guias em primeiro plano",
+    "settingsOpenTabsInForegroundToggle": "Abrir novas abas em primeiro plano",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Scripts do usuário permitem modificar o comportamento do site - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saiba mais</a>."
     },
@@ -230,7 +230,7 @@
     /* Context Reader */
     "buttonReaderSettings": "Configurações do modo leitura",
     "buttonReaderLightTheme": "Claro",
-    "buttonReaderSepiaTheme": "Sepia ",
+    "buttonReaderSepiaTheme": "Sépia ",
     "buttonReaderDarkTheme": "Escuro",
     "openReaderView": "Sempre abrir em modo leitura",
     "autoRedirectBannerReader": "Sempre abrir artigos deste site em modo leitura?",
