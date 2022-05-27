@@ -83,12 +83,10 @@ const PasswordManagers = {
   // Binds IPC events.
   initialize: function () {
     // Called when page preload script detects a form with username and password.
-    webviews.bindIPC('password-autofill', function (tab, args, frameId) {
-      // We expect hostname of the source page/frame as a parameter.
-      if (args.length === 0) {
-        return
-      }
-      const hostname = args[0]
+    webviews.bindIPC('password-autofill', function (tab, args, frameId, frameURL) {
+      // it's important to use frameURL here and not the tab URL, because the domain of the
+      // requesting iframe may not match the domain of the top-level page
+      const hostname = new URL(frameURL).hostname
 
       PasswordManagers.getConfiguredPasswordManager().then(async (manager) => {
         if (!manager) {
@@ -99,31 +97,17 @@ const PasswordManagers = {
           await PasswordManagers.unlock(manager)
         }
 
-        var domain = hostname
-        if (domain.startsWith('www.')) {
-          domain = domain.slice(4)
+        var formattedHostname = hostname
+        if (formattedHostname.startsWith('www.')) {
+          formattedHostname = formattedHostname.slice(4)
         }
 
-        manager.getSuggestions(domain).then(credentials => {
+        manager.getSuggestions(formattedHostname).then(credentials => {
           if (credentials != null) {
-            webviews.callAsync(tab, 'getURL', function (err, topLevelURL) {
-              if (err) {
-                console.warn(err)
-                return
-              }
-              var topLevelDomain = new URL(topLevelURL).hostname
-              if (topLevelDomain.startsWith('www.')) {
-                topLevelDomain = topLevelDomain.slice(4)
-              }
-              if (domain !== topLevelDomain) {
-                console.warn("autofill isn't supported for 3rd-party frames")
-                return
-              }
-              webviews.callAsync(tab, 'sendToFrame', [frameId, 'password-autofill-match', {
-                credentials,
-                hostname
-              }])
-            })
+            webviews.callAsync(tab, 'sendToFrame', [frameId, 'password-autofill-match', {
+              credentials,
+              hostname
+            }])
           }
         }).catch(e => {
           console.error('Failed to get password suggestions: ' + e.message)

@@ -236,7 +236,7 @@ function addFocusListener (element, credentials) {
 
 function requestAutofill () {
   if (getBestUsernameField() && getBestPasswordField()) {
-    ipc.send('password-autofill', document.location.hostname)
+    ipc.send('password-autofill')
   }
 }
 

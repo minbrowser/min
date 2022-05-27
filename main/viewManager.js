@@ -104,7 +104,8 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
       id: id,
       name: channel,
       data: data,
-      frameId: e.frameId
+      frameId: e.frameId,
+      frameURL: e.senderFrame.url
     })
   })
 

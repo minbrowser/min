@@ -484,7 +484,7 @@ ipc.on('view-ipc', function (e, args) {
   }
   webviews.IPCEvents.forEach(function (item) {
     if (item.name === args.name) {
-      item.fn(args.id, [args.data], args.frameId)
+      item.fn(args.id, [args.data], args.frameId, args.frameURL)
     }
   })
 })
