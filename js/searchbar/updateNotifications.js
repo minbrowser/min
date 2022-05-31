@@ -3,31 +3,7 @@ const UPDATE_URL = 'https://minbrowser.github.io/min/updates/latestVersion.json'
 var settings = require('util/settings/settings.js')
 
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
-
-function compareVersions (v1, v2) {
-  /*
-  1: v2 is newer than v1
-  -1: v1 is newer than v2
-  0: the two versions are equal
-  */
-  v1 = v1.split('.').map(i => parseInt(i))
-  v2 = v2.split('.').map(i => parseInt(i))
-
-  if (v1.length !== v2.length) {
-    throw new Error()
-  }
-
-  for (var i = 0; i < v1.length; i++) {
-    if (v2[i] > v1[i]) {
-      return 1
-    }
-    if (v1[i] > v2[i]) {
-      return -1
-    }
-  }
-
-  return 0
-}
+var compareVersions = require('util/compareVersions.js')
 
 function getUpdateRandomNum () {
   /* the update JSON might indicate that the update is only available to a % of clients, in order to avoid notifying everyone to update to a new version until there's time to report bugs.
