@@ -16,7 +16,7 @@ const searchbarPlugins = require('searchbar/searchbarPlugins.js')
 const tabEditor = require('navbar/tabEditor.js')
 const formatRelativeDate = require('util/relativeDate.js')
 
-function moveToTask (text) {
+function moveToTaskCommand (taskId) {
   /* disabled in focus mode */
   if (focusMode.enabled()) {
     focusMode.warn()
@@ -33,17 +33,9 @@ function moveToTask (text) {
     tabs.add()
   }
 
-  let newTask = getTaskByNameOrNumber(text.toLowerCase())
+  const newTask = tasks.get(taskId)
 
-  if (newTask) {
-    newTask.tabs.add(currentTab, { atEnd: true })
-  } else {
-    // create a new task with the given name
-    newTask = tasks.get(tasks.add(undefined, tasks.getIndex(tasks.getSelected().id) + 1))
-    newTask.name = text
-
-    newTask.tabs.add(currentTab)
-  }
+  newTask.tabs.add(currentTab, { atEnd: true })
 
   browserUI.switchToTask(newTask.id)
   browserUI.switchToTab(currentTab.id)
@@ -55,30 +47,23 @@ function moveToTask (text) {
   }, 600)
 }
 
-function switchToTask (text) {
+function switchToTaskCommand (taskId) {
   /* disabled in focus mode */
   if (focusMode.enabled()) {
     focusMode.warn()
     return
   }
 
-  text = text.toLowerCase()
-
   // no task was specified, show all of the tasks
-  if (!text) {
+  if (!taskId) {
     taskOverlay.show()
     return
   }
 
-  const task = getTaskByNameOrNumber(text)
-
-  if (task) {
-    browserUI.switchToTask(task.id)
-  }
+  browserUI.switchToTask(taskId)
 }
 
 // returns a task with the same name or index ("1" returns the first task, etc.)
-// In future PR move this to task.js
 function getTaskByNameOrNumber (text) {
   const textAsNumber = parseInt(text)
 
@@ -86,44 +71,32 @@ function getTaskByNameOrNumber (text) {
   )
 }
 
-// return an array of dicts, sorted by last task activity
-// if a search string is present (and not a number) filter the results with a basic fuzzy search
+// return an array of tasks sorted by last activity
+// if a search string is present, filter the results with a basic fuzzy search
 function searchAndSortTasks (text) {
-  let sortLastActivity = tasks.map(t => Object.assign({}, { task: t }, { lastActivity: tasks.getLastActivity(t.id) }))
+  let taskResults = tasks
+    .filter(t => t.id !== tasks.getSelected().id)
+    .map(t => Object.assign({}, { task: t }, { lastActivity: tasks.getLastActivity(t.id) }))
 
-  sortLastActivity = sortLastActivity.sort(function (a, b) {
+  taskResults = taskResults.sort(function (a, b) {
     return b.lastActivity - a.lastActivity
   })
 
-  const isSingleNumber = /^\d+$/.test(text)
-
-  if (text !== '' ? !isSingleNumber : !isSingleNumber) { // lXOR
+  if (text !== '') {
     // fuzzy search
-    let matches = []
     const searchText = text.toLowerCase()
 
-    sortLastActivity.forEach(function (t) {
+    taskResults = taskResults.filter(function (t) {
       const task = t.task
       const taskName = (task.name ? task.name : l('defaultTaskName').replace('%n', tasks.getIndex(task.id) + 1)).toLowerCase()
       const exactMatch = taskName.indexOf(searchText) !== -1
       const fuzzyTitleScore = taskName.score(searchText, 0.5)
 
-      if (exactMatch || fuzzyTitleScore > 0.4) {
-        matches.push({
-          task: t,
-          score: fuzzyTitleScore + exactMatch
-        })
-      }
+      return (exactMatch || fuzzyTitleScore > 0.4)
     })
-
-    matches = matches.sort(function (a, b) {
-      return b.score - a.score
-    })
-
-    sortLastActivity = matches.map(t => t.task)
   }
 
-  return sortLastActivity
+  return taskResults
 }
 
 function initialize () {
@@ -202,31 +175,44 @@ function initialize () {
     showSuggestions: function (text, input, event) {
       searchbarPlugins.reset('bangs')
 
-      const sortLastActivity = searchAndSortTasks(text)
+      const taskResults = searchAndSortTasks(text)
 
-      sortLastActivity.forEach(function (t) {
+      taskResults.forEach(function (t, idx) {
         const task = t.task
         const lastActivity = t.lastActivity
 
-        if (task.id != tasks.getSelected().id) {
-          const taskName = (task.name ? task.name : l('defaultTaskName').replace('%n', tasks.getIndex(task.id) + 1))
+        const taskName = (task.name ? task.name : l('defaultTaskName').replace('%n', tasks.getIndex(task.id) + 1))
 
-          const data = {
-            title: taskName,
-            secondaryText: formatRelativeDate(lastActivity),
-            fakeFocus: false,
-            click: function () {
-              tabEditor.hide()
-              moveToTask('%n'.replace('%n', tasks.getIndex(task.id) + 1))
-            }
+        const data = {
+          title: taskName,
+          secondaryText: formatRelativeDate(lastActivity),
+          fakeFocus: text && idx === 0,
+          click: function () {
+            tabEditor.hide()
+            moveToTaskCommand(task.id)
           }
-
-          searchbarPlugins.addResult('bangs', data)
         }
+
+        searchbarPlugins.addResult('bangs', data)
       })
     },
 
-    fn: moveToTask
+    fn: function (text) {
+      /* disabled in focus mode */
+      if (focusMode.enabled()) {
+        focusMode.warn()
+      }
+
+      // use the first search result
+      // if there is no search text or no result, need to create a new task
+      let task = searchAndSortTasks(text)[0]?.task
+      if (!text || !task) {
+        task = tasks.get(tasks.add(undefined, tasks.getIndex(tasks.getSelected().id) + 1))
+        task.name = text
+      }
+
+      return moveToTaskCommand(task.id)
+    }
 
   })
 
@@ -237,33 +223,37 @@ function initialize () {
     showSuggestions: function (text, input, event) {
       searchbarPlugins.reset('bangs')
 
-      const sortLastActivity = searchAndSortTasks(text)
+      const taskResults = searchAndSortTasks(text)
 
-      sortLastActivity.forEach(function (t) {
+      taskResults.forEach(function (t, idx) {
         const task = t.task
         const lastActivity = t.lastActivity
 
-        if (task.id != tasks.getSelected().id) {
-          const taskName = (task.name ? task.name : l('defaultTaskName').replace('%n', tasks.getIndex(task.id) + 1))
+        const taskName = (task.name ? task.name : l('defaultTaskName').replace('%n', tasks.getIndex(task.id) + 1))
 
-          const data = {
-            title: taskName,
-            secondaryText: formatRelativeDate(lastActivity),
-            fakeFocus: false,
-            click: function () {
-              tabEditor.hide()
-              switchToTask('%n'.replace('%n', tasks.getIndex(task.id) + 1))
-            }
+        const data = {
+          title: taskName,
+          secondaryText: formatRelativeDate(lastActivity),
+          fakeFocus: text && idx === 0,
+          click: function () {
+            tabEditor.hide()
+            switchToTaskCommand(task.id)
           }
-
-          searchbarPlugins.addResult('bangs', data)
         }
+
+        searchbarPlugins.addResult('bangs', data)
       })
     },
-
-    fn: switchToTask
-
+    fn: function (text) {
+      if (text) {
+      // switch to the first search result
+        switchToTaskCommand(searchAndSortTasks(text)[0].task.id)
+      } else {
+        taskOverlay.show()
+      }
+    }
   })
+
   bangsPlugin.registerCustomBang({
     phrase: '!newtask',
     snippet: l('createTask'),
