@@ -109,8 +109,8 @@ function getBestInput (names, exclusionNames, types) {
 
     // We expect the field to have either 'name', 'formcontrolname' or 'id' attribute
     // that we can use to identify it as a login form input field.
-    if (names.length === 0 || checkAttributes(field, ['name', 'formcontrolname', 'id', 'placholder'], names)) {
-      if (!checkAttributes(field, ['name', 'formcontrolname', 'id', 'placeholder'], exclusionNames) && field.type !== 'hidden') {
+    if (names.length === 0 || checkAttributes(field, ['name', 'formcontrolname', 'id', 'placholder', 'aria-label'], names)) {
+      if (!checkAttributes(field, ['name', 'formcontrolname', 'id', 'placeholder', 'aria-label'], exclusionNames) && field.type !== 'hidden') {
         return field
       }
     }
