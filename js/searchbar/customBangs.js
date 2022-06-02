@@ -198,11 +198,6 @@ function initialize () {
     },
 
     fn: function (text) {
-      /* disabled in focus mode */
-      if (focusMode.enabled()) {
-        focusMode.warn()
-      }
-
       // use the first search result
       // if there is no search text or no result, need to create a new task
       let task = searchAndSortTasks(text)[0]?.task
