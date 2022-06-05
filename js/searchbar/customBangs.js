@@ -17,12 +17,6 @@ const tabEditor = require('navbar/tabEditor.js')
 const formatRelativeDate = require('util/relativeDate.js')
 
 function moveToTaskCommand (taskId) {
-  /* disabled in focus mode */
-  if (focusMode.enabled()) {
-    focusMode.warn()
-    return
-  }
-
   // remove the tab from the current task
 
   const currentTab = tabs.get(tabs.getSelected())
@@ -189,6 +183,13 @@ function initialize () {
           fakeFocus: text && idx === 0,
           click: function () {
             tabEditor.hide()
+
+            /* disabled in focus mode */
+            if (focusMode.enabled()) {
+              focusMode.warn()
+              return
+            }
+
             moveToTaskCommand(task.id)
           }
         }
@@ -198,6 +199,12 @@ function initialize () {
     },
 
     fn: function (text) {
+      /* disabled in focus mode */
+      if (focusMode.enabled()) {
+        focusMode.warn()
+        return
+      }
+
       // use the first search result
       // if there is no search text or no result, need to create a new task
       let task = searchAndSortTasks(text)[0]?.task
