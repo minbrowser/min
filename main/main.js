@@ -69,7 +69,7 @@ var secondaryMenu = null
 var isFocusMode = false
 var appIsReady = false
 
-const isFirstInstance = app.requestSingleInstanceLock()
+const isFirstInstance = app.requestSingleInstanceLock(process.argv)
 
 if (!isFirstInstance) {
   app.quit()
@@ -104,23 +104,34 @@ function openTabInWindow (url) {
 
 function handleCommandLineArguments (argv) {
   // the "ready" event must occur before this function can be used
+  var initTaskQuery = undefined
   if (argv) {
+
+    // check for -t task query
+    if (argv.includes('-t') && argv.indexOf('-t') > 0){
+      // query for specific task to add search to
+      initTaskQuery = argv[argv.indexOf('-t') + 1]
+    } 
+
     argv.forEach(function (arg, idx) {
       if (arg && arg.toLowerCase() !== __dirname.toLowerCase()) {
-        // URL
         if (arg.indexOf('://') !== -1) {
+          // URL
           sendIPCToWindow(mainWindow, 'addTab', {
-            url: arg
+            url: arg,
+            taskQuery: initTaskQuery
           })
         } else if (idx > 0 && argv[idx - 1] === '-s') {
           // search
           sendIPCToWindow(mainWindow, 'addTab', {
-            url: arg
+            url: arg,
+            taskQuery: initTaskQuery
           })
         } else if (/\.(m?ht(ml)?|pdf)$/.test(arg) && fs.existsSync(arg)) {
           // local files (.html, .mht, mhtml, .pdf)
           sendIPCToWindow(mainWindow, 'addTab', {
-            url: 'file://' + path.resolve(arg)
+            url: 'file://' + path.resolve(arg),
+            taskQuery: initTaskQuery
           })
         }
       }
@@ -353,14 +364,14 @@ app.on('open-url', function (e, url) {
   }
 })
 
-app.on('second-instance', function (e, argv, workingDir) {
+app.on('second-instance', function (e, argv, workingDir, additionalData) {
   if (mainWindow) {
     if (mainWindow.isMinimized()) {
       mainWindow.restore()
     }
     mainWindow.focus()
     // add a tab with the new URL
-    handleCommandLineArguments(argv)
+    handleCommandLineArguments(additionalData)
   }
 })
 
