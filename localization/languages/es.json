@@ -136,7 +136,7 @@
     "settingsBlockScriptsToggle": "Bloquear scripts",
     "settingsBlockImagesToggle": "Bloquear imágenes",
     "settingsBlockedRequestCount": {
-      "unsafeHTML": "Hasta ahora, Min ha bloqueado <strong>anuncios y rastreadores</strong>."
+      "unsafeHTML": "Hasta ahora, Min ha bloqueado <strong></strong> anuncios y rastreadores."
     },
     "settingsCustomBangs": "Bangs personalizados",
     "settingsCustomBangsAdd": "Agregar bang personalizado",
