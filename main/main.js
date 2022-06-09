@@ -133,6 +133,10 @@ function handleCommandLineArguments (argv) {
             url: 'file://' + path.resolve(arg),
             taskQuery: initTaskQuery
           })
+        } else if (initTaskQuery) {
+          sendIPCToWindow(mainWindow, 'switchToTask', {
+            taskQuery: initTaskQuery
+          })
         }
       }
     })
