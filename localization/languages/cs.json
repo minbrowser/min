@@ -81,7 +81,7 @@
     "findMatchesPlural": "%i z %t výsledků",
     /* Focus mode */
     "isFocusMode": "Jste v režimu zaměření.",
-    "closeDialog": "Rozumím", //used as a label for the button that closes the dialog
+    "closeDialog": "Zavřít", //used as a label for the button that closes the dialog
     "focusModeExplanation1": "V režimu zaměření nemůžete vytvářet nové karty nebo přepínat dimenze.",
     "focusModeExplanation2": "Režim zaměření můžete opustit odškrtnutím \"režim zaměření\" v menu zobrazení.",
     /* relative dates */
@@ -117,7 +117,7 @@
     "phishingErrorVisitAnyway": "Přesto stránky navštívit",
     "phishingErrorLeave": "Opustit tyto stránky",
     /* multiple instances alert */
-    "multipleInstancesErrorMessage": "Vyskytla se chyba. Prosím zavřete všechny ostatní spuštěné instance a restartujte prohlížeč.",
+    "multipleInstancesErrorMessage": "Vyskytla se chyba. Prosím zavřete všechny ostatní spuštěné instance a restartujte prohlížeč Min.",
     /* pages/sessionRestoreError/index.html */
     "sessionRestoreErrorTitle": "Vyskytla se chyba",
     "sessionRestoreErrorExplanation": "Vaše uložené karty nelze správně obnovit.",
