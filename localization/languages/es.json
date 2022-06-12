@@ -78,7 +78,7 @@
     /* find in page toolbar */
     "searchInPage": "Buscar en la página", //this is used as the placeholder text for the textbox in the find in page toolbar
     "findMatchesSingular": "%i de %t coincidencia", //this and the next label are used to indicate which match is currently highlighted
-    "findMatchesPlural": "%i de %t coinicidencias",
+    "findMatchesPlural": "%i de %t coincidencias",
     /* Focus mode */
     "isFocusMode": "Estás en el modo de enfoque.",
     "closeDialog": "Aceptar", //used as a label for the button that closes the dialog
@@ -99,7 +99,7 @@
     "crashErrorSubtitle": "Se ha producido un problema al mostrar este sitio web.",
     "errorPagePrimaryAction": "Inténtalo de nuevo",
     "serverNotFoundTitle": "Servidor no encontrado",
-    "serverNotFoundSubtitle": "Min no puede encontrar esta sitio web.",
+    "serverNotFoundSubtitle": "Min no puede encontrar este sitio web.",
     "archiveSearchAction": "Buscar en archive.org",
     "sslErrorTitle": "Esta página web no está disponible",
     "sslErrorMessage": "Min no pudo conectarse de forma segura a este sitio web.",
