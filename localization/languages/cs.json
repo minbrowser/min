@@ -7,14 +7,14 @@
         */
     "addToDictionary": "Přidat do slovníku",
     "pictureInPicture": "Obraz v obraze",
-    "openInNewTab": "Otevřít v nové kartě",
-    "openInNewPrivateTab": "Otevřít v nové soukromé kartě",
+    "openInNewTab": "Otevřít odkaz na nové kartě",
+    "openInNewPrivateTab": "Otevřít odkaz na nové soukromé kartě",
     "saveLinkAs": "Uložit odkaz jako...",
     "viewImage": "Zobrazit obrázek",
-    "openImageInNewTab": "Otevřít obrázek v nové kartě",
-    "openImageInNewPrivateTab": "Otevřít obrázek v nové soukromé kartě",
-    "saveImageAs": "Uložit obrázek jako",
-    "searchWith": "Vyhledávat pomocí %s", //%s will be replaced with the name of the current search engine
+    "openImageInNewTab": "Otevřít obrázek na nové kartě",
+    "openImageInNewPrivateTab": "Otevřít obrázek na nové soukromé kartě",
+    "saveImageAs": "Uložit obrázek jako...",
+    "searchWith": "Vyhledat pomocí %s", //%s will be replaced with the name of the current search engine
     "copyLink": "Kopírovat odkaz",
     "copyEmailAddress": "Kopírovat e-mailovou adresu",
     "selectAll": "Označit vše",
@@ -23,8 +23,8 @@
     "cut": "Vyjmout",
     "copy": "Kopírovat", //this is a verb (as in "copy the currently-selected text")
     "paste": "Vložit",
-    "goBack": "Jít zpět",
-    "goForward": "Jít dopředu",
+    "goBack": "Zpět",
+    "goForward": "Vpřed",
     "inspectElement": "Prozkoumat prvek",
     /* searchbar */
     "pasteAndGo": "Vložit a přejít",
@@ -42,7 +42,7 @@
     "enableBlocking": "Zapnout blokování obsahu pro tuto stránku",
     "disableBlocking": "Vypnout blokování obsahu pro tuto stránku",
     "clearHistoryConfirmation": "Vymazat historii a data o prohlížení?",
-    "switchToTask": "Skočit do dimenze",
+    "switchToTask": "Přesunout se do dimenze",
     "createTask": "Vytvořit dimenzi",
     "closeTask": "Zavřít dimenzi",
     "moveToTask": "Přesunout tuto kartu do dimenze",
@@ -61,7 +61,7 @@
     "exitReaderView": "Zavřít režim čtení",
     "newTabLabel": "Nová karta", //this is a noun, used for tabs that don't have a page loaded in them yet
     "connectionNotSecure": "Vaše připojení k této stránce není zabezpečené.",
-    "searchbarPlaceholder": "Vyhledávejte nebo zadejte adresu",
+    "searchbarPlaceholder": "Hledejte nebo zadejte webovou adresu",
     "privateTab": "Soukromá karta",
     "newTabAction": "Nová karta", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
     /* task overlay */
@@ -71,7 +71,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Dimenze uzavřena. <a>Zpět?</a>"
     },
-    "tasksSearchTabs": null, //missing translation
+    "tasksSearchTabs": "Vyhledat otevřené karty",
     "returnToTask": "Vrátit se do předchozí dimenze",
     "taskDescriptionTwo": "%t a %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
     "taskDescriptionThree": "%t, %t, a více (%n)", //used to describe a task that has three or more tabs
@@ -81,9 +81,9 @@
     "findMatchesPlural": "%i z %t výsledků",
     /* Focus mode */
     "isFocusMode": "Jste v režimu zaměření.",
-    "closeDialog": "OK", //used as a label for the button that closes the dialog
-    "focusModeExplanation1": "V režimu zaměření nemůžete přepínat záložky nebo měnit dimenze.",
-    "focusModeExplanation2": "Můžete opustit režim zaměření odškrtnutím \"režim zaměření\" v menu zobrazení.",
+    "closeDialog": "Zavřít", //used as a label for the button that closes the dialog
+    "focusModeExplanation1": "V režimu zaměření nemůžete vytvářet nové karty nebo přepínat dimenze.",
+    "focusModeExplanation2": "Režim zaměření můžete opustit odškrtnutím \"režim zaměření\" v menu zobrazení.",
     /* relative dates */
     "timeRangeJustNow": "Právě teď",
     "timeRangeMinutes": "Před pár minutami",
@@ -117,7 +117,7 @@
     "phishingErrorVisitAnyway": "Přesto stránky navštívit",
     "phishingErrorLeave": "Opustit tyto stránky",
     /* multiple instances alert */
-    "multipleInstancesErrorMessage": "Vyskytla se chyba. Prosím zavřete všechny ostatní spuštěné instance a restartujte Min.",
+    "multipleInstancesErrorMessage": "Vyskytla se chyba. Prosím zavřete všechny ostatní spuštěné instance a restartujte prohlížeč Min.",
     /* pages/sessionRestoreError/index.html */
     "sessionRestoreErrorTitle": "Vyskytla se chyba",
     "sessionRestoreErrorExplanation": "Vaše uložené karty nelze správně obnovit.",
@@ -132,37 +132,39 @@
     "settingsContentBlockingLevel0": "Povolit všechny reklamy a trackery",
     "settingsContentBlockingLevel1": "Blokovat reklamy třetích stran a trackery",
     "settingsContentBlockingLevel2": "Blokovat všechny reklamy a trackery",
-    "settingsContentBlockingExceptions": "Udělit výjimku pro zobrazování reklam těmto webům:",
+    "settingsContentBlockingExceptions": "Udělit výjimku pro zobrazování reklam těmto stránkám:",
     "settingsBlockScriptsToggle": "Blokovat skripty",
     "settingsBlockImagesToggle": "Blokovat obrázky",
     "settingsBlockedRequestCount": {
-      "unsafeHTML": "Dosud Min zablokoval <strong></strong> reklam a trackerů."
+      "unsafeHTML": "Prohlížeč Min dosud zablokoval <strong></strong> reklam a trackerů."
     },
-    "settingsCustomBangs": null, // missing translation
-    "settingsCustomBangsAdd": null, // missing translation
-    "settingsCustomBangsPhrase": null, // missing translation
-    "settingsCustomBangsSnippet": null, // missing translation
-    "settingsCustomBangsRedirect": null, // missing translation
+    "settingsCustomBangs": "Vlastní !zkratky",
+    "settingsCustomBangsAdd": "Vytvořit novou zkratku",
+    "settingsCustomBangsPhrase": "Fráze (Vyžadováno)",
+    "settingsCustomBangsSnippet": "Popis (Volitelné)",
+    "settingsCustomBangsRedirect": "Adresa pro přesměrování (Vyžadováno)",
     "settingsCustomizeFiltersLink": "Přizpůsobit filtry",
     "settingsAppearanceHeading": "Vzhled",
-    "settingsEnableDarkMode": "Vynutit tmavý režim:",
+    "settingsEnableDarkMode": "Zapnout tmavý režim:",
     "settingsDarkModeNever": "Nikdy",
     "settingsDarkModeNight": "Pouze v noci",
     "settingsDarkModeAlways": "Vždy",
-    "settingsDarkModeSystem": null,
+    "settingsDarkModeSystem": "Automaticky podle systému",
     "settingsSiteThemeToggle": "Povolit motiv webu",
     "settingsAdditionalFeaturesHeading": "Další funkce",
     "settingsUserscriptsToggle": "Povolit uživatelské skripty",
     "settingsShowDividerToggle": "Zobrazit ohraničení otevřených karet",
     "settingsSeparateTitlebarToggle": "Použít systémové záhlaví okna",
-    "settingsAutoplayToggle": null, //missing translation 
+    "settingsAutoplayToggle": "Povolit automatické přehrávání",
     "settingsOpenTabsInForegroundToggle": "Ihned přepínat na nově otevřené karty",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Uživatelské skripty umožňují upravit chování webových stránek - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">více informací</a>."
     },
-    "settingsUserAgentToggle": "Použít vlastní user agent",
+    "settingsUserAgentToggle": "Použít vlastní User-Agent řetězec",
     "settingsUpdateNotificationsToggle": "Automaticky kontrolovat aktualizace",
-    "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "Zasílat údaje o používání (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Více informací</a>)"
+    },
     "settingsSearchEngineHeading": "Vyhledávač",
     "settingsDefaultSearchEngine": "Zvolte si výchozí vyhledávač:",
     "settingsDDGExplanation": "Nastavte DuckDuckGo jako výchozí vyhledávač pro zobrazování okamžitých odpovědí ve vyhledávacím panelu.",
@@ -182,16 +184,16 @@
     "appMenuDuplicateTab": "Duplikovat kartu",
     "appMenuNewPrivateTab": "Nová soukromá karta",
     "appMenuNewTask": "Nová dimenze",
-    "appMenuSavePageAs": "Uložit stránku jako",
-    "appMenuPrint": "Tisk",
+    "appMenuSavePageAs": "Uložit stránku jako...",
+    "appMenuPrint": "Vytisknout stránku...",
     "appMenuEdit": "Úpravy",
-    "appMenuUndo": "Krok zpět",
-    "appMenuRedo": "Krok vpřed",
+    "appMenuUndo": "Zpět",
+    "appMenuRedo": "Vpřed",
     "appMenuCut": "Vyjmout",
     "appMenuCopy": "Kopírovat",
     "appMenuPaste": "Vložit",
     "appMenuSelectAll": "Označit vše",
-    "appMenuFind": "Najít",
+    "appMenuFind": "Najít na stránce...",
     "appMenuView": "Zobrazení",
     "appMenuZoomIn": "Přiblížit",
     "appMenuZoomOut": "Oddálit",
@@ -240,7 +242,7 @@
     "downloadStateCompleted": "Dokončeno",
     "downloadStateFailed": "Selhalo",
     /* Update Notifications */
-    "updateNotificationTitle": "Je dostupná nová verze Min",
+    "updateNotificationTitle": "Je dostupná nová verze prohlížeče Min",
     /* Autofill settings */
     "settingsPasswordAutoFillHeadline": "Automatické vkládání hesla",
     "settingsSelectPasswordManager": "Vyberte jeden z podporovaných správců hesel:",
@@ -258,7 +260,7 @@
     "passwordManagerSetupStep2": "Pak přetáhněte nástroj do pole níže:",
     "passwordManagerSetupDragBox": "Přetáhněte nástroj sem",
     "passwordManagerSetupInstalling": "Probíhá instalace...",
-    "passwordManagerBitwardenSignIn": null, //missing translation
+    "passwordManagerBitwardenSignIn": "Pro připojení vašeho Bitwarden účtu navštivte vault.bitwarden.com/#/settings/account, srolujte dolů a zvolte \"Zobrazit API klíč\". Tyto hodnoty poté vložte do textových polí níže.",
     "passwordManagerSetupSignIn": "Přihlaste se do vašeho správce hesel, abyste mohli začít používat automatické vkládání. Vaše přihlašovací údaje nebudou v prohlížeči Min nikde uchovány.",
     "disableAutofill": "Vypnout automatické vkládání",
     "passwordManagerSetupUnlockError": "Selhalo odemčení úložiště hesel: ",
@@ -268,11 +270,11 @@
     "passwordCaptureSavePassword": "Uložit heslo pro %s?",
     "passwordCaptureSave": "Uložit",
     "passwordCaptureDontSave": "Neukládat",
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureNeverSave": "Nikdy neukládat",
     /* Password viewer */
     "savedPasswordsHeading": "Uložená hesla",
     "savedPasswordsEmpty": "Žádná uložená hesla",
-    "savedPasswordsNeverSavedLabel": null, //missing translation
+    "savedPasswordsNeverSavedLabel": "Nikdy neukládat",
     "deletePassword": "Odstranit heslo pro %s?",
     /* Dialogs */
     "loginPromptTitle": "Přihlášení do %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
@@ -282,8 +284,8 @@
     "email": "E-mail",
     "password": "Heslo",
     "secretKey": "Tajný klíč",
-    "openExternalApp": null, //missing translation
-    "clickToCopy": null, //missing translation
-    "copied": null //missing translation
+    "openExternalApp": "Otevřít v \\\"%s\\\"?",
+    "clickToCopy": "Klikněte pro kopírování",
+    "copied": "Zkopírováno"
   }
 }
