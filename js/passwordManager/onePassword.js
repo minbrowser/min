@@ -171,7 +171,7 @@ class OnePassword {
   // Tries to unlock the password store with given master password.
   async unlockStore (password) {
     try {
-      const process = new ProcessSpawner(this.path, ['signin', '--raw', '--account', 'min-autofill'], { OP_DEVICE: this.deviceID })
+      const process = new ProcessSpawner(this.path, ['signin', '--raw', '--account', 'min-autofill'], { OP_DEVICE: this.deviceID }, 5000)
       const result = await process.executeSyncInAsyncContext(password)
       // no session key -> invalid password
       if (!result) {
@@ -182,8 +182,16 @@ class OnePassword {
       this.sessionKeyCreated = Date.now()
       return true
     } catch (ex) {
-      const { error, data } = ex
-      console.error('Error accessing 1Password CLI. STDOUT: ' + data + '. STDERR: ' + error)
+      console.error('Error accessing 1Password CLI. ', ex, ex.toString())
+
+      const e = ex.toString().toLowerCase()
+
+      // if there are no accounts registered at all, the cli will prompt to add an account, causing a timeout
+      if (e.includes('etimedout') || e.includes('no account')) {
+        await this.signInAndSave()
+        return await this.unlockStore(password)
+      }
+
       throw ex
     }
   }
