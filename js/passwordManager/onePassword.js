@@ -3,9 +3,19 @@ const path = require('path')
 const fs = require('fs')
 var { ipcRenderer } = require('electron')
 const compareVersions = require('util/compareVersions.js')
+const settings = require('util/settings/settings.js')
 
 // 1Password password manager. Requires session key to unlock the vault.
 class OnePassword {
+  _createDeviceID () {
+    const chars = 'abcdefghijklmnopqrstuvwxyz1234567890'
+    let out = ''
+    for (let i = 0; i < 26; i++) {
+      out += chars[Math.floor(Math.random() * chars.length)]
+    }
+    return out
+  }
+
   constructor () {
     this.sessionKey = null
     this.sessionKeyCreated = 0
@@ -14,6 +24,10 @@ class OnePassword {
     this.sessionKeyLifetime = 30 * 60 * 1000
     this.lastCallList = {}
     this.name = '1Password'
+    if (!settings.get('1passwordDeviceID')) {
+      settings.set('1passwordDeviceID', this._createDeviceID())
+    }
+    this.deviceID = settings.get('1passwordDeviceID')
   }
 
   getDownloadLink () {
@@ -109,7 +123,7 @@ class OnePassword {
   // Loads credential suggestions for given domain name.
   async loadSuggestions (command, domain) {
     try {
-      const process = new ProcessSpawner(command, ['item', 'list', '--categories', 'login', '--session=' + this.sessionKey, '--format=json'])
+      const process = new ProcessSpawner(command, ['item', 'list', '--categories', 'login', '--session=' + this.sessionKey, '--format=json'], { OP_DEVICE: this.deviceID })
       const data = await process.executeSyncInAsyncContext()
 
       const matches = JSON.parse(data)
@@ -130,7 +144,7 @@ class OnePassword {
 
       for (var i = 0; i < credentials.length; i++) {
         const item = credentials[i]
-        const process = new ProcessSpawner(command, ['item', 'get', item.id, '--session=' + this.sessionKey, '--format=json'])
+        const process = new ProcessSpawner(command, ['item', 'get', item.id, '--session=' + this.sessionKey, '--format=json'], { OP_DEVICE: this.deviceID })
         const output = await process.executeSyncInAsyncContext()
         const credential = JSON.parse(output)
 
@@ -157,7 +171,7 @@ class OnePassword {
   // Tries to unlock the password store with given master password.
   async unlockStore (password) {
     try {
-      const process = new ProcessSpawner(this.path, ['signin', '--raw', '--account', 'min-autofill'])
+      const process = new ProcessSpawner(this.path, ['signin', '--raw', '--account', 'min-autofill'], { OP_DEVICE: this.deviceID })
       const result = await process.executeSyncInAsyncContext(password)
       // no session key -> invalid password
       if (!result) {
@@ -176,7 +190,7 @@ class OnePassword {
 
   async signInAndSave (path = this.path) {
     // It's possible to be already logged in
-    const logoutProcess = new ProcessSpawner(path, ['signout'])
+    const logoutProcess = new ProcessSpawner(path, ['signout'], { OP_DEVICE: this.deviceID }, 5000)
     try {
       await logoutProcess.executeSyncInAsyncContext()
     } catch (e) {
@@ -206,7 +220,7 @@ class OnePassword {
       }
     }
 
-    const process = new ProcessSpawner(path, ['account', 'add', '--address', 'my.1password.com', '--email', credentials.email, '--secret-key', credentials.secretKey, '--shorthand', 'min-autofill', '--signin', '--raw'])
+    const process = new ProcessSpawner(path, ['account', 'add', '--address', 'my.1password.com', '--email', credentials.email, '--secret-key', credentials.secretKey, '--shorthand', 'min-autofill', '--signin', '--raw'], { OP_DEVICE: this.deviceID })
 
     const key = await process.executeSyncInAsyncContext(credentials.password)
     if (!key) {
