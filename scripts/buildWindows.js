@@ -15,7 +15,7 @@ async function afterPackageBuilt (packagePath) {
   }
 
   /* create zip files */
-  var output = fs.createWriteStream('dist/app/' + 'Min-v' + version + '.zip')
+  var output = fs.createWriteStream('dist/app/' + 'Min-v' + version + (packagePath.includes('ia32') ? '-ia32' : '') + '.zip')
   var archive = archiver('zip', {
     zlib: { level: 9 }
   })
@@ -23,7 +23,7 @@ async function afterPackageBuilt (packagePath) {
   archive.pipe(output)
   await archive.finalize()
 
-  /* create installer */
+  /* create installer for 64-bit */
   if (!packagePath.includes('ia32')) {
     const installer = require('electron-installer-windows')
 

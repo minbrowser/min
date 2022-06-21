@@ -29,9 +29,9 @@ function toFpm (platform) {
   }
 }
 
-require('./createPackage.js')('linux', {arch: toArch(platform)}).then(function (path) {
+require('./createPackage.js')('linux', { arch: toArch(platform) }).then(function (path) {
   var installerOptions = {
-    artifactName: 'Min-${version}-${arch}.deb',
+    artifactName: 'min-${version}-${arch}.deb',
     packageName: 'min',
     icon: 'icons/icon256.png',
     category: 'Network;WebBrowser',
@@ -59,7 +59,7 @@ require('./createPackage.js')('linux', {arch: toArch(platform)}).then(function (
     ],
     afterInstall: 'resources/postinst_script',
     afterRemove: 'resources/prerm_script',
-    fpm: toFpm(platform),
+    fpm: toFpm(platform)
   }
 
   console.log('Creating package (this may take a while)')
