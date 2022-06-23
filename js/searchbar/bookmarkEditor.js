@@ -73,7 +73,7 @@ const bookmarkEditor = {
 
     // delete button
     var delButton = document.createElement('button')
-    delButton.className = 'action-button always-visible bookmark-delete-button i carbon:delete'
+    delButton.className = 'action-button always-visible bookmark-delete-button i carbon:trash-can'
     delButton.tabIndex = -1
     editor.appendChild(delButton)
     delButton.addEventListener('click', function () {
