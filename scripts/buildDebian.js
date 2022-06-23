@@ -18,17 +18,6 @@ function toArch (platform) {
   }
 }
 
-function toFpm (platform) {
-  switch (platform) {
-    case 'armhf':
-      return ['--architecture', 'armhf']
-    case 'arm64':
-      return ['--architecture', 'aarch64']
-    default:
-      return null
-  }
-}
-
 require('./createPackage.js')('linux', { arch: toArch(platform) }).then(function (path) {
   var installerOptions = {
     artifactName: 'min-${version}-${arch}.deb',
@@ -58,8 +47,7 @@ require('./createPackage.js')('linux', { arch: toArch(platform) }).then(function
       'xdg-utils'
     ],
     afterInstall: 'resources/postinst_script',
-    afterRemove: 'resources/prerm_script',
-    fpm: toFpm(platform)
+    afterRemove: 'resources/prerm_script'
   }
 
   console.log('Creating package (this may take a while)')
