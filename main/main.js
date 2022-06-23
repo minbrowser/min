@@ -405,9 +405,9 @@ ipc.on('showSecondaryMenu', function (event, data) {
 })
 
 ipc.on('handoffUpdate', function(e, data) {
-  if (data.url && data.url.startsWith('http')) {
+  if (app.setUserActivity && data.url && data.url.startsWith('http')) {
     app.setUserActivity('NSUserActivityTypeBrowsingWeb', {}, data.url)
-  } else {
+  } else if (app.invalidateCurrentActivity) {
     app.invalidateCurrentActivity()
   }
 })
