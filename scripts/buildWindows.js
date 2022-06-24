@@ -15,7 +15,7 @@ async function afterPackageBuilt (packagePath) {
   }
 
   /* create zip files */
-  var output = fs.createWriteStream('dist/app/' + 'Min-v' + version + (packagePath.includes('ia32') ? '-ia32' : '') + '.zip')
+  var output = fs.createWriteStream('dist/app/' + 'Min-v' + version + '-windows' + (packagePath.includes('ia32') ? '-ia32' : '') + '.zip')
   var archive = archiver('zip', {
     zlib: { level: 9 }
   })
