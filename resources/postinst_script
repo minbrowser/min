@@ -7,4 +7,5 @@ if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ]; then
     chown root /opt/Min/chrome-sandbox
     chmod 4755 /opt/Min/chrome-sandbox
     echo "Run sudo xdg-settings set default-web-browser min.desktop && sudo update-alternatives --config x-www-browser to set Min as your default browser."
+    ln -s /opt/Min/min /usr/bin/min
 fi
