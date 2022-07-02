@@ -28,8 +28,11 @@ crashReporter.start({
 })
 
 // WideVine DRM support for: Windows, MacOS and Linux for x86(32 and 64 bit)
+console.log("Searching Widevine DRM..."); //DEBUGGING
 var WIDEVINE_SUPPORT = false;
 var WIDEVINE_PATH = "";
+console.log("Platform: "+process.platform);
+console.log("Arch: "+process.arch);
 if (process.platform === "win32") {
   if (fs.existsSync("C:/Program Files(x86)/Google/Chrome/")) {
     let all_dirs = getDirectories("C:/Program Files(x86)/Google/Chrome/Application/");
@@ -38,10 +41,12 @@ if (process.platform === "win32") {
       WIDEVINE_SUPPORT = true;
       WIDEVINE_PATH = "C:/Program Files(x86)/Google/Chrome/Application/{CHROME_VERSION}/WidevineCdm/_platform_specific/win_x86/widevinecdm.dll";
       WIDEVINE_PATH = WIDEVINE_PATH.replace("{CHROME_VERSION}", chrome_dir);
+      console.log("Widevine ready!");
     } else if (process.arch === "x64") {
       WIDEVINE_SUPPORT = true;
       WIDEVINE_PATH = "C:/Program Files(x86)/Google/Chrome/Application/{CHROME_VERSION}/WidevineCdm/_platform_specific/win_x64/widevinecdm.dll";  
       WIDEVINE_PATH = WIDEVINE_PATH.replace("{CHROME_VERSION}", chrome_dir);
+      console.log("Widevine ready!");
     }
   }
 } else if (process.platform === "darwin") {
@@ -53,10 +58,12 @@ if (process.platform === "win32") {
         WIDEVINE_SUPPORT = true;
         WIDEVINE_PATH = "/Applications/Google Chrome.app/Contents/Versions/{CHROME_VERSION}/Google Chrome Framework.framework/Versions/A/Libraries/WidevineCdm/_platform_specific/mac_x86/libwidevinecdm.dylib";
         WIDEVINE_PATH = WIDEVINE_PATH.replace("{CHROME_VERSION}", chrome_dir);
+        console.log("Widevine ready!");
       } else if (process.arch === "x64") {
         WIDEVINE_SUPPORT = true;
         WIDEVINE_PATH = "/Applications/Google Chrome.app/Contents/Versions/{CHROME_VERSION}/Google Chrome Framework.framework/Versions/A/Libraries/WidevineCdm/_platform_specific/mac_x86/libwidevinecdm.dylib";  
         WIDEVINE_PATH = WIDEVINE_PATH.replace("{CHROME_VERSION}", chrome_dir);
+        console.log("Widevine ready!");
       }
     }
   }
@@ -65,15 +72,20 @@ if (process.platform === "win32") {
     if (process.arch === "x32") {
       WIDEVINE_SUPPORT = true;
       WIDEVINE_PATH = "/opt/google/chrome/WidevineCdm/_platform_specific/linux_x86/libwidevinecdm.so";
+      console.log("Widevine ready!");
     } else if (process.arch === "x64") {
       WIDEVINE_SUPPORT = true;
       WIDEVINE_PATH = "/opt/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so";  
+      console.log("Widevine ready!");
     }
   }
 }
 if (WIDEVINE_SUPPORT) {
   app.commandLine.appendSwitch('widevine-cdm-path', WIDEVINE_PATH)
   app.commandLine.appendSwitch('widevine-cdm-version', '1.4.8.866') // * - Experimental: This version should work fine for Electron, even if it is not the real WideVine version
+  console.log("Widevine loaded!");
+} else {
+  console.log("Widevine not loaded!");
 }
 
 if (process.argv.some(arg => arg === '-v' || arg === '--version')) {
