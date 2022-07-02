@@ -1,3 +1,5 @@
+require("v8-compile-cache");
+
 window.globalArgs = {}
 
 process.argv.forEach(function (arg) {
