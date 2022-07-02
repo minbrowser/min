@@ -1,5 +1,3 @@
-require("v8-compile-cache");
-
 const electron = require('electron')
 const fs = require('fs')
 const path = require('path')
