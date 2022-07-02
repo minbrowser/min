@@ -1,4 +1,5 @@
 var regedit = require('regedit')
+var process = require('process')
 
 var installPath = process.execPath
 

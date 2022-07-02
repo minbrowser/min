@@ -29,7 +29,7 @@
     ]
   },
   "dependencies": {
-    "dexie": "^3.0.3",
+    "dexie": "^3.2.2",
     "dragula": "github:minbrowser/dragula",
     "electron-squirrel-startup": "^1.0.0",
     "expr-eval": "^2.0.2",
@@ -39,24 +39,25 @@
     "pdfjs-dist": "2.12.313",
     "regedit": "^3.0.3",
     "stemmer": "^1.0.5",
-    "string_score": "^0.1.22"
+    "string_score": "^0.1.22",
+    "v8-compile-cache": "^2.3.0"
   },
   "devDependencies": {
-    "archiver": "^4.0.1",
-    "browserify": "^16.5.1",
-    "chokidar": "^3.4.0",
-    "concurrently": "^5.2.0",
-    "decomment": "^0.9.0",
-    "electron": "19.0.5",
-    "electron-builder": "^22.14.13",
+    "archiver": "^5.3.1",
+    "browserify": "^17.0.0",
+    "chokidar": "^3.5.3",
+    "concurrently": "^7.2.2",
+    "decomment": "^0.9.5",
+    "electron": "^19.0.7",
+    "electron-builder": "^23.1.0",
     "electron-installer-windows": "^3.0.0",
-    "electron-packager": "^15.1.0",
+    "electron-packager": "^15.5.1",
     "electron-rebuild": "^3.2.7",
     "electron-renderify": "0.0.2",
-    "prebuild-install": "^7.0.1",
-    "prettier": "^2.2.1",
+    "prebuild-install": "^7.1.1",
+    "prettier": "^2.7.1",
     "snazzy": "^9.0.0",
-    "standard": "^14.3.4"
+    "standard": "^17.0.0"
   },
   "license": "Apache-2.0",
   "scripts": {
