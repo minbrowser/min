@@ -3,6 +3,7 @@ require("v8-compile-cache");
 const electron = require('electron')
 const fs = require('fs')
 const path = require('path')
+const process = require('process')
 
 const {
   app, // Module to control application life.
@@ -16,12 +17,66 @@ const {
   dialog,
   nativeTheme
 } = electron
+const getDirectories = source =>
+  readdirSync(source, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name)
 
 crashReporter.start({
   submitURL: 'https://minbrowser.org/',
   uploadToServer: false,
   compress: true
 })
+
+// WideVine DRM support for: Windows, MacOS and Linux for x86(32 and 64 bit)
+var WIDEVINE_SUPPORT = false;
+var WIDEVINE_PATH = "";
+if (process.platform === "win32") {
+  if (fs.existsSync("C:/Program Files(x86)/Google/Chrome/")) {
+    let all_dirs = getDirectories("C:/Program Files(x86)/Google/Chrome/Application/");
+    let chrome_dir = all_dirs[all_dirs.length()-1];
+    if (process.arch === "x32") {
+      WIDEVINE_SUPPORT = true;
+      WIDEVINE_PATH = "C:/Program Files(x86)/Google/Chrome/Application/{CHROME_VERSION}/WidevineCdm/_platform_specific/win_x86/widevinecdm.dll";
+      WIDEVINE_PATH = WIDEVINE_PATH.replace("{CHROME_VERSION}", chrome_dir);
+    } else if (process.arch === "x64") {
+      WIDEVINE_SUPPORT = true;
+      WIDEVINE_PATH = "C:/Program Files(x86)/Google/Chrome/Application/{CHROME_VERSION}/WidevineCdm/_platform_specific/win_x64/widevinecdm.dll";  
+      WIDEVINE_PATH = WIDEVINE_PATH.replace("{CHROME_VERSION}", chrome_dir);
+    }
+  }
+} else if (process.platform === "darwin") {
+  if (fs.existsSync("/Applications/Google Chrome.app/")) {
+    let all_dirs = getDirectories("/Applications/Google Chrome.app/Contents/Versions/");
+    let chrome_dir = all_dirs[all_dirs.length()-1]
+    if (chrome_dir != '') {
+      if (process.arch === "x32") {
+        WIDEVINE_SUPPORT = true;
+        WIDEVINE_PATH = "/Applications/Google Chrome.app/Contents/Versions/{CHROME_VERSION}/Google Chrome Framework.framework/Versions/A/Libraries/WidevineCdm/_platform_specific/mac_x86/libwidevinecdm.dylib";
+        WIDEVINE_PATH = WIDEVINE_PATH.replace("{CHROME_VERSION}", chrome_dir);
+      } else if (process.arch === "x64") {
+        WIDEVINE_SUPPORT = true;
+        WIDEVINE_PATH = "/Applications/Google Chrome.app/Contents/Versions/{CHROME_VERSION}/Google Chrome Framework.framework/Versions/A/Libraries/WidevineCdm/_platform_specific/mac_x86/libwidevinecdm.dylib";  
+        WIDEVINE_PATH = WIDEVINE_PATH.replace("{CHROME_VERSION}", chrome_dir);
+      }
+    }
+  }
+} else if ((process.platform === "linux") || (process.platform === "cygwin")) {
+  // NOTE: cygwin may NOT work correctly, it isn't tested and it's a priority
+  if (fs.existsSync("/opt/google/chrome/WidevineCdm")) {
+    if (process.arch === "x32") {
+      WIDEVINE_SUPPORT = true;
+      WIDEVINE_PATH = "/opt/google/chrome/WidevineCdm/_platform_specific/linux_x86/libwidevinecdm.so";
+    } else if (process.arch === "x64") {
+      WIDEVINE_SUPPORT = true;
+      WIDEVINE_PATH = "/opt/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so";  
+    }
+  }
+}
+if (WIDEVINE_SUPPORT) {
+  app.commandLine.appendSwitch('widevine-cdm-path', WIDEVINE_PATH)
+  app.commandLine.appendSwitch('widevine-cdm-version', '1.4.8.866') // * - Experimental: This version should work fine for Electron, even if it is not the real WideVine version
+}
 
 if (process.argv.some(arg => arg === '-v' || arg === '--version')) {
   console.log('Min: ' + app.getVersion())
