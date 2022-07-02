@@ -60,7 +60,6 @@ if (process.platform === "win32") {
     }
   }
 } else if ((process.platform === "linux") || (process.platform === "cygwin")) {
-  // NOTE: cygwin may NOT work correctly, it isn't tested and it's a priority
   if (fs.existsSync("/opt/google/chrome/WidevineCdm")) {
     if (process.arch === "x32") {
       WIDEVINE_SUPPORT = true;
