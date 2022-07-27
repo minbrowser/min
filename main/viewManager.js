@@ -100,12 +100,20 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
   })
 
   view.webContents.on('ipc-message', function (e, channel, data) {
+    var senderURL
+    try {
+      senderURL = e.senderFrame.url
+    } catch (err) {
+      // https://github.com/minbrowser/min/issues/2052
+      console.warn('dropping message because senderFrame is destroyed', channel, data, err)
+      return
+    }
     mainWindow.webContents.send('view-ipc', {
       id: id,
       name: channel,
       data: data,
       frameId: e.frameId,
-      frameURL: e.senderFrame.url
+      frameURL: senderURL
     })
   })
 
