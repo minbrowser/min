@@ -50,6 +50,9 @@
     "addBookmark": null, //missing translation
     "searchBookmarks": "Ieškoti adresyno įrašų",
     "bookmarksAddTag": null, //missing translation
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": null, //missing translation
     "searchHistory": "Ieškoti istorijos",
     "importBookmarks": null, //missing translation

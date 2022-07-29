@@ -50,6 +50,9 @@
     "addBookmark": "增加书签",
     "searchBookmarks": "搜索书签内容",
     "bookmarksAddTag": "新增标签",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "近似项目",
     "searchHistory": "搜索历史",
     "importBookmarks": "自HTML文件导入书签",

@@ -30,11 +30,11 @@ const bookmarkEditor = {
         remoteMenu.open([
           [
             {
-              label: 'Rename Tag',
+              label: l('bookmarksRenameTag'),
               click: function () {
                 const res = ipcRenderer.sendSync('prompt', {
                   text: '',
-                  values: [{ placeholder: 'Rename Tag', id: 'name', type: 'text' }],
+                  values: [{ placeholder: l('bookmarksRenameTag'), id: 'name', type: 'text' }],
                   ok: l('dialogConfirmButton'),
                   cancel: l('dialogSkipButton'),
                   width: 500,
@@ -62,7 +62,7 @@ const bookmarkEditor = {
               }
             },
             {
-              label: 'Delete Tag',
+              label: l('bookmarksDeleteTag'),
               click: function () {
                 places.getAllItems(function (items) {
                   items.forEach(function (item) {
@@ -78,7 +78,7 @@ const bookmarkEditor = {
               }
             },
             {
-              label: 'Delete Bookmarks With Tag',
+              label: l('deleteBookmarksWithTag'),
               click: function () {
                 places.getAllItems(function (items) {
                   items.forEach(function (item) {

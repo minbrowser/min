@@ -50,6 +50,9 @@
     "addBookmark": "Додати закладку",
     "searchBookmarks": "Шукати в закладках",
     "bookmarksAddTag": "Додати мітку...",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "Подібні елементи",
     "searchHistory": "Шукати в історії",
     "importBookmarks": "Імпортувати закладки",

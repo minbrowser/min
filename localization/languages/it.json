@@ -50,6 +50,9 @@
     "addBookmark": "Aggiungi preferiti",
     "searchBookmarks": "Cerca nei Preferiti",
     "bookmarksAddTag": "Aggiungi tag...",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "Oggetti simili",
     "searchHistory": "Cerca nella cronologia",
     "importBookmarks": "Importa preferiti da file HTML",

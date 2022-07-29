@@ -50,6 +50,9 @@
     "addBookmark": "أضف إشارة",
     "searchBookmarks": "البحث عن الإشارات",
     "bookmarksAddTag": "أضف علامة",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "عناصرة مشابهة",
     "searchHistory": "البحث في السجل",
     "importBookmarks": "إسترد إشارات",

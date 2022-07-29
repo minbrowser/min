@@ -50,6 +50,9 @@
     "addBookmark": "Ajouter un marque-page",
     "searchBookmarks": "Rechercher des signets",
     "bookmarksAddTag": "Ajouter une étiquette de marque-page",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "Éléments similaires",
     "searchHistory": "Rechercher dans l'historique",
     "importBookmarks": "Importer les marque-pages",

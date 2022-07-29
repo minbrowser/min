@@ -50,6 +50,9 @@
     "addBookmark": "বুকমার্কে সংযুক্তকরন",
     "searchBookmarks": "বুকমার্কগুলি অনুসন্ধান করুন",
     "bookmarksAddTag": "ট্যাগ যুক্ত করুন ...",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "অনুরূপ আইটেম",
     "searchHistory": "অনুসন্ধানের ইতিহাস",
     "importBookmarks": "এইচটিএমএল ফাইল থেকে বুকমার্কগুলি আমদানি করুন",

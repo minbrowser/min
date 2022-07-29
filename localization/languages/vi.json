@@ -50,7 +50,10 @@
         "addBookmark": "Đánh dấu trang này",
         "searchBookmarks": "Tìm trong các trang được đánh dấu",
         "bookmarksAddTag": "Thêm thẻ",
-        "bookmarksSimilarItems": "Các mục tương tự",
+        "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
+    "bookmarksSimilarItems": "Các mục tương tự",
         "searchHistory": "Tìm kiếm trong lịch sử",
         "importBookmarks": "Nhập dấu trang từ tệp HTML",
         "exportBookmarks": "Xuất dấu trang",

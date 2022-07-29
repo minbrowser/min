@@ -50,6 +50,9 @@
     "addBookmark": "加入書籤",
     "searchBookmarks": "搜尋書籤",
     "bookmarksAddTag": "新增標籤",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "相似項目",
     "searchHistory": "搜尋歷史",
     "importBookmarks": "自 HTML 檔案匯入書籤",

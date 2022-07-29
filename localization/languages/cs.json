@@ -50,6 +50,9 @@
     "addBookmark": "Přidat záložku",
     "searchBookmarks": "Vyhledávat záložky",
     "bookmarksAddTag": "Přidat štítek...",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "Podobné položky",
     "searchHistory": "Prohledat historii",
     "importBookmarks": "Importovat záložky z HTML souboru",

@@ -50,6 +50,9 @@
     "addBookmark": "Xatcho'pga qo'shish",
     "searchBookmarks": "Xatcho'plarni izlash",
     "bookmarksAddTag": "Teg qo'shish...",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "Bir xil elementlar",
     "searchHistory": "Tarixdan qidirish",
     "importBookmarks": "Xatcho'plarni HTML fayldan import qilish",
