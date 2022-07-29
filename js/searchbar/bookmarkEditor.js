@@ -1,5 +1,7 @@
 var places = require('places/places.js')
 var autocomplete = require('util/autocomplete.js')
+const remoteMenu = require('remoteMenuRenderer.js')
+var { ipcRenderer } = require('electron')
 
 const bookmarkEditor = {
   currentInstance: null,
@@ -23,6 +25,77 @@ const bookmarkEditor = {
         el.classList.add('selected')
       }
     })
+    if (options.onModify) {
+      el.addEventListener('contextmenu', function () {
+        remoteMenu.open([
+          [
+            {
+              label: 'Rename Tag',
+              click: function () {
+                const res = ipcRenderer.sendSync('prompt', {
+                  text: '',
+                  values: [{ placeholder: 'Rename Tag', id: 'name', type: 'text' }],
+                  ok: l('dialogConfirmButton'),
+                  cancel: l('dialogSkipButton'),
+                  width: 500,
+                  height: 140
+                })
+
+                if (!res || !res.name) {
+                  return
+                }
+
+                const newName = res.name
+
+                places.getAllItems(function (items) {
+                  items.forEach(function (item) {
+                    if (item.tags.includes(tag)) {
+                      item.tags = item.tags.filter(t => t !== tag)
+                      item.tags.push(newName)
+                      places.updateItem(item.url, { tags: item.tags })
+                    }
+                  })
+                  setTimeout(function () {
+                    options.onModify()
+                  }, 50)
+                })
+              }
+            },
+            {
+              label: 'Delete Tag',
+              click: function () {
+                places.getAllItems(function (items) {
+                  items.forEach(function (item) {
+                    if (item.tags.includes(tag)) {
+                      item.tags = item.tags.filter(t => t !== tag)
+                      places.updateItem(item.url, { tags: item.tags })
+                    }
+                  })
+                  setTimeout(function () {
+                    options.onModify()
+                  }, 50)
+                })
+              }
+            },
+            {
+              label: 'Delete Bookmarks With Tag',
+              click: function () {
+                places.getAllItems(function (items) {
+                  items.forEach(function (item) {
+                    if (item.tags.includes(tag)) {
+                      places.deleteHistory(item.url)
+                    }
+                  })
+                  setTimeout(function () {
+                    options.onModify()
+                  }, 50)
+                })
+              }
+            }
+          ]
+        ])
+      })
+    }
     return el
   },
   render: async function (url, options = {}) {
