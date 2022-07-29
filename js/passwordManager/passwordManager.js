@@ -53,7 +53,7 @@ const PasswordManagers = {
         values: [{ placeholder: l('password'), id: 'password', type: 'password' }],
         ok: l('dialogConfirmButton'),
         cancel: l('dialogSkipButton'),
-        height: 160
+        height: 175
       })
       if (password === null || password === '') {
         reject(new Error('No password provided'))

@@ -174,7 +174,7 @@ class Bitwarden {
       ok: l('dialogConfirmButton'),
       cancel: l('dialogSkipButton'),
       width: 500,
-      height: 240
+      height: 260
     })
 
     for (const key in credentials) {
