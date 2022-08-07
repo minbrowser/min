@@ -48,7 +48,7 @@ const sessionRestore = {
   restore: function () {
     var savedStringData
     try {
-      savedStringData = fs.readFileSync(sessionRestore.savePath, 'utf-8')
+      // savedStringData = fs.readFileSync(sessionRestore.savePath, 'utf-8')
     } catch (e) {
       console.warn('failed to read session restore data', e)
     }
@@ -76,10 +76,10 @@ const sessionRestore = {
         tasks.setSelected(tasks.add()) // create a new task
 
         var newTab = tasks.getSelected().tabs.add({
-          url: 'https://minbrowser.github.io/min/tour'
+          //   url: 'https://minbrowser.github.io/min/tour'
         })
         browserUI.addTab(newTab, {
-          enterEditMode: false
+        //  enterEditMode: false
         })
         return
       }
