@@ -51,6 +51,13 @@ function buildAppMenu (options = {}) {
           sendIPCToWindow(window, 'addTask')
         }
       }
+    },
+    {
+      label: 'New Window',
+      accelerator: 'CmdOrCtrl+k',
+      click: function () {
+        createWindow()
+      }
     }
   ]
 
