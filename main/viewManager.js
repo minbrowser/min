@@ -2,7 +2,6 @@ const BrowserView = electron.BrowserView
 
 var viewMap = {} // id: view
 var viewStateMap = {} // id: view state
-var selectedView = null
 
 var temporaryPopupViews = {} // id: view
 
@@ -43,7 +42,9 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
     view.webContents.on(event, function (e) {
       var args = Array.prototype.slice.call(arguments).slice(1)
 
-      mainWindow.webContents.send('view-event', {
+      const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
+
+      eventTarget.webContents.send('view-event', {
         viewId: id,
         event: event,
         args: args
@@ -65,7 +66,9 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
       (https://github.com/minbrowser/min/issues/1835)
     */
     if (!details.features) {
-      mainWindow.webContents.send('view-event', {
+      const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
+
+      eventTarget.webContents.send('view-event', {
         viewId: id,
         event: 'new-tab',
         args: [details.url, !(details.disposition === 'background-tab')]
@@ -92,7 +95,9 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
     var popupId = Math.random().toString()
     temporaryPopupViews[popupId] = view
 
-    mainWindow.webContents.send('view-event', {
+    const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
+
+    eventTarget.webContents.send('view-event', {
       viewId: id,
       event: 'did-create-popup',
       args: [popupId, url]
@@ -108,7 +113,10 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
       console.warn('dropping message because senderFrame is destroyed', channel, data, err)
       return
     }
-    mainWindow.webContents.send('view-ipc', {
+
+    const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
+
+    eventTarget.webContents.send('view-ipc', {
       id: id,
       name: channel,
       data: data,
@@ -191,10 +199,13 @@ function destroyView (id) {
     return
   }
 
-  if (viewMap[id] === mainWindow.getBrowserView()) {
-    mainWindow.setBrowserView(null)
-    selectedView = null
-  }
+  windows.getAll().forEach(function (window) {
+    if (viewMap[id] === window.getBrowserView()) {
+      window.setBrowserView(null)
+      // TODO fix
+      windows.getState(window).selectedView = null
+    }
+  })
   viewMap[id].webContents.destroy()
 
   delete viewMap[id]
@@ -207,16 +218,18 @@ function destroyAllViews () {
   }
 }
 
-function setView (id) {
+function setView (id, senderContents) {
+  const win = windows.windowFromContents(senderContents)
+
   // setBrowserView causes flickering, so we only want to call it if the view is actually changing
   // see https://github.com/minbrowser/min/issues/1966
-  if (mainWindow.getBrowserView() !== viewMap[id]) {
+  if (win.getBrowserView() !== viewMap[id]) {
     if (viewStateMap[id].loadedInitialURL) {
-      mainWindow.setBrowserView(viewMap[id])
+      win.setBrowserView(viewMap[id])
     } else {
-      mainWindow.setBrowserView(null)
+      win.setBrowserView(null)
     }
-    selectedView = id
+    windows.getState(win).selectedView = id
   }
 }
 
@@ -231,15 +244,17 @@ function focusView (id) {
   // also, make sure the view exists, since it might not if the app is shutting down
   if (viewMap[id] && (viewMap[id].webContents.getURL() !== '' || viewMap[id].webContents.isLoading())) {
     viewMap[id].webContents.focus()
-  } else if (mainWindow) {
-    mainWindow.webContents.focus()
+  } else if (BrowserWindow.fromBrowserView(viewMap[id])) {
+    BrowserWindow.fromBrowserView(viewMap[id]).webContents.focus()
   }
 }
 
-function hideCurrentView () {
-  mainWindow.setBrowserView(null)
-  selectedView = null
-  mainWindow.webContents.focus()
+function hideCurrentView (senderContents) {
+  const win = windows.windowFromContents(senderContents)
+
+  win.setBrowserView(null)
+  windows.getState(win).selectedView = null
+  win.webContents.focus()
 }
 
 function getView (id) {
@@ -267,7 +282,7 @@ ipc.on('destroyAllViews', function () {
 })
 
 ipc.on('setView', function (e, args) {
-  setView(args.id)
+  setView(args.id, e.sender)
   setBounds(args.id, args.bounds)
   if (args.focus) {
     focusView(args.id)
@@ -283,16 +298,18 @@ ipc.on('focusView', function (e, id) {
 })
 
 ipc.on('hideCurrentView', function (e) {
-  hideCurrentView()
+  hideCurrentView(e.sender)
 })
 
 ipc.on('loadURLInView', function (e, args) {
+  const win = windows.windowFromContents(e.sender)
+
   // wait until the first URL is loaded to set the background color so that new tabs can use a custom background
   if (!viewStateMap[args.id].loadedInitialURL) {
     viewMap[args.id].setBackgroundColor('#fff')
     // If the view has no URL, it won't be attached yet
-    if (args.id === selectedView) {
-      mainWindow.setBrowserView(viewMap[args.id])
+    if (args.id === windows.getState(win).selectedView) {
+      win.setBrowserView(viewMap[args.id])
     }
   }
   viewMap[args.id].webContents.loadURL(args.url)
@@ -321,16 +338,16 @@ ipc.on('callViewMethod', function (e, data) {
   if (result instanceof Promise) {
     result.then(function (result) {
       if (data.callId) {
-        mainWindow.webContents.send('async-call-result', { callId: data.callId, error: null, result })
+        e.sender.send('async-call-result', { callId: data.callId, error: null, result })
       }
     })
     result.catch(function (error) {
       if (data.callId) {
-        mainWindow.webContents.send('async-call-result', { callId: data.callId, error, result: null })
+        e.sender.send('async-call-result', { callId: data.callId, error, result: null })
       }
     })
   } else if (data.callId) {
-    mainWindow.webContents.send('async-call-result', { callId: data.callId, error, result })
+    e.sender.send('async-call-result', { callId: data.callId, error, result })
   }
 })
 
@@ -347,7 +364,7 @@ ipc.on('getCapture', function (e, data) {
       return
     }
     img = img.resize({ width: data.width, height: data.height })
-    mainWindow.webContents.send('captureData', { id: data.id, url: img.toDataURL() })
+    e.sender.send('captureData', { id: data.id, url: img.toDataURL() })
   })
 })
 

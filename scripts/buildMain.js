@@ -5,6 +5,7 @@ const outFile = path.resolve(__dirname, '../main.build.js')
 
 const modules = [
   'dist/localization.build.js',
+  'main/windowManagement.js',
   'main/menu.js',
   'main/touchbar.js',
   'main/registryConfig.js',

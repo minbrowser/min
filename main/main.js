@@ -77,9 +77,9 @@ if (!isFirstInstance) {
 }
 
 var saveWindowBounds = function () {
-  if (mainWindow) {
-    var bounds = Object.assign(mainWindow.getBounds(), {
-      maximized: mainWindow.isMaximized()
+  if (windows.getCurrent()) {
+    var bounds = Object.assign(windows.getCurrent().getBounds(), {
+      maximized: windows.getCurrent().isMaximized()
     })
     fs.writeFileSync(path.join(userDataPath, 'windowBounds.json'), JSON.stringify(bounds))
   }
@@ -109,7 +109,7 @@ function sendIPCToWindow (window, action, data) {
 }
 
 function openTabInWindow (url) {
-  sendIPCToWindow(mainWindow, 'addTab', {
+  sendIPCToWindow(windows.getCurrent(), 'addTab', {
     url: url
   })
 }
@@ -121,17 +121,17 @@ function handleCommandLineArguments (argv) {
       if (arg && arg.toLowerCase() !== __dirname.toLowerCase()) {
         // URL
         if (arg.indexOf('://') !== -1) {
-          sendIPCToWindow(mainWindow, 'addTab', {
+          sendIPCToWindow(windows.getCurrent(), 'addTab', {
             url: arg
           })
         } else if (idx > 0 && argv[idx - 1] === '-s') {
           // search
-          sendIPCToWindow(mainWindow, 'addTab', {
+          sendIPCToWindow(windows.getCurrent(), 'addTab', {
             url: arg
           })
         } else if (/\.(m?ht(ml)?|pdf)$/.test(arg) && fs.existsSync(arg)) {
           // local files (.html, .mht, mhtml, .pdf)
-          sendIPCToWindow(mainWindow, 'addTab', {
+          sendIPCToWindow(windows.getCurrent(), 'addTab', {
             url: 'file://' + path.resolve(arg)
           })
         }
@@ -176,7 +176,7 @@ function createWindow () {
 }
 
 function createWindowWithBounds (bounds) {
-  mainWindow = new BrowserWindow({
+  const newWin = new BrowserWindow({
     width: bounds.width,
     height: bounds.height,
     x: bounds.x,
@@ -205,76 +205,72 @@ function createWindowWithBounds (bounds) {
   // windows and linux always use a menu button in the upper-left corner instead
   // if frame: false is set, this won't have any effect, but it does apply on Linux if "use separate titlebar" is enabled
   if (process.platform !== 'darwin') {
-    mainWindow.setMenuBarVisibility(false)
+    newWin.setMenuBarVisibility(false)
   }
 
   // and load the index.html of the app.
-  mainWindow.loadURL(browserPage)
+  newWin.loadURL(browserPage)
 
   if (bounds.maximized) {
-    mainWindow.maximize()
+    newWin.maximize()
 
-    mainWindow.webContents.once('did-finish-load', function () {
-      sendIPCToWindow(mainWindow, 'maximize')
+    newWin.webContents.once('did-finish-load', function () {
+      sendIPCToWindow(newWin, 'maximize')
     })
   }
 
-  mainWindow.on('close', function () {
+  newWin.on('close', function () {
     destroyAllViews()
     // save the window size for the next launch of the app
     saveWindowBounds()
   })
 
   // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null
-    mainWindowIsMinimized = false
+  newWin.on('closed', function () {
+    windows.removeWindow(newWin)
   })
 
-  mainWindow.on('focus', function () {
-    if (!mainWindowIsMinimized) {
-      sendIPCToWindow(mainWindow, 'windowFocus')
+  newWin.on('focus', function () {
+    if (windows.getState(newWin).isMinimized) {
+      sendIPCToWindow(newWin, 'windowFocus')
     }
   })
 
-  mainWindow.on('minimize', function () {
-    sendIPCToWindow(mainWindow, 'minimize')
-    mainWindowIsMinimized = true
+  newWin.on('minimize', function () {
+    sendIPCToWindow(newWin, 'minimize')
+    windows.getState(newWin).isMinimized = true
   })
 
-  mainWindow.on('restore', function () {
-    mainWindowIsMinimized = false
+  newWin.on('restore', function () {
+    windows.getState(newWin).isMinimized = false
   })
 
-  mainWindow.on('maximize', function () {
-    sendIPCToWindow(mainWindow, 'maximize')
+  newWin.on('maximize', function () {
+    sendIPCToWindow(newWin, 'maximize')
   })
 
-  mainWindow.on('unmaximize', function () {
-    sendIPCToWindow(mainWindow, 'unmaximize')
+  newWin.on('unmaximize', function () {
+    sendIPCToWindow(newWin, 'unmaximize')
   })
 
-  mainWindow.on('enter-full-screen', function () {
-    sendIPCToWindow(mainWindow, 'enter-full-screen')
+  newWin.on('enter-full-screen', function () {
+    sendIPCToWindow(newWin, 'enter-full-screen')
   })
 
-  mainWindow.on('leave-full-screen', function () {
-    sendIPCToWindow(mainWindow, 'leave-full-screen')
+  newWin.on('leave-full-screen', function () {
+    sendIPCToWindow(newWin, 'leave-full-screen')
     // https://github.com/minbrowser/min/issues/1093
-    mainWindow.setMenuBarVisibility(false)
+    newWin.setMenuBarVisibility(false)
   })
 
-  mainWindow.on('enter-html-full-screen', function () {
-    sendIPCToWindow(mainWindow, 'enter-html-full-screen')
+  newWin.on('enter-html-full-screen', function () {
+    sendIPCToWindow(newWin, 'enter-html-full-screen')
   })
 
-  mainWindow.on('leave-html-full-screen', function () {
-    sendIPCToWindow(mainWindow, 'leave-html-full-screen')
+  newWin.on('leave-html-full-screen', function () {
+    sendIPCToWindow(newWin, 'leave-html-full-screen')
     // https://github.com/minbrowser/min/issues/952
-    mainWindow.setMenuBarVisibility(false)
+    newWin.setMenuBarVisibility(false)
   })
 
   /*
@@ -284,25 +280,28 @@ function createWindowWithBounds (bounds) {
   See: https://github.com/electron/electron/issues/18322
   */
   if (process.platform === 'win32') {
-    mainWindow.on('app-command', function (e, command) {
+    newWin.on('app-command', function (e, command) {
       if (command === 'browser-backward') {
-        sendIPCToWindow(mainWindow, 'goBack')
+        sendIPCToWindow(newWin, 'goBack')
       } else if (command === 'browser-forward') {
-        sendIPCToWindow(mainWindow, 'goForward')
+        sendIPCToWindow(newWin, 'goForward')
       }
     })
   }
 
   // prevent remote pages from being loaded using drag-and-drop, since they would have node access
-  mainWindow.webContents.on('will-navigate', function (e, url) {
+  newWin.webContents.on('will-navigate', function (e, url) {
     if (url !== browserPage) {
       e.preventDefault()
     }
   })
 
-  mainWindow.setTouchBar(buildTouchBar())
+  newWin.setTouchBar(buildTouchBar())
 
-  return mainWindow
+  windows.addWindow(newWin)
+  mainWindow = newWin
+
+  return newWin
 }
 
 // Quit when all windows are closed.
@@ -326,16 +325,16 @@ app.on('ready', function () {
     return
   }
 
-  createWindow()
+  const newWin = createWindow()
 
-  mainWindow.webContents.on('did-finish-load', function () {
+  newWin.webContents.on('did-finish-load', function () {
     // if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
     handleCommandLineArguments(process.argv)
 
     // there is a URL from an "open-url" event (on Mac)
     if (global.URLToOpen) {
       // if there is a previously set URL to open (probably from opening a link on macOS), open it
-      sendIPCToWindow(mainWindow, 'addTab', {
+      sendIPCToWindow(newWin, 'addTab', {
         url: global.URLToOpen
       })
       global.URLToOpen = null
@@ -349,7 +348,7 @@ app.on('ready', function () {
 
 app.on('open-url', function (e, url) {
   if (appIsReady) {
-    sendIPCToWindow(mainWindow, 'addTab', {
+    sendIPCToWindow(windows.getCurrent(), 'addTab', {
       url: url
     })
   } else {
@@ -361,18 +360,18 @@ app.on('open-url', function (e, url) {
 app.on('continue-activity', function(e, type, userInfo, details) {
   if (type === 'NSUserActivityTypeBrowsingWeb' && details.webpageURL) {
     e.preventDefault()
-    sendIPCToWindow(mainWindow, 'addTab', {
+    sendIPCToWindow(windows.getCurrent(), 'addTab', {
       url: details.webpageURL
     })
   }
 })
 
 app.on('second-instance', function (e, argv, workingDir) {
-  if (mainWindow) {
-    if (mainWindow.isMinimized()) {
-      mainWindow.restore()
+  if (windows.getCurrent()) {
+    if (windows.getCurrent().isMinimized()) {
+      windows.getCurrent().restore()
     }
-    mainWindow.focus()
+    windows.getCurrent().focus()
     // add a tab with the new URL
     handleCommandLineArguments(argv)
   }
@@ -385,13 +384,14 @@ app.on('second-instance', function (e, argv, workingDir) {
  * Opens a new tab when all tabs are closed, and min is still open by clicking on the application dock icon
  */
 app.on('activate', function (/* e, hasVisibleWindows */) {
-  if (!mainWindow && appIsReady) { // sometimes, the event will be triggered before the app is ready, and creating new windows will fail
+  if (!windows.getCurrent() && appIsReady) { // sometimes, the event will be triggered before the app is ready, and creating new windows will fail
     createWindow()
   }
 })
 
 ipc.on('focusMainWebContents', function () {
-  mainWindow.webContents.focus()
+  //TODO fix
+  windows.getCurrent().webContents.focus()
 })
 
 ipc.on('showSecondaryMenu', function (event, data) {
