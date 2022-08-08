@@ -16,8 +16,8 @@ class TaskList {
 
   emit (name, ...data) {
     this.events.forEach(listener => {
-      if (listener.name === name) {
-        this.pendingCallbacks.push([listener.fn, data])
+      if (listener.name === name || listener.name === '*') {
+        this.pendingCallbacks.push([listener.fn, (listener.name === '*' ? [name] : []).concat(data)])
 
         // run multiple events in one timeout, since calls to setTimeout() appear to be slow (at least based on timeline data)
         if (!this.pendingCallbackTimeout) {
@@ -31,7 +31,7 @@ class TaskList {
     })
   }
 
-  add (task = {}, index) {
+  add (task = {}, index, emit = true) {
     const newTask = {
       name: task.name || null,
       tabs: new TabList(task.tabs, this),
@@ -46,7 +46,9 @@ class TaskList {
       this.tasks.push(newTask)
     }
 
-    this.emit('task-added', newTask.id)
+    if (emit) {
+      this.emit('task-added', newTask.id, Object.assign({}, newTask, { tabHistory: task.tabHistory, tabs: task.tabs }), index)
+    }
 
     return newTask.id
   }
@@ -78,20 +80,26 @@ class TaskList {
     return this.tasks.findIndex(task => task.id === id)
   }
 
-  setSelected (id) {
+  setSelected (id, emit = true) {
     this.selected = id
     window.tabs = this.get(id).tabs
-    this.emit('task-selected', id)
-    this.emit('tab-selected', tabs.getSelected())
+    if (emit) {
+      this.emit('task-selected', id)
+      if (tabs.getSelected()) {
+        this.emit('tab-selected', tabs.getSelected(), id)
+      }
+    }
   }
 
-  destroy (id) {
+  destroy (id, emit = true) {
     const index = this.getIndex(id)
 
+    if (emit) {
     // emit the tab-destroyed event for all tabs in this task
-    this.get(id).tabs.forEach(tab => this.emit('tab-destroyed', tab.id))
+      this.get(id).tabs.forEach(tab => this.emit('tab-destroyed', tab.id))
 
-    this.emit('task-destroyed', id)
+      this.emit('task-destroyed', id)
+    }
 
     if (index < 0) return false
 
