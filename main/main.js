@@ -415,3 +415,11 @@ ipc.on('handoffUpdate', function(e, data) {
 ipc.on('quit', function () {
   app.quit()
 })
+
+ipc.on('tab-state-change', function(e, data) {
+  windows.getAll().forEach(function(window) {
+    if (window.webContents.id !== e.sender.id) {
+      window.webContents.send('tab-state-change-receive', data)
+    }
+  })
+})

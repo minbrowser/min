@@ -48,7 +48,7 @@ const sessionRestore = {
   restore: function () {
     var savedStringData
     try {
-      // savedStringData = fs.readFileSync(sessionRestore.savePath, 'utf-8')
+      savedStringData = fs.readFileSync(sessionRestore.savePath, 'utf-8')
     } catch (e) {
       console.warn('failed to read session restore data', e)
     }
@@ -127,6 +127,12 @@ const sessionRestore = {
           browserUI.addTask()
         }
       }
+
+      setTimeout(function () {
+        window.sessionRestoreComplete = true
+      }, 16)
+      // TODO fix
+      // needs to run after tab event listeners
 
       /* Disabled - show user survey
       // if this isn't the first run, and the survey popup hasn't been shown yet, show it
