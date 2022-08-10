@@ -6,13 +6,13 @@ ipc.handle('test-invoke', function () {
   return 1
 })
 
-ipc.handle('reloadWindow', function () {
-  mainWindow.webContents.reload()
+ipc.handle('reloadWindow', function (e) {
+  e.sender.reload()
 })
 
 ipc.handle('startFileDrag', function (e, path) {
   app.getFileIcon(path, {}).then(function (icon) {
-    mainWindow.webContents.startDrag({
+    e.sender.startDrag({
       file: path,
       icon: icon
     })
@@ -38,12 +38,12 @@ ipc.handle('showFocusModeDialog2', function () {
 })
 
 ipc.handle('showOpenDialog', async function (e, options) {
-  const result = await dialog.showOpenDialog(mainWindow, options)
+  const result = await dialog.showOpenDialog(windows.windowFromContents(e.sender), options)
   return result.filePaths
 })
 
 ipc.handle('showSaveDialog', async function (e, options) {
-  const result = await dialog.showSaveDialog(mainWindow, options)
+  const result = await dialog.showSaveDialog(windows.windowFromContents(e.sender), options)
   return result.filePath
 })
 
@@ -52,7 +52,7 @@ ipc.handle('addWordToSpellCheckerDictionary', function (e, word) {
 })
 
 ipc.handle('downloadURL', function (e, url) {
-  mainWindow.webContents.downloadURL(url)
+  e.sender.downloadURL(url)
 })
 
 ipc.handle('clearStorageData', function () {
@@ -87,27 +87,27 @@ ipc.handle('clearStorageData', function () {
 /* window actions */
 
 ipc.handle('minimize', function (e) {
-  mainWindow.minimize()
+  windows.windowFromContents(e.sender).minimize()
   // workaround for https://github.com/minbrowser/min/issues/1662
-  mainWindow.webContents.send('minimize')
+  e.sender.send('minimize')
 })
 
 ipc.handle('maximize', function (e) {
-  mainWindow.maximize()
+  windows.windowFromContents(e.sender).maximize()
   // workaround for https://github.com/minbrowser/min/issues/1662
-  mainWindow.webContents.send('maximize')
+  e.sender.send('maximize')
 })
 
 ipc.handle('unmaximize', function (e) {
-  mainWindow.unmaximize()
+  windows.windowFromContents(e.sender).unmaximize()
   // workaround for https://github.com/minbrowser/min/issues/1662
-  mainWindow.webContents.send('unmaximize')
+  e.sender.send('unmaximize')
 })
 
 ipc.handle('close', function (e) {
-  mainWindow.close()
+  windows.windowFromContents(e.sender).close()
 })
 
 ipc.handle('setFullScreen', function (e, fullScreen) {
-  mainWindow.setFullScreen(e, fullScreen)
+  windows.windowFromContents(e.sender).setFullScreen(e, fullScreen)
 })

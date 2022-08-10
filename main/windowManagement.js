@@ -16,8 +16,8 @@ const windows = {
     })
   },
   removeWindow: function (window) {
-    delete windows.windowStates[window.id]
-    windows.openWindows.splice(windows.openWindows.findIndex(w => w.id === window.id), 1)
+    delete windows.windowStates[windows.openWindows.find(w => w.win === window).id]
+    windows.openWindows.splice(windows.openWindows.findIndex(w => w.win === window), 1)
   },
   getCurrent: function () {
     const lastFocused = windows.openWindows.sort((a, b) => b.lastFocused - b.lastFocused)[0]

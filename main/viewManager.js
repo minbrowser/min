@@ -213,6 +213,8 @@ function destroyView (id) {
 }
 
 function destroyAllViews () {
+  // TODO figure out how to handle this
+  return
   for (const id in viewMap) {
     destroyView(id)
   }
