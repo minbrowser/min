@@ -10,11 +10,9 @@ const windowSync = {
   },
   initialize: function () {
     tasks.on('*', function (...data) {
-      if (window.sessionRestoreComplete) {
-        windowSync.pendingEvents.push(data)
-        if (!windowSync.syncTimeout) {
-          windowSync.syncTimeout = setTimeout(windowSync.sendEvents, 0)
-        }
+      windowSync.pendingEvents.push(data)
+      if (!windowSync.syncTimeout) {
+        windowSync.syncTimeout = setTimeout(windowSync.sendEvents, 0)
       }
     })
 

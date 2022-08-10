@@ -198,6 +198,7 @@ function createWindowWithBounds (bounds) {
         '--app-version=' + app.getVersion(),
         '--app-name=' + app.getName(),
         ...((isDevelopmentMode ? ['--development-mode'] : [])),
+        ...((windows.getAll().length === 0 ? ['--initial-window'] : [])),
       ]
     }
   })
@@ -422,4 +423,15 @@ ipc.on('tab-state-change', function(e, data) {
       window.webContents.send('tab-state-change-receive', data)
     }
   })
+})
+
+ipc.on('request-tab-state', function(e) {
+  const otherWindow = windows.getAll().find(w => w.webContents.id !== e.sender.id)
+  if (!otherWindow) {
+    throw new Error('secondary window doesn\'t exist as source for tab state')
+  }
+  ipc.once('return-tab-state', function(e2, data) {
+    e.returnValue = data
+  })
+  otherWindow.webContents.send('read-tab-state')
 })

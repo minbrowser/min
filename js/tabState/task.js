@@ -96,7 +96,7 @@ class TaskList {
 
     if (emit) {
     // emit the tab-destroyed event for all tabs in this task
-      this.get(id).tabs.forEach(tab => this.emit('tab-destroyed', tab.id))
+      this.get(id).tabs.forEach(tab => this.emit('tab-destroyed', tab.id, id))
 
       this.emit('task-destroyed', id)
     }
