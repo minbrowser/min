@@ -1,3 +1,5 @@
+var browserUI = require('browserUI.js')
+
 const windowSync = {
 
   pendingEvents: [],
@@ -18,7 +20,8 @@ const windowSync = {
 
     ipc.on('tab-state-change-receive', function (e, events) {
       events.forEach(function (event) {
-        console.log(event)
+        const priorSelectedTask = tasks.getSelected().id
+
         switch (event[0]) {
           case 'task-added':
             tasks.add(event[2], event[3], false)
@@ -46,6 +49,18 @@ const windowSync = {
           default:
             console.warn(arguments)
             throw new Error('unimplemented event')
+        }
+
+        // UI updates
+
+        if (event[0] === 'task-selected' && event[1] === priorSelectedTask) {
+          // our task is being taken by another window
+          // TODO find an unselected task instead of making a new one - need to track selected task per window
+          browserUI.addTask()
+        }
+        // close window if its task is destroyed
+        if (event[0] === 'task-destroyed' && event[1] === priorSelectedTask) {
+          ipc.invoke('close')
         }
       })
     })
