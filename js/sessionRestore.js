@@ -45,7 +45,7 @@ const sessionRestore = {
       sessionRestore.previousState = stateString
     }
   },
-  restore: function () {
+  restoreFromFile: function () {
     var savedStringData
     try {
       savedStringData = fs.readFileSync(sessionRestore.savePath, 'utf-8')
@@ -128,12 +128,6 @@ const sessionRestore = {
         }
       }
 
-      setTimeout(function () {
-        window.sessionRestoreComplete = true
-      }, 16)
-      // TODO fix
-      // needs to run after tab event listeners
-
       /* Disabled - show user survey
       // if this isn't the first run, and the survey popup hasn't been shown yet, show it
       if (shouldShowSurvey) {
@@ -180,12 +174,34 @@ const sessionRestore = {
       browserUI.switchToTab(newSessionErrorTab)
     }
   },
+  syncWithWindow: function () {
+    const data = ipc.sendSync('request-tab-state')
+    console.log('got from window', data)
+
+    data.tasks.forEach(function (task) {
+      // restore the task item
+      tasks.add(task, undefined, false)
+    })
+    // create a new task for this window
+    browserUI.addTask()
+  },
+  restore: function () {
+    if (Object.hasOwn(window.globalArgs, 'initial-window')) {
+      return sessionRestore.restoreFromFile()
+    } else {
+      return sessionRestore.syncWithWindow()
+    }
+  },
   initialize: function () {
     setInterval(sessionRestore.save, 30000)
 
     window.onbeforeunload = function (e) {
       sessionRestore.save(true, true)
     }
+
+    ipc.on('read-tab-state', function (e) {
+      ipc.send('return-tab-state', tasks.getStringifyableState())
+    })
   }
 }
 
