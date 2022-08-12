@@ -1,13 +1,6 @@
-/* global importScripts db performance searchPlaces postMessage fullTextPlacesSearch */
+/* global db performance searchPlaces fullTextPlacesSearch */
 
-console.log('worker started ', performance.now())
-
-importScripts('../../node_modules/dexie/dist/dexie.min.js')
-importScripts('../../node_modules/string_score/string_score.min.js')
-importScripts('../util/database.js')
-importScripts('fullTextSearch.js')
-importScripts('placesSearch.js')
-importScripts('tagIndex.js')
+const { ipcRenderer } = require('electron')
 
 const spacesRegex = /[+\s._/-]+/g // things that could be considered spaces
 
@@ -105,19 +98,19 @@ function loadHistoryInMemory () {
 
 loadHistoryInMemory()
 
-onmessage = function (e) {
-  const action = e.data.action
-  const pageData = e.data.pageData
-  const flags = e.data.flags || {}
-  const searchText = e.data.text && e.data.text.toLowerCase()
-  const callbackId = e.data.callbackId
-  const options = e.data.options
+ipcRenderer.on('places-request', function (e, requesterId, data) {
+  const action = data.action
+  const pageData = data.pageData
+  const flags = data.flags || {}
+  const searchText = data.text && data.text.toLowerCase()
+  const callbackId = data.callbackId
+  const options = data.options
 
   if (action === 'getPlace') {
     let found = false
     for (let i = 0; i < historyInMemoryCache.length; i++) {
       if (historyInMemoryCache[i].url === pageData.url) {
-        postMessage({
+        ipcRenderer.sendTo(requesterId, 'places-response', {
           result: historyInMemoryCache[i],
           callbackId: callbackId
         })
@@ -126,7 +119,7 @@ onmessage = function (e) {
       }
     }
     if (!found) {
-      postMessage({
+      ipcRenderer.sendTo(requesterId, 'places-response', {
         result: null,
         callbackId: callbackId
       })
@@ -134,7 +127,7 @@ onmessage = function (e) {
   }
 
   if (action === 'getAllPlaces') {
-    postMessage({
+    ipcRenderer.sendTo(requesterId, 'places-response', {
       result: historyInMemoryCache,
       callbackId: callbackId
     })
@@ -183,7 +176,7 @@ onmessage = function (e) {
         } else {
           addOrUpdateHistoryCache(item)
         }
-        postMessage({
+        ipcRenderer.sendTo(requesterId, 'places-response', {
           result: null,
           callbackId: callbackId
         })
@@ -210,28 +203,28 @@ onmessage = function (e) {
   }
 
   if (action === 'getSuggestedTags') {
-    postMessage({
+    ipcRenderer.sendTo(requesterId, 'places-response', {
       result: tagIndex.getSuggestedTags(historyInMemoryCache.find(i => i.url === pageData.url)),
       callbackId: callbackId
     })
   }
 
   if (action === 'getAllTagsRanked') {
-    postMessage({
+    ipcRenderer.sendTo(requesterId, 'places-response', {
       result: tagIndex.getAllTagsRanked(historyInMemoryCache.find(i => i.url === pageData.url)),
       callbackId: callbackId
     })
   }
 
   if (action === 'getSuggestedItemsForTags') {
-    postMessage({
+    ipcRenderer.sendTo(requesterId, 'places-response', {
       result: tagIndex.getSuggestedItemsForTags(pageData.tags),
       callbackId: callbackId
     })
   }
 
   if (action === 'autocompleteTags') {
-    postMessage({
+    ipcRenderer.sendTo(requesterId, 'places-response', {
       result: tagIndex.autocompleteTags(pageData.tags),
       callbackId: callbackId
     })
@@ -239,7 +232,7 @@ onmessage = function (e) {
 
   if (action === 'searchPlaces') { // do a history search
     searchPlaces(searchText, function (matches) {
-      postMessage({
+      ipcRenderer.sendTo(requesterId, 'places-response', {
         result: matches,
         callbackId: callbackId
       })
@@ -252,7 +245,7 @@ onmessage = function (e) {
         return calculateHistoryScore(b) - calculateHistoryScore(a)
       })
 
-      postMessage({
+      ipcRenderer.sendTo(requesterId, 'places-response', {
         result: matches.slice(0, 100),
         callbackId: callbackId
       })
@@ -273,7 +266,7 @@ onmessage = function (e) {
         return b.hScore - a.hScore
       })
 
-      postMessage({
+      ipcRenderer.sendTo(requesterId, 'places-response', {
         result: results.slice(0, 100),
         callbackId: callbackId
       })
@@ -285,4 +278,4 @@ onmessage = function (e) {
       setTimeout(returnSuggestionResults, 100)
     }
   }
-}
+})

@@ -435,3 +435,26 @@ ipc.on('request-tab-state', function(e) {
   })
   otherWindow.webContents.send('read-tab-state')
 })
+
+/* places service */
+
+const placesPage = 'file://' + __dirname + '/js/places/placesService.html'
+
+let placesWindow = null
+app.once('ready', function() {
+  placesWindow = new BrowserWindow({
+    width: 300,
+    height: 300,
+    show: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  })
+
+  placesWindow.loadURL(placesPage)
+})
+
+ipc.on('places-request', function(e, data) {
+  placesWindow.webContents.send('places-request', e.sender.id, data)
+})

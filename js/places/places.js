@@ -1,10 +1,13 @@
-/* global Worker tabs */
+/* global tabs */
 
 var webviews = require('webviews.js')
 const searchEngine = require('util/searchEngine.js')
 const urlParser = require('util/urlParser.js')
 
 const places = {
+  sendMessage: function (data) {
+    ipc.send('places-request', data)
+  },
   savePage: function (tabId, extractedText) {
     /* this prevents pages that are immediately left from being saved to history, and also gives the page-favicon-updated event time to fire (so the colors saved to history are correct). */
     setTimeout(function () {
@@ -17,7 +20,7 @@ const places = {
           extractedText: extractedText
         }
 
-        places.worker.postMessage({
+        places.sendMessage({
           action: 'updatePlace',
           pageData: data,
           flags: {
@@ -73,7 +76,7 @@ const places = {
     }
   },
   deleteHistory: function (url) {
-    places.worker.postMessage({
+    places.sendMessage({
       action: 'deleteHistory',
       pageData: {
         url: url
@@ -81,13 +84,13 @@ const places = {
     })
   },
   deleteAllHistory: function () {
-    places.worker.postMessage({
+    places.sendMessage({
       action: 'deleteAllHistory'
     })
   },
   searchPlaces: function (text, callback, options) {
     const callbackId = places.addWorkerCallback(callback)
-    places.worker.postMessage({
+    places.sendMessage({
       action: 'searchPlaces',
       text: text,
       callbackId: callbackId,
@@ -96,7 +99,7 @@ const places = {
   },
   searchPlacesFullText: function (text, callback) {
     const callbackId = places.addWorkerCallback(callback)
-    places.worker.postMessage({
+    places.sendMessage({
       action: 'searchPlacesFullText',
       text: text,
       callbackId: callbackId
@@ -104,18 +107,18 @@ const places = {
   },
   getPlaceSuggestions: function (url, callback) {
     const callbackId = places.addWorkerCallback(callback)
-    places.worker.postMessage({
+    places.sendMessage({
       action: 'getPlaceSuggestions',
       text: url,
       callbackId: callbackId
     })
   },
-  onMessage: function (e) { // assumes this is from a search operation
-    places.runWorkerCallback(e.data.callbackId, e.data.result)
+  onMessage: function (e, data) {
+    places.runWorkerCallback(data.callbackId, data.result)
   },
   getItem: function (url, callback) {
     const callbackId = places.addWorkerCallback(callback)
-    places.worker.postMessage({
+    places.sendMessage({
       action: 'getPlace',
       pageData: {
         url: url
@@ -125,14 +128,14 @@ const places = {
   },
   getAllItems: function (callback) {
     const callbackId = places.addWorkerCallback(callback)
-    places.worker.postMessage({
+    places.sendMessage({
       action: 'getAllPlaces',
       callbackId: callbackId
     })
   },
   updateItem: function (url, fields, callback) {
     const callbackId = places.addWorkerCallback(callback)
-    places.worker.postMessage({
+    places.sendMessage({
       action: 'updatePlace',
       pageData: {
         url: url,
@@ -151,7 +154,7 @@ const places = {
       } else {
         item.tags.push(tag)
       }
-      places.worker.postMessage({
+      places.sendMessage({
         action: 'updatePlace',
         pageData: {
           url: url,
@@ -162,7 +165,7 @@ const places = {
   },
   getSuggestedTags: function (url, callback) {
     const callbackId = places.addWorkerCallback(callback)
-    places.worker.postMessage({
+    places.sendMessage({
       action: 'getSuggestedTags',
       pageData: {
         url: url
@@ -172,7 +175,7 @@ const places = {
   },
   getAllTagsRanked: function (url, callback) {
     const callbackId = places.addWorkerCallback(callback)
-    places.worker.postMessage({
+    places.sendMessage({
       action: 'getAllTagsRanked',
       pageData: {
         url: url
@@ -182,7 +185,7 @@ const places = {
   },
   getSuggestedItemsForTags: function (tags, callback) {
     const callbackId = places.addWorkerCallback(callback)
-    places.worker.postMessage({
+    places.sendMessage({
       action: 'getSuggestedItemsForTags',
       pageData: {
         tags: tags
@@ -192,7 +195,7 @@ const places = {
   },
   autocompleteTags: function (tags, callback) {
     const callbackId = places.addWorkerCallback(callback)
-    places.worker.postMessage({
+    places.sendMessage({
       action: 'autocompleteTags',
       pageData: {
         tags: tags
@@ -201,11 +204,7 @@ const places = {
     })
   },
   initialize: function () {
-    if (places.worker) {
-      places.worker.terminate()
-    }
-    places.worker = new Worker('js/places/placesWorker.js')
-    places.worker.onmessage = places.onMessage
+    ipc.on('places-response', places.onMessage)
 
     webviews.bindIPC('pageData', places.receiveHistoryData)
   }
