@@ -1,7 +1,6 @@
 /* global db Dexie */
 
 const stemmer = require('stemmer')
-importScripts('../../ext/xregexp/nonLetterRegex.js')
 
 const whitespaceRegex = /\s+/g
 
