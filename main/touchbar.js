@@ -22,14 +22,14 @@ function buildTouchBar () {
         accessibilityLabel: l('goBack'),
         icon: getTouchBarIcon('NSImageNameTouchBarGoBackTemplate'),
         click: function () {
-          sendIPCToWindow(mainWindow, 'goBack')
+          sendIPCToWindow(windows.getCurrent(), 'goBack')
         }
       }),
       new TouchBarButton({
         accessibilityLabel: l('goForward'),
         icon: getTouchBarIcon('NSImageNameTouchBarGoForwardTemplate'),
         click: function () {
-          sendIPCToWindow(mainWindow, 'goForward')
+          sendIPCToWindow(windows.getCurrent(), 'goForward')
         }
       }),
       new TouchBarSpacer({ size: 'flexible' }),
@@ -39,7 +39,7 @@ function buildTouchBar () {
         // TODO this is really hacky, find a better way to set the size
         label: '    ' + l('searchbarPlaceholder') + '                     ',
         click: function () {
-          sendIPCToWindow(mainWindow, 'openEditor')
+          sendIPCToWindow(windows.getCurrent(), 'openEditor')
         }
       }),
       new TouchBarSpacer({ size: 'flexible' }),
@@ -47,14 +47,14 @@ function buildTouchBar () {
         icon: getTouchBarIcon('NSImageNameTouchBarAdd'),
         accessibilityLabel: l('newTabAction'),
         click: function () {
-          sendIPCToWindow(mainWindow, 'addTab')
+          sendIPCToWindow(windows.getCurrent(), 'addTab')
         }
       }),
       new TouchBarButton({
         accessibilityLabel: l('viewTasks'),
         icon: getTouchBarIcon('NSImageNameTouchBarListViewTemplate'),
         click: function () {
-          sendIPCToWindow(mainWindow, 'toggleTaskOverlay')
+          sendIPCToWindow(windows.getCurrent(), 'toggleTaskOverlay')
         }
       })
     ]

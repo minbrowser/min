@@ -10,7 +10,7 @@ function createPrompt (options, callback) {
   var promptWindow = new BrowserWindow({
     width: width,
     height: height,
-    parent: parent != null ? parent : mainWindow,
+    parent: parent != null ? parent : windows.getCurrent(),
     show: false,
     modal: true,
     alwaysOnTop: true,

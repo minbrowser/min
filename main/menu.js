@@ -339,7 +339,7 @@ function buildAppMenu (options = {}) {
             label: l('appMenuClose'),
             accelerator: 'CmdOrCtrl+W',
             click: function (item, window) {
-              if (mainWindow && !mainWindow.isFocused()) {
+              if (windows.getAll().length > 0 && !windows.getAll().some(win => win.isFocused())) {
                 // a devtools window is focused, close it
                 var contents = webContents.getAllWebContents()
                 for (var i = 0; i < contents.length; i++) {
