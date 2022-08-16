@@ -52,9 +52,9 @@ var settings = {
     settings.writeFile()
     settings.runChangeCallbacks(key)
 
-    if (mainWindow) {
-      mainWindow.webContents.send('settingChanged', key, value)
-    }
+    windows.getAll().forEach(function (win) {
+      win.webContents.send('settingChanged', key, value)
+    })
   },
   initialize: function () {
     var fileData
@@ -73,6 +73,12 @@ var settings = {
       settings.list[key] = value
       settings.writeFile()
       settings.runChangeCallbacks(key)
+
+      windows.getAll().forEach(function (win) {
+        if (win.webContents.id !== e.sender.id) {
+          win.webContents.send('settingChanged', key, value)
+        }
+      })
     })
   }
 }
