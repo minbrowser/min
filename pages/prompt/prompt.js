@@ -25,6 +25,12 @@ function handleKeyPress (event) {
   }
 }
 
+// flip the button order on mac
+
+if (navigator.platform === 'MacIntel') {
+  document.getElementById('cancel').parentNode.insertBefore(document.getElementById('cancel'), document.getElementById('ok'))
+}
+
 window.addEventListener('load', function () {
   var options = ipcRenderer.sendSync('open-prompt', '')
   var params = JSON.parse(options)
@@ -69,7 +75,11 @@ window.addEventListener('load', function () {
   }
 
   if (darkMode === 1 || darkMode === true) { document.body.classList.add('dark-mode') }
-  document.getElementById('label').innerHTML = params.label
+  if (params.label) {
+    document.getElementById('label').innerHTML = params.label
+  } else {
+    document.getElementById('label').hidden = true
+  }
   document.getElementById('ok').value = okLabel
   document.getElementById('cancel').value = cancelLabel
 })

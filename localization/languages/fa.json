@@ -51,6 +51,9 @@
     "addBookmark": null, //missing translation
     "searchBookmarks": "جستجوی نشانک ها",
     "bookmarksAddTag": null, //missing translation
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": null, //missing translation
     "searchHistory": "جستجوی تاریخچه",
     "importBookmarks": null, //missing translation

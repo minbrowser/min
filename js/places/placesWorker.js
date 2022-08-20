@@ -79,6 +79,15 @@ function addOrUpdateHistoryCache (item) {
   }
 }
 
+function removeFromHistoryCache (url) {
+  for (let i = 0; i < historyInMemoryCache.length; i++) {
+    if (historyInMemoryCache[i].url === url) {
+      tagIndex.removePage(historyInMemoryCache[i])
+      historyInMemoryCache.splice(i, 1)
+    }
+  }
+}
+
 function loadHistoryInMemory () {
   historyInMemoryCache = []
 
@@ -189,12 +198,7 @@ onmessage = function (e) {
   if (action === 'deleteHistory') {
     db.places.where('url').equals(pageData.url).delete()
 
-    // delete from the in-memory cache
-    for (let i = 0; i < historyInMemoryCache.length; i++) {
-      if (historyInMemoryCache[i].url === pageData.url) {
-        historyInMemoryCache.splice(i, 1)
-      }
-    }
+    removeFromHistoryCache(pageData.url)
   }
 
   if (action === 'deleteAllHistory') {

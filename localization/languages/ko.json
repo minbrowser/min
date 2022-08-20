@@ -50,6 +50,9 @@
     "addBookmark": "즐겨찾기 추가",
     "searchBookmarks": "즐겨찾기 검색",
     "bookmarksAddTag": "꼬리표 추가...",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "비슷한 항목",
     "searchHistory": "기록 검색",
     "importBookmarks": "즐겨찾기 목록 가져오기",

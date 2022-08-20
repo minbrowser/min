@@ -50,7 +50,10 @@
       "addBookmark": "Дадаць закладку",
       "searchBookmarks": "Шукаць у закладках",
       "bookmarksAddTag": "Дадаць тэг...",
-      "bookmarksSimilarItems": "Падобныя",
+      "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
+    "bookmarksSimilarItems": "Падобныя",
       "searchHistory": "Шукаць у гісторыі",
       "importBookmarks": "Імпартаваць закладкі з HTML-файлаў",
       "exportBookmarks": "Экспартаваць закладкі",

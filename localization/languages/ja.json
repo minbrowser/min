@@ -50,6 +50,9 @@
     "addBookmark": "ブックマークを追加",
     "searchBookmarks": "ブックマークを検索",
     "bookmarksAddTag": "タグを追加...",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "類似アイテム",
     "searchHistory": "検索履歴",
     "importBookmarks": "HTMLファイルからブックマークをインポートする",

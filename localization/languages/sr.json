@@ -50,6 +50,9 @@
     "addBookmark": "Dodaj obeleživač",
     "searchBookmarks": "Pretraži obeleživače",
     "bookmarksAddTag": "Dodaj tag...",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "Slične stavke",
     "searchHistory": "Pretraži istoriju",
     "importBookmarks": "Uvezi obeleživače iz HTML fajla",

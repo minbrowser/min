@@ -219,7 +219,7 @@ class OnePassword {
       ok: l('dialogConfirmButton'),
       cancel: l('dialogSkipButton'),
       width: 500,
-      height: 220
+      height: 250
     })
 
     for (const key in credentials) {

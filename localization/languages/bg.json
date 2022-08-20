@@ -50,6 +50,9 @@
     "addBookmark": "Отмятане на страница",
     "searchBookmarks": "Търсене на отметки",
     "bookmarksAddTag": "Добавяне на таг...",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "Подобни елементи",
     "searchHistory": "История на търсенията",
     "importBookmarks": "Внасяне на отметки от HTML файл",

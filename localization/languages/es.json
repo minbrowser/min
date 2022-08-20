@@ -50,6 +50,9 @@
     "addBookmark": "Agregar marcador",
     "searchBookmarks": "Buscar marcadores",
     "bookmarksAddTag": "Agregar etiqueta...",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "Elementos similares",
     "searchHistory": "Historial de búsqueda",  //noun?
     "importBookmarks": "Importar marcadores",

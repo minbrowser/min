@@ -33,10 +33,12 @@ input[type="button"] {
 
 input[type="text"] {
   width: 100%;
+  padding: 0.1em;
 }
 
 input[type="password"] {
   width: 100%;
+  padding: 0.1em;
 }
 
 input:hover[type="button"] {
@@ -59,11 +61,6 @@ input:hover[type="button"] {
   margin-right: 1em;
   padding: 0.4em;
   width: 100%;
-  background: #f8f8f8;
-}
-
-.dark-mode .input-container {
-  background: rgb(43, 48, 56);
 }
 
 #data {
@@ -75,6 +72,10 @@ input:hover[type="button"] {
 .buttons {
   margin-top: 0.5em;
   float: right;
+}
+
+.buttons input + input {
+  margin-left: 0.5em;
 }
 
 .dark-mode {

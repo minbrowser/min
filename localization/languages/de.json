@@ -50,6 +50,9 @@
     "addBookmark": "Zu Lesezeichen hinzufügen",
     "searchBookmarks": "Lesezeichen durchsuchen",
     "bookmarksAddTag": "Schlagwort hinzufügen...",
+    "bookmarksRenameTag": null, //missing translation
+    "bookmarksDeleteTag": null, //missing translation
+    "deleteBookmarksWithTag": null, //missing translation
     "bookmarksSimilarItems": "Ähnliche Einträge",
     "searchHistory": "Verlauf durchsuchen",
     "importBookmarks": "Lesezeichen von HTML Datei importieren",
