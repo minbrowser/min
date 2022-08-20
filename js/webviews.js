@@ -40,6 +40,8 @@ function onPageURLChange (tab, url) {
       url: url
     })
   }
+
+  webviews.callAsync(tab, 'setVisualZoomLevelLimits', [1, 3])
 }
 
 // called whenever a navigation finishes
