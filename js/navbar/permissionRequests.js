@@ -14,6 +14,8 @@ const permissionRequests = {
   getIcons: function (request) {
     if (request.permission === 'notifications') {
       return ['carbon:chat']
+    } else if (request.permission === 'pointerLock') {
+      return ['carbon:cursor-1']
     } else if (request.permission === 'media') {
       var mediaIcons = {
         video: 'carbon:video',

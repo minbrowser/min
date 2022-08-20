@@ -37,6 +37,10 @@ function isPermissionGrantedForOrigin (requestOrigin, requestPermission, request
         return true
       }
 
+      if (requestPermission === 'pointerLock' && grantedPermissions[i].permission === 'pointerLock') {
+        return true
+      }
+
       if (requestPermission === 'media' && grantedPermissions[i].permission === 'media') {
         // type 1: from permissionCheckHandler
         // request has a single media type
@@ -98,7 +102,7 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
   Geolocation requires a Google API key (https://www.electronjs.org/docs/api/environment-variables#google_api_key), so it is disabled.
   Other permissions aren't supported for now to simplify the UI
   */
-  if (['media', 'notifications'].includes(permission)) {
+  if (['media', 'notifications', 'pointerLock'].includes(permission)) {
     /*
     If permission was previously granted for this origin in a different tab, new requests should be allowed
     */
