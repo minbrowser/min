@@ -31,13 +31,16 @@ function removePermissionsForContents (contents) {
 Was permission already granted for this origin?
 */
 function isPermissionGrantedForOrigin (requestOrigin, requestPermission, requestDetails) {
+  console.log('isGranted', requestOrigin, requestPermission, JSON.stringify(requestDetails))
   for (var i = 0; i < grantedPermissions.length; i++) {
     if (requestOrigin === grantedPermissions[i].origin) {
       if (requestPermission === 'notifications' && grantedPermissions[i].permission === 'notifications') {
+        console.log('true - 1')
         return true
       }
 
       if (requestPermission === 'pointerLock' && grantedPermissions[i].permission === 'pointerLock') {
+        console.log('true - 2')
         return true
       }
 
@@ -45,17 +48,20 @@ function isPermissionGrantedForOrigin (requestOrigin, requestPermission, request
         // type 1: from permissionCheckHandler
         // request has a single media type
         if (requestDetails.mediaType && grantedPermissions[i].details.mediaTypes.includes(requestDetails.mediaType)) {
+          console.log('true - 3')
           return true
         }
         // type 2: from a permissionRequestHandler
         // request has multiple media types
         // TODO existing granted permissions should be merged together (i.e. if there is an existing permission for audio, and another for video, a new request for audio+video should be approved, but it currently won't be)
         if (requestDetails.mediaTypes && requestDetails.mediaTypes.every(type => grantedPermissions[i].details.mediaTypes.includes(type))) {
+          console.log('true - 4')
           return true
         }
       }
     }
   }
+  console.log('false - 5')
   return false
 }
 
@@ -63,15 +69,19 @@ function isPermissionGrantedForOrigin (requestOrigin, requestPermission, request
 Is there already a pending request of the given type for this origin?
  */
 function hasPendingRequestForOrigin (requestOrigin, permission, details) {
+  console.log('hasPending', requestOrigin, permission, JSON.stringify(details))
   for (var i = 0; i < pendingPermissions.length; i++) {
     if (requestOrigin === pendingPermissions[i].origin && permission === pendingPermissions[i].permission) {
+      console.log('true - 6')
       return true
     }
   }
+  console.log('false - 7')
   return false
 }
 
 function pagePermissionRequestHandler (webContents, permission, callback, details) {
+  console.log('permissionRequestHandler', permission, JSON.stringify(details))
   if (!details.isMainFrame) {
     // not supported for now to simplify the UI
     callback(false)
@@ -148,11 +158,13 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
     Once this view is closed or navigated to a new page, these permissions should be revoked
     */
     webContents.on('did-start-navigation', function (e, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
+      console.log('navigation began', url, isInPlace, isMainFrame)
       if (isMainFrame && !isInPlace) {
         removePermissionsForContents(webContents)
       }
     })
     webContents.once('destroyed', function () {
+      console.log('destroyed')
       // check whether the app is shutting down to avoid an electron crash (TODO remove this)
       if (mainWindow) {
         removePermissionsForContents(webContents)
@@ -164,6 +176,7 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
 }
 
 function pagePermissionCheckHandler (webContents, permission, requestingOrigin, details) {
+  console.log('permissionCheckHandler', permission, requestingOrigin, JSON.stringify(details))
   if (!details.isMainFrame && requestingOrigin !== details.embeddingOrigin) {
     return false
   }
