@@ -50,9 +50,9 @@
     "addBookmark": "Adicionar favorito",
     "searchBookmarks": "Buscar nos favoritos",
     "bookmarksAddTag": "Adicionar tag",
-    "bookmarksRenameTag": null, //missing translation
-    "bookmarksDeleteTag": null, //missing translation
-    "deleteBookmarksWithTag": null, //missing translation
+    "bookmarksRenameTag": "Renomear tag",
+    "bookmarksDeleteTag": "Deletar tag",
+    "deleteBookmarksWithTag": "Excluir favoritos com tag",
     "bookmarksSimilarItems": "Itens semelhantes",
     "searchHistory": "Buscar no histórico",
     "importBookmarks": "Importar favoritos do arquivo HTML",
@@ -158,7 +158,7 @@
     "settingsUserscriptsToggle": "Habilitar scripts do usuário",
     "settingsShowDividerToggle": "Mostrar divisória entre as abas",
     "settingsSeparateTitlebarToggle": "Usar a barra de título separada",
-    "settingsAutoplayToggle": "Habilitar reprodução automática", 
+    "settingsAutoplayToggle": "Habilitar reprodução automática",
     "settingsOpenTabsInForegroundToggle": "Abrir novas abas em primeiro plano",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Scripts do usuário permitem modificar o comportamento do site - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saiba mais</a>."
