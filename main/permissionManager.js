@@ -31,7 +31,7 @@ function removePermissionsForContents (contents) {
 Was permission already granted for this origin?
 */
 function isPermissionGrantedForOrigin (requestOrigin, requestPermission, requestDetails) {
-  console.log('isGranted', requestOrigin, requestPermission, JSON.stringify(requestDetails))
+  console.log('isGranted', requestOrigin, requestPermission, JSON.stringify(requestDetails), 'all granted:', JSON.stringify(grantedPermissions.map(p => { return { permissionId: p.permissionId, origin: p.origin, permission: p.permission, details: p.details } })))
   for (var i = 0; i < grantedPermissions.length; i++) {
     if (requestOrigin === grantedPermissions[i].origin) {
       if (requestPermission === 'notifications' && grantedPermissions[i].permission === 'notifications') {
@@ -208,6 +208,7 @@ app.on('session-created', function (session) {
 })
 
 ipc.on('permissionGranted', function (e, permissionId) {
+  console.log('permission granted', permissionId, JSON.stringify(pendingPermissions.map(p => { return { permissionId: p.permissionId, origin: p.origin, permission: p.permission, details: p.details } })))
   for (var i = 0; i < pendingPermissions.length; i++) {
     if (permissionId && pendingPermissions[i].permissionId === permissionId) {
       pendingPermissions[i].granted = true
