@@ -50,9 +50,9 @@
     "addBookmark": "Dodaj oznaku",
     "searchBookmarks": "Pretražite oznake",
     "bookmarksAddTag": "Dodaj oznaku ...",
-    "bookmarksRenameTag": null, //missing translation
-    "bookmarksDeleteTag": null, //missing translation
-    "deleteBookmarksWithTag": null, //missing translation
+    "bookmarksRenameTag": "Preimenuj Oznaku",
+    "bookmarksDeleteTag": "Obriši Oznaku",
+    "deleteBookmarksWithTag": "Obriši Značajke sa Oznakom",
     "bookmarksSimilarItems": "Slični predmeti",
     "searchHistory": "Povijest pretraživanja",
     "importBookmarks": "Uvoz oznaka iz HTML datoteke",
