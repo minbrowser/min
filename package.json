@@ -4,7 +4,7 @@
   "author": "PalmerAL",
   "version": "1.25.1",
   "description": "A fast, minimal browser that protects your privacy",
-  "electronVersion": "19.0.5",
+  "electronVersion": "20.2.0",
   "main": "main.build.js",
   "standard": {
     "globals": [
@@ -47,7 +47,7 @@
     "chokidar": "^3.4.0",
     "concurrently": "^5.2.0",
     "decomment": "^0.9.0",
-    "electron": "19.0.5",
+    "electron": "20.2.0",
     "electron-builder": "^22.14.13",
     "electron-installer-windows": "^3.0.0",
     "electron-packager": "^15.1.0",
