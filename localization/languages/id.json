@@ -10,7 +10,7 @@
     "openInNewTab": "Buka di Tab Baru",
     "openInNewPrivateTab": "Buka di Tab Penyamaran",
     "saveLinkAs": "Simpan Tautan Sebagai...",
-    "viewImage": "View Image",
+    "viewImage": "Lihat Gambar",
     "openImageInNewTab": "Buka Gambar di Tab Baru",
     "openImageInNewPrivateTab": "Buka Gambar di Tab Penyamaran Baru",
     "saveImageAs": "Simpan Gambar Sebagai",
@@ -52,14 +52,14 @@
     "bookmarksAddTag": "Tambah penanda...",
     "bookmarksRenameTag": "Ubah Nama Penanda",
     "bookmarksDeleteTag": "Hapus Penanda",
-    "deleteBookmarksWithTag": "Delete Bookmarks with Tag",
-    "bookmarksSimilarItems": "Similar items",
-    "searchHistory": "Search history",
-    "importBookmarks": "Import bookmarks from HTML file",
-    "exportBookmarks": "Export bookmarks",
-    "runUserscript": "Run userscript",
+    "deleteBookmarksWithTag": "Hapus Markah dengan Penanda",
+    "bookmarksSimilarItems": "Markah serupa",
+    "searchHistory": "Riwayat pencarian",
+    "importBookmarks": "Impor markah dari berkas HTML",
+    "exportBookmarks": "Ekspor markah",
+    "runUserscript": "Jalankan userscript",
     /* navbar */
-    "openMenu": "Open menu", //application menu button on windows
+    "openMenu": "Buka menu", //application menu button on windows
     "enterReaderView": "Masuk tampilan pembaca",
     "exitReaderView": "Keluar tampilan pembaca",
     "newTabLabel": "Tab Baru", //this is a noun, used for tabs that don't have a page loaded in them yet
@@ -251,24 +251,24 @@
     "settingsSelectPasswordManager": "Pilih salah satu pengelola kata sandi yang didukung:",
     "keychainViewPasswords": "Lihat kata sandi tersimpan",
     /* Password manager setup */
-    "passwordManagerSetupHeading": "Finish setting up %p to use Autofill",
+    "passwordManagerSetupHeading": "Selesaikan pemasangan %p untuk menggunakan isi otomatis",
     "passwordManagerSetupStep1": {
-      "unsafeHTML": "First, <a id='password-manager-setup-link'></a> and extract it for your system."
+      "unsafeHTML": "Pertama, <a id='password-manager-setup-link'></a> dan extract untuk sistem Anda."
     },
     "passwordManagerInstallerSetup": {
-      "unsafeHTML": "Download <a id='password-manager-setup-link-installer'></a> and drag the file into the box below:"
+      "unsafeHTML": "Unduh <a id='password-manager-setup-link-installer'></a> dan tarik berkas ke kotak dibawah:"
     },
-    "passwordManagerSetupLink": "download the %p CLI tool",
-    "passwordManagerSetupLinkInstaller": "the %p CLI installer",
-    "passwordManagerSetupStep2": "Then drag the tool into the box below:",
-    "passwordManagerSetupDragBox": "Drag the tool here",
-    "passwordManagerSetupInstalling": "Installing...",
-    "passwordManagerBitwardenSignIn": "To connect your Bitwarden account, go to vault.bitwarden.com/#/settings/account, scroll to the bottom, and choose \"View API Key\". Then paste the values into the fields below.",
-    "passwordManagerSetupSignIn": "Sign in to your password manager to start using autofill. Your credentials won't be stored anywhere inside Min.",
-    "disableAutofill": "Disable Autofill",
-    "passwordManagerSetupUnlockError": "Failed to unlock the password store: ",
-    "passwordManagerSetupRetry": "Make sure you're using the right file and entering a correct password. You can retry by dragging the tool here again.",
-    "passwordManagerUnlock": "Enter your %p master password to unlock the password store:",
+    "passwordManagerSetupLink": "unduh alat %p CLI",
+    "passwordManagerSetupLinkInstaller": "pemasang %p CLI",
+    "passwordManagerSetupStep2": "Lalu tarik alat ke kotak dibawah:",
+    "passwordManagerSetupDragBox": "Tarik alat kesini",
+    "passwordManagerSetupInstalling": "Memasang...",
+    "passwordManagerBitwardenSignIn": "Untuk menghubungkan akun Bitwarden Anda, kunjungi ke vault.bitwarden.com/#/settings/account, gulir ke bawah, dan pilih \"View API Key\". Lalu salin isinya ke bidang  dibawah.",
+    "passwordManagerSetupSignIn": "Masuk ke pengelola kata sandi Anda untuk mulai menggunakan isi otomatis. Kredensial Anda tidak akan disimpan dimana pun di dalam Min.",
+    "disableAutofill": "Nonaktifkan Isi Otomatis",
+    "passwordManagerSetupUnlockError": "Gagal membuka penyimpanan kata sandi: ",
+    "passwordManagerSetupRetry": "Pastikan Anda menggunakan berkas yang tepat dan memasukkan kata sandi yang benar. Anda bisa coba lagi dengan menarik alat ke sini lagi.",
+    "passwordManagerUnlock": "Masukan kata sandi utama %p Anda untuk membuka penyimpanan kata sandi:",
     /* Password save bar */
     "passwordCaptureSavePassword": "Simpan kata sandi untuk %s?",
     "passwordCaptureSave": "Simpan",
@@ -289,6 +289,6 @@
     "secretKey": "Kunci rahasia",
     "openExternalApp": "Buka dengan \\\"%s\\\"?", // %s is the name of an app
     "clickToCopy": "Klik untuk salin",
-    "copied": "Copied"
+    "copied": "Tersalin"
   }
 }
