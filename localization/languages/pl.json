@@ -50,9 +50,9 @@
     "addBookmark": "Dodaj zakładkę",
     "searchBookmarks": "Zakładki wyszukiwania",
     "bookmarksAddTag": "Dodaj znacznik...",
-    "bookmarksRenameTag": null, //missing translation
-    "bookmarksDeleteTag": null, //missing translation
-    "deleteBookmarksWithTag": null, //missing translation
+    "bookmarksRenameTag": "Zmień nazwę tagu",
+    "bookmarksDeleteTag": "Usuń tag",
+    "deleteBookmarksWithTag": "Usuń zakładki z tagiem",
     "bookmarksSimilarItems": "Podobne pozycje",
     "searchHistory": "Historia wyszukiwania",
     "importBookmarks": "Importuj zakładki z pliku HTML",
