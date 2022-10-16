@@ -74,7 +74,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Aufgabe gelöscht. <a>Rückgängig machen?</a>"
     },
-    "tasksSearchTabs": "Such Tabs",
+    "tasksSearchTabs": "Suche Tabs",
     "returnToTask": "Zur vorherigen Aufgabe zurückkehren",
     "taskDescriptionTwo": "%t und %t",
     "taskDescriptionThree": "%t, %t, und %n mehr",
