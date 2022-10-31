@@ -1,0 +1,294 @@
+{
+  "name": "Indonesian",
+  "identifier": "id",
+  "translations": {
+    /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+    "addToDictionary": "Tambah ke Kamus",
+    "pictureInPicture": "Picture in Picture",
+    "openInNewTab": "Buka di Tab Baru",
+    "openInNewPrivateTab": "Buka di Tab Penyamaran",
+    "saveLinkAs": "Simpan Tautan Sebagai...",
+    "viewImage": "Lihat Gambar",
+    "openImageInNewTab": "Buka Gambar di Tab Baru",
+    "openImageInNewPrivateTab": "Buka Gambar di Tab Penyamaran Baru",
+    "saveImageAs": "Simpan Gambar Sebagai",
+    "searchWith": "Cari dengan %s", //%s will be replaced with the name of the current search engine
+    "copyLink": "Salin Tautan",
+    "copyEmailAddress": "Salin Alamat Email",
+    "selectAll": "Pilih Semua",
+    "undo": "Urungkan",
+    "redo": "Ulangi",
+    "cut": "Potong",
+    "copy": "Salin", //this is a verb (as in "copy the currently-selected text")
+    "paste": "Tempel",
+    "goBack": "Kembali",
+    "goForward": "Maju",
+    "inspectElement": "Inspeksi",
+    /* searchbar */
+    "pasteAndGo": "Paste and Go", //context menu item
+    "DDGAnswerSubtitle": "Jawaban", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+    "suggestedSite": "Situs yang disarankan", //this is used to label suggested websites from the DuckDuckGo API,
+    "resultsFromDDG": "Hasil dari DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+    "taskN": "Tugas %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+    /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+    "showMoreBangs": "Tampilkan lebih banyak",
+    "viewSettings": "Lihat Pengaturan",
+    "takeScreenshot": "Ambil Tangkapan Layar",
+    "clearHistory": "Bersihkan Semua Riwayat",
+    "enableBlocking": "Aktifkan pemblokiran konten untuk situs ini",
+    "disableBlocking": "Nonaktifkan pemblokiran konten untuk situs ini",
+    "clearHistoryConfirmation": "Bersihkan semua riwayat dan data penjelajahan?",
+    "switchToTask": "Beralih ke Tugas",
+    "createTask": "Buat Tugas",
+    "closeTask": "Tutup Tugas",
+    "moveToTask": "Pindahkan tab ini ke Tugas",
+    "nameTask": "Namakan tugas ini",
+    "addBookmark": "Tambah markah",
+    "searchBookmarks": "Cari markah",
+    "bookmarksAddTag": "Tambah penanda...",
+    "bookmarksRenameTag": "Ubah Nama Penanda",
+    "bookmarksDeleteTag": "Hapus Penanda",
+    "deleteBookmarksWithTag": "Hapus Markah dengan Penanda",
+    "bookmarksSimilarItems": "Markah serupa",
+    "searchHistory": "Riwayat pencarian",
+    "importBookmarks": "Impor markah dari berkas HTML",
+    "exportBookmarks": "Ekspor markah",
+    "runUserscript": "Jalankan userscript",
+    /* navbar */
+    "openMenu": "Buka menu", //application menu button on windows
+    "enterReaderView": "Masuk tampilan pembaca",
+    "exitReaderView": "Keluar tampilan pembaca",
+    "newTabLabel": "Tab Baru", //this is a noun, used for tabs that don't have a page loaded in them yet
+    "connectionNotSecure": "Koneksi Anda ke situs ini tidak aman.",
+    "searchbarPlaceholder": "Cari atau masukkan alamat",
+    "privateTab": "Tab penyamaran",
+    "newTabAction": "Tab Baru", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+    /* task overlay */
+    "viewTasks": "Lihat Tugas",
+    "newTask": "Tugas Baru", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "defaultTaskName": "Tugas %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+    "taskDeleteWarning": {
+      "unsafeHTML": "Tugas dihapus. <a>Urungkan?</a>"
+    },
+    "tasksSearchTabs": "Cari tab",
+    "returnToTask": "Kembali ke tugas sebelumnya",
+    "taskDescriptionTwo": "%t dan %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
+    "taskDescriptionThree": "%t, %t, dan %n lainnya", //used to describe a task that has three or more tabs
+    /* find in page toolbar */
+    "searchInPage": "Cari di Laman", //this is used as the placeholder text for the textbox in the find in page toolbar
+    "findMatchesSingular": "%i dari %t yang cocok", //this and the next label are used to indicate which match is currently highlighted
+    "findMatchesPlural": "%i dari %t yang cocok",
+    /* Focus mode */
+    "isFocusMode": "Anda di Mode Fokus.",
+    "closeDialog": "Tutup", //used as a label for the button that closes the dialog
+    "focusModeExplanation1": "Dalam mode fokus, Anda tidak bisa membuat tab baru atau beralih tugas.",
+    "focusModeExplanation2": "Anda bisa keluar dari mode fokus setelah menghapus centang \"Mode Fokus\" di menu Tampilan.",
+    /* relative dates */
+    "timeRangeJustNow": "Baru saja",
+    "timeRangeMinutes": "Beberapa menit yang lalu",
+    "timeRangeHour": "Beberapa jam yang lalu",
+    "timeRangeToday": "Hari ini",
+    "timeRangeYesterday": "Kemarin",
+    "timeRangeWeek": "Dalam seminggu terakhir",
+    "timeRangeMonth": "Dalam sebulan terakhir",
+    "timeRangeYear": "Dalam setahun terakhir",
+    "timeRangeLongerAgo": "Lebih lama lagi",
+    /* pages/error/index.html */
+    "crashErrorTitle": "Ada yang salah.",
+    "crashErrorSubtitle": "Terjadi masalah ketika menampilkan laman ini.",
+    "errorPagePrimaryAction": "Coba lagi",
+    "serverNotFoundTitle": "Server tidak ditemukan",
+    "serverNotFoundSubtitle": "Min tidak bisa mencari situs web ini.",
+    "archiveSearchAction": "Cari di archive.org",
+    "sslErrorTitle": "Situs web ini tidak tersedia",
+    "sslErrorMessage": "Min tidak dapat terhubung dengan situs web ini dengan aman.",
+    "dnsErrorTitle": "Situs web tidak ditemukan",
+    "dnsErrorMessage": "Telah terjadi error DNS.",
+    "offlineErrorTitle": "Anda tidak terhubung",
+    "offlineErrorMessage": "Sambungkan kembali ke jaringan internet dan coba lagi.",
+    "genericConnectionFail": "Min tidak dapat terhubung dengan situs web ini.",
+    "sslTimeErrorMessage": "Min tidak dapat terhubung dengan situs web ini dengan aman. Pastikan waktu komputer Anda diatur dengan benar.",
+    "addressInvalidTitle": "Alamat ini tidak sah.",
+    "genericError": "Terjadi error",
+    /* pages/phishing/index.html */
+    "phishingErrorTitle": "Situs ini dapat membahayakan Anda.",
+    "phishingErrorMessage": "Situs ini bisa jadi mencoba untuk mencuri data pribadi, seperti kata sandi atau informasi perbankan.",
+    "phishingErrorVisitAnyway": "Tetap kunjungi situs",
+    "phishingErrorLeave": "Tinggalkan situs ini",
+    /* multiple instances alert */
+    "multipleInstancesErrorMessage": "Terjadi error. Silahkan tutup instance lainnya dan mulai ulang Min.",
+    /* pages/sessionRestoreError/index.html */
+    "sessionRestoreErrorTitle": "Terjadi error",
+    "sessionRestoreErrorExplanation": "Tab tersimpan Anda tidak dapat dipulihkan dengan benar.",
+    "sessionRestoreErrorBackupInfo": "Kami telah menyimpan data cadangan di lokasi ini: %l.", //%l will be replaced with a path to a file
+    "sessionRestoreErrorLinkInfo": {
+      "unsafeHTML": "Jika error ini terus terjadi, silahkan buka issue baru <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">disini</a>."
+    },
+    /* pages/settings/index.html */
+    "settingsPreferencesHeading": "Preferensi",
+    "settingsRestartRequired": "Anda harus restart untuk menerapkan perubahan ini.",
+    "settingsPrivacyHeading": "Pemblokiran Konten",
+    "settingsContentBlockingLevel0": "Izinkan semua iklan dan pelacak",
+    "settingsContentBlockingLevel1": "Blokir iklan pihak ketiga dan pelacak",
+    "settingsContentBlockingLevel2": "Blokir semua iklan dan pelacak",
+    "settingsContentBlockingExceptions": "Iklan akan tetap diperbolehkan di situs web ini:",
+    "settingsBlockScriptsToggle": "Blokir script",
+    "settingsBlockImagesToggle": "Blokir gambar",
+    "settingsBlockedRequestCount": {
+      "unsafeHTML": "Sejauh ini, Min telah memblokir <strong></strong> iklan dan pelacak."
+    },
+    "settingsCustomBangs": "Bang Kustom",
+    "settingsCustomBangsAdd": "Tambah bang kustom",
+    "settingsCustomBangsPhrase": "Frasa (Wajib)",
+    "settingsCustomBangsSnippet": "Deskripsi (Opsional)",
+    "settingsCustomBangsRedirect": "Pengalihan URL (Wajib)",
+    "settingsCustomizeFiltersLink": "Menyesuaikan penyaring",
+    "settingsAppearanceHeading": "Tampilan",
+    "settingsEnableDarkMode": "Aktifkan mode gelap:",
+    "settingsDarkModeNever": "Tidak pernah",
+    "settingsDarkModeNight": "Saat malam hari",
+    "settingsDarkModeAlways": "Selalu",
+    "settingsDarkModeSystem": "Ikuti tema sistem",
+    "settingsSiteThemeToggle": "Aktifkan tema situs",
+    "settingsAdditionalFeaturesHeading": "Fitur Tambahan",
+    "settingsUserscriptsToggle": "Aktifkan user script",
+    "settingsShowDividerToggle": "Tampilkan pemisah antara tab",
+    "settingsSeparateTitlebarToggle": "Gunakan bilah judul terpisah",
+    "settingsAutoplayToggle": "Aktifkan Putar Otomatis",
+    "settingsOpenTabsInForegroundToggle": "Buka tab baru di latar depan",
+    "settingsUserscriptsExplanation": {
+      "unsafeHTML": "User script memungkinkan Anda untuk merubah perilaku situs web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Pelajari lebih lanjut</a>."
+    },
+    "settingsUserAgentToggle": "Gunakan user agent khusus",
+    "settingsUpdateNotificationsToggle": "Cek pembaruan secara otomatis",
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "Kirim statistik penggunaan (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Info lebih lanjut</a>)"
+    },
+    "settingsSearchEngineHeading": "Mesin Pencarian",
+    "settingsDefaultSearchEngine": "Pilih mesin pencarian utama:",
+    "settingsDDGExplanation": "Atur DuckDuckGo sebagai mesin pencarian untuk melihat jawaban instan di bilah pencarian.",
+    "customSearchEngineDescription": "Ganti pencarian menjadi %s",
+    "settingsKeyboardShortcutsHeading": "Pintasan Keyboard",
+    "settingsKeyboardShortcutsHelp": "Gunakan koma untuk memisahkan beberapa pintasan.",
+    "settingsProxyHeading": "Proxy",
+    "settingsNoProxy": "Tanpa Proxy",
+    "settingsManualProxy": "Konfigurasi Manual",
+    "settingsAutomaticProxy": "Konfigurasi Otomatis",
+    "settingsProxyRules": "Aturan proxy:",
+    "settingsProxyBypassRules": "Tidak ada proxy untuk:",
+    "settingsProxyConfigurationURL": "URL Konfigurasi",
+    /* app menu */
+    "appMenuFile": "Berkas",
+    "appMenuNewTab": "Tab Baru",
+    "appMenuDuplicateTab": "Duplikat Tab",
+    "appMenuNewPrivateTab": "Tab Penyamaran Baru",
+    "appMenuNewTask": "Tugas Baru",
+    "appMenuSavePageAs": "Simpan Laman Sebagai",
+    "appMenuPrint": "Cetak",
+    "appMenuEdit": "Edit",
+    "appMenuUndo": "Urungkan",
+    "appMenuRedo": "Ulangi",
+    "appMenuCut": "Potong",
+    "appMenuCopy": "Salin",
+    "appMenuPaste": "Tempel",
+    "appMenuSelectAll": "Pilih Semua",
+    "appMenuFind": "Cari",
+    "appMenuView": "Tampilan",
+    "appMenuZoomIn": "Perbesar",
+    "appMenuZoomOut": "Perkecil",
+    "appMenuActualSize": "Ukuran Sebenarnya",
+    "appMenuFullScreen": "Layar Penuh", //on some platforms, this string is replaced with one built-in to the OS
+    "appMenuFocusMode": "Mode Fokus",
+    "appMenuBookmarks": "Markah",
+    "appMenuHistory": "Riwayat",
+    "appMenuDeveloper": "Pengembang",
+    "appMenuReloadBrowser": "Muat Ulang Peramban",
+    "appMenuInspectBrowser": "Inspeksi Peramban",
+    "appMenuInspectPage": "Inspeksi Laman",
+    "appMenuWindow": "Jendela",
+    "appMenuMinimize": "Perkecil",
+    "appMenuClose": "Tutup",
+    "appMenuAlwaysOnTop": "Selalu di Atas",
+    "appMenuHelp": "Bantuan",
+    "appMenuKeyboardShortcuts": "Pintasan Keyboard",
+    "appMenuReportBug": "Laporkan Bug",
+    "appMenuTakeTour": "Ikuti Tur",
+    "appMenuViewGithub": "Lihat di GitHub",
+    "appMenuAbout": "Tentang %n", //%n is replaced with app name
+    "appMenuPreferences": "Preferensi",
+    "appMenuServices": "Servis",
+    "appMenuHide": "Sembunyikan %n",
+    "appMenuHideOthers": "Sembunyikan Lainnya",
+    "appMenuShowAll": "Tampilkan Semua",
+    "appMenuQuit": "Keluar %n",
+    "appMenuBringToFront": "Bawa Semua ke Depan",
+    /* PDF Viewer */
+    "PDFPageCounter": {
+      "unsafeHTML": "halaman <input type='text'/> dari <span id='total'></span>"
+    },
+    /* Context Reader */
+    "buttonReaderSettings": "Pengaturan Pembaca",
+    "buttonReaderLightTheme": "Terang",
+    "buttonReaderSepiaTheme": "Sepia",
+    "buttonReaderDarkTheme": "Gelap",
+    "openReaderView": "Selalu buka di tampilan pembaca",
+    "autoRedirectBannerReader": "Selalu buka artikel dari situs ini di tampilan pembaca?",
+    "buttonReaderRedirectYes": "Ya",
+    "buttonReaderRedirectNo": "Tidak",
+    "articleReaderView": "Artikel Asli",
+    /* Download manager */
+    "downloadCancel": "Batalkan",
+    "downloadStateCompleted": "Selesai",
+    "downloadStateFailed": "Gagal",
+    /* Update Notifications */
+    "updateNotificationTitle": "Versi baru Min tersedia",
+    /* Autofill settings */
+    "settingsPasswordAutoFillHeadline": "Isi Otomatis Kata Sandi",
+    "settingsSelectPasswordManager": "Pilih salah satu pengelola kata sandi yang didukung:",
+    "keychainViewPasswords": "Lihat kata sandi tersimpan",
+    /* Password manager setup */
+    "passwordManagerSetupHeading": "Selesaikan pemasangan %p untuk menggunakan isi otomatis",
+    "passwordManagerSetupStep1": {
+      "unsafeHTML": "Pertama, <a id='password-manager-setup-link'></a> dan extract untuk sistem Anda."
+    },
+    "passwordManagerInstallerSetup": {
+      "unsafeHTML": "Unduh <a id='password-manager-setup-link-installer'></a> dan tarik berkas ke kotak dibawah:"
+    },
+    "passwordManagerSetupLink": "unduh alat %p CLI",
+    "passwordManagerSetupLinkInstaller": "pemasang %p CLI",
+    "passwordManagerSetupStep2": "Lalu tarik alat ke kotak dibawah:",
+    "passwordManagerSetupDragBox": "Tarik alat kesini",
+    "passwordManagerSetupInstalling": "Memasang...",
+    "passwordManagerBitwardenSignIn": "Untuk menghubungkan akun Bitwarden Anda, kunjungi ke vault.bitwarden.com/#/settings/account, gulir ke bawah, dan pilih \"View API Key\". Lalu salin isinya ke bidang  dibawah.",
+    "passwordManagerSetupSignIn": "Masuk ke pengelola kata sandi Anda untuk mulai menggunakan isi otomatis. Kredensial Anda tidak akan disimpan dimana pun di dalam Min.",
+    "disableAutofill": "Nonaktifkan Isi Otomatis",
+    "passwordManagerSetupUnlockError": "Gagal membuka penyimpanan kata sandi: ",
+    "passwordManagerSetupRetry": "Pastikan Anda menggunakan berkas yang tepat dan memasukkan kata sandi yang benar. Anda bisa coba lagi dengan menarik alat ke sini lagi.",
+    "passwordManagerUnlock": "Masukan kata sandi utama %p Anda untuk membuka penyimpanan kata sandi:",
+    /* Password save bar */
+    "passwordCaptureSavePassword": "Simpan kata sandi untuk %s?",
+    "passwordCaptureSave": "Simpan",
+    "passwordCaptureDontSave": "Jangan simpan",
+    "passwordCaptureNeverSave": "Jangan pernah simpan",
+    /* Password viewer */
+    "savedPasswordsHeading": "Kata sandi tersimpan",
+    "savedPasswordsEmpty": "Tidak ada kata sandi yang tersimpan.",
+    "savedPasswordsNeverSavedLabel": "Tidak pernah tersimpan",
+    "deletePassword": "Hapus kata sandi untuk %s?",
+    /* Dialogs */
+    "loginPromptTitle": "Masuk ke %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "dialogConfirmButton": "Masuk",
+    "dialogSkipButton": "Batal",
+    "username": "Nama Pengguna",
+    "email": "Email",
+    "password": "Kata sandi",
+    "secretKey": "Kunci rahasia",
+    "openExternalApp": "Buka dengan \\\"%s\\\"?", // %s is the name of an app
+    "clickToCopy": "Klik untuk salin",
+    "copied": "Tersalin"
+  }
+}
