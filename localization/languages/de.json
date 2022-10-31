@@ -50,9 +50,9 @@
     "addBookmark": "Zu Lesezeichen hinzufügen",
     "searchBookmarks": "Lesezeichen durchsuchen",
     "bookmarksAddTag": "Schlagwort hinzufügen...",
-    "bookmarksRenameTag": null, //missing translation
-    "bookmarksDeleteTag": null, //missing translation
-    "deleteBookmarksWithTag": null, //missing translation
+    "bookmarksRenameTag": "Schlagwort umbenennen",
+    "bookmarksDeleteTag": "Schlagwort löschen",
+    "deleteBookmarksWithTag": "Lesezeichen mit Schlagwort löschen",
     "bookmarksSimilarItems": "Ähnliche Einträge",
     "searchHistory": "Verlauf durchsuchen",
     "importBookmarks": "Lesezeichen von HTML Datei importieren",
@@ -74,7 +74,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Aufgabe gelöscht. <a>Rückgängig machen?</a>"
     },
-    "tasksSearchTabs": "Such Tabs",
+    "tasksSearchTabs": "Suche Tabs",
     "returnToTask": "Zur vorherigen Aufgabe zurückkehren",
     "taskDescriptionTwo": "%t und %t",
     "taskDescriptionThree": "%t, %t, und %n mehr",
