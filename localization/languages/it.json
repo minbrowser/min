@@ -50,9 +50,9 @@
     "addBookmark": "Aggiungi preferiti",
     "searchBookmarks": "Cerca nei Preferiti",
     "bookmarksAddTag": "Aggiungi tag...",
-    "bookmarksRenameTag": null, //missing translation
-    "bookmarksDeleteTag": null, //missing translation
-    "deleteBookmarksWithTag": null, //missing translation
+    "bookmarksRenameTag": "Rinomina tag",
+    "bookmarksDeleteTag": "Elimina tag",
+    "deleteBookmarksWithTag": "Elimina Preferiti con tag",
     "bookmarksSimilarItems": "Oggetti simili",
     "searchHistory": "Cerca nella cronologia",
     "importBookmarks": "Importa preferiti da file HTML",
@@ -74,7 +74,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Task eliminato. <a>Annullare?</a>"
     },
-    "tasksSearchTabs": null, //missing translation
+    "tasksSearchTabs": "Cerca scheda",
     "returnToTask": "Torna al task precedente",
     "taskDescriptionTwo": "%t , %t",
     "taskDescriptionThree": "%t, %t, e altri %n",
@@ -152,7 +152,7 @@
     "settingsDarkModeNever": "Mai",
     "settingsDarkModeNight": "Di notte",
     "settingsDarkModeAlways": "Sempre",
-    "settingsDarkModeSystem": null,
+    "settingsDarkModeSystem": "Adotta il tema di sistema",
     "settingsSiteThemeToggle": "Abilita tema adattivo (si adatta al sito)",
     "settingsAdditionalFeaturesHeading": "Funzionalità aggiuntive",
     "settingsUserscriptsToggle": "Abilita script definiti dall'utente",
@@ -263,7 +263,7 @@
     "passwordManagerSetupStep2": "Quindi trascina il tool nel box qui sotto:",
     "passwordManagerSetupDragBox": "Trascina il tool qui",
     "passwordManagerSetupInstalling": "Installazione...",
-    "passwordManagerBitwardenSignIn": null, //missing translation
+    "passwordManagerBitwardenSignIn": "Per collegare il tuo account Bitwarden, accedi dalla pagina vault.bitwarden.com/#/settings/account, scorri fino in fondo alla pagina, e scegli \"View API Key\". Poi copia i valori nei campi sottostanti.",
     "passwordManagerSetupSignIn": "Entra nel tuo gestore di password per iniziare ad usare l'autocompletamento. Le tue credenziali non saranno salvate da nessuna parte in Min.",
     "disableAutofill": "Disabilita autocompletamento",
     "passwordManagerSetupUnlockError": "Impossibile sbloccare le password: ",
