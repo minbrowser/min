@@ -50,9 +50,9 @@
     "addBookmark": "Yer imlerine Ekle",
     "searchBookmarks": "Yer imlerini ara",
     "bookmarksAddTag": "Etiket Ekle",
-    "bookmarksRenameTag": null, //missing translation
-    "bookmarksDeleteTag": null, //missing translation
-    "deleteBookmarksWithTag": null, //missing translation
+    "bookmarksRenameTag": "Etiketi yeniden adlandır",
+    "bookmarksDeleteTag": "Etiketi kaldır",
+    "deleteBookmarksWithTag": "Etiketli yer imlerini kaldır",
     "bookmarksSimilarItems": "Benzer Olanlar",
     "searchHistory": "Arama Geçmişi",
     "importBookmarks": "Yer imlerini HTML dosyasından içe aktar",
