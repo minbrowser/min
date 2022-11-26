@@ -1,0 +1,295 @@
+{
+    "name": "Greek",
+    "identifier": "el",
+    "translations": {
+      /* Context menu items
+          these are the items displayed in the menu when you right-click on a page
+          */
+      "addToDictionary": "Προσθήκη στο λεξικό",
+      "pictureInPicture": "Εικόνα εντός εικόνας",
+      "openInNewTab": "Άνοιγμα σε νέα καρτέλα",
+      "openInNewPrivateTab": "Άνοιγμα σε νέα ιδιωτική καρτέλα",
+      "saveLinkAs": "Αποθήκευση συνδέσμου ως...",
+      "viewImage": "Προβολή εικόνας",
+      "openImageInNewTab": "Άνοιγμα εικόνας σε νέα καρτέλα",
+      "openImageInNewPrivateTab": "Άνοιγμα εικόνας σε νέα ιδιωτική καρτέλα",
+      "saveImageAs": "Αποθήκευση εικόνας ως",
+      "searchWith": "Αναζήτηση με %s", //%s will be replaced with the name of the current search engine
+      "copyLink": "Αντιγραφή συνδέσμου",
+      "copyEmailAddress": "Αντιγραφή διεύθυνσης Email",
+      "selectAll": "Επιλογή όλων",
+      "undo": "Αναίρεση",
+      "redo": "Ακύρωση αναίρεσης",
+      "cut": "Αποκοπή",
+      "copy": "Αντιγραφή", //this is a verb (as in "copy the currently-selected text")
+      "paste": "Επικόλληση",
+      "goBack": "Πάνε πίσω",
+      "goForward": "Πάνε εμπρός",
+      "inspectElement": "Επιθεώρηση στοιχείου",
+      /* searchbar */
+      "pasteAndGo": "Επικόλληση και μετάβαση", //context menu item
+      "DDGAnswerSubtitle": "Απάντηση", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+      "suggestedSite": "Προτεινόμενη ιστοσελίδα", //this is used to label suggested websites from the DuckDuckGo API,
+      "resultsFromDDG": "Αναζητήσεις απο την DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+      "taskN": "Εργασία %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+      /* custom !bangs
+          these are some of the items that show up when you press ! in the searchbar.
+          Each one of these strings describes what the command will do when you run it. */
+      "showMoreBangs": "Δείτε περισσότερα",
+      "viewSettings": "Προβολή ρυθμίσεων",
+      "takeScreenshot": "Λήψη στιγμιότυπου οθόνης",
+      "clearHistory": "Εκαθάριση όλου του ιστορικού",
+      "enableBlocking": "Ενεργοποίηση αποκλεισμού περιεχομένου για αυτήν την ιστοσελίδα",
+      "disableBlocking": "Απενεργοποίηση αποκλεισμού περιεχομένου για αυτήν την ιστοσελίδα",
+      "clearHistoryConfirmation": "Εκκαθάριση όλου του ιστορικού και δεδομένων αναζήτησης?",
+      "switchToTask": "Αλλαγή εργασίας",
+      "createTask": "Δημιουργία εργασίας",
+      "closeTask": "Κλείσιμο εργασίας",
+      "moveToTask": "Μετακίνηση καρτέλας σε εργασία",
+      "nameTask": "Ονόμασε αυτήν την εργασία",
+      "addBookmark": "Προσθήκη σελιδοδείκτη",
+      "searchBookmarks": "Αναζήτηση σελιδοδεικτών",
+      "bookmarksAddTag": "Προσθήκη ετικέτας...",
+      "bookmarksRenameTag": "Μετανομασία ετικέτας",
+      "bookmarksDeleteTag": "Διαγραφή ετικέτας",
+      "deleteBookmarksWithTag": "Διαγραφή σελιδοδεικτών με ετικέτα",
+      "bookmarksSimilarItems": "Παρόμοια αντικείμενα",
+      "searchHistory": "Ιστορικό αναζήτησης",
+      "importBookmarks": "Εισαγωγή σελιδοδεικτών απο αρχείο HTML",
+      "exportBookmarks": "Εξαγωγή σελιδοδεικτών",
+      "runUserscript": "Εκτέλεση ενός script χρήστη",
+      /* navbar */
+      "openMenu": "Άνοιγμα μενού", //application menu button on windows
+      "enterReaderView": "Εναλλαγή σε προβολή αναγνώστη",
+      "exitReaderView": "Έξοδος απο προβολή αναγνώστη",
+      "newTabLabel": "Νέα καρτέλα", //this is a noun, used for tabs that don't have a page loaded in them yet
+      "connectionNotSecure": "Η σύνδεση σας σε αυτήν την ιστοσελίδα δεν είναι ασφαλής.",
+      "searchbarPlaceholder": "Αναζητήστε ή εισάγετε μια διεύθυνση",
+      "privateTab": "Ιδιωτική καρτέλα",
+      "newTabAction": "Νέα καρτέλα", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+      /* task overlay */
+      "viewTasks": "Προβολή εργασιών",
+      "newTask": "Νέα εργασία", //"new" is a verb - it is used for a button at the bottom of the task overlay
+      "defaultTaskName": "Εργασία %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+      "taskDeleteWarning": {
+        "unsafeHTML": "Η εργασία διαγράφηκε. <a>Αναίρεση?</a>"
+      },
+      "tasksSearchTabs": "Αναζήτηση καρτέλας",
+      "returnToTask": "Επιστροφή στην προηγούμενη εργασία",
+      "taskDescriptionTwo": "%t και %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
+      "taskDescriptionThree": "%t, %t, και %n περισσότερα", //used to describe a task that has three or more tabs
+      /* find in page toolbar */
+      "searchInPage": "Εύρεση στην σελίδα", //this is used as the placeholder text for the textbox in the find in page toolbar
+      "findMatchesSingular": "%i απο %t αντιστοίχιση", //this and the next label are used to indicate which match is currently highlighted
+      "findMatchesPlural": "%i απο %t αντιστοιχίσεις",
+      /* Focus mode */
+      "isFocusMode": "Είστε σε λειτουργία συγκέντρωσης.",
+      "closeDialog": "Εντάξει", //used as a label for the button that closes the dialog
+      "focusModeExplanation1": "Όταν είστε σε λειτουργία συγκέντρωσης, δεν μπορείτε να δημιουργίσετε νέες καρτέλες ή να αλλάξετε εργασία.",
+      "focusModeExplanation2": "Μπορείτε να βγείτε απο την λειτουργία συγκέντρωσης αποεπιλέγοντας τη \"λειτουργία συγκέντρωσης\" απο το μενού Προβολή.",
+      /* relative dates */
+      "timeRangeJustNow": "Τώρα",
+      "timeRangeMinutes": "Λίγα λεπτά πρίν",
+      "timeRangeHour": "Την περασμένη ώρα",
+      "timeRangeToday": "Σήμερα",
+      "timeRangeYesterday": "Χθές",
+      "timeRangeWeek": "Την περασμένη εβδομάδα",
+      "timeRangeMonth": "Τον περασμένο μήνα",
+      "timeRangeYear": "Τον περασμένο έτος",
+      "timeRangeLongerAgo": "Πιο πρίν",
+      /* pages/error/index.html */
+      "crashErrorTitle": "Κάτι πήγε στραβά.",
+      "crashErrorSubtitle": "Παρουσιάστηκε πρόβλημα κατά την εμφάνιση αυτής της σελίδας.",
+      "errorPagePrimaryAction": "Προσπαθήστε ξανά",
+      "serverNotFoundTitle": "Δεν βρέθηκε διακομιστής",
+      "serverNotFoundSubtitle": "Το Min δεν μπόρεσε να βρεί αυτήν την ιστοσελίδα.",
+      "archiveSearchAction": "Αναζήτηση στο archive.org",
+      "sslErrorTitle": "Αυτή η ιστοσελίδα δεν είναι διαθέσιμη",
+      "sslErrorMessage": "Το Min δεν μπόρεσε να συνδεθεί με ασφάλεια σε αυτήν την ιστοσελίδα.",
+      "dnsErrorTitle": "Η ιστοσελίδα δεν βρέθηκε",
+      "dnsErrorMessage": "Προέκυψε ένα σφάλμα DNS.",
+      "offlineErrorTitle": "Δεν υπάρχει σύνδεση στο διαδίκτυο",
+      "offlineErrorMessage": "Επανασυνδεθείτε στο διαδίκτυο και δοκιμάστε ξανά.",
+      "genericConnectionFail": "Το Min δεν μπόρεσε να συνδεθεί στην ιστοσελίδα.",
+      "sslTimeErrorMessage": "Το Min δεν μπόρεσε να συνδεθεί με ασφάλεια σε αυτήν την ιστοσελίδα. Σιγουρευτείτε ότι το ρολόι του συστήματος είναι ρυθμισμένο σωστά.",
+      "addressInvalidTitle": "Αυτή η διεύθυνση είναι μη έγκυρη.",
+      "genericError": "Παρουσιάστηκε σφάλμα",
+      /* pages/phishing/index.html */
+      "phishingErrorTitle": "Αυτή η ιστοσελίδα μπορεί να σας βλάψει.",
+      "phishingErrorMessage": "Αυτή η ιστοσελίδα μπορεί να προσπαθεί να σας κλέψει προσωπικά δεδομένα, όπως κωδικούς ή στοιχεία του σας τραπεζικού λογαριασμού.",
+      "phishingErrorVisitAnyway": "Επίσκεψη ιστοσελίδας παρ' όλα αυτά",
+      "phishingErrorLeave": "Αποχώριση απο την ιστοσελίδα",
+      /* multiple instances alert */
+      "multipleInstancesErrorMessage": "Παρουσιάστηκε σφάλμα. Κλείστε τυχόν άλλα ανοιχτά παράθυρα και επανεκκινήστε το Min.",
+      /* pages/sessionRestoreError/index.html */
+      "sessionRestoreErrorTitle": "Παρουσιάστηκε σφάλμα",
+      "sessionRestoreErrorExplanation": "Δεν ήταν δυνατή η σωστή επαναφορά των αποθηκευμένων καρτελών.",
+      "sessionRestoreErrorBackupInfo": "Έχουμε αποθηκεύσει αντίγραφο ασφαλείας των δεδομένων σας στην διεύθυνση: %l.", //%l will be replaced with a path to a file
+      "sessionRestoreErrorLinkInfo": {
+        "unsafeHTML": "Εάν αυτό το σφάλμα συνεχίζει να προκύπτει, παρακαλούμε ανοίξτε ένα νέο ζήτημα <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">here</a>."
+      },
+      /* pages/settings/index.html */
+      "settingsPreferencesHeading": "Προτιμήσεις",
+      "settingsRestartRequired": "Για να εφαρμοστούν οι αλλαγές πρέπει να κάνετε επανεκκίνηση.",
+      "settingsPrivacyHeading": "Αποκλεισμός περιεχομένου",
+      "settingsContentBlockingLevel0": "Να επιτρέπονται όλες οι διαφημίσεις και οι trackers",
+      "settingsContentBlockingLevel1": "Αποκλεισμός διαφημίσεων και trackers τρίτων",
+      "settingsContentBlockingLevel2": "Αποκλεισμός όλων των διαφημίσεων και trackers",
+      "settingsContentBlockingExceptions": "Οι διαφημίσεις θα εξακολουθούν να επιτρέπονται σε αυτές τις ιστοσελίδες:",
+      "settingsBlockScriptsToggle": "Αποκλεισμός των scripts",
+      "settingsBlockImagesToggle": "Αποκλεισμός εικόνων",
+      "settingsBlockedRequestCount": {
+        "unsafeHTML": "Μέχρι στιγμής, το Min έχει αποκλέισει <strong></strong> διαφημίσει και trackers."
+      },
+      "settingsCustomBangs": "Προσαρμοσμένα bangs",
+      "settingsCustomBangsAdd": "Προσθήκη προσαρμοσμένου bang",
+      "settingsCustomBangsPhrase": "Φράση (Υποχρεωτικά)",
+      "settingsCustomBangsSnippet": "Περιγραφή (Προαιρετικά)",
+      "settingsCustomBangsRedirect": "URL για ανακατεύθυνση (Υποχρεωτικά)",
+      "settingsCustomizeFiltersLink": "Προσαρμογή φίλτρου",
+      "settingsAppearanceHeading": "Εμφάνιση",
+      "settingsEnableDarkMode": "Ενεργοποίηση dark mode:",
+      "settingsDarkModeNever": "Ποτέ",
+      "settingsDarkModeNight": "Την νύχτα",
+      "settingsDarkModeAlways": "Πάντα",
+      "settingsDarkModeSystem": "Σύμφωνα με το θέμα του συστήματος",
+      "settingsSiteThemeToggle": "Ενεργοποίηση του θέματος της ιστοσελίδας",
+      "settingsAdditionalFeaturesHeading": "Επιπλέον χαρακτηριστικά",
+      "settingsUserscriptsToggle": "Ενεργοποίηση scripts χρηστών",
+      "settingsShowDividerToggle": "Εμφάνιση διαχωριστικής γραμμής μεταξύ καρτελών",
+      "settingsSeparateTitlebarToggle": "Χρήση ξεχωριστής γραμμής τίτλου",
+      "settingsAutoplayToggle": "Ενεργοποίηση αυτοαναπαραγωγής",
+      "settingsOpenTabsInForegroundToggle": "Άνοιγμα νέας καρτέλας στο προσκήνιο",
+      "settingsUserscriptsExplanation": {
+        "unsafeHTML": "Τα scripts χρηστών σας επιτρέπουν να τροποποιήσετε την συμπεριφορά των ιστοσελίδων - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">μάθετε περισσότερα</a>."
+      },
+      "settingsUserAgentToggle": "Χρήση προσαρμοσμένου χρήστη agent",
+      "settingsUpdateNotificationsToggle": "Αυτόματος έλεγχος για ενημερώσεις",
+      "settingsUsageStatisticsToggle": {
+        "unsafeHTML": "Αποστολή στατιστικών χρήσης (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Παραπάνω πληροφορίες</a>)"
+      },
+      "settingsSearchEngineHeading": "Μηχανή αναζήτησης",
+      "settingsDefaultSearchEngine": "Επιλογή προεπιλεγμένης μηχανής αναζήτησης:",
+      "settingsDDGExplanation": "Επιλέξτε το DuckDuckGo ως προεπιλεγμένη μηχανή αναζήτησης για να βλέπετε άμεσες απαντήσεις στην γραμμή αναζήτησης.",
+      "customSearchEngineDescription": "Αντικατάσταση του όρου αναζήτησης με %s",
+      "settingsKeyboardShortcutsHeading": "Συντομέυσεις πληκτρολογίου",
+      "settingsKeyboardShortcutsHelp": "Χρησιμοποιήστε το κόμμα για να διαχωρίσετε τις συντομέυσεις μεταξύ τους.",
+      "settingsProxyHeading": "Proxy",
+      "settingsNoProxy": "Όχι Proxy",
+      "settingsManualProxy": "Χεριοκίνητη ρύθμιση",
+      "settingsAutomaticProxy": "Αυτόματη ρύθμιση",
+      "settingsProxyRules": "Κανόνες Proxy:",
+      "settingsProxyBypassRules": "Όχι proxy για:",
+      "settingsProxyConfigurationURL": "URL ρυθμίσεων",
+      /* app menu */
+      "appMenuFile": "Αρχείο",
+      "appMenuNewTab": "Νέα καρτέλα",
+      "appMenuDuplicateTab": "Αντιγραφή καρτέλας",
+      "appMenuNewPrivateTab": "Νέα ιδιωτική καρτέλα",
+      "appMenuNewTask": "Νέα εργασία",
+      "appMenuSavePageAs": "Αποθήκευση σελίδας ως",
+      "appMenuPrint": "Εκτύπωση",
+      "appMenuEdit": "Τροποποίηση",
+      "appMenuUndo": "Αναίρεση",
+      "appMenuRedo": "Ακύρωση αναίρεσης",
+      "appMenuCut": "Αποκοπή",
+      "appMenuCopy": "Αντιγραφή",
+      "appMenuPaste": "Επικόλληση",
+      "appMenuSelectAll": "Επιλογή όλων",
+      "appMenuFind": "Αναζήτηση",
+      "appMenuView": "Προβολή",
+      "appMenuZoomIn": "Μεγέθυνση",
+      "appMenuZoomOut": "Σμίκρυνση",
+      "appMenuActualSize": "Κανονικό μέγεθος",
+      "appMenuFullScreen": "Προβολή σε πλήρη οθόνη", //on some platforms, this string is replaced with one built-in to the OS
+      "appMenuFocusMode": "Λειτουργία συγκέντρωσης",
+      "appMenuBookmarks": "Σελιδοδείκτες",
+      "appMenuHistory": "Ιστορικό",
+      "appMenuDeveloper": "Προγραμματιστής",
+      "appMenuReloadBrowser": "Ανανέωση προγράμματος περιήγησης",
+      "appMenuInspectBrowser": "Επιθεώριση προγράμματος περιήγησης",
+      "appMenuInspectPage": "Επιθεώριση σελίδας",
+      "appMenuWindow": "Παράθυρο",
+      "appMenuMinimize": "Ελαχιστοποίηση",
+      "appMenuClose": "Κλείσιμο",
+      "appMenuAlwaysOnTop": "Πάντα στην κορυφή",
+      "appMenuHelp": "Βοήθεια",
+      "appMenuKeyboardShortcuts": "Συντομέυσεις πληκτρολογίου",
+      "appMenuReportBug": "Αναφορά προβλήματος",
+      "appMenuTakeTour": "Κάντε μια ξενάγηση",
+      "appMenuViewGithub": "Προβολή στο GitHub",
+      "appMenuAbout": "Περισσότερα για %n", //%n is replaced with app name
+      "appMenuPreferences": "Προτιμήσεις",
+      "appMenuServices": "Υπηρεσίες",
+      "appMenuHide": "Απόκρυψη %n",
+      "appMenuHideOthers": "Απόκρυψη άλλων",
+      "appMenuShowAll": "Προβολή όλων",
+      "appMenuQuit": "Κλείσιμο %n",
+      "appMenuBringToFront": "Μετακίνηση όλων στο προσκήνιο",
+      /* PDF Viewer */
+      "PDFPageCounter": {
+        "unsafeHTML": "σελίδα <input type='text'/> απο <span id='total'></span>"
+      },
+      /* Context Reader */
+      "buttonReaderSettings": "Ρυθμίσεις αναγνώστη",
+      "buttonReaderLightTheme": "Φωτεινό",
+      "buttonReaderSepiaTheme": "Καστανό",
+      "buttonReaderDarkTheme": "Σκοτεινό",
+      "openReaderView": "Άνοιγμα πάντα σε προβολή αναγνώστη",
+      "autoRedirectBannerReader": "Να ανοίγουν πάντα σε προβολή αναγνώστη τα άρθρα από αυτόν τον ιστότοπο?",
+      "buttonReaderRedirectYes": "Ναι",
+      "buttonReaderRedirectNo": "Όχι",
+      "articleReaderView": "Πρωτότυπο άρθρο",
+      /* Download manager */
+      "downloadCancel": "Ακύρωση",
+      "downloadStateCompleted": "Ολοκληρώθηκε",
+      "downloadStateFailed": "Απέτυχε",
+      /* Update Notifications */
+      "updateNotificationTitle": "Μια καινούργια έκδοση του Min είναι διαθέσιμη",
+      /* Autofill settings */
+      "settingsPasswordAutoFillHeadline": "Αυτόματη συμπλήρωση κωδικού πρόσβασης",
+      "settingsSelectPasswordManager": "Επίλέξτε έναν απο τους υποστηριζόμενους διαχειριστές κωδικών πρόσβασης:",
+      "keychainViewPasswords": "Προβολή αποθηκευμένων κωδικών πρόσβασης",
+      /* Password manager setup */
+      "passwordManagerSetupHeading": "Ολοκληρώστε τη ρύθμιση %p για να χρησιμοποιείτε την αυτόματη συμπλήρωση",
+      "passwordManagerSetupStep1": {
+        "unsafeHTML": "Αρχικά, <a id='password-manager-setup-link'></a> και εξάγετέ το για το σύστημά σας."
+      },
+      "passwordManagerInstallerSetup": {
+        "unsafeHTML": "Λήψη <a id='password-manager-setup-link-installer'></a> και σείρετε το αρχείο στο πλαίσιο παρακάτω:"
+      },
+      "passwordManagerSetupLink": "λήψη του εργαλείου %p CLI ",
+      "passwordManagerSetupLinkInstaller": "το πρόγραμμα εγκατάστασης %p CLI ",
+      "passwordManagerSetupStep2": "Στην συνέχεια σείρετε το εργαλείο στο πλαίσιο παρακάτω:",
+      "passwordManagerSetupDragBox": "Σείρετε το εργαλείο εδώ",
+      "passwordManagerSetupInstalling": "Εγκατάσταση...",
+      "passwordManagerBitwardenSignIn": "Για να συνδεθείτε στο λογαριασμο Bitwarden, επισκεφτείτε το vault.bitwarden.com/#/settings/account, πηγένετε στο τέλος της σελίδας, και επιλέξτε \"View API Key\". Στην συνέχεια επικολλήστε τις τιμές στα παρακάτω πεδία.",
+      "passwordManagerSetupSignIn": "Συνδεθείτε στον διαχειριστή κωδικών πρόσβασης για να ξεκινήσετε να χρησιμοποιείτε την αυτόματη συμπλήρωση. Τα διαπιστευτήριά σας δεν θα αποθηκευτούν πουθενά μέσα στο Min.",
+      "disableAutofill": "Απενεργοποίηση αυτόματης συμπλήρωσης",
+      "passwordManagerSetupUnlockError": "Αποτυχία ξεκλειδώματος του χώρου αποθήκευσης κωδικών πρόσβασης:",
+      "passwordManagerSetupRetry": "Επιβεβαιώστε ότι χρησιμοποιείτε το σωστό αρχείο και ότι εισάγετε το σωστό κωδικό πρόσβασης. Μπορείτε να ξαναδοκιμάσετε σέρνοντας το εργαλείο ξανά εδώ.",
+      "passwordManagerUnlock": "Εισαγάγετε τον κύριο κωδικό πρόσβασης %p για να ξεκλειδώσετε το χώρο αποθήκευσης κωδικών πρόσβασης:",
+      /* Password save bar */
+      "passwordCaptureSavePassword": "Αποθήκευση κωδικού πρόσβασης για %s?",
+      "passwordCaptureSave": "Αποθήκευση",
+      "passwordCaptureDontSave": "Μην γίνει αποθήκευση",
+      "passwordCaptureNeverSave": "Ποτέ να μην γίνει αποθήκευση",
+      /* Password viewer */
+      "savedPasswordsHeading": "Αποθηκευμένοι κωδικοί πρόσβασης",
+      "savedPasswordsEmpty": "Δεν υπάρχυον αποθηκευμένοι κωδικοί πρόσβασης.",
+      "savedPasswordsNeverSavedLabel": "Δεν αποθηκεύτηκε ποτέ",
+      "deletePassword": "Διαγραφή κωδικού για %s?",
+      /* Dialogs */
+      "loginPromptTitle": "Είσοδος στο %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+      "dialogConfirmButton": "Επιβεβαίωση",
+      "dialogSkipButton": "Ακύρωση",
+      "username": "Όνομα χρήστη",
+      "email": "Διεύθυνση Email",
+      "password": "Κωδικός πρόσβασης",
+      "secretKey": "Μυστικό κλειδί",
+      "openExternalApp": "Άνοιγμα σε \\\"%s\\\"?", // %s is the name of an app
+      "clickToCopy": "Κάντε κλίκ για αντιγραφή",
+      "copied": "Αντεγράφη"
+    }
+  }
+  
