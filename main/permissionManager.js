@@ -53,6 +53,12 @@ function isPermissionGrantedForOrigin (requestOrigin, requestPermission, request
         if (requestDetails.mediaTypes && requestDetails.mediaTypes.every(type => grantedPermissions[i].details.mediaTypes.includes(type))) {
           return true
         }
+
+        //type 3: a general media permission with no specific type
+        //occurs immediately after granting a more specific permission type
+        if (!requestDetails.mediaType && !requestDetails.mediaTypes && grantedPermissions[i].permission === 'media') {
+          return true
+        }
       }
     }
   }
