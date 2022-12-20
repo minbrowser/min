@@ -168,7 +168,11 @@
       "settingsUsageStatisticsToggle": {
         "unsafeHTML": "Αποστολή στατιστικών χρήσης (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Παραπάνω πληροφορίες</a>)"
       },
-      "settingsSearchEngineHeading": "Μηχανή αναζήτησης",
+      "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsSearchEngineHeading": "Μηχανή αναζήτησης",
       "settingsDefaultSearchEngine": "Επιλογή προεπιλεγμένης μηχανής αναζήτησης:",
       "settingsDDGExplanation": "Επιλέξτε το DuckDuckGo ως προεπιλεγμένη μηχανή αναζήτησης για να βλέπετε άμεσες απαντήσεις στην γραμμή αναζήτησης.",
       "customSearchEngineDescription": "Αντικατάσταση του όρου αναζήτησης με %s",

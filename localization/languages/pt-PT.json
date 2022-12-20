@@ -168,6 +168,10 @@
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Enviar estatísticas de utilização (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Mais informação</a>)"
     },
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
     "settingsSearchEngineHeading": "Motor de pesquisa",
     "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",
     "settingsDDGExplanation": "Defina DuckDuckGo como motor de pesquisa padrão para poder obter sugestões imediatas na barra de pesquisa.",

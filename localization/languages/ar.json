@@ -168,6 +168,10 @@
     "settingsUsageStatisticsToggle": {
       "unsafeHTML":"إرسال إحصائيات المستخدم - <a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">معرفة المزيد</a>"
     },
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
     "settingsSearchEngineHeading": "محرك بحث",
     "settingsDefaultSearchEngine": "اختر محرك بحث اساسي",
     "settingsDDGExplanation": "كمحرك بحث اساسي لرؤية النتائج الآنية في مربع البحث DuckDuckGo ",

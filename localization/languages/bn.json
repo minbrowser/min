@@ -166,6 +166,10 @@
     "settingsUserAgentToggle": "একটি কাস্টম ব্যবহারকারী এজেন্ট ব্যবহার করুন",
     "settingsUpdateNotificationsToggle": "স্বয়ংক্রিয়ভাবে আপডেটগুলির জন্য পরীক্ষা করুন",
     "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
     "settingsSearchEngineHeading": "খোঁজ যন্ত্র",
     "settingsDefaultSearchEngine": "একটি ডিফল্ট অনুসন্ধান ইঞ্জিন চয়ন করুন:",
     "settingsDDGExplanation": "Searchbar এ তাত্ক্ষণিক উত্তর দেখতে ডিফল্ট অনুসন্ধান ইঞ্জিন হিসাবে DuckDuckGo সেট করুন।",

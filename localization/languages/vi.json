@@ -161,7 +161,11 @@
         "settingsUsageStatisticsToggle": {
           "unsafeHTML": "Gửi thống kê sử dụng (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Xem thêm</a>)"
         },
-        "settingsSearchEngineHeading": "Công cụ tìm kiếm",
+        "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsSearchEngineHeading": "Công cụ tìm kiếm",
         "settingsDefaultSearchEngine": "Chọn công cụ tìm kiếm mặc định:",
         "settingsDDGExplanation": "Đặt DuckDuckGo thành công cụ tìm kiếm mặc định để xem câu trả lời ngay trong thanh tìm kiếm.",
         "customSearchEngineDescription": "Thay thế thuật ngữ tìm kiếm bằng with %s",

@@ -169,6 +169,10 @@
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Надсилати статистику використання (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Детальніше</a>)"
     },
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
     "settingsSearchEngineHeading": "Пошукова система",
     "settingsDefaultSearchEngine": "Виберіть типову пошукову систему:",
     "settingsDDGExplanation": "Встановіть DuckDuckGo як типову пошукову систему, щоб побачити миттєві відповіді на панелі пошуку.",
