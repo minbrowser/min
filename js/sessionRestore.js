@@ -2,6 +2,7 @@ var browserUI = require('browserUI.js')
 var webviews = require('webviews.js')
 var tabEditor = require('navbar/tabEditor.js')
 var tabState = require('tabState.js')
+var settings = require('util/settings/settings.js')
 
 const sessionRestore = {
   savePath: window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
@@ -20,6 +21,15 @@ const sessionRestore = {
       data.state.tasks[i].tabs = data.state.tasks[i].tabs.filter(function (tab) {
         return !tab.private
       })
+    }
+
+    //if startupTabOption is "open a new blank task", don't save any tabs in the current task
+    if (settings.get('startupTabOption') === 3) {
+      for (var i = 0; i < data.state.tasks.length; i++) {
+        if (data.state.tasks[i].id === data.state.selectedTask) {
+          data.state.tasks[i].tabs = []
+        }
+      }
     }
 
     if (forceSave === true || stateString !== sessionRestore.previousState) {
@@ -42,6 +52,13 @@ const sessionRestore = {
     } catch (e) {
       console.warn('failed to read session restore data', e)
     }
+
+    var startupConfigOption = settings.get('startupTabOption') || 2
+    /*
+    1 - reopen last task
+    2 - open new task, keep old tabs in background
+    3 - discard old tabs and open new task
+    */
 
     /*
     Disabled - show a user survey on startup
@@ -94,7 +111,7 @@ const sessionRestore = {
 
       // switch to the previously selected tasks
 
-      if (tasks.getSelected().tabs.isEmpty() || (!data.saveTime || Date.now() - data.saveTime < 30000)) {
+      if (tasks.getSelected().tabs.isEmpty() || startupConfigOption === 1) {
         browserUI.switchToTask(data.state.selectedTask)
         if (tasks.getSelected().tabs.isEmpty()) {
           tabEditor.show(tasks.getSelected().tabs.getSelected())

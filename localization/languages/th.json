@@ -168,6 +168,10 @@
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "ส่งสถิติการใช้งาน (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">ข้อมูลเพิ่มเติม</a>)"
     },
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
     "settingsSearchEngineHeading": "เครื่องมือค้นหา",
     "settingsDefaultSearchEngine": "เลือกเครื่องมือค้นหาเริ่มต้น:",
     "settingsDDGExplanation": "ตั้งค่า DuckDuckGo เป็นเครื่องมือค้นหาเริ่มต้นเพื่อดูคำตอบทันทีในแถบค้นหา",

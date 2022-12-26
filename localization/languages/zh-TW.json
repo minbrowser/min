@@ -168,6 +168,10 @@
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "傳送使用統計資料 (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">更多資訊</a>)"
     },
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
     "settingsSearchEngineHeading": "搜尋引擎",
     "settingsDefaultSearchEngine": "選擇預設的搜索引擎：",
     "settingsDDGExplanation": "將 DuckDuckGo 設為預設的搜索引擎可以直接在網址欄查看搜尋結果",

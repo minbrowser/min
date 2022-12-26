@@ -230,6 +230,18 @@ siteThemeCheckbox.addEventListener('change', function (e) {
   settings.set('siteTheme', this.checked)
 })
 
+/* startup settings */
+
+var startupSettingInput = document.getElementById('startup-options')
+
+settings.get('startupTabOption', function(value = 2) {
+  startupSettingInput.value = value
+})
+
+startupSettingInput.addEventListener('change', function() {
+  settings.set('startupTabOption', parseInt(this.value))
+})
+
 /* userscripts setting */
 
 settings.get('userscriptsEnabled', function (value) {

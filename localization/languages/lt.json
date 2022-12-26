@@ -166,6 +166,10 @@
     "settingsUserAgentToggle": null, //missing translation
     "settingsUpdateNotificationsToggle": "Automatiškai tikrinti ar yra atnaujinimų",
     "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
     "settingsSearchEngineHeading": "Paieškos sistema",
     "settingsDefaultSearchEngine": "Pasirinkite numatytąją paieškos sistemą:",
     "settingsDDGExplanation": "Nustatykite DuckDuckGo kaip numatytąją paieškos sistemą, norėdami paieškos juostoje matyti greitus atsakymus.",

@@ -168,7 +168,11 @@
       "settingsUsageStatisticsToggle": {
         "unsafeHTML": "Адпраўляць статыстыку выкарыстання (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Больш інфармацыі</a>)"
       },
-      "settingsSearchEngineHeading": "Пошукавік",
+      "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsSearchEngineHeading": "Пошукавік",
       "settingsDefaultSearchEngine": "Выберыце пошукавую сістэму па змаўчанні:",
       "settingsDDGExplanation": "Каб бачыць імгненныя адказы ў радку пошуку, усталюйце DuckDuckGo пошукавікам па змаўчанні.",
       "customSearchEngineDescription": "Замяніць пошукавы тэрмін на %s",

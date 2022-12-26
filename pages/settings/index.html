@@ -136,6 +136,17 @@
       <h3 data-string="settingsAdditionalFeaturesHeading"></h3>
 
       <div class="setting-section">
+        <label for="startupOptions" data-string="settingsStartupOptions"></label>
+        <select id="startup-options" name="startupOptions">
+          <option value="1" data-string="settingsStartupCreateTask"></option>
+          <option 
+          value="2" data-string="settingsStartupNewTaskandBackground"></option>
+          <option value="3"
+          data-string="settingsStartupNewTaskOnly"></option>
+        </select>
+      </div>
+
+      <div class="setting-section">
         <input type="checkbox" id="checkbox-userscripts" />
         <label
           for="checkbox-userscripts"

@@ -164,6 +164,10 @@
     "settingsUserAgentToggle": null, //missing translation
     "settingsUpdateNotificationsToggle": null, //missing translation
     "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
     "settingsSearchEngineHeading": "Keresőmotor",
     "settingsDefaultSearchEngine": "Válasza ki az alap keresőmotort:",
     "settingsDDGExplanation": "Állitsa be a DuckDuckGo keresőmotort, hogy lássa a válaszokat a keresősorban.",

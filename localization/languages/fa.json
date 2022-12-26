@@ -167,6 +167,10 @@
     "settingsUserAgentToggle": null, //missing translation
     "settingsUpdateNotificationsToggle": null, //missing translation
     "settingsUsageStatisticsToggle": null, //missing translation
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
     "settingsSearchEngineHeading": "موتور جستجو",
     "settingsDefaultSearchEngine": "انتخاب موتور جستجوی پیش فرض:",
     "settingsDDGExplanation": "DuckDuckGo را به عنوان موتور جستجوی پیش فرض تنظیم کنید تا در نوار جستجو نتایج آنی ببینید.",

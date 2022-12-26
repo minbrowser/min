@@ -168,6 +168,10 @@
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Sende anonyme Nutzungsstatistiken (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Mehr Infos</a>)"
     },
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
     "settingsSearchEngineHeading": "Suchmaschine",
     "settingsDefaultSearchEngine": "Standardsuchmaschine auswählen:",
     "settingsDDGExplanation": "DuckDuckGo als Standardsuchmaschine einstellen, um Vorschläge sofort in der Suchleiste zu erhalten.",

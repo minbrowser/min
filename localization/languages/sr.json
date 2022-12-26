@@ -168,6 +168,10 @@
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Šalji statistiku korišćenja (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">More info</a>)"
     },
+    "settingsStartupOptions": null, //missing translation
+    "settingsStartupCreateTask": null, //missing translation
+    "settingsStartupNewTaskandBackground": null, //missing translation
+    "settingsStartupNewTaskOnly": null, //missing translation
     "settingsSearchEngineHeading": "Pretraživač",
     "settingsDefaultSearchEngine": "Odaberi uobičajeni pretraživač:",
     "settingsDDGExplanation": "Postavite DuckDuckGo kao uobičajeni pretraživač da biste videli odgovore u traci za adresu.",

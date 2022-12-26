@@ -168,6 +168,10 @@
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Send usage statistics (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">More info</a>)"
     },
+    "settingsStartupOptions": "When Min starts: ",
+    "settingsStartupCreateTask": "Re-open previous tabs",
+    "settingsStartupNewTaskandBackground": "Move previous tabs to a background task",
+    "settingsStartupNewTaskOnly": "Open a new blank task",
     "settingsSearchEngineHeading": "Search Engine",
     "settingsDefaultSearchEngine": "Choose a default search engine:",
     "settingsDDGExplanation": "Set DuckDuckGo as the default search engine to see instant answers in the searchbar.",
