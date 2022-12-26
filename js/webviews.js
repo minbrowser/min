@@ -163,12 +163,22 @@ const webviews = {
       }
 
       const viewMargins = webviews.viewMargins
-      return {
+
+      let position = {
         x: 0 + Math.round(viewMargins[3]),
         y: 0 + Math.round(viewMargins[0]) + navbarHeight,
         width: window.innerWidth - Math.round(viewMargins[1] + viewMargins[3]),
         height: window.innerHeight - Math.round(viewMargins[0] + viewMargins[2]) - navbarHeight
       }
+
+      //Electron is inconsistent in what y: 0 means: https://github.com/electron/electron/issues/35994
+      //on macOS, y: 0 places the view under the titlebar, so it needs to be shifted down by the titlebar height
+      //TODO revisit this in a future Electron version
+      if (window.platformType === 'mac' && hasSeparateTitlebar && !windowIsFullscreen) {
+        position.y += 28
+      }
+
+      return position
     }
   },
   add: function (tabId, existingViewId) {
