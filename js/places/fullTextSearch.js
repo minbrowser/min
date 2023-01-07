@@ -297,21 +297,27 @@ function fullTextPlacesSearch (searchText, callback) {
 
       const snippetIndex = doc.extractedText ? doc.extractedText.split(/\s+/g) : []
 
-      // array of 0 or 1 - 1 indicates this item in the snippetIndex is a search word
-      const mappedArr = snippetIndex.map(w => searchWords.includes(stemmer(w.toLowerCase().replace(nonLetterRegex, ''))) ? 1 : 0)
+      // tokenize the words the same way as the search words are tokenized
+      const mappedWords = snippetIndex.map(w => stemmer(w.toLowerCase().replace(nonLetterRegex, '')))
 
-      // find the bounds of the max subarray within mappedArr
+      // find the bounds of the subarray of mappedWords with the largest number of unique search words
       let indexBegin = -10
       let indexEnd = 0
-      let currentScore = 0
       let maxScore = 0
       let maxBegin = -10
       let maxEnd = 0
-      for (let i2 = 0; i2 < mappedArr.length; i2++) {
-        if (indexBegin >= 0) {
-          currentScore -= mappedArr[indexBegin]
+      for (let i2 = 0; i2 < mappedWords.length; i2++) {
+        //count number of unique search words in the range
+        let currentScore = 0
+        for (let word of searchWords) {
+          for (let i3 = Math.max(indexBegin, 0); i3 <= indexEnd; i3++) {
+            if (mappedWords[i3] === word) {
+              currentScore++
+              break
+            }
+          }
         }
-        currentScore += mappedArr[indexEnd]
+
         if (currentScore > maxScore || (currentScore > 0 && currentScore === maxScore && (indexBegin - maxBegin <= 1))) {
           maxBegin = indexBegin
           maxEnd = indexEnd
