@@ -1,6 +1,5 @@
 /* Uses Electron's safeStorage to encrypt a password file - encryption key gets stored in the system keychain */
 
-const keytar = require('keytar')
 const safeStorage = require('electron').safeStorage
 const passwordFilePath = path.join(userDataPath, 'passwordStore')
 
@@ -78,20 +77,3 @@ ipc.handle('credentialStoreDeletePassword', async function (event, account) {
 ipc.handle('credentialStoreGetCredentials', async function () {
   return readSavedPasswordFile().credentials
 })
-
-/* On startup, migrate everything from keychain */
-
-setTimeout(function () {
-  if (!settings.get('v1_23_keychainMigrationComplete')) {
-    keytar.findCredentials('Min saved password').then(function (results) {
-      results.forEach(function (result) {
-        credentialStoreSetPassword({
-          domain: JSON.parse(result.account).domain,
-          username: JSON.parse(result.account).username,
-          password: result.password
-        })
-      })
-      settings.set('v1_23_keychainMigrationComplete', true)
-    })
-  }
-}, 5000)

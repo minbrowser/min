@@ -33,7 +33,6 @@
     "dragula": "github:minbrowser/dragula",
     "electron-squirrel-startup": "^1.0.0",
     "expr-eval": "^2.0.2",
-    "keytar": "^7.9.0",
     "mousetrap": "^1.5.3",
     "node-abi": "^3.8.0",
     "pdfjs-dist": "2.12.313",
