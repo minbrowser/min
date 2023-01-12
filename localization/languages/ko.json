@@ -50,9 +50,9 @@
     "addBookmark": "즐겨찾기 추가",
     "searchBookmarks": "즐겨찾기 검색",
     "bookmarksAddTag": "꼬리표 추가...",
-    "bookmarksRenameTag": null, //missing translation
-    "bookmarksDeleteTag": null, //missing translation
-    "deleteBookmarksWithTag": null, //missing translation
+    "bookmarksRenameTag": "꼬리표 이름 변경",
+    "bookmarksDeleteTag": "꼬리표 삭제",
+    "deleteBookmarksWithTag": "즐겨찾기와 꼬리표 삭제",
     "bookmarksSimilarItems": "비슷한 항목",
     "searchHistory": "기록 검색",
     "importBookmarks": "즐겨찾기 목록 가져오기",
@@ -168,10 +168,10 @@
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "사용량 현황 데이터 수집 사용 (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">자세히 보기</a>)"
     },
-    "settingsStartupOptions": null, //missing translation
-    "settingsStartupCreateTask": null, //missing translation
-    "settingsStartupNewTaskandBackground": null, //missing translation
-    "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsStartupOptions": "민(Min)을 실행할 때: ",
+    "settingsStartupCreateTask": "마지막 작업 열기",
+    "settingsStartupNewTaskandBackground": "마지막 작업을 백그라운드로 이동",
+    "settingsStartupNewTaskOnly": "새 작업장 열기",
     "settingsSearchEngineHeading": "검색 도구",
     "settingsDefaultSearchEngine": "기본 검색 도구:",
     "settingsDDGExplanation": "덕덕고(DuckDuckGo)를 기본 검색 도구로 설정하여 검색 창에서 바로 검색해 보세요.",
@@ -267,7 +267,7 @@
     "passwordManagerSetupStep2": "그 다음 도구를 아래 박스 안에 끌어다 놓습니다:",
     "passwordManagerSetupDragBox": "도구를 여기에 끌어다 놓으세요.",
     "passwordManagerSetupInstalling": "설치하는 중...",
-    "passwordManagerBitwardenSignIn": null, //missing translation
+    "passwordManagerBitwardenSignIn": "당신의 비트워든(Bitwarden) 계정에 연결하려면 vault.bitwarden.com/#/settings/account URL에 접속해 스크롤을 아래로 내려 \"View API Key\"를 선택한 후 아래 필드에 값을 붙여넣으세요.",
     "passwordManagerSetupSignIn": "자동완성을 사용하려면 비밀번호 관리자에 로그인하세요. 귀하의 자격증명은 민(Min)의 그 어디에도 저장되지 않습니다.",
     "disableAutofill": "자동완성 비활성화",
     "passwordManagerSetupUnlockError": "비밀번호 저장소를 여는데 실패했습니다: ",
