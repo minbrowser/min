@@ -56,8 +56,16 @@ const windowSync = {
 
         if (event[0] === 'task-selected' && event[1] === priorSelectedTask) {
           // our task is being taken by another window
-          // TODO find an unselected task instead of making a new one - need to track selected task per window
-          browserUI.addTask()
+          //switch to an empty task not open in any window, if possible
+          var newTaskCandidates = tasks.filter(task => task.tabs.isEmpty() && !task.selectedInWindow)
+          .sort((a, b) => {
+            return tasks.getLastActivity(b.id) - tasks.getLastActivity(a.id)
+          })
+          if (newTaskCandidates.length > 0) {
+            browserUI.switchToTask(newTaskCandidates[0].id)
+          } else {
+            browserUI.addTask()
+          }
         }
         // close window if its task is destroyed
         if (event[0] === 'task-destroyed' && event[1] === priorSelectedTask) {
