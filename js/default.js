@@ -8,6 +8,8 @@ process.argv.forEach(function (arg) {
   }
 })
 
+window.windowId = globalArgs['window-id']
+
 window.electron = require('electron')
 window.fs = require('fs')
 window.EventEmitter = require('events')

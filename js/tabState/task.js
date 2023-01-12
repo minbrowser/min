@@ -3,7 +3,6 @@ const TabStack = require('tabRestore.js')
 
 class TaskList {
   constructor () {
-    this.selected = null
     this.tasks = [] // each task is {id, name, tabs: [], tabHistory: TabStack}
     this.events = []
     this.pendingCallbacks = []
@@ -13,6 +12,8 @@ class TaskList {
   on (name, fn) {
     this.events.push({ name, fn })
   }
+
+  static temporaryProperties = ['selectedInWindow']
 
   emit (name, ...data) {
     this.events.forEach(listener => {
@@ -37,7 +38,8 @@ class TaskList {
       tabs: new TabList(task.tabs, this),
       tabHistory: new TabStack(task.tabHistory),
       collapsed: task.collapsed, // this property must stay undefined if it is already (since there is a difference between "explicitly uncollapsed" and "never collapsed")
-      id: task.id || String(TaskList.getRandomId())
+      id: task.id || String(TaskList.getRandomId()),
+      selectedInWindow: task.selectedInWindow || null,
     }
 
     if (index) {
@@ -55,8 +57,20 @@ class TaskList {
 
   getStringifyableState () {
     return {
-      tasks: this.tasks.map(task => Object.assign({}, task, { tabs: task.tabs.getStringifyableState() })),
-      selectedTask: this.selected
+      tasks: this.tasks.map(task => Object.assign({}, task, { tabs: task.tabs.getStringifyableState() })).map(function(task) {
+        //remove temporary properties from task
+        let result = {}
+        Object.keys(task)
+        .filter(key => !TaskList.temporaryProperties.includes(key))
+        .forEach(key => result[key] = task[key])
+        return result
+      })
+    }
+  }
+
+  getCopyableState () {
+    return {
+      tasks: this.tasks.map(task => Object.assign({}, task, {tabs: task.tabs.tabs}))
     }
   }
 
@@ -65,7 +79,7 @@ class TaskList {
   }
 
   getSelected () {
-    return this.get(this.selected)
+    return this.find(task => task.selectedInWindow === windowId)
   }
 
   byIndex (index) {
@@ -80,13 +94,22 @@ class TaskList {
     return this.tasks.findIndex(task => task.id === id)
   }
 
-  setSelected (id, emit = true) {
-    this.selected = id
-    window.tabs = this.get(id).tabs
-    if (emit) {
-      this.emit('task-selected', id)
-      if (tabs.getSelected()) {
-        this.emit('tab-selected', tabs.getSelected(), id)
+  setSelected (id, emit = true, onWindow=windowId) {
+    for (var i = 0; i < this.tasks.length; i++) {
+      if (this.tasks[i].selectedInWindow === onWindow) {
+        this.tasks[i].selectedInWindow = null
+      }
+      if (this.tasks[i].id === id) {
+        this.tasks[i].selectedInWindow = onWindow
+      }
+    }
+    if (onWindow === windowId) {
+      window.tabs = this.get(id).tabs
+      if (emit) {
+        this.emit('task-selected', id)
+        if (tabs.getSelected()) {
+          this.emit('tab-selected', tabs.getSelected(), id)
+        }
       }
     }
   }
@@ -104,17 +127,12 @@ class TaskList {
     if (index < 0) return false
 
     this.tasks.splice(index, 1)
-
-    if (this.selected === id) {
-      this.selected = null
-    }
-
+  
     return index
   }
 
   destroyAll () {
     this.tasks = []
-    this.selected = null
   }
 
   getLastActivity (id) {

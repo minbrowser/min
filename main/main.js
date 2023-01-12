@@ -198,6 +198,7 @@ function createWindowWithBounds (bounds) {
         '--app-version=' + app.getVersion(),
         '--app-name=' + app.getName(),
         ...((isDevelopmentMode ? ['--development-mode'] : [])),
+        '--window-id=' + windows.nextId,
         ...((windows.getAll().length === 0 ? ['--initial-window'] : [])),
       ]
     }
@@ -417,10 +418,13 @@ ipc.on('quit', function () {
   app.quit()
 })
 
-ipc.on('tab-state-change', function(e, data) {
+ipc.on('tab-state-change', function(e, events) {
   windows.getAll().forEach(function(window) {
     if (window.webContents.id !== e.sender.id) {
-      window.webContents.send('tab-state-change-receive', data)
+      window.webContents.send('tab-state-change-receive', {
+        sourceWindowId: windows.windowFromContents(e.sender).id,
+        events
+      })
     }
   })
 })

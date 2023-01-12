@@ -38,12 +38,12 @@ ipc.handle('showFocusModeDialog2', function () {
 })
 
 ipc.handle('showOpenDialog', async function (e, options) {
-  const result = await dialog.showOpenDialog(windows.windowFromContents(e.sender), options)
+  const result = await dialog.showOpenDialog(windows.windowFromContents(e.sender).win, options)
   return result.filePaths
 })
 
 ipc.handle('showSaveDialog', async function (e, options) {
-  const result = await dialog.showSaveDialog(windows.windowFromContents(e.sender), options)
+  const result = await dialog.showSaveDialog(windows.windowFromContents(e.sender).win, options)
   return result.filePath
 })
 
@@ -87,27 +87,27 @@ ipc.handle('clearStorageData', function () {
 /* window actions */
 
 ipc.handle('minimize', function (e) {
-  windows.windowFromContents(e.sender).minimize()
+  windows.windowFromContents(e.sender).win.minimize()
   // workaround for https://github.com/minbrowser/min/issues/1662
   e.sender.send('minimize')
 })
 
 ipc.handle('maximize', function (e) {
-  windows.windowFromContents(e.sender).maximize()
+  windows.windowFromContents(e.sender).win.maximize()
   // workaround for https://github.com/minbrowser/min/issues/1662
   e.sender.send('maximize')
 })
 
 ipc.handle('unmaximize', function (e) {
-  windows.windowFromContents(e.sender).unmaximize()
+  windows.windowFromContents(e.sender).win.unmaximize()
   // workaround for https://github.com/minbrowser/min/issues/1662
   e.sender.send('unmaximize')
 })
 
 ipc.handle('close', function (e) {
-  windows.windowFromContents(e.sender).close()
+  windows.windowFromContents(e.sender).win.close()
 })
 
 ipc.handle('setFullScreen', function (e, fullScreen) {
-  windows.windowFromContents(e.sender).setFullScreen(e, fullScreen)
+  windows.windowFromContents(e.sender).win.setFullScreen(e, fullScreen)
 })

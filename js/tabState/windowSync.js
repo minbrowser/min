@@ -18,7 +18,8 @@ const windowSync = {
       }
     })
 
-    ipc.on('tab-state-change-receive', function (e, events) {
+    ipc.on('tab-state-change-receive', function (e, data) {
+      const {sourceWindowId, events} = data
       events.forEach(function (event) {
         const priorSelectedTask = tasks.getSelected().id
 
@@ -27,7 +28,7 @@ const windowSync = {
             tasks.add(event[2], event[3], false)
             break
           case 'task-selected':
-            // tasks.setSelected(event[1], false)
+            tasks.setSelected(event[1], false, sourceWindowId)
             break
           case 'task-destroyed':
             tasks.destroy(event[1], false)

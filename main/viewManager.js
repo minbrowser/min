@@ -221,7 +221,7 @@ function destroyAllViews () {
 }
 
 function setView (id, senderContents) {
-  const win = windows.windowFromContents(senderContents)
+  const win = windows.windowFromContents(senderContents).win
 
   // setBrowserView causes flickering, so we only want to call it if the view is actually changing
   // see https://github.com/minbrowser/min/issues/1966
@@ -252,7 +252,7 @@ function focusView (id) {
 }
 
 function hideCurrentView (senderContents) {
-  const win = windows.windowFromContents(senderContents)
+  const win = windows.windowFromContents(senderContents).win
 
   win.setBrowserView(null)
   windows.getState(win).selectedView = null
@@ -304,7 +304,7 @@ ipc.on('hideCurrentView', function (e) {
 })
 
 ipc.on('loadURLInView', function (e, args) {
-  const win = windows.windowFromContents(e.sender)
+  const win = windows.windowFromContents(e.sender).win
 
   // wait until the first URL is loaded to set the background color so that new tabs can use a custom background
   if (!viewStateMap[args.id].loadedInitialURL) {

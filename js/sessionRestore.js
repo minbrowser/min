@@ -26,7 +26,7 @@ const sessionRestore = {
     //if startupTabOption is "open a new blank task", don't save any tabs in the current task
     if (settings.get('startupTabOption') === 3) {
       for (var i = 0; i < data.state.tasks.length; i++) {
-        if (data.state.tasks[i].id === data.state.selectedTask) {
+        if (data.state.tasks[i].selectedInWindow) {
           data.state.tasks[i].tabs = []
         }
       }
@@ -107,12 +107,18 @@ const sessionRestore = {
           tasks.get(task.id).tabs.add()
         }
       })
-      tasks.setSelected(data.state.selectedTask)
+
+      var mostRecentTasks = tasks.slice().sort((a, b) => {
+        return tasks.getLastActivity(b.id) - tasks.getLastActivity(a.id)
+      })
+      if (mostRecentTasks.length > 0) {
+        tasks.setSelected(mostRecentTasks[0].id)
+      }
 
       // switch to the previously selected tasks
 
       if (tasks.getSelected().tabs.isEmpty() || startupConfigOption === 1) {
-        browserUI.switchToTask(data.state.selectedTask)
+        browserUI.switchToTask(mostRecentTasks[0].id)
         if (tasks.getSelected().tabs.isEmpty()) {
           tabEditor.show(tasks.getSelected().tabs.getSelected())
         }
@@ -200,7 +206,7 @@ const sessionRestore = {
     }
 
     ipc.on('read-tab-state', function (e) {
-      ipc.send('return-tab-state', tasks.getStringifyableState())
+      ipc.send('return-tab-state', tasks.getCopyableState())
     })
   }
 }
