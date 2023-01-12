@@ -63,7 +63,6 @@ var userDataPath = app.getPath('userData')
 const browserPage = 'file://' + __dirname + '/index.html'
 
 var mainWindow = null
-var mainWindowIsMinimized = false // workaround for https://github.com/minbrowser/min/issues/1074
 var mainMenu = null
 var secondaryMenu = null
 var isFocusMode = false
@@ -86,6 +85,11 @@ var saveWindowBounds = function () {
 }
 
 function sendIPCToWindow (window, action, data) {
+  if (window && window.isDestroyed()) {
+    console.warn('ignoring message ' + action + ' sent to destroyed window')
+    return
+  }
+
   if (window && window.webContents && window.webContents.isLoadingMainFrame()) {
     // immediately after a did-finish-load event, isLoading can still be true,
     // so wait a bit to confirm that the page is really loading
