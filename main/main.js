@@ -258,6 +258,17 @@ function createWindowWithBounds (bounds) {
   newWin.on('unmaximize', function () {
     sendIPCToWindow(newWin, 'unmaximize')
   })
+  
+  newWin.on('focus', function () {
+    sendIPCToWindow(newWin, 'focus')
+  })
+
+  newWin.on('blur', function () {
+    // if the devtools for this window are focused, this check will be false, and we keep the focused class on the window
+    if (BrowserWindow.getFocusedWindow() !== newWin) {
+      sendIPCToWindow(newWin, 'blur')
+    }
+  })
 
   newWin.on('enter-full-screen', function () {
     sendIPCToWindow(newWin, 'enter-full-screen')

@@ -8,6 +8,11 @@ const sessionRestore = {
   savePath: window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
   previousState: null,
   save: function (forceSave, sync) {
+    //only one window (the focused one) should be responsible for saving session restore data
+    if (!document.body.classList.contains('focused')) {
+      return
+    }
+
     var stateString = JSON.stringify(tasks.getStringifyableState())
     var data = {
       version: 2,

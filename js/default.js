@@ -47,6 +47,16 @@ ipc.on('unmaximize', function () {
   document.body.classList.remove('maximized')
 })
 
+document.body.classList.add('focused')
+
+ipc.on('focus', function () {
+  document.body.classList.add('focused')
+})
+
+ipc.on('blur', function () {
+  document.body.classList.remove('focused')
+})
+
 // https://remysharp.com/2010/07/21/throttling-function-calls
 
 window.throttle = function (fn, threshhold, scope) {
