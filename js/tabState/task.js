@@ -131,10 +131,6 @@ class TaskList {
     return index
   }
 
-  destroyAll () {
-    this.tasks = []
-  }
-
   getLastActivity (id) {
     var tabs = this.get(id).tabs
     var lastActivity = 0

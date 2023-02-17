@@ -47,6 +47,9 @@ const windowSync = {
           case 'tab-destroyed':
             tasks.get(event[2]).tabs.destroy(event[1], false)
             break
+          case 'tab-splice':
+            tasks.get(event[1]).tabs.spliceNoEmit(...event.slice(2))
+            break
           default:
             console.warn(arguments)
             throw new Error('unimplemented event')
@@ -70,6 +73,11 @@ const windowSync = {
         // close window if its task is destroyed
         if (event[0] === 'task-destroyed' && event[1] === priorSelectedTask) {
           ipc.invoke('close')
+        }
+        //if a tab was added or removed from our task, force a rerender
+        if (event[0] === 'tab-splice' &&  event[1] === priorSelectedTask) {
+              browserUI.switchToTask(tasks.getSelected().id)
+              browserUI.switchToTab(tabs.getSelected())
         }
       })
     })

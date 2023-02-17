@@ -83,11 +83,6 @@ class TabList {
     return index
   }
 
-  destroyAll () {
-    // this = [] doesn't work, so set the length of the array to 0 to remove all of the itemss
-    this.tabs.length = 0
-  }
-
   get (id) {
     if (!id) { // no id provided, return an array of all tabs
       // it is important to copy the tab objects when returning them. Otherwise, the original tab objects get modified when the returned tabs are modified (such as when processing a url).
@@ -167,6 +162,7 @@ class TabList {
       this.splice(currentIndex, 1, newIndexTab)
       this.splice(newIndex, 1, currentTab)
     }
+    //This doesn't need to dispatch an event because splice will dispatch already
   }
 
   count () {
@@ -190,6 +186,14 @@ class TabList {
   }
 
   splice (...args) {
+    //TODO find a better way to get the task ID of this list
+    const containingTask = this.parentTaskList.getTaskContainingTab(this.tabs[0].id).id
+    
+    this.parentTaskList.emit('tab-splice', containingTask, ...args)
+    return this.tabs.splice.apply(this.tabs, args)
+  }
+
+  spliceNoEmit (...args) {
     return this.tabs.splice.apply(this.tabs, args)
   }
 
