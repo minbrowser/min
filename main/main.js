@@ -237,7 +237,7 @@ function createWindowWithBounds (bounds) {
   })
 
   newWin.on('focus', function () {
-    if (windows.getState(newWin).isMinimized) {
+    if (!windows.getState(newWin).isMinimized) {
       sendIPCToWindow(newWin, 'windowFocus')
     }
   })
