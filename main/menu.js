@@ -54,7 +54,7 @@ function buildAppMenu (options = {}) {
     },
     {
       label: 'New Window',
-      accelerator: 'CmdOrCtrl+k',
+      accelerator: getFormattedKeyMapEntry('addWindow') || 'shift+CmdOrCtrl+n',
       click: function () {
         createWindow()
       }

@@ -133,7 +133,8 @@ function initialize () {
       shortcut.keys.forEach(function (key) {
         if (!(
           key === input.key.toLowerCase() ||
-        key === input.code.replace('Digit', '') ||
+        key === input.code.replace('Digit', '').toLowerCase() ||
+        key === input.code.replace('Key', '').toLowerCase() ||
         (key === 'esc' && input.key === 'Escape') ||
         (key === 'left' && input.key === 'ArrowLeft') ||
         (key === 'right' && input.key === 'ArrowRight') ||
