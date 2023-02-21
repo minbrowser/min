@@ -30,5 +30,9 @@ ignoreButton.addEventListener('click', function () {
 })
 
 continueButton.addEventListener('click', function () {
-  window.location = 'https://duckduckgo.com'
+  if (history.length > 1) {
+    history.back()
+  } else {
+    window.close()
+  }
 })
