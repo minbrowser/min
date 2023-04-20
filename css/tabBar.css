@@ -50,7 +50,8 @@ body.is-edit-mode #toolbar-navigation-buttons {
   display: none;
 }
 
-#back-button, #forward-button {
+#back-button,
+#forward-button {
   opacity: 1;
   transition: none;
   padding: 0 0.6rem;
@@ -61,7 +62,8 @@ body.is-edit-mode #toolbar-navigation-buttons {
 #forward-button {
   margin-left: -0.75em;
 }
-#back-button:disabled, #forward-button:disabled {
+#back-button:disabled,
+#forward-button:disabled {
   opacity: 0.2;
 }
 
@@ -108,6 +110,10 @@ body.linux #menu-button {
   word-break: break-all;
   position: relative;
   padding: 0 0.8em;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 0.25rem;
 }
 .tab-item.gu-mirror {
   top: var(--control-space-top) !important;
@@ -153,14 +159,19 @@ body.linux #menu-button {
 /* icons */
 
 .tab-item .tab-icon-area {
-  float: right;
   margin-right: -0.7em;
+  display: flex;
+  align-items: center;
 }
 .tab-item .tab-icon {
   position: relative;
   font-size: 0.875em;
   padding: 0.7125em 0.5em;
-  box-sizing: content-box;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 .tab-item .tab-icon:not(.permission-request-icon):hover:after {
   content: "";
@@ -169,8 +180,6 @@ body.linux #menu-button {
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.075);
   position: absolute;
-  top: -3px;
-  left: -3px;
   z-index: -1;
 }
 .dark-theme .tab-item .tab-icon:hover:after {
@@ -209,6 +218,7 @@ body.linux #menu-button {
 }
 .tab-item .title {
   font-size: 15px;
+  order: -1;
 }
 
 /* buttons */
@@ -257,10 +267,10 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
   font-size: 1.1em !important;
 }
 .tab-item.active .reader-button.can-reader {
-  display: inline-block;
+  display: inline-flex;
 }
 .tab-item.active .reader-button.is-reader {
-  display: inline-block;
+  display: inline-flex;
 }
 
 /* permission request buttons */
@@ -306,11 +316,9 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
 .tab-item .tab-close-button {
   font-size: 1.25em;
   padding: 0.3em 0.45em;
-  margin-top: 0.15em;
+  box-sizing: border-box;
 }
 .tab-item .tab-close-button:hover:after {
-  top: 4px !important;
-  left: 7px !important;
   font-size: 0.9em;
 }
 
@@ -338,7 +346,7 @@ body.is-focus-mode .navbar-action-button:not(#menu-button) {
   position: absolute;
   top: 0;
   left: 0;
-  margin: 0 0.8em;
+  /* margin: 0 0.8em; */
   overflow: hidden;
 }
 
