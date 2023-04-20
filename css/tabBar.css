@@ -278,14 +278,12 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
 .tab-item .tab-icon.permission-request-icon {
   border: 1px rgba(0, 0, 0, 0.3) solid;
   padding: 0.15em 0.17em;
-  margin-right: 0.66em;
-  margin-top: -0.2em;
-  margin-left: -0.3em;
   border-radius: 0.75em;
+  height: 80%;
+  margin: auto 0;
 }
 .tab-item .tab-icon.permission-request-icon .i {
   vertical-align: middle;
-  margin-top: -3px;
   display: inline-block;
 }
 .dark-theme .tab-item .tab-icon.permission-request-icon {
