@@ -162,6 +162,7 @@ body.linux #menu-button {
   margin-right: -0.7em;
   display: flex;
   align-items: center;
+  order: 1;
 }
 .tab-item .tab-icon {
   position: relative;
@@ -218,7 +219,6 @@ body.linux #menu-button {
 }
 .tab-item .title {
   font-size: 15px;
-  order: -1;
 }
 
 /* buttons */
@@ -265,6 +265,7 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
   vertical-align: text-bottom;
   padding: 0 0.45em;
   font-size: 1.1em !important;
+  order: -1;
 }
 .tab-item.active .reader-button.can-reader {
   display: inline-flex;
@@ -281,6 +282,7 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
   border-radius: 0.75em;
   height: 80%;
   margin: auto 0;
+  order: -1;
 }
 .tab-item .tab-icon.permission-request-icon .i {
   vertical-align: middle;
