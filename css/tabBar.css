@@ -264,6 +264,7 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
   display: none;
   vertical-align: text-bottom;
   padding: 0 0.45em;
+  margin-left: -0.7em;
   font-size: 1.1em !important;
   order: -1;
 }
