@@ -20,7 +20,7 @@ const windows = {
     windows.openWindows.splice(windows.openWindows.findIndex(w => w.win === window), 1)
   },
   getCurrent: function () {
-    const lastFocused = windows.openWindows.sort((a, b) => b.lastFocused - b.lastFocused)[0]
+    const lastFocused = windows.openWindows.sort((a, b) => b.state.lastFocused - a.state.lastFocused)[0]
     if (lastFocused) {
       return lastFocused.win
     } else {
