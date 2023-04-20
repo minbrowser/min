@@ -168,10 +168,10 @@
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Kullanım Bilgilerini Gönder (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Daha Fazla Bilgi</a>)"
     },
-    "settingsStartupOptions": null, //missing translation
-    "settingsStartupCreateTask": null, //missing translation
-    "settingsStartupNewTaskandBackground": null, //missing translation
-    "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsStartupOptions": "Min başladığında: ",
+    "settingsStartupCreateTask": "Önceki sekmeleri yeniden aç",
+    "settingsStartupNewTaskandBackground": "Önceki sekmeleri arka plan görevine taşı",
+    "settingsStartupNewTaskOnly": "Yeni bir boş görev aç",
     "settingsSearchEngineHeading": "Arama Motoru",
     "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçin:",
     "settingsDDGExplanation": "Arama çubuğundaki anlık yanıtları görmek için DuckDuckGo’yu varsayılan arama motoru olarak ayarlayın.",
