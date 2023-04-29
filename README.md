@@ -39,7 +39,7 @@ You can find prebuilt binaries for Min [here](https://github.com/minbrowser/min/
 
 - To install the .deb file, use `sudo dpkg -i /path/to/download`
 - To install the RPM build, use `sudo rpm -i /path/to/download --ignoreos`
-- On Arch Linux it's in the community repository, use `sudo pacman -S min`
+- On Arch Linux install from [AUR](https://aur.archlinux.org/packages/min).
 - On Raspberry Pi, you can install Min from [Pi-Apps](https://github.com/Botspot/pi-apps).
 
 ## Developing
