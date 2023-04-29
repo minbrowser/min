@@ -186,8 +186,7 @@ class TabList {
   }
 
   splice (...args) {
-    //TODO find a better way to get the task ID of this list
-    const containingTask = this.parentTaskList.getTaskContainingTab(this.tabs[0].id).id
+    const containingTask = this.parentTaskList.find(t => t.tabs === this).id
     
     this.parentTaskList.emit('tab-splice', containingTask, ...args)
     return this.tabs.splice.apply(this.tabs, args)
