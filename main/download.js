@@ -14,7 +14,13 @@ function downloadHandler (event, item, webContents) {
   var itemURL = item.getURL()
   var attachment = isAttachment(item.getContentDisposition())
   const sourceView = Object.values(viewMap).find(view => view.webContents.id === webContents.id)
-  const sourceWindow = BrowserWindow.fromBrowserView(sourceView) || windows.getCurrent()
+  let sourceWindow
+  if (sourceView) {
+    sourceWindow = BrowserWindow.fromBrowserView(sourceView)
+  }
+  if (!sourceWindow) {
+    sourceWindow = windows.getCurrent()
+  }
 
   if (item.getMimeType() === 'application/pdf' && itemURL.indexOf('blob:') !== 0 && itemURL.indexOf('#pdfjs.action=download') === -1 && !attachment) { // clicking the download button in the viewer opens a blob url, so we don't want to open those in the viewer (since that would make it impossible to download a PDF)
     event.preventDefault()
