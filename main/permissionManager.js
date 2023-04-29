@@ -163,7 +163,7 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
     })
     webContents.once('destroyed', function () {
       // check whether the app is shutting down to avoid an electron crash (TODO remove this)
-      if (mainWindow) {
+      if (windows.getAll().length > 0) {
         removePermissionsForContents(webContents)
       }
     })

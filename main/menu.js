@@ -357,9 +357,9 @@ function buildAppMenu (options = {}) {
             type: 'checkbox',
             checked: settings.get('windowAlwaysOnTop') || false,
             click: function (item, window) {
-              if (mainWindow) {
-                mainWindow.setAlwaysOnTop(item.checked)
-              }
+              windows.getAll().forEach(function(win) {
+                win.setAlwaysOnTop(item.checked)
+              })
               settings.set('windowAlwaysOnTop', item.checked)
             }
           },

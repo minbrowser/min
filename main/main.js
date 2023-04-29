@@ -62,7 +62,6 @@ var userDataPath = app.getPath('userData')
 
 const browserPage = 'file://' + __dirname + '/index.html'
 
-var mainWindow = null
 var mainMenu = null
 var secondaryMenu = null
 var isFocusMode = false
@@ -316,7 +315,6 @@ function createWindowWithBounds (bounds) {
   newWin.setTouchBar(buildTouchBar())
 
   windows.addWindow(newWin)
-  mainWindow = newWin
 
   return newWin
 }
