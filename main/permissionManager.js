@@ -6,25 +6,28 @@ var nextPermissionId = 1
 All permission requests are given to the renderer on each change,
 it will figure out what updates to make
 */
-function sendPermissionsToRenderer () {
-  // remove properties that can't be serialized over IPC
-  sendIPCToWindow(mainWindow, 'updatePermissions', pendingPermissions.concat(grantedPermissions).map(p => {
-    return {
-      permissionId: p.permissionId,
-      tabId: p.tabId,
-      origin: p.origin,
-      permission: p.permission,
-      details: p.details,
-      granted: p.granted
-    }
-  }))
+function sendPermissionsToRenderers () {
+  //send all requests to all windows - the tab bar in each will figure out what to display
+  windows.getAll().forEach(function(win) {
+    sendIPCToWindow(win, 'updatePermissions', pendingPermissions.concat(grantedPermissions).map(p => {
+      // remove properties that can't be serialized over IPC
+      return {
+        permissionId: p.permissionId,
+        tabId: p.tabId,
+        origin: p.origin,
+        permission: p.permission,
+        details: p.details,
+        granted: p.granted
+      }
+    }))
+  })
 }
 
 function removePermissionsForContents (contents) {
   pendingPermissions = pendingPermissions.filter(perm => perm.contents !== contents)
   grantedPermissions = grantedPermissions.filter(perm => perm.contents !== contents)
 
-  sendPermissionsToRenderer()
+  sendPermissionsToRenderers()
 }
 
 /*
@@ -126,7 +129,7 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
           granted: true
         })
 
-        sendPermissionsToRenderer()
+        sendPermissionsToRenderers()
         nextPermissionId++
       }
     } else if (permission === 'notifications' && hasPendingRequestForOrigin(requestOrigin, permission, details)) {
@@ -146,7 +149,7 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
         callback: callback
       })
 
-      sendPermissionsToRenderer()
+      sendPermissionsToRenderers()
       nextPermissionId++
     }
 
@@ -208,7 +211,7 @@ ipc.on('permissionGranted', function (e, permissionId) {
       grantedPermissions.push(pendingPermissions[i])
       pendingPermissions.splice(i, 1)
 
-      sendPermissionsToRenderer()
+      sendPermissionsToRenderers()
       break
     }
   }
