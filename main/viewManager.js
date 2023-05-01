@@ -24,6 +24,9 @@ const defaultViewWebPreferences = {
 }
 
 function createView (existingViewId, id, webPreferencesString, boundsString, events) {
+  if (viewStateMap[id]) {
+    console.warn("Creating duplicate view")
+  }
   viewStateMap[id] = { loadedInitialURL: false }
 
   let view
@@ -45,7 +48,7 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
       const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
 
       eventTarget.webContents.send('view-event', {
-        viewId: id,
+        tabId: id,
         event: event,
         args: args
       })
@@ -69,7 +72,7 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
       const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
 
       eventTarget.webContents.send('view-event', {
-        viewId: id,
+        tabId: id,
         event: 'new-tab',
         args: [details.url, !(details.disposition === 'background-tab')]
       })
@@ -98,7 +101,7 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
     const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
 
     eventTarget.webContents.send('view-event', {
-      viewId: id,
+      tabId: id,
       event: 'did-create-popup',
       args: [popupId, url]
     })
@@ -263,7 +266,7 @@ function getView (id) {
   return viewMap[id]
 }
 
-function getViewIDFromWebContents (contents) {
+function getTabIDFromWebContents (contents) {
   for (var id in viewMap) {
     if (viewMap[id].webContents === contents) {
       return id

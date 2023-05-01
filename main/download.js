@@ -27,7 +27,7 @@ function downloadHandler (event, item, webContents) {
 
     sendIPCToWindow(sourceWindow, 'openPDF', {
       url: itemURL,
-      tabId: getViewIDFromWebContents(webContents)
+      tabId: getTabIDFromWebContents(webContents)
     })
   } else {
     var savePathFilename

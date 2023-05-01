@@ -121,7 +121,7 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
       if (!grantedPermissions.some(grant => grant.contents === webContents && grant.permission === permission)) {
         grantedPermissions.push({
           permissionId: nextPermissionId,
-          tabId: getViewIDFromWebContents(webContents),
+          tabId: getTabIDFromWebContents(webContents),
           contents: webContents,
           origin: requestOrigin,
           permission: permission,
@@ -141,7 +141,7 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
     } else {
       pendingPermissions.push({
         permissionId: nextPermissionId,
-        tabId: getViewIDFromWebContents(webContents),
+        tabId: getTabIDFromWebContents(webContents),
         contents: webContents,
         origin: requestOrigin,
         permission: permission,
