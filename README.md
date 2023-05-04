@@ -33,7 +33,7 @@ Min is made possible by these sponsors:
 
 ## Installing
 
-You can find prebuilt binaries for Min [here](https://github.com/minbrowser/min/releases). Alternatively, skip to the section below for instructions on how to build Min directly from source.
+You can find prebuilt binaries for Min [here](https://github.com/minbrowser/min/releases). Alternatively, skip to the section below for instructions on how to build Min directly from the source.
 
 ### Installation on Linux
 
@@ -53,7 +53,7 @@ If you want to develop Min:
 
 ### Building binaries
 
-In order to build Min from source, follow the installation instructions above, then use one of the following commands to create binaries:
+To build Min from the source, follow the installation instructions above, then use one of the following commands to create binaries:
 
 - `npm run buildWindows`
 - `npm run buildMacIntel`
@@ -94,7 +94,7 @@ If you have questions about using Min, need help getting started with developmen
 - Find the language code that goes with your language from [this list](https://source.chromium.org/chromium/chromium/src/+/main:ui/base/l10n/l10n_util.cc;l=55) (line 55 - 230).
 - In the `localization/languages` directory, create a new file, and name it "[your language code].json".
 - Open your new file, and copy the contents of the <a href="https://github.com/minbrowser/min/blob/master/localization/languages/en-US.json">localization/languages/en-US.json</a> file into your new file.
-- Change the "identifier" field in the new file to the language code from step 1.
+- Change the "identifier" field in the new file to the language code from Step 1.
 - Inside the file, replace each English string in the right-hand column with the equivalent translation.
 - (Optional) See your translations live by following the [development instructions](#installing) above. Min will display in the same language as your operating system, so make sure your computer is set to the same language that you're translating.
 - That's it! Make a pull request with your changes.
