@@ -55,6 +55,24 @@ class TaskList {
     return newTask.id
   }
 
+  update (id, data, emit=true) {
+    let task = this.get(id)
+
+    if (!task) {
+      throw new ReferenceError('Attempted to update a task that does not exist.')
+    }
+
+    for (var key in data) {
+      if (data[key] === undefined) {
+        throw new ReferenceError('Key ' + key + ' is undefined.')
+      }
+      task[key] = data[key]
+      if (emit) {
+        this.emit('task-updated', id, key, data[key])
+      }
+    }
+  }
+
   getStringifyableState () {
     return {
       tasks: this.tasks.map(task => Object.assign({}, task, { tabs: task.tabs.getStringifyableState() })).map(function(task) {
