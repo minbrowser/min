@@ -1,0 +1,298 @@
+{
+  "name": "Dutch (Nederlands)",
+  "identifier": "nl",
+  "translations": {
+    /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+    "addToDictionary": "Toevoegen aan woordenboek",
+    "pictureInPicture": "Picture in Picture",
+    "openInNewTab": "Open in nieuw tabblad",
+    "openInNewPrivateTab": "Open in nieuw prive tabblad",
+    "saveLinkAs": "Sla link op als...",
+    "viewImage": "Bekijk afbeelding",
+    "openImageInNewTab": "Open afbeelding in nieuw tabblad",
+    "openImageInNewPrivateTab": "Open afbeelding in nieuw prive tabblad",
+    "saveImageAs": "Sla afbeelding op als",
+    "searchWith": "Zoeken met %s", //%s will be replaced with the name of the current search engine
+    "copyLink": "Kopieer link",
+    "copyEmailAddress": "Kopieer email adres",
+    "selectAll": "Alles selecteren",
+    "undo": "Ongedaan maken",
+    "redo": "Herdoen",
+    "cut": "Knippen",
+    "copy": "Kopiëren", //this is a verb (as in "copy the currently-selected text")
+    "paste": "Plakken",
+    "goBack": "Ga terug",
+    "goForward": "Ga verder",
+    "inspectElement": "Inspecteer element",
+    /* searchbar */
+    "pasteAndGo": "Plakken en bezoeken", //context menu item
+    "DDGAnswerSubtitle": "Antwoord", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+    "suggestedSite": "Voorgestelde site", //this is used to label suggested websites from the DuckDuckGo API,
+    "resultsFromDDG": "Resultaten van DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+    "taskN": "Taak %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+    /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+    "showMoreBangs": "Zie meer",
+    "viewSettings": "Open instellingen",
+    "takeScreenshot": "Maak een schermafbeelding",
+    "clearHistory": "Verwijder alle geschiedenis",
+    "enableBlocking": "Inhoudsblokkering voor deze site inschakelen",
+    "disableBlocking": "Inhoudsblokkering voor deze site uitschakelen",
+    "clearHistoryConfirmation": "Alle geschiedenis en browsing data verwijderen?",
+    "switchToTask": "Ga naar taak",
+    "createTask": "Maak een taak",
+    "closeTask": "Sluit een taak",
+    "moveToTask": "Verplaats dit tabblad naar een taak",
+    "nameTask": "Benoem deze taak",
+    "addBookmark": "Toevoegen aan bladwijzer",
+    "searchBookmarks": "Bladwijzers doorzoeken",
+    "bookmarksAddTag": "Label toevoegen...",
+    "bookmarksRenameTag": "Hernoem label",
+    "bookmarksDeleteTag": "Verwijder label",
+    "deleteBookmarksWithTag": "Verwijder bladwijzer met label",
+    "bookmarksSimilarItems": "Vergelijkbare items",
+    "searchHistory": "Doorzoek geschiedenis",
+    "importBookmarks": "Importeer bladwijzers van HTML file",
+    "exportBookmarks": "Exporteer bladwijzers",
+    "runUserscript": "Voer gebruikerscript uit",
+    /* navbar */
+    "openMenu": "Open menu", //application menu button on windows
+    "enterReaderView": "Open leesmodus",
+    "exitReaderView": "Sluit leesmodus",
+    "newTabLabel": "Nieuw tabblad", //this is a noun, used for tabs that don't have a page loaded in them yet
+    "connectionNotSecure": "De verbinding met deze pagina is niet beveiligd.",
+    "searchbarPlaceholder": "Zoeken of adres invoeren",
+    "privateTab": "Prive tabblad",
+    "newTabAction": "Nieuw tabblad", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+    /* task overlay */
+    "viewTasks": "Bekijk taken",
+    "newTask": "Nieuwe taak", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "defaultTaskName": "Taak %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+    "taskDeleteWarning": {
+      "unsafeHTML": "Taak verwijderd. <a>Ongedaan maken?</a>"
+    },
+    "tasksSearchTabs": "Zoek in tabbladen",
+    "returnToTask": "Ga terug naar de vorig taak",
+    "taskDescriptionTwo": "%t en %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
+    "taskDescriptionThree": "%t, %t, en %n meer", //used to describe a task that has three or more tabs
+    /* find in page toolbar */
+    "searchInPage": "Zoek in pagina", //this is used as the placeholder text for the textbox in the find in page toolbar
+    "findMatchesSingular": "%i van de %t gevonden", //this and the next label are used to indicate which match is currently highlighted
+    "findMatchesPlural": "%i van de %t gevonden",
+    /* Focus mode */
+    "isFocusMode": "Focus Mode staat aan",
+    "closeDialog": "Oke", //used as a label for the button that closes the dialog
+    "focusModeExplanation1": "In focus mode, kan je geen nieuwe tabbladen aanmaken of veranderen van taak.",
+    "focusModeExplanation2": "Focus Mode kan uit gezet worden door \"focus mode\" deselecteren in het menu.",
+    /* relative dates */
+    "timeRangeJustNow": "Zojuist",
+    "timeRangeMinutes": "Een paar minuten geleden",
+    "timeRangeHour": "In het afgelopen uur",
+    "timeRangeToday": "Vandaag",
+    "timeRangeYesterday": "Gisteren",
+    "timeRangeWeek": "In de afgelopen week",
+    "timeRangeMonth": "In de afgelopen maand",
+    "timeRangeYear": "In het afgelopen jaar",
+    "timeRangeLongerAgo": "Langer geleden",
+    /* pages/error/index.html */
+    "crashErrorTitle": "Er is iets misgegaan.",
+    "crashErrorSubtitle": "Er was een probleem tijdens het laten zien van deze pagina.",
+    "errorPagePrimaryAction": "Probeer opnieuw",
+    "serverNotFoundTitle": "Server niet gevonden",
+    "serverNotFoundSubtitle": "Min kon deze website niet vinden.",
+    "archiveSearchAction": "Zoek op archive.org",
+    "sslErrorTitle": "Deze website is niet beschikbaar.",
+    "sslErrorMessage": "Min kon geen beveiligde verbinding maken met deze website.",
+    "dnsErrorTitle": "Website niet gevonden",
+    "dnsErrorMessage": "Een DNS error heeft plaats gevonden.",
+    "offlineErrorTitle": "Je bent offline",
+    "offlineErrorMessage": "Verbind met het internet en probeer het opnieuw.",
+    "genericConnectionFail": "Min kon niet verbinden met deze website.",
+    "sslTimeErrorMessage": "Min kon geen beveiligde verbinding maken met deze website. Zorg ervoor dat de tijd van de computer correct is.",
+    "addressInvalidTitle": "Dit adres is niet geldig.",
+    "genericError": "Er is een fout opgetreden",
+    /* pages/phishing/index.html */
+    "phishingErrorTitle": "Deze site kan schadelijk zijn.",
+    "phishingErrorMessage": "Deze site kan proberen uw persoonlijke gegevens te stelen, zoals wachtwoorden of bankgegevens.",
+    "phishingErrorVisitAnyway": "Toch de site bezoeken",
+    "phishingErrorLeave": "De site verlaten",
+    /* multiple instances alert */
+    "multipleInstancesErrorMessage": "Er is iets fout gegaan. Sluit alle vensters en herstart Min.",
+    /* pages/sessionRestoreError/index.html */
+    "sessionRestoreErrorTitle": "Er is iets fout gegaan",
+    "sessionRestoreErrorExplanation": "Uw opgeslagen tabbladen konden niet correct worden hersteld.",
+    "sessionRestoreErrorBackupInfo": "We hebben een back-up van uw gegevens gemaakt op de volgende locatie: %l.", //%l will be replaced with a path to a file
+    "sessionRestoreErrorLinkInfo": {
+      "unsafeHTML": "Als deze fout zich voor blijft doen, open een nieuwe bug <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">hier</a>."
+    },
+    /* pages/settings/index.html */
+    "settingsPreferencesHeading": "Voorkeuren",
+    "settingsRestartRequired": "U moet opnieuw opstarten om de wijzigingen toe te passen.",
+    "settingsPrivacyHeading": "Inhoud blokkeren",
+    "settingsContentBlockingLevel0": "Sta alle advertenties en trackers toe",
+    "settingsContentBlockingLevel1": "Advertenties en trackers van derden blokkeren",
+    "settingsContentBlockingLevel2": "Alle advertenties en trackers blokkeren",
+    "settingsContentBlockingExceptions": "Advertenties op de volgende websites zijn toegestaan:",
+    "settingsBlockScriptsToggle": "Blokkeer scripten",
+    "settingsBlockImagesToggle": "Blokkeer afbeeldingen",
+    "settingsBlockedRequestCount": {
+      "unsafeHTML": "Tot nu toe heeft Min <strong></strong> advertenties en trackers geblokkeerd."
+    },
+    "settingsCustomBangs": "Aangepaste bangs",
+    "settingsCustomBangsAdd": "Voeg een bang toe",
+    "settingsCustomBangsPhrase": "Zin (Vereist)",
+    "settingsCustomBangsSnippet": "Beschrijving (Optioneel)",
+    "settingsCustomBangsRedirect": "Doorstuur URL (Vereist)",
+    "settingsCustomizeFiltersLink": "Aangepaste filters",
+    "settingsAppearanceHeading": "Uiterlijk",
+    "settingsEnableDarkMode": "Donkere modus inschakelen:",
+    "settingsDarkModeNever": "Nooit",
+    "settingsDarkModeNight": "'s nachts",
+    "settingsDarkModeAlways": "Altijd",
+    "settingsDarkModeSystem": "Volg het systeemthema",
+    "settingsSiteThemeToggle": "Schakel site thema in",
+    "settingsAdditionalFeaturesHeading": "Extra functies",
+    "settingsUserscriptsToggle": "Schakel gebruikerscripten in",
+    "settingsShowDividerToggle": "Scheiding tussen tabbladen tonen",
+    "settingsSeparateTitlebarToggle": "Gebruik aparte titelbalk",
+    "settingsAutoplayToggle": "Automatisch afspelen inschakelen",
+    "settingsOpenTabsInForegroundToggle": "Open nieuwe tabbladen op de voorgrond",
+    "settingsUserscriptsExplanation": {
+      "unsafeHTML": "Gebruikersscripten kunt u gebruiken om het gedrag van websites te wijzigingen - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">lees meer</a>."
+    },
+    "settingsUserAgentToggle": "Gebruik een aangepaste gebruikersagent",
+    "settingsUpdateNotificationsToggle": "Automatisch controleren op updates",
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "Verzend gebruikersstatistieken (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">meer informatie</a>)"
+    },
+    "settingsStartupOptions": "Als Min opstart: ",
+    "settingsStartupCreateTask": "Her-open vorige tabbladen",
+    "settingsStartupNewTaskandBackground": "Verplaats vorige tabbladen naar een taak op de achtergrond",
+    "settingsStartupNewTaskOnly": "Open een lege taak",
+    "settingsSearchEngineHeading": "Zoekmachine",
+    "settingsDefaultSearchEngine": "Kies een standaard zoekmachine:",
+    "settingsDDGExplanation": "Kies DuckDuckGo als standaard zoekmachine om meteen resultaten te zien in de zoekbalk.",
+    "customSearchEngineDescription": "Verander de zoekterm met %s",
+    "settingsKeyboardShortcutsHeading": "Sneltoetsen",
+    "settingsKeyboardShortcutsHelp": "Gebruik komma's om meerdere sneltoetsen toe te voegen.",
+    "settingsProxyHeading": "Proxy",
+    "settingsNoProxy": "Geen Proxy",
+    "settingsManualProxy": "Handmatige Configuratie",
+    "settingsAutomaticProxy": "Automatische Configuratie",
+    "settingsProxyRules": "Proxy regels:",
+    "settingsProxyBypassRules": "Geen proxy voor:",
+    "settingsProxyConfigurationURL": "Configuratie URL",
+    /* app menu */
+    "appMenuFile": "Bestand",
+    "appMenuNewTab": "Nieuw Tabblad",
+    "appMenuDuplicateTab": "Dupliceer Tabblad",
+    "appMenuNewPrivateTab": "Nieuw Prive Tabblad",
+    "appMenuNewTask": "Nieuwe Taak",
+    "appMenuSavePageAs": "Opslaan als",
+    "appMenuPrint": "Printen",
+    "appMenuEdit": "Wijzigen",
+    "appMenuUndo": "Ongedaan maken",
+    "appMenuRedo": "Herdoen",
+    "appMenuCut": "Knippen",
+    "appMenuCopy": "Kopiëren",
+    "appMenuPaste": "Plakken",
+    "appMenuSelectAll": "Alles selecteren",
+    "appMenuFind": "Zoeken",
+    "appMenuView": "Venster",
+    "appMenuZoomIn": "Zoom In",
+    "appMenuZoomOut": "Zoom Uit",
+    "appMenuActualSize": "Reset zoom",
+    "appMenuFullScreen": "Volledig Scherm", //on some platforms, this string is replaced with one built-in to the OS
+    "appMenuFocusMode": "Focus Mode",
+    "appMenuBookmarks": "Bladwijzers",
+    "appMenuHistory": "Geschiedenis",
+    "appMenuDeveloper": "Developer",
+    "appMenuReloadBrowser": "Herlaad Browser",
+    "appMenuInspectBrowser": "Inspecteer Browser",
+    "appMenuInspectPage": "Inspecteer Pagina",
+    "appMenuWindow": "Venster",
+    "appMenuMinimize": "Minimaliseer",
+    "appMenuClose": "Afsluiten",
+    "appMenuAlwaysOnTop": "Altijd van boven",
+    "appMenuHelp": "Help",
+    "appMenuKeyboardShortcuts": "Sneltoetsen",
+    "appMenuReportBug": "Rapporteer een Bug",
+    "appMenuTakeTour": "Maak een rondleiding",
+    "appMenuViewGithub": "Bezoek op GitHub",
+    "appMenuAbout": "Over %n", //%n is replaced with app name
+    "appMenuPreferences": "Voorkeuren",
+    "appMenuServices": "Diensten",
+    "appMenuHide": "Verberg %n",
+    "appMenuHideOthers": "Verberg anderen",
+    "appMenuShowAll": "Toon alle",
+    "appMenuQuit": "Stop %n",
+    "appMenuBringToFront": "Breng alles naar voren",
+    /* PDF Viewer */
+    "PDFPageCounter": {
+      "unsafeHTML": "pagina <input type='text'/> van de <span id='total'></span>"
+    },
+    /* Context Reader */
+    "buttonReaderSettings": "Leesmodus instellingen",
+    "buttonReaderLightTheme": "Licht",
+    "buttonReaderSepiaTheme": "Sepia",
+    "buttonReaderDarkTheme": "Donker",
+    "openReaderView": "Altijd openen in leesmodus",
+    "autoRedirectBannerReader": "Artikelen van deze website altijd openen in leesmodus?",
+    "buttonReaderRedirectYes": "Ja",
+    "buttonReaderRedirectNo": "Nee",
+    "articleReaderView": "Origineel artikel",
+    /* Download manager */
+    "downloadCancel": "Annuleren",
+    "downloadStateCompleted": "Compleet",
+    "downloadStateFailed": "Mislukt",
+    /* Update Notifications */
+    "updateNotificationTitle": "Een nieuwe versie van Min is beschikbaar",
+    /* Autofill settings */
+    "settingsPasswordAutoFillHeadline": "Wachtwoord Auto-Fill",
+    "settingsSelectPasswordManager": "Kies een van de ondersteunde password managers:",
+    "keychainViewPasswords": "Opgeslagen wachtwoorden bekijken",
+    /* Password manager setup */
+    "passwordManagerSetupHeading": "Voltooi het opzetten van %p om Auto-Fill te gebruiken",
+    "passwordManagerSetupStep1": {
+      "unsafeHTML": "Eerst, <a id='password-manager-setup-link'></a> en pak het uit voor uw systeem."
+    },
+    "passwordManagerInstallerSetup": {
+      "unsafeHTML": "Download <a id='password-manager-setup-link-installer'></a> en sleep het bestand in het vak beneden:"
+    },
+    "passwordManagerSetupLink": "download de %p CLI tool",
+    "passwordManagerSetupLinkInstaller": "de %p CLI installer",
+    "passwordManagerSetupStep2": "Sleep dan de tool in het vak benden:",
+    "passwordManagerSetupDragBox": "Versleep de tool naar hier",
+    "passwordManagerSetupInstalling": "Installeren...",
+    "passwordManagerBitwardenSignIn": "Om te verbinden met uw Bitwarden account, ga naar vault.bitwarden.com/#/settings/account, scroll naar benenden, en kies \"View API Key\". Plak vervolgens de waarden in de onderstaande velden.",
+    "passwordManagerSetupSignIn": "Log in bij uw password manager om Auto-Fill te gebruiken. Uw inloggegevens worden nergens opgeslagen door Min.",
+    "disableAutofill": "Auto-Fill uitzetten",
+    "passwordManagerSetupUnlockError": "Mislukt om de opslag van de password manager te openen: ",
+    "passwordManagerSetupRetry": "Controleer of u het juiste bestand gebruikt en een correct wachtwoord invoert. U kunt het opnieuw proberen door de tool hierheen te slepen.",
+    "passwordManagerUnlock": "Voer uw wachtwoord in om de opslag van de password manager te ontgrendelen:",
+    /* Password save bar */
+    "passwordCaptureSavePassword": "Wachtwoord opslaan voor %s?",
+    "passwordCaptureSave": "Opslaan",
+    "passwordCaptureDontSave": "Niet opslaan",
+    "passwordCaptureNeverSave": "Nooit opslaan",
+    /* Password viewer */
+    "savedPasswordsHeading": "Opgeslagen wachtwoorden",
+    "savedPasswordsEmpty": "Geen opgeslagen wachtwoorden.",
+    "savedPasswordsNeverSavedLabel": "Nooit opgeslagen",
+    "deletePassword": "Verwijder wachtwoord voor %s?",
+    /* Dialogs */
+    "loginPromptTitle": "Inloggen bij %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "dialogConfirmButton": "Bevestigen",
+    "dialogSkipButton": "Annuleren",
+    "username": "Gebruikersnaam",
+    "email": "Email",
+    "password": "Wachtwoord",
+    "secretKey": "Geheime sleutel",
+    "openExternalApp": "Open in \\\"%s\\\"?", // %s is the name of an app
+    "clickToCopy": "Klik om te kopiëren",
+    "copied": "Gekopiëerd"
+  }
+}
