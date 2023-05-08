@@ -25,6 +25,7 @@ var defaultKeyMap = {
   switchToNextTask: 'mod+]',
   switchToPreviousTask: 'mod+[',
   closeAllTabs: 'option+mod+shift+n',
+  closeWindow: 'shift+mod+w',
   reload: ['mod+r', 'f5'],
   reloadIgnoringCache: 'mod+f5',
   showMenu: 'ctrl+m',

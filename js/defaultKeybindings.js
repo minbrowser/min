@@ -247,6 +247,10 @@ const defaultKeybindings = {
       browserUI.addTab() // create a new, blank tab
     })
 
+    keybindings.defineShortcut('closeWindow', function() {
+      ipc.invoke('close')
+    })
+
     var lastReload = 0
 
     keybindings.defineShortcut('reload', function () {
