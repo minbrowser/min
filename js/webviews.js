@@ -254,7 +254,7 @@ const webviews = {
     webviews.emitEvent('view-hidden', id)
 
     if (webviews.hasViewForTab(id)) {
-      tasks.getTaskContainingTab(tabId).tabs.update(id, {
+      tasks.getTaskContainingTab(id).tabs.update(id, {
         hasBrowserView: false
       })
       ipc.send('destroyView', id)

@@ -216,8 +216,6 @@ function destroyView (id) {
 }
 
 function destroyAllViews () {
-  // TODO figure out how to handle this
-  return
   for (const id in viewMap) {
     destroyView(id)
   }
@@ -289,7 +287,7 @@ ipc.on('destroyAllViews', function () {
 ipc.on('setView', function (e, args) {
   setView(args.id, e.sender)
   setBounds(args.id, args.bounds)
-  if (args.focus) {
+  if (args.focus && BrowserWindow.fromWebContents(e.sender) && BrowserWindow.fromWebContents(e.sender).isFocused()) {
     focusView(args.id)
   }
 })

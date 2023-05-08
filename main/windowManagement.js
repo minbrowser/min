@@ -14,10 +14,22 @@ const windows = {
     window.on('focus', function () {
       windows.getState(window).lastFocused = Date.now()
     })
+
+    window.on('close', function() {
+      windows.removeWindow(window)
+      //if the BrowserView is still attached to the window on close, Electron will destroy it automatically, but we want to manage it ourselves
+      window.setBrowserView(null)
+    })
+  
     windows.nextId++
   },
   removeWindow: function (window) {
     windows.openWindows.splice(windows.openWindows.findIndex(w => w.win === window), 1)
+
+    //unload BrowserViews when all windows are closed
+    if (windows.openWindows.length === 0) {
+      destroyAllViews()
+    }
   },
   getCurrent: function () {
     const lastFocused = windows.openWindows.sort((a, b) => b.state.lastFocused - a.state.lastFocused)[0]

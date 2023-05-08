@@ -225,14 +225,8 @@ function createWindowWithBounds (bounds) {
   }
 
   newWin.on('close', function () {
-    destroyAllViews()
     // save the window size for the next launch of the app
     saveWindowBounds()
-  })
-
-  // Emitted when the window is closed.
-  newWin.on('closed', function () {
-    windows.removeWindow(newWin)
   })
 
   newWin.on('focus', function () {

@@ -23,6 +23,16 @@ const windowSync = {
       events.forEach(function (event) {
         const priorSelectedTask = tasks.getSelected().id
 
+        // close window if its task is destroyed
+        if (
+          (event[0] === 'task-destroyed' && event[1] === priorSelectedTask)
+          || (event[0] === 'tab-destroyed' && event[2] === priorSelectedTask && tasks.getSelected().tabs.count() === 1)
+        ) {
+          ipc.invoke('close')
+          ipc.removeAllListeners('tab-state-change-receive')
+          return
+        }
+
         switch (event[0]) {
           case 'task-added':
             tasks.add(event[2], event[3], false)
@@ -74,12 +84,11 @@ const windowSync = {
             browserUI.addTask()
           }
         }
-        // close window if its task is destroyed
-        if (event[0] === 'task-destroyed' && event[1] === priorSelectedTask) {
-          ipc.invoke('close')
-        }
         //if a tab was added or removed from our task, force a rerender
-        if (event[0] === 'tab-splice' &&  event[1] === priorSelectedTask) {
+        if (
+          (event[0] === 'tab-splice' &&  event[1] === priorSelectedTask)
+          || (event[0] === 'tab-destroyed' && event[2] === priorSelectedTask)
+         ) {
               browserUI.switchToTask(tasks.getSelected().id)
               browserUI.switchToTab(tabs.getSelected())
         }
