@@ -112,6 +112,9 @@ body.linux #menu-button {
   display: flex;
   justify-content: space-between;
   align-items: stretch;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 .tab-item.gu-mirror {
   top: var(--control-space-top) !important;
@@ -164,7 +167,6 @@ body.linux #menu-button {
 .tab-item .tab-icon {
   position: relative;
   font-size: 0.875em;
-  padding: 0 0.5rem;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -219,8 +221,8 @@ body.linux #menu-button {
 }
 .tab-item .title {
   font-size: 15px;
-  margin-left: 0.5rem;
-  margin-right: auto;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
 }
 
 /* buttons */
@@ -256,7 +258,7 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
 /* audio button */
 .tab-item .tab-audio-button {
   vertical-align: text-bottom;
-  padding: 0 0.5em;
+  padding: 0;
   font-size: 1.1em !important;
 }
 
@@ -282,7 +284,7 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
   border-radius: 50%;
   height: 70%;
   aspect-ratio: 1 / 1;
-  margin: auto 0.5rem;
+  margin: auto 0;
   order: -1;
 }
 .tab-item .tab-icon.permission-request-icon .i {
