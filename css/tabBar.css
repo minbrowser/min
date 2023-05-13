@@ -36,14 +36,14 @@
 /* navbar buttons */
 
 #toolbar-navigation-buttons {
-  width: 2.375rem;
+  width: 2rem;
   transition: 0.1s width;
   white-space: nowrap;
   overflow: hidden;
 }
 
 #toolbar-navigation-buttons.can-go-forward:hover {
-  width: max-content;
+  width: 4rem;
 }
 
 body.is-edit-mode #toolbar-navigation-buttons {
@@ -55,12 +55,7 @@ body.is-edit-mode #toolbar-navigation-buttons {
   opacity: 1;
   transition: none;
   padding: 0;
-}
-#back-button {
-  padding-left: 0.5rem;
-}
-#forward-button {
-  padding-right: 0.5rem;
+  width: 2rem;
 }
 #back-button:disabled,
 #forward-button:disabled {
