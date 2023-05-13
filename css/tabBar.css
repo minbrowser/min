@@ -161,6 +161,7 @@ body.linux #menu-button {
 .tab-item .tab-icon-area {
   display: flex;
   align-items: center;
+  gap: 0.5rem;
   order: 1;
 }
 .tab-item .tab-icon {
