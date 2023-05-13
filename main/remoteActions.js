@@ -2,14 +2,6 @@
 Wraps APIs that are only available in the main process in IPC messages, so that the BrowserWindow can use them
 */
 
-ipc.handle('test-invoke', function () {
-  return 1
-})
-
-ipc.handle('reloadWindow', function (e) {
-  e.sender.reload()
-})
-
 ipc.handle('startFileDrag', function (e, path) {
   app.getFileIcon(path, {}).then(function (icon) {
     e.sender.startDrag({

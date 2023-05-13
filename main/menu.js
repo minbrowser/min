@@ -306,12 +306,11 @@ function buildAppMenu (options = {}) {
         },
         {
           label: l('appMenuReloadBrowser'),
-          accelerator: undefined,
+          accelerator: (isDevelopmentMode ? 'alt+CmdOrCtrl+R' : undefined),
           click: function (item, focusedWindow) {
-            if (focusedWindow) {
               destroyAllViews()
-              focusedWindow.reload()
-            }
+              windows.getAll().forEach(win => win.close())
+              createWindow()
           }
         },
         {
