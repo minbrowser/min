@@ -110,7 +110,6 @@ body.linux #menu-button {
   word-break: break-all;
   position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: stretch;
   gap: 0.5rem;
   padding-left: 0.5rem;
@@ -223,6 +222,7 @@ body.linux #menu-button {
   font-size: 15px;
   padding-left: 0.25rem;
   padding-right: 0.25rem;
+  margin-right: auto;
 }
 
 /* buttons */
