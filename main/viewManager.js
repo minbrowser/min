@@ -47,6 +47,11 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
 
       const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
 
+      if (!eventTarget) {
+        //this can happen during shutdown - windows can be destroyed before the corresponding views, and the view can emit an event during that time
+        return
+      }
+
       eventTarget.webContents.send('view-event', {
         tabId: id,
         event: event,
