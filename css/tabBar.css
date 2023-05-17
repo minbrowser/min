@@ -62,6 +62,11 @@ body.is-edit-mode #toolbar-navigation-buttons {
   opacity: 0.2;
 }
 
+/* Remove default space from being inline-block */
+#forward-button {
+  margin-left: -0.25rem;
+}
+
 #menu-button {
   width: 36px;
   padding: 0;
