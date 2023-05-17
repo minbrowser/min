@@ -164,9 +164,10 @@ body.linux #menu-button {
   gap: 0.5rem;
   order: 1;
 }
-.tab-item .tab-icon-area:has(i:only-child) {
+.tab-item:not(:hover) .tab-icon-area:has(.tab-close-button:only-child) {
   margin-left: -0.5rem;
 }
+
 .tab-item .tab-icon {
   position: relative;
   font-size: 0.875em;
