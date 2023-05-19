@@ -16,9 +16,12 @@ const windows = {
     })
 
     window.on('close', function() {
-      windows.removeWindow(window)
       //if the BrowserView is still attached to the window on close, Electron will destroy it automatically, but we want to manage it ourselves
       window.setBrowserView(null)
+    })
+
+    window.on('closed', function() {
+      windows.removeWindow(window)
     })
   
     windows.nextId++
