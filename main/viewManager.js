@@ -262,7 +262,9 @@ function hideCurrentView (senderContents) {
 
   win.setBrowserView(null)
   windows.getState(win).selectedView = null
-  win.webContents.focus()
+  if (win.isFocused()) {
+    win.webContents.focus()
+  }
 }
 
 function getView (id) {

@@ -193,8 +193,17 @@ const sessionRestore = {
       // restore the task item
       tasks.add(task, undefined, false)
     })
-    // create a new task for this window
-    browserUI.addTask()
+    //reuse an existing task or create a new task in this window
+    //same as windowSync.js
+    var newTaskCandidates = tasks.filter(task => task.tabs.isEmpty() && !task.selectedInWindow && !task.name)
+      .sort((a, b) => {
+        return tasks.getLastActivity(b.id) - tasks.getLastActivity(a.id)
+      })
+    if (newTaskCandidates.length > 0) {
+      browserUI.switchToTask(newTaskCandidates[0].id)
+    } else {
+      browserUI.addTask()
+    }
   },
   restore: function () {
     if (Object.hasOwn(window.globalArgs, 'initial-window')) {

@@ -1,4 +1,5 @@
-var browserUI = require('browserUI.js')
+const browserUI = require('browserUI.js')
+const taskOverlay = require('taskOverlay/taskOverlay.js')
 
 const windowSync = {
 
@@ -12,6 +13,9 @@ const windowSync = {
   },
   initialize: function () {
     tasks.on('*', function (...data) {
+      if (data[0] === 'state-sync-change') {
+        return
+      }
       windowSync.pendingEvents.push(data)
       if (!windowSync.syncTimeout) {
         windowSync.syncTimeout = setTimeout(windowSync.sendEvents, 0)
@@ -55,6 +59,7 @@ const windowSync = {
             var obj = {}
             obj[event[2]] = event[3]
             tasks.update(event[1], obj, false)
+            break
           case 'tab-selected':
             tasks.get(event[2]).tabs.setSelected(event[1], false)
             break
@@ -63,6 +68,8 @@ const windowSync = {
             break
           case 'tab-splice':
             tasks.get(event[1]).tabs.spliceNoEmit(...event.slice(2))
+            break
+          case 'state-sync-change':
             break
           default:
             console.warn(arguments)
@@ -74,7 +81,7 @@ const windowSync = {
         if (event[0] === 'task-selected' && event[1] === priorSelectedTask) {
           // our task is being taken by another window
           //switch to an empty task not open in any window, if possible
-          var newTaskCandidates = tasks.filter(task => task.tabs.isEmpty() && !task.selectedInWindow)
+          var newTaskCandidates = tasks.filter(task => task.tabs.isEmpty() && !task.selectedInWindow && !task.name)
           .sort((a, b) => {
             return tasks.getLastActivity(b.id) - tasks.getLastActivity(a.id)
           })
@@ -83,6 +90,7 @@ const windowSync = {
           } else {
             browserUI.addTask()
           }
+          taskOverlay.show()
         }
         //if a tab was added or removed from our task, force a rerender
         if (
@@ -93,6 +101,8 @@ const windowSync = {
               browserUI.switchToTab(tabs.getSelected())
         }
       })
+
+      tasks.emit('state-sync-change')
     })
   }
 }
