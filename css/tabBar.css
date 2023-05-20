@@ -324,6 +324,7 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
 .tab-item .tab-close-button {
   font-size: 1.25em;
   box-sizing: border-box;
+  order: 1;
 }
 .tab-item .tab-close-button:hover:after {
   font-size: 0.9em;
