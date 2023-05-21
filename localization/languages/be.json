@@ -191,7 +191,8 @@
       "appMenuDuplicateTab": "Дубляваць укладку",
       "appMenuNewPrivateTab": "Новая прыватная ўкладка",
       "appMenuNewTask": "Новая задача",
-      "appMenuSavePageAs": "Захаваць старонку як",
+      "appMenuNewWindow": null, //missing translation
+    "appMenuSavePageAs": "Захаваць старонку як",
       "appMenuPrint": "Друк",
       "appMenuEdit": "Праўка",
       "appMenuUndo": "Адмяніць",

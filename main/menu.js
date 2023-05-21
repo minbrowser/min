@@ -53,7 +53,7 @@ function buildAppMenu (options = {}) {
       }
     },
     {
-      label: 'New Window',
+      label: l('appMenuNewWindow'),
       accelerator: getFormattedKeyMapEntry('addWindow') || 'shift+CmdOrCtrl+n',
       click: function () {
         if (isFocusMode) {

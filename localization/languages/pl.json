@@ -191,6 +191,7 @@
     "appMenuDuplicateTab": "Powielona karta",
     "appMenuNewPrivateTab": "Nowa karta prywatna",
     "appMenuNewTask": "Nowe zadanie",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Zapisz stronę jako",
     "appMenuPrint": "Drukuj",
     "appMenuEdit": "Edytuj",

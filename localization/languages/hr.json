@@ -191,6 +191,7 @@
     "appMenuDuplicateTab": "Dvostruka kartica",
     "appMenuNewPrivateTab": "Nova privatna kartica",
     "appMenuNewTask": "Novi Zadatak",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Spremi stranicu kao",
     "appMenuPrint": "Ispiši",
     "appMenuEdit": "Uredi",

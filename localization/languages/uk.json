@@ -192,6 +192,7 @@
     "appMenuDuplicateTab": "Дублювати вкладку",
     "appMenuNewPrivateTab": "Нова приватна вкладка",
     "appMenuNewTask": "Нове завдання",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Зберегти сторінку як",
     "appMenuPrint": "Друк",
     "appMenuEdit": "Редагувати",

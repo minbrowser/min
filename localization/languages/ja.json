@@ -191,6 +191,7 @@
     "appMenuDuplicateTab": "重複タブ",
     "appMenuNewPrivateTab": "新規プライベートタブ",
     "appMenuNewTask": "新規タスク",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "ページを別名で保存",
     "appMenuPrint": "プリント",
     "appMenuEdit": "編集",

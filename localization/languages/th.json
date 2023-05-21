@@ -191,6 +191,7 @@
     "appMenuDuplicateTab": "แท็บซ้ำ",
     "appMenuNewPrivateTab": "แท็บส่วนตัวใหม่",
     "appMenuNewTask": "งานใหม่",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "บันทึกหน้าเป็น",
     "appMenuPrint": "พิมพ์",
     "appMenuEdit": "แก้ไข",

@@ -191,6 +191,7 @@
     "appMenuDuplicateTab": "Duplikat Tab",
     "appMenuNewPrivateTab": "Tab Penyamaran Baru",
     "appMenuNewTask": "Tugas Baru",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Simpan Laman Sebagai",
     "appMenuPrint": "Cetak",
     "appMenuEdit": "Edit",

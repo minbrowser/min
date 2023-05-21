@@ -190,6 +190,7 @@
     "appMenuDuplicateTab": "Duplicar pestaña",
     "appMenuNewPrivateTab": "Nueva pestaña privada",
     "appMenuNewTask": "Nueva tarea",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Guardar página como",
     "appMenuPrint": "Imprimir",
     "appMenuEdit": "Editar",

@@ -191,6 +191,7 @@
     "appMenuDuplicateTab": "Dupliraj tab",
     "appMenuNewPrivateTab": "Novi privatni tab",
     "appMenuNewTask": "Novi zadatak",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Sačuvaj stranicu kao",
     "appMenuPrint": "Štampaj",
     "appMenuEdit": "Izmeni",

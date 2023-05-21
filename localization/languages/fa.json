@@ -190,6 +190,7 @@
     "appMenuDuplicateTab": "تکرار برگه",
     "appMenuNewPrivateTab": "ساخت برگه پنهان",
     "appMenuNewTask": "وظیفه جدید",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "ذخیره صفحه",
     "appMenuPrint": "جاپ",
     "appMenuEdit": "ویرایش",

@@ -191,6 +191,7 @@
     "appMenuDuplicateTab": "Duplicar separador",
     "appMenuNewPrivateTab": "Novo separador privado",
     "appMenuNewTask": "Nova tarefa",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Guardar página como",
     "appMenuPrint": "Imprimir",
     "appMenuEdit": "Editar",
