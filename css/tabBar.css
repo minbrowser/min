@@ -36,33 +36,35 @@
 /* navbar buttons */
 
 #toolbar-navigation-buttons {
-  width: 2.375rem;
+  width: 2rem;
   transition: 0.1s width;
   white-space: nowrap;
   overflow: hidden;
 }
 
 #toolbar-navigation-buttons.can-go-forward:hover {
-  width: 4.25rem;
+  width: 4rem;
 }
 
 body.is-edit-mode #toolbar-navigation-buttons {
   display: none;
 }
 
-#back-button, #forward-button {
+#back-button,
+#forward-button {
   opacity: 1;
   transition: none;
-  padding: 0 0.6rem;
+  padding: 0;
+  width: 2rem;
 }
-#back-button {
-  padding-left: 0.4rem;
-}
-#forward-button {
-  margin-left: -0.75em;
-}
-#back-button:disabled, #forward-button:disabled {
+#back-button:disabled,
+#forward-button:disabled {
   opacity: 0.2;
+}
+
+/* Remove default space from being inline-block */
+#forward-button {
+  margin-left: -0.25rem;
 }
 
 #menu-button {
@@ -107,7 +109,11 @@ body.linux #menu-button {
   overflow: hidden;
   word-break: break-all;
   position: relative;
-  padding: 0 0.8em;
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 .tab-item.gu-mirror {
   top: var(--control-space-top) !important;
@@ -153,14 +159,25 @@ body.linux #menu-button {
 /* icons */
 
 .tab-item .tab-icon-area {
-  float: right;
-  margin-right: -0.7em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  order: 1;
 }
+body:not(.touch)
+  .tab-item:not(:hover)
+  .tab-icon-area:has(.tab-close-button:only-child) {
+  margin-left: -0.5rem;
+}
+
 .tab-item .tab-icon {
   position: relative;
   font-size: 0.875em;
-  padding: 0.7125em 0.5em;
-  box-sizing: content-box;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 .tab-item .tab-icon:not(.permission-request-icon):hover:after {
   content: "";
@@ -169,8 +186,9 @@ body.linux #menu-button {
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.075);
   position: absolute;
-  top: -3px;
-  left: -3px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: -1;
 }
 .dark-theme .tab-item .tab-icon:hover:after {
@@ -209,6 +227,9 @@ body.linux #menu-button {
 }
 .tab-item .title {
   font-size: 15px;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  margin-right: auto;
 }
 
 /* buttons */
@@ -244,7 +265,7 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
 /* audio button */
 .tab-item .tab-audio-button {
   vertical-align: text-bottom;
-  padding: 0 0.5em 0 0;
+  padding: 0;
   font-size: 1.1em !important;
 }
 
@@ -253,29 +274,28 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
 .tab-item .reader-button {
   display: none;
   vertical-align: text-bottom;
-  padding: 0 0.5em 0 0;
   font-size: 1.1em !important;
+  order: -1;
 }
 .tab-item.active .reader-button.can-reader {
-  display: inline-block;
+  display: inline-flex;
 }
 .tab-item.active .reader-button.is-reader {
-  display: inline-block;
+  display: inline-flex;
 }
 
 /* permission request buttons */
 
 .tab-item .tab-icon.permission-request-icon {
   border: 1px rgba(0, 0, 0, 0.3) solid;
-  padding: 0.15em 0.17em;
-  margin-right: 0.66em;
-  margin-top: -0.2em;
-  margin-left: -0.3em;
-  border-radius: 0.75em;
+  border-radius: 0.75rem;
+  height: 70%;
+  margin: auto 0;
+  order: -1;
+  padding-inline: 0.25rem;
 }
 .tab-item .tab-icon.permission-request-icon .i {
   vertical-align: middle;
-  margin-top: -3px;
   display: inline-block;
 }
 .dark-theme .tab-item .tab-icon.permission-request-icon {
@@ -305,12 +325,10 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
 /* in Carbon, close icon is a bit smaller than other icons, enlarge it in order to match with other icons */
 .tab-item .tab-close-button {
   font-size: 1.25em;
-  padding: 0.3em 0.45em;
-  margin-top: 0.15em;
+  box-sizing: border-box;
+  order: 1;
 }
 .tab-item .tab-close-button:hover:after {
-  top: 4px !important;
-  left: 7px !important;
   font-size: 0.9em;
 }
 
@@ -338,7 +356,7 @@ body.is-focus-mode .navbar-action-button:not(#menu-button) {
   position: absolute;
   top: 0;
   left: 0;
-  margin: 0 0.8em;
+  /* margin: 0 0.8em; */
   overflow: hidden;
 }
 
