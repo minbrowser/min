@@ -201,6 +201,7 @@ const sessionRestore = {
       })
     if (newTaskCandidates.length > 0) {
       browserUI.switchToTask(newTaskCandidates[0].id)
+      tabEditor.show(tasks.getSelected().tabs.getSelected())
     } else {
       browserUI.addTask()
     }
@@ -217,6 +218,11 @@ const sessionRestore = {
 
     window.onbeforeunload = function (e) {
       sessionRestore.save(true, true)
+      //workaround for notifying the other windows that the task open in this window isn't open anymore.
+      //This should ideally be done in windowSync, but it needs to run synchronously, which windowSync doesn't
+      ipc.send('tab-state-change', [
+        ['task-updated', tasks.getSelected().id, 'selectedInWindow', null]
+      ])
     }
 
     ipc.on('read-tab-state', function (e) {
