@@ -164,7 +164,9 @@ body.linux #menu-button {
   gap: 0.5rem;
   order: 1;
 }
-.tab-item:not(:hover) .tab-icon-area:has(.tab-close-button:only-child) {
+body:not(.touch)
+  .tab-item:not(:hover)
+  .tab-icon-area:has(.tab-close-button:only-child) {
   margin-left: -0.5rem;
 }
 
