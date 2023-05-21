@@ -11,23 +11,25 @@ ipc.handle('startFileDrag', function (e, path) {
   })
 })
 
-ipc.handle('showFocusModeDialog1', function () {
+function showFocusModeDialog1() {
   dialog.showMessageBox({
     type: 'info',
     buttons: [l('closeDialog')],
     message: l('isFocusMode'),
     detail: l('focusModeExplanation1') + ' ' + l('focusModeExplanation2')
   })
-})
+}
 
-ipc.handle('showFocusModeDialog2', function () {
+function showFocusModeDialog2() {
   dialog.showMessageBox({
     type: 'info',
     buttons: [l('closeDialog')],
     message: l('isFocusMode'),
     detail: l('focusModeExplanation2')
   })
-})
+}
+
+ipc.handle('showFocusModeDialog2', showFocusModeDialog2)
 
 ipc.handle('showOpenDialog', async function (e, options) {
   const result = await dialog.showOpenDialog(windows.windowFromContents(e.sender).win, options)

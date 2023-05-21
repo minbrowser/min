@@ -56,7 +56,11 @@ function buildAppMenu (options = {}) {
       label: 'New Window',
       accelerator: getFormattedKeyMapEntry('addWindow') || 'shift+CmdOrCtrl+n',
       click: function () {
-        createWindow()
+        if (isFocusMode) {
+          showFocusModeDialog2()
+        } else {
+          createWindow()
+        }
       }
     }
   ]
@@ -264,10 +268,15 @@ function buildAppMenu (options = {}) {
           click: function (item, window) {
             if (isFocusMode) {
               isFocusMode = false
-              sendIPCToWindow(window, 'exitFocusMode')
+              windows.getAll().forEach(win => sendIPCToWindow(win, 'exitFocusMode'))
             } else {
               isFocusMode = true
-              sendIPCToWindow(window, 'enterFocusMode')
+              windows.getAll().forEach(win => sendIPCToWindow(win, 'enterFocusMode'))
+
+              // wait to show the message until the tabs have been hidden, to make the message less confusing
+              setTimeout(function() {
+                showFocusModeDialog1()
+              }, 16);
             }
           }
         },
