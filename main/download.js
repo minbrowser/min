@@ -14,7 +14,7 @@ function downloadHandler (event, item, webContents) {
   var itemURL = item.getURL()
   var attachment = isAttachment(item.getContentDisposition())
 
-  if (item.getMimeType() === 'application/pdf' && itemURL.indexOf('blob:') !== 0 && itemURL.indexOf('#pdfjs.action=download') === -1 && !attachment) { // clicking the download button in the viewer opens a blob url, so we don't want to open those in the viewer (since that would make it impossible to download a PDF)
+  if (item.getMimeType() === 'application/pdf' && itemURL.indexOf('blob:') !== 0 && itemURL.indexOf('#pdfjs.action=download') === -1 && !attachment && item.hasUserGesture()) { // clicking the download button in the viewer opens a blob url, so we don't want to open those in the viewer (since that would make it impossible to download a PDF)
     event.preventDefault()
 
     sendIPCToWindow(mainWindow, 'openPDF', {
