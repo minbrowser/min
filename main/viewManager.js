@@ -252,8 +252,10 @@ function focusView (id) {
   // also, make sure the view exists, since it might not if the app is shutting down
   if (viewMap[id] && (viewMap[id].webContents.getURL() !== '' || viewMap[id].webContents.isLoading())) {
     viewMap[id].webContents.focus()
+    return true
   } else if (BrowserWindow.fromBrowserView(viewMap[id])) {
     BrowserWindow.fromBrowserView(viewMap[id]).webContents.focus()
+    return true
   }
 }
 
@@ -295,7 +297,10 @@ ipc.on('setView', function (e, args) {
   setView(args.id, e.sender)
   setBounds(args.id, args.bounds)
   if (args.focus && BrowserWindow.fromWebContents(e.sender) && BrowserWindow.fromWebContents(e.sender).isFocused()) {
-    focusView(args.id)
+    const couldFocus = focusView(args.id)
+    if (!couldFocus) {
+      e.sender.focus()
+    }
   }
 })
 
