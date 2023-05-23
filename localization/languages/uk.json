@@ -50,9 +50,9 @@
     "addBookmark": "Додати закладку",
     "searchBookmarks": "Шукати в закладках",
     "bookmarksAddTag": "Додати мітку...",
-    "bookmarksRenameTag": null, //missing translation
-    "bookmarksDeleteTag": null, //missing translation
-    "deleteBookmarksWithTag": null, //missing translation
+    "bookmarksRenameTag": "Перейменувати мітку",
+    "bookmarksDeleteTag": "Видалити мітку",
+    "deleteBookmarksWithTag": "Видалити закладки з міткою",
     "bookmarksSimilarItems": "Подібні елементи",
     "searchHistory": "Шукати в історії",
     "importBookmarks": "Імпортувати закладки",
@@ -153,7 +153,7 @@
     "settingsDarkModeNever": "Ніколи",
     "settingsDarkModeNight": "Вночі",
     "settingsDarkModeAlways": "Завжди",
-    "settingsDarkModeSystem": null,
+    "settingsDarkModeSystem": "Дотримуватися системної теми",
     "settingsSiteThemeToggle": "Увімкнути тему сайту",
     "settingsAdditionalFeaturesHeading": "Додаткові можливості",
     "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
@@ -169,10 +169,10 @@
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Надсилати статистику використання (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Детальніше</a>)"
     },
-    "settingsStartupOptions": null, //missing translation
-    "settingsStartupCreateTask": null, //missing translation
-    "settingsStartupNewTaskandBackground": null, //missing translation
-    "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsStartupOptions": "При запуску Min: ",
+    "settingsStartupCreateTask": "Відкрити попередні вкладки",
+    "settingsStartupNewTaskandBackground": "Перемістити попередні вкладки до фонового завдання",
+    "settingsStartupNewTaskOnly": "Відкрити нове порожнє завдання",
     "settingsSearchEngineHeading": "Пошукова система",
     "settingsDefaultSearchEngine": "Виберіть типову пошукову систему:",
     "settingsDDGExplanation": "Встановіть DuckDuckGo як типову пошукову систему, щоб побачити миттєві відповіді на панелі пошуку.",

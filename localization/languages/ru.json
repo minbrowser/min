@@ -50,9 +50,9 @@
     "addBookmark": "Добавить закладку",
     "searchBookmarks": "Искать в закладках",
     "bookmarksAddTag": "Добавить тег",
-    "bookmarksRenameTag": null, //missing translation
-    "bookmarksDeleteTag": null, //missing translation
-    "deleteBookmarksWithTag": null, //missing translation
+    "bookmarksRenameTag": "Переименовать тег",
+    "bookmarksDeleteTag": "Удалить тег",
+    "deleteBookmarksWithTag": "Удалить закладки с тегом",
     "bookmarksSimilarItems": "Похожие",
     "searchHistory": "Искать в истории",
     "importBookmarks": "Импортировать закладки",
@@ -168,10 +168,10 @@
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Отправлять статистику использования (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Подробнее</a>)"
     },
-    "settingsStartupOptions": null, //missing translation
-    "settingsStartupCreateTask": null, //missing translation
-    "settingsStartupNewTaskandBackground": null, //missing translation
-    "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsStartupOptions": "При запуске Min: ",
+    "settingsStartupCreateTask": "Открыть предыдущие вкладки",
+    "settingsStartupNewTaskandBackground": "Переместить предыдущие вкладки в фоновую задачу",
+    "settingsStartupNewTaskOnly": "Открыть новую пустую задачу",
     "settingsSearchEngineHeading": "Поиск",
     "settingsDefaultSearchEngine": "Выберите поисковую систему по умолчанию:",
     "settingsDDGExplanation": "Чтобы видеть мгновенные ответы в строке поиска, установите DuckDuckGo поисковиком по умолчанию.",
