@@ -1,9 +1,9 @@
 const BrowserView = electron.BrowserView
 
-var viewMap = {} // id: view
-var viewStateMap = {} // id: view state
+const viewMap = {} // id: view
+const viewStateMap = {} // id: view state
 
-var temporaryPopupViews = {} // id: view
+const temporaryPopupViews = {} // id: view
 
 const defaultViewWebPreferences = {
   nodeIntegration: false,
@@ -134,25 +134,25 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
   })
 
   // Open a login prompt when site asks for http authentication
-  view.webContents.on('login', (event, authenticationResponseDetails, authInfo, callback) => {
-    if (authInfo.scheme !== 'basic') { // Only for basic auth
-      return
+  view.webContents.on(
+    'login',
+    async (event, authenticationResponseDetails, authInfo, callback) => {
+      if (authInfo.scheme !== 'basic') { // Only for basic auth
+        return
+      }
+      event.preventDefault()
+      const { username, password } = await createPrompt({
+        text: l('loginPromptTitle').replace('%h', authInfo.host).replace('%r', authInfo.realm),
+        values: [{ placeholder: l('username'), id: 'username', type: 'text' },
+          { placeholder: l('password'), id: 'password', type: 'password' }],
+        ok: l('dialogConfirmButton'),
+        cancel: l('dialogSkipButton'),
+        width: 400,
+        height: 200
+      })
+      callback(username, password)
     }
-    event.preventDefault()
-    var title = l('loginPromptTitle').replace('%h', authInfo.host).replace('%r', authInfo.realm)
-    createPrompt({
-      text: title,
-      values: [{ placeholder: l('username'), id: 'username', type: 'text' },
-        { placeholder: l('password'), id: 'password', type: 'password' }],
-      ok: l('dialogConfirmButton'),
-      cancel: l('dialogSkipButton'),
-      width: 400,
-      height: 200
-    }, function (result) {
-      // resend request with auth credentials
-      callback(result.username, result.password)
-    })
-  })
+  )
 
   // show an "open in app" prompt for external protocols
 

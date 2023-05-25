@@ -13,7 +13,8 @@ const passwordCapture = {
   closeButton: document.getElementById('password-capture-ignore'),
   currentDomain: null,
   barHeight: 0,
-  showCaptureBar: function (username, password) {
+
+  showCaptureBar (username, password) {
     passwordCapture.description.textContent = l('passwordCaptureSavePassword').replace('%s', passwordCapture.currentDomain)
     passwordCapture.bar.hidden = false
 
@@ -27,7 +28,8 @@ const passwordCapture = {
     passwordCapture.barHeight = passwordCapture.bar.getBoundingClientRect().height
     webviews.adjustMargin([passwordCapture.barHeight, 0, 0, 0])
   },
-  hideCaptureBar: function () {
+
+  hideCaptureBar () {
     webviews.adjustMargin([passwordCapture.barHeight * -1, 0, 0, 0])
 
     passwordCapture.bar.hidden = true
@@ -35,7 +37,8 @@ const passwordCapture = {
     passwordCapture.passwordInput.value = ''
     passwordCapture.currentDomain = null
   },
-  togglePasswordVisibility: function () {
+
+  togglePasswordVisibility () {
     if (passwordCapture.passwordInput.type === 'password') {
       passwordCapture.passwordInput.type = 'text'
       passwordCapture.revealButton.classList.remove('carbon:view')
@@ -46,8 +49,9 @@ const passwordCapture = {
       passwordCapture.revealButton.classList.remove('carbon:view-off')
     }
   },
-  handleRecieveCredentials: function (tab, args, frameId) {
-    var domain = args[0][0]
+
+  async handleRecieveCredentials (tab, args, frameId) {
+    let domain = args[0][0]
     if (domain.startsWith('www.')) {
       domain = domain.slice(4)
     }
@@ -56,30 +60,29 @@ const passwordCapture = {
       return
     }
 
-    var username = args[0][1] || ''
-    var password = args[0][2] || ''
+    const username = args[0][1] || ''
+    const password = args[0][2] || ''
 
-    PasswordManagers.getConfiguredPasswordManager().then(function (manager) {
-      if (!manager || !manager.saveCredential) {
-        // the password can't be saved
-        return
+    const manager = await PasswordManagers.getConfiguredPasswordManager()
+    if (!manager || !manager.saveCredential) {
+      // the password can't be saved
+      return
+    }
+
+    // check if this username/password combo is already saved
+    const credentials = await manager.getSuggestions(domain)
+    const alreadyExists = credentials.some(cred => cred.username === username && cred.password === password)
+    if (!alreadyExists) {
+      if (!passwordCapture.bar.hidden) {
+        passwordCapture.hideCaptureBar()
       }
 
-      // check if this username/password combo is already saved
-      manager.getSuggestions(domain).then(function (credentials) {
-        var alreadyExists = credentials.some(cred => cred.username === username && cred.password === password)
-        if (!alreadyExists) {
-          if (!passwordCapture.bar.hidden) {
-            passwordCapture.hideCaptureBar()
-          }
-
-          passwordCapture.currentDomain = domain
-          passwordCapture.showCaptureBar(username, password)
-        }
-      })
-    })
+      passwordCapture.currentDomain = domain
+      passwordCapture.showCaptureBar(username, password)
+    }
   },
-  initialize: function () {
+
+  initialize () {
     passwordCapture.usernameInput.placeholder = l('username')
     passwordCapture.passwordInput.placeholder = l('password')
 
@@ -106,7 +109,7 @@ const passwordCapture = {
     // the bar can change height when the window is resized, so the webview needs to be resized in response
     window.addEventListener('resize', function () {
       if (!passwordCapture.bar.hidden) {
-        var oldHeight = passwordCapture.barHeight
+        const oldHeight = passwordCapture.barHeight
         passwordCapture.barHeight = passwordCapture.bar.getBoundingClientRect().height
         webviews.adjustMargin([passwordCapture.barHeight - oldHeight, 0, 0, 0])
       }

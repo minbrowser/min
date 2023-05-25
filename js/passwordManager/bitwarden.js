@@ -1,7 +1,9 @@
-const ProcessSpawner = require('util/process.js')
-const path = require('path')
+
+const { join } = require('path')
 const fs = require('fs')
-var { ipcRenderer } = require('electron')
+const { ipcRenderer } = require('electron')
+
+const ProcessSpawner = require('util/process.js')
 
 // Bitwarden password manager. Requires session key to unlock the vault.
 class Bitwarden {
@@ -12,18 +14,17 @@ class Bitwarden {
   }
 
   getDownloadLink () {
-    switch (window.platformType) {
-      case 'mac':
-        return 'https://vault.bitwarden.com/download/?app=cli&platform=macos'
-      case 'windows':
-        return 'https://vault.bitwarden.com/download/?app=cli&platform=windows'
-      case 'linux':
-        return 'https://vault.bitwarden.com/download/?app=cli&platform=linux'
+    if (window.platformType === 'mac') {
+      return 'https://vault.bitwarden.com/download/?app=cli&platform=macos'
     }
+    if (window.platformType === 'windows') {
+      return 'https://vault.bitwarden.com/download/?app=cli&platform=windows'
+    }
+    return 'https://vault.bitwarden.com/download/?app=cli&platform=linux'
   }
 
   getLocalPath () {
-    return path.join(window.globalArgs['user-data-path'], 'tools', (platformType === 'windows' ? 'bw.exe' : 'bw'))
+    return join(window.globalArgs['user-data-path'], 'tools', (platformType === 'windows' ? 'bw.exe' : 'bw'))
   }
 
   getSetupMode () {
@@ -41,7 +42,7 @@ class Bitwarden {
       try {
         await fs.promises.access(localPath, fs.constants.X_OK)
         local = true
-      } catch (e) { }
+      } catch { }
       if (local) {
         return localPath
       }
@@ -71,7 +72,7 @@ class Bitwarden {
 
   // Tries to get a list of credential suggestions for a given domain name.
   async getSuggestions (domain) {
-    if (this.lastCallList[domain] != null) {
+    if (this.lastCallList[domain]) {
       return this.lastCallList[domain]
     }
 
@@ -84,12 +85,13 @@ class Bitwarden {
       throw new Error()
     }
 
-    this.lastCallList[domain] = this.loadSuggestions(command, domain).then(suggestions => {
-      this.lastCallList[domain] = null
+    try {
+      const suggestions = await this.loadSuggestions(command, domain)
+      this.lastCallList[domain] = suggestions
       return suggestions
-    }).catch(ex => {
+    } catch (e) {
       this.lastCallList[domain] = null
-    })
+    }
 
     return this.lastCallList[domain]
   }
@@ -97,19 +99,17 @@ class Bitwarden {
   // Loads credential suggestions for given domain name.
   async loadSuggestions (command, domain) {
     try {
-      const process = new ProcessSpawner(command, ['list', 'items', '--url', this.sanitize(domain), '--session', this.sessionKey])
-      const data = await process.execute()
-
-      const matches = JSON.parse(data)
-      const credentials = matches.map(match => {
-        const { login: { username, password } } = match
-        return { username, password, manager: 'Bitwarden' }
-      })
-
-      return credentials
-    } catch (ex) {
-      const { error, data } = ex
-      console.error('Error accessing Bitwarden CLI. STDOUT: ' + data + '. STDERR: ' + error)
+      const process = new ProcessSpawner(
+        command,
+        ['list', 'items', '--url', domain.replace(/[^a-zA-Z0-9.-]/g, ''), '--session', this.sessionKey]
+      )
+      const matches = JSON.parse(await process.execute())
+      return matches.map(
+        ({ login: { username, password } }) =>
+          ({ username, password, manager: 'Bitwarden' })
+      )
+    } catch ({ error, data }) {
+      console.error(`Error accessing Bitwarden CLI. STDOUT: ${data}. STDERR: ${error}`)
       return []
     }
   }
@@ -118,9 +118,8 @@ class Bitwarden {
     try {
       const process = new ProcessSpawner(command, ['sync', '--session', this.sessionKey])
       await process.execute()
-    } catch (ex) {
-      const { error, data } = ex
-      console.error('Error accessing Bitwarden CLI. STDOUT: ' + data + '. STDERR: ' + error)
+    } catch ({ error, data }) {
+      console.error(`Error accessing Bitwarden CLI. STDOUT: ${data}. STDERR: ${error}`)
     }
   }
 
@@ -138,17 +137,17 @@ class Bitwarden {
       await this.forceSync(this.path)
 
       return true
-    } catch (ex) {
-      const { error, data } = ex
+    } catch (err) {
+      const { error, data } = err
 
-      console.error('Error accessing Bitwarden CLI. STDOUT: ' + data + '. STDERR: ' + error)
+      console.error(`Error accessing Bitwarden CLI. STDOUT: ${data}. STDERR: ${error}`)
 
       if (error.includes('not logged in')) {
         await this.signInAndSave()
         return await this.unlockStore(password)
       }
 
-      throw ex
+      throw err
     }
   }
 
@@ -161,41 +160,43 @@ class Bitwarden {
       console.warn(e)
     }
 
-    // show credentials dialog
-
-    var signInFields = [
+    // show ask-for-credential dialog
+    const signInFields = [
+      { placeholder: 'Server URL (Leave blank for the default Bitwarden server)', id: 'url', type: 'text' },
       { placeholder: 'Client ID', id: 'clientID', type: 'password' },
       { placeholder: 'Client Secret', id: 'clientSecret', type: 'password' }
     ]
 
-    const credentials = ipcRenderer.sendSync('prompt', {
-      text: l('passwordManagerBitwardenSignIn'),
-      values: signInFields,
-      ok: l('dialogConfirmButton'),
-      cancel: l('dialogSkipButton'),
-      width: 500,
-      height: 260
-    })
-
-    for (const key in credentials) {
-      if (credentials[key] === '') {
-        throw new Error('no credentials entered')
+    const credentials = ipcRenderer.sendSync(
+      'prompt',
+      {
+        text: l('passwordManagerBitwardenSignIn'),
+        values: signInFields,
+        ok: l('dialogConfirmButton'),
+        cancel: l('dialogSkipButton'),
+        width: 500,
+        height: 260
       }
+    )
+
+    if (credentials.clientID === '' || credentials.clientSecret === '') {
+      throw new Error('no credentials entered')
     }
 
-    const process = new ProcessSpawner(path, ['login', '--apikey'], {
-      BW_CLIENTID: credentials.clientID.trim(),
-      BW_CLIENTSECRET: credentials.clientSecret.trim()
-    })
+    credentials.url = credentials.url || 'bitwarden.com'
 
-    await process.execute()
+    const process1 = new ProcessSpawner(path, ['config', 'server', credentials.url.trim()])
+    await process1.execute()
 
-    return true
-  }
-
-  // Basic domain name cleanup. Removes any non-ASCII symbols.
-  sanitize (domain) {
-    return domain.replace(/[^a-zA-Z0-9.-]/g, '')
+    const process2 = new ProcessSpawner(
+      path,
+      ['login', '--apikey'],
+      {
+        BW_CLIENTID: credentials.clientID.trim(),
+        BW_CLIENTSECRET: credentials.clientSecret.trim()
+      }
+    )
+    await process2.execute()
   }
 }
 
