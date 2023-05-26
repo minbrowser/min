@@ -75,6 +75,24 @@ module.exports = {
       browserUI.duplicateTab(tabs.getSelected())
     })
 
+    ipc.on('restoreTab', function (e) {
+      if (focusMode.enabled()) {
+        focusMode.warn()
+        return
+      }
+
+      var restoredTab = tasks.getSelected().tabHistory.pop()
+
+      // The tab history stack is empty
+      if (!restoredTab) {
+        return
+      }
+
+      browserUI.addTab(tabs.add(restoredTab), {
+        enterEditMode: false
+      })
+    })
+
     ipc.on('addTab', function (e, data) {
       /* new tabs can't be created in modal mode */
       if (modalMode.enabled()) {

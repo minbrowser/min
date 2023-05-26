@@ -54,6 +54,18 @@ function buildAppMenu (options = {}) {
     }
   ]
 
+  var closedTabTaskActions = [
+    {
+      label: l('appMenuRestoreTab'),
+      accelerator: getFormattedKeyMapEntry('restoreTab') || 'shift+CmdOrCtrl+t',
+      click: function (item, window, event) {
+        if (!event.triggeredByAccelerator) {
+          sendIPCToWindow(window, 'restoreTab')
+        }
+      }
+    }
+  ]
+
   var personalDataItems = [
     {
       label: l('appMenuBookmarks'),
@@ -97,6 +109,8 @@ function buildAppMenu (options = {}) {
 
   var template = [
     ...(options.secondary ? tabTaskActions : []),
+    ...(options.secondary ? [{ type: 'separator' }] : []),
+    ...(options.secondary ? closedTabTaskActions : []),
     ...(options.secondary ? [{ type: 'separator' }] : []),
     ...(options.secondary ? personalDataItems : []),
     ...(options.secondary ? [{ type: 'separator' }] : []),
@@ -148,6 +162,8 @@ function buildAppMenu (options = {}) {
       label: l('appMenuFile'),
       submenu: [
         ...(!options.secondary ? tabTaskActions : []),
+        ...(!options.secondary ? [{ type: 'separator' }] : []),
+        ...(!options.secondary ? closedTabTaskActions : []),
         ...(!options.secondary ? [{ type: 'separator' }] : []),
         {
           label: l('appMenuSavePageAs'),
@@ -342,7 +358,7 @@ function buildAppMenu (options = {}) {
                   }
                 }
               }
-            // otherwise, this event will be handled in the main window
+              // otherwise, this event will be handled in the main window
             }
           },
           {
