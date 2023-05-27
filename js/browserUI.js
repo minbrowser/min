@@ -168,13 +168,14 @@ function switchToTask (id) {
 function switchToTab (id, options) {
   options = options || {}
 
-  tabEditor.hide()
-
   tabs.setSelected(id)
   tabBar.setActiveTab(id)
   webviews.setSelected(id, {
     focus: options.focusWebview !== false
   })
+
+  tabEditor.hide()
+
   if (!tabs.get(id).url) {
     document.body.classList.add('is-ntp')
   } else {
