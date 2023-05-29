@@ -85,14 +85,7 @@ class Bitwarden {
       throw new Error()
     }
 
-    try {
-      const suggestions = await this.loadSuggestions(command, domain)
-      this.lastCallList[domain] = suggestions
-      return suggestions
-    } catch (e) {
-      this.lastCallList[domain] = null
-    }
-
+    this.lastCallList[domain] = await this.loadSuggestions(command, domain)
     return this.lastCallList[domain]
   }
 

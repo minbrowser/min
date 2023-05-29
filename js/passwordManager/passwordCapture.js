@@ -50,7 +50,7 @@ const passwordCapture = {
     }
   },
 
-  async handleRecieveCredentials (tab, args, frameId) {
+  async handleReceivedCredentials (tab, args, frameId) {
     let domain = args[0][0]
     if (domain.startsWith('www.')) {
       domain = domain.slice(4)
@@ -60,25 +60,29 @@ const passwordCapture = {
       return
     }
 
-    const username = args[0][1] || ''
-    const password = args[0][2] || ''
+    try {
+      const username = args[0][1] || ''
+      const password = args[0][2] || ''
 
-    const manager = await PasswordManagers.getConfiguredPasswordManager()
-    if (!manager || !manager.saveCredential) {
-      // the password can't be saved
-      return
-    }
-
-    // check if this username/password combo is already saved
-    const credentials = await manager.getSuggestions(domain)
-    const alreadyExists = credentials.some(cred => cred.username === username && cred.password === password)
-    if (!alreadyExists) {
-      if (!passwordCapture.bar.hidden) {
-        passwordCapture.hideCaptureBar()
+      const manager = await PasswordManagers.getConfiguredPasswordManager()
+      if (!manager || !manager.saveCredential) {
+        // the password can't be saved
+        return
       }
 
-      passwordCapture.currentDomain = domain
-      passwordCapture.showCaptureBar(username, password)
+      // check if this username/password combo is already saved
+      const credentials = await manager.getSuggestions(domain)
+      const alreadyExists = credentials.some(cred => cred.username === username && cred.password === password)
+      if (!alreadyExists) {
+        if (!passwordCapture.bar.hidden) {
+          passwordCapture.hideCaptureBar()
+        }
+
+        passwordCapture.currentDomain = domain
+        passwordCapture.showCaptureBar(username, password)
+      }
+    } catch (e) {
+      console.error(`Failed to get password suggestions: ${e.message}`)
     }
   },
 
@@ -86,7 +90,7 @@ const passwordCapture = {
     passwordCapture.usernameInput.placeholder = l('username')
     passwordCapture.passwordInput.placeholder = l('password')
 
-    webviews.bindIPC('password-form-filled', passwordCapture.handleRecieveCredentials)
+    webviews.bindIPC('password-form-filled', passwordCapture.handleReceivedCredentials)
 
     passwordCapture.saveButton.addEventListener('click', function () {
       if (passwordCapture.usernameInput.checkValidity() && passwordCapture.passwordInput.checkValidity()) {

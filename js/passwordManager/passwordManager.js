@@ -101,7 +101,7 @@ function initialize () {
 
     try {
       const credentials = await manager.getSuggestions(hostname)
-      if (credentials !== null) {
+      if (credentials) {
         webviews.callAsync(tab, 'sendToFrame', [frameId, 'password-autofill-match', {
           credentials,
           hostname
