@@ -191,6 +191,7 @@
     "appMenuDuplicateTab": "Sekmeyi Çoğalt",
     "appMenuNewPrivateTab": "Yeni Özel Sekme",
     "appMenuNewTask": "Yeni Görev",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Sayfayı Farklı Kaydet",
     "appMenuPrint": "Yazdır",
     "appMenuEdit": "Düzenle",

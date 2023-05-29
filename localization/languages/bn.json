@@ -189,6 +189,7 @@
     "appMenuDuplicateTab": "ডুপ্লিকেট ট্যাব",
     "appMenuNewPrivateTab": "নতুন ব্যক্তিগত ট্যাব",
     "appMenuNewTask": "ত্যে",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "যেমন পৃষ্ঠা সংরক্ষণ",
     "appMenuPrint": "ছাপা",
     "appMenuEdit": "সম্পাদন করা",

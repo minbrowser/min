@@ -24,6 +24,11 @@ const statistics = {
       return
     }
 
+    //avoid duplicate uploads when multiple windows are open
+    if (!document.body.classList.contains('focused')) {
+      return
+    }
+
     var usageData = Object.assign({}, statistics.usageDataCache || {})
 
     // avoid uploading more than a week's worth of old data, in the case that uploads fail indefinitely

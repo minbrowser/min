@@ -268,7 +268,9 @@ tasks.on('tab-updated', function (id, key) {
 })
 
 permissionRequests.onChange(function (tabId) {
-  tabBar.updateTab(tabId)
+  if (tabs.get(tabId)) {
+    tabBar.updateTab(tabId)
+  }
 })
 
 tabBar.initializeTabDragging()

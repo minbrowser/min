@@ -191,7 +191,8 @@
       "appMenuDuplicateTab": "Αντιγραφή καρτέλας",
       "appMenuNewPrivateTab": "Νέα ιδιωτική καρτέλα",
       "appMenuNewTask": "Νέα εργασία",
-      "appMenuSavePageAs": "Αποθήκευση σελίδας ως",
+      "appMenuNewWindow": null, //missing translation
+    "appMenuSavePageAs": "Αποθήκευση σελίδας ως",
       "appMenuPrint": "Εκτύπωση",
       "appMenuEdit": "Τροποποίηση",
       "appMenuUndo": "Αναίρεση",

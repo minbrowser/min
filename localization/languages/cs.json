@@ -191,6 +191,7 @@
     "appMenuDuplicateTab": "Duplikovat kartu",
     "appMenuNewPrivateTab": "Nová soukromá karta",
     "appMenuNewTask": "Nová dimenze",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Uložit stránku jako...",
     "appMenuPrint": "Vytisknout stránku...",
     "appMenuEdit": "Úpravy",

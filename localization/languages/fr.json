@@ -191,6 +191,7 @@
     "appMenuDuplicateTab": "Dupliquer l'onglet",
     "appMenuNewPrivateTab": "Nouvel onglet de navigation privée",
     "appMenuNewTask": "Nouvelle tâche",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Enregistrer la page sous",
     "appMenuPrint": "Imprimer",
     "appMenuEdit": "Editer",

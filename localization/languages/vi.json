@@ -185,6 +185,7 @@
         "appMenuNewPrivateTab": "Tab riêng tư mới",
         "appMenuNewTask": "Tác vụ mới",
         "appMenuSavePageAs": "Lưu trang thành",
+        "appMenuNewWindow": null, //missing translation
         "appMenuPrint": "In",
         "appMenuEdit": "Sửa",
         "appMenuUndo": "Hoàn tác",

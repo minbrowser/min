@@ -3,7 +3,6 @@ const TabStack = require('tabRestore.js')
 
 class TaskList {
   constructor () {
-    this.selected = null
     this.tasks = [] // each task is {id, name, tabs: [], tabHistory: TabStack}
     this.events = []
     this.pendingCallbacks = []
@@ -14,10 +13,12 @@ class TaskList {
     this.events.push({ name, fn })
   }
 
+  static temporaryProperties = ['selectedInWindow']
+
   emit (name, ...data) {
     this.events.forEach(listener => {
-      if (listener.name === name) {
-        this.pendingCallbacks.push([listener.fn, data])
+      if (listener.name === name || listener.name === '*') {
+        this.pendingCallbacks.push([listener.fn, (listener.name === '*' ? [name] : []).concat(data)])
 
         // run multiple events in one timeout, since calls to setTimeout() appear to be slow (at least based on timeline data)
         if (!this.pendingCallbackTimeout) {
@@ -31,13 +32,14 @@ class TaskList {
     })
   }
 
-  add (task = {}, index) {
+  add (task = {}, index, emit = true) {
     const newTask = {
       name: task.name || null,
       tabs: new TabList(task.tabs, this),
       tabHistory: new TabStack(task.tabHistory),
       collapsed: task.collapsed, // this property must stay undefined if it is already (since there is a difference between "explicitly uncollapsed" and "never collapsed")
-      id: task.id || String(TaskList.getRandomId())
+      id: task.id || String(TaskList.getRandomId()),
+      selectedInWindow: task.selectedInWindow || null,
     }
 
     if (index) {
@@ -46,15 +48,47 @@ class TaskList {
       this.tasks.push(newTask)
     }
 
-    this.emit('task-added', newTask.id)
+    if (emit) {
+      this.emit('task-added', newTask.id, Object.assign({}, newTask, { tabHistory: task.tabHistory, tabs: task.tabs }), index)
+    }
 
     return newTask.id
   }
 
+  update (id, data, emit=true) {
+    let task = this.get(id)
+
+    if (!task) {
+      throw new ReferenceError('Attempted to update a task that does not exist.')
+    }
+
+    for (var key in data) {
+      if (data[key] === undefined) {
+        throw new ReferenceError('Key ' + key + ' is undefined.')
+      }
+      task[key] = data[key]
+      if (emit) {
+        this.emit('task-updated', id, key, data[key])
+      }
+    }
+  }
+
   getStringifyableState () {
     return {
-      tasks: this.tasks.map(task => Object.assign({}, task, { tabs: task.tabs.getStringifyableState() })),
-      selectedTask: this.selected
+      tasks: this.tasks.map(task => Object.assign({}, task, { tabs: task.tabs.getStringifyableState() })).map(function(task) {
+        //remove temporary properties from task
+        let result = {}
+        Object.keys(task)
+        .filter(key => !TaskList.temporaryProperties.includes(key))
+        .forEach(key => result[key] = task[key])
+        return result
+      })
+    }
+  }
+
+  getCopyableState () {
+    return {
+      tasks: this.tasks.map(task => Object.assign({}, task, {tabs: task.tabs.tabs}))
     }
   }
 
@@ -63,7 +97,7 @@ class TaskList {
   }
 
   getSelected () {
-    return this.get(this.selected)
+    return this.find(task => task.selectedInWindow === windowId)
   }
 
   byIndex (index) {
@@ -78,35 +112,41 @@ class TaskList {
     return this.tasks.findIndex(task => task.id === id)
   }
 
-  setSelected (id) {
-    this.selected = id
-    window.tabs = this.get(id).tabs
-    this.emit('task-selected', id)
-    this.emit('tab-selected', tabs.getSelected())
+  setSelected (id, emit = true, onWindow=windowId) {
+    for (var i = 0; i < this.tasks.length; i++) {
+      if (this.tasks[i].selectedInWindow === onWindow) {
+        this.tasks[i].selectedInWindow = null
+      }
+      if (this.tasks[i].id === id) {
+        this.tasks[i].selectedInWindow = onWindow
+      }
+    }
+    if (onWindow === windowId) {
+      window.tabs = this.get(id).tabs
+      if (emit) {
+        this.emit('task-selected', id)
+        if (tabs.getSelected()) {
+          this.emit('tab-selected', tabs.getSelected(), id)
+        }
+      }
+    }
   }
 
-  destroy (id) {
+  destroy (id, emit = true) {
     const index = this.getIndex(id)
 
+    if (emit) {
     // emit the tab-destroyed event for all tabs in this task
-    this.get(id).tabs.forEach(tab => this.emit('tab-destroyed', tab.id))
+      this.get(id).tabs.forEach(tab => this.emit('tab-destroyed', tab.id, id))
 
-    this.emit('task-destroyed', id)
+      this.emit('task-destroyed', id)
+    }
 
     if (index < 0) return false
 
     this.tasks.splice(index, 1)
-
-    if (this.selected === id) {
-      this.selected = null
-    }
-
+  
     return index
-  }
-
-  destroyAll () {
-    this.tasks = []
-    this.selected = null
   }
 
   getLastActivity (id) {

@@ -51,6 +51,17 @@ function buildAppMenu (options = {}) {
           sendIPCToWindow(window, 'addTask')
         }
       }
+    },
+    {
+      label: l('appMenuNewWindow'),
+      accelerator: getFormattedKeyMapEntry('addWindow') || 'shift+CmdOrCtrl+n',
+      click: function () {
+        if (isFocusMode) {
+          showFocusModeDialog2()
+        } else {
+          createWindow()
+        }
+      }
     }
   ]
 
@@ -257,10 +268,15 @@ function buildAppMenu (options = {}) {
           click: function (item, window) {
             if (isFocusMode) {
               isFocusMode = false
-              sendIPCToWindow(window, 'exitFocusMode')
+              windows.getAll().forEach(win => sendIPCToWindow(win, 'exitFocusMode'))
             } else {
               isFocusMode = true
-              sendIPCToWindow(window, 'enterFocusMode')
+              windows.getAll().forEach(win => sendIPCToWindow(win, 'enterFocusMode'))
+
+              // wait to show the message until the tabs have been hidden, to make the message less confusing
+              setTimeout(function() {
+                showFocusModeDialog1()
+              }, 16);
             }
           }
         },
@@ -299,12 +315,11 @@ function buildAppMenu (options = {}) {
         },
         {
           label: l('appMenuReloadBrowser'),
-          accelerator: undefined,
+          accelerator: (isDevelopmentMode ? 'alt+CmdOrCtrl+R' : undefined),
           click: function (item, focusedWindow) {
-            if (focusedWindow) {
               destroyAllViews()
-              focusedWindow.reload()
-            }
+              windows.getAll().forEach(win => win.close())
+              createWindow()
           }
         },
         {
@@ -332,7 +347,7 @@ function buildAppMenu (options = {}) {
             label: l('appMenuClose'),
             accelerator: 'CmdOrCtrl+W',
             click: function (item, window) {
-              if (mainWindow && !mainWindow.isFocused()) {
+              if (windows.getAll().length > 0 && !windows.getAll().some(win => win.isFocused())) {
                 // a devtools window is focused, close it
                 var contents = webContents.getAllWebContents()
                 for (var i = 0; i < contents.length; i++) {
@@ -350,9 +365,9 @@ function buildAppMenu (options = {}) {
             type: 'checkbox',
             checked: settings.get('windowAlwaysOnTop') || false,
             click: function (item, window) {
-              if (mainWindow) {
-                mainWindow.setAlwaysOnTop(item.checked)
-              }
+              windows.getAll().forEach(function(win) {
+                win.setAlwaysOnTop(item.checked)
+              })
               settings.set('windowAlwaysOnTop', item.checked)
             }
           },

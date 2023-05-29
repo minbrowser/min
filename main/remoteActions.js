@@ -2,57 +2,47 @@
 Wraps APIs that are only available in the main process in IPC messages, so that the BrowserWindow can use them
 */
 
-ipc.handle('test-invoke', function () {
-  return 1
-})
-
-ipc.handle('reloadWindow', function () {
-  mainWindow.webContents.reload()
-})
-
 ipc.handle('startFileDrag', function (e, path) {
   app.getFileIcon(path, {}).then(function (icon) {
-    mainWindow.webContents.startDrag({
+    e.sender.startDrag({
       file: path,
       icon: icon
     })
   })
 })
 
-ipc.handle('showFocusModeDialog1', function () {
+function showFocusModeDialog1() {
   dialog.showMessageBox({
     type: 'info',
     buttons: [l('closeDialog')],
     message: l('isFocusMode'),
     detail: l('focusModeExplanation1') + ' ' + l('focusModeExplanation2')
   })
-})
+}
 
-ipc.handle('showFocusModeDialog2', function () {
+function showFocusModeDialog2() {
   dialog.showMessageBox({
     type: 'info',
     buttons: [l('closeDialog')],
     message: l('isFocusMode'),
     detail: l('focusModeExplanation2')
   })
-})
+}
+
+ipc.handle('showFocusModeDialog2', showFocusModeDialog2)
 
 ipc.handle('showOpenDialog', async function (e, options) {
-  const result = await dialog.showOpenDialog(mainWindow, options)
+  const result = await dialog.showOpenDialog(windows.windowFromContents(e.sender).win, options)
   return result.filePaths
 })
 
 ipc.handle('showSaveDialog', async function (e, options) {
-  const result = await dialog.showSaveDialog(mainWindow, options)
+  const result = await dialog.showSaveDialog(windows.windowFromContents(e.sender).win, options)
   return result.filePath
 })
 
 ipc.handle('addWordToSpellCheckerDictionary', function (e, word) {
   session.fromPartition('persist:webcontent').addWordToSpellCheckerDictionary(word)
-})
-
-ipc.handle('downloadURL', function (e, url) {
-  mainWindow.webContents.downloadURL(url)
 })
 
 ipc.handle('clearStorageData', function () {
@@ -87,27 +77,27 @@ ipc.handle('clearStorageData', function () {
 /* window actions */
 
 ipc.handle('minimize', function (e) {
-  mainWindow.minimize()
+  windows.windowFromContents(e.sender).win.minimize()
   // workaround for https://github.com/minbrowser/min/issues/1662
-  mainWindow.webContents.send('minimize')
+  e.sender.send('minimize')
 })
 
 ipc.handle('maximize', function (e) {
-  mainWindow.maximize()
+  windows.windowFromContents(e.sender).win.maximize()
   // workaround for https://github.com/minbrowser/min/issues/1662
-  mainWindow.webContents.send('maximize')
+  e.sender.send('maximize')
 })
 
 ipc.handle('unmaximize', function (e) {
-  mainWindow.unmaximize()
+  windows.windowFromContents(e.sender).win.unmaximize()
   // workaround for https://github.com/minbrowser/min/issues/1662
-  mainWindow.webContents.send('unmaximize')
+  e.sender.send('unmaximize')
 })
 
 ipc.handle('close', function (e) {
-  mainWindow.close()
+  windows.windowFromContents(e.sender).win.close()
 })
 
 ipc.handle('setFullScreen', function (e, fullScreen) {
-  mainWindow.setFullScreen(e, fullScreen)
+  windows.windowFromContents(e.sender).win.setFullScreen(e, fullScreen)
 })

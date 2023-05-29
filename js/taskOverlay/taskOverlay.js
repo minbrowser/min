@@ -467,6 +467,12 @@ var taskOverlay = {
     taskOverlayNavbar.addEventListener('click', function () {
       taskOverlay.hide()
     })
+
+    tasks.on('state-sync-change', function() {
+      if (taskOverlay.isShown) {
+        taskOverlay.render();
+      }
+    })
   }
 }
 

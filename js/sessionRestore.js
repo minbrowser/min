@@ -8,6 +8,11 @@ const sessionRestore = {
   savePath: window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
   previousState: null,
   save: function (forceSave, sync) {
+    //only one window (the focused one) should be responsible for saving session restore data
+    if (!document.body.classList.contains('focused')) {
+      return
+    }
+
     var stateString = JSON.stringify(tasks.getStringifyableState())
     var data = {
       version: 2,
@@ -26,7 +31,7 @@ const sessionRestore = {
     //if startupTabOption is "open a new blank task", don't save any tabs in the current task
     if (settings.get('startupTabOption') === 3) {
       for (var i = 0; i < data.state.tasks.length; i++) {
-        if (data.state.tasks[i].id === data.state.selectedTask) {
+        if (data.state.tasks[i].selectedInWindow) {
           data.state.tasks[i].tabs = []
         }
       }
@@ -45,7 +50,7 @@ const sessionRestore = {
       sessionRestore.previousState = stateString
     }
   },
-  restore: function () {
+  restoreFromFile: function () {
     var savedStringData
     try {
       savedStringData = fs.readFileSync(sessionRestore.savePath, 'utf-8')
@@ -76,10 +81,10 @@ const sessionRestore = {
         tasks.setSelected(tasks.add()) // create a new task
 
         var newTab = tasks.getSelected().tabs.add({
-          url: 'https://minbrowser.github.io/min/tour'
+          //   url: 'https://minbrowser.github.io/min/tour'
         })
         browserUI.addTab(newTab, {
-          enterEditMode: false
+        //  enterEditMode: false
         })
         return
       }
@@ -107,12 +112,18 @@ const sessionRestore = {
           tasks.get(task.id).tabs.add()
         }
       })
-      tasks.setSelected(data.state.selectedTask)
+
+      var mostRecentTasks = tasks.slice().sort((a, b) => {
+        return tasks.getLastActivity(b.id) - tasks.getLastActivity(a.id)
+      })
+      if (mostRecentTasks.length > 0) {
+        tasks.setSelected(mostRecentTasks[0].id)
+      }
 
       // switch to the previously selected tasks
 
       if (tasks.getSelected().tabs.isEmpty() || startupConfigOption === 1) {
-        browserUI.switchToTask(data.state.selectedTask)
+        browserUI.switchToTask(mostRecentTasks[0].id)
         if (tasks.getSelected().tabs.isEmpty()) {
           tabEditor.show(tasks.getSelected().tabs.getSelected())
         }
@@ -174,12 +185,49 @@ const sessionRestore = {
       browserUI.switchToTab(newSessionErrorTab)
     }
   },
+  syncWithWindow: function () {
+    const data = ipc.sendSync('request-tab-state')
+    console.log('got from window', data)
+
+    data.tasks.forEach(function (task) {
+      // restore the task item
+      tasks.add(task, undefined, false)
+    })
+    //reuse an existing task or create a new task in this window
+    //same as windowSync.js
+    var newTaskCandidates = tasks.filter(task => task.tabs.isEmpty() && !task.selectedInWindow && !task.name)
+      .sort((a, b) => {
+        return tasks.getLastActivity(b.id) - tasks.getLastActivity(a.id)
+      })
+    if (newTaskCandidates.length > 0) {
+      browserUI.switchToTask(newTaskCandidates[0].id)
+      tabEditor.show(tasks.getSelected().tabs.getSelected())
+    } else {
+      browserUI.addTask()
+    }
+  },
+  restore: function () {
+    if (Object.hasOwn(window.globalArgs, 'initial-window')) {
+      return sessionRestore.restoreFromFile()
+    } else {
+      return sessionRestore.syncWithWindow()
+    }
+  },
   initialize: function () {
     setInterval(sessionRestore.save, 30000)
 
     window.onbeforeunload = function (e) {
       sessionRestore.save(true, true)
+      //workaround for notifying the other windows that the task open in this window isn't open anymore.
+      //This should ideally be done in windowSync, but it needs to run synchronously, which windowSync doesn't
+      ipc.send('tab-state-change', [
+        ['task-updated', tasks.getSelected().id, 'selectedInWindow', null]
+      ])
     }
+
+    ipc.on('read-tab-state', function (e) {
+      ipc.send('return-tab-state', tasks.getCopyableState())
+    })
   }
 }
 

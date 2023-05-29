@@ -189,6 +189,7 @@
     "appMenuDuplicateTab": "Duplikat varaq",
     "appMenuNewPrivateTab": "Yangi maxfiy varaq",
     "appMenuNewTask": "Yangi vazifa",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Sahifani saqlash",
     "appMenuPrint": "Chop etish",
     "appMenuEdit": "O'zgartirish",

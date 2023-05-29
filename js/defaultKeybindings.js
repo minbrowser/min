@@ -247,24 +247,18 @@ const defaultKeybindings = {
       browserUI.addTab() // create a new, blank tab
     })
 
-    var lastReload = 0
+    keybindings.defineShortcut('closeWindow', function() {
+      ipc.invoke('close')
+    })
 
     keybindings.defineShortcut('reload', function () {
-      var time = Date.now()
-
-      // pressing mod+r twice in a row reloads the whole browser
-      if (time - lastReload < 500) {
-        ipc.send('destroyAllViews')
-        ipc.invoke('reloadWindow')
-      } else if (tabs.get(tabs.getSelected()).url.startsWith(webviews.internalPages.error)) {
+      if (tabs.get(tabs.getSelected()).url.startsWith(webviews.internalPages.error)) {
         // reload the original page rather than show the error page again
         webviews.update(tabs.getSelected(), new URL(tabs.get(tabs.getSelected()).url).searchParams.get('url'))
       } else {
         // this can't be an error page, use the normal reload method
         webviews.callAsync(tabs.getSelected(), 'reload')
       }
-
-      lastReload = time
     })
 
     keybindings.defineShortcut('reloadIgnoringCache', function () {

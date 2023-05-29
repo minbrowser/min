@@ -191,6 +191,7 @@
     "appMenuDuplicateTab": "Duplicar aba atual",
     "appMenuNewPrivateTab": "Nova aba privada",
     "appMenuNewTask": "Nova tarefa",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Salvar página como",
     "appMenuPrint": "Imprimir",
     "appMenuEdit": "Editar",

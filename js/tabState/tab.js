@@ -6,9 +6,9 @@ class TabList {
 
   //tab properties that shouldn't be saved to disk
 
-  static temporaryProperties = ['hasAudio', 'previewImage', 'loaded']
+  static temporaryProperties = ['hasAudio', 'previewImage', 'loaded', 'hasBrowserView']
 
-  add (tab = {}, options = {}) {
+  add (tab = {}, options = {}, emit=true) {
     var tabId = String(tab.id || Math.round(Math.random() * 100000000000000000)) // you can pass an id that will be used, or a random one will be generated.
 
     var newTab = {
@@ -28,6 +28,7 @@ class TabList {
       hasAudio: false,
       previewImage: '',
       isFileView: false,
+      hasBrowserView: false,
     }
 
     if (options.atEnd) {
@@ -36,12 +37,14 @@ class TabList {
       this.tabs.splice(this.getSelectedIndex() + 1, 0, newTab)
     }
 
-    this.parentTaskList.emit('tab-added', tabId)
+    if (emit) {
+    this.parentTaskList.emit('tab-added', tabId, newTab, options, this.parentTaskList.getTaskContainingTab(tabId).id)
+    }
 
     return tabId
   }
 
-  update (id, data) {
+  update (id, data, emit=true) {
     if (!this.has(id)) {
       throw new ReferenceError('Attempted to update a tab that does not exist.')
     }
@@ -52,30 +55,33 @@ class TabList {
         throw new ReferenceError('Key ' + key + ' is undefined.')
       }
       this.tabs[index][key] = data[key]
-      this.parentTaskList.emit('tab-updated', id, key)
+      if (emit) {
+        this.parentTaskList.emit('tab-updated', id, key, data[key], this.parentTaskList.getTaskContainingTab(id).id)
+      }
       // changing URL erases scroll position
       if (key === 'url') {
         this.tabs[index].scrollPosition = 0
-        this.parentTaskList.emit('tab-updated', id, 'scrollPosition')
+        if (emit) {
+          this.parentTaskList.emit('tab-updated', id, 'scrollPosition', 0, this.parentTaskList.getTaskContainingTab(id).id)
+        }
       }
     }
   }
 
-  destroy (id) {
+  destroy (id, emit=true) {
     const index = this.getIndex(id)
     if (index < 0) return false
+
+    const containingTask = this.parentTaskList.getTaskContainingTab(id).id
 
     tasks.getTaskContainingTab(id).tabHistory.push(this.toPermanentState(this.tabs[index]))
     this.tabs.splice(index, 1)
 
-    this.parentTaskList.emit('tab-destroyed', id)
+    if (emit) {
+      this.parentTaskList.emit('tab-destroyed', id, containingTask)
+    }
 
     return index
-  }
-
-  destroyAll () {
-    // this = [] doesn't work, so set the length of the array to 0 to remove all of the itemss
-    this.tabs.length = 0
   }
 
   get (id) {
@@ -130,7 +136,7 @@ class TabList {
     return this.tabs[index] || undefined
   }
 
-  setSelected (id) {
+  setSelected (id, emit=true) {
     if (!this.has(id)) {
       throw new ReferenceError('Attempted to select a tab that does not exist.')
     }
@@ -143,7 +149,9 @@ class TabList {
         this.tabs[i].lastActivity = Date.now()
       }
     }
-    this.parentTaskList.emit('tab-selected', id)
+    if (emit) {
+      this.parentTaskList.emit('tab-selected', id, this.parentTaskList.getTaskContainingTab(id).id)
+    }
   }
 
   moveBy (id, offset) {
@@ -155,6 +163,7 @@ class TabList {
       this.splice(currentIndex, 1, newIndexTab)
       this.splice(newIndex, 1, currentTab)
     }
+    //This doesn't need to dispatch an event because splice will dispatch already
   }
 
   count () {
@@ -178,6 +187,13 @@ class TabList {
   }
 
   splice (...args) {
+    const containingTask = this.parentTaskList.find(t => t.tabs === this).id
+    
+    this.parentTaskList.emit('tab-splice', containingTask, ...args)
+    return this.tabs.splice.apply(this.tabs, args)
+  }
+
+  spliceNoEmit (...args) {
     return this.tabs.splice.apply(this.tabs, args)
   }
 

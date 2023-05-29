@@ -191,6 +191,7 @@
     "appMenuDuplicateTab": "تكرير التبويب",
     "appMenuNewPrivateTab": "التصفح الخفي",
     "appMenuNewTask": "مهمة جديدة",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "حفظ الصفحة باسم",
     "appMenuPrint": "طباعة",
     "appMenuEdit": "تعديل",

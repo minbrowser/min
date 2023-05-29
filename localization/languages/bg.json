@@ -188,6 +188,7 @@
     "appMenuDuplicateTab": "Дупликиране на раздела",
     "appMenuNewPrivateTab": "Нов поверителен раздел",
     "appMenuNewTask": "Нова задача",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Запазване на страницата като",
     "appMenuPrint": "Отпечатване",
     "appMenuEdit": "Редактиране",

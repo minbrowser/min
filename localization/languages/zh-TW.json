@@ -191,6 +191,7 @@
     "appMenuDuplicateTab": "複製分頁",
     "appMenuNewPrivateTab": "新無痕分頁",
     "appMenuNewTask": "新工作",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "另存網頁",
     "appMenuPrint": "列印",
     "appMenuEdit": "編輯",

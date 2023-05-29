@@ -209,8 +209,9 @@ function initialize () {
       // if there is no search text or no result, need to create a new task
       let task = searchAndSortTasks(text)[0]?.task
       if (!text || !task) {
-        task = tasks.get(tasks.add(undefined, tasks.getIndex(tasks.getSelected().id) + 1))
-        task.name = text
+        task = tasks.get(tasks.add({
+          name: text
+        }, tasks.getIndex(tasks.getSelected().id) + 1))
       }
 
       return moveToTaskCommand(task.id)
@@ -272,7 +273,7 @@ function initialize () {
       setTimeout(function () {
         browserUI.addTask()
         if (text) {
-          tasks.getSelected().name = text
+          tasks.update(tasks.getSelected().id, {name: text})
         }
       }, 600)
     }
@@ -309,7 +310,7 @@ function initialize () {
     snippet: l('nameTask'),
     isAction: false,
     fn: function (text) {
-      tasks.getSelected().name = text
+      tasks.update(tasks.getSelected().id, {name: text})
     }
   })
 

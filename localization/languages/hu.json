@@ -187,6 +187,7 @@
     "appMenuDuplicateTab": "Fül duplikálása",
     "appMenuNewPrivateTab": "Új privát fül",
     "appMenuNewTask": "Új feladat",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Oldal mentése másként",
     "appMenuPrint": "Nyomtatás",
     "appMenuEdit": "Szerkeszt",

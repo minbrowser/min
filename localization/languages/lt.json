@@ -189,6 +189,7 @@
     "appMenuDuplicateTab": "Dubliuoti kortelę",
     "appMenuNewPrivateTab": "Nauja privati kortelė",
     "appMenuNewTask": "Nauja užduotis",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Įrašyti puslapį kaip",
     "appMenuPrint": "Spausdinti",
     "appMenuEdit": "Taisa",

@@ -191,6 +191,7 @@
     "appMenuDuplicateTab": "复制标签页",
     "appMenuNewPrivateTab": "新的隐私标签页",
     "appMenuNewTask": "新标签组",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "页面另存为",
     "appMenuPrint": "打印",
     "appMenuEdit": "编辑",

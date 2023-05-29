@@ -191,6 +191,7 @@
     "appMenuDuplicateTab": "Duplica scheda",
     "appMenuNewPrivateTab": "Nuova scheda privata",
     "appMenuNewTask": "Nuovo task",
+    "appMenuNewWindow": null, //missing translation
     "appMenuSavePageAs": "Salva pagina con nome",
     "appMenuPrint": "Stampa",
     "appMenuEdit": "Modifica",

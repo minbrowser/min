@@ -102,7 +102,7 @@ const webviewMenu = {
       linkActions.push({
         label: l('saveLinkAs'),
         click: function () {
-          ipc.invoke('downloadURL', link)
+          webviews.callAsync(tabs.getSelected(), 'downloadURL', [link])
         }
       })
 
@@ -147,7 +147,7 @@ const webviewMenu = {
         {
           label: l('saveImageAs'),
           click: function () {
-            ipc.invoke('downloadURL', mediaURL)
+            webviews.callAsync(tabs.getSelected(), 'downloadURL', [mediaURL])
           }
         }
       ])
