@@ -36,8 +36,8 @@ function createPrompt (options) {
   })
 }
 
-ipc.on('show-prompt', (options, callback) => {
-  const result = createPrompt(options)
+ipc.on('show-prompt', async (options, callback) => {
+  const result = await createPrompt(options)
   callback(result)
 })
 
