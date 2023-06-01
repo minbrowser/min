@@ -27,18 +27,19 @@ body.linux:not(.maximized):not(.fullscreen):not(.separate-titlebar):not(.disable
   -webkit-app-region: drag;
 }
 
-body.mac:not(.separate-titlebar) .window-drag-area {
+body.mac:not(.separate-titlebar):not(.fullscreen) .window-drag-area {
   display: block;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 8px;
+  height: 7px;
   -webkit-app-region: drag;
 }
 
 body.mac:not(.is-edit-mode):not(.fullscreen):not(.separate-titlebar) #mac-window-drag-area {
-  width: 1.5em;
+  margin-left: calc(var(--control-space-left) * -1);
+  width: calc(var(--control-space-left) + 1.25em);
   height: 100%;
   -webkit-app-region: drag;
 }
