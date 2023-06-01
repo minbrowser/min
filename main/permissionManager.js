@@ -81,6 +81,11 @@ function hasPendingRequestForOrigin (requestOrigin, permission, details) {
 }
 
 function pagePermissionRequestHandler (webContents, permission, callback, details) {
+  if (permission === 'fullscreen') {
+    callback(true)
+    return
+  }
+
   if (!details.isMainFrame) {
     // not supported for now to simplify the UI
     callback(false)
@@ -92,7 +97,7 @@ function pagePermissionRequestHandler (webContents, permission, callback, detail
     return
   }
 
-  if (permission === 'fullscreen' || permission === 'clipboard-sanitized-write') {
+  if (permission === 'clipboard-sanitized-write') {
     callback(true)
     return
   }
