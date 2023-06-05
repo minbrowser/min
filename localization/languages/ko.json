@@ -191,7 +191,7 @@
     "appMenuDuplicateTab": "작업 복제",
     "appMenuNewPrivateTab": "새 개인 작업",
     "appMenuNewTask": "새 작업장",
-    "appMenuNewWindow": null, //missing translation
+    "appMenuNewWindow": "새 창",
     "appMenuSavePageAs": "문서를 다른 이름으로 저장",
     "appMenuPrint": "인쇄",
     "appMenuEdit": "편집",
