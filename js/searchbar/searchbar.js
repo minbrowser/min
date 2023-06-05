@@ -52,7 +52,7 @@ var searchbar = {
       return
     }
 
-    if (event && event.metaKey) {
+    if (event && (window.platformType === 'mac' ? event.metaKey : event.ctrlKey)) {
       openURLInBackground(url)
       return true
     } else {
