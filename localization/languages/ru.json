@@ -191,7 +191,7 @@
     "appMenuDuplicateTab": "Дублировать",
     "appMenuNewPrivateTab": "Новая приватная вкладка",
     "appMenuNewTask": "Новая задача",
-    "appMenuNewWindow": null, //missing translation
+    "appMenuNewWindow": "Новое окно",
     "appMenuSavePageAs": "Сохранить страницу как...",
     "appMenuPrint": "Печать",
     "appMenuEdit": "Правка",
