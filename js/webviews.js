@@ -257,8 +257,10 @@ const webviews = {
       tasks.getTaskContainingTab(id).tabs.update(id, {
         hasBrowserView: false
       })
-      ipc.send('destroyView', id)
     }
+    //we may be destroying a view for which the tab object no longer exists, so this message should be sent unconditionally
+    ipc.send('destroyView', id)
+
     delete webviews.viewFullscreenMap[id]
     if (webviews.selectedId === id) {
       webviews.selectedId = null
