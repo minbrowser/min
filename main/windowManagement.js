@@ -22,6 +22,11 @@ const windows = {
 
     window.on('closed', function() {
       windows.removeWindow(window)
+
+      // Quit on last window closed (ignoring secondary and hidden windows)
+      if (windows.openWindows.length === 0 && process.platform !== 'darwin') {
+        app.quit()
+      }
     })
   
     windows.nextId++
