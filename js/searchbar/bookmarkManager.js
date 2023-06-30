@@ -53,7 +53,7 @@ function showBookmarkEditor (url, item) {
 function getBookmarkListItemData (result, focus) {
   return {
     title: result.title,
-    secondaryText: urlParser.getSourceURL(result.url),
+    secondaryText: urlParser.basicURL(urlParser.getSourceURL(result.url)),
     fakeFocus: focus,
     click: function (e) {
       searchbar.openURL(result.url, e)

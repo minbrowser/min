@@ -165,7 +165,7 @@ body.dark-mode.touch .searchbar-item .action-button {
 .searchbar-item .description-block {
   display: block;
   line-height: 1.15em;
-  max-height: 2.2em;
+  max-height: 2.3em;
   overflow: hidden;
   opacity: 0.666;
   font-size: 0.85em;
@@ -175,6 +175,8 @@ body.dark-mode.touch .searchbar-item .action-button {
 /* when a result is selected, we can show more of the description */
 .searchbar-item:focus .description-block {
   max-height: none;
+  opacity: 0.8;
+  line-height: 1.2em;
 }
 
 .searchbar-item .attribution {

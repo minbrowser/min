@@ -57,7 +57,7 @@ module.exports = {
             }
             var data = {
               title: result.title,
-              secondaryText: urlParser.getSourceURL(result.url),
+              secondaryText: urlParser.basicURL(urlParser.getSourceURL(result.url)),
               fakeFocus: index === 0 && text,
               icon: (result.isBookmarked ? 'carbon:star' : ''),
               click: function (e) {

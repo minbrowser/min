@@ -110,7 +110,7 @@ if (process.isMainFrame) {
     
     history.replaceState = ( f => function replaceState(){
         var ret = f.apply(this, arguments);
-        window.postMessage('_minInternalLocationChange', '*')
+        window.postMessage('_minInternalLocationReplacement', '*')
         return ret;
     })(history.replaceState);
   `)
