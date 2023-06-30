@@ -1,7 +1,7 @@
 {
-    "version": "1.27.0",
-    "releaseTime": 1672169614093,
-    "releaseHeadline": "Bug fixes",
+    "version": "1.28.0",
+    "releaseTime": 1688089879635,
+    "releaseHeadline": "Multi-window support and bug fixes",
     "releaseNotes": "https://minbrowser.org/releases/",
     "availabilityPercent": 1
 }
