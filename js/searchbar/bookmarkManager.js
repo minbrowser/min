@@ -166,10 +166,7 @@ const bookmarkManager = {
               return
             }
             searchbarPlugins.addHeading('bangs', { text: l('bookmarksSimilarItems') })
-            suggestedResults.sort(function (a, b) {
-              // order by last visit
-              return b.lastVisit - a.lastVisit
-            }).forEach(function (result, index) {
+            suggestedResults.forEach(function (result, index) {
               var item = searchbarUtils.createItem(getBookmarkListItemData(result, false))
               container.appendChild(item)
             })

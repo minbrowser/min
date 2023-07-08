@@ -8,13 +8,20 @@ var tagIndex = {
   getPageTokens: function (page) {
     var urlChunk = ''
     try {
-      // ignore the TLD, since it doesn't predict tags very well
-      urlChunk = new URL(page.url).hostname.split('.').slice(0, -1).join('.')
+      const url = new URL(page.url)
+      if (page.url.startsWith('file://') && url.searchParams.get('url')) {
+        url = new URL(url.searchParams.get('url'))
+      }
+      urlChunk = url.hostname.split('.').slice(0, -1).join(' ') + ' ' + url.pathname.split('/').filter(p => p.length > 1).slice(0, 2).join(' ')
     } catch (e) { }
-    var tokens = tokenize(page.title + ' ' + urlChunk)
 
-    var generic = ['www', 'com', 'net', 'html', 'pdf', 'file']
+    var tokens = tokenize((/^(http|https|file):\/\//.test(page.title) ? '' : page.title) + ' ' + urlChunk)
+
+    var generic = ['http', 'htps', 'www', 'com', 'net', 'html', 'pdf', 'file']
     tokens = tokens.filter(t => t.length > 2 && !generic.includes(t))
+
+    //get unique tokens
+    tokens = tokens.filter((t, i) => tokens.indexOf(t) === i)
 
     return tokens
   },
@@ -27,7 +34,7 @@ var tagIndex = {
 
     var tokens = tagIndex.getPageTokens(page)
 
-    tokens.filter((t, i) => tokens.indexOf(t) === i).forEach(function (token) {
+    tokens.forEach(function (token) {
       if (!tagIndex.termDocCounts[token]) {
         tagIndex.termDocCounts[token] = 1
       } else {
@@ -124,60 +131,85 @@ var tagIndex = {
   },
   getAllTagsRanked: function (page) {
     var tokens = tagIndex.getPageTokens(page)
-    // get term frequency
-    var terms = {}
-    tokens.forEach(function (t) {
-      if (!terms[t]) {
-        terms[t] = 1
-      } else {
-        terms[t]++
-      }
-    })
 
-    var probs = {}
+    var scores = {};
+    var contributingDocs = {};
+    var contributingTerms = {};
 
-    for (var term in terms) {
-      var tf = terms[term] / tokens.length
-      var idf = Math.log(tagIndex.totalDocs / (tagIndex.termDocCounts[term] || 1))
-      var tfidf = tf * idf
+    for (var term of tokens) {
+      for (var tag in tagIndex.termTags[term]) {
+        if (!scores[tag]) {
+          scores[tag] = 0;
+        }
+        if (!contributingDocs[tag]) {
+          contributingDocs[tag] = 0;
+        }
+        if (!contributingTerms[tag]) {
+          contributingTerms[tag] = 0;
+        }
 
-      if (tagIndex.termTags[term]) {
-        for (var tag in tagIndex.termTags[term]) {
-          if (tagIndex.tagCounts[tag] < 2) {
-            continue
-          }
-          if (!probs[tag]) {
-            probs[tag] = 0
-          }
-          probs[tag] += (tagIndex.termTags[term][tag] / tagIndex.tagCounts[tag]) * tfidf
+        if (tagIndex.tagCounts[tag] >= 2) {
+            const docsWithTag = tagIndex.termTags[term]?.[tag] || 0;
+            scores[tag] += Math.pow(docsWithTag  / (tagIndex.termDocCounts[term] || 1), 2) * (0.85 + 0.1 * Math.sqrt(tagIndex.termDocCounts[term]));
+
+            contributingDocs[tag] += docsWithTag
+            contributingTerms[tag]++;
         }
       }
     }
 
-    var probsArr = Object.keys(tagIndex.tagCounts).map(key => { return { tag: key, value: probs[key] || 0 } })
+    var scoresArr = []
 
-    probsArr = probsArr.sort((a, b) => { return b.value - a.value })
+    for (var tag in scores) {
+      if (tokens.includes(tokenize(tag)[0])) {
+        scores[tag] *= 1.5;
+      }
+      if (contributingDocs[tag] > 1 && contributingTerms[tag] > 1) {
+        scoresArr.push({tag, value: scores[tag]})
+      } else {
+        scoresArr.push({tag, value: 0})
+      }
+    }
 
-    return probsArr
+    scoresArr = scoresArr.sort((a, b) => { return b.value - a.value })
+
+    return scoresArr;
   },
   getSuggestedTags: function (page) {
-    return tagIndex.getAllTagsRanked(page).filter(p => p.value > 0.25).map(p => p.tag)
+    return tagIndex.getAllTagsRanked(page).slice(0,3).filter(p => p.value > 0.66).map(p => p.tag)
   },
   getSuggestedItemsForTags: function (tags) {
-    var set = historyInMemoryCache.filter(i => i.isBookmarked).map(p => {
-      return { page: p, tags: tagIndex.getSuggestedTags(p) }
+    var set = historyInMemoryCache
+    .filter(i => i.isBookmarked)
+    .filter(page => tags.some(tag => !page.tags.includes(tag)))
+    .map(p => {
+      return { page: p, tags: tagIndex.getAllTagsRanked(p).filter(t => t.value >= 1.1) }
     })
 
     set = set.filter(function (result) {
       for (var i = 0; i < tags.length; i++) {
-        if (!result.tags.includes(tags[i])) {
+        if (!result.tags.some(t => t.tag === tags[i])) {
           return false
         }
       }
       return true
     })
 
-    return set.map(i => i.page).slice(0, 50)
+    set = set.map(item => {
+      var tagScore = 0;
+      item.tags.forEach(function(tag) {
+        if (tags.includes(tag.tag)) {
+          tagScore += tag.value;
+        }
+      })
+      item.page.score = tagScore;
+
+      return item.page
+    })
+
+    set = set.sort((a, b) => b.score - a.score)
+
+    return set.slice(0, 20)
   },
   autocompleteTags: function (searchTags) {
     // find which tags are most frequently associated with the searched tags
