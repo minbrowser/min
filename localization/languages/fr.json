@@ -285,7 +285,7 @@
     "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "Supprimer le mot de passe pour %s?",
     /* Dialogs */
-    "loginPromptTitle": "Connectez-vous à %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "Connectez-vous à %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Confirmer",
     "dialogSkipButton": "Annuler",
     "username": "Nom d'utilisateur",

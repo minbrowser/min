@@ -286,7 +286,7 @@
     "savedPasswordsNeverSavedLabel": "Ніколи не зберігаються",
     "deletePassword": "Видалити пароль для %s?",
     /* Dialogs */
-    "loginPromptTitle": "Увійти на %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "Увійти на %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Підтвердити",
     "dialogSkipButton": "Скасувати",
     "username": "Ім'я користувача",

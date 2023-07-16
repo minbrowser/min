@@ -139,7 +139,7 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
       return
     }
     event.preventDefault()
-    var title = l('loginPromptTitle').replace('%h', authInfo.host).replace('%r', authInfo.realm)
+    var title = l('loginPromptTitle').replace('%h', authInfo.host)
     createPrompt({
       text: title,
       values: [{ placeholder: l('username'), id: 'username', type: 'text' },

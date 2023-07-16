@@ -285,7 +285,7 @@
     "savedPasswordsNeverSavedLabel": "Никогда не сохраняются",
     "deletePassword": "Удалить пароль для %s?",
     /* Dialogs */
-    "loginPromptTitle": "Войти на %s (%h)",
+    "loginPromptTitle": "Войти на %h",
     "dialogConfirmButton": "Подтвердить",
     "dialogSkipButton": "Отмена",
     "username": "Имя пользователя",

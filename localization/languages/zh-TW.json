@@ -285,7 +285,7 @@
     "savedPasswordsNeverSavedLabel": "永不儲存",
     "deletePassword": "刪除 %s 的密碼?",
     /* Dialogs */
-    "loginPromptTitle": "登入 %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "登入 %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "確認",
     "dialogSkipButton": "取消",
     "username": "使用者名稱",

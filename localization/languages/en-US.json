@@ -285,7 +285,7 @@
     "savedPasswordsNeverSavedLabel": "Never saved",
     "deletePassword": "Delete password for %s?",
     /* Dialogs */
-    "loginPromptTitle": "Sign in to %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "Sign in to %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Confirm",
     "dialogSkipButton": "Cancel",
     "username": "Username",

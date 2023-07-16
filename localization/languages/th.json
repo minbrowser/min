@@ -285,7 +285,7 @@
     "savedPasswordsNeverSavedLabel": "ไม่ได้บันทึกไว้",
     "deletePassword": "ลบรหัสผ่าน %s ออกหรือไม่?",
     /* Dialogs */
-    "loginPromptTitle": "เข้าสู่ระบบด้วย %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "เข้าสู่ระบบด้วย %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "ยืนยัน",
     "dialogSkipButton": "ยกเลิก",
     "username": "ชื่อผู้ใช้งาน",

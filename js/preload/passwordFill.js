@@ -184,7 +184,7 @@ function addFocusListener (element, credentials) {
   // Adds an option row to the list container.
   function addOption (parent, username) {
     const suggestionItem = document.createElement('div')
-    suggestionItem.innerHTML = username
+    suggestionItem.textContent = username
     suggestionItem.style = 'padding: 10px; cursor: pointer; background-color: #fff; border-bottom: 1px solid #d4d4d4;'
 
     // Hover.

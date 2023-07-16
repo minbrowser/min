@@ -285,7 +285,7 @@
     "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "删除保存的%s密码？",
     /* Dialogs */
-    "loginPromptTitle": "登录 %h (%r)",
+    "loginPromptTitle": "登录 %h",
     "dialogConfirmButton": "确认",
     "dialogSkipButton": "取消",
     "username": "用户名",

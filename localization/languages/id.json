@@ -285,7 +285,7 @@
     "savedPasswordsNeverSavedLabel": "Tidak pernah tersimpan",
     "deletePassword": "Hapus kata sandi untuk %s?",
     /* Dialogs */
-    "loginPromptTitle": "Masuk ke %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "Masuk ke %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Masuk",
     "dialogSkipButton": "Batal",
     "username": "Nama Pengguna",

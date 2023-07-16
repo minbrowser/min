@@ -285,7 +285,7 @@
     "savedPasswordsNeverSavedLabel": "Nunca salvo",
     "deletePassword": "Excluir senha de %s?",
     /* Dialogs */
-    "loginPromptTitle": "Fazer login em %h (%r)",
+    "loginPromptTitle": "Fazer login em %h",
     "dialogConfirmButton": "Confirmar",
     "dialogSkipButton": "Cancelar",
     "username": "Nome de usuário",

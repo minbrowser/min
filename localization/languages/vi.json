@@ -278,7 +278,7 @@
         "savedPasswordsNeverSavedLabel": "Không bao giờ",
         "deletePassword": "Xóa mật khẩu tại %s?",
         /* Dialogs */
-        "loginPromptTitle": "Đăng nhập vào %h (%r)",
+        "loginPromptTitle": "Đăng nhập vào %h",
         "dialogConfirmButton": "Xác nhận",
         "dialogSkipButton": "Hủy",
         "username": "Username",

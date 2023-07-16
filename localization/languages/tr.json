@@ -285,7 +285,7 @@
     "savedPasswordsNeverSavedLabel": "Daha önce kaydedilmedi", 
     "deletePassword": "% için parola silinsin mi?",
     /* Dialogs */
-    "loginPromptTitle": "Giriş yapın %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "Giriş yapın %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Onayla",
     "dialogSkipButton": "İptal",
     "username": "Kullanıcı Adı",

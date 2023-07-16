@@ -285,7 +285,7 @@
     "savedPasswordsNeverSavedLabel": "Nigdy nie zapisano",
     "deletePassword": "Usunąć hasło dla %s?",
     /* Dialogs */
-    "loginPromptTitle": "Zaloguj się do %h (%r)",
+    "loginPromptTitle": "Zaloguj się do %h",
     "dialogConfirmButton": "Potwierdź",
     "dialogSkipButton": "Anuluj",
     "username": "Nazwa Użytkownika",

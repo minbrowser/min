@@ -286,7 +286,7 @@
     "deletePassword": "؟%s حذف كلمة المرور ل",
 
     /* Dialogs */
-    "loginPromptTitle": "(%r) %h تسجيل الدخول إلى",
+    "loginPromptTitle": "%h تسجيل الدخول إلى",
     "dialogConfirmButton": "موافقة",
     "dialogSkipButton": "إلغاء",
     "username": "إسم المستخدم",

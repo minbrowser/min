@@ -285,7 +285,7 @@
     "savedPasswordsNeverSavedLabel": "저장하지 않았음",
     "deletePassword": "%s 비밀번호를 삭제할까요?",
     /* Dialogs */
-    "loginPromptTitle": "%h (%r)로 로그인",
+    "loginPromptTitle": "%h 로 로그인",
     "dialogConfirmButton": "확인",
     "dialogSkipButton": "취소",
     "username": "사용자 이름",

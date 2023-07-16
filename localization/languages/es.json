@@ -284,7 +284,7 @@
     "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "¿Borrar contraseña para %s?",
     /* Dialogs */
-    "loginPromptTitle": "Inicia sesión en %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "Inicia sesión en %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Confirmar",
     "dialogSkipButton": "Cancelar",
     "username": "Nombre de usuario",

@@ -285,7 +285,7 @@
     "savedPasswordsNeverSavedLabel": "保存されなかった",
     "deletePassword": "％sのパスワードを削除しますか？",
     /* Dialogs */
-    "loginPromptTitle": "％hにサインイン（％r）",
+    "loginPromptTitle": "％hにサインイン",
     "dialogConfirmButton": "確認する",
     "dialogSkipButton": "キャンセル",
     "username": "ユーザー名",

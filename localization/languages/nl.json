@@ -284,7 +284,7 @@
     "savedPasswordsNeverSavedLabel": "Nooit opgeslagen",
     "deletePassword": "Verwijder wachtwoord voor %s?",
     /* Dialogs */
-    "loginPromptTitle": "Inloggen bij %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "Inloggen bij %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Bevestigen",
     "dialogSkipButton": "Annuleren",
     "username": "Gebruikersnaam",

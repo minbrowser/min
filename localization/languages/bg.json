@@ -282,7 +282,7 @@
     "savedPasswordsNeverSavedLabel": null, //missing translation
     "deletePassword": "Изтрий парола за %s?",
     /* Dialogs */
-    "loginPromptTitle": "Впишете се в %h (%r)", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "Впишете се в %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Потвърждаване",
     "dialogSkipButton": "Отказване",
     "username": "Потребителско име",

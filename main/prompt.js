@@ -18,9 +18,10 @@ function createPrompt (options, callback) {
     autoHideMenuBar: true,
     frame: false,
     webPreferences: {
-      nodeIntegration: true,
-      sandbox: false,
-      contextIsolation: false
+      nodeIntegration: false,
+      sandbox: true,
+      contextIsolation: true,
+      preload:  __dirname + '/pages/prompt/prompt.js'
     }
   })
 

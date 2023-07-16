@@ -285,7 +285,7 @@
     "savedPasswordsNeverSavedLabel": "Mai salvata",
     "deletePassword": "Eliminare la password per %s?",
     /* Dialogs */
-    "loginPromptTitle": "Entra in %h (%r)",
+    "loginPromptTitle": "Entra in %h",
     "dialogConfirmButton": "Conferma",
     "dialogSkipButton": "Annulla",
     "username": "Nome utente",

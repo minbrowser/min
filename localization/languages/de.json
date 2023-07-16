@@ -285,7 +285,7 @@
     "savedPasswordsNeverSavedLabel": "Keine Passwortspeicherung",
     "deletePassword": "Zugangsdaten für %s löschen?",
     /* Dialogs */
-    "loginPromptTitle": "Bei %h (%r) anmelden", //%h is replaced with host, %r with realm (title of protected part of site)
+    "loginPromptTitle": "Bei %h anmelden", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Bestätigen",
     "dialogSkipButton": "Abbrechen",
     "username": "Benutzername",
