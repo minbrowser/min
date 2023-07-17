@@ -520,7 +520,7 @@ function downloadPDF () {
   function startDownload (title) {
     var a = document.createElement('a')
     a.download = title || ''
-    a.href = url + '#pdfjs.action=download' // tell Min to download instead of opening in the viewer
+    a.href = url
     a.click()
   }
   if (pdf) {
