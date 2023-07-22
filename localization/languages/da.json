@@ -1,0 +1,299 @@
+{
+  "name": "Dansk",
+  "identifier": "da",
+  "translations": {
+    /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+    "addToDictionary": "Føj til ordbog",
+    "pictureInPicture": "Billede i billede",
+    "openInNewTab": "Åbn i Ny Fane",
+    "openInNewPrivateTab": "Åbn i Ny Privat Fane",
+    "saveLinkAs": "Gem link som...",
+    "viewImage": "Se billede",
+    "openImageInNewTab": "Åbn billede i Ny Fane",
+    "openImageInNewPrivateTab": "Åbn billede i Ny Privat Fane",
+    "saveImageAs": "Gem Billede Som",
+    "searchWith": "Søg med %s", //%s will be replaced with the name of the current search engine
+    "copyLink": "Kopier link",
+    "copyEmailAddress": "Kopiér e-mail-adresse",
+    "selectAll": "Vælg alt",
+    "undo": "Fortryd",
+    "redo": "Gentag",
+    "cut": "Klip",
+    "copy": "Kopiér", //this is a verb (as in "copy the currently-selected text")
+    "paste": "Sæt ind",
+    "goBack": "Gå tilbage",
+    "goForward": "Gå frem",
+    "inspectElement": "Inspicer element",
+    /* searchbar */
+    "pasteAndGo": "Sæt ind og gå", //context menu item
+    "DDGAnswerSubtitle": "Svar", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+    "suggestedSite": "Foreslået websted", //this is used to label suggested websites from the DuckDuckGo API,
+    "resultsFromDDG": "Resultater fra DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+    "taskN": "Opgave %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+    /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+    "showMoreBangs": "Vis flere",
+    "viewSettings": "Se indstillinger",
+    "takeScreenshot": "Tag et skærmbillede",
+    "clearHistory": "Ryd al historik",
+    "enableBlocking": "Aktiver indholdsblokering for dette websted",
+    "disableBlocking": "Deaktiver indholdsblokering for dette websted",
+    "clearHistoryConfirmation": "Vil du rydde al historik og browserdata?",
+    "switchToTask": "Skift til Opgave",
+    "createTask": "Opret en opgave",
+    "closeTask": "Luk en opgave",
+    "moveToTask": "Flyt denne fane til en opgave",
+    "nameTask": "Navngiv denne opgave",
+    "addBookmark": "Tilføj bogmærke",
+    "searchBookmarks": "Søg efter bogmærker",
+    "bookmarksAddTag": "Tilføj mærke...",
+    "bookmarksRenameTag": "Omdøb mærke",
+    "bookmarksDeleteTag": "Slet mærke",
+    "deleteBookmarksWithTag": "Slet bogmærker med mærke",
+    "bookmarksSimilarItems": "Lignende bogmærker",
+    "searchHistory": "Søgehistorik",
+    "importBookmarks": "Importer bogmærker fra HTML-fil",
+    "exportBookmarks": "Eksporter bogmærker",
+    "runUserscript": "Kør brugerscript",
+    /* navbar */
+    "openMenu": "Åbn menu", //application menu button on windows
+    "enterReaderView": "Start læservisning",
+    "exitReaderView": "Afslut læservisning",
+    "newTabLabel": "Ny Fane", //this is a noun, used for tabs that don't have a page loaded in them yet
+    "connectionNotSecure": "Din forbindelse til denne hjemmeside er ikke sikker.",
+    "searchbarPlaceholder": "Søg eller indtast adresse",
+    "privateTab": "Privat Fane",
+    "newTabAction": "Ny Fane", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+    /* task overlay */
+    "viewTasks": "Se Opgaver",
+    "newTask": "Ny Opgave", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "defaultTaskName": "Opgave %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+    "taskDeleteWarning": {
+      "unsafeHTML": "Opgave slettet. <a>Fortryd?</a>"
+    },
+    "tasksSearchTabs": "Søg faner",
+    "returnToTask": "Vend tilbage til din tidligere opgave",
+    "taskDescriptionTwo": "%t og %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
+    "taskDescriptionThree": "%t, %t og %n mere", //used to describe a task that has three or more tabs
+    /* find in page toolbar */
+    "searchInPage": "Søg på side", //this is used as the placeholder text for the textbox in the find in page toolbar
+    "findMatchesSingular": "%i of %t match", //this and the next label are used to indicate which match is currently highlighted
+    "findMatchesPlural": "%i of %t matcher",
+    /* Focus mode */
+    "isFocusMode": "Du er i fokustilstand.",
+    "closeDialog": "OK", //used as a label for the button that closes the dialog
+    "focusModeExplanation1": "I fokustilstand kan du ikke oprette nye faner eller skifte opgaver.",
+    "focusModeExplanation2": "Du kan forlade fokustilstand ved at fjerne markeringen af \"fokustilstand\" i visningsmenuen.",
+    /* relative dates */
+    "timeRangeJustNow": "Lige nu",
+    "timeRangeMinutes": "Et par minutter siden",
+    "timeRangeHour": "I den seneste time",
+    "timeRangeToday": "I dag",
+    "timeRangeYesterday": "I går",
+    "timeRangeWeek": "I den forgangne uge",
+    "timeRangeMonth": "I den forgangne måned",
+    "timeRangeYear": "I det forgangne år",
+    "timeRangeLongerAgo": "Længere siden",
+    /* pages/error/index.html */
+    "crashErrorTitle": "Noget gik galt.",
+    "crashErrorSubtitle": "Der opstod et problem under visning af denne side.",
+    "errorPagePrimaryAction": "Prøv igen",
+    "serverNotFoundTitle": "Server ikke fundet",
+    "serverNotFoundSubtitle": "Min kunne ikke finde denne hjemmeside.",
+    "archiveSearchAction": "Søg på archive.org",
+    "sslErrorTitle": "Denne hjemmeside er ikke tilgængelig",
+    "sslErrorMessage": "Min kunne ikke oprette sikker forbindelse til denne hjemmeside.",
+    "dnsErrorTitle": "Hjemmesiden ikke fundet",
+    "dnsErrorMessage": "Der opstod en DNS-fejl.",
+    "offlineErrorTitle": "Du er offline",
+    "offlineErrorMessage": "Genopret forbindelse til internettet, og prøv igen.",
+    "genericConnectionFail": "Min kunne ikke oprette forbindelse til webstedet.",
+    "sslTimeErrorMessage": "Min kunne ikke oprette sikker forbindelse til denne hjemmeside. Sørg for, at din computers ur er indstillet korrekt.",
+    "addressInvalidTitle": "Denne adresse er ugyldig.",
+    "genericError": "Der opstod en fejl",
+    /* pages/phishing/index.html */
+    "phishingErrorTitle": "Dette websted er farligt.",
+    "phishingErrorMessage": "Dette websted forsøger muligvis at stjæle dine personlige oplysninger, såsom adgangskoder eller bankoplysninger.",
+    "phishingErrorVisitAnyway": "Besøg websted alligevel",
+    "phishingErrorLeave": "Forlad dette websted",
+    /* multiple instances alert */
+    "multipleInstancesErrorMessage": "En fejl opstod. Luk venligst alle andre åbne instanser og genstart Min.",
+    /* pages/sessionRestoreError/index.html */
+    "sessionRestoreErrorTitle": "Der opstod en fejl",
+    "sessionRestoreErrorExplanation": "Dine gemte faner kunne ikke gendannes korrekt.",
+    "sessionRestoreErrorBackupInfo": "Vi har gemt en sikkerhedskopi af dine data på denne sti: %l.", //%l will be replaced with a path to a file
+    "sessionRestoreErrorLinkInfo": {
+      "unsafeHTML": "Hvis denne fejl fortsætter med at opstå, skal du åbne et nyt problem <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">her</a>."
+    },
+    /* pages/settings/index.html */
+    "settingsPreferencesHeading": "Præferencer",
+    "settingsRestartRequired": "Du skal genstarte for at anvende disse ændringer.",
+    "settingsPrivacyHeading": "Indholdsblokering",
+    "settingsContentBlockingLevel0": "Tillad alle annoncer og trackere",
+    "settingsContentBlockingLevel1": "Bloker tredjepartsannoncer og trackere",
+    "settingsContentBlockingLevel2": "Bloker alle annoncer og trackere",
+    "settingsContentBlockingExceptions": "Annoncer vil stadig være tilladt på disse websteder:",
+    "settingsBlockScriptsToggle": "Bloker scripts",
+    "settingsBlockImagesToggle": "Bloker billeder",
+    "settingsBlockedRequestCount": {
+      "unsafeHTML": "Indtil videre har Min blokeret <strong></strong> annoncer og trackere."
+    },
+    "settingsCustomBangs": "Brugerdefinerede bangs",
+    "settingsCustomBangsAdd": "Tilføj brugerdefinerede bang",
+    "settingsCustomBangsPhrase": "Sætning (påkrævet)",
+    "settingsCustomBangsSnippet": "Beskrivelse (valgfri)",
+    "settingsCustomBangsRedirect": "Omdirigerings-URL (påkrævet)",
+    "settingsCustomizeFiltersLink": "Tilpas filtre",
+    "settingsAppearanceHeading": "Udseende",
+    "settingsEnableDarkMode": "Aktiver mørk tilstand:",
+    "settingsDarkModeNever": "Aldrig",
+    "settingsDarkModeNight": "Om natten",
+    "settingsDarkModeAlways": "Altid",
+    "settingsDarkModeSystem": "Følg systemtemaet",
+    "settingsSiteThemeToggle": "Aktiver webstedstema",
+    "settingsAdditionalFeaturesHeading": "Yderligere funktioner",
+    "settingsUserscriptsToggle": "Aktiver brugerscripts",
+    "settingsShowDividerToggle": "Vis skillelinje mellem faner",
+    "settingsSeparateTitlebarToggle": "Brug separat titellinje",
+    "settingsAutoplayToggle": "Aktiver Autoplay",
+    "settingsOpenTabsInForegroundToggle": "Åbn nye faner i forgrunden",
+    "settingsUserscriptsExplanation": {
+      "unsafeHTML": "Brugerscripts giver dig mulighed for at ændre adfærd på websteder - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">få mere at vide her</a>."
+    },
+    "settingsUserAgentToggle": "Brug en brugerdefineret brugeragent",
+    "settingsUpdateNotificationsToggle": "Kontroller automatisk for opdateringer",
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "Send brugsstatistik (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Flere oplysninger</a>)"
+    },
+    "settingsStartupOptions": "Når Min starter: ",
+    "settingsStartupCreateTask": "Genåbn tidligere faner",
+    "settingsStartupNewTaskandBackground": "Flyt tidligere faner til en baggrundsopgave",
+    "settingsStartupNewTaskOnly": "Åbn en ny tom Opgave",
+    "settingsSearchEngineHeading": "Søgemaskine",
+    "settingsDefaultSearchEngine": "Vælg en standardsøgemaskine:",
+    "settingsDDGExplanation": "Indstil DuckDuckGo som standardsøgemaskine for at se øjeblikkelige svar i søgefeltet.",
+    "customSearchEngineDescription": "Erstat søgeordet med %s",
+    "settingsKeyboardShortcutsHeading": "Tastaturgenveje",
+    "settingsKeyboardShortcutsHelp": "Brug kommaer til at adskille flere genveje.",
+    "settingsProxyHeading": "Proxy",
+    "settingsNoProxy": "Ingen Proxy",
+    "settingsManualProxy": "Manuel konfiguration",
+    "settingsAutomaticProxy": "Automatisk konfiguration",
+    "settingsProxyRules": "Proxy regler:",
+    "settingsProxyBypassRules": "Ingen proxy for:",
+    "settingsProxyConfigurationURL": "Konfigurations-URL",
+    /* app menu */
+    "appMenuFile": "Fil",
+    "appMenuNewTab": "Ny Fane",
+    "appMenuDuplicateTab": "Dupliker Fane",
+    "appMenuNewPrivateTab": "Ny Privat Fane",
+    "appMenuNewTask": "Ny Opgave",
+    "appMenuNewWindow": "Nyt Vindue",
+    "appMenuSavePageAs": "Gem Side Som",
+    "appMenuPrint": "Print",
+    "appMenuEdit": "Redigere",
+    "appMenuUndo": "Fortryd",
+    "appMenuRedo": "Gentag",
+    "appMenuCut": "Klip",
+    "appMenuCopy": "Kopier",
+    "appMenuPaste": "Indsæt",
+    "appMenuSelectAll": "Vælg alt",
+    "appMenuFind": "Find",
+    "appMenuView": "Vis",
+    "appMenuZoomIn": "Zoom Ind",
+    "appMenuZoomOut": "Zoom Ud",
+    "appMenuActualSize": "Aktuel størrelse",
+    "appMenuFullScreen": "Fuld skærm", //on some platforms, this string is replaced with one built-in to the OS
+    "appMenuFocusMode": "Fokustilstand",
+    "appMenuBookmarks": "Bogmærker",
+    "appMenuHistory": "Historik",
+    "appMenuDeveloper": "Udvikler",
+    "appMenuReloadBrowser": "Genindlæs Browser",
+    "appMenuInspectBrowser": "Undersøg Browseren",
+    "appMenuInspectPage": "Undersøg Side",
+    "appMenuWindow": "Vindue",
+    "appMenuMinimize": "Minimer",
+    "appMenuClose": "Luk",
+    "appMenuAlwaysOnTop": "Altid øverst",
+    "appMenuHelp": "Hjælp",
+    "appMenuKeyboardShortcuts": "Tastaturgenveje",
+    "appMenuReportBug": "Anmeld en fejl",
+    "appMenuTakeTour": "Tag en tour",
+    "appMenuViewGithub": "Se på GitHub",
+    "appMenuAbout": "Om %n", //%n is replaced with app name
+    "appMenuPreferences": "Præferencer",
+    "appMenuServices": "Tjenester",
+    "appMenuHide": "Skjul %n",
+    "appMenuHideOthers": "Skjul Andre",
+    "appMenuShowAll": "Vis Alle",
+    "appMenuQuit": "Luk %n",
+    "appMenuBringToFront": "Bring alle foran",
+    /* PDF Viewer */
+    "PDFPageCounter": {
+      "unsafeHTML": "side <input type='text'/> af <span id='total'></span>"
+    },
+    /* Context Reader */
+    "buttonReaderSettings": "Læserindstillinger",
+    "buttonReaderLightTheme": "Lys",
+    "buttonReaderSepiaTheme": "Sepia",
+    "buttonReaderDarkTheme": "Mørk",
+    "openReaderView": "Altid åben i læservisning",
+    "autoRedirectBannerReader": "Vil du altid åbne artikler fra dette websted i læservisning?",
+    "buttonReaderRedirectYes": "Ja",
+    "buttonReaderRedirectNo": "Nej",
+    "articleReaderView": "Original Artikel",
+    /* Download manager */
+    "downloadCancel": "Fortryd",
+    "downloadStateCompleted": "Gennemført",
+    "downloadStateFailed": "Mislykkedet",
+    /* Update Notifications */
+    "updateNotificationTitle": "En ny version af Min er tilgængelig",
+    /* Autofill settings */
+    "settingsPasswordAutoFillHeadline": "Automatisk udfyldning af adgangskode",
+    "settingsSelectPasswordManager": "Vælg en af de understøttede adgangskodeadministratorer:",
+    "keychainViewPasswords": "Se gemte adgangskoder",
+    /* Password manager setup */
+    "passwordManagerSetupHeading": "Afslut opsætningen af %p for at bruge Autofyld",
+    "passwordManagerSetupStep1": {
+      "unsafeHTML": "Først <a id='password-manager-setup-link'></a> og udpak det til dit system."
+    },
+    "passwordManagerInstallerSetup": {
+      "unsafeHTML": "Download <a id='password-manager-setup-link-installer'></a> og træk filen ind i boksen nedenfor:"
+    },
+    "passwordManagerSetupLink": "download %p CLI-værktøjet",
+    "passwordManagerSetupLinkInstaller": "%p CLI-installationsprogrammet",
+    "passwordManagerSetupStep2": "Træk derefter værktøjet ind i boksen nedenfor:",
+    "passwordManagerSetupDragBox": "Træk værktøjet hertil",
+    "passwordManagerSetupInstalling": "Installerer...",
+    "passwordManagerBitwardenSignIn": "For at forbinde din Bitwarden-konto skal du gå til vault.bitwarden.com/#/settings/account, rulle til bunden og vælge \"Se API-nøgle\". Indsæt derefter værdierne i felterne nedenfor.",
+    "passwordManagerSetupSignIn": "Log ind på din adgangskodeadministrator for at begynde at bruge autofyld. Dine oplysninger vil ikke blive gemt nogen steder i Min.",
+    "disableAutofill": "Deaktiver Autofyld",
+    "passwordManagerSetupUnlockError": "Kunne ikke låse adgangskodelageret op: ",
+    "passwordManagerSetupRetry": "Sørg for, at du bruger den rigtige fil og indtaster en korrekt adgangskode. Du kan prøve igen ved at trække værktøjet hertil igen.",
+    "passwordManagerUnlock": "Indtast din %p hovedadgangskode for at låse adgangskodelageret op:",
+    /* Password save bar */
+    "passwordCaptureSavePassword": "Gem adgangskoden til %s?",
+    "passwordCaptureSave": "Gem",
+    "passwordCaptureDontSave": "Gem ikke",
+    "passwordCaptureNeverSave": "Gem aldrig",
+    /* Password viewer */
+    "savedPasswordsHeading": "Gemte adgangskoder",
+    "savedPasswordsEmpty": "Ingen gemte adgangskoder.",
+    "savedPasswordsNeverSavedLabel": "Aldrig gemt",
+    "deletePassword": "Slet adgangskode til %s?",
+    /* Dialogs */
+    "loginPromptTitle": "Log ind på %h", //%h is replaced with host, %r with realm (title of protected part of site)
+    "dialogConfirmButton": "Bekræft",
+    "dialogSkipButton": "Aflys",
+    "username": "Brugernavn",
+    "email": "Email",
+    "password": "Adgangskode",
+    "secretKey": "Hemmelig nøgle",
+    "openExternalApp": "Åben i \\\"%s\\\"?", // %s is the name of an app
+    "clickToCopy": "Klik for at kopiere",
+    "copied": "Kopieret"
+  }
+}
