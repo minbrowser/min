@@ -84,21 +84,25 @@ function onSwipeGestureLowVelocity () {
     return
   }
 
-  // swipe to the left to go forward
-  if (horizontalMouseMove - beginningScrollRight > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 3) {
-    if (beginningScrollRight < 5) {
-      resetCounters()
-      webviews.callAsync(tabs.getSelected(), 'goForward')
-    }
-  }
+  webviews.callAsync(tabs.getSelected(), 'getZoomFactor', function(err, result) {
+    const minScrollDistance = 150 * result;
 
-  // swipe to the right to go backwards
-  if (horizontalMouseMove + beginningScrollLeft < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 3) {
-    if (beginningScrollLeft < 5) {
-      resetCounters()
-      webviews.goBackIgnoringRedirects(tabs.getSelected())
+    // swipe to the left to go forward
+    if (horizontalMouseMove - beginningScrollRight > minScrollDistance && Math.abs(horizontalMouseMove / verticalMouseMove) > 3) {
+      if (beginningScrollRight < 5) {
+        resetCounters()
+        webviews.callAsync(tabs.getSelected(), 'goForward')
+      }
     }
-  }
+
+    // swipe to the right to go backwards
+    if (horizontalMouseMove + beginningScrollLeft < (minScrollDistance * -1) && Math.abs(horizontalMouseMove / verticalMouseMove) > 3) {
+      if (beginningScrollLeft < 5) {
+        resetCounters()
+        webviews.goBackIgnoringRedirects(tabs.getSelected())
+      }
+    }
+  })
 }
 
 function onSwipeGestureFinish () {
