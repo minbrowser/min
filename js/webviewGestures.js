@@ -53,6 +53,7 @@ var verticalMouseMove = 0
 
 var beginningScrollLeft = null
 var beginningScrollRight = null
+var isInFrame = false
 
 var hasShownSwipeArrow = false
 
@@ -69,6 +70,7 @@ function resetCounters () {
 
   beginningScrollLeft = null
   beginningScrollRight = null
+  isInFrame = false
 
   hasShownSwipeArrow = false
 
@@ -77,6 +79,11 @@ function resetCounters () {
 }
 
 function onSwipeGestureLowVelocity () {
+  //we can't detect scroll position in an iframe, so never trigger a back gesture from it
+  if (isInFrame) {
+    return
+  }
+
   // swipe to the left to go forward
   if (horizontalMouseMove - beginningScrollRight > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 3) {
     if (beginningScrollRight < 5) {
@@ -116,16 +123,20 @@ webviews.bindIPC('wheel-event', function (tabId, e) {
     (function () {
       var left = 0
       var right = 0
+      var isInFrame = false;
       
       var n = document.elementFromPoint(${e.clientX}, ${e.clientY})
       while (n) {
+        if (n.tagName === 'IFRAME') {
+          isInFrame = true;
+        }
         if (n.scrollLeft !== undefined) {
             left = Math.max(left, n.scrollLeft)
             right = Math.max(right, n.scrollWidth - n.clientWidth - n.scrollLeft)
         }
         n = n.parentElement
       }  
-      return {left, right}
+      return {left, right, isInFrame}
     })()
     `, function (err, result) {
       if (err) {
@@ -136,6 +147,7 @@ webviews.bindIPC('wheel-event', function (tabId, e) {
         beginningScrollLeft = result.left
         beginningScrollRight = result.right
       }
+      isInFrame = isInFrame || result.isInFrame
     })
   }
 
