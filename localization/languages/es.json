@@ -50,9 +50,9 @@
     "addBookmark": "Agregar marcador",
     "searchBookmarks": "Buscar marcadores",
     "bookmarksAddTag": "Agregar etiqueta...",
-    "bookmarksRenameTag": null, //missing translation
-    "bookmarksDeleteTag": null, //missing translation
-    "deleteBookmarksWithTag": null, //missing translation
+    "bookmarksRenameTag": "Renombrar etiqueta",
+    "bookmarksDeleteTag": "Eliminar etiqueta",
+    "deleteBookmarksWithTag": "Eliminar marcadores con etiqueta",
     "bookmarksSimilarItems": "Elementos similares",
     "searchHistory": "Historial de búsqueda",  //noun?
     "importBookmarks": "Importar marcadores",
@@ -74,7 +74,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Tarea eliminada. <a>¿Deshacer?</a>"
     },
-    "tasksSearchTabs": null, //missing translation
+    "tasksSearchTabs": "Buscar pestañas",
     "returnToTask": "Volver a su tarea anterior",
     "taskDescriptionTwo": "%t y %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
     "taskDescriptionThree": "%t, %t, y %n más", //used to describe a task that has three or more tabs
@@ -152,25 +152,26 @@
     "settingsDarkModeNever": "Nunca", // googled
     "settingsDarkModeNight": "Por la noche", // googled
     "settingsDarkModeAlways": "Siempre", // googled
-    "settingsDarkModeSystem": null,
+    "settingsDarkModeSystem": "Seguir aspecto del sistema", 
     "settingsSiteThemeToggle": "Habilitar tema del sitio",
     "settingsAdditionalFeaturesHeading": "Características adicionales",
     "settingsUserscriptsToggle": "Habilitar userscripts", //userscript doesn't have a Spanish translation, afaik maybe "script de usuario"
     "settingsShowDividerToggle": "Mostrar divisor de pestañas",
     "settingsSeparateTitlebarToggle": "Separar barra de título", //"Usar barra de título separada"
+    "settingsAutoplayToggle": "Habilitar reproducción automática", 
     "settingsOpenTabsInForegroundToggle": "Abrir nuevas pestañas en primer plano",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Los userscripts te permiten modificar el comportamiento de los sitios web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Más información</a>."
     }, //"learn more" was translated to "más información" (more info)
-    "settingsUserAgentToggle": "usar Agente de usuario personalizado",
+    "settingsUserAgentToggle": "Usar agente de usuario personalizado",
     "settingsUpdateNotificationsToggle": "Buscar actualizaciones automáticamente",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Enviar estadísticas de uso (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Más información</a>)"
     },
-    "settingsStartupOptions": null, //missing translation
-    "settingsStartupCreateTask": null, //missing translation
-    "settingsStartupNewTaskandBackground": null, //missing translation
-    "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsStartupOptions": "Cuando inicie Min:", 
+    "settingsStartupCreateTask": "Restaurar pestañas anteriores", 
+    "settingsStartupNewTaskandBackground": "Mover pestañas anteriores a tarea en segundo plano", 
+    "settingsStartupNewTaskOnly": "Abrir nueva pestaña", 
     "settingsSearchEngineHeading": "Motor de búsqueda",
     "settingsDefaultSearchEngine": "Elija un motor de búsqueda predeterminado:",
     "settingsDDGExplanation": "Establezca DuckDuckGo como motor de búsqueda predeterminado para ver respuestas instantáneas en la barra de búsqueda.",
@@ -190,7 +191,7 @@
     "appMenuDuplicateTab": "Duplicar pestaña",
     "appMenuNewPrivateTab": "Nueva pestaña privada",
     "appMenuNewTask": "Nueva tarea",
-    "appMenuNewWindow": null, //missing translation
+    "appMenuNewWindow": "Nueva ventana",
     "appMenuSavePageAs": "Guardar página como",
     "appMenuPrint": "Imprimir",
     "appMenuEdit": "Editar",
@@ -267,7 +268,7 @@
     "passwordManagerSetupStep2": "Luego arrastra la herramienta hasta el cuadro de abajo:",
     "passwordManagerSetupDragBox": "Arrastra la herramienta hasta aquí",
     "passwordManagerSetupInstalling": "Instalando...",
-    "passwordManagerBitwardenSignIn": null, //missing translation
+    "passwordManagerBitwardenSignIn": "Para conectar su cuenta de Bitwarden, vaya a vault.bitwarden.com/#/settings/account, desplácese hacia abajo y seleccione \"View API Key\". Luego pegue los valores en los campos a continuación.",
     "passwordManagerSetupSignIn": "Inicia sesión en tu gestor de contraseñas para empezar a usar el Auto-llenado. Tus credenciales no serán almacenadas en ningún lugar dentro de Min.",
     "disableAutofill": "Desactivar Auto-llenado",
     "passwordManagerSetupUnlockError": "No se pudo desbloquear el almacén de contraseñas:",
@@ -277,11 +278,11 @@
     "passwordCaptureSavePassword": "¿Guardar contraseña para %s?",
     "passwordCaptureSave": "Guardar",
     "passwordCaptureDontSave": "No guardar",
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureNeverSave": "Guardar nunca",
     /* Password viewer */
     "savedPasswordsHeading": "Contraseñas guardadas",
     "savedPasswordsEmpty": "No hay contraseñas guardadas.",
-    "savedPasswordsNeverSavedLabel": null, //missing translation
+    "savedPasswordsNeverSavedLabel": "No guardada",
     "deletePassword": "¿Borrar contraseña para %s?",
     /* Dialogs */
     "loginPromptTitle": "Inicia sesión en %h", //%h is replaced with host, %r with realm (title of protected part of site)
