@@ -11,8 +11,6 @@ function isAttachment (header) {
 }
 
 function downloadHandler (event, item, webContents) {
-  var itemURL = item.getURL()
-  var attachment = isAttachment(item.getContentDisposition())
   const sourceView = Object.values(viewMap).find(view => view.webContents.id === webContents.id)
   let sourceWindow
   if (sourceView) {
@@ -22,51 +20,42 @@ function downloadHandler (event, item, webContents) {
     sourceWindow = windows.getCurrent()
   }
 
-  if (item.getMimeType() === 'application/pdf' && itemURL.indexOf('blob:') !== 0 && itemURL.indexOf('#pdfjs.action=download') === -1 && !attachment) { // clicking the download button in the viewer opens a blob url, so we don't want to open those in the viewer (since that would make it impossible to download a PDF)
-    event.preventDefault()
+  var savePathFilename
 
-    sendIPCToWindow(sourceWindow, 'openPDF', {
-      url: itemURL,
-      tabId: getTabIDFromWebContents(webContents)
-    })
-  } else {
-    var savePathFilename
+  // send info to download manager
+  sendIPCToWindow(sourceWindow, 'download-info', {
+    path: item.getSavePath(),
+    name: item.getFilename(),
+    status: 'progressing',
+    size: { received: 0, total: item.getTotalBytes() }
+  })
 
-    // send info to download manager
+  item.on('updated', function (e, state) {
+    if (!savePathFilename) {
+      savePathFilename = path.basename(item.getSavePath())
+    }
+
+    if (item.getSavePath()) {
+      currrentDownloadItems[item.getSavePath()] = item
+    }
+
     sendIPCToWindow(sourceWindow, 'download-info', {
       path: item.getSavePath(),
-      name: item.getFilename(),
-      status: 'progressing',
-      size: { received: 0, total: item.getTotalBytes() }
+      name: savePathFilename,
+      status: state,
+      size: { received: item.getReceivedBytes(), total: item.getTotalBytes() }
     })
+  })
 
-    item.on('updated', function (e, state) {
-      if (!savePathFilename) {
-        savePathFilename = path.basename(item.getSavePath())
-      }
-
-      if (item.getSavePath()) {
-        currrentDownloadItems[item.getSavePath()] = item
-      }
-
-      sendIPCToWindow(sourceWindow, 'download-info', {
-        path: item.getSavePath(),
-        name: savePathFilename,
-        status: state,
-        size: { received: item.getReceivedBytes(), total: item.getTotalBytes() }
-      })
+  item.once('done', function (e, state) {
+    delete currrentDownloadItems[item.getSavePath()]
+    sendIPCToWindow(sourceWindow, 'download-info', {
+      path: item.getSavePath(),
+      name: savePathFilename,
+      status: state,
+      size: { received: item.getTotalBytes(), total: item.getTotalBytes() }
     })
-
-    item.once('done', function (e, state) {
-      delete currrentDownloadItems[item.getSavePath()]
-      sendIPCToWindow(sourceWindow, 'download-info', {
-        path: item.getSavePath(),
-        name: savePathFilename,
-        status: state,
-        size: { received: item.getTotalBytes(), total: item.getTotalBytes() }
-      })
-    })
-  }
+  })
   return true
 }
 
@@ -89,7 +78,7 @@ function listenForDownloadHeaders (ses) {
       var typeHeader = details.responseHeaders[Object.keys(details.responseHeaders).filter(k => k.toLowerCase() === 'content-type')]
       var attachment = isAttachment(details.responseHeaders[Object.keys(details.responseHeaders).filter(k => k.toLowerCase() === 'content-disposition')])
 
-      if (typeHeader instanceof Array && typeHeader.filter(t => t.includes('application/pdf')).length > 0 && details.url.indexOf('#pdfjs.action=download') === -1 && !attachment) {
+      if (typeHeader instanceof Array && typeHeader.filter(t => t.includes('application/pdf')).length > 0 && !attachment) {
       // open in PDF viewer instead
         callback({ cancel: true })
         sendIPCToWindow(sourceWindow, 'openPDF', {
