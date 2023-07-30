@@ -212,7 +212,7 @@ const tabBar = {
     }
   },
   initializeTabDragging: function () {
-    tabBar.dragulaInstance = dragula([], {
+    tabBar.dragulaInstance = dragula([document.getElementById('tabs-inner')], {
       direction: 'horizontal',
       slideFactorX: 25
     })
@@ -235,12 +235,6 @@ const tabBar = {
 
       tabs.splice(newIdx, 0, oldTab)
     })
-  },
-  enableTabDragging: function () {
-    tabBar.dragulaInstance.containers = [document.getElementById('tabs-inner')]
-  },
-  disableTabDragging: function () {
-    tabBar.dragulaInstance.containers = []
   }
 }
 
@@ -274,24 +268,6 @@ permissionRequests.onChange(function (tabId) {
 })
 
 tabBar.initializeTabDragging()
-
-/*
-On macOS, dragging the tab bar moves the window, and cmd+drag moves tabs
-On all other platforms, the window drag area is a separate region, so tabs are draggable always
-*/
-if (window.platformType === 'mac') {
-  keybindings.defineShortcut({ keys: 'mod' }, function () {
-    tabBar.enableTabDragging()
-    document.body.classList.add('disable-window-drag')
-  })
-
-  keybindings.defineShortcut({ keys: 'mod' }, function () {
-    tabBar.disableTabDragging()
-    document.body.classList.remove('disable-window-drag')
-  }, { keyUp: true })
-} else {
-  tabBar.enableTabDragging()
-}
 
 tabBar.container.addEventListener('dragover', e => e.preventDefault())
 
