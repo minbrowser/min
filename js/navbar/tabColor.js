@@ -153,6 +153,9 @@ function getLuminance (c) {
 }
 
 function setColor (bg, fg, isLowContrast) {
+  document.body.style.setProperty('--theme-background-color', bg)
+  document.body.style.setProperty('--theme-foreground-color', fg)
+
   const backgroundElements = document.getElementsByClassName('theme-background-color')
   const textElements = document.getElementsByClassName('theme-text-color')
 
