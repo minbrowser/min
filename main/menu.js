@@ -313,15 +313,18 @@ function buildAppMenu (options = {}) {
         {
           type: 'separator'
         },
-        {
-          label: l('appMenuReloadBrowser'),
-          accelerator: (isDevelopmentMode ? 'alt+CmdOrCtrl+R' : undefined),
-          click: function (item, focusedWindow) {
-              destroyAllViews()
-              windows.getAll().forEach(win => win.close())
-              createWindow()
-          }
-        },
+        ...(isDevelopmentMode ?
+          [
+            {
+              label: l('appMenuReloadBrowser'),
+              accelerator: (isDevelopmentMode ? 'alt+CmdOrCtrl+R' : undefined),
+              click: function (item, focusedWindow) {
+                  destroyAllViews()
+                  windows.getAll().forEach(win => win.close())
+                  createWindow()
+              }
+            },
+          ] : []),
         {
           label: l('appMenuInspectBrowser'),
           accelerator: (function () {

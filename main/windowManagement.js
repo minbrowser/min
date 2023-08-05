@@ -18,6 +18,7 @@ const windows = {
     window.on('close', function() {
       //if the BrowserView is still attached to the window on close, Electron will destroy it automatically, but we want to manage it ourselves
       window.setBrowserView(null)
+      windows.openWindows.find(w => w.win === window).closed = true;
     })
 
     window.on('closed', function() {
@@ -40,7 +41,7 @@ const windows = {
     }
   },
   getCurrent: function () {
-    const lastFocused = windows.openWindows.sort((a, b) => b.state.lastFocused - a.state.lastFocused)[0]
+    const lastFocused = windows.openWindows.filter(w => !w.closed).sort((a, b) => b.state.lastFocused - a.state.lastFocused)[0]
     if (lastFocused) {
       return lastFocused.win
     } else {
@@ -48,7 +49,7 @@ const windows = {
     }
   },
   getAll: function () {
-    return windows.openWindows.map(w => w.win)
+    return windows.openWindows.filter(w => !w.closed).map(w => w.win)
   },
   getState: function (window) {
     return windows.openWindows.find(w => w.win === window).state
