@@ -9,7 +9,7 @@ function extractPageText (doc, win) {
   var maybeNodes = [].slice.call(doc.body.childNodes)
   var textNodes = []
 
-  var ignore = 'link, style, script, noscript, .hidden, .visually-hidden, .visuallyhidden, [role=presentation], [hidden], [style*="display:none"], [style*="display: none"], .ad, .dialog, .modal, select, svg, details:not([open])'
+  var ignore = 'link, style, script, noscript, .hidden, .visually-hidden, .visuallyhidden, [role=presentation], [hidden], [style*="display:none"], [style*="display: none"], .ad, .dialog, .modal, select, svg, details:not([open]), header, nav, footer'
 
   while (maybeNodes.length) {
     var node = maybeNodes.shift()
