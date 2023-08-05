@@ -234,11 +234,6 @@ var taskOverlay = {
       }
     })
 
-    input.addEventListener('blur', function () {
-      input.value = ''
-      taskOverlay.render()
-    })
-
     input.addEventListener('input', function (e) {
       var search = input.value.toLowerCase().trim()
 
