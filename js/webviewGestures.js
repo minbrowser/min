@@ -43,16 +43,22 @@ var webviewGestures = {
   }
 }
 
-var swipeGestureTimeout = -1
+var swipeGestureDistanceResetTimeout = -1
+var swipeGestureScrollResetTimeout = -1;
 var swipeGestureLowVelocityTimeout = -1
 var swipeGestureDelay = 100 // delay before gesture is complete
+var swipeGestureScrollDelay = 750;
 var swipeGestureVelocityDelay = 70 // the time (in ms) that can elapse without a minimum amount of movement before the gesture is considered almost completed
 
 var horizontalMouseMove = 0
 var verticalMouseMove = 0
 
+var leftMouseMove = 0;
+var rightMouseMove = 0;
+
 var beginningScrollLeft = null
 var beginningScrollRight = null
+var isInFrame = false
 
 var hasShownSwipeArrow = false
 
@@ -62,13 +68,11 @@ var initialSecondaryKeyState = null
 var webviewMinZoom = 0.5
 var webviewMaxZoom = 3.0
 
-function resetCounters () {
+function resetDistanceCounters () {
   horizontalMouseMove = 0
-
   verticalMouseMove = 0
-
-  beginningScrollLeft = null
-  beginningScrollRight = null
+  leftMouseMove = 0
+  rightMouseMove = 0
 
   hasShownSwipeArrow = false
 
@@ -76,26 +80,41 @@ function resetCounters () {
   initialSecondaryKeyState = null
 }
 
-function onSwipeGestureLowVelocity () {
-  // swipe to the left to go forward
-  if (horizontalMouseMove - beginningScrollRight > 150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 3) {
-    if (beginningScrollRight < 5) {
-      resetCounters()
-      webviews.callAsync(tabs.getSelected(), 'goForward')
-    }
-  }
-
-  // swipe to the right to go backwards
-  if (horizontalMouseMove + beginningScrollLeft < -150 && Math.abs(horizontalMouseMove / verticalMouseMove) > 3) {
-    if (beginningScrollLeft < 5) {
-      resetCounters()
-      webviews.goBackIgnoringRedirects(tabs.getSelected())
-    }
-  }
+function resetScrollCounters () {
+  beginningScrollLeft = null
+  beginningScrollRight = null
+  isInFrame = false
 }
 
-function onSwipeGestureFinish () {
-  resetCounters()
+function onSwipeGestureLowVelocity () {
+  //we can't detect scroll position in an iframe, so never trigger a back gesture from it
+  if (isInFrame) {
+    return
+  }
+
+  webviews.callAsync(tabs.getSelected(), 'getZoomFactor', function(err, result) {
+    const minScrollDistance = 150 * result;
+
+      if ((leftMouseMove / rightMouseMove > 5) || (rightMouseMove / leftMouseMove > 5)) {
+      // swipe to the left to go forward
+      if (leftMouseMove - beginningScrollRight > minScrollDistance && Math.abs(horizontalMouseMove / verticalMouseMove) > 3) {
+        if (beginningScrollRight < 5) {
+          resetDistanceCounters()
+          resetScrollCounters()
+          webviews.callAsync(tabs.getSelected(), 'goForward')
+        }
+      }
+
+      // swipe to the right to go backwards
+      if (rightMouseMove + beginningScrollLeft > minScrollDistance && Math.abs(horizontalMouseMove / verticalMouseMove) > 3) {
+        if (beginningScrollLeft < 5) {
+          resetDistanceCounters()
+          resetScrollCounters()
+          webviews.goBackIgnoringRedirects(tabs.getSelected())
+        }
+      }
+    }
+  })
 }
 
 webviews.bindIPC('wheel-event', function (tabId, e) {
@@ -107,6 +126,11 @@ webviews.bindIPC('wheel-event', function (tabId, e) {
 
   verticalMouseMove += e.deltaY
   horizontalMouseMove += e.deltaX
+  if (e.deltaX > 0) {
+    leftMouseMove += e.deltaX
+  } else {
+    rightMouseMove += e.deltaX * -1
+  }
 
   var platformZoomKey = ((navigator.platform === 'MacIntel') ? e.metaKey : e.ctrlKey)
   var platformSecondaryKey = ((navigator.platform === 'MacIntel') ? e.ctrlKey : false)
@@ -116,16 +140,20 @@ webviews.bindIPC('wheel-event', function (tabId, e) {
     (function () {
       var left = 0
       var right = 0
+      var isInFrame = false;
       
       var n = document.elementFromPoint(${e.clientX}, ${e.clientY})
       while (n) {
+        if (n.tagName === 'IFRAME') {
+          isInFrame = true;
+        }
         if (n.scrollLeft !== undefined) {
             left = Math.max(left, n.scrollLeft)
             right = Math.max(right, n.scrollWidth - n.clientWidth - n.scrollLeft)
         }
         n = n.parentElement
       }  
-      return {left, right}
+      return {left, right, isInFrame}
     })()
     `, function (err, result) {
       if (err) {
@@ -136,6 +164,7 @@ webviews.bindIPC('wheel-event', function (tabId, e) {
         beginningScrollLeft = result.left
         beginningScrollRight = result.right
       }
+      isInFrame = isInFrame || result.isInFrame
     })
   }
 
@@ -160,8 +189,10 @@ webviews.bindIPC('wheel-event', function (tabId, e) {
     }
   }
 
-  clearTimeout(swipeGestureTimeout)
-  swipeGestureTimeout = setTimeout(onSwipeGestureFinish, swipeGestureDelay)
+  clearTimeout(swipeGestureDistanceResetTimeout)
+  clearTimeout(swipeGestureScrollResetTimeout)
+  swipeGestureDistanceResetTimeout = setTimeout(resetDistanceCounters, swipeGestureDelay)
+  swipeGestureScrollResetTimeout = setTimeout(resetScrollCounters, swipeGestureScrollDelay)
 
   /* cmd-key while scrolling should zoom in and out */
 
