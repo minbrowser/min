@@ -76,6 +76,7 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
         url: result.url,
         metadata: result.tags,
         descriptionBlock: result.searchSnippet,
+        highlightedTerms: (result.searchSnippet ? text.toLowerCase().split(' ').filter(t => t.length > 0) : []),
         delete: function () {
           places.deleteHistory(result.url)
         },

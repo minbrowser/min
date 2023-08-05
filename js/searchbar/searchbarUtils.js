@@ -2,6 +2,33 @@ var urlParser = require('util/urlParser.js')
 
 var lastItemDeletion = Date.now() // TODO get rid of this
 
+function extractTokens (text, tokens) {
+  var remainingText = text
+  var out = []
+
+  var nextToken
+
+  while (nextToken?.index !== -1) {
+    nextToken = tokens.map(token => ({ token, index: remainingText.toLowerCase().indexOf(token) }))
+      .reduce((a, b) => {
+        if ((a.index <= b.index && a.index !== -1) || (b.index === -1)) {
+          return a
+        } else {
+          return b
+        }
+      })
+
+    if (nextToken.index !== -1) {
+      out.push(remainingText.substring(0, nextToken.index))
+      out.push({ token: remainingText.substring(nextToken.index, nextToken.index + nextToken.token.length) })
+      remainingText = remainingText.substring(nextToken.index + nextToken.token.length)
+    }
+  }
+  out.push(remainingText)
+
+  return out
+}
+
 // creates a result item
 
 /*
@@ -112,7 +139,19 @@ function createItem (data) {
     var dBlock = document.createElement('span')
     dBlock.classList.add('description-block')
 
-    dBlock.textContent = data.descriptionBlock
+    if (data.highlightedTerms) {
+      extractTokens(data.descriptionBlock, data.highlightedTerms).forEach(function (span) {
+        if (typeof span === 'string') {
+          dBlock.appendChild(document.createTextNode(span))
+        } else {
+          var s = document.createElement('strong')
+          s.textContent = span.token
+          dBlock.appendChild(s)
+        }
+      })
+    } else {
+      dBlock.textContent = data.descriptionBlock
+    }
     item.appendChild(dBlock)
   }
 

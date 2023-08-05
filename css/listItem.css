@@ -172,6 +172,10 @@ body.dark-mode.touch .searchbar-item .action-button {
   margin-top: 0.1em;
   margin-right: 2.5em;
 }
+.searchbar-item .description-block strong {
+  font-size: inherit;
+  font-weight: 500;
+}
 /* when a result is selected, we can show more of the description */
 .searchbar-item:focus .description-block {
   max-height: none;
