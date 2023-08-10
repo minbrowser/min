@@ -50,9 +50,9 @@
     "addBookmark": "Ajouter un marque-page",
     "searchBookmarks": "Rechercher des signets",
     "bookmarksAddTag": "Ajouter une étiquette de marque-page",
-    "bookmarksRenameTag": null, //missing translation
-    "bookmarksDeleteTag": null, //missing translation
-    "deleteBookmarksWithTag": null, //missing translation
+    "bookmarksRenameTag": "Renommer l'étiquette de marque-page", 
+    "bookmarksDeleteTag": "Supprimer l'étiquette de marque-page", 
+    "deleteBookmarksWithTag": "Supprimer l'étiquette de marque-page avec la balise",
     "bookmarksSimilarItems": "Éléments similaires",
     "searchHistory": "Rechercher dans l'historique",
     "importBookmarks": "Importer les marque-pages",
@@ -74,7 +74,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "Tâche supprimée. <a>Annuler ?</a>"
     },
-    "tasksSearchTabs": null, //missing translation
+    "tasksSearchTabs": "Rechercher dans les onglets", 
     "returnToTask": "Revenir à la tâche précédente",
     "taskDescriptionTwo": "%t et %t",
     "taskDescriptionThree": "%t, %t, et %n",
@@ -152,13 +152,13 @@
     "settingsDarkModeNever": "Jamais",
     "settingsDarkModeNight": "La nuit",
     "settingsDarkModeAlways": "Toujours",
-    "settingsDarkModeSystem": null,
+    "settingsDarkModeSystem": "Suivre le thème du système",
     "settingsSiteThemeToggle": "Activer le thème du site",
     "settingsAdditionalFeaturesHeading": "Fonctionnalités supplémentaires",
     "settingsUserscriptsToggle": "Activer les scripts personnalisés",
     "settingsShowDividerToggle": "Afficher un séparateur entre les onglets",
     "settingsSeparateTitlebarToggle": "Afficher une barre de titre séparée",
-    "settingsAutoplayToggle": null, //missing translation 
+    "settingsAutoplayToggle": "Activer la lecture automatique", 
     "settingsOpenTabsInForegroundToggle": "Ouvrir les nouveaux onglets au premiers plan",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Les scripts personnalisés vous permettent de modifier le comportement des pages web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">en savoir plus (en anglais)</a>."
@@ -168,10 +168,10 @@
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Envoyer des statistiques d'utilisation - <a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">En savoir plus sur les statistiques envoyées (en anglais)</a>"
     },
-    "settingsStartupOptions": null, //missing translation
-    "settingsStartupCreateTask": null, //missing translation
-    "settingsStartupNewTaskandBackground": null, //missing translation
-    "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsStartupOptions": "Les paramétres de démarrage de Min", 
+    "settingsStartupCreateTask": "Ré-ouverture des onglets précédents", 
+    "settingsStartupNewTaskandBackground": "Déplacer les onglets précédents en arrière plan", 
+    "settingsStartupNewTaskOnly": "Ouvrir une nouvelle tâche", 
     "settingsSearchEngineHeading": "Moteur de recherche",
     "settingsDefaultSearchEngine": "Choisir un moteur de recherche par défaut :",
     "settingsDDGExplanation": "Définir DuckDuckGo comme moteur de recherche par défaut pour voir instantanément des résulats dans la barre de recherche.",
@@ -191,7 +191,7 @@
     "appMenuDuplicateTab": "Dupliquer l'onglet",
     "appMenuNewPrivateTab": "Nouvel onglet de navigation privée",
     "appMenuNewTask": "Nouvelle tâche",
-    "appMenuNewWindow": null, //missing translation
+    "appMenuNewWindow": "Ouvrir une nouvelle fenêtre", 
     "appMenuSavePageAs": "Enregistrer la page sous",
     "appMenuPrint": "Imprimer",
     "appMenuEdit": "Editer",
@@ -268,7 +268,7 @@
     "passwordManagerSetupStep2": "Puis cliquer-glisser l'outil dans le cadre ci-dessous :",
     "passwordManagerSetupDragBox": "Déposer l'outil ici",
     "passwordManagerSetupInstalling": "En cours d'installation...",
-    "passwordManagerBitwardenSignIn": null, //missing translation
+    "passwordManagerBitwardenSignIn": "Pour connecter votre compte Bitwarden, accédez à vault.bitwarden.com/#/settings/account, faites défiler vers le bas et choisissez «View API Key». Collez ensuite les valeurs dans les champs ci-dessous.", 
     "passwordManagerSetupSignIn": "Connectez-vous à votre gestionnaire de mots de pass pour commencer à utiliser le remplissage automatique. Vos informations de connexion ne seront jamais stockées par Min.",
     "disableAutofill": "Désactiver le remplissage automatique",
     "passwordManagerSetupUnlockError": "Échec d'ouverture de la bibliothèque de mots passe : ",
@@ -278,11 +278,11 @@
     "passwordCaptureSavePassword": "Enregistrer le mot de passe pour %s?",
     "passwordCaptureSave": "Enregistrer",
     "passwordCaptureDontSave": "Ne pas enregistrer",
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureNeverSave": "Ne jamais enregistrer", 
     /* Password viewer */
     "savedPasswordsHeading": "Mots de passe enregistrés",
     "savedPasswordsEmpty": "Pas de mots de passe enregistrés.",
-    "savedPasswordsNeverSavedLabel": null, //missing translation
+    "savedPasswordsNeverSavedLabel": "Ne jamais enregistrer", 
     "deletePassword": "Supprimer le mot de passe pour %s?",
     /* Dialogs */
     "loginPromptTitle": "Connectez-vous à %h", //%h is replaced with host, %r with realm (title of protected part of site)
@@ -292,8 +292,8 @@
     "email": "Adresse mail",
     "password": "Mot de passe",
     "secretKey": "Clé privée",
-    "openExternalApp": null, //missing translation
-    "clickToCopy": null, //missing translation
-    "copied": null //missing translation
+    "openExternalApp": "Ouvrir avec %s", // %s est le nom de l'application
+    "clickToCopy": "cliquer-glisser", 
+    "copied": "Copier" 
   }
 }
