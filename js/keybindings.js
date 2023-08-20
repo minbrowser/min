@@ -107,6 +107,12 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
   })
 }
 
+let keyboardMap
+
+navigator.keyboard.getLayoutMap().then(map => {
+  keyboardMap = map
+})
+
 function initialize () {
   webviews.bindEvent('before-input-event', function (tabId, input) {
     var expectedKeys = 1
@@ -133,8 +139,9 @@ function initialize () {
       shortcut.keys.forEach(function (key) {
         if (!(
           key === input.key.toLowerCase() ||
-        key === input.code.replace('Digit', '').toLowerCase() ||
-        key === input.code.replace('Key', '').toLowerCase() ||
+        // we need this check because the alt key can change the typed key, causing input.key to be a special character instead of the base key
+        // but input.code isn't layout aware, so we need to map it to the correct key for the layout
+        (keyboardMap && key === keyboardMap.get(input.code)) ||
         (key === 'esc' && input.key === 'Escape') ||
         (key === 'left' && input.key === 'ArrowLeft') ||
         (key === 'right' && input.key === 'ArrowRight') ||
