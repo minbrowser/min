@@ -459,6 +459,16 @@ function createDockMenu () {
         click: function (item, window) {
           sendIPCToWindow(window, 'addTask')
         }
+      },
+      {
+        label: l('appMenuNewWindow'),
+        click: function () {
+          if (isFocusMode) {
+            showFocusModeDialog2()
+          } else {
+            createWindow()
+          }
+        }
       }
     ]
 
