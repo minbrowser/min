@@ -172,6 +172,9 @@
     "settingsStartupCreateTask": "Önceki sekmeleri yeniden aç",
     "settingsStartupNewTaskandBackground": "Önceki sekmeleri arka plan görevine taşı",
     "settingsStartupNewTaskOnly": "Yeni bir boş görev aç",
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "Arama Motoru",
     "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçin:",
     "settingsDDGExplanation": "Arama çubuğundaki anlık yanıtları görmek için DuckDuckGo’yu varsayılan arama motoru olarak ayarlayın.",

@@ -172,6 +172,9 @@
     "settingsStartupCreateTask": "Her-open vorige tabbladen",
     "settingsStartupNewTaskandBackground": "Verplaats vorige tabbladen naar een taak op de achtergrond",
     "settingsStartupNewTaskOnly": "Open een lege taak",
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "Zoekmachine",
     "settingsDefaultSearchEngine": "Kies een standaard zoekmachine:",
     "settingsDDGExplanation": "Kies DuckDuckGo als standaard zoekmachine om meteen resultaten te zien in de zoekbalk.",

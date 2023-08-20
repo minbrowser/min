@@ -3,6 +3,7 @@ var webviews = require('webviews.js')
 var tabEditor = require('navbar/tabEditor.js')
 var tabState = require('tabState.js')
 var settings = require('util/settings/settings.js')
+var taskOverlay = require('taskOverlay/taskOverlay.js')
 
 const sessionRestore = {
   savePath: window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
@@ -204,6 +205,10 @@ const sessionRestore = {
       tabEditor.show(tasks.getSelected().tabs.getSelected())
     } else {
       browserUI.addTask()
+    }
+
+    if (settings.get('newWindowOption') === 2) {
+      taskOverlay.show()
     }
   },
   restore: function () {
