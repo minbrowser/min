@@ -2,6 +2,9 @@
   "name": "Català",
   "identifier": "ca",
   "translations": {
+    /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
     "addToDictionary": "Afegir al diccionari",
     "pictureInPicture": "Imatge sobre imatge",
     "openInNewTab": "Obrir en una nova pestanya",
@@ -11,23 +14,27 @@
     "openImageInNewTab": "Obrir imatge en una nova pestanya",
     "openImageInNewPrivateTab": "Obrir imatge en una nova pestanya privada",
     "saveImageAs": "Desar imatge com",
-    "searchWith": "Cercar amb %s",
+    "searchWith": "Cercar amb %s", //%s will be replaced with the name of the current search engine
     "copyLink": "Copiar l'enllaç",
     "copyEmailAddress": "Copiar l'adreça de correu electrònic",
     "selectAll": "Seleccionar tot",
     "undo": "Desfer",
     "redo": "Refer",
     "cut": "Tallar",
-    "copy": "Copiar",
+    "copy": "Copiar", //this is a verb (as in "copy the currently-selected text")
     "paste": "Enganxar",
     "goBack": "Tornar enrere",
     "goForward": "Anar endavant",
     "inspectElement": "Inspeccionar l'element",
-    "pasteAndGo": "Enganxar i anar",
-    "DDGAnswerSubtitle": "Resposta",
-    "suggestedSite": "Lloc suggerit",
-    "resultsFromDDG": "Resultats de DuckDuckGo",
-    "taskN": "Tasca %n",
+    /* searchbar */
+    "pasteAndGo": "Enganxar i anar", //context menu item
+    "DDGAnswerSubtitle": "Resposta", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+    "suggestedSite": "Lloc suggerit", //this is used to label suggested websites from the DuckDuckGo API,
+    "resultsFromDDG": "Resultats de DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+    "taskN": "Tasca %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+    /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
     "showMoreBangs": "Mostrar més",
     "viewSettings": "Veure configuració",
     "takeScreenshot": "Fer una captura de pantalla",
@@ -51,31 +58,36 @@
     "importBookmarks": "Importar adreces d'interès des d'un fitxer HTML",
     "exportBookmarks": "Exportar adreces d'interès",
     "runUserscript": "Executar l'script d'usuari",
-    "openMenu": "Obrir menú",
+    /* navbar */
+    "openMenu": "Obrir menú", //application menu button on windows
     "enterReaderView": "Entrar a la vista de lector",
     "exitReaderView": "Sortir de la vista de lector",
-    "newTabLabel": "Nova pestanya",
+    "newTabLabel": "Nova pestanya", //this is a noun, used for tabs that don't have a page loaded in them yet
     "connectionNotSecure": "La teva connexió a aquest lloc web no és segura.",
     "searchbarPlaceholder": "Cercar o introduir una adreça",
     "privateTab": "Pestanya privada",
-    "newTabAction": "Nova pestanya",
+    "newTabAction": "Nova pestanya", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+    /* task overlay */
     "viewTasks": "Veure tasques",
-    "newTask": "Nova tasca",
-    "defaultTaskName": "Tasca %n",
+    "newTask": "Nova tasca", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "defaultTaskName": "Tasca %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
     "taskDeleteWarning": {
       "unsafeHTML": "Tasca eliminada. <a>Desfer?</a>"
     },
     "tasksSearchTabs": "Cercar pestanyes",
     "returnToTask": "Tornar a la teva tasca anterior",
-    "taskDescriptionTwo": "%t i %t",
-    "taskDescriptionThree": "%t, %t, i %n més",
-    "searchInPage": "Cercar a la pàgina",
-    "findMatchesSingular": "%i de %t coincidència",
+    "taskDescriptionTwo": "%t i %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
+    "taskDescriptionThree": "%t, %t, i %n més", //used to describe a task that has three or more tabs
+    /* find in page toolbar */
+    "searchInPage": "Cercar a la pàgina", //this is used as the placeholder text for the textbox in the find in page toolbar
+    "findMatchesSingular": "%i de %t coincidència", //this and the next label are used to indicate which match is currently highlighted
     "findMatchesPlural": "%i de %t coincidències",
+    /* Focus mode */
     "isFocusMode": "Estàs en mode concentració.",
-    "closeDialog": "D'acord",
+    "closeDialog": "D'acord", //used as a label for the button that closes the dialog
     "focusModeExplanation1": "En mode concentració, no pots crear noves pestanyes ni canviar de tasques.",
     "focusModeExplanation2": "Pots sortir del mode concentració desmarcant \"mode concentració\" al menú de vista.",
+    /* relative dates */
     "timeRangeJustNow": "Ara mateix",
     "timeRangeMinutes": "Fa uns minuts",
     "timeRangeHour": "Dins l'última hora",
@@ -85,6 +97,7 @@
     "timeRangeMonth": "Dins l'últim mes",
     "timeRangeYear": "Dins l'últim any",
     "timeRangeLongerAgo": "Fa més temps",
+    /* pages/error/index.html */
     "crashErrorTitle": "Alguna cosa ha anat malament.",
     "crashErrorSubtitle": "S'ha produït un problema en mostrar aquesta pàgina.",
     "errorPagePrimaryAction": "Tornar a intentar",
@@ -101,17 +114,21 @@
     "sslTimeErrorMessage": "Min no ha pogut connectar-se de manera segura a aquest lloc web. Assegura't que l'hora del teu ordinador estigui correcta.",
     "addressInvalidTitle": "Aquesta adreça és invàlida.",
     "genericError": "S'ha produït un error",
+    /* pages/phishing/index.html */
     "phishingErrorTitle": "Aquest lloc pot ser perillós.",
     "phishingErrorMessage": "Aquest lloc web podria estar intentant robar la teva informació personal, com contrasenyes o dades bancàries.",
     "phishingErrorVisitAnyway": "Visitar el lloc de totes maneres",
     "phishingErrorLeave": "Sortir d'aquest lloc",
+    /* multiple instances alert */
     "multipleInstancesErrorMessage": "S'ha produït un error. Si us plau, tanca qualsevol altra instància oberta i reinicia Min.",
+    /* pages/sessionRestoreError/index.html */
     "sessionRestoreErrorTitle": "S'ha produït un error",
     "sessionRestoreErrorExplanation": "Les teves pestanyes desades no s'han pogut restaurar correctament.",
-    "sessionRestoreErrorBackupInfo": "Hem desat una còpia de seguretat de les teves dades en aquesta ubicació: %l.",
+    "sessionRestoreErrorBackupInfo": "Hem desat una còpia de seguretat de les teves dades en aquesta ubicació: %l.", //%l will be replaced with a path to a file
     "sessionRestoreErrorLinkInfo": {
       "unsafeHTML": "Si aquest error continua produint-se, si us plau, obre un nou problema <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">aquí</a>."
     },
+    /* pages/settings/index.html */
     "settingsPreferencesHeading": "Preferències",
     "settingsRestartRequired": "Necessites reiniciar per aplicar aquests canvis.",
     "settingsPrivacyHeading": "Bloqueig de contingut",
@@ -168,6 +185,7 @@
     "settingsProxyRules": "Regles del proxy:",
     "settingsProxyBypassRules": "No utilitzar proxy per a:",
     "settingsProxyConfigurationURL": "URL de configuració",
+    /* app menu */
     "appMenuFile": "Fitxer",
     "appMenuNewTab": "Nova pestanya",
     "appMenuDuplicateTab": "Duplicar pestanya",
@@ -188,7 +206,7 @@
     "appMenuZoomIn": "Ampliar",
     "appMenuZoomOut": "Reduir",
     "appMenuActualSize": "Mida real",
-    "appMenuFullScreen": "Pantalla completa",
+    "appMenuFullScreen": "Pantalla completa", //on some platforms, this string is replaced with one built-in to the OS
     "appMenuFocusMode": "Mode concentració",
     "appMenuBookmarks": "Adreces d'interès",
     "appMenuHistory": "Historial",
@@ -205,7 +223,7 @@
     "appMenuReportBug": "Informar d'un error",
     "appMenuTakeTour": "Fer una visita",
     "appMenuViewGithub": "Veure a GitHub",
-    "appMenuAbout": "Sobre %n",
+    "appMenuAbout": "Sobre %n", //%n is replaced with app name
     "appMenuPreferences": "Preferències",
     "appMenuServices": "Serveis",
     "appMenuHide": "Amagar %n",
@@ -213,9 +231,11 @@
     "appMenuShowAll": "Mostrar tot",
     "appMenuQuit": "Sortir de %n",
     "appMenuBringToFront": "Portar tot al davant",
+    /* PDF Viewer */
     "PDFPageCounter": {
       "unsafeHTML": "pàgina <input type='text'/> de <span id='total'></span>"
     },
+    /* Context Reader */
     "buttonReaderSettings": "Configuració del lector",
     "buttonReaderLightTheme": "Clar",
     "buttonReaderSepiaTheme": "Sepia",
@@ -225,13 +245,17 @@
     "buttonReaderRedirectYes": "Sí",
     "buttonReaderRedirectNo": "No",
     "articleReaderView": "Article original",
+    /* Download manager */
     "downloadCancel": "Cancelar",
     "downloadStateCompleted": "Completat",
     "downloadStateFailed": "Fallat",
+    /* Update Notifications */
     "updateNotificationTitle": "Hi ha una nova versió de Min disponible",
+    /* Autofill settings */
     "settingsPasswordAutoFillHeadline": "Autocompletat de contrasenyes",
     "settingsSelectPasswordManager": "Tria un dels gestors de contrasenyes suportats:",
     "keychainViewPasswords": "Veure contrasenyes desades",
+    /* Password manager setup */
     "passwordManagerSetupHeading": "Acaba de configurar %p per utilitzar l'autocompletat",
     "passwordManagerSetupStep1": {
       "unsafeHTML": "Primer, <a id='password-manager-setup-link'></a> i extreu-ho pel teu sistema."
@@ -250,22 +274,25 @@
     "passwordManagerSetupUnlockError": "No s'ha pogut desbloquejar la botiga de contrasenyes: ",
     "passwordManagerSetupRetry": "Assegura't d'utilitzar el fitxer correcte i d'introduir una contrasenya correcta. Pots tornar a intentar-ho arrossegant l'eina aquí de nou.",
     "passwordManagerUnlock": "Introdueix la teva contrasenya per utilitzar l'autocompletat:",
+    /* Password save bar */
     "passwordCaptureSavePassword": "Desa la contrasenya per a %s?",
     "passwordCaptureSave": "Desa",
     "passwordCaptureDontSave": "No desis",
     "passwordCaptureNeverSave": "Mai desis",
+    /* Password viewer */
     "savedPasswordsHeading": "Contrasenyes desades",
     "savedPasswordsEmpty": "No hi ha contrasenyes desades.",
     "savedPasswordsNeverSavedLabel": "Mai desades",
     "deletePassword": "Esborra la contrasenya per a %s?",
-    "loginPromptTitle": "Inicia sessió a %h",
+    /* Dialogs */
+    "loginPromptTitle": "Inicia sessió a %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Confirma",
     "dialogSkipButton": "Cancel·la",
     "username": "Nom d'usuari",
     "email": "Correu electrònic",
     "password": "Contrasenya",
     "secretKey": "Clau secreta",
-    "openExternalApp": "Obre a \\\"%s\\\"?",
+    "openExternalApp": "Obre a \\\"%s\\\"?", // %s is the name of an app
     "clickToCopy": "Clica per copiar",
     "copied": "Copiat"
   }
