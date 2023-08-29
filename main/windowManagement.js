@@ -1,10 +1,13 @@
 const windows = {
   openWindows: [],
+  hasEverCreatedWindow: false,
   nextId: 1,
   windowFromContents: function (webContents) {
     return windows.openWindows.find(w => w.win.webContents.id === webContents.id)
   },
   addWindow: function (window) {
+    windows.hasEverCreatedWindow = true
+
     windows.openWindows.push({
       id: windows.nextId.toString(),
       win: window,

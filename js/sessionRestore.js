@@ -206,16 +206,15 @@ const sessionRestore = {
     } else {
       browserUI.addTask()
     }
-
-    if (settings.get('newWindowOption') === 2) {
-      taskOverlay.show()
-    }
   },
   restore: function () {
     if (Object.hasOwn(window.globalArgs, 'initial-window')) {
-      return sessionRestore.restoreFromFile()
+      sessionRestore.restoreFromFile()
     } else {
-      return sessionRestore.syncWithWindow()
+      sessionRestore.syncWithWindow()
+    }
+    if (settings.get('newWindowOption') === 2 && !Object.hasOwn(window.globalArgs, 'launch-window')) {
+      taskOverlay.show()
     }
   },
   initialize: function () {
