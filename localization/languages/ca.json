@@ -273,7 +273,7 @@
     "disableAutofill": "Deshabilitar autocompletat",
     "passwordManagerSetupUnlockError": "No s'ha pogut desbloquejar el magatzem de contrasenyes: ",
     "passwordManagerSetupRetry": "Assegura't d'utilitzar el fitxer correcte i d'introduir una contrasenya correcta. Pots tornar a intentar-ho arrossegant l'eina aquí de nou.",
-    "passwordManagerUnlock": "Introdueix la teva contrasenya per utilitzar l'autocompletat:",
+    "passwordManagerUnlock": "Introdueix la teva contrasenya %p per utilitzar l'autocompletat:",
     /* Password save bar */
     "passwordCaptureSavePassword": "Desar la contrasenya per a %s?",
     "passwordCaptureSave": "Desar",
