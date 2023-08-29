@@ -172,6 +172,9 @@
     "settingsStartupCreateTask": "Ponovno otvori prethodne kartice", 
     "settingsStartupNewTaskandBackground": "Premjesti prethodne kartice u pozadinski zadatak", 
     "settingsStartupNewTaskOnly": "Otvori novi prazni zadatak", 
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "Tražilica",
     "settingsDefaultSearchEngine": "Odaberite zadanu tražilicu:",
     "settingsDDGExplanation": "Postavite DuckDuckGo kao zadanu tražilicu da biste vidjeli trenutne odgovore na traci za pretraživanje.",

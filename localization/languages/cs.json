@@ -172,6 +172,9 @@
     "settingsStartupCreateTask": null, //missing translation
     "settingsStartupNewTaskandBackground": null, //missing translation
     "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "Vyhledávač",
     "settingsDefaultSearchEngine": "Zvolte si výchozí vyhledávač:",
     "settingsDDGExplanation": "Nastavte DuckDuckGo jako výchozí vyhledávač pro zobrazování okamžitých odpovědí ve vyhledávacím panelu.",

@@ -172,6 +172,9 @@
     "settingsStartupCreateTask": "Reabrir abas anteriores",
     "settingsStartupNewTaskandBackground": "Mover abas anteriores para uma tarefa em segundo plano",
     "settingsStartupNewTaskOnly": "Iniciar uma nova tarefa",
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "Serviço de busca",
     "settingsDefaultSearchEngine": "Escolha o serviço de busca padrão:",
     "settingsDDGExplanation": "Defina DuckDuckGo como o serviço padrão de buscas para ver respostas instantâneas na barra de busca.",

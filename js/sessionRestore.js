@@ -3,6 +3,7 @@ var webviews = require('webviews.js')
 var tabEditor = require('navbar/tabEditor.js')
 var tabState = require('tabState.js')
 var settings = require('util/settings/settings.js')
+var taskOverlay = require('taskOverlay/taskOverlay.js')
 
 const sessionRestore = {
   savePath: window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
@@ -208,9 +209,12 @@ const sessionRestore = {
   },
   restore: function () {
     if (Object.hasOwn(window.globalArgs, 'initial-window')) {
-      return sessionRestore.restoreFromFile()
+      sessionRestore.restoreFromFile()
     } else {
-      return sessionRestore.syncWithWindow()
+      sessionRestore.syncWithWindow()
+    }
+    if (settings.get('newWindowOption') === 2 && !Object.hasOwn(window.globalArgs, 'launch-window')) {
+      taskOverlay.show()
     }
   },
   initialize: function () {

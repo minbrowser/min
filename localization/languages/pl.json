@@ -172,6 +172,9 @@
     "settingsStartupCreateTask": "Otwieraj ostatnie karty",
     "settingsStartupNewTaskandBackground": "Przenoś poprzednie karty na drugi plan",
     "settingsStartupNewTaskOnly": "Otwieraj nową, pustą kartę",
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "Wyszukiwarka",
     "settingsDefaultSearchEngine": "Wybierz domyślną wyszukiwarkę:",
     "settingsDDGExplanation": "Ustaw DuckDuckGo jako domyślną wyszukiwarkę, aby zobaczyć błyskawiczne odpowiedzi na pasku wyszukiwania.",

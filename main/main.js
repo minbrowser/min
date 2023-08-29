@@ -203,6 +203,7 @@ function createWindowWithBounds (bounds) {
         ...((isDevelopmentMode ? ['--development-mode'] : [])),
         '--window-id=' + windows.nextId,
         ...((windows.getAll().length === 0 ? ['--initial-window'] : [])),
+        ...(windows.hasEverCreatedWindow ? [] : ['--launch-window'])
       ]
     }
   })

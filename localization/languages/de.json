@@ -172,6 +172,9 @@
     "settingsStartupCreateTask": null, //missing translation
     "settingsStartupNewTaskandBackground": null, //missing translation
     "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "Suchmaschine",
     "settingsDefaultSearchEngine": "Standardsuchmaschine auswählen:",
     "settingsDDGExplanation": "DuckDuckGo als Standardsuchmaschine einstellen, um Vorschläge sofort in der Suchleiste zu erhalten.",

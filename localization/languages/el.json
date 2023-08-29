@@ -172,6 +172,9 @@
     "settingsStartupCreateTask": null, //missing translation
     "settingsStartupNewTaskandBackground": null, //missing translation
     "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "Μηχανή αναζήτησης",
       "settingsDefaultSearchEngine": "Επιλογή προεπιλεγμένης μηχανής αναζήτησης:",
       "settingsDDGExplanation": "Επιλέξτε το DuckDuckGo ως προεπιλεγμένη μηχανή αναζήτησης για να βλέπετε άμεσες απαντήσεις στην γραμμή αναζήτησης.",

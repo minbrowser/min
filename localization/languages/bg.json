@@ -169,6 +169,9 @@
     "settingsStartupCreateTask": null, //missing translation
     "settingsStartupNewTaskandBackground": null, //missing translation
     "settingsStartupNewTaskOnly": null, //missing translation
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "Търсачки",
     "settingsDefaultSearchEngine": "Изберете търсачка по подразбиране:",
     "settingsDDGExplanation": "Поставете DuckDuckGo като търсачка по подразбиране, за да получавате моментални отговори в лентата за търсене.",

@@ -172,6 +172,9 @@
     "settingsStartupCreateTask": "Genåbn tidligere faner",
     "settingsStartupNewTaskandBackground": "Flyt tidligere faner til en baggrundsopgave",
     "settingsStartupNewTaskOnly": "Åbn en ny tom Opgave",
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "Søgemaskine",
     "settingsDefaultSearchEngine": "Vælg en standardsøgemaskine:",
     "settingsDDGExplanation": "Indstil DuckDuckGo som standardsøgemaskine for at se øjeblikkelige svar i søgefeltet.",

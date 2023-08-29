@@ -172,6 +172,9 @@
     "settingsStartupCreateTask": "Открыть предыдущие вкладки",
     "settingsStartupNewTaskandBackground": "Переместить предыдущие вкладки в фоновую задачу",
     "settingsStartupNewTaskOnly": "Открыть новую пустую задачу",
+    "settingsNewWindowOptions": null, //missing translation
+    "settingsNewWindowCreateTask": null, //missing translation
+    "settingsNewWindowPickTask": null, //missing translation
     "settingsSearchEngineHeading": "Поиск",
     "settingsDefaultSearchEngine": "Выберите поисковую систему по умолчанию:",
     "settingsDDGExplanation": "Чтобы видеть мгновенные ответы в строке поиска, установите DuckDuckGo поисковиком по умолчанию.",
