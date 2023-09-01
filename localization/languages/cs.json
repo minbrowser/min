@@ -235,6 +235,7 @@
     "appMenuQuit": "Ukončit %n",
     "appMenuBringToFront": "Přenést vše do popředí",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "Strana <input type='text'/> z <span id='total'></span>"
     },

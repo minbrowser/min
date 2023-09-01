@@ -235,7 +235,8 @@
       "appMenuQuit": "Κλείσιμο %n",
       "appMenuBringToFront": "Μετακίνηση όλων στο προσκήνιο",
       /* PDF Viewer */
-      "PDFPageCounter": {
+      "PDFInvertPage": null, //missing translation
+    "PDFPageCounter": {
         "unsafeHTML": "σελίδα <input type='text'/> απο <span id='total'></span>"
       },
       /* Context Reader */

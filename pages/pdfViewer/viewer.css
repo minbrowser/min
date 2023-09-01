@@ -12,12 +12,23 @@
     /* disables scroll anchoring to prevent https://github.com/minbrowser/min/issues/1209 */
     overflow-anchor: none;
   }
-  body.dark-mode {
+  body.theme-loaded {
+    transition: 0.2s background-color;
+  }
+  body[theme="dark"] {
     background-color: rgb(33, 37, 43);
+  }
+
+  body[theme="sepia"] {
+    background-color: rgb(247, 231, 199);
   }
 
   * {
     box-sizing: border-box;
+  }
+
+  button {
+    font-size: 1em;
   }
 
   .viewer-ui {
@@ -36,7 +47,7 @@
     transform: translateX(-100%);
   }
 
-  .dark-mode #progress-bar {
+  [theme="dark"] #progress-bar {
     background-color: #999;
   }
 
@@ -51,7 +62,7 @@
     box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.15);
   }
 
-  .dark-mode #page-counter {
+  [theme="dark"] #page-counter {
     background-color: rgb(85, 85, 85);
     color: white;
   }
@@ -93,12 +104,35 @@
     box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.25);
   }
 
-  .dark-mode #download-button {
+  [theme="dark"] #download-button {
     background-color: rgb(85, 85, 85);
     color: white;
   }
 
   #download-button.hidden {
+    opacity: 0;
+  }
+
+  #settings-button {
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+    top: 1em !important;
+    right: 1em !important;
+    border-radius: 50%;
+  }
+
+  #settings-dropdown {
+    top: 3.75em !important;
+  }
+
+  [theme="dark"] #settings-button {
+    color: #ddd;
+    text-shadow: 0 0 2px black;
+  }
+
+  #settings-button.hidden:not(.force-visible) {
     opacity: 0;
   }
 
@@ -126,6 +160,18 @@
     border: 1px solid #ccc;
     contain: strict;
   }
+  body.theme-loaded .page {
+    transition: 0.2s filter;
+  }
+  [theme="dark"][data-invert="true"] .page {
+    filter: invert(0.9) hue-rotate(180deg);
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+    border-color: #ddd;
+  }
+  [theme="sepia"] .page {
+    filter: sepia(0.8) hue-rotate(-20deg);
+  }
+
   .canvasWrapper {
     overflow: hidden;
   }
@@ -206,6 +252,8 @@
     width: 100% !important;
     height: auto !important;
     float: left;
+    filter: none !important;
+    opacity: 1 !important;
   }
   .page > .canvasWrapper {
     width: 100% !important;

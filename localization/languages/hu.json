@@ -231,6 +231,7 @@
     "appMenuQuit": "Kilépés %n",
     "appMenuBringToFront": "Mindent előtérbe hoz",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "oldal <input type='text'/> ből <span id='total'></span>"
     },

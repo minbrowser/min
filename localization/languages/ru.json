@@ -235,6 +235,7 @@
     "appMenuQuit": "Выйти из %n",
     "appMenuBringToFront": "Переместить всё на передний план",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "страница <input type='text'/> из <span id='total'></span>"
     },

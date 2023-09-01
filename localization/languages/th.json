@@ -235,6 +235,7 @@
     "appMenuQuit": "ออก %n",
     "appMenuBringToFront": "นำทั้งหมดมาไว้ข้างหน้า",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "หน้า <input type='text'/> สำหรับ <span id='total'></span>"
     },

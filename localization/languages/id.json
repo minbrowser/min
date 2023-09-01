@@ -235,6 +235,7 @@
     "appMenuQuit": "Keluar %n",
     "appMenuBringToFront": "Bawa Semua ke Depan",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "halaman <input type='text'/> dari <span id='total'></span>"
     },

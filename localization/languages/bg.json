@@ -232,6 +232,7 @@
     "appMenuQuit": "Излизане от %n",
     "appMenuBringToFront": "Извеждане на всички отпред",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "страница <input type='text'/> от <span id='total'></span>"
     },

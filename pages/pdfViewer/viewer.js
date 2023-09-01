@@ -26,13 +26,6 @@ var pageCounter = {
       pageCounter.input.blur()
     })
   },
-  show: function () {
-    pageCounter.update()
-    pageCounter.container.classList.remove('hidden')
-  },
-  hide: function () {
-    pageCounter.container.classList.add('hidden')
-  },
   update: function () {
     pageCounter.input.value = currentPage + 1
     pageCounter.totalEl.textContent = pageCount
@@ -104,14 +97,13 @@ document.querySelectorAll('.side-gutter').forEach(function (el) {
 })
 
 function showViewerUI () {
-  downloadButton.classList.remove('hidden')
-  pageCounter.show()
+  document.querySelectorAll('.viewer-ui').forEach(el => el.classList.remove('hidden'))
+  pageCounter.update()
 }
 
 const hideViewerUI = debounce(function () {
   if (!document.querySelector('.side-gutter:hover')) {
-    pageCounter.hide()
-    downloadButton.classList.add('hidden')
+    document.querySelectorAll('.viewer-ui').forEach(el => el.classList.add('hidden'))
   }
 }, 600)
 

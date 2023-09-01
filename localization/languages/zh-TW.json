@@ -235,6 +235,7 @@
     "appMenuQuit": "結束 %n",
     "appMenuBringToFront": "顯示所有視窗",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "<input type='text'/> / <span id='total'></span> 頁"
     },

@@ -233,6 +233,7 @@
     "appMenuQuit": "Išeiti iš %n",
     "appMenuBringToFront": "Perkelti visus į priekį",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "puslapis <input type='text'/> iš <span id='total'></span>"
     },

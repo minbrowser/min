@@ -233,6 +233,7 @@
     "appMenuQuit": "%n ছাড়ুন",
     "appMenuBringToFront": "সব থেকে সামনে আনুন",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "<span id = 'total'> </ span> এর <input type = 'text' /> পৃষ্ঠা"
     },

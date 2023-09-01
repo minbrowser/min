@@ -235,6 +235,7 @@
     "appMenuQuit": "%n 종료",
     "appMenuBringToFront": "맨 앞으로",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "전체 <span id='total'></span> 쪽 중 <input type='text'/> 쪽"
     },

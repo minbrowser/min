@@ -235,6 +235,7 @@
     "appMenuQuit": "%n انهاء",
     "appMenuBringToFront": "جلب الكل الى المقدمة",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "<span id='total'></span> صفخة <input type='text'/> من"
     },

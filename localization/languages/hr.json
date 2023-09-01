@@ -235,6 +235,7 @@
     "appMenuQuit": "Zatvori %n",
     "appMenuBringToFront": "Stavite sve naprijed",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "stranica <input type='text'/> od <span id='total'></span>"
     },

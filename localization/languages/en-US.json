@@ -235,6 +235,7 @@
     "appMenuQuit": "Quit %n",
     "appMenuBringToFront": "Bring All to Front",
     /* PDF Viewer */
+    "PDFInvertPage": "Invert page colors",
     "PDFPageCounter": {
       "unsafeHTML": "page <input type='text'/> of <span id='total'></span>"
     },

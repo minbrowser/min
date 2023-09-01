@@ -228,7 +228,8 @@
         "appMenuQuit": "Thoát %n",
         "appMenuBringToFront": "Đưa tất cả trên trước",
         /* PDF Viewer */
-        "PDFPageCounter": {
+        "PDFInvertPage": null, //missing translation
+    "PDFPageCounter": {
             "unsafeHTML": "trang <input type='text'/> của <span id='total'></span>"
         },
         /* Context Reader */

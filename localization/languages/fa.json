@@ -234,6 +234,7 @@
     "appMenuQuit": "خروج از %n",
     "appMenuBringToFront": "نمایش همه",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "صفحه <input type='text'/> از <span id='total'></span>"
     },

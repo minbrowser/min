@@ -235,6 +235,7 @@
     "appMenuQuit": "Zamknij %n",
     "appMenuBringToFront": "Umieść wszystko na wierzchu",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "strona <input type='text'/> z <span id='total'></span>"
     },

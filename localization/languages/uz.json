@@ -233,6 +233,7 @@
     "appMenuQuit": "%n chiqish",
     "appMenuBringToFront": "Barchasini oldinga olib kelish",
     /* PDF Viewer */
+    "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
       "unsafeHTML": "Sahifa <input type='text'/> of <span id='total'></span>"
     },

@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <meta name="theme-color" id="meta-theme" />
     <meta
       http-equiv="Content-Security-Policy"
       content="script-src 'self' 'unsafe-eval'"
@@ -9,6 +10,7 @@
 
     <link rel="stylesheet" href="viewer.css" />
     <link rel="stylesheet" href="../../ext/icons/iconfont.css" />
+    <link rel="stylesheet" href="../settingsDropdown.css" />
     <script src="../../node_modules/pdfjs-dist/build/pdf.min.js"></script>
   </head>
 
@@ -28,6 +30,38 @@
         id="download-button"
         class="i carbon:download viewer-ui hidden"
       ></button>
+
+      <button
+      id="settings-button"
+      class="i carbon:settings-adjust viewer-ui hidden"
+      data-label="viewSettings"
+    ></button>
+
+      <div id="settings-dropdown" class="viewer-ui" hidden>
+        <div class="setting-section theme-circles">
+          <button
+            class="theme-circle selected"
+            data-theme="light"
+            data-label="buttonReaderLightTheme"
+          ></button>
+          <button
+            class="theme-circle"
+            data-theme="sepia"
+            data-label="buttonReaderSepiaTheme"
+          ></button>
+          <button
+            class="theme-circle"
+            data-theme="dark"
+            data-label="buttonReaderDarkTheme"
+          ></button>
+        </div>
+        <div class="setting-section" id="invert-pdf-section">
+          <input type="checkbox" id="invert-pdf-checkbox" /><label
+            for="invert-pdf-checkbox"
+            data-string="PDFInvertPage"
+          ></label>
+        </div>
+      </div>
     </div>
 
     <script src="../../dist/localization.build.js"></script>
@@ -35,5 +69,6 @@
     <script src="../../js/util/theme.js"></script>
     <script src="../../node_modules/pdfjs-dist/web/pdf_viewer.js"></script>
     <script src="viewer.js"></script>
+    <script src="pdfThemeSelector.js"></script>
   </body>
 </html>
