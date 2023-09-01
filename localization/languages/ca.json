@@ -1,0 +1,299 @@
+{
+  "name": "Català",
+  "identifier": "ca",
+  "translations": {
+    /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+    "addToDictionary": "Afegir al diccionari",
+    "pictureInPicture": "Imatge sobre imatge",
+    "openInNewTab": "Obrir en una nova pestanya",
+    "openInNewPrivateTab": "Obrir en una nova pestanya privada",
+    "saveLinkAs": "Desar l'enllaç com...",
+    "viewImage": "Veure imatge",
+    "openImageInNewTab": "Obrir imatge en una nova pestanya",
+    "openImageInNewPrivateTab": "Obrir imatge en una nova pestanya privada",
+    "saveImageAs": "Desar imatge com",
+    "searchWith": "Cercar amb %s", //%s will be replaced with the name of the current search engine
+    "copyLink": "Copiar l'enllaç",
+    "copyEmailAddress": "Copiar l'adreça de correu electrònic",
+    "selectAll": "Seleccionar tot",
+    "undo": "Desfer",
+    "redo": "Refer",
+    "cut": "Tallar",
+    "copy": "Copiar", //this is a verb (as in "copy the currently-selected text")
+    "paste": "Enganxar",
+    "goBack": "Tornar enrere",
+    "goForward": "Anar endavant",
+    "inspectElement": "Inspeccionar l'element",
+    /* searchbar */
+    "pasteAndGo": "Enganxar i anar", //context menu item
+    "DDGAnswerSubtitle": "Resposta", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+    "suggestedSite": "Lloc suggerit", //this is used to label suggested websites from the DuckDuckGo API,
+    "resultsFromDDG": "Resultats de DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+    "taskN": "Tasca %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+    /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+    "showMoreBangs": "Mostrar més",
+    "viewSettings": "Veure configuració",
+    "takeScreenshot": "Fer una captura de pantalla",
+    "clearHistory": "Esborrar tot l'historial",
+    "enableBlocking": "Habilitar el bloqueig de contingut per aquest lloc",
+    "disableBlocking": "Deshabilitar el bloqueig de contingut per aquest lloc",
+    "clearHistoryConfirmation": "Esborrar tot l'historial i dades de navegació?",
+    "switchToTask": "Canviar a tasca",
+    "createTask": "Crear una tasca",
+    "closeTask": "Tancar una tasca",
+    "moveToTask": "Moure aquesta pestanya a una tasca",
+    "nameTask": "Nomenar aquesta tasca",
+    "addBookmark": "Afegir a adreces d'interès",
+    "searchBookmarks": "Cercar adreces d'interès",
+    "bookmarksAddTag": "Afegir etiqueta...",
+    "bookmarksRenameTag": "Canviar el nom de l'etiqueta",
+    "bookmarksDeleteTag": "Eliminar etiqueta",
+    "deleteBookmarksWithTag": "Eliminar adreces d'interès amb l'etiqueta",
+    "bookmarksSimilarItems": "Elements similars",
+    "searchHistory": "Cercar a l'historial",
+    "importBookmarks": "Importar adreces d'interès des d'un fitxer HTML",
+    "exportBookmarks": "Exportar adreces d'interès",
+    "runUserscript": "Executar l'script d'usuari",
+    /* navbar */
+    "openMenu": "Obrir menú", //application menu button on windows
+    "enterReaderView": "Entrar a la vista de lector",
+    "exitReaderView": "Sortir de la vista de lector",
+    "newTabLabel": "Nova pestanya", //this is a noun, used for tabs that don't have a page loaded in them yet
+    "connectionNotSecure": "La teva connexió a aquest lloc web no és segura.",
+    "searchbarPlaceholder": "Cercar o introduir una adreça",
+    "privateTab": "Pestanya privada",
+    "newTabAction": "Nova pestanya", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+    /* task overlay */
+    "viewTasks": "Veure tasques",
+    "newTask": "Nova tasca", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "defaultTaskName": "Tasca %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+    "taskDeleteWarning": {
+      "unsafeHTML": "Tasca eliminada. <a>Desfer?</a>"
+    },
+    "tasksSearchTabs": "Cercar pestanyes",
+    "returnToTask": "Tornar a la teva tasca anterior",
+    "taskDescriptionTwo": "%t i %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
+    "taskDescriptionThree": "%t, %t, i %n més", //used to describe a task that has three or more tabs
+    /* find in page toolbar */
+    "searchInPage": "Cercar a la pàgina", //this is used as the placeholder text for the textbox in the find in page toolbar
+    "findMatchesSingular": "%i coincidència de %t", //this and the next label are used to indicate which match is currently highlighted
+    "findMatchesPlural": "%i de %t coincidències",
+    /* Focus mode */
+    "isFocusMode": "Estàs en mode concentració.",
+    "closeDialog": "D'acord", //used as a label for the button that closes the dialog
+    "focusModeExplanation1": "En mode concentració, no pots crear noves pestanyes ni canviar de tasques.",
+    "focusModeExplanation2": "Pots sortir del mode concentració desmarcant \"mode concentració\" al menú de vista.",
+    /* relative dates */
+    "timeRangeJustNow": "Ara mateix",
+    "timeRangeMinutes": "Fa uns minuts",
+    "timeRangeHour": "Durant l'última hora",
+    "timeRangeToday": "Avui",
+    "timeRangeYesterday": "Ahir",
+    "timeRangeWeek": "Durant l'última setmana",
+    "timeRangeMonth": "Durant l'últim mes",
+    "timeRangeYear": "Durant l'últim any",
+    "timeRangeLongerAgo": "Fa més temps",
+    /* pages/error/index.html */
+    "crashErrorTitle": "Alguna cosa ha anat malament.",
+    "crashErrorSubtitle": "S'ha produït un problema en mostrar aquesta pàgina.",
+    "errorPagePrimaryAction": "Tornar a intentar",
+    "serverNotFoundTitle": "Servidor no trobat",
+    "serverNotFoundSubtitle": "Min no ha pogut trobar aquest lloc web.",
+    "archiveSearchAction": "Cercar a archive.org",
+    "sslErrorTitle": "Aquest lloc web no està disponible",
+    "sslErrorMessage": "Min no ha pogut connectar-se de manera segura a aquest lloc web.",
+    "dnsErrorTitle": "Lloc web no trobat",
+    "dnsErrorMessage": "S'ha produït un error DNS.",
+    "offlineErrorTitle": "Estàs fora de línia",
+    "offlineErrorMessage": "Reconnecta't a Internet i torna a intentar-ho.",
+    "genericConnectionFail": "Min no ha pogut connectar-se al lloc web.",
+    "sslTimeErrorMessage": "Min no ha pogut connectar-se de manera segura a aquest lloc web. Assegura't que l'hora del teu ordinador estigui correcta.",
+    "addressInvalidTitle": "Aquesta adreça és invàlida.",
+    "genericError": "S'ha produït un error",
+    /* pages/phishing/index.html */
+    "phishingErrorTitle": "Aquest lloc pot ser perillós.",
+    "phishingErrorMessage": "Aquest lloc web podria estar intentant robar la teva informació personal, com contrasenyes o dades bancàries.",
+    "phishingErrorVisitAnyway": "Visitar el lloc de totes maneres",
+    "phishingErrorLeave": "Sortir d'aquest lloc",
+    /* multiple instances alert */
+    "multipleInstancesErrorMessage": "S'ha produït un error. Si us plau, tanca qualsevol altra instància oberta i reinicia Min.",
+    /* pages/sessionRestoreError/index.html */
+    "sessionRestoreErrorTitle": "S'ha produït un error",
+    "sessionRestoreErrorExplanation": "Les teves pestanyes desades no s'han pogut restaurar correctament.",
+    "sessionRestoreErrorBackupInfo": "Hem desat una còpia de seguretat de les teves dades en aquesta ubicació: %l.", //%l will be replaced with a path to a file
+    "sessionRestoreErrorLinkInfo": {
+      "unsafeHTML": "Si aquest error continua produint-se, si us plau, obre un nou informe <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">aquí</a>."
+    },
+    /* pages/settings/index.html */
+    "settingsPreferencesHeading": "Preferències",
+    "settingsRestartRequired": "Necessites reiniciar per aplicar aquests canvis.",
+    "settingsPrivacyHeading": "Bloqueig de contingut",
+    "settingsContentBlockingLevel0": "Permetre tots els anuncis i rastrejadors",
+    "settingsContentBlockingLevel1": "Bloquejar anuncis i rastrejadors de tercers",
+    "settingsContentBlockingLevel2": "Bloquejar tots els anuncis i rastrejadors",
+    "settingsContentBlockingExceptions": "Es permetran anuncis en aquests llocs web:",
+    "settingsBlockScriptsToggle": "Bloquejar scripts",
+    "settingsBlockImagesToggle": "Bloquejar imatges",
+    "settingsBlockedRequestCount": {
+      "unsafeHTML": "Fins ara, Min ha bloquejat <strong></strong> anuncis i rastrejadors."
+    },
+    "settingsCustomBangs": "Comandes personalitzades",
+    "settingsCustomBangsAdd": "Afegir comanda personalitzada",
+    "settingsCustomBangsPhrase": "Frase (Obligatori)",
+    "settingsCustomBangsSnippet": "Descripció (Opcional)",
+    "settingsCustomBangsRedirect": "URL de redireccionament (Obligatori)",
+    "settingsCustomizeFiltersLink": "Personalitzar filtres",
+    "settingsAppearanceHeading": "Aparença",
+    "settingsEnableDarkMode": "Habilitar mode fosc:",
+    "settingsDarkModeNever": "Mai",
+    "settingsDarkModeNight": "A la nit",
+    "settingsDarkModeAlways": "Sempre",
+    "settingsDarkModeSystem": "Seguir el tema del sistema",
+    "settingsSiteThemeToggle": "Habilitar tema del lloc",
+    "settingsAdditionalFeaturesHeading": "Característiques addicionals",
+    "settingsUserscriptsToggle": "Habilitar scripts d'usuari",
+    "settingsShowDividerToggle": "Mostrar divisor entre pestanyes",
+    "settingsSeparateTitlebarToggle": "Utilitzar barra de títol separada",
+    "settingsAutoplayToggle": "Habilitar Reproducció Automàtica",
+    "settingsOpenTabsInForegroundToggle": "Obrir noves pestanyes al primer pla",
+    "settingsUserscriptsExplanation": {
+      "unsafeHTML": "Els scripts d'usuari et permeten modificar el comportament dels llocs web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">més informació</a>."
+    },
+    "settingsUserAgentToggle": "Utilitzar un agent d'usuari personalitzat",
+    "settingsUpdateNotificationsToggle": "Comprovar actualitzacions automàticament",
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "Enviar estadístiques d'ús (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Més informació</a>)"
+    },
+    "settingsStartupOptions": "Quan Min s'inicia: ",
+    "settingsStartupCreateTask": "Reobrir pestanyes anteriors",
+    "settingsStartupNewTaskandBackground": "Moure les pestanyes anteriors a una tasca en segon pla",
+    "settingsStartupNewTaskOnly": "Obrir una nova tasca en blanc",
+    "settingsSearchEngineHeading": "Motor de cerca",
+    "settingsDefaultSearchEngine": "Tria un motor de cerca predeterminat:",
+    "settingsDDGExplanation": "Estableix DuckDuckGo com a motor de cerca predeterminat per veure respostes instantànies a la barra de cerca.",
+    "customSearchEngineDescription": "Reemplaça el terme de cerca amb %s",
+    "settingsKeyboardShortcutsHeading": "Dreceres de teclat",
+    "settingsKeyboardShortcutsHelp": "Utilitza comes per separar múltiples dreceres.",
+    "settingsProxyHeading": "Proxy",
+    "settingsNoProxy": "Sense Proxy",
+    "settingsManualProxy": "Configuració manual",
+    "settingsAutomaticProxy": "Configuració automàtica",
+    "settingsProxyRules": "Regles del proxy:",
+    "settingsProxyBypassRules": "No utilitzar proxy per a:",
+    "settingsProxyConfigurationURL": "URL de configuració",
+    /* app menu */
+    "appMenuFile": "Fitxer",
+    "appMenuNewTab": "Nova pestanya",
+    "appMenuDuplicateTab": "Duplicar pestanya",
+    "appMenuNewPrivateTab": "Nova pestanya privada",
+    "appMenuNewTask": "Nova tasca",
+    "appMenuNewWindow": "Nova finestra",
+    "appMenuSavePageAs": "Desar pàgina com...",
+    "appMenuPrint": "Imprimir",
+    "appMenuEdit": "Editar",
+    "appMenuUndo": "Desfer",
+    "appMenuRedo": "Refer",
+    "appMenuCut": "Tallar",
+    "appMenuCopy": "Copiar",
+    "appMenuPaste": "Enganxar",
+    "appMenuSelectAll": "Seleccionar tot",
+    "appMenuFind": "Cercar",
+    "appMenuView": "Veure",
+    "appMenuZoomIn": "Ampliar",
+    "appMenuZoomOut": "Reduir",
+    "appMenuActualSize": "Mida real",
+    "appMenuFullScreen": "Pantalla completa", //on some platforms, this string is replaced with one built-in to the OS
+    "appMenuFocusMode": "Mode concentració",
+    "appMenuBookmarks": "Adreces d'interès",
+    "appMenuHistory": "Historial",
+    "appMenuDeveloper": "Desenvolupador",
+    "appMenuReloadBrowser": "Recarregar el navegador",
+    "appMenuInspectBrowser": "Inspeccionar navegador",
+    "appMenuInspectPage": "Inspeccionar pàgina",
+    "appMenuWindow": "Finestra",
+    "appMenuMinimize": "Minimitzar",
+    "appMenuClose": "Tancar",
+    "appMenuAlwaysOnTop": "Sempre al davant",
+    "appMenuHelp": "Ajuda",
+    "appMenuKeyboardShortcuts": "Dreceres de teclat",
+    "appMenuReportBug": "Informar d'un error",
+    "appMenuTakeTour": "Fer un recorregut",
+    "appMenuViewGithub": "Veure a GitHub",
+    "appMenuAbout": "Sobre %n", //%n is replaced with app name
+    "appMenuPreferences": "Preferències",
+    "appMenuServices": "Serveis",
+    "appMenuHide": "Amagar %n",
+    "appMenuHideOthers": "Amagar altres",
+    "appMenuShowAll": "Mostrar tot",
+    "appMenuQuit": "Sortir de %n",
+    "appMenuBringToFront": "Portar tot al davant",
+    /* PDF Viewer */
+    "PDFPageCounter": {
+      "unsafeHTML": "pàgina <input type='text'/> de <span id='total'></span>"
+    },
+    /* Context Reader */
+    "buttonReaderSettings": "Configuració del lector",
+    "buttonReaderLightTheme": "Clar",
+    "buttonReaderSepiaTheme": "Sepia",
+    "buttonReaderDarkTheme": "Fosc",
+    "openReaderView": "Obrir sempre en vista de lector",
+    "autoRedirectBannerReader": "Obrir sempre articles d'aquest lloc en vista de lector?",
+    "buttonReaderRedirectYes": "Sí",
+    "buttonReaderRedirectNo": "No",
+    "articleReaderView": "Article original",
+    /* Download manager */
+    "downloadCancel": "Cancel·lar",
+    "downloadStateCompleted": "Completat",
+    "downloadStateFailed": "Fallat",
+    /* Update Notifications */
+    "updateNotificationTitle": "Hi ha una nova versió de Min disponible",
+    /* Autofill settings */
+    "settingsPasswordAutoFillHeadline": "Autocompletat de contrasenyes",
+    "settingsSelectPasswordManager": "Tria un dels gestors de contrasenyes suportats:",
+    "keychainViewPasswords": "Veure contrasenyes desades",
+    /* Password manager setup */
+    "passwordManagerSetupHeading": "Acaba de configurar %p per utilitzar l'autocompletat",
+    "passwordManagerSetupStep1": {
+      "unsafeHTML": "Primer, <a id='password-manager-setup-link'></a> i extreu-ho pel teu sistema."
+    },
+    "passwordManagerInstallerSetup": {
+      "unsafeHTML": "Descarrega <a id='password-manager-setup-link-installer'></a> i arrossega el fitxer a la caixa de sota:"
+    },
+    "passwordManagerSetupLink": "descarrega l'eina CLI de %p",
+    "passwordManagerSetupLinkInstaller": "l'instal·lador CLI de %p",
+    "passwordManagerSetupStep2": "Després, arrossega l'eina a la caixa de sota:",
+    "passwordManagerSetupDragBox": "Arrossega l'eina aquí",
+    "passwordManagerSetupInstalling": "Instal·lant...",
+    "passwordManagerBitwardenSignIn": "Per connectar el teu compte Bitwarden, ves a vault.bitwarden.com/#/settings/account, desplaça't fins al final, i tria \"Veure clau API\". Després, enganxa els valors als camps de sota.",
+    "passwordManagerSetupSignIn": "Inicia sessió al teu gestor de contrasenyes per començar a utilitzar l'autocompletat. Les teves credencials no es desaran enlloc dins de Min.",
+    "disableAutofill": "Deshabilitar autocompletat",
+    "passwordManagerSetupUnlockError": "No s'ha pogut desbloquejar el magatzem de contrasenyes: ",
+    "passwordManagerSetupRetry": "Assegura't d'utilitzar el fitxer correcte i d'introduir una contrasenya correcta. Pots tornar a intentar-ho arrossegant l'eina aquí de nou.",
+    "passwordManagerUnlock": "Introdueix la teva contrasenya %p per utilitzar l'autocompletat:",
+    /* Password save bar */
+    "passwordCaptureSavePassword": "Desar la contrasenya per a %s?",
+    "passwordCaptureSave": "Desar",
+    "passwordCaptureDontSave": "No desar",
+    "passwordCaptureNeverSave": "No desar mai",
+    /* Password viewer */
+    "savedPasswordsHeading": "Contrasenyes desades",
+    "savedPasswordsEmpty": "No hi ha contrasenyes desades.",
+    "savedPasswordsNeverSavedLabel": "Mai desades",
+    "deletePassword": "Esborrar la contrasenya per a %s?",
+    /* Dialogs */
+    "loginPromptTitle": "Iniciar sessió a %h", //%h is replaced with host, %r with realm (title of protected part of site)
+    "dialogConfirmButton": "Confirmar",
+    "dialogSkipButton": "Cancel·lar",
+    "username": "Nom d'usuari",
+    "email": "Correu electrònic",
+    "password": "Contrasenya",
+    "secretKey": "Clau secreta",
+    "openExternalApp": "Obrir a \\\"%s\\\"?", // %s is the name of an app
+    "clickToCopy": "Clica per copiar",
+    "copied": "Copiat"
+  }
+}
