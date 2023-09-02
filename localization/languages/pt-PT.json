@@ -6,7 +6,7 @@
         these are the items displayed in the menu when you right-click on a page
         */
     "addToDictionary": "Adicionar ao dicionário",
-    "pictureInPicture": "Picture in Picture",
+    "pictureInPicture": "Imagem em imagem (PIP)",
     "openInNewTab": "Abrir em novo separador",
     "openInNewPrivateTab": "Abrir em novo separador privado",
     "saveLinkAs": "Guardar ligação como",
@@ -51,11 +51,11 @@
     "searchBookmarks": "Pesquisar nos marcadores",
     "bookmarksAddTag": "Adicionar etiqueta",
     "bookmarksRenameTag": "Mudar nome",
-    "bookmarksDeleteTag": "Eliminar etiqueta",
-    "deleteBookmarksWithTag": "Eliminar marcador e etiqueta",
+    "bookmarksDeleteTag": "Remover etiqueta",
+    "deleteBookmarksWithTag": "Remover marcador e etiqueta",
     "bookmarksSimilarItems": "Itens semelhantes",
     "searchHistory": "Pesquisar no histórico",
-    "importBookmarks": "Importar marcadores de ficheiro HTML",
+    "importBookmarks": "Importar marcadores de um ficheiro HTML",
     "exportBookmarks": "Exportar marcadores",
     "runUserscript": "Executar script",
     /* navbar */
@@ -72,10 +72,10 @@
     "newTask": "Nova tarefa", //"new" is a verb - it is used for a button at the bottom of the task overlay
     "defaultTaskName": "Tarefa %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
     "taskDeleteWarning": {
-      "unsafeHTML": "Tarefa eliminada. <a>Desfazer</a>?"
+      "unsafeHTML": "Tarefa removida. <a>Desfazer</a>?"
     },
     "tasksSearchTabs": "Pesquisar separadores",
-    "returnToTask": "Retornar à tarefa anterior",
+    "returnToTask": "Ir para a tarefa anterior",
     "taskDescriptionTwo": "%t e %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
     "taskDescriptionThree": "%t, %t e %n mais", //used to describe a task that has three or more tabs
     /* find in page toolbar */
@@ -96,22 +96,22 @@
     "timeRangeWeek": "Na última semana",
     "timeRangeMonth": "No último mês",
     "timeRangeYear": "No último ano",
-    "timeRangeLongerAgo": "Mais antigo",
+    "timeRangeLongerAgo": "Há mais tempo",
     /* pages/error/index.html */
-    "crashErrorTitle": "Algo errado aconteceu.",
+    "crashErrorTitle": "Ocorreu um erro.",
     "crashErrorSubtitle": "Ocorreu um erro ao tentar mostrar esta página.",
     "errorPagePrimaryAction": "Tentar novamente",
     "serverNotFoundTitle": "Servidor não encontrado",
-    "serverNotFoundSubtitle": "O Min não conseguiu encontrar este site.",
+    "serverNotFoundSubtitle": "Min não conseguiu encontrar este site.",
     "archiveSearchAction": "Pesquisar em archive.org",
     "sslErrorTitle": "Este site não está disponível",
-    "sslErrorMessage": "O Min não conseguiu estabelecer uma ligação segura a este site.",
+    "sslErrorMessage": "Min não conseguiu estabelecer uma ligação segura a este site.",
     "dnsErrorTitle": "Site não encontrado",
     "dnsErrorMessage": "Ocorreu um erro de DNS.",
     "offlineErrorTitle": "Está no modo off-line",
     "offlineErrorMessage": "Ative o modo on-line e tente novamente.",
-    "genericConnectionFail": "O Min não conseguiu estabelecer a ligação ao site.",
-    "sslTimeErrorMessage": "O Min não conseguiu estabelecer uma ligação segura a este site. Verifique se a hora do computador está correta.",
+    "genericConnectionFail": "Min não conseguiu estabelecer ligação ao site.",
+    "sslTimeErrorMessage": "Min não conseguiu estabelecer uma ligação segura a este site. Verifique se a hora do computador está correta.",
     "addressInvalidTitle": "Este endereço não é válido.",
     "genericError": "Ocorreu um erro",
     /* pages/phishing/index.html */
@@ -133,13 +133,13 @@
     "settingsRestartRequired": "Tem que reiniciar o navegador para aplicar as alterações.",
     "settingsPrivacyHeading": "Bloqueio de conteúdo",
     "settingsContentBlockingLevel0": "Permitir todos os anúncios e 'trackers'",
-    "settingsContentBlockingLevel1": "Bloquear anúncios e trackers de terceiros",
+    "settingsContentBlockingLevel1": "Bloquear anúncios e 'trackers' de terceiros",
     "settingsContentBlockingLevel2": "Bloquear todos os anúncios e 'trackers'",
     "settingsContentBlockingExceptions": "Permitir anúncios nestes sites:",
     "settingsBlockScriptsToggle": "Bloquear scripts",
     "settingsBlockImagesToggle": "Bloquear imagens",
     "settingsBlockedRequestCount": {
-      "unsafeHTML": "Até agora, Min bloqueou <strong></strong> anúncios e rastreadores."
+      "unsafeHTML": "Até agora, Min bloqueou <strong></strong> anúncios e 'trackers'."
     },
     "settingsCustomBangs": "Bangs personalizados",
     "settingsCustomBangsAdd": "Adicionar bang",
@@ -163,18 +163,18 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."
     },
-    "settingsUserAgentToggle": "Utilizar agente de utilizador personalizado",
+    "settingsUserAgentToggle": "Utilizar um agente de utilizador personalizado",
     "settingsUpdateNotificationsToggle": "Procurar atualizações automaticamente",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Enviar estatísticas de utilização (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Mais informação</a>)"
     },
-    "settingsStartupOptions": null, //missing translation
-    "settingsStartupCreateTask": null, //missing translation
-    "settingsStartupNewTaskandBackground": null, //missing translation
-    "settingsStartupNewTaskOnly": null, //missing translation
-    "settingsNewWindowOptions": null, //missing translation
-    "settingsNewWindowCreateTask": null, //missing translation
-    "settingsNewWindowPickTask": null, //missing translation
+    "settingsStartupOptions": "Ao iniciar Min: ",
+    "settingsStartupCreateTask": "Reabrir sessão anterior",
+    "settingsStartupNewTaskandBackground": "Mover separadores anteriores para tarefa secundária",
+    "settingsStartupNewTaskOnly": "Abrir uma nova tarefa",
+    "settingsNewWindowOptions": "Em novas janelas: ",
+    "settingsNewWindowCreateTask": "Criar nova tarefa",
+    "settingsNewWindowPickTask": "Mostrar lista de tarefas",
     "settingsSearchEngineHeading": "Motor de pesquisa",
     "settingsDefaultSearchEngine": "Escolha o motor de pesquisa padrão:",
     "settingsDDGExplanation": "Defina DuckDuckGo como motor de pesquisa padrão para poder obter sugestões imediatas na barra de pesquisa.",
@@ -194,7 +194,7 @@
     "appMenuDuplicateTab": "Duplicar separador",
     "appMenuNewPrivateTab": "Novo separador privado",
     "appMenuNewTask": "Nova tarefa",
-    "appMenuNewWindow": null, //missing translation
+    "appMenuNewWindow": "Nova janela",
     "appMenuSavePageAs": "Guardar página como",
     "appMenuPrint": "Imprimir",
     "appMenuEdit": "Editar",
@@ -235,7 +235,7 @@
     "appMenuQuit": "Sair de %n",
     "appMenuBringToFront": "Trazer tudo para a frente",
     /* PDF Viewer */
-    "PDFInvertPage": null, //missing translation
+    "PDFInvertPage": "Inverter cores da página",
     "PDFPageCounter": {
       "unsafeHTML": "página <input type='text'/> de <span id='total'></span>"
     },
@@ -279,7 +279,7 @@
     "passwordManagerSetupRetry": "Certifique-se de que está a utilizar o ficheiro e a palavra-passe corretas. Pode tentar novamente arrastando a ferramenta para aqui.",
     "passwordManagerUnlock": "Digite a palavra-passe mestre para %p para desbloquear o armazenamento de palavras-passe:",
     /* Password save bar */
-    "passwordCaptureSavePassword": "Guardar palavras passe para %s?",
+    "passwordCaptureSavePassword": "Guardar palavra-passe para %s?",
     "passwordCaptureSave": "Sim",
     "passwordCaptureDontSave": "Não",
     "passwordCaptureNeverSave": "Nunca",
@@ -287,7 +287,7 @@
     "savedPasswordsHeading": "Palavras-passe guardadas",
     "savedPasswordsEmpty": "Não há palavras-passe guardadas",
     "savedPasswordsNeverSavedLabel": "Nunca guardadas",
-    "deletePassword": "Eliminar palavra-passe para %s?",
+    "deletePassword": "Remover palavra-passe para %s?",
     /* Dialogs */
     "loginPromptTitle": "Iniciar sessão em %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Confirmar",
