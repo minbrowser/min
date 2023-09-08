@@ -91,6 +91,15 @@ function initFilterList () {
     }
   )
 
+  fs.readFile(path.join(__dirname, 'ext/filterLists/minFilters.txt'),
+    'utf8', function (err, data) {
+      if (err) {
+        return
+      }
+      parser.parse(data, parsedFilterData)
+    }
+  )
+
   fs.readFile(path.join(app.getPath('userData'), 'customFilters.txt'),
     'utf8', function (err, data) {
       if (!err && data) {
