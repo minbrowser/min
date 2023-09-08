@@ -6,28 +6,28 @@
         these are the items displayed in the menu when you right-click on a page
         */
     "addToDictionary": null, //missing translation
-    "pictureInPicture": null, //missing translation
+    "pictureInPicture": "Kép a képben", //missing translation
     "openInNewTab": "Megnyitás új fülön",
     "openInNewPrivateTab": "Megnyitás új privát fülön",
-    "saveLinkAs": null, //missing translation
+    "saveLinkAs": "Link mentése mint",
     "viewImage": "Kép megtekintése",
     "openImageInNewTab": "Kép megnyitása új fülön",
     "openImageInNewPrivateTab": "Kép megnyitása új privát fülön",
     "saveImageAs": "Kép mentése másként",
     "searchWith": "Keresés %s keresővel", //%s will be replaced with the name of the current search engine
     "copyLink": "Hivatkozás másolás",
-    "copyEmailAddress": null, //missing translation
-    "selectAll": null, // Missing Translation
-    "undo": null, // Missing Translation
-    "redo": null, // Missing Translation
-    "cut": null, // Missing Translation
+    "copyEmailAddress": "E-mail cím másolása",
+    "selectAll": "Összes kiválasztása",
+    "undo": "vissza",
+    "redo": "újra",
+    "cut": "kivágás",
     "copy": "Másolás", //this is a verb (as in "copy the currently-selected text")
     "paste": "Beillesztés",
     "goBack": "Vissza lépés",
     "goForward": "Előre lépés",
     "inspectElement": "Részletek megtekintése",
     /* searchbar */
-    "pasteAndGo": null, //missing translation
+    "pasteAndGo": "Beillesztés és keresés",
     "DDGAnswerSubtitle": "Válasz", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
     "suggestedSite": "Ajánlott oldal", //this is used to label suggested websites from the DuckDuckGo API,
     "resultsFromDDG": "Válaszok a DuckDuckGo-ról", //this is used as a label to indicate which results come from DuckDuckGo's API
@@ -39,12 +39,12 @@
     "viewSettings": "Beállítások megtekintése",
     "takeScreenshot": "Képernyőkép készitése",
     "clearHistory": "Összes történet törlés",
-    "enableBlocking": null, //missing translation
-    "disableBlocking": null, //missing translation
+    "enableBlocking": "Blokkolás engedélyezése",
+    "disableBlocking": "Blokkolás kikapcsolása",
     "clearHistoryConfirmation": null, //missing translation
     "switchToTask": "Feladat váltása",
     "createTask": "Feladat létrehozás",
-    "closeTask": null, //missing translation
+    "closeTask": "Feladat befejezése",
     "moveToTask": "Tedd a fület feladatba",
     "nameTask": null, //missing translation
     "addBookmark": null, //missing translation
