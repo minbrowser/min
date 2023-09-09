@@ -23,6 +23,7 @@
     "cut": "Cut",
     "copy": "Copy", //this is a verb (as in "copy the currently-selected text")
     "paste": "Paste",
+    "pasteAndMatchStyle": "Paste and Match Style",
     "goBack": "Go Back",
     "goForward": "Go Forward",
     "inspectElement": "Inspect Element",
