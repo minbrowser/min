@@ -321,7 +321,10 @@ ipc.on('loadURLInView', function (e, args) {
 
   // wait until the first URL is loaded to set the background color so that new tabs can use a custom background
   if (!viewStateMap[args.id].loadedInitialURL) {
-    viewMap[args.id].setBackgroundColor('#fff')
+    // Give the site a chance to display something before setting the background, in case it has its own dark theme
+    viewMap[args.id].webContents.once('dom-ready', function() {
+      viewMap[args.id].setBackgroundColor('#fff')
+    })
     // If the view has no URL, it won't be attached yet
     if (args.id === windows.getState(win).selectedView) {
       win.setBrowserView(viewMap[args.id])
