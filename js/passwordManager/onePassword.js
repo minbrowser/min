@@ -75,8 +75,8 @@ class OnePassword {
     return null
   }
 
-  async _checkVersion () {
-    const process = new ProcessSpawner('op', ['--version'])
+  async _checkVersion (command) {
+    const process = new ProcessSpawner(command, ['--version'])
     const data = await process.executeSyncInAsyncContext()
 
     return compareVersions('2.2.0', data) >= 0
@@ -86,7 +86,7 @@ class OnePassword {
   // obtain a valid 1Password-CLI tool path.
   async checkIfConfigured () {
     this.path = await this._getToolPath()
-    return this.path != null && (await this._checkVersion())
+    return this.path != null && (await this._checkVersion(this.path))
   }
 
   // Returns current 1Password-CLI status. If we have a session key, then
