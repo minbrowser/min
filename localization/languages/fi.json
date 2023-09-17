@@ -1,0 +1,303 @@
+{
+  "name": "Suomi",
+  "identifier": "fi",
+  "translations": {
+    /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+    "addToDictionary": "Lisää sanakirjaan",
+    "pictureInPicture": "Kuva kuvassa",
+    "openInNewTab": "Avaa uudella välilehdellä",
+    "openInNewPrivateTab": "Avaa uudella yksityisellä välilehdellä",
+    "saveLinkAs": "Tallenna nimellä...",
+    "viewImage": "Avaa kuva",
+    "openImageInNewTab": "Avaa kuva uudella välilehdellä",
+    "openImageInNewPrivateTab": "Avaa kuva uudella yksityisellä välilehdellä",
+    "saveImageAs": "Tallenna kuva nimellä",
+    "searchWith": "Hae hakukoneella %s", //%s will be replaced with the name of the current search engine
+    "copyLink": "Kopioi linkki",
+    "copyEmailAddress": "Kopioi sähköpostiosoite",
+    "selectAll": "Valitse kaikki",
+    "undo": "Peru",
+    "redo": "Tee uudelleen",
+    "cut": "Leikkaa",
+    "copy": "Kopioi", //this is a verb (as in "copy the currently-selected text")
+    "paste": "Liitä",
+    "goBack": "Edellinen",
+    "goForward": "Seuraava",
+    "inspectElement": "Tutki elementtiä",
+    /* searchbar */
+    "pasteAndGo": "Liitä ja siirry", //context menu item
+    "DDGAnswerSubtitle": "Vastaus", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+    "suggestedSite": "Ehdotettu sivu", //this is used to label suggested websites from the DuckDuckGo API,
+    "resultsFromDDG": "Tulokset DuckDuckGo:sta", //this is used as a label to indicate which results come from DuckDuckGo's API
+    "taskN": "Tehtävä %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+    /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+    "showMoreBangs": "Näytä lisää",
+    "viewSettings": "Asetukset",
+    "takeScreenshot": "Ota kuvakaappaus",
+    "clearHistory": "Pyyhi historia",
+    "enableBlocking": "Käynnistä sisällönesto tälle sivustolle",
+    "disableBlocking": "Poista sisällönesto tältä sivustolta",
+    "clearHistoryConfirmation": "Pyyhi historia ja selaustiedot?",
+    "switchToTask": "Vaihda tehtävään",
+    "createTask": "Luo tehtävä",
+    "closeTask": "Sulje tehtävä",
+    "moveToTask": "Siirrä välilehti tehtävään",
+    "nameTask": "Nimeä tämä tehtävä",
+    "addBookmark": "Lisää kirjanmerkki",
+    "searchBookmarks": "Etsi kirjanmerkeistä",
+    "bookmarksAddTag": "Lisää tunniste...",
+    "bookmarksRenameTag": "Nimeä tunniste uudelleen",
+    "bookmarksDeleteTag": "Poista tunniste",
+    "deleteBookmarksWithTag": "Poista kirjanmerkit, joissa on tunniste",
+    "bookmarksSimilarItems": "Samankaltaiset kirjanmerkit",
+    "searchHistory": "Etsi historiasta",
+    "importBookmarks": "Tuo kirjanmerkit HTML-tiedostosta",
+    "exportBookmarks": "Vie kirjanmerkit",
+    "runUserscript": "Aja skripti",
+    /* navbar */
+    "openMenu": "Avaa valikko", //application menu button on windows
+    "enterReaderView": "Avaa lukijanäkymä",
+    "exitReaderView": "Poistu lukijanäkymästä",
+    "newTabLabel": "Uusi välilehti", //this is a noun, used for tabs that don't have a page loaded in them yet
+    "connectionNotSecure": "Yhteytesi tälle sivustolle ei ole suojattu",
+    "searchbarPlaceholder": "Etsi tai kirjoita osoite",
+    "privateTab": "Yksityinen välilehti",
+    "newTabAction": "Uusi välilehti", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+    /* task overlay */
+    "viewTasks": "Näytä tehtävät",
+    "newTask": "Uusi tehtävä", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "defaultTaskName": "Tehtävä %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+    "taskDeleteWarning": {
+      "unsafeHTML": "Tehtävä poistettu. <a>Peru?</a>"
+    },
+    "tasksSearchTabs": "Etsi välilehdistä",
+    "returnToTask": "Palaa edelliseen tehtävään",
+    "taskDescriptionTwo": "%t ja %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
+    "taskDescriptionThree": "%t, %t, ja %n lisää", //used to describe a task that has three or more tabs
+    /* find in page toolbar */
+    "searchInPage": "Etsi sivulta", //this is used as the placeholder text for the textbox in the find in page toolbar
+    "findMatchesSingular": "%i %t osumasta", //this and the next label are used to indicate which match is currently highlighted
+    "findMatchesPlural": "%i %t osumasta",
+    /* Focus mode */
+    "isFocusMode": "Olet keskittyneessä tilassa.",
+    "closeDialog": "OK", //used as a label for the button that closes the dialog
+    "focusModeExplanation1": "Keskittyneessä tilassa et voi luoda uusia välilehtiä tai vaihtaa tehtävää.",
+    "focusModeExplanation2": "Voit poistua keskittyneestä tilasta poistamalla valinta kohdasta \"keskittynyt tila\" näkymän valikosta.",
+    /* relative dates */
+    "timeRangeJustNow": "Äsken",
+    "timeRangeMinutes": "Muutama minuutti sitten",
+    "timeRangeHour": "Tunnin aikana",
+    "timeRangeToday": "Tänään",
+    "timeRangeYesterday": "Eilen",
+    "timeRangeWeek": "Viikon aikana",
+    "timeRangeMonth": "Kuukauden aikana",
+    "timeRangeYear": "Vuoden aikana",
+    "timeRangeLongerAgo": "Kauan sitten",
+    /* pages/error/index.html */
+    "crashErrorTitle": "Jotain meni pieleen.",
+    "crashErrorSubtitle": "Sivun näyttämisessä on tapahtunut virhe.",
+    "errorPagePrimaryAction": "Yritä uudelleen",
+    "serverNotFoundTitle": "Palvelinta ei löydy",
+    "serverNotFoundSubtitle": "Min ei löytänyt tätä sivua.",
+    "archiveSearchAction": "Etsi sivustolta archive.org",
+    "sslErrorTitle": "Sivusto ei ole saatavilla",
+    "sslErrorMessage": "Min ei voinut luoda suojattua yhteyttä sivustoon.",
+    "dnsErrorTitle": "Sivustoa ei löydy",
+    "dnsErrorMessage": "DNS-virhe.",
+    "offlineErrorTitle": "Verkkoyhteyttä ei löydy",
+    "offlineErrorMessage": "Yhdistä verkkoon ja yritä uudelleen.",
+    "genericConnectionFail": "Min ei voinut yhdistää sivustoon.",
+    "sslTimeErrorMessage": "Min ei voinut luoda suojattua yhteyttä sivustoon. Varmista, että tietokoneesi kello on oikeassa ajassa.",
+    "addressInvalidTitle": "Osoite on virheellinen.",
+    "genericError": "Tapahtui virhe",
+    /* pages/phishing/index.html */
+    "phishingErrorTitle": "Sivusto voi olla vaarallinen.",
+    "phishingErrorMessage": "Tämä sivusto saattaa yrittää varastaa henkilökohtaisia tietojasi, kuten salasanoja tai pankkitietoja.",
+    "phishingErrorVisitAnyway": "Vieraile sivustolla silti",
+    "phishingErrorLeave": "Poistu sivustolta",
+    /* multiple instances alert */
+    "multipleInstancesErrorMessage": "Virhe. Sulje muut käynnissä olevat ikkunat ja käynnistä Min uudelleen.",
+    /* pages/sessionRestoreError/index.html */
+    "sessionRestoreErrorTitle": "Tapahtui virhe",
+    "sessionRestoreErrorExplanation": "Tallennettuja välilehtiä ei saatu palautettua.",
+    "sessionRestoreErrorBackupInfo": "Varmuuskopio tiedoistasi tallennettiin sijaintiin: %l.", //%l will be replaced with a path to a file
+    "sessionRestoreErrorLinkInfo": {
+      "unsafeHTML": "Jos tämä virhe tapahtuu uudelleen, ilmoita ongelmasta: <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">here</a>."
+    },
+    /* pages/settings/index.html */
+    "settingsPreferencesHeading": "Asetukset",
+    "settingsRestartRequired": "Käynnistä uudelleen, jotta muutokset tulevat voimaan.",
+    "settingsPrivacyHeading": "Sisällönesto",
+    "settingsContentBlockingLevel0": "Salli mainokset ja seuraimet",
+    "settingsContentBlockingLevel1": "Estä kolmannen osapuolen mainokset ja seuraimet",
+    "settingsContentBlockingLevel2": "Estä kaikki mainokset ja seuraimet",
+    "settingsContentBlockingExceptions": "Mainokset sallitaan näillä sivustoilla:",
+    "settingsBlockScriptsToggle": "Estä komentosarjat",
+    "settingsBlockImagesToggle": "Estä kuvat",
+    "settingsBlockedRequestCount": {
+      "unsafeHTML": "Tähän mennessä Min on estänyt <strong></strong> mainosta ja seurainta."
+    },
+    "settingsCustomBangs": "Mukautetut bangit",
+    "settingsCustomBangsAdd": "Lisää mukautettu bang",
+    "settingsCustomBangsPhrase": "Lause (pakollinen)",
+    "settingsCustomBangsSnippet": "Kuvaus (valinnainen)",
+    "settingsCustomBangsRedirect": "Uudelleenohjaa URL (pakollinen)",
+    "settingsCustomizeFiltersLink": "Mukauta suodattimia",
+    "settingsAppearanceHeading": "Ulkoasu",
+    "settingsEnableDarkMode": "Käynnistä tumma tila:",
+    "settingsDarkModeNever": "Ei koskaan",
+    "settingsDarkModeNight": "Yöllä",
+    "settingsDarkModeAlways": "Aina",
+    "settingsDarkModeSystem": "Käytä järjestelmän teemaa",
+    "settingsSiteThemeToggle": "Käytä sivuston teemaa",
+    "settingsAdditionalFeaturesHeading": "Lisäominaisuudet",
+    "settingsUserscriptsToggle": "Käytä käyttäjän komentosarjoja",
+    "settingsShowDividerToggle": "Näytä erotin välilehtien välillä",
+    "settingsSeparateTitlebarToggle": "Käytä erillistä otsikkopalkkia",
+    "settingsAutoplayToggle": "Toista automaattisesti",
+    "settingsOpenTabsInForegroundToggle": "Avaa uudet välilehdet etualalla",
+    "settingsUserscriptsExplanation": {
+      "unsafeHTML": "Komentosarjat mahdollistavat sivustojen käyttäytymisen mukauttamisen - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">lisätietoja</a>."
+    },
+    "settingsUserAgentToggle": "Käytä mukautettua käyttäjäagenttia",
+    "settingsUpdateNotificationsToggle": "Tarkista päivitykset automaattisesti",
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "Lähetä käyttötilastoja (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Lisätiedot</a>)"
+    },
+    "settingsStartupOptions": "Kun Min käynnistyy: ",
+    "settingsStartupCreateTask": "Avaa uudelleen edelliset välilehdet",
+    "settingsStartupNewTaskandBackground": "Siirrä edelliset välilehdet tehtävään taustalle",
+    "settingsStartupNewTaskOnly": "Avaa tyhjä tehtävä",
+    "settingsNewWindowOptions": "Uudessa ikkunassa: ",
+    "settingsNewWindowCreateTask": "Luo uusi tehtävä",
+    "settingsNewWindowPickTask": "Näytä tehtävälista",
+    "settingsSearchEngineHeading": "Hakukone",
+    "settingsDefaultSearchEngine": "Valitse oletushakukone:",
+    "settingsDDGExplanation": "Aseta DuckDuckGo oletushakukoneeksi nähdäksesi hakukentässä välittömiä tuloksia.",
+    "customSearchEngineDescription": "Korvaa hakusana merkillä %s",
+    "settingsKeyboardShortcutsHeading": "Pikanäppäimet",
+    "settingsKeyboardShortcutsHelp": "Käytä pilkkua useiden oikoteiden erottimena.",
+    "settingsProxyHeading": "Välityspalvelin",
+    "settingsNoProxy": "Ei välityspalvelinta",
+    "settingsManualProxy": "Säädä käsin",
+    "settingsAutomaticProxy": "Automaattinen",
+    "settingsProxyRules": "Välityspalvelimen säännöt:",
+    "settingsProxyBypassRules": "Älä käytä välityspalvelinta:",
+    "settingsProxyConfigurationURL": "Säätöjen URL",
+    /* app menu */
+    "appMenuFile": "Tiedosto",
+    "appMenuNewTab": "Uusi välilehti",
+    "appMenuDuplicateTab": "Monista välilehti",
+    "appMenuNewPrivateTab": "Uusi yksityinen välilehti",
+    "appMenuNewTask": "Uusi tehtävä",
+    "appMenuNewWindow": "Uusi ikkuna",
+    "appMenuSavePageAs": "Tallenna sivu nimellä",
+    "appMenuPrint": "Tulosta",
+    "appMenuEdit": "Muokkaa",
+    "appMenuUndo": "Peru",
+    "appMenuRedo": "Tee uudelleen",
+    "appMenuCut": "Leikkaa",
+    "appMenuCopy": "Kopioi",
+    "appMenuPaste": "Liitä",
+    "appMenuSelectAll": "Valitse kaikki",
+    "appMenuFind": "Etsi",
+    "appMenuView": "Näytä",
+    "appMenuZoomIn": "Suurenna",
+    "appMenuZoomOut": "Pienennä",
+    "appMenuActualSize": "Todellinen koko",
+    "appMenuFullScreen": "Koko näyttö", //on some platforms, this string is replaced with one built-in to the OS
+    "appMenuFocusMode": "Keskittynyt tila",
+    "appMenuBookmarks": "Kirjanmerkit",
+    "appMenuHistory": "Historia",
+    "appMenuDeveloper": "Kehittäjä",
+    "appMenuReloadBrowser": "Lataa selain uudelleen",
+    "appMenuInspectBrowser": "Tutki selainta",
+    "appMenuInspectPage": "Tutki sivua",
+    "appMenuWindow": "Ikkuna",
+    "appMenuMinimize": "Pienennä",
+    "appMenuClose": "Sulje",
+    "appMenuAlwaysOnTop": "Aina päällimmäisenä",
+    "appMenuHelp": "Ohje",
+    "appMenuKeyboardShortcuts": "Pikanäppäimet",
+    "appMenuReportBug": "Ilmoita bugi",
+    "appMenuTakeTour": "Esittelykierros",
+    "appMenuViewGithub": "Näytä GitHubissa",
+    "appMenuAbout": "Tietoja: %n", //%n is replaced with app name
+    "appMenuPreferences": "Asetukset",
+    "appMenuServices": "Palvelut",
+    "appMenuHide": "Piilota %n",
+    "appMenuHideOthers": "Piilota muut",
+    "appMenuShowAll": "Näytä kaikki",
+    "appMenuQuit": "Sulje %n",
+    "appMenuBringToFront": "Tuo kaikki etualalle",
+    /* PDF Viewer */
+    "PDFInvertPage": "Käännä sivun värit",
+    "PDFPageCounter": {
+      "unsafeHTML": "sivu <input type='text'/> / <span id='total'></span>"
+    },
+    /* Context Reader */
+    "buttonReaderSettings": "Lukijan asetukset",
+    "buttonReaderLightTheme": "Vaalea",
+    "buttonReaderSepiaTheme": "Seepia",
+    "buttonReaderDarkTheme": "Tumma",
+    "openReaderView": "Avaa aina lukijanäkymässä",
+    "autoRedirectBannerReader": "Avaa aina artikkelit tältä sivustolta lukijanäkymässä?",
+    "buttonReaderRedirectYes": "Kyllä",
+    "buttonReaderRedirectNo": "Ei",
+    "articleReaderView": "Alkuperäinen artikkeli",
+    /* Download manager */
+    "downloadCancel": "Peru",
+    "downloadStateCompleted": "Valmis",
+    "downloadStateFailed": "Epäonnistunut",
+    /* Update Notifications */
+    "updateNotificationTitle": "Uusi versio Ministä saatavilla",
+    /* Autofill settings */
+    "settingsPasswordAutoFillHeadline": "Salasanojen automaattinen täyttö",
+    "settingsSelectPasswordManager": "Valitse yksi tuetuista salasanojen hallintasovelluksista:",
+    "keychainViewPasswords": "Näytä tallennetut salasanat",
+    /* Password manager setup */
+    "passwordManagerSetupHeading": "Viimeistele sovelluksen %p asetukset käyttääksesi automaattista täyttöä",
+    "passwordManagerSetupStep1": {
+      "unsafeHTML": "Ensin, <a id='password-manager-setup-link'></a> ja pura se tietokoneellasi."
+    },
+    "passwordManagerInstallerSetup": {
+      "unsafeHTML": "Lataa <a id='password-manager-setup-link-installer'></a> ja vedä tiedosto alla olevaan laatikkoon:"
+    },
+    "passwordManagerSetupLink": "lataa %p komentorivityökalu",
+    "passwordManagerSetupLinkInstaller": "%p asennusohjelma komentoriville",
+    "passwordManagerSetupStep2": "Vedä työkalu alla olevaan laatikkoon:",
+    "passwordManagerSetupDragBox": "Vedä työkalu tähän",
+    "passwordManagerSetupInstalling": "Asennetaan...",
+    "passwordManagerBitwardenSignIn": "Yhdistääksesi Bitwarden-tilisi, mene osoitteeseen vault.bitwarden.com/#/settings/account, vieritä alas asti ja valitse \"View API Key\". Liitä sitten arvot alla oleviin kenttiin.",
+    "passwordManagerSetupSignIn": "Kirjaudu salasananhallintaohjelmaasi automaattisen täytön käyttämiseksi. Tietojasi ei tallenneta Min-selaimen sisälle.",
+    "disableAutofill": "Sammuta automaattinen täyttö",
+    "passwordManagerSetupUnlockError": "Salasanasäilön avaaminen epäonnistui: ",
+    "passwordManagerSetupRetry": "Tarkista, että käytät oikeaa tiedostoa ja salasanaa. Voit yrittää uudelleen vetämällä työkalun tähän uudestaan.",
+    "passwordManagerUnlock": "Syötä %p pääsalasanasi avataksesi salasanasäilön:",
+    /* Password save bar */
+    "passwordCaptureSavePassword": "Tallenna salasana sivustolle %s?",
+    "passwordCaptureSave": "Tallenna",
+    "passwordCaptureDontSave": "Älä tallenna",
+    "passwordCaptureNeverSave": "Älä tallenna koskaan",
+    /* Password viewer */
+    "savedPasswordsHeading": "Tallennetut salasanat",
+    "savedPasswordsEmpty": "Ei tallennettuja salasanoja.",
+    "savedPasswordsNeverSavedLabel": "Älä tallenna koskaan",
+    "deletePassword": "Poista salasana %s?",
+    /* Dialogs */
+    "loginPromptTitle": "Kirjaudu %h", //%h is replaced with host, %r with realm (title of protected part of site)
+    "dialogConfirmButton": "Vahvista",
+    "dialogSkipButton": "Peru",
+    "username": "Käyttäjänimi",
+    "email": "Sähköposti",
+    "password": "Salasana",
+    "secretKey": "Salainen avain",
+    "openExternalApp": "Avaa sovelluksessa \\\"%s\\\"?", // %s is the name of an app
+    "clickToCopy": "Klikkaa kopioidaksesi",
+    "copied": "Kopioitu"
+  }
+}
