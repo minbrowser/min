@@ -172,9 +172,9 @@
     "settingsStartupCreateTask": "Ponovno otvori prethodne kartice", 
     "settingsStartupNewTaskandBackground": "Premjesti prethodne kartice u pozadinski zadatak", 
     "settingsStartupNewTaskOnly": "Otvori novi prazni zadatak", 
-    "settingsNewWindowOptions": null, //missing translation
-    "settingsNewWindowCreateTask": null, //missing translation
-    "settingsNewWindowPickTask": null, //missing translation
+    "settingsNewWindowOptions": "U novim prozorima:",
+    "settingsNewWindowCreateTask": "Stvorite novi zadatak",
+    "settingsNewWindowPickTask": "Prikaži popis zadataka",
     "settingsSearchEngineHeading": "Tražilica",
     "settingsDefaultSearchEngine": "Odaberite zadanu tražilicu:",
     "settingsDDGExplanation": "Postavite DuckDuckGo kao zadanu tražilicu da biste vidjeli trenutne odgovore na traci za pretraživanje.",
@@ -194,7 +194,7 @@
     "appMenuDuplicateTab": "Dvostruka kartica",
     "appMenuNewPrivateTab": "Nova privatna kartica",
     "appMenuNewTask": "Novi Zadatak",
-    "appMenuNewWindow": null, //missing translation
+    "appMenuNewWindow": "Novi prozor",
     "appMenuSavePageAs": "Spremi stranicu kao",
     "appMenuPrint": "Ispiši",
     "appMenuEdit": "Uredi",
@@ -235,7 +235,7 @@
     "appMenuQuit": "Zatvori %n",
     "appMenuBringToFront": "Stavite sve naprijed",
     /* PDF Viewer */
-    "PDFInvertPage": null, //missing translation
+    "PDFInvertPage": "Promijeni boje stranice",
     "PDFPageCounter": {
       "unsafeHTML": "stranica <input type='text'/> od <span id='total'></span>"
     },
