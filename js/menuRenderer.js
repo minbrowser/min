@@ -62,19 +62,6 @@ module.exports = {
       tabEditor.show(tabs.getSelected(), '!history ')
     })
 
-    ipc.on('duplicateTab', function (e) {
-      if (modalMode.enabled()) {
-        return
-      }
-
-      if (focusMode.enabled()) {
-        focusMode.warn()
-        return
-      }
-
-      browserUI.duplicateTab(tabs.getSelected())
-    })
-
     ipc.on('addTab', function (e, data) {
       /* new tabs can't be created in modal mode */
       if (modalMode.enabled()) {
