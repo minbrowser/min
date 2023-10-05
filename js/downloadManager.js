@@ -58,7 +58,7 @@ const downloadManager = {
     }
   },
   openFolder: function (path) {
-    electron.shell.showItemInFolder(path)
+    ipc.invoke('showItemInFolder', path)
   },
   onItemClicked: function (path) {
     if (downloadManager.downloadItems[path].status === 'completed') {

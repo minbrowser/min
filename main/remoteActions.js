@@ -101,3 +101,8 @@ ipc.handle('close', function (e) {
 ipc.handle('setFullScreen', function (e, fullScreen) {
   windows.windowFromContents(e.sender).win.setFullScreen(e, fullScreen)
 })
+
+//workaround for https://github.com/electron/electron/issues/38540
+ipc.handle('showItemInFolder', function (e, path) {
+  shell.showItemInFolder(path)
+})

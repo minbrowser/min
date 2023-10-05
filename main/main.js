@@ -12,7 +12,8 @@ const {
   Menu, MenuItem,
   crashReporter,
   dialog,
-  nativeTheme
+  nativeTheme,
+  shell
 } = electron
 
 crashReporter.start({
