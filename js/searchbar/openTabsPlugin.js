@@ -2,7 +2,7 @@ var browserUI = require('browserUI.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var urlParser = require('util/urlParser.js')
 
-var stringScore = require('string_score') // eslint-disable-line no-unused-vars
+const quickScore = require('quick-score').quickScore
 
 var searchOpenTabs = function (text, input, event) {
   searchbarPlugins.reset('openTabs')
@@ -21,10 +21,10 @@ var searchOpenTabs = function (text, input, event) {
       var tabUrl = urlParser.basicURL(tab.url) // don't search protocols
 
       var exactMatch = tab.title.toLowerCase().indexOf(searchText) !== -1 || tabUrl.toLowerCase().indexOf(searchText) !== -1
-      var fuzzyTitleScore = tab.title.substring(0, 50).score(text, 0.5)
-      var fuzzyUrlScore = tabUrl.score(text, 0.5)
+      var fuzzyTitleScore = quickScore(tab.title.substring(0, 50), text)
+      var fuzzyUrlScore = quickScore(tabUrl, text)
 
-      if (exactMatch || fuzzyTitleScore > 0.4 || fuzzyUrlScore > 0.4) {
+      if (exactMatch || fuzzyTitleScore > 0.35 || fuzzyUrlScore > 0.35) {
         matches.push({
           task: task,
           tab: tab,
