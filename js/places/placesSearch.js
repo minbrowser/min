@@ -1,4 +1,4 @@
-/* global spacesRegex oneWeekAgo oneDayAgo historyInMemoryCache calculateHistoryScore */
+/* global spacesRegex historyInMemoryCache calculateHistoryScore */
 
 /* depends on placesWorker.js */
 
@@ -64,6 +64,9 @@ function searchPlaces (searchText, callback, options) {
       }
     }
   }
+
+  const oneDayAgo = Date.now() - (oneDayInMS)
+  const oneWeekAgo = Date.now() - (oneDayInMS * 7)
 
   const matches = []
   const st = processSearchText(searchText)
