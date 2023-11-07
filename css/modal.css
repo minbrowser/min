@@ -25,7 +25,7 @@ body.is-modal-mode #overlay {
   pointer-events: all;
 }
 body.dark-mode #overlay {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(33, 37, 43, 0.4);
 }
 
 .modal {

@@ -27,10 +27,7 @@
 /* dark colors don't need to be darkened as much for contrast */
 
 .dark-theme #navbar:before {
-  background: rgba(0, 0, 0, 0.04);
-}
-.dark-theme.is-edit-mode #navbar:before {
-  background: none;
+  background: rgba(255, 255, 255, 0.15);
 }
 
 /* navbar buttons */

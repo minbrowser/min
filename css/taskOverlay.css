@@ -8,6 +8,9 @@
   align-items: center;
   justify-content: center;
 }
+.dark-mode .simulated-navbar {
+  border-bottom-color: rgba(255, 255, 255, 0.15);
+}
 
 .task-search-input-container {
   width: 450px;
