@@ -31,8 +31,6 @@ require('./createPackage.js')('linux', { arch: toArch(platform) }).then(function
     synopsis: 'A web browser with smarter search, improved tab management, and built-in ad blocking. Includes full-text history search, instant answers from DuckDuckGo, the ability to split tabs into groups, and more.',
     depends: [
       'libsecret-1-0',
-      'gconf2',
-      'gconf-service',
       'libasound2',
       'libc6',
       'libcap2',
