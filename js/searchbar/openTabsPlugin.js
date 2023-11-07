@@ -38,13 +38,21 @@ var searchOpenTabs = function (text, input, event) {
     return
   }
 
-  var finalMatches = matches.sort(function (a, b) {
-    if (a.task.id === currentTask.id) {
-      a.score += 0.2
+  function scoreMatch (match) {
+    let score = 0
+    if (match.task.id === currentTask.id) {
+      score += 0.2
     }
-    if (b.task.id === currentTask.id) {
-      b.score += 0.2
-    }
+    const age = Date.now() - (match.tab.lastActivity || 0)
+
+    score += 0.3 / (1 + Math.exp(age / (30 * 24 * 60 * 60 * 1000)))
+    return score
+  }
+
+  var finalMatches = matches.map(function (match) {
+    match.score += scoreMatch(match)
+    return match
+  }).sort(function (a, b) {
     return b.score - a.score
   }).slice(0, 2)
 
