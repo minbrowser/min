@@ -139,6 +139,14 @@ function closeTab (tabId) {
 
 /* changes the currently-selected task and updates the UI */
 
+function setWindowTitle (taskData) {
+  if (taskData.name) {
+    document.title = (taskData.name.length > 100 ? taskData.name.substring(0, 100) + '...' : taskData.name)
+  } else {
+    document.title = 'Min'
+  }
+}
+
 function switchToTask (id) {
   tasks.setSelected(id)
 
@@ -161,7 +169,15 @@ function switchToTask (id) {
   } else {
     addTab()
   }
+
+  setWindowTitle(taskData)
 }
+
+tasks.on('task-updated', function (id, key) {
+  if (key === 'name' && id === tasks.getSelected().id) {
+    setWindowTitle(tasks.get(id))
+  }
+})
 
 /* switches to a tab - update the webview, state, tabstrip, etc. */
 
