@@ -172,9 +172,9 @@
     "settingsStartupCreateTask": "Открыть предыдущие вкладки",
     "settingsStartupNewTaskandBackground": "Переместить предыдущие вкладки в фоновую задачу",
     "settingsStartupNewTaskOnly": "Открыть новую пустую задачу",
-    "settingsNewWindowOptions": null, //missing translation
-    "settingsNewWindowCreateTask": null, //missing translation
-    "settingsNewWindowPickTask": null, //missing translation
+    "settingsNewWindowOptions": "В новых окнах: ",
+    "settingsNewWindowCreateTask": "Создать новую задачу",
+    "settingsNewWindowPickTask": "Показать список задач",
     "settingsSearchEngineHeading": "Поиск",
     "settingsDefaultSearchEngine": "Выберите поисковую систему по умолчанию:",
     "settingsDDGExplanation": "Чтобы видеть мгновенные ответы в строке поиска, установите DuckDuckGo поисковиком по умолчанию.",
@@ -235,7 +235,7 @@
     "appMenuQuit": "Выйти из %n",
     "appMenuBringToFront": "Переместить всё на передний план",
     /* PDF Viewer */
-    "PDFInvertPage": null, //missing translation
+    "PDFInvertPage": "Инвертировать цвета страницы",
     "PDFPageCounter": {
       "unsafeHTML": "страница <input type='text'/> из <span id='total'></span>"
     },

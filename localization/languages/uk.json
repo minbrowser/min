@@ -173,9 +173,9 @@
     "settingsStartupCreateTask": "Відкрити попередні вкладки",
     "settingsStartupNewTaskandBackground": "Перемістити попередні вкладки до фонового завдання",
     "settingsStartupNewTaskOnly": "Відкрити нове порожнє завдання",
-    "settingsNewWindowOptions": null, //missing translation
-    "settingsNewWindowCreateTask": null, //missing translation
-    "settingsNewWindowPickTask": null, //missing translation
+    "settingsNewWindowOptions": "В нових вікнах: ",
+    "settingsNewWindowCreateTask": "Створити нове завдання",
+    "settingsNewWindowPickTask": "Показати список завдань",
     "settingsSearchEngineHeading": "Пошукова система",
     "settingsDefaultSearchEngine": "Виберіть типову пошукову систему:",
     "settingsDDGExplanation": "Встановіть DuckDuckGo як типову пошукову систему, щоб побачити миттєві відповіді на панелі пошуку.",
@@ -236,7 +236,7 @@
     "appMenuQuit": "Вийти з %n",
     "appMenuBringToFront": "Все на передній план",
     /* PDF Viewer */
-    "PDFInvertPage": null, //missing translation
+    "PDFInvertPage": "Інвертувати кольори сторінки",
     "PDFPageCounter": {
       "unsafeHTML": "сторінка <input type='text'/> з <span id='total'></span>"
     },
