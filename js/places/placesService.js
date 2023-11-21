@@ -20,7 +20,6 @@ function calculateHistoryScore (item) { // item.boost - how much the score shoul
 }
 
 const oneDayInMS = 24 * 60 * 60 * 1000 // one day in milliseconds
-const oneWeekAgo = Date.now() - (oneDayInMS * 7)
 
 // the oldest an item can be to remain in the database
 const maxItemAge = oneDayInMS * 42

@@ -36,9 +36,9 @@
     "mousetrap": "^1.5.3",
     "node-abi": "^3.8.0",
     "pdfjs-dist": "2.12.313",
+    "quick-score": "^0.2.0",
     "regedit": "^3.0.3",
-    "stemmer": "^1.0.5",
-    "string_score": "^0.1.22"
+    "stemmer": "^1.0.5"
   },
   "devDependencies": {
     "archiver": "^4.0.1",

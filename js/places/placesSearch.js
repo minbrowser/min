@@ -1,10 +1,10 @@
-/* global spacesRegex oneWeekAgo historyInMemoryCache calculateHistoryScore */
+/* global spacesRegex historyInMemoryCache calculateHistoryScore */
 
 /* depends on placesWorker.js */
 
 function processSearchText (text) {
   // the order of these transformations is important - for example, spacesRegex removes / characters, so protocols must be removed before it runs
-  return text.toLowerCase().split('?')[0].replace('http://', '').replace('https://', '').replace('www.', '').replace(spacesRegex, ' ')
+  return text.toLowerCase().split('?')[0].replace('http://', '').replace('https://', '').replace('www.', '').replace(spacesRegex, ' ').trim()
 }
 
 function searchPlaces (searchText, callback, options) {
@@ -13,10 +13,11 @@ function searchPlaces (searchText, callback, options) {
       return
     }
     const itextURL = processSearchText(item.url)
+    const itextTitle = item.title.toLowerCase().replace(spacesRegex, ' ')
     let itext = itextURL
 
     if (item.url !== item.title) {
-      itext += ' ' + item.title.toLowerCase().replace(spacesRegex, ' ')
+      itext += ' ' + itextTitle
     }
 
     if (item.tags) {
@@ -54,21 +55,18 @@ function searchPlaces (searchText, callback, options) {
         }
       }
 
-      if (item.visitCount !== 1 || item.lastVisit > oneWeekAgo) { // if the item has been visited more than once, or has been visited in the last week, we should calculate the fuzzy score. Otherwise, it is ignored. This reduces the number of bad results and increases search speed.
-        const score = itextURL.score(st, 0)
-
-        if (score > 0.4 + (0.00075 * itextURL.length)) {
-          item.boost = score * 0.5
-
-          if (score > 0.62) {
-            item.boost += 0.33
-          }
-
+      if ((item.visitCount > 2 && item.lastVisit > oneWeekAgo) || item.lastVisit > oneDayAgo) {
+        const score = Math.max(quickScore.quickScore(itextURL.substring(0, 100), st), quickScore.quickScore(itextTitle.substring(0, 50), st))
+        if (score > 0.3) {
+          item.boost = score * 0.33
           matches.push(item)
         }
       }
     }
   }
+
+  const oneDayAgo = Date.now() - (oneDayInMS)
+  const oneWeekAgo = Date.now() - (oneDayInMS * 7)
 
   const matches = []
   const st = processSearchText(searchText)
