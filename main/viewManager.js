@@ -5,6 +5,9 @@ var viewStateMap = {} // id: view state
 
 var temporaryPopupViews = {} // id: view
 
+// rate limit on "open in app" requests
+var globalLaunchRequests = 0
+
 const defaultViewWebPreferences = {
   nodeIntegration: false,
   nodeIntegrationInSubFrames: true,
@@ -161,22 +164,17 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
     if (!knownProtocols.includes(url.split(':')[0])) {
       var externalApp = app.getApplicationNameForProtocol(url)
       if (externalApp) {
-        // TODO find a better way to do this
-        // (the reason to use executeJS instead of the Electron dialog API is so we get the "prevent this page from creating additional dialogs" checkbox)
         var sanitizedName = externalApp.replace(/[^a-zA-Z0-9.]/g, '')
-        if (view.webContents.getURL()) {
-          view.webContents.executeJavaScript('confirm("' + l('openExternalApp').replace('%s', sanitizedName) + '")').then(function (result) {
-            if (result === true) {
-              electron.shell.openExternal(url)
-            }
-          })
-        } else {
-          // the code above tries to show the dialog in a browserview, but if the view has no URL, this won't work.
-          // so show the dialog globally as a fallback
+        if (globalLaunchRequests < 2) {
+          globalLaunchRequests++
+          setTimeout(function () {
+            globalLaunchRequests--
+          }, 20000)
           var result = electron.dialog.showMessageBoxSync({
             type: 'question',
             buttons: ['OK', 'Cancel'],
-            message: l('openExternalApp').replace('%s', sanitizedName).replace(/\\/g, '')
+            message: l('openExternalApp').replace('%s', sanitizedName).replace(/\\/g, ''),
+            detail: url.length > 160 ? url.substring(0, 160) + '...' : url
           })
 
           if (result === 0) {
