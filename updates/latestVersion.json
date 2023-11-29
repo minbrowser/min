@@ -1,7 +1,7 @@
 {
-    "version": "1.28.1",
-    "releaseTime": 1688089879635,
-    "releaseHeadline": "Important security update",
+    "version": "1.30.0",
+    "releaseTime": 1700957175044,
+    "releaseHeadline": "Improved search and bug fixes",
     "releaseNotes": "https://minbrowser.org/releases/",
     "availabilityPercent": 1
 }
