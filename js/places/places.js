@@ -5,8 +5,9 @@ const searchEngine = require('util/searchEngine.js')
 const urlParser = require('util/urlParser.js')
 
 const places = {
+  messagePort: null,
   sendMessage: function (data) {
-    ipc.send('places-request', data)
+    places.messagePort.postMessage(data)
   },
   savePage: function (tabId, extractedText) {
     /* this prevents pages that are immediately left from being saved to history, and also gives the page-favicon-updated event time to fire (so the colors saved to history are correct). */
@@ -113,8 +114,8 @@ const places = {
       callbackId: callbackId
     })
   },
-  onMessage: function (e, data) {
-    places.runWorkerCallback(data.callbackId, data.result)
+  onMessage: function (e) {
+    places.runWorkerCallback(e.data.callbackId, e.data.result)
   },
   getItem: function (url, callback) {
     const callbackId = places.addWorkerCallback(callback)
@@ -204,7 +205,12 @@ const places = {
     })
   },
   initialize: function () {
-    ipc.on('places-response', places.onMessage)
+    const { port1, port2 } = new MessageChannel()
+
+    ipc.postMessage('places-connect', null, [port1])
+    places.messagePort = port2
+    port2.addEventListener('message', places.onMessage)
+    port2.start()
 
     webviews.bindIPC('pageData', places.receiveHistoryData)
   }

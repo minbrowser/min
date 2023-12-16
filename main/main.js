@@ -459,6 +459,6 @@ app.once('ready', function() {
   placesWindow.loadURL(placesPage)
 })
 
-ipc.on('places-request', function(e, data) {
-  placesWindow.webContents.send('places-request', e.sender.id, data)
+ipc.on('places-connect', function (e) {
+  placesWindow.webContents.postMessage('places-connect', null, e.ports)
 })

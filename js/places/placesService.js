@@ -97,7 +97,7 @@ function loadHistoryInMemory () {
 
 loadHistoryInMemory()
 
-ipcRenderer.on('places-request', function (e, requesterId, data) {
+function handleRequest (data, cb) {
   const action = data.action
   const pageData = data.pageData
   const flags = data.flags || {}
@@ -109,7 +109,7 @@ ipcRenderer.on('places-request', function (e, requesterId, data) {
     let found = false
     for (let i = 0; i < historyInMemoryCache.length; i++) {
       if (historyInMemoryCache[i].url === pageData.url) {
-        ipcRenderer.sendTo(requesterId, 'places-response', {
+        cb({
           result: historyInMemoryCache[i],
           callbackId: callbackId
         })
@@ -118,7 +118,7 @@ ipcRenderer.on('places-request', function (e, requesterId, data) {
       }
     }
     if (!found) {
-      ipcRenderer.sendTo(requesterId, 'places-response', {
+      cb({
         result: null,
         callbackId: callbackId
       })
@@ -126,7 +126,7 @@ ipcRenderer.on('places-request', function (e, requesterId, data) {
   }
 
   if (action === 'getAllPlaces') {
-    ipcRenderer.sendTo(requesterId, 'places-response', {
+    cb({
       result: historyInMemoryCache,
       callbackId: callbackId
     })
@@ -157,7 +157,7 @@ ipcRenderer.on('places-request', function (e, requesterId, data) {
             item.searchIndex = tokenize(pageData.extractedText)
             item.extractedText = pageData.extractedText
           } else if (key === 'tags') {
-            // ensure tags are never saved with spaces in them
+          // ensure tags are never saved with spaces in them
             item.tags = pageData.tags.map(t => t.replace(/\s/g, '-'))
           } else {
             item[key] = pageData[key]
@@ -175,7 +175,7 @@ ipcRenderer.on('places-request', function (e, requesterId, data) {
         } else {
           addOrUpdateHistoryCache(item)
         }
-        ipcRenderer.sendTo(requesterId, 'places-response', {
+        cb({
           result: null,
           callbackId: callbackId
         })
@@ -202,28 +202,28 @@ ipcRenderer.on('places-request', function (e, requesterId, data) {
   }
 
   if (action === 'getSuggestedTags') {
-    ipcRenderer.sendTo(requesterId, 'places-response', {
+    cb({
       result: tagIndex.getSuggestedTags(historyInMemoryCache.find(i => i.url === pageData.url)),
       callbackId: callbackId
     })
   }
 
   if (action === 'getAllTagsRanked') {
-    ipcRenderer.sendTo(requesterId, 'places-response', {
+    cb({
       result: tagIndex.getAllTagsRanked(historyInMemoryCache.find(i => i.url === pageData.url)),
       callbackId: callbackId
     })
   }
 
   if (action === 'getSuggestedItemsForTags') {
-    ipcRenderer.sendTo(requesterId, 'places-response', {
+    cb({
       result: tagIndex.getSuggestedItemsForTags(pageData.tags),
       callbackId: callbackId
     })
   }
 
   if (action === 'autocompleteTags') {
-    ipcRenderer.sendTo(requesterId, 'places-response', {
+    cb({
       result: tagIndex.autocompleteTags(pageData.tags),
       callbackId: callbackId
     })
@@ -231,7 +231,7 @@ ipcRenderer.on('places-request', function (e, requesterId, data) {
 
   if (action === 'searchPlaces') { // do a history search
     searchPlaces(searchText, function (matches) {
-      ipcRenderer.sendTo(requesterId, 'places-response', {
+      cb({
         result: matches,
         callbackId: callbackId
       })
@@ -244,7 +244,7 @@ ipcRenderer.on('places-request', function (e, requesterId, data) {
         return calculateHistoryScore(b) - calculateHistoryScore(a)
       })
 
-      ipcRenderer.sendTo(requesterId, 'places-response', {
+      cb({
         result: matches.slice(0, 100),
         callbackId: callbackId
       })
@@ -265,16 +265,26 @@ ipcRenderer.on('places-request', function (e, requesterId, data) {
         return b.hScore - a.hScore
       })
 
-      ipcRenderer.sendTo(requesterId, 'places-response', {
+      cb({
         result: results.slice(0, 100),
         callbackId: callbackId
       })
     }
-
     if (historyInMemoryCache.length > 10 || doneLoadingHistoryCache) {
       returnSuggestionResults()
     } else {
       setTimeout(returnSuggestionResults, 100)
     }
   }
+}
+
+ipcRenderer.on('places-connect', function (e) {
+  e.ports[0].addEventListener('message', function (e2) {
+    const data = e2.data
+
+    handleRequest(data, function (res) {
+      e.ports[0].postMessage(res)
+    })
+  })
+  e.ports[0].start()
 })
