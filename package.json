@@ -38,6 +38,7 @@
     "pdfjs-dist": "2.12.313",
     "quick-score": "^0.2.0",
     "regedit": "^3.0.3",
+    "sortablejs": "^1.15.1",
     "stemmer": "^1.0.5"
   },
   "devDependencies": {
