@@ -64,7 +64,7 @@
     "exitReaderView": "Poistu lukijanäkymästä",
     "newTabLabel": "Uusi välilehti", //this is a noun, used for tabs that don't have a page loaded in them yet
     "connectionNotSecure": "Yhteytesi tälle sivustolle ei ole suojattu",
-    "searchbarPlaceholder": "Etsi tai kirjoita osoite",
+    "searchbarPlaceholder": "Hae tai kirjoita osoite",
     "privateTab": "Yksityinen välilehti",
     "newTabAction": "Uusi välilehti", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
     /* task overlay */
