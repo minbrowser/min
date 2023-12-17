@@ -270,7 +270,7 @@ var TaskOverlayBuilder = {
         el.setAttribute('data-tab', tab.id)
 
         el.addEventListener('click', function (e) {
-          if (!e.metaKey && !e.ctrlKey) {
+          if (!e.metaKey && !e.ctrlKey && !e.shiftKey) {
             events.tabSelect.call(this, e)
           }
         })
