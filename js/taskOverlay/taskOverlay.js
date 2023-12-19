@@ -8,7 +8,7 @@ var tabEditor = require('navbar/tabEditor.js')
 var focusMode = require('focusMode.js')
 var modalMode = require('modalMode.js')
 var keyboardNavigationHelper = require('util/keyboardNavigationHelper.js')
-var dragula = require('dragula')
+var Sortable = require('sortablejs')
 
 const createTaskContainer = require('taskOverlay/taskOverlayBuilder.js')
 
@@ -42,65 +42,105 @@ function getTaskContainer (id) {
   return document.querySelector('.task-container[data-task="{id}"]'.replace('{id}', id))
 }
 
-var draggingScrollInterval = null
-
-function onMouseMoveWhileDragging (e) {
-  clearInterval(draggingScrollInterval)
-  if (e.pageY < 100) {
-    draggingScrollInterval = setInterval(function () {
-      taskContainer.scrollBy(0, -5)
-    }, 16)
-  } else if (e.pageY > (window.innerHeight - 125)) {
-    draggingScrollInterval = setInterval(function () {
-      taskContainer.scrollBy(0, 5)
-    }, 16)
-  }
-}
-
-function startMouseDragRecording () {
-  window.addEventListener('mousemove', onMouseMoveWhileDragging)
-}
-
-function endMouseDragRecording () {
-  window.removeEventListener('mousemove', onMouseMoveWhileDragging)
-  clearInterval(draggingScrollInterval)
-}
-
 var taskOverlay = {
   overlayElement: document.getElementById('task-overlay'),
   isShown: false,
-  tabDragula: dragula({
-    direction: 'vertical',
-    mirrorContainer: document.getElementById('task-overlay'),
-    moves: function (el, source, handle, sibling) {
-      // trying to click buttons can cause them to be dragged by accident, so disable dragging on them
-      var n = handle
-      while (n) {
-        if (n.tagName === 'BUTTON') {
-          return false
-        }
-        n = n.parentElement
+  sortableInstances: [],
+  addTaskDragging: function () {
+    const sortable = new Sortable(taskContainer, {
+      group: 'overlay-tasks',
+      draggable: '.task-container',
+      ghostClass: 'task-drop-placeholder',
+      scroll: true,
+      scrollSensitivity: 100,
+      forceAutoScrollFallback: true,
+      scrollSpeed: 15,
+      onEnd: function (e) {
+        var droppedTaskId = e.item.getAttribute('data-task')
+        const insertionPoint = Array.from(taskContainer.children).indexOf(e.item)
+
+        // remove the task from the tasks list
+        var droppedTask = tasks.splice(tasks.getIndex(droppedTaskId), 1)[0]
+
+        // reinsert the task
+        tasks.splice(insertionPoint, 0, droppedTask)
       }
-      return true
-    }
-  }),
-  taskDragula: dragula({
-    direction: 'vertical',
-    mirrorContainer: document.getElementById('task-overlay'),
-    containers: [taskContainer],
-    moves: function (el, source, handle, sibling) {
-      // ignore drag events that come from a tab element, since they will be handled by the other dragula instance
-      // also ignore inputs, since using them as drag handles breaks text selection
-      var n = handle
-      while (n) {
-        if (n.classList.contains('task-tab-item') || n.tagName === 'INPUT') {
-          return false
+    })
+    taskOverlay.sortableInstances.push(sortable)
+  },
+  addTabDragging: function (el) {
+    const sortable = new Sortable(el, {
+      group: 'overlay-tabs',
+      draggable: '.task-tab-item',
+      ghostClass: 'tab-drop-placeholder',
+      multiDrag: true,
+      multiDragKey: (window.platformType === 'mac' ? 'Meta' : 'Ctrl'),
+      selectedClass: 'dragging-selected',
+      animation: 200,
+      scroll: true,
+      scrollSensitivity: 100,
+      forceAutoScrollFallback: true,
+      scrollSpeed: 15,
+      onStart: function () {
+        taskOverlay.overlayElement.classList.add('is-dragging-tab')
+      },
+      onEnd: function (e) {
+        taskOverlay.overlayElement.classList.remove('is-dragging-tab')
+
+        const items = (e.items.length === 0) ? [e.item] : e.items
+
+        const sortedItems = Array.from(e.to.children).filter(item => items.some(item2 => item2 === item))
+
+        var newTask
+        // if dropping on "add task" button, create a new task
+        if (e.to === addTaskButton) {
+          newTask = tasks.get(tasks.add())
+        } else {
+        // otherwise, find a source task to add this tab to
+          newTask = tasks.get(e.to.getAttribute('data-task'))
         }
-        n = n.parentElement
+
+        sortedItems.forEach(function (item) {
+          var tabId = item.getAttribute('data-tab')
+          var previousTask = tasks.getTaskContainingTab(tabId) // note: can't use e.from here, because it contains only a single element and items could be coming from multiple tasks
+
+          var oldTab = previousTask.tabs.splice(previousTask.tabs.getIndex(tabId), 1)[0]
+
+          if (oldTab.selected) {
+            // find a new tab in the old task to become the current one
+            var mostRecentTab = previousTask.tabs.get().sort(function (a, b) {
+              return b.lastActivity - a.lastActivity
+            })[0]
+            if (mostRecentTab) {
+              previousTask.tabs.setSelected(mostRecentTab.id)
+            }
+
+            // shouldn't become selected in the new task
+            oldTab.selected = false
+          }
+
+          // if the old task has no tabs left in it, destroy it
+
+          if (previousTask.tabs.count() === 0) {
+            browserUI.closeTask(previousTask.id)
+            getTaskContainer(previousTask.id).remove()
+          }
+
+          if (e.to === addTaskButton) {
+            item.remove()
+          }
+
+          var newIdx = Array.from(e.to.children).findIndex(t => t === item)
+
+          // insert the tab at the correct spot
+          newTask.tabs.splice(newIdx, 0, oldTab)
+        })
+        tabBar.updateAll()
+        taskOverlay.render()
       }
-      return true
-    }
-  }),
+    })
+    taskOverlay.sortableInstances.push(sortable)
+  },
   show: function () {
     /* disabled in focus mode */
     if (focusMode.enabled()) {
@@ -133,8 +173,12 @@ var taskOverlay = {
     }
   },
   render: function () {
-    this.tabDragula.containers = [addTaskButton]
     empty(taskContainer)
+    this.sortableInstances.forEach(inst => inst.destroy())
+    this.sortableInstances = []
+
+    taskOverlay.addTabDragging(addTaskButton)
+    taskOverlay.addTaskDragging()
 
     // show the task elements
     tasks.forEach(function (task, index) {
@@ -164,7 +208,7 @@ var taskOverlay = {
       })
 
       taskContainer.appendChild(el)
-      taskOverlay.tabDragula.containers.push(el.getElementsByClassName('task-tabs-container')[0])
+      taskOverlay.addTabDragging(el.querySelector('.task-tabs-container'))
     })
   },
 
@@ -180,8 +224,6 @@ var taskOverlay = {
           webviews.hidePlaceholder('taskOverlay')
         }
       }, 250)
-
-      this.tabDragula.containers = []
 
       document.body.classList.remove('task-overlay-is-shown')
 
@@ -326,127 +368,6 @@ var taskOverlay = {
     keybindings.defineShortcut('addTask', addTaskFromMenu)
     ipcRenderer.on('addTask', addTaskFromMenu) // for menu item
 
-    /* rearrange tabs when they are dropped */
-
-    taskOverlay.tabDragula.on('drag', function () {
-      taskOverlay.overlayElement.classList.add('is-dragging-tab')
-    })
-
-    taskOverlay.tabDragula.on('dragend', function () {
-      taskOverlay.overlayElement.classList.remove('is-dragging-tab')
-    })
-
-    taskOverlay.tabDragula.on('over', function (el, container, source) {
-      if (container === addTaskButton) {
-        addTaskButton.classList.add('drag-target')
-      }
-    })
-
-    taskOverlay.tabDragula.on('out', function (el, container, source) {
-      if (container === addTaskButton) {
-        addTaskButton.classList.remove('drag-target')
-      }
-    })
-
-    taskOverlay.tabDragula.on('drop', function (el, target, source, sibling) { // see https://github.com/bevacqua/dragula#drakeon-events
-      var tabId = el.getAttribute('data-tab')
-
-      var previousTask = tasks.get(source.getAttribute('data-task'))
-
-      // remove tab from old task
-      var oldTab = previousTask.tabs.splice(previousTask.tabs.getIndex(tabId), 1)[0]
-
-      if (oldTab.selected) {
-        // find a new tab in the old task to become the current one
-        var mostRecentTab = previousTask.tabs.get().sort(function (a, b) {
-          return b.lastActivity - a.lastActivity
-        })[0]
-        if (mostRecentTab) {
-          previousTask.tabs.setSelected(mostRecentTab.id)
-        }
-
-        // shouldn't become selected in the new task
-        oldTab.selected = false
-      }
-
-      // if the old task has no tabs left in it, destroy it
-
-      if (previousTask.tabs.count() === 0) {
-        browserUI.closeTask(previousTask.id)
-        getTaskContainer(previousTask.id).remove()
-      }
-
-      var newTask
-      // if dropping on "add task" button, create a new task
-      if (target === addTaskButton) {
-        newTask = tasks.get(tasks.add())
-        // remove from button, and re-create in overlay
-        el.remove()
-      } else {
-        // otherwise, find a source task to add this tab to
-        newTask = tasks.get(target.getAttribute('data-task'))
-      }
-
-      if (sibling) {
-        var adjacentTadId = sibling.getAttribute('data-tab')
-      }
-
-      var newIdx
-      // find where in the new task the tab should be inserted
-      if (adjacentTadId) {
-        newIdx = newTask.tabs.getIndex(adjacentTadId)
-      } else {
-        // tab was inserted at end
-        newIdx = newTask.tabs.count()
-      }
-
-      // insert the tab at the correct spot
-      newTask.tabs.splice(newIdx, 0, oldTab)
-
-      tabBar.updateAll()
-      taskOverlay.show()
-    })
-
-    /* rearrange tasks when they are dropped */
-
-    taskOverlay.taskDragula.on('drop', function (el, target, source, sibling) {
-      var droppedTaskId = el.getAttribute('data-task')
-      if (sibling) {
-        var adjacentTaskId = sibling.getAttribute('data-task')
-      }
-
-      // remove the task from the tasks list
-      var droppedTask = tasks.splice(tasks.getIndex(droppedTaskId), 1)[0]
-
-      // find where it should be inserted
-      if (adjacentTaskId) {
-        var newIdx = tasks.getIndex(adjacentTaskId)
-      } else {
-        var newIdx = tasks.getLength()
-      }
-
-      // reinsert the task
-      tasks.splice(newIdx, 0, droppedTask)
-    })
-
-    /* auto-scroll the container when the item is dragged to the edge of the screen */
-
-    taskOverlay.tabDragula.on('drag', function () {
-      startMouseDragRecording()
-    })
-
-    taskOverlay.tabDragula.on('dragend', function () {
-      endMouseDragRecording()
-    })
-
-    taskOverlay.taskDragula.on('drag', function () {
-      startMouseDragRecording()
-    })
-
-    taskOverlay.taskDragula.on('dragend', function () {
-      endMouseDragRecording()
-    })
-
     taskSwitcherButton.title = l('viewTasks')
     addTaskLabel.textContent = l('newTask')
 
@@ -463,9 +384,9 @@ var taskOverlay = {
       taskOverlay.hide()
     })
 
-    tasks.on('state-sync-change', function() {
+    tasks.on('state-sync-change', function () {
       if (taskOverlay.isShown) {
-        taskOverlay.render();
+        taskOverlay.render()
       }
     })
   }
