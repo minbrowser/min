@@ -14,7 +14,12 @@ var searchbar = require('searchbar/searchbar.js')
 /* creates a new task */
 
 function addTask () {
-  tasks.setSelected(tasks.add())
+  // insert after current task
+  let index
+  if (tasks.getSelected()) {
+    index = tasks.getIndex(tasks.getSelected().id) + 1
+  }
+  tasks.setSelected(tasks.add({}, index))
 
   tabBar.updateAll()
   addTab()

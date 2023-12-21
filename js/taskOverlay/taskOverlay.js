@@ -94,7 +94,12 @@ var taskOverlay = {
         var newTask
         // if dropping on "add task" button, create a new task
         if (e.to === addTaskButton) {
-          newTask = tasks.get(tasks.add())
+          // insert after current task
+          let index
+          if (tasks.getSelected()) {
+            index = tasks.getIndex(tasks.getSelected().id) + 1
+          }
+          newTask = tasks.get(tasks.add({}, index))
         } else {
         // otherwise, find a source task to add this tab to
           newTask = tasks.get(e.to.getAttribute('data-task'))
@@ -376,8 +381,9 @@ var taskOverlay = {
     })
 
     addTaskButton.addEventListener('click', function (e) {
-      browserUI.switchToTask(tasks.add())
+      browserUI.addTask()
       taskOverlay.hide()
+      tabEditor.show(tabs.getSelected())
     })
 
     taskOverlayNavbar.addEventListener('click', function () {
