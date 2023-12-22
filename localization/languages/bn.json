@@ -273,25 +273,25 @@
     "passwordManagerSetupRetry": null, //missing translation
     "passwordManagerUnlock": null, //missing translation
     /* Password save bar */
-    "passwordCaptureSavePassword": null, //missing translation
-    "passwordCaptureSave": null, //missing translation
-    "passwordCaptureDontSave": null, //missing translation
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureSavePassword": "%s এর জন্য পাসওয়ার্ড সংরক্ষণ করবেন?",
+    "passwordCaptureSave": "সংরক্ষণ করুন",
+    "passwordCaptureDontSave": "সংরক্ষণ না করুন",
+    "passwordCaptureNeverSave": "কখনও সংরক্ষণ করবেন না",
     /* Password viewer */
-    "savedPasswordsHeading": null, //missing translation
-    "savedPasswordsEmpty": null, //missing translation
-    "savedPasswordsNeverSavedLabel": null, //missing translation
-    "deletePassword": null, //missing translation
+    "savedPasswordsHeading": "সংরক্ষিত পাসওয়ার্ডস",
+    "savedPasswordsEmpty": "কোনো সংরক্ষিত পাসওয়ার্ড নেই।",
+    "savedPasswordsNeverSavedLabel": "কখনও সংরক্ষণ হয়নি",
+    "deletePassword": "%s এর জন্য পাসওয়ার্ড মুছতে চান?"
     /* Dialogs */
-    "loginPromptTitle": null, //missing translation
-    "dialogConfirmButton": null, //missing translation
-    "dialogSkipButton": null, //missing translation
-    "username": null, //missing translation
-    "email": null, //missing translation
-    "password": null, //missing translation
-    "secretKey": null, //missing translation
-    "openExternalApp": null, //missing translation
-    "clickToCopy": null, //missing translation
-    "copied": null //missing translation
+    "loginPromptTitle": "%h এ সাইন ইন করুন", // %h will be replaced with the host
+    "dialogConfirmButton": "কনফার্ম",
+    "dialogSkipButton": "বাতিল করুন",
+    "username": "ইউজারনেম",
+    "email": "ইমেইল",
+    "password": "পাসওয়ার্ড",
+    "secretKey": "গোপন চাবি",
+    "openExternalApp": "\\\"%s\\\" তে খোলা হবে?", // %s is the name of an app
+    "clickToCopy": "কপি করতে ক্লিক করুন",
+    "copied": "কপি হয়েছে"
   }
 }
