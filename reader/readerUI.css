@@ -37,8 +37,9 @@ body[theme="dark"] #auto-redirect-banner {
   border-color: #bbb;
 }
 
-body[theme="dark"] #auto-redirect-button-area button {
-  color: dodgerblue;
+body[theme="sepia"] #auto-redirect-banner {
+  color: rgba(0, 0, 0, 0.75);
+  border-color: rgba(0, 0, 0, 0.15)
 }
 
 #auto-redirect-button-area {
@@ -49,10 +50,17 @@ body[theme="dark"] #auto-redirect-button-area button {
 #auto-redirect-button-area button {
   padding: 0.5em;
   margin-top: -0.5em;
+  color: #777;
+}
+body[theme="dark"] #auto-redirect-button-area button {
+  color: #999;
+}
+
+#auto-redirect-button-area button.primary {
   color: royalblue;
 }
 
-.dark-mode #auto-redirect-button-area button {
+body[theme="dark"] #auto-redirect-button-area button.primary {
   color: dodgerblue;
 }
 

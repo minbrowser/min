@@ -36,7 +36,7 @@ autoRedirectYes.addEventListener('click', function () {
 })
 autoRedirectNo.addEventListener('click', function () {
   readerDecision.setDomainStatus(articleURL, false)
-  autoRedirectBanner.hidden = false
+  autoRedirectBanner.hidden = true
 })
 
 /* Settings */
