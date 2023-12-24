@@ -281,7 +281,7 @@
     "savedPasswordsHeading": "সংরক্ষিত পাসওয়ার্ডস",
     "savedPasswordsEmpty": "কোনো সংরক্ষিত পাসওয়ার্ড নেই।",
     "savedPasswordsNeverSavedLabel": "কখনও সংরক্ষণ হয়নি",
-    "deletePassword": "%s এর জন্য পাসওয়ার্ড মুছতে চান?"
+    "deletePassword": "%s এর জন্য পাসওয়ার্ড মুছতে চান?",
     /* Dialogs */
     "loginPromptTitle": "%h এ সাইন ইন করুন", // %h will be replaced with the host
     "dialogConfirmButton": "কনফার্ম",
