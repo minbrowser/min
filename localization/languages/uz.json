@@ -163,6 +163,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Foydalanuvchi skriptlari sahifa ishlashini o'zgartirishga yordam beradi - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">qo'shimcha ma'lumot</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "Maxsus foydalanvuchi agentidan foydalanish",
     "settingsUpdateNotificationsToggle": " Yangilanishlarni avtomatik ravishda tekshirish",
     "settingsUsageStatisticsToggle": null, //missing translation

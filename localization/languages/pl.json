@@ -163,6 +163,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">dowiedz się więcej</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "Użyj niestandardowego klienta użytkownika",
     "settingsUpdateNotificationsToggle": "Automatycznie sprawdź dostępność aktualizacji",
     "settingsUsageStatisticsToggle": {

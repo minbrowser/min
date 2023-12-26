@@ -162,6 +162,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Потребителските скриптове Ви позволяват да промените поведението на уеб сайтове - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">научете повече</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "Използване на персонализиран потребителски агент",
     "settingsUpdateNotificationsToggle": "Автоматично проверяване за актуализации",
     "settingsUsageStatisticsToggle": null, //missing translation

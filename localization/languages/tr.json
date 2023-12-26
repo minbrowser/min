@@ -163,6 +163,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "Özel kullanıcı aracısı kullan",
     "settingsUpdateNotificationsToggle": "Güncelleştirmeleri otomatik olarak denetle",
     "settingsUsageStatisticsToggle": {

@@ -156,7 +156,8 @@
         "settingsUserscriptsExplanation": {
             "unsafeHTML": "Mã script người dùng có thể cho bạn thay đổi hành vi trang web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Xem thêm</a>."
         },
-        "settingsUserAgentToggle": "Sử dụng tác nhân người dùng tùy chỉnh",
+        "settingsUserscriptShowDirectory": null, //missing translation,
+    "settingsUserAgentToggle": "Sử dụng tác nhân người dùng tùy chỉnh",
         "settingsUpdateNotificationsToggle": "Tự động kiểm tra cập nhật",
         "settingsUsageStatisticsToggle": {
           "unsafeHTML": "Gửi thống kê sử dụng (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Xem thêm</a>)"

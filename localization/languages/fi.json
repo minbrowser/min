@@ -163,6 +163,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Komentosarjat mahdollistavat sivustojen käyttäytymisen mukauttamisen - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">lisätietoja</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "Käytä mukautettua käyttäjäagenttia",
     "settingsUpdateNotificationsToggle": "Tarkista päivitykset automaattisesti",
     "settingsUsageStatisticsToggle": {

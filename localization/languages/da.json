@@ -163,6 +163,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Brugerscripts giver dig mulighed for at ændre adfærd på websteder - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">få mere at vide her</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "Brug en brugerdefineret brugeragent",
     "settingsUpdateNotificationsToggle": "Kontroller automatisk for opdateringer",
     "settingsUsageStatisticsToggle": {

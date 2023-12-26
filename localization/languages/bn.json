@@ -163,6 +163,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "ব্যবহারকারীর স্ক্রিপ্ট আপনাকে ওয়েবসাইটের আচরণ পরিবর্তন করার অনুমতি দেয় - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\"> আরও শিখুন </a>"
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "একটি কাস্টম ব্যবহারকারী এজেন্ট ব্যবহার করুন",
     "settingsUpdateNotificationsToggle": "স্বয়ংক্রিয়ভাবে আপডেটগুলির জন্য পরীক্ষা করুন",
     "settingsUsageStatisticsToggle": null, //missing translation

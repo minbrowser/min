@@ -163,6 +163,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "User script memungkinkan Anda untuk merubah perilaku situs web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Pelajari lebih lanjut</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "Gunakan user agent khusus",
     "settingsUpdateNotificationsToggle": "Cek pembaruan secara otomatis",
     "settingsUsageStatisticsToggle": {
