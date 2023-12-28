@@ -1,6 +1,7 @@
 /* implements userscript support */
 
 var path = require('path')
+var chokidar = require('chokidar')
 
 var webviews = require('webviews.js')
 var settings = require('util/settings/settings.js')
@@ -144,6 +145,26 @@ const userscripts = {
       })
     })
   },
+  startDirWatcher: function () {
+    userscripts.stopDirWatcher() // destroy any previous instance
+    userscripts.watcherInstance = chokidar.watch(userscripts.scriptDir, {
+      ignoreInitial: true,
+      disableGlobbing: true,
+      awaitWriteFinish: {
+        stabilityThreshold: 500,
+        pollInterval: 100
+      }
+    })
+    userscripts.watcherInstance.on('all', debounce(function () {
+      userscripts.loadScripts()
+    }, 100))
+  },
+  stopDirWatcher: function () {
+    if (userscripts.watcherInstance) {
+      userscripts.watcherInstance.close()
+      userscripts.watcherInstance = null
+    }
+  },
   getMatchingScripts: function (src) {
     return userscripts.scripts.filter(function (script) {
       if (
@@ -184,8 +205,10 @@ const userscripts = {
     settings.listen('userscriptsEnabled', function (value) {
       if (value === true) {
         userscripts.loadScripts()
+        userscripts.startDirWatcher()
       } else {
         userscripts.scripts = []
+        userscripts.stopDirWatcher()
       }
     })
     webviews.bindEvent('dom-ready', userscripts.onPageLoad)
