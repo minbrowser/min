@@ -434,7 +434,7 @@ settings.get('keyMap', function (keyMapSettings) {
 })
 
 function formatCamelCase (text) {
-  var result = text.replace(/([A-Z])/g, ' $1')
+  var result = text.replace(/([a-z])([A-Z])/g, '$1 $2')
   return result.charAt(0).toUpperCase() + result.slice(1)
 }
 

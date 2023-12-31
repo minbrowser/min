@@ -268,6 +268,19 @@ const defaultKeybindings = {
     keybindings.defineShortcut('showHistory', function () {
       tabEditor.show(tabs.getSelected(), '!history ')
     })
+
+    keybindings.defineShortcut('copyPageURL', function () {
+      const tab = tabs.get(tabs.getSelected())
+      const anchorTag = document.createElement('a')
+      anchorTag.href = tab.url
+      anchorTag.textContent = tab.url
+
+      electron.clipboard.write({
+        text: tab.url,
+        bookmark: tab.title,
+        html: anchorTag.outerHTML
+      })
+    })
   }
 }
 

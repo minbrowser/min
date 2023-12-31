@@ -11,6 +11,7 @@ var defaultKeyMap = {
   enterEditMode: ['mod+l', 'mod+k'],
   runShortcut: 'mod+e',
   completeSearchbar: 'mod+enter',
+  copyPageURL: 'shift+mod+c',
   closeTab: 'mod+w',
   restoreTab: 'shift+mod+t',
   gotoFirstTab: 'shift+mod+9',
