@@ -163,6 +163,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Korisničke skripte omogućuju vam izmjenu ponašanja web stranica - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saznajte više</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "Upotrijebite prilagođeni korisnički agent",
     "settingsUpdateNotificationsToggle": "Automatski provjeri ima li ažuriranja",
     "settingsUsageStatisticsToggle": {

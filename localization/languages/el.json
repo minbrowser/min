@@ -163,7 +163,8 @@
       "settingsUserscriptsExplanation": {
         "unsafeHTML": "Τα scripts χρηστών σας επιτρέπουν να τροποποιήσετε την συμπεριφορά των ιστοσελίδων - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">μάθετε περισσότερα</a>."
       },
-      "settingsUserAgentToggle": "Χρήση προσαρμοσμένου χρήστη agent",
+      "settingsUserscriptShowDirectory": null, //missing translation,
+    "settingsUserAgentToggle": "Χρήση προσαρμοσμένου χρήστη agent",
       "settingsUpdateNotificationsToggle": "Αυτόματος έλεγχος για ενημερώσεις",
       "settingsUsageStatisticsToggle": {
         "unsafeHTML": "Αποστολή στατιστικών χρήσης (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Παραπάνω πληροφορίες</a>)"

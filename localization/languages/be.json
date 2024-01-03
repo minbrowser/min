@@ -163,7 +163,8 @@
       "settingsUserscriptsExplanation": {
         "unsafeHTML": "Карыстальнiцкiя скрыпты дазваляюць змяняць паводзіны сайтаў - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">даведацца больш</a>."
       },
-      "settingsUserAgentToggle": "Выкарыстоўваць карыстацкі user agent",
+      "settingsUserscriptShowDirectory": null, //missing translation,
+    "settingsUserAgentToggle": "Выкарыстоўваць карыстацкі user agent",
       "settingsUpdateNotificationsToggle": "Аўтаматычна правяраць наяўнасць абнаўленняў",
       "settingsUsageStatisticsToggle": {
         "unsafeHTML": "Адпраўляць статыстыку выкарыстання (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Больш інфармацыі</a>)"

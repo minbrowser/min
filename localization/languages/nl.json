@@ -163,6 +163,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Gebruikersscripten kunt u gebruiken om het gedrag van websites te wijzigingen - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">lees meer</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "Gebruik een aangepaste gebruikersagent",
     "settingsUpdateNotificationsToggle": "Automatisch controleren op updates",
     "settingsUsageStatisticsToggle": {

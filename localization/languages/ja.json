@@ -163,6 +163,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "ユーザースクリプトを使用して、Webサイトの動作を変更できます -  <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">詳細</a>。"
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "カスタムユーザーエージェントを使用する",
     "settingsUpdateNotificationsToggle": "アップデートを自動的に確認する",
     "settingsUsageStatisticsToggle": {

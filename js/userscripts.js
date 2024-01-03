@@ -1,5 +1,8 @@
 /* implements userscript support */
 
+var path = require('path')
+var chokidar = require('chokidar')
+
 var webviews = require('webviews.js')
 var settings = require('util/settings/settings.js')
 var bangsPlugin = require('searchbar/bangsPlugin.js')
@@ -65,22 +68,37 @@ function urlMatchesPattern (url, pattern) {
 }
 
 const userscripts = {
+  scriptDir: path.join(window.globalArgs['user-data-path'], 'userscripts'),
   scripts: [], // {options: {}, content}
+  showDirectory: function () {
+    electron.shell.openPath(userscripts.scriptDir)
+  },
+  ensureDirectoryExists: function () {
+    fs.access(userscripts.scriptDir, fs.constants.R_OK, function (err) {
+      if (err) {
+        fs.mkdir(userscripts.scriptDir, function (err) {
+          if (err) {
+            console.warn('failed to create userscripts directory', err)
+          }
+        })
+      }
+    })
+  },
   loadScripts: function () {
     userscripts.scripts = []
 
-    var path = require('path')
-    var scriptDir = path.join(window.globalArgs['user-data-path'], 'userscripts')
-
-    fs.readdir(scriptDir, function (err, files) {
-      if (err || files.length === 0) {
+    fs.readdir(userscripts.scriptDir, function (err, files) {
+      if (err) {
+        userscripts.ensureDirectoryExists()
+        return
+      } else if (files.length === 0) {
         return
       }
 
       // store the scripts in memory
       files.forEach(function (filename) {
         if (filename.endsWith('.js')) {
-          fs.readFile(path.join(scriptDir, filename), 'utf-8', function (err, file) {
+          fs.readFile(path.join(userscripts.scriptDir, filename), 'utf-8', function (err, file) {
             if (err || !file) {
               return
             }
@@ -127,6 +145,26 @@ const userscripts = {
       })
     })
   },
+  startDirWatcher: function () {
+    userscripts.stopDirWatcher() // destroy any previous instance
+    userscripts.watcherInstance = chokidar.watch(userscripts.scriptDir, {
+      ignoreInitial: true,
+      disableGlobbing: true,
+      awaitWriteFinish: {
+        stabilityThreshold: 500,
+        pollInterval: 100
+      }
+    })
+    userscripts.watcherInstance.on('all', debounce(function () {
+      userscripts.loadScripts()
+    }, 100))
+  },
+  stopDirWatcher: function () {
+    if (userscripts.watcherInstance) {
+      userscripts.watcherInstance.close()
+      userscripts.watcherInstance = null
+    }
+  },
   getMatchingScripts: function (src) {
     return userscripts.scripts.filter(function (script) {
       if (
@@ -167,11 +205,17 @@ const userscripts = {
     settings.listen('userscriptsEnabled', function (value) {
       if (value === true) {
         userscripts.loadScripts()
+        userscripts.startDirWatcher()
       } else {
         userscripts.scripts = []
+        userscripts.stopDirWatcher()
       }
     })
     webviews.bindEvent('dom-ready', userscripts.onPageLoad)
+
+    webviews.bindIPC('showUserscriptDirectory', function () {
+      userscripts.showDirectory()
+    })
 
     bangsPlugin.registerCustomBang({
       phrase: '!run',

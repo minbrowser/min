@@ -163,6 +163,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Пользовательские скрипты позволяют изменять поведение сайтов - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">узнать больше</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "Использовать пользовательский user agent",
     "settingsUpdateNotificationsToggle": "Автоматически проверять наличие обновлений",
     "settingsUsageStatisticsToggle": {

@@ -163,6 +163,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Uživatelské skripty umožňují upravit chování webových stránek - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">více informací</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "Použít vlastní User-Agent řetězec",
     "settingsUpdateNotificationsToggle": "Automaticky kontrolovat aktualizace",
     "settingsUsageStatisticsToggle": {

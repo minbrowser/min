@@ -163,6 +163,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Les scripts personnalisés vous permettent de modifier le comportement des pages web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">en savoir plus (en anglais)</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "Utiliser un user-agent particulier",
     "settingsUpdateNotificationsToggle": "Vérifier automatiquement pour des mises à jour",
     "settingsUsageStatisticsToggle": {

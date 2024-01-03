@@ -163,6 +163,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "自定义脚本允许您改变网站行为 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": "自定义浏览器User-Agent",
     "settingsUpdateNotificationsToggle": "自动检查更新",
     "settingsUsageStatisticsToggle": {

@@ -164,6 +164,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "اسکریپت های کاربر این اجازه را به شما می دهند تا رفتار سایت ها را تغییر دهید - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اطلاعات بیشتر</a>."
     },
+    "settingsUserscriptShowDirectory": null, //missing translation,
     "settingsUserAgentToggle": null, //missing translation
     "settingsUpdateNotificationsToggle": null, //missing translation
     "settingsUsageStatisticsToggle": null, //missing translation
