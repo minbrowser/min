@@ -82,11 +82,29 @@ class OnePassword {
     return compareVersions('2.2.0', data) >= 0
   }
 
+  async _completeIntegrationPrompt (command) {
+    try {
+      const process = new ProcessSpawner(command, ['whoami'], {}, 1000)
+      await process.executeSyncInAsyncContext()
+    } catch (e) {
+      if (e.toString().includes('Would you like to turn on the 1Password app integration?')) {
+        console.warn('disabling 1password app integration')
+        try {
+          const retryProcess = new ProcessSpawner(command, ['whoami'], {}, 1000)
+          await retryProcess.executeSyncInAsyncContext('n\n')
+        } catch (e) {
+          console.warn(e)
+        }
+      }
+    }
+    return true
+  }
+
   // Checks if 1Password integration is configured properly by trying to
   // obtain a valid 1Password-CLI tool path.
   async checkIfConfigured () {
     this.path = await this._getToolPath()
-    return this.path != null && (await this._checkVersion(this.path))
+    return this.path != null && (await this._checkVersion(this.path)) && (await this._completeIntegrationPrompt(this.path))
   }
 
   // Returns current 1Password-CLI status. If we have a session key, then
