@@ -13,7 +13,8 @@ const {
   crashReporter,
   dialog,
   nativeTheme,
-  shell
+  shell,
+  net
 } = electron
 
 crashReporter.start({
@@ -61,7 +62,7 @@ app.commandLine.appendSwitch('disable-backgrounding-occluded-windows', 'true')
 
 var userDataPath = app.getPath('userData')
 
-const browserPage = 'file://' + __dirname + '/index.html'
+const browserPage = 'min://app/index.html'
 
 var mainMenu = null
 var secondaryMenu = null
@@ -326,6 +327,8 @@ app.on('ready', function () {
   if (isInstallerRunning) {
     return
   }
+
+  registerBundleProtocol(session.defaultSession)
 
   const newWin = createWindow()
 

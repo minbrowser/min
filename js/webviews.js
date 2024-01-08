@@ -29,7 +29,7 @@ function captureCurrentTab (options) {
 
 // called whenever a new page starts loading, or an in-page navigation occurs
 function onPageURLChange (tab, url) {
-  if (url.indexOf('https://') === 0 || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('file://') === 0) {
+  if (url.indexOf('https://') === 0 || url.indexOf('about:') === 0 || url.indexOf('chrome:') === 0 || url.indexOf('file://') === 0 || url.indexOf('min://') === 0) {
     tabs.update(tab, {
       secure: true,
       url: url
@@ -104,7 +104,7 @@ const webviews = {
   placeholderRequests: [],
   asyncCallbacks: {},
   internalPages: {
-    error: urlParser.getFileURL(__dirname + '/pages/error/index.html')
+    error: 'min://app/pages/error/index.html'
   },
   events: [],
   IPCEvents: [],
@@ -464,7 +464,7 @@ webviews.bindIPC('setSetting', function (tabId, args) {
 settings.listen(function () {
   tasks.forEach(function (task) {
     task.tabs.forEach(function (tab) {
-      if (tab.url.startsWith('file://')) {
+      if (tab.url.startsWith('min://')) {
         try {
           webviews.callAsync(tab.id, 'send', ['receiveSettingsData', settings.list])
         } catch (e) {

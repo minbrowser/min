@@ -62,7 +62,6 @@ function downloadHandler (event, item, webContents) {
 function listenForDownloadHeaders (ses) {
   ses.webRequest.onHeadersReceived(function (details, callback) {
     if (details.resourceType === 'mainFrame' && details.responseHeaders) {
-
       let sourceWindow
       if (details.webContents) {
         const sourceView = Object.values(viewMap).find(view => view.webContents.id === details.webContents.id)
@@ -98,6 +97,27 @@ function listenForDownloadHeaders (ses) {
         isFileView
       })
     }
+
+    /*
+    SECURITY POLICY EXCEPTION:
+    reader and PDF internal pages get universal access to web resources
+    Note: we can't limit to the URL in the query string, because there could be redirects
+    */
+    if (details.webContents && (details.webContents.getURL().startsWith('min://app/pages/pdfViewer') || details.webContents.getURL().startsWith('min://app/reader/') || details.webContents.getURL() === 'min://app/index.html')) {
+      const filteredHeaders = Object.fromEntries(
+        Object.entries(details.responseHeaders).filter(([key, val]) => key.toLowerCase() !== 'access-control-allow-origin' && key.toLowerCase() !== 'access-control-allow-credentials')
+      )
+
+      callback({
+        responseHeaders: {
+          ...filteredHeaders,
+          'Access-Control-Allow-Origin': 'min://app',
+          'Access-Control-Allow-Credentials': 'true'
+        }
+      })
+      return
+    }
+
     callback({ cancel: false })
   })
 }

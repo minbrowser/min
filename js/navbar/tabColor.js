@@ -2,6 +2,7 @@ var webviews = require('webviews.js')
 var settings = require('util/settings/settings.js')
 
 const colorExtractorImage = document.createElement('img')
+colorExtractorImage.crossOrigin = 'anonymous'
 const colorExtractorCanvas = document.createElement('canvas')
 const colorExtractorContext = colorExtractorCanvas.getContext('2d')
 

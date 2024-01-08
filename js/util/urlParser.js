@@ -61,18 +61,11 @@ var urlParser = {
       return 'view-source:' + urlParser.parse(realURL)
     }
 
-    // if the URL is an internal URL, convert it to the correct file:// url
-    if (url.startsWith('min:')) {
-      try {
-        var urlObj = new URL(url)
-        var pathname = urlObj.pathname.replace('//', '')
-        if (/^[a-zA-Z]+$/.test(pathname)) {
-          // only paths with letters are allowed
-          return urlParser.getFileURL(
-            path.join(__dirname, 'pages', pathname, 'index.html') + urlObj.search
-          )
-        }
-      } catch (e) {}
+    if (url.startsWith('min:') && !url.startsWith('min://app/')) {
+      // convert shortened min:// urls to full ones
+      const urlChunks = url.split('?')[0].replace(/min:(\/\/)?/g, '').split('/')
+      const query = url.split('?')[1]
+      return 'min://app/pages/' + urlChunks[0] + (urlChunks[1] ? urlChunks.slice(1).join('/') : '/index.html') + (query ? '?' + query : '')
     }
 
     // if the url starts with a (supported) protocol
@@ -111,7 +104,7 @@ var urlParser = {
     }
   },
   isInternalURL: function (url) {
-    return url.startsWith(urlParser.getFileURL(__dirname))
+    return url.startsWith('min://')
   },
   getSourceURL: function (url) {
     // converts internal URLs (like the PDF viewer or the reader view) to the URL of the page they are displaying

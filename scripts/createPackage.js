@@ -1,15 +1,9 @@
-const packager = require('electron-packager')
-const rebuild = require('electron-rebuild').default
-
-const packageFile = require('./../package.json')
-const version = packageFile.version
-const electronVersion = packageFile.electronVersion
-
-const basedir = require('path').join(__dirname, '../')
-
 const builder = require('electron-builder')
 const Platform = builder.Platform
 const Arch = builder.Arch
+
+const { flipFuses, FuseVersion, FuseV1Options } = require('@electron/fuses')
+const path = require('path')
 
 function toPath (platform, arch) {
   if (platform == 'win32') {
@@ -41,6 +35,30 @@ function toPath (platform, arch) {
 }
 
 module.exports = function (platform, extraOptions) {
+  //https://github.com/electron-userland/electron-builder/issues/6365#issuecomment-1186038034
+  const afterPack = async context => {
+    const ext = {
+      darwin: '.app',
+      win32: '.exe',
+      linux: ['']
+    }[context.electronPlatformName]
+
+    const IS_LINUX = context.electronPlatformName === 'linux'
+    const executableName = IS_LINUX
+      ? context.packager.appInfo.productFilename.toLowerCase().replace('-dev', '')
+      : context.packager.appInfo.productFilename
+
+    const electronBinaryPath = path.join(
+      context.appOutDir,
+      `${executableName}${ext}`
+    )
+
+    await flipFuses(electronBinaryPath, {
+      version: FuseVersion.V1,
+      [FuseV1Options.GrantFileProtocolExtraPrivileges]: false
+    })
+  }
+
   const options = {
     files: [
       '**/*',
@@ -63,7 +81,7 @@ module.exports = function (platform, extraOptions) {
       '!**/node_modules/@types/',
       '!**/node_modules/pdfjs-dist/legacy',
       '!**/node_modules/pdfjs-dist/lib',
-      '!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}',
+      '!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}'
     ],
     linux: {
       target: [
@@ -114,10 +132,11 @@ module.exports = function (platform, extraOptions) {
         schemes: ['file']
       }
     ],
-    asar: false
+    asar: false,
+    afterPack: afterPack
   }
 
-  let target = function () {
+  const target = (function () {
     if (platform == 'win32') {
       return Platform.WINDOWS.createTarget(['dir'], extraOptions.arch)
     } else if (platform == 'linux') {
@@ -125,7 +144,7 @@ module.exports = function (platform, extraOptions) {
     } else if (platform == 'mac') {
       return Platform.MAC.createTarget(['dir'], extraOptions.arch)
     }
-  }()
+  }())
 
   return builder.build({
     targets: target,

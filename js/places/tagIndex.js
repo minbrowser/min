@@ -8,8 +8,8 @@ var tagIndex = {
   getPageTokens: function (page) {
     var urlChunk = ''
     try {
-      const url = new URL(page.url)
-      if (page.url.startsWith('file://') && url.searchParams.get('url')) {
+      let url = new URL(page.url)
+      if ((page.url.startsWith('file://') || page.url.startsWith('min://')) && url.searchParams.get('url')) {
         url = new URL(url.searchParams.get('url'))
       }
       urlChunk = url.hostname.split('.').slice(0, -1).join(' ') + ' ' + url.pathname.split('/').filter(p => p.length > 1).slice(0, 2).join(' ')

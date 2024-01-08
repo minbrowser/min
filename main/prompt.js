@@ -31,7 +31,7 @@ function createPrompt (options, callback) {
   })
 
   // Load the HTML dialog box
-  promptWindow.loadURL('file://' + __dirname + '/pages/prompt/index.html')
+  promptWindow.loadURL('min://app/pages/prompt/index.html')
   promptWindow.once('ready-to-show', () => { promptWindow.show() })
 }
 

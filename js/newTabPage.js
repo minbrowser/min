@@ -7,26 +7,30 @@ const newTabPage = {
   picker: document.getElementById('ntp-image-picker'),
   deleteBackground: document.getElementById('ntp-image-remove'),
   imagePath: path.join(window.globalArgs['user-data-path'], 'newTabBackground'),
+  blobInstance: null,
   reloadBackground: function () {
-    newTabPage.background.src = newTabPage.imagePath + '?t=' + Date.now()
-    function onLoad () {
-      newTabPage.background.hidden = false
-      newTabPage.hasBackground = true
-      document.body.classList.add('ntp-has-background')
-      newTabPage.background.removeEventListener('load', onLoad)
+    fs.readFile(newTabPage.imagePath, function (err, data) {
+      if (newTabPage.blobInstance) {
+        URL.revokeObjectURL(newTabPage.blobInstance)
+        newTabPage.blobInstance = null
+      }
+      if (err) {
+        newTabPage.background.hidden = true
+        newTabPage.hasBackground = false
+        document.body.classList.remove('ntp-has-background')
+        newTabPage.deleteBackground.hidden = true
+      } else {
+        const blob = new Blob([data], { type: 'application/octet-binary' })
+        const url = URL.createObjectURL(blob)
+        newTabPage.blobInstance = url
+        newTabPage.background.src = url
 
-      newTabPage.deleteBackground.hidden = false
-    }
-    function onError () {
-      newTabPage.background.hidden = true
-      newTabPage.hasBackground = false
-      document.body.classList.remove('ntp-has-background')
-      newTabPage.background.removeEventListener('error', onError)
-
-      newTabPage.deleteBackground.hidden = true
-    }
-    newTabPage.background.addEventListener('load', onLoad)
-    newTabPage.background.addEventListener('error', onError)
+        newTabPage.background.hidden = false
+        newTabPage.hasBackground = true
+        document.body.classList.add('ntp-has-background')
+        newTabPage.deleteBackground.hidden = false
+      }
+    })
   },
   initialize: function () {
     newTabPage.reloadBackground()
@@ -56,7 +60,5 @@ const newTabPage = {
     })
   }
 }
-
-window.ntp = newTabPage
 
 module.exports = newTabPage

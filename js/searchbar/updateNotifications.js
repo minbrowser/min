@@ -1,4 +1,4 @@
-const UPDATE_URL = 'https://minbrowser.github.io/min/updates/latestVersion.json'
+const UPDATE_URL = 'https://minbrowser.org/min/updates/latestVersion.json'
 
 var settings = require('util/settings/settings.js')
 

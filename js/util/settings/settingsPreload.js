@@ -1,5 +1,5 @@
 window.addEventListener('message', function (e) {
-  if (!e.origin.startsWith('file://')) {
+  if (!e.origin.startsWith('min://')) {
     return
   }
 
@@ -13,7 +13,7 @@ window.addEventListener('message', function (e) {
 })
 
 ipc.on('receiveSettingsData', function (e, data) {
-  if (window.location.toString().startsWith('file://')) { // probably redundant, but might as well check
-    window.postMessage({ message: 'receiveSettingsData', settings: data }, 'file://')
+  if (window.location.toString().startsWith('min://')) { // probably redundant, but might as well check
+    window.postMessage({ message: 'receiveSettingsData', settings: data }, window.location.toString())
   }
 })

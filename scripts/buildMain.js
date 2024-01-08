@@ -10,6 +10,7 @@ const modules = [
   'main/touchbar.js',
   'main/registryConfig.js',
   'main/main.js',
+  'main/minInternalProtocol.js',
   'js/util/settings/settingsMain.js',
   'main/filtering.js',
   'main/viewManager.js',
