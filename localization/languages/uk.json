@@ -164,7 +164,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."
     },
-    "settingsUserscriptShowDirectory": null, //missing translation,
+    "settingsUserscriptShowDirectory": "Показати каталог скриптів",
     "settingsUserAgentToggle": "Використовувати власний агент користувача",
     "settingsUpdateNotificationsToggle": "Автоматично перевіряти наявність оновлень",
     "settingsUsageStatisticsToggle": {
