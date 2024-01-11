@@ -163,7 +163,7 @@
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "사용자 명령(스크립트)을 사용하면 누리집의 행동을 수정할 수 있습니다. - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">더보기</a>."
     },
-    "settingsUserscriptShowDirectory": null, //missing translation,
+    "settingsUserscriptShowDirectory": "스크립트 디렉토리 보기",
     "settingsUserAgentToggle": "사용자 정의 에이전트(UserAgent) 사용",
     "settingsUpdateNotificationsToggle": "판올림 자동 확인",
     "settingsUsageStatisticsToggle": {
