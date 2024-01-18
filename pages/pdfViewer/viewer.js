@@ -509,22 +509,7 @@ function throttle (fn, threshhold, scope) {
 }
 
 function downloadPDF () {
-  function startDownload (title) {
-    var a = document.createElement('a')
-    a.download = title || ''
-    a.href = url
-    a.click()
-  }
-  if (pdf) {
-    pdf.getMetadata().then(function (data) {
-      startDownload(data.info.Title)
-    })
-  } else {
-    // there is no PDF data available
-    // this can happen if the download is happening because the file isn't a PDF and we can't show a preview
-    // or if the file hasn't loaded yet
-    startDownload('')
-  }
+  window.postMessage({ message: 'downloadFile', url })
 }
 
 /* printing */

@@ -481,6 +481,12 @@ webviews.bindIPC('scroll-position-change', function (tabId, args) {
   })
 })
 
+webviews.bindIPC('downloadFile', function (tabId, args) {
+  if (tabs.get(tabId).url.startsWith('min://')) {
+    webviews.callAsync(tabId, 'downloadURL', [args[0]])
+  }
+})
+
 ipc.on('view-event', function (e, args) {
   webviews.emitEvent(args.event, args.tabId, args.args)
 })

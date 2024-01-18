@@ -57,4 +57,8 @@ window.addEventListener('message', function (e) {
   if (e.data?.message === 'showUserscriptDirectory') {
     ipc.send('showUserscriptDirectory')
   }
+
+  if (e.data?.message === 'downloadFile') {
+    ipc.send('downloadFile', e.data.url)
+  }
 })
