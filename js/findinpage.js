@@ -64,6 +64,9 @@ findinpage.endButton.addEventListener('click', function () {
 findinpage.input.addEventListener('input', function (e) {
   if (this.value) {
     webviews.callAsync(findinpage.activeTab, 'findInPage', findinpage.input.value)
+  } else {
+    webviews.callAsync(findinpage.activeTab, 'stopFindInPage', 'clearSelection')
+    findinpage.counter.textContent = ''
   }
 })
 
@@ -98,8 +101,14 @@ webviews.bindEvent('view-hidden', function (tabId) {
   }
 })
 
+tasks.on('tab-selected', function (tabId) {
+  if (tabId !== findinpage.activeTab) {
+    findinpage.end()
+  }
+})
+
 webviews.bindEvent('did-start-navigation', function (tabId, url, isInPlace, isMainFrame, frameProcessId, frameRoutingId) {
-  if (!isInPlace && tabId === findinpage.activeTab) {
+  if (isMainFrame && !isInPlace && tabId === findinpage.activeTab) {
     findinpage.end()
   }
 })
