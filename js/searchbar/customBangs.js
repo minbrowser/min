@@ -15,6 +15,7 @@ const bookmarkConverter = require('bookmarkConverter.js')
 const searchbarPlugins = require('searchbar/searchbarPlugins.js')
 const tabEditor = require('navbar/tabEditor.js')
 const formatRelativeDate = require('util/relativeDate.js')
+const quickScore = require('quick-score').quickScore
 
 function moveToTaskCommand (taskId) {
   // remove the tab from the current task
@@ -84,7 +85,7 @@ function searchAndSortTasks (text) {
       const task = t.task
       const taskName = (task.name ? task.name : l('defaultTaskName').replace('%n', tasks.getIndex(task.id) + 1)).toLowerCase()
       const exactMatch = taskName.indexOf(searchText) !== -1
-      const fuzzyTitleScore = taskName.score(searchText, 0.5)
+      const fuzzyTitleScore = quickScore(taskName, searchText)
 
       return (exactMatch || fuzzyTitleScore > 0.4)
     })
