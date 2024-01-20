@@ -2,9 +2,9 @@
 
 const { ipcRenderer } = require('electron')
 const fs = require('fs')
+const quickScore = require('quick-score').quickScore
 
 const bangsPlugin = require('searchbar/bangsPlugin.js')
-const quickScore = require('quick-score').quickScore
 
 const webviews = require('webviews.js')
 const browserUI = require('browserUI.js')
