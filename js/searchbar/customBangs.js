@@ -4,6 +4,7 @@ const { ipcRenderer } = require('electron')
 const fs = require('fs')
 
 const bangsPlugin = require('searchbar/bangsPlugin.js')
+const quickScore = require('quick-score').quickScore
 
 const webviews = require('webviews.js')
 const browserUI = require('browserUI.js')
@@ -15,7 +16,6 @@ const bookmarkConverter = require('bookmarkConverter.js')
 const searchbarPlugins = require('searchbar/searchbarPlugins.js')
 const tabEditor = require('navbar/tabEditor.js')
 const formatRelativeDate = require('util/relativeDate.js')
-const quickScore = require('quick-score').quickScore
 
 function moveToTaskCommand (taskId) {
   // remove the tab from the current task
