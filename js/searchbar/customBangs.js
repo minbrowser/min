@@ -2,6 +2,7 @@
 
 const { ipcRenderer } = require('electron')
 const fs = require('fs')
+const quickScore = require('quick-score').quickScore
 
 const bangsPlugin = require('searchbar/bangsPlugin.js')
 
@@ -84,7 +85,7 @@ function searchAndSortTasks (text) {
       const task = t.task
       const taskName = (task.name ? task.name : l('defaultTaskName').replace('%n', tasks.getIndex(task.id) + 1)).toLowerCase()
       const exactMatch = taskName.indexOf(searchText) !== -1
-      const fuzzyTitleScore = taskName.score(searchText, 0.5)
+      const fuzzyTitleScore = quickScore(taskName, searchText)
 
       return (exactMatch || fuzzyTitleScore > 0.4)
     })
