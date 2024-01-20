@@ -1,7 +1,7 @@
 {
-    "version": "1.30.0",
-    "releaseTime": 1700957175044,
-    "releaseHeadline": "Improved search and bug fixes",
+    "version": "1.31.1",
+    "releaseTime": 1705786625027,
+    "releaseHeadline": "Improved task management and userscripts",
     "releaseNotes": "https://minbrowser.org/releases/",
     "availabilityPercent": 1
 }
