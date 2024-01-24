@@ -23,7 +23,7 @@
     "cut": "剪切",
     "copy": "复制", //this is a verb (as in "copy the currently-selected text")
     "paste": "粘贴",
-    "goBack": "后退",
+    "goBack": "返回",
     "goForward": "前进",
     "inspectElement": "查看元素",
     /* searchbar */
@@ -40,22 +40,22 @@
     "takeScreenshot": "截图",
     "clearHistory": "清除所有历史记录",
     "enableBlocking": "启用内容过滤",
-    "disableBlocking": "关闭内容过滤",
+    "disableBlocking": "禁用内容过滤",
     "clearHistoryConfirmation": "是否清除所有历史记录？",
     "switchToTask": "切换到标签组列表",
     "closeTask": "关闭标签组",
     "createTask": "新建标签组",
     "moveToTask": "以当前标签页创建一个新的标签组",
     "nameTask": "命名标签组",
-    "addBookmark": "增加书签",
+    "addBookmark": "新增书签",
     "searchBookmarks": "搜索书签内容",
     "bookmarksAddTag": "新增标签",
-    "bookmarksRenameTag": null, //missing translation
-    "bookmarksDeleteTag": null, //missing translation
-    "deleteBookmarksWithTag": null, //missing translation
+    "bookmarksRenameTag": "重命名标签",
+    "bookmarksDeleteTag": "删除标签",
+    "deleteBookmarksWithTag": "删除带有标签的书签",
     "bookmarksSimilarItems": "近似项目",
     "searchHistory": "搜索历史",
-    "importBookmarks": "自HTML文件导入书签",
+    "importBookmarks": "自 HTML 文件导入书签",
     "exportBookmarks": "导出书签",
     "runUserscript": "执行自定义脚本",
     /* navbar */
@@ -74,7 +74,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "标签组已删除 <a>恢复？</a>"
     },
-    "tasksSearchTabs": null, //missing translation
+    "tasksSearchTabs": "搜索标签",
     "returnToTask": "返回上一个标签组",
     "taskDescriptionTwo": "%t 和 %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
     "taskDescriptionThree": "%t, %t, 和其他%n个标签", //used to describe a task that has three or more tabs
@@ -141,41 +141,41 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "到目前为止，Min已经过滤了<strong></strong>个广告和追踪程序。"
     },
-    "settingsCustomBangs": "自定义Bangs",
-    "settingsCustomBangsAdd": "添加自定义bang",
+    "settingsCustomBangs": "自定义 Bangs",
+    "settingsCustomBangsAdd": "新增自定义 Bang",
     "settingsCustomBangsPhrase": "命令(必填)",
     "settingsCustomBangsSnippet": "描述(可选)",
     "settingsCustomBangsRedirect": "将命令发送至(必填)",
     "settingsCustomizeFiltersLink": "查看如何自定义过滤设置",
     "settingsAppearanceHeading": "外观",
     "settingsEnableDarkMode": "深色模式",
-    "settingsDarkModeNever": "禁用",
-    "settingsDarkModeNight": "只在夜晚开启",
-    "settingsDarkModeAlways": "一直开启",
+    "settingsDarkModeNever": "永不启用",
+    "settingsDarkModeNight": "夜间启用",
+    "settingsDarkModeAlways": "总是启用",
     "settingsDarkModeSystem": "跟随系统主题",
     "settingsSiteThemeToggle": "启用网站主题",
     "settingsAdditionalFeaturesHeading": "其他功能",
     "settingsUserscriptsToggle": "允许自定义脚本",
     "settingsShowDividerToggle": "显示标签页边界",
     "settingsSeparateTitlebarToggle": "显示浏览器标题栏",
-    "settingsAutoplayToggle": null, //missing translation 
+    "settingsAutoplayToggle": "启用自动播放",
     "settingsOpenTabsInForegroundToggle": "在前台打开新标签页",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "自定义脚本允许您改变网站行为 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
     },
-    "settingsUserscriptShowDirectory": null, //missing translation,
-    "settingsUserAgentToggle": "自定义浏览器User-Agent",
+    "settingsUserscriptShowDirectory": "展示脚本目录",
+    "settingsUserAgentToggle": "自定义浏览器 User-Agent",
     "settingsUpdateNotificationsToggle": "自动检查更新",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "发送使用情况统计信息 (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">更多说明</a>)"
     },
-    "settingsStartupOptions": null, //missing translation
-    "settingsStartupCreateTask": null, //missing translation
-    "settingsStartupNewTaskandBackground": null, //missing translation
-    "settingsStartupNewTaskOnly": null, //missing translation
-    "settingsNewWindowOptions": null, //missing translation
-    "settingsNewWindowCreateTask": null, //missing translation
-    "settingsNewWindowPickTask": null, //missing translation
+    "settingsStartupOptions": "当 Min 启动时：",
+    "settingsStartupCreateTask": "重新打开以前的标签页",
+    "settingsStartupNewTaskandBackground": "将以前的标签页移动到后台任务",
+    "settingsStartupNewTaskOnly": "打开新空白标签页",
+    "settingsNewWindowOptions": "在新窗口：",
+    "settingsNewWindowCreateTask": "创建新任务",
+    "settingsNewWindowPickTask": "展示任务列表",
     "settingsSearchEngineHeading": "搜索引擎",
     "settingsDefaultSearchEngine": "选择默认的搜索引擎:",
     "settingsDDGExplanation": "将 DuckDuckGo 设为默认的搜索引擎可以直接在搜索栏查看搜索结果。",
@@ -185,17 +185,17 @@
     "settingsProxyHeading": "代理设置",
     "settingsNoProxy": "不使用代理",
     "settingsManualProxy": "手动设置代理",
-    "settingsAutomaticProxy": "启用预设代理",
+    "settingsAutomaticProxy": "使用预设代理",
     "settingsProxyRules": "代理服务器地址",
     "settingsProxyBypassRules": "不使用代理服务器访问以下地址（以逗号分隔多个地址）",
-    "settingsProxyConfigurationURL": "PAC文件地址",
+    "settingsProxyConfigurationURL": "PAC 文件地址",
     /* app menu */
     "appMenuFile": "文件",
     "appMenuNewTab": "新标签页",
     "appMenuDuplicateTab": "复制标签页",
-    "appMenuNewPrivateTab": "新的隐私标签页",
+    "appMenuNewPrivateTab": "新隐私标签页",
     "appMenuNewTask": "新标签组",
-    "appMenuNewWindow": null, //missing translation
+    "appMenuNewWindow": "新窗口",
     "appMenuSavePageAs": "页面另存为",
     "appMenuPrint": "打印",
     "appMenuEdit": "编辑",
@@ -236,7 +236,7 @@
     "appMenuQuit": "退出 %n",
     "appMenuBringToFront": "前置所有窗口",
     /* PDF Viewer */
-    "PDFInvertPage": null, //missing translation
+    "PDFInvertPage": "反转页面颜色",
     "PDFPageCounter": {
       "unsafeHTML": "<input type='text'/> / <span id='total'></span> 页"
     },
@@ -255,7 +255,7 @@
     "downloadStateCompleted": "已完成",
     "downloadStateFailed": "失败",
     /* Update Notifications */
-    "updateNotificationTitle": "已有新的Min版本",
+    "updateNotificationTitle": "已有新的 Min 版本",
     /* Autofill settings */
     "settingsPasswordAutoFillHeadline": "密码自动填充",
     "settingsSelectPasswordManager": "选择一个支持的密码管理器：",
@@ -273,9 +273,9 @@
     "passwordManagerSetupStep2": "然后把工具拖动到下面的框中：",
     "passwordManagerSetupDragBox": "把工具拖动到这里",
     "passwordManagerSetupInstalling": "安装中...",
-    "passwordManagerBitwardenSignIn": null, //missing translation
+    "passwordManagerBitwardenSignIn": "为了连接你的 Bitwarden 账户，请转到 vault.bitwarden.com/#/settings/account，滑动到底部并点击 \"View API Key\" 然后将值粘贴到下面的字段中。",
     "passwordManagerSetupSignIn": "登录密码管理器以使用自动填充。你的凭证不会在Min内存储。",
-    "disableAutofill": "关闭自动填充",
+    "disableAutofill": "禁用自动填充",
     "passwordManagerSetupUnlockError": "解锁密码存储区失败：",
     "passwordManagerSetupRetry": "请确认你使用了正确的文件和密码。你可以再次把工具拖到这里并重试。",
     "passwordManagerUnlock": "输入 %p 主密码来解锁密码存储区：",
@@ -283,11 +283,11 @@
     "passwordCaptureSavePassword": "是否保存%s的密码？",
     "passwordCaptureSave": "保存",
     "passwordCaptureDontSave": "不保存",
-    "passwordCaptureNeverSave": null, //missing translation
+    "passwordCaptureNeverSave": "永不保存",
     /* Password viewer */
     "savedPasswordsHeading": "已保存密码",
     "savedPasswordsEmpty": "当前未保存任何密码",
-    "savedPasswordsNeverSavedLabel": null, //missing translation
+    "savedPasswordsNeverSavedLabel": "永不保存",
     "deletePassword": "删除保存的%s密码？",
     /* Dialogs */
     "loginPromptTitle": "登录 %h",
@@ -297,8 +297,8 @@
     "email": "邮箱",
     "password": "密码",
     "secretKey": "密钥",
-    "openExternalApp": null, //missing translation
-    "clickToCopy": "点击复制", 
+    "openExternalApp": "在 \\\"%s\\\" 打开？",
+    "clickToCopy": "点击复制",
     "copied": "已复制"
   }
 }
