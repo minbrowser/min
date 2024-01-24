@@ -47,7 +47,7 @@
     "createTask": "新建标签组",
     "moveToTask": "以当前标签页创建一个新的标签组",
     "nameTask": "命名标签组",
-    "addBookmark": "增加书签",
+    "addBookmark": "新增书签",
     "searchBookmarks": "搜索书签内容",
     "bookmarksAddTag": "新增标签",
     "bookmarksRenameTag": "重命名标签",
@@ -55,7 +55,7 @@
     "deleteBookmarksWithTag": "删除带有标签的书签",
     "bookmarksSimilarItems": "近似项目",
     "searchHistory": "搜索历史",
-    "importBookmarks": "自HTML文件导入书签",
+    "importBookmarks": "自 HTML 文件导入书签",
     "exportBookmarks": "导出书签",
     "runUserscript": "执行自定义脚本",
     /* navbar */
@@ -141,17 +141,17 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "到目前为止，Min已经过滤了<strong></strong>个广告和追踪程序。"
     },
-    "settingsCustomBangs": "自定义Bangs",
-    "settingsCustomBangsAdd": "添加自定义bang",
+    "settingsCustomBangs": "自定义 Bangs",
+    "settingsCustomBangsAdd": "新增自定义 Bang",
     "settingsCustomBangsPhrase": "命令(必填)",
     "settingsCustomBangsSnippet": "描述(可选)",
     "settingsCustomBangsRedirect": "将命令发送至(必填)",
     "settingsCustomizeFiltersLink": "查看如何自定义过滤设置",
     "settingsAppearanceHeading": "外观",
     "settingsEnableDarkMode": "深色模式",
-    "settingsDarkModeNever": "禁用",
-    "settingsDarkModeNight": "只在夜晚开启",
-    "settingsDarkModeAlways": "一直开启",
+    "settingsDarkModeNever": "永不启用",
+    "settingsDarkModeNight": "夜间启用",
+    "settingsDarkModeAlways": "总是启用",
     "settingsDarkModeSystem": "跟随系统主题",
     "settingsSiteThemeToggle": "启用网站主题",
     "settingsAdditionalFeaturesHeading": "其他功能",
@@ -164,7 +164,7 @@
       "unsafeHTML": "自定义脚本允许您改变网站行为 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
     },
     "settingsUserscriptShowDirectory": "展示脚本目录",
-    "settingsUserAgentToggle": "自定义浏览器User-Agent",
+    "settingsUserAgentToggle": "自定义浏览器 User-Agent",
     "settingsUpdateNotificationsToggle": "自动检查更新",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "发送使用情况统计信息 (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">更多说明</a>)"
@@ -185,15 +185,15 @@
     "settingsProxyHeading": "代理设置",
     "settingsNoProxy": "不使用代理",
     "settingsManualProxy": "手动设置代理",
-    "settingsAutomaticProxy": "启用预设代理",
+    "settingsAutomaticProxy": "使用预设代理",
     "settingsProxyRules": "代理服务器地址",
     "settingsProxyBypassRules": "不使用代理服务器访问以下地址（以逗号分隔多个地址）",
-    "settingsProxyConfigurationURL": "PAC文件地址",
+    "settingsProxyConfigurationURL": "PAC 文件地址",
     /* app menu */
     "appMenuFile": "文件",
     "appMenuNewTab": "新标签页",
     "appMenuDuplicateTab": "复制标签页",
-    "appMenuNewPrivateTab": "新的隐私标签页",
+    "appMenuNewPrivateTab": "新隐私标签页",
     "appMenuNewTask": "新标签组",
     "appMenuNewWindow": "新窗口",
     "appMenuSavePageAs": "页面另存为",
@@ -255,7 +255,7 @@
     "downloadStateCompleted": "已完成",
     "downloadStateFailed": "失败",
     /* Update Notifications */
-    "updateNotificationTitle": "已有新的Min版本",
+    "updateNotificationTitle": "已有新的 Min 版本",
     /* Autofill settings */
     "settingsPasswordAutoFillHeadline": "密码自动填充",
     "settingsSelectPasswordManager": "选择一个支持的密码管理器：",
