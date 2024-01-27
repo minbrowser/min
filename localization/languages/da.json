@@ -23,6 +23,7 @@
     "cut": "Klip",
     "copy": "Kopiér", //this is a verb (as in "copy the currently-selected text")
     "paste": "Sæt ind",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "Gå tilbage",
     "goForward": "Gå frem",
     "inspectElement": "Inspicer element",
@@ -204,6 +205,7 @@
     "appMenuCut": "Klip",
     "appMenuCopy": "Kopier",
     "appMenuPaste": "Indsæt",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "Vælg alt",
     "appMenuFind": "Find",
     "appMenuView": "Vis",

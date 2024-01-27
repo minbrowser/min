@@ -23,6 +23,7 @@
     "cut": "Potong",
     "copy": "Salin", //this is a verb (as in "copy the currently-selected text")
     "paste": "Tempel",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "Kembali",
     "goForward": "Maju",
     "inspectElement": "Inspeksi",
@@ -204,6 +205,7 @@
     "appMenuCut": "Potong",
     "appMenuCopy": "Salin",
     "appMenuPaste": "Tempel",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "Pilih Semua",
     "appMenuFind": "Cari",
     "appMenuView": "Tampilan",

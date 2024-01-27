@@ -23,6 +23,7 @@
     "cut": null, // Missing Translation
     "copy": "Kopijuoti", //this is a verb (as in "copy the currently-selected text")
     "paste": "Įdėti",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "Grįžti",
     "goForward": "Pirmyn",
     "inspectElement": "Ištirti elementą",
@@ -202,6 +203,7 @@
     "appMenuCut": "Iškirpti",
     "appMenuCopy": "Kopijuoti",
     "appMenuPaste": "Įdėti",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "Žymėti viską",
     "appMenuFind": "Rasti",
     "appMenuView": "Rodinys",

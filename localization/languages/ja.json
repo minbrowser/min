@@ -23,6 +23,7 @@
     "cut": "カット",
     "copy": "コピー", //this is a verb (as in "copy the currently-selected text")
     "paste": "ペースト",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "戻る",
     "goForward": "進む",
     "inspectElement": "要素を検証",
@@ -204,6 +205,7 @@
     "appMenuCut": "カット",
     "appMenuCopy": "コピー",
     "appMenuPaste": "ペースト",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "すべて選択",
     "appMenuFind": "検索",
     "appMenuView": "表示",

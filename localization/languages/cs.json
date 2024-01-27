@@ -23,6 +23,7 @@
     "cut": "Vyjmout",
     "copy": "Kopírovat", //this is a verb (as in "copy the currently-selected text")
     "paste": "Vložit",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "Zpět",
     "goForward": "Vpřed",
     "inspectElement": "Prozkoumat prvek",
@@ -204,6 +205,7 @@
     "appMenuCut": "Vyjmout",
     "appMenuCopy": "Kopírovat",
     "appMenuPaste": "Vložit",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "Označit vše",
     "appMenuFind": "Najít na stránce...",
     "appMenuView": "Zobrazení",

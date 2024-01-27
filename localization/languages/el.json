@@ -23,6 +23,7 @@
       "cut": "Αποκοπή",
       "copy": "Αντιγραφή", //this is a verb (as in "copy the currently-selected text")
       "paste": "Επικόλληση",
+      "pasteAndMatchStyle": null, //missing translation
       "goBack": "Πάνε πίσω",
       "goForward": "Πάνε εμπρός",
       "inspectElement": "Επιθεώρηση στοιχείου",
@@ -204,6 +205,7 @@
       "appMenuCut": "Αποκοπή",
       "appMenuCopy": "Αντιγραφή",
       "appMenuPaste": "Επικόλληση",
+      "appMenuPasteAndMatchStyle": null, //missing translation
       "appMenuSelectAll": "Επιλογή όλων",
       "appMenuFind": "Αναζήτηση",
       "appMenuView": "Προβολή",

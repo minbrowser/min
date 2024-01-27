@@ -23,6 +23,7 @@
     "cut": "ตัด",
     "copy": "คัดลอก", //this is a verb (as in "copy the currently-selected text")
     "paste": "วาง",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "ย้อนกลับ",
     "goForward": "ไปข้างหน้า",
     "inspectElement": "ตรวจสอบองค์ประกอบ",
@@ -204,6 +205,7 @@
     "appMenuCut": "ตัด",
     "appMenuCopy": "คัดลอก",
     "appMenuPaste": "วาง",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "เลือกทั้งหมด",
     "appMenuFind": "ค้นหา",
     "appMenuView": "มุมมอง",

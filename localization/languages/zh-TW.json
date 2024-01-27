@@ -23,6 +23,7 @@
     "cut": "剪下",
     "copy": "複製", //this is a verb (as in "copy the currently-selected text")
     "paste": "貼上",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "上一頁",
     "goForward": "下一頁",
     "inspectElement": "檢查元素",
@@ -204,6 +205,7 @@
     "appMenuCut": "剪下",
     "appMenuCopy": "複製",
     "appMenuPaste": "貼上",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "全選",
     "appMenuFind": "尋找",
     "appMenuView": "檢視",

@@ -23,6 +23,7 @@
     "cut": "Tallar",
     "copy": "Copiar", //this is a verb (as in "copy the currently-selected text")
     "paste": "Enganxar",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "Tornar enrere",
     "goForward": "Anar endavant",
     "inspectElement": "Inspeccionar l'element",
@@ -201,6 +202,7 @@
     "appMenuCut": "Tallar",
     "appMenuCopy": "Copiar",
     "appMenuPaste": "Enganxar",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "Seleccionar tot",
     "appMenuFind": "Cercar",
     "appMenuView": "Veure",

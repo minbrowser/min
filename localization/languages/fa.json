@@ -24,6 +24,7 @@
     "cut": "برش",
     "copy": "کپی", //this is a verb (as in "copy the currently-selected text")
     "paste": "چسباندن",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "برگشت",
     "goForward": "جلو",
     "inspectElement": "وارسی",
@@ -203,6 +204,7 @@
     "appMenuCut": "برش",
     "appMenuCopy": "کپی",
     "appMenuPaste": "چسباندن",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "انتخاب همه",
     "appMenuFind": "جستجو",
     "appMenuView": "نمایش",

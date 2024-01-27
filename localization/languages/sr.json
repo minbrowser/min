@@ -23,6 +23,7 @@
     "cut": "Iseci",
     "copy": "Kopiraj", //this is a verb (as in "copy the currently-selected text")
     "paste": "Nalepi",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "Nazad",
     "goForward": "Napred",
     "inspectElement": "Pogledaj element",
@@ -204,6 +205,7 @@
     "appMenuCut": "Iseci",
     "appMenuCopy": "Kopiraj",
     "appMenuPaste": "Nalepi",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "Selektuj sve",
     "appMenuFind": "Nađi",
     "appMenuView": "Izgled",

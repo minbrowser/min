@@ -23,6 +23,7 @@
     "cut": "Couper",
     "copy": "Copier", //this is a verb (as in "copy the currently-selected text")
     "paste": "Coller",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "Retour",
     "goForward": "Avancer",
     "inspectElement": "Inspecter l'élément",
@@ -204,6 +205,7 @@
     "appMenuCut": "Couper",
     "appMenuCopy": "Copier",
     "appMenuPaste": "Coller",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "Tout sélectionner",
     "appMenuFind": "Trouver",
     "appMenuView": "Voir",

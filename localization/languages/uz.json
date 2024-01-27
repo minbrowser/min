@@ -23,6 +23,7 @@
     "cut": "Kesish",
     "copy": "Nusxa olish", //this is a verb (as in "copy the currently-selected text")
     "paste": "Qo'yish",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "Ortga qaytish",
     "goForward": "",
     "inspectElement": "Elementni kuzatish",
@@ -202,6 +203,7 @@
     "appMenuCut": "Kesish",
     "appMenuCopy": "Nusxa olish",
     "appMenuPaste": "Qo'yish",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "Barchasini tanlash",
     "appMenuFind": "Izlash",
     "appMenuView": "Ko'rinish",

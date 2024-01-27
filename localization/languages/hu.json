@@ -23,6 +23,7 @@
     "cut": "kivágás",
     "copy": "Másolás", //this is a verb (as in "copy the currently-selected text")
     "paste": "Beillesztés",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "Vissza lépés",
     "goForward": "Előre lépés",
     "inspectElement": "Részletek megtekintése",
@@ -200,6 +201,7 @@
     "appMenuCut": "Kivágás",
     "appMenuCopy": "Másolás",
     "appMenuPaste": "Beillesztés",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "Mindent kiválaszt",
     "appMenuFind": "Keresés",
     "appMenuView": "Nézet",

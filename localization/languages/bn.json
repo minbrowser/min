@@ -23,6 +23,7 @@
     "cut": "কাট",
     "copy": "কপি", //this is a verb (as in "copy the currently-selected text")
     "paste": "প্রতিলেপন",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "ফিরে যাও",
     "goForward": "সামনে আগান",
     "inspectElement": "এলিমেন্ট পরিদর্শন করুন",
@@ -202,6 +203,7 @@
     "appMenuCut": "কাটা",
     "appMenuCopy": "কপি",
     "appMenuPaste": "প্রতিলেপন",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "সব নির্বাচন করুন",
     "appMenuFind": "আবিষ্কার",
     "appMenuView": "দৃশ্য",

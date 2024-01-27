@@ -204,6 +204,11 @@ function buildAppMenu (options = {}) {
           role: 'paste'
         },
         {
+          label: l('appMenuPasteAndMatchStyle'),
+          accelerator: 'Shift+CmdOrCtrl+V',
+          role: 'pasteAndMatchStyle'
+        },
+        {
           label: l('appMenuSelectAll'),
           accelerator: 'CmdOrCtrl+A',
           role: 'selectall'

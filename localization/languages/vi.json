@@ -23,6 +23,7 @@
         "cut": "Cắt",
         "copy": "Sao chép", //this is a verb (as in "copy the currently-selected text")
         "paste": "Dán",
+        "pasteAndMatchStyle": null, //missing translation
         "goBack": "Quay lại trang trước",
         "goForward": "Đi tiếp trang sau",
         "inspectElement": "Kiểm tra thành phần",
@@ -197,6 +198,7 @@
         "appMenuCut": "Cắt",
         "appMenuCopy": "Sao chép",
         "appMenuPaste": "Dán",
+        "appMenuPasteAndMatchStyle": null, //missing translation
         "appMenuSelectAll": "Chọn tất cả",
         "appMenuFind": "Tìm kiếm trong trang",
         "appMenuView": "Xem",
