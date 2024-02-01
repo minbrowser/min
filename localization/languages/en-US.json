@@ -23,6 +23,7 @@
     "cut": "Cut",
     "copy": "Copy", //this is a verb (as in "copy the currently-selected text")
     "paste": "Paste",
+    "pasteAndMatchStyle": "Paste and Match Style",
     "goBack": "Go Back",
     "goForward": "Go Forward",
     "inspectElement": "Inspect Element",
@@ -204,6 +205,7 @@
     "appMenuCut": "Cut",
     "appMenuCopy": "Copy",
     "appMenuPaste": "Paste",
+    "appMenuPasteAndMatchStyle": "Paste and Match Style",
     "appMenuSelectAll": "Select All",
     "appMenuFind": "Find",
     "appMenuView": "View",

@@ -23,6 +23,7 @@
     "cut": "Kes",
     "copy": "Kopyala", //this is a verb (as in "copy the currently-selected text")
     "paste": "Yapıştır",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "Geri Git",
     "goForward": "İleri Git",
     "inspectElement": "Öğeyi İncele",
@@ -204,6 +205,7 @@
     "appMenuCut": "Kes",
     "appMenuCopy": "Kopyala",
     "appMenuPaste": "Yapıştır",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "Tümünü Seç",
     "appMenuFind": "Bul",
     "appMenuView": "Görünüm",

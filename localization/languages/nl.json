@@ -23,6 +23,7 @@
     "cut": "Knippen",
     "copy": "Kopiëren", //this is a verb (as in "copy the currently-selected text")
     "paste": "Plakken",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "Ga terug",
     "goForward": "Ga verder",
     "inspectElement": "Inspecteer element",
@@ -203,6 +204,7 @@
     "appMenuCut": "Knippen",
     "appMenuCopy": "Kopiëren",
     "appMenuPaste": "Plakken",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "Alles selecteren",
     "appMenuFind": "Zoeken",
     "appMenuView": "Venster",

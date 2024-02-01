@@ -203,6 +203,15 @@ const webviewMenu = {
       })
     }
 
+    if (data.editFlags && data.editFlags.canPaste) {
+      clipboardActions.push({
+        label: l('pasteAndMatchStyle'),
+        click: function () {
+          webviews.callAsync(tabs.getSelected(), 'pasteAndMatchStyle')
+        }
+      })
+    }
+
     if (link || (mediaURL && !mediaURL.startsWith('blob:'))) {
       if (link && link.startsWith('mailto:')) {
         var ematch = link.match(/(?<=mailto:)[^\?]+/)

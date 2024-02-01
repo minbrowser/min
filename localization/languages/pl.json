@@ -23,6 +23,7 @@
     "cut": "Wytnij",
     "copy": "Kopiuj", //this is a verb (as in "copy the currently-selected text")
     "paste": "Wklej",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "Cofnij",
     "goForward": "Dalej",
     "inspectElement": "Sprawdź element",
@@ -204,6 +205,7 @@
     "appMenuCut": "Wytnij",
     "appMenuCopy": "Kopiuj",
     "appMenuPaste": "Wklej",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "Zaznacz wszystko",
     "appMenuFind": "Znajdź",
     "appMenuView": "Widok",

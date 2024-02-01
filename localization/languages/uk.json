@@ -23,6 +23,7 @@
     "cut": "Вирізати",
     "copy": "Копіювати", //this is a verb (as in "copy the currently-selected text")
     "paste": "Вставити",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "Назад",
     "goForward": "Вперед",
     "inspectElement": "Дослідити елемент",
@@ -205,6 +206,7 @@
     "appMenuCut": "Вирізати",
     "appMenuCopy": "Копіювати",
     "appMenuPaste": "Вставити",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "Вибрати все",
     "appMenuFind": "Знайти",
     "appMenuView": "Вигляд",

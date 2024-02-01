@@ -23,6 +23,7 @@
     "cut": "قص",
     "copy": "نسخ", //this is a verb (as in "copy the currently-selected text")
     "paste": "لصق",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "الرجوع الى الوراء",
     "goForward": "تقدم للامام",
     "inspectElement": "فحص العنصر",
@@ -204,6 +205,7 @@
     "appMenuCut": "قص",
     "appMenuCopy": "نسخ",
     "appMenuPaste": "لصق",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "تحديد الكل",
     "appMenuFind": "بحث",
     "appMenuView": "مشاهدة",

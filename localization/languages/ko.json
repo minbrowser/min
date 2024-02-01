@@ -23,6 +23,7 @@
     "cut": "오리기",
     "copy": "복사하기", //this is a verb (as in "copy the currently-selected text")
     "paste": "붙여넣기",
+    "pasteAndMatchStyle": null, //missing translation
     "goBack": "뒤로",
     "goForward": "앞으로",
     "inspectElement": "요소 검사",
@@ -204,6 +205,7 @@
     "appMenuCut": "오려두기",
     "appMenuCopy": "복사하기",
     "appMenuPaste": "붙여넣기",
+    "appMenuPasteAndMatchStyle": null, //missing translation
     "appMenuSelectAll": "전체 선택",
     "appMenuFind": "찾기",
     "appMenuView": "보기",
