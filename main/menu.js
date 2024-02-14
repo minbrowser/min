@@ -241,6 +241,15 @@ function buildAppMenu (options = {}) {
             sendIPCToWindow(window, 'zoomIn')
           }
         },
+        // Hidden item to enable shortcut on keyboards where = is on a different physical key than +
+        {
+          label: l('appMenuZoomIn'),
+          accelerator: 'CmdOrCtrl+=',
+          click: function (item, window) {
+            sendIPCToWindow(window, 'zoomIn')
+          },
+          visible: false
+        },
         {
           label: l('appMenuZoomOut'),
           accelerator: 'CmdOrCtrl+-',
