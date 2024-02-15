@@ -197,9 +197,9 @@ const webviews = {
     ipc.send('createView', {
       existingViewId,
       id: tabId,
-      webPreferencesString: JSON.stringify({
+      webPreferences: {
         partition: partition || 'persist:webcontent'
-      }),
+      },
       boundsString: JSON.stringify(webviews.getViewBounds()),
       events: webviews.events.map(e => e.event).filter((i, idx, arr) => arr.indexOf(i) === idx)
     })

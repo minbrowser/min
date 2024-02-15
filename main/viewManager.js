@@ -8,29 +8,40 @@ var temporaryPopupViews = {} // id: view
 // rate limit on "open in app" requests
 var globalLaunchRequests = 0
 
-const defaultViewWebPreferences = {
-  nodeIntegration: false,
-  nodeIntegrationInSubFrames: true,
-  scrollBounce: true,
-  safeDialogs: true,
-  safeDialogsMessage: 'Prevent this page from creating additional dialogs',
-  preload: __dirname + '/dist/preload.js',
-  contextIsolation: true,
-  sandbox: true,
-  enableRemoteModule: false,
-  allowPopups: false,
-  // partition: partition || 'persist:webcontent',
-  enableWebSQL: false,
-  autoplayPolicy: (settings.get('enableAutoplay') ? 'no-user-gesture-required' : 'user-gesture-required'),
-  // match Chrome's default for anti-fingerprinting purposes (Electron defaults to 0)
-  minimumFontSize: 6
+function getDefaultViewWebPreferences () {
+  return (
+    {
+      nodeIntegration: false,
+      nodeIntegrationInSubFrames: true,
+      scrollBounce: true,
+      safeDialogs: true,
+      safeDialogsMessage: 'Prevent this page from creating additional dialogs',
+      preload: __dirname + '/dist/preload.js',
+      contextIsolation: true,
+      sandbox: true,
+      enableRemoteModule: false,
+      allowPopups: false,
+      // partition: partition || 'persist:webcontent',
+      enableWebSQL: false,
+      autoplayPolicy: (settings.get('enableAutoplay') ? 'no-user-gesture-required' : 'user-gesture-required'),
+      // match Chrome's default for anti-fingerprinting purposes (Electron defaults to 0)
+      minimumFontSize: 6,
+      javascript: !(settings.get('filtering')?.contentTypes?.includes('script'))
+    }
+  )
 }
 
-function createView (existingViewId, id, webPreferencesString, boundsString, events) {
+function createView (existingViewId, id, webPreferences, boundsString, events) {
   if (viewStateMap[id]) {
     console.warn("Creating duplicate view")
   }
-  viewStateMap[id] = { loadedInitialURL: false }
+
+  const viewPrefs = Object.assign({}, getDefaultViewWebPreferences(), webPreferences)
+
+  viewStateMap[id] = {
+    loadedInitialURL: false,
+    hasJS: viewPrefs.javascript // need this later to see if we should swap the view for a JS-enabled one
+  }
 
   let view
   if (existingViewId) {
@@ -41,7 +52,7 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
     view.setBackgroundColor('#fff')
     viewStateMap[id].loadedInitialURL = true
   } else {
-    view = new BrowserView({ webPreferences: Object.assign({}, defaultViewWebPreferences, JSON.parse(webPreferencesString)) })
+    view = new BrowserView({ webPreferences: viewPrefs })
   }
 
   events.forEach(function (event) {
@@ -101,7 +112,7 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
       return
     }
 
-    var view = new BrowserView({ webPreferences: defaultViewWebPreferences, webContents: webContents })
+    var view = new BrowserView({ webPreferences: getDefaultViewWebPreferences(), webContents: webContents })
 
     var popupId = Math.random().toString()
     temporaryPopupViews[popupId] = view
@@ -193,6 +204,32 @@ function createView (existingViewId, id, webPreferencesString, boundsString, eve
   */
   view.webContents.on('will-redirect', handleExternalProtocol)
 
+  /*
+  the JS setting can only be set when the view is created, so swap the view on navigation if the setting value changed
+  This can occur if the user manually changed the setting, or if we are navigating between an internal page (always gets JS)
+  and an external one
+  */
+  view.webContents.on('did-start-navigation', function (event) {
+    if (event.isMainFrame && !event.isSameDocument) {
+      const hasJS = viewStateMap[id].hasJS
+      const shouldHaveJS = (!(settings.get('filtering')?.contentTypes?.includes('script'))) || event.url.startsWith('min://')
+      if (hasJS !== shouldHaveJS) {
+        setTimeout(function () {
+          view.webContents.stop()
+          const currentWindow = BrowserWindow.fromBrowserView(view)
+          destroyView(id)
+          const newView = createView(existingViewId, id, Object.assign({}, webPreferences, { javascript: shouldHaveJS }), boundsString, events)
+          loadURLInView(id, event.url, currentWindow)
+
+          if (currentWindow) {
+            setView(id, currentWindow.webContents)
+            focusView(id)
+          }
+        }, 0)
+      }
+    }
+  })
+
   view.setBounds(JSON.parse(boundsString))
 
   viewMap[id] = view
@@ -280,7 +317,7 @@ function getTabIDFromWebContents (contents) {
 }
 
 ipc.on('createView', function (e, args) {
-  createView(args.existingViewId, args.id, args.webPreferencesString, args.boundsString, args.events)
+  createView(args.existingViewId, args.id, args.webPreferences, args.boundsString, args.events)
 })
 
 ipc.on('destroyView', function (e, id) {
@@ -314,22 +351,25 @@ ipc.on('hideCurrentView', function (e) {
   hideCurrentView(e.sender)
 })
 
-ipc.on('loadURLInView', function (e, args) {
-  const win = windows.windowFromContents(e.sender).win
-
+function loadURLInView (id, url, win) {
   // wait until the first URL is loaded to set the background color so that new tabs can use a custom background
-  if (!viewStateMap[args.id].loadedInitialURL) {
+  if (!viewStateMap[id].loadedInitialURL) {
     // Give the site a chance to display something before setting the background, in case it has its own dark theme
-    viewMap[args.id].webContents.once('dom-ready', function() {
-      viewMap[args.id].setBackgroundColor('#fff')
+    viewMap[id].webContents.once('dom-ready', function() {
+      viewMap[id].setBackgroundColor('#fff')
     })
     // If the view has no URL, it won't be attached yet
-    if (args.id === windows.getState(win).selectedView) {
-      win.setBrowserView(viewMap[args.id])
+    if (win && id === windows.getState(win).selectedView) {
+      win.setBrowserView(viewMap[id])
     }
   }
-  viewMap[args.id].webContents.loadURL(args.url)
-  viewStateMap[args.id].loadedInitialURL = true
+  viewMap[id].webContents.loadURL(url)
+  viewStateMap[id].loadedInitialURL = true
+}
+
+ipc.on('loadURLInView', function (e, args) {
+  const win = windows.windowFromContents(e.sender)?.win
+  loadURLInView(args.id, args.url, win)
 })
 
 ipc.on('callViewMethod', function (e, data) {
