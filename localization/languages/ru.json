@@ -23,7 +23,7 @@
     "cut": "Вырезать",
     "copy": "Копировать", //this is a verb (as in "copy the currently-selected text")
     "paste": "Вставить",
-    "pasteAndMatchStyle": null, //missing translation
+    "pasteAndMatchStyle": "Вставить в текущем стиле",
     "goBack": "Назад",
     "goForward": "Вперёд",
     "inspectElement": "Инспектировать элемент",
@@ -205,7 +205,7 @@
     "appMenuCut": "Вырезать",
     "appMenuCopy": "Копировать",
     "appMenuPaste": "Вставить",
-    "appMenuPasteAndMatchStyle": null, //missing translation
+    "appMenuPasteAndMatchStyle": "Вставить в текущем стиле",
     "appMenuSelectAll": "Выделить всё",
     "appMenuFind": "Найти",
     "appMenuView": "Вид",
