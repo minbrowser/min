@@ -80,10 +80,21 @@ const tabBar = {
 
     // title
 
+    var titleContainer = document.createElement('div')
+    titleContainer.className = 'title-container'
+
     var title = document.createElement('span')
     title.className = 'title'
 
-    tabEl.appendChild(title)
+    // URL
+
+    var urlElement = document.createElement('span')
+    urlElement.className = 'url-element'
+
+    titleContainer.appendChild(title)
+    titleContainer.appendChild(urlElement)
+
+    tabEl.appendChild(titleContainer)
 
     // click to enter edit mode or switch to a tab
     tabEl.addEventListener('click', function (e) {
@@ -149,6 +160,15 @@ const tabBar = {
     tabEl.title = tabTitle
     if (tabData.private) {
       tabEl.title += ' (' + l('privateTab') + ')'
+    }
+
+    var tabUrl = urlParser.getDomain(tabData.url)
+    tabEl.querySelector('.url-element').textContent = tabUrl
+
+    if (tabUrl && !urlParser.isInternalURL(tabData.url)) {
+      tabEl.classList.add('has-url')
+    } else {
+      tabEl.classList.remove('has-url')
     }
 
     // update tab audio icon
