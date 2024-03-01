@@ -163,6 +163,10 @@ const tabBar = {
     }
 
     var tabUrl = urlParser.getDomain(tabData.url)
+    if (tabUrl.startsWith('www.') && tabUrl.split('.').length > 2) {
+      tabUrl = tabUrl.replace('www.', '')
+    }
+
     tabEl.querySelector('.url-element').textContent = tabUrl
 
     if (tabUrl && !urlParser.isInternalURL(tabData.url)) {
