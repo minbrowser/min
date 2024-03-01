@@ -210,6 +210,7 @@ const tabBar = {
     if (tabs.getSelected()) {
       tabBar.setActiveTab(tabs.getSelected())
     }
+    tabBar.handleSizeChange()
   },
   addTab: function (tabId) {
     var tab = tabs.get(tabId)
@@ -218,6 +219,7 @@ const tabBar = {
     var tabEl = tabBar.createTab(tab)
     tabBar.containerInner.insertBefore(tabEl, tabBar.containerInner.childNodes[index])
     tabBar.tabElementMap[tabId] = tabEl
+    tabBar.handleSizeChange()
   },
   removeTab: function (tabId) {
     var tabEl = tabBar.getTab(tabId)
@@ -226,6 +228,7 @@ const tabBar = {
       // This happens when destroying tabs from other task where this .tab-item is not present
       tabBar.containerInner.removeChild(tabEl)
       delete tabBar.tabElementMap[tabId]
+      tabBar.handleSizeChange()
     }
   },
   handleDividerPreference: function (dividerPreference) {
@@ -259,8 +262,17 @@ const tabBar = {
 
       tabs.splice(newIdx, 0, oldTab)
     })
+  },
+  handleSizeChange: function () {
+    if (window.innerWidth / tabBar.containerInner.childNodes.length < 190) {
+      tabBar.container.classList.add('compact-tabs')
+    } else {
+      tabBar.container.classList.remove('compact-tabs')
+    }
   }
 }
+
+window.addEventListener('resize', tabBar.handleSizeChange)
 
 settings.listen('showDividerBetweenTabs', function (dividerPreference) {
   tabBar.handleDividerPreference(dividerPreference)

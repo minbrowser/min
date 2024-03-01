@@ -246,6 +246,9 @@ body:not(.touch)
   flex: 1;
   overflow: hidden;
 }
+.compact-tabs .tab-item .title {
+  font-size: 14px;
+}
 .tab-item .title {
   display: block;
   position: absolute;
@@ -271,8 +274,11 @@ body:not(.touch)
   opacity: 1;
 }
 .tab-item.active.has-url:hover .title {
-  transform: scale(0.7) translateY(-10%);
+  transform: scale(0.7333) translateY(-10%);
   opacity: 0.9;
+}
+.compact-tabs .tab-item.active.has-url:hover .title {
+  transform: scale(0.78571) translateY(-12%);
 }
 
 /* buttons */
