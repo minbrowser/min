@@ -158,6 +158,7 @@
     "settingsAdditionalFeaturesHeading": "Recursos adicionais",
     "settingsUserscriptsToggle": "Habilitar scripts do usuário",
     "settingsShowDividerToggle": "Mostrar divisória entre as abas",
+    "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "Usar a barra de título separada",
     "settingsAutoplayToggle": "Habilitar reprodução automática",
     "settingsOpenTabsInForegroundToggle": "Abrir novas abas em primeiro plano",

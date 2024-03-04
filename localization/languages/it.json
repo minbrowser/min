@@ -158,6 +158,7 @@
     "settingsAdditionalFeaturesHeading": "Funzionalità aggiuntive",
     "settingsUserscriptsToggle": "Abilita script definiti dall'utente",
     "settingsShowDividerToggle": "Mostra divisore tra i schede",
+    "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "Usa barra del titolo separata",
     "settingsAutoplayToggle": "Abilita Autoplay",
     "settingsOpenTabsInForegroundToggle": "Apri nuove schede in primo piano",

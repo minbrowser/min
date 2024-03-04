@@ -285,6 +285,24 @@ showDividerCheckbox.addEventListener('change', function (e) {
   settings.set('showDividerBetweenTabs', this.checked)
 })
 
+/* language setting*/
+
+var languagePicker = document.getElementById('setting-language-picker')
+
+for (var language in languages) { //from localization.build.js
+  var item = document.createElement('option')
+  item.textContent = languages[language].name
+  item.value = languages[language].identifier
+  languagePicker.appendChild(item)
+}
+
+languagePicker.value = getCurrentLanguage()
+
+languagePicker.addEventListener('change', function () {
+  settings.set('userSelectedLanguage', this.value)
+  showRestartRequiredBanner()
+})
+
 /* separate titlebar setting */
 
 settings.get('useSeparateTitlebar', function (value) {

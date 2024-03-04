@@ -158,7 +158,8 @@
       "settingsAdditionalFeaturesHeading": "Επιπλέον χαρακτηριστικά",
       "settingsUserscriptsToggle": "Ενεργοποίηση scripts χρηστών",
       "settingsShowDividerToggle": "Εμφάνιση διαχωριστικής γραμμής μεταξύ καρτελών",
-      "settingsSeparateTitlebarToggle": "Χρήση ξεχωριστής γραμμής τίτλου",
+      "settingsLanguageSelection": null, //missing translation
+    "settingsSeparateTitlebarToggle": "Χρήση ξεχωριστής γραμμής τίτλου",
       "settingsAutoplayToggle": "Ενεργοποίηση αυτοαναπαραγωγής",
       "settingsOpenTabsInForegroundToggle": "Άνοιγμα νέας καρτέλας στο προσκήνιο",
       "settingsUserscriptsExplanation": {

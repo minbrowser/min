@@ -62,6 +62,12 @@ app.commandLine.appendSwitch('disable-backgrounding-occluded-windows', 'true')
 
 var userDataPath = app.getPath('userData')
 
+settings.initialize(userDataPath)
+
+if (settings.get('userSelectedLanguage')) {
+  app.commandLine.appendSwitch('lang', settings.get('userSelectedLanguage'))
+}
+
 const browserPage = 'min://app/index.html'
 
 var mainMenu = null

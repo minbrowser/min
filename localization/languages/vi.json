@@ -151,7 +151,8 @@
         "settingsAdditionalFeaturesHeading": "Đặc tính nâng cao",
         "settingsUserscriptsToggle": "Bật mã script người dùng",
         "settingsShowDividerToggle": "Bật phân chia giữa các tab",
-        "settingsSeparateTitlebarToggle": "Sử dụng title bả tách rời",
+        "settingsLanguageSelection": null, //missing translation
+    "settingsSeparateTitlebarToggle": "Sử dụng title bả tách rời",
         "settingsAutoplayToggle": "Bật Autoplay", 
         "settingsOpenTabsInForegroundToggle": "Mở các tab mới ở nền trước",
         "settingsUserscriptsExplanation": {

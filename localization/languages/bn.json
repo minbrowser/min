@@ -158,6 +158,7 @@
     "settingsAdditionalFeaturesHeading": "অতিরিক্ত বৈশিষ্ট্য",
     "settingsUserscriptsToggle": "ব্যবহারকারী স্ক্রিপ্ট সক্রিয় করুন",
     "settingsShowDividerToggle": "ট্যাবগুলির মধ্যে বিভাজক দেখান",
+    "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "পৃথক শিরোনাম বার ব্যবহার করুন",
     "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": "অগ্রভাগে নতুন ট্যাবগুলি খুলুন",

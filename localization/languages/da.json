@@ -158,6 +158,7 @@
     "settingsAdditionalFeaturesHeading": "Yderligere funktioner",
     "settingsUserscriptsToggle": "Aktiver brugerscripts",
     "settingsShowDividerToggle": "Vis skillelinje mellem faner",
+    "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "Brug separat titellinje",
     "settingsAutoplayToggle": "Aktiver Autoplay",
     "settingsOpenTabsInForegroundToggle": "Åbn nye faner i forgrunden",

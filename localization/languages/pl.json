@@ -158,6 +158,7 @@
     "settingsAdditionalFeaturesHeading": "Dodatkowe funkcje",
     "settingsUserscriptsToggle": "Włącz skrypty użytkownika",
     "settingsShowDividerToggle": "Pokaż linię rozdzielającą między zakładkami",
+    "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "Użyj osobnego paska tytułu",
     "settingsAutoplayToggle": "Włącz autoodtwarzanie",
     "settingsOpenTabsInForegroundToggle": "Otwórz nowe karty na pierwszym planie",

@@ -1,5 +1,5 @@
 var settings = {
-  filePath: userDataPath + (process.platform === 'win32' ? '\\' : '/') + 'settings.json',
+  filePath: null,
   fileWritePromise: null,
   list: {},
   onChangeCallbacks: [],
@@ -56,7 +56,9 @@ var settings = {
       win.webContents.send('settingChanged', key, value)
     })
   },
-  initialize: function () {
+  initialize: function (userDataPath) {
+    settings.filePath = userDataPath + (process.platform === 'win32' ? '\\' : '/') + 'settings.json'
+
     var fileData
     try {
       fileData = fs.readFileSync(settings.filePath, 'utf-8')
@@ -83,5 +85,4 @@ var settings = {
   }
 }
 
-settings.initialize()
 module.exports = settings
