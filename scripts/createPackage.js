@@ -10,8 +10,12 @@ function toPath (platform, arch) {
     switch (arch) {
       case Arch.ia32:
         return 'dist/app/win-ia32-unpacked'
-      default:
+      case Arch.arm64:
+        return 'dist/app/win-arm64-unpacked'
+      case Arch.x64:
         return 'dist/app/win-unpacked'
+      default:
+        return null
     }
   } else if (platform == 'linux') {
     switch (arch) {
@@ -30,6 +34,8 @@ function toPath (platform, arch) {
         return 'dist/app/mac-arm64'
       case Arch.x64:
         return 'dist/app/mac'
+      default:
+        return null
     }
   }
 }
