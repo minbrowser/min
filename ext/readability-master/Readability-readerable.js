@@ -1,4 +1,3 @@
-/* eslint-env es6:false */
 /*
  * Copyright (c) 2010 Arc90 Inc
  *
@@ -37,15 +36,23 @@ function isNodeVisible(node) {
 
 /**
  * Decides whether or not the document is reader-able without parsing the whole thing.
- *
- * @return boolean Whether or not we suspect Readability.parse() will suceeed at returning an article object.
+ * @param {Object} options Configuration object.
+ * @param {number} [options.minContentLength=140] The minimum node content length used to decide if the document is readerable.
+ * @param {number} [options.minScore=20] The minumum cumulated 'score' used to determine if the document is readerable.
+ * @param {Function} [options.visibilityChecker=isNodeVisible] The function used to determine if a node is visible.
+ * @return {boolean} Whether or not we suspect Readability.parse() will suceeed at returning an article object.
  */
-function isProbablyReaderable(doc, isVisible) {
-  if (!isVisible) {
-    isVisible = isNodeVisible;
+function isProbablyReaderable(doc, options = {}) {
+  // For backward compatibility reasons 'options' can either be a configuration object or the function used
+  // to determine if a node is visible.
+  if (typeof options == "function") {
+    options = { visibilityChecker: options };
   }
 
-  var nodes = doc.querySelectorAll("p, pre");
+  var defaultOptions = { minScore: 20, minContentLength: 140, visibilityChecker: isNodeVisible };
+  options = Object.assign(defaultOptions, options);
+
+  var nodes = doc.querySelectorAll("p, pre, article");
 
   // Get <div> nodes which have <br> node(s) and append them into the `nodes` variable.
   // Some articles' DOM structures might look like
@@ -57,7 +64,7 @@ function isProbablyReaderable(doc, isVisible) {
   var brNodes = doc.querySelectorAll("div > br");
   if (brNodes.length) {
     var set = new Set(nodes);
-    [].forEach.call(brNodes, function(node) {
+    [].forEach.call(brNodes, function (node) {
       set.add(node.parentNode);
     });
     nodes = Array.from(set);
@@ -66,9 +73,10 @@ function isProbablyReaderable(doc, isVisible) {
   var score = 0;
   // This is a little cheeky, we use the accumulator 'score' to decide what to return from
   // this callback:
-  return [].some.call(nodes, function(node) {
-    if (!isVisible(node))
+  return [].some.call(nodes, function (node) {
+    if (!options.visibilityChecker(node)) {
       return false;
+    }
 
     var matchString = node.className + " " + node.id;
     if (REGEXPS.unlikelyCandidates.test(matchString) &&
@@ -81,13 +89,13 @@ function isProbablyReaderable(doc, isVisible) {
     }
 
     var textContentLength = node.textContent.trim().length;
-    if (textContentLength < 140) {
+    if (textContentLength < options.minContentLength) {
       return false;
     }
 
-    score += Math.sqrt(textContentLength - 140);
+    score += Math.sqrt(textContentLength - options.minContentLength);
 
-    if (score > 20) {
+    if (score > options.minScore) {
       return true;
     }
     return false;
@@ -95,5 +103,6 @@ function isProbablyReaderable(doc, isVisible) {
 }
 
 if (typeof module === "object") {
+  /* global module */
   module.exports = isProbablyReaderable;
 }

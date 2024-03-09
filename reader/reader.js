@@ -220,6 +220,14 @@ function startReaderView (article, date) {
 
     readerContent += "<div class='reader-main' domain='" + readerDomain + "'>" + "<h1 class='article-title'>" + (article.title || '') + '</h1>'
 
+    if (article.publishedTime) {
+      try {
+        date = new Intl.DateTimeFormat(navigator.language, { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(article.publishedTime))
+      } catch (e) {
+        console.warn(e)
+      }
+    }
+
     if (article.byline || date) {
       readerContent += "<h2 class='article-authors'>" + (article.byline ? article.byline : '') + (date ? ' (' + date + ')' : '') + '</h2>'
     }
