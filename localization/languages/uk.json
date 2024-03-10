@@ -159,7 +159,7 @@
     "settingsAdditionalFeaturesHeading": "Додаткові можливості",
     "settingsUserscriptsToggle": "Увімкнути скрипти користувача",
     "settingsShowDividerToggle": "Показувати роздільник між вкладками",
-    "settingsLanguageSelection": null, //missing translation
+    "settingsLanguageSelection": "Мова: ",
     "settingsSeparateTitlebarToggle": "Використовувати окремий рядок заголовка",
     "settingsAutoplayToggle": "Увімкнути автовідтворення",
     "settingsOpenTabsInForegroundToggle": "Відкривати нові вкладки на передньому плані",
