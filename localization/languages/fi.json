@@ -158,6 +158,7 @@
     "settingsAdditionalFeaturesHeading": "Lisäominaisuudet",
     "settingsUserscriptsToggle": "Käytä käyttäjän komentosarjoja",
     "settingsShowDividerToggle": "Näytä erotin välilehtien välillä",
+    "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "Käytä erillistä otsikkopalkkia",
     "settingsAutoplayToggle": "Toista automaattisesti",
     "settingsOpenTabsInForegroundToggle": "Avaa uudet välilehdet etualalla",

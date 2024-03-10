@@ -158,6 +158,7 @@
     "settingsAdditionalFeaturesHeading": "Fonctionnalités supplémentaires",
     "settingsUserscriptsToggle": "Activer les scripts personnalisés",
     "settingsShowDividerToggle": "Afficher un séparateur entre les onglets",
+    "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "Afficher une barre de titre séparée",
     "settingsAutoplayToggle": "Activer la lecture automatique", 
     "settingsOpenTabsInForegroundToggle": "Ouvrir les nouveaux onglets au premiers plan",

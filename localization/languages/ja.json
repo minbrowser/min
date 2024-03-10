@@ -158,6 +158,7 @@
     "settingsAdditionalFeaturesHeading": "追加機能",
     "settingsUserscriptsToggle": "ユーザースクリプトを有効にする",
     "settingsShowDividerToggle": "タブ間の仕切りを表示",
+    "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "別のタイトルバーを使用する",
     "settingsAutoplayToggle": "自動再生を有効にする",
     "settingsOpenTabsInForegroundToggle": "フォアグラウンドで新しいタブを開く",

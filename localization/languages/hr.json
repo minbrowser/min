@@ -158,6 +158,7 @@
     "settingsAdditionalFeaturesHeading": "Dodatne mogućnosti",
     "settingsUserscriptsToggle": "Omogući korisničke skripte",
     "settingsShowDividerToggle": "Prikaži razdjelnik između kartica",
+    "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "Koristite zasebnu naslovnu traku",
     "settingsAutoplayToggle": "Omogući automatsku reprodukciju",
     "settingsOpenTabsInForegroundToggle": "Otvorite nove kartice u prvom planu",

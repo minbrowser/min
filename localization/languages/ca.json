@@ -158,6 +158,7 @@
     "settingsAdditionalFeaturesHeading": "Característiques addicionals",
     "settingsUserscriptsToggle": "Habilitar scripts d'usuari",
     "settingsShowDividerToggle": "Mostrar divisor entre pestanyes",
+    "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "Utilitzar barra de títol separada",
     "settingsAutoplayToggle": "Habilitar Reproducció Automàtica",
     "settingsOpenTabsInForegroundToggle": "Obrir noves pestanyes al primer pla",

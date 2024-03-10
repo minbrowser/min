@@ -158,6 +158,7 @@
     "settingsAdditionalFeaturesHeading": "Additional Features",
     "settingsUserscriptsToggle": "Enable user scripts",
     "settingsShowDividerToggle": "Show divider between tabs",
+    "settingsLanguageSelection": "Language: ",
     "settingsSeparateTitlebarToggle": "Use separate title bar",
     "settingsAutoplayToggle": "Enable Autoplay",
     "settingsOpenTabsInForegroundToggle": "Open new tabs in the foreground",

@@ -158,6 +158,7 @@
     "settingsAdditionalFeaturesHeading": "Qo'shimcha xususiyatlar",
     "settingsUserscriptsToggle": "Foydalanuvchi skriptlarini yoqish",
     "settingsShowDividerToggle": null, //missing translation
+    "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "Alohida sarlavha paneli ishlatish",
     "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": null, //missing translation
