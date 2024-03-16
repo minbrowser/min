@@ -80,10 +80,21 @@ const tabBar = {
 
     // title
 
+    var titleContainer = document.createElement('div')
+    titleContainer.className = 'title-container'
+
     var title = document.createElement('span')
     title.className = 'title'
 
-    tabEl.appendChild(title)
+    // URL
+
+    var urlElement = document.createElement('span')
+    urlElement.className = 'url-element'
+
+    titleContainer.appendChild(title)
+    titleContainer.appendChild(urlElement)
+
+    tabEl.appendChild(titleContainer)
 
     // click to enter edit mode or switch to a tab
     tabEl.addEventListener('click', function (e) {
@@ -151,6 +162,19 @@ const tabBar = {
       tabEl.title += ' (' + l('privateTab') + ')'
     }
 
+    var tabUrl = urlParser.getDomain(tabData.url)
+    if (tabUrl.startsWith('www.') && tabUrl.split('.').length > 2) {
+      tabUrl = tabUrl.replace('www.', '')
+    }
+
+    tabEl.querySelector('.url-element').textContent = tabUrl
+
+    if (tabUrl && !urlParser.isInternalURL(tabData.url)) {
+      tabEl.classList.add('has-url')
+    } else {
+      tabEl.classList.remove('has-url')
+    }
+
     // update tab audio icon
     var audioButton = tabEl.querySelector('.tab-audio-button')
     tabAudio.updateButton(tabId, audioButton)
@@ -186,6 +210,7 @@ const tabBar = {
     if (tabs.getSelected()) {
       tabBar.setActiveTab(tabs.getSelected())
     }
+    tabBar.handleSizeChange()
   },
   addTab: function (tabId) {
     var tab = tabs.get(tabId)
@@ -194,6 +219,7 @@ const tabBar = {
     var tabEl = tabBar.createTab(tab)
     tabBar.containerInner.insertBefore(tabEl, tabBar.containerInner.childNodes[index])
     tabBar.tabElementMap[tabId] = tabEl
+    tabBar.handleSizeChange()
   },
   removeTab: function (tabId) {
     var tabEl = tabBar.getTab(tabId)
@@ -202,6 +228,7 @@ const tabBar = {
       // This happens when destroying tabs from other task where this .tab-item is not present
       tabBar.containerInner.removeChild(tabEl)
       delete tabBar.tabElementMap[tabId]
+      tabBar.handleSizeChange()
     }
   },
   handleDividerPreference: function (dividerPreference) {
@@ -235,8 +262,17 @@ const tabBar = {
 
       tabs.splice(newIdx, 0, oldTab)
     })
+  },
+  handleSizeChange: function () {
+    if (window.innerWidth / tabBar.containerInner.childNodes.length < 190) {
+      tabBar.container.classList.add('compact-tabs')
+    } else {
+      tabBar.container.classList.remove('compact-tabs')
+    }
   }
 }
+
+window.addEventListener('resize', tabBar.handleSizeChange)
 
 settings.listen('showDividerBetweenTabs', function (dividerPreference) {
   tabBar.handleDividerPreference(dividerPreference)

@@ -112,6 +112,9 @@ body.linux #menu-button {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
+.tab-item.active {
+  min-width: 168px;
+}
 .tab-item.gu-mirror {
   top: var(--control-space-top) !important;
   height: 32px !important;
@@ -235,11 +238,47 @@ body:not(.touch)
 .tab-item:not(.active) .icon-tab-not-secure {
   display: none;
 }
-.tab-item .title {
-  font-size: 15px;
+.tab-item .title-container {
+  display: inline-block;
+  position: relative;
   padding-left: 0.25rem;
   padding-right: 0.25rem;
-  margin-right: auto;
+  flex: 1;
+  overflow: hidden;
+}
+.compact-tabs .tab-item .title {
+  font-size: 14px;
+}
+.tab-item .title {
+  display: block;
+  position: absolute;
+  top: 0;
+  font-size: 15px;
+  transform-origin: left 10%;
+  transition: 0.15s transform;
+  white-space: nowrap;
+}
+.tab-item .url-element {
+  display: block;
+  position: absolute;
+  top: 5px;
+  transform-origin: left 90%;
+  transform: translateY(15%);
+  opacity: 0;
+  transition: 0.15s all;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.tab-item.active.has-url:hover .url-element {
+  transform: none;
+  opacity: 1;
+}
+.tab-item.active.has-url:hover .title {
+  transform: scale(0.7333) translateY(-10%);
+  opacity: 0.9;
+}
+.compact-tabs .tab-item.active.has-url:hover .title {
+  transform: scale(0.78571) translateY(-12%);
 }
 
 /* buttons */
