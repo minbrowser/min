@@ -9,6 +9,25 @@ const places = {
   sendMessage: function (data) {
     places.messagePort.postMessage(data)
   },
+  pendingPromises: {},
+  invokeWithPromise: function (data) {
+    const callbackId = Math.random()
+    const { promise, resolve, reject } = Promise.withResolvers()
+    places.pendingPromises[callbackId] = { promise, resolve, reject }
+    places.messagePort.postMessage({
+      ...data,
+      callbackId
+    })
+    return promise
+  },
+  replyToPromise: function (callbackId, result) {
+    if (places.pendingPromises[callbackId]) {
+      places.pendingPromises[callbackId].resolve(result)
+      delete places.pendingPromises[callbackId]
+    } else {
+      throw new Error('places is missing callbackId')
+    }
+  },
   savePage: function (tabId, extractedText) {
     /* this prevents pages that are immediately left from being saved to history, and also gives the page-favicon-updated event time to fire (so the colors saved to history are correct). */
     setTimeout(function () {
@@ -62,20 +81,6 @@ const places = {
       places.savePage(tabId, data.extractedText)
     }
   },
-  callbacks: [],
-  addWorkerCallback: function (callback) {
-    const callbackId = (Date.now() / 1000) + Math.random()
-    places.callbacks.push({ id: callbackId, fn: callback })
-    return callbackId
-  },
-  runWorkerCallback: function (id, data) {
-    for (var i = 0; i < places.callbacks.length; i++) {
-      if (places.callbacks[i].id === id) {
-        places.callbacks[i].fn(data)
-        places.callbacks.splice(i, 1)
-      }
-    }
-  },
   deleteHistory: function (url) {
     places.sendMessage({
       action: 'deleteHistory',
@@ -89,119 +94,102 @@ const places = {
       action: 'deleteAllHistory'
     })
   },
-  searchPlaces: function (text, callback, options) {
-    const callbackId = places.addWorkerCallback(callback)
-    places.sendMessage({
+  searchPlaces: function (text, options) {
+    return places.invokeWithPromise({
       action: 'searchPlaces',
       text: text,
-      callbackId: callbackId,
       options: options
     })
   },
-  searchPlacesFullText: function (text, callback) {
-    const callbackId = places.addWorkerCallback(callback)
-    places.sendMessage({
+  searchPlacesFullText: function (text) {
+    return places.invokeWithPromise({
       action: 'searchPlacesFullText',
-      text: text,
-      callbackId: callbackId
+      text: text
     })
   },
-  getPlaceSuggestions: function (url, callback) {
-    const callbackId = places.addWorkerCallback(callback)
-    places.sendMessage({
+  getPlaceSuggestions: function (url) {
+    return places.invokeWithPromise({
       action: 'getPlaceSuggestions',
-      text: url,
-      callbackId: callbackId
+      text: url
     })
   },
   onMessage: function (e) {
-    places.runWorkerCallback(e.data.callbackId, e.data.result)
+    if (e.data.callbackId) {
+      places.replyToPromise(e.data.callbackId, e.data.result)
+    }
   },
-  getItem: function (url, callback) {
-    const callbackId = places.addWorkerCallback(callback)
-    places.sendMessage({
+  getItem: function (url) {
+    return places.invokeWithPromise({
       action: 'getPlace',
       pageData: {
         url: url
-      },
-      callbackId: callbackId
+      }
     })
   },
-  getAllItems: function (callback) {
-    const callbackId = places.addWorkerCallback(callback)
-    places.sendMessage({
-      action: 'getAllPlaces',
-      callbackId: callbackId
+  getAllItems: function () {
+    return places.invokeWithPromise({
+      action: 'getAllPlaces'
     })
   },
-  updateItem: function (url, fields, callback) {
-    const callbackId = places.addWorkerCallback(callback)
-    places.sendMessage({
+  updateItem: function (url, fields) {
+    return places.invokeWithPromise({
       action: 'updatePlace',
       pageData: {
         url: url,
         ...fields
-      },
-      callbackId: callbackId
+      }
     })
   },
   toggleTag: function (url, tag) {
-    places.getItem(url, function (item) {
-      if (!item) {
-        return
-      }
-      if (item.tags.includes(tag)) {
-        item.tags = item.tags.filter(t => t !== tag)
-      } else {
-        item.tags.push(tag)
-      }
-      places.sendMessage({
-        action: 'updatePlace',
-        pageData: {
-          url: url,
-          tags: item.tags
+    return places.getItem(url)
+      .then(function (item) {
+        if (!item) {
+          return
         }
+        if (item.tags.includes(tag)) {
+          item.tags = item.tags.filter(t => t !== tag)
+        } else {
+          item.tags.push(tag)
+        }
+        places.sendMessage({
+          action: 'updatePlace',
+          pageData: {
+            url: url,
+            tags: item.tags
+          }
+        })
       })
-    })
   },
-  getSuggestedTags: function (url, callback) {
-    const callbackId = places.addWorkerCallback(callback)
-    places.sendMessage({
+  getSuggestedTags: function (url) {
+    return places.invokeWithPromise({
       action: 'getSuggestedTags',
       pageData: {
         url: url
-      },
-      callbackId: callbackId
+      }
     })
   },
-  getAllTagsRanked: function (url, callback) {
-    const callbackId = places.addWorkerCallback(callback)
-    places.sendMessage({
+  getAllTagsRanked: function (url) {
+    return places.invokeWithPromise({
       action: 'getAllTagsRanked',
       pageData: {
         url: url
-      },
-      callbackId: callbackId
+      }
     })
   },
-  getSuggestedItemsForTags: function (tags, callback) {
-    const callbackId = places.addWorkerCallback(callback)
-    places.sendMessage({
+  getSuggestedItemsForTags: function (tags) {
+    return places.invokeWithPromise({
       action: 'getSuggestedItemsForTags',
       pageData: {
         tags: tags
-      },
-      callbackId: callbackId
+      }
     })
   },
-  autocompleteTags: function (tags, callback) {
-    const callbackId = places.addWorkerCallback(callback)
-    places.sendMessage({
+  autocompleteTags: function (tags) {
+    return places.invokeWithPromise({
       action: 'autocompleteTags',
       pageData: {
         tags: tags
-      },
-      callbackId: callbackId
+      }
     })
   },
   initialize: function () {

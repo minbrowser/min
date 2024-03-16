@@ -12,80 +12,81 @@ module.exports = {
       phrase: '!history',
       snippet: l('searchHistory'),
       isAction: false,
-      showSuggestions: function (text, input, event) {
-        places.searchPlaces(text, function (results) {
-          searchbarPlugins.reset('bangs')
+      showSuggestions: async function (text, input, event) {
+        const results = await places.searchPlaces(text, { limit: Infinity })
 
-          var container = searchbarPlugins.getContainer('bangs')
+        searchbarPlugins.reset('bangs')
 
-          // show clear button
+        var container = searchbarPlugins.getContainer('bangs')
 
-          if (text === '' && results.length > 0) {
-            var clearButton = document.createElement('button')
-            clearButton.className = 'searchbar-floating-button'
-            clearButton.textContent = l('clearHistory')
-            container.appendChild(clearButton)
+        // show clear button
 
-            clearButton.addEventListener('click', function () {
-              if (confirm(l('clearHistoryConfirmation'))) {
-                places.deleteAllHistory()
-                ipc.invoke('clearStorageData')
+        if (text === '' && results.length > 0) {
+          var clearButton = document.createElement('button')
+          clearButton.className = 'searchbar-floating-button'
+          clearButton.textContent = l('clearHistory')
+          container.appendChild(clearButton)
 
-                // hacky way to refresh the list
-                // TODO make a better api for this
-                setTimeout(function () {
-                  searchbarPlugins.run('!history ' + text, input, null)
-                }, 200)
-              }
-            })
-          }
+          clearButton.addEventListener('click', function () {
+            if (confirm(l('clearHistoryConfirmation'))) {
+              places.deleteAllHistory()
+              ipc.invoke('clearStorageData')
 
-          // show results
-
-          var lazyList = searchbarUtils.createLazyList(container.parentNode)
-
-          var lastRelativeDate = '' // used to generate headings
-
-          results.sort(function (a, b) {
-            // order by last visit
-            return b.lastVisit - a.lastVisit
-          }).slice(0, 1000).forEach(function (result, index) {
-            var thisRelativeDate = formatRelativeDate(result.lastVisit)
-            if (thisRelativeDate !== lastRelativeDate) {
-              searchbarPlugins.addHeading('bangs', { text: thisRelativeDate })
-              lastRelativeDate = thisRelativeDate
+              // hacky way to refresh the list
+              // TODO make a better api for this
+              setTimeout(function () {
+                searchbarPlugins.run('!history ' + text, input, null)
+              }, 200)
             }
-            var data = {
-              title: result.title,
-              secondaryText: urlParser.basicURL(urlParser.getSourceURL(result.url)),
-              fakeFocus: index === 0 && text,
-              icon: (result.isBookmarked ? 'carbon:star' : ''),
-              click: function (e) {
-                searchbar.openURL(result.url, e)
-              },
-              delete: function () {
-                places.deleteHistory(result.url)
-              },
-              showDeleteButton: true
-            }
-            var placeholder = lazyList.createPlaceholder()
-            container.appendChild(placeholder)
-            lazyList.lazyRenderItem(placeholder, data)
           })
-        }, { limit: Infinity })
+        }
+
+        // show results
+
+        var lazyList = searchbarUtils.createLazyList(container.parentNode)
+
+        var lastRelativeDate = '' // used to generate headings
+
+        results.sort(function (a, b) {
+          // order by last visit
+          return b.lastVisit - a.lastVisit
+        }).slice(0, 1000).forEach(function (result, index) {
+          var thisRelativeDate = formatRelativeDate(result.lastVisit)
+          if (thisRelativeDate !== lastRelativeDate) {
+            searchbarPlugins.addHeading('bangs', { text: thisRelativeDate })
+            lastRelativeDate = thisRelativeDate
+          }
+          var data = {
+            title: result.title,
+            secondaryText: urlParser.basicURL(urlParser.getSourceURL(result.url)),
+            fakeFocus: index === 0 && text,
+            icon: (result.isBookmarked ? 'carbon:star' : ''),
+            click: function (e) {
+              searchbar.openURL(result.url, e)
+            },
+            delete: function () {
+              places.deleteHistory(result.url)
+            },
+            showDeleteButton: true
+          }
+          var placeholder = lazyList.createPlaceholder()
+          container.appendChild(placeholder)
+          lazyList.lazyRenderItem(placeholder, data)
+        })
       },
       fn: function (text) {
         if (!text) {
           return
         }
-        places.searchPlaces(text, function (results) {
-          if (results.length !== 0) {
-            results = results.sort(function (a, b) {
-              return b.lastVisit - a.lastVisit
-            })
-            searchbar.openURL(results[0].url, null)
-          }
-        }, { limit: Infinity })
+        places.searchPlaces(text, { limit: Infinity })
+          .then(function (results) {
+            if (results.length !== 0) {
+              results = results.sort(function (a, b) {
+                return b.lastVisit - a.lastVisit
+              })
+              searchbar.openURL(results[0].url, null)
+            }
+          })
       }
     })
   }

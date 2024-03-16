@@ -72,7 +72,7 @@ function getBookmarkListItemData (result, focus) {
 }
 
 const bookmarkManager = {
-  showBookmarks: function (text, input, event) {
+  showBookmarks: async function (text, input, event) {
     var container = searchbarPlugins.getContainer('bangs')
 
     var lazyList = searchbarUtils.createLazyList(container.parentNode)
@@ -80,103 +80,103 @@ const bookmarkManager = {
     var parsedText = parseBookmarkSearch(text)
 
     var displayedURLset = []
-    places.searchPlaces(parsedText.text, function (results) {
-      places.autocompleteTags(parsedText.tags, function (suggestedTags) {
-        searchbarPlugins.reset('bangs')
 
-        var tagBar = document.createElement('div')
-        tagBar.id = 'bookmark-tag-bar'
-        container.appendChild(tagBar)
-
-        parsedText.tags.forEach(function (tag) {
-          tagBar.appendChild(bookmarkEditor.getTagElement(tag, true, function () {
-            tabEditor.show(tabs.getSelected(), '!bookmarks ' + text.replace('#' + tag, '').trim())
-          }, {
-            autoRemove: false,
-            onModify: () => bookmarkManager.showBookmarks(text, input, event)
-          }))
-        })
-        // it doesn't make sense to display tag suggestions if there's a search, since the suggestions are generated without taking the search into account
-        if (!parsedText.text) {
-          suggestedTags.forEach(function (suggestion, index) {
-            var el = bookmarkEditor.getTagElement(suggestion, false, function () {
-              var needsSpace = text.slice(-1) !== ' ' && text.slice(-1) !== ''
-              tabEditor.show(tabs.getSelected(), '!bookmarks ' + text + (needsSpace ? ' #' : '#') + suggestion + ' ')
-            }, {
-              onModify: () => bookmarkManager.showBookmarks(text, input, event)
-            })
-            if (index >= maxTagSuggestions) {
-              el.classList.add('overflowing')
-            }
-            tagBar.appendChild(el)
-          })
-
-          if (suggestedTags.length > maxTagSuggestions) {
-            var expandEl = bookmarkEditor.getTagElement('\u2026', false, function () {
-              tagBar.classList.add('expanded')
-              expandEl.remove()
-            })
-            tagBar.appendChild(expandEl)
-          }
-        }
-
-        var lastRelativeDate = '' // used to generate headings
-
-        results
-          .filter(function (result) {
-            if (itemMatchesTags(result, parsedText.tags)) {
-              return true
-            } else {
-              return false
-            }
-          })
-          .sort(function (a, b) {
-            // order by last visit
-            return b.lastVisit - a.lastVisit
-          })
-          .forEach(function (result, index) {
-            displayedURLset.push(result.url)
-
-            var thisRelativeDate = formatRelativeDate(result.lastVisit)
-            if (thisRelativeDate !== lastRelativeDate) {
-              searchbarPlugins.addHeading('bangs', { text: thisRelativeDate })
-              lastRelativeDate = thisRelativeDate
-            }
-
-            var itemData = getBookmarkListItemData(result, index === 0 && parsedText.text)
-            var placeholder = lazyList.createPlaceholder()
-            container.appendChild(placeholder)
-            lazyList.lazyRenderItem(placeholder, itemData)
-          })
-
-        if (text === '' && results.length < 3) {
-          container.appendChild(searchbarUtils.createItem({
-            title: l('importBookmarks'),
-            icon: 'carbon:upload',
-            click: function () {
-              searchbar.openURL('!importbookmarks', null)
-            }
-          }))
-        }
-
-        if (parsedText.tags.length > 0) {
-          places.getSuggestedItemsForTags(parsedText.tags, function (suggestedResults) {
-            suggestedResults = suggestedResults.filter(res => !displayedURLset.includes(res.url))
-            if (suggestedResults.length === 0) {
-              return
-            }
-            searchbarPlugins.addHeading('bangs', { text: l('bookmarksSimilarItems') })
-            suggestedResults.forEach(function (result, index) {
-              var item = searchbarUtils.createItem(getBookmarkListItemData(result, false))
-              container.appendChild(item)
-            })
-          })
-        }
-      })
-    }, {
+    const results = await places.searchPlaces(parsedText.text, {
       searchBookmarks: true,
       limit: Infinity
     })
+    const suggestedTags = await places.autocompleteTags(parsedText.tags)
+
+    searchbarPlugins.reset('bangs')
+
+    var tagBar = document.createElement('div')
+    tagBar.id = 'bookmark-tag-bar'
+    container.appendChild(tagBar)
+
+    parsedText.tags.forEach(function (tag) {
+      tagBar.appendChild(bookmarkEditor.getTagElement(tag, true, function () {
+        tabEditor.show(tabs.getSelected(), '!bookmarks ' + text.replace('#' + tag, '').trim())
+      }, {
+        autoRemove: false,
+        onModify: () => bookmarkManager.showBookmarks(text, input, event)
+      }))
+    })
+    // it doesn't make sense to display tag suggestions if there's a search, since the suggestions are generated without taking the search into account
+    if (!parsedText.text) {
+      suggestedTags.forEach(function (suggestion, index) {
+        var el = bookmarkEditor.getTagElement(suggestion, false, function () {
+          var needsSpace = text.slice(-1) !== ' ' && text.slice(-1) !== ''
+          tabEditor.show(tabs.getSelected(), '!bookmarks ' + text + (needsSpace ? ' #' : '#') + suggestion + ' ')
+        }, {
+          onModify: () => bookmarkManager.showBookmarks(text, input, event)
+        })
+        if (index >= maxTagSuggestions) {
+          el.classList.add('overflowing')
+        }
+        tagBar.appendChild(el)
+      })
+
+      if (suggestedTags.length > maxTagSuggestions) {
+        var expandEl = bookmarkEditor.getTagElement('\u2026', false, function () {
+          tagBar.classList.add('expanded')
+          expandEl.remove()
+        })
+        tagBar.appendChild(expandEl)
+      }
+    }
+
+    var lastRelativeDate = '' // used to generate headings
+
+    results
+      .filter(function (result) {
+        if (itemMatchesTags(result, parsedText.tags)) {
+          return true
+        } else {
+          return false
+        }
+      })
+      .sort(function (a, b) {
+        // order by last visit
+        return b.lastVisit - a.lastVisit
+      })
+      .forEach(function (result, index) {
+        displayedURLset.push(result.url)
+
+        var thisRelativeDate = formatRelativeDate(result.lastVisit)
+        if (thisRelativeDate !== lastRelativeDate) {
+          searchbarPlugins.addHeading('bangs', { text: thisRelativeDate })
+          lastRelativeDate = thisRelativeDate
+        }
+
+        var itemData = getBookmarkListItemData(result, index === 0 && parsedText.text)
+        var placeholder = lazyList.createPlaceholder()
+        container.appendChild(placeholder)
+        lazyList.lazyRenderItem(placeholder, itemData)
+      })
+
+    if (text === '' && results.length < 3) {
+      container.appendChild(searchbarUtils.createItem({
+        title: l('importBookmarks'),
+        icon: 'carbon:upload',
+        click: function () {
+          searchbar.openURL('!importbookmarks', null)
+        }
+      }))
+    }
+
+    if (parsedText.tags.length > 0) {
+      let suggestedResults = await places.getSuggestedItemsForTags(parsedText.tags)
+
+      suggestedResults = suggestedResults.filter(res => !displayedURLset.includes(res.url))
+      if (suggestedResults.length === 0) {
+        return
+      }
+      searchbarPlugins.addHeading('bangs', { text: l('bookmarksSimilarItems') })
+      suggestedResults.forEach(function (result, index) {
+        var item = searchbarUtils.createItem(getBookmarkListItemData(result, false))
+        container.appendChild(item)
+      })
+    }
   },
   initialize: function () {
     bangsPlugin.registerCustomBang({
@@ -189,16 +189,17 @@ const bookmarkManager = {
         if (!parsedText.text) {
           return
         }
-        places.searchPlaces(parsedText.text, function (results) {
-          results = results
-            .filter(r => itemMatchesTags(r, parsedText.tags))
-            .sort(function (a, b) {
-              return b.lastVisit - a.lastVisit
-            })
-          if (results.length !== 0) {
-            searchbar.openURL(results[0].url, null)
-          }
-        }, { searchBookmarks: true })
+        places.searchPlaces(parsedText.text, { searchBookmarks: true })
+          .then(function (results) {
+            results = results
+              .filter(r => itemMatchesTags(r, parsedText.tags))
+              .sort(function (a, b) {
+                return b.lastVisit - a.lastVisit
+              })
+            if (results.length !== 0) {
+              searchbar.openURL(results[0].url, null)
+            }
+          })
       }
     })
   }

@@ -10,7 +10,7 @@ var searchEngine = require('util/searchEngine.js')
 
 var currentResponseSent = 0
 
-function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
+async function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
   var responseSent = Date.now()
 
   var searchFn, resultCount
@@ -25,90 +25,90 @@ function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
   // only autocomplete an item if the delete key wasn't pressed
   var canAutocomplete = event && event.keyCode !== 8
 
-  searchFn(text, function (results) {
-    // prevent responses from returning out of order
-    if (responseSent < currentResponseSent) {
-      return
-    }
+  let results = await searchFn(text)
 
-    currentResponseSent = responseSent
+  // prevent responses from returning out of order
+  if (responseSent < currentResponseSent) {
+    return
+  }
 
-    searchbarPlugins.reset(pluginName)
+  currentResponseSent = responseSent
 
-    results = results.slice(0, resultCount)
+  searchbarPlugins.reset(pluginName)
 
-    results.forEach(function (result, index) {
-      var didAutocompleteResult = false
+  results = results.slice(0, resultCount)
 
-      var searchQuery = searchEngine.getSearch(result.url)
+  results.forEach(function (result, index) {
+    var didAutocompleteResult = false
 
-      if (canAutocomplete) {
-        // if the query is autocompleted, pressing enter will search for the result using the current search engine, so only pages from the current engine should be autocompleted
-        if (searchQuery && searchQuery.engine === searchEngine.getCurrent().name && index === 0) {
-          var acResult = searchbarAutocomplete.autocomplete(input, [searchQuery.search])
-          if (acResult.valid) {
-            canAutocomplete = false
-            didAutocompleteResult = true
-          }
-        } else {
-          var autocompletionType = searchbarAutocomplete.autocompleteURL(input, result.url)
+    var searchQuery = searchEngine.getSearch(result.url)
 
-          if (autocompletionType !== -1) {
-            canAutocomplete = false
-          }
+    if (canAutocomplete) {
+      // if the query is autocompleted, pressing enter will search for the result using the current search engine, so only pages from the current engine should be autocompleted
+      if (searchQuery && searchQuery.engine === searchEngine.getCurrent().name && index === 0) {
+        var acResult = searchbarAutocomplete.autocomplete(input, [searchQuery.search])
+        if (acResult.valid) {
+          canAutocomplete = false
+          didAutocompleteResult = true
+        }
+      } else {
+        var autocompletionType = searchbarAutocomplete.autocompleteURL(input, result.url)
 
-          if (autocompletionType === 0) { // the domain was autocompleted, show a domain result item
-            var domain = new URL(result.url).hostname
+        if (autocompletionType !== -1) {
+          canAutocomplete = false
+        }
 
-            searchbarPlugins.setTopAnswer(pluginName, {
-              title: domain,
-              url: domain,
-              fakeFocus: true
-            })
-          }
-          if (autocompletionType === 1) {
-            didAutocompleteResult = true
-          }
+        if (autocompletionType === 0) { // the domain was autocompleted, show a domain result item
+          var domain = new URL(result.url).hostname
+
+          searchbarPlugins.setTopAnswer(pluginName, {
+            title: domain,
+            url: domain,
+            fakeFocus: true
+          })
+        }
+        if (autocompletionType === 1) {
+          didAutocompleteResult = true
         }
       }
+    }
 
-      var data = {
-        url: result.url,
-        metadata: result.tags,
-        descriptionBlock: result.searchSnippet,
-        highlightedTerms: (result.searchSnippet ? text.toLowerCase().split(' ').filter(t => t.length > 0) : []),
-        delete: function () {
-          places.deleteHistory(result.url)
-        },
-        icon: 'carbon:wikis'
-      }
+    var data = {
+      url: result.url,
+      metadata: result.tags,
+      descriptionBlock: result.searchSnippet,
+      highlightedTerms: (result.searchSnippet ? text.toLowerCase().split(' ').filter(t => t.length > 0) : []),
+      delete: function () {
+        places.deleteHistory(result.url)
+      },
+      icon: 'carbon:wikis'
+    }
 
-      if (searchQuery) {
-        data.title = searchQuery.search
-        data.secondaryText = searchQuery.engine
-        data.icon = 'carbon:search'
-      } else {
-        data.title = urlParser.prettyURL(urlParser.getSourceURL(result.url))
-        data.secondaryText = searchbarUtils.getRealTitle(result.title)
-      }
+    if (searchQuery) {
+      data.title = searchQuery.search
+      data.secondaryText = searchQuery.engine
+      data.icon = 'carbon:search'
+    } else {
+      data.title = urlParser.prettyURL(urlParser.getSourceURL(result.url))
+      data.secondaryText = searchbarUtils.getRealTitle(result.title)
+    }
 
-      // show a star for bookmarked items
-      if (result.isBookmarked) {
-        data.icon = 'carbon:star-filled'
-      } else if (readerDecision.shouldRedirect(result.url) === 1) {
-        // show an icon to indicate that this page will open in reader view
-        data.icon = 'carbon:notebook'
-      }
+    // show a star for bookmarked items
+    if (result.isBookmarked) {
+      data.icon = 'carbon:star-filled'
+    } else if (readerDecision.shouldRedirect(result.url) === 1) {
+      // show an icon to indicate that this page will open in reader view
+      data.icon = 'carbon:notebook'
+    }
 
-      // create the item
+    // create the item
 
-      if (didAutocompleteResult) { // if this exact URL was autocompleted, show the item as the top answer
-        data.fakeFocus = true
-        searchbarPlugins.setTopAnswer(pluginName, data)
-      } else {
-        searchbarPlugins.addResult(pluginName, data)
-      }
-    })
+    if (didAutocompleteResult) { // if this exact URL was autocompleted, show the item as the top answer
+      data.fakeFocus = true
+      searchbarPlugins.setTopAnswer(pluginName, data)
+    } else {
+      searchbarPlugins.addResult(pluginName, data)
+    }
   })
 }
 

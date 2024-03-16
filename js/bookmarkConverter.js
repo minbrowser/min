@@ -40,7 +40,7 @@ const bookmarkConverter = {
       if (bookmark.getAttribute('tags')) {
         data.tags = data.tags.concat(bookmark.getAttribute('tags').split(','))
       }
-      places.updateItem(url, data, () => { })
+      places.updateItem(url)
     })
   },
   exportAll: function () {
@@ -61,7 +61,7 @@ const bookmarkConverter = {
       var folderBookmarksList = document.createElement('dl')
       folderRoot.appendChild(folderBookmarksList)
 
-      places.getAllItems(function (items) {
+      places.getAllItems().then(function (items) {
         items.forEach(function (item) {
           if (item.isBookmarked) {
             var itemRoot = document.createElement('dt')

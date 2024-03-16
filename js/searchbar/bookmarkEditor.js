@@ -31,7 +31,7 @@ const bookmarkEditor = {
           [
             {
               label: l('bookmarksRenameTag'),
-              click: function () {
+              click: async function () {
                 const res = ipcRenderer.sendSync('prompt', {
                   text: '',
                   values: [{ placeholder: l('bookmarksRenameTag'), id: 'name', type: 'text' }],
@@ -47,49 +47,47 @@ const bookmarkEditor = {
 
                 const newName = res.name
 
-                places.getAllItems(function (items) {
-                  items.forEach(function (item) {
-                    if (item.tags.includes(tag)) {
-                      item.tags = item.tags.filter(t => t !== tag)
-                      item.tags.push(newName)
-                      places.updateItem(item.url, { tags: item.tags })
-                    }
-                  })
-                  setTimeout(function () {
-                    options.onModify()
-                  }, 50)
+                const items = await places.getAllItems()
+
+                items.forEach(function (item) {
+                  if (item.tags.includes(tag)) {
+                    item.tags = item.tags.filter(t => t !== tag)
+                    item.tags.push(newName)
+                    places.updateItem(item.url, { tags: item.tags })
+                  }
                 })
+                setTimeout(function () {
+                  options.onModify()
+                }, 50)
               }
             },
             {
               label: l('bookmarksDeleteTag'),
-              click: function () {
-                places.getAllItems(function (items) {
-                  items.forEach(function (item) {
-                    if (item.tags.includes(tag)) {
-                      item.tags = item.tags.filter(t => t !== tag)
-                      places.updateItem(item.url, { tags: item.tags })
-                    }
-                  })
-                  setTimeout(function () {
-                    options.onModify()
-                  }, 50)
+              click: async function () {
+                const items = await places.getAllItems()
+                items.forEach(function (item) {
+                  if (item.tags.includes(tag)) {
+                    item.tags = item.tags.filter(t => t !== tag)
+                    places.updateItem(item.url, { tags: item.tags })
+                  }
                 })
+                setTimeout(function () {
+                  options.onModify()
+                }, 50)
               }
             },
             {
               label: l('deleteBookmarksWithTag'),
-              click: function () {
-                places.getAllItems(function (items) {
-                  items.forEach(function (item) {
-                    if (item.tags.includes(tag)) {
-                      places.deleteHistory(item.url)
-                    }
-                  })
-                  setTimeout(function () {
-                    options.onModify()
-                  }, 50)
+              click: async function () {
+                const items = await places.getAllItems()
+                items.forEach(function (item) {
+                  if (item.tags.includes(tag)) {
+                    places.deleteHistory(item.url)
+                  }
                 })
+                setTimeout(function () {
+                  options.onModify()
+                }, 50)
               }
             }
           ]
@@ -100,10 +98,7 @@ const bookmarkEditor = {
   },
   render: async function (url, options = {}) {
     bookmarkEditor.currentInstance = {}
-    // TODO make places API return a promise
-    bookmarkEditor.currentInstance.bookmark = (await new Promise(function (resolve, reject) {
-      places.getItem(url, item => resolve(item))
-    }))
+    bookmarkEditor.currentInstance.bookmark = await places.getItem(url)
 
     var editor = document.createElement('div')
     editor.className = 'bookmark-editor searchbar-item'
@@ -168,7 +163,7 @@ const bookmarkEditor = {
     })
     tags.selected = bookmarkEditor.currentInstance.bookmark.tags
 
-    places.getSuggestedTags(bookmarkEditor.currentInstance.bookmark.url, function (suggestions) {
+    places.getSuggestedTags(bookmarkEditor.currentInstance.bookmark.url).then(function (suggestions) {
       tags.suggested = tags.suggested.concat(suggestions)
 
       tags.suggested.filter((tag, idx) => {
@@ -188,7 +183,7 @@ const bookmarkEditor = {
 
       newTagInput.addEventListener('keypress', function (e) {
         if (e.keyCode !== 8 && e.keyCode !== 13) {
-          places.getAllTagsRanked(bookmarkEditor.currentInstance.bookmark.url, function (results) {
+          places.getAllTagsRanked(bookmarkEditor.currentInstance.bookmark.url).then(function (results) {
             autocomplete.autocomplete(newTagInput, results.map(r => r.tag))
           })
         }
