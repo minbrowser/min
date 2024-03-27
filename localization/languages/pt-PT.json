@@ -23,7 +23,7 @@
     "cut": "Cortar",
     "copy": "Copiar", //this is a verb (as in "copy the currently-selected text")
     "paste": "Colar",
-    "pasteAndMatchStyle": null, //missing translation
+    "pasteAndMatchStyle": "Colar e utilizar estilo de destino",
     "goBack": "Recuar",
     "goForward": "Avançar",
     "inspectElement": "Inspecionar elemento",
@@ -158,14 +158,14 @@
     "settingsAdditionalFeaturesHeading": "Outras funcionalidades",
     "settingsUserscriptsToggle": "Ativar scripts de utilizador",
     "settingsShowDividerToggle": "Mostrar divisor entre os separadores",
-    "settingsLanguageSelection": null, //missing translation
+    "settingsLanguageSelection": "Idioma:",
     "settingsSeparateTitlebarToggle": "Utilizar barra de título separada",
     "settingsAutoplayToggle": "Ativar reprodução automática",
     "settingsOpenTabsInForegroundToggle": "Abrir novos separadores em primeiro plano",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Os scripts permitem-lhe alterar o comportamento dos sites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saber mais</a>."
     },
-    "settingsUserscriptShowDirectory": null, //missing translation,
+    "settingsUserscriptShowDirectory": "Mostrar diretório de scripts",
     "settingsUserAgentToggle": "Utilizar um agente de utilizador personalizado",
     "settingsUpdateNotificationsToggle": "Procurar atualizações automaticamente",
     "settingsUsageStatisticsToggle": {
@@ -206,7 +206,7 @@
     "appMenuCut": "Cortar",
     "appMenuCopy": "Copiar",
     "appMenuPaste": "Colar",
-    "appMenuPasteAndMatchStyle": null, //missing translation
+    "appMenuPasteAndMatchStyle": "Colar e utilizar estilo do destino",
     "appMenuSelectAll": "Selecionar tudo",
     "appMenuFind": "Localizar",
     "appMenuView": "Ver",
