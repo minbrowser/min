@@ -2,9 +2,25 @@
 
 /* depends on placesWorker.js */
 
-function processSearchText (text) {
+function searchFormatTitle (text) {
+  return text.toLowerCase().replace(spacesRegex, ' ').normalize('NFD').replace(/[\u0300-\u036f]/g, '') // remove diacritics
+}
+
+function searchFormatURL (text) {
   // the order of these transformations is important - for example, spacesRegex removes / characters, so protocols must be removed before it runs
-  return text.toLowerCase().split('?')[0].replace('http://', '').replace('https://', '').replace('www.', '').replace(spacesRegex, ' ').trim()
+  return text.toLowerCase().split('?')[0].replace('http://', '').replace('https://', '').replace('www.', '').replace(spacesRegex, ' ')
+    // Remove diacritics
+    // URLs don't normally contrain diacritics, but this processing is also applied to the user-typed text, so it needs to match the transformations
+    // Applied by searchFormatTitle
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .trim()
+}
+
+function getSearchTextCache (item) {
+  return {
+    title: searchFormatTitle(item.title),
+    url: searchFormatURL(item.url)
+  }
 }
 
 function searchPlaces (searchText, callback, options) {
@@ -12,12 +28,10 @@ function searchPlaces (searchText, callback, options) {
     if (limitToBookmarks && !item.isBookmarked) {
       return
     }
-    const itextURL = processSearchText(item.url)
-    const itextTitle = item.title.toLowerCase().replace(spacesRegex, ' ')
-    let itext = itextURL
+    let itext = item.searchTextCache.url
 
     if (item.url !== item.title) {
-      itext += ' ' + itextTitle
+      itext += ' ' + item.searchTextCache.title
     }
 
     if (item.tags) {
@@ -56,7 +70,7 @@ function searchPlaces (searchText, callback, options) {
       }
 
       if ((item.visitCount > 2 && item.lastVisit > oneWeekAgo) || item.lastVisit > oneDayAgo) {
-        const score = Math.max(quickScore.quickScore(itextURL.substring(0, 100), st), quickScore.quickScore(itextTitle.substring(0, 50), st))
+        const score = Math.max(quickScore.quickScore(item.searchTextCache.url.substring(0, 100), st), quickScore.quickScore(item.searchTextCache.title.substring(0, 50), st))
         if (score > 0.3) {
           item.boost = score * 0.33
           matches.push(item)
@@ -69,7 +83,7 @@ function searchPlaces (searchText, callback, options) {
   const oneWeekAgo = Date.now() - (oneDayInMS * 7)
 
   const matches = []
-  const st = processSearchText(searchText)
+  const st = searchFormatURL(searchText)
   const stl = searchText.length
   const searchWords = st.split(' ')
   const swl = searchWords.length
