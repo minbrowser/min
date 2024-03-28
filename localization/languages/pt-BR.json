@@ -23,7 +23,7 @@
     "cut": "Recortar",
     "copy": "Copiar", //this is a verb (as in "copy the currently-selected text")
     "paste": "Colar",
-    "pasteAndMatchStyle": null, //missing translation
+    "pasteAndMatchStyle": "Colar e manter estilo",
     "goBack": "Voltar",
     "goForward": "Avançar",
     "inspectElement": "Inspecionar elemento",
@@ -158,14 +158,14 @@
     "settingsAdditionalFeaturesHeading": "Recursos adicionais",
     "settingsUserscriptsToggle": "Habilitar scripts do usuário",
     "settingsShowDividerToggle": "Mostrar divisória entre as abas",
-    "settingsLanguageSelection": null, //missing translation
+    "settingsLanguageSelection": "Idioma: ",
     "settingsSeparateTitlebarToggle": "Usar a barra de título separada",
     "settingsAutoplayToggle": "Habilitar reprodução automática",
     "settingsOpenTabsInForegroundToggle": "Abrir novas abas em primeiro plano",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Scripts do usuário permitem modificar o comportamento do site - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saiba mais</a>."
     },
-    "settingsUserscriptShowDirectory": null, //missing translation,
+    "settingsUserscriptShowDirectory": "Exibir diretório do script",
     "settingsUserAgentToggle": "Usar agente de usuário personalizado",
     "settingsUpdateNotificationsToggle": "Verificar atualizações automaticamente",
     "settingsUsageStatisticsToggle": {
@@ -175,9 +175,9 @@
     "settingsStartupCreateTask": "Reabrir abas anteriores",
     "settingsStartupNewTaskandBackground": "Mover abas anteriores para uma tarefa em segundo plano",
     "settingsStartupNewTaskOnly": "Iniciar uma nova tarefa",
-    "settingsNewWindowOptions": null, //missing translation
-    "settingsNewWindowCreateTask": null, //missing translation
-    "settingsNewWindowPickTask": null, //missing translation
+    "settingsNewWindowOptions": "Em novas janelas",
+    "settingsNewWindowCreateTask": "Criar uma nova tarefa",
+    "settingsNewWindowPickTask": "Exibir tarefas",
     "settingsSearchEngineHeading": "Serviço de busca",
     "settingsDefaultSearchEngine": "Escolha o serviço de busca padrão:",
     "settingsDDGExplanation": "Defina DuckDuckGo como o serviço padrão de buscas para ver respostas instantâneas na barra de busca.",
@@ -197,7 +197,7 @@
     "appMenuDuplicateTab": "Duplicar aba atual",
     "appMenuNewPrivateTab": "Nova aba privada",
     "appMenuNewTask": "Nova tarefa",
-    "appMenuNewWindow": null, //missing translation
+    "appMenuNewWindow": "Nova janela",
     "appMenuSavePageAs": "Salvar página como",
     "appMenuPrint": "Imprimir",
     "appMenuEdit": "Editar",
@@ -206,7 +206,7 @@
     "appMenuCut": "Recortar",
     "appMenuCopy": "Copiar",
     "appMenuPaste": "Colar",
-    "appMenuPasteAndMatchStyle": null, //missing translation
+    "appMenuPasteAndMatchStyle": "Colar e manter estilo",
     "appMenuSelectAll": "Selecionar tudo",
     "appMenuFind": "Buscar na página",
     "appMenuView": "Visualizar",
@@ -239,7 +239,7 @@
     "appMenuQuit": "Sair do %n",
     "appMenuBringToFront": "Trazer tudo para a frente",
     /* PDF Viewer */
-    "PDFInvertPage": null, //missing translation
+    "PDFInvertPage": "Inverter cores da página",
     "PDFPageCounter": {
       "unsafeHTML": "página <input type='text'/> de <span id='total'></span>"
     },
