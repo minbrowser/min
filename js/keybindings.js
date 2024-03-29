@@ -78,6 +78,10 @@ function defineShortcut (keysOrKeyMapName, fn, options = {}) {
       return
     }
 
+    if (options.contexts && !options.contexts.includes(document.body.getAttribute('data-context') || 'default')) {
+      return
+    }
+
     checkShortcutCanRun(combo, function (canRun) {
       if (canRun) {
         fn(e, combo)
