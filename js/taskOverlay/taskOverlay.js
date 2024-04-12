@@ -38,6 +38,36 @@ function addTaskFromMenu () {
   }, 600)
 }
 
+function deleteTabFromOverlay (item) {
+  var itemIsFocused = item.classList.contains('fakefocus') || (document.activeElement === item)
+  var successorTab = item.previousElementSibling || item.nextElementSibling
+  if (!successorTab) {
+    var allTabs = Array.from(document.querySelectorAll('.task-tab-item'))
+    successorTab = allTabs[allTabs.indexOf(item) - 1] || allTabs[allTabs.indexOf(item) + 1]
+  }
+
+  var tabId = item.getAttribute('data-tab')
+
+  var task = tasks.getTaskContainingTab(tabId)
+
+  tasks.get(task.id).tabs.destroy(tabId)
+  webviews.destroy(tabId)
+
+  tabBar.updateAll()
+
+  // if there are no tabs left, remove the task
+  if (task.tabs.count() === 0) {
+    // remove the task element from the overlay
+    getTaskContainer(task.id).remove()
+    // close the task
+    browserUI.closeTask(task.id)
+  }
+
+  if (itemIsFocused && successorTab) {
+    successorTab.focus()
+  }
+}
+
 function getTaskContainer (id) {
   return document.querySelector('.task-container[data-task="{id}"]'.replace('{id}', id))
 }
@@ -156,6 +186,7 @@ var taskOverlay = {
     webviews.requestPlaceholder('taskOverlay')
 
     document.body.classList.add('task-overlay-is-shown')
+    document.body.setAttribute('data-context', 'taskOverlay')
 
     tabEditor.hide()
 
@@ -195,20 +226,7 @@ var taskOverlay = {
           taskOverlay.hide()
         },
         tabDelete: function (item) {
-          var tabId = item.getAttribute('data-tab')
-
-          tasks.get(task.id).tabs.destroy(tabId)
-          webviews.destroy(tabId)
-
-          tabBar.updateAll()
-
-          // if there are no tabs left, remove the task
-          if (task.tabs.count() === 0) {
-            // remove the task element from the overlay
-            getTaskContainer(task.id).remove()
-            // close the task
-            browserUI.closeTask(task.id)
-          }
+          deleteTabFromOverlay(item)
         }
       })
 
@@ -231,6 +249,7 @@ var taskOverlay = {
       }, 250)
 
       document.body.classList.remove('task-overlay-is-shown')
+      document.body.removeAttribute('data-context')
 
       // close any tasks that are pending deletion
 
@@ -369,6 +388,14 @@ var taskOverlay = {
     keybindings.defineShortcut('enterEditMode', function (e) {
       taskOverlay.hide()
     })
+
+    keybindings.defineShortcut('closeTab', function (e) {
+      var focusedTab = (document.querySelector('.task-tab-item.fakefocus') || document.activeElement)
+      if (focusedTab && focusedTab.getAttribute('data-tab')) {
+        deleteTabFromOverlay(focusedTab)
+        focusedTab.remove()
+      }
+    }, { contexts: ['taskOverlay'] })
 
     keybindings.defineShortcut('addTask', addTaskFromMenu)
     ipcRenderer.on('addTask', addTaskFromMenu) // for menu item

@@ -71,7 +71,7 @@ const defaultKeybindings = {
 
     keybindings.defineShortcut('closeTab', function (e) {
       browserUI.closeTab(tabs.getSelected())
-    })
+    }, { contexts: ['default'] })
 
     keybindings.defineShortcut('moveTabLeft', function (e) {
       browserUI.moveTabLeft(tabs.getSelected())
