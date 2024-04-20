@@ -299,7 +299,7 @@
     "username": "아이디",
     "email": "이메일(E-Mail)",
     "password": "비밀번호",
-    "secretKey": "보안 키",
+    "secretKey": "보안키",
     "openExternalApp": "\\\"%s\\\"에서 열까요?",
     "clickToCopy": "클릭하여 복사",
     "copied": "복사 완료"
