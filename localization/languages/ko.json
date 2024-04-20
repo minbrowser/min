@@ -97,7 +97,7 @@
     "timeRangeWeek": "지난 주",
     "timeRangeMonth": "지난 달",
     "timeRangeYear": "작년",
-    "timeRangeLongerAgo": "호랑이 담배 피던 시절",
+    "timeRangeLongerAgo": "오래전",
     /* pages/error/index.html */
     "crashErrorTitle": "충돌이 발생했습니다.",
     "crashErrorSubtitle": "이 사이트를 표시하는 동안 문제가 발생했습니다.",
@@ -142,8 +142,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "지금까지 차단된 광고 및 추적기: <strong></strong>"
     },
-    "settingsCustomBangs": "Custom Bang Search",
-    "settingsCustomBangsAdd": "Custom Bang Search 추가",
+    "settingsCustomBangs": "Custom bang",
+    "settingsCustomBangsAdd": "Custom bang 추가",
     "settingsCustomBangsPhrase": "명령어 (필수)",
     "settingsCustomBangsSnippet": "설명 (선택)",
     "settingsCustomBangsRedirect": "연결할 URL (필수)",
@@ -258,7 +258,7 @@
     "downloadStateCompleted": "완료",
     "downloadStateFailed": "실패",
     /* Update Notifications */
-    "updateNotificationTitle": "업데이트가 필요합니다.",
+    "updateNotificationTitle": "새 버전의 민(Min)이 존재합니다.",
     /* Autofill settings */
     "settingsPasswordAutoFillHeadline": "비밀번호 자동완성",
     "settingsSelectPasswordManager": "지원하는 비밀번호 관리자 중에서 하나를 선택하세요:",
