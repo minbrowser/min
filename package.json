@@ -4,7 +4,7 @@
   "author": "PalmerAL",
   "version": "1.31.2",
   "description": "A fast, minimal browser that protects your privacy",
-  "electronVersion": "29.0.1",
+  "electronVersion": "29.3.1",
   "main": "main.build.js",
   "standard": {
     "globals": [
@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@electron/fuses": "^1.7.0",
+    "chokidar": "^3.5.3",
     "dexie": "^3.0.3",
     "dragula": "github:minbrowser/dragula",
     "electron-squirrel-startup": "^1.0.0",
@@ -40,15 +41,14 @@
     "quick-score": "^0.2.0",
     "regedit": "^3.0.3",
     "sortablejs": "^1.15.1",
-    "stemmer": "^1.0.5",
-    "chokidar": "^3.5.3"
+    "stemmer": "^1.0.5"
   },
   "devDependencies": {
     "archiver": "^4.0.1",
     "browserify": "^16.5.1",
     "concurrently": "^5.2.0",
     "decomment": "^0.9.0",
-    "electron": "29.0.1",
+    "electron": "29.3.1",
     "electron-builder": "^22.14.13",
     "electron-installer-windows": "^3.0.0",
     "electron-packager": "^15.1.0",
