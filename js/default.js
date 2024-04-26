@@ -143,6 +143,7 @@ require('tabState.js').initialize()
 require('tabState/windowSync.js').initialize()
 require('windowControls.js').initialize()
 require('navbar/menuButton.js').initialize()
+require('navbar/favoriteButton').initialize()
 
 require('navbar/addTabButton.js').initialize()
 require('navbar/tabActivity.js').initialize()
