@@ -23,7 +23,7 @@
     "cut": "Kes",
     "copy": "Kopyala", //this is a verb (as in "copy the currently-selected text")
     "paste": "Yapıştır",
-    "pasteAndMatchStyle": "Yapıştır ve Stili Eşle"
+    "pasteAndMatchStyle": "Yapıştır ve Stili Eşle",
     "goBack": "Geri Git",
     "goForward": "İleri Git",
     "inspectElement": "Öğeyi İncele",
@@ -158,14 +158,14 @@
     "settingsAdditionalFeaturesHeading": "Ek Özellikler",
     "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",
     "settingsShowDividerToggle": "Sekmeler arasında ayırıcı göster",
-    "settingsLanguageSelection": "Dil: "
+    "settingsLanguageSelection": "Dil: ",
     "settingsSeparateTitlebarToggle": "Ayrılmış başlık çubuğu kullan",
     "settingsAutoplayToggle": "Otomatik oynatmayı etkinleştir",
     "settingsOpenTabsInForegroundToggle": "Yeni sekmeleri önplanda aç",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."
     },
-    "settingsUserscriptShowDirectory": "Betik klasörünü göster"
+    "settingsUserscriptShowDirectory": "Betik klasörünü göster",
     "settingsUserAgentToggle": "Özel kullanıcı aracısı kullan",
     "settingsUpdateNotificationsToggle": "Güncelleştirmeleri otomatik olarak denetle",
     "settingsUsageStatisticsToggle": {
@@ -175,9 +175,9 @@
     "settingsStartupCreateTask": "Önceki sekmeleri yeniden aç",
     "settingsStartupNewTaskandBackground": "Önceki sekmeleri arka plan görevine taşı",
     "settingsStartupNewTaskOnly": "Yeni bir boş görev aç",
-    "settingsNewWindowOptions": "Yeni pencerede: "
-    "settingsNewWindowCreateTask": "Yeni görev oluştur"
-    "settingsNewWindowPickTask": "Görev listesini göster"
+    "settingsNewWindowOptions": "Yeni pencerede: ",
+    "settingsNewWindowCreateTask": "Yeni görev oluştur",
+    "settingsNewWindowPickTask": "Görev listesini göster",
     "settingsSearchEngineHeading": "Arama Motoru",
     "settingsDefaultSearchEngine": "Bir varsayılan arama motoru seçin:",
     "settingsDDGExplanation": "Arama çubuğundaki anlık yanıtları görmek için DuckDuckGo’yu varsayılan arama motoru olarak ayarlayın.",
@@ -206,7 +206,7 @@
     "appMenuCut": "Kes",
     "appMenuCopy": "Kopyala",
     "appMenuPaste": "Yapıştır",
-    "appMenuPasteAndMatchStyle": "Yapıştır ve Stili Eşle"
+    "appMenuPasteAndMatchStyle": "Yapıştır ve Stili Eşle",
     "appMenuSelectAll": "Tümünü Seç",
     "appMenuFind": "Bul",
     "appMenuView": "Görünüm",
@@ -239,7 +239,7 @@
     "appMenuQuit": "%n Çıkış",
     "appMenuBringToFront": "Tümünü Öne Getir",
     /* PDF Viewer */
-    "PDFInvertPage": "Sayfa renklerini ters çevir"
+    "PDFInvertPage": "Sayfa renklerini ters çevir",
     "PDFPageCounter": {
       "unsafeHTML": "<span id='total'></span> sayfanın <input type='text'/> i"
     },
