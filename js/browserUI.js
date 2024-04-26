@@ -57,7 +57,17 @@ function addTab (tabId = tabs.add(), options = {}) {
     tabBar.getTab(tabId).scrollIntoView()
   }
 }
+function openURLInNewTab(url, options = { openInBackground: false }) {
+  const newTab = tabs.add({
+    url: url,
+    private: tabs.get(tabs.getSelected()).private
+  });
 
+  addTab(newTab, {
+    enterEditMode: false,
+    openInBackground: options.openInBackground
+  });
+}
 function moveTabLeft (tabId = tabs.getSelected()) {
   tabs.moveBy(tabId, -1)
   tabBar.updateAll()
@@ -284,5 +294,6 @@ module.exports = {
   switchToTask,
   switchToTab,
   moveTabLeft,
-  moveTabRight
+  moveTabRight,
+  openURLInNewTab
 }
