@@ -6,7 +6,6 @@ const windowSync = {
   pendingEvents: [],
   syncTimeout: null,
   sendEvents: function () {
-    console.log(windowSync.pendingEvents)
     ipc.send('tab-state-change', windowSync.pendingEvents)
     windowSync.pendingEvents = []
     windowSync.syncTimeout = null
