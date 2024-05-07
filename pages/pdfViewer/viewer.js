@@ -1,4 +1,7 @@
-pdfjsLib.GlobalWorkerOptions.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.js'
+import '../../node_modules/pdfjs-dist/build/pdf.min.mjs'
+import '../../node_modules/pdfjs-dist/web/pdf_viewer.mjs'
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.mjs'
 
 var url = new URLSearchParams(window.location.search.replace('?', '')).get('url')
 
@@ -234,8 +237,8 @@ function setUpPageAnnotationLayer (pageView) {
   }
 }
 
-pdfjsLib.getDocument({ url: url, withCredentials: true }).promise.then(async function (pdf) {
-  window.pdf = pdf
+pdfjsLib.getDocument({ url: url, withCredentials: true }).promise.then(async function (_pdf) {
+  pdf = _pdf
 
   pageCount = pdf.numPages
 
@@ -286,7 +289,7 @@ pdfjsLib.getDocument({ url: url, withCredentials: true }).promise.then(async fun
         defaultViewport: viewport,
         eventBus: eventBus,
         textLayerFactory: new DefaultTextLayerFactory(),
-        annotationLayerFactory: new pdfjsViewer.DefaultAnnotationLayerFactory()
+        // annotationLayerFactory: new pdfjsViewer.DefaultAnnotationLayerFactory()
       })
       pdfPageView.setPdfPage(page)
       pageViews.push(pdfPageView)
@@ -358,12 +361,12 @@ function updateVisiblePages () {
     if (!isFindInPage && (rect.bottom < -80 || rect.top > ih)) {
       pageViews[i].div.style.visibility = 'hidden'
       if (textLayer) {
-        textLayer.textLayerDiv.style.display = 'none'
+        textLayer.div.style.display = 'none'
       }
     } else {
       pageViews[i].div.style.visibility = 'visible'
       if (textLayer) {
-        textLayer.textLayerDiv.style.display = 'block'
+        textLayer.div.style.display = 'block'
       }
 
       if ((rect.top >= 0 && (innerHeight - rect.top) > innerHeight / 2) || (rect.bottom <= innerHeight && rect.bottom > innerHeight / 2) || (rect.top <= 0 && rect.bottom >= innerHeight)) {
@@ -599,7 +602,7 @@ function startFindInPage () {
   for (var i = 0; i < pageViews.length; i++) {
     pageViews[i].div.style.visibility = 'visible'
     if (pageViews[i].textLayer) {
-      pageViews[i].textLayer.textLayerDiv.style.display = 'block'
+      pageViews[i].textLayer.div.style.display = 'block'
     }
   }
 }

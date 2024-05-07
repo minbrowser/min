@@ -5,13 +5,12 @@
     <meta name="theme-color" id="meta-theme" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="script-src 'self' 'unsafe-eval'"
+      content="script-src 'self'"
     />
 
     <link rel="stylesheet" href="viewer.css" />
     <link rel="stylesheet" href="../../ext/icons/iconfont.css" />
     <link rel="stylesheet" href="../settingsDropdown.css" />
-    <script src="../../node_modules/pdfjs-dist/build/pdf.min.js"></script>
   </head>
 
   <body>
@@ -67,8 +66,7 @@
     <script src="../../dist/localization.build.js"></script>
     <script src="../../js/util/settings/settingsContent.js"></script>
     <script src="../../js/util/theme.js"></script>
-    <script src="../../node_modules/pdfjs-dist/web/pdf_viewer.js"></script>
-    <script src="viewer.js"></script>
+    <script type="module" src="viewer.js"></script>
     <script src="pdfThemeSelector.js"></script>
   </body>
 </html>
