@@ -405,13 +405,8 @@ function redrawPageCanvas (i, cb) {
   if (!canvasWrapperNode) {
     return
   }
-  var oldCanvas = pageViews[i].canvas
-  pageViews[i].paintOnCanvas(canvasWrapperNode).promise.then(function () {
-    if (oldCanvas) {
-      oldCanvas.remove()
-    }
-    if (cb) { cb() }
-  })
+  pageViews[i].reset()
+  pageViews[i].draw().then(function () { setUpPageAnnotationLayer(pageViews[i]) }).then(cb)
 }
 
 var isRedrawing = false
@@ -529,6 +524,7 @@ function afterPrintComplete () {
   printPreviousScaleList = []
   isPrinting = false
   updateVisiblePages()
+  redrawAllPages()
 }
 
 function printPDF () {
@@ -614,7 +610,7 @@ function endFindInPage () {
 
 /* these functions are called from the parent process */
 
-var parentProcessActions = {
+window.parentProcessActions = {
   downloadPDF: downloadPDF,
   printPDF: printPDF,
   startFindInPage: startFindInPage,
