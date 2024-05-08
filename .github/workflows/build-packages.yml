@@ -10,7 +10,7 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - run: npm install
+    - run: npm install --omit=optional
     - name: build package
       run: npm run buildMacIntel && npm run buildMacArm
     - name: upload package
@@ -25,7 +25,7 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - run: npm install
+    - run: npm install --omit=optional
     - name: build package
       run: npm run buildWindows
     - name: upload package
@@ -42,7 +42,7 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - run: npm install
+    - run: npm install --omit=optional
     - name: build package
       run: npm run buildDebian && npm run buildRedhat && npm run buildLinuxArm64 && npm run buildRaspi
     - name: upload package
