@@ -1,4 +1,7 @@
-pdfjsLib.GlobalWorkerOptions.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.js'
+import '../../node_modules/pdfjs-dist/build/pdf.min.mjs'
+import '../../node_modules/pdfjs-dist/web/pdf_viewer.mjs'
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.mjs'
 
 var url = new URLSearchParams(window.location.search.replace('?', '')).get('url')
 
@@ -212,30 +215,32 @@ const updateCachedPages = throttle(function () {
 var pageCount
 
 function setUpPageAnnotationLayer (pageView) {
-  pageView.annotationLayer.linkService.goToDestination = async function (dest) {
-    // Adapted from https://github.com/mozilla/pdf.js/blob/8ac0ccc2277a7c0c85d6fec41c0f3fc3d1a2d232/web/pdf_link_service.js#L238
-    let explicitDest
-    if (typeof dest === 'string') {
-      explicitDest = await pdf.getDestination(dest)
-    } else {
-      explicitDest = await dest
+  if (pageView.annotationLayer) {
+    pageView.annotationLayer.linkService.goToDestination = async function (dest) {
+      // Adapted from https://github.com/mozilla/pdf.js/blob/8ac0ccc2277a7c0c85d6fec41c0f3fc3d1a2d232/web/pdf_link_service.js#L238
+      let explicitDest
+      if (typeof dest === 'string') {
+        explicitDest = await pdf.getDestination(dest)
+      } else {
+        explicitDest = await dest
+      }
+
+      const destRef = explicitDest[0]
+      let pageNumber
+
+      if (typeof destRef === 'object' && destRef !== null) {
+        pageNumber = await pdf.getPageIndex(destRef)
+      } else if (Number.isInteger(destRef)) {
+        pageNumber = destRef + 1
+      }
+
+      pageViews[pageNumber].div.scrollIntoView()
     }
-
-    const destRef = explicitDest[0]
-    let pageNumber
-
-    if (typeof destRef === 'object' && destRef !== null) {
-      pageNumber = await pdf.getPageIndex(destRef)
-    } else if (Number.isInteger(destRef)) {
-      pageNumber = destRef + 1
-    }
-
-    pageViews[pageNumber].div.scrollIntoView()
   }
 }
 
-pdfjsLib.getDocument({ url: url, withCredentials: true }).promise.then(async function (pdf) {
-  window.pdf = pdf
+pdfjsLib.getDocument({ url: url, withCredentials: true }).promise.then(async function (_pdf) {
+  pdf = _pdf
 
   pageCount = pdf.numPages
 
@@ -286,7 +291,7 @@ pdfjsLib.getDocument({ url: url, withCredentials: true }).promise.then(async fun
         defaultViewport: viewport,
         eventBus: eventBus,
         textLayerFactory: new DefaultTextLayerFactory(),
-        annotationLayerFactory: new pdfjsViewer.DefaultAnnotationLayerFactory()
+        // annotationLayerFactory: new pdfjsViewer.DefaultAnnotationLayerFactory()
       })
       pdfPageView.setPdfPage(page)
       pageViews.push(pdfPageView)
@@ -358,12 +363,12 @@ function updateVisiblePages () {
     if (!isFindInPage && (rect.bottom < -80 || rect.top > ih)) {
       pageViews[i].div.style.visibility = 'hidden'
       if (textLayer) {
-        textLayer.textLayerDiv.style.display = 'none'
+        textLayer.div.style.display = 'none'
       }
     } else {
       pageViews[i].div.style.visibility = 'visible'
       if (textLayer) {
-        textLayer.textLayerDiv.style.display = 'block'
+        textLayer.div.style.display = 'block'
       }
 
       if ((rect.top >= 0 && (innerHeight - rect.top) > innerHeight / 2) || (rect.bottom <= innerHeight && rect.bottom > innerHeight / 2) || (rect.top <= 0 && rect.bottom >= innerHeight)) {
@@ -402,13 +407,8 @@ function redrawPageCanvas (i, cb) {
   if (!canvasWrapperNode) {
     return
   }
-  var oldCanvas = pageViews[i].canvas
-  pageViews[i].paintOnCanvas(canvasWrapperNode).promise.then(function () {
-    if (oldCanvas) {
-      oldCanvas.remove()
-    }
-    if (cb) { cb() }
-  })
+  pageViews[i].reset()
+  pageViews[i].draw().then(function () { setUpPageAnnotationLayer(pageViews[i]) }).then(cb)
 }
 
 var isRedrawing = false
@@ -526,6 +526,7 @@ function afterPrintComplete () {
   printPreviousScaleList = []
   isPrinting = false
   updateVisiblePages()
+  redrawAllPages()
 }
 
 function printPDF () {
@@ -599,7 +600,7 @@ function startFindInPage () {
   for (var i = 0; i < pageViews.length; i++) {
     pageViews[i].div.style.visibility = 'visible'
     if (pageViews[i].textLayer) {
-      pageViews[i].textLayer.textLayerDiv.style.display = 'block'
+      pageViews[i].textLayer.div.style.display = 'block'
     }
   }
 }
@@ -611,7 +612,7 @@ function endFindInPage () {
 
 /* these functions are called from the parent process */
 
-var parentProcessActions = {
+window.parentProcessActions = {
   downloadPDF: downloadPDF,
   printPDF: printPDF,
   startFindInPage: startFindInPage,
