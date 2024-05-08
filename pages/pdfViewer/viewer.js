@@ -215,25 +215,27 @@ const updateCachedPages = throttle(function () {
 var pageCount
 
 function setUpPageAnnotationLayer (pageView) {
-  pageView.annotationLayer.linkService.goToDestination = async function (dest) {
-    // Adapted from https://github.com/mozilla/pdf.js/blob/8ac0ccc2277a7c0c85d6fec41c0f3fc3d1a2d232/web/pdf_link_service.js#L238
-    let explicitDest
-    if (typeof dest === 'string') {
-      explicitDest = await pdf.getDestination(dest)
-    } else {
-      explicitDest = await dest
+  if (pageView.annotationLayer) {
+    pageView.annotationLayer.linkService.goToDestination = async function (dest) {
+      // Adapted from https://github.com/mozilla/pdf.js/blob/8ac0ccc2277a7c0c85d6fec41c0f3fc3d1a2d232/web/pdf_link_service.js#L238
+      let explicitDest
+      if (typeof dest === 'string') {
+        explicitDest = await pdf.getDestination(dest)
+      } else {
+        explicitDest = await dest
+      }
+
+      const destRef = explicitDest[0]
+      let pageNumber
+
+      if (typeof destRef === 'object' && destRef !== null) {
+        pageNumber = await pdf.getPageIndex(destRef)
+      } else if (Number.isInteger(destRef)) {
+        pageNumber = destRef + 1
+      }
+
+      pageViews[pageNumber].div.scrollIntoView()
     }
-
-    const destRef = explicitDest[0]
-    let pageNumber
-
-    if (typeof destRef === 'object' && destRef !== null) {
-      pageNumber = await pdf.getPageIndex(destRef)
-    } else if (Number.isInteger(destRef)) {
-      pageNumber = destRef + 1
-    }
-
-    pageViews[pageNumber].div.scrollIntoView()
   }
 }
 
