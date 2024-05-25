@@ -40,7 +40,7 @@ const bookmarkConverter = {
       if (bookmark.getAttribute('tags')) {
         data.tags = data.tags.concat(bookmark.getAttribute('tags').split(','))
       }
-      places.updateItem(url)
+      places.updateItem(url, data)
     })
   },
   exportAll: function () {
