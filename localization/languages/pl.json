@@ -23,7 +23,7 @@
     "cut": "Wytnij",
     "copy": "Kopiuj", //this is a verb (as in "copy the currently-selected text")
     "paste": "Wklej",
-    "pasteAndMatchStyle": null, //missing translation
+    "pasteAndMatchStyle": "Wklej i dopasuj styl",
     "goBack": "Cofnij",
     "goForward": "Dalej",
     "inspectElement": "Sprawdź element",
@@ -158,14 +158,14 @@
     "settingsAdditionalFeaturesHeading": "Dodatkowe funkcje",
     "settingsUserscriptsToggle": "Włącz skrypty użytkownika",
     "settingsShowDividerToggle": "Pokaż linię rozdzielającą między zakładkami",
-    "settingsLanguageSelection": null, //missing translation
+    "settingsLanguageSelection": "Język: ",
     "settingsSeparateTitlebarToggle": "Użyj osobnego paska tytułu",
     "settingsAutoplayToggle": "Włącz autoodtwarzanie",
     "settingsOpenTabsInForegroundToggle": "Otwórz nowe karty na pierwszym planie",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">dowiedz się więcej</a>."
     },
-    "settingsUserscriptShowDirectory": null, //missing translation,
+    "settingsUserscriptShowDirectory": "Pokaż katalog skryptów",
     "settingsUserAgentToggle": "Użyj niestandardowego klienta użytkownika",
     "settingsUpdateNotificationsToggle": "Automatycznie sprawdź dostępność aktualizacji",
     "settingsUsageStatisticsToggle": {
@@ -175,9 +175,9 @@
     "settingsStartupCreateTask": "Otwieraj ostatnie karty",
     "settingsStartupNewTaskandBackground": "Przenoś poprzednie karty na drugi plan",
     "settingsStartupNewTaskOnly": "Otwieraj nową, pustą kartę",
-    "settingsNewWindowOptions": null, //missing translation
-    "settingsNewWindowCreateTask": null, //missing translation
-    "settingsNewWindowPickTask": null, //missing translation
+    "settingsNewWindowOptions": "W nowych oknach: ",
+    "settingsNewWindowCreateTask": "Utwórz nowe zadanie",
+    "settingsNewWindowPickTask": "Pokaż listę zadań",
     "settingsSearchEngineHeading": "Wyszukiwarka",
     "settingsDefaultSearchEngine": "Wybierz domyślną wyszukiwarkę:",
     "settingsDDGExplanation": "Ustaw DuckDuckGo jako domyślną wyszukiwarkę, aby zobaczyć błyskawiczne odpowiedzi na pasku wyszukiwania.",
@@ -197,7 +197,7 @@
     "appMenuDuplicateTab": "Powielona karta",
     "appMenuNewPrivateTab": "Nowa karta prywatna",
     "appMenuNewTask": "Nowe zadanie",
-    "appMenuNewWindow": null, //missing translation
+    "appMenuNewWindow": "Nowe okno",
     "appMenuSavePageAs": "Zapisz stronę jako",
     "appMenuPrint": "Drukuj",
     "appMenuEdit": "Edytuj",
@@ -206,7 +206,7 @@
     "appMenuCut": "Wytnij",
     "appMenuCopy": "Kopiuj",
     "appMenuPaste": "Wklej",
-    "appMenuPasteAndMatchStyle": null, //missing translation
+    "appMenuPasteAndMatchStyle": "Wklej i dopasuj styl",
     "appMenuSelectAll": "Zaznacz wszystko",
     "appMenuFind": "Znajdź",
     "appMenuView": "Widok",
@@ -239,7 +239,7 @@
     "appMenuQuit": "Zamknij %n",
     "appMenuBringToFront": "Umieść wszystko na wierzchu",
     /* PDF Viewer */
-    "PDFInvertPage": null, //missing translation
+    "PDFInvertPage": "Odwróć kolory strony",
     "PDFPageCounter": {
       "unsafeHTML": "strona <input type='text'/> z <span id='total'></span>"
     },
