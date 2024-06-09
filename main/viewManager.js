@@ -412,6 +412,24 @@ ipc.on('callViewMethod', function (e, data) {
   }
 })
 
+ipc.handle('getNavigationHistory', function (e, id) {
+  if (!viewMap[id]?.webContents) {
+    return null
+  }
+  const entries = []
+  const activeIndex = viewMap[id].webContents.navigationHistory.getActiveIndex()
+  const size = viewMap[id].webContents.navigationHistory.length()
+
+  for (let i = 0; i < size; i++) {
+    entries.push(viewMap[id].webContents.navigationHistory.getEntryAtIndex(i))
+  }
+
+  return {
+    activeIndex,
+    entries
+  }
+})
+
 ipc.on('getCapture', function (e, data) {
   var view = viewMap[data.id]
   if (!view) {
