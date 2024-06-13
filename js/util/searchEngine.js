@@ -70,6 +70,12 @@ var searchEngines = {
     suggestionsURL: 'https://suggest.yandex.com/suggest-ff.cgi?part=%s',
     queryParam: 'text'
   },
+  Brave: {
+    name: 'Brave',
+    searchURL: 'https://search.brave.com/search?q=%s',
+    suggestionsURL: 'https://search.brave.com/api/suggest?q=%s',
+    queryParam: 'q'
+  },
   none: {
     name: 'none',
     searchURL: 'http://%s'
