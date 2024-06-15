@@ -239,6 +239,9 @@
     "appMenuShowAll": "Показати все",
     "appMenuQuit": "Вийти з %n",
     "appMenuBringToFront": "Все на передній план",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFInvertPage": "Інвертувати кольори сторінки",
     "PDFPageCounter": {

@@ -236,6 +236,9 @@
     "appMenuShowAll": "Barchasini ko'rsatish",
     "appMenuQuit": "%n chiqish",
     "appMenuBringToFront": "Barchasini oldinga olib kelish",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {

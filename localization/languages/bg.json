@@ -235,6 +235,9 @@
     "appMenuShowAll": "Покажи всички",
     "appMenuQuit": "Излизане от %n",
     "appMenuBringToFront": "Извеждане на всички отпред",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {

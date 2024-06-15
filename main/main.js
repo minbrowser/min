@@ -151,7 +151,7 @@ function handleCommandLineArguments (argv) {
   }
 }
 
-function createWindow () {
+function createWindow (customArgs = {}) {
   var bounds;
 
   try {
@@ -183,10 +183,10 @@ function createWindow () {
     maximized: bounds.maximized
   }
 
-  return createWindowWithBounds(bounds)
+  return createWindowWithBounds(bounds, customArgs)
 }
 
-function createWindowWithBounds (bounds) {
+function createWindowWithBounds (bounds, customArgs) {
   const newWin = new BrowserWindow({
     width: bounds.width,
     height: bounds.height,
@@ -211,7 +211,8 @@ function createWindowWithBounds (bounds) {
         ...((isDevelopmentMode ? ['--development-mode'] : [])),
         '--window-id=' + windows.nextId,
         ...((windows.getAll().length === 0 ? ['--initial-window'] : [])),
-        ...(windows.hasEverCreatedWindow ? [] : ['--launch-window'])
+        ...(windows.hasEverCreatedWindow ? [] : ['--launch-window']),
+        ...(customArgs.initialTask ? ['--initial-task=' + customArgs.initialTask] : [])
       ]
     }
   })

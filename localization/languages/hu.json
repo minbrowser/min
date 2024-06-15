@@ -234,6 +234,9 @@
     "appMenuShowAll": "Mindent mutat",
     "appMenuQuit": "Kilépés %n",
     "appMenuBringToFront": "Mindent előtérbe hoz",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {

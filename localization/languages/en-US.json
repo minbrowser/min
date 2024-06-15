@@ -61,8 +61,8 @@
     "runUserscript": "Run userscript",
     /* navbar */
     "openMenu": "Open menu", //application menu button on windows
-    "enterReaderView": "Enter reader view",
-    "exitReaderView": "Exit reader view",
+    "enterReaderView": "Enter Reader View",
+    "exitReaderView": "Exit Reader View",
     "newTabLabel": "New Tab", //this is a noun, used for tabs that don't have a page loaded in them yet
     "connectionNotSecure": "Your connection to this website is not secure.",
     "searchbarPlaceholder": "Search or enter address",
@@ -238,6 +238,9 @@
     "appMenuShowAll": "Show All",
     "appMenuQuit": "Quit %n",
     "appMenuBringToFront": "Bring All to Front",
+    /* Tab menu */
+    "tabMenuNewWindow": "Move Tab to New Window",
+    "tabMenuReload": "Reload",
     /* PDF Viewer */
     "PDFInvertPage": "Invert page colors",
     "PDFPageCounter": {

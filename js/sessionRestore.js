@@ -194,8 +194,14 @@ const sessionRestore = {
       // restore the task item
       tasks.add(task, undefined, false)
     })
-    //reuse an existing task or create a new task in this window
-    //same as windowSync.js
+
+    if (Object.hasOwn(window.globalArgs, 'initial-task')) {
+      browserUI.switchToTask(window.globalArgs['initial-task'])
+      return
+    }
+
+    // reuse an existing task or create a new task in this window
+    // same as windowSync.js
     var newTaskCandidates = tasks.filter(task => task.tabs.isEmpty() && !task.selectedInWindow && !task.name)
       .sort((a, b) => {
         return tasks.getLastActivity(b.id) - tasks.getLastActivity(a.id)
@@ -213,7 +219,7 @@ const sessionRestore = {
     } else {
       sessionRestore.syncWithWindow()
     }
-    if (settings.get('newWindowOption') === 2 && !Object.hasOwn(window.globalArgs, 'launch-window')) {
+    if (settings.get('newWindowOption') === 2 && !Object.hasOwn(window.globalArgs, 'launch-window') && !Object.hasOwn(window.globalArgs, 'initial-task')) {
       taskOverlay.show()
     }
   },
