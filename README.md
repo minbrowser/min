@@ -2,11 +2,11 @@
 
 Min is a fast, minimal browser that protects your privacy. It includes an interface designed to minimize distractions, and features such as:
 
-- Information from [DuckDuckGo](https://duckduckgo.com) in the search bar.
 - Full-text search for visited pages
 - Ad and tracker blocking
 - Automatic reader view
 - Tasks (tab groups)
+- Bookmark tagging
 - Password manager integration
 - Dark theme
 
@@ -42,6 +42,11 @@ You can find prebuilt binaries for Min [here](https://github.com/minbrowser/min/
 - On Arch Linux install from [AUR](https://aur.archlinux.org/packages/min-browser-bin).
 - On Raspberry Pi, you can install Min from [Pi-Apps](https://github.com/Botspot/pi-apps).
 
+## Getting Started
+
+* The [wiki](https://github.com/minbrowser/min/wiki) provides an overview of the the features available in Min, and a list of available keyboard shortcuts.
+* Min supports installing userscripts to extend its functionality. See the [userscript documentation](https://github.com/minbrowser/min/wiki/userscripts) for instructions on writing userscripts, as well as a collection of scripts written by the community.
+
 ## Developing
 
 If you want to develop Min:
@@ -49,7 +54,7 @@ If you want to develop Min:
 - Install [Node](https://nodejs.org).
 - Run `npm install` to install dependencies.
 - Start Min in development mode by running `npm run start`.
-- After you make changes, you can press `ctrl+r` (or `cmd+r` on Mac) twice to restart the browser.
+- After you make changes, press `alt+ctrl+r` (or `opt+cmd+r` on Mac) to reload the browser UI.
 
 ### Building binaries
 
