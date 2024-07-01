@@ -238,6 +238,9 @@
     "appMenuShowAll": "すべてを表示",
     "appMenuQuit": "%nを終了",
     "appMenuBringToFront": "すべてを最前面に移動",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {

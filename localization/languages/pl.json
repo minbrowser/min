@@ -238,6 +238,9 @@
     "appMenuShowAll": "Pokaż wszystko",
     "appMenuQuit": "Zamknij %n",
     "appMenuBringToFront": "Umieść wszystko na wierzchu",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFInvertPage": "Odwróć kolory strony",
     "PDFPageCounter": {

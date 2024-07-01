@@ -235,6 +235,9 @@
     "appMenuShowAll": "Mostrar tot",
     "appMenuQuit": "Sortir de %n",
     "appMenuBringToFront": "Portar tot al davant",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFPageCounter": {
       "unsafeHTML": "pàgina <input type='text'/> de <span id='total'></span>"

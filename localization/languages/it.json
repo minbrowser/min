@@ -238,6 +238,9 @@
     "appMenuShowAll": "Mostra tutte",
     "appMenuQuit": "Esci da %n",
     "appMenuBringToFront": "Porta avanti",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {

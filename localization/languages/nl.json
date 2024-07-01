@@ -237,6 +237,9 @@
     "appMenuShowAll": "Toon alle",
     "appMenuQuit": "Stop %n",
     "appMenuBringToFront": "Breng alles naar voren",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {

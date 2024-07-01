@@ -106,3 +106,7 @@ ipc.handle('setFullScreen', function (e, fullScreen) {
 ipc.handle('showItemInFolder', function (e, path) {
   shell.showItemInFolder(path)
 })
+
+ipc.on('newWindow', function (e, customArgs) {
+  createWindow(customArgs)
+})

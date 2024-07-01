@@ -236,6 +236,9 @@
     "appMenuShowAll": "Rodyti visus",
     "appMenuQuit": "Išeiti iš %n",
     "appMenuBringToFront": "Perkelti visus į priekį",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {

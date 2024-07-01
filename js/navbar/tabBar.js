@@ -7,7 +7,6 @@ const tabAudio = require('tabAudio.js')
 const dragula = require('dragula')
 const settings = require('util/settings/settings.js')
 const urlParser = require('util/urlParser.js')
-const keybindings = require('keybindings.js')
 
 const tabEditor = require('navbar/tabEditor.js')
 const progressBar = require('navbar/progressBar.js')

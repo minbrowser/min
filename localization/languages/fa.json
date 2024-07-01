@@ -237,6 +237,9 @@
     "appMenuShowAll": "نمایش همه",
     "appMenuQuit": "خروج از %n",
     "appMenuBringToFront": "نمایش همه",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {

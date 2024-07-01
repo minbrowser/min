@@ -238,6 +238,9 @@
       "appMenuShowAll": "Паказаць усё",
       "appMenuQuit": "Выйсці з %n",
       "appMenuBringToFront": "Перамясціць усё на пярэдні план",
+      /* Tab menu */
+      "tabMenuNewWindow": null, // missing translation
+      "tabMenuReload": null, // missing translation
       /* PDF Viewer */
       "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {

@@ -238,6 +238,9 @@
     "appMenuShowAll": "全部显示",
     "appMenuQuit": "退出 %n",
     "appMenuBringToFront": "前置所有窗口",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFInvertPage": "反转页面颜色",
     "PDFPageCounter": {

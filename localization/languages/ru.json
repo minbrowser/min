@@ -238,6 +238,9 @@
     "appMenuShowAll": "Показать всё",
     "appMenuQuit": "Выйти из %n",
     "appMenuBringToFront": "Переместить всё на передний план",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFInvertPage": "Инвертировать цвета страницы",
     "PDFPageCounter": {
