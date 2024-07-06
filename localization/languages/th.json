@@ -238,6 +238,9 @@
     "appMenuShowAll": "แสดงทั้งหมด",
     "appMenuQuit": "ออก %n",
     "appMenuBringToFront": "นำทั้งหมดมาไว้ข้างหน้า",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {

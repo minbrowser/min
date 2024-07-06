@@ -238,6 +238,9 @@
     "appMenuShowAll": "Prikaži sve",
     "appMenuQuit": "Zatvori %n",
     "appMenuBringToFront": "Stavite sve naprijed",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFInvertPage": "Promijeni boje stranice",
     "PDFPageCounter": {

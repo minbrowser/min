@@ -236,6 +236,9 @@
     "appMenuShowAll": "সব দেখাও",
     "appMenuQuit": "%n ছাড়ুন",
     "appMenuBringToFront": "সব থেকে সামনে আনুন",
+    /* Tab menu */
+    "tabMenuNewWindow": null, // missing translation
+    "tabMenuReload": null, // missing translation
     /* PDF Viewer */
     "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {

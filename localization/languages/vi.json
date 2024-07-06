@@ -231,6 +231,9 @@
         "appMenuShowAll": "Hiển thị tất cả",
         "appMenuQuit": "Thoát %n",
         "appMenuBringToFront": "Đưa tất cả trên trước",
+        /* Tab menu */
+        "tabMenuNewWindow": null, // missing translation
+        "tabMenuReload": null, // missing translation
         /* PDF Viewer */
         "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {

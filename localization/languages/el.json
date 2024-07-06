@@ -238,6 +238,9 @@
       "appMenuShowAll": "Προβολή όλων",
       "appMenuQuit": "Κλείσιμο %n",
       "appMenuBringToFront": "Μετακίνηση όλων στο προσκήνιο",
+      /* Tab menu */
+      "tabMenuNewWindow": null, // missing translation
+      "tabMenuReload": null, // missing translation
       /* PDF Viewer */
       "PDFInvertPage": null, //missing translation
     "PDFPageCounter": {
