@@ -290,6 +290,7 @@
     "passwordCaptureSave": "Tallenna",
     "passwordCaptureDontSave": "Älä tallenna",
     "passwordCaptureNeverSave": "Älä tallenna koskaan",
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Tallennetut salasanat",
     "savedPasswordsEmpty": "Ei tallennettuja salasanoja.",

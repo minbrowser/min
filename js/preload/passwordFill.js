@@ -361,3 +361,36 @@ window.addEventListener('message', function (e) {
     handleFormSubmit()
   }
 })
+
+const passwordGenerationCharset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-'
+
+ipc.on('generate-password', function (location) {
+  var input = (document.activeElement.matches('input[type=password]')) ? document.activeElement : Array.from(document.elementsFromPoint(location.x, location.y)).filter(el => el.matches('input[type=password]'))
+
+  if (input) {
+    // Math.random would probably suffice also, as the page is about to have access to the password anyway once we insert it into the field.
+    const values = new Uint8Array(16)
+    crypto.getRandomValues(values)
+
+    let generatedPassword = ''
+    values.forEach(function (value) {
+      generatedPassword += passwordGenerationCharset[Math.floor((value / 256) * passwordGenerationCharset.length)]
+    })
+
+    input.value = generatedPassword
+
+    const simulatedEvent = new InputEvent('input', {
+      inputType: 'insertReplacementText',
+      data: generatedPassword,
+    })
+
+    input.dispatchEvent(simulatedEvent)
+
+    setTimeout(function () {
+      if (input.value === generatedPassword) {
+        var usernameValue = getBestUsernameField()?.value
+        ipc.send('password-form-filled', [window.location.hostname, usernameValue, generatedPassword])
+      }
+    }, 0)
+  }
+})

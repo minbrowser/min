@@ -290,6 +290,7 @@
     "passwordCaptureSave": "บันทึก",
     "passwordCaptureDontSave": "อย่าบันทึก",
     "passwordCaptureNeverSave": "ไม่ต้องบันทึก",
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "รหัสผ่านที่บันทึกไว้",
     "savedPasswordsEmpty": "ไม่มีรหัสผ่านที่บันทึกไว้",
