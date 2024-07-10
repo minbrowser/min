@@ -362,7 +362,7 @@ window.addEventListener('message', function (e) {
   }
 })
 
-const passwordGenerationCharset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-'
+const passwordGenerationCharset = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ0123456789-_!'
 
 ipc.on('generate-password', function (location) {
   var input = (document.activeElement.matches('input[type=password]')) ? document.activeElement : Array.from(document.elementsFromPoint(location.x, location.y)).filter(el => el.matches('input[type=password]'))
