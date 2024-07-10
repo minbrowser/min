@@ -364,18 +364,34 @@ window.addEventListener('message', function (e) {
 
 const passwordGenerationCharset = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ0123456789-_!'
 
+/*
+Multiple generation requests use the same password for a 5-minute period so that it's easier to fill "confirm password" fields
+Since this script is part of the preload, it will only persist for a single page navigation
+*/
+let priorGeneratedPassword = ''
+
 ipc.on('generate-password', function (location) {
   var input = (document.activeElement.matches('input[type=password]')) ? document.activeElement : Array.from(document.elementsFromPoint(location.x, location.y)).filter(el => el.matches('input[type=password]'))
 
   if (input) {
-    // Math.random would probably suffice also, as the page is about to have access to the password anyway once we insert it into the field.
-    const values = new Uint8Array(16)
-    crypto.getRandomValues(values)
-
     let generatedPassword = ''
-    values.forEach(function (value) {
-      generatedPassword += passwordGenerationCharset[Math.floor((value / 256) * passwordGenerationCharset.length)]
-    })
+
+    if (priorGeneratedPassword) {
+      generatedPassword = priorGeneratedPassword
+    } else {
+      // Math.random would probably suffice also, as the page is about to have access to the password anyway once we insert it into the field.
+      const values = new Uint8Array(16)
+      crypto.getRandomValues(values)
+
+      values.forEach(function (value) {
+        generatedPassword += passwordGenerationCharset[Math.floor((value / 256) * passwordGenerationCharset.length)]
+      })
+
+      priorGeneratedPassword = generatedPassword
+      setTimeout(() => {
+        priorGeneratedPassword = ''
+      }, 5 * 60 * 1000)
+    }
 
     input.value = generatedPassword
 
