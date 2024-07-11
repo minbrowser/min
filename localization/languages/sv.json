@@ -1,0 +1,310 @@
+{
+  "name": "Svensk",
+  "identifier": "sv",
+  "translations": {
+    /* Context menu items
+        these are the items displayed in the menu when you right-click on a page
+        */
+    "addToDictionary": "Lägg till i ordbok",
+    "pictureInPicture": "Bild i bild",
+    "openInNewTab": "Öppna i ny flik",
+    "openInNewPrivateTab": "Öppna i ny privat flik",
+    "saveLinkAs": "Spara länk som...",
+    "viewImage": "Visa bild",
+    "openImageInNewTab": "Öppna bild i ny flik",
+    "openImageInNewPrivateTab": "Öppna bild i ny privat flik",
+    "saveImageAs": "Spara bild som",
+    "searchWith": "Sök med %s", //%s will be replaced with the name of the current search engine
+    "copyLink": "Kopiera länk",
+    "copyEmailAddress": "Kopiera e-postadress",
+    "selectAll": "Välj alla",
+    "undo": "Ångra",
+    "redo": "Gör om",
+    "cut": "Klipp ut",
+    "copy": "Kopiera", //this is a verb (as in "copy the currently-selected text")
+    "paste": "Klistra in",
+    "pasteAndMatchStyle": "Klistra in och matcha stil",
+    "goBack": "Gå tillbaka",
+    "goForward": "Gå framåt",
+    "inspectElement": "Inspektera del",
+    /* searchbar */
+    "pasteAndGo": "Klistra in och kör", //context menu item
+    "DDGAnswerSubtitle": "Svar", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
+    "suggestedSite": "Föreslagna sidor", //this is used to label suggested websites from the DuckDuckGo API,
+    "resultsFromDDG": "Resultat ifrån DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+    "taskN": "Uppgift %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
+    /* custom !bangs
+        these are some of the items that show up when you press ! in the searchbar.
+        Each one of these strings describes what the command will do when you run it. */
+    "showMoreBangs": "Visa mer",
+    "viewSettings": "Visa inställningar",
+    "takeScreenshot": "Ta en skärmbild",
+    "clearHistory": "Rensa all historik",
+    "enableBlocking": "Aktivera innehållsblockering för denna sida",
+    "disableBlocking": "Avaktivera innehållsblockering för denna sida",
+    "clearHistoryConfirmation": "Rensa all historik och surfdata?",
+    "switchToTask": "Byt till uppgift",
+    "createTask": "Skapa uppgift",
+    "closeTask": "Stäng en uppgift",
+    "moveToTask": "FLytta denna flik till en uppgift",
+    "nameTask": "Namnge denna uppgift",
+    "addBookmark": "Lägg till bokmärke",
+    "searchBookmarks": "Sök bokmärken",
+    "bookmarksAddTag": "Lägg till etikett...",
+    "bookmarksRenameTag": "Byt namn på etikett",
+    "bookmarksDeleteTag": "Radera etikett",
+    "deleteBookmarksWithTag": "Radera bokmärken med etikett",
+    "bookmarksSimilarItems": "Liknande objekt",
+    "searchHistory": "Sök historik",
+    "importBookmarks": "Importera bokmärken ifrån HTML-fil",
+    "exportBookmarks": "Exportera bokmärken",
+    "runUserscript": "Kör användarscript",
+    /* navbar */
+    "openMenu": "Öppna meny", //application menu button on windows
+    "enterReaderView": "Gå in i läsläge",
+    "exitReaderView": "Lämna läsläge",
+    "newTabLabel": "Ny flik", //this is a noun, used for tabs that don't have a page loaded in them yet
+    "connectionNotSecure": "Din anslutning till den där webbsidan är inte säker.",
+    "searchbarPlaceholder": "Sök eller skriv in adress",
+    "privateTab": "Privat flik",
+    "newTabAction": "Ny flik", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
+    /* task overlay */
+    "viewTasks": "Se uppgifter",
+    "newTask": "Ny uppgift", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "defaultTaskName": "Uppgift %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
+    "taskDeleteWarning": {
+      "unsafeHTML": "Uppgift raderad. <a>Ångra?</a>"
+    },
+    "tasksSearchTabs": "Sök flikar",
+    "returnToTask": "Återgå till föregående uppgift",
+    "taskDescriptionTwo": "%t och %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
+    "taskDescriptionThree": "%t, %t, och %n mer", //used to describe a task that has three or more tabs
+    /* find in page toolbar */
+    "searchInPage": "Sök på sida", //this is used as the placeholder text for the textbox in the find in page toolbar
+    "findMatchesSingular": "%i av %t träffar", //this and the next label are used to indicate which match is currently highlighted
+    "findMatchesPlural": "%i av %t träffar",
+    /* Focus mode */
+    "isFocusMode": "Du är i fokusläge.",
+    "closeDialog": "Okej.", //used as a label for the button that closes the dialog
+    "focusModeExplanation1": "I fokusläge kan du inte skapa nya flikar eller växla uppgifter.",
+    "focusModeExplanation2": "Du kan lämna fokusläge igenom att klicka ur \"fokusläge\" i visamenyn.",
+    /* relative dates */
+    "timeRangeJustNow": "Nyss",
+    "timeRangeMinutes": "Ett par minuter sedan",
+    "timeRangeHour": "Under den senaste timmen",
+    "timeRangeToday": "Idag",
+    "timeRangeYesterday": "Igår",
+    "timeRangeWeek": "Senaste veckan",
+    "timeRangeMonth": "Senaste månaden",
+    "timeRangeYear": "Senaste året",
+    "timeRangeLongerAgo": "Längre sedan",
+    /* pages/error/index.html */
+    "crashErrorTitle": "Något gick fel.",
+    "crashErrorSubtitle": "Ett problem har uppkommit då den här sidan visades.",
+    "errorPagePrimaryAction": "Försök igen",
+    "serverNotFoundTitle": "Server inte hittad",
+    "serverNotFoundSubtitle": "Min kunde inte hitta denna webbsida.",
+    "archiveSearchAction": "Sök på archive.org",
+    "sslErrorTitle": "Denna webbsida är inte tillgänglig",
+    "sslErrorMessage": "Min kunde inte ansluta säkert till denna webbsidan.",
+    "dnsErrorTitle": "Webbsida ej funnen",
+    "dnsErrorMessage": "Ett DNS-fel har uppkommit.",
+    "offlineErrorTitle": "Du är offline",
+    "offlineErrorMessage": "Återanslut till internet och försök igen.",
+    "genericConnectionFail": "Min kunde inte ansluta till webbsidan.",
+    "sslTimeErrorMessage": "Min kunde inte ansluta säkert till denna webbsida. Var vänlig och säkerställ att din dators klock är korrekt inställd.",
+    "addressInvalidTitle": "Den här adressen är ogiltig.",
+    "genericError": "Ett fel har inträffat",
+    /* pages/phishing/index.html */
+    "phishingErrorTitle": "Denna webbsida kan vara skadlig för dig.",
+    "phishingErrorMessage": "Denna webbsida kan försöka stjäla din personliga information, såsom lösenord och bankuppgifter.",
+    "phishingErrorVisitAnyway": "Besök sidan ändå",
+    "phishingErrorLeave": "Lämna denna sida",
+    /* multiple instances alert */
+    "multipleInstancesErrorMessage": "Ett fel inträffade. Var vänlig stäng alla andra öppna instanser och starta om Min.",
+    /* pages/sessionRestoreError/index.html */
+    "sessionRestoreErrorTitle": "Ett fel inträffade",
+    "sessionRestoreErrorExplanation": "Dina sparade flikar kunde inte återställas korrekt.",
+    "sessionRestoreErrorBackupInfo": "Vi har sparat en säkerhetskopia av din data på denna plats: %l.", //%l will be replaced with a path to a file
+    "sessionRestoreErrorLinkInfo": {
+      "unsafeHTML": "Om detta felmeddelande återkommer, var vänlig öppna ett nytt ärende <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">här</a>."
+    },
+    /* pages/settings/index.html */
+    "settingsPreferencesHeading": "Inställningar",
+    "settingsRestartRequired": "Du behöver starta om för att genomföra dessa ändringar.",
+    "settingsPrivacyHeading": "Innehållsblockering",
+    "settingsContentBlockingLevel0": "Tillåt alla annonser och spårare",
+    "settingsContentBlockingLevel1": "Blockera tredjeparts annonser och spårare",
+    "settingsContentBlockingLevel2": "Blockera alla annonser och spårare",
+    "settingsContentBlockingExceptions": "Annonser kommer fortfarande vara tillåtna på dessa sidor:",
+    "settingsBlockScriptsToggle": "Blockera script",
+    "settingsBlockImagesToggle": "Blockera bilder",
+    "settingsBlockedRequestCount": {
+      "unsafeHTML": "Hitills, har Min blockerat<strong></strong> annonser och spårare."
+    },
+    "settingsCustomBangs": "Anpassade bangs",
+    "settingsCustomBangsAdd": "Lägg till anpassad bang",
+    "settingsCustomBangsPhrase": "Fras (Krävs)",
+    "settingsCustomBangsSnippet": "Beskrivning (Valfri)",
+    "settingsCustomBangsRedirect": "Vidarebefordra URL (Krävs)",
+    "settingsCustomizeFiltersLink": "Anpassa filter",
+    "settingsAppearanceHeading": "Utseende",
+    "settingsEnableDarkMode": "Aktivera mörkt läge:",
+    "settingsDarkModeNever": "Aldrig",
+    "settingsDarkModeNight": "På natten",
+    "settingsDarkModeAlways": "Alltid",
+    "settingsDarkModeSystem": "Följ systemtemat",
+    "settingsSiteThemeToggle": "Aktivera sidtema",
+    "settingsAdditionalFeaturesHeading": "Ytterligare funktioner",
+    "settingsUserscriptsToggle": "Aktivera användarscript",
+    "settingsShowDividerToggle": "Visa avgränsning mellan flikar",
+    "settingsLanguageSelection": "Språk: ",
+    "settingsSeparateTitlebarToggle": "Använd separat titelrad",
+    "settingsAutoplayToggle": "Aktivera automatisk uppspelning",
+    "settingsOpenTabsInForegroundToggle": "Öppna nya flikar i förgrunden",
+    "settingsUserscriptsExplanation": {
+      "unsafeHTML": "Användarscript låter dig ändra beteendet hos webbsidor - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">lär dig mer</a>."
+    },
+    "settingsUserscriptShowDirectory": "Visa scriptkatalog",
+    "settingsUserAgentToggle": "Använd en anpassad användaragent",
+    "settingsUpdateNotificationsToggle": "Kolla automatiskt efter uppdateringar",
+    "settingsUsageStatisticsToggle": {
+      "unsafeHTML": "Skicka användarstatistik (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Mer information</a>)"
+    },
+    "settingsStartupOptions": "När Min startar: ",
+    "settingsStartupCreateTask": "Återöppna föregående flikar",
+    "settingsStartupNewTaskandBackground": "Flytta föregående flikar till en bakgrundsuppgift",
+    "settingsStartupNewTaskOnly": "Öppna en ny tom uppgift",
+    "settingsNewWindowOptions": "I nya fönster: ",
+    "settingsNewWindowCreateTask": "Skapa en ny uppgift",
+    "settingsNewWindowPickTask": "Visa uppgiftslista",
+    "settingsSearchEngineHeading": "Sökmotor",
+    "settingsDefaultSearchEngine": "Välj standardsökmotor:",
+    "settingsDDGExplanation": "Ställ in DuckDuckGo som standardsökmotor för att direkt se svar i sökraden.",
+    "customSearchEngineDescription": "Ersätt sökordet med %s",
+    "settingsKeyboardShortcutsHeading": "Tangentbordsgenvägar",
+    "settingsKeyboardShortcutsHelp": "Använd komma för att separera flera genvängar.",
+    "settingsProxyHeading": "Proxy",
+    "settingsNoProxy": "Ingen proxy",
+    "settingsManualProxy": "Manuell konfiguration",
+    "settingsAutomaticProxy": "Automatisk konfiguration",
+    "settingsProxyRules": "Proxyregler:",
+    "settingsProxyBypassRules": "Ingen proxy för:",
+    "settingsProxyConfigurationURL": "Konfigurations-URL",
+    /* app menu */
+    "appMenuFile": "Fil",
+    "appMenuNewTab": "Ny flik",
+    "appMenuDuplicateTab": "Duplicera flik",
+    "appMenuNewPrivateTab": "Ny privat flik",
+    "appMenuNewTask": "Ny uppgift",
+    "appMenuNewWindow": "Nytt fönster",
+    "appMenuSavePageAs": "Spara sida som",
+    "appMenuPrint": "Skriv ut",
+    "appMenuEdit": "Redigera",
+    "appMenuUndo": "Ångra",
+    "appMenuRedo": "Gör om",
+    "appMenuCut": "Klipp",
+    "appMenuCopy": "Kopiera",
+    "appMenuPaste": "Klistra in",
+    "appMenuPasteAndMatchStyle": "Klistra in och matcha stil",
+    "appMenuSelectAll": "Välj alla",
+    "appMenuFind": "Sök",
+    "appMenuView": "Visa",
+    "appMenuZoomIn": "Zooma in",
+    "appMenuZoomOut": "Zooma ut",
+    "appMenuActualSize": "Faktisk storlek",
+    "appMenuFullScreen": "Helskärm", //on some platforms, this string is replaced with one built-in to the OS
+    "appMenuFocusMode": "Fokusläge",
+    "appMenuBookmarks": "Bokmärken",
+    "appMenuHistory": "Historik",
+    "appMenuDeveloper": "Utvecklare",
+    "appMenuReloadBrowser": "Ladda om browser",
+    "appMenuInspectBrowser": "Granska browser",
+    "appMenuInspectPage": "Granska sida",
+    "appMenuWindow": "Fönster",
+    "appMenuMinimize": "Minimera",
+    "appMenuClose": "Stäng",
+    "appMenuAlwaysOnTop": "Alltid överst",
+    "appMenuHelp": "Hjälp",
+    "appMenuKeyboardShortcuts": "Tangentbordsgenvägar",
+    "appMenuReportBug": "Anmäl ett fel",
+    "appMenuTakeTour": "Ta en guidad visning",
+    "appMenuViewGithub": "Titta på GitHub",
+    "appMenuAbout": "Om %n", //%n is replaced with app name
+    "appMenuPreferences": "Inställningar",
+    "appMenuServices": "Tjänster",
+    "appMenuHide": "Dölj %n",
+    "appMenuHideOthers": "Dölj övriga",
+    "appMenuShowAll": "Visa alla",
+    "appMenuQuit": "Avsluta %n",
+    "appMenuBringToFront": "Lägg alla längst fram",
+    /* Tab menu */
+    "tabMenuNewWindow": "Flytta flik till nytt fönster",
+    "tabMenuReload": "Ladda om",
+    /* PDF Viewer */
+    "PDFInvertPage": "Invertera sidans färger",
+    "PDFPageCounter": {
+      "unsafeHTML": "page <input type='text'/> of <span id='total'></span>"
+    },
+    /* Context Reader */
+    "buttonReaderSettings": "Läsarinställningar",
+    "buttonReaderLightTheme": "Ljus",
+    "buttonReaderSepiaTheme": "Sepia",
+    "buttonReaderDarkTheme": "Mörk",
+    "openReaderView": "Öppna alltid i läsläge",
+    "autoRedirectBannerReader": "Öppna alltid artiklar ifrån denna sida i läsläge?",
+    "buttonReaderRedirectYes": "Ja",
+    "buttonReaderRedirectNo": "Nej",
+    "articleReaderView": "Originalartikel",
+    /* Download manager */
+    "downloadCancel": "Avbryt",
+    "downloadStateCompleted": "Färdig",
+    "downloadStateFailed": "Misslyckad",
+    /* Update Notifications */
+    "updateNotificationTitle": "En ny version av Min är tillgänglig",
+    /* Autofill settings */
+    "settingsPasswordAutoFillHeadline": "Automatisk ifyllning av lösenord",
+    "settingsSelectPasswordManager": "Välj en av de stödda lösenordshanterarna:",
+    "keychainViewPasswords": "Visa sparade lösenord",
+    /* Password manager setup */
+    "passwordManagerSetupHeading": "Avsluta inställningarna för %p för att använda automatisk ifyllning",
+    "passwordManagerSetupStep1": {
+      "unsafeHTML": "FÖrst, <a id='password-manager-setup-link'></a> och packa upp den för ditt system."
+    },
+    "passwordManagerInstallerSetup": {
+      "unsafeHTML": "Ladda hem <a id='password-manager-setup-link-installer'></a> och dra filen till boxen nedan:"
+    },
+    "passwordManagerSetupLink": "ladda ner %p CLI-verktyg",
+    "passwordManagerSetupLinkInstaller": "%p CLI-installationsfilen",
+    "passwordManagerSetupStep2": "Dra sedan verktyget till boxen nedan:",
+    "passwordManagerSetupDragBox": "Dra verktyget hit",
+    "passwordManagerSetupInstalling": "Installerar...",
+    "passwordManagerBitwardenSignIn": "För att ansluta ditt Bitwardenkonto, gå till vault.bitwarden.com/#/settings/account, scrolla till botten, och välj \"View API Key\". Klistra sedan in värdena i fältet nedan.",
+    "passwordManagerSetupSignIn": "Logga in i din lösenordshanterar för att börja använda automatisk ifyllning. Dina uppgifter kommer inte att lagras någonstans inom Min.",
+    "disableAutofill": "Inaktivera automatisk ifyllning",
+    "passwordManagerSetupUnlockError": "Misslydades med att låsa upp lösenordsförvaringen: ",
+    "passwordManagerSetupRetry": "Försäkra dig om att du använder rätt fil och skriver in rätt lösenord. Du kan försöka igen igenon att dra verktyget hit på nytt.",
+    "passwordManagerUnlock": "Skriv in ditt %p huvudlösenord för att låsa upp lösenordsförvaringen:",
+    /* Password save bar */
+    "passwordCaptureSavePassword": "Spara lösenord för %s?",
+    "passwordCaptureSave": "Spara",
+    "passwordCaptureDontSave": "Spara inte",
+    "passwordCaptureNeverSave": "Spara aldrig",
+    /* Password viewer */
+    "savedPasswordsHeading": "Sparade lösenord",
+    "savedPasswordsEmpty": "Inga sparade lösenord.",
+    "savedPasswordsNeverSavedLabel": "Aldrig sparad",
+    "deletePassword": "Radera lösenord för %s?",
+    /* Dialogs */
+    "loginPromptTitle": "Logga in på %h", //%h is replaced with host, %r with realm (title of protected part of site)
+    "dialogConfirmButton": "Bekräfta",
+    "dialogSkipButton": "Avbryt",
+    "username": "Användarnamn",
+    "email": "E-post",
+    "password": "Lösenord",
+    "secretKey": "Hemlig nyckel",
+    "openExternalApp": "Öppna i \\\"%s\\\"?", // %s is the name of an app
+    "clickToCopy": "Klicka för att kopiera",
+    "copied": "Kopierad"
+  }
+}
