@@ -45,27 +45,3 @@ jobs:
       with:
         name: ${{ matrix.artifact }}
         path: ${{ matrix.path }}
-  release:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - uses: actions/download-artifact@v4
-      with:
-        name: linux-deb-package
-        path: dist/app
-    - uses: actions/download-artifact@v4
-      with:
-          name: linux-rpm-package
-          path: dist/app
-    - uses: actions/download-artifact@v4
-      with:
-          name: windows-package
-          path: dist/app
-    - uses: actions/download-artifact@v4
-      with:
-          name: darwin-x86-package
-          path: dist/app
-    - uses: actions/download-artifact@v4
-      with:
-          name: darwin-arm-package
-          path: dist/app
