@@ -1,10 +1,37 @@
 name: Build Package
 on: [workflow_dispatch]
 jobs:
-  buildMac:
-    runs-on: macos-13
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            cmd: npm run buildDebian
+            artifact: linux-deb-package
+            path: dist/app/*.deb
+          - os: ubuntu-latest
+            cmd: npm run buildRedhat
+            artifact: linux-rpm-package
+            path: dist/app/*.rpm
+          - os: windows-latest
+            cmd: npm run buildWindows
+            artifact: windows-package
+            path: dist/app/*.zip
+          - os: macos-13
+            env:
+              SDKROOT: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+            cmd: npm run buildMacIntel
+            artifact: darwin-x86-package
+            path: dist/app/*.zip
+          - os: macos-13
+            env:
+              SDKROOT: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+            cmd: npm run buildMacArm
+            artifact: darwin-arm-package
+            path: dist/app/*.zip
     env:
-      SDKROOT: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+      SDKROOT: ${{ matrix.env.SDKROOT }}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -12,43 +39,9 @@ jobs:
         node-version: 20
     - run: npm install --omit=optional
     - name: build package
-      run: npm run buildMacIntel && npm run buildMacArm
+      run: ${{ matrix.cmd }}
     - name: upload package
       uses: actions/upload-artifact@v4
       with:
-        name: mac-package
-        path: dist/app/*.zip
-  buildWindows:
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    - run: npm install --omit=optional
-    - name: build package
-      run: npm run buildWindows
-    - name: upload package
-      uses: actions/upload-artifact@v4
-      with:
-        name: windows-package
-        path: |
-          dist/app/*.zip
-          dist/app/*.exe
-  buildLinux:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    - run: npm install --omit=optional
-    - name: build package
-      run: npm run buildDebian && npm run buildRedhat && npm run buildLinuxArm64 && npm run buildRaspi
-    - name: upload package
-      uses: actions/upload-artifact@v4
-      with:
-        name: linux-package
-        path: |
-          dist/app/*.deb
-          dist/app/*.rpm
+        name: ${{ matrix.artifact }}
+        path: ${{ matrix.path }}
