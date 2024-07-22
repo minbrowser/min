@@ -139,7 +139,8 @@ module.exports = function (platform, extraOptions) {
       }
     ],
     asar: false,
-    afterPack: afterPack
+    afterPack: afterPack,
+    publish: null
   }
 
   const target = (function () {

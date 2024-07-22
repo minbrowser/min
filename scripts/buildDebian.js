@@ -58,7 +58,8 @@ require('./createPackage.js')('linux', { arch: toArch(platform) }).then(function
       buildResources: 'resources',
       output: 'dist/app/'
     },
-    deb: installerOptions
+    deb: installerOptions,
+    publish: null
   }
 
   builder.build({

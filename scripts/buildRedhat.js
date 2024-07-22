@@ -38,7 +38,8 @@ require('./createPackage.js')('linux', { arch: Arch.x64 }).then(function (path) 
     directories: {
       output: 'dist/app/'
     },
-    rpm: installerOptions
+    rpm: installerOptions,
+    publish: null
   }
 
   builder.build({
