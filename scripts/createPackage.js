@@ -140,7 +140,7 @@ module.exports = function (platform, extraOptions) {
     ],
     asar: false,
     afterPack: afterPack,
-    publish: 'never'
+    publish: null
   }
 
   const target = (function () {
