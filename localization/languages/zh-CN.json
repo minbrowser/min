@@ -290,6 +290,7 @@
     "passwordCaptureSave": "保存",
     "passwordCaptureDontSave": "不保存",
     "passwordCaptureNeverSave": "永不保存",
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "已保存密码",
     "savedPasswordsEmpty": "当前未保存任何密码",

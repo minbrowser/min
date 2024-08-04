@@ -290,6 +290,7 @@
     "passwordCaptureSave": "Zapisz",
     "passwordCaptureDontSave": "Nie zapisuj",
     "passwordCaptureNeverSave": "Nigdy nie zapisuj",
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Zapisane hasła",
     "savedPasswordsEmpty": "Brak zapisanych haseł.",

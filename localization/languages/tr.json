@@ -290,6 +290,7 @@
     "passwordCaptureSave": "Kaydet",
     "passwordCaptureDontSave": "Kaydetme",
     "passwordCaptureNeverSave": "Asla kaydetme", 
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Kayıtlı Parolalar",
     "savedPasswordsEmpty": "Kaydedilmiş parola yok.",

@@ -286,6 +286,7 @@
     "passwordCaptureSave": "Desar",
     "passwordCaptureDontSave": "No desar",
     "passwordCaptureNeverSave": "No desar mai",
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Contrasenyes desades",
     "savedPasswordsEmpty": "No hi ha contrasenyes desades.",

@@ -285,6 +285,7 @@
     "passwordCaptureSave": null, //missing translation
     "passwordCaptureDontSave": null, //missing translation
     "passwordCaptureNeverSave": null, //missing translation
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": null, //missing translation
     "savedPasswordsEmpty": null,  //missing translation

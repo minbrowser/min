@@ -290,6 +290,7 @@
     "passwordCaptureSave": "Uložit",
     "passwordCaptureDontSave": "Neukládat",
     "passwordCaptureNeverSave": "Nikdy neukládat",
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Uložená hesla",
     "savedPasswordsEmpty": "Žádná uložená hesla",

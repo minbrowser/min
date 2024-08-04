@@ -290,6 +290,7 @@
     "passwordCaptureSave": "Spremi",
     "passwordCaptureDontSave": "Ne spremaj",
     "passwordCaptureNeverSave": "Nikad ne spremaj",
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Spremljene lozinke",
     "savedPasswordsEmpty": "Nema spremljenih lozinki.",

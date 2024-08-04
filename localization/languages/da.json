@@ -290,6 +290,7 @@
     "passwordCaptureSave": "Gem",
     "passwordCaptureDontSave": "Gem ikke",
     "passwordCaptureNeverSave": "Gem aldrig",
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Gemte adgangskoder",
     "savedPasswordsEmpty": "Ingen gemte adgangskoder.",

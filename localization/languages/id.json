@@ -290,6 +290,7 @@
     "passwordCaptureSave": "Simpan",
     "passwordCaptureDontSave": "Jangan simpan",
     "passwordCaptureNeverSave": "Jangan pernah simpan",
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Kata sandi tersimpan",
     "savedPasswordsEmpty": "Tidak ada kata sandi yang tersimpan.",

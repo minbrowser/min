@@ -290,6 +290,7 @@
     "passwordCaptureSave": "저장",
     "passwordCaptureDontSave": "저장하지 않음",
     "passwordCaptureNeverSave": "절대 저장하지 않음",
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "저장된 비밀번호",
     "savedPasswordsEmpty": "저장된 비밀번호 없음",

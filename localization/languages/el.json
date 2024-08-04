@@ -290,7 +290,8 @@
       "passwordCaptureSave": "Αποθήκευση",
       "passwordCaptureDontSave": "Μην γίνει αποθήκευση",
       "passwordCaptureNeverSave": "Ποτέ να μην γίνει αποθήκευση",
-      /* Password viewer */
+      "generatePassword": null, // missing translation
+    /* Password viewer */
       "savedPasswordsHeading": "Αποθηκευμένοι κωδικοί πρόσβασης",
       "savedPasswordsEmpty": "Δεν υπάρχυον αποθηκευμένοι κωδικοί πρόσβασης.",
       "savedPasswordsNeverSavedLabel": "Δεν αποθηκεύτηκε ποτέ",

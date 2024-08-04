@@ -283,7 +283,8 @@
         "passwordCaptureSave": "Lưu mật khẩu",
         "passwordCaptureDontSave": "Không lưu",
         "passwordCaptureNeverSave": "Không bao giờ lưu mật khẩu",
-        /* Password viewer */
+        "generatePassword": null, // missing translation
+    /* Password viewer */
         "savedPasswordsHeading": "Mật khẩu đã lưu",
         "savedPasswordsEmpty": "Không có mật khẩu lưu trước",
         "savedPasswordsNeverSavedLabel": "Không bao giờ",

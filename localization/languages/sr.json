@@ -290,6 +290,7 @@
     "passwordCaptureSave": "Sačuvaj",
     "passwordCaptureDontSave": "Nemoj sačuvati",
     "passwordCaptureNeverSave": "Nikada ne sačuvaj",
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "Sačuvane lozinke",
     "savedPasswordsEmpty": "Nema sačuvanih lozinki.",

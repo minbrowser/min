@@ -284,6 +284,7 @@
     "passwordCaptureSave": "সংরক্ষণ করুন",
     "passwordCaptureDontSave": "সংরক্ষণ না করুন",
     "passwordCaptureNeverSave": "কখনও সংরক্ষণ করবেন না",
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "সংরক্ষিত পাসওয়ার্ডস",
     "savedPasswordsEmpty": "কোনো সংরক্ষিত পাসওয়ার্ড নেই।",

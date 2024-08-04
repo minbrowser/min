@@ -290,7 +290,8 @@
       "passwordCaptureSave": "Захаваць",
       "passwordCaptureDontSave": "Не захоўваць",
       "passwordCaptureNeverSave": "Ніколі не захоўваць",
-      /* Password viewer */
+      "generatePassword": null, // missing translation
+    /* Password viewer */
       "savedPasswordsHeading": "Захаваныя паролі",
       "savedPasswordsEmpty": "Няма захаваных пароляў.",
       "savedPasswordsNeverSavedLabel": "Ніколі не захоўваюцца",

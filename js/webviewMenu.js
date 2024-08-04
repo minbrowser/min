@@ -237,6 +237,17 @@ const webviewMenu = {
       menuSections.push(clipboardActions)
     }
 
+    if (data.inputFieldType === 'password') {
+      menuSections.push([
+        {
+          label: l('generatePassword'),
+          click: function () {
+            webviews.callAsync(tabs.getSelected(), 'send', ['generate-password', { x: data.x, y: data.y }])
+          }
+        }
+      ])
+    }
+
     var navigationActions = [
       {
         label: l('goBack'),

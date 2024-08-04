@@ -290,6 +290,7 @@
     "passwordCaptureSave": " حفظ",
     "passwordCaptureDontSave": "لا تحفظ",
     "passwordCaptureNeverSave": "لا تحفظ أبدا ",
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "كلمات المرور المحفوظة",
     "savedPasswordsEmpty": "لا توجد كلمات مرور محفوظة",

@@ -290,6 +290,7 @@
     "passwordCaptureSave": "保存する",
     "passwordCaptureDontSave": "保存しないで",
     "passwordCaptureNeverSave": "保存しない",
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "保存されたパスワード",
     "savedPasswordsEmpty": "保存されたパスワードはありません。",
