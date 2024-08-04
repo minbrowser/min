@@ -139,6 +139,21 @@ function getBestPasswordField () {
   return getBestInput([], [], ['password'])
 }
 
+// Get a "confirm password" field, that is different from the given password input
+function getPasswordConfirmationField (primaryField) {
+  const autocompleteMarkedFields = Array.from(document.querySelectorAll('[autocomplete="new-password"]'))
+  // If there is at lest one marked field in the docuemnt, assume the confirm password field is marked too
+  if (autocompleteMarkedFields.length > 0) {
+    return autocompleteMarkedFields.find(field => field !== primaryField)
+  } else {
+    const bestConfirmInput = getBestInput(['confirm', 'retype'], [], ['password'])
+    if (bestConfirmInput && bestConfirmInput !== primaryField) {
+      return bestConfirmInput
+    }
+  }
+  return null
+}
+
 // Removes credentials list overlay.
 function removeAutocompleteList () {
   if (currentAutocompleteList && currentAutocompleteList.parentNode) {
@@ -364,6 +379,15 @@ window.addEventListener('message', function (e) {
 
 const passwordGenerationCharset = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ0123456789-_!'
 
+function fillWithInputEvent (input, value) {
+  input.value = value
+  const simulatedEvent = new InputEvent('input', {
+    inputType: 'insertReplacementText',
+    data: value
+  })
+  input.dispatchEvent(simulatedEvent)
+}
+
 /*
 Multiple generation requests use the same password for a 5-minute period so that it's easier to fill "confirm password" fields
 Since this script is part of the preload, it will only persist for a single page navigation
@@ -393,14 +417,13 @@ ipc.on('generate-password', function (location) {
       }, 5 * 60 * 1000)
     }
 
-    input.value = generatedPassword
+    fillWithInputEvent(input, generatedPassword)
 
-    const simulatedEvent = new InputEvent('input', {
-      inputType: 'insertReplacementText',
-      data: generatedPassword,
-    })
+    var confirmationInput = getPasswordConfirmationField(input)
 
-    input.dispatchEvent(simulatedEvent)
+    if (confirmationInput) {
+      fillWithInputEvent(confirmationInput, generatedPassword)
+    }
 
     setTimeout(function () {
       if (input.value === generatedPassword) {
