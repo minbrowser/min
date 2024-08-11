@@ -290,6 +290,7 @@
     "passwordCaptureSave": "Сохранить",
     "passwordCaptureDontSave": "Не сохранять",
     "passwordCaptureNeverSave": "Никогда не сохранять",
+    "generatePassword": "Сгенерировать пароль",
     /* Password viewer */
     "savedPasswordsHeading": "Сохраненные пароли",
     "savedPasswordsEmpty": "Нет сохраненных паролей.",

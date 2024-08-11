@@ -139,6 +139,21 @@ function getBestPasswordField () {
   return getBestInput([], [], ['password'])
 }
 
+// Get a "confirm password" field, that is different from the given password input
+function getPasswordConfirmationField (primaryField) {
+  const autocompleteMarkedFields = Array.from(document.querySelectorAll('[autocomplete="new-password"]'))
+  // If there is at lest one marked field in the docuemnt, assume the confirm password field is marked too
+  if (autocompleteMarkedFields.length > 0) {
+    return autocompleteMarkedFields.find(field => field !== primaryField)
+  } else {
+    const bestConfirmInput = getBestInput(['confirm', 'retype'], [], ['password'])
+    if (bestConfirmInput && bestConfirmInput !== primaryField) {
+      return bestConfirmInput
+    }
+  }
+  return null
+}
+
 // Removes credentials list overlay.
 function removeAutocompleteList () {
   if (currentAutocompleteList && currentAutocompleteList.parentNode) {
@@ -359,5 +374,62 @@ HTMLFormElement.prototype.submit = function () {
 window.addEventListener('message', function (e) {
   if (e.data && e.data.message && e.data.message === 'formSubmit') {
     handleFormSubmit()
+  }
+})
+
+const passwordGenerationCharset = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ0123456789-_!'
+
+function fillWithInputEvent (input, value) {
+  input.value = value
+  const simulatedEvent = new InputEvent('input', {
+    inputType: 'insertReplacementText',
+    data: value
+  })
+  input.dispatchEvent(simulatedEvent)
+}
+
+/*
+Multiple generation requests use the same password for a 5-minute period so that it's easier to fill "confirm password" fields
+Since this script is part of the preload, it will only persist for a single page navigation
+*/
+let priorGeneratedPassword = ''
+
+ipc.on('generate-password', function (location) {
+  var input = (document.activeElement.matches('input[type=password]')) ? document.activeElement : Array.from(document.elementsFromPoint(location.x, location.y)).filter(el => el.matches('input[type=password]'))
+
+  if (input) {
+    let generatedPassword = ''
+
+    if (priorGeneratedPassword) {
+      generatedPassword = priorGeneratedPassword
+    } else {
+      // Math.random would probably suffice also, as the page is about to have access to the password anyway once we insert it into the field.
+      const values = new Uint8Array(16)
+      crypto.getRandomValues(values)
+
+      values.forEach(function (value) {
+        generatedPassword += passwordGenerationCharset[Math.floor((value / 256) * passwordGenerationCharset.length)]
+      })
+
+      priorGeneratedPassword = generatedPassword
+      setTimeout(() => {
+        priorGeneratedPassword = ''
+      }, 5 * 60 * 1000)
+    }
+
+    fillWithInputEvent(input, generatedPassword)
+
+    var confirmationInput = getPasswordConfirmationField(input)
+
+    if (confirmationInput) {
+      fillWithInputEvent(confirmationInput, generatedPassword)
+    }
+
+    setTimeout(function () {
+      if (input.value === generatedPassword) {
+        var usernameValue = getBestUsernameField()?.value
+        ipc.send('password-form-filled', [window.location.hostname, usernameValue, generatedPassword])
+      }
+    }, 0)
   }
 })

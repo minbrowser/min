@@ -290,6 +290,7 @@
     "passwordCaptureSave": "儲存",
     "passwordCaptureDontSave": "不要",
     "passwordCaptureNeverSave": "一律不要",
+    "generatePassword": null, // missing translation
     /* Password viewer */
     "savedPasswordsHeading": "已儲存的密碼",
     "savedPasswordsEmpty": "沒有已儲存的密碼",
