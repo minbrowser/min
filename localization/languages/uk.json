@@ -291,7 +291,7 @@
     "passwordCaptureSave": "Зберегти",
     "passwordCaptureDontSave": "Не зберігати",
     "passwordCaptureNeverSave": "Ніколи не зберігати",
-    "generatePassword": null, // missing translation
+    "generatePassword": "Згенерувати пароль",
     /* Password viewer */
     "savedPasswordsHeading": "Збережені паролі",
     "savedPasswordsEmpty": "Немає збережених паролів.",
