@@ -80,6 +80,12 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
   })
 
   view.webContents.setWindowOpenHandler(function (details) {
+    if (details.url && !filterPopups(details.url)) {
+      return {
+        action: 'deny'
+      }
+    }
+
     /*
       Opening a popup with window.open() generally requires features to be set
       So if there are no features, the event is most likely from clicking on a link, which should open a new tab.
@@ -101,29 +107,24 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
     }
 
     return {
-      action: 'allow'
+      action: 'allow',
+      createWindow: function (options) {
+        const view = new BrowserView({ webPreferences: getDefaultViewWebPreferences(), webContents: options.webContents })
+
+        var popupId = Math.random().toString()
+        temporaryPopupViews[popupId] = view
+
+        const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
+
+        eventTarget.webContents.send('view-event', {
+          tabId: id,
+          event: 'did-create-popup',
+          args: [popupId, details.url]
+        })
+
+        return view.webContents
+      }
     }
-  })
-
-  view.webContents.removeAllListeners('-add-new-contents')
-
-  view.webContents.on('-add-new-contents', function (e, webContents, disposition, _userGesture, _left, _top, _width, _height, url, frameName, referrer, rawFeatures, postData) {
-    if (!filterPopups(url)) {
-      return
-    }
-
-    var view = new BrowserView({ webPreferences: getDefaultViewWebPreferences(), webContents: webContents })
-
-    var popupId = Math.random().toString()
-    temporaryPopupViews[popupId] = view
-
-    const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
-
-    eventTarget.webContents.send('view-event', {
-      tabId: id,
-      event: 'did-create-popup',
-      args: [popupId, url]
-    })
   })
 
   view.webContents.on('ipc-message', function (e, channel, data) {
