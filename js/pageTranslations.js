@@ -71,6 +71,10 @@ const pageTranslations = {
       code: 'es'
     },
     {
+      name: 'Thai',
+      code: 'th'
+    },
+    {
       name: 'Turkish',
       code: 'tr'
     },
