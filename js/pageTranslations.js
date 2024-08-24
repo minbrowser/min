@@ -11,16 +11,60 @@ const pageTranslations = {
       code: 'en'
     },
     {
+      name: 'Albanian',
+      code: 'sq'
+    },
+    {
       name: 'Arabic',
       code: 'ar'
+    },
+    {
+      name: 'Azerbaijani',
+      code: 'az'
+    },
+    {
+      name: 'Bengali',
+      code: 'bn'
+    },
+    {
+      name: 'Bulgarian',
+      code: 'bg'
+    },
+    {
+      name: 'Catalan',
+      code: 'ca'
     },
     {
       name: 'Chinese',
       code: 'zh'
     },
     {
+      name: 'Chinese (traditional)',
+      code: 'zt'
+    },
+    {
+      name: 'Czech',
+      code: 'cs'
+    },
+    {
+      name: 'Danish',
+      code: 'da'
+    },
+    {
       name: 'Dutch',
       code: 'nl'
+    },
+    {
+      name: 'Esperanto',
+      code: 'eo'
+    },
+    {
+      name: 'Estonian',
+      code: 'et'
+    },
+    {
+      name: 'Finnish',
+      code: 'fi'
     },
     {
       name: 'French',
@@ -31,8 +75,20 @@ const pageTranslations = {
       code: 'de'
     },
     {
+      name: 'Greek',
+      code: 'el'
+    },
+    {
+      name: 'Hebrew',
+      code: 'he'
+    },
+    {
       name: 'Hindi',
       code: 'hi'
+    },
+    {
+      name: 'Hungarian',
+      code: 'hu'
     },
     {
       name: 'Indonesian',
@@ -55,6 +111,26 @@ const pageTranslations = {
       code: 'ko'
     },
     {
+      name: 'Latvian',
+      code: 'lv'
+    },
+    {
+      name: 'Lithuanian',
+      code: 'lt'
+    },
+    {
+      name: 'Malay',
+      code: 'ms'
+    },
+    {
+      name: 'Norwegian',
+      code: 'nb'
+    },
+    {
+      name: 'Persian',
+      code: 'fa'
+    },
+    {
       name: 'Polish',
       code: 'pl'
     },
@@ -63,12 +139,36 @@ const pageTranslations = {
       code: 'pt'
     },
     {
+      name: 'Romanian',
+      code: 'ro'
+    },
+    {
       name: 'Russian',
       code: 'ru'
     },
     {
+      name: 'Slovak',
+      code: 'sk'
+    },
+    {
+      name: 'Slovenian',
+      code: 'sl'
+    },
+    {
       name: 'Spanish',
       code: 'es'
+    },
+    {
+      name: 'Swedish',
+      code: 'sv'
+    },
+    {
+      name: 'Tagalog',
+      code: 'tl'
+    },
+    {
+      name: 'Thai',
+      code: 'th'
     },
     {
       name: 'Turkish',
@@ -77,10 +177,6 @@ const pageTranslations = {
     {
       name: 'Ukranian',
       code: 'uk'
-    },
-    {
-      name: 'Vietnamese',
-      code: 'vi'
     }
   ],
   getLanguageList: function () {
