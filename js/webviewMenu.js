@@ -6,6 +6,7 @@ const searchEngine = require('util/searchEngine.js')
 const userscripts = require('userscripts.js')
 const settings = require('util/settings/settings.js')
 const pageTranslations = require('pageTranslations.js')
+const PasswordManagers = require('passwordManager/passwordManager.js')
 
 const remoteMenu = require('remoteMenuRenderer.js')
 
@@ -237,7 +238,7 @@ const webviewMenu = {
       menuSections.push(clipboardActions)
     }
 
-    if (data.inputFieldType === 'password') {
+    if (data.formControlType === 'input-password' && PasswordManagers.getActivePasswordManager()?.saveCredential) {
       menuSections.push([
         {
           label: l('generatePassword'),
