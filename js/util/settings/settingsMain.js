@@ -59,16 +59,15 @@ var settings = {
   initialize: function (userDataPath) {
     settings.filePath = userDataPath + (process.platform === 'win32' ? '\\' : '/') + 'settings.json'
 
-    var fileData
     try {
-      fileData = fs.readFileSync(settings.filePath, 'utf-8')
+      const fileData = fs.readFileSync(settings.filePath, 'utf-8')
+      if (fileData) {
+        settings.list = JSON.parse(fileData)
+      }
     } catch (e) {
       if (e.code !== 'ENOENT') {
-        console.warn(e)
+        console.warn('Error reading settings file:', e)
       }
-    }
-    if (fileData) {
-      settings.list = JSON.parse(fileData)
     }
 
     ipc.on('settingChanged', function (e, key, value) {
