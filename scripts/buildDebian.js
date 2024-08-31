@@ -60,8 +60,10 @@ async function afterPackageBuilt (path, arch) {
     })
 }
 
-const arches = [Arch.x64, Arch.armv7l, Arch.arm64]
+const arches = [Arch.x64, Arch.armv7l, Arch.arm64];
 
-arches.forEach(async (arch) => {
-  await createPackage('linux', { arch: arch }).then(path => afterPackageBuilt(path, arch))
-})
+(async () => {
+  for (const arch of arches) {
+    await createPackage('linux', { arch: arch }).then(path => afterPackageBuilt(path, arch))
+  }
+})()
