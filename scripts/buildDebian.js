@@ -1,24 +1,10 @@
-const packageFile = require('./../package.json')
-const version = packageFile.version
-const platform = process.argv.find(arg => arg.match('platform')).split('=')[1]
 const builder = require('electron-builder')
 const Platform = builder.Platform
 const Arch = builder.Arch
 
-function toArch (platform) {
-  switch (platform) {
-    case 'amd64':
-      return Arch.x64
-    case 'armhf':
-      return Arch.armv7l
-    case 'arm64':
-      return Arch.arm64
-    default:
-      return Arch.universal
-  }
-}
+const createPackage = require('./createPackage.js')
 
-require('./createPackage.js')('linux', { arch: toArch(platform) }).then(function (path) {
+async function afterPackageBuilt (path, arch) {
   var installerOptions = {
     artifactName: 'min-${version}-${arch}.deb',
     packageName: 'min',
@@ -62,9 +48,9 @@ require('./createPackage.js')('linux', { arch: toArch(platform) }).then(function
     publish: null
   }
 
-  builder.build({
+  await builder.build({
     prepackaged: path,
-    targets: Platform.LINUX.createTarget(['deb'], toArch(platform)),
+    targets: Platform.LINUX.createTarget(['deb'], arch),
     config: options
   })
     .then(() => console.log('Successfully created package.'))
@@ -72,4 +58,12 @@ require('./createPackage.js')('linux', { arch: toArch(platform) }).then(function
       console.error(err, err.stack)
       process.exit(1)
     })
-})
+}
+
+const arches = [Arch.x64, Arch.armv7l, Arch.arm64];
+
+(async () => {
+  for (const arch of arches) {
+    await createPackage('linux', { arch: arch }).then(path => afterPackageBuilt(path, arch))
+  }
+})()
