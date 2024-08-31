@@ -17,7 +17,9 @@ jobs:
           - os: windows-latest
             cmd: npm run buildWindows
             artifact: windows-package
-            path: dist/app/*.zip
+            path: |
+              dist/app/*.zip
+              dist/app/*.exe
           - os: macos-13
             env:
               SDKROOT: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
