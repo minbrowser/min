@@ -140,7 +140,14 @@ module.exports = function (platform, extraOptions) {
     ],
     asar: false,
     afterPack: afterPack,
-    publish: null
+    publish: null,
+    /*
+    Rebuilding native modules that use nan is currently broken for Electron 32+: https://github.com/nodejs/nan/issues/973
+    This breaks PDFJS -> canvas, which causes packaging to fail.
+    Luckily for us, we don't actually use this functionality in PDFJS, and this is the only native module in the build,
+    so we can just disable rebuilding entirely. However, we may need to find a better solution in the future.
+    */
+    npmRebuild: false
   }
 
   const target = (function () {
