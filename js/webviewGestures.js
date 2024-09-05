@@ -1,4 +1,5 @@
 var webviews = require('webviews.js')
+var settings = require( "./util/settings/settings" );
 
 var webviewGestures = {
   showBackArrow: function () {
@@ -39,7 +40,8 @@ var webviewGestures = {
     return this.zoomWebviewBy(tabId, -0.2)
   },
   resetWebviewZoom: function (tabId) {
-    webviews.callAsync(tabId, 'zoomFactor', 1.0)
+    const defaultZoomLevel = parseFloat( settings.get('defaultZoomLevel') || '1' );
+    webviews.callAsync(tabId, 'zoomFactor', defaultZoomLevel)
   }
 }
 

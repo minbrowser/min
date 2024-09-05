@@ -159,6 +159,7 @@
     "settingsUserscriptsToggle": "Schakel gebruikerscripten in",
     "settingsShowDividerToggle": "Scheiding tussen tabbladen tonen",
     "settingsLanguageSelection": null, //missing translation
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": "Gebruik aparte titelbalk",
     "settingsAutoplayToggle": "Automatisch afspelen inschakelen",
     "settingsOpenTabsInForegroundToggle": "Open nieuwe tabbladen op de voorgrond",

@@ -159,6 +159,7 @@
     "settingsUserscriptsToggle": "Aktivera användarscript",
     "settingsShowDividerToggle": "Visa avgränsning mellan flikar",
     "settingsLanguageSelection": "Språk: ",
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": "Använd separat titelrad",
     "settingsAutoplayToggle": "Aktivera automatisk uppspelning",
     "settingsOpenTabsInForegroundToggle": "Öppna nya flikar i förgrunden",
