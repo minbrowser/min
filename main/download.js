@@ -79,7 +79,7 @@ function listenForDownloadHeaders (ses) {
 
       if (typeHeader instanceof Array && typeHeader.filter(t => t.includes('application/pdf')).length > 0 && !attachment) {
       // open in PDF viewer instead
-        callback({ cancel: true })
+        callback({ cancel: false })
         sendIPCToWindow(sourceWindow, 'openPDF', {
           url: details.url,
           tabId: null

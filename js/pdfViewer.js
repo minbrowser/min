@@ -41,7 +41,7 @@ const PDFViewer = {
   },
   handlePDFOpenEvent: function (event, data) {
     if (!data.tabId) {
-      var matchingTabs = tabs.get().filter(t => t.url === data.url).sort((a, b) => { return b.lastActivity - a.lastActivity })
+      var matchingTabs = tabs.get().filter(t => urlParser.getSourceURL(t.url) === data.url).sort((a, b) => { return b.lastActivity - a.lastActivity })
       if (matchingTabs[0]) {
         data.tabId = matchingTabs[0].id
       }
