@@ -10,6 +10,7 @@ const tabEditor = {
   container: document.getElementById('tab-editor'),
   input: document.getElementById('tab-editor-input'),
   star: null,
+  isShown: false,
   show: function (tabId, editingValue, showSearchbar) {
     /* Edit mode is not available in modal mode. */
     if (modalMode.enabled()) {
@@ -17,6 +18,7 @@ const tabEditor = {
     }
 
     tabEditor.container.hidden = false
+    tabEditor.isShown = true
 
     bookmarkStar.update(tabId, tabEditor.star)
     contentBlockingToggle.update(tabId, tabEditor.contentBlockingToggle)
@@ -71,6 +73,7 @@ const tabEditor = {
   hide: function () {
     tabEditor.container.hidden = true
     tabEditor.container.removeAttribute('style')
+    tabEditor.isShown = false
 
     tabEditor.input.blur()
     searchbar.hide()

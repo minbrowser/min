@@ -309,10 +309,19 @@ tabBar.container.addEventListener('dragover', e => e.preventDefault())
 tabBar.container.addEventListener('drop', e => {
   e.preventDefault()
   var data = e.dataTransfer
-  require('browserUI.js').addTab(tabs.add({
-    url: data.files[0] ? 'file://' + data.files[0].path : data.getData('text'),
-    private: tabs.get(tabs.getSelected()).private
-  }), { enterEditMode: false, openInBackground: !settings.get('openTabsInForeground') })
+  var path = data.files[0] ? 'file://' + electron.webUtils.getPathForFile(data.files[0]) : data.getData('text')
+  if (!path) {
+    return
+  }
+  if (tabEditor.isShown || tabs.isEmpty()) {
+    webviews.update(tabs.getSelected(), path)
+    tabEditor.hide()
+  } else {
+    require('browserUI.js').addTab(tabs.add({
+      url: path,
+      private: tabs.get(tabs.getSelected()).private
+    }), { enterEditMode: false, openInBackground: !settings.get('openTabsInForeground') })
+  }
 })
 
 module.exports = tabBar
