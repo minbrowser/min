@@ -239,8 +239,8 @@
     "appMenuQuit": "Sair de %n",
     "appMenuBringToFront": "Trazer tudo para a frente",
     /* Tab menu */
-    "tabMenuNewWindow": null, // missing translation
-    "tabMenuReload": null, // missing translation
+    "tabMenuNewWindow": "Mover separador para nova janela",
+    "tabMenuReload": "Recarregar",
     /* PDF Viewer */
     "PDFInvertPage": "Inverter cores da página",
     "PDFPageCounter": {
@@ -290,7 +290,7 @@
     "passwordCaptureSave": "Sim",
     "passwordCaptureDontSave": "Não",
     "passwordCaptureNeverSave": "Nunca",
-    "generatePassword": null, // missing translation
+    "generatePassword": "Gerar palavra-passe",
     /* Password viewer */
     "savedPasswordsHeading": "Palavras-passe guardadas",
     "savedPasswordsEmpty": "Não há palavras-passe guardadas",
