@@ -1,5 +1,5 @@
 {
-  "name": "Svensk",
+  "name": "Svenska",
   "identifier": "sv",
   "translations": {
     /* Context menu items
@@ -64,7 +64,7 @@
     "enterReaderView": "Gå in i läsläge",
     "exitReaderView": "Lämna läsläge",
     "newTabLabel": "Ny flik", //this is a noun, used for tabs that don't have a page loaded in them yet
-    "connectionNotSecure": "Din anslutning till den där webbsidan är inte säker.",
+    "connectionNotSecure": "Din anslutning till den här webbsidan är inte säker.",
     "searchbarPlaceholder": "Sök eller skriv in adress",
     "privateTab": "Privat flik",
     "newTabAction": "Ny flik", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
@@ -112,7 +112,7 @@
     "offlineErrorTitle": "Du är offline",
     "offlineErrorMessage": "Återanslut till internet och försök igen.",
     "genericConnectionFail": "Min kunde inte ansluta till webbsidan.",
-    "sslTimeErrorMessage": "Min kunde inte ansluta säkert till denna webbsida. Var vänlig och säkerställ att din dators klock är korrekt inställd.",
+    "sslTimeErrorMessage": "Min kunde inte ansluta säkert till denna webbsida. Var vänlig och säkerställ att din dators klocka är korrekt inställd.",
     "addressInvalidTitle": "Den här adressen är ogiltig.",
     "genericError": "Ett fel har inträffat",
     /* pages/phishing/index.html */
@@ -131,19 +131,19 @@
     },
     /* pages/settings/index.html */
     "settingsPreferencesHeading": "Inställningar",
-    "settingsRestartRequired": "Du behöver starta om för att genomföra dessa ändringar.",
+    "settingsRestartRequired": "Du behöver starta om för att genomföra ändringarna.",
     "settingsPrivacyHeading": "Innehållsblockering",
     "settingsContentBlockingLevel0": "Tillåt alla annonser och spårare",
-    "settingsContentBlockingLevel1": "Blockera tredjeparts annonser och spårare",
+    "settingsContentBlockingLevel1": "Blockera tredjepartsannonser och spårare",
     "settingsContentBlockingLevel2": "Blockera alla annonser och spårare",
     "settingsContentBlockingExceptions": "Annonser kommer fortfarande vara tillåtna på dessa sidor:",
     "settingsBlockScriptsToggle": "Blockera script",
     "settingsBlockImagesToggle": "Blockera bilder",
     "settingsBlockedRequestCount": {
-      "unsafeHTML": "Hitills, har Min blockerat<strong></strong> annonser och spårare."
+      "unsafeHTML": "Hitills, har Min blockerat <strong></strong> annonser och spårare."
     },
-    "settingsCustomBangs": "Anpassade bangs",
-    "settingsCustomBangsAdd": "Lägg till anpassad bang",
+    "settingsCustomBangs": "Anpassade bangsgenvägar",
+    "settingsCustomBangsAdd": "Lägg till anpassad bangsgenväg",
     "settingsCustomBangsPhrase": "Fras (Krävs)",
     "settingsCustomBangsSnippet": "Beskrivning (Valfri)",
     "settingsCustomBangsRedirect": "Vidarebefordra URL (Krävs)",
@@ -203,7 +203,7 @@
     "appMenuEdit": "Redigera",
     "appMenuUndo": "Ångra",
     "appMenuRedo": "Gör om",
-    "appMenuCut": "Klipp",
+    "appMenuCut": "Klipp ut",
     "appMenuCopy": "Kopiera",
     "appMenuPaste": "Klistra in",
     "appMenuPasteAndMatchStyle": "Klistra in och matcha stil",
@@ -269,7 +269,7 @@
     /* Password manager setup */
     "passwordManagerSetupHeading": "Avsluta inställningarna för %p för att använda automatisk ifyllning",
     "passwordManagerSetupStep1": {
-      "unsafeHTML": "FÖrst, <a id='password-manager-setup-link'></a> och packa upp den för ditt system."
+      "unsafeHTML": "Först, <a id='password-manager-setup-link'></a> och packa upp den för ditt system."
     },
     "passwordManagerInstallerSetup": {
       "unsafeHTML": "Ladda hem <a id='password-manager-setup-link-installer'></a> och dra filen till boxen nedan:"
