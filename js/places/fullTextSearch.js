@@ -294,9 +294,10 @@ function fullTextPlacesSearch (searchText, callback) {
 
       // generate a search snippet for the document
 
-      const snippetIndex = doc.extractedText ? doc.extractedText.split(/\s+/g) : []
+      // Re-tokenize the query using the less-strict rules used for the snippet, to ensure that matching between the two arrays is accurate
+      const snippetSearchWords = searchText.split(/\s+/g).map(w => stemmer(w.toLowerCase().replace(nonLetterRegex, '')))
 
-      // tokenize the words the same way as the search words are tokenized
+      const snippetIndex = doc.extractedText ? doc.extractedText.split(/\s+/g) : []
       const mappedWords = snippetIndex.map(w => stemmer(w.toLowerCase().replace(nonLetterRegex, '')))
 
       // find the bounds of the subarray of mappedWords with the largest number of unique search words
@@ -306,9 +307,9 @@ function fullTextPlacesSearch (searchText, callback) {
       let maxBegin = -10
       let maxEnd = 0
       for (let i2 = 0; i2 < mappedWords.length; i2++) {
-        //count number of unique search words in the range
+        // count number of unique search words in the range
         let currentScore = 0
-        for (let word of searchWords) {
+        for (const word of snippetSearchWords) {
           for (let i3 = Math.max(indexBegin, 0); i3 <= indexEnd; i3++) {
             if (mappedWords[i3] === word) {
               currentScore++
