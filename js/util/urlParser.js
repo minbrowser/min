@@ -174,6 +174,16 @@ var urlParser = {
     const domain = removeWWW(urlParser.getDomain(url)) // list has no subdomains
 
     return httpsTopSites.includes(domain)
+  },
+  removeTextFragment: function (url) {
+    try {
+      var parsedURL = new URL(url)
+      if (parsedURL.hash.startsWith('#:~:text=')) {
+        parsedURL.hash = ''
+        return parsedURL.toString()
+      }
+    } catch (e) {}
+    return url
   }
 }
 

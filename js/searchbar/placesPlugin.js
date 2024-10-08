@@ -73,8 +73,22 @@ async function showSearchbarPlaceResults (text, input, event, pluginName = 'plac
       }
     }
 
+    var url = result.url
+
+    if (result.searchFragment && pluginName === 'fullTextPlaces' && !url.includes('#')) {
+      var fragment = '#:~:text='
+      if (result.searchFragment.contextBefore) {
+        fragment += encodeURIComponent(result.searchFragment.contextBefore).replace(/-/g, '%2d') + '-,'
+      }
+      fragment += encodeURIComponent(result.searchFragment.fragment).replace(/-/g, '%2d')
+      if (result.searchFragment.contextAfter) {
+        fragment += ',-' + encodeURIComponent(result.searchFragment.contextAfter).replace(/-/g, '%2d')
+      }
+      url += fragment
+    }
+
     var data = {
-      url: result.url,
+      url: url,
       metadata: result.tags,
       descriptionBlock: result.searchSnippet,
       highlightedTerms: (result.searchSnippet ? text.toLowerCase().split(' ').filter(t => t.length > 0) : []),

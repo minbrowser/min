@@ -327,6 +327,11 @@ function fullTextPlacesSearch (searchText, callback) {
         indexEnd++
       }
 
+      const actualSnippetBounds = [
+        maxBegin + mappedWords.slice(maxBegin, maxEnd + 1).findIndex(token => snippetSearchWords.includes(token)),
+        maxBegin + mappedWords.slice(maxBegin, maxEnd + 1).findLastIndex(token => snippetSearchWords.includes(token))
+      ]
+
       // include a few words before the start of the match
       maxBegin = maxBegin - 2
 
@@ -340,6 +345,11 @@ function fullTextPlacesSearch (searchText, callback) {
 
       const snippet = snippetIndex.slice(maxBegin, maxEnd + 5).join(' ')
       if (snippet) {
+        doc.searchFragment = {
+          contextBefore: snippetIndex[actualSnippetBounds[0] - 1],
+          fragment: snippetIndex.slice(actualSnippetBounds[0], actualSnippetBounds[1] + 1).join(' '),
+          contextAfter: snippetIndex[actualSnippetBounds[1] + 1]
+        }
         doc.searchSnippet = snippet + '...'
       }
 
