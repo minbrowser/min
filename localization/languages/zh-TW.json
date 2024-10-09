@@ -159,6 +159,7 @@
     "settingsUserscriptsToggle": "允許使用者指令",
     "settingsShowDividerToggle": "顯示分頁分割線",
     "settingsLanguageSelection": null, //missing translation
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": "分割標題列",
     "settingsAutoplayToggle": "自動播放媒體",
     "settingsOpenTabsInForegroundToggle": "在前景開啟新分頁",

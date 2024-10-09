@@ -159,6 +159,7 @@
     "settingsUserscriptsToggle": "Enable user scripts",
     "settingsShowDividerToggle": "Show divider between tabs",
     "settingsLanguageSelection": "Language: ",
+    "settingsDefaultZoomLevel": "Default zoom",
     "settingsSeparateTitlebarToggle": "Use separate title bar",
     "settingsAutoplayToggle": "Enable Autoplay",
     "settingsOpenTabsInForegroundToggle": "Open new tabs in the foreground",

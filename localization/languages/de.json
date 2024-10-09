@@ -159,6 +159,7 @@
     "settingsUserscriptsToggle": "Benutzerdefinierte Skripte aktivieren",
     "settingsShowDividerToggle": "Trennwand zwischen Tabs anzeigen",
     "settingsLanguageSelection": null, //missing translation
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": "Separate Titelleiste nutzen",
     "settingsAutoplayToggle": "Automatische Wiedergabe erlauben", 
     "settingsOpenTabsInForegroundToggle": "Neue Tabs im Vordergrund öffnen",

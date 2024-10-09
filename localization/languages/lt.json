@@ -159,6 +159,7 @@
     "settingsUserscriptsToggle": "Įjungti naudotojo scenarijus",
     "settingsShowDividerToggle": null, // Missing translation
     "settingsLanguageSelection": null, //missing translation
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": null, //missing translation
     "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": null, //missing translation

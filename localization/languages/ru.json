@@ -159,6 +159,7 @@
     "settingsUserscriptsToggle": "Пользовательские скрипты",
     "settingsShowDividerToggle": "Показывать разделитель между вкладками",
     "settingsLanguageSelection": "Язык: ",
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": "Использовать системный заголовок окна",
     "settingsAutoplayToggle": "Включить автоматическое воспроизведение",
     "settingsOpenTabsInForegroundToggle": "Открывать новые вкладки на переднем плане",

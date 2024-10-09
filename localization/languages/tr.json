@@ -159,6 +159,7 @@
     "settingsUserscriptsToggle": "Kullanıcı betiklerini etkinleştir",
     "settingsShowDividerToggle": "Sekmeler arasında ayırıcı göster",
     "settingsLanguageSelection": "Dil: ",
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": "Ayrılmış başlık çubuğu kullan",
     "settingsAutoplayToggle": "Otomatik oynatmayı etkinleştir",
     "settingsOpenTabsInForegroundToggle": "Yeni sekmeleri önplanda aç",
