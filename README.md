@@ -17,9 +17,9 @@ Download Min from the [releases page](https://github.com/minbrowser/min/releases
 
 Min is made possible by these sponsors:
 
-| [<img src="https://avatars.githubusercontent.com/u/6592155?v=4" width="40">](https://github.com/blackgwe) | [<img src="https://avatars.githubusercontent.com/u/33846125?v=4" width="40">](https://github.com/Emmanuel65) |     |
+| [<img src="https://avatars.githubusercontent.com/u/6592155?v=4" width="40">](https://github.com/blackgwe) | [<img src="https://avatars.githubusercontent.com/u/49724477?v=4" width="40">](https://github.com/rafel-ioli) |     |
 | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --- |
-| [@blackgwe](https://github.com/blackgwe)                                                                          | [@Emmanuel65](https://github.com/Emmanuel65)                                                                        ||
+| [@blackgwe](https://github.com/blackgwe)                                                                            | [@rafel-ioli](https://github.com/rafel-ioli)                                                                        ||
 
 [Become a sponsor](https://github.com/sponsors/PalmerAL)
 
