@@ -159,6 +159,7 @@
     "settingsUserscriptsToggle": "Povolit uživatelské skripty",
     "settingsShowDividerToggle": "Zobrazit ohraničení otevřených karet",
     "settingsLanguageSelection": null, //missing translation
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": "Použít systémové záhlaví okna",
     "settingsAutoplayToggle": "Povolit automatické přehrávání",
     "settingsOpenTabsInForegroundToggle": "Ihned přepínat na nově otevřené karty",

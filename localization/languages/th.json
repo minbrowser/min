@@ -159,6 +159,7 @@
     "settingsUserscriptsToggle": "เปิดใช้งานสคริปต์ผู้ใช้",
     "settingsShowDividerToggle": "แสดงตัวแบ่งกั้นระหว่างแท็บ",
     "settingsLanguageSelection": null, //missing translation
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": "ใช้ชื่อแถบเรื่องแยกต่างหาก",
     "settingsAutoplayToggle": "เปิดใช้งานการเล่นอัตโนมัติ",
     "settingsOpenTabsInForegroundToggle": "เปิดแท็บใหม่ให้อยู่เบื้องหน้า",

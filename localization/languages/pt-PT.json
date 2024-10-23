@@ -159,6 +159,7 @@
     "settingsUserscriptsToggle": "Ativar scripts de utilizador",
     "settingsShowDividerToggle": "Mostrar divisor entre os separadores",
     "settingsLanguageSelection": "Idioma:",
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": "Utilizar barra de título separada",
     "settingsAutoplayToggle": "Ativar reprodução automática",
     "settingsOpenTabsInForegroundToggle": "Abrir novos separadores em primeiro plano",

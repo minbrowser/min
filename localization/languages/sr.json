@@ -159,6 +159,7 @@
     "settingsUserscriptsToggle": "Dozvoli korisničke skripte",
     "settingsShowDividerToggle": "Prikaži razdelnik između tabova",
     "settingsLanguageSelection": null, //missing translation
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": "Koristi zasebanu naslovnu traku",
     "settingsAutoplayToggle": "Dozvoli automatsku reprodukciju",
     "settingsOpenTabsInForegroundToggle": "Otvori nove tabove u prvom planu",

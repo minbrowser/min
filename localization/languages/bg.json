@@ -158,6 +158,7 @@
     "settingsAdditionalFeaturesHeading": "Допълнителни функции",
     "settingsUserscriptsToggle": "Активиране на потребителски скриптове",
     "settingsLanguageSelection": null, //missing translation
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": "Използване на отделна лента със заглавието",
     "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": "Отваряне на нови раздели на преден план",

@@ -159,6 +159,7 @@
     "settingsAdditionalFeaturesHeading": "مميزات اضافية",
     "settingsUserscriptsToggle": "تمكين سكريبت المستخدم",
     "settingsLanguageSelection": null, //missing translation
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": "إستعمل شريط عنوان منفصل",
     "settingsAutoplayToggle": "تفعيل التشغيل التلقائي",
     "settingsOpenTabsInForegroundToggle": "الإنتقال إلى  التبويب الجديد عند فتحه",
