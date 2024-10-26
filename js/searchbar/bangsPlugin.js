@@ -71,7 +71,7 @@ function incrementBangCount (bang) {
 }
 
 // results is an array of {phrase, snippet, image}
-function showBangSearchResults (text, results, input, event, limit = 5) {
+function showBangSearchResults (text, results, input, inputFlags, limit = 5) {
   searchbarPlugins.reset('bangs')
 
   results.sort(function (a, b) {
@@ -113,7 +113,7 @@ function showBangSearchResults (text, results, input, event, limit = 5) {
 
         // show search suggestions for custom bangs
         if (result.showSuggestions) {
-          result.showSuggestions('', input, event)
+          result.showSuggestions('', input, inputFlags)
         }
       }, 66)
     }
@@ -122,14 +122,14 @@ function showBangSearchResults (text, results, input, event, limit = 5) {
   })
 }
 
-function getBangSearchResults (text, input, event) {
+function getBangSearchResults (text, input, inputFlags) {
   // if there is a space in the text, show bang search suggestions (only supported for custom bangs)
 
   if (text.indexOf(' ') !== -1) {
     var bang = getCustomBang(text)
 
     if (bang && bang.showSuggestions) {
-      bang.showSuggestions(text.replace(bang.phrase, '').trimLeft(), input, event)
+      bang.showSuggestions(text.replace(bang.phrase, '').trimLeft(), input, inputFlags)
       return
     } else if (text.trim().indexOf(' ') !== -1) {
       searchbarPlugins.reset('bangs')
@@ -167,18 +167,18 @@ function getBangSearchResults (text, input, event) {
     }
     results = results.concat(searchCustomBangs(text))
     if (text === '!') {
-      showBangSearchResults(text, results, input, event)
+      showBangSearchResults(text, results, input, inputFlags)
       searchbarPlugins.addResult('bangs', {
         title: l('showMoreBangs'),
         icon: 'carbon:chevron-down',
         click: function () {
-          showBangSearchResults(text, results, input, event, Infinity)
+          showBangSearchResults(text, results, input, inputFlags, Infinity)
         }
       })
     } else {
-      showBangSearchResults(text, results, input, event)
+      showBangSearchResults(text, results, input, inputFlags)
 
-      if (results[0] && event.keyCode !== 8) {
+      if (results[0] && !inputFlags.isDeletion) {
         searchbarAutocomplete.autocomplete(input, [results[0].phrase])
       }
     }
