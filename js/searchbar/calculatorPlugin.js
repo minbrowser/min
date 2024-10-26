@@ -30,7 +30,7 @@ const validRegex = new RegExp(
   })+$`
 )
 
-function doMath (text, input, event) {
+function doMath (text, input, inputFlags) {
   searchbarPlugins.reset('calculatorPlugin')
   var result
 

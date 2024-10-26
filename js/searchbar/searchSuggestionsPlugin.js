@@ -3,7 +3,7 @@ var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var urlParser = require('util/urlParser.js')
 var searchEngine = require('util/searchEngine.js')
 
-function showSearchSuggestions (text, input, event) {
+function showSearchSuggestions (text, input, inputFlags) {
     const suggestionsURL = searchEngine.getCurrent().suggestionsURL
 
   if (!suggestionsURL) {

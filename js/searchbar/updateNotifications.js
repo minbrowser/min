@@ -43,7 +43,7 @@ function getAvailableUpdates () {
   }
 }
 
-function showUpdateNotification (text, input, event) {
+function showUpdateNotification (text, input, inputFlags) {
   function displayUpdateNotification () {
     searchbarPlugins.reset('updateNotifications')
     searchbarPlugins.addResult('updateNotifications', {
