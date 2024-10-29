@@ -285,7 +285,7 @@ showDividerCheckbox.addEventListener('change', function (e) {
   settings.set('showDividerBetweenTabs', this.checked)
 })
 
-/* language setting*/
+/* language setting */
 
 var languagePicker = document.getElementById('setting-language-picker')
 
@@ -301,6 +301,26 @@ languagePicker.value = getCurrentLanguage()
 languagePicker.addEventListener('change', function () {
   settings.set('userSelectedLanguage', this.value)
   showRestartRequiredBanner()
+})
+
+/* default zoom level setting */
+
+var defaultZoomLevelPicker = document.getElementById('setting-default-zoom-level-picker')
+
+for( var zoomLevel of [ 0.25, 0.33, 0.5, 0.67, 0.75, 0.80, 0.90, 1.0, 1.10, 1.25, 1.50, 1.75, 2.0, 2.5, 3.0, 4.0, 5.0 ] ) {
+  var item = document.createElement( 'option' )
+  item.textContent = (zoomLevel * 100).toFixed(0) + '%'
+  item.value = zoomLevel
+  defaultZoomLevelPicker.appendChild( item )
+}
+
+settings.get( 'defaultZoomLevel', function (value) {
+  var zoomLevel = parseFloat(value);
+  defaultZoomLevelPicker.value = isNaN(zoomLevel) ? 1.0 : zoomLevel;
+})
+
+defaultZoomLevelPicker.addEventListener('change', function () {
+  settings.set('defaultZoomLevel', this.value)
 })
 
 /* separate titlebar setting */

@@ -51,6 +51,16 @@ function onNavigate (tabId, url, isInPlace, isMainFrame, frameProcessId, frameRo
   }
 }
 
+// set default zoom level for tab
+function setTabDefaultZoomLevel (tabId) {
+  const defaultZoomLevel = parseFloat( settings.get('defaultZoomLevel') || '1' ); // Use setting or default value
+  webviews.callAsync(tabId, 'setZoomFactor', [defaultZoomLevel], function(err) {
+    if (err) {
+      console.error(`Failed to set zoom factor for tab ${tabId}: ${err}`);
+    }
+  });
+}
+
 // called whenever the page finishes loading
 function onPageLoad (tabId) {
   // capture a preview image if a new page has been loaded
@@ -186,6 +196,10 @@ const webviews = {
 
     if (tabData.muted) {
       setAudioMutedOnCreate(tabId, tabData.muted)
+    }
+
+    if (!existingViewId) {
+      setTabDefaultZoomLevel(tabId);
     }
 
     // if the tab is private, we want to partition it. See http://electron.atom.io/docs/v0.34.0/api/web-view-tag/#partition

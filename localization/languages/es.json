@@ -159,6 +159,7 @@
     "settingsUserscriptsToggle": "Habilitar userscripts", //userscript doesn't have a Spanish translation, afaik maybe "script de usuario"
     "settingsShowDividerToggle": "Mostrar divisor de pestañas",
     "settingsLanguageSelection": null, //missing translation
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": "Separar barra de título", //"Usar barra de título separada"
     "settingsAutoplayToggle": "Habilitar reproducción automática", 
     "settingsOpenTabsInForegroundToggle": "Abrir nuevas pestañas en primer plano",

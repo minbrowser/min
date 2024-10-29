@@ -159,6 +159,7 @@
     "settingsUserscriptsToggle": "Aktifkan user script",
     "settingsShowDividerToggle": "Tampilkan pemisah antara tab",
     "settingsLanguageSelection": null, //missing translation
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": "Gunakan bilah judul terpisah",
     "settingsAutoplayToggle": "Aktifkan Putar Otomatis",
     "settingsOpenTabsInForegroundToggle": "Buka tab baru di latar depan",

@@ -159,7 +159,8 @@
       "settingsUserscriptsToggle": "Карыстальнiцкiя скрыпты",
       "settingsShowDividerToggle": "Паказваць падзельнік паміж укладкамі",
       "settingsLanguageSelection": null, //missing translation
-    "settingsSeparateTitlebarToggle": "Выкарыстоўваць сістэмны загаловак акна",
+      "settingsDefaultZoomLevel": null, //missing translation
+      "settingsSeparateTitlebarToggle": "Выкарыстоўваць сістэмны загаловак акна",
       "settingsAutoplayToggle": "Уключыць аўтаматычнае прайграванне",
       "settingsOpenTabsInForegroundToggle": "Адкрываць новыя ўкладкі на пярэднім плане",
       "settingsUserscriptsExplanation": {

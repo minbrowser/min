@@ -160,6 +160,7 @@
     "settingsUserscriptsToggle": "فعال کردن اسکریپت های کاربر",
     "settingsShowDividerToggle": "نمایش جداکننده",
     "settingsLanguageSelection": null, //missing translation
+    "settingsDefaultZoomLevel": null, //missing translation
     "settingsSeparateTitlebarToggle": "نمایش نوار عنوان",
     "settingsAutoplayToggle": "پخش خودکار",
     "settingsOpenTabsInForegroundToggle": null, //missing translation
