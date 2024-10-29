@@ -4,6 +4,7 @@ var browserUI = require('browserUI.js')
 var focusMode = require('focusMode.js')
 var modalMode = require('modalMode.js')
 var tabEditor = require('navbar/tabEditor.js')
+var urlParser = require('util/urlParser.js')
 
 const defaultKeybindings = {
   initialize: function () {
@@ -271,15 +272,18 @@ const defaultKeybindings = {
 
     keybindings.defineShortcut('copyPageURL', function () {
       const tab = tabs.get(tabs.getSelected())
-      const anchorTag = document.createElement('a')
-      anchorTag.href = tab.url
-      anchorTag.textContent = tab.url
+      const url = urlParser.getSourceURL(tab.url)
+      if (url) {
+        const anchorTag = document.createElement('a')
+        anchorTag.href = url
+        anchorTag.textContent = url
 
-      electron.clipboard.write({
-        text: tab.url,
-        bookmark: tab.title,
-        html: anchorTag.outerHTML
-      })
+        electron.clipboard.write({
+          text: url,
+          bookmark: tab.title,
+          html: anchorTag.outerHTML
+        })
+      }
     })
   }
 }
