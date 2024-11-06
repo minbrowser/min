@@ -206,7 +206,7 @@
     "appMenuCut": "Couper",
     "appMenuCopy": "Copier",
     "appMenuPaste": "Coller",
-    "appMenuPasteAndMatchStyle": "Coller et Adapter le Style", //missing translation
+    "appMenuPasteAndMatchStyle": "Coller et Adapter le Style",
     "appMenuSelectAll": "Tout sélectionner",
     "appMenuFind": "Trouver",
     "appMenuView": "Voir",
