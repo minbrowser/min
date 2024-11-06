@@ -4,7 +4,7 @@ var urlParser = require('util/urlParser.js')
 
 const quickScore = require('quick-score').quickScore
 
-var searchOpenTabs = function (text, input, event) {
+var searchOpenTabs = function (text, input, inputFlags) {
   searchbarPlugins.reset('openTabs')
 
   var matches = []

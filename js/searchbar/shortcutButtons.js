@@ -16,7 +16,7 @@ const shortcuts = [
   }
 ]
 
-function showShortcutButtons (text, input, event) {
+function showShortcutButtons (text, input, inputFlags) {
   var container = searchbarPlugins.getContainer('shortcutButtons')
 
   searchbarPlugins.reset('shortcutButtons')

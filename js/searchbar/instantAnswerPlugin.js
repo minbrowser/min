@@ -59,7 +59,7 @@ var instantAnswers = {
   }
 }
 
-function showSearchbarInstantAnswers (text, input, event) {
+function showSearchbarInstantAnswers (text, input, inputFlags) {
   // only make requests to the DDG api if DDG is set as the search engine
   if (searchEngine.getCurrent().name !== 'DuckDuckGo') {
     return
@@ -151,7 +151,7 @@ function showSearchbarInstantAnswers (text, input, event) {
       if (searchbarPlugins.getTopAnswer()) {
         searchbarPlugins.addResult('instantAnswers', suggestedSiteData)
       } else {
-        if (event && event.keyCode !== 8) {
+        if (!inputFlags.isDeletion) {
           // don't autocomplete if delete key pressed
           const autocompletionType = searchbarAutocomplete.autocompleteURL(input, url)
 

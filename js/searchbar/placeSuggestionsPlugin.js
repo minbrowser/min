@@ -4,7 +4,7 @@ var urlParser = require('util/urlParser.js')
 
 var places = require('places/places.js')
 
-async function showPlaceSuggestions (text, input, event) {
+async function showPlaceSuggestions (text, input, inputFlags) {
   // use the current tab's url for history suggestions, or the previous tab if the current tab is empty
   var url = tabs.get(tabs.getSelected()).url
 

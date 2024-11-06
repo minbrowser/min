@@ -10,7 +10,7 @@ var searchEngine = require('util/searchEngine.js')
 
 var currentResponseSent = 0
 
-async function showSearchbarPlaceResults (text, input, event, pluginName = 'places') {
+async function showSearchbarPlaceResults (text, input, inputFlags, pluginName = 'places') {
   var responseSent = Date.now()
 
   var searchFn, resultCount
@@ -23,7 +23,7 @@ async function showSearchbarPlaceResults (text, input, event, pluginName = 'plac
   }
 
   // only autocomplete an item if the delete key wasn't pressed
-  var canAutocomplete = event && event.keyCode !== 8
+  var canAutocomplete = !inputFlags.isDeletion
 
   let results = await searchFn(text)
 
