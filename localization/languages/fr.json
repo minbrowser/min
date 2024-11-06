@@ -23,7 +23,7 @@
     "cut": "Couper",
     "copy": "Copier", //this is a verb (as in "copy the currently-selected text")
     "paste": "Coller",
-    "pasteAndMatchStyle": null, //missing translation
+    "pasteAndMatchStyle": "Coller et Adapter le Style",
     "goBack": "Retour",
     "goForward": "Avancer",
     "inspectElement": "Inspecter l'élément",
@@ -158,14 +158,14 @@
     "settingsAdditionalFeaturesHeading": "Fonctionnalités supplémentaires",
     "settingsUserscriptsToggle": "Activer les scripts personnalisés",
     "settingsShowDividerToggle": "Afficher un séparateur entre les onglets",
-    "settingsLanguageSelection": null, //missing translation
+    "settingsLanguageSelection": "Langue: ",
     "settingsSeparateTitlebarToggle": "Afficher une barre de titre séparée",
     "settingsAutoplayToggle": "Activer la lecture automatique", 
     "settingsOpenTabsInForegroundToggle": "Ouvrir les nouveaux onglets au premiers plan",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Les scripts personnalisés vous permettent de modifier le comportement des pages web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">en savoir plus (en anglais)</a>."
     },
-    "settingsUserscriptShowDirectory": null, //missing translation,
+    "settingsUserscriptShowDirectory": "Afficher le répertoire des scripts",
     "settingsUserAgentToggle": "Utiliser un user-agent particulier",
     "settingsUpdateNotificationsToggle": "Vérifier automatiquement pour des mises à jour",
     "settingsUsageStatisticsToggle": {
@@ -175,9 +175,9 @@
     "settingsStartupCreateTask": "Ré-ouverture des onglets précédents", 
     "settingsStartupNewTaskandBackground": "Déplacer les onglets précédents en arrière plan", 
     "settingsStartupNewTaskOnly": "Ouvrir une nouvelle tâche", 
-    "settingsNewWindowOptions": null, //missing translation
-    "settingsNewWindowCreateTask": null, //missing translation
-    "settingsNewWindowPickTask": null, //missing translation
+    "settingsNewWindowOptions": "Dans une nouvelle fenêtre",
+    "settingsNewWindowCreateTask": "Créer une nouvelle tâche",
+    "settingsNewWindowPickTask": "Afficher la liste des tâches",
     "settingsSearchEngineHeading": "Moteur de recherche",
     "settingsDefaultSearchEngine": "Choisir un moteur de recherche par défaut :",
     "settingsDDGExplanation": "Définir DuckDuckGo comme moteur de recherche par défaut pour voir instantanément des résulats dans la barre de recherche.",
@@ -206,7 +206,7 @@
     "appMenuCut": "Couper",
     "appMenuCopy": "Copier",
     "appMenuPaste": "Coller",
-    "appMenuPasteAndMatchStyle": null, //missing translation
+    "appMenuPasteAndMatchStyle": "Coller et Adapter le Style",
     "appMenuSelectAll": "Tout sélectionner",
     "appMenuFind": "Trouver",
     "appMenuView": "Voir",
@@ -239,10 +239,10 @@
     "appMenuQuit": "Quitter %n",
     "appMenuBringToFront": "Tout mettre à l'avant",
     /* Tab menu */
-    "tabMenuNewWindow": null, // missing translation
-    "tabMenuReload": null, // missing translation
+    "tabMenuNewWindow": "Déplacer l'onglet vers une nouvelle fenêtre",
+    "tabMenuReload": "Recharger",
     /* PDF Viewer */
-    "PDFInvertPage": null, //missing translation
+    "PDFInvertPage": "Inverser les couleurs de la page",
     "PDFPageCounter": {
       "unsafeHTML": "page <input type='text'/> sur <span id='total'></span>"
     },
@@ -289,8 +289,8 @@
     "passwordCaptureSavePassword": "Enregistrer le mot de passe pour %s?",
     "passwordCaptureSave": "Enregistrer",
     "passwordCaptureDontSave": "Ne pas enregistrer",
-    "passwordCaptureNeverSave": "Ne jamais enregistrer", 
-    "generatePassword": null, // missing translation
+    "passwordCaptureNeverSave": "Ne jamais enregistrer",
+    "generatePassword": "Générer un Mot de passe",
     /* Password viewer */
     "savedPasswordsHeading": "Mots de passe enregistrés",
     "savedPasswordsEmpty": "Pas de mots de passe enregistrés.",
