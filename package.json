@@ -41,7 +41,8 @@
     "quick-score": "^0.2.0",
     "regedit": "^3.0.3",
     "sortablejs": "^1.15.1",
-    "stemmer": "^1.0.5"
+    "stemmer": "^1.0.5",
+    "write-file-atomic": "^6.0.0"
   },
   "devDependencies": {
     "archiver": "^4.0.1",

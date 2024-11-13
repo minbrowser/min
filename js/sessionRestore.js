@@ -4,6 +4,8 @@ var tabEditor = require('navbar/tabEditor.js')
 var tabState = require('tabState.js')
 var settings = require('util/settings/settings.js')
 var taskOverlay = require('taskOverlay/taskOverlay.js')
+const writeFileAtomic = require('write-file-atomic')
+const statistics = require('js/statistics.js')
 
 const sessionRestore = {
   savePath: window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
@@ -40,11 +42,12 @@ const sessionRestore = {
 
     if (forceSave === true || stateString !== sessionRestore.previousState) {
       if (sync === true) {
-        fs.writeFileSync(sessionRestore.savePath, JSON.stringify(data))
+        writeFileAtomic.sync(sessionRestore.savePath, JSON.stringify(data), {})
       } else {
-        fs.writeFile(sessionRestore.savePath, JSON.stringify(data), function (err) {
+        writeFileAtomic(sessionRestore.savePath, JSON.stringify(data), {}, function (err) {
           if (err) {
             console.warn(err)
+            statistics.incrementValue('sessionRestoreSaveAsyncWriteErrors')
           }
         })
       }
@@ -171,7 +174,7 @@ const sessionRestore = {
 
       var backupSavePath = require('path').join(window.globalArgs['user-data-path'], 'sessionRestoreBackup-' + Date.now() + '.json')
 
-      fs.writeFileSync(backupSavePath, savedStringData)
+      writeFileAtomic.sync(backupSavePath, savedStringData, {})
 
       // destroy any tabs that were created during the restore attempt
       tabState.initialize()
@@ -184,6 +187,8 @@ const sessionRestore = {
 
       browserUI.switchToTask(newTask)
       browserUI.switchToTab(newSessionErrorTab)
+
+      statistics.incrementValue('sessionRestorationErrors')
     }
   },
   syncWithWindow: function () {
