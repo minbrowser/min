@@ -17,6 +17,8 @@ const {
   net
 } = electron
 
+
+app.commandLine.appendSwitch('enable-features','SharedArrayBuffer'); // Required for using SharedArrayBuffer inside the browser
 crashReporter.start({
   submitURL: 'https://minbrowser.org/',
   uploadToServer: false,
