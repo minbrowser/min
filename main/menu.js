@@ -317,30 +317,36 @@ function buildAppMenu (options = {}) {
             sendIPCToWindow(window, 'inspectPage')
           }
         },
-        {
-          type: 'separator'
-        },
-        ...(isDevelopmentMode ?
+        ...(isDevelopmentMode || isDebuggingEnabled ?
           [
+            {
+              type: 'separator'
+            },
             {
               label: l('appMenuReloadBrowser'),
               accelerator: (isDevelopmentMode ? 'alt+CmdOrCtrl+R' : undefined),
               click: function (item, focusedWindow) {
-                  destroyAllViews()
-                  windows.getAll().forEach(win => win.close())
-                  createWindow()
+                destroyAllViews()
+                windows.getAll().forEach(win => win.close())
+                createWindow()
               }
             },
-          ] : []),
-        {
-          label: l('appMenuInspectBrowser'),
-          accelerator: (function () {
-            if (process.platform === 'darwin') { return 'Shift+Cmd+Alt+I' } else { return 'Ctrl+Shift+Alt+I' }
-          })(),
-          click: function (item, focusedWindow) {
-            if (focusedWindow) focusedWindow.toggleDevTools()
-          }
-        }
+            {
+              label: l('appMenuInspectBrowser'),
+              accelerator: (function () {
+                if (process.platform === 'darwin') { return 'Shift+Cmd+Alt+I' } else { return 'Ctrl+Shift+Alt+I' }
+              })(),
+              click: function (item, focusedWindow) {
+                if (focusedWindow) focusedWindow.toggleDevTools()
+              }
+            },
+            {
+              label: 'Inspect Places Service',
+              click: function (item, focusedWindow) {
+                placesWindow.webContents.openDevTools({ mode: 'detach' })
+              }
+            }
+          ] : [])
       ]
     },
     ...(process.platform === 'darwin' ? [

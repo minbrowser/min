@@ -9,7 +9,8 @@ function initialize () {
     showResults: function () {
       searchbarPlugins.reset('developmentModeNotification')
       searchbarPlugins.addResult('developmentModeNotification', {
-        title: 'Development Mode Enabled'
+        title: 'Development Mode Enabled',
+        icon: 'carbon:warning-alt'
       })
     }
   })
