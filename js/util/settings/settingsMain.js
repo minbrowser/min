@@ -1,3 +1,5 @@
+const writeFileAtomic = require('write-file-atomic')
+
 var settings = {
   filePath: null,
   fileWritePromise: null,
@@ -13,7 +15,15 @@ var settings = {
 
     /* eslint-disable no-inner-declarations */
     function newFileWrite () {
-      return fs.promises.writeFile(settings.filePath, JSON.stringify(settings.list))
+      return new Promise(function (resolve, reject) {
+        writeFileAtomic(settings.filePath, JSON.stringify(settings.list), {}, function (err) {
+          if (err) {
+            reject(err)
+          } else {
+            resolve()
+          }
+        })
+      })
     }
 
     function ongoingFileWrite () {
