@@ -31,6 +31,7 @@ if (process.argv.some(arg => arg === '-v' || arg === '--version')) {
 
 let isInstallerRunning = false
 const isDevelopmentMode = process.argv.some(arg => arg === '--development-mode')
+const isDebuggingEnabled = process.argv.some(arg => arg === '--debug-browser')
 
 function clamp (n, min, max) {
   return Math.max(Math.min(n, max), min)
