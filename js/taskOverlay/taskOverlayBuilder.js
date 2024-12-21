@@ -64,7 +64,6 @@ var TaskOverlayBuilder = {
       nameInputField: function (task, taskIndex) {
         var input = document.createElement('input')
         input.classList.add('task-name')
-        input.classList.add('mousetrap')
 
         var taskName = l('defaultTaskName').replace('%n', taskIndex + 1)
 

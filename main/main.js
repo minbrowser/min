@@ -317,6 +317,10 @@ function createWindowWithBounds (bounds, customArgs) {
     }
   })
 
+  newWin.webContents.on('before-input-event', function(e, input) {
+    sendIPCToWindow(newWin, 'before-input-event', input)
+  })
+
   newWin.setTouchBar(buildTouchBar())
 
   windows.addWindow(newWin)
