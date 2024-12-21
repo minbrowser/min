@@ -141,7 +141,8 @@ function beforeInputEventHandler (input) {
       (key === 'shift' && (input.shift || input.key === 'Shift')) ||
       (key === 'ctrl' && (input.control || input.key === 'Control')) ||
       (key === 'mod' && window.platformType === 'mac' && (input.meta || input.key === 'Meta')) ||
-      (key === 'mod' && window.platformType !== 'mac' && (input.control || input.key === 'Control'))
+      (key === 'mod' && window.platformType !== 'mac' && (input.control || input.key === 'Control')) ||
+      (key === 'super' && (input.meta || input.key === 'Meta'))
       )
       ) {
         matches = false
