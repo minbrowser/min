@@ -1,5 +1,3 @@
-const BrowserView = electron.BrowserView
-
 var viewMap = {} // id: view
 var viewStateMap = {} // id: view state
 
@@ -52,21 +50,21 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
     view.setBackgroundColor('#fff')
     viewStateMap[id].loadedInitialURL = true
   } else {
-    view = new BrowserView({ webPreferences: viewPrefs })
+    view = new WebContentsView({ webPreferences: viewPrefs })
   }
 
   events.forEach(function (event) {
     view.webContents.on(event, function (e) {
       var args = Array.prototype.slice.call(arguments).slice(1)
 
-      const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
+      const eventTarget = getWindowFromViewContents(view) || windows.getCurrent()
 
       if (!eventTarget) {
         //this can happen during shutdown - windows can be destroyed before the corresponding views, and the view can emit an event during that time
         return
       }
 
-      eventTarget.webContents.send('view-event', {
+      getWindowWebContents(eventTarget).send('view-event', {
         tabId: id,
         event: event,
         args: args
@@ -94,9 +92,9 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
       (https://github.com/minbrowser/min/issues/1835)
     */
     if (!details.features) {
-      const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
+      const eventTarget = getWindowFromViewContents(view) || windows.getCurrent()
 
-      eventTarget.webContents.send('view-event', {
+      getWindowWebContents(eventTarget).send('view-event', {
         tabId: id,
         event: 'new-tab',
         args: [details.url, !(details.disposition === 'background-tab')]
@@ -109,14 +107,14 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
     return {
       action: 'allow',
       createWindow: function (options) {
-        const view = new BrowserView({ webPreferences: getDefaultViewWebPreferences(), webContents: options.webContents })
+        const view = new WebContentsView({ webPreferences: getDefaultViewWebPreferences(), webContents: options.webContents })
 
         var popupId = Math.random().toString()
         temporaryPopupViews[popupId] = view
 
-        const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
+        const eventTarget = getWindowFromViewContents(view) || windows.getCurrent()
 
-        eventTarget.webContents.send('view-event', {
+        getWindowWebContents(eventTarget).send('view-event', {
           tabId: id,
           event: 'did-create-popup',
           args: [popupId, details.url]
@@ -137,14 +135,14 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
       return
     }
 
-    const eventTarget = BrowserWindow.fromBrowserView(view) || windows.getCurrent()
+    const eventTarget = getWindowFromViewContents(view) || windows.getCurrent()
 
     if (!eventTarget) {
       //this can happen during shutdown - windows can be destroyed before the corresponding views, and the view can emit an event during that time
       return
     }
 
-    eventTarget.webContents.send('view-ipc', {
+    getWindowWebContents(eventTarget).send('view-ipc', {
       id: id,
       name: channel,
       data: data,
@@ -222,13 +220,13 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
       if (hasJS !== shouldHaveJS) {
         setTimeout(function () {
           view.webContents.stop()
-          const currentWindow = BrowserWindow.fromBrowserView(view)
+          const currentWindow = getWindowFromViewContents(view)
           destroyView(id)
           const newView = createView(existingViewId, id, Object.assign({}, webPreferences, { javascript: shouldHaveJS }), boundsString, events)
           loadURLInView(id, event.url, currentWindow)
 
           if (currentWindow) {
-            setView(id, currentWindow.webContents)
+            setView(id, getWindowWebContents(currentWindow))
             focusView(id)
           }
         }, 0)
@@ -249,9 +247,8 @@ function destroyView (id) {
   }
 
   windows.getAll().forEach(function (window) {
-    if (viewMap[id] === window.getBrowserView()) {
-      window.setBrowserView(null)
-      // TODO fix
+    if (windows.getState(window).selectedView === id) {
+      window.getContentView().removeChildView(viewMap[id])
       windows.getState(window).selectedView = null
     }
   })
@@ -272,11 +269,13 @@ function setView (id, senderContents) {
 
   // setBrowserView causes flickering, so we only want to call it if the view is actually changing
   // see https://github.com/minbrowser/min/issues/1966
-  if (win.getBrowserView() !== viewMap[id]) {
+  if (windows.getState(win).selectedView !== viewMap[id]) {
+    //remove all prior views
+    win.getContentView().children.slice(1).forEach(child => win.getContentView().removeChildView(child))
     if (viewStateMap[id].loadedInitialURL) {
-      win.setBrowserView(viewMap[id])
+      win.getContentView().addChildView(viewMap[id])
     } else {
-      win.setBrowserView(null)
+      win.getContentView().removeChildView(viewMap[id])
     }
     windows.getState(win).selectedView = id
   }
@@ -294,19 +293,21 @@ function focusView (id) {
   if (viewMap[id] && (viewMap[id].webContents.getURL() !== '' || viewMap[id].webContents.isLoading())) {
     viewMap[id].webContents.focus()
     return true
-  } else if (BrowserWindow.fromBrowserView(viewMap[id])) {
-    BrowserWindow.fromBrowserView(viewMap[id]).webContents.focus()
+  } else if (getWindowFromViewContents(viewMap[id])) {
+    getWindowWebContents(getWindowFromViewContents(viewMap[id])).focus()
     return true
   }
 }
 
 function hideCurrentView (senderContents) {
   const win = windows.windowFromContents(senderContents).win
-
-  win.setBrowserView(null)
-  windows.getState(win).selectedView = null
-  if (win.isFocused()) {
-    win.webContents.focus()
+  const currentId = windows.getState(win).selectedView
+  if (currentId) {
+    win.getContentView().removeChildView(viewMap[currentId])
+    windows.getState(win).selectedView = null
+    if (win.isFocused()) {
+      getWindowWebContents(win).focus()
+    }
   }
 }
 
@@ -320,6 +321,11 @@ function getTabIDFromWebContents (contents) {
       return id
     }
   }
+}
+
+function getWindowFromViewContents (webContents) {
+  const viewId = Object.keys(viewMap).find(id => viewMap[id].webContents === webContents)
+  return windows.getAll().find(win => windows.getState(win).selectedView === viewId)
 }
 
 ipc.on('createView', function (e, args) {
@@ -366,7 +372,7 @@ function loadURLInView (id, url, win) {
     })
     // If the view has no URL, it won't be attached yet
     if (win && id === windows.getState(win).selectedView) {
-      win.setBrowserView(viewMap[id])
+      win.getContentView().addChildView(viewMap[id])
     }
   }
   viewMap[id].webContents.loadURL(url)
