@@ -439,10 +439,15 @@ ipc.on('quit', function () {
 })
 
 ipc.on('tab-state-change', function(e, events) {
+  const sourceWindowId = windows.windowFromContents(e.sender)?.id
+  if (!sourceWindowId) {
+    console.warn('warning: received tab state update from window after destruction, ignoring')
+    return
+  }
   windows.getAll().forEach(function(window) {
     if (getWindowWebContents(window).id !== e.sender.id) {
       getWindowWebContents(window).send('tab-state-change-receive', {
-        sourceWindowId: windows.windowFromContents(e.sender).id,
+        sourceWindowId,
         events
       })
     }

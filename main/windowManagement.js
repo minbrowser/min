@@ -19,8 +19,8 @@ const windows = {
     })
 
     window.on('close', function() {
-      //if the BrowserView is still attached to the window on close, Electron will destroy it automatically, but we want to manage it ourselves
-      window.getContentView().children.forEach(child => window.getContentView().removeChildView(child))
+      // detach WebContentsViews to ensure they aren't destroyed when the window is closed
+      window.getContentView().children.slice(1).forEach(child => window.getContentView().removeChildView(child))
       windows.openWindows.find(w => w.win === window).closed = true
     })
 
