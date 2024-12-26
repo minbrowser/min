@@ -267,7 +267,7 @@ function destroyAllViews () {
 function setView (id, senderContents) {
   const win = windows.windowFromContents(senderContents).win
 
-  // setBrowserView causes flickering, so we only want to call it if the view is actually changing
+  // changing views can cause flickering, so we only want to call it if the view is actually changing
   // see https://github.com/minbrowser/min/issues/1966
   if (windows.getState(win).selectedView !== viewMap[id]) {
     //remove all prior views

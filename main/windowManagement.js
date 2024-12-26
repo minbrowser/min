@@ -38,7 +38,7 @@ const windows = {
   removeWindow: function (window) {
     windows.openWindows.splice(windows.openWindows.findIndex(w => w.win === window), 1)
 
-    //unload BrowserViews when all windows are closed
+    //unload WebContentsViews when all windows are closed
     if (windows.openWindows.length === 0) {
       destroyAllViews()
     }
