@@ -3,7 +3,7 @@ const windows = {
   hasEverCreatedWindow: false,
   nextId: 1,
   windowFromContents: function (webContents) {
-    return windows.openWindows.find(w => w.win.webContents.id === webContents.id)
+    return windows.openWindows.find(w => getWindowWebContents(w.win).id === webContents.id)
   },
   addWindow: function (window) {
     windows.hasEverCreatedWindow = true
@@ -19,9 +19,9 @@ const windows = {
     })
 
     window.on('close', function() {
-      //if the BrowserView is still attached to the window on close, Electron will destroy it automatically, but we want to manage it ourselves
-      window.setBrowserView(null)
-      windows.openWindows.find(w => w.win === window).closed = true;
+      // detach WebContentsViews to ensure they aren't destroyed when the window is closed
+      window.getContentView().children.slice(1).forEach(child => window.getContentView().removeChildView(child))
+      windows.openWindows.find(w => w.win === window).closed = true
     })
 
     window.on('closed', function() {
@@ -38,7 +38,7 @@ const windows = {
   removeWindow: function (window) {
     windows.openWindows.splice(windows.openWindows.findIndex(w => w.win === window), 1)
 
-    //unload BrowserViews when all windows are closed
+    //unload WebContentsViews when all windows are closed
     if (windows.openWindows.length === 0) {
       destroyAllViews()
     }

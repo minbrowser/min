@@ -63,7 +63,7 @@ var settings = {
     settings.runChangeCallbacks(key)
 
     windows.getAll().forEach(function (win) {
-      win.webContents.send('settingChanged', key, value)
+      getWindowWebContents(win).send('settingChanged', key, value)
     })
   },
   initialize: function (userDataPath) {
@@ -86,8 +86,8 @@ var settings = {
       settings.runChangeCallbacks(key)
 
       windows.getAll().forEach(function (win) {
-        if (win.webContents.id !== e.sender.id) {
-          win.webContents.send('settingChanged', key, value)
+        if (getWindowWebContents(win).id !== e.sender.id) {
+          getWindowWebContents(win).send('settingChanged', key, value)
         }
       })
     })

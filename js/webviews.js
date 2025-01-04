@@ -109,7 +109,7 @@ const webviews = {
   events: [],
   IPCEvents: [],
   hasViewForTab: function(tabId) {
-    return tabId && tasks.getTaskContainingTab(tabId) && tasks.getTaskContainingTab(tabId).tabs.get(tabId).hasBrowserView
+    return tabId && tasks.getTaskContainingTab(tabId) && tasks.getTaskContainingTab(tabId).tabs.get(tabId).hasWebContents
   },
   bindEvent: function (event, fn) {
     webviews.events.push({
@@ -214,7 +214,7 @@ const webviews = {
     }
 
     tasks.getTaskContainingTab(tabId).tabs.update(tabId, {
-      hasBrowserView: true
+      hasWebContents: true
     })
   },
   setSelected: function (id, options) { // options.focus - whether to focus the view. Defaults to true.
@@ -248,7 +248,7 @@ const webviews = {
 
     if (webviews.hasViewForTab(id)) {
       tasks.getTaskContainingTab(id).tabs.update(id, {
-        hasBrowserView: false
+        hasWebContents: false
       })
     }
     //we may be destroying a view for which the tab object no longer exists, so this message should be sent unconditionally
