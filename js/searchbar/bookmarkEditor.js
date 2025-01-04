@@ -177,7 +177,6 @@ const bookmarkEditor = {
       var newTagInput = document.createElement('input')
       newTagInput.className = 'tag-input'
       newTagInput.placeholder = l('bookmarksAddTag')
-      newTagInput.classList.add('mousetrap')
       newTagInput.spellcheck = false
       tagArea.appendChild(newTagInput)
 
