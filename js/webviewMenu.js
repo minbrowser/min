@@ -7,8 +7,22 @@ const userscripts = require('userscripts.js')
 const settings = require('util/settings/settings.js')
 const pageTranslations = require('pageTranslations.js')
 const PasswordManagers = require('passwordManager/passwordManager.js')
+const { providers, providerName, urls, envEnum } = require('constants.js');
+const crypto = require('crypto');
 
+
+const decodePassword = (password, ivCipher) => {
+  const rawPassword = Buffer.from(password, 'base64');
+  const rawKey = Buffer.from('5dBJWAPezu6p7eq7vImQiw==', 'base64');
+  const iv = Buffer.from(ivCipher, 'base64');
+
+  const decipher = crypto.createDecipheriv('aes-128-cbc', rawKey, iv);
+  let decrypted = decipher.update(rawPassword);
+  decrypted += decipher.final('utf8');
+  return decrypted.toString();
+};
 const remoteMenu = require('remoteMenuRenderer.js')
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const webviewMenu = {
   menuData: null,
@@ -362,6 +376,191 @@ const webviewMenu = {
     webviews.bindIPC('contextMenuData', function (tabId, args) {
       webviewMenu.showMenu(webviewMenu.menuData, args[0])
       webviewMenu.menuData = null
+    })
+    webviews.bindIPC('get-2fa', function (tabId, args) {
+      const currentUrl = tabs.get(tabId).url;
+      const pmsAccount = args[0];
+      if(currentUrl.includes('appfolio.com/users/sign_in')) {
+        sleep(500).then(() => {
+          webviews.callAsync(tabId, 'send', [`password-login:${pmsAccount.provider}`, {
+            email: pmsAccount?.email,
+            phone_number: pmsAccount?.phone_number,
+            provider: pmsAccount?.provider,
+            pass: pmsAccount?.pass,
+            tab_id:pmsAccount.tab_id,
+            urls,
+          }]);
+        });
+      }
+      if(!currentUrl.includes('/users/two_factor/new')) return
+      const listener = function (eTabId) {
+        if (eTabId === tabId) {
+          console.log('get-2fa',tabId,args);
+          // the scrollable content may not be available until some time after the load event, so attempt scrolling several times
+          // but stop once we've successfully scrolled once so we don't overwrite user scroll attempts that happen later
+          for (let i = 0; i < 1; i++) {
+            var done = false
+            setTimeout(function () {
+              if (!done) {
+                // fetch(
+                //   `${urls.APM_2FA}?${new URLSearchParams({
+                //     phoneNumber: pmsAccount.phone_number,
+                //     url: tabs.get(tabId).url,
+                //   }).toString()}`
+                // ).then((res) => {
+                //   res.json().then((body) => {
+                  sleep(1000).then(() => { 
+                    webviews.callAsync(tabId, 'send', [`click-2fa:${pmsAccount.provider}`,pmsAccount ]);
+                    done = true
+                  })
+                //   });
+                // });
+              }
+            }, 750 * i)
+          }
+          webviews.unbindEvent('did-finish-load', listener)
+        }
+      }
+      webviews.bindEvent('did-finish-load', listener);
+    })
+
+    webviews.bindIPC('add-2fa', function (tabId, args) {
+      const pmsAccount = args[0];
+      if(tabId ===pmsAccount.tab_id) {
+        console.log('add-2fa',tabId,pmsAccount);
+        fetch(
+          `${urls.APM_2FA}?${new URLSearchParams({
+            phoneNumber: pmsAccount.phone_number,
+            url: tabs.get(tabId).url,
+          }).toString()}`
+        ).then((res) => {
+          res.json().then((body) => {
+            console.log('add-2fa-code',body);
+
+          if(body?.verification_code) {
+            sleep(1000).then(() => { 
+              webviews.callAsync(tabId, 'send', [`twofa:${pmsAccount.provider}`, body.verification_code]);
+
+            });
+          }
+          });
+        });
+      }
+      // const listener = function (eTabId) {
+      //   console.log('eTabId',eTabId,tabId,eTabId===tabId);
+      //   if (eTabId === tabId) {
+      //     // the scrollable content may not be available until some time after the load event, so attempt scrolling several times
+      //     // but stop once we've successfully scrolled once so we don't overwrite user scroll attempts that happen later
+      //     for (let i = 0; i < 10; i++) {
+      //       console.log('add-2fa-loop',i);
+      //       var done = false
+      //       setTimeout(function () {
+      //         if (!done) {
+      //           fetch(
+      //             `${urls.APM_2FA}?${new URLSearchParams({
+      //               phoneNumber: pmsAccount.phone_number,
+      //               url: tabs.get(tabId).url,
+      //             }).toString()}`
+      //           ).then((res) => {
+      //             res.json().then((body) => {
+      //               console.log('add-2fa-code',body);
+
+      //               webviews.callAsync(tabId, 'send', [`twofa:${pmsAccount.provider}`, body.verification_code]);
+      //             });
+      //           });
+      //         }
+      //       }, 750 * i)
+      //     }
+      //     webviews.unbindEvent('did-finish-load', listener)
+      //   }
+      // }
+      // webviews.bindEvent('did-finish-load', listener);
+    })
+
+
+    webviews.bindIPC('trigger-2fa', function (tabId, args) {
+      const pmsAccount = args[0];
+      const listener = function (eTabId) {
+        // console.log('eTabId',eTabId,tabId,eTabId===tabId);
+        if (eTabId === tabId) {
+          console.log('trigger-2fa',tabId,args);
+
+          // the scrollable content may not be available until some time after the load event, so attempt scrolling several times
+          // but stop once we've successfully scrolled once so we don't overwrite user scroll attempts that happen later
+          for (let i = 0; i < 3; i++) {
+            console.log('trigger-2fa-loop',i);
+            var done = false
+            setTimeout(function () {
+              if (!done) {
+                fetch(
+                  `${urls.APM_2FA}?${new URLSearchParams({
+                    phoneNumber: pmsAccount.phone_number,
+                    url: tabs.get(tabId).url,
+                  }).toString()}`
+                ).then((res) => {
+                  res.json().then((body) => {
+                    console.log('trigger-2fa-code',body);
+
+                    webviews.callAsync(tabId, 'send', [`twofa:${pmsAccount.provider}`, body.verification_code]);
+                    done = true
+                  });
+                });
+              }
+            }, 750 * i)
+          }
+          webviews.unbindEvent('did-finish-load', listener)
+        }
+      }
+      webviews.bindEvent('did-finish-load', listener);
+    })
+    webviews.bindIPC('open-account', async function (tabId, args) {
+      console.log('open-account',tabId,args, tabs.getSelected());
+      const pmsAccount = args[0];
+      const link = providers[pmsAccount.provider](pmsAccount.uid);
+      const pass = decodePassword(pmsAccount?.password, pmsAccount?.cipher_iv);
+
+      const newTabId = tabs.add({ url: link });
+      browserUI.addTab(newTabId, { enterEditMode: false, openInBackground: true });
+      console.log('open-accountsdsd', newTabId,tabs.get(newTabId));
+     
+
+      const listener = function (eTabId) {
+        if (eTabId === newTabId) {
+          // the scrollable content may not be available until some time after the load event, so attempt scrolling several times
+          // but stop once we've successfully scrolled once so we don't overwrite user scroll attempts that happen later
+          for (let i = 0; i < 3; i++) {
+            var done = false
+            setTimeout(function () {
+              if (!done) {
+                webviews.callAsync(newTabId, 'executeJavaScript', `
+                  (function() {
+                    console.log("dfvefverf");
+                    localStorage.setItem('pms-account', '${JSON.stringify(pmsAccount)}');
+                
+                  })()
+                  `, function (err, completed) {
+                    console.log('completed',completed);
+                    sleep(2000).then(() => { 
+                      webviews.callAsync(newTabId, 'send', [`password-login:${pmsAccount.provider}`, {
+                        email: pmsAccount?.email,
+                        phone_number: pmsAccount?.phone_number,
+                        provider: pmsAccount?.provider,
+                        tab_id:newTabId,
+                        pass,
+                        urls,
+                      }]);
+                    });
+                    done = true;
+
+                  })
+              }
+            }, 750 * i)
+          }
+          webviews.unbindEvent('did-finish-load', listener)
+        }
+      }
+      webviews.bindEvent('did-finish-load', listener);
+
     })
   }
 }
