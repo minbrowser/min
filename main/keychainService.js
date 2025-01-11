@@ -41,6 +41,24 @@ function writeSavedPasswordFile (content) {
   fs.writeFileSync(passwordFilePath, safeStorage.encryptString(JSON.stringify(content)))
 }
 
+function credentialStoreSetPasswordBulk (accounts) {
+  const fileContent = readSavedPasswordFile()
+
+  // delete duplicate credentials
+  for (let i = 0; i < fileContent.credentials.length; i++) {
+    for (let j = 0; j < accounts.length; j++) {
+      if (fileContent.credentials[i].domain === accounts[j].domain && fileContent.credentials[i].username === accounts[j].username) {
+        fileContent.credentials.splice(i, 1)
+        i--
+      }
+    }
+    accounts.splice(j, 1)
+  }
+
+  fileContent.credentials = fileContent.credentials.concat(accounts)
+  writeSavedPasswordFile(fileContent)
+}
+
 function credentialStoreSetPassword (account) {
   const fileContent = readSavedPasswordFile()
 
@@ -55,6 +73,10 @@ function credentialStoreSetPassword (account) {
   fileContent.credentials.push(account)
   writeSavedPasswordFile(fileContent)
 }
+
+ipc.handle('credentialStoreSetPasswordBulk', async function (event, accounts) {
+  return credentialStoreSetPasswordBulk(accounts)
+})
 
 ipc.handle('credentialStoreSetPassword', async function (event, account) {
   return credentialStoreSetPassword(account)

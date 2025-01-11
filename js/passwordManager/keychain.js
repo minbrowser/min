@@ -48,6 +48,27 @@ class Keychain {
     ipcRenderer.invoke('credentialStoreDeletePassword', { domain, username })
   }
 
+  async importCredentials () {
+    const filePaths = await ipc.invoke('showOpenDialog', {
+      filters: [
+        { name: 'JSON', extensions: ['json'] },
+        { name: 'All Files', extensions: ['*'] }
+      ]
+    })
+
+    if (!filePaths[0]) return
+
+    const file = fs.readFileSync(filePaths[0])
+    const { credentials } = JSON.parse(file)
+    if (credentials.length === 0 || !credentials[0].domain || !credentials[0].username || !credentials[0].password) {
+      return []
+    }
+
+    ipcRenderer.invoke('credentialStoreSetPasswordBulk', credentials)
+
+    return credentials
+  }
+
   getAllCredentials () {
     return ipcRenderer.invoke('credentialStoreGetCredentials').then(function (results) {
       return results.map(function (result) {

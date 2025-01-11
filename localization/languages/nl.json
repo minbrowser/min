@@ -295,6 +295,8 @@
     "savedPasswordsEmpty": "Geen opgeslagen wachtwoorden.",
     "savedPasswordsNeverSavedLabel": "Nooit opgeslagen",
     "deletePassword": "Verwijder wachtwoord voor %s?",
+    "exportCredentials": "Exporteer wachtwoorden",
+    "importCredentials": "Importeer wachtwoorden",
     /* Dialogs */
     "loginPromptTitle": "Inloggen bij %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Bevestigen",

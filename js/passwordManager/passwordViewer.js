@@ -8,6 +8,8 @@ const passwordViewer = {
   listContainer: document.getElementById('password-viewer-list'),
   emptyHeading: document.getElementById('password-viewer-empty'),
   closeButton: document.querySelector('#password-viewer .modal-close-button'),
+  exportButton: document.getElementById('password-viewer-export'),
+  importButton: document.getElementById('password-viewer-import'),
   createCredentialListElement: function (credential) {
     var container = document.createElement('div')
 
@@ -51,6 +53,7 @@ const passwordViewer = {
         PasswordManagers.getConfiguredPasswordManager().then(function (manager) {
           manager.deleteCredential(credential.domain, credential.username)
           container.remove()
+          passwordViewer._updatePasswordListFooter()
         })
       }
     })
@@ -77,9 +80,29 @@ const passwordViewer = {
     deleteButton.addEventListener('click', function () {
       settings.set('passwordsNeverSaveDomains', settings.get('passwordsNeverSaveDomains').filter(d => d !== domain))
       container.remove()
+      passwordViewer._updatePasswordListFooter()
     })
 
     return container
+  },
+  _renderPasswordList: function (credentials) {
+    credentials.forEach(function (cred) {
+      passwordViewer.listContainer.appendChild(passwordViewer.createCredentialListElement(cred))
+    })
+
+    const neverSaveDomains = settings.get('passwordsNeverSaveDomains') || []
+
+    neverSaveDomains.forEach(function (domain) {
+      passwordViewer.listContainer.appendChild(passwordViewer.createNeverSaveDomainElement(domain))
+    })
+
+    passwordViewer._updatePasswordListFooter()
+  },
+  _updatePasswordListFooter: function () {
+    const hasCredentials = (passwordViewer.listContainer.children.length !== 0)
+    passwordViewer.emptyHeading.hidden = hasCredentials
+    passwordViewer.importButton.hidden = hasCredentials
+    passwordViewer.exportButton.hidden = !hasCredentials
   },
   show: function () {
     PasswordManagers.getConfiguredPasswordManager().then(function (manager) {
@@ -94,17 +117,48 @@ const passwordViewer = {
         })
         passwordViewer.container.hidden = false
 
-        credentials.forEach(function (cred) {
-          passwordViewer.listContainer.appendChild(passwordViewer.createCredentialListElement(cred))
+        passwordViewer._renderPasswordList(credentials)
+      })
+    })
+  },
+  importCredentials: async function () {
+    PasswordManagers.getConfiguredPasswordManager().then(function (manager) {
+      if (!manager.importCredentials) {
+        throw new Error('unsupported password manager')
+      }
+
+      manager.importCredentials().then(function (credentials) {
+        passwordViewer._renderPasswordList(credentials)
+      })
+    })
+  },
+  exportCredentials: function () {
+    PasswordManagers.getConfiguredPasswordManager().then(function (manager) {
+      if (!manager.getAllCredentials) {
+        throw new Error('unsupported password manager')
+      }
+
+      manager.getAllCredentials().then(function (credentials) {
+        if (credentials.length === 0) return
+
+        const credentialsWithoutManager = credentials.map(function (credential) {
+          return {
+            domain: credential.domain,
+            username: credential.username,
+            password: credential.password
+          }
         })
 
-        const neverSaveDomains = settings.get('passwordsNeverSaveDomains') || []
-
-        neverSaveDomains.forEach(function (domain) {
-          passwordViewer.listContainer.appendChild(passwordViewer.createNeverSaveDomainElement(domain))
-        })
-
-        passwordViewer.emptyHeading.hidden = (credentials.length + neverSaveDomains.length !== 0)
+        const blob = new Blob([JSON.stringify({
+          version: 1,
+          credentials: credentialsWithoutManager
+        }, null, 2)], { type: 'application/json' })
+        const url = URL.createObjectURL(blob)
+        const anchor = document.createElement('a')
+        anchor.href = url
+        anchor.download = 'credentials.json'
+        anchor.click()
+        URL.revokeObjectURL(url)
       })
     })
   },
@@ -115,6 +169,8 @@ const passwordViewer = {
     passwordViewer.container.hidden = true
   },
   initialize: function () {
+    passwordViewer.exportButton.addEventListener('click', passwordViewer.exportCredentials)
+    passwordViewer.importButton.addEventListener('click', passwordViewer.importCredentials)
     passwordViewer.closeButton.addEventListener('click', passwordViewer.hide)
     webviews.bindIPC('showCredentialList', function () {
       passwordViewer.show()

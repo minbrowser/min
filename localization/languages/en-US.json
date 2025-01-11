@@ -296,6 +296,8 @@
     "savedPasswordsEmpty": "No saved passwords.",
     "savedPasswordsNeverSavedLabel": "Never saved",
     "deletePassword": "Delete password for %s?",
+    "exportCredentials": "Export credentials",
+    "importCredentials": "Import credentials",
     /* Dialogs */
     "loginPromptTitle": "Sign in to %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Confirm",
