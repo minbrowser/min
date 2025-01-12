@@ -141,22 +141,13 @@ const passwordViewer = {
       manager.getAllCredentials().then(function (credentials) {
         if (credentials.length === 0) return
 
-        const credentialsWithoutManager = credentials.map(function (credential) {
-          return {
-            domain: credential.domain,
-            username: credential.username,
-            password: credential.password
-          }
-        })
-
-        const blob = new Blob([JSON.stringify({
-          version: 1,
-          credentials: credentialsWithoutManager
-        }, null, 2)], { type: 'application/json' })
+        const header = 'url,username,password\n'
+        const csvData = header + credentials.map(credential => `${credential.domain},${credential.username},${credential.password}`).join('\n')
+        const blob = new Blob([csvData], { type: 'text/csv' })
         const url = URL.createObjectURL(blob)
         const anchor = document.createElement('a')
         anchor.href = url
-        anchor.download = 'credentials.json'
+        anchor.download = 'credentials.csv'
         anchor.click()
         URL.revokeObjectURL(url)
       })

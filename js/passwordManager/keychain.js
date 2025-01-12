@@ -49,24 +49,36 @@ class Keychain {
   }
 
   async importCredentials () {
-    const filePaths = await ipc.invoke('showOpenDialog', {
+    const filePaths = await ipcRenderer.invoke('showOpenDialog', {
       filters: [
-        { name: 'JSON', extensions: ['json'] },
+        { name: 'CSV', extensions: ['csv'] },
         { name: 'All Files', extensions: ['*'] }
       ]
     })
 
-    if (!filePaths[0]) return
+    if (!filePaths || !filePaths[0]) return []
 
-    const file = fs.readFileSync(filePaths[0])
-    const { credentials } = JSON.parse(file)
-    if (credentials.length === 0 || !credentials[0].domain || !credentials[0].username || !credentials[0].password) {
+    try {
+      const file = fs.readFileSync(filePaths[0], 'utf8')
+      const lines = file.split('\n')
+      const credentials = lines.slice(1).map(line => {
+        const values = line.split(',')
+        if (values.length !== 3 || values.some(value => value === '')) return null
+        return {
+          domain: values[0],
+          username: values[1],
+          password: values[2]
+        }
+      }).filter(cred => cred !== null)
+
+      if (credentials.length === 0) return []
+
+      await ipcRenderer.invoke('credentialStoreSetPasswordBulk', credentials)
+      return credentials
+    } catch (error) {
+      console.error('Error importing credentials:', error)
       return []
     }
-
-    ipcRenderer.invoke('credentialStoreSetPasswordBulk', credentials)
-
-    return credentials
   }
 
   getAllCredentials () {
