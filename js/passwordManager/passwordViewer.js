@@ -129,7 +129,7 @@ const passwordViewer = {
         throw new Error('unsupported password manager')
       }
 
-      const securityConsent = ipcRenderer.sendSync('prompt',{
+      const securityConsent = ipcRenderer.sendSync('prompt', {
         text: l('importCredentialsConfirmation'),
         ok: l('dialogConfirmButton'),
         cancel: l('dialogCancelButton'),
@@ -150,7 +150,7 @@ const passwordViewer = {
         throw new Error('unsupported password manager')
       }
 
-      const securityConsent = ipcRenderer.sendSync('prompt',{
+      const securityConsent = ipcRenderer.sendSync('prompt', {
         text: l('exportCredentialsConfirmation'),
         ok: l('dialogConfirmButton'),
         cancel: l('dialogCancelButton'),
