@@ -297,6 +297,7 @@
     "deletePassword": "Verwijder wachtwoord voor %s?",
     "exportCredentials": "Exporteer wachtwoorden",
     "importCredentials": "Importeer wachtwoorden",
+    "exportCredentialsConfirmation": "Wanneer u uw wachtwoorden exporteert, worden ze opgeslagen in een bestand met leesbare tekst. Wanneer u dit bestand klaar bent, raden wij u het te verwijderen. Weet u zeker dat u wilt doorgaan?",
     /* Dialogs */
     "loginPromptTitle": "Inloggen bij %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Bevestigen",

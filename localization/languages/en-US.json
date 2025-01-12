@@ -298,6 +298,7 @@
     "deletePassword": "Delete password for %s?",
     "exportCredentials": "Export credentials",
     "importCredentials": "Import credentials",
+    "exportCredentialsConfirmation": "When you export your passwords, they will be saved to a file with readable text. When you're done using this file, we recommend deleting it. Are you sure you want to continue?",
     /* Dialogs */
     "loginPromptTitle": "Sign in to %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Confirm",

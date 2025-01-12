@@ -2,6 +2,7 @@ const webviews = require('webviews.js')
 const settings = require('util/settings/settings.js')
 const PasswordManagers = require('passwordManager/passwordManager.js')
 const modalMode = require('modalMode.js')
+const { ipcRenderer } = require('electron')
 
 const passwordViewer = {
   container: document.getElementById('password-viewer'),
@@ -137,6 +138,15 @@ const passwordViewer = {
       if (!manager.getAllCredentials) {
         throw new Error('unsupported password manager')
       }
+
+      const securityConsent = ipcRenderer.sendSync('prompt',{
+        text: l('exportCredentialsConfirmation'),
+        ok: l('dialogConfirmButton'),
+        cancel: l('dialogCancelButton'),
+        width: 400,
+        height: 200
+      })
+      if (!securityConsent) return
 
       manager.getAllCredentials().then(function (credentials) {
         if (credentials.length === 0) return
