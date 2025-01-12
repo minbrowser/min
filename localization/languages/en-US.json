@@ -299,6 +299,7 @@
     "exportCredentials": "Export credentials",
     "importCredentials": "Import credentials",
     "exportCredentialsConfirmation": "When you export your passwords, they will be saved to a file with readable text. When you're done using this file, we recommend deleting it. Are you sure you want to continue?",
+    "importCredentialsConfirmation": "Importing passwords will overwrite any existing passwords for the same sites. Are you sure you want to continue?",
     /* Dialogs */
     "loginPromptTitle": "Sign in to %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Confirm",

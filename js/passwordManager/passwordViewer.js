@@ -87,6 +87,8 @@ const passwordViewer = {
     return container
   },
   _renderPasswordList: function (credentials) {
+    empty(passwordViewer.listContainer)
+
     credentials.forEach(function (cred) {
       passwordViewer.listContainer.appendChild(passwordViewer.createCredentialListElement(cred))
     })
@@ -102,7 +104,6 @@ const passwordViewer = {
   _updatePasswordListFooter: function () {
     const hasCredentials = (passwordViewer.listContainer.children.length !== 0)
     passwordViewer.emptyHeading.hidden = hasCredentials
-    passwordViewer.importButton.hidden = hasCredentials
     passwordViewer.exportButton.hidden = !hasCredentials
   },
   show: function () {
@@ -128,7 +129,17 @@ const passwordViewer = {
         throw new Error('unsupported password manager')
       }
 
+      const securityConsent = ipcRenderer.sendSync('prompt',{
+        text: l('importCredentialsConfirmation'),
+        ok: l('dialogConfirmButton'),
+        cancel: l('dialogCancelButton'),
+        width: 400,
+        height: 200
+      })
+      if (!securityConsent) return
+
       manager.importCredentials().then(function (credentials) {
+        if (credentials.length === 0) return
         passwordViewer._renderPasswordList(credentials)
       })
     })
@@ -166,7 +177,6 @@ const passwordViewer = {
   hide: function () {
     webviews.hidePlaceholder('passwordViewer')
     modalMode.toggle(false)
-    empty(passwordViewer.listContainer)
     passwordViewer.container.hidden = true
   },
   initialize: function () {

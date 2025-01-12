@@ -44,18 +44,7 @@ function writeSavedPasswordFile (content) {
 function credentialStoreSetPasswordBulk (accounts) {
   const fileContent = readSavedPasswordFile()
 
-  // delete duplicate credentials
-  for (let i = 0; i < fileContent.credentials.length; i++) {
-    for (let j = 0; j < accounts.length; j++) {
-      if (fileContent.credentials[i].domain === accounts[j].domain && fileContent.credentials[i].username === accounts[j].username) {
-        fileContent.credentials.splice(i, 1)
-        i--
-      }
-    }
-    accounts.splice(j, 1)
-  }
-
-  fileContent.credentials = fileContent.credentials.concat(accounts)
+  fileContent.credentials = accounts
   writeSavedPasswordFile(fileContent)
 }
 

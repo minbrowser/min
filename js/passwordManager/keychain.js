@@ -61,7 +61,7 @@ class Keychain {
     try {
       const file = fs.readFileSync(filePaths[0], 'utf8')
       const lines = file.split('\n')
-      const credentials = lines.slice(1).map(line => {
+      const credentialsToImport = lines.slice(1).map(line => {
         const values = line.split(',')
         if (values.length !== 3 || values.some(value => value === '')) return null
         return {
@@ -71,10 +71,15 @@ class Keychain {
         }
       }).filter(cred => cred !== null)
 
-      if (credentials.length === 0) return []
+      if (credentialsToImport.length === 0) return []
 
-      await ipcRenderer.invoke('credentialStoreSetPasswordBulk', credentials)
-      return credentials
+      const currentCredentials = await this.getAllCredentials()
+      const credentialsWithoutDuplicates = currentCredentials.filter(account => !credentialsToImport.some(a => a.domain === account.domain && a.username === account.username))
+
+      const mergedCredentials = credentialsWithoutDuplicates.concat(credentialsToImport)
+
+      await ipcRenderer.invoke('credentialStoreSetPasswordBulk', mergedCredentials)
+      return mergedCredentials
     } catch (error) {
       console.error('Error importing credentials:', error)
       return []
