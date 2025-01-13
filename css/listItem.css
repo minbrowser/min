@@ -138,6 +138,10 @@ body.dark-mode.touch .searchbar-item .action-button {
   vertical-align: top;
 }
 
+.dark-mode .searchbar-item .text-action-button-row button {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
 .searchbar-item .text-action-button-row button > i {
   margin-right: 0.25em;
 }
@@ -145,6 +149,11 @@ body.dark-mode.touch .searchbar-item .action-button {
 .searchbar-item .text-action-button-row button:focus,
 .searchbar-item:focus .text-action-button-row button.default-action {
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .searchbar-item .text-action-button-row button:focus,
+.dark-mode .searchbar-item:focus .text-action-button-row button.default-action {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* secondary text */
