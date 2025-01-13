@@ -4,6 +4,7 @@ var searchbarUtils = require('searchbar/searchbarUtils.js')
 var searchbarAutocomplete = require('util/autocomplete.js')
 var urlParser = require('util/urlParser.js')
 var readerDecision = require('readerDecision.js')
+var browserUI = require('browserUI.js')
 
 var places = require('places/places.js')
 var searchEngine = require('util/searchEngine.js')
@@ -105,6 +106,54 @@ async function showSearchbarPlaceResults (text, input, inputFlags, pluginName = 
     } else {
       data.title = urlParser.prettyURL(urlParser.getSourceURL(result.url))
       data.secondaryText = searchbarUtils.getRealTitle(result.title)
+    }
+
+    /* Alternative result format for switch-to-tab */
+
+    // click handler for switch-to-tab results
+    function onSwitchClick (task) {
+      // if we created a new tab but are switching away from it, destroy the current (empty) tab
+      var currentTabUrl = tabs.get(tabs.getSelected()).url
+      if (!currentTabUrl) {
+        browserUI.closeTab(tabs.getSelected())
+      }
+      if (task.id !== tasks.getSelected().id) {
+        browserUI.switchToTask(task.id)
+      }
+      browserUI.switchToTab(task.tabs.get().find(tab => urlParser.removeTextFragment(tab.url) === urlComparisonBase).id)
+    }
+
+    const urlComparisonBase = urlParser.removeTextFragment(url)
+    const matchingTasks = tasks.filter(task => task.tabs.get().some(tab => urlParser.removeTextFragment(tab.url) === urlComparisonBase)).sort((a, b) => {
+      return tasks.getLastActivity(b.id) - tasks.getLastActivity(a.id)
+    }).slice(0, 2)
+
+    if (matchingTasks.length > 0 && !didAutocompleteResult) {
+      // A click on the outer item switches rather than opening a new page
+      data.url = null
+      data.click = function () {
+        onSwitchClick(matchingTasks[0])
+      }
+
+      data.textActionButtons = [
+        ...(matchingTasks.map((task, i) => {
+          const taskName = (task.name ? '"' + task.name + '"' : l('defaultTaskName').replace('%n', tasks.getIndex(task.id) + 1))
+          return {
+            icon: 'carbon:arrow-up-right',
+            text: (task.id === tasks.getSelected().id) ? l('placesPluginSwitchToTab') : l('placesPluginSwitchToTask').replace('%t', taskName),
+            default: (i === 0),
+            fn: function (e) {
+              onSwitchClick(task)
+            }
+          }
+        })),
+        {
+          text: l('placesPluginOpenAgain'),
+          fn: function (e) {
+            searchbar.openURL(url)
+          }
+        }
+      ]
     }
 
     // show a star for bookmarked items
