@@ -1,4 +1,5 @@
 const { ipcRenderer } = require('electron')
+const papaparse = require('papaparse')
 
 class Keychain {
   constructor () {
@@ -48,37 +49,20 @@ class Keychain {
     ipcRenderer.invoke('credentialStoreDeletePassword', { domain, username })
   }
 
-  async importCredentials () {
-    const filePaths = await ipcRenderer.invoke('showOpenDialog', {
-      filters: [
-        { name: 'CSV', extensions: ['csv'] },
-        { name: 'All Files', extensions: ['*'] }
-      ]
-    })
-
-    if (!filePaths || !filePaths[0]) return []
-
+  async importCredentials (fileContents) {
     try {
-      const file = fs.readFileSync(filePaths[0], 'utf8')
-      const lines = file.split('\n')
-      // get headers and normalize
-      const header = lines[0].split(',').map(h => h.toLowerCase().trim().replace(/["']/g, ''))
-      const urlPostion = header.indexOf('url')
-      const usernamePostion = header.indexOf('username')
-      const passwordPostion = header.indexOf('password')
-
-      if (urlPostion === -1 || usernamePostion === -1 || passwordPostion === -1) throw new Error('Invalid CSV file, csv file must contain a header with the following columns: url, username, password')
-
-      const credentialsToImport = lines.slice(1).map(line => {
-        const values = line.split(',')
-        if (!values[urlPostion] || !values[usernamePostion] || !values[passwordPostion]) return null
-
-        return {
-          domain: values[urlPostion],
-          username: values[usernamePostion],
-          password: values[passwordPostion]
-        }
-      }).filter(cred => cred !== null)
+      const csvData = papaparse.parse(fileContents, {
+        header: true,
+        skipEmptyLines:true,
+        transformHeader(header) {
+          return header.toLowerCase().trim().replace(/["']/g, '')
+        },
+      })
+      const credentialsToImport = csvData.data.map((credential) => ({
+        domain: credential.url,
+        username: credential.username,
+        password: credential.password
+      }))
 
       if (credentialsToImport.length === 0) return []
 

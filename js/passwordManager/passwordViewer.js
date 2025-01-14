@@ -143,7 +143,18 @@ const passwordViewer = {
         if (!securityConsent) return
       }
 
-      manager.importCredentials().then(function (credentials) {
+      const filePaths = await ipcRenderer.invoke('showOpenDialog', {
+        filters: [
+          { name: 'CSV', extensions: ['csv'] },
+          { name: 'All Files', extensions: ['*'] }
+        ]
+      })
+
+      if (!filePaths || !filePaths[0]) return
+
+      const fileContents = fs.readFileSync(filePaths[0], 'utf8')
+
+      manager.importCredentials(fileContents).then(function (credentials) {
         if (credentials.length === 0) return
         passwordViewer._renderPasswordList(credentials)
       })
