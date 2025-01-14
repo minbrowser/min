@@ -124,19 +124,24 @@ const passwordViewer = {
     })
   },
   importCredentials: async function () {
-    PasswordManagers.getConfiguredPasswordManager().then(function (manager) {
-      if (!manager.importCredentials) {
+    PasswordManagers.getConfiguredPasswordManager().then(async function (manager) {
+      if (!manager.importCredentials || !manager.getAllCredentials) {
         throw new Error('unsupported password manager')
       }
 
-      const securityConsent = ipcRenderer.sendSync('prompt', {
-        text: l('importCredentialsConfirmation'),
-        ok: l('dialogConfirmButton'),
-        cancel: l('dialogCancelButton'),
-        width: 400,
-        height: 200
-      })
-      if (!securityConsent) return
+      const credentials = await manager.getAllCredentials();
+      const shouldShowConsent = credentials.length > 0
+
+      if (shouldShowConsent) {
+        const securityConsent = ipcRenderer.sendSync('prompt', {
+          text: l('importCredentialsConfirmation'),
+          ok: l('dialogConfirmButton'),
+          cancel: l('dialogCancelButton'),
+          width: 400,
+          height: 200
+        })
+        if (!securityConsent) return
+      }
 
       manager.importCredentials().then(function (credentials) {
         if (credentials.length === 0) return
