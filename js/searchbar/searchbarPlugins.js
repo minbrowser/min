@@ -90,15 +90,18 @@ const searchbarPlugins = {
 
     if (data.url) {
       item.setAttribute('data-url', data.url)
-      item.addEventListener('click', function (e) {
-        URLOpener(data.url, e)
-      })
 
-      item.addEventListener('keyup', function(e) {
+      if (!data.click) {
+        data.click = function (e) {
+          URLOpener(data.url, e)
+        }
+      }
+
+      item.addEventListener('keyup', function (e) {
         /*  right arrow or space should autocomplete with selected item if it's
             a search suggestion */
         if (e.keyCode === 39 || e.keyCode === 32) {
-          let input = document.getElementById('tab-editor-input')
+          const input = document.getElementById('tab-editor-input')
           input.value = data.url
           input.focus()
         }

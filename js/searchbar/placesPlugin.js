@@ -163,7 +163,6 @@ async function showSearchbarPlaceResults (text, input, inputFlags, pluginName = 
 
       data.textActionButtons[0].default = true
 
-      data.url = null
       data.click = function (e) {
         data.textActionButtons[0].fn(e)
       }
