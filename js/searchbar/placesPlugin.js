@@ -128,7 +128,7 @@ async function showSearchbarPlaceResults (text, input, inputFlags, pluginName = 
       return tasks.getLastActivity(b.id) - tasks.getLastActivity(a.id)
     }).slice(0, 2)
 
-    if (matchingTasks.length > 0 && !didAutocompleteResult) {
+    if (matchingTasks.length > 0 && !didAutocompleteResult && urlComparisonBase !== tabs.get(tabs.getSelected()).url && url !== tabs.get(tabs.getSelected()).url) {
       data.textActionButtons = []
 
       const currentTaskMatch = matchingTasks.find(task => task.id === tasks.getSelected().id)
