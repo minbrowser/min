@@ -129,31 +129,44 @@ async function showSearchbarPlaceResults (text, input, inputFlags, pluginName = 
     }).slice(0, 2)
 
     if (matchingTasks.length > 0 && !didAutocompleteResult) {
-      // A click on the outer item switches rather than opening a new page
-      data.url = null
-      data.click = function () {
-        onSwitchClick(matchingTasks[0])
+      data.textActionButtons = []
+
+      const currentTaskMatch = matchingTasks.find(task => task.id === tasks.getSelected().id)
+
+      if (currentTaskMatch) {
+        data.textActionButtons.push({
+          icon: 'carbon:arrow-up-right',
+          text: l('placesPluginSwitchToTab'),
+          fn: function (e) {
+            onSwitchClick(currentTaskMatch)
+          }
+        })
       }
 
-      data.textActionButtons = [
-        ...(matchingTasks.map((task, i) => {
-          const taskName = (task.name ? '"' + task.name + '"' : l('defaultTaskName').replace('%n', tasks.getIndex(task.id) + 1))
-          return {
-            icon: 'carbon:arrow-up-right',
-            text: (task.id === tasks.getSelected().id) ? l('placesPluginSwitchToTab') : l('placesPluginSwitchToTask').replace('%t', taskName),
-            default: (i === 0),
-            fn: function (e) {
-              onSwitchClick(task)
-            }
-          }
-        })),
-        {
-          text: l('placesPluginOpenAgain'),
-          fn: function (e) {
-            searchbar.openURL(url)
-          }
+      data.textActionButtons.push({
+        text: l('placesPluginOpenAgain'),
+        fn: function (e) {
+          searchbar.openURL(url)
         }
-      ]
+      })
+
+      matchingTasks.filter(task => task.id !== currentTaskMatch?.id).forEach(task => {
+        const taskName = (task.name ? '"' + task.name + '"' : l('defaultTaskName').replace('%n', tasks.getIndex(task.id) + 1))
+        data.textActionButtons.push({
+          icon: 'carbon:arrow-up-right',
+          text: (task.id === tasks.getSelected().id) ? l('placesPluginSwitchToTab') : l('placesPluginSwitchToTask').replace('%t', taskName),
+          fn: function (e) {
+            onSwitchClick(task)
+          }
+        })
+      })
+
+      data.textActionButtons[0].default = true
+
+      data.url = null
+      data.click = function (e) {
+        data.textActionButtons[0].fn(e)
+      }
     }
 
     // show a star for bookmarked items
