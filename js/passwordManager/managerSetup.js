@@ -102,7 +102,7 @@ const setupDialog = {
 
       dragBox.innerHTML = l('passwordManagerSetupInstalling')
 
-      const filePath = e.dataTransfer.files[0].path
+      const filePath = electron.webUtils.getPathForFile(e.dataTransfer.files[0])
 
       // try to filter out anything that isn't an executable (note: not 100% accurate)
       if (e.dataTransfer.files[0].type !== '' && !e.dataTransfer.files[0].name.endsWith('.exe')) {
