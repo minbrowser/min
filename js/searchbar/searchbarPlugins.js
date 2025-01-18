@@ -97,16 +97,17 @@ const searchbarPlugins = {
         }
       }
     }
+
+    if (data.url && !data.click) {
+      data.click = function (e) {
+        URLOpener(data.url, e)
+      }
+    }
+
     var item = searchbarUtils.createItem(data)
 
     if (data.url) {
       item.setAttribute('data-url', data.url)
-
-      if (!data.click) {
-        data.click = function (e) {
-          URLOpener(data.url, e)
-        }
-      }
 
       item.addEventListener('keyup', function (e) {
         /*  right arrow or space should autocomplete with selected item if it's
