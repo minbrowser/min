@@ -129,7 +129,7 @@ const passwordViewer = {
         throw new Error('unsupported password manager')
       }
 
-      const credentials = await manager.getAllCredentials();
+      const credentials = await manager.getAllCredentials()
       const shouldShowConsent = credentials.length > 0
 
       if (shouldShowConsent) {
@@ -179,7 +179,7 @@ const passwordViewer = {
         if (credentials.length === 0) return
 
         const header = 'url,username,password\n'
-        const csvData = header + credentials.map(credential => `${credential.domain},${credential.username},${credential.password}`).join('\n')
+        const csvData = header + credentials.map(credential => `https://${credential.domain},${credential.username},${credential.password}`).join('\n')
         const blob = new Blob([csvData], { type: 'text/csv' })
         const url = URL.createObjectURL(blob)
         const anchor = document.createElement('a')

@@ -53,16 +53,25 @@ class Keychain {
     try {
       const csvData = papaparse.parse(fileContents, {
         header: true,
-        skipEmptyLines:true,
-        transformHeader(header) {
+        skipEmptyLines: true,
+        transformHeader (header) {
           return header.toLowerCase().trim().replace(/["']/g, '')
-        },
+        }
       })
-      const credentialsToImport = csvData.data.map((credential) => ({
-        domain: credential.url,
-        username: credential.username,
-        password: credential.password
-      }))
+      const credentialsToImport = csvData.data.map((credential) => {
+        try {
+          const includesProtocol = credential.url.match(/^https?:\/\//g)
+          const domainWithProtocol = includesProtocol ? credential.url : `https://${credential.url}`
+
+          return {
+            domain: new URL(domainWithProtocol).hostname.replace(/^www\./g, ''),
+            username: credential.username,
+            password: credential.password
+          }
+        } catch {
+          return null
+        }
+      }).filter(credential => credential !== null)
 
       if (credentialsToImport.length === 0) return []
 
