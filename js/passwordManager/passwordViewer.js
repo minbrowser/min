@@ -3,6 +3,7 @@ const settings = require('util/settings/settings.js')
 const PasswordManagers = require('passwordManager/passwordManager.js')
 const modalMode = require('modalMode.js')
 const { ipcRenderer } = require('electron')
+const papaparse = require('papaparse')
 
 const passwordViewer = {
   container: document.getElementById('password-viewer'),
@@ -178,8 +179,14 @@ const passwordViewer = {
       manager.getAllCredentials().then(function (credentials) {
         if (credentials.length === 0) return
 
-        const header = 'url,username,password\n'
-        const csvData = header + credentials.map(credential => `https://${credential.domain},${credential.username},${credential.password}`).join('\n')
+        const csvData = papaparse.unparse({
+          fields: ['url', 'username', 'password'],
+          data: credentials.map(credential => [
+            `https://${credential.domain}`,
+            credential.username,
+            credential.password
+          ])
+        })
         const blob = new Blob([csvData], { type: 'text/csv' })
         const url = URL.createObjectURL(blob)
         const anchor = document.createElement('a')
