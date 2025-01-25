@@ -347,7 +347,9 @@ const webviewMenu = {
       }
     })
 
-    menuSections.push([translateMenu])
+    if (!settings.get('hideTranslateMenu')) {
+     menuSections.push([translateMenu])
+    }
 
     // Electron's default menu position is sometimes wrong on Windows with a touchscreen
     // https://github.com/minbrowser/min/issues/903

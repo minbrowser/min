@@ -10,6 +10,7 @@ var separateTitlebarCheckbox = document.getElementById('checkbox-separate-titleb
 var openTabsInForegroundCheckbox = document.getElementById('checkbox-open-tabs-in-foreground')
 var autoPlayCheckbox = document.getElementById('checkbox-enable-autoplay')
 var userAgentCheckbox = document.getElementById('checkbox-user-agent')
+var hideTranslateMenuCheckbox = document.getElementById('checkbox-hide-translate-menu') 
 var userAgentInput = document.getElementById('input-user-agent')
 
 function showRestartRequiredBanner () {
@@ -336,6 +337,16 @@ settings.get('enableAutoplay', function (value) {
 
 autoPlayCheckbox.addEventListener('change', function (e) {
   settings.set('enableAutoplay', this.checked)
+})
+
+/* hide context menu translate setting */
+
+settings.get('hideTranslateMenu', function (value) {
+  hideTranslateMenuCheckbox.checked = value
+})
+
+hideTranslateMenuCheckbox.addEventListener('change', function (e) {
+  settings.set('hideTranslateMenu', this.checked)
 })
 
 /* user agent settting */
