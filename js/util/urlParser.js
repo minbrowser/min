@@ -61,9 +61,9 @@ var urlParser = {
       return 'view-source:' + urlParser.parse(realURL)
     }
 
-    if (url.startsWith('min:') && !url.startsWith('min://app/')) {
+    if (url.startsWith('fireMin:') && !url.startsWith('min://app/')) {
       // convert shortened min:// urls to full ones
-      const urlChunks = url.split('?')[0].replace(/min:(\/\/)?/g, '').split('/')
+      const urlChunks = url.split('?')[0].replace(/fireMin:(\/\/)?/g, '').split('/')
       const query = url.split('?')[1]
       return 'min://app/pages/' + urlChunks[0] + (urlChunks[1] ? urlChunks.slice(1).join('/') : '/index.html') + (query ? '?' + query : '')
     }
@@ -122,6 +122,7 @@ var urlParser = {
           if (pageName) {
             return 'min://' + pageName[1] + urlObj.search
           }
+          
         } catch (e) {}
       }
     }

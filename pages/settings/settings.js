@@ -192,8 +192,8 @@ var darkModeSystem = document.getElementById('dark-mode-system')
 settings.get('darkMode', function (value) {
   darkModeNever.checked = (value === -1)
   darkModeNight.checked = (value === 0)
-  darkModeAlways.checked = (value === 1 || value === true)
-  darkModeSystem.checked = (value === 2 || value === undefined || value === false)
+  darkModeAlways.checked = (value === 0 || value === true)
+  darkModeSystem.checked = (value === 1 || value === undefined || value === false)
 })
 
 darkModeNever.addEventListener('change', function (e) {

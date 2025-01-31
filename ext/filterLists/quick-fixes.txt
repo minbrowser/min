@@ -1,0 +1,239 @@
+! Title: uBlock₀ filters – Quick fixes
+! Last modified: %timestamp%
+! Expires: 8 hours
+! Description: Immediate, temporary filters to fix websites
+! License: https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE
+! Homepage: https://github.com/uBlockOrigin/uAssets
+! Forums: https://github.com/uBlockOrigin/uAssets/issues
+
+! aternos anti adb
+@@||hb.vntsm.com/v4/live/vms/sites/aternos.org/index.js$script,domain=aternos.org
+aternos.org##.header-center:style(margin-top:-5000px !important;)
+aternos.org##.sidebar:style(width: 1.745px !important; padding: 1px !important)
+aternos.org##.ad-dfp:style(min-height: 0.1485mm !important; height: 0.1485mm !important;)
+aternos.org###placement-takeover
+
+! https://www.reddit.com/r/uBlockOrigin/comments/16lmeri/youtube_antiadblock_and_ads_september_18_2023/k1wl8df/
+!#if !env_mv3
+!#if !cap_html_filtering
+!#if env_firefox
+youtube.com##+js(json-prune, playerResponse.adPlacements playerResponse.playerAds playerResponse.adSlots adPlacements playerAds adSlots legacyImportant)
+!#endif
+!#endif
+!#endif
+||googlevideo.com/videoplayback*&ctier=L&*%2Cctier%2C$xhr,3p,domain=m.youtube.com|music.youtube.com|www.youtube.com
+www.youtube.com##+js(trusted-rpnt, script, (function serverContract(), /*START*/"YOUTUBE_PREMIUM_LOGO"!==ytInitialData?.topbar?.desktopTopbarRenderer?.logo?.topbarLogoRenderer?.iconImage?.iconType&&(location.href.startsWith("https://www.youtube.com/tv#/")||location.href.startsWith("https://www.youtube.com/embed/")||document.addEventListener("DOMContentLoaded"\,(function(){const t=()=>{const t=document.getElementById("movie_player");if(!t)return;if(!t.getStatsForNerds?.()?.debug_info?.startsWith?.("SSAP\, AD"))return;const e=t.getProgressState?.();e&&e.duration>0&&(e.loaded<e.duration||e.duration-e.current>1)&&t.seekTo?.(e.duration)};t()\,new MutationObserver((()=>{t()})).observe(document\,{childList:!0\,subtree:!0})})));(function serverContract(), sedCount, 1)
+www.youtube.com##+js(nano-stb, [native code], 17000, 0.001)
+!#if cap_html_filtering
+||www.youtube.com/s/player/*/base.js$script,xhr,replace=/if\(e===""\)/if(0)/
+!#endif
+! https://www.reddit.com/r/uBlockOrigin/comments/1ebwr6c/is_ublock_broken_again_or_am_i_doing_something/
+!www.youtube.com##+js(json-prune-fetch-response, playerAds adPlacements adSlots playerResponse.playerAds playerResponse.adPlacements playerResponse.adSlots [].playerResponse.adPlacements [].playerResponse.playerAds [].playerResponse.adSlots, , propsToMatch, /\/(?:player|playlist|get_watch)\?/)
+www.youtube.com##+js(json-prune-fetch-response, playerAds adPlacements adSlots no_ads playerResponse.playerAds playerResponse.adPlacements playerResponse.adSlots playerResponse.no_ads [].playerResponse.adPlacements [].playerResponse.playerAds [].playerResponse.adSlots [].playerResponse.no_ads, , propsToMatch, /\/(player|get_watch)\?/)
+! https://github.com/uBlockOrigin/uAssets/issues/20586#issuecomment-2144781835
+www.youtube.com##+js(json-prune-fetch-response, playerAds adPlacements adSlots no_ads playerResponse.playerAds playerResponse.adPlacements playerResponse.adSlots playerResponse.no_ads, , propsToMatch, /playlist?)
+! https://github.com/uBlockOrigin/uAssets/issues/20586#issuecomment-2271325338
+! https://github.com/uBlockOrigin/uAssets/issues/20586#issuecomment-2308486423
+! https://github.com/AdguardTeam/AdguardFilters/commit/61d89cebe154ca17932bedf61df5e2c7bd75bd7d
+!tv.youtube.com#@#+js(trusted-replace-xhr-response, '"adPlacements"', '"no_ads"', /playlist\?list=|player\?|watch\?[tv]=|youtubei\/v1\/player/)
+www.youtube.com##+js(json-prune-xhr-response, playerAds adPlacements adSlots no_ads playerResponse.playerAds playerResponse.adPlacements playerResponse.adSlots playerResponse.no_ads [].playerResponse.adPlacements [].playerResponse.playerAds [].playerResponse.adSlots [].playerResponse.no_ads, , propsToMatch, /\/player(?:\?.+)?$/)
+tv.youtube.com##+js(trusted-replace-xhr-response, '"adPlacements"', '"no_ads"', /playlist\?list=|\/player(?:\?.+)?$|watch\?[tv]=/)
+!#if !cap_html_filtering
+www.youtube.com#@#+js(trusted-replace-fetch-response, /"adPlacements.*?([A-Z]"\}|"\}{2\,4})\}\]\,/, , player?)
+www.youtube.com#@#+js(trusted-replace-fetch-response, /"adSlots.*?\}\}\]\,"adBreakHeartbeatParams/, "adBreakHeartbeatParams, player?)
+www.youtube.com##+js(trusted-replace-xhr-response, /"adPlacements.*?([A-Z]"\}|"\}{2\,4})\}\]\,/, , /playlist\?list=|\/player(?:\?.+)?$|watch\?[tv]=/)
+www.youtube.com##+js(trusted-replace-xhr-response, /"adPlacements.*?("adSlots"|"adBreakHeartbeatParams")/gms, $1, /\/player(?:\?.+)?$/)
+www.youtube.com##+js(trusted-replace-fetch-response, '"adPlacements"', '"no_ads"', player?)
+www.youtube.com##+js(trusted-replace-fetch-response, '"adSlots"', '"no_ads"', player?)
+!#else
+||www.youtube.com/playlist?list=$xhr,1p,replace=/"adPlacements"/"no_ads"/
+||www.youtube.com/playlist?list=$xhr,1p,replace=/"adSlots"/"no_ads"/
+||www.youtube.com/watch?$xhr,1p,replace=/"adPlacements"/"no_ads"/
+||www.youtube.com/watch?$xhr,1p,replace=/"adSlots"/"no_ads"/
+||www.youtube.com/youtubei/v1/player?$xhr,1p,replace=/"adPlacements"/"no_ads"/
+||www.youtube.com/youtubei/v1/player?$xhr,1p,replace=/"adSlots"/"no_ads"/
+||youtube.com/youtubei/v1/get_watch?$xhr,1p,replace=/"adPlacements"/"no_ads"/
+||youtube.com/youtubei/v1/get_watch?$xhr,1p,replace=/"adSlots"/"no_ads"/
+!#endif
+www.youtube.com##+js(trusted-prevent-dom-bypass, Node.prototype.appendChild, fetch)
+
+! https://github.com/uBlockOrigin/uAssets/issues/3367#issuecomment-2307514494
+! https://github.com/uBlockOrigin/uAssets/issues/3367#issuecomment-2489542767
+web.facebook.com,www.facebook.com##+js(json-prune, require.0.3.0.__bbox.require.[].3.1.__bbox.result.data, require.0.3.0.__bbox.require.[].3.1.__bbox.result.data.node.sponsored_data.id_for_advertisement)
+web.facebook.com,www.facebook.com##+js(json-prune, require.0.3.0.__bbox.require.[].3.1.__bbox.result.data, require.0.3.0.__bbox.require.[].3.1.__bbox.result.data.sponsored_auction_distance)
+web.facebook.com,www.facebook.com##+js(rpnt, script, '/null,"category_sensitive"[^\n]+?,"__typename":"SponsoredData"[^\n]+"cursor":"[^"]+"\}/g', null})
+!#if cap_html_filtering
+||facebook.com/api/graphql/$xhr,replace=/null,"category_sensitive"[^\n]+?,"__typename":"SponsoredData"[^\n]+"cursor":"[^"]+"\}/null}/g,domain=web.facebook.com|www.facebook.com
+! ||facebook.com^$doc,replace=/null,"category_sensitive"[^\n]+?,"__typename":"SponsoredData"[^\n]+"cursor":"[^"]+"\}/null}/g,to=web.facebook.com|www.facebook.com
+!#else
+web.facebook.com,www.facebook.com##+js(trusted-replace-xhr-response, '/null,"category_sensitive"[^\n]+?,"__typename":"SponsoredData"[^\n]+"cursor":"[^"]+"\}/g', null}, /api/graphql)
+!#endif
+
+! https://github.com/uBlockOrigin/uAssets/issues/24745 - https://voe.sx/e/2z9smej3tebe
+! VOE sites
+||imasdk.googleapis.com/js/sdkloader/ima3.js$script,3p,redirect=google-ima.js,domain=maxfinishseveral.com,important
+maxfinishseveral.com##+js(nowoif)
+maxfinishseveral.com##+js(set, console.clear, undefined)
+
+! next-episode .net
+!next-episode.net##+js(rmnt, script, '/[\s\S]{0,}head[\s\S]{1900,}/')
+!next-episode.net##+js(rpnt, script, '/.then[\s\S]{0,}?;/g')
+!next-episode.net##+js(rmnt, script, '/\d+\+\d|64|\+\+|\+1|adbl|ablk|[\s\S]{0,}(\.\.|function)[\s\S]{1800,}|document\[/i')
+@@||pagead2.googlesyndication.com^$script,domain=next-episode.net
+
+! https://github.com/uBlockOrigin/uAssets/issues/23806
+*$image,redirect-rule=1x1.gif,domain=japscan.lol
+japscan.lol##+js(norafif, /^/)
+japscan.lol##+js(trusted-set-attr, .navbar-nav > li#navpromo2.nav-item > a, onclick, 'let a=function(){};return false;')
+japscan.lol#@#:matches-path(/\/.+/)body > div.container > div#blir-nter[style*="visible"]
+japscan.lol#@#body > style + .container > .row > #main + #sidebar.col-md-3 > .card.mt-1 > .card[style="margin: 0px auto; display: block;"] > iframe[id^="__clb-"][id$="_container"][style^="display: inline-block; width: 300px; height: 100px;"][sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms allow-scripts allow-top-navigation-to-custom-protocols"][scrolling="no"]
+japscan.lol#@#body > style + .container > .row > #main.col-md-9 > .card > .card-body.rounded-0 > .card-body[style^="margin: 0px auto; display: block;"] > iframe[id^="__clb-"][id$="_container"][style^="display: inline-block; width: 300px; height: 100px;"][sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms allow-scripts allow-top-navigation-to-custom-protocols"][scrolling="no"]
+japscan.lol#@#body > style + .container > .row > #main.col-md-9 > .card > .card-body[style="margin: 0px auto; display: block;"] > iframe[id^="__clb-"][id$="_container"][style^="display: inline-block; width: 300px; height: 100px;"][sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms allow-scripts allow-top-navigation-to-custom-protocols"][scrolling="no"]
+japscan.lol#@#body > .container.text-center > .mb-2.mt-2[style="margin: 0px auto; display: block;"] > iframe[id^="__clb-"][id$="_container"][style^="display: inline-block; width: 300px; height: 100px;"][sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms allow-scripts allow-top-navigation-to-custom-protocols"][scrolling="no"]
+! START: Counter Liste FR rules
+japscan.lol#@##main > .card:has(a[href*="/manga/?type="][href*="&content="][target="_blank"])
+japscan.lol#@#div.container > [href]
+! END
+||japscan.lol/zjs/$script,replace=/function GoodDay\(\)\{.+?\}\}\}//
+japscan.lol##body > style + .container > .row > #main + #sidebar.col-md-3 > .card.mt-1 > .card[style="margin: 0px auto; display: block;"] > iframe[id^="__clb-"][id$="_container"][style^="display: inline-block; width: 300px; height: 250px;"][sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms allow-scripts allow-top-navigation-to-custom-protocols"][scrolling="no"]
+/^https?:\/\/[-a-z]{8,15}\.(?:com|net)\/401\/\d{7}(?:\?v=\d+)?$/$script,3p,domain=japscan.lol,important
+/^https?:\/\/[a-z]{8,15}\.xyz\/$/$xhr,3p,to=xyz,method=head,header=x-traceid2,domain=japscan.lol,important
+/^https?:\/\/[a-z]{8,15}\.com\/$/$xhr,3p,to=com,method=head,header=x-traceid2,domain=japscan.lol,important
+@@*$image,xhr,script,domain=japscan.lol
+/^https?:\/\/[a-z]{8,15}\.com\/$/$xhr,3p,to=com,method=head,header=x-traceid,important,domain=japscan.lol
+!||googletagmanager.com^$script,domain=japscan.lol,important
+||cloudflareinsights.com/beacon.min.js/$script,domain=japscan.lol,important
+||google-analytics.com^$xhr,domain=japscan.lol,important
+/^https?:\/\/(?:[a-z]{2}\.)?[0-9a-z]{5,16}\.[a-z]{3,7}\/[a-z](?=[a-z]{0,25}[0-9A-Z])[0-9a-zA-Z]{3,26}\/\d{4,5}(?:\?[_v]=\d+)?$/$script,3p,match-case,important,domain=japscan.lol
+/^https?:\/\/[a-z]{8,15}\.[a-z]{2,3}\/5\/\d{6,7}(?:\?_=\d+)?$/$script,3p,domain=japscan.lol,important
+/^https?:\/\/[-a-z]{8,15}\.(?:com|net)\/401\/\d{7}$/$script,3p,domain=japscan.lol,important
+/^https?:\/\/[a-z]{5,7}\.com\/script\/[-_0-9A-Za-z]+(\.min)?\.js$/$script,3p,match-case,header=x-guploader-uploadid,domain=japscan.lol,important
+/lv/esnk/*$script,3p,domain=japscan.lol,important
+/^https:\/\/[a-z]{8,12}\.com\/en\/(?:[a-z]{2,5}\/){0,2}[a-z]{2,}\?(?:[a-z]+=(?:\d+|[a-z]+)&)*?id=[12]\d{6}/$script,3p,match-case,to=com,domain=japscan.lol,important
+/^https?:\/\/(?:[a-z]{2}\.)?[0-9a-z]{5,16}\.[a-z]{3,7}\/[a-z](?=[a-z]{0,25}[0-9A-Z])[0-9a-zA-Z]{3,26}\/\d{4,6}(?:\?[_v]=\d+)?$/$script,3p,match-case,domain=japscan.lol,important
+/^https?:\/\/(?:[a-z]{2}\.)?[a-z]{7,14}\.com\/r(?=[a-z]*[0-9A-Z])[0-9A-Za-z]{10,16}\/[A-Za-z]{5}(?:\?param=\w+)?$/$script,3p,match-case,to=com,domain=japscan.lol,important
+/\/[0-9a-f]{32}\/invoke\.js/$script,3p,domain=japscan.lol,important
+/^https?:\/\/(?:www\.|[0-9a-z]{7,10}\.)?[-0-9a-z]{5,}\.com\/\/?(?:[0-9a-z]{2}\/){2,3}[0-9a-f]{32}\.js/$script,xhr,3p,to=com,domain=japscan.lol,important
+
+! https://github.com/uBlockOrigin/uAssets/issues/21064
+! https://github.com/uBlockOrigin/uAssets/issues/24220
+! https://github.com/uBlockOrigin/uAssets/issues/25121#issuecomment-2325357098
+poophq.com,veev.to##+js(nowoif)
+poophq.com,veev.to##+js(set, fapit.check, noopFunc)
+poophq.com,veev.to##+js(no-xhr-if, /vast.php?)
+poophq.com,veev.to##+js(no-xhr-if, adsbygoogle, length:35000-55000)
+poophq.com,veev.to##+js(rpnt, script, /=\(['"].*?h.*?o.*?c.*?a.*?s['"]?/, "$1(function() {'use strict'; const handler = {apply: (target, thisArg, argumentsList) => {const e = argumentsList; if (e[0] && e[0].html?.detected === null && typeof e[0].html?.instance?.start === 'function' && typeof e[0].env?.instance?.start === 'function' && typeof e[0].http?.instance?.start === 'function') {const resetBooleans = function() {Object.keys(this).forEach(key => {if (typeof this[key] === 'boolean') {this[key] = false;}});}; ['html', 'env', 'http'].forEach(name => {e[0][name].instance.start = resetBooleans;});} return Reflect.apply(target, thisArg, argumentsList);}}; window.Object.keys = new Proxy(Object.keys, handler);})();", includes, break;else)
+poophq.com,veev.to##+js(no-xhr-if, /\/preroll\.engine$/)
+*$script,3p,domain=poophq.com|veev.to,redirect-rule=noopjs
+*$other,3p,denyallow=veevcdn.co,domain=poophq.com|veev.to
+@@*$ghide,domain=poophq.com|veev.to
+veev.to#@#.avb-active
+@@/ad-provider.js$xhr,domain=poophq.com|veev.to
+
+! https://github.com/uBlockOrigin/uAssets/issues/20401
+infinityscans.xyz,infinityscans.net,infinityscans.org##+js(rpnt, script, /async function \(xhr\) \{\s+\(function\(\){var .*?\;\}\)\(\)\; /s, async function (xhr) {)
+infinityscans.xyz,infinityscans.net,infinityscans.org##+js(rpnt, script, /\}\)\;\s+\(function\(\)\{var .*?\)\;\}\)\(\)\;\s+\$\.ajax\(\{/s, }); $.ajax({)
+infinityscans.xyz,infinityscans.net,infinityscans.org##+js(trusted-replace-outbound-text, atob, window.matchMedia('(display-mode: standalone)').matches, true)
+infinityscans.xyz,infinityscans.net,infinityscans.org##div[class="alert alert-info m-0 p-0"]:has-text(/uBlock|AdGuard|advertisments/i)
+@@*$script,denyallow=googletagmanager.com|bidgear.com|googlesyndication.com|a.magsrv.com|fstatic.netpub.media,domain=infinityscans.xyz|infinityscans.net|infinityscans.org
+!#if cap_html_filtering
+infinityscans.xyz,infinityscans.net,infinityscans.org##^script:has-text(/b5rh0rt|\;\}\}catch\(_/)
+!#else
+infinityscans.xyz,infinityscans.net,infinityscans.org##+js(rmnt, script, /b5rh0rt|\;\}\}catch\(_/)
+!#endif
+.infinityscans.net/|$popup,domain=infinityscans.org
+||tbd.infinityscans.net^$all
+
+! https://github.com/uBlockOrigin/uAssets/issues/2320
+panel.freemcserver.net#@#+js(rpnt, script, 'G-1B4LC0KT6C');, 'G-1B4LC0KT6C'); window.setTimeout(function(){blockPing()}\,200);)
+panel.freemcserver.net##+js(rpnt, script, 'G-1B4LC0KT6C');, 'G-1B4LC0KT6C'); localStorage.setItem("tuna"\, "dW5kZWZpbmVk"); localStorage.setItem("sausage"\, "ZmFsc2U="); window.setTimeout(function(){fuckYouUblockAndJobcenterTycoon(false)}\,200);)
+
+! https://github.com/uBlockOrigin/uAssets/issues/8719
+1001tracklists.com##div[id]:has(> [data-freestar-ad]):remove()
+1001tracklists.com###head + [id] > div:first-child > div:not([id="topLogo"], [id="pageTitle"], [id="hInfo"]):has(> a > :is(img[src*="/"][src*="_"][alt], div[style*="background"]))
+1001tracklists.com##div:has(+ script:has-text(challenge)):has(a :is(img[src*="/"][src*="_"][alt], [style]))
+1001tracklists.com##div[class="nav tabTop"] + div > div:first-child > div:first-child > a:has(> img[src*="/"][src*="_"][alt])
+1001tracklists.com###head + div[id] > div:last-child > div > a:has(> img[src*="/"][src*="_"][alt])
+1001tracklists.com##+js(spoof-css, div[class="nav tabTop"] + div > div:first-child > div:first-child > a:has(> img[src*="/"][src*="_"][alt])\, #head + div[id] > div:last-child > div > a:has(> img[src*="/"][src*="_"][alt]), display, block)
+
+! filemoon
+! https://github.com/AdguardTeam/AdguardFilters/issues/190044
+! https://www.reddit.com/r/uBlockOrigin/comments/1fuaaw5/asblock_detected_in_ask4porncc
+bf0skv.org,morgan0928-6v7c14vs.fun,ulike-filter-sowe-canplay-rightlets-generate-themrandomlyl89u8.fun,morgan0928-5386paz2.fun,stephenking-7tm3toav.fun,ghajini-y9yq0v8t.lol,gorro-chfzoaas.fun,u26bekrb.fun,ur70sq6j.fun,moon-3uykdl2w-embed.com,moo-teau4c9h-mkay.com,moonfile-62es3l9z.com,file-1bl9ruic-moon.com,moon-kg83docx.com,mee-6zeqsgv2.com,moon-fm43w1qv.com,morgan0928-t9xc5eet.fun,stephenking-vy5hgkgu.fun,ghajini-04bl9y7x.lol,semprefi-2tazedzl.fun,fu-12qjdjqh.lol,fu-hbr4fzp4.lol,fu-hjyo3jqu.lol,fu-c66heipu.lol,fu-l6d0ptc6.lol,fu-ys0tjjs1.nl,fu-1fbolpvq.nl,fu-4u3omzw0.nl##+js(nowoif)
+bf0skv.org,morgan0928-6v7c14vs.fun,ulike-filter-sowe-canplay-rightlets-generate-themrandomlyl89u8.fun,morgan0928-5386paz2.fun,stephenking-7tm3toav.fun,ghajini-y9yq0v8t.lol,gorro-chfzoaas.fun,u26bekrb.fun,ur70sq6j.fun,moon-3uykdl2w-embed.com,moo-teau4c9h-mkay.com,moonfile-62es3l9z.com,file-1bl9ruic-moon.com,moon-kg83docx.com,mee-6zeqsgv2.com,moon-fm43w1qv.com,stephenking-vy5hgkgu.fun,ghajini-04bl9y7x.lol,semprefi-2tazedzl.fun,morgan0928-8ufkpqp8.fun,fu-12qjdjqh.lol,fu-hbr4fzp4.lol,fu-hjyo3jqu.lol,fu-c66heipu.lol,fu-l6d0ptc6.lol,fu-ys0tjjs1.nl,fu-1fbolpvq.nl,fu-4u3omzw0.nl##+js(acs, Math, localStorage['\x)
+u26bekrb.fun##+js(set, adBlockDetected, undefined)
+!#if ext_devbuild
+$frame,3p,domain=filemoon.*|8rm3l0i9.fun,replace='/^/<script>(()=>{window.open=new Proxy(window.open,{apply:(n,o,w)=>{}});let e=document.querySelector("script");e.innerHTML.includes("window.open")&&e.parentElement.removeChild(e)})();<\/script>/i'
+/^https:\/\/[a-z0-9]{2,}-[a-z0-9]{8}(?:-[a-z0-9]{3,})?\.[a-z]{3}\/[a-z]+\/[a-z0-9]{12}\b/$frame,3p,to=~net|~org|~gov|~edu,ipaddress=/^1(72\.67\.\d{3}|04\.21\.\d+)\.\d+$/,replace='/^/<script>(()=>{window.open=new Proxy(window.open,{apply:(n,o,w)=>{}});let e=document.querySelector("script");e.innerHTML.includes("window.open")&&e.parentElement.removeChild(e)})();<\/script>/i'
+/^https:\/\/(?:[a-z0-9]{8}|(?:[a-z0-9]+-)+[a-z0-9]{5,}(?:-[a-z0-9]+)*)\.fun\/[a-z]+\/[a-z0-9]{12}\b/$frame,3p,to=fun,ipaddress=/^1(72\.67\.\d{3}|04\.21\.\d+)\.\d+$/,replace='/^/<script>(()=>{window.open=new Proxy(window.open,{apply:(n,o,w)=>{}});let e=document.querySelector("script");e.innerHTML.includes("window.open")&&e.parentElement.removeChild(e)})();<\/script>/i'
+/^https:\/\/[a-z0-9]{6}\.(?:net|org)\/[a-z]+\/[a-z0-9]{12}\b/$frame,3p,to=net|org,ipaddress=/^1(72\.67\.\d{3}|04\.21\.\d+)\.\d+$/,replace='/^/<script>(()=>{window.open=new Proxy(window.open,{apply:(n,o,w)=>{}});let e=document.querySelector("script");e.innerHTML.includes("window.open")&&e.parentElement.removeChild(e)})();<\/script>/i'
+*$frame,3p,replace=/adBlockDetected//,from=filemoon.*
+!#endif
+! https://github.com/uBlockOrigin/uAssets/issues/25538
+0cbcq8mu.com,2cf0xzdu.com,4k2h4w04.xyz,a6iqb4m8.xyz,afl3ua5u.xyz,jmzkzesy.xyz##+js(nowoif)
+0cbcq8mu.com,2cf0xzdu.com,4k2h4w04.xyz,a6iqb4m8.xyz,afl3ua5u.xyz,jmzkzesy.xyz##+js(acs, Math, localStorage['\x)
+0cbcq8mu.com,2cf0xzdu.com,4k2h4w04.xyz,a6iqb4m8.xyz,afl3ua5u.xyz,jmzkzesy.xyz##^script:has-text(/popunder|\(\)\{try\{localStorage\[/)
+||fbpbpmjjg-f.club^$popup,doc
+||gajinifreedomain.fun^$popup,doc
+||h5xzcrigf541b0fzxj.fun^$popup,doc
+||j-mxponyz.love^
+||nanai-clw.com^
+||pzcwk-sfend.top^$popup,doc
+||qjvksieybn.vip^$popup,doc
+||skyscrapertowel.com^
+||slavicprophetyontherm.com^$popup,doc
+||tronkwintun.com^$popup
+||urxox-iqx.online^$popup,doc
+||vjkyw.vip^$popup,doc
+||wbhwwnzptf.club^$popup,doc
+||x-ozwpiqlb.rocks^$popup,doc
+||xdgeslibgbim.icu^$popup,doc
+
+! Ad-Shield
+dogdrip.net##html[lang="ko"] [id^="img_"][style]:has(iframe[frameborder="0"][style]):style(clip-path: circle(0) !important;)
+infinityfree.com##html[lang][dir="ltr"] [id^="img_"][style]:has(iframe[frameborder="0"][style]):style(clip-path: circle(0) !important;)
+smsonline.cloud##html[data-theme][lang] [id^="img_"][style]:has(iframe[frameborder="0"][style]):style(clip-path: circle(0) !important;)
+~dogdrip.net,~infinityfree.com,~slashdot.org,~smsonline.cloud,*##body > div[id^="img_"][class^="img_"][style^="width"]:first-child:style(position: absolute !important; top: -100000px !important;)
+~dogdrip.net,~infinityfree.com,~slashdot.org,~smsonline.cloud,*##body > div:first-child > script + div[id^="img_"][class^="img_"]:style(position: absolute !important; top: -100000px !important;)
+~dogdrip.net,~infinityfree.com,~slashdot.org,~smsonline.cloud,*##body > a:only-child > div[id^="img_"][class^="img_"]:style(position: absolute !important; top: -100000px !important;)
+~dogdrip.net,~infinityfree.com,~slashdot.org,~smsonline.cloud,*##div[style*="fixed"] span[id^="img_"][class^="img_"] > style:first-child + div[style*="flex"][style*="relative"]:style(width: 10000px !important;)
+07c225f3.online,content-loader.com,css-load.com,html-load.com,img-load.com##body > *:not(pre):style(pointer-events: none !important; mask-image: linear-gradient(transparent, transparent) !important; -webkit-mask-image: linear-gradient(transparent, transparent) !important;)
+*$doc,to=slashdot.org,replace=/data-sdk/defer data-sdk/
+/^https:\/\/www\.[0-9a-f]{4,8}(?:-(?:\d{4}-){3}[0-9a-f]{12})?\.(?:live|site|xyz)\/script\/[.0-9A-Za-z]+\.js$/$script,3p,match-case,to=live|site|xyz,header=x-length
+! https://github.com/uBlockOrigin/uAssets/issues/26487
+dogdrip.net,infinityfree.com,slashdot.org,smsonline.cloud##+js(no-fetch-if, -load.com/script/, length:101)
+dogdrip.net,infinityfree.com,slashdot.org,smsonline.cloud##+js(nostif, )](this\,..., 4000-6000)
+slashdot.org##+js(aeld, , )](this\,...)
+
+! https://github.com/uBlockOrigin/uAssets/issues/25344
+! https://github.com/uBlockOrigin/uAssets/pull/26342
+! https://github.com/uBlockOrigin/uAssets/issues/26393
+! https://github.com/uBlockOrigin/uAssets/issues/26623
+bing.com##li.b_algo:has(a[href^="https://www.bing.com/aclick?"], a[href^="https://www.bing.com/aclk?"]):remove-class(b_algo)
+bing.com##ol#b_results > li:has(> :is(.b_tpcn, .b_title, h2) a[href^="https://www.bing.com/aclick?"])
+bing.com##ol#b_results > li:has(> :is(.b_tpcn, .b_title, h2) a[href^="https://www.bing.com/aclk?"])
+
+! https://github.com/AdguardTeam/AdguardFilters/issues/183252
+exploader.net##+js(trusted-rpnt, script, /^var \w+=\[.+/, (()=>{let e=[];document.addEventListener("DOMContentLoaded"\,(()=>{const t=document.querySelector("body script").textContent.match(/"] = '(.*?)'/g);if(!t)return;t.forEach((t=>{const r=t.replace(/.*'(.*?)'/\,"$1");e.push(r)}));const r=document.querySelector('.dl_button[href*="preview"]').href.split("?")[1];e.includes(r)&&(e=e.filter((e=>e!==r)));document.querySelectorAll(".dl_button[href]").forEach((t=>{t.target="_blank";let r=t.cloneNode(!0);r.href=t.href.replace(/\?.*/\,`?${e[0]}`)\,t.after(r);let o=t.cloneNode(!0);o.href=t.href.replace(/\?.*/\,`?${e[1]}`)\,t.after(o)}))}))})();, sedCount, 1)
+
+! https://github.com/easylist/easylistgermany/issues/216
+!#if cap_html_filtering
+www.chip.de##^script:has-text(/[a-zA-Z0-9]{10,20}\; \} \}/)
+!#else
+www.chip.de##+js(rmnt, script, /[a-zA-Z0-9]{10,20}\; \} \}/)
+!#endif
+
+! https://github.com/AdguardTeam/AdguardFilters/issues/153796
+rekidai-info.github.io##+js(nostif, /aframe|querySelector/, 1000-)
+rekidai-info.github.io##+js(nosiif, location[_0x)
+
+! https://github.com/uBlockOrigin/uAssets/issues/20907
+@@||cursomecanet.com^$script,1p
+@@*$image,domain=cursomecanet.com
+
+! https://github.com/uBlockOrigin/uAssets/issues/26197
+! https://github.com/uBlockOrigin/uAssets/issues/26983
+||kemono.su/api/v1/creators$badfilter
+||coomer.su/api/v1/creators$badfilter
+||kemono.su/api/v1/creators|
+||coomer.su/api/v1/creators|

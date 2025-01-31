@@ -1,0 +1,9 @@
+! Title: uBlock₀ filters – Annoyances
+! Last modified: %timestamp%
+! Expires: 7 days
+! Description: Filters optimized for uBlock Origin, to be used with Fanboy's and/or Adguard's "Annoyances" list(s)
+! License: https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE
+! Homepage: https://github.com/uBlockOrigin/uAssets
+! Forums: https://github.com/uBlockOrigin/uAssets/issues
+
+!#include annoyances-others.txt

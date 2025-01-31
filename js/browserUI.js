@@ -148,7 +148,7 @@ function setWindowTitle (taskData) {
   if (taskData.name) {
     document.title = (taskData.name.length > 100 ? taskData.name.substring(0, 100) + '...' : taskData.name)
   } else {
-    document.title = 'Min'
+    document.title = 'fireMin'
   }
 }
 

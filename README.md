@@ -108,8 +108,3 @@ If you're experiencing a bug or have a suggestion for how to improve Min, please
 - For each of these items, look for the item with the same name in the `en-US.json` file.
 - Translate the value from the English file, replace "null" with your translation, and remove the "missing translation" comment.
 - Make a pull request with the updated file.
-
-[DiscordBadge]: https://img.shields.io/discord/764269005195968512.svg?label=Discord&logo=discord&logoColor=white
-[DiscordUrl]: https://discord.gg/bRpqjJ4
-[DownloadsBadge]: https://img.shields.io/github/downloads/minbrowser/min/total.svg
-[DownloadsUrl]: https://github.com/minbrowser/min/releases

@@ -1,0 +1,188 @@
+! Title: uBlock filters – Resource abuse
+! Last modified: %timestamp%
+! Expires: 7 days
+! Description: To foil sites potentially abusing CPU/bandwidth resources without informed consent. 
+! Any such resource-abuse scripts MUST be opt-in, with complete informed consent from the visitor.
+! License: https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE
+! Homepage: https://github.com/uBlockOrigin/uAssets
+!
+! GitHub issues: https://github.com/uBlockOrigin/uAssets/issues
+! GitHub pull requests: https://github.com/uBlockOrigin/uAssets/pulls
+
+! https://github.com/uBlockOrigin/uAssets/issues/659
+/edgemesh.*.js$script,domain=~edgemesh.com|~edgeno.de
+
+! https://github.com/uBlockOrigin/uAssets/issues/803
+||safelinkconverter.com^$script,3p
+
+! https://forums.lanik.us/viewtopic.php?p=129545#p129545
+/adsensebase.js$script
+
+! other miners
+://api.*/lib/native.wasm$3p
+||rawgit.com/Pocketart/$script,3p
+
+! https://github.com/hoshsadiq/adblock-nocoin-list/issues/101
+*$csp=worker-src 'none',domain=lewd.ninja|milujivareni.cz
+/angular8.js
+
+! https://github.com/hoshsadiq/adblock-nocoin-list/issues/104
+||fileone.tv^$csp=child-src 'none';frame-src 'self' *;worker-src 'none';
+
+! https://www.reddit.com/r/uBlockOrigin/comments/7tgjce/new_cryptocurrency_mining_website_not_blocked_by/
+tasma.ru##+js(aopw, decodeURIComponent)
+
+! https://github.com/hoshsadiq/adblock-nocoin-list/issues/137
+||leitor.net^$csp=worker-src 'none';
+
+! https://github.com/uBlockOrigin/uAssets/issues/1503
+shrink-service.it##+js(aopr, WebAssembly)
+
+*$csp=worker-src 'none',domain=flashx.pw|vidoza.net
+
+! https://github.com/uBlockOrigin/uAssets/pull/818#issuecomment-365770341
+djs.sk##+js(aopr, miner)
+
+! https://github.com/uBlockOrigin/uAssets/issues/1602
+||thevideo.*^$csp=worker-src 'none';
+
+! https://github.com/uBlockOrigin/uAssets/issues/1826
+*$csp=worker-src 'none',domain=powvideo.net
+
+! https://github.com/gorhill/uBlock/issues/3675
+||potomy.ru^$csp=worker-src 'none'
+
+! miners https://github.com/uBlockOrigin/uAssets/issues/2198
+*$csp=worker-src 'none',domain=megapastes.com
+
+! https://github.com/uBlockOrigin/uAssets/issues/2309#issuecomment-389725332
+||sickrage.ca^$csp=worker-src 'none'
+||sorteosrd.com^$csp=worker-src 'none'
+
+! https://forums.lanik.us/viewtopic.php?f=62&t=41585
+! https://github.com/uBlockOrigin/uAssets/issues/19214
+./M5q5.js$script
+||hostingcloud.*^$3p
+
+! https://github.com/uBlockOrigin/uAssets/issues/3542
+||hdvid.tv^$csp=worker-src 'none'
+
+! https://github.com/uBlockOrigin/uAssets/issues/3643
+||void.cat^$csp=worker-src 'none'
+
+! https://github.com/uBlockOrigin/uAssets/issues/4152
+||dragonballzpolo.*^$csp=worker-src 'none'
+
+! https://github.com/uBlockOrigin/uAssets/issues/3134
+*$csp=worker-src 'none',domain=unblocktheship.org
+
+! https://github.com/uBlockOrigin/uAssets/issues/549
+steamplay.*##+js(aopw, CoinNebula)
+
+! revdl . com avoids miners
+||revdl.com^$csp=worker-src 'none';
+
+! https://github.com/uBlockOrigin/uAssets/commit/d7a8d46e7dd4d978a395517bba5f98abcec998b8#commitcomment-33156535
+||firstonetv.*^$csp=worker-src 'none';
+||firstone.*^$csp=worker-src 'none';
+||firstonetv.*^$csp=connect-src 'none';
+
+! https://github.com/uBlockOrigin/uAssets/issues/6433
+||backend.dna-delivery.com^$domain=france.tv|rt.com
+||cdn.streamroot.io/dna-client/$script,domain=prod-player.tf1.fr
+! https://github.com/uBlockOrigin/uAssets/issues/6433#issuecomment-817198277
+france.tv##+js(nowebrtc)
+
+! https://github.com/uBlockOrigin/uAssets/issues/7449
+||csgo.xyz^$doc
+
+! https://github.com/uBlockOrigin/uAssets/issues/10537
+||inside-out.xyz^$csp=worker-src 'none'
+
+! https://github.com/uBlockOrigin/uAssets/issues/10602
+! ||sdkapi.douyucdn.cn/p2p?$xhr
+||douyucdn.cn/front-publish/stream-sdk-lib-master/dyp2pxp2p_*.js$script,domain=douyu.com
+
+! https://github.com/uBlockOrigin/uAssets/pull/10610
+! ||p2p.huya.com^$xhr
+||msstatic.com/huya/*/p2plib.js$script
+
+! Block some Chinese web pages from using P2P
+bilibili.com,dandanzan.top,nunuyy.*,v.qq.com##+js(nowebrtc)
+
+! https://github.com/uBlockOrigin/uAssets/pull/11475
+||monerominer.rocks/miner-mmr/webmnr.min.js
+
+! https://github.com/uBlockOrigin/uAssets/issues/12648
+||sudonull.com/stop-ru.js
+
+! https://www.reddit.com/r/uBlockOrigin/comments/tznsj6/help_creating_a_block_filter_for_background/
+app.koinly.io##.login-page:style(-webkit-animation: none !important)
+
+! https://github.com/uBlockOrigin/uAssets/pull/12979
+knowyourmeme.com##+js(nosiif, blogherads)
+
+! https://github.com/uBlockOrigin/uAssets/issues/14043
+*$websocket,domain=linuxtracker.org
+
+! https://www.reddit.com/r/uBlockOrigin/comments/z10oav/
+||dek5iqd53g59a.cloudfront.net^
+
+! https://github.com/uBlockOrigin/uAssets/issues/16734
+||cdn-prod.securiti.ai/consent/auto_blocking/$domain=xfinity.com
+
+! https://github.com/uBlockOrigin/uAssets/issues/18400
+deviantart.com##+js(aost, Math.sqrt, update)
+
+! https://github.com/uBlockOrigin/uAssets/issues/17711#issuecomment-1595710648
+duplichecker.com,plagiarismchecker.co,plagiarismdetector.net,searchenginereports.net,smallseotools.com##.icon_animation samp:style(animation: none !important;)
+
+! https://tapewithadblock.org/v/8BeO77VBQbfovrj/ high CPU
+tapewithadblock.org##+js(rmnt, script, /RegExp\(\'/, condition, RegExp)
+
+! https://www.reddit.com/r/uBlockOrigin/comments/17nnfzm/how_to_stop_url_from_spamming_itself_so_that_when/
+||survey.alchemer.eu/s3/$frame,3p,domain=airforce-technology.com
+
+! https://github.com/uBlockOrigin/uAssets/issues/20690
+meeting.tencent.com##+js(no-xhr-if, /(trace|beacon)\.qq\.com/)
+
+! https://www.notion.so/ - excessive blocking connections
+notion.so##+js(no-fetch-if, splunkcloud.com/services/collector)
+
+! https://www.reddit.com/r/uBlockOrigin/comments/1cvpwa0/olympics_website/
+olympics.com##+js(no-fetch-if, event-router.olympics.com)
+
+! https://www.ceramic.or.kr/renewal/ - coin miner spam
+ceramic.or.kr##+js(no-fetch-if, hostingcloud.racing)
+
+! https://timesofindia.indiatimes.com/?loc=in - blocked connection spam
+timesofindia.indiatimes.com##+js(no-fetch-if, tvid.in/log/)
+
+! https://github.com/uBlockOrigin/uAssets/issues/24227#issuecomment-2230903997
+duolingo.com##+js(no-xhr-if, excess.duolingo.com/batch)
+
+! https://study.com/ - blocked connection spam
+study.com##+js(no-xhr-if, /eventLog.ajax)
+
+! https://www.loom.com/share/82b92d2966dd40c59143841238c6f488 - blocked connection spam when playing video
+loom.com##+js(no-fetch-if, loom.com/insights-api/graphql)
+
+! https://www.wayfair.com/ - blocked connections / beacons spam
+wayfair.com##+js(no-xhr-if, t.wayfair.com/b.php?)
+wayfair.com##+js(set, navigator.sendBeacon, noopFunc)
+
+! https://www.reddit.com/r/uBlockOrigin/comments/1g0g7w2/request_to_whitelist_appcues_for_pandadoc_users/ltie0k4/ - blocked connection spam
+pandadoc.com##+js(no-fetch-if, segment.io)
+
+! https://github.com/uBlockOrigin/uAssets/issues/25922 - blocked connection spam
+shahid.mbc.net##+js(no-fetch-if, mparticle.com)
+
+! https://www.golfdigest.com/ - spamming blocked connections
+view.ceros.com##+js(no-xhr-if, ceros.com/a?data)
+
+! https://smallpdf.com/ - blocked connection spam
+smallpdf.com##+js(no-fetch-if, pluto.smallpdf.com)
+
+! https://www.reddit.com/r/uBlockOrigin/comments/1hcoa4e/what_is_chatgpt_cooking/
+chatgpt.com##+js(no-fetch-if, method:/post/i url:/^https?:\/\/chatgpt\.com\/ces\/v1\/[a-z]$/)
+chatgpt.com##+js(no-fetch-if, method:/post/i url:ab.chatgpt.com/v1/rgstr)
