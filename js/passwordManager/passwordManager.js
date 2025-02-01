@@ -11,8 +11,8 @@ const Keychain = require('js/passwordManager/keychain.js')
 
 const PasswordManagers = {
   // List of supported password managers. Each password manager is expected to
-  // have getSuggestions(domain) method that returns a Promise with credentials
-  // suggestions matching given domain name.
+  // have getSuggestions(url) method that returns a Promise with credentials
+  // suggestions matching given URL.
   managers: [
     new Bitwarden(),
     new OnePassword(),
@@ -97,7 +97,7 @@ const PasswordManagers = {
           await PasswordManagers.unlock(manager)
         }
 
-        manager.getSuggestions(hostname).then(credentials => {
+        manager.getSuggestions(frameURL).then(credentials => {
           if (credentials != null) {
             webviews.callAsync(tab, 'sendToFrame', [frameId, 'password-autofill-match', {
               credentials,

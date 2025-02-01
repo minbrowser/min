@@ -344,7 +344,7 @@ function handleFormSubmit () {
   var passwordValue = getBestPasswordField()?.value
 
   if ((usernameValue && usernameValue.length > 0) && (passwordValue && passwordValue.length > 0)) {
-    ipc.send('password-form-filled', [window.location.hostname, usernameValue, passwordValue])
+    ipc.send('password-form-filled', [window.location.toString(), usernameValue, passwordValue])
   }
 }
 
@@ -428,7 +428,7 @@ ipc.on('generate-password', function (location) {
     setTimeout(function () {
       if (input.value === generatedPassword) {
         var usernameValue = getBestUsernameField()?.value
-        ipc.send('password-form-filled', [window.location.hostname, usernameValue, generatedPassword])
+        ipc.send('password-form-filled', [window.location.toString(), usernameValue, generatedPassword])
       }
     }, 0)
   }

@@ -113,10 +113,10 @@ class OnePassword {
     return this.sessionKey !== null && (Date.now() - this.sessionKeyCreated) < this.sessionKeyLifetime
   }
 
-  // Tries to get a list of credential suggestions for a given domain name.
-  async getSuggestions (domain) {
-    if (this.lastCallList[domain] != null) {
-      return this.lastCallList[domain]
+  // Tries to get a list of credential suggestions for a given UrL.
+  async getSuggestions (url) {
+    if (this.lastCallList[url] != null) {
+      return this.lastCallList[url]
     }
 
     const command = this.path
@@ -128,18 +128,19 @@ class OnePassword {
       throw new Error()
     }
 
-    this.lastCallList[domain] = this.loadSuggestions(command, domain).then(suggestions => {
-      this.lastCallList[domain] = null
+    this.lastCallList[url] = this.loadSuggestions(command, url).then(suggestions => {
+      this.lastCallList[url] = null
       return suggestions
     }).catch(ex => {
-      this.lastCallList[domain] = null
+      this.lastCallList[url] = null
     })
 
-    return this.lastCallList[domain]
+    return this.lastCallList[url]
   }
 
-  // Loads credential suggestions for given domain name.
-  async loadSuggestions (command, domain) {
+  // Loads credential suggestions for given URL.
+  async loadSuggestions (command, url) {
+    var domain = new URL(url).hostname
     try {
       const process = new ProcessSpawner(command, ['item', 'list', '--categories', 'login', '--session=' + this.sessionKey, '--format=json'], { OP_DEVICE: this.deviceID })
       const data = await process.executeSyncInAsyncContext()

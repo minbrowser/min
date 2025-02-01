@@ -69,10 +69,10 @@ class Bitwarden {
     return this.sessionKey != null
   }
 
-  // Tries to get a list of credential suggestions for a given domain name.
-  async getSuggestions (domain) {
-    if (this.lastCallList[domain] != null) {
-      return this.lastCallList[domain]
+  // Tries to get a list of credential suggestions for a given URL.
+  async getSuggestions (url) {
+    if (this.lastCallList[url] != null) {
+      return this.lastCallList[url]
     }
 
     const command = this.path
@@ -84,18 +84,19 @@ class Bitwarden {
       throw new Error()
     }
 
-    this.lastCallList[domain] = this.loadSuggestions(command, domain).then(suggestions => {
-      this.lastCallList[domain] = null
+    this.lastCallList[url] = this.loadSuggestions(command, url).then(suggestions => {
+      this.lastCallList[url] = null
       return suggestions
     }).catch(ex => {
-      this.lastCallList[domain] = null
+      this.lastCallList[url] = null
     })
 
-    return this.lastCallList[domain]
+    return this.lastCallList[url]
   }
 
-  // Loads credential suggestions for given domain name.
-  async loadSuggestions (command, domain) {
+  // Loads credential suggestions for given URL.
+  async loadSuggestions (command, url) {
+    var domain = new URL(url).hostname
     try {
       const process = new ProcessSpawner(command, ['list', 'items', '--url', this.sanitize(domain), '--session', this.sessionKey])
       const data = await process.execute()

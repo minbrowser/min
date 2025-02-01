@@ -26,7 +26,8 @@ class Keychain {
     return true
   }
 
-  async getSuggestions (domain) {
+  async getSuggestions (url) {
+    var domain = new URL(url).hostname
     return ipcRenderer.invoke('credentialStoreGetCredentials').then(function (results) {
       return results
         .filter(function (result) {
@@ -41,12 +42,13 @@ class Keychain {
     })
   }
 
-  saveCredential (domain, username, password) {
+  saveCredential (url, username, password) {
+    var domain = new URL(url).hostname
     ipcRenderer.invoke('credentialStoreSetPassword', { domain, username, password })
   }
 
-  deleteCredential (domain, username) {
-    ipcRenderer.invoke('credentialStoreDeletePassword', { domain, username })
+  deleteCredential (credential) {
+    ipcRenderer.invoke('credentialStoreDeletePassword', credential)
   }
 
   async importCredentials (fileContents) {

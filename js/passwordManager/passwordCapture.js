@@ -11,10 +11,10 @@ const passwordCapture = {
   saveButton: document.getElementById('password-capture-save'),
   neverSaveButton: document.getElementById('password-capture-never-save'),
   closeButton: document.getElementById('password-capture-ignore'),
-  currentDomain: null,
+  currentURL: null,
   barHeight: 0,
   showCaptureBar: function (username, password) {
-    passwordCapture.description.textContent = l('passwordCaptureSavePassword').replace('%s', passwordCapture.currentDomain)
+    passwordCapture.description.textContent = l('passwordCaptureSavePassword').replace('%s', new URL(passwordCapture.currentURL).hostname)
     passwordCapture.bar.hidden = false
 
     passwordCapture.passwordInput.type = 'password'
@@ -33,7 +33,7 @@ const passwordCapture = {
     passwordCapture.bar.hidden = true
     passwordCapture.usernameInput.value = ''
     passwordCapture.passwordInput.value = ''
-    passwordCapture.currentDomain = null
+    passwordCapture.currentURL = null
   },
   togglePasswordVisibility: function () {
     if (passwordCapture.passwordInput.type === 'password') {
@@ -47,9 +47,10 @@ const passwordCapture = {
     }
   },
   handleRecieveCredentials: function (tab, args, frameId) {
-    var domain = args[0][0]
+    var credentialURL = args[0][0]
+    var credentialDomain = new URL(credentialURL).hostname
 
-    if (settings.get('passwordsNeverSaveDomains') && settings.get('passwordsNeverSaveDomains').includes(domain)) {
+    if (settings.get('passwordsNeverSaveDomains') && settings.get('passwordsNeverSaveDomains').includes(credentialDomain)) {
       return
     }
 
@@ -63,14 +64,14 @@ const passwordCapture = {
       }
 
       // check if this username/password combo is already saved
-      manager.getSuggestions(domain).then(function (credentials) {
+      manager.getSuggestions(credentialURL).then(function (credentials) {
         var alreadyExists = credentials.some(cred => cred.username === username && cred.password === password)
         if (!alreadyExists) {
           if (!passwordCapture.bar.hidden) {
             passwordCapture.hideCaptureBar()
           }
 
-          passwordCapture.currentDomain = domain
+          passwordCapture.currentURL = credentialURL
           passwordCapture.showCaptureBar(username, password)
         }
       })
@@ -85,7 +86,7 @@ const passwordCapture = {
     passwordCapture.saveButton.addEventListener('click', function () {
       if (passwordCapture.usernameInput.checkValidity() && passwordCapture.passwordInput.checkValidity()) {
         PasswordManagers.getConfiguredPasswordManager().then(function (manager) {
-          manager.saveCredential(passwordCapture.currentDomain, passwordCapture.usernameInput.value, passwordCapture.passwordInput.value)
+          manager.saveCredential(passwordCapture.currentURL, passwordCapture.usernameInput.value, passwordCapture.passwordInput.value)
 
           passwordCapture.hideCaptureBar()
         })
@@ -93,7 +94,7 @@ const passwordCapture = {
     })
 
     passwordCapture.neverSaveButton.addEventListener('click', function () {
-      settings.set('passwordsNeverSaveDomains', (settings.get('passwordsNeverSaveDomains') || []).concat([passwordCapture.currentDomain]))
+      settings.set('passwordsNeverSaveDomains', (settings.get('passwordsNeverSaveDomains') || []).concat([new URL(passwordCapture.currentURL).hostname]))
       passwordCapture.hideCaptureBar()
     })
 
