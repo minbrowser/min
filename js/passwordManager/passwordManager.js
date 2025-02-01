@@ -97,12 +97,7 @@ const PasswordManagers = {
           await PasswordManagers.unlock(manager)
         }
 
-        var formattedHostname = hostname
-        if (formattedHostname.startsWith('www.')) {
-          formattedHostname = formattedHostname.slice(4)
-        }
-
-        manager.getSuggestions(formattedHostname).then(credentials => {
+        manager.getSuggestions(hostname).then(credentials => {
           if (credentials != null) {
             webviews.callAsync(tab, 'sendToFrame', [frameId, 'password-autofill-match', {
               credentials,
