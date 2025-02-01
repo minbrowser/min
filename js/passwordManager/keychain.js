@@ -31,7 +31,8 @@ class Keychain {
     return ipcRenderer.invoke('credentialStoreGetCredentials').then(function (results) {
       return results
         .filter(function (result) {
-          return (result.domain === urlObj.hostname &&
+          return (
+            (result.domain === urlObj.hostname || ('www.' + result.domain === urlObj.domain)) &&
             (!result.protocol || result.protocol === urlObj.protocol))
         })
         .map(function (result) {
