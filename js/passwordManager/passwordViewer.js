@@ -17,7 +17,7 @@ const passwordViewer = {
 
     var domainEl = document.createElement('span')
     domainEl.className = 'domain-name'
-    domainEl.textContent = credential.domain
+    domainEl.textContent = (credential.protocol ? credential.protocol + '//' : '') + credential.domain
     container.appendChild(domainEl)
 
     var usernameEl = document.createElement('input')
@@ -182,7 +182,7 @@ const passwordViewer = {
         const csvData = papaparse.unparse({
           fields: ['url', 'username', 'password'],
           data: credentials.map(credential => [
-            `https://${credential.domain}`,
+            `${credential.protocol || 'https:'}//${credential.domain}`,
             credential.username,
             credential.password
           ])

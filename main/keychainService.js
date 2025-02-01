@@ -9,6 +9,7 @@ file format:
   version: 1,
   credentials: [
     {
+      protocol: - may be absent from older credentials
       domain:,
       username:,
       password:
@@ -53,7 +54,9 @@ function credentialStoreSetPassword (account) {
 
   // delete duplicate credentials
   for (let i = 0; i < fileContent.credentials.length; i++) {
-    if (fileContent.credentials[i].domain === account.domain && fileContent.credentials[i].username === account.username) {
+    if ((!fileContent.credentials[i].protocol || fileContent.credentials[i].protocol === account.protocol) &&
+     fileContent.credentials[i].domain === account.domain &&
+      fileContent.credentials[i].username === account.username) {
       fileContent.credentials.splice(i, 1)
       i--
     }
@@ -76,7 +79,9 @@ ipc.handle('credentialStoreDeletePassword', async function (event, account) {
 
   // delete matching credentials
   for (let i = 0; i < fileContent.credentials.length; i++) {
-    if (fileContent.credentials[i].domain === account.domain && fileContent.credentials[i].username === account.username) {
+    if (fileContent.credentials[i].protocol === account.protocol &&
+      fileContent.credentials[i].domain === account.domain &&
+      fileContent.credentials[i].username === account.username) {
       fileContent.credentials.splice(i, 1)
       i--
     }

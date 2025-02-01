@@ -27,11 +27,12 @@ class Keychain {
   }
 
   async getSuggestions (url) {
-    var domain = new URL(url).hostname
+    var urlObj = new URL(url)
     return ipcRenderer.invoke('credentialStoreGetCredentials').then(function (results) {
       return results
         .filter(function (result) {
-          return result.domain === domain
+          return (result.domain === urlObj.hostname &&
+            (!result.protocol || result.protocol === urlObj.protocol))
         })
         .map(function (result) {
           return {
@@ -43,8 +44,13 @@ class Keychain {
   }
 
   saveCredential (url, username, password) {
-    var domain = new URL(url).hostname
-    ipcRenderer.invoke('credentialStoreSetPassword', { domain, username, password })
+    var urlObj = new URL(url)
+    ipcRenderer.invoke('credentialStoreSetPassword', {
+      protocol: urlObj.protocol,
+      domain: urlObj.hostname,
+      username,
+      password
+    })
   }
 
   deleteCredential (credential) {
@@ -64,9 +70,11 @@ class Keychain {
         try {
           const includesProtocol = credential.url.match(/^https?:\/\//g)
           const domainWithProtocol = includesProtocol ? credential.url : `https://${credential.url}`
+          const urlObj = new URL(domainWithProtocol)
 
           return {
-            domain: new URL(domainWithProtocol).hostname,
+            domain: urlObj.hostname,
+            protocol: urlObj.protocol,
             username: credential.username,
             password: credential.password
           }
@@ -78,7 +86,7 @@ class Keychain {
       if (credentialsToImport.length === 0) return []
 
       const currentCredentials = await this.getAllCredentials()
-      const credentialsWithoutDuplicates = currentCredentials.filter(account => !credentialsToImport.some(a => a.domain === account.domain && a.username === account.username))
+      const credentialsWithoutDuplicates = currentCredentials.filter(account => !credentialsToImport.some(a => a.domain === account.domain && a.username === account.username && a.protocol === account.protocol))
 
       const mergedCredentials = credentialsWithoutDuplicates.concat(credentialsToImport)
 
