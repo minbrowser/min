@@ -140,7 +140,7 @@ class OnePassword {
 
   // Loads credential suggestions for given URL.
   async loadSuggestions (command, url) {
-    var domain = new URL(url).hostname
+    var urlObj = new URL(url)
     try {
       const process = new ProcessSpawner(command, ['item', 'list', '--categories', 'login', '--session=' + this.sessionKey, '--format=json'], { OP_DEVICE: this.deviceID })
       const data = await process.executeSyncInAsyncContext()
@@ -149,8 +149,8 @@ class OnePassword {
 
       const credentials = matches.filter((match) => {
         try {
-          var matchHost = new URL(match.urls.find(url => url.primary).href).hostname
-          return matchHost === domain
+          var matchHost = new URL(match.urls.find(url => url.primary).href)
+          return matchHost.hostname === urlObj.hostname && matchHost.protocol === urlObj.protocol
         } catch (e) {
           return false
         }
