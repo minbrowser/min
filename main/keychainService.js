@@ -88,3 +88,7 @@ ipc.handle('credentialStoreDeletePassword', async function (event, account) {
 ipc.handle('credentialStoreGetCredentials', async function () {
   return readSavedPasswordFile().credentials
 })
+
+ipc.handle('credentialStoreGetVersion', async function () {
+  return readSavedPasswordFile().version
+})

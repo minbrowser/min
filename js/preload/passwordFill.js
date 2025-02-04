@@ -296,7 +296,7 @@ function handleBlur (event) {
 // Handle credentials fetched from the backend. Credentials are expected to be
 // an array of { username, password, manager } objects.
 ipc.on('password-autofill-match', (event, data) => {
-  if (data.hostname !== window.location.hostname) {
+  if (data.origin !== window.location.origin) {
     throw new Error('password origin must match current page origin')
   }
 
@@ -344,7 +344,7 @@ function handleFormSubmit () {
   var passwordValue = getBestPasswordField()?.value
 
   if ((usernameValue && usernameValue.length > 0) && (passwordValue && passwordValue.length > 0)) {
-    ipc.send('password-form-filled', [window.location.hostname, usernameValue, passwordValue])
+    ipc.send('password-form-filled', [window.location.origin, usernameValue, passwordValue])
   }
 }
 
@@ -428,7 +428,7 @@ ipc.on('generate-password', function (location) {
     setTimeout(function () {
       if (input.value === generatedPassword) {
         var usernameValue = getBestUsernameField()?.value
-        ipc.send('password-form-filled', [window.location.hostname, usernameValue, generatedPassword])
+        ipc.send('password-form-filled', [window.location.origin, usernameValue, generatedPassword])
       }
     }, 0)
   }
