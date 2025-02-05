@@ -182,6 +182,11 @@ function pagePermissionCheckHandler (webContents, permission, requestingOrigin, 
     return false
   }
 
+  // TODO sometimes the origin field is blank, figure out why
+  if (!requestingOrigin) {
+    return false
+  }
+
   if (permission === 'clipboard-sanitized-write') {
     return true
   }
