@@ -1,9 +1,11 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 @font-face {
     font-family: Carbon;
     src: url(iconfont.woff2) format("woff2");
     font-weight: 400;
     font-style: normal;
 }
+/* https://stackoverflow.com/questions/63518225/is-there-a-font-available-for-the-new-bootstrap-icons */
 .i {
     font-family: Carbon !important;
     font-size: 1em;
@@ -11,7 +13,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-.i.carbon\:3d-cursor:before {
+.i.carb on\:3d-cursor:before {
     content: "\e001";
 }
 .i.carbon\:3d-cursor-alt:before {

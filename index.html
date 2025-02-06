@@ -3,38 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="Content-Security-Policy" content="script-src 'self'" />
-
     <title>fireMin</title>
-
     <link rel="stylesheet" href="dist/bundle.css" />
     <link rel="stylesheet" href="ext/icons/iconfont.css" />
   </head>
 
   <body>
     <div class="window-drag-area"></div>
-
     <div class="windows-caption-buttons">
       <div class="element caption-minimise">
-        <svg>
-          <line x1="1" y1="5.5" x2="11" y2="5.5" />
-        </svg>
+          <i class="bi bi-dash-square"></i>        
       </div>
       <div class="element caption-maximize">
-        <svg>
-          <rect x="1.5" y="1.5" width="9" height="9" />
-        </svg>
-      </div>
+        <i class="bi bi-window-fullscreen"></i>      </div>
       <div class="element caption-restore">
-        <svg>
-          <rect x="1.5" y="3.5" width="7" height="7" />
-          <polyline points="3.5,3.5 3.5,1.5 10.5,1.5 10.5,8.5 8.5,8.5" />
-        </svg>
-      </div>
+        <i class="bi bi-window-desktop"></i>      </div>
       <div class="element caption-close">
-        <svg>
-          <path d="M1,1 l 10,10 M1,11 l 10,-10" />
-        </svg>
-      </div>
+        <i class="bi bi-x-square"></i>      </div>
     </div>
 
     <button id="linux-control-buttons" class="theme-text-color">
@@ -116,20 +101,20 @@
     <div id="mac-window-drag-area"></div>
       <button
         id="menu-button"
-        class="navbar-action-button i carbon:overflow-menu-vertical"
+        class="navbar-action-button i bi bi-list"
         data-label="openMenu"
         tabindex="-1"
       ></button>
       <div id="toolbar-navigation-buttons" hidden>
           <button
           id="back-button"
-          class="navbar-action-button i carbon:chevron-left"
+          class="navbar-action-button i bi bi-caret-left-square-fill"
           data-label="goBack"
           tabindex="-1"
         ></button>
         <button
         id="forward-button"
-        class="navbar-action-button i carbon:chevron-right"
+        class="navbar-action-button i bi bi-caret-right-square-fill"
         data-label="goForward"
         tabindex="-1"
       ></button>
@@ -143,7 +128,7 @@
       <div class="navbar-right-actions">
         <button
           id="add-tab-button"
-          class="navbar-action-button i carbon:add"
+          class="navbar-action-button i bi bi-patch-plus"
           data-label="newTabAction"
           tabindex="-1"
         ></button>
@@ -152,39 +137,12 @@
 
     <button
       id="switch-task-button"
-      class="navbar-action-button theme-text-color windowDragHandle i"
+      class="navbar-action-button theme-text-color windowDragHandle i "
       data-label="viewTasks"
-      tabindex="-1"
+      tabindex="-1" 
+      style="margin-top: -10px;"
     >
-      <svg
-        version="1.1"
-        viewBox="0.0 0.0 26.0 26.0"
-        fill="none"
-        stroke="none"
-        stroke-linecap="square"
-        stroke-miterlimit="10"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g clip-path="url(#p.0)">
-          <path
-            fill="currentColor"
-            d="m0 0l32 0l0 4l-32 0z"
-            fill-rule="evenodd"
-          />
-          <path
-            fill="currentColor"
-            d="m0 11l32 0l0 4l-32 0z"
-            fill-rule="evenodd"
-          />
-          <path
-            fill="currentColor"
-            d="m0 22l32 0l0 4l-32 0z"
-            fill-rule="evenodd"
-          />
-        </g>
-      </svg>
-    </button>
+    <i class="bi bi-layers-half"></i>   </button>
 
     <div id="searchbar" class="theme-background-color theme-text-color">
       <div class="top-answer-area"></div>
@@ -194,17 +152,17 @@
 
     <div id="webviews">
       <div id="leftArrowContainer" class="arrow-indicator">
-        <i id="leftArrow" class="i carbon:chevron-left"></i>
+        <i id="leftArrow" class="i bi bi-caret-left-square-fill"></i>
       </div>
       <div id="rightArrowContainer" class="arrow-indicator">
-        <i id="rightArrow" class="i carbon:chevron-right"></i>
+        <i id="rightArrow" class="i bi bi-caret-right-square-fill"></i>
       </div>
       <img id="webview-placeholder" hidden aria-hidden="true" />
       <div id="ntp-content">
           <img id="ntp-background" hidden>
           <div id="ntp-background-controls">
-            <button id="ntp-image-remove"><i class="i carbon:trash-can"></i></button>
-            <button id="ntp-image-picker"><i class="i carbon:camera"></i></button>
+            <button id="ntp-image-remove"><i class="i bi bi-trash3"></i></button>
+            <button id="ntp-image-picker"><i class="i bi bi-camera2"></i></button>
           </div>
       </div>
     </div>
@@ -220,14 +178,14 @@
       <span id="findinpage-count" class="inline-text"></span>
       <div class="divider"></div>
       <button id="findinpage-previous-match">
-        <i class="i carbon:chevron-up navbar-action-button"></i>
+        <i class="i bi bi-caret-up-square-fill navbar-action-button"></i>
       </button>
       <button id="findinpage-next-match">
-        <i class="i carbon:chevron-down navbar-action-button"></i>
+        <i class="i bi bi-caret-down-square-fill navbar-action-button"></i>
       </button>
       <div class="divider"></div>
       <button id="findinpage-end">
-        <i class="i carbon:close navbar-action-button"></i>
+        <i class="i bi bi-x-circle navbar-action-button"></i>
       </button>
     </div>
 
@@ -237,27 +195,27 @@
         id="task-overlay-navbar"
       >
       <div class="task-search-input-container">
-        <i class="i carbon:search"></i>
+        <i class="i bi bi-search"></i>
         <input type="search" id="task-search-input"/>
       </div>
     </div>
       <div id="task-area"></div>
       <button id="add-task">
-        <i class="i carbon:new-tab"></i>
+        <i class="i bi bi-folder-plus"></i>
         <span></span>
       </button>
     </div>
 
     <div id="download-bar" hidden>
       <div id="download-container" role="list" class="has-thin-scrollbar"></div>
-      <button id="download-close-button" class="i carbon:close"></button>
+      <button id="download-close-button" class="i bi bi-x"></button>
     </div>
 
     <div class="modal" id="manager-setup-dialog" hidden>
       <h3 class="modal-title" id="manager-setup-heading"></h3>
       <button
         id="manager-setup-close"
-        class="modal-close-button i carbon:close"
+        class="modal-close-button i bi bi-x"
       ></button>
 
       <div id="manager-setup-instructions-primary">
@@ -309,7 +267,7 @@
         <input id="password-capture-password" type="password" required />
         <button
           id="password-capture-reveal-password"
-          class="i carbon:view"
+          class="i bi bi-eye"
         ></button>
       </span>
       <span class="password-capture-section">
@@ -330,7 +288,7 @@
 
     <div id="password-viewer" class="modal" hidden>
       <h2 class="modal-title" data-string="savedPasswordsHeading"></h2>
-      <button class="modal-close-button i carbon:close"></button>
+      <button class="modal-close-button i bi bi-x"></button>
       <div
         id="password-viewer-empty"
         data-string="savedPasswordsEmpty"
