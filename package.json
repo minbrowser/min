@@ -2,7 +2,7 @@
   "name": "min",
   "productName": "Min",
   "author": "PalmerAL",
-  "version": "1.33.1",
+  "version": "1.34.0",
   "description": "A fast, minimal browser that protects your privacy",
   "electronVersion": "34.0.2",
   "main": "main.build.js",
