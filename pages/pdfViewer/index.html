@@ -7,7 +7,8 @@
       http-equiv="Content-Security-Policy"
       content="script-src 'self'"
     />
-
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="viewer.css" />
     <link rel="stylesheet" href="../../ext/icons/iconfont.css" />
     <link rel="stylesheet" href="../settingsDropdown.css" />
@@ -27,12 +28,12 @@
     <div class="side-gutter" id="side-gutter-right">
       <button
         id="download-button"
-        class="i carbon:download viewer-ui hidden"
+        class="i bi bi-cloud-download viewer-ui hidden"
       ></button>
 
       <button
       id="settings-button"
-      class="i carbon:settings-adjust viewer-ui hidden"
+      class="i bi bi-toggles2 viewer-ui hidden"
       data-label="viewSettings"
     ></button>
 
@@ -55,7 +56,7 @@
           ></button>
         </div>
         <div class="setting-section" id="invert-pdf-section">
-          <input type="checkbox" id="invert-pdf-checkbox" /><label
+          <input type="checkbox" id="invert-pdf-checkbox" class="checkbox" /><label
             for="invert-pdf-checkbox"
             data-string="PDFInvertPage"
           ></label>

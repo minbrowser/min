@@ -4,14 +4,15 @@
     <meta charset="UTF-8" />
 
     <!-- title is set in JS -->
-
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../../css/base.css" />
     <link rel="stylesheet" href="settings.css" />
     <link rel="stylesheet" href="../../ext/icons/iconfont.css" />
   </head>
 
   <body>
-    <div class="short-hero blue-gradient-background">
+    <div class="hero-content  blue-gradient-background">
       <div class="container">
         <h2 data-string="settingsPreferencesHeading"></h2>
       </div>
@@ -21,8 +22,7 @@
       <h3 data-string="settingsPrivacyHeading"></h3>
 
       <div class="settings-info-subheading" id="content-blocking-statistics">
-        <i class="i carbon:manage-protection"></i>
-        <span
+<i class="bi bi-shield-shaded"></i>        <span
           data-string="settingsBlockedRequestCount"
           data-allowHTML
           id="content-blocking-blocked-requests"
@@ -32,21 +32,21 @@
 
       <div class="setting-section" id="tracking-level-container">
         <div class="setting-option">
-          <input type="radio" name="blockingLevel" id="blocking-allow-all" />
+          <input type="radio" name="blockingLevel" id="blocking-allow-all" class="radio"/>
           <label
             for="blocking-allow-all"
             data-string="settingsContentBlockingLevel0"
           ></label>
         </div>
         <div class="setting-option">
-          <input type="radio" name="blockingLevel" id="blocking-third-party" />
+          <input type="radio" name="blockingLevel" id="blocking-third-party" class="radio" />
           <label
             for="blocking-third-party"
             data-string="settingsContentBlockingLevel1"
           ></label>
         </div>
         <div class="setting-option">
-          <input type="radio" name="blockingLevel" id="blocking-block-all" />
+          <input type="radio" name="blockingLevel" id="blocking-block-all" class="radio" />
           <label
             for="blocking-block-all"
             data-string="settingsContentBlockingLevel2"
@@ -64,6 +64,7 @@
               id="content-blocking-exceptions"
               style="width: 100%; max-width: 500px"
               rows="1"
+              class="textarea textarea-bordered"
             ></textarea>
           </div>
           <a
@@ -73,7 +74,7 @@
           ></a>
         </div>
       </div>
-
+<!-- TODO- figure out how to apply themeing to this  -->
       <div id="content-type-blocking"></div>
     </div>
 
@@ -86,28 +87,28 @@
       ></label>
       <div class="setting-section" id="dark-mode-container">
         <div class="setting-option">
-          <input type="radio" name="darkMode" id="dark-mode-never" />
+          <input type="radio" name="darkMode" id="dark-mode-never" class="radio"/>
           <label
             for="dark-mode-never"
             data-string="settingsDarkModeNever"
           ></label>
         </div>
         <div class="setting-option">
-          <input type="radio" name="darkMode" id="dark-mode-night" />
+          <input type="radio" name="darkMode" id="dark-mode-night" class="radio"/>
           <label
             for="dark-mode-night"
             data-string="settingsDarkModeNight"
           ></label>
         </div>
         <div class="setting-option">
-          <input type="radio" name="darkMode" id="dark-mode-always" />
+          <input type="radio" name="darkMode" id="dark-mode-always" class="radio"/>
           <label
             for="dark-mode-always"
             data-string="settingsDarkModeAlways"
           ></label>
         </div>
         <div class="setting-option">
-          <input type="radio" name="darkMode" id="dark-mode-system" />
+          <input type="radio" name="darkMode" id="dark-mode-system" class="radio" />
           <label
             for="dark-mode-system"
             data-string="settingsDarkModeSystem"
@@ -116,7 +117,7 @@
       </div>
 
       <div class="setting-section">
-        <input type="checkbox" id="checkbox-site-theme" />
+        <input type="checkbox"  class="checkbox" id="checkbox-site-theme" />
         <label
           for="checkbox-site-theme"
           data-string="settingsSiteThemeToggle"
@@ -124,7 +125,7 @@
       </div>
 
       <div class="setting-section">
-        <input type="checkbox" id="checkbox-show-divider" />
+        <input type="checkbox"  class="checkbox" id="checkbox-show-divider" />
         <label
           for="checkbox-show-divider"
           data-string="settingsShowDividerToggle"
@@ -133,7 +134,7 @@
 
       <div class="setting-section">
         <label for="setting-language-picker" data-string="settingsLanguageSelection"></label>
-        <select id="setting-language-picker"></select>
+        <select id="setting-language-picker" class="select select-bordered"></select>
       </div>
     </div>
 
@@ -142,7 +143,7 @@
 
       <div class="setting-section">
         <label for="startupOptions" data-string="settingsStartupOptions"></label>
-        <select id="startup-options" name="startupOptions">
+        <select id="startup-options" name="startupOptions" class="select select-bordered">
           <option value="1" data-string="settingsStartupCreateTask"></option>
           <option 
           value="2" data-string="settingsStartupNewTaskandBackground"></option>
@@ -153,7 +154,7 @@
 
       <div class="setting-section">
         <label for="newWindowOptions" data-string="settingsNewWindowOptions"></label>
-        <select id="new-window-options" name="newWindowOptions">
+        <select id="new-window-options" name="newWindowOptions" class="select select-bordered">
           <option value="1" data-string="settingsNewWindowCreateTask"></option>
           <option 
           value="2" data-string="settingsNewWindowPickTask"></option>
@@ -161,7 +162,7 @@
       </div>
 
       <div class="setting-section">
-        <input type="checkbox" id="checkbox-userscripts" />
+        <input type="checkbox"  class="checkbox" id="checkbox-userscripts" />
         <label
           for="checkbox-userscripts"
           data-string="settingsUserscriptsToggle"
@@ -177,7 +178,7 @@
       </div>
 
       <div class="setting-section" id="section-separate-titlebar">
-        <input type="checkbox" id="checkbox-separate-titlebar" />
+        <input type="checkbox"  class="checkbox" id="checkbox-separate-titlebar" />
         <label
           for="checkbox-separate-titlebar"
           data-string="settingsSeparateTitlebarToggle"
@@ -185,7 +186,7 @@
       </div>
 
       <div class="setting-section" id="section-open-tabs-in-foreground">
-        <input type="checkbox" id="checkbox-open-tabs-in-foreground" />
+        <input type="checkbox"  class="checkbox" id="checkbox-open-tabs-in-foreground" />
         <label
           for="checkbox-open-tabs-in-foreground"
           data-string="settingsOpenTabsInForegroundToggle"
@@ -193,7 +194,7 @@
       </div>
 
       <div class="setting-section" id="section-user-agent">
-        <input type="checkbox" id="checkbox-user-agent" />
+        <input type="checkbox"  class="checkbox" id="checkbox-user-agent" />
         <label
           for="checkbox-user-agent"
           data-string="settingsUserAgentToggle"
@@ -201,6 +202,7 @@
         <input
           type="text"
           id="input-user-agent"
+          
           style="
             vertical-align: middle;
             margin-left: 1em;
@@ -212,19 +214,19 @@
       </div>
 
 		<div class="setting-section">
-			<input type="checkbox" id="checkbox-enable-autoplay">
+			<input type="checkbox"  class="checkbox" id="checkbox-enable-autoplay">
 			<label for="checkbox-enable-autoplay" data-string="settingsAutoplayToggle"></label>
 		</div>
 
       <div class="setting-section">
-        <input type="checkbox" id="checkbox-update-notifications" />
+        <input type="checkbox"  class="checkbox" id="checkbox-update-notifications" />
         <label
           for="checkbox-update-notifications"
           data-string="settingsUpdateNotificationsToggle"
         ></label>
       </div>
       <div class="setting-section">
-        <input type="checkbox" id="checkbox-usage-statistics" />
+        <input type="checkbox"  class="checkbox" id="checkbox-usage-statistics" />
         <label
           for="checkbox-usage-statistics"
           data-string="settingsUsageStatisticsToggle"
@@ -241,7 +243,7 @@
           for="defaultSearchEngine"
           data-string="settingsDefaultSearchEngine"
         ></label>
-        <select id="default-search-engine" name="defaultSearchEngine"></select>
+        <select id="default-search-engine" name="defaultSearchEngine" class="select select-bordered"></select>
         <input
           id="custom-search-engine"
           style="margin-left: 0.5em; min-width: 325px"
@@ -267,6 +269,7 @@
         <select
           id="selected-password-manager"
           name="selectedPasswordManager"
+          class="select select-bordered"
         ></select>
       </div>
 
@@ -279,7 +282,7 @@
       <h3 data-string="settingsProxyHeading"></h3>
 
       <div class="setting-section" id="proxy-type-container">
-        <select id="selected-proxy-type">
+        <select id="selected-proxy-type" class="select select-bordered">
           <option data-string="settingsNoProxy"></option>
           <option data-string="settingsManualProxy"></option>
           <option data-string="settingsAutomaticProxy"></option>

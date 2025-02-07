@@ -15,10 +15,9 @@ function buildAppMenu (options = {}) {
 
     return null
   }
-
   var tabTaskActions = [
     {
-      label: l('appMenuNewTab'),
+      label: '➕ ' + l('appMenuNewTab'),
       accelerator: getFormattedKeyMapEntry('addTab'),
       click: function (item, window, event) {
         // keyboard shortcuts for these items are handled in the renderer
@@ -28,7 +27,7 @@ function buildAppMenu (options = {}) {
       }
     },
     {
-      label: l('appMenuNewPrivateTab'),
+      label: '🔒 ' + l('appMenuNewPrivateTab'),
       accelerator: getFormattedKeyMapEntry('addPrivateTab'),
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
@@ -37,7 +36,7 @@ function buildAppMenu (options = {}) {
       }
     },
     {
-      label: l('appMenuNewTask'),
+      label: '📋' + l('appMenuNewTask'),
       accelerator: getFormattedKeyMapEntry('addTask'),
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
@@ -46,7 +45,7 @@ function buildAppMenu (options = {}) {
       }
     },
     {
-      label: l('appMenuNewWindow'),
+      label: '🖥️ ' + l('appMenuNewWindow'),
       accelerator: getFormattedKeyMapEntry('addWindow'),
       click: function () {
         if (isFocusMode) {
@@ -60,7 +59,7 @@ function buildAppMenu (options = {}) {
 
   var personalDataItems = [
     {
-      label: l('appMenuBookmarks'),
+      label:'🔖 ' + l('appMenuBookmarks'),
       accelerator: getFormattedKeyMapEntry('showBookmarks'),
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
@@ -69,7 +68,7 @@ function buildAppMenu (options = {}) {
       }
     },
     {
-      label: l('appMenuHistory'),
+      label: '🕘 '+l('appMenuHistory'),
       accelerator: getFormattedKeyMapEntry('showHistory'),
       click: function (item, window, event) {
         if (!event.triggeredByAccelerator) {
@@ -80,7 +79,7 @@ function buildAppMenu (options = {}) {
   ]
 
   var quitAction = {
-    label: l('appMenuQuit').replace('%n', app.name),
+    label: '❌ '+l('appMenuQuit').replace('%n', app.name),
     accelerator: getFormattedKeyMapEntry('quitMin'),
     click: function (item, window, event) {
       if (!event.triggeredByAccelerator) {
@@ -90,7 +89,7 @@ function buildAppMenu (options = {}) {
   }
 
   var preferencesAction = {
-    label: l('appMenuPreferences'),
+    label: '⚙️ '+l('appMenuPreferences'),
     accelerator: 'CmdOrCtrl+,',
     click: function (item, window) {
       sendIPCToWindow(window, 'addTab', {
@@ -112,7 +111,7 @@ function buildAppMenu (options = {}) {
           label: app.name,
           submenu: [
             {
-              label: l('appMenuAbout').replace('%n', app.name),
+              label: 'ℹ️ '+l('appMenuAbout').replace('%n', app.name),
               role: 'about'
             },
             {
@@ -149,12 +148,12 @@ function buildAppMenu (options = {}) {
         }
       ] : []),
     {
-      label: l('appMenuFile'),
+      label: '📝 '+l('appMenuFile'),
       submenu: [
         ...(!options.secondary ? tabTaskActions : []),
         ...(!options.secondary ? [{ type: 'separator' }] : []),
         {
-          label: l('appMenuSavePageAs'),
+          label: '📑 '+l('appMenuSavePageAs'),
           accelerator: 'CmdOrCtrl+s',
           click: function (item, window) {
             sendIPCToWindow(window, 'saveCurrentPage')
@@ -164,7 +163,7 @@ function buildAppMenu (options = {}) {
           type: 'separator'
         },
         {
-          label: l('appMenuPrint'),
+          label: '🖨️ '+l('appMenuPrint'),
           accelerator: 'CmdOrCtrl+p',
           click: function (item, window) {
             sendIPCToWindow(window, 'print')
@@ -175,15 +174,15 @@ function buildAppMenu (options = {}) {
       ]
     },
     {
-      label: l('appMenuEdit'),
+      label: '✂️ '+l('appMenuEdit'),
       submenu: [
         {
-          label: l('appMenuUndo'),
+          label: '↩️ '+l('appMenuUndo'),
           accelerator: 'CmdOrCtrl+Z',
           role: 'undo'
         },
         {
-          label: l('appMenuRedo'),
+          label: '↪️ '+l('appMenuRedo'),
           accelerator: 'Shift+CmdOrCtrl+Z',
           role: 'redo'
         },
@@ -191,27 +190,27 @@ function buildAppMenu (options = {}) {
           type: 'separator'
         },
         {
-          label: l('appMenuCut'),
+          label: '🔪 '+l('appMenuCut'),
           accelerator: 'CmdOrCtrl+X',
           role: 'cut'
         },
         {
-          label: l('appMenuCopy'),
+          label: '📋 '+l('appMenuCopy'),
           accelerator: 'CmdOrCtrl+C',
           role: 'copy'
         },
         {
-          label: l('appMenuPaste'),
+          label: '📥 '+l('appMenuPaste'),
           accelerator: 'CmdOrCtrl+V',
           role: 'paste'
         },
         {
-          label: l('appMenuPasteAndMatchStyle'),
+          label: '📥➕ '+l('appMenuPasteAndMatchStyle'),
           accelerator: 'Shift+CmdOrCtrl+V',
           role: 'pasteAndMatchStyle'
         },
         {
-          label: l('appMenuSelectAll'),
+          label: '✅ '+l('appMenuSelectAll'),
           accelerator: 'CmdOrCtrl+A',
           role: 'selectall'
         },
@@ -219,7 +218,7 @@ function buildAppMenu (options = {}) {
           type: 'separator'
         },
         {
-          label: l('appMenuFind'),
+          label: '🔍 '+l('appMenuFind'),
           accelerator: 'CmdOrCtrl+F',
           click: function (item, window) {
             sendIPCToWindow(window, 'findInPage')
@@ -230,12 +229,12 @@ function buildAppMenu (options = {}) {
       ]
     },
     {
-      label: l('appMenuView'),
+      label: '🖥️ '+l('appMenuView'),
       submenu: [
         ...(!options.secondary ? personalDataItems : []),
         ...(!options.secondary ? [{ type: 'separator' }] : []),
         {
-          label: l('appMenuZoomIn'),
+          label: '🔍 '+l('appMenuZoomIn'),
           accelerator: 'CmdOrCtrl+Plus',
           click: function (item, window) {
             sendIPCToWindow(window, 'zoomIn')
@@ -243,7 +242,7 @@ function buildAppMenu (options = {}) {
         },
         // Hidden item to enable shortcut on keyboards where = is on a different physical key than +
         {
-          label: l('appMenuZoomIn'),
+          label: '🔍 '+l('appMenuZoomIn'),
           accelerator: 'CmdOrCtrl+=',
           click: function (item, window) {
             sendIPCToWindow(window, 'zoomIn')
@@ -251,14 +250,14 @@ function buildAppMenu (options = {}) {
           visible: false
         },
         {
-          label: l('appMenuZoomOut'),
+          label: '🔎 '+l('appMenuZoomOut'),
           accelerator: 'CmdOrCtrl+-',
           click: function (item, window) {
             sendIPCToWindow(window, 'zoomOut')
           }
         },
         {
-          label: l('appMenuActualSize'),
+          label: '⏺️ '+l('appMenuActualSize'),
           accelerator: 'CmdOrCtrl+0',
           click: function (item, window) {
             sendIPCToWindow(window, 'zoomReset')
@@ -268,7 +267,7 @@ function buildAppMenu (options = {}) {
           type: 'separator'
         },
         {
-          label: l('appMenuFocusMode'),
+          label: '🎯 '+l('appMenuFocusMode'),
           accelerator: undefined,
           type: 'checkbox',
           checked: false,
@@ -288,7 +287,7 @@ function buildAppMenu (options = {}) {
           }
         },
         {
-          label: l('appMenuFullScreen'),
+          label: '📺 '+l('appMenuFullScreen'),
           accelerator: (function () {
             if (process.platform == 'darwin') { return 'Ctrl+Command+F' } else { return 'F11' }
           })(),
@@ -297,10 +296,10 @@ function buildAppMenu (options = {}) {
       ]
     },
     {
-      label: l('appMenuDeveloper'),
+      label:'<> '   +l('appMenuDeveloper'),
       submenu: [
         {
-          label: l('appMenuInspectPage'),
+          label: '🛠️ '+l('appMenuInspectPage'),
           accelerator: (function () {
             if (process.platform == 'darwin') { return 'Cmd+Alt+I' } else { return 'Ctrl+Shift+I' }
           })(),
@@ -323,7 +322,7 @@ function buildAppMenu (options = {}) {
               type: 'separator'
             },
             {
-              label: l('appMenuReloadBrowser'),
+              label: '🔄 '+l('appMenuReloadBrowser'),
               accelerator: (isDevelopmentMode ? 'alt+CmdOrCtrl+R' : undefined),
               click: function (item, focusedWindow) {
                 destroyAllViews()
@@ -332,7 +331,7 @@ function buildAppMenu (options = {}) {
               }
             },
             {
-              label: l('appMenuInspectBrowser'),
+              label: '🕵️‍♂️ '+l('appMenuInspectBrowser'),
               accelerator: (function () {
                 if (process.platform === 'darwin') { return 'Shift+Cmd+Alt+I' } else { return 'Ctrl+Shift+Alt+I' }
               })(),
@@ -341,7 +340,7 @@ function buildAppMenu (options = {}) {
               }
             },
             {
-              label: 'Inspect Places Service',
+              label: '🗃️ '+'Inspect Places Service',
               click: function (item, focusedWindow) {
                 placesWindow.webContents.openDevTools({ mode: 'detach' })
               }
@@ -398,23 +397,23 @@ function buildAppMenu (options = {}) {
       }
     ] : []),
     {
-      label: l('appMenuHelp'),
+      label: '🆘 '+l('appMenuHelp'),
       role: 'help',
       submenu: [
         {
-          label: l('appMenuKeyboardShortcuts'),
+          label: '⌨️   '+l('appMenuKeyboardShortcuts'),
           click: function () {
             openTabInWindow('https://github.com/minbrowser/min/wiki#keyboard-shortcuts')
           }
         },
         {
-          label: l('appMenuReportBug'),
+          label: '🐞  '+l('appMenuReportBug'),
           click: function () {
             openTabInWindow('https://github.com/moodynooby/fireMin/new')
           }
         },
         {
-          label: l('appMenuTakeTour'),
+          label: '🎓 '+l('appMenuTakeTour'),
           click: function () {
             openTabInWindow('https://firemin.netlify.app/')
           }
@@ -427,15 +426,16 @@ function buildAppMenu (options = {}) {
         },
         ...(process.platform !== 'darwin' ? [{ type: 'separator' }] : []),
         ...(process.platform !== 'darwin' ? [{
-          label: l('appMenuAbout').replace('%n', app.name),
+          label: 'ℹ️ '+l('appMenuAbout').replace('%n', app.name),
           click: function (item, window) {
             var info = [
+              'Fire Min Beta',
               'Min v' + app.getVersion(),
               'Chromium v' + process.versions.chrome
             ]
             electron.dialog.showMessageBox({
               type: 'info',
-              title: l('appMenuAbout').replace('%n', app.name),
+              title: 'ℹ️ '+l('appMenuAbout').replace('%n', app.name),
               message: info.join('\n'),
               buttons: [l('closeDialog')]
             })

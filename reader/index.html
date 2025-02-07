@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="Content-Security-Policy" content="script-src 'self'" />
-
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <meta name="theme-color" id="meta-theme" />
     <script src="../ext/readability-master/Readability.js"></script>
     <link rel="stylesheet" href="../css/base.css" />
@@ -37,9 +38,10 @@
         ></button>
       </div>
       <div class="setting-section">
-        <input type="checkbox" id="auto-reader-checkbox" /><label
+        <input type="checkbox" id="auto-reader-checkbox"  class="chekbox"/><label
           for="auto-reader-checkbox"
           data-string="openReaderView"
+        
         ></label>
       </div>
     </div>
@@ -60,7 +62,7 @@
     </div>
     <div id="backtoarticle">
       <a id="backtoarticle-link">
-        <i class="bi bi-skip-backward-circle"></i>
+        <i class="bi bi-skip-backward"></i>
                        <span data-string="articleReaderView"></span>
       </a>
     </div>

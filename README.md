@@ -1,6 +1,6 @@
-# Min
+# Fire Min
 
-Min is a fast, minimal browser that protects your privacy. It includes an interface designed to minimize distractions, and features such as:
+Fire Min is a fast, minimal browser that protects your privacy. It includes an interface designed to minimize distractions, and features such as:
 
 - Full-text search for visited pages
 - Ad and tracker blocking
@@ -9,20 +9,7 @@ Min is a fast, minimal browser that protects your privacy. It includes an interf
 - Bookmark tagging
 - Password manager integration
 - Dark theme
-
-Download Min from the [releases page](https://github.com/minbrowser/min/releases), or learn more on the [website](https://minbrowser.org/).
-
-[![Downloads][DownloadsBadge]][DownloadsUrl]
-[![Discord][DiscordBadge]][DiscordUrl]
-
-Min is made possible by these sponsors:
-
-| [<img src="https://avatars.githubusercontent.com/u/6592155?v=4" width="40">](https://github.com/blackgwe) | [<img src="https://avatars.githubusercontent.com/u/49724477?v=4" width="40">](https://github.com/rafel-ioli) |[<img src="https://avatars.githubusercontent.com/u/237596?v=4" width="40">](https://github.com/idoru) |     |
-| ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |--------------------------------------------------------------------------------------------------------------- | --- |
-| [@blackgwe](https://github.com/blackgwe)                                                                            | [@rafel-ioli](https://github.com/rafel-ioli)                                                                        |[@idoru](https://github.com/idoru)                                                                        ||
-
-[Become a sponsor](https://github.com/sponsors/PalmerAL)
-
+## Note Fire Min is designed for Windows First We still Keep Compatibility But For Best Experience Try It In Windows
 ## Screenshots
 
 <img alt="The search bar, showing information from DuckDuckGo" src="http://minbrowser.org/tour/img/searchbar_duckduckgo_answers.png" width="650"/>
