@@ -191,6 +191,7 @@ function pagePermissionCheckHandler (webContents, permission, requestingOrigin, 
     return true
   }
 
+  
   let requestHostname
   try {
     requestHostname = new URL(requestingOrigin).hostname
