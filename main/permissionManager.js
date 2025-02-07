@@ -181,11 +181,15 @@ function pagePermissionCheckHandler (webContents, permission, requestingOrigin, 
   if (!details.isMainFrame && requestingOrigin !== details.embeddingOrigin) {
     return false
   }
-
+  // TODO sometimes the origin field is blank, figure out why
+  if (!requestingOrigin) {
+    return false
+  }
   if (permission === 'clipboard-sanitized-write') {
     return true
   }
 
+  
   let requestHostname
   try {
     requestHostname = new URL(requestingOrigin).hostname

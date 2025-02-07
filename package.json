@@ -2,9 +2,9 @@
   "name": "firemin",
   "productName": "fireMin",
   "author": "Manas",
-  "version": "1.33.1",
+  "version": "1.34.0",
   "description": "A fast, minimal browser that protects your privacy",
-  "electronVersion": "33.3.0",
+  "electronVersion": "34.0.2",
   "main": "main.build.js",
   "standard": {
     "globals": [
@@ -50,7 +50,7 @@
     "concurrently": "^5.2.0",
     "daisyui": "^4.12.23",
     "decomment": "^0.9.0",
-    "electron": "33.3.0",
+    "electron": "34.0.2",
     "electron-builder": "^24.13.3",
     "electron-installer-windows": "^3.0.0",
     "electron-renderify": "0.0.2",
