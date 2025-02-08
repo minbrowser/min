@@ -48,21 +48,12 @@ const passwordCapture = {
   },
   handleRecieveCredentials: function (tab, args, frameId) {
     var domain = args[0][0]
-    console.log('domain', domain)
 
-    // get the old domain version
-    const oldDomainVersion = new URL(domain).host.replace('www.', '')
-    const passwordsNeverSaveDomains = settings.get('passwordsNeverSaveDomains')
-    if (passwordsNeverSaveDomains) {
-      // check if the old domain version should not be saved
-      if (passwordsNeverSaveDomains.includes(oldDomainVersion)) {
-        // update to the new domain version
-        settings.set('passwordsNeverSaveDomains', passwordsNeverSaveDomains.map(d => d === oldDomainVersion ? domain : d))
-        return
-      }
-      if (passwordsNeverSaveDomains.includes(domain)) {
-        return
-      }
+    if (settings.get('passwordsNeverSaveDomains') && (
+      settings.get('passwordsNeverSaveDomains').includes(domain.replace('www.', '')) ||
+      settings.get('passwordsNeverSaveDomains').includes(domain)
+    )) {
+      return
     }
 
     var username = args[0][1] || ''

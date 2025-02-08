@@ -296,7 +296,7 @@ function handleBlur (event) {
 // Handle credentials fetched from the backend. Credentials are expected to be
 // an array of { username, password, manager } objects.
 ipc.on('password-autofill-match', (event, data) => {
-  if (data.origin !== window.location.origin) {
+  if (data.origin.replace('www.', '') !== window.location.origin || data.origin !== window.location.origin) {
     throw new Error('password origin must match current page origin')
   }
 

@@ -1,6 +1,7 @@
-const { ipcRenderer } = require('electron');
-const PasswordManagers = require('passwordManager/passwordManager.js');
-const places = require('places/places.js');
+const { ipcRenderer } = require('electron')
+const PasswordManagers = require('passwordManager/passwordManager.js')
+const places = require('places/places.js')
+const settings = require('util/settings/settings.js')
 
 class PasswordMigrator {
   #currentVersion = 2;
@@ -47,8 +48,8 @@ class PasswordMigrator {
     console.log('[PasswordMigrator]: Found', historyData.length, 'history entries', historyData)
     console.log('[PasswordMigrator]: Found', currentCredentials.length, 'credentials in the current password manager', currentCredentials)
 
-    const migratedCredentials = currentCredentials.map(credential => {
-      // check if the saved url has been visited, if so use that url
+    function createNewCredential(credential) {
+      // 1) check if the saved url has been visited, if so use that url
       const historyEntry = historyData.find(entry => new URL(entry.url).host.replace(/^(https?:\/\/)?(www\.)?/, '') === credential.domain.replace(/^(https?:\/\/)?(www\.)?/, ''))
       if (historyEntry) {
         return {
@@ -57,14 +58,6 @@ class PasswordMigrator {
           url: historyEntry.url
         }
       } 
-      let newUrl = credential.domain;
-      // 1) check if domain has subdomain, if so, use it, otherwise add 'www.'
-      const domainParts = newUrl.split('.')
-      if (domainParts.length > 2) {
-        newUrl = domainParts.join('.')
-      } else {
-        newUrl = `www.${newUrl}`
-      }
 
       // 2) check if domain has protocol, if not, add 'https://'
       if (!newUrl.startsWith('http://') && !newUrl.startsWith('https://')) {
@@ -76,10 +69,18 @@ class PasswordMigrator {
         password: credential.password,
         url: newUrl
       };
-    });
+    }
 
-      await ipcRenderer.invoke('credentialStoreSetPasswordBulk', migratedCredentials)
+    const migratedCredentials = currentCredentials.map(createNewCredential)
     console.log('[PasswordMigrator]: Migrated', migratedCredentials.length, 'credentials', migratedCredentials);
+
+    const neverSavedCredentials = settings.get('passwordsNeverSaveDomains') || []
+    console.log('[PasswordMigrator]: Found', neverSavedCredentials.length, 'never-saved credentials', neverSavedCredentials)
+    const migratedNeverSavedCredentials = neverSavedCredentials.map(createNewCredential)
+    settings.set('passwordsNeverSaveDomains', migratedNeverSavedCredentials)
+    console.log('[PasswordMigrator]: Migrated', migratedNeverSavedCredentials.length, 'never-saved credentials', migratedNeverSavedCredentials)
+
+    await ipcRenderer.invoke('credentialStoreSetPasswordBulk', migratedCredentials)
   }
 }
 

@@ -149,7 +149,7 @@ class OnePassword {
       const credentials = matches.filter((match) => {
         try {
           var matchHost = new URL(match.urls.find(url => url.primary).href).origin
-          return matchHost === domain
+          return matchHost.replace('www.', '') === domain || matchHost === domain
         } catch (e) {
           return false
         }
