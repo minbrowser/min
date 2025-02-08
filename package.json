@@ -42,8 +42,9 @@
     "regedit": "^3.0.3",
     "sortablejs": "^1.15.1",
     "stemmer": "^1.0.5",
-    "write-file-atomic": "^6.0.0"
-  },
+    "write-file-atomic": "^6.0.0",
+    "papaparse": "^5.5.1"
+   },
   "devDependencies": {
     "archiver": "^4.0.1",
     "browserify": "^16.5.1",
