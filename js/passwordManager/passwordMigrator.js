@@ -81,6 +81,9 @@ class PasswordMigrator {
     console.log('[PasswordMigrator]: Migrated', migratedNeverSavedCredentials.length, 'never-saved credentials', migratedNeverSavedCredentials)
 
     await ipcRenderer.invoke('credentialStoreSetPasswordBulk', migratedCredentials)
+
+    // finally upate the version
+    await ipcRenderer.invoke('credentialStoreSetVersion', this.#currentVersion)
   }
 }
 
