@@ -495,3 +495,30 @@ ipc.on('places-connect', function (e) {
 function getWindowWebContents (win) {
   return win.getContentView().children[0].webContents
 }
+
+/* translate service */
+
+const translatePage = 'min://app/pages/translateService/index.html'
+const translatePreload = __dirname + '/pages/translateService/translateServicePreload.js'
+
+app.on('ready', function() {
+  ipc.on('page-translation-session-create', function(e) {
+    let translateWindow = new BrowserWindow({
+      width: 300,
+      height: 300,
+      show: false,
+      webPreferences: {
+        nodeIntegration: false,
+        contextIsolation: true,
+        preload: translatePreload
+      }
+    })
+  
+    translateWindow.loadURL(translatePage)
+    // translateWindow.webContents.openDevTools({mode: 'detach'})
+
+    translateWindow.webContents.once('did-finish-load', function() {
+      translateWindow.webContents.postMessage('page-translation-session-create', null, e.ports)
+    })
+  })
+})

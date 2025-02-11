@@ -29,12 +29,14 @@
     ]
   },
   "dependencies": {
+    "@browsermt/bergamot-translator": "^0.4.9",
     "@electron/fuses": "^1.7.0",
     "chokidar": "^3.6.0",
     "dexie": "^3.0.3",
     "dragula": "github:minbrowser/dragula",
     "electron-squirrel-startup": "^1.0.0",
     "expr-eval": "^2.0.2",
+    "franc-min": "^6.2.0",
     "node-abi": "^3.8.0",
     "papaparse": "^5.5.1",
     "pdfjs-dist": "4.2.67",
