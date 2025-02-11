@@ -1,7 +1,7 @@
 import { LatencyOptimisedTranslator, TranslatorBacking } from '../../node_modules/@browsermt/bergamot-translator/translator.js'
 
 import { franc } from '../../ext/franc-min/franc-min-6.2.0.bundle.mjs'
-import { iso6393To1 } from '../../ext/iso6393to1/iso6393to1.mjs'
+import iso6393To1Mapping from './iso3To1Mapping.mjs'
 
 const registryUrl = 'https://services.minbrowser.org/bergamot-models-v1/registry.json'
 const modelBaseUrl = 'https://services.minbrowser.org/bergamot-models-v1'
@@ -54,7 +54,8 @@ window.addEventListener('message', async function (e) {
 
       if (e.data.type === 'translation-request') {
         const responses = []
-        const originLang = iso6393To1[franc(e.data.query.join(' '))]
+        const originLang = iso6393To1Mapping[franc(e.data.query.join(' '))]
+
         for (const entry of e.data.query) {
           const response = await translator.translate({
             from: originLang,
