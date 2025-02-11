@@ -2,7 +2,6 @@ const webviews = require('webviews.js')
 const statistics = require('js/statistics.js')
 
 const pageTranslations = {
-  apiURL: 'https://translate-api.minbrowser.org/translate',
   languages: [
     {
       code: 'en'
@@ -78,7 +77,7 @@ const pageTranslations = {
     const userPrefs = navigator.languages.map(lang => lang.split('-')[0])
     const topLangs = allLangs.filter(lang => userPrefs.includes(lang.code))
 
-    // Translations to/from English are the highest quality in Libretranslate, so always show that near the top
+    // English is the base/pivot language in Bergamot, so always show that near the top
     if (!topLangs.some(lang => lang.code === 'en')) {
       topLangs.push(allLangs.find(lang => lang.code === 'en'))
     }

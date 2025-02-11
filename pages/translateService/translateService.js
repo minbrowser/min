@@ -1,6 +1,6 @@
 import { LatencyOptimisedTranslator, TranslatorBacking } from '../../node_modules/@browsermt/bergamot-translator/translator.js'
 
-import { franc } from '../../ext/franc-min/franc-min-6.2.0.bundle.mjs'
+import { franc } from '../../ext/franc/franc-6.2.0.bundle.mjs'
 import iso6393To1Mapping from './iso3To1Mapping.mjs'
 
 const registryUrl = 'https://services.minbrowser.org/bergamot-models-v1/registry.json'
@@ -17,6 +17,7 @@ class CustomBacking extends TranslatorBacking {
         if (files[file].modelType !== 'prod') {
           return null
         }
+        // The translation module expects absolute URLs but the registry entries are relative by default
         files[file].name = `${modelBaseUrl}/${key}/${files[file].name}`
       }
       return {
@@ -34,7 +35,7 @@ window.addEventListener('message', async function (e) {
   if (e.source === window && e.data === 'page-translation-session-create') {
     const options = {
       registryUrl: 'https://services.minbrowser.org/bergamot-models-v1/registry.json',
-      cacheSize: 0, // TODO implications?
+      cacheSize: 0, // This is a cache of translations, not models
       downloadTimeout: null // Disable timeout
     }
 
