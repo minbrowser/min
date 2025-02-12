@@ -1,4 +1,5 @@
 
+
   
 <!DOCTYPE html>
 <html lang="en">
@@ -206,36 +207,18 @@
     <script>const BLACKLISTED_KEY_CODES = [38,40,37,39,18,20,17,16,9,27,144];
     //List of commands
     const COMMANDS = {
-  "help": `
-    <h1 id="error-name"></h1>
-    <h2 id="error-desc"></h2>
-    The page you want to visit does not exist, or it may have been deleted, or the wrong address was entered. 
-    To see the commands, enter the word <span class="red">commands</span>
-  `,
-  "exit": "",
-  "report": "<span class='green'>This page report has been successfully sent to support.</span>",
-  "commands": "List of commands: <span class=\"red\">help</span>, <span class=\"red\">report</span>, <span class=\"red\">exit</span>\n",
-  "cls": ""
-};
+        "help":
+            'The error is at top of the terminal please check there or else the page you want to visit does not exist, or it may have been deleted, or the wrong address was entered. To see the commands, enter the word <span class=\"red\"> commands</span>',
+        "exit":
+            "",
+        "report":
+            "<span class='green'>This page report has been successfully sent to support.</span>",
+        "commands":
+            "List of commands: <span class=\"red\"> help</span> , <span class=\"red\"> report</span> ,<span class=\"red\"> exit</span>\n",
+        "cls":
+            ""
+    };
 
-// Function to handle commands
-function handleCommand(command) {
-  const cmd = command.toLowerCase().trim();
-  if (COMMANDS.hasOwnProperty(cmd)) {
-    return COMMANDS[cmd];
-  }
-  return "Unknown command. Type 'help' for assistance.";
-}
-
-// Function to update error display
-function displayError(command) {
-  const errorContent = handleCommand(command);
-  if (command === 'cls') {
-    document.body.innerHTML = '';
-    return;
-  }
-  document.body.innerHTML = errorContent;
-}
     let userInput
     let terminalOutput
     let Terminal
@@ -370,8 +353,12 @@ function displayError(command) {
 <body class="" id="body">
 <main id="main">
     <header class="Menubar">
-        <div><p>Terminal</p></div>
-        <div><p class="title_404">404</p></div>
+        <div>  <p>Terminal</p>         
+        </div>
+        <div>  
+            <h3 id="error-name"></h3>
+            <p id="error-desc"></p>
+      </div>
         <div class="Menu_BTN">
             <a href="#" id="min" onclick="BTNS('min')"></a>
             <a href="#" id="max" onclick="BTNS('max')"></a>
