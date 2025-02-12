@@ -50,7 +50,7 @@ const passwordCapture = {
     var domain = args[0][0]
 
     if (settings.get('passwordsNeverSaveDomains') && (
-      settings.get('passwordsNeverSaveDomains').includes(domain.replace('www.', '')) ||
+      settings.get('passwordsNeverSaveDomains').includes(domain.replace(/^www\./, '')) ||
       settings.get('passwordsNeverSaveDomains').includes(domain)
     )) {
       return

@@ -55,7 +55,7 @@ class PasswordMigrator {
         return {
           username: credential.username,
           password: credential.password,
-          url: historyEntry.url
+          url: new URL(historyEntry.url).origin
         }
       } 
 
