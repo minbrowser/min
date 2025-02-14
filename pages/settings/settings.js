@@ -182,41 +182,58 @@ for (var contentType in contentTypes) {
   })(contentType)
 }
 
-/* dark mode setting */
-var darkModeNever = document.getElementById('dark-mode-never')
-var darkModeNight = document.getElementById('dark-mode-night')
-var darkModeAlways = document.getElementById('dark-mode-always')
-var darkModeSystem = document.getElementById('dark-mode-system')
+/* Dark mode setting
+ * Values:
+ * -1: Never (always light mode)
+ *  0: Auto (based on time of day)
+ *  1: Always (always dark mode) 
+ *  2: System (follow system preference)
+ */
+var darkModeNever = document.getElementById('dark-mode-never');
+var darkModeNight = document.getElementById('dark-mode-night');
+var darkModeAlways = document.getElementById('dark-mode-always');
+var darkModeSystem = document.getElementById('dark-mode-system');
 
-// -1 - off ; 0 - auto ; 1 - on
+// Initialize radio buttons based on stored setting
 settings.get('darkMode', function (value) {
-  darkModeNever.checked = (value === -1)
-  darkModeNight.checked = (value === 0)
-  darkModeAlways.checked = (value === 0 || value === true)
-  darkModeSystem.checked = (value === 1 || value === undefined || value === false)
-})
+  // Handle legacy boolean values
+  if (value === true) {
+    value = 1; // Convert true to "always dark mode"
+  } else if (value === false) {
+    value = 2; // Convert false to "system preference"
+  }
+  
+  // Set radio button states based on numeric value
+  darkModeNever.checked = (value === -1);
+  darkModeNight.checked = (value === 0);
+  darkModeAlways.checked = (value === 1);
+  darkModeSystem.checked = (value === 2 || value === undefined);
+});
 
+// Event listeners for radio button changes
 darkModeNever.addEventListener('change', function (e) {
   if (this.checked) {
-    settings.set('darkMode', -1)
+    settings.set('darkMode', -1);
   }
-})
+});
+
 darkModeNight.addEventListener('change', function (e) {
   if (this.checked) {
-    settings.set('darkMode', 0)
+    settings.set('darkMode', 0);
   }
-})
+});
+
 darkModeAlways.addEventListener('change', function (e) {
   if (this.checked) {
-    settings.set('darkMode', 1)
+    settings.set('darkMode', 1);
   }
-})
+});
+
 darkModeSystem.addEventListener('change', function (e) {
   if (this.checked) {
-    settings.set('darkMode', 2)
+    settings.set('darkMode', 2);
   }
-})
-
+});
 /* site theme setting */
 
 settings.get('siteTheme', function (value) {
