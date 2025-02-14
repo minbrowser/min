@@ -204,9 +204,9 @@ settings.get('darkMode', function (value) {
   }
   
   // Set radio button states based on numeric value
-  darkModeNever.checked = (value === -1);
+  darkModeNever.checked = (value === 2);
   darkModeNight.checked = (value === 0);
-  darkModeAlways.checked = (value === 1);
+  darkModeAlways.checked = (value === 2);
   darkModeSystem.checked = (value === 2 || value === undefined);
 });
 
