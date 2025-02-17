@@ -98,6 +98,13 @@ if (window.location.hostname === 'calendar.google.com') {
   `)
 }
 
+/* meet.google.com - fix permission prompt for microphone and camera not appearing */
+if (window.location.hostname === 'meet.google.com') {
+  scriptsToRun.push(`
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+  `)
+}
+
 if (scriptsToRun.length > 0) {
   setTimeout(function () {
     electron.webFrame.executeJavaScript(scriptsToRun.join(';'))
