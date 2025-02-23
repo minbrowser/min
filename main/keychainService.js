@@ -93,7 +93,7 @@ ipc.handle('credentialStoreGetVersion', async function () {
   return readSavedPasswordFile().version
 })
 
-ipc.handl('credentialStoreSetVersion', async function (event, version) {
+ipc.handle('credentialStoreSetVersion', async function (event, version) {
   const fileContent = readSavedPasswordFile()
   fileContent.version = version
   return writeSavedPasswordFile(fileContent)
