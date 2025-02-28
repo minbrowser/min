@@ -233,7 +233,7 @@ function createWindowWithBounds (bounds, customArgs) {
   newWin.contentView.addChildView(mainView)
 
   newWin.on('resize', function() {
-    const winBounds = newWin.getBounds()
+    const winBounds = newWin.getContentBounds()
     mainView.setBounds({x: 0, y: 0, width: winBounds.width, height: winBounds.height})
   })
 
