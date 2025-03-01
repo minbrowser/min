@@ -27,6 +27,7 @@
     "goBack": "戻る",
     "goForward": "進む",
     "inspectElement": "要素を検証",
+    "translatePage": null, // missing translation
     /* searchbar */
     "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation

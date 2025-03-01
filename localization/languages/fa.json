@@ -28,6 +28,7 @@
     "goBack": "برگشت",
     "goForward": "جلو",
     "inspectElement": "وارسی",
+    "translatePage": null, // missing translation
     /* searchbar */
     "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation

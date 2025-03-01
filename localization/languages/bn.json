@@ -27,6 +27,7 @@
     "goBack": "ফিরে যাও",
     "goForward": "সামনে আগান",
     "inspectElement": "এলিমেন্ট পরিদর্শন করুন",
+    "translatePage": null, // missing translation
     /* searchbar */
     "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation

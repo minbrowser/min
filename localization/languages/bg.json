@@ -27,6 +27,7 @@
     "goBack": "Връщане една страница назад",
     "goForward": "Отиване една страница напред",
     "inspectElement": "Изследване на елемента",
+    "translatePage": null, // missing translation
     /* searchbar */
     "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation

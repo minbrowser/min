@@ -27,6 +27,7 @@
     "goBack": "返回",
     "goForward": "前进",
     "inspectElement": "查看元素",
+    "translatePage": null, // missing translation
     /* searchbar */
     "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation

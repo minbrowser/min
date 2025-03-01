@@ -27,6 +27,7 @@
     "goBack": "Edellinen",
     "goForward": "Seuraava",
     "inspectElement": "Tutki elementtiä",
+    "translatePage": null, // missing translation
     /* searchbar */
     "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation

@@ -27,6 +27,7 @@
     "goBack": "上一頁",
     "goForward": "下一頁",
     "inspectElement": "檢查元素",
+    "translatePage": null, // missing translation
     /* searchbar */
     "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation

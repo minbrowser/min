@@ -27,6 +27,7 @@
     "goBack": "Natrag",
     "goForward": "Naprijed",
     "inspectElement": "Pregledajte element",
+    "translatePage": null, // missing translation
     /* searchbar */
     "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation
