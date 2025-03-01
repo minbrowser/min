@@ -165,6 +165,7 @@
     "settingsSeparateTitlebarToggle": "显示浏览器标题栏",
     "settingsAutoplayToggle": "启用自动播放",
     "settingsOpenTabsInForegroundToggle": "在前台打开新标签页",
+    "settingsOpenContentProtection": "保护浏览器不被其他程序捕获",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "自定义脚本允许您改变网站行为 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
     },
