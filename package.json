@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@electron/fuses": "^1.7.0",
+    "bootstrap": "5.3.3",
     "bootstrap-icons": "^1.11.3",
     "chokidar": "^3.6.0",
     "dexie": "^3.0.3",
@@ -37,14 +38,14 @@
     "electron-squirrel-startup": "^1.0.0",
     "expr-eval": "^2.0.2",
     "node-abi": "^3.8.0",
+    "papaparse": "^5.5.1",
     "pdfjs-dist": "4.2.67",
     "quick-score": "^0.2.0",
     "regedit": "^3.0.3",
     "sortablejs": "^1.15.1",
     "stemmer": "^1.0.5",
-    "write-file-atomic": "^6.0.0",
-    "papaparse": "^5.5.1"
-   },
+    "write-file-atomic": "^6.0.0"
+  },
   "devDependencies": {
     "archiver": "^4.0.1",
     "browserify": "^16.5.1",
@@ -86,6 +87,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/minbrowser/min.git"
+    "url": "https://github.com/moodynooby/fireMin"
   }
 }

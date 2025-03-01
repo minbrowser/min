@@ -1,5 +1,5 @@
-document.title = l('settingsPreferencesHeading') + ' | Min'
 
+document.title = l('settingsPreferencesHeading') + ' | FireMin'
 var contentTypeBlockingContainer = document.getElementById('content-type-blocking')
 var banner = document.getElementById('restart-required-banner')
 var siteThemeCheckbox = document.getElementById('checkbox-site-theme')
