@@ -27,6 +27,7 @@
     "goBack": "الرجوع الى الوراء",
     "goForward": "تقدم للامام",
     "inspectElement": "فحص العنصر",
+    "translatePage": null, // missing translation
     /* searchbar */
     "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation

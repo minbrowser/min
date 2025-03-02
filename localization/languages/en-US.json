@@ -27,6 +27,7 @@
     "goBack": "Go Back",
     "goForward": "Go Forward",
     "inspectElement": "Inspect Element",
+    "translatePage": "Translate Page",
     /* searchbar */
     "placesPluginOpenAgain": "Open Again",
     "placesPluginSwitchToTab": "Switch to Tab", // missing translation

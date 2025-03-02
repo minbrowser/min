@@ -27,7 +27,8 @@
       "goBack": "Назад",
       "goForward": "Наперад",
       "inspectElement": "Праверыць элемент",
-      /* searchbar */
+      "translatePage": null, // missing translation
+    /* searchbar */
       "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation
     "placesPluginSwitchToTask": null, // missing translation

@@ -1,244 +1,93 @@
 const webviews = require('webviews.js')
 const statistics = require('js/statistics.js')
-const settings = require('util/settings/settings.js')
 
 const pageTranslations = {
-  apiURL: 'https://translate-api.minbrowser.org/translate',
-  translatePrivacyInfo: 'When you translate a page, the page contents are sent to Min\'s servers. We don\'t save your translations or use them to identify you.',
   languages: [
     {
-      name: 'English',
       code: 'en'
     },
     {
-      name: 'Albanian',
-      code: 'sq'
-    },
-    {
-      name: 'Arabic',
-      code: 'ar'
-    },
-    {
-      name: 'Azerbaijani',
-      code: 'az'
-    },
-    {
-      name: 'Bengali',
-      code: 'bn'
-    },
-    {
-      name: 'Bulgarian',
       code: 'bg'
     },
     {
-      name: 'Catalan',
       code: 'ca'
     },
     {
-      name: 'Chinese',
-      code: 'zh'
-    },
-    {
-      name: 'Chinese (traditional)',
-      code: 'zt'
-    },
-    {
-      name: 'Czech',
       code: 'cs'
     },
     {
-      name: 'Danish',
       code: 'da'
     },
     {
-      name: 'Dutch',
-      code: 'nl'
-    },
-    {
-      name: 'Esperanto',
-      code: 'eo'
-    },
-    {
-      name: 'Estonian',
-      code: 'et'
-    },
-    {
-      name: 'Finnish',
-      code: 'fi'
-    },
-    {
-      name: 'French',
-      code: 'fr'
-    },
-    {
-      name: 'German',
       code: 'de'
     },
     {
-      name: 'Greek',
       code: 'el'
     },
     {
-      name: 'Hebrew',
-      code: 'he'
-    },
-    {
-      name: 'Hindi',
-      code: 'hi'
-    },
-    {
-      name: 'Hungarian',
-      code: 'hu'
-    },
-    {
-      name: 'Indonesian',
-      code: 'id'
-    },
-    {
-      name: 'Irish',
-      code: 'ga'
-    },
-    {
-      name: 'Italian',
-      code: 'it'
-    },
-    {
-      name: 'Japanese',
-      code: 'ja'
-    },
-    {
-      name: 'Korean',
-      code: 'ko'
-    },
-    {
-      name: 'Latvian',
-      code: 'lv'
-    },
-    {
-      name: 'Lithuanian',
-      code: 'lt'
-    },
-    {
-      name: 'Malay',
-      code: 'ms'
-    },
-    {
-      name: 'Norwegian',
-      code: 'nb'
-    },
-    {
-      name: 'Persian',
-      code: 'fa'
-    },
-    {
-      name: 'Polish',
-      code: 'pl'
-    },
-    {
-      name: 'Portuguese',
-      code: 'pt'
-    },
-    {
-      name: 'Romanian',
-      code: 'ro'
-    },
-    {
-      name: 'Russian',
-      code: 'ru'
-    },
-    {
-      name: 'Slovak',
-      code: 'sk'
-    },
-    {
-      name: 'Slovenian',
-      code: 'sl'
-    },
-    {
-      name: 'Spanish',
       code: 'es'
     },
     {
-      name: 'Swedish',
+      code: 'et'
+    },
+    {
+      code: 'fi'
+    },
+    {
+      code: 'fr'
+    },
+    {
+      code: 'hr'
+    },
+    {
+      code: 'id'
+    },
+    {
+      code: 'it'
+    },
+    {
+      code: 'nl'
+    },
+    {
+      code: 'pl'
+    },
+    {
+      code: 'pt'
+    },
+    {
+      code: 'ro'
+    },
+    {
+      code: 'sl'
+    },
+    {
       code: 'sv'
     },
     {
-      name: 'Tagalog',
-      code: 'tl'
-    },
-    {
-      name: 'Thai',
-      code: 'th'
-    },
-    {
-      name: 'Turkish',
       code: 'tr'
-    },
-    {
-      name: 'Ukranian',
-      code: 'uk'
     }
   ],
   getLanguageList: function () {
-    const userPrefs = navigator.languages.map(lang => lang.split('-')[0])
-    const topLangs = pageTranslations.languages.filter(lang => userPrefs.includes(lang.code))
+    const formatter = new Intl.DisplayNames([navigator.language], { type: 'language' })
+    const allLangs = pageTranslations.languages.map(lang => ({
+      name: formatter.of(lang.code),
+      code: lang.code
+    }))
 
-    // Translations to/from English are the highest quality in Libretranslate, so always show that near the top
+    const userPrefs = navigator.languages.map(lang => lang.split('-')[0])
+    const topLangs = allLangs.filter(lang => userPrefs.includes(lang.code))
+
+    // English is the base/pivot language in Bergamot, so always show that near the top
     if (!topLangs.some(lang => lang.code === 'en')) {
-      topLangs.push(pageTranslations.languages.find(lang => lang.code === 'en'))
+      topLangs.push(allLangs.find(lang => lang.code === 'en'))
     }
-    const otherLangs = pageTranslations.languages.filter(lang => !userPrefs.includes(lang.code) && lang.code !== 'en')
+    const otherLangs = allLangs.filter(lang => !userPrefs.includes(lang.code) && lang.code !== 'en')
     return [topLangs, otherLangs]
   },
   translateInto (tabId, language) {
     statistics.incrementValue('translatePage.' + language)
 
-    if (!settings.get('translatePrivacyPrompt')) {
-      const accepted = confirm(pageTranslations.translatePrivacyInfo)
-      if (accepted) {
-        settings.set('translatePrivacyPrompt', true)
-      } else {
-        return
-      }
-    }
     webviews.callAsync(tabId, 'send', ['translate-page', language])
-  },
-  makeTranslationRequest: async function (tab, data) {
-    const requestOptions = {
-      method: 'POST',
-      body: JSON.stringify({
-        q: data[0].query,
-        source: 'auto',
-        target: data[0].lang
-      }),
-      headers: { 'Content-Type': 'application/json' }
-    }
-
-    fetch(pageTranslations.apiURL, requestOptions)
-      .then(res => res.json())
-      .then(function (result) {
-        console.log(result)
-        webviews.callAsync(tab, 'send', ['translation-response-' + data[0].requestId, {
-          response: result
-        }])
-      })
-      .catch(function (e) {
-        // retry once
-        setTimeout(function () {
-          console.warn('retrying translation request')
-          fetch(pageTranslations.apiURL, requestOptions)
-            .then(res => res.json())
-            .then(function (result) {
-              console.log('after retry', result)
-              webviews.callAsync(tab, 'send', ['translation-response-' + data[0].requestId, {
-                response: result
-              }])
-            })
-        }, 5000)
-      })
-  },
-  initialize: function () {
-    webviews.bindIPC('translation-request', this.makeTranslationRequest)
   }
 }
 

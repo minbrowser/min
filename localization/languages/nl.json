@@ -27,6 +27,7 @@
     "goBack": "Ga terug",
     "goForward": "Ga verder",
     "inspectElement": "Inspecteer element",
+    "translatePage": null, // missing translation
     /* searchbar */
     "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation

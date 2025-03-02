@@ -27,6 +27,7 @@
     "goBack": "Tornar enrere",
     "goForward": "Anar endavant",
     "inspectElement": "Inspeccionar l'element",
+    "translatePage": null, // missing translation
     /* searchbar */
     "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation

@@ -27,6 +27,7 @@
     "goBack": "뒤로",
     "goForward": "앞으로",
     "inspectElement": "요소 검사",
+    "translatePage": null, // missing translation
     /* searchbar */
     "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation

@@ -27,7 +27,8 @@
       "goBack": "Πάνε πίσω",
       "goForward": "Πάνε εμπρός",
       "inspectElement": "Επιθεώρηση στοιχείου",
-      /* searchbar */
+      "translatePage": null, // missing translation
+    /* searchbar */
       "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation
     "placesPluginSwitchToTask": null, // missing translation

@@ -27,7 +27,8 @@
         "goBack": "Quay lại trang trước",
         "goForward": "Đi tiếp trang sau",
         "inspectElement": "Kiểm tra thành phần",
-        /* searchbar */
+        "translatePage": null, // missing translation
+    /* searchbar */
         "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation
     "placesPluginSwitchToTask": null, // missing translation
