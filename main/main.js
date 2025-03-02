@@ -232,9 +232,12 @@ function createWindowWithBounds (bounds, customArgs) {
   mainView.setBounds({x: 0, y: 0, width: bounds.width, height: bounds.height})
   newWin.contentView.addChildView(mainView)
 
-  newWin.on('resize', function() {
-    const winBounds = newWin.getContentBounds()
-    mainView.setBounds({x: 0, y: 0, width: winBounds.width, height: winBounds.height})
+  newWin.on('resize', function () {
+    // The result of getContentBounds doesn't update until the next tick
+    setTimeout(function () {
+      const winBounds = newWin.getContentBounds()
+      mainView.setBounds({x: 0, y: 0, width: winBounds.width, height: winBounds.height})
+    }, 0)
   })
 
   if (bounds.maximized) {
