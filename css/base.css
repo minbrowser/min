@@ -8,7 +8,7 @@
 }
 /* TODO figure out why the default focus color in Electron is orange */
 *:focus {
-  outline-color: #651012;
+  outline-color: #CB2023;
 }
 .dark-mode *:focus {
   outline-color: transparent;
@@ -38,7 +38,7 @@ html {
 }
 
 body.dark-mode {
-  background-color: rgb(33, 37, 43);
+  background-color: #1c1c1c;
   color: lightgrey;
 }
 

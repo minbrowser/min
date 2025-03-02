@@ -2,6 +2,17 @@ body,
 html {
   overflow: auto;
 }
+.zilla-slab-highlight {
+  font-family: "Zilla Slab Highlight", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.zilla-slab-highlight-bold {
+  font-family: "Zilla Slab Highlight", serif;
+  font-weight: 700;
+  font-style: normal;
+}
 
 .settings-info-subheading {
   opacity: 0.666;
@@ -9,14 +20,17 @@ html {
   margin-bottom: 1em;
 }
 
-.yellow-background {
-  background-color: rgb(250, 188, 43);
-}
 
 .short-hero {
-  position: absolute;
+  position: relative;
   overflow: hidden;
-  height: 0px;
+  top: 0;
+  width:100% ;
+  font-family: "Zilla Slab", serif;
+  align-items: center;
+  display: flex;
+  height: 10%;
+  
 }
 .gradient-background {
   background: linear-gradient(
@@ -137,6 +151,9 @@ html {
 
 #content-blocking-information {
   margin: 0.75em 0.5em 0 1.58em;
+  display: flex;
+  align-items: baseline;
+  align-self: flex-end;
 }
 
 #content-blocking-information textarea {
@@ -180,4 +197,60 @@ html {
   font-size: 1.5em !important;
   vertical-align: middle;
   margin-bottom: 0.2em;
+}
+.settings-nav {
+  position: fixed;
+  top: 120px;
+  left: 20px;
+  width: 250px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: var(--background-color);
+  font-family: "Zilla Slab", serif;
+}
+
+.settings-nav .nav-link {
+  color: var(--text-color);
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  margin-bottom: 0.25rem;
+}
+
+.settings-nav .nav-link:hover {
+  color: #CB2023;
+  background-color: rgba(203, 32, 35, 0.1);
+  border-radius: 15px;
+}
+
+.settings-nav .nav-link.active {
+  font-weight: 500;
+  color: #fff;
+  background-color: #CB2023;
+  border-radius: 15px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .settings-nav {
+    background: #1c1c1c;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  .settings-nav .nav-link {
+    color: #e0e0e0;
+  }
+  
+  .settings-nav .nav-link:hover {
+    background-color: rgba(203, 32, 35, 0.2);
+  }
+}
+.settings-content {
+  margin-left: 280px;
+  padding: 20px;
+}
+.settings-container {
+  scroll-margin-top: 2rem;
+  padding: 20px;
+  margin-bottom: 30px;
 }

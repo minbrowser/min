@@ -12,15 +12,7 @@ var autoPlayCheckbox = document.getElementById('checkbox-enable-autoplay')
 var userAgentCheckbox = document.getElementById('checkbox-user-agent')
 var userAgentInput = document.getElementById('input-user-agent')
 
-function showRestartRequiredBanner () {
-  banner.hidden = false
-  settings.set('restartNow', true)
-}
-settings.get('restartNow', (value) => {
-  if (value === true) {
-    showRestartRequiredBanner()
-  }
-})
+
 
 /* content blocking settings */
 
@@ -204,36 +196,77 @@ settings.get('darkMode', function (value) {
   }
   
   // Set radio button states based on numeric value
-  darkModeNever.checked = (value === 2);
+  darkModeNever.checked = (value === -1);
   darkModeNight.checked = (value === 0);
-  darkModeAlways.checked = (value === 2);
+  darkModeAlways.checked = (value === 1);
   darkModeSystem.checked = (value === 2 || value === undefined);
+
+  // Update Bootstrap theme
+  updateBootstrapTheme(value);
 });
 
-// Event listeners for radio button changes
+// Add function to update Bootstrap theme
+function updateBootstrapTheme(mode) {
+  const html = document.documentElement;
+  
+  if (mode === 1) { // Always dark
+    html.setAttribute('data-bs-theme', 'dark');
+  } else if (mode === -1) { // Never dark
+    html.setAttribute('data-bs-theme', 'light');
+  } else if (mode === 0) { // Auto (night mode)
+    const hours = new Date().getHours();
+    html.setAttribute('data-bs-theme', (hours >= 20 || hours <= 6) ? 'dark' : 'light');
+  } else { // System (mode === 2 or undefined)
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      html.setAttribute('data-bs-theme', 'dark');
+    } else {
+      html.setAttribute('data-bs-theme', 'light');
+    }
+  }
+}
+
+// Update event listeners to call updateBootstrapTheme
 darkModeNever.addEventListener('change', function (e) {
   if (this.checked) {
     settings.set('darkMode', -1);
+    updateBootstrapTheme(-1);
   }
 });
 
 darkModeNight.addEventListener('change', function (e) {
   if (this.checked) {
     settings.set('darkMode', 0);
+    updateBootstrapTheme(0);
   }
 });
 
 darkModeAlways.addEventListener('change', function (e) {
   if (this.checked) {
     settings.set('darkMode', 1);
+    updateBootstrapTheme(1);
   }
 });
 
 darkModeSystem.addEventListener('change', function (e) {
   if (this.checked) {
     settings.set('darkMode', 2);
+    updateBootstrapTheme(2);
   }
 });
+
+// Add system theme change listener
+if (window.matchMedia) {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    if (darkModeSystem.checked) {
+      updateBootstrapTheme(2);
+    }
+  });
+}
+
+// For auto mode (night mode), update theme every minute
+if (darkModeNight.checked) {
+  setInterval(() => updateBootstrapTheme(0), 60000);
+}
 /* site theme setting */
 
 settings.get('siteTheme', function (value) {
@@ -629,61 +662,128 @@ document.getElementById('add-custom-bang').addEventListener('click', function ()
   bangslist.appendChild(createBang())
 })
 
-function createBang (bang, snippet, redirect) {
-  var li = document.createElement('li')
-  var bangInput = document.createElement('input')
-  var snippetInput = document.createElement('input')
-  var redirectInput = document.createElement('input')
-  var xButton = document.createElement('button')
-  var current = { phrase: bang ?? '', snippet: snippet ?? '', redirect: redirect ?? '' }
-  function update (key, input) {
-    settings.get('customBangs', function (d) {
-      const filtered = d ? d.filter((bang) => bang.phrase !== current.phrase && (key !== 'phrase' || bang.phrase !== input.value)) : []
-      filtered.push({ phrase: bangInput.value, snippet: snippetInput.value, redirect: redirectInput.value })
-      settings.set('customBangs', filtered)
+// ... existing code ...
+
+function createBang(bang, snippet, redirect) {
+  const li = document.createElement('li')
+  li.className = 'custom-bang-item mb-3 p-3 border rounded'
+
+  // Create inputs with Bootstrap classes
+  const bangInput = document.createElement('input')
+  bangInput.className = 'form-control mb-2'
+  bangInput.type = 'text'
+  bangInput.placeholder = l('settingsCustomBangsPhrase')
+  bangInput.value = bang ?? ''
+
+  const snippetInput = document.createElement('input')
+  snippetInput.className = 'form-control mb-2'
+  snippetInput.type = 'text'
+  snippetInput.placeholder = l('settingsCustomBangsSnippet')
+  snippetInput.value = snippet ?? ''
+
+  const redirectInput = document.createElement('input')
+  redirectInput.className = 'form-control mb-2'
+  redirectInput.type = 'text'
+  redirectInput.placeholder = l('settingsCustomBangsRedirect')
+  redirectInput.value = redirect ?? ''
+
+  const xButton = document.createElement('button')
+  xButton.className = 'btn btn-danger btn-sm'
+  xButton.innerHTML = '<i class="i carbon:close"></i> Remove'
+
+  const current = { phrase: bang ?? '', snippet: snippet ?? '', redirect: redirect ?? '' }
+
+  function update(key, input) {
+    settings.get('customBangs', function(d) {
+      let bangs = d || []
+      // Remove the current bang from the list
+      bangs = bangs.filter(b => b.phrase !== current.phrase)
+      // Add the updated bang
+      bangs.push({
+        phrase: bangInput.value,
+        snippet: snippetInput.value,
+        redirect: redirectInput.value
+      })
+      settings.set('customBangs', bangs)
       current[key] = input.value
+      showRestartRequiredBanner()
     })
   }
 
-  bangInput.type = 'text'
-  snippetInput.type = 'text'
-  redirectInput.type = 'text'
-  bangInput.value = bang ?? ''
-  snippetInput.value = snippet ?? ''
-  redirectInput.value = redirect ?? ''
-  xButton.className = 'i carbon:close custom-bang-delete-button'
-
-  bangInput.placeholder = l('settingsCustomBangsPhrase')
-  snippetInput.placeholder = l('settingsCustomBangsSnippet')
-  redirectInput.placeholder = l('settingsCustomBangsRedirect')
-  xButton.addEventListener('click', function () {
-    li.remove()
-    settings.get('customBangs', (d) => {
-      settings.set('customBangs', d.filter((bang) => bang.phrase !== bangInput.value))
-    })
-    showRestartRequiredBanner()
-  })
-
-  bangInput.addEventListener('change', function () {
+  // Event listeners
+  bangInput.addEventListener('change', function() {
     if (this.value.startsWith('!')) {
       this.value = this.value.slice(1)
     }
-    update('phrase', bangInput)
-    showRestartRequiredBanner()
-  })
-  snippetInput.addEventListener('change', function () {
-    update('snippet', snippetInput)
-    showRestartRequiredBanner()
-  })
-  redirectInput.addEventListener('change', function () {
-    update('redirect', redirectInput)
-    showRestartRequiredBanner()
+    update('phrase', this)
   })
 
+  snippetInput.addEventListener('change', function() {
+    update('snippet', this)
+  })
+
+  redirectInput.addEventListener('change', function() {
+    update('redirect', this)
+  })
+
+  xButton.addEventListener('click', function() {
+    settings.get('customBangs', function(d) {
+      const bangs = (d || []).filter(b => b.phrase !== bangInput.value)
+      settings.set('customBangs', bangs)
+      li.remove()
+      showRestartRequiredBanner()
+    })
+  })
+
+  // Create labels
+  const bangLabel = document.createElement('label')
+  bangLabel.textContent = 'Bang Trigger (e.g., w for !w)'
+  bangLabel.className = 'form-label'
+
+  const snippetLabel = document.createElement('label')
+  snippetLabel.textContent = 'Snippet (optional)'
+  snippetLabel.className = 'form-label'
+
+  const redirectLabel = document.createElement('label')
+  redirectLabel.textContent = 'Redirect URL (use %s for search term)'
+  redirectLabel.className = 'form-label'
+
+  // Append elements
+  li.appendChild(bangLabel)
   li.appendChild(bangInput)
+  li.appendChild(snippetLabel)
   li.appendChild(snippetInput)
+  li.appendChild(redirectLabel)
   li.appendChild(redirectInput)
   li.appendChild(xButton)
 
   return li
 }
+
+// Update the add button to use Bootstrap classes
+document.getElementById('add-custom-bang').className = 'btn  mt-3'
+
+// Initialize custom bangs
+settings.get('customBangs', (value) => {
+  const bangslist = document.getElementById('custom-bangs')
+  bangslist.className = 'list-unstyled' // Add Bootstrap class
+
+  if (value && Array.isArray(value)) {
+    value.forEach(function(bang) {
+      bangslist.appendChild(createBang(bang.phrase, bang.snippet, bang.redirect))
+    })
+  }
+})
+
+// Replace the showRestartRequiredBanner function
+function showRestartRequiredBanner() {
+  const modal = new bootstrap.Modal(document.getElementById('restart-required-banner'))
+  modal.show()
+  settings.set('restartNow', true)
+}
+
+// Add this after the existing settings.get('restartNow') code
+document.getElementById('restart-now').addEventListener('click', function() {
+  // Add your restart logic here
+  postMessage({ message: 'restartNow' })
+})
