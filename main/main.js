@@ -338,6 +338,7 @@ function createWindowWithBounds (bounds, customArgs) {
   return newWin
 }
 
+let newWin = null
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function () {
@@ -352,7 +353,9 @@ app.on('ready', function () {
 
   registerBundleProtocol(session.defaultSession)
 
-  const newWin = createWindow()
+  newWin = createWindow()
+
+  if (settings.get('openContentProtection')) newWin.setContentProtection(true)
 
   getWindowWebContents(newWin).on('did-finish-load', function () {
     // if a URL was passed as a command line argument (probably because Min is set as the default browser on Linux), open it.
@@ -490,6 +493,11 @@ app.once('ready', function() {
 
 ipc.on('places-connect', function (e) {
   placesWindow.webContents.postMessage('places-connect', null, e.ports)
+})
+
+ipc.on('openContentProtection', function (e, data) {
+  newWin.setContentProtection(data)
+  placesWindow.setContentProtection(data)
 })
 
 function getWindowWebContents (win) {
