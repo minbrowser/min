@@ -11,6 +11,7 @@ module.exports = {
     bangsPlugin.registerCustomBang({
       phrase: '!history',
       snippet: l('searchHistory'),
+      icon: 'carbon:recently-viewed',
       isAction: false,
       showSuggestions: async function (text, input, event) {
         const results = await places.searchPlaces(text, { limit: Infinity })
