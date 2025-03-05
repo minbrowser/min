@@ -37,7 +37,7 @@
       "suggestedSite": "Προτεινόμενη ιστοσελίδα", //this is used to label suggested websites from the DuckDuckGo API,
       "resultsFromDDG": "Αναζητήσεις απο την DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
       "taskN": "Εργασία %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-      /* custom !bangs
+      /* custom commands
           these are some of the items that show up when you press ! in the searchbar.
           Each one of these strings describes what the command will do when you run it. */
       "showMoreBangs": "Δείτε περισσότερα",
@@ -146,8 +146,8 @@
       "settingsBlockedRequestCount": {
         "unsafeHTML": "Μέχρι στιγμής, το Min έχει αποκλέισει <strong></strong> διαφημίσει και trackers."
       },
-      "settingsCustomBangs": "Προσαρμοσμένα bangs",
-      "settingsCustomBangsAdd": "Προσθήκη προσαρμοσμένου bang",
+      "settingsCustomBangs": null, // Missing translation
+      "settingsCustomBangsAdd": null, // Missing translation
       "settingsCustomBangsPhrase": "Φράση (Υποχρεωτικά)",
       "settingsCustomBangsSnippet": "Περιγραφή (Προαιρετικά)",
       "settingsCustomBangsRedirect": "URL για ανακατεύθυνση (Υποχρεωτικά)",

@@ -37,7 +37,7 @@
     "suggestedSite": "Предложенный сайт", //this is used to label suggested websites from the DuckDuckGo API,
     "resultsFromDDG": "Результаты из DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
     "taskN": "Задача %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-    /* custom !bangs
+    /* custom commands
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
     "showMoreBangs": "Показать больше",
@@ -146,8 +146,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "На данный момент Min заблокировал <strong></strong> объявлений и трекеров"
     },
-    "settingsCustomBangs": "Пользовательские bangs",
-    "settingsCustomBangsAdd": "Добавить собственный bang",
+    "settingsCustomBangs": null, // Missing translation
+    "settingsCustomBangsAdd": null, // Missing translation
     "settingsCustomBangsPhrase": "Фраза (обязательно)",
     "settingsCustomBangsSnippet": "Описание (необязательно)",
     "settingsCustomBangsRedirect": "URL перенаправления (обязательно)",

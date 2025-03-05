@@ -37,7 +37,7 @@
     "suggestedSite": "แนะนำไซต์", //this is used to label suggested websites from the DuckDuckGo API,
     "resultsFromDDG": "ผลลัพธ์จาก DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
     "taskN": "งาน %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-    /* custom !bangs
+    /* custom commands
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
     "showMoreBangs": "แสดงเพิ่มเติม",
@@ -146,8 +146,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "จนถึงตอนนี้ มินได้บล็อก <strong></strong> โฆษณาและตัวติดตามได้แล้ว"
     },
-    "settingsCustomBangs": "กำหนดค่าเครื่องหมายตกใจเอง",
-    "settingsCustomBangsAdd": "เพิ่มการกำหนดค่าเครื่องหมายตกใจเอง",
+    "settingsCustomBangs": null, // Missing translation
+    "settingsCustomBangsAdd": null, // Missing translation
     "settingsCustomBangsPhrase": "วลี (จำเป็น)",
     "settingsCustomBangsSnippet": "คำอธิบาย (ไม่บังคับ)",
     "settingsCustomBangsRedirect": "URL ที่เปลี่ยนเส้นทาง (จำเป็น)",

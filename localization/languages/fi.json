@@ -37,7 +37,7 @@
     "suggestedSite": "Ehdotettu sivu", //this is used to label suggested websites from the DuckDuckGo API,
     "resultsFromDDG": "Tulokset DuckDuckGo:sta", //this is used as a label to indicate which results come from DuckDuckGo's API
     "taskN": "Tehtävä %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-    /* custom !bangs
+    /* custom commands
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
     "showMoreBangs": "Näytä lisää",
@@ -146,8 +146,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Tähän mennessä Min on estänyt <strong></strong> mainosta ja seurainta."
     },
-    "settingsCustomBangs": "Mukautetut bangit",
-    "settingsCustomBangsAdd": "Lisää mukautettu bang",
+    "settingsCustomBangs": null, // Missing translation
+    "settingsCustomBangsAdd": null, // Missing translation
     "settingsCustomBangsPhrase": "Lause (pakollinen)",
     "settingsCustomBangsSnippet": "Kuvaus (valinnainen)",
     "settingsCustomBangsRedirect": "Uudelleenohjaa URL (pakollinen)",

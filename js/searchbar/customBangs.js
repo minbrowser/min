@@ -1,4 +1,4 @@
-/* list of the available custom !bangs */
+/* list of the available custom commands */
 
 const { ipcRenderer } = require('electron')
 const fs = require('fs')

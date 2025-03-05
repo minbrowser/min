@@ -37,7 +37,7 @@
     "suggestedSite": "建議網站", //this is used to label suggested websites from the DuckDuckGo API,
     "resultsFromDDG": "來自 DuckDuckGo 的結果", //this is used as a label to indicate which results come from DuckDuckGo's API
     "taskN": "工作 %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-    /* custom !bangs
+    /* custom commands
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
     "showMoreBangs": "顯示更多",
@@ -146,8 +146,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "到目前為止，Min 已經封鎖了 <strong></strong> 個廣告和追蹤器"
     },
-    "settingsCustomBangs": "自訂 Bang",
-    "settingsCustomBangsAdd": "新增自訂 Bang",
+    "settingsCustomBangs": null, // Missing translation
+    "settingsCustomBangsAdd": null, // Missing translation
     "settingsCustomBangsPhrase": "指令 (必填)",
     "settingsCustomBangsSnippet": "描述 (可選)",
     "settingsCustomBangsRedirect": "網址 (必填)",

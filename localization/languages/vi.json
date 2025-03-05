@@ -37,7 +37,7 @@
         "suggestedSite": "Các đề xuất", //this is used to label suggested websites from the DuckDuckGo API,
         "resultsFromDDG": "Kết quả từ DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
         "taskN": "Tác vụ %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-        /* custom !bangs
+        /* custom commands
             these are some of the items that show up when you press ! in the searchbar.
             Each one of these strings describes what the command will do when you run it. */
         "showMoreBangs": "Xem nhiều hơn",
@@ -139,8 +139,8 @@
         "settingsBlockedRequestCount": {
             "unsafeHTML": "Đến hiện tại, Min đã chặn <strong></strong> quảng cáo và bộ theo dõi"
         },
-        "settingsCustomBangs": "Lệnh tùy chỉnh",
-        "settingsCustomBangsAdd": "Thêm mới",
+        "settingsCustomBangs": null, // Missing translation
+        "settingsCustomBangsAdd": null, // Missing translation
         "settingsCustomBangsPhrase": "Cú pháp (Bắt buộc)",
         "settingsCustomBangsSnippet": "Mô tả (Tùy chọn)",
         "settingsCustomBangsRedirect": "Đường dẫn chuyển hướng (Bắt buộc)",
