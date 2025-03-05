@@ -609,7 +609,9 @@ settings.get('customBangs', (value) => {
 
 document.getElementById('add-custom-bang').addEventListener('click', function () {
   const bangslist = document.getElementById('custom-bangs')
-  bangslist.appendChild(createBang())
+  const newListItem = createBang()
+  bangslist.appendChild(newListItem)
+  document.body.scrollBy(0, Math.round(newListItem.getBoundingClientRect().height))
 })
 
 function createBang (bang, snippet, redirect) {

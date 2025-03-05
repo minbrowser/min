@@ -161,14 +161,22 @@ html {
   list-style: none;
 }
 
+#custom-bangs li {
+  padding: 0.25em 0;
+}
+
 #custom-bangs input {
   margin-right: 0.5em;
   width: 28%;
   max-width: 225px;
+  padding: 0.2em;
 }
 
 #add-custom-bang {
-  padding: 0.1em 0.25em;
+  margin-top: 0.25em;
+  padding: 0.25em 0.5em;
+  border: 1px #999 solid;
+  border-radius: 3px;
 }
 
 #add-custom-bang:hover {
