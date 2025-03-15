@@ -55,17 +55,25 @@ window.addEventListener('message', async function (e) {
 
       if (e.data.type === 'translation-request') {
         const responses = []
-        const originLang = iso6393To1Mapping[franc(e.data.query.join(' '))]
+        const requestLang = iso6393To1Mapping[franc(e.data.query.join(' '))]
 
         for (const entry of e.data.query) {
-          const response = await translator.translate({
-            from: originLang,
-            to: e.data.lang,
-            text: entry,
-            html: false,
-            qualityScores: false
-          })
-          responses.push(response.target.text)
+          let entryLang = requestLang
+          if (entry.length > 200) {
+            entryLang = iso6393To1Mapping[franc(entry)]
+          }
+          try {
+            const response = await translator.translate({
+              from: entryLang,
+              to: e.data.lang,
+              text: entry,
+              html: false,
+              qualityScores: false
+            })
+            responses.push(response.target.text)
+          } catch (e) {
+            responses.push(entry)
+          }
         }
         port.postMessage({
           type: 'translation-response',

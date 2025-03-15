@@ -1,4 +1,4 @@
-const maxCharsToTranslate = 50000
+const maxCharsToTranslate = 200000
 
 function isVisible (el) {
   // https://github.com/jquery/jquery/blob/305f193aa57014dc7d8fa0739a3fefd47166cd44/src/css/hiddenVisibleSelectors.js
