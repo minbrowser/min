@@ -229,16 +229,6 @@ function createWindowWithBounds (bounds, customArgs) {
     }
   })
   mainView.webContents.loadURL(browserPage)
-  mainView.setBounds({x: 0, y: 0, width: bounds.width, height: bounds.height})
-  newWin.contentView.addChildView(mainView)
-
-  newWin.on('resize', function () {
-    // The result of getContentBounds doesn't update until the next tick
-    setTimeout(function () {
-      const winBounds = newWin.getContentBounds()
-      mainView.setBounds({x: 0, y: 0, width: winBounds.width, height: winBounds.height})
-    }, 0)
-  })
 
   if (bounds.maximized) {
     newWin.maximize()
@@ -247,6 +237,25 @@ function createWindowWithBounds (bounds, customArgs) {
       sendIPCToWindow(newWin, 'maximize')
     })
   }
+
+  const winBounds = newWin.getContentBounds()
+
+  mainView.setBounds({x: 0, y: 0, width: winBounds.width, height: winBounds.height})
+  newWin.contentView.addChildView(mainView)
+
+  // sometimes getContentBounds doesn't provide correct bounds until after the window has finished loading
+  mainView.webContents.once('did-finish-load', function () {
+    const winBounds = newWin.getContentBounds()
+    mainView.setBounds({x: 0, y: 0, width: winBounds.width, height: winBounds.height})
+  })
+
+  newWin.on('resize', function () {
+    // The result of getContentBounds doesn't update until the next tick
+    setTimeout(function () {
+      const winBounds = newWin.getContentBounds()
+      mainView.setBounds({x: 0, y: 0, width: winBounds.width, height: winBounds.height})
+    }, 0)
+  })
 
   newWin.on('close', function () {
     // save the window size for the next launch of the app
