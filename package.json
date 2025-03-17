@@ -4,7 +4,7 @@
   "author": "Manas",
   "version": "1.34.1",
   "description": "The Fun & Merry Browser That Puts You First! 🎉",
-  "electronVersion": "34.3.3",
+  "electronVersion": "34.2.0",
   "main": "main.build.js",
   "standard": {
     "globals": [
@@ -29,9 +29,9 @@
     ]
   },
   "dependencies": {
-    "@browsermt/bergamot-translator": "^0.4.9",
     "@electron/fuses": "^1.7.0",
-    "bootstrap": "^5.3.3",
+    "bootstrap": "5.3.3",
+    "bootstrap-icons": "^1.11.3",
     "chokidar": "^3.6.0",
     "dexie": "^3.0.3",
     "dragula": "github:minbrowser/dragula",
@@ -50,6 +50,7 @@
     "archiver": "^4.0.1",
     "browserify": "^16.5.1",
     "concurrently": "^5.2.0",
+    "daisyui": "^4.12.23",
     "decomment": "^0.9.0",
     "electron": "34.2.0",
     "electron-builder": "^24.13.3",
@@ -86,6 +87,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/moodynooby/fireMin.git"
+    "url": "https://github.com/moodynooby/fireMin"
   }
 }

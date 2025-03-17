@@ -27,6 +27,8 @@ const modules = [
 ]
 
 function buildMain () {
+  // build localization support first, since it is included in the bundle
+  require('./buildLocalization.js')()
 
   /* concatenate modules */
   let output = ''
