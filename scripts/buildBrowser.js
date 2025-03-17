@@ -15,8 +15,6 @@ const fileList = [
 ]
 
 function buildBrowser () {
-  // build localization support first, since it is included in the browser bundle
-  require('./buildLocalization.js')()
 
   /* concatenate legacy modules */
   let output = ''
