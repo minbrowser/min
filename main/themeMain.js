@@ -50,6 +50,10 @@ function themeSettingsChanged (value) {
 app.on('ready', function () {
   settings.listen('darkMode', themeSettingsChanged)
 
+  if (settings.get('darkThemeIsActive') !== nativeTheme.shouldUseDarkColors) {
+    settings.set('darkThemeIsActive', nativeTheme.shouldUseDarkColors)
+  }
+
   nativeTheme.on('updated', function () {
     settings.set('darkThemeIsActive', nativeTheme.shouldUseDarkColors)
   })
