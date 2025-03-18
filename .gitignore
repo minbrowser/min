@@ -7,4 +7,4 @@ main.build.js
 .DS_Store
 package-lock.json
 yarn.lock
-bun.lock
+/tools
