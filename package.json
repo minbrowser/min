@@ -4,7 +4,7 @@
   "author": "Manas",
   "version": "1.34.1",
   "description": "The Fun & Merry Browser That Puts You First! 🎉",
-  "electronVersion": "34.2.0",
+  "electronVersion": "35.0.2",
   "main": "main.build.js",
   "standard": {
     "globals": [
@@ -52,7 +52,7 @@
     "concurrently": "^5.2.0",
     "daisyui": "^4.12.23",
     "decomment": "^0.9.0",
-    "electron": "34.2.0",
+    "electron": "35.0.2",
     "electron-builder": "^24.13.3",
     "electron-installer-windows": "^3.0.0",
     "electron-renderify": "0.0.2",
