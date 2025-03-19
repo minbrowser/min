@@ -1,10 +1,11 @@
-/* global db Dexie */
+/* global db Dexie historyInMemoryCache calculateHistoryScore */
 
 const stemmer = require('stemmer')
 
 const whitespaceRegex = /\s+/g
-
 const ignoredCharactersRegex = /[']+/g
+// Define the missing nonLetterRegex
+const nonLetterRegex = /[^a-zA-Z0-9\-_]/g
 
 // stop words list from https://github.com/weixsong/elasticlunr.js/blob/master/lib/stop_word_filter.js
 const stopWords = {
@@ -131,72 +132,88 @@ const stopWords = {
 }
 
 /* this is used in placesWorker.js when a history item is created */
-function tokenize (string) {
+function tokenize(string) {
+  if (!string || typeof string !== 'string') return []
+  
   return string.trim().toLowerCase()
     .replace(ignoredCharactersRegex, '')
     .replace(nonLetterRegex, ' ')
   // remove diacritics
   // https://stackoverflow.com/a/37511463
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .split(whitespaceRegex).filter(function (token) {
-      return !stopWords[token] && token.length <= 100
-    })
+    .split(whitespaceRegex)
+    .filter(token => !stopWords[token] && token.length <= 100)
     .map(token => stemmer(token))
     .slice(0, 20000)
 }
 
+// Cache for recent search results to improve performance
+const searchCache = new Map()
+const CACHE_MAX_SIZE = 50
+const CACHE_EXPIRY_MS = 5 * 60 * 1000 // 5 minutes
+
 // finds the documents that contain all of the prefixes in their searchIndex
-// code from https://github.com/dfahlander/Dexie.js/issues/281
-function fullTextQuery (tokens) {
-  return db.transaction('r', db.places, function * () {
-    // Parallell search for all tokens - just select resulting primary keys
+function fullTextQuery(tokens) {
+  // Check cache first
+  const cacheKey = tokens.sort().join('|')
+  if (searchCache.has(cacheKey)) {
+    const cached = searchCache.get(cacheKey)
+    if (Date.now() - cached.timestamp < CACHE_EXPIRY_MS) {
+      return Promise.resolve(cached.result)
+    }
+    searchCache.delete(cacheKey) // Expired cache entry
+  }
+
+  const queryPromise = db.transaction('r', db.places, function* () {
+    // Parallel search for all tokens - just select resulting primary keys
     const tokenMatches = yield Dexie.Promise.all(tokens.map(prefix => db.places
       .where('searchIndex')
       .equals(prefix)
       .primaryKeys()))
 
-    // count of the number of documents containing each token, used for tf-idf calculation
+    // count of the number of documents containing each token
+    const tokenMatchCounts = tokens.reduce((counts, token, i) => {
+      counts[token] = tokenMatches[i].length
+      return counts
+    }, {})
 
-    var tokenMatchCounts = {}
-    for (var i = 0; i < tokens.length; i++) {
-      tokenMatchCounts[tokens[i]] = tokenMatches[i].length
-    }
+    const docResults = []
 
-    var docResults = []
-
-    /*
-    A document matches if each search token is either 1) contained in the title, URL, or tags,
-    even if it's part of a larger word, or 2) a word in the full-text index.
-     */
-    historyInMemoryCache.forEach(function (item) {
-      var itext = (item.url + ' ' + item.title + ' ' + item.tags.join(' ')).toLowerCase()
-      var matched = true
-      for (var i = 0; i < tokens.length; i++) {
-        if (!tokenMatches[i].includes(item.id) && !itext.includes(tokens[i])) {
-          matched = false
-          break
-        }
-      }
+    // A document matches if each search token is either in the title, URL, tags, or full-text index
+    historyInMemoryCache.forEach(item => {
+      const itext = `${item.url} ${item.title} ${item.tags.join(' ')}`.toLowerCase()
+      const matched = tokens.every((token, i) => 
+        tokenMatches[i].includes(item.id) || itext.includes(token)
+      )
+      
       if (matched) {
         docResults.push(item)
       }
     })
 
-    /* Finally select entire documents from intersection.
-    To improve perf, we only read the full text of 100 documents for ranking,
-     but this could mean we miss relevant documents. So sort them based on page
-     score (recency + visit count) and then only read the 100 highest-ranking ones,
-     since these are most likely to be in the final results.
-    */
-    const ordered = docResults.sort(function (a, b) {
-      return calculateHistoryScore(b) - calculateHistoryScore(a)
-    }).map(i => i.id).slice(0, 100)
+    // Sort by page score and limit to top 100
+    const ordered = docResults
+      .sort((a, b) => calculateHistoryScore(b) - calculateHistoryScore(a))
+      .map(i => i.id)
+      .slice(0, 100)
 
-    return {
+    const result = {
       documents: yield db.places.where('id').anyOf(ordered).toArray(),
       tokenMatchCounts
     }
+    
+    // Store in cache
+    if (searchCache.size >= CACHE_MAX_SIZE) {
+      // Remove oldest entry
+      const oldestKey = searchCache.keys().next().value
+      searchCache.delete(oldestKey)
+    }
+    searchCache.set(cacheKey, { result, timestamp: Date.now() })
+    
+    return result
   })
+
+  return queryPromise
 }
 
 function fullTextPlacesSearch (searchText, callback) {
