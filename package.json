@@ -43,7 +43,7 @@
     "quick-score": "^0.2.0",
     "regedit": "^3.0.3",
     "sortablejs": "^1.15.1",
-    "stemmer": "^1.0.5",
+    "stemmer": "^2.0.1",
     "write-file-atomic": "^6.0.0"
   },
   "devDependencies": {
@@ -56,6 +56,7 @@
     "electron-builder": "^24.13.3",
     "electron-installer-windows": "^3.0.0",
     "electron-renderify": "0.0.2",
+    "eslint": "^9.22.0",
     "prebuild-install": "^7.0.1",
     "prettier": "^2.2.1",
     "snazzy": "^9.0.0",
