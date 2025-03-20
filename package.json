@@ -57,7 +57,7 @@
     "electron-installer-windows": "^3.0.0",
     "electron-renderify": "0.0.2",
     "eslint": "^9.22.0",
-    "prebuild-install": "^7.0.1",
+    "prebuild-install": "^7.1.3",
     "prettier": "^2.2.1",
     "snazzy": "^9.0.0",
     "standard": "^14.3.4"
