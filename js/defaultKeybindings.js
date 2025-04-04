@@ -5,6 +5,10 @@ var focusMode = require('focusMode.js')
 var modalMode = require('modalMode.js')
 var tabEditor = require('navbar/tabEditor.js')
 var urlParser = require('util/urlParser.js')
+var keyMapModule = require('util/keyMap.js')
+var settings = require('util/settings/settings.js')
+
+var keyMap = keyMapModule.userKeyMap(settings.get('keyMap'))
 
 const defaultKeybindings = {
   initialize: function () {
@@ -113,17 +117,13 @@ const defaultKeybindings = {
 
     for (var i = 1; i < 9; i++) {
       (function (i) {
-        keybindings.defineShortcut({ keys: 'mod+' + i }, function (e) {
-          var currentIndex = tabs.getIndex(tabs.getSelected())
-          var newTab = tabs.getAtIndex(currentIndex + i) || tabs.getAtIndex(currentIndex - i)
-          if (newTab) {
-            browserUI.switchToTab(newTab.id)
-          }
-        })
+        // cmd+1 switched to the next tab in versions <= 1.34. If it is set as a custom shortcut to match this behavior, don't register the default shortcut.
+        if (i === 1 && (keyMap.switchToNextTab === 'mod+1' || (keyMap.switchToNextTab instanceof Array && keyMap.switchToNextTab.includes('mod+1')))) {
+          return
+        }
 
-        keybindings.defineShortcut({ keys: 'shift+mod+' + i }, function (e) {
-          var currentIndex = tabs.getIndex(tabs.getSelected())
-          var newTab = tabs.getAtIndex(currentIndex - i) || tabs.getAtIndex(currentIndex + i)
+        keybindings.defineShortcut({ keys: 'mod+' + i }, function (e) {
+          var newTab = tabs.getAtIndex(i - 1)
           if (newTab) {
             browserUI.switchToTab(newTab.id)
           }

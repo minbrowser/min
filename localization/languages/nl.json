@@ -23,20 +23,21 @@
     "cut": "Knippen",
     "copy": "Kopiëren", //this is a verb (as in "copy the currently-selected text")
     "paste": "Plakken",
-    "pasteAndMatchStyle": null, //missing translation
+    "pasteAndMatchStyle": "Plakken zonder opmaak",
     "goBack": "Ga terug",
     "goForward": "Ga verder",
     "inspectElement": "Inspecteer element",
+    "translatePage": "Vertaal pagina", 
     /* searchbar */
-    "placesPluginOpenAgain": null, // missing translation
-    "placesPluginSwitchToTab": null, // missing translation
-    "placesPluginSwitchToTask": null, // missing translation
+    "placesPluginOpenAgain": "Opnieuw openen", 
+    "placesPluginSwitchToTab": "Overschakelen naar tabblad",
+    "placesPluginSwitchToTask": "Overschakelen naar \"%t\"", 
     "pasteAndGo": "Plakken en bezoeken", //context menu item
     "DDGAnswerSubtitle": "Antwoord", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
     "suggestedSite": "Voorgestelde site", //this is used to label suggested websites from the DuckDuckGo API,
     "resultsFromDDG": "Resultaten van DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
     "taskN": "Taak %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-    /* custom !bangs
+    /* custom commands
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
     "showMoreBangs": "Zie meer",
@@ -79,7 +80,7 @@
       "unsafeHTML": "Taak verwijderd. <a>Ongedaan maken?</a>"
     },
     "tasksSearchTabs": "Zoek in tabbladen",
-    "returnToTask": "Ga terug naar de vorig taak",
+    "returnToTask": "Ga terug naar de vorige taak",
     "taskDescriptionTwo": "%t en %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
     "taskDescriptionThree": "%t, %t, en %n meer", //used to describe a task that has three or more tabs
     /* find in page toolbar */
@@ -145,8 +146,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Tot nu toe heeft Min <strong></strong> advertenties en trackers geblokkeerd."
     },
-    "settingsCustomBangs": "Aangepaste bangs",
-    "settingsCustomBangsAdd": "Voeg een bang toe",
+    "settingsCustomBangs": null, // Missing translation
+    "settingsCustomBangsAdd": null, // Missing translation
     "settingsCustomBangsPhrase": "Zin (Vereist)",
     "settingsCustomBangsSnippet": "Beschrijving (Optioneel)",
     "settingsCustomBangsRedirect": "Doorstuur URL (Vereist)",
@@ -161,14 +162,14 @@
     "settingsAdditionalFeaturesHeading": "Extra functies",
     "settingsUserscriptsToggle": "Schakel gebruikerscripten in",
     "settingsShowDividerToggle": "Scheiding tussen tabbladen tonen",
-    "settingsLanguageSelection": null, //missing translation
+    "settingsLanguageSelection": "Taal: ",
     "settingsSeparateTitlebarToggle": "Gebruik aparte titelbalk",
     "settingsAutoplayToggle": "Automatisch afspelen inschakelen",
     "settingsOpenTabsInForegroundToggle": "Open nieuwe tabbladen op de voorgrond",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Gebruikersscripten kunt u gebruiken om het gedrag van websites te wijzigingen - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">lees meer</a>."
     },
-    "settingsUserscriptShowDirectory": null, //missing translation,
+    "settingsUserscriptShowDirectory": "Scriptdirectory weergeven",
     "settingsUserAgentToggle": "Gebruik een aangepaste gebruikersagent",
     "settingsUpdateNotificationsToggle": "Automatisch controleren op updates",
     "settingsUsageStatisticsToggle": {
@@ -178,9 +179,9 @@
     "settingsStartupCreateTask": "Her-open vorige tabbladen",
     "settingsStartupNewTaskandBackground": "Verplaats vorige tabbladen naar een taak op de achtergrond",
     "settingsStartupNewTaskOnly": "Open een lege taak",
-    "settingsNewWindowOptions": null, //missing translation
-    "settingsNewWindowCreateTask": null, //missing translation
-    "settingsNewWindowPickTask": null, //missing translation
+    "settingsNewWindowOptions": "In nieuwe vensters: ",
+    "settingsNewWindowCreateTask": "Nieuwe taak maken",
+    "settingsNewWindowPickTask": "Takenlijst weergeven",
     "settingsSearchEngineHeading": "Zoekmachine",
     "settingsDefaultSearchEngine": "Kies een standaard zoekmachine:",
     "settingsDDGExplanation": "Kies DuckDuckGo als standaard zoekmachine om meteen resultaten te zien in de zoekbalk.",
@@ -208,7 +209,7 @@
     "appMenuCut": "Knippen",
     "appMenuCopy": "Kopiëren",
     "appMenuPaste": "Plakken",
-    "appMenuPasteAndMatchStyle": null, //missing translation
+    "appMenuPasteAndMatchStyle": "Plakken zonder opmaak",
     "appMenuSelectAll": "Alles selecteren",
     "appMenuFind": "Zoeken",
     "appMenuView": "Venster",
@@ -241,10 +242,10 @@
     "appMenuQuit": "Stop %n",
     "appMenuBringToFront": "Breng alles naar voren",
     /* Tab menu */
-    "tabMenuNewWindow": null, // missing translation
-    "tabMenuReload": null, // missing translation
+    "tabMenuNewWindow": "Tabblad naar nieuw venster verplaatsen",
+    "tabMenuReload": "Herladen",
     /* PDF Viewer */
-    "PDFInvertPage": null, //missing translation
+    "PDFInvertPage": "Paginakleuren inverteren",
     "PDFPageCounter": {
       "unsafeHTML": "pagina <input type='text'/> van de <span id='total'></span>"
     },
@@ -292,7 +293,7 @@
     "passwordCaptureSave": "Opslaan",
     "passwordCaptureDontSave": "Niet opslaan",
     "passwordCaptureNeverSave": "Nooit opslaan",
-    "generatePassword": null, // missing translation
+    "generatePassword": "Genereer wachtwoord",
     /* Password viewer */
     "savedPasswordsHeading": "Opgeslagen wachtwoorden",
     "savedPasswordsEmpty": "Geen opgeslagen wachtwoorden.",

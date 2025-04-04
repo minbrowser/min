@@ -307,7 +307,7 @@ const webviewMenu = {
     }
 
     var translateMenu = {
-      label: '🗨️ '+'Translate Page (Beta)',
+      label: '🗨️ '+'Translate Page ',
       submenu: []
     }
 

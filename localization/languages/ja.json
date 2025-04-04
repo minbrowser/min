@@ -27,6 +27,7 @@
     "goBack": "戻る",
     "goForward": "進む",
     "inspectElement": "要素を検証",
+    "translatePage": null, // missing translation
     /* searchbar */
     "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation
@@ -36,7 +37,7 @@
     "suggestedSite": "おすすめサイト", //this is used to label suggested websites from the DuckDuckGo API,
     "resultsFromDDG": "DuckDuckGoからの結果", //this is used as a label to indicate which results come from DuckDuckGo's API
     "taskN": "タスク %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-    /* custom !bangs
+    /* custom commands
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
     "showMoreBangs": "すべて表示する",
@@ -145,8 +146,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "これまでのところ、Minは<strong></strong>の広告とトラッカーをブロックしています。"
     },
-    "settingsCustomBangs": "bangsのカスタム",
-    "settingsCustomBangsAdd": "カスタムbangを追加",
+    "settingsCustomBangs": null, // Missing translation
+    "settingsCustomBangsAdd": null, // Missing translation
     "settingsCustomBangsPhrase": "フレーズ（必須）",
     "settingsCustomBangsSnippet": "説明（オプション）",
     "settingsCustomBangsRedirect": "リダイレクトURL（必須）",

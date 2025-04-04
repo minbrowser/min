@@ -1,4 +1,4 @@
-const maxCharsToTranslate = 15000
+const maxCharsToTranslate = 200000
 
 function isVisible (el) {
   // https://github.com/jquery/jquery/blob/305f193aa57014dc7d8fa0739a3fefd47166cd44/src/css/hiddenVisibleSelectors.js
@@ -65,6 +65,11 @@ async function translate (destLang) {
 
   var nodesSet = nodes.filter(n => n.textContent.replace(/[\s0-9]+/g, '').length > 2).map(n => ({ node: n, translated: false, originalLength: n.textContent.length }))
 
+  const channel = new MessageChannel()
+
+  ipc.postMessage('page-translation-session-create', null, [channel.port1])
+  channel.port2.start()
+
   function handleChunk () {
     // rescore the nodes
 
@@ -100,16 +105,9 @@ async function translate (destLang) {
     })
 
     var query = nodesInQuery.map(node => node.textContent)
-    var requestId = Math.random()
 
-    ipc.send('translation-request', {
-      query,
-      lang: destLang,
-      requestId
-    })
-
-    ipc.once('translation-response-' + requestId, function (e, data) {
-      data.response.translatedText.forEach(function (text, i) {
+    channel.port2.onmessage = function (e) {
+      e.data.translatedText.forEach(function (text, i) {
         var rootNodeIndex = nodesSet.findIndex(item => item.node === nodesInQuery[i])
 
         if (query[i].startsWith(' ')) {
@@ -147,6 +145,12 @@ async function translate (destLang) {
       if (nodesSet.filter(item => item.translated).map(item => item.originalLength).reduce((a, b) => a + b) < maxCharsToTranslate && nodesSet.some(item => !item.translated)) {
         handleChunk()
       }
+    }
+
+    channel.port2.postMessage({
+      type: 'translation-request',
+      query,
+      lang: destLang
     })
   }
 

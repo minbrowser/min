@@ -27,6 +27,7 @@
     "goBack": "뒤로",
     "goForward": "앞으로",
     "inspectElement": "요소 검사",
+    "translatePage": null, // missing translation
     /* searchbar */
     "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation
@@ -36,7 +37,7 @@
     "suggestedSite": "사이트 제안", //this is used to label suggested websites from the DuckDuckGo API,
     "resultsFromDDG": "DuckDuckGo 검색 결과", //this is used as a label to indicate which results come from DuckDuckGo's API
     "taskN": "그룹 %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-    /* custom !bangs
+    /* custom commands
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
     "showMoreBangs": "더 보기",
@@ -145,8 +146,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "지금까지 차단된 광고 및 추적기: <strong></strong>"
     },
-    "settingsCustomBangs": "Custom bang",
-    "settingsCustomBangsAdd": "Custom bang 추가",
+    "settingsCustomBangs": null, // Missing translation
+    "settingsCustomBangsAdd": null, // Missing translation
     "settingsCustomBangsPhrase": "명령어 (필수)",
     "settingsCustomBangsSnippet": "설명 (선택)",
     "settingsCustomBangsRedirect": "연결할 URL (필수)",

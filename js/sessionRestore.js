@@ -85,7 +85,7 @@ const sessionRestore = {
         tasks.setSelected(tasks.add()) // create a new task
 
         var newTab = tasks.getSelected().tabs.add({
-            url: 'https://firemin.netlify.app/'
+            url: 'https://minbrowser.github.io/min/tour'
         })
         browserUI.addTab(newTab, {
          enterEditMode: false

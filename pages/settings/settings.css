@@ -2,17 +2,6 @@ body,
 html {
   overflow: auto;
 }
-.zilla-slab-highlight {
-  font-family: "Zilla Slab Highlight", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.zilla-slab-highlight-bold {
-  font-family: "Zilla Slab Highlight", serif;
-  font-weight: 700;
-  font-style: normal;
-}
 
 .settings-info-subheading {
   opacity: 0.666;
@@ -52,7 +41,7 @@ html {
 
 .settings-container {
   max-width: 1000px;
-  margin: 2.25em auto;
+  margin: 1.25em auto;
   padding: 0 1em;
 }
 .settings-container .setting-option + .setting-option {
@@ -245,12 +234,10 @@ html {
     background-color: rgba(203, 32, 35, 0.2);
   }
 }
-.settings-content {
-  margin-left: 280px;
-  padding: 20px;
-}
+
 .settings-container {
   scroll-margin-top: 2rem;
   padding: 20px;
   margin-bottom: 30px;
+  margin-left: 1em;
 }

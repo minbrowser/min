@@ -88,7 +88,6 @@ class Keychain {
     }
   }
 
-
   getAllCredentials () {
     return ipcRenderer.invoke('credentialStoreGetCredentials').then(function (results) {
       return results.map(function (result) {

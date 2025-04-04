@@ -229,13 +229,6 @@ function createWindowWithBounds (bounds, customArgs) {
     }
   })
   mainView.webContents.loadURL(browserPage)
-  mainView.setBounds({x: 0, y: 0, width: bounds.width, height: bounds.height})
-  newWin.contentView.addChildView(mainView)
-
-  newWin.on('resize', function() {
-    const winBounds = newWin.getContentBounds()
-    mainView.setBounds({x: 0, y: 0, width: winBounds.width, height: winBounds.height})
-  })
 
   if (bounds.maximized) {
     newWin.maximize()
@@ -244,6 +237,25 @@ function createWindowWithBounds (bounds, customArgs) {
       sendIPCToWindow(newWin, 'maximize')
     })
   }
+
+  const winBounds = newWin.getContentBounds()
+
+  mainView.setBounds({x: 0, y: 0, width: winBounds.width, height: winBounds.height})
+  newWin.contentView.addChildView(mainView)
+
+  // sometimes getContentBounds doesn't provide correct bounds until after the window has finished loading
+  mainView.webContents.once('did-finish-load', function () {
+    const winBounds = newWin.getContentBounds()
+    mainView.setBounds({x: 0, y: 0, width: winBounds.width, height: winBounds.height})
+  })
+
+  newWin.on('resize', function () {
+    // The result of getContentBounds doesn't update until the next tick
+    setTimeout(function () {
+      const winBounds = newWin.getContentBounds()
+      mainView.setBounds({x: 0, y: 0, width: winBounds.width, height: winBounds.height})
+    }, 0)
+  })
 
   newWin.on('close', function () {
     // save the window size for the next launch of the app
@@ -495,3 +507,30 @@ ipc.on('places-connect', function (e) {
 function getWindowWebContents (win) {
   return win.getContentView().children[0].webContents
 }
+
+/* translate service */
+
+const translatePage = 'min://app/pages/translateService/index.html'
+const translatePreload = __dirname + '/pages/translateService/translateServicePreload.js'
+
+app.on('ready', function() {
+  ipc.on('page-translation-session-create', function(e) {
+    let translateWindow = new BrowserWindow({
+      width: 300,
+      height: 300,
+      show: false,
+      webPreferences: {
+        nodeIntegration: false,
+        contextIsolation: true,
+        preload: translatePreload
+      }
+    })
+  
+    translateWindow.loadURL(translatePage)
+    // translateWindow.webContents.openDevTools({mode: 'detach'})
+
+    translateWindow.webContents.once('did-finish-load', function() {
+      translateWindow.webContents.postMessage('page-translation-session-create', null, e.ports)
+    })
+  })
+})

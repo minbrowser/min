@@ -17,7 +17,6 @@ function registerCustomBang (data) {
   customBangs.push({
     phrase: data.phrase,
     snippet: data.snippet,
-    score: data.score || 256000,
     icon: data.icon || 'carbon:terminal',
     showSuggestions: data.showSuggestions,
     fn: data.fn,
@@ -74,15 +73,14 @@ function incrementBangCount (bang) {
 function showBangSearchResults (text, results, input, inputFlags, limit = 5) {
   searchbarPlugins.reset('bangs')
 
+  const allScores = results.map(result => result.score).filter(score => !!score)
+  const maxScore = allScores.length === 0 ? 0 : Math.max.apply(this, allScores)
+
   results.sort(function (a, b) {
-    var aScore = a.score || 1
-    var bScore = b.score || 1
-    if (bangUseCounts[a.phrase]) {
-      aScore *= bangUseCounts[a.phrase]
-    }
-    if (bangUseCounts[b.phrase]) {
-      bScore *= bangUseCounts[b.phrase]
-    }
+    var aScore = a.score || maxScore
+    var bScore = b.score || maxScore
+    aScore *= (bangUseCounts[a.phrase] || 0) + 1
+    bScore *= (bangUseCounts[b.phrase] || 0) + 1
 
     return bScore - aScore
   })

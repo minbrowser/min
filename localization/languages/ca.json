@@ -27,6 +27,7 @@
     "goBack": "Tornar enrere",
     "goForward": "Anar endavant",
     "inspectElement": "Inspeccionar l'element",
+    "translatePage": null, // missing translation
     /* searchbar */
     "placesPluginOpenAgain": null, // missing translation
     "placesPluginSwitchToTab": null, // missing translation
@@ -36,7 +37,7 @@
     "suggestedSite": "Lloc suggerit", //this is used to label suggested websites from the DuckDuckGo API,
     "resultsFromDDG": "Resultats de DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
     "taskN": "Tasca %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
-    /* custom !bangs
+    /* custom commands
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
     "showMoreBangs": "Mostrar més",
@@ -145,8 +146,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Fins ara, Min ha bloquejat <strong></strong> anuncis i rastrejadors."
     },
-    "settingsCustomBangs": "Comandes personalitzades",
-    "settingsCustomBangsAdd": "Afegir comanda personalitzada",
+    "settingsCustomBangs": null, // Missing translation
+    "settingsCustomBangsAdd": null, // Missing translation
     "settingsCustomBangsPhrase": "Frase (Obligatori)",
     "settingsCustomBangsSnippet": "Descripció (Opcional)",
     "settingsCustomBangsRedirect": "URL de redireccionament (Obligatori)",

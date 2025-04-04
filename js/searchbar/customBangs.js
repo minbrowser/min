@@ -1,4 +1,4 @@
-/* list of the available custom !bangs */
+/* list of the available custom commands */
 
 const { ipcRenderer } = require('electron')
 const fs = require('fs')
@@ -98,6 +98,7 @@ function initialize () {
   bangsPlugin.registerCustomBang({
     phrase: '!settings',
     snippet: l('viewSettings'),
+    icon: 'carbon:settings',
     isAction: true,
     fn: function (text) {
       webviews.update(tabs.getSelected(), 'min://settings')
@@ -125,6 +126,7 @@ function initialize () {
   bangsPlugin.registerCustomBang({
     phrase: '!screenshot',
     snippet: l('takeScreenshot'),
+    icon: 'carbon:image',
     isAction: true,
     fn: function (text) {
       setTimeout(function () { // wait so that the view placeholder is hidden
@@ -136,6 +138,7 @@ function initialize () {
   bangsPlugin.registerCustomBang({
     phrase: '!clearhistory',
     snippet: l('clearHistory'),
+    icon: 'carbon:trash-can',
     isAction: true,
     fn: function (text) {
       if (confirm(l('clearHistoryConfirmation'))) {
@@ -166,6 +169,7 @@ function initialize () {
   bangsPlugin.registerCustomBang({
     phrase: '!movetotask',
     snippet: l('moveToTask'),
+    icon: 'carbon:folder-move-to',
     isAction: false,
     showSuggestions: function (text, input, event) {
       searchbarPlugins.reset('bangs')
@@ -223,6 +227,7 @@ function initialize () {
   bangsPlugin.registerCustomBang({
     phrase: '!task',
     snippet: l('switchToTask'),
+    icon: 'carbon:folder',
     isAction: false,
     showSuggestions: function (text, input, event) {
       searchbarPlugins.reset('bangs')
@@ -261,6 +266,7 @@ function initialize () {
   bangsPlugin.registerCustomBang({
     phrase: '!newtask',
     snippet: l('createTask'),
+    icon: 'carbon:folder-add',
     isAction: true,
     fn: function (text) {
       /* disabled in focus mode */
@@ -283,6 +289,7 @@ function initialize () {
   bangsPlugin.registerCustomBang({
     phrase: '!closetask',
     snippet: l('closeTask'),
+    icon: 'carbon:folder-off',
     isAction: false,
     fn: function (text) {
       const currentTask = tasks.getSelected()
@@ -318,6 +325,7 @@ function initialize () {
   bangsPlugin.registerCustomBang({
     phrase: '!importbookmarks',
     snippet: l('importBookmarks'),
+    icon: 'carbon:upload',
     isAction: true,
     fn: async function () {
       const filePath = await ipc.invoke('showOpenDialog', {
@@ -342,6 +350,7 @@ function initialize () {
   bangsPlugin.registerCustomBang({
     phrase: '!exportbookmarks',
     snippet: l('exportBookmarks'),
+    icon: 'carbon:download',
     isAction: true,
     fn: async function () {
       const data = await bookmarkConverter.exportAll()
@@ -354,6 +363,7 @@ function initialize () {
   bangsPlugin.registerCustomBang({
     phrase: '!addbookmark',
     snippet: l('addBookmark'),
+    icon: 'carbon:star',
     fn: function (text) {
       const url = tabs.get(tabs.getSelected()).url
       if (url) {
