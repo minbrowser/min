@@ -234,10 +234,11 @@ html {
     background-color: rgba(203, 32, 35, 0.2);
   }
 }
-
+.settings-content {
+  padding: 20px;
+}
 .settings-container {
   scroll-margin-top: 2rem;
   padding: 20px;
   margin-bottom: 30px;
-  margin-left: 1em;
 }
