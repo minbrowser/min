@@ -8,11 +8,11 @@
     "addToDictionary": "Sözlüğe Ekle",
     "pictureInPicture": "Resim İçinde Resim",
     "openInNewTab": "Yeni Sekmede Aç",
-    "openInNewPrivateTab": "Yeni Özel Sekmede Aç",
+    "openInNewPrivateTab": "Yeni Gizli Sekmede Aç",
     "saveLinkAs": "Linki Farklı Kaydet",
     "viewImage": "Resmi Göster",
     "openImageInNewTab": "Resmi Yeni Sekmede Aç",
-    "openImageInNewPrivateTab": "Resmi Yeni Özel Sekmede Aç",
+    "openImageInNewPrivateTab": "Resmi Yeni Gizli Sekmede Aç",
     "saveImageAs": "Resmi Farklı Kaydet",
     "searchWith": "%s ile ara", //%s will be replaced with the name of the current search engine
     "copyLink": "Linki Kopyala",
@@ -27,11 +27,11 @@
     "goBack": "Geri Git",
     "goForward": "İleri Git",
     "inspectElement": "Öğeyi İncele",
-    "translatePage": null, // missing translation
+    "translatePage": "Sayfayı Çevir",
     /* searchbar */
-    "placesPluginOpenAgain": null, // missing translation
-    "placesPluginSwitchToTab": null, // missing translation
-    "placesPluginSwitchToTask": null, // missing translation
+    "placesPluginOpenAgain": "Yeniden Aç",
+    "placesPluginSwitchToTab": "Sekmeye Git",
+    "placesPluginSwitchToTask": "Şu Göreve Git \"%t\"",
     "pasteAndGo": "Yapıştır ve Git",
     "DDGAnswerSubtitle": "Cevap", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
     "suggestedSite": "Önerilen site", //this is used to label suggested websites from the DuckDuckGo API,
@@ -47,7 +47,7 @@
     "enableBlocking": "Bu site için içerik engellemeyi etkinleştir",
     "disableBlocking": "Bu site için içerik engellemeyi devre dışı bırak",
     "clearHistoryConfirmation": "Tüm geçmişi ve tarama verilerini silmek istiyor musunuz?",
-    "switchToTask": "Göreve Geç",
+    "switchToTask": "Göreve Git",
     "createTask": "Görev Oluştur",
     "closeTask": "Görevi Kapat",
     "moveToTask": "Bu sekmeyi bir göreve taşı",
@@ -70,23 +70,23 @@
     "newTabLabel": "Yeni Sekme", //this is a noun, used for tabs that don't have a page loaded in them yet
     "connectionNotSecure": "Bu web sitesine yapmış olduğunuz bağlantı güvenli değil.",
     "searchbarPlaceholder": "Arayın veya adres girin",
-    "privateTab": "Özel sekme",
+    "privateTab": "Gizli sekme",
     "newTabAction": "Yeni Sekme", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
     /* task overlay */
     "viewTasks": "Görevleri Görüntüle",
     "newTask": "Yeni Görev", //"new" is a verb - it is used for a button at the bottom of the task overlay
     "defaultTaskName": "Görev %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
     "taskDeleteWarning": {
-      "unsafeHTML": "Görev silindi. <a>Geri?</a>"
+      "unsafeHTML": "Görev silindi. <a>Geri al</a>"
     },
-    "tasksSearchTabs": "Arama sekmeleri",
+    "tasksSearchTabs": "Sekmelerde Ara",
     "returnToTask": "Önceki göreve geri dön",
     "taskDescriptionTwo": "%t ve %t",
     "taskDescriptionThree": "%t, %t ve %n fazlası",
     /* find in page toolbar */
     "searchInPage": "Sayfada Ara", //this is used as the placeholder text for the textbox in the find in page toolbar
-    "findMatchesSingular": "%t eşleşmeden %i i", //this and the next label are used to indicate which match is currently highlighted
-    "findMatchesPlural": "%t eşleşmeden %i i",
+    "findMatchesSingular": "%i / %t eşleşme", //this and the next label are used to indicate which match is currently highlighted
+    "findMatchesPlural": "%i / %t eşleşme",
     /* Focus mode */
     "isFocusMode": "Odak Modundasınız.",
     "closeDialog": "Tamam", //used as a label for the button that closes the dialog
@@ -107,47 +107,47 @@
     "crashErrorSubtitle": "Bu sayfayı görüntülerken bir sorun oluştu.",
     "errorPagePrimaryAction": "Tekrar deneyin",
     "serverNotFoundTitle": "Sunucu bulunamadı",
-    "serverNotFoundSubtitle": "Min bu web sitesini bulamadı.",
+    "serverNotFoundSubtitle": "Min, bu web sitesini bulamadı.",
     "archiveSearchAction": "archive.org'da ara",
-    "sslErrorTitle": "Bu web sitesi mevcut değildir",
-    "sslErrorMessage": "Min bu siteye güvenli bir şekilde bağlanamadı.",
+    "sslErrorTitle": "Web sitesi mevcut değil",
+    "sslErrorMessage": "Min, bu siteye güvenli bir şekilde bağlanamadı.",
     "dnsErrorTitle": "Web sitesi bulunamadı",
-    "dnsErrorMessage": "Bir DNS hatası oluştu.",
+    "dnsErrorMessage": "DNS hatası oluştu.",
     "offlineErrorTitle": "Çevrimdışısınız",
     "offlineErrorMessage": "İnternete yeniden bağlanın ve tekrar deneyin.",
-    "genericConnectionFail": "Min web sitesine bağlanılamadı.",
-    "sslTimeErrorMessage": "Min bu siteye güvenli bir şekilde bağlanamadı. Lütfen bilgisayarınızın saat ayarının doğru olduğundan emin olun.",
+    "genericConnectionFail": "Min, web sitesine bağlanılamadı.",
+    "sslTimeErrorMessage": "Min, siteye güvenli bir şekilde bağlanamadı. Lütfen bilgisayarınızın saat ayarının doğru olduğundan emin olun.",
     "addressInvalidTitle": "Bu adres geçersiz.",
     "genericError": "Bir hata oluştu",
     /* pages/phishing/index.html */
     "phishingErrorTitle": "Bu site size zarar verebilir.",
-    "phishingErrorMessage": "Bu web sitesi parola veya banka bilgileri gibi kişisel bilgilerinizi çalmaya çalışıyor olabilir.",
+    "phishingErrorMessage": "Bu web sitesi, şifreleriniz veya banka bilgileri gibi kişisel bilgilerinizi çalmaya çalışıyor olabilir.",
     "phishingErrorVisitAnyway": "Siteyi yine de ziyaret et",
     "phishingErrorLeave": "Bu siteden ayrıl",
     /* multiple instances alert */
-    "multipleInstancesErrorMessage": "Bir hata oluştu. Lütfen açık olan tüm Min'leri kapatıp yeniden başlatın.",
+    "multipleInstancesErrorMessage": "Bir hata oluştu. Açık olan tüm sekmeleri kapatıp, Min'i yeniden başlatın.",
     /* pages/sessionRestoreError/index.html */
     "sessionRestoreErrorTitle": "Bir hata oluştu",
     "sessionRestoreErrorExplanation": "Kaydedilen sekmeleriniz doğru bir şekilde geri yüklenemedi.",
-    "sessionRestoreErrorBackupInfo": "Verilerinizin bir yedeğini bu konumda kaydettik: %l.", //%l will be replaced with a path to a file
+    "sessionRestoreErrorBackupInfo": "Verilerinizin yedeği şu konuma kaydedildi: %l.", //%l will be replaced with a path to a file
     "sessionRestoreErrorLinkInfo": {
       "unsafeHTML": "Bu hata olmaya devam ederse, lütfen <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">buradan</a> yeni bir sorun başlığı açın."
     },
     /* pages/settings/index.html */
     "settingsPreferencesHeading": "Tercihler",
-    "settingsRestartRequired": "Bu değişiklikleri uygulamak için yeniden başlatmanız gerekiyor.",
+    "settingsRestartRequired": "Değişiklikleri uygulamak için yeniden başlatmanız gerekiyor.",
     "settingsPrivacyHeading": "İçerik Engelleme",
-    "settingsContentBlockingLevel0": "Tüm reklamlar ve iz sürücülere izin ver",
-    "settingsContentBlockingLevel1": "Üçüncü parti reklamları ve iz sürücüleri engelle",
-    "settingsContentBlockingLevel2": "Tüm reklamları ve iz sürücüleri engelle",
-    "settingsContentBlockingExceptions": "Bu websitelerinde reklamlara izin verildi",
-    "settingsBlockScriptsToggle": "Scriptleri engelle",
+    "settingsContentBlockingLevel0": "Tüm reklamlar ve izleyicilere izin ver",
+    "settingsContentBlockingLevel1": "Üçüncü taraf reklamları ve izleyicileri engelle",
+    "settingsContentBlockingLevel2": "Tüm reklamları ve izleyicileri engelle",
+    "settingsContentBlockingExceptions": "Şu sitelerde reklamlara izin ver:",
+    "settingsBlockScriptsToggle": "Komutları(script) engelle",
     "settingsBlockImagesToggle": "Resimleri engelle",
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Min şimdiye kadar, <strong></strong> reklam ve takipçi engelledi."
     },
-    "settingsCustomBangs": null, // Missing translation
-    "settingsCustomBangsAdd": null, // Missing translation
+    "settingsCustomBangs": "Kişiselleştirilebilir Komutlar"
+    "settingsCustomBangsAdd": "Yeni komut ekle"
     "settingsCustomBangsPhrase": "Cümle (Gerekli)",
     "settingsCustomBangsSnippet": "Açıklama (İsteğe Bağlı)",
     "settingsCustomBangsRedirect": "Yönlendirme URL'si (Gerekli)",
@@ -155,7 +155,7 @@
     "settingsAppearanceHeading": "Görünüm",
     "settingsEnableDarkMode": "Koyu modu etkinleştir:",
     "settingsDarkModeNever": "Asla",
-    "settingsDarkModeNight": "Geceleyin",
+    "settingsDarkModeNight": "Akşam Olunca",
     "settingsDarkModeAlways": "Her zaman",
     "settingsDarkModeSystem": "Sistem temasını kullan",
     "settingsSiteThemeToggle": "Site temasını etkinleştir",
@@ -199,7 +199,7 @@
     "appMenuFile": "Dosya",
     "appMenuNewTab": "Yeni Sekme",
     "appMenuDuplicateTab": "Sekmeyi Çoğalt",
-    "appMenuNewPrivateTab": "Yeni Özel Sekme",
+    "appMenuNewPrivateTab": "Yeni Gizli Sekme",
     "appMenuNewTask": "Yeni Görev",
     "appMenuNewWindow": "Yeni Pencere",
     "appMenuSavePageAs": "Sayfayı Farklı Kaydet",
@@ -240,11 +240,11 @@
     "appMenuHide": "%n i Gizle",
     "appMenuHideOthers": "Diğerlerini Gizle",
     "appMenuShowAll": "Tümünü Göster",
-    "appMenuQuit": "%n Çıkış",
+    "appMenuQuit": "%n'den Çık",
     "appMenuBringToFront": "Tümünü Öne Getir",
     /* Tab menu */
-    "tabMenuNewWindow": null, // missing translation
-    "tabMenuReload": null, // missing translation
+    "tabMenuNewWindow": "Sekmeyi Yeni Pencereye Taşı",
+    "tabMenuReload": "Yeniden Yükle",
     /* PDF Viewer */
     "PDFInvertPage": "Sayfa renklerini ters çevir",
     "PDFPageCounter": {
@@ -263,7 +263,7 @@
     /* Download manager */
     "downloadCancel": "İptal",
     "downloadStateCompleted": "Tamamlandı",
-    "downloadStateFailed": "Başarısız oldu",
+    "downloadStateFailed": "İndirilemedi",
     /* Update Notifications */
     "updateNotificationTitle": "Min'in yeni bir sürümü mevcut",
     /* Autofill settings */
@@ -271,7 +271,7 @@
     "settingsSelectPasswordManager": "Desteklenen parola yöneticilerinden birini seçin:",
     "keychainViewPasswords": "Kayıtlı parolaları pöster",
     /* Password manager setup */
-    "passwordManagerSetupHeading": "Otomatik Doldur kullanabilmek için %p kurulumunu tamamlayın",
+    "passwordManagerSetupHeading": "Otomatik Doldurmayı kullanabilmek için %p kurulumunu tamamlayın",
     "passwordManagerSetupStep1": {
       "unsafeHTML": "İlk olarak, <a id='password-manager-setup-link'></a> ve ve arşivden çıkartın."
     },
@@ -283,10 +283,10 @@
     "passwordManagerSetupStep2": "Ardından aracı aşağıdaki kutucuğa sürükleyip bırakın:",
     "passwordManagerSetupDragBox": "Aracı buraya sürükleyin",
     "passwordManagerSetupInstalling": "Yükleniyor...",
-    "passwordManagerBitwardenSignIn": "Bitwarden hesabınızı bağlamak için vault.bitwarden.com/#/settings/account adresine gidin, aşağı kaydırın ve \"View API Key\"yi seçin. Ardından değerleri aşağıdaki alanlara yapıştırın.",
-    "passwordManagerSetupSignIn": "Otomatik dolduru kullanabilmek için parola yöneticinize giriş yapın. Kimlik bilgileriniz Min içerisinde bir yere kaydedilmeyecektir.",
-    "disableAutofill": "Otomatik Dolduru Devre Dışı Bırak",
-    "passwordManagerSetupUnlockError": "Parola kayıtlarının kilidi açılamadı: ",
+    "passwordManagerBitwardenSignIn": "Bitwarden hesabınızı bağlamak için vault.bitwarden.com/#/settings/account adresine gidin, sayfanın altına inin ve \"View API Key\"yi seçin. Ardından değerleri aşağıdaki alanlara yapıştırın.",
+    "passwordManagerSetupSignIn": "Otomatik doldurmayı kullanabilmek için parola yöneticinize giriş yapın. Kimlik bilgileriniz Min içerisinde bir yere kaydedilmeyecektir.",
+    "disableAutofill": "Otomatik doldurmayı Devre Dışı Bırak",
+    "passwordManagerSetupUnlockError": "Parola kaydedicisinin kilidi açılamadı: ",
     "passwordManagerSetupRetry": "Doğru dosyayı kullandığınızdan ve geçerli parolayı girdiğinizden emin olun. Dosyayı buraya sürükleyerek tekrar deneyebilirsniz.",
     "passwordManagerUnlock": "Parola kayıtlarınızın kilidini açmak için %p ana parolasını girin:",
     /* Password save bar */
@@ -294,7 +294,7 @@
     "passwordCaptureSave": "Kaydet",
     "passwordCaptureDontSave": "Kaydetme",
     "passwordCaptureNeverSave": "Asla kaydetme", 
-    "generatePassword": null, // missing translation
+    "generatePassword": "Parola Oluştur",
     /* Password viewer */
     "savedPasswordsHeading": "Kayıtlı Parolalar",
     "savedPasswordsEmpty": "Kaydedilmiş parola yok.",
@@ -309,7 +309,7 @@
     "password": "Parola",
     "secretKey": "Gizli anahtar",
     "openExternalApp": "Harici uygulamayı aç", 
-    "clickToCopy": "Tıkla ve kopyala", 
+    "clickToCopy": "Kopyalamak için Tıkla", 
     "copied": "Kopyalandı" 
   }
 }
