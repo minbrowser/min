@@ -40,12 +40,13 @@ body {
   --theme-accent-color: var(--primary-color);
   position: relative; /* Necesario para que el z-index del ::before funcione correctamente */
   background-color: var(--theme-background-color);
+  color: var(--theme-text-color); /* Asegura que el color de texto del tema se aplique */
 }
 
 /* Tema oscuro (enfoque principal) */
-body.dark-theme {
+body.dark-theme, body.dark-mode { /* Unificado y asegura que ambas clases activen estos estilos */
   --theme-background-color: var(--background-dark);
-  --theme-text-color: var(--text-dark);
+  --theme-text-color: rgb(204, 214, 246); /* NUEVO color de texto para modo oscuro */
   --theme-accent-color: var(--secondary-color); /* O --primary-color según preferencia */
 }
 

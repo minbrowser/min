@@ -33,16 +33,16 @@ button {
 }
 body,
 html {
-  background-color: #fff;
-  color: #000;
+  background-color: #fff; /* Color de fondo para tema claro por defecto */
+  color: #000; /* Color de texto para tema claro por defecto */
   height: 100%;
   overflow: hidden;
   -webkit-user-select: none;
 }
 
 body.dark-mode {
-  background-color: rgb(33, 37, 43);
-  color: lightgrey;
+  background-color: var(--theme-background-color);
+  color: var(--theme-text-color);
 }
 
 h1,
