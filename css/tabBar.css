@@ -1,6 +1,6 @@
 #navbar {
   display: flex;
-  height: calc(36px + var(--control-space-top));
+  height: calc(28px + var(--control-space-top));
   transition: 0.2s background-color;
   width: 100%;
   -webkit-user-select: none;
@@ -101,8 +101,8 @@ body.linux #menu-button {
   flex: 1;
   min-width: 125px;
   transition: 0.2s transform;
-  line-height: 36px;
-  height: 36px;
+  line-height: 28px;
+  height: 28px;
   overflow: hidden;
   word-break: break-all;
   position: relative;
@@ -185,7 +185,7 @@ body:not(.touch)
 
 .tab-item .tab-icon {
   position: relative;
-  font-size: 0.875em;
+  font-size: 0.75em;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -194,8 +194,8 @@ body:not(.touch)
 }
 .tab-item .tab-icon:not(.permission-request-icon):hover:after {
   content: "";
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.075);
   position: absolute;
@@ -204,11 +204,13 @@ body:not(.touch)
   transform: translate(-50%, -50%);
   z-index: -1;
 }
-.dark-theme .tab-item .tab-icon:hover:after {
+.dark-theme .tab-item .tab-icon:not(.permission-request-icon):hover:after {
   background: rgba(255, 255, 255, 0.15);
 }
 .tab-item.active:not(:only-child) {
   background: rgba(0, 0, 0, 0.06);
+  display: block;
+  margin-top: 2px;
 }
 .dark-theme .tab-item.active:not(:only-child) {
   background: rgba(255, 255, 255, 0.2);
@@ -285,15 +287,18 @@ body:not(.touch)
 
 .navbar-action-button {
   padding: 0 1rem;
-  height: 36px;
-  margin-top: -0.5px;
-  font-size: 1.4em !important;
+  height: 28px;
+  margin-top: 0;
+  font-size: 1em !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 body.windows .navbar-action-button:not(:disabled):hover {
   background-color: rgba(0, 0, 0, 0.075);
 }
 body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
-  background: rgba(255, 255, 255, 0.075);
+  background: rgba(255, 255, 255, 0.15);
 }
 .navbar-action-button.invisible {
   visibility: hidden;
@@ -307,8 +312,8 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
 
 .navbar-right-actions #add-tab-button {
   padding: 0;
-  width: 36px;
-  font-size: 1.6em !important;
+  width: auto;
+  font-size: 1.3em !important;
   color: var(--accent-color);
 }
 
@@ -316,7 +321,7 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
 .tab-item .tab-audio-button {
   vertical-align: text-bottom;
   padding: 0;
-  font-size: 1.1em !important;
+  font-size: 1em !important;
 }
 
 /* reader button */
@@ -324,7 +329,7 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
 .tab-item .reader-button {
   display: none;
   vertical-align: text-bottom;
-  font-size: 1.1em !important;
+  font-size: 1em !important;
   order: -1;
 }
 .tab-item.active .reader-button.can-reader {
@@ -374,7 +379,7 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
 
 /* in Carbon, close icon is a bit smaller than other icons, enlarge it in order to match with other icons */
 .tab-item .tab-close-button {
-  font-size: 1.25em;
+  font-size: 1.0em;
   box-sizing: border-box;
   order: 1;
 }
@@ -437,3 +442,33 @@ body:not(.dark-theme) .progress-bar {
 .tab-bar, .navbar-action-button, .tab-item {
   font-family: 'MesloLGL Nerd Font', 'MesloLGL NF', 'MesloLGLDZ Nerd Font', 'MesloLGLDZ NF', monospace;
 }
+
+body.windows:not(.separate-titlebar) .windows-caption-buttons {
+  display: flex;
+  position: absolute;
+  top: var(--control-space-top);
+  right: 0;
+  z-index: 10;
+}
+
+.windows-caption-buttons .element {
+  line-height: 28px;
+  width: 36px;
+  stroke: #000;
+  padding: 0 5px;
+  box-sizing: content-box;
+  fill: transparent;
+  text-align: center;
+}
+
+#switch-task-button svg {
+  width: 0.8em;
+  height: 0.8em;
+  display: block;
+  margin-top: 2px;
+}
+
+/* Nueva regla para el color del icono en hover */
+/* .tab-item .tab-icon:not(.permission-request-icon):hover { <---- ESTA SECCION COMPLETA DEBE SER ELIMINADA 
+  color: var(--accent-color);
+} */

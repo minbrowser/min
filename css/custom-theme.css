@@ -27,6 +27,10 @@
   /* Fallbacks para tema claro (pueden mantenerse o ajustarse si se usa el tema claro) */
   --tab-active-light: rgba(97, 175, 239, 0.1);
   --tab-hover-light: rgba(0, 0, 0, 0.05);
+
+  --rgb-dark-base: 15, 23, 42; /* Definimos los componentes RGB */
+  --tw-bg-opacity: 1;         /* Tu variable de opacidad, default a 1 */
+  --background-dark: rgba(var(--rgb-dark-base), var(--tw-bg-opacity));
 }
 
 /* Tema claro (configuración básica) */
@@ -35,6 +39,7 @@ body {
   --theme-text-color: var(--text-light);
   --theme-accent-color: var(--primary-color);
   position: relative; /* Necesario para que el z-index del ::before funcione correctamente */
+  background-color: var(--theme-background-color);
 }
 
 /* Tema oscuro (enfoque principal) */
