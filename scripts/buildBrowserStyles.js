@@ -5,6 +5,7 @@ const outFile = path.resolve(__dirname, '../dist/bundle.css')
 
 const modules = [
   'css/base.css',
+  'css/custom-theme.css',
   'css/windowControls.css',
   'css/modal.css',
   'css/tabBar.css',
