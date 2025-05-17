@@ -3,12 +3,15 @@
   padding: 0;
   box-sizing: border-box;
   font-size: 16px;
-  font-family: ".SFNSText-Regular", "BlinkMacSystemFont", "Helvetica Neue",
-    "Segoe UI", "Arial", sans-serif;
+  /* font-family: ".SFNSText-Regular", "BlinkMacSystemFont", "Helvetica Neue",
+    "Segoe UI", "Arial", sans-serif; */
+
+    font-family: 'Roboto', monospace;
+  /* font-family: "Amore", cursive; */
 }
 /* TODO figure out why the default focus color in Electron is orange */
 *:focus {
-  outline-color: rgb(0, 117, 255);
+  outline-color: rgb(0, 255, 191);
 }
 .dark-mode *:focus {
   outline-color: transparent;
@@ -55,6 +58,13 @@ h3 {
 h2 {
   text-align: left;
   font-size: 2.75em;
+  margin: 0.5em 0;
+  font-weight: 300;
+  opacity: 0.8;
+  color: inherit;
+}
+h2:first-of-type {
+  border-top: none;
 }
 h3 {
   text-align: left;
@@ -95,19 +105,36 @@ a {
 
 /* styled scrollbars */
 
-.has-thin-scrollbar::-webkit-scrollbar {
-  height: 0.25em;
+/* Estilo global para todas las scrollbars */
+::-webkit-scrollbar {
+  width: 8px; /* Ancho reducido */
+  height: 8px; /* Alto reducido para scrollbars horizontales */
 }
-.has-thin-scrollbar::-webkit-scrollbar-track {
-  background-color: rgba(0, 0, 0, 0.05);
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Hacemos el track invisible */
 }
-.has-thin-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.175);
-  border-radius: 0.25em;
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3); /* Un color oscuro semitransparente para el thumb */
+  border-radius: 10px; /* Bordes redondeados */
+  border: 2px solid transparent; /* Espacio alrededor del thumb */
+  background-clip: content-box; /* Para que el borde sea transparente y no afecte el color del thumb */
 }
-.dark-theme .has-thin-scrollbar::-webkit-scrollbar-track {
-  background-color: rgba(255, 255, 255, 0.25);
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.dark-theme .has-thin-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.6);
+
+/* Estilo para el tema oscuro */
+body.dark-mode ::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3); /* Un color claro semitransparente para el thumb en modo oscuro */
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.section-separator {
+  /* Eliminado: restauración del archivo original */
 }

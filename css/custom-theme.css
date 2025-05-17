@@ -1,0 +1,83 @@
+:root {
+  /* Colores principales */
+  --primary-color: #ff0000;  /* Rojo brillante */
+  --secondary-color: #00ff00; /* Verde brillante */
+  --accent-color: #0000ff;   /* Azul brillante */
+  
+  /* Colores de fondo */
+  --background-light: #f0f0f0;
+  --background-dark: #2d2d2d;
+  
+  /* Colores de texto */
+  --text-light: #000000;
+  --text-dark: #ffffff;
+  
+  /* Colores de la barra de navegación */
+  --navbar-light: #e0e0e0;
+  --navbar-dark: #3d3d3d;
+  
+  /* Colores de pestañas */
+  --tab-active-light: rgba(5, 87, 69, 0.2);    /* Rojo con transparencia */
+  --tab-active-dark: rgba(0, 255, 0, 0.2);     /* Verde con transparencia */
+  --tab-hover-light: rgba(0, 0, 0, 0.1);
+  --tab-hover-dark: rgba(255, 255, 255, 0.1);
+}
+
+/* Tema claro */
+body {
+  --theme-background-color: var(--background-light);
+  --theme-text-color: var(--text-light);
+  --theme-accent-color: var(--primary-color);
+}
+
+/* Tema oscuro */
+body.dark-theme {
+  --theme-background-color: var(--background-dark);
+  --theme-text-color: var(--text-dark);
+  --theme-accent-color: var(--secondary-color);
+}
+
+/* Estilos de la barra de navegación */
+#navbar {
+  background-color: var(--navbar-light) !important;
+}
+
+body.dark-theme #navbar {
+  background-color: var(--navbar-dark) !important;
+}
+
+/* Estilos de las pestañas */
+.tab-item.active {
+  background-color: var(--tab-active-light) !important;
+}
+
+body.dark-theme .tab-item.active {
+  background-color: var(--tab-active-dark) !important;
+}
+
+.tab-item:hover {
+  background-color: var(--tab-hover-light) !important;
+}
+
+body.dark-theme .tab-item:hover {
+  background-color: var(--tab-hover-dark) !important;
+}
+
+/* Estilos de botones */
+.navbar-action-button {
+  color: var(--theme-text-color) !important;
+}
+
+.navbar-action-button:hover {
+  background-color: var(--theme-accent-color) !important;
+  color: var(--theme-background-color) !important;
+}
+
+/* Estilos de la barra de búsqueda */
+#searchbar {
+  background-color: var(--navbar-light) !important;
+}
+
+body.dark-theme #searchbar {
+  background-color: var(--navbar-dark) !important;
+} 
