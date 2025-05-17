@@ -309,6 +309,7 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
   padding: 0;
   width: 36px;
   font-size: 1.6em !important;
+  color: var(--accent-color);
 }
 
 /* audio button */

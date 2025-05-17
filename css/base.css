@@ -128,7 +128,7 @@ a {
 
 /* Estilo para el tema oscuro */
 body.dark-mode ::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.3); /* Un color claro semitransparente para el thumb en modo oscuro */
+  background-color: rgba(20, 18, 18, 0.3); /* Un color claro semitransparente para el thumb en modo oscuro */
 }
 
 body.dark-mode ::-webkit-scrollbar-thumb:hover {
@@ -137,4 +137,32 @@ body.dark-mode ::-webkit-scrollbar-thumb:hover {
 
 .section-separator {
   /* Eliminado: restauración del archivo original */
+}
+
+#navbar {
+  display: flex;
+  height: calc(36px + var(--control-space-top));
+  transition: 0.2s background-color; /* <- Importante: ya hay una transición de color */
+  width: 100%;
+  -webkit-user-select: none;
+  position: relative;
+  outline: none;
+  z-index: 2;
+  padding-top: var(--control-space-top);
+  padding-left: var(--control-space-left);
+  padding-right: var(--control-space-right);
+  background-color: var(--navbar-light); /* Color para tema claro por defecto */
+}
+
+/* Estilos de la barra de navegación */
+/* #navbar {
+  background-color: var(--navbar-light) !important; 
+}
+
+body.dark-theme #navbar {
+  background-color: var(--navbar-dark) !important;
+} */
+
+.dark-theme #navbar { /* O body.dark-theme #navbar si es más consistente con el resto */
+  background-color: var(--navbar-dark); /* Color para tema oscuro */
 }
