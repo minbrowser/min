@@ -9,6 +9,17 @@
     font-family: 'Roboto', monospace;
   /* font-family: "Amore", cursive; */
 }
+:root{
+  --navy: #112240;
+  --slate: #8892b0;
+  --green: #64ffda;
+  --light-slate: #ccd6f6;
+}
+
+
+
+
+
 /* TODO figure out why the default focus color in Electron is orange */
 *:focus {
   outline-color: rgb(0, 255, 191);
@@ -28,7 +39,7 @@ button {
   -webkit-appearance: none;
   background: none;
   border: none;
-  color: inherit;
+  color: var(--light-slate);
   outline: none;
 }
 body,
@@ -41,7 +52,8 @@ html {
 }
 
 body.dark-mode {
-  background-color: rgb(33, 37, 43);
+  /* background-color: rgb(33, 37, 43); Color Principal */
+  background-color: var(--navy);
   color: lightgrey;
 }
 
@@ -49,19 +61,19 @@ h1,
 h2,
 h3 {
   font-size: 5em;
-  font-weight: 300;
+  font-weight: 400;
   opacity: 0.8;
   margin: 0.5em 0;
-  color: inherit;
+  color: var(--light-slate);
   text-align: center;
 }
 h2 {
   text-align: left;
   font-size: 2.75em;
   margin: 0.5em 0;
-  font-weight: 300;
+  font-weight: 600;
   opacity: 0.8;
-  color: inherit;
+  color: var(--light-slate);
 }
 h2:first-of-type {
   border-top: none;
@@ -88,12 +100,12 @@ h1 + h2 {
 }
 
 a {
-  color: royalblue;
+  color: var(--green);
   text-decoration: none;
 }
 
 .dark-mode a {
-  color: dodgerblue;
+  color: var(--green);
 }
 
 .dark-mode input,

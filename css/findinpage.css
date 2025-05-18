@@ -21,13 +21,13 @@ body.linux #findinpage-bar {
   appearance: none;
   outline: none;
   border: 0;
-  background: inherit;
-  color: inherit;
+  background: var(--light-slate);
+  color: var(--light-slate);
   min-width: 80px;
 }
 #findinpage-bar #findinpage-input::-webkit-input-placeholder {
   opacity: 0.75;
-  color: inherit;
+  color: var(--light-slate);
 }
 #findinpage-bar .divider {
   height: 100%;
