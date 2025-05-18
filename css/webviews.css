@@ -7,7 +7,7 @@
   width: 140px;
   height: 140px;
   border-radius: 70px;
-  background: #000;
+  background: var(--navy);
   position: fixed;
   top: 50%;
   z-index: 1;
