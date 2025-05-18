@@ -21,7 +21,7 @@ body.linux #findinpage-bar {
   appearance: none;
   outline: none;
   border: 0;
-  background: var(--light-slate);
+  background: var(--navy);
   color: var(--light-slate);
   min-width: 80px;
 }

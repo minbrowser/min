@@ -27,7 +27,8 @@
 /* dark colors don't need to be darkened as much for contrast */
 
 .dark-theme #navbar:before {
-  background: rgba(255, 255, 255, 0.15);
+  /* background: rgba(255, 255, 255, 0.15); */
+  background: var(--navy);
 }
 
 /* navbar buttons */
