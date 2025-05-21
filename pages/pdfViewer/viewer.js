@@ -1,7 +1,18 @@
-import '../../node_modules/pdfjs-dist/build/pdf.min.mjs'
-import '../../node_modules/pdfjs-dist/web/pdf_viewer.mjs'
+// Lazy load PDF.js components
+let pdfjsLib, pdfjsViewer;
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.mjs'
+async function loadPDFComponents() {
+  if (!pdfjsLib) {
+    const [{ default: pdfjs }, { default: viewer }] = await Promise.all([
+      import('../../node_modules/pdfjs-dist/build/pdf.min.mjs'),
+      import('../../node_modules/pdfjs-dist/web/pdf_viewer.mjs')
+    ]);
+    pdfjsLib = pdfjs;
+    pdfjsViewer = viewer;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.mjs';
+  }
+  return { pdfjsLib, pdfjsViewer };
+}
 
 var url = new URLSearchParams(window.location.search.replace('?', '')).get('url')
 
