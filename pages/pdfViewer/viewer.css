@@ -159,6 +159,9 @@
     margin: 15px auto;
     border: 1px solid #ccc;
     contain: strict;
+    will-change: transform, filter;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
   body.theme-loaded .page {
     transition: 0.2s filter;
@@ -185,6 +188,8 @@
     font-family: sans-serif;
     overflow: hidden;
     contain: strict;
+    will-change: transform;
+    transform: translateZ(0);
   }
 
   .textLayer span {

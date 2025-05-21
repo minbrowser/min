@@ -1,6 +1,9 @@
 #webviews {
   height: calc(100vh - 36px - var(--control-space-top));
   position: relative;
+  contain: layout style paint;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .arrow-indicator {
@@ -13,6 +16,9 @@
   z-index: 1;
   opacity: 0;
   visibility: hidden;
+  contain: layout paint;
+  will-change: opacity, visibility;
+  transform: translateZ(0);
 }
 /* use a separate class to avoid an issue where the arrow sometimes appears briefly on startup beginning in Chromium 61 */
 .arrow-indicator.animating {
