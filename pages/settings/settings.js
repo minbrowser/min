@@ -593,6 +593,43 @@ for (var manager in passwordManagers) {
   passwordManagersDropdown.appendChild(item)
 }
 
+// Import performance settings
+const performanceSettings = require('util/performance.js')
+
+// Initialize performance settings
+performanceSettings.initialize()
+
+// Setup performance settings handlers
+const hardwareAccel = document.getElementById('enable-hardware-acceleration')
+const limitTabCache = document.getElementById('limit-tab-caching')
+const maxCachedTabs = document.getElementById('max-cached-tabs')
+const preloadNextPage = document.getElementById('preload-next-page')
+
+hardwareAccel.checked = settings.get('enableHardwareAcceleration')
+limitTabCache.checked = settings.get('limitTabCaching') 
+maxCachedTabs.value = settings.get('maxCachedTabs')
+preloadNextPage.checked = settings.get('preloadNextPage')
+
+hardwareAccel.addEventListener('change', function (e) {
+  settings.set('enableHardwareAcceleration', e.target.checked)
+  performanceSettings.applySettings()
+})
+
+limitTabCache.addEventListener('change', function (e) {
+  settings.set('limitTabCaching', e.target.checked)
+  performanceSettings.applySettings()
+})
+
+maxCachedTabs.addEventListener('change', function (e) {
+  settings.set('maxCachedTabs', parseInt(e.target.value))
+  performanceSettings.applySettings()
+})
+
+preloadNextPage.addEventListener('change', function (e) {
+  settings.set('preloadNextPage', e.target.checked)
+  performanceSettings.applySettings()
+})
+
 settings.listen('passwordManager', function (value) {
   passwordManagersDropdown.value = currentPasswordManager.name
 })

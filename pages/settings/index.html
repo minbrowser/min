@@ -223,11 +223,27 @@
   
     </div>
     <div id="appearance" class="settings-container">
-      <h3 data-string="settingsAppearanceHeading"></h3>
-    <div id="appearance-settings-container">
-
-    <div class="settings-container" id="appearance-settings-container">
-      <h3 data-string="settingsAppearanceHeading"></h3>
+      <div class="settings-section" id="performance-settings-container">
+        <h3>Performance</h3>
+        <div class="setting-item">
+          <input type="checkbox" id="enable-hardware-acceleration" />
+          <label for="enable-hardware-acceleration">Enable Hardware Acceleration</label>
+        </div>
+        <div class="setting-item">
+          <input type="checkbox" id="limit-tab-caching" />
+          <label for="limit-tab-caching">Limit Tab Caching</label>
+        </div>
+        <div class="setting-item">
+          <label for="max-cached-tabs">Maximum Cached Tabs:</label>
+          <input type="number" id="max-cached-tabs" min="1" max="20" value="5" />
+        </div>
+        <div class="setting-item">
+          <input type="checkbox" id="preload-next-page" />
+          <label for="preload-next-page">Preload Next Page</label>
+        </div>
+      </div>
+      <div class="settings-container" id="appearance-settings-container">
+        <h3 data-string="settingsAppearanceHeading"></h3>
 
       <label
         for="dark-mode-container"
