@@ -2,7 +2,7 @@
   "name": "firemin",
   "productName": "fireMin",
   "author": "Manas",
-  "version": "1.35",
+  "version": "1.5.0",
   "description": "The Fun & Merry Browser That Puts You First! 🎉",
   "electronVersion": "35.0.2",
   "main": "main.build.js",
@@ -51,18 +51,14 @@
     "archiver": "^4.0.1",
     "browserify": "^16.5.1",
     "concurrently": "^5.2.0",
-    "daisyui": "^4.12.23",
     "decomment": "^0.9.0",
+    "esprima": "^4.0.1",
     "electron": "35.0.2",
     "electron-builder": "^24.13.3",
     "electron-installer-windows": "^3.0.0",
     "electron-renderify": "0.0.2",
-    "eslint": "^9.22.0",
     "prebuild-install": "^7.1.3",
-    "prettier": "^2.2.1",
-    "snazzy": "^9.0.0",
-    "standard": "^14.3.4",
-    "esprima":"^4.0.1"
+    "standard": "^14.3.4"
   },
   "license": "MPL-2.0",
   "scripts": {
@@ -85,8 +81,7 @@
     "buildAppImage": "npm run build && node ./scripts/buildAppImage.js",
     "updateFilters": "node ./ext/filterLists/updateEasylist.js",
     "updateHttpsList": "node ./ext/httpsUpgrade/updateHttpsList.js",
-    "updateSuffixes": "node ./ext/publicSuffixes/updateSuffixes.js",
-    "lint": "prettier --write **/**/*.css **/**/*.md **/**/*.html **/**/*.json && standard --fix js/**/*.js main/*.js | snazzy"
+    "updateSuffixes": "node ./ext/publicSuffixes/updateSuffixes.js"
   },
   "repository": {
     "type": "git",
