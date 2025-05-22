@@ -1,9 +1,12 @@
-const path = require('path')
-const fs = require('fs')
+const webpack = require('webpack');
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const outFile = path.resolve(__dirname, '../dist/bundle.css')
+// Get webpack config
+const webpackConfig = require('../webpack.config.js');
 
-const modules = [
+// CSS files to include
+const cssFiles = [
   'css/base.css',
   'css/windowControls.css',
   'css/modal.css',
@@ -21,20 +24,72 @@ const modules = [
   'css/passwordCapture.css',
   'css/passwordViewer.css',
   'node_modules/dragula/dist/dragula.min.css'
-]
+];
 
-function buildBrowserStyles () {
-  /* concatenate modules */
-  let output = ''
-  modules.forEach(function (script) {
-    output += fs.readFileSync(path.resolve(__dirname, '../', script)) + '\n'
-  })
+// Create an entry point that imports all CSS files
+const entryContent = cssFiles.map(file => `import '../${file}';`).join('\n');
+const entryPath = path.resolve(__dirname, '../dist/css-entry.js');
+require('fs').writeFileSync(entryPath, entryContent);
 
-  fs.writeFileSync(outFile, output, 'utf-8')
+// Customize for CSS bundle
+const cssConfig = {
+  ...webpackConfig,
+  entry: {
+    styles: entryPath
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader'
+        ]
+      }
+    ]
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'bundle.css'
+    })
+  ]
+};
+
+function buildBrowserStyles() {
+  return new Promise((resolve, reject) => {
+    webpack(cssConfig, (err, stats) => {
+      if (err || stats.hasErrors()) {
+        console.error('Build failed:');
+        if (err) {
+          console.error(err);
+        }
+        if (stats && stats.hasErrors()) {
+          console.error(stats.toString({
+            colors: true,
+            errors: true,
+            errorDetails: true
+          }));
+        }
+        reject(err || new Error('Webpack compilation failed'));
+        return;
+      }
+      
+      console.log(stats.toString({
+        colors: true,
+        modules: false,
+        chunks: false
+      }));
+      
+      resolve();
+    });
+  });
 }
 
 if (module.parent) {
-  module.exports = buildBrowserStyles
+  module.exports = buildBrowserStyles;
 } else {
-  buildBrowserStyles()
+  buildBrowserStyles().catch(err => {
+    console.error('Error building browser styles:', err);
+    process.exit(1);
+  });
 }

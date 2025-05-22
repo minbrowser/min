@@ -22,4 +22,13 @@ AIM TO MAKE THE BROWSER SMALLER AND FASTER
   Optimize `icons/source/` with SVGO or woff
 - [ ] **Duplicate Code Merge**  
   Combine `tabState.js` + `tabState/task.js`
+- [ ] **Update Deps to latest version with proper testing**  
+- [ ] **Remove Errors**  
 
+
+# 1.5.0
+
+- Removed Bootstrap ,Daisy UI
+- Made Localisation Optional
+- Removed all telemetry to not pollute upstream stats
+- Added Perfs 

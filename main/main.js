@@ -82,7 +82,7 @@ const isFirstInstance = app.requestSingleInstanceLock()
 
 if (!isFirstInstance) {
   app.quit()
-  return
+  process.exit() // Use process.exit() instead of return
 }
 
 var saveWindowBounds = function () {
