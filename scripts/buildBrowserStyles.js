@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { PurgeCSSPlugin } = require('purgecss-webpack-plugin');
+const glob = require('glob');
 
 // Get webpack config
 const webpackConfig = require('../webpack.config.js');
@@ -31,6 +33,12 @@ const entryContent = cssFiles.map(file => `import '../${file}';`).join('\n');
 const entryPath = path.resolve(__dirname, '../dist/css-entry.js');
 require('fs').writeFileSync(entryPath, entryContent);
 
+// Paths for PurgeCSS
+const PATHS = {
+  src: path.join(__dirname, '../js'),
+  html: path.join(__dirname, '../index.html')
+};
+
 // Customize for CSS bundle
 const cssConfig = {
   ...webpackConfig,
@@ -51,6 +59,12 @@ const cssConfig = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'bundle.css'
+    }),
+    new PurgeCSSPlugin({
+      paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }).concat(PATHS.html),
+      safelist: {
+        standard: [/^dragula/, /^sortable/, /^password/, /^tab/, /^modal/, /^bi/]
+      }
     })
   ]
 };
