@@ -10,7 +10,6 @@ var tabEditor = require('navbar/tabEditor.js')
 var searchbarPlugins = require('searchbar/searchbarPlugins.js')
 var urlParser = require('util/urlParser.js')
 
-var statistics = require('js/statistics.js')
 
 function parseTampermonkeyFeatures (content) {
   var parsedFeatures = {}
@@ -198,10 +197,7 @@ const userscripts = {
     })
   },
   initialize: function () {
-    statistics.registerGetter('userscriptCount', function () {
-      return userscripts.scripts.length
-    })
-
+  
     settings.listen('userscriptsEnabled', function (value) {
       if (value === true) {
         userscripts.loadScripts()

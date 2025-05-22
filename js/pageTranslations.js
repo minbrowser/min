@@ -1,5 +1,4 @@
 const webviews = require('webviews.js')
-const statistics = require('js/statistics.js')
 
 const pageTranslations = {
   languages: [
@@ -85,8 +84,7 @@ const pageTranslations = {
     return [topLangs, otherLangs]
   },
   translateInto (tabId, language) {
-    statistics.incrementValue('translatePage.' + language)
-
+      
     webviews.callAsync(tabId, 'send', ['translate-page', language])
   }
 }

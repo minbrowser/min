@@ -31,7 +31,6 @@
   "dependencies": {
     "@browsermt/bergamot-translator": "^0.4.9",
     "@electron/fuses": "^1.7.0",
-    "bootstrap": "5.3.3",
     "bootstrap-icons": "^1.11.3",
     "chokidar": "^4.0.3",
     "dexie": "^3.0.3",

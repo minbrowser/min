@@ -1,4 +1,3 @@
-var statistics = require('js/statistics.js')
 var searchEngine = require('js/util/searchEngine.js')
 var urlParser = require('js/util/urlParser.js')
 
@@ -247,9 +246,6 @@ ipc.on('set-file-view', function (e, data) {
 
 searchbar.events.on('url-selected', function (data) {
   var searchbarQuery = searchEngine.getSearch(urlParser.parse(data.url))
-  if (searchbarQuery) {
-    statistics.incrementValue('searchCounts.' + searchbarQuery.engine)
-  }
 
   if (data.background) {
     var newTab = tabs.add({

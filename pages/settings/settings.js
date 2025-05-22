@@ -1,7 +1,6 @@
 
 document.title = l('settingsPreferencesHeading') + ' | FireMin'
 var contentTypeBlockingContainer = document.getElementById('content-type-blocking')
-var banner = document.getElementById('restart-required-banner')
 var siteThemeCheckbox = document.getElementById('checkbox-site-theme')
 var showDividerCheckbox = document.getElementById('checkbox-show-divider')
 var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
@@ -182,7 +181,6 @@ for (var contentType in contentTypes) {
  *  2: System (follow system preference)
  */
 var darkModeNever = document.getElementById('dark-mode-never');
-var darkModeNight = document.getElementById('dark-mode-night');
 var darkModeAlways = document.getElementById('dark-mode-always');
 var darkModeSystem = document.getElementById('dark-mode-system');
 
@@ -197,60 +195,30 @@ settings.get('darkMode', function (value) {
   
   // Set radio button states based on numeric value
   darkModeNever.checked = (value === -1);
-  darkModeNight.checked = (value === 0);
   darkModeAlways.checked = (value === 1);
   darkModeSystem.checked = (value === 2 || value === undefined);
 
-  // Update Bootstrap theme
-  updateBootstrapTheme(value);
+  
 });
 
-// Add function to update Bootstrap theme
-function updateBootstrapTheme(mode) {
-  const html = document.documentElement;
-  
-  if (mode === 1) { // Always dark
-    html.setAttribute('data-bs-theme', 'dark');
-  } else if (mode === -1) { // Never dark
-    html.setAttribute('data-bs-theme', 'light');
-  } else if (mode === 0) { // Auto (night mode)
-    const hours = new Date().getHours();
-    html.setAttribute('data-bs-theme', (hours >= 20 || hours <= 6) ? 'dark' : 'light');
-  } else { // System (mode === 2 or undefined)
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      html.setAttribute('data-bs-theme', 'dark');
-    } else {
-      html.setAttribute('data-bs-theme', 'light');
-    }
-  }
-}
 
-// Update event listeners to call updateBootstrapTheme
 darkModeNever.addEventListener('change', function (e) {
   if (this.checked) {
     settings.set('darkMode', -1);
-    updateBootstrapTheme(-1);
   }
 });
 
-darkModeNight.addEventListener('change', function (e) {
-  if (this.checked) {
-    settings.set('darkMode', 0);
-    updateBootstrapTheme(0);
-  }
-});
+
 
 darkModeAlways.addEventListener('change', function (e) {
   if (this.checked) {
     settings.set('darkMode', 1);
-    updateBootstrapTheme(1);
   }
 });
 
 darkModeSystem.addEventListener('change', function (e) {
   if (this.checked) {
     settings.set('darkMode', 2);
-    updateBootstrapTheme(2);
   }
 });
 
@@ -258,15 +226,11 @@ darkModeSystem.addEventListener('change', function (e) {
 if (window.matchMedia) {
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
     if (darkModeSystem.checked) {
-      updateBootstrapTheme(2);
     }
   });
 }
 
-// For auto mode (night mode), update theme every minute
-if (darkModeNight.checked) {
-  setInterval(() => updateBootstrapTheme(0), 60000);
-}
+
 /* site theme setting */
 
 settings.get('siteTheme', function (value) {
@@ -350,7 +314,6 @@ languagePicker.value = getCurrentLanguage()
 
 languagePicker.addEventListener('change', function () {
   settings.set('userSelectedLanguage', this.value)
-  showRestartRequiredBanner()
 })
 
 /* separate titlebar setting */
@@ -363,7 +326,6 @@ settings.get('useSeparateTitlebar', function (value) {
 
 separateTitlebarCheckbox.addEventListener('change', function (e) {
   settings.set('useSeparateTitlebar', this.checked)
-  showRestartRequiredBanner()
 })
 
 /* tabs in foreground setting */
@@ -404,7 +366,6 @@ userAgentCheckbox.addEventListener('change', function (e) {
   } else {
     settings.set('customUserAgent', null)
     userAgentInput.style.visibility = 'hidden'
-    showRestartRequiredBanner()
   }
 })
 
@@ -414,7 +375,6 @@ userAgentInput.addEventListener('input', function (e) {
   } else {
     settings.set('customUserAgent', null)
   }
-  showRestartRequiredBanner()
 })
 
 /* update notifications setting */
@@ -433,21 +393,7 @@ updateNotificationsCheckbox.addEventListener('change', function (e) {
   settings.set('updateNotificationsEnabled', this.checked)
 })
 
-/* usage statistics setting */
 
-var usageStatisticsCheckbox = document.getElementById('checkbox-usage-statistics')
-
-settings.get('collectUsageStats', function (value) {
-  if (value === false) {
-    usageStatisticsCheckbox.checked = false
-  } else {
-    usageStatisticsCheckbox.checked = true
-  }
-})
-
-usageStatisticsCheckbox.addEventListener('change', function (e) {
-  settings.set('collectUsageStats', this.checked)
-})
 
 /* default search engine setting */
 
@@ -580,7 +526,6 @@ function onKeyMapChange (e) {
 
     keyMapSettings[action] = parseKeyInput(newValue)
     settings.set('keyMap', keyMapSettings)
-    showRestartRequiredBanner()
   })
 }
 
@@ -699,27 +644,24 @@ document.getElementById('add-custom-bang').addEventListener('click', function ()
   bangslist.appendChild(createBang())
 })
 
-// ... existing code ...
-
 function createBang(bang, snippet, redirect) {
   const li = document.createElement('li')
-  li.className = 'custom-bang-item mb-3 p-3 border rounded'
+  li.className = 'custom-bang-item'
 
-  // Create inputs with Bootstrap classes
   const bangInput = document.createElement('input')
-  bangInput.className = 'form-control mb-2'
+  bangInput.className = 'form-control '
   bangInput.type = 'text'
   bangInput.placeholder = l('settingsCustomBangsPhrase')
   bangInput.value = bang ?? ''
 
   const snippetInput = document.createElement('input')
-  snippetInput.className = 'form-control mb-2'
+  snippetInput.className = 'form-control '
   snippetInput.type = 'text'
   snippetInput.placeholder = l('settingsCustomBangsSnippet')
   snippetInput.value = snippet ?? ''
 
   const redirectInput = document.createElement('input')
-  redirectInput.className = 'form-control mb-2'
+  redirectInput.className = 'form-control'
   redirectInput.type = 'text'
   redirectInput.placeholder = l('settingsCustomBangsRedirect')
   redirectInput.value = redirect ?? ''
@@ -743,7 +685,6 @@ function createBang(bang, snippet, redirect) {
       })
       settings.set('customBangs', bangs)
       current[key] = input.value
-      showRestartRequiredBanner()
     })
   }
 
@@ -768,7 +709,6 @@ function createBang(bang, snippet, redirect) {
       const bangs = (d || []).filter(b => b.phrase !== bangInput.value)
       settings.set('customBangs', bangs)
       li.remove()
-      showRestartRequiredBanner()
     })
   })
 
@@ -797,13 +737,10 @@ function createBang(bang, snippet, redirect) {
   return li
 }
 
-// Update the add button to use Bootstrap classes
-document.getElementById('add-custom-bang').className = 'btn  mt-3'
 
 // Initialize custom bangs
 settings.get('customBangs', (value) => {
   const bangslist = document.getElementById('custom-bangs')
-  bangslist.className = 'list-unstyled' // Add Bootstrap class
 
   if (value && Array.isArray(value)) {
     value.forEach(function(bang) {
@@ -812,15 +749,3 @@ settings.get('customBangs', (value) => {
   }
 })
 
-// Replace the showRestartRequiredBanner function
-function showRestartRequiredBanner() {
-  const modal = new bootstrap.Modal(document.getElementById('restart-required-banner'))
-  modal.show()
-  settings.set('restartNow', true)
-}
-
-// Add this after the existing settings.get('restartNow') code
-document.getElementById('restart-now').addEventListener('click', function() {
-  // Add your restart logic here
-  postMessage({ message: 'restartNow' })
-})

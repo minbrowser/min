@@ -5,7 +5,6 @@ var tabState = require('tabState.js')
 var settings = require('util/settings/settings.js')
 var taskOverlay = require('taskOverlay/taskOverlay.js')
 const writeFileAtomic = require('write-file-atomic')
-const statistics = require('js/statistics.js')
 
 const sessionRestore = {
   savePath: window.globalArgs['user-data-path'] + (platformType === 'windows' ? '\\sessionRestore.json' : '/sessionRestore.json'),
@@ -47,7 +46,6 @@ const sessionRestore = {
         writeFileAtomic(sessionRestore.savePath, JSON.stringify(data), {}, function (err) {
           if (err) {
             console.warn(err)
-            statistics.incrementValue('sessionRestoreSaveAsyncWriteErrors')
           }
         })
       }
@@ -188,7 +186,6 @@ const sessionRestore = {
       browserUI.switchToTask(newTask)
       browserUI.switchToTab(newSessionErrorTab)
 
-      statistics.incrementValue('sessionRestorationErrors')
     }
   },
   syncWithWindow: function () {

@@ -1,5 +1,4 @@
 const path = require('path')
-const statistics = require('js/statistics.js')
 
 const newTabPage = {
   background: document.getElementById('ntp-background'),
@@ -55,9 +54,6 @@ const newTabPage = {
       newTabPage.reloadBackground()
     })
 
-    statistics.registerGetter('ntpHasBackground', function () {
-      return newTabPage.hasBackground
-    })
   }
 }
 
