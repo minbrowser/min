@@ -75,7 +75,7 @@ const searchbarPlugins = {
       data.urlKey = urlParser.removeTextFragment(data.url)
     }
 
-    results[pluginName].push(d
+    results[pluginName].push(d)
   },
 
   addResult: function (pluginName, data, options = {}) {

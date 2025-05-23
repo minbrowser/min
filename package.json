@@ -63,7 +63,6 @@
     "glob": "^11.0.2",
     "mini-css-extract-plugin": "^2.7.6",
     "purgecss-webpack-plugin": "^7.0.2",
-    "prettier": "^2.2.1",
     "style-loader": "^4.0.0",
     "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1",
