@@ -415,7 +415,7 @@ function buildAppMenu (options = {}) {
         {
           label: '🎓 '+l('appMenuTakeTour'),
           click: function () {
-            openTabInWindow('https://firemin.netlify.app/')
+            openTabInWindow('https://vagabond-vacation-18e.notion.site/Tour-1fc18de2cb6a80e98f27e98e45792888?pvs=4')
           }
         },
         {

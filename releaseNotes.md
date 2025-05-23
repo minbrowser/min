@@ -6,8 +6,7 @@ AIM TO MAKE THE BROWSER SMALLER AND FASTER
 ### 🚀 High-Impact Rocket Fuel (P1)
 - [ ] **Switch Build System to ESBuild**  
   `scripts/buildBrowser.js` overhaul
-- [ ] **Implement CSS Tree Shaking**  
-  Add PurgeCSS to build process
+- [ ] **Optimize Browser Size**
 
 ### ⚡ Performance Boosters (P2)
 - [ ] **TabState Modernization**  
@@ -15,7 +14,7 @@ AIM TO MAKE THE BROWSER SMALLER AND FASTER
 - [ ] **Process Spawn Optimization**  
   Add `stdio: 'ignore'` to `util/process.js`
 - [ ] **Optimize Database Queries**
-  Improve performance of history and bookmark searches
+  Improve performance of history and bookmark searches aand learn it
 
 ### 🧼 Cleanup Crew (P3)
 - [ ] **Icon SVG Conversion**  
@@ -24,6 +23,7 @@ AIM TO MAKE THE BROWSER SMALLER AND FASTER
   Combine `tabState.js` + `tabState/task.js`
 - [ ] **Update Deps to latest version with proper testing**  
 - [ ] **Remove Errors**  
+- fix visiblity of some icons
 
 
 # 1.5.0

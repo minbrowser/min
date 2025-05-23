@@ -32,7 +32,7 @@ settings.listen('filteringBlockedCount', function (value) {
   blockedRequestCount.textContent = valueStr
 })
 
-function updateBlockingLevelUI (level) {
+function updateBlockingLevelUI(level) {
   var radio = trackingLevelOptions[level]
   radio.checked = true
 
@@ -49,7 +49,7 @@ function updateBlockingLevelUI (level) {
   radio.parentNode.classList.add('selected')
 }
 
-function changeBlockingLevelSetting (level) {
+function changeBlockingLevelSetting(level) {
   settings.get('filtering', function (value) {
     if (!value) {
       value = {}
@@ -60,7 +60,7 @@ function changeBlockingLevelSetting (level) {
   })
 }
 
-function setExceptionInputSize () {
+function setExceptionInputSize() {
   blockingExceptionsInput.style.height = (blockingExceptionsInput.scrollHeight + 2) + 'px'
 }
 
@@ -192,13 +192,13 @@ settings.get('darkMode', function (value) {
   } else if (value === false) {
     value = 2; // Convert false to "system preference"
   }
-  
+
   // Set radio button states based on numeric value
   darkModeNever.checked = (value === -1);
   darkModeAlways.checked = (value === 1);
   darkModeSystem.checked = (value === 2 || value === undefined);
 
-  
+
 });
 
 
@@ -224,7 +224,7 @@ darkModeSystem.addEventListener('change', function (e) {
 
 // Add system theme change listener
 if (window.matchMedia) {
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
     if (darkModeSystem.checked) {
     }
   });
@@ -249,11 +249,11 @@ siteThemeCheckbox.addEventListener('change', function (e) {
 
 var startupSettingInput = document.getElementById('startup-options')
 
-settings.get('startupTabOption', function(value = 2) {
+settings.get('startupTabOption', function (value = 2) {
   startupSettingInput.value = value
 })
 
-startupSettingInput.addEventListener('change', function() {
+startupSettingInput.addEventListener('change', function () {
   settings.set('startupTabOption', parseInt(this.value))
 })
 
@@ -261,11 +261,11 @@ startupSettingInput.addEventListener('change', function() {
 
 var newWindowSettingInput = document.getElementById('new-window-options')
 
-settings.get('newWindowOption', function(value = 1) {
+settings.get('newWindowOption', function (value = 1) {
   newWindowSettingInput.value = value
 })
 
-newWindowSettingInput.addEventListener('change', function() {
+newWindowSettingInput.addEventListener('change', function () {
   settings.set('newWindowOption', parseInt(this.value))
 })
 
@@ -283,7 +283,7 @@ userscriptsCheckbox.addEventListener('change', function (e) {
   userscriptsShowDirectorySection.hidden = !this.checked
 })
 
-userscriptsShowDirectorySection.getElementsByTagName('a')[0].addEventListener('click', function() {
+userscriptsShowDirectorySection.getElementsByTagName('a')[0].addEventListener('click', function () {
   postMessage({ message: 'showUserscriptDirectory' })
 })
 
@@ -377,23 +377,6 @@ userAgentInput.addEventListener('input', function (e) {
   }
 })
 
-/* update notifications setting */
-
-var updateNotificationsCheckbox = document.getElementById('checkbox-update-notifications')
-
-settings.get('updateNotificationsEnabled', function (value) {
-  if (value === false) {
-    updateNotificationsCheckbox.checked = false
-  } else {
-    updateNotificationsCheckbox.checked = true
-  }
-})
-
-updateNotificationsCheckbox.addEventListener('change', function (e) {
-  settings.set('updateNotificationsEnabled', this.checked)
-})
-
-
 
 /* default search engine setting */
 
@@ -454,12 +437,12 @@ settings.get('keyMap', function (keyMapSettings) {
   })
 })
 
-function formatCamelCase (text) {
+function formatCamelCase(text) {
   var result = text.replace(/([a-z])([A-Z])/g, '$1 $2')
   return result.charAt(0).toUpperCase() + result.slice(1)
 }
 
-function createKeyMapListItem (action, keyMap) {
+function createKeyMapListItem(action, keyMap) {
   var li = document.createElement('li')
   var label = document.createElement('label')
   var input = document.createElement('input')
@@ -477,7 +460,7 @@ function createKeyMapListItem (action, keyMap) {
   return li
 }
 
-function formatKeyValue (value) {
+function formatKeyValue(value) {
   // multiple shortcuts should be separated by commas
   if (value instanceof Array) {
     value = value.join(', ')
@@ -495,7 +478,7 @@ function formatKeyValue (value) {
   return value
 }
 
-function parseKeyInput (input) {
+function parseKeyInput(input) {
   // input may be a single mapping or multiple mappings comma separated.
   var parsed = input.toLowerCase().split(',')
   parsed = parsed.map(function (e) { return e.trim() })
@@ -515,7 +498,7 @@ function parseKeyInput (input) {
   return parsed.length > 1 ? parsed : parsed[0]
 }
 
-function onKeyMapChange (e) {
+function onKeyMapChange(e) {
   var action = this.name
   var newValue = this.value
 
@@ -551,7 +534,7 @@ const maxCachedTabs = document.getElementById('max-cached-tabs')
 const preloadNextPage = document.getElementById('preload-next-page')
 
 hardwareAccel.checked = settings.get('enableHardwareAcceleration')
-limitTabCache.checked = settings.get('limitTabCaching') 
+limitTabCache.checked = settings.get('limitTabCaching')
 maxCachedTabs.value = settings.get('maxCachedTabs')
 preloadNextPage.checked = settings.get('preloadNextPage')
 
@@ -673,7 +656,7 @@ function createBang(bang, snippet, redirect) {
   const current = { phrase: bang ?? '', snippet: snippet ?? '', redirect: redirect ?? '' }
 
   function update(key, input) {
-    settings.get('customBangs', function(d) {
+    settings.get('customBangs', function (d) {
       let bangs = d || []
       // Remove the current bang from the list
       bangs = bangs.filter(b => b.phrase !== current.phrase)
@@ -689,23 +672,23 @@ function createBang(bang, snippet, redirect) {
   }
 
   // Event listeners
-  bangInput.addEventListener('change', function() {
+  bangInput.addEventListener('change', function () {
     if (this.value.startsWith('!')) {
       this.value = this.value.slice(1)
     }
     update('phrase', this)
   })
 
-  snippetInput.addEventListener('change', function() {
+  snippetInput.addEventListener('change', function () {
     update('snippet', this)
   })
 
-  redirectInput.addEventListener('change', function() {
+  redirectInput.addEventListener('change', function () {
     update('redirect', this)
   })
 
-  xButton.addEventListener('click', function() {
-    settings.get('customBangs', function(d) {
+  xButton.addEventListener('click', function () {
+    settings.get('customBangs', function (d) {
       const bangs = (d || []).filter(b => b.phrase !== bangInput.value)
       settings.set('customBangs', bangs)
       li.remove()
@@ -743,7 +726,7 @@ settings.get('customBangs', (value) => {
   const bangslist = document.getElementById('custom-bangs')
 
   if (value && Array.isArray(value)) {
-    value.forEach(function(bang) {
+    value.forEach(function (bang) {
       bangslist.appendChild(createBang(bang.phrase, bang.snippet, bang.redirect))
     })
   }

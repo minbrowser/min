@@ -4,7 +4,7 @@
   "author": "Manas",
   "version": "1.5.0",
   "description": "The Fun & Merry Browser That Puts You First! 🎉",
-  "electronVersion": "35.0.2",
+  "electronVersion": "34.4.1",
   "main": "main.build.js",
   "standard": {
     "globals": [
@@ -31,8 +31,8 @@
   "dependencies": {
     "@browsermt/bergamot-translator": "^0.4.9",
     "@electron/fuses": "^1.7.0",
-    "bootstrap-icons": "^1.11.3",
-    "chokidar": "^4.0.3",
+    "bootstrap-icons": "^1.13.1",
+    "chokidar": "^3.6.0",
     "dexie": "^3.0.3",
     "dragula": "github:minbrowser/dragula",
     "electron-squirrel-startup": "^1.0.0",
@@ -43,7 +43,7 @@
     "quick-score": "^0.2.0",
     "regedit": "^3.0.3",
     "sortablejs": "^1.15.1",
-    "stemmer": "^2.0.1",
+    "stemmer": "^1.0.5",
     "write-file-atomic": "^6.0.0"
   },
   "devDependencies": {
@@ -55,7 +55,7 @@
     "concurrently": "^5.2.0",
     "css-loader": "^7.1.2",
     "decomment": "^0.9.0",
-    "electron": "35.0.2",
+    "electron": "34.4.1",
     "electron-builder": "^24.13.3",
     "electron-installer-windows": "^3.0.0",
     "esprima": "^4.0.1",
@@ -63,6 +63,7 @@
     "glob": "^11.0.2",
     "mini-css-extract-plugin": "^2.7.6",
     "purgecss-webpack-plugin": "^7.0.2",
+    "prettier": "^2.2.1",
     "style-loader": "^4.0.0",
     "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1",
