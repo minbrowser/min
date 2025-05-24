@@ -4,8 +4,6 @@ ADDED Many Features and cacheing didnt focus much on finer optimisation
 ## 1.5.0 (Upcoming Optimizations)
 AIM TO MAKE THE BROWSER SMALLER AND FASTER
 ### 🚀 High-Impact Rocket Fuel (P1)
-- [ ] **Switch Build System to ESBuild**  
-  `scripts/buildBrowser.js` overhaul
 - [ ] **Optimize Browser Size**
 
 ### ⚡ Performance Boosters (P2)
