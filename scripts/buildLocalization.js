@@ -11,8 +11,8 @@ const languageFileDir = path.join(__dirname, '../localization/languages')
 
 function buildLocalization () {
   // read all the files from the "languages" directory
-  // Filter to only include en-US.json for English-only build
-  const languageFiles = fs.readdirSync(languageFileDir).filter(file => file === 'en-US.json');
+
+  const languageFiles = fs.readdirSync(languageFileDir)
 
   // build languages object
 

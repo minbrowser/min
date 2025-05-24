@@ -25,7 +25,7 @@ async function afterPackageBuilt (packagePath) {
   }
 
   /* create zip files */
-  var output = fs.createWriteStream('dist/app/' + 'fireMin-v' + version + '-windows' + archSuffix + '.zip')
+  var output = fs.createWriteStream('dist/app/' + 'Min-v' + version + '-windows' + archSuffix + '.zip')
   var archive = archiver('zip', {
     zlib: { level: 9 }
   })
@@ -51,7 +51,7 @@ async function afterPackageBuilt (packagePath) {
 
   await installer(options)
     .then(function () {
-      fs.renameSync('./dist/app/min-installer' + archSuffix + '/fireMin-' + version + '-setup.exe', './dist/app/min-' + version + archSuffix + '-setup.exe')
+      fs.renameSync('./dist/app/min-installer' + archSuffix + '/min-' + version + '-setup.exe', './dist/app/min-' + version + archSuffix + '-setup.exe')
     })
     .catch(err => {
       console.error(err, err.stack)
@@ -61,4 +61,12 @@ async function afterPackageBuilt (packagePath) {
 
 // creating multiple packages simultaneously causes errors in electron-rebuild, so do one arch at a time instead
 createPackage('win32', { arch: Arch.x64 })
- 
+  .then(afterPackageBuilt)
+  .then(function () {
+    return createPackage('win32', { arch: Arch.ia32 })
+  })
+  .then(afterPackageBuilt)
+  .then(function () {
+    return createPackage('win32', { arch: Arch.arm64 })
+  })
+  .then(afterPackageBuilt)

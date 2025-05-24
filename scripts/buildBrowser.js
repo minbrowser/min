@@ -1,63 +1,52 @@
-const webpack = require('webpack');
-const path = require('path');
-const fs = require('fs');
+const browserify = require('browserify')
+const renderify = require('electron-renderify')
+const path = require('path')
+const fs = require('fs')
 
-// First build localization
-require('./buildLocalization.js')();
+const rootDir = path.resolve(__dirname, '../')
+const jsDir = path.resolve(__dirname, '../js')
 
-// Get webpack config
-const webpackConfig = require('../webpack.config.js');
+const intermediateOutput = path.resolve(__dirname, '../dist/build.js')
+const outFile = path.resolve(__dirname, '../dist/bundle.js')
 
-// Customize for browser bundle
-const browserConfig = {
-  ...webpackConfig,
-  entry: {
-    browser: path.resolve(__dirname, '../js/default.js')
-  },
-  plugins: [
-    // Add localization as a global variable
-    new webpack.BannerPlugin({
-      banner: fs.readFileSync(path.resolve(__dirname, '../dist/localization.build.js'), 'utf8'),
-      raw: true
+const fileList = [
+  'dist/localization.build.js',
+  'js/default.js'
+]
+
+function buildBrowser () {
+  // build localization support first, since it is included in the browser bundle
+  require('./buildLocalization.js')()
+
+  /* concatenate legacy modules */
+  let output = ''
+  fileList.forEach(function (script) {
+    output += fs.readFileSync(path.resolve(__dirname, '../', script)) + ';\n'
+  })
+
+  fs.writeFileSync(intermediateOutput, output, 'utf-8')
+
+  const instance = browserify(intermediateOutput, {
+    paths: [rootDir, jsDir],
+    ignoreMissing: false,
+    node: true,
+    detectGlobals: false
+  })
+
+  instance.exclude('chokidar')
+  instance.exclude('write-file-atomic')
+
+  instance.transform(renderify)
+  const stream = fs.createWriteStream(outFile, { encoding: 'utf-8' })
+  instance.bundle()
+    .on('error', function (e) {
+      console.warn('\x1b[31m' + 'Error while building: ' + e.message + '\x1b[30m')
     })
-  ]
-};
-
-function buildBrowser() {
-  return new Promise((resolve, reject) => {
-    webpack(browserConfig, (err, stats) => {
-      if (err || stats.hasErrors()) {
-        console.error('Build failed:');
-        if (err) {
-          console.error(err);
-        }
-        if (stats && stats.hasErrors()) {
-          console.error(stats.toString({
-            colors: true,
-            errors: true,
-            errorDetails: true
-          }));
-        }
-        reject(err || new Error('Webpack compilation failed'));
-        return;
-      }
-      
-      console.log(stats.toString({
-        colors: true,
-        modules: false,
-        chunks: false
-      }));
-      
-      resolve();
-    });
-  });
+    .pipe(stream)
 }
 
 if (module.parent) {
-  module.exports = buildBrowser;
+  module.exports = buildBrowser
 } else {
-  buildBrowser().catch(err => {
-    console.error('Error building browser:', err);
-    process.exit(1);
-  });
+  buildBrowser()
 }

@@ -1,56 +1,46 @@
-const webpack = require('webpack');
-const path = require('path');
+const path = require('path')
+const fs = require('fs')
 
-// First build localization
-require('./buildLocalization.js')();
+const outFile = path.resolve(__dirname, '../main.build.js')
 
-// Get webpack config
-const webpackConfig = require('../webpack.config.js');
+const modules = [
+  'dist/localization.build.js',
+  'main/windowManagement.js',
+  'js/util/keyMap.js',
+  'main/menu.js',
+  'main/touchbar.js',
+  'main/registryConfig.js',
+  'js/util/settings/settingsMain.js',
+  'main/main.js',
+  'main/minInternalProtocol.js',
+  'main/filtering.js',
+  'main/viewManager.js',
+  'main/download.js',
+  'main/UASwitcher.js',
+  'main/permissionManager.js',
+  'main/prompt.js',
+  'main/remoteMenu.js',
+  'main/remoteActions.js',
+  'main/keychainService.js',
+  'js/util/proxy.js',
+  'main/themeMain.js'
+]
 
-// Customize for main process bundle
-const mainConfig = {
-  ...webpackConfig,
-  entry: {
-    main: path.resolve(__dirname, '../main/main.js')
-  },
-  target: 'electron-main'
-};
+function buildMain () {
+  // build localization support first, since it is included in the bundle
+  require('./buildLocalization.js')()
 
-function buildMain() {
-  return new Promise((resolve, reject) => {
-    webpack(mainConfig, (err, stats) => {
-      if (err || stats.hasErrors()) {
-        console.error('Build failed:');
-        if (err) {
-          console.error(err);
-        }
-        if (stats && stats.hasErrors()) {
-          console.error(stats.toString({
-            colors: true,
-            errors: true,
-            errorDetails: true
-          }));
-        }
-        reject(err || new Error('Webpack compilation failed'));
-        return;
-      }
-      
-      console.log(stats.toString({
-        colors: true,
-        modules: false,
-        chunks: false
-      }));
-      
-      resolve();
-    });
-  });
+  /* concatenate modules */
+  let output = ''
+  modules.forEach(function (script) {
+    output += fs.readFileSync(path.resolve(__dirname, '../', script)) + ';\n'
+  })
+
+  fs.writeFileSync(outFile, output, 'utf-8')
 }
 
 if (module.parent) {
-  module.exports = buildMain;
+  module.exports = buildMain
 } else {
-  buildMain().catch(err => {
-    console.error('Error building main process:', err);
-    process.exit(1);
-  });
+  buildMain()
 }

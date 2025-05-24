@@ -1,7 +1,40 @@
 class TabList {
+  // Add to TabList class
+  validateTabs() {
+    try {
+      if (!Array.isArray(this.tabs)) {
+        this.tabs = []
+        return false
+      }
+
+      this.tabs = this.tabs.filter(tab => {
+        if (!tab || typeof tab !== 'object') return false
+        if (!tab.id) return false
+
+        // Ensure required properties exist
+        tab.url = tab.url || ''
+        tab.title = tab.title || ''
+        tab.lastActivity = tab.lastActivity || Date.now()
+        tab.scrollPosition = tab.scrollPosition || 0
+        
+        return true
+      })
+
+      return true
+    } catch (err) {
+      console.error('Tab state validation failed:', err)
+      this.tabs = []
+      return false
+    }
+  }
+
+  // Modify constructor
   constructor (tabs, parentTaskList) {
     this.tabs = tabs || []
     this.parentTaskList = parentTaskList
+    
+    // Add validation on initialization
+    this.validateTabs()
   }
 
   //tab properties that shouldn't be saved to disk

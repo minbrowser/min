@@ -2,13 +2,50 @@ const TabList = require('tabState/tab.js')
 const TabStack = require('tabRestore.js')
 
 class TaskList {
+  // Add this method to TaskList class
+  validateState() {
+    try {
+      // Ensure tasks array exists
+      if (!Array.isArray(this.tasks)) {
+        this.tasks = []
+        return false
+      }
+
+      // Validate each task
+      this.tasks = this.tasks.filter(task => {
+        if (!task || typeof task !== 'object') return false
+        if (!task.id || !task.tabs) return false
+        
+        // Ensure TabList is properly instantiated
+        if (!(task.tabs instanceof TabList)) {
+          task.tabs = new TabList(task.tabs, this)
+        }
+        
+        // Ensure tabHistory exists
+        if (!task.tabHistory) {
+          task.tabHistory = new TabStack()
+        }
+        
+        return true
+      })
+
+      return true
+    } catch (err) {
+      console.error('Task state validation failed:', err)
+      return false
+    }
+  }
+
+  // Modify constructor
   constructor () {
-    this.tasks = [] // each task is {id, name, tabs: [], tabHistory: TabStack}
+    this.tasks = [] 
     this.events = []
     this.pendingCallbacks = []
     this.pendingCallbackTimeout = null
+    
+    // Add validation on initialization
+    this.validateState()
   }
-
   on (name, fn) {
     this.events.push({ name, fn })
   }

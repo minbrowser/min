@@ -36,7 +36,7 @@ require('./createPackage.js')('mac', { arch: toArch(platform) }).then(function (
     zlib: { level: 9 }
   })
 
-  archive.directory(path.resolve(packagePath, 'fireMin.app'), 'fireMin.app')
+  archive.directory(path.resolve(packagePath, 'Min.app'), 'Min.app')
 
   archive.pipe(output)
   archive.finalize()

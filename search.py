@@ -120,7 +120,7 @@ class AutoFileSearcher:
 if __name__ == "__main__":
     # Set up your search configuration here
     SEARCH_DIRECTORY = "."  # Current directory, change this to your target folder
-    SEARCH_WORDS = ["isDevelopmentMode"]  # Words to search for
+    SEARCH_WORDS = ["purgecss"]  # Words to search for
     FILE_TYPES =  { '.css', '.html','.js','.ts', } # File types to search in
     EXCLUDE_FOLDERS = {'node_modules', 'venv', '.github', '__pycache__', 'dist' ,'ext' , 'docs' , 'bundles' ,'_locales'}  # Folders to skip
     WHOLE_WORD = False  # Set to True to match whole words only

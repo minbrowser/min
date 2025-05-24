@@ -47,26 +47,18 @@
     "write-file-atomic": "^6.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.27.1",
-    "@babel/plugin-syntax-top-level-await": "^7.14.5",
-    "@babel/preset-env": "^7.27.2",
     "archiver": "^4.0.1",
-    "babel-loader": "^10.0.0",
+    "browserify": "^16.5.1",
     "concurrently": "^5.2.0",
-    "css-loader": "^7.1.2",
     "decomment": "^0.9.0",
     "electron": "34.4.1",
     "electron-builder": "^24.13.3",
     "electron-installer-windows": "^3.0.0",
-    "esprima": "^4.0.1",
-    "file-loader": "^6.2.0",
-    "glob": "^11.0.2",
-    "mini-css-extract-plugin": "^2.7.6",
-    "purgecss-webpack-plugin": "^7.0.2",
-    "style-loader": "^4.0.0",
-    "webpack": "^5.99.9",
-    "webpack-cli": "^6.0.1",
-    "webpack-merge": "^6.0.1"
+    "electron-renderify": "0.0.2",
+    "prebuild-install": "^7.0.1",
+    "prettier": "^2.2.1",
+    "snazzy": "^9.0.0",
+    "standard": "^14.3.4"
   },
   "license": "MPL-2.0",
   "scripts": {

@@ -226,6 +226,24 @@ const sessionRestore = {
     }
   },
   initialize: function () {
+    // Add periodic state verification
+    setInterval(() => {
+      const currentState = tasks.getStringifyableState()
+      if (!currentState || !currentState.tasks || currentState.tasks.length === 0) {
+        console.warn('Invalid state detected during runtime check')
+        // Create emergency backup
+        const emergencyBackup = {
+          timestamp: Date.now(),
+          state: tasks.getCopyableState()
+        }
+        writeFileAtomic.sync(
+          path.join(window.globalArgs['user-data-path'], 'emergency-backup-' + Date.now() + '.json'),
+          JSON.stringify(emergencyBackup),
+          {}
+        )
+      }
+    }, 5 * 60 * 1000) // Check every 5 minutes
+  
     setInterval(sessionRestore.save, 30000)
 
     window.onbeforeunload = function (e) {

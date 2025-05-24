@@ -1,53 +1,30 @@
-const webpack = require('webpack');
-const path = require('path');
+const path = require('path')
+const fs = require('fs')
 
-// Get webpack config
-const webpackConfig = require('../webpack.config.js');
+const outFile = path.resolve(__dirname, '../dist/preload.js')
 
-// Customize for preload bundle
-const preloadConfig = {
-  ...webpackConfig,
-  entry: {
-    preload: path.resolve(__dirname, '../js/preload/default.js')
-  },
-  target: 'electron-preload'
-};
+const modules = [
+  'js/preload/default.js',
+  'js/preload/textExtractor.js',
+  'js/preload/readerDetector.js',
+  'js/preload/siteUnbreak.js',
+  'js/util/settings/settingsPreload.js',
+  'js/preload/passwordFill.js',
+  'js/preload/translate.js',
+]
 
 function buildPreload() {
-  return new Promise((resolve, reject) => {
-    webpack(preloadConfig, (err, stats) => {
-      if (err || stats.hasErrors()) {
-        console.error('Build failed:');
-        if (err) {
-          console.error(err);
-        }
-        if (stats && stats.hasErrors()) {
-          console.error(stats.toString({
-            colors: true,
-            errors: true,
-            errorDetails: true
-          }));
-        }
-        reject(err || new Error('Webpack compilation failed'));
-        return;
-      }
-      
-      console.log(stats.toString({
-        colors: true,
-        modules: false,
-        chunks: false
-      }));
-      
-      resolve();
-    });
-  });
+  /* concatenate modules */
+  let output = ''
+  modules.forEach(function (script) {
+    output += fs.readFileSync(path.resolve(__dirname, '../', script)) + ';\n'
+  })
+
+  fs.writeFileSync(outFile, output, 'utf-8')
 }
 
 if (module.parent) {
-  module.exports = buildPreload;
+  module.exports = buildPreload
 } else {
-  buildPreload().catch(err => {
-    console.error('Error building preload:', err);
-    process.exit(1);
-  });
+  buildPreload()
 }
