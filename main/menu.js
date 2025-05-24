@@ -429,13 +429,12 @@ function buildAppMenu (options = {}) {
           label: 'ℹ️ '+l('appMenuAbout').replace('%n', app.name),
           click: function (item, window) {
             var info = [
-              'Fire Min Beta',
-              'Min v' + app.getVersion(),
+              'FireMin v' + app.getVersion(),
               'Chromium v' + process.versions.chrome
             ]
             electron.dialog.showMessageBox({
               type: 'info',
-              title: 'ℹ️ '+l('appMenuAbout').replace('%n', app.name),
+              title: l('appMenuAbout').replace('%n', app.name),
               message: info.join('\n'),
               buttons: [l('closeDialog')]
             })

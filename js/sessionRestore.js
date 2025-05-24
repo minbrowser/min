@@ -83,7 +83,7 @@ const sessionRestore = {
         tasks.setSelected(tasks.add()) // create a new task
 
         var newTab = tasks.getSelected().tabs.add({
-            url: 'https://minbrowser.github.io/min/tour'
+            url: 'https://vagabond-vacation-18e.notion.site/Tour-1fc18de2cb6a80e98f27e98e45792888?pvs=4'
         })
         browserUI.addTab(newTab, {
          enterEditMode: false

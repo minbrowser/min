@@ -3,7 +3,7 @@ var regedit = require('regedit')
 var installPath = process.execPath
 
 var keysToCreate = [
-  'HKCU\\Software\\Classes\\firefireMin',
+  'HKCU\\Software\\Classes\\fireMin',
   'HKCU\\Software\\Classes\\fireMin\\Application',
   'HKCU\\Software\\Classes\\fireMin\\DefaulIcon',
   'HKCU\\Software\\Classes\\fireMin\\shell\\open\\command',
