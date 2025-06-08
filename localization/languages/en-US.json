@@ -30,7 +30,7 @@
     "translatePage": "Translate Page",
     /* searchbar */
     "placesPluginOpenAgain": "Open Again",
-    "placesPluginSwitchToTab": "Switch to Tab", // missing translation
+    "placesPluginSwitchToTab": "Switch to Tab",
     "placesPluginSwitchToTask": "Switch to \"%t\"", // %t is replaced with the name of a task
     "pasteAndGo": "Paste and Go", //context menu item
     "DDGAnswerSubtitle": "Answer", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
@@ -131,7 +131,7 @@
     "sessionRestoreErrorExplanation": "Your saved tabs couldn't be restored correctly.",
     "sessionRestoreErrorBackupInfo": "We've saved a backup of your data at this location: %l.", //%l will be replaced with a path to a file
     "sessionRestoreErrorLinkInfo": {
-      "unsafeHTML": "If this error continues to occur, please open a new issue <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">here</a>."
+    "unsafeHTML": "If this error continues to occur, please open a new issue <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">here</a>."
     },
     /* pages/settings/index.html */
     "settingsPreferencesHeading": "Preferences",
