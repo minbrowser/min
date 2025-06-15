@@ -146,8 +146,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Min şimdiye kadar, <strong></strong> reklam ve takipçi engelledi."
     },
-    "settingsCustomBangs": "Kişiselleştirilebilir Komutlar"
-    "settingsCustomBangsAdd": "Yeni komut ekle"
+    "settingsCustomBangs": "Kişiselleştirilebilir Komutlar",
+    "settingsCustomBangsAdd": "Yeni komut ekle",
     "settingsCustomBangsPhrase": "Cümle (Gerekli)",
     "settingsCustomBangsSnippet": "Açıklama (İsteğe Bağlı)",
     "settingsCustomBangsRedirect": "Yönlendirme URL'si (Gerekli)",
