@@ -39,7 +39,7 @@ body:not(.is-ntp) #ntp-content {
 }
 
 .dark-mode #ntp-background-controls button {
-    background: rgb(33, 37, 43);
+    background: var(--navy);
     border-color: #aaa;
     color: white;
 }
