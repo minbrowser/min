@@ -37,7 +37,7 @@ var searchEngines = {
   Baidu: {
     name: 'Baidu',
     searchURL: 'https://www.baidu.com/s?wd=%s',
-    suggestionsURL: 'https://www.baidu.com/su?wd=%s&action=opensearch',
+    suggestionsURL: 'https://www.baidu.com/su?wd=%s&action=opensearch&ie=utf-8',
     queryParam: 'wd'
   },
   StartPage: {
