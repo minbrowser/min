@@ -5,68 +5,68 @@
     /* Context menu items
         these are the items displayed in the menu when you right-click on a page
         */
-    "addToDictionary": "Dodajte u rječnik",
+    "addToDictionary": "Dodaj u rječnik",
     "pictureInPicture": "Slika u slici",
-    "openInNewTab": "Otvorite na novoj kartici",
-    "openInNewPrivateTab": "Otvorite na novoj privatnoj kartici",
-    "saveLinkAs": "Spremite link kao...",
-    "viewImage": "Pregledajte sliku",
-    "openImageInNewTab": "Otvorite sliku na novoj kartici",
-    "openImageInNewPrivateTab": "Otvorite sliku na novoj privatnoj kartici",
-    "saveImageAs": "Spremite sliku kao",
-    "searchWith": "Pretražite pomoću %s", //%s will be replaced with the name of the current search engine
-    "copyLink": "Kopirajte link",
-    "copyEmailAddress": "Kopirajte adresu e-pošte",
-    "selectAll": "Odaberite sve",
-    "undo": "Vrati",
-    "redo": "Poništi",
+    "openInNewTab": "Otvori u novoj kartici",
+    "openInNewPrivateTab": "Otvori u novoj privatnoj kartici",
+    "saveLinkAs": "Spremi link kao...",
+    "viewImage": "Pregledaj sliku",
+    "openImageInNewTab": "Otvori sliku u novoj kartici",
+    "openImageInNewPrivateTab": "Otvori sliku u novoj privatnoj kartici",
+    "saveImageAs": "Spremi sliku kao",
+    "searchWith": "Pretraži pomoću %s", //%s will be replaced with the name of the current search engine
+    "copyLink": "Kopiraj link",
+    "copyEmailAddress": "Kopiraj e-mail adresu",
+    "selectAll": "Odaberi sve",
+    "undo": "Poništi",
+    "redo": "Vrati",
     "cut": "Izreži",
     "copy": "Kopiraj", //this is a verb (as in "copy the currently-selected text")
     "paste": "Zalijepi",
-    "pasteAndMatchStyle": null, //missing translation
-    "goBack": "Natrag",
-    "goForward": "Naprijed",
-    "inspectElement": "Pregledajte element",
-    "translatePage": null, // missing translation
+    "pasteAndMatchStyle": "Zalijepi i uskladi stil",
+    "goBack": "Idi natrag",
+    "goForward": "Idi naprijed",
+    "inspectElement": "Pregledaj element",
+    "translatePage": "Prevedi stranicu",
     /* searchbar */
-    "placesPluginOpenAgain": null, // missing translation
-    "placesPluginSwitchToTab": null, // missing translation
-    "placesPluginSwitchToTask": null, // missing translation
+    "placesPluginOpenAgain": "Otvori ponovo",
+    "placesPluginSwitchToTab": "Pređi na karticu",
+    "placesPluginSwitchToTask": "Pređi na \"%t\"", // %t is replaced with the name of a task
     "pasteAndGo": "Zalijepi i kreni", //context menu item
     "DDGAnswerSubtitle": "Odgovor", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
     "suggestedSite": "Predložena web lokacija", //this is used to label suggested websites from the DuckDuckGo API,
-    "resultsFromDDG": "Rezultati iz DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
+    "resultsFromDDG": "Rezultati sa DuckDuckGo", //this is used as a label to indicate which results come from DuckDuckGo's API
     "taskN": "Zadatak %n", //this is used as a way to identify which tab a task is in "task 1", "task 2", ...
     /* custom commands
         these are some of the items that show up when you press ! in the searchbar.
         Each one of these strings describes what the command will do when you run it. */
     "showMoreBangs": "Prikaži više",
     "viewSettings": "Prikaz postavki",
-    "takeScreenshot": "Napravite snimku zaslona",
+    "takeScreenshot": "Napravi snimku zaslona",
     "clearHistory": "Izbriši svu povijest",
-    "enableBlocking": "Omogućite blokiranje sadržaja za ovu web lokaciju",
-    "disableBlocking": "Onemogućite blokiranje sadržaja na ovoj web lokaciji",
-    "clearHistoryConfirmation": "Izbrisati svu povijest i podatke o pregledavanju?",
-    "switchToTask": "Prebacite se na Zadatak",
-    "createTask": "Stvorite zadatak",
-    "closeTask": "Zatvorite zadatak",
-    "moveToTask": "Premjestite ovu karticu na zadatak",
-    "nameTask": "Imenujte ovaj zadatak",
+    "enableBlocking": "Omogući blokiranje sadržaja za ovu web lokaciju",
+    "disableBlocking": "Onemogući blokiranje sadržaja na ovoj web lokaciji",
+    "clearHistoryConfirmation": "Izbriši svu povijest i podatke o pregledavanju?",
+    "switchToTask": "Prebaci se na Zadatak",
+    "createTask": "Stvori zadatak",
+    "closeTask": "Zatvori zadatak",
+    "moveToTask": "Premjesti ovu karticu u zadatak",
+    "nameTask": "Imenuj ovaj zadatak",
     "addBookmark": "Dodaj oznaku",
-    "searchBookmarks": "Pretražite oznake",
-    "bookmarksAddTag": "Dodaj oznaku ...",
-    "bookmarksRenameTag": "Preimenuj Oznaku",
-    "bookmarksDeleteTag": "Obriši Oznaku",
-    "deleteBookmarksWithTag": "Obriši Značajke sa Oznakom",
+    "searchBookmarks": "Pretraži oznake",
+    "bookmarksAddTag": "Dodaj značku...",
+    "bookmarksRenameTag": "Preimenuj značku",
+    "bookmarksDeleteTag": "Izbriši značku",
+    "deleteBookmarksWithTag": "Izbriši oznake sa značkom",
     "bookmarksSimilarItems": "Slični predmeti",
     "searchHistory": "Povijest pretraživanja",
     "importBookmarks": "Uvoz oznaka iz HTML datoteke",
     "exportBookmarks": "Izvoz oznaka",
-    "runUserscript": "Pokrenite korisničku skriptu",
+    "runUserscript": "Pokreni korisničku skriptu",
     /* navbar */
     "openMenu": "Otvori izbornik", //application menu button on windows
-    "enterReaderView": "Uđite u prikaz čitača",
-    "exitReaderView": "Izađite iz pogleda čitatelja",
+    "enterReaderView": "Uđi u prikaz čitača",
+    "exitReaderView": "Izađi iz prikaz čitača",
     "newTabLabel": "Nova kartica", //this is a noun, used for tabs that don't have a page loaded in them yet
     "connectionNotSecure": "Vaša veza s ovom web stranicom nije sigurna.",
     "searchbarPlaceholder": "Pretražite ili unesite adresu",
@@ -74,7 +74,7 @@
     "newTabAction": "Nova kartica", //this is a verb, used to label a button that adds a tab to the tabstrip when clicked
     /* task overlay */
     "viewTasks": "Pregled zadataka",
-    "newTask": "Novi Zadatak", //"new" is a verb - it is used for a button at the bottom of the task overlay
+    "newTask": "Novi zadatak", //"new" is a verb - it is used for a button at the bottom of the task overlay
     "defaultTaskName": "Zadatak %n", //this is the name used for newly-created tasks; %n is replaced with a number ("task 1", "task 2", etc)
     "taskDeleteWarning": {
       "unsafeHTML": "Zadatak izbrisan. <a>Poništi?</a>"
@@ -84,14 +84,14 @@
     "taskDescriptionTwo": "%t i %t", //used to describe a task that has two tabs, %t is replaced with the tab titles
     "taskDescriptionThree": "%t, %t, i %n više", //used to describe a task that has three or more tabs
     /* find in page toolbar */
-    "searchInPage": "Traži u stranici", //this is used as the placeholder text for the textbox in the find in page toolbar
+    "searchInPage": "Traži na stranici", //this is used as the placeholder text for the textbox in the find in page toolbar
     "findMatchesSingular": "%i od %t se podudara", //this and the next label are used to indicate which match is currently highlighted
     "findMatchesPlural": "%i od %t se podudaraju",
     /* Focus mode */
-    "isFocusMode": "U načinu ste fokusiranja.",
+    "isFocusMode": "U fokusiranom ste načinu rada.",
     "closeDialog": "U redu", //used as a label for the button that closes the dialog
-    "focusModeExplanation1": "U načinu fokusa ne možete stvarati nove kartice ili mijenjati zadatke.",
-    "focusModeExplanation2": "Način fokusa možete napustiti uklanjanjem oznake \"način fokusa\" u izborniku prikaza.",
+    "focusModeExplanation1": "U fokusiranom načinu rada ne možete stvarati nove kartice ili mijenjati zadatke.",
+    "focusModeExplanation2": "Fokusirani način rada možete napustiti uklanjanjem oznake \"Fokusirani način rada\" u izborniku prikaza.",
     /* relative dates */
     "timeRangeJustNow": "Upravo sada",
     "timeRangeMinutes": "Prije nekoliko minuta",
@@ -108,37 +108,37 @@
     "errorPagePrimaryAction": "Pokušajte ponovo",
     "serverNotFoundTitle": "Poslužitelj nije pronađen",
     "serverNotFoundSubtitle": "Min nije mogao pronaći ovo web mjesto.",
-    "archiveSearchAction": "Pretražite na archive.org",
+    "archiveSearchAction": "Pretraži na archive.org",
     "sslErrorTitle": "Ova web stranica nije dostupna",
     "sslErrorMessage": "Min se nije mogao sigurno povezati s ovom web stranicom.",
     "dnsErrorTitle": "Web stranica nije pronađena",
-    "dnsErrorMessage": "Dogodila se DNS pogreška.",
-    "offlineErrorTitle": "Niste na mreži",
-    "offlineErrorMessage": "Ponovno se povežite s internetom i pokušajte ponovo.",
+    "dnsErrorMessage": "Došlo je do DNS greške.",
+    "offlineErrorTitle": "Niste spojeni na mrežu",
+    "offlineErrorMessage": "Ponovno se spojite na internet i pokušajte ponovo.",
     "genericConnectionFail": "Min se nije mogao povezati s web stranicom.",
     "sslTimeErrorMessage": "Min se nije mogao sigurno povezati s ovom web stranicom. Molimo provjerite je li sat vašeg računala pravilno postavljen.",
     "addressInvalidTitle": "Ova adresa nije valjana.",
-    "genericError": "Dogodila se pogreška",
+    "genericError": "Došlo je do greške",
     /* pages/phishing/index.html */
     "phishingErrorTitle": "Ova vam stranica može naštetiti.",
     "phishingErrorMessage": "Ova web stranica možda pokušava ukrasti vaše osobne podatke, poput lozinki ili bankovnih podataka.",
-    "phishingErrorVisitAnyway": "Posjetite stranicu u svakom slučaju",
+    "phishingErrorVisitAnyway": "Svejedno posjeti stranicu",
     "phishingErrorLeave": "Napusti ovu stranicu",
     /* multiple instances alert */
-    "multipleInstancesErrorMessage": "Dogodila se pogreška. Zatvorite sve otvorene instance i ponovo pokrenite Min.",
+    "multipleInstancesErrorMessage": "Došlo je do greške. Zatvorite sve otvorene instance i ponovo pokrenite Min.",
     /* pages/sessionRestoreError/index.html */
-    "sessionRestoreErrorTitle": "Dogodila se pogreška",
+    "sessionRestoreErrorTitle": "Došlo je do greške",
     "sessionRestoreErrorExplanation": "Spremljene kartice nisu se mogle ispravno vratiti.",
-    "sessionRestoreErrorBackupInfo": "Na ovom smo mjestu spremili sigurnosnu kopiju vaših podataka: %l.", //%l will be replaced with a path to a file
+    "sessionRestoreErrorBackupInfo": "Sigurnosnu kopiju vaših podataka smo spremili na ovom mjestu: %l.", //%l will be replaced with a path to a file
     "sessionRestoreErrorLinkInfo": {
-      "unsafeHTML": "Ako se ova pogreška i dalje događa, prijavite novi problem <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">ovdje</a>."
+      "unsafeHTML": "Ako se ova greška i dalje događa, prijavite novi problem <a href=\"https://github.com/minbrowser/min\" target=\"_blank\">ovdje</a>."
     },
     /* pages/settings/index.html */
     "settingsPreferencesHeading": "Postavke",
-    "settingsRestartRequired": "Morate ponovo pokrenuti sustav da biste primijenili ove promjene.",
+    "settingsRestartRequired": "Morate ponovo pokrenuti program kako biste primijenili ove promjene.",
     "settingsPrivacyHeading": "Blokiranje sadržaja",
     "settingsContentBlockingLevel0": "Dopusti sve oglase i programe za praćenje",
-    "settingsContentBlockingLevel1": "Blokirajte oglase i programe za praćenje trećih strana",
+    "settingsContentBlockingLevel1": "Blokiraj oglase i programe za praćenje trećih strana",
     "settingsContentBlockingLevel2": "Blokiraj sve oglase i programe za praćenje",
     "settingsContentBlockingExceptions": "Oglasi će i dalje biti dopušteni na ovim web lokacijama:",
     "settingsBlockScriptsToggle": "Blokiraj skripte",
@@ -146,8 +146,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Do sada je Min blokirao <strong></strong> oglasa i praćenja."
     },
-    "settingsCustomBangs": null, // Missing translation
-    "settingsCustomBangsAdd": null, // Missing translation
+    "settingsCustomBangs": "Korisničke naredbe",
+    "settingsCustomBangsAdd": "Dodaj novu naredbu",
     "settingsCustomBangsPhrase": "Izraz (obavezno)",
     "settingsCustomBangsSnippet": "Opis (neobavezno)",
     "settingsCustomBangsRedirect": "URL za preusmjeravanje (obavezno)",
@@ -162,14 +162,14 @@
     "settingsAdditionalFeaturesHeading": "Dodatne mogućnosti",
     "settingsUserscriptsToggle": "Omogući korisničke skripte",
     "settingsShowDividerToggle": "Prikaži razdjelnik između kartica",
-    "settingsLanguageSelection": null, //missing translation
-    "settingsSeparateTitlebarToggle": "Koristite zasebnu naslovnu traku",
+    "settingsLanguageSelection": "Jezik: ",
+    "settingsSeparateTitlebarToggle": "Koristi zasebnu naslovnu traku",
     "settingsAutoplayToggle": "Omogući automatsku reprodukciju",
-    "settingsOpenTabsInForegroundToggle": "Otvorite nove kartice u prvom planu",
+    "settingsOpenTabsInForegroundToggle": "Otvori nove kartice u prvom planu",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Korisničke skripte omogućuju vam izmjenu ponašanja web stranica - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saznajte više</a>."
     },
-    "settingsUserscriptShowDirectory": null, //missing translation,
+    "settingsUserscriptShowDirectory": "Prikaži mapu sa skriptama",
     "settingsUserAgentToggle": "Upotrijebite prilagođeni korisnički agent",
     "settingsUpdateNotificationsToggle": "Automatski provjeri ima li ažuriranja",
     "settingsUsageStatisticsToggle": {
@@ -179,54 +179,54 @@
     "settingsStartupCreateTask": "Ponovno otvori prethodne kartice", 
     "settingsStartupNewTaskandBackground": "Premjesti prethodne kartice u pozadinski zadatak", 
     "settingsStartupNewTaskOnly": "Otvori novi prazni zadatak", 
-    "settingsNewWindowOptions": "U novim prozorima:",
-    "settingsNewWindowCreateTask": "Stvorite novi zadatak",
+    "settingsNewWindowOptions": "U novim prozorima: ",
+    "settingsNewWindowCreateTask": "Stvori novi zadatak",
     "settingsNewWindowPickTask": "Prikaži popis zadataka",
     "settingsSearchEngineHeading": "Tražilica",
     "settingsDefaultSearchEngine": "Odaberite zadanu tražilicu:",
-    "settingsDDGExplanation": "Postavite DuckDuckGo kao zadanu tražilicu da biste vidjeli trenutne odgovore na traci za pretraživanje.",
+    "settingsDDGExplanation": "Postavite DuckDuckGo kao zadanu tražilicu kako biste vidjeli trenutne odgovore u traci za pretraživanje.",
     "customSearchEngineDescription": "Zamijenite pojam za pretraživanje sa %s",
     "settingsKeyboardShortcutsHeading": "Tipkovni prečaci",
     "settingsKeyboardShortcutsHelp": "Koristite zareze za odvajanje višestrukih prečaca.",
     "settingsProxyHeading": "Proxy",
-    "settingsNoProxy": "Nema proxyja",
+    "settingsNoProxy": "Bez proxyja",
     "settingsManualProxy": "Ručna konfiguracija",
     "settingsAutomaticProxy": "Automatska konfiguracija",
     "settingsProxyRules": "Pravila proxyja:",
-    "settingsProxyBypassRules": "Nema proxyja za:",
+    "settingsProxyBypassRules": "Bez proxyja za:",
     "settingsProxyConfigurationURL": "URL za konfiguraciju",
     /* app menu */
     "appMenuFile": "Datoteka",
     "appMenuNewTab": "Nova kartica",
-    "appMenuDuplicateTab": "Dvostruka kartica",
+    "appMenuDuplicateTab": "Duplicirana kartica",
     "appMenuNewPrivateTab": "Nova privatna kartica",
-    "appMenuNewTask": "Novi Zadatak",
+    "appMenuNewTask": "Novi zadatak",
     "appMenuNewWindow": "Novi prozor",
     "appMenuSavePageAs": "Spremi stranicu kao",
     "appMenuPrint": "Ispiši",
     "appMenuEdit": "Uredi",
-    "appMenuUndo": "Vrati",
-    "appMenuRedo": "Poništi",
+    "appMenuUndo": "Poništi",
+    "appMenuRedo": "Vrati",
     "appMenuCut": "Izreži",
     "appMenuCopy": "Kopiraj",
     "appMenuPaste": "Zalijepi",
-    "appMenuPasteAndMatchStyle": null, //missing translation
+    "appMenuPasteAndMatchStyle": "Zalijepi i uskladi stil",
     "appMenuSelectAll": "Odaberi sve",
     "appMenuFind": "Pronađi",
     "appMenuView": "Prikaz",
-    "appMenuZoomIn": "Uvečaj",
+    "appMenuZoomIn": "Uvećaj",
     "appMenuZoomOut": "Umanji",
     "appMenuActualSize": "Stvarna veličina",
     "appMenuFullScreen": "Puni zaslon", //on some platforms, this string is replaced with one built-in to the OS
-    "appMenuFocusMode": "Način fokusa",
-    "appMenuBookmarks": "Značajke",
+    "appMenuFocusMode": "Fokusirani način rada",
+    "appMenuBookmarks": "Oznake",
     "appMenuHistory": "Povijest",
     "appMenuDeveloper": "Programer",
     "appMenuReloadBrowser": "Ponovo učitajte preglednik",
     "appMenuInspectBrowser": "Istražite preglednik",
     "appMenuInspectPage": "Istražite stranicu",
     "appMenuWindow": "Prozor",
-    "appMenuMinimize": "Minimizirajte",
+    "appMenuMinimize": "Minimiziraj",
     "appMenuClose": "Zatvori",
     "appMenuAlwaysOnTop": "Uvijek na vrhu",
     "appMenuHelp": "Pomoć",
@@ -241,34 +241,34 @@
     "appMenuHideOthers": "Sakrij ostale",
     "appMenuShowAll": "Prikaži sve",
     "appMenuQuit": "Zatvori %n",
-    "appMenuBringToFront": "Stavite sve naprijed",
+    "appMenuBringToFront": "Stavi sve naprijed",
     /* Tab menu */
-    "tabMenuNewWindow": null, // missing translation
-    "tabMenuReload": null, // missing translation
+    "tabMenuNewWindow": "Premjesti karticu u novi prozor",
+    "tabMenuReload": "Ponovno učitaj",
     /* PDF Viewer */
-    "PDFInvertPage": "Promijeni boje stranice",
+    "PDFInvertPage": "Obrni boje stranice",
     "PDFPageCounter": {
       "unsafeHTML": "stranica <input type='text'/> od <span id='total'></span>"
     },
     /* Context Reader */
     "buttonReaderSettings": "Postavke čitača",
-    "buttonReaderLightTheme": "Svjetlo",
-    "buttonReaderSepiaTheme": "Sepia",
+    "buttonReaderLightTheme": "Svijetlo",
+    "buttonReaderSepiaTheme": "Sepija",
     "buttonReaderDarkTheme": "Tamno",
-    "openReaderView": "Uvijek otvoren u prikazu čitača",
-    "autoRedirectBannerReader": "Uvijek otvori članke s ove stranice u prikazu čitatelja?",
+    "openReaderView": "Uvijek otvori u prikazu čitača",
+    "autoRedirectBannerReader": "Uvijek otvoriti članke s ove stranice u prikazu čitača?",
     "buttonReaderRedirectYes": "Da",
     "buttonReaderRedirectNo": "Ne",
-    "articleReaderView": "Orginalni članak",
+    "articleReaderView": "Originalni članak",
     /* Download manager */
     "downloadCancel": "Otkaži",
     "downloadStateCompleted": "Dovršeno",
     "downloadStateFailed": "Neuspješno",
     /* Update Notifications */
-    "updateNotificationTitle": "Dostupna je nova verzija Min_a",
+    "updateNotificationTitle": "Dostupna je nova verzija Mina",
     /* Autofill settings */
     "settingsPasswordAutoFillHeadline": "Automatsko popunjavanje lozinke",
-    "settingsSelectPasswordManager": "Odaberite jednog od podržanih upravitelja lozinki:",
+    "settingsSelectPasswordManager": "Odaberite jedan od podržanih upravitelja lozinki:",
     "keychainViewPasswords": "Pogledajte spremljene lozinke",
     /* Password manager setup */
     "passwordManagerSetupHeading": "Završite s postavljanjem %p upotrebe automatskog popunjavanja",
@@ -283,23 +283,27 @@
     "passwordManagerSetupStep2": "Zatim povucite alat u donji okvir:",
     "passwordManagerSetupDragBox": "Povucite alat ovdje",
     "passwordManagerSetupInstalling": "Instaliranje...",
-    "passwordManagerBitwardenSignIn": "Da biste povezali svoj Bitwarden račun, idite na vault.bitwarden.com/#/settings/account, pomaknite se do dna i odaberite \"View API Key\". Zatim zalijepite vrijednosti u polja u nastavku.",
-    "passwordManagerSetupSignIn": "Prijavite se na upravitelj lozinki da biste počeli koristiti automatsko popunjavanje. Vjerodajnice se neće pohraniti nigdje u Min.",
+    "passwordManagerBitwardenSignIn": "Kako biste povezali svoj Bitwarden račun, idite na vault.bitwarden.com/#/settings/account, pomaknite se do dna i odaberite \"View API Key\". Zatim zalijepite vrijednosti u donja polja.",
+    "passwordManagerSetupSignIn": "Prijavite se u svoj upravitelj lozinki kako biste počeli koristiti automatsko popunjavanje. Vaše vjerodajnice neće biti pohranjene nigdje u Minu.",
     "disableAutofill": "Onemogući automatsko popunjavanje",
     "passwordManagerSetupUnlockError": "Otključavanje spremišta lozinki nije uspjelo: ",
-    "passwordManagerSetupRetry": "Obavezno koristite ispravnu datoteku i unesite ispravnu lozinku. Možete pokušati ponovnim povlačenjem alata ovdje.",
-    "passwordManagerUnlock": "Unesite vašu %p glavnu lozinku da biste otključali spremište lozinki:",
+    "passwordManagerSetupRetry": "Provjerite da koristite ispravnu datoteku i unosite ispravnu lozinku. Možete pokušati ponovnim povlačenjem alata ovdje.",
+    "passwordManagerUnlock": "Unesite vašu %p glavnu lozinku kako biste otključali spremište lozinki:",
     /* Password save bar */
     "passwordCaptureSavePassword": "Spremi lozinku za %s?",
     "passwordCaptureSave": "Spremi",
     "passwordCaptureDontSave": "Ne spremaj",
     "passwordCaptureNeverSave": "Nikad ne spremaj",
-    "generatePassword": null, // missing translation
+    "generatePassword": "Generiraj lozinku",
     /* Password viewer */
     "savedPasswordsHeading": "Spremljene lozinke",
     "savedPasswordsEmpty": "Nema spremljenih lozinki.",
     "savedPasswordsNeverSavedLabel": "Nikad spremljeno",
     "deletePassword": "Izbriši lozinku za %s?",
+    "exportCredentials": "Izvoz vjerodajnica",
+    "importCredentials": "Uvoz vjerodajnica",
+    "exportCredentialsConfirmation": "Vaše izvezene vjerodajnice bit će spremljene u datoteku kao običan tekst. Kada završite s korištenjem ove datoteke, trebali biste ju izbrisati. Jeste li sigurni da želite nastaviti?",
+    "importCredentialsConfirmation": "Uvoz lozinki prebrisat će sve postojeće lozinke za iste web stranice. Jeste li sigurni da želite nastaviti?",
     /* Dialogs */
     "loginPromptTitle": "Prijavi se u %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "Potvrdi",
@@ -309,7 +313,7 @@
     "password": "Lozinka",
     "secretKey": "Tajni ključ",
     "openExternalApp": "Otvori u \\\"%s\\\"?", // %s is the name of an app
-    "clickToCopy": "Kliknite da biste kopirali",
+    "clickToCopy": "Kliknite kako biste kopirali",
     "copied": "Kopirano"
   }
 }
