@@ -165,6 +165,7 @@
     "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "Gunakan bilah judul terpisah",
     "settingsAutoplayToggle": "Aktifkan Putar Otomatis",
+    "settingsDisableSwipeGestures": "Nonaktifkan gestur trackpad 'Mundur' dan 'Maju'",
     "settingsOpenTabsInForegroundToggle": "Buka tab baru di latar depan",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "User script memungkinkan Anda untuk merubah perilaku situs web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Pelajari lebih lanjut</a>."

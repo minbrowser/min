@@ -165,6 +165,7 @@
     "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "Separate Titelleiste nutzen",
     "settingsAutoplayToggle": "Automatische Wiedergabe erlauben", 
+    "settingsDisableSwipeGestures": "Deaktivieren Sie 'Zurück' und 'Vorwärts' Trackpad-Gesten",
     "settingsOpenTabsInForegroundToggle": "Neue Tabs im Vordergrund öffnen",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Benutzerdefinierte Skripte erlauben es das Verhalten von Webseiten zu modifizieren - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\"> mehr dazu.</a>."

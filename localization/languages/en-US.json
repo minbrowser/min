@@ -165,6 +165,7 @@
     "settingsLanguageSelection": "Language: ",
     "settingsSeparateTitlebarToggle": "Use separate title bar",
     "settingsAutoplayToggle": "Enable Autoplay",
+    "settingsDisableSwipeGestures": "Disable 'Go Back' and 'Go Forward' trackpad gestures",
     "settingsOpenTabsInForegroundToggle": "Open new tabs in the foreground",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "User scripts allow you to modify the behavior of websites - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."

@@ -165,6 +165,7 @@
     "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "分割標題列",
     "settingsAutoplayToggle": "自動播放媒體",
+    "settingsDisableSwipeGestures": "禁用觸控板的『後退』和『前進』手勢",
     "settingsOpenTabsInForegroundToggle": "在前景開啟新分頁",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."

@@ -165,6 +165,7 @@
     "settingsLanguageSelection": "Dil: ",
     "settingsSeparateTitlebarToggle": "Ayrılmış başlık çubuğu kullan",
     "settingsAutoplayToggle": "Otomatik oynatmayı etkinleştir",
+    "settingsDisableSwipeGestures": "Trackpad 'Geri Git' ve 'İleri Git' hareketlerini devre dışı bırak",
     "settingsOpenTabsInForegroundToggle": "Yeni sekmeleri önplanda aç",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Kullancı betikleri size websitelerinin davranışını değiştirmenize izin verir - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">daha fazla bilgi için</a>."

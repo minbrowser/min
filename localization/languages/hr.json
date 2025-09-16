@@ -165,6 +165,7 @@
     "settingsLanguageSelection": "Jezik: ",
     "settingsSeparateTitlebarToggle": "Koristi zasebnu naslovnu traku",
     "settingsAutoplayToggle": "Omogući automatsku reprodukciju",
+    "settingsDisableSwipeGestures": "Onemogući geste trackpada 'Natrag' i 'Naprijed'",
     "settingsOpenTabsInForegroundToggle": "Otvori nove kartice u prvom planu",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Korisničke skripte omogućuju vam izmjenu ponašanja web stranica - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saznajte više</a>."

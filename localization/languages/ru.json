@@ -165,6 +165,7 @@
     "settingsLanguageSelection": "Язык: ",
     "settingsSeparateTitlebarToggle": "Использовать системный заголовок окна",
     "settingsAutoplayToggle": "Включить автоматическое воспроизведение",
+    "settingsDisableSwipeGestures": "Отключить жесты 'Назад' и 'Вперед' на трекпаде",
     "settingsOpenTabsInForegroundToggle": "Открывать новые вкладки на переднем плане",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Пользовательские скрипты позволяют изменять поведение сайтов - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">узнать больше</a>."

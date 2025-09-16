@@ -158,6 +158,7 @@
         "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "Sử dụng title bả tách rời",
         "settingsAutoplayToggle": "Bật Autoplay", 
+        "settingsDisableSwipeGestures": "Tắt cử chỉ của trackpad 'Quay lại' và 'Tiến lên'",
         "settingsOpenTabsInForegroundToggle": "Mở các tab mới ở nền trước",
         "settingsUserscriptsExplanation": {
             "unsafeHTML": "Mã script người dùng có thể cho bạn thay đổi hành vi trang web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Xem thêm</a>."

@@ -166,6 +166,7 @@
     "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "نمایش نوار عنوان",
     "settingsAutoplayToggle": "پخش خودکار",
+    "settingsDisableSwipeGestures": "غیرفعال کردن حرکات 'عقب' و 'جلو' در ترک‌پد",
     "settingsOpenTabsInForegroundToggle": null, //missing translation
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "اسکریپت های کاربر این اجازه را به شما می دهند تا رفتار سایت ها را تغییر دهید - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">اطلاعات بیشتر</a>."

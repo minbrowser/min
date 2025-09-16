@@ -166,6 +166,7 @@
     "settingsSeparateTitlebarToggle": "Brug separat titellinje",
     "settingsAutoplayToggle": "Aktiver Autoplay",
     "settingsOpenTabsInForegroundToggle": "Åbn nye faner i forgrunden",
+    "settingsDisableGoBackwardAndGoForwardGestures": "Deaktiver 'Gå tilbage' og 'Gå fremad' trackpad-bevægelser",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Brugerscripts giver dig mulighed for at ændre adfærd på websteder - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">få mere at vide her</a>."
     },

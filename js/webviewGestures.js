@@ -1,4 +1,5 @@
 var webviews = require('webviews.js')
+var settings = require('util/settings/settings.js')
 
 var webviewGestures = {
   showBackArrow: function () {
@@ -87,15 +88,17 @@ function resetScrollCounters () {
 }
 
 function onSwipeGestureLowVelocity () {
+  const swipeGesturesDisabled = settings.get('disableSwipeGestures')
+
   //we can't detect scroll position in an iframe, so never trigger a back gesture from it
-  if (isInFrame) {
+  if (isInFrame || swipeGesturesDisabled) {
     return
   }
 
   webviews.callAsync(tabs.getSelected(), 'getZoomFactor', function(err, result) {
     const minScrollDistance = 150 * result;
 
-      if ((leftMouseMove / rightMouseMove > 5) || (rightMouseMove / leftMouseMove > 5)) {
+    if ((leftMouseMove / rightMouseMove > 5) || (rightMouseMove / leftMouseMove > 5)) {
       // swipe to the left to go forward
       if (leftMouseMove - beginningScrollRight > minScrollDistance && Math.abs(horizontalMouseMove / verticalMouseMove) > 3) {
         if (beginningScrollRight < 5) {
