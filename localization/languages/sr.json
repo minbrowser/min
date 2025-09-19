@@ -165,6 +165,7 @@
     "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "Koristi zasebanu naslovnu traku",
     "settingsAutoplayToggle": "Dozvoli automatsku reprodukciju",
+    "settingsDisableSwipeGestures": "Isključi 'Nazad' i 'Napred' pokrete na tačpadu",
     "settingsOpenTabsInForegroundToggle": "Otvori nove tabove u prvom planu",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Korisničke skripte omogućavaju modifikovanje ponašanja sajtova - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">learn more</a>."

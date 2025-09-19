@@ -165,6 +165,7 @@
     "settingsLanguageSelection": "Langue: ",
     "settingsSeparateTitlebarToggle": "Afficher une barre de titre séparée",
     "settingsAutoplayToggle": "Activer la lecture automatique", 
+    "settingsDisableSwipeGestures": "Désactiver les gestes du pavé tactile 'Reculer' et 'Avancer'",
     "settingsOpenTabsInForegroundToggle": "Ouvrir les nouveaux onglets au premiers plan",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Les scripts personnalisés vous permettent de modifier le comportement des pages web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">en savoir plus (en anglais)</a>."

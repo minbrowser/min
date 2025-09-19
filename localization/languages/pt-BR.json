@@ -165,6 +165,7 @@
     "settingsLanguageSelection": "Idioma: ",
     "settingsSeparateTitlebarToggle": "Usar a barra de título separada",
     "settingsAutoplayToggle": "Habilitar reprodução automática",
+    "settingsDisableGoBackwardAndGoForwardGestures": "Desativar gestos de trackpad 'Voltar' e 'Avançar'",
     "settingsOpenTabsInForegroundToggle": "Abrir novas abas em primeiro plano",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Scripts do usuário permitem modificar o comportamento do site - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">Saiba mais</a>."

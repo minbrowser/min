@@ -165,6 +165,7 @@
     "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "Utilitzar barra de títol separada",
     "settingsAutoplayToggle": "Habilitar Reproducció Automàtica",
+    "settingsDisableSwipeGestures": "Desactiva els gestos del trackpad de 'Anar enrere' i 'Anar endavant'",
     "settingsOpenTabsInForegroundToggle": "Obrir noves pestanyes al primer pla",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Els scripts d'usuari et permeten modificar el comportament dels llocs web - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">més informació</a>."

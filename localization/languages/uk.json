@@ -166,6 +166,7 @@
     "settingsLanguageSelection": "Мова: ",
     "settingsSeparateTitlebarToggle": "Використовувати окремий рядок заголовка",
     "settingsAutoplayToggle": "Увімкнути автовідтворення",
+    "settingsDisableSwipeGestures": "Вимкнути жести трекпада 'Назад' і 'Вперед'",
     "settingsOpenTabsInForegroundToggle": "Відкривати нові вкладки на передньому плані",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Скрипти користувача дозволяють змінювати поведінку веб-сайтів - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">дізнатися більше</a>."

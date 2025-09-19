@@ -165,6 +165,7 @@
     "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "إستعمل شريط عنوان منفصل",
     "settingsAutoplayToggle": "تفعيل التشغيل التلقائي",
+    "settingsDisableSwipeGestures": "تعطيل الإيماءات 'رجوع' و'تقدم' على لوحة التتبع",
     "settingsOpenTabsInForegroundToggle": "الإنتقال إلى  التبويب الجديد عند فتحه",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "يمكن سكريبت المستخدم من  تغير سلوك المواقع - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">معرفة المزيد</a>."

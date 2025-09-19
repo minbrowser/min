@@ -165,6 +165,7 @@
     "settingsLanguageSelection": "Taal: ",
     "settingsSeparateTitlebarToggle": "Gebruik aparte titelbalk",
     "settingsAutoplayToggle": "Automatisch afspelen inschakelen",
+    "settingsDisableSwipeGestures": "Schakel trackpad-gebaren 'Vorige' en 'Volgende' uit",
     "settingsOpenTabsInForegroundToggle": "Open nieuwe tabbladen op de voorgrond",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Gebruikersscripten kunt u gebruiken om het gedrag van websites te wijzigingen - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">lees meer</a>."

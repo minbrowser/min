@@ -165,6 +165,7 @@
     "settingsLanguageSelection": "Język: ",
     "settingsSeparateTitlebarToggle": "Użyj osobnego paska tytułu",
     "settingsAutoplayToggle": "Włącz autoodtwarzanie",
+    "settingsDisableSwipeGestures": "Wyłącz gesty 'Wstecz' i 'Dalej' na gładziku",
     "settingsOpenTabsInForegroundToggle": "Otwórz nowe karty na pierwszym planie",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Skrypty użytkownika pozwalają modyfikować zachowanie stron internetowych - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">dowiedz się więcej</a>."

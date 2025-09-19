@@ -165,6 +165,7 @@
     "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "別のタイトルバーを使用する",
     "settingsAutoplayToggle": "自動再生を有効にする",
+    "settingsDisableSwipeGestures": "トラックパッドの「戻る」と「進む」ジェスチャーを無効にする",
     "settingsOpenTabsInForegroundToggle": "フォアグラウンドで新しいタブを開く",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "ユーザースクリプトを使用して、Webサイトの動作を変更できます -  <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">詳細</a>。"

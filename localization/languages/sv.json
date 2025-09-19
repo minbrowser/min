@@ -165,6 +165,7 @@
     "settingsLanguageSelection": "Språk: ",
     "settingsSeparateTitlebarToggle": "Använd separat titelrad",
     "settingsAutoplayToggle": "Aktivera automatisk uppspelning",
+    "settingsDisableSwipeGestures": "Inaktivera 'Gå tillbaka' och 'Gå framåt' styrplattagester",
     "settingsOpenTabsInForegroundToggle": "Öppna nya flikar i förgrunden",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Användarscript låter dig ändra beteendet hos webbsidor - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">lär dig mer</a>."

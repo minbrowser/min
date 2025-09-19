@@ -165,6 +165,7 @@
     "settingsSeparateTitlebarToggle": "Използване на отделна лента със заглавието",
     "settingsAutoplayToggle": null, //missing translation 
     "settingsOpenTabsInForegroundToggle": "Отваряне на нови раздели на преден план",
+    "settingsDisableGoBackwardAndGoForwardGestures": "Деактивиране на жестове 'Назад' и 'Напред' на тъчпада",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Потребителските скриптове Ви позволяват да промените поведението на уеб сайтове - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">научете повече</a>."
     },

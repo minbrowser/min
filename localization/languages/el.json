@@ -165,6 +165,7 @@
       "settingsLanguageSelection": null, //missing translation
     "settingsSeparateTitlebarToggle": "Χρήση ξεχωριστής γραμμής τίτλου",
       "settingsAutoplayToggle": "Ενεργοποίηση αυτοαναπαραγωγής",
+      "settingsDisableGoBackwardAndGoForwardGestures": "Απενεργοποίηση χειρονομιών 'Πίσω' και 'Εμπρός' στο trackpad",
       "settingsOpenTabsInForegroundToggle": "Άνοιγμα νέας καρτέλας στο προσκήνιο",
       "settingsUserscriptsExplanation": {
         "unsafeHTML": "Τα scripts χρηστών σας επιτρέπουν να τροποποιήσετε την συμπεριφορά των ιστοσελίδων - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">μάθετε περισσότερα</a>."
