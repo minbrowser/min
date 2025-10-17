@@ -359,8 +359,12 @@ userAgentCheckbox.addEventListener('change', function (e) {
 })
 
 userAgentInput.addEventListener('input', function (e) {
-  if (this.value) {
-    settings.set('customUserAgent', this.value)
+  const value = this.value.slice(0, 200)
+  if (value !== this.value) {
+    this.value = value
+  }
+  if (value) {
+    settings.set('customUserAgent', value)
   } else {
     settings.set('customUserAgent', null)
   }
