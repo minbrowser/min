@@ -183,6 +183,19 @@ body:not(.touch)
   margin-left: -0.5rem;
 }
 
+.favicon {
+  display: none; /* Default state (not enbabled) */
+}
+
+#navbar.show-favicons .favicon {
+  display: revert;
+  width: 16px;
+  height: 16px;
+  margin: auto 0;
+  padding: 0;
+  font-size: 1.1em !important;
+}
+
 .tab-item .tab-icon {
   position: relative;
   font-size: 0.875em;
