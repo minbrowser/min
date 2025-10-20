@@ -211,11 +211,13 @@
   }
 
   /**
-   * Perform a search using the default search engine
+   * Perform a search using the selected search engine
    * @param {string} query - The search query
    */
   function performSearch (query) {
-    const searchURL = 'https://duckduckgo.com/?q=' + encodeURIComponent(query)
+    // Get the current search engine and construct the search URL
+    const engine = searchEngine.getCurrent()
+    const searchURL = engine.searchURL.replace('%s', encodeURIComponent(query))
     window.location.href = searchURL
   }
 
