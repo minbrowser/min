@@ -257,6 +257,24 @@ function buildAppMenu (options = {}) {
             sendIPCToWindow(window, 'zoomOut')
           }
         },
+        // Hidden item to enable shortcut on numpad
+        {
+          label: l('appMenuZoomIn'),
+          accelerator: 'CmdOrCtrl+numadd',
+          click: function (item, window) {
+            sendIPCToWindow(window, 'zoomIn')
+          },
+          visible: false
+        },
+        // Hidden item to enable shortcut on numpad
+        {
+          label: l('appMenuZoomOut'),
+          accelerator: 'CmdOrCtrl+numsub',
+          click: function (item, window) {
+            sendIPCToWindow(window, 'zoomOut')
+          },
+          visible: false
+        },
         {
           label: l('appMenuActualSize'),
           accelerator: 'CmdOrCtrl+0',
