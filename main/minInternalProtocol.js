@@ -19,11 +19,23 @@ function registerBundleProtocol (ses) {
       pathname = pathname.substring(1)
     }
 
-    if (host !== 'app') {
+    if (host !== 'app' && host !== 'newtab' && host !== 'blank') {
       return new Response('bad', {
         status: 400,
         headers: { 'content-type': 'text/html' }
       })
+    }
+
+    // Handle newtab:// protocol
+    if (host === 'newtab') {
+      const newtabPath = path.resolve(__dirname, '../pages/newtab/index.html')
+      return net.fetch(pathToFileURL(newtabPath).toString())
+    }
+
+    // Handle blank:// protocol
+    if (host === 'blank') {
+      const blankPath = path.resolve(__dirname, '../pages/blank/index.html')
+      return net.fetch(pathToFileURL(blankPath).toString())
     }
 
     // NB, this checks for paths that escape the bundle, e.g.
