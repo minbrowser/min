@@ -88,9 +88,9 @@ function resetScrollCounters () {
 
 function onSwipeGestureLowVelocity () {
   //we can't detect scroll position in an iframe, so never trigger a back gesture from it
-  if (isInFrame) {
-    return
-  }
+if (isInFrame || isSwipeSettingDisabled) { 
+ return
+}
 
   webviews.callAsync(tabs.getSelected(), 'getZoomFactor', function(err, result) {
     const minScrollDistance = 150 * result;
