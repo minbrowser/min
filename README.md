@@ -93,7 +93,7 @@ If you're experiencing a bug or have a suggestion for how to improve Min, please
 
 #### Adding a new language
 
-- Find the language code that goes with your language from [this list](https://source.chromium.org/chromium/chromium/src/+/main:ui/base/l10n/l10n_util.cc;l=55) (line 55 - 230).
+- Find the language code that goes with your language from [this list](https://source.chromium.org/chromium/chromium/src/+/main:ui/base/l10n/l10n_util.cc;l=68-259) (line 68 - 259).
 - In the `localization/languages` directory, create a new file, and name it "[your language code].json".
 - Open your new file, and copy the contents of the <a href="https://github.com/minbrowser/min/blob/master/localization/languages/en-US.json">localization/languages/en-US.json</a> file into your new file.
 - Change the "identifier" field in the new file to the language code from step 1.
