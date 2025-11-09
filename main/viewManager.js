@@ -57,7 +57,7 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
     view.webContents.on(event, function (e) {
       var args = Array.prototype.slice.call(arguments).slice(1)
 
-      const eventTarget = getWindowFromViewContents(view) || windows.getCurrent()
+      const eventTarget = getWindowFromViewContents(view.webContents) || windows.getCurrent()
 
       if (!eventTarget) {
         //this can happen during shutdown - windows can be destroyed before the corresponding views, and the view can emit an event during that time
@@ -92,7 +92,7 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
       (https://github.com/minbrowser/min/issues/1835)
     */
     if (!details.features) {
-      const eventTarget = getWindowFromViewContents(view) || windows.getCurrent()
+      const eventTarget = getWindowFromViewContents(view.webContents) || windows.getCurrent()
 
       getWindowWebContents(eventTarget).send('view-event', {
         tabId: id,
@@ -112,7 +112,7 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
         var popupId = Math.random().toString()
         temporaryPopupViews[popupId] = view
 
-        const eventTarget = getWindowFromViewContents(view) || windows.getCurrent()
+        const eventTarget = getWindowFromViewContents(view.webContents) || windows.getCurrent()
 
         getWindowWebContents(eventTarget).send('view-event', {
           tabId: id,
@@ -135,7 +135,7 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
       return
     }
 
-    const eventTarget = getWindowFromViewContents(view) || windows.getCurrent()
+    const eventTarget = getWindowFromViewContents(view.webContents) || windows.getCurrent()
 
     if (!eventTarget) {
       //this can happen during shutdown - windows can be destroyed before the corresponding views, and the view can emit an event during that time
@@ -220,7 +220,7 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
       if (hasJS !== shouldHaveJS) {
         setTimeout(function () {
           view.webContents.stop()
-          const currentWindow = getWindowFromViewContents(view)
+          const currentWindow = getWindowFromViewContents(view.webContents)
           destroyView(id)
           const newView = createView(existingViewId, id, Object.assign({}, webPreferences, { javascript: shouldHaveJS }), boundsString, events)
           loadURLInView(id, event.url, currentWindow)
@@ -293,8 +293,8 @@ function focusView (id) {
   if (viewMap[id] && (viewMap[id].webContents.getURL() !== '' || viewMap[id].webContents.isLoading())) {
     viewMap[id].webContents.focus()
     return true
-  } else if (getWindowFromViewContents(viewMap[id])) {
-    getWindowWebContents(getWindowFromViewContents(viewMap[id])).focus()
+  } else if (getWindowFromViewContents(viewMap[id]?.webContents)) {
+    getWindowWebContents(getWindowFromViewContents(viewMap[id]?.webContents)).focus()
     return true
   }
 }
