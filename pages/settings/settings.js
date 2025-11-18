@@ -118,6 +118,14 @@ blockingExceptionsInput.addEventListener('input', function () {
   })
 })
 
+/* swipe gestures disable setting */
+settings.get('disableSwipeGestures', function (value) {
+  disableSwipeCheckbox.checked = !!value
+})
+disableSwipeCheckbox.addEventListener('change', function () {
+  settings.set('disableSwipeGestures', this.checked)
+})
+
 /* content type settings */
 
 var contentTypes = {
