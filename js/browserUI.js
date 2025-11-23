@@ -142,15 +142,31 @@ function closeTab (tabId) {
   }
 }
 
-/* changes the currently-selected task and updates the UI */
+function setWindowTitle () {
+  const task = tasks.getSelected()
+  const tab = task.tabs.get(task.tabs.getSelected())
 
-function setWindowTitle (taskData) {
-  if (taskData.name) {
-    document.title = (taskData.name.length > 100 ? taskData.name.substring(0, 100) + '...' : taskData.name)
-  } else {
-    document.title = 'Min'
+  const truncateString = (str, len) => {
+    if (str.length > len) {
+      return str.substring(0, len) + '...'
+    } else {
+      return str
+    }
+  }
+
+  const title = [
+    truncateString(tab.title || '', 100),
+    truncateString(task.name || '', 100),
+    'Min'
+  ].filter(str => !!str).join(' | ')
+
+  if (document.title !== title) {
+    document.title = title
+    ipc.send('set-window-title', title)
   }
 }
+
+/* changes the currently-selected task and updates the UI */
 
 function switchToTask (id) {
   tasks.setSelected(id)
@@ -180,7 +196,17 @@ function switchToTask (id) {
 
 tasks.on('task-updated', function (id, key) {
   if (key === 'name' && id === tasks.getSelected().id) {
-    setWindowTitle(tasks.get(id))
+    setWindowTitle()
+  }
+})
+
+tasks.on('tab-selected', function () {
+  setWindowTitle()
+})
+
+tasks.on('tab-updated', function (id, key) {
+  if (key === 'title') {
+    setWindowTitle()
   }
 })
 

@@ -249,6 +249,10 @@ function createWindowWithBounds (bounds, customArgs) {
     mainView.setBounds({x: 0, y: 0, width: winBounds.width, height: winBounds.height})
   })
 
+  mainView.webContents.ipc.on('set-window-title', function(e, title) {
+    newWin.title = title
+  })
+
   newWin.on('resize', function () {
     // The result of getContentBounds doesn't update until the next tick
     setTimeout(function () {
