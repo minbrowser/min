@@ -137,6 +137,58 @@
       </div>
     </div>
 
+    <div class="settings-container" id="homepage-settings-container">
+      <h3 data-string="settingsHomepageHeading"></h3>
+
+      <div class="setting-section">
+        <input type="checkbox" id="checkbox-enable-homepage" />
+        <label
+          for="checkbox-enable-homepage"
+          data-string="settingsHomepage"
+        ></label>
+      </div>
+
+      <div class="setting-section" id="homepage-options" style="margin-left: 1.5rem;">
+        <div class="setting-section">
+          <label for="homepage-type" data-string="settingsHomepageType"></label>
+          <select id="homepage-type" name="homepageType">
+            <option value="default" data-string="settingsHomepageTypeDefault"></option>
+            <option value="custom" data-string="settingsHomepageTypeCustom"></option>
+          </select>
+        </div>
+
+        <div class="setting-section" id="custom-homepage-url-section" style="display: none;">
+          <label for="custom-homepage-url" data-string="settingsCustomHomepageURL"></label>
+          <input
+            type="text"
+            id="custom-homepage-url"
+            placeholder="https://example.com"
+            style="margin-left: 0.5em; min-width: 325px; max-width: 80vw;"
+          />
+        </div>
+
+        <div class="setting-section">
+          <input type="checkbox" id="checkbox-homepage-show-clock" />
+          <label
+            for="checkbox-homepage-show-clock"
+            data-string="settingsHomepageShowClock"
+          ></label>
+          <select id="homepage-time-format" name="homepageTimeFormat" style="margin-left: 0.5rem;">
+            <option value="12h" data-string="settingsHomepageTimeFormat12h"></option>
+            <option value="24h" data-string="settingsHomepageTimeFormat24h"></option>
+          </select>
+        </div>
+
+        <div class="setting-section">
+          <input type="checkbox" id="checkbox-homepage-show-greeting" />
+          <label
+            for="checkbox-homepage-show-greeting"
+            data-string="settingsHomepageShowGreeting"
+          ></label>
+        </div>
+      </div>
+    </div>
+
     <div class="settings-container" id="additional-settings-container">
       <h3 data-string="settingsAdditionalFeaturesHeading"></h3>
 
@@ -149,21 +201,6 @@
           <option value="3"
           data-string="settingsStartupNewTaskOnly"></option>
         </select>
-      </div>
-
-      <div class="setting-section">
-        <label for="newTabUrl" data-string="settingsNewTabUrl"></label>
-        <select id="new-tab-url-dropdown" name="newTabUrl">
-          <option value="blank" data-string="settingsNewTabUrlBlank"></option>
-          <option value="customUrl" data-string="settingsNewTabUrlCustomUrl"></option>
-          <option value="backgroundImage" data-string="settingsNewTabUrlBackgroundImage"></option>
-        </select>
-        <input
-          type="text"
-          id="new-tab-custom-url-input"
-          style="margin-left: 0.5em; min-width: 325px"
-          hidden
-        />
       </div>
 
       <div class="setting-section">

@@ -1,7 +1,5 @@
 const path = require('path')
 const statistics = require('js/statistics.js')
-const settings = require('util/settings/settings.js')
-const webviews = require('webviews.js')
 
 const newTabPage = {
   background: document.getElementById('ntp-background'),
@@ -11,15 +9,6 @@ const newTabPage = {
   imagePath: path.join(window.globalArgs['user-data-path'], 'newTabBackground'),
   blobInstance: null,
   reloadBackground: function () {
-    const newTabUrl = settings.get('newTabUrl')
-    if (newTabUrl === 'blank') {
-      newTabPage.background.hidden = true
-      newTabPage.hasBackground = false
-      document.body.classList.remove('ntp-has-background')
-      newTabPage.deleteBackground.hidden = true
-      return
-    }
-
     fs.readFile(newTabPage.imagePath, function (err, data) {
       if (newTabPage.blobInstance) {
         URL.revokeObjectURL(newTabPage.blobInstance)
@@ -43,51 +32,31 @@ const newTabPage = {
       }
     })
   },
-  pickImage: async function () {
-    var filePath = await ipc.invoke('showOpenDialog', {
-      filters: [
-        { name: 'Image files', extensions: ['jpg', 'jpeg', 'png', 'gif', 'webp'] }
-      ]
-    })
-
-    if (!filePath || filePath.length === 0) {
-      // User cancelled the file picker - reset to blank if no image was previously set
-      if (!newTabPage.hasBackground) {
-        settings.set('newTabUrl', 'blank')
-      }
-      return
-    }
-
-    await fs.promises.copyFile(filePath[0], newTabPage.imagePath)
-    settings.set('newTabUrl', 'backgroundImage')
-    newTabPage.reloadBackground()
-  },
-  removeImage: async function () {
-    await fs.promises.unlink(newTabPage.imagePath)
-    settings.set('newTabUrl', 'blank')
-    newTabPage.reloadBackground()
-  },
   initialize: function () {
     newTabPage.reloadBackground()
 
-    newTabPage.picker.addEventListener('click', newTabPage.pickImage)
+    newTabPage.picker.addEventListener('click', async function () {
+      var filePath = await ipc.invoke('showOpenDialog', {
+        filters: [
+          { name: 'Image files', extensions: ['jpg', 'jpeg', 'png', 'gif', 'webp'] }
+        ]
+      })
 
-    newTabPage.deleteBackground.addEventListener('click', newTabPage.removeImage)
+      if (!filePath) {
+        return
+      }
 
-    webviews.bindIPC('uploadNewTabBackground', function () {
-      newTabPage.pickImage()
+      await fs.promises.copyFile(filePath[0], newTabPage.imagePath)
+      newTabPage.reloadBackground()
     })
 
-    webviews.bindIPC('removeNewTabBackground', function () {
-      newTabPage.removeImage()
+    newTabPage.deleteBackground.addEventListener('click', async function () {
+      await fs.promises.unlink(newTabPage.imagePath)
+      newTabPage.reloadBackground()
     })
 
     statistics.registerGetter('ntpHasBackground', function () {
       return newTabPage.hasBackground
-    })
-
-    settings.listen('newTabUrl', function (value) {
-      newTabPage.reloadBackground()
     })
   }
 }

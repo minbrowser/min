@@ -43,19 +43,6 @@ function addTab (tabId = tabs.add(), options = {}) {
     destroyTab(tabs.getSelected())
   }
 
-  // if the tab is a new, blank tab, replace it with the custom new tab page
-  let isCustomUrl = false
-  if (!tabs.get(tabId).url && !tabs.get(tabId).private) {
-    const newTabUrl = settings.get('newTabUrl')
-    if (newTabUrl === 'customUrl') {
-      const customUrl = settings.get('newTabCustomUrl')
-      if (customUrl) {
-        tabs.update(tabId, { url: customUrl })
-        isCustomUrl = true
-      }
-    }
-  }
-
   tabBar.addTab(tabId)
   webviews.add(tabId)
 
@@ -63,8 +50,7 @@ function addTab (tabId = tabs.add(), options = {}) {
     switchToTab(tabId, {
       focusWebview: options.enterEditMode === false
     })
-    // Don't enter edit mode for custom URLs - just show the website
-    if (options.enterEditMode !== false && !isCustomUrl) {
+    if (options.enterEditMode !== false) {
       tabEditor.show(tabId)
     }
   } else {

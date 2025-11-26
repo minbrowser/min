@@ -23,15 +23,15 @@
     "cut": "Ausschneiden",
     "copy": "Kopieren", //this is a verb (as in "copy the currently-selected text")
     "paste": "Einfügen",
-    "pasteAndMatchStyle": null, //missing translation
+    "pasteAndMatchStyle": "Einfügen und Stil anpassen", 
     "goBack": "Gehe zurück",
     "goForward": "Gehe vorwärts",
     "inspectElement": "Element untersuchen",
-    "translatePage": null, // missing translation
+    "translatePage": "Seite übersetzten", 
     /* searchbar */
-    "placesPluginOpenAgain": null, // missing translation
-    "placesPluginSwitchToTab": null, // missing translation
-    "placesPluginSwitchToTask": null, // missing translation
+    "placesPluginOpenAgain": "Nochmal öffnen",
+    "placesPluginSwitchToTab": "Zu Tab wechseln", 
+    "placesPluginSwitchToTask": "Zu \"%t\" wechseln",
     "pasteAndGo": "Einfügen und los",
     "DDGAnswerSubtitle": "Antwort", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
     "suggestedSite": "Vorgeschlagene Seite", //this is used to label suggested websites from the DuckDuckGo API,
@@ -146,8 +146,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "Bis jetzt hat Min <strong></strong> Werbeanzeigen und Aktivitätsverfolgungen blockiert."
     },
-    "settingsCustomBangs": null, // Missing translation
-    "settingsCustomBangsAdd": null, // Missing translation
+    "settingsCustomBangs": "Benutzerdefinierte Befehle",
+    "settingsCustomBangsAdd": "Neuen Befehl hinzufügen", 
     "settingsCustomBangsPhrase": "Ausdruck (zwingend)",
     "settingsCustomBangsSnippet": "Beschreibung (optional)",
     "settingsCustomBangsRedirect": "URL-Weiterleitung (zwingend)",
@@ -162,26 +162,26 @@
     "settingsAdditionalFeaturesHeading": "Zusätzliche Funktionen",
     "settingsUserscriptsToggle": "Benutzerdefinierte Skripte aktivieren",
     "settingsShowDividerToggle": "Trennwand zwischen Tabs anzeigen",
-    "settingsLanguageSelection": null, //missing translation
+    "settingsLanguageSelection": "Sprache: ", 
     "settingsSeparateTitlebarToggle": "Separate Titelleiste nutzen",
     "settingsAutoplayToggle": "Automatische Wiedergabe erlauben", 
     "settingsOpenTabsInForegroundToggle": "Neue Tabs im Vordergrund öffnen",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "Benutzerdefinierte Skripte erlauben es das Verhalten von Webseiten zu modifizieren - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\"> mehr dazu.</a>."
     },
-    "settingsUserscriptShowDirectory": null, //missing translation,
+    "settingsUserscriptShowDirectory": "Skriptverzeichnis anzeigen",
     "settingsUserAgentToggle": "Benutzerdefinierten Benutzer-Agent nutzen",
     "settingsUpdateNotificationsToggle": "Automatisch nach Aktualisierungen überprüfen",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "Sende anonyme Nutzungsstatistiken (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">Mehr Infos</a>)"
     },
-    "settingsStartupOptions": null, //missing translation
-    "settingsStartupCreateTask": null, //missing translation
-    "settingsStartupNewTaskandBackground": null, //missing translation
-    "settingsStartupNewTaskOnly": null, //missing translation
-    "settingsNewWindowOptions": null, //missing translation
-    "settingsNewWindowCreateTask": null, //missing translation
-    "settingsNewWindowPickTask": null, //missing translation
+    "settingsStartupOptions": "Wenn Min startet:", 
+    "settingsStartupCreateTask": "Vorherige Tabs erneut öffnen", 
+    "settingsStartupNewTaskandBackground": "Vorherige Tabs zu einer Hintergrundaufgabe verschieben",
+    "settingsStartupNewTaskOnly": "Neue leere Aufgabe öffnen", 
+    "settingsNewWindowOptions": "In neuem Fenster: ", 
+    "settingsNewWindowCreateTask": "Neue Aufgabe erstellen",
+    "settingsNewWindowPickTask": "Aufgabenliste anzeigen",
     "settingsSearchEngineHeading": "Suchmaschine",
     "settingsDefaultSearchEngine": "Standardsuchmaschine auswählen:",
     "settingsDDGExplanation": "DuckDuckGo als Standardsuchmaschine einstellen, um Vorschläge sofort in der Suchleiste zu erhalten.",
@@ -201,7 +201,7 @@
     "appMenuDuplicateTab": "Tab duplizieren",
     "appMenuNewPrivateTab": "Neuer privater Tab",
     "appMenuNewTask": "Neue Aufgabe",
-    "appMenuNewWindow": null, //missing translation
+    "appMenuNewWindow": "Neuer Fenster",
     "appMenuSavePageAs": "Seite speichern als",
     "appMenuPrint": "Drucken",
     "appMenuEdit": "Ändern",
@@ -210,7 +210,7 @@
     "appMenuCut": "Ausschneiden",
     "appMenuCopy": "Kopieren",
     "appMenuPaste": "Einfügen",
-    "appMenuPasteAndMatchStyle": null, //missing translation
+    "appMenuPasteAndMatchStyle": "Einfügen und Stil anpassen", 
     "appMenuSelectAll": "Alles auswählen",
     "appMenuFind": "Finden",
     "appMenuView": "Ansicht",
@@ -243,10 +243,10 @@
     "appMenuQuit": "Beende %n",
     "appMenuBringToFront": "Alle nach vorne bringen",
     /* Tab menu */
-    "tabMenuNewWindow": null, // missing translation
-    "tabMenuReload": null, // missing translation
+    "tabMenuNewWindow": "Tab in ein neues Fenster verschieben", 
+    "tabMenuReload": "Neu laden",
     /* PDF Viewer */
-    "PDFInvertPage": null, //missing translation
+    "PDFInvertPage": "Seitenfarben invertieren",
     "PDFPageCounter": {
       "unsafeHTML": "Seite <input type='text'/> von <span id='total'></span>"
     },
@@ -294,7 +294,7 @@
     "passwordCaptureSave": "Speichern",
     "passwordCaptureDontSave": "Nicht speichern",
     "passwordCaptureNeverSave": "Niemals speichern",
-    "generatePassword": null, // missing translation
+    "generatePassword": "Passwort generieren",
     /* Password viewer */
     "savedPasswordsHeading": "Gespeicherte Passwörter",
     "savedPasswordsEmpty": "Keine gespeicherten Passwörter",
