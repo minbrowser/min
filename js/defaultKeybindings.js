@@ -151,6 +151,11 @@ const defaultKeybindings = {
         modalMode.onDismiss = null
       }
 
+ // enter full screen mode
+keybindings.defineShortcut('toggleFullscreen', function () {
+  ipc.invoke('setFullScreen', true)
+})
+
       // exit full screen mode
       webviews.callAsync(tabs.getSelected(), 'executeJavaScript', 'if(document.webkitIsFullScreen){document.webkitExitFullscreen()}')
 
