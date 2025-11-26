@@ -207,26 +207,9 @@ const webviews = {
     if (!existingViewId) {
       if (tabData.url) {
         ipc.send('loadURLInView', { id: tabData.id, url: urlParser.parse(tabData.url) })
-      } else {
-        // Load new tab page only if homepage is enabled in settings (default: enabled)
-        var homepageEnabled = settings.get('homepageEnabled')
-        if (homepageEnabled === false) {
-          // load a blank page when homepage is disabled
-          ipc.send('loadURLInView', { id: tabData.id, url: urlParser.parse('min://blank') })
-        } else {
-          // Determine which homepage to load (default or custom)
-          var homepageType = settings.get('homepageType') || 'default'
-          var homepageURL = 'min://newtab'
-          
-          if (homepageType === 'custom') {
-            var customURL = settings.get('customHomepageURL')
-            if (customURL) {
-              homepageURL = customURL
-            }
-          }
-          
-          ipc.send('loadURLInView', { id: tabData.id, url: urlParser.parse(homepageURL) })
-        }
+      } else if (tabData.private) {
+        // workaround for https://github.com/minbrowser/min/issues/872
+        ipc.send('loadURLInView', { id: tabData.id, url: urlParser.parse('min://newtab') })
       }
     }
 

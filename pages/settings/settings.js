@@ -243,6 +243,43 @@ startupSettingInput.addEventListener('change', function() {
   settings.set('startupTabOption', parseInt(this.value))
 })
 
+/* new tab settings */
+
+var newTabUrlDropdown = document.getElementById('new-tab-url-dropdown')
+var newTabCustomUrlInput = document.getElementById('new-tab-custom-url-input')
+
+settings.get('newTabUrl', function (value = 'blank') {
+  newTabUrlDropdown.value = value
+  if (value === 'customUrl') {
+    newTabCustomUrlInput.hidden = false
+  }
+})
+
+settings.listen('newTabUrl', function (value) {
+  newTabUrlDropdown.value = value
+  newTabCustomUrlInput.hidden = value !== 'customUrl'
+})
+
+settings.get('newTabCustomUrl', function (value = '') {
+  newTabCustomUrlInput.value = value
+})
+
+newTabUrlDropdown.addEventListener('change', function () {
+  settings.set('newTabUrl', this.value)
+  newTabCustomUrlInput.hidden = true
+
+  if (this.value === 'customUrl') {
+    newTabCustomUrlInput.hidden = false
+  } else if (this.value === 'backgroundImage') {
+    // Auto-prompt to pick an image when backgroundImage is selected
+    postMessage({ message: 'uploadNewTabBackground' })
+  }
+})
+
+newTabCustomUrlInput.addEventListener('input', function () {
+  settings.set('newTabCustomUrl', this.value)
+})
+
 /* new window settings */
 
 var newWindowSettingInput = document.getElementById('new-window-options')
@@ -297,109 +334,6 @@ for (var language in languages) { //from localization.build.js
 }
 
 languagePicker.value = getCurrentLanguage()
-
-/* homepage settings */
-
-var enableHomepageCheckbox = document.getElementById('checkbox-enable-homepage')
-var homepageOptions = document.getElementById('homepage-options')
-var homepageTypeSelect = document.getElementById('homepage-type')
-var customHomepageURLSection = document.getElementById('custom-homepage-url-section')
-var customHomepageURLInput = document.getElementById('custom-homepage-url')
-var homepageShowClockCheckbox = document.getElementById('checkbox-homepage-show-clock')
-var homepageShowGreetingCheckbox = document.getElementById('checkbox-homepage-show-greeting')
-var homepageTimeFormatSelect = document.getElementById('homepage-time-format')
-
-function updateHomepageOptionsVisibility (enabled) {
-  if (enabled) {
-    homepageOptions.style.opacity = '1'
-    homepageOptions.style.pointerEvents = 'auto'
-  } else {
-    homepageOptions.style.opacity = '0.5'
-    homepageOptions.style.pointerEvents = 'none'
-  }
-}
-
-settings.get('homepageEnabled', function (value) {
-  if (value === true || value === undefined) {
-    enableHomepageCheckbox.checked = true
-    updateHomepageOptionsVisibility(true)
-  } else {
-    enableHomepageCheckbox.checked = false
-    updateHomepageOptionsVisibility(false)
-  }
-})
-
-enableHomepageCheckbox.addEventListener('change', function (e) {
-  settings.set('homepageEnabled', this.checked)
-  updateHomepageOptionsVisibility(this.checked)
-})
-
-settings.get('homepageShowClock', function (value) {
-  if (value === false) {
-    homepageShowClockCheckbox.checked = false
-  } else {
-    homepageShowClockCheckbox.checked = true
-  }
-})
-
-homepageShowClockCheckbox.addEventListener('change', function (e) {
-  settings.set('homepageShowClock', this.checked)
-})
-
-settings.get('homepageShowGreeting', function (value) {
-  if (value === false) {
-    homepageShowGreetingCheckbox.checked = false
-  } else {
-    homepageShowGreetingCheckbox.checked = true
-  }
-})
-
-homepageShowGreetingCheckbox.addEventListener('change', function (e) {
-  settings.set('homepageShowGreeting', this.checked)
-})
-
-settings.get('homepageTimeFormat', function (value) {
-  if (value) {
-    homepageTimeFormatSelect.value = value
-  }
-})
-
-homepageTimeFormatSelect.addEventListener('change', function (e) {
-  settings.set('homepageTimeFormat', this.value)
-})
-
-settings.get('homepageType', function (value) {
-  if (value === 'custom') {
-    homepageTypeSelect.value = 'custom'
-    customHomepageURLSection.style.display = 'block'
-  } else {
-    homepageTypeSelect.value = 'default'
-    customHomepageURLSection.style.display = 'none'
-  }
-})
-
-homepageTypeSelect.addEventListener('change', function (e) {
-  settings.set('homepageType', this.value)
-  if (this.value === 'custom') {
-    customHomepageURLSection.style.display = 'block'
-    customHomepageURLInput.focus()
-  } else {
-    customHomepageURLSection.style.display = 'none'
-  }
-})
-
-settings.get('customHomepageURL', function (value) {
-  if (value) {
-    customHomepageURLInput.value = value
-  }
-})
-
-customHomepageURLInput.addEventListener('change', function (e) {
-  const url = this.value.trim()
-  if (url) {
-    settings.set('customHomepageURL', url)
-  }
-})
 
 languagePicker.addEventListener('change', function () {
   settings.set('userSelectedLanguage', this.value)
