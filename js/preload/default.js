@@ -61,4 +61,12 @@ window.addEventListener('message', function (e) {
   if (e.data?.message === 'downloadFile') {
     ipc.send('downloadFile', e.data.url)
   }
+
+  if (e.data?.message === 'uploadNewTabBackground') {
+    ipc.send('uploadNewTabBackground')
+  }
+
+  if (e.data?.message === 'removeNewTabBackground') {
+    ipc.send('removeNewTabBackground')
+  }
 })
