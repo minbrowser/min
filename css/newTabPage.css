@@ -17,6 +17,12 @@ body:not(.is-ntp) #ntp-content {
     height: 100%;
     margin: auto;
     object-fit: cover;
+    transition: 0.2s filter, 0.2s transform;
+}
+
+.ntp-blur #ntp-background {
+    filter: blur(12px);
+    transform: scale(1.1);
 }
 
 #ntp-background-controls {
