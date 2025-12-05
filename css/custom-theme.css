@@ -1,0 +1,135 @@
+:root {
+  /* --- Dark Developer Theme --- */
+
+  /* Colores principales */
+  --primary-color: #61AFEF;   /* Azul Eléctrico (Atom/VSCode) */
+  --secondary-color: #98C379; /* Verde Suave (Atom/VSCode) */
+  --accent-color: #E5C07B;    /* Amarillo/Dorado Suave (Atom/VSCode) */
+  --danger-color: #E06C75;     /* Rojo para cierres/alertas (Atom/VSCode) */
+
+  /* Colores de fondo */
+  --background-light: #FAFAFA;    /* Gris muy claro (para tema claro opcional) */
+  --background-dark: rgb(15, 23, 42);     /* NUEVO FONDO OSCURO */
+  
+  /* Colores de texto */
+  --text-light: #333333;        /* Gris oscuro (para tema claro opcional) */
+  --text-dark: #ABB2BF;         /* Gris claro (Atom/VSCode) */
+  
+  /* Colores de la barra de navegación (Dark) */
+  --navbar-light: #E0E0E0;       /* Mantener un fallback para tema claro */
+  --navbar-dark: #21252B;        /* Ligeramente más claro que el fondo oscuro */
+  
+  /* Colores de pestañas (Dark) */
+  --tab-active-dark: rgba(97, 175, 239, 0.15);  /* Azul primario con opacidad */
+  --tab-hover-dark: rgba(97, 175, 239, 0.1);   /* Azul primario con menor opacidad */
+  /* Para pestañas inactivas, generalmente toman el color de --navbar-dark o un gris muy sutil */
+
+  /* Fallbacks para tema claro (pueden mantenerse o ajustarse si se usa el tema claro) */
+  --tab-active-light: rgba(97, 175, 239, 0.1);
+  --tab-hover-light: rgba(0, 0, 0, 0.05);
+
+  --rgb-dark-base: 15, 23, 42; /* Definimos los componentes RGB */
+  --tw-bg-opacity: 1;         /* Tu variable de opacidad, default a 1 */
+  --background-dark: rgba(var(--rgb-dark-base), var(--tw-bg-opacity));
+}
+
+/* Tema claro (configuración básica) */
+body {
+  --theme-background-color: var(--background-light);
+  --theme-text-color: var(--text-light);
+  --theme-accent-color: var(--primary-color);
+  position: relative; /* Necesario para que el z-index del ::before funcione correctamente */
+  background-color: var(--theme-background-color);
+  color: var(--theme-text-color); /* Asegura que el color de texto del tema se aplique */
+}
+
+/* Tema oscuro (enfoque principal) */
+body.dark-theme, body.dark-mode { /* Unificado y asegura que ambas clases activen estos estilos */
+  --theme-background-color: var(--background-dark);
+  --theme-text-color: rgb(204, 214, 246); /* NUEVO color de texto para modo oscuro */
+  --theme-accent-color: var(--secondary-color); /* O --primary-color según preferencia */
+}
+
+/* CSS para el efecto Spotlight sobre el fondo oscuro */
+body.dark-theme::before {
+  content: "";
+  position: fixed; /* Se mueve con la ventana, no con el scroll del body */
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0;
+  background: radial-gradient(
+    circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%), /* Tamaño del spotlight y posición (default centro) */
+    rgba(255, 255, 255, 0.08) 0%,  /* Luz blanca muy sutil en el centro */
+    transparent 70%                /* Se desvanece a transparente, mostrando el fondo oscuro del body */
+  );
+  pointer-events: none; /* Para que no interfiera con los clics en la página */
+  z-index: 0; /* Sutilmente por encima del fondo del body pero detrás del contenido principal */
+                /* Ajustar si es necesario. Si el contenido del body tiene z-index, este podría necesitar ser más alto o más bajo. */
+}
+
+/* Estilos de la barra de navegación */
+#navbar {
+  background-color: var(--navbar-light) !important; /* Fallback tema claro */
+}
+
+body.dark-theme #navbar {
+  background-color: var(--navbar-dark) !important;
+}
+
+/* Estilos de las pestañas */
+.tab-item {
+  /* Los estilos de pestañas inactivas en tema oscuro suelen heredar de #navbar o tener un color muy sutil */
+  /* Se podría añadir una variable --tab-inactive-dark si se quiere más control */
+}
+
+.tab-item.active {
+  background-color: var(--tab-active-light) !important; /* Fallback tema claro */
+}
+
+body.dark-theme .tab-item.active {
+  background-color: var(--tab-active-dark) !important;
+}
+
+.tab-item:hover {
+  background-color: var(--tab-hover-light) !important; /* Fallback tema claro */
+}
+
+body.dark-theme .tab-item:hover {
+  background-color: var(--tab-hover-dark) !important;
+}
+
+/* Estilos de botones de acción de la navbar (ej. nueva pestaña) */
+.navbar-action-button {
+  color: var(--theme-text-color) !important;
+}
+
+body.dark-theme .navbar-action-button {
+ color: var(--text-dark) !important; /* Asegurar que los iconos usen el color de texto del tema oscuro */
+}
+
+.navbar-action-button:hover {
+  background-color: var(--theme-accent-color) !important;
+  color: var(--background-dark) !important; /* Texto oscuro sobre fondo de acento */
+}
+
+body.dark-theme .navbar-action-button:hover {
+  background-color: var(--primary-color) !important; /* Usar primario para hover en tema dark */
+  color: var(--background-dark) !important;
+}
+
+/* Botones de ventana (Minimizar, Maximizar, Cerrar) */
+/* Estos son más complejos de temar con variables globales ya que dependen de la plataforma */
+/* Sin embargo, podemos intentar influir en el color de los iconos si son fuentes */
+.window-controls .element {
+   /* color: var(--text-dark); */ /* Intento para iconos de ventana en dark mode */
+}
+
+/* Estilos de la barra de búsqueda */
+#searchbar {
+  background-color: var(--navbar-light) !important; /* Fallback tema claro */
+}
+
+body.dark-theme #searchbar {
+  background-color: var(--navbar-dark) !important;
+} 
