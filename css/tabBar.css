@@ -100,7 +100,7 @@ body.linux #menu-button {
 .tab-item {
   flex: 1;
   min-width: 125px;
-  transition: 0.2s transform;
+  transition: flex 0.3s cubic-bezier(0.4, 0, 0.2, 1), min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s;
   line-height: 36px;
   height: 36px;
   overflow: hidden;
@@ -113,7 +113,8 @@ body.linux #menu-button {
   padding-right: 0.5rem;
 }
 .tab-item.active {
-  min-width: 168px;
+  flex: 1.6;
+  min-width: 268px;
 }
 .tab-item.gu-mirror {
   top: var(--control-space-top) !important;
@@ -161,12 +162,18 @@ body.linux #menu-button {
 
 .tab-item:not(.active):hover {
   background-color: rgba(0, 0, 0, 0.03);
+  flex: 1.25;
+  min-width: 156px;
 }
 .dark-theme .tab-item:not(.active):hover {
   background-color: rgba(255, 255, 255, 0.1);
+  flex: 1.25;
+  min-width: 156px;
 }
 .dark-theme.theme-background-low-contrast .tab-item:not(.active):hover {
   background-color: rgba(255, 255, 255, 0.15);
+  flex: 1.25;
+  min-width: 156px;
 }
 
 /* icons */
