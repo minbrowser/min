@@ -163,6 +163,40 @@ function handleCommandLineArguments (argv) {
   }
 }
 
+
+function shouldUpgradeToHTTPS (urlString) {
+  let parsed
+  try {
+    parsed = new URL(urlString)
+  } catch (e) {
+    return false
+  }
+
+  if (parsed.protocol !== 'http:') {
+    return false
+  }
+
+  const host = parsed.hostname
+  if (host === 'localhost' || host === '127.0.0.1' || host === '0.0.0.0' || host.endsWith('.local')) {
+    return false
+  }
+
+  return true
+}
+
+function registerHTTPSUpgrade (ses) {
+  ses.webRequest.onBeforeRequest(function (details, callback) {
+    if (settings.get('httpsUpgradeEnabled') === false || !shouldUpgradeToHTTPS(details.url)) {
+      callback({})
+      return
+    }
+
+    callback({
+      redirectURL: details.url.replace(/^http:/, 'https:')
+    })
+  })
+}
+
 function createWindow (customArgs = {}) {
   var bounds;
 
@@ -376,6 +410,7 @@ app.on('ready', function () {
   }
 
   registerBundleProtocol(session.defaultSession)
+  registerHTTPSUpgrade(session.defaultSession)
 
   const newWin = createWindow()
 

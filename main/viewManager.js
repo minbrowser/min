@@ -29,6 +29,71 @@ function getDefaultViewWebPreferences () {
   )
 }
 
+
+function getAntiFingerprintingLevel () {
+  const level = settings.get('fingerprintingProtectionLevel')
+  if (level === 'off' || level === 'strict') {
+    return level
+  }
+  return 'balanced'
+}
+
+function applyAntiFingerprintingProtections (view, url) {
+  if (!url || url.startsWith('min://') || getAntiFingerprintingLevel() === 'off') {
+    return
+  }
+
+  const strictMode = getAntiFingerprintingLevel() === 'strict'
+
+  view.webContents.executeJavaScript(`
+    (function () {
+      if (window.__msearchAntiFingerprintingPatched) {
+        return
+      }
+      window.__msearchAntiFingerprintingPatched = true
+
+      const originalToDataURL = HTMLCanvasElement.prototype.toDataURL
+      HTMLCanvasElement.prototype.toDataURL = function () {
+        const ctx = this.getContext('2d')
+        if (ctx) {
+          const width = Math.min(this.width, 16)
+          const height = Math.min(this.height, 16)
+          if (width > 0 && height > 0) {
+            const imageData = ctx.getImageData(0, 0, width, height)
+            for (let i = 0; i < imageData.data.length; i += 4) {
+              imageData.data[i] = (imageData.data[i] + ((i % 7) - 3) + 256) % 256
+            }
+            ctx.putImageData(imageData, 0, 0)
+          }
+        }
+        return originalToDataURL.apply(this, arguments)
+      }
+
+      const strictMode = ${strictMode}
+      if (strictMode && window.WebGLRenderingContext) {
+        const getParameter = WebGLRenderingContext.prototype.getParameter
+        WebGLRenderingContext.prototype.getParameter = function (param) {
+          if (param === 37445 || param === 37446) {
+            return 'mSearch GPU'
+          }
+          return getParameter.call(this, param)
+        }
+      }
+
+      if (window.AudioBuffer && window.AudioBuffer.prototype.getChannelData) {
+        const originalGetChannelData = window.AudioBuffer.prototype.getChannelData
+        window.AudioBuffer.prototype.getChannelData = function () {
+          const channelData = originalGetChannelData.apply(this, arguments)
+          for (let i = 0; i < channelData.length; i += 100) {
+            channelData[i] = channelData[i] + (Math.random() * 0.000001)
+          }
+          return channelData
+        }
+      }
+    })()
+  `).catch(function () {})
+}
+
 function createView (existingViewId, id, webPreferences, boundsString, events) {
   if (viewStateMap[id]) {
     console.warn('Creating duplicate view')
@@ -201,6 +266,10 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
   }
 
   view.webContents.on('did-start-navigation', handleExternalProtocol)
+  view.webContents.on('did-finish-load', function () {
+    const currentURL = view.webContents.getURL()
+    applyAntiFingerprintingProtections(view, currentURL)
+  })
   /*
   It's possible for an HTTP request to redirect to an external app link
   (primary use case for this is OAuth from desktop app > browser > back to app)

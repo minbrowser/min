@@ -9,6 +9,7 @@ var hasSeparateTitlebar = settings.get('useSeparateTitlebar')
 var windowIsMaximized = false // affects navbar height on Windows
 var windowIsFullscreen = false
 var multiViewMaxViews = 3
+var tabHibernationTimeoutMinutes = 30
 
 
 function captureCurrentTab (options) {
@@ -331,6 +332,11 @@ const webviews = {
 
     webviews.selectedId = id
 
+    const selectedTabData = tabs.get(id)
+    if (selectedTabData && selectedTabData.hibernated) {
+      webviews.wake(id)
+    }
+
     // create the view if it doesn't already exist
     if (!webviews.hasViewForTab(id)) {
       webviews.add(id)
@@ -348,6 +354,41 @@ const webviews = {
 
     webviews.applyLayout({ focus: !options || options.focus !== false })
     webviews.emitEvent('view-shown', id)
+  },
+  setHibernated: function (id, shouldHibernate) {
+    if (!tabs.has(id)) {
+      return
+    }
+
+    const tabData = tabs.get(id)
+    if (!tabData || tabData.hibernated === shouldHibernate) {
+      return
+    }
+
+    tabs.update(id, { hibernated: shouldHibernate })
+  },
+  hibernate: function (id) {
+    if (!id || id === tabs.getSelected() || !webviews.hasViewForTab(id)) {
+      return
+    }
+
+    webviews.setHibernated(id, true)
+    webviews.destroy(id)
+  },
+  wake: function (id) {
+    if (!tabs.has(id)) {
+      return
+    }
+
+    const tabData = tabs.get(id)
+    if (!tabData || !tabData.hibernated) {
+      return
+    }
+
+    webviews.setHibernated(id, false)
+    if (!webviews.hasViewForTab(id)) {
+      webviews.add(id)
+    }
   },
   update: function (id, url) {
     ipc.send('loadURLInView', { id: id, url: urlParser.parse(url) })
@@ -624,8 +665,10 @@ ipc.on('view-event', function (e, args) {
 })
 
 ipc.on('async-call-result', function (e, args) {
-  webviews.asyncCallbacks[args.callId](args.error, args.result)
-  delete webviews.asyncCallbacks[args.callId]
+  if (webviews.asyncCallbacks[args.callId]) {
+    webviews.asyncCallbacks[args.callId](args.error, args.result)
+    delete webviews.asyncCallbacks[args.callId]
+  }
 })
 
 ipc.on('view-ipc', function (e, args) {
@@ -659,5 +702,34 @@ ipc.on('windowFocus', function () {
     webviews.focus()
   }
 })
+
+
+
+settings.listen('tabHibernationTimeoutMinutes', function (value) {
+  const parsed = parseInt(value)
+  if (!isNaN(parsed) && parsed >= 1 && parsed <= 240) {
+    tabHibernationTimeoutMinutes = parsed
+  } else {
+    tabHibernationTimeoutMinutes = 30
+  }
+})
+
+setInterval(function () {
+  const selectedTab = tabs.getSelected()
+  const now = Date.now()
+
+  tasks.forEach(function (task) {
+    task.tabs.forEach(function (tab) {
+      if (tab.id === selectedTab || tab.private || !tab.url || !tab.hasWebContents || tab.hibernated) {
+        return
+      }
+
+      const inactiveFor = now - (tab.lastActivity || now)
+      if (inactiveFor >= tabHibernationTimeoutMinutes * 60 * 1000) {
+        webviews.hibernate(tab.id)
+      }
+    })
+  })
+}, 60 * 1000)
 
 module.exports = webviews

@@ -6,7 +6,7 @@ class TabList {
 
   //tab properties that shouldn't be saved to disk
 
-  static temporaryProperties = ['hasAudio', 'previewImage', 'loaded', 'hasWebContents', 'frozen']
+  static temporaryProperties = ['hasAudio', 'previewImage', 'loaded', 'hasWebContents', 'frozen', 'hibernated']
 
   add (tab = {}, options = {}, emit=true) {
     var tabId = String(tab.id || Math.round(Math.random() * 100000000000000000)) // you can pass an id that will be used, or a random one will be generated.
@@ -30,7 +30,8 @@ class TabList {
       previewImage: '',
       isFileView: false,
       hasWebContents: false,
-      frozen: false
+      frozen: false,
+      hibernated: false
     }
 
     if (options.atEnd) {
