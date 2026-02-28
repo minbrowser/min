@@ -161,6 +161,27 @@
               >Nettoyer l'historique au démarrage</label
             >
           </div>
+
+          <div class="setting-section liquid-glass-card" id="privacy-advanced-protection">
+            <h4>Protection avancée (anti-fingerprinting)</h4>
+            <label for="select-fingerprinting-protection">Niveau de protection</label>
+            <select id="select-fingerprinting-protection">
+              <option value="off">Désactivée</option>
+              <option value="balanced">Équilibrée (Canvas + Audio)</option>
+              <option value="strict">Stricte (Canvas + Audio + WebGL)</option>
+            </select>
+          </div>
+
+          <div class="setting-section">
+            <input type="checkbox" id="checkbox-https-upgrade-enabled" />
+            <label for="checkbox-https-upgrade-enabled">Forcer HTTPS par défaut (upgrade HTTP → HTTPS)</label>
+          </div>
+
+          <div class="setting-section">
+            <label for="input-tab-hibernation-timeout">Mise en veille des onglets inactifs (minutes)</label>
+            <input id="input-tab-hibernation-timeout" type="number" min="1" max="240" step="1" value="30" />
+          </div>
+
         </div>
 
         <div class="settings-container" id="appearance-settings-container">

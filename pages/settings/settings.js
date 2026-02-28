@@ -59,6 +59,9 @@ var screenTimePinLockCheckbox = document.getElementById('checkbox-screen-time-pi
 var cookieControlsEnabledCheckbox = document.getElementById('checkbox-cookie-controls-enabled')
 var cookiePolicySelect = document.getElementById('select-cookie-policy')
 var historySmartModeSelect = document.getElementById('select-history-smart-mode')
+var fingerprintingProtectionSelect = document.getElementById('select-fingerprinting-protection')
+var httpsUpgradeEnabledCheckbox = document.getElementById('checkbox-https-upgrade-enabled')
+var tabHibernationTimeoutInput = document.getElementById('input-tab-hibernation-timeout')
 
 function showRestartRequiredBanner () {
   banner.hidden = false
@@ -240,6 +243,44 @@ settings.get('clearHistoryOnStartup', function (value) {
 
 clearHistoryOnStartupCheckbox.addEventListener('change', function (e) {
   settings.set('clearHistoryOnStartup', this.checked)
+})
+
+
+settings.get('fingerprintingProtectionLevel', function (value) {
+  fingerprintingProtectionSelect.value = ['off', 'balanced', 'strict'].includes(value) ? value : 'balanced'
+})
+
+fingerprintingProtectionSelect.addEventListener('change', function () {
+  const selected = ['off', 'balanced', 'strict'].includes(this.value) ? this.value : 'balanced'
+  settings.set('fingerprintingProtectionLevel', selected)
+})
+
+settings.get('httpsUpgradeEnabled', function (value) {
+  httpsUpgradeEnabledCheckbox.checked = value !== false
+})
+
+httpsUpgradeEnabledCheckbox.addEventListener('change', function () {
+  settings.set('httpsUpgradeEnabled', this.checked)
+})
+
+settings.get('tabHibernationTimeoutMinutes', function (value) {
+  let parsed = parseInt(value, 10)
+  if (!Number.isInteger(parsed) || parsed < 1 || parsed > 240) {
+    parsed = 30
+  }
+  tabHibernationTimeoutInput.value = parsed
+})
+
+tabHibernationTimeoutInput.addEventListener('change', function () {
+  let parsed = parseInt(this.value, 10)
+  if (!Number.isInteger(parsed) || parsed < 1) {
+    parsed = 1
+  }
+  if (parsed > 240) {
+    parsed = 240
+  }
+  this.value = parsed
+  settings.set('tabHibernationTimeoutMinutes', parsed)
 })
 
 
