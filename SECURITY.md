@@ -8,9 +8,6 @@ La sécurité des utilisateurs est une priorité fondamentale pour le projet **m
 
 Nous nous engageons à protéger la vie privée et les données de nos utilisateurs. Pour garantir cette protection, nous effectuons des mises à jour régulières qui permettent de corriger les vulnérabilités de sécurité identifiées et d'intégrer les derniers correctifs de performance et de stabilité.
 
-- **Version de l'application :** `26.8.0`
-- **Version du moteur (Electron) :** `40.0.0`
-
 ---
 
 ## 🔄 Maintenance et Correctifs
@@ -25,5 +22,5 @@ Si vous identifiez une faille de sécurité, nous vous encourageons à nous en i
 
 Les méthodes privilégiées pour signaler une vulnérabilité sont les suivantes :
 
-1.  **Via GitHub :** Vous pouvez soumettre un avis de sécurité directement sur notre dépôt officiel ([ici](https://github.com/minbrowser/min/security/advisories/new)).
-2.  **Par Email :** Vous pouvez contacter directement @palmerAL à l'adresse `280953907a@zoho.com`. Notez que le délai de réponse par email peut être plus long que via GitHub.
+1.  **Via GitHub :** Vous pouvez soumettre un avis de sécurité directement sur notre dépôt officiel ([ici](https://https://github.com/mAI-mAIPlatform/mSearch-Officiel/)).
+2.  **Par Email :** Vous pouvez contacter directement @mAI-mAIPlatform à l'adresse `mathias.tss2012@gmail.com`. Notez que le délai de réponse par email peut être plus long que via GitHub.
