@@ -5,6 +5,7 @@ const settings = require('util/settings/settings.js')
 const webviews = require('webviews.js')
 const keybindings = require('keybindings.js')
 const statistics = require('js/statistics.js')
+const SecureAutofillStore = require('util/secureAutofillStore.js')
 
 const Bitwarden = require('js/passwordManager/bitwarden.js')
 const OnePassword = require('js/passwordManager/onePassword.js')
@@ -20,60 +21,53 @@ const PasswordManagers = {
     new Keychain()
   ],
   // PIN & Data Helpers
-  async hashPin (pin) {
-    const msgBuffer = new TextEncoder().encode(pin)
-    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer)
-    const hashArray = Array.from(new Uint8Array(hashBuffer))
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
-  },
   async setPin (pin) {
-    const hash = await this.hashPin(pin)
-    localStorage.setItem('msearch.security.pinHash', hash)
+    await SecureAutofillStore.setPin(pin)
   },
   async verifyPin (pin) {
-    const stored = localStorage.getItem('msearch.security.pinHash')
-    if (!stored) return true
-    const hash = await this.hashPin(pin)
-    return hash === stored
+    return SecureAutofillStore.verifyPin(pin)
   },
   hasPin () {
-    return !!localStorage.getItem('msearch.security.pinHash')
+    return !!localStorage.getItem('msearch.security.pinV2') || !!localStorage.getItem('msearch.security.pinHash')
+  },
+  async unlockPersonalData (pin) {
+    return SecureAutofillStore.unlock(pin)
+  },
+  lockPersonalData () {
+    SecureAutofillStore.lock()
+  },
+  async removePin () {
+    await SecureAutofillStore.removePin()
+  },
+  isPersonalDataUnlocked () {
+    return SecureAutofillStore.isUnlocked()
   },
   // Address & Card Helpers
-  getAddresses () {
-    try {
-      return JSON.parse(localStorage.getItem('msearch.autofill.addresses') || '[]')
-    } catch (e) { return [] }
+  async getAddresses () {
+    if (!SecureAutofillStore.isUnlocked()) {
+      return []
+    }
+    return SecureAutofillStore.listAddresses()
   },
-  saveAddress (address) {
-    const list = this.getAddresses()
+  async saveAddress (address) {
     address.id = address.id || Date.now().toString()
-    const idx = list.findIndex(i => i.id === address.id)
-    if (idx !== -1) list[idx] = address
-    else list.push(address)
-    localStorage.setItem('msearch.autofill.addresses', JSON.stringify(list))
+    return SecureAutofillStore.saveAddress(address)
   },
-  deleteAddress (id) {
-    const list = this.getAddresses().filter(i => i.id !== id)
-    localStorage.setItem('msearch.autofill.addresses', JSON.stringify(list))
+  async deleteAddress (id) {
+    return SecureAutofillStore.deleteAddress(id)
   },
-  getCards () {
-    try {
-      return JSON.parse(localStorage.getItem('msearch.autofill.cards') || '[]')
-    } catch (e) { return [] }
+  async getCards () {
+    if (!SecureAutofillStore.isUnlocked()) {
+      return []
+    }
+    return SecureAutofillStore.listCards()
   },
-  saveCard (card) {
-    // Basic Luhn check could be done in UI before calling this, or here.
-    const list = this.getCards()
+  async saveCard (card) {
     card.id = card.id || Date.now().toString()
-    const idx = list.findIndex(i => i.id === card.id)
-    if (idx !== -1) list[idx] = card
-    else list.push(card)
-    localStorage.setItem('msearch.autofill.cards', JSON.stringify(list))
+    return SecureAutofillStore.saveCard(card)
   },
-  deleteCard (id) {
-    const list = this.getCards().filter(i => i.id !== id)
-    localStorage.setItem('msearch.autofill.cards', JSON.stringify(list))
+  async deleteCard (id) {
+    return SecureAutofillStore.deleteCard(id)
   },
   // Returns an active password manager, which is the one that is selected in app's
   // settings.

@@ -62,6 +62,7 @@ var historySmartModeSelect = document.getElementById('select-history-smart-mode'
 var fingerprintingProtectionSelect = document.getElementById('select-fingerprinting-protection')
 var httpsUpgradeEnabledCheckbox = document.getElementById('checkbox-https-upgrade-enabled')
 var tabHibernationTimeoutInput = document.getElementById('input-tab-hibernation-timeout')
+var PasswordManagersAPI = require('passwordManager/passwordManager.js')
 
 function showRestartRequiredBanner () {
   banner.hidden = false
@@ -289,13 +290,7 @@ tabHibernationTimeoutInput.addEventListener('change', function () {
 
 function requestPinValidationIfNeeded (onSuccess) {
   settings.get('screenTimePinProtected', function (pinProtected) {
-    if (pinProtected !== true) {
-      onSuccess()
-      return
-    }
-
-    var storedPinHash = localStorage.getItem('msearch.security.pinHash')
-    if (!storedPinHash) {
+    if (pinProtected !== true || !PasswordManagersAPI.hasPin()) {
       onSuccess()
       return
     }
@@ -305,8 +300,8 @@ function requestPinValidationIfNeeded (onSuccess) {
       return
     }
 
-    sha256(provided).then(function (hash) {
-      if (hash !== storedPinHash) {
+    PasswordManagersAPI.verifyPin(provided).then(function (isValid) {
+      if (!isValid) {
         alert('Code PIN incorrect.')
         return
       }
@@ -1448,14 +1443,8 @@ function createBang (bang, snippet, redirect) {
 
 /* Personal Data & PIN Logic */
 
-async function sha256 (message) {
-  const msgBuffer = new TextEncoder().encode(message)
-  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer)
-  const hashArray = Array.from(new Uint8Array(hashBuffer))
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
-}
-
 const PersonalData = {
+  isUnlocked: false,
   sanitizeText: function (value, maxLen) {
     const normalized = typeof value === 'string' ? value.trim() : ''
     if (!normalized) {
@@ -1471,7 +1460,7 @@ const PersonalData = {
       return false
     }
 
-    if (/^(\d)\1+$/.test(pin)) {
+    if (/^(\d)+$/.test(pin)) {
       return false
     }
 
@@ -1510,19 +1499,75 @@ const PersonalData = {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
   },
   updatePinUI: function () {
-    const hasPin = !!localStorage.getItem('msearch.security.pinHash')
+    const hasPin = PasswordManagersAPI.hasPin()
     document.getElementById('setup-pin-button').hidden = hasPin
     document.getElementById('change-pin-button').hidden = !hasPin
     document.getElementById('remove-pin-button').hidden = !hasPin
   },
-  renderAddresses: function () {
+  updateSensitiveLockUI: function () {
+    const status = document.getElementById('personal-data-lock-status')
+    const unlockButton = document.getElementById('unlock-sensitive-data-button')
+    const lockButton = document.getElementById('lock-sensitive-data-button')
+    const mask = document.getElementById('personal-data-mask')
+
+    if (!status || !unlockButton || !lockButton || !mask) {
+      return
+    }
+
+    if (this.isUnlocked) {
+      status.textContent = 'Coffre-fort déverrouillé (session locale uniquement)'
+      unlockButton.hidden = true
+      lockButton.hidden = false
+      mask.hidden = true
+      document.body.classList.add('sensitive-data-unlocked')
+    } else {
+      status.textContent = 'Coffre-fort verrouillé : données masquées'
+      unlockButton.hidden = false
+      lockButton.hidden = true
+      mask.hidden = false
+      document.body.classList.remove('sensitive-data-unlocked')
+    }
+  },
+  ensureUnlocked: async function () {
+    if (this.isUnlocked) {
+      return true
+    }
+
+    if (!PasswordManagersAPI.hasPin()) {
+      alert('Configurez un code PIN avant de gérer des données sensibles.')
+      return false
+    }
+
+    const provided = window.prompt('Ré-authentification locale requise (PIN)')
+    if (!provided) {
+      return false
+    }
+
+    const unlocked = await PasswordManagersAPI.unlockPersonalData(provided)
+    if (!unlocked) {
+      alert('Code PIN incorrect.')
+      return false
+    }
+
+    this.isUnlocked = true
+    this.updateSensitiveLockUI()
+    return true
+  },
+  renderAddresses: async function () {
     const list = document.getElementById('addresses-list')
     if (!list) return
     list.innerHTML = ''
+
+    if (!this.isUnlocked) {
+      return
+    }
+
     let addresses = []
     try {
-      addresses = JSON.parse(localStorage.getItem('msearch.autofill.addresses') || '[]')
-    } catch (e) {}
+      addresses = await PasswordManagersAPI.getAddresses()
+    } catch (e) {
+      console.error('Failed to decrypt addresses', e)
+    }
 
     addresses.forEach(addr => {
       const li = document.createElement('li')
@@ -1552,14 +1597,21 @@ const PersonalData = {
       list.appendChild(li)
     })
   },
-  renderCards: function () {
+  renderCards: async function () {
     const list = document.getElementById('cards-list')
     if (!list) return
     list.innerHTML = ''
+
+    if (!this.isUnlocked) {
+      return
+    }
+
     let cards = []
     try {
-      cards = JSON.parse(localStorage.getItem('msearch.autofill.cards') || '[]')
-    } catch (e) {}
+      cards = await PasswordManagersAPI.getCards()
+    } catch (e) {
+      console.error('Failed to decrypt cards', e)
+    }
 
     cards.forEach(card => {
       const last4 = card.number ? card.number.slice(-4) : '????'
@@ -1590,7 +1642,14 @@ const PersonalData = {
       list.appendChild(li)
     })
   },
-  openEditor: function (type) {
+  openEditor: async function (type) {
+    if (type === 'address' || type === 'card') {
+      const unlocked = await this.ensureUnlocked()
+      if (!unlocked) {
+        return
+      }
+    }
+
     const modal = document.getElementById('personal-data-editor')
     const form = document.getElementById('personal-data-form')
     const title = document.getElementById('personal-data-editor-title')
@@ -1667,6 +1726,20 @@ document.getElementById('change-pin-button').addEventListener('click', () => Per
 document.getElementById('remove-pin-button').addEventListener('click', () => PersonalData.openEditor('pin-remove'))
 document.getElementById('add-address-button').addEventListener('click', () => PersonalData.openEditor('address'))
 document.getElementById('add-card-button').addEventListener('click', () => PersonalData.openEditor('card'))
+document.getElementById('unlock-sensitive-data-button').addEventListener('click', async () => {
+  const unlocked = await PersonalData.ensureUnlocked()
+  if (unlocked) {
+    await PersonalData.renderAddresses()
+    await PersonalData.renderCards()
+  }
+})
+document.getElementById('lock-sensitive-data-button').addEventListener('click', () => {
+  PasswordManagersAPI.lockPersonalData()
+  PersonalData.isUnlocked = false
+  PersonalData.updateSensitiveLockUI()
+  PersonalData.renderAddresses()
+  PersonalData.renderCards()
+})
 
 document.getElementById('personal-data-cancel').addEventListener('click', (e) => {
   e.preventDefault()
@@ -1691,7 +1764,6 @@ document.getElementById('personal-data-save').addEventListener('click', async (e
     return
   }
 
-  // PIN Logic
   if (type === 'pin-setup' || type === 'pin-change') {
     if (data.pin1 !== data.pin2) {
       alert('Les codes PIN ne correspondent pas.')
@@ -1705,30 +1777,37 @@ document.getElementById('personal-data-save').addEventListener('click', async (e
   }
 
   if (type === 'pin-change' || type === 'pin-remove') {
-    const stored = localStorage.getItem('msearch.security.pinHash')
-    const hash = await sha256(data.current)
-    if (hash !== stored) {
+    const isCurrentPinValid = await PasswordManagersAPI.verifyPin(data.current)
+    if (!isCurrentPinValid) {
       alert('Code PIN actuel incorrect.')
       return
     }
   }
 
   if (type === 'pin-setup' || type === 'pin-change') {
-    const newHash = await sha256(data.pin1)
-    localStorage.setItem('msearch.security.pinHash', newHash)
+    await PasswordManagersAPI.setPin(data.pin1)
+    await PasswordManagersAPI.unlockPersonalData(data.pin1)
+    PersonalData.isUnlocked = true
     PersonalData.updatePinUI()
+    PersonalData.updateSensitiveLockUI()
     PersonalData.closeEditor()
     return
   }
 
   if (type === 'pin-remove') {
-    localStorage.removeItem('msearch.security.pinHash')
+    await PasswordManagersAPI.removePin()
+    PersonalData.isUnlocked = false
     PersonalData.updatePinUI()
+    PersonalData.updateSensitiveLockUI()
     PersonalData.closeEditor()
     return
   }
 
-  // Data Logic
+  if (!PersonalData.isUnlocked) {
+    alert('Coffre-fort verrouillé. Déverrouillez avant de modifier les données.')
+    return
+  }
+
   if (type === 'card') {
     data.name = PersonalData.sanitizeText(data.name, 80)
     data.number = PersonalData.sanitizeCardNumber(data.number)
@@ -1772,24 +1851,18 @@ document.getElementById('personal-data-save').addEventListener('click', async (e
   }
 
   if (type === 'address') {
-    const list = JSON.parse(localStorage.getItem('msearch.autofill.addresses') || '[]')
-    list.push(data)
-    localStorage.setItem('msearch.autofill.addresses', JSON.stringify(list))
-    PersonalData.renderAddresses()
+    await PasswordManagersAPI.saveAddress(data)
+    await PersonalData.renderAddresses()
   } else if (type === 'card') {
-    const list = JSON.parse(localStorage.getItem('msearch.autofill.cards') || '[]')
-    // Ne jamais persister le CVV : donnée sensible strictement temporaire.
     delete data.cvv
-    list.push(data)
-    localStorage.setItem('msearch.autofill.cards', JSON.stringify(list))
-    PersonalData.renderCards()
+    await PasswordManagersAPI.saveCard(data)
+    await PersonalData.renderCards()
   }
 
   PersonalData.closeEditor()
 })
 
-// Delegation for delete buttons
-document.addEventListener('click', (e) => {
+document.addEventListener('click', async (e) => {
   if (e.target.classList.contains('delete-data-btn')) {
     const id = e.target.getAttribute('data-id')
     const type = e.target.getAttribute('data-type')
@@ -1797,20 +1870,16 @@ document.addEventListener('click', (e) => {
     if (!confirm('Supprimer cet élément ?')) return
 
     if (type === 'address') {
-      const list = JSON.parse(localStorage.getItem('msearch.autofill.addresses') || '[]')
-      const newList = list.filter(i => i.id !== id)
-      localStorage.setItem('msearch.autofill.addresses', JSON.stringify(newList))
-      PersonalData.renderAddresses()
+      await PasswordManagersAPI.deleteAddress(id)
+      await PersonalData.renderAddresses()
     } else if (type === 'card') {
-      const list = JSON.parse(localStorage.getItem('msearch.autofill.cards') || '[]')
-      const newList = list.filter(i => i.id !== id)
-      localStorage.setItem('msearch.autofill.cards', JSON.stringify(newList))
-      PersonalData.renderCards()
+      await PasswordManagersAPI.deleteCard(id)
+      await PersonalData.renderCards()
     }
   }
 })
 
-// Initialize
 PersonalData.updatePinUI()
+PersonalData.updateSensitiveLockUI()
 PersonalData.renderAddresses()
 PersonalData.renderCards()
