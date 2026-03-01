@@ -91,7 +91,7 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
       when it is clicked.
       (https://github.com/minbrowser/min/issues/1835)
     */
-    if (!details.features) {
+    if (details.url && details.url !== 'about:blank' && !details.features) {
       const eventTarget = getWindowFromViewContents(view.webContents) || windows.getCurrent()
 
       getWindowWebContents(eventTarget).send('view-event', {
