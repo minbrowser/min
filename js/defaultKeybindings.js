@@ -285,6 +285,15 @@ const defaultKeybindings = {
         })
       }
     })
+
+    // Toggle trail sidebar (Cmd+\ or Cmd+B)
+    keybindings.defineShortcut({ keys: 'mod+\\' }, function () {
+      browserUI.toggleTrailSidebar()
+    })
+
+    keybindings.defineShortcut('toggleTrailSidebar', function () {
+      browserUI.toggleTrailSidebar()
+    })
   }
 }
 
