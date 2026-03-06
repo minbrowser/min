@@ -1,6 +1,5 @@
 import '../../node_modules/pdfjs-dist/build/pdf.min.mjs'
 import '../../node_modules/pdfjs-dist/web/pdf_viewer.mjs'
-import { getPDFDocumentRequest } from './documentRequest.mjs'
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.mjs'
 
@@ -271,6 +270,25 @@ function requestLocalPDFData (fileURL) {
 
     window.addEventListener('message', onResponse)
     window.postMessage({ message: 'readLocalPDF', requestId, url: fileURL }, 'min://app')
+  })
+}
+
+function getPDFDocumentRequest (targetURL, requestLocalPDFData) {
+  if (typeof targetURL !== 'string') {
+    return Promise.reject(new Error('invalid PDF URL'))
+  }
+
+  if (targetURL.startsWith('file://')) {
+    return requestLocalPDFData(targetURL).then(function (fileData) {
+      return {
+        data: fileData
+      }
+    })
+  }
+
+  return Promise.resolve({
+    url: targetURL,
+    withCredentials: true
   })
 }
 
