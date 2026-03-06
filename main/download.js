@@ -1,4 +1,14 @@
 const currrentDownloadItems = {}
+var getAllowedLocalPDFPath = require('./main/localPDFAccess.js').getAllowedLocalPDFPath
+
+ipc.handle('readLocalPDF', async function (event, requestedURL) {
+  if (!event.senderFrame) {
+    throw new Error('blocked local PDF read request')
+  }
+
+  var filePath = getAllowedLocalPDFPath(event.senderFrame.url, requestedURL)
+  return fs.promises.readFile(filePath)
+})
 
 ipc.on('cancelDownload', function (e, path) {
   if (currrentDownloadItems[path]) {
