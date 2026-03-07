@@ -784,22 +784,30 @@
         <div class="settings-container" id="personal-data-settings-container">
           <h3>Données personnelles</h3>
 
-          <div class="setting-section">
-            <h4>Code PIN de sécurité</h4>
+          <div class="setting-section liquid-glass-card personal-data-vault">
+            <h4>Coffre-fort local chiffré</h4>
+            <p class="settings-section-description">Toutes les données d’autofill sont chiffrées localement (AES-GCM) et déverrouillées uniquement après ré-authentification PIN.</p>
             <div id="pin-setup-section">
               <button id="setup-pin-button" class="settings-action-button">Configurer un code PIN</button>
               <button id="change-pin-button" class="settings-action-button" hidden>Changer le code PIN</button>
               <button id="remove-pin-button" class="settings-action-button" hidden>Supprimer le code PIN</button>
+              <button id="unlock-sensitive-data-button" class="settings-action-button">Déverrouiller les données sensibles</button>
+              <button id="lock-sensitive-data-button" class="settings-action-button" hidden>Verrouiller immédiatement</button>
             </div>
+            <div id="personal-data-lock-status" class="sensitive-status-text"></div>
           </div>
 
-          <div class="setting-section">
+          <div class="setting-section sensitive-data-wrapper">
+            <div id="personal-data-mask" class="sensitive-data-mask liquid-glass-card">
+              <div>Données masquées</div>
+              <small>Déverrouillez avec votre code PIN pour afficher les cartes et adresses.</small>
+            </div>
             <h4>Adresses</h4>
             <ul id="addresses-list" class="data-list"></ul>
             <button id="add-address-button" class="settings-action-button">Ajouter une adresse</button>
           </div>
 
-          <div class="setting-section">
+          <div class="setting-section sensitive-data-wrapper">
             <h4>Cartes de paiement</h4>
             <ul id="cards-list" class="data-list"></ul>
             <button id="add-card-button" class="settings-action-button">Ajouter une carte</button>
