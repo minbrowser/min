@@ -4,7 +4,7 @@
   "author": "PalmerAL",
   "version": "26.8.0",
   "description": "Le navigateur qui bloque vraiment les traqueurs.",
-  "electronVersion": "40.0.0",
+  "electronVersion": "40.6.1",
   "main": "main.build.js",
   "standard": {
     "globals": [
