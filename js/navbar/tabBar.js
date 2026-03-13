@@ -64,6 +64,16 @@ const tabBar = {
       iconArea.appendChild(pbIcon)
     }
 
+    var reloadButton = document.createElement('button')
+    reloadButton.className = 'tab-icon tab-reload-button i carbon:renew'
+
+    reloadButton.addEventListener('click', function (e) {
+      webviews.callAsync(data.id, 'reload')
+      e.stopPropagation()
+    })
+
+    iconArea.appendChild(reloadButton)
+
     var closeTabButton = document.createElement('button')
     closeTabButton.className = 'tab-icon tab-close-button i carbon:close'
 
@@ -143,6 +153,7 @@ const tabBar = {
     var tabTitle
 
     const isNewTab = tabData.url === '' || tabData.url === urlParser.parse('min://newtab')
+    tabEl.classList.toggle('is-ntp', isNewTab)
     if (isNewTab) {
       tabTitle = l('newTabLabel')
     } else if (tabData.title) {
