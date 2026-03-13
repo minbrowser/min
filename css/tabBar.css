@@ -112,6 +112,19 @@ body.linux #menu-button {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
+
+#tabs.safari-tab-resize-enabled .tab-item {
+  transition: flex-grow 0.22s ease;
+}
+
+#tabs.safari-tab-resize-enabled .tab-item:hover {
+  flex-grow: 1.1;
+}
+
+#tabs.safari-tab-resize-enabled .tab-item.active {
+  flex-grow: 1.3;
+}
+
 .tab-item.active {
   min-width: 168px;
 }
@@ -179,7 +192,7 @@ body.linux #menu-button {
 }
 body:not(.touch)
   .tab-item:not(:hover)
-  .tab-icon-area:has(.tab-close-button:only-child) {
+  .tab-icon-area:not(:has(.tab-info-icon)) {
   margin-left: -0.5rem;
 }
 
@@ -381,15 +394,27 @@ body.windows.dark-theme .navbar-action-button:not(:disabled):hover {
   font-size: 0.9em;
 }
 
-/* when the tab is hovered, hide info buttons and show the close button */
+.tab-item .tab-reload-button {
+  font-size: 1.1em;
+  box-sizing: border-box;
+  order: 0;
+}
+
+.tab-item.is-ntp .tab-reload-button {
+  display: none !important;
+}
+
+/* when the tab is hovered, hide info buttons and show the close/reload buttons */
 
 body:not(.touch) .tab-item:hover .tab-info-icon {
   display: none;
 }
-body:not(.touch) .tab-item .tab-close-button {
+body:not(.touch) .tab-item .tab-close-button,
+body:not(.touch) .tab-item .tab-reload-button {
   display: none;
 }
-body:not(.touch) .tab-item:hover .tab-close-button {
+body:not(.touch) .tab-item:hover .tab-close-button,
+body:not(.touch) .tab-item.active:not(.is-ntp):hover .tab-reload-button {
   display: inline-block;
 }
 
