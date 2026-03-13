@@ -100,7 +100,7 @@ body.linux #menu-button {
 .tab-item {
   flex: 1;
   min-width: 125px;
-  transition: flex 0.3s cubic-bezier(0.4, 0, 0.2, 1), min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s, transform 0.2s;
+  transition: 0.2s transform;
   line-height: 36px;
   height: 36px;
   overflow: hidden;
@@ -112,14 +112,21 @@ body.linux #menu-button {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
-.tab-item.active {
-  flex: 1.1;
-  min-width: 220px;
+
+#tabs.safari-tab-resize-enabled .tab-item {
+  transition: flex-grow 0.22s ease;
 }
-/* When 5 or more tabs are open, make active tab grow more */
-.tab-item:first-child:nth-last-child(n+5).active,
-.tab-item:first-child:nth-last-child(n+5) ~ .tab-item.active {
-  flex: 1.6;
+
+#tabs.safari-tab-resize-enabled .tab-item:hover {
+  flex-grow: 1.1;
+}
+
+#tabs.safari-tab-resize-enabled .tab-item.active {
+  flex-grow: 1.3;
+}
+
+.tab-item.active {
+  min-width: 168px;
 }
 .tab-item.gu-mirror {
   top: var(--control-space-top) !important;
@@ -167,13 +174,6 @@ body.linux #menu-button {
 
 .tab-item:not(.active):hover {
   background-color: rgba(0, 0, 0, 0.03);
-  flex: 1.05;
-  min-width: 156px;
-}
-/* When 5 or more tabs are open, make hover grow more */
-.tab-item:first-child:nth-last-child(n+5):not(.active):hover,
-.tab-item:first-child:nth-last-child(n+5) ~ .tab-item:not(.active):hover {
-  flex: 1.25;
 }
 .dark-theme .tab-item:not(.active):hover {
   background-color: rgba(255, 255, 255, 0.1);
