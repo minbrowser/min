@@ -27,11 +27,11 @@
     "goBack": "Retour",
     "goForward": "Avancer",
     "inspectElement": "Inspecter l'élément",
-    "translatePage": null, // missing translation
+    "translatePage": "Traduire la page",
     /* searchbar */
-    "placesPluginOpenAgain": null, // missing translation
-    "placesPluginSwitchToTab": null, // missing translation
-    "placesPluginSwitchToTask": null, // missing translation
+    "placesPluginOpenAgain": "Ouvrir à nouveau",
+    "placesPluginSwitchToTab": "Basculer vers l’onglet",
+    "placesPluginSwitchToTask": "Basculer vers la tâche",
     "pasteAndGo": "Coller et suivre",
     "DDGAnswerSubtitle": "Réponse", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
     "suggestedSite": "Site suggéré", //this is used to label suggested websites from the DuckDuckGo API,
@@ -146,8 +146,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "À ce jour, Min a bloqué <strong></strong> publicités et pisteurs"
     },
-    "settingsCustomBangs": null, // Missing translation
-    "settingsCustomBangsAdd": null, // Missing translation
+    "settingsCustomBangs": "Commandes personnalisées",
+    "settingsCustomBangsAdd": "Ajouter une commande",
     "settingsCustomBangsPhrase": "Phrase (obligatoire)",
     "settingsCustomBangsSnippet": "Description (optionnelle)",
     "settingsCustomBangsRedirect": "URL associée (obligatoire)",
