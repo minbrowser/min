@@ -32,7 +32,7 @@ options
   options.enterEditMode - whether to enter editing mode when the tab is created. Defaults to true.
   options.openInBackground - whether to open the tab without switching to it. Defaults to false.
 */
-function addTab (tabId = tabs.add(), options = {}) {
+function addTab (tabId = undefined, options = {}) {
   /*
   adding a new tab should destroy the current one if either:
   * The current tab is an empty, non-private tab, and the new tab is private
@@ -49,6 +49,9 @@ function addTab (tabId = tabs.add(), options = {}) {
      */
     return
   }
+
+  // If tabId is undefined, and we're not in focus mode, then do true initialization of new tab and get id now...
+  tabId = !tabId ? tabs.add() : tabId;
 
   if (!options.openInBackground && !tabs.get(tabs.getSelected()).url && ((!tabs.get(tabs.getSelected()).private && tabs.get(tabId).private) || tabs.get(tabId).url)) {
     destroyTab(tabs.getSelected())
