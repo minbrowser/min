@@ -39,6 +39,17 @@ function addTab (tabId = tabs.add(), options = {}) {
   * The current tab is empty, and the new tab has a URL
   */
 
+  if (focusMode.enabled()) {
+    /**
+     * Introduced with -> https://github.com/minbrowser/min/issues/2643
+     * If the user has managed to get into this logic, we should just disallow and return
+     * Last ditch effort to prevent tab from being created in focus mode...
+     * 
+     * i.e. --> User is using the middle mouse button to click on a link
+     */
+    return
+  }
+
   if (!options.openInBackground && !tabs.get(tabs.getSelected()).url && ((!tabs.get(tabs.getSelected()).private && tabs.get(tabId).private) || tabs.get(tabId).url)) {
     destroyTab(tabs.getSelected())
   }
