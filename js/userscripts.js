@@ -86,19 +86,20 @@ const userscripts = {
     })
   },
 
+  extractFileNameNoExtension: function(filename){
+    return filename.split(".").at(-1)
+  },
+
   readScriptFileAt: function(filePath){
+    
+    var filename = filePath.split("/").at(-1)
+
     fs.readFile(filePath, 'utf-8', function (err, file) {
             if (err || !file) {
               return
             }
-
-            var domain = filename.slice(0, -3)
-            if (domain.startsWith('www.')) {
-              domain = domain.slice(4)
-            }
-            if (!domain) {
-              return
-            }
+            
+            var domain = extractFileNameNoExtension(filename)
 
             var tampermonkeyFeatures = parseTampermonkeyFeatures(file)
             if (tampermonkeyFeatures) {
@@ -146,7 +147,6 @@ const userscripts = {
       // store the scripts in memory
       files.forEach(function (file) {
         if (file.endsWith(userscripts.JS_EXTENSION)) {
-          console.log("loading: " + file)
           userscripts.readScriptFileAt(path.join(userscripts.scriptDir, file));
         }
       })
@@ -191,7 +191,6 @@ const userscripts = {
     webviews.callAsync(tabId, 'executeJavaScript', [script.content, false, null])
   },
   onPageLoad: function (tabId) {
-    console.log("qsdqsd")
     if (userscripts.scripts.length === 0) {
       return
     }
