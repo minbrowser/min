@@ -68,6 +68,7 @@ function urlMatchesPattern (url, pattern) {
 }
 
 const userscripts = {
+  JS_EXTENSION: ".js",
   scriptDir: path.join(window.globalArgs['user-data-path'], 'userscripts'),
   scripts: [], // {options: {}, content}
   showDirectory: function () {
@@ -84,21 +85,9 @@ const userscripts = {
       }
     })
   },
-  loadScripts: function () {
-    userscripts.scripts = []
 
-    fs.readdir(userscripts.scriptDir, function (err, files) {
-      if (err) {
-        userscripts.ensureDirectoryExists()
-        return
-      } else if (files.length === 0) {
-        return
-      }
-
-      // store the scripts in memory
-      files.forEach(function (filename) {
-        if (filename.endsWith('.js')) {
-          fs.readFile(path.join(userscripts.scriptDir, filename), 'utf-8', function (err, file) {
+  readScriptFileAt: function(filePath){
+    fs.readFile(filePath, 'utf-8', function (err, file) {
             if (err || !file) {
               return
             }
@@ -141,6 +130,24 @@ const userscripts = {
               }
             }
           })
+  },
+
+  loadScripts: function () {
+    userscripts.scripts = []
+
+    fs.readdir(userscripts.scriptDir, {recursive: true} , function (err, files) {
+      if (err) {
+        userscripts.ensureDirectoryExists()
+        return
+      } else if (files.length === 0) {
+        return
+      }
+
+      // store the scripts in memory
+      files.forEach(function (file) {
+        if (file.endsWith(userscripts.JS_EXTENSION)) {
+          console.log("loading: " + file)
+          userscripts.readScriptFileAt(path.join(userscripts.scriptDir, file));
         }
       })
     })
@@ -184,6 +191,7 @@ const userscripts = {
     webviews.callAsync(tabId, 'executeJavaScript', [script.content, false, null])
   },
   onPageLoad: function (tabId) {
+    console.log("qsdqsd")
     if (userscripts.scripts.length === 0) {
       return
     }
