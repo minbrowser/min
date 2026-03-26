@@ -99,7 +99,7 @@ const userscripts = {
               return
             }
             
-            var domain = extractFileNameNoExtension(filename)
+            var domain = userscripts.extractFileNameNoExtension(filename)
 
             var tampermonkeyFeatures = parseTampermonkeyFeatures(file)
             if (tampermonkeyFeatures) {
@@ -129,7 +129,9 @@ const userscripts = {
                   name: filename
                 })
               }
+
             }
+            console.log("loaded: " + filename)
           })
   },
 
