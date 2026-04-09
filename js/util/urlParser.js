@@ -92,6 +92,23 @@ var urlParser = {
     // else, do a search
     return searchEngine.getCurrent().searchURL.replace('%s', encodeURIComponent(url))
   },
+  parseAsURL: function (url) {
+    url = url.trim()
+
+    if (!url) {
+      return 'about:blank'
+    }
+
+    if (urlParser.isURL(url) || url.startsWith('view-source:') || url.startsWith('min:')) {
+      return urlParser.parse(url)
+    }
+
+    if (urlParser.isHTTPSUpgreadable(url)) {
+      return 'https://' + url
+    }
+
+    return 'http://' + url
+  },
   basicURL: function (url) {
     return removeWWW(urlParser.removeProtocol(removeTrailingSlash(url)))
   },
