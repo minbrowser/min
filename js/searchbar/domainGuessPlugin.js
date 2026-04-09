@@ -9,11 +9,19 @@ function showDomainGuess (text) {
     return
   }
 
+  var url
+
+  if (urlParser.isHTTPSUpgreadable(text)) {
+    url = 'https://' + text
+  } else {
+    url = 'http://' + text
+  }
+
   searchbarPlugins.addResult('domainGuess', {
     icon: 'carbon:earth-filled',
     title: text,
     secondaryText: l('visitSite'),
-    url: urlParser.parseAsURL(text)
+    url: url
   }, { allowDuplicates: true })
 }
 
@@ -21,7 +29,7 @@ function initialize () {
   searchbarPlugins.register('domainGuess', {
     index: 3,
     trigger: function (text) {
-      return !!text && !tabs.get(tabs.getSelected()).private
+      return !!text
     },
     showResults: showDomainGuess
   })
