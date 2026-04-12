@@ -19,40 +19,36 @@ const tabContextMenu = {
 		 * Then, all of the priorly duplicated tabs would suddenly appear.
 		 */
 		if (!focusMode.enabled()) {
-			tabMenu = [
-				[
-					{
-						label: l('appMenuDuplicateTab'),
-						click: function () {
-							const sourceTab = tabs.get(tabId)
-							// strip tab id so that a new one is generated
-							const newTab = tabs.add({ ...sourceTab, id: undefined })
-	
-							browserUI.addTab(newTab, { enterEditMode: false })
-						}
-					},
-					{
-						label: l('tabMenuNewWindow'),
-						click: function () {
-							// insert after current task
-							let index
-							if (tasks.getSelected()) {
-								index = tasks.getIndex(tasks.getSelected().id) + 1
-							}
-							const newTask = tasks.get(tasks.add({}, index))
-	
-							const targetTab = tabs.get(tabId)
-							tabs.destroy(targetTab.id)
-	
-							newTask.tabs.add(targetTab)
-	
-							ipc.send('newWindow', { initialTask: newTask.id })
-	
-							browserUI.switchToTask(tasks.getSelected().id)
-						}
+			tabMenu[0].push({
+				label: l('appMenuDuplicateTab'),
+				click: function () {
+					const sourceTab = tabs.get(tabId)
+					// strip tab id so that a new one is generated
+					const newTab = tabs.add({ ...sourceTab, id: undefined })
+
+					browserUI.addTab(newTab, { enterEditMode: false })
+				}
+			})
+			tabMenu[0].push({
+				label: l('tabMenuNewWindow'),
+				click: function () {
+					// insert after current task
+					let index
+					if (tasks.getSelected()) {
+						index = tasks.getIndex(tasks.getSelected().id) + 1
 					}
-				]
-			]
+					const newTask = tasks.get(tasks.add({}, index))
+
+					const targetTab = tabs.get(tabId)
+					tabs.destroy(targetTab.id)
+
+					newTask.tabs.add(targetTab)
+
+					ipc.send('newWindow', { initialTask: newTask.id })
+
+					browserUI.switchToTask(tasks.getSelected().id)
+				}
+			})
 		}
 
     if (tabs.get(tabId).url && (readerView.isReader(tabId) || !urlParser.isInternalURL(tabs.get(tabId).url))) {
