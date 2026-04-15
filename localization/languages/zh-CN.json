@@ -23,15 +23,15 @@
     "cut": "剪切",
     "copy": "复制", //this is a verb (as in "copy the currently-selected text")
     "paste": "粘贴",
-    "pasteAndMatchStyle": null, //missing translation
+    "pasteAndMatchStyle": "粘贴并匹配样式",
     "goBack": "返回",
     "goForward": "前进",
     "inspectElement": "查看元素",
-    "translatePage": null, // missing translation
+    "translatePage": "翻译页面",
     /* searchbar */
-    "placesPluginOpenAgain": null, // missing translation
-    "placesPluginSwitchToTab": null, // missing translation
-    "placesPluginSwitchToTask": null, // missing translation
+    "placesPluginOpenAgain": "再次打开插件",
+    "placesPluginSwitchToTab": "将插件切换到选项卡",
+    "placesPluginSwitchToTask": "将插件切换到任务",
     "pasteAndGo": "粘贴并前往",
     "DDGAnswerSubtitle": "搜索结果", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
     "suggestedSite": "建议站点", //this is used to label suggested websites from the DuckDuckGo API,
@@ -146,8 +146,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "到目前为止，Min已经过滤了<strong></strong>个广告和追踪程序。"
     },
-    "settingsCustomBangs": null, // Missing translation
-    "settingsCustomBangsAdd": null, // Missing translation
+    "settingsCustomBangs": "自定义快捷搜索",
+    "settingsCustomBangsAdd": "新增自定义快捷搜索",
     "settingsCustomBangsPhrase": "命令(必填)",
     "settingsCustomBangsSnippet": "描述(可选)",
     "settingsCustomBangsRedirect": "将命令发送至(必填)",
@@ -162,7 +162,7 @@
     "settingsAdditionalFeaturesHeading": "其他功能",
     "settingsUserscriptsToggle": "允许自定义脚本",
     "settingsShowDividerToggle": "显示标签页边界",
-    "settingsLanguageSelection": null, //missing translation
+    "settingsLanguageSelection": "选择语言",
     "settingsSeparateTitlebarToggle": "显示浏览器标题栏",
     "settingsAutoplayToggle": "启用自动播放",
     "settingsOpenTabsInForegroundToggle": "在前台打开新标签页",
@@ -210,7 +210,7 @@
     "appMenuCut": "剪切",
     "appMenuCopy": "复制",
     "appMenuPaste": "粘贴",
-    "appMenuPasteAndMatchStyle": null, //missing translation
+    "appMenuPasteAndMatchStyle": "应用程序菜单粘贴和匹配样式",
     "appMenuSelectAll": "全选",
     "appMenuFind": "查找",
     "appMenuView": "查看",
@@ -243,8 +243,8 @@
     "appMenuQuit": "退出 %n",
     "appMenuBringToFront": "前置所有窗口",
     /* Tab menu */
-    "tabMenuNewWindow": null, // missing translation
-    "tabMenuReload": null, // missing translation
+    "tabMenuNewWindow": "在新窗口中打开",
+    "tabMenuReload": "重新加载",
     /* PDF Viewer */
     "PDFInvertPage": "反转页面颜色",
     "PDFPageCounter": {
@@ -294,7 +294,7 @@
     "passwordCaptureSave": "保存",
     "passwordCaptureDontSave": "不保存",
     "passwordCaptureNeverSave": "永不保存",
-    "generatePassword": null, // missing translation
+    "generatePassword": "生成密码",
     /* Password viewer */
     "savedPasswordsHeading": "已保存密码",
     "savedPasswordsEmpty": "当前未保存任何密码",
