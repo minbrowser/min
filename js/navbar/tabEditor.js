@@ -102,10 +102,9 @@ const tabEditor = {
 
     tabEditor.input.addEventListener('keypress', function (e) {
       if (e.keyCode === 13) { // return key pressed; update the url
-        if (this.getAttribute('data-autocomplete') && this.getAttribute('data-autocomplete').toLowerCase() === this.value.toLowerCase()) {
-          // special case: if the typed input is capitalized differently from the actual URL that was autocompleted (but is otherwise the same), then we want to open the actual URL instead of what was typed.
-          // see https://github.com/minbrowser/min/issues/314#issuecomment-276678613
-          searchbar.openURL(this.getAttribute('data-autocomplete'), e)
+        if (this.getAttribute('data-autocomplete-text') && this.getAttribute('data-autocomplete-text').toLowerCase() === this.value.toLowerCase()) {
+          // The original autocompletion can contain additional information, such as a protocol or different capitalization than what was typed
+          searchbar.openURL(this.getAttribute('data-autocomplete-ref') || this.getAttribute('data-autocomplete-text'), e)
         } else {
           searchbar.openURL(this.value, e)
         }

@@ -47,7 +47,7 @@ async function showSearchbarPlaceResults (text, input, inputFlags, pluginName = 
     if (canAutocomplete) {
       // if the query is autocompleted, pressing enter will search for the result using the current search engine, so only pages from the current engine should be autocompleted
       if (searchQuery && searchQuery.engine === searchEngine.getCurrent().name && index === 0) {
-        var acResult = searchbarAutocomplete.autocomplete(input, [searchQuery.search])
+        var acResult = searchbarAutocomplete.autocomplete(input, [[searchQuery.search]])
         if (acResult.valid) {
           canAutocomplete = false
           didAutocompleteResult = true

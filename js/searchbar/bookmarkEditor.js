@@ -183,7 +183,7 @@ const bookmarkEditor = {
       newTagInput.addEventListener('keypress', function (e) {
         if (e.keyCode !== 8 && e.keyCode !== 13) {
           places.getAllTagsRanked(bookmarkEditor.currentInstance.bookmark.url).then(function (results) {
-            autocomplete.autocomplete(newTagInput, results.map(r => r.tag))
+            autocomplete.autocomplete(newTagInput, results.map(r => [r.tag]))
           })
         }
       })
