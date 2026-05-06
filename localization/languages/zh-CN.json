@@ -29,9 +29,9 @@
     "inspectElement": "查看元素",
     "translatePage": "翻译页面",
     /* searchbar */
-    "placesPluginOpenAgain": "再次打开插件",
-    "placesPluginSwitchToTab": "将插件切换到选项卡",
-    "placesPluginSwitchToTask": "将插件切换到任务",
+    "placesPluginOpenAgain": "再次打开",
+    "placesPluginSwitchToTab": "切换到选项卡",
+    "placesPluginSwitchToTask": "切换到 \"%t\"",
     "pasteAndGo": "粘贴并前往",
     "DDGAnswerSubtitle": "搜索结果", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
     "suggestedSite": "建议站点", //this is used to label suggested websites from the DuckDuckGo API,
@@ -146,8 +146,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "到目前为止，Min已经过滤了<strong></strong>个广告和追踪程序。"
     },
-    "settingsCustomBangs": "自定义快捷搜索",
-    "settingsCustomBangsAdd": "新增自定义快捷搜索",
+    "settingsCustomBangs": "自定义命令",
+    "settingsCustomBangsAdd": "添加新命令",
     "settingsCustomBangsPhrase": "命令(必填)",
     "settingsCustomBangsSnippet": "描述(可选)",
     "settingsCustomBangsRedirect": "将命令发送至(必填)",
@@ -162,7 +162,7 @@
     "settingsAdditionalFeaturesHeading": "其他功能",
     "settingsUserscriptsToggle": "允许自定义脚本",
     "settingsShowDividerToggle": "显示标签页边界",
-    "settingsLanguageSelection": "选择语言",
+    "settingsLanguageSelection": "语言",
     "settingsSeparateTitlebarToggle": "显示浏览器标题栏",
     "settingsAutoplayToggle": "启用自动播放",
     "settingsOpenTabsInForegroundToggle": "在前台打开新标签页",
