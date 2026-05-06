@@ -300,6 +300,10 @@
     "savedPasswordsEmpty": "当前未保存任何密码",
     "savedPasswordsNeverSavedLabel": "永不保存",
     "deletePassword": "删除保存的%s密码？",
+    "exportCredentials": "导出凭据",
+    "importCredentials": "导入凭据",
+    "exportCredentialsConfirmation": "您导出的凭据将以纯文本形式保存在文件中。使用完此文件后，应将其删除。是否确实要继续？",
+    "importCredentialsConfirmation": "导入密码将覆盖相同站点的任何现有密码。您确定要继续吗？",
     /* Dialogs */
     "loginPromptTitle": "登录 %h",
     "dialogConfirmButton": "确认",
