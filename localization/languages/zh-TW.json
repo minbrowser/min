@@ -23,15 +23,15 @@
     "cut": "剪下",
     "copy": "複製", //this is a verb (as in "copy the currently-selected text")
     "paste": "貼上",
-    "pasteAndMatchStyle": null, //missing translation
+    "pasteAndMatchStyle": "貼上匹配風格",
     "goBack": "上一頁",
     "goForward": "下一頁",
     "inspectElement": "檢查元素",
-    "translatePage": null, // missing translation
+    "translatePage": "翻譯頁面",
     /* searchbar */
-    "placesPluginOpenAgain": null, // missing translation
-    "placesPluginSwitchToTab": null, // missing translation
-    "placesPluginSwitchToTask": null, // missing translation
+    "placesPluginOpenAgain": "再次開放",
+    "placesPluginSwitchToTab": "切換到標籤頁",
+    "placesPluginSwitchToTask": "切換到 \"%t\"", // %t is replaced with the name of a task
     "pasteAndGo": "貼上並前往",
     "DDGAnswerSubtitle": "搜尋結果", //this is a noun - it is used as a subtitle when displaying Instant Answers from DuckDuckGo in the searchbar
     "suggestedSite": "建議網站", //this is used to label suggested websites from the DuckDuckGo API,
@@ -55,9 +55,9 @@
     "addBookmark": "加入書籤",
     "searchBookmarks": "搜尋書籤",
     "bookmarksAddTag": "新增標籤",
-    "bookmarksRenameTag": null, //missing translation
-    "bookmarksDeleteTag": null, //missing translation
-    "deleteBookmarksWithTag": null, //missing translation
+    "bookmarksRenameTag": "重新命名標籤",
+    "bookmarksDeleteTag": "刪除標籤",
+    "deleteBookmarksWithTag": "刪除帶有標籤的書籤",
     "bookmarksSimilarItems": "相似項目",
     "searchHistory": "搜尋歷史",
     "importBookmarks": "自 HTML 檔案匯入書籤",
@@ -79,7 +79,7 @@
     "taskDeleteWarning": {
       "unsafeHTML": "工作已刪除 <a>復原</a>"
     },
-    "tasksSearchTabs": null, //missing translation
+    "tasksSearchTabs": "搜尋標籤",
     "returnToTask": "還原上次的工作",
     "taskDescriptionTwo": "%t 和 %t",
     "taskDescriptionThree": "%t，%t，和其他%n個分頁",
@@ -146,8 +146,8 @@
     "settingsBlockedRequestCount": {
       "unsafeHTML": "到目前為止，Min 已經封鎖了 <strong></strong> 個廣告和追蹤器"
     },
-    "settingsCustomBangs": null, // Missing translation
-    "settingsCustomBangsAdd": null, // Missing translation
+    "settingsCustomBangs": "自訂命令",
+    "settingsCustomBangsAdd": "新增指令",
     "settingsCustomBangsPhrase": "指令 (必填)",
     "settingsCustomBangsSnippet": "描述 (可選)",
     "settingsCustomBangsRedirect": "網址 (必填)",
@@ -157,31 +157,31 @@
     "settingsDarkModeNever": "永不",
     "settingsDarkModeNight": "於晚上開啟",
     "settingsDarkModeAlways": "永遠",
-    "settingsDarkModeSystem": null,
+    "settingsDarkModeSystem": "遵循系統主題",
     "settingsSiteThemeToggle": "啟用網站主題",
     "settingsAdditionalFeaturesHeading": "其他功能",
     "settingsUserscriptsToggle": "允許使用者指令",
     "settingsShowDividerToggle": "顯示分頁分割線",
-    "settingsLanguageSelection": null, //missing translation
+    "settingsLanguageSelection": "語言: ",
     "settingsSeparateTitlebarToggle": "分割標題列",
     "settingsAutoplayToggle": "自動播放媒體",
     "settingsOpenTabsInForegroundToggle": "在前景開啟新分頁",
     "settingsUserscriptsExplanation": {
       "unsafeHTML": "使用者指令允許您改變網站的行為 - <a href=\"https://github.com/minbrowser/min/wiki/userscripts\">查看更多</a>."
     },
-    "settingsUserscriptShowDirectory": null, //missing translation,
+    "settingsUserscriptShowDirectory": "顯示腳本目錄",
     "settingsUserAgentToggle": "使用自訂使用者代理",
     "settingsUpdateNotificationsToggle": "自動檢查更新",
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "傳送使用統計資料 (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">更多資訊</a>)"
     },
-    "settingsStartupOptions": null, //missing translation
-    "settingsStartupCreateTask": null, //missing translation
-    "settingsStartupNewTaskandBackground": null, //missing translation
-    "settingsStartupNewTaskOnly": null, //missing translation
-    "settingsNewWindowOptions": null, //missing translation
-    "settingsNewWindowCreateTask": null, //missing translation
-    "settingsNewWindowPickTask": null, //missing translation
+    "settingsStartupOptions": "當 Min 開始時: ",
+    "settingsStartupCreateTask": "重新開啟先前的標籤頁",
+    "settingsStartupNewTaskandBackground": "將先前的標籤頁移至背景任務",
+    "settingsStartupNewTaskOnly": "開啟一個新的空白任務",
+    "settingsNewWindowOptions": "在新視窗中: ",
+    "settingsNewWindowCreateTask": "建立新任務",
+    "settingsNewWindowPickTask": "顯示任務列表",
     "settingsSearchEngineHeading": "搜尋引擎",
     "settingsDefaultSearchEngine": "選擇預設的搜索引擎：",
     "settingsDDGExplanation": "將 DuckDuckGo 設為預設的搜索引擎可以直接在網址欄查看搜尋結果",
@@ -201,7 +201,7 @@
     "appMenuDuplicateTab": "複製分頁",
     "appMenuNewPrivateTab": "新無痕分頁",
     "appMenuNewTask": "新工作",
-    "appMenuNewWindow": null, //missing translation
+    "appMenuNewWindow": "新視窗",
     "appMenuSavePageAs": "另存網頁",
     "appMenuPrint": "列印",
     "appMenuEdit": "編輯",
@@ -210,7 +210,7 @@
     "appMenuCut": "剪下",
     "appMenuCopy": "複製",
     "appMenuPaste": "貼上",
-    "appMenuPasteAndMatchStyle": null, //missing translation
+    "appMenuPasteAndMatchStyle": "貼上匹配風格",
     "appMenuSelectAll": "全選",
     "appMenuFind": "尋找",
     "appMenuView": "檢視",
@@ -243,10 +243,10 @@
     "appMenuQuit": "結束 %n",
     "appMenuBringToFront": "顯示所有視窗",
     /* Tab menu */
-    "tabMenuNewWindow": null, // missing translation
-    "tabMenuReload": null, // missing translation
+    "tabMenuNewWindow": "將標籤頁移至新視窗",
+    "tabMenuReload": "重新載入",
     /* PDF Viewer */
-    "PDFInvertPage": null, //missing translation
+    "PDFInvertPage": "反轉頁面顏色",
     "PDFPageCounter": {
       "unsafeHTML": "<input type='text'/> / <span id='total'></span> 頁"
     },
@@ -283,7 +283,7 @@
     "passwordManagerSetupStep2": "然後將檔案拖曳至下方：",
     "passwordManagerSetupDragBox": "將檔案拖至此處",
     "passwordManagerSetupInstalling": "正在安裝...",
-    "passwordManagerBitwardenSignIn": null, //missing translation
+    "passwordManagerBitwardenSignIn": "若要連接您的 Bitwarden 帳戶，請造訪 vault.bitwarden.com/#/settings/account，捲動到頁面底部，然後選擇「View API Key」。然後將值貼到下面的欄位中。",
     "passwordManagerSetupSignIn": "登入你的密碼管理器並開始使用自動填入。您的資訊不會被存入 Min。",
     "disableAutofill": "取消",
     "passwordManagerSetupUnlockError": "無法登入密碼儲存庫。",
@@ -294,12 +294,16 @@
     "passwordCaptureSave": "儲存",
     "passwordCaptureDontSave": "不要",
     "passwordCaptureNeverSave": "一律不要",
-    "generatePassword": null, // missing translation
+    "generatePassword": "產生密碼",
     /* Password viewer */
     "savedPasswordsHeading": "已儲存的密碼",
     "savedPasswordsEmpty": "沒有已儲存的密碼",
     "savedPasswordsNeverSavedLabel": "永不儲存",
     "deletePassword": "刪除 %s 的密碼?",
+    "exportCredentials": "導出憑證",
+    "importCredentials": "導入憑證",
+    "exportCredentialsConfirmation": "您匯出的憑證將以純文字格式儲存在一個文件中。使用完畢後，請將此檔案刪除。您確定要繼續嗎？?",
+    "importCredentialsConfirmation": "匯入密碼會覆蓋同一網站上的所有現有密碼。您確定要繼續嗎？",
     /* Dialogs */
     "loginPromptTitle": "登入 %h", //%h is replaced with host, %r with realm (title of protected part of site)
     "dialogConfirmButton": "確認",
@@ -309,7 +313,7 @@
     "password": "密碼",
     "secretKey": "Secret key",
     "openExternalApp": "以「%s」開啟?",
-    "clickToCopy": null, //missing translation
-    "copied": null //missing translation
+    "clickToCopy": "點選複製",
+    "copied": "已複製"
   }
 }
