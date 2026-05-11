@@ -210,7 +210,7 @@
     "appMenuCut": "剪切",
     "appMenuCopy": "复制",
     "appMenuPaste": "粘贴",
-    "appMenuPasteAndMatchStyle": "应用程序菜单粘贴和匹配样式",
+    "appMenuPasteAndMatchStyle": "粘贴并匹配样式",
     "appMenuSelectAll": "全选",
     "appMenuFind": "查找",
     "appMenuView": "查看",
@@ -243,7 +243,7 @@
     "appMenuQuit": "退出 %n",
     "appMenuBringToFront": "前置所有窗口",
     /* Tab menu */
-    "tabMenuNewWindow": "在新窗口中打开",
+    "tabMenuNewWindow": "移动标签页至新窗口",
     "tabMenuReload": "重新加载",
     /* PDF Viewer */
     "PDFInvertPage": "反转页面颜色",
