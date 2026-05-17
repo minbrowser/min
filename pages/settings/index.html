@@ -152,6 +152,21 @@
       </div>
 
       <div class="setting-section">
+        <label for="newTabUrl" data-string="settingsNewTabUrl"></label>
+        <select id="new-tab-url-dropdown" name="newTabUrl">
+          <option value="blank" data-string="settingsNewTabUrlBlank"></option>
+          <option value="customUrl" data-string="settingsNewTabUrlCustomUrl"></option>
+          <option value="backgroundImage" data-string="settingsNewTabUrlBackgroundImage"></option>
+        </select>
+        <input
+          type="text"
+          id="new-tab-custom-url-input"
+          style="margin-left: 0.5em; min-width: 325px"
+          hidden
+        />
+      </div>
+
+      <div class="setting-section">
         <label for="newWindowOptions" data-string="settingsNewWindowOptions"></label>
         <select id="new-window-options" name="newWindowOptions">
           <option value="1" data-string="settingsNewWindowCreateTask"></option>

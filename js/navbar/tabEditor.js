@@ -5,6 +5,8 @@ var urlParser = require('util/urlParser.js')
 var keyboardNavigationHelper = require('util/keyboardNavigationHelper.js')
 var bookmarkStar = require('navbar/bookmarkStar.js')
 var contentBlockingToggle = require('navbar/contentBlockingToggle.js')
+var newTabPage = require('newTabPage.js')
+var settings = require('util/settings/settings.js')
 
 const tabEditor = {
   container: document.getElementById('tab-editor'),
@@ -45,8 +47,18 @@ const tabEditor = {
     if (showSearchbar !== false) {
       if (editingValue) {
         searchbar.showResults(editingValue, null)
+        searchbar.el.classList.remove('searchbar-hidden')
       } else {
         searchbar.showResults('', null)
+        const newTabUrlMode = settings.get('newTabUrl')
+        const isNTP = (newTabUrlMode === 'backgroundImage' && currentURL === '') ||
+                      (newTabUrlMode === 'customUrl' && currentURL === settings.get('newTabCustomUrl'))
+        
+        if (isNTP) {
+          searchbar.el.classList.add('searchbar-hidden')
+        } else {
+          searchbar.el.classList.remove('searchbar-hidden')
+        }
       }
     }
 
@@ -79,6 +91,8 @@ const tabEditor = {
     searchbar.hide()
 
     document.body.classList.remove('is-edit-mode')
+    document.body.classList.remove('ntp-blur')
+    searchbar.el.classList.remove('searchbar-hidden')
 
     webviews.hidePlaceholder('editMode')
   },
@@ -94,6 +108,11 @@ const tabEditor = {
     keyboardNavigationHelper.addToGroup('searchbar', tabEditor.container)
 
     tabEditor.input.addEventListener('input', function (e) {
+      if (newTabPage.hasBackground) {
+        document.body.classList.add('ntp-blur')
+      }
+      searchbar.el.classList.remove('searchbar-hidden')
+
       // handles all inputs except for the case where the selection is moved (since we call preventDefault() there)
       searchbar.showResults(this.value, {
         isDeletion: e.inputType.includes('delete')

@@ -243,6 +243,43 @@ startupSettingInput.addEventListener('change', function() {
   settings.set('startupTabOption', parseInt(this.value))
 })
 
+/* new tab settings */
+
+var newTabUrlDropdown = document.getElementById('new-tab-url-dropdown')
+var newTabCustomUrlInput = document.getElementById('new-tab-custom-url-input')
+
+settings.get('newTabUrl', function (value = 'blank') {
+  newTabUrlDropdown.value = value
+  if (value === 'customUrl') {
+    newTabCustomUrlInput.hidden = false
+  }
+})
+
+settings.listen('newTabUrl', function (value) {
+  newTabUrlDropdown.value = value
+  newTabCustomUrlInput.hidden = value !== 'customUrl'
+})
+
+settings.get('newTabCustomUrl', function (value = '') {
+  newTabCustomUrlInput.value = value
+})
+
+newTabUrlDropdown.addEventListener('change', function () {
+  settings.set('newTabUrl', this.value)
+  newTabCustomUrlInput.hidden = true
+
+  if (this.value === 'customUrl') {
+    newTabCustomUrlInput.hidden = false
+  } else if (this.value === 'backgroundImage') {
+    // Auto-prompt to pick an image when backgroundImage is selected
+    postMessage({ message: 'uploadNewTabBackground' })
+  }
+})
+
+newTabCustomUrlInput.addEventListener('input', function () {
+  settings.set('newTabCustomUrl', this.value)
+})
+
 /* new window settings */
 
 var newWindowSettingInput = document.getElementById('new-window-options')
