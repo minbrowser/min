@@ -1,3 +1,4 @@
+
 #overlay {
   display: none;
 }
@@ -54,7 +55,7 @@ body.dark-mode #overlay {
 }
 
 .dark-mode .modal {
-  background-color: rgb(33, 37, 43);
+  background-color: var(--navy);
 }
 
 .modal-close-button {

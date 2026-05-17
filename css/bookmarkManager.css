@@ -88,7 +88,7 @@
   padding: 0.35em 0.5em;
   border-radius: 3px;
   background: transparent;
-  color: inherit;
+  color: var(--light-slate);
   border: 1px rgba(0, 0, 0, 0.125) solid;
   opacity: 0.8;
 }
