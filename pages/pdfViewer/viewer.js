@@ -4,6 +4,7 @@ import '../../node_modules/pdfjs-dist/web/pdf_viewer.mjs'
 pdfjsLib.GlobalWorkerOptions.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.mjs'
 
 var url = new URLSearchParams(window.location.search.replace('?', '')).get('url')
+var localPDFRequestId = 0
 
 var eventBus = new pdfjsViewer.EventBus()
 
@@ -239,7 +240,61 @@ function setUpPageAnnotationLayer (pageView) {
   }
 }
 
-pdfjsLib.getDocument({ url: url, withCredentials: true }).promise.then(async function (_pdf) {
+function requestLocalPDFData (fileURL) {
+  return new Promise(function (resolve, reject) {
+    var requestId = ++localPDFRequestId
+
+    function onResponse (e) {
+      if (e.origin !== 'min://app') {
+        return
+      }
+
+      if (e.data?.message !== 'readLocalPDFResult' || e.data.requestId !== requestId) {
+        return
+      }
+
+      window.removeEventListener('message', onResponse)
+
+      if (e.data.error) {
+        reject(new Error(e.data.error))
+        return
+      }
+
+      if (!e.data.data) {
+        reject(new Error('missing local PDF data'))
+        return
+      }
+
+      resolve(new Uint8Array(e.data.data))
+    }
+
+    window.addEventListener('message', onResponse)
+    window.postMessage({ message: 'readLocalPDF', requestId, url: fileURL }, 'min://app')
+  })
+}
+
+function getPDFDocumentRequest (targetURL, requestLocalPDFData) {
+  if (typeof targetURL !== 'string') {
+    return Promise.reject(new Error('invalid PDF URL'))
+  }
+
+  if (targetURL.startsWith('file://')) {
+    return requestLocalPDFData(targetURL).then(function (fileData) {
+      return {
+        data: fileData
+      }
+    })
+  }
+
+  return Promise.resolve({
+    url: targetURL,
+    withCredentials: true
+  })
+}
+
+getPDFDocumentRequest(url, requestLocalPDFData).then(function (request) {
+  return pdfjsLib.getDocument(request).promise
+}).then(async function (_pdf) {
   pdf = _pdf
 
   pageCount = pdf.numPages
