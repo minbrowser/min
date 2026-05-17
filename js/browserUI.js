@@ -10,6 +10,7 @@ var focusMode = require('focusMode.js')
 var tabBar = require('navbar/tabBar.js')
 var tabEditor = require('navbar/tabEditor.js')
 var searchbar = require('searchbar/searchbar.js')
+var trailSidebar = require('trailSidebar/trailSidebar.js')
 
 /* creates a new task */
 
@@ -300,6 +301,9 @@ tabBar.events.on('tab-closed', function (id) {
   closeTab(id)
 })
 
+// Initialize trail sidebar
+trailSidebar.initialize()
+
 module.exports = {
   addTask,
   addTab,
@@ -310,5 +314,6 @@ module.exports = {
   switchToTask,
   switchToTab,
   moveTabLeft,
-  moveTabRight
+  moveTabRight,
+  toggleTrailSidebar: () => trailSidebar.toggle()
 }
