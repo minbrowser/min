@@ -64,7 +64,7 @@ class Keychain {
           const domainWithProtocol = includesProtocol ? credential.url : `https://${credential.url}`
 
           return {
-            domain: new URL(domainWithProtocol).hostname.replace(/^www\./g, ''),
+            domain: new URL(domainWithProtocol).origin,
             username: credential.username,
             password: credential.password
           }
