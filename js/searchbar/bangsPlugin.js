@@ -177,7 +177,7 @@ function getBangSearchResults (text, input, inputFlags) {
       showBangSearchResults(text, results, input, inputFlags)
 
       if (results[0] && !inputFlags.isDeletion) {
-        searchbarAutocomplete.autocomplete(input, [results[0].phrase])
+        searchbarAutocomplete.autocomplete(input, [[results[0].phrase]])
       }
     }
   })
