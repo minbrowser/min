@@ -4,6 +4,7 @@ var contentTypeBlockingContainer = document.getElementById('content-type-blockin
 var banner = document.getElementById('restart-required-banner')
 var siteThemeCheckbox = document.getElementById('checkbox-site-theme')
 var showDividerCheckbox = document.getElementById('checkbox-show-divider')
+var showFaviconTabsCheckbox = document.getElementById('checkbox-show-favicon-tabs')
 var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
 var userscriptsShowDirectorySection = document.getElementById('userscripts-show-directory')
 var separateTitlebarCheckbox = document.getElementById('checkbox-separate-titlebar')
@@ -283,6 +284,18 @@ settings.get('showDividerBetweenTabs', function (value) {
 
 showDividerCheckbox.addEventListener('change', function (e) {
   settings.set('showDividerBetweenTabs', this.checked)
+})
+
+/* show favicons in tabs setting */
+
+settings.get('showFaviconInTabs', function (value) {
+  if (value === true) {
+    showFaviconTabsCheckbox.checked = true
+  }
+})
+
+showFaviconTabsCheckbox.addEventListener('change', function (e) {
+  settings.set('showFaviconInTabs', this.checked)
 })
 
 /* language setting*/
