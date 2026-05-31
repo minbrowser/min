@@ -94,10 +94,19 @@ const tabEditor = {
     keyboardNavigationHelper.addToGroup('searchbar', tabEditor.container)
 
     tabEditor.input.addEventListener('input', function (e) {
+      if (e.isComposing) {
+        // This input will instead be handled during the compositionend event
+        return
+      }
+
       // handles all inputs except for the case where the selection is moved (since we call preventDefault() there)
       searchbar.showResults(this.value, {
         isDeletion: e.inputType.includes('delete')
       })
+    })
+
+    tabEditor.input.addEventListener('compositionend', function (e) {
+      searchbar.showResults(this.value)
     })
 
     tabEditor.input.addEventListener('keypress', function (e) {
