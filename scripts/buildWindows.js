@@ -5,6 +5,8 @@ const Arch = builder.Arch
 
 const packageFile = require('./../package.json')
 const version = packageFile.version
+const appName = packageFile.name // 👈 自动读取，不再写死 min
+const productName = packageFile.productName // 👈 自动读取
 
 const createPackage = require('./createPackage.js')
 
@@ -25,11 +27,11 @@ async function afterPackageBuilt (packagePath) {
   }
 
   /* create zip files */
-  var output = fs.createWriteStream('dist/app/' + 'Min-v' + version + '-windows' + archSuffix + '.zip')
+  var output = fs.createWriteStream('dist/app/' + productName + '-v' + version + '-windows' + archSuffix + '.zip')
   var archive = archiver('zip', {
     zlib: { level: 9 }
   })
-  archive.directory(packagePath, 'Min-v' + version)
+  archive.directory(packagePath, productName + '-v' + version)
   archive.pipe(output)
   await archive.finalize()
 
@@ -38,7 +40,7 @@ async function afterPackageBuilt (packagePath) {
 
   const options = {
     src: packagePath,
-    dest: 'dist/app/min-installer' + archSuffix,
+    dest: 'dist/app/' + appName + '-installer' + archSuffix,
     icon: 'icons/icon256.ico',
     animation: 'icons/windows-installer.gif',
     licenseUrl: 'https://github.com/minbrowser/min/blob/master/LICENSE.txt',
@@ -51,7 +53,10 @@ async function afterPackageBuilt (packagePath) {
 
   await installer(options)
     .then(function () {
-      fs.renameSync('./dist/app/min-installer' + archSuffix + '/min-' + version + '-setup.exe', './dist/app/min-' + version + archSuffix + '-setup.exe')
+      fs.renameSync(
+        './dist/app/' + appName + '-installer' + archSuffix + '/' + appName + '-' + version + '-setup.exe',
+        './dist/app/' + appName + '-' + version + archSuffix + '-setup.exe'
+      )
     })
     .catch(err => {
       console.error(err, err.stack)

@@ -1,9 +1,12 @@
 {
-  "name": "min",
-  "productName": "Min",
-  "author": "PalmerAL",
-  "version": "1.35.5",
-  "description": "A fast, minimal browser that protects your privacy",
+  "name": "eabrowser",
+  "productName": "易元浏览器",
+  "author": "Chengdu Vensung Software Co., Ltd.",
+  "contributors": [
+    "PalmerAL (Min Browser 原作者)"
+  ],
+  "version": "0.1.0",
+  "description": "易元中间件平台专用浏览器",
   "electronVersion": "41.2.0",
   "main": "main.build.js",
   "standard": {
@@ -27,6 +30,11 @@
       "Node",
       "Event"
     ]
+  },
+  "build": {
+    "win": {
+      "executableName": "eabrowser"
+    }
   },
   "dependencies": {
     "@browsermt/bergamot-translator": "^0.4.9",

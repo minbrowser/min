@@ -448,8 +448,10 @@ function buildAppMenu (options = {}) {
           label: l('appMenuAbout').replace('%n', app.name),
           click: function (item, window) {
             var info = [
-              'Min v' + app.getVersion(),
-              'Chromium v' + process.versions.chrome
+              '易元浏览器 v' + app.getVersion(),
+              '基于 Min Browser 开源项目',
+              'Chromium v' + process.versions.chrome,
+              'Licensed under Apache-2.0'
             ]
             electron.dialog.showMessageBox({
               type: 'info',

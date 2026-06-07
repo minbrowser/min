@@ -20,7 +20,7 @@ const {
 } = electron
 
 crashReporter.start({
-  submitURL: 'https://minbrowser.org/',
+  submitURL: 'https://www.eameta.com/',
   uploadToServer: false,
   compress: true
 })

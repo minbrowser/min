@@ -107,10 +107,10 @@
     "crashErrorSubtitle": "渲染页面时，发生错误。",
     "errorPagePrimaryAction": "重试",
     "serverNotFoundTitle": "未找到服务器",
-    "serverNotFoundSubtitle": "Min 无法找到当前地址的服务器。",
+    "serverNotFoundSubtitle": "浏览器无法找到当前地址的服务器。",
     "archiveSearchAction": "从 archive.org 搜索内容",
     "sslErrorTitle": "当前站点是无效的",
-    "sslErrorMessage": "Min 不能与当前站点建立安全连接。",
+    "sslErrorMessage": "浏览器不能与当前站点建立安全连接。",
     "dnsErrorTitle": "站点未找到",
     "dnsErrorMessage": "发生 DNS 错误。",
     "offlineErrorTitle": "您处于离线状态",
@@ -131,7 +131,7 @@
     "sessionRestoreErrorExplanation": "您保存的标签页未能正确恢复。",
     "sessionRestoreErrorBackupInfo": "我们将您的数据备份保存在：%l.", //%l will be replaced with a path to a file
     "sessionRestoreErrorLinkInfo": {
-      "unsafeHTML": "如果持续发生此错误，请在<a href=\"https://github.com/minbrowser/min\" target=\"_blank\">此处</a>报告错误信息。"
+      "unsafeHTML": "如果持续发生此错误，请在<a href=\"https://github.com/eameta/minbrowser\" target=\"_blank\">此处</a>报告错误信息。"
     },
     /* pages/settings/index.html */
     "settingsPreferencesHeading": "设置",
@@ -144,7 +144,7 @@
     "settingsBlockScriptsToggle": "禁止运行脚本",
     "settingsBlockImagesToggle": "禁止加载图片",
     "settingsBlockedRequestCount": {
-      "unsafeHTML": "到目前为止，Min已经过滤了<strong></strong>个广告和追踪程序。"
+      "unsafeHTML": "到目前为止，浏览器已经过滤了<strong></strong>个广告和追踪程序。"
     },
     "settingsCustomBangs": "自定义命令",
     "settingsCustomBangsAdd": "添加新命令",
@@ -175,7 +175,7 @@
     "settingsUsageStatisticsToggle": {
       "unsafeHTML": "发送使用情况统计信息 (<a href=\"https://github.com/minbrowser/min/blob/master/docs/statistics.md\">更多说明</a>)"
     },
-    "settingsStartupOptions": "当 Min 启动时：",
+    "settingsStartupOptions": "当浏览器启动时：",
     "settingsStartupCreateTask": "重新打开以前的标签页",
     "settingsStartupNewTaskandBackground": "将以前的标签页移动到后台任务",
     "settingsStartupNewTaskOnly": "打开新空白标签页",

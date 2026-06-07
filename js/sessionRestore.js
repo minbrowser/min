@@ -81,6 +81,8 @@ const sessionRestore = {
 
     try {
       // first run, show the tour
+      // 不显示首次启动的向导页
+      /*
       if (!savedStringData) {
         tasks.setSelected(tasks.add()) // create a new task
 
@@ -91,7 +93,7 @@ const sessionRestore = {
          enterEditMode: false
         })
         return
-      }
+      }*/
 
       var data = JSON.parse(savedStringData)
 
