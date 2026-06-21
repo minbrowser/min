@@ -11,6 +11,15 @@
   -webkit-user-select: none;
   max-height: calc(100% - 125px);
   overflow-y: auto;
+  transition: 0.2s opacity, 0.2s visibility;
+  opacity: 1;
+  visibility: visible;
+}
+
+#searchbar.searchbar-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 body:not(.is-ntp) #searchbar,
