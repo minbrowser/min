@@ -55,7 +55,24 @@ function downloadHandler (event, item, webContents) {
   return true
 }
 
+function isAccessAllowedFromContentPage (requestURL, contentPageURL) {
+  const contentPage = new URL(contentPageURL)
+  // If requestURL is the result of a redirect from an allowed URL, it should be allowed
+  const redirectEntry = redirectCache.find(entry => entry.to === requestURL)
+  return contentPage.searchParams.get('url') === requestURL || (redirectEntry && isAccessAllowedFromContentPage(redirectEntry.from, contentPageURL))
+}
+
+let redirectCache = [] // {from to, expiry}
+
+setInterval(function () {
+  redirectCache = redirectCache.filter(entry => entry.expiry >= Date.now())
+}, 10000)
+
 function listenForDownloadHeaders (ses) {
+  ses.webRequest.onBeforeRedirect(function (details) {
+    redirectCache.push({ from: details.url, to: details.redirectURL, expiry: Date.now() + 5000 })
+  })
+
   ses.webRequest.onHeadersReceived(function (details, callback) {
     if (details.resourceType === 'mainFrame' && details.responseHeaders) {
       let sourceWindow
@@ -93,10 +110,20 @@ function listenForDownloadHeaders (ses) {
 
     /*
     SECURITY POLICY EXCEPTION:
-    reader and PDF internal pages get universal access to web resources
-    Note: we can't limit to the URL in the query string, because there could be redirects
+    reader and PDF internal pages get cross-origin access to resources in their url query parameters, and the main UI gets access to everything
     */
-    if (details.webContents && (details.webContents.getURL().startsWith('min://app/pages/pdfViewer') || details.webContents.getURL().startsWith('min://app/reader/') || details.webContents.getURL() === 'min://app/index.html')) {
+
+    const webContentsURL = details.webContents?.getURL()
+
+    if (details.webContents &&
+      (
+        (webContentsURL === 'min://app/index.html') ||
+        (
+          (webContentsURL.startsWith('min://app/pages/pdfViewer') || webContentsURL.startsWith('min://app/reader/')) &&
+          isAccessAllowedFromContentPage(details.url, webContentsURL)
+        )
+      )
+    ) {
       const filteredHeaders = Object.fromEntries(
         Object.entries(details.responseHeaders).filter(([key, val]) => key.toLowerCase() !== 'access-control-allow-origin' && key.toLowerCase() !== 'access-control-allow-credentials')
       )
