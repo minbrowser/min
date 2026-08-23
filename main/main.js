@@ -490,6 +490,8 @@ ipc.on('request-tab-state', function(e) {
 const placesPage = 'file://' + __dirname + '/js/places/placesService.html'
 
 let placesWindow = null
+let placesWindowReady = false
+
 app.once('ready', function() {
   placesWindow = new BrowserWindow({
     width: 300,
@@ -502,10 +504,20 @@ app.once('ready', function() {
   })
 
   placesWindow.loadURL(placesPage)
+
+  placesWindow.webContents.once('did-finish-load', () => {
+    placesWindowReady = true
+  })
 })
 
 ipc.on('places-connect', function (e) {
-  placesWindow.webContents.postMessage('places-connect', null, e.ports)
+  if (placesWindowReady) {
+    placesWindow.webContents.postMessage('places-connect', null, e.ports)
+  } else {
+    placesWindow.webContents.once('did-finish-load', () => {
+      placesWindow.webContents.postMessage('places-connect', null, e.ports)
+    })
+  }
 })
 
 function getWindowWebContents (win) {
