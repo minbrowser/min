@@ -53,18 +53,38 @@
   top: var(--control-space-top);
   right: var(--control-space-right);
   z-index: 4;
-  padding: 0.5em;
+  padding: 0 8px;
+  height: 28px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #switch-task-button.active {
   color: royalblue !important;
 }
 
+#switch-task-button:hover {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+#switch-task-button:hover svg {
+  /* fill: var(--accent-color); <- Eliminado */
+}
+
+.dark-theme #switch-task-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark-theme #switch-task-button:hover svg {
+  /* fill: var(--accent-color); <- Eliminado */
+}
+
 #switch-task-button svg {
-  width: 0.8em;
-  height: 0.8em;
+  width: 0.7em;
+  height: 0.7em;
   display: block;
-  margin-top: 2px;
 }
 #task-overlay {
   display: flex;
