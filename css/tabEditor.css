@@ -17,7 +17,7 @@
   background: none;
   -webkit-appearance: none;
   border: none;
-  color: inherit;
+  color: var(--light-slate);
   flex: 1;
   height: 1.5em;
   outline: none;
@@ -25,7 +25,7 @@
   -webkit-app-region: no-drag;
 }
 #tab-editor-input::-webkit-input-placeholder {
-  color: inherit;
+  color: var(--light-slate);
   opacity: 0.5;
   line-height: 1.25em;
 }
