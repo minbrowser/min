@@ -112,6 +112,19 @@ body.linux #menu-button {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
+
+#tabs.safari-tab-resize-enabled .tab-item {
+  transition: flex-grow 0.22s ease, transform 0.15s ease;
+}
+
+#tabs.safari-tab-resize-enabled .tab-item:hover {
+  flex-grow: 1.1;
+}
+
+#tabs.safari-tab-resize-enabled .tab-item.active {
+  flex-grow: 1.3;
+}
+
 .tab-item.active {
   min-width: 168px;
 }

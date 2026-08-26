@@ -263,7 +263,11 @@ const tabBar = {
     })
   },
   handleSizeChange: function () {
-    if (window.innerWidth / tabBar.containerInner.childNodes.length < 190) {
+    const tabCount = tabBar.containerInner.children.length
+
+    tabBar.container.classList.toggle('safari-tab-resize-enabled', tabCount > 3)
+
+    if (window.innerWidth / tabCount < 190) {
       tabBar.container.classList.add('compact-tabs')
     } else {
       tabBar.container.classList.remove('compact-tabs')
