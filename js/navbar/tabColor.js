@@ -178,6 +178,13 @@ function setColor (bg, fg, isLowContrast) {
   } else {
     document.body.classList.remove('theme-background-low-contrast')
   }
+
+  window.dispatchEvent(new CustomEvent('theme-colors-changed', {
+    detail: {
+      foreground: fg,
+      background: bg
+    }
+  }))
 }
 
 const tabColor = {

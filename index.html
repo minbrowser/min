@@ -11,109 +11,14 @@
   </head>
 
   <body>
-    <div class="window-drag-area"></div>
-
-    <div class="windows-caption-buttons">
-      <div class="element caption-minimise">
-        <svg>
-          <line x1="1" y1="5.5" x2="11" y2="5.5" />
-        </svg>
-      </div>
-      <div class="element caption-maximize">
-        <svg>
-          <rect x="1.5" y="1.5" width="9" height="9" />
-        </svg>
-      </div>
-      <div class="element caption-restore">
-        <svg>
-          <rect x="1.5" y="3.5" width="7" height="7" />
-          <polyline points="3.5,3.5 3.5,1.5 10.5,1.5 10.5,8.5 8.5,8.5" />
-        </svg>
-      </div>
-      <div class="element caption-close">
-        <svg>
-          <path d="M1,1 l 10,10 M1,11 l 10,-10" />
-        </svg>
-      </div>
-    </div>
-
-    <button id="linux-control-buttons" class="theme-text-color">
-      <svg
-        width="74"
-        height="24"
-        version="1.1"
-        fill="none"
-        stroke="none"
-        stroke-linecap="square"
-        stroke-miterlimit="10"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g id="minimize-button">
-          <rect width="24" height="24" fill="transparent"></rect>
-          <path
-            class="button-background"
-            d="m0.5826226 9.868774l0 0c0 -5.24453 4.251532 -9.496062 9.496063 -9.496062l0 0c2.5185127 0 4.933873 1.0004752 6.714731 2.7813323c1.7808571 1.7808576 2.781332 4.196218 2.781332 6.7147303l0 0c0 5.2445316 -4.2515326 9.496063 -9.496063 9.496063l0 0c-5.244531 0 -9.496063 -4.2515316 -9.496063 -9.496063z"
-            fill-rule="evenodd"
-          />
-          <path
-            stroke="currentColor"
-            stroke-width="2.0"
-            stroke-linejoin="round"
-            stroke-linecap="butt"
-            d="m6.7086616 12.519685l6.7401576 -0.031496048"
-            fill-rule="evenodd"
-          />
-        </g>
-        <g id="maximize-button">
-          <rect width="24" height="24" x="24" fill="transparent"></rect>
-          <path
-            class="button-background"
-            d="m27.85034 9.868774l0 0c0 -5.24453 4.2515316 -9.496062 9.496061 -9.496062l0 0c2.5185127 0 4.933876 1.0004752 6.714733 2.7813323c1.7808571 1.7808576 2.78133 4.196218 2.78133 6.7147303l0 0c0 5.2445316 -4.2515297 9.496063 -9.496063 9.496063l0 0c-5.2445297 0 -9.496061 -4.2515316 -9.496061 -9.496063z"
-            fill-rule="evenodd"
-          />
-          <path
-            stroke="currentColor"
-            stroke-width="2.0"
-            stroke-linejoin="round"
-            stroke-linecap="butt"
-            d="m34.16273 6.717848l6.3622017 0l0 6.2992125l-6.3622017 0z"
-            fill-rule="evenodd"
-          />
-        </g>
-        <g id="close-button">
-          <rect width="24" height="24" x="48" fill="transparent"></rect>
-          <path
-            class="button-background"
-            d="m55.118057 9.496072l0 0c0 -5.244531 4.2515297 -9.496063 9.496063 -9.496063l0 0c2.518509 0 4.9338684 1.0004753 6.7147293 2.7813325c1.7808533 1.7808573 2.781334 4.1962185 2.781334 6.714731l0 0c0 5.2445307 -4.2515335 9.496062 -9.496063 9.496062l0 0c-5.2445335 0 -9.496063 -4.2515316 -9.496063 -9.496062z"
-            fill-rule="evenodd"
-          />
-          <path
-            stroke="currentColor"
-            stroke-width="2.0"
-            stroke-linejoin="round"
-            stroke-linecap="butt"
-            d="m61.26077 6.1103663l6.740162 6.7716537"
-            fill-rule="evenodd"
-          />
-          <path
-            stroke="currentColor"
-            stroke-width="2.0"
-            stroke-linejoin="round"
-            stroke-linecap="butt"
-            d="m68.01668 6.1261144l-6.771656 6.7401576"
-            fill-rule="evenodd"
-          />
-        </g>
-      </svg>
-    </button>
+    <div class="top-window-drag-area"></div>
 
     <div
       id="navbar"
       class="theme-background-color theme-text-color windowDragHandle"
       tabindex="-1"
     >
-    <div id="mac-window-drag-area"></div>
+    <div id="left-window-drag-area"></div>
       <button
         id="menu-button"
         class="navbar-action-button i carbon:overflow-menu-vertical"
@@ -148,6 +53,7 @@
           tabindex="-1"
         ></button>
       </div>
+      <div id="right-window-drag-area"></div>
     </div>
 
     <button

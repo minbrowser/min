@@ -190,6 +190,8 @@ function createWindow (customArgs = {}) {
 }
 
 function createWindowWithBounds (bounds, customArgs) {
+  const hasTitleBarOverlay = (process.platform !== 'darwin' && !settings.get('useSeparateTitlebar'))
+
   const newWin = new BaseWindow({
     width: bounds.width,
     height: bounds.height,
@@ -198,7 +200,12 @@ function createWindowWithBounds (bounds, customArgs) {
     minWidth: (process.platform === 'win32' ? 400 : 320), // controls take up more horizontal space on Windows
     minHeight: 350,
     titleBarStyle: settings.get('useSeparateTitlebar') ? 'default' : 'hidden',
-    trafficLightPosition: { x: 12, y: 10 },
+    trafficLightPosition: (process.platform === 'darwin') ?  { x: 12, y: 10 } : null,
+    titleBarOverlay: hasTitleBarOverlay ? {
+      color: "rgba(0, 0, 0, 0)",
+      symbolColor: "black", // We update this later in response to theme changes
+      height: 36
+    } : undefined,
     icon: __dirname + '/icons/icon256.png',
     frame: settings.get('useSeparateTitlebar'),
     alwaysOnTop: settings.get('windowAlwaysOnTop'),
@@ -248,6 +255,14 @@ function createWindowWithBounds (bounds, customArgs) {
     const winBounds = newWin.getContentBounds()
     mainView.setBounds({x: 0, y: 0, width: winBounds.width, height: winBounds.height})
   })
+
+  if (hasTitleBarOverlay) {
+    mainView.webContents.ipc.on('set-controls-color', function(e, color) {
+      newWin.setTitleBarOverlay({
+        symbolColor: color
+      })
+    })
+  }
 
   mainView.webContents.ipc.on('set-window-title', function(e, title) {
     newWin.title = title

@@ -207,6 +207,8 @@ var taskOverlay = {
       currentTabElement.classList.add('fakefocus')
       currentTabElement.focus()
     }
+
+    window.dispatchEvent(new CustomEvent("task-overlay-shown"))
   },
   render: function () {
     empty(taskContainer)
@@ -275,6 +277,8 @@ var taskOverlay = {
       browserUI.switchToTab(tabs.getSelected())
 
       taskSwitcherButton.classList.remove('active')
+
+      window.dispatchEvent(new CustomEvent("task-overlay-hidden"))
     }
   },
 
