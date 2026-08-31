@@ -8,6 +8,7 @@ var userscriptsCheckbox = document.getElementById('checkbox-userscripts')
 var userscriptsShowDirectorySection = document.getElementById('userscripts-show-directory')
 var separateTitlebarCheckbox = document.getElementById('checkbox-separate-titlebar')
 var openTabsInForegroundCheckbox = document.getElementById('checkbox-open-tabs-in-foreground')
+var openContentProtectionCheckbox = document.getElementById('checkbox-open-content-protection')
 var autoPlayCheckbox = document.getElementById('checkbox-enable-autoplay')
 var userAgentCheckbox = document.getElementById('checkbox-user-agent')
 var userAgentInput = document.getElementById('input-user-agent')
@@ -326,6 +327,19 @@ settings.get('openTabsInForeground', function (value) {
 
 openTabsInForegroundCheckbox.addEventListener('change', function (e) {
   settings.set('openTabsInForeground', this.checked)
+})
+
+/* open content protection setting */
+
+settings.get('openContentProtection', function (value) {
+  if (value === true) {
+    openContentProtectionCheckbox.checked = true
+  }
+})
+
+openContentProtectionCheckbox.addEventListener('change', function (e) {
+  settings.set('openContentProtection', this.checked)
+  postMessage({ message:'openContentProtection', value: this.checked })
 })
 
 /* media autoplay setting */
