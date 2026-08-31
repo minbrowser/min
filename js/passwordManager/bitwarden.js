@@ -97,7 +97,8 @@ class Bitwarden {
   // Loads credential suggestions for given domain name.
   async loadSuggestions (command, domain) {
     try {
-      const process = new ProcessSpawner(command, ['list', 'items', '--url', this.sanitize(domain), '--session', this.sessionKey])
+      const urlObj = new URL(domain)
+      const process = new ProcessSpawner(command, ['list', 'items', '--url', `${urlObj.protocol}//${this.sanitize(urlObj.hostname)}`, '--session', this.sessionKey])
       const data = await process.execute()
 
       const matches = JSON.parse(data)
