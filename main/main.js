@@ -366,6 +366,11 @@ app.on('ready', function () {
     return
   }
 
+  // route all traffic through the local SOCKS5 tunnel
+  session.defaultSession.setProxy({
+    proxyRules: 'socks5://127.0.0.1:10808'
+  })
+
   registerBundleProtocol(session.defaultSession)
 
   const newWin = createWindow()
