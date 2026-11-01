@@ -16,7 +16,9 @@ const {
   nativeTheme,
   shell,
   net,
-  WebContentsView
+  WebContentsView,
+  clipboard,
+  ClipboardItem
 } = electron
 
 crashReporter.start({

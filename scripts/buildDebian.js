@@ -60,7 +60,7 @@ async function afterPackageBuilt (path, arch) {
     })
 }
 
-const arches = [Arch.x64, Arch.armv7l, Arch.arm64];
+const arches = [Arch.x64, Arch.arm64];
 
 (async () => {
   for (const arch of arches) {

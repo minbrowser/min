@@ -278,10 +278,13 @@ const defaultKeybindings = {
         anchorTag.href = url
         anchorTag.textContent = url
 
-        electron.clipboard.write({
-          text: url,
-          bookmark: tab.title,
-          html: anchorTag.outerHTML
+        ipc.send('clipboardWriteItem', {
+          'text/plain': url,
+          'text/html': anchorTag.outerHTML,
+          'electron application/bookmark': {
+            title: tab.title,
+            url: url
+          }
         })
       }
     })

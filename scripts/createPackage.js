@@ -8,8 +8,6 @@ const path = require('path')
 function toPath (platform, arch) {
   if (platform == 'win32') {
     switch (arch) {
-      case Arch.ia32:
-        return 'dist/app/win-ia32-unpacked'
       case Arch.arm64:
         return 'dist/app/win-arm64-unpacked'
       case Arch.x64:
@@ -21,8 +19,6 @@ function toPath (platform, arch) {
     switch (arch) {
       case Arch.x64:
         return 'dist/app/linux-unpacked'
-      case Arch.armv7l:
-        return 'dist/app/linux-armv7l-unpacked'
       case Arch.arm64:
         return 'dist/app/linux-arm64-unpacked'
       default:
@@ -93,7 +89,7 @@ module.exports = function (platform, extraOptions) {
       target: [
         {
           target: 'dir',
-          arch: ['x64', 'armv7l', 'ia32', 'arm64']
+          arch: ['x64', 'arm64']
         }
       ]
     },

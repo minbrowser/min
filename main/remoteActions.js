@@ -110,3 +110,12 @@ ipc.handle('showItemInFolder', function (e, path) {
 ipc.on('newWindow', function (e, customArgs) {
   createWindow(customArgs)
 })
+
+ipc.handle('clipboardReadText', function() {
+  return clipboard.readText()
+})
+
+ipc.on('clipboardWriteItem', function(e, data) {
+  clipboard.write([new ClipboardItem(data)])
+    .catch(e => console.log(e))
+})

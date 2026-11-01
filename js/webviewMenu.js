@@ -220,7 +220,9 @@ const webviewMenu = {
           clipboardActions.push({
             label: l('copyEmailAddress'),
             click: function () {
-              clipboard.writeText(ematch[0])
+              ipc.send('clipboardWriteItem', {
+                'text/plain': ematch[0]
+              })
             }
           })
         }
@@ -228,7 +230,9 @@ const webviewMenu = {
         clipboardActions.push({
           label: l('copyLink'),
           click: function () {
-            clipboard.writeText(link || mediaURL)
+            ipc.send('clipboardWriteItem', {
+              'text/plain': link || mediaURL
+            })
           }
         })
       }

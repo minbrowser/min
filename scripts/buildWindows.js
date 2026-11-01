@@ -16,9 +16,7 @@ async function afterPackageBuilt (packagePath) {
 
   let archSuffix
 
-  if (packagePath.includes('ia32')) {
-    archSuffix = '-ia32'
-  } else if (packagePath.includes('arm64')) {
+  if (packagePath.includes('arm64')) {
     archSuffix = '-arm64'
   } else {
     archSuffix = ''
@@ -61,10 +59,6 @@ async function afterPackageBuilt (packagePath) {
 
 // creating multiple packages simultaneously causes errors in electron-rebuild, so do one arch at a time instead
 createPackage('win32', { arch: Arch.x64 })
-  .then(afterPackageBuilt)
-  .then(function () {
-    return createPackage('win32', { arch: Arch.ia32 })
-  })
   .then(afterPackageBuilt)
   .then(function () {
     return createPackage('win32', { arch: Arch.arm64 })
