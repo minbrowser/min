@@ -68,6 +68,7 @@ function urlMatchesPattern (url, pattern) {
 }
 
 const userscripts = {
+  JS_EXTENSION: ".js",
   scriptDir: path.join(window.globalArgs['user-data-path'], 'userscripts'),
   scripts: [], // {options: {}, content}
   showDirectory: function () {
@@ -84,32 +85,21 @@ const userscripts = {
       }
     })
   },
-  loadScripts: function () {
-    userscripts.scripts = []
 
-    fs.readdir(userscripts.scriptDir, function (err, files) {
-      if (err) {
-        userscripts.ensureDirectoryExists()
-        return
-      } else if (files.length === 0) {
-        return
-      }
+  extractFileNameNoExtension: function(filename){
+    return filename.split(".").at(-1)
+  },
 
-      // store the scripts in memory
-      files.forEach(function (filename) {
-        if (filename.endsWith('.js')) {
-          fs.readFile(path.join(userscripts.scriptDir, filename), 'utf-8', function (err, file) {
+  readScriptFileAt: function(filePath){
+    
+    var filename = filePath.split("/").at(-1)
+
+    fs.readFile(filePath, 'utf-8', function (err, file) {
             if (err || !file) {
               return
             }
-
-            var domain = filename.slice(0, -3)
-            if (domain.startsWith('www.')) {
-              domain = domain.slice(4)
-            }
-            if (!domain) {
-              return
-            }
+            
+            var domain = userscripts.extractFileNameNoExtension(filename)
 
             var tampermonkeyFeatures = parseTampermonkeyFeatures(file)
             if (tampermonkeyFeatures) {
@@ -139,8 +129,27 @@ const userscripts = {
                   name: filename
                 })
               }
+
             }
+            console.log("loaded: " + filename)
           })
+  },
+
+  loadScripts: function () {
+    userscripts.scripts = []
+
+    fs.readdir(userscripts.scriptDir, {recursive: true} , function (err, files) {
+      if (err) {
+        userscripts.ensureDirectoryExists()
+        return
+      } else if (files.length === 0) {
+        return
+      }
+
+      // store the scripts in memory
+      files.forEach(function (file) {
+        if (file.endsWith(userscripts.JS_EXTENSION)) {
+          userscripts.readScriptFileAt(path.join(userscripts.scriptDir, file));
         }
       })
     })
