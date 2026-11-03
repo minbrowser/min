@@ -4,6 +4,7 @@ const settings = require('util/settings/settings.js')
 const webviews = require('webviews.js')
 const keybindings = require('keybindings.js')
 const statistics = require('js/statistics.js')
+const passwordUrlUtils = require('./passwordUrlUtils.js')
 
 const Bitwarden = require('js/passwordManager/bitwarden.js')
 const OnePassword = require('js/passwordManager/onePassword.js')
@@ -86,7 +87,19 @@ const PasswordManagers = {
     webviews.bindIPC('password-autofill', function (tab, args, frameId, frameURL) {
       // it's important to use frameURL here and not the tab URL, because the domain of the
       // requesting iframe may not match the domain of the top-level page
-      const hostname = new URL(frameURL).hostname
+      let frameURLObject = null
+
+      try {
+        frameURLObject = new URL(frameURL)
+      } catch (e) {
+        console.warn("Failed to parse url in password-autofill event", e)
+        return
+      }
+
+      if (!passwordUrlUtils.urlSupportedForPasswordManagement(frameURLObject)) {
+        console.warn(`URL ${frameURLObject} is not supported for password management, skipping`)
+        return
+      }
 
       PasswordManagers.getConfiguredPasswordManager().then(async (manager) => {
         if (!manager) {
@@ -94,19 +107,20 @@ const PasswordManagers = {
         }
 
         if (!manager.isUnlocked()) {
-          await PasswordManagers.unlock(manager)
+          const unlocked = await PasswordManagers.unlock(manager)
+          if (!unlocked) {
+            console.warn('Failed to unlock password manager')
+            return
+          }
         }
 
-        var formattedHostname = hostname
-        if (formattedHostname.startsWith('www.')) {
-          formattedHostname = formattedHostname.slice(4)
-        }
+        const passwordDomain = passwordUrlUtils.getSavedKeyForUrl(frameURLObject)
 
-        manager.getSuggestions(formattedHostname).then(credentials => {
+        manager.getSuggestions(passwordDomain).then(credentials => {
           if (credentials != null) {
             webviews.callAsync(tab, 'sendToFrame', [frameId, 'password-autofill-match', {
               credentials,
-              hostname
+              hostname: frameURLObject.hostname
             }])
           }
         }).catch(e => {

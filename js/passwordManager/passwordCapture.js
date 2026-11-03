@@ -1,6 +1,7 @@
 const webviews = require('webviews.js')
 const settings = require('util/settings/settings.js')
 const PasswordManagers = require('passwordManager/passwordManager.js')
+const passwordUrlUtils = require('./passwordUrlUtils.js')
 
 const passwordCapture = {
   bar: document.getElementById('password-capture-bar'),
@@ -46,11 +47,27 @@ const passwordCapture = {
       passwordCapture.revealButton.classList.remove('carbon:view-off')
     }
   },
-  handleRecieveCredentials: function (tab, args, frameId) {
-    var domain = args[0][0]
-    if (domain.startsWith('www.')) {
-      domain = domain.slice(4)
+  handleRecieveCredentials: function (tab, args, frameId, frameURL) {
+    if (args[0][0] !== frameURL) {
+      console.warn(`Received URL ${args[0][0]} did not match frameURL from main process ${frameURL}`)
+      return
     }
+
+    var receivedURL
+
+    try {
+      receivedURL = new URL(args[0][0])
+    } catch (e) {
+      console.warn(e)
+      return
+    }
+
+    if (!passwordUrlUtils.urlSupportedForPasswordManagement(receivedURL)) {
+      console.warn(`URL ${receivedURL} is not supported for password management`)
+      return
+    }
+
+    const domain = passwordUrlUtils.getSavedKeyForUrl(receivedURL)
 
     if (settings.get('passwordsNeverSaveDomains') && settings.get('passwordsNeverSaveDomains').includes(domain)) {
       return
