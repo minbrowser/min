@@ -1,7 +1,7 @@
 .simulated-navbar {
   width: 100%;
   height: calc(36px + var(--control-space-top));
-  background-color: inherit;
+  background-color: var(--navy);
   z-index: 1;
   border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
   display: flex;
@@ -57,7 +57,7 @@
 }
 
 #switch-task-button.active {
-  color: royalblue !important;
+  color: var(--green) !important;
 }
 
 #switch-task-button svg {
@@ -201,14 +201,14 @@ body:not(.touch)
   appearance: none;
   flex: 1;
   font-size: 1.2em;
-  color: inherit;
+  color: var(--light-slate);
   border: 0;
   background-color: transparent !important;
   opacity: 0.75;
   margin: 0.5em 0.75em 0.5em 0.5em;
 }
 .task-name::-webkit-input-placeholder {
-  color: inherit;
+  color: var(--light-slate);
   opacity: 0.8;
 }
 #add-task {
@@ -216,7 +216,7 @@ body:not(.touch)
   margin-left: 10%;
   padding: 1.25em;
   text-align: center;
-  color: inherit;
+  color: var(--light-slate);
   background-color: rgb(245, 245, 245);
   cursor: pointer;
 }
@@ -237,8 +237,8 @@ body:not(.touch)
 }
 
 .dark-mode #add-task {
-  background-color: rgb(33, 37, 43);
-  color: lightgrey;
+  background-color: var(--navy);
+  color: var(--slate);
 }
 .dark-mode .is-dragging-tab #add-task {
   background: none;
@@ -301,11 +301,11 @@ body:not(.touch)
 
 body.dark-mode #task-overlay {
   background-color: rgb(40, 44, 52) !important;
-  color: lightgrey;
+  color: var(--slate);
 }
 
 .dark-mode #switch-task-button {
-  color: dodgerblue;
+  color: var(--green);
 }
 
 .tab-drop-placeholder, .task-drop-placeholder {
