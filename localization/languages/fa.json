@@ -120,11 +120,6 @@
     "sslTimeErrorMessage": "مرورگر قادر به ایجاد ارتباط امن با سایت نیست. لطفا مطمئن شوید که ساعت رایانه شما به درستی تنظیم شده است.",
     "addressInvalidTitle": "آدرس اشتباه است.",
     "genericError": "خطایی رخ داد",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "این سایت خطرناک است.",
-    "phishingErrorMessage": "این سایت ممکن است اطلاعات شخصی شما از جمله رمز عبور و اطلاعات بانکی شما را به سرقت ببرد.",
-    "phishingErrorVisitAnyway": "نمایش سایت",
-    "phishingErrorLeave": "خروج از سایت",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "خطایی رخ داد. لطفا مرورگر را به صورت کامل بسته و دوباره باز کنید.",
     /* pages/sessionRestoreError/index.html */

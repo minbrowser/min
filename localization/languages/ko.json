@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "안전한 연결을 할 수 없습니다. 장치의 시간이 바르게 설정되어 있는지 확인해주세요.",
     "addressInvalidTitle": "유효하지 않은 주소",
     "genericError": "오류 발생",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "위험한 사이트입니다.",
-    "phishingErrorMessage": "이 사이트에서는 암호 또는 은행 정보와 같은 개인 정보가 도용될 수 있습니다.",
-    "phishingErrorVisitAnyway": "(위험을 감수하고) 들어가기",
-    "phishingErrorLeave": "나가기",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "오류가 발생했습니다. 다른 창을 종료 후 재실행해주세요.",
     /* pages/sessionRestoreError/index.html */

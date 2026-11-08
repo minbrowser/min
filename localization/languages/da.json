@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min kunne ikke oprette sikker forbindelse til denne hjemmeside. Sørg for, at din computers ur er indstillet korrekt.",
     "addressInvalidTitle": "Denne adresse er ugyldig.",
     "genericError": "Der opstod en fejl",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Dette websted er farligt.",
-    "phishingErrorMessage": "Dette websted forsøger muligvis at stjæle dine personlige oplysninger, såsom adgangskoder eller bankoplysninger.",
-    "phishingErrorVisitAnyway": "Besøg websted alligevel",
-    "phishingErrorLeave": "Forlad dette websted",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "En fejl opstod. Luk venligst alle andre åbne instanser og genstart Min.",
     /* pages/sessionRestoreError/index.html */

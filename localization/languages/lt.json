@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min nepavyko saugiai prisijungti prie šios internetinės svetainės. Įsitikinkite, kad jūsų kompiuterio laikrodis yra nustatytas teisingai.",
     "addressInvalidTitle": "Šis adresas yra neteisingas.",
     "genericError": "Įvyko klaida",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Ši svetainė gali jums pakenkti.",
-    "phishingErrorMessage": "Gali būti, kad ši svetainė bando pavogti jūsų asmeninę informaciją, tokią kaip slaptažodžiai ar banko informacija.",
-    "phishingErrorVisitAnyway": "Vis tiek apsilankyti svetainėje",
-    "phishingErrorLeave": "Išeiti iš šios svetainės",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Įvyko klaida. Užverkite bet kokius kitus atvertus egzempliorius ir paleiskite Min iš naujo.",
     /* pages/sessionRestoreError/index.html */

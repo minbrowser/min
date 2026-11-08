@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min nie może bezpiecznie połączyć się z tą witryną. Upewnij się, że zegar komputera jest ustawiony prawidłowo.",
     "addressInvalidTitle": "Ten adres jest nieprawidłowy.",
     "genericError": "Wystąpił błąd",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Ta strona nie jest bezpieczna.",
-    "phishingErrorMessage": "Ta strona może próbować wykraść twoje dane osobowe, takie jak hasła lub informacje bankowe.",
-    "phishingErrorVisitAnyway": "Odwiedź stronę mimo to",
-    "phishingErrorLeave": "Opuść tę stronę",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Wystąpił błąd. Zamknij wszystkie inne otwarte wystąpienia i uruchom ponownie Min.",
     /* pages/sessionRestoreError/index.html */

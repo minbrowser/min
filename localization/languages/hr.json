@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min se nije mogao sigurno povezati s ovom web stranicom. Molimo provjerite je li sat vašeg računala pravilno postavljen.",
     "addressInvalidTitle": "Ova adresa nije valjana.",
     "genericError": "Došlo je do greške",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Ova vam stranica može naštetiti.",
-    "phishingErrorMessage": "Ova web stranica možda pokušava ukrasti vaše osobne podatke, poput lozinki ili bankovnih podataka.",
-    "phishingErrorVisitAnyway": "Svejedno posjeti stranicu",
-    "phishingErrorLeave": "Napusti ovu stranicu",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Došlo je do greške. Zatvorite sve otvorene instance i ponovo pokrenite Min.",
     /* pages/sessionRestoreError/index.html */

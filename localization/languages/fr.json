@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min ne peux pas établir une connexion sécurisée avec ce site. Merci de vérifier que votre horloge est bien réglée.",
     "addressInvalidTitle": "Cette adresse est invalide.",
     "genericError": "Il y a une erreur",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Ce site pourrait vous nuire.",
-    "phishingErrorMessage": "Ce site peux essayer de vous dérober vos informations personnelles, comme un mot de passe ou des informations bancaires",
-    "phishingErrorVisitAnyway": "Visiter quand même",
-    "phishingErrorLeave": "Quitter ce site",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Une erreur a été rencontrée. Veuillez fermer les autres fenêtres et relancer Min.",
     /* pages/sessionRestoreError/index.html */

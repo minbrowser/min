@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min 无法安全地连接到当前站点。请确保您的电脑时钟是否正确。",
     "addressInvalidTitle": "无效的地址。",
     "genericError": "发生错误",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "这是一个危险网站。",
-    "phishingErrorMessage": "这个站点可能会窃取您的个人信息，如密码或银行信息。",
-    "phishingErrorVisitAnyway": "继续访问",
-    "phishingErrorLeave": "离开",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "发生错误。请关闭其他视窗并重启 Min 浏览器",
     /* pages/sessionRestoreError/index.html */

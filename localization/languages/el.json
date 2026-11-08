@@ -119,11 +119,6 @@
       "sslTimeErrorMessage": "Το Min δεν μπόρεσε να συνδεθεί με ασφάλεια σε αυτήν την ιστοσελίδα. Σιγουρευτείτε ότι το ρολόι του συστήματος είναι ρυθμισμένο σωστά.",
       "addressInvalidTitle": "Αυτή η διεύθυνση είναι μη έγκυρη.",
       "genericError": "Παρουσιάστηκε σφάλμα",
-      /* pages/phishing/index.html */
-      "phishingErrorTitle": "Αυτή η ιστοσελίδα μπορεί να σας βλάψει.",
-      "phishingErrorMessage": "Αυτή η ιστοσελίδα μπορεί να προσπαθεί να σας κλέψει προσωπικά δεδομένα, όπως κωδικούς ή στοιχεία του σας τραπεζικού λογαριασμού.",
-      "phishingErrorVisitAnyway": "Επίσκεψη ιστοσελίδας παρ' όλα αυτά",
-      "phishingErrorLeave": "Αποχώριση απο την ιστοσελίδα",
       /* multiple instances alert */
       "multipleInstancesErrorMessage": "Παρουσιάστηκε σφάλμα. Κλείστε τυχόν άλλα ανοιχτά παράθυρα και επανεκκινήστε το Min.",
       /* pages/sessionRestoreError/index.html */

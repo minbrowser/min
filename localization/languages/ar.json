@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": " لا يستطيع الاتصال الامن مع هذا الموقع تأكد من ان التوقيت صحيح Min",
     "addressInvalidTitle": "هذا العنوان غير صحيح",
     "genericError": "حدث خطأ ما",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "هذا الموقع يمكن ان يضرك",
-    "phishingErrorMessage": "هذا الموقع يمكن ان يحاول ان يسرق معلوماتك الشخصية . كلمات مرور و معلوماتك البنكية",
-    "phishingErrorVisitAnyway": "متابعة على اية حال",
-    "phishingErrorLeave": "مغادرة الموقع",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "حدث خطأ. الرجاء إغلاق أي نوافد مفتوحة أخرى وإعادة تشغيل Min",
     /* pages/sessionRestoreError/index.html */

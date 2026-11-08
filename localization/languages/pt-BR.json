@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "O min não conseguiu se conectar de uma maneira segura a este site. Por favor, verifique se o relógio do computador está correto.",
     "addressInvalidTitle": "Endereço inválido.",
     "genericError": "Ocorreu um erro",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Este site é perigoso.",
-    "phishingErrorMessage": "Este website pode estar tentando roubar suas informações pessoais, como senhas ou detalhes bancários.",
-    "phishingErrorVisitAnyway": "Visitar site mesmo assim",
-    "phishingErrorLeave": "Sair deste site",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Um erro foi detectado, por favor, feche todas as instâncias abertas e reinicie o Min",
     /* pages/sessionRestoreError/index.html */

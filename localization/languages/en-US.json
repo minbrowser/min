@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min couldn't connect securely to this website. Please make sure your computer's clock is set correctly.",
     "addressInvalidTitle": "This address is invalid.",
     "genericError": "An error occurred",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "This site could harm you.",
-    "phishingErrorMessage": "This website could be trying to steal your personal information, such as passwords or banking information.",
-    "phishingErrorVisitAnyway": "Visit site anyway",
-    "phishingErrorLeave": "Leave this site",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "An error occurred. Please close any other open instances and restart Min.",
     /* pages/sessionRestoreError/index.html */

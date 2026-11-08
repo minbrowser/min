@@ -118,12 +118,7 @@
     "genericConnectionFail": "Min ওয়েবসাইট সংযোগ করতে পারে না।",
     "sslTimeErrorMessage": "Min এই ওয়েবসাইট থেকে নিরাপদে সংযোগ করতে পারে নি। দয়া করে নিশ্চিত করুন যে আপনার কম্পিউটারের ঘড়ি সঠিকভাবে সেট করা আছে।",
     "addressInvalidTitle": "এই ঠিকানাটি অবৈধ।",
-    /* pages/phishing/index.html */
     "genericError": "একটি ত্রুটি ঘটেছে",
-    "phishingErrorTitle": "এই সাইটটি আপনাকে ক্ষতি করতে পারে।",
-    "phishingErrorMessage": "এই ওয়েবসাইট আপনার ব্যক্তিগত তথ্য, যেমন পাসওয়ার্ড বা ব্যাংকিং তথ্য চুরি করার চেষ্টা করা হতে পারে।",
-    "phishingErrorVisitAnyway": "যাইহোক সাইট পরিদর্শন করুন",
-    "phishingErrorLeave": "এই সাইটটি ছেড়ে দিন",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "একটি ত্রুটি ঘটেছে. অন্য কোনও খোলা দৃষ্টান্ত বন্ধ করুন এবং Min পুনরায় আরম্ভ করুন।",
     /* pages/sessionRestoreError/index.html */

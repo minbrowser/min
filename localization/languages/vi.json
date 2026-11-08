@@ -112,11 +112,6 @@
         "sslTimeErrorMessage": "Min không thể kết nối an toàn đến trang web này. Hãy kiểm tra đồng hồ máy tính của bạn được cài đặt đúng.",
         "addressInvalidTitle": "Địa chỉ này không hợp lệ.",
         "genericError": "Đã xảy ra lỗi",
-        /* pages/phishing/index.html */
-        "phishingErrorTitle": "Trang web này có thể nguy hiểm.",
-        "phishingErrorMessage": "Trang web này có thể cố gắng ăn cắp thông tin cá nhân của bạn, ví dụ: mật khẩu hoặc thông tin ngân hàng.",
-        "phishingErrorVisitAnyway": "Vẫn truy cập",
-        "phishingErrorLeave": "Rời trang web này",
         /* multiple instances alert */
         "multipleInstancesErrorMessage": "Đã xảy ra lỗi. Hãy thoát trường hợp khác đang mở và khởi chạy Min lại.",
         /* pages/sessionRestoreError/index.html */

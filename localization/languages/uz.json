@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min bu sahifaga xavfsiz ulana olmadi. Iltimos, kompyuter soati to'g'ri sozlanganiga ishonch hosil qiling.",
     "addressInvalidTitle": "Bu manzil yaroqsiz.",
     "genericError": "Muammo yuz berdi",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Bu sahifa sizga ziyon yetkazishi mumkin.",
-    "phishingErrorMessage": "Ushbu sahifa sizning shaxsiy ma'lumotlaringizni, masalan, parollar yoki bank ma'lumotlarini o'g'irlashga urinayotgan bo'lishi mumkin.",
-    "phishingErrorVisitAnyway": "Baribir sahifaga kirish",
-    "phishingErrorLeave": "Sahifani tark etish",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Muammo yuz berdi. Iltimos, barcha ochiq namunalarni yopib Minni qaytadan oching.",
     /* pages/sessionRestoreError/index.html */

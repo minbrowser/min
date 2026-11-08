@@ -119,11 +119,6 @@
       "sslTimeErrorMessage": "Min не змог бяспечна злучыцца з гэтым сайтам. Пераканайцеся, што вашы сістэмныя гадзіны настроены правільна.",
       "addressInvalidTitle": "Некарэктны адрас.",
       "genericError": "Адбылася памылка",
-      /* pages/phishing/index.html */
-      "phishingErrorTitle": "Гэты сайт можа вам нашкодзіць.",
-      "phishingErrorMessage": "Гэты сайт можа паспрабаваць скрасці вашыя асабістыя дадзеныя, такія як паролі і банкаўскія дадзеныя.",
-      "phishingErrorVisitAnyway": "Усё роўна наведаць сайт",
-      "phishingErrorLeave": "Сысці з сайта",
       /* multiple instances alert */
       "multipleInstancesErrorMessage": "Адбылася памылка. Калі ласка, зачыніце ўсе іншыя адкрытыя асобнікі і перазапусціце Min.",
       /* pages/sessionRestoreError/index.html */

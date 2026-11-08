@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min konnte keine sichere Verbindung mit dieser Webseite aufbauen. Bitte stelle sicher, dass deine Computeruhr korrekt eingestellt ist.",
     "addressInvalidTitle": "Diese Adresse ist ungültig.",
     "genericError": "Es trat ein Fehler auf",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Diese Seite könnte Schaden anrichten.",
-    "phishingErrorMessage": "Diese Webseite könnte versuchen, persönliche Informationen wie Passwörter und Bankdaten zu stehlen.",
-    "phishingErrorVisitAnyway": "Seite trotzdem besuchen",
-    "phishingErrorLeave": "Seite verlassen",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Ein Fehler ist aufgetreten. Bitte schließe alle anderen offenen Instanzen und starte Min neu.",
     /* pages/sessionRestoreError/index.html */

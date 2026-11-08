@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min 無法安全地連線到此網站，請確認時間是否設定正確",
     "addressInvalidTitle": "網址錯誤",
     "genericError": "發生了一些問題",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "這個網站可能有危險",
-    "phishingErrorMessage": "這個網站可能會駭取你的個人資料，像是密碼和銀行資訊",
-    "phishingErrorVisitAnyway": "還是繼續",
-    "phishingErrorLeave": "離開",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "發生了一些問題，請關閉其他分頁然後重新啟動 Min",
     /* pages/sessionRestoreError/index.html */

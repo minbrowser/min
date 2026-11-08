@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min no ha pogut connectar-se de manera segura a aquest lloc web. Assegura't que l'hora del teu ordinador estigui correcta.",
     "addressInvalidTitle": "Aquesta adreça és invàlida.",
     "genericError": "S'ha produït un error",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Aquest lloc pot ser perillós.",
-    "phishingErrorMessage": "Aquest lloc web podria estar intentant robar la teva informació personal, com contrasenyes o dades bancàries.",
-    "phishingErrorVisitAnyway": "Visitar el lloc de totes maneres",
-    "phishingErrorLeave": "Sortir d'aquest lloc",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "S'ha produït un error. Si us plau, tanca qualsevol altra instància oberta i reinicia Min.",
     /* pages/sessionRestoreError/index.html */

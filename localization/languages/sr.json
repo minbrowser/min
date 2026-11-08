@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min није могао сигурно да се повеже на овај сајт. Молимо проверите да ли је сат Вашег рачунара правилно подешен.",
     "addressInvalidTitle": "Ова адреса није валидна.",
     "genericError": "Дошло је до грешке",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Овај сајт може нанети штету.",
-    "phishingErrorMessage": "Могуће је да овај сајт покушава да украде Ваше личне информације као што су лозинке или банковни подаци.",
-    "phishingErrorVisitAnyway": "Ипак посети сајт",
-    "phishingErrorLeave": "Напусти сајт",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Дошло је до грешке. Затворите све покренуте инстанце и поново покрените Min.",
     /* pages/sessionRestoreError/index.html */

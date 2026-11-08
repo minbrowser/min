@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min non ha potuto stabilire una connessione sicura con questo sito. Assicurati che l'orologio di questo computer sia impostato correttamente.",
     "addressInvalidTitle": "Questo indirizzo non è valido.",
     "genericError": "Si è verificato un errore",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Questo sito è pericoloso.",
-    "phishingErrorMessage": "Questo sito potrebbe cercare di rubare i tuoi dati sensibili, come password o credenziali bancarie.",
-    "phishingErrorVisitAnyway": "Visita sito comunque",
-    "phishingErrorLeave": "Portami via da questo sito",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Si è verificato un errore. Chiudi ogni altra instanza e riavvia Min.",
     /* pages/sessionRestoreError/index.html */

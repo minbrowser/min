@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Prohlížeč Min nemůže s touto stránkou navázat zabezpečené spojení. Prosím zkontrolujte, zda máte v počítači správně nastavený čas.",
     "addressInvalidTitle": "Tato adresa je neplatná.",
     "genericError": "Vyskytla se chyba",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Tyto stránky by vám mohly ublížit.",
-    "phishingErrorMessage": "Tyto webové stránky se mohou pokusit ukrást vaše osobní údaje, například hesla nebo bankovní informace.",
-    "phishingErrorVisitAnyway": "Přesto stránky navštívit",
-    "phishingErrorLeave": "Opustit tyto stránky",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Vyskytla se chyba. Prosím zavřete všechny ostatní spuštěné instance a restartujte prohlížeč Min.",
     /* pages/sessionRestoreError/index.html */

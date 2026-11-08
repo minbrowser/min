@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min ei voinut luoda suojattua yhteyttä sivustoon. Varmista, että tietokoneesi kello on oikeassa ajassa.",
     "addressInvalidTitle": "Osoite on virheellinen.",
     "genericError": "Tapahtui virhe",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Sivusto voi olla vaarallinen.",
-    "phishingErrorMessage": "Tämä sivusto saattaa yrittää varastaa henkilökohtaisia tietojasi, kuten salasanoja tai pankkitietoja.",
-    "phishingErrorVisitAnyway": "Vieraile sivustolla silti",
-    "phishingErrorLeave": "Poistu sivustolta",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Virhe. Sulje muut käynnissä olevat ikkunat ja käynnistä Min uudelleen.",
     /* pages/sessionRestoreError/index.html */

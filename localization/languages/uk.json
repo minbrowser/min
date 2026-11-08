@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Мін не може надійно підключитися до цього веб-сайту. Переконайтеся, що годинник комп'ютера встановлено правильно.",
     "addressInvalidTitle": "Недійсна адреса.",
     "genericError": "Виникла помилка",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Цей сайт може вам зашкодити.",
-    "phishingErrorMessage": "Цей веб-сайт може намагатися викрасти вашу особисту інформацію, наприклад, паролі чи банківську інформацію.",
-    "phishingErrorVisitAnyway": "Все одно відвідати сайт",
-    "phishingErrorLeave": "Залишити цей сайт",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Виникла помилка. Закрийте інші відкриті екземпляри та перезапустіть Min.",
     /* pages/sessionRestoreError/index.html */

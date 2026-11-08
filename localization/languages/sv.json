@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min kunde inte ansluta säkert till denna webbsida. Var vänlig och säkerställ att din dators klocka är korrekt inställd.",
     "addressInvalidTitle": "Den här adressen är ogiltig.",
     "genericError": "Ett fel har inträffat",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Denna webbsida kan vara skadlig för dig.",
-    "phishingErrorMessage": "Denna webbsida kan försöka stjäla din personliga information, såsom lösenord och bankuppgifter.",
-    "phishingErrorVisitAnyway": "Besök sidan ändå",
-    "phishingErrorLeave": "Lämna denna sida",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Ett fel inträffade. Var vänlig stäng alla andra öppna instanser och starta om Min.",
     /* pages/sessionRestoreError/index.html */

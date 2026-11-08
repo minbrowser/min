@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min, siteye güvenli bir şekilde bağlanamadı. Lütfen bilgisayarınızın saat ayarının doğru olduğundan emin olun.",
     "addressInvalidTitle": "Bu adres geçersiz.",
     "genericError": "Bir hata oluştu",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Bu site size zarar verebilir.",
-    "phishingErrorMessage": "Bu web sitesi, şifreleriniz veya banka bilgileri gibi kişisel bilgilerinizi çalmaya çalışıyor olabilir.",
-    "phishingErrorVisitAnyway": "Siteyi yine de ziyaret et",
-    "phishingErrorLeave": "Bu siteden ayrıl",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Bir hata oluştu. Açık olan tüm sekmeleri kapatıp, Min'i yeniden başlatın.",
     /* pages/sessionRestoreError/index.html */

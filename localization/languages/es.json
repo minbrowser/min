@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min no pudo conectarse de forma segura a este sitio web. Por favor asegúrese de que el reloj de su ordenador está configurado correctamente.",
     "addressInvalidTitle": "Esta dirección no es válida.",
     "genericError": "Ha ocurrido un error",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Este sitio podría dañarte.",
-    "phishingErrorMessage": "Este sitio web podría estar tratando de robar su información personal, como contraseñas o información bancaria.",
-    "phishingErrorVisitAnyway": "Visitar este sitio de todos modos",
-    "phishingErrorLeave": "Salir de este sitio",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Ha ocurrido un error. Por favor, cierre cualquier otra instancia y reinicie Min.",
     /* pages/sessionRestoreError/index.html */

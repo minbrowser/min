@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min não conseguiu estabelecer uma ligação segura a este site. Verifique se a hora do computador está correta.",
     "addressInvalidTitle": "Este endereço não é válido.",
     "genericError": "Ocorreu um erro",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Este site pode ser perigoso.",
-    "phishingErrorMessage": "Este site pode estar a tentar obter informações pessoais, tais como palavras-passe ou dados bancários.",
-    "phishingErrorVisitAnyway": "Aceder na mesma",
-    "phishingErrorLeave": "Sair do site",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Ocorreu um erro. Feche todas as instâncias e reinicie o navegador.",
     /* pages/sessionRestoreError/index.html */

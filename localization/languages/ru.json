@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min не смог безопасно соединиться с этим сайтом. Убедитесь, что ваши системные часы настроены правильно.",
     "addressInvalidTitle": "Некорректный адрес.",
     "genericError": "Произошла ошибка",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Этот сайт может вам навредить.",
-    "phishingErrorMessage": "Этот сайт может попытаться украсть ваши личные данные, такие как пароли и банковские данные.",
-    "phishingErrorVisitAnyway": "Все равно посетить сайт",
-    "phishingErrorLeave": "Уйти с сайта",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Произошла ошибка. Пожалуйста, закройте все другие открытые экземпляры и перезапустите Min.",
     /* pages/sessionRestoreError/index.html */

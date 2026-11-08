@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min не успя да се свърже сигурно с този уеб сайт. Моля уверете се, че часовникът на Вашият компютър е настроен правилно.",
     "addressInvalidTitle": "Този адрес е невалиден.",
     "genericError": "Възникна грешка",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Този сайт може да Ви навреди.",
-    "phishingErrorMessage": "Този уеб сайт може да се опитва да открадне Вашата личната информация, като пароли или банкова информация.",
-    "phishingErrorVisitAnyway": "Продължаване въпреки риска",
-    "phishingErrorLeave": "Напускане на сайта",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Възникна грешка. Моля затворете всякакви други инстанции и рестартирайте Min.",
     /* pages/sessionRestoreError/index.html */

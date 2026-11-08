@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min ไม่สามารถเชื่อมต่อกับเว็บไซต์นี้ได้อย่างปลอดภัย โปรดตรวจสอบให้แน่ใจว่านาฬิกาในคอมพิวเตอร์ของคุณถูกตั้งไว้อย่างถูกต้องแล้วหรือไม่",
     "addressInvalidTitle": "ที่อยู่นี้ไม่ถูกต้อง",
     "genericError": "เกิดข้อผิดพลาด",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "เว็บไซต์นี้อาจเป็นอันตรายต่อคุณ",
-    "phishingErrorMessage": "เว็บไซต์นี้อาจจะพยายามขโมยข้อมูลส่วนบุคคลของคุณ เช่น รหัสผ่านหรือข้อมูลธนาคาร ได้",
-    "phishingErrorVisitAnyway": "เยี่ยมชมเว็บไซต์ต่อไป",
-    "phishingErrorLeave": "ออกจากเว็บไซต์นี้",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "เกิดข้อผิดพลาด โปรดปิดอินสแตนซ์อื่นๆที่เปิดอยู่และรีสตาร์ท Min",
     /* pages/sessionRestoreError/index.html */

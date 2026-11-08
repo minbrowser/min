@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min tidak dapat terhubung dengan situs web ini dengan aman. Pastikan waktu komputer Anda diatur dengan benar.",
     "addressInvalidTitle": "Alamat ini tidak sah.",
     "genericError": "Terjadi error",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Situs ini dapat membahayakan Anda.",
-    "phishingErrorMessage": "Situs ini bisa jadi mencoba untuk mencuri data pribadi, seperti kata sandi atau informasi perbankan.",
-    "phishingErrorVisitAnyway": "Tetap kunjungi situs",
-    "phishingErrorLeave": "Tinggalkan situs ini",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Terjadi error. Silahkan tutup instance lainnya dan mulai ulang Min.",
     /* pages/sessionRestoreError/index.html */

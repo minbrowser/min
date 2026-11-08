@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "Min kon geen beveiligde verbinding maken met deze website. Zorg ervoor dat de tijd van de computer correct is.",
     "addressInvalidTitle": "Dit adres is niet geldig.",
     "genericError": "Er is een fout opgetreden",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Deze site kan schadelijk zijn.",
-    "phishingErrorMessage": "Deze site kan proberen uw persoonlijke gegevens te stelen, zoals wachtwoorden of bankgegevens.",
-    "phishingErrorVisitAnyway": "Toch de site bezoeken",
-    "phishingErrorLeave": "De site verlaten",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Er is iets fout gegaan. Sluit alle vensters en herstart Min.",
     /* pages/sessionRestoreError/index.html */

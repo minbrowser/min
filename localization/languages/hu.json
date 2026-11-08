@@ -119,11 +119,6 @@
     "sslTimeErrorMessage": "A Min nem tudott kapcsolódni biztonságosan az oldalhoz. Kérem ellenőrizze a számitógép óra beállítását.",
     "addressInvalidTitle": "A cím hibás.",
     "genericError": "Hiba lépett fel",
-    /* pages/phishing/index.html */
-    "phishingErrorTitle": "Ez az oldal ártalmas lehet.",
-    "phishingErrorMessage": "Ez az oldal személjes adatokat próbál lopni, mint. pl. a jelszavakat, vagy bankolási információkat.",
-    "phishingErrorVisitAnyway": "Megtekintés és oldal betöltése",
-    "phishingErrorLeave": "Hadja el az oldalt",
     /* multiple instances alert */
     "multipleInstancesErrorMessage": "Hiba lépett fel, kérlek zárd be az összes böngészőt ablakot, és indítsd újra a Min böngészőt",
     /* pages/sessionRestoreError/index.html */
