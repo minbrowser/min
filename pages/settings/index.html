@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; form-action 'none'" />
 
     <!-- title is set in JS -->
 
@@ -62,7 +63,6 @@
             <textarea
               spellcheck="false"
               id="content-blocking-exceptions"
-              style="width: 100%; max-width: 500px"
               rows="1"
             ></textarea>
           </div>
@@ -171,7 +171,7 @@
           data-string="settingsUserscriptsExplanation"
           data-allowHTML
         ></div>
-        <div class="setting-secondary-label" id="userscripts-show-directory" hidden style="margin-top: -0.5em; margin-bottom: 0.5em">
+        <div class="setting-secondary-label" id="userscripts-show-directory" hidden>
           <a data-string="settingsUserscriptShowDirectory"></a>
         </div>
       </div>
@@ -202,13 +202,6 @@
           type="text"
           id="input-user-agent"
           maxlength="200"
-          style="
-            vertical-align: middle;
-            margin-left: 1em;
-            width: 375px;
-            max-width: 80vw;
-            visibility: hidden;
-          "
         />
       </div>
 
@@ -245,13 +238,11 @@
         <select id="default-search-engine" name="defaultSearchEngine"></select>
         <input
           id="custom-search-engine"
-          style="margin-left: 0.5em; min-width: 325px"
           hidden
         />
 
         <div
           class="settings-info-subheading"
-          style="padding-top: 0.4em"
           data-string="settingsDDGExplanation"
         ></div>
       </div>

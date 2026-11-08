@@ -1,5 +1,7 @@
 const { pathToFileURL } = require('url')
 
+const defaultCSP = "script-src 'self'; style-src 'self'; object-src 'none'; form-action 'self';"
+
 protocol.registerSchemesAsPrivileged([
   {
     scheme: 'min',
@@ -12,7 +14,7 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 function registerBundleProtocol (ses) {
-  ses.protocol.handle('min', (req) => {
+  ses.protocol.handle('min', async (req) => {
     let { host, pathname } = new URL(req.url)
 
     if (pathname.charAt(0) === '/') {
@@ -39,7 +41,16 @@ function registerBundleProtocol (ses) {
       })
     }
 
-    return net.fetch(pathToFileURL(pathToServe).toString())
+    const response = await net.fetch(pathToFileURL(pathToServe).toString())
+
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: {
+        'content-type': response.headers.get('content-type'),
+        'content-security-policy': defaultCSP
+      }
+    })
   })
 }
 
