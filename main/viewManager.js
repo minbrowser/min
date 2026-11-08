@@ -439,7 +439,7 @@ ipc.handle('getNavigationHistory', function (e, id) {
 
 ipc.on('getCapture', function (e, data) {
   var view = viewMap[data.id]
-  if (!view) {
+  if (!view?.webContents) {
     // view could have been destroyed
     return
   }
@@ -452,6 +452,9 @@ ipc.on('getCapture', function (e, data) {
     img = img.resize({ width: data.width, height: data.height })
     e.sender.send('captureData', { id: data.id, url: img.toDataURL() })
   })
+    .catch(e => {
+      console.error('Error capturing page:', e)
+    })
 })
 
 ipc.on('saveViewCapture', function (e, data) {
