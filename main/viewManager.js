@@ -6,6 +6,17 @@ var temporaryPopupViews = {} // id: view
 // rate limit on "open in app" requests
 var globalLaunchRequests = 0
 
+function createWebContentsView (preferences, contents) {
+  const view = new WebContentsView({ webPreferences: preferences, ...(contents ? { webContents: contents } : {}) })
+  view.webContents.on('will-frame-navigate', function (event) {
+    if (event.url?.startsWith('min:')) {
+      event.preventDefault()
+      console.warn('Blocked navigation to URL', event.url)
+    }
+  })
+  return view
+}
+
 function getDefaultViewWebPreferences () {
   return (
     {
@@ -50,7 +61,7 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
     view.setBackgroundColor('#fff')
     viewStateMap[id].loadedInitialURL = true
   } else {
-    view = new WebContentsView({ webPreferences: viewPrefs })
+    view = createWebContentsView(viewPrefs)
   }
 
   events.forEach(function (event) {
@@ -107,7 +118,7 @@ function createView (existingViewId, id, webPreferences, boundsString, events) {
     return {
       action: 'allow',
       createWindow: function (options) {
-        const view = new WebContentsView({ webPreferences: getDefaultViewWebPreferences(), webContents: options.webContents })
+        const view = createWebContentsView(getDefaultViewWebPreferences(), options.webContents)
 
         var popupId = Math.random().toString()
         temporaryPopupViews[popupId] = view
