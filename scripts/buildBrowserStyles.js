@@ -20,7 +20,8 @@ const modules = [
   'css/passwordManager.css',
   'css/passwordCapture.css',
   'css/passwordViewer.css',
-  'node_modules/dragula/dist/dragula.min.css'
+  'node_modules/dragula/dist/dragula.min.css',
+  'css/focusMode.css'
 ]
 
 function buildBrowserStyles () {
