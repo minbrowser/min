@@ -7,6 +7,7 @@ const userscripts = require('userscripts.js')
 const settings = require('util/settings/settings.js')
 const pageTranslations = require('pageTranslations.js')
 const PasswordManagers = require('passwordManager/passwordManager.js')
+const focusMode = require('./focusMode')
 
 const remoteMenu = require('remoteMenuRenderer.js')
 
@@ -82,21 +83,27 @@ const webviewMenu = {
         }
       ]
 
-      if (!currentTab.private) {
+      if (!focusMode.enabled()) {
+        /**
+         * https://github.com/minbrowser/min/issues/2643
+         * Users should not see open in new tab in any capacity in the context menu while in focus mode
+         */
+        if (!currentTab.private) {
+          linkActions.push({
+            label: l('openInNewTab'),
+            click: function () {
+              browserUI.addTab(tabs.add({ url: link }), { enterEditMode: false, openInBackground: openInBackground })
+            }
+          })
+        }
+  
         linkActions.push({
-          label: l('openInNewTab'),
+          label: l('openInNewPrivateTab'),
           click: function () {
-            browserUI.addTab(tabs.add({ url: link }), { enterEditMode: false, openInBackground: openInBackground })
+            browserUI.addTab(tabs.add({ url: link, private: true }), { enterEditMode: false, openInBackground: openInBackground })
           }
         })
       }
-
-      linkActions.push({
-        label: l('openInNewPrivateTab'),
-        click: function () {
-          browserUI.addTab(tabs.add({ url: link, private: true }), { enterEditMode: false, openInBackground: openInBackground })
-        }
-      })
 
       linkActions.push({
         label: l('saveLinkAs'),
@@ -121,28 +128,35 @@ const webviewMenu = {
         }
       ]
 
-      imageActions.push({
-        label: l('viewImage'),
-        click: function () {
-          webviews.update(tabs.getSelected(), mediaURL)
-        }
-      })
-
-      if (!currentTab.private) {
+      if (!focusMode.enabled()) {
+        /**
+         * https://github.com/minbrowser/min/issues/2643
+         * Users can get stuck viewing an image while in focus mode because they can't go back or exit the tab
+         * And users shouldn't be able to open tabs in any capacity while in focus mode
+         */
         imageActions.push({
-          label: l('openImageInNewTab'),
+          label: l('viewImage'),
           click: function () {
-            browserUI.addTab(tabs.add({ url: mediaURL }), { enterEditMode: false, openInBackground: openInBackground })
+            webviews.update(tabs.getSelected(), mediaURL)
+          }
+        })
+  
+        if (!currentTab.private) {
+          imageActions.push({
+            label: l('openImageInNewTab'),
+            click: function () {
+              browserUI.addTab(tabs.add({ url: mediaURL }), { enterEditMode: false, openInBackground: openInBackground })
+            }
+          })
+        }
+  
+        imageActions.push({
+          label: l('openImageInNewPrivateTab'),
+          click: function () {
+            browserUI.addTab(tabs.add({ url: mediaURL, private: true }), { enterEditMode: false, openInBackground: openInBackground })
           }
         })
       }
-
-      imageActions.push({
-        label: l('openImageInNewPrivateTab'),
-        click: function () {
-          browserUI.addTab(tabs.add({ url: mediaURL, private: true }), { enterEditMode: false, openInBackground: openInBackground })
-        }
-      })
 
       imageActions.push({
         label: l('saveImageAs'),
