@@ -86,7 +86,7 @@ const PasswordManagers = {
     webviews.bindIPC('password-autofill', function (tab, args, frameId, frameURL) {
       // it's important to use frameURL here and not the tab URL, because the domain of the
       // requesting iframe may not match the domain of the top-level page
-      const hostname = new URL(frameURL).hostname
+      const origin = new URL(frameURL).origin
 
       PasswordManagers.getConfiguredPasswordManager().then(async (manager) => {
         if (!manager) {
@@ -97,16 +97,11 @@ const PasswordManagers = {
           await PasswordManagers.unlock(manager)
         }
 
-        var formattedHostname = hostname
-        if (formattedHostname.startsWith('www.')) {
-          formattedHostname = formattedHostname.slice(4)
-        }
-
-        manager.getSuggestions(formattedHostname).then(credentials => {
+        manager.getSuggestions(origin).then(credentials => {
           if (credentials != null) {
             webviews.callAsync(tab, 'sendToFrame', [frameId, 'password-autofill-match', {
               credentials,
-              hostname
+              origin
             }])
           }
         }).catch(e => {
