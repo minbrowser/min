@@ -24,11 +24,18 @@ class TabList {
       scrollPosition: tab.scrollPosition || 0,
       selected: tab.selected || false,
       muted: tab.muted || false,
-      loaded: tab.loaded || false,
+      loaded: tab.loaded || false,
       hasAudio: false,
       previewImage: '',
       isFileView: false,
       hasWebContents: false,
+      // Trail tree properties
+      parentId: tab.parentId || null,      // ID of parent tab (null = root)
+      childIds: tab.childIds || [],        // Array of child tab IDs
+      collapsed: tab.collapsed || false,   // Whether children are hidden
+      trailName: tab.trailName || null,    // Optional name for this branch
+      trailEmoji: tab.trailEmoji || null,  // Optional emoji
+      depth: tab.depth || 0,               // Nesting level for indentation
     }
 
     if (options.atEnd) {
@@ -73,6 +80,39 @@ class TabList {
     if (index < 0) return false
 
     const containingTask = this.parentTaskList.getTaskContainingTab(id).id
+    const tab = this.tabs[index]
+    
+    // Handle children: reparent them to the destroyed tab's parent (grandparent)
+    const childIds = tab.childIds || []
+    const parentId = tab.parentId || null
+    
+    childIds.forEach(childId => {
+      const childIndex = this.getIndex(childId)
+      if (childIndex >= 0) {
+        // Update child's parentId to grandparent
+        this.tabs[childIndex].parentId = parentId
+        // Recalculate depth
+        this.tabs[childIndex].depth = this.parentTaskList.calculateDepth(childId)
+        
+        if (emit) {
+          this.parentTaskList.emit('tab-reparented', childId, parentId, containingTask)
+        }
+      }
+    })
+    
+    // If this tab had a parent, remove this tab from parent's childIds
+    if (parentId) {
+      const parentIndex = this.getIndex(parentId)
+      if (parentIndex >= 0) {
+        const parentChildIds = this.tabs[parentIndex].childIds || []
+        const childIdIndex = parentChildIds.indexOf(id)
+        if (childIdIndex >= 0) {
+          parentChildIds.splice(childIdIndex, 1)
+        }
+        // Add this tab's children to the parent's childIds
+        this.tabs[parentIndex].childIds = parentChildIds.concat(childIds)
+      }
+    }
 
     tasks.getTaskContainingTab(id).tabHistory.push(this.toPermanentState(this.tabs[index]))
     this.tabs.splice(index, 1)
@@ -188,7 +228,7 @@ class TabList {
 
   splice (...args) {
     const containingTask = this.parentTaskList.find(t => t.tabs === this).id
-    
+
     this.parentTaskList.emit('tab-splice', containingTask, ...args)
     return this.tabs.splice.apply(this.tabs, args)
   }
@@ -204,7 +244,7 @@ class TabList {
       Object.keys(tab)
       .filter(key => !TabList.temporaryProperties.includes(key))
       .forEach(key => result[key] = tab[key])
-      
+
       return result
   }
 
