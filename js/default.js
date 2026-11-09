@@ -171,6 +171,7 @@ require('macHandoff.js').initialize()
 // default searchbar plugins
 
 require('searchbar/placesPlugin.js').initialize()
+require('searchbar/domainGuessPlugin.js').initialize()
 require('searchbar/instantAnswerPlugin.js').initialize()
 require('searchbar/bangsPlugin.js').initialize()
 require('searchbar/customBangs.js').initialize()
