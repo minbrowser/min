@@ -73,14 +73,17 @@ function createUnlockButton (input) {
 
   // Button hover.
   button.addEventListener('mouseenter', (event) => {
+    if (!event.isTrusted) return
     button.style.opacity = 1.0
   })
   button.addEventListener('mouseleave', (event) => {
+    if (!event.isTrusted) return
     button.style.opacity = 0.7
   })
 
   // Click event.
   button.addEventListener('mousedown', (event) => {
+    if (!event.isTrusted) return
     event.preventDefault()
     requestAutofill()
   })
@@ -215,14 +218,17 @@ function addFocusListener (element, credentials) {
 
     // Hover.
     suggestionItem.addEventListener('mouseenter', (event) => {
+      if (!event.isTrusted) return
       suggestionItem.style.backgroundColor = '#e4e4e4'
     })
     suggestionItem.addEventListener('mouseleave', (event) => {
+      if (!event.isTrusted) return
       suggestionItem.style.backgroundColor = '#fff'
     })
 
     // When user clicks on the suggestion, we populate the form inputs with selected credentials.
     suggestionItem.addEventListener('click', function (e) {
+      if (!e.isTrusted) return
       const selectedCredentials = credentials.filter(el => { return el.username === username })[0]
       fillCredentials(selectedCredentials)
       removeAutocompleteList()
@@ -234,6 +240,7 @@ function addFocusListener (element, credentials) {
 
   // Creates autocomplete list and adds it below the activated field.
   function showAutocompleteList (e) {
+    if (e && !e.isTrusted) return
     removeAutocompleteList()
     const container = buildContainer()
     for (const cred of credentials) {
@@ -248,6 +255,7 @@ function addFocusListener (element, credentials) {
 
   // Hide options overlay when user clicks out of the input field.
   document.addEventListener('click', function (e) {
+    if (!e.isTrusted) return
     if (e.target !== element) {
       removeAutocompleteList()
     }
@@ -283,10 +291,12 @@ function checkInitialFocus () {
 }
 
 function handleFocus (event) {
+  if (!event.isTrusted) return
   maybeAddUnlockButton(event.target)
 }
 
 function handleBlur (event) {
+  if (!event.isTrusted) return
   if (currentUnlockButton !== null && currentUnlockButton.parentElement != null) {
     currentUnlockButton.parentElement.removeChild(currentUnlockButton)
     currentUnlockButton = null
@@ -335,11 +345,13 @@ ipc.on('password-autofill-enabled', (event) => {
 
 // Check if password autofill is configured.
 window.addEventListener('load', function (event) {
+  if (!event.isTrusted) return
   ipc.send('password-autofill-check')
 })
 
 // send passwords back to the main process so they can be saved to storage
-function handleFormSubmit () {
+function handleFormSubmit (event) {
+  if (event && !event.isTrusted) return
   var usernameValue = getBestUsernameField()?.value
   var passwordValue = getBestPasswordField()?.value
 
@@ -352,6 +364,7 @@ window.addEventListener('submit', handleFormSubmit)
 
 // watch for clicks on button[type=submit]
 window.addEventListener('click', function (e) {
+  if (!e.isTrusted) return
   const path = (e.path) || (e.composed && e.composedPath())
   if (!path) {
     return
@@ -372,6 +385,7 @@ HTMLFormElement.prototype.submit = function () {
 `)
 
 window.addEventListener('message', function (e) {
+  if (!e.isTrusted) return
   if (e.data && e.data.message && e.data.message === 'formSubmit') {
     handleFormSubmit()
   }
