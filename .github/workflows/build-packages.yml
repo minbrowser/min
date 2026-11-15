@@ -40,6 +40,16 @@ jobs:
       with:
         node-version: 25
     - run: npm install --omit=optional
+    # https://github.com/electron-userland/electron-builder/issues/9057
+    - uses: ruby/setup-ruby@v1
+      if: matrix.artifact == 'linux-rpm-package'
+      with:
+        ruby-version: '3.3'
+    - name: Install system fpm
+      if: matrix.artifact == 'linux-rpm-package'
+      run: |
+        gem install fpm --no-document
+        echo "USE_SYSTEM_FPM=true" >> "$GITHUB_ENV"
     - name: build package
       run: ${{ matrix.cmd }}
     - name: upload package
