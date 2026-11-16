@@ -61,4 +61,20 @@ window.addEventListener('message', function (e) {
   if (e.data?.message === 'downloadFile') {
     ipc.send('downloadFile', e.data.url)
   }
+
+  if (e.data?.message === 'readLocalPDF') {
+    var requestId = e.data.requestId
+
+    if (typeof e.data.url !== 'string') {
+      window.postMessage({ message: 'readLocalPDFResult', requestId, error: 'invalid PDF URL' }, 'min://app')
+      return
+    }
+
+    ipc.invoke('readLocalPDF', e.data.url).then(function (fileData) {
+      var data = new Uint8Array(fileData)
+      window.postMessage({ message: 'readLocalPDFResult', requestId, data: data.buffer }, 'min://app')
+    }).catch(function (err) {
+      window.postMessage({ message: 'readLocalPDFResult', requestId, error: err?.message || 'unable to read local PDF' }, 'min://app')
+    })
+  }
 })
