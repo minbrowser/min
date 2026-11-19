@@ -194,6 +194,163 @@ class TaskList {
   static getRandomId () {
     return Math.round(Math.random() * 100000000000000000)
   }
+
+  // ===== Trail Tree Methods =====
+
+  // Get direct children of a tab
+  getChildren (tabId) {
+    const task = this.getTaskContainingTab(tabId)
+    if (!task) return []
+    
+    const tab = task.tabs.get(tabId)
+    if (!tab) return []
+    
+    return (tab.childIds || []).map(childId => task.tabs.get(childId)).filter(Boolean)
+  }
+
+  // Get all descendants (recursive)
+  getDescendants (tabId) {
+    const descendants = []
+    const children = this.getChildren(tabId)
+    
+    children.forEach(child => {
+      descendants.push(child)
+      descendants.push(...this.getDescendants(child.id))
+    })
+    
+    return descendants
+  }
+
+  // Get ancestors (path to root), ordered from immediate parent to root
+  getAncestors (tabId) {
+    const ancestors = []
+    const task = this.getTaskContainingTab(tabId)
+    if (!task) return ancestors
+    
+    let currentTab = task.tabs.get(tabId)
+    
+    while (currentTab && currentTab.parentId) {
+      const parent = task.tabs.get(currentTab.parentId)
+      if (parent) {
+        ancestors.push(parent)
+        currentTab = parent
+      } else {
+        break
+      }
+    }
+    
+    return ancestors
+  }
+
+  // Move tab to new parent
+  reparent (tabId, newParentId, emit = true) {
+    const task = this.getTaskContainingTab(tabId)
+    if (!task) return false
+    
+    const tabIndex = task.tabs.getIndex(tabId)
+    if (tabIndex < 0) return false
+    
+    const tab = task.tabs.tabs[tabIndex]
+    const oldParentId = tab.parentId
+    
+    // Remove from old parent's childIds
+    if (oldParentId) {
+      const oldParentIndex = task.tabs.getIndex(oldParentId)
+      if (oldParentIndex >= 0) {
+        const oldParent = task.tabs.tabs[oldParentIndex]
+        const childIndex = (oldParent.childIds || []).indexOf(tabId)
+        if (childIndex >= 0) {
+          oldParent.childIds.splice(childIndex, 1)
+        }
+      }
+    }
+    
+    // Update tab's parentId
+    tab.parentId = newParentId
+    
+    // Add to new parent's childIds
+    if (newParentId) {
+      const newParentIndex = task.tabs.getIndex(newParentId)
+      if (newParentIndex >= 0) {
+        const newParent = task.tabs.tabs[newParentIndex]
+        if (!newParent.childIds) newParent.childIds = []
+        newParent.childIds.push(tabId)
+      }
+    }
+    
+    // Recalculate depth for this tab and all descendants
+    this.recalculateDepthRecursive(tabId)
+    
+    if (emit) {
+      this.emit('tab-reparented', tabId, newParentId, task.id)
+    }
+    
+    return true
+  }
+
+  // Recursively recalculate depth for a tab and its descendants
+  recalculateDepthRecursive (tabId) {
+    const task = this.getTaskContainingTab(tabId)
+    if (!task) return
+    
+    const tabIndex = task.tabs.getIndex(tabId)
+    if (tabIndex < 0) return
+    
+    const tab = task.tabs.tabs[tabIndex]
+    tab.depth = this.calculateDepth(tabId)
+    
+    // Recalculate for all children
+    const childIds = tab.childIds || []
+    childIds.forEach(childId => this.recalculateDepthRecursive(childId))
+  }
+
+  // Collapse tab (hide children)
+  collapseTab (tabId, emit = true) {
+    const task = this.getTaskContainingTab(tabId)
+    if (!task) return false
+    
+    const tabIndex = task.tabs.getIndex(tabId)
+    if (tabIndex < 0) return false
+    
+    task.tabs.tabs[tabIndex].collapsed = true
+    
+    if (emit) {
+      this.emit('tab-collapsed', tabId, task.id)
+    }
+    
+    return true
+  }
+
+  // Expand tab (show children)
+  expandTab (tabId, emit = true) {
+    const task = this.getTaskContainingTab(tabId)
+    if (!task) return false
+    
+    const tabIndex = task.tabs.getIndex(tabId)
+    if (tabIndex < 0) return false
+    
+    task.tabs.tabs[tabIndex].collapsed = false
+    
+    if (emit) {
+      this.emit('tab-expanded', tabId, task.id)
+    }
+    
+    return true
+  }
+
+  // Get root tabs (tabs with no parent) in a task
+  getRootTabs (taskId) {
+    const task = this.get(taskId)
+    if (!task) return []
+    
+    return task.tabs.get().filter(tab => !tab.parentId)
+  }
+
+  // Calculate depth from ancestors
+  calculateDepth (tabId) {
+    const ancestors = this.getAncestors(tabId)
+    return ancestors.length
+  }
 }
 
 module.exports = TaskList
