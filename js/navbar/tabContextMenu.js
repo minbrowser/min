@@ -3,43 +3,53 @@ const browserUI = require('browserUI.js')
 const webviews = require('webviews.js')
 const readerView = require('readerView.js')
 const urlParser = require('util/urlParser.js')
+const focusMode = require('../focusMode.js')
 
 const tabContextMenu = {
   show: function (tabId) {
-    const tabMenu = [
-      [
-        {
-          label: l('appMenuDuplicateTab'),
-          click: function () {
-            const sourceTab = tabs.get(tabId)
-            // strip tab id so that a new one is generated
-            const newTab = tabs.add({ ...sourceTab, id: undefined })
+    const tabMenu = [[]]
+		
+		/**
+		 * https://github.com/minbrowser/min/issues/2643
+		 * 
+		 * Users should not be able to duplicate tabs or open new windows in focus mode.
+		 * Prior to this, users would be able to duplicate tabs without actually creating the view for them.
+		 * So, as a consequence, when the tabMenuNewWindow context menu option was clicked,
+		 * those duplicated tabs from before would all aggregate through the `viewManager.createView` logic.
+		 * Then, all of the priorly duplicated tabs would suddenly appear.
+		 */
+		if (!focusMode.enabled()) {
+			tabMenu[0].push({
+				label: l('appMenuDuplicateTab'),
+				click: function () {
+					const sourceTab = tabs.get(tabId)
+					// strip tab id so that a new one is generated
+					const newTab = tabs.add({ ...sourceTab, id: undefined })
 
-            browserUI.addTab(newTab, { enterEditMode: false })
-          }
-        },
-        {
-          label: l('tabMenuNewWindow'),
-          click: function () {
-            // insert after current task
-            let index
-            if (tasks.getSelected()) {
-              index = tasks.getIndex(tasks.getSelected().id) + 1
-            }
-            const newTask = tasks.get(tasks.add({}, index))
+					browserUI.addTab(newTab, { enterEditMode: false })
+				}
+			})
+			tabMenu[0].push({
+				label: l('tabMenuNewWindow'),
+				click: function () {
+					// insert after current task
+					let index
+					if (tasks.getSelected()) {
+						index = tasks.getIndex(tasks.getSelected().id) + 1
+					}
+					const newTask = tasks.get(tasks.add({}, index))
 
-            const targetTab = tabs.get(tabId)
-            tabs.destroy(targetTab.id)
+					const targetTab = tabs.get(tabId)
+					tabs.destroy(targetTab.id)
 
-            newTask.tabs.add(targetTab)
+					newTask.tabs.add(targetTab)
 
-            ipc.send('newWindow', { initialTask: newTask.id })
+					ipc.send('newWindow', { initialTask: newTask.id })
 
-            browserUI.switchToTask(tasks.getSelected().id)
-          }
-        }
-      ]
-    ]
+					browserUI.switchToTask(tasks.getSelected().id)
+				}
+			})
+		}
 
     if (tabs.get(tabId).url && (readerView.isReader(tabId) || !urlParser.isInternalURL(tabs.get(tabId).url))) {
       if (!readerView.isReader(tabId)) {
