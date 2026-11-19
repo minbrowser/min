@@ -140,6 +140,7 @@
         </div>
         <div id="tabs-inner" role="tablist" class="has-thin-scrollbar"></div>
       </div>
+      <button id="focus-mode-indicator" hidden></button>
       <div class="navbar-right-actions">
         <button
           id="add-tab-button"
@@ -341,6 +342,60 @@
         <button id="password-viewer-import"><span class="i carbon:document-import"></span><span data-string="importCredentials"></span></button>
         <button id="password-viewer-export"><span class="i carbon:export"></span><span data-string="exportCredentials"></span></button>
 </div>
+    </div>
+
+    <!-- Focus Mode: goal input modal -->
+    <div class="modal" id="focus-mode-goal-modal" hidden>
+      <button id="focus-goal-dismiss" class="modal-close-button i carbon:close"></button>
+      <h3 class="modal-title">What do you want to focus on today?</h3>
+      <p class="focus-modal-hint">Enter a goal, topic, or keywords (e.g. "learning React hooks")</p>
+      <input
+        id="focus-mode-goal-input"
+        type="text"
+        class="focus-goal-input"
+        placeholder="Your focus goal…"
+        maxlength="200"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <div class="focus-modal-actions">
+        <button id="focus-goal-open-prefs" class="focus-btn-secondary">Open Preferences</button>
+        <button id="focus-goal-submit" class="focus-btn-primary">Start Focus Session</button>
+      </div>
+    </div>
+
+    <!-- Focus Mode: drift alert bar -->
+    <div id="focus-mode-alert" hidden>
+      <span class="focus-alert-icon">&#9888;</span>
+      <span>Looks like you've drifted. Your goal: <strong id="focus-alert-goal"></strong>. Keep going or refocus?</span>
+      <span class="focus-alert-actions">
+        <button id="focus-alert-refocus">Refocus</button>
+        <button id="focus-alert-ignore">Ignore</button>
+      </span>
+    </div>
+
+    <!-- Focus Mode: session end summary modal -->
+    <div class="modal" id="focus-mode-summary" hidden>
+      <h3 class="modal-title">Focus Session Complete</h3>
+      <button id="focus-summary-close" class="modal-close-button i carbon:close"></button>
+      <div class="focus-summary-grid">
+        <div class="focus-summary-row">
+          <span class="focus-summary-label">Total session</span>
+          <span class="focus-summary-value" id="focus-summary-total">0s</span>
+        </div>
+        <div class="focus-summary-row">
+          <span class="focus-summary-label">On-topic time</span>
+          <span class="focus-summary-value focus-on-topic" id="focus-summary-ontopic">0s</span>
+        </div>
+        <div class="focus-summary-row">
+          <span class="focus-summary-label">Off-track time</span>
+          <span class="focus-summary-value focus-off-topic" id="focus-summary-offtopic">0s</span>
+        </div>
+        <div class="focus-summary-row">
+          <span class="focus-summary-label">Drift alerts</span>
+          <span class="focus-summary-value" id="focus-summary-alerts">0</span>
+        </div>
+      </div>
     </div>
 
     <!-- add scripts in Gruntfile.js -->

@@ -184,5 +184,8 @@ require('searchbar/developmentModeNotification.js').initialize()
 require('searchbar/shortcutButtons.js').initialize()
 require('searchbar/calculatorPlugin.js').initialize()
 
+require('focusMode.js').initialize()
+
 // once everything's loaded, start the session
 require('sessionRestore.js').restore()
+require('focusMode.js').onSessionRestoreComplete()

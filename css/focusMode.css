@@ -1,0 +1,266 @@
+/* ─── Toolbar indicator pill ─────────────────────────────────────────────── */
+
+#focus-mode-indicator {
+  position: absolute;
+  /* centered horizontally over the tab bar area */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82em;
+  font-weight: 700;
+  padding: 5px 16px;
+  border-radius: 20px;
+  white-space: nowrap;
+  background: #ffffff;
+  color: #111111;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  user-select: none;
+  pointer-events: auto;
+  letter-spacing: 0.01em;
+  transition: box-shadow 0.15s, background 0.15s;
+}
+
+#focus-mode-indicator:hover {
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+  background: #f5f5f5;
+}
+
+#focus-mode-indicator.is-off-track {
+  background: #ffffff;
+  color: #c0392b;
+}
+
+.dark-theme #focus-mode-indicator {
+  background: #2a2a2a;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.dark-theme #focus-mode-indicator:hover {
+  background: #383838;
+}
+
+.dark-theme #focus-mode-indicator.is-off-track {
+  color: #ff6b6b;
+}
+
+/* ─── Goal input modal ──────────────────────────────────────────────────── */
+
+#focus-mode-goal-modal {
+  max-width: 520px;
+}
+
+.focus-modal-hint {
+  font-size: 0.88em;
+  opacity: 0.65;
+  margin: -0.5em 0 1em 0;
+}
+
+.focus-goal-input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.6em 0.8em;
+  font-size: 1em;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  outline: none;
+  margin-bottom: 1.2em;
+}
+
+.focus-goal-input:focus {
+  border-color: #007aff;
+  box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+}
+
+.dark-mode .focus-goal-input {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .focus-goal-input:focus {
+  border-color: #0a84ff;
+  box-shadow: 0 0 0 2px rgba(10, 132, 255, 0.25);
+}
+
+.focus-modal-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.focus-btn-primary {
+  background: #007aff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5em 1.2em;
+  font-size: 0.95em;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.focus-btn-primary:hover {
+  background: #0066d6;
+}
+
+.dark-mode .focus-btn-primary {
+  background: #0a84ff;
+}
+
+.focus-btn-secondary {
+  background: transparent;
+  color: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  padding: 0.5em 1.1em;
+  font-size: 0.88em;
+  cursor: pointer;
+  opacity: 0.75;
+}
+
+.focus-btn-secondary:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.dark-mode .focus-btn-secondary {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .focus-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Drift alert bar ───────────────────────────────────────────────────── */
+
+#focus-mode-alert {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  padding: 0.65em 1.1em;
+  background: #fff3cd;
+  border-top: 1px solid #f0c36d;
+  color: #5a4a00;
+  font-size: 0.88em;
+  animation: focus-alert-slide-in 0.25s ease-out;
+}
+
+@keyframes focus-alert-slide-in {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.dark-mode #focus-mode-alert {
+  background: #3a2e00;
+  border-color: #6a5200;
+  color: #f0d080;
+}
+
+.focus-alert-icon {
+  font-size: 1.1em;
+  flex-shrink: 0;
+}
+
+#focus-mode-alert > span:nth-child(2) {
+  flex: 1;
+}
+
+.focus-alert-actions {
+  display: flex;
+  gap: 0.5em;
+  flex-shrink: 0;
+}
+
+.focus-alert-actions button {
+  padding: 0.3em 0.8em;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.06);
+  color: inherit;
+  font-size: 0.9em;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.focus-alert-actions button:first-child {
+  background: #007aff;
+  color: #fff;
+  border-color: transparent;
+}
+
+.focus-alert-actions button:first-child:hover {
+  background: #0066d6;
+}
+
+.focus-alert-actions button:last-child:hover {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.dark-mode .focus-alert-actions button:first-child {
+  background: #0a84ff;
+}
+
+/* ─── Session summary modal ─────────────────────────────────────────────── */
+
+#focus-mode-summary {
+  max-width: 420px;
+}
+
+.focus-summary-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+  margin-top: 0.5em;
+}
+
+.focus-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 0.75em;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.dark-mode .focus-summary-row {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.focus-summary-label {
+  font-size: 0.9em;
+  opacity: 0.75;
+}
+
+.focus-summary-value {
+  font-weight: 700;
+  font-size: 0.95em;
+}
+
+.focus-summary-value.focus-on-topic {
+  color: #1a8a3a;
+}
+
+.dark-mode .focus-summary-value.focus-on-topic {
+  color: #4cd964;
+}
+
+.focus-summary-value.focus-off-topic {
+  color: #c0392b;
+}
+
+.dark-mode .focus-summary-value.focus-off-topic {
+  color: #ff6b6b;
+}

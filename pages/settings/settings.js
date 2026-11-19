@@ -449,6 +449,18 @@ searchEngineInput.addEventListener('input', function (e) {
   settings.set('searchEngine', { url: this.value })
 })
 
+/* focus mode setting */
+
+var focusModeCheckbox = document.getElementById('checkbox-focus-mode')
+
+settings.get('focusModeEnabled', function (value) {
+  focusModeCheckbox.checked = !!value
+})
+
+focusModeCheckbox.addEventListener('change', function () {
+  settings.set('focusModeEnabled', this.checked)
+})
+
 /* key map settings */
 
 settings.get('keyMap', function (keyMapSettings) {
