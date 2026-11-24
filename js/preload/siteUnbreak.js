@@ -20,7 +20,7 @@ if (process.isMainFrame) {
 `)
 }
 
-if ((window.location.hostname === 'google.com' || window.location.hostname.endsWith('.google.com')) && window.location.hostname !== 'hangouts.google.com' && window.location.hostname !== 'drive.google.com') {
+if ((window.location.hostname === 'google.com' || window.location.hostname.endsWith('.google.com')) && window.location.hostname !== 'hangouts.google.com' && window.location.hostname !== 'drive.google.com' && window.location.hostname !== 'accounts.google.com') {
   /* define window.chrome
      this is necessary because some websites (such as the Google Drive file viewer, see issue #378) check for a
      Chrome user agent, and then do things like if(chrome.<module>) {}
@@ -32,6 +32,8 @@ if ((window.location.hostname === 'google.com' || window.location.hostname.endsW
      so don't enable it there
 
      As of 2/7/22, this also breaks drive, so disable it there also
+
+     accounts.google.com is excluded too, see below
      */
 
   scriptsToRun.push(`
@@ -49,6 +51,18 @@ if ((window.location.hostname === 'google.com' || window.location.hostname.endsW
         }
       }
     }
+  `)
+}
+
+/* accounts.google.com - Min sends a Firefox user agent here (see UASwitcher.js), so also hide
+   what tells the page's scripts that this is Chromium */
+if (window.location.hostname === 'accounts.google.com') {
+  scriptsToRun.push(`
+    delete window.chrome
+    Object.defineProperty(navigator, 'userAgentData', {
+      get: () => undefined,
+      configurable: true
+    })
   `)
 }
 
