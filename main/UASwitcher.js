@@ -48,17 +48,29 @@ see https://github.com/minbrowser/min/issues/868
 */
 function enableGoogleUASwitcher (ses) {
   ses.webRequest.onBeforeSendHeaders((details, callback) => {
+    let usingFirefoxUA = false
+
     if (!hasCustomUserAgent && details.url.includes('accounts.google.com')) {
       const url = new URL(details.url)
 
       if (url.hostname === 'accounts.google.com') {
         details.requestHeaders['User-Agent'] = getFirefoxUA()
+        usingFirefoxUA = true
       }
     }
 
-    const chromiumVersion = process.versions.chrome.split('.')[0]
-    details.requestHeaders['SEC-CH-UA'] = `"Chromium";v="${chromiumVersion}", " Not A;Brand";v="99"`
-    details.requestHeaders['SEC-CH-UA-MOBILE'] = '?0'
+    if (usingFirefoxUA) {
+      // Firefox doesn't send client hints, so remove the ones Chromium added
+      for (const header in details.requestHeaders) {
+        if (header.toLowerCase().startsWith('sec-ch-ua')) {
+          delete details.requestHeaders[header]
+        }
+      }
+    } else {
+      const chromiumVersion = process.versions.chrome.split('.')[0]
+      details.requestHeaders['SEC-CH-UA'] = `"Chromium";v="${chromiumVersion}", " Not A;Brand";v="99"`
+      details.requestHeaders['SEC-CH-UA-MOBILE'] = '?0'
+    }
 
     callback({ cancel: false, requestHeaders: details.requestHeaders })
   })
